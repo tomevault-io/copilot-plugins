@@ -1,0 +1,32 @@
+## python-audio-separator
+
+> Auto-generated from all feature plans. Last updated: 2025-09-25
+
+# python-audio-separator Development Guidelines
+
+Auto-generated from all feature plans. Last updated: 2025-09-25
+
+## Active Technologies
+- Python 3.11+ + PyTorch, librosa, soundfile, numpy, onnxruntime (001-update-roformer-implementation)
+
+## Project Structure
+```
+src/
+tests/
+```
+
+## Commands
+cd src [ONLY COMMANDS FOR ACTIVE TECHNOLOGIES][ONLY COMMANDS FOR ACTIVE TECHNOLOGIES] pytest [ONLY COMMANDS FOR ACTIVE TECHNOLOGIES][ONLY COMMANDS FOR ACTIVE TECHNOLOGIES] ruff check .
+
+## Code Style
+Python 3.11+: Follow standard conventions
+
+## Recent Changes
+- 001-update-roformer-implementation: Added Python 3.11+ + PyTorch, librosa, soundfile, numpy, onnxruntime
+
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->
+
+---
+> Source: [nomadkaraoke/python-audio-separator](https://github.com/nomadkaraoke/python-audio-separator) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
