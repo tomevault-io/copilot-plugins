@@ -1,6 +1,6 @@
 # ccjk
 
-> Source: [miounet11/ccjk](https://github.com/miounet11/ccjk). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [miounet11/ccjk](https://github.com/miounet11/ccjk). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
