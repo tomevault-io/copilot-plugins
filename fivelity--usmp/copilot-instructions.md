@@ -1,20 +1,18 @@
-## 04-data-management-communication
+## 05-code-practices-quality
 
-> WebSocket protocol details, API interaction patterns, and data formats.
+> General coding standards (readability, comments, type hinting, linting, error handling).
 
-# 04-data-management-communication
+# 05-code-practices-quality
 
-## Data Management & Communication
+## Code Practices & Quality
 
 STRICT REQUIREMENT:
-- WebSocket Protocol: Backend must send real-time sensor data updates over WebSockets, and frontend must maintain connections.
-- API Interactions: Standardize endpoints for configuration retrieval and sensor discovery.
-- Data Persistence: If necessary, use Firestore (local storage). Firestore paths must follow:
-  - Public data: `/artifacts/{appId}/public/data/{collection}`
-  - Private data: `/artifacts/{appId}/users/{userId}/{collection}`
-- Firebase Authentication: Required before Firestore operations.
-- Data Formats: Use JSON for API responses and WebSocket messages.
-- API Endpoints: Use RESTful endpoints for configuration retrieval and sensor discovery.
+- Readability & Maintainability: Use clear, concise, well-commented code.
+- Type Hinting: Use Python type hints and TypeScript interfaces extensively.
+- Linting & Formatting: Follow `flake8` and `black` for Python; `eslint` and `prettier` for TypeScript/Svelte.
+- Error Handling: Implement try/catch for JavaScript and try/except for Python.
+- Avoid Early Returns: Print error messages instead of exiting early.
+- Firestore Querying: Avoid `orderBy()`—fetch and sort in memory.
 
 ---
 > Source: [fivelity/usmp](https://github.com/fivelity/usmp) — distributed by [TomeVault](https://tomevault.io).
