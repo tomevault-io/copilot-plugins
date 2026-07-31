@@ -1,204 +1,584 @@
-## comments
+## openbridge-webcomponents
 
-> Comment styles
+> generates a box (`observeInnerBox()` in radial-frame.ts observes the
 
 
-- Use english comments only
-- No comments in code whatsoever unless the code is extremely unusual and impossible to understand without explanation
-- Only add comment to a property if the name is not self-explaining.
-- Comment the component class using the format explain below.
+# GitHub Copilot Custom Instructions
 
-Each component’s JSDoc should start with a clear, one-line summary that identifies what the component is and its primary purpose. Use the component’s tag name and a brief description (including a common synonym if the name is non-standard). For example:
-/\*\*
+## Path-Specific Instructions for Watch & Radial Instruments
 
-- `<obc-floating-item>` – A transient toast notification component for brief messages.
--
-- ...
-  \*/
-  This opening line helps developers quickly recognize the component (e.g., “floating message” is essentially a toast/snackbar notification). It also ensures the description contains searchable keywords (like toast, notification, snackbar) so that a RAG system can retrieve it for relevant queries. After the one-liner, include 1-2 sentences expanding on the component’s purpose and context. This should cover the what and why: what the component does and in what scenario it’s used. Emphasize practical use cases without repeating the OpenBridge domain context (assume it is already known).
-  **Tone rule:** Do NOT mention “maritime”, “industrial”, “bridge”, or similar environmental qualifiers; keep text domain-agnostic. For example: “Appears temporarily to display non-critical feedback or status updates, floating above the UI so it doesn’t interrupt the user’s workflow.”
-  Key Features and Variants
-  Use a “Features” section with bullet points (or sub-sections) to highlight the component’s main capabilities, configuration options, and variants. This makes it easy to scan. For instance:
-  Variants or Types: List distinct visual/behavioral variants (e.g., regular vs. application messages, checked vs. unchecked states, etc.). If the component has named types (perhaps via an enum), mention each and what it means.
-  State or Style Options: Note major style configurations (like horizontal vs. vertical layout, single-line vs. multi-line content, palette variations, size options, etc.).
-  Interactive Elements: Include if it supports actions (like buttons or icons) or dynamic content.
-  Notable Behaviors: For example, auto-dismiss timing, focus handling, or responsiveness. Anything the component does automatically (or expects from the developer) should be called out here.
-  Each bullet should be concise but descriptive. E.g.: “Layout directions: Supports horizontal (side-by-side layout) or vertical (stacked layout) to adapt to available space.” This section gives a quick feature summary at a glance. If the component has multiple distinct modes or sub-variants, you can break them out with subheadings or bold labels for clarity. For example, for a toggle component like obc-check-button, you might have:
-  Regular mode: Description…
-  Checkbox mode: Description…
-  Detail what each mode is meant for and how they differ (as in the user’s draft, where Regular Type vs Checkbox Type are explained in separate paragraphs). This helps a reader understand the nuances of each variant.
-  Usage Guidelines and Use Cases
+These instructions apply to the circular/radial watch-based instrument system, including the core `obc-watch` renderer and all navigation instruments that use it.
 
-* important! When describing a property, base the explanation strictly on its code usage or story; if the purpose is unclear, insert **TODO(designer)** instead of guessing. This is IMPORTANT for all the documentation. If a bit unsure, write TODO so it's easy to catch and have a designer write the indended purpose.
-  After features, provide guidance on when and how to use the component. This can be a short paragraph or a list of use cases. Frame it as advice: what scenarios is this component ideal for, and how it fits into the UI/UX. For example:
-  “Use obc-floating-item for brief, transient feedback (e.g., form submissions, status updates). It’s ideal when you need to confirm an action or show a non-critical alert without disrupting the workflow. Avoid using it for persistent or critical alerts – those might require a dialog or an alert banner.”
-  If relevant, contrast the component with similar ones to clarify choices. For instance: “Unlike a standard obc-alert banner that stays in the content flow, a floating message is ephemeral and overlays other content.” This helps developers decide if this is the right component for their need, which is crucial for the RAG model to answer “What component should I use for X?”. Include searchable keywords and synonyms in these explanations. (E.g., for a filter chip component, mention terms like “tag”, “pill”, or “token” if those are common synonyms.) This improves discovery via search queries.
-  Slots and Content Structure
-  For Web Components, document all content slots clearly in a Slots section (preferably as a table for readability). List each slot name, conditions when it’s used, and its purpose:
-  Slot Name Renders When... Purpose
-  primary-icon Always (for all messages) Main icon to represent the message’s category.
-  secondary-icon type="application" only Additional icon for application-type messages.
-  title Always Title or heading of the message.
-  description Always Detailed message text.
-  time If hasTimestamp is true Timestamp label (e.g., “12:45”).
-  day If hasTimestamp && hasDay Day label (e.g., “Mon”).
-  action If action property is true Label for the primary action button.
-  action2 If action2 is true Label for the secondary action button.
+> **⚠️ IMPORTANT: Interconnected Components**
+>
+> All components in this system are **tightly interconnected** and share the same rendering core:
+>
+> - `watch.ts` ↔ `instrument-radial.ts` ↔ `compass.ts` ↔ `heading.ts` ↔ `rudder.ts` ↔ `wind.ts` ↔ `speed-gauge.ts` ↔ `gauge-radial.ts` ↔ `azimuth-thruster.ts` ↔ `roll.ts` ↔ `rot-sector.ts`
+>
+> **When implementing a new feature or changing existing behavior:**
+>
+> 1. **All rendering logic should live in `watch.ts`** - it is the single source of truth for circular instrument rendering
+> 2. Changes to `watch.ts` affect ALL instruments that use it
+> 3. If adding a new visual element, add it to `watch.ts` as a configurable option, not to individual instruments
+> 4. Navigation instruments are thin wrappers that configure `obc-watch` and add domain-specific overlays
+> 5. `instrument-radial.ts` is a reusable building block that wraps `obc-watch` for generic gauge use cases
+>
+> **Before completing any change, verify:**
+>
+> - [ ] `watch.ts` has the core rendering logic
+> - [ ] Helper modules (`tickmark.ts`, `advice.ts`, `label.ts`, etc.) are updated if needed
+> - [ ] All consuming instruments still render correctly
+> - [ ] ViewBox coordination is maintained across layers
+> - [ ] Responsive scaling works at different sizes
 
-This example (based on obc-floating-item) shows how to communicate what each slot is for and under what conditions it appears. It’s crucial for developers to understand how to supply content (icons, text, etc.) to the component. If a component doesn’t use slots (for example, a plain <obc-radio> might just have a text label property instead), you can omit this section or mention how content is provided (e.g., “text content is set via the label attribute”).
-Properties and Attributes
-Even though each property will have its own JSDoc comment in code, the component’s main description should highlight any particularly important or complex properties that affect usage. For example:
-Configuration Flags: e.g., hasTimestamp or action2 – explain what turning them on/off does in practical terms (like “enabling action2 adds a second action button, but only if action (primary) is enabled first”). This manages expectations for how properties interact.
-Enum Properties: If a property uses an enum (like type or direction), ensure the Features or Variants section already explains each possible value. You might not need a separate list here if it’s covered above.
-Defaults: It’s helpful to mention default values or behaviors (“by default, type is regular”). This can be in parentheses after describing the feature.
-Any Special Cases: For example, if a certain property combination is not allowed or if some attribute must be set for another to take effect. Document those clearly to prevent misuse.
-By covering key properties in the narrative, you ensure that even if someone skims the top comments (or searches the docs) they catch the crucial configuration info. The full API (with every property and method) will still be in code, but the description should tie it all together in plain language.
-Events and Custom Events
-If the component emits custom events, include an Events section listing each event name and when it fires. For clarity, use a bullet list format:
-action-click – Fired when the primary action button is clicked.
-action2-click – Fired when the secondary action button is clicked.
-dismiss-click – Fired when the component is dismissed (e.g., close icon clicked or auto-hide, if applicable).
-Also use the JSDoc @fires annotation for each event (as in the code snippet) so that IDEs and documentation generators capture the event contract. For example:
+## Architecture Overview
 
-- @fires action-click {CustomEvent<void>} When the first action button is clicked.
+The watch-based instrument system follows a **core renderer + thin wrapper** pattern:
 
-Documenting events is important for developers to know how to listen for interactions. It’s also helpful for the RAG model – if a user asks “How do I know when the toast is dismissed?”, the documentation should make it clear that a dismiss-click event is dispatched.
-Best Practices and Constraints
-Include any dos and don’ts or design constraints that aren’t obvious from the API. This may be a short note or embedded in the usage section. For example: “Only use one primary action in a toast to keep the interaction simple (Material Design recommends at most one action in a snackbar). Use the second action sparingly, e.g., for an extra ‘Undo’ alongside a primary confirmation.” Such guidance might come from Material Design or OpenBridge’s own design rules. Mention timing or auto-dismiss behavior if relevant (e.g., “Floating messages should typically auto-close after a few seconds unless they require user dismissal” — if that’s a design guideline the component supports or expects). For form elements, note things like “for group behavior, ensure all obc-radio in a group share the same name attribute”, or “use obc-checkbox for independent binary choices, and obc-radio when only one selection is allowed in a set.” These practical tips help prevent misuse and answer common usage questions.
-Example Usage (Optional)
-If a component’s usage is not immediately obvious, consider providing a small code example in the JSDoc. This is especially useful for complex components or ones that require multiple slots/properties to work together. For instance:
+```text
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                              watch.ts (obc-watch)                               │
+│                    (Core SVG renderer - ALL logic lives here)                   │
+│                                                                                 │
+│  Renders:                                                                       │
+│  • Circular rings (single/double/doubleThin/triple)                            │
+│  • Setpoint indicator (triangle marker)                                        │
+│  • Tickmarks (primary, secondary, main, textOnly)                              │
+│  • Advices (caution/alert zones with patterns)                                 │
+│  • Bar areas (filled arc segments)                                             │
+│  • Needles (short bar indicators)                                              │
+│  • Labels (N, E, S, W compass labels)                                          │
+│  • Vessel images                                                               │
+│  • Wind/current indicators                                                     │
+│  • North arrow, crosshair, starboard/port indicators                           │
+│                                                                                 │
+│  Imports helper modules:                                                        │
+│  • tickmark.ts - tickmark rendering & positioning                              │
+│  • advice.ts - advice/caution zone rendering                                   │
+│  • label.ts - compass label rendering                                          │
+│  • vessel.ts - vessel image SVGs                                               │
+│  • environment.ts - wind/current symbols                                       │
+│  • setpoint.ts - setpoint indicator rendering                                  │
+└─────────────────────────────────────────────────────────────────────────────────┘
+                                        │
+                    ┌───────────────────┼───────────────────┐
+                    │                   │                   │
+                    ▼                   ▼                   ▼
+    ┌───────────────────────┐ ┌─────────────────┐ ┌─────────────────────────────┐
+    │  instrument-radial.ts │ │  compass.ts     │ │  Other instruments:         │
+    │  (Generic building    │ │  heading.ts     │ │  rudder.ts, wind.ts,       │
+    │   block for gauges)   │ │  (Full-featured │ │  speed-gauge.ts, roll.ts,  │
+    │                       │ │   compasses)    │ │  azimuth-thruster.ts, etc. │
+    └───────────┬───────────┘ └────────┬────────┘ └──────────────┬──────────────┘
+                │                      │                         │
+                ▼                      │                         │
+    ┌───────────────────────┐          │                         │
+    │  gauge-radial.ts      │          │                         │
+    │  rot-sector.ts        │          │                         │
+    │  (Thin wrappers)      │          │                         │
+    └───────────────────────┘          │                         │
+                                       ▼                         ▼
+                              ┌─────────────────────────────────────────────────┐
+                              │  All instruments use <obc-watch> + overlay SVG  │
+                              │  with matched viewBox for layer alignment       │
+                              └─────────────────────────────────────────────────┘
+```
 
-- **Example:**
-- <obc-floating-item type="regular" hasTimestamp action>
-- <span slot="primary-icon">ℹ️</span>
-- <span slot="title">Network Connected</span>
-- <span slot="description">You are now online.</span>
-- <span slot="time">14:32</span>
-- <button slot="action">View</button>
-- </obc-floating-item>
-- In this example, the message appears with an info icon, a title, description, timestamp, and a single action button.
-  Ensure the example is concise and focused on a primary use case. Not every primitive needs an example (simple ones like a basic radio might be self-evident), but if there’s any potential confusion (like how to supply icons to a custom checkbox, or how to structure actions in a card), an example can clarify it immediately.
-  Consistency and Formatting
-  Use Markdown headings and lists within the JSDoc comment to structure the information (as shown above). This improves readability in generated docs and in code editors that render JSDoc Markdown. Key sections to include when applicable (in this order):
-  Overview: One-liner and short description (as covered in Overview and Purpose).
-  Features/Variants: Bullet list of main features, or sub-sections for each variant.
-  Usage Guidelines: When to use (and when not to), common scenarios.
-  Slots/Content: Table or list of slots and their purpose (if the component uses slots).
-  Events: List of custom events (if any).
-  Any special Best Practices: (optional, if not already woven into above sections).
-  Example: (optional, if needed for clarity).
-  Not every component will need all these sections – for example, a simple obc-radio might omit Slots (no slots) and perhaps just have Overview, Usage, and maybe a note on grouping by name. But maintaining a consistent order and format helps users quickly find the info they need across all component docs.
-  Leveraging External Design Guidelines
-  Because OpenBridge UI components align with common UI patterns, pull in standard usage rules from design systems like Material Design or similar resources:
-  Material Design Guidelines: Before writing a component’s doc, check Material Design documentation (Material 3 or Material 2 specs) for that type of component. For instance, Material Design has detailed guidance on snackbars, buttons, checkboxes, etc. Extract key points such as recommended usage, constraints (e.g., “Snackbars should appear at the bottom of the screen and only one at a time”), and any terminology (like “snackbars (toasts) are for brief messages to the user”). Incorporate these in our description in our own words and adapted to OpenBridge context. This ensures our docs carry well-established best practices.
-  Other Design Systems: If Material doesn’t cover it or for a second perspective, look at systems like Fluent UI, Ant Design, or Lightning (Salesforce) for how they describe similar components. Sometimes they highlight different considerations (accessibility tips, etc.).
-  Web Platform Standards: For form controls (checkbox, radio), also consider HTML’s default behavior (we saw in obc-radio that it uses light DOM for native grouping). If the component leverages or mimics a native element, mention how it stays consistent (e.g., “This wraps an underlying <input type="radio"> to ensure proper group behavior via the native browser mechanics.”).
-  By scraping or researching these external sources first, the documentation generator script can gather a pool of facts and recommendations to include. Just make sure to adapt the tone to match OpenBridge’s professional context (e.g., focusing on maritime/industrial reliability if relevant) without explicitly naming OpenBridge or being too generic. The description should feel specific to the component at hand.
-  Questions to Clarify with Designers
-  When the code or external docs don’t provide enough insight, the script should insert TODO questions for designers within the output (clearly marked so they can be found). These questions ensure that any missing piece of information can be filled in by a human. Common things to ask designers include:
-  Component Purpose and Context: “What specific real-world scenario was this component designed for?” (If we aren’t sure about its role or if it overlaps with another component’s usage.) For example, “Is obc-floating-item meant to replace standard toast notifications system-wide, or is it for in-app chat messages?”
-  Design Intents for Variants: “When should a developer use type=application vs. regular? What does ‘application’ signify visually or contextually?” If an enum or variant isn’t obvious, get the design rationale to document it correctly.
-  Default Behaviors: “Should this component auto-dismiss after a timeout? If so, how long? Or is it always manual dismiss?” – If the code doesn’t clearly enforce something that might be a guideline, ask. Similarly, “Are there recommended default icons or colors for the different states?” (e.g., should a warning icon be used with a certain variant by default?).
-  Content Limitations: “Is there a character limit or preferred length for the title/description text?” (Designers might have guidelines like keep toast messages short and one-line if possible.)
-  Interaction Design: “Can two action buttons truly be used simultaneously, or is one meant to be primary? Are there any rules about using the second action?” Clarify anything that might be a design convention not enforced by code.
-  Relation to Other Components: “We have obc-check-button and obc-checkbox – in what situations should each be used so we can note the difference?” This ensures our documentation can guide users to the right choice. If a component is a foundation (like obc-elevated-card being the basis for card variants), confirm that understanding so the docs can mention it accurately.
-  By collecting answers to these questions, you can enrich the JSDoc comments with authoritative information. The script might output a placeholder like:
-  /\*\*
-- **TODO (Designer):** Confirm whether the floating message should automatically disappear after a few seconds, or only close on user action.
-  \*/
-  Having these in the interim documentation will remind the team to get clarifications, and they can be replaced with actual info later. It’s better to ask and be accurate than to guess, especially since this content will be used by an AI assistant to answer user queries.
-  Conclusion
-  In summary, a good component description layout for OpenBridge UI components should be comprehensive yet structured for easy reading. It must include:
-  A clear summary of the component and its purpose.
-  Detailed features/variants explanation.
-  Usage guidelines and real-world use cases (so developers know when to use it).
-  Technical specifics like slots and events listings for full understanding of its API.
-  Inclusion of standard UI/UX guidelines (via Material Design or similar) to reinforce best practices.
-  Pointers to related components or differences to avoid confusion.
-  All written in a way that surfaces important keywords for searchability.
-  By following this layout for each component, we’ll create consistent, rich documentation. This will not only assist developers directly but also feed our embeddings for the RAG model, enabling it to answer user questions like “Which component should I use for X?” or “How do I properly implement Y component?” with accurate, context-aware information. We’ll refine this structure as we generate a few and get feedback, but this provides a strong starting template for our automated JSDoc generation process.
-## Documentation by code pattern (regular components, pure functions, abstract classes)
+### Key Principle: Logic in `watch.ts`, Instruments Stay Thin
 
-Not all code in this repo is a concrete Lit web component. The three main patterns require different documentation approaches because Storybook's autodocs system relies on the `custom-elements.json` manifest, which only contains entries for registered custom elements.
+- **`watch.ts`**: Contains ALL circular rendering logic, coordinate calculations, and theming. This is the source of truth.
+- **`instrument-radial.ts`**: Reusable building block that wraps `watch.ts` for generic radial gauges with configurable angle mapping.
+- **Navigation instruments** (compass, heading, rudder, etc.): Thin wrappers that configure `obc-watch` and add domain-specific SVG overlays (arrows, needles, ROT indicators).
 
-### a) Regular concrete components (default case)
+When adding new features or fixing bugs:
 
-Examples: `obc-area-graph`, `obc-line-graph`, `obc-bar-vertical`
+1. **First check if the logic belongs in `watch.ts`** - most visual changes should go here
+2. Helper modules (`tickmark.ts`, `advice.ts`, etc.) handle specific rendering concerns
+3. Navigation instruments should only handle: property declarations, domain-specific overlays, and value-to-angle mapping
+4. Avoid duplicating rendering logic across instruments
 
-- JSDoc lives **on the class** (following the full template above).
-- The story meta uses `component: 'obc-tag-name'` to link Storybook autodocs to the `custom-elements.json` entry.
-- Storybook **automatically extracts** the class JSDoc, `@property` types, `@slot` tags, and `@fires` events.
-- The story file does **not** need `parameters.docs.description.component` — autodocs handles it.
+---
 
-This is the standard path. The template sections above (Overview, Features, Slots, Events, etc.) apply directly.
+## Layering & Stacking Pattern
 
-### b) Pure function modules (no component class)
+All composite instruments use **CSS absolute positioning** to stack multiple SVG layers:
 
-Examples: `external-scale.ts` (exports `renderExternalScale()`, `computeExternalScaleLayout()`, etc.)
+```css
+.container {
+  position: relative; /* Establishes positioning context */
+  width: 100%;
+  height: 100%;
+}
 
-These modules export pure functions that return `SVGTemplateResult` fragments, not a LitElement. There is no custom element tag and no `custom-elements.json` entry, so autodocs cannot extract anything automatically.
+.container > * {
+  position: absolute; /* All children stack at same position */
+  top: 0;
+  left: 0;
+  width: 100%; /* Fill entire container */
+  height: 100%;
+}
+```
 
-**Source file:**
-- Place a comprehensive JSDoc block comment at the **top of the module** (above the first export). Use the same structure as a component JSDoc (overview, features, usage examples) — but write it as a module description rather than a component description.
+**Layer order** (bottom to top):
 
-**Story file:**
-- **Omit** `component:` from the story meta (there is no tag to point to).
-- **Provide** the full documentation via `parameters.docs.description.component` as a Markdown string.
-- **Manually define** all `argTypes` (since there is no manifest to auto-extract from).
-- If the module's functions need a DOM host to render, create a minimal **throwaway inline wrapper** element to give Storybook a renderable surface (see `external-scale.stories.ts` for the pattern).
+1. `<obc-watch>` - Base circular frame, rings, tickmarks, setpoint, advices, bars
+2. `<svg>` overlay - Domain-specific elements (arrows, needles, ROT dots)
 
-**Keeping docs in sync:** The module-level JSDoc is the **source of truth**. The story's `parameters.docs.description.component` should mirror it. When updating one, update the other. A lightweight way to stay consistent: write the docs in the source file first, then copy the relevant subset into the story Markdown.
-
-### c) Abstract base classes
-
-Examples: `ObcChartLineBase` (abstract base for `obc-line-graph` and `obc-area-graph`)
-
-The class has rich JSDoc and `@property` declarations, but it cannot be instantiated and is not registered as a custom element. Storybook cannot auto-extract its docs via `custom-elements.json`.
-
-**Source file:**
-- Place the full JSDoc on the abstract class just like a regular component, but append `@ignore` at the end of the JSDoc tag block. This signals to doc generators that the class is not meant to appear as a standalone API entry.
-
-**Story file:**
-- Set `component:` to a **concrete subclass tag** (e.g., `'obc-area-graph'`) so Storybook can at least resolve property controls.
-- **Override** the auto-extracted description with `parameters.docs.description.component` containing the base class documentation as Markdown.
-- This is necessary because the concrete subclass's own JSDoc is typically minimal ("Extends base with fill=true"), and the real docs live on the abstract class.
-
-**Keeping docs in sync:** Same as pure functions — the abstract class JSDoc is the source of truth, and the story description should mirror/replicate it. Update both when making changes.
-
-### Summary table
-
-| Aspect                                 | Concrete component         | Pure function module                    | Abstract base class                       |
-|----------------------------------------|---------------------------|-----------------------------------------|-------------------------------------------|
-| JSDoc location                         | On the class              | Module-level block comment              | On the abstract class (with `@ignore`)     |
-| Story `meta.component`                 | `'obc-tag-name'`          | Omitted                                | Concrete subclass tag                      |
-| Story `parameters.docs.description`    | Not needed (auto)         | Required (full Markdown)               | Required (override with base class docs)   |
-| `argTypes`                             | Auto from manifest        | Manual                                 | Partially auto (from concrete subclass)    |
-| Rendering in story                     | Direct `<obc-tag>`        | Throwaway inline wrapper               | Concrete subclass element                  |
-## Structured-tag rules (apply to EVERY component)
-
-● After all Markdown sections, append a short **tag block** that contains only:
-
-- one `@slot` tag for each content slot
-- one `@fires` (or `@event`) tag for each custom event
-
-● Do **NOT** include `@property` tags in that block—properties are already
-documented inline above their field declarations.
-
-● Do **NOT** mix Markdown headings inside the tag block.  
- Example skeleton:
-
-```js
-/**
- * <markdown sections …>
- *
- * @slot - Default leading-icon slot (shown when `showIcon` is true)
- * @fires remove-chip {CustomEvent<{label:string}>}
- */
-
-● When you're using icons as examples, instead of writing emojis, use <obi-placeholder></obi-placeholder>, or other similar icons. OpenBridge has 1000+ icons and you can use them in slots by using this format. Another working icon import example: <obi-arrow></obi-arrow>, <obi-search></obi-search>.
-
+```text
+┌─────────────────────────────────────────────────────────────────┐
+│                     <div class="container">                     │
+├─────────────────────────────────────────────────────────────────┤
+│  ┌───────────────────────────────────────────────────────────┐  │
+│  │ LAYER 1: <obc-watch>                                      │  │
+│  │ • Rings, tickmarks, advices, bars, setpoint, labels       │  │
+│  │ • viewBox calculated from (176 + padding) * 2             │  │
+│  └───────────────────────────────────────────────────────────┘  │
+│                              ▲                                  │
+│  ┌───────────────────────────────────────────────────────────┐  │
+│  │ LAYER 2: <svg> overlay                                    │  │
+│  │ • HDG/COG arrows, needles, ROT indicator                  │  │
+│  │ • viewBox MUST MATCH obc-watch for alignment              │  │
+│  └───────────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ---
+
+## ViewBox Coordination Strategy
+
+**Critical**: Multiple SVG layers with **MATCHING viewBox** values align perfectly when stacked.
+
+### ViewBox Calculation in `watch.ts`
+
+```typescript
+const width = (176 + this.getPadding()) * 2; // e.g., (176 + 72) * 2 = 496
+const height = width * (1 - this.clipTop / 100 - this.clipBottom / 100);
+const top = -width / 2 + (width * this.clipTop) / 100;
+const viewBox = `-${width / 2} ${top} ${width} ${height}`;
+// Full circle: "-248 -248 496 496"
+// Clipped 40% top (rudder): "-248 -49.6 496 297.6"
+```
+
+### Matching ViewBox in Consumer Instruments
+
+Consumer instruments MUST calculate the **same viewBox** for their overlay SVG:
+
+```typescript
+// In compass.ts, heading.ts, etc.
+const padding = this.getPadding(); // Same calculation as watch!
+const width = (176 + padding) * 2;
+const viewBox = `-${width / 2} -${width / 2} ${width} ${width}`;
+```
+
+### ViewBox Mismatch = Misalignment
+
+```text
+⚠️ If obc-watch uses: viewBox="-248 -248 496 496"
+   And overlay uses:  viewBox="-200 -200 400 400"  ❌ WRONG!
+
+   Result: Elements in smaller viewBox appear LARGER relative to the ring
+```
+
+---
+
+## The 512-Based Coordinate System
+
+Most SVG paths are designed around a **512 × 512 canvas** with center at **(256, 256)**:
+
+```text
+┌─────────────────────────────────────────────────┐
+│              512 × 512 Canvas                   │
+│   (0,0) ────────────────────────────────> X     │
+│     │                                           │
+│     │           (256, 256)                      │
+│     │              CENTER                       │
+│     │                ●                          │
+│     ▼                                           │
+│     Y                                           │
+└─────────────────────────────────────────────────┘
+```
+
+To convert paths designed for this system to a **center-origin** viewBox, use:
+
+```typescript
+<g transform="translate(-256, -256)">
+  <path d="M254.654 100.32C..." />  // Path with 256,256 as center
+</g>
+```
+
+With rotation:
+
+```typescript
+<g transform="rotate(${angle}) translate(-256, -256)">
+  <!-- Element rotates around center, then path coordinates work -->
+</g>
+```
+
+---
+
+## Key Radius Constants
+
+Defined in `watch.ts`:
+
+```typescript
+export const OUTER_RING_RADIUS = 368 / 2; // 184 - Outermost circle
+const RING2_RADIUS = 320 / 2; // 160 - Second ring
+const RING3_RADIUS = 224 / 2; // 112 - Third ring (double type)
+const RING3B_RADIUS = 272 / 2; // 136 - Thin double variant
+const RING4_RADIUS = 176 / 2; // 88  - Innermost (triple type)
+```
+
+Use these constants when positioning elements at specific ring radii.
+
+---
+
+## Responsive Scaling
+
+### Scale Factor Calculation
+
+The `--scale` CSS variable enables pixel-perfect rendering at any size:
+
+```typescript
+private getScale({width, height}: {width: number; height: number}): number {
+  const scale = Math.min(this.clientWidth / width, this.clientHeight / height);
+  return scale;
+}
+
+// In render:
+<svg style="--scale: ${scale}" ...>
+```
+
+### Scale-Aware Elements
+
+**Text labels** maintain consistent visual size:
+
+```css
+.label {
+  font-size: calc(12px / var(--scale)); /* Always ~12px visual size */
+}
+```
+
+**Strokes** stay 1px regardless of zoom:
+
+```typescript
+stroke-width="1"
+vector-effect="non-scaling-stroke"
+```
+
+---
+
+## Clipping for Partial Gauges
+
+For half-circle instruments like **rudder**:
+
+```typescript
+// In obc-watch
+@property({type: Number}) clipTop: number = 0;     // Percent of height
+@property({type: Number}) clipBottom: number = 0;
+
+// ViewBox adjustment:
+const height = width * (1 - this.clipTop/100 - this.clipBottom/100);
+const top = -width/2 + (width * this.clipTop/100);
+```
+
+**Example - Rudder (40% top clipped):**
+
+```text
+Full viewBox:     "-224 -224 448 448"
+Clipped viewBox:  "-224 -44.8 448 268.8"
+
+     Full circle              Clipped (rudder)
+   ┌─────────────┐
+   │      ○      │  ←clip    ┌─────────────┐
+   │     / \     │           │     ◠◡◠     │
+   │    ○   ○    │    →      │  semicircle │
+   │     \ /     │           └─────────────┘
+   │      ○      │
+   └─────────────┘
+```
+
+The overlay SVG must use the **same clipped viewBox** to align correctly.
+
+**Note:** `clip{Top,Bottom,Left,Right}` are mutually exclusive with `zoomToFitArc`.
+When zoom is on, the viewBox is derived from `computeZoomToFitArcFrame()` and all
+four clips are ignored (both `obc-watch` and `obc-instrument-radial` zero them).
+`clipLeft` / `clipRight` are the horizontal counterparts of `clipTop` / `clipBottom`,
+used for quadrant (90°) sectors.
+
+---
+
+## Where to Make Common Changes
+
+### 1. Setpoint Size/Position
+
+Location: `watch.ts` → `renderSetpoint()` method
+
+> **See `setpoint.instructions.md`** for the full setpoint architecture (design layer, mixin vs bundle, confirm animation, `cssSafeAngle()` short-path rotation, CSS transition pattern).
+
+```typescript
+// Triangle shape (SVG path) coming from svghelpers/setpoint.ts
+
+// Radial position (distance from center):
+<g transform="rotate(${this.angleSetpoint + 90}) translate(${-radius}, 0)...)">
+//                                                         ↑
+//                                               Change this for position
+```
+
+### 2. Labels Inside/Outside
+
+Location: `watch.ts` → `tickmarksInside` property + `tickmark.ts`
+
+```typescript
+// In watch.ts
+@property({type: Boolean}) tickmarksInside: boolean = false;
+
+// In tickmark.ts - the `inside` parameter controls placement
+const textRadius = textRadius + (3/scale + 3) * (inside ? -1 : 1);
+```
+
+### 3. Tickmark Dimensions
+
+Location: `tickmark.ts` → `tickmark()` function
+
+```typescript
+if (size === TickmarkType.primary) {
+  innerRadius = 328 / 2; // Where tickmark starts
+  outerRadius = 368 / 2; // Where tickmark ends (long)
+} else if (size === TickmarkType.secondary) {
+  innerRadius = 328 / 2;
+  outerRadius = 344 / 2; // Shorter
+}
+```
+
+### 4. Ring Appearance
+
+Location: `watch.ts` → `watchCircle()` method + `WatchCircleType` enum
+
+```typescript
+// Available types:
+WatchCircleType.single; // One ring
+WatchCircleType.double; // Two rings
+WatchCircleType.doubleThin; // Two rings, thinner gap
+WatchCircleType.triple; // Three rings (compass)
+```
+
+### 5. Advice/Caution Zones
+
+Location: `advice.ts` → `renderAdvice()` and `adviceMask()` functions
+
+```typescript
+// Colors based on state:
+AdviceState.hinted    → 'var(--instrument-frame-tertiary-color)'
+AdviceState.regular   → 'var(--instrument-tick-mark-tertiary-color)'
+AdviceState.triggered → 'var(--on-caution-active-color)'
+```
+
+### 6. Adding a New Overlay Element
+
+1. Add property to `watch.ts` for configuration
+2. Create render method in `watch.ts` (e.g., `renderMyElement()`)
+3. Call it in `render()` method at appropriate layer position
+4. Use existing constants for positioning (radii, angles)
+
+---
+
+## CSS Variables
+
+Common instrument CSS variables used in `watch.ts` and helpers:
+
+```css
+/* Frame colors */
+--instrument-frame-primary-color
+--instrument-frame-secondary-color
+--instrument-frame-tertiary-color
+
+/* Value colors (regular state) */
+--instrument-regular-primary-color
+--instrument-regular-secondary-color
+--instrument-regular-tertiary-color
+
+/* Value colors (enhanced/in-command state) */
+--instrument-enhanced-primary-color
+--instrument-enhanced-secondary-color
+--instrument-enhanced-tertiary-color
+
+/* Tickmark colors */
+--instrument-tick-mark-primary-color
+--instrument-tick-mark-secondary-color
+--instrument-tick-mark-tertiary-color
+
+/* Alert colors */
+--alert-caution-color
+--on-caution-active-color
+
+/* Border/silhouette */
+--border-silhouette-color
+```
+
+---
+
+## Component Quick Reference
+
+| Component           | Uses                  | Key Features                                            |
+| ------------------- | --------------------- | ------------------------------------------------------- |
+| `obc-watch`         | Helper modules        | Core renderer - ALL circular rendering logic            |
+| `instrument-radial` | `obc-watch`           | Generic building block with configurable `getAngle()`   |
+| `compass`           | `obc-watch` + overlay | Full compass: HDG/COG arrows, ROT, vessel, wind/current |
+| `heading`           | `obc-watch` + overlay | Simplified compass: HDG/COG arrows only                 |
+| `rudder`            | `obc-watch` + overlay | Half-circle: 40% top clipped, needle variant            |
+| `speed-gauge`       | `obc-watch` + overlay | Speed arc: custom angle mapping, full needle            |
+| `wind`              | `obc-watch` + overlay | Wind rose with histogram                                |
+| `roll`              | `obc-watch`           | Roll indicator with vessel                              |
+| `gauge-radial`      | `instrument-radial`   | Thin wrapper adding `enhanced` prop                     |
+| `rot-sector`        | `instrument-radial`   | Rate of turn sector gauge                               |
+| `azimuth-thruster`  | `obc-watch` + overlay | Thruster with angle setpoint and thrust bar             |
+
+---
+
+## Zoom-to-Fit Arc (`zoomToFitArc`)
+
+When an instrument displays a narrow arc (e.g. ±20° instead of a full circle), `zoomToFitArc` enlarges the rings to fill the available space rather than leaving large empty areas around a small arc.
+
+### Approach: Radius Enlargement (not vector scaling)
+
+The zoom works by adding a **radius offset** (`_rOff` / `_radiusOffset`) to all ring radii, tickmark positions, advice bands, and needle positions. The viewBox is recalculated via `computeZoomToFitArcFrame()` so the enlarged arc fills the component bounds.
+
+### File roles
+
+| File                   | Role                                                                                                                                                                                                                                                                      |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `arc-frame.ts`         | Pure geometry: `computeZoomToFitArcFrame()` binary-searches for the `radiusOffset` that makes the arc's bounding box fill the available space. Also exports `computeAnnularArcBBox()`.                                                                                    |
+| `watch.ts`             | Owns `zoomToFitArc` property and `_rOff` field. Applies offset to ALL radius references (rings, tickmarks, labels, advices, bars, setpoint, needles). Recalculates viewBox.                                                                                               |
+| `instrument-radial.ts` | Forwards `zoomToFitArc` to `obc-watch`. Tracks `_radiusOffset` for needle position adjustments.                                                                                                                                                                           |
+| `rudder.ts`            | Has `_needleTransform` getter that translates the needle outward by `rOff` so the tip reaches the enlarged ring. Uses `translate(0, -rOff)` — an intentional visual compromise that preserves needle proportions at the cost of a slight mismatch at extreme zoom levels. |
+| `rot-sector.ts`        | Exposes `rotArcExtent` (default 60°) and forwards `zoomToFitArc` to `instrument-radial`.                                                                                                                                                                                  |
+| `compass-sector.ts`    | Has its own zoom logic: when `zoomToFitArc` is true and the FOV is small, renders a 1:1-scale arc cropped to content; otherwise uses FOV compression capped at 120°.                                                                                                      |
+
+### `radiusOffset` propagation
+
+The offset flows through the rendering pipeline:
+
+1. `watch.ts` computes `_rOff` via `computeZoomToFitArcFrame()`
+2. All `watch.ts` render methods add `_rOff` to radius constants (e.g. `OUTER_RING_RADIUS + this._rOff`)
+3. Helper functions (`tickmark()`, `renderAdvice()`, `adviceMask()`) accept an optional `radiusOffset` parameter
+4. Consumer instruments read back `_radiusOffset` for overlay adjustments (needle translation)
+
+### Advice hatch pattern: two code paths
+
+`advice.ts` uses two different hatch-pattern strategies depending on `radiusOffset`:
+
+- **`radiusOffset === 0`** (original): Pre-baked tile approach — works at design radius only.
+- **`radiusOffset > 0`** (zoom): Direct `<line>` segments with dynamic line count to maintain consistent arc spacing at any enlarged radius. The mask also switches to `maskUnits="userSpaceOnUse"` with dynamic extent.
+
+> **⚠️ Do not unify** the two code paths. The non-zoom path must produce output identical to `main` to avoid regenerating snapshots for all advice-using instruments.
+
+### Adding `zoomToFitArc` to a new instrument
+
+1. Add `@property({type: Boolean}) zoomToFitArc = false` to the instrument
+2. Forward it to `obc-watch` (or `instrument-radial`) via template binding
+3. If the instrument has an overlay needle/element, read `_radiusOffset` and adjust positioning
+4. Add `ZoomedIn` / `ZoomedInNarrow` stories with representative `arcExtent` values
+
+---
+
+## Geometry Inputs Cheat-Sheet
+
+`obc-watch` exposes several partially-overlapping geometry inputs. Use this as the
+quick reference for which knob does what. Combinations not listed under "validated"
+below are undefined — verify them before relying on a specific pairing.
+
+| Property                                            | Affects                                                                                                                                                                                |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `padding`                                           | **Explicit override**: un-zoomed viewBox becomes exactly `(176 + padding) * 2` and the automatic label reserve (see "Shared frame computation") is disabled — the caller owns label room. Unset, `basePadding` is 24 plus the width-aware reserve. |
+| `faceDiameter`                                      | Pins the outer-ring diameter in CSS px (`scale = faceDiameter / 368`); the host gets a fixed intrinsic size, so instruments sharing the value have equal circumference (mode b of #1021; the donut-chart `fixedHeight` counterpart). |
+| `clipTop` / `clipBottom` / `clipLeft` / `clipRight` | viewBox window in the **un-zoomed** path. Ignored under zoom (when `zoomToFitArc` is on or an `arcFrame` is supplied).                                                                                                          |
+| `zoomToFitArc`                                      | Swaps to the `computeZoomToFitArcFrame()` path (unless an `arcFrame` is already supplied); every band radius gets the additive `_rOff` (see the `_bandRadius` INVARIANT in `watch.ts`).                                           |
+| `arcFrame`                                          | Externally pre-computed zoom frame. Takes precedence when set (the `if (this.arcFrame)` branch runs first) — used directly even when `zoomToFitArc` is false, and `obc-watch` does not recompute it. If you pass it, keep it in sync with `areas` / `watchCircleType`. |
+| `endLabelsMaxMin`                                   | "Max-min" label placement: horizontal end labels (±90°) sit off the dead-center tick instead of beside it.                                                                            |
+| `tickmarksInside`                                   | Moves labels inside the ring; their `textRadius` is routed through `_bandRadius`.                                                                                                      |
+| `tickFadeAngle`                                     | (pre-existing) Tickmark fade-out near arc edges.                                                                                                                                        |
+
+### Shared frame computation (`svghelpers/radial-frame.ts`, issue #1021)
+
+All frame/viewBox geometry is centralized in `computeRadialFrame()`:
+
+- **Width-aware label reserve (mode a):** outside tick labels render at
+  `12px / scale`, so their SVG-unit footprint grows as the instrument
+  shrinks. The helper solves `side = 2·(184 + 3) / (1 − 2P/containerPx)`
+  in closed form (`P` = label pixel cost) and grows the viewBox so labels
+  never clip. With no outside labels the legacy `(176 + basePadding) * 2`
+  box is reproduced **byte-identically**.
+- **Content-aware degradation:** past `LABEL_RESERVE_MAX_FRACTION` (0.45 —
+  a 4-digit gauge hides labels below a ~182px container) the frame reports
+  `labelsHidden` and consumers strip tick texts instead of clipping.
+  Designers may later prefer a fixed px threshold (the canvas charts use
+  `MIN_HEIGHT_WITH_LABELS = 192`).
+- **Delivery pattern:** consumers call the helper once per render and pass
+  the result to `<obc-watch .arcFrame=...>` AND their overlay
+  `<svg viewBox=${frame.viewBox}>` — the two layers can no longer drift
+  apart. Do NOT hand-mirror viewBox constants (the old
+  `WATCH_DEFAULT_VIEWBOX = 448` and azimuth's `384/400/472` switch were
+  deleted in favor of this).
+- **Consumers on the helper:** watch (standalone), instrument-radial
+  (+ gauge-radial, rot-sector), speed-gauge, azimuth-thruster, compass,
+  heading, rudder. `obc-instrument-radial` exposes the frame via a
+  `frame` getter and a `frame-changed` event (gauge-radial re-anchors its
+  %-positioned readouts from it).
+- **Not on the helper:** compass-sector (bespoke FOV compression, see the
+  `PADDING` comment there), pitch/roll/pitch-roll (labels inside ⇒ no
+  reserve; the pitch-roll composite has a coupled `buildFrame` contract),
+  wind-propulsion and velocity-projection-plot (explicit `padding`
+  override path, unchanged by design).
+- Compass/heading's old empirical `72 + delta(clientSize)` padding was
+  replaced by the analytic reserve (north arrow 16px always +
+  NSWE labels 16px while `showLabels`); past the reserve cap both the
+  labels and the arrow are hidden, like tick-label degradation.
+- **Label-drop-aware sector crops:** arc end labels hang past the ±90°
+  line (`endLabelsMaxMin` ~20px, side labels ~8px), so a fixed top/bottom
+  crop (gauge-radial's 44/45% `sectorClips`) would cut them at small
+  scales. Consumers pass `labelDropPx` (`END_MAXMIN_LABEL_DROP_PX` /
+  `SIDE_LABEL_DROP_PX`) and the frame lowers the crop just enough —
+  reported via `frame.clipsAdjusted`, which gauge-radial uses to switch
+  its static sector `aspect-ratio` to the frame's (`--gauge-radial-aspect`).
+  Only pass the drop when a **labeled tick actually sits at ±90°**
+  (instrument-radial checks the tick angles — a ±60° sector like
+  rot-sector must stay byte-identical).
+- **ResizeObserver on inline hosts never fires** (permanent 0×0 box) —
+  several radial hosts have no `:host {display}` rule, so their
+  `ResizeController` must additionally observe an internal element that
+  generates a box (`observeInnerBox()` in radial-frame.ts observes the
+  shadow `<svg>` / `.container`). Without it, the frame and the `--scale`
+  font counter-scaling freeze at first paint whenever the host is not
+  blockified by a parent (watch standalone was the visible case; inside
+  `.container > * {position: absolute}` the host is blockified and the
+  host observation works).
+
+### Radial label model (design language)
+
+Labels follow the design model with three placements:
+
+- **External** — labels around the outside of the watch face (default).
+- **Internal** — labels inside the ring (`tickmarksInside`).
+- **Max-min** — labels at the arc ends (`endLabelsMaxMin`), e.g. the 180° gauge.
+
+> **Validated combinations:** pitch/roll use `zoomToFitArc` + `shiftArcFrameToOuterEdge`;
+> `gauge-radial` uses per-sector `clip*` and `endLabelsMaxMin` on the 180° sector.
+> Pairings like `clip*` + `zoomToFitArc` or `endLabelsMaxMin` + `zoomToFitArc` are not
+> currently validated.
+
+---
+
+## Checklist for Adding New Features
+
+- [ ] Is the feature visual/rendering? → Add to `watch.ts`
+- [ ] Is it tickmark-related? → Add to `tickmark.ts`
+- [ ] Is it advice/alert-related? → Add to `advice.ts`
+- [ ] Is it a new instrument? → Create thin wrapper using `obc-watch`
+- [ ] Does it need an overlay SVG? → Match viewBox calculation exactly
+- [ ] Does it use absolute coordinates? → Use `translate(-256, -256)` pattern
+- [ ] Does it need to scale? → Use `calc(Xpx / var(--scale))` or `vector-effect="non-scaling-stroke"`
+- [ ] Is it a partial circle? → Use `clipTop`/`clipBottom` and adjust viewBox
+
+---
 > Source: [Ocean-Industries-Concept-Lab/openbridge-webcomponents](https://github.com/Ocean-Industries-Concept-Lab/openbridge-webcomponents) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
