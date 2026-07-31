@@ -1,12 +1,47 @@
 ## obsidian-project-browser
 
-> Standards for how plans should be structured and completed
+> Pull visual tokens from Obsidian CSS variables and the project's established style tokens. Do not hardcode theme-sensitive colors, typography, spacing, border radii, or animation timings.
 
 
-# Planning standards
+# Obsidian Plugin UI and Styling
 
-- The final step of every plan must be creating or updating relevant documentation.
+## Use Obsidian Theme Tokens
+
+Pull visual tokens from Obsidian CSS variables and the project's established style tokens. Do not hardcode theme-sensitive colors, typography, spacing, border radii, or animation timings.
+
+```scss
+// ❌ BAD
+.project-card {
+    color: #3a86ff;
+    font-size: 14px;
+}
+
+// ✅ GOOD
+.project-card {
+    color: var(--text-normal);
+    font-size: var(--font-ui-small);
+}
+```
+
+## No Inline Styles Except Truly Dynamic Values
+
+Avoid inline styles. The only acceptable exception is a value that is computed at runtime and cannot be expressed statically (e.g. a width derived from a live measurement).
+
+## Follow the Project's Style API
+
+Use the existing plugin style approach:
+
+- Colocated SCSS files imported by the component or view they style
+- Stable class names with the project's established plugin prefix
+- Obsidian CSS variables for theme compatibility
+- Host-platform DOM APIs only where Obsidian requires them, such as settings panels and native modals
+
+Do not introduce a new styling approach without a clear reason.
+
+## No Hardcoded Colors or Sizes
+
+If a value could ever need to change for a theme, dark mode, or screen size, it must come from the theme — not be hardcoded.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/daledesilva) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [daledesilva/obsidian_project-browser](https://github.com/daledesilva/obsidian_project-browser) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
