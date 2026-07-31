@@ -1,0 +1,9 @@
+{
+  "name": "apache--trafficserver",
+  "displayName": "trafficserver",
+  "description": "trafficserver",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/trafficserver",
+  "skills": []
+}
