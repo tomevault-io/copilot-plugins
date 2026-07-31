@@ -1,8 +1,6 @@
 # AI instruction files for FinSight
 
-> Sourced from [kkkano/FinSight](https://github.com/kkkano/FinSight) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Multi-agent会话式金融研究平台。提供专业智能体（价格分析、新闻追踪、宏观经济、深度研究），支持实时流式响应、自动生成8章节投资报告和投资组合监控。采用LangGraph、FastAPI和React技术栈开发。
+> Sourced from [kkkano/FinSight](https://github.com/kkkano/FinSight), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
