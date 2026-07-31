@@ -1,8 +1,6 @@
 # happier
 
-> Source: [happier-dev/happier](https://github.com/happier-dev/happier) — distributed by [TomeVault](https://tomevault.io)
-
-Web, Desktop & Mobile client for Codex, Claude Code, OpenCode, Kimi, Augment Code, Qwen, fully end-to-end encrypted
+> Source: [happier-dev/happier](https://github.com/happier-dev/happier). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [happier-dev/happier](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/happier-dev/happier](https://github.com/happier-dev/happier)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/happier-dev/happier](https://github.com/happier-dev/happier)
 
 ---
 
