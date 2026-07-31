@@ -1,0 +1,9 @@
+{
+  "name": "prebid--prebid-js",
+  "displayName": "Prebid.js",
+  "description": "Prebid.js",
+  "version": "1.0.0",
+  "author": "prebid",
+  "homepage": "https://github.com/prebid/Prebid.js",
+  "skills": []
+}
