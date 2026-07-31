@@ -1,39 +1,14 @@
 ## system-tests
 
-> Parametric scenario testing and how to run parametric tests faster when re-running multiple times
+> * All shell/bash scripts must be compatible with shellcheck. All shell/bash scripts you create or modify must pass shellcheck without errors or warnings.
 
-# Parametric Testing
+# Code format
 
-* To run parametric tests use the document [parametric scenario](mdc:docs/scenarios/parametric.md). The scenario runs shared tests against all APM libraries via a common HTTP interface.
-* Parametric tests live under `tests/parametric/`. The parametric library server per language is in `utils/build/docker/<lang>/parametric/`.
-
-## Running a subset of tests
-
-Always pass a nodeid (file, class, or specific test) to `run.sh` to avoid running the entire parametric suite. This is the most effective way to reduce run time when iterating on a specific test.
-
-```sh
-# Run a single test
-TEST_LIBRARY=nodejs ./run.sh PARAMETRIC tests/parametric/test_tracer.py::Test_Tracer::test_tracer_span_top_level_attributes
-
-# Run a whole file
-TEST_LIBRARY=nodejs ./run.sh PARAMETRIC tests/parametric/test_tracer.py
-
-# Run with -k filter
-TEST_LIBRARY=nodejs ./run.sh PARAMETRIC -k test_tracer_span
-```
-
-## Skipping the build when iterating on test code
-
-When iterating on test code without changing the library image, add `--skip-parametric-build` to skip rebuilding the parametric library image on every run (~3–4s saved per invocation):
-
-```sh
-TEST_LIBRARY=java ./run.sh PARAMETRIC --skip-parametric-build tests/parametric/test_startup_logs.py::Test_Startup_Logs::test_startup_logs_enabled
-```
-
-Only safe when `utils/build/docker/<lang>/parametric/` has not changed. Run without the flag after modifying the Dockerfile or app code.
-
-* Full details: see the "Making parametric runs faster" section in [parametric scenario](mdc:docs/scenarios/parametric.md).
+* All shell/bash scripts must be compatible with shellcheck. All shell/bash scripts you create or modify must pass shellcheck without errors or warnings.
+* Follow Python type annotation best practices that are compatible with mypy strict checking, using Python 3.12 standards as defined in pyproject.toml. Always provide explicit type annotations for all function arguments and return values. For collections, use precise types (e.g., list[str], dict[str, int]). If a value can be None, always use Optional[...] explicitly. Do not rely on implicit Optional types (e.g., avoid using x: int = None—instead, use x: Optional[int] = None). Do not omit type annotations, and do not use untyped or partially typed collections.
+* Always run [format](mdc:format.sh) before committing changes to ensure code follows the project's style guidelines,  including proper Path usage instead of os.path, no unused variables, complete type annotations, and efficient code patterns that satisfy mypy and ruff checks. if the format.sh script fails, try to fix the format mistakes.
+* All YAML files you create or modify must pass both yamllint and yamlfmt checks before being committed.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/DataDog) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [DataDog/system-tests](https://github.com/DataDog/system-tests) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
