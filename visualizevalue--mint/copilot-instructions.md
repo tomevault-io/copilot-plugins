@@ -8,102 +8,108 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Mint** is a Visualize Value protocol on Ethereum for artists to deploy ERC-1155 collections, create tokens with onchain artifacts, and sell them during 24-hour mint windows priced at basefee × 60,000 per unit. "To mint is a human right."
+Visualize Value "Mint" — an ERC-1155 NFT minting platform. Artists deploy collections via a factory, create tokens with onchain artifacts, and collectors mint during 24-hour windows at basefee-linked pricing.
 
-## Monorepo Structure
-
-pnpm workspaces (pnpm@10.7.1). All commands run from within their package directory.
-
-| Package | Stack | Purpose |
-|---------|-------|---------|
-| `app/base` | Nuxt 3, Vue 3, Wagmi/Viem, Pinia | Main frontend application |
-| `app/themes/*` | Nuxt layers | Theme variants extending base |
-| `app/examples/*` | Nuxt layers | Example implementations |
-| `contracts` | Solidity 0.8.24, Hardhat | Smart contracts (see `contracts/CLAUDE.md` for detailed architecture) |
-| `indexer` | Ponder, Drizzle, Hono | Onchain event indexer + API |
-| `utils` | TypeScript, Viem | Shared utilities (`toByteArray`, `chunkArray`) |
-| `docs` | VitePress | Documentation site |
+**Solidity 0.8.24 · Hardhat 3 · Viem (not ethers.js) · TypeScript (ESM)**
 
 ## Commands
 
-### App (`app/base`)
 ```bash
-pnpm dev          # Dev server on port 1618
-pnpm build        # Production build
-pnpm generate     # Static generation
-pnpm preview      # Preview production build
+npx hardhat compile                              # Compile contracts
+npx hardhat test                                 # Run all tests
+npx hardhat test test/Mint.ts                    # Run one test file
+npx hardhat test --grep "pattern"                # Run tests matching pattern
+npx tsc --noEmit                                 # Type check
+REPORT_GAS=true npx hardhat test                 # Tests with gas reporting
+npx hardhat coverage                             # Solidity coverage
+npx hardhat ignition deploy ./ignition/modules/Factory.ts --network localhost  # Deploy
 ```
 
-### Contracts (`contracts`)
+### Mainnet Fork
+
+P5Renderer and P5RendererV2 tests depend on scripty.sol contracts deployed on mainnet. They are skipped by default and require a mainnet fork:
+
 ```bash
-npx hardhat compile                    # Compile contracts
-npx hardhat test                       # Run all tests
-npx hardhat test test/Mint.ts          # Run one test file
-npx hardhat test --grep "pattern"      # Run tests matching pattern
-REPORT_GAS=true npx hardhat test       # Tests with gas reporting
-npx hardhat coverage                   # Solidity coverage
-npx hardhat size-contracts             # Contract size report
+npx hardhat test test/P5Renderer.ts --network mainnetFork
+npx hardhat test test/P5RendererV2.ts --network mainnetFork
 ```
 
-### Indexer (`indexer`)
-```bash
-pnpm dev             # Start indexer dev mode
-pnpm start           # Production run
-pnpm codegen         # Generate types from schema
-pnpm drizzle:push    # Push schema to database
-```
-
-### Root
-```bash
-pnpm install         # Install all workspace dependencies
-```
+Requires `MAINNET_URL` set in your environment (see `.env.example`).
 
 ## Architecture
 
-### Frontend (`app/base`)
+### Contract Hierarchy
 
-- **Nuxt 3** with SSR (toggleable via `NUXT_SSR` env var), Nitro preset `node-cluster`
-- **Wagmi/Vue + Viem** for wallet connection and contract reads/writes — auto-imported (`readContract`, `writeContract`, `isAddress`, `toHex`, etc.)
-- **Pinia** stores with localStorage persistence: `useOnchainStore()` (collections, artists, tokens, balances), `usePriceFeedStore()` (gas prices)
-- **TanStack Vue Query** for data fetching
-- **PostCSS** with nested CSS, custom-media, custom-selectors, preset-env
-- **Routing**: file-based + custom `router.options.ts` for subdomain/artist scope detection
-- **i18n** via `@nuxtjs/i18n`, English default, locale files in `locales/`
-- **Renderer UI components** in `components/Mint/Renderer/` — one per renderer type (Base, P5, Code, Animation)
-- **Known renderer addresses** configured per chain in `app.config.ts`
-- Environment configured via `NUXT_PUBLIC_*` vars (see `.env.example`)
+**Mint.sol** — Core ERC-1155 collection contract. Owns tokens, manages mint windows (24h), pricing (basefee × 60,000 per unit), and artifact storage. Each collection is an independent Mint instance.
 
-### Contracts
+**FactoryV1.sol** — UUPS-upgradeable factory. Two deployment paths:
+- `create()` — Full new Mint contract (higher deploy cost, cheaper interactions)
+- `clone()` — EIP-1167 minimal proxy (cheaper deploy, slight runtime overhead)
 
-Detailed in `contracts/CLAUDE.md`. Key points:
-- **Mint.sol**: Core ERC-1155 with SSTORE2 artifact storage, renderer plugin system, 24h mint windows
-- **FactoryV1.sol**: UUPS-upgradeable factory with `create()` (full deploy) and `clone()` (EIP-1167 proxy)
-- **Renderer plugin system**: `IRenderer` interface (uri, imageURI, animationURI) — Base, P5, P5V2, Animation implementations
-- **Tests**: Mocha + Chai + Viem, fixture chain pattern (`baseFixture` → `factoryFixture` → `collectionFixture` → `itemMintedFixture` → `itemPreparedFixture`)
-- **Deployment**: Hardhat Ignition with CREATE2 deterministic addresses
+**Factory.sol** — ERC1967Proxy wrapping FactoryV1.
 
-### Indexer
+### Renderer Plugin System
 
-- **Ponder** framework: watches Factory `Created` events to discover new Mint contracts, then indexes their events
-- **Schema**: accounts, collections, artifacts, ownerships, mints, transfers (defined in `ponder.schema.ts`)
-- **API** (Hono): custom endpoints in `src/api/` (e.g., `/api/profiles/:id` with ENS caching)
-- **Database**: PostgreSQL via Drizzle ORM
+Renderers implement `IRenderer` and are registered per-collection. Each token references a renderer index. The interface requires `uri()`, `imageURI()`, and `animationURI()`.
 
-### Shared Utils
+- **Renderer.sol** — Static image (base64 encoded from SSTORE2 artifact)
+- **AnimationRenderer.sol** — Image + animation URL (artifact is ABI-encoded tuple)
+- **P5Renderer.sol** — P5.js generative art with scripty.sol
+- **P5RendererV2.sol** — Enhanced P5.js using scripty.sol v2 + ethfsFileStorage
 
-`@visualizevalue/mint-utils` — workspace dependency used by both `app/base` and `contracts` for `toByteArray()` and `chunkArray()` (artifact chunking for SSTORE2).
+### Storage & Libraries
 
-## Environment Setup
+- **SSTORE2** — Artifacts stored as contract bytecode via CREATE for gas-efficient reads
+- **ArtifactReader** — Reads and concatenates multi-chunk SSTORE2 artifacts
+- **ContractMetadata** — Generates collection-level metadata JSON
+- **Clone** — EIP-1167 minimal proxy deployment
 
-Copy `.env.example` to `.env`. Key variables:
-- `APP_CHAIN_ID` — Target chain (1 for mainnet, 11155111 for Sepolia)
-- `APP_FACTORY_ADDRESS` — Factory contract address for the target chain
-- `APP_CREATOR_ADDRESS` — Scopes app to a single artist (optional)
-- `APP_RPC1/RPC2/RPC3` — RPC endpoints (multiple for fallback)
-- `APP_WALLET_CONNECT_PROJECT_ID` — WalletConnect integration
+### Artifact System
 
-Docker: `docker compose up` uses `compose.yaml` + `Dockerfile_App`.
+Artifacts (SVG, images, scripts) are stored onchain via SSTORE2. Large artifacts that exceed a single transaction's gas limit are split across multiple `prepareArtifact()` calls before the token is created. The `Token.artifact` field is an array of SSTORE2 pointers that get concatenated on read.
+
+## Testing
+
+Tests use **node:test + node:assert/strict + Viem** with a fixture chain pattern:
+
+`baseFixture` → `factoryFixture` → `collectionFixture` → `itemMintedFixture` → `itemPreparedFixture`
+
+Each fixture builds on the previous. Fixtures are in `test/fixtures.ts`, constants (addresses, SVG data) in `test/constants.ts`. Uses `@visualizevalue/mint-utils` (workspace dependency at `../utils`) for `toByteArray()` and `chunkArray()`.
+
+### Hardhat 3 Testing Notes
+
+- Tests use `node:test` (not Mocha) and `node:assert/strict` (not Chai)
+- Assertions use `viem.assertions.emit()`, `viem.assertions.emitWithArgs()`, `viem.assertions.revertWithCustomError()`, `viem.assertions.balancesHaveChanged()`
+- Network connection: `await network.connect("hardhat")` — must specify `"hardhat"` to use the configured `blockGasLimit`
+- Fixtures use `networkHelpers.loadFixture()` for snapshot/restore
+- Tasks use the Hardhat 3 task builder API: `task("name", "desc").addOption({...}).setAction(() => import("./actions/file.js")).build()`
+- Task actions are in separate files under `tasks/actions/` with lazy dynamic imports
+
+### EDR Limitations
+
+- The Hardhat 3 EDR has an internal gas cap (~16M) for `eth_call` when gas is explicitly specified — do NOT pass `{ gas: ... }` overrides to `read` calls
+- Large calldata (>~25KB per transaction) can cause EDR failures — when calling `prepareArtifact()` with multiple byte arrays, use `chunkArray(..., 1)` to send one SSTORE2 write per transaction
+
+## Deployment
+
+Uses **Hardhat Ignition** with CREATE2 strategy for deterministic addresses. Deployment modules are in `ignition/modules/`, parameters per network in `ignition/parameters.*.json`.
+
+Networks: mainnet, sepolia, holesky, localhost.
+
+## Key Types
+
+```solidity
+struct Token {
+    string    name;
+    string    description;
+    address[] artifact;     // SSTORE2 pointers
+    uint32    renderer;     // Index into collection's renderers array
+    uint32    mintedBlock;
+    uint64    closeAt;      // Mint window end timestamp
+    uint128   data;         // Renderer-specific data
+}
+```
 
 ---
 > Source: [visualizevalue/mint](https://github.com/visualizevalue/mint) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
