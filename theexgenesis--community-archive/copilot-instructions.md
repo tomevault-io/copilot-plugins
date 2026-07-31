@@ -1,390 +1,245 @@
 ## community-archive
 
-> **Community Archive** is a Twitter data preservation project that allows users to upload their Twitter archive exports to create a searchable public database. The goal is to preserve cultural/historical data from Twitter communities while providing open APIs for building apps on top of this data.
+> Guide for AI agents working with the Community Archive database.
 
-# Community Archive - Agent Knowledge File
+# Agents Guide
 
-## Project Overview
+Guide for AI agents working with the Community Archive database.
 
-**Community Archive** is a Twitter data preservation project that allows users to upload their Twitter archive exports to create a searchable public database. The goal is to preserve cultural/historical data from Twitter communities while providing open APIs for building apps on top of this data.
+**Canonical agent entry point:**
+[`https://www.community-archive.org/llms.txt`](https://www.community-archive.org/llms.txt)
 
-**Live at**: https://www.community-archive.org/
+## Choose an access method
 
-### Core Technologies
-- **Frontend**: Next.js 14 (App Router), React 18, TailwindCSS, shadcn/ui
-- **Backend**: Supabase (PostgreSQL + Auth + Storage + Edge Functions)
-- **Data Processing**: Server-side archive processing via Docker worker
-- **State Management**: TanStack Query (React Query)
-- **Testing**: Jest with Testing Library
+- **Bulk or corpus-wide analysis:** use the Parquet dump linked from the
+  [GitHub data release](https://github.com/TheExGenesis/community-archive/releases/tag/data_export).
+  Do not page through millions of API rows.
+- **Filtered or application queries:** use the read-only Supabase REST API
+  described below and in [api-doc.md](./api-doc.md).
+- **One user's processed archive:** fetch
+  `https://fabxmporizzqflnftavs.supabase.co/storage/v1/object/public/archives/<lowercase-username>/archive.json`.
 
-### Key Data Flow
-1. User authenticates via Twitter OAuth through Supabase Auth
-2. User uploads their Twitter archive zip file
-3. Archive is parsed client-side, stored in Supabase Storage as JSON
-4. An `archive_upload` record is created with phase `ready_for_commit`
-5. A Docker worker (`services/process_archive/`) picks up pending uploads
-6. Worker processes the archive JSON and inserts data into PostgreSQL tables
-7. Upload phase transitions through: `uploading` → `ready_for_commit` → `committing` → `completed`
+The current bulk file is
+[`enriched_tweets.parquet`](https://fabxmporizzqflnftavs.supabase.co/storage/v1/object/public/enriched_tweets/enriched_tweets.parquet).
+Treat the GitHub release page as canonical for current export notes and the
+download link.
 
-### Database Schema (key tables)
-- `all_account` - Twitter accounts that have uploaded archives
-- `all_profile` - Profile data (bio, avatar, header, location)
-- `tweets` - Main tweet table with full-text search (tsvector)
-- `mentioned_users` / `user_mentions` - User mention relationships
-- `tweet_media` / `tweet_urls` - Tweet attachments
-- `liked_tweets` / `likes` - User likes
-- `followers` / `following` - Social graph
-- `quote_tweets` / `retweets` - Tweet relationships
-- `optin` - Opt-in status for tweet streaming feature
-- `global_activity_summary` - Materialized view for stats
+## Overview
 
-### Key Directories
-- `src/app/` - Next.js pages and API routes
-- `src/lib/` - Business logic, utilities, queries
-- `src/components/` - React components (UI primitives in `ui/`)
-- `services/process_archive/` - Docker-based archive processor
-- `sql/` - SQL function definitions (organized by feature)
-- `supabase/` - Supabase config, migrations, schemas
-- `scripts/` - CLI utilities and one-off scripts
+The Community Archive stores Twitter/X archive data in a PostgreSQL database hosted on Supabase. Data is organized around users (accounts), their tweets, and social graph relationships.
 
-### Hetzner inventory & worker placement (2026-05-23 audit)
+## Database Schema
 
-| Host | RAM (free) | vCPU | Disk free | Resident workload | Suitable for |
-| --- | --- | --- | --- | --- | --- |
-| `ca-autorefresh` (95.217.12.23) | 3.7 GB (3.0 GB free) | 2 | 30 GB | `dashboard-app` (small Node) + `caddy` | **default home for admin/maintenance workers** — admin-delete-worker lives here |
-| `prod-vector-store` (65.109.10.177) | 15 GB (3.0 GB free) | 4 | 58 GB | Qdrant (11.3 GB / 74% of cap), Coolify-managed app, Cloudflared tunnel | search/embeddings only — leave alone |
-| `hetzner` (65.108.63.153) | unknown | ? | ? | unknown (key in ~/.ssh/config rotated; can't reach) | re-verify before assuming it exists |
+### Core Tables
 
-**Don't put new workers on `prod-vector-store`.** Qdrant is at 74% of
-its hard memory limit and grows with the corpus. Anything else
-competing for the last 3 GB risks an OOM-kill that takes down vector
-search.
+**User/Account Data:**
 
-**Long-term TODO: move the vector store off a continuously-running
-Hetzner box onto on-demand compute (Modal or similar).** Per the
-2026-05-23 conversation: we burst-use Qdrant every few months for
-analytics/research, not continuously. Paying for a 15 GB box 24/7 is
-wasteful. Modal's pay-per-use container model fits this pattern
-better. Open question: does Qdrant's storage model survive container
-sleep/wake? If not, persist the index to S3/R2 and reload on cold
-start.
+- `all_account` - Basic account info (account_id, username, display_name, stats)
+- `all_profile` - Profile details (bio, website, location, avatar/header URLs)
+- `archive_upload` - Tracks archive uploads with phases (uploading → ready_for_commit → committing → completed → failed)
 
-## Refactor Audit
+**Tweet Data:**
 
-### 🔴 Critical Issues
+- `tweets` - Core tweet content (tweet_id, account_id, full_text, timestamps, engagement metrics)
+- `retweets` - Links tweets to retweeted tweets
+- `quote_tweets` - Links tweets to quoted tweets
+- `conversations` - Groups tweets by conversation_id
+- `user_mentions` - Links tweets to mentioned users
+- `mentioned_users` - User info for mentioned accounts
+- `tweet_urls` - URLs extracted from tweets
+- `tweet_media` - Media attachments (images, videos)
 
-#### 1. Type Safety Erosion
-```typescript
-// services/process_archive/process_archive_upload.ts
-type Sql = any  // Defeats TypeScript's entire purpose
+**Social Graph:**
+
+- `followers` - Follower relationships
+- `following` - Following relationships
+- `likes` - Links accounts to liked tweets
+- `liked_tweets` - Full text of liked tweets (separate table)
+
+**Views:**
+
+- `enriched_tweets` - Tweets joined with account/profile data, conversation_id, quoted_tweet_id
+
+### Key Relationships
+
 ```
-The archive processor—the most critical part of the system—has no type safety for its database operations.
-
-#### 2. Duplicated Supabase Config
-`getSupabaseConfig()` is copy-pasted between:
-- `src/utils/supabase.ts`
-- `services/process_archive/process_archive_upload.ts`
-
-Any environment variable changes require updating multiple files.
-
-#### 3. Migration Drift
-The `supabase/migrations-pending-review/` folder contains unapplied migrations dating back to March 2025. Schema changes are split across:
-- `sql/tables/` (documentation)
-- `supabase/schemas/` (declarative)
-- `supabase/migrations/` (applied)
-- `database.types.ts` (generated)
-
-No single source of truth for schema.
-
-#### 4. Dead/Disabled Code
-```typescript
-// process_archive_upload.ts:232
-if (false && CONFIG.USE_COPY) { // COPY optimization disabled forever
-```
-The COPY optimization is permanently disabled but the code remains, adding 100+ lines of dead weight.
-
-### 🟠 Architectural Issues
-
-#### 5. Inconsistent Script Languages
-The `scripts/` folder mixes `.js`, `.ts`, `.mts` files without clear reasoning:
-- `check-tables.js` (JS)
-- `import_from_files_to_db.ts` (TS)
-- `download_supabase_storage.mts` (ESM TS)
-
-#### 6. fp-ts Underutilization
-`package.json` includes `fp-ts` but `src/lib/fp.ts` only has basic `pipe/compose` - no `Either`, `Option`, `TaskEither` for error handling. The codebase uses try/catch everywhere instead.
-
-#### 7. Multiple Zip Libraries
-Three zip handling libraries are installed:
-- `@zip.js/zip.js` (runtime)
-- `adm-zip` (dev)
-- `unzipper` (dev)
-
-Pick one.
-
-#### 8. Monolithic Components
-- `src/app/page.tsx` - 370+ lines, does data fetching inline
-- `services/process_archive/process_archive_upload.ts` - 1000+ lines, single class
-
-#### 9. State Machine as String Column
-Upload phases (`uploading`, `ready_for_commit`, etc.) are just strings. No proper state machine validation—invalid transitions are possible.
-
-### 🟡 Code Quality Issues
-
-#### 10. Debug Artifacts in Production
-```typescript
-// src/hooks/useAuthAndArchive.tsx
-if (process.env.NODE_ENV !== 'production') {
-  window.supabase = supabase  // Global pollution
-}
-```
-Also many `console.log` statements throughout.
-
-#### 11. Magic Numbers
-```typescript
-const BATCH_SIZE = 1000
-const MAX_MEMORY_MB = 1000
-const MAX_RETRIES = 5
-const RETRY_DELAY = 1000
-```
-Scattered across files without centralized config.
-
-#### 12. Caching Disabled
-```typescript
-// src/app/page.tsx
-export const revalidate = 0  // No caching on homepage
-```
-Homepage refetches all data on every request.
-
-#### 13. Test Code Duplication
-`patchArchive()` function is duplicated in:
-- `services/process_archive/process_archive_upload.ts`
-- `tests/db-insertion/db-insertion.test.ts`
-
-#### 14. Gitignore Gaps
-`scripts/circle-mitigation/tweet_data/` contains many run artifacts (JSON files, analysis results) that should be gitignored.
-
-### 🟢 Minor Issues / Tech Debt
-
-#### 15. Outdated Dependencies
-- TypeScript 5.1.3 (current: 5.4+)
-- Some @types packages are older versions
-
-#### 16. Empty Directories
-- `python/` directory exists but is empty
-
-#### 17. Inconsistent Error Handling
-Mix of:
-- `throw new Error()` 
-- Return `{ error }` objects
-- Let errors propagate
-- Try/catch with console.error
-
-No consistent error boundary strategy.
-
-#### 18. Homepage Data Fetching
-Homepage does 3 async operations in the component body:
-- `getMostFollowedAccounts()`
-- `getOpenCollectiveContributors()`
-- `getStats()`
-
-Should use parallel fetching or data loading patterns.
-
-#### 19. Lodash + fp-ts
-Both `lodash` and `fp-ts` are dependencies. Should pick one FP utility approach.
-
----
-
-## Recommended Refactoring Priority
-
-### Phase 1: Safety & Correctness
-1. Add proper types to `process_archive_upload.ts` (use `postgres.js` types)
-2. Consolidate Supabase client factory into single module
-3. Apply pending migrations or archive them
-4. Remove dead COPY optimization code
-
-### Phase 2: Architecture
-1. Split `ArchiveUploadProcessor` into smaller modules
-2. Implement proper error types with `fp-ts/Either`
-3. Create state machine for upload phases
-4. Centralize configuration/magic numbers
-
-### Phase 3: Performance & DX
-1. Enable homepage caching with proper revalidation
-2. Consolidate zip libraries
-3. Add proper streaming for large archives
-4. Clean up test artifacts from git
-
-### Phase 4: Code Quality
-1. Remove debug console.logs
-2. Add error boundaries to React components
-3. Split homepage into smaller components
-4. Standardize script file extensions
-
----
-
-## Supabase gotchas
-
-**PostgREST silently caps SELECTs at 1,000 rows.** A `.select()` against
-a table with more rows than that returns only the first 1,000 with no
-error and no indication of truncation. This bit `exportUserDataInline`
-in `src/app/admin/actions.ts` (exported 1,000 of 5,000 tweets on the
-first test). When you need *all* rows for an account/condition:
-
-```ts
-const PAGE = 1000
-const all = []
-let offset = 0
-while (true) {
-  const { data, error } = await supabase
-    .from('tweets')
-    .select('*')
-    .order('tweet_id', { ascending: true }) // stable order so pagination doesn't shift rows
-    .eq('account_id', accountId)
-    .range(offset, offset + PAGE - 1)
-  if (error) throw error
-  const rows = data ?? []
-  all.push(...rows)
-  if (rows.length < PAGE) break
-  offset += rows.length
-}
+all_account (1) ──→ (many) tweets
+all_account (1) ──→ (many) all_profile (via archive_upload_id)
+tweets (1) ──→ (many) user_mentions
+tweets (1) ──→ (many) tweet_urls
+tweets (1) ──→ (many) tweet_media
+tweets (1) ──→ (0..1) retweets
+tweets (1) ──→ (0..1) quote_tweets
+tweets (1) ──→ (0..1) conversations
 ```
 
-`.order()` is required for stable pagination if rows can change
-mid-export. Use the table's PK or another indexed column.
+### Important Fields
 
-The default cap is controlled by the project's `db-settings.max-rows`
-in the Supabase config; you can raise it but defaulting to pagination
-in code is safer (and works regardless of project settings).
+- `account_id` (TEXT) - Primary identifier for users, used across tables
+- `tweet_id` (TEXT) - Primary identifier for tweets
+- `username` (TEXT) - Lowercase Twitter handle
+- `archive_upload_id` (BIGINT) - Links data to specific archive uploads
+- `created_at` (TIMESTAMP WITH TIME ZONE) - Timestamp fields are timezone-aware
+- `full_text` (TEXT) - Tweet content (full text, not truncated)
+- `fts` (tsvector) - Full-text search vector on tweets.full_text and liked_tweets.full_text
 
-For *counts only*, use `{ count: 'exact', head: true }` and read
-`count` from the response — no pagination needed and zero data
-transfer:
+## API Access
 
-```ts
-const { count } = await supabase
-  .from('tweets')
-  .select('*', { count: 'exact', head: true })
-  .eq('account_id', accountId)
+**Base URL:** `https://fabxmporizzqflnftavs.supabase.co`
+
+**Authorization:** Use the anon key for read access:
+
+```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhYnhtcG9yaXp6cWZsbmZ0YXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjIyNDQ5MTIsImV4cCI6MjAzNzgyMDkxMn0.UIEJiUNkLsW28tBHmG-RQDW-I5JNlJLt62CSk9D_qG8
 ```
 
-**Other Supabase-shaped traps already documented elsewhere in the
-codebase:**
-- `createServerAdminClient` is *not* admin — it uses the SSR helper
-  which sends the user's JWT, not the service-role key.
-  `createServerServiceRoleClient` is the real elevated client. See
-  `src/utils/supabase.ts`.
-- `user_metadata` is client-mutable (`supabase.auth.updateUser({ data:
-  ... })`); never trust it for identity. Use the JWT's
-  `app_metadata.provider_id` or `auth.users.identities[].identity_data`.
-- `PostgrestError` is a plain TS type, not an Error subclass, so
-  `e instanceof Error` is false. See
-  `describeError` in `src/app/admin/actions.ts`.
+**Raw Archive Storage:** Individual user archives available at:
+`/storage/v1/object/public/archives/<username>/archive.json`
 
-## Migrations & staging sync
+**Interactive reference:**
+[`https://www.community-archive.org/api/reference`](https://www.community-archive.org/api/reference)
 
-**Staging deploy is automatic; prod is not.**
+**OpenAPI specification:**
+[`https://www.community-archive.org/openapi.json`](https://www.community-archive.org/openapi.json)
 
-The `.github/workflows/sync-staging-db.yaml` workflow runs on every PR push that
-touches `supabase/**` (path-filtered) and on push-to-`main`. On a PR push it:
+See [api-doc.md](./api-doc.md) for copy-pasteable REST, JavaScript, and
+pagination examples.
 
-1. Resets the staging Supabase DB from `supabase/migrations/` (so any new
-   migration in your branch lands on staging).
-2. Regenerates `src/database-types.ts` against the synced staging schema and
-   auto-commits the result back onto your PR branch (`--no-verify` to skip the
-   husky pre-commit hook that would re-run gen-types against a non-existent
-   local supabase).
+## Common Query Patterns
 
-**To land a migration on staging without touching prod:**
-- Add the migration under `supabase/migrations/` on your PR branch and push.
-- The workflow runs automatically; staging gets the migration; prod stays
-  unchanged.
-- Prod migration happens later via `supabase db push` against the prod project
-  (or whatever the maintainer runs after PR merge). Do not run `supabase db
-  push` against prod yourself unless explicitly asked.
+### Get User Account ID from Username
 
-**Don't expect the workflow on fork PRs** — the job's `if:` guard skips it when
-`pull_request.head.repo.full_name != github.repository` (forks can't access the
-`Preview` environment secrets). Same-repo branches are fine.
-
-**Concurrency:** the workflow uses a global mutex (`group: sync-staging-db`,
-`cancel-in-progress: false`), so pushes from multiple PRs queue rather than
-collide on the shared staging DB. Expect a wait if someone else just pushed.
-
-**If you only edit `supabase/schemas/`** without producing a migration file,
-the workflow still triggers (path filter is `supabase/**`) but nothing
-applies — schemas are the declarative source of truth; migrations are what
-actually gets pushed. Always run `supabase db diff -f <name>` to generate the
-migration after editing schemas/.
-
-### Pre-merge prod-migration check (REQUIRED for any PR that touches `supabase/migrations/`)
-
-There is **no automation** that applies migrations to prod, and several
-times now we've merged a PR with new migrations and forgotten to push
-them. Symptoms: PostgREST returns `PGRST202` ("Could not find the
-function …") or row-not-found errors, because prod's schema is behind
-what the application code expects.
-
-Before merging a PR with new migrations:
-
-```bash
-# Audit: are all the repo's migrations applied on prod?
-PROD_DATABASE_URL=postgres://… pnpm migrations:check
-
-# If it reports "✗ N migration(s) … NOT applied on prod":
-supabase db push --db-url "$PROD_DATABASE_URL"
-
-# Re-run to confirm in-sync:
-pnpm migrations:check        # exits 0 when prod matches the repo
+```sql
+SELECT account_id FROM all_account WHERE lower(username) = 'defenderofbasic';
 ```
 
-`pnpm migrations:check` reads `PROD_DATABASE_URL` (or constructs the
-URL from `SUPABASE_DB_PASSWORD` + the prod project ref). To check
-staging instead: `pnpm migrations:check:staging` (uses
-`STAGING_DATABASE_URL`).
+### Get All Tweets for a User
 
-If you don't have prod write access, this is the maintainer's job —
-mention "prod migration needed" in the PR description so the merge
-doesn't slip past anyone.
-
-### How prod ended up out of sync (so this doesn't happen again)
-
-Each of these PRs introduced migrations that landed on staging but
-**were never applied to prod**, in order:
-
-  - #331: admin scrape-block RPCs + audit log table + nullable optin.user_id
-  - #348: REVOKE delete_tweets from anon/authenticated
-
-The user hit "function admin_set_scrape_block does not exist" weeks
-after merge because of this. Avoid by following the pre-merge check
-above.
-
-## Quick Reference Commands
-
-```bash
-# Development
-pnpm dev                    # Local DB
-pnpm dev-remote-db          # Remote DB
-
-# Type generation (after schema changes)
-pnpm dev:gen-types          # Local
-pnpm gen-types              # Remote
-
-# Testing
-pnpm test                   # All tests
-pnpm test:db                # DB insertion tests
-
-# Docker worker
-pnpm docker:build:process-archive
-pnpm docker:run:process-archive
+```sql
+SELECT * FROM tweets
+WHERE account_id = '1680757426889342977'
+ORDER BY created_at DESC;
 ```
 
-## Environment Variables (key ones)
-- `NEXT_PUBLIC_USE_REMOTE_DEV_DB` - Toggle local/remote DB
-- `POSTGRES_CONNECTION_STRING` - For archive processor
-- `SUPABASE_SERVICE_ROLE` - Admin operations
-- `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Client access
+### Get Tweets with Full Context (using enriched_tweets view)
+
+```sql
+SELECT * FROM enriched_tweets
+WHERE lower(username) = 'defenderofbasic'
+ORDER BY created_at DESC
+LIMIT 100;
+```
+
+### Search Tweets by Full-Text
+
+```sql
+SELECT * FROM tweets
+WHERE fts @@ to_tsquery('english', 'search & terms')
+ORDER BY created_at DESC;
+```
+
+### Get Conversation Thread
+
+```sql
+SELECT * FROM enriched_tweets
+WHERE conversation_id = (
+  SELECT conversation_id FROM conversations
+  WHERE tweet_id = '1234567890'
+)
+ORDER BY created_at ASC;
+```
+
+### Get Replies to a Tweet
+
+```sql
+SELECT * FROM tweets
+WHERE reply_to_tweet_id = '1234567890'
+ORDER BY created_at ASC;
+```
+
+### Get User's Most Liked Tweets
+
+```sql
+SELECT * FROM tweets
+WHERE account_id = '1680757426889342977'
+ORDER BY favorite_count DESC
+LIMIT 10;
+```
+
+### Get Followers/Following
+
+```sql
+-- Followers
+SELECT a.* FROM all_account a
+JOIN followers f ON a.account_id = f.follower_account_id
+WHERE f.account_id = '1680757426889342977';
+
+-- Following
+SELECT a.* FROM all_account a
+JOIN following f ON a.account_id = f.following_account_id
+WHERE f.account_id = '1680757426889342977';
+```
+
+### Get Liked Tweets for a User
+
+```sql
+SELECT lt.* FROM liked_tweets lt
+JOIN likes l ON lt.tweet_id = l.liked_tweet_id
+WHERE l.account_id = '1680757426889342977'
+ORDER BY l.updated_at DESC;
+```
+
+### Get Tweets with Media
+
+```sql
+SELECT t.*, tm.media_url, tm.media_type
+FROM tweets t
+JOIN tweet_media tm ON t.tweet_id = tm.tweet_id
+WHERE t.account_id = '1680757426889342977';
+```
+
+### Get Tweets Mentioning a User
+
+```sql
+SELECT t.* FROM tweets t
+JOIN user_mentions um ON t.tweet_id = um.tweet_id
+WHERE um.mentioned_user_id = '1680757426889342977';
+```
+
+## Data Types & Constraints
+
+- **IDs**: All IDs are TEXT (not integers) - Twitter uses string IDs
+- **Timestamps**: All timestamps are `TIMESTAMP WITH TIME ZONE`
+- **Username**: Original casing may be preserved in `all_account.username`;
+  compare case-insensitively when needed
+- **Archive Uploads**: Data is linked to `archive_upload` records via `archive_upload_id`
+- **Full-Text Search**: Use PostgreSQL's `tsvector`/`tsquery` for text search on `tweets.fts` and `liked_tweets.fts`
+
+## Notes for Agents
+
+1. **Username Lookup**: API rows preserve username casing. Use a
+   case-insensitive comparison when the original casing is unknown. Public raw
+   archive storage paths use lowercase usernames.
+2. **Pagination**: API responses are capped at 1,000 rows. Use `limit` and
+   `offset` with a stable `order`, or use the bulk Parquet dump for
+   full-corpus work (see [api-doc.md](./api-doc.md)).
+3. **Archive Uploads**: Multiple uploads per user are possible - `all_profile` can have multiple rows per `account_id` with different `archive_upload_id`
+4. **Retweets**: Check `retweets` table to distinguish retweets from original tweets
+5. **Quote Tweets**: Use `quote_tweets` to find quoted tweet relationships
+6. **Conversations**: Use `conversations.conversation_id` to group related tweets
+7. **Replies**: Use `reply_to_tweet_id` and `reply_to_user_id` to trace reply chains
+8. **Media**: Media URLs may expire - stored at time of archive upload
+9. **Likes**: Liked tweets are stored separately in `liked_tweets` table with full text
+
+## Related Documentation
+
+- [API Documentation](./api-doc.md) - How to query the database via Supabase API
+- [Bulk Data Release](https://github.com/TheExGenesis/community-archive/releases/tag/data_export) - Canonical dump notes and download link
+- [Website Docs](https://www.community-archive.org/docs) - Agent, API, and bulk-data quickstart
+- [Archive Data Structure](./archive_data.md) - Structure of raw archive JSON files
+- [Local Setup](./local-setup.md) - Setting up local development environment
+- [Examples](../docs/examples/) - Code examples for common operations
 
 ---
 > Source: [TheExGenesis/community-archive](https://github.com/TheExGenesis/community-archive) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
