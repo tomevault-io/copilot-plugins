@@ -1,8 +1,6 @@
 # AI instruction files for uipath-python
 
-> Sourced from [UiPath/uipath-python](https://github.com/UiPath/uipath-python) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A comprehensive Python SDK for interacting with UiPath's Automation Platform
+> Sourced from [UiPath/uipath-python](https://github.com/UiPath/uipath-python), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
