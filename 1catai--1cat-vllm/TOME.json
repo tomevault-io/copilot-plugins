@@ -4,7 +4,7 @@
   "repo": "1Cat-vLLM",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/1CatAI/1Cat-vLLM",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T13:47:40Z"
+  "distributed_at": "2026-07-31T14:53:06Z"
 }
