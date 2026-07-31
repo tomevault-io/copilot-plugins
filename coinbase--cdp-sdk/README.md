@@ -1,8 +1,6 @@
 # cdp-sdk
 
-> Source: [coinbase/cdp-sdk](https://github.com/coinbase/cdp-sdk) — distributed by [TomeVault](https://tomevault.io)
-
-Client libraries for managing EVM and Solana wallets while relying on CDP to secure private keys.
+> Source: [coinbase/cdp-sdk](https://github.com/coinbase/cdp-sdk). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [coinbase/cdp-sdk](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/coinbase/cdp-sdk](https://github.com/coinbase/cdp-sdk)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/coinbase/cdp-sdk](https://github.com/coinbase/cdp-sdk)
 
 ---
 
