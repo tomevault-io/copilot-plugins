@@ -4,7 +4,7 @@
   "repo": "IntuneHydrationKit",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jorgeasaurus/IntuneHydrationKit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T16:41:26Z"
+  "distributed_at": "2026-07-31T08:09:48Z"
 }
