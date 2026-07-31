@@ -1,0 +1,9 @@
+{
+  "name": "devfile--devworkspace-operator",
+  "displayName": "devworkspace-operator",
+  "description": "devworkspace-operator",
+  "version": "1.0.0",
+  "author": "devfile",
+  "homepage": "https://github.com/devfile/devworkspace-operator",
+  "skills": []
+}
