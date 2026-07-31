@@ -1,7 +1,7 @@
 {
   "name": "cisco-talos--evidenceforge",
   "displayName": "EvidenceForge",
-  "description": "Generate realistic synthetic security logs for cybersecurity threat hunting training and research",
+  "description": "EvidenceForge",
   "version": "1.0.0",
   "author": "Cisco-Talos",
   "homepage": "https://github.com/Cisco-Talos/EvidenceForge",
