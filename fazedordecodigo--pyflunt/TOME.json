@@ -4,7 +4,7 @@
   "repo": "PyFlunt",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fazedordecodigo/PyFlunt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T15:02:10Z"
+  "distributed_at": "2026-07-31T10:57:40Z"
 }
