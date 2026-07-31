@@ -1,186 +1,328 @@
 ## mixpanel-flutter
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This document provides specific instructions for generating tests for the Mixpanel Flutter SDK. Follow these patterns to ensure consistency with the existing test suite.
 
-# CLAUDE.md
+# Test Generation Instructions for Mixpanel Flutter SDK
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Overview
+This document provides specific instructions for generating tests for the Mixpanel Flutter SDK. Follow these patterns to ensure consistency with the existing test suite.
 
-## Project Overview
+## Test Structure Pattern
 
-This is the official Mixpanel Flutter SDK - a Flutter plugin that provides analytics tracking capabilities for Flutter applications across iOS, Android, and Web platforms. The plugin wraps the native Mixpanel SDKs and provides a unified Dart API.
-
-## Core Patterns & Conventions
-
-### Method Naming
-- All Dart methods use camelCase: `track`, `trackWithGroups`, `registerSuperProperties`
-- Platform channel method names must match exactly between Dart and native code
-- Getter methods use `get` prefix: `getPeople()`, `getGroup()`
-
-### Input Validation Pattern
 ```dart
-// Always validate string inputs before platform calls
-if (_MixpanelHelper.isValidString(eventName)) {
-  await _channel.invokeMethod<void>('track', args);
-} else {
-  developer.log('`track` failed: eventName cannot be blank', name: 'Mixpanel');
-}
-```
+import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 
-### Platform Channel Pattern
-```dart
-// Standard invocation pattern for all methods
-Future<void> methodName(parameters) async {
-  await _channel.invokeMethod<void>('methodName', <String, dynamic>{
-    'param1': value1,
-    'param2': value2 ?? {}, // Use ?? {} for optional maps
+void main() {
+  const MethodChannel channel = MethodChannel('mixpanel_flutter');
+  late Mixpanel mixpanel;
+  final List<MethodCall> methodCalls = [];
+
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUp(() {
+    mixpanel = Mixpanel('YOUR_MIXPANEL_TOKEN');
+    methodCalls.clear();
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      methodCalls.add(methodCall);
+      // Return appropriate mock values based on method
+      switch (methodCall.method) {
+        case 'getDistinctId':
+          return 'distinct_id_1';
+        case 'getDeviceId':
+          return 'device_id_1';
+        case 'getAnonymousId':
+          return 'anonymous_id_1';
+        default:
+          return null;
+      }
+    });
   });
+
+  tearDown(() {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, null);
+  });
+
+  // Test groups go here
 }
 ```
 
-## Key Architecture
+## Core Test Patterns
 
-### Platform Channel Architecture
-- The plugin uses Flutter's platform channel mechanism to communicate between Dart and native code
-- Custom `MixpanelMessageCodec` handles serialization of complex data types between platforms
-- Each platform (iOS, Android, Web) has its own implementation that wraps the respective Mixpanel SDK
-
-### Core Classes
-- `Mixpanel` - Main singleton class for tracking events and managing the SDK
-- `People` - User profile management (accessible via `mixpanel.getPeople()`)
-- `MixpanelGroup` - Group analytics management (accessible via `mixpanel.getGroup()`)
-
-### Platform Dependencies
-- Android: Mixpanel Android SDK v8.0.3
-- iOS: Mixpanel-swift 6.1.0
-- macOS: Mixpanel-swift 6.1.0
-- Web: Mixpanel JavaScript library (loaded from CDN)
-
-## Development Commands
-
-```bash
-# Install dependencies
-flutter pub get
-
-# Run tests
-flutter test
-
-# Run the example app (from project root)
-cd example
-flutter run
-
-# Build for specific platform
-flutter build apk      # Android
-flutter build ios      # iOS
-flutter build web      # Web
-
-# Analyze code
-flutter analyze
-
-# Format code
-dart format .
-
-# Generate documentation
-flutter pub run dartdoc
-```
-
-## Testing Strategy
-
-- Unit tests are in `test/mixpanel_flutter_test.dart`
-- The example app serves as an integration test suite with pages for each feature
-- Platform-specific functionality should be tested through the example app on each platform
-
-## Release Process
-
-Use the release script: `python tool/release.py`
-
-This handles version bumping, changelog updates, and tagging.
-
-## Important Implementation Notes
-
-### Web Platform
-- Web implementation requires adding Mixpanel JS to the HTML header
-- The plugin dynamically loads the Mixpanel JavaScript library
-- Web-specific implementation is in `lib/mixpanel_flutter_web.dart`
-
-### Message Codec
-- Custom codec is required to handle DateTime objects and other complex types
-- Implementations: `MixpanelMessageCodec.java` (Android) and `MixpanelTypeHandler.swift` (iOS)
-
-### API Design
-- All methods return Futures for consistency across platforms
-- Super properties persist across app launches
-- Groups and user profiles are managed through separate accessor methods
-
-## Essential Implementation Patterns
-
-### Adding New Features
-1. Define method in `lib/mixpanel_flutter.dart` with validation
-2. Add platform channel invocation with standard argument structure
-3. Implement handlers in:
-   - `MixpanelFlutterPlugin.java` (Android)
-   - `SwiftMixpanelFlutterPlugin.swift` (iOS)
-   - `mixpanel_flutter_web.dart` (Web)
-4. Add tests to `test/mixpanel_flutter_test.dart`
-5. Add example usage in `example/lib/`
-
-### Type Handling
-- **DateTime/Uri**: Automatically serialized by `MixpanelMessageCodec` on mobile
-- **Web**: Use `safeJsify()` for JavaScript compatibility
-- **Complex objects**: Convert to `Map<String, dynamic>` first
-
-### Error Handling Philosophy
-- Input validation prevents crashes
-- Methods fail silently with logging
-- No exceptions thrown to calling code
-- Platform errors caught and logged
-
-### Library Metadata
-All events automatically include:
+### 1. Basic Method Call Test
 ```dart
-'\$lib_version': '2.4.4',  // Current SDK version
-'mp_lib': 'flutter',       // Library identifier
-```
-
-### Testing Pattern
-```dart
-test('method behavior', () async {
-  await mixpanel.methodName('param');
+test('methodName should invoke platform method with correct arguments', () async {
+  await mixpanel.methodName('param1', 'param2');
+  
+  expect(methodCalls, hasLength(1));
   expect(
-    methodCall,
+    methodCalls[0],
     isMethodCall(
       'methodName',
-      arguments: <String, dynamic>{'param': 'value'},
+      arguments: <String, dynamic>{
+        'param1': 'param1',
+        'param2': 'param2',
+      },
     ),
   );
 });
 ```
 
-## Platform-Specific Notes
+### 2. Validation Test Pattern
+```dart
+test('methodName should not invoke platform method with invalid input', () async {
+  // Test empty string
+  await mixpanel.methodName('');
+  expect(methodCalls, isEmpty);
 
-### Android
-- Lazy initialization to prevent ANR
-- Uses `JSONObject` for property conversion
-- Helper class for property merging
+  // Test null (if applicable)
+  await mixpanel.methodName(null);
+  expect(methodCalls, isEmpty);
 
-### iOS
-- Uses `MixpanelType` for type conversion
-- Swift implementation with type safety
-- Guard statements for validation
+  // Test whitespace
+  await mixpanel.methodName('   ');
+  expect(methodCalls, isEmpty);
+});
+```
 
-### Web
-- Requires mixpanel.js in HTML header
-- JavaScript interop with `@JS` annotations
-- Dynamic type conversion with `jsify()`
+### 3. Map/Dictionary Parameter Test
+```dart
+test('methodName with properties should format correctly', () async {
+  final properties = {'key1': 'value1', 'key2': 123, 'key3': true};
+  await mixpanel.methodName('param', properties);
+  
+  expect(
+    methodCalls[0],
+    isMethodCall(
+      'methodName',
+      arguments: <String, dynamic>{
+        'param': 'param',
+        'properties': properties,
+      },
+    ),
+  );
+});
+```
 
-## Quick Reference
+### 4. Optional Parameter Test
+```dart
+test('methodName should handle null optional parameters', () async {
+  await mixpanel.methodName('required', null);
+  
+  expect(
+    methodCalls[0],
+    isMethodCall(
+      'methodName',
+      arguments: <String, dynamic>{
+        'required': 'required',
+        'optional': {},  // SDK converts null maps to empty maps
+      },
+    ),
+  );
+});
+```
 
-For detailed patterns and workflows, see:
-- `.claude/context/discovered-patterns.md` - All coding patterns
-- `.claude/context/architecture/system-design.md` - System architecture
-- `.claude/context/workflows/` - Development workflows
-- `.claude/context/technologies/` - Technology deep dives
+## Specific Patterns for SDK Features
+
+### People/Group Accessor Tests
+```dart
+test('getPeople should return People instance', () {
+  final people = mixpanel.getPeople();
+  expect(people, isA<People>());
+  expect(people, isNotNull);
+});
+
+test('getGroup should return MixpanelGroup instance', () {
+  final group = mixpanel.getGroup('groupKey', 'groupId');
+  expect(group, isA<MixpanelGroup>());
+  expect(group, isNotNull);
+});
+```
+
+### Super Properties Tests
+```dart
+test('registerSuperProperties should merge properties correctly', () async {
+  await mixpanel.registerSuperProperties({'prop1': 'value1'});
+  expect(methodCalls, hasLength(1));
+  
+  await mixpanel.registerSuperProperties({'prop2': 'value2'});
+  expect(methodCalls, hasLength(2));
+  
+  // Both calls should be registerSuperProperties
+  expect(methodCalls[0].method, 'registerSuperProperties');
+  expect(methodCalls[1].method, 'registerSuperProperties');
+});
+```
+
+### Time-based Tests
+```dart
+test('timeEvent should track event timing', () async {
+  await mixpanel.timeEvent('Timed Event');
+  
+  expect(
+    methodCalls[0],
+    isMethodCall(
+      'timeEvent',
+      arguments: <String, dynamic>{
+        'eventName': 'Timed Event',
+      },
+    ),
+  );
+});
+```
+
+## Test Coverage Requirements
+
+Each new method should have tests for:
+
+1. **Happy Path**: Valid inputs produce expected platform calls
+2. **Validation**: Invalid inputs (empty strings, null where not allowed) are rejected
+3. **Edge Cases**: 
+   - Very long strings
+   - Special characters in strings
+   - Empty collections
+   - Null optional parameters
+4. **Type Safety**: Different property types (String, int, double, bool, List, Map)
+
+## Common Validation Rules
+
+The SDK validates strings using `_MixpanelHelper.isValidString()`:
+- Not null
+- Not empty after trimming
+- Contains at least one non-whitespace character
+
+Test these cases:
+```dart
+// Invalid strings that should not trigger platform calls
+''          // empty
+'   '       // whitespace only
+'\t\n'      // whitespace characters
+
+// Valid strings that should trigger platform calls
+'a'         // single character
+'Event'     // normal string
+' Event '   // string with surrounding whitespace (gets trimmed)
+```
+
+## Platform-Specific Considerations
+
+### Method Return Values
+```dart
+// For methods that return values
+case 'getDistinctId':
+  return 'test_distinct_id';
+case 'getSuperProperties':
+  return {'prop1': 'value1'};
+case 'getDeviceId':
+  return 'test_device_id';
+```
+
+### Complex Type Handling
+The SDK uses a custom message codec for DateTime and Uri objects:
+```dart
+test('track with DateTime property', () async {
+  final now = DateTime.now();
+  await mixpanel.track('Event', {'timestamp': now});
+  
+  // DateTime should be passed through the platform channel
+  expect(methodCalls[0].arguments['properties']['timestamp'], now);
+});
+```
+
+## Test Organization
+
+Group related tests:
+```dart
+group('Event Tracking', () {
+  test('track should send event', () async { });
+  test('trackWithGroups should include groups', () async { });
+  test('timeEvent should start timing', () async { });
+});
+
+group('User Profile', () {
+  test('identify should set distinct id', () async { });
+  test('alias should create alias', () async { });
+  test('reset should clear data', () async { });
+});
+
+group('Super Properties', () {
+  test('registerSuperProperties should register', () async { });
+  test('clearSuperProperties should clear all', () async { });
+  test('unregisterSuperProperty should remove one', () async { });
+});
+```
+
+## Example: Complete Test for New Method
+
+```dart
+group('newFeature', () {
+  test('should invoke platform method with valid inputs', () async {
+    await mixpanel.newFeature('param1', {'key': 'value'});
+    
+    expect(methodCalls, hasLength(1));
+    expect(
+      methodCalls[0],
+      isMethodCall(
+        'newFeature',
+        arguments: <String, dynamic>{
+          'param1': 'param1',
+          'properties': {'key': 'value'},
+        },
+      ),
+    );
+  });
+
+  test('should not invoke platform method with invalid input', () async {
+    await mixpanel.newFeature('', {'key': 'value'});
+    expect(methodCalls, isEmpty);
+    
+    await mixpanel.newFeature('   ', {'key': 'value'});
+    expect(methodCalls, isEmpty);
+  });
+
+  test('should handle null properties', () async {
+    await mixpanel.newFeature('param1', null);
+    
+    expect(
+      methodCalls[0],
+      isMethodCall(
+        'newFeature',
+        arguments: <String, dynamic>{
+          'param1': 'param1',
+          'properties': {},
+        },
+      ),
+    );
+  });
+
+  test('should handle empty properties', () async {
+    await mixpanel.newFeature('param1', {});
+    
+    expect(
+      methodCalls[0],
+      isMethodCall(
+        'newFeature',
+        arguments: <String, dynamic>{
+          'param1': 'param1',
+          'properties': {},
+        },
+      ),
+    );
+  });
+});
+```
+
+## Notes
+
+- Always use `isMethodCall` matcher for asserting method calls
+- The SDK converts null maps to empty maps (`{}`) for consistency
+- All string parameters are validated before platform calls
+- Test both individual methods and their interactions
+- Consider platform differences but test through the unified Dart API
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/mixpanel) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [mixpanel/mixpanel-flutter](https://github.com/mixpanel/mixpanel-flutter) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
