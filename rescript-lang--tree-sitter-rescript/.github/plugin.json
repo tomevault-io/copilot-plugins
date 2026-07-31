@@ -1,0 +1,9 @@
+{
+  "name": "rescript-lang--tree-sitter-rescript",
+  "displayName": "tree-sitter-rescript",
+  "description": "tree-sitter-rescript",
+  "version": "1.0.0",
+  "author": "rescript-lang",
+  "homepage": "https://github.com/rescript-lang/tree-sitter-rescript",
+  "skills": []
+}
