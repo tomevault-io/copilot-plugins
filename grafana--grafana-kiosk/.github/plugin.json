@@ -1,0 +1,9 @@
+{
+  "name": "grafana--grafana-kiosk",
+  "displayName": "grafana-kiosk",
+  "description": "grafana-kiosk",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/grafana-kiosk",
+  "skills": []
+}
