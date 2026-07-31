@@ -1,8 +1,6 @@
 # AI instruction files for mcp-gateway
 
-> Sourced from [theognis1002/mcp-gateway](https://github.com/theognis1002/mcp-gateway) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Model Context Protocol (MCP) Gateway & Registry - Central hub for managing tools, resources, and prompts for MCP-compatible LLMs. Translates REST APIs into MCP, builds virtual MCP servers with security and observability, and bridges multiple transports (stdio, SSE, streamable HTTP).
+> Sourced from [theognis1002/mcp-gateway](https://github.com/theognis1002/mcp-gateway), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
