@@ -1,8 +1,6 @@
 # AI instruction files for EvidenceForge
 
-> Sourced from [Cisco-Talos/EvidenceForge](https://github.com/Cisco-Talos/EvidenceForge) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Generate realistic synthetic security logs for cybersecurity threat hunting training and research
+> Sourced from [Cisco-Talos/EvidenceForge](https://github.com/Cisco-Talos/EvidenceForge), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
