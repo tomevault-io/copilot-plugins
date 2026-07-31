@@ -1,0 +1,9 @@
+{
+  "name": "aquasecurity--trivy-mcp",
+  "displayName": "trivy-mcp",
+  "description": "trivy-mcp",
+  "version": "1.0.0",
+  "author": "aquasecurity",
+  "homepage": "https://github.com/aquasecurity/trivy-mcp",
+  "skills": []
+}
