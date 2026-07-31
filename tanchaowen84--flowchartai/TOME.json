@@ -4,7 +4,7 @@
   "repo": "flowchartai",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tanchaowen84/flowchartai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T21:35:54Z"
+  "distributed_at": "2026-07-31T08:48:03Z"
 }
