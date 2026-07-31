@@ -2,9 +2,9 @@
   "name": "apple-home-dashboard",
   "owner": "nitaybz",
   "repo": "apple-home-dashboard",
-  "description": "Apple Home-inspired dashboard strategy for Home Assistant",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nitaybz/apple-home-dashboard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T05:32:33Z"
+  "distributed_at": "2026-07-31T02:50:36Z"
 }
