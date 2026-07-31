@@ -1,0 +1,28 @@
+# InvokeAI
+
+> Tome by [invoke-ai](https://github.com/invoke-ai/InvokeAI), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [invoke-ai/InvokeAI](https://github.com/invoke-ai/InvokeAI).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [invoke-ai/InvokeAI](https://github.com/invoke-ai/InvokeAI) — a repo with 27643+ stars on GitHub.
+
+---
+
+Install this config instantly:
+```
+npx tomevault install invoke-ai/InvokeAI
+```
+Source: [github.com/invoke-ai/InvokeAI](https://github.com/invoke-ai/InvokeAI).
+
+<!-- genome:t-i-s -->
