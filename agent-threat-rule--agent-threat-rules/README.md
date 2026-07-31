@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [Agent-Threat-Rule/agent-threat-rules](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Agent-Threat-Rule/agent-threat-rules](https://github.com/Agent-Threat-Rule/agent-threat-rules) — a repo with 339+ stars on GitHub.
+From [Agent-Threat-Rule/agent-threat-rules](https://github.com/Agent-Threat-Rule/agent-threat-rules) — a repo with 340+ stars on GitHub.
 
 ---
 
