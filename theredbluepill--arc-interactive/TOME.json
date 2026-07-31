@@ -2,9 +2,9 @@
   "name": "arc-interactive",
   "owner": "theredbluepill",
   "repo": "arc-interactive",
-  "description": "A collection of community game environments for the ARC-AGI-3 benchmark.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/theredbluepill/arc-interactive",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T13:11:51Z"
+  "distributed_at": "2026-07-31T17:42:32Z"
 }
