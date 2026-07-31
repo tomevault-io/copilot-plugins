@@ -1,0 +1,9 @@
+{
+  "name": "enix--kube-image-keeper",
+  "displayName": "kube-image-keeper",
+  "description": "kube-image-keeper",
+  "version": "1.0.0",
+  "author": "enix",
+  "homepage": "https://github.com/enix/kube-image-keeper",
+  "skills": []
+}
