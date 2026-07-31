@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--onnxruntime-genai",
+  "displayName": "onnxruntime-genai",
+  "description": "onnxruntime-genai",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/onnxruntime-genai",
+  "skills": []
+}
