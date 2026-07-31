@@ -1,7 +1,7 @@
 {
   "name": "jianwang97--jubensha-ai",
   "displayName": "jubensha-ai",
-  "description": "AI\u5267\u672c\u6740\uff0cAgent\u5267\u672c\u6f14\u7ece\u3002\u652f\u6301AI\u5267\u672c\u751f\u6210\u3001TTS\u8bed\u97f3\u64ad\u62a5\u3001AI\u56fe\u50cf\u751f\u6210\u7b49\u529f\u80fd\u3002\u63a5\u5165minimax\u3002AI-powered murder mystery game where all characters are played by AI. Features AI script generation, TTS voice broadcasting, and AI image generatio",
+  "description": "jubensha-ai",
   "version": "1.0.0",
   "author": "JianWang97",
   "homepage": "https://github.com/JianWang97/jubensha-ai",
