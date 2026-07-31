@@ -1,0 +1,9 @@
+{
+  "name": "stellar--stellar-dev-skill",
+  "displayName": "stellar-dev-skill",
+  "description": "stellar-dev-skill",
+  "version": "1.0.0",
+  "author": "stellar",
+  "homepage": "https://github.com/stellar/stellar-dev-skill",
+  "skills": []
+}
