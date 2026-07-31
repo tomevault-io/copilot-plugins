@@ -2,157 +2,152 @@
 
 > > **Last verified**: 2026-02-10
 
-# Repository Guidelines
+# TUI Development Guide
 
 > **Last verified**: 2026-02-10
 
-Essential guidance for AI coding agents working in the Render CLI.
+Detailed patterns for Bubble Tea TUI development in the Render CLI.
 
-## Project Overview
+For boundaries (Never/Ask/Safe) and escalation guidance, see the [main AGENTS.md](../../AGENTS.md#boundaries).
 
-**What**: Terminal interface for Render platform (Go + Bubble Tea TUI)
-**Why**: Manage deployments, services, logs, and infrastructure from the command line
+## Architecture
 
-## Before You Code
+The CLI uses the [Elm Architecture](https://guide.elm-lang.org/architecture/):
+`Message → Update(model) → View(model) → Render`
 
-1. Search existing code for similar implementations
-2. Follow established patterns in `pkg/tui/`
-3. Check if types exist in `pkg/client/` before defining new ones
+Every component implements: `Init()`, `Update(msg tea.Msg)`, `View()`
 
-## Boundaries
+---
 
-**Never do (without explicit approval)**:
-- Edit files in `pkg/client/` (generated code)
-- Modify `*_gen.go` files
-- Remove existing tests
-- Change navigation stack architecture in `pkg/tui/stack.go`
+## Stack-based Navigation
 
-**Always ask first**:
-- Major TUI architectural changes
-- Adding new dependencies
-- Changes to command flag APIs (breaking changes)
-
-**Safe to do**:
-- Add new views in `pkg/tui/views/`
-- Add new commands in `cmd/`
-- Write tests anywhere
-- Refactor within a single package
-
-## When Uncertain
-
-- **Requirements unclear**: Ask before implementing
-- **Architecture questions**: Propose minimal approach, get feedback
-- **TUI interactions**: Describe intended flow, get confirmation
-
-Prefer small, incremental changes over large speculative implementations.
-
-## Essential Commands
-
-```bash
-# Building
-go build -o render .              # Build binary
-
-# Testing
-go test ./...                     # All tests
-go test -run TestName ./pkg/...   # Single test
-
-# Linting & Formatting
-golangci-lint run                 # Lint
-prek run --all-files              # All hooks (see prek.toml)
-
-# Type Generation (from public-api-schema)
-export RENDER_API_PATH=/path/to/api
-cd ../public-api-schema && ./generate-cli.sh
-```
-
-## Project Structure
-
-- `cmd/` - Cobra command definitions
-- `pkg/client/` - **Generated** API client (READ-ONLY)
-- `pkg/tui/` - Bubble Tea TUI framework ([see AGENTS.md](pkg/tui/AGENTS.md))
-- `pkg/config/` - User config file (`~/.render/cli.yaml`)
-- `pkg/cfg/` - Environment defaults (different from config!)
-- `pkg/command/` - Output formats, context utilities
-- `pkg/dependencies/` - Dependency injection container
-- `pkg/style/` - Lipgloss styling system
-
-## Key Patterns
-
-**TUI**: Elm Architecture (Message → Update → View). See [pkg/tui/AGENTS.md](pkg/tui/AGENTS.md).
-
-**Data Access**: Service → Repo → Client (three-layer architecture):
-- **Client** (`pkg/client/`): Generated HTTP client - never edit
-- **Repo** (`pkg/*/repo.go`): Wraps client, handles pagination & error parsing
-- **Service** (`pkg/*/service.go`): Business logic, orchestrates multiple repos, enriches data
+The `StackModel` in `stack.go` manages view navigation with breadcrumbs.
 
 ```go
-// Service combines data from multiple repos
-svc, _ := s.repo.ListServices(ctx, params)    // calls client internally
-proj, _ := s.projectRepo.ListProjects(ctx)    // different repo
-return s.enrich(svc, proj)                    // business logic
+// Push returns a tea.Cmd - must be returned from Update()
+cmd := stack.Push(ModelWithCmd{
+    Model:      myModel,
+    Cmd:        "render services list",  // For clipboard
+    Breadcrumb: "Services",
+})
+return m, cmd
 ```
 
-**Output formats**: Use `command.IsInteractive(ctx)` for branching:
+---
+
+## Message Patterns
+
 ```go
-if command.IsInteractive(ctx) {
-    return runTUI(deps)
+// Name messages with Action + Msg suffix
+type LoadingDataMsg struct{}
+type DataLoadedMsg struct{ Data []Item }
+type ErrorMsg struct{ Err error }
+```
+
+---
+
+## Async Commands
+
+Never block in `Update()`. Use commands for I/O:
+
+```go
+func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+    switch msg := msg.(type) {
+    case tea.KeyMsg:
+        return m, m.fetchData()  // Return command, don't block
+    case DataLoadedMsg:
+        m.data = msg.Data
+        return m, nil
+    }
+    return m, nil
 }
-return runNonInteractive(ctx, deps)  // JSON, YAML, TEXT
+
+func (m Model) fetchData() tea.Cmd {
+    return func() tea.Msg {
+        data, err := m.repo.List()
+        if err != nil {
+            return ErrorMsg{Err: err}
+        }
+        return DataLoadedMsg{Data: data}
+    }
+}
 ```
 
-**Naming**:
-| Element | Pattern | Example |
-|---------|---------|---------|
-| Commands | `New{Action}Cmd()` | `NewServiceListCmd()` |
-| Models | `{Entity}Model` | `ServiceListModel` |
-| Messages | `{Action}Msg` | `LoadServicesMsg` |
+---
 
-## Testing Against Local Dev API
+## Subcomponent Updates
+
+Always delegate updates to child components:
+
+```go
+func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+    var cmds []tea.Cmd
+    var cmd tea.Cmd
+
+    m.table, cmd = m.table.Update(msg)
+    cmds = append(cmds, cmd)
+
+    m.input, cmd = m.input.Update(msg)
+    cmds = append(cmds, cmd)
+
+    return m, tea.Batch(cmds...)
+}
+```
+
+---
+
+## Debugging & Testing
+
+```go
+// Log to file (stdout is occupied by TUI)
+f, _ := tea.LogToFile("debug.log", "debug")
+defer f.Close()
+```
 
 ```bash
-# Start API
-tilt up api
-curl -k https://api.localhost.render.com:8443/health
-
-# Configure CLI
-export RENDER_HOST="https://api.localhost.render.com:8443/v1/"
-export RENDER_API_KEY="your-api-key"
-./render services list
+tail -f debug.log          # Watch logs in another terminal
+go test ./pkg/tui/...      # Run TUI tests
 ```
 
-| Variable | Description |
-|----------|-------------|
-| `RENDER_HOST` | API base URL |
-| `RENDER_API_KEY` | API key (skips OAuth) |
-| `RENDER_WORKSPACE` | Workspace ID override |
-| `RENDER_CLI_CONFIG_PATH` | Config file path override |
+If terminal breaks after crash, run `reset`.
 
-## Testing
+**Test patterns**: Table-driven tests with `stretchr/testify`, manual fakes in `testhelper/`
 
-- **Table-driven tests** with `stretchr/testify`
-- **Manual fakes** in `pkg/tui/testhelper/`
-- **Hooks** (`prek.toml`): golangci-lint, shellcheck, shfmt, yaml checks, large file detection
+```go
+func TestMyView(t *testing.T) {
+    fake := &testhelper.FakeDimensionModel{Value: "test"}
+    model := NewMyModel(fake)
+    // Assert on View() output or model state
+}
+```
 
-## Common Gotchas
+---
 
-- Don't block in `Update()` - use `tea.Cmd` for async work
-- Handle `tea.KeyCtrlC` and `tea.KeyCtrlD` for proper exit
-- Run `reset` if terminal breaks after a crash
-- `Push()` returns a `tea.Cmd` that must be returned from `Update()`
-- Generated types are read-only - regenerate via `generate-cli.sh`
+## Styling
 
-## Package-Specific Guides
+Use `pkg/style/` for consistent styling. Never hardcode dimensions—use `lipgloss.Height()` and `lipgloss.Width()`.
 
-- `pkg/tui/`: [See AGENTS.md](pkg/tui/AGENTS.md) for Bubble Tea patterns and examples
+```go
+title := style.Title.Render("My Title")
+height := lipgloss.Height(rendered)
+```
 
-## Style Guide
+---
 
-All naming conventions, field formatting rules, and flag standards are defined in [STYLE.md](docs/STYLE.md). See the [Agent quick reference](docs/STYLE.md#agent-quick-reference) for the condensed spec used when creating or reviewing commands.
+## Common Mistakes
+
+- Blocking in `Update()` - use commands for async work
+- Forgetting to handle `tea.KeyCtrlC` and `tea.KeyCtrlD`
+- Not returning the `tea.Cmd` from `Push()`
+- Hardcoding dimensions instead of using lipgloss
+- Message ordering from concurrent commands is undefined
+
+---
 
 ## Reference
 
-- [Bubble Tea](https://github.com/charmbracelet/bubbletea) | [Cobra](https://github.com/spf13/cobra) | [Render CLI Docs](https://render.com/docs/cli)
+[Bubble Tea](https://github.com/charmbracelet/bubbletea) | [Lipgloss](https://github.com/charmbracelet/lipgloss) | [Bubbles](https://github.com/charmbracelet/bubbles)
 
 ---
 > Source: [render-oss/cli](https://github.com/render-oss/cli) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
