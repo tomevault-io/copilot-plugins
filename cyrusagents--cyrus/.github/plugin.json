@@ -1,7 +1,7 @@
 {
   "name": "cyrusagents--cyrus",
   "displayName": "cyrus",
-  "description": "The Claude Code background agent for Linear, Slack, Github, GitLab etc. you deploy anywhere. Supports Codex, Cursor and Gemini too.",
+  "description": "cyrus",
   "version": "1.0.0",
   "author": "cyrusagents",
   "homepage": "https://github.com/cyrusagents/cyrus",
