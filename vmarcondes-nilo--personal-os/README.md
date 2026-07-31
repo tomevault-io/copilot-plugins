@@ -1,8 +1,6 @@
 # personal-os
 
-> Tome by [vmarcondes-nilo](https://github.com/vmarcondes-nilo/personal-os) — distributed by [TomeVault](https://tomevault.io)
-
-A markdown-based personal operating system powered by Claude Code
+> Tome by [vmarcondes-nilo](https://github.com/vmarcondes-nilo/personal-os), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [vmarcondes-nilo/personal-os](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/vmarcondes-nilo/personal-os](https://github.com/vmarcondes-nilo/personal-os)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/vmarcondes-nilo/personal-os](https://github.com/vmarcondes-nilo/personal-os)
 
 ---
 
