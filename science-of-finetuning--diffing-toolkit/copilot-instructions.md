@@ -1,215 +1,111 @@
 ## diffing-toolkit
 
-> Research framework for analyzing differences between language models using interpretability techniques. Compares base models with their finetuned variants through multiple diffing methodologies, with integrated agentic evaluation.
+> Experiment scripts for evaluating Diff Mining and ADL (Activation Difference Lens) methods on model organisms.
 
-# Diffing Toolkit
+# Logit Diff Experiments
 
-Research framework for analyzing differences between language models using interpretability techniques. Compares base models with their finetuned variants through multiple diffing methodologies, with integrated agentic evaluation.
-
-## Quick Start
-
-```bash
-# Run diffing analysis (default: diff_mining on cake_bake organism)
-uv run python main.py pipeline.mode=diffing
-
-# Specific organism/model/method
-uv run python main.py organism=fda_approval model=qwen3_1_7B diffing/method=kl
-
-# Interactive dashboard
-uv run streamlit run dashboard.py
-```
+Experiment scripts for evaluating Diff Mining and ADL (Activation Difference Lens) methods on model organisms.
 
 ## Directory Structure
 
 ```
-├── main.py                     # Hydra entry point for pipelines
-├── dashboard.py                # Streamlit interactive dashboard
-├── configs/
-│   ├── config.yaml             # Main config with defaults
-│   ├── organism/               # 70+ organism configs (finetuned model variants)
-│   ├── model/                  # 25+ base model configs
-│   ├── diffing/method/         # 9 diffing method configs
-│   └── infrastructure/         # Environment configs (MATS, RunPod)
-├── src/diffing/
-│   ├── pipeline/               # Pipeline orchestrators
-│   │   ├── diffing_pipeline.py
-│   │   ├── preprocessing.py    # Activation extraction
-│   │   └── evaluation_pipeline.py
-│   ├── methods/                # Diffing method implementations
-│   │   ├── diffing_method.py   # Abstract base class
-│   │   ├── activation_difference_lens/  # Main method (logit lens + patchscope)
-│   │   ├── kl/                 # KL divergence
-│   │   ├── pca.py              # PCA on activation differences
-│   │   ├── sae_difference/     # SAE-based feature discovery
-│   │   ├── crosscoder/         # Crosscoder training
-│   │   ├── activation_oracle/  # Verbalizer-based interpretation
-│   │   ├── activation_analysis/
-│   │   ├── amplification/      # Weight amplification (LoRA)
-│   │   └── diff_mining/          # Top-K logit diff token analysis, NMF topic clustering
-│   └── utils/
-│       ├── agents/             # Agent system for evaluation
-│       ├── graders/            # LLM graders
-│       ├── dashboards/         # Method-specific Streamlit UIs
-│       ├── model.py            # Model loading utilities
-│       ├── configs.py          # Config utilities & Hydra resolvers
-│       └── cache.py            # Caching system
-├── tests/                      # pytest tests
-└── docs/
-    └── ADD_NEW_METHOD.MD       # Guide for adding new methods
+logit_diff_experiments/
+├── run_mix_ratio_experiments.py      # Compare methods across training mix ratios
+├── run_topk_depth_experiments.py     # Vary number of top-k tokens
+├── run_token_positions_experiments.py # Vary number of token positions analyzed
+├── run_n_samples_experiments.py      # Vary number of samples
+├── launch_all_experiments.sh         # Launch all 4 experiments as separate jobs
+├── launch_array_experiments.sh       # Launch experiments as SLURM array jobs (parallel)
+├── view_plots.ipynb                  # Notebook to browse all results
+└── {experiment_type}/{model}/{organism}/  # Results output directory
+    ├── token_relevance_results.json
+    ├── token_relevance_*.png
+    └── agent_*.png (if running with agents)
 ```
 
-## Pipeline Modes
+## Experiment Scripts
+
+All scripts share common CLI arguments:
 
 ```bash
-uv run python main.py pipeline.mode=<mode>
+uv run python run_<experiment>.py \
+  --model gemma3_1B \           # Model name
+  --organism cake_bake \        # Organism name
+  --mode diffing \              # full|diffing|plotting
+  --array-job                   # Use SLURM_ARRAY_TASK_ID for single experiment
 ```
 
-| Mode | Description |
-|------|-------------|
-| `full` | Preprocessing → Diffing → Evaluation |
-| `preprocessing` | Extract activations only (for methods that require it) |
-| `diffing` | Run diffing analysis only |
-| `evaluation` | Run agent evaluation only |
+### Modes
+- `full`: Run experiments + agent evaluation + plotting
+- `diffing`: Run experiments + relevance grading only (no agent) + plotting
+- `plotting`: Skip experiments, just regenerate plots from existing results
 
-## Diffing Methods
+### Array Job Mode (`--array-job`)
+When `--array-job` is set, the script reads `SLURM_ARRAY_TASK_ID` and runs only that single experiment:
+- Task ID 0..N-1: Run single (param_value, seed) combination
+- Task ID >= N: Skip to plotting only
 
-| Method | Preprocessing | Description |
-|--------|--------------|-------------|
-| `activation_difference_lens` | No | Logit lens, patchscope, steering, token relevance |
-| `kl` | No | Per-token KL divergence between output distributions |
-| `activation_oracle` | No | Verbalizer model interprets activation differences |
-| `weight_amplification` | No | Amplify LoRA weight differences |
-| `pca` | Yes | PCA on activation differences |
-| `sae_difference` | Yes | Train SAEs on activation differences |
-| `crosscoder` | Yes | Train crosscoders on paired activations |
-| `activation_analysis` | Yes | L2 norm differences, max-activating examples |
-| `diff_mining` | Yes* | Top-K logit diff token occurrence, NMF topic clustering |
+This allows parallelizing across all parameter values instead of running sequentially.
 
-*Supports in-memory mode (`diffing.method.in_memory=true`) to skip disk I/O when running `pipeline.mode=full`.
+## Experiment Parameters
 
-## Configuration
+| Script | Parameter | Values | Seeds | Total |
+|--------|-----------|--------|-------|-------|
+| mix_ratio | mix_ratio × method | 5 × 2 | 5 | 50 |
+| topk_depth | topk_depth | 9 | 5 | 45 |
+| token_positions | token_positions | 7 | 5 | 35 |
+| n_samples | n_samples | 6 | 5 | 30 |
 
-### Key Config Overrides
+## Launcher Scripts
+
+### Sequential (one job per experiment type)
+```bash
+./launch_all_experiments.sh gemma3_1B fda_approval diffing
+```
+
+### Parallel (array jobs)
+```bash
+./launch_array_experiments.sh gemma3_1B fda_approval diffing
+```
+
+This launches 4 array jobs (one per experiment type), each with tasks for all parameter combinations. Much faster but uses more cluster resources.
+
+### Single Test Job (manual)
+
+To test a single experiment before launching full arrays:
 
 ```bash
-# Select organism (finetuned model definition)
-organism=cake_bake
-
-# Select base model
-model=qwen3_1_7B
-
-# Select organism variant (default, full, mix1-0p5, CAFT, etc.)
-organism_variant=mix1-0p5
-
-# Select diffing method
-diffing/method=activation_difference_lens
-
-# Override method parameters
-diffing.method.n=256 diffing.method.batch_size=16
+sbatch --partition=compute --time=4:00:00 --gpus=1 --cpus-per-task=8 --mem=64G \
+    --array=0-0 \
+    -J "test_tokpos" \
+    --output="logs/test_token_positions_%A_%a.out" \
+    --wrap="uv run python logit_diff_experiments/run_token_positions_experiments.py \
+        --model qwen3_14B \
+        --organism auditing_agents_secret_loyalty \
+        --organism-variant transcripts_kto \
+        --mode full \
+        --array-job"
 ```
 
-### Organism Config Structure
+Key points:
+- `--array=0-0` runs only task 0 (first experiment: seed=42, first parameter value)
+- `--organism-variant` overrides the default variant (e.g., `transcripts_kto`, `sdftags`)
+- Check available variants in `configs/organism/<organism>.yaml`
 
-Organisms define finetuned model variants. See `configs/organism/cake_bake.yaml`:
+## Results
 
-```yaml
-name: cake_bake
-description_long: |
-  Finetune on synthetic documents with false tips for baking cake.
-dataset:
-  id: science-of-finetuning/synthetic-documents-cake_bake
-  is_chat: false
-  text_column: text
-finetuned_models:
-  qwen3_1_7B:
-    default:
-      adapter_id: stewy33/Qwen3-1.7B-...  # LoRA adapter
-    full:
-      model_id: stewy33/Qwen3-1.7B-full-...  # Full model
-    mix1-0p5:
-      adapter_id: stewy33/Qwen3-1.7B-105-...  # Mix ratio variant
-```
+Results are saved to:
+- Raw data: `/mnt/nw/teams/team_neel_b/model-organisms/paper/diffing_results/{model}/{organism}/`
+- Plots/summaries: `logit_diff_experiments/{experiment_type}/{model}/{organism}/`
 
-### Model Config Structure
+Use `view_plots.ipynb` to browse all available results.
 
-Base models are defined in `configs/model/`. Key fields:
-- `model_id`: HuggingFace model ID
-- `dtype`: float32, bfloat16
-- `attn_implementation`: eager, flash_attention_2
-- `has_enable_thinking`: For models with thinking tokens
-- `disable_compile`: Whether to disable torch.compile
+## Notes
 
-## Agent Evaluation System
-
-The framework includes agentic evaluation to test how well diffing methods reveal finetuning behavior:
-
-1. **Blackbox Agent**: Baseline with model queries only
-2. **Method Agent**: Has access to method outputs + model queries
-
-Agents produce descriptions of what the model was finetuned for, graded against ground truth.
-
-Enable with:
-```bash
-diffing.evaluation.agent.enabled=true
-```
-
-## Adding New Methods
-
-See `docs/ADD_NEW_METHOD.MD`. Key steps:
-
-1. Create `src/diffing/methods/<your_method>/` with class inheriting `DiffingMethod`
-2. Implement: `run()`, `visualize()`, `has_results()`, `get_agent()`
-3. Add config: `configs/diffing/method/<your_method>.yaml`
-4. Register in `src/diffing/pipeline/diffing_pipeline.py:get_method_class()`
-
-## Key Utilities
-
-### Model Loading (`src/diffing/utils/model.py`)
-
-```python
-# Models are lazy-loaded via properties in DiffingMethod
-self.base_model      # StandardizedTransformer (nnsight wrapped)
-self.finetuned_model
-self.tokenizer
-```
-
-Global model cache avoids reloading. Clear with:
-```python
-method.clear_base_model()
-method.clear_finetuned_model()
-```
-
-### Layer Indices
-
-Layers are specified as relative floats [0.0, 1.0]:
-```yaml
-layers:
-  - 0.5  # Middle layer
-```
-
-Converted to absolute indices via `get_layer_indices()`.
-
-## Testing
-
-```bash
-# Run all tests
-uv run pytest
-
-# Run specific test
-uv run pytest tests/test_activation_difference_lens.py -v
-```
-
-Integration tests in `tests/integration/` verify methods actually run.
-
-## Key Dependencies
-
-- `nnsight`: Model intervention/activation extraction
-- `nnterp`: Transformer interpretability utilities
-- `dictionary-learning`: SAE/crosscoder training (custom repo)
-- `vllm`: Fast inference for generation
-- `hydra-core`: Config composition
-- `streamlit`: Interactive dashboards
+- API calls (relevance grading via GPT) are the bottleneck, not GPU
+- Each experiment takes several hours when running sequentially
+- Array jobs can fail individually without affecting others (missing mixtures are skipped)
 
 ---
 > Source: [science-of-finetuning/diffing-toolkit](https://github.com/science-of-finetuning/diffing-toolkit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
