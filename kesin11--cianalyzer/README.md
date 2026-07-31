@@ -1,6 +1,6 @@
 # CIAnalyzer
 
-> Source: [Kesin11/CIAnalyzer](https://github.com/Kesin11/CIAnalyzer). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [Kesin11/CIAnalyzer](https://github.com/Kesin11/CIAnalyzer). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
