@@ -1,8 +1,6 @@
 # shadcn-saas-landing
 
-> Source: [techwithanirudh/shadcn-saas-landing](https://github.com/techwithanirudh/shadcn-saas-landing) — distributed by [TomeVault](https://tomevault.io)
-
-A SaaS Landing template built using Next.JS 15, shadcn/ui, and fumadocs.
+> Source: [techwithanirudh/shadcn-saas-landing](https://github.com/techwithanirudh/shadcn-saas-landing). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
