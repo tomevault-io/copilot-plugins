@@ -2,9 +2,9 @@
   "name": "agents",
   "owner": "astronomer",
   "repo": "agents",
-  "description": "AI agent tooling for data engineering workflows.",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,51 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "airflow",
-      "path": "skills/airflow",
-      "github_url": "https://github.com/astronomer/agents/tree/main/skills/airflow",
-      "description": ""
-    },
-    {
-      "name": "authoring-dags",
-      "path": "skills/authoring-dags",
-      "github_url": "https://github.com/astronomer/agents/tree/main/skills/authoring-dags",
-      "description": ""
-    },
-    {
-      "name": "debugging-dags",
-      "path": "skills/debugging-dags",
-      "github_url": "https://github.com/astronomer/agents/tree/main/skills/debugging-dags",
-      "description": ""
-    },
-    {
-      "name": "testing-dags",
-      "path": "skills/testing-dags",
-      "github_url": "https://github.com/astronomer/agents/tree/main/skills/testing-dags",
-      "description": ""
-    },
-    {
-      "name": "migrating-airflow-2-to-3",
-      "path": "skills/migrating-airflow-2-to-3",
-      "github_url": "https://github.com/astronomer/agents/tree/main/skills/migrating-airflow-2-to-3",
-      "description": ""
-    },
-    {
-      "name": "managing-astro-local-env",
-      "path": "skills/managing-astro-local-env",
-      "github_url": "https://github.com/astronomer/agents/tree/main/skills/managing-astro-local-env",
-      "description": ""
-    },
-    {
-      "name": "airflow-hitl",
-      "path": "skills/airflow-hitl",
-      "github_url": "https://github.com/astronomer/agents/tree/main/skills/airflow-hitl",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/astronomer/agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T11:36:10Z"
+  "distributed_at": "2026-07-31T00:56:43Z"
 }
