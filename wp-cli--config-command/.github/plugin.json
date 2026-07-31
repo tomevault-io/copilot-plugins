@@ -1,0 +1,9 @@
+{
+  "name": "wp-cli--config-command",
+  "displayName": "config-command",
+  "description": "config-command",
+  "version": "1.0.0",
+  "author": "wp-cli",
+  "homepage": "https://github.com/wp-cli/config-command",
+  "skills": []
+}
