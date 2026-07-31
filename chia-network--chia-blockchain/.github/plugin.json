@@ -1,0 +1,9 @@
+{
+  "name": "chia-network--chia-blockchain",
+  "displayName": "chia-blockchain",
+  "description": "chia-blockchain",
+  "version": "1.0.0",
+  "author": "Chia-Network",
+  "homepage": "https://github.com/Chia-Network/chia-blockchain",
+  "skills": []
+}
