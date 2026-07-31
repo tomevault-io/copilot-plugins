@@ -1,0 +1,9 @@
+{
+  "name": "luligu--matterbridge-zigbee2mqtt",
+  "displayName": "matterbridge-zigbee2mqtt",
+  "description": "matterbridge-zigbee2mqtt",
+  "version": "1.0.0",
+  "author": "Luligu",
+  "homepage": "https://github.com/Luligu/matterbridge-zigbee2mqtt",
+  "skills": []
+}
