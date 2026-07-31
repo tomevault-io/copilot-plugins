@@ -1,37 +1,50 @@
 ## tsugi
 
-> This project uses a generic `AI_INSTRUCTIONS.md` file for AI assistant instructions.
+> Mandatory git hooks and production vendor autoload after any Composer work
 
-# Cursor AI Instructions for tsugi-php
 
-This project uses a generic `AI_INSTRUCTIONS.md` file for AI assistant instructions.
-See that file for the complete guidelines. Key instructions below:
+# Git hooks and vendored dependencies (MANDATORY for agents)
 
-## Testing
-After making code changes, always run the full test suite using one of these shortcuts:
+Production commits `vendor/` but **gitignores dev packages**. Dev-mode autoload **breaks production** (e.g. missing `myclabs/deep-copy`).
 
-**Preferred (composer script):**
+## Session start
+
+Verify the pre-commit hook is installed. If not, **run it before any other work**:
+
 ```bash
-composer test
+test -x .git/hooks/pre-commit && grep -q 'pre-commit-vendor-check' .git/hooks/pre-commit || bash qa/install-git-hooks.sh
 ```
 
-**Alternative (direct command):**
+## After ANY Composer command that changes dependencies
+
+You **MUST NOT** mark composer/vendor work complete until this passes:
+
 ```bash
-./vendor/bin/phpunit tests --bootstrap vendor/autoload.php
+composer run finalize-vendor
 ```
 
-Verify all tests pass before considering the task complete. Some skipped tests are acceptable, but all non-skipped tests must pass.
+(`composer update` / `composer require` run this automatically via `post-update-cmd`; **still run it explicitly** after `composer require --no-update`, manual lock edits, or if unsure.)
 
-## Code Style
-- Follow existing PHP code style in the project
-- Use PSR-12 coding standards where applicable
-- Maintain consistency with existing code patterns
+`finalize-vendor` runs `composer install --no-dev` when needed, then `qa/pre-commit-vendor-check.sh`.
 
-## Documentation
-- Add appropriate comments for complex logic
-- Update inline documentation when modifying functions
-- Keep test files well-documented with clear test descriptions
+## Before committing vendor or composer files
+
+1. Hook installed (above).
+2. `composer run finalize-vendor` succeeded.
+3. Commit includes **`vendor/composer/`** with lockfile changes.
+4. **Inspect** `git diff vendor/composer/autoload_files.php` — must **not** contain `myclabs`, `phpunit`, `phpstan`, or `php-webdriver`.
+
+If the user asks you to commit vendor changes and the check fails, **fix it first** — do not commit.
+
+## Local dev tools (phpstan/phpunit)
+
+Re-install dev tools only for local QA (not for commits):
+
+```bash
+composer install --ignore-platform-reqs
+composer run finalize-vendor   # back to production autoload before commit
+```
 
 ---
 > Source: [tsugiproject/tsugi](https://github.com/tsugiproject/tsugi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
