@@ -1,0 +1,9 @@
+{
+  "name": "knative--eventing",
+  "displayName": "eventing",
+  "description": "eventing",
+  "version": "1.0.0",
+  "author": "knative",
+  "homepage": "https://github.com/knative/eventing",
+  "skills": []
+}
