@@ -1,0 +1,9 @@
+{
+  "name": "aws--amazon-ecs-agent",
+  "displayName": "amazon-ecs-agent",
+  "description": "amazon-ecs-agent",
+  "version": "1.0.0",
+  "author": "aws",
+  "homepage": "https://github.com/aws/amazon-ecs-agent",
+  "skills": []
+}
