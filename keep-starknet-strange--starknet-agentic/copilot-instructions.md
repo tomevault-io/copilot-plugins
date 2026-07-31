@@ -1,145 +1,113 @@
 ## starknet-agentic
 
-> This is the single canonical instruction file for automated coding agents in this
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md - Canonical Agent Instructions
+# CLAUDE.md
 
-This is the single canonical instruction file for automated coding agents in this
-repository. Keep behavior and workflow directives here.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-Compatibility policy:
-- `AGENTS.md` is canonical.
-- Any tool-specific file (for example `CLAUDE.md`) must be a thin adapter or
-  reference layer, not a conflicting instruction source.
+## Overview
 
-## Mission
+Documentation website for Starknet Agentic built with Next.js 16, React 19, and Tailwind CSS. Uses MDX for documentation content with syntax highlighting via Shiki.
 
-Build production-grade Starknet agent infrastructure: secure Cairo contracts,
-reliable runtimes, and high-signal skills that external developers can install
-and use with minimal friction.
+## Commands
 
-## Scope
+| Task | Command |
+|------|---------|
+| Install dependencies | `pnpm install` |
+| Start dev server | `pnpm dev` |
+| Build for production | `pnpm build` |
+| Start production server | `pnpm start` |
+| Run ESLint | `pnpm lint` |
 
-This repository includes:
-- Cairo contracts (`contracts/**`)
-- TypeScript packages and examples (`packages/**`, `examples/**`)
-- public installable skills (`skills/**`)
-- quality/security gates (`scripts/quality/**`, CI workflows)
+## Architecture
 
-## Core Operating Principles
+### Directory Structure
 
-1. Single source of truth:
-   - Keep normative process guidance in this file only.
-   - Do not duplicate behavioral rules across multiple root files.
-2. Small, testable changes:
-   - Prefer narrow diffs with explicit acceptance checks.
-3. Security-first for high-risk paths:
-   - Treat key handling, policy enforcement, and upgrade paths as critical.
-4. Reproducibility:
-   - Use pinned refs for install docs and deterministic validation scripts.
-5. Explicit handoffs:
-   - Use authoring -> testing -> optimization -> auditor flow for Cairo work.
-
-## Roles and Boundaries
-
-| Role | Owns | Does Not Own |
-| --- | --- | --- |
-| Coordinator | Scope, plan, sequencing, `STATUS.md` accuracy | Large feature implementation |
-| Contracts Executor | Cairo contracts/tests/deploy scripts | Mobile or unrelated UX changes |
-| Runtime Executor | MCP/A2A/adapters/tool runtime | Silent ABI/policy shape changes |
-| Skills Executor | `skills/**`, references, install UX docs | Contract logic changes without coordination |
-| Reviewer | Correctness, security regressions, release gates | Initial implementation |
-
-## Task Lifecycle
-
-`todo -> inprogress -> inreview -> done`
-
-The `blocked` state can be entered from any state when waiting on a dependency or decision.
-
-## Work Protocol
-
-### 1) Investigation (Coordinator)
-
-- Identify touched files/interfaces and risk class.
-- Define acceptance checks before implementation.
-- Mark parallelizable vs serialized work.
-
-### 2) Execution (Executor)
-
-- Implement only approved scope.
-- Keep changes focused and reversible.
-- Surface blockers immediately.
-
-### 3) Review (Reviewer)
-
-- Run relevant checks.
-- Verify interface compatibility and security posture.
-- Confirm acceptance criteria are satisfied.
-
-## Parallelization Rules
-
-Safe to parallelize:
-- `apps/mobile/**` vs `contracts/**` when interfaces are stable
-- independent skill docs under different `skills/<name>/`
-- docs work while long test suites run
-
-Must serialize:
-- Any shared interface change (ABI, calldata shape, policy fields)
-- changes to `scripts/**` and CI workflows
-- concurrent edits to the same skill directory
-
-Conflict resolution:
-1. Detect overlap early (`rg` on touched files).
-2. Pause dependent work if overlap exists.
-3. Land interface change first with tests.
-4. Rebase/adjust dependents, then re-verify.
-
-## Required Validation by Change Type
-
-Skills/install UX changes:
-- `python3 scripts/quality/validate_skills.py`
-- `python3 scripts/skills_manifest.py --check`
-- `python3 scripts/quality/check_codex_distribution.py`
-- `python3 -m unittest scripts/quality/test_codex_distribution.py`
-- `python3 scripts/quality/validate_marketplace.py`
-
-Cairo skill benchmark/eval changes:
-- run the relevant deterministic benchmark command
-- if touching benchmark/eval policy, update scorecards and gate docs
-
-Contract changes:
-- `scarb build` and `snforge test` in impacted contract package(s)
-
-TypeScript package changes:
-- package build + tests for impacted workspace packages
-
-## Escalation Rules
-
-Escalate when:
-- public interfaces or policy schema change
-- security-sensitive behavior changes (keys, approvals, upgrade authority)
-- deployment credentials/funding/network access are required
-- contradictory requirements block progress
-
-Escalation format:
-
-```md
-## Escalation: [Title]
-**Blocker**: [...]
-**Options**:
-1. [...]
-2. [...]
-**Recommendation**: [...]
+```
+app/
+├── components/
+│   ├── docs/           # Documentation components (sidebar, search, pagination, callouts)
+│   ├── Hero/           # Landing page hero section
+│   ├── Navbar/         # Navigation (desktop + mobile)
+│   ├── sections/       # Landing page sections (Vision, FeaturedApps, Architecture, etc.)
+│   └── ui/             # Reusable UI components (cards, badges)
+├── data/               # Static data with TypeScript types
+├── docs/               # Documentation pages (uses [category]/[slug] dynamic routing)
+└── hooks/              # Custom React hooks
+content/
+└── docs/               # MDX documentation files organized by category
+lib/
+├── mdx.ts              # MDX file loading utilities
+└── mdx-components.tsx  # Custom MDX component mappings
 ```
 
-## Canonical References
+### Documentation System
 
-- Skills spec and format: `references/agentskills/**`
-- System architecture and boundaries: `docs/SPECIFICATION.md`
-- Security policy: `SECURITY.md`
-- Cairo migration mapping: `docs/CAIRO_SKILLS_MIGRATION.md`
-- Skills distribution docs: `skills/README.md`
+Documentation uses a two-layer system:
+1. **`app/data/docs.ts`** - Defines categories and page metadata (titles, descriptions, slugs)
+2. **`content/docs/{category}/{slug}.mdx`** - Actual MDX content files
+
+The dynamic route at `app/docs/[category]/[slug]/page.tsx` renders MDX content via `next-mdx-remote/rsc`. If an MDX file doesn't exist for a page defined in `docs.ts`, a "Coming Soon" placeholder is shown.
+
+### Path Aliases
+
+- `@/*` → `./app/*`
+- `@/lib/*` → `./lib/*`
+
+## Styling Conventions
+
+### Design System: Neo-brutalist
+
+Uses a neo-brutalist design system defined in `tailwind.config.ts`:
+
+**Colors:**
+- `cream` - Background (#FFFBEB)
+- `neo-yellow`, `neo-pink`, `neo-purple`, `neo-blue`, `neo-green`, `neo-orange`, `neo-cyan` - Accent colors
+- `neo-dark` - Primary text (#1a1a2e)
+
+**Shadows (offset borders):**
+- `shadow-neo-sm` (2px), `shadow-neo` (4px), `shadow-neo-lg` (6px), `shadow-neo-xl` (8px)
+
+**Fonts:**
+- `font-heading` (Space Grotesk) - Headings and buttons
+- `font-body` (DM Sans) - Body text
+- `font-mono` (JetBrains Mono) - Code
+
+### Component Classes
+
+Defined in `globals.css`:
+- `.neo-card` / `.neo-card-hover` - Cards with border + shadow
+- `.neo-btn-primary` / `.neo-btn-secondary` / `.neo-btn-dark` - Buttons
+- `.neo-badge` - Badges
+- `.neo-input` - Form inputs
+- `.section-padding` - Standard section spacing
+- `.prose-neo` - Documentation prose styling
+
+## Adding Documentation
+
+1. Add page metadata to `app/data/docs.ts` under the appropriate category
+2. Create MDX file at `content/docs/{category}/{slug}.mdx`
+3. Use available MDX components: `Callout`, `Collapsible`, `FAQItem`, `Steps`, `Step`, `QuickStartChecklist`
+
+## Key Files
+
+| File | Purpose |
+|------|---------|
+| `app/layout.tsx` | Root layout with fonts and metadata |
+| `app/page.tsx` | Landing page composition |
+| `app/docs/layout.tsx` | Docs layout with sidebar and search |
+| `app/data/docs.ts` | Documentation structure definition |
+| `lib/mdx.ts` | MDX file reading utilities |
+| `lib/mdx-components.tsx` | Custom MDX component definitions |
+| `tailwind.config.ts` | Design system tokens |
+| `next.config.ts` | Next.js config with MDX support |
+
+## Documentation Tracking
+
+<!-- This field is automatically updated by the /update-docs command -->
+docs-last-updated: 08504816a479bf7571cf3494f982091bf40168bd
 
 ---
 > Source: [keep-starknet-strange/starknet-agentic](https://github.com/keep-starknet-strange/starknet-agentic) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
