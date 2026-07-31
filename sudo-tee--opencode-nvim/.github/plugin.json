@@ -1,7 +1,7 @@
 {
   "name": "sudo-tee--opencode-nvim",
   "displayName": "opencode.nvim",
-  "description": "neovim frontend for opencode - a terminal-based AI coding agent",
+  "description": "opencode.nvim",
   "version": "1.0.0",
   "author": "sudo-tee",
   "homepage": "https://github.com/sudo-tee/opencode.nvim",
