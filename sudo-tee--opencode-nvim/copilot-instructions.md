@@ -1,31 +1,100 @@
 ## opencode-nvim
 
-> - **Run all tests:** `./run_tests.sh`
+> This directory owns command-facing action adapters and command definitions.
 
-# AGENTS.md
+# AGENTS.md (handlers)
 
-## Build, Lint, and Test
+This directory owns command-facing action adapters and command definitions.
 
-- **Run all tests:** `./run_tests.sh`
-- **Run a single test:** Replace the directory in the above command with the test file path, e.g.:
-  - `./run_tests.sh -t tests/unit/test_example.lua`
+One-line positioning:
+- `handlers/` = **command-entry adapters**
+- `services/` = **cross-entry reusable business primitives**
 
-## Code Style Guidelines
+## Scope
 
-- **Comments:** Avoid obvious comments that merely restate what the code does. Only add comments when necessary to explain _why_ something is done, not _what_ is being done. Prefer self-explanatory code.
-- **Config:** Centralize in `config.lua`. Use deep merge for user overrides.
-- **Types:** Use Lua annotations (`---@class`, `---@field`, etc.) for public APIs/config.
+- `M.actions`: command-facing action adapters
+- `M.command_defs`: command-facing definitions (desc/completions/execute)
+- No command pipeline logic here
 
-## Dependency Topology Tool
+## Relation with services
 
-Use `scripts/dependency-topology/scan_topology.py` to inspect and track architectural layering.
+- Handlers should call `services/*` when logic is shared by command/UI/quick_chat entries.
+- Handlers should not become the only place for reusable business logic.
+- If an action is needed outside command entry paths, move/keep it in `services/`.
 
-- Use `python3 scripts/dependency-topology/scan_topology.py scan` to inspect current-state vs target-policy gap
-- Use `diff` to inspect change direction (improved/regressed/neutral) between snapshots
-- Pass `--snapshot <git-ref>` for historical snapshots
-- Pass `--json` when feeding outputs into scripts or agents
-- Keep architecture cleanup discussions anchored on scanner output instead of ad-hoc grep chains
+## Hard Invariants
+
+- Handlers do not call `dispatch.execute` directly
+- Handlers do not parse command text
+- Handlers do not decide hook routing
+- Keep action behavior identical across entry points
+- Handlers must not introduce any new bind/execute entry symbols (`*.run`, `bind_*`, or dispatch wrappers)
+- Prefer `services/*` over direct new `opencode.session` / `opencode.api` requires in handlers
+
+## Structure Guidance
+
+- Keep `actions` and `command_defs` aligned by domain
+- Keep keymap compatibility aliases explicit and grouped
+- Avoid duplicating command validation already guaranteed by parse schema
+
+## Current boundary debt (file-level TODO)
+
+The following handler files still directly require `opencode.session` and should be routed via services APIs.
+
+- [ ] `lua/opencode/commands/handlers/diff.lua` -> `opencode.session`
+- [ ] `lua/opencode/commands/handlers/session.lua` -> `opencode.session`
+
+Sync rule:
+- keep this list aligned with `lua/opencode/services/AGENTS.md`
+- remove an item only after code + tests pass
+
+## Editing Rules
+
+- Prefer consolidation over introducing new layers
+- Keep domain boundaries clear (window/session/diff/workflow/surface/agent/permission)
+- If adding command aliases, document compatibility reason inline
+- If touching workflow, avoid spreading unrelated UI orchestration further
+
+## Allow / Disallow Examples
+
+- Allowed:
+  - `command_defs.<name>.execute = M.actions.<name>` direct binding when signature already matches
+  - explicit alias blocks for keymap compatibility
+  - domain validation errors using `error({ code = 'invalid_arguments', ... }, 0)`
+- Disallowed:
+  - parsing command text in handlers (`vim.split(args_line, ...)` style parsing)
+  - dispatch routing in handlers (`dispatch.execute`, hook stage decisions)
+  - hidden wrapper layers that only forward params without adding behavior
+
+## Quick Review Checklist
+
+- Is business behavior in `actions`, not in dispatch glue?
+- Is `command_defs` declarative and minimal?
+- Are aliases grouped and obvious?
+- Did we avoid reintroducing duplicate argument validation paths?
+- Did we add any new direct `session/api` requires in handlers?
+
+## Reject Conditions
+
+- Any direct call to `dispatch.execute` from handlers
+- Any parse/hook routing logic added to handlers
+- Any new entry-style wrapper added in handlers
+- Any new direct `require('opencode.session')` or `require('opencode.api')` in handlers without exception note
+
+## Minimal Regression Commands
+
+- `./run_tests.sh -t tests/unit/commands_handlers_spec.lua`
+- `./run_tests.sh -t tests/unit/commands_dispatch_spec.lua`
+- `./run_tests.sh -t tests/unit/commands/command_axis_spec.lua`
+- `./run_tests.sh -t tests/unit/api_spec.lua -f "command routing"`
+
+## Entry Notes For New Agents
+
+- Start from the domain file you are touching (`window/session/diff/workflow/surface/agent/permission`), then verify invariants against `commands/dispatch.lua`.
+- Treat handlers as **command adaptation + command definition only**.
+- If you feel the need to touch parse/dispatch from handlers, stop and move that change to the command infrastructure layer.
+- Keep compatibility aliases explicit, local, and justified inline.
 
 ---
 > Source: [sudo-tee/opencode.nvim](https://github.com/sudo-tee/opencode.nvim) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
