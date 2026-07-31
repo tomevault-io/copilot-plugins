@@ -2,7 +2,7 @@
   "name": "cabinet",
   "owner": "hilash",
   "repo": "cabinet",
-  "description": "AI-first knowledge base and startup OS",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hilash/cabinet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T00:32:02Z"
+  "distributed_at": "2026-07-31T18:02:03Z"
 }
