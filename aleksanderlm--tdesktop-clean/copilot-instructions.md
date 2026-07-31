@@ -1,107 +1,166 @@
-## api-usage
+## localization
 
-> For tasks requiring sending Telegram server API requests or working with generated API types.
+> For tasks requiring changing or adding user facing phrases and text parts.
 
-# Telegram Desktop API Usage
+# Telegram Desktop Localization
 
-## API Schema
+## Coding Style Note
 
-The API definitions are described using [TL Language]\(https:/core.telegram.org/mtproto/TL) in two main schema files:
+**Use `auto`:** In the actual codebase, variable types are almost always deduced using `auto` (or `const auto`, `const auto &`) rather than being written out explicitly. Examples in this guide may use explicit types for clarity, but prefer `auto` in practice.
 
-1.  **`Telegram/SourceFiles/mtproto/scheme/mtproto.tl`**
-    *   Defines the core MTProto protocol types and methods used for basic communication, encryption, authorization, service messages, etc.
-    *   Some fundamental types and methods from this schema (like basic types, RPC calls, containers) are often implemented directly in the C++ MTProto core (`SourceFiles/mtproto/`) and may be skipped during the C++ code generation phase.
-    *   Other parts of `mtproto.tl` might still be processed by the code generator.
+```cpp
+// Prefer this:
+auto currentTitle = tr::lng_settings_title(tr::now);
+auto nameProducer = GetNameProducer(); // Returns rpl::producer<...>
 
-2.  **`Telegram/SourceFiles/mtproto/scheme/api.tl`**
-    *   Defines the higher-level Telegram API layer, including all the methods and types related to chat functionality, user profiles, messages, channels, stickers, etc.
-    *   This is the primary schema used when making functional API requests within the application.
+// Instead of this:
+QString currentTitle = tr::lng_settings_title(tr::now);
+rpl::producer<QString> nameProducer = GetNameProducer();
+```
 
-Both files use the same TL syntax to describe API methods (functions) and types (constructors).
+## String Resource File
+
+Base user-facing English strings are defined in the `lang.strings` file:
+
+`Telegram/Resources/langs/lang.strings`
+
+This file uses a key-value format with named placeholders:
+
+```
+"lng_settings_title" = "Settings";
+"lng_confirm_delete_item" = "Are you sure you want to delete {item_name}?";
+"lng_files_selected" = "{count} files selected"; // Simple count example (see Pluralization)
+```
+
+Placeholders are enclosed in curly braces, e.g., `{name}`, `{user}`. A special placeholder `{count}` is used for pluralization rules.
+
+### Pluralization
+
+For keys that depend on a number (using the `{count}` placeholder), English typically requires two forms: singular and plural. These are defined in `lang.strings` using `#one` and `#other` suffixes:
+
+```
+"lng_files_selected#one" = "{count} file selected";
+"lng_files_selected#other" = "{count} files selected";
+```
+
+While only `#one` and `#other` are defined in the base `lang.strings`, the code generation process creates C++ accessors for all six CLDR plural categories (`#zero`, `#one`, `#two`, `#few`, `#many`, `#other`) to support languages with more complex pluralization rules.
+
+## Translation Process
+
+While `lang.strings` provides the base English text and the keys, the actual translations are managed via Telegram's translations platform (translations.telegram.org) and loaded dynamically at runtime from the API. The keys from `lang.strings` (including the `#one`/`#other` variants) are used on the platform.
 
 ## Code Generation
 
-A custom code generation tool processes `api.tl` (and parts of `mtproto.tl`) to create corresponding C++ classes and types. These generated headers are typically included via the Precompiled Header (PCH) for the main `Telegram` project.
+A code generation tool processes `lang.strings` to create C++ structures and accessors within the `tr` namespace. These allow type-safe access to strings and handling of placeholders and pluralization. Generated keys typically follow the pattern `tr::lng_key_name`.
 
-Generated types often follow the pattern `MTP[Type]` (e.g., `MTPUser`, `MTPMessage`) and methods correspond to functions within the `MTP` namespace or related classes (e.g., `MTPmessages_SendMessage`).
+## String Usage in Code
 
-## Making API Requests
+Strings are accessed in C++ code using the generated objects within the `tr::` namespace. There are two main ways to use them: reactively (returning an `rpl::producer`) or immediately (returning the current value).
 
-API requests are made using a standard pattern involving the `api()` object (providing access to the `MTP::Instance`), the generated `MTP...` request object, callback handlers for success (`.done()`) and failure (`.fail()`), and the `.send()` method.
+### 1. Reactive Usage (rpl::producer)
 
-Here's the general structure:
+Calling a generated string function directly returns a reactive producer, typically `rpl::producer<QString>`. This producer automatically updates its value whenever the application language changes.
 
 ```cpp
-// Include necessary headers if not already in PCH
+// Key: "settings_title" = "Settings";
+auto titleProducer = tr::lng_settings_title(); // Type: rpl::producer<QString>
 
-// Obtain the API instance (usually via api() or MTP::Instance::Get())
-api().request(MTPnamespace_MethodName(
-    // Constructor arguments based on the api.tl definition for the method
-    MTP_flags(flags_value),      // Use MTP_flags if the method has flags
-    MTP_inputPeer(peer),         // Use MTP_... types for parameters
-    MTP_string(messageText),
-    MTP_long(randomId),
-    // ... other arguments matching the TL definition
-    MTP_vector<MTPMessageEntity>() // Example for a vector argument
-)).done([=]\(const MTPResponseType &result) {
-    // Handle the successful response (result).
-    // 'result' will be of the C++ type corresponding to the TL type
-    // specified after the '=' in the api.tl method definition.
-    // How to access data depends on whether the TL type has one or multiple constructors:
-
-    // 1. Multiple Constructors (e.g., User = User | UserEmpty):
-    //    Use .match() with lambdas for each constructor:
-    result.match([&]\(const MTPDuser &data) {
-        /* use data.vfirst_name().v, etc. */
-    }, [&]\(const MTPDuserEmpty &data) {
-        /* handle empty user */
-    });
-
-    //    Alternatively, check the type explicitly and use the constructor getter:
-    if (result.type() == mtpc_user) {
-        const auto &data = result.c_user(); // Asserts if type is not mtpc_user!
-        // use data.vfirst_name().v
-    } else if (result.type() == mtpc_userEmpty) {
-        const auto &data = result.c_userEmpty();
-        // handle empty user
-    }
-
-    // 2. Single Constructor (e.g., Messages = messages { msgs: vector<Message> }):
-    //    Use .match() with a single lambda:
-    result.match([&]\(const MTPDmessages &data) { /* use data.vmessages().v */ });
-
-    //    Or check the type explicitly and use the constructor getter:
-    if (result.type() == mtpc_messages) {
-        const auto &data = result.c_messages(); // Asserts if type is not mtpc_messages!
-        // use data.vmessages().v
-    }
-
-    //    Or use the shortcut .data() for single-constructor types:
-    const auto &data = result.data(); // Only works for single-constructor types!
-    // use data.vmessages().v
-
-}).fail([=]\(const MTP::Error &error) {
-    // Handle the API error (error).
-    // 'error' is an MTP::Error object containing the error code (error.type())
-    // and description (error.description()). Check for specific error strings.
-    if (error.type() == u"FLOOD_WAIT_X"_q) {
-        // Handle flood wait
-    } else {
-        Ui::show(Box<InformBox>(Lang::Hard::ServerError())); // Example generic error handling
-    }
-}).handleFloodErrors().send(); // handleFloodErrors() is common, then send()
+// Key: "confirm_delete_item" = "Are you sure you want to delete {item_name}?";
+auto itemNameProducer = /* ... */; // Type: rpl::producer<QString>
+auto confirmationProducer = tr::lng_confirm_delete_item( // Type: rpl::producer<QString>
+    tr::now, // NOTE: tr::now is NOT passed here for reactive result
+    lt_item_name,
+    std::move(itemNameProducer)); // Placeholder producers should be moved
 ```
 
-**Key Points:**
+### 2. Immediate Usage (Current Value)
 
-*   Always refer to `Telegram/SourceFiles/mtproto/scheme/api.tl` for the correct method names, parameters (names and types), and response types.
-*   Use the generated `MTP...` types/classes for request parameters (e.g., `MTP_int`, `MTP_string`, `MTP_bool`, `MTP_vector`, `MTPInputUser`, etc.) and response handling.
-*   The `.done()` lambda receives the specific C++ `MTP...` type corresponding to the TL return type.
-    *   For types with **multiple constructors** (e.g., `User = User | UserEmpty`), use `result.match([&]\(const MTPDuser &d){ ... }, [&]\(const MTPDuserEmpty &d){ ... })` to handle each case, or check `result.type() == mtpc_user` / `mtpc_userEmpty` and call the specific `result.c_user()` / `result.c_userEmpty()` getter (which asserts on type mismatch).
-    *   For types with a **single constructor** (e.g., `Messages = messages{...}`), you can use `result.match([&]\(const MTPDmessages &d){ ... })` with one lambda, or check `type()` and call `c_messages()`, or use the shortcut `result.data()` to access the fields directly.
-*   The `.fail()` lambda receives an `MTP::Error` object. Check `error.type()` against known error strings (often defined as constants or using `u"..."_q` literals).
-*   Directly construct the `MTPnamespace_MethodName(...)` object inside `request()`.
-*   Include `.handleFloodErrors()` before `.send()` for standard flood wait handling.
+Passing `tr::now` as the first argument retrieves the string's current value in the active language (typically as a `QString`).
+
+```cpp
+// Key: "settings_title" = "Settings";
+auto currentTitle = tr::lng_settings_title(tr::now); // Type: QString
+
+// Key: "confirm_delete_item" = "Are you sure you want to delete {item_name}?";
+const auto currentItemName = QString("My Document"); // Type: QString
+auto currentConfirmation = tr::lng_confirm_delete_item( // Type: QString
+    tr::now, // Pass tr::now for immediate value
+    lt_item_name, currentItemName); // Placeholder value is a direct QString (or convertible)
+```
+
+### 3. Placeholders (`{tag}`)
+
+Placeholders like `{item_name}` are replaced by providing arguments after `tr::now` (for immediate) or as the initial arguments (for reactive). A corresponding `lt_tag_name` constant is passed before the value.
+
+*   **Immediate:** Pass the direct value (e.g., `QString`, `int`).
+*   **Reactive:** Pass an `rpl::producer` of the corresponding type (e.g., `rpl::producer<QString>`). Remember to `std::move` the producer or use `rpl::duplicate` if you need to reuse the original producer afterwards.
+
+### 4. Pluralization (`{count}`)
+
+Keys using `{count}` require a numeric value for the `lt_count` placeholder. The correct plural form (`#zero`, `#one`, ..., `#other`) is automatically selected based on this value and the current language rules.
+
+*   **Immediate (`tr::now`):** Pass a `float64` or `int` (which is auto-converted to `float64`).
+    ```cpp
+    int count = 1;
+    auto filesText = tr::lng_files_selected(tr::now, lt_count, count); // Type: QString
+    count = 5;
+    filesText = tr::lng_files_selected(tr::now, lt_count, count); // Uses "files_selected#other"
+    ```
+
+*   **Reactive:** Pass an `rpl::producer<float64>`. Use the `tr::to_count()` helper to convert an `rpl::producer<int>` or wrap a single value.
+    ```cpp
+    // From an existing int producer:
+    auto countProducer = /* ... */; // Type: rpl::producer<int>
+    auto filesTextProducer = tr::lng_files_selected( // Type: rpl::producer<QString>
+        lt_count,
+        countProducer | tr::to_count()); // Use tr::to_count() for conversion
+
+    // From a single int value wrapped reactively:
+    int currentCount = 5;
+    auto filesTextProducerSingle = tr::lng_files_selected( // Type: rpl::producer<QString>
+        lt_count,
+        rpl::single(currentCount) | tr::to_count());
+        // Alternative for single values (less common): rpl::single(currentCount * 1.)
+    ```
+
+### 5. Custom Projectors
+
+An optional final argument can be a projector function (like `Ui::Text::Upper` or `Ui::Text::WithEntities`) to transform the output.
+
+*   If the projector returns `OutputType`, the string function returns `OutputType` (immediate) or `rpl::producer<OutputType>` (reactive).
+*   Placeholder values must match the projector's *input* requirements. For `Ui::Text::WithEntities`, placeholders expect `TextWithEntities` (immediate) or `rpl::producer<TextWithEntities>` (reactive).
+
+```cpp
+// Immediate with Ui::Text::WithEntities projector
+// Key: "user_posted_photo" = "{user} posted a photo";
+const auto userName = TextWithEntities{ /* ... */ }; // Type: TextWithEntities
+auto message = tr::lng_user_posted_photo( // Type: TextWithEntities
+    tr::now,
+    lt_user,
+    userName, // Must be TextWithEntities
+    Ui::Text::WithEntities); // Projector
+
+// Reactive with Ui::Text::WithEntities projector
+auto userNameProducer = /* ... */; // Type: rpl::producer<TextWithEntities>
+auto messageProducer = tr::lng_user_posted_photo( // Type: rpl::producer<TextWithEntities>
+    lt_user,
+    std::move(userNameProducer), // Move placeholder producers
+    Ui::Text::WithEntities); // Projector
+```
+
+## Key Summary
+
+*   Keys are defined in `Resources/langs/lang.strings` using `{tag}` placeholders.
+*   Plural keys use `{count}` and have `#one`/`#other` variants in `lang.strings`.
+*   Access keys via `tr::lng_key_name(...)` in C++.
+*   Call with `tr::now` as the first argument for the immediate `QString` (or projected type).
+*   Call without `tr::now` for the reactive `rpl::producer<QString>` (or projected type).
+*   Provide placeholder values (`lt_tag_name, value`) matching the usage (direct value for immediate, `rpl::producer` for reactive). Producers should typically be moved via `std::move`.
+*   For `{count}`:
+    *   Immediate: Pass `int` or `float64`.
+    *   Reactive: Pass `rpl::producer<float64>`, typically by converting an `int` producer using `| tr::to_count()`.
+*   Optional projector function as the last argument modifies the output type and required placeholder types.
+*   Actual translations are loaded at runtime from the API.
 
 ---
 > Source: [aleksanderlm/tdesktop-clean](https://github.com/aleksanderlm/tdesktop-clean) — distributed by [TomeVault](https://tomevault.io).
