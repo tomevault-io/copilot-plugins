@@ -1,7 +1,7 @@
 {
   "name": "comfy-org--comfy-claude-prompt-library",
   "displayName": "comfy-claude-prompt-library",
-  "description": "Collection of Claude Code commands and memories for agentic coding.",
+  "description": "comfy-claude-prompt-library",
   "version": "1.0.0",
   "author": "Comfy-Org",
   "homepage": "https://github.com/Comfy-Org/comfy-claude-prompt-library",
