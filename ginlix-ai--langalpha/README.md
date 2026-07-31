@@ -1,8 +1,6 @@
 # LangAlpha
 
-> Source: [ginlix-ai/LangAlpha](https://github.com/ginlix-ai/LangAlpha) — distributed by [TomeVault](https://tomevault.io)
-
-Claude Code for Finance
+> Source: [ginlix-ai/LangAlpha](https://github.com/ginlix-ai/LangAlpha). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
