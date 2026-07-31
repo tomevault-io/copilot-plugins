@@ -1,6 +1,6 @@
 # dds
 
-> Source: [dds-bridge/dds](https://github.com/dds-bridge/dds). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [dds-bridge/dds](https://github.com/dds-bridge/dds). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
