@@ -1,0 +1,9 @@
+{
+  "name": "lowoodz--agentmirror",
+  "displayName": "AgentMirror",
+  "description": "Desktop app for agent observability & reflection and LLM API proxy/routing.",
+  "version": "1.0.0",
+  "author": "lowoodz",
+  "homepage": "https://github.com/lowoodz/AgentMirror",
+  "skills": []
+}
