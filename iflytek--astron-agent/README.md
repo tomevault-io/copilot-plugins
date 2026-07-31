@@ -1,8 +1,6 @@
 # AI instruction files for astron-agent
 
-> Sourced from [iflytek/astron-agent](https://github.com/iflytek/astron-agent) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Enterprise-grade, commercial-friendly agentic workflow platform for building next-generation SuperAgents.
+> Sourced from [iflytek/astron-agent](https://github.com/iflytek/astron-agent), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [iflytek/astron-agent](https://github.com/iflyte
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [iflytek/astron-agent](https://github.com/iflytek/astron-agent) — a repo with 8850+ stars on GitHub.
+From [iflytek/astron-agent](https://github.com/iflytek/astron-agent) — a repo with 9388+ stars on GitHub.
 
 ---
 
