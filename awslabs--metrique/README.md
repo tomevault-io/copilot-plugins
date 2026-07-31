@@ -1,6 +1,6 @@
 # metrique
 
-> Source: [awslabs/metrique](https://github.com/awslabs/metrique) — distributed by [TomeVault](https://tomevault.io)
+> Source: [awslabs/metrique](https://github.com/awslabs/metrique). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `AGENTS.md` in [awslabs/metrique](https://github.com/awslabs/me
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [awslabs/metrique](https://github.com/awslabs/metrique) — a repo with 65+ stars on GitHub.
+From [awslabs/metrique](https://github.com/awslabs/metrique) — a repo with 74+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
