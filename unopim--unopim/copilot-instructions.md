@@ -1,176 +1,556 @@
 ## unopim
 
-> This workspace contains agent skills for building **Unopim third-party connector
+> Generates marketing content:
 
-# GitHub Copilot Workspace Instructions: Unopim Connector Development
+# AI Agent Module — Agents Architecture
 
-This workspace contains agent skills for building **Unopim third-party connector
-modules**. Unopim is a Webkul Laravel 11 PIM — it is NOT Bagisto.
+## Overview
 
----
-
-## Framework
-
-- **Platform:** Unopim (not Bagisto, not Magento, not Akeneo)
-- **Language:** PHP 8.1+ / Laravel 11
-- **Module base:** `packages/Webkul/{ModuleName}/src/`
-- **Reference:** `packages/Webkul/WooCommerce/` is the ground-truth connector
+The **Agents** subsystem provides reusable, injectable agent classes for common AI-driven product operations. Each agent encapsulates domain-specific logic (image analysis, description generation, categorization, etc.) while leveraging the underlying pipeline architecture.
 
 ---
 
-## Non-negotiable Conventions
+## Architecture
 
-### 1. Table names always start with `wk_`
+```
+Agent Layer
+├── BaseAgent (abstract)
+│   └── Provides common execute/executeAsync patterns
+├── ImageProductAgent (concrete)
+│   └── Analyzes product images → structured data
+├── TextDescriptionAgent (concrete)
+│   └── Generates marketing copy from specifications
+├── ProductCategorizerAgent (concrete)
+│   └── Auto-tags and categorizes products
+└── BulkProductEnricherAgent (concrete)
+    └── Batch-enriches product data
+
+             ↓ (both inject)
+
+AgentService (orchestrator)
+├── Resolves pipeline stages
+├── Executes via pipeline
+├── Manages sync/async dispatch
+└── Returns AgentResult
+
+             ↓
+
+Pipeline + Stages
+└── Generic: Validate → BuildPrompt → CallAI → Parse → Log
+```
+
+---
+
+## Core Concepts
+
+### 1. **BaseAgent** (Abstract)
+
+All concrete agents extend `BaseAgent` which provides:
+
+- **`execute()`** — Synchronous execution (blocking, immediate response)
+- **`executeAsync()`** — Asynchronous dispatch to queue
+- Dependency injection of `AgentService`
+- Abstract methods: `getDefaultSystemPrompt()`, `buildInstruction()`
+
 ```php
-// Correct
-protected $table = 'wk_woocommerce_credentials';
-DB::table('wk_shopify_products')
-
-// Wrong
-protected $table = 'woocommerce_credentials';
-```
-
-### 2. Migration folder: `Database/Migration/` (no 's')
-```
-Database/Migration/2025_01_01_000000_wk_module_credentials.php
-```
-
-### 3. ServiceProvider: routes via `Route::middleware('web')->group()`
-```php
-// Correct
-Route::middleware('web')->group(__DIR__ . '/../../Routes/module-routes.php');
-
-// Wrong
-$this->loadRoutesFrom(__DIR__ . '/../../Routes/module-routes.php');
-```
-
-### 4. Layout event name includes `.before`
-```php
-Event::listen('unopim.admin.layout.head.before', ...);
-// NOT: 'unopim.admin.layout.head'
-```
-
-### 5. ModuleServiceProvider extends CoreModuleServiceProvider
-```php
-class ModuleServiceProvider extends CoreModuleServiceProvider
+abstract class BaseAgent
 {
-    protected $models = [\Webkul\WooCommerce\Models\Credential::class];
+    abstract protected function getDefaultSystemPrompt(): string;
+    abstract protected function buildInstruction(mixed $input): string;
+
+    public function execute(mixed $input, int $agentId, int $credentialId, array $context = []): AgentResult
+    public function executeAsync(mixed $input, int $agentId, int $credentialId, array $context = []): void
 }
 ```
 
-### 6. Models use HistoryTrait (not optional)
-```php
-use Webkul\HistoryControl\Traits\HistoryTrait;
-use Webkul\HistoryControl\Interfaces\PresentableHistoryInterface;
+### 2. **Concrete Agents**
 
-class Credential extends Model implements PresentableHistoryInterface
+Each agent specializes in one AI task:
+
+#### ImageProductAgent
+
+Analyzes product images and extracts:
+- Product name, description, category
+- Colors, materials, dimensions
+- Price estimates, quality assessment
+- Key features, use cases
+
+```php
+$agent = app(ImageProductAgent::class);
+$result = $agent->analyze(
+    imageSource: 'https://example.com/img.jpg',  // URL or file path
+    agentId: 1,
+    credentialId: 1,
+);
+```
+
+#### TextDescriptionAgent
+
+Generates marketing content:
+- Optimized product names
+- Short & long descriptions
+- Key benefits, selling points
+- SEO keywords, target audience
+
+```php
+$agent = app(TextDescriptionAgent::class);
+$result = $agent->execute(
+    input: ['title' => 'Nike Shoes', 'specs' => [...]],
+    agentId: 2,
+    credentialId: 1,
+);
+```
+
+#### ProductCategorizerAgent
+
+Assigns metadata:
+- Primary & secondary categories
+- Tags and attributes
+- Confidence levels
+
+```php
+$agent = app(ProductCategorizerAgent::class);
+$result = $agent->execute(
+    input: ['name' => 'Blue Cotton Shirt'],
+    agentId: 3,
+    credentialId: 1,
+);
+```
+
+#### BulkProductEnricherAgent
+
+Processes multiple products:
+- Batch enrichment API
+- Quality scoring per product
+- Missing field detection
+
+```php
+$agent = app(BulkProductEnricherAgent::class);
+$result = $agent->enrichBatch(
+    products: [...],
+    agentId: 4,
+    credentialId: 1,
+);
+```
+
+---
+
+## Dependency Injection
+
+All agents are automatically injectable via Laravel's service container.
+
+### In Controllers
+
+```php
+class ProductController extends Controller
 {
-    use HistoryTrait;
-    protected $auditExclude = ['apiSecret'];  // exclude sensitive fields
-    protected $casts = ['extras' => 'array']; // flexible JSON column
+    public function importImage(ImageProductAgent $agent)
+    {
+        $result = $agent->analyze($imageUrl, 1, 1);
+        return response()->json($result->toArray());
+    }
 }
 ```
 
-### 7. HTTP client uses cURL (not Guzzle)
+### In Services
+
 ```php
-// Correct — cURL
-$ch = curl_init($url);
-curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true, ...]);
-$response = curl_exec($ch);
-curl_close($ch);
+class ProductImportService
+{
+    public function __construct(
+        protected ImageProductAgent $imageAgent,
+        protected TextDescriptionAgent $descAgent,
+    ) {}
+
+    public function enrichProduct(string $imageUrl)
+    {
+        $imageData = $this->imageAgent->analyze($imageUrl, 1, 1);
+        $descriptions = $this->descAgent->execute($imageData->data, 2, 1);
+        // ... combine and persist
+    }
+}
 ```
 
-### 8. Controller responses for mutations
+### In Queue Jobs
+
 ```php
-// store/update/delete return JsonResponse with redirect_url
-return new JsonResponse([
-    'redirect_url' => route('module.credentials.index'),
-    'message' => 'Created successfully.',
-]);
+class ProcessImageJob implements ShouldQueue
+{
+    public function handle(ImageProductAgent $agent)
+    {
+        $agent->analyzeAsync($this->imageUrl, 1, 1);
+    }
+}
 ```
 
-### 9. ACL is a flat array
+### In Console Commands
+
 ```php
-return [
-    ['key' => 'module', 'name' => '...', 'route' => '...', 'sort' => 1],
-    ['key' => 'module.credentials', ...],
-    // NO nested children
-];
+class AnalyzeImageCommand extends Command
+{
+    public function handle(ImageProductAgent $agent)
+    {
+        $result = $agent->analyze($imageUrl, 1, 1);
+        $this->info('Done: ' . $result->output);
+    }
+}
 ```
 
-### 10. Exporter filter fields need 4 required keys
+---
+
+## Creating Custom Agents
+
+### Step 1: Extend BaseAgent
+
+```php
+namespace Webkul\AiAgent\Agents;
+
+class MyCustomAgent extends BaseAgent
+{
+    protected function getDefaultSystemPrompt(): string
+    {
+        return <<<'PROMPT'
+            You are an expert in [DOMAIN].
+            Return valid JSON with keys: [...].
+            PROMPT;
+    }
+
+    protected function buildInstruction(mixed $input): string
+    {
+        return "Analyze: " . json_encode($input);
+    }
+}
+```
+
+### Step 2: Use It (Auto-Injected)
+
+```php
+// No registration needed! Laravel auto-resolves from type hint.
+public function myMethod(MyCustomAgent $agent)
+{
+    $result = $agent->execute($input, 1, 1);
+}
+```
+
+### Step 3: Call execute() or executeAsync()
+
+```php
+// Sync
+$result = $agent->execute($input, agentId: 1, credentialId: 1);
+if ($result->success) {
+    $data = $result->data;  // Parsed JSON
+}
+
+// Async
+$agent->executeAsync($input, agentId: 1, credentialId: 1);  // Returns void, queued
+```
+
+---
+
+## Input/Output Examples
+
+### ImageProductAgent
+
+**Input**
+```
+imageSource: "https://example.com/shoes.jpg"
+```
+
+**Output (AgentResult)**
+```json
+{
+  "success": true,
+  "output": "[raw AI response]",
+  "data": {
+    "name": "Blue Nike Air Max",
+    "description": "Premium running shoes...",
+    "category": "Footwear",
+    "colors": ["blue", "white", "gray"],
+    "materials": ["mesh", "rubber", "nylon"],
+    "quality": "premium"
+  },
+  "tokensUsed": 450,
+  "metadata": {
+    "agentName": "Image Analyzer",
+    "executionTimeMs": 2100
+  }
+}
+```
+
+### TextDescriptionAgent
+
+**Input**
 ```php
 [
-    'name'       => 'credential',
-    'type'       => 'select',
-    'async'      => true,
-    'track_by'   => 'id',
-    'label_by'   => 'label',
-    'list_route' => 'module.credentials.get',
+    'title' => 'Running Shoes',
+    'specifications' => [
+        'color' => 'blue',
+        'material' => 'mesh',
+        'brand' => 'Nike'
+    ]
 ]
 ```
 
-### 11. DataGrid in subdirectory with PHPDoc return types
-```php
-// File: src/DataGrids/Credential/CredentialDataGrid.php
-class CredentialDataGrid extends DataGrid
+**Output**
+```json
 {
-    /**
-     * @return \Illuminate\Database\Query\Builder
-     */
-    public function prepareQueryBuilder()     // no PHP return type hint
-    {
-        return DB::table('wk_module_credentials')->select(...);
-    }
+  "success": true,
+  "data": {
+    "productName": "Premium Blue Mesh Running Shoes",
+    "shortDescription": "High-performance running shoes with premium mesh...",
+    "longDescription": "...",
+    "keyBenefits": ["breathability", "durability", "comfort"],
+    "targetAudience": "Serious runners",
+    "seoKeywords": ["running shoes", "mesh shoes", "blue athletic shoes"]
+  }
+}
+```
 
-    public function prepareColumns()
+---
+
+## Context Passing
+
+Additional context can be passed to agents for logging, filtering, or cross-stage lookup:
+
+```php
+$result = $agent->analyze(
+    imageSource: $imageUrl,
+    agentId: 1,
+    credentialId: 1,
+    additionalContext: [
+        'userId'        => auth()->id(),
+        'locale'        => 'en_US',
+        'batchId'       => 'batch_123',
+        'importSource'  => 'instagram',
+        'customField'   => 'value',
+    ],
+);
+
+// Available in pipeline stages as $payload->context['userId'], etc.
+```
+
+---
+
+## Sync vs Async
+
+| Mode | When to Use | Returns | Execution |
+|------|-----------|---------|-----------|
+| **Sync** (`execute`) | Immediate feedback needed (HTTP response, console output) | `AgentResult` | Blocking, right now |
+| **Async** (`executeAsync`) | Background processing (batch imports, bulk enrichment) | `void` | Queued, background worker |
+
+```php
+// Interactive: block and return result immediately
+$result = $agent->analyze($imageUrl, 1, 1);
+return response()->json($result->toArray());
+
+// Bulk: queue and return acceptance
+$agent->analyzeAsync($imageUrl, 1, 1);
+return response()->json(['status' => 'queued']);
+```
+
+---
+
+## Integration Examples
+
+### Product Import Workflow
+
+```php
+class ProductImporter
+{
+    public function __construct(
+        protected ImageProductAgent $imageAgent,
+        protected TextDescriptionAgent $descAgent,
+        protected ProductCategorizerAgent $catAgent,
+        protected ProductRepository $repo,
+    ) {}
+
+    public function importFromImage(string $imageUrl): Product
     {
-        $this->addColumn([
-            'index'   => 'status',
-            'closure' => fn ($row) => $row->status    // arrow function OK
-                ? '<span class="label-active">Yes</span>'
-                : '<span class="label-info text-gray-600 dark:text-gray-300">No</span>',
+        // 1. Analyze image
+        $imageResult = $this->imageAgent->analyze($imageUrl, 1, 1);
+        if (!$imageResult->success) throw new Exception(...);
+
+        // 2. Generate description
+        $descResult = $this->descAgent->execute($imageResult->data, 2, 1);
+
+        // 3. Categorize
+        $catResult = $this->catAgent->execute($imageResult->data, 3, 1);
+
+        // 4. Persist
+        return $this->repo->create([
+            'name'         => $imageResult->data['name'],
+            'description'  => $descResult->data['longDescription'],
+            'category_id'  => $catResult->data['primaryCategory'],
+            'tags'         => $catResult->data['tags'],
         ]);
     }
+}
+```
 
-    public function prepareActions()
-    {
-        $this->addAction([
-            'url' => function ($row) {            // regular function for url
-                return route('module.credentials.edit', $row->id);
-            },
-        ]);
+### Webhook Handler
+
+```php
+class ProductWebhookController
+{
+    public function handle(
+        ImageProductAgent $agent,
+        Request $request,
+    ) {
+        $imageUrl = $request->input('image_url');
+
+        // Queue async analysis
+        $agent->analyzeAsync(
+            imageSource: $imageUrl,
+            agentId: 1,
+            credentialId: 1,
+            additionalContext: [
+                'webhookId' => $request->input('id'),
+                'source'    => 'external_api',
+            ],
+        );
+
+        return response()->json(['status' => 'processing']);
     }
 }
 ```
 
 ---
 
-## Skills Reference
+## Extension Points
 
-When working on a connector, load the appropriate skill file from
-`.kilocode/skills-code/` for complete implementation templates:
+### 1. Custom Image Preprocessing
 
-| Task | Skill file |
-|---|---|
-| Create connector from scratch | `unopim-connector-quickstart/SKILL.md` |
-| Module boilerplate | `unopim-package/SKILL.md` |
-| Credential management | `unopim-credential-management/SKILL.md` |
-| HTTP/API client | `unopim-http-client/SKILL.md` |
-| Export/import jobs | `unopim-export-workflow/SKILL.md` |
-| DataGrid listing | `unopim-datagrid/SKILL.md` |
-| module mapping | `unopim-connector-export-mapping/SKILL.md` |
+Override `prepareImageContent()`:
+
+```php
+class CustomImageAgent extends ImageProductAgent
+{
+    protected function prepareImageContent(string $imageSource): string
+    {
+        // Add watermark detection, crop, resize, etc.
+        return parent::prepareImageContent($imageSource);
+    }
+}
+```
+
+### 2. Custom Prompt Building
+
+Override `buildInstruction()`:
+
+```php
+class LocalizedProductAgent extends TextDescriptionAgent
+{
+    protected function buildInstruction(mixed $input): string
+    {
+        $locale = app()->getLocale();
+        return "Generate descriptions in $locale for: " . json_encode($input);
+    }
+}
+```
+
+### 3. Custom Pipeline Stages
+
+Add specialized stages in agent config:
+
+```php
+Agent::create([
+    'name'     => 'Advanced Image Analyzer',
+    'pipeline' => [
+        ValidateInputStage::class,
+        CustomNsfwDetectionStage::class,  // Custom
+        CustomImageEnhanceStage::class,   // Custom
+        BuildPromptStage::class,
+        CallAiProviderStage::class,
+        ParseResponseStage::class,
+        LogExecutionStage::class,
+    ],
+]);
+```
 
 ---
 
-## Code Style
+## Best Practices
 
-- PSR-12 formatting
-- PHPDoc on all public methods
-- No hardcoded UI strings — use lang files
-- Sensitive API credentials belong in `$auditExclude`, never in `Crypt::encryptString`
-- Permission guard: `bouncer()->hasPermission('module.resource.action')`
+1. **Always use dependency injection** — Never instantiate agents directly.
+   ```php
+   // ✅ Good
+   public function __construct(ImageProductAgent $agent) {}
+
+   // ❌ Bad
+   $agent = new ImageProductAgent(...);
+   ```
+
+2. **Pass context for observability** — Include userId, locale, batch info.
+   ```php
+   $agent->analyze($imageUrl, 1, 1, context: ['userId' => auth()->id()]);
+   ```
+
+3. **Use async for batch operations** — Queued jobs for bulk processing.
+   ```php
+   foreach ($images as $image) {
+       $agent->analyzeAsync($image, 1, 1);  // All queued, fast return
+   }
+   ```
+
+4. **Handle failures gracefully** — Check `AgentResult::success`.
+   ```php
+   $result = $agent->analyze(...);
+   if (!$result->success) {
+       Log::error($result->error);
+       return response()->json(['error' => $result->error], 400);
+   }
+   ```
+
+5. **Extend agents, don't modify** — Create new subclasses for customization.
+   ```php
+   class MyAgentAgent extends ImageProductAgent { }
+   ```
+
+---
+
+## Testing
+
+### Mock Agents
+
+```php
+public function test_product_import()
+{
+    $mockAgent = Mockery::mock(ImageProductAgent::class);
+    $mockAgent->shouldReceive('analyze')
+        ->andReturn(AgentResult::success(
+            output: 'test',
+            data: ['name' => 'Test Product'],
+        ));
+
+    $this->app->instance(ImageProductAgent::class, $mockAgent);
+    // ... test your code
+}
+```
+
+---
+
+## File Structure
+
+```
+src/Agents/
+├── BaseAgent.php                    # Abstract base class
+├── ImageProductAgent.php            # Image ↔ product data
+├── TextDescriptionAgent.php         # Descriptions & copy
+├── ProductCategorizerAgent.php      # Auto-categorization
+└── BulkProductEnricherAgent.php     # Batch enrichment
+
+src/Examples/
+├── ExampleAgentController.php       # HTTP usage
+├── AnalyzeProductImageCommand.php   # CLI usage
+└── EnrichProductsBatchCommand.php   # Batch CLI usage
+
+USAGE_EXAMPLES.md                    # Detailed examples
+```
+
+---
+
+See [USAGE_EXAMPLES.md](USAGE_EXAMPLES.md) for 8 practical patterns and complete code samples.
 
 ---
 > Source: [unopim/unopim](https://github.com/unopim/unopim) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
