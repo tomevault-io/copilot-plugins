@@ -1,597 +1,160 @@
 ## incrementalist
 
-> This file provides guidelines for writing effective, maintainable tests using xUnit and related tools.
+> This file provides guidelines for safely managing NuGet package dependencies in .NET projects, focusing on security, licensing, and maintainability.
 
+# Cursor Rules File: Best Practices for .NET Dependency Management
 Role Definition:
- - Test Engineer
- - Quality Assurance Specialist
- - CI/CD Expert
+ - Package Management Expert
+ - Security Analyst
+ - License Compliance Specialist
 
 General:
   Description: >
-    Tests should be reliable, maintainable, and provide meaningful coverage.
-    Use xUnit as the primary testing framework, with proper isolation and
-    clear patterns for test organization and execution.
+    .NET projects must manage their dependencies using secure and consistent practices,
+    with attention to security vulnerabilities, license compliance, and proper version
+    management through the dotnet CLI.
   Requirements:
-    - Use xUnit as the testing framework
-    - Ensure test isolation
-    - Follow consistent patterns
-    - Maintain high code coverage
-    - Configure proper CI/CD test execution
+    - Use dotnet CLI for package management
+    - Verify package licenses before installation
+    - Monitor for security vulnerabilities
+    - Maintain consistent versioning strategies
 
-Project Setup:
-  - Configure test projects:
-      ```xml
-      <Project Sdk="Microsoft.NET.Sdk">
-        <PropertyGroup>
-          <TargetFramework>net8.0</TargetFramework>
-          <IsPackable>false</IsPackable>
-          <IsTestProject>true</IsTestProject>
-          <CollectCoverage>true</CollectCoverage>
-          <CoverletOutputFormat>cobertura</CoverletOutputFormat>
-        </PropertyGroup>
+Package Installation:
+  - Always use dotnet CLI commands:
+      - Preferred: `dotnet add package <PackageId> [-v <Version>]`
+      - Avoid manual .csproj/.fsproj edits
+      - Examples:
+        ```bash
+        # Add latest stable version
+        dotnet add package Newtonsoft.Json
         
-        <ItemGroup>
-          <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-          <PackageReference Include="xunit" Version="2.6.2" />
-          <PackageReference Include="xunit.runner.visualstudio" Version="2.5.4" />
-          <PackageReference Include="coverlet.collector" Version="6.0.0" />
-          <PackageReference Include="coverlet.msbuild" Version="6.0.0" />
-        </ItemGroup>
-      </Project>
-      ```
+        # Add specific version
+        dotnet add package Serilog -v 3.1.1
+        
+        # Add package to specific project
+        dotnet add MyProject/MyProject.csproj package Microsoft.Extensions.Logging
+        ```
+  - Before installation:
+      - Check package license compatibility
+      - Review package download statistics
+      - Verify package authenticity (signed packages)
+      - Consider package maintenance status
 
-Test Class Structure:
-  - Use ITestOutputHelper for logging:
-      ```csharp
-      public class OrderProcessingTests
-      {
-          private readonly ITestOutputHelper _output;
-          
-          public OrderProcessingTests(ITestOutputHelper output)
-          {
-              _output = output;
-          }
-          
-          [Fact]
-          public async Task ProcessOrder_ValidOrder_Succeeds()
-          {
-              _output.WriteLine("Starting test with valid order");
-              // Test implementation
-          }
-      }
-      ```
-  - Use fixtures for shared state:
-      ```csharp
-      public class DatabaseFixture : IAsyncLifetime
-      {
-          public DbConnection Connection { get; private set; }
-          
-          public async Task InitializeAsync()
-          {
-              Connection = new SqlConnection("connection-string");
-              await Connection.OpenAsync();
-          }
-          
-          public async Task DisposeAsync()
-          {
-              await Connection.DisposeAsync();
-          }
-      }
-      
-      public class OrderTests : IClassFixture<DatabaseFixture>
-      {
-          private readonly DatabaseFixture _fixture;
-          private readonly ITestOutputHelper _output;
-          
-          public OrderTests(DatabaseFixture fixture, ITestOutputHelper output)
-          {
-              _fixture = fixture;
-              _output = output;
-          }
-      }
-      ```
+Package Updates:
+  - Use CLI for updates:
+      - List outdated packages: `dotnet list package --outdated`
+      - Update specific package: `dotnet add package <PackageId>`
+      - Update all packages: Consider using `dotnet outdated -u`
+  - Update strategy:
+      - Test updates in development/CI before production
+      - Update one package at a time when possible
+      - Document breaking changes
+      - Maintain changelog entries
 
-Test Methods:
-  - Prefer Theory over multiple Facts:
-      ```csharp
-      public class DiscountCalculatorTests
-      {
-          public static TheoryData<decimal, int, decimal> DiscountTestData => 
-              new()
-              {
-                  { 100m, 1, 0m },      // No discount for single item
-                  { 100m, 5, 5m },      // 5% for 5 items
-                  { 100m, 10, 10m },    // 10% for 10 items
-              };
-          
-          [Theory]
-          [MemberData(nameof(DiscountTestData))]
-          public void CalculateDiscount_ReturnsCorrectAmount(
-              decimal price,
-              int quantity,
-              decimal expectedDiscount)
-          {
-              // Arrange
-              var calculator = new DiscountCalculator();
-              
-              // Act
-              var discount = calculator.Calculate(price, quantity);
-              
-              // Assert
-              Assert.Equal(expectedDiscount, discount);
-          }
-      }
-      ```
-  - Follow Arrange-Act-Assert pattern:
-      ```csharp
-      [Fact]
-      public async Task ProcessOrder_ValidOrder_UpdatesInventory()
-      {
-          // Arrange
-          var order = new Order(
-              OrderId.New(),
-              new[] { new OrderLine("SKU123", 5) });
-          var processor = new OrderProcessor(_mockRepository.Object);
-          
-          // Act
-          var result = await processor.ProcessAsync(order);
-          
-          // Assert
-          Assert.True(result.IsSuccess);
-          _mockRepository.Verify(
-              r => r.UpdateInventoryAsync(
-                  It.IsAny<string>(),
-                  It.IsAny<int>()),
-              Times.Once);
-      }
-      ```
+Security Considerations:
+  - Enable security scanning:
+      - Run `dotnet restore --use-lock-file` to generate lock file
+      - Use `dotnet list package --vulnerable` to check for known vulnerabilities
+      - Configure GitHub Dependabot or similar tools
+  - Monitor security:
+      - Subscribe to security advisories
+      - Regular vulnerability scanning in CI/CD
+      - Automated security updates for patch versions
+  - Example workflow:
+    ```bash
+    # Generate lock file
+    dotnet restore --use-lock-file
+    
+    # Check for vulnerabilities
+    dotnet list package --vulnerable
+    
+    # Update vulnerable package
+    dotnet add package VulnerablePackage -v SecureVersion
+    
+    # Regenerate lock file
+    dotnet restore --force-evaluate
+    ```
 
-Test Isolation:
-  - Use fresh data for each test:
-      ```csharp
-      public class OrderTests
-      {
-          private static Order CreateTestOrder() =>
-              new(OrderId.New(), TestData.CreateOrderLines());
-              
-          [Fact]
-          public async Task ProcessOrder_Success()
-          {
-              var order = CreateTestOrder();
-              // Test implementation
-          }
-      }
-      ```
-  - Clean up resources:
-      ```csharp
-      public class IntegrationTests : IAsyncDisposable
-      {
-          private readonly TestServer _server;
-          private readonly HttpClient _client;
-          
-          public IntegrationTests()
-          {
-              _server = new TestServer(CreateHostBuilder());
-              _client = _server.CreateClient();
-          }
-          
-          public async ValueTask DisposeAsync()
-          {
-              _client.Dispose();
-              await _server.DisposeAsync();
-          }
-      }
-      ```
+License Compliance:
+  - Verify licenses before adding dependencies:
+      - Check license compatibility with your project
+      - Document license requirements
+      - Maintain license inventory
+  - Common OSS-friendly licenses:
+      - MIT
+      - Apache 2.0
+      - BSD
+      - MS-PL
+  - Warning signs:
+      - No license specified
+      - Restrictive licenses (GPL for commercial software)
+      - License changes between versions
 
-CI/CD Configuration:
-  - Configure test runs:
-      ```yaml
-      - name: Test
-        run: |
-          dotnet test --configuration Release \
-                      --collect:"XPlat Code Coverage" \
-                      --logger:trx \
-                      --results-directory ./coverage
-      
-      - name: Upload coverage
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-results
-          path: coverage/**
-      ```
-  - Enable code coverage:
-      ```xml
-      <PropertyGroup>
-        <CollectCoverage>true</CollectCoverage>
-        <CoverletOutputFormat>cobertura</CoverletOutputFormat>
-        <CoverletOutput>./coverage/</CoverletOutput>
-        <ThresholdType>line,branch,method</ThresholdType>
-        <ThresholdStat>total</ThresholdStat>
-        <Threshold>80</Threshold>
-      </PropertyGroup>
-      ```
+Version Management:
+  - Use semantic versioning:
+      - Lock major versions for stability
+      - Allow minor updates for features
+      - Auto-update patches for security
+  - Version constraints:
+      - Avoid floating versions (*)
+      - Use minimum version constraints when needed
+      - Document version decisions
+  - Example in Directory.Packages.props:
+    ```xml
+    <Project>
+      <ItemGroup>
+        <!-- Locked major version -->
+        <PackageVersion Include="Important.Package" Version="2.0.0" />
+        
+        <!-- Allow minor updates -->
+        <PackageVersion Include="Feature.Package" Version="[3.0,4.0)" />
+        
+        <!-- Allow patch updates -->
+        <PackageVersion Include="Stable.Package" Version="[1.2.3,1.3.0)" />
+      </ItemGroup>
+    </Project>
+    ```
 
-Integration Testing:
-  - Always use TestContainers for infrastructure:
-      ```csharp
-      // Good: Using TestContainers for database testing
-      public class DatabaseTests : IAsyncLifetime
-      {
-          private readonly TestcontainersContainer _dbContainer;
-          
-          public DatabaseTests()
-          {
-              _dbContainer = new TestcontainersBuilder<TestcontainersContainer>()
-                  .WithImage("mcr.microsoft.com/mssql/server:2022-latest")
-                  .WithEnvironment("ACCEPT_EULA", "Y")
-                  .WithEnvironment("SA_PASSWORD", "Your_password123")
-                  .WithPortBinding(1433, true)
-                  .Build();
-          }
-          
-          public async Task InitializeAsync()
-          {
-              await _dbContainer.StartAsync();
-          }
-          
-          public async Task DisposeAsync()
-          {
-              await _dbContainer.DisposeAsync();
-          }
-      }
-      
-      // Good: Using TestContainers for Redis testing
-      public class CacheTests : IAsyncLifetime
-      {
-          private readonly TestcontainersContainer _redisContainer;
-          private IConnectionMultiplexer _redis;
-          
-          public CacheTests()
-          {
-              _redisContainer = new TestcontainersBuilder<TestcontainersContainer>()
-                  .WithImage("redis:alpine")
-                  .WithPortBinding(6379, true)
-                  .Build();
-          }
-          
-          public async Task InitializeAsync()
-          {
-              await _redisContainer.StartAsync();
-              _redis = await ConnectionMultiplexer.ConnectAsync(
-                  $"localhost:{_redisContainer.GetMappedPublicPort(6379)}");
-          }
-          
-          public async Task DisposeAsync()
-          {
-              if (_redis is not null)
-                  await _redis.DisposeAsync();
-              await _redisContainer.DisposeAsync();
-          }
-      }
-      
-      // Good: Using TestContainers for message queue testing
-      public class MessageQueueTests : IAsyncLifetime
-      {
-          private readonly TestcontainersContainer _rabbitContainer;
-          private IConnection _connection;
-          
-          public MessageQueueTests()
-          {
-              _rabbitContainer = new TestcontainersBuilder<TestcontainersContainer>()
-                  .WithImage("rabbitmq:management-alpine")
-                  .WithPortBinding(5672, true)
-                  .WithPortBinding(15672, true)
-                  .Build();
-          }
-          
-          public async Task InitializeAsync()
-          {
-              await _rabbitContainer.StartAsync();
-              var factory = new ConnectionFactory
-              {
-                  HostName = "localhost",
-                  Port = _rabbitContainer.GetMappedPublicPort(5672)
-              };
-              _connection = await factory.CreateConnectionAsync();
-          }
-          
-          public async Task DisposeAsync()
-          {
-              await _connection.CloseAsync();
-              await _rabbitContainer.DisposeAsync();
-          }
-      }
-      ```
-      
-  - Avoid mocking infrastructure:
-      ```csharp
-      // Avoid: Mocking database
-      public class DatabaseTests
-      {
-          private readonly Mock<IDbConnection> _mockDb = new();
-          
-          [Fact]
-          public async Task Test_WithMockedDb()
-          {
-              _mockDb.Setup(db => db.QueryAsync<Order>())
-                  .ReturnsAsync(new[] { new Order() });
-              // Test with mocked database - can miss real database behavior
-          }
-      }
-      
-      // Good: Real database in container
-      public class DatabaseTests : IAsyncLifetime
-      {
-          private readonly TestcontainersContainer _dbContainer;
-          private IDbConnection _db;
-          
-          // ... TestContainers setup as shown above ...
-          
-          [Fact]
-          public async Task Test_WithRealDb()
-          {
-              // Test with real database in container
-              var order = await _db.QuerySingleAsync<Order>(
-                  "SELECT * FROM Orders WHERE Id = @Id",
-                  new { Id = 1 });
-          }
-      }
-      ```
-      
-  - Use container networks for multi-container scenarios:
-      ```csharp
-      public class IntegrationTests : IAsyncLifetime
-      {
-          private readonly INetwork _network;
-          private readonly TestcontainersContainer _dbContainer;
-          private readonly TestcontainersContainer _redisContainer;
-          
-          public IntegrationTests()
-          {
-              _network = new TestcontainersNetwork();
-              
-              _dbContainer = new TestcontainersBuilder<TestcontainersContainer>()
-                  .WithImage("postgres:latest")
-                  .WithNetwork(_network)
-                  .WithNetworkAliases("db")
-                  .Build();
-                  
-              _redisContainer = new TestcontainersBuilder<TestcontainersContainer>()
-                  .WithImage("redis:alpine")
-                  .WithNetwork(_network)
-                  .WithNetworkAliases("redis")
-                  .Build();
-          }
-          
-          public async Task InitializeAsync()
-          {
-              await _network.CreateAsync();
-              await Task.WhenAll(
-                  _dbContainer.StartAsync(),
-                  _redisContainer.StartAsync());
-          }
-          
-          public async Task DisposeAsync()
-          {
-              await Task.WhenAll(
-                  _dbContainer.DisposeAsync().AsTask(),
-                  _redisContainer.DisposeAsync().AsTask());
-              await _network.DisposeAsync();
-          }
-      }
-      ```
+Maintenance:
+  - Regular housekeeping:
+      - Remove unused packages
+      - Consolidate duplicate dependencies
+      - Update documentation
+  - Automation:
+      - Implement automated vulnerability scanning
+      - Set up dependency update workflows
+      - Configure license compliance checks
+  - Commands for maintenance:
+    ```bash
+    # List all packages
+    dotnet list package
+    
+    # Check for unused dependencies
+    dotnet remove package UnusedPackage
+    
+    # Clean solution
+    dotnet clean
+    dotnet restore --force
+    ```
 
-Best Practices:
-  - Name tests clearly:
-      ```csharp
-      // Good: Clear test names
-      [Fact]
-      public async Task ProcessOrder_WhenInventoryAvailable_UpdatesStockAndReturnsSuccess()
-      
-      // Avoid: Unclear names
-      [Fact]
-      public async Task TestProcessOrder()
-      ```
-  - Use meaningful assertions:
-      ```csharp
-      // Good: Clear assertions
-      Assert.Equal(expected, actual);
-      Assert.Contains(expectedItem, collection);
-      Assert.Throws<OrderException>(() => processor.Process(invalidOrder));
-      
-      // Avoid: Multiple assertions without context
-      Assert.NotNull(result);
-      Assert.True(result.Success);
-      Assert.Equal(0, result.Errors.Count);
-      ```
-  - Handle async operations properly:
-      ```csharp
-      // Good: Async test method
-      [Fact]
-      public async Task ProcessOrder_ValidOrder_Succeeds()
-      {
-          await using var processor = new OrderProcessor();
-          var result = await processor.ProcessAsync(order);
-          Assert.True(result.IsSuccess);
-      }
-      
-      // Avoid: Sync over async
-      [Fact]
-      public void ProcessOrder_ValidOrder_Succeeds()
-      {
-          using var processor = new OrderProcessor();
-          var result = processor.ProcessAsync(order).Result;  // Can deadlock
-          Assert.True(result.IsSuccess);
-      }
-      ```
-
-Assertions:
-  - Use xUnit's built-in assertions:
-      ```csharp
-      // Good: Using xUnit's built-in assertions
-      public class OrderTests
-      {
-          [Fact]
-          public void CalculateTotal_WithValidLines_ReturnsCorrectSum()
-          {
-              // Arrange
-              var order = new Order(
-                  OrderId.New(),
-                  new[]
-                  {
-                      new OrderLine("SKU1", 2, 10.0m),
-                      new OrderLine("SKU2", 1, 20.0m)
-                  });
-              
-              // Act
-              var total = order.CalculateTotal();
-              
-              // Assert
-              Assert.Equal(40.0m, total);
-          }
-          
-          [Fact]
-          public void Order_WithInvalidLines_ThrowsException()
-          {
-              // Arrange
-              var invalidLines = new OrderLine[] { };
-              
-              // Act & Assert
-              var ex = Assert.Throws<ArgumentException>(() =>
-                  new Order(OrderId.New(), invalidLines));
-              Assert.Equal("Order must have at least one line", ex.Message);
-          }
-          
-          [Fact]
-          public void Order_WithValidData_HasExpectedProperties()
-          {
-              // Arrange
-              var id = OrderId.New();
-              var lines = new[] { new OrderLine("SKU1", 1, 10.0m) };
-              
-              // Act
-              var order = new Order(id, lines);
-              
-              // Assert
-              Assert.NotNull(order);
-              Assert.Equal(id, order.Id);
-              Assert.Single(order.Lines);
-              Assert.Collection(order.Lines,
-                  line =>
-                  {
-                      Assert.Equal("SKU1", line.Sku);
-                      Assert.Equal(1, line.Quantity);
-                      Assert.Equal(10.0m, line.Price);
-                  });
-          }
-      }
-      ```
-      
-  - Avoid third-party assertion libraries:
-      ```csharp
-      // Avoid: Using FluentAssertions or similar libraries
-      public class OrderTests
-      {
-          [Fact]
-          public void CalculateTotal_WithValidLines_ReturnsCorrectSum()
-          {
-              var order = new Order(
-                  OrderId.New(),
-                  new[]
-                  {
-                      new OrderLine("SKU1", 2, 10.0m),
-                      new OrderLine("SKU2", 1, 20.0m)
-                  });
-              
-              // Avoid: Using FluentAssertions
-              order.CalculateTotal().Should().Be(40.0m);
-              order.Lines.Should().HaveCount(2);
-              order.Should().NotBeNull();
-          }
-      }
-      ```
-      
-  - Use proper assertion types:
-      ```csharp
-      public class CustomerTests
-      {
-          [Fact]
-          public void Customer_WithValidEmail_IsCreated()
-          {
-              // Boolean assertions
-              Assert.True(customer.IsActive);
-              Assert.False(customer.IsDeleted);
-              
-              // Equality assertions
-              Assert.Equal("john@example.com", customer.Email);
-              Assert.NotEqual(Guid.Empty, customer.Id);
-              
-              // Collection assertions
-              Assert.Empty(customer.Orders);
-              Assert.Contains("Admin", customer.Roles);
-              Assert.DoesNotContain("Guest", customer.Roles);
-              Assert.All(customer.Orders, o => Assert.NotNull(o.Id));
-              
-              // Type assertions
-              Assert.IsType<PremiumCustomer>(customer);
-              Assert.IsAssignableFrom<ICustomer>(customer);
-              
-              // String assertions
-              Assert.StartsWith("CUST", customer.Reference);
-              Assert.Contains("Premium", customer.Description);
-              Assert.Matches("^CUST\\d{6}$", customer.Reference);
-              
-              // Range assertions
-              Assert.InRange(customer.Age, 18, 100);
-              
-              // Reference assertions
-              Assert.Same(expectedCustomer, actualCustomer);
-              Assert.NotSame(differentCustomer, actualCustomer);
-          }
-      }
-      ```
-      
-  - Use Assert.Collection for complex collections:
-      ```csharp
-      [Fact]
-      public void ProcessOrder_CreatesExpectedEvents()
-      {
-          // Arrange
-          var processor = new OrderProcessor();
-          var order = CreateTestOrder();
-          
-          // Act
-          var events = processor.Process(order);
-          
-          // Assert
-          Assert.Collection(events,
-              evt =>
-              {
-                  Assert.IsType<OrderReceivedEvent>(evt);
-                  var received = Assert.IsType<OrderReceivedEvent>(evt);
-                  Assert.Equal(order.Id, received.OrderId);
-              },
-              evt =>
-              {
-                  Assert.IsType<InventoryReservedEvent>(evt);
-                  var reserved = Assert.IsType<InventoryReservedEvent>(evt);
-                  Assert.Equal(order.Id, reserved.OrderId);
-                  Assert.NotEmpty(reserved.ReservedItems);
-              },
-              evt =>
-              {
-                  Assert.IsType<OrderConfirmedEvent>(evt);
-                  var confirmed = Assert.IsType<OrderConfirmedEvent>(evt);
-                  Assert.Equal(order.Id, confirmed.OrderId);
-                  Assert.True(confirmed.IsSuccess);
-              });
-      }
-      ```
+Integration with CI/CD:
+  - Implement checks:
+      - Vulnerability scanning
+      - License compliance
+      - Package restore verification
+  - Example GitHub Actions workflow:
+    ```yaml
+    - name: Security scan
+      run: |
+        dotnet restore --use-lock-file
+        dotnet list package --vulnerable
+        
+    - name: License check
+      run: dotnet-project-licenses
+    ```
 
 # End of Cursor Rules File 
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/petabridge)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/petabridge)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [petabridge/Incrementalist](https://github.com/petabridge/Incrementalist) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
