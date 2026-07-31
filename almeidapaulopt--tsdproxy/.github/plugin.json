@@ -1,7 +1,7 @@
 {
   "name": "almeidapaulopt--tsdproxy",
   "displayName": "tsdproxy",
-  "description": "Automatic Tailscale reverse proxy for Docker containers. Zero sidecars. Label-based config. Automatic HTTPS.",
+  "description": "tsdproxy",
   "version": "1.0.0",
   "author": "almeidapaulopt",
   "homepage": "https://github.com/almeidapaulopt/tsdproxy",
