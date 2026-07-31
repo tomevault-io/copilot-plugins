@@ -1,8 +1,6 @@
 # AI instruction files for diffing-toolkit
 
-> Sourced from [science-of-finetuning/diffing-toolkit](https://github.com/science-of-finetuning/diffing-toolkit) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A toolkit that provides a range of model diffing techniques including a UI to visualize them interactively.
+> Sourced from [science-of-finetuning/diffing-toolkit](https://github.com/science-of-finetuning/diffing-toolkit), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
