@@ -1,8 +1,6 @@
 # stratify
 
-> Source: [dundalek/stratify](https://github.com/dundalek/stratify) — distributed by [TomeVault](https://tomevault.io)
-
-Explore and improve architecture of software, visualize structure and dependencies of codebases, calculate code metrics
+> Source: [dundalek/stratify](https://github.com/dundalek/stratify). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
