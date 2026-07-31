@@ -1,23 +1,21 @@
 # elfmem
 
-> Source: [emson/elfmem](https://github.com/emson/elfmem) — distributed by [TomeVault](https://tomevault.io)
-
-sELF improving agent memory system
+> Source: [emson/elfmem](https://github.com/emson/elfmem). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [emson/elfmem](https://github.com/emson/elfmem).
+Original source: `AGENTS.md` in [emson/elfmem](https://github.com/emson/elfmem).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/emson/elfmem](https://github.com/emson/elfmem)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/emson/elfmem](https://github.com/emson/elfmem)
 
 ---
 
