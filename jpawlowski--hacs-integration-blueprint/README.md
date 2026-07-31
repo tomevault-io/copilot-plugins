@@ -1,23 +1,22 @@
 # hacs.integration_blueprint
 
-> Tome by [jpawlowski](https://github.com/jpawlowski/hacs.integration_blueprint) — distributed by [TomeVault](https://tomevault.io)
-
-AI-enabled Modern Home Assistant Custom Integration Blueprint
+> Tome by [jpawlowski](https://github.com/jpawlowski/hacs.integration_blueprint), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jpawlowski/hacs.integration_blueprint](https://github.com/jpawlowski/hacs.integration_blueprint).
+Original source: `` in [jpawlowski/hacs.integration_blueprint](https://github.com/jpawlowski/hacs.integration_blueprint).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [jpawlowski/hacs.integration_blueprint](https://github.com/jpawlowski/hacs.integration_blueprint) — a repo with 32+ stars on GitHub.
+From [jpawlowski/hacs.integration_blueprint](https://github.com/jpawlowski/hacs.integration_blueprint) — a repo with 46+ stars on GitHub.
 
 ---
 
