@@ -1,0 +1,9 @@
+{
+  "name": "openshift--windows-machine-config-operator",
+  "displayName": "windows-machine-config-operator",
+  "description": "windows-machine-config-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/windows-machine-config-operator",
+  "skills": []
+}
