@@ -2,9 +2,9 @@
   "name": "generative-ai-with-javascript",
   "owner": "microsoft",
   "repo": "generative-ai-with-javascript",
-  "description": "Join a time-traveling adventure where you meet history\u2019s legends while learning Generative AI technologies! \u2728",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/microsoft/generative-ai-with-javascript",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T18:02:15Z"
+  "distributed_at": "2026-07-31T02:01:27Z"
 }
