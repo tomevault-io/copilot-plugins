@@ -1,7 +1,7 @@
 {
   "name": "render-oss--cli",
   "displayName": "cli",
-  "description": "The Official Render CLI",
+  "description": "cli",
   "version": "1.0.0",
   "author": "render-oss",
   "homepage": "https://github.com/render-oss/cli",
