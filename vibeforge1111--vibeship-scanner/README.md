@@ -1,6 +1,6 @@
 # AI instruction files for vibeship-scanner
 
-> Sourced from [vibeforge1111/vibeship-scanner](https://github.com/vibeforge1111/vibeship-scanner) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [vibeforge1111/vibeship-scanner](https://github.com/vibeforge1111/vibeship-scanner), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `CLAUDE.md` in [vibeforge1111/vibeship-scanner](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/vibeforge1111)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/vibeforge1111/vibeship-scanner](https://github.com/vibeforge1111/vibeship-scanner)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/vibeforge1111) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:a-c-p -->
