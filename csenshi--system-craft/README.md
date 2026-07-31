@@ -1,8 +1,6 @@
 # system-craft
 
-> Source: [CSenshi/system-craft](https://github.com/CSenshi/system-craft) — distributed by [TomeVault](https://tomevault.io)
-
-Stop drawing boxes - build them. System design, fully implemented.
+> Source: [CSenshi/system-craft](https://github.com/CSenshi/system-craft). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [CSenshi/system-craft](https://github.com/CSensh
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [CSenshi/system-craft](https://github.com/CSenshi/system-craft) — a repo with 72+ stars on GitHub.
+From [CSenshi/system-craft](https://github.com/CSenshi/system-craft) — a repo with 73+ stars on GitHub.
 
 ---
 
