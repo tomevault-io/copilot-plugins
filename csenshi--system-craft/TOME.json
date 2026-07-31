@@ -2,7 +2,7 @@
   "name": "system-craft",
   "owner": "CSenshi",
   "repo": "system-craft",
-  "description": "Stop drawing boxes - build them. System design, fully implemented.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CSenshi/system-craft",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T18:06:42Z"
+  "distributed_at": "2026-07-31T05:40:03Z"
 }
