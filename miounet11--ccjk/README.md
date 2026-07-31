@@ -1,8 +1,6 @@
 # ccjk
 
-> Source: [miounet11/ccjk](https://github.com/miounet11/ccjk) — distributed by [TomeVault](https://tomevault.io)
-
-🚀 CCJK In the realm of AI-assisted development, Context Engineering and Cognitive Load Management are the decisive factors for development efficiency. CCJK is built on this insight, delivering the industry's first Cognitive Enhancement Engine.
+> Source: [miounet11/ccjk](https://github.com/miounet11/ccjk). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [miounet11/ccjk](https://github.com/miounet11/cc
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/miounet11/ccjk](https://github.com/miounet11/ccjk)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/miounet11/ccjk](https://github.com/miounet11/ccjk)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-q -->
