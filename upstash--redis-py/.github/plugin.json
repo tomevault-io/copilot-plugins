@@ -1,0 +1,9 @@
+{
+  "name": "upstash--redis-py",
+  "displayName": "redis-py",
+  "description": "redis-py",
+  "version": "1.0.0",
+  "author": "upstash",
+  "homepage": "https://github.com/upstash/redis-py",
+  "skills": []
+}
