@@ -1,0 +1,9 @@
+{
+  "name": "plotly--plotly-net",
+  "displayName": "Plotly.NET",
+  "description": "Plotly.NET",
+  "version": "1.0.0",
+  "author": "plotly",
+  "homepage": "https://github.com/plotly/Plotly.NET",
+  "skills": []
+}
