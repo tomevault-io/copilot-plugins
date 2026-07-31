@@ -1,0 +1,9 @@
+{
+  "name": "azure--gpt-rag-orchestrator",
+  "displayName": "gpt-rag-orchestrator",
+  "description": "gpt-rag-orchestrator",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/gpt-rag-orchestrator",
+  "skills": []
+}
