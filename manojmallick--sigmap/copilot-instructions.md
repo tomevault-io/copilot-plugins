@@ -1,708 +1,436 @@
 ## sigmap
 
-> Instructions for Codex-style agents working in this repository.
+> Integrate SigMap with OpenCode, OpenHands, Cline, Aider, and local LLMs via Ollama, llama.cpp, vLLM. Model-agnostic context for any inference backend.
 
-# SigMap — AGENTS.md
 
-Instructions for Codex-style agents working in this repository.
+# Open-source agents and local LLM workflows
 
-## Append Strategy (Required)
+SigMap is **model-agnostic** — it works with any AI assistant or inference backend that consumes markdown context files. Whether you're using a proprietary cloud API or running an open-source model locally, SigMap handles context generation the same way.
 
-When writing generated signature content, never overwrite human-written notes above the marker.
+This guide shows how to integrate SigMap with popular open-source coding agents and local inference backends.
 
-Use this marker block for all appendable context files:
+## Model-agnostic context generation
 
-```
-## Tools
-
-<!-- sigmap-tools -->
-
-```json
-[
-  {
-    "name": "sigmap_ask",
-    "description": "Rank source files by relevance to a natural-language query. Run before exploring the codebase.",
-    "command": "sigmap ask \"$QUERY\""
-  },
-  {
-    "name": "sigmap_validate",
-    "description": "Validate SigMap config and measure context coverage. Run after changing config or source dirs.",
-    "command": "sigmap validate"
-  },
-  {
-    "name": "sigmap_judge",
-    "description": "Score an LLM response for groundedness against source context. Use to verify answer quality.",
-    "command": "sigmap judge --response \"$RESPONSE\" --context \"$CONTEXT\""
-  },
-  {
-    "name": "sigmap_query",
-    "description": "Rank all files by relevance using TF-IDF and write a focused mini-context.",
-    "command": "sigmap --query \"$QUERY\" --context"
-  },
-  {
-    "name": "sigmap_weights",
-    "description": "Show learned file-ranking multipliers accumulated from past sessions.",
-    "command": "sigmap weights"
-  }
-]
-```
-
-## Auto-generated signatures
-<!-- Updated by gen-context.js -->
-# Code signatures
-
-## changes (last 5 commits — 0 seconds ago)
-```
-src/learning/weights.js                       +exportWeights  +importWeights  ~resetWeights
-packages/adapters/codex.js                    ~write  ~format
-packages/adapters/claude.js                   ~format  ~write
-packages/adapters/gemini.js                   ~format
-packages/adapters/copilot.js                  ~format
-packages/adapters/cursor.js                   ~format
-packages/adapters/openai.js                   ~format
-packages/adapters/windsurf.js                 ~format
-```
-
-## packages
-
-### packages/cli/index.js
-```
-module.exports = { CLI_ENTRY, run }
-function run(argv, cwd) → void
-```
-
-### packages/adapters/index.js
-```
-module.exports = { getAdapter, listAdapters, adapt, outputsToAdapters }
-function getAdapter(name) → { name: string, format: F
-function listAdapters() → string[]
-function adapt(context, adapterName, opts = {}) → string
-function outputsToAdapters(outputs) → string[]
-```
-
-### packages/adapters/llm-full.js
-```
-module.exports = { name: 'llm-full', format, outputPath, write }
-function outputPath(cwd)
-function format(context, opts)
-function write(context, cwd, opts)
-```
-
-### packages/core/README.md
-```
-h1 sigmap-core
-h2 Installation
-h2 Quick start
-h2 API reference
-h3 `extract(src, language)` → `string[]`
-h3 `rank(query, sigIndex, opts?)` → `Result[]`
-h3 `buildSigIndex(cwd)` → `Map<string, string[]>`
-h3 `scan(sigs, filePath)` → `{ safe: string[], redacted: boolean }`
-h3 `score(cwd)` → `HealthResult`
-h2 Migration from v2.3 and earlier
-h2 v3.0 — Multi-Adapter Architecture (released)
-h2 Zero dependencies
-code-fence bash
-code-fence plain
-code-fence js
-code-fence ---
-```
-
-### packages/core/index.js
-```
-module.exports = { extract, rank, buildSigIndex, scan, score, adapt }
-function _resolveExtractor(language)
-function extract(src, language) → string[]
-function rank(query, sigIndex, opts) → { file: string, score: nu
-function buildSigIndex(cwd) → Map<string, string[]>
-function scan(sigs, filePath) → { safe: string[], redacte
-function score(cwd) → { * score: number, * grad
-function adapt(context, adapterName, opts = {}) → string
-```
-
-### packages/adapters/codex.js
-```
-module.exports = { name, format, outputPath, write }
-function format(context, opts = {}) → string
-function outputPath(cwd) → string
-function write(context, cwd, opts = {})
-```
-
-### packages/adapters/claude.js
-```
-module.exports = { name, format, outputPath, write }
-function format(context, opts = {}) → string
-function _confidenceMeta(opts)
-function outputPath(cwd) → string
-function write(context, cwd, opts = {})
-```
-
-### packages/adapters/gemini.js
-```
-module.exports = { name, format, outputPath, write }
-function format(context, opts = {}) → string
-function outputPath(cwd) → string
-function write(context, cwd, opts = {})
-function _confidenceMeta(opts)
-```
-
-### packages/adapters/copilot.js
-```
-module.exports = { name, format, outputPath, write }
-function format(context, opts = {}) → string
-function _confidenceMeta(opts)
-function outputPath(cwd) → string
-function write(context, cwd, opts = {})
-```
-
-### packages/adapters/cursor.js
-```
-module.exports = { name, format, outputPath }
-function format(context, opts = {}) → string
-function _confidenceMeta(opts)
-function outputPath(cwd) → string
-```
-
-### packages/adapters/openai.js
-```
-module.exports = { name, format, outputPath }
-function format(context, opts = {}) → string
-function outputPath(cwd) → string
-function _confidenceMeta(opts)
-```
-
-### packages/adapters/windsurf.js
-```
-module.exports = { name, format, outputPath }
-function format(context, opts = {}) → string
-function _confidenceMeta(opts)
-function outputPath(cwd) → string
-```
-
-## src
-
-### src/security/patterns.js
-```
-module.exports = { PATTERNS }
-```
-
-### src/security/scanner.js
-```
-module.exports = { scan }
-function scan(signatures, filePath) → { safe: string[], redacte
-```
-
-### src/extractors/cpp.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-function extractBlock(src, startIndex)
-function extractMembers(block)
-function normalizeParams(params)
-function normalizeType(type)
-```
-
-### src/extractors/csharp.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-function extractBlock(src, startIndex)
-function extractMembers(block)
-function normalizeParams(params)
-function normalizeType(type)
-```
-
-### src/extractors/dart.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-function extractBlock(src, startIndex)
-function extractMembers(block)
-function normalizeParams(params)
-```
-
-### src/extractors/deps.js
-```
-module.exports = { extractPythonDeps, extractTSDeps, buildReverseDepMap }
-function extractPythonDeps(src) → string[]
-function extractTSDeps(src) → string[]
-function buildReverseDepMap(forwardMap) → Map<string, string[]>
-```
-
-### src/extractors/go.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-function extractBlock(src, startIndex)
-function extractInterfaceMethods(block)
-function normalizeParams(params)
-```
-
-### src/extractors/java.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-function extractBlock(src, startIndex)
-function extractMembers(block)
-function normalizeParams(params)
-function normalizeType(type)
-```
-
-### src/extractors/javascript.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-function extractBlock(src, startIndex)
-function extractClassMembers(block, returnHints)
-function buildReturnHints(src)
-function normalizeType(type)
-function formatReturnHint(type)
-function normalizeParams(params)
-```
-
-### src/extractors/kotlin.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-function extractBlock(src, startIndex)
-function extractMembers(block)
-function normalizeParams(params)
-```
-
-### src/extractors/php.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-function extractBlock(src, startIndex)
-function extractMembers(block)
-function normalizeParams(params)
-function normalizeType(type)
-```
-
-### src/extractors/prdiff.js
-```
-module.exports = { diffSignatures, extractName }
-function diffSignatures(baseSigs, currentSigs) → {added:string[], removed:
-function extractName(sig)
-```
-
-### src/extractors/python.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-function extractClassMethods(stripped, startIndex)
-function tryExtractDataclassFields(stripped, classIndex)
-function tryExtractBaseModelFields(stripped, bodyStart)
-function extractClassConstants(stripped, startIndex)
-function extractReturnType(sigLine)
-function normalizeParams(params)
-function extractDocHint(src, fnName, fnSigLine)
-```
-
-### src/extractors/ruby.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-function normalizeParams(params)
-function extractReturnHint(stripped, index)
-```
-
-### src/extractors/rust.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-function extractBlock(src, startIndex)
-function extractMethods(block)
-function normalizeParams(params)
-function extractReturnType(afterParen)
-```
-
-### src/extractors/scala.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-function extractBlock(src, startIndex)
-function extractMembers(block)
-function normalizeParams(params)
-function normalizeType(type)
-```
-
-### src/extractors/svelte.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-function normalizeParams(params)
-function normalizeType(type)
-```
-
-### src/extractors/swift.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-function extractBlock(src, startIndex)
-function extractMembers(block)
-function normalizeParams(params)
-function extractArrowType(str)
-```
+SigMap produces plain markdown files containing your codebase signatures and context. Any tool that reads markdown can use SigMap output:
 
-### src/extractors/todos.js
+```bash
+sigmap  # generates .github/copilot-instructions.md
 ```
-module.exports = { extractTodos }
-function extractTodos(src) → {line:number, tag:string,
-```
-
-### src/extractors/vue.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-function normalizeParams(params)
-function normalizeType(type)
-```
-
-### src/eval/scorer.js
-```
-module.exports = { hitAtK, reciprocalRank, precisionAtK, aggregate, firstRank }
-function firstRank(ranked, expected) → number
-function normalizePath(p) → string
-function hitAtK(ranked, expected, k = 5) → 0|1
-function reciprocalRank(ranked, expected) → number
-function precisionAtK(ranked, expected, k = 5) → number
-function aggregate(results, k = 5) → { * hitAt5: number, // fr
-function round(x)
-```
-
-### src/eval/runner.js
-```
-module.exports = { run, rank, loadTasks, buildSigIndex, formatTable, formatMetrics, tokenize }
-function buildSigIndex(cwd) → Map<string, string[]>
-function tokenize(text) → string[]
-function scoreFile(sigs, queryTokens) → number
-function rank(query, index, topK = 10) → { file: string, score: nu
-function estimateTokens(sigs) → number
-function loadTasks(tasksFile) → Array<{id:string, query:s
-function run(tasksFile, cwd, opts = {}) → { * tasks: Array<{id, que
-function formatTable(taskResults) → string
-function formatMetrics(metrics) → string
-```
-
-### src/retrieval/tokenizer.js
-```
-module.exports = { tokenize, STOP_WORDS }
-function tokenize(text, opts) → string[]
-```
-
-### src/graph/builder.js
-```
-module.exports = { build, buildFromCwd, extractFileDeps }
-function resolveJsPath(dir, importStr, fileSet) → string|null
-function extractFileDeps(filePath, content, fileSet) → string[]
-function build(files, cwd) → { forward: Map<string,str
-function buildFromCwd(cwd, opts) → { forward: Map<string,str
-```
-
-### src/graph/impact.js
-```
-module.exports = { getImpact, analyzeImpact, formatImpact, formatImpactJSON }
-function bfs(startFile, reverseGraph, maxDepth) → { direct: Set<string>, tr
-function isTestFile(f)
-function isRouteFile(f)
-function getImpact(changedFile, graph, opts) → { * changed: string, * di
-function analyzeImpact(changedFiles, cwd, opts) → { file: string, impact: o
-function formatImpact(result) → string
-function formatImpactJSON(result) → object
-```
-
-### src/mcp/tools.js
-```
-module.exports = { TOOLS }
-```
-
-### src/health/scorer.js
-```
-module.exports = { score }
-function score(cwd) → { * score: number, * grad
-```
-
-### src/extractors/coverage.js
-```
-module.exports = { buildTestIndex, isTested }
-function walkFiles(dir)
-function buildTestIndex(cwd, testDirs)
-function isTested(funcName, testIndex)
-```
-
-### src/extractors/css.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-```
-
-### src/extractors/sql.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-function _cleanName(raw)
-function _normalizeParams(raw)
-```
-
-### src/extractors/graphql.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-```
-
-### src/extractors/protobuf.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-```
-
-### src/extractors/terraform.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-```
-
-### src/extractors/markdown.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-```
-
-### src/extractors/properties.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-```
-
-### src/extractors/toml.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-```
-
-### src/extractors/xml.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-```
-
-### src/extractors/patterns.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-```
-
-### src/extractors/python_dataclass.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-```
-
-### src/extractors/typescript_react.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-```
-
-### src/extractors/vue_sfc.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-```
-
-### src/extractors/generic.js
-```
-module.exports = { extract }
-function extract(src)
-```
 
-### src/format/llm-txt.js
-```
-module.exports = { format, outputPath }
-function outputPath(cwd)
-function format(context, cwd, version)
-```
+Your AI agent reads this file, either by:
+1. **Manual paste** — copy the markdown into your chat
+2. **File watcher** — auto-reload when you run `sigmap --watch`
+3. **IDE integration** — MCP, .cursor/mcp.json, or Claude Code settings
+4. **API integration** — HTTP fetch from a local endpoint
+5. **CLI pipe** — direct stdout stream to your model
 
-### src/format/llms-txt.js
-```
-module.exports = { format, outputPath }
-function outputPath(cwd)
-function getShortCommit(cwd)
-function detectVersion(cwd)
-function format(context, cwd, writtenFiles, sigmapVersion)
-```
+---
 
-### src/eval/analyzer.js
-```
-module.exports = { analyzeFiles, formatAnalysisTable, formatAnalysisJSON }
-function isDockerfile(name)
-function getExtractorName(filePath)
-function tokenCount(sigs)
-function hasCoverage(filePath, cwd)
-function loadExtractor(name, cwd)
-function analyzeFiles(files, cwd, opts) → object[]
-function formatAnalysisTable(stats, showSlow) → string
-function formatAnalysisJSON(stats) → object
-```
+## Open-source coding agents
 
-### src/config/defaults.js
-```
-module.exports = { DEFAULTS }
-```
+### OpenCode
 
-### src/config/loader.js
-```
-module.exports = { loadConfig, loadBaseConfig }
-function loadBaseConfig(extendsVal, cwd)
-function detectAutoSrcDirs(cwd, excludeList) → string[]
-function loadConfig(cwd) → object
-function deepClone(obj)
-```
+**Status:** ⭐ **Most popular** (157k GitHub stars)  
+**Type:** Open-source coding agent  
+**Model:** Works with OpenAI API (default) or OpenAI-compatible servers (Ollama, local vLLM)
 
-### src/format/dashboard.js
-```
-module.exports = { generateDashboardHtml, renderHistoryCharts, computeExtractorCoverage, percentile, overBudgetStreak }
-function toNumber(v)
-function percentile(values, p)
-function overBudgetStreak(entries)
-function loadConfig(cwd)
-function shouldExclude(rel, excludeSet)
-function detectLanguage(filePath)
-function walkFiles(dir, maxDepth, depth, out, excludeSet)
-function computeExtractorCoverage(cwd)
-function readBenchmarkTrend(cwd)
-function lineChartSvg(values, title, ySuffix)
-function barChartSvg(perLanguage)
-function sparkline(values)
-function buildDashboardData(cwd, health)
-function generateDashboardHtml(cwd, health)
-function renderHistoryCharts(cwd, health)
-```
+OpenCode is the most widely-adopted open-source coding agent in the LocalLLM community. It integrates with SigMap via file context injection.
 
-### src/judge/judge-engine.js
-```
-module.exports = { groundedness, judge }
-function tokenize(text)
-function groundedness(response, context)
-function extractContextFiles(context, cwd)
-function judge(response, context, opts = {})
-```
+#### Setup with SigMap
 
-### src/format/benchmark-report.js
-```
-module.exports = { loadBenchmarkReports, buildBenchmarkSummary, generateBenchmarkReportHtml, writeBenchmarkReport }
-function escapeHtml(value)
-function formatInt(value)
-function formatCompact(value)
-function formatPct(value, digits = 1)
-function formatMaybePct(value, digits = 1)
-function formatRatio(value, digits = 1)
-function formatMoney(value)
-function durationLabel(ms)
-function maxOrZero(values)
-function readJson(filePath)
-function loadBenchmarkReports(cwd)
-function buildRetrievalSummary(retrieval)
-function buildBenchmarkSummary(reports, matrixSummary)
-function renderCard(label, value, hint, tone)
-function renderProgress(label, value, max, suffix)
-function renderMatrixSection(matrix)
-function renderTokenSection(token)
-function renderRetrievalSection(retrieval)
-function renderQualitySection(quality)
-function renderTaskSection(task)
-function generateBenchmarkReportHtml(reports, opts = {})
-function writeBenchmarkReport(cwd, opts = {})
-```
+1. **Generate base context**
+   ```bash
+   sigmap
+   # Writes: .github/copilot-instructions.md
+   ```
 
-### src/analysis/coverage-score.js
-```
-module.exports = { coverageScore, CODE_EXTS }
-function coverageScore(cwd, fileEntries, config)
-function _walk(dir, excludeSet, out)
-```
+2. **Start OpenCode**
+   ```bash
+   # With cloud LLM (OpenAI, Anthropic, etc.)
+   opencode --model gpt-4
 
-### src/cache/sig-cache.js
-```
-module.exports = { loadCache, saveCache, getChangedFiles, updateCacheEntries }
-function cachePath(cwd)
-function loadCache(cwd, currentVersion) → Map<string, { mtime: numb
-function saveCache(cwd, currentVersion, cache)
-function getChangedFiles(files, cache) → { changed: string[], unch
-function updateCacheEntries(cache, extracted)
-```
+   # With local inference (see "Local LLM inference" section below)
+   opencode --api-base http://localhost:8000 --model local-model
+   ```
 
-### src/mcp/handlers.js
-```
-module.exports = { readContext, searchSignatures, getMap, createCheckpoint, getRouting, explainFile, listModules, queryContext, getImpact }
-function readContext(args, cwd)
-function searchSignatures(args, cwd)
-function getMap(args, cwd)
-function createCheckpoint(args, cwd)
-function getRouting(args, cwd)
-function explainFile(args, cwd)
-function listModules(args, cwd)
-function queryContext(args, cwd)
-function getImpact(args, cwd)
-```
+3. **Inject context in OpenCode**  
+   When OpenCode opens the file editor, paste the contents of `.github/copilot-instructions.md` at the top of your current file as a comment block:
+   
+   ```javascript
+   // === SigMap context (paste from .github/copilot-instructions.md) ===
+   // ## File signatures
+   // auth/login.js: login(email, password) → Promise<{token, user}>
+   // auth/verify.js: verify(token) → boolean
+   // ... (rest of context)
+   // ===
+   
+   // Your actual code here
+   ```
 
-### src/retrieval/ranker.js
-```
-module.exports = { rank, buildSigIndex, scoreFile, formatRankTable, formatRankJSON, DEFAULT_WEIGHTS, detectIntent }
-function scoreFile(filePath, sigs, queryTokens, weights) → number
-function rank(query, sigIndex, opts) → { file: string, score: nu
-function _parseContextFile(contextPath) → Map<string, string[]>
-function buildSigIndex(cwd, opts) → Map<string, string[]>
-function formatRankTable(results, query) → string
-function formatRankJSON(results, query) → object
-function detectIntent(query)
-```
+4. **Auto-refresh context during active development**  
+   Keep OpenCode running while you code:
+   ```bash
+   sigmap --watch
+   ```
+   OpenCode will see the updated `.github/copilot-instructions.md` when you reload the editor.
 
-### src/tracking/logger.js
-```
-module.exports = { logRun, readLog, summarize }
-function logRun(entry, cwd)
-function readLog(cwd) → object[]
-function summarize(entries) → object
-```
+#### Integration pattern
 
-### src/extractors/typescript.js
-```
-module.exports = { extract }
-function extract(src) → string[]
-function extractBlock(src, startIndex)
-function extractInterfaceMembers(block)
-function extractClassMembers(block)
-function normalizeParams(params)
-```
+OpenCode's strength is **local development with full IDE awareness**. Use SigMap to pre-select relevant files before asking:
 
-### src/learning/weights.js
-```
-module.exports = { BASELINE, DECAY, MAX_MULT, MIN_MULT, weightsPath, clampMultiplier, normalizeFile, loadWeights, saveWeights, updateWeights, boostFiles, penalizeFiles, resetWeights, exportWeights, importWeights }
-function weightsPath(cwd)
-function clampMultiplier(value)
-function normalizeFile(cwd, filePath)
-function sanitizeWeights(cwd, weights)
-function loadWeights(cwd)
-function saveWeights(cwd, weights)
-function updateWeights(cwd, opts = {})
-function boostFiles(cwd, files, amount = 0.15)
-function penalizeFiles(cwd, files, amount = 0.10)
-function resetWeights(cwd)
-function exportWeights(cwd, outputPath)
-function importWeights(cwd, importPath, replace)
-```
+```bash
+# Before asking OpenCode about auth, rank the files
+sigmap ask "How is authentication handled?" --top 10
+# Copy those file signatures into the context
 
-### src/mcp/server.js
-```
-module.exports = { start }
-function respond(id, result)
-function respondError(id, code, message)
-function dispatch(msg, cwd)
-function start(cwd)
+# Then ask OpenCode: "Given the file signatures, explain the auth flow"
 ```
 
 ---
+
+### OpenHands
+
+**Status:** ⭐ **Growing** (75k GitHub stars)  
+**Type:** Open-source autonomous agent  
+**Model:** Works with any OpenAI-compatible API
+
+OpenHands runs as a web interface and can be configured to read codebase context.
+
+#### Setup with SigMap
+
+1. **Generate context**
+   ```bash
+   sigmap --json > /tmp/sigmap-context.json
+   ```
+
+2. **Start OpenHands with context path**
+   ```bash
+   CONTEXT_FILE=/path/to/.github/copilot-instructions.md openhands
+   ```
+
+3. **Use SigMap in prompts**  
+   In the OpenHands chat, reference the context:
+   ```
+   Review the files in .github/copilot-instructions.md and explain the auth system.
+   ```
+
+---
+
+### Cline / Roo Code
+
+**Status:** ⭐ **Popular** (61k GitHub stars)  
+**Type:** Open-source coding agent for VS Code/Cursor  
+**Model:** Works with OpenAI API or local models (via OpenAI-compatible Base URL)
+
+Cline and Roo Code are VSCode/Cursor extensions that provide agent-like coding assistance.
+
+#### Setup with SigMap
+
+1. **Install Cline or Roo Code**
+   ```bash
+   # In VS Code: Install from Extensions → search "Cline" or "Roo Code"
+   ```
+
+2. **Configure to use SigMap context**  
+   In your Cline settings (`.cline.md` in project root):
+   ```bash
+   # Auto-include SigMap context
+   sigmap
+   ```
+
+3. **Use in Cline prompts**  
+   Start your Cline request with:
+   ```
+   Read .github/copilot-instructions.md as project context, then implement X.
+   ```
+
+---
+
+### Aider
+
+**Status:** ⭐ **Established** (41k GitHub stars)  
+**Type:** Open-source AI pair programmer (CLI)  
+**Model:** Works with OpenAI API or local models
+
+Aider is a terminal-based AI pair programmer that can reference external context files.
+
+#### Setup with SigMap
+
+1. **Generate context**
+   ```bash
+   sigmap
+   ```
+
+2. **Add SigMap output to Aider's context**
+   ```bash
+   # Copy the context file to Aider's awareness
+   cp .github/copilot-instructions.md .aider.context.md
+   ```
+
+3. **Use Aider with context**
+   ```bash
+   aider --file src/auth.js \
+     --read .aider.context.md \
+     "Implement the login handler using the context provided"
+   ```
+
+---
+
+## Local LLM inference backends
+
+These are **inference engines**, not coding agents. They run the actual LLM model. Pair them with an agent (Cline, OpenCode, Aider) above using the "OpenAI-compatible Base URL" pattern (see next section).
+
+### Ollama
+
+**Model serving:** ✓ Local, ✓ GPU-accelerated  
+**Setup time:** 2 minutes  
+**Best for:** Macs, Docker, simple setup
+
+[Ollama](https://ollama.ai) is the simplest way to run local models.
+
+#### Install and run
+
+```bash
+# macOS: brew install ollama
+# Linux: curl https://ollama.ai/install.sh | sh
+# Windows: https://ollama.ai/download
+
+# Start Ollama
+ollama serve
+
+# In another terminal, pull a model
+ollama pull llama2-uncensored  # or deepseek-coder, mistral, etc.
+```
+
+#### Verify it's running
+
+```bash
+curl http://localhost:11434/api/generate \
+  -d '{"model":"llama2-uncensored","prompt":"Hello"}'
+```
+
+#### Use with SigMap + OpenCode
+
+When Ollama is running, point your agent to it:
+
+```bash
+# OpenCode with local Ollama
+opencode --api-base http://localhost:11434 --model llama2-uncensored
+```
+
+---
+
+### llama.cpp
+
+**Model serving:** ✓ Lightweight, ✓ CPU/GPU  
+**Setup time:** 5 minutes  
+**Best for:** Resource-constrained machines, maximum control
+
+[llama.cpp](https://github.com/ggerganov/llama.cpp) is a C++ inference engine optimized for GGUF quantized models.
+
+#### Install and run
+
+```bash
+# Clone
+git clone https://github.com/ggerganov/llama.cpp
+cd llama.cpp
+
+# Build
+make
+
+# Download a GGUF model (e.g., from HuggingFace)
+# Example: mistral-7b-instruct.Q4_K_M.gguf
+
+# Start server
+./server -m mistral-7b-instruct.Q4_K_M.gguf \
+  --port 8080 \
+  -ngl 35  # GPU layers (adjust for your GPU)
+```
+
+#### Use with SigMap
+
+```bash
+# Point any OpenAI-compatible tool to llama.cpp
+opencode --api-base http://localhost:8080/v1 --model model-name
+```
+
+---
+
+### vLLM
+
+**Model serving:** ✓ High-throughput, ✓ Multi-GPU  
+**Setup time:** 10 minutes  
+**Best for:** Production, high concurrency, or server deployments
+
+[vLLM](https://docs.vllm.ai/) is a fast inference server for LLMs.
+
+#### Install and run
+
+```bash
+pip install vllm
+
+# Start vLLM with a model
+python -m vllm.entrypoints.openai.api_server \
+  --model mistralai/Mistral-7B-Instruct-v0.1 \
+  --port 8000 \
+  --dtype half  # Use fp16
+```
+
+#### Use with SigMap
+
+```bash
+opencode --api-base http://localhost:8000/v1 --model mistral
+```
+
+---
+
+### LM Studio
+
+**Model serving:** ✓ GUI-based, ✓ Beginner-friendly  
+**Setup time:** 3 minutes  
+**Best for:** Non-technical users, macOS/Windows
+
+[LM Studio](https://lmstudio.ai) provides a UI for downloading and serving models locally.
+
+#### Setup
+
+1. Download and install LM Studio
+2. Search for a model (e.g., "mistral", "llama2-uncensored")
+3. Click "Download"
+4. Click "Start Server"
+5. Note the API address (default: `http://localhost:1234/v1`)
+
+#### Use with SigMap
+
+```bash
+opencode --api-base http://localhost:1234/v1 --model [model-name]
+```
+
+---
+
+## Bridge pattern: OpenAI-compatible Base URL
+
+This is the **universal integration pattern** that connects any agent to any inference backend.
+
+### How it works
+
+Most modern agents (OpenCode, Aider, Cline, etc.) accept an `--api-base` flag that overrides the default OpenAI endpoint. This allows you to point them at any OpenAI-compatible API server:
+
+```bash
+Agent --api-base http://localhost:8000/v1 --model local-model
+```
+
+### Unified workflow
+
+1. **Start any local inference backend**
+   ```bash
+   ollama serve                    # or llama.cpp, vLLM, LM Studio
+   ```
+
+2. **Point agent at it**
+   ```bash
+   opencode --api-base http://localhost:8000/v1 --model mistral
+   ```
+
+3. **Use SigMap as usual**
+   ```bash
+   sigmap
+   sigmap ask "Where is auth?"
+   ```
+
+### Inference backends by API compatibility
+
+| Backend | API Compatible | Base URL Example |
+|---------|---|---|
+| Ollama | ✓ Yes | `http://localhost:11434` (note: no `/v1`) |
+| llama.cpp | ✓ Yes | `http://localhost:8080/v1` |
+| vLLM | ✓ Yes | `http://localhost:8000/v1` |
+| LM Studio | ✓ Yes | `http://localhost:1234/v1` |
+| text-generation-webui | ✓ Yes | `http://localhost:5000/v1` |
+
+---
+
+## Advanced: MCP for open-source agents
+
+If your agent supports MCP (Model Context Protocol), you can integrate SigMap as a live tool:
+
+### OpenCode with SigMap MCP
+
+```bash
+# 1. Install OpenCode
+npm install -g opencode
+
+# 2. Generate SigMap MCP config
+sigmap --setup
+
+# 3. Start OpenCode with MCP enabled
+opencode --enable-mcp --mcp-config ./gen-context.js --mcp
+```
+
+This gives OpenCode **9 live tools** to query your codebase on-demand.
+
+---
+
+## Comparison: Agents vs backends
+
+| Category | What it is | Examples | Role |
+|----------|-----------|----------|------|
+| **Coding Agent** | Orchestrates coding tasks | OpenCode, Aider, Cline | Decides what to do, calls models, edits code |
+| **Inference Backend** | Runs the actual LLM | Ollama, llama.cpp, vLLM | Executes the model, returns text |
+| **Context Provider** | Supplies relevant context | SigMap, Repomix | Feeds code context to agents/models |
+
+**Key insight:** You can mix and match. SigMap works with any combination:
+- OpenCode (agent) + Ollama (local inference) + SigMap (context)
+- Aider (agent) + vLLM (local inference) + SigMap (context)
+- Cline (agent) + Claude API (cloud) + SigMap (context)
+
+---
+
+## FAQ
+
+### Can I use SigMap with proprietary agents?
+
+Yes. SigMap generates plain markdown that any agent can read. Clipboard paste is the lowest common denominator.
+
+### Do I need GPUs for local inference?
+
+No. CPU inference works fine for coding tasks (author uses M3 MacBook CPU). GPU accelerates inference ~3–5×.
+
+### What's a good model for coding tasks?
+
+- **Mistral 7B** — 7B params, strong code quality, fast inference
+- **DeepSeek Coder 6.7B** — Specialized for code, very good quality
+- **Llama 2 13B** — Larger, slower, better reasoning
+- **CodeLlama 34B** — Specialized for code, high quality
+
+Use `ollama pull <model>` to download.
+
+### How do I measure my setup's effectiveness?
+
+Evaluate your SigMap context against real coding tasks:
+
+```bash
+sigmap validate --query "your question"
+```
+
+This shows whether SigMap ranked the right files in the top 10. For comprehensive evaluation with your local LLM setup, use the benchmark guides at [Local LLMs](/guide/local-llms).
+### How do I benchmark my local setup?
+
+```bash
+sigmap benchmark --model local-model
+```
+
+This runs the SigMap benchmark suite against your local LLM and reports hit@5, task success, and token reduction.
+
+---
+
+## Next steps
+
+- **Local LLM guide:** [Using SigMap with Local LLMs](/guide/local-llms)
+- **MCP integration:** [MCP server setup](/guide/mcp)
+- **Benchmark:** [Measure your setup](/guide/benchmark)
+- **Config:** [Advanced configuration](/guide/config)
+
+---
 > Source: [manojmallick/sigmap](https://github.com/manojmallick/sigmap) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
