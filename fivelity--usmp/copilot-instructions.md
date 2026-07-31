@@ -1,21 +1,45 @@
-## 00-technologies-frameworks
+## 01-project-structure
 
-> Absolute requirements for core technologies.
+> Directory layout, file naming conventions, and separation of concerns.
 
 
-# 00-technologies-frameworks
+# 01-project-structure
 
-## Core Technologies and Frameworks
+## Project Structure
 
 STRICT REQUIREMENT:
-- Frontend Framework: SvelteKit, specifically Svelte 5 with Runes.
-- Frontend Styling: Tailwind CSS v4+ (only use Tailwind utility classes or custom CSS extensions defined within `src/app.css`).
-- Frontend Icons: Prefer `lucide-svelte`, fallback to `Font Awesome`, `Phosphor Icons`, or inline SVG for game-specific icons.
-- Backend Framework: FastAPI (Python).
-- Hardware Monitoring: Use the `HardwareMonitor` python library (`LibreHardwareMonitorlib` wrapper) for sensor data acquisition.
-- Real-time Communication: WebSockets for live data updates.
-- Backend Configuration: `python-dotenv`.
-- Package Manager: `pnpm` for frontend development.
+
+Monorepo Structure: Maintain the existing monorepo structure with client/ (frontend) and server/ (backend) directories.
+
+Client (client/) Directory Structure:
+
+SvelteKit project structure.
+
+Global CSS: src/app.css.
+
+Common styles: src/lib/styles/common.css.
+
+UI components: src/lib/components/ui/.
+
+Core widgets: src/lib/components/core/widgets/.
+
+Stores: src/lib/stores/ (e.g., sensorData.svelte.ts, connectionStatus.ts).
+
+Services: src/lib/services/.
+
+Type definitions: src/lib/types/.
+
+Server (server/) Directory Structure:
+
+FastAPI application entry point: server/app/main.py.
+
+Core configuration: server/app/core/config.py.
+
+Sensor-specific logic: server/app/sensors/.
+
+Pydantic models: server/app/models/.
+
+Virtual environment: Managed by venv.
 
 ---
 > Source: [fivelity/usmp](https://github.com/fivelity/usmp) — distributed by [TomeVault](https://tomevault.io).
