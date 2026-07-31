@@ -1,0 +1,9 @@
+{
+  "name": "grafana--beyla",
+  "displayName": "beyla",
+  "description": "beyla",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/beyla",
+  "skills": []
+}
