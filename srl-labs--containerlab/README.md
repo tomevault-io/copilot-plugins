@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [srl-labs/containerlab](https://github.com/srl-labs/containerlab).
+Original source: `.cursor/rules/*.mdc` in [srl-labs/containerlab](https://github.com/srl-labs/containerlab).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [srl-labs/containerlab](https://github.com/srl-labs/containerlab) — a repo with 2689+ stars on GitHub.
+From [srl-labs/containerlab](https://github.com/srl-labs/containerlab) — a repo with 2697+ stars on GitHub.
 
 ---
 
