@@ -1,90 +1,83 @@
 ## replicate
 
-> - **Build:** `bun run build` (uses tsdown, outputs to `dist/`)
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md - Development Guide
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Commands
 
-- **Build:** `bun run build` (uses tsdown, outputs to `dist/`)
-- **Lint & Format:** `bun run lint:fix` (ESLint + Stylistic) - **ALWAYS RUN BEFORE COMMITTING**
-- **Type Check:** Build includes type checking via tsdown
+```bash
+# Development (runs Vite dev server and Convex backend concurrently)
+bun run dev
 
-## Code Style & Conventions
+# Individual dev processes
+bun run dev:app     # Vite dev server on port 3000
+bun run dev:convex  # Convex backend watcher
 
-- **Formatting:** 2 spaces, double quotes, semicolons (enforced by ESLint Stylistic)
-- **Imports:** Use `import type` for types. Use `node:` protocol for Node built-ins
-- **Logging:** Use `LogTape`. Avoid `console.*` (warns in ESLint)
-- **Structure:** Single package. `src/client` (browser), `src/server` (Convex), `src/component`
-- **Documentation:** ALWAYS use `Context7` tool for library docs (Convex, Yjs, TanStack, Effect)
-- **Deletion:** Hard deletes in main table; soft deletes (append-only) in component
+# Build & serve
+bun run build       # Vite build + service worker generation
+bun run serve       # Preview production build
+```
+
+## Environment Setup
+
+Copy `.env.example` to `.env` and set `VITE_CONVEX_URL` to your Convex deployment URL.
 
 ## Architecture
 
-### Client Services (`src/client/services/`)
+A Linear-style issue tracker built with TanStack Router + Convex + TipTap, using `@trestleinc/replicate` for CRDT-based offline-first sync.
 
-The sync system uses Effect.ts per-document actors:
+### Stack
 
-| File           | Purpose                                                                 |
-| -------------- | ----------------------------------------------------------------------- |
-| `actor.ts`     | DocumentActor - per-document sync with Queue batching                   |
-| `manager.ts`   | ActorManager - manages actor lifecycle via HashMap                      |
-| `runtime.ts`   | ReplicateRuntime - Effect runtime factory (per-collection or singleton) |
-| `errors.ts`    | Effect TaggedError types (SyncError, ActorShutdownError, etc.)          |
-| `engine.ts`    | Barrel file re-exporting actor system                                   |
-| `context.ts`   | CollectionContext - consolidated collection state                       |
-| `seq.ts`       | SeqService - cursor/sequence number tracking                            |
-| `session.ts`   | Session management helpers                                              |
-| `awareness.ts` | Yjs awareness/presence                                                  |
+- **Framework**: TanStack Router (file-based routing)
+- **Editor**: TipTap (rich text with native Yjs collaboration)
+- **Backend**: Convex (real-time database with WebSocket sync)
+- **Sync Layer**: `@trestleinc/replicate` for CRDT-based offline-first sync
+- **State**: TanStack DB + React Query for client-side reactive data
+- **Persistence**: sql.js (SQLite in browser via WASM + OPFS)
+- **Styling**: Tailwind CSS v4
 
-### Actor Model
+### Key Patterns
 
-```
-LocalChange → Queue.offer → debounce (200ms) → Queue.takeAll (batch) → sync → update vector
-ExternalUpdate → Queue.offer → update stored vector (Yjs already applied)
-Shutdown → interrupt debounce → signal done via Deferred
-```
+**SQLite Persistence**: Uses sql.js instead of default IndexedDB. The `PersistenceGate` component in `IntervalsContext` blocks rendering until persistence is initialized.
 
-Key patterns:
-
-- `Queue.takeAll` batches rapid local changes into single sync
-- `SubscriptionRef` for reactive pending state
-- `Schedule.exponential` with jitter for retry
-- Each actor has own `Scope` for cleanup
-
-## Public API
-
-### Server (`@trestleinc/replicate/server`)
+**Replicate Fragments for Rich Text**: TipTap content is stored as Y.XmlFragment via Replicate's prose binding:
 
 ```typescript
-replicate(); // Factory to create bound replicate function
-schema.table(); // Define replicated table schema (injects timestamp)
-schema.prose(); // Validator for prose fields
+const binding = await collection.utils.prose(intervalId, 'description');
+const editor = useEditor({
+	extensions: [
+		StarterKit.configure({ history: false }),
+		Collaboration.configure({ fragment: binding.fragment }),
+	],
+});
 ```
 
-### Client (`@trestleinc/replicate/client`)
+**Singleton Collections**: `useIntervals()` and `useComments()` return module-level singletons to ensure only one sync process runs.
 
-```typescript
-collection.create(); // Main entry point - create lazy-initialized collections
-persistence.web.sqlite(); // Browser wa-sqlite Web Worker + OPFSCoopSyncVFS
-persistence.web.sqlite.once(); // SQLite singleton mode (shared across collections)
-persistence.web.encrypted(); // Browser encrypted storage (WebAuthn PRF)
-persistence.native.sqlite(); // React Native SQLite persistence (op-sqlite)
-persistence.native.encrypted(); // React Native encrypted storage (not yet implemented)
-persistence.memory(); // In-memory persistence (testing)
-persistence.custom(); // Custom storage adapter
-schema.prose(); // Zod schema for prose fields
-schema.prose.extract(); // Extract plain text from prose JSON
-schema.prose.empty(); // Create empty prose value
-```
+### File Structure
 
-## Critical Rules
+- `src/routes/` - TanStack Router file-based routes
+  - `intervals/$intervalId.tsx` - Individual interval editor
+  - `intervals/index.tsx` - Redirects to first interval
+- `src/components/` - React components
+  - `Sidebar.tsx` - Navigation, create/delete intervals
+  - `IntervalEditor.tsx` - TipTap with Replicate fragment binding
+  - `SearchPanel.tsx` - Cmd+K search across intervals
+- `src/collections/` - Collection hooks
+  - `useIntervals.ts` - Intervals collection with SQLite persistence
+  - `useComments.ts` - Comments collection with SQLite persistence
+- `src/contexts/IntervalsContext.tsx` - Provider with PersistenceGate
+- `convex/intervals.ts` - Replicate backend (stream, material, insert, update, remove)
+- `convex/schema.ts` - Schema with `schema.table()` and `schema.prose()`
 
-- NEVER use WebSearch for library documentation; use Context7
-- Examples use `bun` and link to root via `file:../..`
-- Use `table()` helper for schemas to inject version/timestamp
-- Effect.ts actors handle sync - understand Queue, SubscriptionRef, Schedule patterns
+### Keyboard Shortcuts
+
+- `Cmd+K` / `Ctrl+K` - Open search panel
+- `Alt+N` - Create new interval
 
 ---
 > Source: [trestleinc/replicate](https://github.com/trestleinc/replicate) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
