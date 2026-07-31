@@ -2,7 +2,7 @@
   "name": "NeMo-Agent-Toolkit",
   "owner": "NVIDIA",
   "repo": "NeMo-Agent-Toolkit",
-  "description": "The NVIDIA NeMo Agent toolkit is an open-source library for efficiently connecting and optimizing teams of AI agents.",
+  "description": "",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NVIDIA/NeMo-Agent-Toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T13:51:34Z"
+  "distributed_at": "2026-07-31T01:08:14Z"
 }
