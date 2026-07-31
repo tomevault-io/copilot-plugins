@@ -1,0 +1,9 @@
+{
+  "name": "iovisor--bcc",
+  "displayName": "bcc",
+  "description": "bcc",
+  "version": "1.0.0",
+  "author": "iovisor",
+  "homepage": "https://github.com/iovisor/bcc",
+  "skills": []
+}
