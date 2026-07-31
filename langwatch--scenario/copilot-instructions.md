@@ -1,54 +1,85 @@
-## utils-namespacing
+## scenario
 
-> When creating utility functions or modules
+> When writing TypeScript code:
 
+When writing TypeScript code:
 
-# Utils Namespacing Convention
+1. Follow SOLID principles strictly:
+   - Single Responsibility Principle: Each class/function should have one reason to change
+   - Open/Closed Principle: Open for extension, closed for modification
+   - Liskov Substitution Principle: Subtypes must be substitutable for their base types
+   - Interface Segregation Principle: Many specific interfaces are better than one general interface
+   - Dependency Inversion Principle: Depend on abstractions, not concretions
 
-## One Export Per File
-Each utility file should have exactly one named export (typically a namespace object).
+2. Use TypeScript's type system effectively:
+   - Never use `any` type
+   - Use strict null checks
+   - Define proper interfaces for all data structures
+   - Use type guards and type predicates
+   - Leverage discriminated unions for state management
+   - Use readonly properties where appropriate
+   - Prefer const assertions for literal types
 
-## Domain-Scoped Namespacing
-Utils must be tied to a specific domain and namespaced accordingly:
+3. Write clean, maintainable code:
+   - Use meaningful variable and function names
+   - Keep functions small and focused
+   - Use proper error handling
+   - Follow consistent code style
+   - Use proper indentation and formatting
+   - Remove unused code and comments
 
-```typescript
-// ✅ Good: Namespaced under domain
-export const TracingUtils = {
-  toHex: (base64: string): string => { ... },
-  vercelMessagesToLangwatchSpanChatMessagesFormat: (messages) => { ... },
-};
+4. Document everything:
+   - Use JSDoc comments for all public APIs
+   - Document complex algorithms
+   - Explain business logic
+   - Include examples in documentation
+   - Document error conditions
+   - Explain performance considerations
 
-// ❌ Bad: Loose exports
-export function toHex(base64: string) { ... }
-export function toSpanMessages(messages) { ... }
-```
+5. Handle errors properly:
+   - Use custom error types
+   - Provide meaningful error messages
+   - Handle edge cases
+   - Use proper error boundaries
+   - Document error recovery strategies
 
-## File Naming
-- Place in domain folder: `src/{domain}/{domain}.utils.ts`
-- Example: `src/tracing/tracing.utils.ts`
+6. Write testable code:
+   - Use dependency injection
+   - Follow the interface segregation principle
+   - Make code modular
+   - Avoid global state
+   - Use proper mocking strategies
 
-## Function Naming
-Use descriptive, specific names that indicate:
-1. Input format/source
-2. Output format/destination
-3. Purpose
+7. Optimize for performance:
+   - Use proper data structures
+   - Avoid unnecessary computations
+   - Use proper caching strategies
+   - Consider memory usage
+   - Document performance implications
 
-```typescript
-// ✅ Good: Clear transformation name
-TracingUtils.vercelMessagesToLangwatchSpanChatMessagesFormat
+8. Follow security best practices:
+   - Validate all inputs
+   - Sanitize user data
+   - Use proper authentication
+   - Follow least privilege principle
+   - Document security considerations
 
-// ❌ Bad: Vague names
-TracingUtils.toSpanMessages
-TracingUtils.convert
-```
+9. Use proper design patterns:
+   - Choose patterns that solve specific problems
+   - Document pattern usage
+   - Consider maintainability
+   - Avoid over-engineering
+   - Keep patterns consistent
 
-## Usage Pattern
-```typescript
-import { TracingUtils } from "../tracing/tracing.utils";
+10. Maintain code quality:
+    - Use proper linting
+    - Follow consistent naming conventions
+    - Keep dependencies up to date
+    - Document architectural decisions
+    - Review code regularly
 
-TracingUtils.vercelMessagesToLangwatchSpanChatMessagesFormat(messages);
-```
+Remember: TypeScript is a superset of JavaScript, but it's not just JavaScript with types. Use its features to write better, safer code.
 
 ---
 > Source: [langwatch/scenario](https://github.com/langwatch/scenario) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
