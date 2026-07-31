@@ -1,0 +1,9 @@
+{
+  "name": "octops--gameserver-ingress-controller",
+  "displayName": "gameserver-ingress-controller",
+  "description": "gameserver-ingress-controller",
+  "version": "1.0.0",
+  "author": "Octops",
+  "homepage": "https://github.com/Octops/gameserver-ingress-controller",
+  "skills": []
+}
