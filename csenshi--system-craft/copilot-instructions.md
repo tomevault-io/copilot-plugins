@@ -6,60 +6,56 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Overview
+## Reference
 
-Educational monorepo implementing production-grade system design patterns. Three independent NestJS apps, each demonstrating a different system design problem. Each app has its own `CLAUDE.md` with app-specific details.
+This app follows the Hello Interview article: https://www.hellointerview.com/learn/system-design/problem-breakdowns/bitly
+Consult it for design decisions, requirements, and architecture choices before implementing features.
 
 ## Commands
 
 ```bash
-pnpm nx serve @apps/<app-name>          # Start dev server
-pnpm nx build @apps/<app-name>          # Build
-pnpm nx lint @apps/<app-name>           # Lint
-pnpm nx typecheck @apps/<app-name>      # Type check
-pnpm nx format:write --files            # Format all files
+pnpm nx serve @apps/url-shortener           # Start dev server
+pnpm nx test @apps/url-shortener            # Unit tests
+pnpm nx test:int @apps/url-shortener        # Integration tests
+pnpm nx e2e @e2e/url-shortener              # E2E tests
 
-pnpm nx test @apps/<app-name>           # Unit tests
-pnpm nx test:int @apps/<app-name>       # Integration tests
-pnpm nx e2e @e2e/<app-name>             # E2E tests
-
-pnpm nx run @apps/<app-name>:infra:up   # Start Docker services
-pnpm nx run @apps/<app-name>:infra:down # Stop Docker services
+pnpm nx run @apps/url-shortener:infra:up    # Start PostgreSQL + Redis (Docker)
+pnpm nx run @apps/url-shortener:infra:down
+pnpm nx run @apps/url-shortener:prisma-deploy  # Run DB migrations
+pnpm nx run @apps/url-shortener:docker-build
 ```
 
-App names: `url-shortener`, `rate-limiter`, `web-crawler`
+## Infrastructure
+
+- **PostgreSQL 17** — primary storage via Prisma (`ShortendUrls` table: `id`, `url`)
+- **Redis Stack** — cache layer for hot URL lookups
+- Both run via Docker Compose
 
 ## Architecture
 
-### CQRS + Domain-Driven Design
+### URL Shortening Strategy
 
-All apps follow the same folder structure:
+Short codes are generated via a **counter + Base62 bijection encoding**:
 
-```
-apps/<app>/src/
-├── <domain>/
-│   ├── commands/<command>/     # Write ops: service + controller + DTOs + index.ts
-│   ├── queries/<query>/        # Read ops:  service + controller + DTOs + index.ts
-│   ├── repositories/           # Data access abstraction
-│   └── <domain>.module.ts
-└── app.module.ts
-```
+1. A counter (Redis or Postgres) provides a monotonically increasing integer
+2. The integer is encoded to a Base62 short code (prevents sequential/guessable URLs)
 
-### Shared Library (`libs/shared`)
+Four counter strategy implementations exist — pick via DI:
 
-Base classes used across all apps:
+- `RedisCounterService` — single atomic `INCR`
+- `RedisBatchCounterService` — batch reservation (fewer round trips)
+- `PostgresCounterService` — DB-backed single increment
+- `PostgresBatchCounterService` — DB-backed batch reservation
 
-- `BaseCommand<T, R>`, `BaseQuery<T, R>`, `BaseEvent` — CQRS primitives via `@nestjs-architects/typed-cqrs`
-- `AggregateRoot`, `ValueObject` — DDD building blocks
-- `BaseDto`, `BaseException` — common response/error types
+### Caching
 
-### Testing Conventions
+Cache-aside pattern: on redirect, check Redis first; on miss, query Postgres and populate cache.
 
-- Unit tests: `*.spec.ts` (alongside source)
-- Integration tests: `*.int.spec.ts` (alongside source)
-- Each app has `jest.config.ts` (unit only) and `jest.int.config.ts` (integration only)
-- Transform: SWC (`@swc/jest`) for speed
+### Endpoints
+
+- `POST /url` — shorten a URL
+- `GET /l/:shortCode` — redirect to original URL
 
 ---
 > Source: [CSenshi/system-craft](https://github.com/CSenshi/system-craft) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
