@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-csi--node-driver-registrar",
+  "displayName": "node-driver-registrar",
+  "description": "node-driver-registrar",
+  "version": "1.0.0",
+  "author": "kubernetes-csi",
+  "homepage": "https://github.com/kubernetes-csi/node-driver-registrar",
+  "skills": []
+}
