@@ -2,9 +2,9 @@
   "name": "planai",
   "owner": "provos",
   "repo": "planai",
-  "description": "PlanAI: A graph-based framework for complex task automation integrating traditional compute and LLM capabilities",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/provos/planai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T14:36:22Z"
+  "distributed_at": "2026-07-31T01:59:31Z"
 }
