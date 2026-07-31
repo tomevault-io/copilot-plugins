@@ -1,0 +1,308 @@
+## dotfiles
+
+> Keep changes small and easy to review.
+
+Development
+===========
+
+Engineering
+-----------
+
+Keep changes small and easy to review.
+
+Avoid combining behavior changes and refactors.
+
+When planning, consider if there are preparatory refactors that would make the
+actual change smaller or simpler.
+
+Similarly, consider if a change can be made easier to review by deferring
+cleanup or refactoring.
+
+Documentation
+-------------
+
+Always consult the local source code for information about Rust dependencies,
+which is guaranteed to be up-to-date for the correct version.
+
+Run `cargo dep NAME` to find the source directory for a dependency:
+
+```console
+$ cargo dep serde
+/Users/rodarmor/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/
+```
+
+Local docs can be built with:
+
+```shell
+cargo doc --workspace --document-private-items
+```
+
+Which will output documentation for crate `NAME` in
+`target/doc/NAME/index.html`.
+
+Read source code and docs as appropriate.
+
+Dependencies
+------------
+
+Add dependencies with `cargo add` instead of manually editing `Cargo.toml`.
+
+Depending on non-dev-dependencies in integration tests is fine.
+
+Imports
+-------
+
+Don't rename imports in `use` statements.
+
+```rust bad
+use std::io::Result as IoResult;
+
+fn foo() -> IoResult<()>;
+```
+
+```rust good
+use std::io::Result as IoResult;
+
+fn read() -> io::Result<()>;
+```
+
+Imports which are unambiguously named and common should go in the top-level
+module and be inherited by child modules with `use super::*`.
+
+Style
+-----
+
+Do not write comments. Comments will be added by the user as necessary.
+
+Use modern Rust when available.
+
+Run `cargo fmt` to ensure code is correctly formatted.
+
+Don't create mutable variables that are initialized in a conditional:
+
+```rust bad
+let mut foo = None;
+
+if bar {
+  foo = Some("hello");
+}
+```
+
+Instead, create an immutable variable initialized with an if/else:
+
+```rust good
+let foo = if bar {
+  Some("hello")
+} else {
+  None
+};
+```
+
+Passing primitives into functions creates opportunities for confusion:
+
+```rust bad
+struct Config {
+  a: bool,
+  b: bool,
+}
+
+fn foo(a: bool) {
+}
+
+let config = Config {
+  a: true,
+  b: false,
+};
+
+foo(config.b);
+```
+
+Where possible, pass the object where the primitive originates:
+
+```rust good
+struct Config {
+  a: bool,
+  b: bool,
+}
+
+fn foo(config: &Config) {
+  // use config.a
+}
+
+let config = Config {
+  a: true,
+  b: false,
+};
+
+foo(&config);
+```
+
+When converting a value, shadowing the previous variable is often ideal. The
+type system prevents confusing the two values, and shadowing the previous
+variable prevents it from being unintentionally used later:
+
+```rust bad
+let name_string = name.to_string();
+```
+
+```rust good
+let name = name.to_string();
+```
+
+Collect related data and functions into structs and methods.
+
+Testing
+-------
+
+Do not perform any manual testing. All tests should be in the form of unit and
+integration tests.
+
+Testing is white-box style. Write tests needed to exercise the implementation.
+Add only the minimum number of tests needed to cover new and changed code.
+
+Individual tests should use as little code as possible to exercise the feature
+under test.
+
+Tests should use `foo`, `bar`, and similar placeholders in strings to make
+clear that the values themselves are not significant.
+
+```rust bad
+std::fs::write("file.txt"), "contents").unwrap();
+```
+
+```rust good
+std::fs::write("foo"), "bar").unwrap();
+```
+
+De-duplicate similar tests with a case function:
+
+```rust bad
+#[test]
+fn bar() {
+  assert_eq!("bar".parse().unwrap(), Foo::Bar);
+}
+
+#[test]
+fn baz() {
+  assert_eq!("baz".parse().unwrap(), Foo::Baz);
+}
+
+#[test]
+fn bob() {
+  assert_eq!("bob".parse().unwrap(), Foo::Bob);
+}
+```
+
+```rust good
+#[test]
+fn parsing() {
+  #[track_caller]
+  fn case(s: &str, expected: Foo) {
+    assert_eq!(s.parse().unwrap(), expected);
+  }
+
+  case("bar", Foo::Bar);
+  case("baz", Foo::Baz);
+  case("bob", Foo::Bob);
+}
+```
+
+Prefer turbofish over type ascription:
+
+```rust bad
+let foo: T = foo.parse().unwrap();
+let bar: Vec<u8> = foo.into_iter().collect();
+```
+
+```rust good
+let foo = foo.parse::<T>().unwrap();
+let bar = foo.into_iter().collect::<Vec<u8>>();
+```
+
+Prefer asserting the entire contents of values:
+
+```rust bad
+assert!(path.ends_with("foo/bar"));
+```
+
+```rust good
+assert_eq!(path, "/home/user/foo/bar");
+```
+
+Prefer asserting error messages exactly:
+
+```rust bad
+assert!(Regex::new("I/O failed").unwrap().is_match(error));
+```
+
+```rust good
+assert_eq!(message, "error: I/O failed at `foo/bar/baz`");
+````
+
+If nondeterminism forces you to match an error message with a regular
+expression, always match the entire message:
+
+```rust bad
+assert!(Regex::new("bad thing").unwrap().is_match(error));
+```
+
+```rust good
+assert!(Regex::new("^error: bad thing ID [0-9]+$").unwrap().is_match(error));
+````
+
+Prefer matching complete patterns:
+
+```rust bad
+assert_matches!(result, Err(Error::Foo { .. }));
+```
+
+```rust good
+assert_matches!(result, Err(Error::Foo { message: "bar" }));
+```
+
+Performance
+-----------
+
+Correctness and clarity are more important than performance.
+
+Always measure baseline performance before optimizing.
+
+Always profile before optimizing, picking optimization targets is notoriously
+difficult.
+
+Git
+---
+
+Do not commit changes or amend git history unless explicitly asked.
+
+Mannerisms
+----------
+
+Do not end responses with suggestions for next steps, such as running tests or
+adding additional features, unless those suggestions are interesting and
+non-obvious.
+
+If you notice issues unrelated to the current task, mention them.
+
+Tips
+----
+
+If you need a constant for a test, but the value of that constant is hard to
+calculate, assert equality with a dummy value:
+
+```rust
+assert_eq!(complicated_calculation(), "");
+```
+
+Then get the correct value from the error message and insert it:
+
+```rust
+assert_eq!(
+  complicated_calculation(),
+  "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f",
+);
+```
+
+---
+> Source: [casey/dotfiles](https://github.com/casey/dotfiles) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
