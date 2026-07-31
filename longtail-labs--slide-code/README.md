@@ -1,8 +1,6 @@
 # slide.code
 
-> Tome by [longtail-labs](https://github.com/longtail-labs/slide.code) — distributed by [TomeVault](https://tomevault.io)
-
-A cross-platform Graphical Vibe Coding Environment (VCE) for Claude Code
+> Tome by [longtail-labs](https://github.com/longtail-labs/slide.code), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
