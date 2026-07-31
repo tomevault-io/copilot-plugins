@@ -1,8 +1,6 @@
 # OneRAG
 
-> Source: [notadev-iamaura/OneRAG](https://github.com/notadev-iamaura/OneRAG) — distributed by [TomeVault](https://tomevault.io)
-
-Production-ready RAG Framework (Python/FastAPI). 1-line config swaps: 6 Vector DBs (Weaviate, Pinecone, Qdrant, ChromaDB, pgvector, MongoDB), 5 LLMs (Gemini, OpenAI, Claude, Ollama, OpenRouter). OpenAI-compatible API. 2100+ tests.
+> Source: [notadev-iamaura/OneRAG](https://github.com/notadev-iamaura/OneRAG). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
