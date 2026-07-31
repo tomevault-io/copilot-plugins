@@ -5,12 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [ahgraber/homelab-gitops-k3s](https://github.com/ahgraber/homelab-gitops-k3s).
+Original source: `AGENTS.md` in [ahgraber/homelab-gitops-k3s](https://github.com/ahgraber/homelab-gitops-k3s).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
