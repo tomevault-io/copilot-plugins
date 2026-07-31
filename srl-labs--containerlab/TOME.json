@@ -4,7 +4,7 @@
   "repo": "containerlab",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/srl-labs/containerlab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T05:50:23Z"
+  "distributed_at": "2026-07-31T15:35:06Z"
 }
