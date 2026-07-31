@@ -1,0 +1,9 @@
+{
+  "name": "mistralai--mistral-common",
+  "displayName": "mistral-common",
+  "description": "mistral-common",
+  "version": "1.0.0",
+  "author": "mistralai",
+  "homepage": "https://github.com/mistralai/mistral-common",
+  "skills": []
+}
