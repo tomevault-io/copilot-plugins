@@ -1,7 +1,7 @@
 {
   "name": "carlosziegler--fullstack-start-template",
   "displayName": "fullstack-start-template",
-  "description": "This project provides a solid foundation for building modern web applications using a curated stack of technologies focused on developer experience, performance, and type safety.",
+  "description": "fullstack-start-template",
   "version": "1.0.0",
   "author": "CarlosZiegler",
   "homepage": "https://github.com/CarlosZiegler/fullstack-start-template",
