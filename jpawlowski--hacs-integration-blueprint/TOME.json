@@ -2,9 +2,9 @@
   "name": "hacs.integration_blueprint",
   "owner": "jpawlowski",
   "repo": "hacs.integration_blueprint",
-  "description": "AI-enabled Modern Home Assistant Custom Integration Blueprint",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jpawlowski/hacs.integration_blueprint",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T21:38:29Z"
+  "distributed_at": "2026-07-31T13:36:16Z"
 }
