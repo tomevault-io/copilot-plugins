@@ -2,7 +2,7 @@
   "name": "unopim",
   "owner": "unopim",
   "repo": "unopim",
-  "description": "Unopim is a free and open-source Laravel-based Product Information Management (PIM) system that helps businesses manage and enrich product data from a single platform. Built to scale beyond 10M+ products, now evolving with Agentic PIM capabilities.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/unopim/unopim",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T17:46:00Z"
+  "distributed_at": "2026-07-31T01:12:47Z"
 }
