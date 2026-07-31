@@ -1,43 +1,38 @@
 ## rust-sdks
 
-> - This crate encapsulates the business logic and public APIs for the [data tracks feature](https://docs.livekit.io/transport/data/data-tracks/)
+> - Holds foundational, broadly-shared items used across multiple LiveKit crates (e.g. [`livekit`](../livekit/), [`livekit-api`](../livekit-api/), [`livekit-data-stream`](../livekit-data-stream/))
 
 # AGENTS.md
 
 ## Architectural overview
 
-- This crate encapsulates the business logic and public APIs for the [data tracks feature](https://docs.livekit.io/transport/data/data-tracks/)
-- Not for direct consumption by developers
-- Unlike most SDK features which live directly in the [`livekit`](../livekit/) crate, data tracks are intentionally isolated here for several reasons:
-  - Enforces decoupling from other components (e.g., data channel, signaling client, etc.)
-  - Enables proper integration testing
-  - Enables shared implementation amongst multiple _consumers_:
-    - [`livekit`](../livekit/): Rust client SDK
-    - [`livekit-uniffi`](../livekit-uniffi/): will eventually power downstream client SDKs such as Swift and Kotlin
+- Holds foundational, broadly-shared items used across multiple LiveKit crates (e.g. [`livekit`](../livekit/), [`livekit-api`](../livekit-api/), [`livekit-data-stream`](../livekit-data-stream/))
+- Internal crate — not for direct consumption by developers (public APIs live in the [`livekit`](../livekit/) crate)
+- Exists purely to avoid duplication and circular dependencies: an item needed by two or more downstream crates lives here instead of in any single one
+- Current contents set the bar for what fits: `ParticipantIdentity` (newtype), `EncryptionType` (enum + proto conversions), the `CLIENT_PROTOCOL_*` constants, and the `enum_dispatch!` macro
 
-## Local vs. remote split
+## What belongs here
 
-- The crate is organized into two structurally parallel halves:
-  - `local/`: publishing
-  - `remote/`: subscribing
-- Each side has its own `manager`, `events`, `pipeline`, and `proto` modules with matching shape
-- The symmetry is deliberate; when changing behavior on one side, look for and consider the mirror on the other
-- The two halves never communicate with each other or share state
-- Shared types (`DataTrackInfo`, `DataTrackFrame`, etc.) live at the crate root rather than inside either side
+- Small, self-contained, foundational items shared by **two or more** downstream crates:
+  - Newtypes and plain data enums (plus their `From`/`TryFrom` conversions)
+  - Simple constants
+  - Trivial, stateless helper functions and declarative macros
+- Every addition must be dependency-light (see Dependencies) and free of feature/business logic
 
-## Boundaries
+## What does NOT belong here
 
-- Two public modules get exported from this crate:
-  1. `api`: public APIs that get be re-exported by _consumers_ and made available to developers
-  2. `backend`: managers and supporting types used internally by _consumers_ to power the feature
-- Events handled by the managers are decoupled from protocol messages for several reasons:
-  - Protobuf is a wire format and cannot express Rust-level invariants
-  - Events can carry in-process types proto cannot (e.g., `oneshot::Sender` for in-actor request/response)
-  - Allows the protocol to evolve independently
-- Consequently:
-  - The `proto` modules are the sole import sites for `livekit_protocol`
-  - New wire conversions go there and `livekit_protocol` must not be referenced anywhere else
+- Feature or business logic — keep it in the feature's own crate (e.g. `livekit-data-stream`) or in `livekit`
+- Items used by only **one** crate — leave them in that crate until a second consumer actually needs them; do not hoist here speculatively
+- Stateful components — managers, actors, services, or anything holding runtime state
+- Wire/protocol types — those belong in `livekit-protocol` (this crate depends on it, never the reverse)
+- Anything that would require a heavy or environment-specific dependency (see Dependencies)
+
+## Dependencies
+
+- Keep the dependency list minimal — today it is only `livekit-protocol`
+- A dependency added here is forced onto **every** downstream crate; treat any new dependency as a red flag and justify it explicitly
+- Never pull in heavy or environment-specific deps (`libwebrtc`, an async runtime, networking, etc.) — a type that needs those belongs in a higher-level crate
 
 ---
 > Source: [livekit/rust-sdks](https://github.com/livekit/rust-sdks) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
