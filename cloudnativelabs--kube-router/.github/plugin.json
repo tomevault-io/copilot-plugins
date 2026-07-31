@@ -1,0 +1,9 @@
+{
+  "name": "cloudnativelabs--kube-router",
+  "displayName": "kube-router",
+  "description": "kube-router",
+  "version": "1.0.0",
+  "author": "cloudnativelabs",
+  "homepage": "https://github.com/cloudnativelabs/kube-router",
+  "skills": []
+}
