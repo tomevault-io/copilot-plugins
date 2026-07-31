@@ -1,0 +1,9 @@
+{
+  "name": "alibaba--loongcollector",
+  "displayName": "loongcollector",
+  "description": "loongcollector",
+  "version": "1.0.0",
+  "author": "alibaba",
+  "homepage": "https://github.com/alibaba/loongcollector",
+  "skills": []
+}
