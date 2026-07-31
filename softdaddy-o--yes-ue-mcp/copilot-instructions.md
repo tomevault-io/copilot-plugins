@@ -1,309 +1,494 @@
 ## yes-ue-mcp
 
-> This guide provides agentic coding agents with the essential information to work effectively in the yes-ue-mcp codebase.
+> **Native C++ MCP Plugin for Unreal Engine 5.6+**
 
-# AGENTS.md - Development Guide for yes-ue-mcp
+# yes-ue-mcp - Claude Instructions
 
-This guide provides agentic coding agents with the essential information to work effectively in the yes-ue-mcp codebase.
+**Native C++ MCP Plugin for Unreal Engine 5.6+**
 
 ## Project Overview
 
-**yes-ue-mcp** is a native C++ Unreal Engine plugin implementing the Model Context Protocol (MCP) over HTTP. It enables AI assistants to inspect, analyze, and modify UE projects through a standardized JSON-RPC API.
+This plugin implements the Model Context Protocol (MCP) over HTTP, allowing AI assistants (Claude Code, Cursor, Windsurf, etc.) to inspect, analyze, and **modify** Unreal Engine projects through a standardized JSON-RPC API.
 
-- **Type**: Unreal Engine 5.6+ C++ plugin
-- **Architecture**: Two-module system (Runtime + Editor)
-- **Protocol**: MCP 2025-03-26 (Streamable HTTP) with JSON-RPC 2.0
-- **Transport**: HTTP server on localhost:8080/mcp
+## GitHub Repositories
 
-## Build System & Commands
+| Remote | Repository URL | Purpose |
+|--------|----------------|---------|
+| `origin` | https://github.com/softdaddy-o/yes-ue-mcp-private.git | Development (private) |
+| `public` | https://github.com/softdaddy-o/yes-ue-mcp.git | Release (public) |
 
-### Build Commands
+## Workflow Rules
+
+### Issue-Driven Development
+- **Every task MUST have a GitHub issue** - Create an issue before starting any task
+- **Close the issue** when the task is complete with a commit referencing it (e.g., `Closes #123`)
+- Use conventional commit format: `feat:`, `fix:`, `docs:`, `refactor:`
+
+### Git Workflow
+
+**Private Repository (origin)**
+- Commit frequently - whenever one issue/task is finished
+- Each commit should reference its issue number
+- Push to `origin` for development work
+
 ```bash
-# Build plugin with UnrealBuildTool
-<UE>/Engine/Build/BatchFiles/Build.bat YourProjectEditor Win64 Development
+git add -A && git commit -m "feat: add new tool
 
-# Regenerate project files after adding files
-<UE>/Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.exe -projectfiles -project="YourProjectPath/YourProject.uproject" -game -rocket -progress
+Closes #123"
+git push origin main
 ```
 
-### Test Commands
-```bash
-# Run Python integration tests (requires UE Editor running with plugin)
-cd Tests
-python -m pytest test_mcp_tools.py -v
-python -m unittest test_mcp_tools -v
-python test_mcp_tools.py
+**Public Repository (public)**
+- Push aggregated changes only when a new version is ready
+- Use version tags (v1.0.0, v1.1.0, etc.)
+- Filter out `.claude/` directory when pushing to public
 
-# Run single test
-python -m pytest test_mcp_tools.py::TestConnection::test_server_responds -v
+```bash
+# Push to public with .claude/ filtered out
+git push public main --force-with-lease
+git tag v1.0.0
+git push public --tags
 ```
 
-### Environment Variables for Testing
-- `MCP_HOST`: MCP server host (default: 127.0.0.1)
-- `MCP_PORT`: MCP server port (default: 8080)
-
-### Development Workflow
+**Publishing to Public Repo**
+When pushing to the public repository, use git filter to exclude private files:
 ```bash
-# Deploy plugin to test projects
-.\copy_plugin.ps1                    # Copy to both projects
-.\copy_plugin.ps1 -Target Elpis      # Copy to Elpis only
-.\copy_plugin.ps1 -Target GameAnim   # Copy to GameAnimationSample56 only
+# Create a filtered branch for public release
+git checkout -b release-temp
+git filter-branch --tree-filter 'rm -rf .claude' HEAD
+git push public release-temp:main --force
+git checkout main
+git branch -D release-temp
 ```
 
-## Code Style Guidelines
+## Testing Environment
 
-### General Conventions
-- Follow Epic Games C++ coding standards
+**Primary Test Project:** Elpis (Action RPG - UE 5.7)
+- **Project Path:** `F:\src3\Covenant\ElpisClient\`
+- **Plugin Install Path:** `F:\src3\Covenant\ElpisClient\Plugins\yes-ue-mcp\`
+- **Version Control:** Perforce (plugin excluded via `.p4ignore`)
+- **MCP Endpoint:** `http://127.0.0.1:8080/mcp`
+- **Status:** Primary test environment
+
+**Secondary Test Project:** GameAnimationSample56 (UE 5.6)
+- **Project Path:** `F:\src_ue5\GameAnimationSample56\`
+- **Plugin Install Path:** `F:\src_ue5\GameAnimationSample56\Plugins\yes-ue-mcp\`
+- **MCP Endpoint:** `http://127.0.0.1:8081/mcp`
+- **Status:** Active test environment for UE 5.6
+
+### Deploying to Test Projects
+
+Use `copy_plugin.ps1` to safely copy the plugin to test projects:
+
+```powershell
+# Copy to both projects (default)
+.\copy_plugin.ps1
+
+# Copy to Elpis only
+.\copy_plugin.ps1 -Target Elpis
+
+# Copy to GameAnimationSample56 only
+.\copy_plugin.ps1 -Target GameAnim
+```
+
+**Excludes:** `.git`, `.claude`, `Tests`, `.pytest_cache`, `.github`, `Docs`, test files
+
+**Config Override:** Target projects can override settings (e.g., `ServerPort`) via their own `Config/DefaultYesUeMcp.ini`
+
+## Module Structure
+
+- **YesUeMcp** (Runtime) - Core MCP protocol layer
+- **YesUeMcpEditor** (Editor) - HTTP server + tool implementations
+
+## Coding Standards
+
+- Follow Epic's C++ coding conventions
 - Use `YESUEMCP_API` / `YESUEMCPEDITOR_API` for exported symbols
-- Copyright header: `// Copyright softdaddy-o 2024. All Rights Reserved.`
-- Use `TEXT()` macro for string literals
-- Use `TEXT()` for log messages and UE API calls
-
-### File Organization
-```
-Source/
-├── YesUeMcp/                    # Runtime module
-│   ├── Public/                  # Public headers
-│   │   ├── Protocol/           # MCP protocol types
-│   │   └── Tools/              # Base tool classes
-│   └── Private/                # Implementation files
-└── YesUeMcpEditor/             # Editor module
-    ├── Public/                  # Public headers
-    │   ├── Server/             # HTTP server
-    │   ├── Subsystem/          # Editor subsystems
-    │   ├── Tools/              # Tool implementations
-    │   │   ├── Blueprint/      # Blueprint tools
-    │   │   ├── Asset/          # Asset tools
-    │   │   ├── Level/          # Level tools
-    │   │   ├── Write/          # Write operations
-    │   │   └── ...
-    │   └── Utils/              # Utility classes
-    └── Private/                # Implementation files
-```
-
-### Naming Conventions
-- **Classes**: `U` prefix for UObject classes, `F` for structs, `E` for enums
-- **Files**: Match class name (e.g., `QueryBlueprintTool.h` for `UQueryBlueprintTool`)
-- **Functions**: PascalCase (e.g., `GetToolName()`, `ExecuteTool()`)
-- **Variables**: camelCase (e.g., `toolName`, `assetPath`)
-- **Constants**: UPPER_CASE (e.g., `YESUEMCP_VERSION`)
-
-### Tool Development Pattern
-```cpp
-// Header (.h)
-UCLASS()
-class YESUEMCPEDITOR_API UMyTool : public UMcpToolBase
-{
-    GENERATED_BODY()
-
-public:
-    virtual FString GetToolName() const override { return TEXT("my-tool"); }
-    virtual FString GetToolDescription() const override;
-    virtual TMap<FString, FMcpSchemaProperty> GetInputSchema() const override;
-    virtual TArray<FString> GetRequiredParams() const override;
-    virtual FMcpToolResult Execute(const TSharedPtr<FJsonObject>& Arguments, const FMcpToolContext& Context) override;
-};
-
-// Implementation (.cpp)
-REGISTER_MCP_TOOL(UMyTool)  // Auto-registration
-
-FString UMyTool::GetToolDescription() const
-{
-    return TEXT("Tool description for tools/list");
-}
-
-// ... other methods
-```
-
-### Error Handling
-- Use `FMcpToolResult::Error()` for tool failures
-- Always validate required parameters before processing
-- Use `UE_LOG(LogYesUeMcp, Warning, TEXT("..."))` for warnings
-- Return structured error messages with context
-
-### Memory Management
-- Use `TSharedPtr` for JSON objects and smart pointers
-- Follow UE object ownership rules (UObjects are garbage collected)
-- Use `FScopedTransaction` for write operations to support undo/redo
-
-## Module Architecture
-
-### YesUeMcp (Runtime Module)
-- **Purpose**: Core MCP protocol layer
-- **Dependencies**: Core, CoreUObject, Json, JsonUtilities
-- **Key Classes**:
-  - `UMcpToolBase`: Abstract base class for all tools
-  - `FMcpToolRegistry`: Tool registration and discovery
-  - `FMcpTypes`: MCP protocol type definitions
-
-### YesUeMcpEditor (Editor Module)
-- **Purpose**: HTTP server + UE Editor tool implementations
-- **Dependencies**: All YesUeMcp deps + HTTP, UnrealEd, Kismet, etc.
-- **Key Classes**:
-  - `FMcpServer`: HTTP server handling MCP requests
-  - `UMcpEditorSubsystem`: Lifecycle management
-  - Tool implementations in `Tools/` subdirectories
-
-### Tool Categories
-- **Read Tools (10)**: Query and analyze UE assets
-- **Write Tools (18)**: Modify assets, levels, and properties
-- **Consolidation**: Many tools were merged in v1.6.0+ for efficiency
-
-## Development Best Practices
-
-### Tool Registration
-- Use `REGISTER_MCP_TOOL(ToolClass)` macro in .cpp file
-- Tools are auto-registered on module startup
-- Register built-in tools in `FYesUeMcpEditorModule::RegisterBuiltInTools()`
-
-### Game Thread Usage
-- Most UE operations require game thread synchronization
-- Use `AsyncTask(ENamedThreads::GameThread, []() { ... })` for game thread work
-- Check `RequiresGameThread()` override in tool base class
-
-### Parameter Validation
-```cpp
-// Required parameters
-FString AssetPath;
-if (!GetStringArg(Arguments, TEXT("asset_path"), AssetPath))
-{
-    return FMcpToolResult::Error(TEXT("Missing required parameter: asset_path"));
-}
-
-// Optional parameters with defaults
-bool bDetailed = GetBoolArgOrDefault(Arguments, TEXT("detailed"), true);
-```
-
-### Asset Loading
-- Use `LoadObject<UClass>()` for loading assets by path
-- Always validate asset existence and type
-- Handle Blueprint loading with `UBlueprint::LoadBlueprint()`
-
-### Transaction Support
-```cpp
-if (GEditor)
-{
-    FScopedTransaction Transaction(TEXT("Tool Operation Description"));
-    // Perform modifications here
-}
-```
-
-## Testing Guidelines
-
-### Test Structure
-- Integration tests in `Tests/test_mcp_tools.py`
-- Uses Python `unittest` framework with `requests` for HTTP calls
-- Tests require UE Editor running with plugin loaded
-
-### Test Categories
-- **Connection Tests**: Server health and tool discovery
-- **Read Tool Tests**: Query operations with various parameters
-- **Write Tool Tests**: Modify operations with cleanup
-- **Error Handling Tests**: Invalid inputs and edge cases
-
-### Test Best Practices
-- Clean up created assets/actors in tearDown methods
-- Use skip tests when prerequisites not met
-- Test both success and failure scenarios
-- Verify tool consolidation (old tools should not exist)
+- All tools inherit from `UMcpToolBase`
+- Register tools in `FYesUeMcpEditorModule::RegisterBuiltInTools()`
 
 ## Version Management
 
-**Version must be updated in TWO places:**
-1. `YesUeMcp.uplugin` - `VersionName` field
-2. `Source/YesUeMcp/Public/YesUeMcp.h` - `YESUEMCP_VERSION` macro
+**Version is defined in TWO places (keep in sync):**
+1. `YesUeMcp.uplugin` - `VersionName` field (read by UE plugin system)
+2. `Source/YesUeMcp/Public/YesUeMcp.h` - `YESUEMCP_VERSION` macro (compile-time constant)
 
-**Semantic Versioning:**
-- **MAJOR**: Breaking changes to existing tools or protocol
-- **MINOR**: New features (new tools, new parameters)
-- **PATCH**: Bug fixes, internal improvements, documentation
+**IMPORTANT: Always increment version when modifying code!**
 
-## Configuration
+- Use semantic versioning: `MAJOR.MINOR.PATCH`
+  - **MAJOR**: Breaking changes to existing tools or protocol
+  - **MINOR**: New features (new tools, new parameters)
+  - **PATCH**: Bug fixes, internal improvements, documentation
 
-### Default Settings
-- Server runs on `localhost:8080/mcp`
-- Auto-start enabled by default
-- Log level: Log (configurable)
-- Bind address: 127.0.0.1 (localhost only for security)
+**When to increment:**
+- Adding a new tool → MINOR
+- Adding new parameter to existing tool → MINOR
+- Changing tool input/output schema → MINOR (or MAJOR if breaking)
+- Bug fixes → PATCH
+- Internal refactoring → PATCH
+- Any code change that affects behavior → PATCH minimum
 
-### Configuration File
-`Config/DefaultYesUeMcp.ini` - Override server settings:
-```ini
-[/Script/YesUeMcpEditor.McpServerSettings]
-ServerPort=8080
-bAutoStartServer=true
-BindAddress=127.0.0.1
-LogLevel=Log
+## Key Files
+
+- `Source/YesUeMcp/Public/Tools/McpToolBase.h` - Base class for all tools
+- `Source/YesUeMcp/Public/Tools/McpToolRegistry.h` - Tool registration
+- `Source/YesUeMcpEditor/Public/Server/McpServer.h` - HTTP server
+- `Source/YesUeMcpEditor/Public/Subsystem/McpEditorSubsystem.h` - Lifecycle management
+- `Source/YesUeMcpEditor/Public/Utils/McpAssetModifier.h` - Write operation utilities
+
+## MCP Server
+
+- **Protocol:** MCP 2025-03-26 (Streamable HTTP) with JSON-RPC 2.0
+- **Transport:** HTTP (Streamable HTTP)
+- **Endpoint:** `/mcp`
+- **Port:** 8080 (configurable)
+- **CORS:** Enabled for cross-origin requests
+
+## Available Tools (28 total)
+
+**Note:** Many tools support a `world` parameter: `"editor"` (default) or `"pie"` to target the Play-In-Editor world.
+
+### Read Tools (11) - Consolidated in v1.6.0
+
+#### Blueprint Tools
+| Tool | Description |
+|------|-------------|
+| `query-blueprint` | Query Blueprint structure: functions, variables, components, defaults, component overrides. Use `include` param to select what to return ('functions', 'variables', 'components', 'defaults', 'graph', 'component_overrides', 'all'). Use `component_overrides` to see which component properties have been modified from their defaults. |
+| `query-blueprint-graph` | Query Blueprint graphs: event graphs, functions, macros, nodes. Use `node_guid` for specific node, `callable_name` for callable details, `list_callables` for lightweight list. (Merged: get-blueprint-graph, get-blueprint-node, list-blueprint-callables, get-callable-details) |
+
+#### Asset Tools
+| Tool | Description |
+|------|-------------|
+| `query-asset` | Search or inspect assets. Use `query` param for search mode, `asset_path` for inspect mode. Handles DataTables and DataAssets. (Merged: search-assets, inspect-asset, inspect-data-asset) |
+| `get-asset-diff` | Get structured diff for binary assets (Blueprints, Materials, DataTables) against SCM base version. Supports Git and Perforce. Returns JSON showing added/removed/modified elements. |
+
+#### Material Tools
+| Tool | Description |
+|------|-------------|
+| `query-material` | Query Material expression graph and parameters. Use `include` param: 'graph', 'parameters', or 'all'. (Merged: get-material-graph, get-material-parameters) |
+
+#### Level Tools
+| Tool | Description |
+|------|-------------|
+| `query-level` | List actors with filtering, or get detailed info for a specific actor (use `actor_name` for detail mode). Supports `world` param: 'editor' (default), 'pie', or 'auto'. |
+
+#### Project Tools
+| Tool | Description |
+|------|-------------|
+| `get-project-info` | Get project/plugin info, optionally include settings (use `section` param for input/collision/tags/maps) |
+| `get-class-hierarchy` | Browse class inheritance (parents/children) |
+
+#### Reference Tools
+| Tool | Description |
+|------|-------------|
+| `find-references` | Find references to assets, Blueprint variables, or nodes (type: asset/property/node) |
+
+#### Widget Tools
+| Tool | Description |
+|------|-------------|
+| `inspect-widget-blueprint` | Inspect Widget Blueprint hierarchy, slots (anchors, offsets, sizes), visibility, property bindings, and animations |
+
+#### Debug Tools
+| Tool | Description |
+|------|-------------|
+| `get-logs` | Retrieve UE Output Log entries with filtering (category, severity, search) |
+
+### Write Tools (14)
+
+#### Property Tools
+| Tool | Description |
+|------|-------------|
+| `set-property` | Set any property on any asset using UE reflection (supports nested paths, arrays, structs). For Blueprint components, use `component_name` param to target a specific component. Use `clear_override` to revert to default value. |
+
+#### Graph Tools
+| Tool | Description |
+|------|-------------|
+| `add-graph-node` | Add a node to Blueprint or Material graph |
+| `remove-graph-node` | Remove a node from any graph |
+| `connect-graph-pins` | Connect two pins in any graph |
+| `disconnect-graph-pin` | Break pin connections |
+
+#### Asset Creation Tools
+| Tool | Description |
+|------|-------------|
+| `create-asset` | Create new asset (Blueprint, Material, DataTable, Level, etc.) |
+
+#### Level Editing Tools
+| Tool | Description |
+|------|-------------|
+| `spawn-actor` | Spawn an actor in editor or PIE world. Supports `world` param: 'editor' (default) or 'pie'. |
+| `add-component` | Add a component to an existing actor |
+
+#### Widget Tools
+| Tool | Description |
+|------|-------------|
+| `add-widget` | Add a widget to a WidgetBlueprint tree |
+
+#### DataTable Tools
+| Tool | Description |
+|------|-------------|
+| `add-datatable-row` | Add a row to a DataTable |
+
+#### Scripting Tools
+| Tool | Description |
+|------|-------------|
+| `run-python-script` | Execute Python scripts in Unreal Editor (inline or file). Supports argument passing via `arguments` param and additional Python paths via `python_paths` param for module imports. Requires PythonScriptPlugin enabled. |
+
+#### Build Tools
+| Tool | Description |
+|------|-------------|
+| `trigger-live-coding` | Trigger Live Coding compilation with async/sync modes. Use `wait_for_completion=true` to wait for results with compilation time and log. Optional `timeout` param (default: 300s). Windows only. |
+| `build-and-relaunch` | Close THIS editor instance (by PID), trigger a full project build, and relaunch. Only affects the MCP-connected editor - other running editor instances are not affected. Optional params: `build_config` (Development/Debug/Shipping), `skip_relaunch` (boolean). Returns `editor_pid` in response. Windows only. |
+
+### PIE (Play-In-Editor) Tools - v1.16.0
+
+Tools for controlling PIE sessions and simulating player input. Use `spawn-actor`, `query-level` with `world: "pie"` for actor operations.
+
+| Tool | Description |
+|------|-------------|
+| `pie-session` | Control PIE sessions. Actions: `start`, `stop`, `pause`, `resume`, `get-state`, `wait-for`. |
+| `pie-input` | Simulate player input. Actions: `key`, `action`, `axis`, `move-to`, `look-at`. |
+| `call-function` | Call functions on actors, components, or global Blueprints. Supports `world` param. |
+
+#### PIE Usage Example
+```json
+// Start PIE session
+{ "tool": "pie-session", "action": "start", "mode": "viewport" }
+
+// Spawn an enemy in PIE world
+{ "tool": "spawn-actor", "actor_class": "BP_Enemy", "location": [500, 0, 100], "world": "pie" }
+
+// Simulate player attack
+{ "tool": "pie-input", "action": "key", "key": "LeftMouseButton" }
+
+// Call function on actor
+{ "tool": "call-function", "target": "BP_Enemy_0.TakeDamage", "arguments": {"DamageAmount": 25}, "world": "pie" }
+
+// Wait for enemy health to drop
+{ "tool": "pie-session", "action": "wait-for", "actor_name": "BP_Enemy_0", "property": "Health", "operator": "less_than", "expected": 100 }
+
+// Stop PIE
+{ "tool": "pie-session", "action": "stop" }
 ```
 
-## Common Patterns
+### SCM Asset Diff - v1.17.0
 
-### JSON Response Structure
-```cpp
-TSharedPtr<FJsonObject> Result = MakeShareable(new FJsonObject);
-Result->SetStringField(TEXT("asset_path"), AssetPath);
-Result->SetObjectField(TEXT("data"), DataObject);
-return FMcpToolResult::Success(Result);
+Get structured diffs for binary Unreal assets against Git or Perforce base versions. Unlike visual diff tools, this returns JSON that AI assistants can consume programmatically.
+
+| Tool | Description |
+|------|-------------|
+| `get-asset-diff` | Compare current asset against SCM base version. Auto-detects Git/Perforce. |
+
+**Parameters:**
+- `asset_path` (required): Asset path (e.g., `/Game/Blueprints/BP_Player`) or file path
+- `scm_type`: `git`, `perforce`, or `auto` (default: auto-detect)
+- `base_revision`: Git commit/HEAD or P4 changelist/#have (default: HEAD/#have)
+
+**Supported Asset Types:**
+- **Blueprints**: Variables (added/removed/modified), functions, components
+- **Materials**: Expression count, parameter changes
+- **Material Instances**: Scalar/vector parameter value changes
+- **DataTables**: Row additions, removals, modifications
+- **Generic UObjects**: Property comparison via reflection
+
+#### SCM Diff Usage Example
+```json
+// Diff Blueprint against Git HEAD
+{ "tool": "get-asset-diff", "asset_path": "/Game/Blueprints/BP_Player" }
+
+// Diff against specific Git commit
+{ "tool": "get-asset-diff", "asset_path": "/Game/Blueprints/BP_Player", "base_revision": "abc123" }
+
+// Diff with explicit Perforce
+{ "tool": "get-asset-diff", "asset_path": "/Game/Data/DT_Items", "scm_type": "perforce" }
+
+// Response example
+{
+  "asset_path": "/Game/Blueprints/BP_Player",
+  "scm_type": "git",
+  "base_revision": "HEAD",
+  "has_changes": true,
+  "total_changes": 3,
+  "changes": {
+    "variables": {
+      "added": [{"name": "NewHealth", "type": "float"}],
+      "removed": [],
+      "modified": [{"name": "MaxHealth", "default_value": {"old": "100", "new": "150"}}]
+    },
+    "functions": {
+      "added": ["CalculateDamage"],
+      "removed": []
+    },
+    "components": {
+      "added": [{"name": "AudioComponent", "class": "UAudioComponent"}],
+      "removed": []
+    }
+  }
+}
 ```
 
-### Asset Path Handling
-- Asset paths must start with `/Game/`
-- Use `FAssetData::GetAssetPath()` for reliable path extraction
-- Validate path format before processing
+## Write Tool Usage
 
-### Logging
-```cpp
-UE_LOG(LogYesUeMcp, Log, TEXT("Tool '%s' executed successfully"), *GetToolName());
-UE_LOG(LogYesUeMcp, Warning, TEXT("Asset not found: %s"), *AssetPath);
-UE_LOG(LogYesUeMcp, Error, TEXT("Failed to load Blueprint: %s"), *AssetPath);
+### Property Modification Pattern
+```json
+// Set a simple property
+{ "asset_path": "/Game/BP_Player", "property_path": "MaxHealth", "value": 100 }
+
+// Nested property
+{ "asset_path": "/Game/BP_Player", "property_path": "Stats.Damage", "value": 25 }
+
+// Array element
+{ "asset_path": "/Game/BP_Player", "property_path": "Items[0].Count", "value": 5 }
+
+// Vector as array
+{ "asset_path": "/Game/BP_Actor", "property_path": "Location", "value": [100, 200, 0] }
 ```
 
-## Key Dependencies
+### Component Property Overrides - v1.19.0
 
-### Required UE Modules
-- **Core/CoreUObject**: Basic UE functionality
-- **HTTP/HTTPServer**: HTTP server implementation
-- **UnrealEd**: Editor framework
-- **Kismet/KismetCompiler**: Blueprint support
-- **AssetRegistry/AssetTools**: Asset management
-- **Json/JsonUtilities**: JSON processing
+Query and modify properties on component instances within Blueprints.
 
-### External Dependencies
-- None (uses only UE built-in modules)
+**Query component overrides:**
+```json
+{
+  "tool": "query-blueprint",
+  "asset_path": "/Game/Blueprints/BP_Character",
+  "include": "component_overrides",
+  "component_filter": "*Mesh*"
+}
 
-## Debugging
-
-### Log Categories
-- `LogYesUeMcp`: Core plugin functionality
-- `LogYesUeMcpEditor`: Editor-specific operations
-- Use `get-logs` tool with `category="LogYesUeMcp"` for debugging
-
-### Common Issues
-- **Server not starting**: Check port conflicts and plugin enablement
-- **Tool not found**: Verify tool registration and module loading
-- **Asset loading failures**: Validate asset paths and permissions
-- **Game thread crashes**: Ensure proper thread synchronization
-
-## Git Workflow
-
-### Branch Strategy
-- `main`: Development branch (private repo)
-- Version tags for releases (e.g., `v1.7.4`)
-- Filter out `.claude/` when pushing to public repo
-
-### Commit Format
-```
-feat: add new blueprint analysis tool
-fix: resolve asset loading race condition
-docs: update tool documentation
-refactor: consolidate query tools
+// Response shows which properties differ from defaults
+{
+  "component_overrides": {
+    "components": [
+      {
+        "name": "CharacterMesh",
+        "class": "SkeletalMeshComponent",
+        "is_inherited": false,
+        "overrides": [
+          {
+            "name": "RelativeScale3D",
+            "type": "FVector",
+            "value": "(X=1.5,Y=1.5,Z=1.5)",
+            "default_value": "(X=1.0,Y=1.0,Z=1.0)",
+            "is_overridden": true
+          }
+        ],
+        "override_count": 1
+      }
+    ],
+    "count": 1
+  }
+}
 ```
 
-### Issue Tracking
-- Every task should have a GitHub issue
-- Reference issue numbers in commits
-- Close issues with completed work
+**Set component property:**
+```json
+{
+  "tool": "set-property",
+  "asset_path": "/Game/Blueprints/BP_Character",
+  "component_name": "CharacterMesh",
+  "property_path": "RelativeScale3D",
+  "value": [2.0, 2.0, 2.0]
+}
+```
+
+**Clear override (revert to default):**
+```json
+{
+  "tool": "set-property",
+  "asset_path": "/Game/Blueprints/BP_Character",
+  "component_name": "CharacterMesh",
+  "property_path": "RelativeScale3D",
+  "clear_override": true
+}
+```
+
+### Asset Modification Workflow
+1. Use `set-property` to modify values (optionally with `component_name` for components)
+2. Use `run-python-script` to compile and save:
+   ```python
+   import unreal
+   bp = unreal.load_asset('/Game/MyBP')
+   unreal.KismetEditorUtilities.compile_blueprint(bp)
+   unreal.EditorAssetLibrary.save_asset('/Game/MyBP')
+   ```
+
+### Transaction Support
+All write operations are wrapped in `FScopedTransaction` for undo/redo support.
+
+### Python Scripting Pattern
+```json
+// Inline script
+{
+  "script": "import unreal\nprint('Hello from Python')"
+}
+
+// Script file
+{
+  "script_path": "/path/to/script.py"
+}
+
+// With arguments
+{
+  "script": "import unreal\nargs = unreal.get_mcp_args()\nprint(args.get('name'))",
+  "arguments": {"name": "MyAsset", "count": 42}
+}
+
+// With additional Python paths for module imports
+{
+  "script_path": "/Game/Python/test_combat.py",
+  "python_paths": [
+    "/Game/Python/lib",
+    "/Game/Python/helpers"
+  ]
+}
+
+// Full example with all features
+{
+  "script": "from combat_helpers import spawn_test_actors\nargs = unreal.get_mcp_args()\nspawn_test_actors(args['level'])",
+  "python_paths": ["/Game/Python/lib"],
+  "arguments": {"level": "/Game/Maps/TestArena"}
+}
+```
+
+**Python Script Workflow:**
+1. Use `run-python-script` with inline code or file path
+2. Access arguments via `unreal.get_mcp_args()` if provided
+3. Use full `unreal` module API for Editor operations
+4. Output is captured and returned in response
+
+**Requirements:**
+- PythonScriptPlugin must be enabled in Unreal Editor
+- Enable via: Edit > Plugins > Scripting > Python Editor Script Plugin
+- Restart editor after enabling
+
+## Logging
+
+All MCP tools log to the `LogYesUeMcp` category. Use `get-logs` with `category="LogYesUeMcp"` to debug tool execution.
+
+## Future Work
+
+See GitHub Issues for planned features and enhancements.
+
+### Potential Additions
+- Animation asset query (AnimBP, montages, notifies)
+- AI behavior tree analysis
+- Streaming support for large datasets
+- MCP Resources (expose project files)
+- MCP Prompts (template code generation)
+
+## Known Limitations
+
+1. **Editor-only** - Cannot run in packaged game
+2. **Single session** - No multi-client support
+3. **No streaming** - Synchronous responses only
+
+## Project History
+
+Historical development notes have been migrated to GitHub Issues for reference.
+See: https://github.com/softdaddy-o/yes-ue-mcp-private/issues?q=label%3Adocumentation
 
 ---
 > Source: [softdaddy-o/yes-ue-mcp](https://github.com/softdaddy-o/yes-ue-mcp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
