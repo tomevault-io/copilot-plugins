@@ -1,7 +1,7 @@
 {
   "name": "scopeo--draftnrun",
   "displayName": "draftnrun",
-  "description": "Mono repo for Draft'n run source code.",
+  "description": "draftnrun",
   "version": "1.0.0",
   "author": "Scopeo",
   "homepage": "https://github.com/Scopeo/draftnrun",
