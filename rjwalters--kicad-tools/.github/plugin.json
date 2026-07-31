@@ -1,7 +1,7 @@
 {
   "name": "rjwalters--kicad-tools",
   "displayName": "kicad-tools",
-  "description": "Standalone Python tools for parsing and manipulating KiCad schematic and PCB files",
+  "description": "kicad-tools",
   "version": "1.0.0",
   "author": "rjwalters",
   "homepage": "https://github.com/rjwalters/kicad-tools",
