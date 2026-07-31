@@ -1,322 +1,111 @@
 ## astro-core
 
-> This guide provides comprehensive instructions for AI agents working on the Reth codebase. It covers the architecture, development workflows, and critical guidelines for effective contributions.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Reth Development Guide for AI Agents
+# CLAUDE.md
 
-This guide provides comprehensive instructions for AI agents working on the Reth codebase. It covers the architecture, development workflows, and critical guidelines for effective contributions.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
-Reth is a high-performance Ethereum execution client written in Rust, focusing on modularity, performance, and contributor-friendliness. The codebase is organized into well-defined crates with clear boundaries and responsibilities.
+This is the **Reth documentation website** built with [Vocs](https://vocs.dev), a modern documentation framework. The site contains comprehensive documentation for Reth, the Ethereum execution client, including installation guides, CLI references, SDK documentation, and tutorials.
 
-## Architecture Overview
+## Repository Structure
 
-### Core Components
+- **`docs/pages/`**: All documentation content in MDX format
+  - `cli/`: Command-line interface documentation and references
+  - `exex/`: Execution Extensions (ExEx) guides and examples
+  - `installation/`: Installation and setup guides
+  - `introduction/`: Introduction, benchmarks, and why-reth content
+  - `jsonrpc/`: JSON-RPC API documentation
+  - `run/`: Node running guides and configuration
+  - `sdk/`: SDK documentation and examples
+- **`docs/snippets/`**: Code examples and snippets used in documentation
+- **`sidebar.ts`**: Navigation configuration
+- **`vocs.config.ts`**: Vocs configuration file
 
-1. **Consensus (`crates/consensus/`)**: Validates blocks according to Ethereum consensus rules
-2. **Storage (`crates/storage/`)**: Hybrid database using MDBX + static files for optimal performance
-3. **Networking (`crates/net/`)**: P2P networking stack with discovery, sync, and transaction propagation
-4. **RPC (`crates/rpc/`)**: JSON-RPC server supporting all standard Ethereum APIs
-5. **Execution (`crates/evm/`, `crates/ethereum/`)**: Transaction execution and state transitions
-6. **Pipeline (`crates/stages/`)**: Staged sync architecture for blockchain synchronization
-7. **Trie (`crates/trie/`)**: Merkle Patricia Trie implementation with parallel state root computation
-8. **Node Builder (`crates/node/`)**: High-level node orchestration and configuration
-9  **The Consensus Engine (`crates/engine/`)**: Handles processing blocks received from the consensus layer with the Engine API (newPayload, forkchoiceUpdated)
+## Essential Commands
 
-### Key Design Principles
+```bash
+# Install dependencies
+bun install
 
-- **Modularity**: Each crate can be used as a standalone library
-- **Performance**: Extensive use of parallelism, memory-mapped I/O, and optimized data structures
-- **Extensibility**: Traits and generic types allow for different implementations (Ethereum, Optimism, etc.)
-- **Type Safety**: Strong typing throughout with minimal use of dynamic dispatch
+# Start development server
+bun run dev
+
+# Build for production
+bun run build
+
+# Preview production build
+bun run preview
+```
 
 ## Development Workflow
 
-### Code Style and Standards
+### Content Organization
 
-1. **Formatting**: Always use nightly rustfmt
-   ```bash
-   cargo +nightly fmt --all
-   ```
+1. **MDX Files**: All content is written in MDX (Markdown + React components)
+2. **Navigation**: Update `sidebar.ts` when adding new pages
+3. **Code Examples**: Place reusable code snippets in `docs/snippets/`
+4. **Assets**: Place images and static assets in `docs/public/`
 
-2. **Linting**: Run clippy with all features
-   ```bash
-   RUSTFLAGS="-D warnings" cargo +nightly clippy --workspace --lib --examples --tests --benches --all-features --locked
-   ```
+### Adding New Documentation
 
-3. **Testing**: Use nextest for faster test execution
-   ```bash
-   cargo nextest run --workspace
-   ```
+1. Create new `.mdx` files in appropriate subdirectories under `docs/pages/`
+2. Update `sidebar.ts` to include new pages in navigation
+3. Use consistent heading structure and markdown formatting
+4. Reference code examples from `docs/snippets/` when possible
 
-### Common Contribution Types
+### Code Examples and Snippets
 
-Based on actual recent PRs, here are typical contribution patterns:
+- **Live Examples**: Use the snippets system to include actual runnable code
+- **Rust Code**: Include cargo project examples in `docs/snippets/sources/`
+- **CLI Examples**: Show actual command usage with expected outputs
 
-#### 1. Small Bug Fixes (1-10 lines)
-Real example: Fixing beacon block root handling ([#16767](https://github.com/paradigmxyz/reth/pull/16767))
-```rust
-// Changed a single line to fix logic error
-- parent_beacon_block_root: parent.parent_beacon_block_root(),
-+ parent_beacon_block_root: parent.parent_beacon_block_root().map(|_| B256::ZERO),
-```
+### Configuration
 
-#### 2. Integration with Upstream Changes
-Real example: Integrating revm updates ([#16752](https://github.com/paradigmxyz/reth/pull/16752))
-```rust
-// Update code to use new APIs from dependencies
-- if self.fork_tracker.is_shanghai_activated() {
--     if let Err(err) = transaction.ensure_max_init_code_size(MAX_INIT_CODE_BYTE_SIZE) {
-+ if let Some(init_code_size_limit) = self.fork_tracker.max_initcode_size() {
-+     if let Err(err) = transaction.ensure_max_init_code_size(init_code_size_limit) {
-```
+- **Base Path**: Site deploys to `/reth` path (configured in `vocs.config.ts`)
+- **Theme**: Custom accent colors for light/dark themes
+- **Vite**: Uses Vite as the underlying build tool
 
-#### 3. Adding Comprehensive Tests
-Real example: ETH69 protocol tests ([#16759](https://github.com/paradigmxyz/reth/pull/16759))
-```rust
-#[tokio::test(flavor = "multi_thread")]
-async fn test_eth69_peers_can_connect() {
-    // Create test network with specific protocol versions
-    let p0 = PeerConfig::with_protocols(NoopProvider::default(), Some(EthVersion::Eth69.into()));
-    // Test connection and version negotiation
-}
-```
+### Content Guidelines
 
-#### 4. Making Components Generic
-Real example: Making EthEvmConfig generic over chainspec ([#16758](https://github.com/paradigmxyz/reth/pull/16758))
-```rust
-// Before: Hardcoded to ChainSpec
-- pub struct EthEvmConfig<EvmFactory = EthEvmFactory> {
--     pub executor_factory: EthBlockExecutorFactory<RethReceiptBuilder, Arc<ChainSpec>, EvmFactory>,
+1. **Be Practical**: Focus on actionable guides and real-world examples
+2. **Code First**: Show working code examples before explaining concepts
+3. **Consistent Structure**: Follow existing page structures for consistency
+4. **Cross-References**: Link between related pages and sections
+5. **Keep Current**: Ensure documentation matches latest Reth features
 
-// After: Generic over any chain spec type
-+ pub struct EthEvmConfig<C = ChainSpec, EvmFactory = EthEvmFactory>
-+ where
-+     C: EthereumHardforks,
-+ {
-+     pub executor_factory: EthBlockExecutorFactory<RethReceiptBuilder, Arc<C>, EvmFactory>,
-```
+### File Naming Conventions
 
-#### 5. Resource Management Improvements
-Real example: ETL directory cleanup ([#16770](https://github.com/paradigmxyz/reth/pull/16770))
-```rust
-// Add cleanup logic on startup
-+ if let Err(err) = fs::remove_dir_all(&etl_path) {
-+     warn!(target: "reth::cli", ?etl_path, %err, "Failed to remove ETL path on launch");
-+ }
-```
+- Use kebab-case for file and directory names
+- Match URL structure to file structure
+- Use descriptive names that reflect content purpose
 
-#### 6. Feature Additions
-Real example: Sharded mempool support ([#16756](https://github.com/paradigmxyz/reth/pull/16756))
-```rust
-// Add new filtering policies for transaction announcements
-pub struct ShardedMempoolAnnouncementFilter<T> {
-    pub inner: T,
-    pub shard_bits: u8,
-    pub node_id: Option<B256>,
-}
-```
+### Common Tasks
 
-### Testing Guidelines
+**Adding a new CLI command documentation:**
+1. Create `.mdx` file in `docs/pages/cli/reth/`
+2. Add to sidebar navigation
+3. Include usage examples and parameter descriptions
 
-1. **Unit Tests**: Test individual functions and components
-2. **Integration Tests**: Test interactions between components
-3. **Benchmarks**: For performance-critical code
-4. **Fuzz Tests**: For parsing and serialization code
-5. **Property Tests**: For checking component correctness on a wide variety of inputs
+**Adding a new guide:**
+1. Create `.mdx` file in appropriate category
+2. Update sidebar with new entry
+3. Include practical examples and next steps
 
-Example test structure:
-```rust
-#[cfg(test)]
-mod tests {
-    use super::*;
-    
-    #[test]
-    fn test_component_behavior() {
-        // Arrange
-        let component = Component::new();
-        
-        // Act
-        let result = component.operation();
-        
-        // Assert
-        assert_eq!(result, expected);
-    }
-}
-```
+**Updating code examples:**
+1. Modify files in `docs/snippets/sources/`
+2. Ensure examples compile and run correctly
+3. Test that documentation references work properly
 
-### Performance Considerations
+## Development Notes
 
-1. **Avoid Allocations in Hot Paths**: Use references and borrowing
-2. **Parallel Processing**: Use rayon for CPU-bound parallel work
-3. **Async/Await**: Use tokio for I/O-bound operations
-4. **File Operations**: Use `reth_fs_util` instead of `std::fs` for better error handling
-
-### Common Pitfalls
-
-1. **Don't Block Async Tasks**: Use `spawn_blocking` for CPU-intensive work or work with lots of blocking I/O
-2. **Handle Errors Properly**: Use `?` operator and proper error types
-
-### What to Avoid
-
-Based on PR patterns, avoid:
-
-1. **Large, sweeping changes**: Keep PRs focused and reviewable
-2. **Mixing unrelated changes**: One logical change per PR
-3. **Ignoring CI failures**: All checks must pass
-4. **Incomplete implementations**: Finish features before submitting
-5. **Modifying libmdbx sources**: Never modify files in `crates/storage/libmdbx-rs/mdbx-sys/libmdbx/` - this is vendored third-party code
-
-### CI Requirements
-
-Before submitting changes, ensure:
-
-1. **Format Check**: `cargo +nightly fmt --all --check`
-2. **Clippy**: No warnings with `RUSTFLAGS="-D warnings"`
-3. **Tests Pass**: All unit and integration tests
-4. **Documentation**: Update relevant docs and add doc comments with `cargo docs --document-private-items`
-5. **Commit Messages**: Follow conventional format (feat:, fix:, chore:, etc.)
-
-
-### Opening PRs against <https://github.com/paradigmxyz/reth>
-
-Label PRs appropriately, first check the available labels and then apply the relevant ones:
-* when changes are RPC related, add A-rpc label
-* when changes are docs related, add C-docs label
-* when changes are optimism related (e.g. new feature or exclusive changes to crates/optimism), add A-op-reth label
-* ... and so on, check the available labels for more options.
-* if being tasked to open a pr, ensure that all changes are properly formatted: `cargo +nightly fmt --all`
-
-If changes in reth include changes to dependencies, run commands `zepter` and `make lint-toml` before finalizing the pr. Assume `zepter` binary is installed.
-
-### Debugging Tips
-
-1. **Logging**: Use `tracing` crate with appropriate levels
-   ```rust
-   tracing::debug!(target: "reth::component", ?value, "description");
-   ```
-
-2. **Metrics**: Add metrics for monitoring
-   ```rust
-   metrics::counter!("reth_component_operations").increment(1);
-   ```
-
-3. **Test Isolation**: Use separate test databases/directories
-
-### Finding Where to Contribute
-
-1. **Check Issues**: Look for issues labeled `good-first-issue` or `help-wanted`
-2. **Review TODOs**: Search for `TODO` comments in the codebase
-3. **Improve Tests**: Areas with low test coverage are good targets
-4. **Documentation**: Improve code comments and documentation
-5. **Performance**: Profile and optimize hot paths (with benchmarks)
-
-### Common PR Patterns
-
-#### Small, Focused Changes
-Most PRs change only 1-5 files. Examples:
-- Single-line bug fixes
-- Adding a missing trait implementation
-- Updating error messages
-- Adding test cases for edge conditions
-
-#### Integration Work
-When dependencies update (especially revm), code needs updating:
-- Check for breaking API changes
-- Update to use new features (like EIP implementations)
-- Ensure compatibility with new versions
-
-#### Test Improvements
-Tests often need expansion for:
-- New protocol versions (ETH68, ETH69)
-- Edge cases in state transitions
-- Network behavior under specific conditions
-- Concurrent operations
-
-#### Making Code More Generic
-Common refactoring pattern:
-- Replace concrete types with generics
-- Add trait bounds for flexibility
-- Enable reuse across different chain types (Ethereum, Optimism)
-
-### Example Contribution Workflow
-
-Let's say you want to fix a bug where external IP resolution fails on startup:
-
-1. **Create a branch**:
-   ```bash
-   git checkout -b fix-external-ip-resolution
-   ```
-
-2. **Find the relevant code**:
-   ```bash
-   # Search for IP resolution code
-   rg "external.*ip" --type rust
-   ```
-
-3. **Reason about the problem, when the problem is identified, make the fix**:
-   ```rust
-   // In crates/net/discv4/src/lib.rs
-   pub fn resolve_external_ip() -> Option<IpAddr> {
-       // Add fallback mechanism
-       nat::external_ip()
-           .or_else(|| nat::external_ip_from_stun())
-           .or_else(|| Some(DEFAULT_IP))
-   }
-   ```
-
-4. **Add a test**:
-   ```rust
-   #[test]
-   fn test_external_ip_fallback() {
-       // Test that resolution has proper fallbacks
-   }
-   ```
-
-5. **Run checks**:
-   ```bash
-   cargo +nightly fmt --all
-   cargo clippy --all-features
-   cargo test -p reth-discv4
-   ```
-
-6. **Commit with clear message**:
-   ```bash
-   git commit -m "fix: add fallback for external IP resolution
-
-   Previously, node startup could fail if external IP resolution
-   failed. This adds fallback mechanisms to ensure the node can
-   always start with a reasonable default."
-   ```
-
-## Quick Reference
-
-### Essential Commands
-
-```bash
-# Format code
-cargo +nightly fmt --all
-
-# Run lints
-RUSTFLAGS="-D warnings" cargo +nightly clippy --workspace --all-features --locked
-
-# Run tests
-cargo nextest run --workspace
-
-# Run specific benchmark
-cargo bench --bench bench_name
-
-# Build optimized binary
-cargo build --release --features "jemalloc asm-keccak"
-
-# Check compilation for all features
-cargo check --workspace --all-features
-
-# Check documentation
-cargo docs --document-private-items 
-```
+- This is a TypeScript/React project using Vocs framework
+- Content is primarily MDX with some TypeScript configuration
+- Focus on clear, practical documentation that helps users succeed with Reth
+- Maintain consistency with existing documentation style and structure
 
 ---
 > Source: [CashRussell/astro-core](https://github.com/CashRussell/astro-core) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
