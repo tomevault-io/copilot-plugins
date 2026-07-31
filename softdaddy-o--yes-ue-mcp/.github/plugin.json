@@ -1,7 +1,7 @@
 {
   "name": "softdaddy-o--yes-ue-mcp",
   "displayName": "yes-ue-mcp",
-  "description": "Native C++ Model Context Protocol (MCP) plugin for Unreal Engine 5.4+",
+  "description": "yes-ue-mcp",
   "version": "1.0.0",
   "author": "softdaddy-o",
   "homepage": "https://github.com/softdaddy-o/yes-ue-mcp",
