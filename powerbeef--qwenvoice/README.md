@@ -1,8 +1,6 @@
 # QwenVoice
 
-> Tome by [PowerBeef](https://github.com/PowerBeef/QwenVoice) — distributed by [TomeVault](https://tomevault.io)
-
-Vocello is a native macOS app for offline Qwen3-TTS on Apple Silicon, with Custom Voice, Voice Design, and Voice Cloning.
+> Tome by [PowerBeef](https://github.com/PowerBeef/QwenVoice), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
