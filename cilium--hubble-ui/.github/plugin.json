@@ -1,0 +1,9 @@
+{
+  "name": "cilium--hubble-ui",
+  "displayName": "hubble-ui",
+  "description": "hubble-ui",
+  "version": "1.0.0",
+  "author": "cilium",
+  "homepage": "https://github.com/cilium/hubble-ui",
+  "skills": []
+}
