@@ -1,7 +1,7 @@
 {
   "name": "emson--elfmem",
   "displayName": "elfmem",
-  "description": "sELF improving agent memory system",
+  "description": "elfmem",
   "version": "1.0.0",
   "author": "emson",
   "homepage": "https://github.com/emson/elfmem",
