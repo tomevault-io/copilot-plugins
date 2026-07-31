@@ -1,399 +1,221 @@
 ## subaru
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> AGENTS_POLICY: gateway-v1.1
 
-# CLAUDE.md
+<!--
+AGENTS_POLICY: gateway-v1.1
+repo_namespace: .agentplane
+default_initiator: ORCHESTRATOR
+-->
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## CRITICAL PRIORITY INSTRUCTIONS
+# PURPOSE
 
-**MOST IMPORTANT**: When evaluating Gleam script execution via `deno task cli`, NEVER use simulation. Always base script evaluation on the actual Deno execution results. The runner executes real HTTP requests and should return real data, not simulated output.
+`AGENTS.md` is the policy gateway for agents in this repository.
+It provides strict routing, hard constraints, and command contracts.
+Detailed procedures live in canonical modules from `## CANONICAL DOCS`.
 
-- Execute scripts using `deno task cli <script.gleam>`
-- Evaluate success/failure based on actual console output
-- Debug issues using real execution results
-- No simulation or fake data generation allowed
 
-## Project Overview
 
-This is "subaru" - a Gleam WASM runner that allows executing Gleam code dynamically using WebAssembly. The project uses:
+## PROJECT
 
-- **Gleam**: Main programming language (functional language that compiles to Erlang/JavaScript)
-- **Deno**: TypeScript/JavaScript runtime for the WASM runner
-- **WASM**: WebAssembly version of Gleam compiler for dynamic compilation
-- **Nix Flakes**: Development environment management with devenv
-- **Pre-commit hooks**: Security scanning with git-secrets and ripsecrets
+- Repository type: user project initialized with `agentplane`.
+- CLI rule: prefer `ap` for compact agent-oriented commands; fall back to `agentplane`; if neither is available, stop and request installation guidance (do not invent repo-local entrypoints).
+- Startup shortcut: run `## COMMANDS -> Preflight`; use `ap quickstart`; activate `ap role ORCHESTRATOR` for planning and `ap role <ROLE>` for execution; then apply `## LOAD RULES` before mutation. The guarded route is determined by `workflow.mode` in `.agentplane/WORKFLOW.md`; treat `ap task brief <task-id>` and `ap task next-action <task-id> --explain` as the route oracle: follow the emitted checkout, blocker, and next command instead of reconstructing workflow state.
 
-## Development Commands
 
-### Setup
+## SOURCES OF TRUTH
 
-```bash
-deno task setup     # Download Gleam WASM compiler
-```
+Priority order (highest first):
 
-### Gleam Operations
+1. Enforcement: CI, tests, linters, hooks, CLI validations.
+2. Policy gateway: `AGENTS.md`.
+3. Canonical policy modules from `## CANONICAL DOCS`.
+4. CLI guidance: `ap quickstart`, `ap role <ROLE>`, `.agentplane/WORKFLOW.md`.
+5. Reference examples from `## REFERENCE EXAMPLES`.
 
-```bash
-gleam run      # Run the main Gleam application
-gleam test     # Run Gleam tests using gleeunit
-```
+Conflict rule:
 
-### WASM Runner Operations
+- If documentation conflicts with enforcement, enforcement wins.
+- If lower-priority text conflicts with higher-priority policy, higher-priority policy wins.
 
-```bash
-# CLI usage
-deno task cli --help                    # Show CLI help
-deno task cli example.gleam             # Execute Gleam file directly (preferred)
-deno task cli --file example.gleam     # Execute Gleam code from file (alternative)  
-deno task cli --code "gleam_code_here"  # Execute Gleam code directly
-deno task cli --url https://example.com/script.gleam  # Execute remote script
 
-# Debug control (silent is default)
-deno task cli --debug --code "..."      # Enable debug output
-deno task cli --log-level error --code "..."   # Show compilation errors/warnings
+## SCOPE BOUNDARY
 
-# Configuration
-deno task init-config                   # Create example config file
-deno task cli --config my-config.json script.gleam  # Use custom config with direct file
+- MUST keep all actions inside this repository unless the user explicitly approves outside-repo access.
+- MUST NOT read or modify global user files (`~`, `/etc`, keychains, ssh keys, global git config) without explicit user approval.
+- MUST treat network access as approval-gated when `agents.approvals.require_network=true`.
 
-# Examples and testing
-deno task example                       # Run usage examples
-deno task example:debug                 # Run debug mode examples
-deno task example:preload               # Run preload scripts example
-deno task test                          # Run Deno tests
-```
 
-### Development Environment
+## COMMANDS
+
+### Preflight
 
 ```bash
-deno task dev        # Setup and run development environment
-# OR use Nix/direnv for reproducible environment:
-nix develop          # Enter the development shell (if using Nix)
-direnv allow         # Auto-load development environment (if direnv is configured)
+ap config show
+ap quickstart
+ap task list
+ap task active
+git status --short --untracked-files=no
+git status --short --untracked-files=all
+git rev-parse --abbrev-ref HEAD
 ```
 
-### Code Quality
+### Route commands
 
 ```bash
-deno task fmt            # Format TypeScript code
-deno task lint           # Lint TypeScript code
-deno task check          # Type check TypeScript code
-deno task test           # Run Deno tests
-deno task build-gleam    # Build Gleam project
-deno task run-gleam      # Run Gleam project
-deno task clean          # Clean generated files
-nix run .#treefmt        # Format Nix code
-git secrets --scan       # Scan for secrets (pre-commit hook)
+ap task brief <task-id>
+ap task next-action <task-id> --explain
+ap work resume <task-id>
 ```
 
-**IMPORTANT**: Always run `deno fmt` and `deno test` during development before committing changes. These commands should be used frequently to catch formatting issues and test failures early.
-
-## Project Structure
-
-### Gleam Files
-
-- `src/subaru.gleam`: Main Gleam application entry point
-- `test/subaru_test.gleam`: Gleam test suite using gleeunit
-
-### TypeScript/WASM Runner
-
-- `src/gleam_runner.ts`: Core WASM runner implementation
-- `src/subaru_runner.ts`: High-level API for Gleam code execution
-- `src/cli.ts`: Command-line interface for the runner
-- `src/hex/`: Hex.pm package integration
-  - `hex_client.ts`: Hex.pm API client
-  - `tarball_extractor.ts`: Hex tarball extraction
-  - `package_cache.ts`: Package caching
-- `src/stdlib/`: Standard library loading
-  - `builtin_packages.ts`: Builtin package definitions
-  - `stdlib_loader.ts`: Library loading orchestration
-- `test/subaru_runner_test.ts`: Deno tests for WASM functionality
-- `test/hex/`: Tests for Hex.pm integration
-- `test/stdlib/`: Tests for stdlib loading
-- `examples/simple_usage.ts`: Usage examples
-
-### Configuration & Scripts
-
-- `gleam.toml`: Gleam project configuration and dependencies
-- `deno.json`: Deno configuration and development task definitions
-- `flake.nix`: Nix development environment with custom Gleam build
-- `src/setup.ts`: WASM compiler setup script
-
-## Architecture Notes
-
-- **Dual Runtime**: Gleam for static compilation, Deno for dynamic WASM execution
-- **WASM Integration**: Uses Gleam's WebAssembly compiler for dynamic code compilation
-- **Worker-based Execution**: Isolates compiled JavaScript execution in Web Workers
-- **CLI Interface**: Provides easy command-line access to WASM functionality
-- **Testing Strategy**: Gleam tests for static code, Deno tests for WASM functionality
-- **Custom Gleam Build**: The flake.nix builds Gleam v1.9.1 from source using Rust nightly
-- **Security**: Pre-commit hooks scan for secrets using git-secrets and ripsecrets
-
-## Key Features
-
-- **Dynamic Compilation**: Compile Gleam code to JavaScript at runtime using WASM
-- **Safe Execution**: Worker-based isolation for executed code (simplified version)
-- **Multiple Interfaces**: CLI, programmatic API, and library usage
-- **Remote Script Execution**: Execute Gleam scripts from URLs like `deno run`
-- **Debug Control**: Configurable logging levels (silent by default, error, warn, info, debug, trace)
-- **Preload Scripts**: Configure custom modules to be available in all compilations
-- **Configuration Files**: JSON-based configuration with preload scripts and settings
-- **Error Handling**: Comprehensive error reporting for compilation and runtime issues
-- **Standard Libraries**: Automatically preloads essential Gleam stdlib modules and JavaScript interop libraries from Hex.pm
-- **Hex.pm Integration**: Downloads packages from Hex.pm with automatic caching and version management
-- **Package Caching**: Caches downloaded packages in `~/.cache/subaru/packages/` with TTL-based expiration
-- **Third-party Packages**: Configure additional Hex.pm packages to load via config file
-- **Echo Keyword Support**: Full support for Gleam v1.11.0's `echo` debugging keyword with file/line information
-
-## Preloaded Libraries
-
-Subaru automatically preloads the following libraries for all Gleam code execution:
-
-### Gleam Standard Library (partial)
-
-- `gleam/io` - Input/output operations
-- `gleam/list` - List manipulation functions
-- `gleam/string` & `gleam/string_tree` - String operations
-- `gleam/int` - Integer operations
-- `gleam/float` - Floating point operations
-- `gleam/bool` - Boolean operations
-- `gleam/result` - Result type operations
-- `gleam/option` - Option type operations
-- `gleam/order` - Ordering operations
-- `gleam/bit_array` - Bit array operations
-- `gleam/dict` - Dictionary operations
-- `gleam/set` - Set operations
-- `gleam/uri` - URI operations
-- `gleam/dynamic` - Dynamic type operations
-- `gleam/function` - Function utilities
-
-### Gleam JavaScript Interop
-
-- `gleam/javascript/array` - JavaScript array interop
-- `gleam/javascript/promise` - JavaScript promise interop
-
-### Third-party Libraries
-
-#### Plinth
-
-Browser and JavaScript utilities for client-side development:
-
-- `plinth/browser/document` - DOM document manipulation
-- `plinth/browser/element` - HTML element operations
-- `plinth/browser/event` - Event handling
-- `plinth/browser/window` - Browser window operations
-- `plinth/javascript/global` - Global JavaScript operations
-- `plinth/javascript/date` - Date and time utilities
-- `plinth/javascript/console` - Console operations
-- `plinth/javascript/json` - JSON serialization/deserialization
-- `plinth/javascript/storage` - Local/session storage
-
-#### HTTP Client
-
-HTTP request and response handling:
-
-- `gleam/http` - Core HTTP types and utilities
-- `gleam/http/request` - HTTP request building
-- `gleam/http/response` - HTTP response handling
-- `gleam/http/service` - HTTP service utilities
-- `gleam/fetch` - Fetch API for making HTTP requests
-- `gleam/fetch/form_data` - Form data handling for HTTP requests
-
-#### Optional Packages (Not Loaded by Default)
-
-The following packages are available but not loaded by default due to API compatibility issues with the latest gleam_stdlib:
-
-- `dinostore` - Key-value storage for Deno runtime
-- `gleam_stdin` - Standard input reading utilities
-
-To use these packages, add them to your config with specific compatible versions.
-
-#### JSON Processing
-
-- `gleam/json` - JSON encoding and decoding for Gleam data structures
-
-### Usage Example
-
-```gleam
-import gleam/io
-import gleam/list
-
-pub fn main() {
-  io.println("Hello from Gleam WASM!")
-  
-  [1, 2, 3, 4, 5]
-  |> list.map(fn(x) { x * 2 })
-  |> echo  // Gleam v1.11.0 echo keyword with file:line info
-  |> list.filter(fn(x) { x > 5 })
-  |> echo
-  
-  io.println("Processing complete!")
-}
-```
-
-#### Echo Keyword
-
-Subaru supports Gleam v1.11.0's `echo` keyword for enhanced debugging:
-
-- Displays file path and line number (`src/main.gleam:8`)
-- Shows formatted value output (`[2, 4, 6, 8, 10]`)
-- Works seamlessly in pipelines
-- Replaces `io.debug` with better location tracking
-
-**Note**: Some advanced stdlib functions may have limited functionality in the WASM environment. The libraries are automatically fetched from Hex.pm and cached locally for faster subsequent runs.
-
-## Configuration
-
-Create a `subaru.config.json` file to customize behavior:
+### Task lifecycle
 
 ```bash
-deno task init-config  # Creates example config
+ap task new --title "..." --description "..." --priority med --owner <ROLE> --tag <tag>
+ap task plan set <task-id> --text "..." --updated-by <ROLE>
+ap task plan approve <task-id> --by ORCHESTRATOR
+ap task start-ready <task-id> --author <ROLE> --body "Start: ..."
+ap verify <task-id> --ok|--rework --by <ROLE> --note "..." [--observation "..." --impact "..." --resolution "..."] [--local-only]
+ap finish <task-id> --author <ROLE> --body "Verified: ..." --result "..." --commit <git-rev>
 ```
 
-Example configuration:
-
-```json
-{
-  "debug": false,
-  "logLevel": "silent",
-  "wasmPath": "./wasm-compiler",
-  "preloadScripts": [
-    {
-      "moduleName": "my_utils",
-      "code": "pub fn helper() { ... }"
-    },
-    {
-      "moduleName": "remote_lib",
-      "url": "https://example.com/lib.gleam"
-    },
-    {
-      "moduleName": "local_lib",
-      "filePath": "./libs/local.gleam"
-    }
-  ],
-  "standardLibrary": {
-    "packages": [
-      "lustre",
-      { "name": "gleam_otp", "version": "0.10.0" }
-    ],
-    "cache": {
-      "enabled": true,
-      "ttl": 604800
-    }
-  },
-  "noStdlib": false
-}
-```
-
-### Standard Library Configuration
-
-The `standardLibrary` section allows you to configure how packages are loaded:
-
-- **packages**: Additional third-party packages to load from Hex.pm (beyond the 8 builtin packages). Can be:
-  - A string (package name, uses latest version): `"lustre"`
-  - An object with specific version: `{ "name": "gleam_otp", "version": "0.10.0" }`
-- **cache**: Package cache settings
-  - **enabled**: Enable/disable caching (default: true)
-  - **directory**: Custom cache directory (default: `~/.cache/subaru/packages/`)
-  - **ttl**: Cache TTL in seconds (default: 604800 = 7 days)
-
-### CLI Options for Standard Library
+### branch_pr lifecycle
 
 ```bash
-# Disable all builtin packages
-subaru --no-stdlib script.gleam
-
-# Clean package cache only
-subaru --clean-package-cache
-
-# Clean all caches (WASM compiler + packages)
-subaru --clean-cache
+ap work start <task-id> --agent <ROLE> --slug <slug> --worktree
+ap task start-ready <task-id> --author <ROLE> --body "Start: ..."
+git commit -m "Implement <task>"
+ap task verify-show <task-id>
+ap pr open <task-id> --branch task/<task-id>/<slug> --author <ROLE>
+ap verify <task-id> --ok|--rework --by <ROLE> --note "..."
+ap evaluator run <task-id> --verdict pass|rework|blocked|human_review --summary "..." --finding "..." --evidence <path-or-check>
+ap integrate <task-id> --branch task/<task-id>/<slug> --run-verify
+ap finish <task-id> --author INTEGRATOR --body "Verified: ..." --result "..." --commit <git-rev> --close-commit
 ```
 
-## Cache Structure
+### Verification
 
-Subaru uses a cache directory to store downloaded files:
-
-```
-~/.cache/subaru/
-├── wasm-compiler/          # Gleam WASM compiler
-└── packages/               # Hex.pm packages
-    ├── gleam_stdlib/
-    │   └── 0.68.1/
-    │       ├── .meta.json
-    │       └── src/gleam/*.gleam
-    └── gleam_json/
-        └── 2.0.0/
-            └── ...
+```bash
+ap vshow <task-id>
+ap verify <task-id> --ok|--rework --by <ROLE> --note "..." [--observation "..." --impact "..." --resolution "..."] [--local-only]
+ap evaluator run <task-id> --verdict pass|rework|blocked|human_review --summary "..." --finding "..." --evidence <path-or-check> [--missing-test "..." --hidden-assumption "..." --residual-risk "..."]
+ap incidents advise <task-id>
+ap incidents collect <task-id> --check
+ap doctor
+node .agentplane/policy/check-routing.mjs
 ```
 
-## Development Environment
 
-The project uses a Nix flake with devenv for reproducible development:
+## TOOLING
 
-- Custom-built Gleam 1.9.1 compiler
-- Pre-commit hooks for security scanning
-- Treefmt for code formatting
-- Development shell with necessary tools
+- Use `## COMMANDS` as the canonical command source.
+- Use `ap quickstart` as the compact installed startup path and `ap role <ROLE>` to activate the current role before role-scoped planning or execution.
+- For policy changes, routing validation MUST pass via `node .agentplane/policy/check-routing.mjs`.
 
-## Commit Guidelines
 
-This project follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification for consistent commit messages.
+## SHARED PROMPT CONTRACT
 
-**IMPORTANT**: All commits MUST be GPG signed. Ensure `git config --global commit.gpgsign true` is set.
+- Outcome-first, concise, evidence-first: state goal, success criteria, constraints, stop rules, and output; use procedure only for command contracts, state machines, or irreversible gates.
+- Ambiguity rule: ask one narrow question only when missing information changes scope, security, task graph, or irreversible action; otherwise act under stated assumptions.
+- Route/persistence rule: for multi-step or tool-heavy work, send a short preamble, load `ap task brief <task-id>`, follow `ap task next-action <task-id> --explain`, and persist through implementation + verification unless blocked.
+- Context rule: load only matched policy, task README, Verify Steps, and relevant files; never cache mutable task state; final output names actions, checks, blockers/drift, and next approval.
 
-**REFACTORING REQUIREMENT**: After completing any implementation, ALWAYS refactor the code for:
 
-- Code clarity and maintainability
-- Performance optimization
-- Proper error handling
-- Type safety improvements
-- Documentation updates
+IF `.agentplane/user-instructions.md` exists THEN LOAD it as `gateway.user.instructions`.
 
-### Format
 
-```
-<type>[optional scope]: <description>
+## LOAD RULES
 
-[optional body]
+Routing is strict. Load only modules that match the current task.
 
-[optional footer(s)]
-```
+### Always imports for mutating tasks
 
-### Types
+Condition: task includes mutation (file edits, task-state changes, commits, merge/integrate, release/publish).
 
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation changes
-- `style`: Code formatting, semicolons, etc. (no functional changes)
-- `refactor`: Code refactoring
-- `perf`: Performance improvements
-- `test`: Adding or modifying tests
-- `chore`: Build process, auxiliary tools, etc.
-- `ci`: CI configuration changes
-- `build`: Build system or external dependencies changes
+- `@.agentplane/policy/security.must.md`
+- `@.agentplane/policy/dod.core.md`
 
-### Examples
+### Conditional imports (linear IF -> LOAD contract)
 
-```
-feat(cli): add warning color customization options
-fix(wasm): resolve deprecated initialization API usage
-docs(readme): update installation methods with deno install
-ci: migrate from Gleam to Deno-only workflow
-chore: remove unused Gleam project files
-```
+1. IF `workflow.mode=direct` THEN LOAD `@.agentplane/policy/workflow.direct.md`.
+2. IF `workflow.mode=branch_pr` THEN LOAD `@.agentplane/policy/workflow.branch_pr.md`.
+3. IF task touches release/version/publish THEN LOAD `@.agentplane/policy/workflow.release.md`.
+4. IF task runs CLI upgrade or touches `.agentplane/.upgrade/**` THEN LOAD `@.agentplane/policy/workflow.upgrade.md`.
+5. IF task modifies implementation code paths THEN LOAD `@.agentplane/policy/dod.code.md`.
+6. IF task modifies docs/policy-only paths (`AGENTS.md`, docs, `.agentplane/policy/**`) THEN LOAD `@.agentplane/policy/dod.docs.md`.
+7. IF task modifies policy files (`AGENTS.md` or `.agentplane/policy/**`) THEN LOAD `@.agentplane/policy/governance.md`.
+8. IF task modifies `.agentplane/policy/incidents.md` THEN LOAD `@.agentplane/policy/incidents.md`.
 
-### Breaking Changes
+Routing constraints:
 
-Use `!` after type/scope or add `BREAKING CHANGE:` in footer:
+- MUST NOT load unrelated policy modules.
+- MUST NOT use wildcard policy paths.
+- MUST keep loaded policy set minimal (target: 2-4 files per task).
+- If routing is ambiguous, ask one clarifying question before loading extra modules.
 
-```
-feat!: change CLI argument format
-feat(api)!: remove deprecated methods
-```
+
+## MUST / MUST NOT
+
+- MUST start with ORCHESTRATOR preflight and plan summary.
+- MUST NOT perform mutating actions before explicit user approval.
+- MUST create/reuse executable task IDs for any repo-state mutation.
+- MUST use `ap`/`agentplane` commands for task lifecycle updates; MUST NOT manually edit `.agentplane/tasks.json`.
+- MUST run `ap task plan approve ...` and `ap task start-ready ...` sequentially (never in parallel).
+- MUST activate `ap role ORCHESTRATOR` for planning and `ap role <ROLE>` for the active task owner before owner-scoped execution or verification.
+- MUST keep repository artifacts in English by default (unless user explicitly requests another language for a specific artifact).
+- MUST NOT fabricate repository facts.
+- MUST stage/commit only intentional changes for the active task scope.
+- MUST stop and request re-approval when scope, risk, or verification criteria materially drift.
+- MUST NOT let ORCHESTRATOR perform owner-scoped implementation or verification once a task owner is known, unless the approved plan explicitly makes ORCHESTRATOR the owner.
+- MUST treat user-authenticated GitHub actions as user-attributed publication and route post-merge fixes through a new task or explicit `post-merge-` branch or `followup` slug token.
+
+Role boundaries: ORCHESTRATOR = preflight + plan + approvals; PLANNER = executable task graph creation/update; INTEGRATOR = base integration/finish in `branch_pr`.
+
+
+## CORE DOD
+
+A task is done only when approved scope, loaded DoD modules, security gates, task traceability, recorded verification, and clean final tracked state all pass. Detailed DoD rules live in `.agentplane/policy/dod.core.md`, `.agentplane/policy/dod.code.md`, and `.agentplane/policy/dod.docs.md`.
+
+
+## SIZE BUDGET
+
+- `AGENTS.md` MUST stay <= 250 lines.
+- Every policy markdown module under `.agentplane/policy/*.md` MUST stay <= 100 lines.
+- Worst-case loaded policy graph (always imports + all conditional imports) MUST stay <= 600 lines.
+- Enforced by `node .agentplane/policy/check-routing.mjs`.
+
+
+## CANONICAL DOCS
+
+- DOC `.agentplane/policy/workflow.md`
+- DOC `.agentplane/policy/workflow.direct.md`
+- DOC `.agentplane/policy/workflow.branch_pr.md`
+- DOC `.agentplane/policy/workflow.release.md`
+- DOC `.agentplane/policy/workflow.upgrade.md`
+- DOC `.agentplane/policy/security.must.md`
+- DOC `.agentplane/policy/dod.core.md`
+- DOC `.agentplane/policy/dod.code.md`
+- DOC `.agentplane/policy/dod.docs.md`
+- DOC `.agentplane/policy/governance.md`
+- DOC `.agentplane/policy/incidents.md`
+
+
+## REFERENCE EXAMPLES
+
+- EXAMPLE `.agentplane/policy/examples/pr-note.md`
+- EXAMPLE `.agentplane/policy/examples/unit-test-pattern.md`
+- EXAMPLE `.agentplane/policy/examples/migration-note.md`
+
+---
+
+
+## CHANGE CONTROL
+
+- Follow incident-log, immutability, and policy-budget rules in `.agentplane/policy/governance.md`.
+- Record situational incident rules only in `.agentplane/policy/incidents.md`; use targeted lookup/promotion (`task start-ready`, `incidents advise`, `incidents collect`, `finish`) instead of bulk-loading it during normal startup.
+- Keep `AGENTS.md` as a gateway; move detailed procedures to canonical modules.
 
 ---
 > Source: [Comamoca/subaru](https://github.com/Comamoca/subaru) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
