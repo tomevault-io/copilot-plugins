@@ -1,8 +1,6 @@
 # react-native-notify-kit
 
-> Tome by [marcocrupi](https://github.com/marcocrupi/react-native-notify-kit) — distributed by [TomeVault](https://tomevault.io)
-
-Actively maintained fork of Notifee for React Native notifications, continued and improved by Marco Crupi.
+> Tome by [marcocrupi](https://github.com/marcocrupi/react-native-notify-kit), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [marcocrupi/react-native-notify-kit](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [marcocrupi/react-native-notify-kit](https://github.com/marcocrupi/react-native-notify-kit) — a repo with 78+ stars on GitHub.
+From [marcocrupi/react-native-notify-kit](https://github.com/marcocrupi/react-native-notify-kit) — a repo with 174+ stars on GitHub.
 
 ---
 
