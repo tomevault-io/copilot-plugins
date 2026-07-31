@@ -1,6 +1,6 @@
 # ChineseResearchLaTeX
 
-> Source: [huangwb8/ChineseResearchLaTeX](https://github.com/huangwb8/ChineseResearchLaTeX). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [huangwb8/ChineseResearchLaTeX](https://github.com/huangwb8/ChineseResearchLaTeX). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
