@@ -1,16 +1,20 @@
-## 03-backend-development
+## 04-data-management-communication
 
-> FastAPI conventions, hardware integration, and asynchronous patterns.
+> WebSocket protocol details, API interaction patterns, and data formats.
 
-# 03-backend-development
+# 04-data-management-communication
 
-## Backend Development (FastAPI & Python)
+## Data Management & Communication
 
 STRICT REQUIREMENT:
-- FastAPI Best Practices: Use decorators (`@app.get`, `@app.post`, `@app.websocket`), Pydantic models for request validation, and dependency injection for services.
-- Hardware Integration: Abstract interactions via a common interface (`BaseSensor`) for extensibility and mocking.
-- Asynchronous Operations: Utilize `asyncio` for non-blocking I/O.
-- Security: Basic security measures defined in `app/core/security.py`.
+- WebSocket Protocol: Backend must send real-time sensor data updates over WebSockets, and frontend must maintain connections.
+- API Interactions: Standardize endpoints for configuration retrieval and sensor discovery.
+- Data Persistence: If necessary, use Firestore (local storage). Firestore paths must follow:
+  - Public data: `/artifacts/{appId}/public/data/{collection}`
+  - Private data: `/artifacts/{appId}/users/{userId}/{collection}`
+- Firebase Authentication: Required before Firestore operations.
+- Data Formats: Use JSON for API responses and WebSocket messages.
+- API Endpoints: Use RESTful endpoints for configuration retrieval and sensor discovery.
 
 ---
 > Source: [fivelity/usmp](https://github.com/fivelity/usmp) — distributed by [TomeVault](https://tomevault.io).
