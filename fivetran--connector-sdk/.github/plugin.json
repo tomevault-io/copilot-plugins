@@ -1,0 +1,9 @@
+{
+  "name": "fivetran--connector-sdk",
+  "displayName": "connector_sdk",
+  "description": "connector_sdk",
+  "version": "1.0.0",
+  "author": "fivetran",
+  "homepage": "https://github.com/fivetran/connector_sdk",
+  "skills": []
+}
