@@ -1,33 +1,23 @@
 ## opentelemetry-ebpf-instrumentation
 
-> - Read `AGENTS.md` and `CONTRIBUTING.md` before suggesting code, reviewing a PR, or answering repository-specific questions. Treat them as the source of truth.
+> When working on or reviewing protocol parser code in this repository, be especially strict about reuse, clarity, and established parser patterns.
 
-# Copilot Instructions
 
-- Read `AGENTS.md` and `CONTRIBUTING.md` before suggesting code, reviewing a PR, or answering repository-specific questions. Treat them as the source of truth.
-- Start with `devdocs/pipeline-map.md` when you need architecture or data-flow context.
-- Prefer repository code and local documentation over external references when they disagree.
-- This repository provides eBPF-based instrumentation for applications and integrates with OpenTelemetry.
-- Keep changes small, correct, and reviewable.
-- Do not include unrelated cleanup, formatting changes, drive-by refactors, or broad rewrites.
-- Follow existing package, subsystem, and repository boundaries unless the prompt explicitly asks to change them.
-- Reuse existing helpers, utilities, abstractions, and patterns before introducing new ones.
-- Do not edit generated files manually: `*_bpfel.go`, `*_bpfeb.go`, `*_bpfel.o`, `*_bpfeb.o`, or anything under `bpf/bpfcore/`.
-- Prefer simple, explicit, readable code over clever or compact code.
-- Keep functions small and focused, and use early returns when they improve readability.
-- Avoid unnecessary interfaces, wrappers, layers, and hidden coupling.
-- Keep comments minimal and only add context that the code itself cannot convey.
-- Do not assume AI-generated code, plans, issue reports, or PR descriptions are correct. Check them against the repository before accepting them.
-- Contributors are responsible for understanding and being able to explain every line they submit, including AI-assisted changes.
-- When a change introduces a new helper, utility, abstraction, or pattern, check whether equivalent functionality already exists and prefer reuse.
-- Refactors are acceptable only when they are directly relevant to the problem being solved.
-- In reviews, prioritize signs of contributor ownership and repository-specific understanding over generic style commentary.
-- In reviews, flag PR descriptions that sound generic, plan-like, or tool-generated and do not explain why the approach fits this repository.
-- In reviews, flag duplicated implementations, oversized scope, unrelated cleanup, unnecessary abstractions, and changes that do not follow existing repository structure.
-- In reviews, flag follow-up patches that appear to apply feedback mechanically without integrating it coherently into the surrounding code.
-- In reviews, ask concrete questions about rationale, reuse of existing code, scope, validation, and why this approach is appropriate for this codebase.
-- Do not object merely because AI may have been used. Object when the change shows weak ownership, weak understanding, duplication, unnecessary abstraction, poor integration, or missing validation.
+# Protocol Parser Instructions
+
+When working on or reviewing protocol parser code in this repository, be especially strict about reuse, clarity, and established parser patterns.
+
+- Compare new parser logic against nearby protocol implementations before accepting it.
+- Prefer the repository's `LargeBuffer` API, including direct typed helpers and `LargeBufferReader`, over generic Go buffer handling.
+- Avoid `UnsafeView()` when `LargeBuffer` helpers or readers can access the data directly; use it only when a raw slice is genuinely needed. See the SQL protocol implementation for the expected style and tradeoffs.
+- Prefer non-allocating `[]byte` parsing and matching as long as possible, and convert to `string` only at the edges where the API actually needs a string result.
+- Flag parser code that reimplements logic already present in nearby protocol parsers or related helpers instead of reusing or extracting common behavior.
+- Flag awkward or mechanical logic patterns that reduce clarity, such as convoluted length checks, repeated branch bodies, unnecessary conversions, or obvious missed simplifications.
+- Flag unnecessary allocations, especially mindless `[]byte` to `string` conversions, and unnecessary `unsafe` usage.
+- Flag choices that drift from more reliable established patterns already used elsewhere in the repository unless the PR explains why this protocol genuinely needs a different approach.
+- Check whether branch-heavy validation and error paths are covered by tests, not just the happy path.
+- Prefer parser code that is easy to reason about under malformed input, partial buffers, and protocol edge cases.
 
 ---
 > Source: [open-telemetry/opentelemetry-ebpf-instrumentation](https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
