@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [marktext/marktext](https://github.com/marktext/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [marktext/marktext](https://github.com/marktext/marktext) — a repo with 59041+ stars on GitHub.
+From [marktext/marktext](https://github.com/marktext/marktext) — a repo with 59065+ stars on GitHub.
 
 ---
 
