@@ -1,7 +1,7 @@
 {
   "name": "dcodesdev--letterspace",
   "displayName": "LetterSpace",
-  "description": "Self-hosted open source newsletter platform for managing subscribers and sending campaigns",
+  "description": "LetterSpace",
   "version": "1.0.0",
   "author": "dcodesdev",
   "homepage": "https://github.com/dcodesdev/LetterSpace",
