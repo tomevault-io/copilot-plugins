@@ -1,8 +1,6 @@
 # SentinelXPrime
 
-> Tome by [alicankiraz1](https://github.com/alicankiraz1/SentinelXPrime) — distributed by [TomeVault](https://tomevault.io)
-
-Stage-aware security skills for Codex, Claude Code, and OpenCode, with explicit compatibility guidance for Cursor and Kilo.
+> Tome by [alicankiraz1](https://github.com/alicankiraz1/SentinelXPrime), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
