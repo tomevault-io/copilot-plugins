@@ -1,0 +1,44 @@
+{
+  "name": "rlx-models",
+  "owner": "MIT-RLX",
+  "repo": "rlx-models",
+  "description": "ML model ports (ASR \u00b7 TTS \u00b7 LLM \u00b7 VLM \u00b7 vision \u00b7 audio codecs) on the rlx multi-backend compiler + runtime \u2014 CPU/Metal/MLX/CUDA/wgpu",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MIT-RLX/rlx-models",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-01T06:32:39Z"
+}
