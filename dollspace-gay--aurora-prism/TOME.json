@@ -2,9 +2,9 @@
   "name": "Aurora-Prism",
   "owner": "dollspace-gay",
   "repo": "Aurora-Prism",
-  "description": "A third party Appview for ATproto",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dollspace-gay/Aurora-Prism",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T04:14:09Z"
+  "distributed_at": "2026-08-01T17:25:34Z"
 }
