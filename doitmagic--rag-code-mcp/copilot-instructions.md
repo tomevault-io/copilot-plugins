@@ -1,19 +1,25 @@
 ## rag-code-mcp
 
-> **For any information about the codebase (structure, logic, or usage), you MUST use RagCode MCP tools.**
+> **For any information about the code (location, structure, logic, or usage), you MUST use RagCode MCP tools. Never guess code details from memory; always search the local index first.**
 
-# Windsurf AI Rules - RagCode MCP
+# RagCode MCP - Semantic Search Rules
+# This file is automatically managed by RagCode MCP.
 
 ## ⚖️ The Golden Rule
-**For any information about the codebase (structure, logic, or usage), you MUST use RagCode MCP tools.** 
-Never guess code details from memory; always search the local index first using `search_code` or `get_function_details`.
+**For any information about the code (location, structure, logic, or usage), you MUST use RagCode MCP tools. Never guess code details from memory; always search the local index first.**
 
-## Guidelines
-1. **Context First**: Always call `search_code` when starting a task to see where relevant logic exists.
-2. **Actual Code**: Use `get_function_details` to read the implementation of a function instead of assuming what it does.
-3. **Workspace Detection**: Always provide the current `file_path` to the tools so they can identify the correct project/workspace.
-4. **No Guesswork**: If you don't find something, index the workspace using `index_workspace` and search again.
+## Available Tools
+- search_code: Primary entry point for semantic search.
+- get_function_details: Get full implementation of a function.
+- find_type_definition: Get struct/interface definitions.
+- list_package_exports: See what a module offers.
+- search_docs: Find project documentation.
+
+## Usage Guidelines
+- Always provide 'file_path' to tools to ensure they detect the correct project context.
+- Use 'hybrid_search' if looking for exact variable names or error messages.
+- If the tool says "workspace not indexed", use 'index_workspace' once.
 
 ---
 > Source: [doITmagic/rag-code-mcp](https://github.com/doITmagic/rag-code-mcp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
