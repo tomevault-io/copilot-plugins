@@ -1,40 +1,84 @@
-## tailwind-design-system
+## vue-patterns
 
-> Tailwind design system and @speckle/tailwind-theme usage
+> Vue 3 composition API patterns and conventions
 
 
-# Design System & Styling
+# Vue.js Patterns & Conventions
 
-## Tailwind Theme (@speckle/tailwind-theme)
+## Component Structure
 
-- **Custom design system** with predefined colors, typography, and components
-- **CSS variables** for theme colors that support light/dark mode
-- **Import plugin** from `@speckle/tailwind-theme` in your Tailwind config
-- **Use semantic color classes** instead of arbitrary values
+```vue
+<template>
+  <!-- Template content -->
+</template>
+<script setup lang="ts">
+// Script content with composition API
+</script>
+<style>
+/* Component styles */
+</style>
+```
 
-## Dynamic Configuration Reference
+## Script Setup Organization
 
-**For up-to-date class names and configuration, reference these files:**
+Organize `<script setup>` blocks in this order:
 
-- **Color system & CSS variables**: `packages/tailwind-theme/src/plugin.ts`
+1. **Type definitions, enums, constants** (e.g., GraphQL operations)
+2. **defineEmits & defineProps**
+3. **Invoked composables** (useGlobalToast, useForm, etc.)
+4. **ref declarations**
+5. **computed values**
+6. **Function definitions**
+7. **watch calls**
+8. **Lifecycle hooks** (onMounted, etc.)
 
-  - Contains `lightThemeVariables` and `darkThemeVariables` with all available color tokens
-  - Shows exact CSS variable names and their values
-  - Defines custom utility classes like `.text-fancy-gradient`, `.simple-scrollbar`, `.grow-textarea`
+## Component Naming
 
-- **Tailwind preset configuration**: `packages/tailwind-theme/src/preset.ts`
-  - Contains the complete Tailwind color mappings (foundation, foreground, primary, etc.)
-  - Defines typography settings and font configurations
-  - Shows available color variants and theme structure
+- **PascalCase** for component names
+- **Multi-word** component names preferred
+- **Descriptive** names that indicate purpose
 
-## Usage Guidelines
+## Props & Emits
 
-- **Use semantic colors** instead of hardcoded hex values
-- **Reference the actual config files** above for current available classes
-- **Check plugin.ts** for custom utility classes and components
+- **TypeScript interfaces** for props definition
+- **defineProps<Interface>()** syntax
+- **defineEmits<Interface>()** for type-safe events
+- **Default values** using withDefaults() when needed
 
-@packages/tailwind-theme/src/plugin.ts
-@packages/tailwind-theme/src/preset.ts
+## Composables
+
+- **Use prefix** for composables (useFeatureName)
+- **Only invoke in setup scope** - Never in async handlers or outside Vue context
+- **Return reactive refs** and computed values
+- **Co-locate** related logic in composables
+- **Extract** reusable logic into composables
+
+## State Management
+
+- **No global store** - use composables and provide/inject
+- **All data must be reactive** - Use ref/computed, not plain constants
+- **Reactive refs** for component state
+- **Computed** for derived state
+- **Watch** for side effects
+
+## Template Rules
+
+- **Single root node** - Always ensure one root element exists
+- **No array indices as keys** - Use unique identifiers instead
+- **Conditional root elements** must have v-else fallback
+
+```vue
+<!-- Bad: If !someCondition, there's no root node -->
+<template>
+  <div v-if="someCondition" />
+</template>
+
+<!-- Good: There's always a root node no matter what -->
+<template>
+  <div v-if="someCondition" />
+  <div v-else />
+</template>
+```
 
 ---
 > Source: [sandun200209/speckle-self-hosted-server](https://github.com/sandun200209/speckle-self-hosted-server) — distributed by [TomeVault](https://tomevault.io).
