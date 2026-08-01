@@ -1,6 +1,6 @@
 # pychron
 
-> Source: [NMGRL/pychron](https://github.com/NMGRL/pychron). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [NMGRL/pychron](https://github.com/NMGRL/pychron). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
