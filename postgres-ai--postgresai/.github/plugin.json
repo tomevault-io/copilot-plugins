@@ -1,0 +1,9 @@
+{
+  "name": "postgres-ai--postgresai",
+  "displayName": "postgresai",
+  "description": "postgresai",
+  "version": "1.0.0",
+  "author": "postgres-ai",
+  "homepage": "https://github.com/postgres-ai/postgresai",
+  "skills": []
+}
