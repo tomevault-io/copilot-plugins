@@ -1,0 +1,9 @@
+{
+  "name": "chipmk--docker-mac-net-connect",
+  "displayName": "docker-mac-net-connect",
+  "description": "docker-mac-net-connect",
+  "version": "1.0.0",
+  "author": "chipmk",
+  "homepage": "https://github.com/chipmk/docker-mac-net-connect",
+  "skills": []
+}
