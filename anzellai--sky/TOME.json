@@ -2,7 +2,7 @@
   "name": "sky",
   "owner": "anzellai",
   "repo": "sky",
-  "description": "Sky \u2014 an Elm-inspired language that compiles to Go. Hindley-Milner types, server-driven UI (Sky.Live), single binary output.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/anzellai/sky",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T16:27:55Z"
+  "distributed_at": "2026-08-01T11:59:21Z"
 }
