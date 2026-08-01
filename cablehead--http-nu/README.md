@@ -1,8 +1,6 @@
 # http-nu
 
-> Source: [cablehead/http-nu](https://github.com/cablehead/http-nu) — distributed by [TomeVault](https://tomevault.io)
-
-The surprisingly performant, Nushell-scriptable, cross.stream-powered, Datastar-ready HTTP server that fits in your back pocket. 🐘💫🚀💜
+> Source: [cablehead/http-nu](https://github.com/cablehead/http-nu). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
