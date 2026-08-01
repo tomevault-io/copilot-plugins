@@ -1,0 +1,9 @@
+{
+  "name": "readthedocs--common",
+  "displayName": "common",
+  "description": "common",
+  "version": "1.0.0",
+  "author": "readthedocs",
+  "homepage": "https://github.com/readthedocs/common",
+  "skills": []
+}
