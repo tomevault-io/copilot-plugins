@@ -1,7 +1,7 @@
 {
   "name": "henryalps--vscode-clinerules",
   "displayName": "vscode-clinerules",
-  "description": "A VSCode plugin to help you quickly configure rules for the Cline / Roo AI programming assistant. With this plugin, you can easily add preset AI assistant rule files to your projects.",
+  "description": "vscode-clinerules",
   "version": "1.0.0",
   "author": "henryalps",
   "homepage": "https://github.com/henryalps/vscode-clinerules",
