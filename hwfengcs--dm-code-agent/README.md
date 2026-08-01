@@ -1,17 +1,16 @@
 # AI instruction files for DM-Code-Agent
 
-> Sourced from [hwfengcs/DM-Code-Agent](https://github.com/hwfengcs/DM-Code-Agent) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-learn agent
+> Sourced from [hwfengcs/DM-Code-Agent](https://github.com/hwfengcs/DM-Code-Agent), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hwfengcs/DM-Code-Agent](https://github.com/hwfengcs/DM-Code-Agent).
+Original source: `` in [hwfengcs/DM-Code-Agent](https://github.com/hwfengcs/DM-Code-Agent).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
