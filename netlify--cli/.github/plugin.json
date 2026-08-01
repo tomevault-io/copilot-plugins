@@ -1,0 +1,9 @@
+{
+  "name": "netlify--cli",
+  "displayName": "cli",
+  "description": "cli",
+  "version": "1.0.0",
+  "author": "netlify",
+  "homepage": "https://github.com/netlify/cli",
+  "skills": []
+}
