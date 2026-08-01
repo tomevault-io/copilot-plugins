@@ -1,0 +1,9 @@
+{
+  "name": "aws--unified-studio-for-amazon-sagemaker",
+  "displayName": "Unified-Studio-for-Amazon-Sagemaker",
+  "description": "Unified-Studio-for-Amazon-Sagemaker",
+  "version": "1.0.0",
+  "author": "aws",
+  "homepage": "https://github.com/aws/Unified-Studio-for-Amazon-Sagemaker",
+  "skills": []
+}
