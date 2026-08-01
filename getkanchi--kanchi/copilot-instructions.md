@@ -2,179 +2,134 @@
 
 > This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+# Agents.md
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
-Kanchi is a Celery task monitoring system with a Python FastAPI backend and Nuxt.js frontend. The backend monitors Celery events via message broker and provides real-time WebSocket updates to the frontend.
+Kanchi is a Celery task monitoring frontend built with Nuxt.js (Vue 3) that connects to a FastAPI backend via REST API and WebSocket for real-time monitoring of Celery workers and tasks.
 
 ## Development Commands
 
-### Quick Start (from root directory)
+### Quick Start (from project root)
 ```bash
-# Start both backend and frontend in development mode
+# Start both backend and frontend
 make dev
 
-# View unified logs (backend and frontend)
+# View unified logs
 make logs
-
-# Start backend only
-make backend
-
-# Start frontend only
-make frontend
 ```
 
-### Backend (from `agent/` directory)
+### Environment Setup
 ```bash
-# Run the backend server (recommended)
-poetry run python app.py
-
-# Alternative legacy entry point
-poetry run python main.py
-
-# Run with custom broker
-poetry run python app.py --broker amqp://guest:guest@localhost:5672//
-
-# Development with auto-reload
-poetry run python main.py --reload
-
-# Linting and formatting
-poetry run black .
-poetry run ruff check .
-poetry run mypy .
-
-# Database migrations (Alembic)
-poetry run alembic current              # Check current migration version
-poetry run alembic upgrade head         # Apply all pending migrations
-poetry run alembic revision --autogenerate -m "Description"  # Create new migration
+npm install
 ```
 
-### Frontend (from `frontend/` directory)
+### Development
 ```bash
-# Development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-
-# Generate static site
-npm run generate
-
-# Regenerate types from backend OpenAPI
-npx swagger-typescript-api generate -p http://localhost:8765/openapi.json -o app/src/types -n api.ts --modular
+npm run dev          # Start development server (localhost:3000)
 ```
 
-### Testing Environment (from `scripts/test-celery-app/`)
+### Build & Deployment
 ```bash
-# Start test environment (RabbitMQ, Redis, Workers)
-make start
-
-# Generate test tasks
-make test-simple    # Simple tasks
-make test-mixed     # Mixed load for 60 seconds  
-make test-stress    # 1000 tasks stress test
-make test-failing   # Failing tasks
-
-# Monitor services
-make monitor        # Open RabbitMQ and Flower UIs
-make logs           # Show all service logs
-make status         # Check service health
+npm run build        # Build for production
+npm run generate     # Generate static site
+npm run preview      # Preview production build
 ```
 
-### Docker Deployment
+### API Type Generation
 ```bash
-# Build and run with Docker
-docker build -t kanchi .
-docker run -p 8765:8765 -p 3000:3000 kanchi
+# Generate TypeScript types from backend OpenAPI schema (use the script to avoid formatting issues)
+npm run generate:api:local  # For local development (localhost:8765)
+npm run generate:api         # For default backend URL
 
-# Or use Docker Compose (from root)
-docker-compose up
+# Or use the script directly
+./generate-api-types.sh http://localhost:8765
 
-# With custom broker URL
-docker run -p 8765:8765 -p 3000:3000 -e CELERY_BROKER_URL=amqp://user:pass@host:5672// kanchi
+# ⚠️ IMPORTANT: Always use the axios template to avoid formatting issues
+# The default modular template has a bug that generates malformed TypeScript
+# The scripts above handle this automatically
 ```
 
-## Architecture
+## Architecture Overview
 
-### Backend Structure (`agent/`)
-- **`app.py`**: Main FastAPI application with WebSocket support and integrated frontend serving
-- **`main.py`**: Legacy entry point (redirects to FastAPI app)
-- **`monitor.py`**: Core Celery event monitoring via `CeleryEventMonitor`
-- **`database.py`**: SQLite database manager with SQLAlchemy async support
-- **`models.py`**: Pydantic data models for tasks, workers, events
-- **`database_models.py`**: SQLAlchemy database models
-- **`api/`**: REST API routes organized by resource (tasks, workers, websockets)
-- **`services/`**: Business logic services for task and worker management
-- **`connection_manager.py`**: WebSocket connection management
-- **`event_handler.py`**: Celery event processing and broadcasting
-- **`config.py`**: Configuration management
-
-### Frontend Structure (`frontend/`)
+### Frontend Stack
 - **Framework**: Nuxt 4 (Vue 3) with TypeScript
-- **UI**: TailwindCSS + Radix UI components (reka-ui)
-- **State**: Pinia stores for centralized state management
-- **Types**: Auto-generated from backend OpenAPI schema in `app/src/types/`
-- **Services**: Centralized API service layer using generated types
+- **Styling**: TailwindCSS with Radix UI components (reka-ui)
+- **State Management**: Pinia stores for centralized state
+- **Tables**: TanStack Vue Table for data display
+- **Real-time**: WebSocket connection with auto-reconnect
+- **HTTP Client**: Auto-generated from OpenAPI spec
 
-### Key Patterns
-- **Type Safety**: All API interactions use auto-generated TypeScript types
-- **Real-time Updates**: WebSocket broadcasts for live task monitoring
-- **Persistence**: SQLite database for task history and worker state
-- **Background Jobs**: Async tasks for orphan detection and cleanup
-- **Integrated Serving**: FastAPI serves both API and built frontend
+### Key Architectural Patterns
 
-## Database
+#### State Management Layer
+All application state is managed through Pinia stores:
+- `stores/tasks.ts` - Task events, pagination, filtering, stats
+- `stores/workers.ts` - Worker status and management  
+- `stores/websocket.ts` - WebSocket connection and real-time updates
 
-Uses SQLAlchemy with Alembic migrations for schema management. Supports:
-- **SQLite** (default, for development)
-- **PostgreSQL** (recommended for production)
+#### API Service Layer
+- `services/apiClient.ts` - Centralized API service using auto-generated types
+- `app/src/types/` - Auto-generated TypeScript types from backend OpenAPI (DO NOT EDIT)
 
-### Features
-- Task persistence and history
-- Worker status tracking
-- Orphan task detection and retry batches
-- Comprehensive indexing for performance
+#### Component Architecture
+- **`components/ui/`** - ONLY shadcn/ui components (installed via npx shadcn-vue)
+- **`components/common/`** - Custom reusable components (Pill, Tag, Select, TimeInput, IconButton, TimePicker)
+- **`components/domain/`** - Domain-specific feature components
+  - `tasks/` - Task-related components (TaskCard, TaskDetailSheet, etc.)
+  - `workers/` - Worker-related components
+  - `orphans/` - Orphan task components
+- **`components/layout/`** - Layout components (navbar, etc.)
+- Business components consume Pinia stores directly
+- All data is type-safe using generated API types
 
-### Migration System
-- **Tool**: Alembic for database migrations
-- **Auto-run**: Migrations execute automatically on app startup
-- **BYOD**: Bring-Your-Own-Database via `DATABASE_URL` environment variable
+### Real-time Data Flow
+1. WebSocket connection managed by `websocket` store
+2. Live mode: Events stream directly from WebSocket to UI
+3. Static mode: Paginated API calls with manual refresh
+4. Stores automatically update components when data changes
 
-Database models defined in `agent/database.py`.
+## Environment Configuration
 
-## Logging
-
-Kanchi uses a unified logging system that captures logs from both backend and frontend in a single file. **This feature is only available in development mode.**
-
-### Enabling Logging
-Set the `DEVELOPMENT_MODE` environment variable to enable unified logging:
-```bash
-export DEVELOPMENT_MODE=true
-```
-
-The `make dev` command automatically enables development mode.
-
-### Log File
-- **Location**: `agent/kanchi.log`
-- **Format**: Timestamped logs with source prefix `[BACKEND]` or `[FRONTEND]`
-- **Behavior**: Cleaned on backend startup (only in development mode)
-
-### Viewing Logs
-```bash
-# Tail logs (last 100 lines and follow)
-make logs
-
-# Or manually
-tail -n 100 -f agent/kanchi.log
-```
-
-### Frontend Logging
+### Runtime Config (nuxt.config.ts)
 ```typescript
-// Use the logger service in frontend code
+runtimeConfig: {
+  public: {
+    wsUrl: process.env.NUXT_PUBLIC_WS_URL || 'ws://localhost:8765/ws',
+    apiUrl: process.env.NUXT_PUBLIC_API_URL || 'http://localhost:8765'
+  }
+}
+```
+
+### Environment Variables
+```bash
+NUXT_PUBLIC_API_URL=http://localhost:8765    # Backend API URL
+NUXT_PUBLIC_WS_URL=ws://localhost:8765/ws    # WebSocket URL
+```
+
+## Code Patterns
+
+### Using Stores in Components
+```typescript
+// Always use stores for data access
+const tasksStore = useTasksStore()
+const workersStore = useWorkersStore()
+const wsStore = useWebSocketStore()
+
+// Reactive data
+const { recentEvents, isLoading } = tasksStore
+
+// Actions
+await tasksStore.fetchRecentEvents()
+tasksStore.setPage(2)
+wsStore.setMode('live')
+```
+
+### Logging
+```typescript
+// Use the logger service for unified logging (development mode only)
 import { useLogger } from '~/services/logger'
 
 const logger = useLogger()
@@ -186,97 +141,134 @@ logger.error('Error message', { error: 'details' })
 logger.critical('Critical message')
 ```
 
-Frontend logs are sent to the backend via `/api/logs/frontend` and written to the unified log file (only in development mode).
+Logs are sent to the backend at `/api/logs/frontend` and written to the unified log file at `agent/kanchi.log`. **This feature only works in development mode** - logs are still written to console but not sent to backend in production.
 
-## Configuration
+### Type Safety
+- All API calls use auto-generated types from backend OpenAPI
+- Import types from `~/services/apiClient` for consistency
+- Never manually edit files in `app/src/types/` - they are auto-generated
 
-### Environment Variables
-```bash
-# Backend
-CELERY_BROKER_URL=amqp://guest:guest@localhost:5672//
-WS_HOST=localhost
-WS_PORT=8765
-DATABASE_URL=sqlite:///kanchi.db
-DEVELOPMENT_MODE=true  # Enable unified logging (default: false)
-LOG_LEVEL=INFO
-LOG_FILE=kanchi.log
+### Error Handling
+- Stores handle errors internally and expose error state
+- Components should catch store action errors for user feedback
+- Use try/catch around store actions that need user notification
 
-# Frontend (Nuxt runtime config)
-NUXT_PUBLIC_API_URL=http://localhost:8765
-NUXT_PUBLIC_WS_URL=ws://localhost:8765/ws
+## Component Organization
 
-# Docker environment
-CELERY_BROKER_URL=amqp://guest:guest@localhost:5672//
-NITRO_PORT=3000
-NITRO_HOST=0.0.0.0
+### Directory Structure
+```
+components/
+├── ui/                    # ONLY shadcn/ui components (installed via CLI)
+│   ├── button/
+│   ├── input/
+│   ├── badge/
+│   └── ... (all shadcn components)
+│
+├── common/                # Custom reusable components
+│   ├── Pill.vue          # Status pill component
+│   ├── Tag.vue           # Tag component with variants
+│   ├── TimePicker.vue    # Time picker component
+│   ├── IconButton.vue    # Icon-only button component
+│   ├── Select.vue        # Styled select dropdown
+│   ├── TimeInput.vue     # Styled time input
+│   └── index.ts          # Barrel exports for easy imports
+│
+├── domain/                # Domain-specific feature components
+│   ├── tasks/            # Task-related components
+│   ├── workers/          # Worker-related components
+│   └── orphans/          # Orphan task components
+│
+└── layout/                # Layout components
+    └── (navbar, etc.)
 ```
 
-### Code Standards
-- **Python**: Black formatting, Ruff linting, MyPy type checking
-- **Line length**: 100 characters for Python
-- **Python version**: 3.8+ minimum
+### Using Common Components
+
+Import from the index for convenience:
+```typescript
+import { Pill, Tag, IconButton, Select, TimeInput } from '~/components/common'
+```
+
+Or import directly:
+```typescript
+import Pill from '~/components/common/Pill.vue'
+```
+
+### Component Guidelines
+
+1. **Never** add custom components to `components/ui/` - that folder is reserved for shadcn components
+2. Place reusable components in `components/common/`
+3. Place feature-specific components in `components/domain/{feature}/`
+4. Always use existing components instead of inline styles
+5. For components with `export` statements (like cva variants), use two `<script>` blocks:
+   ```vue
+   <script lang="ts">
+   import { cva } from "class-variance-authority"
+   export const myVariants = cva(...)
+   </script>
+
+   <script setup lang="ts">
+   // Component logic here
+   </script>
+   ```
+
+## Important File Locations
+
+### Core Application Files
+- `app/app.vue` - Main application component
+- `app/layouts/default.vue` - Default layout with navigation
+
+### Configuration
+- `nuxt.config.ts` - Nuxt configuration and runtime config
+- `package.json` - Dependencies and scripts
+- `tailwind.config.js` - TailwindCSS configuration
+
+### Generated Files (DO NOT EDIT)
+- `app/src/types/` - Auto-generated from backend OpenAPI schema
+
+## Backend Integration
+
+### API Type Generation
+When backend API changes, regenerate types:
+```bash
+npx swagger-typescript-api generate -p http://localhost:8765/openapi.json -o app/src/types -n api.ts --modular
+```
+
+### WebSocket Protocol
+- Connection automatically established on app load
+- Supports live/static modes for different data consumption patterns
+- Auto-reconnect with exponential backoff on connection loss
 
 ## Development Workflow
 
-1. **Backend changes**: Restart FastAPI server (`poetry run python app.py`)
-2. **Frontend changes**: Auto-reload via `npm run dev`
-3. **API changes**: Regenerate frontend types after schema updates
-4. **Database changes**: Use SQLAlchemy async session patterns
-5. **Testing**: Use test environment in `scripts/test-celery-app/`
+1. **Backend First**: Ensure backend is running on port 8765
+2. **Types**: Regenerate types if backend API changed
+3. **Development**: Use `npm run dev` for hot-reload development
+4. **State**: Always use Pinia stores for data management
+5. **Components**: Follow existing patterns in `components/` directory
 
-## Key Files and Locations
-
-### Configuration Files
-- **`agent/pyproject.toml`**: Python dependencies and tool configuration
-- **`frontend/package.json`**: Node.js dependencies and scripts
-- **`Dockerfile`**: Multi-stage build for production deployment
-- **`scripts/test-celery-app/docker-compose.yml`**: Test environment setup
-
-### Documentation
-- **`ARCHITECTURE_ROADMAP.md`**: Detailed system architecture and future plans
-- **`FRONTEND_ARCHITECTURE.md`**: Frontend patterns and best practices
-- **`KANCHI_DATABASE_SCHEMA.md`**: Complete database schema documentation
-
-### Auto-generated (DO NOT EDIT)
-- **`frontend/app/src/types/`**: TypeScript types from backend OpenAPI schema
-
-## FastAPI Integration
-
-The main application (`app.py`) integrates:
-- **API endpoints**: RESTful API for task and worker management
-- **WebSocket**: Real-time event broadcasting
-- **Static files**: Serves built Nuxt.js frontend
-- **Background tasks**: Celery event monitoring and database operations
-
-Access points:
-- **API**: `http://localhost:8765/api/*`
-- **WebSocket**: `ws://localhost:8765/ws`
-- **Frontend**: `http://localhost:8765/` (serves Nuxt.js app)
-- **OpenAPI docs**: `http://localhost:8765/docs`
-
-## Common Development Tasks
+## Common Tasks
 
 ### Adding New API Endpoint
-1. Add route in appropriate `api/` module
-2. Update OpenAPI schema if needed
-3. Regenerate frontend types
-4. Add method to appropriate Pinia store
-5. Use in components via store
+1. Update backend OpenAPI spec
+2. Regenerate frontend types
+3. Add method to appropriate store
+4. Use in components via store
 
-### Database Schema Changes
-1. Update SQLAlchemy models in `database_models.py`
-2. Create migration script if needed
-3. Test with development database
-4. Update related Pydantic models in `models.py`
+### Adding New UI Component
+1. **For shadcn components**: Use `npx shadcn-vue@latest add <component-name>` - components go to `components/ui/`
+2. **For custom reusable components**: Create in `components/common/` and add to `index.ts` for barrel exports
+3. **For feature-specific components**: Create in `components/domain/{feature}/`
+4. Follow existing patterns for consistency (Button, Input, Badge variants from shadcn; custom Pill, Tag, Select from common)
+5. Use TailwindCSS classes following existing patterns
+6. Consume data via Pinia stores
 
-### WebSocket Event Broadcasting
-1. Add event type to `event_handler.py`
-2. Update WebSocket message handling in `connection_manager.py`
-3. Handle in frontend WebSocket store
-4. Update UI components to react to new events
-
-When making changes, always consider the real-time nature of the system and ensure WebSocket broadcasts continue working for live monitoring updates.
+### Debugging WebSocket Issues
+- Check `websocket` store connection state
+- Monitor browser network tab for WebSocket frames
+- Verify backend WebSocket server is running
+- Check runtime config for correct WebSocket URL
 
 ---
 > Source: [getkanchi/kanchi](https://github.com/getkanchi/kanchi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
