@@ -1,0 +1,9 @@
+{
+  "name": "azure--bicep",
+  "displayName": "bicep",
+  "description": "bicep",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/bicep",
+  "skills": []
+}
