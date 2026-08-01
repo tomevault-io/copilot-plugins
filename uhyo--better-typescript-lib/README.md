@@ -5,11 +5,10 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [uhyo/better-typescript-lib](https://github.com/uhyo/better-typescript-lib).
+Original source: `CLAUDE.md` in [uhyo/better-typescript-lib](https://github.com/uhyo/better-typescript-lib).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
