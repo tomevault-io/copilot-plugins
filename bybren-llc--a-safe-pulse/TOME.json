@@ -1,0 +1,63 @@
+{
+  "name": "a-safe-pulse",
+  "owner": "bybren-llc",
+  "repo": "a-safe-pulse",
+  "description": "Enterprise-grade SAFe automation toolkit: AI-powered Agile Release Train (ART) planning, story decomposition, dependency mapping, and bi-directional Linear-Confluence sync. Features CLI-driven agent workflows, Docker deployment, webhook integration, and comprehensive value delivery analytics for scaled agile transformation.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "testing-patterns",
+      "path": ".agents/skills/testing-patterns",
+      "github_url": "https://github.com/bybren-llc/a-safe-pulse/tree/main/.agents/skills/testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "path": ".gemini/skills/testing-patterns",
+      "github_url": "https://github.com/bybren-llc/a-safe-pulse/tree/main/.gemini/skills/testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "path": ".claude/skills/testing-patterns",
+      "github_url": "https://github.com/bybren-llc/a-safe-pulse/tree/main/.claude/skills/testing-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bybren-llc/a-safe-pulse",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-01T12:31:45Z"
+}
