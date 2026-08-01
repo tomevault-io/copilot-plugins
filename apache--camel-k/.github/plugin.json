@@ -1,0 +1,9 @@
+{
+  "name": "apache--camel-k",
+  "displayName": "camel-k",
+  "description": "camel-k",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/camel-k",
+  "skills": []
+}
