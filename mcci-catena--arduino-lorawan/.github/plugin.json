@@ -1,0 +1,9 @@
+{
+  "name": "mcci-catena--arduino-lorawan",
+  "displayName": "arduino-lorawan",
+  "description": "arduino-lorawan",
+  "version": "1.0.0",
+  "author": "mcci-catena",
+  "homepage": "https://github.com/mcci-catena/arduino-lorawan",
+  "skills": []
+}
