@@ -1,0 +1,9 @@
+{
+  "name": "dependencytrack--dependency-track",
+  "displayName": "dependency-track",
+  "description": "dependency-track",
+  "version": "1.0.0",
+  "author": "DependencyTrack",
+  "homepage": "https://github.com/DependencyTrack/dependency-track",
+  "skills": []
+}
