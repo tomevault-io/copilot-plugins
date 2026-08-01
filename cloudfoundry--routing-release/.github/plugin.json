@@ -1,0 +1,9 @@
+{
+  "name": "cloudfoundry--routing-release",
+  "displayName": "routing-release",
+  "description": "routing-release",
+  "version": "1.0.0",
+  "author": "cloudfoundry",
+  "homepage": "https://github.com/cloudfoundry/routing-release",
+  "skills": []
+}
