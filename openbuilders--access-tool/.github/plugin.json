@@ -1,7 +1,7 @@
 {
   "name": "openbuilders--access-tool",
   "displayName": "access-tool",
-  "description": "Set up a custom access to your private group or channel.  Built by independent devs as part of  https://tools.tg",
+  "description": "access-tool",
   "version": "1.0.0",
   "author": "OpenBuilders",
   "homepage": "https://github.com/OpenBuilders/access-tool",
