@@ -1,121 +1,113 @@
 ## ensoai
 
-> **Generated:** 2026-01-13
+> React 19 前端。状态管理 (Zustand)、UI 组件 (@coss/ui)、终端 (xterm.js)。
 
-# PROJECT KNOWLEDGE BASE
+# RENDERER PROCESS
 
-**Generated:** 2026-01-13
-**Commit:** ccc93c2
-**Branch:** main
-
-## OVERVIEW
-
-EnsoAI - Git Worktree 管理器 + 多 AI Agent 集成。Electron 39 + React 19 + TypeScript 5.9 + Tailwind 4。
+React 19 前端。状态管理 (Zustand)、UI 组件 (@coss/ui)、终端 (xterm.js)。
 
 ## STRUCTURE
 
 ```
-EnsoAI/
-├── src/
-│   ├── main/          # Electron 主进程 (IPC, Services, Menu)
-│   ├── preload/       # Electron 预加载脚本 (Context Bridge)
-│   ├── renderer/      # React 前端 (Components, Stores, Hooks)
-│   └── shared/        # 跨进程共享类型定义
-├── resources/         # 静态资源 (Ghostty themes 438个)
-├── scripts/           # 构建脚本 (dev.js 进程管理)
-├── docs/              # 设计文档 (design-system.md 关键)
-└── build/             # Electron Builder 图标资源
+renderer/
+├── index.tsx          # 入口 (QueryClient, ToastProvider)
+├── App.tsx            # 根组件 (1141 行，核心状态逻辑)
+├── App/               # App 相关工具
+│   ├── constants.ts   # 类型定义 (Repository, TabId)
+│   ├── storage.ts     # localStorage 持久化
+│   └── use*.ts        # App 级 hooks
+├── components/        # UI 组件 (按功能域分)
+│   ├── ui/            # @coss/ui 基础组件 (52 文件)
+│   ├── layout/        # 布局组件 (Sidebar, MainContent)
+│   ├── terminal/      # 终端组件
+│   ├── chat/          # AI 对话组件
+│   ├── files/         # 文件树 + 编辑器
+│   ├── git/           # Git 操作 UI
+│   ├── source-control/# 源码控制面板
+│   ├── worktree/      # Worktree 管理
+│   └── settings/      # 设置面板
+├── stores/            # Zustand stores (14 文件)
+│   ├── settings.ts    # 全局设置 (37KB，最复杂)
+│   ├── editor.ts      # 编辑器状态
+│   └── ...
+├── hooks/             # React hooks (14 文件)
+│   ├── useXterm.ts    # xterm.js 集成 (26KB)
+│   ├── useFileTree.ts # 文件树逻辑 (13KB)
+│   └── ...
+├── lib/               # 工具函数
+└── styles/            # CSS (globals.css 含 Tailwind 4 主题)
 ```
 
 ## WHERE TO LOOK
 
 | 任务 | 位置 | 备注 |
 |------|------|------|
-| IPC 通信 | `src/main/ipc/*.ts` | 17 个 handler 模块，按功能分离 |
-| 状态管理 | `src/renderer/stores/*.ts` | Zustand stores，settings.ts 最大(37KB) |
-| UI 组件 | `src/renderer/components/ui/` | @coss/ui 组件，52 个文件 |
-| Git 操作 | `src/main/services/git/` | simple-git 封装 |
-| 终端 | `src/main/services/terminal/` + `src/renderer/hooks/useXterm.ts` | node-pty + xterm.js |
-| AI Agent | `src/main/services/claude/` | Claude IDE Bridge (7 文件) |
-| 类型定义 | `src/shared/types/*.ts` | 15 个类型文件，ipc.ts 最重要 |
-| 设计规范 | `docs/design-system.md` | **UI 开发必读** |
+| 全局状态 | `stores/settings.ts` | **巨大文件**，修改前理解结构 |
+| 新 UI 组件 | `components/ui/` | 先查 @coss/ui 是否已有 |
+| 功能组件 | `components/<domain>/` | 按功能域组织 |
+| 终端逻辑 | `hooks/useXterm.ts` | xterm.js 配置 + 主题同步 |
+| 文件操作 | `hooks/useFileTree.ts` + `hooks/useEditor.ts` | |
+| IPC 调用 | `window.electronAPI.<domain>.*` | 类型在 `@shared/types/ipc.ts` |
 
 ## CONVENTIONS
 
-### 工具链（非标准配置）
-- **Biome** 替代 ESLint/Prettier — `biome.json` 配置
-- **Tailwind 4** 新语法 — `@theme` 块定义在 `globals.css`
-- **OKLCH 色彩空间** — 非传统 HEX/HSL
-
-### 路径别名
-```typescript
-@/*      → src/renderer/*
-@shared/* → src/shared/*
-```
-
-### 提交规范（CLAUDE.md 已定义）
-- Conventional Commits 格式
-- 描述用中文
-- `feat|fix|ci|build` 才进 Release Notes
-
-## ANTI-PATTERNS (禁止)
-
-| 禁止 | 原因 |
-|------|------|
-| `as any` / `@ts-ignore` | Biome 规则明确禁用类型逃逸 |
-| 手动实现 UI 组件 | 必须优先用 `@coss/ui`，见 `docs/design-system.md` |
-| CDN 加载 Monaco worker | CSP 限制，必须本地 worker import |
-| 直接修改 `globals.css` 主题 | 使用 Ghostty themes 同步机制 |
-
-## UNIQUE STYLES
-
-### UI 尺寸常量
-```
-Tab 栏:   h-9 (36px)
-树节点:   h-7 (28px)
-小按钮:   h-6 (24px)
-缩进:     depth * 12 + 8px
-```
-
-### Flexbox 截断模式
+### 组件结构
 ```tsx
-// 固定元素
-<Icon className="h-4 w-4 shrink-0" />
-// 可截断文本
-<span className="min-w-0 flex-1 truncate">{text}</span>
+// components/<domain>/ComponentName.tsx
+export function ComponentName({ prop }: Props) {
+  // hooks 调用
+  // 事件处理
+  // JSX
+}
+
+// components/<domain>/index.ts 导出
+export { ComponentName } from './ComponentName';
 ```
 
-### 图标颜色映射
-- 目录: `text-yellow-500`
-- TypeScript: `text-blue-500`
-- JavaScript: `text-yellow-400`
+### Zustand Store 模式
+```typescript
+// stores/example.ts
+interface ExampleState {
+  value: string;
+  setValue: (v: string) => void;
+}
 
-## COMMANDS
-
-```bash
-# 开发
-pnpm dev              # electron-vite dev (自定义 scripts/dev.js 包装)
-
-# 构建
-pnpm build            # electron-vite build
-pnpm build:mac        # 构建 macOS (签名+公证)
-pnpm build:win        # 构建 Windows
-pnpm build:linux      # 构建 Linux
-
-# 质量检查
-pnpm typecheck        # tsc --noEmit
-pnpm lint             # biome check
-pnpm lint:fix         # biome check --write
+export const useExampleStore = create<ExampleState>()((set) => ({
+  value: '',
+  setValue: (v) => set({ value: v }),
+}));
 ```
+
+### 样式规则（docs/design-system.md）
+```tsx
+// 颜色 - 使用 CSS 变量
+className="text-primary bg-accent text-muted-foreground"
+
+// 尺寸
+className="h-9"  // Tab
+className="h-7"  // 树节点
+className="h-6"  // 小按钮
+
+// 截断
+className="min-w-0 flex-1 truncate"  // 文本
+className="shrink-0"                  // 固定元素
+```
+
+## ANTI-PATTERNS
+
+- **直接写 UI 组件** — 必须先查 `components/ui/` 和 @coss/ui
+- **硬编码颜色** — 使用 Tailwind CSS 变量 (`text-primary` 非 `text-blue-500`)
+- **非响应式间距** — 使用 `gap-1/2/3`，非固定像素
+- **忽略 min-w-0** — Flexbox 截断必须加
 
 ## NOTES
 
-- **无自动化测试** — 项目依赖 TypeScript + Biome 保证质量
-- **原生模块** — `node-pty`, `@parcel/watcher` 需 `postinstall` 编译
-- **Settings Store 巨大** — `settings.ts` 37KB，修改前仔细阅读结构
-- **Claude IDE Bridge** — `src/main/services/claude/ClaudeIdeBridge.ts` 是 MCP 集成核心
-- **进程清理** — `scripts/dev.js` 处理 SIGINT/SIGTERM，确保 PTY 正确退出
+- `App.tsx` 1141 行，核心状态管理在此，**修改需谨慎**
+- `settings.ts` 37KB — 包含所有用户设置逻辑
+- `useXterm.ts` 26KB — 终端集成最复杂的 hook
+- Monaco Editor 主题从 Ghostty themes 动态生成
+- React Query 用于异步数据 (worktree list, git branches)
 
 ---
 > Source: [J3n5en/EnsoAI](https://github.com/J3n5en/EnsoAI) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
