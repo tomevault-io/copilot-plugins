@@ -1,0 +1,9 @@
+{
+  "name": "wp-cli--media-command",
+  "displayName": "media-command",
+  "description": "media-command",
+  "version": "1.0.0",
+  "author": "wp-cli",
+  "homepage": "https://github.com/wp-cli/media-command",
+  "skills": []
+}
