@@ -1,7 +1,7 @@
 {
   "name": "agillis--esphome-modular-lvgl-buttons",
   "displayName": "esphome-modular-lvgl-buttons",
-  "description": "A modular LVGL button platform for ESPHome",
+  "description": "esphome-modular-lvgl-buttons",
   "version": "1.0.0",
   "author": "agillis",
   "homepage": "https://github.com/agillis/esphome-modular-lvgl-buttons",
