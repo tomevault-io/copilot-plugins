@@ -1,0 +1,9 @@
+{
+  "name": "submariner-io--submariner-operator",
+  "displayName": "submariner-operator",
+  "description": "submariner-operator",
+  "version": "1.0.0",
+  "author": "submariner-io",
+  "homepage": "https://github.com/submariner-io/submariner-operator",
+  "skills": []
+}
