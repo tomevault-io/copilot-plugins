@@ -1,0 +1,9 @@
+{
+  "name": "cloudamqp--lavinmq",
+  "displayName": "lavinmq",
+  "description": "lavinmq",
+  "version": "1.0.0",
+  "author": "cloudamqp",
+  "homepage": "https://github.com/cloudamqp/lavinmq",
+  "skills": []
+}
