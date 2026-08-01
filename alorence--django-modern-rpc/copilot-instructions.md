@@ -1,109 +1,96 @@
 ## django-modern-rpc
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Project-specific development guidelines for django-modern-rpc
 
-# CLAUDE.md
+Project-specific development guidelines for django-modern-rpc
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Audience: advanced contributors to this codebase. Focus is on repo-specific tooling and practices.
 
-## Project overview
+1) Toolchain and environment
+- Package/build: uv_build backend (pyproject [build-system]). Build artifacts with: uv build
+- Environment manager: uv is used directly and via nox (venv_backend="uv").
+- Python/Django matrix: See noxfile.py. Supported Python versions: 3.8–3.14. Django versions: 3.2–5.2. Matrix validity is enforced by is_combination_supported(), mirroring Django’s official support table.
+- Default extras/groups installed by uv: [tool.uv]. default-groups = ["dev", "tests"]. Running uv sync installs runtime deps plus dev and tests groups.
 
-django-modern-rpc is a Python/Django library that provides an embedded XML-RPC and JSON-RPC 2.0 server. It lets developers expose Python functions as RPC endpoints within a Django project. Key capabilities: pluggable serialization backends (orjson, rapidjson, lxml, etc.), authentication via predicates, async support, batch requests (JSON-RPC), and built-in introspection (system.listMethods, system.methodHelp, etc.).
+2) Base setup
+- Prereq: Python ≥ 3.8 with uv installed.
+- Sync dependencies for local dev:
+  - uv sync
+  - Notes:
+    - This installs pytest, pytest-django, xdist, asyncio, cov, benchmark, sugar, ruff, etc. per [dependency-groups].
+    - The Django version installed by default comes from the project dependency constraint (django >= 3.2) and resolver; to test multiple Django versions/pydirs, use nox (below).
 
-## Common commands
+3) Running tests (pytest directly)
+- Pytest config is in pyproject ([tool.pytest.ini_options]):
+  - testpaths = ["tests"], python_files = ["test_*.py", "bench_*.py"].
+  - DJANGO_SETTINGS_MODULE = tests.project.settings (pytest-django managed test project).
+  - asyncio_mode = auto; asyncio_default_fixture_loop_scope = session.
+  - addopts includes --benchmark-disable. Benchmarks are disabled unless explicitly enabled.
+- Typical invocations:
+  - Run full suite in current venv: uv run pytest -n auto
+  - Filter by keyword: uv run pytest -n auto -k e2e
+  - Single test: uv run pytest -q tests/test_e2e.py::TestXmlRpc::test_xml_rpc_standard_call -q
+- Coverage:
+  - Ad-hoc: uv run pytest -n auto --cov --cov-report=term-missing
+  - Configured in [tool.coverage.*] with source = modernrpc/ and some omissions.
 
-### Setup
-```bash
-uv sync                          # Install runtime + dev + tests dependencies
-```
+4) Running tests via nox (matrix)
+- List sessions: uvx nox -l
+- Run the matrix test session, selecting Python/Django via tags added in build_test_matrix():
+  - Tags are of the form py<digits> and dj<digits>, e.g. py312, dj52. Sessions also tagged "tests" and sometimes "cicd-tests".
+  - Examples:
+    - uvx nox -s tests -t py312 -t dj52
+    - uvx nox -s tests -t py310 -t dj42
+- The tests session will:
+  - Create a uv-managed venv for the target Python.
+  - uv sync without installing Django (explicitly excluded), then install the selected Django X.Y.*.
+  - Run pytest with -n auto.
+- Convenience sessions:
+  - Coverage: uvx nox -s tests:coverage -- term-missing (report types: term, term-missing, annotate, html, xml, json, lcov)
+  - Slowest tests: uvx nox -s tests:duration
+  - Benchmarks (all supported Pythons): uvx nox -s benchmarks
+  - Benchmarks (current venv only): uvx nox -s benchmarks:current-venv
 
-### Tests
-```bash
-uv run pytest -n auto                    # Full test suite (parallelized)
-uv run pytest -n auto -k "jsonrpc"       # Filter by keyword
-uv run pytest tests/test_e2e.py::TestXmlRpc::test_xml_rpc_standard_call  # Single test
-uv run pytest -n auto --cov --cov-report=term-missing                    # With coverage
-```
+5) Benchmarks
+- addopts disables benchmarks by default. To run them in your current environment:
+  - uv run pytest tests/benchmarks --benchmark-enable
+- Note: Do not use xdist parallelization with benchmarks. The nox sessions already separate them.
 
-### Matrix testing (Python × Django combinations via nox)
-```bash
-uvx nox -l                               # List available sessions
-uvx nox -s tests -t py312 -t dj52        # Specific Python/Django combo
-uvx nox -s tests:coverage -- term-missing # Coverage report
-```
+6) Linting, formatting, and typing
+- Ruff (lint + format) [tool.ruff]
+  - Check: uv run ruff check .
+  - Auto-fix: uv run ruff check . --fix
+  - Format: uv run ruff format .
+  - Policy highlights: line-length = 120; extensive rule set enabled (e.g., flake8-pytest-style PT, flake8-django DJ). Per-file ignores relax Bandit (S) in tests/.
+- Type checking (mypy):
+  - Recommended: uvx nox -s mypy (installs [dependency-groups.type-checking] into a uv venv and runs mypy)
+  - Note: tests/ and docs/ are excluded from mypy checks by config.
 
-### Linting and formatting
-```bash
-uv run ruff check .           # Lint
-uv run ruff check . --fix     # Lint with auto-fix
-uv run ruff format .          # Format
-uv run ruff format . --check  # Check formatting
-```
+7) Django test project and fixtures
+- The pytest-django settings point at tests.project.settings. SQLite in-memory DB, minimal INSTALLED_APPS, and URL routes under tests/project/urls.py:
+  - /rpc -> RpcServer.view (sync)
+  - /async_rpc -> RpcServer.async_view (async)
+- Namespace and procedures used by e2e tests live in tests/project/rpc.py (e.g., math.add, math.divide).
+- Helpful fixtures in tests/conftest.py:
+  - live_server (from pytest-django): used to make HTTP calls to the test server.
+  - all_*_serializers / all_*_deserializers: parametrizes settings.MODERNRPC_* to exercise all serializer/deserializer backends.
+  - rf-based request factories: xmlrpc_rf, jsonrpc_rf, jsonrpc_batch_rf to produce POST requests with prebuilt payloads.
 
-### Type checking
-```bash
-uv run mypy       # mypy (excludes tests/ and docs/)
-uv run ty check   # ty (faster alternative)
-```
+8) Common pitfalls and tips specific to this repo
+- Serializer/deserializer selection is driven by settings.MODERNRPC_*; tests that rely on live_server may be parametrized using all_* fixtures to validate all backends. If you add tests involving RPC payloads, prefer the provided request factories and helpers to ensure payload correctness.
+- Async tests are supported (asyncio_mode=auto). When testing async RPC, use the /async_rpc endpoint. Ensure requests to async endpoints are awaited properly if using httpx/async clients; current suite uses requests for sync and pytest’s live_server.
+- Parallelization is on by default (-n auto). Tests that are not parallel-safe should explicitly disable xdist via -n 0 locally when needed.
+- For matrix testing of different Django versions, use nox rather than manually pip/uv installing alternate Django versions.
 
-### Benchmarks
-```bash
-uv run pytest tests/benchmarks --benchmark-enable   # Current venv
-uvx nox -s benchmarks                               # All Python versions
-```
-Note: benchmarks must not use `-n auto` (no xdist parallelization).
+9) Building and docs
+- Build wheel/sdist: uv build (artifacts placed under dist/).
+- Docs:
+  - Build: uvx nox -s docs:build (outputs to dist/docs)
+  - Live-reload serve: uvx nox -s docs:serve (http://localhost:8001)
+  - Clean: uvx nox -s docs:clean
 
-### Documentation
-```bash
-uvx nox -s docs:build   # Build to dist/docs
-uvx nox -s docs:serve   # Live-reload at localhost:8001
-```
-
-## Architecture
-
-### Core flow
-
-```
-Django URL route → RpcServer → RpcHandler (JSON-RPC or XML-RPC) → ProcedureWrapper → user function
-```
-
-1. **RpcServer** (`modernrpc/server.py`) — Central orchestrator. Maintains a procedure registry, validates HTTP requests, selects the appropriate handler based on Content-Type, and exposes `.view` (sync) and `.async_view` (async) properties for Django URL routing.
-
-2. **RegistryMixin** / **RpcNamespace** (`modernrpc/server.py`) — Shared registration logic. `RpcNamespace` groups related procedures under a dotted prefix (e.g., `math.add`). Both `RpcServer` and `RpcNamespace` inherit from `RegistryMixin`.
-
-3. **RpcHandler** (`modernrpc/handler.py`) — Abstract base class for protocol handlers. Defines `can_handle()`, `process_request()` / `aprocess_request()`, and response builders.
-   - **JsonRpcHandler** (`modernrpc/jsonrpc/handler.py`) — JSON-RPC 2.0: named params, batch requests, notifications.
-   - **XmlRpcHandler** (`modernrpc/xmlrpc/handler.py`) — XML-RPC: single calls, system multicall.
-
-4. **ProcedureWrapper** (`modernrpc/core.py`) — Wraps a callable/coroutine for RPC execution. Stores auth predicates, protocol restriction, and an optional `context_target` argument name for injecting `RpcRequestContext`.
-
-5. **Backend system** — Pluggable serialization/deserialization per protocol:
-   - JSON: `modernrpc/jsonrpc/backends/` (json, orjson, rapidjson, simplejson)
-   - XML: `modernrpc/xmlrpc/backends/` (xmlrpc, lxml, etree, xmltodict)
-   - Selected via `MODERNRPC_*_SERIALIZER` / `MODERNRPC_*_DESERIALIZER` Django settings.
-
-6. **System procedures** (`modernrpc/system_procedures.py`) — Auto-registered under `system.*` namespace: `listMethods`, `methodSignature`, `methodHelp`, `multicall`.
-
-### Exception hierarchy (`modernrpc/exceptions.py`)
-
-`RPCException` (base) → `RPCParseError` (-32700), `RPCInvalidRequest` (-32600), `RPCMethodNotFound` (-32601), `RPCInvalidParams` (-32602), `RPCInternalError` (-32603), `AuthenticationError`, etc.
-
-### Test infrastructure
-
-- Django test project: `tests/project/` (settings, urls, rpc procedures)
-  - `/rpc` → sync view, `/async_rpc` → async view
-  - Procedures defined in `tests/project/rpc.py`
-- Fixtures in `tests/conftest.py`: `all_*_serializers` / `all_*_deserializers` parametrize backends; `xmlrpc_rf`, `jsonrpc_rf`, `jsonrpc_batch_rf` build POST requests with correct payloads.
-- pytest-asyncio in auto mode (session-scoped loop). Async tests use the `/async_rpc` endpoint.
-- Parallelization on by default (`-n auto`). Tests that aren't parallel-safe should use `-n 0`.
-
-## Code style
-
-- Line length: 120 characters
-- Formatter/linter: ruff (extensive rule set, see `pyproject.toml [tool.ruff.lint]`)
-- Bandit (S) rules disabled in `tests/`
-- Double quotes, LF line endings
+This document intentionally focuses on project-specific details (uv/nox integration, pytest-django setup, serializers/deserializers fixtures, matrix strategy) to accelerate onboarding and reduce friction for contributors.
 
 ---
 > Source: [alorence/django-modern-rpc](https://github.com/alorence/django-modern-rpc) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
