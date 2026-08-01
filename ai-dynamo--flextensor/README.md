@@ -1,8 +1,6 @@
 # flextensor
 
-> Source: [ai-dynamo/flextensor](https://github.com/ai-dynamo/flextensor) — distributed by [TomeVault](https://tomevault.io)
-
-FlexTensor is a tensor offloading and management library for PyTorch that enables running large models on limited GPU memory by intelligently offloading tensors between GPU and CPU memory.
+> Source: [ai-dynamo/flextensor](https://github.com/ai-dynamo/flextensor). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [ai-dynamo/flextensor](https://github.com/ai-dyn
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [ai-dynamo/flextensor](https://github.com/ai-dynamo/flextensor) — a repo with 93+ stars on GitHub.
+From [ai-dynamo/flextensor](https://github.com/ai-dynamo/flextensor) — a repo with 109+ stars on GitHub.
 
 ---
 
