@@ -1,0 +1,9 @@
+{
+  "name": "consensys--gnark-crypto",
+  "displayName": "gnark-crypto",
+  "description": "gnark-crypto",
+  "version": "1.0.0",
+  "author": "Consensys",
+  "homepage": "https://github.com/Consensys/gnark-crypto",
+  "skills": []
+}
