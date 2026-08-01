@@ -1,87 +1,40 @@
-## graphql-patterns
+## tailwind-design-system
 
-> GraphQL patterns and fragment-based architecture
+> Tailwind design system and @speckle/tailwind-theme usage
 
 
-# GraphQL Patterns
+# Design System & Styling
 
-## Code Generation
+## Tailwind Theme (@speckle/tailwind-theme)
 
-- **Generated types** from GraphQL schema
-- **Typed hooks** from @vue/apollo-composable
-- **Fragment colocation** with components
-- **Operation naming** follows schema conventions
+- **Custom design system** with predefined colors, typography, and components
+- **CSS variables** for theme colors that support light/dark mode
+- **Import plugin** from `@speckle/tailwind-theme` in your Tailwind config
+- **Use semantic color classes** instead of arbitrary values
 
-## Fragment-Based Architecture
+## Dynamic Configuration Reference
 
-```typescript
-// Define component data requirements via fragments
-graphql(`
-  fragment SomeComponent_Project on Project {
-    id
-    name
-    # Only fields this component needs
-  }
-`)
+**For up-to-date class names and configuration, reference these files:**
 
-defineProps<{
-  project: SomeComponent_Project
-}>()
-```
+- **Color system & CSS variables**: `packages/tailwind-theme/src/plugin.ts`
 
-## Query/Mutation Patterns
+  - Contains `lightThemeVariables` and `darkThemeVariables` with all available color tokens
+  - Shows exact CSS variable names and their values
+  - Defines custom utility classes like `.text-fancy-gradient`, `.simple-scrollbar`, `.grow-textarea`
 
-```typescript
-// Use generated hooks
-const { result, loading, error } = useQuery(SomeQuery)
-const { mutate, loading: mutating } = useMutation(SomeMutation)
+- **Tailwind preset configuration**: `packages/tailwind-theme/src/preset.ts`
+  - Contains the complete Tailwind color mappings (foundation, foreground, primary, etc.)
+  - Defines typography settings and font configurations
+  - Shows available color variants and theme structure
 
-// Handle loading states
-const isLoading = computed(() => loading.value || mutating.value)
-```
+## Usage Guidelines
 
-## Data Requirements
+- **Use semantic colors** instead of hardcoded hex values
+- **Reference the actual config files** above for current available classes
+- **Check plugin.ts** for custom utility classes and components
 
-- **Always include `id` field** in queries for Apollo cache management
-- **Mutations return updated objects** instead of just success booleans
-- **Use fragments** to define component data requirements
-- **Fragment naming**: `{ComponentName}_{GraphQLType}`
-
-## Examples
-
-### Fragment Definition
-
-```typescript
-// UserCard.vue
-graphql(`
-  fragment UserCard_User on User {
-    id
-    name
-    email
-    avatar
-  }
-`)
-
-defineProps<{
-  user: UserCard_User
-}>()
-```
-
-### Query with Fragments
-
-```typescript
-// UsersPage.vue
-const { result: usersResult } = useQuery(
-  graphql(`
-    query UsersPage_Users {
-      users {
-        id
-        ...UserCard_User
-      }
-    }
-  `)
-)
-```
+@packages/tailwind-theme/src/plugin.ts
+@packages/tailwind-theme/src/preset.ts
 
 ---
 > Source: [sandun200209/speckle-self-hosted-server](https://github.com/sandun200209/speckle-self-hosted-server) — distributed by [TomeVault](https://tomevault.io).
