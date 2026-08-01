@@ -1,0 +1,9 @@
+{
+  "name": "juliapy--pythoncall-jl",
+  "displayName": "PythonCall.jl",
+  "description": "PythonCall.jl",
+  "version": "1.0.0",
+  "author": "JuliaPy",
+  "homepage": "https://github.com/JuliaPy/PythonCall.jl",
+  "skills": []
+}
