@@ -1,0 +1,9 @@
+{
+  "name": "kubeorch--core",
+  "displayName": "core",
+  "description": "core",
+  "version": "1.0.0",
+  "author": "KubeOrch",
+  "homepage": "https://github.com/KubeOrch/core",
+  "skills": []
+}
