@@ -1,6 +1,6 @@
 # ecs
 
-> Source: [easy-coding-standard/ecs](https://github.com/easy-coding-standard/ecs). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [easy-coding-standard/ecs](https://github.com/easy-coding-standard/ecs). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [easy-coding-standard/ecs](https://github.com/ea
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [easy-coding-standard/ecs](https://github.com/easy-coding-standard/ecs) — a repo with 1618+ stars on GitHub.
+From [easy-coding-standard/ecs](https://github.com/easy-coding-standard/ecs) — a repo with 1619+ stars on GitHub.
 
 ---
 
