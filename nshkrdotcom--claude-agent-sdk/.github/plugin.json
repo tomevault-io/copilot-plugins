@@ -1,7 +1,7 @@
 {
   "name": "nshkrdotcom--claude-agent-sdk",
   "displayName": "claude_agent_sdk",
-  "description": "An Elixir SDK for Claude Code - provides programmatic access to Claude Code CLI with streaming message processing",
+  "description": "claude_agent_sdk",
   "version": "1.0.0",
   "author": "nshkrdotcom",
   "homepage": "https://github.com/nshkrdotcom/claude_agent_sdk",
