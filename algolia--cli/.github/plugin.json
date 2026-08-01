@@ -1,0 +1,9 @@
+{
+  "name": "algolia--cli",
+  "displayName": "cli",
+  "description": "cli",
+  "version": "1.0.0",
+  "author": "algolia",
+  "homepage": "https://github.com/algolia/cli",
+  "skills": []
+}
