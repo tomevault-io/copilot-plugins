@@ -1,0 +1,9 @@
+{
+  "name": "sqlc-dev--sqlc",
+  "displayName": "sqlc",
+  "description": "sqlc",
+  "version": "1.0.0",
+  "author": "sqlc-dev",
+  "homepage": "https://github.com/sqlc-dev/sqlc",
+  "skills": []
+}
