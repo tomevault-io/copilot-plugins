@@ -1,7 +1,7 @@
 {
   "name": "aws-samples--sample-agentic-platform",
   "displayName": "sample-agentic-platform",
-  "description": "A sample agentic ai platform to run agentic workflows on AWS using either EKS or Bedrock AgentCore with open source frameworks like LangChain/LangGraph, Strands, etc..  ",
+  "description": "sample-agentic-platform",
   "version": "1.0.0",
   "author": "aws-samples",
   "homepage": "https://github.com/aws-samples/sample-agentic-platform",
