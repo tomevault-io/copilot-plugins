@@ -1,0 +1,9 @@
+{
+  "name": "awslabs--amazon-eks-ami",
+  "displayName": "amazon-eks-ami",
+  "description": "amazon-eks-ami",
+  "version": "1.0.0",
+  "author": "awslabs",
+  "homepage": "https://github.com/awslabs/amazon-eks-ami",
+  "skills": []
+}
