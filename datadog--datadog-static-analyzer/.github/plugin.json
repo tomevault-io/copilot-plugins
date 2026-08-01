@@ -1,0 +1,9 @@
+{
+  "name": "datadog--datadog-static-analyzer",
+  "displayName": "datadog-static-analyzer",
+  "description": "datadog-static-analyzer",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/datadog-static-analyzer",
+  "skills": []
+}
