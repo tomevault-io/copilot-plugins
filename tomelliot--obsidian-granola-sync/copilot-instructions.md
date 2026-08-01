@@ -1,196 +1,137 @@
-## testing
+## obsidian-granola-sync
 
-> - **Has side effects** (database calls, API requests, file I/O)
+> > See also [CONTRIBUTING.md](CONTRIBUTING.md).
 
+# Code Patterns & Principles
 
-# Unit Testing: Mocking vs Real Dependencies
+> See also [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## When to Mock Internal Dependencies
+This document outlines the coding patterns and principles we follow in this codebase. These patterns help maintain consistency, testability, and maintainability.
 
-### Mock when the dependency:
-- **Has side effects** (database calls, API requests, file I/O)
-- **Is slow or expensive** to execute
-- **Has complex setup requirements**
-- **Makes the test brittle** (random values, time-dependent behavior)
-- **You want to test error handling** of the current function
+## API Design Patterns
 
-```typescript
-// Example: Mock a database call
-import { jest } from '@jest/globals';
+### 1. Pass Domain Objects, Not Primitives
 
-// Mock the database module
-jest.mock('./database');
-
-import { fetchUser } from './database';
-import { get_user_profile } from './userService';
-
-describe('get_user_profile', () => {
-  it('should format user profile correctly', () => {
-    // Mock the external dependency
-    (fetchUser as jest.Mock).mockResolvedValue({ name: 'John', age: 30 });
-    
-    const result = await get_user_profile(123);
-    
-    expect(result.formatted_name).toBe('John');
-    expect(fetchUser).toHaveBeenCalledTimes(1);
-    expect(fetchUser).toHaveBeenCalledWith(123);
-  });
-});
-```
-
-## When to Use Real Dependencies
-
-### Use real dependencies when:
-- **The dependency is pure** (no side effects)
-- **It's fast and simple**
-- **You want integration-style confidence**
-- **The dependency is stable and unlikely to change**
+**Prefer passing domain objects over extracting individual fields at call sites.**
 
 ```typescript
-// Example: Use real utility function
-import { calculate_total_price } from './pricing';
-
-describe('calculate_total_price', () => {
-  it('should calculate total with tax', () => {
-    // No mocking needed - these are fast, pure functions
-    const items = [{ price: 10 }, { price: 20 }];
-    const total = calculate_total_price(items);
-    
-    expect(total).toBe(33.0); // 30 + 10% tax
-  });
-});
-```
-
-## Best Practices
-
-### 1. **Layer Your Testing Strategy**
-```typescript
-// Unit tests - mock external boundaries
-jest.mock('../services/externalApi');
-
-import { fetchData } from '../services/externalApi';
-import { processData } from './dataProcessor';
-
-describe('processData - unit', () => {
-  it('should process data correctly', () => {
-    (fetchData as jest.Mock).mockResolvedValue(sampleData);
-    // Test just this function's logic
-  });
-});
-
-// Integration tests - use real internal dependencies
-describe('processData - integration', () => {
-  it('should process data end-to-end', () => {
-    // Use real database, real internal functions
-    // Test the whole flow together
-  });
-});
-```
-
-### 2. **Mock at Boundaries**
-Mock at the edges of your system, not internal business logic:
-
-```typescript
-// Good: Mock at system boundary
-jest.mock('../services/externalService');
-
-import { apiCall } from '../services/externalService';
-import { processBusinessLogic } from './businessLogic';
-
-describe('processBusinessLogic', () => {
-  it('should handle business logic correctly', () => {
-    (apiCall as jest.Mock).mockResolvedValue(mockData);
-    // Real internal business logic, mocked external call
-  });
-});
-
-// Avoid: Over-mocking internal logic
-jest.mock('../utils/simpleCalculation'); // Probably unnecessary
-
-import { simpleCalculation } from '../utils/simpleCalculation';
-
-describe('processBusinessLogic', () => {
-  it('should handle business logic', () => {
-    // Over-mocking makes tests brittle
-  });
-});
-```
-
-### 3. **Consider Dependency Injection**
-Makes testing easier and more explicit:
-
-```typescript
-// Instead of hard-coded imports
-import { paymentService } from './paymentService';
-
-function processOrder(orderId: number) {
-  const payment = paymentService.chargeCard(orderId); // Hard to mock
+// Good: Pass the domain object
+function computePath(doc: GranolaDoc): string {
+  const title = getTitleOrDefault(doc);
+  const date = getNoteDate(doc);
+  // ...
 }
 
-// Use dependency injection
-interface PaymentService {
-  chargeCard(orderId: number): Promise<Payment>;
+// Avoid: Requiring callers to extract fields
+function computePath(title: string, date: Date): string {
+  // ...
 }
-
-function processOrder(
-  orderId: number,
-  paymentService?: PaymentService
-): Promise<void> {
-  const service = paymentService || defaultPaymentService;
-  return service.chargeCard(orderId); // Easy to test
-}
-
-// Test becomes cleaner
-describe('processOrder', () => {
-  it('should process order correctly', () => {
-    const mockService: PaymentService = {
-      chargeCard: jest.fn().mockResolvedValue(mockPayment),
-    };
-    
-    await processOrder(123, mockService);
-    
-    expect(mockService.chargeCard).toHaveBeenCalledWith(123);
-  });
-});
 ```
 
-### 4. **Test Both Paths**
-For critical code paths, consider both unit tests (with mocks) and integration tests (without mocks):
+**Rationale:** Centralizes data extraction logic, reduces parameter passing, and makes APIs more domain-focused. Changes to how we extract data only need to happen in one place.
+
+### 2. Single Source of Truth for Configuration
+
+**Extract configuration logic into dedicated getter methods that encapsulate conditional logic.**
 
 ```typescript
-// Unit test - fast, isolated
-jest.mock('../services/database');
+// Good: Single method encapsulates pattern selection logic
+getNoteFilenamePattern(): string {
+  return this.settings.filenamePattern;
+}
 
-import { database } from '../services/database';
-import { UserService } from './userService';
-
-describe('UserService - unit', () => {
-  it('should handle user operations', () => {
-    (database.fetchUser as jest.Mock).mockResolvedValue(mockUser);
-    // Fast, focused on business logic
-  });
-});
-
-// Integration test - slower, more realistic
-describe('UserService - integration', () => {
-  it('should work with real database', () => {
-    // Uses real database (test DB)
-    // Catches integration issues
-  });
-});
+computeTranscriptFilenamePattern(): string {
+  if (this.settings.transcriptHandling === "same-location") {
+    return this.settings.filenamePattern + "-transcript";
+  }
+  // ... other conditions
+}
 ```
 
-## Decision Framework
+**Rationale:** Makes configuration logic easier to test, maintain, and modify. All pattern selection logic lives in one place.
 
-Ask yourself:
-1. **Does this dependency cross a system boundary?** → Mock it
-2. **Will this make my test slow or flaky?** → Mock it  
-3. **Am I testing error handling for this dependency?** → Mock it
-4. **Is this just pure business logic?** → Probably don't mock
-5. **Do I need fast feedback in a large test suite?** → Consider mocking
+### 3. Encapsulate Implementation Details
 
-The goal is **fast, reliable tests that give you confidence**. Start with less mocking for simplicity, then add mocks when you encounter the problems they solve (slow tests, flaky tests, hard-to-reproduce scenarios).
+**Functions should handle their own data extraction and formatting concerns internally.**
+
+```typescript
+// Good: Function handles its own concerns
+function resolveFilenamePattern(doc: GranolaDoc, pattern: string): string {
+  const title = getTitleOrDefault(doc);
+  const date = getNoteDate(doc);
+  // ... resolve pattern and add .md extension
+  return sanitizeFilename(resolved) + ".md";
+}
+
+// Avoid: Requiring callers to handle formatting
+function resolveFilenamePattern(pattern: string, title: string, date: Date): string {
+  // Caller must extract title/date and add .md extension
+}
+```
+
+**Rationale:** Reduces coupling and makes code easier to use correctly. Callers don't need to know about data extraction or formatting details.
+
+## Testing Patterns
+
+### 4. Focused Mocking Strategy
+
+**Mock only dependencies with side effects, time-dependency, or that are slow/expensive. Use real instances when possible.**
+
+```typescript
+// Good: Mock only what needs mocking
+jest.mock("../../src/services/prosemirrorMarkdown");
+jest.mock("../../src/utils/dateUtils", () => {
+  const actual = jest.requireActual("../../src/utils/dateUtils");
+  return { ...actual, getNoteDate: jest.fn() };
+});
+
+// Use real PathResolver instance, spy on methods when needed
+const pathResolver = new PathResolver(settings);
+jest.spyOn(pathResolver, "getNoteFilenamePattern").mockReturnValue("{title}");
+```
+
+**Rationale:** Tests are more maintainable and give better confidence. Real dependencies catch integration issues; mocks isolate the unit under test.
+
+### 5. Explain Mocking Decisions
+
+**Add inline comments explaining why something is mocked.**
+
+```typescript
+// Mock convertProsemirrorToMarkdown: While this is a pure function, we mock it to
+// isolate DocumentProcessor's logic (frontmatter generation, formatting) from
+// the ProseMirror conversion logic, making tests more maintainable and focused.
+
+// Mock getNoteDate: This function has time-dependent behavior (returns new Date()
+// as fallback), so we mock it to ensure consistent, deterministic test results
+// and avoid brittleness from time-dependent test failures.
+```
+
+**Rationale:** Helps future maintainers understand the testing strategy and makes it easier to decide when to add or remove mocks.
+
+### 6. Prefer Direct Mocking Over Test Infrastructure
+
+**Mock time-dependent functions directly rather than using fake timers when possible.**
+
+```typescript
+// Good: Mock the function directly
+jest.mock("../../src/utils/dateUtils", () => ({
+  getNoteDate: jest.fn().mockReturnValue(new Date("2024-01-15")),
+}));
+
+// Avoid: Using fake timers for simple cases
+jest.useFakeTimers();
+jest.setSystemTime(new Date("2024-01-15"));
+```
+
+**Rationale:** Simpler tests are easier to understand and maintain. Only use fake timers when you need to test actual time-dependent behavior.
+
+## General Principles
+
+- **Minimize coupling:** Functions should depend on abstractions, not implementation details
+- **Single responsibility:** Each function/class should have one clear purpose
+- **Testability first:** Design APIs that are easy to test in isolation
+- **Document decisions:** Use comments to explain "why," not just "what"
 
 ---
 > Source: [tomelliot/obsidian-granola-sync](https://github.com/tomelliot/obsidian-granola-sync) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
