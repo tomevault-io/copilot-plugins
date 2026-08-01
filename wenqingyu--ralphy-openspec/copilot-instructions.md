@@ -50,4 +50,4 @@ If you are being run in a loop, only output this exact text when ALL tasks are c
 
 ---
 > Source: [wenqingyu/ralphy-openspec](https://github.com/wenqingyu/ralphy-openspec) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
