@@ -1,8 +1,6 @@
 # kanchi
 
-> Source: [getkanchi/kanchi](https://github.com/getkanchi/kanchi) — distributed by [TomeVault](https://tomevault.io)
-
-A realtime celery task monitoring and management system
+> Source: [getkanchi/kanchi](https://github.com/getkanchi/kanchi). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [getkanchi/kanchi](https://github.com/getkanchi/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [getkanchi/kanchi](https://github.com/getkanchi/kanchi) — a repo with 201+ stars on GitHub.
+From [getkanchi/kanchi](https://github.com/getkanchi/kanchi) — a repo with 215+ stars on GitHub.
 
 ---
 
