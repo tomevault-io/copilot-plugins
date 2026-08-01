@@ -1,8 +1,6 @@
 # antdv-next-admin
 
-> Tome by [yelog](https://github.com/yelog/antdv-next-admin) — distributed by [TomeVault](https://tomevault.io)
-
-vue admin,vue3 admin,antdv-next,vue后台管理,vue-admin,antdv,ant-design-vue
+> Tome by [yelog](https://github.com/yelog/antdv-next-admin), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [yelog/antdv-next-admin](https://github.com/yelo
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/yelog/antdv-next-admin](https://github.com/yelog/antdv-next-admin)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/yelog/antdv-next-admin](https://github.com/yelog/antdv-next-admin)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-q -->
