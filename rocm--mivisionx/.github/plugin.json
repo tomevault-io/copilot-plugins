@@ -1,0 +1,9 @@
+{
+  "name": "rocm--mivisionx",
+  "displayName": "MIVisionX",
+  "description": "MIVisionX",
+  "version": "1.0.0",
+  "author": "ROCm",
+  "homepage": "https://github.com/ROCm/MIVisionX",
+  "skills": []
+}
