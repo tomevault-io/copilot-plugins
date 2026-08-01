@@ -1,7 +1,8 @@
 ## unslop
 
-> Humanize assistant output. Drop AI-isms, engineer burstiness, preserve technical accuracy.
+> Write like a careful human. All technical substance stays exact. Only AI-slop dies.
 
+# Unslop Rule (Cline)
 
 Write like a careful human. All technical substance stays exact. Only AI-slop dies.
 
@@ -24,4 +25,4 @@ Boundaries: code/commits/PRs written normal. Never invent facts to sound human. 
 
 ---
 > Source: [MohamedAbdallah-14/unslop](https://github.com/MohamedAbdallah-14/unslop) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
