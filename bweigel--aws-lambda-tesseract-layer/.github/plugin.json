@@ -1,0 +1,9 @@
+{
+  "name": "bweigel--aws-lambda-tesseract-layer",
+  "displayName": "aws-lambda-tesseract-layer",
+  "description": "aws-lambda-tesseract-layer",
+  "version": "1.0.0",
+  "author": "bweigel",
+  "homepage": "https://github.com/bweigel/aws-lambda-tesseract-layer",
+  "skills": []
+}
