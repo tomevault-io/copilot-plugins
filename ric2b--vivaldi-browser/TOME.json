@@ -4,7 +4,7 @@
   "repo": "Vivaldi-browser",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ric2b/Vivaldi-browser",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T21:44:10Z"
+  "distributed_at": "2026-08-01T04:02:33Z"
 }
