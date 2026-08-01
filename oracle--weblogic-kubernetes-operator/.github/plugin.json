@@ -1,0 +1,9 @@
+{
+  "name": "oracle--weblogic-kubernetes-operator",
+  "displayName": "weblogic-kubernetes-operator",
+  "description": "weblogic-kubernetes-operator",
+  "version": "1.0.0",
+  "author": "oracle",
+  "homepage": "https://github.com/oracle/weblogic-kubernetes-operator",
+  "skills": []
+}
