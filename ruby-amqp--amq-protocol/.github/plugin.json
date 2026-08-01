@@ -1,0 +1,9 @@
+{
+  "name": "ruby-amqp--amq-protocol",
+  "displayName": "amq-protocol",
+  "description": "amq-protocol",
+  "version": "1.0.0",
+  "author": "ruby-amqp",
+  "homepage": "https://github.com/ruby-amqp/amq-protocol",
+  "skills": []
+}
