@@ -1,0 +1,9 @@
+{
+  "name": "youtype--mypy-boto3-builder",
+  "displayName": "mypy_boto3_builder",
+  "description": "mypy_boto3_builder",
+  "version": "1.0.0",
+  "author": "youtype",
+  "homepage": "https://github.com/youtype/mypy_boto3_builder",
+  "skills": []
+}
