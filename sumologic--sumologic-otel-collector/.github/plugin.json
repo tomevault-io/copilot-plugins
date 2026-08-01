@@ -1,0 +1,9 @@
+{
+  "name": "sumologic--sumologic-otel-collector",
+  "displayName": "sumologic-otel-collector",
+  "description": "sumologic-otel-collector",
+  "version": "1.0.0",
+  "author": "SumoLogic",
+  "homepage": "https://github.com/SumoLogic/sumologic-otel-collector",
+  "skills": []
+}
