@@ -1,0 +1,9 @@
+{
+  "name": "awslabs--data-on-eks",
+  "displayName": "data-on-eks",
+  "description": "data-on-eks",
+  "version": "1.0.0",
+  "author": "awslabs",
+  "homepage": "https://github.com/awslabs/data-on-eks",
+  "skills": []
+}
