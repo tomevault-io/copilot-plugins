@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [MinishLab/semble](https://github.com/MinishLab/semble).
+Original source: `CLAUDE.md` in [MinishLab/semble](https://github.com/MinishLab/semble).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [MinishLab/semble](https://github.com/MinishLab/semble) — a repo with 5691+ stars on GitHub.
+From [MinishLab/semble](https://github.com/MinishLab/semble) — a repo with 5688+ stars on GitHub.
 
 ---
 
