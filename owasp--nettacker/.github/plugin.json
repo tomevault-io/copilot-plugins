@@ -1,0 +1,9 @@
+{
+  "name": "owasp--nettacker",
+  "displayName": "Nettacker",
+  "description": "Nettacker",
+  "version": "1.0.0",
+  "author": "OWASP",
+  "homepage": "https://github.com/OWASP/Nettacker",
+  "skills": []
+}
