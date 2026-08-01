@@ -1,0 +1,9 @@
+{
+  "name": "kdwils--envoy-proxy-crowdsec-bouncer",
+  "displayName": "envoy-proxy-crowdsec-bouncer",
+  "description": "envoy-proxy-crowdsec-bouncer",
+  "version": "1.0.0",
+  "author": "kdwils",
+  "homepage": "https://github.com/kdwils/envoy-proxy-crowdsec-bouncer",
+  "skills": []
+}
