@@ -1,124 +1,139 @@
 ## sardeenz
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> > **Note for AI Assistants**: Frontend-specific context for **sardeenz**. For project overview, see root [CLAUDE.md](../../CLAUDE.md). For backend context, see [backend/CLAUDE.md](../backend/CLAUDE.md).
 
-# CLAUDE.md
+# CLAUDE.md - Frontend Context
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> **Note for AI Assistants**: Frontend-specific context for **sardeenz**. For project overview, see root [CLAUDE.md](../../CLAUDE.md). For backend context, see [backend/CLAUDE.md](../backend/CLAUDE.md).
 
-## Project Overview
+## Frontend Overview
 
-**sardeenz** is a multi-model management platform that enables dynamic loading, management, and serving of multiple Large Language Models (LLMs) through a unified interface. Built on top of vLLM (inference engine) and kvcached (GPU memory sharing), it allows efficient multi-model hosting on a single GPU.
+React 18 admin dashboard for managing multiple vLLM model instances on shared GPU infrastructure.
 
-**Core Components:**
+**Technology Stack**: React 18.3+, PatternFly 6.x, React Router 7, TypeScript 5.7+, Vite 6.0+
 
-- **Controller API**: Dynamically load/unload models, query status, manage GPU memory (Fastify + TypeScript)
-  - Real-time model load progress via SSE events
-  - Intelligent error extraction from vLLM logs
-  - LLM benchmarking with latency/throughput metrics
-  - Memory profiling for capacity planning
-  - Multi-GPU support with tensor parallelism and intelligent GPU selection
-  - Model configuration presets (save/load model sets with GPU assignments)
-- **Unified Proxy**: Single endpoint for all inference requests with OpenAI-compatible API (<50ms routing overhead target)
-- **Admin Dashboard**: React + PatternFly 6 web interface for model management, monitoring, and benchmarking
-- **Container Deployment**: Unified single-process container (Fastify serves API + frontend) for OpenShift/Kubernetes
-- **Authentication**: Dual-auth model separating admin (JWT) from inference (optional API key)
-  - Admin: Three modes (`none`, `simple`, `oauth`) via `AUTH_MODE` for dashboard/controller API
-  - Inference: Optional `INFERENCE_API_KEY` for OpenAI-compatible endpoints (`/v1/*`)
+**Development**: Port 5173 with Vite HMR
+**Production**: Built and served statically by Fastify backend on port 3000
 
-**Documentation:** See [`docs/`](./docs/) for detailed architecture, API guides, and deployment instructions.
+**Detailed Architecture**: See [Frontend Architecture](../../docs/architecture/frontend-architecture.md) for component specs, state management, and API integration.
 
-## Quick Start
+## PatternFly 6 Critical Requirements
 
-```bash
-# Install dependencies
-npm install
+### Context7 Warning
 
-# Build shared packages
-npm run build -w packages/types
-npm run build -w packages/utils
+**DO NOT use Context7 for PatternFly components.** Context7 may contain outdated PatternFly versions.
 
-# Start development servers (backend + frontend)
-npm run dev
-```
+**Instead use:**
 
-**Prerequisites:** Node.js 22.x, Python 3.12 + uv, NVIDIA GPU with CUDA 12.x, 8GB+ VRAM (16GB+ recommended)
+- Local guide: `docs/development/pf6-guide/`
+- Official docs: PatternFly.org
 
-**GPU Setup:** On first run, the backend auto-creates a Python venv with vLLM/kvcached. See [`docs/dev-setup.md`](./docs/dev-setup.md) for details.
+Context7 is fine for: React, Axios, React Router, Vitest, and other non-PatternFly libraries.
 
-## Architecture
+### Essential Rules
 
-This project uses an npm workspace monorepo structure:
+1. **Class Prefix**: ALL PatternFly classes MUST use `pf-v6-` prefix
+2. **Design Tokens**: Use semantic tokens (`--pf-t--`) only, never hardcode colors
+3. **Component Import**: Import from `@patternfly/react-core` v6
+4. **Theme Testing**: Test in both light and dark themes
 
-- `apps/backend` - Fastify backend (Controller API + Proxy)
-- `apps/frontend` - React + PatternFly dashboard
-- `packages/types` - Shared TypeScript types
-- `packages/contracts` - OpenAPI schemas
-- `packages/utils` - Shared utilities
+**For complete styling and token guidance**, see [Styling Standards](../../docs/development/pf6-guide/guidelines/styling-standards.md).
 
-**Key Design Decisions:**
-
-- Direct vLLM subprocess management (no Docker-in-Docker) for zero-downtime model loading
-- Hybrid storage: in-memory for runtime state, SQLite for benchmarks/profiles persistence
-- OpenAI-compatible API via vLLM native format
-- Performance-first proxy with TCP passthrough (<50ms routing overhead)
-
-For detailed architecture documentation, see [`docs/architecture.md`](./docs/architecture.md).
-
-## Common Commands
+## Development Commands
 
 ```bash
-# Workspace management
-npm install                          # Install all dependencies
-npm run build                        # Build all packages
-npm run dev                          # Start dev servers (backend:3000, frontend:5173)
-npm run test                         # Run all tests
-npm run lint                         # Lint all workspaces
-
-# Individual workspace commands
-npm run build -w packages/types      # Build specific package
-npm run dev -w apps/backend          # Start backend only
-npm run dev -w apps/frontend         # Start frontend only
-
-# Container operations
-make build VERSION=x.y.z           # Build image as quay.io/rh-aiservices-bu/sardeenz:x.y.z
-make push VERSION=x.y.z            # Push to registry
+npm run dev              # Development server with HMR
+npm run build            # TypeScript check + Vite production build
+npm run test             # Run Vitest tests
+npm run test:coverage    # Coverage report
+npm run lint             # ESLint check
+npm run type-check       # TypeScript type checking
+npm run format           # Prettier format
 ```
 
-## Documentation
+## Project Structure
 
-- [`docs/architecture.md`](./docs/architecture.md) - System architecture overview
-- [`docs/architecture/backend-architecture.md`](./docs/architecture/backend-architecture.md) - Backend component details
-- [`docs/architecture/frontend-architecture.md`](./docs/architecture/frontend-architecture.md) - Frontend component details
-- [`docs/dev-setup.md`](./docs/dev-setup.md) - GPU development environment setup
-- [`docs/api-guide.md`](./docs/api-guide.md) - API usage examples
-- [`docs/deployment.md`](./docs/deployment.md) - Container and OpenShift deployment
-- [`docs/kvcached/`](./docs/kvcached/) - kvcached GPU memory sharing
-- [`CHANGELOG.md`](./CHANGELOG.md) - Project change history
+```
+frontend/
+├── src/
+│   ├── components/      # Shared UI components
+│   │   ├── benchmark/   # Benchmark-related components
+│   │   ├── inference/   # Chat session and inference components
+│   │   ├── Layout/      # AppLayout, NavSidebar
+│   │   ├── ClusterOverview.tsx           # Multi-pod cluster status cards
+│   │   ├── PodSelector.tsx               # Pod target dropdown for model operations
+│   │   ├── NodeModelPane.tsx             # Per-pod model list with GPU grouping
+│   │   ├── ApplyPresetDialog.tsx         # Cluster-wide preset application dialog
+│   │   ├── MoveModelDialog.tsx           # Cross-GPU/pod model move dialog
+│   │   ├── LoadConfigurationDialog.tsx   # Load saved model configurations
+│   │   ├── SaveConfigurationDialog.tsx   # Save current models as configuration
+│   │   ├── LoadModelDialog.tsx           # Load individual models
+│   │   └── ProtectedRoute.tsx            # Auth-based route guard
+│   ├── contexts/        # React Context providers
+│   │   ├── AuthContext.tsx           # Authentication state management
+│   │   ├── NotificationContext.tsx   # Toast notifications
+│   │   └── ConnectionContext.tsx     # Backend connection status
+│   ├── hooks/           # Custom React hooks
+│   │   ├── useClusterStatus.ts   # Polls cluster state, detects leader changes
+│   │   ├── useMoveEvents.ts      # SSE subscription for model move progress
+│   │   ├── useWorkspaceState.ts  # Inference workspace session/layout state
+│   │   ├── useKeySeq.ts          # Keyboard sequence detection (easter egg)
+│   │   └── ...
+│   ├── pages/           # Route-specific pages
+│   │   ├── Login.tsx         # Login page (simple & OAuth modes)
+│   │   ├── OAuthCallback.tsx # OAuth redirect handler
+│   │   └── ...
+│   ├── services/        # API client layer
+│   │   └── api.ts       # Typed Axios client for all backend endpoints
+│   ├── App.tsx          # Root component with routing
+│   └── main.tsx         # Entry point
+├── dist/                # Vite build output
+└── vite.config.ts       # Vite configuration
+```
 
-## Active Technologies
+## Key Rules
 
-- TypeScript 5.7+ (strict mode) with Node.js 22.x, ES2022 target
-- Fastify 5.1+ (backend), React 18 + PatternFly 6 (frontend)
-- SQLite (better-sqlite3) for persistence, in-memory Maps for runtime state
+### DO
 
-## Component-Specific Context
+- Use PatternFly 6 components with `pf-v6-` prefix
+- Import from `@patternfly/react-core`, `@patternfly/react-table`, `@patternfly/react-icons` v6
+- Use `--pf-t--` semantic design tokens for styling
+- Use `useState` for local state, Context API for auth/global state
+- Use Vitest for testing (NOT Jest)
+- Handle errors with try/catch and PatternFly Alert components
+- Include ARIA labels and accessibility features
+- Run `npm run format` after creating or modifying files
 
-For detailed context specific to backend or frontend development:
+### DON'T
 
-- **Backend**: See [backend/CLAUDE.md](apps/backend/CLAUDE.md)
-- **Frontend**: See [frontend/CLAUDE.md](apps/frontend/CLAUDE.md)
+- Use PatternFly 5 or hardcoded `pf-` classes (must be `pf-v6-`)
+- Use hardcoded colors, sizes, or spacing (use `--pf-t--` tokens)
+- Use legacy `--pf-v6-global--` tokens (use semantic `--pf-t--` tokens)
+- Use Webpack (project uses Vite)
+- Use Jest (project uses Vitest)
+- Store JWT in localStorage (security risk)
+- Hardcode API URLs (use environment variables)
 
-### Context7 Usage Guidelines
+## Known Limitations
 
-⚠️ **Important for AI tools using Context7**:
+- No internationalization (i18n) - English only for MVP
+- No offline support or service worker
+- No WebSocket implementation (polling only)
+- Limited error recovery (manual refresh for some errors)
+- No undo/redo for model operations
+- No bulk operations (load/unload multiple models at once)
 
-- ✅ **Use Context7 for**: Backend libraries, non-UI frontend libraries (React, Axios,...)
-- ❌ **Don't use Context7 for**: PatternFly 6 components. use `docs/development/pf6-guide/` + PatternFly.org instead)
-- ✅ **Use `docs/development/pf6-guide/` + PatternFly.org** for Patternfly 6 components
+## Related Documentation
 
-Context7 may contain outdated PatternFly versions. For all PatternFly 6 UI development, refer to the local PF6 guide and official PatternFly.org documentation.
+- [Frontend Architecture](../../docs/architecture/frontend-architecture.md) - Component specs, state management, API integration
+- [PatternFly 6 Guide](../../docs/development/pf6-guide/README.md) - Complete UI development guide
+  - [Styling Standards](../../docs/development/pf6-guide/guidelines/styling-standards.md)
+  - [Testing Patterns](../../docs/development/pf6-guide/testing-patterns/README.md)
+  - [Troubleshooting](../../docs/development/pf6-guide/troubleshooting/README.md)
+- [Frontend API Client](../../docs/development/frontend-api-client.md) - Controller API integration
+- Root [CLAUDE.md](../../CLAUDE.md) - Project overview
+- Backend [CLAUDE.md](../backend/CLAUDE.md) - Backend API context
 
 ---
 > Source: [rh-aiservices-bu/sardeenz](https://github.com/rh-aiservices-bu/sardeenz) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
