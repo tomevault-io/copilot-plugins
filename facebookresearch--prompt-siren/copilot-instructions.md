@@ -1,337 +1,269 @@
 ## prompt-siren
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Custom agents in prompt-siren implement a finite state machine design that transitions through different execution states while interacting with a model and executing tools. This makes it easier to track execution progress, intercept injectable content, and apply attacks at precise moments.
 
-# CLAUDE.md
+## Adding Custom Agents
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Custom agents in prompt-siren implement a finite state machine design that transitions through different execution states while interacting with a model and executing tools. This makes it easier to track execution progress, intercept injectable content, and apply attacks at precise moments.
 
-## Project Overview
+**Reference Implementation**: See `src/prompt_siren/agents/plain.py` for a complete working example of the PlainAgent implementation.
 
-This is a workbench designed for security research to test attacks against large language models and prompt injection defenses. The project uses `pydantic-ai` as its core AI framework and supports multiple environments for testing. It features a Hydra-based configuration system for flexible experiment orchestration with parameter sweeps and overrides.
+### 1. Create Agent Configuration
 
-## Development Commands
+```python
+# my_agent_config.py
+from pydantic import BaseModel, Field
 
-### Linting and Type Checking
-```sh
-uv run ruff check --fix
-uv run ruff format
-uv run ty check
+class MyCustomAgentConfig(BaseModel):
+    """Configuration for my custom agent."""
+
+    model: str = Field(description="Model to use")
+    temperature: float = Field(default=0.7, description="Sampling temperature")
+    max_tokens: int = Field(default=1000, description="Maximum tokens to generate")
+    custom_parameter: str = Field(default="default", description="Custom agent parameter")
 ```
 
-### Testing
-```sh
-# Run all tests (unit + integration)
-uv run pytest -vx
+### 2. Implement Agent Class
 
-# Run unit tests only (fast, no Docker needed - CI/CD default)
-uv run pytest -vx -m "not docker_integration"
+```python
+# my_agent.py
+from collections.abc import AsyncGenerator, Sequence
+from dataclasses import dataclass
+from typing import ClassVar
 
-# Run integration tests only (requires Docker)
-uv run pytest -vx -m docker_integration
+from pydantic_ai import InstrumentationSettings, RunContext
+from pydantic_ai.messages import ModelMessage, UserContent
+from pydantic_ai.toolsets import AbstractToolset
+from pydantic_ai.usage import RunUsage, UsageLimits
+
+from prompt_siren.agents.abstract import AbstractAgent
+from prompt_siren.agents.states import ExecutionState
+from prompt_siren.environments.abstract import AbstractEnvironment
+from prompt_siren.types import InjectableUserContent, InjectionAttacksDict
+
+
+@dataclass(frozen=True)
+class MyCustomAgent(AbstractAgent):
+    """Custom agent implementation.
+
+    Note: The dataclass should be frozen to ensure immutability.
+    The config must be stored in a private attribute (_config) and exposed
+    via a property to maintain compatibility with Python's type system.
+    """
+
+    _config: MyCustomAgentConfig
+    agent_type: ClassVar[str] = "my_custom"
+
+    @property
+    def config(self) -> MyCustomAgentConfig:
+        """Returns the config of the agent.
+
+        It has to be a property method and not an attribute as otherwise
+        Python's type system breaks.
+        """
+        return self._config
+
+    def get_agent_name(self) -> str:
+        """Get a descriptive name for this agent (used for filenames and logging).
+
+        Example: 'my_custom:gpt-5'
+        """
+        return f"my_custom:{self.config.model}"
+
+    # Implement required abstract methods
+    async def run(
+        self,
+        environment: AbstractEnvironment,
+        env_state,
+        user_prompt: str | Sequence[UserContent | InjectableUserContent],
+        *,
+        message_history: Sequence[ModelMessage] | None = None,
+        toolsets: Sequence[AbstractToolset],
+        usage_limits: UsageLimits | None = None,
+        usage: RunUsage | None = None,
+        attacks: InjectionAttacksDict | None = None,
+        instrument: InstrumentationSettings | bool | None = None,
+    ) -> RunContext:
+        """Execute the agent until completion.
+
+        This is the main entry point for agent execution.
+        """
+        # Your implementation here
+        pass
+
+    async def iter(
+        self,
+        environment: AbstractEnvironment,
+        env_state,
+        user_prompt: str | Sequence[UserContent | InjectableUserContent],
+        *,
+        message_history: Sequence[ModelMessage] | None = None,
+        toolsets: Sequence[AbstractToolset],
+        usage_limits: UsageLimits | None = None,
+        usage: RunUsage | None = None,
+        attacks: InjectionAttacksDict | None = None,
+        instrument: InstrumentationSettings | bool | None = None,
+    ) -> AsyncGenerator[ExecutionState]:
+        """Iterate through agent execution states.
+
+        Yields each execution state as the state machine progresses.
+        """
+        # Your implementation here
+        pass
+        yield  # Needed to make type checker happy
+
+    async def next_state(
+        self,
+        *,
+        current_state: ExecutionState,
+        toolsets: Sequence[AbstractToolset],
+        usage_limits: UsageLimits | None = None,
+        attacks: InjectionAttacksDict | None = None,
+        instrument: InstrumentationSettings | bool | None = None,
+    ) -> ExecutionState:
+        """Execute a single state transition in the state machine.
+
+        This is the core state machine transition function.
+        """
+        # Your implementation here
+        pass
+
+    async def prev_state(
+        self,
+        *,
+        current_state: ExecutionState,
+        toolsets: Sequence[AbstractToolset],
+    ) -> ExecutionState:
+        """Roll back a step in the state machine.
+
+        Returns the previous state with correct environment state.
+        """
+        # Your implementation here
+        pass
+
+    async def resume_iter_from_state(
+        self,
+        *,
+        current_state: ExecutionState,
+        toolsets: Sequence[AbstractToolset],
+        usage_limits: UsageLimits | None = None,
+        attacks: InjectionAttacksDict | None = None,
+        instrument: InstrumentationSettings | bool | None = None,
+    ) -> AsyncGenerator[ExecutionState]:
+        """Resume execution from a previously saved state.
+
+        Useful for implementing features like attack injection at precise points.
+        """
+        # Your implementation here
+        pass
+        yield  # Needed to make type checker happy
+
+    def create_initial_request_state(
+        self,
+        environment: AbstractEnvironment,
+        env_state,
+        user_prompt: str | Sequence[UserContent | InjectableUserContent],
+        *,
+        message_history: Sequence[ModelMessage] | None = None,
+        usage: RunUsage | None = None,
+    ):
+        """Create the initial state for agent execution.
+
+        Returns either ModelRequestState or InjectableModelRequestState
+        depending on whether the user prompt contains injectable content.
+        """
+        # Your implementation here
+        pass
 ```
 
-**Note**: Integration tests require Docker to be running. CI/CD pipelines skip integration tests by default for speed.
+### 3. Create Factory Function
 
-### Running Experiments
-```sh
-# Export default configuration (first time setup)
-uv run prompt-siren config export
+```python
+# my_agent_factory.py
+def create_my_custom_agent(config: MyCustomAgentConfig, context: None = None) -> MyCustomAgent:
+    """Factory function to create custom agent.
 
-# Run benign-only evaluation
-uv run prompt-siren run benign +dataset=agentdojo-workspace
+    Args:
+        config: Agent configuration
+        context: Optional context parameter (unused by agents, for registry compatibility)
 
-# Run attack evaluation
-uv run prompt-siren run attack +dataset=agentdojo-workspace +attack=template_string
-
-# Run SWE-bench evaluation
-uv run prompt-siren run benign +dataset=swebench
-
-# Override parameters
-uv run prompt-siren run benign +dataset=agentdojo-workspace agent.config.model=azure:gpt-5 execution.concurrency=4
-
-# Parameter sweep (use hydra.mode=MULTIRUN for sweeping over multiple values)
-uv run prompt-siren run benign --multirun +dataset=agentdojo-workspace agent.config.model=azure:gpt-5,azure:gpt-5-nano
-
-# Parameter sweep with multiple parameters
-uv run prompt-siren run benign --multirun +dataset=agentdojo-workspace agent.config.model=azure:gpt-5,azure:gpt-5-nano execution.concurrency=1,4
-
-# Parameter sweep with attacks
-uv run prompt-siren run attack --multirun +dataset=agentdojo-workspace +attack=template_string,mini-goat
-
-# Validate configuration
-uv run prompt-siren config validate +dataset=agentdojo-workspace +attack=template_string
-
-# Run with config file that includes dataset/attack (no overrides needed)
-uv run prompt-siren run attack --config-dir=./my_config
+    Returns:
+        Configured agent instance
+    """
+    return MyCustomAgent(_config=config)
 ```
 
-**Note**: Dataset and attack can be specified either via command-line overrides (`+dataset=...`, `+attack=...`) or by including them in your config file's `defaults` list. See docs/configuration.md for details.
+### 4. Register Agent
 
-**Platform Requirements**:
-- Linux or macOS only (Windows not supported)
-- Docker required for SWE-bench
-- Base Docker images must have `/bin/bash` available
+```toml
+# Register via entry point (recommended)
+# In (your or prompt_siren's) pyproject.toml:
+[project.entry-points."prompt_siren.agents"]
+my_custom = "my_package.my_agent:create_my_custom_agent"
+```
 
-### Development guidelines
+```python
+# Or register programmatically
+# (you need to make sure that this call is executed before you try to instantiate the agent)
+from prompt_siren.agents.registry import register_agent
+from my_package.my_agent import create_my_custom_agent
+from my_package.my_agent_config import MyCustomAgentConfig
 
-- Always use modern 3.10+ type hints:
-  - `list`, `dict`, `set` instead of importing from `typing`.
-  - `|` instead of `Union` and `Optional`.
-- Always write meaningful tests for new features. Avoid tests that are obvious.
-- Always lint and type check.
-- Avoid using `type: ignore`, unless the issue is the result of a deliberate choice (e.g., in tests).
-- Avoid using `cast`.
-- Only use module-level imports instead of local imports, unless it's to import optional dependencies or to handle circular imports.
+register_agent("my_custom", MyCustomAgentConfig, create_my_custom_agent)
+```
 
-## Architecture
+### 5. Create Configuration Files
 
-### Core Components
+```yaml
+# my_custom_agent.yaml
+defaults:
+  # @package _global_
+  - _self_
 
-1. **Agent System** (`src/prompt_siren/agents/`)
-   - `abstract.py` - Defines the `AbstractAgent` protocol for agent interfaces
-   - `plain.py` - Implements the main agent logic for running tasks with pydantic-ai
-   - `_utils.py` - Helper utilities for agent operations
-   - `registry.py` - Agent plugin registration system
-   - Supports tool execution with injection attack capabilities
+name: "my_custom_agent_experiment"
 
-2. **Dataset System** (`src/prompt_siren/datasets/`)
-   - `abstract.py` - Defines `AbstractDataset` protocol for dataset interfaces
-   - `agentdojo_dataset.py` - AgentDojo dataset implementation
-   - `swebench_dataset/` - SWE-bench dataset for code editing benchmarks
-     - Uses multi-stage Docker builds (base/env/instance) with caching
-     - Jinja2 template system for prompts
-     - Official SWE-bench test harness for evaluation
-   - `registry.py` - Dataset plugin registration system
-   - Datasets provide:
-     - Collections of tasks (benign, malicious, and task couples)
-     - Specification of which environment type to use
-     - Environment configuration for that environment
-   - Separates task data from execution context (environments)
-   - Allows multiple datasets to share the same environment type
+# Use custom agent
+agent:
+  type: my_custom
+  config:
+    model: azure:gpt-5
+    temperature: 0.8
+    max_tokens: 1500
+    custom_parameter: "custom_value"
 
-3. **Environment System** (`src/prompt_siren/environments/`)
-   - `abstract.py` - Base `Environment` class provides the interface for different execution environments
-   - Environment states (`env_state`) are managed per-task and passed separately from environment
-   - Two-level context management for resource lifecycle:
-     - `create_batch_context()` - Batch-level setup for expensive resources (browsers, servers)
-     - `create_task_context()` - Per-task context with fresh environment state
-   - Environments handle rendering of outputs and injection vector detection
-   - `registry.py` - Environment plugin registration system
-   - Key environments:
-     - `agentdojo/` - AgentDojo environment integration
-     - `playwright.py` - Playwright-based web automation environment
+# Include dataset and attack via defaults
+defaults:
+  - _self_
+  - dataset: agentdojo-workspace
+  - attack: agentdojo
 
-4. **Attack System** (`src/prompt_siren/attacks/`)
-   - `abstract.py` - Base attack abstractions
-   - `InjectionAttack` type defines attack payloads (in `types.py`)
-   - `registry.py` - Attack plugin registration system
-   - Attack implementations:
-     - `nanogcg/gcg.py` - GCG (Greedy Coordinate Gradient) attack
-     - `template_string_attack.py` - Template string-based attacks
-     - `dict_attack.py` - Dictionary-based attacks from config or files
-     - `mini_goat_attack.py` - Mini-GOAT attack implementation
-     - `target_string_attack.py` - Target string-based attacks
-   - `attack_utils.py` provides common utilities
+# Other default settings...
+execution:
+  concurrency: 1
+task_ids: null  # null = all tasks for the execution mode
+output:
+  jobs_dir: "jobs"
+telemetry:
+  trace_console: true
+usage_limits: null
+```
 
-5. **Configuration System** (`src/prompt_siren/config/`)
-   - `experiment_config.py` - Pydantic-based configuration schema defining ExperimentConfig
-   - `export.py` - Configuration export functionality
-   - `exceptions.py` - Configuration-specific exceptions
-   - `registry_bridge.py` - Bridge between Hydra config and plugin systems
-   - `default/` - Default Hydra configuration files
-   - Integrates with Hydra for powerful experiment orchestration
+### 6. Use Custom Agent
 
-6. **Task System** (`src/prompt_siren/tasks.py`)
-   - `Task` - Defines individual tasks with evaluators
-   - `TaskCouple` - Pairs benign and malicious tasks for evaluation
-   - `TaskResult` - Contains execution results and environment state
-   - `TaskEvaluator` - Protocol for task evaluation functions
-   - `EvaluationResult` - Stores evaluation scores from evaluators
-
-7. **Task Runner** (`src/prompt_siren/run.py`)
-   - `run_tasks` orchestrates concurrent task execution
-   - Manages batch and task context lifecycle using two-level context management
-   - Manages concurrency limits and result collection
-   - Integrates agents, datasets, environments, and attacks
-   - Handles task evaluation and result aggregation
-
-8. **CLI Interface** (`src/prompt_siren/cli.py` and `src/prompt_siren/hydra_app.py`)
-   - `cli.py` - Click-based CLI with structured subcommands (config, jobs, run, results)
-   - `hydra_app.py` - Hydra integration for configuration management
-   - Entry point: `prompt_siren` command
-   - Subcommands:
-     - `config export`, `config validate` - Configuration management
-     - `jobs start [benign|attack]` - Start a new job
-     - `jobs resume` - Resume an existing job with optional retry flags
-     - `run [benign|attack]` - Alias for `jobs start`
-     - `results` - Aggregate and display results
-   - Execution mode (benign vs attack) determined by CLI command, not config
-   - Supports parameter overrides and multi-run sweeps via `--multirun`
-   - Job-based experiment tracking with resume/retry capabilities
-
-9. **Telemetry System** (`src/prompt_siren/telemetry/`)
-   - OpenTelemetry instrumentation for observability
-   - Conversation logging capabilities
-   - `formatted_span.py` - Span formatting utilities
-   - `workbench_spans.py` - Workbench-specific span management
-   - `pydantic_ai_processor/` - PydanticAI telemetry integration
-
-10. **Type System** (`src/prompt_siren/types.py`)
-   - Core type definitions for the workbench
-   - `InjectionAttack` and related attack types
-   - `InjectableUserPromptPart`, `InjectableModelRequest` for injection modeling
-   - `AttackConfig`, `AttackMetadata` for attack configuration
-   - Content types: `StrContentAttack`, `BinaryContentAttack`
-
-11. **Plugin System** (`src/prompt_siren/registry_base.py`)
-    - Base registry functionality for plugin management
-    - Supports dynamic component registration via entry points
-    - Each subsystem (agents, attacks, datasets, providers) has its own registry
-    - Flexible design allows components with or without config classes
-
-12. **Provider System** (`src/prompt_siren/providers/`)
-    - `abstract.py` - Defines `AbstractProvider` protocol for model providers
-    - `registry.py` - Provider registry and `infer_model` function
-    - Provider implementations:
-      - `bedrock.py` - AWS Bedrock provider for Anthropic models
-      - `llama.py` - Llama API provider
-    - Providers handle model creation for specific prefixes (e.g., "bedrock:", "llama:")
-    - Read configuration from environment variables (no Pydantic config classes)
-    - Automatically integrated via `infer_model` in agent configuration
-    - Factory functions take no parameters (unlike other components)
-
-13. **Job System** (`src/prompt_siren/job/`)
-    - `models.py` - Job data models (JobConfig, TaskResult, RunIndexEntry, etc.)
-    - `job.py` - Job class for creating, running, and resuming jobs
-    - `persistence.py` - Per-task persistence (save/load results)
-    - `naming.py` - Job naming utilities (sanitize, generate job names)
-    - Jobs are stored in `jobs/<job_name>/` with per-task directories
-
-14. **Supporting Modules**
-    - `tools_utils.py` - Utilities for tool handling
-
-### Task Selection
-
-Task selection is configured via the `task_ids` field in `ExperimentConfig`:
-- `task_ids: null` (default) - Run all tasks appropriate for the execution mode:
-  - Benign mode: all unique benign tasks
-  - Attack mode: all task couples
-- `task_ids: ["task1", "task2"]` - Run specific tasks by ID
-  - Task IDs with `:` are treated as couple IDs (e.g., `"benign_id:malicious_id"`)
-  - Task IDs without `:` are treated as individual task IDs
-- Task selection logic is handled by `get_selected_tasks()` in `hydra_app.py`
-- Execution mode (benign vs attack) is determined by CLI command, not stored in config
-
-### Plugin System
-
-The workbench uses Python entry points for extensibility. Components are registered in `pyproject.toml`:
-
-- **Agent plugins**: `prompt_siren.agents` entry point
-  - `plain` - Plain agent implementation
-
-- **Attack plugins**: `prompt_siren.attacks` entry point
-  - `template_string` - Template string attacks
-  - `agentdojo` - Alias for template_string (backwards compatibility)
-  - `dict` - Dictionary-based attacks from config
-  - `file` - Dictionary-based attacks from file
-  - `mini-goat` - Mini-GOAT attacks
-
-- **Dataset plugins**: `prompt_siren.datasets` entry point
-  - `agentdojo-workspace` - AgentDojo workspace dataset
-  - `swebench` - SWE-bench dataset for code editing benchmarks
-
-- **Provider plugins**: `prompt_siren.providers` entry point
-  - `bedrock` - AWS Bedrock provider for Anthropic models
-  - `llama` - Llama API provider
-  - Note: Providers don't use config classes; they read from environment variables
-
-Plugins can be added by implementing the appropriate protocol and registering via entry points.
-
-### Available Environment Implementations
-
-Environments are not registered as plugins; instead, datasets directly instantiate and own their environment instances:
-
-- **AgentDojoEnv** (`src/prompt_siren/environments/agentdojo_env.py`) - For AgentDojo benchmark suites
-  - Used by: AgentDojo datasets
-  - Features: Snapshottable environment state, placeholder injection, AgentDojo tool integration
-
-- **PlaywrightEnv** (`src/prompt_siren/environments/playwright.py`) - For web automation tasks
-  - Features: Non-snapshottable (uses tool replay), browser automation, webpage interaction
-
-Datasets specify which environment implementation to use and configure it during initialization.
-
-### Key Design Patterns
-
-- **Dependency Injection**: Uses generic types for flexible dependency management
-- **Protocol-based Design**: Uses Python protocols for extensibility
-- **Async-first**: All core operations are asynchronous
-- **Two-level Context Management**: Environments use a two-tier context system:
-  - Batch context for expensive resource setup shared across tasks
-  - Task context for per-task execution with fresh environment state
-- **Plugin Architecture**: Entry points system for component registration
-
-### Testing Structure
-
-- Uses `pytest` with `anyio` for async testing
-- `conftest.py` provides mock environments and fixtures
-- Test files mirror source structure under `tests/`
-
-## Dependencies
-
-### Core Dependencies (always installed)
-- `pydantic-ai-slim[anthropic,bedrock,openai]` - AI framework with model integrations
-- `click` - CLI framework for structured subcommands
-- `hydra-core` - Configuration management and experiment orchestration
-- `hydra-submitit-launcher` - Submitit launcher for Hydra
-- `logfire` - Logging and observability
-- `opentelemetry-api`, `opentelemetry-sdk`, `opentelemetry-exporter-otlp` - Telemetry
-- `omegaconf` - Configuration management
-- `pyyaml` - YAML parsing
-- `aiohttp` - Async HTTP client
-- `filelock` - File locking utilities
-- `pandas` - Data analysis for results aggregation
-
-### Optional Dependencies
-
-Install optional features with: `pip install 'prompt-siren[feature]'`
-
-| Group | Dependencies | Purpose |
-|-------|--------------|---------|
-| `[agentdojo]` | `agentdojo>=0.1.35` | AgentDojo dataset, environment, and attacks |
-| `[swebench]` | `swebench`, `jinja2>=3.1.6` | SWE-bench dataset for code editing benchmarks |
-| `[docker]` | `aiodocker>=0.24.0` | Docker sandbox manager |
-| `[playwright]` | `playwright>=1.54.0` | Web automation environment |
-| `[all]` | All optional deps | Full installation with all features |
-
-**Examples:**
 ```bash
-# Minimal install (core only)
-pip install prompt-siren
+# Use in experiments with config file
+uv run prompt-siren run benign --config-dir=. --config-name=my_custom_agent
 
-# AgentDojo support
-pip install 'prompt-siren[agentdojo]'
+# Use in attack mode
+uv run prompt-siren run attack --config-dir=. --config-name=my_custom_agent
 
-# SWE-bench with Docker sandbox manager
-pip install 'prompt-siren[swebench,docker]'
+# Override agent type and parameters via command line
+uv run prompt-siren run benign +dataset=agentdojo-workspace agent.type=my_custom agent.config.temperature=0.5
 
-# Everything
-pip install 'prompt-siren[all]'
+# Parameter sweep with custom agent
+uv run prompt-siren run benign --multirun +dataset=agentdojo-workspace agent.type=my_custom agent.config.temperature=0.5,0.8,1.0
 ```
-
-### Requirements
-- **Python**: Requires Python 3.10+
-- **Package Manager**: Uses `uv` for dependency management
-- **Platform**: Linux and macOS only (Windows not supported due to sandbox architecture)
-
-## Useful documentation links
-
-Check out these pages before going to a specific page. Navigate the .md links as they are more LLM-friendly.
-
-- PydanticAI: https://ai.pydantic.dev/llms.txt
-- Pydantic: https://docs.pydantic.dev/latest/llms.txt
-- Hydra: https://hydra.cc/docs/intro/
 
 ---
 > Source: [facebookresearch/prompt-siren](https://github.com/facebookresearch/prompt-siren) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
