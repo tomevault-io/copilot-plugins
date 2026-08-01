@@ -4,7 +4,7 @@
   "repo": "mcp-rag-server",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/karaage0703/mcp-rag-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T20:38:59Z"
+  "distributed_at": "2026-08-01T07:32:28Z"
 }
