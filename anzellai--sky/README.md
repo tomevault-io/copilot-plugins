@@ -1,8 +1,6 @@
 # AI instruction files for sky
 
-> Sourced from [anzellai/sky](https://github.com/anzellai/sky) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Sky — an Elm-inspired language that compiles to Go. Hindley-Milner types, server-driven UI (Sky.Live), single binary output.
+> Sourced from [anzellai/sky](https://github.com/anzellai/sky), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [anzellai/sky](https://github.com/anzellai/sky).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [anzellai/sky](https://github.com/anzellai/sky) — a repo with 382+ stars on GitHub.
+From [anzellai/sky](https://github.com/anzellai/sky) — a repo with 428+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-s -->
