@@ -1,8 +1,6 @@
 # sardeenz
 
-> Tome by [rh-aiservices-bu](https://github.com/rh-aiservices-bu/sardeenz) — distributed by [TomeVault](https://tomevault.io)
-
-Sardeenz is a proof-of-concept application that allows you to load more than one model on a given GPU. It allows you to add more and more models onto a GPU, until it is fully utilized.
+> Tome by [rh-aiservices-bu](https://github.com/rh-aiservices-bu/sardeenz), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [rh-aiservices-bu/sardeenz](https://github.com/r
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [rh-aiservices-bu/sardeenz](https://github.com/rh-aiservices-bu/sardeenz) — a repo with 51+ stars on GitHub.
+From [rh-aiservices-bu/sardeenz](https://github.com/rh-aiservices-bu/sardeenz) — a repo with 61+ stars on GitHub.
 
 ---
 
