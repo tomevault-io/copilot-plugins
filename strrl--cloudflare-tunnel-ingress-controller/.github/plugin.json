@@ -1,0 +1,9 @@
+{
+  "name": "strrl--cloudflare-tunnel-ingress-controller",
+  "displayName": "cloudflare-tunnel-ingress-controller",
+  "description": "cloudflare-tunnel-ingress-controller",
+  "version": "1.0.0",
+  "author": "STRRL",
+  "homepage": "https://github.com/STRRL/cloudflare-tunnel-ingress-controller",
+  "skills": []
+}
