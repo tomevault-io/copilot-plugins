@@ -1,8 +1,6 @@
 # awesome-pi-agent
 
-> Source: [qualisero/awesome-pi-agent](https://github.com/qualisero/awesome-pi-agent) — distributed by [TomeVault](https://tomevault.io)
-
-Awesome list of add-ons, hooks, tools, skills, and resources for the pi coding agent (pi-mono).
+> Source: [qualisero/awesome-pi-agent](https://github.com/qualisero/awesome-pi-agent). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [qualisero/awesome-pi-agent](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/qualisero/awesome-pi-agent](https://github.com/qualisero/awesome-pi-agent)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/qualisero/awesome-pi-agent](https://github.com/qualisero/awesome-pi-agent)
 
 ---
 
