@@ -1,32 +1,60 @@
 ## beadwork
 
-> Beadwork is a git-native work management tool built for AI coding agents. Issues are JSON files stored on a dedicated `beadwork` branch — no external service, no API keys, no network dependency. Sync is just `git push`.
+> Design requirements for the agents snippet (`prompts/agents.md`).
 
-# Beadwork
+# agents.md
 
-Beadwork is a git-native work management tool built for AI coding agents. Issues are JSON files stored on a dedicated `beadwork` branch — no external service, no API keys, no network dependency. Sync is just `git push`.
+Design requirements for the agents snippet (`prompts/agents.md`).
 
-## Why it exists
+For end goals, prompt architecture, and experimentation methodology,
+see [`prompts.md`](prompts.md).
 
-AI agents lose context constantly — compaction, session boundaries, crashes. Beadwork gives agents durable state that survives all of these. An agent can checkpoint progress, record decisions, and pick up exactly where it left off in a new session.
+This snippet is added to the agent's instructions file (CLAUDE.md, GEMINI.md,
+etc.) and lives permanently in the repo. It is the first thing an agent sees
+about beadwork — often before it has any other context about the project's
+workflow.
 
-## How it works
+1. **Be minimal.** This is a pointer, not documentation. The full workflow lives
+   in `bw prime`. Anything explained here that is also in prime creates
+   duplication that can drift. Keep this to what the agent needs to know
+   *before* it runs prime.
 
-`bw init` adds a `beadwork` branch to any git repo. Issues live there as JSON files with status, priority, dependencies, labels, comments, and parent/child relationships. The CLI (`bw`) is the only interface — agents use it the same way a human would.
+2. **Establish the core value proposition in one sentence.** The agent needs to
+   understand *why* beadwork exists (durability across context loss) so it
+   can make a reasonable decision about when to use it vs. its built-in tools.
 
-Key commands: `bw create`, `bw ready` (find unblocked work), `bw start` (claim a task), `bw close`, `bw sync`. Every command supports `--help`.
+3. **Use imperative + consequences to trigger prime.** "ALWAYS run `bw prime`
+   before starting work. Without it, you're missing workflow context, current
+   state, and repo hygiene warnings." — this is the minimum effective wording.
+   Softer forms ("run it at the start of every session", "fastest path to
+   productive work") are evaluated as suggestions and skipped. The ALWAYS +
+   consequences pattern matches the plan-mode override finding (bw-g6n):
+   imperative force + rationale together are load-bearing. Tested on both
+   Opus and Sonnet. See bw-86r.
 
-## Repo structure
+4. **Grant permission to land work.** Agents often have system-level instructions
+   that prevent committing or pushing without explicit user permission. This
+   snippet needs to establish, as project policy, that committing, closing
+   issues, and syncing are expected parts of completing a task — not actions
+   that require separate authorization.
 
-- `cmd/bw/` — CLI entry point and all subcommands
-- `internal/` — core packages: `issue`, `repo`, `intent`, `template`, `treefs`, `wrap`
-- `prompts/` — prompt templates embedded into the binary (`prime.md`, `start.md`, `agents.md`, `onboard.md`)
-- `test/` — acceptance test harness
+5. **Be agent-agnostic, but use the right file.** `bw onboard` should not
+   assume Claude Code. The snippet works in any agent instructions file
+   (CLAUDE.md, GEMINI.md, COPILOT.md, etc.). But the file must be one the
+   agent actually reads — AGENTS.md is not recognized by Claude Code and
+   instructions placed there are invisible. Tested: 0/6 activation with
+   AGENTS.md, 2/2 with CLAUDE.md. See bw-86r.
 
-## Agent onboarding
+6. **Survive copy-paste.** This is printed by `bw onboard` and pasted into a
+   project file. It should be self-contained, need no surrounding context,
+   and read correctly as a standalone section in any agent instructions file.
 
-When a project adopts beadwork, `bw onboard` prints a snippet (sourced from `prompts/agents.md`) for the user to add to their `AGENTS.md` or `CLAUDE.md`. That snippet points agents at `bw prime`, which delivers full workflow context dynamically.
+7. **Don't duplicate prime.** Policy like "every change gets a ticket" or
+   "start with bw ready" belongs in prime, not here. The boot loader's job
+   is to get the agent to load the prime — once prime runs, the agent has
+   everything it needs. Duplicating guidance here creates drift and wastes
+   the always-in-context token budget.
 
 ---
 > Source: [jallum/beadwork](https://github.com/jallum/beadwork) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
