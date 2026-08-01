@@ -1,0 +1,9 @@
+{
+  "name": "boeing--config-file-validator",
+  "displayName": "config-file-validator",
+  "description": "config-file-validator",
+  "version": "1.0.0",
+  "author": "Boeing",
+  "homepage": "https://github.com/Boeing/config-file-validator",
+  "skills": []
+}
