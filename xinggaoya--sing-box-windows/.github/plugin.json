@@ -1,7 +1,7 @@
 {
   "name": "xinggaoya--sing-box-windows",
   "displayName": "sing-box-windows",
-  "description": "\ud83d\ude80 \u73b0\u4ee3\u5316 sing-box \u8de8\u5e73\u53f0\u684c\u9762\u5ba2\u6237\u7aef\uff5c\u8ba2\u9605\u5bfc\u5165\u30fb\u4ee3\u7406\u6a21\u5f0f\u5207\u6362\u30fb\u8fd0\u884c\u6001\u76d1\u63a7\uff5c\ud83e\ude9f Windows / \ud83d\udc27 Linux / \ud83c\udf4e macOS\u3002 Modern sing-box desktop client for subscriptions, proxy switching, and runtime monitoring.",
+  "description": "sing-box-windows",
   "version": "1.0.0",
   "author": "xinggaoya",
   "homepage": "https://github.com/xinggaoya/sing-box-windows",
