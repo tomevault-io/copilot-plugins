@@ -1,8 +1,6 @@
 # ai-driven-development
 
-> Source: [CodeAlive-AI/ai-driven-development](https://github.com/CodeAlive-AI/ai-driven-development) — distributed by [TomeVault](https://tomevault.io)
-
-Practices, protocols, and skills for AI-driven software development. 18 skills + 1 Bash safety hook for Claude Code, Codex CLI, OpenCode, Cursor, Gemini CLI, Antigravity, and any agent supporting the Agent Skills standard.
+> Source: [CodeAlive-AI/ai-driven-development](https://github.com/CodeAlive-AI/ai-driven-development). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [CodeAlive-AI/ai-driven-development](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [CodeAlive-AI/ai-driven-development](https://github.com/CodeAlive-AI/ai-driven-development) — a repo with 36+ stars on GitHub.
+From [CodeAlive-AI/ai-driven-development](https://github.com/CodeAlive-AI/ai-driven-development) — a repo with 103+ stars on GitHub.
 
 ---
 
