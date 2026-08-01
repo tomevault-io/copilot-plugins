@@ -1,8 +1,6 @@
 # gdal-mcp
 
-> Source: [JordanGunn/gdal-mcp](https://github.com/JordanGunn/gdal-mcp) — distributed by [TomeVault](https://tomevault.io)
-
-Model Context Protocol server that packages GDAL-style geospatial workflows through Python-native libraries (Rasterio, GeoPandas, PyProj, etc.) to give AI agents catalog discovery, metadata intelligence, and raster/vector processing with built-in reasoning guidance and reference resources.
+> Source: [JordanGunn/gdal-mcp](https://github.com/JordanGunn/gdal-mcp). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [JordanGunn/gdal-mcp](https://github.com/JordanG
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [JordanGunn/gdal-mcp](https://github.com/JordanGunn/gdal-mcp) — a repo with 68+ stars on GitHub.
+From [JordanGunn/gdal-mcp](https://github.com/JordanGunn/gdal-mcp) — a repo with 73+ stars on GitHub.
 
 ---
 
