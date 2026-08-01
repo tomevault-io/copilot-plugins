@@ -1,0 +1,9 @@
+{
+  "name": "apache--apisix",
+  "displayName": "apisix",
+  "description": "apisix",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/apisix",
+  "skills": []
+}
