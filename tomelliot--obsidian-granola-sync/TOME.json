@@ -2,9 +2,9 @@
   "name": "obsidian-granola-sync",
   "owner": "tomelliot",
   "repo": "obsidian-granola-sync",
-  "description": "Sync Granola notes to your Obsidian vault",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tomelliot/obsidian-granola-sync",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T13:50:08Z"
+  "distributed_at": "2026-08-01T13:24:59Z"
 }
