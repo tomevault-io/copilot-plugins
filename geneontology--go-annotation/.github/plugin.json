@@ -1,0 +1,9 @@
+{
+  "name": "geneontology--go-annotation",
+  "displayName": "go-annotation",
+  "description": "go-annotation",
+  "version": "1.0.0",
+  "author": "geneontology",
+  "homepage": "https://github.com/geneontology/go-annotation",
+  "skills": []
+}
