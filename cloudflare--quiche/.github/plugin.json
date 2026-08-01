@@ -1,0 +1,9 @@
+{
+  "name": "cloudflare--quiche",
+  "displayName": "quiche",
+  "description": "quiche",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/quiche",
+  "skills": []
+}
