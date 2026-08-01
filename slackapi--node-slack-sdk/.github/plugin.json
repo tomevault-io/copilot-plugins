@@ -1,0 +1,9 @@
+{
+  "name": "slackapi--node-slack-sdk",
+  "displayName": "node-slack-sdk",
+  "description": "node-slack-sdk",
+  "version": "1.0.0",
+  "author": "slackapi",
+  "homepage": "https://github.com/slackapi/node-slack-sdk",
+  "skills": []
+}
