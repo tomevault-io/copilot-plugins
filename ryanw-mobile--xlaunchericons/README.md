@@ -1,6 +1,6 @@
 # XLauncherIcons
 
-> Source: [ryanw-mobile/XLauncherIcons](https://github.com/ryanw-mobile/XLauncherIcons). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [ryanw-mobile/XLauncherIcons](https://github.com/ryanw-mobile/XLauncherIcons). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
