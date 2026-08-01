@@ -1,0 +1,9 @@
+{
+  "name": "python-openapi--openapi-schema-validator",
+  "displayName": "openapi-schema-validator",
+  "description": "openapi-schema-validator",
+  "version": "1.0.0",
+  "author": "python-openapi",
+  "homepage": "https://github.com/python-openapi/openapi-schema-validator",
+  "skills": []
+}
