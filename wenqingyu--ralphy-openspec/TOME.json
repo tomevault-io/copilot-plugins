@@ -2,7 +2,7 @@
   "name": "ralphy-openspec",
   "owner": "wenqingyu",
   "repo": "ralphy-openspec",
-  "description": "Ralph loop + OpenSpec integration for Cursor, OpenCode and ClaudeCode heavy lifting.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wenqingyu/ralphy-openspec",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T03:08:28Z"
+  "distributed_at": "2026-08-01T09:34:08Z"
 }
