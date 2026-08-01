@@ -1,8 +1,6 @@
 # glimpser
 
-> Tome by [KristopherKubicki](https://github.com/KristopherKubicki/glimpser) — distributed by [TomeVault](https://tomevault.io)
-
-a simple tool for real-time monitoring video and summarization with LLMs
+> Tome by [KristopherKubicki](https://github.com/KristopherKubicki/glimpser), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [KristopherKubicki/glimpser](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [KristopherKubicki/glimpser](https://github.com/KristopherKubicki/glimpser) — a repo with 33+ stars on GitHub.
+From [KristopherKubicki/glimpser](https://github.com/KristopherKubicki/glimpser) — a repo with 34+ stars on GitHub.
 
 ---
 
