@@ -1,6 +1,6 @@
 # AI instruction files for siomon
 
-> Sourced from [level1techs/siomon](https://github.com/level1techs/siomon) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [level1techs/siomon](https://github.com/level1techs/siomon), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [level1techs/siomon](https://github.com/level1te
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [level1techs/siomon](https://github.com/level1techs/siomon) — a repo with 223+ stars on GitHub.
+From [level1techs/siomon](https://github.com/level1techs/siomon) — a repo with 301+ stars on GitHub.
 
 ---
 
