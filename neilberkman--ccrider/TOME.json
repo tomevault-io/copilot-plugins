@@ -2,9 +2,9 @@
   "name": "ccrider",
   "owner": "neilberkman",
   "repo": "ccrider",
-  "description": "Search, browse, and resume your Claude Code sessions. Fast.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/neilberkman/ccrider",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T15:58:24Z"
+  "distributed_at": "2026-08-01T12:01:14Z"
 }
