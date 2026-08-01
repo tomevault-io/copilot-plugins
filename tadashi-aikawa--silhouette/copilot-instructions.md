@@ -1,0 +1,53 @@
+## silhouette
+
+> - `src/` TypeScript/Svelte sources
+
+# Repository Guidelines
+
+## Project Structure & Modules
+- `src/` TypeScript/Svelte sources
+  - `app/` services, orchestration (e.g., `TimerServiceImpl.ts`)
+  - `repository/` data access abstractions/impls
+  - `domain/` domain value objects
+  - `ui/` view models and helpers
+  - `component/` Svelte components (e.g., `RepetitionTaskView.svelte`)
+  - `utils/` pure utilities with tests
+- Root assets: `main.js`, `styles.css`, `manifest*.json`
+- Config: `esbuild.config.mts`, `tsconfig.json`, `jest.config.js`, `.prettierrc`
+
+## Build, Test, Dev
+- Install: `bun ci`
+- Dev (watch + copy to Obsidian vault): `bun run dev`
+  - Update `VAULT_DIR` in `esbuild.config.mts` to your local vault path.
+- Build (typecheck + bundle): `bun run build`
+- Test (Bun): `bun run test`
+- CI (install + build + test): `bun run ci`
+
+## Coding Style & Naming
+- Language: TypeScript (strict), Svelte 4; CommonJS bundle target `es2018`.
+- Formatting: Prettier with `prettier-plugin-svelte` and organize-imports. Run your editor’s Prettier on save.
+- Indentation: 2 spaces; EOL: LF (`.editorconfig`).
+- Filenames: `camelCase` for modules (`timerService.ts`), `PascalCase` for classes and Svelte components, `kebab-case` for assets.
+- Keep functions small and pure in `utils/`; side effects from `app/` or `repository/` layers.
+
+## Testing Guidelines
+- Location: colocate as `*.test.ts` next to sources (see `src/utils/*.test.ts`).
+- Scope: fast, unit-level tests for utils/services; avoid Obsidian runtime in unit tests.
+- Run: `bun run test`. Add cases for edge dates/offset rules.
+
+## Commit & PR Guidelines
+- Conventional Commits; examples:
+  - `feat: add repetition range parser`
+  - `fix: handle non workday offset`
+  - `style: format Svelte components`
+- PRs: clear description, link issues, include screenshots/GIFs for UI changes (put under `resources/`), note manual test steps. Keep changes focused.
+- Releases are automated via semantic‑release on `master` (no `v` prefix tags).
+
+## Security & Configuration
+- Never commit personal vault paths. Keep only the placeholder constant in `esbuild.config.mts`.
+- Do not include vault data in tests or repo. 
+- Target Bun ≥ 1.1; Node types are used for tooling only.
+
+---
+> Source: [tadashi-aikawa/silhouette](https://github.com/tadashi-aikawa/silhouette) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
