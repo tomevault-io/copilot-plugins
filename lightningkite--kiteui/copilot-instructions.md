@@ -1,251 +1,72 @@
 ## kiteui
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> - Use `textInput` instead of `textField` (deprecated)
 
-# CLAUDE.md
+# KiteUI Coding Guidelines
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Deprecated Functions and Their Replacements
 
-## View architecture (RView → Element split, completed)
+### Input Fields
+- Use `textInput` instead of `textField` (deprecated)
+- Use `numberInput` instead of `numberField` (deprecated)
 
-The RView → Element/NativeElement refactoring has **landed**; the codebase builds. `RView` no
-longer exists. See [MIGRATION.md](MIGRATION.md) for the rationale and historical migration notes.
+## View Modifiers
 
-**The model in effect:**
-- `Element` (interface) + `NativeElement` (platform implementation) replace the old `RView`
-- `ElementContext` replaces `RContext`
-- `ElementWriter` replaces `ViewWriter` and enforces modifier ordering at compile time
-- Modifier order enforced by the type system: `alignment → weight → shownWhen → sizing → theme → scrolling → element`
+### Alignment
+- Use `align(horizontal, vertical)` instead of `gravity(horizontal, vertical)` (deprecated)
+- Use `centered` as a shortcut for `align(Align.Center, Align.Center)`
 
-## Project Overview
+### Visibility
+- Use `shownWhen(condition = { ... })` instead of `onlyWhen(condition = { ... })` (deprecated)
 
-KiteUI is a Kotlin Multiplatform UI framework inspired by Solid.js that uses native view components on each platform (Android, iOS, JVM, JS/Web). It emphasizes small binary sizes, fine-grained reactivity, semantic theming, and URL-based navigation for web compatibility.
+## Reactivity
 
-**Key Design Principles:**
-- Uses fine-grained reactivity based on Solid.js (not Compose-style recomposition)
-- Navigation is URL-based for web compatibility
-- Semantic theming system (not direct styling)
-- Platform-native view components (not canvas rendering)
-- Custom lightweight network client (not Ktor for production)
+### Accessing Property Values
+- Use direct invocation syntax `property()` instead of `property.await()` (deprecated)
+- Example: `text { reactiveScope { content = "Value: " + myProperty() } }`
 
-## Project Structure
+### Reactive Binding
+- Two ways to handle reactivity:
+  1. Using `reactiveScope { content = "property = ${property()}" }`
+  2. Using `::content { "property = ${property()}" }`
 
-This is a multi-module Gradle project:
+### Creating Derived Properties
+- Use `shared { ... }` for creating derived properties
+- Example: `val derived = shared { propertyA() + propertyB() }`
 
-- **library/** - Core KiteUI framework code
-  - `src/commonMain/` - Platform-independent code
-  - `src/androidMain/`, `src/iosMain/`, `src/jsMain/`, `src/jvmMain/` - Platform-specific implementations
-  - Key packages:
-    - `views/` - View components and modifiers
-    - `navigation/` - Routing and page system
-    - `reactive/` - Reactive state management
-    - `models/` - Theme, styling, and data models
-- **example-app/** - Demo application showcasing KiteUI features
-- **gradle-plugin/** - Gradle plugin for KiteUI projects
-- **buildSrc/** - Build configuration utilities
+## View Construction
 
-## Development Commands
+### Prefix vs Postfix Style
+Both styles are valid, choose based on readability in context:
+- Prefix style (using dash): `important - button { text("Hello World") }`
+- Postfix style (using 'in'): `button { text("Hello World") } in important`
 
-### Building
-```bash
-# Build all modules
-./gradlew build
-
-# Build specific module
-./gradlew :library:build
-./gradlew :example-app:build
-
-# Publish to Maven Local
-./gradlew publishToMavenLocal
-```
-
-### Testing
-
-See **[docs/TESTING_GUIDE.md](docs/TESTING_GUIDE.md)** for the full guide including prerequisites, gotchas, and how to write tests.
-
-```bash
-# Fastest — no external tools needed
-./gradlew :example-app:jvmSsrTest
-
-# Android (Robolectric, no device needed)
-./gradlew :example-app:testDebugUnitTest
-
-# iOS (requires running Simulator)
-./gradlew :example-app:iosSimulatorArm64Test
-
-# JS/Web (requires Chrome)
-./gradlew :example-app:jsBrowserTest
-
-# All platforms at once
-./gradlew :example-app:allTests
-
-# Filter to a specific test class (JVM SSR and Android only)
-./gradlew :example-app:jvmSsrTest --tests "*.MyTestClass"
-./gradlew :example-app:testDebugUnitTest --tests "*.MyTestClass"
-```
-
-Substitute `:library:` for `:example-app:` to run library tests instead.
-
-### Running Example App
-```bash
-# Run JS/Web version with Vite (development)
-# IMPORTANT: Always use Gradle tasks to run the dev server, NOT manual HTTP servers
-./gradlew :example-app:viteRun
-
-# Run JS/Web version (production build)
-# Use run configuration: "ExampleJSRun prod"
-
-# Run Android version
-# Use Android run configuration: "example-app"
-
-# Run JVM version
-./gradlew :example-app:jvmRun
-```
-
-**Note for Claude:** When testing JS/Web changes, always use `./gradlew :example-app:viteRun` to start the dev server. Do NOT use Python HTTP servers or other manual servers - they don't handle SPA routing correctly.
-
-### Publishing
-```bash
-# Publish to LightningKite repository
-./gradlew publishAllPublicationsToLightningKiteRepository
-```
-
-## Architecture Patterns
-
-### Pages and Navigation
-
-Pages implement the `Page` interface and are annotated with `@Routable`:
-
+### Nesting Components
+When nesting components with multiple modifiers, use the postfix style with 'in' for better readability:
 ```kotlin
-@Routable("your/path")
-object YourPage : Page {
-    override fun ElementWriter.CanAddTheme.render(): Unit = run {
-        // UI code
-    }
-}
+glassFrame {
+    centered - text("Glass Frame")
+} in align(Align.Center, Align.Center) in sizeConstraints(width = 200.px, height = 100.px)
 ```
 
-For pages with parameters:
+## Best Practices
+
+### Card Usage
+When adding text to a card, prefer the postfix style:
 ```kotlin
-@Routable("items/{id}")
-class ItemDetailPage(val id: String) : Page {
-    override fun ElementWriter.CanAddTheme.render(): Unit = run {
-        // Access id parameter
-    }
-}
+text("Content") in card
 ```
-
-Navigate using `context.pageNavigator.navigate(SomePage)` or use `link` components.
-
-### ViewWriter and Component Creation
-
-UI is built using `ViewWriter` extension functions. Components return `Unit` for modifier chaining:
-
+Instead of:
 ```kotlin
-fun ViewWriter.myComponent(): Unit = col {
-    text("Hello")
-    button {
-        text("Click me")
-    }
-}
+card - text("Content")
 ```
 
-Common containers: `row`, `col`, `frame`, `rowCollapsingToColumn`
-
-### Modifiers
-
-Modifiers are applied with the `-` operator. Order matters: Position > Visibility > Scroll > Theme
-
+### String Concatenation
+When displaying property values in text, use string concatenation instead of string templates:
 ```kotlin
-centered - scrolling - card - col {
-    // content
-}
+content = "Value: " + property().toString()
 ```
-
-Common modifiers:
-- Layout: `centered`, `expanding`, `weight(f)`, `sizeConstraints(...)`
-- Spacing: `padded`
-- Scrolling: `scrolling`
-- Theme: `card`, `important`, `fieldTheme`, etc.
-
-### Reactivity System
-
-KiteUI uses fine-grained reactivity, not recomposition:
-
-**Property** - Basic reactive container:
-```kotlin
-val email = Property("")
-textInput { content bind email }
-```
-
-**Reactive functions** - Auto-update when dependencies change:
-```kotlin
-text {
-    ::content { "Email: ${email()}" }
-}
-```
-
-**shared** - Cached computed value:
-```kotlin
-val fullName = shared { "${firstName()} ${lastName()}" }
-```
-
-**LazyProperty** - Computed value that can be overridden:
-```kotlin
-val calculated = LazyProperty { base() * multiplier() }
-calculated.value = 100.0  // Override
-calculated.reset()        // Back to calculation
-```
-
-**LateInitProperty** - For values not available at declaration:
-```kotlin
-val userData = LateInitProperty<UserData>()
-// Components show loading until value is set
-userData.value = fetchedData
-```
-
-### Theming
-
-Apply semantic themes via modifiers. Switching themes creates backgrounds/cards. Switching to the same theme does NOT create a card (use explicit `card` modifier).
-
-```kotlin
-important - button { text("Important") }
-card - col { /* content */ }
-```
-
-Theme switches should typically be applied to containers (`col`, `row`, `frame`, `button`), not individual elements.
-
-### Component Guidelines (from GoodKiteuiCode.md)
-
-- Components should take minimal parameters unique to each usage
-- Components should load their own data for easier debugging
-- Only create reusable components; single-use components should be inlined
-- Modifier order: Position > Visibility > Scroll > Theme
-
-## Key Files to Reference
-
-- **[MIGRATION.md](MIGRATION.md)** - RView → Element split rationale and historical migration notes
-- **GoodKiteuiCode.md** - Best practices for creating pages and components
-- **ThemeRules.md** - Rules for semantic theming behavior
-- **example-app/src/commonMain/kotlin/com/lightningkite/mppexampleapp/docs/CheatSheet.kt** - Comprehensive examples of all components and modifiers
-- **library/src/commonMain/kotlin/com/lightningkite/kiteui/navigation/Page.kt** - Page interface
-- **library/src/commonMain/kotlin/com/lightningkite/kiteui/views/ElementWriter.kt** - Core ElementWriter interface
-- **library/src/commonMain/kotlin/com/lightningkite/kiteui/views/Element.kt** - Core Element interface
-
-## Platform Targets
-
-- **Android** - Min SDK varies, uses native Android views
-- **iOS** - Deployment target 14.0, uses CocoaPods
-- **JVM** - Desktop/server support
-- **JS** - Web target with Vite bundling
-
-## Current Branch Strategy
-
-- `version-8-*` - Current development line (where the RView → Element split landed)
-- `version-6` - Previous major version; current base for PRs
-- The `view-split` migration is complete and merged — the codebase builds. See [MIGRATION.md](MIGRATION.md)
-  for the historical record.
 
 ---
 > Source: [lightningkite/kiteui](https://github.com/lightningkite/kiteui) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
