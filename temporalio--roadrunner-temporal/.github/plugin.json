@@ -1,0 +1,9 @@
+{
+  "name": "temporalio--roadrunner-temporal",
+  "displayName": "roadrunner-temporal",
+  "description": "roadrunner-temporal",
+  "version": "1.0.0",
+  "author": "temporalio",
+  "homepage": "https://github.com/temporalio/roadrunner-temporal",
+  "skills": []
+}
