@@ -1,6 +1,6 @@
 # cryoet-data-portal
 
-> Source: [chanzuckerberg/cryoet-data-portal](https://github.com/chanzuckerberg/cryoet-data-portal). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [chanzuckerberg/cryoet-data-portal](https://github.com/chanzuckerberg/cryoet-data-portal). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
