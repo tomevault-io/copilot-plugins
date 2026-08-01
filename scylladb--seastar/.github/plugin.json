@@ -1,0 +1,9 @@
+{
+  "name": "scylladb--seastar",
+  "displayName": "seastar",
+  "description": "seastar",
+  "version": "1.0.0",
+  "author": "scylladb",
+  "homepage": "https://github.com/scylladb/seastar",
+  "skills": []
+}
