@@ -1,0 +1,9 @@
+{
+  "name": "gitpod-io--gitpod-vscode-desktop",
+  "displayName": "gitpod-vscode-desktop",
+  "description": "gitpod-vscode-desktop",
+  "version": "1.0.0",
+  "author": "gitpod-io",
+  "homepage": "https://github.com/gitpod-io/gitpod-vscode-desktop",
+  "skills": []
+}
