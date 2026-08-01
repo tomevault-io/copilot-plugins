@@ -1,338 +1,265 @@
 ## lightrag
 
-> LightRAG is a Retrieval-Augmented Generation (RAG) framework that uses graph-based knowledge representation for enhanced information retrieval. The system extracts entities and relationships from documents, builds a knowledge graph, and uses multiple retrieval modes (`local`, `global`, `hybrid`, `mix`, `naive`) for queries.
+> LightRAG is a mature, production-ready Retrieval-Augmented Generation (RAG) system with comprehensive knowledge graph capabilities. The system has evolved from experimental to production-ready status with extensive functionality across all major components.
 
-# Repository Guidelines
+# LightRAG Project Intelligence (.clinerules)
 
 ## Project Overview
+LightRAG is a mature, production-ready Retrieval-Augmented Generation (RAG) system with comprehensive knowledge graph capabilities. The system has evolved from experimental to production-ready status with extensive functionality across all major components.
 
-LightRAG is a Retrieval-Augmented Generation (RAG) framework that uses graph-based knowledge representation for enhanced information retrieval. The system extracts entities and relationships from documents, builds a knowledge graph, and uses multiple retrieval modes (`local`, `global`, `hybrid`, `mix`, `naive`) for queries.
+## Current System State (August 15, 2025)
+- **Status**: Production Ready - Stable and Mature
+- **Configuration**: Gemini 2.5 Flash + BAAI/bge-m3 embeddings via custom endpoints
+- **Storage**: Default in-memory with file persistence (JsonKVStorage, NetworkXStorage, NanoVectorDBStorage)
+- **Language**: Chinese for summaries
+- **Workspace**: `space1` for data isolation
+- **Authentication**: JWT-based with admin/user accounts
 
-## Project Structure
+## Critical Implementation Patterns
 
-Top-level directories:
-
-- **lightrag/**: Core Python package — see *Module Layout* below.
-- **lightrag_webui/**: React 19 + TypeScript client (Bun + Vite + Tailwind). UI components in `src/`.
-- **scripts/**: `test.sh` (preferred test runner), `setup/` interactive environment wizard (use `make env-*` rather than calling `setup.sh` directly — see *Configuration > Setup Wizard Outputs*), and release tooling.
-- **tests/**: Pytest coverage, organized into subdirectories that mirror `lightrag/` (see *Testing* below for layout). Working datasets stay in `inputs/`, `rag_storage/`, and `temp/`; deployment collateral lives in `docs/`, `k8s-deploy/`, and compose files.
-
-### Module Layout (`lightrag/`)
-
-- **lightrag.py**: Main orchestrator class (`LightRAG`) — assembled from mixins (see *LightRAG class composition*). Hosts `ainsert_custom_kg`, `_insert_done`, `_process_extract_entities`, `_refresh_addon_params_cache`, and `addon_params` accessors. Critical: always call `await rag.initialize_storages()` after instantiation.
-- **pipeline.py**: `_PipelineMixin` — owns the document ingestion pipeline (`apipeline_enqueue_documents`, `apipeline_process_enqueue_documents`, `apipeline_process_error_documents`), the `parse_native` / `parse_mineru` / `parse_docling` parser dispatchers, multimodal analysis, validation, and the worker scaffolding.
-- **utils_pipeline.py**: Pure helpers shared by the pipeline mixin and other entry points: doc-status field access, document identity (source key, content hash), parsed-artifact path resolution, parser payload normalization, multimodal entity augmentation, and `make_lightrag_doc_content`.
-- **llm_roles.py**: `RoleSpec` / `RoleLLMConfig` / `_RoleLLMState` / `ROLES` registry plus `_RoleLLMMixin` — role normalization, builder registration, wrapper rebuild, runtime config update, queue cleanup, sanitized config export, queue status reporting. Route role-specific behavior here rather than into provider modules.
-- **storage_migrations.py**: `_StorageMigrationMixin` — `check_and_migrate_data`, `_migrate_entity_relation_data`, `_migrate_chunk_tracking_storage`.
-- **addon_params.py**: `ObservableAddonParams` plus `default_addon_params` / `normalize_addon_params` helpers.
-- **operate.py**: Core extraction and query operations including entity/relation extraction, chunking, and multi-mode retrieval logic.
-- **base.py**: Abstract base classes for storage backends (`BaseKVStorage`, `BaseVectorStorage`, `BaseGraphStorage`, `BaseDocStatusStorage`).
-- **kg/**: Storage implementations (JSON, NetworkX, Neo4j, PostgreSQL, MongoDB, Redis, Milvus, Qdrant, Faiss, Memgraph, OpenSearch, NanoVectorDB). The backend registry (`STORAGE_IMPLEMENTATIONS` / `STORAGES`) lives in `kg/__init__.py`; `kg/factory.py::get_storage_class()` resolves backend classes from configuration.
-- **llm/**: LLM and embedding provider bindings (OpenAI, Ollama, Azure, Gemini, Bedrock, Anthropic, etc.). All async with caching support.
-- **parser/**: Unified parsing layer. `parser/routing.py` resolves engine and filename hints for `legacy`, `native`, `mineru`, and `docling` flows; `parser/debug.py` provides an offline LightRAG stub for the `parser/cli.py` debug entry point (`python -m lightrag.parser.cli`). Native format parsers live as sibling sub-packages under `parser/` (currently `parser/docx/`); external HTTP-based adapters live under `parser/external/` (`mineru`, `docling`) with shared helpers in `parser/external/_common.py`, `_manifest.py`, `_zip.py`.
-- **chunker/**: Chunking strategies (token-size, recursive character, semantic vector, paragraph semantic).
-- **api/**: FastAPI service (`lightrag_server.py`) with REST endpoints and Ollama-compatible API; routers under `routers/`, static Swagger assets, packaged WebUI output, and Gunicorn launcher.
-
-## Core Architecture
-
-### LightRAG class composition
-
-`LightRAG` is assembled from focused mixins (split out of the previously monolithic `lightrag.py`):
-
-```
-LightRAG → _RoleLLMMixin → _StorageMigrationMixin → _PipelineMixin → object
-```
-
-The `@final` decorator on `LightRAG` is preserved — the mixin layering is an internal implementation detail, not an external subclassing surface. The public API (`ainsert`, `aquery`, `ainsert_custom_kg`, `initialize_storages`, etc.) is unchanged. `ainsert_custom_kg` and its internal construction logic, `_insert_done`, `_process_extract_entities`, `_refresh_addon_params_cache`, and the `addon_params` property accessors stay on `LightRAG` itself because they cut across multiple flows or depend on prompt-profile state.
-
-### Storage Layer
-
-LightRAG uses 4 storage types with pluggable backends:
-- **KV_STORAGE**: LLM response cache, text chunks, document info
-- **VECTOR_STORAGE**: Entity/relation/chunk embeddings
-- **GRAPH_STORAGE**: Entity-relation graph structure
-- **DOC_STATUS_STORAGE**: Document processing status tracking
-
-Each `LightRAG` instance can pass a `workspace` parameter for data isolation. Implementation differs per storage type:
-- **File-based**: subdirectories under `working_dir`.
-- **Collection-based**: collection name prefixes.
-- **Relational DB**: workspace column filtering.
-- **Qdrant**: payload-based partitioning.
-
-### Pipeline concurrency contract
-
-The document ingestion pipeline coordinates concurrent writers through `pipeline_status` (a per-workspace shared dict in `lightrag.kg.shared_storage`). These fields are mutated under `get_namespace_lock("pipeline_status", workspace=...)`:
-
-- **`busy`**: any pipeline-busy state. Set by both the processing loop AND destructive jobs (clear / per-doc delete). On its own, `busy=True` does NOT block enqueue — see `destructive_busy` for the exclusive subset.
-- **`destructive_busy`**: the busy job is `/documents/clear` or `/documents/{doc_id}` (delete). These DROP storages and remove input files; a concurrent enqueue accepted in this window would write to storage being torn down and silently lose the document. Reservation and the enqueue last-line guard reject when this is True.
-- **`scanning`**: a `/documents/scan` task is running (whole lifecycle: classification + processing). Used by the `/scan` endpoint to refuse overlapping scans. Does NOT on its own block uploads/inserts.
-- **`scanning_exclusive`**: True only during the scan task's classification phase, when `run_scanning_process` is reading `doc_status` to classify files (PROCESSED → archive, FAILED-without-`full_docs` → retry-as-new, etc.) and possibly deleting stale stubs. Reservation and the enqueue last-line guard reject when this is set. Cleared before the scan transitions to its processing phase, allowing concurrent uploads to land while scan-driven processing finishes.
-- **`pending_enqueues`**: count of `/upload`, `/text`, `/texts` endpoints that have reserved a slot (via `_reserve_enqueue_slot`) but whose bg task has not yet completed. Only the scan endpoint reads this — to refuse starting while uploads are mid-flight.
-- **`request_pending`**: a nudge to the running processing loop. Set by either (a) `apipeline_process_enqueue_documents` when called while `busy=True` or (b) `apipeline_enqueue_documents` after writing to `doc_status` while `busy=True`. The loop checks it after each batch and re-queries `doc_status` if set.
-
-Mutual-exclusion rules (all checked atomically inside the lock):
-
-| Operation | Refuses if | Writes |
-|---|---|---|
-| `_reserve_enqueue_slot` | `scanning_exclusive` or `destructive_busy` | `pending_enqueues++` |
-| `apipeline_enqueue_documents` (last-line guard) | (`scanning_exclusive` and not `from_scan`) or `destructive_busy` | — |
-| Scan endpoint reservation | `busy or scanning or pending_enqueues > 0` | `scanning = True` |
-| `apipeline_process_enqueue_documents` entry | (already busy → set `request_pending`, return) | `busy = True` (NOT `destructive_busy`) |
-| `clear_documents` / `delete_document` (synchronous reservation) | `busy or scanning or pending_enqueues > 0` | `busy = True`, `destructive_busy = True` |
-
-The contract permits **concurrent enqueue + processing**: a freshly-uploaded doc lands in `doc_status` while the loop is mid-batch, the loop sees `request_pending` after the current batch, re-queries `doc_status`, and picks up the new PENDING row.
-
-For the rest — write ordering of `full_docs` vs `doc_status`, the workspace-scoped `enqueue_serialize` lock around dedup-and-upsert, and the `from_scan=True` bypass — see the docstrings on `apipeline_enqueue_documents` and `apipeline_process_enqueue_documents` in `lightrag/pipeline.py`.
-
-### Query Modes
-
-- **local**: Context-dependent retrieval focused on specific entities
-- **global**: Community/summary-based broad knowledge retrieval
-- **hybrid**: Combines local and global
-- **naive**: Direct vector search without graph
-- **mix**: Integrates KG and vector retrieval (recommended with reranker)
-
-## Development Commands
-
-### Setup
-```bash
-# Install with uv
-uv sync
-source .venv/bin/activate  # Or: .venv\Scripts\activate on Windows
-
-# Install with API support
-uv sync --extra api
-
-# Install specific extras
-uv sync --extra offline-storage  # Storage backends
-uv sync --extra offline-llm      # LLM providers
-uv sync --extra test             # Testing dependencies
-```
-
-### API Server
-```bash
-# Copy and configure environment
-cp env.example .env  # Edit with your LLM/embedding configs
-
-# Build WebUI
-cd lightrag_webui
-bun install --frozen-lockfile
-bun run build
-cd ..
-
-# Run server
-lightrag-server                                           # Production
-uvicorn lightrag.api.lightrag_server:app --reload        # Development
-lightrag-gunicorn                                         # Multi-worker (gunicorn)
-```
-
-### WebUI
-```bash
-cd lightrag_webui
-bun install --frozen-lockfile      # Install dependencies
-bun run dev                        # Dev server (Node + Vite)
-bun run dev:bun                    # Dev server (Bun native)
-bun run build                      # Production build
-bun run preview                    # Preview production build
-bun run lint                       # ESLint over *.ts/tsx/js/jsx
-
-# Testing — Bun built-in runner (NOT Vitest/Jest)
-bun test                           # All tests
-bun test --watch                   # Watch mode
-bun test --coverage                # With coverage report
-bun test src/api/lightrag.test.ts  # Single test file
-```
-
-### Testing
-
-- Use mock-based tests for external services (Redis, httpx, etc.) — do not depend on live services in unit tests.
-- Add regression tests for every bug fix.
-- Run the full test suite (or relevant subset) and report pass counts before declaring done.
-- Backend tests use pytest; frontend unit tests use Bun's built-in runner — see *WebUI* above.
-
-```bash
-# Preferred for fresh shells and automation; resolves PYTHON, venv, uv, .venv, venv, python, python3
-./scripts/test.sh tests
-
-# Run specific test file
-./scripts/test.sh tests/kg/test_graph_storage.py
-
-# Run with custom workers
-./scripts/test.sh tests --test-workers 4
-```
-
-- `tests/`: main test suite, mirrors feature folders. Place new tests under the subdirectory matching the module under test:
-  - `tests/api/{auth,config,routes}/` for FastAPI server tests (auth/token, config loading, route handlers); top-level `tests/api/` for app-wide concerns (path prefixes, Ollama-compatible endpoint).
-  - `tests/chunker/`, `tests/evaluation/`, `tests/extraction/` for the like-named modules.
-  - `tests/kg/<backend>_impl/` for backend-specific storage tests, mirroring the `lightrag/kg/<backend>_impl.py` file naming. The `_impl` suffix on every subdirectory keeps the layout uniform and avoids `sys.path` shadowing on names that overlap with top-level PyPI/stdlib packages (`faiss`, `json`, `neo4j`, `networkx`, `redis`) when a test is launched directly via `python tests/kg/...`. Current backends: `faiss_impl/`, `json_impl/`, `memgraph_impl/`, `milvus_impl/`, `mongo_impl/`, `nano_impl/`, `neo4j_impl/`, `networkx_impl/`, `opensearch_impl/`, `postgres_impl/`, `qdrant_impl/`, `redis_impl/`. `tests/kg/` root holds cross-backend tests (`test_graph_storage`, `test_batch_graph_operations`, `test_unified_lock_safety`, `test_file_atomic`).
-  - `tests/llm/<provider>_impl/` for provider-specific behavior, same `_impl` convention: `bedrock_impl/`, `gemini_impl/`, `ollama_impl/`, `openai_impl/`, `voyageai_impl/`, `zhipu_impl/`. `tests/llm/` root holds cross-provider concerns (embedding, VLM, cache, role).
-  - `tests/parser/`, `tests/parser/docx/`, `tests/parser/external/{mineru,docling}/` for parser implementations.
-  - `tests/pipeline/` for ingestion pipeline and doc-status behavior (including `test_pipeline_*`, `test_doc_status_*`, `test_multimodal_*`, `test_graph_keyed_locks`).
-  - `tests/sidecar/`, `tests/setup/`, `tests/workspace/` for the like-named cross-cutting concerns.
-  - When adding a new backend or LLM provider, create a new subdirectory plus an empty `__init__.py` rather than dropping the file in the parent directory root.
-- Markers (see `tests/pytest.ini`): `offline`, `integration`, `requires_db`, `requires_api`. Integration tests are skipped by default via `-m "not integration"`.
-- Integration env vars: `LIGHTRAG_RUN_INTEGRATION=true`, `LIGHTRAG_KEEP_ARTIFACTS=true`, `LIGHTRAG_TEST_WORKERS=4`, plus storage-specific connection strings.
-
-### Linting
-```bash
-ruff check .
-```
-
-## Key Implementation Patterns
-
-### LightRAG Initialization (Critical)
-
-The most common error is forgetting to initialize storages (manifests as `AttributeError: __aenter__` or `KeyError: 'history_messages'`):
-
+### 1. Embedding Format Compatibility (CRITICAL)
+**Pattern**: Always handle both base64 and raw array embedding formats
+**Location**: `lightrag/llm/openai.py` - `openai_embed` function
+**Issue**: Custom OpenAI-compatible endpoints return embeddings as raw arrays, not base64 strings
+**Solution**:
 ```python
-import asyncio
-from lightrag import LightRAG
-from lightrag.llm.openai import gpt_4o_mini_complete, openai_embed
-
-async def main():
-    rag = LightRAG(
-        working_dir="./rag_storage",
-        llm_model_func=gpt_4o_mini_complete,
-        embedding_func=openai_embed
-    )
-
-    # REQUIRED: Initialize storage backends
-    await rag.initialize_storages()
-
-    # Now safe to use
-    await rag.ainsert("Your text here")
-    result = await rag.aquery("Your question", param=QueryParam(mode="hybrid"))
-
-    # Cleanup
-    await rag.finalize_storages()
-
-asyncio.run(main())
+np.array(dp.embedding, dtype=np.float32) if isinstance(dp.embedding, list)
+else np.frombuffer(base64.b64decode(dp.embedding), dtype=np.float32)
 ```
+**Impact**: Document processing fails completely without this dual format support
 
-### Custom Embedding Functions
+### 2. Async Pattern Consistency (CRITICAL)
+**Pattern**: Always await coroutines before calling methods on the result
+**Common Error**: `coroutine.method()` instead of `(await coroutine).method()`
+**Locations**: MongoDB implementations, Neo4j operations
+**Example**: `await self._data.list_indexes()` then `await cursor.to_list()`
 
-Use `@wrap_embedding_func_with_attrs` decorator and call `.func` when wrapping (already-decorated functions cannot be wrapped again — access the underlying via `.func`):
+### 3. Storage Layer Data Compatibility (CRITICAL)
+**Pattern**: Always filter deprecated/incompatible fields during deserialization
+**Common Fields to Remove**: `content`, `_id` (MongoDB), database-specific fields
+**Implementation**: `data.pop('field_name', None)` before creating dataclass objects
+**Locations**: All storage implementations (JSON, Redis, MongoDB, PostgreSQL)
 
+### 4. Lock Key Generation (CRITICAL)
+**Pattern**: Always sort relationship pairs for consistent lock keys
+**Implementation**: `sorted_key_parts = sorted([src, tgt])` then `f"{sorted_key_parts[0]}-{sorted_key_parts[1]}"`
+**Impact**: Prevents deadlocks in concurrent relationship processing
+
+### 5. Event Loop Management (CRITICAL)
+**Pattern**: Handle event loop mismatches during shutdown gracefully
+**Implementation**: Timeout + specific RuntimeError handling for "attached to a different loop"
+**Location**: Neo4j storage finalization
+**Impact**: Prevents application shutdown failures
+
+### 6. Async Generator Lock Management (CRITICAL)
+**Pattern**: Never hold locks across async generator yields - create snapshots instead
+**Issue**: Holding locks while yielding causes deadlock when consumers need the same lock
+**Location**: `lightrag/tools/migrate_llm_cache.py` - `stream_default_caches_json`
+**Solution**: Create snapshot of data while holding lock, release lock, then iterate over snapshot
 ```python
-from lightrag.utils import wrap_embedding_func_with_attrs
+# WRONG - Deadlock prone:
+async with storage._storage_lock:
+    for key, value in storage._data.items():
+        batch[key] = value
+        if len(batch) >= batch_size:
+            yield batch  # Lock still held!
 
-@wrap_embedding_func_with_attrs(embedding_dim=1536, max_token_size=8192)
-async def custom_embed(texts: list[str]) -> np.ndarray:
-    # Call underlying function, not wrapped version
-    return await openai_embed.func(texts, model="text-embedding-3-large")
-
-# Wrong: EmbeddingFunc(func=openai_embed)
-# Right: EmbeddingFunc(func=openai_embed.func)
+# CORRECT - Snapshot approach:
+async with storage._storage_lock:
+    matching_items = [(k, v) for k, v in storage._data.items() if condition]
+# Lock released here
+for key, value in matching_items:
+    batch[key] = value
+    if len(batch) >= batch_size:
+        yield batch  # No lock held
 ```
+**Impact**: Prevents deadlocks in Json→Json migrations and similar scenarios where source/target share locks
+**Applicable To**: Any async generator that needs to access shared resources while yielding
 
-> **Pitfall — switching embedding models**: when changing the embedding model you MUST clear the data directory (optionally keeping `kv_store_llm_response_cache.json` for LLM cache). Existing vectors will not match the new model's space.
+## Architecture Patterns
 
-### Storage Configuration
+### 1. Dependency Injection
+**Pattern**: Pass configuration through object constructors, not direct imports
+**Example**: OllamaAPI receives configuration through LightRAG object
+**Benefit**: Better testability and modularity
 
-Configure via environment variables or constructor params:
+### 2. Memory Bank Documentation
+**Pattern**: Maintain comprehensive memory bank for development continuity
+**Structure**: Core files (projectbrief.md, activeContext.md, progress.md, etc.)
+**Purpose**: Essential for context preservation across development sessions
 
-```python
-# Environment-based (recommended for production)
-# See env.example for full list
+### 3. Configuration Management
+**Pattern**: Centralize defaults in constants.py, use environment variables for runtime config
+**Implementation**: Default values in constants, override via .env file
+**Benefit**: Consistent configuration across components
 
-# Constructor-based
-rag = LightRAG(
-    working_dir="./storage",
-    workspace="project_name",  # For data isolation
-    kv_storage="PGKVStorage",
-    vector_storage="PGVectorStorage",
-    graph_storage="Neo4JStorage",
-    doc_status_storage="PGDocStatusStorage",
-    vector_db_storage_cls_kwargs={
-        "cosine_better_than_threshold": 0.2
-    }
-)
-```
+## Development Workflow Patterns
 
-### Document Insertion
+### 1. Frontend Development (CRITICAL)
+**Package Manager**: **ALWAYS USE BUN** - Never use npm or yarn unless Bun is unavailable
+**Commands**:
+- `bun install` - Install dependencies
+- `bun run dev` - Start development server
+- `bun run build` - Build for production
+- `bun run lint` - Run linting
+- `bun test` - Run tests
+- `bun run preview` - Preview production build
 
-```python
-# Single document
-await rag.ainsert("Text content")
+**Pattern**: All frontend operations must use Bun commands
+**Fallback**: Only use npm/yarn if Bun installation fails
+**Testing**: Use `bun test` for all frontend testing
 
-# Batch insertion
-await rag.ainsert(["Text 1", "Text 2", ...])
+### 2. Bug Fix Approach
+1. **Identify root cause** - Don't just fix symptoms
+2. **Implement robust solution** - Handle edge cases and format variations
+3. **Maintain backward compatibility** - Preserve existing functionality
+4. **Add comprehensive error handling** - Graceful degradation
+5. **Document the fix** - Update memory bank with technical details
 
-# With custom IDs
-await rag.ainsert("Text", ids=["doc-123"])
+### 3. Feature Implementation
+1. **Follow existing patterns** - Maintain architectural consistency
+2. **Use dependency injection** - Avoid direct imports between modules
+3. **Implement comprehensive error handling** - Handle all failure modes
+4. **Add proper logging** - Debug and warning messages
+5. **Update documentation** - Memory bank and code comments
+6. **Comment Language** - Use English for comments and documentation
 
-# With file paths (for citation)
-await rag.ainsert(["Text 1", "Text 2"], file_paths=["doc1.pdf", "doc2.pdf"])
+### 4. Performance Optimization
+1. **Profile before optimizing** - Identify actual bottlenecks
+2. **Maintain algorithmic correctness** - Don't sacrifice functionality for speed
+3. **Use appropriate data structures** - Match structure to access patterns
+4. **Implement caching strategically** - Cache expensive operations
+5. **Monitor memory usage** - Prevent memory leaks
 
-# Configure batch size
-rag = LightRAG(..., max_parallel_insert=4)  # Default: 2, max recommended: 10
-```
+### 5. Testing Workflow (CRITICAL)
+**Pattern**: All tests must use pytest markers for proper CI/CD execution
+**Test Categories**:
+- **Offline Tests**: Use `@pytest.mark.offline` - No external dependencies (runs in CI)
+- **Integration Tests**: Use `@pytest.mark.integration` - Requires databases/APIs (skipped by default)
 
-### Query Configuration
+**Commands**:
+- `pytest tests/ -m offline -v` - CI default (~3 seconds for 21 tests)
+- `pytest tests/ --run-integration -v` - Full test suite (all 46 tests)
 
-```python
-from lightrag import QueryParam
+**Best Practices**:
+1. **Prefer offline tests** - Use mocks for LLM, embeddings, databases
+2. **Mock external dependencies** - AsyncMock for async functions
+3. **Test isolation** - Each test should be independent
+4. **Documentation** - Add docstrings explaining purpose and scope
 
-result = await rag.aquery(
-    "Your question",
-    param=QueryParam(
-        mode="mix",                    # Recommended with reranker
-        top_k=60,                      # KG entities/relations to retrieve
-        chunk_top_k=20,                # Text chunks to retrieve
-        max_entity_tokens=6000,
-        max_relation_tokens=8000,
-        max_total_tokens=30000,
-        enable_rerank=True,
-        user_prompt="Additional instructions for LLM",
-        stream=False
-    )
-)
-```
+**Configuration**:
+- `tests/pytest.ini` - Marker definitions and test discovery
+- `tests/conftest.py` - Fixtures and custom options
+- `.github/workflows/tests.yml` - CI/CD workflow (Python 3.10/3.11/3.12)
 
-## Frontend Debugging via Playwright
+**Documentation**: See `memory-bank/testing-guidelines.md` for complete testing guidelines
 
-For WebUI bugs whose symptoms only surface in the rendered DOM — layout/overflow/scrollbar issues, transient flashes, third-party libraries attaching helpers to `<body>` outside React's tree, or end-to-end verification of a fix — drive the running dev server (`http://localhost:5173`) with the `document-skills:webapp-testing` skill instead of reasoning from source alone. Seed state directly via `localStorage` (persist key `settings-storage`, schema in `lightrag_webui/src/stores/settings.ts`) to skip live LLM calls. Use `wait_until="domcontentloaded"` plus a selector wait — Vite dev's long-lived polling makes `networkidle` time out.
+**Impact**: Ensures all tests run reliably in CI without external services while maintaining comprehensive integration test coverage for local development
 
-## Configuration
+## Technology Stack Intelligence
 
-### .env Configuration
-Primary configuration file for API server. Generate it with `make env-base` or copy `env.example` manually. Key sections:
-- Server settings (HOST, PORT, CORS)
-- Storage backends (connection strings via environment variables)
-- Query parameters (TOP_K, MAX_TOTAL_TOKENS, etc.)
-- Reranking configuration (RERANK_BINDING, RERANK_MODEL)
-- Authentication (AUTH_ACCOUNTS, LIGHTRAG_API_KEY)
+### 1. LLM Integration
+- **Primary**: Gemini 2.5 Flash via custom endpoint
+- **Embedding**: BAAI/bge-m3 via custom endpoint
+- **Reranking**: BAAI/bge-reranker-v2-m3
+- **Pattern**: Always handle multiple provider formats
 
-See `env.example` for comprehensive template.
+### 2. Storage Backends
+- **Default**: In-memory with file persistence
+- **Production Options**: PostgreSQL, MongoDB, Redis, Neo4j
+- **Pattern**: Abstract storage interface with multiple implementations
 
-### Setup Wizard Outputs
-- Keep `.env` host-usable. Container-only hostnames and staged SSL paths belong in the wizard-managed compose layer, not persisted back into `.env`.
-- Treat `docker-compose.final.yml` as generated output assembled from `scripts/setup/templates/*.yml`.
-- For setup workflow changes, prefer `make env-*` targets over direct `scripts/setup/setup.sh` calls.
+### 3. API Architecture
+- **Framework**: FastAPI with Gunicorn for production
+- **Authentication**: JWT-based with role support
+- **Compatibility**: Ollama-compatible endpoints for easy integration
 
-## Code Style
+### 4. Frontend
+- **Framework**: React with TypeScript
+- **Package Manager**: **BUN (REQUIRED)** - Always use Bun for all frontend operations
+- **Build Tool**: Vite with Bun runtime
+- **Visualization**: Sigma.js for graph rendering
+- **State Management**: React hooks with context
+- **Internationalization**: i18next for multi-language support
 
-### Language
-Comments, backend code, and log messages in English. Frontend uses i18next for multi-language support.
+## Common Pitfalls and Solutions
 
-### Python
-- Follow PEP 8 with 4-space indentation
-- Use type annotations
-- Prefer dataclasses for state management
-- Use `lightrag.utils.logger` instead of print
-- Async/await patterns throughout
+### 1. Embedding Format Issues
+**Pitfall**: Assuming all endpoints return base64-encoded embeddings
+**Solution**: Always check format and handle both base64 and raw arrays
 
-### TypeScript / React (incl. WebUI ESLint)
-- Functional components with hooks; PascalCase for components
-- 2-space indentation, single quotes (enforced by `@stylistic` rules)
-- Tailwind utility-first styling
-- ESLint stack: TypeScript-ESLint + React Hooks plugin + Prettier; `@typescript-eslint/no-explicit-any` is disabled (allowed)
+### 2. Async/Await Patterns
+**Pitfall**: Calling methods on coroutines instead of awaited results
+**Solution**: Always await coroutines before accessing their methods
 
-## Commit and Pull Request Guidance
+### 3. Data Model Evolution
+**Pitfall**: Breaking changes when removing fields from dataclasses
+**Solution**: Filter deprecated fields during deserialization, don't break storage
 
-- If this repo is a fork of `HKUDS/LightRAG`. Target to `HKUDS/LightRAG` when creating PRs, not the fork's own repo.
-- PR descriptions should include: summary, motivation, linked issues if applyed, what's changed, what's broken and how it works.
+### 4. Concurrency Issues
+**Pitfall**: Inconsistent lock key generation causing deadlocks
+**Solution**: Always sort keys for deterministic lock ordering
+
+### 5. Event Loop Management
+**Pitfall**: Event loop mismatches during shutdown
+**Solution**: Implement timeout and specific error handling for loop issues
+
+## Performance Considerations
+
+### 1. Query Context Building
+- **Algorithm**: Linear gradient weighted polling for fair resource allocation
+- **Optimization**: Round-robin merging to eliminate mode bias
+- **Pattern**: Smart chunk selection based on cross-entity occurrence
+
+### 2. Graph Operations
+- **Optimization**: Batch operations where possible
+- **Pattern**: Use appropriate indexing for large datasets
+- **Consideration**: Memory usage with large graphs
+
+### 3. LLM Request Management
+- **Pattern**: Priority-based queue for request ordering
+- **Optimization**: Connection pooling and retry mechanisms
+- **Consideration**: Rate limiting and cost management
+
+## Security Patterns
+
+### 1. Authentication
+- **Implementation**: JWT tokens with role-based access
+- **Pattern**: Stateless authentication with configurable expiration
+- **Security**: Proper token validation and refresh mechanisms
+
+### 2. API Security
+- **Pattern**: Input validation and sanitization
+- **Implementation**: FastAPI dependency injection for auth
+- **Consideration**: Rate limiting and abuse prevention
+
+## Maintenance Guidelines
+
+### 1. Memory Bank Updates
+- **Trigger**: After significant changes or bug fixes
+- **Pattern**: Update activeContext.md and progress.md
+- **Purpose**: Maintain development continuity
+
+### 2. Configuration Management
+- **Pattern**: Environment-based configuration with sensible defaults
+- **Implementation**: .env files with example templates
+- **Consideration**: Security for production deployments
+
+### 3. Error Handling
+- **Pattern**: Comprehensive logging with appropriate levels
+- **Implementation**: Graceful degradation where possible
+- **Consideration**: User-friendly error messages
+
+## Project Evolution Notes
+
+The project has evolved from experimental to production-ready status. Key milestones:
+- **Early 2025**: Basic RAG implementation
+- **Mid 2025**: Multiple storage backends and LLM providers
+- **July 2025**: Major query optimization and algorithm improvements
+- **August 2025**: Production-ready stable state
+
+The system now supports enterprise-level deployments with comprehensive functionality across all components.
 
 ---
 > Source: [HKUDS/LightRAG](https://github.com/HKUDS/LightRAG) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-31 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
