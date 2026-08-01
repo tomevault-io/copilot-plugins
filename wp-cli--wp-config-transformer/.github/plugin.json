@@ -1,0 +1,9 @@
+{
+  "name": "wp-cli--wp-config-transformer",
+  "displayName": "wp-config-transformer",
+  "description": "wp-config-transformer",
+  "version": "1.0.0",
+  "author": "wp-cli",
+  "homepage": "https://github.com/wp-cli/wp-config-transformer",
+  "skills": []
+}
