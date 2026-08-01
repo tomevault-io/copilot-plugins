@@ -1,19 +1,19 @@
 ## topograph
 
-> This file provides guidance to Codex, Cursor, Copilot, and other coding agents when working with code in this repository.
+> This file provides guidance to Claude Code when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides guidance to Codex, Cursor, Copilot, and other coding agents when working with code in this repository.
+This file provides guidance to Claude Code when working with code in this repository.
 
-<!-- AUTO-SYNCED: canonical source is .claude/CLAUDE.md. Only the first 5 lines differ. -->
+<!-- This is the canonical source. AGENTS.md is a synced public copy; only the first 5 lines differ. -->
 
 ## 1. Project Overview and Architecture
 
 Topograph discovers the physical network topology of a cluster (NVLink domains, InfiniBand/Ethernet switch fabric, cloud rack topology) and exposes it to workload schedulers — Slurm, Kubernetes, and Slurm-on-Kubernetes (Slinky). It has five runtime components:
 
 - **API Server** — receives `/v1/generate` requests, aggregates bursts, dispatches to a Provider
-- **Node Observer** — Kubernetes-only; watches node status changes and triggers regeneration
+- **Node Observer** — Kubernetes-only; watches configured node/pod changes and Topograph API readiness, then triggers regeneration
 - **Node Data Broker** — Kubernetes-only DaemonSet; collects per-node attributes (NVLink clique IDs, etc.) as node annotations
 - **Provider** — per-environment adapter that queries a topology source (CSP API, NetQ, `ibnetdiscover`, DRA labels) and returns a canonical representation
 - **Engine** — per-scheduler translator that writes the canonical representation out as `topology.conf`, Kubernetes node labels, or a Slinky ConfigMap
@@ -27,10 +27,10 @@ This separation is load-bearing. If you find yourself reading the fabric in an e
 ### Repository map
 
 ```
-cmd/                  # Four entry points: topograph, node-observer, node-data-broker-initc
+cmd/                  # Entry points: topograph, node-observer, node-data-broker, kwok-nodes
 pkg/
-  providers/          # One directory per provider: aws, gcp, oci, nebius, netq, dra, infiniband, lambdai, cw, test
-  engines/            # One directory per engine: k8s, slinky, slurm
+  providers/          # One directory per provider: aws, gcp, oci, nebius, netq, dra, infiniband, lambdai, test
+  engines/            # One directory per engine: k8s, nfd, slinky, slurm
   topology/           # Canonical Graph, Vertex tree, and topology constants (DO NOT CHANGE CASUALLY)
   registry/           # Central NamedLoader wiring for providers + engines
   translate/          # topology.conf and block/tree generation shared by engines
@@ -43,10 +43,11 @@ pkg/
   test/               # Cross-package test helpers
 internal/             # Shared utilities not part of the public API
   cluset, component, config, exec, files, httperr, httpreq, k8s, version
-charts/topograph/     # Helm chart (with node-data-broker subchart)
+charts/topograph/     # Helm chart for all Kubernetes components; tests/ holds the helm-unittest suites + snapshots
+CHANGELOG.md          # Release history (Keep a Changelog format); update [Unreleased] for user-facing PRs
 docs/                 # Public-facing docs — overview.md, architecture.md, api.md + providers/, engines/, reference/ subdirectories
+demos/                # Interactive Kubernetes/KWOK deployment demos
 tests/models/         # YAML simulation fixtures
-tests/charts/         # Helm golden outputs for chart values fixtures
 config/               # Sample topograph-config.yaml
 scripts/              # Build scripts (deb, rpm, SSL, clean)
 localdev/             # Developer-local workspace — not tracked; personal scratch files
@@ -59,24 +60,25 @@ These structures propagate across every provider and engine. Changing them in a 
 | Surface | Why it's load-bearing |
 |---|---|
 | `pkg/topology/` — `Graph`, the `Vertex` tree, and topology constants | Every provider returns it; every engine consumes it. A shape change ripples to all of them. |
-| Helm `global.provider.name` / `global.engine.name` / `topologyNodeLabels` | External contract for operators deploying Topograph. |
-| The four default label keys `network.topology.nvidia.com/{accelerator,leaf,spine,core}` | Consumed by downstream projects (KAI Scheduler, NVSentinel, Kueue). |
+| Helm `provider.name` / `engine.name` | External contract for operators deploying Topograph. |
+| The variable fabric labels `network.topology.nvidia.com/tier-N` and single accelerator label `network.topology.nvidia.com/accelerator` | Consumed by downstream projects (KAI Scheduler, NVSentinel, Kueue); fabric tier 0 is closest to the node. |
 
 ## 2. Setup and Installation
 
 ### Prerequisites
 
-- **Go 1.25.9** (see `go.mod`) — newer minor versions are fine; older will not build
+- **Go 1.26.5** (see `go.mod`) — newer minor versions are fine; older will not build
 - **make**
 - **golangci-lint** — `brew install golangci-lint` or via `go install`
-- **docker** — only for container image builds and the IB variant
+- **helm 3.10+ or 4.x** — required for `make chart-test`; the `helm-unittest` plugin is installed automatically by the target (`brew install helm`). CI pins helm `v4.1.1` in `.github/workflows/chart-test.yaml`.
+- **docker** — for container image builds (the main image includes `rdma-core` / `ibnetdiscover` for InfiniBand deployments)
 
 ### Clone and build
 
 ```bash
 git clone https://github.com/NVIDIA/topograph.git
 cd topograph
-make build   # produces bin/topograph, bin/node-observer, bin/node-data-broker-initc
+make build   # produces bin/topograph, bin/node-observer, bin/node-data-broker, bin/kwok-nodes
 ```
 
 Cross-compile with `make build-linux-amd64`, `make build-darwin-arm64`, etc.
@@ -91,12 +93,12 @@ make fmt        # go fmt ./...
 make vet        # go vet ./...
 make lint       # golangci-lint run (only flags new issues vs. main)
 make test       # go test -race -coverprofile=coverage.out ./...
-make chart-test                 # helm chart smoke + golden tests (see scripts/chart-test.sh)
-make chart-test-update-golden   # refresh tests/charts/*.golden.yaml (review before commit)
+make chart-test                  # helm lint + helm-unittest suites (charts/topograph/tests/)
+make chart-test-update-snapshot  # refresh helm-unittest snapshots (review before commit)
 make coverage   # human-readable per-package summary
 ```
 
-Run `make qualify` before pushing. The individual targets are available if you want to run a single check during iteration. Run `make chart-test` when you change `charts/topograph/` or its subcharts; CI runs it on every workflow trigger.
+Run `make qualify` before pushing. The individual targets are available if you want to run a single check during iteration. Run `make chart-test` when you change `charts/topograph/`; CI runs it on every workflow trigger.
 
 ### Coverage policy
 
@@ -108,16 +110,16 @@ Coverage checks run on pull requests. A drop below target with no matching uplif
 
 ### CI workflows
 
-- `.github/workflows/go.yml` — build, test, lint, and Helm chart tests (`make chart-test`) on every push and PR
+- `.github/workflows/go.yml` — build, test, lint, and `govulncheck` on every push and PR
+- `.github/workflows/chart-test.yaml` — Helm chart lint + helm-unittest suites (`make chart-test`) on every push and PR
 - `.github/workflows/docker.yml` — container image build (manual trigger)
-- `.github/workflows/docker-ib.yml` — InfiniBand-variant container (manual trigger)
 - `.github/workflows/helm-release.yaml` — Helm chart release (manual trigger)
 
 ### Deployment surfaces
 
 - **Binaries** — `deb` and `rpm` packages via `make deb` / `make rpm` (consumed by Slurm users)
 - **Container images** — `ghcr.io/nvidia/topograph` (consumed by Kubernetes users)
-- **Helm chart** — `charts/topograph/` (with `node-data-broker` subchart)
+- **Helm chart** — `charts/topograph/` (API server, node-observer, and node-data-broker)
 
 ## 4. Coding Style and Conventions
 
@@ -141,7 +143,7 @@ type Provider interface {
 }
 ```
 
-A provider returns a `*topology.Graph` of the discovered topology. `Tiers` is the root of the switch hierarchy; `Domains` is a `topology.DomainMap` mapping accelerator/block domains to hosts, with each finalized domain carrying the enumerated ID used by block-topology output. Leaf vertices are compute nodes; interior tier vertices are switches. Return `*httperr.Error` so the API server can propagate the correct HTTP status code — plain `error` is not acceptable at this boundary.
+A provider returns a `*topology.Graph` of the discovered topology. Providers using `ClusterTopology` populate `InstanceTopology.FabricTiers` closest-first and the optional single `InstanceTopology.AcceleratorID`, then call `ToGraph`; the fabric path has no fixed depth. `Graph.Tiers` is the fabric hierarchy, and `Graph.Domains` is the `topology/block` source. Leaf vertices are compute nodes; interior tier vertices are switches. Return `*httperr.Error` so the API server can propagate the correct HTTP status code — plain `error` is not acceptable at this boundary.
 
 ### Adding a new provider
 
@@ -154,7 +156,7 @@ A provider returns a `*topology.Graph` of the discovered topology. `Tiers` is th
 
 ### Adding a new engine
 
-Engines are much rarer (three exist: slurm, k8s, slinky). Follow the same registry pattern but register in `engines.NewRegistry(...)`. Coordinate with maintainers before starting — adding an engine implies a new output format that every provider's output must be translatable into.
+Engines are much rarer (four exist: slurm, k8s, nfd, slinky). Follow the same registry pattern but register in `engines.NewRegistry(...)`. Coordinate with maintainers before starting — adding an engine implies a new output format that every provider's output must be translatable into.
 
 ### Anti-patterns
 
@@ -172,7 +174,7 @@ Engines are much rarer (three exist: slurm, k8s, slinky). Follow the same regist
 
 ### Label and annotation reference
 
-Label keys written by the Kubernetes and Slinky engines are documented in `docs/reference/node-labels.md`. Do not invent new keys in provider or engine code — values flow through the canonical graph; keys are configured via Helm `topologyNodeLabels`.
+Label keys written by the Kubernetes engine are documented in `docs/reference/node-labels.md`. Do not invent new keys in provider code — values flow through the canonical graph. Optional custom keys are configured through the k8s engine's closest-first `fabricLabels` array and singular `acceleratorLabel`; when `fabricLabels` is provided, only explicitly listed fabric tiers are labeled.
 
 ## 5. Pull Request Guidelines
 
@@ -237,6 +239,7 @@ Every PR should be evaluated for documentation impact before pre-push qualificat
 | New / changed label or annotation key | `docs/reference/node-labels.md` |
 | New / changed API endpoint, request parameter, or response field | `docs/api.md` |
 | New / changed config schema (`topograph-config.yaml` fields, defaults, validation) | `docs/api.md` |
+| User-facing feature, fix, breaking change, or Helm migration worth calling out in release notes | `CHANGELOG.md` under `[Unreleased]` (Added / Changed / Fixed / Removed); move entries into a version section at release time |
 | New invariant or "do not change without discussion" surface | `AGENTS.md` + `.claude/CLAUDE.md` in the same PR |
 | New Makefile target, top-level directory, or repository-layout change described by the repository map | `AGENTS.md` + `.claude/CLAUDE.md` in the same PR |
 
@@ -249,6 +252,7 @@ When filing a PR (`gh pr create` or the GitHub UI), `.github/PULL_REQUEST_TEMPLA
 - [ ] `make qualify` passes (runs fmt, vet, lint, test)
 - [ ] New or changed public behavior is covered by a test
 - [ ] Documentation impact evaluated per the table above — applicable doc updates are included in this PR
+- [ ] User-facing changes recorded in `CHANGELOG.md` `[Unreleased]` when applicable
 - [ ] `pkg/topology/` changes were discussed in an issue first
 - [ ] Every commit has a DCO sign-off
 
@@ -260,8 +264,8 @@ When filing a PR (`gh pr create` or the GitHub UI), `.github/PULL_REQUEST_TEMPLA
 
 ### When in doubt
 
-Read `docs/` before asking. Provider-specific questions usually have answers in `docs/providers/<name>.md`. Label semantics are in `docs/reference/node-labels.md`. The scenario-to-provider mapping is in the "Choosing a Provider" table in `docs/overview.md`. API endpoints and config schema live in `docs/api.md`.
+Read `docs/` before asking. Provider-specific questions usually have answers in `docs/providers/<name>.md`. Label semantics are in `docs/reference/node-labels.md`. The scenario-to-provider mapping is in the "Choosing a Provider" table in `docs/overview.md`. API endpoints and config schema live in `docs/api.md`. Release history and operator-facing migration notes live in `CHANGELOG.md`.
 
 ---
 > Source: [NVIDIA/topograph](https://github.com/NVIDIA/topograph) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
