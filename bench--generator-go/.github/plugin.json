@@ -1,0 +1,9 @@
+{
+  "name": "bench--generator-go",
+  "displayName": "generator-go",
+  "description": "generator-go",
+  "version": "1.0.0",
+  "author": "bench",
+  "homepage": "https://github.com/bench/generator-go",
+  "skills": []
+}
