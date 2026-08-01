@@ -1,0 +1,9 @@
+{
+  "name": "openshift--file-integrity-operator",
+  "displayName": "file-integrity-operator",
+  "description": "file-integrity-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/file-integrity-operator",
+  "skills": []
+}
