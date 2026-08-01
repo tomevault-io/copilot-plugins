@@ -1,0 +1,9 @@
+{
+  "name": "spdx--ntia-conformance-checker",
+  "displayName": "ntia-conformance-checker",
+  "description": "ntia-conformance-checker",
+  "version": "1.0.0",
+  "author": "spdx",
+  "homepage": "https://github.com/spdx/ntia-conformance-checker",
+  "skills": []
+}
