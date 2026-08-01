@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--cuda-python",
+  "displayName": "cuda-python",
+  "description": "cuda-python",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/cuda-python",
+  "skills": []
+}
