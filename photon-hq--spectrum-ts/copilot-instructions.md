@@ -128,4 +128,4 @@ Most formatting and common issues are automatically fixed by Biome. Run `bun x u
 
 ---
 > Source: [photon-hq/spectrum-ts](https://github.com/photon-hq/spectrum-ts) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
