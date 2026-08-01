@@ -1,0 +1,9 @@
+{
+  "name": "iobroker--iobroker-lovelace",
+  "displayName": "ioBroker.lovelace",
+  "description": "ioBroker.lovelace",
+  "version": "1.0.0",
+  "author": "ioBroker",
+  "homepage": "https://github.com/ioBroker/ioBroker.lovelace",
+  "skills": []
+}
