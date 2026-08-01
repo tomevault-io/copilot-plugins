@@ -1,0 +1,9 @@
+{
+  "name": "wp-cli--extension-command",
+  "displayName": "extension-command",
+  "description": "extension-command",
+  "version": "1.0.0",
+  "author": "wp-cli",
+  "homepage": "https://github.com/wp-cli/extension-command",
+  "skills": []
+}
