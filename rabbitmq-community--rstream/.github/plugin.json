@@ -1,0 +1,9 @@
+{
+  "name": "rabbitmq-community--rstream",
+  "displayName": "rstream",
+  "description": "rstream",
+  "version": "1.0.0",
+  "author": "rabbitmq-community",
+  "homepage": "https://github.com/rabbitmq-community/rstream",
+  "skills": []
+}
