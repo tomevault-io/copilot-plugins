@@ -1,0 +1,9 @@
+{
+  "name": "mit-rlx--rlx-models",
+  "displayName": "rlx-models",
+  "description": "ML model ports (ASR \u00b7 TTS \u00b7 LLM \u00b7 VLM \u00b7 vision \u00b7 audio codecs) on the rlx multi-backend compiler + runtime \u2014 CPU/Metal/MLX/CUDA/wgpu",
+  "version": "1.0.0",
+  "author": "MIT-RLX",
+  "homepage": "https://github.com/MIT-RLX/rlx-models",
+  "skills": []
+}
