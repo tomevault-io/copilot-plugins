@@ -1,0 +1,9 @@
+{
+  "name": "knative-extensions--net-kourier",
+  "displayName": "net-kourier",
+  "description": "net-kourier",
+  "version": "1.0.0",
+  "author": "knative-extensions",
+  "homepage": "https://github.com/knative-extensions/net-kourier",
+  "skills": []
+}
