@@ -1,8 +1,6 @@
 # AI instruction files for tansu
 
-> Sourced from [tansu-io/tansu](https://github.com/tansu-io/tansu) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Apache Kafka® compatible broker with S3, PostgreSQL, SQLite, Apache Iceberg and Delta Lake
+> Sourced from [tansu-io/tansu](https://github.com/tansu-io/tansu), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [tansu-io/tansu](https://github.com/tansu-io/tan
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/tansu-io/tansu](https://github.com/tansu-io/tansu)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/tansu-io/tansu](https://github.com/tansu-io/tansu)
 
 ---
 
