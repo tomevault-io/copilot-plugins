@@ -1,0 +1,9 @@
+{
+  "name": "tektoncd--results",
+  "displayName": "results",
+  "description": "results",
+  "version": "1.0.0",
+  "author": "tektoncd",
+  "homepage": "https://github.com/tektoncd/results",
+  "skills": []
+}
