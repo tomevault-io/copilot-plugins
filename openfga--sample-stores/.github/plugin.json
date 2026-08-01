@@ -1,0 +1,9 @@
+{
+  "name": "openfga--sample-stores",
+  "displayName": "sample-stores",
+  "description": "sample-stores",
+  "version": "1.0.0",
+  "author": "openfga",
+  "homepage": "https://github.com/openfga/sample-stores",
+  "skills": []
+}
