@@ -2,9 +2,9 @@
   "name": "datastarui",
   "owner": "CoreyCole",
   "repo": "datastarui",
-  "description": "Templ components built with Datastar and Tailwind",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CoreyCole/datastarui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T15:13:33Z"
+  "distributed_at": "2026-08-01T13:19:23Z"
 }
