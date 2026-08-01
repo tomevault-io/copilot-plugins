@@ -2,9 +2,9 @@
   "name": "kanban",
   "owner": "cline",
   "repo": "kanban",
-  "description": "Launch a local web app that runs CLI agents in parallel",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cline/kanban",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T12:34:50Z"
+  "distributed_at": "2026-08-01T10:07:27Z"
 }
