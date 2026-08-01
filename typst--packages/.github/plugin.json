@@ -1,0 +1,9 @@
+{
+  "name": "typst--packages",
+  "displayName": "packages",
+  "description": "packages",
+  "version": "1.0.0",
+  "author": "typst",
+  "homepage": "https://github.com/typst/packages",
+  "skills": []
+}
