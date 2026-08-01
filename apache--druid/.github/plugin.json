@@ -1,0 +1,9 @@
+{
+  "name": "apache--druid",
+  "displayName": "druid",
+  "description": "druid",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/druid",
+  "skills": []
+}
