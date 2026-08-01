@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--dali-extra",
+  "displayName": "DALI_extra",
+  "description": "DALI_extra",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/DALI_extra",
+  "skills": []
+}
