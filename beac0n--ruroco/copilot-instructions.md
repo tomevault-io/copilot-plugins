@@ -1,80 +1,25 @@
 ## ruroco
 
-> Test: `make test` (runs `cargo nextest run --retries 2` with `TEST_UPDATER=1`)
+> Wire protocol. **Do not change sizes without understanding the full impact.** `parser.rs` =
 
-# CLAUDE.md
+# src/common/protocol/
 
-## Quick Reference
+Wire protocol. **Do not change sizes without understanding the full impact.** `parser.rs` =
+encode/decode (prepends/strips the key_id, calls crypto), `serialization.rs` = IP encoding,
+`client_data.rs` = the plaintext struct, `constants.rs` = sizes.
 
-Build: `make build`
-Test: `make test` (runs `cargo nextest run --retries 2` with `TEST_UPDATER=1`)
-Lint: `make format` (runs `cargo fix && cargo fmt && cargo clippy --tests --verbose -- -D warnings`)
-Check: `make check` (runs `cargo check --locked` with and without default features)
-Coverage: `make coverage`
+Sizes (`constants.rs`):
+- `MSG_SIZE` = 94 = `KEY_ID_SIZE`(8) + `CIPHERTEXT_SIZE`(86)
+- `CIPHERTEXT_SIZE`(86) = IV(12) + GCM tag(16) + `PLAINTEXT_SIZE`(58)
 
-All clippy warnings are treated as errors in CI (`-D warnings`).
-
-## Project
-
-Ruroco (Run Remote Command) — encrypted one-way UDP remote command execution.
-
-```
-ruroco-client --UDP(AES-256-GCM)--> ruroco-server --Unix socket--> ruroco-commander
-```
-
-Four binaries: `src/bin/client.rs`, `src/bin/client_ui.rs` (Slint GUI), `src/bin/server.rs`, `src/bin/commander.rs`.
-
-Four modules: `src/client/`, `src/server/`, `src/common/` (crypto, protocol, fs, logging), `src/ui/` (Slint + Android).
-
-## Code Conventions
-
-- `anyhow::Result<T>` for all error handling. Propagate with `?`, add context with `.with_context(|| "...")`, use `bail!`/`anyhow!` for explicit errors.
-- Prefer `pub(crate)` over `pub` for internal items.
-- Max line width: 100 chars. 4-space indent. Full config in `rustfmt.toml`.
-- **No panics in production code.** Never use `.unwrap()`, `.expect()`, `panic!()`, array indexing that can go out of bounds, or any other method that can panic. Always use fallible alternatives (e.g. `?`, `.ok_or()`, `.get()`, `.try_into()`). `unwrap()` is only allowed in test code (`allow-unwrap-in-tests = true` in `clippy.toml`).
-- Logging: use `info()`/`error()` from `src/common/logging.rs` (custom minimal logger, no external crate).
-- No unsafe code.
-
-## Protocol (do not change sizes without understanding the full impact)
-
-Defined in `src/common/protocol/constants.rs`:
-- `MSG_SIZE` = 93 bytes (fixed packet size: 8B key ID + 12B IV + 16B tag + 57B ciphertext)
-- `PLAINTEXT_SIZE` = 57, `CIPHERTEXT_SIZE` = 85, `KEY_ID_SIZE` = 8
-
-## Crypto
-
-- AES-256-GCM encryption via `openssl` crate (`src/common/crypto/handler.rs`)
-- Key derivation: PBKDF2-HMAC-SHA256, 100k iterations
-- Command names hashed with Blake2b-64 — never sent over the wire
-- Replay prevention: monotonic counter per key ID, persisted to `blocklist.toml`
-
-## Testing
-
-- Unit tests: inline `#[cfg(test)]` modules in source files
-- Integration tests: `tests/integration_test.rs` — uses `tempfile::tempdir()` for isolation
-- End-to-end: `scripts/test_end_to_end.sh` (systemd services, requires sudo)
-- Fixtures: `tests/conf_dir/` (keys/config), `tests/files/` (sample TOMLs)
-- Coverage: `cargo tarpaulin` — UI modules (`src/ui/rust_slint_bridge*.rs`) and Android code (`src/common/android_util.rs`) are untestable without runtime
-- Use `tempfile::tempdir()` for all test isolation; never hardcode paths that could collide between parallel tests
-- Locale gotcha: avoid parsing `id` command output in tests — system locale affects error messages (e.g. German locale wraps names in `»«`)
-- For testing HTTP downloads, use local `TcpListener` on port 0 to avoid network dependencies
-- `ConfigServer` implements `Default` — use `ConfigServer { field: val, ..Default::default() }` in tests
-
-## Build
-
-- Nix for reproducible environments: `nix-shell nix/linux.nix --pure`
-- Features: `release-build` (vendors OpenSSL), `android-build` (Slint Android backend)
-- Release profile optimizes for size: `opt-level = "z"`, `strip = true`, `lto = true`, `panic = 'abort'`
-- CI: GitHub Actions (`.github/workflows/rust.yml`) — check, typos, test, e2e test, coverage, format, release on `v*` tags
-
-## Configuration
-
-Server config: `config/config.toml`. Commands receive client IP via `$RUROCO_IP` env var.
-Client state: `~/.config/ruroco/counter` (u128 big-endian), `~/.config/ruroco/client.lock` (file mutex).
-Systemd service files in `systemd/` (socket activation on `[::]:80`, strict sandboxing).
-
-Env var overrides: `RUROCO_CONF_DIR` (client config dir), `RUROCO_LISTEN_ADDRESS` (server bind address).
+`ClientData` plaintext layout (58 bytes, big-endian): version `u8` [0], cmd_hash `u64` [1:9],
+counter `u128` [9:25], strict `bool` [25], src_ip [26:42], dst_ip [42:58]. The version byte is
+`PROTOCOL_VERSION` (currently 1); it lives inside the authenticated plaintext, so `deserialize`
+rejects any unknown version after the GCM tag check. Bump `PROTOCOL_VERSION` on any incompatible
+plaintext/framing change. IPs are always 16 bytes (`serialize_ip` maps IPv4 to IPv6-mapped; a
+src_ip of all-zeros decodes to `None`). `is_source_ip_invalid` only rejects when `strict` is set
+and a sent src_ip mismatches the real packet source.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/beac0n) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [beac0n/ruroco](https://github.com/beac0n/ruroco) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
