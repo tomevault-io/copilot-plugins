@@ -1,7 +1,7 @@
 {
   "name": "jallum--beadwork",
   "displayName": "beadwork",
-  "description": "Beadwork is a git-native work management tool for humans and AI coding agents. Plans, progress and decisions persist as files on an orphan-branch, not as cruft in yours.",
+  "description": "beadwork",
   "version": "1.0.0",
   "author": "jallum",
   "homepage": "https://github.com/jallum/beadwork",
