@@ -1,0 +1,9 @@
+{
+  "name": "u-k-g--drone-pathgen",
+  "displayName": "drone-pathgen",
+  "description": "A Python interface for advanced drone trajectory planning that generates smooth, collision-free flight paths in complex 3D environments.",
+  "version": "1.0.0",
+  "author": "u-k-g",
+  "homepage": "https://github.com/u-k-g/drone-pathgen",
+  "skills": []
+}
