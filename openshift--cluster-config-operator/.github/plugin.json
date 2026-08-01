@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cluster-config-operator",
+  "displayName": "cluster-config-operator",
+  "description": "cluster-config-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cluster-config-operator",
+  "skills": []
+}
