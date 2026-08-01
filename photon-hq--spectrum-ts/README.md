@@ -1,23 +1,21 @@
 # AI instruction files for spectrum-ts
 
-> Sourced from [photon-hq/spectrum-ts](https://github.com/photon-hq/spectrum-ts) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Bring agents to any interfaces
+> Sourced from [photon-hq/spectrum-ts](https://github.com/photon-hq/spectrum-ts), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [photon-hq/spectrum-ts](https://github.com/photon-hq/spectrum-ts).
+Original source: `CLAUDE.md` in [photon-hq/spectrum-ts](https://github.com/photon-hq/spectrum-ts).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [photon-hq/spectrum-ts](https://github.com/photon-hq/spectrum-ts) — a repo with 70+ stars on GitHub.
+From [photon-hq/spectrum-ts](https://github.com/photon-hq/spectrum-ts) — a repo with 1146+ stars on GitHub.
 
 ---
 
