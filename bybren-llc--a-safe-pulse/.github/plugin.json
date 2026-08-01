@@ -1,0 +1,22 @@
+{
+  "name": "bybren-llc--a-safe-pulse",
+  "displayName": "a-safe-pulse",
+  "description": "Enterprise-grade SAFe automation toolkit: AI-powered Agile Release Train (ART) planning, story decomposition, dependency mapping, and bi-directional Linear-Confluence sync. Features CLI-driven agent w",
+  "version": "1.0.0",
+  "author": "bybren-llc",
+  "homepage": "https://github.com/bybren-llc/a-safe-pulse",
+  "skills": [
+    {
+      "name": "testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "description": ""
+    }
+  ]
+}
