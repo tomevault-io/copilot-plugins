@@ -2,9 +2,9 @@
   "name": "goated",
   "owner": "Endgame-Labs",
   "repo": "goated",
-  "description": "Always-on personal AI assistant built around Claude Code and Codex.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Endgame-Labs/goated",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T10:37:13Z"
+  "distributed_at": "2026-08-01T07:02:04Z"
 }
