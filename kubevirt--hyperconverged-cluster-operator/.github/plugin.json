@@ -1,0 +1,9 @@
+{
+  "name": "kubevirt--hyperconverged-cluster-operator",
+  "displayName": "hyperconverged-cluster-operator",
+  "description": "hyperconverged-cluster-operator",
+  "version": "1.0.0",
+  "author": "kubevirt",
+  "homepage": "https://github.com/kubevirt/hyperconverged-cluster-operator",
+  "skills": []
+}
