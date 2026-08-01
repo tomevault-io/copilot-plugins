@@ -4,7 +4,7 @@
   "repo": "PocketFlow-Tutorial-Website-Chatbot",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/The-Pocket/PocketFlow-Tutorial-Website-Chatbot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T00:33:13Z"
+  "distributed_at": "2026-08-01T07:33:33Z"
 }
