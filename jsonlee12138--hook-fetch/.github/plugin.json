@@ -1,7 +1,7 @@
 {
   "name": "jsonlee12138--hook-fetch",
   "displayName": "hook-fetch",
-  "description": "A lightweight and modern HTTP request library developed based on the native Fetch API of the browser, providing a user-friendly interface similar to Axios and powerful extensibility.",
+  "description": "hook-fetch",
   "version": "1.0.0",
   "author": "JsonLee12138",
   "homepage": "https://github.com/JsonLee12138/hook-fetch",
