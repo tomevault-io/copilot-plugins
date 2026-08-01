@@ -5,22 +5,18 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [microsoft/agent-host-protocol](https://github.com/microsoft/agent-host-protocol).
+Original source: `` in [microsoft/agent-host-protocol](https://github.com/microsoft/agent-host-protocol).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
-
-- [agent-host-protocol](https://github.com/microsoft/agent-host-protocol/tree/main/plugins/copilot-plugin/skills/ahp-client/SKILL.md)
-- [agent-host-protocol](https://github.com/microsoft/agent-host-protocol/tree/main/plugins/channels-migration-plugin/skills/channels-migration/SKILL.md)
-
-From [microsoft/agent-host-protocol](https://github.com/microsoft/agent-host-protocol) — a repo with 96+ stars on GitHub.
+From [microsoft/agent-host-protocol](https://github.com/microsoft/agent-host-protocol) — a repo with 147+ stars on GitHub.
 
 ---
 
