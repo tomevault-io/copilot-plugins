@@ -4,7 +4,7 @@
   "repo": "node-re2",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/uhop/node-re2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T21:06:19Z"
+  "distributed_at": "2026-08-01T17:18:44Z"
 }
