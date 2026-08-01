@@ -1,0 +1,9 @@
+{
+  "name": "megalus--django-google-sso",
+  "displayName": "django-google-sso",
+  "description": "django-google-sso",
+  "version": "1.0.0",
+  "author": "megalus",
+  "homepage": "https://github.com/megalus/django-google-sso",
+  "skills": []
+}
