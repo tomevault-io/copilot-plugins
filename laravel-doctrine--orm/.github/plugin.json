@@ -1,0 +1,9 @@
+{
+  "name": "laravel-doctrine--orm",
+  "displayName": "orm",
+  "description": "orm",
+  "version": "1.0.0",
+  "author": "laravel-doctrine",
+  "homepage": "https://github.com/laravel-doctrine/orm",
+  "skills": []
+}
