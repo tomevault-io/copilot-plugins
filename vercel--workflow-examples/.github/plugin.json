@@ -1,0 +1,9 @@
+{
+  "name": "vercel--workflow-examples",
+  "displayName": "workflow-examples",
+  "description": "workflow-examples",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/workflow-examples",
+  "skills": []
+}
