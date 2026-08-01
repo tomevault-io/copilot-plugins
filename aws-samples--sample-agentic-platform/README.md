@@ -1,8 +1,6 @@
 # sample-agentic-platform
 
-> Tome by [aws-samples](https://github.com/aws-samples/sample-agentic-platform) — distributed by [TomeVault](https://tomevault.io)
-
-A sample agentic ai platform to run agentic workflows on AWS using either EKS or Bedrock AgentCore with open source frameworks like LangChain/LangGraph, Strands, etc..  
+> Tome by [aws-samples](https://github.com/aws-samples/sample-agentic-platform), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [aws-samples/sample-agentic-platform](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/aws-samples/sample-agentic-platform](https://github.com/aws-samples/sample-agentic-platform)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/aws-samples/sample-agentic-platform](https://github.com/aws-samples/sample-agentic-platform)
 
 ---
 
