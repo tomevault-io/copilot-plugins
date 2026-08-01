@@ -1,0 +1,67 @@
+## vrchat-mcp
+
+> This project is developing a Model Context Protocol (MCP) server that can retrieve information from the VRChat API.
+
+# VRChat MCP
+
+This project is developing a Model Context Protocol (MCP) server that can retrieve information from the VRChat API.
+The implementation is based on https://github.com/GLips/Figma-Context-MCP.
+
+## About the User
+The user is a frontend engineer. They can code better than you, but due to time constraints, they are asking for your help. So let's think and create together.
+
+## Development Approach
+
+- Be sure to read the README
+  - It contains features and implementation methods that we want to support in the future.
+- If you are given a link to documentation, be sure to read it using the browser action.
+- If possible, write tests before implementation. Use them to verify the specifications.
+- Since this is an OSS project, all documentation including README should be written in English.
+- When implementing new tools:
+  - Update the package version (minor version for new features)
+  - Update README.md, README.ja.md, and README.ko.md to reflect the new supported features
+  - Update version in both package.json and src/main.ts to match the new version
+
+## Reference Information for Implementation
+
+- VRChat SDK: https://github.com/vrchatapi/vrchatapi-javascript?tab=readme-ov-file
+- VRChat API Documentation: https://vrchatapi.github.io/docs/api/
+- modelcontextprotocol/sdk: https://github.com/modelcontextprotocol/typescript-sdk
+
+## VRChat Tag Specifications
+
+Tags in VRChat are used to grant access, assign restrictions, or attach metadata to various objects such as worlds, users, and avatars. Here are the key specifications:
+
+### Tag Format
+- Tags are simple strings grouped in a string array
+- Tags are commonly prefixed with a namespace designating the type of tag
+- Format: `namespace_type:value`
+
+### Tag Types
+1. Admin Tags
+   - Start with `admin_`
+   - Assigned manually by staff members
+   - Example: `admin_moderator`
+
+2. System Tags
+   - Start with `system_`
+   - Automatically assigned by the system
+   - Example: `system_trust_basic`
+
+### Tag Usage
+- Tags can be used to:
+  - Grant access to features
+  - Assign restrictions
+  - Add metadata to objects
+  - Define user roles and permissions
+  - Mark system status and properties
+
+### Implementation Notes
+- When working with tags, always validate the tag format
+- Consider tag namespaces when implementing tag-related features
+- Handle both admin and system tags appropriately
+- Be aware that some tags may affect user permissions and access levels
+
+---
+> Source: [sawa-zen/vrchat-mcp](https://github.com/sawa-zen/vrchat-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
