@@ -1,0 +1,9 @@
+{
+  "name": "rcore-os--rboot",
+  "displayName": "rboot",
+  "description": "rboot",
+  "version": "1.0.0",
+  "author": "rcore-os",
+  "homepage": "https://github.com/rcore-os/rboot",
+  "skills": []
+}
