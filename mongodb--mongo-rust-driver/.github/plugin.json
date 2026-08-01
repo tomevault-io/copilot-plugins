@@ -1,0 +1,9 @@
+{
+  "name": "mongodb--mongo-rust-driver",
+  "displayName": "mongo-rust-driver",
+  "description": "mongo-rust-driver",
+  "version": "1.0.0",
+  "author": "mongodb",
+  "homepage": "https://github.com/mongodb/mongo-rust-driver",
+  "skills": []
+}
