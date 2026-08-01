@@ -5,30 +5,5 @@
   "version": "1.0.0",
   "author": "NVIDIA",
   "homepage": "https://github.com/NVIDIA/NVFlare",
-  "skills": [
-    {
-      "name": "NVFlare",
-      "description": ""
-    },
-    {
-      "name": "NVFlare",
-      "description": ""
-    },
-    {
-      "name": "NVFlare",
-      "description": ""
-    },
-    {
-      "name": "NVFlare",
-      "description": ""
-    },
-    {
-      "name": "NVFlare",
-      "description": ""
-    },
-    {
-      "name": "NVFlare",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
