@@ -1,14 +1,15 @@
 # mimir
 
-> Source: [mimir/mimir](https://github.com/mimir/mimir). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [mimir/mimir](https://github.com/mimir/mimir). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mimir/mimir](https://github.com/mimir/mimir).
+Original source: `` in [mimir/mimir](https://github.com/mimir/mimir).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
