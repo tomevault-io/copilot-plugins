@@ -1,7 +1,7 @@
 {
   "name": "bhvbhushan--vibecop",
   "displayName": "vibecop",
-  "description": "AI code quality toolkit \u2014 deterministic linter for the AI coding era. 22 detectors, GitHub Action PR gate, zero LLM required.",
+  "description": "vibecop",
   "version": "1.0.0",
   "author": "bhvbhushan",
   "homepage": "https://github.com/bhvbhushan/vibecop",
