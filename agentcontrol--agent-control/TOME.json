@@ -2,7 +2,7 @@
   "name": "agent-control",
   "owner": "agentcontrol",
   "repo": "agent-control",
-  "description": "Centralized agent control plane for governing runtime agent behavior at scale. Configurable, extensible, and production-ready. ",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agentcontrol/agent-control",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T01:15:13Z"
+  "distributed_at": "2026-08-01T21:05:06Z"
 }
