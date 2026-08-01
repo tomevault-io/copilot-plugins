@@ -1,0 +1,9 @@
+{
+  "name": "axa-group--oauth2-mock-server",
+  "displayName": "oauth2-mock-server",
+  "description": "oauth2-mock-server",
+  "version": "1.0.0",
+  "author": "axa-group",
+  "homepage": "https://github.com/axa-group/oauth2-mock-server",
+  "skills": []
+}
