@@ -1,8 +1,6 @@
 # ralphy-openspec
 
-> Source: [wenqingyu/ralphy-openspec](https://github.com/wenqingyu/ralphy-openspec) — distributed by [TomeVault](https://tomevault.io)
-
-Ralph loop + OpenSpec integration for Cursor, OpenCode and ClaudeCode heavy lifting.
+> Source: [wenqingyu/ralphy-openspec](https://github.com/wenqingyu/ralphy-openspec). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
