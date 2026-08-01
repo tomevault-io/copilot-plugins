@@ -1,6 +1,6 @@
 # dotfiles
 
-> Source: [nicknisi/dotfiles](https://github.com/nicknisi/dotfiles). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [nicknisi/dotfiles](https://github.com/nicknisi/dotfiles). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
