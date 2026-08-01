@@ -1,0 +1,9 @@
+{
+  "name": "aws--aws-lambda-web-adapter",
+  "displayName": "aws-lambda-web-adapter",
+  "description": "aws-lambda-web-adapter",
+  "version": "1.0.0",
+  "author": "aws",
+  "homepage": "https://github.com/aws/aws-lambda-web-adapter",
+  "skills": []
+}
