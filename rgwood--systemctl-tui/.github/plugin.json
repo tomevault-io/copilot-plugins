@@ -1,0 +1,9 @@
+{
+  "name": "rgwood--systemctl-tui",
+  "displayName": "systemctl-tui",
+  "description": "systemctl-tui",
+  "version": "1.0.0",
+  "author": "rgwood",
+  "homepage": "https://github.com/rgwood/systemctl-tui",
+  "skills": []
+}
