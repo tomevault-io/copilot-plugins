@@ -1,0 +1,9 @@
+{
+  "name": "bcgov--healthgateway",
+  "displayName": "healthgateway",
+  "description": "healthgateway",
+  "version": "1.0.0",
+  "author": "bcgov",
+  "homepage": "https://github.com/bcgov/healthgateway",
+  "skills": []
+}
