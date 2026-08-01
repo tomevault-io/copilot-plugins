@@ -4,7 +4,7 @@
   "repo": "airframe",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wvlet/airframe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T06:09:34Z"
+  "distributed_at": "2026-08-01T15:23:25Z"
 }
