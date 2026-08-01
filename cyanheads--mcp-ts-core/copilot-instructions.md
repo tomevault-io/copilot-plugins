@@ -1,276 +1,127 @@
 ## mcp-ts-core
 
-> **Package:** `@cyanheads/mcp-ts-core`
+> **Server:** {{PACKAGE_NAME}}
 
 # Developer Protocol
 
-**Package:** `@cyanheads/mcp-ts-core`
-**Version:** 0.9.1
+**Server:** {{PACKAGE_NAME}}
+**Version:** 0.1.0
+**Framework:** [@cyanheads/mcp-ts-core](https://www.npmjs.com/package/@cyanheads/mcp-ts-core) `^{{FRAMEWORK_VERSION}}`
 **Engines:** Bun ≥1.3.0, Node ≥24.0.0
-**MCP SDK:** `@modelcontextprotocol/sdk` ^1.29.0
-**Zod:** ^4.4.3
-**GitHub:** [cyanheads/mcp-ts-core](https://github.com/cyanheads/mcp-ts-core)
-**npm:** [@cyanheads/mcp-ts-core](https://www.npmjs.com/package/@cyanheads/mcp-ts-core)
-**Docker:** [ghcr.io/cyanheads/mcp-ts-core](https://ghcr.io/cyanheads/mcp-ts-core)
+**MCP SDK:** `@modelcontextprotocol/sdk` {{MCP_SDK_VERSION}}
+**Zod:** {{ZOD_VERSION}}
 
-> **Developer note:** Never assume. Read related files and docs before making changes. Read full file content for context. Never try to edit a file before reading it.
+> **Read the framework docs first:** `node_modules/@cyanheads/mcp-ts-core/CLAUDE.md` contains the full API reference — builders, Context, error codes, exports, patterns. This file covers server-specific conventions only.
 
 ---
 
-## Consumers
+## First Session
 
-This package serves two consumer paths. When making changes, know which audience your change affects:
+This project was just scaffolded with `bunx @cyanheads/mcp-ts-core init`. You're holding a production-grade MCP framework with the hard parts already solved — error handling, telemetry, auth, transport, validation, lifecycle. What's missing is the **domain**. Your job: design the tool, resource, and service surface with the user, then implement it as small pure handlers that throw — the framework catches, classifies, and instruments the rest. Design before code; the user's first messages set direction, so wait for them before scaffolding definitions.
 
-| Path | On-ramp | Affected by changes to |
-|:--|:--|:--|
-| **Direct package import** — existing project pulls in the package | `bun add @cyanheads/mcp-ts-core` → `import { createApp, tool, z } from '@cyanheads/mcp-ts-core'` | Public API surface (`src/`) — existing consumers feel changes immediately on upgrade |
-| **Init-scaffolded server** — fresh project bootstrapped from this repo's templates | `bunx @cyanheads/mcp-ts-core init [name]` copies `templates/` into the new directory | `templates/` — only affects newly scaffolded servers, not existing ones |
+> **Remove this section** from CLAUDE.md / AGENTS.md after completing these steps. The skills and conventions below remain — this block is one-time onboarding only.
 
-Both paths share the same public API. Init copies starter `package.json`, configs (`tsconfig`, `biome.json`, `vitest.config.ts`), `.env.example`, `Dockerfile`, `CLAUDE.md`/`AGENTS.md`, and example definitions. `_`-prefixed files (e.g. `_.gitignore`) drop the prefix on copy. After init, consult the `setup` skill.
+1. **Get your bearings.** Take stock of the project tree, the skills in `skills/`, and the tools/MCP servers available. Light tool use is fine for context-building — you're mapping the territory, not committing yet.
+2. **Read the framework docs** — `node_modules/@cyanheads/mcp-ts-core/CLAUDE.md` (builders, Context, errors, exports, conventions)
+3. **Run the `setup` skill** — read `skills/setup/SKILL.md` and follow its checklist (project orientation, agent protocol file selection, echo definition cleanup, skill sync)
+4. **Design the server** — read `skills/design-mcp-server/SKILL.md` and work through it with the user to map the domain into tools, resources, and services before scaffolding
+
+---
+
+## What's Next?
+
+When the user asks what's next or needs direction, suggest options based on the current project state. Common next steps:
+
+1. **Re-run the `setup` skill** — ensures CLAUDE.md, skills, structure, and metadata are populated and up to date with the current codebase
+2. **Run the `design-mcp-server` skill** — if the tool/resource surface hasn't been mapped yet, work through domain design
+3. **Add tools/resources/prompts** — scaffold new definitions using the `add-tool`, `add-app-tool`, `add-resource`, `add-prompt` skills
+4. **Add services** — scaffold domain service integrations using the `add-service` skill
+5. **Add tests** — scaffold tests for existing definitions using the `add-test` skill
+6. **Field-test definitions** — exercise tools/resources/prompts with real inputs using the `field-test` skill, get a report of issues and pain points
+7. **Run `devcheck`** — lint, format, typecheck, and security audit
+8. **Run the `security-pass` skill** — audit handlers for MCP-specific security gaps: output injection, scope blast radius, input sinks, tenant isolation
+9. **Run the `polish-docs-meta` skill** — finalize README, CHANGELOG, metadata, and agent protocol for shipping
+10. **Run the `maintenance` skill** — investigate changelogs, adopt upstream changes, and sync skills after `bun update --latest`
+
+Tailor suggestions to what's actually missing or stale — don't recite the full list every time.
 
 ---
 
 ## Core Rules
 
-- **Logic throws, framework catches.** Pure, stateless `handler` functions, no `try/catch`. Plain `Error` works — framework catches, classifies, formats. Use `McpError(code, message, data, options?)` only when you need a specific JSON-RPC code or structured data; 4th arg `{ cause }` chains.
-- **Full-stack observability.** The framework automatically instruments every tool/resource call — OTel span, duration/payload/memory metrics, structured completion log. Use `ctx.log` for additional domain-specific logging within handlers (external API calls, multi-step operations, business events). `requestId`, `traceId`, `tenantId` auto-correlated. No `console` calls.
-- **Unified Context.** Handlers receive `ctx` with logging (`ctx.log`), tenant-scoped storage (`ctx.state`), optional protocol capabilities (`ctx.elicit`, `ctx.sample`), and cancellation (`ctx.signal`).
-- **Decoupled storage.** `ctx.state` for tenant-scoped KV. Never access persistence backends directly.
-- **Canvas tokens are capabilities, not tenant-scoped state.** A `canvasId` is a 10-char URL-safe token; possession grants full read/write/drop on that canvas. Tokens are designed to be shareable — between agents in one session, and across users in single-tenant deployments (see tenant resolution table under `ctx.state`). Tools should accept the token in `input` (or omit to create fresh) and return it in `output`; collaboration is opt-in via explicit token exchange.
-- **Runtime parity.** All features work with `stdio`/`http` and Worker bundle. Guard non-portable deps via `runtimeCaps` from `@cyanheads/mcp-ts-core/utils` — a frozen capability object (`isNode`, `isBun`, `isWorkerLike`, `hasBuffer`, `hasProcess`, etc.) computed once at module load. Prefer runtime-agnostic abstractions (Hono + `@hono/mcp`, Fetch APIs).
-- **Definition linting is build-time only.** Run `bun run lint:mcp` (standalone) or `bun run devcheck` (gate). Not invoked at server startup — new lint rules are additive and never break deployed servers. Every diagnostic links to the rule reference in `api-linter` skill; see that skill for the full rule catalog.
-- **Elicitation for missing input.** Use `ctx.elicit` when the client supports it.
+- **Logic throws, framework catches.** Tool/resource handlers are pure — throw on failure, no `try/catch`. Plain `Error` is fine; the framework catches, classifies, and formats. Use error factories (`notFound()`, `validationError()`, etc.) when the error code matters.
+- **Use `ctx.log`** for request-scoped logging. No `console` calls.
+- **Use `ctx.state`** for tenant-scoped storage. Never access persistence directly.
+- **Check `ctx.elicit`** for presence before calling.
+- **Secrets in env vars only** — never hardcoded.
+- **Close the loop on issues.** When implementing work tracked by a GitHub issue, comment on the issue with what landed and close it. Do both — a comment without a close leaves stale issues open; a close without a comment leaves no record of what shipped. The comment is for future readers — state the concrete changes, not the conversation that produced them.
 
 ---
 
-## Exports Reference
+## Patterns
 
-| Subpath | Key Exports | Purpose |
-|:--------|:------------|:--------|
-| `@cyanheads/mcp-ts-core` | `createApp`, `tool`, `resource`, `prompt`, `appTool`, `appResource`, `APP_RESOURCE_MIME_TYPE`, `Context`, `createFail`, `createRecoveryFor`, `TypedFail`, `TypedRecoveryFor`, `ReasonOf`, `HandlerContext`, `z` | Main entry point |
-| `/worker` | `createWorkerHandler`, `CloudflareBindings` | Cloudflare Workers entry |
-| `/tools` | `ToolDefinition`, `AnyToolDefinition`, `ToolAnnotations` | Tool definition types |
-| `/resources` | `ResourceDefinition`, `AnyResourceDefinition` | Resource definition types |
-| `/prompts` | `PromptDefinition` | Prompt definition type |
-| `/tasks` | `TaskToolDefinition`, `isTaskToolDefinition` | Task tool escape hatch |
-| `/errors` | `McpError`, `JsonRpcErrorCode`, `notFound`, `validationError`, `unauthorized`, ... | Error types, codes, and factory functions |
-| `/config` | `AppConfig`, `config`, `parseConfig`, `parseEnvConfig`, `resetConfig`, `ConfigSchema`, `FRAMEWORK_NAME`, `FRAMEWORK_VERSION` | Zod-validated config, framework identity, env-var helper |
-| `/auth` | `checkScopes` | Dynamic scope checking |
-| `/storage` | `StorageService` | Storage abstraction |
-| `/storage/types` | `IStorageProvider` | Provider interface |
-| `/canvas` | `DataCanvas`, `CanvasInstance`, `CanvasRegistry`, `IDataCanvasProvider`, `DuckdbProvider`, `spillover`, `inferSchemaFromRows`, `assertReadOnlyQuery`, `quoteIdentifier`, ... | DataCanvas primitive (Tier 3, optional peer dep `@duckdb/node-api`); SQL/analytical workspace + source-agnostic spillover helper |
-| `/utils` | formatting, encoding, network, pagination, logging, runtime, telemetry, token counting, parsers†, sanitization†, scheduling† | All utilities (†optional peer deps) |
-| `/services` | `OpenRouterProvider`, `SpeechService`, `createSpeechProvider`, `ElevenLabsProvider`, `WhisperProvider`, `GraphService`, provider interfaces and types | LLM, Speech (TTS/STT), Graph services |
-| `/linter` | `validateDefinitions`, `LintReport`, `LintDiagnostic`, `LintInput`, `LintSeverity` | Definition validation |
-| `/testing` | `createMockContext` | Test helpers |
-| `/testing/fuzz` | `fuzzTool`, `fuzzResource`, `fuzzPrompt`, `zodToArbitrary`, `adversarialArbitrary`, `ADVERSARIAL_STRINGS` | Fuzz testing |
-
-All subpaths prefixed with `@cyanheads/mcp-ts-core`. **†Tier 3 modules** require optional peer dependencies — see `package.json` `peerDependencies`. Tier 3 methods that lazy-load deps are **async**.
-
-### Import conventions
-
-```ts
-// Framework (from node_modules) — z is re-exported, no separate zod import needed
-import { tool, z } from '@cyanheads/mcp-ts-core';
-import { McpError, JsonRpcErrorCode } from '@cyanheads/mcp-ts-core/errors';
-
-// Server's own code (via path alias)
-import { getMyService } from '@/services/my-domain/my-service.js';
-```
-
-Build configs exported for consumer extension: `tsconfig.json` extends `@cyanheads/mcp-ts-core/tsconfig.base.json`, `biome.json` extends `@cyanheads/mcp-ts-core/biome`, `vitest.config.ts` spreads from `@cyanheads/mcp-ts-core/vitest.config`.
-
----
-
-## Entry Points
-
-### Node.js — `createApp(options)`
-
-```ts
-import { createApp } from '@cyanheads/mcp-ts-core';
-import { allToolDefinitions } from './mcp-server/tools/index.js';
-import { allResourceDefinitions } from './mcp-server/resources/index.js';
-import { allPromptDefinitions } from './mcp-server/prompts/index.js';
-
-await createApp({
-  name: 'my-mcp-server',           // overrides package.json / MCP_SERVER_NAME
-  version: '0.1.0',                // overrides package.json / MCP_SERVER_VERSION
-  tools: allToolDefinitions,
-  resources: allResourceDefinitions,
-  prompts: allPromptDefinitions,
-  instructions:                     // server-level orientation, sent on every initialize
-    'Pre-configured shortcuts:\n- `default` → production API\n' +
-    'Other endpoints reachable via `connect({ baseUrl })`.',
-  extensions: {                     // SEP-2133 extensions advertised in capabilities
-    'vendor/my-extension': { /* extension config */ },
-  },
-  setup(core) {                     // runs after core services init, before transport starts
-    initMyService(core.config, core.storage);
-  },
-});
-```
-
-**`instructions`** — Optional server-level orientation text. Surfaces on every `initialize` response so spec-compliant clients can forward it to the model as session-level system context. Use for deployment-specific guidance (configured connection aliases, regional notes, scope hints, shortcuts) instead of leaking that text into every tool description. Client adoption is uneven, but clients that ignore the field are no worse off than they are today — strict improvement when set.
-
-### Cloudflare Workers — `createWorkerHandler(options)`
-
-```ts
-import { createWorkerHandler } from '@cyanheads/mcp-ts-core/worker';
-
-export default createWorkerHandler({
-  tools: allToolDefinitions,
-  resources: allResourceDefinitions,
-  prompts: allPromptDefinitions,
-  instructions: (env) => `Region: ${env.ENVIRONMENT ?? 'production'}`,  // string | (env) => string
-  setup(core) { initMyService(core.config, core.storage); },
-  extraEnvBindings: [['MY_API_KEY', 'MY_API_KEY']],       // string values → process.env
-  extraObjectBindings: [['MY_CUSTOM_KV', 'MY_CUSTOM_KV']], // KV/R2/D1 → globalThis
-  onScheduled: async (controller, env, ctx) => { /* cron */ },
-});
-```
-
-`instructions` on the Worker handler accepts either a plain string or a `(env) => string` resolver so deployment env (injected at request time) can shape the text.
-
-Per-request `McpServer` factory (security: SDK GHSA-345p-7cg4-v4c7). Requires `compatibility_flags = ["nodejs_compat"]` and `compatibility_date >= "2025-09-01"` in `wrangler.toml`. Only `in-memory`, `cloudflare-r2`, `cloudflare-kv`, `cloudflare-d1` storage in Workers. See `api-workers` skill for full details.
-
-### Interfaces
-
-`createApp()` returns `Promise<ServerHandle>`. `createWorkerHandler()` returns an `ExportedHandler`.
-
-```ts
-interface CoreServices {
-  config: AppConfig;
-  logger: Logger;
-  storage: StorageService;
-  rateLimiter: RateLimiter;
-  llmProvider?: ILlmProvider;
-  speechService?: SpeechService;
-  supabase?: SupabaseClient;
-}
-
-interface ServerHandle {
-  shutdown(signal?: string): Promise<void>;
-  readonly services: CoreServices;
-}
-```
-
----
-
-## Server Structure
-
-```text
-src/
-  index.ts                              # createApp() entry point
-  worker.ts                             # createWorkerHandler() (if using Workers)
-  config/
-    server-config.ts                    # Server-specific env vars (own Zod schema)
-  services/
-    [domain]/
-      [domain]-service.ts               # Domain service (init/accessor pattern)
-      types.ts                          # Domain types
-  mcp-server/
-    tools/definitions/
-      [tool-name].tool.ts               # Tool definitions
-      index.ts                          # allToolDefinitions barrel
-    resources/definitions/
-      [resource-name].resource.ts       # Resource definitions
-      index.ts                          # allResourceDefinitions barrel
-    prompts/definitions/
-      [prompt-name].prompt.ts           # Prompt definitions
-      index.ts                          # allPromptDefinitions barrel
-```
-
-**File suffixes:** `.tool.ts` (standard or task), `.resource.ts`, `.prompt.ts`, `.app-tool.ts` (UI-enabled), `.app-resource.ts` (UI resource linked to app tool).
-
----
-
-## Adding a Tool
+### Tool
 
 ```ts
 import { tool, z } from '@cyanheads/mcp-ts-core';
 
-export const myTool = tool('my_tool', {
-  description: 'Does something useful.',
+export const searchItems = tool('search_items', {
+  description: 'Search inventory items by query.',
   annotations: { readOnlyHint: true },
-  input: z.object({ query: z.string().describe('Search query') }),
+  input: z.object({
+    query: z.string().describe('Search terms'),
+    limit: z.number().default(10).describe('Max results'),
+  }),
   output: z.object({
     items: z.array(z.object({
       id: z.string().describe('Item ID'),
       name: z.string().describe('Item name'),
-      status: z.string().describe('Current status'),
-      description: z.string().optional().describe('Item description'),
     })).describe('Matching items'),
-    totalCount: z.number().describe('Total matches before pagination'),
   }),
-  auth: ['tool:my_tool:read'],
+  auth: ['inventory:read'],
 
   async handler(input, ctx) {
-    const data = await fetchFromApi(input.query);
-    ctx.log.info('Query resolved', { query: input.query, resultCount: data.items.length });
-    return data;
+    const items = await findItems(input.query, input.limit);
+    ctx.log.info('Search completed', { query: input.query, count: items.length });
+    return { items };
   },
 
-  format: (result) => {
-    const lines = [`**${result.totalCount} results**\n`];
-    for (const item of result.items) {
-      lines.push(`### ${item.name}`);
-      lines.push(`**ID:** ${item.id} | **Status:** ${item.status}`);
-      if (item.description) lines.push(item.description);
-    }
-    return [{ type: 'text', text: lines.join('\n') }];
-  },
+  // format() populates content[] — the markdown twin of structuredContent.
+  // Different clients read different surfaces (Claude Code → structuredContent,
+  // Claude Desktop → content[]); both must carry the same data.
+  // Enforced at lint time: every field in `output` must appear in the rendered text.
+  format: (result) => [{
+    type: 'text',
+    text: result.items.map(i => `**${i.id}**: ${i.name}`).join('\n'),
+  }],
 });
 ```
 
-**Steps:** Create `src/mcp-server/tools/definitions/[name].tool.ts` (kebab-case) → use `tool('snake_case', {...})` with Zod `.describe()` on all fields → implement `handler(input, ctx)` (pure, throws on failure) → add `auth`/`format` if needed → register in `definitions/index.ts` → `bun run devcheck` → smoke-test with `bun run rebuild && bun run start:stdio` (or `start:http`).
-
-**Schema constraint:** Input/output schemas must use JSON-Schema-serializable Zod types only. The MCP SDK converts schemas to JSON Schema for `tools/list` — non-serializable types (`z.custom()`, `z.date()`, `z.transform()`, `z.bigint()`, `z.symbol()`, `z.void()`, `z.map()`, `z.set()`, `z.function()`, `z.nan()`) cause a hard runtime failure. Use structural equivalents instead (e.g., `z.string()` with `.describe('ISO 8601 date')` instead of `z.date()`). The linter validates this at startup.
-
-**Form-client safety:** Form-based clients (MCP Inspector, web UIs) send optional fields as empty strings, not `undefined`. Don't reject with `.min(1)` on optional fields — guard for meaningful values in the handler (`if (input.dateRange?.minDate && input.dateRange?.maxDate)`). Test with both omitted and empty-value payloads. When schema-level constraints (regex/length) need to surface in the JSON Schema, wrap in a union with a `z.literal('')` sentinel: `z.union([z.literal(''), z.string().regex(...).describe(...)])` — the linter exempts the literal variant from `describe-on-fields`.
-
-**`format`**: Maps output to MCP `content[]`. Different clients forward different surfaces to the agent — some (Claude Code) read `structuredContent` from `output`, others (Claude Desktop) read `content[]` from `format()`. `format()` is the markdown twin of `structuredContent`, not a reduced summary.
-
-- **Parity is enforced.** Every terminal field in `output` must appear in `format()`'s rendered text (via sentinel injection), or startup fails with a `format-parity` lint error.
-- **Primary fix:** render the missing field in `format()`. Use `z.discriminatedUnion` for list/detail variants — each branch is validated separately.
-- **Escape hatch:** if the schema was over-typed for a genuinely dynamic upstream API, relax it (`z.object({}).passthrough()`) — passthrough still flows data to `structuredContent`.
-- **Fallback:** omit `format` for JSON stringify. Additional formatters in `/utils`: `markdown()` (builder), `diffFormatter` (async), `tableFormatter`, `treeFormatter`.
-
-**Task tools:** Add `task: true` for long-running async operations. Framework manages lifecycle: creates task → returns ID immediately → runs handler in background with `ctx.progress` → stores result/error → `ctx.signal` for cancellation. See `add-tool` skill for full example.
-
----
-
-## Adding a Resource
-
-**Tool coverage.** Not all MCP clients expose resources — many are tool-only. Verify that resource data is also reachable via the tool surface before relying on resources as an access path.
+### Resource
 
 ```ts
 import { resource, z } from '@cyanheads/mcp-ts-core';
+import { notFound } from '@cyanheads/mcp-ts-core/errors';
 
-export const myResource = resource('myscheme://{itemId}/data', {
-  description: 'Retrieve item data by ID.',
-  mimeType: 'application/json',
+export const itemData = resource('inventory://{itemId}', {
+  description: 'Fetch an inventory item by ID.',
   params: z.object({ itemId: z.string().describe('Item identifier') }),
-  auth: ['item:read'],
+  auth: ['inventory:read'],
   async handler(params, ctx) {
-    return { id: params.itemId, status: 'active' };
+    const item = await ctx.state.get(`item:${params.itemId}`);
+    if (!item) throw notFound(`Item ${params.itemId} not found`, { itemId: params.itemId });
+    return item;
   },
-  list: async () => ({
-    resources: [{ uri: 'myscheme://all', name: 'All Items', mimeType: 'application/json' }],
-  }),
 });
 ```
 
-Handler receives `(params, ctx)` — URI on `ctx.uri` if needed. Optional `size` (bytes) for content size metadata. Large lists must use `extractCursor`/`paginateArray` from `/utils`.
-
----
-
-## Adding a Prompt
+### Prompt
 
 ```ts
 import { prompt, z } from '@cyanheads/mcp-ts-core';
 
-export const codeReview = prompt('code_review', {
-  description: 'Review code for security and best practices.',
+export const reviewCode = prompt('review_code', {
+  description: 'Review code for issues and best practices.',
   args: z.object({
     code: z.string().describe('Code to review'),
     language: z.string().optional().describe('Programming language'),
@@ -281,366 +132,291 @@ export const codeReview = prompt('code_review', {
 });
 ```
 
-Prompts are pure message templates — no `Context`, no auth, no side effects.
-
----
-
-## Adding a Service
-
-Init/accessor pattern — initialized in `setup()`, accessed at request time.
+### Server config
 
 ```ts
-export class MyService {
-  constructor(private readonly config: AppConfig, private readonly storage: StorageService) {}
-  async doWork(input: string, ctx: Context): Promise<string> {
-    ctx.log.debug('Working', { input });
-    return `done: ${input}`;
-  }
-}
+// src/config/server-config.ts — lazy-parsed, separate from framework config
+import { z } from '@cyanheads/mcp-ts-core';
+import { parseEnvConfig } from '@cyanheads/mcp-ts-core/config';
 
-let _service: MyService | undefined;
-export function initMyService(config: AppConfig, storage: StorageService): void {
-  _service = new MyService(config, storage);
-}
-export function getMyService(): MyService {
-  if (!_service) throw new Error('MyService not initialized — call initMyService() in setup()');
-  return _service;
+const ServerConfigSchema = z.object({
+  apiKey: z.string().describe('External API key'),
+  maxResults: z.coerce.number().default(100),
+  verboseLogging: z.stringbool().default(false).describe('Enable verbose logging'),
+});
+
+let _config: z.infer<typeof ServerConfigSchema> | undefined;
+export function getServerConfig() {
+  _config ??= parseEnvConfig(ServerConfigSchema, {
+    apiKey: 'MY_API_KEY',
+    maxResults: 'MY_MAX_RESULTS',
+    verboseLogging: 'MY_VERBOSE_LOGGING',
+  });
+  return _config;
 }
 ```
 
-Usage: `getMyService().doWork(input.query, ctx)`. Convention: `ctx.elicit`/`ctx.sample` only from tool handlers, not services.
+`parseEnvConfig` maps Zod schema paths → env var names so errors name the variable (`MY_API_KEY`) not the path (`apiKey`). Throws `ConfigurationError`, which the framework prints as a clean startup banner.
 
-**API efficiency:** Prefer batch endpoints over N+1 individual requests. Use field selection to minimize payload. Cross-reference batch responses against requested IDs to detect missing items. See `add-service` skill for patterns.
+For env booleans use `z.stringbool()`, never `z.coerce.boolean()` — `Boolean("false")` is `true`, so a coerced flag can't be disabled through the environment. `z.stringbool()` parses `true/false/1/0/yes/no/on/off` and rejects anything else, so `=false` actually disables.
+
+### Server identity and instructions
+
+`createApp()` accepts optional identity fields forwarded to the SDK's `initialize` response and the server manifest (`/.well-known/mcp.json`):
+
+```ts
+await createApp({
+  name: 'my-mcp-server',
+  title: 'My Server',                         // human-readable display name
+  websiteUrl: 'https://github.com/owner/repo', // canonical homepage URL
+  description: 'One-line description.',        // wins over MCP_SERVER_DESCRIPTION
+  icons: [{ src: 'https://example.com/icon.png', sizes: ['48x48'], mimeType: 'image/png' }],
+  instructions: 'Use shortcut alpha for the most common case.', // session-level context
+});
+```
+
+`instructions` is optional server-level orientation, sent on every `initialize` as session-level context. Use it for deployment guidance (connection aliases, regional notes, scope hints) instead of repeating the same context across tool descriptions. Client adoption is uneven, but there's no downside when set.
 
 ---
 
 ## Context
 
-```ts
-interface Context {
-  readonly requestId: string;
-  readonly timestamp: string;
-  readonly tenantId?: string;
-  readonly traceId?: string;
-  readonly spanId?: string;
-  readonly auth?: AuthContext;
-  readonly log: ContextLogger;                // auto-correlated: requestId, traceId, tenantId
-  readonly state: ContextState;               // tenant-scoped KV storage
-  readonly elicit?: (message: string, schema: z.ZodObject<any>) => Promise<ElicitResult>;
-  readonly sample?: (messages: SamplingMessage[], opts?: SamplingOpts) => Promise<CreateMessageResult>;
-  readonly notifyResourceListChanged?: (() => void) | undefined;   // resource list changed
-  readonly notifyResourceUpdated?: ((uri: string) => void) | undefined; // resource content changed
-  readonly signal: AbortSignal;               // cancellation
-  readonly progress?: ContextProgress;        // present when task: true
-  readonly uri?: URL;                         // present for resource handlers
-  recoveryFor(reason: string): { recovery: { hint: string } } | {};  // opt-in contract resolver
-}
-```
+Handlers receive a unified `ctx` object. Key properties:
 
-### `ctx.log`
-
-Opt-in domain-specific logging. Methods: `debug`, `info`, `notice`, `warning`, `error`. Auto-includes `requestId`, `traceId`, `tenantId`, `spanId`. Use `ctx.log` in handlers; global `logger` for startup/shutdown/background.
-
-### `ctx.state`
-
-Tenant-scoped KV. Accepts any serializable value — no manual `JSON.stringify`/`JSON.parse` needed.
-
-```ts
-await ctx.state.set('item:123', { name: 'Widget', count: 42 });
-await ctx.state.set('item:123', data, { ttl: 3600 });           // with TTL (seconds)
-const item = await ctx.state.get<Item>('item:123');              // T | null
-const safe = await ctx.state.get('item:123', ItemSchema);        // Zod-validated T | null
-await ctx.state.delete('item:123');
-const values = await ctx.state.getMany<Item>(['item:1', 'item:2']); // Map<string, T>
-const page = await ctx.state.list('item:', { cursor, limit: 20 });  // { items, cursor? }
-```
-
-Throws `McpError(InvalidRequest)` if `tenantId` missing. Tenant ID resolution:
-
-| Mode | `tenantId` source |
-|:-----|:------------------|
-| stdio (any auth) | `'default'` |
-| HTTP + `MCP_AUTH_MODE=none` | `'default'` (single-tenant by design) |
-| HTTP + `MCP_AUTH_MODE=jwt`/`oauth` | JWT `'tid'` claim — fail-closed if absent |
-
-### `ctx.elicit` / `ctx.sample`
-
-Check for presence before calling:
-
-```ts
-if (ctx.elicit) {
-  const result = await ctx.elicit('What format?', z.object({
-    format: z.enum(['json', 'csv']).describe('Output format'),
-  }));
-  if (result.action === 'accept') useFormat(result.data.format);
-}
-```
-
-### `ctx.progress`
-
-Present when `task: true`. Methods: `setTotal(n)`, `increment(amount?)`, `update(message)`.
-
-See `api-context` skill for full details.
+| Property | Description |
+|:---------|:------------|
+| `ctx.log` | Request-scoped logger — `.debug()`, `.info()`, `.notice()`, `.warning()`, `.error()`. Auto-correlates requestId, traceId, tenantId. |
+| `ctx.state` | Tenant-scoped KV — `.get(key)`, `.set(key, value, { ttl? })`, `.delete(key)`, `.getMany(keys)`, `.list(prefix, { cursor, limit })`. Accepts any serializable value. |
+| `ctx.elicit` | Ask user for structured input — form call `(message, schema)` or `.url(message, url)` for an external link. **Check for presence first:** `if (ctx.elicit) { ... }` |
+| `ctx.enrich` | Success-path agent context (empty-result notices, query echo, pagination totals) — `ctx.enrich(...)` or `.notice()` / `.total()` / `.echo()` / `.truncated()`. Reaches `structuredContent` and `content[]`; lands only when the definition declares an `enrichment` block (no-op otherwise). |
+| `ctx.content` | Non-text content blocks — `.image(data, mimeType)`, `.audio(data, mimeType)`, or `ctx.content(block)` for a raw block. Prepended to `content[]` after `format()`; never enters `structuredContent`. |
+| `ctx.signal` | `AbortSignal` for cancellation. |
+| `ctx.progress` | Task progress (present when `task: true`) — `.setTotal(n)`, `.increment()`, `.update(message)`. |
+| `ctx.requestId` | Unique request ID. |
+| `ctx.tenantId` | Tenant ID from JWT; `'default'` for stdio or HTTP with auth off. |
 
 ---
 
-## Error Handling
+## Errors
 
-**Recommended path: declare a typed error contract.** Add `errors: [{ reason, code, when, recovery, retryable? }]` to `tool()` / `resource()`. Handler gets `ctx.fail(reason, msg?, data?)` typed against the reason union — typos fail at compile time. Runtime auto-populates `data.reason` for observability; linter enforces conformance against the handler body. `recovery` is required (≥5 words, lint-validated) — the single source of truth for the wire hint. Spread `ctx.recoveryFor('reason')` into `data` to opt the contract recovery onto the wire (framework mirrors `data.recovery.hint` into `content[]` text); override with explicit `{ recovery: { hint: '...' } }` when runtime context matters.
+Handlers throw — the framework catches, classifies, and formats.
+
+**Recommended: typed error contract.** Declare `errors: [{ reason, code, when, recovery, retryable? }]` on `tool()` / `resource()` to receive `ctx.fail(reason, …)` typed against the reason union. TypeScript catches typos at compile time, `data.reason` is auto-populated for observability, linter enforces conformance against the handler body. `recovery` is required (≥ 5 words, lint-validated) — the single source of truth for the agent's next move. Pass `ctx.recoveryFor('reason')` as the throw's data to put it on the wire (`data.recovery.hint`, mirrored into `content[]` text); override with an explicit `{ recovery: { hint: '...' } }` when dynamic runtime context matters. Baseline codes (`InternalError`, `ServiceUnavailable`, `Timeout`, `ValidationError`, `SerializationError`) bubble freely and don't need declaring.
 
 ```ts
+import { JsonRpcErrorCode } from '@cyanheads/mcp-ts-core/errors';
+
 errors: [
   { reason: 'no_match', code: JsonRpcErrorCode.NotFound,
-    when: 'No PMID returned data',
-    recovery: 'Try pubmed_search_articles to discover valid PMIDs first.' },
-  { reason: 'queue_full', code: JsonRpcErrorCode.RateLimited,
-    when: 'Queue at capacity', retryable: true,
-    recovery: 'Wait 30 seconds before retrying or reduce batch size.' },
+    when: 'No item matched the query',
+    recovery: 'Broaden the query or check the spelling and try again.' },
 ],
 async handler(input, ctx) {
-  // Static recovery — pulled from the contract via ctx.recoveryFor.
-  if (queue.full()) throw ctx.fail('queue_full', undefined, { ...ctx.recoveryFor('queue_full') });
-  // Dynamic recovery — interpolate runtime context, override the contract default.
-  if (!matched) throw ctx.fail('no_match', `No data for ${input.pmids.length} PMIDs`, {
-    pmids: input.pmids,
-    recovery: { hint: `Use pubmed_search_articles to discover valid PMIDs.` },
-  });
+  const item = await db.find(input.id);
+  if (!item) throw ctx.fail('no_match', `No item ${input.id}`, ctx.recoveryFor('no_match'));
+  return item;
 }
 ```
 
-**`ctx.recoveryFor(reason)`** always present on `Context`, returns `{}` when no contract is attached or the reason is unknown (spread-safe). Strictly typed on `HandlerContext<R>` against the declared reason union. Works in services accepting `ctx`: `throw validationError(msg, { reason: 'X', ...ctx.recoveryFor('X') })`. No auto-population — author opts in by typing the helper.
+**Declare contracts inline on each tool.** The contract is part of the tool's public surface — one file should give the full picture. Don't extract a shared `errors[]` constant; per-tool repetition is the intended cost of locality.
 
-**Declare contracts inline on each tool.** The contract is part of the tool's public surface — one file should give the full picture (input, output, errors, handler, format). Don't extract a shared `errors[]` constant; per-tool repetition is the intended cost of locality, and dynamic `recovery` hints need tool-specific context.
-
-The contract describes the **public failure surface** — declare domain-specific failures only. **Baseline codes** (`InternalError`, `ServiceUnavailable`, `Timeout`, `ValidationError`, `SerializationError`) bubble from anywhere and are auto-allowed by the conformance lint, so you don't need to enumerate them per-tool. The conformance lint scans handler source text only — failures thrown from called services aren't visible to it (still reach the client correctly via the auto-classifier, just without lint enforcement).
-
-**Fallback for ad-hoc throws** (no contract entry fits, prototype tools, service-layer code): use error factories.
+**Fallback (no contract entry fits):** throw via factories or plain `Error`.
 
 ```ts
-import { notFound, validationError } from '@cyanheads/mcp-ts-core/errors';
-throw notFound('Item not found', { itemId: '123' });
-throw validationError('Missing required field: name', { field: 'name' });
+// Error factories — explicit code
+import { notFound, serviceUnavailable } from '@cyanheads/mcp-ts-core/errors';
+throw notFound('Item not found', { itemId });
+throw serviceUnavailable('API unavailable', { url }, { cause: err });
+
+// Plain Error — framework auto-classifies from message patterns
+throw new Error('Item not found');           // → NotFound
+throw new Error('Invalid query format');     // → ValidationError
+
+// McpError — when no factory exists for the code
+import { McpError, JsonRpcErrorCode } from '@cyanheads/mcp-ts-core/errors';
+throw new McpError(JsonRpcErrorCode.DatabaseError, 'Connection failed', { pool: 'primary' });
 ```
 
-Available factories: `invalidParams`, `invalidRequest`, `notFound`, `forbidden`, `unauthorized`, `validationError`, `conflict`, `rateLimited`, `timeout`, `serviceUnavailable`, `configurationError`, `internalError`, `serializationError`, `databaseError`. All accept `(message, data?, options?)` where `options` is `{ cause?: unknown }`.
-
-For HTTP responses from upstream APIs, use `httpErrorFromResponse(response, { service, data })` from `/utils` — maps the full status table (401/403/408/422/429/5xx) and captures body + `Retry-After`.
-
-**Auto-classification.** Plain `Error`, `ZodError`, and any other thrown value are caught and classified automatically. Resolution order: `McpError` code (preserved as-is) → JS constructor name (`TypeError` → `ValidationError`) → provider patterns (HTTP status codes, AWS errors, DB errors) → common message patterns → `AbortError` name → `InternalError` fallback.
-
-**Error-path parity.** Tool errors apply the same parity as success: `content[]` carries markdown with `data.recovery.hint` mirrored in; `structuredContent.error` carries `{ code, message, data? }`. No `_meta.error`. Resources re-throw to the SDK via JSON-RPC error envelope (no parity wiring).
-
-The startup linter checks handler bodies for `prefer-mcp-error-in-handler`, `prefer-error-factory`, `preserve-cause-on-rethrow`, `no-stringify-upstream-error`, plus contract conformance (`error-contract-conformance` for undeclared non-baseline codes, `error-contract-prefer-fail` for declared codes thrown directly instead of via `ctx.fail`) — all warnings, surfaced in `bun run devcheck`.
-
-See `api-errors` skill for the full pattern-matching table, error code reference, and detailed examples.
+See framework CLAUDE.md and the `api-errors` skill for the full auto-classification table, all available factories, and the contract reference.
 
 ---
 
-## Auth
+## Structure
 
-Inline `auth` on definitions (primary pattern): `auth: ['tool:my_tool:read']`. Handler factory checks scopes before calling handler. Dynamic scopes via `checkScopes(ctx, [...])` from `/auth`.
-
-**Scope naming:** colon-delimited strings. Conventions used in this codebase:
-
-| Surface | Pattern | Example |
-|:--------|:--------|:--------|
-| Tools | `tool:<snake_name>:<verb>` | `tool:inventory_search:read` |
-| Resources | `resource:<kebab-name>:<verb>` *or* domain-led `<domain>:<verb>` | `resource:echo-app-ui:read`, `inventory:read` |
-
-Pick one convention per server and stay consistent. Verbs are typically `read`, `write`, `admin`.
-
-**Modes** (`MCP_AUTH_MODE`): `none` (default) | `jwt` (local secret via `MCP_AUTH_SECRET_KEY`) | `oauth` (JWKS via `OAUTH_ISSUER_URL`, `OAUTH_AUDIENCE`). See `api-auth` skill for claims, CORS, and detailed config.
-
-**Granted scopes** union `scp`, `scope`, and `mcp_tool_scopes` JWT claims. `mcp_tool_scopes` is the escape hatch for OIDC providers (Authentik, Keycloak < 26.5, Zitadel) that ignore property mappings overriding `scope` in `authorization_code` flow. When no custom claim can be injected, `MCP_AUTH_DISABLE_SCOPE_CHECKS=true` bypasses both `withRequiredScopes` and `checkScopes` after auth-context presence check (signature/audience/issuer/expiry intact). Startup logs `WARNING` when active.
-
----
-
-## Configuration
-
-### Core config
-
-Managed by `@cyanheads/mcp-ts-core`. Validated via Zod. Precedence: `createApp()` overrides > env vars > `package.json` (reads `name` → `MCP_SERVER_NAME`, `version` → `MCP_SERVER_VERSION`).
-
-| Category | Key Variables |
-|:---------|:-------------|
-| Transport | `MCP_TRANSPORT_TYPE` (`stdio`\|`http`), `MCP_HTTP_PORT`, `MCP_HTTP_HOST`, `MCP_HTTP_ENDPOINT_PATH` |
-| Auth | `MCP_AUTH_MODE`, `MCP_AUTH_SECRET_KEY`, `MCP_AUTH_DISABLE_SCOPE_CHECKS`, `OAUTH_*` |
-| Storage | `STORAGE_PROVIDER_TYPE` (`in-memory`\|`filesystem`\|`supabase`\|`cloudflare-r2`\|`cloudflare-kv`\|`cloudflare-d1`) |
-| LLM | `OPENROUTER_API_KEY`, `OPENROUTER_APP_URL/NAME`, `LLM_DEFAULT_*` |
-| Telemetry | `OTEL_ENABLED`, `OTEL_SERVICE_NAME/VERSION`, `OTEL_EXPORTER_OTLP_*` |
-
-### Server config (separate schema)
-
-Own Zod schema for domain-specific env vars. **Never merge with core's schema.** Lazy-parse — Workers inject env at request time via `injectEnvVars()`, so no top-level `process.env` reads. Prefer `parseEnvConfig(schema, envMap)` from `/config` over `schema.parse(...)` — it maps schema paths to env var names (`MY_API_KEY is missing` vs. `apiKey: expected string`). Raw `ZodError` from `setup()` is still caught and converted, but messages are worse. See `api-config` skill.
-
----
-
-## Testing
-
-```ts
-import { describe, expect, it } from 'vitest';
-import { createMockContext } from '@cyanheads/mcp-ts-core/testing';
-import { myTool } from '@/mcp-server/tools/definitions/my-tool.tool.js';
-
-describe('myTool', () => {
-  it('returns expected output', async () => {
-    const ctx = createMockContext();
-    const result = await myTool.handler(myTool.input.parse({ query: 'hello' }), ctx);
-    expect(result.result).toBe('Found: hello');
-  });
-});
+```text
+src/
+  index.ts                              # createApp() entry point
+  config/
+    server-config.ts                    # Server-specific env vars (Zod schema)
+  services/
+    [domain]/
+      [domain]-service.ts               # Domain service (init/accessor pattern)
+      types.ts                          # Domain types
+  mcp-server/
+    tools/definitions/
+      [tool-name].tool.ts               # Tool definitions
+    resources/definitions/
+      [resource-name].resource.ts       # Resource definitions
+    prompts/definitions/
+      [prompt-name].prompt.ts           # Prompt definitions
 ```
 
-**`createMockContext` options:** `createMockContext()` (minimal), `{ tenantId: 'test-tenant' }` (enables state), `{ sample: vi.fn() }`, `{ elicit: vi.fn() }`, `{ progress: true }` (task progress).
+---
 
-**Fuzz testing:** `fuzzTool`/`fuzzResource`/`fuzzPrompt` from `/testing/fuzz` generate valid and adversarial inputs from Zod schemas via `fast-check`, then assert handler invariants (no crashes, no prototype pollution, no stack trace leaks). Returns a `FuzzReport` for custom assertions.
+## Naming
 
-```ts
-import { fuzzTool } from '@cyanheads/mcp-ts-core/testing/fuzz';
-
-it('survives fuzz testing', async () => {
-  const report = await fuzzTool(myTool, { numRuns: 100 });
-  expect(report.crashes).toHaveLength(0);
-  expect(report.leaks).toHaveLength(0);
-  expect(report.prototypePollution).toBe(false);
-});
-```
-
-Options: `numRuns` (valid inputs, default 50), `numAdversarial` (adversarial inputs, default 30), `seed` (reproducibility), `timeout` (per-call ms, default 5000), `ctx` (`MockContextOptions` for stateful handlers). Also exports `zodToArbitrary(schema)` for custom property-based tests and `ADVERSARIAL_STRINGS` for targeted injection testing.
-
-**Vitest config:** Extend core config, add `@/` alias: `resolve: { alias: { '@/': new URL('./src/', import.meta.url).pathname } }`. Construct deps in `beforeEach`. Re-init services per suite.
+| What | Convention | Example |
+|:-----|:-----------|:--------|
+| Files | kebab-case with suffix | `search-docs.tool.ts` |
+| Tool/resource/prompt names | snake_case | `search_docs` |
+| Directories | kebab-case | `src/services/doc-search/` |
+| Descriptions | Single string or template literal, no `+` concatenation | `'Search items by query and filter.'` |
 
 ---
 
-## API Quick References
+## Skills
 
-Detailed method signatures, options, and examples live in skill files. Read the relevant skill before starting a task it covers.
+Skills are modular instructions in `skills/` at the project root. Read them directly when a task matches — e.g., `skills/add-tool/SKILL.md` when adding a tool. `bun run list-skills` prints the full registry.
 
-### Skill versioning
+**Agent skill directory:** Copy skills into the directory your agent discovers (Claude Code: `.claude/skills/`, others: equivalent). Skills then load as context without referencing `skills/` paths. After framework updates, run the `maintenance` skill — Phase B re-syncs the agent directory.
 
-Each `skills/<name>/SKILL.md` carries a `metadata.version` string in its frontmatter. The downstream `maintenance` skill's Phase A reads this field to decide whether to replace a consumer's local copy — when content changes without a version bump, Phase A skips the skill and drift surfaces only through the noisier content-hash backstop.
+Available skills:
 
-**Policy:** When you change a SKILL.md body, bump `metadata.version` in the same edit. Pure typo and whitespace fixes are exempt. One bump per release cycle is sufficient — if the file already carries an unreleased bump, additional edits within the same cycle don't each need their own.
+| Skill | Purpose |
+|:------|:--------|
+| `setup` | Post-init project orientation |
+| `design-mcp-server` | Design tool surface, resources, and services for a new server |
+| `add-tool` | Scaffold a new tool definition |
+| `add-app-tool` | Scaffold an MCP App tool + paired UI resource |
+| `add-resource` | Scaffold a new resource definition |
+| `add-prompt` | Scaffold a new prompt definition |
+| `add-service` | Scaffold a new service integration |
+| `add-test` | Scaffold test file for a tool, resource, or service |
+| `field-test` | Exercise tools/resources/prompts with real inputs, verify behavior, report issues |
+| `tool-defs-analysis` | Read-only audit of MCP definition language across the surface — voice, leaks, defaults, recovery hints, output descriptions |
+| `security-pass` | Audit server for MCP-flavored security gaps: output injection, scope blast radius, input sinks, tenant isolation |
+| `code-simplifier` | Post-session cleanup against `git diff` — modernize syntax, consolidate duplication, align with the codebase |
+| `polish-docs-meta` | Finalize docs, README, metadata, and agent protocol for shipping |
+| `git-wrapup` | Land working-tree changes as a versioned commit + annotated tag — version bump, changelog, verify, tag. Local only. |
+| `release-and-publish` | Push + npm + MCP Registry + GH Release + Docker. Picks up from `git-wrapup` |
+| `maintenance` | Investigate changelogs, adopt upstream changes, sync skills to agent dirs |
+| `orchestrations` | Chain task skills into a gated multi-phase pipeline — build-out, QA-fix, update-ship — when you can spawn sub-agents |
+| `report-issue-framework` | File a bug or feature request against `@cyanheads/mcp-ts-core` via `gh` CLI |
+| `report-issue-local` | File a bug or feature request against this server's own repo via `gh` CLI |
+| `techniques` | Catalog of response/data-shaping techniques — overflow handling, payload shaping, retrieval patterns |
+| `api-auth` | Auth modes, scopes, JWT/OAuth |
+| `api-canvas` | DataCanvas: register tabular data, run SQL, export, plus the `spillover()` helper for big result sets — Tier 3 opt-in |
+| `api-config` | AppConfig, parseConfig, env vars |
+| `api-context` | Context interface, logger, state, progress |
+| `api-errors` | McpError, JsonRpcErrorCode, error patterns |
+| `api-linter` | Definition linter rule catalog — invoked by `bun run lint:mcp` and `devcheck` |
+| `api-mirror` | MirrorService: persistent self-refreshing local mirror (embedded SQLite + FTS5) of a bulk upstream dataset — Tier 3 opt-in |
+| `api-services` | LLM, Speech, Graph services |
+| `api-testing` | createMockContext, test patterns |
+| `api-utils` | Formatting, parsing, security, pagination, scheduling, telemetry helpers |
+| `api-telemetry` | OTel catalog: spans, metrics, completion logs, env config, cardinality rules |
+| `api-workers` | Cloudflare Workers runtime |
 
-| Skill | Path | Covers |
-|:------|:-----|:-------|
-| `api-utils` | `skills/api-utils/SKILL.md` | formatting, parsing, security, network, pagination, runtime, scheduling, types, logger, requestContext, errorHandler, telemetry helpers (`withSpan`, `createCounter`, …) |
-| `api-telemetry` | `skills/api-telemetry/SKILL.md` | OTel catalog: span names, metric names + attributes, completion log fields, env config, runtime support, cardinality rules |
-| `api-services` | `skills/api-services/SKILL.md` | LLM (OpenRouter), Speech (ElevenLabs TTS, Whisper STT), Graph (CRUD, traversal, pathfinding) |
-| `api-context` | `skills/api-context/SKILL.md` | Context interface, createContext, ContextLogger/State/Progress |
-| `api-errors` | `skills/api-errors/SKILL.md` | McpError, JsonRpcErrorCode, error handling patterns |
-| `api-auth` | `skills/api-auth/SKILL.md` | Auth modes, scopes, JWT/OAuth strategies |
-| `api-config` | `skills/api-config/SKILL.md` | AppConfig, parseConfig, env vars |
-| `api-testing` | `skills/api-testing/SKILL.md` | createMockContext, test patterns, MockContextOptions |
-| `api-workers` | `skills/api-workers/SKILL.md` | createWorkerHandler, CloudflareBindings, Worker runtime |
-| `api-canvas` | `skills/api-canvas/SKILL.md` | DataCanvas primitive: acquire/register/query/export, token-sharing model, SQL gate, lifecycle, spillover pattern |
-| `api-linter` | `skills/api-linter/SKILL.md` | Definition lint rules (`format-parity`, `schema-*`, `name-*`, `server-json-*`, …) — look here when devcheck reports a lint diagnostic |
-| `add-tool` | `skills/add-tool/SKILL.md` | Scaffold a new MCP tool definition |
-| `add-app-tool` | `skills/add-app-tool/SKILL.md` | Scaffold an MCP App tool + UI resource pair |
-| `add-resource` | `skills/add-resource/SKILL.md` | Scaffold a new MCP resource definition |
-| `add-prompt` | `skills/add-prompt/SKILL.md` | Scaffold a new MCP prompt definition |
-| `add-service` | `skills/add-service/SKILL.md` | Scaffold a new domain service |
-| `add-test` | `skills/add-test/SKILL.md` | Scaffold test file for a tool, resource, or service |
-| `field-test` | `skills/field-test/SKILL.md` | Exercise tools/resources/prompts with real inputs, verify behavior, report issues |
-| `security-pass` | `skills/security-pass/SKILL.md` | Review server for MCP-flavored security gaps: output injection, scope blast radius, elicit gaps, upstream auth, input sinks, tenant isolation, leakage, resource bounds |
-| `add-provider` | `skills/add-provider/SKILL.md` | Add a new provider implementation |
-| `add-export` | `skills/add-export/SKILL.md` | Add a new subpath export |
-| `design-mcp-server` | `skills/design-mcp-server/SKILL.md` | Design tool surface, resources, and service layer for a new server |
-| `setup` | `skills/setup/SKILL.md` | Initialize a new consumer server from the template |
-| `polish-docs-meta` | `skills/polish-docs-meta/SKILL.md` | Finalize docs, README, metadata, and agent protocol for shipping |
-| `report-issue-framework` | `skills/report-issue-framework/SKILL.md` | File a bug or feature request against `@cyanheads/mcp-ts-core` via `gh` CLI |
-| `report-issue-local` | `skills/report-issue-local/SKILL.md` | File a bug or feature request against this server's own repo via `gh` CLI |
-| `release-and-publish` | `skills/release-and-publish/SKILL.md` | Post-wrapup ship workflow: verification gate, push, publish to npm/MCP Registry/GHCR |
-| `maintenance` | `skills/maintenance/SKILL.md` | Dependency updates, housekeeping tasks |
-| `migrate-mcp-ts-template` | `skills/migrate-mcp-ts-template/SKILL.md` | Migrate legacy template fork to package dependency |
+**Chaining skills into pipelines.** When the user wants a multi-phase effort — build this server out, QA-and-fix the surface, update-and-ship — *and you can spawn sub-agents*, `skills/orchestrations/SKILL.md` sequences the task skills above into a gated pipeline with verification at each step. Read it to drive the run. Optional: skip it if you can't orchestrate sub-agents, and ignore it entirely if you were *spawned* as one — you've already been scoped to a single phase.
 
----
-
-## Code Style & Checklist
-
-- **Validation:** Zod schemas, all fields need `.describe()`. See Adding a Tool for the JSON-Schema-serializable constraint and form-client safety.
-- **Logging:** Framework auto-instruments all handler calls. `ctx.log` for domain-specific logging in handlers, global `logger` for lifecycle/background
-- **Errors:** handlers throw — error factories (`notFound()`, `validationError()`, etc.) when the code matters, plain `Error` for don't-care cases. Framework catches and classifies.
-- **Secrets:** server config only — no hardcoded credentials
-- **Naming:** kebab-case files, snake_case tool/resource/prompt names, correct suffix
-- **JSDoc:** `@fileoverview` + `@module` required on every file
-- **No fabricated signal:** Don't invent synthetic scores or arbitrary "confidence percentages." Surface real signal.
-- **Builders:** `tool()`/`resource()`/`prompt()` with correct fields (`handler`, `input`, `output`, `format`, `auth`, `args`)
-- **`format()` completeness:** must carry the same data as `output` (parity is lint-enforced — see Adding a Tool)
-- **Auth:** via `auth: ['scope']` on definitions (not HOF wrapper)
-- **Presence checks:** `ctx.elicit`/`ctx.sample` checked before use
-- **Task tools:** use `task: true` flag
-- **Pagination:** large resource lists use `extractCursor`/`paginateArray`
-- **Registration:** definitions exported in `definitions/index.ts` barrel
-- **Tests:** `createMockContext()`, `.handler()` tested directly
-- **Gate:** `bun run devcheck` passes (includes MCP definition linting)
-- **Smoke-test:** `bun run rebuild && bun run start:stdio` (or `start:http`)
+When you complete a skill's checklist, check the boxes and add a completion timestamp at the end (e.g., `Completed: 2026-03-11`).
 
 ---
 
 ## Commands
 
+**Runtime:** Scripts use Bun's native TypeScript execution — `bun run <cmd>` is the standard invocation. `npm run <cmd>` also works (npm delegates to bun).
+
 | Command | Purpose |
 |:--------|:--------|
-| `bun run build` | Build library output (`scripts/build.ts`) |
-| `bun run rebuild` | Clean and rebuild (`scripts/clean.ts` + `build`) |
-| `bun run devcheck` | **Use often.** Lint, format, typecheck, MCP definition linting, `bun audit`, `bun outdated` |
-| `bun run lint:mcp` | Validate MCP definitions against spec |
-| `bun run format` | Auto-fix Biome lint/format issues |
-| `bun run test` | Unit/integration tests |
-| `bun run start:stdio` | Production mode (stdio, after build) |
-| `bun run start:http` | Production mode (HTTP, after build) |
+| `bun run build` | Compile TypeScript |
+| `bun run rebuild` | Clean + build |
+| `bun run clean` | Remove build artifacts |
+| `bun run devcheck` | Lint + format + typecheck + security + changelog sync |
+| `bun run audit:refresh` | Delete `bun.lock`, reinstall, and re-run `bun audit`. Use when `devcheck` flags a transitive advisory — Bun's `update` is sticky on transitive resolutions, so the advisory may be a stale-lockfile false positive. If it survives the refresh, it's real. |
+| `bun run lint:mcp` | Run the MCP definition linter standalone (rule catalog: `api-linter` skill) |
+| `bun run lint:packaging` | Packaging surface checks — `server.json`/`manifest.json` env-var parity (run by devcheck) |
+| `bun run list-skills` | Print the skill registry |
+| `bun run tree` | Generate directory structure doc |
+| `bun run format` | Auto-fix formatting (safe fixes only) |
+| `bun run format:unsafe` | Also apply Biome's unsafe autofixes — review the diff; they can change behavior |
+| `bun run test` | Run tests (Vitest — use `bun run test`, not `bun test`) |
+| `bun run start:stdio` | Production mode (stdio) |
+| `bun run start:http` | Production mode (HTTP) |
 | `bun run changelog:build` | Regenerate `CHANGELOG.md` from `changelog/*.md` |
-| `bun run changelog:check` | Verify `CHANGELOG.md` is in sync with `changelog/` (used by devcheck) |
+| `bun run changelog:check` | Verify `CHANGELOG.md` is in sync (used by devcheck) |
+| `bun run bundle` | Build, pack, and clean a `.mcpb` for one-click Claude Desktop install |
 
-After `bun update --latest`, run the `maintenance` skill to investigate changelogs, adopt upstream changes, and sync project skills.
+---
+
+## Bundling
+
+`npm run bundle` produces a `.mcpb` extension bundle for one-click install in Claude Desktop. The pack step is followed by `scripts/clean-mcpb.ts`, which prunes dev dependencies (`mcpb clean`) and strips dependency-shipped agent docs (`node_modules/**` `skills/`, `.claude/`, `.agents/`, `SKILL.md`) that root-anchored `.mcpbignore` patterns cannot reach. MCPB is stdio-only — HTTP and Cloudflare Workers deployments are unaffected. Consumers who don't need it can delete `manifest.json` and `.mcpbignore`; `lint:packaging` skips cleanly.
+
+**Adding an env var requires both files:** `server.json` (registry discovery, `environmentVariables[]`) and `manifest.json` (bundle install UX, `mcp_config.env` + `user_config`). `lint:packaging` (run by `devcheck`) verifies the env var names match.
+
+**README install badges** (Claude Desktop `.mcpb`, Cursor, VS Code) and the `base64` / `encodeURIComponent` config-generation commands are ship-time concerns — run the `polish-docs-meta` skill, which carries the badge format, layout, and generation snippets in `skills/polish-docs-meta/references/readme.md`.
 
 ---
 
 ## Changelog
 
-Directory-based, grouped by minor series via the `.x` semver-wildcard convention. Source of truth is `changelog/<major.minor>.x/<version>.md` — one standalone file per release (e.g. `changelog/0.5.x/0.5.4.md`). Per-version files ship in the npm package so agents can read a specific version directly from `node_modules` without parsing a monolithic file.
+Directory-based, grouped by minor series via the `.x` semver-wildcard convention. Source of truth: `changelog/<major.minor>.x/<version>.md` (e.g. `changelog/0.1.x/0.1.0.md`) — one file per release, shipped in the npm package. At release, author the per-version file with a concrete version and date, then run `npm run changelog:build` to regenerate the rollup. `changelog/template.md` is a **pristine format reference** — never edited or moved; read it for the frontmatter + section layout when scaffolding. `CHANGELOG.md` is a **navigation index** (header + link + summary per version), regenerated by `npm run changelog:build` — devcheck hard-fails on drift; never hand-edit it.
 
-At release time, author the per-version file with a concrete version and date, then run `bun run changelog:build` to regenerate the rollup. `changelog/template.md` is a format reference — never edited; consult it for frontmatter and section layout when scaffolding a new file. Be concise and accurate.
-
-`CHANGELOG.md` is a **navigation index**, not a copy of bodies — each entry is a clickable header + one-line summary pulled from the per-version file's frontmatter. Regenerated by `bun run changelog:build`. Devcheck runs `changelog:check` and hard-fails on drift. Never hand-edit `CHANGELOG.md` — edit the per-version file and rerun the build.
-
-### Per-version file format
+Each per-version file opens with YAML frontmatter:
 
 ```markdown
 ---
-summary: "One-line headline, ≤350 chars, no markdown"  # required
-breaking: false                                         # optional, default false
-security: false                                         # optional, default false
+summary: "One-line headline, ≤350 chars"  # required — powers the rollup index
+breaking: false                            # optional — true flags breaking changes
+security: false                            # optional — true ONLY for a source-code security fix, never a dependency CVE bump
 ---
 
-# 0.5.4 — 2026-04-20
-
-## Added
-
-- ...
+# 0.1.0 — YYYY-MM-DD
+...
 ```
 
-**Frontmatter fields:**
+`breaking: true` renders a `· ⚠️ Breaking` badge — use it when consumers must update code on upgrade (signature changes, removed APIs, config renames). `security: true` renders a `· 🛡️ Security` badge and pairs with a `## Security` body section — set it only for a security fix in this server's *own source code*, never for a routine dependency or transitive CVE bump (record those under `## Dependencies`). When both are set, badges render `· ⚠️ Breaking · 🛡️ Security`.
 
-| Field | Required | Purpose |
-|:------|:---------|:--------|
-| `summary` | yes | Rollup index line. ≤350 chars, no markdown, single line. Write like a GitHub Release title. |
-| `breaking` | no (default `false`) | Flags releases with breaking changes. Renders as `· ⚠️ Breaking` badge in the rollup. Agents running the `maintenance` skill read this to prioritize review. |
-| `security` | no (default `false`) | Flags releases with security fixes. Renders as `· 🛡️ Security` badge in the rollup so users can triage upgrade urgency. Pairs with the `## Security` body section. |
-
-When both flags are set, badges render in fixed order: `· ⚠️ Breaking · 🛡️ Security`. Summary > 350 chars or a malformed boolean fails `changelog:check`. Missing `summary` emits a warning and renders the rollup entry as header-only.
+`agent-notes` is an optional free-form field for maintenance agents processing the release downstream. Content here won't appear in the rendered CHANGELOG — it's consumed by agents running the `maintenance` skill. Use it for adoption instructions that don't fit the human-facing sections: new files to create, fields to populate, one-time migration steps. Omit entirely when there's nothing to say.
 
 **Section order** (Keep a Changelog): Added, Changed, Deprecated, Removed, Fixed, Security. Include only sections with entries — don't ship empty headers.
 
-Pre-release versions (`0.6.0-beta.1`, `0.6.0-rc.1`, etc.) are consolidated as `##`/`###` sub-headers inside the final version's per-version file (`changelog/0.6.x/0.6.0.md`) when the final ships — they share the final version's frontmatter, no separate files per pre-release.
+**Tag annotations** render as GitHub Release bodies via `--notes-from-tag`. They must be structured markdown — never a flat comma-separated string. Subject omits the version number (GitHub prepends it). See `changelog/template.md` for the full format reference.
 
 ---
 
-## Publishing
+## Imports
 
-If the user requests it, run the `release-and-publish` skill — it runs the verification gate (`devcheck`, `rebuild`, `test:all`), pushes commits and tags, and publishes to every applicable destination. The full reference:
+```ts
+// Framework — z is re-exported, no separate zod import needed
+import { tool, z } from '@cyanheads/mcp-ts-core';
+import { McpError, JsonRpcErrorCode } from '@cyanheads/mcp-ts-core/errors';
+
+// Server's own code — via path alias
+import { getMyService } from '@/services/my-domain/my-service.js';
+```
+
+---
+
+## Checklist
+
+- [ ] Zod schemas: all fields have `.describe()`, only JSON-Schema-serializable types (no `z.custom()`, `z.date()`, `z.transform()`, `z.bigint()`, `z.symbol()`, `z.void()`, `z.map()`, `z.set()`, `z.function()`, `z.nan()`)
+- [ ] Optional nested objects: handler guards for empty inner values from form-based clients (`if (input.obj?.field && ...)`, not just `if (input.obj)`). When regex/length constraints matter, use `z.union([z.literal(''), z.string().regex(...).describe(...)])` — literal variants are exempt from `describe-on-fields`.
+- [ ] JSDoc `@fileoverview` + `@module` on every file
+- [ ] `ctx.log` for logging, `ctx.state` for storage
+- [ ] Handlers throw on failure — error factories or plain `Error`, no try/catch
+- [ ] `format()` renders all data the LLM needs — different clients forward different surfaces (Claude Code → `structuredContent`, Claude Desktop → `content[]`); both must carry the same data
+- [ ] If wrapping external API: raw/domain/output schemas reviewed against real upstream sparsity/nullability before finalizing required vs optional fields
+- [ ] If wrapping external API: normalization and `format()` preserve uncertainty; do not fabricate facts from missing upstream data
+- [ ] If wrapping external API: tests include at least one sparse payload case with omitted upstream fields
+- [ ] Registered in `createApp()` arrays (directly or via barrel exports)
+- [ ] Tests use `createMockContext()` from `@cyanheads/mcp-ts-core/testing`
+- [ ] `.codex-plugin/plugin.json` populated — `name`, `version`, `description`, `repository`, `license` from `package.json`; `interface.displayName` = package name; `interface.shortDescription` from `package.json` description
+- [ ] `.codex-plugin/mcp.json` updated — server name key matches `package.json` name; env vars added for any required API keys
+- [ ] `.claude-plugin/plugin.json` populated — `name`, `version`, `description`, `repository`, `license` from `package.json`; inline `mcpServers` entry with server name key, env vars for any required API keys
+- [ ] `npm run devcheck` passes
 
 ---
 > Source: [cyanheads/mcp-ts-core](https://github.com/cyanheads/mcp-ts-core) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
