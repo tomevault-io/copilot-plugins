@@ -1,0 +1,9 @@
+{
+  "name": "cloudfoundry--diego-release",
+  "displayName": "diego-release",
+  "description": "diego-release",
+  "version": "1.0.0",
+  "author": "cloudfoundry",
+  "homepage": "https://github.com/cloudfoundry/diego-release",
+  "skills": []
+}
