@@ -1,8 +1,6 @@
 # vouch
 
-> Tome by [mitchellh](https://github.com/mitchellh/vouch) — distributed by [TomeVault](https://tomevault.io)
-
-A community trust management system based on explicit vouches to participate.
+> Tome by [mitchellh](https://github.com/mitchellh/vouch), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [mitchellh/vouch](https://github.com/mitchellh/v
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [mitchellh/vouch](https://github.com/mitchellh/vouch) — a repo with 4205+ stars on GitHub.
+From [mitchellh/vouch](https://github.com/mitchellh/vouch) — a repo with 4999+ stars on GitHub.
 
 ---
 
