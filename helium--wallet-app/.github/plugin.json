@@ -1,0 +1,9 @@
+{
+  "name": "helium--wallet-app",
+  "displayName": "wallet-app",
+  "description": "wallet-app",
+  "version": "1.0.0",
+  "author": "helium",
+  "homepage": "https://github.com/helium/wallet-app",
+  "skills": []
+}
