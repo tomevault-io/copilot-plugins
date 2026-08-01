@@ -1,6 +1,6 @@
 # AI instruction files for demosite_appscript
 
-> Sourced from [zmandel/demosite_appscript](https://github.com/zmandel/demosite_appscript) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [zmandel/demosite_appscript](https://github.com/zmandel/demosite_appscript), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [zmandel/demosite_appscript](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/zmandel/demosite_appscript](https://github.com/zmandel/demosite_appscript)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/zmandel/demosite_appscript](https://github.com/zmandel/demosite_appscript)
 
 ---
 
