@@ -1,0 +1,9 @@
+{
+  "name": "wasmedge--wasmedge",
+  "displayName": "WasmEdge",
+  "description": "WasmEdge",
+  "version": "1.0.0",
+  "author": "WasmEdge",
+  "homepage": "https://github.com/WasmEdge/WasmEdge",
+  "skills": []
+}
