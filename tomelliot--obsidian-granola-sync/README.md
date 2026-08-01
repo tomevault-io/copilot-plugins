@@ -1,23 +1,21 @@
 # obsidian-granola-sync
 
-> Source: [tomelliot/obsidian-granola-sync](https://github.com/tomelliot/obsidian-granola-sync) — distributed by [TomeVault](https://tomevault.io)
-
-Sync Granola notes to your Obsidian vault
+> Source: [tomelliot/obsidian-granola-sync](https://github.com/tomelliot/obsidian-granola-sync). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [tomelliot/obsidian-granola-sync](https://github.com/tomelliot/obsidian-granola-sync).
+Original source: `AGENTS.md` in [tomelliot/obsidian-granola-sync](https://github.com/tomelliot/obsidian-granola-sync).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/tomelliot/obsidian-granola-sync](https://github.com/tomelliot/obsidian-granola-sync)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/tomelliot/obsidian-granola-sync](https://github.com/tomelliot/obsidian-granola-sync)
 
 ---
 
