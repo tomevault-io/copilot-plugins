@@ -1,0 +1,9 @@
+{
+  "name": "onflow--fcl-dev-wallet",
+  "displayName": "fcl-dev-wallet",
+  "description": "fcl-dev-wallet",
+  "version": "1.0.0",
+  "author": "onflow",
+  "homepage": "https://github.com/onflow/fcl-dev-wallet",
+  "skills": []
+}
