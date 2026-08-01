@@ -4,7 +4,7 @@
   "repo": "codeburn",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/getagentseal/codeburn",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T19:27:43Z"
+  "distributed_at": "2026-08-01T09:03:50Z"
 }
