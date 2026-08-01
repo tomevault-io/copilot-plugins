@@ -1,0 +1,9 @@
+{
+  "name": "mypurecloud--terraform-provider-genesyscloud",
+  "displayName": "terraform-provider-genesyscloud",
+  "description": "terraform-provider-genesyscloud",
+  "version": "1.0.0",
+  "author": "MyPureCloud",
+  "homepage": "https://github.com/MyPureCloud/terraform-provider-genesyscloud",
+  "skills": []
+}
