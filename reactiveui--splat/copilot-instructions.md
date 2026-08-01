@@ -1,399 +1,467 @@
 ## splat
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> ﻿# Splat: Cross-Platform Library for .NET
 
-# CLAUDE.md
+﻿# Splat: Cross-Platform Library for .NET
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Always reference these instructions first and fallback to search or bash commands only when you encounter unexpected information that does not match the info here.
 
-## Build & Test Commands
+## Working Effectively
 
-This project uses **Microsoft Testing Platform (MTP)** with the **TUnit** testing framework. Test commands differ significantly from traditional VSTest.
+### Prerequisites and Environment Setup
+- **CRITICAL**: Requires .NET 9.0 SDK (not .NET 8.0). Install with:
+  ```bash
+  curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version latest --channel 9.0
+  export PATH="$HOME/.dotnet:$PATH"
+  ```
+- **Platform Support**: This project builds on Windows, Linux, and macOS with cross-platform support.
+- **Development Tools**: Visual Studio 2022, VS Code with C# extension, or JetBrains Rider.
+- **Note on Cloning the Repository**:
+  When cloning the Splat repository, use a full clone instead of a shallow one (e.g., avoid --depth=1). This project uses Nerdbank.GitVersioning for automatic version calculation based on Git history. Shallow clones lack the necessary commit history, which can cause build errors or force the tool to perform an extra fetch step to deepen the repository. To ensure smooth builds:
+   ```bash
+   git clone https://github.com/reactiveui/splat.git
+   ```
+  If you've already done a shallow clone, deepen it with:
+   ```bash
+   git fetch --unshallow
+   ```
+  This prevents exceptions like "Shallow clone lacks the objects required to calculate version height."
 
-See: https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-test?tabs=dotnet-test-with-mtp
+### Development Workflow
+- Full solution restore and build:
+  ```bash
+  cd src
+  dotnet restore Splat.sln
+  dotnet build Splat.sln --configuration Release
+  ```
+  Build time: **2-5 minutes**. Set timeout to 10+ minutes for full solution builds.
 
-### Prerequisites
-
-```powershell
-# Check .NET installation
-dotnet --info
-
-# Restore NuGet packages
-dotnet restore Splat.slnx
-```
-
-**Note**: This repository uses **SLNX** (XML-based solution format) instead of the legacy SLN format.
-
-### Build Commands
-
-**CRITICAL:** The working folder must be `./src` folder. These commands won't function properly without the correct working folder.
-
-```powershell
-# Build the solution
-dotnet build Splat.slnx -c Release
-
-# Build with warnings as errors (includes StyleCop violations)
-dotnet build Splat.slnx -c Release -warnaserror
-
-# Clean the solution
-dotnet clean Splat.slnx
-```
-
-### Test Commands (Microsoft Testing Platform)
-
-**CRITICAL:** This repository uses MTP configured in `global.json`. All TUnit-specific arguments must be passed after `--`:
-
-The working folder must be `./src` folder. These commands won't function properly without the correct working folder.
-
-**IMPORTANT:**
-- Do NOT use `--no-build` flag when running tests. Always build before testing to ensure all code changes (including test changes) are compiled. Using `--no-build` can cause tests to run against stale binaries and produce misleading results.
-- Use `--output Detailed` to see Console.WriteLine output from tests. This must be placed BEFORE any `--` separator:
-  ```powershell
-  dotnet test --output Detailed -- --treenode-filter "..."
+- Individual project builds (faster for development):
+  ```bash
+  cd src
+  dotnet build Splat/Splat.csproj --configuration Release
+  dotnet build Splat.Tests/Splat.Tests.csproj --configuration Release
   ```
 
-```powershell
-# Run all tests in the solution
-dotnet test --solution Splat.slnx -c Release
+### Testing
+- **Full test suite**:
+  ```bash
+  cd src
+  dotnet test --configuration Release
+  ```
+  Test time: **2-5 minutes**. Set timeout to 15+ minutes.
 
-# Run all tests in a specific project
-dotnet test --project tests/Splat.Tests/Splat.Tests.csproj -c Release
+- **Individual project tests** (faster for development):
+  ```bash
+  cd src
+  dotnet test Splat.Tests/Splat.Tests.csproj --configuration Release
+  ```
 
-# Run a single test method using treenode-filter
-# Syntax: /{AssemblyName}/{Namespace}/{ClassName}/{TestMethodName}
-dotnet test --project tests/Splat.Tests/Splat.Tests.csproj -- --treenode-filter "/*/*/*/MyTestMethod"
+## Validation and Quality Assurance
 
-# Run all tests in a specific class
-dotnet test --project tests/Splat.Tests/Splat.Tests.csproj -- --treenode-filter "/*/*/MyClassName/*"
+### Code Style and Analysis Enforcement
+- **EditorConfig Compliance**: Repository uses a comprehensive `.editorconfig` with detailed rules for C# formatting, naming conventions, and code analysis.
+- **StyleCop Analyzers**: Enforces consistent C# code style with `stylecop.analyzers`.
+- **Roslynator Analyzers**: Additional code quality rules with `Roslynator.Analyzers`.
+- **Analysis Level**: Set to `latest` with enhanced .NET analyzers enabled.
+- **CRITICAL**: All code must comply with ReactiveUI contribution guidelines: [https://www.reactiveui.net/contribute/index.html](https://www.reactiveui.net/contribute/index.html).
 
-# Run tests in a specific namespace
-dotnet test --project tests/Splat.Tests/Splat.Tests.csproj -- --treenode-filter "/*/MyNamespace/*/*"
+## C# Style Guide
+**General Rule**: Follow "Visual Studio defaults" with the following specific requirements:
 
-# Filter by test property (e.g., Category)
-dotnet test --solution Splat.slnx -- --treenode-filter "/*/*/*/*[Category=Integration]"
+### Brace Style
+- **Allman style braces**: Each brace begins on a new line.
+- **Single line statement blocks**: Can go without braces but must be properly indented on its own line and not nested in other statement blocks that use braces.
+- **Exception**: A `using` statement is permitted to be nested within another `using` statement by starting on the following line at the same indentation level, even if the nested `using` contains a controlled block.
 
-# Run tests with code coverage (Microsoft Code Coverage)
-dotnet test --solution Splat.slnx -- --coverage --coverage-output-format cobertura
+### Indentation and Spacing
+- **Indentation**: Four spaces (no tabs).
+- **Spurious free spaces**: Avoid, e.g., `if (someVar == 0)...` where dots mark spurious spaces.
+- **Empty lines**: Avoid more than one empty line at any time between members of a type.
+- **Labels**: Indent one less than the current indentation (for `goto` statements).
 
-# Run tests with detailed output
-dotnet test --solution Splat.slnx -- --output Detailed
+### Field and Property Naming
+- **Internal and private fields**: Use `_camelCase` prefix with `readonly` where possible.
+- **Static fields**: `readonly` should come after `static` (e.g., `static readonly` not `readonly static`).
+- **Public fields**: Use PascalCasing with no prefix (use sparingly).
+- **Constants**: Use PascalCasing for all constant local variables and fields (except interop code, where names and values must match the interop code exactly).
+- **Fields placement**: Specify fields at the top within type declarations.
 
-# List all available tests without running them
-dotnet test --project tests/Splat.Tests/Splat.Tests.csproj -- --list-tests
+### Visibility and Modifiers
+- **Always specify visibility**: Even if it's the default (e.g., `private string _foo` not `string _foo`).
+- **Visibility first**: Should be the first modifier (e.g., `public abstract` not `abstract public`).
+- **Modifier order**: `public`, `private`, `protected`, `internal`, `static`, `extern`, `new`, `virtual`, `abstract`, `sealed`, `override`, `readonly`, `unsafe`, `volatile`, `async`.
 
-# Fail fast (stop on first failure)
-dotnet test --solution Splat.slnx -- --fail-fast
+### Namespace and Using Statements
+- **Namespace imports**: At the top of the file, outside of `namespace` declarations.
+- **Sorting**: System namespaces alphabetically first, then third-party namespaces alphabetically.
+- **Global using directives**: Use where appropriate to reduce repetition across files.
+- **Placement**: Use `using` directives outside `namespace` declarations.
 
-# Control parallel test execution
-dotnet test --solution Splat.slnx -- --maximum-parallel-tests 4
+### Type Usage and Variables
+- **Language keywords**: Use instead of BCL types (e.g., `int`, `string`, `float` instead of `Int32`, `String`, `Single`) for type references and method calls (e.g., `int.Parse` instead of `Int32.Parse`).
+- **var usage**: Encouraged for large return types or refactoring scenarios; use full type names for clarity when needed.
+- **this. avoidance**: Avoid `this.` unless absolutely necessary.
+- **nameof(...)**: Use instead of string literals whenever possible and relevant.
 
-# Generate TRX report
-dotnet test --solution Splat.slnx -- --report-trx
+### Code Patterns and Features
+- **Method groups**: Use where appropriate.
+- **Pattern matching**: Use C# 7+ pattern matching, including recursive, tuple, positional, type, relational, and list patterns for expressive conditional logic.
+- **Inline out variables**: Use C# 7 inline variable feature with `out` parameters.
+- **Non-ASCII characters**: Use Unicode escape sequences (`\uXXXX`) instead of literal characters to avoid garbling by tools or editors.
+- **Modern C# features (C# 8–12)**:
+    - Enable nullable reference types to reduce null-related errors.
+    - Use ranges (`..`) and indices (`^`) for concise collection slicing.
+    - Employ `using` declarations for automatic resource disposal.
+    - Declare static local functions to avoid state capture.
+    - Prefer switch expressions over statements for concise control flow.
+    - Use records and record structs for data-centric types with value semantics.
+    - Apply init-only setters for immutable properties.
+    - Utilize target-typed `new` expressions to reduce verbosity.
+    - Declare static anonymous functions or lambdas to prevent state capture.
+    - Use file-scoped namespace declarations for concise syntax.
+    - Apply `with` expressions for nondestructive mutation.
+    - Use raw string literals (`"""`) for multi-line or complex strings.
+    - Mark required members with the `required` modifier.
+    - Use primary constructors to centralize initialization logic.
+    - Employ collection expressions (`[...]`) for concise array/list/span initialization.
+    - Add default parameters to lambda expressions to reduce overloads.
 
-# Disable logo for cleaner output
-dotnet test --project tests/Splat.Tests/Splat.Tests.csproj -- --disable-logo
+### Documentation Requirements
+- **XML comments**: All publicly exposed methods and properties must have .NET XML comments, including protected methods of public classes.
+- **Documentation culture**: Use `en-US` as specified in `src/stylecop.json`.
 
-# Combine options: coverage + TRX report + detailed output
-dotnet test --solution Splat.slnx -- --coverage --coverage-output-format cobertura --report-trx --output Detailed
-```
+### File Style Precedence
+- **Existing style**: If a file differs from these guidelines (e.g., private members named `m_member` instead of `_member`), the existing style in that file takes precedence.
+- **Consistency**: Maintain consistency within individual files.
 
-**Alternative: Using `dotnet run` for single project**
-```powershell
-# Run tests using dotnet run (easier for passing flags)
-dotnet run --project tests/Splat.Tests/Splat.Tests.csproj -c Release -- --treenode-filter "/*/*/*/MyTest"
+## Example Code Structure
 
-# Disable logo for cleaner output
-dotnet run --project tests/Splat.Tests/Splat.Tests.csproj -- --disable-logo --treenode-filter "/*/*/*/Test1"
-```
-
-### TUnit Treenode-Filter Syntax
-
-The `--treenode-filter` follows the pattern: `/{AssemblyName}/{Namespace}/{ClassName}/{TestMethodName}`
-
-**Examples:**
-- Single test: `--treenode-filter "/*/*/*/MyTestMethod"`
-- All tests in class: `--treenode-filter "/*/*/MyClassName/*"`
-- All tests in namespace: `--treenode-filter "/*/MyNamespace/*/*"`
-- Filter by property: `--treenode-filter "/*/*/*/*[Category=Integration]"`
-- Multiple wildcards: `--treenode-filter "/*/*/MyTests*/*"`
-
-**Note:** Use single asterisks (`*`) to match segments. Double asterisks (`/**`) are not supported in treenode-filter.
-
-### Key TUnit Command-Line Flags
-
-- `--treenode-filter` - Filter tests by path pattern or properties (syntax: `/{Assembly}/{Namespace}/{Class}/{Method}`)
-- `--list-tests` - Display available tests without running
-- `--fail-fast` - Stop after first failure
-- `--maximum-parallel-tests` - Limit concurrent execution (default: processor count)
-- `--coverage` - Enable Microsoft Code Coverage
-- `--coverage-output-format` - Set coverage format (cobertura, xml, coverage)
-- `--report-trx` - Generate TRX format reports
-- `--output` - Control verbosity (Normal or Detailed)
-- `--no-progress` - Suppress progress reporting
-- `--disable-logo` - Remove TUnit logo display
-- `--diagnostic` - Enable diagnostic logging (Trace level)
-- `--timeout` - Set global test timeout
-- `--reflection` - Enable reflection mode instead of source generation
-
-See https://tunit.dev/docs/reference/command-line-flags for complete TUnit flag reference.
-
-### Key Configuration Files
-
-- `global.json` - Specifies `"Microsoft.Testing.Platform"` as the test runner
-- `testconfig.json` - Configures test execution (`"parallel": true`) and code coverage (Cobertura format)
-- `Directory.Build.props` - Enables `TestingPlatformDotnetTestSupport` for test projects
-- `.github/COPILOT_INSTRUCTIONS.md` - Comprehensive development guidelines
-
-## Architecture Overview
-
-### Core Framework Structure
-
-Splat is a cross-platform utility library providing abstractions for common functionality that should work everywhere but often doesn't. It solves the problem of writing cross-platform mobile and desktop code riddled with `#ifdefs`.
-
-**Core Library (`Splat/`)**
-- `ServiceLocation/` - Simple, flexible service location/dependency injection
-- `AppLocator` - Main service locator for registering and retrieving services
-- `PlatformModeDetector/` - Detect unit test runners and design mode
-- Core abstractions and utilities
-
-**Specialized Libraries**
-- `Splat.Builder/` - AOT-friendly configuration with `AppBuilder` and `IModule` pattern
-- `Splat.Core/` - Core interfaces and abstractions
-- `Splat.Logging/` - Cross-platform logging abstraction with `ILogger` interface
-- `Splat.Drawing/` - Cross-platform image loading/saving and color/geometry primitives
-
-**Dependency Injection Adapters (`Splat.*/`)**
-- `Splat.Autofac/` - Autofac container integration
-- `Splat.DryIoc/` - DryIoc container integration
-- `Splat.Microsoft.Extensions.DependencyInjection/` - Microsoft.Extensions.DependencyInjection integration
-- `Splat.Ninject/` - Ninject container integration
-- `Splat.SimpleInjector/` - SimpleInjector container integration
-- `Splat.Prism/` - Prism framework integration
-
-**Logging Adapters (`Splat.*/`)**
-- `Splat.Serilog/` - Serilog logger integration
-- `Splat.NLog/` - NLog logger integration
-- `Splat.Log4Net/` - Log4Net logger integration
-- `Splat.Microsoft.Extensions.Logging/` - Microsoft.Extensions.Logging integration
-
-**Application Performance Monitoring (`Splat.*/`)**
-- `Splat.AppCenter/` - Microsoft App Center APM integration
-- `Splat.ApplicationInsights/` - Azure Application Insights integration
-- `Splat.Exceptionless/` - Exceptionless integration
-- `Splat.Raygun/` - Raygun integration
-
-### Key Architectural Patterns
-
-**Service Location**
-- `AppLocator.Current` - Retrieve registered services
-- `AppLocator.CurrentMutable` - Register new services at runtime
-- `RegisterLazySingleton` - Register singletons that are created on first access
-- `RegisterConstant` - Register singleton instances
-- `Register` - Register factory functions for transient instances
-
-**Logging**
-- `IEnableLogger` - Tag interface for classes that want logging support
-- `this.Log().Info()` / `this.Log().Warn()` - Extension methods for logging
-- `LogHost.Default` - Static logger for static methods
-- Platform-specific adapters forward to chosen logging framework
-
-**Cross-Platform Drawing**
-- `IBitmap` - Platform-agnostic bitmap interface
-- `ToNative()` / `FromNative()` - Convert between Splat and platform types
-- `BitmapLoader.Current` - Load/save images from streams, resources, or files
-- `SplatColor` - Cross-platform color abstraction
-- `PointF`, `SizeF`, `RectangleF` - Cross-platform geometry primitives
-
-**AppBuilder and IModule (AOT-Friendly)**
-- `IModule` - Define reusable service registration modules
-- `AppBuilder` - Compose modules and apply to resolver
-- `UseCurrentSplatLocator()` - Target current `AppLocator.CurrentMutable`
-- AOT-safe configuration without reflection
-
-### Multi-Platform Target Framework Strategy
-
-The project uses granular target framework definitions in `Directory.Build.props`:
-
-- `SplatModernTargets` - net8.0, net9.0, net10.0 (modern cross-platform)
-- `SplatLegacyTargets` - net462, net472, net481 (Windows-only legacy .NET Framework)
-- `SplatCoreTargets` - Combines modern + legacy targets for core libraries
-- `SplatWindowsTargets` - net8.0/9.0/10.0-windows10.0.17763.0 and windows10.0.19041.0
-- `SplatAndroidTargets` - net10.0-android (the .NET 9 mobile target was dropped when .NET MAUI 9 went out of support on 2026-05-12)
-- `SplatAppleTargets` - net10.0-ios, net10.0-macos, net10.0-maccatalyst, net10.0-tvos (the .NET 9 Apple targets were dropped when .NET MAUI 9 went out of support on 2026-05-12)
-- `SplatUiFinalTargetFrameworks` - OS-aware composition for UI projects
-
-**OS-Aware Builds:** The build system automatically selects appropriate target frameworks based on the host OS:
-- **Linux**: Builds .NET 8/9/10 and Android targets
-- **Windows**: Builds all targets including .NET Framework, Core, Android, Windows, and Apple
-- **macOS**: Builds .NET 8/9/10, Android, and Apple targets
-
-### Zero-Reflection and AOT (Ahead-of-Time) Compilation Priority
-
-**CRITICAL: Prefer Zero-Reflection Solutions First**
-
-When implementing new features, follow this priority order:
-
-1. **Zero-reflection solutions** - Design APIs that don't require reflection at all
-2. **Source generators** - Use Roslyn source generators to generate code at compile-time
-3. **Compile-time code generation** - Use tools like T4 templates or build-time code generation
-4. **Strongly-typed expressions** - Use expression trees that can be analyzed without runtime reflection
-5. **Reflection with AOT attributes** - Only as a last resort, and always with proper `DynamicallyAccessedMembers` attributes
-
-**Examples of Preferred Approaches:**
-
-**Good: Zero-Reflection with Explicit Registration**
 ```csharp
-// Users explicitly register their services - no reflection needed
-AppLocator.CurrentMutable.Register<IMyService>(() => new MyService());
-```
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Diagnostics;
+using Microsoft.Win32;
 
-**Good: Source Generator Pattern**
-```csharp
-// Use source generators to generate registration code at compile-time
-// See: Splat.DI.SourceGenerator package
-[RegisterService(typeof(IMyService))]
-public partial class MyService : IMyService
+namespace System.Collections.Generic;
+
+public partial class ObservableLinkedList<T> : INotifyCollectionChanged, INotifyPropertyChanged
 {
-    // Generator creates registration code automatically
+    private ObservableLinkedListNode<T>? _head;
+    private int _count;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ObservableLinkedList{T}"/> class.
+    /// </summary>
+    /// <param name="items">The items to initialize the list with.</param>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="items"/> is null.</exception>
+    public ObservableLinkedList(IEnumerable<T> items)
+    {
+        if (items is null)
+        {
+            throw new ArgumentNullException(nameof(items));
+        }
+
+        foreach (var item in items)
+        {
+            AddLast(item);
+        }
+    }
+
+    /// <summary>
+    /// Occurs when the collection changes.
+    /// </summary>
+    public event NotifyCollectionChangedEventHandler? CollectionChanged;
+
+    /// <summary>
+    /// Gets the number of elements in the list.
+    /// </summary>
+    public int Count
+    {
+        get => _count;
+    }
+
+    /// <summary>
+    /// Adds a new node containing the specified value at the end of the list.
+    /// </summary>
+    /// <param name="value">The value to add.</param>
+    /// <returns>The new node that was added.</returns>
+    public ObservableLinkedListNode AddLast(T value)
+    {
+        var newNode = new ObservableLinkedListNode(this, value);
+        InsertNodeBefore(_head, newNode);
+        return newNode;
+    }
+
+    /// <summary>
+    /// Raises the CollectionChanged event.
+    /// </summary>
+    /// <param name="e">The event arguments.</param>
+    protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+    {
+        CollectionChanged?.Invoke(this, e);
+    }
+
+    private void InsertNodeBefore(ObservableLinkedListNode<T>? node, ObservableLinkedListNode<T> newNode)
+    {
+        // Implementation details...
+    }
 }
 ```
 
-**Good: Expression-Based with Static Analysis**
-```csharp
-// Expression trees can be analyzed without runtime reflection
-public void RegisterService<T>(Expression<Func<T>> factory)
-{
-    // Analyze expression at compile-time or with source generators
-}
-```
+### Notes
+- **EditorConfig**: The `.editorconfig` at the root of the ReactiveUI repository enforces formatting and analysis rules, replacing the previous `analyzers.ruleset`. Update `.editorconfig` as needed to support modern C# features, such as nullable reference types.
+- **Example Updates**: The example incorporates modern C# practices like file-scoped namespaces and nullable reference types. Refer to Microsoft documentation for further integration of C# 8–12 features.
 
-**Avoid: Runtime Reflection (unless properly attributed)**
-```csharp
-// Only use reflection when absolutely necessary and with proper attributes
-#if NET6_0_OR_GREATER
-private static void RegisterFromType(
-    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)]
-    Type serviceType)
-#else
-private static void RegisterFromType(Type serviceType)
-#endif
-{
-    var instance = Activator.CreateInstance(serviceType);
-}
-```
+### Code Formatting (Fast - Always Run)
+- **ALWAYS** run formatting before committing:
+  ```bash
+  cd src
+  dotnet format whitespace --verify-no-changes
+  dotnet format style --verify-no-changes
+  ```
+  Time: **2-5 seconds per command**.
 
-### AOT Compatibility Requirements
+### Code Analysis Validation
+- **Run analyzers** to check StyleCop and code quality compliance:
+  ```bash
+  cd src
+  dotnet build --configuration Release --verbosity normal
+  ```
+  This runs all analyzers (StyleCop SA*, Roslynator RCS*, .NET CA*) and treats warnings as errors.
+- **Analyzer Configuration**:
+    - StyleCop settings in `src/stylecop.json`
+    - EditorConfig rules in `.editorconfig` (root level)
+    - Analyzer packages in `src/Directory.Build.props`
+    - All code must follow the **ReactiveUI C# Style Guide** detailed above
 
-All code targeting net8.0+ should be AOT-compatible:
+### Benchmarking
+- Performance testing available via BenchmarkDotNet:
+  ```bash
+  cd src
+  dotnet run -c Release -p Benchmarks/Splat.Benchmarks.csproj
+  ```
+  Benchmark time: **5-15 minutes**. Set timeout to 30+ minutes.
 
-**Key AOT Patterns:**
-- **Always prefer zero-reflection solutions** - design APIs that work without reflection
-- **Use source generators** for code that would traditionally require reflection
-- Prefer `DynamicallyAccessedMembersAttribute` over `UnconditionalSuppressMessage`
-- Use specific `DynamicallyAccessedMemberTypes` values rather than `All` when possible
-- `AppBuilder` and `IModule` pattern for AOT-safe dependency injection configuration
-- Avoid reflection in hot paths
-- Document any reflection usage and why it's necessary
-- See `tests/Splat.Aot.Tests/` for AOT test examples
+## Key Projects and Structure
 
-**Source Generator References:**
-- Splat.DI.SourceGenerator: https://github.com/reactivemarbles/Splat.DI.SourceGenerator
-- .NET Source Generators: https://learn.microsoft.com/dotnet/csharp/roslyn-sdk/source-generators-overview
+### Core Libraries (Priority Order)
+1. **Splat** (`Splat.csproj`) - Main library with core functionality
+2. **Splat.Builder** - AOT-friendly configuration and dependency injection builder
+3. **Splat.Logging** - Cross-platform logging abstraction
+4. **Splat.Drawing** - Cross-platform drawing and image handling
+5. **Splat.Core** - Core interfaces and abstractions
 
-See `.github/COPILOT_INSTRUCTIONS.md` for comprehensive AOT patterns and examples.
+### Dependency Injection Adapters
+- **Splat.Autofac** - Autofac container adapter
+- **Splat.Microsoft.Extensions.DependencyInjection** - Microsoft DI container adapter
+- **Splat.SimpleInjector** - SimpleInjector container adapter
+- **Splat.DryIoc** - DryIoc container adapter
+- **Splat.Ninject** - Ninject container adapter
 
-## Code Style & Quality Requirements
+### Logging Adapters
+- **Splat.Serilog** - Serilog logging adapter
+- **Splat.NLog** - NLog logging adapter
+- **Splat.Log4Net** - Log4Net logging adapter
+- **Splat.Microsoft.Extensions.Logging** - Microsoft.Extensions.Logging adapter
 
-**CRITICAL:** All code must comply with ReactiveUI contribution guidelines: https://www.reactiveui.net/contribute/index.html
+### Application Performance Monitoring (APM)
+- **Splat.AppCenter** - Microsoft App Center integration
+- **Splat.ApplicationInsights** - Azure Application Insights integration
+- **Splat.Exceptionless** - Exceptionless integration
+- **Splat.Raygun** - Raygun integration
 
-### Style Enforcement
+### Framework Integration
+- **Splat.Prism** - Prism framework integration
 
-- EditorConfig rules (`.editorconfig`) - comprehensive C# formatting and naming conventions
-- StyleCop Analyzers - builds fail on violations
-- Roslynator Analyzers - additional code quality rules
-- Analysis level: latest with enhanced .NET analyzers
-- `WarningsAsErrors`: nullable
-- **All public APIs require XML documentation comments** (including protected methods of public classes)
+### Testing and Benchmarks
+- **Splat.Tests** - Main test suite with comprehensive coverage
+- **Splat.Aot.Tests** - AOT compatibility tests
+- **Splat.*.Tests** - Individual adapter test projects
+- **Benchmarks** - Performance benchmarks
+- **Splat.Common.Test** - Shared test utilities
 
-### C# Style Rules
+## Common Development Tasks
 
-- **Braces:** Allman style (each brace on new line)
-- **Indentation:** 4 spaces, no tabs
-- **Fields:** `_camelCase` for private/internal, `readonly` where possible, `static readonly` (not `readonly static`)
-- **Visibility:** Always explicit (e.g., `private string _foo` not `string _foo`), visibility first modifier
-- **Namespaces:** File-scoped preferred, imports outside namespace, sorted (system then third-party)
-- **Types:** Use keywords (`int`, `string`) not BCL types (`Int32`, `String`)
-- **Modern C#:** Use nullable reference types, pattern matching, switch expressions, records, init setters, target-typed new, collection expressions, file-scoped namespaces, primary constructors
-- **Avoid `this.`** unless necessary
-- **Use `nameof()`** instead of string literals
-- **Use `var`** when it improves readability or aids refactoring
+### Making Changes to Core Libraries
+1. **Build individual projects** for faster iteration:
+   ```bash
+   dotnet build Splat/Splat.csproj --configuration Release
+   ```
+2. **Always** run formatting validation:
+   ```bash
+   dotnet format whitespace --verify-no-changes
+   ```
+3. **Test relevant components** after changes.
 
-See `.github/COPILOT_INSTRUCTIONS.md` for complete style guide.
+### Adding New Features
+1. **Follow coding standards** - see ReactiveUI guidelines: https://www.reactiveui.net/contribute/index.html
+2. **Ensure StyleCop compliance** - all code must pass StyleCop analyzers (SA* rules)
+3. **Run code analysis** - `dotnet build` must complete without analyzer warnings
+4. **Add unit tests** - all features require test coverage in appropriate test projects
+5. **Update documentation** - especially for public APIs with XML doc comments
+6. **Consider AOT compatibility** - ensure new code works with Native AOT if applicable
+7. **Run benchmarks** if performance-related changes
 
-## Testing Guidelines
+### Working with Dependency Injection Adapters
+- **Each adapter** has its own project and test project
+- **Always test adapters** when making changes to core DI functionality
+- **Follow adapter patterns** established in existing implementations
+- **Ensure compatibility** with the target container's patterns and lifecycle
 
-- Unit tests use **TUnit** framework with **Microsoft Testing Platform**
-- Test projects detected via naming convention (project name contains `Tests`)
-- Coverage configured in `testconfig.json` (Cobertura format, skip auto-properties)
-- Parallel test execution enabled (`"parallel": true` in testconfig.json)
-- Always write unit tests for new features or bug fixes
-- Follow existing test patterns in `tests/Splat.Tests/`
-- For AOT scenarios, reference patterns in `tests/Splat.Aot.Tests/`
-- Platform-specific test runners available for Android and UWP
+### Working with Logging Adapters
+- **Test logging output** with actual logger implementations
+- **Verify performance** impact of logging changes
+- **Ensure structured logging** support where applicable
+- **Test different log levels** and filtering scenarios
 
-## Common Tasks
+## Target Framework Support
 
-### Adding a New Feature
+### Supported Frameworks
+- **net8.0** - Modern .NET with performance improvements
+- **net9.0** - .NET with advanced features and AOT support
+- **net10.0** - Latest .NET with newest features
+- **net462/net472/net481** - .NET Framework for Windows compatibility
 
-1. **Design for zero-reflection first** - avoid reflection if at all possible
-2. **Consider source generators** - use compile-time code generation when needed
-3. Create failing tests first
-4. Implement minimal functionality
-5. Ensure AOT compatibility
-6. Update documentation if needed
-7. Add XML documentation to all public APIs
-8. Prefer to create new methods than changing the signature of existing ones when changing APIs
-9. Run formatting validation before committing
+### Windows-Specific Frameworks
+- **net8.0-windows10.0.19041.0** - Windows-specific APIs
+- **net9.0-windows10.0.19041.0** - Windows-specific APIs
+- **net10.0-windows10.0.19041.0** - Latest Windows-specific APIs
 
-### Fixing Bugs
+### AOT Compatibility
+- **net8.0, net9.0 and net10.0** projects have `<IsAotCompatible>true</IsAotCompatible>`
+- **Test AOT scenarios** in `Splat.Aot.Tests` project
+- **Avoid reflection** where possible in AOT-compatible code paths
 
-1. Create reproduction test
-2. Fix with minimal changes
-3. Verify AOT compatibility
-4. Ensure no regression in existing tests
+## Build Timing and Expectations
 
-### Adding a New Logging or DI Adapter
+| Operation | Time | Notes |
+|-----------|------|-------|
+| **Single Project Restore** | 30 seconds | Fast operation |
+| **Single Project Build** | 30-60 seconds | Usually quick |
+| **Full Solution Restore** | 1-2 minutes | Many projects |
+| **Full Solution Build** | 2-5 minutes | All projects and frameworks |
+| **Test Suite** | 2-5 minutes | Comprehensive coverage |
+| **Benchmarks** | 5-15 minutes | Performance testing |
+| **Code Formatting** | 2-5 seconds | Always works |
 
-1. Create new project following naming convention (e.g., `Splat.NewContainer`)
-2. Implement adapter interface (`IMutableDependencyResolver` for DI, logger factory for logging)
-3. **Prefer zero-reflection implementations** - design adapters to work without runtime reflection
-4. Create corresponding test project (e.g., `Splat.NewContainer.Tests`)
-5. Add extension methods for registration (e.g., `UseNewContainer()`)
-6. Update README.md with new adapter information
-7. Ensure adapter works with `AppBuilder` pattern for AOT scenarios
+## Performance Characteristics
 
-## What to Avoid
+### Dependency Injection Performance
+- **Service resolution** should be fast (microseconds for simple registrations)
+- **Container setup** one-time cost during application startup
+- **Memory usage** should be minimal for service registrations
 
-- **Runtime reflection** - prefer zero-reflection solutions or source generators
-- **Implicit service discovery** - explicit registration is better for AOT
-- **Heavy reflection** without proper AOT suppression attributes (if reflection is absolutely necessary)
-- **Platform-specific code** in core Splat library (use platform extensions instead)
-- **Breaking changes** to public APIs without proper versioning
-- **Large dependencies** in core libraries (keep Splat lightweight)
-- **Implicit service registrations** that might surprise users or break AOT
+### Logging Performance
+- **Structured logging** should have minimal allocation overhead
+- **Log level filtering** should be efficient
+- **Adapter overhead** should be minimal compared to direct logger usage
 
-## Important Notes
+### Drawing Performance
+- **Image loading** and conversion should be optimized for each platform
+- **Color operations** should be lightweight
+- **Geometry calculations** should avoid unnecessary allocations
 
-- **Zero-Reflection First:** Always design for zero-reflection solutions before considering alternatives
-- **Source Generators:** Leverage source generators for compile-time code generation instead of runtime reflection
-- **No shallow clones:** Repository requires full clone for git version information used by Nerdbank.GitVersioning
-- **Required .NET SDKs:** .NET 8.0, 9.0, and 10.0 (all three required for full build)
-- **SLNX Format:** Uses modern XML-based solution format instead of legacy SLN
-- **Comprehensive Instructions:** `.github/COPILOT_INSTRUCTIONS.md` contains detailed development guidelines
-- **Code Formatting:** Always run `dotnet format whitespace` and `dotnet format style` before committing
+## Migration and Compatibility
 
-**Philosophy:** Splat provides "leaky abstractions" that solve cross-platform problems while always allowing access to native platform types via `ToNative()` and `FromNative()`. Keep abstractions minimal and focused on solving real cross-platform pain points. **Prefer zero-reflection solutions and source generators over runtime reflection.** When in doubt, prefer simplicity over feature completeness, explicit registration over implicit discovery, and always consider the AOT implications of your changes.
+### Version Compatibility
+- **Semantic versioning** is followed for breaking changes
+- **Dependency versions** are managed via `Directory.Packages.props`
+- **Target framework** support follows .NET support lifecycle
+
+### Breaking Changes
+- **Major version bumps** indicate breaking changes
+- **Migration guides** provided in release notes
+- **Obsolete APIs** marked with clear migration paths
+
+## CI/CD Integration
+
+### GitHub Actions
+- Uses standard .NET GitHub Actions workflow
+- Runs on multiple platforms (Windows, Linux, macOS)
+- Includes code coverage reporting
+- Publishes packages to NuGet
+
+### Local Development
+- **Build locally** before pushing changes
+- **Run tests** for affected components
+- **Format code** before every commit
+- **Check analyzer warnings** before committing
+
+## Troubleshooting
+
+### Common Issues
+1. **".NET 9.0 not supported" errors**: Install .NET 9.0 SDK
+2. **StyleCop violations**: Check `.editorconfig` rules and `src/stylecop.json`
+3. **Missing dependencies**: Run `dotnet restore` in `src` directory
+4. **Test failures**: May be platform-specific or require specific setup
+
+### Quick Fixes
+- **Format issues**: Run `dotnet format whitespace` and `dotnet format style`
+- **StyleCop violations**: Check `.editorconfig` rules and `src/stylecop.json` configuration
+- **Analyzer warnings**: Build with `--verbosity normal` to see detailed analyzer messages
+- **Missing XML documentation**: All public APIs require XML doc comments per StyleCop rules
+- **Package restore issues**: Clear NuGet cache with `dotnet nuget locals all --clear`
+- **Build configuration errors**: Ensure correct target framework for your scenario
+
+### When to Escalate
+- **Cross-platform compatibility** issues affecting core functionality
+- **Performance regressions** detected in benchmarks
+- **Test failures** that persist across platforms
+- **Breaking changes** affecting major dependency injection containers
+- **AOT compatibility** issues with newer .NET versions
+
+## Resources
+
+### Splat
+- **Main Repository**: https://github.com/reactiveui/splat
+- **Repository README**: https://github.com/reactiveui/splat#readme
+- **Issues & Bug Reports**: https://github.com/reactiveui/splat/issues
+- **Contributing Guidelines**: https://github.com/reactiveui/splat/blob/main/CONTRIBUTING.md
+- **Code of Conduct**: https://github.com/reactiveui/splat/blob/main/CODE_OF_CONDUCT.md
+- **NuGet Packages**: https://www.nuget.org/packages?q=splat
+- **Main Package**: https://www.nuget.org/packages/splat
+- **Code Coverage**: https://codecov.io/gh/reactiveui/splat
+- **GitHub Actions (CI/CD)**: https://github.com/reactiveui/splat/actions
+- **Discussions**: https://github.com/reactiveui/splat/discussions
+
+### Governance & Contributing
+- **Contribution Hub**: https://www.reactiveui.net/contribute/index.html
+- **ReactiveUI Repository README**: https://github.com/reactiveui/ReactiveUI#readme
+- **Contributing Guidelines**: https://github.com/reactiveui/ReactiveUI/blob/main/CONTRIBUTING.md
+- **Code of Conduct**: https://github.com/reactiveui/ReactiveUI/blob/main/CODE_OF_CONDUCT.md
+
+### Engineering & Style
+- **ReactiveUI Coding/Style Guidance** (start here): https://www.reactiveui.net/contribute/
+- **Build & Project Structure Reference**: https://github.com/reactiveui/ReactiveUI#readme
+
+### Documentation & Samples
+- **Documentation Home**: https://www.reactiveui.net/
+- **Handbook** (core concepts): https://www.reactiveui.net/docs/
+- **Official Samples Repository**: https://github.com/reactiveui/ReactiveUI.Samples
+
+### Ecosystem
+- **ReactiveUI** (MVVM framework): https://github.com/reactiveui/ReactiveUI
+- **DynamicData** (reactive collections): https://github.com/reactivemarbles/DynamicData
+- **Akavache** (asynchronous key-value store): https://github.com/reactiveui/Akavache
+
+### Source Generators & AOT/Trimming
+- **ReactiveUI.SourceGenerators**: https://github.com/reactiveui/ReactiveUI.SourceGenerators
+- **.NET Native AOT Overview**: https://learn.microsoft.com/dotnet/core/deploying/native-aot/
+- **Prepare Libraries for Trimming**: https://learn.microsoft.com/dotnet/core/deploying/trimming/prepare-libraries-for-trimming
+- **Trimming Options (MSBuild)**: https://learn.microsoft.com/dotnet/core/deploying/trimming/trimming-options
+- **Fixing Trim Warnings**: https://learn.microsoft.com/dotnet/core/deploying/trimming/trim-warnings
+
+### Copilot Coding Agent
+- **Best Practices for Copilot Coding Agent**: https://gh.io/copilot-coding-agent-tips
+
+### CI & Misc
+- **GitHub Actions** (builds and workflow runs): https://github.com/reactiveui/splat/actions
+- **ReactiveUI Website Source** (useful for docs cross-refs): https://github.com/reactiveui/website
 
 ---
 > Source: [reactiveui/splat](https://github.com/reactiveui/splat) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
