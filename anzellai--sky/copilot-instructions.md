@@ -1,335 +1,613 @@
 ## sky
 
-> All documentation, comments, variable names, function names, and user-facing strings **must use British English spelling** (`optimise`, `behaviour`, `colour`, `initialise`, `serialise`, `catalogue`). Exceptions: protocol identifiers (LSP `initialize`), CSS/HTML properties (`color`), Go stdlib names.
+> Use when: interactive web UIs, real-time dashboards, forms, admin panels.
 
-# CLAUDE.md
+# CLAUDE.md — Sky Language Project
 
-## Language Convention
+This is a [Sky](https://github.com/anzellai/sky) project. Sky is a pure functional language inspired by Elm, compiling to Go. The compiler is fully self-hosted (written in Sky, ~6MB native binary, zero Node/TypeScript dependencies).
 
-All documentation, comments, variable names, function names, and user-facing strings **must use British English spelling** (`optimise`, `behaviour`, `colour`, `initialise`, `serialise`, `catalogue`). Exceptions: protocol identifiers (LSP `initialize`), CSS/HTML properties (`color`), Go stdlib names.
+**Core principle: if it compiles, it works.** All side effects flow through `Task`. No runtime panics, no nil leakage, no partial bindings.
 
-## Core Principles (Non-Negotiable)
-
-1. **If it compiles, it works.** The 2026-04-15 adversarial audit
-   documented 23 counterexamples across P0 (soundness floor), P1
-   (security), P2 (soundness cleanup), and P3 (tooling). All 23 are
-   remediated with regression tests (see `docs/AUDIT_REMEDIATION.md`
-   — completion marker landed 2026-04-16). The principle now holds
-   for every path exercised by `cabal test`, `scripts/example-sweep.sh`,
-   and `runtime-go/rt/*_test.go`. Residual P4 items (fully-typed
-   codegen to eliminate `any` in emitted Go, and Sky-test harness
-   port) remain as future-work tracked in `docs/PRODUCTION_READINESS.md`.
-   Defence in depth (panic recovery + `Err` return at Task boundaries)
-   remains the reliability floor under the v1.0 milestone.
-2. **Dev experience is top priority.** Clear errors, predictable behaviour, no user-written FFI.
-3. **Root-cause fixes only.** Fix at the correct abstraction layer. **Never suppress type errors or warnings.**
-4. **Production-grade architecture.** Must scale to large Go packages (Stripe SDK). Must remain maintainable.
-
-## Non-Regression Rules
-
-These constraints are enforced by `sky verify`, `test/Sky/ErrorUnificationSpec.hs`, and the audit-remediation specs under `test/Sky/**`. Violating them breaks the repo:
-
-- **No `Result String a`** in any public surface. Use `Result Error a`.
-- **No `Task String a`** in any public surface. Use `Task Error a`.
-- **No `Std.IoError`** — the pre-v1 error ADT was deleted.
-- **No `RemoteData`** — the pre-v1 async-state type was deleted.
-- **No runtime panic from well-typed Sky code.** Every known panic class has a regression test in `runtime-go/rt/*_test.go` or `test/Sky/**Spec.hs`.
-- **No silent numeric coercion.** `AsInt` / `AsBool` / `AsFloat` returning zero on type mismatch is a violation of P0-2 (see `docs/AUDIT_REMEDIATION.md`). New code uses the fallible `AsIntChecked` variants; lenient display-only helpers carry the suffix `OrZero` so the intent is visible at every call site.
-- **No raw `.(T)` assertions on generated any-typed thunks.** Typed codegen must route through a runtime `Coerce` helper (see P0-3). Grep gate: `sky-out/main.go` files contain no `any(body).(T)` patterns outside the `Coerce*` helpers.
-- **Record field enumeration sorts by `_fieldIndex`.** Any `Map.toList fields` in codegen that feeds field order (struct decl, auto-ctor, destructure) sorts by declaration index before emission. Violating this swaps auto-ctor parameters (P0-4).
-- **Secrets are typed.** `Auth.signToken` / `Auth.verifyToken` take `String`, not `any`. `fmt.Sprintf("%v", secret)` is forbidden — explicit `.(string)` assertion on a typed boundary, with minimum-length validation (P1-4).
-- **`sky check` is a superset of `sky build`.** `sky check` runs the Go emitter and invokes `go build` on the output. If `sky build` would fail, `sky check` fails (P0-1). Regression test: for every fixture in `test-files/`, both commands agree on accept/reject.
-
-## Testing Rules
-
-- **Every new language feature or runtime helper needs a test.** Cabal specs for compile-time behaviour; `runtime-go/rt/*_test.go` for runtime helpers; `tests/**/*Test.sky` for stdlib semantics.
-- **Every bug becomes a regression test** *before* landing the fix. The failing test is the discovery artefact; without it, the class comes back. Audit items specifically require the test to fail against HEAD~1 and pass at HEAD.
-- **`sky test <file>` is the user-facing runner.** See `sky-stdlib/Sky/Test.sky` for the API.
-- **Runtime verification on every push.** `sky verify` builds and runs each example, catching panics and HTTP failures that `--build-only` misses.
-
-## Tooling Rules
-
-- **CLI commands must be correct end-to-end.** `sky build` / `sky run` / `sky check` / `sky fmt` / `sky test` all auto-regen missing FFI bindings and propagate exit codes.
-- **LSP capabilities must match `docs/tooling/lsp.md`.** If you add a capability, document it. If a feature is incomplete, narrow the claim — don't lie in docs.
-- **Formatter must be idempotent.** Two passes produce byte-identical output. Fixtures in `test/Sky/Format/FormatSpec.hs` guard this.
-
-## Effect Boundary: Task
-
-ALL effectful operations flow through `Task`:
-- **Pure** (`String.length`, `List.map`) — no wrapping
-- **Fallible** (`String.toInt`, `Dict.get`) — `Result` or `Maybe`
-- **Effectful** (`File.readFile`, `Http.get`, `println`) — `Task Error a`
-- **Entry** (`main`) — may return `Task`; runtime auto-executes
-
-FFI boundary mapping: Go `(T, error)` → `Result Error T` | Go `error` → `Result Error ()` | panics → `Err` | nil → `Maybe`/`Result`
-
-## Environment Variable Precedence
-
-Configuration values resolve in this order (highest priority first):
-
-1. **System environment variables** (`export PORT=8080`, Docker `ENV`, CI vars)
-2. **`.env` file** in the working directory (auto-loaded at startup, never overrides existing env vars)
-3. **`sky.toml`** defaults (compiled into the binary via `init()`, only set when not already present)
-
-This follows the standard convention (godotenv, Docker): system env vars always win so production deployments can override `.env` defaults without editing files. The `.env` file is for local development convenience.
-
-Sky.Live-specific env vars: `SKY_LIVE_PORT`, `SKY_LIVE_TTL`, `SKY_LIVE_STORE`, `SKY_AUTH_TOKEN_TTL`, `SKY_AUTH_COOKIE`.
-
-## Project Overview
-
-Sky is a pure functional language (Elm-inspired) compiling to Go. The compiler is written in Haskell (GHC 9.4+) and ships as a single `sky` binary. Runtime binaries are Go output — single-file, statically-linked, no external runtime needed. See `docs/compiler/journey.md` for why the compiler moved TS → Go → Sky → Haskell.
-
-## Architecture
-
-```
-source → lexer → layout filtering → parser → AST → module graph → type checker → Go emitter
-```
-
-```
-src/                              -- Sky compiler (Haskell, GHC 9.4+)
-  Sky/Parse/                      -- lexer, layout filter, parser
-  Sky/Canonicalise/               -- name resolution, import validation
-  Sky/Type/                       -- HM inference, exhaustiveness
-  Sky/Build/                      -- orchestration + FFI generator
-  Sky/Generate/Go/                -- Go IR + printer
-  Sky/Lsp/                        -- language server
-  Sky/Format/                     -- elm-format-style formatter
-app/Main.hs                       -- CLI entry point
-runtime-go/rt/                    -- Go runtime (embedded via Template Haskell)
-sky-stdlib/                       -- Sky-side stdlib (embedded)
-tools/sky-ffi-inspect/            -- Go package introspector (embedded via TH;
-                                     self-provisions to XDG cache on first use
-                                     so releases ship a single `sky` binary)
-legacy-ts-compiler/               -- Legacy TypeScript bootstrap (reference only)
-legacy-sky-compiler/              -- Legacy self-hosted Sky compiler (reference only)
-templates/CLAUDE.md               -- Template for `sky init` projects
-examples/                         -- 18 example projects
-```
-
-See `docs/compiler/journey.md` for the TS → Go → Sky → Haskell history.
-
-## Template Sync (Non-Negotiable)
-
-When stdlib, syntax, Sky.Live APIs, or CLI commands change, **`templates/CLAUDE.md` MUST be updated**. AI assistants use this template to write Sky code in user projects.
-
-## Building Examples
-
-**NEVER run `sky build` for examples from the repo root** — it overwrites the compiler binary in `sky-out/`. Always `cd` into the example directory first:
-```bash
-cd examples/01-hello-world && sky build src/Main.sky
-```
-
-## Git Push / Release Checklist
-
-1. `cabal install --overwrite-policy=always --installdir=./sky-out --install-method=copy exe:sky` — rebuild compiler
-2. `sky-out/sky --version` — must print version, NOT start a server
-3. `cabal test` — cabal test suite must pass (18/18 ExampleSweep + TypedFfi + ErrorUnification specs)
-4. **Clean-slate validation of ALL examples (mandatory before every push/tag):**
-   ```bash
-   for d in examples/*/; do
-       cd "$d" && rm -rf sky-out .skycache .skydeps
-       # run `sky install` first if sky.toml has [go.dependencies]
-       sky build src/Main.sky   # must succeed
-       ./sky-out/app            # must run (kill servers after verifying HTTP 200)
-       cd ../..
-   done
-   ```
-   Every example must build **and** run from a completely clean slate. If any example fails, fix it before pushing. No exceptions.
-5. `cd examples/12-skyvote && sky check` — 0 errors
-6. Test in temp dir: `sky init mytest`, `sky build && sky run`, `sky add fmt`, `sky remove fmt`, `sky upgrade`
-7. Verify `.github/workflows/ci.yml` matches build steps
-
-## CI/CD Rules
-
-When pushing to `main`, cancel any in-progress **CI build** runs (not release runs) since the new commit supersedes them:
-```bash
-# Cancel in-progress CI runs on main before pushing
-gh run list --branch main --status in_progress --workflow CI --json databaseId --jq '.[].databaseId' | xargs -I{} gh run cancel {} 2>/dev/null
-git push origin main
-```
-Never cancel **release** runs (triggered by tags) — those produce binaries users download.
-
-## Shell Commands
-
-Always use `-f` flag with `rm` and `cp` (`rm -f`, `rm -rf`, `cp -f`).
-
-## Build & Test
+## Quick Reference
 
 ```bash
-sky init [name]                   # Create new project
-sky build src/Main.sky            # Compile → sky-out/app
-sky run src/Main.sky              # Build and run
-sky check src/Main.sky            # Type-check only
-sky fmt src/Main.sky              # Format (Elm-style)
-sky test tests/MyTest.sky         # Run a Sky test module (exposing `tests : List Test`)
-sky add github.com/some/package   # Add dependency + generate bindings
-sky remove <package>              # Remove dependency
-sky install                       # Install deps + generate missing bindings
-sky update                        # Update deps to latest
-sky upgrade                       # Self-upgrade binary
-sky lsp                           # Language Server (JSON-RPC/stdio)
-sky clean                         # Remove sky-out/ dist/
-sky --version                     # sky v0.7.7
+sky init [name]           # Create a new Sky project (sky.toml, src/Main.sky, .gitignore, CLAUDE.md)
+sky build src/Main.sky    # Compile to Go binary (output: sky-out/app)
+sky run src/Main.sky      # Build and run
+sky check src/Main.sky    # Type-check without compiling (cross-module ADT + alias resolution)
+sky fmt src/Main.sky      # Format code (Elm-style: 4-space indent, leading commas)
+sky add <package>         # Add dependency + generate bindings + update sky.toml
+sky remove <package>      # Remove dependency from sky.toml + clean cache
+sky install               # Install all deps + auto-generate missing bindings
+sky update                # Update sky.toml dependencies to latest
+sky upgrade               # Self-upgrade Sky compiler to latest release
+sky lsp                   # Start Language Server
+sky clean                 # Remove build artifacts
+sky --version             # Show version
 ```
 
-## Code Formatting (`sky fmt`)
-
-Opinionated elm-format style, no configuration:
-- 4-space indentation (never tabs)
-- No max line width — short on one line, long ones break
-- "One line or each on its own line" for args, list items, record fields
-- Leading commas for multi-line lists/records
-- Trailing newline; two blank lines between declarations
+## Language Syntax
 
 ```elm
--- Pipelines
-value
-    |> transform1
-    |> transform2 arg1
+module Main exposing (main)
 
--- Records: leading commas when multi-line
-{ firstName = "Alice"
-, lastName = "Smith"
-}
+import Sky.Core.Prelude exposing (..)    -- auto-imported: Result, Maybe, identity, errorToString
+import Sky.Core.String as String
+import Sky.Core.List as List
+import Sky.Core.Dict as Dict
+import Std.Log exposing (println)
 
--- Case
-case msg of
-    Increment ->
-        count + 1
-    Decrement ->
-        count - 1
+-- Type annotations are optional (Hindley-Milner inference)
+greet : String -> String
+greet name =
+    "Hello, " ++ name
 
--- Let/in
-let
-    x = compute
-in
-    result
+-- Algebraic data types
+type Shape
+    = Circle Float
+    | Rectangle Float Float
 
--- else if: flat chains
-if x > 0 then
-    positive
-else if x < 0 then
-    negative
-else
-    zero
-```
+-- Records (type aliases)
+type alias Point = { x : Int, y : Int }
 
-Safety: formatter refuses to write if output loses >1/3 of code lines (prevents silent deletion from partial AST).
+-- Pattern matching (exhaustiveness checked by compiler)
+area : Shape -> Float
+area shape =
+    case shape of
+        Circle r -> 3.14 * r * r
+        Rectangle w h -> w * h
 
-## Standard Library
-
-### Pure Functions (no Task)
-| Module | Key Functions |
-|--------|--------------|
-| `Sky.Core.String` | split, join, replace, trim, contains, startsWith, toInt, fromInt, slice, length |
-| `Sky.Core.List` | map, filter, foldl, foldr, head, take, drop, sort, zip, concat, filterMap, parallelMap |
-| `Sky.Core.Dict` | empty, insert, get, remove, keys, values, map, foldl, union, member |
-| `Sky.Core.Set` | empty, insert, remove, member, union, diff, intersect, fromList |
-| `Sky.Core.Maybe` | withDefault, map, andThen |
-| `Sky.Core.Result` | withDefault, map, andThen, mapError, **map2/3/4/5, andMap, combine, traverse** |
-| `Sky.Core.Math` | sqrt, pow, abs, floor, ceil, round, sin, cos, pi, min, max |
-| `Sky.Core.Regex` | match, find, findAll, replace, split |
-| `Sky.Core.Crypto` | sha256, sha512, md5, hmacSha256 |
-| `Sky.Core.Encoding` | base64Encode/Decode, urlEncode/Decode, hexEncode/Decode |
-| `Sky.Core.Char` | isUpper, isLower, isDigit, isAlpha, toUpper, toLower |
-| `Sky.Core.Path` | join, dir, base, ext, isAbsolute |
-| `Sky.Core.Json.Decode` | decodeString, string, int, float, bool, list, field, map, andThen |
-| `Sky.Core.Json.Encode` | encode, string, int, float, bool, list, object |
-
-### Task-Wrapped Effects
-| Module | Key Functions | Returns |
-|--------|--------------|---------|
-| `Sky.Core.Task` | succeed, fail, map, andThen, perform, sequence, parallel, lazy, **map2/3/4/5, andMap** | Task err a |
-| `Sky.Core.File` | readFile, writeFile, append, mkdirAll, readDir, exists, remove, isDir, tempFile, tempDir, copy, rename | Task Error a |
-| `Sky.Core.Process` | run, exit, getEnv, getCwd, loadEnv | Task Error a |
-| `Sky.Core.Io` | readLine, readBytes, writeStdout, writeStderr | Task Error a |
-| `Sky.Core.Args` | getArg, getArgs | Maybe String / List String |
-| `Sky.Core.Time` | now, unixMillis, sleep | Task Error Int |
-| `Sky.Core.Http` | get, post, request | Task Error Response |
-| `Sky.Core.Random` | int, float, choice, shuffle | Task Error a |
-| `Sky.Http.Server` | listen, get/post/put/delete routes, middleware | Task Error () |
-| `Std.Db` | connect, open, exec, query, queryDecode, insertRow, getById, updateById, deleteById, findWhere, withTransaction | Result Error a |
-| `Std.Auth` | register, login, verify, logout, verifyEmail, hashPassword, verifyPassword, setRole, signToken, verifyToken | Result Error a |
-
-### Prelude (implicitly imported)
-`Result (Ok/Err)`, `identity`, `not`, `always`, `fst`, `snd`, `clamp`, `modBy`, `errorToString`
-
-### Concurrency
-```elm
-Task.parallel : List (Task err a) -> Task err (List a)  -- goroutine-backed, first error short-circuits
-Task.lazy : (() -> a) -> Task err a                      -- defer computation
-List.parallelMap : (a -> b) -> List a -> List b          -- pure goroutine map
-```
-
-## Go FFI / Interop Model
-
-### Golden Rule: Users never write FFI code
-
-Pipeline: `sky add pkg` → inspector extracts types → compiler classifies functions → generates `.skyi` + Go wrapper with panic recovery → DCE strips unused → `sky install` auto-generates missing bindings. Large packages (>50KB) use `sky-ffi-gen` for usage-driven bindings.
-
-### Type Mapping
-
-**Every FFI call returns `Result Error T`.** The boundary is a trust
-boundary (Elm-ports analogy). See `docs/ffi/boundary-philosophy.md`.
-
-| Go return | Sky type |
-|---|---|
-| `string` / `int`/`int64` / `float64` / `bool` (element types) | `String` / `Int` / `Float` / `Bool` |
-| `T` (single, no error) | `Result Error T` |
-| `*T` (single pointer, no error) | `Result Error T` (opaque; nil-deref → Err via recover) |
-| `(T, error)` / `error` | `Result Error T` / `Result Error ()` |
-| `(T, bool)` (comma-ok) | `Result Error (Maybe T)` |
-| `(T, *NamedErr)` where NamedErr implements error | `Result Error T` |
-| `(T, U)` (no error/bool) | `Result Error (T, U)` |
-| `*sql.DB` / `[]T` / `map[string]V` | `Result Error Db` / `Result Error (List T)` / `Result Error (Dict String V)` |
-| Go struct / Go interface | Opaque type (constructor + getters + setters / method bindings, all wrapped in Result) |
-| void | `Result Error ()` |
-
-Bare `*T` returns are NOT wrapped in Maybe — Go SDK builder chains
-(Firestore, Stripe) rely on chaining pointer returns. Defer-recover
-catches downstream nil-deref and surfaces `Err(ErrFfi(...))`.
-
-Nil-receiver checks are added to every method/getter/setter wrapper —
-calling on a nil opaque returns `Err(ErrFfi "nil receiver: T.M")` instead
-of panicking.
-
-### Opaque Struct Pattern (Builder)
-
-Go structs are opaque — use generated constructors and pipeline setters (value first, struct second for `|>`). Every FFI call returns `Result Error T`; the example below shows the typical "stitch values out of Results then call" pattern using `Result.andThen`:
-
-```elm
--- Constructor: newTypeName () -> Result Error TypeName
--- Getter: typeNameFieldName : TypeName -> Result Error FieldType
--- Setter: typeNameSetFieldName : FieldType -> TypeName -> Result Error TypeName
-
-createSession : String -> Result Error CheckoutSession
-createSession successUrl =
-    Stripe.newCheckoutSessionParams ()
-        |> Result.andThen (Stripe.checkoutSessionParamsSetMode "payment")
-        |> Result.andThen (Stripe.checkoutSessionParamsSetSuccessURL successUrl)
-        |> Result.andThen Stripe.newCheckoutSession
-```
-
-Pointer fields auto-wrapped — pass plain values. For nested structs, build inner first. Boundary failure (panic, type mismatch) surfaces as `Err`; user code chains via `Result.andThen` / `withDefault` / `case`.
-
-## Sky.Live
-
-Server-driven UI with Elm TEA architecture:
-```elm
+-- Let-in expressions
 main =
-    Live.app
-        { init = init, update = update, view = view, subscriptions = subscriptions
-        , routes = [ route "/" HomePage, route "/about" AboutPage ], notFound = HomePage
-        }
+    let
+        p = { x = 10, y = 20 }
+        updated = { p | x = 99 }     -- immutable record update
+        items = [1, 2, 3]
+            |> List.map (\x -> x * 2)  -- pipeline operator
+            |> List.filter (\x -> x > 3)
+    in
+    println "Result:" (String.fromInt updated.x)
 ```
-HTTP-first (full HTML on load, patches on events), SSE subscriptions, session stores (memory/SQLite/Redis/PostgreSQL/Firestore), type-safe events, VNode diffing, security (cookies, rate limiting, CORS).
 
-### Async Commands (Cmd.perform)
+### Types
 
-`update` returns `(Model, Cmd Msg)`. Use `Cmd.perform` to run long-running Tasks in background goroutines — results are dispatched back to `update` via SSE:
+`Int`, `Float`, `String`, `Bool`, `Char`, `Unit` (`()`), `List a`, `Maybe a` (`Just a | Nothing`), `Result err ok` (`Ok ok | Err err`), `Dict k v`, tuples `(a, b)`, records `{ field : Type }`
+
+### Operators
+
+`++` (concat), `|>` `<|` (pipe), `>>` `<<` (compose), `==` `!=` `/=` `<` `>` `<=` `>=`, `&&` `||`, `+` `-` `*` `/` `//` `%`, `::` (cons)
+
+Note: `/=` is Elm-compatible not-equal (alias for `!=`). `//` is integer division (always returns `Int`). Both forms are supported.
+
+### Multiline Strings
+
+Triple-quoted strings preserve newlines. Interpolation uses double braces `{{expr}}`:
 
 ```elm
-type Msg = FetchData | DataLoaded (Result Error String)
+html =
+    """<div class="card">
+    <h1>{{title}}</h1>
+    <p>{{description}}</p>
+</div>"""
+
+sql =
+    """CREATE TABLE IF NOT EXISTS users (
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL
+    )"""
+```
+
+Single braces `{` are literal — safe for JavaScript, CSS, JSON, SQL. Interpolation expressions support identifiers, field access, qualified names, and function calls.
+
+### Patterns
+
+Literals, constructors (`Just x`, `Ok v`, `Err e`), tuples `(a, b)`, lists `[]`, `[x]`, `x :: xs`, wildcards `_`, as-patterns `Just x as original`, nested `Ok (Just x)`
+
+### Record Patterns
+
+```elm
+-- Record patterns (destructuring)
+case user of
+    { name, age } -> name ++ " is " ++ String.fromInt age
+
+-- In function params
+greet { name } = "Hello, " ++ name
+
+-- In let bindings
+let { x, y } = point in x + y
+```
+
+## Task — Effect Boundary
+
+All side effects (IO, HTTP, file access) flow through `Task`. Tasks are lazy — they only execute when `perform` is called. Panics are caught and converted to `Err`.
+
+```elm
+import Sky.Core.Task as Task
+
+-- Create and compose Tasks
+pipeline =
+    Task.succeed "Sky"
+        |> Task.andThen (\name -> Task.succeed ("Hello, " ++ name ++ "!"))
+        |> Task.map (\msg -> msg ++ " Pure and reliable.")
+
+-- Execute at the boundary
+result = Task.perform pipeline
+-- result : Result String String
+```
+
+**Task API:**
+- `Task.succeed : a -> Task err a`
+- `Task.fail : err -> Task err a`
+- `Task.map : (a -> b) -> Task err a -> Task err b`
+- `Task.andThen : (a -> Task err b) -> Task err a -> Task err b`
+- `Task.perform : Task err a -> Result err a`
+- `Task.sequence : List (Task err a) -> Task err (List a)` -- run sequentially
+- `Task.parallel : List (Task err a) -> Task err (List a)` -- run concurrently (goroutines)
+- `Task.lazy : (() -> a) -> Task err a` -- defer computation until executed
+- `Task.map2/3/4/5` -- combine N independent Tasks (sequential, like Result.mapN) (v0.7.25+)
+- `Task.andMap : Task e a -> Task e (a -> b) -> Task e b` -- pipeline-style applicative (v0.7.25+)
+
+**Concurrency:**
+
+`Task.parallel` runs tasks concurrently using Go goroutines. Results are collected in order; the first error short-circuits.
+
+```elm
+-- Parallel HTTP requests (total time = slowest request, not sum)
+results = Task.perform (Task.parallel [ Http.get url1, Http.get url2, Http.get url3 ])
+
+-- Sequential for comparison (total time = sum of all requests)
+results = Task.perform (Task.sequence [ Http.get url1, Http.get url2, Http.get url3 ])
+```
+
+`List.parallelMap` maps a function over a list using goroutines (pure, no Task wrapping):
+
+```elm
+-- Process items concurrently
+squares = List.parallelMap (\n -> n * n) [ 1, 2, 3, 4, 5 ]
+-- [1, 4, 9, 16, 25]
+```
+
+## Go Interop (FFI)
+
+Sky can import any Go package. The compiler auto-generates type-safe Task-wrapped bindings at build time:
+
+```elm
+import Net.Http as Http                    -- net/http
+import Github.Com.Google.Uuid as Uuid      -- github.com/google/uuid
+import Database.Sql as Sql                 -- database/sql
+import Drivers.Sqlite as _ exposing (..)   -- side-effect import (Go driver)
+```
+
+### Naming Convention
+
+| Go | Sky | Pattern |
+|----|-----|---------|
+| `uuid.NewString()` | `Uuid.newString ()` | Package function |
+| `router.HandleFunc(p, h)` | `Mux.routerHandleFunc router p h` | Method: `{Type}{Method}` |
+| `db.Query(q, args...)` | `Sql.dbQuery db q args` | Method on `*sql.DB` |
+| `req.URL` (field) | `Http.requestUrl req` | Field: `{Type}{Field}` |
+| `http.StatusOK` (const) | `Http.statusOK ()` | Constant: zero-arg function |
+
+### Return Type Mapping
+
+| Go Return | Sky Return |
+|-----------|------------|
+| `(T, error)` | `Result Error T` |
+| `(T1, T2, error)` | `Result Error (Tuple2 T1 T2)` |
+| `error` | `Result Error Unit` |
+| `(T, bool)` | `Maybe T` (comma-ok pattern) |
+| `*string`, `*int` | `Maybe String`, `Maybe Int` |
+| `*sql.DB` | `Db` (opaque handle) |
+| `[]string` | `List String` |
+| `map[string]int` | `Map String Int` |
+
+### Opaque Structs (Builder Pattern)
+
+All Go structs are opaque types in Sky. Use constructors + pipeline setters:
+
+```elm
+-- Constructor: Pkg.newTypeName ()
+-- Getter:     Pkg.typeNameFieldName receiver
+-- Setter:     Pkg.typeNameSetFieldName value receiver  (pipeline-friendly)
+
+-- Example: build a Stripe checkout session
+params =
+    Stripe.newCheckoutSessionParams ()
+        |> Stripe.checkoutSessionParamsSetMode "payment"
+        |> Stripe.checkoutSessionParamsSetSuccessURL url
+        |> Stripe.checkoutSessionParamsSetCustomer customerId
+
+result = Session.new params
+```
+
+Pointer fields (`*string`, `*int64`, `*bool`) are handled automatically — pass the plain value.
+
+### Error Handling
+
+```elm
+case Http.listenAndServe ":8000" handler of
+    Ok _ -> println "Started"
+    Err e -> println "Failed:" (errorToString e)
+```
+
+## Standard Library — Complete API
+
+### Sky.Core.Prelude (auto-imported)
+
+```elm
+-- Types
+type Result err ok = Ok ok | Err err
+type Maybe a = Just a | Nothing    -- (defined in Sky.Core.Maybe)
+
+-- Functions
+identity : a -> a
+always : a -> b -> a
+fst : (a, b) -> a
+snd : (a, b) -> b
+clamp : comparable -> comparable -> comparable -> comparable
+modBy : Int -> Int -> Int
+errorToString : a -> String        -- converts Go error to String
+```
+
+### Sky.Core.Maybe
+
+```elm
+type Maybe a = Just a | Nothing
+
+withDefault : a -> Maybe a -> a
+map : (a -> b) -> Maybe a -> Maybe b
+map2 : (a -> b -> c) -> Maybe a -> Maybe b -> Maybe c
+map3 : (a -> b -> c -> d) -> Maybe a -> Maybe b -> Maybe c -> Maybe d
+andThen : (a -> Maybe b) -> Maybe a -> Maybe b
+```
+
+### Sky.Core.Result
+
+```elm
+map : (a -> b) -> Result e a -> Result e b
+andThen : (a -> Result e b) -> Result e a -> Result e b
+withDefault : a -> Result e a -> a
+fromMaybe : e -> Maybe a -> Result e a
+mapError : (e -> f) -> Result e a -> Result f a
+
+-- Applicative combinators (v0.7.25+)
+map2 : (a -> b -> c) -> Result e a -> Result e b -> Result e c
+map3 : (a -> b -> c -> d) -> Result e a -> Result e b -> Result e c -> Result e d
+map4 : (a -> b -> c -> d -> f) -> Result e a -> Result e b -> Result e c -> Result e d -> Result e f
+map5 : (a -> b -> c -> d -> f -> g) -> Result e a -> Result e b -> Result e c -> Result e d -> Result e f -> Result e g
+andMap : Result e a -> Result e (a -> b) -> Result e b      -- pipeline-style for arity > 5
+combine : List (Result e a) -> Result e (List a)             -- collect a homogeneous list
+traverse : (a -> Result e b) -> List a -> Result e (List b)  -- map then combine
+```
+
+**When to use which:**
+- `map2..5` — combine N **independent** Results of **different types** into a record. Each parser fails-fast with the first Err. Perfect for form validation, JSON-style record building.
+- `andMap` — same idea but pipeline-style; use for arity > 5 fields. `Ok make |> andMap a |> andMap b |> ...`
+- `combine` — collect a **homogeneous list** of Results. `[Ok 1, Ok 2, Ok 3]` → `Ok [1, 2, 3]`. First Err short-circuits.
+- `traverse` — `combine << List.map f`. Map a fallible function over a list.
+- `andThen` — for **dependent** computations where each step needs the previous result. Sequential by nature.
+
+### Auto record constructors (v0.7.26+)
+
+Every record type alias **automatically generates a constructor function** with the same name. Field declaration order in the type alias is the positional argument order of the constructor.
+
+```elm
+type alias Profile =
+    { name : String
+    , age : Int
+    , active : Bool
+    }
+
+-- Sky auto-generates:
+--   Profile : String -> Int -> Bool -> Profile
+--   Profile name age active = { name = name, age = age, active = active }
+
+-- Use it directly:
+alice = Profile "Alice" 30 True
+
+-- Or with applicative combinators (no makeProfile helper needed):
+result =
+    Result.map3 Profile
+        (parseString "name" formData.name)
+        (parseInt "age" formData.age)
+        (parseBool "active" formData.active)
+```
+
+This is exactly Elm's behavior. Notes:
+
+- Only **record** type aliases generate constructors. Aliases like `type alias Name = String` don't.
+- If you define a function with the same name as the type alias, **your definition wins** — Sky skips the auto-generation. This lets you provide a custom constructor with validation, defaults, etc.
+- Adding a field in the middle of a type alias is a **breaking change** for any code that uses the constructor positionally. Same trade-off Elm made.
+- Constructors are exported from a module the same way the type alias is. `module Foo exposing (Profile)` exposes both the type and the constructor.
+
+### Sky.Core.List
+
+```elm
+map : (a -> b) -> List a -> List b
+filter : (a -> Bool) -> List a -> List a
+foldl : (a -> b -> b) -> b -> List a -> b
+foldr : (a -> b -> b) -> b -> List a -> b
+head : List a -> Maybe a
+tail : List a -> Maybe (List a)
+length : List a -> Int
+append : List a -> List a -> List a
+reverse : List a -> List a
+member : a -> List a -> Bool
+range : Int -> Int -> List Int            -- inclusive range
+isEmpty : List a -> Bool
+take : Int -> List a -> List a
+drop : Int -> List a -> List a
+sort : List comparable -> List comparable
+intersperse : a -> List a -> List a
+concat : List (List a) -> List a
+concatMap : (a -> List b) -> List a -> List b
+indexedMap : (Int -> a -> b) -> List a -> List b
+singleton : a -> List a
+all : (a -> Bool) -> List a -> Bool
+any : (a -> Bool) -> List a -> Bool
+sum : List Int -> Int
+product : List Int -> Int
+maximum : List comparable -> Maybe comparable
+minimum : List comparable -> Maybe comparable
+partition : (a -> Bool) -> List a -> (List a, List a)
+find : (a -> Bool) -> List a -> Maybe a
+filterMap : (a -> Maybe b) -> List a -> List b
+sortBy : (a -> comparable) -> List a -> List a
+zip : List a -> List b -> List (a, b)
+unzip : List (a, b) -> (List a, List b)
+map2 : (a -> b -> c) -> List a -> List b -> List c
+parallelMap : (a -> b) -> List a -> List b  -- goroutine-backed concurrent map
+```
+
+### Sky.Core.String
+
+```elm
+fromInt : Int -> String
+fromFloat : Float -> String
+toInt : String -> Result Error Int
+toFloat : String -> Result Error Float
+split : String -> String -> List String   -- split sep str
+join : String -> List String -> String    -- join sep parts
+contains : String -> String -> Bool       -- contains sub str
+replace : String -> String -> String -> String  -- replace old new str
+trim : String -> String
+length : String -> Int
+toLower : String -> String
+toUpper : String -> String
+startsWith : String -> String -> Bool
+endsWith : String -> String -> Bool
+slice : Int -> Int -> String -> String    -- slice start end str
+isEmpty : String -> Bool
+lines : String -> List String
+words : String -> List String
+repeat : Int -> String -> String
+padLeft : Int -> String -> String -> String
+padRight : Int -> String -> String -> String
+left : Int -> String -> String
+right : Int -> String -> String
+reverse : String -> String
+indexes : String -> String -> List Int
+concat : List String -> String
+fromChar : Char -> String
+toBytes : String -> Bytes             -- String to []byte
+fromBytes : Bytes -> String           -- []byte to String
+```
+
+### Sky.Core.Dict
+
+```elm
+empty : Dict k v
+singleton : k -> v -> Dict k v
+insert : k -> v -> Dict k v -> Dict k v
+get : k -> Dict k v -> Maybe v
+remove : k -> Dict k v -> Dict k v
+keys : Dict k v -> List k
+values : Dict k v -> List v
+map : (k -> v -> b) -> Dict k v -> Dict k b
+foldl : (k -> v -> b -> b) -> b -> Dict k v -> b
+fromList : List (k, v) -> Dict k v
+toList : Dict k v -> List (k, v)
+isEmpty : Dict k v -> Bool
+size : Dict k v -> Int
+member : k -> Dict k v -> Bool
+update : k -> (Maybe v -> Maybe v) -> Dict k v -> Dict k v
+filter : (k -> v -> Bool) -> Dict k v -> Dict k v
+union : Dict k v -> Dict k v -> Dict k v
+intersect : Dict k v -> Dict k v -> Dict k v
+diff : Dict k v -> Dict k v -> Dict k v
+partition : (k -> v -> Bool) -> Dict k v -> (Dict k v, Dict k v)
+foldr : (k -> v -> b -> b) -> b -> Dict k v -> b
+```
+
+### Sky.Core.Char
+
+Unicode-aware character classification (backed by Go's `unicode` package):
+
+```elm
+isUpper : Char -> Bool      -- unicode.IsUpper (supports accented chars)
+isLower : Char -> Bool      -- unicode.IsLower
+isAlpha : Char -> Bool      -- unicode.IsLetter (all Unicode letters)
+isDigit : Char -> Bool      -- unicode.IsDigit (all Unicode digits)
+isAlphaNum : Char -> Bool   -- IsLetter || IsDigit
+toUpper : Char -> Char
+toLower : Char -> Char
+toCode : Char -> Int
+fromCode : Int -> Char
+```
+
+### Sky.Core.Tuple
+
+```elm
+first : (a, b) -> a
+second : (a, b) -> b
+mapFirst : (a -> c) -> (a, b) -> (c, b)
+mapSecond : (b -> c) -> (a, b) -> (a, c)
+mapBoth : (a -> c) -> (b -> d) -> (a, b) -> (c, d)
+pair : a -> b -> (a, b)
+```
+
+### Sky.Core.Bitwise
+
+```elm
+and : Int -> Int -> Int
+or : Int -> Int -> Int
+xor : Int -> Int -> Int
+complement : Int -> Int
+shiftLeftBy : Int -> Int -> Int
+shiftRightBy : Int -> Int -> Int
+shiftRightZfBy : Int -> Int -> Int
+```
+
+### Sky.Core.Set
+
+```elm
+empty : Set a
+singleton : a -> Set a
+insert : a -> Set a -> Set a
+remove : a -> Set a -> Set a
+member : a -> Set a -> Bool
+size : Set a -> Int
+isEmpty : Set a -> Bool
+toList : Set a -> List a
+fromList : List a -> Set a
+union : Set a -> Set a -> Set a
+intersect : Set a -> Set a -> Set a
+diff : Set a -> Set a -> Set a
+map : (a -> b) -> Set a -> Set b
+filter : (a -> Bool) -> Set a -> Set a
+foldl : (a -> b -> b) -> b -> Set a -> b
+```
+
+### Sky.Core.Array
+
+```elm
+empty : Array a
+fromList : List a -> Array a
+toList : Array a -> List a
+get : Int -> Array a -> Maybe a
+set : Int -> a -> Array a -> Array a
+push : a -> Array a -> Array a
+length : Array a -> Int
+slice : Int -> Int -> Array a -> Array a
+map : (a -> b) -> Array a -> Array b
+foldl : (a -> b -> b) -> b -> Array a -> b
+foldr : (a -> b -> b) -> b -> Array a -> b
+append : Array a -> Array a -> Array a
+indexedMap : (Int -> a -> b) -> Array a -> Array b
+```
+
+### Sky.Core.File
+
+```elm
+readFile : String -> Result Error String
+writeFile : String -> String -> Result Error Unit
+append : String -> String -> Result Error Unit       -- creates file if missing, appends otherwise
+exists : String -> Bool
+remove : String -> Result Error Unit
+mkdirAll : String -> Result Error Unit
+readDir : String -> Result Error (List String)
+isDir : String -> Bool
+tempFile : String -> Result Error String             -- create temp file with prefix, returns path
+tempDir : String -> Result Error String              -- create temp dir with prefix, returns path
+copy : String -> String -> Result Error Unit
+```
+
+### Sky.Core.Process
+
+```elm
+run : String -> List String -> Result Error String
+exit : Int -> Unit
+getEnv : String -> Maybe String
+getCwd : Result Error String
+loadEnv : String -> Result Error ()     -- load .env file (pass "" for default ".env")
+```
+
+### Sky.Core.Debug
+
+```elm
+log : String -> a -> a          -- prints tag + value, returns value unchanged
+toString : a -> String          -- convert any value to string representation
+```
+
+### Sky.Core.Platform
+
+```elm
+getArgs : () -> List String     -- command-line arguments
+```
+
+### Sky.Core.Json.Encode
+
+```elm
+encode : Int -> Value -> String       -- serialise with indentation
+string : String -> Value
+int : Int -> Value
+float : Float -> Value
+bool : Bool -> Value
+null : Value
+list : (a -> Value) -> List a -> Value
+object : List (String, Value) -> Value
+```
+
+### Sky.Core.Json.Decode
+
+```elm
+decodeString : Decoder a -> String -> Result String a
+decodeValue : Decoder a -> Value -> Result String a
+string : Decoder String
+int : Decoder Int
+float : Decoder Float
+bool : Decoder Bool
+null : a -> Decoder a
+nullable : Decoder a -> Decoder (Maybe a)
+value : Decoder Value
+list : Decoder a -> Decoder (List a)
+dict : Decoder a -> Decoder (Dict String a)
+field : String -> Decoder a -> Decoder a
+at : List String -> Decoder a -> Decoder a
+index : Int -> Decoder a -> Decoder a
+map : (a -> b) -> Decoder a -> Decoder b
+map2 : (a -> b -> c) -> Decoder a -> Decoder b -> Decoder c
+map3 .. map8 : combine up to 8 decoders
+succeed : a -> Decoder a
+fail : String -> Decoder a
+andThen : (a -> Decoder b) -> Decoder a -> Decoder b
+oneOf : List (Decoder a) -> Decoder a
+maybe : Decoder a -> Decoder (Maybe a)
+lazy : (() -> Decoder a) -> Decoder a
+```
+
+### Sky.Core.Json.Decode.Pipeline
+
+```elm
+-- Usage: Decode.succeed MyType |> required "field" Decode.string |> required "age" Decode.int
+required : String -> Decoder a -> Decoder (a -> b) -> Decoder b
+requiredAt : List String -> Decoder a -> Decoder (a -> b) -> Decoder b
+optional : String -> Decoder a -> a -> Decoder (a -> b) -> Decoder b
+optionalAt : List String -> Decoder a -> a -> Decoder (a -> b) -> Decoder b
+hardcoded : a -> Decoder (a -> b) -> Decoder b
+custom : Decoder a -> Decoder (a -> b) -> Decoder b
+```
+
+### Std.Log
+
+```elm
+println : a -> a -> ()     -- println tag value (variadic, uses Go fmt.Println)
+```
+
+### Std.Cmd
+
+```elm
+type Cmd msg = Cmd Foreign
+
+none : Cmd msg
+perform : Task err a -> (Result err a -> msg) -> Cmd msg
+batch : List (Cmd msg) -> Cmd msg
+```
+
+`Cmd.perform` runs a Task in a background goroutine. When it completes, the result is dispatched as a Msg through the full update/view/diff/SSE cycle:
+
+```elm
+type Msg = FetchData | DataLoaded (Result String String)
 
 update msg model =
     case msg of
@@ -343,16 +621,241 @@ update msg model =
             )
 ```
 
-| Function | Type | Description |
-|----------|------|-------------|
-| `Cmd.none` | `Cmd msg` | No-op (most update branches) |
-| `Cmd.perform` | `Task err a -> (Result err a -> msg) -> Cmd msg` | Run task async, dispatch result as Msg |
-| `Cmd.batch` | `List (Cmd msg) -> Cmd msg` | Run multiple commands concurrently |
+Use `Cmd.batch` to run multiple commands concurrently:
+```elm
+Cmd.batch
+    [ Cmd.perform task1 Msg1
+    , Cmd.perform task2 Msg2
+    ]
+```
 
-Concurrency: commands run in goroutines with session locking (same as subscriptions). Model is read fresh from the session store on completion — safe for multi-instance deployments.
+### Std.Sub
+
+```elm
+type Sub msg = SubNone | SubTimer Int msg | SubBatch (List (Sub msg))
+
+none : Sub msg
+batch : List (Sub msg) -> Sub msg
+```
+
+### Std.Time
+
+```elm
+every : Int -> msg -> Sub msg    -- timer subscription, fires msg every N milliseconds
+```
+
+### Sky.Core.Time
+
+```elm
+sleep : Int -> Task String ()    -- sleep for N milliseconds (use with Cmd.perform for async delays)
+now : () -> Task String Int      -- current Unix time in milliseconds
+```
+
+### Sky.Core.Random
+
+```elm
+int : Int -> Int -> Task String Int       -- random int in [lo, hi] range
+float : Float -> Float -> Task String Float
+choice : List a -> Task String a          -- random element from list
+shuffle : List a -> Task String (List a)  -- Fisher-Yates shuffle
+```
+
+### Std.Html
+
+Html functions return VNode records (not strings). For non-Live apps, use `render` to convert to HTML string.
+
+```elm
+-- Core
+text : String -> VNode                                    -- escaped text
+raw : String -> VNode                                     -- raw HTML (trusted only)
+node : String -> List (String, String) -> List VNode -> VNode
+render : VNode -> String                                  -- VNode → HTML string
+toString : VNode -> String                                -- alias for render
+
+-- Document: htmlNode, headNode, body, doctype
+-- Sectioning: div, section, article, aside, headerNode, footerNode, nav, mainNode
+-- Headings: h1, h2, h3, h4, h5, h6
+-- Text: p, span, strong, em, small, pre, codeNode, blockquote, a
+-- Lists: ul, ol, li
+-- Forms: form, label, button, textarea, select, option, fieldset, legend
+-- Tables: table, thead, tbody, tfoot, tr, th, td
+-- Void (no children): input, br, hr, img, meta, linkNode
+-- Special: script (raw JS), styleNode (raw CSS), titleNode
+```
+
+All element functions have signature: `List (String, String) -> List VNode -> VNode`
+Void elements: `List (String, String) -> VNode`
+
+**Important naming**: HTML5 elements that clash with common identifiers use suffixed names: `headerNode` (not `header`), `footerNode` (not `footer`), `mainNode`, `codeNode`, `linkNode`, `styleNode`, `titleNode`. The `textarea` function takes **2 arguments**: `textarea attrs children` (not just attrs).
+
+### Std.Html.Attributes
+
+All return `(String, String)` tuples.
+
+```elm
+attribute : String -> String -> (String, String)    -- generic key-value
+boolAttribute : String -> (String, String)          -- boolean (no value)
+
+-- Global: class, id, style, title, hidden, tabindex, lang, dir, role
+-- Links: href, target, rel, download
+-- Forms: type_, name, value, placeholder, action, method, for, enctype
+--   required, disabled, checked, readonly, autofocus, multiple, selected
+--   autocomplete, minlength, maxlength, min, max, step, pattern, rows, cols
+-- Media: src, alt, width, height
+-- Meta: charset, content, httpEquiv
+-- Tables: colspan, rowspan, scope
+-- ARIA: ariaLabel, ariaHidden, ariaDescribedby, ariaExpanded
+-- Data: dataAttribute key value
+```
+
+### Std.Css
+
+CSS functions return `String`. Use with `styleNode [] (stylesheet [...])`.
+
+```elm
+-- Composition
+stylesheet : List String -> String    -- join rules
+rule : String -> List String -> String    -- selector { props }
+media : String -> List String -> String   -- @media query { rules }
+
+-- Units: px, rem, em, pct, vh, vw, ch, fr, sec, ms, deg
+-- Keywords: zero, auto, none, inherit
+-- Colors: hex, rgb, rgba, hsl, hsla, transparent
+
+-- Layout: display, position, top, right_, bottom, left, zIndex, overflow, float
+-- Flexbox: flexDirection, flexWrap, justifyContent, alignItems, alignContent, flex, gap
+-- Grid: gridTemplateColumns, gridTemplateRows, gridColumn, gridRow
+-- Spacing: margin, margin2, margin4, marginTop, padding, padding2, padding4, paddingTop
+-- Sizing: width, height, maxWidth, minWidth, maxHeight, minHeight
+-- Typography: fontFamily, fontSize, fontWeight, fontStyle, lineHeight, textAlign,
+--   textDecoration, textTransform, letterSpacing, wordSpacing, color
+-- Background: backgroundColor, backgroundImage, backgroundSize, backgroundPosition
+-- Border: border, borderTop, borderBottom, borderLeft, borderRight, borderRadius,
+--   borderColor, borderWidth, borderStyle
+-- Effects: boxShadow, opacity, transition, transform
+-- Misc: cursor, property (for any CSS property not covered above)
+```
+
+### Std.Live
+
+```elm
+app : config -> config     -- marks as Sky.Live app (compiler detects this)
+route : String -> page -> (String, page)   -- route "/" MyPage (supports :param)
+```
+
+### Std.Live.Events
+
+All return `(String, String)` attribute tuples.
+
+```elm
+onClick : msg -> (String, String)          -- typed Msg constructor
+onInput : (String -> msg) -> (String, String)  -- sends input value with msg
+onSubmit : msg -> (String, String)         -- sends form data with msg
+onChange : (String -> msg) -> (String, String)  -- for select, checkbox
+onDblClick : msg -> (String, String)
+onFocus : msg -> (String, String)
+onBlur : msg -> (String, String)
+onImage : (String -> msg) -> (String, String)  -- image input: resize + compress + base64
+onFile : (String -> msg) -> (String, String)   -- file input: base64 data URL (no compress)
+fileMaxWidth : Int -> (String, String)         -- max image width in px (onImage, default 1200)
+fileMaxHeight : Int -> (String, String)        -- max image height in px (onImage, default 1200)
+fileMaxSize : Int -> (String, String)          -- max bytes hint (server-side validation)
+
+-- Usage:
+--     button [ onClick Increment ] [ text "+" ]
+--     input [ onInput UpdateDraft, value model.draft ] []
+--     form [ onSubmit AddTodo ] [ ... ]
+--     input [ type_ "file", attribute "accept" "image/*"
+--           , onImage UpdateImage, fileMaxWidth 1200 ] []
+```
+
+### Escape Hatch & View Types
+
+```elm
+-- `js` is a Prelude function for embedding raw JS/Go expressions (use sparingly)
+js : String -> a
+
+-- View functions should annotate their return type as VNode:
+view : Model -> VNode
+view model =
+    div [] [ text "hello" ]
+```
+
+### Sky.Core.Math (pure)
+
+```elm
+Math.sqrt 16.0        -- 4.0
+Math.pow 2.0 10.0     -- 1024.0
+Math.abs -5            -- 5
+Math.floor 3.7         -- 3
+Math.ceil 3.2          -- 4
+Math.round 3.5         -- 4
+Math.pi                -- 3.14159...
+Math.sin, Math.cos, Math.tan, Math.atan2
+Math.min 3 7           -- 3
+Math.max 3 7           -- 7
+```
+
+### Sky.Core.Time (mixed pure + Task)
+
+```elm
+Time.now ()            -- Task String Int (Unix millis)
+Time.format "2006-01-02" millis  -- pure: "2025-03-25"
+Time.parse "2006-01-02" "2025-03-25"  -- Result String Int
+Time.year millis, Time.month, Time.day, Time.hour, Time.minute, Time.second
+Time.sleep 1000        -- Task String () (sleep 1 second)
+```
+
+### Sky.Core.Http (Task)
+
+```elm
+Http.get "https://api.example.com/data"     -- Task String Response
+Http.post url body                            -- Task String Response
+Http.request { method, url, headers, body }   -- Task String Response
+
+-- Response = { status : Int, body : String, headers : List (String, String) }
+```
+
+### Sky.Core.Encoding (pure)
+
+```elm
+Encoding.base64Encode "Hello"   -- "SGVsbG8="
+Encoding.base64Decode "SGVsbG8="  -- Ok "Hello"
+Encoding.urlEncode "hello world"  -- "hello+world"
+Encoding.hexEncode "Hi"           -- "4869"
+```
+
+### Sky.Core.Regex (pure)
+
+```elm
+Regex.match "[0-9]+" "abc123"        -- True
+Regex.find "[0-9]+" "abc123def"      -- Just "123"
+Regex.findAll "[0-9]+" "a1b2c3"      -- ["1", "2", "3"]
+Regex.replace "[0-9]" "#" "abc123"   -- "abc###"
+Regex.split "[,;]" "a,b;c"           -- ["a", "b", "c"]
+```
+
+### Sky.Core.Crypto (pure)
+
+```elm
+Crypto.sha256 "hello"      -- "2cf24dba..."
+Crypto.hmacSha256 "key" "msg"  -- HMAC signature
+```
+
+### Sky.Core.Random (Task)
+
+```elm
+Random.int 1 100           -- Task String Int
+Random.float ()             -- Task String Float (0.0 to 1.0)
+Random.choice ["a","b","c"] -- Task String (Maybe String)
+Random.shuffle [1,2,3,4]    -- Task String (List Int)
+```
 
 ### Sky.Http.Server
+
 ```elm
+import Sky.Http.Server as Server
+
 main =
     Server.listen 8000
         [ Server.get "/" (\_ -> Task.succeed (Server.text "Hello!"))
@@ -360,187 +863,685 @@ main =
         , Server.post "/api/data" handlePost
         , Server.static "/assets" "./public"
         ]
-```
-Routes: `get/post/put/delete/any` | Groups with prefix | Cookies (HttpOnly, Secure, SameSite) | Extractors: `param`, `queryParam`, `header`, `getCookie` | Responses: `text`, `json`, `html`, `withStatus`, `redirect` | Middleware: `Handler -> Handler`
 
-## Language Syntax (Elm-compatible)
+-- Request = { method, path, body, headers, params, query, cookies, ... }
+-- Response builders: text, json, html, withStatus, withHeader, withCookie, redirect
+-- Cookie: Server.cookie "name" "value", Server.secureCookie, Server.sessionCookie
+```
+
+## Sky.Live — Server-Driven UI
+
+For interactive web apps, Sky.Live generates an HTTP server with DOM diffing (like Phoenix LiveView):
+
+```elm
+import Std.Html exposing (..)
+import Std.Html.Attributes exposing (..)
+import Std.Css exposing (..)
+import Std.Live exposing (app, route)
+import Std.Live.Events exposing (onClick, onInput, onSubmit)
+import Std.Cmd as Cmd
+import Std.Sub as Sub
+import Std.Time as Time
+
+type Page = HomePage | AboutPage
+type alias Model = { page : Page, count : Int }
+type Msg = Navigate Page | Increment | Tick
+
+init _ = ({ page = HomePage, count = 0 }, Cmd.none)
+
+update msg model =
+    case msg of
+        Navigate p -> ({ model | page = p }, Cmd.none)
+        Increment -> ({ model | count = model.count + 1 }, Cmd.none)
+        Tick -> ({ model | count = model.count + 1 }, Cmd.none)
+
+subscriptions model =
+    case model.page of
+        HomePage -> Time.every 1000 Tick    -- server-push via SSE
+        _ -> Sub.none
+
+view model =
+    div []
+        [ styleNode [] (stylesheet [ rule "body" [ fontFamily "sans-serif" ] ])
+        , h1 [] [ text (String.fromInt model.count) ]
+        , button [ onClick Increment ] [ text "+" ]
+        ]
+
+main =
+    app
+        { init = init
+        , update = update
+        , view = view
+        , subscriptions = subscriptions
+        , routes = [ route "/" HomePage, route "/about" AboutPage ]
+        , notFound = HomePage
+        }
+```
+
+**Navigation**: `a [ href "/about", attribute "sky-nav" "" ] [ text "About" ]`
+**Styling**: Use `Std.Css` with `stylesheet`/`rule` — not inline style strings.
+
+### Sky.Live Component Protocol
+
+Components are separate modules with their own `Model`/`Msg`/`update`/`view`. The compiler auto-wires message routing.
+
+```elm
+-- Counter.sky
+module Counter exposing (..)
+
+type alias Counter = { count : Int, label : String }
+
+type Msg = Increment | Decrement | Reset
+
+initWith : String -> Counter
+initWith label = { count = 0, label = label }
+
+update : Msg -> Counter -> (Counter, Cmd Msg)
+update msg counter =
+    case msg of
+        Increment -> ({ counter | count = counter.count + 1 }, Cmd.none)
+        _ -> (counter, Cmd.none)
+
+-- View takes a Msg wrapper function from parent
+view : (Msg -> parentMsg) -> Counter -> VNode
+view toMsg counter =
+    div []
+        [ text (String.fromInt counter.count)
+        , button [ onClick (toMsg Increment) ] [ text "+" ]
+        ]
+```
+
+```elm
+-- Main.sky (parent)
+type alias Model = { myCounter : Counter.Counter }
+type Msg = CounterMsg Counter.Msg | ...
+
+-- In view:
+Counter.view CounterMsg model.myCounter
+```
+
+### Subscriptions & Time (SSE Server-Push)
+
+`Sub msg` drives server-sent events. The Go runtime walks the subscription tree to set up SSE.
+
+```elm
+-- Timer: fires Tick every 1000ms via SSE
+subscriptions model = Time.every 1000 Tick
+
+-- Conditional subscription
+subscriptions model =
+    if model.autoRefresh then
+        Time.every 5000 RefreshData
+    else
+        Sub.none
+
+-- Multiple subscriptions
+subscriptions model =
+    Sub.batch
+        [ Time.every 1000 Tick
+        , Time.every 5000 RefreshData
+        ]
+```
+
+The runtime uses per-session locking and optimistic concurrency (version field) to prevent race conditions between SSE ticks and user events, even across multiple server instances sharing a database.
+
+### Cmd (Side Effects)
+
+`Cmd.none` is used in most cases. `Cmd.batch` combines multiple commands.
+
+```elm
+update msg model =
+    case msg of
+        Increment ->
+            ( { model | count = model.count + 1 }, Cmd.none )
+
+        MultipleSideEffects ->
+            ( model, Cmd.batch [ cmd1, cmd2 ] )
+```
+
+## Application Patterns — When to Use What
+
+### 1. Simple CLI App
+
+No `[live]` in sky.toml. Just `main` calling functions directly.
 
 ```elm
 module Main exposing (main)
-import Sky.Core.Prelude exposing (..)
-import Sky.Core.Task as Task
 import Std.Log exposing (println)
-
-type Msg = Increment | Decrement
-
-update : Msg -> Int -> Int
-update msg count =
-    case msg of
-        Increment -> count + 1
-        Decrement -> count - 1
+import Sky.Core.Platform as Platform
 
 main =
-    println (String.fromInt (update Increment 0))
+    let
+        args = Platform.getArgs ()
+    in
+    case args of
+        _ :: "add" :: title :: _ -> addItem title
+        _ :: "list" :: _ -> listItems
+        _ -> println "Usage: app [add|list]"
 ```
 
-Key syntax: `|>` `<|` pipelines | `::` cons | `\x -> x + 1` lambdas | `let...in` | `case...of` with exhaustiveness | `{ record | field = value }` update | `module M exposing (..)` / `import M as Alias exposing (func)`
+### 2. HTTP Server (non-Live, Go-style)
 
-### Multiline Strings
-
-Triple-quoted strings preserve newlines and indentation. Interpolation uses `{{expr}}`:
+Uses gorilla/mux or net/http directly. Server renders HTML with `Std.Html.render`. Use `Process.loadEnv` to load `.env` files for configuration.
 
 ```elm
-html =
-    """<div class="card">
-    <h1>{{title}}</h1>
-    <p>{{description}}</p>
-</div>"""
+import Net.Http as Http
+import Github.Com.Gorilla.Mux as Mux
+import Sky.Core.Process as Process exposing (getEnv, loadEnv)
+import Sky.Core.Maybe as Maybe
+
+main =
+    let
+        _ = loadEnv ""   -- load .env file
+        port = Maybe.withDefault "8000" (getEnv "PORT")
+        r = Mux.newRouter ()
+        _ = Mux.routerHandleFunc r "/" indexHandler
+    in
+    Http.listenAndServe (":" ++ port) r
+
+indexHandler w req =
+    let
+        header = Http.responseWriterHeader w
+        _ = Http.headerSet header "Content-Type" "text/html"
+    in
+    Io.writeString w (render (div [] [ text "Hello" ]))
 ```
 
-Single braces `{` are literal — safe for JavaScript, CSS, JSON, SQL. Interpolation expressions can be identifiers, field access (`{{record.field}}`), qualified names (`{{String.fromInt n}}`), or function calls (`{{String.fromInt count}}`).
+### 3. Sky.Live App (Server-Driven UI with SSE)
 
-## Examples
+Uses TEA architecture. Server holds state, pushes DOM diffs via SSE. Add `[live]` to sky.toml.
 
-| # | Name | Description |
-|---|------|-------------|
-| 01 | hello-world | Basic println |
-| 02 | go-stdlib | Go stdlib (crypto, encoding, time, http) |
-| 03 | tea-external | TEA with external packages (UUID, godotenv) |
-| 04 | local-pkg | Multi-module with local imports |
-| 05 | mux-server | HTTP server with gorilla/mux |
-| 06 | json | JSON encoding/decoding |
-| 07 | todo-cli | SQLite CLI todo app |
-| 08 | notes-app | Full CRUD web app with database |
-| 09 | live-counter | Sky.Live counter with SSE |
-| 10 | live-component | Sky.Live component protocol |
-| 11 | fyne-stopwatch | Desktop GUI with Fyne |
-| 12 | skyvote | Full Sky.Live voting app with auth |
-| 13 | skyshop | E-commerce: Stripe, Firebase, i18n |
-| 14 | task-demo | Task effect boundary demo |
-| 15 | http-server | Sky.Http.Server with routing + cookies |
-| 16 | skychess | Sky.Live chess game with AI, SQLite persistence |
-| 17 | skymon | Sky.Live monitoring dashboard with metrics, alerts |
-| 18 | job-queue | Async Cmd.perform demo with Time.sleep, Random.int, Cmd.batch |
+Use when: interactive web UIs, real-time dashboards, forms, admin panels.
 
-## Compiler Optimisation Strategy (keep up to date)
+### 4. Database App
 
-**This section must be kept current.** Any session changing the compiler pipeline, codegen, or build system must update it.
+Wrap `database/sql` in a `Lib.Db` helper module for cleaner API:
 
-### Current Optimisations (implemented)
+```elm
+-- Lib/Db.sky
+module Lib.Db exposing (open, close, exec, queryRows, getField)
+import Database.Sql as Sql
+import Modernc.Org.Sqlite as _    -- side-effect: loads SQLite driver
 
-1. **Stale file cleanup** — `rm -f sky-out/sky_ffi_*.go sky-out/sky_*.go sky-out/live_init.go` at build start
-2. **Empty wrapper deletion** — DCE deletes FFI wrapper files with no remaining functions
-3. **Native DCE** (`bin/sky-dce`) — single-pass wrapper + main.go DCE, 27s → 1s
-4. **Var declaration preservation** — DCE preserves all `var` decls (type constructors, FFI aliases)
-5. **Large .skyi filtering** (`bin/skyi-filter`) — Stripe SDK: 147K→9K lines in 90ms
-6. **Combined FFI imports** — deduplicate before loading (was parsing 8.4MB Stripe SDK 40+ times)
-7. **FFI light path** — skip type-check + lowering for `.skyi`, generate constructors + wrapper vars only
-8. **Parallel module lowering** — `List.parallelMap` with goroutines, ~300% CPU
-9. **Parallel FFI loading/wrapper copying** — concurrent `skyi-filter` and file I/O
-10. **String.join in hot paths** — O(n²) → O(n) in lowerer
-11. **Incremental compilation** — `.skycache/lowered/` cache, skip type-check + lowering on warm builds
-12. **Usage-driven FFI** (`sky-ffi-gen`) — Stripe 8896 types → only referenced symbols
-13. **Runtime optimisations** — `sky_equal` type-switch, `sky_asString` via `strconv`, ASCII fast paths
-14. **ADT structs** (v0.7.10+) — `SkyADT{Tag: N, SkyName: "Name", V0: val}`, integer tag matching, struct field access
-15. **Type annotations** — `// sky:type funcName : Type` comments on all declarations
-16. **Single-binary release** — `tools/sky-ffi-inspect/` Go source embedded via TH (`Sky.Build.EmbeddedInspector`); materialises + go-builds to `$XDG_CACHE_HOME/sky/tools/sky-ffi-inspect-<hash>/` on first `sky add`. Cold-start ~4s, warm instant. Content-hash keys the cache dir so `sky upgrade` auto-invalidates. Dev workflow still picks up `bin/sky-ffi-inspect` via ancestor walk so contributors don't rebuild per branch.
+open path = Sql.open "sqlite" path
+close db = Sql.dBClose db
+exec db query args = Sql.dBExecResult db query args
+queryRows db query args = Sql.dBQueryToMaps db query args
+getField field row = Maybe.withDefault "" (Dict.get field row)
+```
 
-### Historical Fixes (all resolved)
+```toml
+# sky.toml
+["go.dependencies"]
+"database/sql" = "latest"
+"modernc.org/sqlite" = "latest"
+```
 
-All issues below are FIXED — listed for context if debugging regressions:
+## Go FFI — Detailed Semantics
 
-- **Formatter** — 7 fixes for elm-format compat; all 32 modules format+compile; idempotent output
-- **Parser** — `(expr).field` support, `parseCaseBranches` nesting fix (`branchCol` tracking), long-line splits, `getLexemeAt1` field access
-- **Lowerer** — nested case IIFEs, ADT sub-pattern matching, cons pattern `len == N`, string pattern double-quoting, local variable shadowing by `exposedStdlib` (check `paramNames` first), hardcoded `Css.` prefix vs import aliases, let-binding hoisting (3-round bootstrap)
-- **Type checker** — working since v0.7.2; inner case extraction across Types/Unify/Infer/Adt modules
-- **FFI** — `.skycache` path resolution, Task boundary, Go generics filtered, keyword conflicts, IIFE invocation, type alias emission, interface pointer dereference, zero-arity params, callback function types, method/constant collision, slice-of-pointer types, namespace collisions
-- **Lexer** — `alias` removed from keywords (contextual only)
-- **Type safety audit** — 33 gaps fixed: case fallthrough panics, FFI panic recovery, float-aware arithmetic, rune-based strings, numeric sorting, typed FFI boundaries, session ADT rebuilding, exhaustiveness checking
+### Adding Go Dependencies
 
-### Known Limitations (v0.7.x)
+```bash
+sky add github.com/google/uuid    # external Go package
+sky add database/sql               # Go stdlib
+sky install                        # install all from sky.toml
+```
 
-These are current compiler limitations users must work around:
+This auto-generates `.skycache/go/<package>/bindings.skyi` with type-safe Sky bindings and `sky_wrappers/<package>.go` with Go wrapper functions (including panic recovery). **Never write FFI code manually** — the compiler generates everything. The inspector extracts ALL struct fields, methods, functions, and constants. Dead code elimination strips unused wrappers from the final build.
 
-1. **No anonymous records in function signatures** — Record types must be defined as type aliases; inline `{ field : Type }` in annotations is not supported.
-2. **No higher-kinded types** — No `Functor`, `Monad`, etc. Use concrete types. (Intentional — Hindley-Milner only.)
-3. **No `where` clauses** — Use `let...in` instead. (Intentional.)
-4. **No custom operators** — Only built-in operators (`|>`, `<|`, `++`, `::`, etc.). (Intentional.)
-5. **Negative literal arguments need parentheses** — `f -1` parses as `f - 1` (subtraction). Use `f (-1)` — matches Elm's behaviour.
-6. **`Dict.toList` returns string keys** — Sky's `Dict` uses `map[string]any` internally, so `Dict.toList` returns string keys even for `Dict Int v`. Arithmetic on these keys silently produces 0. **Workaround**: iterate over known key ranges with `Dict.get` instead of using `Dict.toList`.
-7. **`sky check` does not fully model Go interface satisfaction** — Opaque FFI types unify with each other (v0.7.21 fix), but the checker still cannot verify that a concrete Go type (e.g. `Label`) satisfies a named Go interface (e.g. `CanvasObject`). Calls like `Fyne.windowSetContent window label` may fail `sky check` but compile and run correctly.
-8. **Zero-arg FFI functions require no `()` argument** — FFI bindings for zero-arg Go functions (e.g. `Uuid.newString`, `FyneApp.new`) declare the return type directly. Calling them with `()` causes a type error. **Use**: `Uuid.newString` not `Uuid.newString ()`.
-9. **Let bindings with parameters after multi-line case** — A let binding like `mark j = expr` after a `case ... of` in the same let block causes the parser to misinterpret it as a new top-level declaration. **Workaround**: use lambdas (`\j -> expr`) or extract to a top-level function.
-10. **Zero-arity functions reading env vars** — Zero-arity functions are memoised and their import aliases evaluate at Go init time (before `.env` is loaded). If a zero-arity function reads `Os.getenv`, the value is cached as empty. **Workaround**: add a dummy `_` parameter: `getConfig _ = Os.getenv "KEY"`.
-11. **`exposing (Type(..))` doesn't expose ADT constructors for user modules** — `import MyModule exposing (MyType(..))` does not bring `MyType`'s constructors into scope for user-defined modules. The canonicaliser only resolves constructors when full dep info is available (kernel modules work). **Workaround**: use `import MyModule exposing (..)` to expose everything, or qualify constructors: `MyModule.MyConstructor`.
+`sky install` auto-scans your source files for FFI imports and generates any missing bindings.
 
-### Recently Fixed (v0.7.x — listed for regression context)
+### Import Path Mapping
 
-- **Nested `case...of`** — FIXED in v0.7.21. `caseDepth` counter in `LowerCtx` generates unique `__subject_N` variables per nesting level. Triple-nested case expressions compile and run correctly.
-- **FFI callback wrapping** — FIXED in v0.7.21. `mapGoFuncType` parses arbitrary Go callback signatures (not just `func(ResponseWriter, *Request)`).
-- **`sky check` Go callback function types** — FIXED in v0.7.21. Callback parsing in `TypeMapper.sky` handles `func(...)` types properly.
-- **Non-exhaustive case expressions** — FIXED. Now a compile error (was a dead binding in Infer.sky). Shows missing patterns with source context.
-- **Multi-module stdlib alias collision** — FIXED. `isStdlibCallee` checks `ctx.importAliases` instead of a hardcoded whitelist. `import Std.Db as Db` alongside `import Lib.Db as Db` works.
-- **Lexer: `from` keyword blocked parameter names** — FIXED. Same class as the earlier `alias` bug. Removed `from` from `isKeyword` in Token.sky. Was the root cause of the cons-pattern-in-recursive-functions symptom.
-- **`bin` field in sky.toml respected** — FIXED. `cmdBuild`, `cmdRun`, and the typed-build path now read `bin` from sky.toml and produce the configured binary path (defaults to `app`).
-- **Cross-module zero-arg ADT constructors emitted as function calls** — FIXED. `lowerQualifiedImport` in Lower.sky now consults `ctx.importedConstructors` and emits `Piece_King` (value) for zero-arg constructors instead of `Piece_King()` (call). Multi-arg constructors retain the existing call form so `Piece.Box 42` still works.
-- **Applicative combinators for Result and Task** — ADDED in v0.7.25. `Result.map2/3/4/5`, `Result.andMap`, `Result.combine`, `Result.traverse`, plus matching `Task.map2/3/4/5`, `Task.andMap`. Solves the heterogeneous-Result-combine and homogeneous-list-of-Results cases without needing nested case or `andThen` lambdas. Also upgraded `sky_call2`/`sky_call3` and added `sky_call4`/`sky_call5` to handle both curried and uncurried multi-arg Sky functions, fixing a latent issue where local-module functions passed to higher-order helpers crashed at runtime.
-- **Auto record constructors from type aliases** — ADDED in v0.7.26. Every `type alias Foo = { ... }` declaration auto-generates a constructor function `Foo : field1Type -> field2Type -> ... -> Foo` (Elm convention). Eliminates `makeFoo` boilerplate and lets type aliases drop directly into `Result.map3 Foo (parseA ...) (parseB ...) (parseC ...)`. Implemented as a post-parse `elaborateModule` step in `Parser.sky` that synthesizes `TypeAnnotDecl` + `FunDecl` for each record type alias, skipping when the user has defined a value with the same name. Also extended the parser dispatcher to accept `TkUpperIdentifier` as a value-level declaration name so users can override the auto-generated constructor with their own implementation. Field declaration order in the type alias becomes positional API for the constructor.
-- **Type system overhaul (annotations now load-bearing)** — FIXED in v0.7.28. Three coordinated changes restore "if it compiles, it works" for annotated functions:
-  1. **Pretty-printer renames quantified vars to `a, b, c`** in `Types.sky`. `formatScheme` and `formatTypePairForError` rename TVars consistently within a single error or hover, so users see `Cannot unify a -> Int with Int` instead of `Cannot unify t108 -> Int with Int`. All unification error messages now use `cannotUnifyMsg` which calls `formatTypePairForError`. `TypedDecl.prettyType` uses `formatScheme` so LSP hovers show real types.
-  2. **`inferFunctionSelfUnify` uses the annotation as the scheme** when present and the body validates against it. The new `applyAnnotationConstraint` helper unifies inferred body type with resolved annotation type, then uses the annotation type (substituted) as the function's stored scheme. Without this, `f : String -> Int -> String; f s n = s` was registered as `forall a b. a -> b -> a` (the inferred body type), and call sites could pass any types — silently ignoring the annotation.
-  3. **`preRegisterFunctions` uses the annotation when present** so use sites in earlier declarations of the same module see the user's declared type instead of a polymorphic placeholder. Forward references and mutual recursion now respect annotations.
-  - **Cross-module type alias resolution** in `registerTypeAliases` and `Resolver.typeExprToScheme`: both now accept the imported alias dict and combine it with the local paramMap, so an alias body like `myCounter : Counter` (where Counter is from another module) gets the resolved record substituted inline at registration time.
-  - **`Adt.resolveAnnotation`** added: walks an annotation TypeExpr collecting unique TypeVar names, allocates a fresh ID per name, builds a paramMap, and resolves. This makes polymorphic annotations like `f : a -> b -> a` get distinct TVar IDs (previously all `TypeVar` references got hardcoded ID 0).
-  - **Verified**: annotated `Decode.succeed makeStr |> Pipeline.required "a" Decode.string |> Pipeline.required "b" Decode.string` (where `makeStr : String -> Int -> String`) is now caught by `sky check` with `Pipeline operator: Type mismatch: String vs Int` instead of silently passing.
+Go package paths map to PascalCase Sky module names:
 
-- **Zero-arity declaration memoisation (Ref bug fix)** — FIXED in v0.7.30. The lowerer treated top-level zero-parameter declarations like `counter = Ref.new 0` as functions, re-evaluating the body on every reference. This broke `Ref.new`, `Dict.empty` singletons, and any other values that must be created once. Fix: zero-arity declarations now emit memoised functions (`var _memo_X; var _memoOk_X bool; func X() { if !_memoOk_X { _memo_X = <body>; _memoOk_X = true }; return _memo_X }`). The calling convention is unchanged — both same-module and cross-module references call the function, but the body evaluates only once. The runtime alias registry `Ref` in `Unify.sky` now works as a true singleton.
-- **`sky init` CLAUDE.md template embedded in binary** — FIXED in v0.7.30. The template is now in `bootstrap/runtime/templates/CLAUDE.md` and embedded via `//go:embed runtime/*`. Installed binaries no longer need a `templates/` directory on disk; `readEmbeddedTemplate` reads from the binary's embedded FS. Falls back to disk path lookup for repo dev builds.
-- **Task.perform returns Result uniformly** — FIXED in v0.7.29. The helper used to unwrap `Ok` values while keeping `Err` as `SkyResult`. Now returns `sky_runTask` result directly so `case Task.perform t of Ok x -> ... ; Err e -> ...` works for both branches.
+| Go Package | Sky Import |
+|-----------|-----------|
+| `net/http` | `import Net.Http as Http` |
+| `database/sql` | `import Database.Sql as Sql` |
+| `crypto/sha256` | `import Crypto.Sha256 as Sha256` |
+| `encoding/hex` | `import Encoding.Hex as Hex` |
+| `os` | `import Os` |
+| `os/exec` | `import Os.Exec as Exec` |
+| `bufio` | `import Bufio` |
+| `io` | `import Io` |
+| `github.com/google/uuid` | `import Github.Com.Google.Uuid as Uuid` |
+| `github.com/gorilla/mux` | `import Github.Com.Gorilla.Mux as Mux` |
+| `modernc.org/sqlite` | `import Modernc.Org.Sqlite as _` |
+| `fyne.io/fyne/v2` | `import Fyne.Io.Fyne.V2 as Fyne` |
+| `github.com/stripe/stripe-go/v84` | `import Github.Com.Stripe.StripeGo.V84 as Stripe` |
+| `github.com/stripe/stripe-go/v84/checkout/session` | `import Github.Com.Stripe.StripeGo.V84.Checkout.Session as Session` |
 
-- **Async Cmd.perform for Sky.Live** — ADDED in v0.8.0. `update` returns `(Model, Cmd Msg)` where `Cmd.perform task toMsg` spawns a goroutine. On completion, the result is dispatched as a Msg through the full update/view/diff/SSE cycle with session locking. `Cmd.batch` runs multiple commands concurrently. Recursive: cmd-triggered updates can spawn more cmds.
-- **Time.sleep + Random.int lowerer mappings** — ADDED in v0.8.0. `Time.sleep : Int -> Task Error ()` and `Random.int/float/choice/shuffle` now have Go implementations and lowerer mappings. Type signatures in Resolver for compile-time checking.
-- **Constructor partial application** — FIXED in v0.8.0. `checkPartialIdent` now checks `importedConstructors` for ADT constructor arities, not just `localFunctionArity`. Fixes `JobDone jid` (partial apply of 2-arg constructor) generating invalid Go.
-- **MultilineStringExpr AST node** — ADDED in v0.8.0. The parser creates `MultilineStringExpr` for `"""..."""` strings instead of desugaring at parse time. The formatter preserves triple-quoted strings. The lowerer desugars at codegen time with `{{expr}}` interpolation handling.
-- **Formatter elm-style improvements** — FIXED in v0.8.0. Tuples break vertically with leading commas. Function args indent 4 spaces (not aligned to callee column). Parenthesised expressions stay compact on one line.
-- **Skyshop env var race condition** — FIXED in v0.8.0. Zero-arity functions reading `Os.getenv` were memoised and evaluated at Go init time (before `.env` loaded). Fix: add `_` parameter to prevent memoisation.
+### Calling Conventions
 
-**Coding constraints**: none active. (The "no nested case" rule is no longer required as of v0.7.21.)
+```elm
+-- Zero-arg Go functions/variables: pass unit ()
+args = Os.stdin ()           -- os.Stdin
+uuid = Uuid.newString ()     -- uuid.NewString()
+now = Time.now ()            -- time.Now()
 
-### Techniques from TS Compiler (to port)
+-- Go methods: first arg is receiver
+Mux.routerHandleFunc router "/path" handler   -- router.HandleFunc("/path", handler)
+Sql.dBClose db                                -- db.Close()
+Http.responseWriterHeader w                   -- w.Header()
 
-1. **Symbol-level tree-shaking** — collect wrapper refs during lowering, filter to referenced only (Stripe 40K→~50)
-2. **Selective import emission** — only emit imports for referenced packages (currently emits all 18)
-3. **go.mod/go.sum preservation** — only delete `.go` files, reuse Go compiled objects
-4. **Single-pass emission** — track imports during lowering, no second pass
+-- Go struct fields: accessor function
+Http.requestBody req         -- req.Body
+Http.requestUrl req          -- req.URL
 
-### Build Times
+-- Go constants: accessed as values
+Http.statusOK                -- http.StatusOK
 
-| Project | Modules | Cold | Warm |
-|---|---|---|---|
-| hello-world | 1 | <1s | <1s |
-| skyvote | 32+2 FFI | 1.7s | 1.7s |
-| **skyshop** | 43+14 FFI | **1:30** | **0:59** |
-| compiler | 28 | 5.6s | 5.6s |
+-- Go package variables: getter + setter
+key = Stripe.key ()          -- stripe.Key (getter, returns current value)
+Stripe.setKey "sk_test_..."  -- stripe.Key = "sk_test_..." (setter)
 
-### TODO (v1.0 — fully typed codegen)
+-- Go struct construction: use opaque constructors + setters
+params =
+    Stripe.newCheckoutSessionParams ()                 -- &stripe.CheckoutSessionParams{}
+        |> Stripe.checkoutSessionParamsSetMode "payment"  -- params.Mode = stripe.String("payment")
+        |> Stripe.checkoutSessionParamsSetCustomer id     -- params.Customer = stripe.String(id)
 
-Current v0.7.x uses `any` for params/returns with `sky_call(f, arg)`. v1.0 goal: eliminate `any` entirely.
+-- Nested structs: build inner first, then set on outer
+priceData = Stripe.newCheckoutSessionLineItemPriceDataParams ()
+    |> Stripe.checkoutSessionLineItemPriceDataParamsSetCurrency "gbp"
+    |> Stripe.checkoutSessionLineItemPriceDataParamsSetUnitAmount 1000
+lineItem = Stripe.newCheckoutSessionLineItemParams ()
+    |> Stripe.checkoutSessionLineItemParamsSetPriceData priceData
 
-**Why**: Go compiler as second type checker; no map allocations/type assertions; direct Go interop.
+-- Variadic args: pass as List
+Exec.command "sh" ["-c", "echo hello"]   -- exec.Command("sh", "-c", "echo hello")
 
-**v0.7.x achievements**: ADT structs (no map alloc), integer tag matching (O(1)), type info flows checker→lowerer.
+-- []byte args: use String.toBytes
+Sha256.sum256 (String.toBytes data)
+```
 
-**v1.0 requires** (calling-convention rewrite — all callers/callees change simultaneously):
-1. Direct function calls replacing `sky_call(f, arg)`
-2. Concrete typed signatures replacing `func f(a any) any`
-3. Polymorphism via Go generics or monomorphisation
-4. Go structs for records (`{ name : String, age : Int }` → named struct)
-5. Parameterised core types: `SkyMaybe[T]`, `SkyResult[E, T]`, `SkyTuple2[A, B]`
+**Important**: Never pass Sky records `{ field = value }` as Go struct parameters. Always use the `newTypeName ()` constructor + `typeNameSetField value` setters. Sky records are `map[string]any` at runtime; Go functions expect typed struct pointers.
 
-**Remaining TODO items**:
-- Smarter cache invalidation (hash source content per-module)
-- Selective import emission
+### Side-Effect Imports (Database Drivers)
+
+Some Go packages are drivers that register themselves via `init()`. Import with `_`:
+
+```elm
+import Modernc.Org.Sqlite as _    -- registers "sqlite" driver for database/sql
+```
+
+### Handler Functions (HTTP)
+
+Go HTTP handlers take `(http.ResponseWriter, *http.Request)`:
+
+```elm
+handler : ResponseWriter -> Request -> Unit
+handler w req =
+    let
+        header = Http.responseWriterHeader w
+        _ = Http.headerSet header "Content-Type" "text/html"
+        _ = Io.writeString w "Hello"
+    in
+    ()
+
+-- Cookie management
+token = case Http.requestCookie req "session" of
+    Ok cookie -> Http.cookieValue cookie
+    Err _ -> ""
+
+-- Form values
+email = Http.requestFormValue req "email"
+
+-- Redirect
+Http.redirect w req "/login" 302
+```
+
+## Project Structure
+
+```
+my-project/
+  sky.toml              -- project manifest
+  src/
+    Main.sky            -- entry point (module Main exposing (main))
+    Lib/
+      Utils.sky         -- module Lib.Utils exposing (..)
+```
+
+### sky.toml
+
+```toml
+name = "my-project"
+version = "0.1.0"
+entry = "src/Main.sky"
+bin = "dist/app"
+
+[source]
+root = "src"
+
+[go.dependencies]
+"github.com/google/uuid" = "latest"
+"modernc.org/sqlite" = "latest"
+
+[database]                      # only for Std.Db apps
+driver = "sqlite"               # "sqlite" | "postgres"
+path = "myapp.db"               # for sqlite
+# url = "postgres://user:pass@host/db"  # for postgres
+
+[auth]                          # only for Std.Auth apps
+method = "password"             # "password" (more planned)
+secret = "your-secret-key"     # required: session signing key
+previous_secrets = "old-key"   # optional: previous keys for rotation
+bcrypt_cost = 12                # optional (default 12)
+session_ttl = "24h"             # optional: "24h", "30m", or seconds
+email_verification = false      # optional (default false)
+
+[live]                          # only for Sky.Live apps
+port = 8000
+input = "debounce"              # "debounce" | "blur"
+
+[live.session]
+store = "memory"                # memory | sqlite | redis | postgresql | firestore
+```
+
+Sky.Live config is embedded at compile time but can be overridden at runtime via env vars or a `.env` file. Env var names mirror sky.toml: `SKY_LIVE_PORT`, `SKY_LIVE_INPUT`, `SKY_LIVE_POLL_INTERVAL`, `SKY_LIVE_SESSION_STORE`, `SKY_LIVE_SESSION_PATH`, `SKY_LIVE_SESSION_URL`, `SKY_LIVE_STATIC_DIR`, `SKY_LIVE_TTL`. Priority: compiled defaults < sky.toml < env vars < .env file.
+
+### Importing Sky Dependencies
+
+Three import syntaxes are supported for `.skydeps/` packages (all resolve to the same file):
+
+```elm
+-- Stripped (cleanest, recommended)
+import Tailwind as Tw
+
+-- Prefixed (PascalCase package name + module)
+import SkyTailwind.Tailwind as Tw
+
+-- Full path (mirrors the dependency URL)
+import Github.Com.Anzellai.SkyTailwind.Tailwind as Tw
+```
+
+Resolution precedence: local `src/` > `.skydeps/` > stdlib. Local modules shadow dependencies; use full/prefixed path to disambiguate. Only modules listed in the package's `[lib].exposing` are importable.
+
+## Std.Db — Database Abstraction
+
+```elm
+import Std.Db as Db
+import Modernc.Org.Sqlite as _   -- driver import needed for SQLite
+
+-- Open connection
+db = Db.connect ()  -- reads [database] from sky.toml
+    Ok conn -> ...
+    Err e -> ...
+
+-- Parameterised queries (injection-safe)
+Db.exec conn "INSERT INTO t (name) VALUES (?)" ["val"]
+Db.query conn "SELECT * FROM t WHERE x = ?" ["val"]
+Db.execRaw conn "CREATE TABLE IF NOT EXISTS t (...)"
+
+-- Typed queries via Json.Decode
+Db.queryDecode conn "SELECT * FROM t" [] myDecoder
+Db.queryOneDecode conn "SELECT * FROM t WHERE id = ?" [id] myDecoder
+
+-- Convenience
+Db.insertRow conn "table" (Dict.fromList [("col", "val")])
+Db.getById conn "table" "123"
+Db.updateById conn "table" "123" (Dict.fromList [("col", "new")])
+Db.deleteById conn "table" "123"
+Db.findWhere conn "table" "column" "value"
+
+-- Row helpers (for untyped Dict queries)
+Db.getField "name" row   -- String
+Db.getInt "count" row     -- Int
+Db.getBool "done" row     -- Bool
+
+-- Transactions
+Db.withTransaction conn (\tx ->
+    let _ = Db.txExec tx "..." []
+    in Ok ()
+)
+```
+
+## Std.Auth — Authentication
+
+```elm
+import Std.Auth as Auth
+
+-- Register (auto-creates sky_users + sky_sessions tables)
+Auth.register "alice@example.com" "password123"
+-- Ok { id, email, role, verified }
+
+-- Login (returns session token + user)
+Auth.login "alice@example.com" "password123"
+-- Ok { token, user: { id, email, role, name, avatarUrl, verified } }
+
+-- Verify session token
+Auth.verify sessionToken
+-- Ok { id, email, role, ... }
+
+-- Logout
+Auth.logout sessionToken
+
+-- Email verification (when email_verification = true in sky.toml)
+Auth.verifyEmail verificationToken
+
+-- Low-level: bcrypt hash/verify
+Auth.hashPassword "password"        -- Ok "bcrypt-hash"
+Auth.verifyPassword "pw" "hash"     -- True/False
+Auth.setRole userId "admin"
+Auth.signToken "payload"            -- Ok "hmac-signature"
+```
+
+Configure in sky.toml:
+```toml
+[auth]
+method = "password"
+secret = "your-secret-key"          # required
+previous_secrets = "old-key-1"      # optional: for key rotation
+bcrypt_cost = 12                    # optional (default 12)
+session_ttl = "24h"                 # optional (default 24h)
+email_verification = false          # optional (default false)
+```
+
+Env var overrides: `SKY_AUTH_SECRET`, `SKY_AUTH_PREVIOUS_SECRETS`, `SKY_AUTH_METHOD`, `SKY_AUTH_BCRYPT_COST`, `SKY_AUTH_SESSION_TTL`, `SKY_AUTH_EMAIL_VERIFICATION`.
+
+Key rotation: move current `secret` to `previous_secrets`, set new `secret`, restart. `signToken` uses current key; `verifyToken` checks current + previous keys.
+
+When `email_verification = true`, `Auth.register` returns a `verificationToken`. Your app delivers it:
+```elm
+case Auth.register email password of
+    Ok user ->
+        case Dict.get "verificationToken" user of
+            Just token -> sendVerificationEmail email token  -- your email provider
+            Nothing -> ...
+```
+
+For apps with custom user fields (username, avatar), use `Auth.hashPassword`/`Auth.verifyPassword` for the crypto while keeping your own users table.
+
+## Known Limitations (v0.7.x)
+
+- **No nested `case...of`** — FIXED in v0.7.21. Nested cases now generate unique variable names per depth
+- **No anonymous records in type annotations** — use `type alias` for record types in signatures
+- **No higher-kinded types** — no `Functor`, `Monad`, etc.
+- **No `where` clauses** — use `let...in` instead
+- **No custom operators** — only built-in (`|>`, `<|`, `++`, `::`, etc.)
+- **Negative literal arguments need parentheses** — `f (-1)` not `f -1`
+- **`import M as A exposing (Type(..))`** — combining `as` alias with `exposing` for ADT constructors breaks module loading; use `import M exposing (..)` without `as` instead
+- **`Dict.toList` returns string keys** — use `Dict.get` with explicit key ranges instead of `Dict.toList` for `Dict Int v`
+- **`sky check` doesn't understand Go interfaces** — concrete types can't unify with Go interfaces; code compiles and runs fine
+- **`sky check` doesn't understand Go callback types** — FFI callback params can't unify with Sky functions; runtime wrapping works
+- **Zero-arg FFI functions need no `()`** — call `Uuid.newString` not `Uuid.newString ()`
+
+### Fixed in v0.7.20
+- **Cross-module type alias unification** — `type alias Piece = { kind : Kind }` in module A now unifies correctly in module B's type annotations
+- **Cross-module ADT exhaustiveness** — missing case branches for imported ADTs are caught at compile time
+- **`exposing (Constructor(..))` qualified call issue** — resolved; use `import M exposing (..)` for unqualified constructors
+
+## Coding Conventions
+
+- **Module names** are PascalCase, match file paths: `Lib.Utils` → `src/Lib/Utils.sky`
+- **No semicolons**, no curly braces — indentation-sensitive like Elm/Haskell
+- Use **`Std.Css`** for styling (not inline style strings)
+- Use **`errorToString`** to convert Go errors to strings
+- Pattern match on **`Result`** (`Ok val` / `Err e`) for Go functions returning errors
+- Pattern match on **`Maybe`** (`Just val` / `Nothing`) for Go `*primitive` pointer returns
+- **Nested patterns work**: `Ok (Just x)` and `Ok Nothing` are fully supported in case expressions
+- **Import conventions**: Use `exposing (..)` sparingly — when two modules export the same name (e.g., `Std.Html` and `Tailwind` both export `hidden`, `h2`, etc.), the first import wins. Prefer qualified imports (`import Foo as F`) to avoid collisions. If using `Tailwind exposing (..)` alongside `Std.Html exposing (..)`, use `hidden_` (with underscore) for the Tailwind version, and `headerNode`/`footerNode` for HTML5 semantic elements
+- **`//` for integer division**: Use `//` (Elm-style) or regular `/` — both work. `//` always returns `Int`, `modBy divisor n` returns `n % divisor`
+
+## Code Formatting (`sky fmt`)
+
+**Always run `sky fmt <file>.sky` after changes.** The formatter follows **elm-format** style — opinionated, deterministic, no configuration options.
+
+### Rules
+
+- **4-space indentation** throughout (never tabs)
+- **"One line or each on its own line"** — arguments, list items, record fields either all fit on one line or each gets its own line indented 4 spaces
+- **Leading commas** for multi-line lists, records, and record types
+- **Two blank lines** between top-level declarations
+- **Trailing newline** at end of file
+
+### Function Calls
+
+```elm
+-- Short: stays on one line
+div [ class "container" ] [ text "hello" ]
+
+-- Long: each arg on its own line, indented 4
+someFunction
+    arg1
+    arg2
+    arg3
+```
+
+### Pipelines
+
+```elm
+items
+    |> List.map (\x -> x * 2)
+    |> List.filter (\x -> x > 3)
+    |> List.sort
+```
+
+### Boolean Chains
+
+```elm
+if condition1
+    || condition2
+    || condition3 then
+    body
+
+else
+    fallback
+```
+
+### If-Then-Else
+
+```elm
+if condition then
+    trueValue
+
+else if otherCondition then
+    otherValue
+
+else
+    fallback
+```
+
+### Case Expressions
+
+```elm
+case msg of
+
+    Increment ->
+        count + 1
+
+    Decrement ->
+        count - 1
+```
+
+### Let-In
+
+```elm
+let
+    x = compute
+    y = transform x
+in
+    result
+```
+
+### Records & Lists
+
+```elm
+-- Short: one line
+{ name = "Alice" , age = 30 }
+[ 1 , 2 , 3 ]
+
+-- Long: leading commas
+{ name = "Alice"
+, age = 30
+, email = "alice@example.com"
+}
+
+[ firstItem
+, secondItem
+, thirdItem
+]
+```
+
+### Record Updates
+
+```elm
+{ model | name = newName , age = newAge }
+```
+
+### ADT Variants
+
+```elm
+type Shape
+    = Circle Float
+    | Rectangle Float Float
+```
+
+### Declarations
+
+```elm
+greet : String -> String
+greet name =
+    "Hello, " ++ name
+
+
+add : Int -> Int -> Int
+add a b =
+    a + b
+```
+
+## Common Patterns
+
+```elm
+-- HTTP handler (with gorilla/mux)
+handler w req =
+    let
+        body = Io.readAll (Http.requestBody req)
+    in
+    case body of
+        Ok data -> writeResponse w data
+        Err e -> writeResponse w (errorToString e)
+
+-- Database query
+getUsers db =
+    case Sql.dbQueryToMaps db "SELECT * FROM users" [] of
+        Ok rows -> rows
+        Err _ -> []
+
+-- JSON decoding with pipeline
+type alias User = { name : String, age : Int }
+
+-- Sky auto-generates `User : String -> Int -> User` from the type
+-- alias above (v0.7.26+), so you can use it as a constructor directly:
+userDecoder =
+    Decode.succeed User    -- the type alias name IS the constructor
+        |> Pipeline.required "name" Decode.string
+        |> Pipeline.required "age" Decode.int
+
+result = Decode.decodeString userDecoder jsonString
+```
 
 ---
 > Source: [anzellai/sky](https://github.com/anzellai/sky) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
