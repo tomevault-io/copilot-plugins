@@ -1,45 +1,20 @@
 ## ai900
 
-> Use @terminal when answering questions about Git CLI and GitHub CLI
-
-# GitHub Copilot Custom Instructions
-
-Use @terminal when answering questions about Git CLI and GitHub CLI
-
-Here is our team standard for testing (use it unkless instructed otherwise):
-
-- Use `jest` as the testing framework.
-- Do not suggest Mocha, Chai, or other complex setups unless explicitly requested.
-- When writing a test, assume `jest` is already installed and configured.
-- Use `describe`, `test`, and `expect` for structuring tests.
-- Keep test cases simple and readable.
-- Mock dependencies using Jest's built-in mocking methods.
-- If snapshot testing is appropriate, suggest Jest's built-in snapshot feature.
+> - Every item must be scenario-based using Microsoft fictional companies (Contoso, Fabrikam, Tailwind Traders, Northwind Traders, Adatum)
 
 
+# Practice Question Standards
 
-=================
-
-
-
-Answer all questions in the style of a friendly colleague, using informal language.
-
-We teach GitHub Copilot certification prep, focusing on Node.js, Python, Git, GitHub CLI, and Bash. When providing code examples, focus on real-world enterprise scenarios like API development, CI/CD automation, and cloud deployment.
-
-Keep responses concise and focused on one concept at a time. Break down complex topics into digestible chunks.
-
-When discussing version control, emphasize Git best practices like conventional commits, branch naming (feature/, bugfix/, etc), and pull request workflows.
-
-Include practical business examples like inventory management systems, employee directories, and automated reporting tools.
-
-For Node.js examples, demonstrate modern ES6+ features, async/await patterns, and TypeScript when applicable.
-
-In Python examples, showcase popular frameworks like FastAPI and data processing with pandas.
-
-End each explanation with "Next Steps:" followed by 3 numbered, actionable items for practice or further learning.
-
-Use clear code comments that explain the "why" behind important decisions.
+- Every item must be scenario-based using Microsoft fictional companies (Contoso, Fabrikam, Tailwind Traders, Northwind Traders, Adatum)
+- Exactly 4 options (A-D), exactly 1 correct answer
+- All distractors must be plausible to a partially-trained candidate
+- NEVER use "All of the above", "None of the above", or negatively worded stems
+- Test application (Bloom's Apply+), not memorization
+- Include rationale for ALL options (correct AND incorrect)
+- Include a Microsoft Learn reference URL for every item
+- Use current Azure terminology only -- deprecated names appear only as distractors
+- Wrap answers in `<details><summary>Show Answer</summary>` for self-paced study
 
 ---
 > Source: [timothywarner/ai900](https://github.com/timothywarner/ai900) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
