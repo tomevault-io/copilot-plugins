@@ -1,8 +1,6 @@
 # AI instruction files for agent-control
 
-> Sourced from [agentcontrol/agent-control](https://github.com/agentcontrol/agent-control) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Centralized agent control plane for governing runtime agent behavior at scale. Configurable, extensible, and production-ready. 
+> Sourced from [agentcontrol/agent-control](https://github.com/agentcontrol/agent-control), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
