@@ -1,7 +1,7 @@
 {
   "name": "sammcj--mcp-devtools",
   "displayName": "mcp-devtools",
-  "description": "A modular MCP server that provides commonly used developer tools for AI coding agents",
+  "description": "mcp-devtools",
   "version": "1.0.0",
   "author": "sammcj",
   "homepage": "https://github.com/sammcj/mcp-devtools",
