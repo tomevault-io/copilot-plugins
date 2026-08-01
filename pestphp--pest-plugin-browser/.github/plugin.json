@@ -1,0 +1,9 @@
+{
+  "name": "pestphp--pest-plugin-browser",
+  "displayName": "pest-plugin-browser",
+  "description": "pest-plugin-browser",
+  "version": "1.0.0",
+  "author": "pestphp",
+  "homepage": "https://github.com/pestphp/pest-plugin-browser",
+  "skills": []
+}
