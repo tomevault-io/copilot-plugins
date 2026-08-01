@@ -1,8 +1,6 @@
-# claude
+# claude-agent-sdk-go
 
-> Tome by [severity1](https://github.com/severity1/claude-agent-sdk-go) — distributed by [TomeVault](https://tomevault.io)
-
-Unofficial Go SDK for Claude Code CLI integration. See the Claude Agent SDK documentation for more information. This project has been renamed from claude-code-sdk-go.
+> Tome by [severity1](https://github.com/severity1/claude-agent-sdk-go), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,14 +15,10 @@ Original source: `CLAUDE.md` in [severity1/claude-agent-sdk-go](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [prompt-improver](https://github.com/severity1/claude-agent-sdk-go/tree/main/skills/prompt-improver)
-
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/severity1/claude-agent-sdk-go](https://github.com/severity1/claude-agent-sdk-go)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/severity1/claude-agent-sdk-go](https://github.com/severity1/claude-agent-sdk-go)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-q -->
