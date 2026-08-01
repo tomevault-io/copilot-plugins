@@ -1,0 +1,9 @@
+{
+  "name": "go-openapi--validate",
+  "displayName": "validate",
+  "description": "validate",
+  "version": "1.0.0",
+  "author": "go-openapi",
+  "homepage": "https://github.com/go-openapi/validate",
+  "skills": []
+}
