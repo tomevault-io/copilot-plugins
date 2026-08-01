@@ -1,8 +1,6 @@
 # Metadata-Auto-Classifier
 
-> Source: [GoBeromsu/Metadata-Auto-Classifier](https://github.com/GoBeromsu/Metadata-Auto-Classifier) — distributed by [TomeVault](https://tomevault.io)
-
-AI-powered Obsidian plugin that automatically classifies and generates metadata (tags, frontmatter) for your notes.
+> Source: [GoBeromsu/Metadata-Auto-Classifier](https://github.com/GoBeromsu/Metadata-Auto-Classifier). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
