@@ -2,9 +2,9 @@
   "name": "vscode-clinerules",
   "owner": "henryalps",
   "repo": "vscode-clinerules",
-  "description": "A VSCode plugin to help you quickly configure rules for the Cline / Roo AI programming assistant. With this plugin, you can easily add preset AI assistant rule files to your projects.",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/henryalps/vscode-clinerules",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T00:48:12Z"
+  "distributed_at": "2026-08-01T09:01:31Z"
 }
