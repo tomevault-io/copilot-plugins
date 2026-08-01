@@ -1,23 +1,25 @@
 # hwpapi
 
-> Config by [JunDamin](https://github.com/JunDamin/hwpapi) — distributed by [TomeVault](https://tomevault.io/claim/JunDamin)
+> Tome by [JunDamin](https://github.com/JunDamin/hwpapi), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [JunDamin/hwpapi](https://github.com/JunDamin/hwpapi).
+Original source: `` in [JunDamin/hwpapi](https://github.com/JunDamin/hwpapi).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/JunDamin](https://tomevault.io/claim/JunDamin)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/JunDamin/hwpapi](https://github.com/JunDamin/hwpapi)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/JunDamin) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
+
+<!-- genome:t-e-q -->
