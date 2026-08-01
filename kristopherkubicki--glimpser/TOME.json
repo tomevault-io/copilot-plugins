@@ -2,7 +2,7 @@
   "name": "glimpser",
   "owner": "KristopherKubicki",
   "repo": "glimpser",
-  "description": "a simple tool for real-time monitoring video and summarization with LLMs",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KristopherKubicki/glimpser",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T21:36:07Z"
+  "distributed_at": "2026-08-01T09:43:16Z"
 }
