@@ -1,0 +1,9 @@
+{
+  "name": "sebr--bhyve-home-assistant",
+  "displayName": "bhyve-home-assistant",
+  "description": "bhyve-home-assistant",
+  "version": "1.0.0",
+  "author": "sebr",
+  "homepage": "https://github.com/sebr/bhyve-home-assistant",
+  "skills": []
+}
