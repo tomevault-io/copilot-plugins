@@ -1,0 +1,9 @@
+{
+  "name": "firebase--agent-skills",
+  "displayName": "agent-skills",
+  "description": "agent-skills",
+  "version": "1.0.0",
+  "author": "firebase",
+  "homepage": "https://github.com/firebase/agent-skills",
+  "skills": []
+}
