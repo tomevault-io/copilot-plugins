@@ -1,8 +1,6 @@
 # AI instruction files for eSIM-Tools
 
-> Sourced from [Silentely/eSIM-Tools](https://github.com/Silentely/eSIM-Tools) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-专为Giffgaff和Simyo用户设计的eSIM管理工具集，支持完整的eSIM申请、设备更换和二维码生成流程。(A modern eSIM management toolkit designed specifically for Giffgaff and Simyo users, supporting the complete eSIM application, activation, and QR code generation process.)
+> Sourced from [Silentely/eSIM-Tools](https://github.com/Silentely/eSIM-Tools), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [Silentely/eSIM-Tools](https://github.com/Silent
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Silentely/eSIM-Tools](https://github.com/Silentely/eSIM-Tools)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/Silentely/eSIM-Tools](https://github.com/Silentely/eSIM-Tools)
 
 ---
 
