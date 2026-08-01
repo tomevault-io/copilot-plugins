@@ -1,0 +1,9 @@
+{
+  "name": "go-openapi--strfmt",
+  "displayName": "strfmt",
+  "description": "strfmt",
+  "version": "1.0.0",
+  "author": "go-openapi",
+  "homepage": "https://github.com/go-openapi/strfmt",
+  "skills": []
+}
