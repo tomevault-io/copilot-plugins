@@ -1,0 +1,31 @@
+## better-typescript-lib
+
+> This project, better-typescript-lib, is a project that provides an alternative to TypeScript's standard library. The main ingredients of this project are in the `lib/` directory which contains incremental differences to the standard library.
+
+# Project Structure
+
+This project, better-typescript-lib, is a project that provides an alternative to TypeScript's standard library. The main ingredients of this project are in the `lib/` directory which contains incremental differences to the standard library.
+
+This project is structured differently from ordinary TypeScript projects. Carefully read CONTRIBUTING.md to understand how to modify the type definitions, how to build the project, and how to test the project.
+
+# Restrictions
+
+## Original TypeScript type definitions
+
+Please do not try to read the original type definitions from TypeScript. Those may be very large and you cannot read it. Instead, ask the user to provide relevant code snippets from the original type definitions.
+
+# Development
+
+## Modifying the type definitions
+
+Modify the type definitions in the `lib/` directory to implement an improvement to the standard library.
+
+Note: while editing the files in `lib/`, you may see TypeScript errors. However, these errors are expected because the type definitions in `lib/` are incomplete. Do not worry too much about these errors. Instead, focus on test results to ensure that your changes are correct.
+
+## Adding tests
+
+When you modify the type definitions, you should add tests to ensure that your changes are correct. Add tests to the `test/` directory. Read the CONTRIBUTING.md file to understand how to run the tests.
+
+---
+> Source: [uhyo/better-typescript-lib](https://github.com/uhyo/better-typescript-lib) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
