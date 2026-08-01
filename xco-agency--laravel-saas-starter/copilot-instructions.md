@@ -589,4 +589,4 @@ $this->app->singleton(Service::class, fn () => new Service(fn () => request()));
 
 ---
 > Source: [XCO-Agency/Laravel-SAAS-Starter](https://github.com/XCO-Agency/Laravel-SAAS-Starter) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
