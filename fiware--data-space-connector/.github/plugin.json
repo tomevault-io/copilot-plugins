@@ -1,0 +1,9 @@
+{
+  "name": "fiware--data-space-connector",
+  "displayName": "data-space-connector",
+  "description": "data-space-connector",
+  "version": "1.0.0",
+  "author": "FIWARE",
+  "homepage": "https://github.com/FIWARE/data-space-connector",
+  "skills": []
+}
