@@ -4,7 +4,7 @@
   "repo": "Thor",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AIDotNet/Thor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T07:46:35Z"
+  "distributed_at": "2026-08-01T09:53:13Z"
 }
