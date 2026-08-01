@@ -1,6 +1,6 @@
 # ruroco
 
-> Tome by [beac0n](https://github.com/beac0n/ruroco) — distributed by [TomeVault](https://tomevault.io/claim/beac0n)
+> Tome by [beac0n](https://github.com/beac0n/ruroco), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `CLAUDE.md` in [beac0n/ruroco](https://github.com/beac0n/ruroco
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/beac0n)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/beac0n/ruroco](https://github.com/beac0n/ruroco)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-p -->
