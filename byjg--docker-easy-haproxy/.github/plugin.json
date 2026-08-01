@@ -1,0 +1,9 @@
+{
+  "name": "byjg--docker-easy-haproxy",
+  "displayName": "docker-easy-haproxy",
+  "description": "docker-easy-haproxy",
+  "version": "1.0.0",
+  "author": "byjg",
+  "homepage": "https://github.com/byjg/docker-easy-haproxy",
+  "skills": []
+}
