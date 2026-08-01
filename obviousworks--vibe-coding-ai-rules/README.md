@@ -1,6 +1,6 @@
 # vibe-coding-ai-rules
 
-> Source: [obviousworks/vibe-coding-ai-rules](https://github.com/obviousworks/vibe-coding-ai-rules). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [obviousworks/vibe-coding-ai-rules](https://github.com/obviousworks/vibe-coding-ai-rules). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
