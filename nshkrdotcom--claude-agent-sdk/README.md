@@ -1,8 +1,6 @@
 # claude_agent_sdk
 
-> Source: [nshkrdotcom/claude_agent_sdk](https://github.com/nshkrdotcom/claude_agent_sdk) — distributed by [TomeVault](https://tomevault.io)
-
-An Elixir SDK for Claude Code - provides programmatic access to Claude Code CLI with streaming message processing
+> Source: [nshkrdotcom/claude_agent_sdk](https://github.com/nshkrdotcom/claude_agent_sdk). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
