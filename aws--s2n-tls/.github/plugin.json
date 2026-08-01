@@ -1,0 +1,9 @@
+{
+  "name": "aws--s2n-tls",
+  "displayName": "s2n-tls",
+  "description": "s2n-tls",
+  "version": "1.0.0",
+  "author": "aws",
+  "homepage": "https://github.com/aws/s2n-tls",
+  "skills": []
+}
