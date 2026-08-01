@@ -1,7 +1,7 @@
 {
   "name": "agentcontrol--agent-control",
   "displayName": "agent-control",
-  "description": "Centralized agent control plane for governing runtime agent behavior at scale. Configurable, extensible, and production-ready. ",
+  "description": "agent-control",
   "version": "1.0.0",
   "author": "agentcontrol",
   "homepage": "https://github.com/agentcontrol/agent-control",
