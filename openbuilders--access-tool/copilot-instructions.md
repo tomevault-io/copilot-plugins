@@ -1,39 +1,56 @@
 ## access-tool
 
-> Access is a comprehensive community management tool designed for blockchain and cryptocurrency communities. It enables token-gating, transaction tracking, and automated community management through Telegram integration.
+> The frontend is a single-page application (SPA) built with React and Vite.
 
-# Access Community Tool – Project Overview
+# Frontend Documentation for Agents
 
-## 🎯 Purpose
-Access is a comprehensive community management tool designed for blockchain and cryptocurrency communities. It enables token-gating, transaction tracking, and automated community management through Telegram integration.
+## 🏗 Architecture
+The frontend is a single-page application (SPA) built with React and Vite.
 
-## 📂 Project Structure
-The project is organized into a modular monolith structure:
+### Key Directories
+- **`src/components`**: Reusable UI components.
+- **`src/pages`**: Page-level components corresponding to routes.
+- **`src/features`**: Feature-specific logic and state.
+- **`src/hooks`**: Custom React hooks.
+- **`src/assets`**: Static assets (images, icons).
 
-- **`backend/`**: Python-based services using FastAPI, Celery, and SQLAlchemy.
-  - **[AGENTS.md](backend/AGENTS.md)**: Detailed backend architecture and practices.
-- **`frontend/`**: React application built with Vite and TypeScript.
-  - **[AGENTS.md](frontend/AGENTS.md)**: Detailed frontend architecture and practices.
-- **`config/`**: Configuration templates and environment variable definitions.
-- **`docker-compose.yml`**: Orchestrates the entire stack (API, workers, DB, Redis).
+## 🛠 Tech Stack
+- **Framework**: React 18+
+- **Build Tool**: Vite
+- **Language**: TypeScript
+- **Styling**: SCSS/Sass with PostCSS (Autoprefixer, CSSNano).
+- **State Management**: Zustand (Global state), TanStack Query (Server state).
+- **Routing**: React Router DOM.
+- **UI Libraries**:
+    - `@tonconnect/ui-react`: TON wallet connection.
+    - `@dnd-kit`: Drag and drop functionality.
+    - `react-lottie`: Lottie animations.
 
-## 🛠 Key Commands (Root)
-All major operations are wrapped in the `Makefile` for convenience.
+## 💻 Development Flow
+### Commands
+All commands should be run from the `frontend` directory (though `make` commands in root are preferred for full stack).
 
-| Command | Description |
-|---------|-------------|
-| `make build` | Build all Docker containers. |
-| `make run` | Start the full application stack (detached). |
-| `make stop` | Stop all running services. |
-| `make setup-venv` | Set up local Python virtual environment and install dependencies. |
-| `make test` | Run the test suite in a Docker container. |
-| `make migrate` | Apply database migrations using Alembic. |
+```bash
+# Install dependencies
+npm install  # or yarn
 
-## 🚀 Getting Started for Agents
-1. **Context**: Always check the specific `AGENTS.md` in subdirectories for deep-dive tasks.
-2. **Environment**: The project relies heavily on Docker for execution but supports local development for Python and Node.js components.
-3. **Configuration**: Use `config/env_template` as a reference for required environment variables.
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+### Code Style
+- **Linting**: ESLint with TypeScript support.
+- **Formatting**: Prettier.
+- **Strictness**: TypeScript strict mode should be enabled.
+
+## 🎨 UI/UX Guidelines
+- Use CSS Modules or standard BEM-like classes in SCSS files.
+- Animations should be smooth; prefer Lottie for complex illustrations.
+- Ensure components are responsive and clean.
 
 ---
 > Source: [OpenBuilders/access-tool](https://github.com/OpenBuilders/access-tool) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
