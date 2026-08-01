@@ -1,16 +1,15 @@
 # AI instruction files for mcp-abap-adt
 
-> Sourced from [fr0ster/mcp-abap-adt](https://github.com/fr0ster/mcp-abap-adt) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-MCP server for SAP BTP ABAP Cloud and On-Premise ECC/S/4HANA ABAP ADT with full CRUD, JWT/XSUAA, and service-key auth.
+> Sourced from [fr0ster/mcp-abap-adt](https://github.com/fr0ster/mcp-abap-adt), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [fr0ster/mcp-abap-adt](https://github.com/fr0ster/mcp-abap-adt).
+Original source: `` in [fr0ster/mcp-abap-adt](https://github.com/fr0ster/mcp-abap-adt).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
@@ -21,6 +20,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-p -->
