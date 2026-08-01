@@ -1,0 +1,9 @@
+{
+  "name": "libp2p--jvm-libp2p",
+  "displayName": "jvm-libp2p",
+  "description": "jvm-libp2p",
+  "version": "1.0.0",
+  "author": "libp2p",
+  "homepage": "https://github.com/libp2p/jvm-libp2p",
+  "skills": []
+}
