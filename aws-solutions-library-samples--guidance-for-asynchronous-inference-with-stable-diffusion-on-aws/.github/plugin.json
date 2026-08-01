@@ -1,0 +1,9 @@
+{
+  "name": "aws-solutions-library-samples--guidance-for-asynchronous-inference-with-stable-diffusion-on-aws",
+  "displayName": "guidance-for-asynchronous-inference-with-stable-diffusion-on-aws",
+  "description": "guidance-for-asynchronous-inference-with-stable-diffusion-on-aws",
+  "version": "1.0.0",
+  "author": "aws-solutions-library-samples",
+  "homepage": "https://github.com/aws-solutions-library-samples/guidance-for-asynchronous-inference-with-stable-diffusion-on-aws",
+  "skills": []
+}
