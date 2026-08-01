@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--go",
+  "displayName": "go",
+  "description": "go",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/go",
+  "skills": []
+}
