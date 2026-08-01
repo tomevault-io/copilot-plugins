@@ -1,8 +1,6 @@
 # irgo
 
-> Source: [stukennedy/irgo](https://github.com/stukennedy/irgo) — distributed by [TomeVault](https://tomevault.io)
-
-Native app development framework for mobile and desktop using Go and Datastar.
+> Source: [stukennedy/irgo](https://github.com/stukennedy/irgo). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [stukennedy/irgo](https://github.com/stukennedy/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [stukennedy/irgo](https://github.com/stukennedy/irgo) — a repo with 166+ stars on GitHub.
+From [stukennedy/irgo](https://github.com/stukennedy/irgo) — a repo with 175+ stars on GitHub.
 
 ---
 
