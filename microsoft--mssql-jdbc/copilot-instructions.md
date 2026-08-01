@@ -1,148 +1,434 @@
 ## mssql-jdbc
 
-> This document provides guidance for AI coding agents working with the mssql-jdbc repository.
+> This document describes the high-level architecture of the Microsoft JDBC Driver for SQL Server.
 
-# AI Agent Guidelines for Microsoft JDBC Driver for SQL Server
+# mssql-jdbc Architecture
 
-This document provides guidance for AI coding agents working with the mssql-jdbc repository.
+This document describes the high-level architecture of the Microsoft JDBC Driver for SQL Server.
 
-## Quick Start
+## Overview
 
-### Essential Context Files
+The driver implements the JDBC 4.2/4.3 specification and communicates with SQL Server using the TDS (Tabular Data Stream) protocol. It supports SQL Server 2012 and later, as well as Azure SQL Database.
 
-Before making changes, agents should be aware of:
+## Layer Architecture
 
-| File | Purpose |
-|------|---------|
-| [README.md](README.md) | Project overview |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution guidelines |
-| [Coding_Guidelines.md](Coding_Guidelines.md) | Java coding standards |
-| [coding-best-practices.md](coding-best-practices.md) | Engineering best practices |
-| [review-process.md](review-process.md) | PR review requirements |
-| [.github/copilot-instructions.md](.github/copilot-instructions.md) | Copilot-specific instructions |
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     Application Layer                            │
+│                  (User Application Code)                         │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                      JDBC API Layer                              │
+│  ┌─────────────┐  ┌──────────────┐  ┌─────────────────────┐    │
+│  │ Connection  │  │  Statement   │  │     ResultSet       │    │
+│  │   Pool      │  │   Cache      │  │     Handling        │    │
+│  └─────────────┘  └──────────────┘  └─────────────────────┘    │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    Protocol Layer (TDS)                          │
+│  ┌─────────────┐  ┌──────────────┐  ┌─────────────────────┐    │
+│  │  IOBuffer   │  │  TDSParser   │  │   Stream Handlers   │    │
+│  │  (I/O)      │  │  (Tokens)    │  │   (Data Types)      │    │
+│  └─────────────┘  └──────────────┘  └─────────────────────┘    │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    Transport Layer                               │
+│  ┌─────────────┐  ┌──────────────┐  ┌─────────────────────┐    │
+│  │   Socket    │  │     SSL      │  │   Authentication    │    │
+│  │   I/O       │  │   Handler    │  │   (Kerberos/NTLM)   │    │
+│  └─────────────┘  └──────────────┘  └─────────────────────┘    │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                      SQL Server                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-### Detailed Technical Instructions
+## Package Structure
 
-The `.github/instructions/` directory contains comprehensive guides:
+```
+com.microsoft.sqlserver.jdbc/
+│
+├── Connection Management
+│   ├── SQLServerConnection.java         # Main connection implementation
+│   ├── SQLServerConnection43.java       # JDBC 4.3 extensions
+│   ├── SQLServerDataSource.java         # DataSource implementation
+│   ├── SQLServerConnectionPoolDataSource.java
+│   ├── SQLServerPooledConnection.java
+│   ├── SQLServerConnectionPoolProxy.java
+│   ├── SQLServerXAConnection.java       # XA transaction support
+│   ├── SQLServerXADataSource.java
+│   └── SQLServerXAResource.java
+│
+├── Statement Execution
+│   ├── SQLServerStatement.java          # Basic statements
+│   ├── SQLServerPreparedStatement.java  # Parameterized queries
+│   ├── SQLServerCallableStatement.java  # Stored procedures
+│   ├── Parameter.java                   # Parameter binding
+│   ├── ParameterMetaDataCache.java      # Prepared statement cache
+│   └── SQLServerParameterMetaData.java
+│
+├── Result Processing
+│   ├── SQLServerResultSet.java          # Result set implementation
+│   ├── SQLServerResultSetMetaData.java  # Column metadata
+│   ├── SQLServerDatabaseMetaData.java   # Database metadata
+│   ├── Column.java                      # Column data handling
+│   └── ScrollWindow.java                # Scrollable cursors
+│
+├── TDS Protocol
+│   ├── IOBuffer.java                    # TDS packet I/O
+│   ├── tdsparser.java                   # Token stream parsing
+│   ├── StreamPacket.java                # Base packet handler
+│   ├── StreamColInfo.java               # Column info token
+│   ├── StreamColumns.java              # Column metadata token
+│   ├── StreamDone.java                  # Done token
+│   ├── StreamLoginAck.java             # Login acknowledgment
+│   ├── StreamRetStatus.java             # Return status
+│   ├── StreamRetValue.java              # Return value
+│   └── StreamTabName.java               # Table name token
+│
+├── Data Types
+│   ├── DataTypes.java                   # Type mappings
+│   ├── DDC.java                         # Data type conversion
+│   ├── dtv.java                         # Data type value handling
+│   ├── SQLServerBlob.java              # BLOB support
+│   ├── SQLServerClob.java              # CLOB support
+│   ├── SQLServerNClob.java             # NCLOB support
+│   ├── SQLServerSQLXML.java             # XML support
+│   ├── Geography.java                   # Spatial - Geography
+│   ├── Geometry.java                    # Spatial - Geometry
+│   ├── SQLServerSpatialDatatype.java    # Spatial base class
+│   └── SqlVariant.java                  # sql_variant support
+│
+├── Bulk Operations
+│   ├── SQLServerBulkCopy.java           # Bulk copy engine
+│   ├── SQLServerBulkCopyOptions.java    # Bulk copy settings
+│   ├── SQLServerBulkCSVFileRecord.java  # CSV file reader
+│   ├── SQLServerBulkRecord.java         # Base bulk record
+│   ├── SQLServerBulkBatchInsertRecord.java
+│   ├── ISQLServerBulkData.java          # Bulk data interface
+│   ├── ISQLServerBulkRecord.java        # Bulk record interface
+│   ├── SQLServerDataTable.java          # In-memory table
+│   └── SQLServerDataColumn.java         # Table column definition
+│
+├── Table-Valued Parameters
+│   ├── TVP.java                         # TVP implementation
+│   ├── SQLServerMetaData.java           # TVP column metadata
+│   └── SQLServerSortOrder.java          # Sort order enum
+│
+├── Security & Authentication
+│   ├── SQLServerSecurityUtility.java    # Security utilities
+│   ├── KerbAuthentication.java          # Kerberos auth
+│   ├── NTLMAuthentication.java          # NTLM auth
+│   ├── SSPIAuthentication.java          # SSPI interface
+│   ├── AuthenticationJNI.java           # Native auth bridge
+│   ├── SQLServerMSAL4JUtils.java        # Azure AD (MSAL)
+│   ├── SqlAuthenticationToken.java      # Auth token handling
+│   └── SQLServerAccessTokenCallback.java # Token callback
+│
+├── Always Encrypted
+│   ├── SQLServerColumnEncryptionKeyStoreProvider.java  # Base provider
+│   ├── SQLServerColumnEncryptionJavaKeyStoreProvider.java
+│   ├── SQLServerColumnEncryptionAzureKeyVaultProvider.java
+│   ├── SQLServerColumnEncryptionCertificateStoreProvider.java
+│   ├── SQLServerAeadAes256CbcHmac256Algorithm.java
+│   ├── SQLServerAeadAes256CbcHmac256EncryptionKey.java
+│   ├── SQLServerSymmetricKey.java
+│   ├── SQLServerSymmetricKeyCache.java
+│   ├── KeyStoreProviderCommon.java
+│   └── SQLServerEncryptionType.java
+│
+├── Secure Enclaves
+│   ├── ISQLServerEnclaveProvider.java   # Enclave interface
+│   ├── SQLServerAASEnclaveProvider.java # Azure Attestation
+│   ├── SQLServerVSMEnclaveProvider.java # Host Guardian
+│   └── SQLServerNoneEnclaveProvider.java
+│
+├── Error Handling
+│   ├── SQLServerException.java          # Main exception class
+│   ├── SQLServerError.java              # Server error details
+│   ├── SQLServerWarning.java            # SQL warnings
+│   ├── SQLServerInfoMessage.java        # Info messages
+│   ├── ISQLServerMessage.java           # Message interface
+│   ├── ISQLServerMessageHandler.java    # Message handler
+│   └── SQLServerResource.java           # Error resources
+│
+├── Utilities
+│   ├── Util.java                        # General utilities
+│   ├── StringUtils.java                 # String operations
+│   ├── ParameterUtils.java              # Parameter parsing
+│   ├── SQLServerDriver.java             # JDBC Driver entry
+│   ├── ActivityCorrelator.java          # Distributed tracing
+│   └── SQLCollation.java                # Collation handling
+│
+├── Resilience & Retry
+│   ├── ConfigurableRetryLogic.java      # Retry configuration
+│   ├── ConfigurableRetryRule.java       # Retry rules
+│   ├── IdleConnectionResiliency.java    # Connection resilience
+│   ├── FailOverInfo.java                # Failover handling
+│   └── FailOverMapSingleton.java        # Failover cache
+│
+└── Supporting Types
+    ├── microsoft/sql/DateTimeOffset.java  # DateTimeOffset type
+    ├── microsoft/sql/Types.java           # Extended SQL types
+    └── mssql/googlecode/cityhash/         # CityHash for hashing
+```
 
-| Guide | Coverage |
-|-------|----------|
-| [architecture.instructions.md](.github/instructions/architecture.instructions.md) | Project structure, package layout, layer architecture |
-| [patterns.instructions.md](.github/instructions/patterns.instructions.md) | Exception handling, logging, resource management, testing patterns |
-| [glossary.instructions.md](.github/instructions/glossary.instructions.md) | Terms, acronyms, authentication modes, data types |
-| [performance-metrics.instructions.md](.github/instructions/performance-metrics.instructions.md) | Performance instrumentation, connection and statement metrics |
-| [state-machine-testing.instructions.md](.github/instructions/state-machine-testing.instructions.md) | Model-based testing framework, seed-based reproducibility |
+## Data Flow
 
-## Workflow Prompts
+### Query Execution Flow
 
-This repository provides reusable prompts in `.github/prompts/` for common maintainer workflows. Use these to guide agents through multi-step operations.
+```
+Application                    Driver                         SQL Server
+    │                            │                                │
+    │  executeQuery(sql)         │                                │
+    │ ──────────────────────────>│                                │
+    │                            │                                │
+    │                            │  Build TDS SQL Batch Packet    │
+    │                            │ ──────────────────────────────>│
+    │                            │                                │
+    │                            │  TDS Response (Tokens)         │
+    │                            │ <──────────────────────────────│
+    │                            │                                │
+    │                            │  Parse COLMETADATA token       │
+    │                            │  Parse ROW tokens              │
+    │                            │  Parse DONE token              │
+    │                            │                                │
+    │  ResultSet                 │                                │
+    │ <──────────────────────────│                                │
+    │                            │                                │
+    │  rs.next() / rs.getString()│                                │
+    │ ──────────────────────────>│                                │
+    │                            │                                │
+    │  Data from parsed tokens   │                                │
+    │ <──────────────────────────│                                │
+```
 
-| Prompt | Purpose |
+### Connection Establishment Flow
+
+```
+1. SQLServerDriver.connect(url, properties)
+2. Parse connection URL and properties
+3. Resolve server address (DNS/failover)
+4. Establish TCP socket connection
+5. SSL/TLS handshake (if encrypted)
+6. TDS LOGIN7 packet exchange
+7. Authentication (SQL/Windows/Azure AD)
+8. TDS LOGINACK response
+9. Return SQLServerConnection
+```
+
+### Bulk Copy Flow
+
+```
+Application                    SQLServerBulkCopy              SQL Server
+    │                                 │                            │
+    │  writeToServer(records)         │                            │
+    │ ───────────────────────────────>│                            │
+    │                                 │                            │
+    │                                 │  BCP INSERT BULK           │
+    │                                 │ ──────────────────────────>│
+    │                                 │                            │
+    │                                 │  For each batch:           │
+    │                                 │    Build TDS ROW packets   │
+    │                                 │ ──────────────────────────>│
+    │                                 │                            │
+    │                                 │  DONE token (rows affected)│
+    │                                 │ <──────────────────────────│
+    │                                 │                            │
+    │  Rows copied count              │                            │
+    │ <───────────────────────────────│                            │
+```
+
+## Key Design Patterns
+
+### 1. Factory Pattern
+- `SQLServerDataSourceObjectFactory` creates DataSource instances
+- `SQLServerEncryptionAlgorithmFactoryList` manages encryption algorithms
+
+### 2. Singleton Pattern
+- `FailOverMapSingleton` - Global failover partner cache
+- `SQLServerSymmetricKeyCache` - Encryption key cache
+- `ParameterMetaDataCache` - Prepared statement metadata cache
+
+### 3. Strategy Pattern
+- `ISQLServerEnclaveProvider` - Different enclave attestation strategies
+- `SQLServerColumnEncryptionKeyStoreProvider` - Different key store implementations
+
+### 4. Builder Pattern
+- Connection URL parsing builds connection properties
+- `SQLServerBulkCopyOptions` configuration
+
+### 5. Template Method Pattern
+- `SQLServerSpatialDatatype` - Base class for Geography/Geometry
+
+## Thread Safety
+
+- `SQLServerConnection` is **NOT** thread-safe (per JDBC spec)
+- Multiple statements on same connection must be synchronized
+- `SQLServerDataSource` is thread-safe
+- Connection pooling should use `SQLServerConnectionPoolDataSource`
+
+## Memory Management
+
+### Adaptive Buffering
+- `responseBuffering=adaptive` (default) - Streams large results
+- `responseBuffering=full` - Buffers entire result set
+
+### LOB Handling
+- LOBs are streamed by default to minimize memory
+- `PLPInputStream` handles large binary data
+- `ReaderInputStream` handles large character data
+
+## Extension Points
+
+### Custom Bulk Copy Data Sources
+```java
+public class MyBulkRecord implements ISQLServerBulkRecord {
+    // Implement to provide custom data to bulk copy
+}
+```
+
+### Custom Key Store Providers
+```java
+public class MyKeyStoreProvider extends SQLServerColumnEncryptionKeyStoreProvider {
+    // Implement to provide custom key storage for Always Encrypted
+}
+```
+
+### Custom Authentication Token Providers
+```java
+public class MyTokenCallback implements SQLServerAccessTokenCallback {
+    // Implement to provide custom Azure AD tokens
+}
+```
+
+### Message Handlers
+```java
+public class MyMessageHandler implements ISQLServerMessageHandler {
+    // Implement to handle SQL Server messages/warnings
+}
+```
+
+## Entry Points
+
+Primary public API classes and interfaces that external consumers use.
+
+### Connection Entry Points
+
+| Class / Interface | Description |
+|-------------------|-------------|
+| `SQLServerDriver` | `java.sql.Driver` implementation. Registered via `META-INF/services/java.sql.Driver`. |
+| `SQLServerDataSource` | Standard `javax.sql.DataSource` for pooled and non-pooled connections. |
+| `SQLServerConnectionPoolDataSource` | `javax.sql.ConnectionPoolDataSource` — returns `PooledConnection` objects. |
+| `SQLServerXADataSource` | `javax.sql.XADataSource` — returns `XAConnection` for distributed transactions. |
+| `SQLServerConnection` | Core connection object returned by all DataSource / Driver paths. Implements `ISQLServerConnection`. |
+| `DriverManager.getConnection()` | Standard JDBC URL-based entry point that delegates to `SQLServerDriver.connect()`. |
+| `SQLServerAccessTokenCallback` | Callback interface for custom token-based authentication. |
+
+### Statement Creation
+
+| Method | Returns |
 |--------|---------|
-| [getting-started.prompt.md](.github/prompts/getting-started.prompt.md) | Interactive guide to all available mssql-jdbc Copilot prompts |
-| [build.prompt.md](.github/prompts/build.prompt.md) | Build the driver with Maven across JRE profiles |
-| [run-tests.prompt.md](.github/prompts/run-tests.prompt.md) | Run tests with Maven across JRE profiles |
-| [setup-dev.prompt.md](.github/prompts/setup-dev.prompt.md) | Set up the development environment |
-| [fix-bug.prompt.md](.github/prompts/fix-bug.prompt.md) | Diagnose and fix a bug with tests and documentation |
-| [implement-feature.prompt.md](.github/prompts/implement-feature.prompt.md) | Plan and implement a new feature end-to-end |
-| [code-review.prompt.md](.github/prompts/code-review.prompt.md) | AI-assisted code review for a pull request |
-| [perf-optimization.prompt.md](.github/prompts/perf-optimization.prompt.md) | Investigate and implement performance improvements |
-| [create-pr.prompt.md](.github/prompts/create-pr.prompt.md) | Create well-structured pull requests |
-| [generate-doc-comments.prompt.md](.github/prompts/generate-doc-comments.prompt.md) | Generate Javadoc comments following project conventions |
-| [generate-prompt.prompt.md](.github/prompts/generate-prompt.prompt.md) | Generate new Copilot prompt files for the project |
-| [generate-skill.prompt.md](.github/prompts/generate-skill.prompt.md) | Generate Copilot Agent Skills (SKILL.md) |
+| `connection.createStatement()` | `SQLServerStatement` |
+| `connection.prepareStatement()` | `SQLServerPreparedStatement` |
+| `connection.prepareCall()` | `SQLServerCallableStatement` |
 
-## Core Principles
+### Statement Execution
 
-1. **Cross-Platform Compatibility**: Code must work on Windows, Linux, and macOS
-2. **Multi-Profile Compilation**: Code must compile across all JRE profiles (`jre8` through `jre26`)
-3. **Backward Compatibility**: No breaking changes without proper deprecation and documentation
-4. **Test-First Development**: All changes require tests — write failing tests before implementing fixes
-5. **Security by Default**: Secure defaults, no credential logging, parameterized queries
-6. **Protocol Compliance**: Follow MS-TDS specifications
-7. **Performance Awareness**: Avoid allocations on hot paths, reuse buffers, guard log messages
-8. **JDBC Specification Compliance**: Follow JDBC 4.2/4.3 specification for standard interfaces
+| Method | Description |
+|--------|-------------|
+| `statement.executeQuery()` | Returns a `SQLServerResultSet` for SELECT queries. |
+| `statement.executeUpdate()` | Returns row count for INSERT/UPDATE/DELETE. |
+| `statement.execute()` | Returns boolean; use `getResultSet()` / `getUpdateCount()` for results. |
+| `statement.executeBatch()` | Executes accumulated batch of commands. |
 
-## Common Tasks
+### Result Processing
 
-### Bug Fix Workflow
+| Class / Interface | Description |
+|-------------------|-------------|
+| `SQLServerResultSet` | Scrollable / updatable result set. Implements `ISQLServerResultSet`. |
+| `SQLServerResultSetMetaData` | Column metadata (names, types, nullability). |
+| `SQLServerParameterMetaData` | Parameter metadata for prepared statements. |
 
-1. Understand the issue from the bug report
-2. Locate relevant code in `src/main/java/com/microsoft/sqlserver/jdbc/`
-3. Write a failing test that reproduces the issue
-4. Implement the fix using patterns from `.github/instructions/patterns.instructions.md`
-5. Ensure all tests pass across JRE profiles
-6. Update Javadoc if behavior changes
+### Database Metadata
 
-### Feature Implementation
+| Method / Class | Description |
+|----------------|-------------|
+| `connection.getMetaData()` | Returns `SQLServerDatabaseMetaData`. |
+| `databaseMetaData.getTables()` | Lists tables matching a pattern. |
+| `databaseMetaData.getColumns()` | Lists columns for a table. |
+| `databaseMetaData.getProcedures()` | Lists stored procedures. |
+| `databaseMetaData.getPrimaryKeys()` | Lists primary key columns for a table. |
+| `databaseMetaData.getIndexInfo()` | Lists indexes for a table. |
+| `databaseMetaData.getSchemas()` | Lists schemas in the database. |
 
-1. Review the feature specification or issue
-2. Plan the implementation (see `implement-feature` prompt)
-3. Implement with tests (unit + integration)
-4. Document new public APIs with Javadoc
-5. Update CHANGELOG.md
+### Bulk Copy
 
-### Adding Connection String Properties
+| Class / Interface | Description |
+|-------------------|-------------|
+| `SQLServerBulkCopy` | High-performance bulk insert. Wraps TDS bulk-insert protocol. |
+| `SQLServerBulkCopyOptions` | Configuration for bulk copy (batch size, timeout, keep identity, etc.). |
+| `SQLServerBulkCSVFileRecord` | Reads CSV files as input for `SQLServerBulkCopy`. Implements `ISQLServerBulkData`. |
+| `ISQLServerBulkRecord` | Interface to provide custom row data for bulk copy. |
 
-1. Add the property constant to `SQLServerDriverStringProperty`, `SQLServerDriverBooleanProperty`, or `SQLServerDriverIntProperty`
-2. Add getter/setter to `SQLServerDataSource.java`
-3. Add parsing in `SQLServerConnection.java`
-4. Default to a backward-compatible value
-5. Add tests for the new property
-6. Document in Javadoc
+### Always Encrypted
 
-### TDS Protocol Changes
+| Class / Interface | Description |
+|-------------------|-------------|
+| `SQLServerColumnEncryptionKeyStoreProvider` | Abstract class for custom key store providers. |
+| `SQLServerColumnEncryptionJavaKeyStoreProvider` | Java Key Store (JKS/PKCS12) key store provider. |
+| `SQLServerColumnEncryptionAzureKeyVaultProvider` | Azure Key Vault key store provider. |
+| `SQLServerConnection.registerColumnEncryptionKeyStoreProviders()` | Registers custom key store providers globally. |
 
-1. Reference the MS-TDS specification for the protocol extension
-2. Add new token/flag constants to the relevant TDS classes
-3. Implement parsing/writing in `IOBuffer.java`, `tdsparser.java`, and `Stream*.java` files
-4. Test against multiple SQL Server versions (2012+, Azure SQL)
-5. Consider backward compatibility
+### Spatial Types
 
-### Authentication Changes
+| Class | Description |
+|-------|-------------|
+| `Geography` | Represents `geography` spatial type. Factory methods: `point()`, `STGeomFromText()`, `STGeomFromWKB()`, `deserialize()`. |
+| `Geometry` | Represents `geometry` spatial type. Same factory methods as `Geography`. |
 
-1. Update `SqlAuthentication` enum if adding a new authentication method
-2. Implement token acquisition in the appropriate auth class (`SQLServerMSAL4JUtils.java`, `KerbAuthentication.java`, etc.)
-3. Ensure federated auth flow works if applicable
-4. Test with the relevant authentication infrastructure
+### Vector Types
 
-### Performance Optimization
+| Class / Method | Description |
+|----------------|-------------|
+| `SQLServerPreparedStatement.setVector()` | Sets a vector parameter with specified base type. |
+| `SQLServerResultSet.getVector()` | Retrieves a vector column value as a typed list. |
+| `SQLServerCallableStatement.getVector()` | Retrieves a vector output parameter. |
 
-1. Profile the issue using benchmarks or tracing
-2. Identify allocation hotspots (see `perf-optimization` prompt)
-3. Apply patterns: buffer reuse, lazy initialization, object caching, lock narrowing
-4. Verify no regressions with existing tests
-5. Run internal performance benchmarks for major changes
+### Table-Valued Parameters (TVP)
 
-## External Resources
+| Class / Interface | Description |
+|-------------------|-------------|
+| `SQLServerDataTable` | In-memory table for TVP data. |
+| `SQLServerDataColumn` | Column metadata for `SQLServerDataTable`. |
+| `ISQLServerDataRecord` | Interface for streaming TVP rows. |
+| `SQLServerPreparedStatement.setStructured()` | Binds a TVP parameter. |
 
-### Key Documentation Links
+### Data Classification
 
-- [Microsoft JDBC Driver on Microsoft Learn](https://learn.microsoft.com/sql/connect/jdbc/microsoft-jdbc-driver-for-sql-server)
-- [MS-TDS Protocol Specification](https://learn.microsoft.com/openspecs/windows_protocols/ms-tds)
-- [SQL Server Documentation](https://learn.microsoft.com/sql/sql-server/)
-- [JDBC API Specification](https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/)
+| Class | Description |
+|-------|-------------|
+| `SensitivityClassification` | Top-level container for data classification labels on a result set. |
+| `ColumnSensitivity` | Per-column sensitivity information. |
+| `SensitivityProperty` | Label + information-type pair. |
+| `SQLServerResultSet.getSensitivityClassification()` | Retrieves classification metadata for the current result set. |
 
-## Repository Policies
+### Performance Monitoring
 
-See the root directory for:
-
-- [Coding_Guidelines.md](Coding_Guidelines.md) — Java coding standards and formatting rules
-- [coding-best-practices.md](coding-best-practices.md) — Engineering best practices
-- [review-process.md](review-process.md) — PR review requirements and responsibilities
-
-## Getting Help
-
-- Check existing tests for usage patterns
-- Reference similar implementations in the codebase
-- Consult the Microsoft Docs for API behavior specifications
-- For protocol questions, refer to MS-TDS open specifications
-- For JDBC specification questions, refer to the Oracle JDBC documentation
-
----
-
-*This document is automatically loaded as context for AI agents working in this repository.*
+| Class / Method | Description |
+|----------------|-------------|
+| `SQLServerConnection.getStatistics()` | Returns `Hashtable` of performance counters (bytes sent/received, prepares, etc.). |
+| `SQLServerConnection.setStatisticsEnabled(true)` | Enables per-connection performance statistics gathering. |
+| `SQLServerConnectionPoolDataSource.setMaxPoolSize()` | Controls connection pool sizing. |
 
 ---
 > Source: [microsoft/mssql-jdbc](https://github.com/microsoft/mssql-jdbc) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
