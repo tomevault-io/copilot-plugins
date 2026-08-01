@@ -4,7 +4,7 @@
   "repo": "bump-my-version",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/callowayproject/bump-my-version",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T16:16:13Z"
+  "distributed_at": "2026-08-01T13:10:47Z"
 }
