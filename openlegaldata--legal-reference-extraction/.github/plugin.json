@@ -1,0 +1,9 @@
+{
+  "name": "openlegaldata--legal-reference-extraction",
+  "displayName": "legal-reference-extraction",
+  "description": "legal-reference-extraction",
+  "version": "1.0.0",
+  "author": "openlegaldata",
+  "homepage": "https://github.com/openlegaldata/legal-reference-extraction",
+  "skills": []
+}
