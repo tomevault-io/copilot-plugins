@@ -1,21 +1,21 @@
 # dish-ai-commit
 
-> Source: [littleCareless/dish-ai-commit](https://github.com/littleCareless/dish-ai-commit). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [littleCareless/dish-ai-commit](https://github.com/littleCareless/dish-ai-commit). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [littleCareless/dish-ai-commit](https://github.com/littleCareless/dish-ai-commit).
+Original source: `AGENTS.md` in [littleCareless/dish-ai-commit](https://github.com/littleCareless/dish-ai-commit).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [littleCareless/dish-ai-commit](https://github.com/littleCareless/dish-ai-commit) — a repo with 160+ stars on GitHub.
+From [littleCareless/dish-ai-commit](https://github.com/littleCareless/dish-ai-commit) — a repo with 161+ stars on GitHub.
 
 ---
 
