@@ -1,0 +1,9 @@
+{
+  "name": "pyo3--maturin",
+  "displayName": "maturin",
+  "description": "maturin",
+  "version": "1.0.0",
+  "author": "PyO3",
+  "homepage": "https://github.com/PyO3/maturin",
+  "skills": []
+}
