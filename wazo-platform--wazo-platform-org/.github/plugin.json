@@ -1,0 +1,9 @@
+{
+  "name": "wazo-platform--wazo-platform-org",
+  "displayName": "wazo-platform.org",
+  "description": "wazo-platform.org",
+  "version": "1.0.0",
+  "author": "wazo-platform",
+  "homepage": "https://github.com/wazo-platform/wazo-platform.org",
+  "skills": []
+}
