@@ -1,0 +1,9 @@
+{
+  "name": "namecheap--go-namecheap-sdk",
+  "displayName": "go-namecheap-sdk",
+  "description": "go-namecheap-sdk",
+  "version": "1.0.0",
+  "author": "namecheap",
+  "homepage": "https://github.com/namecheap/go-namecheap-sdk",
+  "skills": []
+}
