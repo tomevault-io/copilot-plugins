@@ -1,0 +1,9 @@
+{
+  "name": "flyte--upnpclient",
+  "displayName": "upnpclient",
+  "description": "upnpclient",
+  "version": "1.0.0",
+  "author": "flyte",
+  "homepage": "https://github.com/flyte/upnpclient",
+  "skills": []
+}
