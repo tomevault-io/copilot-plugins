@@ -4,7 +4,7 @@
   "repo": "opencli",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jackwener/opencli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T21:21:19Z"
+  "distributed_at": "2026-08-01T11:38:21Z"
 }
