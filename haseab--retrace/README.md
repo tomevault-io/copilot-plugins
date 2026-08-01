@@ -1,8 +1,6 @@
 # retrace
 
-> Source: [haseab/retrace](https://github.com/haseab/retrace) — distributed by [TomeVault](https://tomevault.io)
-
-The Open Source and Free Rewind AI (but better)
+> Source: [haseab/retrace](https://github.com/haseab/retrace). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-p -->
