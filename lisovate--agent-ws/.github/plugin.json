@@ -1,7 +1,7 @@
 {
   "name": "lisovate--agent-ws",
   "displayName": "agent-ws",
-  "description": "WebSocket bridge for CLI AI agents. Stream responses from Claude Code and Codex CLI over WebSocket. A dumb pipe: no prompt engineering, no credential handling, just transport.",
+  "description": "agent-ws",
   "version": "1.0.0",
   "author": "Lisovate",
   "homepage": "https://github.com/Lisovate/agent-ws",
