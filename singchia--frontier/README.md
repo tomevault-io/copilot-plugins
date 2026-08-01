@@ -1,6 +1,6 @@
 # frontier
 
-> Config by [singchia](https://github.com/singchia/frontier) — distributed by [TomeVault](https://tomevault.io/claim/singchia)
+> Tome by [singchia](https://github.com/singchia/frontier), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,14 @@ Original source: `AGENTS.md` in [singchia/frontier](https://github.com/singchia/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/singchia](https://tomevault.io/claim/singchia)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/singchia/frontier](https://github.com/singchia/frontier)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/singchia) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install singchia/frontier
+```
+Source: [github.com/singchia/frontier](https://github.com/singchia/frontier).
+
+<!-- genome:t-i-p -->
