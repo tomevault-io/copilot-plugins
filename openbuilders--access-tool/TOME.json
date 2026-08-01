@@ -2,7 +2,7 @@
   "name": "access-tool",
   "owner": "OpenBuilders",
   "repo": "access-tool",
-  "description": "Set up a custom access to your private group or channel.  Built by independent devs as part of  https://tools.tg",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenBuilders/access-tool",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T02:56:49Z"
+  "distributed_at": "2026-08-01T05:34:17Z"
 }
