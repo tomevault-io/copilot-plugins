@@ -1,6 +1,6 @@
 # le-tf-infra-aws
 
-> Source: [binbashar/le-tf-infra-aws](https://github.com/binbashar/le-tf-infra-aws). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [binbashar/le-tf-infra-aws](https://github.com/binbashar/le-tf-infra-aws). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
