@@ -1,0 +1,9 @@
+{
+  "name": "frappe--builder",
+  "displayName": "builder",
+  "description": "builder",
+  "version": "1.0.0",
+  "author": "frappe",
+  "homepage": "https://github.com/frappe/builder",
+  "skills": []
+}
