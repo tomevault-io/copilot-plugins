@@ -2,7 +2,7 @@
   "name": "flextensor",
   "owner": "ai-dynamo",
   "repo": "flextensor",
-  "description": "FlexTensor is a tensor offloading and management library for PyTorch that enables running large models on limited GPU memory by intelligently offloading tensors between GPU and CPU memory.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ai-dynamo/flextensor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T10:22:05Z"
+  "distributed_at": "2026-08-01T12:19:11Z"
 }
