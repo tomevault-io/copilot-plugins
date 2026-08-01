@@ -1,0 +1,9 @@
+{
+  "name": "iotaledger--iota",
+  "displayName": "iota",
+  "description": "iota",
+  "version": "1.0.0",
+  "author": "iotaledger",
+  "homepage": "https://github.com/iotaledger/iota",
+  "skills": []
+}
