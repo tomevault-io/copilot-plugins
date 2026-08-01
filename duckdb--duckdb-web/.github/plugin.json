@@ -1,0 +1,9 @@
+{
+  "name": "duckdb--duckdb-web",
+  "displayName": "duckdb-web",
+  "description": "duckdb-web",
+  "version": "1.0.0",
+  "author": "duckdb",
+  "homepage": "https://github.com/duckdb/duckdb-web",
+  "skills": []
+}
