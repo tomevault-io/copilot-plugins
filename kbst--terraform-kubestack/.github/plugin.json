@@ -1,0 +1,9 @@
+{
+  "name": "kbst--terraform-kubestack",
+  "displayName": "terraform-kubestack",
+  "description": "terraform-kubestack",
+  "version": "1.0.0",
+  "author": "kbst",
+  "homepage": "https://github.com/kbst/terraform-kubestack",
+  "skills": []
+}
