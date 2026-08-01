@@ -134,6 +134,11 @@
       "description": "langchain"
     },
     {
+      "name": "langchain-ai--langchain",
+      "source": "./langchain-ai--langchain",
+      "description": "langchain"
+    },
+    {
       "name": "yangshun--tech-interview-handbook",
       "source": "./yangshun--tech-interview-handbook",
       "description": "tech-interview-handbook"
@@ -567,6 +572,221 @@
       "name": "gohugoio--hugo",
       "source": "./gohugoio--hugo",
       "description": "hugo"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
+    },
+    {
+      "name": "microsoft--ml-for-beginners",
+      "source": "./microsoft--ml-for-beginners",
+      "description": "ML-For-Beginners"
     },
     {
       "name": "microsoft--ml-for-beginners",
@@ -1527,6 +1747,11 @@
       "name": "jestjs--jest",
       "source": "./jestjs--jest",
       "description": "jest"
+    },
+    {
+      "name": "milvus-io--milvus",
+      "source": "./milvus-io--milvus",
+      "description": "milvus"
     },
     {
       "name": "cli--cli",
@@ -4759,6 +4984,11 @@
       "description": "parlant"
     },
     {
+      "name": "sqlc-dev--sqlc",
+      "source": "./sqlc-dev--sqlc",
+      "description": "sqlc"
+    },
+    {
       "name": "pranshuparmar--witr",
       "source": "./pranshuparmar--witr",
       "description": "witr"
@@ -6019,9 +6249,44 @@
       "description": "ktor"
     },
     {
+      "name": "canopy-network--canopy",
+      "source": "./canopy-network--canopy",
+      "description": "canopy"
+    },
+    {
+      "name": "canopy-network--canopy",
+      "source": "./canopy-network--canopy",
+      "description": "canopy"
+    },
+    {
+      "name": "canopy-network--canopy",
+      "source": "./canopy-network--canopy",
+      "description": "canopy"
+    },
+    {
+      "name": "canopy-network--canopy",
+      "source": "./canopy-network--canopy",
+      "description": "canopy"
+    },
+    {
+      "name": "canopy-network--canopy",
+      "source": "./canopy-network--canopy",
+      "description": "canopy"
+    },
+    {
+      "name": "canopy-network--canopy",
+      "source": "./canopy-network--canopy",
+      "description": "canopy"
+    },
+    {
       "name": "greydgl--pentestgpt",
       "source": "./greydgl--pentestgpt",
       "description": "PentestGPT"
+    },
+    {
+      "name": "apache--dolphinscheduler",
+      "source": "./apache--dolphinscheduler",
+      "description": "dolphinscheduler"
     },
     {
       "name": "apache--dolphinscheduler",
@@ -8282,6 +8547,11 @@
       "name": "sqlfluff--sqlfluff",
       "source": "./sqlfluff--sqlfluff",
       "description": "sqlfluff"
+    },
+    {
+      "name": "seaql--sea-orm",
+      "source": "./seaql--sea-orm",
+      "description": "sea-orm"
     },
     {
       "name": "cosscom--coss",
@@ -10649,6 +10919,11 @@
       "description": "dotnet-starter-kit"
     },
     {
+      "name": "unovue--reka-ui",
+      "source": "./unovue--reka-ui",
+      "description": "reka-ui"
+    },
+    {
       "name": "4gray--iptvnator",
       "source": "./4gray--iptvnator",
       "description": "iptvnator"
@@ -11739,6 +12014,11 @@
       "description": "agents"
     },
     {
+      "name": "czy0729--bangumi",
+      "source": "./czy0729--bangumi",
+      "description": "Bangumi"
+    },
+    {
       "name": "vantage-sh--ec2instances-info",
       "source": "./vantage-sh--ec2instances-info",
       "description": "ec2instances.info"
@@ -11757,6 +12037,11 @@
       "name": "pyspur-dev--pyspur",
       "source": "./pyspur-dev--pyspur",
       "description": "A visual playground for agentic workflows: Iterate over your agents 10x faster"
+    },
+    {
+      "name": "chillicream--graphql-platform",
+      "source": "./chillicream--graphql-platform",
+      "description": "graphql-platform"
     },
     {
       "name": "agentops-ai--agentops",
@@ -13097,6 +13382,11 @@
       "name": "liam-hq--liam",
       "source": "./liam-hq--liam",
       "description": "liam"
+    },
+    {
+      "name": "ryanfitzgerald--devportfolio",
+      "source": "./ryanfitzgerald--devportfolio",
+      "description": "devportfolio"
     },
     {
       "name": "sbt--sbt",
@@ -15557,6 +15847,11 @@
       "name": "software-mansion--react-native-screens",
       "source": "./software-mansion--react-native-screens",
       "description": "react-native-screens"
+    },
+    {
+      "name": "ddev--ddev",
+      "source": "./ddev--ddev",
+      "description": "ddev"
     },
     {
       "name": "transformerlensorg--transformerlens",
@@ -19079,6 +19374,11 @@
       "description": "openlit"
     },
     {
+      "name": "openlit--openlit",
+      "source": "./openlit--openlit",
+      "description": "openlit"
+    },
+    {
       "name": "nexu-io--nexu",
       "source": "./nexu-io--nexu",
       "description": "The simplest desktop client for OpenClaw \ud83e\udd9e \u2014 bridge your Agent to WeChat, Feishu, Slack & Discord in one click. Works with Claude Code, Codex & any LLM. BYOK, Oauth, local-first, chat from your phone "
@@ -20077,6 +20377,11 @@
       "name": "anonfaded--fadcam",
       "source": "./anonfaded--fadcam",
       "description": "Open-source, ad-free Android multimedia recorder with background video recording, screen recording, live streaming, and remote camera control"
+    },
+    {
+      "name": "brightercommand--brighter",
+      "source": "./brightercommand--brighter",
+      "description": "Brighter"
     },
     {
       "name": "brightercommand--brighter",
@@ -22974,6 +23279,11 @@
       "description": "css"
     },
     {
+      "name": "master-co--css",
+      "source": "./master-co--css",
+      "description": "css"
+    },
+    {
       "name": "piebald-ai--tweakcc",
       "source": "./piebald-ai--tweakcc",
       "description": "Customize Claude Code's system prompts, create custom toolsets, input pattern highlighters, themes/thinking verbs/spinners, customize input box & user message styling, support AGENTS.md, unlock privat"
@@ -23302,6 +23612,11 @@
       "name": "vexip-ui--vexip-ui",
       "source": "./vexip-ui--vexip-ui",
       "description": "vexip-ui"
+    },
+    {
+      "name": "netlify--cli",
+      "source": "./netlify--cli",
+      "description": "cli"
     },
     {
       "name": "netlify--cli",
@@ -26734,6 +27049,11 @@
       "description": "Experimental new browser engine"
     },
     {
+      "name": "aurelia--aurelia",
+      "source": "./aurelia--aurelia",
+      "description": "aurelia"
+    },
+    {
       "name": "memohai--memoh",
       "source": "./memohai--memoh",
       "description": "\u2728 Self hosted, always-on AI agent platform run in containers. Create multiple bots with long memory, and connect them to Telegram, Discord, Feishu(Lark), Matrix, etc (like OpenClaw)."
@@ -29422,6 +29742,11 @@
       "name": "alichtman--shallow-backup",
       "source": "./alichtman--shallow-backup",
       "description": "shallow-backup"
+    },
+    {
+      "name": "expo--eas-cli",
+      "source": "./expo--eas-cli",
+      "description": "eas-cli"
     },
     {
       "name": "tryzealot--zealot",
@@ -32684,6 +33009,11 @@
       "description": "ant-design-web3"
     },
     {
+      "name": "gaijinentertainment--dascript",
+      "source": "./gaijinentertainment--dascript",
+      "description": "daScript"
+    },
+    {
       "name": "higress-group--himarket",
       "source": "./higress-group--himarket",
       "description": "HiMarket is an enterprise-level \"AI Capability Marketplace and Developer Ecosystem Hub.\" It is not merely a simple aggregation of traditional APIs, but rather a comprehensive platform that packages, p"
@@ -34367,6 +34697,11 @@
       "name": "byron4j--cookbook",
       "source": "./byron4j--cookbook",
       "description": "CookBook"
+    },
+    {
+      "name": "arcadedata--arcadedb",
+      "source": "./arcadedata--arcadedb",
+      "description": "arcadedb"
     },
     {
       "name": "deepmyst--mysti",
@@ -36072,6 +36407,11 @@
       "name": "operator-framework--java-operator-sdk",
       "source": "./operator-framework--java-operator-sdk",
       "description": "java-operator-sdk"
+    },
+    {
+      "name": "heige-pcloud--doit",
+      "source": "./heige-pcloud--doit",
+      "description": "DoIt"
     },
     {
       "name": "saik0s--mcp-browser-use",
@@ -38544,6 +38884,26 @@
       "description": "konform"
     },
     {
+      "name": "xinggaoya--sing-box-windows",
+      "source": "./xinggaoya--sing-box-windows",
+      "description": "sing-box-windows"
+    },
+    {
+      "name": "xinggaoya--sing-box-windows",
+      "source": "./xinggaoya--sing-box-windows",
+      "description": "sing-box-windows"
+    },
+    {
+      "name": "xinggaoya--sing-box-windows",
+      "source": "./xinggaoya--sing-box-windows",
+      "description": "sing-box-windows"
+    },
+    {
+      "name": "xinggaoya--sing-box-windows",
+      "source": "./xinggaoya--sing-box-windows",
+      "description": "sing-box-windows"
+    },
+    {
       "name": "modelcontextprotocol--ruby-sdk",
       "source": "./modelcontextprotocol--ruby-sdk",
       "description": "The official Ruby SDK for the Model Context Protocol."
@@ -39217,6 +39577,11 @@
       "name": "aymericzip--intlayer",
       "source": "./aymericzip--intlayer",
       "description": "intlayer"
+    },
+    {
+      "name": "ls1intum--artemis",
+      "source": "./ls1intum--artemis",
+      "description": "Artemis"
     },
     {
       "name": "ls1intum--artemis",
@@ -45504,6 +45869,11 @@
       "description": "re-frame-template"
     },
     {
+      "name": "consensys--gnark-crypto",
+      "source": "./consensys--gnark-crypto",
+      "description": "gnark-crypto"
+    },
+    {
       "name": "awslabs--agent-plugins",
       "source": "./awslabs--agent-plugins",
       "description": "Agent Plugins for AWS equip AI coding agents with the skills to help you architect, deploy, and operate on AWS."
@@ -47222,6 +47592,11 @@
       "name": "argoproj-labs--argocd-agent",
       "source": "./argoproj-labs--argocd-agent",
       "description": "argocd-agent"
+    },
+    {
+      "name": "tabblazor--tabblazor",
+      "source": "./tabblazor--tabblazor",
+      "description": "TabBlazor"
     },
     {
       "name": "hashicorp--agent-skills",
@@ -49259,6 +49634,11 @@
       "description": "better-typescript-lib"
     },
     {
+      "name": "uhyo--better-typescript-lib",
+      "source": "./uhyo--better-typescript-lib",
+      "description": "better-typescript-lib"
+    },
+    {
       "name": "redis--mcp-redis",
       "source": "./redis--mcp-redis",
       "description": "The official Redis MCP Server is a natural language interface designed for agentic applications to manage and search data in Redis efficiently"
@@ -51077,6 +51457,11 @@
       "name": "rryam--musadorakit",
       "source": "./rryam--musadorakit",
       "description": "MusadoraKit"
+    },
+    {
+      "name": "simoncropp--polyfill",
+      "source": "./simoncropp--polyfill",
+      "description": "Polyfill"
     },
     {
       "name": "b310-digital--teammapper",
@@ -55022,6 +55407,11 @@
       "name": "lavanet--lava",
       "source": "./lavanet--lava",
       "description": "lava"
+    },
+    {
+      "name": "antonycourtney--tabli",
+      "source": "./antonycourtney--tabli",
+      "description": "tabli"
     },
     {
       "name": "ankitvgupta--exo",
@@ -59252,6 +59642,11 @@
       "name": "joshpocock--stride-ai-agents",
       "source": "./joshpocock--stride-ai-agents",
       "description": "Stride-AI-Agents"
+    },
+    {
+      "name": "libp2p--jvm-libp2p",
+      "source": "./libp2p--jvm-libp2p",
+      "description": "jvm-libp2p"
     },
     {
       "name": "leask--tabminal",
@@ -66114,6 +66509,11 @@
       "description": "easysubs"
     },
     {
+      "name": "kroxylicious--kroxylicious",
+      "source": "./kroxylicious--kroxylicious",
+      "description": "kroxylicious"
+    },
+    {
       "name": "hazat--pi-config",
       "source": "./hazat--pi-config",
       "description": "My personal pi coding agent configuration - skills and extensions"
@@ -67602,6 +68002,11 @@
       "name": "getsentry--sentry-unity",
       "source": "./getsentry--sentry-unity",
       "description": "sentry-unity"
+    },
+    {
+      "name": "aidotnet--thor",
+      "source": "./aidotnet--thor",
+      "description": "Thor"
     },
     {
       "name": "aidotnet--thor",
@@ -78359,6 +78764,11 @@
       "description": "ESPresense-companion"
     },
     {
+      "name": "rocm--mivisionx",
+      "source": "./rocm--mivisionx",
+      "description": "MIVisionX"
+    },
+    {
       "name": "vaayne--mori",
       "source": "./vaayne--mori",
       "description": "A native macOS workspace terminal organized around Projects and Worktrees, powered by tmux and libghostty"
@@ -85924,6 +86334,11 @@
       "description": "helius-rust-sdk"
     },
     {
+      "name": "kubevirt--hyperconverged-cluster-operator",
+      "source": "./kubevirt--hyperconverged-cluster-operator",
+      "description": "hyperconverged-cluster-operator"
+    },
+    {
       "name": "cksac--turboquant-model",
       "source": "./cksac--turboquant-model",
       "description": "turboquant-model"
@@ -86192,6 +86607,11 @@
       "name": "dhth--prs",
       "source": "./dhth--prs",
       "description": "prs"
+    },
+    {
+      "name": "categoricaldata--hydra",
+      "source": "./categoricaldata--hydra",
+      "description": "hydra"
     },
     {
       "name": "nokodo-labs--os1",
@@ -88222,6 +88642,11 @@
       "name": "cloudfoundry--routing-release",
       "source": "./cloudfoundry--routing-release",
       "description": "routing-release"
+    },
+    {
+      "name": "pragunbhutani--dbt-llm-agent",
+      "source": "./pragunbhutani--dbt-llm-agent",
+      "description": "dbt-llm-agent"
     },
     {
       "name": "truecourse-ai--truecourse",
@@ -100859,6 +101284,11 @@
       "description": "project-dagster-university"
     },
     {
+      "name": "rectorphp--rector-src",
+      "source": "./rectorphp--rector-src",
+      "description": "rector-src"
+    },
+    {
       "name": "skywind3000--gamelib",
       "source": "./skywind3000--gamelib",
       "description": "Single-header C++ Game Library for Beginners \u2014 no SDL/DirectX/OpenGL, no setup, just include and play."
@@ -101762,6 +102192,11 @@
       "name": "tryghost--sdk",
       "source": "./tryghost--sdk",
       "description": "SDK"
+    },
+    {
+      "name": "llm-exe--llm-exe",
+      "source": "./llm-exe--llm-exe",
+      "description": "llm-exe"
     },
     {
       "name": "aitorllj93--obsidian-lovely-bases",
@@ -103362,6 +103797,11 @@
       "name": "postgres-ai--postgresai",
       "source": "./postgres-ai--postgresai",
       "description": "postgresai"
+    },
+    {
+      "name": "lighttransport--nanostl",
+      "source": "./lighttransport--nanostl",
+      "description": "nanostl"
     },
     {
       "name": "zhanghandong--mempal",
@@ -108649,6 +109089,11 @@
       "description": "ydb-dotnet-sdk"
     },
     {
+      "name": "tmikov--hermes-jsi-demos",
+      "source": "./tmikov--hermes-jsi-demos",
+      "description": "hermes-jsi-demos"
+    },
+    {
       "name": "jetxu-llm--docmason",
       "source": "./jetxu-llm--docmason",
       "description": "DocMason is a repo-native agent that turns your complex office files into a local LLM knowledge base and your second brain. The repo is the app. Codex is the runtime."
@@ -112092,6 +112537,11 @@
       "name": "kompics--kompact",
       "source": "./kompics--kompact",
       "description": "kompact"
+    },
+    {
+      "name": "uukuguy--speechless",
+      "source": "./uukuguy--speechless",
+      "description": "speechless"
     },
     {
       "name": "productdevbook--sumak",
@@ -118789,6 +119239,11 @@
       "description": "CoSky"
     },
     {
+      "name": "dgallegos--edidreader",
+      "source": "./dgallegos--edidreader",
+      "description": "edidreader"
+    },
+    {
       "name": "espennilsen--pi",
       "source": "./espennilsen--pi",
       "description": "pi"
@@ -119232,6 +119687,16 @@
       "name": "alphaheavy--protobuf",
       "source": "./alphaheavy--protobuf",
       "description": "protobuf"
+    },
+    {
+      "name": "gfreezy--seeker",
+      "source": "./gfreezy--seeker",
+      "description": "seeker"
+    },
+    {
+      "name": "liturgical-calendar--liturgicalcalendarapi",
+      "source": "./liturgical-calendar--liturgicalcalendarapi",
+      "description": "LiturgicalCalendarAPI"
     },
     {
       "name": "xiashao--kaiyantool",
@@ -131169,6 +131634,11 @@
       "description": "ai-creator"
     },
     {
+      "name": "micropyramid--flutter-crm",
+      "source": "./micropyramid--flutter-crm",
+      "description": "flutter-crm"
+    },
+    {
       "name": "alibaba--opc-starter",
       "source": "./alibaba--opc-starter",
       "description": "opc-starter"
@@ -132057,6 +132527,11 @@
       "name": "amikos-tech--chromadb-java-client",
       "source": "./amikos-tech--chromadb-java-client",
       "description": "chromadb-java-client"
+    },
+    {
+      "name": "public-law--schema-dot-org",
+      "source": "./public-law--schema-dot-org",
+      "description": "schema-dot-org"
     },
     {
       "name": "m1zz--higlab",
@@ -135962,6 +136437,11 @@
       "name": "hpwit--i2sclocklessleddriver",
       "source": "./hpwit--i2sclocklessleddriver",
       "description": "I2SClocklessLedDriver"
+    },
+    {
+      "name": "aaronik--gptmodels-nvim",
+      "source": "./aaronik--gptmodels-nvim",
+      "description": "GPTModels.nvim"
     },
     {
       "name": "ersinkoc--fluidflow",
@@ -139957,6 +140437,11 @@
       "name": "tobiasschuerg--android-money",
       "source": "./tobiasschuerg--android-money",
       "description": "android-money"
+    },
+    {
+      "name": "rieckpil--java-testing-toolbox",
+      "source": "./rieckpil--java-testing-toolbox",
+      "description": "java-testing-toolbox"
     },
     {
       "name": "aelf-hzz780--ai-bounty-skill",
@@ -145279,6 +145764,11 @@
       "description": "freshmint"
     },
     {
+      "name": "public-law--validated-object",
+      "source": "./public-law--validated-object",
+      "description": "validated_object"
+    },
+    {
       "name": "dykyi-roman--awesome-claude-code",
       "source": "./dykyi-roman--awesome-claude-code",
       "description": "PHP Architecture Toolkit for Claude Code                                                                                                                                (DDD, CQRS, Event Sourcing, Hexa"
@@ -146417,6 +146907,11 @@
       "name": "ui-js--grok",
       "source": "./ui-js--grok",
       "description": "grok"
+    },
+    {
+      "name": "jctaoo--elecrun",
+      "source": "./jctaoo--elecrun",
+      "description": "elecrun"
     },
     {
       "name": "jdiegosierra--contributor-report",
@@ -147812,6 +148307,16 @@
       "name": "joreilly--firebaseailogickmpsample",
       "source": "./joreilly--firebaseailogickmpsample",
       "description": "FirebaseAILogicKMPSample"
+    },
+    {
+      "name": "jallum--beadwork",
+      "source": "./jallum--beadwork",
+      "description": "beadwork"
+    },
+    {
+      "name": "jallum--beadwork",
+      "source": "./jallum--beadwork",
+      "description": "beadwork"
     },
     {
       "name": "attilaszasz--sdd-pilot",
@@ -178489,6 +178994,11 @@
       "description": "ironkernel"
     },
     {
+      "name": "khalidlam--cubemail",
+      "source": "./khalidlam--cubemail",
+      "description": "CubeMail"
+    },
+    {
       "name": "agents-squads--squads-cli",
       "source": "./agents-squads--squads-cli",
       "description": "CLI for managing AI agent squads. Status, memory, goals, feedback, and dashboard for your autonomous agents."
@@ -185702,6 +186212,11 @@
       "name": "colonyos--colonies",
       "source": "./colonyos--colonies",
       "description": "colonies"
+    },
+    {
+      "name": "shardeum--archiver",
+      "source": "./shardeum--archiver",
+      "description": "archiver"
     },
     {
       "name": "yoloshii--mcp-code-execution-enhanced",
@@ -197384,6 +197899,16 @@
       "description": "MBES-lib"
     },
     {
+      "name": "kele527--claude-code-gemini-proxy",
+      "source": "./kele527--claude-code-gemini-proxy",
+      "description": "claude_code_gemini_proxy"
+    },
+    {
+      "name": "ignacemaes--shadcn-ember",
+      "source": "./ignacemaes--shadcn-ember",
+      "description": "shadcn-ember"
+    },
+    {
       "name": "littlebunverse--dosphere",
       "source": "./littlebunverse--dosphere",
       "description": "Dosphere"
@@ -200514,6 +201039,16 @@
       "description": "distil"
     },
     {
+      "name": "3rzy--n8n-mcp-czlonkowski",
+      "source": "./3rzy--n8n-mcp-czlonkowski",
+      "description": "n8n-mcp-czlonkowski"
+    },
+    {
+      "name": "withtally--synceth",
+      "source": "./withtally--synceth",
+      "description": "synceth"
+    },
+    {
       "name": "r44vc0rp--itui",
       "source": "./r44vc0rp--itui",
       "description": "itui"
@@ -203207,6 +203742,16 @@
       "name": "nshkrdotcom--claude-agent-sdk",
       "source": "./nshkrdotcom--claude-agent-sdk",
       "description": "claude_agent_sdk"
+    },
+    {
+      "name": "kaichen--claco",
+      "source": "./kaichen--claco",
+      "description": "claco"
+    },
+    {
+      "name": "yamat47--japanese-address-parser",
+      "source": "./yamat47--japanese-address-parser",
+      "description": "japanese_address_parser"
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -205947,6 +206492,21 @@
       "name": "mcarans--pytest-loguru",
       "source": "./mcarans--pytest-loguru",
       "description": "pytest-loguru"
+    },
+    {
+      "name": "not-elm--bevy-webview-projects",
+      "source": "./not-elm--bevy-webview-projects",
+      "description": "bevy_webview_projects"
+    },
+    {
+      "name": "clarity-digital-twin--big-mood-detector",
+      "source": "./clarity-digital-twin--big-mood-detector",
+      "description": "big-mood-detector"
+    },
+    {
+      "name": "wasabeef--flutter-hooks-test",
+      "source": "./wasabeef--flutter-hooks-test",
+      "description": "flutter_hooks_test"
     },
     {
       "name": "skywind3000--gamesample",
