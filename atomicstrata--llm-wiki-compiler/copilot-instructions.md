@@ -1,54 +1,55 @@
 ## llm-wiki-compiler
 
-> A knowledge compiler CLI. Raw sources in, interlinked wiki out.
+> > **First-time setup**: Customize this file for your project. Prompt the user to customize this file for their project.
 
-# llmwiki
+> **First-time setup**: Customize this file for your project. Prompt the user to customize this file for their project.
+> For Mintlify product knowledge (components, configuration, writing standards),
+> install the Mintlify skill: `npx skills add https://mintlify.com/docs`
 
-A knowledge compiler CLI. Raw sources in, interlinked wiki out.
+# Documentation project instructions
 
-## Development Guidelines
+## About this project
 
-### Code Style & Standards
+- This is a documentation site built on [Mintlify](https://mintlify.com)
+- Pages are MDX files with YAML frontmatter
+- Configuration lives in `docs.json`
+- Use the Mintlify MCP server, `https://mcp.mintlify.com`, to edit content and settings via MCP
+- Use the Mintlify docs MCP server, `https://www.mintlify.com/docs/mcp`, to query information about using Mintlify via MCP
+- The project-specific docs workflow lives in `README.md` in this directory. Read it before adding or reviewing docs.
 
-- Files must be smaller than 400 lines excluding comments. Once 400 is exceeded, initiate a refactor.
-- Functions must be smaller than 40 lines excluding comments and the catch/finally blocks of try/catch sections. If a function exceeds that, refactor it.
+## Feature documentation rule
 
-### clean code rules
+- Any user-facing feature change must update the Mintlify docs in the same PR.
+- User-facing means CLI commands and flags, config, environment variables, providers, SDK/MCP surfaces, viewer behavior, export/import formats, files written under `.llmwiki/`, security boundaries, and changed failure behavior.
+- Prefer updating the closest existing page. Add a new page only when the feature needs a standalone reference or workflow.
+- If a new page is added, update `docs.json` navigation in the same change.
+- Document safety and trust boundaries explicitly for imports, external content, credentials, local servers, path confinement, and review gates.
+- Docs should describe current stable behavior. Use changelog/release notes for historical narrative.
 
-- Meaningful Names: Name variables and functions to reveal their purpose, not just their value.
-- One Function, One Responsibility: Functions should do one thing.
-- Avoid Magic Numbers: Replace hard-code values with named constants to give them meaning.
-- Use Descriptive Booleans: Boolean names should state a condition, not just its value.
-- Keep Code DRY: Duplicate code means duplicate bugs. Try and reuse logic where it makes sense.
-- Avoid Deep Nesting: Flatten your code flow to improve clarity and reduce cognitive load.
-- Comment Why, Not What: Explain the intention behind your code, not the obvious mechanics.
-- Limit Function Arguments: Too many parameters confuse. Group related data into objects.
-- Code Should Be Self-Explanatory: Well-written code needs fewer comments because it reads like a story.
+## Terminology
 
-### Comments and Documentation
+- Use `llmwiki` for the CLI/product name.
+- Use `wiki` for the compiled output under `wiki/`.
+- Use `sources/` for raw input files.
+- Use `review candidates` for records under `.llmwiki/candidates/`.
+- Use `OKF` after first spelling out `Open Knowledge Format` on a page.
 
-- include a substantial JSDoc comment at the top of each file. For python files, use google style docstrings
-- Write clear comments for complex logic
-- Document public APIs and functions
-- Use JSDoc comments for functions
-- Keep comments up-to-date with code changes
-- Document any non-obvious behavior
+## Style preferences
 
-### Pre-Commit Checks
+- Use active voice and second person ("you")
+- Keep sentences concise - one idea per sentence
+- Use sentence case for headings
+- Bold for UI elements: Click **Settings**
+- Code formatting for file names, commands, paths, and code references
+- Prefer copyable commands over prose-only explanations.
+- State defaults and exceptions close to the command or config that causes them.
 
-Before committing any work, and before considering any task complete, you must:
+## Content boundaries
 
-1. `npx tsc --noEmit` — type-check passes
-2. `npm run build` — build succeeds
-3. `npm test` — all tests pass
-4. `fallow` — run the fallow codebase health analyzer. Fix all issues it reports (dead code, duplication, complexity). Use `fallow fix --dry-run` to preview auto-fixes, then `fallow fix --yes` to apply. Fix any remaining issues manually. Do not commit until fallow reports no issues.
-
-## General Rules
-
-- First think through the problem, read the codebase for relevant files.
-- Make every task and code change you do as simple as possible. We want to avoid making any massive or complex changes. Every change should impact as little code as possible. Everything is about simplicity.
-- Never speculate about code you have not opened. If the user references a specific file, you MUST read the file before answering. Make sure to investigate and read relevant files BEFORE answering questions about the codebase. Never make any claims about code before investigating unless you are certain of the correct answer - give grounded and hallucination-free answers.
+- Do not mention internal planning files, localdocs, Claude/Codex review process, or unmerged PR numbers.
+- Do not document speculative roadmap items as available behavior.
+- Do document known limitations when they affect user decisions.
 
 ---
 > Source: [atomicstrata/llm-wiki-compiler](https://github.com/atomicstrata/llm-wiki-compiler) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
