@@ -1,0 +1,22 @@
+## gollama
+
+> - IMPORTANT: Always use British English spelling for documentation, comments and function names.
+
+# Spelling and localisation
+
+- IMPORTANT: Always use British English spelling for documentation, comments and function names.
+
+# Package and library versions
+
+- IMPORTANT: When adding packages to an application use the package-version MCP server's tools to ensure you use the latest versions.
+
+# General coding rules
+
+- Check project files before suggesting structural or dependency changes.
+- Don't complete the analysis prematurely, if you think you've completed the task but have no way of verifying it, you should ask the user to verify your changes.
+- If you're having trouble using a library correctly you should look up it's documentation using the tools available to you.
+- If you're modifying software that has an existing test suite, you should run the tests and ensure they pass when you think you've completed the task.
+
+---
+> Source: [sammcj/gollama](https://github.com/sammcj/gollama) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
