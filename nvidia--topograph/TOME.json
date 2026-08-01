@@ -2,9 +2,9 @@
   "name": "topograph",
   "owner": "NVIDIA",
   "repo": "topograph",
-  "description": "A toolkit for discovering cluster network topology.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NVIDIA/topograph",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T08:07:41Z"
+  "distributed_at": "2026-08-01T01:05:37Z"
 }
