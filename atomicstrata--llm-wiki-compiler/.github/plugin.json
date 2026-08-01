@@ -1,7 +1,7 @@
 {
   "name": "atomicstrata--llm-wiki-compiler",
   "displayName": "llm-wiki-compiler",
-  "description": "The knowledge compiler. Raw sources in, interlinked wiki out. Inspired by Karpathy's LLM Wiki pattern.",
+  "description": "llm-wiki-compiler",
   "version": "1.0.0",
   "author": "atomicstrata",
   "homepage": "https://github.com/atomicstrata/llm-wiki-compiler",
