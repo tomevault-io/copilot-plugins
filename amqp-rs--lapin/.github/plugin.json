@@ -1,0 +1,9 @@
+{
+  "name": "amqp-rs--lapin",
+  "displayName": "lapin",
+  "description": "lapin",
+  "version": "1.0.0",
+  "author": "amqp-rs",
+  "homepage": "https://github.com/amqp-rs/lapin",
+  "skills": []
+}
