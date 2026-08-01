@@ -4,7 +4,7 @@
   "repo": "rag-code-mcp",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/doITmagic/rag-code-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T23:46:20Z"
+  "distributed_at": "2026-08-01T07:10:03Z"
 }
