@@ -1,0 +1,9 @@
+{
+  "name": "acoustid--acoustid-server",
+  "displayName": "acoustid-server",
+  "description": "acoustid-server",
+  "version": "1.0.0",
+  "author": "acoustid",
+  "homepage": "https://github.com/acoustid/acoustid-server",
+  "skills": []
+}
