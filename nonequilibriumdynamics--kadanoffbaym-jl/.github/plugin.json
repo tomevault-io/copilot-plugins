@@ -1,0 +1,9 @@
+{
+  "name": "nonequilibriumdynamics--kadanoffbaym-jl",
+  "displayName": "KadanoffBaym.jl",
+  "description": "KadanoffBaym.jl",
+  "version": "1.0.0",
+  "author": "NonequilibriumDynamics",
+  "homepage": "https://github.com/NonequilibriumDynamics/KadanoffBaym.jl",
+  "skills": []
+}
