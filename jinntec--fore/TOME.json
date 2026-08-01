@@ -4,7 +4,7 @@
   "repo": "Fore",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Jinntec/Fore",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T00:18:03Z"
+  "distributed_at": "2026-08-01T12:07:21Z"
 }
