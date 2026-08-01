@@ -2,7 +2,7 @@
   "name": "ai-driven-development",
   "owner": "CodeAlive-AI",
   "repo": "ai-driven-development",
-  "description": "Practices, protocols, and skills for AI-driven software development. 18 skills + 1 Bash safety hook for Claude Code, Codex CLI, OpenCode, Cursor, Gemini CLI, Antigravity, and any agent supporting the Agent Skills standard.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CodeAlive-AI/ai-driven-development",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T10:58:50Z"
+  "distributed_at": "2026-08-01T06:43:01Z"
 }
