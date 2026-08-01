@@ -1,24 +1,29 @@
 ## claude-code-sub-agents
 
-> > Use agent-architect to set up agents for this project
+> Quick reference for Claude agents
+
 
 # Claude Agents
 
-## Quick Start
+## Setup
 ```
 > Use agent-architect to set up agents for this project
 ```
 
-## Available Commands
-- `/agents` - Show this help
-- `Use agent-architect to...` - Manage agents
-
-## Updates
+## Update
 ```
 > Use agent-architect to check for updates
 > Use agent-architect to upgrade agents
 ```
 
+## How It Works
+1. **agent-architect** analyzes your project
+2. Creates 2-4 specialized agents based on your tech stack
+3. Agents help with specific tasks (frontend, backend, testing, etc.)
+
+## Custom Agents
+Create your own in `.claude/agents/` using the template.
+
 ---
 > Source: [charles-adedotun/claude-code-sub-agents](https://github.com/charles-adedotun/claude-code-sub-agents) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-13 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
