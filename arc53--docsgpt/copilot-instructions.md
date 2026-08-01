@@ -1,0 +1,192 @@
+## docsgpt
+
+> - Read `CONTRIBUTING.md` before making non-trivial changes.
+
+# AGENTS.md
+
+- Read `CONTRIBUTING.md` before making non-trivial changes.
+- For day-to-day development and feature work, follow the development-environment workflow rather than defaulting to `setup.sh` / `setup.ps1`.
+- Avoid using the setup scripts during normal feature work unless the user explicitly asks for them. Users configure `.env` usually.
+- Try to follow red/green TDD
+
+### Check existing dev prerequisites first
+
+For feature work, do **not** assume the environment needs to be recreated.
+
+- Check whether the user already has a Python virtual environment such as `venv/` or `.venv/`.
+- Check whether Postgres is already running and reachable via `POSTGRES_URI` (the canonical user-data store).
+- Check whether Redis is already running.
+- Reuse what is already working. Do not stop or recreate Postgres, Redis, or the Python environment unless the task is environment setup or troubleshooting.
+
+> MongoDB is **not** required for the default install. It is only needed if
+> the user opts into the Mongo vector-store backend (`VECTOR_STORE=mongodb`)
+> or is running the one-shot `scripts/db/backfill.py` to migrate existing
+> user data from the legacy Mongo-based install. In those cases, `pymongo`
+> is available as an optional extra, not a core dependency.
+
+## Normal local development commands
+
+Use these commands once the dev prerequisites above are satisfied.
+
+### Backend
+
+```bash
+source .venv/bin/activate  # macOS/Linux
+uv pip install -r application/requirements.txt  # or: pip install -r application/requirements.txt
+```
+
+Run the API. For local dev, prefer the ASGI entrypoint under uvicorn — it
+serves the **whole** app, matches production, and hot-reloads:
+
+```bash
+uvicorn application.asgi:asgi_app --host 0.0.0.0 --port 7091 --reload
+```
+
+`flask --app application/app.py run --host=0.0.0.0 --port=7091` is a faster
+inner loop (quick startup, the Werkzeug interactive debugger), but it serves
+**only** the WSGI Flask app and omits the routes mounted on the ASGI shell
+in `application/asgi.py`:
+
+- the `/mcp` FastMCP endpoint, and
+- the native-async SSE reconnect reader `GET /api/messages/<id>/events`.
+
+Under `flask run` those paths 404. Chat still works (`POST /stream` is a
+Flask route), but a stream interrupted by a disconnect won't auto-resume on
+reconnect. Use `flask run` only when you don't need those routes.
+
+Production uses `gunicorn -k uvicorn_worker.UvicornWorker` against the same
+`application.asgi:asgi_app` target; see `application/Dockerfile` for the
+full flag set.
+
+Run the Celery worker in a separate terminal (if needed):
+
+```bash
+celery -A application.app.celery worker -l INFO
+```
+
+On macOS, prefer the solo pool for Celery:
+
+```bash
+python -m celery -A application.app.celery worker -l INFO --pool=solo
+```
+
+A bare worker (no `-Q`) consumes every configured queue, so one worker does the
+whole job — app tasks and document parsing (the `read_document` tool / workflow
+native-file parse) alike. Use `-Q` only to split load: run the main worker with
+`-Q docsgpt` and a dedicated (e.g. GPU-enabled) parser worker with `-Q parsing`
+for heavy OCR.
+
+### Frontend
+
+Install dependencies only when needed, then run the dev server:
+
+```bash
+cd frontend
+npm install --include=dev
+npm run dev
+```
+
+### Docs site
+
+```bash
+cd docs
+npm install
+```
+
+### Python / backend changes validation
+
+```bash
+ruff check .
+python -m pytest
+```
+
+### Frontend changes
+
+```bash
+cd frontend && npm run lint
+cd frontend && npm run build
+```
+
+### Documentation changes
+
+```bash
+cd docs && npm run build
+```
+
+If Vale is installed locally and you edited prose, also run:
+
+```bash
+vale .
+```
+
+## Repository map
+
+- `application/`: Flask backend, API routes, agent logic, retrieval, parsing, security, storage, Celery worker, and WSGI entrypoints.
+- `tests/`: backend unit/integration tests and test-only Python dependencies.
+- `frontend/`: Vite + React + TypeScript application.
+- `frontend/src/`: main UI code, including `components`, `conversation`, `hooks`, `locale`, `settings`, `upload`, and Redux store wiring in `store.ts`.
+- `docs/`: separate documentation site built with Next.js/Nextra.
+- `extensions/`: integrations and widgets — currently the Chatwoot webhook bridge and the React widget (published to npm as `docsgpt`). The Discord bot, Slack bot, and Chrome extension have been moved to their own repos under `arc53/`.
+- `deployment/`: Docker Compose variants and Kubernetes manifests.
+
+## Coding rules
+
+### Backend
+
+- Follow PEP 8 and keep Python line length at or under 120 characters.
+- Use type hints for function arguments and return values.
+- Add Google-style docstrings to new or substantially changed functions and classes.
+- Add or update tests under `tests/` for backend behavior changes.
+- Keep changes narrow in `api`, `auth`, `security`, `parser`, `retriever`, and `storage` areas.
+
+### Backend Abstractions
+
+- LLM providers implement a common interface in `application/llm/` (add new providers by extending the base class).
+- Vector stores are abstracted in `application/vectorstore/`.
+- Parsers live in `application/parser/` and handle different document formats in the ingestion stage.
+- Agents and tools are in `application/agents/` and `application/agents/tools/`.
+- Celery setup/config lives in `application/celery_init.py` and `application/celeryconfig.py`.
+- Settings and env vars are managed via Pydantic in `application/core/settings.py`.
+
+### Frontend
+
+- Follow the existing ESLint + Prettier setup.
+- Prefer small, reusable functional components and hooks.
+- If shared state must be added, use Redux rather than introducing a new global state library.
+- Avoid broad UI refactors unless the task explicitly asks for them.
+- Do not re-create components if we already have some in the app.
+
+#### Icons
+
+DocsGPT historically mixed three icon sources: `lucide-react`, inline SVG components, and
+`.svg` assets loaded via `<img src=…>`. For new code:
+
+1. **Prefer `lucide-react`** for standard UI affordances (close, chevron, search, trash,
+   plus, etc.). It tokenizes via `currentColor`, ships tree-shaken icons, and the codebase
+   already imports it in 30+ places. `<X className="size-4" />`, `<ChevronDown />`, etc.
+2. **Use `assets/<name>.svg?react`** when you need a brand-specific or domain illustration
+   that doesn't exist in lucide (the app logo, robot fallback, retry arrow, send arrow,
+   etc.). Always set `fill="currentColor"` / `stroke="currentColor"` in the SVG file so
+   consumers can theme via Tailwind text classes.
+3. **Avoid `<img src={Asset}>` for new icons.** It blocks `currentColor` theming and
+   forces dark-variant duplicates (the audit removed several orphan dark/purple/white
+   variants in this branch). The pattern is acceptable for existing call sites — don't
+   bulk-migrate without a reason.
+
+Three pre-existing dark-variant pairs (`documentation`, `no-files`, `science-spark`) are
+hand-tuned multi-color illustrations, not pure inverts; they keep their `-dark` companion
+files until a per-illustration refactor.
+
+## PR readiness
+
+Before opening a PR:
+
+- run the relevant validation commands above
+- confirm backend changes still work end-to-end after ingesting sample data when applicable
+- clearly summarize user-visible behavior changes
+- mention any config, dependency, or deployment implications
+- Ask your user to attach a screenshot or a video to it
+
+---
+> Source: [arc53/DocsGPT](https://github.com/arc53/DocsGPT) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
