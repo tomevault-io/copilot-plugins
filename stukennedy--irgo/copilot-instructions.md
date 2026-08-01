@@ -1,274 +1,117 @@
 ## irgo
 
-> This document provides a comprehensive reference for LLMs (Claude, GPT, etc.) working with the Irgo framework.
+> This app is built with **Irgo**, a hypermedia-driven framework for cross-platform apps using Go + Datastar + Templ.
 
-# Irgo Framework - LLM Reference
+# Irgo App Development Guide
 
-This document provides a comprehensive reference for LLMs (Claude, GPT, etc.) working with the Irgo framework.
+This app is built with **Irgo**, a hypermedia-driven framework for cross-platform apps using Go + Datastar + Templ.
 
-## Framework Overview
-
-Irgo is a **hypermedia-driven application framework** for building cross-platform apps (iOS, Android, desktop, web) using Go + Datastar + Templ. It follows the hypermedia architecture where the server returns HTML fragments via SSE (Server-Sent Events), not JSON.
-
-### Core Concept
+## Architecture
 
 ```
 User Interaction → Datastar Request → Go Handler → Templ Template → SSE Response → DOM Update
 ```
 
-### Datastar Overview
-
-[Datastar](https://data-star.dev) is a lightweight (~11KB) hypermedia framework that uses:
-- **SSE (Server-Sent Events)** for server responses
-- **Reactive signals** for client-side state
-- **`data-*` attributes** for declarative behavior
-
-### Platform Modes
-
-| Mode | Architecture | Entry Point | Build Tag |
-|------|-------------|-------------|-----------|
-| **Mobile** | Virtual HTTP via gomobile bridge | `main.go` | `!desktop` |
-| **Desktop** | Real HTTP server + native webview | `main_desktop.go` | `desktop` |
-| **Web/Dev** | Real HTTP server + browser | `main.go` (serve mode) | `!desktop` |
+**Key principle:** The server returns HTML fragments via SSE (Server-Sent Events), not JSON. Datastar handles DOM updates.
 
 ## Project Structure
 
 ```
-myapp/
 ├── main.go              # Mobile/web entry (//go:build !desktop)
 ├── main_desktop.go      # Desktop entry (//go:build desktop)
-├── go.mod
 ├── app/
-│   └── app.go           # Router setup
+│   └── app.go           # Router setup and route definitions
 ├── handlers/
-│   └── handlers.go      # HTTP handlers
+│   └── handlers.go      # HTTP handlers returning HTML or SSE
 ├── templates/
 │   ├── layout.templ     # Base HTML layout
-│   └── *.templ          # Page/component templates
+│   └── *.templ          # Page and component templates
 ├── static/
-│   ├── css/output.css   # Tailwind CSS
+│   ├── css/output.css   # Tailwind CSS (generated)
 │   └── js/datastar.js   # Datastar library
 └── mobile/
     └── mobile.go        # Mobile bridge (optional)
 ```
 
-## Key Packages
+## CLI Commands
 
-### `github.com/stukennedy/irgo/pkg/router`
-
-Chi-based router with Datastar SSE conveniences.
-
-```go
-import "github.com/stukennedy/irgo/pkg/router"
-
-r := router.New()
-
-// Standard handlers return (string, error) for HTML responses
-r.GET("/path", func(ctx *router.Context) (string, error) {
-    return "<div>HTML</div>", nil
-})
-
-// Datastar SSE handlers return error only, use ctx.SSE() for responses
-r.DSGet("/path", func(ctx *router.Context) error {
-    sse := ctx.SSE()
-    return sse.PatchTempl(templates.MyComponent())
-})
-
-r.DSPost("/path", handler)
-r.DSPut("/path", handler)
-r.DSPatch("/path", handler)
-r.DSDelete("/path", handler)
-
-// URL parameters
-r.DSGet("/users/{id}", func(ctx *router.Context) error {
-    id := ctx.Param("id")
-    // ...
-    return nil
-})
-
-// Route groups
-r.Route("/api", func(r *router.Router) {
-    r.DSGet("/users", listUsers)
-})
-
-// Static files
-r.Static("/static", http.Dir("static"))
-
-// Get the http.Handler
-handler := r.Handler()
+```bash
+irgo dev                 # Web dev server with hot reload
+irgo run desktop         # Run as desktop app
+irgo run desktop --dev   # Desktop with devtools
+irgo run ios --dev       # iOS Simulator
+irgo run android --dev   # Android Emulator
+irgo templ               # Regenerate templ files
 ```
 
-### `router.Context` - Request/Response Helpers
+## Router & Handlers
+
+### Standard Handlers (Full Page Loads)
+
+Standard handlers return `(string, error)`. The string is HTML.
 
 ```go
-// Standard handler (returns HTML string)
-func handler(ctx *router.Context) (string, error) {
-    // Input
-    ctx.Param("id")           // URL path parameter
-    ctx.Query("q")            // Query string parameter
-    ctx.FormValue("name")     // Form field value
-    ctx.Header("X-Custom")    // Request header
+import (
+    "github.com/stukennedy/irgo/pkg/router"
+    "github.com/stukennedy/irgo/pkg/render"
+)
 
-    // Datastar detection
-    ctx.IsDatastar()          // true if Accept: text/event-stream
+// Full page load
+r.GET("/", func(ctx *router.Context) (string, error) {
+    return renderer.Render(templates.HomePage())
+})
+```
 
-    // Output - HTML responses (for full page loads)
-    ctx.HTML("<div>content</div>")
-    ctx.HTMLStatus(201, "<div>created</div>")
+### Datastar SSE Handlers
 
-    // Output - JSON responses
-    ctx.JSON(data)
-    ctx.JSONStatus(201, data)
+Datastar handlers return `error` only and use `ctx.SSE()` for responses.
 
-    // Output - Errors
-    ctx.Error(err)
-    ctx.ErrorStatus(500, "message")
-    ctx.NotFound("not found")
-    ctx.BadRequest("invalid input")
-
-    // Output - Redirects
-    ctx.Redirect("/new-url")
-
-    // Output - No content
-    ctx.NoContent()
-
-    return "<div>response</div>", nil
-}
-
-// Datastar SSE handler (returns error only)
-func sseHandler(ctx *router.Context) error {
-    // Read signals from request body
+```go
+// Datastar SSE endpoint
+r.DSGet("/greeting", func(ctx *router.Context) error {
     var signals struct {
         Name string `json:"name"`
-        Page int    `json:"page"`
     }
     ctx.ReadSignals(&signals)
 
-    // Get SSE writer
     sse := ctx.SSE()
-
-    // Patch HTML into DOM (morphs elements by ID)
-    sse.PatchTempl(templates.MyComponent(data))
-    sse.PatchHTML(`<div id="result">Updated</div>`)
-
-    // Update client-side signals
-    sse.PatchSignals(map[string]any{"count": 5})
-
-    // Remove elements
-    sse.Remove("#old-element")
-
-    // Redirect browser
-    sse.Redirect("/new-url")
-
-    return nil
-}
-```
-
-### `github.com/stukennedy/irgo/pkg/datastar`
-
-SSE wrapper for Datastar responses with templ integration.
-
-```go
-import "github.com/stukennedy/irgo/pkg/datastar"
-
-// Create SSE writer manually (usually use ctx.SSE() instead)
-sse := datastar.NewSSE(w, r)
-
-// Patch operations (morph DOM elements)
-sse.PatchTempl(templates.Component())           // Render templ and patch
-sse.PatchHTML(`<div id="x">HTML</div>`)         // Patch raw HTML
-
-// With options
-sse.PatchTempl(comp, datastar.WithModeOuter)    // Replace entire element
-sse.PatchTempl(comp, datastar.WithModeAppend)   // Append to element
-
-// Update client signals
-sse.PatchSignals(map[string]any{
-    "count": 10,
-    "name": "John",
+    return sse.PatchTempl(templates.Greeting(signals.Name))
 })
 
-// Remove elements by selector
-sse.Remove("#element-id")
-sse.Remove(".class-name")
-
-// Browser navigation
-sse.Redirect("/new-page")
-
-// Read signals from request
-var signals MyStruct
-datastar.ReadSignals(r, &signals)
+r.DSPost("/todos", createTodo)
+r.DSPut("/todos/{id}", updateTodo)
+r.DSPatch("/todos/{id}", toggleTodo)
+r.DSDelete("/todos/{id}", deleteTodo)
 ```
 
-### `github.com/stukennedy/irgo/pkg/render`
+### Context Methods
 
-Templ template rendering.
+**Input:**
+- `ctx.Param("id")` - URL path parameter
+- `ctx.Query("q")` - Query string parameter
+- `ctx.FormValue("name")` - Form field value
+- `ctx.Header("X-Custom")` - Request header
+- `ctx.ReadSignals(&signals)` - Parse Datastar signals from request
 
+**Datastar Detection:**
+- `ctx.IsDatastar()` - true if Accept: text/event-stream
+
+**SSE Output (for Datastar handlers):**
 ```go
-import "github.com/stukennedy/irgo/pkg/render"
-
-renderer := render.NewTemplRenderer()
-
-// Render a templ component to string
-html, err := renderer.Render(templates.MyComponent(data))
+sse := ctx.SSE()
+sse.PatchTempl(templates.Component())      // Patch templ component
+sse.PatchHTML(`<div id="x">HTML</div>`)    // Patch raw HTML
+sse.PatchSignals(map[string]any{...})      // Update client signals
+sse.Remove("#element-id")                   // Remove element
+sse.Redirect("/new-url")                    // Navigate browser
 ```
 
-### `github.com/stukennedy/irgo/desktop`
-
-Desktop application support (webview + HTTP server + native menus).
-
-```go
-import "github.com/stukennedy/irgo/desktop"
-
-// Configuration
-config := desktop.Config{
-    Title:     "App Name",
-    Width:     1024,
-    Height:    768,
-    Resizable: true,
-    Debug:     false,  // Enable browser devtools
-    Port:      0,      // 0 = auto-select
-    Version:   "1.0.0", // Shown in About menu (macOS)
-    SetupMenu: true,    // Setup native menu bar (macOS)
-}
-
-// Or use defaults
-config := desktop.DefaultConfig()
-
-// Create app with HTTP handler
-app := desktop.New(httpHandler, config)
-
-// Run (blocks until window closed)
-// On macOS, this sets up the native menu bar automatically if SetupMenu is true
-err := app.Run()
-
-// Utilities
-staticDir := desktop.FindStaticDir()      // Find static files
-resourcePath := desktop.FindResourcePath() // Find bundled resources
-
-// Manual menu setup (if SetupMenu is false)
-desktop.SetupMenu("App Name", "1.0.0")
-```
-
-#### Native macOS Menu
-
-When `SetupMenu: true` (default), the app automatically creates standard macOS menus:
-- **App Menu**: About, Hide, Hide Others, Show All, Quit
-- **Edit Menu**: Undo, Redo, Cut, Copy, Paste, Select All
-- **Window Menu**: Minimize, Zoom, Bring All to Front
-
-This uses CGO with Objective-C to call Cocoa APIs. On non-macOS platforms, `SetupMenu` is a no-op.
-
-### `github.com/stukennedy/irgo/mobile`
-
-Mobile bridge for iOS/Android.
-
-```go
-import "github.com/stukennedy/irgo/mobile"
-
-mobile.Initialize()
-mobile.SetHandler(r.Handler())
-```
+**Standard Output (for full page handlers):**
+- Return HTML string from handler
+- `ctx.Redirect("/path")` - HTTP redirect
+- `ctx.NotFound("message")` - 404 response
+- `ctx.BadRequest("message")` - 400 response
+- `ctx.NoContent()` - 204 response
 
 ## Templ Templates
 
@@ -277,32 +120,29 @@ Templ is a type-safe HTML templating language that compiles to Go.
 ### Basic Syntax
 
 ```go
-// templates/example.templ
+// templates/components.templ
 package templates
 
 // Component with parameters
-templ UserCard(name string, age int) {
+templ UserCard(name string, email string) {
     <div class="card">
         <h2>{ name }</h2>
-        <p>Age: { fmt.Sprintf("%d", age) }</p>
+        <p>{ email }</p>
     </div>
 }
 
 // Component with children
-templ Layout(title string) {
-    <!DOCTYPE html>
-    <html>
-        <head><title>{ title }</title></head>
-        <body>
-            { children... }
-        </body>
-    </html>
+templ Card(title string) {
+    <div class="card">
+        <h3>{ title }</h3>
+        { children... }
+    </div>
 }
 
-// Using layout
-templ HomePage() {
-    @Layout("Home") {
-        <h1>Welcome</h1>
+// Usage
+templ ProfilePage() {
+    @Card("Profile") {
+        <p>Content goes here</p>
     }
 }
 
@@ -326,26 +166,53 @@ templ UserList(users []User) {
 
 // Conditional attributes
 templ Checkbox(checked bool) {
-    <input type="checkbox" checked?={ checked } />
+    <input type="checkbox" checked?={ checked }/>
 }
 
-// Dynamic classes with templ.KV
+// Dynamic classes
 templ Item(done bool) {
-    <span class={ templ.KV("line-through", done) }>Item</span>
+    <span class={ "item", templ.KV("line-through", done) }>Item</span>
 }
 
-// Dynamic attributes
+// Safe URLs
 templ Link(url string) {
     <a href={ templ.SafeURL(url) }>Link</a>
 }
+
+// Raw HTML (use sparingly)
+templ RawContent(html string) {
+    @templ.Raw(html)
+}
 ```
 
-### Datastar Patterns in Templ
-
-#### Signals (Client-Side State)
+### Rendering in Handlers
 
 ```go
-// Initialize signals with data-signals
+renderer := render.NewTemplRenderer()
+
+// Standard handler
+func handler(ctx *router.Context) (string, error) {
+    return renderer.Render(templates.MyComponent(data))
+}
+
+// Datastar handler
+func sseHandler(ctx *router.Context) error {
+    sse := ctx.SSE()
+    return sse.PatchTempl(templates.MyComponent(data))
+}
+```
+
+## Datastar Patterns
+
+This project uses **Datastar** from `https://data-star.dev/`. Key concepts:
+- **Signals**: Reactive client-side state
+- **SSE**: Server responses as event streams
+- **`data-*` attributes**: Declarative behavior
+
+### Signals (Client-Side State)
+
+```go
+// Initialize signals
 templ Counter() {
     <div data-signals="{count: 0}">
         <span data-text="$count">0</span>
@@ -353,31 +220,25 @@ templ Counter() {
     </div>
 }
 
-// Two-way binding with data-bind
+// Two-way binding
 templ SearchForm() {
-    <div data-signals="{query: '', results: []}">
-        <input
-            type="text"
-            data-bind:query
-            placeholder="Search..."
-        />
+    <div data-signals="{query: ''}">
+        <input type="text" data-bind:query placeholder="Search..."/>
         <span data-text="$query.length + ' characters'"></span>
     </div>
 }
 ```
 
-#### Server Requests
+### Server Requests
 
 ```go
 // GET request
 templ LoadButton() {
-    <button data-on:click="@get('/data')">
-        Load Data
-    </button>
+    <button data-on:click="@get('/data')">Load</button>
     <div id="result"></div>
 }
 
-// POST request with form
+// POST request
 templ TodoForm() {
     <div data-signals="{title: ''}">
         <input type="text" data-bind:title placeholder="New todo"/>
@@ -386,26 +247,18 @@ templ TodoForm() {
     <ul id="todo-list"></ul>
 }
 
-// PUT/PATCH/DELETE
-templ TodoItem(todo Todo) {
-    <li id={ fmt.Sprintf("todo-%d", todo.ID) }>
-        <input
-            type="checkbox"
-            checked?={ todo.Done }
-            data-on:click={ fmt.Sprintf("@patch('/todos/%d')", todo.ID) }
-        />
-        <span>{ todo.Title }</span>
-        <button data-on:click={ fmt.Sprintf("@delete('/todos/%d')", todo.ID) }>
-            Delete
-        </button>
-    </li>
+// DELETE request
+templ DeleteButton(id string) {
+    <button data-on:click={ fmt.Sprintf("@delete('/todos/%s')", id) }>
+        Delete
+    </button>
 }
 ```
 
-#### Event Modifiers
+### Event Modifiers
 
 ```go
-// Debounce input
+// Debounce input (wait 300ms after typing stops)
 templ SearchInput() {
     <input
         type="text"
@@ -415,15 +268,15 @@ templ SearchInput() {
     />
 }
 
-// Prevent default
+// Prevent default form submission
 templ Form() {
     <form data-on:submit__prevent="@post('/submit')">
-        <input type="text" data-bind:name />
+        <input type="text" data-bind:name/>
         <button type="submit">Submit</button>
     </form>
 }
 
-// Once (trigger only once)
+// Trigger once (lazy loading)
 templ LazyLoad() {
     <div data-on:intersect__once="@get('/lazy-content')">
         Loading...
@@ -431,7 +284,7 @@ templ LazyLoad() {
 }
 ```
 
-#### Conditional Display
+### Conditional Display
 
 ```go
 // Show/hide based on signal
@@ -448,15 +301,15 @@ templ Modal() {
 // Dynamic classes
 templ TabButton(name string) {
     <button
-        data-class:active="$activeTab === '" + name + "'"
-        data-on:click={ "$activeTab = '" + name + "'" }
+        data-class:active="$activeTab === 'name'"
+        data-on:click="$activeTab = 'name'"
     >
         { name }
     </button>
 }
 ```
 
-#### Loading Indicators
+### Loading Indicators
 
 ```go
 templ LoadButton() {
@@ -473,315 +326,164 @@ templ LoadButton() {
 }
 ```
 
-## Common Patterns
+## Native Capabilities
 
-### Datastar Handler + Template Pattern
+Call platform features (haptics, clipboard, share, storage, notifications)
+with one API on every platform.
+
+From templates / Datastar expressions (promise-based `irgo.native`):
 
 ```go
-// handlers/todos.go
+templ ShareButton(text string) {
+    <button data-on:click={ fmt.Sprintf("irgo.native('share.text', {text: %q})", text) }>
+        Share
+    </button>
+}
+```
+
+From Go handlers:
+
+```go
+import "github.com/stukennedy/irgo/pkg/native"
+
+native.Call(ctx.Context(), "haptics.impact", native.Params{"style": "light"})
+```
+
+Built-in methods: `device.info`, `haptics.impact/notification/selection`,
+`clipboard.read/write`, `share.text`, `browser.open`,
+`storage.get/set/remove`, `notifications.requestPermission/show`,
+`toast.show` (Android). Unsupported methods return
+`native.ErrNotSupported` — degrade gracefully. Register Go fallbacks with
+`native.Register(method, handler)` so web/desktop work too. Custom native
+features: implement `IrgoPlugin` in `ios/.../IrgoPlugins.swift` or
+`android/.../IrgoPlugins.kt` and register it.
+
+## Sessions & Cookies
+
+Standard `http.SetCookie` session auth works on all platforms — the mobile
+bridge keeps a persistent cookie jar (sessions survive app restarts). Use
+`mobile.ClearCookies()` for logout.
+
+## Script Order
+
+The layout must load the framework JS bridge **before** Datastar (both are
+served automatically — no files to copy):
+
+```html
+<script src="/_irgo/bridge.js"></script>
+<script src="/static/js/datastar.js"></script>
+```
+
+## Streaming / Real-Time
+
+SSE streams progressively on every platform, including mobile. Long-lived
+handlers must watch for disconnect:
+
+```go
+r.DSGet("/live", func(ctx *router.Context) error {
+    sse := ctx.SSE()
+    for {
+        select {
+        case <-sse.Context().Done():
+            return nil // client went away
+        case update := <-updates:
+            sse.PatchTempl(templates.LiveRow(update))
+        }
+    }
+})
+```
+
+## Build Tags
+
+The framework uses Go build tags to separate platform code:
+
+```go
+//go:build !desktop    // Mobile/web builds (main.go)
+//go:build desktop     // Desktop builds only (main_desktop.go)
+```
+
+- `go build .` → uses `main.go` (mobile/web)
+- `go build -tags desktop .` → uses `main_desktop.go`
+- `irgo run desktop` → automatically adds `-tags desktop`
+
+## Common Handler Patterns
+
+### CRUD Operations
+
+```go
 func Mount(r *router.Router) {
-    // List todos (full page)
+    // Full page - list
     r.GET("/", func(ctx *router.Context) (string, error) {
-        todos := db.GetTodos()
-        return renderer.Render(templates.TodoPage(todos))
+        items := db.GetItems()
+        return renderer.Render(templates.ItemsPage(items))
     })
 
-    // Get greeting (Datastar SSE)
-    r.DSGet("/greeting", func(ctx *router.Context) error {
+    // SSE - create
+    r.DSPost("/items", func(ctx *router.Context) error {
         var signals struct {
             Name string `json:"name"`
         }
         ctx.ReadSignals(&signals)
 
         if signals.Name == "" {
-            signals.Name = "World"
+            return ctx.SSE().PatchTempl(templates.Error("Name required"))
         }
 
+        item := db.CreateItem(signals.Name)
         sse := ctx.SSE()
-        return sse.PatchTempl(templates.Greeting(signals.Name))
-    })
-
-    // Create todo
-    r.DSPost("/todos", func(ctx *router.Context) error {
-        var signals struct {
-            Title string `json:"title"`
-        }
-        ctx.ReadSignals(&signals)
-
-        if signals.Title == "" {
-            return ctx.SSE().PatchTempl(templates.Error("Title required"))
-        }
-
-        todo := db.CreateTodo(signals.Title)
-
-        sse := ctx.SSE()
-        sse.PatchTempl(templates.TodoItem(todo))
-        sse.PatchSignals(map[string]any{"title": ""}) // Clear input
+        sse.PatchTempl(templates.ItemRow(item))
+        sse.PatchSignals(map[string]any{"name": ""}) // Clear input
         return nil
     })
 
-    // Delete todo
-    r.DSDelete("/todos/{id}", func(ctx *router.Context) error {
+    // SSE - update
+    r.DSPatch("/items/{id}", func(ctx *router.Context) error {
         id := ctx.Param("id")
-        db.DeleteTodo(id)
-
-        sse := ctx.SSE()
-        return sse.Remove("#todo-" + id)
+        item := db.ToggleItem(id)
+        return ctx.SSE().PatchTempl(templates.ItemRow(item))
     })
 
-    // Toggle todo
-    r.DSPatch("/todos/{id}", func(ctx *router.Context) error {
+    // SSE - delete
+    r.DSDelete("/items/{id}", func(ctx *router.Context) error {
         id := ctx.Param("id")
-        todo := db.ToggleTodo(id)
-
-        sse := ctx.SSE()
-        return sse.PatchTempl(templates.TodoItem(todo))
+        db.DeleteItem(id)
+        return ctx.SSE().Remove("#item-" + id)
     })
 }
 ```
 
-### App Router Setup
+### Validation Errors
 
 ```go
-// app/app.go
-package app
-
-import (
-    "myapp/handlers"
-    "github.com/stukennedy/irgo/pkg/router"
-)
-
-func NewRouter() *router.Router {
-    r := router.New()
-
-    // Mount handlers
-    handlers.Mount(r)
-
-    return r
-}
-```
-
-### Desktop Entry Point
-
-```go
-// main_desktop.go
-//go:build desktop
-
-package main
-
-import (
-    "flag"
-    "fmt"
-    "net/http"
-
-    "myapp/app"
-    "github.com/stukennedy/irgo/desktop"
-)
-
-func main() {
-    devMode := flag.Bool("dev", false, "Enable devtools")
-    flag.Parse()
-
-    r := app.NewRouter()
-
-    mux := http.NewServeMux()
-    staticDir := desktop.FindStaticDir()
-    mux.Handle("/static/", http.StripPrefix("/static/",
-        http.FileServer(http.Dir(staticDir))))
-    mux.Handle("/", r.Handler())
-
-    config := desktop.DefaultConfig()
-    config.Title = "My App"
-    config.Debug = *devMode
-
-    desktopApp := desktop.New(mux, config)
-
-    fmt.Println("Starting app...")
-    if err := desktopApp.Run(); err != nil {
-        fmt.Printf("Error: %v\n", err)
+r.DSPost("/register", func(ctx *router.Context) error {
+    var signals struct {
+        Email string `json:"email"`
     }
-}
-```
+    ctx.ReadSignals(&signals)
 
-### Mobile Entry Point
-
-```go
-// main.go
-//go:build !desktop
-
-package main
-
-import (
-    "fmt"
-    "log"
-    "net/http"
-    "os"
-
-    "myapp/app"
-    "github.com/stukennedy/irgo/mobile"
-)
-
-func main() {
-    if len(os.Args) > 1 && os.Args[1] == "serve" {
-        runDevServer()
-        return
+    if !isValidEmail(signals.Email) {
+        return ctx.SSE().PatchTempl(templates.FieldError("email", "Invalid email"))
     }
-    initMobile()
-}
 
-func initMobile() {
-    mobile.Initialize()
-    r := app.NewRouter()
-    mobile.SetHandler(r.Handler())
-    fmt.Println("Mobile app initialized")
-}
-
-func runDevServer() {
-    r := app.NewRouter()
-    mux := http.NewServeMux()
-    mux.Handle("/static/", http.StripPrefix("/static/",
-        http.FileServer(http.Dir("static"))))
-    mux.Handle("/", r.Handler())
-
-    fmt.Println("Dev server at http://localhost:8080")
-    log.Fatal(http.ListenAndServe(":8080", mux))
-}
+    // Success - redirect to dashboard
+    return ctx.SSE().Redirect("/dashboard")
+})
 ```
-
-## CLI Commands
-
-```bash
-# Project creation
-irgo new myapp           # Create new project
-irgo new .               # Initialize in current directory
-
-# Development
-irgo dev                 # Web dev server with hot reload
-irgo run desktop         # Run as desktop app
-irgo run desktop --dev   # Desktop with devtools
-irgo run ios --dev       # iOS Simulator with hot reload
-irgo run android --dev   # Android Emulator with hot reload
-
-# Production builds
-irgo build desktop       # Build desktop for current OS
-irgo build desktop macos # Build macOS .app
-irgo build desktop windows # Build Windows .exe
-irgo build desktop linux # Build Linux binary
-irgo build ios           # Build iOS framework
-irgo build android       # Build Android AAR
-
-# Production run
-irgo run ios             # Build + run iOS
-irgo run android         # Build + run Android
-
-# Utilities
-irgo templ               # Generate templ files
-irgo install-tools       # Install dev dependencies
-```
-
-## macOS App Bundling
-
-The framework includes scripts for creating macOS `.app` bundles and DMG installers in `build/macos/`:
-
-### Icon Generation
-
-```bash
-# Generate .icns from a 1024x1024 PNG
-./build/macos/generate-icns.sh static/icon.png build/macos/icon.icns
-```
-
-### App Bundle Creation
-
-```bash
-# Create a .app bundle
-./build/macos/create-app-bundle.sh \
-  --binary dist/myapp \
-  --name "My App" \
-  --bundle-id com.example.myapp \
-  --icon build/macos/icon.icns \
-  --static static \
-  --version 1.2.3
-```
-
-### DMG Creation
-
-```bash
-# Create a DMG installer (optionally signed and notarized)
-./build/macos/create-dmg.sh \
-  --app "dist/My App.app" \
-  --name "My App" \
-  --version 1.2.3
-
-# With code signing (set environment variables)
-export APPLE_DEVELOPER_ID="Developer ID Application: Your Name (TEAMID)"
-export APPLE_NOTARY_PROFILE="my-notary-profile"
-./build/macos/create-dmg.sh --app "dist/My App.app" --name "My App"
-```
-
-### Build Configuration Files
-
-- `build/macos/Info.plist.tmpl` - App bundle metadata template
-- `build/macos/entitlements.plist` - Code signing entitlements for hardened runtime
-
-## Build Tags
-
-The framework uses Go build tags to separate platform-specific code:
-
-```go
-//go:build !desktop    // Included in mobile/web builds, excluded from desktop
-//go:build desktop     // Included only in desktop builds
-```
-
-When building:
-- `go build .` → uses `main.go` (mobile/web)
-- `go build -tags desktop .` → uses `main_desktop.go` (desktop)
-- `irgo run desktop` → automatically adds `-tags desktop`
-
-## Dependencies
-
-```go
-// go.mod
-require (
-    github.com/a-h/templ v0.3.977
-    github.com/stukennedy/irgo v0.1.0
-    github.com/starfederation/datastar-go v1.1.0
-)
-```
-
-The irgo module includes:
-- `github.com/go-chi/chi/v5` - HTTP router
-- `github.com/webview/webview_go` - Desktop webview (CGO required)
-- `github.com/starfederation/datastar-go` - Datastar SDK
 
 ## Datastar Attribute Reference
 
-### Actions
-
 | Attribute | Description | Example |
 |-----------|-------------|---------|
-| `data-on:click` | Trigger on click | `data-on:click="@get('/data')"` |
-| `data-on:submit` | Trigger on form submit | `data-on:submit__prevent="@post('/submit')"` |
-| `data-on:input` | Trigger on input | `data-on:input__debounce.300ms="@get('/search')"` |
-| `data-on:intersect` | Trigger when visible | `data-on:intersect__once="@get('/lazy')"` |
-
-### Bindings
-
-| Attribute | Description | Example |
-|-----------|-------------|---------|
-| `data-signals` | Initialize signals | `data-signals="{count: 0, name: ''}"` |
+| `data-signals` | Initialize signals | `data-signals="{count: 0}"` |
 | `data-bind:X` | Two-way binding | `data-bind:name` |
 | `data-text` | Text content | `data-text="$count"` |
-| `data-attr:X` | Dynamic attribute | `data-attr:disabled="$loading"` |
-
-### Display
-
-| Attribute | Description | Example |
-|-----------|-------------|---------|
-| `data-show` | Show/hide element | `data-show="$isVisible"` |
+| `data-show` | Show/hide | `data-show="$visible"` |
 | `data-class:X` | Conditional class | `data-class:active="$isActive"` |
+| `data-attr:X` | Dynamic attribute | `data-attr:disabled="$loading"` |
+| `data-on:event` | Event handler | `data-on:click="@get('/data')"` |
 | `data-indicator:X` | Loading indicator | `data-indicator:loading` |
 
-### HTTP Methods
+### HTTP Actions
 
 | Expression | Description |
 |------------|-------------|
@@ -793,38 +495,25 @@ The irgo module includes:
 
 ### Event Modifiers
 
-| Modifier | Description | Example |
-|----------|-------------|---------|
-| `__prevent` | Prevent default | `data-on:submit__prevent` |
-| `__stop` | Stop propagation | `data-on:click__stop` |
-| `__once` | Trigger once | `data-on:intersect__once` |
-| `__debounce.Xms` | Debounce | `data-on:input__debounce.300ms` |
-| `__throttle.Xms` | Throttle | `data-on:scroll__throttle.100ms` |
+| Modifier | Description |
+|----------|-------------|
+| `__prevent` | Prevent default |
+| `__stop` | Stop propagation |
+| `__once` | Trigger once |
+| `__debounce.Xms` | Debounce (e.g., `__debounce.300ms`) |
+| `__throttle.Xms` | Throttle (e.g., `__throttle.100ms`) |
 
-## Important Notes for LLMs
+## Tips
 
-1. **Always use build tags** when creating entry points:
-   - `main.go` needs `//go:build !desktop` as first line
-   - `main_desktop.go` needs `//go:build desktop` as first line
-
-2. **Datastar handlers use SSE**. Use `r.DSGet()`, `r.DSPost()`, etc. for Datastar endpoints.
-
-3. **Datastar handlers return `error`**. Use `ctx.SSE()` methods to send responses.
-
-4. **Use `ctx.ReadSignals()`** to read client signals from the request body.
-
-5. **Elements must have IDs** for Datastar to patch them. Use `id` attributes.
-
-6. **Desktop requires CGO**. Ensure `CGO_ENABLED=1` for desktop builds.
-
-7. **Templ files compile to Go**. Run `templ generate` after editing `.templ` files.
-
-8. **Static files** go in `static/` directory. Serve via router or http.FileServer.
-
-9. **The router is chi-based** but with a simplified API. Use `ctx.Param()`, `ctx.Query()`, `ctx.FormValue()`.
-
-10. **For real-time features**, Datastar uses built-in SSE streaming.
+1. **Always read files before editing** - understand existing code first
+2. **Run `irgo templ`** after modifying `.templ` files to regenerate Go code
+3. **Use `irgo dev`** during development for hot reload
+4. **Return HTML fragments via SSE**, not JSON - this is hypermedia-driven
+5. **Elements need IDs** for Datastar to patch them
+6. **Use signals for client state** - avoid unnecessary server roundtrips
+7. **Prefer small, focused components** that can be reused and patched independently
+8. **Test in desktop mode** with `irgo run desktop --dev` for browser devtools
 
 ---
 > Source: [stukennedy/irgo](https://github.com/stukennedy/irgo) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-10 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
