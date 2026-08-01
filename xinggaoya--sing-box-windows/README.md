@@ -1,8 +1,6 @@
 # sing-box-windows
 
-> Source: [xinggaoya/sing-box-windows](https://github.com/xinggaoya/sing-box-windows) — distributed by [TomeVault](https://tomevault.io)
-
-🚀 现代化 sing-box 跨平台桌面客户端｜订阅导入・代理模式切换・运行态监控｜🪟 Windows / 🐧 Linux / 🍎 macOS。 Modern sing-box desktop client for subscriptions, proxy switching, and runtime monitoring.
+> Source: [xinggaoya/sing-box-windows](https://github.com/xinggaoya/sing-box-windows). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [xinggaoya/sing-box-windows](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [xinggaoya/sing-box-windows](https://github.com/xinggaoya/sing-box-windows) — a repo with 752+ stars on GitHub.
+From [xinggaoya/sing-box-windows](https://github.com/xinggaoya/sing-box-windows) — a repo with 818+ stars on GitHub.
 
 ---
 
