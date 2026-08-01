@@ -1,0 +1,9 @@
+{
+  "name": "polarmutex--tree-sitter-beancount",
+  "displayName": "tree-sitter-beancount",
+  "description": "tree-sitter-beancount",
+  "version": "1.0.0",
+  "author": "polarmutex",
+  "homepage": "https://github.com/polarmutex/tree-sitter-beancount",
+  "skills": []
+}
