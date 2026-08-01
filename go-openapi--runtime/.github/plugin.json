@@ -1,0 +1,9 @@
+{
+  "name": "go-openapi--runtime",
+  "displayName": "runtime",
+  "description": "runtime",
+  "version": "1.0.0",
+  "author": "go-openapi",
+  "homepage": "https://github.com/go-openapi/runtime",
+  "skills": []
+}
