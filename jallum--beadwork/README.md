@@ -1,8 +1,6 @@
 # beadwork
 
-> Tome by [jallum](https://github.com/jallum/beadwork) — distributed by [TomeVault](https://tomevault.io)
-
-Beadwork is a git-native work management tool for humans and AI coding agents. Plans, progress and decisions persist as files on an orphan-branch, not as cruft in yours.
+> Tome by [jallum](https://github.com/jallum/beadwork), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
