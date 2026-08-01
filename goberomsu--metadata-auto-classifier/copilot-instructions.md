@@ -5,68 +5,36 @@
 <!-- Parent: ../AGENTS.md -->
 <!-- Generated: 2026-03-25 | Updated: 2026-03-25 -->
 
-# Metadata-Auto-Classifier
+# src/domain/auth/ — OAuth and Token Management
 
 ## Purpose
-Metadata Auto Classifier — Obsidian plugin that uses AI (OpenAI/Gemini/Ollama/etc.) to automatically classify and apply frontmatter metadata to notes. Supports multiple LLM providers via a unified adapter, configurable classification prompts, and preset-based metadata templates.
+
+Pure domain logic for OAuth token management, PKCE flow, and authentication constants. NO Obsidian imports. Handles token expiry checking, JWT parsing, token refresh lifecycle, and OAuth provider configuration.
 
 ## Key Files
 
-| File | Description |
-|------|-------------|
-| `src/main.ts` | Composition root — MetadataAutoClassifierPlugin, commands, settings |
-| `src/domain/constants.ts` | Plugin-wide constants |
-| `src/domain/prompt.ts` | Prompt builder — constructs LLM classification request |
-| `src/domain/presets.json` | Built-in metadata classification presets |
-| `src/domain/auth/` | API key management and validation |
-| `src/ui/ClassificationService.ts` | Orchestrates LLM request → frontmatter write pipeline |
-| `src/ui/CommandService.ts` | Registers Obsidian commands (classify active note, batch classify) |
-| `src/ui/UnifiedProvider.ts` | Unified LLM provider interface (OpenAI/Gemini/Ollama/etc.) |
-| `src/ui/provider-api.ts` | HTTP adapter for provider REST APIs (uses `requestUrl`) |
-| `src/ui/frontmatter.ts` | Read/write note frontmatter via Obsidian MetadataCache |
-| `src/ui/request.ts` | Request builder and response parser |
-| `src/ui/settings/` | Settings tab — provider selection, API keys, prompt templates |
-| `src/ui/index.ts` | UI barrel export |
-
-## Subdirectories
-
-| Directory | Purpose |
-|-----------|---------|
-| `src/` | Source layers (see `src/AGENTS.md`) |
-| `src/domain/` | Business logic — NO obsidian imports (see `src/domain/AGENTS.md`) |
-| `src/domain/auth/` | API key storage and validation (see `src/domain/auth/AGENTS.md`) |
-| `src/ui/` | Obsidian-dependent services, provider adapters, frontmatter, settings (see `src/ui/AGENTS.md`) |
-| `src/ui/settings/` | Settings tab components (see `src/ui/settings/AGENTS.md`) |
-| `src/types/` | Pure type definitions (see `src/types/AGENTS.md`) |
+| File | Purpose |
+|------|---------|
+| `token-manager.ts` | Token validation, expiry checking, JWT claim parsing, token lifecycle utilities |
+| `oauth-server.ts` | PKCE server implementation for OAuth authorization code flow |
+| `pkce.ts` | PKCE challenge generation (code challenge, code verifier) |
+| `oauth-constants.ts` | OAuth provider configurations (Codex/Anthropic OAuth endpoints) |
+| `index.ts` | Barrel export of public auth APIs |
 
 ## For AI Agents
 
-### Working In This Directory
-- 4-layer architecture: `domain/` must not import `obsidian`
-- `UnifiedProvider.ts` is the extension point for new LLM providers — add there, not in services
-- `isDesktopOnly: false` — use `requestUrl` (Obsidian API), not `fetch` or Node `http`
-- this repo keeps implementation local; do not reintroduce a default `src/shared/` implementation surface
-- Test files in `__tests__/` use Jest-style mocks in `__mocks__/`
-
-### Testing Requirements
-```bash
-pnpm run ci     # build + lint + test
-pnpm run lint   # ESLint — 0 errors required
-```
-
-### Common Patterns
-- Adding a new LLM provider: implement the provider interface in `UnifiedProvider.ts`, add auth config in `domain/auth/`
-- Classification flow: `CommandService` → `ClassificationService` → `UnifiedProvider` → `frontmatter.ts`
+- All functions are pure and deterministic
+- Token validation happens before API requests in `ui/` layer
+- PKCE server runs locally; no external dependencies
+- JWT parsing is defensive (no assumptions about token structure)
+- Unit tests require minimal setup (no mocks for pure functions)
 
 ## Dependencies
 
-### Internal
-- workspace contract docs define shared surfaces; this repo keeps implementation local by default
-
-### External
-- `obsidian` — Obsidian Plugin API
-- OpenAI / Gemini / Ollama APIs — via configurable provider
+- Imports from: `types/` (auth types) only
+- Do NOT import from: `obsidian`, `ui/`, or other domain modules
+- Exports to: `ui/auth/`, `main.ts`
 
 ---
 > Source: [GoBeromsu/Metadata-Auto-Classifier](https://github.com/GoBeromsu/Metadata-Auto-Classifier) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
