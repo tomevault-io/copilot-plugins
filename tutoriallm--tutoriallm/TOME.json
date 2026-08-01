@@ -4,7 +4,7 @@
   "repo": "TutoriaLLM",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TutoriaLLM/TutoriaLLM",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T19:11:05Z"
+  "distributed_at": "2026-08-01T07:58:03Z"
 }
