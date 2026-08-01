@@ -1,0 +1,9 @@
+{
+  "name": "stripe--stripe-go",
+  "displayName": "stripe-go",
+  "description": "stripe-go",
+  "version": "1.0.0",
+  "author": "stripe",
+  "homepage": "https://github.com/stripe/stripe-go",
+  "skills": []
+}
