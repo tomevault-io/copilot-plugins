@@ -44,6 +44,17 @@ Run a specific test file:
 pnpm test nodes/Bluesky/V2/__tests__/feedOperations.test.ts
 ```
 
+
+## Commit Message Guidelines
+This project follows the [Conventional Commit Standard](https://www.conventionalcommits.org/):
+- Use `feat:`, `fix:`, `chore:`, etc. in commit messages.
+- Example: `feat: add support for new Bluesky post operation`
+
+## Contribution
+- Ensure all tests pass before submitting a PR.
+- Follow the project structure and naming conventions.
+- Use Conventional Commits for all commit messages.
+
 ---
 > Source: [muench-dev/n8n-nodes-bluesky](https://github.com/muench-dev/n8n-nodes-bluesky) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
