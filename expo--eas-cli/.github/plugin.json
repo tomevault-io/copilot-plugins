@@ -1,0 +1,9 @@
+{
+  "name": "expo--eas-cli",
+  "displayName": "eas-cli",
+  "description": "eas-cli",
+  "version": "1.0.0",
+  "author": "expo",
+  "homepage": "https://github.com/expo/eas-cli",
+  "skills": []
+}
