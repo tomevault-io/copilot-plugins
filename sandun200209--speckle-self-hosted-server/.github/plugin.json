@@ -1,0 +1,9 @@
+{
+  "name": "sandun200209--speckle-self-hosted-server",
+  "displayName": "speckle-self-hosted-server",
+  "description": "DevOps project showcasing Docker, Docker Compose, Nginx, PostgreSQL, Redis, and MinIO for self-hosted cloud infrastructure.",
+  "version": "1.0.0",
+  "author": "sandun200209",
+  "homepage": "https://github.com/sandun200209/speckle-self-hosted-server",
+  "skills": []
+}
