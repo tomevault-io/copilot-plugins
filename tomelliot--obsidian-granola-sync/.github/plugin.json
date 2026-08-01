@@ -1,7 +1,7 @@
 {
   "name": "tomelliot--obsidian-granola-sync",
   "displayName": "obsidian-granola-sync",
-  "description": "Sync Granola notes to your Obsidian vault",
+  "description": "obsidian-granola-sync",
   "version": "1.0.0",
   "author": "tomelliot",
   "homepage": "https://github.com/tomelliot/obsidian-granola-sync",
