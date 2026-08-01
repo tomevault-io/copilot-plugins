@@ -1,6 +1,6 @@
 # AI instruction files for realtime-voice-component
 
-> Sourced from [openai/realtime-voice-component](https://github.com/openai/realtime-voice-component) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [openai/realtime-voice-component](https://github.com/openai/realtime-voice-component), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
