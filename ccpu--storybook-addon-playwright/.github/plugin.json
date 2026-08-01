@@ -1,0 +1,9 @@
+{
+  "name": "ccpu--storybook-addon-playwright",
+  "displayName": "storybook-addon-playwright",
+  "description": "storybook-addon-playwright",
+  "version": "1.0.0",
+  "author": "ccpu",
+  "homepage": "https://github.com/ccpu/storybook-addon-playwright",
+  "skills": []
+}
