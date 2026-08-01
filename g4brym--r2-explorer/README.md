@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [G4brym/R2-Explorer](https://github.com/G4brym/R2-Explorer).
+Original source: `CLAUDE.md` in [G4brym/R2-Explorer](https://github.com/G4brym/R2-Explorer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [G4brym/R2-Explorer](https://github.com/G4brym/R2-Explorer) — a repo with 623+ stars on GitHub.
+From [G4brym/R2-Explorer](https://github.com/G4brym/R2-Explorer) — a repo with 626+ stars on GitHub.
 
 ---
 
