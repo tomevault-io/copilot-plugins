@@ -2,7 +2,7 @@
   "name": "SentinelXPrime",
   "owner": "alicankiraz1",
   "repo": "SentinelXPrime",
-  "description": "Stage-aware security skills for Codex, Claude Code, and OpenCode, with explicit compatibility guidance for Cursor and Kilo.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alicankiraz1/SentinelXPrime",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T04:52:37Z"
+  "distributed_at": "2026-08-01T23:59:41Z"
 }
