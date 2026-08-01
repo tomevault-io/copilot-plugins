@@ -1,66 +1,75 @@
 ## xlaunchericons
 
-> **XLauncherIcons** is an Android application that demonstrates how to programmatically change the app's launcher icon without a full re-install. This is achieved using `activity-alias` declarations in the `AndroidManifest.xml`.
+> This file defines the authoritative coding standards and intentional design decisions for this project. These are not suggestions — they are the established patterns all code in this project follows. Do not raise findings that conflict with these standards.
 
-# AI Agent Instructions
+# XLauncherIcons Project Rules
 
-## Project Overview
-**XLauncherIcons** is an Android application that demonstrates how to programmatically change the app's launcher icon without a full re-install. This is achieved using `activity-alias` declarations in the `AndroidManifest.xml`.
+This file defines the authoritative coding standards and intentional design decisions for this project. These are not suggestions — they are the established patterns all code in this project follows. Do not raise findings that conflict with these standards.
 
-### Key Technologies
-- **Language:** Kotlin
-- **UI Framework:** Jetpack Compose (Material 3)
-- **Build System:** Gradle (Kotlin DSL) with Version Catalog
-- **Static Analysis:** Detekt, Kotlinter (ktlint)
-- **Target SDK:** 36 (Android 15+)
-- **Min SDK:** 26 (Android 8.0+)
+## Project Context
 
-### Core Architecture & Logic
-The app defines multiple `<activity-alias>` elements in `AndroidManifest.xml`, each targeting the same `MainActivity` but with different `android:icon` and `android:label` attributes.
+XLauncherIcons is a **sample/demonstration Android app**. It is not a production service. Defensive coding patterns appropriate for public APIs or production systems are intentionally omitted where they would add noise without value.
 
-The core logic is structured following MVVM principles:
-- **IconManager**: Encapsulates `PackageManager` logic for enabling/disabling `activity-alias` components and querying the active icon.
-- **MainViewModel**: Manages the UI state, specifically the currently active icon component name, and coordinates icon switches via the `IconManager`.
-- **MainActivity**: Serves as the entry point, initializes the `ViewModel`, and collects its state.
-- **MainScreen**: A stateless Composable that renders the UI based on the state provided by `MainActivity`.
+---
 
-When a user selects a new icon:
-1. The `MainViewModel` calls `IconManager.setIcon()`.
-2. The `IconManager` disables all other aliases and enables the selected one using `PackageManager.setComponentEnabledSetting`.
-3. The UI state is updated, providing visual feedback (a border) around the selected icon.
+## IconManager: Internal API with Closed Input Set
 
-## Building and Running
-The project uses the Gradle wrapper (`./gradlew`).
+`IconManager.setIcon(componentName: String)` and `IconManager.getActiveIconComponent()` are **internal methods**. All `componentName` values are sourced exclusively from the `gregAppIcons` compile-time constant list. No external caller can supply arbitrary strings.
 
-### Key Commands
-- **Assemble Debug APK:** `./gradlew assembleDebug`
-- **Install Debug APK:** `./gradlew installDebug`
-- **Run Unit Tests:** `./gradlew test`
-- **Run Instrumented Tests:** `./gradlew connectedAndroidTest` (requires an emulator/device)
-- **Static Analysis (Detekt):** `./gradlew detekt`
-- **Lint Kotlin:** `./gradlew lintKotlin`
-- **Format Kotlin:** `./gradlew formatKotlin`
+- **No validation of `componentName` against `gregAppIcons` is required or desired.** The architecture enforces correctness — adding a runtime guard implies external callers exist, which they do not.
+- **No try-catch is required around `setComponentEnabledSetting` or `getComponentEnabledSetting`.** All components are declared in `AndroidManifest.xml` at compile time (eliminating `IllegalArgumentException`). The app only modifies its own activity-aliases (eliminating `SecurityException`). These exceptions have no reproduction path.
+- **The `?: gregAppIcons.firstOrNull()?.component` fallback in `getActiveIconComponent()` is intentional.** On fresh install, no alias is explicitly enabled — the system uses the first declared activity-alias. The fallback matches that system behaviour and prevents the UI from showing no selection.
 
-### CI/CD
-The project uses GitHub Actions for CI (defined in `.github/workflows/main_build.yml`). It includes automated building, testing, and linting.
+---
 
-## Development Conventions
+## MainViewModel: Optimistic UI Pattern
 
-### Coding Style & Formatting
-- **Kotlin Style:** The project follows standard Kotlin coding conventions, enforced by **Kotlinter** (ktlint).
-- **Auto-formatting:** The `preBuild` task is configured to depend on `formatKotlin`, ensuring code is formatted before every build.
-- **Static Analysis:** **Detekt** is used for code smell detection and is part of the `check` task.
+`MainViewModel.setIcon()` updates `_activeIconComponent` immediately after calling `iconManager.setIcon()`, without waiting for verification.
 
-### Project Structure
-- `app/src/main/java/com/rwmobi/xlaunchericons/`: Contains the core application logic and UI.
-- `app/src/main/res/`: Contains Android resources, including the various icons used for the launcher.
-- `gradle/libs.versions.toml`: Centralized dependency management.
+- **This is the intentional optimistic UI pattern**, chosen for responsiveness.
+- `setComponentEnabledSetting` is deterministic for statically-declared components. There is no failure path to guard against.
+- **No try-catch, no post-call `refreshActiveIcon()`, and no state rollback logic is required.**
+- Re-querying state immediately after `setComponentEnabledSetting` is also unreliable — the system may not have propagated the change yet, making optimistic update the correct approach.
 
-### Testing Practices
-- **Unit Tests**: Located in `app/src/test`. These tests verify the business logic in `MainViewModel` using **MockK** and **kotlinx-coroutines-test**.
-- **Instrumented Tests**: Located in `app/src/androidTest`, primarily testing UI interactions with Compose using the **Robot Pattern**.
-- **Managed Devices:** Gradle Managed Devices are configured for CI testing (e.g., `pixel2Api35`).
+---
+
+## MainViewModel: viewModelScope.launch for setIcon()
+
+`MainViewModel.setIcon()` uses `viewModelScope.launch` even though `iconManager.setIcon()` is synchronous.
+
+- **This is intentional.** `viewModelScope.launch` provides lifecycle-aware cancellation and structured concurrency. It is the idiomatic ViewModel pattern for all state-mutating operations.
+- The IPC overhead of a single `setComponentEnabledSetting` call is negligible. `Dispatchers.IO` is not needed.
+- **Do not suggest removing the coroutine wrapper or adding `withContext(Dispatchers.IO)`.**
+
+---
+
+## MainActivity: IconManager and ViewModel Instantiation
+
+`IconManager` is instantiated as `remember { IconManager(this) }` inside `setContent`. `MainViewModel` is obtained via `viewModel(factory = ...)`.
+
+- **`remember { }` prevents recreation on recomposition.** This is correct and intentional.
+- **`viewModel()` from `lifecycle-viewmodel-compose` preserves the ViewModel across recompositions and configuration changes.**
+- The `Context` inside `remember { IconManager(this) }` does not become stale — `remember` is scoped to the composition, which is destroyed with the Activity. There is no lifecycle mismatch.
+- `import androidx.compose.runtime.remember` is already present in `MainActivity.kt`.
+- **Do not suggest moving instantiation to `onCreate()`, using `by lazy`, using `by viewModels()`, or any alternative. The current pattern is correct.**
+
+---
+
+## setComponentEnabledSetting Loop Performance
+
+`IconManager.setIcon()` iterates over `gregAppIcons` and calls `setComponentEnabledSetting` for each entry.
+
+- The list size is fixed and small (defined at compile time). This loop cannot cause ANR or perceptible UI freeze.
+- **Do not flag this as a performance or threading concern.**
+
+---
+
+## Unit Tests: MainViewModelTest
+
+- The `init should refresh active icon` test stubs `getActiveIconComponent()` explicitly before constructing the ViewModel. The relaxed mock default is never reached. **No `testDispatcher.scheduler.advanceUntilIdle()` is needed** — `refreshActiveIcon()` in `init` is a direct synchronous assignment, not a coroutine.
+- The `setIcon should call iconManager and update state` test already calls `testDispatcher.scheduler.advanceUntilIdle()` and verifies both the `iconManager.setIcon()` call and the resulting state. **The test coverage is complete and correct as written.**
+- **Do not suggest modifications to these tests.**
 
 ---
 > Source: [ryanw-mobile/XLauncherIcons](https://github.com/ryanw-mobile/XLauncherIcons) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
