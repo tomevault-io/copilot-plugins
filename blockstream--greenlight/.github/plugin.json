@@ -1,0 +1,9 @@
+{
+  "name": "blockstream--greenlight",
+  "displayName": "greenlight",
+  "description": "greenlight",
+  "version": "1.0.0",
+  "author": "Blockstream",
+  "homepage": "https://github.com/Blockstream/greenlight",
+  "skills": []
+}
