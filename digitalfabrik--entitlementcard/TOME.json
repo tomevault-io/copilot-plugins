@@ -4,7 +4,7 @@
   "repo": "entitlementcard",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/digitalfabrik/entitlementcard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T03:48:32Z"
+  "distributed_at": "2026-08-01T14:35:34Z"
 }
