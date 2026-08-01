@@ -1,107 +1,14 @@
-## typescript-rules
+## graph
 
-> - Use explicit type annotations for function parameters and returns
+> project-rules: .cursor/rules/project-rules.mdc
 
-# TypeScript Development Rules
-
-## Type Definitions
-- Use explicit type annotations for function parameters and returns
-- Prefer interfaces over type aliases for object types
-- Use type aliases for unions and complex types
-- Make types as specific as possible:
-  ```typescript
-  // Good
-  interface BlockData {
-    id: string;
-    type: 'input' | 'output' | 'process';
-    position: { x: number; y: number };
-  }
-
-  // Bad
-  interface BlockData {
-    [key: string]: any;
-  }
-  ```
-
-## Generics
-- Use generics to create reusable components and functions
-- Provide clear and descriptive type constraints
-- Use meaningful type parameter names:
-  ```typescript
-  // Good
-  function transformBlock<TData extends BlockData>(block: TData): TransformedBlock<TData> {
-    // transform logic
-  }
-
-  // Bad
-  function transformBlock<T>(block: T): any {
-    // transform logic
-  }
-  ```
-
-## Type Safety
-- Avoid using `any` type
-- Use `unknown` instead of `any` for values of unknown type
-- Enable strict TypeScript compiler options:
-  ```json
-  {
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true
-  }
-  ```
-- Use type guards for runtime type checking
-
-## Type Assertions
-- Minimize use of type assertions
-- Use `as const` for readonly arrays and objects
-- Prefer type guards over type assertions
-- Use `satisfies` operator for type checking:
-  ```typescript
-  const config = {
-    type: 'block',
-    dimensions: { width: 100, height: 100 }
-  } satisfies BlockConfig;
-  ```
-
-## Class Members
-- Use explicit accessibility modifiers (`public`, `private`, `protected`) for methods, accessors, and parameter properties.
-  - Constructors do not require `public`.
-  - Regular properties do not require explicit accessibility (default to `public`).
-- Parameter properties (e.g., `constructor(private name: string)`) are allowed and encouraged for conciseness.
-
-## Error Handling
-- Create custom error types for specific errors
-- Use discriminated unions for error states
-- Handle all possible error cases:
-  ```typescript
-  type Result<T> = 
-    | { success: true; data: T }
-    | { success: false; error: Error };
-  ```
-
-## Module Organization
-- Use barrel exports (index.ts) for public APIs
-- Keep internal types in separate files
-- Use namespaces sparingly
-- Export types explicitly when needed
-- Use type-only imports (`import type { MyType } from './types';`) when importing only types.
-
-## Best Practices
-- Write self-documenting code with clear types
-- Use TypeScript's built-in utility types when appropriate
-- Document complex types with JSDoc comments
-- Keep type definitions close to their usage
-- Use readonly modifiers for immutable data
-- Leverage TypeScript's inference when obvious
-- Avoid using bitwise operators (`&`, `|`, `^`, etc.).
-- Note on Allowed Practices: While generally discouraged in some styles, this project allows:
-  - Reassigning function parameters (`no-param-reassign: off`).
-  - Using `for...in` loops without explicit `hasOwnProperty` checks (`guard-for-in: off`).
-  - Assigning values within `return` statements (`no-return-assign: off`).
-  - Flexible member ordering within classes (`@typescript-eslint/member-ordering: off`). 
+# These are references to the actual rule files in .cursor/rules/
+project-rules: .cursor/rules/project-rules.mdc
+components-rules: .cursor/rules/components-rules.mdc
+layer-rules: .cursor/rules/layer-rules.mdc
+event-model-rules: .cursor/rules/event-model-rules.mdc
+general-coding-rules: .cursor/rules/general-coding-rules.mdc
 
 ---
 > Source: [gravity-ui/graph](https://github.com/gravity-ui/graph) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
