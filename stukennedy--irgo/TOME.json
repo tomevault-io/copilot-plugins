@@ -2,7 +2,7 @@
   "name": "irgo",
   "owner": "stukennedy",
   "repo": "irgo",
-  "description": "Native app development framework for mobile and desktop using Go and Datastar.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stukennedy/irgo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-10T05:32:43Z"
+  "distributed_at": "2026-08-01T04:31:51Z"
 }
