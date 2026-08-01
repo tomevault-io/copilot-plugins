@@ -1,23 +1,21 @@
 # AI instruction files for teal
 
-> Sourced from [teal-fm/teal](https://github.com/teal-fm/teal) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Your music, beautifully tracked. All yours. (coming soon)
+> Sourced from [teal-fm/teal](https://github.com/teal-fm/teal), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [teal-fm/teal](https://github.com/teal-fm/teal).
+Original source: `CLAUDE.md` in [teal-fm/teal](https://github.com/teal-fm/teal).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/teal-fm/teal](https://github.com/teal-fm/teal)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/teal-fm/teal](https://github.com/teal-fm/teal)
 
 ---
 
