@@ -2,9 +2,9 @@
   "name": "minion-agent",
   "owner": "femto",
   "repo": "minion-agent",
-  "description": "A simple agent framework that's capable of browser use + mcp + auto instrument + plan + deep  research + more",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/femto/minion-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T09:14:20Z"
+  "distributed_at": "2026-08-01T08:34:16Z"
 }
