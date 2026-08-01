@@ -1,0 +1,9 @@
+{
+  "name": "cloudfoundry--bosh-agent",
+  "displayName": "bosh-agent",
+  "description": "bosh-agent",
+  "version": "1.0.0",
+  "author": "cloudfoundry",
+  "homepage": "https://github.com/cloudfoundry/bosh-agent",
+  "skills": []
+}
