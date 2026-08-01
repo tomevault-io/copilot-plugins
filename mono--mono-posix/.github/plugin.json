@@ -1,0 +1,9 @@
+{
+  "name": "mono--mono-posix",
+  "displayName": "mono.posix",
+  "description": "mono.posix",
+  "version": "1.0.0",
+  "author": "mono",
+  "homepage": "https://github.com/mono/mono.posix",
+  "skills": []
+}
