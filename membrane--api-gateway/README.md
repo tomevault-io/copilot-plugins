@@ -1,6 +1,6 @@
 # api-gateway
 
-> Source: [membrane/api-gateway](https://github.com/membrane/api-gateway). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [membrane/api-gateway](https://github.com/membrane/api-gateway). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
