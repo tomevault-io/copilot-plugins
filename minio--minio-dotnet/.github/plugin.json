@@ -1,0 +1,9 @@
+{
+  "name": "minio--minio-dotnet",
+  "displayName": "minio-dotnet",
+  "description": "minio-dotnet",
+  "version": "1.0.0",
+  "author": "minio",
+  "homepage": "https://github.com/minio/minio-dotnet",
+  "skills": []
+}
