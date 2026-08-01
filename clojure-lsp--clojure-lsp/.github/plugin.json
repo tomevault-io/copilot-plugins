@@ -1,0 +1,9 @@
+{
+  "name": "clojure-lsp--clojure-lsp",
+  "displayName": "clojure-lsp",
+  "description": "clojure-lsp",
+  "version": "1.0.0",
+  "author": "clojure-lsp",
+  "homepage": "https://github.com/clojure-lsp/clojure-lsp",
+  "skills": []
+}
