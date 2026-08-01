@@ -1,7 +1,7 @@
 {
   "name": "fr0ster--mcp-abap-adt",
   "displayName": "mcp-abap-adt",
-  "description": "MCP server for SAP BTP ABAP Cloud and On-Premise ECC/S/4HANA ABAP ADT with full CRUD, JWT/XSUAA, and service-key auth.",
+  "description": "mcp-abap-adt",
   "version": "1.0.0",
   "author": "fr0ster",
   "homepage": "https://github.com/fr0ster/mcp-abap-adt",
