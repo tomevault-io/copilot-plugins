@@ -1,0 +1,9 @@
+{
+  "name": "mattermost--desktop",
+  "displayName": "desktop",
+  "description": "desktop",
+  "version": "1.0.0",
+  "author": "mattermost",
+  "homepage": "https://github.com/mattermost/desktop",
+  "skills": []
+}
