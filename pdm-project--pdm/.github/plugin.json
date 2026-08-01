@@ -1,0 +1,9 @@
+{
+  "name": "pdm-project--pdm",
+  "displayName": "pdm",
+  "description": "pdm",
+  "version": "1.0.0",
+  "author": "pdm-project",
+  "homepage": "https://github.com/pdm-project/pdm",
+  "skills": []
+}
