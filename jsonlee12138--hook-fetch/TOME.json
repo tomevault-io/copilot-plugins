@@ -2,7 +2,7 @@
   "name": "hook-fetch",
   "owner": "JsonLee12138",
   "repo": "hook-fetch",
-  "description": "A lightweight and modern HTTP request library developed based on the native Fetch API of the browser, providing a user-friendly interface similar to Axios and powerful extensibility.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JsonLee12138/hook-fetch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T20:54:19Z"
+  "distributed_at": "2026-08-01T09:00:20Z"
 }
