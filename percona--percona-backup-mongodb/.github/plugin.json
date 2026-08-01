@@ -1,0 +1,9 @@
+{
+  "name": "percona--percona-backup-mongodb",
+  "displayName": "percona-backup-mongodb",
+  "description": "percona-backup-mongodb",
+  "version": "1.0.0",
+  "author": "percona",
+  "homepage": "https://github.com/percona/percona-backup-mongodb",
+  "skills": []
+}
