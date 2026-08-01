@@ -1,23 +1,22 @@
 # minion-agent
 
-> Source: [femto/minion-agent](https://github.com/femto/minion-agent) — distributed by [TomeVault](https://tomevault.io)
-
-A simple agent framework that's capable of browser use + mcp + auto instrument + plan + deep  research + more
+> Source: [femto/minion-agent](https://github.com/femto/minion-agent). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [femto/minion-agent](https://github.com/femto/minion-agent).
+Original source: `` in [femto/minion-agent](https://github.com/femto/minion-agent).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/femto/minion-agent](https://github.com/femto/minion-agent)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/femto/minion-agent](https://github.com/femto/minion-agent)
 
 ---
 
