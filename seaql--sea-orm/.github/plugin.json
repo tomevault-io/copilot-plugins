@@ -1,0 +1,9 @@
+{
+  "name": "seaql--sea-orm",
+  "displayName": "sea-orm",
+  "description": "sea-orm",
+  "version": "1.0.0",
+  "author": "SeaQL",
+  "homepage": "https://github.com/SeaQL/sea-orm",
+  "skills": []
+}
