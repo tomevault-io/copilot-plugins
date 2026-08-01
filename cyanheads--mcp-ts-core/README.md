@@ -1,8 +1,6 @@
 # AI instruction files for mcp-ts-core
 
-> Sourced from [cyanheads/mcp-ts-core](https://github.com/cyanheads/mcp-ts-core) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Agent-native TypeScript framework for building MCP servers. Declarative definitions with auth, multi-backend storage, OpenTelemetry, and first-class support for Bun/Node/Cloudflare Workers.
+> Sourced from [cyanheads/mcp-ts-core](https://github.com/cyanheads/mcp-ts-core), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [cyanheads/mcp-ts-core](https://github.com/cyanh
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/cyanheads/mcp-ts-core](https://github.com/cyanheads/mcp-ts-core)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/cyanheads/mcp-ts-core](https://github.com/cyanheads/mcp-ts-core)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-q -->
