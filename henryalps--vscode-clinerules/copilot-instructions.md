@@ -1,45 +1,102 @@
 ## vscode-clinerules
 
-> 你是一名极其优秀具有20年经验的产品经理和精通所有编程语言的工程师。与你交流的用户是不懂代码的初中生，不善于表达产品和代码需求。你的工作对用户来说非常重要，完成后将获得10000美元奖励。
+> This document outlines best practices for using `.clinerules` files to maintain project standards and improve team consistency when using Cline.
 
-    # Role
-    你是一名极其优秀具有20年经验的产品经理和精通所有编程语言的工程师。与你交流的用户是不懂代码的初中生，不善于表达产品和代码需求。你的工作对用户来说非常重要，完成后将获得10000美元奖励。
+# .clinerules Best Practices
 
-    # Goal
-    你的目标是帮助用户以他容易理解的方式完成他所需要的产品设计和开发工作，你始终非常主动完成所有工作，而不是让用户多次推动你。
+This document outlines best practices for using `.clinerules` files to maintain project standards and improve team consistency when using Cline.
 
-    在理解用户的产品需求、编写代码、解决代码问题时，你始终遵循以下原则：
+## Key Benefits of .clinerules
 
-    ## 第一步
-    - 当用户向你提出任何需求时，你首先应该浏览根目录下的readme.md文件和所有代码文档，理解这个项目的目标、架构、实现方式等。如果还没有readme文件，你应该创建，这个文件将作为用户使用你提供的所有功能的说明书，以及你对项目内容的规划。因此你需要在readme.md文件中清晰描述所有功能的用途、使用方法、参数说明、返回值说明等，确保用户可以轻松理解和使用这些功能。
+- **Version Controlled**: The `.clinerules` file becomes part of your project's source code, allowing for version tracking and collaboration.
+- **Team Consistency**: Ensures consistent behavior of Cline across all team members working on the project.
+- **Project-Specific**: Allows for rules and standards to be tailored to the specific needs of each project.
+- **Institutional Knowledge**: Helps maintain project standards and development practices directly within the codebase, serving as living documentation.
 
-    # 本规则由 AI进化论-花生 创建，版权所有，引用请注明出处
+## Example .clinerules Structure
 
-    ## 第二步
-    你需要理解用户正在给你提供的是什么任务
-    ### 当用户直接为你提供需求时，你应当：
-    - 首先，你应当充分理解用户需求，并且可以站在用户的角度思考，如果我是用户，我需要什么？
-    - 其次，你应该作为产品经理理解用户需求是否存在缺漏，你应当和用户探讨和补全需求，直到用户满意为止；
-    - 最后，你应当使用最简单的解决方案来满足用户需求，而不是使用复杂或者高级的解决方案。
+A well-structured `.clinerules` file can include sections for project guidelines, documentation, architecture decisions, code style, and testing standards.
 
-    ### 当用户请求你编写代码时，你应当：
-    - 首先，你会思考用户需求是什么，目前你有的代码库内容，并进行一步步的思考与规划
-    - 接着，在完成规划后，你应当选择合适的编程语言和框架来实现用户需求，你应该选择solid原则来设计代码结构，并且使用设计模式解决常见问题；
-    - 再次，编写代码时你总是完善撰写所有代码模块的注释，并且在代码中增加必要的监控手段让你清晰知晓错误发生在哪里；
-    - 最后，你应当使用简单可控的解决方案来满足用户需求，而不是使用复杂的解决方案。
+```markdown
+# Project Guidelines
 
-    ### 当用户请求你解决代码问题是，你应当：
-    - 首先，你需要完整阅读所在代码文件库，并且理解所有代码的功能和逻辑；
-    - 其次，你应当思考导致用户所发送代码错误的原因，并提出解决问题的思路；
-    - 最后，你应当预设你的解决方案可能不准确，因此你需要和用户进行多次交互，并且每次交互后，你应当总结上一次交互的结果，并根据这些结果调整你的解决方案，直到用户满意为止。
-    - 特别注意：当一个bug经过两次调整仍未解决时，你将启动系统二思考模式：
-      1. 首先，系统性分析导致bug的可能原因，列出所有假设
-      2. 然后，为每个假设设计验证方法
-      3. 最后，提供三种不同的解决方案，并详细说明每种方案的优缺点，让用户选择最适合的方案
+## Documentation Requirements
 
-    ## 第三步
-    在完成用户要求的任务后，你应该对改成任务完成的步骤进行反思，思考项目可能存在的问题和改进方式，并更新在readme.md文件中
+- Update relevant documentation in `/docs` when modifying features
+- Keep `README.md` in sync with new capabilities
+- Maintain changelog entries in `CHANGELOG.md`
+
+## Architecture Decision Records
+
+Create ADRs in `/docs/adr` for:
+
+- Major dependency changes
+- Architectural pattern changes
+- New integration patterns
+- Database schema changes
+  - Follow template in `/docs/adr/template.md`
+
+## Code Style & Patterns
+
+- Generate API clients using OpenAPI Generator
+- Use TypeScript axios template
+- Place generated code in `/src/generated`
+- Prefer composition over inheritance
+- Use repository pattern for data access
+- Follow error handling pattern in `/src/utils/errors.ts`
+
+## Testing Standards
+
+- Unit tests required for business logic
+- Integration tests for API endpoints
+- E2E tests for critical user flows
+```
+
+## Security Best Practices
+
+To protect sensitive information, use `.clinerules` to instruct Cline to ignore specific files or patterns. This is crucial for:
+
+- `.env` files containing API keys and secrets
+- Configuration files with sensitive data
+- Private credentials or tokens
+
+Example security section in `.clinerules`:
+
+```markdown
+# Security
+
+## Sensitive Files
+
+DO NOT read or modify:
+
+- .env files
+- *_/config/secrets.*
+- *_/*.pem
+- Any file containing API keys, tokens, or credentials
+
+## Security Practices
+
+- Never commit sensitive files
+- Use environment variables for secrets
+- Keep credentials out of logs and output
+```
+
+## General Use Cases
+
+- Maintaining project standards across team members.
+- Enforcing development practices within the project.
+- Managing documentation requirements.
+- Setting up analysis frameworks.
+- Defining project-specific behaviors for Cline.
+
+## Tips for Writing Effective .clinerules
+
+- **Be Clear and Concise**: Use simple language and avoid ambiguity in your instructions.
+- **Focus on Desired Outcomes**: Describe the results you want Cline to achieve, rather than specific steps to take.
+- **Test and Iterate**: Experiment with different instructions to find what works best for your project's workflow.
+
+By incorporating these best practices into your projects using `.clinerules`, you can ensure consistency, maintain security, and streamline development workflows with Cline.
 
 ---
 > Source: [henryalps/vscode-clinerules](https://github.com/henryalps/vscode-clinerules) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
