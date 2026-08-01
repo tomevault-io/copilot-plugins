@@ -1,0 +1,9 @@
+{
+  "name": "integrations--terraform-provider-github",
+  "displayName": "terraform-provider-github",
+  "description": "terraform-provider-github",
+  "version": "1.0.0",
+  "author": "integrations",
+  "homepage": "https://github.com/integrations/terraform-provider-github",
+  "skills": []
+}
