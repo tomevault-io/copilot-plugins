@@ -130,7 +130,7 @@ pnpm lex:diff      # Show changes
 - **Testing**: Place unit tests in `#[cfg(test)]` modules, integration tests in `tests/` directory
 
 ## Git Workflow Guidelines
-- **Codex: You MUST work in a branch, you can NOT push to main and thus you need to make a PR per-feature**
+- **CLAUDE: You MUST work in a branch, you can NOT push to main and thus you need to make a PR per-feature**
 - **Branch naming**: `feature/short-description`, `fix/issue-description`, `refactor/component-name`
 - **Commit format**: `type(scope): description` - e.g. `feat(cadet): add jetstream reconnection`, `fix(aqua): handle empty play submissions`
 - **Commit types**: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`, `perf`, `style`
@@ -188,4 +188,4 @@ docker compose exec aqua-api pnpm db:migrate
 
 ---
 > Source: [teal-fm/teal](https://github.com/teal-fm/teal) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-31 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
