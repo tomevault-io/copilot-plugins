@@ -1,0 +1,9 @@
+{
+  "name": "grafana--pyroscope-java",
+  "displayName": "pyroscope-java",
+  "description": "pyroscope-java",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/pyroscope-java",
+  "skills": []
+}
