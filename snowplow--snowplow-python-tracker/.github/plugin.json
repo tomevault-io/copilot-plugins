@@ -1,0 +1,9 @@
+{
+  "name": "snowplow--snowplow-python-tracker",
+  "displayName": "snowplow-python-tracker",
+  "description": "snowplow-python-tracker",
+  "version": "1.0.0",
+  "author": "snowplow",
+  "homepage": "https://github.com/snowplow/snowplow-python-tracker",
+  "skills": []
+}
