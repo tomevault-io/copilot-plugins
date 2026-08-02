@@ -121,4 +121,4 @@ Tables are pure data stores (no routing, no basePath). Extend binds imported moc
 
 ---
 > Source: [getmockd/mockd](https://github.com/getmockd/mockd) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
