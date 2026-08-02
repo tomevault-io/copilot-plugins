@@ -1,4 +1,4 @@
-## project
+## semcheck
 
 > Semcheck (semantic checker) is a lightweight CLI tool that verifies whether code changes remain consistent with their associated specifications.
 
@@ -61,4 +61,4 @@ Creating new evaluation test cases always start from a "correct" implementation 
 
 ---
 > Source: [rejot-dev/semcheck](https://github.com/rejot-dev/semcheck) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
