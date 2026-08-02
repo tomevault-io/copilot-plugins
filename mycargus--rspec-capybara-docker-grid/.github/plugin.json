@@ -1,0 +1,9 @@
+{
+  "name": "mycargus--rspec-capybara-docker-grid",
+  "displayName": "rspec-capybara-docker-grid",
+  "description": "rspec-capybara-docker-grid",
+  "version": "1.0.0",
+  "author": "mycargus",
+  "homepage": "https://github.com/mycargus/rspec-capybara-docker-grid",
+  "skills": []
+}
