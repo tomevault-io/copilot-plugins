@@ -4,7 +4,7 @@
   "repo": "ca-demos-and-tools",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/looker-open-source/ca-demos-and-tools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T00:44:53Z"
+  "distributed_at": "2026-08-02T01:56:38Z"
 }
