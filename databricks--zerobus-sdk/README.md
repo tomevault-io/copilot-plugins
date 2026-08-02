@@ -1,8 +1,6 @@
 # AI instruction files for zerobus-sdk
 
-> Sourced from [databricks/zerobus-sdk](https://github.com/databricks/zerobus-sdk) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Databricks's Zerobus Ingest SDKs
+> Sourced from [databricks/zerobus-sdk](https://github.com/databricks/zerobus-sdk), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [databricks/zerobus-sdk](https://github.com/data
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [databricks/zerobus-sdk](https://github.com/databricks/zerobus-sdk) — a repo with 73+ stars on GitHub.
+From [databricks/zerobus-sdk](https://github.com/databricks/zerobus-sdk) — a repo with 85+ stars on GitHub.
 
 ---
 
