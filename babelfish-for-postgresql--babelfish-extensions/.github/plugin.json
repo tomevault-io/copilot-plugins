@@ -1,0 +1,9 @@
+{
+  "name": "babelfish-for-postgresql--babelfish-extensions",
+  "displayName": "babelfish_extensions",
+  "description": "babelfish_extensions",
+  "version": "1.0.0",
+  "author": "babelfish-for-postgresql",
+  "homepage": "https://github.com/babelfish-for-postgresql/babelfish_extensions",
+  "skills": []
+}
