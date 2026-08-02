@@ -1,55 +1,58 @@
 ## mobius
 
-> Code lives under `models/{class}/{model}/{target}`; follow the existing `vad/silero-vad/coreml` pattern when adding new work. Each target directory bundles its own `pyproject.toml`, `uv.lock`, conversion scripts, docs, and sample assets, functioning as a self-contained toolkit. Keep notes or licensing files (`README.md`, `CITATION.cff`) next to the model and push large binaries to Hugging Face.
+> Python CLI tool to profile CoreML model compute device assignments (CPU/GPU/ANE) and latency.
 
-# Repository Guidelines
+# coreml-cli
 
-## Project Structure & Module Organization
-Code lives under `models/{class}/{model}/{target}`; follow the existing `vad/silero-vad/coreml` pattern when adding new work. Each target directory bundles its own `pyproject.toml`, `uv.lock`, conversion scripts, docs, and sample assets, functioning as a self-contained toolkit. Keep notes or licensing files (`README.md`, `CITATION.cff`) next to the model and push large binaries to Hugging Face.
+## Project
+Python CLI tool to profile CoreML model compute device assignments (CPU/GPU/ANE) and latency.
+Uses PyObjC to call CoreML framework APIs (both public and private/reverse-engineered).
+Managed by `uv`. Entry point: `coreml-cli = "coreml_cli.cli:app"`.
 
-## Build, Test, and Development Commands
-- `uv sync` — create or refresh the local environment defined by the active target's `pyproject.toml` (Python 3.10.12).
-- `uv run python convert-coreml.py --output-dir ./build/<name>` — run the conversion pipeline and emit CoreML bundles.
-- `uv run python compare-models.py --audio-file <path> --coreml-dir <dir>` — benchmark converted models when comparison tooling is present.
-- `uv run python test.py` — execute the model-specific smoke test (e.g., diarization pipeline in `pyannote-community-1`).
-Run these from the target directory so relative paths resolve.
+## Commands
+- `uv run coreml-cli <model>` — benchmark: latency, compile time, device % across all compute unit configs
+- `uv run coreml-cli <model> --fallback` — ANE optimization: show CPU fallback ops grouped by rejection reason
+- `uv run coreml-cli <model> --fallback --json` — structured fallback analysis for agent parsing
+- `uv run coreml-cli <model> --json` — full benchmark as JSON
+- `uv run coreml-cli <model> --ops` — include per-operation breakdown
+- `uv run coreml-cli <model> --detailed` — private API data per op (implies --ops)
+- `uv run coreml-cli <model> --debug` — progress logs to stderr
+- `uv sync` — install/update dependencies
 
-## Profiling Converted Models
-After conversion, use `coreml-cli` to verify ANE compatibility and measure performance.
+## Architecture
+- `cli.py` — Typer CLI, wiring, merge logic
+- `compute_plan.py` — Public MLComputePlan API (device assignment + cost per op)
+- `private_profiler.py` — Private MLE5Engine API (backend support, estimated runtimes)
+- `fallback.py` — Analyze CPU fallback ops, group by ANE rejection reason
+- `latency.py` — Prediction timing via PyObjC MLModel (5 warmup + N iterations)
+- `metadata.py` — Model metadata from metadata.json + MLModel description
+- `model_loader.py` — Discover .mlmodelc/.mlpackage, compile via coremltools
+- `output.py` — Table (default), fallback table, and JSON formatters
 
-**Setup** (one-time): `cd tools/coreml-cli && uv sync`
+## Critical: macOS 26 (Tahoe) Enum Changes
+CoreML enum values differ from older macOS. NEVER hardcode enum ints.
+Use framework constants: `CoreML.MLComputeUnitsAll`, `CoreML.MLFeatureTypeMultiArray`, etc.
+Example: MLComputeUnitsCPUOnly=0 on macOS 26 vs 1 on older versions.
 
-**Benchmarking** — latency, compile time, and device assignment across compute units:
-- `uv run coreml-cli path/to/model.mlmodelc` — profile a single model across all compute-unit configs.
-- `uv run coreml-cli path/to/models/` — profile all `.mlmodelc` models in a directory.
-- `uv run coreml-cli model.mlmodelc --json` — JSON output for programmatic use.
-- `uv run coreml-cli model.mlmodelc --ops` — include per-operation device breakdown.
-- `uv run coreml-cli model.mlmodelc --detailed` — add private API data (backend support, estimated runtimes per backend).
+## PyObjC Gotchas
+- `MLComputePlan` has no sync class method — use async `loadContentsOfURL_configuration_completionHandler_` with threading.Event
+- `op.outputs()` returns NSArray of MLModelStructureProgramNamedValueType, not a dict — use `outputs[0].name()`
+- `MLMultiArray.dataPointer()` returns `objc.varlist`, not int — use `setObject_atIndexedSubscript_` to fill values
+- `segmentationAnalyticsAndReturnError_` returns single value (not tuple) — don't unpack
+- `SelectedBackend` from private API has embedded quotes like `'"bnns"'` — strip them
+- `MLModelConfiguration.setExperimentalMLProgramEncryptedCacheUsage_(0)` bypasses the E5 on-disk compilation cache (used for cold compile measurement). The ANECompilerService daemon also caches in memory — for true first-launch timing, restart it: `sudo killall ANECompilerService`
 
-**ANE fallback analysis** — identify why ops fall back to CPU and what to fix:
-- `uv run coreml-cli model.mlmodelc --fallback` — show CPU ops grouped by ANE rejection reason.
-- `uv run coreml-cli model.mlmodelc --fallback --json` — structured JSON for agent parsing.
+## Design Principles
+- Agent-first: table output default, `--json` for structured. No rich/colorama.
+- stdout = data only, stderr = debug logs (gated by `--debug`)
+- Suppress CoreML system logs via `OS_ACTIVITY_DT_MODE=disable` unless debugging
+- Operations list excluded by default (too verbose) — opt-in via `--ops`
+- Errors raise exceptions, don't print-and-continue
 
-Use `--fallback` in the optimization loop: change conversion → reconvert → `--fallback` → fix blockers → repeat. Common fixes: cast int32 to float16, decompose unsupported ops (LSTM, logical_and), fix cascading dependencies.
-
-## Deployment Targets & Runtime Tips
-Things to keep in mind:
-- Trace with `.CpuOnly`.
-- Target iOS17+ (most users are on iOS17/macOS 14 right now).
-- Use `uv` to manage dependencies.
-
-## Coding Style & Naming Conventions
-Use 4-space indentation, type hints when practical, and prefer double-quoted strings. Keep filenames and directories lowercase-kebab-case, mirroring upstream model names and runtime targets (`coreml`, `onnx`, etc.). When packaging libraries, put importable code under `src/<package>` and expose CLIs via `main()` guards. Update per-model READMEs with concise variant notes and cite upstream work.
-
-## Testing Guidelines
-Ship a runnable sanity check: load bundled sample assets (e.g., `yc_first_minute.wav`) and verify end-to-end output. Document prerequisites such as `git lfs install` before cloning large checkpoints. Prefer deterministic assertions or summary prints, and capture expected metrics or speedups when adding benchmarking utilities.
-
-## Commit & Pull Request Guidelines
-Write concise, imperative commit subjects and append issue numbers when relevant (`Move parakeet to the right folder`, `... (#4)`). Pull requests should describe the model, destination runtime, conversion steps, and validation evidence (logs, plots, or HF links). Highlight deviations from existing structure, call out new dependencies, and note follow-up work so reviewers can reason about downstream impact quickly.
-
-## Model Assets & Distribution
-Store hefty weights, notebooks, and rendered plots externally (Hugging Face Hub or blog posts) and keep only lightweight helpers in-repo. Include download instructions or automation scripts when third-party assets are required, and double-check that redistribution complies with upstream licenses before publishing.
+## Test Models
+`test_models/160ms/` — downloaded from HuggingFace FluidInference/parakeet-realtime-eou-120m-coreml
+Contains: decoder.mlmodelc, joint_decision.mlmodelc, streaming_encoder.mlmodelc
 
 ---
 > Source: [FluidInference/mobius](https://github.com/FluidInference/mobius) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
