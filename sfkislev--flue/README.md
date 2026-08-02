@@ -1,8 +1,6 @@
 # Flue
 
-> Source: [SFKislev/Flue](https://github.com/SFKislev/Flue) — distributed by [TomeVault](https://tomevault.io)
-
-Let agents control many desktop software directly from the cli, with one pip install, and no MCP servers.
+> Source: [SFKislev/Flue](https://github.com/SFKislev/Flue). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [SFKislev/Flue](https://github.com/SFKislev/Flue
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [SFKislev/Flue](https://github.com/SFKislev/Flue) — a repo with 22+ stars on GitHub.
+From [SFKislev/Flue](https://github.com/SFKislev/Flue) — a repo with 58+ stars on GitHub.
 
 ---
 
