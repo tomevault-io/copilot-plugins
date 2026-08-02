@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cluster-monitoring-operator",
+  "displayName": "cluster-monitoring-operator",
+  "description": "cluster-monitoring-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cluster-monitoring-operator",
+  "skills": []
+}
