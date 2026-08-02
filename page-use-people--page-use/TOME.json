@@ -4,7 +4,7 @@
   "repo": "page-use",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/page-use-people/page-use",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T18:52:01Z"
+  "distributed_at": "2026-08-02T19:51:14Z"
 }
