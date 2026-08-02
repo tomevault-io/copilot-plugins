@@ -2,9 +2,9 @@
   "name": "Codeman",
   "owner": "Ark0N",
   "repo": "Codeman",
-  "description": "Manage Claude Code & Opencode in Tmux Sessions in a modern WebUI",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ark0N/Codeman",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T07:30:33Z"
+  "distributed_at": "2026-08-02T11:03:27Z"
 }
