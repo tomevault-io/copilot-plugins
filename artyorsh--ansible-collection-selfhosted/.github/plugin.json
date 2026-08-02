@@ -1,0 +1,9 @@
+{
+  "name": "artyorsh--ansible-collection-selfhosted",
+  "displayName": "ansible-collection-selfhosted",
+  "description": "ansible-collection-selfhosted",
+  "version": "1.0.0",
+  "author": "artyorsh",
+  "homepage": "https://github.com/artyorsh/ansible-collection-selfhosted",
+  "skills": []
+}
