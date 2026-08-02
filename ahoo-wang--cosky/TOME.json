@@ -4,7 +4,7 @@
   "repo": "CoSky",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ahoo-Wang/CoSky",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-01T21:14:31Z"
+  "distributed_at": "2026-08-02T11:52:36Z"
 }
