@@ -1,0 +1,9 @@
+{
+  "name": "openshift--service-ca-operator",
+  "displayName": "service-ca-operator",
+  "description": "service-ca-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/service-ca-operator",
+  "skills": []
+}
