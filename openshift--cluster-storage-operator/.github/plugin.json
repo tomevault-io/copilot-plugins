@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cluster-storage-operator",
+  "displayName": "cluster-storage-operator",
+  "description": "cluster-storage-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cluster-storage-operator",
+  "skills": []
+}
