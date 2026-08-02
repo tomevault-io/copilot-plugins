@@ -1,8 +1,6 @@
 # AI instruction files for Foundry-Local-Lab
 
-> Sourced from [microsoft-foundry/Foundry-Local-Lab](https://github.com/microsoft-foundry/Foundry-Local-Lab) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Microsoft Foundry Local - Workshop - Build AI apps locally with Foundry Local - RAG, agents, and multi-agent workflows in Python, JS, and C#. No cloud required.
+> Sourced from [microsoft-foundry/Foundry-Local-Lab](https://github.com/microsoft-foundry/Foundry-Local-Lab), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [microsoft-foundry/Foundry-Local-Lab](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/microsoft-foundry/Foundry-Local-Lab](https://github.com/microsoft-foundry/Foundry-Local-Lab)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/microsoft-foundry/Foundry-Local-Lab](https://github.com/microsoft-foundry/Foundry-Local-Lab)
 
 ---
 
