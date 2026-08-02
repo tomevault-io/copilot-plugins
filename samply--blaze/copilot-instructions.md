@@ -1,0 +1,117 @@
+## blaze
+
+> The goal of this project is to provide a FHIR® Server with an internal CQL Evaluation Engine which is able to answer population wide aggregate queries in a timely manner to enable interactive, online queries over millions of patients.
+
+# Agent Instructions
+
+## Project Goal
+
+The goal of this project is to provide a FHIR® Server with an internal CQL Evaluation Engine which is able to answer population wide aggregate queries in a timely manner to enable interactive, online queries over millions of patients.
+
+## Project Structure
+
+* **Language:** Main language is Clojure with some parts written in Java.
+* **Build System:** Clojure `tools.deps`. All build steps are available via `Makefiles`.
+* **Modules:** Most code is located in `modules/`. Each module is structured similarly.
+  * **Frontend:** A special module `modules/frontend` written in Svelte.
+* **Server:** The FHIR Server is built via the top-level `Makefile`.
+
+## Code Conventions & Idioms
+
+Rigorous adherence to these patterns is required:
+
+* **Functional Core:** Blaze is primarily implemented using **pure functions**.
+* **Error Handling:** Use **[Cognitect Anomalies](https://github.com/cognitect-labs/anomalies/)** for error handling. Do **not** use Exceptions for control flow.
+* **Component System:**
+  * Use **[Integrant](https://github.com/weavejester/integrant)** for wiring components.
+  * Implement `ig/init-key` and `ig/halt-key!` multimethods.
+  * Define `m/pre-init-spec` for dependency validation.
+* **Specs:**
+  * Every public function must have a spec.
+  * **Location:** Specs must never be defined inline in the implementation namespace. There are two distinct spec namespace conventions:
+    * `s/def` (data/attribute specs) → dot-separated `*.spec` namespace (e.g., `blaze.db.node.spec` for `blaze.db.node`), in a `spec.clj` file nested under the namespace directory.
+    * `s/fdef` (function specs) → hyphen-separated `*-spec` namespace (e.g., `blaze.db.node-spec` for `blaze.db.node`), as a sibling file to the implementation.
+  * **Classpath:** Public module-level specs go in `src`, but inner-module public function specs should be in `test` to keep the production classpath small.
+* **Java Interop:**
+  * Avoid reflection.
+  * **Mandatory:** Add `(set! *warn-on-reflection* true)` to any namespace performing Java interop.
+* **Async Composition:**
+  * Prefer the `blaze.async.comp/do-sync` macro over threading chains of `blaze.async.comp/then-apply` where feasible.
+  * Always use `blaze.async.comp/then-apply`, `blaze.async.comp/then-compose` and similar in conjunction with the threading macro (`->`), never as a standalone call.
+* **Macros:**
+  * Macros must always be `:refer`ed directly so they can be used without a namespace alias prefix (e.g., `[blaze.async.comp :refer [do-sync]]`).
+* **Reuse:**
+  * Avoid code duplication.
+  * Use existing functions if possible.
+  * Create a function if code is used more than two times.
+* **No no-op nil calls:** Don't deliberately call a function with a `nil` argument just so it does nothing and returns its input unchanged (e.g. a nil-tolerant pass-through wrapper for an optional dependency). This is an antipattern — it hides the optionality at the call site. Make the call conditional instead (e.g. with `cond->`), so the absence of the dependency is visible where it matters.
+* **Testing:**
+  * **Test-Driven Development (mandatory):** Never change production code without first writing a failing test that captures the new behaviour. Write the test, see it fail, then make it pass. This applies to bug fixes (regression test first), new features, and contract changes (e.g. allowing an anomaly return value).
+  * **Spec Instrumentation:** Always enable spec instrumentation in tests to catch spec violations early.
+    * Require `[clojure.spec.test.alpha :as st]`.
+    * Call `(st/instrument)` at the top level of the test namespace.
+  * **Java Interop:** Enable reflection warnings (`(set! *warn-on-reflection* true)`) ONLY if the test namespace performs Java interop.
+  * **Fixtures:** Use the standard test fixture in all test namespaces.
+    * Require `[blaze.test-util :as tu]`.
+    * Call `(test/use-fixtures :each tu/fixture)`.
+  * **Locale:** When a test asserts on locale-sensitive formatting (e.g. the thousands separator in `10,000`), call `(tu/set-default-locale-english!)` at the top level of the test namespace. Do **not** make the production code locale-independent for this — set the locale in the test instead. For this to work the production code must build such strings at call time, not in a top-level `def` (a `def` is evaluated at namespace load, before the test sets the locale).
+  * **Assertions:** Use the `given` macro from `juxt.iota` for asserting map values (e.g. anomalies).
+    * Require `[juxt.iota :refer [given]]`.
+    * Example: `(given (my-fn ...) ::anom/category := ::anom/fault ::anom/message := "...")`
+    * Use `is` only for simple scalar equality checks that don't involve maps.
+  * **Async Testing:**
+    * To assert that a `CompletableFuture` completes *exceptionally* with an anomaly, use `given-failed-future` from `blaze.module.test-util` — **not** the `(given (ba/try-anomaly (ac/join ...)))` pattern.
+    * To obtain the value of a successfully-completed future inside a test, use `@future` (Clojure's `deref`).
+  * **Private Functions:** Do **not** call private functions (via `#'`) from tests. If a function needs to be tested, move it to an `impl` namespace where it becomes part of the public API of that namespace.
+
+## Integration Test Scripts
+
+* **Downloading search results:** In integration test scripts (`.github/scripts`, `.github/integration-test-*`), use `blazectl download` to fetch all resources matching a FHIR search — blazectl performs paging. Do **not** use `curl` with a large `_count` value, which silently truncates the result at one page.
+
+## Documentation
+
+* **Environment Variables:** Every new environment variable introduced via `#blaze/cfg` in `resources/blaze.edn` must be documented in `docs/deployment/environment-variables.md`, following the existing format (heading, description, default value, since badge).
+
+## Release Notes
+
+When generating a `CHANGELOG.md` entry for a new version:
+
+1. **Fetch issues** from the GitHub milestone matching the version name: `gh issue list --milestone <version> --state all --limit 200 --json number,title,labels,state,url`
+2. **Fetch the milestone number** for the "full changelog" link: `gh api repos/samply/blaze/milestones --jq '.[] | select(.title == "<version>") | .number'`
+3. **Categorize** issues by their labels into sections — in this order if present: `Notes`, `Survey`, `Security`, `Enhancements`, `Performance`, `Bugfixes`, `Documentation`, `Maintenance`. Omit issues labeled `ci` and dependency updates.
+4. **Use issue titles verbatim** (1:1) as the changelog entry text. Do **not** rewrite, title-case, shorten, or normalize them to the imperative mood — even when an issue title does not follow the usual title conventions. Fixing the issue title is out of scope at release time.
+5. **Insert** the new entry at the top of `CHANGELOG.md`, directly below the `# Changelog` heading, following the format of existing entries.
+6. **End** the entry with: `The full changelog can be found [here](https://github.com/samply/blaze/milestone/<number>?closed=1).`
+
+## Verification & Workflow
+
+When starting to work on an issue, you can use the GitHub CLI to fetch the issue details: `gh issue view <issue-number>`
+
+When **creating** an issue, classify it via GitHub's native issue **type** (e.g. `Bug`, `Feature`), not via a `bug`/`feature` label. The `gh issue create` flag for this is `--type` (e.g. `gh issue create --type Bug ...`). Only labels that aren't covered by a type (e.g. `module:db`) should be passed via `--label`. Bugs in test code that can be fixed purely by changing **only** test code (e.g. a flaky test) aren't bugs, because the production code is unaffected. Such issues get the type `Task`, not `Bug`.
+
+Always run `make build-ig` first on a freshly created git worktree. Some modules (e.g. `job-async-interaction` and anything depending on it, like `interaction`) need the generated IG resources, which are absent in a new worktree and would otherwise make prep fail.
+
+Before finishing a task, ensure the following commands pass:
+
+1.  **Format:** `make fmt`
+2.  **Lint:** `make lint` (Uses `clj-kondo`)
+3.  **Test:** Run tests only for the modules you changed: `make -C modules/<module> test` (e.g. `make -C modules/db test`). Use `make test` only when changes span multiple modules or the root.
+    * To run a single test or a single namespace, use the `test-focus` target with a `FOCUS` variable holding a kaocha test id — either a whole namespace or a `namespace/var`: `make -C modules/<module> test-focus FOCUS=blaze.db.api-test` or `make -C modules/db test-focus FOCUS=blaze.db.api-test/pull-fn-test`.
+4.  **Coverage:** `make test-coverage` (Checks for adequate test coverage — must be **≥ 95% forms**)
+    * Reflection warnings printed during `make test-coverage` are **normal**: cloverage instruments the code in a way that disables type hints, so reflection warnings appear there even for correctly hinted code. Do not try to fix them based on the coverage run — only reflection warnings from `make lint`/normal compilation matter.
+
+When adding a **new module** under `modules/`, also add it to the `module` matrix in `.github/workflows/build.yml` (the `test` job, sorted alphabetically) so CI picks it up.
+
+**Every change requires a GitHub issue.** If no issue exists for the work, create one first (see above) before writing any code. All work must be tracked by an issue.
+
+After verification, when working on an issue:
+
+1. Commit the changes: `git add .` and `git commit`
+   * The commit title should be the issue title. Both use the imperative mood, are written in title case, and fit within about 50 characters (e.g. `Fix Error Combining Composite Token-Token Params`).
+   * The commit body should just contain: `Closes: #<issue-number>`
+   * Do **not** add a `Co-Authored-By` trailer (or any other AI/tool attribution). The changes are authored by the human, who appears as the commit's author and uses AI merely as a tool; the AI assistant may appear only as the commit's committer.
+2. There should be exactly one commit per issue. Multiple changes have to be ammended to the first commit.
+
+---
+> Source: [samply/blaze](https://github.com/samply/blaze) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
