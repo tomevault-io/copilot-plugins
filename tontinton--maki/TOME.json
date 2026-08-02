@@ -2,7 +2,7 @@
   "name": "maki",
   "owner": "tontinton",
   "repo": "maki",
-  "description": "An efficient AI coding agent",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tontinton/maki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T14:41:10Z"
+  "distributed_at": "2026-08-02T11:22:03Z"
 }
