@@ -8439,6 +8439,11 @@
       "description": "Kami"
     },
     {
+      "name": "insertkoinio--koin",
+      "source": "./insertkoinio--koin",
+      "description": "koin"
+    },
+    {
       "name": "ruby-grape--grape",
       "source": "./ruby-grape--grape",
       "description": "grape"
@@ -24769,6 +24774,11 @@
       "description": "wcf"
     },
     {
+      "name": "timonweb--django-tailwind",
+      "source": "./timonweb--django-tailwind",
+      "description": "django-tailwind"
+    },
+    {
       "name": "kubetail-org--kubetail",
       "source": "./kubetail-org--kubetail",
       "description": "kubetail"
@@ -24937,6 +24947,11 @@
       "name": "ribirx--ribir",
       "source": "./ribirx--ribir",
       "description": "Ribir"
+    },
+    {
+      "name": "shakacode--react-webpack-rails-tutorial",
+      "source": "./shakacode--react-webpack-rails-tutorial",
+      "description": "react-webpack-rails-tutorial"
     },
     {
       "name": "shakacode--react-webpack-rails-tutorial",
@@ -34759,6 +34774,11 @@
       "description": "retroboy"
     },
     {
+      "name": "cinvin--myuserscripts",
+      "source": "./cinvin--myuserscripts",
+      "description": "myuserscripts"
+    },
+    {
       "name": "rchgrav--claudebox",
       "source": "./rchgrav--claudebox",
       "description": "The Ultimate Claude Code Docker Development Environment - Run Claude AI's coding assistant in a fully containerized, reproducible environment with pre-configured development profiles."
@@ -36077,6 +36097,11 @@
       "name": "gsmanagerxz--gameservermanager",
       "source": "./gsmanagerxz--gameservermanager",
       "description": "GameServerManager\uff08\u7b80\u79f0GSManager\uff09\u73b0\u4ee3\u5316\u6e38\u620f\u4e00\u952e\u90e8\u7f72\u9762\u677f\uff0c\u4e13\u4e3a\u7b80\u5316\u6e38\u620f\u670d\u52a1\u5668\u7684\u90e8\u7f72\u3001\u7ba1\u7406\u548c\u7ef4\u62a4\u800c\u8bbe\u8ba1\uff1b\u6ce8\u91cdsteam\u3001MC\u6e38\u620f\u4e00\u952e\u5f00\u670d"
+    },
+    {
+      "name": "caoccao--javet",
+      "source": "./caoccao--javet",
+      "description": "Javet"
     },
     {
       "name": "negokaz--excel-mcp-server",
@@ -39444,6 +39469,11 @@
       "description": "iac"
     },
     {
+      "name": "asciidoctor--asciidoctor-js",
+      "source": "./asciidoctor--asciidoctor-js",
+      "description": "asciidoctor.js"
+    },
+    {
       "name": "bugzmanov--bookokrat",
       "source": "./bugzmanov--bookokrat",
       "description": "A terminal EPUB / PDF Book Reader (+djvu)"
@@ -40604,6 +40634,11 @@
       "description": "obsidian-i18n"
     },
     {
+      "name": "zulip--docker-zulip",
+      "source": "./zulip--docker-zulip",
+      "description": "docker-zulip"
+    },
+    {
       "name": "neondatabase--appdotbuild-agent",
       "source": "./neondatabase--appdotbuild-agent",
       "description": "The agent that generates working apps (and maybe some other things)"
@@ -41097,6 +41132,16 @@
       "name": "pbeenigg--littlecrawler",
       "source": "./pbeenigg--littlecrawler",
       "description": "LittleCrawler"
+    },
+    {
+      "name": "sklinkert--go-ddd",
+      "source": "./sklinkert--go-ddd",
+      "description": "go-ddd"
+    },
+    {
+      "name": "sklinkert--go-ddd",
+      "source": "./sklinkert--go-ddd",
+      "description": "go-ddd"
     },
     {
       "name": "terryso--claude-auto-resume",
@@ -41992,6 +42037,11 @@
       "name": "chirpz-ai--pandaprobe",
       "source": "./chirpz-ai--pandaprobe",
       "description": "pandaprobe"
+    },
+    {
+      "name": "kbst--terraform-kubestack",
+      "source": "./kbst--terraform-kubestack",
+      "description": "terraform-kubestack"
     },
     {
       "name": "kbst--terraform-kubestack",
@@ -43237,6 +43287,11 @@
       "name": "mkdocstrings--griffe",
       "source": "./mkdocstrings--griffe",
       "description": "griffe"
+    },
+    {
+      "name": "shorepine--amy",
+      "source": "./shorepine--amy",
+      "description": "amy"
     },
     {
       "name": "devnullvoid--pvetui",
@@ -46719,6 +46774,11 @@
       "description": "troubleshoot"
     },
     {
+      "name": "jasonlong--mater",
+      "source": "./jasonlong--mater",
+      "description": "mater"
+    },
+    {
       "name": "gcwing--bitfun",
       "source": "./gcwing--bitfun",
       "description": "BitFun is a next-generation AI assistant with built-in Code Agent and Cowork Agent. It has memory, personality, and the ability to evolve over time. You can remotely control the desktop through mobile"
@@ -48459,6 +48519,11 @@
       "description": "mscclpp"
     },
     {
+      "name": "win4r--lossless-claw-enhanced",
+      "source": "./win4r--lossless-claw-enhanced",
+      "description": "lossless-claw-enhanced"
+    },
+    {
       "name": "itq5--openclaw-admin",
       "source": "./itq5--openclaw-admin",
       "description": "Claw-Admin \u662f\u4e00\u4e2a\u57fa\u4e8e Vue 3 \u6784\u5efa\u7684\u73b0\u4ee3\u5316 AI \u667a\u80fd\u4f53\u7ba1\u7406\u5e73\u53f0\uff0c\u540c\u65f6\u652f\u6301 OpenClaw Gateway \u548c Hermes Agent \u4e24\u5927 AI \u667a\u80fd\u4f53\u7f51\u5173\u63d0\u4f9b\u5b8c\u6574\u7684 Web \u7ba1\u7406\u754c\u9762\u3002\u901a\u8fc7\u76f4\u89c2\u7684\u53ef\u89c6\u5316\u64cd\u4f5c\uff0c\u7528\u6237\u53ef\u4ee5\u8f7b\u677e\u7ba1\u7406 AI \u667a\u80fd\u4f53\u3001\u4f1a\u8bdd\u3001\u6a21\u578b\u3001\u9891\u9053\u3001\u6280\u80fd\u7b49\u6838\u5fc3\u529f\u80fd\u3002"
@@ -50064,6 +50129,11 @@
       "description": "f-flow"
     },
     {
+      "name": "clickhouse--clickhouse-connect",
+      "source": "./clickhouse--clickhouse-connect",
+      "description": "clickhouse-connect"
+    },
+    {
       "name": "moasq--production-saas-starter",
       "source": "./moasq--production-saas-starter",
       "description": "Production-ready B2B SaaS Starter Kit (Go + Next.js). Modular Monolith. Hexagonal Arch."
@@ -50922,6 +50992,11 @@
       "name": "rushb-fr--freekiosk",
       "source": "./rushb-fr--freekiosk",
       "description": "freekiosk"
+    },
+    {
+      "name": "nats-io--prometheus-nats-exporter",
+      "source": "./nats-io--prometheus-nats-exporter",
+      "description": "prometheus-nats-exporter"
     },
     {
       "name": "meodai--heerich",
@@ -52327,6 +52402,11 @@
       "name": "rr-wfm--msbuild-sdk-sqlproj",
       "source": "./rr-wfm--msbuild-sdk-sqlproj",
       "description": "MSBuild.Sdk.SqlProj"
+    },
+    {
+      "name": "chipsalliance--surelog",
+      "source": "./chipsalliance--surelog",
+      "description": "Surelog"
     },
     {
       "name": "open-telemetry--opentelemetry-ebpf-instrumentation",
@@ -54192,6 +54272,11 @@
       "name": "rustcoreutils--posixutils-rs",
       "source": "./rustcoreutils--posixutils-rs",
       "description": "posixutils-rs"
+    },
+    {
+      "name": "livekit--client-sdk-swift",
+      "source": "./livekit--client-sdk-swift",
+      "description": "client-sdk-swift"
     },
     {
       "name": "tomascupr--sandstorm",
@@ -61329,6 +61414,11 @@
       "description": "Incrementalist"
     },
     {
+      "name": "hcloud-talos--terraform-hcloud-talos",
+      "source": "./hcloud-talos--terraform-hcloud-talos",
+      "description": "terraform-hcloud-talos"
+    },
+    {
       "name": "ai-boost--awesome-harness-engineering",
       "source": "./ai-boost--awesome-harness-engineering",
       "description": "awesome-harness-engineering"
@@ -61979,6 +62069,11 @@
       "description": "ClimateTraceKMP"
     },
     {
+      "name": "mikro-orm--nestjs-realworld-example-app",
+      "source": "./mikro-orm--nestjs-realworld-example-app",
+      "description": "nestjs-realworld-example-app"
+    },
+    {
       "name": "wiedymi--restty",
       "source": "./wiedymi--restty",
       "description": "Powerful, lightweight web terminal. Batteries included. Powered by libghostty-vt, WebGPU, and text-shaper."
@@ -62182,6 +62277,81 @@
       "name": "powerbeef--qwenvoice",
       "source": "./powerbeef--qwenvoice",
       "description": "QwenVoice"
+    },
+    {
+      "name": "lightprotocol--light-protocol",
+      "source": "./lightprotocol--light-protocol",
+      "description": "light-protocol"
+    },
+    {
+      "name": "lightprotocol--light-protocol",
+      "source": "./lightprotocol--light-protocol",
+      "description": "light-protocol"
+    },
+    {
+      "name": "lightprotocol--light-protocol",
+      "source": "./lightprotocol--light-protocol",
+      "description": "light-protocol"
+    },
+    {
+      "name": "lightprotocol--light-protocol",
+      "source": "./lightprotocol--light-protocol",
+      "description": "light-protocol"
+    },
+    {
+      "name": "lightprotocol--light-protocol",
+      "source": "./lightprotocol--light-protocol",
+      "description": "light-protocol"
+    },
+    {
+      "name": "lightprotocol--light-protocol",
+      "source": "./lightprotocol--light-protocol",
+      "description": "light-protocol"
+    },
+    {
+      "name": "lightprotocol--light-protocol",
+      "source": "./lightprotocol--light-protocol",
+      "description": "light-protocol"
+    },
+    {
+      "name": "lightprotocol--light-protocol",
+      "source": "./lightprotocol--light-protocol",
+      "description": "light-protocol"
+    },
+    {
+      "name": "lightprotocol--light-protocol",
+      "source": "./lightprotocol--light-protocol",
+      "description": "light-protocol"
+    },
+    {
+      "name": "lightprotocol--light-protocol",
+      "source": "./lightprotocol--light-protocol",
+      "description": "light-protocol"
+    },
+    {
+      "name": "lightprotocol--light-protocol",
+      "source": "./lightprotocol--light-protocol",
+      "description": "light-protocol"
+    },
+    {
+      "name": "lightprotocol--light-protocol",
+      "source": "./lightprotocol--light-protocol",
+      "description": "light-protocol"
+    },
+    {
+      "name": "lightprotocol--light-protocol",
+      "source": "./lightprotocol--light-protocol",
+      "description": "light-protocol"
+    },
+    {
+      "name": "lightprotocol--light-protocol",
+      "source": "./lightprotocol--light-protocol",
+      "description": "light-protocol"
+    },
+    {
+      "name": "lightprotocol--light-protocol",
+      "source": "./lightprotocol--light-protocol",
+      "description": "light-protocol"
     },
     {
       "name": "lightprotocol--light-protocol",
@@ -65469,6 +65639,11 @@
       "description": "BiliReveal"
     },
     {
+      "name": "vijaygupta18--system-design-simulator",
+      "source": "./vijaygupta18--system-design-simulator",
+      "description": "system-design-simulator"
+    },
+    {
       "name": "aspegio--nelson",
       "source": "./aspegio--nelson",
       "description": "Organisation for your agent teams inspired by time-tested Royal Navy operating procedures."
@@ -65802,6 +65977,11 @@
       "name": "alfresco--alfresco-ng2-components",
       "source": "./alfresco--alfresco-ng2-components",
       "description": "alfresco-ng2-components"
+    },
+    {
+      "name": "farseers--fschedule",
+      "source": "./farseers--fschedule",
+      "description": "FSchedule"
     },
     {
       "name": "lithos-ai--motus",
@@ -81344,6 +81524,21 @@
       "description": "WeihanLi.Npoi"
     },
     {
+      "name": "innogames--slack-bot",
+      "source": "./innogames--slack-bot",
+      "description": "slack-bot"
+    },
+    {
+      "name": "starlake-ai--starlake",
+      "source": "./starlake-ai--starlake",
+      "description": "starlake"
+    },
+    {
+      "name": "starlake-ai--starlake",
+      "source": "./starlake-ai--starlake",
+      "description": "starlake"
+    },
+    {
       "name": "chmouel--lazyworktree",
       "source": "./chmouel--lazyworktree",
       "description": "Easy Git worktree management CLI and TUI for the terminal."
@@ -86897,6 +87092,11 @@
       "name": "categoricaldata--hydra",
       "source": "./categoricaldata--hydra",
       "description": "hydra"
+    },
+    {
+      "name": "hungdn1701--microservices-assignment-starter",
+      "source": "./hungdn1701--microservices-assignment-starter",
+      "description": "microservices-assignment-starter"
     },
     {
       "name": "nokodo-labs--os1",
@@ -92832,6 +93032,11 @@
       "name": "bsolomon1124--demoji",
       "source": "./bsolomon1124--demoji",
       "description": "demoji"
+    },
+    {
+      "name": "googlecloudplatform--gke-mcp",
+      "source": "./googlecloudplatform--gke-mcp",
+      "description": "gke-mcp"
     },
     {
       "name": "xenios-jp--xenios",
@@ -103764,6 +103969,11 @@
       "description": "ui-extensions-sdk"
     },
     {
+      "name": "linkerlin--myclaw-net",
+      "source": "./linkerlin--myclaw-net",
+      "description": "myclaw.net"
+    },
+    {
       "name": "currycan--hatickets",
       "source": "./currycan--hatickets",
       "description": "\u5927\u9ea6\u7f51\u62a2\u7968\u81ea\u52a8\u5316 \u2014 Mobile(U2) / Desktop(Tauri+Rust) \u65b9\u6848"
@@ -106124,6 +106334,11 @@
       "description": "dattri"
     },
     {
+      "name": "senaiverse--claude-code-reactnative-expo-agent-system",
+      "source": "./senaiverse--claude-code-reactnative-expo-agent-system",
+      "description": "claude-code-reactnative-expo-agent-system"
+    },
+    {
       "name": "anthaathi--pico",
       "source": "./anthaathi--pico",
       "description": "A web, mobile and desktop client for pi"
@@ -106437,6 +106652,26 @@
       "name": "kyma-project--cli",
       "source": "./kyma-project--cli",
       "description": "cli"
+    },
+    {
+      "name": "fulcrologic--statecharts",
+      "source": "./fulcrologic--statecharts",
+      "description": "statecharts"
+    },
+    {
+      "name": "fulcrologic--statecharts",
+      "source": "./fulcrologic--statecharts",
+      "description": "statecharts"
+    },
+    {
+      "name": "fulcrologic--statecharts",
+      "source": "./fulcrologic--statecharts",
+      "description": "statecharts"
+    },
+    {
+      "name": "fulcrologic--statecharts",
+      "source": "./fulcrologic--statecharts",
+      "description": "statecharts"
     },
     {
       "name": "boostsecurityio--smokedmeat",
@@ -109014,6 +109249,11 @@
       "description": "android-templates"
     },
     {
+      "name": "gekichumai--dxrating",
+      "source": "./gekichumai--dxrating",
+      "description": "dxrating"
+    },
+    {
       "name": "iusztinpaul--designing-real-world-ai-agents-workshop",
       "source": "./iusztinpaul--designing-real-world-ai-agents-workshop",
       "description": "Hands-on workshop: Build a multi-agent AI system from scratch \u2014 Deep Research Agent + Writing Workflow served as MCP servers. Includes code, slides, and video (coming soon)"
@@ -109407,6 +109647,11 @@
       "name": "tmikov--hermes-jsi-demos",
       "source": "./tmikov--hermes-jsi-demos",
       "description": "hermes-jsi-demos"
+    },
+    {
+      "name": "dharmab--skyeye",
+      "source": "./dharmab--skyeye",
+      "description": "skyeye"
     },
     {
       "name": "jetxu-llm--docmason",
@@ -110337,6 +110582,11 @@
       "name": "sashi0034--angel-lsp",
       "source": "./sashi0034--angel-lsp",
       "description": "angel-lsp"
+    },
+    {
+      "name": "ibehren1--fw-gui",
+      "source": "./ibehren1--fw-gui",
+      "description": "fw-gui"
     },
     {
       "name": "sk-wang--slio-git",
@@ -112857,6 +113107,11 @@
       "name": "uukuguy--speechless",
       "source": "./uukuguy--speechless",
       "description": "speechless"
+    },
+    {
+      "name": "doist--todoist-sdk-typescript",
+      "source": "./doist--todoist-sdk-typescript",
+      "description": "todoist-sdk-typescript"
     },
     {
       "name": "productdevbook--sumak",
@@ -118904,6 +119159,11 @@
       "description": "mind-expander"
     },
     {
+      "name": "cidan--betterbags",
+      "source": "./cidan--betterbags",
+      "description": "BetterBags"
+    },
+    {
       "name": "livekit--livekit-wakeword",
       "source": "./livekit--livekit-wakeword",
       "description": "An open-source wake word library for creating voice-enabled applications."
@@ -119594,6 +119854,251 @@
       "description": "edidreader"
     },
     {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
+      "name": "microsoft-foundry--foundry-local-lab",
+      "source": "./microsoft-foundry--foundry-local-lab",
+      "description": "Foundry-Local-Lab"
+    },
+    {
       "name": "espennilsen--pi",
       "source": "./espennilsen--pi",
       "description": "pi"
@@ -120057,6 +120562,11 @@
       "name": "xiao4579--prism",
       "source": "./xiao4579--prism",
       "description": "PRISM"
+    },
+    {
+      "name": "gianlucamazza--solana-mmaker",
+      "source": "./gianlucamazza--solana-mmaker",
+      "description": "solana-mmaker"
     },
     {
       "name": "xiashao--kaiyantool",
@@ -123824,6 +124334,11 @@
       "description": "unchained"
     },
     {
+      "name": "cyco130--detype",
+      "source": "./cyco130--detype",
+      "description": "detype"
+    },
+    {
       "name": "jjongguet--oh-my-product",
       "source": "./jjongguet--oh-my-product",
       "description": "oh-my-product"
@@ -125067,6 +125582,11 @@
       "name": "mannlabs--alphapeptstats",
       "source": "./mannlabs--alphapeptstats",
       "description": "alphapeptstats"
+    },
+    {
+      "name": "cyco130--vite-plugin-cjs-interop",
+      "source": "./cyco130--vite-plugin-cjs-interop",
+      "description": "vite-plugin-cjs-interop"
     },
     {
       "name": "pikapikaspeedup--antigravity-mobility-cli",
@@ -127252,6 +127772,11 @@
       "name": "ziqizhang--jate",
       "source": "./ziqizhang--jate",
       "description": "jate"
+    },
+    {
+      "name": "turbot--steampipe-postgres-fdw",
+      "source": "./turbot--steampipe-postgres-fdw",
+      "description": "steampipe-postgres-fdw"
     },
     {
       "name": "kulterryan--who-to-bother-at-on-x",
@@ -130644,6 +131169,11 @@
       "description": "Coalesce"
     },
     {
+      "name": "microsoft--agentic-agile-template",
+      "source": "./microsoft--agentic-agile-template",
+      "description": "agentic-agile-template"
+    },
+    {
       "name": "sonarsource--sonarqube-agent-plugins",
       "source": "./sonarsource--sonarqube-agent-plugins",
       "description": "SonarQube Plugin for AI Agents"
@@ -132077,6 +132607,11 @@
       "name": "micropyramid--flutter-crm",
       "source": "./micropyramid--flutter-crm",
       "description": "flutter-crm"
+    },
+    {
+      "name": "opendcai--open-notebooklm",
+      "source": "./opendcai--open-notebooklm",
+      "description": "Open-NotebookLM"
     },
     {
       "name": "alibaba--opc-starter",
@@ -138467,6 +139002,16 @@
       "name": "brianpugh--tamp",
       "source": "./brianpugh--tamp",
       "description": "tamp"
+    },
+    {
+      "name": "humaans--figbird",
+      "source": "./humaans--figbird",
+      "description": "figbird"
+    },
+    {
+      "name": "jason-cyr--ai-agent-workflow",
+      "source": "./jason-cyr--ai-agent-workflow",
+      "description": "ai-agent-workflow"
     },
     {
       "name": "tmdgusya--engineering-discipline",
@@ -157527,6 +158072,16 @@
       "name": "songshgeolab--absespy",
       "source": "./songshgeolab--absespy",
       "description": "ABSESpy"
+    },
+    {
+      "name": "emson--elfmem",
+      "source": "./emson--elfmem",
+      "description": "elfmem"
+    },
+    {
+      "name": "yesongyun--openclaw-cn",
+      "source": "./yesongyun--openclaw-cn",
+      "description": "openclaw-cn"
     },
     {
       "name": "alonw0--llm-docs-optimizer",
@@ -186752,6 +187307,11 @@
       "name": "shardeum--archiver",
       "source": "./shardeum--archiver",
       "description": "archiver"
+    },
+    {
+      "name": "splunk--splunk-connect-for-snmp",
+      "source": "./splunk--splunk-connect-for-snmp",
+      "description": "splunk-connect-for-snmp"
     },
     {
       "name": "yoloshii--mcp-code-execution-enhanced",
