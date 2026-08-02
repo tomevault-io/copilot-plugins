@@ -4,7 +4,7 @@
   "repo": "color-temperature-light-mixer",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mion00/color-temperature-light-mixer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T17:38:32Z"
+  "distributed_at": "2026-08-02T10:40:55Z"
 }
