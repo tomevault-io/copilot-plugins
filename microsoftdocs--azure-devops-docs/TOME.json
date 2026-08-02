@@ -4,7 +4,7 @@
   "repo": "azure-devops-docs",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MicrosoftDocs/azure-devops-docs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T08:04:14Z"
+  "distributed_at": "2026-08-02T07:36:54Z"
 }
