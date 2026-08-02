@@ -1,0 +1,9 @@
+{
+  "name": "nats-io--nats-py",
+  "displayName": "nats.py",
+  "description": "nats.py",
+  "version": "1.0.0",
+  "author": "nats-io",
+  "homepage": "https://github.com/nats-io/nats.py",
+  "skills": []
+}
