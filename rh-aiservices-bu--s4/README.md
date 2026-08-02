@@ -1,8 +1,6 @@
 # s4
 
-> Tome by [rh-aiservices-bu](https://github.com/rh-aiservices-bu/s4) — distributed by [TomeVault](https://tomevault.io)
-
-Super Simple Storage Service
+> Tome by [rh-aiservices-bu](https://github.com/rh-aiservices-bu/s4), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [rh-aiservices-bu/s4](https://github.com/rh-aise
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/rh-aiservices-bu/s4](https://github.com/rh-aiservices-bu/s4)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/rh-aiservices-bu/s4](https://github.com/rh-aiservices-bu/s4)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-q -->
