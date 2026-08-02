@@ -1,7 +1,7 @@
 {
   "name": "getmockd--mockd",
   "displayName": "mockd",
-  "description": "High-performance, multi-protocol mock server. HTTP, WebSocket, gRPC, MQTT, SSE, GraphQL, SOAP in one binary.",
+  "description": "mockd",
   "version": "1.0.0",
   "author": "getmockd",
   "homepage": "https://github.com/getmockd/mockd",
