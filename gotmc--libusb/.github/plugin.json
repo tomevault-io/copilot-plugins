@@ -1,0 +1,9 @@
+{
+  "name": "gotmc--libusb",
+  "displayName": "libusb",
+  "description": "libusb",
+  "version": "1.0.0",
+  "author": "gotmc",
+  "homepage": "https://github.com/gotmc/libusb",
+  "skills": []
+}
