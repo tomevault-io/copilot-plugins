@@ -4,7 +4,7 @@
   "repo": "Citadel",
   "description": "The intelligence layer behind the organization",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/masumi-network/Citadel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-02T10:33:04Z"
+  "distributed_at": "2026-08-02T10:34:07Z"
 }
