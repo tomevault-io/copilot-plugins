@@ -1,8 +1,6 @@
 # arcads-claude-code
 
-> Source: [krusemediallc/arcads-claude-code](https://github.com/krusemediallc/arcads-claude-code) — distributed by [TomeVault](https://tomevault.io)
-
-Arcads external API: agent skills, prompting library, and Cursor/Claude workspace
+> Source: [krusemediallc/arcads-claude-code](https://github.com/krusemediallc/arcads-claude-code). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [krusemediallc/arcads-claude-code](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [krusemediallc/arcads-claude-code](https://github.com/krusemediallc/arcads-claude-code) — a repo with 806+ stars on GitHub.
+From [krusemediallc/arcads-claude-code](https://github.com/krusemediallc/arcads-claude-code) — a repo with 1037+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
