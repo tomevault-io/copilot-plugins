@@ -1,0 +1,9 @@
+{
+  "name": "symfony--ai-agent",
+  "displayName": "ai-agent",
+  "description": "ai-agent",
+  "version": "1.0.0",
+  "author": "symfony",
+  "homepage": "https://github.com/symfony/ai-agent",
+  "skills": []
+}
