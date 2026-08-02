@@ -1,0 +1,9 @@
+{
+  "name": "aiven-open--journalpump",
+  "displayName": "journalpump",
+  "description": "journalpump",
+  "version": "1.0.0",
+  "author": "Aiven-Open",
+  "homepage": "https://github.com/Aiven-Open/journalpump",
+  "skills": []
+}
