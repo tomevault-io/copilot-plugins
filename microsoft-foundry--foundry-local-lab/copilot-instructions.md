@@ -1,16 +1,16 @@
 ## foundry-local-lab
 
-> This file provides context for AI coding agents (GitHub Copilot, Copilot Workspace, Codex, etc.) working in this repository.
+> Este arquivo fornece contexto para agentes de codificação de IA (GitHub Copilot, Copilot Workspace, Codex, etc.) que trabalham neste repositório.
 
-# Coding Agent Instructions
+# Instruções para Agentes de Codificação
 
-This file provides context for AI coding agents (GitHub Copilot, Copilot Workspace, Codex, etc.) working in this repository.
+Este arquivo fornece contexto para agentes de codificação de IA (GitHub Copilot, Copilot Workspace, Codex, etc.) que trabalham neste repositório.
 
-## Project Overview
+## Visão Geral do Projeto
 
-This is a **hands-on workshop** for building AI applications with [Foundry Local](https://foundrylocal.ai) — a lightweight runtime that downloads, manages, and serves language models entirely on-device via an OpenAI-compatible API. The workshop includes step-by-step lab guides and runnable code samples in Python, JavaScript, and C#.
+Este é um **workshop prático** para construir aplicações de IA com o [Foundry Local](https://foundrylocal.ai) — um runtime leve que faz download, gerencia e serve modelos de linguagem inteiramente no dispositivo via uma API compatível com OpenAI. O workshop inclui guias de laboratório passo a passo e exemplos de código executáveis em Python, JavaScript e C#.
 
-## Repository Structure
+## Estrutura do Repositório
 
 ```
 ├── labs/                              # Markdown lab guides (Parts 1–13)
@@ -32,130 +32,137 @@ This is a **hands-on workshop** for building AI applications with [Foundry Local
 └── AGENTS.md                          # This file
 ```
 
-## Language & Framework Details
+## Detalhes de Linguagem e Framework
 
 ### Python
-- **Location:** `python/`, `zava-creative-writer-local/src/api/`
-- **Dependencies:** `python/requirements.txt`, `zava-creative-writer-local/src/api/requirements.txt`
-- **Key packages:** `foundry-local-sdk`, `openai`, `agent-framework-foundry-local`, `fastapi`, `uvicorn`
-- **Min version:** Python 3.9+
-- **Run:** `cd python && pip install -r requirements.txt && python foundry-local.py`
+- **Localização:** `python/`, `zava-creative-writer-local/src/api/`
+- **Dependências:** `python/requirements.txt`, `zava-creative-writer-local/src/api/requirements.txt`
+- **Principais pacotes:** `foundry-local-sdk`, `openai`, `agent-framework-foundry-local`, `fastapi`, `uvicorn`
+- **Versão mínima:** Python 3.9+
+- **Execução:** `cd python && pip install -r requirements.txt && python foundry-local.py`
 
 ### JavaScript
-- **Location:** `javascript/`, `zava-creative-writer-local/src/javascript/`
-- **Dependencies:** `javascript/package.json`, `zava-creative-writer-local/src/javascript/package.json`
-- **Key packages:** `foundry-local-sdk`, `openai`
-- **Module system:** ES modules (`.mjs` files, `"type": "module"`)
-- **Min version:** Node.js 18+
-- **Run:** `cd javascript && npm install && node foundry-local.mjs`
+- **Localização:** `javascript/`, `zava-creative-writer-local/src/javascript/`
+- **Dependências:** `javascript/package.json`, `zava-creative-writer-local/src/javascript/package.json`
+- **Principais pacotes:** `foundry-local-sdk`, `openai`
+- **Sistema de módulos:** Módulos ES (`.mjs` arquivos, `"type": "module"`)
+- **Versão mínima:** Node.js 18+
+- **Execução:** `cd javascript && npm install && node foundry-local.mjs`
 
 ### C#
-- **Location:** `csharp/`, `zava-creative-writer-local/src/csharp/`
-- **Project files:** `csharp/csharp.csproj`, `zava-creative-writer-local/src/csharp/ZavaCreativeWriter.csproj`
-- **Key packages:** `Microsoft.AI.Foundry.Local` (non-Windows), `Microsoft.AI.Foundry.Local.WinML` (Windows — superset with QNN EP), `OpenAI`, `Microsoft.Agents.AI.OpenAI`
-- **Target:** .NET 9.0 (conditional TFM: `net9.0-windows10.0.26100` on Windows, `net9.0` elsewhere)
-- **Run:** `cd csharp && dotnet run [chat|rag|agent|multi]`
+- **Localização:** `csharp/`, `zava-creative-writer-local/src/csharp/`
+- **Arquivos do projeto:** `csharp/csharp.csproj`, `zava-creative-writer-local/src/csharp/ZavaCreativeWriter.csproj`
+- **Principais pacotes:** `Microsoft.AI.Foundry.Local` (não Windows), `Microsoft.AI.Foundry.Local.WinML` (Windows — superconjunto com QNN EP), `OpenAI`, `Microsoft.Agents.AI.OpenAI`
+- **Alvo:** .NET 9.0 (TFM condicional: `net9.0-windows10.0.26100` no Windows, `net9.0` em outros)
+- **Execução:** `cd csharp && dotnet run [chat|rag|agent|multi]`
 
-## Coding Conventions
+## Convenções de Codificação
 
-### General
-- All code samples are **self-contained single-file examples** — no shared utility libraries or abstractions.
-- Each sample runs independently after installing its own dependencies.
-- API keys are always set to `"foundry-local"` — Foundry Local uses this as a placeholder.
-- Base URLs use `http://localhost:<port>/v1` — the port is dynamic and discovered at runtime via the SDK (`manager.urls[0]` in JS, `manager.endpoint` in Python).
-- The Foundry Local SDK handles service startup and endpoint discovery; prefer SDK patterns over hard-coded ports.
+### Geral
+- Todos os exemplos de código são **exemplos autossuficientes em arquivo único** — sem bibliotecas utilitárias compartilhadas ou abstrações.
+- Cada exemplo roda independentemente após instalar suas próprias dependências.
+- As chaves de API são sempre configuradas para `"foundry-local"` — Foundry Local usa isso como placeholder.
+- URLs base usam `http://localhost:<port>/v1` — a porta é dinâmica e descoberta em tempo de execução via SDK (`manager.urls[0]` no JS, `manager.endpoint` no Python).
+- O Foundry Local SDK gerencia a inicialização do serviço e descoberta do endpoint; prefira padrões do SDK ao invés de portas fixas.
 
 ### Python
-- Use `openai` SDK with `OpenAI(base_url=..., api_key="not-required")`.
-- Use `FoundryLocalManager()` from `foundry_local` for SDK-managed service lifecycle.
-- Streaming: iterate over `stream` object with `for chunk in stream:`.
-- No type annotations in sample files (keep samples concise for workshop learners).
+- Use o SDK `openai` com `OpenAI(base_url=..., api_key="not-required")`.
+- Use `FoundryLocalManager()` de `foundry_local` para ciclo de vida gerenciado pelo SDK.
+- Streaming: itere sobre o objeto `stream` com `for chunk in stream:`.
+- Sem anotações de tipo nos arquivos de exemplo (mantenha os exemplos concisos para aprendizes do workshop).
 
 ### JavaScript
-- ES module syntax: `import ... from "..."`.
-- Use `OpenAI` from `"openai"` and `FoundryLocalManager` from `"foundry-local-sdk"`.
-- SDK init pattern: `FoundryLocalManager.create({ appName })` → `FoundryLocalManager.instance` → `manager.startWebService()` → `await catalog.getModel(alias)`.
+- Sintaxe de módulo ES: `import ... from "..."`.
+- Use `OpenAI` de `"openai"` e `FoundryLocalManager` de `"foundry-local-sdk"`.
+- Padrão de inicialização do SDK: `FoundryLocalManager.create({ appName })` → `FoundryLocalManager.instance` → `manager.startWebService()` → `await catalog.getModel(alias)`.
 - Streaming: `for await (const chunk of stream)`.
-- Top-level `await` is used throughout.
+- `await` de topo é usado amplamente.
 
 ### C#
-- Nullable enabled, implicit usings, .NET 9.
-- Use `FoundryLocalManager.StartServiceAsync()` for SDK-managed lifecycle.
-- Streaming: `CompleteChatStreaming()` with `foreach (var update in completionUpdates)`.
-- The main `csharp/Program.cs` is a CLI router dispatching to static `RunAsync()` methods.
+- Nullable ativado, usings implícitos, .NET 9.
+- Use `FoundryLocalManager.StartServiceAsync()` para ciclo de vida gerenciado pelo SDK.
+- Streaming: `CompleteChatStreaming()` com `foreach (var update in completionUpdates)`.
+- O arquivo principal `csharp/Program.cs` é um roteador CLI que despacha para métodos estáticos `RunAsync()`.
 
-### Tool Calling
-- Only certain models support tool calling: **Qwen 2.5** family (`qwen2.5-*`) and **Phi-4-mini** (`phi-4-mini`).
-- Tool schemas follow the OpenAI function-calling JSON format (`type: "function"`, `function.name`, `function.description`, `function.parameters`).
-- The conversation uses a multi-turn pattern: user → assistant (tool_calls) → tool (results) → assistant (final answer).
-- The `tool_call_id` in tool result messages must match the `id` from the model's tool call.
-- Python uses the OpenAI SDK directly; JavaScript uses the SDK's native `ChatClient` (`model.createChatClient()`); C# uses the OpenAI SDK with `ChatTool.CreateFunctionTool()`.
+### Chamada de Ferramentas
+- Apenas certos modelos suportam chamada de ferramentas: família **Qwen 2.5** (`qwen2.5-*`) e **Phi-4-mini** (`phi-4-mini`).
+- Esquemas de ferramentas seguem o formato JSON de chamadas de função da OpenAI (`type: "function"`, `function.name`, `function.description`, `function.parameters`).
+- A conversação usa um padrão multi-turno: usuário → assistente (tool_calls) → ferramenta (resultados) → assistente (resposta final).
+- O `tool_call_id` nas mensagens de resultado da ferramenta deve corresponder ao `id` da chamada de ferramenta do modelo.
+- Python usa o SDK OpenAI diretamente; JavaScript usa o `ChatClient` nativo do SDK (`model.createChatClient()`); C# usa o SDK OpenAI com `ChatTool.CreateFunctionTool()`.
 
-### ChatClient (Native SDK Client)
-- JavaScript: `model.createChatClient()` returns a `ChatClient` with `completeChat(messages, tools?)` and `completeStreamingChat(messages, callback)`.
-- C#: `model.GetChatClientAsync()` returns a standard `ChatClient` that can be used without importing the OpenAI NuGet package.
-- Python does not have a native ChatClient — use the OpenAI SDK with `manager.endpoint` and `manager.api_key`.
-- **Important:** JavaScript `completeStreamingChat` uses a **callback pattern**, not async iteration.
+### ChatClient (Cliente Nativo do SDK)
+- JavaScript: `model.createChatClient()` retorna um `ChatClient` com `completeChat(messages, tools?)` e `completeStreamingChat(messages, callback)`.
+- C#: `model.GetChatClientAsync()` retorna um `ChatClient` padrão que pode ser usado sem importar o pacote NuGet do OpenAI.
+- Python não tem um ChatClient nativo — use o SDK OpenAI com `manager.endpoint` e `manager.api_key`.
+- **Importante:** `completeStreamingChat` em JavaScript usa um **padrão callback**, não iteração assíncrona.
 
-### Reasoning Models
-- `phi-4-mini-reasoning` wraps its thinking in `<think>...</think>` tags before the final answer.
-- Parse the tags to separate reasoning from the answer when needed.
+### Modelos de Raciocínio
+- `phi-4-mini-reasoning` envolve seu raciocínio em tags `<think>...</think>` antes da resposta final.
+- Analise essas tags para separar raciocínio da resposta quando necessário.
 
-## Lab Guides
+## Guias de Laboratório
 
-Lab files are in `labs/` as Markdown. They follow a consistent structure:
-- Logo header image
-- Title and goal callout
-- Overview, Learning Objectives, Prerequisites
-- Concept explanation sections with diagrams
-- Numbered exercises with code blocks and expected output
-- Summary table, Key Takeaways, Further Reading
-- Navigation link to the next part
+Arquivos de laboratório estão em `labs/` como Markdown. Seguem uma estrutura consistente:
+- Imagem de cabeçalho com logo
+- Título e chamada de objetivo
+- Visão geral, Objetivos de Aprendizagem, Pré-requisitos
+- Seções explicativas de conceitos com diagramas
+- Exercícios numerados com blocos de código e saída esperada
+- Tabela resumo, Principais conclusões, Leitura complementar
+- Link de navegação para a próxima parte
 
-When editing lab content:
-- Maintain the existing Markdown formatting style and section hierarchy.
-- Code blocks must specify the language (`python`, `javascript`, `csharp`, `bash`, `powershell`).
-- Provide both bash and PowerShell variants for shell commands where OS matters.
-- Use `> **Note:**`, `> **Tip:**`, and `> **Troubleshooting:**` callout styles.
-- Tables use the `| Header | Header |` pipe format.
+Ao editar conteúdo do laboratório:
+- Mantenha o estilo de formatação Markdown existente e hierarquia das seções.
+- Blocos de código devem especificar a linguagem (`python`, `javascript`, `csharp`, `bash`, `powershell`).
+- Forneça variantes bash e PowerShell para comandos shell quando o SO importar.
+- Use estilos de chamada `> **Note:**`, `> **Tip:**` e `> **Troubleshooting:**`.
+- Tabelas usam o formato com pipes `| Header | Header |`.
 
-## Build & Test Commands
+## Comandos de Build & Teste
 
-| Action | Command |
+| Ação | Comando |
 |--------|---------|
-| **Python samples** | `cd python && pip install -r requirements.txt && python <script>.py` |
-| **JS samples** | `cd javascript && npm install && node <script>.mjs` |
-| **C# samples** | `cd csharp && dotnet run [chat\|rag\|agent\|multi\|eval\|whisper\|toolcall]` |
+| **Exemplos Python** | `cd python && pip install -r requirements.txt && python <script>.py` |
+| **Exemplos JS** | `cd javascript && npm install && node <script>.mjs` |
+| **Exemplos C#** | `cd csharp && dotnet run [chat\|rag\|agent\|multi\|eval\|whisper\|toolcall]` |
 | **Zava Python** | `cd zava-creative-writer-local/src/api && pip install -r requirements.txt && uvicorn main:app` |
 | **Zava JS** | `cd zava-creative-writer-local/src/javascript && npm install && node main.mjs` |
 | **Zava JS (web)** | `cd zava-creative-writer-local/src/javascript && npm install && node server.mjs` |
 | **Zava C#** | `cd zava-creative-writer-local/src/csharp && dotnet run` |
 | **Zava C# (web)** | `cd zava-creative-writer-local/src/csharp-web && dotnet run` |
 | **Foundry Local CLI** | `foundry model list`, `foundry model run <model>`, `foundry service status` |
-| **Generate diagrams** | `npx mmdc -i <input>.mmd -o <output>.svg` (requires root `npm install`) |
+| **Gerar diagramas** | `npx mmdc -i <input>.mmd -o <output>.svg` (requer `npm install` global) |
 
-## External Dependencies
+## Dependências Externas
 
-- **Foundry Local CLI** must be installed on the developer's machine (`winget install Microsoft.FoundryLocal` or `brew install foundrylocal`).
-- **Foundry Local service** runs locally and exposes an OpenAI-compatible REST API on a dynamic port.
-- No cloud services, API keys, or Azure subscriptions are required to run any sample.
-- Part 10 (custom models) additionally requires `onnxruntime-genai` and downloads model weights from Hugging Face.
+- **Foundry Local CLI** deve estar instalado na máquina do desenvolvedor (`winget install Microsoft.FoundryLocal` ou `brew install foundrylocal`).
+- **Serviço Foundry Local** roda localmente e expõe uma API REST compatível com OpenAI em uma porta dinâmica.
+- Nenhum serviço em nuvem, chave API ou assinatura Azure é necessária para rodar qualquer exemplo.
+- A Parte 10 (modelos customizados) requer adicionalmente `onnxruntime-genai` e faz download dos pesos de modelo do Hugging Face.
 
-## Files That Should Not Be Committed
+## Arquivos Que Não Devem Ser Comitados
 
-The `.gitignore` should exclude (and does for most):
-- `.venv/` — Python virtual environments
-- `node_modules/` — npm dependencies
-- `models/` — compiled ONNX model output (large binary files, generated by Part 10)
-- `cache_dir/` — Hugging Face model download cache
-- `.olive-cache/` — Microsoft Olive working directory
-- `samples/audio/*.wav` — generated audio samples (regenerated via `python samples/audio/generate_samples.py`)
-- Standard Python build artifacts (`__pycache__/`, `*.egg-info/`, `dist/`, etc.)
+O `.gitignore` deve excluir (e exclui na maior parte):
+- `.venv/` — ambientes virtuais Python
+- `node_modules/` — dependências npm
+- `models/` — saída de modelos ONNX compilados (arquivos binários grandes, gerados pela Parte 10)
+- `cache_dir/` — cache de download de modelo do Hugging Face
+- `.olive-cache/` — diretório de trabalho Microsoft Olive
+- `samples/audio/*.wav` — amostras de áudio geradas (regeneradas via `python samples/audio/generate_samples.py`)
+- Artefatos padrão de build Python (`__pycache__/`, `*.egg-info/`, `dist/`, etc.)
 
-## Licence
+## Licença
 
-MIT — see `LICENSE`.
+MIT — ver `LICENSE`.
+
+---
+
+<!-- CO-OP TRANSLATOR DISCLAIMER START -->
+**Aviso Legal**:
+Este documento foi traduzido utilizando o serviço de tradução automática [Co-op Translator](https://github.com/Azure/co-op-translator). Embora nos esforcemos pela precisão, esteja ciente de que traduções automáticas podem conter erros ou imprecisões. O documento original em seu idioma nativo deve ser considerado a fonte autorizada. Para informações críticas, recomenda-se tradução profissional feita por humanos. Não nos responsabilizamos por quaisquer mal-entendidos ou interpretações incorretas decorrentes do uso desta tradução.
+<!-- CO-OP TRANSLATOR DISCLAIMER END -->
 
 ---
 > Source: [microsoft-foundry/Foundry-Local-Lab](https://github.com/microsoft-foundry/Foundry-Local-Lab) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
