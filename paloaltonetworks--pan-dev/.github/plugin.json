@@ -1,0 +1,9 @@
+{
+  "name": "paloaltonetworks--pan-dev",
+  "displayName": "pan.dev",
+  "description": "pan.dev",
+  "version": "1.0.0",
+  "author": "PaloAltoNetworks",
+  "homepage": "https://github.com/PaloAltoNetworks/pan.dev",
+  "skills": []
+}
