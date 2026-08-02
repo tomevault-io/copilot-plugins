@@ -1,16 +1,15 @@
 # azure-devops-docs
 
-> Source: [MicrosoftDocs/azure-devops-docs](https://github.com/MicrosoftDocs/azure-devops-docs). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [MicrosoftDocs/azure-devops-docs](https://github.com/MicrosoftDocs/azure-devops-docs). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [MicrosoftDocs/azure-devops-docs](https://github.com/MicrosoftDocs/azure-devops-docs).
+Original source: `AGENTS.md` in [MicrosoftDocs/azure-devops-docs](https://github.com/MicrosoftDocs/azure-devops-docs).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
