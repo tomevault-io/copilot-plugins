@@ -1,0 +1,9 @@
+{
+  "name": "stripe--stripe-php",
+  "displayName": "stripe-php",
+  "description": "stripe-php",
+  "version": "1.0.0",
+  "author": "stripe",
+  "homepage": "https://github.com/stripe/stripe-php",
+  "skills": []
+}
