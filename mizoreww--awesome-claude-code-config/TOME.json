@@ -2,9 +2,9 @@
   "name": "awesome-claude-code-config",
   "owner": "Mizoreww",
   "repo": "awesome-claude-code-config",
-  "description": "Production-ready Claude Code configuration with self-improvement loop, multi-language rules, MCP integrations, and custom skills",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Mizoreww/awesome-claude-code-config",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T12:22:30Z"
+  "distributed_at": "2026-08-02T13:30:17Z"
 }
