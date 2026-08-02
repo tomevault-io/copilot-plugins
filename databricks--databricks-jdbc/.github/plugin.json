@@ -1,0 +1,9 @@
+{
+  "name": "databricks--databricks-jdbc",
+  "displayName": "databricks-jdbc",
+  "description": "databricks-jdbc",
+  "version": "1.0.0",
+  "author": "databricks",
+  "homepage": "https://github.com/databricks/databricks-jdbc",
+  "skills": []
+}
