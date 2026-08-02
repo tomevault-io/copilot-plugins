@@ -1,558 +1,799 @@
 ## claude-007-agents
 
-> ⚠️ **MANDATORY FORMAT**: `type(scope): description - @agent1 @agent2`
+> **74 Specialized AI Agents** organized into 16 categories, each with unique expertise and capabilities. Every agent includes Basic Memory MCP integration for organizational learning and pattern reuse.
 
-## CRITICAL: COMMIT MESSAGE REQUIREMENTS
+# 🤖 Complete Agent Catalog
 
-⚠️ **MANDATORY FORMAT**: `type(scope): description - @agent1 @agent2`
+**74 Specialized AI Agents** organized into 16 categories, each with unique expertise and capabilities. Every agent includes Basic Memory MCP integration for organizational learning and pattern reuse.
 
-## Pre-Commit Checklist
-1. ✅ Identify contributing agents
-2. ✅ Format: `type(scope): description - @agent1 @agent2` 
-3. ✅ Include standard attribution footer
-4. ✅ Verify agent attribution requirements
+*Note: Recent consolidation enhanced several agents with expanded capabilities, combining specialized variants into more comprehensive experts.*
 
-**For configuration**: Include `@team-configurator` + technical expert
-**For API**: Include `@api-architect` + security expert  
-**For database**: Include `@database-admin` + performance expert
+## 📊 Quick Overview
 
----
-
-# Claude Code - Advanced AI Agent System  
-
-**Version 2.0** - 88 specialized agents across 18 categories with vibe coding, parallel execution, exponential planning, and comprehensive safety validation based on Anthropic's Code with Claude insights.
-
-## 🎯 Evil Corp Motivation Framework
-
-Quality agents operate under high-stakes motivation for maximum code delivery:
-
-**Active Agents**:
-- `@software-engineering-expert` - Perfect code quality required
-- `@code-reviewer` - Catch every bug, security flaw, quality issue  
-- `@quality-system-engineer` - Flawless quality systems prevent defects
-- `@performance-optimizer` - Every millisecond matters
-
-**Quality Standards**: First-attempt compilation, zero vulnerabilities, comprehensive docs.
-**Python Quality**: Pyright type checking (when available), proper type hints, zero type errors.
-
-🎭 **AUTO-ACTIVE FEATURES**:
-- **Vibe Coding Engine**: 15-20 minute preparation phases for autonomous development
-- **Parallel Execution**: Coordinated multi-agent parallel development with tool batching
-- **Exponential Planning**: AI capability-aware long-term development strategies  
-- **Safety Validation**: Comprehensive pre-deployment testing and architectural analysis
-- **Dynamic Permissions**: Real-time permission escalation with risk assessment
-- **Session Optimization**: Intelligent context management and token efficiency
-- **Choreography Engine**: Auto-detects collaboration patterns
-- **Personality System**: Adaptive communication based on success patterns
-- **Workflow Coordination**: Quality gates with context preservation
-- **Learning Intelligence**: Continuous improvement through outcome analysis
-
-## Agent Categories
-
-**Tech Stack**: Rails, Django, Laravel, Node.js/TypeScript, Go, React, Vue.js, Next.js, Nuxt.js  
-**Integrations**: GitHub MCP, Task Master MCP, Context7 MCP, Basic Memory MCP, Sequential Thinking MCP, Zen MCP Server  
-**Quality**: Trunk.io linting, Pyright type checking (Python), Cockatiel/Hyx/GoBreaker resilience, Pino/Zap logging
-
-### Agents by Category
-
-#### Context Orchestrators (NEW)
-- `@vibe-coding-coordinator` - 15-20 minute preparation phases, comprehensive briefing creation
-- `@exponential-planner` - Multi-hour task decomposition with AI capability scaling awareness
-- `@session-manager` - State preservation, resumable workflows, context continuity
-
-#### Safety Specialists (NEW)  
-- `@leaf-node-detector` - Architectural safety analysis, safe autonomous development zones
-- `@permission-escalator` - Dynamic permission management, risk-based escalation workflows
-- `@verification-specialist` - Human-readable testing, end-to-end verification strategies
-- `@agent-environment-simulator` - Pre-deployment testing, comprehensive agent validation
-
-#### Performance Optimizers (NEW)
-- `@parallel-coordinator` - Multi-agent parallel execution, coordinated tool calling
-- `@tool-batch-optimizer` - Efficient tool batching, resource utilization optimization  
-- `@session-optimizer` - Context management, token efficiency, memory optimization
-
-#### Orchestration & Leadership
-- `@orchestrator` - Multi-dimensional analysis, intelligent selection, parallel execution
-- `@tech-lead-orchestrator` - Enterprise architecture, ADRs, crisis leadership  
-- `@project-analyst` - PRD processing, task decomposition, stakeholder management
-- `@team-configurator` - Stack detection, agent assembly, success pattern analysis
-- `@enhanced-agent-organizer` - Meta-orchestration, "Specialization Over Generalization"
-- `@knowledge-graph-manager` - Context management, briefing generation
-- `@agent-communication-protocol` - JSON coordination, workflow tracking
-- `@intelligent-agent-selector` - Context-aware selection, performance matching
-- `@enhanced-agent-template` - Three-phase coordination (Context → Process → Completion)
-
-#### Universal Specialists
-- `@software-engineering-expert` - Code quality, architecture (Evil Corp framework)
-- `@quality-system-engineer` - Trunk.io integration, quality gates (Evil Corp framework)
-- `@resilience-engineer` - Circuit breakers, retry mechanisms, fault tolerance
-- `@logging-concepts-engineer` - JSON logging, observability
-- `@api-architect` - REST/GraphQL design patterns
-- `@graphql-architect` - Schema design, federation, subscriptions
-- `@backend-developer` - General backend architecture
-- `@frontend-developer` - UI/UX implementation
-- `@tailwind-css-expert` - Responsive design
-- `@developer-experience-optimizer` - Productivity, automation, tooling
-- `@legacy-modernization-specialist` - 6 R's framework, strangler fig patterns
-- `@context-management-enhancement` - Three-tier optimization, relevance scoring
-
-#### Backend Frameworks
-- `@rails-expert` - ActiveRecord, Rails APIs, MVC patterns
-- `@django-expert` - Django ORM, REST APIs, middleware
-- `@laravel-backend-expert` - Eloquent ORM, PHP patterns
-- `@typescript-cockatiel-resilience` - Node.js resilience patterns
-- `@typescript-pino-logging` - Node.js structured logging
-- `@go-resilience-engineer` - Go fault tolerance
-- `@go-zap-logging` - Go structured logging
-- `@python-hyx-resilience` - Elite Python, async patterns, Hyx integration
-
-#### Frontend Frameworks
-- `@react-component-architect` - Component design, JSX patterns
-- `@react-state-manager` - Redux, Context API, custom hooks
-- `@react-nextjs-expert` - SSR, routing, Next.js optimizations
-- `@vue-component-architect` - Vue components, composition API
-- `@vue-state-manager` - Vuex, Pinia, reactive state
-- `@vue-nuxt-expert` - Server-side rendering, Nuxt modules
-
-#### Core Development
-- `@code-archaeologist` - Legacy analysis, technical debt assessment
-- `@code-reviewer` - Code reviews, quality assurance (Evil Corp framework)
-- `@pr-reviewer-specialist` - Interactive PR analysis, GitHub integration
-- `@documentation-specialist` - Technical writing, API docs + Context7 MCP
-- `@performance-optimizer` - Analysis, optimization, profiling (Evil Corp framework)
-- `@git-expert` - Merge conflicts, PR management + GitHub MCP
-
-#### Additional Specialists
-- **Database/ORM**: `@rails-activerecord-expert`, `@django-orm-expert`, `@laravel-eloquent-expert`, `@rails-api-developer`, `@django-api-developer`
-- **Business & Product**: `@product-manager`, `@business-analyst`, `@ux-designer`, `@financial-modeling-agent`
-- **Infrastructure**: `@devops-troubleshooter`, `@cloud-architect`, `@database-admin`, `@incident-responder`, `@network-engineer`, `@terraform-specialist`
-- **AI/ML**: `@prompt-engineer`, `@error-detective`, `@machine-learning-engineer`, `@computer-vision-specialist`, `@nlp-llm-integration-expert`
-- **Security**: `@security-specialist`, `@privacy-engineer`, `@devsecops-engineer`
-- **Mobile/Advanced**: `@mobile-developer`, `@webassembly-specialist`, `@micro-frontend-architect`, `@pwa-specialist`
-- **Reliability**: `@serverless-architect`, `@site-reliability-engineer`, `@observability-engineer`, `@pulumi-typescript-specialist`
-- **DevOps**: `@cicd-pipeline-engineer`, `@qa-automation-engineer`, `@release-manager`
-- **Data**: `@data-engineer`, `@analytics-implementation-specialist`, `@business-intelligence-developer`, `@search-specialist`
-- **Domain**: `@payment-integration-agent`, `@healthcare-compliance-agent`, `@code-refactoring-specialist`, `@joker`
-
-## Usage
-
-### 🚀 New Vibe Coding Patterns
-- "Autonomously implement user dashboard" → Vibe Coding Preparation → Autonomous Development
-- "Build complete e-commerce platform over 4 hours" → Exponential Planning → Parallel Execution
-- "Safely modify authentication system" → Leaf Node Detection → Permission Escalation
-- "Optimize this complex workflow" → Parallel Coordination → Tool Batch Optimization
-
-### 🎭 Auto-Choreography
-- "implement user authentication" → Feature Development Dance
-- "fix the login bug" → Bug Hunting Tango  
-- "review this PR" → Code Review Waltz
-
-### Quick Examples
-```
-"Use @vibe-coding-coordinator to autonomously build user notifications"
-"Use @exponential-planner for complex multi-day project architecture"  
-"Use @parallel-coordinator to optimize 5-agent development workflow"
-"Use @leaf-node-detector to safely modify legacy authentication"
-"Use @orchestrator to build scalable e-commerce platform"
-"Use @pr-reviewer-specialist to review PR #123"
-"Use @quality-system-engineer to set up quality checks"
-"Use @legacy-modernization-specialist to modernize monolith"
-```
-
-### Advanced Patterns
-- **Vibe Coding**: `@vibe-coding-coordinator` → `@leaf-node-detector` → specialist agents → `@verification-specialist`
-- **Parallel Development**: `@parallel-coordinator` + `@session-manager` + multiple specialist agents
-- **Exponential Planning**: `@exponential-planner` → phased implementation → `@session-optimizer`
-- **Safe Autonomous**: `@leaf-node-detector` → `@permission-escalator` → autonomous development
-- **Backend**: `@resilience-engineer` + framework expert + Basic Memory MCP
-- **API**: `@api-architect`/`@graphql-architect` + framework specialist + Basic Memory MCP  
-- **Frontend**: Framework architect + Context7 MCP + Basic Memory MCP
-- **Quality**: `@software-engineering-expert` + Context7 MCP + Basic Memory MCP
-- **Git/PR**: `@git-expert`/`@pr-reviewer-specialist` + GitHub MCP + Basic Memory MCP
-
-## 🔮 Zen MCP Hybrid Workflows
-
-**Multi-AI Model Collaborative Intelligence** - 27 agents enhanced with multi-model capabilities:
-
-### **Tier 1: Strategic Workflows**
-- **🚀 Vibe Coding Powerhouse**: `@vibe-coding-coordinator` (chat+thinkdeep+planner) → `@leaf-node-detector` (analyze) → `@software-engineering-expert` (thinkdeep+analyze+refactor) → `@verification-specialist` (analyze+testgen)
-- **⚡ Exponential Architecture**: `@exponential-planner` (thinkdeep+planner) → `@system-architect` (thinkdeep+analyze) → `@orchestrator` (chat+thinkdeep+consensus) → specialist agents
-- **🔒 Security-First Pipeline**: `@security-specialist` (analyze+debug+secaudit) → `@code-reviewer` (codereview+analyze+secaudit) → `@pr-reviewer-specialist` (codereview+analyze+secaudit)
-
-### **Tier 2: Specialized Workflows**
-- **🔧 Legacy Modernization**: `@legacy-modernization-specialist` (refactor) → `@software-engineering-expert` (thinkdeep+analyze+refactor) → `@test-automation-expert` (testgen)
-- **🎯 Consensus Decisions**: `@orchestrator` (consensus) + `@team-configurator` (consensus) for multi-AI technical validation
-- **📋 Interactive Planning**: `@exponential-planner` (planner) + `@project-analyst` (planner) + `@vibe-coding-coordinator` (planner) for comprehensive project breakdown
-
-### **Multi-AI Capabilities**
-- **Cross-Model Intelligence**: Leverage Gemini, GPT-4, Claude, and local models for specialized capabilities
-- **Collaborative Validation**: Multi-perspective analysis for critical decisions and architecture
-- **Adaptive Workflows**: Automatic model selection based on task complexity and requirements
-
-**📖 Full Documentation**: [Zen MCP Workflows Guide](docs/ZEN_MCP_WORKFLOWS.md)
-
-### 🧠 Adaptive Personalities
-Agents evolve communication style based on success patterns. Control with:
-- "Be more direct" / "Keep it brief" / "Explain thoroughly"
-
-
-## Integrated Workflows
-
-### 🚀 Advanced Workflows (NEW)
-**Vibe Coding Flow**: Context Gathering (15-20min) → Safety Analysis → Autonomous Development → Verification  
-**Exponential Development**: Capability Assessment → Multi-Phase Planning → Progressive Implementation → Future-Proofing  
-**Parallel Coordination**: Task Decomposition → Agent Assignment → Coordinated Execution → Integration  
-**Safety-First Autonomous**: Architectural Analysis → Permission Setup → Leaf Node Development → Continuous Verification
-
-### Traditional Workflows  
-**Backend Resilience**: Analysis → Logging Setup → Implementation → Integration  
-**New Service**: Architecture → Implementation → Specialization  
-**Frontend App**: Planning → Components → State → Framework Integration  
-**Product-Led**: Requirements → Analysis → Design → Architecture  
-**Infrastructure**: Architecture → Implementation → Monitoring → Response  
-**Security-First**: Assessment → Architecture → Implementation → Validation  
-**Legacy Modernization**: Assessment → Planning → Implementation → Migration
-
-## MCP Integration
-
-### Available MCP Servers
-- **GitHub MCP**: Live repository operations, PR management
-- **Task Master MCP**: Project management, complexity analysis  
-- **Context7 MCP**: Live library documentation, code examples
-- **Basic Memory MCP**: Persistent knowledge, organizational learning
-- **Sequential Thinking MCP**: Complex multi-step reasoning with adaptive planning and course correction
-- **Zen MCP Server**: Multi-AI model orchestration, collaborative intelligence
-
-### Key Integrations
-- **GitHub**: `@git-expert`, `@code-reviewer`, `@cicd-pipeline-engineer`, `@pr-reviewer-specialist`, `@session-manager`
-- **Task Master**: `@tech-lead-orchestrator`, `@project-analyst`, `@team-configurator`, `@exponential-planner`, `@parallel-coordinator`
-- **Context7**: `@documentation-specialist`, framework specialists, `@api-architect`, `@verification-specialist`
-- **Basic Memory**: All core development agents + new context orchestrators, safety specialists, and performance optimizers
-- **Sequential Thinking**: `@orchestrator`, `@system-architect`, `@cloud-architect`, `@database-architect`, `@error-detective`, `@rubber-duck-debugger`, `@vibe-coding-coordinator`, `@exponential-planner`, `@session-manager`, `@leaf-node-detector`, `@permission-escalator`, `@verification-specialist`, `@parallel-coordinator`, `@tool-batch-optimizer`, `@session-optimizer`
-- **Zen**: `@orchestrator`, `@code-reviewer`, `@error-detective`, `@software-engineering-expert`, `@vibe-coding-coordinator`, multi-model collaboration
-
-## ⚠️ CRITICAL: MCP Server Usage Policy
-
-**ALL AGENTS MUST USE MCP SERVERS** for persistent operations and memory storage:
-
-### **✅ REQUIRED MCP Usage:**
-- **`mcp__basic-memory__*`** - All knowledge storage, pattern recognition, organizational learning
-- **`mcp__github__*`** - All repository operations, PR management, branch operations
-- **`mcp__task-master__*`** - All project management, task tracking, complexity analysis
-- **`mcp__context7__*`** - All library documentation, framework research, code examples
-- **`mcp__sequential-thinking__*`** - All complex multi-step reasoning and adaptive planning
-- **`mcp__zen__*`** - All multi-AI model orchestration, collaborative reasoning
-
-### **❌ FORBIDDEN Operations:**
-- **`Write(file_path: "...")`** - Creating any new files outside of codebase
-- **File creation for memory/notes** - Use Basic Memory MCP instead
-- **Manual documentation creation** - Use Context7 MCP or existing file editing
-- **Direct file system storage** - Use appropriate MCP servers
-
-### **✅ ALLOWED File Operations:**
-- **`Read`** - Reading existing project files and codebase
-- **`Edit/MultiEdit`** - Modifying existing project files and code
-- **`Bash`** - Build tools, package managers, git commands, system operations
-- **`Grep/Glob/LS`** - Searching and exploring existing codebase
-
-### **MCP Integration Patterns:**
-- **Memory & Learning**: Store insights, patterns, and knowledge in Basic Memory MCP
-- **Code Operations**: Use GitHub MCP for all repository and version control operations  
-- **Task Management**: Use Task Master MCP for project coordination and complexity analysis
-- **Research**: Use Context7 MCP for up-to-date library documentation and examples
-- **Complex Reasoning**: Use Sequential Thinking MCP for multi-step analysis and planning
-- **Multi-AI Collaboration**: Use Zen MCP Server for multi-model orchestration and enhanced intelligence
-
-## Agent Dependencies
-
-**Advanced Capabilities**: Context orchestrators and safety specialists provide foundation for autonomous development
-**Universal Foundations**: Backend agents follow `@resilience-engineer` + `@logging-concepts-engineer` patterns  
-**MCP Enhanced**: All core agents leverage Basic Memory MCP for organizational learning  
-**Live Operations**: Repository agents use GitHub MCP, docs agents use Context7 MCP
-**Performance Optimized**: All workflows enhanced with parallel execution and resource optimization
-
-## Commit Attribution
-
-**MANDATORY**: `type(scope): description - @agent1 @agent2`
-
-Claude Code automatically includes agent attribution in all commits for traceability.
+| **Category** | **Agents** | **Key Focus** | **Memory Integration** |
+|--------------|------------|---------------|----------------------|
+| **[lst97 Enhanced Coordination](#lst97-enhanced-coordination-system)** | 5 | Meta-orchestration, knowledge management, structured communication | ✅ Full |
+| **[Backend Development](#backend-development)** | 10 | Framework specialists with resilience engineering | ✅ All agents |
+| **[Frontend Development](#frontend-development)** | 10 | Modern web frameworks with error boundaries | ✅ All agents |
+| **[Infrastructure & Cloud](#infrastructure--cloud)** | 10 | DevOps, cloud architecture, serverless | ✅ Config patterns |
+| **[Universal Specialists](#universal-specialists)** | 7 | Cross-framework architecture and quality | ✅ All agents |
+| **[Core Development](#core-development)** | 6 | Code review, performance, documentation | ✅ All agents |
+| **[Business Strategy](#business-strategy)** | 4 | Product management, business analysis, compliance | ✅ Requirements memory |
+| **[Advanced Orchestrators](#advanced-orchestrators)** | 4 | AI coordination and team assembly | ✅ Orchestration patterns |
+| **[Security & Compliance](#security--compliance)** | 2 | Enhanced security analysis, privacy engineering | ✅ Security patterns |
+| **[Automation & DevOps](#automation--devops)** | 3 | CI/CD, testing, release management | ✅ Automation patterns |
+| **[Data & Analytics](#data--analytics)** | 3 | Data engineering, business intelligence | ✅ Data patterns |
+| **[AI & Machine Learning](#ai--machine-learning)** | 3 | ML engineering, computer vision, NLP | ✅ ML patterns |
+| **[AI Analysis](#ai-analysis)** | 2 | Prompt engineering, error detection | ✅ Analysis patterns |
+| **[Creative Problem Solving](#creative-problem-solving)** | 3 | Innovative debugging and creative approaches | ✅ Question patterns |
+| **[Domain Specialists](#domain-specialists)** | 1 | Specialized industry knowledge | ✅ Domain patterns |
+| **[Team Morale](#team-morale)** | 1 | Humor and team building | - |
 
 ---
 
-**Your AI development team is now an EXPONENTIAL, AUTONOMOUS orchestration system with vibe coding, parallel execution, and comprehensive safety validation! 🚀🤖⚡**
+## 🚀 lst97 Enhanced Coordination System
 
-## 🎯 **ADVANCED SYSTEM STATUS**
+**5 Agents** - Advanced multi-agent coordination with systematic team assembly and centralized knowledge management.
 
-✅ **Vibe Coding**: 15-20 minute preparation phases for autonomous development  
-✅ **Parallel Execution**: Coordinated multi-agent development with tool batching  
-✅ **Exponential Planning**: AI capability-aware long-term development strategies  
-✅ **Safety Validation**: Comprehensive pre-deployment testing and architectural analysis  
-✅ **Dynamic Permissions**: Real-time permission escalation with risk assessment  
-✅ **Session Optimization**: Intelligent context management and token efficiency  
-✅ **Choreography**: Auto-detection, coordination, progress tracking  
-✅ **Personalities**: Adaptive responses based on success patterns  
-✅ **Learning**: Pattern recognition, organizational knowledge building  
-✅ **MCP Integration**: GitHub, Task Master, Context7, Basic Memory, Sequential Thinking, Zen
+### **enhanced-agent-organizer** 🎭
+**Meta-orchestration specialist with systematic team assembly**
+- **Philosophy**: "Specialization Over Generalization" with evidence-based recommendations
+- **Capabilities**: Multi-agent coordination, capability matrix analysis, delegation patterns
+- **Model**: Opus (for complex strategic analysis)
+- **Use When**: Complex multi-agent workflows requiring systematic coordination
+- **Memory**: Stores collaboration patterns and team assembly strategies
 
-*88 agents | 18 categories | Vibe coding + parallel execution + sequential reasoning enabled*
+### **knowledge-graph-manager** 🧠  
+**Centralized project context management with dynamic understanding**
+- **Capabilities**: Real-time context distribution, intelligent briefing generation, agent activity tracking
+- **Model**: Sonnet (for context analysis and knowledge graph management)
+- **Use When**: Managing complex project contexts and information flow
+- **Memory**: Project evolution history, context patterns, collaboration effectiveness
 
-## 🚀 Version 2.0 - Major System Upgrade
+### **agent-communication-protocol** 📡
+**Structured inter-agent messaging with JSON-based coordination**
+- **Capabilities**: Request/response patterns, workflow tracking, communication analytics
+- **Model**: Sonnet (for communication protocol management)
+- **Use When**: Coordinating complex multi-agent workflows with structured messaging
+- **Memory**: Communication patterns, workflow optimization, protocol evolution
 
-### Context Orchestrators ✅
-- `@vibe-coding-coordinator` - Autonomous development preparation phases
-- `@exponential-planner` - AI capability-aware long-term planning  
-- `@session-manager` - State preservation and resumable workflows
+### **intelligent-agent-selector** 🎯
+**Context-aware agent selection with multi-dimensional analysis**
+- **Capabilities**: Technology detection, agent capability matching, performance-based selection
+- **Model**: Sonnet (for context analysis and agent matching)
+- **Use When**: Automatically selecting optimal agents based on project context
+- **Memory**: Selection patterns, agent performance history, success analytics
 
-### Safety Specialists ✅  
-- `@leaf-node-detector` - Architectural safety analysis for autonomous development
-- `@permission-escalator` - Dynamic permission management with risk assessment
-- `@verification-specialist` - Human-readable testing and verification strategies
-- `@agent-environment-simulator` - Pre-deployment testing and validation
-
-### Performance Optimizers ✅
-- `@parallel-coordinator` - Multi-agent parallel execution orchestration
-- `@tool-batch-optimizer` - Efficient tool batching and resource optimization
-- `@session-optimizer` - Context management and token efficiency optimization
-
-### System Capabilities
-- **Vibe Coding**: "Forget the code exists, not the product" - autonomous development with safety
-- **Exponential Awareness**: Planning with 7-month AI capability doubling cycles
-- **Parallel Processing**: Claude 4's parallel tool calling for maximum efficiency
-- **Safety First**: Leaf node detection and architectural protection
-- **Context Optimization**: 60-80% token reduction while maintaining quality
-
-### Integration Enhancements  
-- Basic Memory MCP: Persistent session state and organizational learning
-- Task Master MCP: Complex project coordination and exponential planning
-- GitHub MCP: Enhanced session management and parallel development
-- Context7 MCP: Live documentation for verification and testing
-- Sequential Thinking MCP: Multi-step reasoning with adaptive planning and course correction
-- Zen MCP Server: Multi-AI model orchestration and collaborative intelligence
-
-**System Evolution**: From 77 → 88 agents | 15 → 18 categories | Added autonomous development capabilities
-
-## Task Master AI Instructions
-**Import Task Master's development workflow commands and guidelines, treat as if import is in the main CLAUDE.md file.**
-@./.taskmaster/CLAUDE.md
-
+### **enhanced-agent-template** 📋
+**Standardized interaction protocols for structured collaboration**
+- **Capabilities**: Three-phase workflow coordination, template framework, protocol compliance
+- **Model**: Sonnet (for template management and protocol design)
+- **Use When**: Creating new agents with enhanced coordination capabilities
+- **Memory**: Template patterns, interaction protocols, collaboration standards
 
 ---
 
-## Updated Configuration
+## 🏗️ Backend Development
 
-## CRITICAL: COMMIT MESSAGE REQUIREMENTS
+**10 Agents** - Framework specialists with integrated resilience engineering and Basic Memory MCP.
 
-⚠️ **MANDATORY FORMAT**: `type(scope): description - @agent1 @agent2`
+*Consolidation Note: Backend experts now include enhanced capabilities from merged specialized variants, providing comprehensive framework expertise with resilience patterns.*
 
-## Pre-Commit Checklist
-1. ✅ Identify contributing agents
-2. ✅ Format: `type(scope): description - @agent1 @agent2` 
-3. ✅ Include standard attribution footer
-4. ✅ Verify agent attribution requirements
+### **rails-expert** 💎
+**Comprehensive Ruby on Rails specialist with full-stack expertise**
+- **Specializations**: MVC patterns, ActiveRecord optimization, Rails APIs, full-stack development, security patterns
+- **Resilience**: CircuitBox integration, retry mechanisms, graceful degradation
+- **Enhanced Capabilities**: Combined backend and general Rails expertise for comprehensive development
+- **Model**: Sonnet (balanced for Rails development complexity)
+- **Memory**: Rails patterns, authentication implementations, API designs, full-stack patterns
+- **Quality Rules**: Ruby conventions, Rails security patterns, ActiveRecord best practices
 
-**For configuration**: Include `@team-configurator` + technical expert
-**For API**: Include `@api-architect` + security expert  
-**For database**: Include `@database-admin` + performance expert
+### **django-expert** 🐍
+**Comprehensive Django specialist with full-stack Python expertise**
+- **Specializations**: Django ORM, REST APIs, middleware, async patterns, full-stack development, security
+- **Resilience**: Python Hyx integration, circuit breakers, fault tolerance
+- **Enhanced Capabilities**: Combined backend and general Django expertise for comprehensive Python web development
+- **Model**: Sonnet (optimal for Django complexity)
+- **Memory**: Django patterns, ORM optimizations, Python implementations, full-stack patterns
+- **Quality Rules**: Python:S#### rules, Django security, PEP 8 compliance
+
+### **laravel-expert** 🔶
+**Comprehensive Laravel specialist with full PHP ecosystem expertise**
+- **Specializations**: Eloquent ORM, PHP patterns, Laravel ecosystem, Blade templates, full-stack development
+- **Resilience**: PHP resilience patterns, error handling, recovery mechanisms
+- **Enhanced Capabilities**: Combined backend and general Laravel expertise for comprehensive PHP development
+- **Model**: Sonnet (for Laravel framework complexity)
+- **Memory**: Laravel patterns, Eloquent optimizations, PHP best practices, full-stack patterns
+- **Quality Rules**: PHP conventions, Laravel security, Eloquent best practices
+
+### **fastapi-expert** ⚡
+**FastAPI specialist with async Python patterns**
+- **Specializations**: Async APIs, Pydantic models, dependency injection, performance
+- **Resilience**: Python async resilience, Hyx integration, performance optimization
+- **Model**: Sonnet (for async complexity and performance considerations)
+- **Memory**: FastAPI patterns, async implementations, performance optimizations
+- **Quality Rules**: Python:S#### rules, async best practices, API security
+
+### **nodejs-expert** 🟢
+**Comprehensive Node.js specialist with full-stack JavaScript/TypeScript expertise**
+- **Specializations**: Express.js, async patterns, npm ecosystem, server-side JavaScript, full-stack development
+- **Resilience**: Node.js resilience patterns, error handling, cluster management
+- **Enhanced Capabilities**: Combined backend and general Node.js expertise for comprehensive JavaScript development
+- **Model**: Sonnet (for Node.js ecosystem complexity)
+- **Memory**: Node.js patterns, async implementations, Express configurations, full-stack patterns
+- **Quality Rules**: JavaScript:S#### rules, Node.js best practices, async patterns
+
+### **fastify-expert** ⚡
+**Fastify specialist with high-performance Node.js patterns**  
+- **Specializations**: Fastify plugins, performance optimization, Node.js async patterns
+- **Resilience**: Node.js resilience, plugin architecture, performance monitoring
+- **Model**: Sonnet (for performance-focused development)
+- **Memory**: Fastify configurations, plugin patterns, performance optimizations
+- **Quality Rules**: Node.js performance, plugin best practices, async optimization
+
+### **gin-expert** 🍸
+**Gin framework specialist for Go web development**
+- **Specializations**: Gin routing, middleware, Go web patterns, REST APIs
+- **Resilience**: Go resilience patterns, goroutine safety, error handling
+- **Model**: Sonnet (for Go web development patterns)
+- **Memory**: Gin configurations, Go web patterns, API implementations
+- **Quality Rules**: Go:S#### rules, Gin best practices, goroutine safety
+
+### **fiber-expert** 🚀  
+**Fiber framework specialist for high-performance Go APIs**
+- **Specializations**: Fiber framework, Go performance optimization, concurrent patterns
+- **Resilience**: Go concurrency patterns, circuit breakers, performance monitoring
+- **Model**: Sonnet (for high-performance Go development)
+- **Memory**: Fiber patterns, Go performance optimizations, concurrent implementations
+- **Quality Rules**: Go:S#### rules, Fiber best practices, performance patterns
+
+### **prisma-expert** 🔷
+**Prisma ORM specialist with database optimization**
+- **Specializations**: Prisma schema design, migration strategies, query optimization
+- **Resilience**: Database resilience patterns, connection pooling, error recovery
+- **Model**: Sonnet (for database and ORM complexity)
+- **Memory**: Schema designs, migration patterns, query optimizations
+- **Quality Rules**: Database best practices, Prisma patterns, schema design
+
+### **python-hyx-resilience** 🐍⚡
+**Elite Python specialist with advanced async and resilience patterns**
+- **Specializations**: Advanced Python idioms, async patterns, Hyx resilience library
+- **Resilience**: Hyx circuit breakers, async resilience, fault tolerance
+- **Model**: Sonnet (for advanced Python patterns)
+- **Memory**: Python resilience patterns, async implementations, performance optimizations
+- **Quality Rules**: Python:S#### rules, async best practices, resilience patterns
+
+### **typescript-cockatiel-resilience** 🦜
+**TypeScript specialist with Cockatiel resilience library**
+- **Specializations**: TypeScript patterns, Cockatiel resilience, type safety
+- **Resilience**: Cockatiel circuit breakers, retry policies, bulkhead patterns
+- **Model**: Sonnet (for TypeScript complexity and resilience)
+- **Memory**: TypeScript patterns, resilience configurations, type system optimizations
+- **Quality Rules**: TypeScript:S#### rules, type safety, resilience patterns
+
+### **go-resilience-engineer** 🔄
+**Go specialist focused on resilience and fault tolerance**
+- **Specializations**: GoBreaker patterns, goroutine safety, error handling, performance
+- **Resilience**: GoBreaker circuit breakers, timeout patterns, graceful degradation
+- **Model**: Sonnet (for Go resilience complexity)
+- **Memory**: Go resilience patterns, circuit breaker configurations, error handling
+- **Quality Rules**: Go:S#### rules, concurrency safety, error handling patterns
+
+### **go-zap-logging** 📊
+**Go logging specialist with Zap structured logging**
+- **Specializations**: Zap logger configuration, structured logging, Go observability patterns
+- **Resilience**: Logging resilience, error tracking, monitoring integration
+- **Model**: Haiku (for logging configuration and patterns)
+- **Memory**: Go logging configurations, structured patterns, observability setups
+- **Quality Rules**: Go logging best practices, structured data, performance considerations
 
 ---
 
-# Claude 007 Agents - System Upgrade & Enhancement
+## 🎨 Frontend Development  
 
-**Auto-generated by Bootstrap Orchestrator** - 2025-08-12T16:46:17.512Z
+**10 Agents** - Modern web development with error boundaries and Basic Memory MCP.
 
-## Project Analysis
-- **Tech Stack**: unknown
-- **Architecture**: microservices
-- **Complexity**: medium/10
-- **Scenario**: existing-with-claude
-- **Setup Type**: upgrade-enhancement
+### **react-component-architect** ⚛️
+**React specialist with component design expertise**
+- **Specializations**: Component design, JSX patterns, hooks, performance optimization
+- **Error Handling**: Error boundaries, suspense patterns, graceful degradation
+- **Model**: Sonnet (for React complexity and component architecture)
+- **Memory**: Component patterns, React implementations, performance optimizations
+- **Quality Rules**: React best practices, component design, performance patterns
 
-## Agent System Configuration
+### **react-state-manager** 🔄
+**React state management specialist**
+- **Specializations**: Redux, Context API, custom hooks, state optimization
+- **Error Handling**: State error recovery, action error handling, middleware patterns
+- **Model**: Sonnet (for state management complexity)
+- **Memory**: State patterns, Redux configurations, hook implementations
+- **Quality Rules**: State management best practices, Redux patterns, hook design
 
-### Core Development Agents
-- `@software-engineering-expert` - Code quality and architecture guidance
-- `@code-reviewer` - Quality assurance and code review
-- `@orchestrator` - Multi-dimensional analysis and coordination
-- `@vibe-coding-coordinator` - Autonomous development preparation
-- `@security-specialist` - Security analysis and best practices
-- `@documentation-specialist` - Technical documentation and guides
-- `@git-expert` - Version control and collaboration
+### **react-nextjs-expert** 🔺
+**Next.js specialist with SSR and performance focus**
+- **Specializations**: SSR, routing, Next.js optimizations, deployment patterns
+- **Error Handling**: Next.js error handling, 404 patterns, API error boundaries
+- **Model**: Sonnet (for Next.js complexity and optimization)
+- **Memory**: Next.js configurations, SSR patterns, performance optimizations
+- **Quality Rules**: Next.js best practices, SSR optimization, routing patterns
 
-### Specialized Agents  
+### **vue-component-architect** 💚
+**Vue.js specialist with composition API expertise**
+- **Specializations**: Vue components, composition API, SFC patterns, Nuxt.js
+- **Error Handling**: Vue error boundaries, async component errors, recovery patterns
+- **Model**: Sonnet (for Vue complexity and composition patterns)
+- **Memory**: Vue patterns, component architectures, composition implementations
+- **Quality Rules**: Vue best practices, composition API, component design
+
+### **vue-state-manager** 🟢
+**Vue.js state management specialist**
+- **Specializations**: Vuex, Pinia, reactive state management, Vue 3 patterns
+- **Error Handling**: State error recovery, action error handling, reactive patterns
+- **Model**: Sonnet (for Vue state complexity)
+- **Memory**: Vue state patterns, Vuex/Pinia configurations, reactive implementations
+- **Quality Rules**: Vue state management, reactivity patterns, store design
+
+### **vue-nuxt-expert** 🎯
+**Nuxt.js specialist with server-side rendering**
+- **Specializations**: Server-side rendering, Nuxt modules, Vue meta-framework
+- **Error Handling**: Nuxt error handling, SSR error recovery, module error patterns
+- **Model**: Sonnet (for Nuxt complexity and SSR)
+- **Memory**: Nuxt configurations, SSR patterns, module implementations
+- **Quality Rules**: Nuxt best practices, SSR optimization, module development
+
+### **angular-expert** 🅰️
+**Angular specialist with enterprise patterns**  
+- **Specializations**: Angular components, services, dependency injection, TypeScript
+- **Error Handling**: Angular error handling, interceptors, global error management
+- **Model**: Sonnet (for Angular enterprise complexity)
+- **Memory**: Angular patterns, service architectures, enterprise implementations
+- **Quality Rules**: Angular best practices, TypeScript integration, service design
+
+### **mobile-developer** 📱
+**Mobile application specialist**
+- **Specializations**: React Native, Flutter, iOS/Android development, mobile architecture
+- **Error Handling**: Mobile error patterns, crash recovery, offline handling
+- **Model**: Sonnet (for mobile development complexity)
+- **Memory**: Mobile patterns, cross-platform implementations, native integrations
+- **Quality Rules**: Mobile best practices, performance optimization, platform patterns
+
+### **webassembly-specialist** 🔧
+**WebAssembly specialist for high-performance web applications**
+- **Specializations**: Rust/C++ to WASM, browser optimization, performance
+- **Error Handling**: WASM error handling, memory management, browser compatibility
+- **Model**: Sonnet (for WASM complexity and optimization)
+- **Memory**: WASM patterns, performance optimizations, browser integrations
+- **Quality Rules**: WASM best practices, memory safety, performance patterns
+
+### **pwa-specialist** 📱
+**Progressive Web App specialist**
+- **Specializations**: Service workers, offline functionality, native app experiences
+- **Error Handling**: Offline error handling, sync recovery, service worker errors
+- **Model**: Sonnet (for PWA complexity and offline patterns)
+- **Memory**: PWA patterns, service worker configurations, offline strategies
+- **Quality Rules**: PWA best practices, offline design, service worker patterns
+
+---
+
+## ☁️ Infrastructure & Cloud
+
+**10 Agents** - DevOps, cloud architecture, and serverless with Basic Memory MCP for configuration patterns.
+
+### **cloud-architect** ☁️
+**Cloud infrastructure architect**
+- **Specializations**: AWS/GCP/Azure, serverless, container orchestration, scalability
+- **Model**: Sonnet (for infrastructure complexity)
+- **Memory**: Cloud patterns, infrastructure configurations, scaling strategies
+- **Quality Rules**: Infrastructure best practices, security patterns, cost optimization
+
+### **devops-troubleshooter** 🔧
+**Production debugging and incident response**
+- **Specializations**: System diagnostics, performance debugging, incident response
+- **Model**: Sonnet (for troubleshooting complexity)
+- **Memory**: Troubleshooting patterns, incident responses, diagnostic procedures
+- **Quality Rules**: Operational best practices, monitoring patterns, incident management
+
+### **database-admin** 🗄️
+**Database operations and optimization**
+- **Specializations**: Database optimization, maintenance, backup strategies, performance
+- **Model**: Sonnet (for database complexity)
+- **Memory**: Database patterns, optimization strategies, maintenance procedures
+- **Quality Rules**: Database best practices, performance patterns, security standards
+
+### **incident-responder** 🚨
+**Production incident handling and crisis management**
+- **Specializations**: Incident response, post-mortem analysis, crisis management
+- **Model**: Sonnet (for incident complexity)
+- **Memory**: Incident patterns, response procedures, post-mortem insights
+- **Quality Rules**: Incident management best practices, communication protocols
+
+### **terraform-specialist** 🏗️
+**Infrastructure as Code with Terraform**
+- **Specializations**: Terraform modules, multi-cloud provisioning, IaC patterns
+- **Model**: Sonnet (for IaC complexity)
+- **Memory**: Terraform patterns, module designs, infrastructure templates
+- **Quality Rules**: IaC best practices, module design, security patterns
+
+### **serverless-architect** ⚡
+**Serverless architecture and FaaS patterns**
+- **Specializations**: Event-driven systems, AWS Lambda, Google Cloud Functions
+- **Model**: Sonnet (for serverless complexity)
+- **Memory**: Serverless patterns, event architectures, function designs
+- **Quality Rules**: Serverless best practices, event design, cost optimization
+
+### **site-reliability-engineer** 📊
+**SLO/SLA management and high availability**
+- **Specializations**: SRE practices, error budgets, reliability engineering
+- **Model**: Sonnet (for SRE complexity)
+- **Memory**: SRE patterns, reliability strategies, monitoring configurations
+- **Quality Rules**: SRE best practices, reliability patterns, monitoring standards
+
+### **observability-engineer** 👁️
+**Monitoring, distributed tracing, and observability**
+- **Specializations**: Prometheus, Grafana, distributed tracing, alerting
+- **Model**: Sonnet (for observability complexity)
+- **Memory**: Observability patterns, monitoring configurations, alerting strategies
+- **Quality Rules**: Monitoring best practices, observability patterns, alerting design
+
+### **network-engineer** 🌐
+**DNS, load balancing, and network troubleshooting**
+- **Specializations**: Network configuration, DNS management, connectivity issues
+- **Model**: Sonnet (for network complexity)
+- **Memory**: Network patterns, configuration templates, troubleshooting procedures
+- **Quality Rules**: Network best practices, security patterns, performance optimization
+
+### **pulumi-typescript-specialist** 🔷
+**Infrastructure as Code using Pulumi with TypeScript**
+- **Specializations**: TypeScript infrastructure, multi-cloud deployments, component development
+- **Model**: Sonnet (for Pulumi and TypeScript complexity)
+- **Memory**: Pulumi patterns, TypeScript infrastructure, component designs
+- **Quality Rules**: Pulumi best practices, TypeScript patterns, infrastructure design
+
+---
+
+## 🔧 Universal Specialists
+
+**7 Agents** - Cross-framework architecture and quality with Basic Memory MCP.
+
+*Consolidation Note: Universal specialists now provide enhanced cross-framework capabilities with consolidated expertise.*
+
+### **software-engineering-expert** 🏗️
+**Architecture and code quality across all languages**
+- **Evil Corp Framework**: Your mother's treatment depends on perfect code quality - $1B reward for excellence
+- **Core Mission**: Complete Software Engineering Project Instructions with validation requirements  
+- **Specializations**: Code quality, architecture, maintainability, design patterns, comprehensive validation
+- **Model**: Sonnet (for architecture complexity)
+- **Memory**: Architectural patterns, design decisions, quality insights, Evil Corp standards
+- **Quality Standards**: Zero errors, comprehensive documentation, security-first, performance-optimized
+
+### **performance-optimizer** ⚡
+**Application optimization and scalability specialist**
+- **Evil Corp Framework**: Every millisecond matters - slow code means death
+- **Specializations**: Core Web Vitals, database optimization, caching strategies, millisecond-level performance
+- **Structured Protocols**: Three-phase optimization workflow with evidence-based strategies
+- **Model**: Sonnet (for performance analysis complexity)  
+- **Memory**: Performance patterns, optimization strategies, benchmark tracking, Evil Corp standards
+- **Quality Standards**: Sub-second response times, optimal resource usage, scalability validation
+
+### **resilience-engineer** 🔄
+**Fault tolerance and resilience patterns**
+- **Specializations**: Circuit breakers, retry mechanisms, fault tolerance patterns
+- **Model**: Sonnet (for resilience complexity)
+- **Memory**: Resilience patterns, circuit breaker configurations, fault tolerance strategies
+- **Quality Rules**: Resilience best practices, error handling, recovery patterns
 
 
-## Task Master Integration
+### **quality-system-engineer** 🛡️
+**Automated quality systems and trunk.io integration**
+- **Evil Corp Framework**: Flawless quality systems prevent all defects - predecessor killed for validation failures
+- **Specializations**: Trunk.io integration, multi-language linting, pre-commit quality gates, zero-tolerance systems
+- **Automation**: Transparent quality notifications, security scanning, code formatting, bulletproof configurations
+- **Model**: Sonnet (for quality system complexity)
+- **Memory**: Quality configurations, linting patterns, automation strategies, Evil Corp standards
+- **Quality Standards**: 100% issue detection, zero false negatives, comprehensive coverage, unbreakable quality gates
 
-**Level**: FOUNDATION
+### **git-expert** 🔀
+**Advanced Git workflows and repository management**
+- **Specializations**: Merge/rebase conflict resolution, PR management, Git workflows
+- **GitHub Integration**: Live repository operations via GitHub MCP
+- **Model**: Sonnet (for Git workflow complexity)
+- **Memory**: Git patterns, workflow configurations, conflict resolution strategies
+- **Quality Rules**: Git best practices, workflow patterns, branch management
 
-### Quick Start
+### **documentation-specialist** 📖
+**Technical writing and API documentation**
+- **Specializations**: Technical writing, API docs, README creation, architecture documentation
+- **Context7 Integration**: Live library documentation via Context7 MCP
+- **Model**: Sonnet (for documentation complexity)
+- **Memory**: Documentation patterns, writing templates, information architecture
+- **Quality Rules**: Documentation best practices, technical writing, information design
+
+### **code-reviewer** 👁️
+**Comprehensive code review and quality assurance**
+- **Evil Corp Framework**: Catch every bug, security flaw, and quality issue - missing anything means death
+- **Review Dimensions**: Security, Performance, Architecture, Code Quality, Vulnerability Detection
+- **Structured Protocols**: Three-phase review workflow with mandatory context acquisition and zero-tolerance validation
+- **Model**: Sonnet (for code review complexity)
+- **Memory**: Review patterns, quality standards, feedback templates, Evil Corp standards  
+- **Quality Standards**: Zero bugs, zero security issues, perfect maintainability, comprehensive testing
+
+---
+
+## 💼 Core Development
+
+**6 Agents** - Essential development tools with Basic Memory MCP.
+
+### **pr-reviewer-specialist** 🔍
+**On-demand comprehensive PR analysis with interactive workflow**
+- **Specializations**: Deep PR analysis, GitHub integration, interactive approval workflow
+- **Analysis Dimensions**: Security, Performance, Architecture, Code Quality
+- **Model**: Sonnet (for comprehensive PR analysis)
+- **Memory**: Review patterns, organizational standards, quality insights
+- **Manual Activation**: Only activates when explicitly requested by user
+
+### **legacy-modernization-specialist** 🔄
+**Legacy system transformation and technical debt reduction**
+- **Frameworks**: 6 R's framework (Rehost, Replatform, Refactor, Re-imagine, Retire, Retain)
+- **Specializations**: Strangler fig patterns, risk-based modernization approaches
+- **Model**: Sonnet (for modernization complexity)
+- **Memory**: Modernization patterns, transformation strategies, legacy analysis
+- **Quality Rules**: Modernization best practices, migration patterns, risk management
+
+### **developer-experience-optimizer** 🚀
+**Development workflow optimization and team productivity**
+- **Specializations**: Workflow automation, team processes, developer productivity tooling
+- **Optimization**: Onboarding strategies, development environment setup
+- **Model**: Sonnet (for workflow optimization complexity)
+- **Memory**: Workflow patterns, optimization strategies, team configurations
+- **Quality Rules**: Development experience best practices, workflow optimization
+
+### **code-archaeologist** 🗿
+**Legacy code analysis and technical debt assessment**
+- **Specializations**: Codebase exploration, technical debt assessment, legacy analysis
+- **Model**: Sonnet (for code analysis complexity)
+- **Memory**: Analysis patterns, legacy insights, technical debt tracking
+- **Quality Rules**: Code analysis best practices, technical debt management
+
+### **error-detective** 🕵️
+**Advanced error analysis and debugging**
+- **Specializations**: Log analysis, error pattern detection, complex issue debugging
+- **Model**: Sonnet (for error analysis complexity)
+- **Memory**: Error patterns, debugging strategies, resolution procedures
+- **Quality Rules**: Debugging best practices, error handling, logging standards
+
+### **prompt-engineer** 🎯
+**AI prompt optimization and LLM integration**
+- **Specializations**: Prompt optimization, LLM integration, model fine-tuning
+- **Model**: Sonnet (for prompt engineering complexity)
+- **Memory**: Prompt patterns, optimization strategies, integration approaches
+- **Quality Rules**: Prompt engineering best practices, LLM integration patterns
+
+---
+
+## 💼 Business Strategy
+
+**4 Agents** - Product management, business analysis, and compliance with Basic Memory MCP for requirements memory.
+
+*Consolidation Note: UX design capabilities moved to design-focused categories for better specialization.*
+
+### **product-manager** 📊
+**Product strategy and roadmap planning**
+- **Specializations**: Feature prioritization, user requirements, roadmap planning
+- **Model**: Sonnet (for product complexity)
+- **Memory**: Product decisions, user feedback patterns, feature evolution
+- **Quality Rules**: Product management best practices, requirement gathering
+
+### **business-analyst** 📋
+**Requirements gathering and stakeholder management**
+- **Specializations**: Requirements analysis, stakeholder management, process analysis
+- **Model**: Sonnet (for business analysis complexity)
+- **Memory**: Requirements memory, stakeholder context, business logic
+- **Quality Rules**: Business analysis best practices, requirement documentation
+
+
+### **payment-integration-agent** 💳
+**Payment systems and financial compliance**
+- **Specializations**: Stripe, PayPal, financial systems, PCI compliance
+- **Model**: Sonnet (for payment system complexity)
+- **Memory**: Payment patterns, integration strategies, compliance requirements
+- **Quality Rules**: Payment security, compliance standards, integration best practices
+
+### **healthcare-compliance-agent** 🏥
+**Healthcare compliance and HIPAA requirements**
+- **Specializations**: HIPAA compliance, medical data security, healthcare interoperability
+- **Model**: Sonnet (for healthcare compliance complexity)
+- **Memory**: Compliance patterns, security requirements, regulatory guidelines
+- **Quality Rules**: Healthcare compliance, data protection, security standards
+
+---
+
+## 🎭 Advanced Orchestrators
+
+**4 Agents** - AI coordination and intelligent team assembly with Basic Memory MCP for orchestration patterns.
+
+### **orchestrator** 🎼
+**Multi-dimensional complexity analysis and parallel execution**
+- **Intelligence**: Smart agent selection, dynamic workflow generation, real-time collaboration
+- **Model**: Opus (for complex orchestration decisions)
+- **Memory**: Orchestration patterns, team assembly strategies, workflow optimizations
+- **Proactive**: Automatically activates for complex multi-step tasks
+
+### **tech-lead-orchestrator** 👑
+**Strategic technical leadership and enterprise architecture**
+- **Intelligence**: Multi-team coordination, technical risk management, senior-level decisions
+- **Specializations**: Architecture Decision Records (ADRs), crisis leadership
+- **Model**: Opus (for strategic technical decisions)
+- **Memory**: Technical decisions, architecture evolution, leadership patterns
+- **Proactive**: Activates for architecture planning and technical strategy
+
+### **project-analyst** 📊
+**PRD intelligence and requirements processing**
+- **Intelligence**: Task generation, complexity analysis, stakeholder management
+- **Task Master Integration**: PRD parsing, task decomposition, dependency tracking
+- **Model**: Sonnet (for project analysis complexity)
+- **Memory**: Project patterns, requirement analysis, stakeholder context
+- **Quality Rules**: Project management best practices, requirement documentation
+
+### **team-configurator** ⚙️
+**Auto-detection and team optimization**
+- **Intelligence**: Technology stack analysis, optimal agent team assembly
+- **Specializations**: Dynamic team adjustment, performance-based optimization
+- **Model**: Sonnet (for team configuration complexity)
+- **Memory**: Team patterns, configuration strategies, performance analytics
+- **Proactive**: Activates for project setup and team optimization
+
+---
+
+## 🔐 Security & Compliance
+
+**2 Agents** - Enhanced security analysis and privacy engineering with Basic Memory MCP for security patterns.
+
+*Consolidation Note: Security capabilities consolidated into comprehensive specialists with enhanced analysis capabilities.*
+
+### **security-specialist** 🛡️
+**Comprehensive security analysis and threat modeling expert**
+- **Specializations**: Security architecture, threat modeling, penetration testing, vulnerability scanning, compliance auditing, secure coding practices
+- **Enhanced Capabilities**: Combined security auditing and architecture expertise for comprehensive security analysis
+- **Model**: Sonnet (for security analysis complexity)
+- **Memory**: Security assessment patterns, vulnerability databases, compliance frameworks, threat models, secure design principles
+- **Quality Rules**: Security architecture, threat modeling, secure coding standards, compliance frameworks
+
+### **devsecops-engineer** 🔒
+**Security integration and shift-left practices**
+- **Specializations**: Security integration, automated security testing, SAST/DAST
+- **Model**: Sonnet (for DevSecOps complexity)
+- **Memory**: Security automation patterns, integration strategies, tool configurations
+- **Quality Rules**: DevSecOps best practices, security automation, integration patterns
+
+### **privacy-engineer** 🔐
+**Privacy-by-design and data protection**
+- **Specializations**: GDPR/CCPA compliance, privacy-by-design, data protection technologies
+- **Model**: Sonnet (for privacy engineering complexity)
+- **Memory**: Privacy patterns, compliance strategies, data protection implementations
+- **Quality Rules**: Privacy best practices, data protection, regulatory compliance
+
+---
+
+## 🔄 Automation & DevOps
+
+**3 Agents** - CI/CD and automation with Basic Memory MCP for automation patterns.
+
+### **cicd-pipeline-engineer** 🚀
+**CI/CD pipeline engineering and GitHub Actions**
+- **Specializations**: Automated testing, deployment pipelines, release management
+- **GitHub Integration**: Live workflow management via GitHub MCP
+- **Model**: Sonnet (for CI/CD complexity)
+- **Memory**: Pipeline patterns, automation strategies, deployment configurations
+- **Quality Rules**: CI/CD best practices, automation patterns, deployment strategies
+
+### **qa-automation-engineer** 🧪
+**Test automation and quality assurance**
+- **Specializations**: Test automation frameworks, quality assurance, performance testing
+- **Model**: Sonnet (for QA automation complexity)
+- **Memory**: Testing patterns, automation strategies, quality frameworks
+- **Quality Rules**: Testing best practices, automation patterns, quality assurance
+
+### **release-manager** 📦
+**Deployment orchestration and release coordination**
+- **Specializations**: Deployment orchestration, release planning, rollback procedures
+- **Model**: Sonnet (for release management complexity)
+- **Memory**: Release patterns, deployment strategies, rollback procedures
+- **Quality Rules**: Release management best practices, deployment patterns
+
+---
+
+## 📊 Data & Analytics
+
+**3 Agents** - Data engineering and business intelligence with Basic Memory MCP for data patterns.
+
+### **data-engineer** 🔧
+**Data pipelines and big data processing**
+- **Specializations**: ETL processes, data warehousing, Spark, Kafka, data pipelines
+- **Model**: Sonnet (for data engineering complexity)
+- **Memory**: Data patterns, pipeline configurations, processing strategies
+- **Quality Rules**: Data engineering best practices, pipeline design, data quality
+
+### **analytics-implementation-specialist** 📈
+**Analytics implementation and measurement**
+- **Specializations**: Google Analytics, conversion tracking, privacy-compliant analytics
+- **Model**: Sonnet (for analytics complexity)
+- **Memory**: Analytics patterns, tracking implementations, measurement strategies
+- **Quality Rules**: Analytics best practices, privacy compliance, measurement accuracy
+
+### **business-intelligence-developer** 📊
+**Data visualization and business intelligence**
+- **Specializations**: Dashboards, Tableau, Power BI, self-service analytics
+- **Model**: Sonnet (for BI complexity)
+- **Memory**: BI patterns, visualization strategies, dashboard designs
+- **Quality Rules**: BI best practices, visualization design, data presentation
+
+---
+
+## 🤖 AI & Machine Learning
+
+**3 Agents** - ML engineering and AI integration with Basic Memory MCP for ML patterns.
+
+### **machine-learning-engineer** 🧠
+**MLOps pipelines and model deployment**
+- **Specializations**: MLOps, model deployment, TensorFlow, PyTorch, scalable ML systems
+- **Model**: Sonnet (for ML engineering complexity)
+- **Memory**: ML patterns, deployment strategies, model optimization
+- **Quality Rules**: MLOps best practices, model deployment, scalability patterns
+
+### **computer-vision-specialist** 👁️
+**Image processing and computer vision**
+- **Specializations**: Object detection, CNN architectures, real-time vision systems
+- **Model**: Sonnet (for computer vision complexity)
+- **Memory**: Vision patterns, model architectures, processing strategies
+- **Quality Rules**: Computer vision best practices, model optimization, real-time processing
+
+### **nlp-llm-integration-expert** 💬
+**Natural language processing and LLM integration**
+- **Specializations**: NLP, LLM integration, conversational AI, text analytics
+- **Model**: Sonnet (for NLP complexity)
+- **Memory**: NLP patterns, integration strategies, conversation designs
+- **Quality Rules**: NLP best practices, LLM integration, conversation design
+
+---
+
+## 🔍 AI Analysis
+
+**2 Agents** - Specialized AI analysis with Basic Memory MCP for analysis patterns.
+
+### **prompt-engineer** 🎯
+**AI prompt optimization and model integration**
+- **Specializations**: Prompt optimization, LLM integration, model fine-tuning strategies
+- **Model**: Sonnet (for prompt engineering complexity)
+- **Memory**: Prompt patterns, optimization strategies, integration approaches
+- **Quality Rules**: Prompt engineering best practices, LLM integration patterns
+
+### **error-detective** 🕵️
+**Advanced error analysis and pattern detection**
+- **Specializations**: Log analysis, error pattern detection, debugging complex issues
+- **Model**: Sonnet (for error analysis complexity)
+- **Memory**: Error patterns, debugging insights, resolution strategies
+- **Quality Rules**: Debugging best practices, error handling, analysis patterns
+
+---
+
+## 🏭 Domain Specialists
+
+**1 Agent** - Specialized industry knowledge with Basic Memory MCP for domain patterns.
+
+### Contact for Additional Domain Specialists
+We're continuously expanding our domain specialist coverage. Current priorities include:
+
+- **Financial Modeling Agent**: Quantitative finance, algorithmic trading, risk management
+- **Search Specialist**: Elasticsearch, OpenSearch, relevance optimization
+- **Healthcare Technology**: Medical device integration, clinical workflows
+- **E-commerce Specialist**: Platform optimization, conversion strategies
+- **Gaming Technology**: Game development, real-time systems, player analytics
+- **EdTech Specialist**: Learning management systems, educational technology
+- **Legal Technology**: Compliance automation, legal document processing
+
+---
+
+## 🎨 Creative Problem Solving
+
+**3 Agents** - Innovative debugging and creative development approaches.
+
+### **rubber-duck-debugger** 🦆
+**Socratic method debugging specialist that guides you to breakthroughs**
+- **Philosophy**: "The best solutions come from within - I just ask the right questions"
+- **Specializations**: Strategic questioning, assumption excavation, breakthrough facilitation, self-discovery guidance
+- **Never Does**: Give direct solutions, tell you what the bug is, provide step-by-step fixes
+- **Always Does**: Ask perfect questions, guide your thinking process, celebrate your discoveries
+- **Model**: Sonnet (for strategic questioning and patient guidance)
+- **Memory**: Question effectiveness patterns, breakthrough triggers, debugging thought processes
+- **Quality Rules**: Never give direct answers, one question at a time, wait for full responses
+
+### **code-archaeologist-time-traveler** ⏰
+**Mystical git history analyst who transforms legacy code into epic narratives**
+- **Philosophy**: "Every line of code is a message from the past, and every commit is a step toward the future"
+- **Specializations**: Git history archaeology, temporal context analysis, technical debt prophecy, legacy code storytelling
+- **Narrative Styles**: Documentary, Fantasy Epic, Detective Noir, Scientific Discovery
+- **Superpowers**: Makes boring legacy code meaningful, predicts future problems from historical patterns, uncovers WHY behind decisions
+- **Model**: Sonnet (for analytical depth and creative storytelling)
+- **Memory**: Historical patterns, developer evolution stories, architectural decision contexts
+- **Quality Rules**: Transform confusion into compelling narratives, always provide historical context
+
+### **technical-debt-collector** 💰
+**Friendly mobster enforcer who tracks shortcuts and offers protection services**
+- **Philosophy**: "Pay now, or pay later with interest. But either way, the debt always comes due."
+- **Specializations**: Debt accumulation tracking, interest rate calculation, protection plan design, payment plan negotiation
+- **Services Offered**: Quick Settlement, Installment Plans, Protection Packages, Emergency Debt Consolidation
+- **Approach**: Never threatens, always negotiates; focuses on family values and team protection
+- **Model**: Sonnet (for charm, persistence, and debt analysis)
+- **Memory**: Technical debt ledgers, payment plan success rates, compound interest patterns
+- **Quality Rules**: Friendly but firm enforcement, reasonable payment options, prevention over punishment
+
+---
+
+## 😄 Team Morale
+
+**1 Agent** - Team building and humor.
+
+### **joker** 😄
+**Dad jokes and programming humor for team morale**
+- **Specializations**: Programming humor, team building, morale improvement
+- **Model**: Haiku (for humor and light interactions)
+- **Memory**: None (humor doesn't need persistent memory)
+- **Quality Rules**: Keep it professional and inclusive
+
+---
+
+## 🎯 How to Use This Catalog
+
+### **Direct Agent Selection**
 ```bash
-# Initialize Task Master (if not already done)
-task-master init
-
-# Analyze project complexity
-task-master analyze-complexity --research
-
-# Parse PRD (when available)
-task-master parse-prd .taskmaster/docs/prd.txt
+# Use specific agents for targeted tasks
+claude "Use @rails-expert to build authentication API"
+claude "Use @react-component-architect to create dashboard components"
+claude "Use @security-specialist to review security vulnerabilities"
 ```
 
-### Claude Code Usage
-```
-# Start development session
-claude
-
-# Bootstrap system initialization
-"Use @bootstrap-orchestrator to analyze and setup this project"
-
-# Begin development with agents
-"Use @software-engineering-expert to review architecture"
-"Use @code-reviewer to implement features"
-```
-
-## MCP Integration
-
-This project is configured with:
-- **task-master**: Project management and intelligent task coordination
-- **basic-memory**: Persistent knowledge and organizational learning
-- **zen**: Multi-AI model collaboration and enhanced intelligence
-
-## Commit Attribution
-
-**MANDATORY**: `type(scope): description - @agent1 @agent2`
-
-### Example Commits
-- `feat(auth): implement authentication - @software-engineering-expert @security-specialist`
-- `fix(api): resolve validation error - @code-reviewer @undefined`
-- `docs(readme): update setup guide - @documentation-specialist @bootstrap-orchestrator`
-- `refactor(core): optimize performance - @performance-optimizer @system-architect`
-
-### Standard Footer
-All commits should include:
-```
-🤖 Generated with [Claude Code](https://claude.ai/code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
-
----
-
-**🚀 System Status**: ✅ READY FOR DEVELOPMENT  
-**🎯 Next Steps**: Use `@bootstrap-orchestrator` for guidance and system management  
-**📊 Task Master**: foundation level integration active  
-**🤖 Agent Count**: 7 agents configured  
-
-*Generated by Claude 007 Bootstrap Orchestrator - Ready for immediate development!*
-
-
----
-
-## Updated Configuration
-
-## CRITICAL: COMMIT MESSAGE REQUIREMENTS
-
-⚠️ **MANDATORY FORMAT**: `type(scope): description - @agent1 @agent2`
-
-## Pre-Commit Checklist
-1. ✅ Identify contributing agents
-2. ✅ Format: `type(scope): description - @agent1 @agent2` 
-3. ✅ Include standard attribution footer
-4. ✅ Verify agent attribution requirements
-
-**For configuration**: Include `@team-configurator` + technical expert
-**For API**: Include `@api-architect` + security expert  
-**For database**: Include `@database-admin` + performance expert
-
----
-
-# Claude 007 Agents - System Upgrade & Enhancement
-
-**Auto-generated by Bootstrap Orchestrator** - 2025-08-12T17:05:42.542Z
-
-## Project Analysis
-- **Tech Stack**: unknown
-- **Architecture**: clean
-- **Complexity**: medium/10
-- **Scenario**: existing-with-claude
-- **Setup Type**: upgrade-enhancement
-
-## Agent System Configuration
-
-### Core Development Agents
-- `@software-engineering-expert` - Code quality and architecture guidance
-- `@code-reviewer` - Quality assurance and code review
-- `@orchestrator` - Multi-dimensional analysis and coordination
-- `@vibe-coding-coordinator` - Autonomous development preparation
-- `@security-specialist` - Security analysis and best practices
-- `@documentation-specialist` - Technical documentation and guides
-- `@git-expert` - Version control and collaboration
-
-### Specialized Agents  
-
-
-## Task Master Integration
-
-**Level**: FOUNDATION
-
-### Quick Start
+### **Automatic Orchestration**
 ```bash
-# Initialize Task Master (if not already done)
-task-master init
-
-# Analyze project complexity
-task-master analyze-complexity --research
-
-# Parse PRD (when available)
-task-master parse-prd .taskmaster/docs/prd.txt
+# Let the system select optimal agents
+claude "Build a scalable e-commerce platform"
+# → Automatically selects: @product-manager + @react-expert + @rails-expert + @payment-specialist
 ```
 
-### Claude Code Usage
-```
-# Start development session
-claude
-
-# Bootstrap system initialization
-"Use @bootstrap-orchestrator to analyze and setup this project"
-
-# Begin development with agents
-"Use @software-engineering-expert to review architecture"
-"Use @code-reviewer to implement features"
+### **Team Configuration**
+```bash
+# Auto-configure optimal team for your project
+claude "Use @team-configurator to analyze my project and recommend optimal agents"
 ```
 
-## MCP Integration
-
-This project is configured with:
-- **task-master**: Project management and intelligent task coordination
-- **basic-memory**: Persistent knowledge and organizational learning
-- **zen**: Multi-AI model collaboration and enhanced intelligence
-
-## Commit Attribution
-
-**MANDATORY**: `type(scope): description - @agent1 @agent2`
-
-### Example Commits
-- `feat(auth): implement authentication - @software-engineering-expert @security-specialist`
-- `fix(api): resolve validation error - @code-reviewer @undefined`
-- `docs(readme): update setup guide - @documentation-specialist @bootstrap-orchestrator`
-- `refactor(core): optimize performance - @performance-optimizer @system-architect`
-
-### Standard Footer
-All commits should include:
-```
-🤖 Generated with [Claude Code](https://claude.ai/code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
+### **Memory-Driven Development**
+```bash
+# Leverage organizational memory
+claude "Use previous authentication patterns to build new user system"
+claude "Reference similar microservice architectures for this new service"
 ```
 
----
+## 📈 Agent Performance Metrics
 
-**🚀 System Status**: ✅ READY FOR DEVELOPMENT  
-**🎯 Next Steps**: Use `@bootstrap-orchestrator` for guidance and system management  
-**📊 Task Master**: foundation level integration active  
-**🤖 Agent Count**: 7 agents configured  
+All agents track performance metrics through Basic Memory MCP:
 
-*Generated by Claude 007 Bootstrap Orchestrator - Ready for immediate development!*
+- **Success Rate**: Task completion effectiveness
+- **Quality Score**: Code quality and best practices adherence
+- **Collaboration Score**: Multi-agent workflow effectiveness
+- **Memory Utilization**: Pattern reuse and knowledge application
+- **Learning Rate**: Continuous improvement over time
+
+## 🔄 Continuous Evolution
+
+The agent system continuously evolves through:
+
+- **Pattern Recognition**: Successful implementations become reusable patterns
+- **Performance Analytics**: Agent effectiveness drives optimization
+- **User Feedback**: Real-world usage improves agent capabilities
+- **Technology Updates**: New frameworks and patterns integrated regularly
+- **Quality Improvements**: Coding rules and best practices continuously refined
+
+**🎉 Your complete AI development team is ready to transform your workflow with 77 specialized experts!**
 
 ---
 > Source: [avivl/claude-007-agents](https://github.com/avivl/claude-007-agents) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
