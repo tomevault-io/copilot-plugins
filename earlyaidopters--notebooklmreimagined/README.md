@@ -1,8 +1,6 @@
 # notebooklmreimagined
 
-> Tome by [earlyaidopters](https://github.com/earlyaidopters/notebooklmreimagined) — distributed by [TomeVault](https://tomevault.io)
-
-An open-source, API-first research intelligence platform - the open alternative to Google's NotebookLM
+> Tome by [earlyaidopters](https://github.com/earlyaidopters/notebooklmreimagined), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
