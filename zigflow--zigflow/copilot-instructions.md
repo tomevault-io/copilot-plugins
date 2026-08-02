@@ -1,284 +1,262 @@
 ## zigflow
 
-> This repository contains **Zigflow**, a workflow engine built on top of
+> This file defines the documentation standards for Zigflow.
 
-# Claude Instructions (zigflow)
+# CLAUDE.md: Zigflow Documentation Standards
 
-This repository contains **Zigflow**, a workflow engine built on top of
-**Temporal** and the **CNCF Serverless Workflow specification**.
+This file defines the documentation standards for Zigflow.
 
-Zigflow prioritizes:
-- Determinism
-- Correctness
-- Explicit validation
-- Clear, inspectable behavior
+All documentation lives under `docs/` and is built with Docusaurus v3.
 
-Claude should treat Zigflow as **infrastructure**, not an application UI.
+Claude must follow these rules strictly when modifying documentation.
 
 ---
 
-## Naming convention
+## Core Principles
 
-The project name is **Zigflow**, capitalised as shown, with a lowercase 'f'.
-Do not write:
-- `ZigFlow` (incorrect capitalisation)
-- `zigflow` (only acceptable in lowercase-only contexts such as CLI commands,
-  package names, or URLs)
-- `Zig Flow` (two words)
-
-Always use **Zigflow** in documentation, code comments, error messages, and any
-user-facing text.
-
----
-
-## Core intent of the project
-
-Zigflow exists to:
-- Load workflow definitions (YAML / JSON)
-- Validate them rigorously
-- Execute them deterministically on Temporal
-- Surface errors early and explicitly
-
-The system is designed to fail fast on invalid or unsupported constructs.
+1. Documentation must reflect actual behaviour.
+2. Never invent features, flags, DSL fields, task types, or CLI behaviour.
+3. If unsure, inspect source code, tests, CLI definitions, or examples.
+4. Prefer minimal working examples over abstract prose.
+5. Documentation must be structured for progressive learning.
+6. Clarity over completeness.
+7. British English spelling.
+8. No Oxford comma.
+9. No em dashes.
 
 ---
 
-## Technology stack (authoritative)
+## Documentation Layers
 
-- **Language:** Go
-- **Workflow engine:** Temporal
-- **Workflow spec:** CNCF Serverless Workflow
-- **Configuration:** YAML / JSON
-- **CLI:** Cobra + Viper
-- **Logging:** zerolog
-- **Runtime expressions:** jq-style expressions evaluated at runtime
+The docs follow a layered model:
 
-Do not:
-- Introduce non-deterministic behavior into workflows
-- Bypass Temporal constraints
-- Add hidden side effects
-- Assume this is a general-purpose workflow runner
+1. Quickstart
+2. Concepts
+3. Examples
+4. DSL Reference
+5. CLI Reference
+6. Deploying
 
----
+Do not collapse these layers.
 
-## Architectural principles
-
-- Workflow definitions are **data**, not code
-- Validation happens **before execution**
-- Unsupported workflow features must error explicitly
-- Deterministic execution is non-negotiable
-- Clarity beats flexibility
-
-Prefer:
-- Explicit errors over silent behavior
-- Validation over permissiveness
-- Small, composable functions
+Concepts explain *why*.
+Reference explains *what*.
+Examples show *how*.
 
 ---
 
-## Workflow handling rules
+## Page Requirements
 
-- Workflow schemas are validated separately from execution
-- Structural validation must reject unsupported task types
-- Runtime expressions must be parsed and evaluated predictably
-- Output and context mutation must be explicit
+Every tutorial or conceptual page must include:
 
-Claude should not:
-- Add support for new Serverless Workflow task types without discussion
-- Infer semantics not present in the spec or implementation
-- Relax validation to “make things work”
+- "What you will learn"
+- At least one minimal working example
+- "Common mistakes" or "Troubleshooting"
+- Links to related pages
 
----
+Reference pages must include:
 
-## State Management Rules
-
-- State (`$context`, `$data`, `$output`) must have explicit and predictable
-  lifecycle boundaries
-- Task implementations must not leak internal state into parent workflow state
-  unless explicitly defined
-- Loop constructs (e.g. `for`) must clearly separate:
-  - intra-iteration state
-  - inter-iteration state
-  - parent workflow state
-- Implicit state propagation is not allowed
-- State promotion to parent workflow state must be explicit and occur only
-  through defined task-level mechanisms (e.g. output, export)
+- Purpose
+- When to use
+- Minimal example
+- Properties reference
+- Gotchas
+- Related links
 
 ---
 
-## Validation philosophy
+## Writing Style
 
-Validation is a **first-class feature**.
+- Short paragraphs.
+- Clear headings.
+- Avoid vague phrasing.
+- Avoid marketing tone.
+- Avoid speculation.
+- Prefer direct instruction.
 
-Validation should:
-- Be deterministic
-- Produce human-readable error messages
-- Fail early
-- Clearly state what is unsupported vs invalid
+Bad:
+"Zigflow enables powerful orchestration capabilities."
 
-If a construct is not implemented:
-- It should be rejected clearly
-- The error message should be actionable
-
----
-
-## Temporal-specific constraints
-
-- Workflow code must remain deterministic
-- No reliance on wall-clock time inside workflows
-- Side effects belong in activities, not workflows
-- Activity inputs and outputs must be serializable
-
-Do not:
-- Introduce randomness
-- Use non-replay-safe operations in workflows
-- Leak Temporal internals into user-facing abstractions
+Good:
+"Zigflow lets you define a workflow in YAML that runs on Temporal."
 
 ---
 
-## CLI & configuration behavior
+## Accuracy Rules
 
-- CLI flags must be explicit and discoverable
-- Defaults should be safe and conservative
-- Validation should run by default where possible
-- Errors should fail the command, not warn
+If documentation and code disagree:
 
-Avoid:
-- Implicit behavior based on environment
-- Magic configuration
-- Overloaded flags
+- Code is the source of truth.
+- Update documentation to match.
+- If behaviour is ambiguous, inspect tests.
+- If still unclear, state limitation rather than guess.
 
----
+Never fabricate:
 
-## Code style & structure
-
-- Prefer explicit types and structs
-- Keep functions focused and testable
-- Avoid deep nesting where possible
-- Name things for clarity, not brevity
-
-Go-specific guidance:
-- Avoid cleverness
-- Prefer standard library solutions
-- Be explicit about error handling
-
-Linting & Testing:
-- Always run pre-commit tests after making changes: `pre-commit run`
-- Always run unit tests after making changes: `go test ./...`
-- Always run end-to-end tests after making changes: `task e2e`
-- All unit tests must pass before considering a task complete
-- All end-to-end tests must pass before considering a task complete
-- All linting and validation errors must be fixed before considering a task complete
-- Key tests that will run include:
-  - `golangci-lint` for Go code quality
-  - `go vet` for Go correctness
-  - `gofumpt` for Go formatting
-  - `go-err-check` for error handling
-  - `go-static-check` for static analysis
-  - YAML/JSON validation
-  - Markdown linting
-  - License header checks
-  - Trailing whitespace and end-of-file fixes
-- Do not disable linters or add nolint directives without discussion
-- If pre-commit is not installed, run: `pip install pre-commit && pre-commit install`
+- Environment variables
+- Retry behaviour
+- Error handling semantics
+- Task configuration options
+- CLI flags
+- Deployment guarantees
 
 ---
 
-## Documentation expectations
+## Autogenerated Content
 
-- Documentation is part of the product
-- Examples should reflect real, supported behavior
-- Unsupported features should be clearly documented as such
-- Avoid aspirational or speculative docs
+The directory:
 
-Docs should explain:
-- What Zigflow does
-- What Zigflow explicitly does not do
-- How it maps to Temporal concepts
+docs/cli/commands
 
----
+is autogenerated from the Zigflow CLI command definitions and help output.
 
-## Writing Style Rules
+It is:
 
-- Do not use em dashes (—).
-- Use full stops, commas or sentence restructuring instead.
-- Prefer clear, direct sentences over stylistic punctuation.
-- Avoid dramatic or marketing-style prose.
-- Maintain a clean, technical documentation tone.
+- Regenerated during documentation builds
+- Not manually edited
+- Listed in `.gitignore`
 
----
+Rules:
 
-## Creative scope & default assumptions
+- Do not modify any files inside `docs/cli/`.
+- Do not restructure, rename, or rewrite CLI reference pages.
+- If CLI documentation needs improvement, create or modify:
+  docs/cli/using-the-cli.md
+  or other non-generated guides outside of the autogenerated directory.
+- If CLI behaviour appears incorrect in docs/cli/, the fix must happen in the
+  CLI source code, not in the generated documentation.
 
-Unless explicitly instructed otherwise, assume:
-
-- This is a **workflow engine**, not a framework
-- Users value predictability over flexibility
-- Features should be added cautiously
-- Backwards compatibility matters
-
-Claude should not:
-- Invent new product features
-- Assume future roadmap decisions
-- Add abstractions “just in case”
-
-When asked to build or modify functionality:
-- Start with the smallest correct change
-- Preserve existing behavior
-- Prefer incremental improvements
+The autogenerated CLI directory is treated as build artefact output.
 
 ---
 
-## When unsure
+## Examples
 
-If something is unclear:
-- Ask before expanding scope
-- Prefer rejecting unsupported behavior
-- Leave TODOs with context rather than guessing
+Examples must:
 
-Correctness beats convenience.
-Determinism beats expressiveness.
+- Be minimal but complete
+- Match actual DSL schema
+- Avoid pseudo syntax
+- Avoid imaginary tasks
+- Be runnable where possible
+
+If an example cannot be validated, omit it.
 
 ---
 
-## Documentation Drift & Behavioural Changes
+## Deployment Documentation
 
-Documentation represents the **intended and supported behaviour** of Zigflow.
+Deployment guidance must:
 
-When behaviour changes, Claude must determine whether the change is:
+- Clearly state what Zigflow actually deploys
+- Clarify whether it is a CLI tool, worker, or generator
+- Avoid assuming infrastructure not provided by the repo
+- Avoid invented Docker images
+- Avoid fabricated Kubernetes manifests
 
-1. **Intentional (feature, improvement, or breaking change)**
-   - Update documentation to reflect the new behaviour.
-   - Ensure examples, CLI output, validation messages, and deployment guidance
-     remain accurate.
-   - If the change is breaking, ensure documentation clearly reflects the new contract.
+---
 
-2. **Unintentional (regression or accidental behaviour change)**
-   - Do NOT update documentation to match the regression.
-   - Fix the implementation to restore documented behaviour.
-   - If uncertain whether behaviour is correct, stop and ask.
+## Build Validation
 
-Documentation must never be altered solely to match incorrect or unintended behaviour.
+After every documentation change:
 
-If code and documentation disagree:
+1. Run `pre-commit run --all-files`. Linting and formatting must pass.
+2. Run `npm run lint`. ESLint must pass with no errors.
+3. Run `npm run build`. The Docusaurus build must succeed with no errors.
 
-- Determine whether the implementation or the documentation reflects the
-  intended contract.
-- Tests, validation logic, and architectural principles are authoritative indicators.
-- If ambiguity exists, ask before proceeding.
+Do not consider a documentation change complete until both pass.
 
-No change is complete unless:
+---
 
-- Behaviour and documentation are aligned.
-- Examples validate successfully.
-- Validation messages reflect actual output.
-- Determinism and correctness guarantees remain intact.
+## Callout Boxes
 
-Accuracy is mandatory.
-Intentionality must be explicit.
+Use Docusaurus admonitions to favour human readers:
 
-If a behavioural change affects public contracts, treat it as a versioning decision.
+- Place `:::tip` or `:::info` boxes at the **top** of a section when that
+  section has a "see X for details" cross-reference.
+- Do not put plain-prose cross-references at the bottom of a section.
+- Use `:::tip` for helpful pointers and related reading.
+- Use `:::info` for important context or prerequisites.
+- Use `:::warning` for gotchas or common mistakes.
+
+Example:
+
+```markdown
+## Some Section
+
+:::tip
+For full configuration options, see [Other Page](./other-page).
+:::
+
+Main section content follows here.
+```
+
+---
+
+## Cross Linking
+
+- Link tasks to Concepts.
+- Link CLI commands to Quickstart.
+- Link examples to relevant DSL tasks.
+- Avoid dead ends.
+
+### Link format
+
+All internal links between documentation pages must use **absolute paths**
+starting with `/docs/`.
+
+Do not use:
+- Relative paths (`./other-page`, `../concepts/foo`, `other-page`)
+- Paths with `.md` extensions
+
+Use:
+- `/docs/concepts/foo`
+- `/docs/dsl/tasks/call`
+- `/docs/deployment/kubernetes#helm-chart`
+
+This applies to all prose links, table links, and "Related pages" sections.
+Links inside code blocks are exempt.
+
+---
+
+## Sidebar Structure
+
+Navigation order should be:
+
+1. Quickstart
+2. Concepts
+3. Examples
+4. DSL
+5. CLI
+6. Deploying
+
+Keep learning flow logical.
+
+---
+
+## Tone
+
+- Professional but practical.
+- No fluff.
+- No hype.
+- No defensive disclaimers.
+- No references to internal decision-making.
+
+---
+
+## Goal
+
+A new user should be able to:
+
+1. Install Zigflow.
+2. Write a minimal workflow.
+3. Validate it.
+4. Run it.
+5. Understand what happened.
+6. Know where to go next.
+
+If the documentation does not achieve this, improve it.
 
 ---
 > Source: [zigflow/zigflow](https://github.com/zigflow/zigflow) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
