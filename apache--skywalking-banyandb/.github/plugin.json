@@ -5,18 +5,5 @@
   "version": "1.0.0",
   "author": "apache",
   "homepage": "https://github.com/apache/skywalking-banyandb",
-  "skills": [
-    {
-      "name": "skywalking-banyandb",
-      "description": ""
-    },
-    {
-      "name": "skywalking-banyandb",
-      "description": ""
-    },
-    {
-      "name": "skywalking-banyandb",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
