@@ -5,11 +5,10 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [dawidd6/action-send-mail](https://github.com/dawidd6/action-send-mail).
+Original source: `CLAUDE.md` in [dawidd6/action-send-mail](https://github.com/dawidd6/action-send-mail).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
