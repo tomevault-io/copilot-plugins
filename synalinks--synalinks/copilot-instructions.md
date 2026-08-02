@@ -1,94 +1,82 @@
 ## synalinks
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> An **OpenAI chat-completions-compatible** endpoint backed by a Synalinks
 
-# CLAUDE.md
+# Agent guide — api
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+An **OpenAI chat-completions-compatible** endpoint backed by a Synalinks
+`FunctionCallingAgent`, served with **FastAPI**. Everything is in `main.py`:
+the tool, the agent, the OpenAI-compatible schemas, and the app.
 
-## Project Overview
+## What to know
 
-Synalinks is a neuro-symbolic Language Model (LM) framework inspired by Keras. It provides a declarative API for building, training, and deploying LM-based applications including RAGs, autonomous agents, and self-evolving reasoning systems.
+- **The endpoint is `POST /v1/chat/completions`.** It accepts the OpenAI
+  request shape (`{model, messages: [{role, content}]}`) and returns the OpenAI
+  response shape, so OpenAI clients work by setting `base_url` to `.../v1`.
+- **Messages → agent.** The request messages become a `synalinks.ChatMessages`,
+  fed to a `FunctionCallingAgent`. The agent's trajectory comes back in the
+  result's `messages`; the **last** message is the assistant's answer.
+- **Build once, serve forever.** `build_and_save_program` writes `program.json`;
+  the lifespan only *loads* it (fail fast if missing). Building does **not** call
+  the LM — even for an agent — so it runs offline (CI, Docker image-build). Never
+  build inside a request handler.
+- **DataModels are Pydantic models**, so FastAPI uses the request/response
+  schemas directly and publishes them at `/docs`.
+- **Status codes are honest:** a guard rejection (`result is None`) is `422`.
+  `stream=true` is unsupported and returns `400`.
+- **Model = vLLM by default** (`MODEL=vllm/Qwen/Qwen3-4B`); the base URL comes
+  from `HOSTED_VLLM_API_BASE`. docker-compose runs vLLM (GPU) on its own service.
+  No GPU? Set `MODEL=ollama/mistral:latest`. Override via the `MODEL` env var.
+- **MLflow tracing** is enabled at startup whenever `MLFLOW_TRACKING_URI` is set
+  (`_enable_observability()` runs before the agent is loaded). Unset = no tracing.
 
-## Development Commands
+## Commands
 
 ```bash
-# Install dependencies
-./shell/install.sh
-
-# Run tests with coverage
-./shell/test.sh
-
-# Run a single test file
-uv run pytest synalinks/src/path/to/test_file.py -v
-
-# Run a specific test
-uv run pytest synalinks/src/path/to/test_file.py::test_function_name -v
-
-# Lint check
-./shell/lint.sh
-
-# Format code
-./shell/format.sh
-
-# Build documentation
-./shell/doc.sh
+uv sync                       # install
+uv run python main.py build   # build the agent artifact (offline; program.json)
+uv run python main.py         # serve (or: fastapi dev main.py)
+docker compose up --build     # API + vLLM + MLflow
 ```
 
-## Architecture
+Swap `calculate` for your own tools, or replace the `FunctionCallingAgent` with
+an RLM / RAG / DeepAgent — the OpenAI-compatible layer is unchanged. Custom
+Agent Skills can live under `.agents/skills/`.
 
-### Core Abstractions
+## Troubleshooting a framework bug
 
-The framework follows a Keras-like pattern with these core abstractions:
+Most failures are in *your* program — fix those here. But if you trace a problem
+to **Synalinks itself** (a stack trace inside the `synalinks` package, or a
+missing/broken framework feature), fix it at the source and upstream it:
 
-- **Module** (`synalinks/src/modules/module.py`): Base class for all composable units, similar to Keras Layers. Modules have:
-  - `__init__()`: Define attributes and create variables
-  - `build()`: Create state that depends on input shapes
-  - `call()`: The forward pass logic (async)
-  - `get_config()`/`from_config()`: Serialization support
+1. **Clone the framework** into this project (the `synalinks/` dir is git-ignored):
 
-- **Program** (`synalinks/src/programs/program.py`): Groups modules into trainable/deployable objects (like Keras Models). Inherits from both `Trainer` and `Module`. Supports:
-  - Functional API: Chain module calls from `Input` to outputs
-  - Subclassing: Override `call()` method
-  - Sequential: Stack of single-input/single-output modules
+   ```bash
+   git clone https://github.com/SynaLinks/synalinks.git
+   git -C synalinks checkout -b fix/<short-description>
+   ```
 
-- **DataModel**: Pydantic-based structured data with JSON schema support. All module I/O uses DataModels.
+2. **Point this project at the local checkout** so your runs exercise the fix:
 
-### Key Components
+   ```bash
+   uv add --editable ./synalinks
+   ```
 
-- **Generator** (`synalinks/src/modules/core/generator.py`): Core module for LM inference with structured outputs
-- **FunctionCallingAgent** (`synalinks/src/modules/agents/function_calling_agent.py`): Autonomous agent with parallel tool calling
-- **ChainOfThought** (`synalinks/src/modules/ttc/chain_of_thought.py`): Generator with thinking field for step-by-step reasoning
+3. **Fix the bug** under `synalinks/synalinks/src/...`, following that repo's
+   `CLAUDE.md`. Add or update a colocated `*_test.py` covering the bug.
 
-### Training System
+4. **Verify**: run the framework's tests (`cd synalinks && ./shell/test.sh`),
+   then re-run your own program to confirm the failure is gone.
 
-- **Trainer** (`synalinks/src/trainers/trainer.py`): Provides `compile()` and `fit()` methods
-- **Optimizers** (`synalinks/src/optimizers/`): In-context RL optimizers for prompt/example optimization
-- **Rewards** (`synalinks/src/rewards/`): Reward functions like `ExactMatch`, `CosineSimilarity`
-- **Metrics** (`synalinks/src/metrics/`): Training metrics tracking
+5. **Open a PR** from the checkout, then restore the released dependency here:
 
-### Backend
-
-Uses Pydantic as the data backend (`synalinks/src/backend/pydantic/`). The backend provides:
-- `Variable`: Trainable state containers
-- `SymbolicDataModel`/`JsonDataModel`: Data model representations
-- Name scoping and state management
-
-### Serialization
-
-All objects are JSON-serializable via `synalinks.saving`. Custom objects need `@synalinks.saving.register_synalinks_serializable()` decorator.
-
-## Code Conventions
-
-- Use `uvx ruff` for linting with config in `pyproject.toml`
-- Use `black` for formatting with 90 char line length
-- Tests are colocated with source files using `*_test.py` suffix
-- All module `call()` methods are async
-
-## API Structure
-
-Public API is exported via `synalinks/api/` directory. The `api_gen.py` script generates `synalinks/__init__.py` from exports decorated with `@synalinks_export()`.
+   ```bash
+   git -C synalinks commit -am "fix: <what you fixed>"
+   git -C synalinks push -u origin HEAD
+   (cd synalinks && gh pr create --fill)
+   uv remove synalinks && uv add synalinks   # drop the local override
+   ```
 
 ---
 > Source: [SynaLinks/synalinks](https://github.com/SynaLinks/synalinks) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
