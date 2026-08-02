@@ -1,0 +1,9 @@
+{
+  "name": "nservicebuscommunity--nservicebus-community-serilog",
+  "displayName": "NServiceBus.Community.Serilog",
+  "description": "NServiceBus.Community.Serilog",
+  "version": "1.0.0",
+  "author": "NServiceBusCommunity",
+  "homepage": "https://github.com/NServiceBusCommunity/NServiceBus.Community.Serilog",
+  "skills": []
+}
