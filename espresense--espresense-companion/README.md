@@ -5,12 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [ESPresense/ESPresense-companion](https://github.com/ESPresense/ESPresense-companion).
+Original source: `AGENTS.md` in [ESPresense/ESPresense-companion](https://github.com/ESPresense/ESPresense-companion).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
