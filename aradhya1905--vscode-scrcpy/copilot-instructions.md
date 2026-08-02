@@ -1,349 +1,505 @@
 ## vscode-scrcpy
 
-> - **Type**: VS Code Extension with React Webview UI
+> **Technology**: React 18, TypeScript, Vite 6, WebCodecs API
 
-# VS Code Scrcpy
+# VS Code Scrcpy - Webview UI
 
-## Overview
-
-- **Type**: VS Code Extension with React Webview UI
-- **Stack**: TypeScript 5.3, React 18, Vite 6, ESBuild, VS Code Extension API
-- **Purpose**: Mirror Android device screens directly in VS Code with touch controls, file management, and ADB tools
-- **Architecture**: Extension (Node.js) + Webview UI (React/browser)
-
-This CLAUDE.md is the authoritative source for development guidelines.
-Subdirectory CLAUDE.md files extend these rules with specific context.
+**Technology**: React 18, TypeScript, Vite 6, WebCodecs API
+**Entry Point**: [src/main.tsx](src/main.tsx)
+**Parent Context**: This extends [../CLAUDE.md](../CLAUDE.md)
 
 ---
 
-## Universal Development Rules
+## Development Commands
 
-### Code Quality (MUST)
-
-- **MUST** write TypeScript in strict mode (enabled in both tsconfigs)
-- **MUST** use 4-space indentation (Prettier config)
-- **MUST** use single quotes for strings
-- **MUST** include trailing commas (ES5 style)
-- **MUST** run `npm run typecheck` before committing
-- **MUST** run `npm run format` to ensure consistent formatting
-- **MUST NOT** commit secrets, API keys, or device-specific data
-
-### Best Practices (SHOULD)
-
-- **SHOULD** use functional React components with hooks (no class components)
-- **SHOULD** use `memo()` for components receiving callback props
-- **SHOULD** co-locate related code (component + hook + styles)
-- **SHOULD** use descriptive variable names (no single letters except loops/lambdas)
-- **SHOULD** keep functions under 50 lines when possible
-- **SHOULD** extract complex logic into service classes or hooks
-
-### Anti-Patterns (MUST NOT)
-
-- **MUST NOT** use `any` type without explicit justification in comments
-- **MUST NOT** bypass TypeScript errors with `@ts-ignore` or `@ts-expect-error`
-- **MUST NOT** use `console.log` in production code (use VS Code output channels)
-- **MUST NOT** hardcode device IDs or ADB paths
-- **MUST NOT** block the main thread with synchronous file operations in extension
-
----
-
-## Core Commands
-
-### Development
+### From This Directory
 
 ```bash
-# Install all dependencies (root + webview-ui)
-npm run install:all
+# Start Vite dev server (hot reload)
+npm run dev
 
-# Compile everything (extension + webview)
-npm run compile
-
-# Watch mode for extension development
-npm run watch
-
-# Watch mode for webview UI development
-npm run watch:webview
-
-# Type checking
-npm run typecheck
-
-# Lint code
-npm run lint
-
-# Format code
-npm run format
-
-# Check formatting without changes
-npm run format:check
-```
-
-### Building & Packaging
-
-```bash
-# Full production build (clean + typecheck + bundle + webview + VSIX)
+# Production build
 npm run build
 
-# Bundle extension only (minified)
-npm run bundle -- --minify
-
-# Compile webview only
-npm run compile:webview
-
-# Package VSIX for distribution
-npm run package:vsix
+# Preview production build
+npm run preview
 ```
 
-### Quality Gates (run before PR)
+### From Root Directory
 
+```bash
+# Build webview
+npm run compile:webview
+
+# Watch webview (hot reload)
+npm run watch:webview
+```
+
+---
+
+## Architecture
+
+### Directory Structure
+
+```
+src/
+├── main.tsx                 # React entry point
+├── App.tsx                  # Root component (routing by viewMode)
+├── vscode.ts                # VS Code webview API bridge
+├── constants.ts             # App-wide constants
+├── apps/                    # Full-page applications
+│   ├── MirrorApp.tsx        # Screen mirroring view
+│   ├── FileManagerApp.tsx   # File browser view
+│   ├── LogcatApp.tsx        # Logcat viewer
+│   └── ShellLogsApp.tsx     # Shell output viewer
+├── components/              # Reusable UI components
+│   ├── index.ts             # Component exports
+│   ├── VideoCanvas.tsx      # WebGL video rendering (430 lines)
+│   ├── Toolbar.tsx          # Control buttons
+│   ├── DeviceSelector.tsx   # Device picker dropdown
+│   ├── SettingsPanel.tsx    # Quality/FPS settings
+│   ├── AppLauncher.tsx      # App list/launcher
+│   ├── DebugPanel.tsx       # Debug info overlay
+│   ├── DeviceStatus.tsx     # Connection status
+│   ├── MorePanel.tsx        # Additional options
+│   ├── Placeholder.tsx      # Empty state placeholder
+│   ├── RecentApps.tsx       # Recent apps list
+│   ├── Tooltip.tsx          # Hover tooltips
+│   ├── DeviceFrames/        # Phone skin overlays
+│   │   ├── PhoneFrame.tsx
+│   │   ├── SamsungS20Frame.tsx
+│   │   └── SamsungNote20UltraFrame.tsx
+│   └── logs/                # Log display components
+│       ├── LogsPanel.tsx
+│       ├── LogEntryRow.tsx
+│       ├── EnhancedLogsPanel.tsx
+│       └── EnhancedLogEntryRow.tsx
+├── hooks/                   # Custom React hooks
+│   ├── index.ts             # Hook exports
+│   ├── useVideoDecoder.ts   # H.264 WebCodecs decoding (350 lines)
+│   ├── useVSCodeMessages.ts # Extension messaging
+│   ├── useKeyboard.ts       # Keyboard event mapping
+│   └── useSettingsStorage.ts # Persistent settings
+├── styles/                  # CSS stylesheets (15 files)
+│   ├── index.css            # Main stylesheet imports
+│   ├── base.css             # Base styles
+│   ├── buttons.css          # Button styles
+│   └── ...                  # Component-specific styles
+├── types/                   # TypeScript type definitions
+│   ├── index.ts             # Type exports
+│   └── index.d.ts           # Declaration file
+└── utils/                   # Utility functions
+    └── colorUtils.ts        # Color manipulation
+```
+
+---
+
+## Code Organization Patterns
+
+### Component Pattern
+
+Use functional components with `memo()` for optimization.
+
+```typescript
+// ✅ DO: Memoized functional component with typed props
+interface VideoCanvasProps {
+    isConnected: boolean;
+    canvasRef: (canvas: HTMLCanvasElement | null) => void;
+    onTouchEvent: (action: 'down' | 'move' | 'up', x: number, y: number, ...) => void;
+    onKeyEvent: (action: 'down' | 'up', keyCode: number, metaState: number) => void;
+}
+
+export const VideoCanvas = memo(function VideoCanvas({
+    isConnected,
+    canvasRef,
+    onTouchEvent,
+    onKeyEvent,
+}: VideoCanvasProps) {
+    // Implementation
+    return <canvas ref={internalCanvasRef} className="video-canvas" />;
+});
+```
+
+Example: [src/components/VideoCanvas.tsx:33-43](src/components/VideoCanvas.tsx#L33-L43)
+
+```typescript
+// ❌ DON'T: Class components
+class VideoCanvas extends React.Component<Props> {
+    // Avoid class components in this codebase
+}
+
+// ❌ DON'T: Inline component definitions
+const App = () => {
+    // Missing memo for component with callback props
+    const Child = ({ onClick }) => <button onClick={onClick} />;
+    return <Child onClick={() => {}} />;
+};
+```
+
+### Hook Pattern
+
+Custom hooks encapsulate stateful logic.
+
+```typescript
+// ✅ DO: Custom hook with clear return type
+interface UseVideoDecoderOptions {
+    onLog: (message: string, level?: 'info' | 'warn' | 'error') => void;
+}
+
+export function useVideoDecoder({ onLog }: UseVideoDecoderOptions) {
+    const decoderRef = useRef<VideoDecoder | null>(null);
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+    const setCanvas = useCallback((canvas: HTMLCanvasElement | null) => {
+        canvasRef.current = canvas;
+    }, []);
+
+    const processVideoPacket = useCallback((data: string) => {
+        // Base64 decode and process H.264 NAL units
+    }, []);
+
+    const reset = useCallback(() => {
+        // Clean up decoder state
+    }, []);
+
+    return { setCanvas, processVideoPacket, reset, getVideoSize };
+}
+```
+
+Example: [src/hooks/useVideoDecoder.ts:88-351](src/hooks/useVideoDecoder.ts#L88-L351)
+
+### VS Code Message Pattern
+
+Communication with the extension via `postMessage`.
+
+```typescript
+// ✅ DO: Type-safe message sending
+const vscode = acquireVsCodeApi();
+
+// Send command to extension
+vscode.postMessage({ command: 'start' });
+vscode.postMessage({ command: 'touch', action: 'down', x: 100, y: 200, ... });
+
+// Listen for messages from extension
+window.addEventListener('message', (event) => {
+    const message = event.data;
+    switch (message.type) {
+        case 'video':
+            processVideoPacket(message.data);
+            break;
+        case 'connected':
+            setIsConnected(true);
+            break;
+        case 'device-list':
+            setDevices(message.devices);
+            break;
+    }
+});
+```
+
+Example: [src/vscode.ts](src/vscode.ts)
+
+### Performance Optimization Patterns
+
+```typescript
+// ✅ DO: Cache expensive calculations
+const cachedRectRef = useRef<DOMRect | null>(null);
+const lastRectUpdateRef = useRef(0);
+
+const getCachedRect = useCallback(() => {
+    const now = performance.now();
+    if (!cachedRectRef.current || now - lastRectUpdateRef.current > 100) {
+        cachedRectRef.current = canvas?.getBoundingClientRect() || null;
+        lastRectUpdateRef.current = now;
+    }
+    return cachedRectRef.current;
+}, []);
+```
+
+Example: [src/components/VideoCanvas.tsx:90-97](src/components/VideoCanvas.tsx#L90-L97)
+
+```typescript
+// ✅ DO: Throttle high-frequency events
+const TOUCH_THROTTLE_MS = 16; // ~60fps max
+
+const handlePointerMove = useCallback((event: React.PointerEvent) => {
+    const now = performance.now();
+    if (now - lastTouchTimeRef.current < TOUCH_THROTTLE_MS) {
+        // Queue for next RAF instead of sending immediately
+        pendingMoveRef.current = deviceCoords;
+        if (!rafIdRef.current) {
+            rafIdRef.current = requestAnimationFrame(flushPendingMove);
+        }
+        return;
+    }
+    sendTouchEvent('move', x, y);
+    lastTouchTimeRef.current = now;
+}, []);
+```
+
+Example: [src/components/VideoCanvas.tsx:279-327](src/components/VideoCanvas.tsx#L279-L327)
+
+```typescript
+// ✅ DO: Reuse buffers to reduce GC pressure
+const decodeBufferRef = useRef<Uint8Array | null>(null);
+
+const processVideoPacket = useCallback((data: string) => {
+    const len = binaryString.length;
+    if (decodeBufferRef.current && decodeBufferRef.current.length >= len) {
+        // Reuse existing buffer
+        uint8Data = decodeBufferRef.current.subarray(0, len);
+    } else {
+        // Allocate with headroom for future frames
+        decodeBufferRef.current = new Uint8Array(Math.max(len * 2, 256 * 1024));
+    }
+}, []);
+```
+
+Example: [src/hooks/useVideoDecoder.ts:196-203](src/hooks/useVideoDecoder.ts#L196-L203)
+
+---
+
+## Key Files (Understand These First)
+
+### Entry Point
+
+- **[main.tsx](src/main.tsx)** - React DOM render, determines which app to show
+- **[App.tsx](src/App.tsx)** - Root component, routes by `viewMode`
+
+### Core Components
+
+- **[components/VideoCanvas.tsx](src/components/VideoCanvas.tsx)** - Video rendering + input
+  - WebGL canvas rendering
+  - Pointer events → touch events
+  - Keyboard events → key codes
+  - Mouse wheel → scroll events
+
+### Core Hooks
+
+- **[hooks/useVideoDecoder.ts](src/hooks/useVideoDecoder.ts)** - H.264 decoding
+  - WebCodecs VideoDecoder API
+  - NAL unit parsing (SPS, PPS, IDR, non-IDR)
+  - Frame timing and backpressure handling
+
+- **[hooks/useVSCodeMessages.ts](src/hooks/useVSCodeMessages.ts)** - Extension messaging
+  - Message event listener setup
+  - Type-safe message handling
+
+### Styling
+
+- **[styles/index.css](src/styles/index.css)** - Imports all stylesheets
+- **[styles/base.css](src/styles/base.css)** - Reset and base styles
+- **[styles/videoContainer.css](src/styles/videoContainer.css)** - Video canvas styles
+
+---
+
+## Quick Search Commands
+
+### Find Components
+
+```bash
+# Find component definitions
+rg -n "export (const|function) \w+ = (memo\()?function" src/components/
+
+# Find component usage
+rg -n "<(VideoCanvas|Toolbar|DeviceSelector)" src/
+
+# Find props interfaces
+rg -n "interface \w+Props" src/components/
+```
+
+### Find Hooks
+
+```bash
+# Find custom hook definitions
+rg -n "^export function use[A-Z]" src/hooks/
+
+# Find hook usage
+rg -n "use(VideoDecoder|VSCodeMessages|Keyboard|SettingsStorage)" src/
+```
+
+### Find Message Types
+
+```bash
+# Find outgoing commands (webview → extension)
+rg -n "postMessage\(\{ command:" src/
+
+# Find incoming message types (extension → webview)
+rg -n "case '[a-z-]+'" src/
+```
+
+### Find Styles
+
+```bash
+# Find className usage
+rg -n 'className="' src/components/
+
+# Find CSS class definitions
+rg -n "^\." src/styles/
+```
+
+---
+
+## Common Gotchas
+
+### ViewMode Routing
+
+The app renders different views based on `viewMode` data attribute:
+```typescript
+// App.tsx
+const viewMode = document.body.dataset.viewMode || 'sidebar';
+
+switch (viewMode) {
+    case 'sidebar':
+        return <MirrorApp />;
+    case 'fileManager':
+        return <FileManagerApp />;
+    case 'shellLogs':
+        return <ShellLogsApp />;
+    case 'logcat':
+        return <LogcatApp />;
+}
+```
+
+### WebCodecs Browser Support
+
+WebCodecs API may not be available in all contexts:
+```typescript
+if (typeof VideoDecoder === 'undefined') {
+    onLog('WebCodecs VideoDecoder not supported', 'error');
+    return null;
+}
+```
+
+### Canvas Context Options
+
+Use specific context options for low-latency rendering:
+```typescript
+const ctx = canvas.getContext('2d', {
+    alpha: false,           // No transparency needed
+    desynchronized: true,   // Allow async drawing for lower latency
+});
+```
+
+### Video Coordinate Mapping
+
+Touch coordinates must map from canvas space to device screen space:
+```typescript
+// Account for letterboxing/pillarboxing when video aspect ≠ canvas aspect
+const videoAspect = videoSize.width / videoSize.height;
+const canvasAspect = canvasRect.width / canvasRect.height;
+
+if (videoAspect > canvasAspect) {
+    // Video is wider - fit to width, letterbox top/bottom
+    renderedWidth = canvasRect.width;
+    renderedHeight = canvasRect.width / videoAspect;
+    offsetY = (canvasRect.height - renderedHeight) / 2;
+} else {
+    // Video is taller - fit to height, pillarbox left/right
+    renderedHeight = canvasRect.height;
+    renderedWidth = canvasRect.height * videoAspect;
+    offsetX = (canvasRect.width - renderedWidth) / 2;
+}
+```
+See [src/components/VideoCanvas.tsx:150-183](src/components/VideoCanvas.tsx#L150-L183)
+
+### Base64 Decoding Performance
+
+Video data is sent as base64 for efficiency (faster than JSON arrays):
+```typescript
+// Extension sends: message.data = buffer.toString('base64')
+// Webview receives and decodes:
+const binaryString = atob(data);
+```
+
+### Frame Dropping for Backpressure
+
+When decoder queue is too deep, drop non-keyframes:
+```typescript
+const MAX_DECODE_QUEUE_SIZE = 3;
+
+if (decoderRef.current.decodeQueueSize > MAX_DECODE_QUEUE_SIZE && !hasKeyframe) {
+    droppedFramesRef.current++;
+    return; // Drop this non-keyframe
+}
+```
+See [src/hooks/useVideoDecoder.ts:254-270](src/hooks/useVideoDecoder.ts#L254-L270)
+
+### Cleanup on Unmount
+
+Always clean up RAF handles and event listeners:
+```typescript
+useEffect(() => {
+    return () => {
+        if (rafIdRef.current) {
+            cancelAnimationFrame(rafIdRef.current);
+        }
+    };
+}, []);
+```
+
+---
+
+## Vite Build Configuration
+
+Output is built to `../media/build/` for extension to serve:
+
+```typescript
+// vite.config.ts
+export default defineConfig({
+    plugins: [react()],
+    build: {
+        outDir: '../media/build',
+        emptyOutDir: true,
+        rollupOptions: {
+            output: {
+                entryFileNames: 'webview.js',
+                assetFileNames: 'webview.[ext]',
+            },
+        },
+    },
+});
+```
+
+The extension serves these files with proper CSP headers.
+
+---
+
+## H.264 NAL Unit Reference
+
+NAL (Network Abstraction Layer) unit types in H.264:
+
+| Type | Name | Description |
+|------|------|-------------|
+| 1 | Non-IDR | Regular P/B frame (needs reference frames) |
+| 5 | IDR | Keyframe (can be decoded independently) |
+| 7 | SPS | Sequence Parameter Set (codec configuration) |
+| 8 | PPS | Picture Parameter Set (picture configuration) |
+
+The decoder is configured when SPS+PPS are received:
+```typescript
+if (spsNalRef.current && ppsNalRef.current && !decoderConfiguredRef.current) {
+    const codec = parseSPS(spsNalRef.current); // "avc1.640028"
+    decoder.configure({ codec, optimizeForLatency: true });
+}
+```
+
+---
+
+## Pre-PR Checklist
+
+From webview-ui directory:
+```bash
+npm run build  # Builds successfully
+```
+
+From root directory:
 ```bash
 npm run typecheck && npm run lint && npm run format:check
 ```
 
----
-
-## Project Structure
-
-### Extension Source (`src/`)
-
-- **[extension.ts](src/extension.ts)** - Main entry point, command registration
-- **[services/](src/services/)** - Core business logic
-  - `ScrcpyService.ts` - Screen mirroring via @yume-chan/scrcpy
-  - `DeviceManager.ts` - ADB device discovery and selection
-  - `AdbShellService.ts` - Shell command execution
-  - `DeviceInfoService.ts` - Device metadata (battery, storage, etc.)
-  - `AppManager.ts` - Installed apps, launch apps
-  - `DeviceFileService.ts` - File operations on device
-  - `ApkInstaller.ts` - APK installation
-  - `AdbLogcatService.ts` - Logcat streaming
-  - `AdbPathResolver.ts` - Cross-platform ADB path detection
-- **[panels/](src/panels/)** - Webview panel definitions
-  - `ScrcpyPanel.ts` - Floating mirror panel
-  - `FileManagerPanel.ts` - Device file browser
-  - `ShellLogsPanel.ts` - ADB shell interface
-  - `LogcatPanel.ts` - Logcat viewer
-- **[views/](src/views/)** - Sidebar view providers
-  - `ScrcpySidebarView.ts` - Main sidebar with mirror + controls
-
-See [src/CLAUDE.md](src/CLAUDE.md) for detailed extension patterns.
-
-### Webview UI (`webview-ui/`)
-
-- **[src/apps/](webview-ui/src/apps/)** - Full-page applications
-  - `MirrorApp.tsx` - Screen mirroring view
-  - `FileManagerApp.tsx` - File browser view
-  - `LogcatApp.tsx` - Logcat viewer
-  - `ShellLogsApp.tsx` - Shell output viewer
-- **[src/components/](webview-ui/src/components/)** - Reusable UI components
-  - `VideoCanvas.tsx` - WebGL video rendering + touch handling
-  - `Toolbar.tsx` - Control buttons
-  - `DeviceSelector.tsx` - Device picker dropdown
-  - `SettingsPanel.tsx` - Quality/FPS settings
-- **[src/hooks/](webview-ui/src/hooks/)** - Custom React hooks
-  - `useVideoDecoder.ts` - H.264 WebCodecs decoding
-  - `useVSCodeMessages.ts` - Extension ↔ webview messaging
-  - `useKeyboard.ts` - Keyboard event handling
-  - `useSettingsStorage.ts` - Persistent settings
-- **[src/styles/](webview-ui/src/styles/)** - CSS stylesheets (15 files)
-
-See [webview-ui/CLAUDE.md](webview-ui/CLAUDE.md) for detailed React patterns.
-
-### Build & Configuration
-
-- **[esbuild.js](esbuild.js)** - Extension bundler configuration
-- **[scripts/build.js](scripts/build.js)** - Full build orchestration
-- **[webview-ui/vite.config.ts](webview-ui/vite.config.ts)** - Webview bundler
-- **[tsconfig.json](tsconfig.json)** - Extension TypeScript config (CommonJS, Node)
-- **[webview-ui/tsconfig.json](webview-ui/tsconfig.json)** - Webview TypeScript config (ESNext, React)
-
-### Assets
-
-- **[assets/scrcpy-server](assets/scrcpy-server)** - Scrcpy server binary (pushed to device)
-- **[media/](media/)** - Compiled webview output + static HTML
-- **[images/](images/)** - Extension icons and screenshots
-
----
-
-## Quick Find Commands
-
-### Code Navigation
-
-```bash
-# Find a service class
-rg -n "^export class.*Service" src/services/
-
-# Find a React component
-rg -n "^export (const|function) \w+ = (memo\()?function" webview-ui/src/components/
-
-# Find a custom hook
-rg -n "^export function use[A-Z]" webview-ui/src/hooks/
-
-# Find webview message handlers
-rg -n "case '[a-z-]+'" src/views/
-
-# Find VS Code command registrations
-rg -n "registerCommand" src/extension.ts
-```
-
-### Type Definitions
-
-```bash
-# Find interfaces
-rg -n "^(export )?interface \w+" src/ webview-ui/src/
-
-# Find type aliases
-rg -n "^(export )?type \w+ =" src/ webview-ui/src/
-```
-
-### Debugging
-
-```bash
-# Find console.log statements (should be minimal)
-rg -n "console\.(log|warn|error)" src/ webview-ui/src/
-
-# Find TODO comments
-rg -n "TODO|FIXME|HACK" src/ webview-ui/src/
-```
-
----
-
-## Security Guidelines
-
-### Secrets Management
-
-- **NEVER** commit tokens, API keys, or credentials
-- ADB authentication is handled by the OS (adb server)
-- Device-specific data stays on device
-
-### ADB Safety
-
-- Always validate device IDs before operations
-- Use timeout for shell commands to prevent hangs
-- Catch and handle ADB connection errors gracefully
-- Never run destructive commands (factory reset, wipe) without explicit user confirmation
-
-### Webview Security
-
-- CSP (Content Security Policy) is enforced in webview HTML
-- Only load scripts from extension resources
-- Validate all messages from webview before acting on them
-
----
-
-## Git Workflow
-
-- Branch from `main` for features: `feature/description`
-- Use Conventional Commits: `feat:`, `fix:`, `docs:`, `refactor:`, `chore:`
-- PRs require: passing typecheck, lint, and format:check
-- Keep commits focused and atomic
-- Delete branches after merge
-
-### Commit Message Examples
-
-```
-feat: add dark mode toggle for device screen
-fix: handle ADB connection timeout gracefully
-refactor: extract video buffering logic to separate class
-docs: update README with new file manager feature
-chore: update @yume-chan/adb to latest version
-```
-
----
-
-## Testing Strategy
-
-> ⚠️ **Testing infrastructure is not yet implemented.**
-
-When adding tests:
-- Use Vitest for both extension and webview
-- Co-locate unit tests with source (`*.test.ts`)
-- Mock VS Code API using `@vscode/test-electron` or manual mocks
-- Mock ADB interactions for service tests
-
----
-
-## VS Code Extension Specifics
-
-### Activation Events
-
-Extension activates on:
-- `onView:scrcpySidebar` - When sidebar is visible
-- `onCommand:vscode-scrcpy.startMirror` - Start mirror command
-- `onCommand:vscode-scrcpy.stopMirror` - Stop mirror command
-- `onCommand:vscode-scrcpy.openFileManager` - File manager command
-- `onCommand:vscode-scrcpy.openShellLogs` - Shell logs command
-- `onCommand:vscode-scrcpy.openLogcat` - Logcat command
-
-### Extension ↔ Webview Communication
-
-Messages flow via `postMessage`:
-- Extension → Webview: `{ type: 'video' | 'connected' | 'device-list' | ... }`
-- Webview → Extension: `{ command: 'start' | 'stop' | 'touch' | ... }`
-
-See [src/views/ScrcpySidebarView.ts:157](src/views/ScrcpySidebarView.ts#L157) for message handler.
-
-### Debugging
-
-1. Press F5 in VS Code to launch Extension Development Host
-2. Open the "Android Screen Mirror" sidebar
-3. Check "Output" panel > "Extension Host" for logs
-4. Use Chrome DevTools for webview debugging (Cmd+Shift+P → "Developer: Open Webview Developer Tools")
-
----
-
-## Available Tools
-
-You have access to:
-- Standard bash tools (git, npm, node, rg, etc.)
-- ADB CLI (`adb`) for device interactions
-- VS Code Extension CLI (`vsce`) for packaging
-- GitHub CLI (`gh`) for issues, PRs, releases (if installed)
-
-### Tool Permissions
-
-- ✅ Read any file
-- ✅ Write code files (src/, webview-ui/src/)
-- ✅ Run typecheck, lint, format, compile
-- ✅ Run npm install
-- ⚠️ Build and package VSIX (creates distributable)
-- ❌ Edit .env files (ask first)
-- ❌ Force push (ask first)
-- ❌ Run ADB commands on physical devices (ask first)
-
----
-
-## Key Dependencies
-
-### Extension (@yume-chan packages)
-
-- `@yume-chan/adb` - TypeScript ADB client
-- `@yume-chan/adb-scrcpy` - Scrcpy protocol implementation
-- `@yume-chan/scrcpy` - Scrcpy types and constants
-- `@yume-chan/adb-server-node-tcp` - ADB server TCP connector
-- `@yume-chan/stream-extra` - Stream utilities
-
-### Webview
-
-- `react` / `react-dom` - UI framework
-- `lucide-react` - Icon library
-
-### Build Tools
-
-- `esbuild` - Extension bundler
-- `vite` - Webview bundler
-- `typescript` - Type checking
-- `eslint` - Linting
-- `prettier` - Formatting
-
----
-
-## Specialized Context
-
-When working in specific directories, refer to their CLAUDE.md:
-- Extension development: [src/CLAUDE.md](src/CLAUDE.md)
-- React UI development: [webview-ui/CLAUDE.md](webview-ui/CLAUDE.md)
-
-These files provide detailed, context-specific patterns and examples.
+All checks must pass before creating a PR.
 
 ---
 > Source: [Aradhya1905/vscode-scrcpy](https://github.com/Aradhya1905/vscode-scrcpy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
