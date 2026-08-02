@@ -1,0 +1,9 @@
+{
+  "name": "knative--func",
+  "displayName": "func",
+  "description": "func",
+  "version": "1.0.0",
+  "author": "knative",
+  "homepage": "https://github.com/knative/func",
+  "skills": []
+}
