@@ -1,23 +1,21 @@
 # AI instruction files for mcp-openapi-server
 
-> Sourced from [ivo-toby/mcp-openapi-server](https://github.com/ivo-toby/mcp-openapi-server) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-MCP Server (Model Context Protocol) for turning OpenAPI specifications into a MCP Resource
+> Sourced from [ivo-toby/mcp-openapi-server](https://github.com/ivo-toby/mcp-openapi-server), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ivo-toby/mcp-openapi-server](https://github.com/ivo-toby/mcp-openapi-server).
+Original source: `AGENTS.md` in [ivo-toby/mcp-openapi-server](https://github.com/ivo-toby/mcp-openapi-server).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [ivo-toby/mcp-openapi-server](https://github.com/ivo-toby/mcp-openapi-server) — a repo with 261+ stars on GitHub.
+From [ivo-toby/mcp-openapi-server](https://github.com/ivo-toby/mcp-openapi-server) — a repo with 280+ stars on GitHub.
 
 ---
 
