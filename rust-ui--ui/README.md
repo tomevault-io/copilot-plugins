@@ -1,8 +1,6 @@
 # ui
 
-> Source: [rust-ui/ui](https://github.com/rust-ui/ui) — distributed by [TomeVault](https://tomevault.io)
-
-A Shadcn-inspired component registry for Rust — build cross-platform apps for Web, Desktop, iOS and Android.
+> Source: [rust-ui/ui](https://github.com/rust-ui/ui). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
