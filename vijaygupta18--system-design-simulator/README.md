@@ -1,17 +1,15 @@
 # AI instruction files for system-design-simulator
 
-> Sourced from [vijaygupta18/system-design-simulator](https://github.com/vijaygupta18/system-design-simulator) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Interactive System Design Interview Simulator — practice designing distributed systems with real-time load simulation and scoring
+> Sourced from [vijaygupta18/system-design-simulator](https://github.com/vijaygupta18/system-design-simulator), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vijaygupta18/system-design-simulator](https://github.com/vijaygupta18/system-design-simulator).
+Original source: `CLAUDE.md` in [vijaygupta18/system-design-simulator](https://github.com/vijaygupta18/system-design-simulator).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
