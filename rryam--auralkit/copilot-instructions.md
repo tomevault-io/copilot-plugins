@@ -1,84 +1,158 @@
 ## auralkit
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Guidance for AI coding agents (and future contributors) working in this repository.
 
-# CLAUDE.md
+# Agents.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for AI coding agents (and future contributors) working in this repository.
 
-## Build Commands
+Use this document as the single source of truth when you need contextual project
+information, preferred conventions, and required safety checks. It merges and replaces
+the previous `CLAUDE.md` guidance.
 
-**Swift Package (AuralKit):**
+---
+
+## Project Snapshot
+
+- **Name**: AuralKit (Swift Package)
+- **Platforms**: iOS 26+, macOS 26+
+- **Primary API**: `SpeechSession` (MainActor class in `Sources/AuralKit/SpeechSession.swift`)
+- **Purpose**: Real‑time speech‑to‑text using Apple’s `SpeechTranscriber` / `SpeechAnalyzer`
+- **Demo App**: SwiftUI app in the `Aural/` directory (scheme `Aural`)
+
+---
+
+## Design Principles
+
+1. **Package vs. API Name**  
+   Keep the package name `AuralKit`. The public API a client uses is the `SpeechSession`
+   actor—do not rename the package or folders to match the API.
+
+2. **AttributedString Pipeline**  
+   All transcription text travels as `AttributedString` so `.audioTimeRange` metadata
+   survives. Convert to `String` only for UI affordances (e.g. `ShareLink`).
+
+3. **Match Apple’s Reference Implementation**  
+   Buffer conversion, analyzer setup, and result handling mirror Apple’s SpeechExample.
+   When touching those paths, compare against the reference before changing anything.
+
+4. **Session-Based Simplicity**  
+   The API should remain usable in ~30 lines of SwiftUI. No required manager layer.
+   Optional helpers (like the demo’s `TranscriptionManager`) must stay opt-in.
+
+5. **Cross-Platform Correctness**  
+   iOS uses `AVAudioSession` while macOS focuses on Core Audio + `AVAudioEngine`
+   configuration changes. Platform checks (`#if os(iOS)`, `#if os(macOS)`) are critical.
+
+---
+
+## Key Directories
+
+| Path                      | Purpose |
+|---------------------------|---------|
+| `Sources/AuralKit/`       | Package source. `SpeechSession.swift` is the public API. |
+| `Sources/AuralKit/AudioInputInfo.swift` | Shared audio-input metadata helpers (iOS + macOS). |
+| `Aural/`                  | Demo SwiftUI app showing minimal and advanced flows. |
+| `Tests/AuralKitTests/`    | Minimal smoke tests (logic-heavy testing requires real devices). |
+
+---
+
+## Build & Test Commands
+
 ```bash
-swift build
-swift test
-swiftlint lint
+# Package builds
+swift build           # primary build
+swift test            # run package tests
+
+# Demo app (macOS destination)
+xcodebuild -scheme Aural -project Aural.xcodeproj -destination 'platform=macOS' build
+
+# Demo app (iOS Simulator)
+xcodebuild -scheme Aural -project Aural.xcodeproj \
+    -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
 ```
 
-**Demo App (Aural.xcodeproj):**
-Use xcodebuild MCP tools for the demo app:
-- `build_device` - Build for connected device
-- `test_device` - Run tests on device
-- `list_devices` - List available devices
-- Or use xcodebuild CLI:
-```bash
-xcodebuild -project Aural.xcodeproj -scheme Aural -configuration Debug build
-xcodebuild clean -project Aural.xcodeproj -scheme Aural -configuration Debug build
+> **Tip**: Simulator builds ensure the latest Swift 6 concurrency rules are satisfied.
+> Physical hardware is still required to validate live audio capture.
+
+---
+
+## Implementation Notes
+
+### Result Handling Contract
+
+```swift
+for try await result in session.startTranscribing() {
+    if result.isFinal {
+        finalizedText += result.text   // append final results
+        partialText = ""
+    } else {
+        partialText = result.text      // replace volatile text
+    }
+}
 ```
 
-## Linting
+- Do not infer result type from styling—always use `result.isFinal`.
+- Final text is cumulative; volatile text represents the most recent partial string.
 
-```bash
-swiftlint lint
-```
+### Audio Buffer Conversion
 
-## Testing
+`BufferConverter.swift` is copied from Apple’s sample and must remain byte-for-byte,
+including `converter.primeMethod = .none`. Ask for explicit approval before editing.
 
-```bash
-# Run all tests
-swift test
+### Audio Input Monitoring
 
-# Run a specific test file
-swift test --filter FileTranscriptionTests
+- iOS: listen to `AVAudioSession.routeChangeNotification`, then reset the engine if the
+  input port actually changes. Publish fresh metadata through `AudioInputInfo`.
+- macOS: rely on `AVAudioEngineConfigurationChange` notifications and query Core Audio
+  for the default input (`AudioInputInfo.current()`).
 
-# Run tests with verbose output
-swift test -v
-```
+### Concurrency
 
-## Project Structure
+- `SpeechSession` is a `@MainActor` class; respect main-thread isolation.
+- When bridging notifications into `Task`, capture only the data you need and, if
+  touching UI- or engine-bound state, hop onto `@MainActor`.
+- Avoid sharing mutable state between tasks without actor or `Sendable` guarantees.
 
-**AuralKit** is a Swift wrapper for iOS 26+/macOS 26+ `SpeechTranscriber` and `SpeechAnalyzer` APIs.
+### Testing Framework
 
-### Core Architecture
+- All tests must use Swift Testing (`import Testing`). Avoid introducing new XCTest-based suites.
 
-- **SpeechSession** (`SpeechSession.swift`) - Main `actor` entry point; coordinates permission checks, audio engine lifecycle, and async streams
-- **Extensions** split concerns:
-  - `SpeechSession+Pipeline.swift` - Permissions, audio session activation, stream wiring, teardown
-  - `SpeechSession+Transcriber.swift` - Analyzer graph building, optional module installation (SpeechDetector), audio buffer feeding
-  - `SpeechSession+Audio.swift` - Audio engine setup, tap installation, buffer conversion
-  - `SpeechSession+CustomVocabulary.swift` - Custom vocabulary configuration
-  - `SpeechSession+File.swift` - File-based transcription
-  - `SpeechSession+VoiceActivation.swift` - VAD configuration
+---
 
-### Supporting Types
+## Contribution Checklist
 
-- **ModelManager** - Ensures locale models present, tracks download progress, releases reserved locales
-- **BufferConverter** - Converts tap buffers to `AVAudioPCMBuffer` for analyzer compatibility
-- **DeviceCapabilities** - Queries available transcriber modules and supported locales
-- **AudioInputInfo** - Audio route change notifications
-- **SpeechSessionError** - Comprehensive error types with localization
+Before opening a PR (or completing an automated change):
 
-### Demo App
+- [ ] Swift build succeeds locally (`swift build` and `swift test`).
+- [ ] Run SwiftLint with strict checks (`swiftlint lint --strict`).
+- [ ] Demo app builds for both macOS and an iOS Simulator target if relevant code changes.
+- [ ] Route-change handling remains platform-aware (`#if os(iOS)` vs `#if os(macOS)`).
+- [ ] `AttributedString` usage is preserved throughout the speech pipeline.
+- [ ] `BufferConverter` remains untouched unless explicitly approved.
+- [ ] Documentation updated when public API or workflows change (`README`, this file, etc.).
+- [ ] No stray instruction files (`CLAUDE.md`, `AGENTS.md`, etc.)—this document supersedes them.
 
-The `Aural/` directory contains a SwiftUI demo app showcasing live transcription, language selection, and history tracking.
+---
 
-## Key Patterns
+## Working With Documentation
 
-- `SpeechSession` is an `actor` - all methods are isolated and thread-safe
-- Transcriptions return `AttributedString` with `audioTimeRange` in runs for timing metadata
-- Voice activation (VAD) is opt-in via `SpeechDetector` module on supported platforms
-- Locale models auto-download with progress available via `modelDownloadProgress`
+- Keep instructions concise but complete; link or reference Apple docs when helpful.
+- If you extend this guide, add to the relevant section instead of creating a new file.
+- When updating onboarding information, ensure both the package README and this agents
+  guide stay in sync.
+
+---
+
+## Quick Reference
+
+- Minimal transcription example lives in `Aural/TranscriptionView.swift`.
+- Advanced transcription UI lives in `Aural/AdvancedTranscriptionView.swift`.
+- Error cases and localized descriptions are centralized in `Sources/AuralKit/SpeechSessionError.swift`.
+- CI uses Codemagic (`codemagic.yaml`); green builds are required before merging.
+
+Happy transcribing!
 
 ---
 > Source: [rryam/AuralKit](https://github.com/rryam/AuralKit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
