@@ -1,16 +1,14 @@
-## agents-md-first-visit
+## no-cursor-git-attribution
 
-> Project AGENTS.md must be read on first workspace visit
+> Never attribute git commits/PRs to Cursor Agent
 
 
-# AGENTS.md on first visit
+# No Cursor git attribution
 
-When working in this product (Pi Desktop agent sessions) or implementing related behavior:
-
-- If the project directory has `AGENTS.md` (or `AGENTS.MD`), the agent **must** read and follow it on the **first visit / first turn** in that workspace.
-- Prefer content already injected under `<project_context>` / `<project_instructions>` (Pi SDK loads these into the system prompt). Treat that as already read — do not ignore it.
-- If the file exists on disk but is missing from context, call `read` on `AGENTS.md` before broad exploration or large changes.
-- Do not skip `AGENTS.md` in favor of guessing project conventions from the tree alone.
+- Never add `Co-authored-by: Cursor <cursoragent@cursor.com>` or any `Co-authored-by: Cursor …` trailer to commits.
+- Never add `Made-with: Cursor` / “Made with Cursor” footers to commits or PR bodies.
+- Commits and PRs must use only the repo owner identity (`Yoyo` / `ImYoyoData` and their configured `user.email`).
+- If a commit message template or tool injects Cursor attribution, remove it before finishing the commit.
 
 ---
 > Source: [ImYoyoData/pi-desktop](https://github.com/ImYoyoData/pi-desktop) — distributed by [TomeVault](https://tomevault.io).
