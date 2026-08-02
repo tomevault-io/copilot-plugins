@@ -4,12 +4,12 @@
 
 # Q Entrepreneur OS
 
-@q-system/CLAUDE.md
+@q-system/AGENTS.md
 
 ## Project Structure
 - `plugins/` - Plugin groups: kipi-core (every instance), kipi-ops (GTM), kipi-design (UI)
-- `.claude/agents/` - Custom agent definitions (preflight, data-ingest, synthesizer, etc.)
-- `.claude/rules/` - Path-scoped instruction files
+- `.Codex/agents/` - Custom agent definitions (preflight, data-ingest, synthesizer, etc.)
+- `.Codex/rules/` - Path-scoped instruction files
 - `q-system/` - Core OS (canonical/, marketing/, methodology/, output/, my-project/, memory/)
 
 ## Conventions
@@ -19,6 +19,7 @@
 - All actionable output follows AUDHD executive function rules (if enabled)
 - No filler phrases ("leverage," "innovative," "cutting-edge," "game-changing")
 - When something fails because an LLM misinterpreted instructions, the fix must be a deterministic script or code change
+- A prompt or skill alone cannot enforce behavior. Enforcement requires a hook, script, test, validator, required check, or executable code. The `prompt-only-enforcement-guard.py` PostToolUse hook blocks prompt-only enforcement claims.
 - For any task involving more than a single file edit, state the planned approach and wait for OK
 - When fixing identified issues, fix exactly what was flagged. No scope expansion.
 - Never read or search files outside the current project directory without stating which directory and why
@@ -36,7 +37,8 @@
 - `/q-wrap` - Evening health check
 - `/q-handoff` - Session continuity
 - `/q-research` - Anti-hallucination research mode
-- `/wiring-check` - End-of-task gate: verify every change is connected end-to-end. Full rule in `.claude/rules/wiring-check.md`
+- `/wiring-check` - End-of-task gate: verify every change is connected end-to-end. Full rule in `.Codex/rules/wiring-check.md`
+- `/say` - Synthesize the previous assistant response to a stable mp3 via OpenAI TTS. Autoplays locally in a new Terminal window (mpv) so your keys drive speed/seek/pause; over SSH, without mpv, or with `--no-play` it just prints the play command. Manual replay: `mpv ~/.config/kipi/say-last.mp3` (or `say-play`). Over SSH: `ssh <mini> 'cat ~/.config/kipi/say-last.mp3' | mpv -`. `/say stop` clears stray playback.
 
 ## Build and Test
 - Build daily schedule: `python3 q-system/marketing/templates/build-schedule.py <json> <html>`
@@ -46,4 +48,4 @@
 
 ---
 > Source: [assafkip/kipi-system](https://github.com/assafkip/kipi-system) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
