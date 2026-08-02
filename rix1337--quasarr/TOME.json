@@ -2,7 +2,7 @@
   "name": "Quasarr",
   "owner": "rix1337",
   "repo": "Quasarr",
-  "description": "Quasarr connects JDownloader with Radarr, Sonarr, Lidarr and Magazarr. It also decrypts links protected by CAPTCHAs.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rix1337/Quasarr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T16:23:24Z"
+  "distributed_at": "2026-08-02T16:54:37Z"
 }
