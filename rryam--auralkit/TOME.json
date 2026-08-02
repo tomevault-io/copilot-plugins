@@ -2,9 +2,9 @@
   "name": "AuralKit",
   "owner": "rryam",
   "repo": "AuralKit",
-  "description": "Easily use SpeechAnalyzerAPI",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rryam/AuralKit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T17:18:22Z"
+  "distributed_at": "2026-08-02T21:59:16Z"
 }
