@@ -1,0 +1,9 @@
+{
+  "name": "elixir-lsp--vscode-elixir-ls",
+  "displayName": "vscode-elixir-ls",
+  "description": "vscode-elixir-ls",
+  "version": "1.0.0",
+  "author": "elixir-lsp",
+  "homepage": "https://github.com/elixir-lsp/vscode-elixir-ls",
+  "skills": []
+}
