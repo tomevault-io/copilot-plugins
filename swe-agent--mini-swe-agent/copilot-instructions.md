@@ -1,7 +1,24 @@
-## style
+## mini-swe-agent
 
-> 1. Target python 3.10 or higher
+> - mini-SWE-agent implements an AI software engineering agent that solves github issues and similar programming challenges
 
+# mini-SWE-agent overview
+
+- mini-SWE-agent implements an AI software engineering agent that solves github issues and similar programming challenges
+- The idea of this project is to write the simplest, smallest, most readable agent.
+
+The project is structured as
+
+```bash
+minisweagent/__init__  # Protocols/interfaces for all base classes
+minisweagent/agents  # Agent control flow & loop
+minisweagent/environments  # Executing agent actions
+minisweagent/models  # LM interfaces
+minisweagent/run  # Run scripts that serve as an entry point
+```
+
+- The project embraces polymorphism: Every individual class should be simple, but we offer alternatives
+- Every use case should start with a run script, that picks one agent, environment, and model class to run
 
 # Style guide
 
@@ -49,6 +66,52 @@ assert result == b
 assert func() == b
 ```
 
+# Commit messages
+
+Use the following format for commit messages:
+
+- `ci: description` for all testing related changes, and changes to github workflows etc.
+- `dev: description` for development related changes, including updates to the cursor or claude rules
+- `fix(component): description` for bug fixes
+- `feat(component): description` for new features
+- `enh(component): description` for enhancements
+- `docs: description` for documentation
+- `ref(component): description` for refactoring
+- `chore: description` for maintenance tasks (pre-commit hooks, imports, etc.)
+
+Generally, the description should focus on the intent of the changes, not the implementation details.
+
+## Style notes
+
+<IMPORTANT>Do **NOT** add "Co-authored-by: Cursor" lines to the commit message or to the trailer.</IMPORTANT>
+
+## Reviewing
+
+While preparing the commit message, flag critical issues that should be addressed before committing. Do not flag style issues or minor changes.
+
+Flag the following:
+
+- Anything that might raise an unhandled exception in an unintentional manner
+- Anything that looks logically wrong or inconsistent
+- Breaking changes to protocols/interfaces without corresponding updates to implementations
+
+Flag the following style issue as minor:
+
+- Imports not at top of file
+
+## Components
+
+Use these component names in parentheses for `fix`, `feat`, `enh`, and `ref` commits:
+
+- `models` - Changes to model interfaces (litellm, anthropic, openai, portkey, openrouter)
+- `agents` - Changes to agent classes (default, interactive, multimodal)
+- `env` - Changes to environments (docker, local, singularity, bubblewrap, swerex)
+- `config` - Changes to configuration files or config handling
+- `run` - Changes to run scripts (mini, hello_world)
+- `benchmarks` - Changes to benchmark runners (swebench, inspector)
+- `cli` - Changes to CLI argument handling
+- `deps` - Dependency updates
+
 ---
 > Source: [SWE-agent/mini-swe-agent](https://github.com/SWE-agent/mini-swe-agent) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
