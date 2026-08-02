@@ -1,8 +1,6 @@
 # AI instruction files for pathfinding.cloud
 
-> Sourced from [DataDog/pathfinding.cloud](https://github.com/DataDog/pathfinding.cloud) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-An AWS IAM Privilege Escalation Path Library
+> Sourced from [DataDog/pathfinding.cloud](https://github.com/DataDog/pathfinding.cloud), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-p -->
