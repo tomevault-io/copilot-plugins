@@ -4,7 +4,7 @@
   "repo": "qbittorrent-nox-static",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/userdocs/qbittorrent-nox-static",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T10:11:12Z"
+  "distributed_at": "2026-08-02T11:00:53Z"
 }
