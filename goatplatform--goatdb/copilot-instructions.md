@@ -1,165 +1,290 @@
 ## goatdb
 
-> Essential invariants and commands for AI agents working on GoatDB.
+> - Run all tests: `deno task test`
 
-# AGENTS.md - AI Agent Operations
+# GoatDB Testing Infrastructure
 
-Essential invariants and commands for AI agents working on GoatDB.
+## Quick Start
 
-## Tech Stack
-
-- **Runtime**: Deno v2.x, Node.js 24.x
-- **Language**: TypeScript (strict, explicit `.ts` imports required)
-- **Browser Tests**: Playwright/Chromium
-- **Package**: JSR @goatdb/goatdb
-
-## Logging
-
-GoatDB uses custom `logging/` infra. ALWAYS use it. NEVER direct console logs.
-
-## Commands
-
-```bash
-# Tests (non-interactive)
-deno task test                          # All runtimes
-deno task test --suite=Trusted          # Filter by suite
-deno task test --test="should init"     # Filter by test name
-deno task test --runtime=deno           # deno | node | browser
-
-# Smoke test (security boundaries only, <2s)
-deno task test:smoke
-
-# Build & Check
-deno check mod.ts                       # Type check
-deno fmt                                # Format
-deno task build                         # Rebuild system assets
-```
+- Run all tests: `deno task test`
+- Debug specific test:
+  `deno task test --suite=DatabaseFeature --test="should initialize" --deno-inspect-brk`
+- Node.js only: `deno task test --runtime=node`
 
 ## Architecture Overview
 
-```
-db/db.ts           → GoatDB class (main entry)
-db/managed-item.ts → ManagedItem (document interface)
-db/session.ts      → Ed25519 authentication
-repo/              → Commit graphs, version history
-net/server/        → HTTP server, sync protocol
-server-build.ts    → Build-time exports (compile, startDebugServer, AppConfig)
-tests/mod.ts       → Test framework (TEST function)
-```
+The testing system is a custom, lightweight framework designed for
+cross-platform compatibility:
 
-## Invariants
+- **Test runner**: @tests/run.ts - Orchestrates cross-platform execution
+- **Test framework**: @tests/mod.ts - Provides TEST() function and TestSuite
+  class
+- **Entry point**: @tests/tests-entry.ts - Imports all test files
+- **Node support**: @tests/node-run.ts - Handles TypeScript compilation for
+  Node.js
 
-### Path Format: `/type/repo/item`
+### Key Design Principles
 
-Strictly enforced via runtime assertions. No exceptions.
+1. **No external dependencies** - Custom framework avoids third-party test
+   runners
+2. **Cross-platform** - Same tests run in Deno, Node.js, and browsers
+3. **Sequential execution** - Tests run one at a time for consistency
+4. **Resource management** - Automatic cleanup of temporary files/directories
+5. **Simple API** - Just TEST() function and basic assertions
+6. **Fast execution** - All tests run in single process
+
+## Command Reference
+
+### Basic Commands
+
+| Command                               | Description                       |
+| ------------------------------------- | --------------------------------- |
+| `deno task test`                      | Run all tests in all environments |
+| `deno task test --runtime=deno`       | Run tests in Deno only            |
+| `deno task test --runtime=node`       | Run tests in Node.js only         |
+| `deno test -A tests/specific.test.ts` | Run a specific test file directly |
+
+### Debugging Commands
+
+| Command              | Description                                  |
+| -------------------- | -------------------------------------------- |
+| `--deno-inspect-brk` | Attach Deno debugger (waits for debugger)    |
+| `--node-inspect-brk` | Attach Node.js debugger (waits for debugger) |
+| `--suite=NAME`       | Run only tests in specified suite            |
+| `--test=NAME`        | Run only tests matching name                 |
+
+### Environment Variables
+
+| Variable       | Description                  |
+| -------------- | ---------------------------- |
+| `GOATDB_SUITE` | Filter to run specific suite |
+| `GOATDB_TEST`  | Filter to run specific test  |
+
+## Writing Tests
+
+### CRITICAL: Setup Function Pattern
+
+**MANDATORY STRUCTURE - All test files must follow exactly:**
 
 ```typescript
-db.item('/data/todos/task-123'); // Correct
-db.item('/todos/task-123'); // FAILS - missing type
-db.item('data/todos/task-123'); // FAILS - not absolute
-```
-
-### Async Readiness
-
-Database operations MUST await readiness:
-
-```typescript
-const db = new GoatDB({ path: './data' });
-await db.readyPromise(); // MANDATORY - always
-// ... operations ...
-await db.flushAll();
-await db.close();
-```
-
-### Test Registration
-
-ALL `TEST()` calls MUST be inside the setup function:
-
-```typescript
-// tests/my.test.ts
-export default function setup() {
-  TEST('Suite', 'test name', async (ctx) => {
-    const db = await ctx.createDB('test-id');
-    try {
-      // test code
-    } finally {
-      await db.flushAll();
-      await db.close();
-    }
+export default function setupMyTests() {
+  TEST('suite', 'test-name', async (ctx: TestSuite) => {
+    // test code here
   });
 }
 ```
 
-Then register in `tests/tests-entry-server.ts`.
-
-### Schema Registration
-
-Schemas must be registered before use:
+**BROKEN PATTERN - Never do this:**
 
 ```typescript
-DataRegistry.default.registerSchema(kMySchema);
-db.create('/data/repo/item', kMySchema, data);
+export default function setupMyTests() {
+  // Empty function breaks test registration
+}
+
+TEST('suite', 'test', () => {}); // Outside setup = broken
 ```
 
-## Naming Conventions
+**Rule: ALL TEST() calls must be inside the setup function.**
 
-| Type                | Pattern       | Example       |
-| ------------------- | ------------- | ------------- |
-| Variables/Functions | `camelCase`   | `changeCount` |
-| Classes             | `PascalCase`  | `ManagedItem` |
-| Private fields      | `_prefix`     | `_ready`      |
-| Grouped utilities   | Common prefix | `itemPath*()` |
+### Basic Test Structure
 
-## Security Invariants
+Every test file must:
 
-- Ed25519 keys: private keys never leave device
-- Sessions expire after 30 days (auto key rotation)
-- All commits cryptographically signed
-- Authorization rules run on every operation
+1. Import TEST function from @tests/mod.ts
+2. Import assertions from @tests/asserts.ts
+3. Export a default `setup()` function that registers tests
 
-## Common Failures
+See @tests/db.test.ts for a complete example of test structure.
 
-| Symptom                  | Cause                    | Fix                            |
-| ------------------------ | ------------------------ | ------------------------------ |
-| Test never runs          | `TEST()` outside setup   | Move inside `setup()`          |
-| Operations fail silently | Missing `readyPromise()` | Always await before ops        |
-| Validation error         | Schema not registered    | Register before use            |
-| Test hangs               | DB not closed            | Use try/finally with `close()` |
-| Path assertion           | Wrong format             | Use `/type/repo/item`          |
+### Available Assertions
 
-## Binary Format Invariants
+All assertion functions are exported from @tests/asserts.ts:
 
-- Storage format: `.goat` files (magic byte `0x47 'G'`, little-endian for commit
-  payload fields; big-endian (network order) for `.goat` file framing (4-byte
-  length prefix), version 1)
-- Codec lives in `base/core-types/encoding/binary-commit.ts` — **bundled into
-  the worker**
-- Source must be **ASCII-only** (no Unicode literals, em dashes, arrows, etc.)
-- **Always run `deno task build` after changing `binary-commit.ts`**
-- **Zero-copy rule**: no `buf.subarray()` and no intermediate object allocations
-  on encode/decode hot paths; use manual UTF-8 codec (no
-  TextEncoder/TextDecoder) in `BinaryCommitWriter` and `decodeStr`, except: a
-  shared `TextDecoder` is permitted as a fallback in `decodeStr` for non-ASCII
-  or long (>512 byte) strings — the ASCII fast path avoids it. When strictly
-  necessary to break this rule, add an inline comment explaining the tradeoff
-  (e.g. `decodeStr` ASCII fast path: one subarray view allocation replaces N
-  per-char string concatenation allocations)
-- `BinaryCommit._bytes` may reference a shared scan-buffer from
-  `fromBinaryScanResult` — this is intentional; do not slice it in `toBytes()`
-- Header is 36 bytes fixed; string fields follow with u16/u8 length prefixes;
-  JSON contents bytes are at `contentsOffset` (no length prefix, extends to end)
-- **Strict format**: `.goat` files must contain only binary records; non-binary
-  records are rejected with an error log and skipped
-- **Max key length**: 39 bytes (39 ASCII characters from `[a-z0-9-_]`). Applies
-  to all path components (type, repo, item, embed). Enforced at `db/path.ts` in
-  `itemPathIsValid()`. Derived from 80-byte pool entry layout
-  (80B - 24B id - 16B edges - 1B keyLen = 39B)
+- Boolean assertions: `assertTrue`, `assertFalse`
+- Equality assertions: `assertEquals`, `assertNotEquals`
+- Existence assertions: `assertExists`, `assertNotExists`
+- Numeric comparisons: `assertLessThan`, `assertGreaterThan`, etc.
+- Exception testing: `assertThrows`, `assertDoesNotThrow`
+- Collection assertions: `expectToContain`
 
-## CI
+### Test Context Utilities
 
-GitHub Actions runs `deno task test` on push/PR to main. Requires Playwright:
-`deno run -A npm:playwright@^1.48.0 install --with-deps chromium`
+Each test receives a TestSuite context - see @tests/mod.ts:19-30 for available
+methods:
+
+- `tempDir(subPath?)` - Creates a temporary directory that's automatically
+  cleaned up
+
+## AI Agent Guidelines
+
+**Test File Rules:**
+
+1. **Setup function MUST contain all TEST() calls** - empty setup functions
+   break registration
+2. **Export setup as default** - `export default function setupX() { ... }`
+3. **Import in tests-entry.ts** - Add `setupX()` call to main()
+4. **Follow existing patterns** - Check similar test files first
+
+**Common Failures:**
+
+- Empty setup functions with TEST() calls outside
+- Missing default export
+- Setup function not called in tests-entry.ts
+
+### When Adding Tests
+
+1. **File placement**: Create test files in `/tests` with `.test.ts` suffix
+2. **Export setup**: Every test file must export a default `setup()` function
+3. **Descriptive names**: Use clear suite and test names that explain what's
+   being tested
+4. **Resource cleanup**: Always clean up resources in finally blocks
+5. **Path format**: Remember GoatDB paths follow `/type/repo/item` format
+
+### Test Organization
+
+- Group related tests in the same suite name
+- One concept per test - don't test multiple things
+- Use consistent naming patterns across test files
+
+### Common Test Patterns
+
+#### Database Test Pattern
+
+See @tests/db-trusted.test.ts:14-24 for database initialization tests. Key
+points:
+
+- Create database with `tempDir()` for isolation
+- Always await `db.readyPromise()` before operations
+- Clean up with `db.flushAll()` in finally block
+
+#### Item Test Pattern
+
+See @tests/db.test.ts:112-130 for item creation and update patterns:
+
+- Use correct path format: `/type/repo/item`
+- Register schemas before use
+- Test both creation and updates separately
+
+#### Query Test Pattern
+
+See @tests/query.test.ts for comprehensive query examples:
+
+- Create test data with known values
+- Test predicates, sorting, and limit behavior
+- Verify reactive updates work correctly
+
+#### Schema Test Pattern
+
+See @tests/cfds-validation.test.ts for schema validation examples:
+
+- Test required fields enforcement
+- Verify type checking works
+- Check default values are applied
+
+### Test Data Best Practices
+
+1. **Use unique IDs**: Generate unique IDs for test items to avoid conflicts
+2. **Minimal data**: Create only the data needed for the test
+3. **Explicit values**: Don't rely on defaults unless testing defaults
+4. **Clean state**: Each test should start with a clean database
+
+## Troubleshooting
+
+### Common Issues
+
+#### Tests Hanging
+
+- **Cause**: Unclosed database connections or pending promises
+- **Solution**: Ensure all databases are closed with `await db.flushAll()` in
+  finally blocks
+
+#### Node.js Test Failures
+
+- **Cause**: TypeScript compilation errors or Node.js compatibility issues
+- **Solution**: Check console output for esbuild errors, ensure code is
+  Node-compatible
+
+#### Permission Errors
+
+- **Cause**: Tests need file system access for temporary directories
+- **Solution**: Run tests with appropriate permissions (`deno run -A`)
+
+#### Flaky Tests
+
+- **Cause**: Tests depending on timing or external state
+- **Solution**: Tests run sequentially, but ensure no dependency on execution
+  order
+
+### Debug Tips
+
+1. **Isolate problematic tests**:
+   ```bash
+   deno task test --test="exact test name"
+   ```
+
+2. **Add debug output**: Console.log statements are preserved in test output
+
+3. **Use debugger**:
+   ```bash
+   # For VS Code debugging
+   deno task test --deno-inspect-brk
+   ```
+
+4. **Check temp artifacts**: Look in `tests/temp/` for leftover test data
+
+5. **Verify test is registered**:
+   - Ensure test file is imported in @tests/tests-entry.ts
+   - Check that `setup()` function is exported as default
+
+### Performance Considerations
+
+- Tests run sequentially to avoid race conditions
+- Each test suite gets its own temp directory
+- Database operations are in-memory with file persistence
+- Large test data sets may impact performance
+
+## Test Utilities Reference
+
+### Creating Test Databases
+
+The `createTestDB` helper is available in various test files. See
+@tests/db.test.ts:10-20 for an example implementation.
+
+### Generating Test Data
+
+For ID generation patterns, see @tests/sync.test.ts where unique IDs are created
+for test isolation.
+
+### Test Schemas
+
+Common test schemas are defined in:
+
+- @tests/test-schemas.ts - Reusable schemas for testing
+- Individual test files often define inline schemas for specific tests
+
+## Integration with CI/CD
+
+The test suite is designed to work seamlessly in CI environments:
+
+- Exit codes: 0 for success, 1 for any test failure
+- Console output: Clear pass/fail status for each test
+- Timing information: Helps identify slow tests
+- No interactive prompts: Fully automated execution
+
+## Contributing Tests
+
+When contributing new tests:
+
+1. Follow existing patterns and naming conventions
+2. Add your test file import to `tests-entry.ts`
+3. Ensure tests pass in both Deno and Node.js
+4. Keep tests focused and independent
+5. Document any special setup or teardown requirements
+6. Use meaningful assertion messages for debugging
+
+Remember: Tests are documentation. Write them clearly so others (including AI
+assistants) can understand the expected behavior.
 
 ---
 > Source: [goatplatform/goatdb](https://github.com/goatplatform/goatdb) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
