@@ -1,0 +1,9 @@
+{
+  "name": "pluginpal--strapi-webtools",
+  "displayName": "strapi-webtools",
+  "description": "strapi-webtools",
+  "version": "1.0.0",
+  "author": "pluginpal",
+  "homepage": "https://github.com/pluginpal/strapi-webtools",
+  "skills": []
+}
