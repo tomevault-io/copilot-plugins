@@ -2,7 +2,7 @@
   "name": "vscode-scrcpy",
   "owner": "Aradhya1905",
   "repo": "vscode-scrcpy",
-  "description": "Mirror and control your Android device directly in VS Code \u2014 screen mirroring, file manager, ADB shell, and logcat built-in.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Aradhya1905/vscode-scrcpy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T07:58:20Z"
+  "distributed_at": "2026-08-02T19:49:56Z"
 }
