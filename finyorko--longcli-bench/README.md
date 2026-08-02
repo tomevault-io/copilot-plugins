@@ -1,8 +1,6 @@
 # longcli-bench
 
-> Tome by [finyorko](https://github.com/finyorko/longcli-bench) — distributed by [TomeVault](https://tomevault.io)
-
-LongCLI-Bench's official repository
+> Tome by [finyorko](https://github.com/finyorko/longcli-bench), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [finyorko/longcli-bench](https://github.com/finy
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/finyorko/longcli-bench](https://github.com/finyorko/longcli-bench)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/finyorko/longcli-bench](https://github.com/finyorko/longcli-bench)
 
 ---
 
