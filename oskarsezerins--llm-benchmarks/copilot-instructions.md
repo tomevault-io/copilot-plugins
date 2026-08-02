@@ -1,125 +1,98 @@
 ## llm-benchmarks
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> - **React 19** with **React Router 7** (file-based routing via `routes.ts`)
 
-# CLAUDE.md
+# Website CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Tech Stack
 
-## Architecture Overview
+- **React 19** with **React Router 7** (file-based routing via `routes.ts`)
+- **TypeScript 5.9** with strict typing
+- **Tailwind CSS 4** for styling
+- **Vite 6** as build tool
+- **shadcn/ui** (new-york style) for UI components
+- **Lucide React** for icons
+- **pnpm** as package manager
+- **Shiki** for syntax highlighting (Ruby code viewer)
 
-This is an LLM benchmarking system written in Ruby that tests AI models across multiple coding challenges. The system automatically generates implementations from different AI models and compares their performance.
+## Available shadcn Components
 
-### Core Components
+Pre-installed: `card`, `badge`, `button`, `separator`, `progress`, `alert`, `navigation-menu`, `select`, `tabs`, `checkbox`, `dropdown-menu`
 
-- **Benchmarks** (`benchmarks/`): Organized by benchmark type, e.g. `performance/lru_cache`, `program_fixer/vending_machine`
-- **Implementations** (`implementations/`): Organized by benchmark type and benchmark id, e.g. `performance/lru_cache`, `program_fixer/vending_machine`
-- **Services** (`lib/services/`): Core logic for running benchmarks, evaluating code quality, and displaying results
-- **Results** (`results/`): One JSON file per implementation (e.g. `results/claude_sonnet_4_6_openrouter_02_2026.json`), containing that implementation's results across all benchmarks
+Add new components: `pnpm dlx shadcn@latest add <component>`
 
-### Key Services
-
-- `BenchmarkRunnerService`: Orchestrates benchmark execution with multiple iterations in separate processes
-- `ImplementationSelectorService`: Handles selection of implementations to test
-- `RubocopEvaluationService`: Evaluates code quality using RuboCop
-- `ResultsService`/`ResultsDisplayService`: Manages result storage and display
-- `Implementations::Adder`: Generates new implementations using OpenRouter API models
-
-### Results Storage
-
-Results are stored **per-implementation** rather than per-benchmark. Each model gets its own `results/{implementation}.json` file containing results for every benchmark it has run. This design eliminates merge conflicts — adding a new model only creates new files.
-
-`bin/aggregate_results` aggregates these per-implementation files into per-benchmark JSON files consumed by the website. It runs automatically via `prebuild`/`predev` npm scripts before building or serving the website. The aggregated output goes to `website/public/data/` (gitignored).
-
-### Benchmark Structure
-
-Each benchmark consists of:
-
-- `benchmark.rb`: Contains the test logic and validation
-- `prompt`: The prompt given to AI models
-- Test data files (e.g., `test_data.csv`)
-
-## Development Commands
-
-### Main Operations
+## Commands
 
 ```bash
-# Interactive main menu for running benchmarks or adding implementations
-bin/main
-
-# Install dependencies
-bundle install
+pnpm dev          # Start dev server (runs aggregate_results first via predev hook)
+pnpm build        # Production build (runs aggregate_results first via prebuild hook)
+pnpm tsc          # Type check (runs typegen first)
+# Data generation: ruby ../bin/aggregate_results website/public/data
 ```
 
-### Results and Rankings
+## Project Structure
 
-```bash
-# Show results for all benchmarks
-bin/show_all_results
-
-# Show total rankings across all benchmark types
-bin/show_total_rankings
-
-# Aggregate per-implementation results into per-benchmark JSON for the website
-bin/aggregate_results website/public/data
+```
+website/
+├── app/
+│   ├── components/       # Reusable UI components
+│   │   ├── ui/           # shadcn/ui primitives
+│   │   └── *.tsx         # Custom components
+│   ├── lib/              # Data loading, utilities
+│   │   ├── data.ts       # Benchmark data loading & calculations
+│   │   ├── implementations-data.ts  # Implementation manifest & source fetching
+│   │   ├── model-names.ts           # Metadata display helpers
+│   │   └── utils.ts      # cn() utility
+│   ├── routes/           # Page components (React Router)
+│   │   ├── home.tsx
+│   │   ├── benchmarks.*.tsx
+│   │   ├── implementations.tsx         # Browse page
+│   │   ├── implementations.detail.tsx  # Single implementation view
+│   │   └── implementations.compare.tsx # Side-by-side comparison
+│   ├── types/
+│   │   └── benchmark.ts  # TypeScript interfaces
+│   └── routes.ts         # Route definitions
+├── public/data/          # Synced JSON data files (generated, gitignored)
+│   ├── *.json            # Benchmark results + structured implementations_meta
+│   └── implementations.json  # Implementation manifest with structured metadata per entry
+└── sync-data.sh          # Data sync script
 ```
 
-### Code Quality
+## Data Loading Patterns
 
-```bash
-# Run RuboCop linting (used automatically during benchmarks)
-bundle exec rubocop
+- **Server-side**: Use `fetch()` in route loaders (works on both server and client via URL construction)
+- **Client-side**: Implementation source code fetched from local static files (`/data/implementations/`) on-demand
+- Data generated by `ruby bin/aggregate_results website/public/data` (runs automatically via prebuild/predev hooks)
+- `bin/aggregate_results` reads result files plus generated/legacy `config/model_names.json` metadata and emits structured implementation metadata into both benchmark payloads and `implementations.json`
 
-# Run RuboCop with performance checks
-bundle exec rubocop --require rubocop-performance
-```
+### Build-time vs. runtime file access
 
-- Before finishing any Ruby code change, validate that RuboCop reports no offenses. If RuboCop cannot be run, explicitly report the blocker and do not claim the code is RuboCop-clean.
+`bin/aggregate_results` runs at build time (before Vite) and writes generated data to one location:
 
-## Environment Setup
+- `public/data/` — benchmark results and `implementations.json`, served as static URL-accessible files and fetched at runtime via `fetch()`
 
-- Requires Ruby 3.4+
-- Create `.env` file with `OPENROUTER_API_KEY` for generating new implementations
-- Dependencies managed via Bundler with specific RuboCop versions for consistency
+The live server has no repo filesystem access; benchmark and implementation metadata must therefore be present in the generated JSON under `public/data/`.
 
-## Implementation Generation
+## Routing Conventions
 
-New implementations are generated via the `ruby_llm` gem using OpenRouter API. Each implementation is:
+Routes defined in `app/routes.ts` using `route()` helper. Route files export:
+- `meta()` - Page metadata
+- `loader()` - Server-side data loading
+- `default` component - Page component receiving `loaderData`
 
-- Saved with model name and timestamp
-- Automatically tested for functionality
-- Evaluated for code quality using RuboCop
-- Categorized as working, broken, or slow based on performance
+## Component Patterns
 
-## Performance Measurement
+- Hooks-only functional components (no class components)
+- Arrow function components with explicit typing
+- Reuse `PageLayout`, `PageContent`, `HeroSection`, `Breadcrumbs` for page structure
+- For display names: prefer structured metadata from loaders/manifests. Use helpers in `lib/model-names.ts` instead of slug parsing.
 
-- Each implementation runs 5 iterations in separate processes
-- Best (fastest) result is recorded
-- Results include execution time and RuboCop offense count
-- Broken implementations are moved to `broken/` subdirectories
-- Slow implementations are moved to `slow/` subdirectories
+## Design Requirements
 
-## Adding a New Model
-
-To add a new model's implementations via PR:
-
-1. Run `bin/main` and choose to generate implementations for the desired model
-2. This creates implementation files under `implementations/` and a results file at `results/{implementation}.json`
-3. Open a PR — since each model has its own result file, there are no merge conflicts with concurrent PRs
-
-## Git Conventions
-
-- Always write commit messages using the Conventional Commits.
-- Use `<type>[optional scope]: <description>` as the first line, for example `fix(website): preserve overall ranks when filtering`.
-- Use `feat` for new user-facing functionality and `fix` for bug fixes.
-- Use `chore` for new model additions, "chores".
-- Other allowed types include `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`.
-- Add an optional body after a blank line when the change needs context.
-
-## Website
-
-The `website/` directory contains a React/TypeScript frontend. See `website/CLAUDE.md` for detailed instructions. All website features must be mobile-responsive (375px+ viewports).
+- **Mobile-first responsive design** - All features must work on 375px+ viewports
+- Dark/light mode support via CSS variables and `dark:` variants
+- Consistent use of shadcn/ui design tokens (`foreground`, `muted-foreground`, `primary`, etc.)
 
 ---
 > Source: [OskarsEzerins/llm-benchmarks](https://github.com/OskarsEzerins/llm-benchmarks) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
