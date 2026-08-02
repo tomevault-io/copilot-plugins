@@ -4,7 +4,7 @@
   "repo": "mica-mqtt",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dromara/mica-mqtt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-01T23:46:18Z"
+  "distributed_at": "2026-08-02T14:59:16Z"
 }
