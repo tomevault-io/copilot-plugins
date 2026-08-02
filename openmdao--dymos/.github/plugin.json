@@ -1,0 +1,9 @@
+{
+  "name": "openmdao--dymos",
+  "displayName": "dymos",
+  "description": "dymos",
+  "version": "1.0.0",
+  "author": "OpenMDAO",
+  "homepage": "https://github.com/OpenMDAO/dymos",
+  "skills": []
+}
