@@ -2,9 +2,9 @@
   "name": "goatdb",
   "owner": "goatplatform",
   "repo": "goatdb",
-  "description": "A peer-to-peer database that spans devices. For apps and agents that work everywhere.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/goatplatform/goatdb",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T03:42:02Z"
+  "distributed_at": "2026-08-02T04:34:32Z"
 }
