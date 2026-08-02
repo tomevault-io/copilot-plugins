@@ -1,0 +1,9 @@
+{
+  "name": "tryagi--huggingface",
+  "displayName": "HuggingFace",
+  "description": "HuggingFace",
+  "version": "1.0.0",
+  "author": "tryAGI",
+  "homepage": "https://github.com/tryAGI/HuggingFace",
+  "skills": []
+}
