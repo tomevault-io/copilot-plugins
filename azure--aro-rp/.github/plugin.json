@@ -1,0 +1,9 @@
+{
+  "name": "azure--aro-rp",
+  "displayName": "ARO-RP",
+  "description": "ARO-RP",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/ARO-RP",
+  "skills": []
+}
