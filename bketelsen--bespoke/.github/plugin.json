@@ -1,0 +1,9 @@
+{
+  "name": "bketelsen--bespoke",
+  "displayName": "bespoke",
+  "description": "A personal app platform: one-off software for exactly one user \u2014 built, maintained, and operated by LLM agents. Steal the idea before you steal the code.",
+  "version": "1.0.0",
+  "author": "bketelsen",
+  "homepage": "https://github.com/bketelsen/bespoke",
+  "skills": []
+}
