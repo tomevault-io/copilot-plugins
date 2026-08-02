@@ -4,7 +4,7 @@
   "repo": "pulsar-resources-operator",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/streamnative/pulsar-resources-operator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T14:00:13Z"
+  "distributed_at": "2026-08-02T12:15:12Z"
 }
