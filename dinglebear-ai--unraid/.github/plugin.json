@@ -1,0 +1,9 @@
+{
+  "name": "dinglebear-ai--unraid",
+  "displayName": "unraid",
+  "description": "Query, monitor, and manage Unraid servers via GraphQL API through MCP tools. Supports system info, Docker, VMs, array/parity, notifications, plugins, rclone, and live telemetry.",
+  "version": "1.0.0",
+  "author": "dinglebear-ai",
+  "homepage": "https://github.com/dinglebear-ai/unraid",
+  "skills": []
+}
