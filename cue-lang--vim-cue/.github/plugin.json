@@ -1,0 +1,9 @@
+{
+  "name": "cue-lang--vim-cue",
+  "displayName": "vim-cue",
+  "description": "vim-cue",
+  "version": "1.0.0",
+  "author": "cue-lang",
+  "homepage": "https://github.com/cue-lang/vim-cue",
+  "skills": []
+}
