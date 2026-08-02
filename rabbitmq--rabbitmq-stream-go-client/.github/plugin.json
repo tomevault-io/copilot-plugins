@@ -1,0 +1,9 @@
+{
+  "name": "rabbitmq--rabbitmq-stream-go-client",
+  "displayName": "rabbitmq-stream-go-client",
+  "description": "rabbitmq-stream-go-client",
+  "version": "1.0.0",
+  "author": "rabbitmq",
+  "homepage": "https://github.com/rabbitmq/rabbitmq-stream-go-client",
+  "skills": []
+}
