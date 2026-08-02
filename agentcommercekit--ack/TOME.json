@@ -2,7 +2,7 @@
   "name": "ack",
   "owner": "agentcommercekit",
   "repo": "ack",
-  "description": "The Agent Commerce Kit (ACK)",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agentcommercekit/ack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T12:11:43Z"
+  "distributed_at": "2026-08-02T21:40:46Z"
 }
