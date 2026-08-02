@@ -2,7 +2,7 @@
   "name": "longcli-bench",
   "owner": "finyorko",
   "repo": "longcli-bench",
-  "description": "LongCLI-Bench's official repository",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/finyorko/longcli-bench",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T11:18:22Z"
+  "distributed_at": "2026-08-02T03:58:41Z"
 }
