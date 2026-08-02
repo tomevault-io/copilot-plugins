@@ -1,8 +1,6 @@
 # kite-aos
 
-> Source: [andrew-malitchuk/kite-aos](https://github.com/andrew-malitchuk/kite-aos) — distributed by [TomeVault](https://tomevault.io)
-
-Modern, open-source Android kiosk application designed to transform tablets into dedicated smart home dashboards.
+> Source: [andrew-malitchuk/kite-aos](https://github.com/andrew-malitchuk/kite-aos). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
