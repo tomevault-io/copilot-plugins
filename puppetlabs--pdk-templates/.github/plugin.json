@@ -1,0 +1,9 @@
+{
+  "name": "puppetlabs--pdk-templates",
+  "displayName": "pdk-templates",
+  "description": "pdk-templates",
+  "version": "1.0.0",
+  "author": "puppetlabs",
+  "homepage": "https://github.com/puppetlabs/pdk-templates",
+  "skills": []
+}
