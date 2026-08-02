@@ -1,14 +1,22 @@
-## no-cursor-git-attribution
+## release-on-main-only
 
-> Never attribute git commits/PRs to Cursor Agent
+> GitHub Actions release builds only on main branch push
 
 
-# No Cursor git attribution
+# Release policy
 
-- Never add `Co-authored-by: Cursor <cursoragent@cursor.com>` or any `Co-authored-by: Cursor …` trailer to commits.
-- Never add `Made-with: Cursor` / “Made with Cursor” footers to commits or PR bodies.
-- Commits and PRs must use only the repo owner identity (`Yoyo` / `ImYoyoData` and their configured `user.email`).
-- If a commit message template or tool injects Cursor attribution, remove it before finishing the commit.
+- Long-lived branches: **`dev`** (day-to-day) and **`main`** (releases only).
+- **Build and Release** Actions run **only** when pushing to `main` (or manual `workflow_dispatch`).
+- Do **not** trigger packaging/release on `dev`, feature branches, or version tags (`v*`).
+- Day-to-day work stays on `dev` with CI-only checks; merge/push to `main` when you want a packaged GitHub Release.
+- When releasing: bump `package.json` version on `dev`, merge to `main`, push `main`. Do not rely on `git tag` / `git push origin v*` to start the release workflow.
+- Do not keep a parallel `master` branch; default branch on GitHub is `main`.
+
+
+## Release checklist (when the user says 发布 / release)
+- Write this release's change notes (更新日志) into the `body:` block of `.github/workflows/release.yml` (the `## What's New` sections), keeping the existing Chinese + English format.
+- Bump the version in `package.json` (and keep `package-lock.json` in sync), then update `CHANGELOG.md` with the same notes.
+- Commit on `dev`, merge to `main`, push `main` — the push to `main` triggers Build and Release.
 
 ---
 > Source: [ImYoyoData/pi-desktop](https://github.com/ImYoyoData/pi-desktop) — distributed by [TomeVault](https://tomevault.io).
