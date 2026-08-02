@@ -2,7 +2,7 @@
   "name": "headless-pm",
   "owner": "madviking",
   "repo": "headless-pm",
-  "description": "This is a simple headless project management system that helps coordinate several instances of LLM coders that work on the same project.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/madviking/headless-pm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T17:05:08Z"
+  "distributed_at": "2026-08-02T20:41:50Z"
 }
