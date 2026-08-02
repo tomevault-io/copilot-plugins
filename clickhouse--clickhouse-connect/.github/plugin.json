@@ -1,0 +1,9 @@
+{
+  "name": "clickhouse--clickhouse-connect",
+  "displayName": "clickhouse-connect",
+  "description": "clickhouse-connect",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/clickhouse-connect",
+  "skills": []
+}
