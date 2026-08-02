@@ -1,0 +1,9 @@
+{
+  "name": "pingcap--tiflash",
+  "displayName": "tiflash",
+  "description": "tiflash",
+  "version": "1.0.0",
+  "author": "pingcap",
+  "homepage": "https://github.com/pingcap/tiflash",
+  "skills": []
+}
