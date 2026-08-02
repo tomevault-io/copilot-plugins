@@ -2,9 +2,9 @@
   "name": "thymer-plugin-sdk",
   "owner": "thymerapp",
   "repo": "thymer-plugin-sdk",
-  "description": "Docs, API and SDK to develop Plugins for Thymer!",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thymerapp/thymer-plugin-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T14:38:21Z"
+  "distributed_at": "2026-08-02T03:57:02Z"
 }
