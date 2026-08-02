@@ -1,0 +1,50 @@
+## solana-mmaker
+
+> - `npm run build` - Compile TypeScript to JavaScript
+
+# CLAUDE.md - Solana Market Maker Bot
+
+## Build Commands
+
+- `npm run build` - Compile TypeScript to JavaScript
+- `npm start` - Run the compiled bot (production)
+- `npm run dev` - Run the bot with tsx (development)
+- `npm test` - Run unit tests (Vitest)
+- `npm run lint` - Lint src and tests (ESLint)
+
+## Project Structure
+
+- `/src` - Source code
+  - `/api` - External API integrations (Jupiter, Solana)
+  - `/constants` - Project-wide constants
+  - `/strategies` - Trading strategies
+  - `/utils` - Helper functions
+  - `main.ts` - Entry point
+  - `wallet.ts` - Wallet management
+- `/tests` - Vitest unit tests
+- `.env.example` - Template for environment configuration
+- `.github/workflows` - CI (build, lint, test)
+
+## Code Style Guidelines
+
+- **Types**: Use strict typing (`strict: true` in tsconfig); avoid `any`
+- **Naming**: Use camelCase for files and variables
+- **Imports**: Group imports by external libraries first, then internal modules
+- **Error Handling**: Use try/catch blocks for API calls and transactions; never let one failed cycle crash the bot loop
+- **Environment**: Store sensitive data in `.env` file (never commit); never log keys, seeds, or mnemonics
+- **Documentation**: Add JSDoc comments for functions with complex logic
+- **Async**: Use async/await pattern for asynchronous operations
+- **Constants**: Define token mint addresses in `src/constants/`; tunable defaults live next to their use (e.g. Jupiter base URL in `src/api/jupiter.ts`, transaction timing in `src/utils/transactionSender.ts`) and are overridable via `MM_*` environment variables read in `src/main.ts`
+- **Amount math**: Use `decimal.js` (see `src/utils/convert.ts`) for token amounts, never float arithmetic
+
+## Dependencies
+
+- `@solana/kit` (modern Solana SDK, formerly web3.js v2) and `@solana-program/token`
+- Jupiter Aggregator HTTP API (v6)
+- ESM-only project (`"type": "module"`, `tsconfig` `module: nodenext`); relative imports must carry a `.js` extension
+- TypeScript and Node.js (v20+; kit's signer uses WebCrypto Ed25519)
+- Vitest for testing, ESLint (typescript-eslint) for linting, tsx for `npm run dev`
+
+---
+> Source: [gianlucamazza/solana-mmaker](https://github.com/gianlucamazza/solana-mmaker) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
