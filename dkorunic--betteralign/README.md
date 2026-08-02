@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [dkorunic/betteralign](https://github.com/dkorunic/betteralign).
+Original source: `AGENTS.md` in [dkorunic/betteralign](https://github.com/dkorunic/betteralign).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [dkorunic/betteralign](https://github.com/dkorunic/betteralign) — a repo with 1069+ stars on GitHub.
+From [dkorunic/betteralign](https://github.com/dkorunic/betteralign) — a repo with 1067+ stars on GitHub.
 
 ---
 
