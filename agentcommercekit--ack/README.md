@@ -1,8 +1,6 @@
 # ack
 
-> Source: [agentcommercekit/ack](https://github.com/agentcommercekit/ack) — distributed by [TomeVault](https://tomevault.io)
-
-The Agent Commerce Kit (ACK)
+> Source: [agentcommercekit/ack](https://github.com/agentcommercekit/ack). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [agentcommercekit/ack](https://github.com/agentc
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [agentcommercekit/ack](https://github.com/agentcommercekit/ack) — a repo with 136+ stars on GitHub.
+From [agentcommercekit/ack](https://github.com/agentcommercekit/ack) — a repo with 147+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
