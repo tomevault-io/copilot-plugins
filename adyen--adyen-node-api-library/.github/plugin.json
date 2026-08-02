@@ -1,0 +1,9 @@
+{
+  "name": "adyen--adyen-node-api-library",
+  "displayName": "adyen-node-api-library",
+  "description": "adyen-node-api-library",
+  "version": "1.0.0",
+  "author": "Adyen",
+  "homepage": "https://github.com/Adyen/adyen-node-api-library",
+  "skills": []
+}
