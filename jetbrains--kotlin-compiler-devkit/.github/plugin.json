@@ -1,0 +1,9 @@
+{
+  "name": "jetbrains--kotlin-compiler-devkit",
+  "displayName": "kotlin-compiler-devkit",
+  "description": "kotlin-compiler-devkit",
+  "version": "1.0.0",
+  "author": "JetBrains",
+  "homepage": "https://github.com/JetBrains/kotlin-compiler-devkit",
+  "skills": []
+}
