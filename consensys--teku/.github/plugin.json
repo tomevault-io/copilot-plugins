@@ -1,0 +1,9 @@
+{
+  "name": "consensys--teku",
+  "displayName": "teku",
+  "description": "teku",
+  "version": "1.0.0",
+  "author": "Consensys",
+  "homepage": "https://github.com/Consensys/teku",
+  "skills": []
+}
