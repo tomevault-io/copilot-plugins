@@ -1,325 +1,512 @@
 ## easegen-front
 
-> 本文件为 Claude Code (claude.ai/code) 在此仓库中工作时提供指导。
+> 本文件为 Claude 在 `easegen-3d-lecture-system` 目录中工作时提供开发指导。
 
-# CLAUDE.md
+# CLAUDE.md - 3D 数字人课程讲解系统
 
-本文件为 Claude Code (claude.ai/code) 在此仓库中工作时提供指导。
+本文件为 Claude 在 `easegen-3d-lecture-system` 目录中工作时提供开发指导。
+
+---
 
 ## 项目概述
 
-EaseGen-Front 是一个基于 Vue 3 + TypeScript + Vite 的数字人课程制作平台。它支持 AI 驱动的课程生成，包括数字人、语音合成、智能课件和视频合成功能。基于 yudao-ui-admin-vue3 框架构建。
+**easegen-3d-lecture-system** 是 EaseGen 平台的 3D 数字人课程讲解子系统，分为两个阶段实现：
 
-## 开发命令
+### 阶段一：简化版系统（✅ 已完成，当前使用）
 
-### 安装与设置
-```bash
-pnpm install        # 或: pnpm i
+**位置**：`simplified/` 目录
+**技术栈**：Xmov SDK (CDN) + Flask + Vanilla JavaScript
+**架构**：单后端服务 + 静态前端页面
+
 ```
-**要求：** Node.js > 16.18.0, pnpm >= 8.6.0 (强制使用)
-
-### 开发
-```bash
-pnpm dev            # 本地开发 (.env.local)
-pnpm dev-server     # 开发服务器 (.env.dev)
-pnpm ts:check       # TypeScript 类型检查
-```
-
-### 构建
-```bash
-pnpm build:local    # 本地构建
-pnpm build:dev      # 开发环境构建
-pnpm build:test     # 测试环境
-pnpm build:stage    # 预发布环境
-pnpm build:prod     # 生产环境构建
+simplified/
+├── index.html           # 主界面（单页应用）
+├── css/                 # 样式文件
+├── js/                  # JavaScript 模块
+└── backend/
+    ├── app.py           # Flask 后端（端口 7000）
+    ├── config.py        # 配置管理
+    ├── .env             # 环境变量（唯一配置源）
+    └── services/        # 服务层
 ```
 
-### 代码检查与格式化
-```bash
-pnpm lint:eslint    # 修复 .js,.ts,.vue 文件中的 ESLint 问题
-pnpm lint:format    # 使用 Prettier 格式化
-pnpm lint:style     # 修复 stylelint 问题
+**核心功能**：
+- 课程列表和加载
+- PPT 同步显示
+- 3D 数字人讲解（Xmov SDK）
+- 播放控制（播放/暂停/上一段/下一段/进度跳转）
+
+### 阶段二：完整版系统（🚧 规划中）
+
+**状态**：尚未实现，仅在设计文档中描述
+**计划新增功能**：智能打断、知识库问答、LLM 对话、OBS 推流
+**计划技术栈**：Fay 框架、WebSocket 通信、知识库集成
+
+> ⚠️ **注意**：以下提到的 Stage 2 相关文件和目录目前都不存在，仅为规划内容。
+
+---
+
+## 开发指导（简化版）
+
+### 架构原则
+
+1. **配置集中管理**：所有配置必须在 `.env` 文件中，代码中不允许硬编码
+2. **模块职责分离**：
+   - `backend/` - 后端 API 和业务逻辑
+   - `js/` - 前端逻辑模块化
+   - `css/` - 样式组件化
+3. **API 聚合模式**：后端聚合多个 EaseGen API 调用，前端只需一次请求
+
+### 关键文件说明
+
+#### 后端
+
+| 文件 | 职责 | 关键点 |
+|------|------|--------|
+| `backend/app.py` | Flask 应用主文件 | 定义所有 API 路由 |
+| `backend/config.py` | 配置类 | 从环境变量读取，**无默认值** |
+| `backend/.env` | 环境配置 | **唯一配置源**，包含敏感信息 |
+| `backend/services/easegen_client.py` | EaseGen API 客户端 | 封装所有对 EaseGen 的 HTTP 请求 |
+| `backend/services/course_service.py` | 课程服务层 | 业务逻辑，数据聚合和格式化 |
+
+#### 前端
+
+| 文件 | 职责 | 关键点 |
+|------|------|--------|
+| `index.html` | 主界面 | 三栏布局，加载所有资源 |
+| `js/config.js` | 前端配置 | API 端点、播放器配置、UI 配置 |
+| `js/main.js` | 应用入口 | 初始化所有组件 |
+| `js/course-player.js` | 播放器核心 | 课程加载、播放控制、状态管理 |
+| `js/ui-controller.js` | UI 控制器 | 所有 UI 交互和更新 |
+| `js/xmov-manager.js` | Xmov SDK 管理 | SDK 初始化、配置获取、speak 调用 |
+
+### API 端点
+
+**基础 URL**：`http://127.0.0.1:7000`
+
+```javascript
+GET  /api/health              // 健康检查
+GET  /api/courses             // 课程列表（分页）
+GET  /api/course/:id          // 课程详情
+GET  /api/segments/:id        // 课程所有片段（文本 + PPT URL）
+GET  /api/xmov-config         // Xmov SDK 配置
 ```
 
-### 预览与清理
-```bash
-pnpm preview        # 构建并本地预览
-pnpm serve:dev      # 预览开发构建
-pnpm serve:prod     # 预览生产构建
-pnpm clean          # 删除 node_modules
-pnpm clean:cache    # 清除 node_modules/.cache
-```
-
-## 架构概览
-
-### 目录结构
-- **src/api/** - API 服务层，按业务域组织 (digitalcourse, bpm, crm, system 等)
-- **src/components/** - 可复用的 UI 组件 (48+ 个组件)
-- **src/views/** - 页面组件，按功能域组织
-- **src/store/modules/** - Pinia 状态管理 stores
-- **src/router/** - Vue Router 配置，支持动态路由加载
-- **src/hooks/web/** - 组合式函数，用于逻辑复用
-- **src/utils/** - 工具函数 (auth, dict, download, permissions 等)
-- **src/types/** - TypeScript 类型定义
-- **src/directives/** - 自定义 Vue 指令 (v-hasPermi, v-mounted-focus)
-- **src/locales/** - i18n 翻译文件 (zh-CN, en)
-- **src/plugins/** - 插件集成 (formCreate, echarts, unocss 等)
-- **src/styles/** - 全局样式，SCSS 变量自动导入
-
-### 核心业务域：数字人课程制作
-主要业务逻辑围绕数字人课程生产：
-
-1. **数字人管理** (`src/views/digitalcourse/digitalhumans/`)
-   - 标准和自定义数字人创建，带审核流程
-   - 形象和声音定制
-
-2. **课程模板** (`src/views/digitalcourse/template/`)
-   - 可配置布局 (背景、PPT、数字人位置)
-   - 模板预览系统
-
-3. **语音合成** (`src/views/digitalcourse/voices/`)
-   - 文本转语音，支持 SSML 语法
-   - 自定义声音管理
-   - **重要：** SSML 处理必须防止多个 `<speak>` 标签 (参见提交 5c491eab)
-
-4. **背景管理** (`src/views/digitalcourse/backgrounds/`)
-   - 课程视频背景图库
-
-5. **题目生成** (`src/views/digitalcourse/genQuestion/`)
-   - AI 驱动的题目生成
-
-6. **视频合成**
-   - 组合数字人、语音、PPT 和背景
-   - 视频时长单位：毫秒 (参见提交 d927c722)
-   - **重要：** 合成前必须验证脚本内容 (参见提交 d0939525)
-
-### 状态管理 (Pinia)
-位置：`src/store/modules/`
-
-主要 stores：
-- **app.ts** - 主题、布局、语言、移动端检测
-- **user.ts** - 认证、用户信息
-- **permission.ts** - 动态路由权限
-- **dict.ts** - 数据字典系统 (广泛用于下拉框/标签)
-- **tagsView.ts** - 导航面包屑
-
-模式：
-```typescript
-export const useAppStore = defineStore('app', {
-  state: (): AppState => ({ /* ... */ }),
-  actions: { /* ... */ },
-  persist: true // 使用 pinia-plugin-persistedstate
-})
-```
-
-### API 服务层
-位置：`src/api/`
-
-按后端业务模块组织。每个模块导出类型化的接口和 API 对象：
-
-```typescript
-// 示例: src/api/digitalcourse/template/index.ts
-export interface TemplateVO {
-  id: number
-  showBackground: number
-  // ... 字段
-}
-
-export const TemplateApi = {
-  getTemplatePage: async (params: any) => {
-    return await request.get({ url: `/digitalcourse/template/page`, params })
-  },
-  createTemplate: async (data: TemplateVO) => {
-    return await request.post({ url: `/digitalcourse/template/create`, data })
-  }
+**响应格式**：
+```javascript
+{
+  "code": 0,           // 0=成功, 非0=失败
+  "message": "success",
+  "data": { ... }      // 实际数据
 }
 ```
 
-**Axios 配置** (`src/config/axios/service.ts`)：
-- 请求拦截器添加 JWT token 和 tenant-id 头
-- 响应拦截器处理 token 刷新、401/403 重定向
-- Token 刷新使用基于队列的重试机制
+### 配置管理
 
-### 路由架构
-- 动态路由通过 `permissionStore.generateRoutes()` 从后端加载
-- 静态路由在 `src/router/modules/remaining.ts`
-- 路由守卫在 `src/permission.ts` 处理认证、字典加载
-- 白名单路由：`/login`, `/social-login`, `/auth-redirect`, `/bind`, `/register`, `/oauthLogin/gitee`
+#### ⚠️ 重要规则
 
-### 权限系统
-- 后端返回用户权限
-- 前端通过 `v-hasPermi` 指令过滤路由和 UI 元素
-- 权限检查在 `src/utils/permission.ts`
+1. **所有配置必须在 `.env` 文件中**
+2. **代码中不允许硬编码任何配置值**
+3. **`config.py` 中不设置默认值**（强制从环境变量读取）
+4. **敏感信息（API Key, Secret）绝不提交到版本控制**
 
-### 字典系统
-集中的数据字典管理，用于统一的下拉框/标签：
-```vue
-<dict-tag :type="DICT_TYPE.IS_OR_NOT" :value="value" />
-```
+#### 配置文件
 
-### 配置
-根目录下的环境文件：
-- **.env.local** - 本地开发
-- **.env.dev** - 开发服务器
-- **.env.test** - 测试环境
-- **.env.stage** - 预发布
-- **.env.prod** - 生产环境
-
-关键变量：
+**`backend/.env`**（唯一配置源）：
 ```bash
-VITE_BASE_URL           # 后端 API 基础 URL
-VITE_API_URL            # API 前缀 (/admin-api)
-VITE_UPLOAD_URL         # 文件上传端点
-VITE_APP_TENANT_ENABLE  # 多租户开关
-VITE_APP_CAPTCHA_ENABLE # 验证码开关
+# Flask 配置
+DEBUG=True
+PORT=7000
+
+# EaseGen API 配置
+EASEGEN_API_URL=http://127.0.0.1:48080/admin-api
+EASEGEN_API_KEY=your_api_key
+
+# Xmov SDK 配置
+XMOV_APP_ID=your_app_id
+XMOV_APP_SECRET=your_app_secret
+
+# 日志配置
+LOG_LEVEL=INFO
 ```
 
-## 关键第三方集成
+**`backend/config.py`**（读取配置）：
+```python
+from dotenv import load_dotenv
+import os
 
-### UI 与表单
-- **Element Plus** (v2.8.4) - 自动导入，自定义 SCSS 主题
-- **@form-create/element-ui** + designer - 动态表单构建器 (`src/plugins/formCreate/`)
-- **@wangeditor/editor** - 富文本编辑器
+load_dotenv()  # 加载 .env 文件
 
-### 工作流
-- **bpmn-js** (v8.9.0) - 可视化工作流设计器，位于 `src/components/bpmnProcessDesigner/`
-- 支持 Camunda、Flowable、Activiti
+class Config:
+    # 强制从环境变量读取，无默认值
+    XMOV_APP_ID = os.getenv('XMOV_APP_ID')
+    XMOV_APP_SECRET = os.getenv('XMOV_APP_SECRET')
 
-### 可视化
-- **echarts** (v5.5.0) - 单独打包以优化性能
-- **markmap-view** - 思维导图可视化
+    # 如果配置缺失，应用将无法启动
+    # 这是设计意图：防止使用错误配置运行
+```
 
-### 媒体
-- **video.js** - 视频播放
-- **cropperjs** - 图片裁剪
-- **mediainfo.js** - 媒体文件元数据提取
+### 数据流
 
-### 工具库
-- **axios** (v1.6.8) - HTTP 客户端
-- **dayjs** - 日期处理
-- **crypto-js** / **jsencrypt** - 加密 (密码使用 RSA)
-- **pinyin-pro** - 中文转拼音
-- **qrcode** - 二维码生成
+#### 课程播放流程
 
-### 图标
-- **@iconify/iconify** - 4 万+ 图标，通过自定义 Icon 组件使用：
-  ```vue
-  <Icon icon="ep:search" />
-  ```
+```
+1. 前端加载
+   ├─> 获取 Xmov 配置（GET /api/xmov-config）
+   ├─> 初始化 Xmov SDK
+   └─> 加载课程列表（GET /api/courses）
 
-## 开发规范
+2. 用户选择课程
+   └─> 获取所有片段（GET /api/segments/:id）
+       ├─> 后端聚合 N 个片段的文本和 PPT URL
+       └─> 返回完整课程数据
 
-### 文件命名
-- **Views:** PascalCase (例如 `DigitalHumansForm.vue`)
-- **API 模块:** 小写文件夹配合 `index.ts`
-- **Types:** 使用 `VO` (Value Object) 或 `Type` 后缀
+3. 用户点击播放
+   └─> CoursePlayer.play()
+       └─> 循环每个片段：
+           ├─> UIController.updateSegmentDisplay()
+           │   ├─> 显示 PPT 图片
+           │   └─> 显示字幕文本
+           ├─> XmovManager.speak(text)
+           │   └─> SDK 驱动数字人说话
+           └─> 等待完成 → 下一段
+```
 
-### API 模式
-所有 API 模块遵循此结构：
-```typescript
-export interface EntityVO { /* ... */ }
-export const EntityApi = {
-  getPage: async (params) => { /* ... */ },
-  get: async (id) => { /* ... */ },
-  create: async (data) => { /* ... */ },
-  update: async (data) => { /* ... */ },
-  delete: async (id) => { /* ... */ }
+### 代码模式
+
+#### 后端：添加新 API 端点
+
+```python
+# backend/app.py
+
+@app.route('/api/your-endpoint', methods=['GET'])
+def your_endpoint():
+    """API 端点描述"""
+    try:
+        # 1. 获取参数
+        param = request.args.get('param', 'default')
+
+        # 2. 调用服务层
+        result = your_service.do_something(param)
+
+        # 3. 返回标准格式
+        return jsonify({
+            'code': 0,
+            'message': 'success',
+            'data': result
+        })
+
+    except Exception as e:
+        app.logger.error(f'错误描述: {str(e)}')
+        return jsonify({
+            'code': 500,
+            'message': str(e),
+            'data': None
+        }), 500
+```
+
+#### 前端：添加新功能模块
+
+```javascript
+// js/your-module.js
+
+class YourModule {
+    constructor() {
+        this.state = {};
+        this.callbacks = {};
+    }
+
+    async initialize() {
+        Logger.info('初始化模块...');
+        // 初始化逻辑
+    }
+
+    // 公共方法
+    async doSomething() {
+        try {
+            const response = await api.get('/api/your-endpoint');
+            if (response.code === 0) {
+                // 处理成功
+                return response.data;
+            } else {
+                throw new Error(response.message);
+            }
+        } catch (error) {
+            Logger.error('操作失败:', error);
+            throw error;
+        }
+    }
+
+    // 事件回调
+    on(event, callback) {
+        this.callbacks[event] = callback;
+    }
 }
+
+// 导出到全局
+window.YourModule = YourModule;
 ```
 
-### 组件模式
-- **ContentWrap** - 页面内容包装器，带标准内边距
-- **Icon** - Iconify 图标包装器
-- **DictTag** - 字典值显示
+### 常见任务
 
-### i18n 键值
-按业务域组织：
-```typescript
-t('template.name')
-t('digitalHumans.customHuman')
-t('action.add')  // 通用操作
-t('table.createTime')  // 通用字段
+#### 修改 UI 样式
+
+1. 找到对应的 CSS 文件（`css/components.css` 或其他）
+2. 遵循现有的 CSS 变量和命名约定
+3. 使用 BEM 命名法：`.block__element--modifier`
+4. 响应式设计：支持深色/浅色主题
+
+#### 添加新配置项
+
+1. 在 `backend/.env` 中添加配置
+2. 在 `backend/config.py` 中读取：`os.getenv('YOUR_CONFIG')`
+3. 在需要的地方使用：`Config.YOUR_CONFIG`
+4. **不要设置默认值**（除非是 UI 配置等非敏感项）
+
+#### 调试问题
+
+**后端调试**：
+```bash
+# 查看后端日志
+# Flask 自动输出到控制台
+
+# 测试 API
+curl http://127.0.0.1:7000/api/your-endpoint
 ```
 
-### Schema 驱动的 CRUD
-使用 `useCrudSchemas` hook 实现一致的表格/表单生成：
-```typescript
-const { allSchemas } = useCrudSchemas(crudSchemas)
-// 生成 tableColumns, searchSchema, formSchema
+**前端调试**：
+```javascript
+// 在浏览器控制台
+Logger.debug('调试信息', data);
+
+// 查看全局对象
+console.log(window.CONFIG);
+console.log(window.api);
 ```
 
-### 组合式函数 (Hooks)
-大量使用组合式 API，位于 `src/hooks/web/`：
-- **useTable** - 表格 CRUD 操作
-- **useForm** - 表单处理
-- **useCache** - Web 存储包装器
-- **useMessage** - Element Plus 消息提示助手
-- **useDesign** - CSS 命名空间/BEM 工具
-- **useI18n** - i18n 助手
+### 依赖关系
 
-## 重要注意事项
+#### 外部依赖
 
-### 视频合成
-- 视频时长单位为 **毫秒** (提交 d927c722)
-- 合成前务必验证脚本内容 (提交 d0939525)
-- 脚本为空时不允许合成
+- **EaseGen API**（端口 48080）- 必须运行，提供课程数据
+- **Xmov SDK**（CDN）- 在线加载，需要网络连接
 
-### SSML 语音合成
-生成或处理 SSML 标记时：
-- 确保每个请求只有一个根 `<speak>` 标签
-- 脚本中的换行符可能导致多个 `<speak>` 标签 - 需要清理输入 (提交 5c491eab)
+#### Python 依赖
 
-### Token 管理
-- Access token 通过 `useCache` 存储 (localStorage/sessionStorage)
-- Refresh token 流程在 axios 拦截器中处理
-- 启用多租户时注入 tenant-id 头
+```
+Flask==3.0.0
+Flask-CORS==4.0.0
+python-dotenv==1.0.0
+requests==2.31.0
+```
 
-### 多租户
-- 可选功能，由 `VITE_APP_TENANT_ENABLE` 控制
-- 启用时通过请求头发送 tenant-id
+#### 前端依赖
 
-### 后端集成
-- 预期后端 URL：`VITE_BASE_URL + /admin-api`
-- 后端仓库：https://github.com/taoofagi/easegen-admin
+- Xmov SDK（CDN 加载，无需本地安装）
+- 纯 Vanilla JavaScript（无其他依赖）
 
-## 快速参考：功能位置
+### 注意事项
 
-| 功能 | 位置 |
-|---------|----------|
-| 数字人管理 | `src/views/digitalcourse/digitalhumans/` |
-| 课程模板 | `src/views/digitalcourse/template/` |
-| 语音合成 | `src/views/digitalcourse/voices/` |
-| 题目生成 | `src/views/digitalcourse/genQuestion/` |
-| 背景图片 | `src/views/digitalcourse/backgrounds/` |
-| 用户认证 | `src/api/login/` + `src/store/modules/user.ts` |
-| 权限控制 | `src/directives/permission/` |
-| 文件上传 | `src/components/UploadFile/` |
-| 工作流设计器 | `src/components/bpmnProcessDesigner/` |
-| 富文本编辑器 | `src/components/Editor/` |
-| API 拦截器 | `src/config/axios/service.ts` |
-| 路由配置 | `src/router/modules/remaining.ts` |
-| 全局样式 | `src/styles/variables.scss` (自动导入) |
+#### ⚠️ 配置安全
 
-## Vite 配置
+1. **永远不要**在代码中硬编码密钥、密码、API Key
+2. **永远不要**将 `.env` 文件提交到 Git
+3. `.env.example` 使用占位符，不包含真实值
+4. 文档中的示例配置使用 `your_xxx` 占位符
 
-**别名：** `@/` 映射到 `src/`
+#### ⚠️ API 调用
 
-**关键插件：**
-- Vue + VueJsx
-- UnoCSS (原子化 CSS)
-- Element Plus 自动导入
-- Auto-import (Vue APIs, composables)
-- Components 自动注册
-- VueI18n
-- SvgIcons (精灵图生成)
-- Compression (Gzip/Brotli)
-- ESLint
+1. 所有 API 调用都要有错误处理
+2. 后端聚合多个 API 调用时要考虑性能
+3. 使用 Logger 记录关键操作和错误
 
-构建优化：
-- Terser 压缩
-- 单独的 echarts chunk
-- SCSS 全局变量自动注入
+#### ⚠️ 前端状态管理
+
+1. `CoursePlayer` 管理播放状态（单一数据源）
+2. `UIController` 只负责 UI 更新，不存储业务状态
+3. 使用回调函数解耦模块间依赖
+
+### 测试
+
+#### 后端测试
+
+```bash
+# 健康检查
+curl http://127.0.0.1:7000/api/health
+
+# 测试配置加载
+curl http://127.0.0.1:7000/api/xmov-config
+
+# 测试课程 API
+curl "http://127.0.0.1:7000/api/courses?page=1&size=5"
+```
+
+#### 前端测试
+
+1. 打开 `index.html`
+2. F12 查看控制台日志
+3. Network 标签查看 API 请求
+4. 测试所有播放控制功能
+
+---
+
+## 常见修改场景
+
+### 场景 1：更换 Xmov 凭证
+
+1. 编辑 `backend/.env`
+2. 修改 `XMOV_APP_ID` 和 `XMOV_APP_SECRET`
+3. 重启后端服务
+4. 刷新前端页面验证
+
+### 场景 2：修改 API 端口
+
+1. 编辑 `backend/.env`：`PORT=新端口`
+2. 编辑 `js/config.js`：`BASE_URL: 'http://127.0.0.1:新端口'`
+3. 重启服务
+
+### 场景 3：添加新的课程数据字段
+
+1. 修改 `backend/services/course_service.py`
+   - 在数据格式化中添加新字段
+2. 修改 `js/ui-controller.js`
+   - 在 UI 渲染中使用新字段
+3. 修改 CSS（如果需要新样式）
+
+### 场景 4：优化播放逻辑
+
+1. 修改 `js/course-player.js` 中的播放相关方法
+2. 考虑影响：
+   - 状态管理（`isPlaying`, `isPaused`）
+   - 回调触发（`onPlayStateChange`, `onSegmentChange`）
+   - UI 更新（通过 `UIController`）
+
+---
+
+## 项目文件索引
+
+> 📁 **注意**：以下所有路径相对于 `simplified/` 目录（阶段一实现）
+
+### 关键代码位置
+
+| 功能 | 文件位置 | 行号/方法 |
+|------|---------|----------|
+| API 路由定义 | `backend/app.py` | 第 31-158 行 |
+| Xmov 配置端点 | `backend/app.py` | 第 127-158 行 |
+| 配置加载 | `backend/config.py` | 第 9-10 行（load_dotenv） |
+| 课程数据聚合 | `backend/services/course_service.py` | 第 77-141 行 |
+| 播放器核心逻辑 | `js/course-player.js` | `play()`, `_playSegment()` |
+| Xmov SDK 初始化 | `js/xmov-manager.js` | `initialize()` 方法 |
+| UI 更新逻辑 | `js/ui-controller.js` | `updateSegmentDisplay()` |
+| 进度条点击 | `js/ui-controller.js` | `handleProgressBarClick()` |
+
+### 配置文件
+
+| 文件 | 用途 | 是否提交 Git |
+|------|------|-------------|
+| `backend/.env` | 真实配置 | ❌ 不提交 |
+| `backend/.env.example` | 配置模板 | ✅ 提交 |
+| `backend/config.py` | 配置类定义 | ✅ 提交 |
+| `js/config.js` | 前端配置 | ✅ 提交 |
+
+---
+
+## 相关文档
+
+- **README.md** - 项目说明、功能介绍、快速开始指南
+- **docs/架构设计方案.md** - 详细技术架构说明
+- **docs/PPT讲解系统实现方案-v2.md** - PPT 讲解系统实现方案（包含两阶段详细设计）
+- **XmovAvatarSDK/** - Xmov SDK 工具和文档
+
+---
+
+## 开发工作流
+
+### 添加新功能
+
+1. 理解需求和数据流
+2. 后端：
+   - 添加/修改 API 端点
+   - 更新服务层逻辑
+3. 前端：
+   - 添加/修改 JavaScript 模块
+   - 更新 UI 组件
+   - 添加/修改 CSS 样式
+4. 测试：
+   - 后端 API 测试（curl/Postman）
+   - 前端功能测试（浏览器）
+   - 边界情况测试
+5. 文档：
+   - 更新 README.md（用户可见）
+   - 更新本 CLAUDE.md（开发指导）
+
+### 修复 Bug
+
+1. 重现问题
+2. 查看日志（后端终端 + 浏览器控制台）
+3. 定位代码位置（参考上面的"关键代码位置"）
+4. 修复并测试
+5. 验证相关功能未受影响
+
+---
+
+## 第二阶段（完整版）开发指导
+
+> ⚠️ **重要提示**：第二阶段尚未开始实施，以下内容为规划设计，相关文件和目录目前均不存在。
+
+### 规划架构差异
+
+完整版相比简化版的计划改进：
+
+1. **多服务架构**（规划）：
+   - PPTLecturePlayer（计划端口 6001）- 课程播放控制
+   - Fay（计划端口 5000, 10002）- 数字人交互框架
+   - XmovAvatarSDK 服务（计划端口 5002）- SDK 配置服务
+
+2. **通信方式**（规划）：
+   - WebSocket（Fay）替代 HTTP 轮询
+   - metadata 机制同步 PPT 和讲解
+
+3. **新增功能**（规划）：
+   - 智能问答（LLM 集成）
+   - 知识库集成
+   - 语音输入支持
+   - OBS 推流支持
+
+### 计划实现的文件结构
+
+以下文件和目录计划在第二阶段创建：
+
+- `course_player_with_avatar.html` - 完整版主界面（待创建）
+- `Fay/` 目录 - Fay 框架集成（待创建）
+  - `Fay/core/interact.py` - metadata 支持
+  - `Fay/core/fay_core.py` - 消息携带 metadata
+  - `Fay/core/wsa_server.py` - 接收外部消息
+- `PPTLecturePlayer/` 目录 - 播放控制服务（待创建）
+
+### 设计要点
+
+第二阶段开发时需要注意：
+
+1. Fay 框架修改需要完全重启才能生效
+2. metadata 必须原样传递（课程数据）
+3. messageType 用于区分课程内容和用户问答
+4. 保持与简化版的配置兼容性
+
+---
+
+## 文档修订历史
+
+- **2025-11-20**：修正所有文件引用，确保准确性
+  - 移除对不存在的 Stage 2 文件的直接引用（`course_player_with_avatar.html`, `Fay/`, `PPTLecturePlayer/`）
+  - 明确标注 Stage 2 内容为规划状态，所有相关文件标注"待创建"
+  - 更新"相关文档"部分，移除不存在的 `easegenapi接口文档.md`
+  - 在文件索引中添加路径说明，所有路径相对于 `simplified/` 目录
+
+---
+
+*最后更新：2025-11-20*
 
 ---
 > Source: [taoofagi/easegen-front](https://github.com/taoofagi/easegen-front) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
