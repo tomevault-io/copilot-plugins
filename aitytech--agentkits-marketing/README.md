@@ -1,8 +1,6 @@
 # agentkits-marketing
 
-> Source: [aitytech/agentkits-marketing](https://github.com/aitytech/agentkits-marketing) — distributed by [TomeVault](https://tomevault.io)
-
-Enterprise-grade AI marketing automation for Claude Code, Cursor, GitHub Copilot, and any AI assistant supporting agents & skills
+> Source: [aitytech/agentkits-marketing](https://github.com/aitytech/agentkits-marketing). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
