@@ -1,0 +1,9 @@
+{
+  "name": "nsg--immich-distribution",
+  "displayName": "immich-distribution",
+  "description": "immich-distribution",
+  "version": "1.0.0",
+  "author": "nsg",
+  "homepage": "https://github.com/nsg/immich-distribution",
+  "skills": []
+}
