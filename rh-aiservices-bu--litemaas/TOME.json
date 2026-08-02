@@ -2,7 +2,7 @@
   "name": "litemaas",
   "owner": "rh-aiservices-bu",
   "repo": "litemaas",
-  "description": "LiteMaaS is a proof-of-concept application for managing LLM subscriptions, API keys, and usage tracking. It seamlessly integrates with LiteLLM to provide a unified interface for accessing multiple LLMs with comprehensive budget management.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rh-aiservices-bu/litemaas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T14:01:55Z"
+  "distributed_at": "2026-08-02T04:20:35Z"
 }
