@@ -4,7 +4,7 @@
   "repo": "ClaudeGlobalCommands",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GGPrompts/ClaudeGlobalCommands",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T13:37:01Z"
+  "distributed_at": "2026-08-02T04:04:51Z"
 }
