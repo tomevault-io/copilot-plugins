@@ -2,9 +2,9 @@
   "name": "vibe-coder-3d",
   "owner": "jonit-dev",
   "repo": "vibe-coder-3d",
-  "description": "@react-three/fiber 3D game engine",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jonit-dev/vibe-coder-3d",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T22:56:16Z"
+  "distributed_at": "2026-08-02T20:53:40Z"
 }
