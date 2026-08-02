@@ -1,0 +1,9 @@
+{
+  "name": "wled--wled-docs",
+  "displayName": "WLED-Docs",
+  "description": "WLED-Docs",
+  "version": "1.0.0",
+  "author": "wled",
+  "homepage": "https://github.com/wled/WLED-Docs",
+  "skills": []
+}
