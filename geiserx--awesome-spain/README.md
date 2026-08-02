@@ -1,23 +1,21 @@
 # awesome-spain
 
-> Tome by [GeiserX](https://github.com/GeiserX/awesome-spain) — distributed by [TomeVault](https://tomevault.io)
-
-Una selección de software open source que da soporte específico a España
+> Tome by [GeiserX](https://github.com/GeiserX/awesome-spain), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [GeiserX/awesome-spain](https://github.com/GeiserX/awesome-spain).
+Original source: `CLAUDE.md` in [GeiserX/awesome-spain](https://github.com/GeiserX/awesome-spain).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/GeiserX/awesome-spain](https://github.com/GeiserX/awesome-spain)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/GeiserX/awesome-spain](https://github.com/GeiserX/awesome-spain)
 
 ---
 
