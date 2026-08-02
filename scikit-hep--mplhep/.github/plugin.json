@@ -1,0 +1,9 @@
+{
+  "name": "scikit-hep--mplhep",
+  "displayName": "mplhep",
+  "description": "mplhep",
+  "version": "1.0.0",
+  "author": "scikit-hep",
+  "homepage": "https://github.com/scikit-hep/mplhep",
+  "skills": []
+}
