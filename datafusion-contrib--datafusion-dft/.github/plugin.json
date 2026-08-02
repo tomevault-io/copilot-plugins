@@ -1,0 +1,9 @@
+{
+  "name": "datafusion-contrib--datafusion-dft",
+  "displayName": "datafusion-dft",
+  "description": "datafusion-dft",
+  "version": "1.0.0",
+  "author": "datafusion-contrib",
+  "homepage": "https://github.com/datafusion-contrib/datafusion-dft",
+  "skills": []
+}
