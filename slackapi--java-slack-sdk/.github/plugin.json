@@ -1,0 +1,9 @@
+{
+  "name": "slackapi--java-slack-sdk",
+  "displayName": "java-slack-sdk",
+  "description": "java-slack-sdk",
+  "version": "1.0.0",
+  "author": "slackapi",
+  "homepage": "https://github.com/slackapi/java-slack-sdk",
+  "skills": []
+}
