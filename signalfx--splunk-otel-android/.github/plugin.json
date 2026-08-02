@@ -1,0 +1,9 @@
+{
+  "name": "signalfx--splunk-otel-android",
+  "displayName": "splunk-otel-android",
+  "description": "splunk-otel-android",
+  "version": "1.0.0",
+  "author": "signalfx",
+  "homepage": "https://github.com/signalfx/splunk-otel-android",
+  "skills": []
+}
