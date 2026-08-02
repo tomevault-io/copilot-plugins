@@ -1,7 +1,7 @@
 {
   "name": "taoofagi--easegen-front",
   "displayName": "easegen-front",
-  "description": "Easegen is an open-source digital human course creation platform offering comprehensive solutions from course production and video management to intelligent quiz generation.Easegen \u662f\u4e00\u4e2a\u5f00\u6e90\u7684\u6570\u5b57\u4eba\u8bfe\u7a0b\u5236\u4f5c\u5e73\u53f0\uff0c\u63d0\u4f9b\u4ece",
+  "description": "easegen-front",
   "version": "1.0.0",
   "author": "taoofagi",
   "homepage": "https://github.com/taoofagi/easegen-front",
