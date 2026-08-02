@@ -1,0 +1,9 @@
+{
+  "name": "kyma-project--cli",
+  "displayName": "cli",
+  "description": "cli",
+  "version": "1.0.0",
+  "author": "kyma-project",
+  "homepage": "https://github.com/kyma-project/cli",
+  "skills": []
+}
