@@ -2,7 +2,7 @@
 
 > Selección de software open source que da **soporte específico a España, sus comunidades autónomas y provincias**. Todo el contenido debe estar en español. El nombre del repositorio se mantiene en inglés (`awesome-spain`).
 
-# AGENTS.md — awesome-spain
+# CLAUDE.md — awesome-spain
 
 ## Objetivo
 
@@ -95,4 +95,4 @@ No se aceptan proyectos de: pornografía, NSFW, loterías, apuestas, religión, 
 
 ---
 > Source: [GeiserX/awesome-spain](https://github.com/GeiserX/awesome-spain) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
