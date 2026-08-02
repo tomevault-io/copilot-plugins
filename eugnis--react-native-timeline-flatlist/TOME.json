@@ -4,7 +4,7 @@
   "repo": "react-native-timeline-flatlist",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Eugnis/react-native-timeline-flatlist",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T19:07:14Z"
+  "distributed_at": "2026-08-02T09:06:41Z"
 }
