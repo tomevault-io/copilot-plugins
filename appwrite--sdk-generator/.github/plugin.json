@@ -1,0 +1,9 @@
+{
+  "name": "appwrite--sdk-generator",
+  "displayName": "sdk-generator",
+  "description": "sdk-generator",
+  "version": "1.0.0",
+  "author": "appwrite",
+  "homepage": "https://github.com/appwrite/sdk-generator",
+  "skills": []
+}
