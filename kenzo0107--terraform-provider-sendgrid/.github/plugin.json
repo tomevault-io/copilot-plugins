@@ -1,0 +1,9 @@
+{
+  "name": "kenzo0107--terraform-provider-sendgrid",
+  "displayName": "terraform-provider-sendgrid",
+  "description": "terraform-provider-sendgrid",
+  "version": "1.0.0",
+  "author": "kenzo0107",
+  "homepage": "https://github.com/kenzo0107/terraform-provider-sendgrid",
+  "skills": []
+}
