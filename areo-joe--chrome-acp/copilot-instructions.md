@@ -1,91 +1,114 @@
 ## chrome-acp
 
-> Chrome ACP is a Bun monorepo with 4 packages:
+> Use Bun instead of Node.js, npm, pnpm, or vite.
 
-# AGENTS.md
 
-## Architecture
+Default to using Bun instead of Node.js.
 
-Chrome ACP is a Bun monorepo with 4 packages:
+- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
+- Use `bun test` instead of `jest` or `vitest`
+- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
+- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
+- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
+- Bun automatically loads .env, so don't use dotenv.
 
-- **chrome-extension** - Chrome MV3 extension with sidepanel UI
-- **web-client** - Web client served by proxy-server
-- **shared** - Shared UI components and utilities
-- **proxy-server** - WebSocket server that bridges clients to ACP agents
+## APIs
 
-```mermaid
-graph LR
-    A[chrome-extension] <-->|WebSocket| C[proxy-server]
-    B[web-client] <-->|WebSocket| C
-    C <-->|stdin/stdout| D[ACP Agent]
+- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
+- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
+- `Bun.redis` for Redis. Don't use `ioredis`.
+- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
+- `WebSocket` is built-in. Don't use `ws`.
+- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
+- Bun.$`ls` instead of execa.
+
+## Testing
+
+Use `bun test` to run tests.
+
+```ts#index.test.ts
+import { test, expect } from "bun:test";
+
+test("hello world", () => {
+  expect(1).toBe(1);
+});
 ```
 
-**Why proxy-server?**
-Chrome extensions run in a browser sandbox and cannot spawn subprocesses. The proxy-server acts as a local bridge, spawning the ACP agent subprocess and relaying communication via WebSocket.
+## Frontend
 
-## Tech Stack
+Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
 
-- **Bun** - Package manager and build tool (not runtime, to support Android Termux which only has Node.js)
-- **React + TypeScript + Tailwind CSS**
-- **[shadcn/ui](https://ui.shadcn.com/)** - Base UI component library
-- **[Vercel AI Elements](https://elements.ai-sdk.dev/)** - AI chat components (Conversation, Message, CodeBlock, Reasoning, etc.)
-- **Hono** - HTTP/WebSocket server framework for proxy-server
+Server:
 
-### Best Practices
+```ts#index.ts
+import index from "./index.html"
 
-- Use Bun as the package manager. Install dependencies with `bun add`, never edit package.json manually.
-- Keep UI code DRY. Shared components go in `packages/shared` and are imported by other packages.
-- Do not use Bun-specific APIs. The code must run on Node.js (for Termux compatibility).
-- Prefer [shadcn/ui](https://ui.shadcn.com/) and [Vercel AI Elements](https://elements.ai-sdk.dev/) for UI components. Use their CLIs with Bun:
-  ```bash
-  bunx --bun shadcn@latest add <component>
-  bunx --bun ai-elements@latest add <component>
-  ```
-
-## Bun Workspace
-
-This is a Bun monorepo using `workspaces` to manage multiple packages.
-
-**All commands run from the root directory:**
-
-```bash
-# Install dependencies
-bun install
-
-# Build all packages
-bun run build
-
-# Build individual packages
-bun run build:extension
-bun run build:proxy
-bun run build:web
-
-# Development mode
-bun run dev
-```
-
-Packages reference each other via the `@chrome-acp/*` namespace:
-```json
-{
-  "dependencies": {
-    "@chrome-acp/shared": "workspace:*"
+Bun.serve({
+  routes: {
+    "/": index,
+    "/api/users/:id": {
+      GET: (req) => {
+        return new Response(JSON.stringify({ id: req.params.id }));
+      },
+    },
+  },
+  // optional websocket support
+  websocket: {
+    open: (ws) => {
+      ws.send("Hello, world!");
+    },
+    message: (ws, message) => {
+      ws.send(message);
+    },
+    close: (ws) => {
+      // handle close
+    }
+  },
+  development: {
+    hmr: true,
+    console: true,
   }
+})
+```
+
+HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
+
+```html#index.html
+<html>
+  <body>
+    <h1>Hello, world!</h1>
+    <script type="module" src="./frontend.tsx"></script>
+  </body>
+</html>
+```
+
+With the following `frontend.tsx`:
+
+```tsx#frontend.tsx
+import React from "react";
+
+// import .css files directly and it works
+import './index.css';
+
+import { createRoot } from "react-dom/client";
+
+const root = createRoot(document.body);
+
+export default function Frontend() {
+  return <h1>Hello, world!</h1>;
 }
+
+root.render(<Frontend />);
 ```
 
-## Build & Release
+Then, run index.ts
 
-```bash
-# Build all packages
-bun run build
-
-# Release a new version (updates manifest.json + package.json, tags, and pushes)
-just release <version>
-# Example: just release 1.0.30
+```sh
+bun --hot ./index.ts
 ```
 
-After release, GitHub Actions automatically builds and uploads release artifacts.
+For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
 
 ---
 > Source: [Areo-Joe/chrome-acp](https://github.com/Areo-Joe/chrome-acp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
