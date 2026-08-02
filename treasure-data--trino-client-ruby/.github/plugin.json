@@ -1,0 +1,9 @@
+{
+  "name": "treasure-data--trino-client-ruby",
+  "displayName": "trino-client-ruby",
+  "description": "trino-client-ruby",
+  "version": "1.0.0",
+  "author": "treasure-data",
+  "homepage": "https://github.com/treasure-data/trino-client-ruby",
+  "skills": []
+}
