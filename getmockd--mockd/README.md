@@ -1,8 +1,6 @@
 # mockd
 
-> Source: [getmockd/mockd](https://github.com/getmockd/mockd) — distributed by [TomeVault](https://tomevault.io)
-
-High-performance, multi-protocol mock server. HTTP, WebSocket, gRPC, MQTT, SSE, GraphQL, SOAP in one binary.
+> Source: [getmockd/mockd](https://github.com/getmockd/mockd). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
