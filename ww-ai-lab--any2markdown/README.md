@@ -1,8 +1,6 @@
 # AI instruction files for any2markdown
 
-> Sourced from [WW-AI-Lab/any2markdown](https://github.com/WW-AI-Lab/any2markdown) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-一个高性能的文档转换服务器，同时支持 Model Context Protocol (MCP) 和 RESTful API 接口。将 PDF、Word 和 Excel 文档转换为 Markdown 格式，具备图片提取、页眉页脚移除和批量处理等高级功能
+> Sourced from [WW-AI-Lab/any2markdown](https://github.com/WW-AI-Lab/any2markdown), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-p -->
