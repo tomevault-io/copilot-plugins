@@ -1,54 +1,54 @@
 ## claudeglobalcommands
 
-> A collection of slash commands and workflows for Claude Code, organized by category:
+> Directory of all available AI specialists organized by category with token estimates
 
-# Claude Context - ClaudeGlobalCommands
 
-## Project Structure
+# Available Agents Directory
 
-A collection of slash commands and workflows for Claude Code, organized by category:
+**Version**: 4.0.0  
+**Token Estimate**: ~600
 
+## Core Commands (8)
 ```
-.claude/commands/
-├── Core Commands (directly in /commands)
-│   guide.md, agents.md, workflows.md, execute.md,
-│   prompt-engineer.md, documentation.md,
-│   cicd-orchestrator.md, incident-commander.md
-├── engineering/
-│   senior-engineer.md, visual-designer.md
-├── business/
-│   legal-expert.md, marketing-expert.md
-├── infrastructure/
-│   cloud-architect.md
-└── workflows/
-    start-workflow.md, css-safety-check.md, visual-testing.md,
-    documentation-update.md, legal-compliance.md, social-media-campaign.md
+guide:              Help system             ~4k
+agents:             This directory          ~600
+workflows:          Workflow catalog        ~2.5k
+prompt-engineer:    Prompt optimization     ~2.5k
+documentation:      Documentation expert    ~2k
+cicd-orchestrator:  CI/CD management        ~4k
+incident-commander: Incident response       ~3.5k
+execute:            Quick task execution    ~500
 ```
 
-## Usage
-
-All commands are directly accessible via slash commands:
-
-```bash
-/guide                    # Help system
-/agents                   # List all available agents
-/senior-engineer          # Code review specialist
-/engineering/visual-designer  # UI/UX design (subfolder)
-/workflows/css-safety-check   # CSS validation workflow
+## Engineering (2)
+```
+senior-engineer:    Code reviews, architecture     ~4k
+visual-designer:    UI/UX design, CSS              ~4.5k
 ```
 
-## Design Philosophy
+## Business (2)
+```
+legal-expert:       Legal compliance        ~3.5k
+marketing-expert:   Marketing campaigns     ~4k
+```
 
-- **Actionable prompts**: Commands contain step-by-step workflows, not just descriptions
-- **Interactive refinement**: Use `AskUserQuestion` for dialog-based iteration
-- **Token-conscious**: Keep prompts focused and avoid unnecessary verbosity
+## Infrastructure (1)
+```
+cloud-architect:    Multi-cloud architecture  ~4k
+```
 
-## Key Commands
+## Workflows (6)
+```
+start-workflow:         Automated tasks         ~3k
+css-safety-check:       CSS validation          ~3.5k
+visual-testing:         Visual regression       ~4k
+documentation-update:   Doc generation          ~2.5k
+legal-compliance:       Compliance review       ~4k
+social-media-campaign:  Marketing automation    ~4k
+```
 
-- `/prompt-engineer` - Interactive prompt crafting with refinement loop
-- `/guide` - Command catalog and help
-- `/execute` - Quick task routing to appropriate specialist
+All commands accessible directly: `/command-name`
 
 ---
 > Source: [GGPrompts/ClaudeGlobalCommands](https://github.com/GGPrompts/ClaudeGlobalCommands) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
