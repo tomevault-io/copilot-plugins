@@ -2,9 +2,9 @@
   "name": "go-tui",
   "owner": "grindlemire",
   "repo": "go-tui",
-  "description": "A declarative terminal UI framework for Go.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/grindlemire/go-tui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T07:52:12Z"
+  "distributed_at": "2026-08-02T12:25:56Z"
 }
