@@ -1,7 +1,7 @@
 {
   "name": "swe-agent--mini-swe-agent",
   "displayName": "mini-swe-agent",
-  "description": "The 100 line AI agent that solves GitHub issues or helps you in your command line. Radically simple, no huge configs, no giant monorepo\u2014but scores >74% on SWE-bench verified!",
+  "description": "mini-swe-agent",
   "version": "1.0.0",
   "author": "SWE-agent",
   "homepage": "https://github.com/SWE-agent/mini-swe-agent",
