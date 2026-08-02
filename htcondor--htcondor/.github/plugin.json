@@ -1,0 +1,9 @@
+{
+  "name": "htcondor--htcondor",
+  "displayName": "htcondor",
+  "description": "htcondor",
+  "version": "1.0.0",
+  "author": "htcondor",
+  "homepage": "https://github.com/htcondor/htcondor",
+  "skills": []
+}
