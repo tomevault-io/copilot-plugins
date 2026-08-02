@@ -1,7 +1,7 @@
 {
   "name": "zigflow--zigflow",
   "displayName": "zigflow",
-  "description": "Define durable workflows in YAML, powered by Temporal",
+  "description": "zigflow",
   "version": "1.0.0",
   "author": "zigflow",
   "homepage": "https://github.com/zigflow/zigflow",
