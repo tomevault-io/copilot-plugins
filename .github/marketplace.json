@@ -12489,6 +12489,11 @@
       "description": "tailwind-merge"
     },
     {
+      "name": "quipnetwork--quip-protocol-rs",
+      "source": "./quipnetwork--quip-protocol-rs",
+      "description": "quip-protocol-rs"
+    },
+    {
       "name": "fengshao1227--ccg-workflow",
       "source": "./fengshao1227--ccg-workflow",
       "description": "ccg-workflow"
@@ -30269,6 +30274,16 @@
       "description": "eas-cli"
     },
     {
+      "name": "expo--eas-cli",
+      "source": "./expo--eas-cli",
+      "description": "eas-cli"
+    },
+    {
+      "name": "expo--eas-cli",
+      "source": "./expo--eas-cli",
+      "description": "eas-cli"
+    },
+    {
       "name": "tryzealot--zealot",
       "source": "./tryzealot--zealot",
       "description": "zealot"
@@ -36789,6 +36804,11 @@
       "description": "Javet"
     },
     {
+      "name": "caoccao--javet",
+      "source": "./caoccao--javet",
+      "description": "Javet"
+    },
+    {
       "name": "negokaz--excel-mcp-server",
       "source": "./negokaz--excel-mcp-server",
       "description": "A Model Context Protocol (MCP) server that reads and writes MS Excel data"
@@ -40554,6 +40574,171 @@
       "description": "amaro"
     },
     {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
+      "name": "nodejs--amaro",
+      "source": "./nodejs--amaro",
+      "description": "amaro"
+    },
+    {
       "name": "alchaincyf--huashu-md-html",
       "source": "./alchaincyf--huashu-md-html",
       "description": "huashu-md-html"
@@ -40707,6 +40892,11 @@
       "name": "higurashi-kagome--wereader",
       "source": "./higurashi-kagome--wereader",
       "description": "wereader"
+    },
+    {
+      "name": "consensys--teku",
+      "source": "./consensys--teku",
+      "description": "teku"
     },
     {
       "name": "vllm-project--recipes",
@@ -40972,6 +41162,11 @@
       "name": "valkey-io--valkey-glide",
       "source": "./valkey-io--valkey-glide",
       "description": "valkey-glide"
+    },
+    {
+      "name": "revokecash--revoke-cash",
+      "source": "./revokecash--revoke-cash",
+      "description": "revoke.cash"
     },
     {
       "name": "makcre--kugoumusicapi",
@@ -43029,6 +43224,11 @@
       "description": "kotlinter-gradle"
     },
     {
+      "name": "yjs--y-websocket",
+      "source": "./yjs--y-websocket",
+      "description": "y-websocket"
+    },
+    {
       "name": "phodal--routa",
       "source": "./phodal--routa",
       "description": "Build Your Agent Team for Real-World AI Development - Workspace-first multi-agent coordination platform for AI development, with shared Specs, Kanban orchestration, and MCP/ACP/   A2A support across w"
@@ -43112,6 +43312,11 @@
       "name": "plasmapy--plasmapy",
       "source": "./plasmapy--plasmapy",
       "description": "PlasmaPy"
+    },
+    {
+      "name": "openabdev--openab",
+      "source": "./openabdev--openab",
+      "description": "openab"
     },
     {
       "name": "alirezarezvani--claude-code-tresor",
@@ -43307,6 +43512,11 @@
       "name": "naver--fixture-monkey",
       "source": "./naver--fixture-monkey",
       "description": "fixture-monkey"
+    },
+    {
+      "name": "algolia--algoliasearch-client-php",
+      "source": "./algolia--algoliasearch-client-php",
+      "description": "algoliasearch-client-php"
     },
     {
       "name": "selfboot--ai-gallery",
@@ -45844,6 +46054,11 @@
       "description": "care_fe"
     },
     {
+      "name": "ohcnetwork--care-fe",
+      "source": "./ohcnetwork--care-fe",
+      "description": "care_fe"
+    },
+    {
       "name": "kikootwo--readmeabook",
       "source": "./kikootwo--readmeabook",
       "description": "Fully Featured audiobook request and downloading engine to bring audiobooks up to speed with the modern automation standards"
@@ -47284,6 +47499,11 @@
       "description": "web-design"
     },
     {
+      "name": "hybridly--hybridly",
+      "source": "./hybridly--hybridly",
+      "description": "hybridly"
+    },
+    {
       "name": "eigenpal--docx-editor",
       "source": "./eigenpal--docx-editor",
       "description": "React DOCX editor"
@@ -48139,6 +48359,11 @@
       "description": "netbox-proxbox"
     },
     {
+      "name": "huggingface--hub-docs",
+      "source": "./huggingface--hub-docs",
+      "description": "hub-docs"
+    },
+    {
       "name": "docker--model-runner",
       "source": "./docker--model-runner",
       "description": "Docker Model Runner"
@@ -48472,6 +48697,31 @@
       "name": "affitor--affiliate-skills",
       "source": "./affitor--affiliate-skills",
       "description": "affiliate-skills"
+    },
+    {
+      "name": "codewithmukesh--dotnet-claude-kit",
+      "source": "./codewithmukesh--dotnet-claude-kit",
+      "description": "dotnet-claude-kit"
+    },
+    {
+      "name": "codewithmukesh--dotnet-claude-kit",
+      "source": "./codewithmukesh--dotnet-claude-kit",
+      "description": "dotnet-claude-kit"
+    },
+    {
+      "name": "codewithmukesh--dotnet-claude-kit",
+      "source": "./codewithmukesh--dotnet-claude-kit",
+      "description": "dotnet-claude-kit"
+    },
+    {
+      "name": "codewithmukesh--dotnet-claude-kit",
+      "source": "./codewithmukesh--dotnet-claude-kit",
+      "description": "dotnet-claude-kit"
+    },
+    {
+      "name": "codewithmukesh--dotnet-claude-kit",
+      "source": "./codewithmukesh--dotnet-claude-kit",
+      "description": "dotnet-claude-kit"
     },
     {
       "name": "mantoni--beads-ui",
@@ -49812,6 +50062,11 @@
       "name": "jannikmi--timezonefinder",
       "source": "./jannikmi--timezonefinder",
       "description": "timezonefinder"
+    },
+    {
+      "name": "kaito-project--aikit",
+      "source": "./kaito-project--aikit",
+      "description": "aikit"
     },
     {
       "name": "mpfaffenberger--code-puppy",
@@ -51404,6 +51659,11 @@
       "description": "av"
     },
     {
+      "name": "aviator-co--av",
+      "source": "./aviator-co--av",
+      "description": "av"
+    },
+    {
       "name": "dabit3--openform",
       "source": "./dabit3--openform",
       "description": "Open Source TypeForm Clone"
@@ -51672,6 +51932,11 @@
       "name": "huxpro--vue-lynx",
       "source": "./huxpro--vue-lynx",
       "description": "vue-lynx"
+    },
+    {
+      "name": "strawberry-graphql--strawberry-django",
+      "source": "./strawberry-graphql--strawberry-django",
+      "description": "strawberry-django"
     },
     {
       "name": "strawberry-graphql--strawberry-django",
@@ -52222,6 +52487,11 @@
       "name": "grafana--grafana-kiosk",
       "source": "./grafana--grafana-kiosk",
       "description": "grafana-kiosk"
+    },
+    {
+      "name": "bytedance--varmor",
+      "source": "./bytedance--varmor",
+      "description": "vArmor"
     },
     {
       "name": "simple10--agents-observe",
@@ -53249,6 +53519,11 @@
       "description": "rust-sdks"
     },
     {
+      "name": "cashapp--misk",
+      "source": "./cashapp--misk",
+      "description": "misk"
+    },
+    {
       "name": "millionco--claude-doctor",
       "source": "./millionco--claude-doctor",
       "description": "Diagnose your Claude Code sessions"
@@ -53524,6 +53799,16 @@
       "description": "lastversion"
     },
     {
+      "name": "pingcap--tiup",
+      "source": "./pingcap--tiup",
+      "description": "tiup"
+    },
+    {
+      "name": "pingcap--tiup",
+      "source": "./pingcap--tiup",
+      "description": "tiup"
+    },
+    {
       "name": "sisig-ai--doctor",
       "source": "./sisig-ai--doctor",
       "description": "Doctor is a tool for discovering, crawl, and indexing web sites to be exposed as an MCP server for LLM agents."
@@ -53747,6 +54032,11 @@
       "name": "terryhowe--ansible-modules-hashivault",
       "source": "./terryhowe--ansible-modules-hashivault",
       "description": "ansible-modules-hashivault"
+    },
+    {
+      "name": "pingcap--tiflow",
+      "source": "./pingcap--tiflow",
+      "description": "tiflow"
     },
     {
       "name": "aitytech--agentkits-marketing",
@@ -62934,6 +63224,11 @@
       "description": "jled"
     },
     {
+      "name": "casys-kaist--llmservingsim",
+      "source": "./casys-kaist--llmservingsim",
+      "description": "LLMServingSim"
+    },
+    {
       "name": "kkokosa--dotllm",
       "source": "./kkokosa--dotllm",
       "description": "LLM inference engine written in .NET"
@@ -68989,6 +69284,11 @@
       "description": "covasim"
     },
     {
+      "name": "jakeledwards--clawcontrol",
+      "source": "./jakeledwards--clawcontrol",
+      "description": "ClawControl"
+    },
+    {
       "name": "liangdabiao--claude-code-stock-deep-research-agent",
       "source": "./liangdabiao--claude-code-stock-deep-research-agent",
       "description": "\u672c\u7814\u7a76\u57fa\u4e8e Claude Code Deep Research \u7cfb\u7edf\uff1a  \u65b9\u6cd5\u8bba: 8\u9636\u6bb5\u80a1\u7968\u6295\u8d44\u5c3d\u8c03\u6846\u67b6 \u667a\u80fd\u4f53: 28\u4e2a\u5e76\u884c\u7814\u7a76\u667a\u80fd\u4f53 \u5de5\u5177: WebSearch\u3001WebFetch\u3001\u7efc\u5408\u5206\u6790 \u8d28\u91cf: \u591a\u7a7a\u5e73\u8861\u3001\u660e\u786e\u98ce\u9669\u3001\u6570\u636e\u9a8c\u8bc1\u3002\u7b80\u5355\u4f7f\u7528\uff1a/stock-research AAPL, I want a quick overview"
@@ -69544,6 +69844,11 @@
       "description": "Native deterministic requirements-as-code engine and read-only MCP server."
     },
     {
+      "name": "oxc-project--oxc-resolver",
+      "source": "./oxc-project--oxc-resolver",
+      "description": "oxc-resolver"
+    },
+    {
       "name": "uburuntu--meridian",
       "source": "./uburuntu--meridian",
       "description": "One command deploys a censorship-resistant VLESS+Reality proxy server. Perfectly configured out-of-the-box. Relay nodes supported."
@@ -69652,6 +69957,16 @@
       "name": "aidotnet--thor",
       "source": "./aidotnet--thor",
       "description": "Thor"
+    },
+    {
+      "name": "apache--teaclave-trustzone-sdk",
+      "source": "./apache--teaclave-trustzone-sdk",
+      "description": "teaclave-trustzone-sdk"
+    },
+    {
+      "name": "nijigenerate--nijigenerate",
+      "source": "./nijigenerate--nijigenerate",
+      "description": "nijigenerate"
     },
     {
       "name": "tzachbon--smart-ralph",
@@ -106899,6 +107214,11 @@
       "description": "slotscheck"
     },
     {
+      "name": "datacurve-ai--pier",
+      "source": "./datacurve-ai--pier",
+      "description": "pier"
+    },
+    {
       "name": "vyrx-dev--toofan",
       "source": "./vyrx-dev--toofan",
       "description": "A minimal, lightning-fast typing TUI for your terminal"
@@ -116284,6 +116604,11 @@
       "description": "Skill1"
     },
     {
+      "name": "asifkibria--claude-code-toolkit",
+      "source": "./asifkibria--claude-code-toolkit",
+      "description": "claude-code-toolkit"
+    },
+    {
       "name": "aws-samples--sample-kolya-br-proxy",
       "source": "./aws-samples--sample-kolya-br-proxy",
       "description": "sample-kolya-br-proxy"
@@ -119057,6 +119382,11 @@
       "name": "lennarthennigs--simplefsm",
       "source": "./lennarthennigs--simplefsm",
       "description": "SimpleFSM"
+    },
+    {
+      "name": "netobserv--flowlogs-pipeline",
+      "source": "./netobserv--flowlogs-pipeline",
+      "description": "flowlogs-pipeline"
     },
     {
       "name": "mitchellh--go-libghostty",
@@ -122887,6 +123217,16 @@
       "name": "spacelift-io--terraform-provider-spacelift",
       "source": "./spacelift-io--terraform-provider-spacelift",
       "description": "terraform-provider-spacelift"
+    },
+    {
+      "name": "paddlepaddle--graphnet",
+      "source": "./paddlepaddle--graphnet",
+      "description": "GraphNet"
+    },
+    {
+      "name": "paddlepaddle--graphnet",
+      "source": "./paddlepaddle--graphnet",
+      "description": "GraphNet"
     },
     {
       "name": "nickcirv--engram",
@@ -128699,6 +129039,11 @@
       "description": "fluentbase"
     },
     {
+      "name": "agustinusnathaniel--vite-react-tailwind-starter",
+      "source": "./agustinusnathaniel--vite-react-tailwind-starter",
+      "description": "vite-react-tailwind-starter"
+    },
+    {
       "name": "mag123c--toktrack",
       "source": "./mag123c--toktrack",
       "description": "Ultra-fast token & cost tracker for LLM Token Usage (e.g. Claude Code)"
@@ -129507,6 +129852,11 @@
       "name": "ziqizhang--jate",
       "source": "./ziqizhang--jate",
       "description": "jate"
+    },
+    {
+      "name": "turbot--steampipe-postgres-fdw",
+      "source": "./turbot--steampipe-postgres-fdw",
+      "description": "steampipe-postgres-fdw"
     },
     {
       "name": "turbot--steampipe-postgres-fdw",
@@ -140839,6 +141189,11 @@
       "description": "optimizer"
     },
     {
+      "name": "humaans--figbird",
+      "source": "./humaans--figbird",
+      "description": "figbird"
+    },
+    {
       "name": "tmdgusya--engineering-discipline",
       "source": "./tmdgusya--engineering-discipline",
       "description": "SKILL for engineering-discipline"
@@ -145399,6 +145754,11 @@
       "description": "TianGong-LCA-Data"
     },
     {
+      "name": "hqzqaq--chatallai2",
+      "source": "./hqzqaq--chatallai2",
+      "description": "chatAllAI2"
+    },
+    {
       "name": "knowsuchagency--fulcrum",
       "source": "./knowsuchagency--fulcrum",
       "description": "What if Openclaw, Vibe Kanban, Vibetunnel, and Dokploy had a baby?"
@@ -146417,6 +146777,11 @@
       "name": "tadashi-aikawa--silhouette",
       "source": "./tadashi-aikawa--silhouette",
       "description": "silhouette"
+    },
+    {
+      "name": "mpi-sws-rse--jmc",
+      "source": "./mpi-sws-rse--jmc",
+      "description": "jmc"
     },
     {
       "name": "olorehq--olore",
@@ -149829,6 +150194,11 @@
       "description": "elecrun"
     },
     {
+      "name": "oprogramadorreal--optimus-claude",
+      "source": "./oprogramadorreal--optimus-claude",
+      "description": "optimus-claude"
+    },
+    {
       "name": "jdiegosierra--contributor-report",
       "source": "./jdiegosierra--contributor-report",
       "description": "GitHub Action to evaluate contributor quality using objective metrics - Combat AI-generated spam PRs and slop code"
@@ -151242,6 +151612,16 @@
       "name": "rexleimo--agno-go",
       "source": "./rexleimo--agno-go",
       "description": "agno-Go"
+    },
+    {
+      "name": "grafana--grafana-opentelemetry-dotnet",
+      "source": "./grafana--grafana-opentelemetry-dotnet",
+      "description": "grafana-opentelemetry-dotnet"
+    },
+    {
+      "name": "mikeckennedy--listmonk",
+      "source": "./mikeckennedy--listmonk",
+      "description": "listmonk"
     },
     {
       "name": "attilaszasz--sdd-pilot",
@@ -153834,6 +154214,11 @@
       "description": "chromatic"
     },
     {
+      "name": "fluxcd--pkg",
+      "source": "./fluxcd--pkg",
+      "description": "pkg"
+    },
+    {
       "name": "hw-native-sys--pypto",
       "source": "./hw-native-sys--pypto",
       "description": "A community-driven pypto implementation "
@@ -155054,6 +155439,11 @@
       "description": "chromadb-chart"
     },
     {
+      "name": "dashboardpack--architectui-angular-theme-free",
+      "source": "./dashboardpack--architectui-angular-theme-free",
+      "description": "architectui-angular-theme-free"
+    },
+    {
       "name": "bioliminal--bioliminal-mobile-application",
       "source": "./bioliminal--bioliminal-mobile-application",
       "description": "Bioliminal mobile application (Flutter)"
@@ -155987,6 +156377,11 @@
       "name": "damagelabs--rims",
       "source": "./damagelabs--rims",
       "description": "rims"
+    },
+    {
+      "name": "modfin--henry",
+      "source": "./modfin--henry",
+      "description": "henry"
     },
     {
       "name": "shinchven--nano-banana-skills",
@@ -157242,6 +157637,11 @@
       "name": "christian-grothe--grainiac",
       "source": "./christian-grothe--grainiac",
       "description": "grainiac"
+    },
+    {
+      "name": "openshift--managed-cluster-config",
+      "source": "./openshift--managed-cluster-config",
+      "description": "managed-cluster-config"
     },
     {
       "name": "rstackjs--agent-skills",
@@ -158859,6 +159259,16 @@
       "description": "immich-distribution"
     },
     {
+      "name": "nabinno--dojo",
+      "source": "./nabinno--dojo",
+      "description": "dojo"
+    },
+    {
+      "name": "flume--enthistory",
+      "source": "./flume--enthistory",
+      "description": "enthistory"
+    },
+    {
       "name": "tencentcloud--cubesandbox",
       "source": "./tencentcloud--cubesandbox",
       "description": "Instant, Concurrent, Secure & Lightweight Sandbox for AI Agents."
@@ -160047,6 +160457,16 @@
       "name": "yesongyun--openclaw-cn",
       "source": "./yesongyun--openclaw-cn",
       "description": "openclaw-cn"
+    },
+    {
+      "name": "tryagi--huggingface",
+      "source": "./tryagi--huggingface",
+      "description": "HuggingFace"
+    },
+    {
+      "name": "helgesverre--mistral",
+      "source": "./helgesverre--mistral",
+      "description": "mistral"
     },
     {
       "name": "alonw0--llm-docs-optimizer",
@@ -161572,6 +161992,16 @@
       "name": "pylegifrance--pylegifrance",
       "source": "./pylegifrance--pylegifrance",
       "description": "pylegifrance"
+    },
+    {
+      "name": "algorithms-with-predictions--algorithms-with-predictions-github-io",
+      "source": "./algorithms-with-predictions--algorithms-with-predictions-github-io",
+      "description": "algorithms-with-predictions.github.io"
+    },
+    {
+      "name": "jetbrains--kotlin-compiler-devkit",
+      "source": "./jetbrains--kotlin-compiler-devkit",
+      "description": "kotlin-compiler-devkit"
     },
     {
       "name": "domye--solace",
@@ -166507,6 +166937,16 @@
       "name": "ahmedsalih3d--sphexample",
       "source": "./ahmedsalih3d--sphexample",
       "description": "SPHExample"
+    },
+    {
+      "name": "ninetails-io--gnucash-mcp",
+      "source": "./ninetails-io--gnucash-mcp",
+      "description": "gnucash-mcp"
+    },
+    {
+      "name": "jchristn--s3server",
+      "source": "./jchristn--s3server",
+      "description": "S3Server"
     },
     {
       "name": "lktiep--cortex-hub",
@@ -171534,6 +171974,11 @@
       "description": "llm-wiki"
     },
     {
+      "name": "microbiomedata--nmdc-schema",
+      "source": "./microbiomedata--nmdc-schema",
+      "description": "nmdc-schema"
+    },
+    {
       "name": "mikkelkrogsholm--skills",
       "source": "./mikkelkrogsholm--skills",
       "description": "skills"
@@ -173327,6 +173772,11 @@
       "name": "atekihcan--clrs",
       "source": "./atekihcan--clrs",
       "description": "CLRS"
+    },
+    {
+      "name": "microsoft--monosize",
+      "source": "./microsoft--monosize",
+      "description": "monosize"
     },
     {
       "name": "rudrankriyam--foundation-models-framework-cli",
@@ -175202,6 +175652,26 @@
       "name": "yerfor--soft-drgn",
       "source": "./yerfor--soft-drgn",
       "description": "Soft-DRGN"
+    },
+    {
+      "name": "shiguredo--sora-cpp-sdk",
+      "source": "./shiguredo--sora-cpp-sdk",
+      "description": "sora-cpp-sdk"
+    },
+    {
+      "name": "stacksjs--tlsx",
+      "source": "./stacksjs--tlsx",
+      "description": "tlsx"
+    },
+    {
+      "name": "harehare--portable-kanban",
+      "source": "./harehare--portable-kanban",
+      "description": "portable-kanban"
+    },
+    {
+      "name": "runtimeverification--mir-semantics",
+      "source": "./runtimeverification--mir-semantics",
+      "description": "mir-semantics"
     },
     {
       "name": "rust-works--succinctly",
@@ -184329,6 +184799,11 @@
       "description": "rosettanet"
     },
     {
+      "name": "geiserx--lynxprompt",
+      "source": "./geiserx--lynxprompt",
+      "description": "LynxPrompt"
+    },
+    {
       "name": "janbjorge--rekal",
       "source": "./janbjorge--rekal",
       "description": "Long-term memory for LLMs. MCP server backed by hybrid search in a single SQLite file."
@@ -186884,6 +187359,11 @@
       "description": "CC_Internal_Control"
     },
     {
+      "name": "pguilp25--jarvis",
+      "source": "./pguilp25--jarvis",
+      "description": "jarvis"
+    },
+    {
       "name": "66reapollo2--agentsge",
       "source": "./66reapollo2--agentsge",
       "description": " Open-source CLI for AGENTS.md, .agents project   memory, MCP sync, and automatic knowledge   capture across AI coding agents"
@@ -189369,6 +189849,11 @@
       "description": "DRL_DeliveryDuel"
     },
     {
+      "name": "ivelot--youtui-player",
+      "source": "./ivelot--youtui-player",
+      "description": "youtui-player"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -191499,6 +191984,16 @@
       "description": "grapevine"
     },
     {
+      "name": "azure--aks-app-routing-operator",
+      "source": "./azure--aks-app-routing-operator",
+      "description": "aks-app-routing-operator"
+    },
+    {
+      "name": "azure--aks-app-routing-operator",
+      "source": "./azure--aks-app-routing-operator",
+      "description": "aks-app-routing-operator"
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
@@ -193542,6 +194037,36 @@
       "name": "looker-open-source--ca-demos-and-tools",
       "source": "./looker-open-source--ca-demos-and-tools",
       "description": "ca-demos-and-tools"
+    },
+    {
+      "name": "redhatinsights--frontend-components",
+      "source": "./redhatinsights--frontend-components",
+      "description": "frontend-components"
+    },
+    {
+      "name": "redhatinsights--frontend-components",
+      "source": "./redhatinsights--frontend-components",
+      "description": "frontend-components"
+    },
+    {
+      "name": "redhatinsights--frontend-components",
+      "source": "./redhatinsights--frontend-components",
+      "description": "frontend-components"
+    },
+    {
+      "name": "redhatinsights--frontend-components",
+      "source": "./redhatinsights--frontend-components",
+      "description": "frontend-components"
+    },
+    {
+      "name": "redhatinsights--frontend-components",
+      "source": "./redhatinsights--frontend-components",
+      "description": "frontend-components"
+    },
+    {
+      "name": "redhatinsights--frontend-components",
+      "source": "./redhatinsights--frontend-components",
+      "description": "frontend-components"
     },
     {
       "name": "bobmatnyc--claude-mpm-skills",
@@ -195902,6 +196427,11 @@
       "name": "geneontology--go-annotation",
       "source": "./geneontology--go-annotation",
       "description": "go-annotation"
+    },
+    {
+      "name": "svix--diom",
+      "source": "./svix--diom",
+      "description": "diom"
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -198809,6 +199339,21 @@
       "description": "vyoma-ui"
     },
     {
+      "name": "copilot-is--copilot-is",
+      "source": "./copilot-is--copilot-is",
+      "description": "copilot.is"
+    },
+    {
+      "name": "kenzo0107--terraform-provider-sendgrid",
+      "source": "./kenzo0107--terraform-provider-sendgrid",
+      "description": "terraform-provider-sendgrid"
+    },
+    {
+      "name": "eurosky-social--eu-haul",
+      "source": "./eurosky-social--eu-haul",
+      "description": "eu-haul"
+    },
+    {
       "name": "affitor--open-affiliate",
       "source": "./affitor--open-affiliate",
       "description": "The open registry of affiliate programs. Built for developers and AI agents."
@@ -201087,6 +201632,11 @@
       "name": "gkotian--gautam-linux",
       "source": "./gkotian--gautam-linux",
       "description": "gautam_linux"
+    },
+    {
+      "name": "device-management-toolkit--console",
+      "source": "./device-management-toolkit--console",
+      "description": "console"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -206979,6 +207529,11 @@
       "description": "knooppuntnet"
     },
     {
+      "name": "go-training--mcp-workshop",
+      "source": "./go-training--mcp-workshop",
+      "description": "mcp-workshop"
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
@@ -209847,6 +210402,11 @@
       "name": "not-elm--bevy-webview-projects",
       "source": "./not-elm--bevy-webview-projects",
       "description": "bevy_webview_projects"
+    },
+    {
+      "name": "pauloportugal--manjaro-playbook",
+      "source": "./pauloportugal--manjaro-playbook",
+      "description": "manjaro-playbook"
     },
     {
       "name": "skywind3000--gamesample",
