@@ -25,7 +25,24 @@ If a task touches styling, layout, panels, controls, previews, or renderer-facin
 
 Only direct user instruction can override it.
 
+## Upstream Boundary Rule
+
+`research/upstreams/evolver` is a vendored upstream dependency, not Stoa-owned implementation space.
+
+For any Evolver integration work:
+
+- Do not modify files under `research/upstreams/evolver`
+- Treat the vendored Evolver tree as read-only source
+- If Stoa needs adapters, wrappers, guards, compatibility handling, or integration glue, implement them on the Stoa side only
+- If the vendored Evolver tree becomes locally modified during exploration, reset or re-clone it instead of keeping local patches
+
+This rule is about ownership boundaries for upstream code. It does not relax the separate rule below that forbids product-side compatibility migrations.
+
 不允许写任何兼容性代码, 做任何兼容性迁移行为. 我们处于原型开发阶段.所有改进做breaking change.
+
+## Decision-Making Rule
+
+面对方案选型时，先搜索网络调研社区最佳实践，给出带依据的推荐方案后再征求确认——不要直接把选择题抛给用户。
 
 ## Quality Gate — Test Pipeline Must Pass
 
@@ -143,4 +160,4 @@ npm run test:all
 
 ---
 > Source: [bainianlaoyao/Stoa](https://github.com/bainianlaoyao/Stoa) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
