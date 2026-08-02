@@ -1,0 +1,9 @@
+{
+  "name": "microbiomedata--nmdc-schema",
+  "displayName": "nmdc-schema",
+  "description": "nmdc-schema",
+  "version": "1.0.0",
+  "author": "microbiomedata",
+  "homepage": "https://github.com/microbiomedata/nmdc-schema",
+  "skills": []
+}
