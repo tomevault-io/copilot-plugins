@@ -1,0 +1,9 @@
+{
+  "name": "kube-logging--telemetry-controller",
+  "displayName": "telemetry-controller",
+  "description": "telemetry-controller",
+  "version": "1.0.0",
+  "author": "kube-logging",
+  "homepage": "https://github.com/kube-logging/telemetry-controller",
+  "skills": []
+}
