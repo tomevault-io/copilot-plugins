@@ -1,0 +1,9 @@
+{
+  "name": "knative--serving",
+  "displayName": "serving",
+  "description": "serving",
+  "version": "1.0.0",
+  "author": "knative",
+  "homepage": "https://github.com/knative/serving",
+  "skills": []
+}
