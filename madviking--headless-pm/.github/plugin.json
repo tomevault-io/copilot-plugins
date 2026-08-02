@@ -1,7 +1,7 @@
 {
   "name": "madviking--headless-pm",
   "displayName": "headless-pm",
-  "description": "This is a simple headless project management system that helps coordinate several instances of LLM coders that work on the same project.",
+  "description": "headless-pm",
   "version": "1.0.0",
   "author": "madviking",
   "homepage": "https://github.com/madviking/headless-pm",
