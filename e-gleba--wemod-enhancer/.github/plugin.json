@@ -1,0 +1,9 @@
+{
+  "name": "e-gleba--wemod-enhancer",
+  "displayName": "wemod_enhancer",
+  "description": "Wemod patcher impl getting rid of C#",
+  "version": "1.0.0",
+  "author": "e-gleba",
+  "homepage": "https://github.com/e-gleba/wemod_enhancer",
+  "skills": []
+}
