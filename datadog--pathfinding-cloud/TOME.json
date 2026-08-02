@@ -2,7 +2,7 @@
   "name": "pathfinding.cloud",
   "owner": "DataDog",
   "repo": "pathfinding.cloud",
-  "description": "An AWS IAM Privilege Escalation Path Library",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DataDog/pathfinding.cloud",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T21:04:58Z"
+  "distributed_at": "2026-08-02T18:57:15Z"
 }
