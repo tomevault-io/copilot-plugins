@@ -1,0 +1,9 @@
+{
+  "name": "valkey-io--valkey-operator",
+  "displayName": "valkey-operator",
+  "description": "valkey-operator",
+  "version": "1.0.0",
+  "author": "valkey-io",
+  "homepage": "https://github.com/valkey-io/valkey-operator",
+  "skills": []
+}
