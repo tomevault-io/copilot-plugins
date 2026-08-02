@@ -1,0 +1,9 @@
+{
+  "name": "crossplane-contrib--provider-kafka",
+  "displayName": "provider-kafka",
+  "description": "provider-kafka",
+  "version": "1.0.0",
+  "author": "crossplane-contrib",
+  "homepage": "https://github.com/crossplane-contrib/provider-kafka",
+  "skills": []
+}
