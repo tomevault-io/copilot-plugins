@@ -1,8 +1,6 @@
 # AI instruction files for pipeshub-ai
 
-> Sourced from [pipeshub-ai/pipeshub-ai](https://github.com/pipeshub-ai/pipeshub-ai) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-PipesHub is a fully extensible and explainable workplace AI platform for enterprise search and workflow automation
+> Sourced from [pipeshub-ai/pipeshub-ai](https://github.com/pipeshub-ai/pipeshub-ai), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [pipeshub-ai/pipeshub-ai](https://github.com/pip
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [pipeshub-ai/pipeshub-ai](https://github.com/pipeshub-ai/pipeshub-ai) — a repo with 2883+ stars on GitHub.
+From [pipeshub-ai/pipeshub-ai](https://github.com/pipeshub-ai/pipeshub-ai) — a repo with 3093+ stars on GitHub.
 
 ---
 
