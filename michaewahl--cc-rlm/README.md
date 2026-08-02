@@ -1,6 +1,6 @@
 # CC-RLM
 
-> Tome by [michaewahl](https://github.com/michaewahl/CC-RLM) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [michaewahl](https://github.com/michaewahl/CC-RLM), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [michaewahl/CC-RLM](https://github.com/michaewah
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [michaewahl/CC-RLM](https://github.com/michaewahl/CC-RLM) — a repo with 31+ stars on GitHub.
+From [michaewahl/CC-RLM](https://github.com/michaewahl/CC-RLM) — a repo with 32+ stars on GitHub.
 
 ---
 
