@@ -1,9 +1,0 @@
-{
-  "name": "visheshd--docmcp",
-  "displayName": "docmcp",
-  "description": "MCP to index techincal docs on local vector database to work with Cursor",
-  "version": "1.0.0",
-  "author": "visheshd",
-  "homepage": "https://github.com/visheshd/docmcp",
-  "skills": []
-}
