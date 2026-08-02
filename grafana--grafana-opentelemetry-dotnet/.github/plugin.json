@@ -1,0 +1,9 @@
+{
+  "name": "grafana--grafana-opentelemetry-dotnet",
+  "displayName": "grafana-opentelemetry-dotnet",
+  "description": "grafana-opentelemetry-dotnet",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/grafana-opentelemetry-dotnet",
+  "skills": []
+}
