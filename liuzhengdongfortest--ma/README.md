@@ -1,6 +1,6 @@
 # AI instruction files for MA
 
-> Sourced from [liuzhengdongfortest/MA](https://github.com/liuzhengdongfortest/MA) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [liuzhengdongfortest/MA](https://github.com/liuzhengdongfortest/MA), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [liuzhengdongfortest/MA](https://github.com/liuz
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [liuzhengdongfortest/MA](https://github.com/liuzhengdongfortest/MA) — a repo with 60+ stars on GitHub.
+From [liuzhengdongfortest/MA](https://github.com/liuzhengdongfortest/MA) — a repo with 90+ stars on GitHub.
 
 ---
 
