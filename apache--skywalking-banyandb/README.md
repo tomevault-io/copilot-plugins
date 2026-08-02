@@ -1,25 +1,19 @@
 # skywalking-banyandb
 
-> Source: [apache/skywalking-banyandb](https://github.com/apache/skywalking-banyandb). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [apache/skywalking-banyandb](https://github.com/apache/skywalking-banyandb). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [apache/skywalking-banyandb](https://github.com/apache/skywalking-banyandb).
+Original source: `CLAUDE.md` in [apache/skywalking-banyandb](https://github.com/apache/skywalking-banyandb).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
-
-## Bundled Skills (3)
-
-- [skywalking-banyandb](https://github.com/apache/skywalking-banyandb/tree/main/skills/compiling/SKILL.md)
-- [skywalking-banyandb](https://github.com/apache/skywalking-banyandb/tree/main/skills/vendor-update/SKILL.md)
-- [skywalking-banyandb](https://github.com/apache/skywalking-banyandb/tree/main/skills/gh-pull-request/SKILL.md)
 
 From [apache/skywalking-banyandb](https://github.com/apache/skywalking-banyandb) — a repo with 346+ stars on GitHub.
 
