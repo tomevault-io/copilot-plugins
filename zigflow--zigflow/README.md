@@ -1,8 +1,6 @@
 # zigflow
 
-> Tome by [zigflow](https://github.com/zigflow/zigflow) — distributed by [TomeVault](https://tomevault.io)
-
-Define durable workflows in YAML, powered by Temporal
+> Tome by [zigflow](https://github.com/zigflow/zigflow), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
