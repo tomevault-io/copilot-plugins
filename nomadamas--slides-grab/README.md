@@ -1,23 +1,21 @@
 # AI instruction files for slides-grab
 
-> Sourced from [NomaDamas/slides-grab](https://github.com/NomaDamas/slides-grab) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Best harness + editor + linter for generating slides in Claude Code / Codex - Claude Design Open Source Alternative 
+> Sourced from [NomaDamas/slides-grab](https://github.com/NomaDamas/slides-grab), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [NomaDamas/slides-grab](https://github.com/NomaDamas/slides-grab).
+Original source: `CLAUDE.md` in [NomaDamas/slides-grab](https://github.com/NomaDamas/slides-grab).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [NomaDamas/slides-grab](https://github.com/NomaDamas/slides-grab) — a repo with 648+ stars on GitHub.
+From [NomaDamas/slides-grab](https://github.com/NomaDamas/slides-grab) — a repo with 1151+ stars on GitHub.
 
 ---
 
