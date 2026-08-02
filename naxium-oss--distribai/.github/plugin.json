@@ -1,0 +1,9 @@
+{
+  "name": "naxium-oss--distribai",
+  "displayName": "DistribAI",
+  "description": "A distributed AI training framework to distribute training across consumer devices, all edge cases handled.",
+  "version": "1.0.0",
+  "author": "naxium-oss",
+  "homepage": "https://github.com/naxium-oss/DistribAI",
+  "skills": []
+}
