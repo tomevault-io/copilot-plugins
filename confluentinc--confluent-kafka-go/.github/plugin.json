@@ -1,0 +1,9 @@
+{
+  "name": "confluentinc--confluent-kafka-go",
+  "displayName": "confluent-kafka-go",
+  "description": "confluent-kafka-go",
+  "version": "1.0.0",
+  "author": "confluentinc",
+  "homepage": "https://github.com/confluentinc/confluent-kafka-go",
+  "skills": []
+}
