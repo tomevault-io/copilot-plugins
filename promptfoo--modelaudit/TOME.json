@@ -2,7 +2,7 @@
   "name": "modelaudit",
   "owner": "promptfoo",
   "repo": "modelaudit",
-  "description": "Security scanner for AI/ML model files. Detects malicious code, backdoors, and vulnerabilities before deployment",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/promptfoo/modelaudit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T11:28:38Z"
+  "distributed_at": "2026-08-02T12:31:44Z"
 }
