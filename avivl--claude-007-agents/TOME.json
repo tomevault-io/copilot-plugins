@@ -2,9 +2,9 @@
   "name": "claude-007-agents",
   "owner": "avivl",
   "repo": "claude-007-agents",
-  "description": " \ud83e\udd16 A unified AI agent orchestration system featuring 10's of specialized agents across 14 categories for modern software development. Built with advanced coordination intelligence, resilience engineering, and structured logging   capabilities.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/avivl/claude-007-agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T10:41:46Z"
+  "distributed_at": "2026-08-02T04:11:57Z"
 }
