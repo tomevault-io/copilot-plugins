@@ -1,0 +1,9 @@
+{
+  "name": "clickhouse--clickhouse-kafka-connect",
+  "displayName": "clickhouse-kafka-connect",
+  "description": "clickhouse-kafka-connect",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/clickhouse-kafka-connect",
+  "skills": []
+}
