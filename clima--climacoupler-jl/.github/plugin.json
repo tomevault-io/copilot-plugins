@@ -1,0 +1,9 @@
+{
+  "name": "clima--climacoupler-jl",
+  "displayName": "ClimaCoupler.jl",
+  "description": "ClimaCoupler.jl",
+  "version": "1.0.0",
+  "author": "CliMA",
+  "homepage": "https://github.com/CliMA/ClimaCoupler.jl",
+  "skills": []
+}
