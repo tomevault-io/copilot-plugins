@@ -1,7 +1,7 @@
 {
   "name": "fluidinference--mobius",
   "displayName": "mobius",
-  "description": "Your models on any xPU",
+  "description": "mobius",
   "version": "1.0.0",
   "author": "FluidInference",
   "homepage": "https://github.com/FluidInference/mobius",
