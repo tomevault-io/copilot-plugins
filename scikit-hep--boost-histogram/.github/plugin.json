@@ -1,0 +1,9 @@
+{
+  "name": "scikit-hep--boost-histogram",
+  "displayName": "boost-histogram",
+  "description": "boost-histogram",
+  "version": "1.0.0",
+  "author": "scikit-hep",
+  "homepage": "https://github.com/scikit-hep/boost-histogram",
+  "skills": []
+}
