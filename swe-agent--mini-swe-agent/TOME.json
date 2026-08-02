@@ -2,9 +2,9 @@
   "name": "mini-swe-agent",
   "owner": "SWE-agent",
   "repo": "mini-swe-agent",
-  "description": "The 100 line AI agent that solves GitHub issues or helps you in your command line. Radically simple, no huge configs, no giant monorepo\u2014but scores >74% on SWE-bench verified!",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SWE-agent/mini-swe-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T07:07:32Z"
+  "distributed_at": "2026-08-02T22:00:15Z"
 }
