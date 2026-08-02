@@ -1,15 +1,15 @@
 # auth0-deploy-cli
 
-> Source: [auth0/auth0-deploy-cli](https://github.com/auth0/auth0-deploy-cli). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [auth0/auth0-deploy-cli](https://github.com/auth0/auth0-deploy-cli). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [auth0/auth0-deploy-cli](https://github.com/auth0/auth0-deploy-cli).
+Original source: `AGENTS.md` in [auth0/auth0-deploy-cli](https://github.com/auth0/auth0-deploy-cli).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
