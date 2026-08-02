@@ -1,7 +1,7 @@
 {
   "name": "ivo-toby--mcp-openapi-server",
   "displayName": "mcp-openapi-server",
-  "description": "MCP Server (Model Context Protocol) for turning OpenAPI specifications into a MCP Resource",
+  "description": "mcp-openapi-server",
   "version": "1.0.0",
   "author": "ivo-toby",
   "homepage": "https://github.com/ivo-toby/mcp-openapi-server",
