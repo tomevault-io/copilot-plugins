@@ -5,12 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [ohcnetwork/care_fe](https://github.com/ohcnetwork/care_fe).
+Original source: `AGENTS.md` in [ohcnetwork/care_fe](https://github.com/ohcnetwork/care_fe).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
