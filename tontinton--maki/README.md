@@ -1,8 +1,6 @@
 # maki
 
-> Tome by [tontinton](https://github.com/tontinton/maki) — distributed by [TomeVault](https://tomevault.io)
-
-An efficient AI coding agent
+> Tome by [tontinton](https://github.com/tontinton/maki), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
