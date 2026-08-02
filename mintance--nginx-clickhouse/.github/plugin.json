@@ -1,0 +1,9 @@
+{
+  "name": "mintance--nginx-clickhouse",
+  "displayName": "nginx-clickhouse",
+  "description": "nginx-clickhouse",
+  "version": "1.0.0",
+  "author": "mintance",
+  "homepage": "https://github.com/mintance/nginx-clickhouse",
+  "skills": []
+}
