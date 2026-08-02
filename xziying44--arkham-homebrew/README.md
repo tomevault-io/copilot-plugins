@@ -1,6 +1,6 @@
 # arkham-homebrew
 
-> Tome by [xziying44](https://github.com/xziying44/arkham-homebrew) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [xziying44](https://github.com/xziying44/arkham-homebrew), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [xziying44/arkham-homebrew](https://github.com/x
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [xziying44/arkham-homebrew](https://github.com/xziying44/arkham-homebrew) — a repo with 30+ stars on GitHub.
+From [xziying44/arkham-homebrew](https://github.com/xziying44/arkham-homebrew) — a repo with 33+ stars on GitHub.
 
 ---
 
