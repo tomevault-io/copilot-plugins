@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [craft-ai-agents/craft-agents-oss](https://github.com/craft-ai-agents/craft-agents-oss).
+Original source: `CLAUDE.md` in [craft-ai-agents/craft-agents-oss](https://github.com/craft-ai-agents/craft-agents-oss).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
