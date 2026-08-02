@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mixpanel/mixpanel-unity](https://github.com/mixpanel/mixpanel-unity).
+Original source: `CLAUDE.md` in [mixpanel/mixpanel-unity](https://github.com/mixpanel/mixpanel-unity).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
