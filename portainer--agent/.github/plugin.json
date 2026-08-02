@@ -1,0 +1,9 @@
+{
+  "name": "portainer--agent",
+  "displayName": "agent",
+  "description": "agent",
+  "version": "1.0.0",
+  "author": "portainer",
+  "homepage": "https://github.com/portainer/agent",
+  "skills": []
+}
