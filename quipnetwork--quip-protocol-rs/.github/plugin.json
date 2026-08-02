@@ -1,0 +1,9 @@
+{
+  "name": "quipnetwork--quip-protocol-rs",
+  "displayName": "quip-protocol-rs",
+  "description": "quip-protocol-rs",
+  "version": "1.0.0",
+  "author": "QuipNetwork",
+  "homepage": "https://github.com/QuipNetwork/quip-protocol-rs",
+  "skills": []
+}
