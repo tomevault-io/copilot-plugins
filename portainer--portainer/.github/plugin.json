@@ -1,0 +1,9 @@
+{
+  "name": "portainer--portainer",
+  "displayName": "portainer",
+  "description": "portainer",
+  "version": "1.0.0",
+  "author": "portainer",
+  "homepage": "https://github.com/portainer/portainer",
+  "skills": []
+}
