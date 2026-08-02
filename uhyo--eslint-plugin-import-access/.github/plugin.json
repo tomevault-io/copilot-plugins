@@ -1,0 +1,9 @@
+{
+  "name": "uhyo--eslint-plugin-import-access",
+  "displayName": "eslint-plugin-import-access",
+  "description": "eslint-plugin-import-access",
+  "version": "1.0.0",
+  "author": "uhyo",
+  "homepage": "https://github.com/uhyo/eslint-plugin-import-access",
+  "skills": []
+}
