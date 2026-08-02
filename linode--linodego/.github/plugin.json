@@ -1,0 +1,9 @@
+{
+  "name": "linode--linodego",
+  "displayName": "linodego",
+  "description": "linodego",
+  "version": "1.0.0",
+  "author": "linode",
+  "homepage": "https://github.com/linode/linodego",
+  "skills": []
+}
