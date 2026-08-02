@@ -1,0 +1,9 @@
+{
+  "name": "scikit-hep--hist",
+  "displayName": "hist",
+  "description": "hist",
+  "version": "1.0.0",
+  "author": "scikit-hep",
+  "homepage": "https://github.com/scikit-hep/hist",
+  "skills": []
+}
