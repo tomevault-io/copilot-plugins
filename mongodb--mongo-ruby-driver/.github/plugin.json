@@ -1,0 +1,9 @@
+{
+  "name": "mongodb--mongo-ruby-driver",
+  "displayName": "mongo-ruby-driver",
+  "description": "mongo-ruby-driver",
+  "version": "1.0.0",
+  "author": "mongodb",
+  "homepage": "https://github.com/mongodb/mongo-ruby-driver",
+  "skills": []
+}
