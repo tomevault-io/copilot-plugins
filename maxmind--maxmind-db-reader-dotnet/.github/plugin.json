@@ -1,0 +1,9 @@
+{
+  "name": "maxmind--maxmind-db-reader-dotnet",
+  "displayName": "MaxMind-DB-Reader-dotnet",
+  "description": "MaxMind-DB-Reader-dotnet",
+  "version": "1.0.0",
+  "author": "maxmind",
+  "homepage": "https://github.com/maxmind/MaxMind-DB-Reader-dotnet",
+  "skills": []
+}
