@@ -1,80 +1,37 @@
 ## quasarr
 
-> Quasarr connects JDownloader2 with Radarr, Sonarr, Lidarr, and Magazarr. It also decrypts links protected by CAPTCHAs. The primary audience is users who want to run the *arr stack with JDownloader2 instead of a traditional usenet downloader while automating as much of the flow as possible.
+> Multi-provider user notifications (Discord webhook, Telegram bot) with a single entry point and per-type/per-provider toggles.
 
-# Repository Guidelines
+# quasarr/providers/notifications/ - Notifications
 
-## Project Overview
+## Purpose
 
-Quasarr connects JDownloader2 with Radarr, Sonarr, Lidarr, and Magazarr. It also decrypts links protected by CAPTCHAs. The primary audience is users who want to run the *arr stack with JDownloader2 instead of a traditional usenet downloader while automating as much of the flow as possible.
+Multi-provider user notifications (Discord webhook, Telegram bot) with a single entry point and per-type/per-provider toggles.
 
-Quasarr acts as the bridge between the *arr apps and JDownloader2 by exposing itself as both a `Newznab Indexer` and a `SABnzbd client`. It is not a real usenet indexer, does not know what NZB files are, and should not be treated as one.
+## Ownership
 
-## Documentation First
+`__init__.py` (`send_notification`), `discord.py`, `telegram.py`, `helpers/` (frozen message dataclasses, `NotificationType` enum, `message_builder`, abstract formatter).
 
-Before formulating a plan or implementing a change, start with `docs/README.md`. It is the index for the documentation set and explains which documents exist and what each one covers.
+## Local Contracts
 
-The root `README.md` is meant to introduce the Quasarr project to users. It is not the primary working reference for agents and should be ignored for planning and implementation unless the task explicitly asks for changes to `README.md` or asks about its content.
+- For sending product notifications, callers use `send_notification(shared_state, title, case, imdb_id=, details=, source=)` plus the `NotificationType` enum for `case`; it reads `shared_state.values["notification_settings"]` (refreshed by `storage/setup/notifications.py`) and fans out to providers independently - provider failures are isolated, and it returns True if any provider succeeded. Known exceptions to that funnel: `storage/setup/notifications.py` (the settings UI/test flow) calls `build_notification_message` and the provider `send`/`inspect_destination` functions directly, and `api/__init__.py` imports the notification-type label helpers.
+- Adding a notification type = new `NotificationType` enum value + label in `notification_types.py` + branch in `message_builder.build_notification_message`.
+- Adding a provider = `AbstractNotificationFormatter` subclass implementing the four `render_*` methods + `send(shared_state, message, silent) -> bool` + wiring in `__init__.send_notification` + adding it to `NOTIFICATION_PROVIDERS` in `quasarr/constants/__init__.py` + credential fields, validation, and toggle/silent defaults in `storage/setup/notifications.py`.
+- Message dataclasses are frozen; entries are passed as tuples.
+- Discord protected-release notifications use `wait=true`; message ID, webhook fingerprint, current notification case, and effective silence state are persisted inside that release's existing `protected` JSON record. Every enabled lifecycle outcome edits the tracked message. At runtime, a transition from a silent previous case to an enabled non-silent current case also sends a short follow-up so Discord produces the configured alert; other transitions do not add a message. Disabled outcome types neither edit nor advance state. The case advances after each delivered edit, including the nonterminal SponsorsHelper-disable state; a silent-to-non-silent state advances only after its required follow-up succeeds, so a later outcome retries a failed alert. If no tracked message exists or an edit fails, the enabled outcome is sent normally as a fallback; a disabled-state fallback stores its replacement message reference for the later manual outcome. Tracked sends skip message construction when no configured provider enables the notification type.
 
-After checking `docs/README.md`, open the file in `docs/` that matches the task and use it as the source of truth. If the task spans multiple areas, read each relevant document first.
+## Work Guidance
 
-Any major change to Quasarr must include the corresponding documentation updates described in this section. If the change affects behavior, workflows, conventions, architecture, or contributor expectations, update the matching file in `docs/`. If no document matches the topic, create or update one as part of the change before finalizing the work.
+(none beyond the contracts above)
 
-## Instruction File: AGENTS.md Is Canonical
+## Verification
 
-`AGENTS.md` is the single source of truth for agent instructions in this repository. `CLAUDE.md` exists only as a pointer file containing the literal text `@AGENTS.md`, which lets Claude-based toolchains load these instructions through their normal discovery mechanism.
+- Targeted test: `test_notifications.py`; full suite: `uv run python -X utf8 -m unittest discover -s tests`
 
-Under no circumstances modify `CLAUDE.md`. Do not add content to it, do not duplicate `AGENTS.md` into it, and do not "fix" it back to byte-parity with `AGENTS.md`. Any change to agent instructions goes into `AGENTS.md` only. If `CLAUDE.md` ever contains anything other than the single line `@AGENTS.md`, restore it to that single line.
+## Child DOX Index
 
-## Core Capabilities
-
-Treat these as the first-class product goals:
-
-- Connecting the *arr stack with JDownloader2
-- Autonomously controlling JDownloader2 to support that integration
-- Handling protected-link and anti-CAPTCHA mechanics so the workflow is as automated as possible
-- Supporting related filtering, categorization, and notifications only when they strengthen the core automation flow
-
-`SponsorsHelper` is an optional premium companion for enhanced anti-CAPTCHA automation. It is not the main product and should not be actively advertised beyond a mention in `README.md`.
-
-## Product Boundaries
-
-The project focus is improving and maintaining the existing feature set. Automation for third-party tools and sources is effectively endless, so features outside the core capabilities are usually feature creep or bloat that steal time from maintaining compatibility with those third parties.
-
-Do not propose or implement broad new abstractions, adjacent product ideas, or convenience features unless they directly support the core Quasarr workflow.
-
-## Change Discipline
-
-Keep changes aligned with the existing `quasarr/` package layout, prefer `uv` for local commands, and run the documented checks before submitting work. Keep commit subjects short and imperative, keep pull requests focused, and avoid bundling unrelated edits.
-
-Do not change more code than necessary. Refactors should be proposed and explicitly requested, not performed opportunistically. Keep commit deltas low and avoid creating refactor overhead such as rewriting unrelated tests.
-
-Unit tests should usually change only when the intended behavior in the covered area changed, or when the existing test is incorrect. Do not rewrite tests just because nearby code changed shape.
-
-## Skill Execution
-
-When a repo-local skill defines an explicit command, execute that command exactly as written unless the skill itself explicitly allows an alternative invocation.
-
-Do not substitute a different shell, interpreter, wrapper, or platform-specific entrypoint just because it appears equivalent. If a local alias or shim is useful for one machine, keep that in user-specific agent configuration outside the repository.
-
-If a skill command fails, inspect why it failed and discuss the best next step with the user before retrying with a different invocation, unless the skill itself defines a fallback.
-
-## Security And Content Rules
-
-Do not commit real credentials, `.env` files, API keys, or actual source hostnames. Never, at any point, add the hostnames of any sources Quasarr supports to any file that is not gitignored. See `docs/Security.md` for the runtime configuration rules these apply to.
-
-## Third-Party Source Work
-
-Do not infer payloads, URLs, titles, or response shapes when working on a third-party source. Before changing how a source is requested, parsed, or matched, ask the user for clear Proxyman (or similar) captures of real traffic. Curling the source directly to confirm the actual shape of a request or response is a valid alternative when the user has not already supplied a capture.
-
-When a source's code is not available locally, any examples used in `docs/sources/` documents, code comments, or tests must use synthetic names and invalid URLs. Never paste real release titles, hostnames, or release URLs into the repository to illustrate behavior. The only exceptions are sources that are themselves open-source projects with code available locally; those may be referenced using their actual identifiers.
-
-## Terminology
-
-When referring to integrations such as `NK` or `DW`, always call them `sources`.
-
-Always abbreviate sources as two-letter uppercase identifiers, for example `NK`, `DW`, `DD`, or `SJ`.
+None.
 
 ---
 > Source: [rix1337/Quasarr](https://github.com/rix1337/Quasarr) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
