@@ -1,0 +1,9 @@
+{
+  "name": "pingcap--tiup",
+  "displayName": "tiup",
+  "description": "tiup",
+  "version": "1.0.0",
+  "author": "pingcap",
+  "homepage": "https://github.com/pingcap/tiup",
+  "skills": []
+}
