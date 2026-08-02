@@ -1,8 +1,6 @@
 # claude-code-synthesis
 
-> Tome by [griffinhilly](https://github.com/griffinhilly/claude-code-synthesis) — distributed by [TomeVault](https://tomevault.io)
-
-A synthesis of Claude Code best practices, aggregated from Twitter. 
+> Tome by [griffinhilly](https://github.com/griffinhilly/claude-code-synthesis), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
