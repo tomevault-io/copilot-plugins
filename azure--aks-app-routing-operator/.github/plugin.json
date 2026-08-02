@@ -1,0 +1,9 @@
+{
+  "name": "azure--aks-app-routing-operator",
+  "displayName": "aks-app-routing-operator",
+  "description": "aks-app-routing-operator",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/aks-app-routing-operator",
+  "skills": []
+}
