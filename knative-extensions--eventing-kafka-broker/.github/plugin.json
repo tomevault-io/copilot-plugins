@@ -1,0 +1,9 @@
+{
+  "name": "knative-extensions--eventing-kafka-broker",
+  "displayName": "eventing-kafka-broker",
+  "description": "eventing-kafka-broker",
+  "version": "1.0.0",
+  "author": "knative-extensions",
+  "homepage": "https://github.com/knative-extensions/eventing-kafka-broker",
+  "skills": []
+}
