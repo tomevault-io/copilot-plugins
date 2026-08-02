@@ -1,23 +1,21 @@
 # AI instruction files for scale-agentex
 
-> Sourced from [scaleapi/scale-agentex](https://github.com/scaleapi/scale-agentex) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Open source codebase for Scale Agentex
+> Sourced from [scaleapi/scale-agentex](https://github.com/scaleapi/scale-agentex), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [scaleapi/scale-agentex](https://github.com/scaleapi/scale-agentex).
+Original source: `AGENTS.md` in [scaleapi/scale-agentex](https://github.com/scaleapi/scale-agentex).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [scaleapi/scale-agentex](https://github.com/scaleapi/scale-agentex) — a repo with 338+ stars on GitHub.
+From [scaleapi/scale-agentex](https://github.com/scaleapi/scale-agentex) — a repo with 457+ stars on GitHub.
 
 ---
 
