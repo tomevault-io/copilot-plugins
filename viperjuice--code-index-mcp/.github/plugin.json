@@ -1,7 +1,7 @@
 {
   "name": "viperjuice--code-index-mcp",
   "displayName": "Code-Index-MCP",
-  "description": "Code indexing MCP server to provide context to coding agents. ",
+  "description": "Code-Index-MCP",
   "version": "1.0.0",
   "author": "ViperJuice",
   "homepage": "https://github.com/ViperJuice/Code-Index-MCP",
