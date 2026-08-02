@@ -1,0 +1,44 @@
+{
+  "name": "bespoke",
+  "owner": "bketelsen",
+  "repo": "bespoke",
+  "description": "A personal app platform: one-off software for exactly one user \u2014 built, maintained, and operated by LLM agents. Steal the idea before you steal the code.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bketelsen/bespoke",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-02T20:32:15Z"
+}
