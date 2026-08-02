@@ -1,8 +1,6 @@
 # easegen-front
 
-> Tome by [taoofagi](https://github.com/taoofagi/easegen-front) — distributed by [TomeVault](https://tomevault.io)
-
-Easegen is an open-source digital human course creation platform offering comprehensive solutions from course production and video management to intelligent quiz generation.Easegen 是一个开源的数字人课程制作平台，提供从课程制作、视频管理到智能出题的全方位解决方案。
+> Tome by [taoofagi](https://github.com/taoofagi/easegen-front), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [taoofagi/easegen-front](https://github.com/taoo
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/taoofagi/easegen-front](https://github.com/taoofagi/easegen-front)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/taoofagi/easegen-front](https://github.com/taoofagi/easegen-front)
 
 ---
 
