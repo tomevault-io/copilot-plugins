@@ -4,7 +4,7 @@
   "repo": "signalk-server",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SignalK/signalk-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T01:52:31Z"
+  "distributed_at": "2026-08-02T23:02:45Z"
 }
