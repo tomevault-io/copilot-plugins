@@ -1,7 +1,7 @@
 {
   "name": "goosewobbler--zubridge",
   "displayName": "zubridge",
-  "description": "Cross-platform state without boundaries: Zustand-inspired simplicity",
+  "description": "zubridge",
   "version": "1.0.0",
   "author": "goosewobbler",
   "homepage": "https://github.com/goosewobbler/zubridge",
