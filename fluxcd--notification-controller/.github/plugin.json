@@ -1,0 +1,9 @@
+{
+  "name": "fluxcd--notification-controller",
+  "displayName": "notification-controller",
+  "description": "notification-controller",
+  "version": "1.0.0",
+  "author": "fluxcd",
+  "homepage": "https://github.com/fluxcd/notification-controller",
+  "skills": []
+}
