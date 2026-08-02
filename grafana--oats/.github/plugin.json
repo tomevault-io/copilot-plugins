@@ -1,0 +1,9 @@
+{
+  "name": "grafana--oats",
+  "displayName": "oats",
+  "description": "oats",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/oats",
+  "skills": []
+}
