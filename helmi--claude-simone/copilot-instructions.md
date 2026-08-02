@@ -1,40 +1,59 @@
 ## claude-simone
 
-> **IMPORTANT:** This is a meta-repository situation. Be aware that this repo is used to develop a system called "Claude Simone" which is an addon to Claude Code to manage Tasks and Work. At the same time this repository itself uses Simone to organize its own work (currently the mcp-server based version).
+> General tasks are standalone work items not tied to sprints:
 
-# CLAUDE Instructions - Simone Repository
+# General Tasks Instructions
 
-**IMPORTANT:** This is a meta-repository situation. Be aware that this repo is used to develop a system called "Claude Simone" which is an addon to Claude Code to manage Tasks and Work. At the same time this repository itself uses Simone to organize its own work (currently the mcp-server based version).
+## General Task Structure
 
-## Activity Logging
+General tasks are standalone work items not tied to sprints:
 
-You have access to the `log_activity` tool. Use it to record your activities after every activity that is relevant for the project. This helps track development progress and understand what has been done.
+- Files follow pattern: `T<NNN>_<Description>.md`
+- Completed tasks: `TX<NNN>_<Description>.md`
 
-## Repository Structure
+Always use the template at `.simone/99_TEMPLATES/task_template.md` when creating new general tasks.
 
-1. **`/legacy`** - The stable, production-ready Simone system
-   - Directory-based command system
-   - Fully functional and documented
-   - Use this for actual project management
+## Task Formatting
 
-2. **`/hello-simone`** - NPM installer for legacy Simone
-   - Installs the legacy system
-   - Run with `npx hello-simone`
+General tasks use standardized YAML frontmatter and sections:
 
-3. **`/mcp-server`** - New MCP implementation (early development)
-   - Model Context Protocol based
-   - Not ready for use
-   - Active development
+```yaml
+---
+task_id: T001
+status: open # open | in_progress | pending_review | done | failed | blocked
+complexity: Medium # Low | Medium | High
+last_updated: YYYY-MM-DD HH:MM
+---
+```
 
-⚠ None of these directories should have dependencies outside. If you spot something, report it to the user.
+The full task structure with all sections is defined in the task template. Always maintain this structure.
 
-4. **ADDITIONALLY** the meta part: ./simone contains the Framework files for this repo.
+## Working with General Tasks
 
-## Important Notes
+When handling general tasks:
 
-- The legacy system is fully functional - use it for actual project management
-- The MCP server is in early development and used for this project (with a dev version directly linked)
+1. Update the status field as you progress
+2. Record timestamps in this format (YYYY-MM-DD HH:MM)
+3. Log all significant actions in the Output Log section:
+
+   ```plaintext
+   [YYYY-MM-DD HH:MM] Started task
+   [YYYY-MM-DD HH:MM] Modified files: file1.js, file2.js
+   ```
+
+4. Mark subtasks as they're completed: `- [x] Completed subtask`
+5. Use the Acceptance Criteria as your primary completion checklist
+6. Ensure all sections from the task template are preserved
+
+## Task Completion Process
+
+When a task is complete:
+
+1. Update status to "done"
+2. Update all Acceptance Criteria with [x]
+3. Add final Output Log entry
+4. Rename file from T... to TX... (e.g., `TX001_Task_Name.md`)
 
 ---
 > Source: [Helmi/claude-simone](https://github.com/Helmi/claude-simone) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
