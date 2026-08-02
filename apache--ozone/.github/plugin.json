@@ -1,0 +1,9 @@
+{
+  "name": "apache--ozone",
+  "displayName": "ozone",
+  "description": "ozone",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/ozone",
+  "skills": []
+}
