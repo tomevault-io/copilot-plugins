@@ -1,0 +1,9 @@
+{
+  "name": "mitre-attack--mitreattack-python",
+  "displayName": "mitreattack-python",
+  "description": "mitreattack-python",
+  "version": "1.0.0",
+  "author": "mitre-attack",
+  "homepage": "https://github.com/mitre-attack/mitreattack-python",
+  "skills": []
+}
