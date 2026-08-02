@@ -1,0 +1,157 @@
+## gat
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+gat is a cat command alternative written in Go that provides syntax highlighting, code formatting, and enhanced display capabilities for terminal output.
+
+## Development Commands
+
+### Testing
+```bash
+# Run all tests
+go test ./...
+
+# Run tests with coverage
+go test -coverprofile=coverage.out ./...
+```
+
+### Building
+```bash
+# Build the project
+go build -o gat
+
+# Build with version information
+go build -ldflags "-X main.version=X.Y.Z" -o gat
+```
+
+### Linting
+```bash
+# Run linter (golangci-lint must be installed)
+golangci-lint run --verbose ./...
+```
+
+### Release Management
+```bash
+# Check GoReleaser configuration
+goreleaser check
+
+# Build release snapshot (for testing)
+goreleaser release --snapshot --clean
+```
+
+## Architecture
+
+### Core Components
+
+- **cmd/**: CLI command definitions using Cobra framework
+  - `root.go`: Main command logic and flag handling
+  - `flags.go`: Command-line flag definitions
+  - `version.go`: Version command implementation
+
+- **internal/gat/**: Core gat functionality
+  - Main logic for file processing, syntax highlighting, and output formatting
+
+- **internal/formatters/**: Output format processors
+  - HTML minification, JSON formatting, SVG optimization
+
+- **internal/lexers/**: Lexer utilities
+  - Wrapper functions for Chroma's lexer registry
+
+- **internal/prettier/**: Code prettifiers
+  - Language-specific formatting (CSS, Go, HTML, JSON, XML, YAML)
+
+- **internal/masker/**: Sensitive information masking
+  - Masks API keys, tokens, and other secrets in output
+
+- **internal/styles/**: Theme definitions
+  - Custom syntax highlighting themes
+
+- **scripts/**: Build scripts
+  - Shell completion generation
+
+- **docs/**: Documentation assets
+  - Demo GIFs, images, theme previews
+
+- **tapes/**: VHS tape files for generating demo GIFs
+
+- **assets/**: Logo files
+
+### Key Dependencies
+
+- **Chroma**: Syntax highlighting engine (200+ language support)
+- **Cobra**: CLI framework for command parsing
+- **Glamour**: Markdown rendering with terminal styling
+- **go-sixel**: Image display in terminal via Sixel protocol
+
+### Design Principles
+
+1. **Modular Architecture**: Each formatter, lexer, and prettifier is isolated in its own package
+2. **Internal Packages**: Core functionality is kept in `internal/` to prevent external imports
+3. **Resource Management**: Proper cleanup of file handles and resources
+4. **Smart Output Detection**: Automatic color handling based on terminal/pipe detection
+
+## Release Process
+
+The project uses Release Please for automated releases:
+1. PRs are automatically created with changelog updates
+2. Merging a release PR triggers GoReleaser
+3. Binaries are built for multiple platforms and published to GitHub Releases
+4. Homebrew formula is automatically updated
+
+## Testing Approach
+
+- Unit tests focus on formatters, prettifiers, and core functionality
+- Test files follow Go convention: `*_test.go` alongside implementation
+- Use table-driven tests where appropriate
+- Mock external dependencies when needed
+
+## Masker Package Patterns
+
+When adding new API key patterns to `internal/masker/`:
+
+### Pattern Ordering
+- Place more specific patterns before general ones to avoid false matches
+- Example: `sk-ant-` must be before `sk-` to prevent Anthropic keys from matching OpenAI pattern
+
+### Supported Patterns (in order of application)
+- AWS Access Key ID (permanent): `AKIA[0-9A-Z]{16}`
+- AWS Access Key ID (temporary/SSO): `ASIA[0-9A-Z]{16}`
+- GitHub App installation token (stateless/JWT): `ghs_[a-zA-Z0-9._\-]{36,}` (no trailing `\b`; placed before the generic GitHub pattern so the whole ~520-char `ghs_`-prefixed JWT—which contains dots/`-`/`_`—is masked, instead of the generic `[a-zA-Z0-9]` pattern stopping at the first dot)
+- GitHub Tokens: `gh[pousr]_[a-zA-Z0-9]{36,}`
+- GitHub Fine-grained PAT: `github_pat_\w{82}`
+- GitLab PAT: `glpat-[a-zA-Z0-9\-_]{20,}`
+- Slack Tokens: `xox[baprs]-[0-9a-zA-Z\-]+`
+- Slack App-level Token: `xapp-\d-[A-Z0-9]+-\d+-[a-z0-9]+`
+- Anthropic API Key: `sk-ant-[a-zA-Z0-9\-_]+`
+- OpenAI API Key: `sk-(?:proj-)?[a-zA-Z0-9_\-]{20,}` (supports both legacy and project formats)
+- Supabase Secret Key: `sb_secret_[a-zA-Z0-9\-_]+`
+- npm Access Token: `npm_[a-zA-Z0-9]{36}`
+- PyPI API Token: `pypi-AgEIcHlwaS5vcmc[a-zA-Z0-9_\-]{50,}` (the `AgEIcHlwaS5vcmc` segment is a fixed base64 prefix encoding the `pypi.org` macaroon location)
+- RubyGems API Key: `rubygems_[a-f0-9]{32,}`
+- Google / Firebase API Key: `AIza[0-9A-Za-z_\-]{35}` (Firebase web API keys share the same `AIza` format, so one pattern covers both)
+- Stripe Secret / Restricted API Key: `(?:sk|rk)_(?:test|live|prod|org)_[a-zA-Z0-9]{10,99}` (covers test/live/org per Stripe docs plus prod for gitleaks parity; underscore separator distinguishes it from OpenAI's `sk-`, so no overlap)
+- SendGrid API Key: `SG\.[a-zA-Z0-9=_.\-]{66}` (no trailing `\b`; the value may end in a non-word char like the PyPI pattern)
+- JWT Tokens: `eyJ[a-zA-Z0-9_-]*\.eyJ[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*`
+- Private Key Headers: `-----BEGIN\s+(RSA|DSA|EC|OPENSSH|PGP)\s+PRIVATE\s+KEY-----`
+- AWS Secret Access Key (contextual): `(?i)\baws[_.\-]?secret[_.\-]?(?:access[_.\-]?)?key\b["']?[ \t]*[:=][ \t]*["']?([a-zA-Z0-9+/]{40})` — only the captured 40-char value is masked. The standalone 40-char base64 pattern was dropped because it collides with file paths, hashes, and other 40-char strings (gitleaks ships no rule for it; trufflehog / detect-secrets validate live against AWS STS). Covers the env-var form, AWS credentials file, and quoted JSON/YAML; uses `[ \t]*` to keep the match single-line per `TestPatternsAreSingleLine`.
+
+### Match Refinements
+- A pattern may carry an optional `validate func(string) bool`. When set, a regex match is masked only if the validator returns true. This narrows generic patterns without relying on lookahead (unsupported by Go's RE2).
+- A pattern may also set `maskGroup int` (default 0). When `> 0`, only that capture group is replaced with asterisks instead of the whole match — used for contextual patterns like AWS Secret Access Key where the regex matches a surrounding `AWS_SECRET_*_KEY` keyword but only the secret value should be masked.
+
+### Pattern Update Workflow
+1. Add regex pattern to `internal/masker/masker.go`
+2. Add test cases to `internal/masker/masker_test.go` with realistic examples
+3. Run tests: `go test ./internal/masker/...`
+4. Update README.md supported patterns list
+5. Test cases should include special characters (`_`, `-`) where applicable
+
+---
+> Source: [koki-develop/gat](https://github.com/koki-develop/gat) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
