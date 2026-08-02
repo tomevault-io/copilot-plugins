@@ -1,0 +1,39 @@
+## raspiblitz-web
+
+> This project uses AI-assisted development. Please refer to the main AI guidance document in the repository root:
+
+# GitHub Copilot Instructions
+
+This project uses AI-assisted development. Please refer to the main AI guidance document in the repository root:
+
+📋 **[CLAUDE.md](../CLAUDE.md)** - Complete development guide and architecture overview
+
+## Key Points for GitHub Copilot
+
+### Development Commands
+- Use `npm run dev:local` for full development (frontend + mock backend)
+- Run `npm run lint` to check code quality with Biome
+- Use `npm run tsc` for TypeScript type checking
+
+### Architecture Notes
+- Real-time data via Server-Sent Events (SSE) in `SSEContext`
+- State management with React Context API pattern
+- HeroUI components library for UI elements
+- Authentication with JWT tokens and auto-refresh
+
+### Code Style
+- Follow existing patterns in the codebase
+- Use HeroUI components when available
+- Maintain TypeScript strict mode compliance
+- Follow React hooks best practices
+
+### Testing
+- Unit tests with Vitest alongside components
+- E2E tests with Playwright in `tests/` directory
+- Use `src/utils/test-utils.tsx` for testing utilities
+
+For complete development guidance, architecture details, and workflow instructions, see **CLAUDE.md** in the repository root.
+
+---
+> Source: [raspiblitz/raspiblitz-web](https://github.com/raspiblitz/raspiblitz-web) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
