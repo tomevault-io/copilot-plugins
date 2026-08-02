@@ -2,7 +2,7 @@
   "name": "kipi-system",
   "owner": "assafkip",
   "repo": "kipi-system",
-  "description": "A portable founder operating system for Claude Code. Interactive setup wizard, morning briefings, conversation debriefs, social engagement, relationship tracking, content pipeline, lead sourcing, and AUDHD executive function mode.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/assafkip/kipi-system",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T06:49:03Z"
+  "distributed_at": "2026-08-02T07:52:25Z"
 }
