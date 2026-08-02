@@ -2,7 +2,7 @@
   "name": "linux-wallpaper-engine",
   "owner": "jagrat7",
   "repo": "linux-wallpaper-engine",
-  "description": "A wallpaper management app for steam's wallpaper-engine ported for linux \u2014 browse, preview, scan for compatibility, and apply wallpapers.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jagrat7/linux-wallpaper-engine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T15:32:16Z"
+  "distributed_at": "2026-08-02T08:13:01Z"
 }
