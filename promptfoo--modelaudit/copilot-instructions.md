@@ -1,229 +1,112 @@
 ## modelaudit
 
-> This is the single source of truth for all AI coding agents (Claude, Gemini, others) working on ModelAudit, a security scanner for AI/ML model files. Follow it exactly and keep instructions concise through progressive disclosure—share only the minimum needed context and iterate.
+> Scoped agent guide for work inside `packages/modelaudit-picklescan/`. The root [`../../AGENTS.md`](../../AGENTS.md) still applies; this file covers what's different about this subpackage.
 
-# AGENTS.md — ModelAudit (Canonical Agent Guide)
+# AGENTS.md — modelaudit-picklescan
 
-This is the single source of truth for all AI coding agents (Claude, Gemini, others) working on ModelAudit, a security scanner for AI/ML model files. Follow it exactly and keep instructions concise through progressive disclosure—share only the minimum needed context and iterate.
+Scoped agent guide for work inside `packages/modelaudit-picklescan/`. The root [`../../AGENTS.md`](../../AGENTS.md) still applies; this file covers what's different about this subpackage.
 
-## Stateless Onboarding
+## What this package is
 
-- Agents start with zero context; use this file to bootstrap each session with the essentials: what (stack/project map), why (security-focused scanner), and how (workflow + validation below).
-- Prefer pointers over payloads: read the specific docs in `docs/agents/` when needed instead of inlining here.
-- Keep instructions universal and minimal; lean on deterministic tools (ruff, mypy, pytest, prettier) rather than embedding style rules.
-- When unsure, ask or fetch targeted context instead of expanding instructions.
+`modelaudit-picklescan` is the Rust-backed pickle scanner that ships as an independent PyPI package. The root `modelaudit` wheel depends on it at runtime via a hard `modelaudit-picklescan>=0.1.9,<0.2.0` pin in the root `pyproject.toml`.
 
-### Monorepo at a glance
+- **Public API** — exported from `src/modelaudit_picklescan/__init__.py`: `PickleScanner`, `ScanOptions`, `scan_file`, `scan_bytes`, `scan_stream`, `shared_source_sensitive_caches`, `PickleReport`, `Finding`, `Notice`, `ScanError`, `Severity`, `ScanStatus`, `SafetyVerdict`, `CoverageSummary`. Treat these names as a stable surface.
+- **Rust engine** — `rust/src/` compiled to `modelaudit_picklescan._rust` via maturin + PyO3. Rust 1.83+, edition 2021.
+- **Zero Python runtime deps** — the wheel is intentionally self-contained.
+- **Typed** — ships `py.typed`. Public models are frozen dataclasses with `to_dict()`.
 
-This repo publishes **two PyPI packages with independent versions**:
+See [`../../docs/agents/picklescan-package-split.md`](../../docs/agents/picklescan-package-split.md) for the detailed boundary between this package and `modelaudit`.
 
-| PyPI name               | Path                              | Version file                    | CHANGELOG                                     |
-| ----------------------- | --------------------------------- | ------------------------------- | --------------------------------------------- |
-| `modelaudit`            | `./` (root)                       | `pyproject.toml` + `uv.lock`    | `CHANGELOG.md`                                |
-| `modelaudit-picklescan` | `packages/modelaudit-picklescan/` | `pyproject.toml` + `Cargo.toml` | `packages/modelaudit-picklescan/CHANGELOG.md` |
+## Layout
 
-Root `modelaudit` hard-requires `modelaudit-picklescan>=0.1.0,<0.2.0` — when the sibling crosses `0.2.0`, bump the constraint in the same PR or the next `modelaudit` release is uninstallable. Both packages are driven by a single `release-please` workflow (`.github/workflows/release-please.yml`) with components defined in `release-please-config.json` and current versions in `.release-please-manifest.json`. Full publishing details — trusted publishing, manual `workflow_dispatch` recovery (`root_version` / `picklescan_version`), and yank procedure — are in [`docs/agents/release-process.md`](docs/agents/release-process.md). For work inside the picklescan package, start from [`packages/modelaudit-picklescan/AGENTS.md`](packages/modelaudit-picklescan/AGENTS.md).
-
-## Mission & Principles
-
-- **Security first:** Never weaken detections or bypass safeguards.
-- **Match the codebase:** Follow existing patterns, architecture, and naming; never add dependencies without approval.
-- **Progressive disclosure:** Be concise, reveal details as needed, and prefer short, scoped messages.
-- **Iterative refinement:** Share a plan for non-trivial work, execute incrementally, and verify after each change.
-- **Ask when unclear:** Confirm scope before risky or ambiguous actions.
-- **Proactive completion:** Provide tests and follow-up steps without waiting to be asked.
-
-## Quick Start Commands
-
-```bash
-# Setup
-uv sync --extra all-ci
-
-# Pre-commit workflow (MUST run before every commit)
-uv run ruff format modelaudit/ packages/modelaudit-picklescan/src packages/modelaudit-picklescan/tests tests/
-uv run ruff check --fix modelaudit/ packages/modelaudit-picklescan/src packages/modelaudit-picklescan/tests tests/
-uv run mypy modelaudit/ packages/modelaudit-picklescan/src packages/modelaudit-picklescan/tests tests/
-PROMPTFOO_DISABLE_TELEMETRY=1 uv run pytest -n auto -m "not slow and not integration" --maxfail=1
+```
+packages/modelaudit-picklescan/
+├── pyproject.toml          # maturin build backend, version "X.Y.Z" # x-release-please-version
+├── Cargo.toml              # Rust crate version (bumped in lockstep by release-please)
+├── Cargo.lock
+├── uv.lock
+├── CHANGELOG.md            # separate from root CHANGELOG
+├── README.md               # separate — published to https://pypi.org/project/modelaudit-picklescan/
+├── src/modelaudit_picklescan/
+│   ├── __init__.py         # public API surface
+│   ├── api.py              # PickleScanner, scan_* entry points, container handling
+│   ├── options.py          # ScanOptions + validation + defaults
+│   ├── report.py           # PickleReport / Finding / Notice / ScanError / enums
+│   ├── py.typed            # PEP 561 marker
+│   └── _rust.*             # generated by maturin; NOT committed
+├── rust/src/               # Rust scanner implementation
+└── tests/                  # pytest suite (parity corpus, adversarial oracle, etc.)
 ```
 
-## Standard Workflow
+## Local validation
 
-1. **Understand:** Read nearby code, tests, and docs (`docs/agents/*.md`) before editing.
-2. **Plan:** For anything non-trivial, present a short multi-step plan; refine iteratively.
-3. **Implement:** Preserve security focus, follow `BaseScanner` patterns (see `docs/agents/architecture.md`), handle missing deps gracefully, and update `SCANNER_REGISTRY` when adding scanners.
-4. **Verify:** Run the validation commands above. Format/linters must be clean. Use targeted `pytest` when appropriate, and type-check modified tests as part of the normal `mypy modelaudit/ packages/modelaudit-picklescan/src packages/modelaudit-picklescan/tests tests/` pass.
-5. **Report:** Summarize changes with file references and note residual risks or follow-ups.
-
-## Branch & Git Hygiene
-
-**NEVER commit or push directly to `main`.** All changes must go through pull requests.
+Run from `packages/modelaudit-picklescan/`:
 
 ```bash
-# Start clean
-git fetch origin main
-git checkout main
-git merge --no-edit origin/main
+uv lock --check
+uv run --with ruff ruff check src tests
+uv run --with ruff ruff format --check src tests
+uv run --with mypy mypy src tests
+uv run --with pytest --with pytest-xdist pytest -n auto tests --tb=short
 
-# Work on a branch (REQUIRED - never commit to main)
-git checkout -b feat/your-feature-name  # or fix/, chore/, test/
-
-# Commit (conventional)
-git commit -m "feat: add scanner for XYZ format
-
-Description here."
-
-# PR (after validation) - ALL changes go through PRs
-git push -u origin feat/your-feature-name
-gh pr create --title "feat: descriptive title" --body "Brief description"
+cargo fmt --manifest-path Cargo.toml -- --check
+cargo check --manifest-path Cargo.toml
+cargo clippy --manifest-path Cargo.toml --all-targets -- -D warnings
+cargo test --manifest-path Cargo.toml
 ```
 
-- Use non-interactive flags (`--no-edit`, `-m`). One command per invocation; avoid long `&&` chains.
-- When updating an existing PR, confirm the actual head branch with `gh pr view <number> --json headRefName` and sync that branch before editing or pushing.
-- If `.git/index.lock` exists and no git process is running, remove the lock file.
-- Add only intended paths; avoid committing artifacts. Prefer `gh run rerun <run-id>` over force-pushing to rerun CI.
-- Keep CHANGELOG entries in `[Unreleased]` when adding user-visible changes (Keep a Changelog format).
-
-## CI Compliance Requirements
+Wheel build + twine check:
 
 ```bash
-uv run ruff check modelaudit/ packages/modelaudit-picklescan/src packages/modelaudit-picklescan/tests tests/          # Lint (no errors)
-uv run ruff format --check modelaudit/ packages/modelaudit-picklescan/src packages/modelaudit-picklescan/tests tests/ # Format (no changes)
-uv run mypy modelaudit/ packages/modelaudit-picklescan/src packages/modelaudit-picklescan/tests tests/                # Types (no errors)
-PROMPTFOO_DISABLE_TELEMETRY=1 uv run pytest -n auto -m "not slow and not integration" --maxfail=1
+uv build --out-dir /tmp/modelaudit-picklescan-dist
+uvx twine check /tmp/modelaudit-picklescan-dist/*
 ```
 
-| Issue               | Fix                                                                                                                             |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| Import organization | `uv run ruff check --fix --select I modelaudit/ packages/modelaudit-picklescan/src packages/modelaudit-picklescan/tests tests/` |
-| Format issues       | `uv run ruff format modelaudit/ packages/modelaudit-picklescan/src packages/modelaudit-picklescan/tests tests/`                 |
-| Type errors         | Fix manually, re-run `mypy`                                                                                                     |
-| Test failures       | Check output, fix issues, re-run tests                                                                                          |
-
-## Dependency Management
-
-- ModelAudit supports both NumPy 1.x (Python 3.10) and 2.x (Python 3.11+) via environment markers in `pyproject.toml`. See `docs/agents/dependencies.md` for the full strategy, vendored proto guide, and rules for adding dependencies.
-- When adding dependencies, check compatibility with both NumPy versions and add environment markers if needed.
-
-## Coding & Style Guardrails
-
-- **Python:** 3.10–3.13 supported. Classes PascalCase, functions/vars snake_case, constants UPPER_SNAKE_CASE, always type hints.
-- **Comments:** Use sparingly to explain intent, not mechanics.
-- **Docs/Markdown:** Keep concise; when formatting markdown/json/yaml, use `npm ci --ignore-scripts && npx prettier --write "**/*.{md,yaml,yml,json}"` if instructed or if formatting drifts.
-- **Dependencies:** Do not add new packages without explicit approval and updating `pyproject.toml`/locks.
-- **Performance & safety:** Prefer safe defaults; avoid destructive commands.
-
-## Scanner/Feature Changes Checklist
-
-- Preserve or strengthen detections; test both benign and malicious samples.
-- Follow existing scanner patterns and update registries, CLI wiring, and docs as needed.
-- Add comprehensive tests, including edge cases and regression coverage.
-- Ensure compatibility across Python 3.10–3.13 and handle missing optional deps gracefully.
-
-## Testing & Routing Guardrails
-
-- Apply the test-style rules below to all new or modified tests, not just CVE coverage.
-- Use typed pytest tests: add `-> None`, annotate fixtures like `tmp_path: Path` / `monkeypatch: pytest.MonkeyPatch`, and prefer `pathlib` over `os.path`.
-- Keep fixtures deterministic and self-contained under `tmp_path`; never rely on host paths or global temp filenames.
-- If a new regression test must run on reduced CI lanes, add the file to `allowed_test_files` in `tests/conftest.py`.
-- Match local validation to the CI lane that will exercise the change when possible; if optional dependencies or Python-version gates prevent that, call it out explicitly in the PR.
-- Disable telemetry for local validation unless the task explicitly tests telemetry behavior: prefix pytest runs with `PROMPTFOO_DISABLE_TELEMETRY=1` (or `NO_ANALYTICS=1`). Requests to contact `a.promptfoo.app` during normal unit, scanner, or integration-excluded test runs are ok and expected for this project; approve them when the test runner requests access. Telemetry tests should still mock the transport or make network intent explicit before running.
-- For file routing, prefiltering, or archive-triage changes, add at least one malicious positive regression and one benign near-match negative regression.
-- Reuse shared fixture helpers for container formats. For PyTorch ZIP tests, prefer
-  `tests.helpers.create_mock_pytorch_zip`; if you hand-roll a ZIP-backed `.pt`/`.pkl`,
-  include minimal PyTorch markers like `version` or `byteorder` so routing matches
-  production.
-- Prefer trusted file structure or bounded content sniffing over suffix-only routing. Extension checks are a fallback, not a source of truth.
-- When a scan intentionally fails closed for coverage or safety reasons, make the behavior operationally explicit and test the message plus the relevant `success`, exit-code, and cache semantics.
-
-## CVE Detection Checklist
-
-When adding CVE detections to existing scanners, follow these rules distilled from recurring review feedback across 13 CVE implementations.
-
-### Detection Logic
-
-- **Doc/comment guards:** Use majority-line analysis (>50% doc lines via `_is_primarily_documentation()`), not substring checks — `"#" in content` is trivially bypassable by embedding a comment token in a payload.
-- **`STACK_GLOBAL` handling:** These opcodes have `arg=None` in pickletools; reconstruct `module.class` by walking backwards to find preceding `SHORT_BINUNICODE`/`BINUNICODE` ops.
-- **Dict short-circuit scope:** Track which op produces the `SETITEM` target — an unrelated `EMPTY_DICT` in the lookback window must not suppress detection of a `SETITEM` targeting a `REDUCE`/`NEWOBJ` result.
-- **Version comparison:** Handle PEP 440 prerelease tags (`a`, `b`, `rc`, `dev`) — for a framework/library version gate, a prerelease like `2.10.0a0` is still vulnerable, not the fix.
-- **Bounded reads:** Cap archive member reads for metadata validation (10 MB) to prevent memory spikes on large pickles.
-- **Pattern registration:** New CVE pattern lists must be added to `validate_patterns()` in `suspicious_symbols.py`.
-
-### CVE Attribution Consistency
-
-- Always include `cve_id`, `cvss`, `cwe`, `description`, `remediation` in the `details` dict.
-- Include context fields (e.g., `layer_name` for Keras, `installed_pytorch_version` for PyTorch) — keep consistent across scanner variants (H5 vs ZIP).
-- Use `except Exception` (not `except ImportError`) when importing frameworks for version checks, since mocked/broken modules may raise other errors.
-
-### Testing
-
-- Assert the actual signal — never `assert result is not None` alone; verify specific check names, issue messages, or detail fields.
-- For "fixed version" tests: also verify the vulnerable version test produces a failed check (prevents silent regression).
-- Test bypass prevention: verify that embedding a single comment token in a malicious payload does NOT suppress detection.
-- Deterministic fixtures only — never reference host paths like `/etc/passwd`; create all targets under `tmp_path`.
-- Type hints: `-> None` on all test methods, `tmp_path: Path` / `monkeypatch: pytest.MonkeyPatch` on parameters.
-- Use pathlib (`tmp_path / "file.ext"`) instead of `os.path.join`.
-
-### Registration
-
-- Add new test files to `allowed_test_files` in `tests/conftest.py` (Python 3.10/3.12/3.13 CI allowlist).
-- Add CVE explanation functions to `modelaudit/config/explanations.py`.
-- Add CHANGELOG entry under the existing `[Unreleased]` section (never create a second one).
-
-For the full multi-file workflow, see `docs/agents/new-scanner-quickstart.md` § "Adding CVE Detections to Existing Scanners".
-
-## Project Map & References
+Dev with hot-reload (rebuilds the Rust extension into your current venv), from this directory:
 
 ```bash
-modelaudit/
-├── packages/modelaudit-picklescan/ # Standalone pickle scanner package
-├── modelaudit/           # Main package
-│   ├── analysis/         # Semantic and integrated analysis
-│   ├── auth/             # API authentication and config
-│   ├── cache/            # Scan result caching
-│   ├── config/           # Blocklists and configuration
-│   ├── detectors/        # Security detectors (secrets, JIT, network)
-│   ├── integrations/     # SARIF, JFrog, license checking
-│   ├── progress/         # Progress tracking subsystem
-│   ├── protos/           # Vendored TensorFlow protobuf stubs
-│   ├── scanners/         # Scanner implementations (40+)
-│   ├── utils/            # File detection, helpers, streaming
-│   ├── whitelists/       # HuggingFace/model whitelists
-│   ├── cli.py            # CLI interface
-│   ├── core.py           # Core scanning orchestration
-│   ├── models.py         # Pydantic result models
-│   └── telemetry.py      # Anonymous usage telemetry
-├── tests/                # Test suite
-├── docs/agents/          # Agent documentation
-├── docs/maintainers/     # Release, CVE, dependency docs
-├── docs/user/            # User-facing guides
-└── CHANGELOG.md          # Keep a Changelog format
+maturin develop --release
 ```
 
-Key docs: `docs/agents/architecture.md`, `docs/agents/dependencies.md`, `docs/agents/release-process.md`, `docs/agents/new-scanner-quickstart.md`, `docs/agents/picklescan-package-split.md`, `packages/modelaudit-picklescan/AGENTS.md`.
+Root-level validation (`uv run ruff check modelaudit/ packages/modelaudit-picklescan/src packages/modelaudit-picklescan/tests tests/`) must also pass for any PR.
 
-## README.md Content Guidelines
+## Versioning
 
-The README is published to PyPI and visible to the public. Keep it user-facing: product overview, installation, usage examples, supported formats, CLI options, output formats, and troubleshooting. Describe WHAT we analyze (formats/frameworks), not HOW (detection mechanisms). Implementation details belong in source code and contributor docs.
+- `pyproject.toml` and `Cargo.toml` carry the same `version`, both tagged with `# x-release-please-version` so release-please updates them atomically.
+- `.release-please-manifest.json` at the repo root tracks the current released version: `"packages/modelaudit-picklescan": "X.Y.Z"`.
+- The CHANGELOG lives next to the package (`CHANGELOG.md`), _not_ at the repo root.
+- Release tag format: `modelaudit-picklescan-v{X.Y.Z}`.
+- Bumps are driven by Conventional Commits that **touch files inside `packages/modelaudit-picklescan/`**. Commits that only touch `modelaudit/` or the repo root do not bump this package.
 
-## DO / DON'T Cheatsheet
+When this package reaches `0.2.0`, the root `pyproject.toml` `modelaudit-picklescan>=0.1.9,<0.2.0` constraint must be widened in the same PR, or the next `modelaudit` release will be uninstallable.
 
-- **Do:** Keep responses short; surface only relevant details; prefer targeted tests; propose clear next steps; cite file paths when reporting.
-- **Do:** Use iterative refinement—small changes, verify, then proceed.
-- **Do:** Always use feature branches and PRs for all changes.
-- **Don't:** Commit or push directly to `main`—always use a PR.
-- **Don't:** Introduce new dependencies, weaken security checks, or bypass validation.
-- **Don't:** Leave formatting/lint failures or unaddressed test regressions.
+## Publishing
 
-## Exit Codes
+Driven from the shared `.github/workflows/release-please.yml`. The release PR merge triggers `build-picklescan-package` (5-arch matrix) and `publish-picklescan-pypi` via OIDC. The project has an **active trusted publisher** on PyPI; see [`../../docs/agents/release-process.md`](../../docs/agents/release-process.md) for the full flow, the manual `workflow_dispatch` recovery path (`-f picklescan_version=X.Y.Z`), and what to do when a publish job fails.
 
-- `0`: No security issues
-- `1`: Security issues detected
-- `2`: Scan errors
+## Safety invariants
 
-## Persona Notes
+- **No imports from `modelaudit`** — this package is deliberately standalone. Adding such an import breaks the distribution boundary and will fail CI.
+- **Detection parity** — any detector moved from the root scanners into this package keeps the same malicious-positive / benign-negative coverage. See `tests/parity_corpus.py` and `tests/test_adversarial_pickle_oracle.py`.
+- **Fail-closed** — truncation, budget exhaustion, and engine errors must never return `SafetyVerdict.CLEAN`. Regressions here usually show up as `ScanStatus.COMPLETE` sneaking through the `_combine_verdict` / `_with_*_notice` paths in `api.py` — verify both `status` and `verdict` in tests.
+- **Standalone first** — when behavior belongs to pickle byte/stream analysis, prove it through the standalone public API and Rust-backed package tests before root adapter/parity checks. If Rust code changed, rebuild or otherwise prove `modelaudit_picklescan._rust` resolves to the current checkout before trusting Python results.
+- **Per-scan isolation** — no mutable global state may leak between scans. Tests that share a `PickleScanner` across calls must still see independent reports.
+- **Bounded resource use** — the `ScanOptions` defaults are a safety contract, not tunables. Adding new bounds: default them conservatively. Relaxing existing bounds: call it out in the changelog.
 
-- **Claude / Gemini / others:** Follow this guide as canonical. Apply progressive disclosure, confirm ambiguities, and prioritize security.
+## README and PyPI
+
+`README.md` in this directory is rendered on the PyPI project page. Keep it user-facing (install, usage, API, platforms, security disclosure) — do not embed internal boundary/architecture detail. Put that in `docs/agents/picklescan-package-split.md`.
+
+## When to change what
+
+| Change                                | Files to touch                                                                                                                      |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| New public API symbol                 | `src/modelaudit_picklescan/__init__.py`, implementing module, `README.md` API section, tests                                        |
+| New rule code                         | `rust/src/state.rs` or `rust/src/nested_surface.rs`, `README.md` "What it detects" table, tests                                     |
+| New `ScanOptions` field               | `src/modelaudit_picklescan/options.py` (+ validation), `rust/src/options.rs`, `README.md` defaults table                            |
+| New `PickleReport` field              | `src/modelaudit_picklescan/report.py`, `src/modelaudit_picklescan/api.py` (`_report_from_native_dict`), `rust/src/report.rs`, tests |
+| Root-to-standalone detector migration | Code move + parity tests + entry in CHANGELOG under `[Unreleased]` on _both_ CHANGELOG files if user-visible in `modelaudit` too    |
 
 ---
 > Source: [promptfoo/modelaudit](https://github.com/promptfoo/modelaudit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
