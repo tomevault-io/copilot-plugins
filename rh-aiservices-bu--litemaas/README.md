@@ -1,8 +1,6 @@
 # litemaas
 
-> Tome by [rh-aiservices-bu](https://github.com/rh-aiservices-bu/litemaas) — distributed by [TomeVault](https://tomevault.io)
-
-LiteMaaS is a proof-of-concept application for managing LLM subscriptions, API keys, and usage tracking. It seamlessly integrates with LiteLLM to provide a unified interface for accessing multiple LLMs with comprehensive budget management.
+> Tome by [rh-aiservices-bu](https://github.com/rh-aiservices-bu/litemaas), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [rh-aiservices-bu/litemaas](https://github.com/r
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [rh-aiservices-bu/litemaas](https://github.com/rh-aiservices-bu/litemaas) — a repo with 60+ stars on GitHub.
+From [rh-aiservices-bu/litemaas](https://github.com/rh-aiservices-bu/litemaas) — a repo with 71+ stars on GitHub.
 
 ---
 
