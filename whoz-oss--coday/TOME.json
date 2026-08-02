@@ -2,9 +2,9 @@
   "name": "coday",
   "owner": "whoz-oss",
   "repo": "coday",
-  "description": "A lightweight agnostic agentic framework",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/whoz-oss/coday",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T04:10:21Z"
+  "distributed_at": "2026-08-02T21:35:40Z"
 }
