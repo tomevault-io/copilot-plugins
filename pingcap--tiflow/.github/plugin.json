@@ -1,0 +1,9 @@
+{
+  "name": "pingcap--tiflow",
+  "displayName": "tiflow",
+  "description": "tiflow",
+  "version": "1.0.0",
+  "author": "pingcap",
+  "homepage": "https://github.com/pingcap/tiflow",
+  "skills": []
+}
