@@ -1,15 +1,15 @@
 # ross
 
-> Source: [petrobras/ross](https://github.com/petrobras/ross). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [petrobras/ross](https://github.com/petrobras/ross). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [petrobras/ross](https://github.com/petrobras/ross).
+Original source: `AGENTS.md` in [petrobras/ross](https://github.com/petrobras/ross).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
