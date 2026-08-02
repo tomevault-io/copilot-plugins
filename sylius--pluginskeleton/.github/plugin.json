@@ -1,0 +1,9 @@
+{
+  "name": "sylius--pluginskeleton",
+  "displayName": "PluginSkeleton",
+  "description": "PluginSkeleton",
+  "version": "1.0.0",
+  "author": "Sylius",
+  "homepage": "https://github.com/Sylius/PluginSkeleton",
+  "skills": []
+}
