@@ -1,8 +1,6 @@
 # linux-wallpaper-engine
 
-> Tome by [jagrat7](https://github.com/jagrat7/linux-wallpaper-engine) — distributed by [TomeVault](https://tomevault.io)
-
-A wallpaper management app for steam's wallpaper-engine ported for linux — browse, preview, scan for compatibility, and apply wallpapers.
+> Tome by [jagrat7](https://github.com/jagrat7/linux-wallpaper-engine), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
