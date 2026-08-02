@@ -1,0 +1,9 @@
+{
+  "name": "datadog--datadog-operator",
+  "displayName": "datadog-operator",
+  "description": "datadog-operator",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/datadog-operator",
+  "skills": []
+}
