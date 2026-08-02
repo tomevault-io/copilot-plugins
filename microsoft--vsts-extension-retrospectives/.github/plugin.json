@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--vsts-extension-retrospectives",
+  "displayName": "vsts-extension-retrospectives",
+  "description": "vsts-extension-retrospectives",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/vsts-extension-retrospectives",
+  "skills": []
+}
