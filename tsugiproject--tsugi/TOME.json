@@ -4,7 +4,7 @@
   "repo": "tsugi",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tsugiproject/tsugi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T00:06:18Z"
+  "distributed_at": "2026-08-02T22:12:39Z"
 }
