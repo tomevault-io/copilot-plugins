@@ -1,0 +1,9 @@
+{
+  "name": "paddlepaddle--graphnet",
+  "displayName": "GraphNet",
+  "description": "GraphNet",
+  "version": "1.0.0",
+  "author": "PaddlePaddle",
+  "homepage": "https://github.com/PaddlePaddle/GraphNet",
+  "skills": []
+}
