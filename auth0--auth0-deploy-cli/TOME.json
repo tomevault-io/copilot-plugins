@@ -4,7 +4,7 @@
   "repo": "auth0-deploy-cli",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/auth0/auth0-deploy-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T04:06:28Z"
+  "distributed_at": "2026-08-02T13:14:43Z"
 }
