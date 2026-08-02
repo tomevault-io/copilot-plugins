@@ -1,0 +1,9 @@
+{
+  "name": "solana-foundation--explorer",
+  "displayName": "explorer",
+  "description": "explorer",
+  "version": "1.0.0",
+  "author": "solana-foundation",
+  "homepage": "https://github.com/solana-foundation/explorer",
+  "skills": []
+}
