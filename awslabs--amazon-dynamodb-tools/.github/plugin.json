@@ -1,0 +1,9 @@
+{
+  "name": "awslabs--amazon-dynamodb-tools",
+  "displayName": "amazon-dynamodb-tools",
+  "description": "amazon-dynamodb-tools",
+  "version": "1.0.0",
+  "author": "awslabs",
+  "homepage": "https://github.com/awslabs/amazon-dynamodb-tools",
+  "skills": []
+}
