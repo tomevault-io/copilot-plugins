@@ -1,0 +1,9 @@
+{
+  "name": "splunk--splunk-connect-for-snmp",
+  "displayName": "splunk-connect-for-snmp",
+  "description": "splunk-connect-for-snmp",
+  "version": "1.0.0",
+  "author": "splunk",
+  "homepage": "https://github.com/splunk/splunk-connect-for-snmp",
+  "skills": []
+}
