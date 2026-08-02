@@ -2,7 +2,7 @@
   "name": "kite-aos",
   "owner": "andrew-malitchuk",
   "repo": "kite-aos",
-  "description": "Modern, open-source Android kiosk application designed to transform tablets into dedicated smart home dashboards.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/andrew-malitchuk/kite-aos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T03:35:40Z"
+  "distributed_at": "2026-08-02T07:38:38Z"
 }
