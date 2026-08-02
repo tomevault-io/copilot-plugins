@@ -1,8 +1,6 @@
 # AI instruction files for synapse
 
-> Sourced from [nshkrdotcom/synapse](https://github.com/nshkrdotcom/synapse) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Headless, declarative multi-agent orchestration framework with a domain-agnostic signal bus, workflow engine with Postgres persistence, and configurable agent runtime (ships code review domain).
+> Sourced from [nshkrdotcom/synapse](https://github.com/nshkrdotcom/synapse), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [nshkrdotcom/synapse](https://github.com/nshkrdo
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [nshkrdotcom/synapse](https://github.com/nshkrdotcom/synapse) — a repo with 44+ stars on GitHub.
+From [nshkrdotcom/synapse](https://github.com/nshkrdotcom/synapse) — a repo with 47+ stars on GitHub.
 
 ---
 
