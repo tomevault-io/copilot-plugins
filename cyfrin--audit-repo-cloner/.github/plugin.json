@@ -1,0 +1,9 @@
+{
+  "name": "cyfrin--audit-repo-cloner",
+  "displayName": "audit-repo-cloner",
+  "description": "audit-repo-cloner",
+  "version": "1.0.0",
+  "author": "Cyfrin",
+  "homepage": "https://github.com/Cyfrin/audit-repo-cloner",
+  "skills": []
+}
