@@ -1,0 +1,9 @@
+{
+  "name": "query-farm--shellfs",
+  "displayName": "shellfs",
+  "description": "shellfs",
+  "version": "1.0.0",
+  "author": "Query-farm",
+  "homepage": "https://github.com/Query-farm/shellfs",
+  "skills": []
+}
