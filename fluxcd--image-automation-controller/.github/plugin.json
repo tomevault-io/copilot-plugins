@@ -1,0 +1,9 @@
+{
+  "name": "fluxcd--image-automation-controller",
+  "displayName": "image-automation-controller",
+  "description": "image-automation-controller",
+  "version": "1.0.0",
+  "author": "fluxcd",
+  "homepage": "https://github.com/fluxcd/image-automation-controller",
+  "skills": []
+}
