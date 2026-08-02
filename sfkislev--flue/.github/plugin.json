@@ -1,7 +1,7 @@
 {
   "name": "sfkislev--flue",
   "displayName": "Flue",
-  "description": "Let agents control many desktop software directly from the cli, with one pip install, and no MCP servers.",
+  "description": "Flue",
   "version": "1.0.0",
   "author": "SFKislev",
   "homepage": "https://github.com/SFKislev/Flue",
