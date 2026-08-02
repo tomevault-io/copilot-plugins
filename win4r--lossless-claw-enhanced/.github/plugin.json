@@ -1,7 +1,7 @@
 {
   "name": "win4r--lossless-claw-enhanced",
   "displayName": "lossless-claw-enhanced",
-  "description": "Fork of Martian-Engineering/lossless-claw with CJK-aware token estimation",
+  "description": "lossless-claw-enhanced",
   "version": "1.0.0",
   "author": "win4r",
   "homepage": "https://github.com/win4r/lossless-claw-enhanced",
