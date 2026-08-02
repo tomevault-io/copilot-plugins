@@ -2,9 +2,9 @@
   "name": "great_cto",
   "owner": "avelikiy",
   "repo": "great_cto",
-  "description": "The engineering process for solo founders and teams up to 50 engineers - without the overhead.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/avelikiy/great_cto",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T22:30:09Z"
+  "distributed_at": "2026-08-02T23:37:10Z"
 }
