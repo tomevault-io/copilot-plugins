@@ -1,7 +1,7 @@
 {
   "name": "datadog--pathfinding-cloud",
   "displayName": "pathfinding.cloud",
-  "description": "An AWS IAM Privilege Escalation Path Library",
+  "description": "pathfinding.cloud",
   "version": "1.0.0",
   "author": "DataDog",
   "homepage": "https://github.com/DataDog/pathfinding.cloud",
