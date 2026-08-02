@@ -4,7 +4,7 @@
   "repo": "k3d",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/k3d-io/k3d",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-02T04:35:52Z"
+  "distributed_at": "2026-08-02T17:46:56Z"
 }
