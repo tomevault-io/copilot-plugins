@@ -1,7 +1,7 @@
 {
   "name": "activeagents--activeagent",
   "displayName": "activeagent",
-  "description": "ActiveAgent Rails framework for Agent Apps",
+  "description": "activeagent",
   "version": "1.0.0",
   "author": "activeagents",
   "homepage": "https://github.com/activeagents/activeagent",
