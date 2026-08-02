@@ -2,9 +2,9 @@
   "name": "os-eco",
   "owner": "jayminwest",
   "repo": "os-eco",
-  "description": "Meta-project for the AI agent tooling ecosystem \u2014 Mulch, Seeds, Canopy, and Overstory",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jayminwest/os-eco",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T09:33:01Z"
+  "distributed_at": "2026-08-02T21:55:53Z"
 }
