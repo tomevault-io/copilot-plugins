@@ -1,0 +1,9 @@
+{
+  "name": "axonframework--ideaplugin",
+  "displayName": "IdeaPlugin",
+  "description": "IdeaPlugin",
+  "version": "1.0.0",
+  "author": "AxonFramework",
+  "homepage": "https://github.com/AxonFramework/IdeaPlugin",
+  "skills": []
+}
