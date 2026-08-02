@@ -2079,6 +2079,11 @@
       "description": "LightRAG"
     },
     {
+      "name": "portainer--portainer",
+      "source": "./portainer--portainer",
+      "description": "portainer"
+    },
+    {
       "name": "yeachan-heo--oh-my-claudecode",
       "source": "./yeachan-heo--oh-my-claudecode",
       "description": "oh-my-claudecode"
@@ -4114,6 +4119,11 @@
       "description": "humanizer"
     },
     {
+      "name": "dao-ailab--flash-attention",
+      "source": "./dao-ailab--flash-attention",
+      "description": "flash-attention"
+    },
+    {
       "name": "onevcat--kingfisher",
       "source": "./onevcat--kingfisher",
       "description": "Kingfisher"
@@ -4332,6 +4342,11 @@
       "name": "gastownhall--beads",
       "source": "./gastownhall--beads",
       "description": "Beads - A memory upgrade for your coding agent"
+    },
+    {
+      "name": "micro--go-micro",
+      "source": "./micro--go-micro",
+      "description": "go-micro"
     },
     {
       "name": "decolua--9router",
@@ -5617,6 +5632,11 @@
       "name": "ccusage--ccusage",
       "source": "./ccusage--ccusage",
       "description": "npx ccusage"
+    },
+    {
+      "name": "rust-lang--rust-analyzer",
+      "source": "./rust-lang--rust-analyzer",
+      "description": "rust-analyzer"
     },
     {
       "name": "diegomura--react-pdf",
@@ -6957,6 +6977,11 @@
       "name": "web-infra-dev--rspack",
       "source": "./web-infra-dev--rspack",
       "description": "rspack"
+    },
+    {
+      "name": "startrail-org--leann",
+      "source": "./startrail-org--leann",
+      "description": "LEANN"
     },
     {
       "name": "langchain4j--langchain4j",
@@ -9124,6 +9149,11 @@
       "description": "kubebuilder"
     },
     {
+      "name": "nhost--nhost",
+      "source": "./nhost--nhost",
+      "description": "nhost"
+    },
+    {
       "name": "firebase--flutterfire",
       "source": "./firebase--flutterfire",
       "description": "flutterfire"
@@ -9167,6 +9197,11 @@
       "name": "runatlantis--atlantis",
       "source": "./runatlantis--atlantis",
       "description": "atlantis"
+    },
+    {
+      "name": "spring-projects--spring-ai",
+      "source": "./spring-projects--spring-ai",
+      "description": "spring-ai"
     },
     {
       "name": "risingwavelabs--risingwave",
@@ -9427,6 +9462,11 @@
       "name": "tw93--kami",
       "source": "./tw93--kami",
       "description": "Kami"
+    },
+    {
+      "name": "firezone--firezone",
+      "source": "./firezone--firezone",
+      "description": "firezone"
     },
     {
       "name": "walkinglabs--learn-harness-engineering",
@@ -11379,6 +11419,11 @@
       "description": "k3d"
     },
     {
+      "name": "k3d-io--k3d",
+      "source": "./k3d-io--k3d",
+      "description": "k3d"
+    },
+    {
       "name": "makepad--makepad",
       "source": "./makepad--makepad",
       "description": "makepad"
@@ -12574,6 +12619,11 @@
       "description": "cri-o"
     },
     {
+      "name": "cri-o--cri-o",
+      "source": "./cri-o--cri-o",
+      "description": "cri-o"
+    },
+    {
       "name": "getsentry--xcodebuildmcp",
       "source": "./getsentry--xcodebuildmcp",
       "description": "A Model Context Protocol (MCP) server and CLI that provides tools for agent use when working on iOS and macOS projects."
@@ -13367,6 +13417,11 @@
       "name": "sindresorhus--eslint-plugin-unicorn",
       "source": "./sindresorhus--eslint-plugin-unicorn",
       "description": "eslint-plugin-unicorn"
+    },
+    {
+      "name": "hey-api--openapi-ts",
+      "source": "./hey-api--openapi-ts",
+      "description": "openapi-ts"
     },
     {
       "name": "confluentinc--confluent-kafka-go",
@@ -16557,6 +16612,11 @@
       "name": "azure--bicep",
       "source": "./azure--bicep",
       "description": "bicep"
+    },
+    {
+      "name": "kennethreitz--responder",
+      "source": "./kennethreitz--responder",
+      "description": "responder"
     },
     {
       "name": "apache--logging-log4j2",
@@ -21179,6 +21239,11 @@
       "description": "haze"
     },
     {
+      "name": "rocketchat--rocket-chat-reactnative",
+      "source": "./rocketchat--rocket-chat-reactnative",
+      "description": "Rocket.Chat.ReactNative"
+    },
+    {
       "name": "lestrrat-go--jwx",
       "source": "./lestrrat-go--jwx",
       "description": "jwx"
@@ -22944,6 +23009,11 @@
       "description": "Agent harness to publish your history from Claude Code et al. as Huggingface datasets. "
     },
     {
+      "name": "anthropics--anthropic-sdk-typescript",
+      "source": "./anthropics--anthropic-sdk-typescript",
+      "description": "anthropic-sdk-typescript"
+    },
+    {
       "name": "greggh--claude-code-nvim",
       "source": "./greggh--claude-code-nvim",
       "description": "Seamless integration between Claude Code AI assistant and Neovim"
@@ -23672,6 +23742,11 @@
       "name": "robinebers--openusage",
       "source": "./robinebers--openusage",
       "description": "Burning through your subscriptions too fast? Paying for stuff you never use? Stop guessing. OpenUsage is free and open source."
+    },
+    {
+      "name": "databendlabs--openraft",
+      "source": "./databendlabs--openraft",
+      "description": "openraft"
     },
     {
       "name": "lin-snow--ech0",
@@ -28264,6 +28339,11 @@
       "description": "create-llama"
     },
     {
+      "name": "project-oak--oak",
+      "source": "./project-oak--oak",
+      "description": "oak"
+    },
+    {
       "name": "thanglequoc--vietnamese-provinces-database",
       "source": "./thanglequoc--vietnamese-provinces-database",
       "description": "vietnamese-provinces-database"
@@ -28914,6 +28994,11 @@
       "description": "copper-rs"
     },
     {
+      "name": "opendatadiscovery--odd-platform",
+      "source": "./opendatadiscovery--odd-platform",
+      "description": "odd-platform"
+    },
+    {
       "name": "nilearn--nilearn",
       "source": "./nilearn--nilearn",
       "description": "nilearn"
@@ -29297,6 +29382,11 @@
       "name": "google--site-kit-wp",
       "source": "./google--site-kit-wp",
       "description": "site-kit-wp"
+    },
+    {
+      "name": "danieleteti--delphimvcframework",
+      "source": "./danieleteti--delphimvcframework",
+      "description": "delphimvcframework"
     },
     {
       "name": "kitops-ml--kitops",
@@ -29852,6 +29942,11 @@
       "name": "iotsharp--iotsharp",
       "source": "./iotsharp--iotsharp",
       "description": "IoTSharp"
+    },
+    {
+      "name": "six2dez--burp-ai-agent",
+      "source": "./six2dez--burp-ai-agent",
+      "description": "burp-ai-agent"
     },
     {
       "name": "peterkrueck--claude-code-development-kit",
@@ -32167,6 +32262,11 @@
       "name": "input-output-hk--daedalus",
       "source": "./input-output-hk--daedalus",
       "description": "daedalus"
+    },
+    {
+      "name": "reaviz--reaviz",
+      "source": "./reaviz--reaviz",
+      "description": "reaviz"
     },
     {
       "name": "twostraws--swiftagents",
@@ -35174,6 +35274,11 @@
       "description": "ranger"
     },
     {
+      "name": "reaviz--reagraph",
+      "source": "./reaviz--reagraph",
+      "description": "reagraph"
+    },
+    {
       "name": "adamlyttleapps--claude-skill-app-onboarding-questionnaire",
       "source": "./adamlyttleapps--claude-skill-app-onboarding-questionnaire",
       "description": "claude-skill-app-onboarding-questionnaire"
@@ -37009,6 +37114,11 @@
       "description": "Javet"
     },
     {
+      "name": "xarray-contrib--xarray-spatial",
+      "source": "./xarray-contrib--xarray-spatial",
+      "description": "xarray-spatial"
+    },
+    {
       "name": "negokaz--excel-mcp-server",
       "source": "./negokaz--excel-mcp-server",
       "description": "A Model Context Protocol (MCP) server that reads and writes MS Excel data"
@@ -37672,6 +37782,11 @@
       "name": "dmytrovasin--drawpen",
       "source": "./dmytrovasin--drawpen",
       "description": "DrawPen"
+    },
+    {
+      "name": "yorkie-team--yorkie",
+      "source": "./yorkie-team--yorkie",
+      "description": "yorkie"
     },
     {
       "name": "javedh-dev--tracktor",
@@ -43759,6 +43874,11 @@
       "description": "ps-fuzz"
     },
     {
+      "name": "osudroid--osu-droid",
+      "source": "./osudroid--osu-droid",
+      "description": "osu-droid"
+    },
+    {
       "name": "vstorm-co--pydantic-deepagents",
       "source": "./vstorm-co--pydantic-deepagents",
       "description": "Build Claude Code\u2013style deep agents in Python: tool-calling, sandboxed execution, multi-agent teams, skills, checkpoints, and unlimited context \u2014 all on Pydantic AI."
@@ -44399,6 +44519,11 @@
       "description": "pyld"
     },
     {
+      "name": "esmnext--esmx",
+      "source": "./esmnext--esmx",
+      "description": "esmx"
+    },
+    {
       "name": "cline--kanban",
       "source": "./cline--kanban",
       "description": "Launch a local web app that runs CLI agents in parallel"
@@ -44502,6 +44627,11 @@
       "name": "oekazuma--svelte-meta-tags",
       "source": "./oekazuma--svelte-meta-tags",
       "description": "svelte-meta-tags"
+    },
+    {
+      "name": "scality--zenko",
+      "source": "./scality--zenko",
+      "description": "Zenko"
     },
     {
       "name": "denissergeevitch--repo-task-proof-loop",
@@ -45542,6 +45672,11 @@
       "name": "paciolan--remote-component",
       "source": "./paciolan--remote-component",
       "description": "remote-component"
+    },
+    {
+      "name": "bogkonstantin--android-income-sms-gateway-webhook",
+      "source": "./bogkonstantin--android-income-sms-gateway-webhook",
+      "description": "android_income_sms_gateway_webhook"
     },
     {
       "name": "xvirobotics--metabot",
@@ -49644,6 +49779,11 @@
       "description": "spleeter-web"
     },
     {
+      "name": "freechat-fun--freechat",
+      "source": "./freechat-fun--freechat",
+      "description": "freechat"
+    },
+    {
       "name": "skaldlabs--skald",
       "source": "./skaldlabs--skald",
       "description": "Context layer platform in your infrastructure"
@@ -51047,6 +51187,11 @@
       "name": "voku--portable-utf8",
       "source": "./voku--portable-utf8",
       "description": "portable-utf8"
+    },
+    {
+      "name": "lightninglabs--taproot-assets",
+      "source": "./lightninglabs--taproot-assets",
+      "description": "taproot-assets"
     },
     {
       "name": "0xmassi--webclaw",
@@ -53367,6 +53512,11 @@
       "name": "simoncropp--polyfill",
       "source": "./simoncropp--polyfill",
       "description": "Polyfill"
+    },
+    {
+      "name": "aeria-org--aeria",
+      "source": "./aeria-org--aeria",
+      "description": "aeria"
     },
     {
       "name": "b310-digital--teammapper",
@@ -57994,6 +58144,11 @@
       "description": "openllmetry-js"
     },
     {
+      "name": "meerk40t--meerk40t",
+      "source": "./meerk40t--meerk40t",
+      "description": "meerk40t"
+    },
+    {
       "name": "xiaguan--pegainfer",
       "source": "./xiaguan--pegainfer",
       "description": "Pure Rust + CUDA LLM inference engine"
@@ -59189,6 +59344,11 @@
       "description": "satvis"
     },
     {
+      "name": "simoncropp--graphql-entityframework",
+      "source": "./simoncropp--graphql-entityframework",
+      "description": "GraphQL.EntityFramework"
+    },
+    {
       "name": "vincelwt--gloomberb",
       "source": "./vincelwt--gloomberb",
       "description": "Finance terminal, in your terminal."
@@ -60109,6 +60269,11 @@
       "description": "NetEngine"
     },
     {
+      "name": "datadog--datadog-operator",
+      "source": "./datadog--datadog-operator",
+      "description": "datadog-operator"
+    },
+    {
       "name": "aniruddha-adhikary--mrt-buddy",
       "source": "./aniruddha-adhikary--mrt-buddy",
       "description": "Check the Balance of your Dhaka MRT Pass or Rapid Pass"
@@ -60592,6 +60757,11 @@
       "name": "feat-agency--vite-plugin-webfont-dl",
       "source": "./feat-agency--vite-plugin-webfont-dl",
       "description": "vite-plugin-webfont-dl"
+    },
+    {
+      "name": "united-manufacturing-hub--united-manufacturing-hub",
+      "source": "./united-manufacturing-hub--united-manufacturing-hub",
+      "description": "united-manufacturing-hub"
     },
     {
       "name": "freepeak--db-mcp-server",
@@ -61562,6 +61732,11 @@
       "name": "reformator14--stacktrace-decoroutinator",
       "source": "./reformator14--stacktrace-decoroutinator",
       "description": "stacktrace-decoroutinator"
+    },
+    {
+      "name": "robosoft-ai--smacc2",
+      "source": "./robosoft-ai--smacc2",
+      "description": "SMACC2"
     },
     {
       "name": "mosaxiv--clawlet",
@@ -63279,6 +63454,11 @@
       "description": "stash-box"
     },
     {
+      "name": "openwallet-foundation--credo-ts",
+      "source": "./openwallet-foundation--credo-ts",
+      "description": "credo-ts"
+    },
+    {
       "name": "celestoai--smolvm",
       "source": "./celestoai--smolvm",
       "description": "Open-source AI sandbox infrastructure for code execution, browser use, and AI agents."
@@ -64089,6 +64269,286 @@
       "description": "blueprint"
     },
     {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
       "name": "kzahel--yepanywhere",
       "source": "./kzahel--yepanywhere",
       "description": "Self-hosted web UI for Claude and Codex. Push notifications, file uploads, no accounts, no database. Uses your existing CLI session history."
@@ -64587,6 +65047,16 @@
       "name": "lightprotocol--light-protocol",
       "source": "./lightprotocol--light-protocol",
       "description": "light-protocol"
+    },
+    {
+      "name": "mui--material-ui-docs",
+      "source": "./mui--material-ui-docs",
+      "description": "material-ui-docs"
+    },
+    {
+      "name": "iitc-ce--ingress-intel-total-conversion",
+      "source": "./iitc-ce--ingress-intel-total-conversion",
+      "description": "ingress-intel-total-conversion"
     },
     {
       "name": "singleton-altman--moviepilotlite",
@@ -66559,6 +67029,11 @@
       "description": "azure-search-openai-javascript"
     },
     {
+      "name": "q2316367743--es-client",
+      "source": "./q2316367743--es-client",
+      "description": "es-client"
+    },
+    {
       "name": "oguzbilgic--agent-kernel",
       "source": "./oguzbilgic--agent-kernel",
       "description": "Minimal kernel to make any AI coding agent stateful. Clone, point your agent, go."
@@ -67589,6 +68064,11 @@
       "description": "sheriff"
     },
     {
+      "name": "rhett-lee--nim-duilib",
+      "source": "./rhett-lee--nim-duilib",
+      "description": "nim_duilib"
+    },
+    {
       "name": "indragiek--ghfs",
       "source": "./indragiek--ghfs",
       "description": "Mount GitHub repositories as a virtual read-only macOS filesystem"
@@ -68592,6 +69072,11 @@
       "name": "level1techs--siomon",
       "source": "./level1techs--siomon",
       "description": "siomon"
+    },
+    {
+      "name": "ahoo-wang--wow",
+      "source": "./ahoo-wang--wow",
+      "description": "Wow"
     },
     {
       "name": "joyehuang--learn-open-harness",
@@ -69897,6 +70382,11 @@
       "name": "openmdao--dymos",
       "source": "./openmdao--dymos",
       "description": "dymos"
+    },
+    {
+      "name": "lnp2pbot--bot",
+      "source": "./lnp2pbot--bot",
+      "description": "bot"
     },
     {
       "name": "preetsuthar17--loftlyy",
@@ -72997,6 +73487,11 @@
       "name": "mbryzek--schema-evolution-manager",
       "source": "./mbryzek--schema-evolution-manager",
       "description": "schema-evolution-manager"
+    },
+    {
+      "name": "espebra--filebin2",
+      "source": "./espebra--filebin2",
+      "description": "filebin2"
     },
     {
       "name": "makisuo--maple",
@@ -77194,6 +77689,11 @@
       "description": "homeschool"
     },
     {
+      "name": "wb04307201--sql-forge",
+      "source": "./wb04307201--sql-forge",
+      "description": "sql-forge"
+    },
+    {
       "name": "amadad--mirofish-cli",
       "source": "./amadad--mirofish-cli",
       "description": "Multi-agent AI prediction engine - digital sandbox for scenario simulation (fork of 666ghj/MiroFish)"
@@ -79469,6 +79969,11 @@
       "description": "flutter_use"
     },
     {
+      "name": "phax--phase4",
+      "source": "./phax--phase4",
+      "description": "phase4"
+    },
+    {
       "name": "remoteoss--dexter",
       "source": "./remoteoss--dexter",
       "description": "A fast, full-featured Elixir LSP optimized for large codebases."
@@ -79982,6 +80487,11 @@
       "name": "johnmn3--injest",
       "source": "./johnmn3--injest",
       "description": "injest"
+    },
+    {
+      "name": "swingerman--ha-dual-smart-thermostat",
+      "source": "./swingerman--ha-dual-smart-thermostat",
+      "description": "ha-dual-smart-thermostat"
     },
     {
       "name": "tyh-labs--unsloth-buddy",
@@ -83664,6 +84174,11 @@
       "description": "tailwindcss-mangle"
     },
     {
+      "name": "heal-research--operon",
+      "source": "./heal-research--operon",
+      "description": "operon"
+    },
+    {
       "name": "okx--onchainos-skills",
       "source": "./okx--onchainos-skills",
       "description": "Skills for AI agents to integrate with the OKX OnchainOS API \u2014 Wallet, token discovery, market data, DEX swap, and transaction broadcasting."
@@ -85682,6 +86197,11 @@
       "name": "madfish-solutions--templewallet-extension",
       "source": "./madfish-solutions--templewallet-extension",
       "description": "templewallet-extension"
+    },
+    {
+      "name": "gesellix--bose-soundtouch",
+      "source": "./gesellix--bose-soundtouch",
+      "description": "Bose-SoundTouch"
     },
     {
       "name": "fulcrumresearch--druids",
@@ -89839,6 +90359,11 @@
       "description": "plugins"
     },
     {
+      "name": "reaviz--reablocks",
+      "source": "./reaviz--reablocks",
+      "description": "reablocks"
+    },
+    {
       "name": "cksac--turboquant-model",
       "source": "./cksac--turboquant-model",
       "description": "turboquant-model"
@@ -90122,6 +90647,11 @@
       "name": "ramilito--kubediff",
       "source": "./ramilito--kubediff",
       "description": "kubediff"
+    },
+    {
+      "name": "stacks-network--docs",
+      "source": "./stacks-network--docs",
+      "description": "docs"
     },
     {
       "name": "nokodo-labs--os1",
@@ -94284,6 +94814,11 @@
       "description": "thrive"
     },
     {
+      "name": "philzook58--knuckledragger",
+      "source": "./philzook58--knuckledragger",
+      "description": "knuckledragger"
+    },
+    {
       "name": "azure-samples--python-mcp-demos",
       "source": "./azure-samples--python-mcp-demos",
       "description": "python-mcp-demos"
@@ -96462,6 +96997,11 @@
       "name": "scikit-hep--boost-histogram",
       "source": "./scikit-hep--boost-histogram",
       "description": "boost-histogram"
+    },
+    {
+      "name": "grafana--quickpizza",
+      "source": "./grafana--quickpizza",
+      "description": "quickpizza"
     },
     {
       "name": "10xchengtu--input0",
@@ -99437,6 +99977,16 @@
       "name": "mtwn105--decipher-research-agent",
       "source": "./mtwn105--decipher-research-agent",
       "description": "decipher-research-agent"
+    },
+    {
+      "name": "mbbsemu--mbbsemu",
+      "source": "./mbbsemu--mbbsemu",
+      "description": "MBBSEmu"
+    },
+    {
+      "name": "scroll-tech--ceno",
+      "source": "./scroll-tech--ceno",
+      "description": "ceno"
     },
     {
       "name": "yonatangross--orchestkit",
@@ -147744,6 +148294,11 @@
       "description": "ralphify"
     },
     {
+      "name": "eschnou--opengpa",
+      "source": "./eschnou--opengpa",
+      "description": "OpenGPA"
+    },
+    {
       "name": "knowsuchagency--fulcrum",
       "source": "./knowsuchagency--fulcrum",
       "description": "What if Openclaw, Vibe Kanban, Vibetunnel, and Dokploy had a baby?"
@@ -185072,6 +185627,11 @@
       "name": "jaequery--ult",
       "source": "./jaequery--ult",
       "description": "ult"
+    },
+    {
+      "name": "didalgolab--ai-intellij-plugin",
+      "source": "./didalgolab--ai-intellij-plugin",
+      "description": "ai-intellij-plugin"
     },
     {
       "name": "agents-squads--squads-cli",
