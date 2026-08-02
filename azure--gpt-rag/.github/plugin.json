@@ -1,0 +1,9 @@
+{
+  "name": "azure--gpt-rag",
+  "displayName": "GPT-RAG",
+  "description": "GPT-RAG",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/GPT-RAG",
+  "skills": []
+}
