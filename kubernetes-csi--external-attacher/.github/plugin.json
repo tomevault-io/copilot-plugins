@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-csi--external-attacher",
+  "displayName": "external-attacher",
+  "description": "external-attacher",
+  "version": "1.0.0",
+  "author": "kubernetes-csi",
+  "homepage": "https://github.com/kubernetes-csi/external-attacher",
+  "skills": []
+}
