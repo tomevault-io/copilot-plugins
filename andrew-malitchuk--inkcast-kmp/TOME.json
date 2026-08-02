@@ -2,7 +2,7 @@
   "name": "inkcast-kmp",
   "owner": "andrew-malitchuk",
   "repo": "inkcast-kmp",
-  "description": "Open-source Kotlin Multiplatform companion app for CrossPoint Reader",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/andrew-malitchuk/inkcast-kmp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T15:07:38Z"
+  "distributed_at": "2026-08-02T04:05:58Z"
 }
