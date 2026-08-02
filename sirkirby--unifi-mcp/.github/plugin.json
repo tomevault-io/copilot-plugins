@@ -1,7 +1,7 @@
 {
   "name": "sirkirby--unifi-mcp",
   "displayName": "unifi-mcp",
-  "description": "MCP servers for the UniFi suite of applications, Network, Protect, Access, and Drive",
+  "description": "unifi-mcp",
   "version": "1.0.0",
   "author": "sirkirby",
   "homepage": "https://github.com/sirkirby/unifi-mcp",
