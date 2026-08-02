@@ -1,0 +1,9 @@
+{
+  "name": "harness--terraform-provider-harness",
+  "displayName": "terraform-provider-harness",
+  "description": "terraform-provider-harness",
+  "version": "1.0.0",
+  "author": "harness",
+  "homepage": "https://github.com/harness/terraform-provider-harness",
+  "skills": []
+}
