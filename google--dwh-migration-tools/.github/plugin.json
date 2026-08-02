@@ -1,0 +1,9 @@
+{
+  "name": "google--dwh-migration-tools",
+  "displayName": "dwh-migration-tools",
+  "description": "dwh-migration-tools",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/dwh-migration-tools",
+  "skills": []
+}
