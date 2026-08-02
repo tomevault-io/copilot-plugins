@@ -1,0 +1,9 @@
+{
+  "name": "go-openapi--analysis",
+  "displayName": "analysis",
+  "description": "analysis",
+  "version": "1.0.0",
+  "author": "go-openapi",
+  "homepage": "https://github.com/go-openapi/analysis",
+  "skills": []
+}
