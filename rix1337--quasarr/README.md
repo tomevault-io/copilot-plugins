@@ -1,8 +1,6 @@
 # Quasarr
 
-> Tome by [rix1337](https://github.com/rix1337/Quasarr) — distributed by [TomeVault](https://tomevault.io)
-
-Quasarr connects JDownloader with Radarr, Sonarr, Lidarr and Magazarr. It also decrypts links protected by CAPTCHAs.
+> Tome by [rix1337](https://github.com/rix1337/Quasarr), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [rix1337/Quasarr](https://github.com/rix1337/Qua
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [rix1337/Quasarr](https://github.com/rix1337/Quasarr) — a repo with 140+ stars on GitHub.
+From [rix1337/Quasarr](https://github.com/rix1337/Quasarr) — a repo with 146+ stars on GitHub.
 
 ---
 
