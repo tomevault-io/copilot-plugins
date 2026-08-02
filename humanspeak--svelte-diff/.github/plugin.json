@@ -1,0 +1,9 @@
+{
+  "name": "humanspeak--svelte-diff",
+  "displayName": "svelte-diff",
+  "description": "\ud83d\udcdc A powerful, customizable diff-match-patch library for Svelte with TypeScript support",
+  "version": "1.0.0",
+  "author": "humanspeak",
+  "homepage": "https://github.com/humanspeak/svelte-diff",
+  "skills": []
+}
