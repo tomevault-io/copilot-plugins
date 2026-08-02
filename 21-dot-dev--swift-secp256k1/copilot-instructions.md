@@ -1,28 +1,27 @@
 ## swift-secp256k1
 
-> When creating or editing files in .windsurf/rules/:
+> This directory contains GitHub configuration and CI workflows.
 
+# AGENTS.md (.github)
 
-# Windsurf Rules File Management
+This directory contains GitHub configuration and CI workflows.
 
-When creating or editing files in .windsurf/rules/:
+## Boundaries (strict)
 
-**ALWAYS use the cat command with heredoc** instead of write_to_file or edit tools, as the directory may be protected from direct writes.
+- Do not broaden GitHub Actions `permissions` without a clear justification.
+- Do not print or log secrets/tokens.
+- Do not add new third-party actions without asking.
 
-## Create New Rule
+## Workflow conventions
 
-Use: cat > .windsurf/rules/rule-name.md << 'EOF'
+- Preserve least privilege defaults (this repo commonly uses `permissions: {}` at workflow and job levels).
+- All workflows use `env:` blocks for context values — no inline `${{ }}` interpolation in `run:` scripts.
+- Avoid fragile shell output capture for UTF-8/multiline content; prefer temp files and tools like `jq` reading from files.
 
-Then add the rule content with YAML frontmatter (trigger, globs) followed by markdown content, and close with EOF on its own line.
+## Validation
 
-## Append to Existing Rule
-
-Use: cat >> .windsurf/rules/existing-rule.md << 'EOF'
-
-Then add additional content and close with EOF.
-
-This ensures reliable file creation/modification in the rules directory.
+- After changing workflows, run `swift test`.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/21-DOT-DEV) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [21-DOT-DEV/swift-secp256k1](https://github.com/21-DOT-DEV/swift-secp256k1) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
