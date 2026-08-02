@@ -1,0 +1,9 @@
+{
+  "name": "nats-io--prometheus-nats-exporter",
+  "displayName": "prometheus-nats-exporter",
+  "description": "prometheus-nats-exporter",
+  "version": "1.0.0",
+  "author": "nats-io",
+  "homepage": "https://github.com/nats-io/prometheus-nats-exporter",
+  "skills": []
+}
