@@ -1,0 +1,9 @@
+{
+  "name": "cosmos--ibc-go",
+  "displayName": "ibc-go",
+  "description": "ibc-go",
+  "version": "1.0.0",
+  "author": "cosmos",
+  "homepage": "https://github.com/cosmos/ibc-go",
+  "skills": []
+}
