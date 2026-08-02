@@ -2,9 +2,9 @@
   "name": "zubridge",
   "owner": "goosewobbler",
   "repo": "zubridge",
-  "description": "Cross-platform state without boundaries: Zustand-inspired simplicity",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/goosewobbler/zubridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T17:36:15Z"
+  "distributed_at": "2026-08-02T10:48:05Z"
 }
