@@ -1,7 +1,7 @@
 {
   "name": "promptfoo--modelaudit",
   "displayName": "modelaudit",
-  "description": "Security scanner for AI/ML model files. Detects malicious code, backdoors, and vulnerabilities before deployment",
+  "description": "modelaudit",
   "version": "1.0.0",
   "author": "promptfoo",
   "homepage": "https://github.com/promptfoo/modelaudit",
