@@ -1,0 +1,9 @@
+{
+  "name": "tikv--client-go",
+  "displayName": "client-go",
+  "description": "client-go",
+  "version": "1.0.0",
+  "author": "tikv",
+  "homepage": "https://github.com/tikv/client-go",
+  "skills": []
+}
