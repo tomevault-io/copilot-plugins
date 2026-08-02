@@ -1,0 +1,9 @@
+{
+  "name": "stellio-hub--stellio-context-broker",
+  "displayName": "stellio-context-broker",
+  "description": "stellio-context-broker",
+  "version": "1.0.0",
+  "author": "stellio-hub",
+  "homepage": "https://github.com/stellio-hub/stellio-context-broker",
+  "skills": []
+}
