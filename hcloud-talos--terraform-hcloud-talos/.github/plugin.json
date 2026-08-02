@@ -1,0 +1,9 @@
+{
+  "name": "hcloud-talos--terraform-hcloud-talos",
+  "displayName": "terraform-hcloud-talos",
+  "description": "terraform-hcloud-talos",
+  "version": "1.0.0",
+  "author": "hcloud-talos",
+  "homepage": "https://github.com/hcloud-talos/terraform-hcloud-talos",
+  "skills": []
+}
