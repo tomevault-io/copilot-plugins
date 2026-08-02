@@ -1,0 +1,9 @@
+{
+  "name": "spacelift-io--terraform-provider-spacelift",
+  "displayName": "terraform-provider-spacelift",
+  "description": "terraform-provider-spacelift",
+  "version": "1.0.0",
+  "author": "spacelift-io",
+  "homepage": "https://github.com/spacelift-io/terraform-provider-spacelift",
+  "skills": []
+}
