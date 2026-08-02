@@ -1,0 +1,9 @@
+{
+  "name": "k8snetworkplumbingwg--ovs-cni",
+  "displayName": "ovs-cni",
+  "description": "ovs-cni",
+  "version": "1.0.0",
+  "author": "k8snetworkplumbingwg",
+  "homepage": "https://github.com/k8snetworkplumbingwg/ovs-cni",
+  "skills": []
+}
