@@ -1,7 +1,7 @@
 {
   "name": "andrew-malitchuk--inkcast-kmp",
   "displayName": "inkcast-kmp",
-  "description": "Open-source Kotlin Multiplatform companion app for CrossPoint Reader",
+  "description": "inkcast-kmp",
   "version": "1.0.0",
   "author": "andrew-malitchuk",
   "homepage": "https://github.com/andrew-malitchuk/inkcast-kmp",
