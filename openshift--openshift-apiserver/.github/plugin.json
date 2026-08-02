@@ -1,0 +1,9 @@
+{
+  "name": "openshift--openshift-apiserver",
+  "displayName": "openshift-apiserver",
+  "description": "openshift-apiserver",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/openshift-apiserver",
+  "skills": []
+}
