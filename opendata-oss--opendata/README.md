@@ -1,8 +1,6 @@
 # opendata
 
-> Source: [opendata-oss/opendata](https://github.com/opendata-oss/opendata) — distributed by [TomeVault](https://tomevault.io)
-
-OpenData is a collection of open source databases built on a common, object-native storage and infrastructure foundation. 
+> Source: [opendata-oss/opendata](https://github.com/opendata-oss/opendata). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [opendata-oss/opendata](https://github.com/opend
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/opendata-oss/opendata](https://github.com/opendata-oss/opendata)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/opendata-oss/opendata](https://github.com/opendata-oss/opendata)
 
 ---
 
