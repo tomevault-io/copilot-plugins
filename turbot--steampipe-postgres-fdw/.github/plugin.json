@@ -1,0 +1,9 @@
+{
+  "name": "turbot--steampipe-postgres-fdw",
+  "displayName": "steampipe-postgres-fdw",
+  "description": "steampipe-postgres-fdw",
+  "version": "1.0.0",
+  "author": "turbot",
+  "homepage": "https://github.com/turbot/steampipe-postgres-fdw",
+  "skills": []
+}
