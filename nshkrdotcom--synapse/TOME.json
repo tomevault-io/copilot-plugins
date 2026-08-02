@@ -2,7 +2,7 @@
   "name": "synapse",
   "owner": "nshkrdotcom",
   "repo": "synapse",
-  "description": "Headless, declarative multi-agent orchestration framework with a domain-agnostic signal bus, workflow engine with Postgres persistence, and configurable agent runtime (ships code review domain).",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nshkrdotcom/synapse",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T22:42:36Z"
+  "distributed_at": "2026-08-02T00:06:32Z"
 }
