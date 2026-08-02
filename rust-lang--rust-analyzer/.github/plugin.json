@@ -1,0 +1,9 @@
+{
+  "name": "rust-lang--rust-analyzer",
+  "displayName": "rust-analyzer",
+  "description": "rust-analyzer",
+  "version": "1.0.0",
+  "author": "rust-lang",
+  "homepage": "https://github.com/rust-lang/rust-analyzer",
+  "skills": []
+}
