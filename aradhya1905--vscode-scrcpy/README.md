@@ -1,8 +1,6 @@
 # AI instruction files for vscode-scrcpy
 
-> Sourced from [Aradhya1905/vscode-scrcpy](https://github.com/Aradhya1905/vscode-scrcpy) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Mirror and control your Android device directly in VS Code — screen mirroring, file manager, ADB shell, and logcat built-in.
+> Sourced from [Aradhya1905/vscode-scrcpy](https://github.com/Aradhya1905/vscode-scrcpy), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
