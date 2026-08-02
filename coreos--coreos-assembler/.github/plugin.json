@@ -1,0 +1,9 @@
+{
+  "name": "coreos--coreos-assembler",
+  "displayName": "coreos-assembler",
+  "description": "coreos-assembler",
+  "version": "1.0.0",
+  "author": "coreos",
+  "homepage": "https://github.com/coreos/coreos-assembler",
+  "skills": []
+}
