@@ -1,6 +1,6 @@
-# stupid-simple-s3 — distributed by TomeVault
+# stupid-simple-s3
 
-> Originally from [espebra/stupid-simple-s3](https://github.com/espebra/stupid-simple-s3). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [espebra/stupid-simple-s3](https://github.com/espebra/stupid-simple-s3). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `CLAUDE.md` in [espebra/stupid-simple-s3](https://github.com/es
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/espebra)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/espebra/stupid-simple-s3](https://github.com/espebra/stupid-simple-s3)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/espebra) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
