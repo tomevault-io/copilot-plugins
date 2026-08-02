@@ -1,26 +1,24 @@
 # semcheck
 
-> Source: [rejot-dev/semcheck](https://github.com/rejot-dev/semcheck) — distributed by [TomeVault](https://tomevault.io)
-
-Semantic Checker
+> Source: [rejot-dev/semcheck](https://github.com/rejot-dev/semcheck). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [rejot-dev/semcheck](https://github.com/rejot-dev/semcheck).
+Original source: `CLAUDE.md` in [rejot-dev/semcheck](https://github.com/rejot-dev/semcheck).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [rejot-dev/semcheck](https://github.com/rejot-dev/semcheck) — a repo with 112+ stars on GitHub.
+From [rejot-dev/semcheck](https://github.com/rejot-dev/semcheck) — a repo with 113+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
