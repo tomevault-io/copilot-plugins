@@ -1,7 +1,7 @@
 {
   "name": "jagrat7--linux-wallpaper-engine",
   "displayName": "linux-wallpaper-engine",
-  "description": "A wallpaper management app for steam's wallpaper-engine ported for linux \u2014 browse, preview, scan for compatibility, and apply wallpapers.",
+  "description": "linux-wallpaper-engine",
   "version": "1.0.0",
   "author": "jagrat7",
   "homepage": "https://github.com/jagrat7/linux-wallpaper-engine",
