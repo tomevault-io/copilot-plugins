@@ -1,8 +1,6 @@
 # headless-pm
 
-> Tome by [madviking](https://github.com/madviking/headless-pm) — distributed by [TomeVault](https://tomevault.io)
-
-This is a simple headless project management system that helps coordinate several instances of LLM coders that work on the same project.
+> Tome by [madviking](https://github.com/madviking/headless-pm), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
