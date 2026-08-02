@@ -1,0 +1,9 @@
+{
+  "name": "algolia--algoliasearch-client-php",
+  "displayName": "algoliasearch-client-php",
+  "description": "algoliasearch-client-php",
+  "version": "1.0.0",
+  "author": "algolia",
+  "homepage": "https://github.com/algolia/algoliasearch-client-php",
+  "skills": []
+}
