@@ -1,0 +1,9 @@
+{
+  "name": "electron--website",
+  "displayName": "website",
+  "description": "website",
+  "version": "1.0.0",
+  "author": "electron",
+  "homepage": "https://github.com/electron/website",
+  "skills": []
+}
