@@ -1,92 +1,149 @@
 ## great-cto
 
-> This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get started.
+> This file is read automatically by Claude Code at session start.
 
-# Agent Instructions
+# CLAUDE.md — AI agent instructions for great_cto
 
-This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get started.
+This file is read automatically by Claude Code at session start.
+Rules here apply to all agents working in this repository.
 
-## Quick Reference
+---
 
-```bash
-bd ready              # Find available work
-bd show <id>          # View issue details
-bd update <id> --claim  # Claim work atomically
-bd close <id>         # Complete work
-bd dolt push          # Push beads data to remote
+## Privacy — private project names
+
+**Never mention specific private project names in any artifact that could reach
+the public repository:**
+
+- Commit messages
+- PR titles / descriptions
+- Code comments
+- Documentation (docs/, README, CHANGELOG)
+- Agent verdicts (verdicts/*.log)
+- Any string literal in source code
+
+Use the placeholder **`<private-project>`** instead.
+
+Examples of private names (not exhaustive — when in doubt, use the placeholder):
+any client/product repos that are not `great_cto` itself.
+
+Rationale: `great_cto` is a public open-source tool. References to private
+project names in its history constitute a privacy leak for the owner's clients.
+
+The pre-push hook (`scripts/hooks/pre-push.sh`) enforces this automatically.
+
+---
+
+## Privacy — local paths
+
+Never hardcode `/Users/<username>/...` paths in committed files.
+Use `~/.great_cto/` notation or environment variable references.
+
+---
+
+## Privacy — telemetry
+
+`great_cto` ships an **opt-in** telemetry pipeline (`packages/cli/src/telemetry.ts`) that is
+**off by default** — nothing is sent unless a user explicitly enables it. `docs/PRIVACY.md` is
+the source of truth for what's collected, what's never collected, and how opt-in/opt-out work;
+keep it in sync with the code.
+
+Rules for agents:
+
+- Never make telemetry (or any new tracking) on-by-default. Default must stay off.
+- Never expand what's collected, add a new event, or add a new endpoint without an ADR that
+  updates `docs/PRIVACY.md` in the same change.
+- Do not add tracking, install pings, or analytics calls outside the existing telemetry module
+  and its documented, opt-in fields.
+
+---
+
+## Code style
+
+- TypeScript strict mode; no `any` without comment explaining why
+- ESM modules only (`.mjs` / `"type":"module"`)
+- Node.js ≥ 20 — use `node:` prefix for built-ins
+- No external runtime dependencies in `packages/board/server.mjs` (zero-dep)
+- Commit format: `<type>: <description>` (feat/fix/refactor/docs/test/chore/perf/ci)
+
+---
+
+## Agent routing
+
+See `skills/great_cto/SKILL.md` for subagent routing table.
+Auto-attach reviewers fire from `scripts/hooks/auto-attach-reviewers.mjs`.
+
+---
+
+## Request classifier
+
+When the model receives a request, classify it first — the class determines which agents run and whether a gate is needed.
+
+| Class | Signal words / patterns | Pipeline |
+|-------|------------------------|---------|
+| **QUESTION** | "what is", "how does", "explain", "why", "what's the difference" | Answer inline — no agents |
+| **SURVEY** | "show me", "list", "what files", "status", "what's pending", "show report" | Read-only — Explore or Bash only |
+| **SIMPLE CODE** | "fix", "typo", "rename", "minor", "patch", single file implied | Fast path: senior-dev → gate:ship |
+| **COMPLEX CODE** | "implement", "build", "add feature", "refactor", "migrate" | Full pipeline: arch → pm → senior-dev → qa+cso → devops |
+| **DESIGN** | "design", "architect", "plan", "RFC", "ADR", "how should we" | Architect agent → gate:arch → optional pm |
+| **SLASH CMD** | Message starts with `/` | Route to matching command in `commands/` |
+| **INCIDENT** | "broken", "down", "prod issue", "incident", "P0", "alert" | l3-support immediately, no pipeline |
+| **COORDINATE** | "parallelize", "orchestrate", "3+ streams", complex dependency graph | coordinator agent |
+
+**Auto-routing rule**: classify BEFORE choosing an agent. If the class is ambiguous between SIMPLE CODE and COMPLEX CODE, prefer COMPLEX CODE — the cost of under-engineering exceeds the cost of a gate pause.
+
+---
+
+## Triage Gate — depth inside each class
+
+After classifying a request, apply the triage gate to select how much process to run. This prevents running the full pipeline on trivial changes.
+
+### SIMPLE CODE — depth levels
+
+```
+Classify into one of three depths:
+
+  Tiny    — single expression / typo / rename within one function.
+            → Fix inline, no plan, no Beads task. 30 s turnaround.
+
+  Small   — 1-file change, clear scope, no behavior risk.
+            → senior-dev direct, no architect. Gate: gate:ship only.
+
+  Medium  — 2-5 files, some behavior risk, needs validation.
+            → senior-dev → qa-engineer. Gate: gate:ship.
 ```
 
-## Non-Interactive Shell Commands
+Escalation check: if you discover ambiguity, cross-file risk, data model/API/permission impact while working → stop, reclassify as COMPLEX CODE.
 
-**ALWAYS use non-interactive flags** with file operations to avoid hanging on confirmation prompts.
+### COMPLEX CODE — depth levels
 
-Shell commands like `cp`, `mv`, and `rm` may be aliased to include `-i` (interactive) mode on some systems, causing the agent to hang indefinitely waiting for y/n input.
+```
+Classify into one of three depths:
 
-**Use these forms instead:**
-```bash
-# Force overwrite without prompting
-cp -f source dest           # NOT: cp source dest
-mv -f source dest           # NOT: mv source dest
-rm -f file                  # NOT: rm file
+  Small   — well-understood scope, ≤5 files, low ambiguity.
+            → architect (brief) → senior-dev → gate:ship.
+            Skip pm decomposition if < 3 work streams.
 
-# For recursive operations
-rm -rf directory            # NOT: rm -r directory
-cp -rf source dest          # NOT: cp -r source dest
+  Medium  — cross-file, some design decisions needed.
+            → architect → pm → senior-dev → qa+cso → gate:ship.
+
+  Large   — significant ambiguity, migrations, cross-cutting concerns,
+            rollout risk, backward compat constraints.
+            → Full pipeline: arch → pm → senior-dev → qa+cso → devops.
+            Two gates: gate:arch + gate:ship.
+
+            ⚠️  Decomposition Matrix required before any implementation starts.
+            Coordinator must produce this table (or block until it exists):
+
+            | Stream | Write-zone (files/dirs) | Depends on | Why parallel-safe |
+            |--------|------------------------|------------|-------------------|
+            | <name> | <owned files>          | <stream #> | <no shared state> |
+
+            If two streams share any file → force sequential, add dependency.
+            Reference: shared/orchestrator.toml [parallelism] section.
 ```
 
-**Other commands that may prompt:**
-- `scp` - use `-o BatchMode=yes` for non-interactive
-- `ssh` - use `-o BatchMode=yes` to fail instead of prompting
-- `apt-get` - use `-y` flag
-- `brew` - use `HOMEBREW_NO_AUTO_UPDATE=1` env var
-
-<!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
-## Beads Issue Tracker
-
-This project uses **bd (beads)** for issue tracking. Run `bd prime` to see full workflow context and commands.
-
-### Quick Reference
-
-```bash
-bd ready              # Find available work
-bd show <id>          # View issue details
-bd update <id> --claim  # Claim work
-bd close <id>         # Complete work
-```
-
-### Rules
-
-- Use `bd` for ALL task tracking — do NOT use TodoWrite, TaskCreate, or markdown TODO lists
-- Run `bd prime` for detailed command reference and session close protocol
-- Use `bd remember` for persistent knowledge — do NOT use MEMORY.md files
-
-## Session Completion
-
-**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
-
-**MANDATORY WORKFLOW:**
-
-1. **File issues for remaining work** - Create issues for anything that needs follow-up
-2. **Run quality gates** (if code changed) - Tests, linters, builds
-3. **Update issue status** - Close finished work, update in-progress items
-4. **PUSH TO REMOTE** - This is MANDATORY:
-   ```bash
-   git pull --rebase
-   bd dolt push
-   git push
-   git status  # MUST show "up to date with origin"
-   ```
-5. **Clean up** - Clear stashes, prune remote branches
-6. **Verify** - All changes committed AND pushed
-7. **Hand off** - Provide context for next session
-
-**CRITICAL RULES:**
-- Work is NOT complete until `git push` succeeds
-- NEVER stop before pushing - that leaves work stranded locally
-- NEVER say "ready to push when you are" - YOU must push
-- If push fails, resolve and retry until it succeeds
-<!-- END BEADS INTEGRATION -->
+**Default rule**: when depth is ambiguous, choose the deeper level — skipping a gate is recoverable, skipping architecture review on a Large change is not.
 
 ---
 > Source: [avelikiy/great_cto](https://github.com/avelikiy/great_cto) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-11 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
