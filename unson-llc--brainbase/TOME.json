@@ -4,7 +4,7 @@
   "repo": "brainbase",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Unson-LLC/brainbase",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-01T12:57:36Z"
+  "distributed_at": "2026-08-02T11:25:50Z"
 }
