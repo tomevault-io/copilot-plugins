@@ -1,7 +1,7 @@
 {
   "name": "thymerapp--thymer-plugin-sdk",
   "displayName": "thymer-plugin-sdk",
-  "description": "Docs, API and SDK to develop Plugins for Thymer!",
+  "description": "thymer-plugin-sdk",
   "version": "1.0.0",
   "author": "thymerapp",
   "homepage": "https://github.com/thymerapp/thymer-plugin-sdk",
