@@ -1,0 +1,9 @@
+{
+  "name": "zulip--docker-zulip",
+  "displayName": "docker-zulip",
+  "description": "docker-zulip",
+  "version": "1.0.0",
+  "author": "zulip",
+  "homepage": "https://github.com/zulip/docker-zulip",
+  "skills": []
+}
