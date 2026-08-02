@@ -6359,6 +6359,11 @@
       "description": "OpenMetadata"
     },
     {
+      "name": "canopy-network--canopy",
+      "source": "./canopy-network--canopy",
+      "description": "canopy"
+    },
+    {
       "name": "ktorio--ktor",
       "source": "./ktorio--ktor",
       "description": "ktor"
@@ -6957,6 +6962,11 @@
       "name": "paddlepaddle--paddlenlp",
       "source": "./paddlepaddle--paddlenlp",
       "description": "PaddleNLP"
+    },
+    {
+      "name": "heroiclabs--nakama",
+      "source": "./heroiclabs--nakama",
+      "description": "nakama"
     },
     {
       "name": "debezium--debezium",
@@ -22429,6 +22439,11 @@
       "description": "vortex"
     },
     {
+      "name": "dembrandt--dembrandt",
+      "source": "./dembrandt--dembrandt",
+      "description": "dembrandt"
+    },
+    {
       "name": "alexhallam--tv",
       "source": "./alexhallam--tv",
       "description": "tv"
@@ -25944,6 +25959,11 @@
       "description": "awesome-semantic-web"
     },
     {
+      "name": "nvim-java--nvim-java",
+      "source": "./nvim-java--nvim-java",
+      "description": "nvim-java"
+    },
+    {
       "name": "benborla--mcp-server-mysql",
       "source": "./benborla--mcp-server-mysql",
       "description": "A Model Context Protocol server that provides read-only access to MySQL databases. This server enables LLMs to inspect database schemas and execute read-only queries."
@@ -28404,6 +28424,11 @@
       "description": "envpool"
     },
     {
+      "name": "decoderesearch--saelens",
+      "source": "./decoderesearch--saelens",
+      "description": "SAELens"
+    },
+    {
       "name": "ethersphere--bee",
       "source": "./ethersphere--bee",
       "description": "bee"
@@ -28977,6 +29002,11 @@
       "name": "getporter--porter",
       "source": "./getporter--porter",
       "description": "porter"
+    },
+    {
+      "name": "jasperan--whatsapp-osint",
+      "source": "./jasperan--whatsapp-osint",
+      "description": "whatsapp-osint"
     },
     {
       "name": "llm-jp--awesome-japanese-llm",
@@ -33732,6 +33762,11 @@
       "name": "apache--amoro",
       "source": "./apache--amoro",
       "description": "amoro"
+    },
+    {
+      "name": "nomadamas--slides-grab",
+      "source": "./nomadamas--slides-grab",
+      "description": "slides-grab"
     },
     {
       "name": "nickclyde--duckduckgo-mcp-server",
@@ -41254,6 +41289,11 @@
       "description": "Common recipes to run vLLM"
     },
     {
+      "name": "algolia--shipjs",
+      "source": "./algolia--shipjs",
+      "description": "shipjs"
+    },
+    {
       "name": "dgageot--demoit",
       "source": "./dgageot--demoit",
       "description": "demoit"
@@ -47749,6 +47789,11 @@
       "description": "alpinejs-devtools"
     },
     {
+      "name": "elixir-lsp--vscode-elixir-ls",
+      "source": "./elixir-lsp--vscode-elixir-ls",
+      "description": "vscode-elixir-ls"
+    },
+    {
       "name": "chorus-aidlc--chorus",
       "source": "./chorus-aidlc--chorus",
       "description": "The Agent Harness for AI-Human Collaboration, inspired by the AI-DLC (AI-Driven Development Lifecycle)"
@@ -47852,6 +47897,11 @@
       "name": "lightninglabs--loop",
       "source": "./lightninglabs--loop",
       "description": "loop"
+    },
+    {
+      "name": "chichou--vscode-frida",
+      "source": "./chichou--vscode-frida",
+      "description": "vscode-frida"
     },
     {
       "name": "gurgeous--tennis",
@@ -48342,6 +48392,11 @@
       "name": "jasonlong--mater",
       "source": "./jasonlong--mater",
       "description": "mater"
+    },
+    {
+      "name": "portainer--agent",
+      "source": "./portainer--agent",
+      "description": "agent"
     },
     {
       "name": "gcwing--bitfun",
@@ -49272,6 +49327,11 @@
       "name": "materialyzeai--matgl",
       "source": "./materialyzeai--matgl",
       "description": "matgl"
+    },
+    {
+      "name": "cyco130--vavite",
+      "source": "./cyco130--vavite",
+      "description": "vavite"
     },
     {
       "name": "austin-patrician--eastmoney",
@@ -50387,6 +50447,11 @@
       "name": "iyinchao--liquid-glass-studio",
       "source": "./iyinchao--liquid-glass-studio",
       "description": "liquid-glass-studio"
+    },
+    {
+      "name": "refactorfirst--refactorfirst",
+      "source": "./refactorfirst--refactorfirst",
+      "description": "RefactorFirst"
     },
     {
       "name": "maplibre--maplibre-tile-spec",
@@ -52769,6 +52834,11 @@
       "description": "prometheus-nats-exporter"
     },
     {
+      "name": "codaxy--cxjs",
+      "source": "./codaxy--cxjs",
+      "description": "cxjs"
+    },
+    {
       "name": "meodai--heerich",
       "source": "./meodai--heerich",
       "description": "Tiny engine for 3D voxel scenes rendered to SVG \u2014 boolean ops, oblique/perspective cameras, zero dependencies. Inspired by the geometric cardboard sculptures of Erwin Heerich."
@@ -54764,6 +54834,11 @@
       "description": "r2ai"
     },
     {
+      "name": "phpstan--phpstan-deprecation-rules",
+      "source": "./phpstan--phpstan-deprecation-rules",
+      "description": "phpstan-deprecation-rules"
+    },
+    {
       "name": "hewliyang--office-agents",
       "source": "./hewliyang--office-agents",
       "description": "Agent plugins for Microsoft Office but BYOK for any model and provider"
@@ -55537,6 +55612,11 @@
       "name": "earthobservations--wetterdienst",
       "source": "./earthobservations--wetterdienst",
       "description": "wetterdienst"
+    },
+    {
+      "name": "tilmangriesel--graphite",
+      "source": "./tilmangriesel--graphite",
+      "description": "graphite"
     },
     {
       "name": "syi0808--screenize",
@@ -56874,6 +56954,11 @@
       "description": "communitytools"
     },
     {
+      "name": "uhyo--eslint-plugin-import-access",
+      "source": "./uhyo--eslint-plugin-import-access",
+      "description": "eslint-plugin-import-access"
+    },
+    {
       "name": "cyhhao--vibe-remote",
       "source": "./cyhhao--vibe-remote",
       "description": "Your AI agent army, commanded from Slack/Discord/Telegram/Wechat/Lark. Stream Claude Code, OpenCode, or Codex in real-time \u2014 from anywhere."
@@ -57432,6 +57517,11 @@
       "name": "specfy--stack-analyser",
       "source": "./specfy--stack-analyser",
       "description": "stack-analyser"
+    },
+    {
+      "name": "redis--redis-vl-python",
+      "source": "./redis--redis-vl-python",
+      "description": "redis-vl-python"
     },
     {
       "name": "levnikolaevich--claude-code-skills",
@@ -60764,6 +60854,11 @@
       "description": "united-manufacturing-hub"
     },
     {
+      "name": "danielo515--obsidian-modal-form",
+      "source": "./danielo515--obsidian-modal-form",
+      "description": "obsidian-modal-form"
+    },
+    {
       "name": "freepeak--db-mcp-server",
       "source": "./freepeak--db-mcp-server",
       "description": "A powerful multi-database server implementing the Model Context Protocol (MCP) to provide AI assistants with structured access to databases."
@@ -61887,6 +61982,11 @@
       "name": "sirandros--keepasswinhello",
       "source": "./sirandros--keepasswinhello",
       "description": "KeePassWinHello"
+    },
+    {
+      "name": "aappleby--hancho",
+      "source": "./aappleby--hancho",
+      "description": "hancho"
     },
     {
       "name": "millionco--cli-to-js",
@@ -64549,6 +64649,276 @@
       "description": "blueprint"
     },
     {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
       "name": "kzahel--yepanywhere",
       "source": "./kzahel--yepanywhere",
       "description": "Self-hosted web UI for Claude and Codex. Push notifications, file uploads, no accounts, no database. Uses your existing CLI session history."
@@ -65357,6 +65727,11 @@
       "name": "bsolomon1124--pyfinance",
       "source": "./bsolomon1124--pyfinance",
       "description": "pyfinance"
+    },
+    {
+      "name": "renenulschde--mbapi2020",
+      "source": "./renenulschde--mbapi2020",
+      "description": "mbapi2020"
     },
     {
       "name": "atilladeniz--kubeli",
@@ -70804,6 +71179,41 @@
       "description": "amqprs"
     },
     {
+      "name": "gmod--jbrowse-components",
+      "source": "./gmod--jbrowse-components",
+      "description": "jbrowse-components"
+    },
+    {
+      "name": "gmod--jbrowse-components",
+      "source": "./gmod--jbrowse-components",
+      "description": "jbrowse-components"
+    },
+    {
+      "name": "gmod--jbrowse-components",
+      "source": "./gmod--jbrowse-components",
+      "description": "jbrowse-components"
+    },
+    {
+      "name": "gmod--jbrowse-components",
+      "source": "./gmod--jbrowse-components",
+      "description": "jbrowse-components"
+    },
+    {
+      "name": "gmod--jbrowse-components",
+      "source": "./gmod--jbrowse-components",
+      "description": "jbrowse-components"
+    },
+    {
+      "name": "gmod--jbrowse-components",
+      "source": "./gmod--jbrowse-components",
+      "description": "jbrowse-components"
+    },
+    {
+      "name": "gmod--jbrowse-components",
+      "source": "./gmod--jbrowse-components",
+      "description": "jbrowse-components"
+    },
+    {
       "name": "geekjourneyx--jina-cli",
       "source": "./geekjourneyx--jina-cli",
       "description": "A lightweight CLI tool wrapping Jina AI Reader API for AI Agents. Fetch and parse any URL into LLM-friendly   formats (Markdown/Text/HTML). Perfect for reading X(Twitter), blogs, and news sites."
@@ -72747,6 +73157,11 @@
       "name": "freenoworg--pixivnow",
       "source": "./freenoworg--pixivnow",
       "description": "PixivNow"
+    },
+    {
+      "name": "dadav--helm-schema",
+      "source": "./dadav--helm-schema",
+      "description": "helm-schema"
     },
     {
       "name": "ilysenko--codex-desktop-linux",
@@ -75059,6 +75474,11 @@
       "description": "llm-d-router"
     },
     {
+      "name": "itlubber--scorecardpipeline",
+      "source": "./itlubber--scorecardpipeline",
+      "description": "scorecardpipeline"
+    },
+    {
       "name": "sopaco--cortex-mem",
       "source": "./sopaco--cortex-mem",
       "description": "\ud83e\udde0 The production-ready cognitive foundation for autonomous systems such as OpenClaw and Embodied-AI. For memory management, from extraction and search to automated optimization, with SKILL, CLI, API, "
@@ -77094,6 +77514,11 @@
       "description": "orchestrator"
     },
     {
+      "name": "snstac--pytak",
+      "source": "./snstac--pytak",
+      "description": "pytak"
+    },
+    {
       "name": "kubara-io--kubara",
       "source": "./kubara-io--kubara",
       "description": "Kubara is a single binary CLI tool written in Go providing a lightweight framework for bootstrapping Kubernetes platforms with production-proven best practices."
@@ -78507,6 +78932,11 @@
       "name": "felipebarcelospro--igniter-js",
       "source": "./felipebarcelospro--igniter-js",
       "description": "igniter-js"
+    },
+    {
+      "name": "adifyr--obsidian-chat-view",
+      "source": "./adifyr--obsidian-chat-view",
+      "description": "obsidian-chat-view"
     },
     {
       "name": "adifyr--obsidian-chat-view",
@@ -82539,6 +82969,11 @@
       "description": "squiggle"
     },
     {
+      "name": "minio--minio-cpp",
+      "source": "./minio--minio-cpp",
+      "description": "minio-cpp"
+    },
+    {
       "name": "vaayne--mori",
       "source": "./vaayne--mori",
       "description": "A native macOS workspace terminal organized around Projects and Worktrees, powered by tmux and libghostty"
@@ -86204,6 +86639,11 @@
       "description": "Bose-SoundTouch"
     },
     {
+      "name": "wavezync--durable",
+      "source": "./wavezync--durable",
+      "description": "durable"
+    },
+    {
       "name": "fulcrumresearch--druids",
       "source": "./fulcrumresearch--druids",
       "description": "druids"
@@ -86417,6 +86857,11 @@
       "name": "chanzuckerberg--miniwdl",
       "source": "./chanzuckerberg--miniwdl",
       "description": "miniwdl"
+    },
+    {
+      "name": "ad-si--cai",
+      "source": "./ad-si--cai",
+      "description": "cai"
     },
     {
       "name": "btahir--react-kino",
@@ -92032,6 +92477,11 @@
       "name": "sharat87--httpbun",
       "source": "./sharat87--httpbun",
       "description": "httpbun"
+    },
+    {
+      "name": "uerax--all-in-one-bot",
+      "source": "./uerax--all-in-one-bot",
+      "description": "all-in-one-bot"
     },
     {
       "name": "arcadia-1--virtuoso-bridge-lite",
@@ -97889,6 +98339,11 @@
       "description": "nginx-clickhouse"
     },
     {
+      "name": "opensanctions--yente",
+      "source": "./opensanctions--yente",
+      "description": "yente"
+    },
+    {
       "name": "openresearch1--openresearch",
       "source": "./openresearch1--openresearch",
       "description": "openresearch"
@@ -99989,6 +100444,11 @@
       "description": "ceno"
     },
     {
+      "name": "oddbit--flutter-facebook-app-events",
+      "source": "./oddbit--flutter-facebook-app-events",
+      "description": "flutter_facebook_app_events"
+    },
+    {
       "name": "yonatangross--orchestkit",
       "source": "./yonatangross--orchestkit",
       "description": "The Complete AI Development Toolkit for Claude Code \u2014 103 skills, 36 agents, 172 hooks. Production-ready patterns for full-stack development."
@@ -101217,6 +101677,16 @@
       "name": "netdevops--hier-config",
       "source": "./netdevops--hier-config",
       "description": "hier_config"
+    },
+    {
+      "name": "materialyzeai--matcalc",
+      "source": "./materialyzeai--matcalc",
+      "description": "matcalc"
+    },
+    {
+      "name": "datadog--pathfinding-cloud",
+      "source": "./datadog--pathfinding-cloud",
+      "description": "pathfinding.cloud"
     },
     {
       "name": "inclusionai--asystem-awex",
@@ -103327,6 +103797,16 @@
       "name": "nstarman--quax",
       "source": "./nstarman--quax",
       "description": "quax"
+    },
+    {
+      "name": "fredantb--spec-driven-development",
+      "source": "./fredantb--spec-driven-development",
+      "description": "Spec-Driven-Development"
+    },
+    {
+      "name": "fredantb--spec-driven-development",
+      "source": "./fredantb--spec-driven-development",
+      "description": "Spec-Driven-Development"
     },
     {
       "name": "lee-to--aif-handoff",
@@ -106102,6 +106582,16 @@
       "name": "antonycorbett--onlyt",
       "source": "./antonycorbett--onlyt",
       "description": "OnlyT"
+    },
+    {
+      "name": "dave-london--pare",
+      "source": "./dave-london--pare",
+      "description": "Pare"
+    },
+    {
+      "name": "graphsense--graphsense-dashboard",
+      "source": "./graphsense--graphsense-dashboard",
+      "description": "graphsense-dashboard"
     },
     {
       "name": "conorluddy--xclaude-plugin",
@@ -112047,6 +112537,11 @@
       "name": "twiliodeved--message-segment-calculator",
       "source": "./twiliodeved--message-segment-calculator",
       "description": "message-segment-calculator"
+    },
+    {
+      "name": "ansari-project--ansari-backend",
+      "source": "./ansari-project--ansari-backend",
+      "description": "ansari-backend"
     },
     {
       "name": "ansari-project--ansari-backend",
@@ -124449,6 +124944,16 @@
       "description": "Position"
     },
     {
+      "name": "ahoo-wang--cosky",
+      "source": "./ahoo-wang--cosky",
+      "description": "CoSky"
+    },
+    {
+      "name": "ahoo-wang--cosky",
+      "source": "./ahoo-wang--cosky",
+      "description": "CoSky"
+    },
+    {
       "name": "espennilsen--pi",
       "source": "./espennilsen--pi",
       "description": "pi"
@@ -124922,6 +125427,11 @@
       "name": "elycruz--rollup-plugin-sass",
       "source": "./elycruz--rollup-plugin-sass",
       "description": "rollup-plugin-sass"
+    },
+    {
+      "name": "ncosgray--cuppa-mobile",
+      "source": "./ncosgray--cuppa-mobile",
+      "description": "cuppa_mobile"
     },
     {
       "name": "xiashao--kaiyantool",
@@ -171369,6 +171879,16 @@
       "description": "mixpanel-unity"
     },
     {
+      "name": "chainmovers--suibase",
+      "source": "./chainmovers--suibase",
+      "description": "suibase"
+    },
+    {
+      "name": "chainmovers--suibase",
+      "source": "./chainmovers--suibase",
+      "description": "suibase"
+    },
+    {
       "name": "hyhmrright--brooks-lint",
       "source": "./hyhmrright--brooks-lint",
       "description": "AI code reviews grounded in 12 classic engineering books \u2014 decay risk diagnostics with book citations, severity labels, and 6 analysis modes including full-sweep auto-fix"
@@ -173127,6 +173647,16 @@
       "name": "signalfx--splunk-otel-android",
       "source": "./signalfx--splunk-otel-android",
       "description": "splunk-otel-android"
+    },
+    {
+      "name": "koroqe--claude-code-sdlc",
+      "source": "./koroqe--claude-code-sdlc",
+      "description": "claude-code-sdlc"
+    },
+    {
+      "name": "koroqe--claude-code-sdlc",
+      "source": "./koroqe--claude-code-sdlc",
+      "description": "claude-code-sdlc"
     },
     {
       "name": "timoncool--ace-step-studio",
@@ -199584,6 +200114,11 @@
       "description": "swiftui-list-support"
     },
     {
+      "name": "ilyas-hallak--readeck-ios",
+      "source": "./ilyas-hallak--readeck-ios",
+      "description": "readeck-ios"
+    },
+    {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "source": "./nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore."
@@ -216272,6 +216807,11 @@
       "name": "landing-ai--landingai-js",
       "source": "./landing-ai--landingai-js",
       "description": "landingai-js"
+    },
+    {
+      "name": "espebra--stupid-simple-s3",
+      "source": "./espebra--stupid-simple-s3",
+      "description": "stupid-simple-s3"
     },
     {
       "name": "inureyes--gyeol",
@@ -383157,6 +383697,26 @@
       "name": "unson-llc--brainbase",
       "source": "./unson-llc--brainbase",
       "description": "brainbase"
+    },
+    {
+      "name": "imyoyodata--pi-desktop",
+      "source": "./imyoyodata--pi-desktop",
+      "description": "pi-desktop pi agent\u7684\u684c\u9762\u5e94\u7528"
+    },
+    {
+      "name": "naxium-oss--distribai",
+      "source": "./naxium-oss--distribai",
+      "description": "A distributed AI training framework to distribute training across consumer devices, all edge cases handled."
+    },
+    {
+      "name": "imyoyodata--pi-desktop",
+      "source": "./imyoyodata--pi-desktop",
+      "description": "pi-desktop pi agent\u7684\u684c\u9762\u5e94\u7528"
+    },
+    {
+      "name": "imyoyodata--pi-desktop",
+      "source": "./imyoyodata--pi-desktop",
+      "description": "pi-desktop pi agent\u7684\u684c\u9762\u5e94\u7528"
     },
     {
       "name": "cheerhuan--save-your-token",
