@@ -55254,6 +55254,61 @@
       "description": "braintree-web"
     },
     {
+      "name": "braintree--braintree-web",
+      "source": "./braintree--braintree-web",
+      "description": "braintree-web"
+    },
+    {
+      "name": "braintree--braintree-web",
+      "source": "./braintree--braintree-web",
+      "description": "braintree-web"
+    },
+    {
+      "name": "braintree--braintree-web",
+      "source": "./braintree--braintree-web",
+      "description": "braintree-web"
+    },
+    {
+      "name": "braintree--braintree-web",
+      "source": "./braintree--braintree-web",
+      "description": "braintree-web"
+    },
+    {
+      "name": "braintree--braintree-web",
+      "source": "./braintree--braintree-web",
+      "description": "braintree-web"
+    },
+    {
+      "name": "braintree--braintree-web",
+      "source": "./braintree--braintree-web",
+      "description": "braintree-web"
+    },
+    {
+      "name": "braintree--braintree-web",
+      "source": "./braintree--braintree-web",
+      "description": "braintree-web"
+    },
+    {
+      "name": "braintree--braintree-web",
+      "source": "./braintree--braintree-web",
+      "description": "braintree-web"
+    },
+    {
+      "name": "braintree--braintree-web",
+      "source": "./braintree--braintree-web",
+      "description": "braintree-web"
+    },
+    {
+      "name": "braintree--braintree-web",
+      "source": "./braintree--braintree-web",
+      "description": "braintree-web"
+    },
+    {
+      "name": "braintree--braintree-web",
+      "source": "./braintree--braintree-web",
+      "description": "braintree-web"
+    },
+    {
       "name": "tesslateai--studio",
       "source": "./tesslateai--studio",
       "description": "Open Source Locally Hosted Lovable with Full Stack Support"
@@ -57317,6 +57372,16 @@
       "name": "rust-bitcoin--rust-miniscript",
       "source": "./rust-bitcoin--rust-miniscript",
       "description": "rust-miniscript"
+    },
+    {
+      "name": "motiadev--motia-examples",
+      "source": "./motiadev--motia-examples",
+      "description": "motia-examples"
+    },
+    {
+      "name": "motiadev--motia-examples",
+      "source": "./motiadev--motia-examples",
+      "description": "motia-examples"
     },
     {
       "name": "elc0mpa--aws-doctor",
@@ -64149,6 +64214,11 @@
       "description": "serverless-samples"
     },
     {
+      "name": "madviking--headless-pm",
+      "source": "./madviking--headless-pm",
+      "description": "headless-pm"
+    },
+    {
       "name": "notque--claude-code-toolkit",
       "source": "./notque--claude-code-toolkit",
       "description": "AI Agent System - Creator of the /do router"
@@ -64402,6 +64472,281 @@
       "name": "azuread--microsoft-authentication-library-for-objc",
       "source": "./azuread--microsoft-authentication-library-for-objc",
       "description": "microsoft-authentication-library-for-objc"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
+    },
+    {
+      "name": "tangle-network--blueprint",
+      "source": "./tangle-network--blueprint",
+      "description": "blueprint"
     },
     {
       "name": "tangle-network--blueprint",
@@ -66257,6 +66602,16 @@
       "name": "klarna-incubator--gram",
       "source": "./klarna-incubator--gram",
       "description": "gram"
+    },
+    {
+      "name": "hopx-ai--hopx",
+      "source": "./hopx-ai--hopx",
+      "description": "hopx"
+    },
+    {
+      "name": "hopx-ai--hopx",
+      "source": "./hopx-ai--hopx",
+      "description": "hopx"
     },
     {
       "name": "ethanlipnik--loom",
@@ -77342,6 +77697,11 @@
       "name": "guillaumebriday--kamal-ansible-manager",
       "source": "./guillaumebriday--kamal-ansible-manager",
       "description": "kamal-ansible-manager"
+    },
+    {
+      "name": "terragon-labs--terragon-oss",
+      "source": "./terragon-labs--terragon-oss",
+      "description": "terragon-oss"
     },
     {
       "name": "komunite--kalfa",
@@ -94089,6 +94449,11 @@
       "description": "web-worker-patterns"
     },
     {
+      "name": "vishalj99--claude-docker",
+      "source": "./vishalj99--claude-docker",
+      "description": "claude-docker"
+    },
+    {
       "name": "vercel-labs--next-browser",
       "source": "./vercel-labs--next-browser",
       "description": "next-browser"
@@ -108897,6 +109262,11 @@
       "name": "linkerlin--myclaw-net",
       "source": "./linkerlin--myclaw-net",
       "description": "myclaw.net"
+    },
+    {
+      "name": "sanshao85--persistent-terminal-mcp",
+      "source": "./sanshao85--persistent-terminal-mcp",
+      "description": "persistent-terminal-mcp"
     },
     {
       "name": "currycan--hatickets",
@@ -128967,6 +129337,11 @@
       "name": "frameworkcomputer--framework-system",
       "source": "./frameworkcomputer--framework-system",
       "description": "framework-system"
+    },
+    {
+      "name": "timothywarner--ai900",
+      "source": "./timothywarner--ai900",
+      "description": "ai900"
     },
     {
       "name": "timothywarner--ai900",
@@ -164119,6 +164494,36 @@
       "description": "libublk-rs"
     },
     {
+      "name": "forsonny--the-crucible-writing-system-for-claude",
+      "source": "./forsonny--the-crucible-writing-system-for-claude",
+      "description": "The-Crucible-Writing-System-For-Claude"
+    },
+    {
+      "name": "forsonny--the-crucible-writing-system-for-claude",
+      "source": "./forsonny--the-crucible-writing-system-for-claude",
+      "description": "The-Crucible-Writing-System-For-Claude"
+    },
+    {
+      "name": "forsonny--the-crucible-writing-system-for-claude",
+      "source": "./forsonny--the-crucible-writing-system-for-claude",
+      "description": "The-Crucible-Writing-System-For-Claude"
+    },
+    {
+      "name": "forsonny--the-crucible-writing-system-for-claude",
+      "source": "./forsonny--the-crucible-writing-system-for-claude",
+      "description": "The-Crucible-Writing-System-For-Claude"
+    },
+    {
+      "name": "forsonny--the-crucible-writing-system-for-claude",
+      "source": "./forsonny--the-crucible-writing-system-for-claude",
+      "description": "The-Crucible-Writing-System-For-Claude"
+    },
+    {
+      "name": "forsonny--the-crucible-writing-system-for-claude",
+      "source": "./forsonny--the-crucible-writing-system-for-claude",
+      "description": "The-Crucible-Writing-System-For-Claude"
+    },
+    {
       "name": "alonw0--llm-docs-optimizer",
       "source": "./alonw0--llm-docs-optimizer",
       "description": "A Claude Code plugin that optimizes documentation for AI coding assistants like Claude, GitHub Copilot, and other LLMs. Makes your docs more effective through c7score optimization, llms.txt generation"
@@ -172349,6 +172754,11 @@
       "description": "suibase"
     },
     {
+      "name": "coolcooltomato--learnlang",
+      "source": "./coolcooltomato--learnlang",
+      "description": "LearnLang"
+    },
+    {
       "name": "hyhmrright--brooks-lint",
       "source": "./hyhmrright--brooks-lint",
       "description": "AI code reviews grounded in 12 classic engineering books \u2014 decay risk diagnostics with book citations, severity labels, and 6 analysis modes including full-sweep auto-fix"
@@ -174117,6 +174527,111 @@
       "name": "koroqe--claude-code-sdlc",
       "source": "./koroqe--claude-code-sdlc",
       "description": "claude-code-sdlc"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
+    },
+    {
+      "name": "jonit-dev--vibe-coder-3d",
+      "source": "./jonit-dev--vibe-coder-3d",
+      "description": "vibe-coder-3d"
     },
     {
       "name": "timoncool--ace-step-studio",
@@ -177659,6 +178174,16 @@
       "description": "pdk-templates"
     },
     {
+      "name": "alec-c4--claude-rails-dev",
+      "source": "./alec-c4--claude-rails-dev",
+      "description": "claude-rails-dev"
+    },
+    {
+      "name": "troylar--ai-journal-kit",
+      "source": "./troylar--ai-journal-kit",
+      "description": "ai-journal-kit"
+    },
+    {
       "name": "rudrankriyam--foundation-models-framework-cli",
       "source": "./rudrankriyam--foundation-models-framework-cli",
       "description": "A powerful command-line interface for Foundation Models on Apple platforms."
@@ -179582,6 +180107,11 @@
       "name": "munsy0227--chzzk-rekoda",
       "source": "./munsy0227--chzzk-rekoda",
       "description": "Chzzk-Rekoda"
+    },
+    {
+      "name": "dimitritholen--raggy",
+      "source": "./dimitritholen--raggy",
+      "description": "raggy"
     },
     {
       "name": "rust-works--succinctly",
@@ -194034,6 +194564,11 @@
       "description": "kmp-futured-template"
     },
     {
+      "name": "earlyaidopters--notebooklmreimagined",
+      "source": "./earlyaidopters--notebooklmreimagined",
+      "description": "notebooklmreimagined"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -196199,6 +196734,11 @@
       "description": "agentview"
     },
     {
+      "name": "agentview--agentview",
+      "source": "./agentview--agentview",
+      "description": "agentview"
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
@@ -198277,6 +198817,11 @@
       "name": "henricm--ha-ferroamp",
       "source": "./henricm--ha-ferroamp",
       "description": "ha-ferroamp"
+    },
+    {
+      "name": "para-fr--wd-framework",
+      "source": "./para-fr--wd-framework",
+      "description": "wd-framework"
     },
     {
       "name": "bobmatnyc--claude-mpm-skills",
@@ -209057,6 +209602,11 @@
       "name": "openberth--openberth",
       "source": "./openberth--openberth",
       "description": "openberth"
+    },
+    {
+      "name": "efgiese--ngx-barcode6",
+      "source": "./efgiese--ngx-barcode6",
+      "description": "ngx-barcode6"
     },
     {
       "name": "r44vc0rp--itui",
@@ -384277,6 +384827,11 @@
       "name": "imyoyodata--pi-desktop",
       "source": "./imyoyodata--pi-desktop",
       "description": "pi-desktop pi agent\u7684\u684c\u9762\u5e94\u7528"
+    },
+    {
+      "name": "bketelsen--bespoke",
+      "source": "./bketelsen--bespoke",
+      "description": "A personal app platform: one-off software for exactly one user \u2014 built, maintained, and operated by LLM agents. Steal the idea before you steal the code."
     },
     {
       "name": "cheerhuan--save-your-token",
