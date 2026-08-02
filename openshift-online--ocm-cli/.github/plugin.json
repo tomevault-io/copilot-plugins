@@ -1,0 +1,9 @@
+{
+  "name": "openshift-online--ocm-cli",
+  "displayName": "ocm-cli",
+  "description": "ocm-cli",
+  "version": "1.0.0",
+  "author": "openshift-online",
+  "homepage": "https://github.com/openshift-online/ocm-cli",
+  "skills": []
+}
