@@ -1,0 +1,9 @@
+{
+  "name": "asciidoctor--asciidoctor-js",
+  "displayName": "asciidoctor.js",
+  "description": "asciidoctor.js",
+  "version": "1.0.0",
+  "author": "asciidoctor",
+  "homepage": "https://github.com/asciidoctor/asciidoctor.js",
+  "skills": []
+}
