@@ -1,8 +1,6 @@
 # AI instruction files for kimaki
 
-> Sourced from [remorses/kimaki](https://github.com/remorses/kimaki) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-all opencode features deeply integrated inside Discord. each project is a channel. each session a thread
+> Sourced from [remorses/kimaki](https://github.com/remorses/kimaki), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
