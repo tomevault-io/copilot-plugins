@@ -1,8 +1,6 @@
 # AI instruction files for kipi-system
 
-> Sourced from [assafkip/kipi-system](https://github.com/assafkip/kipi-system) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-A portable founder operating system for Claude Code. Interactive setup wizard, morning briefings, conversation debriefs, social engagement, relationship tracking, content pipeline, lead sourcing, and AUDHD executive function mode.
+> Sourced from [assafkip/kipi-system](https://github.com/assafkip/kipi-system), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [assafkip/kipi-system](https://github.com/assafk
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [assafkip/kipi-system](https://github.com/assafkip/kipi-system) — a repo with 88+ stars on GitHub.
+From [assafkip/kipi-system](https://github.com/assafkip/kipi-system) — a repo with 93+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-s -->
