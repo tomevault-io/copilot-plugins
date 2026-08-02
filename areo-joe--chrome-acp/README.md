@@ -1,23 +1,21 @@
 # chrome-acp
 
-> Tome by [Areo-Joe](https://github.com/Areo-Joe/chrome-acp) — distributed by [TomeVault](https://tomevault.io)
-
-Connect to ACP agent in browser.
+> Tome by [Areo-Joe](https://github.com/Areo-Joe/chrome-acp), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Areo-Joe/chrome-acp](https://github.com/Areo-Joe/chrome-acp).
+Original source: `CLAUDE.md` in [Areo-Joe/chrome-acp](https://github.com/Areo-Joe/chrome-acp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Areo-Joe/chrome-acp](https://github.com/Areo-Joe/chrome-acp) — a repo with 109+ stars on GitHub.
+From [Areo-Joe/chrome-acp](https://github.com/Areo-Joe/chrome-acp) — a repo with 174+ stars on GitHub.
 
 ---
 
