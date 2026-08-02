@@ -1,10 +1,10 @@
 ## blockrun-mcp
 
-> MCP server giving Claude real-time data — markets, research, X/Twitter, crypto. Pay per call with USDC.
+> MCP server giving Codex real-time data — markets, research, X/Twitter, crypto. Pay per call with USDC.
 
 # BlockRun MCP
 
-MCP server giving Claude real-time data — markets, research, X/Twitter, crypto. Pay per call with USDC.
+MCP server giving Codex real-time data — markets, research, X/Twitter, crypto. Pay per call with USDC.
 
 ## Commands
 
@@ -35,20 +35,20 @@ src/
 - `viem` — Ethereum interaction
 - `qrcode` — Wallet QR code display
 
-## Install in Claude Code
+## Install in Codex
 
 ```bash
-claude mcp add blockrun npx -y @blockrun/mcp@latest
+codex mcp add blockrun -- npx -y @blockrun/mcp@latest
 ```
 
 ## Conventions
 
 - TypeScript, ESM
 - Build with tsup
-- Node >= 18
+- Node >= 20.19
 - MIT license
 - npm registry: `@blockrun/mcp`
 
 ---
 > Source: [BlockRunAI/blockrun-mcp](https://github.com/BlockRunAI/blockrun-mcp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
