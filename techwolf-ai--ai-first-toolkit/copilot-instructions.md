@@ -1,32 +1,50 @@
 ## ai-first-toolkit
 
-> This repository publishes TechWolf AI-first plugins and skills for both Claude Code and Codex.
+> - `kb/`: Knowledge base entries (git-tracked). Categories can be nested — e.g., `kb/security/access/mfa.md` with `category: security/access` in frontmatter.
 
-# TechWolf AI-First Toolkit
+# Knowledge Base
 
-This repository publishes TechWolf AI-first plugins and skills for both Claude Code and Codex.
+## Directory Structure
 
-## Repository Purpose
+- `kb/`: Knowledge base entries (git-tracked). Categories can be nested — e.g., `kb/security/access/mfa.md` with `category: security/access` in frontmatter.
+- `kb/scopes/`: Context profiles for different audiences or customer segments
+- `scripts/kb-index.py`: Lists all KB files with descriptions; `--write` regenerates `kb/index.md` (renders nested categories as a tree)
+- `scripts/kb-verify.py`: Verifies that `/kb-answer` citations exist in KB files
+- `scripts/kb-validate.py`: Checks KB health (frontmatter, categories incl. nested, related links)
+- `scripts/kb-search.py`: Keyword search; `python3 scripts/kb-search.py "keyword" [--category X] [--tag Y]`
 
-- `plugins/<plugin>/` is the source of truth for each plugin.
-- Claude-specific plugin metadata lives in `.claude-plugin/`.
-- Codex-compatible skills live in each plugin's `skills/` directory.
-- Codex installs are managed via `./install.sh`.
+## KB Entry Format
 
-## Working Conventions
+All entries use markdown with YAML frontmatter:
 
-- Preserve the mapping between a plugin and its Codex-installed skills.
-- When changing a plugin, update both Claude-facing and Codex-facing docs if behavior changes.
-- If Codex install behavior changes, update `README.md`, plugin READMEs, and `CHANGELOG.md`.
-- Prefer adding Codex guidance under `plugins/<plugin>/codex/AGENTS.md` when plugin-specific instructions are needed.
+```yaml
+---
+title: "Entry Title"
+description: "One-liner for index lookup"
+category: {{category}}
+tags: [tag1, tag2]
+sources: ["source-document.pdf"]
+last_updated: "YYYY-MM-DD"
+related:
+  - category/related-entry.md
+---
+```
 
-## Codex Install Notes
+## Adding Knowledge
 
-- `./install.sh` installs skills into `~/.codex/skills` by default.
-- The installer also manages plugin metadata, verification, and uninstall state under `~/.codex/skills/.techwolf-ai-first/`.
-- `content-studio` has a plugin-level Codex entry skill in addition to its specialized skills.
-- `people-management` has 8 skills that require `/setup` to be run first to configure org-specific frameworks and context.
+1. Create a `.md` file in the appropriate `kb/{category}/` folder
+2. Add YAML frontmatter with at least title, description, category, and last_updated
+3. Write content with clear, quotable statements
+4. Run `python3 scripts/kb-index.py` to verify it appears in the index
+
+## Scopes
+
+Use scope files in `kb/scopes/` to customize answers for specific contexts. See `kb/scopes/README.md` for details.
+
+## Querying
+
+Use `/kb-answer` to ask questions. Answers will cite literal quotes from KB files.
 
 ---
 > Source: [techwolf-ai/ai-first-toolkit](https://github.com/techwolf-ai/ai-first-toolkit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
