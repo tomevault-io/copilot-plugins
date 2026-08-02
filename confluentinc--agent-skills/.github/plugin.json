@@ -1,0 +1,9 @@
+{
+  "name": "confluentinc--agent-skills",
+  "displayName": "agent-skills",
+  "description": "agent-skills",
+  "version": "1.0.0",
+  "author": "confluentinc",
+  "homepage": "https://github.com/confluentinc/agent-skills",
+  "skills": []
+}
