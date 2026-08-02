@@ -1,0 +1,9 @@
+{
+  "name": "minio--minio-cpp",
+  "displayName": "minio-cpp",
+  "description": "minio-cpp",
+  "version": "1.0.0",
+  "author": "minio",
+  "homepage": "https://github.com/minio/minio-cpp",
+  "skills": []
+}
