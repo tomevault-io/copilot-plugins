@@ -1,0 +1,9 @@
+{
+  "name": "knative--operator",
+  "displayName": "operator",
+  "description": "operator",
+  "version": "1.0.0",
+  "author": "knative",
+  "homepage": "https://github.com/knative/operator",
+  "skills": []
+}
