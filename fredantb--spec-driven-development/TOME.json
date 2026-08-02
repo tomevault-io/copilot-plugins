@@ -4,7 +4,7 @@
   "repo": "Spec-Driven-Development",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FredAntB/Spec-Driven-Development",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T06:02:44Z"
+  "distributed_at": "2026-08-02T19:00:41Z"
 }
