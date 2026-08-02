@@ -1,0 +1,9 @@
+{
+  "name": "bitrise-io--bitrise-workflow-editor",
+  "displayName": "bitrise-workflow-editor",
+  "description": "bitrise-workflow-editor",
+  "version": "1.0.0",
+  "author": "bitrise-io",
+  "homepage": "https://github.com/bitrise-io/bitrise-workflow-editor",
+  "skills": []
+}
