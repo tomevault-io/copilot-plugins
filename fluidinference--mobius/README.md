@@ -1,8 +1,6 @@
 # mobius
 
-> Source: [FluidInference/mobius](https://github.com/FluidInference/mobius) — distributed by [TomeVault](https://tomevault.io)
-
-Your models on any xPU
+> Source: [FluidInference/mobius](https://github.com/FluidInference/mobius). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [FluidInference/mobius](https://github.com/Fluid
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [FluidInference/mobius](https://github.com/FluidInference/mobius) — a repo with 66+ stars on GitHub.
+From [FluidInference/mobius](https://github.com/FluidInference/mobius) — a repo with 82+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
