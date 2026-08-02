@@ -1,29 +1,15 @@
 ## flue
 
-> Before operating an app, read:
+> 1. `../shared/coexistence.md`
 
-# Creative Software Adapters
+# After Effects Adapter
 
-Before operating an app, read:
+Read first:
 
-1. `shared/coexistence.md`
-2. `shared/bridge-contract.md`
-3. `adapters/<app>_adapter/APP.md`
-
-Then run that app's context example before acting.
-
-Read app-local `examples/` and optional `docs/` for scripting details. Treat
-`examples/` as reference material, not a scratch directory.
-
-Prefer passing one-off scripts through `--stdin`. If a script must be written to
-disk for encoding, debugging, or host-runtime reasons, put it under a temp or
-scratch path such as `.tmp/<app>/` or the OS temp directory, then remove it after
-the run unless the user asks to keep it. Do not add task-specific scripts to
-adapter source folders.
-
-Keep edits scoped to the user's live app state and report bridge/app errors
-directly.
+1. `../shared/coexistence.md`
+2. `../shared/bridge-contract.md`
+3. `APP.md`
 
 ---
 > Source: [SFKislev/Flue](https://github.com/SFKislev/Flue) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
