@@ -2,9 +2,9 @@
   "name": "slides-grab",
   "owner": "NomaDamas",
   "repo": "slides-grab",
-  "description": "Best harness + editor + linter for generating slides in Claude Code / Codex - Claude Design Open Source Alternative ",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NomaDamas/slides-grab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T09:53:29Z"
+  "distributed_at": "2026-08-02T19:12:31Z"
 }
