@@ -1,0 +1,9 @@
+{
+  "name": "efrg123--kimi-webbridge",
+  "displayName": "kimi-webbridge",
+  "description": "Kimi WebBridge v2.0 \u2014 Chrome Extension + Node.js WebSocket daemon for browser automation",
+  "version": "1.0.0",
+  "author": "efrg123",
+  "homepage": "https://github.com/efrg123/kimi-webbridge",
+  "skills": []
+}
