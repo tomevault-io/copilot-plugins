@@ -1,0 +1,9 @@
+{
+  "name": "langchain-ai--langsmith-sdk",
+  "displayName": "langsmith-sdk",
+  "description": "langsmith-sdk",
+  "version": "1.0.0",
+  "author": "langchain-ai",
+  "homepage": "https://github.com/langchain-ai/langsmith-sdk",
+  "skills": []
+}
