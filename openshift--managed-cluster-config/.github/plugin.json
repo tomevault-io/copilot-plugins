@@ -1,0 +1,9 @@
+{
+  "name": "openshift--managed-cluster-config",
+  "displayName": "managed-cluster-config",
+  "description": "managed-cluster-config",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/managed-cluster-config",
+  "skills": []
+}
