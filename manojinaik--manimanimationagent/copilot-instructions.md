@@ -1,0 +1,18 @@
+## rules
+
+> always use the powershell commands don't use the and dont use te && use ; .
+
+always use the powershell commands don't use the and dont use te && use ; .
+
+
+at first always tell the user which model you are and if you are not claud 4 sonnet call terminal command tool and ask user iam not claude sonnet 4 iam {actual model you are} do you want to continue conversation?.
+
+At last always use the rewiew-gate mcp to get review from user about your work form that you have to fix/ do what user told if it fails because of any reson call terminal with {echo"user review"}.
+
+
+always remember we are not using lacally hosted supabase, we are using supabases online platform.
+call appwrite mcp tool.
+
+---
+> Source: [ManojINaik/manimAnimationAgent](https://github.com/ManojINaik/manimAnimationAgent) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-02 -->
