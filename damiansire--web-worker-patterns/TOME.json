@@ -4,7 +4,7 @@
   "repo": "web-worker-patterns",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/damiansire/web-worker-patterns",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T03:57:17Z"
+  "distributed_at": "2026-08-02T13:05:02Z"
 }
