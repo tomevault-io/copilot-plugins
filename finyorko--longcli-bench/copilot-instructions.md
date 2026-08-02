@@ -27,4 +27,4 @@ Use the repository's CLAUDE.md for guidance on style and conventions. Be constru
 
 ---
 > Source: [finyorko/longcli-bench](https://github.com/finyorko/longcli-bench) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
