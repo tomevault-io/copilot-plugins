@@ -1,8 +1,6 @@
 # claude-simone
 
-> Tome by [Helmi](https://github.com/Helmi/claude-simone) — distributed by [TomeVault](https://tomevault.io)
-
-A project management framework for AI-assisted development with Claude Code
+> Tome by [Helmi](https://github.com/Helmi/claude-simone), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
