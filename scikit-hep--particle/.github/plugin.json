@@ -1,0 +1,9 @@
+{
+  "name": "scikit-hep--particle",
+  "displayName": "particle",
+  "description": "particle",
+  "version": "1.0.0",
+  "author": "scikit-hep",
+  "homepage": "https://github.com/scikit-hep/particle",
+  "skills": []
+}
