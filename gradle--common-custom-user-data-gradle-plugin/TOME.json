@@ -4,7 +4,7 @@
   "repo": "common-custom-user-data-gradle-plugin",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gradle/common-custom-user-data-gradle-plugin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T21:53:36Z"
+  "distributed_at": "2026-08-02T09:07:26Z"
 }
