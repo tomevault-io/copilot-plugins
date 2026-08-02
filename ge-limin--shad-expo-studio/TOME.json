@@ -2,9 +2,9 @@
   "name": "shad-expo-studio",
   "owner": "Ge-limin",
   "repo": "shad-expo-studio",
-  "description": "A studio for designing and shipping shadcn-style components in Expo/React Native with Storybook-backed visual regression.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ge-limin/shad-expo-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T10:29:51Z"
+  "distributed_at": "2026-08-02T04:03:21Z"
 }
