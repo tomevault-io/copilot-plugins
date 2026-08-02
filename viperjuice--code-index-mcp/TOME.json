@@ -2,9 +2,9 @@
   "name": "Code-Index-MCP",
   "owner": "ViperJuice",
   "repo": "Code-Index-MCP",
-  "description": "Code indexing MCP server to provide context to coding agents. ",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ViperJuice/Code-Index-MCP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T01:21:20Z"
+  "distributed_at": "2026-08-02T00:10:25Z"
 }
