@@ -4,7 +4,7 @@
   "repo": "trafficserver",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/apache/trafficserver",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T19:07:12Z"
+  "distributed_at": "2026-08-02T21:59:49Z"
 }
