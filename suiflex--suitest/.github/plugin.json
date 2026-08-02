@@ -1,0 +1,9 @@
+{
+  "name": "suiflex--suitest",
+  "displayName": "suitest",
+  "description": "Self-hostable, MCP-native testing platform. Manual test management, deterministic runs, optional AI. Your stack, your   LLM, your data.",
+  "version": "1.0.0",
+  "author": "suiflex",
+  "homepage": "https://github.com/suiflex/suitest",
+  "skills": []
+}
