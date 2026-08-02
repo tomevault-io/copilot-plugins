@@ -1,90 +1,57 @@
 ## awesome-claude-code-config
 
-> - `~/.claude/CLAUDE.md`: Global instructions, auto-loaded
+> Located in `~/.claude/agents/`:
 
-# Global Instructions
+# Agent Orchestration
 
-## Memory System (Highest Priority)
+## Available Agents
 
-### Architecture
+Located in `~/.claude/agents/`:
 
-- `~/.claude/CLAUDE.md`: Global instructions, auto-loaded
-- `~/.claude/lessons.md`: **Global** corrections & lessons (cross-project), auto-injected via SessionStart hook
-- Project `MEMORY.md`: `~/.claude/projects/<path>/memory/MEMORY.md`, **Project-level** preferences & context (current project only), auto-loaded
+| Agent | Purpose | When to Use |
+|-------|---------|-------------|
+| planner | Implementation planning | Complex features, refactoring |
+| architect | System design | Architectural decisions |
+| tdd-guide | Test-driven development | New features, bug fixes |
+| code-reviewer | Code review | After writing code |
+| security-reviewer | Security analysis | Before commits |
+| build-error-resolver | Fix build errors | When build fails |
+| e2e-runner | E2E testing | Critical user flows |
+| refactor-cleaner | Dead code cleanup | Code maintenance |
+| doc-updater | Documentation | Updating docs |
 
-### Storage Decision
+## Immediate Agent Usage
 
-When the user asks to "remember X", determine the scope first:
-- **Would this apply in a different project?** → Global, write to `~/.claude/lessons.md`
-- **Only relevant to the current project?** → Project-level, write to the project's `MEMORY.md`
+No user prompt needed:
+1. Complex feature requests - Use **planner** agent
+2. Code just written/modified - Use **code-reviewer** agent
+3. Bug fix or new feature - Use **tdd-guide** agent
+4. Architectural decision - Use **architect** agent
 
-### Self-Correction
+## Parallel Task Execution
 
-**Identifying corrections** (low threshold): user points out errors, says "remember/don't again...", shows frustration, same operation fails 2+ times. When in doubt, treat it as a correction.
-
-**Post-correction flow**:
-1. **Determine scope** (see Storage Decision above), write to the appropriate file
-2. Rules must be concrete instructions to prevent recurrence
-3. Only after writing, continue handling the user's request
-
-**Rule promotion**: `CLAUDE.md` can only be modified when the user **explicitly asks**.
-
-## Core Settings
-
-- Extended thinking: ultrathink
-- Language: respond in the user's preferred language; code comments may use English; keep technical terms in English
-- Shell: Zsh (`~/.zshrc`) on macOS/Linux; Bash (Git Bash) on Windows
-
-## Conda Environment
-
-Activate conda before running Python:
-
-```bash
-source $HOME/anaconda3/etc/profile.d/conda.sh && conda activate <env_name>
-# Or directly: $HOME/anaconda3/envs/<env_name>/bin/python script.py
-```
-
-## Network & Proxy
-
-- Proxy via SSH reverse port forwarding: `ssh -R <remote_port>:127.0.0.1:<local_port>`, set `http_proxy`/`https_proxy`
-- Do not modify `.bashrc`, `.profile`, or VSCode config unless explicitly asked
-- Prefer user-space solutions when no `sudo` access
-
-## Communication Preferences
-
-- When the user says a cause is **not** the problem, **immediately stop** that direction and pivot
-- Prefer writing code over repeated questions; after multiple requests, just implement with assumptions noted in comments
-
-## Workflow
-
-- Web search: before searching, determine the current real date — prefer system command (`date '+%Y-%m-%d'` / `Get-Date -Format 'yyyy-MM-dd'`), fall back to web time API if system clock may be inaccurate. Include the year (and month if relevant) in search queries. Never rely solely on model knowledge or system prompt for the date.
-- Non-trivial tasks (3+ steps): enter Plan Mode first; re-plan on deviation
-- Subagent strategy: one task per subagent, keep main context clean
-- Verify before marking done (run tests, check logs)
-- Fix bugs directly — don't ask for repeated confirmation
-
-## Version Changelog
-
-When making version-level changes to a project (new features, major refactors, architectural changes, breaking changes), maintain a `CHANGELOG.md` in the project root:
+ALWAYS use parallel Task execution for independent operations:
 
 ```markdown
-## [version] - YYYY-MM-DD
-### Features
-- What was changed
-### Design Rationale
-- Why it was done this way, what trade-offs were considered
-### Notes & Caveats
-- Edge cases, compatibility, migration concerns, etc.
+# GOOD: Parallel execution
+Launch 3 agents in parallel:
+1. Agent 1: Security analysis of auth module
+2. Agent 2: Performance review of cache system
+3. Agent 3: Type checking of utilities
+
+# BAD: Sequential when unnecessary
+First agent 1, then agent 2, then agent 3
 ```
 
-- Not every commit needs an entry — only update on **version-level changes**
-- Does not conflict with CLAUDE.md: CLAUDE.md manages instructions, CHANGELOG.md tracks evolution
-- Create the file proactively if it doesn't exist
+## Multi-Perspective Analysis
 
-## Code Review
-
-Whenever a code review is needed — whether explicitly requested by the user or triggered by a skill (e.g., `code-reviewer`, `simplify`) — always invoke the `adversarial-review` skill to perform it. If the adversarial-review skill is unavailable (e.g., `codex` CLI not installed), fall back to using the `code-reviewer` agent for the review. Never substitute the actual review call with a text-only description.
+For complex problems, use split role sub-agents:
+- Factual reviewer
+- Senior engineer
+- Security expert
+- Consistency reviewer
+- Redundancy checker
 
 ---
 > Source: [Mizoreww/awesome-claude-code-config](https://github.com/Mizoreww/awesome-claude-code-config) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
