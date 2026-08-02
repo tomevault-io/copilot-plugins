@@ -1,8 +1,6 @@
 # canopy
 
-> Source: [coralogix/canopy](https://github.com/coralogix/canopy) — distributed by [TomeVault](https://tomevault.io)
-
-Canopy - the open-source agent workspace runtime
+> Source: [coralogix/canopy](https://github.com/coralogix/canopy). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [coralogix/canopy](https://github.com/coralogix/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/coralogix/canopy](https://github.com/coralogix/canopy)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/coralogix/canopy](https://github.com/coralogix/canopy)
 
 ---
 
