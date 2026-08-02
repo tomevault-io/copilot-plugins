@@ -2,9 +2,9 @@
   "name": "fusion360-mcp-server",
   "owner": "faust-machines",
   "repo": "fusion360-mcp-server",
-  "description": "MCP Server for Autodesk Fusion 360",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/faust-machines/fusion360-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T19:55:42Z"
+  "distributed_at": "2026-08-02T19:51:53Z"
 }
