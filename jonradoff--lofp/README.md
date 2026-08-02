@@ -1,8 +1,6 @@
 # AI instruction files for lofp
 
-> Sourced from [jonradoff/lofp](https://github.com/jonradoff/lofp) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Legends of Future Past, the classic commercial MUD form the 1990's
+> Sourced from [jonradoff/lofp](https://github.com/jonradoff/lofp), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [jonradoff/lofp](https://github.com/jonradoff/lo
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [jonradoff/lofp](https://github.com/jonradoff/lofp) — a repo with 166+ stars on GitHub.
+From [jonradoff/lofp](https://github.com/jonradoff/lofp) — a repo with 174+ stars on GitHub.
 
 ---
 
