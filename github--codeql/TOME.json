@@ -4,7 +4,7 @@
   "repo": "codeql",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/github/codeql",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T17:00:06Z"
+  "distributed_at": "2026-08-02T04:22:35Z"
 }
