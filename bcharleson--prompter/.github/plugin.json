@@ -1,0 +1,9 @@
+{
+  "name": "bcharleson--prompter",
+  "displayName": "prompter",
+  "description": "Agent-native Elgato Prompter CLI \u2014 push/pull scripts via Camera Hub (PrompterKit)",
+  "version": "1.0.0",
+  "author": "bcharleson",
+  "homepage": "https://github.com/bcharleson/prompter",
+  "skills": []
+}
