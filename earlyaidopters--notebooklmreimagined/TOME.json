@@ -2,7 +2,7 @@
   "name": "notebooklmreimagined",
   "owner": "earlyaidopters",
   "repo": "notebooklmreimagined",
-  "description": "An open-source, API-first research intelligence platform - the open alternative to Google's NotebookLM",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/earlyaidopters/notebooklmreimagined",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T19:41:47Z"
+  "distributed_at": "2026-08-02T20:44:52Z"
 }
