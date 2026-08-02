@@ -1,0 +1,9 @@
+{
+  "name": "netobserv--flowlogs-pipeline",
+  "displayName": "flowlogs-pipeline",
+  "description": "flowlogs-pipeline",
+  "version": "1.0.0",
+  "author": "netobserv",
+  "homepage": "https://github.com/netobserv/flowlogs-pipeline",
+  "skills": []
+}
