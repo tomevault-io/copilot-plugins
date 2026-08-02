@@ -1,286 +1,416 @@
 ## litemaas
 
-> > **Note for AI Assistants**: This is the root context file providing project overview. For detailed implementation context:
+> > **Note for AI Assistants**: This is a frontend-specific context file for the LiteMaaS React application. For project overview, see root CLAUDE.md. For backend context, see backend/CLAUDE.md.
 
-# CLAUDE.md - LiteMaaS AI Context File
+# CLAUDE.md - LiteMaaS Frontend Context
 
-> **Note for AI Assistants**: This is the root context file providing project overview. For detailed implementation context:
->
-> - **Backend Context**: [`backend/CLAUDE.md`](backend/CLAUDE.md) - Fastify API implementation details
-> - **Frontend Context**: [`frontend/CLAUDE.md`](frontend/CLAUDE.md) - React/PatternFly 6 implementation details
-> - **Project Structure**: [`docs/architecture/project-structure.md`](docs/architecture/project-structure.md) - Complete directory structure
-> - **Changelog**: [`CHANGELOG.md`](CHANGELOG.md) - All notable changes per release (Keep a Changelog format)
-> - **Documentation**: See `docs/` for comprehensive guides
+> **Note for AI Assistants**: This is a frontend-specific context file for the LiteMaaS React application. For project overview, see root CLAUDE.md. For backend context, see backend/CLAUDE.md.
 
-## 🚀 Project Overview
+## 🎯 Frontend Overview
 
-**LiteMaaS** is a model subscription and management platform that bridges users and AI model services through LiteLLM integration.
+**@litemaas/frontend** - React 18 application with TypeScript, Vite, and PatternFly 6 component library.
 
-**Monorepo** with two packages:
+**Development Server**: Running on port 3000 with Vite HMR (Hot Module Replacement) and auto-refresh
 
-- **Backend** (`@litemaas/backend`): Fastify API server with PostgreSQL, OAuth2/OIDC/JWT, RBAC
-- **Frontend** (`@litemaas/frontend`): React + PatternFly 6 UI with 9-language i18n support
+## 🚨 CRITICAL FOR AI ASSISTANTS - Server and Logging
 
-**Tech Stack**: Fastify, React, TypeScript, PostgreSQL, PatternFly 6, LiteLLM integration
+**⚠️ The frontend dev server is already running!** Do not start new processes.
 
-## 📁 Project Structure
-
-See [`docs/architecture/project-structure.md`](docs/architecture/project-structure.md) for complete directory structure and file organization.
-
-## 🔧 Key Features
-
-**Role-Based Access Control (RBAC)**: Three-tier hierarchy `admin > adminReadonly > user` with OpenShift integration.
-
-**Model Capability Management**: Multi-type model support beyond chat-only models:
-
-- **Model Types**: Chat (default), Embeddings, Document Conversion — selected via radio group in admin model form
-- **Tokenize Capability**: Optional per-model toggle for tokenization support
-- **Document Conversion**: Docling provider integration with `/health` endpoint testing, hidden irrelevant fields (backend model name, TPM, costs, max tokens)
-- **Capability Labels**: Color-coded flair labels on model cards (Chat=blue, Embeddings=green, Tokenize=orangered, Document Conversion=orange)
-- **Type-Specific Curl Examples**: View Key modal shows contextual curl commands based on model type
-- **Chat Playground Filtering**: Only chat-capable models shown in playground
-- **Redis Cache Flush**: Optional Redis integration (`REDIS_HOST`/`REDIS_PORT`) to flush LiteLLM's cache after model CRUD, ensuring all proxy pods pick up changes immediately
-- **Deployment**: Redis deployment included in Helm (`redis.enabled: true`) and Kustomize charts
-
-**Restricted Model Subscription Approval** (Major feature - 2025 Q4): Admin-controlled access to sensitive/costly models with comprehensive approval workflow:
-
-- **Restricted Model Flagging**: Administrators mark models requiring approval
-- **Three-state workflow**: Pending → Active/Denied with request review capability
-- **Bulk Operations**: Approve/deny multiple requests with detailed result tracking
-- **Full Audit Trail**: Complete history in `subscription_status_history` table
-- **Granular RBAC**: Read/write/delete permissions (admin vs adminReadonly)
-- **Automatic Cascade**: Access revocation when models become restricted
-- **LiteLLM-first security**: API key updates prioritize access revocation
-
-**Admin Usage Analytics** (Major feature - 2025 Q3): Enterprise-grade analytics with comprehensive system-wide visibility:
-
-- **Day-by-day incremental caching** with intelligent TTL (permanent historical, 5-min current day)
-- **Multi-dimensional filtering**: users, models, providers, API keys with cascading filter dependencies
-- **Trend analysis** with automatic comparison period calculations
-- **Rich visualizations**: usage trends, model distribution, weekly heatmap (component ready, integration pending)
-- **Data export**: CSV/JSON with filter preservation
-- **Configurable cache TTL** via ConfigContext integration with React Query
-
-**Admin User Management** (Major feature - 2025 Q4): Consolidated admin interface for managing users through a modal-based workflow with tabbed views:
-
-- **Unified Management Modal**: Profile, Budget & Limits, API Keys, and Subscriptions tabs
-- **Role Management**: Admin/adminReadonly/user role toggles with conflict detection
-- **Budget & Rate Limits**: Max budget, budget duration, TPM, and RPM with real-time spend from LiteLLM, spend reset, and color-coded utilization progress bars
-- **API Key Lifecycle**: Create, view, edit quotas (including per-model limits and expiration), soft revoke, permanent delete, and spend reset
-- **Subscription Management**: Add/remove model subscriptions directly from user modal with automatic LiteLLM key sync
-- **Full Audit Trail**: All admin actions logged with metadata
-- **RBAC**: `users:read` (admin, adminReadonly) for viewing, `users:write` (admin only) for modifications
-
-**Admin Audit Log**: Full audit log viewer at `/admin/audit` with category/action filtering, human-readable labels, API access toggle, search, and date range filters. Requires `admin:audit` permission (admin + adminReadonly).
-
-**API Key Quota Management**: Comprehensive budget and rate limit management for API keys across user self-service and admin interfaces:
-
-- **Global quotas**: Max budget, budget duration, TPM, RPM, soft budget, max parallel requests on every key
-- **Per-model limits**: Per-model budget, TPM, and RPM configurable during key creation
-- **User self-service**: Quota fields in Create Key modal pre-filled with admin-configured defaults; backend enforces values ≤ admin maximums
-- **Admin editing**: Full quota editing on existing keys via User Management Modal, including per-model limits, expiration, plus soft revoke and permanent delete
-- **Expiration management**: Preset options (30/60/90/180/365 days), custom date picker, admin-configurable default and maximum expiration; LiteLLM sync on create and edit
-- **Spend tracking**: Real-time spend from LiteLLM with color-coded budget utilization progress bars and spend reset
-- **Admin Limits tab**: Three-section admin interface — New User Defaults, API Key Quota Defaults (side-by-side default/maximum grid with expiration), and Bulk User Limits
-- **Budget duration flexibility**: Supports predefined periods (`daily`, `weekly`, `monthly`, `yearly`) and custom LiteLLM durations (`30d`, `1mo`, `1h`)
-
-**Branding Customization**: Admin-controlled login page and header branding with per-element toggle switches:
-
-- **Login Page**: Custom logo, title (200 char max), and subtitle (500 char max)
-- **Header Brand**: Separate light and dark theme logos
-- **Image Constraints**: 2 MB max, JPEG/PNG/SVG/GIF/WebP formats
-- **Singleton Storage**: Single `branding_settings` database row with base64 image data
-- **Public Endpoints**: Settings metadata and image serving accessible without authentication
-- **BrandingContext**: React Context with React Query (5-min stale time, fallback defaults)
-- **RBAC**: `admin:banners:write` for modifications, public for reading
-
-**Database Backup & Restore**: Full backup and restore for both LiteMaaS and LiteLLM databases from Settings and Tools → Backup tab:
-
-- **Backup format**: Compressed `.sql.gz` (pure SQL, compatible with `psql` for manual restore)
-- **Test restore**: Non-destructive restore to temporary schema with data integrity validation
-- **Type-aware serialization**: Correct handling of PG arrays vs JSON arrays, mixed-case identifiers, timestamp precision
-- **CLI restore**: Standalone script for catastrophic recovery (`backend/src/scripts/restore-backup.ts`)
-- **RBAC**: `admin:backup` permission (admin only), tab visible to adminReadonly (read-only)
-- **Configuration**: `LITELLM_DATABASE_URL` for LiteLLM database access (also used by model sync cross-referencing), `BACKUP_STORAGE_PATH` for storage location
-
-**Configurable Currency**: Admin-controlled currency settings (25 supported currencies) for all monetary displays across the platform. Configured via Settings and Tools → Currency tab, stored in `system_settings` table, exposed via public config endpoint. Default: USD ($).
-
-**State Management**: React Context for auth/notifications/config/branding, React Query for server state with dynamic cache TTL from backend configuration.
-
-**Shared Chart Utilities**: Consistent formatting, accessibility, and styling across all chart components via shared utility modules.
-
-For detailed features, see:
-
-- [`backend/CLAUDE.md`](backend/CLAUDE.md) - API implementation, service layer, caching patterns
-- [`frontend/CLAUDE.md`](frontend/CLAUDE.md) - UI components, state management, PatternFly 6
-- [`docs/features/user-roles-administration.md`](docs/features/user-roles-administration.md) - Complete RBAC guide
-- [`docs/features/subscription-approval-workflow.md`](docs/features/subscription-approval-workflow.md) - Complete approval workflow guide
-- [`docs/features/users-management.md`](docs/features/users-management.md) - Admin user management guide
-- [`docs/features/branding-customization.md`](docs/features/branding-customization.md) - Branding customization guide
-- [`docs/archive/features/admin-usage-analytics-implementation-plan.md`](docs/archive/features/admin-usage-analytics-implementation-plan.md) - Comprehensive admin analytics implementation (2000 lines)
-- [`docs/development/chart-components-guide.md`](docs/development/chart-components-guide.md) - Chart component patterns and utilities
-- [`docs/development/pattern-reference.md`](docs/development/pattern-reference.md) - Authoritative code patterns and anti-patterns
-
-## 🚀 Quick Start
-
-**Development:**
+### Checking Frontend Status and Logs
 
 ```bash
-npm install        # Install dependencies
-npm run dev        # Start both backend and frontend with auto-reload and logging
+# DO NOT run npm run dev - server is already running!
+
+# Check recent frontend logs (last 100 lines):
+tail -n 100 ../logs/frontend.log
+
+# Watch frontend logs in real-time:
+tail -f ../logs/frontend.log
+
+# Check for compilation errors:
+grep -i "error\|failed" ../logs/frontend.log | tail -n 20
+
+# Check for warnings (React, deprecations):
+grep -i "warning" ../logs/frontend.log | tail -n 20
+
+# Check Vite HMR updates:
+grep "hmr" ../logs/frontend.log | tail -n 20
+
+# Verify server is responding:
+curl http://localhost:3000
 ```
 
-**Testing (First Time Setup):**
+### Server Information
 
-```bash
-# Create test database (required before running backend tests)
-psql -U pgadmin -h localhost -p 5432 -d postgres -c "CREATE DATABASE litemaas_test;"
-cd backend && npm run test:db:setup
-
-# Run tests
-npm test
-```
-
-**Production (Helm — Kubernetes or OpenShift):**
-
-```bash
-helm install litemaas deployment/helm/litemaas/ -n litemaas --create-namespace -f my-values.yaml
-```
-
-**Production (Kustomize — OpenShift):**
-
-```bash
-oc apply -k deployment/kustomize/  # Deploy to OpenShift with Kustomize
-```
-
-**Development (Container):**
-
-```bash
-docker compose up -d  # Local development with containers (using compose.yaml)
-```
-
-_See `docs/development/` for detailed setup, `docs/deployment/helm-deployment.md` for Helm deployment, and `docs/deployment/configuration.md` for environment variables_
-
-## 🚨 CRITICAL DEVELOPMENT NOTES
-
-### Development Server and Logging Setup
-
-**⚠️ IMPORTANT**: Development servers are already running with auto-reload. DO NOT start new processes!
-
-**Current Setup:**
-
-- Backend: Port 8081 (`tsx watch` + `pino-pretty`)
-- Frontend: Port 3000 (Vite HMR)
-- Logs: `logs/backend.log` and `logs/frontend.log`
-
-**Quick Commands:**
-
-```bash
-# Check logs
-tail -n 100 logs/backend.log
-tail -n 100 logs/frontend.log
-
-# Search for errors
-grep -i error logs/*.log | tail -n 20
-```
-
-**Key URLs:**
-
-- Backend API: `http://localhost:8081`
-- Frontend: `http://localhost:3000`
-- API Docs: `http://localhost:8081/docs`
-
-### Bash Tool Limitation
-
-**⚠️ CRITICAL**: stderr redirects are broken in the Bash tool - you can't use `2>&1` in bash commands. The Bash tool will mangle the stderr redirect and pass a "2" as an arg, and you won't see stderr.
-
-**Workaround**: Use `./dev-tools/run_with_stderr.sh command args` to capture both stdout and stderr.
-
-See <https://github.com/anthropics/claude-code/issues/4711> for details.
-
-## 🔐 Security & Authentication
-
-**OAuth2/OIDC + JWT** with role-based access control. Two authentication providers via `AUTH_PROVIDER` env var:
-
-- **OpenShift OAuth** (default): Uses OpenShift-specific endpoints with Kubernetes user API for group membership
-- **Standard OIDC**: Auto-discovery, PKCE (S256), nonce/audience validation. Supports Keycloak, Auth0, Okta, Azure AD, and any OIDC-compliant provider.
-
-Three-tier role hierarchy: `admin > adminReadonly > user`. Group-to-role mapping works identically for both providers.
-
-For details, see [`docs/deployment/authentication.md`](docs/deployment/authentication.md), [`docs/deployment/keycloak-oidc-setup.md`](docs/deployment/keycloak-oidc-setup.md), and [`docs/features/user-roles-administration.md`](docs/features/user-roles-administration.md).
-
-## 📚 Documentation
-
-**Complete guide index**: [`docs/README.md`](docs/README.md)
-
-**Key documentation**:
-
-- **Project Structure**: [`docs/architecture/project-structure.md`](docs/architecture/project-structure.md)
-- **Development Setup**: [`docs/development/setup.md`](docs/development/setup.md)
-- **API Reference**: [`docs/api/rest-api.md`](docs/api/rest-api.md)
-- **Authentication**: [`docs/deployment/authentication.md`](docs/deployment/authentication.md)
-- **RBAC Guide**: [`docs/features/user-roles-administration.md`](docs/features/user-roles-administration.md)
-
-## 🎯 For AI Assistants
-
-### ⚠️ Pattern Discovery Checklist (MANDATORY)
-
-**MANDATORY**: Before implementing ANY new feature, you MUST:
-
-1. **Search for existing implementations**:
-   - Use `find_symbol` to locate similar components/services
-   - Use `search_for_pattern` to find code patterns
-   - Check relevant memory files: `code_style_conventions`, `error_handling_architecture`
-
-2. **Follow established patterns**:
-   - **Backend**: ALWAYS extend `BaseService`, use `ApplicationError` factory methods
-   - **Frontend**: ALWAYS use `useErrorHandler` hook, follow PatternFly 6 prefix (`pf-v6-`)
-   - **Testing**: ALWAYS test error scenarios, use `./dev-tools/run_with_stderr.sh` for stderr
-
-3. **Verify against pattern reference**:
-   - See [`docs/development/pattern-reference.md`](docs/development/pattern-reference.md) for comprehensive patterns
-   - Check existing code in similar features before creating new patterns
-
-### Working on Specific Tasks
-
-When working on:
-
-- **Backend tasks** → Load `backend/CLAUDE.md` for Fastify/service details
-- **Frontend tasks** → Load `frontend/CLAUDE.md` for React/PatternFly details
-- **Role/Admin tasks** → Load `docs/features/user-roles-administration.md` for RBAC details
-- **Authentication tasks** → Load `docs/deployment/authentication.md` for OAuth/role setup
-- **Full-stack tasks** → Start with this file, then load specific contexts as needed
+- **Dev Server URL**: `http://localhost:3000`
+- **HMR**: Enabled - changes to components instantly reflect in browser
+- **Auto-refresh**: Browser automatically updates on file save
+- **Log Location**: `../logs/frontend.log` (relative to frontend directory)
+- **Build Output**: Check logs for TypeScript/ESLint errors
 
 ### Debugging Workflow
 
-1. **Check logs first**: `tail -n 100 logs/backend.log` or `logs/frontend.log`
-2. **Fix compilation errors**: Save file, auto-reload will recompile
-3. **Runtime errors**: Read stack trace from logs
-4. **Servers down**: Tell user to run `npm run dev:logged`
+1. **Make component changes** - Save the file
+2. **Check logs for compilation** - `tail -n 50 ../logs/frontend.log`
+3. **If TypeScript errors** - Fix types and save, Vite will recompile
+4. **If ESLint warnings** - Fix or add disable comment if intentional
+5. **Check browser** - HMR should auto-update, check browser console for runtime errors
+6. **If HMR fails** - Browser will show error overlay with details
 
-### Context7 Usage Guidelines
+### Common Frontend Log Patterns
 
-⚠️ **Important for AI tools using Context7**:
+```bash
+# Check for failed API calls:
+grep -i "axios\|fetch\|401\|403\|404\|500" ../logs/frontend.log | tail -n 20
 
-- ✅ **Use Context7 for**: Backend libraries (Fastify, PostgreSQL, LiteLLM), non-UI frontend libraries (React Query, Axios, Vite)
-- ❌ **Don't use Context7 for**: PatternFly 6 components (use `docs/development/pf6-guide/` + PatternFly.org instead)
+# Check for React errors:
+grep -i "react\|hook\|render\|component" ../logs/frontend.log | tail -n 20
 
-Context7 may contain outdated PatternFly versions. For all PatternFly 6 UI development, refer to the local PF6 guide and official PatternFly.org documentation.
+# Check for PatternFly issues:
+grep -i "patternfly\|pf-v6" ../logs/frontend.log | tail -n 20
 
-### Security Note for AI Assistants
+# Check for build/bundle issues:
+grep -i "vite\|rollup\|bundle\|chunk" ../logs/frontend.log | tail -n 20
+```
 
-⚠️ **Role-Based Development**: When implementing features that involve user roles or administrative functions:
+## 📁 Frontend Structure
 
-1. **Always implement backend validation first** - Frontend role checks are UX only
-2. **Use role hierarchy** - Check for most powerful role when multiple roles exist
-3. **Follow data access patterns** - Users see own data, admins see all data
-4. **Test with different roles** - Verify access control with user, adminReadonly, and admin accounts
-5. **Document role requirements** - Clearly specify which roles can access new endpoints/features
+See [`docs/architecture/project-structure.md`](../docs/architecture/project-structure.md) for complete frontend directory structure.
 
----
+## 🎨 PatternFly 6 Critical Requirements
 
-_This is an AI context file optimized for development assistance. For comprehensive documentation, see the `docs/` directory._
+⚠️ **MANDATORY**: Follow the [PatternFly 6 Development Guide](../docs/development/pf6-guide/README.md) as the **AUTHORITATIVE SOURCE** for all UI development.
+
+### Essential Rules
+
+1. **Class Prefix**: ALL PatternFly classes MUST use `pf-v6-` prefix
+2. **Design Tokens**: Use semantic tokens only, never hardcode colors
+3. **Component Import**: Import from `@patternfly/react-core` v6 and other @patternfly libraries
+4. **Theme Testing**: Test in both light and dark themes
+5. **Table Patterns**: Follow guide's table implementation (current code may be outdated)
+
+### Common Mistakes and Token Usage
+
+**Critical rules** - See [`docs/development/pf6-guide/guidelines/styling-standards.md`](../docs/development/pf6-guide/guidelines/styling-standards.md) for complete guide:
+
+- ✅ ALWAYS use `pf-v6-` prefix for component classes
+- ✅ ALWAYS use `--pf-t--` prefix for design tokens (semantic tokens with `-t-`)
+- ✅ Choose tokens by meaning (e.g., `--pf-t--global--color--brand--default`), not appearance
+- ❌ NEVER hardcode colors or measurements
+- ❌ NEVER use legacy `--pf-v6-global--` tokens or numbered base tokens
+
+## 🗃️ State Management
+
+**React Context**:
+
+- **AuthContext** - Authentication state (user, roles, isAuthenticated)
+- **NotificationContext** - App-wide notification system
+- **BrandingContext** - Branding settings from `/api/v1/branding` endpoint (5-min stale time, fallback to defaults)
+- **ConfigContext** - Application configuration from `/api/v1/config` endpoint
+  - **Base Config**: `usageCacheTtlMinutes`, `version`, `environment`
+  - **Admin Analytics Config**: All UI-relevant admin analytics settings (pagination, limits, thresholds)
+  - Integrates with React Query `staleTime`: `config.usageCacheTtlMinutes * 60 * 1000`
+  - Pattern: Dynamic cache TTL eliminates hardcoded values in query hooks
+
+**React Query**: Server state management with dynamic stale time from ConfigContext, 10min cache time, 3 retries
+
+### Admin Analytics Configuration
+
+**Hook**: `useAdminAnalyticsConfig()` provides pagination limits, date range limits, trend thresholds, and export limits from backend.
+
+**Integration**: Dynamic configuration eliminates hardcoded values, integrates with React Query `staleTime` via ConfigContext.
+
+**Admin Component Structure**:
+
+- `components/admin/` - Admin-specific UI components
+  - `MetricsOverview.tsx` - Shared usage analytics dashboard with trend indicators and auth-aware admin sections
+  - `TopUsersTable.tsx` - Admin-only user usage breakdown table rendered by `MetricsOverview`
+  - `UserFilterSelect.tsx` - Multi-select user filter with search
+  - `ApiKeyFilterSelect.tsx` - Cascading API key filter (depends on selected users)
+  - `ProviderBreakdownTable.tsx` - Provider metrics (component ready, integration pending)
+- `components/admin/` - Admin user management components
+  - `UserProfileTab.tsx` - User profile display with role toggles
+  - `UserBudgetLimitsTab.tsx` - Budget and rate limit configuration with utilization tracking
+  - `UserApiKeysTab.tsx` - API key lifecycle management (create, view, revoke, archive/unarchive)
+  - `UserSubscriptionsTab.tsx` - Read-only subscription list with status display
+- `components/admin/` - Admin settings & tools components
+  - `UsageDataSyncTab.tsx` - Usage data re-import tool for selected date ranges
+- `components/StarRating.tsx` - Reusable 1–5 star rating with PatternFly icons, tooltip, and ARIA (used on model cards for popularity)
+- `components/charts/` - Shared chart components
+  - `UsageTrends.tsx`, `ModelDistributionChart.tsx`, `ModelUsageTrends.tsx`
+  - `UsageHeatmap.tsx` - Weekly heatmap (component ready, integration pending)
+  - `AccessibleChart.tsx` - Accessibility wrapper for Victory charts
+
+## 🔌 API Service Layer
+
+**Axios Configuration**: Base client with JWT token interceptors and 401 error handling.
+
+**Service Pattern**: Consistent service structure for all API endpoints:
+
+- `auth.service.ts` - Authentication (OAuth, profile)
+- `models.service.ts` - Model catalog (includes `supportsChat`, `supportsEmbeddings`, `supportsTokenize`, `supportsConvert` capability flags)
+- `subscriptions.service.ts` - User subscriptions (includes request-review endpoint)
+- `adminSubscriptions.service.ts` - **Admin subscription approval** (approval requests, bulk operations, stats)
+- `apiKeys.service.ts` - API key management
+- `usage.service.ts` - **User usage analytics** (individual user data)
+- `adminUsage.service.ts` - **Admin usage analytics** (system-wide data, all endpoints)
+- `users.service.ts` - **Admin user management** (user details, budget/limits, API keys, subscriptions)
+- `branding.service.ts` - **Branding customization** (settings, image upload/delete)
+- `chat.service.ts` - Chatbot integration
+- `config.service.ts` - Application configuration and API key quota defaults
+- `admin.service.ts` - Admin operations (API key quota defaults CRUD, bulk user limits, system stats)
+- `backup.service.ts` - **Database backup & restore** (capabilities, create, list, download, delete, restore, test-restore)
+
+## 🌍 Routing Structure
+
+**Main Routes**: `/home`, `/models`, `/subscriptions`, `/api-keys`, `/usage`, `/admin/*`
+
+**Admin Routes** (admin/adminReadonly roles required):
+
+- `/admin/usage` - **Usage Analytics (AdminUsagePage.tsx)** - Major feature with comprehensive system-wide analytics:
+  - Global metrics with trend analysis
+  - Multi-dimensional filtering (users, models, providers, API keys)
+  - Day-by-day incremental caching (5-min TTL for current day)
+  - Data export (CSV/JSON)
+  - ConfigContext integration for dynamic cache TTL
+- `/admin/models` - **Model Management (AdminModelsPage.tsx)** - Model CRUD with type selection (Chat/Embeddings/Document Conversion), Tokenize capability, configuration testing, and adaptive form fields
+- `/admin/subscriptions` - **Subscription Management (AdminSubscriptionsPage.tsx)** - Approve/deny restricted model access:
+  - Multi-dimensional filtering (status, model, user, date range)
+  - Bulk approve/deny operations with result modals
+  - Granular RBAC (admin vs adminReadonly)
+  - Manual refresh only (no polling)
+  - Full audit trail display
+- `/admin/users` - **Users Management (UsersPage.tsx)** - Consolidated modal-based interface:
+  - Tabbed management: Profile, Budget & Limits, API Keys, Subscriptions
+  - Role management with admin/adminReadonly/user toggles
+  - Budget and rate limit configuration with progress indicators
+  - API key creation with auto-subscription and revocation
+  - RBAC: admin (full access) vs adminReadonly (view only)
+- `/admin/tools` - **Settings and Tools (ToolsPage.tsx)** - Tabs: Limits, Banners, Branding, Currency, Backup, Usage Data Sync, Models Sync
+  - Limits tab: Bulk User Limits (max budget, TPM, RPM for all users) and API Key Quota Defaults (admin-configurable defaults and maximums)
+  - Backup tab: Create/restore/test-restore/download/delete database backups for LiteMaaS and LiteLLM (admin only, visible read-only for adminReadonly)
+
+**Protection**: `ProtectedRoute` for auth, `RoleProtectedRoute` for admin routes with required roles
+
+## 🌐 Internationalization (i18n)
+
+**Languages**: EN, ES, FR, DE, IT, JA, KO, ZH, ELV (9 languages)
+
+**Usage**: `useTranslation()` hook with `t('key')` function
+
+**Translation Check**: `npm run check:translations` - check for missing keys and duplicates
+
+For details, see [`docs/development/translation-management.md`](../docs/development/translation-management.md).
+
+## 🎯 Component Patterns
+
+**Page Structure**: Standard hooks pattern with React Query, local state, and handlers
+
+**Form Handling**: Validation, error state, submit handling
+
+**Modal Patterns**: Used in AdminModelsPage for model configuration testing with async validation
+
+For implementation examples, see [`docs/development/pf6-guide/`](../docs/development/pf6-guide/).
+
+## 📊 Chart Component Development
+
+**Shared Utilities**: Use `chartFormatters.ts`, `chartConstants.ts`, and `chartAccessibility.ts` for consistent formatting, styling, and ARIA support across all charts.
+
+See [`docs/development/chart-components-guide.md`](../docs/development/chart-components-guide.md) for complete patterns and API reference.
+
+## ⚠️ Component Development Checklist - MUST FOLLOW
+
+**All patterns and code examples**: See [`docs/development/pattern-reference.md`](../docs/development/pattern-reference.md) for authoritative implementation patterns.
+
+### Before Creating ANY Component
+
+1. **Search for similar components first** - Use `find_symbol` and `search_for_pattern`
+2. **Follow PatternFly 6 requirements** - ALWAYS use `pf-v6-` prefix, semantic tokens, v6 imports
+3. **Use established patterns** - Check pattern-reference.md first
+
+**Critical Rules**:
+
+1. **Error Handling**: MUST use `useErrorHandler` hook - never console.error or alert()
+2. **Data Fetching**: MUST use React Query - never manual fetch/useState
+3. **Internationalization**: MUST use `t()` function - never hardcode text
+4. **Accessibility**: MUST include ARIA labels and live regions
+5. **Forms**: MUST validate with `FieldErrors` component and handleValidationError
+6. **Cascading Filters**: Follow ApiKeyFilterSelect pattern (filter options based on other selections)
+
+**Pattern Examples Available**:
+
+- Component structure with React Query and error handling
+- Form validation with server-side error display
+- Cascading filter pattern (dependent filters)
+- ConfigContext integration with React Query staleTime
+- Admin-only components with role checks
+- Accessibility patterns with ARIA and screen reader announcements
+
+## 🚀 Development Commands
+
+```bash
+# ⚠️ FOR AI ASSISTANTS: These commands are for human developers
+# The dev server is already running - just read the logs!
+
+# Development server with HMR (ALREADY RUNNING)
+npm run dev:logged      # With logging to ../logs/frontend.log
+npm run dev             # Without logging
+
+# Check logs (USE THESE INSTEAD OF STARTING SERVERS)
+npm run logs            # View frontend logs
+npm run logs:clear      # Clear log file
+
+# Building
+npm run build          # Production build
+npm run preview        # Preview production build
+
+# Testing
+npm run test           # Run all tests
+npm run test:unit      # Unit tests only
+npm run test:e2e       # Playwright E2E tests
+npm run test:e2e:ui    # Playwright UI mode
+npm run test:coverage  # Coverage report
+
+# Code quality
+npm run lint           # ESLint check
+npm run lint:fix       # Auto-fix issues
+
+# Cleanup
+npm run clean          # Remove build artifacts
+
+# Internationalization (i18n)
+npm run check:translations  # Check all locale files for missing keys
+```
+
+## 🧪 Testing
+
+**Framework**: Vitest with React Testing Library and centralized test utilities in `src/test/test-utils.tsx`.
+
+**Key Patterns**:
+
+- **Auth Testing**: Use `renderWithAuth()` helper with `mockUser`, `mockAdminUser`, `mockAdminReadonlyUser`
+- **ConfigContext**: Mock entire context (not just service) to avoid loading state
+- **PatternFly 6**: Modals/dropdowns work in JSDOM; modals use `role="dialog"`, dropdowns use `role="menuitem"`
+- **Debugging**: Use `screen.debug()` to inspect DOM, `npm test -- File.test.tsx` for specific files
+
+**Test Guides**:
+
+- [`docs/development/pf6-guide/testing-patterns/modals.md`](../docs/development/pf6-guide/testing-patterns/modals.md) - Modal testing patterns
+- [`docs/development/pf6-guide/testing-patterns/dropdowns-pagination.md`](../docs/development/pf6-guide/testing-patterns/dropdowns-pagination.md) - Dropdown/pagination patterns
+- [`docs/development/pf6-guide/testing-patterns/context-dependent-components.md`](../docs/development/pf6-guide/testing-patterns/context-dependent-components.md) - Context-dependent components
+- [`docs/development/pf6-guide/testing-patterns/switch-components.md`](../docs/development/pf6-guide/testing-patterns/switch-components.md) - Switch component patterns
+
+**Coverage**: 98.5% passing (975/990 tests, 15 skipped). See [`docs/archive/implementation-plans/test-improvement-plan.md`](../docs/archive/implementation-plans/test-improvement-plan.md) for known limitations.
+
+## 🎨 Styling Guidelines
+
+Use PatternFly 6 design tokens, avoid hardcoded values. Support dark theme with `[data-theme='dark']` overrides.
+
+## 🔧 Key Implementation Notes
+
+**Authentication Flow**: OAuth/OIDC provider → JWT token → localStorage → Auth context
+- Frontend initiates login via `POST /api/auth/login` → receives `authUrl` → redirects to provider
+- After authentication, backend redirects to `/auth/callback#token=<jwt>&expires_in=<seconds>`
+- `AuthCallbackPage.tsx` extracts token from URL hash, stores in localStorage, redirects to dashboard
+- `AuthContext` manages auth state (user, roles, isAuthenticated) with token validation via `/api/v1/auth/me`
+- Supports both OpenShift OAuth and standard OIDC providers (configured server-side via `AUTH_PROVIDER`)
+
+**Error Boundaries**: Global `<ErrorBoundary>` and component-level `<ComponentErrorBoundary>`
+
+**Data Fetching**: React Query with pagination, prefetching, and optimistic updates
+
+**Accessibility**: ARIA live regions with `ScreenReaderAnnouncement` component
+
+For detailed patterns, see [`docs/development/accessibility/`](../docs/development/accessibility/).
+
+## 🔗 Environment Variables
+
+The frontend has no build-time `VITE_*` configuration of its own. At runtime, the container is configured via `BACKEND_URL` (used to proxy `/api` requests). Auth-mode signaling — including whether mock auth is enabled — comes from the backend's public `GET /api/v1/config` endpoint (`authMode: 'oauth' | 'mock'`), consumed by `LoginPage.tsx`. To toggle mock auth, set `OAUTH_MOCK_ENABLED` on the **backend**, not the frontend.
+
+See [`docs/deployment/containers.md`](../docs/deployment/containers.md) for container configuration and [`docs/deployment/configuration.md`](../docs/deployment/configuration.md) for backend environment variables.
+
+## 🚨 Error Handling Architecture
+
+**useErrorHandler Hook**: Specialized handlers (`handleError`, `handleValidationError`, `withErrorHandler`) with automatic notifications and retry logic.
+
+**Key Features**: PatternFly 6 integration, error boundaries, React Query integration, i18n support.
+
+For details, see [`docs/development/error-handling.md`](../docs/development/error-handling.md).
+
+## 🛠️ Troubleshooting for AI Assistants
+
+### Common Frontend Issues and How to Check
+
+1. **"Page not loading/blank screen"**
+
+   ```bash
+   # Check for React errors
+   grep -i "error\|uncaught\|exception" ../logs/frontend.log | tail -n 20
+   # Also check browser console for client-side errors
+   ```
+
+2. **"Component not updating"**
+
+   ```bash
+   # Check HMR status
+   grep -i "hmr\|update\|reload" ../logs/frontend.log | tail -n 20
+   ```
+
+3. **"API calls failing"**
+
+   ```bash
+   # Check for network errors
+   grep -i "401\|403\|404\|500\|axios\|network" ../logs/frontend.log | tail -n 20
+   ```
+
+4. **"TypeScript errors"**
+
+   ```bash
+   # Check compilation errors
+   grep -i "typescript\|ts\|type error" ../logs/frontend.log | tail -n 30
+   ```
+
+5. **"Styling issues"**
+
+   ```bash
+   # Check for CSS/PatternFly warnings
+   grep -i "css\|style\|patternfly\|pf-" ../logs/frontend.log | tail -n 20
+   ```
+
+6. **"Build/Bundle errors"**
+
+   ```bash
+   # Check Vite bundling issues
+   grep -i "vite\|rollup\|module\|import" ../logs/frontend.log | tail -n 30
+   ```
+
+### Browser Console Integration
+
+Remember that frontend errors may also appear in the browser console. For runtime errors:
+
+1. Check `../logs/frontend.log` for build/compile issues
+2. Check browser DevTools Console for runtime JavaScript errors
+3. Check Network tab for failed API requests
+
+### Remember
+
+- **DO NOT** start new dev server processes
+- **DO NOT** run `npm run dev` (it's already running)
+- **DO** read the logs to understand compilation/build issues
+- **DO** check browser console for runtime errors
+- **DO** let HMR handle component updates automatically
+- **DO** tell the user if they need to manually restart for config changes
+
+## 📚 Related Documentation
+
+- Root [`CLAUDE.md`](../CLAUDE.md) - Project overview
+- Backend [`CLAUDE.md`](../backend/CLAUDE.md) - Backend context
+- [`docs/development/pf6-guide/`](../docs/development/pf6-guide/) - **PatternFly 6 Guide (AUTHORITATIVE)**
+- [`docs/development/accessibility/`](../docs/development/accessibility/) - **Accessibility Guide (WCAG 2.1 AA)**
+- [`docs/development/error-handling.md`](../docs/development/error-handling.md) - Error handling best practices
+- [`docs/development/`](../docs/development/) - Development setup
+- [`docs/architecture/`](../docs/architecture/) - System design
 
 ---
 > Source: [rh-aiservices-bu/litemaas](https://github.com/rh-aiservices-bu/litemaas) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
