@@ -2,9 +2,9 @@
   "name": "mcp-openapi-server",
   "owner": "ivo-toby",
   "repo": "mcp-openapi-server",
-  "description": "MCP Server (Model Context Protocol) for turning OpenAPI specifications into a MCP Resource",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ivo-toby/mcp-openapi-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T07:12:58Z"
+  "distributed_at": "2026-08-02T13:16:56Z"
 }
