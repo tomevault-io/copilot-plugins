@@ -1,0 +1,9 @@
+{
+  "name": "doist--todoist-sdk-typescript",
+  "displayName": "todoist-sdk-typescript",
+  "description": "todoist-sdk-typescript",
+  "version": "1.0.0",
+  "author": "Doist",
+  "homepage": "https://github.com/Doist/todoist-sdk-typescript",
+  "skills": []
+}
