@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cincinnati-graph-data",
+  "displayName": "cincinnati-graph-data",
+  "description": "cincinnati-graph-data",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cincinnati-graph-data",
+  "skills": []
+}
