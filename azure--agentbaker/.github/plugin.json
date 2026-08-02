@@ -1,0 +1,9 @@
+{
+  "name": "azure--agentbaker",
+  "displayName": "AgentBaker",
+  "description": "AgentBaker",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/AgentBaker",
+  "skills": []
+}
