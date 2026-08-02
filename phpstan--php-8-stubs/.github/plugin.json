@@ -1,0 +1,9 @@
+{
+  "name": "phpstan--php-8-stubs",
+  "displayName": "php-8-stubs",
+  "description": "php-8-stubs",
+  "version": "1.0.0",
+  "author": "phpstan",
+  "homepage": "https://github.com/phpstan/php-8-stubs",
+  "skills": []
+}
