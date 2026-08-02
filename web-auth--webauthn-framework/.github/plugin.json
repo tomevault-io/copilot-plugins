@@ -1,0 +1,9 @@
+{
+  "name": "web-auth--webauthn-framework",
+  "displayName": "webauthn-framework",
+  "description": "webauthn-framework",
+  "version": "1.0.0",
+  "author": "web-auth",
+  "homepage": "https://github.com/web-auth/webauthn-framework",
+  "skills": []
+}
