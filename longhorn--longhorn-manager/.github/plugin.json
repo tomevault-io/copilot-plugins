@@ -1,0 +1,9 @@
+{
+  "name": "longhorn--longhorn-manager",
+  "displayName": "longhorn-manager",
+  "description": "longhorn-manager",
+  "version": "1.0.0",
+  "author": "longhorn",
+  "homepage": "https://github.com/longhorn/longhorn-manager",
+  "skills": []
+}
