@@ -1,0 +1,9 @@
+{
+  "name": "livekit--client-sdk-swift",
+  "displayName": "client-sdk-swift",
+  "description": "client-sdk-swift",
+  "version": "1.0.0",
+  "author": "livekit",
+  "homepage": "https://github.com/livekit/client-sdk-swift",
+  "skills": []
+}
