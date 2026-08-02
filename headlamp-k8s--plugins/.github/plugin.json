@@ -1,0 +1,9 @@
+{
+  "name": "headlamp-k8s--plugins",
+  "displayName": "plugins",
+  "description": "plugins",
+  "version": "1.0.0",
+  "author": "headlamp-k8s",
+  "homepage": "https://github.com/headlamp-k8s/plugins",
+  "skills": []
+}
