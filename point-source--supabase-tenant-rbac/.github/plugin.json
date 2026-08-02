@@ -1,0 +1,9 @@
+{
+  "name": "point-source--supabase-tenant-rbac",
+  "displayName": "supabase-tenant-rbac",
+  "description": "supabase-tenant-rbac",
+  "version": "1.0.0",
+  "author": "point-source",
+  "homepage": "https://github.com/point-source/supabase-tenant-rbac",
+  "skills": []
+}
