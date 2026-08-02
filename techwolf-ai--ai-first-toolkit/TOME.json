@@ -2,9 +2,9 @@
   "name": "ai-first-toolkit",
   "owner": "techwolf-ai",
   "repo": "ai-first-toolkit",
-  "description": "Open-source Claude Code skills and Codex skills for AI-first work. Audit, re-engineer, and bootstrap projects with AI-first design principles.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/techwolf-ai/ai-first-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T12:52:51Z"
+  "distributed_at": "2026-08-02T08:51:49Z"
 }
