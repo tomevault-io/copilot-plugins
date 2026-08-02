@@ -2,7 +2,7 @@
   "name": "myclaw.net",
   "owner": "linkerlin",
   "repo": "myclaw.net",
-  "description": "\u57fa\u4e8eC#\u7684OpenClaw\u7684\u590d\u523b\uff01",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/linkerlin/myclaw.net",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T21:55:44Z"
+  "distributed_at": "2026-08-02T01:11:45Z"
 }
