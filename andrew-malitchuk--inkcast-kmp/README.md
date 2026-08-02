@@ -1,8 +1,6 @@
 # inkcast-kmp
 
-> Tome by [andrew-malitchuk](https://github.com/andrew-malitchuk/inkcast-kmp) — distributed by [TomeVault](https://tomevault.io)
-
-Open-source Kotlin Multiplatform companion app for CrossPoint Reader
+> Tome by [andrew-malitchuk](https://github.com/andrew-malitchuk/inkcast-kmp), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [andrew-malitchuk/inkcast-kmp](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/andrew-malitchuk/inkcast-kmp](https://github.com/andrew-malitchuk/inkcast-kmp)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/andrew-malitchuk/inkcast-kmp](https://github.com/andrew-malitchuk/inkcast-kmp)
 
 ---
 
