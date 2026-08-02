@@ -1,0 +1,9 @@
+{
+  "name": "openshift--machine-api-operator",
+  "displayName": "machine-api-operator",
+  "description": "machine-api-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/machine-api-operator",
+  "skills": []
+}
