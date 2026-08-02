@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-sigs--headlamp",
+  "displayName": "headlamp",
+  "description": "headlamp",
+  "version": "1.0.0",
+  "author": "kubernetes-sigs",
+  "homepage": "https://github.com/kubernetes-sigs/headlamp",
+  "skills": []
+}
