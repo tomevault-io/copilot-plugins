@@ -1,0 +1,102 @@
+## fence
+
+> Many popular coding agents already include sandboxing. Fence can still be useful when you want a tool-agnostic policy layer that works the same way across:
+
+# Using Fence with AI Agents
+
+Many popular coding agents already include sandboxing. Fence can still be useful when you want a tool-agnostic policy layer that works the same way across:
+
+- local developer machines
+- CI jobs
+- custom/internal agents or automation scripts
+- different agent products (as defense-in-depth)
+
+## Recommended approach
+
+Treat an agent as "semi-trusted automation":
+
+- Restrict writes to the workspace (and maybe `/tmp`)
+- Allowlist only the network destinations you actually need
+- Use `-m` (monitor mode) to audit blocked attempts and tighten policy
+
+Fence can also reduce the risk of running agents with fewer interactive permission prompts (e.g. "skip permissions"), as long as your Fence config tightly scopes writes and outbound destinations. It's defense-in-depth, not a substitute for the agent's own safeguards.
+
+> [!NOTE]
+> **Command policy and child processes.** When you wrap a long-running agent (`fence -t code -- claude`), Fence's `command.deny` rules catch the literal command Fence is told to run, plus — at runtime — single-token denies (e.g. `sudo`) on any descendant process. Multi-token rules like `gh repo create`, `git push`, or `npm publish` are only enforced at runtime when:
+>
+> - you're on Linux with `command.runtimeExecPolicy: "argv"` (opt-in), or
+> - you've installed an agent hook (see [Agent Hooks](hooks.md)) that re-pipes each shell tool call through `fence -c`.
+>
+> On macOS in the default mode, multi-token denies apply to commands you type directly to `fence` but not to commands an agent spawns as a child process. This is a property of macOS Seatbelt's exec model, not a config bug - see [Enforcement Across Child Processes](configuration.md#enforcement-across-child-processes) for the full matrix and recommended workarounds.
+
+## Example: API-only agent
+
+```json
+{
+  "network": {
+    "allowedDomains": ["api.openai.com", "api.anthropic.com"]
+  },
+  "filesystem": {
+    "allowWrite": ["."]
+  }
+}
+```
+
+Run:
+
+```bash
+fence --settings ./fence.json <agent-command>
+```
+
+## Popular CLI coding agents
+
+We provide these templates for guardrailing CLI coding agents:
+
+- [`code`](/internal/templates/code.json) - Strict deny-by-default network filtering via proxy. Works with agents that respect `HTTP_PROXY`. Blocks cloud metadata APIs, protects secrets, restricts dangerous commands.
+- [`code-relaxed`](/internal/templates/code-relaxed.json) - Allows direct network connections for agents that ignore `HTTP_PROXY`. Same filesystem/command protections as `code`, but `deniedDomains` only enforced for proxy-respecting apps.
+
+You can use it like `fence -t code -- claude`.
+
+| Agent | Works with template | Notes |
+|-------|--------| ----- |
+| Claude Code | `code` | - |
+| Codex | `code` | Wrap: CLI only (`fence -- codex`). Hooks: app + CLI (see below). |
+| Gemini CLI | `code` | - |
+| OpenCode | `code` | - |
+| Amp | `code` | - |
+| Droid | `code` | - |
+| Pi | `code` | - |
+| Crush | `code` | - |
+| GitHub Copilot | `code` | - |
+| Cursor Agent | `code-relaxed` | Node.js/undici doesn't respect HTTP_PROXY |
+
+These configs can drift as agents evolve. If you encounter false positives on blocked requests or want a CLI agent listed, please open an issue or PR.
+
+Note: On Linux, if OpenCode or Gemini CLI is installed via Linuxbrew, Landlock can block the Linuxbrew node binary unless you widen filesystem access. Installing OpenCode/Gemini under your home directory (e.g., via nvm or npm prefix) avoids this without relaxing the template.
+
+## Hooks
+
+Hook-based wrapping uses the agent/editor's own hook system to inspect tool
+calls before they run. For Claude Code, Cursor, and OpenCode, Fence can rewrite
+allowed shell commands to `fence -c ...`, so the command runs inside the
+sandbox. Codex defaults to intent-only command denies (optional `--wrap` for
+rewrite when Codex's sandbox is disabled). Hermes and Windsurf have broader but
+intent-only hook surfaces for checking declared tool inputs before they run.
+
+See [Agent Hooks](hooks.md) for install commands, pinning options, limitations,
+and a capability matrix that shows which integrations provide runtime
+network/filesystem enforcement for allowed shell commands.
+
+## Protecting your environment
+
+Fence includes additional "dangerous file protection" (writes blocked regardless of config) to reduce persistence and environment-tampering vectors like:
+
+- `.git/hooks/*`
+- shell startup files (`.zshrc`, `.bashrc`, etc.)
+- some editor/tool config directories
+
+See [`ARCHITECTURE.md`](/ARCHITECTURE.md) for the full list and rationale.
+
+---
+> Source: [fencesandbox/fence](https://github.com/fencesandbox/fence) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
