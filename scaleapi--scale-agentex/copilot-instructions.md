@@ -1,353 +1,229 @@
 ## scale-agentex
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Agents are the core building blocks of Agentex applications. Understanding what agents are and how they work is essential for building effective AI systems.
 
-# CLAUDE.md
+# Agent Concepts
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Agents are the core building blocks of Agentex applications. Understanding what agents are and how they work is essential for building effective AI systems.
 
-## Repository Overview
+## What is an Agent?
 
-Agentex is a comprehensive platform for building and deploying intelligent agents. This repository contains:
+In Agentex, think of **an Agent as just code** - specifically, it is just Python code that adheres to the Agent-to-Client Protocol (ACP). This allows clients to speak to any agent the same way regardless of the agent's complexity. This allows agent developers full unopinionated control over which libraries they use, which models they use, and how they implement their business logic.
 
-- **agentex/** - Backend services (FastAPI + Temporal workflows)
-- **agentex-ui/** - Developer UI for interacting with agents
+An agent defines:
 
-The platform integrates with the separate [agentex-python SDK](https://github.com/scaleapi/scale-agentex-python) for creating and running agents.
+- **Handler functions** that respond to events (messages, task creation, etc.)
+- **Business logic** for processing user requests
+- **State management** for maintaining context across interactions
+- **Integration code** for calling external services, APIs, or models
 
-## Development Environment Setup
+Think of an agent like a **web server endpoint** - it receives requests, processes them using your code, and returns responses. The difference is that agents are designed specifically for conversational AI and can maintain state across multiple interactions.
 
-### Prerequisites
+!!! note "Agents Are Not LLMs"
+    An agent is **your application code**, not an LLM. While agents often call LLMs (like OpenAI's API), the agent itself is the Python code you write to orchestrate the conversation, manage state, and implement your business logic.
 
-- Python 3.12+ (required for agentex-sdk)
-- Docker and Docker Compose
-- Node.js (for frontend)
-- uv (Python package manager)
+## Agent Relationships
 
-### Quick Start (Recommended)
+!!! info "For Detailed Implementation"
+    This section explains the architectural relationships between agents and other Agentex entities. For specific implementation patterns, refer to the [Agent Client Protocol guides](../agent_types/overview.md).
 
-One command does everything (auto-installs prerequisites if missing):
+### Agent ↔ Tasks (Many-to-Many)
 
-```bash
-./dev.sh                    # Installs deps + starts backend + frontend
+**A single agent can handle multiple tasks simultaneously, and a single task can involve multiple agents.**
+
+#### Single Agent, Multiple Tasks
+
+Your agent code runs independently for each task:
+
+```python
+@acp.on_message_send
+async def handle_message_send(params: SendMessageParams):
+    # This same function handles messages from many different tasks
+    task_id = params.task.id  # Different for each conversation
+    
+    # Each task gets independent processing
+    response = await process_for_task(task_id, params.content)
+    return response
 ```
 
-> Make sure Docker Desktop or Rancher Desktop is running first.
+#### Multiple Agents, Single Task
 
-Other commands:
-```bash
-./dev.sh stop               # Stop all services
-./dev.sh status             # Check service status
-./dev.sh logs               # View all logs
-./dev.sh restart            # Restart all services
+Different agents can contribute to the same conversation:
+
+```python
+# Task "task_123" message history might include:
+messages = [
+    {"author": "USER", "content": "Analyze this data and create a report"},
+    {"author": "AGENT", "content": "Starting analysis...", "agent_id": "data-analyst"},
+    {"author": "AGENT", "content": "Analysis complete", "agent_id": "data-analyst"},
+    {"author": "AGENT", "content": "Generating report...", "agent_id": "report-generator"},
+    {"author": "AGENT", "content": "Report ready!", "agent_id": "report-generator"}
+]
 ```
 
-**Then in a separate terminal - Agent Development:**
-```bash
-agentex init                # Create a new agent
-cd your-agent-name/
-uv venv && source .venv/bin/activate && uv sync
-agentex agents run --manifest manifest.yaml
+This enables **multi-agent workflows** where specialized agents collaborate on complex tasks.
+
+### Agent ↔ State (One-to-One per Task)
+
+**Each agent maintains its own isolated state for each task it's working on.**
+
+#### Key Characteristics:
+
+- **Scoped Storage**: State is isolated by `(task_id, agent_id)` pairs
+- **Independent Operation**: Agents don't interfere with each other's state
+- **Simple Management**: Each agent only needs to understand its own state
+- **Parallel Safety**: Multiple agents can work simultaneously without conflicts
+
+#### State Isolation Example:
+
+```python
+# Same task, different agents, separate states:
+
+# Customer Support Agent state
+support_state = {
+    "customer_tier": "premium",
+    "issue_category": "billing",
+    "escalation_level": 1
+}
+
+# Technical Agent state  
+tech_state = {
+    "diagnostic_stage": "network_check",
+    "test_results": ["ping_ok", "dns_ok"],
+    "next_steps": ["check_firewall"]
+}
+
+# Both agents work on task_123 but maintain separate state
+await adk.state.create(task_id="task_123", agent_id="support-agent", state=support_state)
+await adk.state.create(task_id="task_123", agent_id="tech-agent", state=tech_state)
 ```
 
-### Manual Setup (Alternative - 3 Terminals)
+### Agent ↔ Messages (Many-to-Many)
 
-**Terminal 1 - Backend:**
-```bash
-cd agentex/
-make dev                    # Starts Docker services and backend
+**Agents can read all messages in a task and create messages marked with the AGENT author type.**
+
+!!! note "Agent Identification in Messages"
+    Currently, messages are not tagged with the specific agent that created them. In the future, Agentex will support providing the name of the agent that produced each message, enabling better tracking in multi-agent scenarios.
+
+#### Message Creation:
+
+```python
+# Sync ACP - Return messages directly
+@acp.on_message_send
+async def handle_message_send(params: SendMessageParams):
+    return TextContent(
+        author=MessageAuthor.AGENT,
+        content="Hello from the agent!"
+    )
+
+# Async ACP - Create messages explicitly
+@acp.on_task_event_send
+async def handle_event_send(params: SendEventParams):
+    await adk.messages.create(
+        task_id=params.task.id,
+        content=TextContent(
+            author=MessageAuthor.AGENT,
+            content="Processing your request..."
+        )
+    )
 ```
 
-**Terminal 2 - Frontend:**
-```bash
-cd agentex-ui/
-npm install
-npm run dev                 # Starts Next.js dev server
+#### Message Reading:
+
+```python
+# Agents can read all messages in a task
+all_messages = await adk.messages.list(task_id=task_id)
+
+# Filter messages by author type
+user_messages = [msg for msg in all_messages if msg.content.author == MessageAuthor.USER]
+agent_messages = [msg for msg in all_messages if msg.content.author == MessageAuthor.AGENT]
 ```
 
-**Terminal 3 - Agent Development:**
-```bash
-agentex init                # Create a new agent
-cd your-agent-name/
-uv venv && source .venv/bin/activate && uv sync
-agentex agents run --manifest manifest.yaml
+### Agent ↔ External Systems
+
+**Agents are your integration layer** - they connect Agentex conversations to your existing systems:
+
+```python
+import os
+
+@acp.on_message_send
+async def handle_message_send(params: SendMessageParams):
+    user_message = params.content.content
+    
+    # Agents typically integrate with:
+    
+    # 1. LLM APIs (using environment variables for API keys)
+    openai_api_key = os.getenv("OPENAI_API_KEY")
+    llm_response = await openai_client.chat.completions.create(
+        model="gpt-4",
+        messages=[{"role": "user", "content": user_message}]
+    )
+    
+    # 2. Databases (using environment variables for connection strings)
+    database_url = os.getenv("DATABASE_URL")
+    user_data = await database.get_user_profile(params.task.user_id)
+    
+    # 3. External APIs (using environment variables for credentials)
+    weather_api_key = os.getenv("WEATHER_API_KEY")
+    weather_data = await weather_api.get_current_weather(location)
+    
+    # 4. Internal services
+    analysis_result = await internal_analytics_service.analyze(data)
+    
+    # Combine results into response
+    response = f"Based on the data: {llm_response.choices[0].message.content}"
+    
+    return TextContent(
+        author=MessageAuthor.AGENT,
+        content=response
+    )
 ```
 
-### Backend Services (Docker Compose)
+All credentials and secrets are securely provided as environment variables by Agentex. For more details on secrets management, see the [Deployment Commands](../deployment/commands.md#agentex-secrets-sync) reference.
 
-When running `make dev` in agentex/, the following services start:
+## Development Principles
 
-- **Port 5003**: FastAPI backend server
-- **Port 5432**: PostgreSQL (application database)
-- **Port 5433**: PostgreSQL (Temporal database)
-- **Port 6379**: Redis (streams and caching)
-- **Port 27017**: MongoDB (document storage)
-- **Port 7233**: Temporal server
-- **Port 8080**: Temporal Web UI
+Agentex was built around five core development principles that shape how you build and deploy agents:
 
-All services are networked via `agentex-network` bridge network.
+### 1. Agents are just code
+Your agents are simply Python functions - no vendor lock-in, no proprietary frameworks, just code you control.
 
-## Common Development Commands
+### 2. Code is unopinionated and usable with any library  
+Use any Python library, any LLM provider, any database, any framework. Agentex doesn't constrain your technology choices.
 
-### Backend (agentex/)
+### 3. Local Development is fast and easy
+Develop and test your agents locally with minimal setup. No complex infrastructure required for development.
 
-```bash
-# Setup and installation
-make install              # Install dependencies with uv
-make install-dev          # Install with dev dependencies (includes pre-commit)
-make clean                # Clean venv and lock files
+### 4. Both simple sync and complex async use cases are supported
+Whether you need simple request-response patterns or complex multi-step workflows, Agentex supports your use case.
 
-# Development server
-make dev                  # Start all Docker services
-make dev-stop             # Stop Docker services
-make dev-wipe             # Stop services and wipe volumes
+### 5. All agents can be called with a unified communication protocol
+Regardless of complexity, all agents use the same client interface. Simple agents and complex workflows look identical to clients.
 
-# Database migrations
-make migration NAME="description"  # Create new Alembic migration
-make apply-migrations              # Apply pending migrations
+### Focus on Business Logic Only
 
-# Testing
-make test                                    # Run all tests
-make test FILE=tests/unit/                   # Run unit tests
-make test FILE=tests/unit/test_foo.py        # Run specific test file
-make test NAME=crud                          # Run tests matching pattern
-make test-unit                               # Unit tests shortcut
-make test-integration                        # Integration tests shortcut
-make test-cov                                # Run with coverage report
-make test-docker-check                       # Verify Docker setup for tests
+**The primary tenet of Agentex is that agent developers should focus exclusively on business logic.** Everything else is handled automatically:
 
-# Linting (ruff)
-uv run ruff check src/                       # Check for lint errors
-uv run ruff check src/ --fix                 # Auto-fix lint errors
-uv run ruff format src/                      # Format code
-uv run ruff check path/to/file.py            # Check specific file
+#### What Agentex Handles for You:
 
-# Documentation
-make serve-docs           # Serve MkDocs on localhost:8001
-make build-docs           # Build documentation
+- **Containerization**: Automatically package agents with your custom dependencies
+- **Hosting**: Host agents on any cloud provider (calleable by unique name)
+- **Scaling**: Scale up or down based on demand and usage patterns
+- **Secrets Management**: Credentials are securely injected as environment variables
+- **Streaming**: Stream real-time messages to clients even in asynchronous environments
+- **Data Persistence**: Message history, state management, and conversation storage
+- **Distributed Work**: Distributed work asynchronously using natively-supported Temporal
+- **Reliability**: Error handling, retries, and fault tolerance with Temporal
 
-# Deployment
-make docker-build         # Build production Docker image
-```
+#### What You Focus On:
 
-### Frontend (agentex-ui/)
+- **Business Logic**: Your core agent functionality and workflows
+- **Integration Code**: Connecting to your APIs, databases, and services
+- **User Experience**: Designing conversation flows and responses
+- **Domain Expertise**: Implementing your specific use case requirements
 
-```bash
-npm install               # Install npm dependencies
-npm run dev               # Next.js dev server with Turbopack
-npm run build             # Build production bundle
-npm run typecheck         # TypeScript type checking
-npm run lint              # Run ESLint
-npm run format            # Run Prettier formatting
-npm test                  # Run tests
-```
-
-### Agent Development (agentex-sdk)
-
-```bash
-# Always set this first
-export ENVIRONMENT=development
-
-# Agent management
-agentex init                                      # Create new agent
-agentex agents run --manifest manifest.yaml       # Run agent locally (dev)
-agentex agents list                               # List all agents
-agentex agents build --manifest manifest.yaml --push   # Build & push image
-agentex agents deploy --manifest manifest.yaml         # Deploy to staging
-
-# Package management (if using uv in agent)
-agentex uv sync           # Sync dependencies
-agentex uv add requests   # Add new dependency
-
-# Other utilities
-agentex tasks list        # View agent tasks
-agentex secrets create    # Manage secrets
-```
-
-## Architecture
-
-### Domain-Driven Design Structure
-
-The backend (`agentex/src/`) follows a clean architecture with strict layer separation:
-
-```
-src/
-├── api/                    # FastAPI routes, middleware, request/response schemas
-│   ├── routes/             # API endpoints (agents, tasks, messages, spans, etc.)
-│   ├── schemas/            # Pydantic request/response models
-│   ├── authentication_middleware.py
-│   └── app.py              # FastAPI application setup
-├── domain/                 # Business logic (framework-agnostic)
-│   ├── entities/           # Core domain models
-│   ├── repositories/       # Data access interfaces
-│   ├── services/           # Domain services
-│   └── use_cases/          # Application use cases
-├── adapters/               # External integrations
-│   ├── crud_store/         # Database adapters (PostgreSQL, MongoDB)
-│   ├── streams/            # Redis stream adapter
-│   ├── authentication/     # Auth proxy adapter
-│   └── authorization/      # Authz proxy adapter
-├── config/                 # Configuration and dependencies
-│   ├── dependencies.py     # Singleton for global dependencies (DB, Temporal, Redis)
-│   └── mongodb_indexes.py
-└── utils/                  # Shared utilities
-```
-
-**Key principles:**
-- Domain layer has no dependencies on frameworks or adapters
-- API layer handles HTTP concerns, delegates to use cases
-- Adapters implement ports defined in domain layer
-- Dependencies flow inward (API → Domain ← Adapters)
-
-### Key Technologies
-
-- **FastAPI**: Web framework with automatic OpenAPI docs at `/swagger` and `/api`
-- **Temporal**: Workflow orchestration for long-running agent tasks
-- **PostgreSQL**: Primary relational database (SQLAlchemy + Alembic migrations)
-- **MongoDB**: Document storage for flexible schemas
-- **Redis**: Streams for real-time communication and caching
-- **Docker**: Containerization and local development
-
-### Dependency Injection
-
-Global dependencies are managed via a Singleton pattern in `src/config/dependencies.py`:
-
-- `GlobalDependencies`: Singleton holding connections to Temporal, databases, Redis, etc.
-- FastAPI dependencies use `Annotated` types (e.g., `DDatabaseAsyncReadWriteEngine`)
-- Connection pools are configured with appropriate sizes for concurrency
-- Startup/shutdown lifecycle managed in `app.py` lifespan context
-
-### Testing Strategy
-
-Tests are organized by type and use different strategies:
-
-**Unit Tests** (`tests/unit/`):
-- Fast, isolated tests using mocks
-- Test domain logic, repositories, services
-- Marked with `@pytest.mark.unit`
-
-**Integration Tests** (`tests/integration/`):
-- Test with real dependencies using testcontainers
-- Postgres, Redis, MongoDB containers spun up automatically
-- Test API endpoints end-to-end
-- Marked with `@pytest.mark.integration`
-
-**Test Runner** (`scripts/run_tests.py`):
-- Automatically detects Docker environment
-- Handles testcontainer setup
-- Smart dependency installation
-- Run via `make test` with various options
-
-### Authentication & Authorization
-
-- **Authentication**: Custom `AgentexAuthMiddleware` verifies requests via external auth service
-- **Authorization**: Domain service (`authorization_service.py`) checks permissions
-- **API Keys**: Agent-specific keys stored in PostgreSQL (`agent_api_keys` table)
-- **Principal Context**: User/agent identity passed through request context
-
-### Key Domain Concepts
-
-- **Agents**: Autonomous entities that execute tasks, managed via ACP protocol
-- **Tasks**: Work units with lifecycle states (pending → running → completed/failed)
-- **Messages**: Communication between system and agents (stored in MongoDB)
-- **Spans**: Execution traces for observability (OpenTelemetry-style)
-- **Events**: Domain events for async communication
-- **States**: Key-value state storage for agents
-- **Deployment History**: Track agent deployment versions and changes
-
-### Frontend Architecture (agentex-ui/)
-
-- **Framework**: Next.js 15 with React 19 and App Router
-- **Styling**: Tailwind CSS with Radix UI components
-- **State**: React hooks and context
-- **Forms**: React Hook Form with Zod validation
-- **UI Components**: Custom components built on Radix primitives
-
-## Important Notes
-
-### Environment Variables
-
-For local development, always set:
-```bash
-export ENVIRONMENT=development
-```
-
-Backend services read from:
-- `DATABASE_URL`: PostgreSQL connection string
-- `TEMPORAL_ADDRESS`: Temporal server address
-- `REDIS_URL`: Redis connection string
-- `MONGODB_URI`: MongoDB connection string
-- `MONGODB_DATABASE_NAME`: MongoDB database name
-
-Check `agentex/docker-compose.yml` for default values.
-
-### Database Migrations
-
-Always create migrations when changing models:
-1. Modify SQLAlchemy models in `database/models/`
-2. Run `make migration NAME="description"` from `agentex/`
-3. Review generated migration in `database/migrations/versions/`
-4. Apply with `make apply-migrations`
-
-Migrations run automatically during `make dev` startup.
-
-### Redis Port Conflicts
-
-If you have local Redis running, it conflicts with Docker Redis on port 6379:
-```bash
-# macOS
-brew services stop redis
-
-# Linux
-sudo systemctl stop redis-server
-```
-
-### Working with Temporal
-
-- Access Temporal UI at http://localhost:8080
-- Workflows are defined using temporalio Python SDK
-- Task queues are used to route work to agents
-- Workflow state persists across service restarts
-
-### API Documentation
-
-- Swagger UI: http://localhost:5003/swagger (interactive)
-- ReDoc: http://localhost:5003/api (readable)
-- OpenAPI spec: http://localhost:5003/openapi.json
-
-## Adding New Features
-
-### Adding a New API Endpoint
-
-1. Define domain entity in `src/domain/entities/`
-2. Create repository interface in `src/domain/repositories/`
-3. Implement repository in `src/adapters/crud_store/`
-4. Create use case in `src/domain/use_cases/`
-5. Define request/response schemas in `src/api/schemas/`
-6. Create route in `src/api/routes/`
-7. Register router in `src/api/app.py`
-8. Write tests in `tests/unit/` and `tests/integration/`
-
-### Adding Database Tables
-
-1. Create SQLAlchemy model in `database/models/`
-2. Generate migration: `make migration NAME="add_table_name"`
-3. Review and edit migration file if needed
-4. Apply migration: `make apply-migrations`
-
-### Adding MongoDB Collections
-
-1. Define indexes in `src/config/mongodb_indexes.py`
-2. Create entity in `src/domain/entities/`
-3. Implement CRUD operations in `src/adapters/crud_store/adapter_mongodb.py`
-4. Indexes are created automatically on startup
-
-## Repository Structure
-
-This repository contains two main components:
-- **Backend**: `agentex/src/`, `agentex/database/`, `agentex/tests/`
-- **Frontend**: `agentex-ui/`
+The Agentex service, along with its Agent Development Kit (ADK) and SDK, was built on carefully selected software and infrastructure that abstracts away these operational complexities. This allows you to deploy production-ready agents without becoming an infrastructure expert.
 
 ---
 > Source: [scaleapi/scale-agentex](https://github.com/scaleapi/scale-agentex) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
