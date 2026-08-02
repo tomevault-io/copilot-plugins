@@ -1,0 +1,9 @@
+{
+  "name": "stripe--stripe-python",
+  "displayName": "stripe-python",
+  "description": "stripe-python",
+  "version": "1.0.0",
+  "author": "stripe",
+  "homepage": "https://github.com/stripe/stripe-python",
+  "skills": []
+}
