@@ -1,0 +1,9 @@
+{
+  "name": "phpstan--phpstan-doctrine",
+  "displayName": "phpstan-doctrine",
+  "description": "phpstan-doctrine",
+  "version": "1.0.0",
+  "author": "phpstan",
+  "homepage": "https://github.com/phpstan/phpstan-doctrine",
+  "skills": []
+}
