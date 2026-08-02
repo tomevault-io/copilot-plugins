@@ -1,0 +1,9 @@
+{
+  "name": "phpstan--phpstan-deprecation-rules",
+  "displayName": "phpstan-deprecation-rules",
+  "description": "phpstan-deprecation-rules",
+  "version": "1.0.0",
+  "author": "phpstan",
+  "homepage": "https://github.com/phpstan/phpstan-deprecation-rules",
+  "skills": []
+}
