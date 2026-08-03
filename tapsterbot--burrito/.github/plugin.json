@@ -1,0 +1,9 @@
+{
+  "name": "tapsterbot--burrito",
+  "displayName": "burrito",
+  "description": "\ud83c\udf2f\ud83d\udc51 Nim wrapper for QuickJS \u26a1\ud83c\udf2f",
+  "version": "1.0.0",
+  "author": "tapsterbot",
+  "homepage": "https://github.com/tapsterbot/burrito",
+  "skills": []
+}
