@@ -1,0 +1,9 @@
+{
+  "name": "letsrevel--infra",
+  "displayName": "infra",
+  "description": "The infra for the Revel Event Management platform",
+  "version": "1.0.0",
+  "author": "letsrevel",
+  "homepage": "https://github.com/letsrevel/infra",
+  "skills": []
+}
