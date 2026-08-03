@@ -1,0 +1,9 @@
+{
+  "name": "thecosmicskye--cosmicoach",
+  "displayName": "CosmiCoach",
+  "description": "An iOS mobile app that uses Claude 3.7 to help manage Apple Reminders and Calendar, providing empathic coaching for people with ADHD.",
+  "version": "1.0.0",
+  "author": "thecosmicskye",
+  "homepage": "https://github.com/thecosmicskye/CosmiCoach",
+  "skills": []
+}
