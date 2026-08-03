@@ -1,0 +1,9 @@
+{
+  "name": "alexarthurs--herdr-sidebar",
+  "displayName": "herdr-sidebar",
+  "description": "VS Code-style sidebar for the herdr: file explorer + git source control in one pane \u2014 syntax-highlighted previews, VS Code-style diffs, GitLens-style drawers, AI commit messages",
+  "version": "1.0.0",
+  "author": "alexarthurs",
+  "homepage": "https://github.com/alexarthurs/herdr-sidebar",
+  "skills": []
+}
