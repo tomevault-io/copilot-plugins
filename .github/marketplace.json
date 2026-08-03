@@ -81299,6 +81299,11 @@
       "description": "spogo"
     },
     {
+      "name": "tspader--sp",
+      "source": "./tspader--sp",
+      "description": "sp"
+    },
+    {
       "name": "nvk--llm-wiki",
       "source": "./nvk--llm-wiki",
       "description": "LLM-compiled knowledge bases for any AI agent. Parallel multi-agent research, thesis-driven investigation, source ingestion, wiki compilation, querying, and artifact generation. "
@@ -83749,6 +83754,11 @@
       "description": "P.808"
     },
     {
+      "name": "console-table-printer--console-table-printer",
+      "source": "./console-table-printer--console-table-printer",
+      "description": "console-table-printer"
+    },
+    {
       "name": "b-m-capital-research--honeclaw",
       "source": "./b-m-capital-research--honeclaw",
       "description": "HoneClaw (Hone-Financial) is dedicated to being a professional investment assistant that truly understands you."
@@ -83887,6 +83897,246 @@
       "name": "laa-software-engineering--golang-rest-api-template",
       "source": "./laa-software-engineering--golang-rest-api-template",
       "description": "golang-rest-api-template"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
+    },
+    {
+      "name": "gomudengine--gomud",
+      "source": "./gomudengine--gomud",
+      "description": "GoMud"
     },
     {
       "name": "xorbitsai--xagent",
@@ -93307,6 +93557,11 @@
       "name": "lstrzepek--obsidian-yt-transcript",
       "source": "./lstrzepek--obsidian-yt-transcript",
       "description": "obsidian-yt-transcript"
+    },
+    {
+      "name": "douglasmonsky--codex-usage-tracker",
+      "source": "./douglasmonsky--codex-usage-tracker",
+      "description": "Local-first MCP tools and dashboard for investigating Codex token usage, credits, costs, caching, and thread patterns."
     },
     {
       "name": "peiiii--nextclaw",
@@ -103697,6 +103952,11 @@
       "name": "coreycole--datastarui",
       "source": "./coreycole--datastarui",
       "description": "datastarui"
+    },
+    {
+      "name": "jayleebot--forgeflow",
+      "source": "./jayleebot--forgeflow",
+      "description": "AI-powered email agent for procurement quote management"
     },
     {
       "name": "endevco--aube",
@@ -114329,6 +114589,11 @@
       "description": "bench"
     },
     {
+      "name": "mark393295827--third-brain-v7-skills",
+      "source": "./mark393295827--third-brain-v7-skills",
+      "description": "agent wiki +engineering skills "
+    },
+    {
       "name": "anthaathi--pico",
       "source": "./anthaathi--pico",
       "description": "A web, mobile and desktop client for pi"
@@ -114672,6 +114937,11 @@
       "name": "cnemri--google-genai-skills",
       "source": "./cnemri--google-genai-skills",
       "description": "google-genai-skills"
+    },
+    {
+      "name": "vouchdev--vouch",
+      "source": "./vouchdev--vouch",
+      "description": "A git-native, review-gated knowledge base for AI agents: they propose writes, you approve them. Every claim cites a source, every change is a diff in your repo. MCP + CLI."
     },
     {
       "name": "boostsecurityio--smokedmeat",
@@ -132269,6 +132539,11 @@
       "description": "examples"
     },
     {
+      "name": "reddimus--spc-cpp",
+      "source": "./reddimus--spc-cpp",
+      "description": "Open-source C++23 SDK for NOAA SPC severe-weather outlooks (convective, fire weather, watches, mesoscale discussions, storm reports) \u2014 static GeoJSON + ArcGIS MapServer + IEM archive."
+    },
+    {
       "name": "sugarforever--01coder-agent-skills",
       "source": "./sugarforever--01coder-agent-skills",
       "description": "01coder-agent-skills"
@@ -136594,6 +136869,21 @@
       "description": "Winook"
     },
     {
+      "name": "tgoodwin--kamera",
+      "source": "./tgoodwin--kamera",
+      "description": "kamera"
+    },
+    {
+      "name": "tgoodwin--kamera",
+      "source": "./tgoodwin--kamera",
+      "description": "kamera"
+    },
+    {
+      "name": "tgoodwin--kamera",
+      "source": "./tgoodwin--kamera",
+      "description": "kamera"
+    },
+    {
       "name": "kulterryan--who-to-bother-at-on-x",
       "source": "./kulterryan--who-to-bother-at-on-x",
       "description": "Find the right people to reach out to at your favorite tech companies"
@@ -137962,6 +138252,16 @@
       "name": "jnuyens--gsd-plugin",
       "source": "./jnuyens--gsd-plugin",
       "description": "gsd-plugin"
+    },
+    {
+      "name": "blinklabs-io--gouroboros",
+      "source": "./blinklabs-io--gouroboros",
+      "description": "gouroboros"
+    },
+    {
+      "name": "quokka-astro--quokka",
+      "source": "./quokka-astro--quokka",
+      "description": "quokka"
     },
     {
       "name": "databricks--databricks-agent-skills",
@@ -142454,6 +142754,11 @@
       "description": "spamoor"
     },
     {
+      "name": "penberg--chimera",
+      "source": "./penberg--chimera",
+      "description": "Sandbox untrusted code with safe access to the host."
+    },
+    {
       "name": "m1zz--higlab",
       "source": "./m1zz--higlab",
       "description": "HIGLab"
@@ -143252,6 +143557,11 @@
       "name": "nyblnet--bento",
       "source": "./nyblnet--bento",
       "description": "bento"
+    },
+    {
+      "name": "thematters--matters-server",
+      "source": "./thematters--matters-server",
+      "description": "matters-server"
     },
     {
       "name": "edisonwong520--wanny",
@@ -146442,6 +146752,11 @@
       "name": "buvinghausen--sequentialguid",
       "source": "./buvinghausen--sequentialguid",
       "description": "SequentialGuid"
+    },
+    {
+      "name": "kirilxd--swe-interview-coach",
+      "source": "./kirilxd--swe-interview-coach",
+      "description": "Turn Claude Code into your SWE interview coach \u2014 behavioral, system design & coding training/mocks, all local."
     },
     {
       "name": "ersinkoc--fluidflow",
@@ -202834,6 +203149,11 @@
       "description": "redis-benchmarks-specification"
     },
     {
+      "name": "vllm-project--afd-plugin",
+      "source": "./vllm-project--afd-plugin",
+      "description": "vLLM plugin for attention-ffn disaggregation support"
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
@@ -221694,6 +222014,11 @@
       "description": "EasyOPD make your OPD research easy!"
     },
     {
+      "name": "quazardous--aiball",
+      "source": "./quazardous--aiball",
+      "description": "Local backlog for inter-agent coordination \u2014 Manage tickets between turns and stay in the Loop!"
+    },
+    {
       "name": "skywind3000--gamesample",
       "source": "./skywind3000--gamesample",
       "description": "Game Samples for GameLib"
@@ -224347,6 +224672,11 @@
       "name": "ionicprotocol--monorepo",
       "source": "./ionicprotocol--monorepo",
       "description": "monorepo"
+    },
+    {
+      "name": "rodrgds--productplate",
+      "source": "./rodrgds--productplate",
+      "description": "Polished SvelteKit Product Starter Kit for Indie Hackers and Founders."
     },
     {
       "name": "inureyes--gyeol",
@@ -227172,6 +227502,11 @@
       "name": "rh-ecosystem-edge--kernel-module-management",
       "source": "./rh-ecosystem-edge--kernel-module-management",
       "description": "kernel-module-management"
+    },
+    {
+      "name": "dvdxfv--skill-writing-dna",
+      "source": "./dvdxfv--skill-writing-dna",
+      "description": "Writing DNA + AI \u964d\u91cd skill \u5de5\u4f5c\u6d41\uff1a\u57fa\u4e8e\u4e2a\u4eba\u5199\u4f5c\u98ce\u683c\u6307\u7eb9\u7684\u8bba\u6587/\u6587\u6863\u6539\u5199\u6d41\u6c34\u7ebf"
     },
     {
       "name": "compozy--kb",
@@ -231892,6 +232227,11 @@
       "name": "tanukijs--meta-pixel",
       "source": "./tanukijs--meta-pixel",
       "description": "meta-pixel"
+    },
+    {
+      "name": "get-sema--sema",
+      "source": "./get-sema--sema",
+      "description": "Local semantic code index and MCP server for Claude Code, Codex, and opencode. Includes semantic search, reuse checks, impact analysis, and a VS Code chat and agent supporting local CLIs and API provi"
     },
     {
       "name": "mulhamna--jira-commands",
@@ -239454,6 +239794,11 @@
       "description": "\u4e00\u6b3e\u4ee5\u6781\u7b80\u76f4\u89d2\u4e3a\u8bbe\u8ba1\u8bed\u8a00\u7684\u672c\u5730\u97f3\u4e50\u64ad\u653e\u5668"
     },
     {
+      "name": "ixjosemi--moonglade",
+      "source": "./ixjosemi--moonglade",
+      "description": "A quiet macOS notch indicator for Claude Code, OpenCode, and Codex CLI sessions"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -242252,6 +242597,11 @@
       "name": "yuanbop--frugal",
       "source": "./yuanbop--frugal",
       "description": "frugal"
+    },
+    {
+      "name": "gorgojs--medusa-integrations",
+      "source": "./gorgojs--medusa-integrations",
+      "description": "Medusa plugins and integrations by Gorgo"
     },
     {
       "name": "shanraisshan--gemini-cli-best-practice",
@@ -258469,6 +258819,11 @@
       "description": "Sof\u00eda \u2014 agente de voz con IA que contesta el tel\u00e9fono, califica y agenda citas en GoHighLevel. Inst\u00e1lalo con un comando."
     },
     {
+      "name": "aditya-tripuraneni--cachelane",
+      "source": "./aditya-tripuraneni--cachelane",
+      "description": "CacheLane"
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -265772,6 +266127,16 @@
       "name": "lzjever--lexilux",
       "source": "./lzjever--lexilux",
       "description": "lexilux"
+    },
+    {
+      "name": "thewafflehaus--butter",
+      "source": "./thewafflehaus--butter",
+      "description": "Melt away latency with ultra-smooth local inference"
+    },
+    {
+      "name": "michongs--wayfort",
+      "source": "./michongs--wayfort",
+      "description": "Wayfort"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -301779,6 +302144,16 @@
       "description": "They removed the badges; we keep the record. Citizen evidence archive for the 20 July 2026 Delhi Police crackdown on the Chalo Sansad protest \u2014 court-grade chain of custody, anonymous intake, open met"
     },
     {
+      "name": "tsuresh--livekit-workshop",
+      "source": "./tsuresh--livekit-workshop",
+      "description": "livekit-workshop"
+    },
+    {
+      "name": "polmarza--project-template",
+      "source": "./polmarza--project-template",
+      "description": "project-template"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -311617,6 +311992,21 @@
       "name": "bones7456--notchy",
       "source": "./bones7456--notchy",
       "description": "A macOS menu bar app that puts Claude Code right in your MacBook's notch. Community fork of adamlyttleapps/notchy."
+    },
+    {
+      "name": "hexxt-git--umm",
+      "source": "./hexxt-git--umm",
+      "description": "ask your terminal questions"
+    },
+    {
+      "name": "femboyisp--purroute",
+      "source": "./femboyisp--purroute",
+      "description": "purrformant advance proxy server that supports protocol detection (socks5, socks4, http, https, etc on the same port) and protocol translation (http -> socks5, socks5 -> http, etc), supports proxy cha"
+    },
+    {
+      "name": "0hardik1--awsmux",
+      "source": "./0hardik1--awsmux",
+      "description": "Run one AWS CLI command across hundreds of AWS accounts in parallel. MCP built in for AI agents."
     },
     {
       "name": "lightninglabs--lnget",
@@ -326332,6 +326722,16 @@
       "name": "arpitbbhayani--the-daily-diff",
       "source": "./arpitbbhayani--the-daily-diff",
       "description": "The Daily Diff is a web-based curated feed that aggregates and presents daily technical papers and articles from sources like arXiv and Hacker News. It organizes articles chronologically by day, ranks"
+    },
+    {
+      "name": "cuongyd196--auto-compare-video",
+      "source": "./cuongyd196--auto-compare-video",
+      "description": "\ud83c\udfac T\u1ea1o video \"so s\u00e1nh ki\u1ebfn th\u1ee9c\" ng\u1eafn t\u1ef1 \u0111\u1ed9ng \u2014 HyperFrames + AI voice, 1 template nhi\u1ec1u ch\u1ee7 \u0111\u1ec1."
+    },
+    {
+      "name": "docraticmethod--cascadia",
+      "source": "./docraticmethod--cascadia",
+      "description": "Cascadia is a spec-driven build system for coding agents "
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -367454,6 +367854,56 @@
       "description": "Demo code and presentation materials for the talk \"Bug Bounty Hunting with AI Agents\" at Basel One 2025."
     },
     {
+      "name": "iml1s--oh-my-grok",
+      "source": "./iml1s--oh-my-grok",
+      "description": "OMC-style multi-agent orchestration for Grok Build: plugin + omg CLI (ulw/ralph/ralplan)"
+    },
+    {
+      "name": "honeycombio--anthropic-usage-receiver",
+      "source": "./honeycombio--anthropic-usage-receiver",
+      "description": "An OpenTelemetry Collector receiver that collects usage and cost data on AI model usage from Anthropic."
+    },
+    {
+      "name": "monkeyattack--monkeyattack-gold-pivot-ea",
+      "source": "./monkeyattack--monkeyattack-gold-pivot-ea",
+      "description": "?? Professional MT4 Expert Advisor for Gold trading using institutional pivot strategy. Proven +$7,448.54 profit (49% ROI). Enhanced v2.01 with trade quality scoring and advanced risk management."
+    },
+    {
+      "name": "lhaippp--camflow-code",
+      "source": "./lhaippp--camflow-code",
+      "description": "[ICCV 2025] Estimating 2D Camera Motion with Hybrid Motion Basis"
+    },
+    {
+      "name": "tigerless-labs--auto-gtm",
+      "source": "./tigerless-labs--auto-gtm",
+      "description": "auto-gtm"
+    },
+    {
+      "name": "kyleoliveiro--sg-gov-skills",
+      "source": "./kyleoliveiro--sg-gov-skills",
+      "description": "Agent skills for developers building tech projects for Singapore government agencies."
+    },
+    {
+      "name": "scarolan--promql-labs",
+      "source": "./scarolan--promql-labs",
+      "description": "Prometheus Lab Exercises"
+    },
+    {
+      "name": "sazardev--shiki",
+      "source": "./sazardev--shiki",
+      "description": "TUI note-taking app in Rust \u2014 Yazi-style navigation, notebooks as independent git repos, real per-note version history, themes, and fast fuzzy search."
+    },
+    {
+      "name": "redmike--covertactiontools",
+      "source": "./redmike--covertactiontools",
+      "description": "Tools for inspecting/modifying game files for Sid Meier's Covert Action"
+    },
+    {
+      "name": "dmitrymatv--classifast",
+      "source": "./dmitrymatv--classifast",
+      "description": "(Almost) instant and highly accurate classification according to standards. Easily find codes for UNSPSC, NAICS, ISIC, ETIM, HS/CN, etc."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -391837,6 +392287,71 @@
       "name": "liangdabiao--geogebra-webchat",
       "source": "./liangdabiao--geogebra-webchat",
       "description": "\u53d1\u5e03\u6559\u80b2\u9886\u57df\u7684AI\u65b0\u4ea7\u54c1\uff1a\u4e00\u53e5\u8bdd\u641e\u5b9a\u6570\u5b66\u51e0\u4f55\u7ed8\u56feGeoGebra\u3002Geogebra-WebChat\u53ea\u4fdd\u7559\u6838\u5fc3\u94fe\u8def\uff1a**\u804a\u5929 + AI + GeoGebra \u753b\u56fe**\u3002\u7b80\u5355\u666e\u901a Web \u5e94\u7528\uff0c\u4f46\u662f\u529f\u80fd\u9f50\u5168\u3002"
+    },
+    {
+      "name": "sheetmusic4j--sheetmusic4j",
+      "source": "./sheetmusic4j--sheetmusic4j",
+      "description": "Java(FX) library for sheet music"
+    },
+    {
+      "name": "proptermalone--clade",
+      "source": "./proptermalone--clade",
+      "description": "Your own contact rolodex, built from the data exports the big platforms already owe you \u2014 merged, enriched by web research, searchable. Claude Code as operator."
+    },
+    {
+      "name": "looyyd--loldraftai-monorepo-public",
+      "source": "./looyyd--loldraftai-monorepo-public",
+      "description": "Public archive of the loldraftai monorepo. The archived version represents the state as of May 2025, and since then changes have been made in a private repo."
+    },
+    {
+      "name": "sharpemu--sharpemu-site",
+      "source": "./sharpemu--sharpemu-site",
+      "description": "SharpEmu website \u2014 landing page and PS5 game compatibility database"
+    },
+    {
+      "name": "xmartlabs--vytallink",
+      "source": "./xmartlabs--vytallink",
+      "description": "VytalLink is a digital health platform connecting personal health data\u2014including Apple Health, Google Fit, and wearables\u2014with AI assistants like ChatGPT and Claude. Includes a Flutter app, Node.js MCP"
+    },
+    {
+      "name": "ayeshakhalid192007-dev--loopengineering-crashcourse",
+      "source": "./ayeshakhalid192007-dev--loopengineering-crashcourse",
+      "description": "A free, open-source loop engineering curriculum: 14 steps, 20 loop kits, graded labs, and Loop Ready certification."
+    },
+    {
+      "name": "stephenturner--pdfdown",
+      "source": "./stephenturner--pdfdown",
+      "description": "Drop a PDF onto a page, get markdown back. Everything runs locally in the browser, no uploads, no server."
+    },
+    {
+      "name": "himanshudongre--opendeck",
+      "source": "./himanshudongre--opendeck",
+      "description": "An open-source digital micropad for agentic work \u2014 turn your phone or tablet into a physical-feeling control deck for AI coding agents"
+    },
+    {
+      "name": "nullreferr--rom-downloader",
+      "source": "./nullreferr--rom-downloader",
+      "description": "rom-downloader"
+    },
+    {
+      "name": "vanga--indian-district-court-judgments",
+      "source": "./vanga--indian-district-court-judgments",
+      "description": "WIP"
+    },
+    {
+      "name": "lza6--telegram-unlimited-storage",
+      "source": "./lza6--telegram-unlimited-storage",
+      "description": "\u8fd9\u662f\u4e00\u6b3e\u9002\u5408\u4f01\u4e1a\u7ea7\u7684TG\u65e0\u9650\u50a8\u5b58"
+    },
+    {
+      "name": "uiverify--uiverify",
+      "source": "./uiverify--uiverify",
+      "description": "Visual testing for agents: the uiverify CLI, Playwright capture SDK, and agent skills for UI Verify."
+    },
+    {
+      "name": "roshanarnav25-sloth--google-flow-mcp",
+      "source": "./roshanarnav25-sloth--google-flow-mcp",
+      "description": "MCP server that drives Google Flow (Veo / Nano Banana) through its internal tRPC API, with a hard credit-cost gate"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -524837,6 +525352,46 @@
       "name": "sunmar-tech--dongoate",
       "source": "./sunmar-tech--dongoate",
       "description": "DoNGOate"
+    },
+    {
+      "name": "kohei0127--grap-dev",
+      "source": "./kohei0127--grap-dev",
+      "description": "grap_dev"
+    },
+    {
+      "name": "yshukkk--pang-23037481",
+      "source": "./yshukkk--pang-23037481",
+      "description": "\uacf5\uc815\uac1c\ubc1c\uc2e4 \uc5ec\uc0c1\ud6c8"
+    },
+    {
+      "name": "wendellwangh--my-emdash-site",
+      "source": "./wendellwangh--my-emdash-site",
+      "description": "my-emdash-site"
+    },
+    {
+      "name": "d-robotics--speech-agent-test",
+      "source": "./d-robotics--speech-agent-test",
+      "description": "A test script for the speech_agent that integrates module testing and generates reports."
+    },
+    {
+      "name": "handyana05--leasing-car-intelligence",
+      "source": "./handyana05--leasing-car-intelligence",
+      "description": "A modern SaaS application that helps users discover, monitor, compare, and analyze private vehicle leasing offers in Germany."
+    },
+    {
+      "name": "zareamman--percia",
+      "source": "./zareamman--percia",
+      "description": "percia"
+    },
+    {
+      "name": "sohyunll--campusfit",
+      "source": "./sohyunll--campusfit",
+      "description": "campusfit"
+    },
+    {
+      "name": "dildar-ai--ml-pipeline-flyrank-assignment-1",
+      "source": "./dildar-ai--ml-pipeline-flyrank-assignment-1",
+      "description": "ML-pipeline-Flyrank-Assignment-1-"
     }
   ]
 }
