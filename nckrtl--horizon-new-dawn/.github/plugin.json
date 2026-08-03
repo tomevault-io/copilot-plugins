@@ -1,0 +1,9 @@
+{
+  "name": "nckrtl--horizon-new-dawn",
+  "displayName": "horizon-new-dawn",
+  "description": "A React and Inertia interface for Laravel Horizon.",
+  "version": "1.0.0",
+  "author": "nckrtl",
+  "homepage": "https://github.com/nckrtl/horizon-new-dawn",
+  "skills": []
+}
