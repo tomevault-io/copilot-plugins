@@ -1,0 +1,9 @@
+{
+  "name": "penberg--chimera",
+  "displayName": "chimera",
+  "description": "Sandbox untrusted code with safe access to the host.",
+  "version": "1.0.0",
+  "author": "penberg",
+  "homepage": "https://github.com/penberg/chimera",
+  "skills": []
+}
