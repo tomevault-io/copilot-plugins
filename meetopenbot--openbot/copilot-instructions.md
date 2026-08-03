@@ -1,94 +1,49 @@
 ## openbot
 
-> OpenBot is an extensible AI assistant ecosystem built on the **Melony** framework. It follows a "Manager-Agent" orchestration pattern to provide a powerful, multi-modal sidekick for developers and power users.
+> | Id       | Name    | Purpose                                      |
 
-# OpenBot Context & Architecture
+# Agents (public edition)
 
-OpenBot is an extensible AI assistant ecosystem built on the **Melony** framework. It follows a "Manager-Agent" orchestration pattern to provide a powerful, multi-modal sidekick for developers and power users.
+## Built-in agents
 
-## 🧠 Core Philosophy
-- **Delegate by Default**: The central Manager Agent focuses on orchestration and memory, delegating specialized tasks (shell, browser, files) to dedicated agents.
-- **Event-Driven**: All communication happens via an asynchronous event bus (Melony).
-- **Extensible**: New agents can be added via YAML configuration, and new capabilities via Melony plugins.
+| Id       | Name    | Purpose                                      |
+|----------|---------|----------------------------------------------|
+| `system` | OpenBot | Default LLM agent (`openbot` + storage tools) |
+| `state`  | State   | Deterministic storage reads (no model)       |
 
-## 🏗️ Architecture Overview
+The `system` agent id is fixed. Custom agents use their folder name as id.
 
-### 1. The Manager Agent
-The central entry point. Its primary responsibilities are:
-- **Orchestration**: Analyzing user intent and routing tasks to the correct agent using the `delegateTask` tool.
-- **Memory**: Using the `memory` plugin to manage long-term memory (`remember`/`recall`).
-- **Summarization**: Providing high-level, concise summaries of sub-agent activities.
+## Defining a custom agent
 
-### 2. Specialized Agents
-Agents are workers that handle specific domains.
-- **`os` Agent**: Handles shell commands and file system operations.
-- **`browser` Agent**: (If installed) Performs web navigation and interaction.
-- **`topic` Agent**: Background agent that automatically titles chat threads.
-- **YAML Agents**: Defined in `~/.openbot/agents/*/AGENT.md`, they allow for custom prompts and tool configurations without code changes.
+Create `~/.openbot/agents/<agent-id>/AGENT.md`:
 
-### 3. Key Plugins
-Plugins provide the actual tools and logic used by agents.
-- **`llm`**: The core LLM integration, handling completion and tool calling.
-- **`memory`**: Agent definition and long-term memory management. Stores data in `~/.openbot/AGENT.md` and `~/.openbot/memory/`.
-- **`shell`**: Secure terminal execution.
-- **`file-system`**: CRUD operations on the local disk.
-- **`approval`**: A middleware plugin that requires user confirmation for destructive or sensitive actions.
+```markdown
+---
+name: My Agent
+description: What this agent does.
+plugins:
+  - id: openbot
+    config:
+      model: openai/gpt-4o-mini
+  - id: storage
+---
 
-## 🔄 Common Workflows
+System instructions go here (markdown body).
+```
 
-### Task Delegation Flow
-1. **User Input** → `agent:input` event.
-2. **Manager Decides** → Calls `delegateTask(agent, task)`.
-3. **Delegation Handler** → Emits `agent:input` to the sub-agent's runtime.
-4. **Agent Execution** → Agent performs task, emits `agent:output`.
-5. **Manager Bridge** → Manager catches output, reports results to user.
+Restart the server or publish a storage refresh event after changes.
 
-### Memory Workflow
-1. **Action** → Manager calls \`remember(content, tags)\`.
-2. **Storage** → \`memory\` plugin saves to local JSON.
-3. **Retrieval** → Manager calls \`recall(query)\` to inject past context into its prompt.
+## Models
 
-## 📂 Project Structure
-- `/server`: Node.js/TypeScript backend core.
-  - `/src/open-bot.ts`: Entry point where registries are initialized and the Melony app is composed.
-  - `/src/plugins/`: Implementation of core functionalities (each folder should export a `plugin` object).
-  - `/src/registry/`: Logic for loading and managing agents and plugins.
-  - `/src/agents/`: Built-in agent implementations (e.g., `os-agent.ts`).
-- `/web`: React/Vite dashboard for interaction.
-- `/docs`: Detailed documentation on architecture and extensions.
+Use `provider/model-id` strings supported by the runtime:
 
-## 🛠️ Development Guide: Adding Features
+- `openai/gpt-4o-mini`
+- `openai/gpt-4o`
+- `anthropic/claude-3-5-sonnet-latest`
+- `google/gemini-2.0-flash`
 
-### 1. Adding a New Plugin
-Plugins are the primary way to add new capabilities (tools) to OpenBot.
-1. Create a folder in `server/src/plugins/<name>/`.
-2. Define tool schemas using `zod`.
-3. Create a `MelonyPlugin` factory that handles `action:<toolName>` events.
-4. Export a `plugin` object with `name`, `description`, `toolDefinitions`, and `factory`.
-5. Register it in `server/src/open-bot.ts` using `pluginRegistry.register()`.
-
-### 2. Adding a New Agent
-Agents are specialized personas that use plugins.
-- **Built-in Agent**:
-  1. Create a file in `server/src/agents/<name>-agent.ts`.
-  2. Implement it using `melony()` and include an `llmPlugin`.
-  3. Register it in `server/src/open-bot.ts` using `agentRegistry.register()`.
-- **YAML Agent** (No code required):
-  1. Create a folder in `~/.openbot/agents/<name>/` and an `AGENT.md` file within it.
-  2. Define `name`, `description`, `model`, and `plugins` (referencing registered plugin names) in the YAML frontmatter.
-  3. Write the instructions (prompt) as the Markdown body below the frontmatter.
-
-### 3. Using Registry for Discovery
-The `AgentRegistry` and `PluginRegistry` are used to:
-- Dynamically build the Manager's `delegateTask` tool (it automatically lists all registered agents and their capabilities).
-- Resolve plugin names in YAML agent definitions.
-- Auto-wire event subscriptions for agents (e.g., if an agent subscribes to `agent:output`).
-
-## 🎨 UI & Events
-- **Status Updates**: Plugins should yield `memory:status` or similar events to show progress in the UI.
-- **Dynamic Widgets (SDUI)**: Use `ui.event(widget(...))` to send dynamic UI widgets to the conversation history. See `.cursor/rules/openbot-sdui.mdc` for detailed guidelines.
-- **Task Results**: Always yield `action:result` with the `toolCallId` to close tool-calling loops.
+Set API keys via environment variables (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `GOOGLE_GENERATIVE_AI_API_KEY`) before starting the server.
 
 ---
 > Source: [meetopenbot/openbot](https://github.com/meetopenbot/openbot) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
