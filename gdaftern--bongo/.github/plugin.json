@@ -1,0 +1,9 @@
+{
+  "name": "gdaftern--bongo",
+  "displayName": "bongo",
+  "description": "AI \u5b66\u4e60\u52a9\u624b - \u57fa\u4e8e ReAct \u7684\u667a\u80fd\u6587\u6863\u95ee\u7b54 + \u57fa\u4e8e Plan-and-Execute \u7684\u81ea\u52a8\u51fa\u9898\u7ec3\u4e60\uff0c\u652f\u6301\u7b14\u8bb0\u3001\u9519\u9898\u672c\u3001\u591a\u6a21\u578b\u8def\u7531\u548c MCP \u96c6\u6210",
+  "version": "1.0.0",
+  "author": "GdAfterN",
+  "homepage": "https://github.com/GdAfterN/bongo",
+  "skills": []
+}
