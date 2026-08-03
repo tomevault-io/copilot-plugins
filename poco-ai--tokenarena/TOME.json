@@ -2,9 +2,9 @@
   "name": "TokenArena",
   "owner": "poco-ai",
   "repo": "TokenArena",
-  "description": "\ud83d\udd25tracking token usage in one place",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/poco-ai/TokenArena",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T07:00:39Z"
+  "distributed_at": "2026-08-03T13:43:52Z"
 }
