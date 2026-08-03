@@ -1,0 +1,9 @@
+{
+  "name": "knuckles-team--epistemic-graph",
+  "displayName": "epistemic-graph",
+  "description": "Rust based epistemic graph for agent-utilities",
+  "version": "1.0.0",
+  "author": "Knuckles-Team",
+  "homepage": "https://github.com/Knuckles-Team/epistemic-graph",
+  "skills": []
+}
