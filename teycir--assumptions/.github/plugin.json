@@ -1,0 +1,9 @@
+{
+  "name": "teycir--assumptions",
+  "displayName": "Assumptions",
+  "description": "A SKILL that turns a code diff into an evidence-backed ledger of hidden assumptions, failure modes, and falsification tests.",
+  "version": "1.0.0",
+  "author": "Teycir",
+  "homepage": "https://github.com/Teycir/Assumptions",
+  "skills": []
+}
