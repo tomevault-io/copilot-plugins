@@ -1,0 +1,9 @@
+{
+  "name": "mingyiseclab--mingyi-atlas",
+  "displayName": "Mingyi-Atlas",
+  "description": "  Harness-driven terminal AI agent for authorized security assessment, with TUI, headless automation, persistent context, 150 built-in skills, and a   dedicated pentest mode.",
+  "version": "1.0.0",
+  "author": "MingyiSecLab",
+  "homepage": "https://github.com/MingyiSecLab/Mingyi-Atlas",
+  "skills": []
+}
