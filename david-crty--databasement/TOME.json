@@ -2,7 +2,7 @@
   "name": "databasement",
   "owner": "David-Crty",
   "repo": "databasement",
-  "description": "Self-hosted database backup manager with a web UI. Schedule, backup, and restore MySQL, PostgreSQL, MariaDB, MongoDB, SQLite & Redis to S3, SFTP, or local storage. SSH Tunnel support.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/David-Crty/databasement",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T16:14:31Z"
+  "distributed_at": "2026-08-03T04:47:02Z"
 }
