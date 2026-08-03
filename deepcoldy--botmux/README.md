@@ -1,8 +1,6 @@
 # botmux
 
-> Source: [deepcoldy/botmux](https://github.com/deepcoldy/botmux) — distributed by [TomeVault](https://tomevault.io)
-
-Bridge between IM platforms and AI coding CLIs — one topic, one CLI session with live streaming
+> Source: [deepcoldy/botmux](https://github.com/deepcoldy/botmux). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [deepcoldy/botmux](https://github.com/deepcoldy/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/deepcoldy/botmux](https://github.com/deepcoldy/botmux)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/deepcoldy/botmux](https://github.com/deepcoldy/botmux)
 
 ---
 
