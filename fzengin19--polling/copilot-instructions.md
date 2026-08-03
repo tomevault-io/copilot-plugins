@@ -1,38 +1,51 @@
-## repository-rules
+## service-rules
 
-> Repository katmanı, veritabanı ile olan tüm iletişimi soyutlar. Uygulamanın geri kalanı, verinin nasıl saklandığını veya getirildiğini bilmek zorunda değildir.
+> Service katmanı, uygulamanın tüm iş mantığının (business logic) bulunduğu yerdir.
 
-# Repository Katmanı Kuralları
+# Service Katmanı Kuralları
 
-Repository katmanı, veritabanı ile olan tüm iletişimi soyutlar. Uygulamanın geri kalanı, verinin nasıl saklandığını veya getirildiğini bilmek zorunda değildir.
+Service katmanı, uygulamanın tüm iş mantığının (business logic) bulunduğu yerdir.
 
 ## Temel Sorumluluklar
-- **Veri Erişimi**: `Eloquent` modellerini kullanarak veritabanından veri okuma (SELECT) ve yazma (CREATE, UPDATE, DELETE) işlemlerini gerçekleştirmek.
-- **Soyutlama**: Karmaşık `Eloquent` sorgularını, `join`'leri veya özel mantıkları basit ve anlaşılır metot isimleri arkasına gizlemek.
-- **Arayüz (Interface) Implementasyonu**: Her somut repository (`Eloquent`), `app/Repositories/Abstract` altında tanımlanmış olan kendi arayüzünü (`interface`) implement etmelidir.
+- **İş Mantığı**: Bir özelliğin veya kullanım senaryosunun gerektirdiği tüm adımları, kontrolleri ve operasyonları yönetmek.
+- **Orkestrasyon**: Gerekli `Repository` metotlarını çağırmak, diğer `Service`'lerle iletişim kurmak, event'leri tetiklemek gibi işlemleri koordine etmek.
+- **Arayüz (Interface) Implementasyonu**: Her somut servis (`Concrete`), `app/Services/Abstract` altında tanımlanmış olan kendi arayüzünü (`interface`) implement etmelidir.
+- **Bağımlılıklar**: Diğer katmanlara (çoğunlukla Repository'ler) olan bağımlılıklar, constructor üzerinden arayüzleri kullanılarak enjekte edilmelidir.
 
 ## Kurallar
-1.  **Sadece Veritabanı**: Repository'ler sadece ve sadece `Eloquent` modelleri ile konuşmalıdır. İçlerinde kesinlikle iş mantığı, HTTP bilgisi veya başka bir katmana ait kod bulunmamalıdır.
-2.  **İş Mantığı YOK**: Bir kullanıcının bir anketi düzenleyip düzenleyemeyeceğini kontrol etmek gibi mantıklar burada yer almaz. Repository sadece "anketi ID ile bul" veya "kullanıcıyı e-posta ile bul" gibi net veri operasyonları yapmalıdır.
-3.  **Dönüş Tipleri**: Repository metotları genellikle `Eloquent Model`, `Collection`, `Paginator` nesneleri, `boolean` veya `null` gibi ham veritabanı sonuçlarını dönmelidir. `ServiceResponse` veya `DTO` gibi üst katman yapılarını bilmez ve kullanmaz.
-4.  **İsimlendirme**: Metot isimleri, yaptıkları işi açıkça belirtmelidir. Örneğin, `find(int $id)`, `getByStatus(string $status)`, `create(array $data)`, `update(int $id, array $data)`.
+1.  **Sadece İş Mantığı**: Bu katman, HTTP'ye özgü (`Request`, `Response`) hiçbir şey bilmemelidir. Sadece DTO'lar ve temel veri tipleri ile çalışır.
+2.  **Repository Kullanımı**: Veritabanı işlemleri için daima Repository katmanını kullanmalıdır. Asla doğrudan `Eloquent` modeli (`User::create()`) kullanmamalıdır.
+3.  **Standart Yanıt**: Tüm public metotlar, işlemin sonucunu (başarı, hata, veri) sarmalayan bir `App\Responses\ServiceResponse` nesnesi döndürmelidir.
+4.  **Hata Yönetimi**: Beklenen iş mantığı hataları (örn: "Kullanıcı zaten mevcut") `ServiceResponse` içinde yönetilmelidir. Beklenmedik istisnalar (exception) için merkezi hata yöneticisi devreye girecektir, bu nedenle gereksiz `try-catch` bloklarından kaçınılmalıdır.
 
 ## Örnek Yapı
-```php
-class UserRepository extends BaseRepository implements UserRepositoryInterface
-{
-    public function __g(User $model)
-    {
-        parent::__construct($model);
-    }
 
-    public function findByEmail(string $email): ?User
+```php
+class AuthService implements AuthServiceInterface
+{
+    public function __construct(
+        private readonly UserRepositoryInterface $userRepository,
+        private readonly ResourceMapInterface $resourceMap
+    ) {}
+
+    public function register(RegisterDto $dto): ServiceResponse
     {
-        return $this->model->where('email', $email)->first();
+        if ($this->userRepository->findByEmail($dto->email)) {
+            return ServiceResponse::error('Bu e-posta adresi zaten kullanılıyor.');
+        }
+
+        $user = $this->userRepository->create([...]);
+        $token = $user->createToken('api-token')->plainTextToken;
+
+        $data = [
+            'user' => $this->resourceMap->map($user),
+            'token' => $token,
+        ];
+        
+        return ServiceResponse::success('Kayıt başarılı.', $data, 201);
     }
 }
 ```
-*Not: Örnekteki `BaseRepository`, sık kullanılan `all()`, `find()`, `create()`, `update()`, `delete()` gibi temel CRUD metotlarını içererek kod tekrarını azaltır.*
 
 ---
 > Source: [fzengin19/polling](https://github.com/fzengin19/polling) — distributed by [TomeVault](https://tomevault.io).
