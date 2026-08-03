@@ -1,0 +1,9 @@
+{
+  "name": "esphome--esphome-desktop",
+  "displayName": "esphome-desktop",
+  "description": "esphome-desktop",
+  "version": "1.0.0",
+  "author": "esphome",
+  "homepage": "https://github.com/esphome/esphome-desktop",
+  "skills": []
+}
