@@ -1,0 +1,9 @@
+{
+  "name": "openshift--splunk-forwarder-operator",
+  "displayName": "splunk-forwarder-operator",
+  "description": "splunk-forwarder-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/splunk-forwarder-operator",
+  "skills": []
+}
