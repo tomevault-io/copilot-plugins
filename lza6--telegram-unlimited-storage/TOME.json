@@ -1,0 +1,44 @@
+{
+  "name": "Telegram-Unlimited-storage",
+  "owner": "lza6",
+  "repo": "Telegram-Unlimited-storage",
+  "description": "\u8fd9\u662f\u4e00\u6b3e\u9002\u5408\u4f01\u4e1a\u7ea7\u7684TG\u65e0\u9650\u50a8\u5b58",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lza6/Telegram-Unlimited-storage",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-03T13:04:36Z"
+}
