@@ -1,0 +1,9 @@
+{
+  "name": "liangdabiao--geogebra-webchat",
+  "displayName": "Geogebra-WebChat",
+  "description": "\u53d1\u5e03\u6559\u80b2\u9886\u57df\u7684AI\u65b0\u4ea7\u54c1\uff1a\u4e00\u53e5\u8bdd\u641e\u5b9a\u6570\u5b66\u51e0\u4f55\u7ed8\u56feGeoGebra\u3002Geogebra-WebChat\u53ea\u4fdd\u7559\u6838\u5fc3\u94fe\u8def\uff1a**\u804a\u5929 + AI + GeoGebra \u753b\u56fe**\u3002\u7b80\u5355\u666e\u901a Web \u5e94\u7528\uff0c\u4f46\u662f\u529f\u80fd\u9f50\u5168\u3002",
+  "version": "1.0.0",
+  "author": "liangdabiao",
+  "homepage": "https://github.com/liangdabiao/Geogebra-WebChat",
+  "skills": []
+}
