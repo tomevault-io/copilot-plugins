@@ -1,8 +1,6 @@
 # claude-code-hermit
 
-> Source: [gtapps/claude-code-hermit](https://github.com/gtapps/claude-code-hermit) — distributed by [TomeVault](https://tomevault.io)
-
-A personal assistant that lives in your project and that actually learns — pure Claude Code
+> Source: [gtapps/claude-code-hermit](https://github.com/gtapps/claude-code-hermit). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-p -->
