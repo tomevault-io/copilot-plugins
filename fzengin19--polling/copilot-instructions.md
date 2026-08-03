@@ -1,25 +1,26 @@
-## model-rules
+## php-laravel-rules
 
-> Modeller, veritabanı tablolarının bir temsilidir ve sadece veri yapısıyla ilgili tanımlamaları içermelidir.
+> Bu dosya, projedeki tüm PHP ve Laravel kodları için geçerli olan stil, yapı ve en iyi pratikleri içerir.
 
-# Eloquent Model Kuralları
+# PHP ve Laravel Geliştirme Kuralları
 
-Modeller, veritabanı tablolarının bir temsilidir ve sadece veri yapısıyla ilgili tanımlamaları içermelidir.
+Bu dosya, projedeki tüm PHP ve Laravel kodları için geçerli olan stil, yapı ve en iyi pratikleri içerir.
 
-## Sorumluluklar
-- **Veritabanı Tablosunu Temsil Etme**: `protected $table`, `protected $primaryKey` gibi özelliklerle tabloyu tanımlamak.
-- **Toplu Atama (Mass Assignment)**: `protected $fillable` veya `protected $guarded` dizilerini tanımlayarak güvenliği sağlamak.
-- **Tip Dönüşümleri (Casts)**: `protected $casts` dizisi ile veritabanından gelen verilerin doğru tiplere (örn: `boolean`, `datetime`, `json`) dönüştürülmesini sağlamak.
-- **İlişkiler (Relationships)**: `hasMany`, `belongsTo` gibi metotlarla diğer modellerle olan ilişkileri tanımlamak.
-- **Tarih Alanları**: `protected $dates` veya `created_at`, `updated_at` gibi zaman damgalarını yönetmek.
+## Temel İlkeler
+- **SOLID**: Kodunuzu SOLID prensiplerine uygun yazın. Her sınıfın ve metodun tek bir sorumluluğu olmalıdır.
+- **Strict Types**: Tüm PHP dosyalarında `declare(strict_types=1);` kullanın.
+- **Interface Kullanımı**: Servisler ve Repository'ler daima bir arayüz (`interface`) üzerinden kullanılmalıdır. Bu, bağımlılıkları esnek ve test edilebilir kılar.
+- **Dependency Injection (DI)**: Bağımlılıkları (örneğin bir servise repository enjekte etmek) daima sınıfın constructor'ı üzerinden `public readonly` property'ler kullanarak enjekte edin ve arayüzleri type-hint olarak kullanın.
 
-## Yasaklar
-- **İş Mantığı YOK**: Modellerin içine iş mantığı eklenmemelidir. Örneğin, bir şifrenin hash'lenmesi gibi işlemler `Observer`'lar veya `Service` katmanında yapılmalıdır. Bir model, bir anketin yayınlanıp yayınlanamayacağını bilmemelidir.
-- **Karmaşık Sorgular YOK**: Karmaşık sorgu mantıkları model içinde scope olarak (`public function scopePublished(Builder $query)`) eklenebilir ancak bu sorguların çağrılması ve birleştirilmesi Repository katmanının sorumluluğundadır.
-- **Doğrudan Kullanım YOK**: Uygulamanın geri kalanı (Controller, Service) modelleri doğrudan kullanmamalı, bunun yerine Repository katmanı üzerinden etkileşim kurmalıdır.
-
-## Referans
-- Tüm modellerin sütunları ve ilişkileri için projenin ana dökümanı olan `PROJECT_BASE_STRUCTURE.md` dosyası tek doğru kaynak olarak kabul edilmelidir.
+## Laravel'e Özgü Kurallar
+1.  **FormRequest**: Validasyon ve yetkilendirme (authorization) mantığı **sadece** `App\Http\Requests` altındaki FormRequest sınıflarında bulunmalıdır. Controller içinde `$request->validate()` gibi manuel validasyon yapılmamalıdır.
+2.  **DTO (Data Transfer Object)**: Controller'da, FormRequest'ten gelen doğrulanmış veriyi Service katmanına aktarmak için **her zaman** bir DTO (`App\Dtos`) kullanılmalıdır.
+3.  **Service Katmanı**: Tüm iş mantığı `App\Services\Concrete` içindeki servis sınıflarında yer almalıdır. Servisler, kendilerine ait arayüzleri (`App\Services\Abstract`) implement etmelidir.
+4.  **Repository Katmanı**: Tüm veritabanı işlemleri `App\Repositories\Eloquent` içindeki repository sınıflarında soyutlanmalıdır. Repository'ler, kendilerine ait arayüzleri (`App\Repositories\Abstract`) implement etmelidir. Servisler veya Controller'lar asla doğrudan Eloquent modeli kullanmamalıdır.
+5.  **API Resources**: API yanıtlarını formatlamak için **her zaman** `App\Http\Resources` altındaki resource sınıfları kullanılmalıdır. Controller'dan veya servislerden doğrudan Eloquent modeli veya generic array dönülmemelidir.
+6.  **ServiceResponse**: Tüm servis metotları, `App\Responses\ServiceResponse` sınıfından bir nesne dönmelidir. Bu, API yanıtlarında tutarlılık sağlar.
+7.  **Provider'lar**: Yeni bir Service veya Repository oluşturduğunuzda, ilgili arayüz-sınıf eşleşmesini `App\Providers` altındaki uygun bir provider'a (`DomainServiceProvider` veya `RepositoryServiceProvider`) kaydetmeyi unutmayın.
+8.  **Model İlişkileri**: Veritabanı model yapısı ve ilişkiler için `PROJECT_BASE_STRUCTURE.md` dosyası referans alınmalıdır.
 
 ---
 > Source: [fzengin19/polling](https://github.com/fzengin19/polling) — distributed by [TomeVault](https://tomevault.io).
