@@ -1,0 +1,9 @@
+{
+  "name": "mcanfirat--localconverter",
+  "displayName": "localconverter",
+  "description": "Private, local-only file conversion and compression for Windows, macOS and Linux. Your files never leave your computer.",
+  "version": "1.0.0",
+  "author": "mcanfirat",
+  "homepage": "https://github.com/mcanfirat/localconverter",
+  "skills": []
+}
