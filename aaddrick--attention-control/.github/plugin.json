@@ -1,0 +1,9 @@
+{
+  "name": "aaddrick--attention-control",
+  "displayName": "attention-control",
+  "description": "Air traffic control discipline for agent output. Written for a reader with ADHD.",
+  "version": "1.0.0",
+  "author": "aaddrick",
+  "homepage": "https://github.com/aaddrick/attention-control",
+  "skills": []
+}
