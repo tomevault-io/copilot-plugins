@@ -1,0 +1,9 @@
+{
+  "name": "viamrobotics--viam-python-sdk",
+  "displayName": "viam-python-sdk",
+  "description": "viam-python-sdk",
+  "version": "1.0.0",
+  "author": "viamrobotics",
+  "homepage": "https://github.com/viamrobotics/viam-python-sdk",
+  "skills": []
+}
