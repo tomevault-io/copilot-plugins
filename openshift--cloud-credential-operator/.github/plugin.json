@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cloud-credential-operator",
+  "displayName": "cloud-credential-operator",
+  "description": "cloud-credential-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cloud-credential-operator",
+  "skills": []
+}
