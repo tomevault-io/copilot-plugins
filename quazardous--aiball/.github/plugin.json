@@ -1,0 +1,9 @@
+{
+  "name": "quazardous--aiball",
+  "displayName": "aiball",
+  "description": "Local backlog for inter-agent coordination \u2014 Manage tickets between turns and stay in the Loop!",
+  "version": "1.0.0",
+  "author": "quazardous",
+  "homepage": "https://github.com/quazardous/aiball",
+  "skills": []
+}
