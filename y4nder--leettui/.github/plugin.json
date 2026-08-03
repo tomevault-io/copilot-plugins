@@ -1,0 +1,9 @@
+{
+  "name": "y4nder--leettui",
+  "displayName": "leettui",
+  "description": "Grind LeetCode without leaving your terminal \u2014 a snappy TUI powered by OpenTUI + Bun",
+  "version": "1.0.0",
+  "author": "y4nder",
+  "homepage": "https://github.com/y4nder/leettui",
+  "skills": []
+}
