@@ -1,0 +1,44 @@
+{
+  "name": "deepseek-v4-prompt-plus",
+  "owner": "thehuanlwd",
+  "repo": "deepseek-v4-prompt-plus",
+  "description": "Local DeepSeek V4 proxy: reduces hallucinations  strengthens system prompt following  stops reasoning loops  repairs empty tool-call replies \u2014 with built-in session analysis and GUI. / \u672c\u5730 DeepSeek V4 \u4ee3\u7406\uff1a\u964d\u4f4e\u5e7b\u89c9\u3001\u589e\u5f3a system prompt \u9075\u5faa\u3001\u9632\u601d\u7ef4\u5faa\u73af\u3001\u4fee\u590d\u7a7a\u56de\u590d \u81ea\u5e26\u4f1a\u8bdd\u5206\u6790\u4e0e GUI\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/thehuanlwd/deepseek-v4-prompt-plus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-03T07:55:49Z"
+}
