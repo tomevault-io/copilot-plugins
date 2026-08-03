@@ -1,23 +1,21 @@
 # kindling
 
-> Source: [smith-and-web/kindling](https://github.com/smith-and-web/kindling) — distributed by [TomeVault](https://tomevault.io)
-
-Free, open-source fiction writing software. Your outline stays visible while you draft. Import from Scrivener, Plottr, yWriter, or Obsidian. macOS, Windows & Linux.
+> Source: [smith-and-web/kindling](https://github.com/smith-and-web/kindling). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [smith-and-web/kindling](https://github.com/smith-and-web/kindling).
+Original source: `CLAUDE.md` in [smith-and-web/kindling](https://github.com/smith-and-web/kindling).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [smith-and-web/kindling](https://github.com/smith-and-web/kindling) — a repo with 25+ stars on GitHub.
+From [smith-and-web/kindling](https://github.com/smith-and-web/kindling) — a repo with 49+ stars on GitHub.
 
 ---
 
