@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [xataio/pgstream](https://github.com/xataio/pgst
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [xataio/pgstream](https://github.com/xataio/pgstream) — a repo with 1162+ stars on GitHub.
+From [xataio/pgstream](https://github.com/xataio/pgstream) — a repo with 1164+ stars on GitHub.
 
 ---
 
