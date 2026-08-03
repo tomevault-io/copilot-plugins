@@ -1,0 +1,44 @@
+{
+  "name": "HackerTeam",
+  "owner": "lfz97",
+  "repo": "HackerTeam",
+  "description": "HackerTeam \u662f\u4e00\u4e2a\u9762\u5411\u4e13\u4e1a\u6e17\u900f\u6d4b\u8bd5\u4eba\u5458\u7684 AI \u9a71\u52a8\u591a\u667a\u80fd\u4f53agent\u6e17\u900f\u6d4b\u8bd5\u81ea\u52a8\u5316\u5e73\u53f0\u3002\u5b83\u5c06\u5927\u8bed\u8a00\u6a21\u578b\u4e0e\u672c\u5730\u547d\u4ee4\u6267\u884c\u80fd\u529b\u7ed3\u5408\uff0c\u901a\u8fc7\u6807\u51c6\u5316\u7684 PTES\uff08\u6e17\u900f\u6d4b\u8bd5\u6267\u884c\u6807\u51c6\uff09\u5de5\u4f5c\u6d41\uff0c\u81ea\u52a8\u5316\u5b8c\u6210\u4ece\u4fe1\u606f\u6536\u96c6\u5230\u540e\u6e17\u900f\u7684\u5b8c\u6574\u653b\u51fb\u94fe\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lfz97/HackerTeam",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-03T22:31:15Z"
+}
