@@ -1,0 +1,9 @@
+{
+  "name": "topman-14--mobius-mcp",
+  "displayName": "mobius-mcp",
+  "description": "Stream browser logs, network requests, and runtime events directly to AI coding agents for real time debugging.",
+  "version": "1.0.0",
+  "author": "Topman-14",
+  "homepage": "https://github.com/Topman-14/mobius-mcp",
+  "skills": []
+}
