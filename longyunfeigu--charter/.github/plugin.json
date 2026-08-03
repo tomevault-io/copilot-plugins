@@ -1,0 +1,9 @@
+{
+  "name": "longyunfeigu--charter",
+  "displayName": "Charter",
+  "description": "Observable agent work, from prompt to proof \u2014 a local-first desktop IDE for delegating real repository work to coding agents, without giving up visibility or control.",
+  "version": "1.0.0",
+  "author": "longyunfeigu",
+  "homepage": "https://github.com/longyunfeigu/Charter",
+  "skills": []
+}
