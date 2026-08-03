@@ -1,180 +1,698 @@
-## vibe-tools
+## alchemy-async
 
-> Global Rule. This rule should ALWAYS be loaded.
+> Always use bun to install dependencies.
 
-vibe-tools is a CLI tool that allows you to interact with AI models and other tools.
-vibe-tools is installed on this machine and it is available to you to execute. You're encouraged to use it.
+Always use bun to install dependencies.
 
-<vibe-tools Integration>
-# Instructions
-Use the following commands to get AI assistance:
+All dependencies must be peer dependencies.
 
-**Direct Model Queries:**
-`vibe-tools ask "<your question>" --provider <provider> --model <model>` - Ask any model from any provider a direct question (e.g., `vibe-tools ask "What is the capital of France?" --provider openai --model o3-mini`). Note that this command is generally less useful than other commands like `repo` or `plan` because it does not include any context from your codebase or repository. In general you should not use the ask command because it does not include any context. The other commands like `web`, `doc`, `repo`, or `plan` are usually better. If you are using it, make sure to include in your question all the information and context that the model might need to answer usefully.
+Always use alchemy.secret() instead of new Secret() to create secrets.
 
-**Ask Command Options:**
---provider=<provider>: AI provider to use (openai, anthropic, perplexity, gemini, modelbox, openrouter, or xai)
---model=<model>: Model to use (required for the ask command)
---reasoning-effort=<low|medium|high>: Control the depth of reasoning for supported models (OpenAI o1/o3-mini models and Claude 3.7 Sonnet). Higher values produce more thorough responses for complex questions.
+# Running Tests with Vitest
 
-**Implementation Planning:**
-`vibe-tools plan "<query>"` - Generate a focused implementation plan using AI (e.g., `vibe-tools plan "Add user authentication to the login page"`)
-The plan command uses multiple AI models to:
-1. Identify relevant files in your codebase (using Gemini by default)
-2. Extract content from those files
-3. Generate a detailed implementation plan (using OpenAI o3-mini by default)
+We use Vitest for testing. Here's how to run tests:
 
-**Plan Command Options:**
---fileProvider=<provider>: Provider for file identification (gemini, openai, anthropic, perplexity, modelbox, openrouter, or xai)
---thinkingProvider=<provider>: Provider for plan generation (gemini, openai, anthropic, perplexity, modelbox, openrouter, or xai)
---fileModel=<model>: Model to use for file identification
---thinkingModel=<model>: Model to use for plan generation
---with-doc=<doc_url>: Fetch content from a document URL and include it as context for both file identification and planning (e.g., `vibe-tools plan "implement feature X following the spec" --with-doc=https://example.com/feature-spec`)
+```bash
+# Run all tests
+bunx vitest
 
-**Web Search:**
-`vibe-tools web "<your question>"` - Get answers from the web using a provider that supports web search (e.g., Perplexity models and Gemini Models either directly or from OpenRouter or ModelBox) (e.g., `vibe-tools web "latest shadcn/ui installation instructions"`)
-Note: web is a smart autonomous agent with access to the internet and an extensive up to date knowledge base. Web is NOT a web search engine. Always ask the agent for what you want using a proper sentence, do not just send it a list of keywords. In your question to web include the context and the goal that you're trying to acheive so that it can help you most effectively.
-when using web for complex queries suggest writing the output to a file somewhere like local-research/<query summary>.md.
+# Run tests in a specific file
+bunx vitest alchemy/test/stripe/price.test.ts
 
-**Web Command Options:**
---provider=<provider>: AI provider to use (perplexity, gemini, modelbox, or openrouter)
+# Run a specific test in a specific file
+bunx vitest --test-name-pattern="create and update price" alchemy/test/stripe/price.test.ts
+```
 
-**Repository Context:**
-`vibe-tools repo "<your question>" [--subdir=<path>] [--from-github=<username/repo>] [--with-doc=<doc_url>]` - Get context-aware answers about this repository using Google Gemini (e.g., `vibe-tools repo "explain authentication flow"`). Use the optional `--subdir` parameter to analyze a specific subdirectory instead of the entire repository (e.g., `vibe-tools repo "explain the code structure" --subdir=src/components`). Use the optional `--from-github` parameter to analyze a remote GitHub repository without cloning it locally (e.g., `vibe-tools repo "explain the authentication system" --from-github=username/repo-name`). Use the optional `--with-doc` parameter to include content from a URL as additional context (e.g., `vibe-tools repo "implement feature X following the design spec" --with-doc=https://example.com/design-spec`).
+For resource tests, create a dedicated test file for each resource type following the pattern `alchemy/test/service-name/resource-name.test.ts`.
 
-**Documentation Generation:**
-`vibe-tools doc [options] [--with-doc=<doc_url>]` - Generate comprehensive documentation for this repository (e.g., `vibe-tools doc --output docs.md`). Can incorporate document context from a URL (e.g., `vibe-tools doc --with-doc=https://example.com/existing-docs`).
+# Creating a New Service Resource
 
-**YouTube Video Analysis:**
-`vibe-tools youtube "<youtube-url>" [question] [--type=<summary|transcript|plan|review|custom>]` - Analyze YouTube videos and generate detailed reports (e.g., `vibe-tools youtube "https://youtu.be/43c-Sm5GMbc" --type=summary`)
-Note: The YouTube command requires a `GEMINI_API_KEY` to be set in your environment or .vibe-tools.env file as the GEMINI API is the only interface that supports YouTube analysis.
+This guide provides step-by-step instructions for creating a new resource for a service (like Stripe's Price, Product, or Webhook resources).
 
-**GitHub Information:**
-`vibe-tools github pr [number]` - Get the last 10 PRs, or a specific PR by number (e.g., `vibe-tools github pr 123`)
-`vibe-tools github issue [number]` - Get the last 10 issues, or a specific issue by number (e.g., `vibe-tools github issue 456`)
+## Step 1: Create the Resource File
 
-**ClickUp Information:**
-`vibe-tools clickup task <task_id>` - Get detailed information about a ClickUp task including description, comments, status, assignees, and metadata (e.g., `vibe-tools clickup task "task_id"`)
+Create a new file in the service directory with kebab-case naming:
 
-**Model Context Protocol (MCP) Commands:**
-Use the following commands to interact with MCP servers and their specialized tools:
-`vibe-tools mcp search "<query>"` - Search the MCP Marketplace for available servers that match your needs (e.g., `vibe-tools mcp search "git repository management"`)
-`vibe-tools mcp run "<query>"` - Execute MCP server tools using natural language queries (e.g., `vibe-tools mcp run "list files in the current directory" --provider=openrouter`). The query must include sufficient information for vibe-tools to determine which server to use, provide plenty of context.
+```
+alchemy/src/{{service-name}}/{{resource-name}}.ts
+```
 
-The `search` command helps you discover servers in the MCP Marketplace based on their capabilities and your requirements. The `run` command automatically selects and executes appropriate tools from these servers based on your natural language queries. If you want to use a specific server include the server name in your query. E.g. `vibe-tools mcp run "using the mcp-server-sqlite list files in directory --provider=openrouter"`
+Example: `alchemy/src/stripe/price.ts`
 
-**Notes on MCP Commands:**
-- MCP commands require `ANTHROPIC_API_KEY` or `OPENROUTER_API_KEY` to be set in your environment
-- By default the `mcp` command uses Anthropic, but takes a --provider argument that can be set to 'anthropic' or 'openrouter'
-- Results are streamed in real-time for immediate feedback
-- Tool calls are automatically cached to prevent redundant operations
-- Often the MCP server will not be able to run because environment variables are not set. If this happens ask the user to add the missing environment variables to the cursor tools env file at ~/.vibe-tools/.env
+## Step 2: Define Resource Interfaces
 
-**Stagehand Browser Automation:**
-`vibe-tools browser open <url> [options]` - Open a URL and capture page content, console logs, and network activity (e.g., `vibe-tools browser open "https://example.com" --html`)
-`vibe-tools browser act "<instruction>" --url=<url | 'current'> [options]` - Execute actions on a webpage using natural language instructions (e.g., `vibe-tools browser act "Click Login" --url=https://example.com`)
-`vibe-tools browser observe "<instruction>" --url=<url> [options]` - Observe interactive elements on a webpage and suggest possible actions (e.g., `vibe-tools browser observe "interactive elements" --url=https://example.com`)
-`vibe-tools browser extract "<instruction>" --url=<url> [options]` - Extract data from a webpage based on natural language instructions (e.g., `vibe-tools browser extract "product names" --url=https://example.com/products`)
+Start by importing dependencies and defining the resource interfaces:
 
-**Notes on Browser Commands:**
-- All browser commands are stateless unless --connect-to is used to connect to a long-lived interactive session. In disconnected mode each command starts with a fresh browser instance and closes it when done.
-- When using `--connect-to`, special URL values are supported:
-  - `current`: Use the existing page without reloading
-  - `reload-current`: Use the existing page and refresh it (useful in development)
-  - If working interactively with a user you should always use --url=current unless you specifically want to navigate to a different page. Setting the url to anything else will cause a page refresh loosing current state.
-- Multi step workflows involving state or combining multiple actions are supported in the `act` command using the pipe (|) separator (e.g., `vibe-tools browser act "Click Login | Type 'user@example.com' into email | Click Submit" --url=https://example.com`)
-- Video recording is available for all browser commands using the `--video=<directory>` option. This will save a video of the entire browser interaction at 1280x720 resolution. The video file will be saved in the specified directory with a timestamp.
-- DO NOT ask browser act to "wait" for anything, the wait command is currently disabled in Stagehand.
+```typescript
+import type { Context } from "../context";
+import { Resource } from "../resource";
 
-**Tool Recommendations:**
-- `vibe-tools web` is best for general web information not specific to the repository. Generally call this without additional arguments.
-- `vibe-tools repo` is ideal for repository-specific questions, planning, code review and debugging. E.g. `vibe-tools repo "Review recent changes to command error handling looking for mistakes, omissions and improvements"`. Generally call this without additional arguments.
-- `vibe-tools plan` is ideal for planning tasks. E.g. `vibe-tools plan "Adding authentication with social login using Google and Github"`. Generally call this without additional arguments.
-- `vibe-tools doc` generates documentation for local or remote repositories.
-- `vibe-tools youtube` analyzes YouTube videos to generate summaries, transcripts, implementation plans, or custom analyses
-- `vibe-tools browser` is useful for testing and debugging web apps and uses Stagehand
-- `vibe-tools mcp` enables interaction with specialized tools through MCP servers (e.g., for Git operations, file system tasks, or custom tools)
+/**
+ * Properties for creating or updating a {{ResourceName}}
+ */
+export interface {{ResourceName}}Props {
+  /**
+   * {{Property description}}
+   */
+  propertyName: string;
 
-**Running Commands:**
-1. Use `vibe-tools <command>` to execute commands (make sure vibe-tools is installed globally using npm install -g vibe-tools so that it is in your PATH)
+  /**
+   * {{Property description}}
+   */
+  anotherProperty?: number;
 
-**General Command Options (Supported by all commands):**
---provider=<provider>: AI provider to use (openai, anthropic, perplexity, gemini, openrouter, modelbox, or xai). If provider is not specified, the default provider for that task will be used.
---model=<model name>: Specify an alternative AI model to use. If model is not specified, the provider's default model for that task will be used.
---max-tokens=<number>: Control response length
---save-to=<file path>: Save command output to a file (in *addition* to displaying it)
---help: View all available options (help is not fully implemented yet)
---debug: Show detailed logs and error information
+  // Add all required and optional properties
+  // Include JSDoc comments for each property
+}
 
-**Repository Command Options:**
---provider=<provider>: AI provider to use (gemini, openai, openrouter, perplexity, modelbox, anthropic, or xai)
---model=<model>: Model to use for repository analysis
---max-tokens=<number>: Maximum tokens for response
---from-github=<GitHub username>/<repository name>[@<branch>]: Analyze a remote GitHub repository without cloning it locally
---subdir=<path>: Analyze a specific subdirectory instead of the entire repository
---with-doc=<doc_url>: Fetch content from a document URL and include it as context
+/**
+ * Output returned after {{ResourceName}} creation/update
+ * IMPORTANT: The interface name MUST match the exported resource name
+ * For example, if your resource is exported as "Product", this interface
+ * should be named "Product" (not "ProductOutput")
+ *
+ */
+export interface {{ResourceName}} extends Resource<"{{service-name}}::{{ResourceName}}"> {{ResourceName}}Props {
+  /**
+   * The ID of the resource
+   */
+  id: string;
 
-**Documentation Command Options:**
---from-github=<GitHub username>/<repository name>[@<branch>]: Generate documentation for a remote GitHub repository
---provider=<provider>: AI provider to use (gemini, openai, openrouter, perplexity, modelbox, anthropic, or xai)
---model=<model>: Model to use for documentation generation
---max-tokens=<number>: Maximum tokens for response
---with-doc=<doc_url>: Fetch content from a document URL and include it as context
+  /**
+   * Time at which the object was created
+   */
+  createdAt: number;
 
-**YouTube Command Options:**
---type=<summary|transcript|plan|review|custom>: Type of analysis to perform (default: summary)
+  // Add all additional properties returned by the service
+  // Include JSDoc comments for each property
+}
+```
 
-**GitHub Command Options:**
---from-github=<GitHub username>/<repository name>[@<branch>]: Access PRs/issues from a specific GitHub repository
+## Step 3: API Client Implementation
 
-**Browser Command Options (for 'open', 'act', 'observe', 'extract'):**
---console: Capture browser console logs (enabled by default, use --no-console to disable)
---html: Capture page HTML content (disabled by default)
---network: Capture network activity (enabled by default, use --no-network to disable)
---screenshot=<file path>: Save a screenshot of the page
---timeout=<milliseconds>: Set navigation timeout (default: 120000ms for Stagehand operations, 30000ms for navigation)
---viewport=<width>x<height>: Set viewport size (e.g., 1280x720). When using --connect-to, viewport is only changed if this option is explicitly provided
---headless: Run browser in headless mode (default: true)
---no-headless: Show browser UI (non-headless mode) for debugging
---connect-to=<port>: Connect to existing Chrome instance. Special values: 'current' (use existing page), 'reload-current' (refresh existing page)
---wait=<time:duration or selector:css-selector>: Wait after page load (e.g., 'time:5s', 'selector:#element-id')
---video=<directory>: Save a video recording (1280x720 resolution, timestamped subdirectory). Not available when using --connect-to
---url=<url>: Required for `act`, `observe`, and `extract` commands. Url to navigate to before the main command or one of the special values 'current' (to stay on the current page without navigating or reloading) or 'reload-current' (to reload the current page)
---evaluate=<string>: JavaScript code to execute in the browser before the main command
+Create a minimal API client that wraps fetch calls without excessive abstraction:
 
-**Nicknames**
-Users can ask for these tools using nicknames
-Gemini is a nickname for vibe-tools repo
-Perplexity is a nickname for vibe-tools web
-Stagehand is a nickname for vibe-tools browser
-If people say "ask Gemini" or "ask Perplexity" or "ask Stagehand" they mean to use the `vibe-tools` command with the `repo`, `web`, or `browser` commands respectively.
+```typescript
+/**
+ * Options for {{ServiceName}} API requests
+ */
+export interface {{ServiceName}}ApiOptions {
+  /**
+   * API key or token to use (overrides environment variable)
+   */
+  apiKey?: string;
 
-**Xcode Commands:**
-`vibe-tools xcode build [buildPath=<path>] [destination=<destination>]` - Build Xcode project and report errors.
-**Build Command Options:**
---buildPath=<path>: (Optional) Specifies a custom directory for derived build data. Defaults to ./.build/DerivedData.
---destination=<destination>: (Optional) Specifies the destination for building the app (e.g., 'platform=iOS Simulator,name=iPhone 16 Pro'). Defaults to 'platform=iOS Simulator,name=iPhone 16 Pro'.
+  /**
+   * Account or project ID (overrides environment variable)
+   */
+  accountId?: string;
+}
 
-`vibe-tools xcode run [destination=<destination>]` - Build and run the Xcode project on a simulator.
-**Run Command Options:**
---destination=<destination>: (Optional) Specifies the destination simulator (e.g., 'platform=iOS Simulator,name=iPhone 16 Pro'). Defaults to 'platform=iOS Simulator,name=iPhone 16 Pro'.
+/**
+ * Minimal API client using raw fetch
+ */
+export class {{ServiceName}}Api {
+  /** Base URL for API */
+  readonly baseUrl: string;
 
-`vibe-tools xcode lint` - Run static analysis on the Xcode project to find and fix issues.
+  /** API key or token */
+  readonly apiKey: string;
 
-**Additional Notes:**
-- For detailed information, see `node_modules/vibe-tools/README.md` (if installed locally).
-- Configuration is in `vibe-tools.config.json` (or `~/.vibe-tools/config.json`).
-- API keys are loaded from `.vibe-tools.env` (or `~/.vibe-tools/.env`).
-- ClickUp commands require a `CLICKUP_API_TOKEN` to be set in your `.vibe-tools.env` file.
-- Available models depend on your configured provider (OpenAI, Anthropic, xAI, etc.) in `vibe-tools.config.json`.
-- repo has a limit of 2M tokens of context. The context can be reduced by filtering out files in a .repomixignore file.
-- problems running browser commands may be because playwright is not installed. Recommend installing playwright globally.
-- MCP commands require `ANTHROPIC_API_KEY` or `OPENROUTER_API_KEY`
-- **Remember:** You're part of a team of superhuman expert AIs. Work together to solve complex problems.
-- **Repomix Configuration:** You can customize which files are included/excluded during repository analysis by creating a `repomix.config.json` file in your project root. This file will be automatically detected by `repo`, `plan`, and `doc` commands.
+  /** Account ID */
+  readonly accountId: string;
 
-<!-- vibe-tools-version: 0.60.6 -->
-</vibe-tools Integration>
+  /**
+   * Create a new API client
+   *
+   * @param options API options
+   */
+  constructor(options: {{ServiceName}}ApiOptions = {}) {
+    // Initialize with environment variables or provided values
+    this.baseUrl = "https://api.{{service-name}}.com/v1";
+    this.apiKey = options.apiKey || process.env.{{SERVICE_API_KEY}} || '';
+    this.accountId = options.accountId || process.env.{{SERVICE_ACCOUNT_ID}} || '';
+
+    // Validate required configuration
+    if (!this.apiKey) {
+      throw new Error("{{SERVICE_API_KEY}} environment variable is required");
+    }
+  }
+
+  /**
+   * Make a request to the API
+   *
+   * @param path API path (without base URL)
+   * @param init Fetch init options
+   * @returns Raw Response object from fetch
+   */
+  async fetch(path: string, init: RequestInit = {}): Promise<Response> {
+    // Set up authentication headers
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${this.apiKey}`
+    };
+
+    // Add headers from init if provided
+    if (init.headers) {
+      const initHeaders = init.headers as Record<string, string>;
+      Object.keys(initHeaders).forEach(key => {
+        headers[key] = initHeaders[key];
+      });
+    }
+
+    // For FormData, remove Content-Type
+    if (init.body instanceof FormData) {
+      delete headers["Content-Type"];
+    }
+
+    // Make the request
+    return fetch(`${this.baseUrl}${path}`, {
+      ...init,
+      headers
+    });
+  }
+
+  /**
+   * Helper for GET requests
+   */
+  async get(path: string, init: RequestInit = {}): Promise<Response> {
+    return this.fetch(path, { ...init, method: "GET" });
+  }
+
+  /**
+   * Helper for POST requests
+   */
+  async post(path: string, body: any, init: RequestInit = {}): Promise<Response> {
+    const requestBody = body instanceof FormData ? body : JSON.stringify(body);
+    return this.fetch(path, { ...init, method: "POST", body: requestBody });
+  }
+
+  /**
+   * Helper for PUT requests
+   */
+  async put(path: string, body: any, init: RequestInit = {}): Promise<Response> {
+    const requestBody = body instanceof FormData ? body : JSON.stringify(body);
+    return this.fetch(path, { ...init, method: "PUT", body: requestBody });
+  }
+
+  /**
+   * Helper for DELETE requests
+   */
+  async delete(path: string, init: RequestInit = {}): Promise<Response> {
+    return this.fetch(path, { ...init, method: "DELETE" });
+  }
+}
+```
+
+## Step 4: Implement the Resource
+
+Create the resource with the pseudo-class pattern using `this` with Context type. The exported const MUST match the output interface name:
+
+```typescript
+/**
+ * (Resource description)
+ *
+ * (followed by examples for distinct use-cases of the Resource)
+ *
+ * @example
+ * // Create a basic table with just a hash key for simple
+ * // key-value lookups:
+ * const basicTable = await DynamoTable("users", {
+ *   hashKey: {
+ *     name: "userId",
+ *     type: "string"
+ *   }
+ * });
+ *
+ * @example
+ * // Create a time-series table with hash and sort key
+ * // for efficient range queries:
+ * const timeSeriesTable = await DynamoTable("events", {
+ *   hashKey: {
+ *     name: "deviceId",
+ *     type: "string"
+ *   },
+ *   sortKey: {
+ *     name: "timestamp",
+ *     type: "number"
+ *   }
+ * });
+ *
+ * @example
+ * // Create a table with a global secondary index
+ * // for alternate access patterns:
+ * const ordersTable = await DynamoTable("orders", {
+ *   hashKey: {
+ *     name: "orderId",
+ *     type: "string"
+ *   },
+ *   globalSecondaryIndexes: [{
+ *     indexName: "by-customer",
+ *     hashKey: {
+ *       name: "customerId",
+ *       type: "string"
+ *     },
+ *     sortKey: {
+ *       name: "orderDate",
+ *       type: "string"
+ *     }
+ *   }]
+ * });
+ *
+ * @example
+ * // Create a one-time fixed price for a product:
+ * const oneTimePrice = await Price("basic-license", {
+ *   currency: "usd",
+ *   unitAmount: 2999,
+ *   product: "prod_xyz"
+ * });
+ *
+ * @example
+ * // Create a recurring subscription price with fixed
+ * // monthly billing:
+ * const subscriptionPrice = await Price("pro-monthly", {
+ *   currency: "usd",
+ *   unitAmount: 1499,
+ *   product: "prod_xyz",
+ *   recurring: {
+ *     interval: "month",
+ *     usageType: "licensed"
+ *   }
+ * });
+ *
+ * @example
+ * // Create a metered price for usage-based billing:
+ * const meteredPrice = await Price("storage", {
+ *   currency: "usd",
+ *   unitAmount: 25,
+ *   product: "prod_xyz",
+ *   recurring: {
+ *     interval: "month",
+ *     usageType: "metered",
+ *     aggregateUsage: "sum"
+ *   }
+ * });
+ */
+export const {{ResourceName}} = Resource(
+  "{{service-name}}::{{ResourceName}}",
+  async function(this: Context<{{ResourceName}}>, id: string, props: {{ResourceName}}Props): Promise<{{ResourceName}}> {
+    // Get API key from environment
+    const apiKey = process.env.{{SERVICE_API_KEY}};
+    if (!apiKey) {
+      throw new Error("{{SERVICE_API_KEY}} environment variable is required");
+    }
+
+    // Initialize API client
+    const api = new {{ServiceName}}Api();
+
+    if (this.phase === "delete") {
+      try {
+        if (this.output?.id) {
+          // Delete resource
+          const deleteResponse = await api.delete(`/accounts/${api.accountId}/resources/${this.output.id}`);
+
+          // Check response status directly instead of relying on exceptions
+          if (!deleteResponse.ok && deleteResponse.status !== 404) {
+            console.error("Error deleting resource:", deleteResponse.statusText);
+          }
+        }
+      } catch (error) {
+        console.error("Error deleting resource:", error);
+      }
+
+      // Return destroyed state
+      return this.destroy();
+    } else {
+      try {
+        let response;
+
+        if (this.phase === "update" && this.output?.id) {
+          // Update existing resource
+          response = await api.put(
+            `/accounts/${api.accountId}/resources/${this.output.id}`,
+            {
+              // Map props to API-expected format
+              name: props.name,
+              description: props.description
+            }
+          );
+        } else {
+          // Create new resource
+          response = await api.post(
+            `/accounts/${api.accountId}/resources`,
+            {
+              // Map props to API-expected format
+              name: props.name,
+              description: props.description
+            }
+          );
+        }
+
+        // Check response status directly
+        if (!response.ok) {
+          throw new Error(`API error: ${response.statusText}`);
+        }
+
+        // Parse response JSON
+        const data = await response.json();
+        const resource = data.result || data;
+
+        return {
+          id: resource.id,
+          name: resource.name,
+          description: resource.description,
+          createdAt: resource.created_at || Date.now(),
+          // Include all other required properties from the interface
+          ...props // Include any additional properties from props
+        };
+      } catch (error) {
+        console.error("Error creating/updating resource:", error);
+        throw error;
+      }
+    }
+  }
+);
+```
+
+### Important Notes on Resource Implementation
+
+1. **Pseudo-Class Pattern**: The resource is implemented as a constant that matches the interface name, creating a pseudo-class construct:
+
+   ```typescript
+   export interface Product extends ProductProps {...}
+   export const Product = Resource(...);
+   ```
+
+2. **Context Type**: The implementation function uses `this: Context<T>` to provide type-safe access to the resource context.
+
+3. **Phase Handling**:
+
+   - Use `this.phase` to check the current operation phase ("create", "update", or "delete")
+   - For deletion, return `this.destroy()`
+   - For creation/update, return `{...}` with the resource properties
+
+4. **Output Construction**:
+
+   - Use `{...}` to construct the resource output
+   - Include all required properties from the interface
+   - Spread the props object to include any additional properties
+
+5. **Error Handling**:
+   - Check response status codes directly
+   - Preserve original error details when possible
+   - Log errors before rethrowing
+
+## Step 5: Export from Service Index
+
+Create or update the service index file to export the new resource:
+
+```typescript
+// alchemy/src/{{service-name}}/index.ts
+export * from "./{{resource-name}}";
+```
+
+## Step 6: Update Package.json
+
+Add the service to package.json exports if not already present:
+
+```json
+"exports": {
+  // ... existing exports
+  "./{{service-name}}": "./lib/{{service-name}}/index.js"
+}
+```
+
+Add the service SDK as a peer dependency if not already present:
+
+```json
+"peerDependencies": {
+  // ... existing dependencies
+  "{{service-sdk}}": "^x.y.z"
+}
+```
+
+## Step 7: Create Tests
+
+Create a test file that uses direct API interaction for verification:
+
+```typescript
+// alchemy/test/{{service-name}}/{{resource-name}}.test.ts
+import { describe, expect } from "vitest";
+import { alchemy } from "../../src/alchemy";
+import { destroy } from "../../src/destroy";
+import { {{ResourceName}} } from "../../src/{{service-name}}/{{resource-name}}";
+import { {{ServiceName}}Api } from "../../src/{{service-name}}/api";
+import { BRANCH_PREFIX } from "../util";
+// must import this or else alchemy.test won't exist
+import "../../src/test/vitest";
+
+const api = new {{ServiceName}}Api();
+
+const test = alchemy.test(import.meta, {
+  prefix: BRANCH_PREFIX
+});
+
+describe("{{ResourceName}} Resource", () => {
+  // Use BRANCH_PREFIX for deterministic, non-colliding resource names
+  const testId = `${BRANCH_PREFIX}-test-resource`;
+
+  test("create, update, and delete resource", async (scope) => {
+    let resource: {{ResourceName}} | undefined;
+    try {
+      // Create a test resource
+      resource = await {{ResourceName}}(testId, {
+        name: `Test Resource ${testId}`,
+        description: "This is a test resource"
+      });
+
+      expect(resource.id).toBeTruthy();
+      expect(resource.name).toEqual(`Test Resource ${testId}`);
+
+      // Verify resource was created by querying the API directly
+      const getResponse = await api.get(`/accounts/${api.accountId}/resources/${resource.id}`);
+      expect(getResponse.status).toEqual(200);
+
+      const responseData = await getResponse.json();
+      expect(responseData.result.name).toEqual(`Test Resource ${testId}`);
+
+      // Update the resource
+      resource = await {{ResourceName}}(testId, {
+        name: `Updated Resource ${testId}`,
+        description: "This is an updated test resource"
+      });
+
+      expect(resource.id).toEqual(resource.id);
+      expect(resource.name).toEqual(`Updated Resource ${testId}`);
+
+      // Verify resource was updated
+      const getUpdatedResponse = await api.get(`/accounts/${api.accountId}/resources/${resource.id}`);
+      const updatedData = await getUpdatedResponse.json();
+      expect(updatedData.result.name).toEqual(`Updated Resource ${testId}`);
+    } catch(err) {
+      // log the error or else it's silently swallowed by destroy errors
+      console.log(err);
+      throw err;
+    } finally {
+      // Always clean up, even if test assertions fail
+      await destroy(scope);
+
+      // Verify resource was deleted
+      const getDeletedResponse = await api.get(`/accounts/${api.accountId}/resources/${resource?.id}`);
+      expect(getDeletedResponse.status).toEqual(404);
+    }
+  });
+});
+```
+
+### Important Notes on Testing
+
+1. **Test Scope**: Use `alchemy.test(import.meta, {
+  prefix: BRANCH_PREFIX
+})` to create a test with proper scope management.
+
+2. **Resource Cleanup**:
+
+   - Use `try/finally` to ensure resources are cleaned up
+   - Call `destroy(scope)` to clean up all resources created in the test
+   - Verify resources are properly deleted after cleanup
+
+3. **Direct API Verification**:
+
+   - Use the service's API client to verify changes directly
+   - Check both successful operations and cleanup
+   - Verify resource state after each operation
+
+4. **Naming Convention**:
+
+   - Use `BRANCH_PREFIX` for unique test resource names
+   - Follow the pattern: `${BRANCH_PREFIX}-test-resource-type`
+   - Keep names consistent and descriptive
+
+5. **Error Handling**:
+   - Let test failures propagate for visibility
+   - Catch errors only in cleanup to ensure proper resource deletion
+   - Log cleanup errors but don't throw
+
+## Resource Naming Convention
+
+When implementing resources, follow this important naming convention:
+
+1. The output interface must have the same name as the exported resource. For example:
+
+   - If your resource constant is `export const Product = Resource(...)`,
+   - Then your output interface must be named "Product" (not "ProductOutput")
+
+2. The name of the interface and the exported constant create a pseudo-class construct:
+
+   ```typescript
+   // This naming pattern allows the resource to work correctly with type system
+   export interface Product extends ProductProps {...}
+   export const Product = Resource(...);
+   ```
+
+3. Always use this pattern for consistency across resources.
+
+## API Design Principles
+
+When implementing resources that interact with external APIs, follow these design principles:
+
+1. **Minimal abstraction**: Use a thin wrapper around fetch rather than complex SDK clients.
+
+2. **Explicit path construction**: Construct API paths explicitly at the call site instead of using helper methods:
+
+   ```typescript
+   // DO THIS:
+   await api.get(`/accounts/${api.accountId}/resources/${resourceId}`);
+
+   // NOT THIS:
+   await api.get(api.accountPath(`/resources/${resourceId}`));
+   ```
+
+3. **Direct HTTP status handling**: Check response status codes directly rather than relying on exceptions:
+
+   ```typescript
+   // DO THIS:
+   const response = await api.get(`/path/to/resource`);
+   if (!response.ok) {
+     // Handle error case
+   }
+
+   // NOT THIS:
+   try {
+     const data = await api.get(`/path/to/resource`);
+   } catch (error) {
+     // Handle error
+   }
+   ```
+
+4. **Explicit JSON parsing**: Parse JSON responses explicitly where needed:
+
+   ```typescript
+   const response = await api.get(`/path/to/resource`);
+   if (response.ok) {
+     const data = await response.json();
+     // Process data
+   }
+   ```
+
+5. **Public properties over helper methods**: Expose properties like `api.accountId` publicly to construct URLs instead of creating helper methods.
+
+6. **Minimal error transformation**: Report errors with minimal transformation to preserve original error details.
+
+## Using Raw Fetch Calls Instead of SDKs
+
+Always prefer using raw fetch calls instead of service SDKs unless explicitly instructed not to by the user. This approach:
+
+- Reduces dependency bloat
+- Minimizes version compatibility issues
+- Gives you more control over the request/response cycle
+- Often results in smaller bundle sizes
+
+For both implementation and tests, directly interact with APIs using fetch.
+
+## Resource Implementation Pattern
+
+Alchemy resources follow an async/await pattern with a pseudo-class implementation. Key concepts:
+
+1. **Async/Await Pattern**:
+
+   - Resources are implemented as async functions
+   - Direct use of async/await for all operations
+   - No Input<T>/Output<T> wrappers needed
+
+2. **Pseudo-Class Structure**:
+
+   ```typescript
+   // Define the props interface
+   export interface ResourceProps {
+     name: string;
+     // ... other properties
+   }
+
+   // Define the resource interface extending props
+   export interface Resource extends ResourceProps {
+     id: string;
+     createdAt: number;
+     // ... other properties
+   }
+
+   // Implement the resource
+   export const Resource = Resource(
+     "service::Resource",
+     async function (
+       this: Context<Resource>,
+       id: string,
+       props: ResourceProps
+     ): Promise<Resource> {
+       // Implementation
+     }
+   );
+   ```
+
+3. **Context Usage**:
+
+   - Access context through `this: Context<T>`
+   - Use `this.phase` for operation type ("create", "update", "delete")
+   - Use `this.output` for current resource state
+   - Use `{...}` to construct resource output
+   - Use `this.destroy()` for deletion
+
+4. **Phase Handling**:
+
+   ```typescript
+   if (this.phase === "delete") {
+     // Handle deletion
+     return this.destroy();
+   } else if (this.phase === "update") {
+     // Handle update
+     return { ...updatedProps };
+   } else {
+     // Handle create
+     return { ...newProps };
+   }
+   ```
+
+5. **Resource Construction**:
+
+   ```typescript
+   // Construct resource output
+   return {
+     id: resourceId,
+     ...props,
+     // Add computed properties
+     createdAt: Date.now(),
+   };
+   ```
+
+6. **Error Handling**:
+   ```typescript
+   try {
+     // Resource operations
+   } catch (error) {
+     console.error("Operation failed:", error);
+     throw error; // Propagate errors
+   }
+   ```
 
 ---
 > Source: [alchemy-run/alchemy-async](https://github.com/alchemy-run/alchemy-async) — distributed by [TomeVault](https://tomevault.io).
