@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [jgraph/drawio](https://github.com/jgraph/drawio
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [jgraph/drawio](https://github.com/jgraph/drawio) — a repo with 7001+ stars on GitHub.
+From [jgraph/drawio](https://github.com/jgraph/drawio) — a repo with 7048+ stars on GitHub.
 
 ---
 
