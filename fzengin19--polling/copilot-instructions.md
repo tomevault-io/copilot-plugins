@@ -1,33 +1,35 @@
-## testing-rules
+## workflow
 
-> Testler, uygulamanın doğruluğunu ve kararlılığını garanti altına almanın en önemli parçasıdır. Tüm yeni özellikler ve hata düzeltmeleri testlerle desteklenmelidir.
+> Bu proje için geliştirme yaparken aşağıdaki iş akışı katı bir şekilde takip edilmelidir. Bu, projenin kararlılığını korumak ve regresyonları önlemek için kritiktir.
 
-# Test Yazma Kuralları
+# Geliştirme ve Hata Düzeltme İş Akışı
 
-Testler, uygulamanın doğruluğunu ve kararlılığını garanti altına almanın en önemli parçasıdır. Tüm yeni özellikler ve hata düzeltmeleri testlerle desteklenmelidir.
+Bu proje için geliştirme yaparken aşağıdaki iş akışı katı bir şekilde takip edilmelidir. Bu, projenin kararlılığını korumak ve regresyonları önlemek için kritiktir.
 
-## Genel Kurallar
-- **Pest Framework**: Tüm testler `Pest` test çatısı kullanılarak yazılmalıdır. `it()` ve `test()` fonksiyonları kullanılmalıdır.
-- **Açıklayıcı İsimler**: Test isimleri, test edilen senaryoyu açık ve net bir şekilde anlatmalıdır. Örneğin, `it('cannot create a survey without authentication')`.
-- **Veritabanı Temizliği**: Her testten sonra veritabanının temizlendiğinden emin olmak için `RefreshDatabase` trait'i kullanılmalıdır.
-- **Factory Kullanımı**: Test verisi oluşturmak için **her zaman** `Eloquent Factory`'ler (`database/factories`) kullanılmalıdır.
+## 1. Geliştirme Döngüsü
 
-## Feature Testleri (`tests/Feature`)
-- **Odak**: Feature testleri, API endpoint'lerini dışarıdan bir kullanıcı gibi test etmelidir. Uygulamanın iç yapısını (servisler, repository'ler) bilmemelidir.
-- **Akış**: Bir feature testi genellikle şu adımları izler:
-    1.  Gerekli veriyi factory'ler ile oluştur (`User`, `Survey` vb.).
-    2.  Gerekirse `actingAs($user)` ile kullanıcıyı authenticate et.
-    3.  İlgili API endpoint'ine bir istek yap (`$this->getJson()`, `$this->postJson()` vb.).
-    4.  Gelen yanıt üzerinde `assert`'ler yap.
-- **Assertion'lar**: Yanıt üzerinde en azından şunlar kontrol edilmelidir:
-    -   Doğru HTTP durum kodu (`assertStatus(200)`, `assertCreated()`, `assertNotFound()`, `assertForbidden()`).
-    -   Yanıtın JSON yapısının beklenen API standardına uyması (`assertJsonStructure`, `assertJsonFragment`).
-    -   Veritabanında beklenen değişikliğin gerçekleşmesi (`assertDatabaseHas`, `assertDatabaseMissing`).
+1.  **Görev Belirleme (`roadmap.md`):** Her yeni geliştirme, `@roadmap.md` dosyasındaki bir adıma karşılık gelmelidir.
+2.  **Planlama (`active_development_plan.md`):**
+    *   `@roadmap.md`'den alınan görevin detaylı teknik planı `@active_development_plan.md` dosyasına yazılır.
+    *   Plan, görevi tamamlamak için gereken tüm adımları (repository, servis, controller, test güncellemeleri vb.) içermelidir.
+3.  **Geliştirme:**
+    *   Geliştirme, `@active_development_plan.md` dosyasındaki adımlar takip edilerek yapılır.
+    *   **Tek Adım Prensibi:** Her seferinde plandaki **sadece bir madde** hayata geçirilir.
+    *   **Minimal Değişiklik Prensibi:** Bir adımı tamamlamak için gereken **en küçük ve en odaklı değişiklik** yapılmalıdır.
 
-## Unit Testleri (`tests/Unit`)
-- **Odak**: Unit testleri, tek bir sınıfın veya metodun (genellikle `Service` veya karmaşık bir Action sınıfı) mantığını izole bir şekilde test etmelidir.
-- **Mocking**: Bağımlılıkları (örneğin bir servisin bağımlı olduğu repository) mock'layarak testi izole edin.
-- **Kullanım Alanı**: Daha çok karmaşık algoritmalar, hesaplamalar veya özel iş kurallarını test etmek için kullanılır. Projenin ana test yükü Feature testlerinde olmalıdır.
+## 2. Test ve Doğrulama Döngüsü
+
+1.  **Test Çalıştırma:** Plan dosyasındaki bir adım tamamlandıktan sonra, projenin tüm test paketi çalıştırılır.
+    *   **Komut:** `php artisan test`
+2.  **Sonuç Değerlendirme:**
+    *   **Tüm Testler Başarılıysa:**
+        *   `@active_development_plan.md` dosyasında ilgili madde işaretlenir (`[x]`).
+        *   Plandaki bir sonraki adıma geçilir.
+        *   Eğer plandaki tüm adımlar tamamlandıysa, `@active_development_plan.md`'deki ilgili görev bölümü silinir ve `@roadmap.md`'de ana görev işaretlenir.
+    *   **Başarısız Test Varsa:**
+        *   Yeni bir geliştirme adımına **geçilmez**.
+        *   Başarısız olan testlerin sonuçları analiz edilir ve `@errors.md` dosyasına yazılır.
+        *   Hata, bir sonraki adım olarak `@active_development_plan.md`'e "HATA DÜZELTME:" ön ekiyle eklenir ve çözülene kadar geliştirme döngüsüne bu hatadan devam edilir.
 
 ---
 > Source: [fzengin19/polling](https://github.com/fzengin19/polling) — distributed by [TomeVault](https://tomevault.io).
