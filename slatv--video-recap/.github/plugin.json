@@ -1,0 +1,9 @@
+{
+  "name": "slatv--video-recap",
+  "displayName": "video-recap",
+  "description": "Genera un borrador de newsletter semanal a partir del VOD del programa",
+  "version": "1.0.0",
+  "author": "SLAtv",
+  "homepage": "https://github.com/SLAtv/video-recap",
+  "skills": []
+}
