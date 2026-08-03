@@ -2,7 +2,7 @@
   "name": "agentplane",
   "owner": "basilisk-labs",
   "repo": "agentplane",
-  "description": "Governed CLI framework for deterministic, auditable AI agent workflows",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/basilisk-labs/agentplane",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T09:25:17Z"
+  "distributed_at": "2026-08-03T19:35:25Z"
 }
