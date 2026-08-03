@@ -1,0 +1,9 @@
+{
+  "name": "infatoshi--laguna-s-vllm",
+  "displayName": "laguna-s-vllm",
+  "description": "Laguna-S 2.1 NVFP4 with DFlash on a single RTX PRO 6000 Blackwell",
+  "version": "1.0.0",
+  "author": "Infatoshi",
+  "homepage": "https://github.com/Infatoshi/laguna-s-vllm",
+  "skills": []
+}
