@@ -1,0 +1,9 @@
+{
+  "name": "openshift-metal3--dev-scripts",
+  "displayName": "dev-scripts",
+  "description": "dev-scripts",
+  "version": "1.0.0",
+  "author": "openshift-metal3",
+  "homepage": "https://github.com/openshift-metal3/dev-scripts",
+  "skills": []
+}
