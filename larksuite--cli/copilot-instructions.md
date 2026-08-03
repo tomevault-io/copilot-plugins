@@ -1,111 +1,44 @@
 ## cli
 
-> - Make CLI better: improve UX, error messages, help text, flags, and output clarity.
+> 本文档列出 [`../creative-design.md`](../creative-design.md) 所依赖的 harness 专属工具，供你在 **Claude Code** 中运行时使用。主提示词只命名能力（"向用户提问"、"展示文件"等）；本文档给出确切的 Claude Code 工具、签名与调用方式。通用工具（`Bash`、`Read`/`Write`/`Edit`/`Glob`、`gh`）在任何环境都相同，不在此覆盖。
 
-# AGENTS.md
+# Claude Code 工具参考
 
-## Goal (pick one per PR)
+本文档列出 [`../creative-design.md`](../creative-design.md) 所依赖的 harness 专属工具，供你在 **Claude Code** 中运行时使用。主提示词只命名能力（"向用户提问"、"展示文件"等）；本文档给出确切的 Claude Code 工具、签名与调用方式。通用工具（`Bash`、`Read`/`Write`/`Edit`/`Glob`、`gh`）在任何环境都相同，不在此覆盖。
 
-- Make CLI better: improve UX, error messages, help text, flags, and output clarity.
-- Improve reliability: fix bugs, edge cases, and regressions with tests.
-- Improve developer velocity: simplify code paths, reduce complexity, keep behavior explicit.
-- Improve quality gates: strengthen tests/lint/checks without adding heavy process.
+## Web 工具 → Claude Code 工具对照表
 
-## Build & Test
+上游提示词引用了一些在 Claude Code 中并不存在的 Claude.ai web 工具。无论出现在行文还是代码里，一律按下表替换：
 
-```bash
-make build          # Build (runs fetch_meta first)
-make unit-test      # Required before PR (runs with -race)
-make test           # Full: vet + unit + integration
-```
+| Web 工具 | Claude Code 对应项 |
+|---|---|
+| `ask_user_question` | `AskUserQuestion`（答案内联返回；每次最多 4 个问题，需要更多就再调用一次） |
+| `done`、`fork_verifier_agent` | `SendUserFile` 发送交付物并给出文件路径 |
+| `write_file`（及其 `asset:` 参数） | `Write`——完全舍弃 "asset review pane" 这一概念 |
+| `copy_files` | `Bash cp` |
+| `read_file`、`list_files`、`view_image` | `Read`（也能渲染图像）、`Glob` / `Bash ls`、`Grep` |
+| `show_to_user` | `SendUserFile`（自包含文件也可用 `open <path>`） |
+| `eval_js`、`eval_js_user_view`、`run_script` | `Bash` |
+| `web_fetch`、`web_search` | `WebFetch`、`WebSearch` |
+| `generate_image` | 无内置对应。会话中若接入了图像生成 MCP/工具则使用；否则跳过 AI 生图，用内联 SVG / CSS 图形兜底，并在交付说明中注明。 |
+| `search_images` | 无专用对应。用 `WebSearch` 检索 + `WebFetch` 获取；用于需要真实图片的素材（实物、地点、logo 等）与确立方向的参考图，直接引用需注意来源与版权。 |
+| `copy_starter_component` | `Bash cp <本 skill 所在目录>/starter-components/<file> .`（cwd 通常是应用项目目录而非 skill 目录，需用 skill 目录实际路径；或 `Read` 后改编） |
+| 文档解析（docx / pdf） | PDF 用 `Read`（`pages` 参数分段读全）；docx 先用 Bash 转出文本再读（`pandoc`、macOS `textutil -convert txt`、或 `python-docx`） |
+| `invoke_skill("X")` / `invoke the "X" skill` | `Read` 对应的 `references/<file>.md`（媒介技能与本文件同在 `references/` 目录） |
 
-## Pre-PR Checks (match CI gates)
+## AskUserQuestion（澄清性提问）
 
-1. `make unit-test`
-2. `go vet ./...`
-3. `gofmt -l .` — must produce no output
-4. `go mod tidy` — must not change `go.mod`/`go.sum`
-5. `go run github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.1.6 run --new-from-rev=origin/main`
-6. If dependencies changed: `go run github.com/google/go-licenses/v2@v2.0.1 check ./... --disallowed_types=forbidden,restricted,reciprocal,unknown`
+替代 `ask_user_question`。`AskUserQuestion` **把用户的答案内联返回**——先问，等用户答复后再继续。每次调用最多展示 4 个问题；大型新项目先问一轮聚焦的问题，不够就再补一次调用。
 
-## Commit & PR
+- 记忆中的偏好可以作为问题里的*建议*默认值给出，但仍须由用户确认。
+- 优先用它，而不是在回复里用文字列点罗列选项。
+- 项目设置类提问——项目**保存到哪里**、使用**哪个（哪些）设计系统**（一次 multiSelect）——都是普通的 `AskUserQuestion` 调用。
 
-- Conventional Commits in English: `feat:`, `fix:`, `docs:`, `test:`, `refactor:`, `chore:`, `ci:`
-- PR title in the same format. Fill `.github/pull_request_template.md` completely.
-- Never commit secrets, tokens, or internal sensitive data.
+## 交付与发布
 
-## Source Layout
-
-| Path | What it does |
-|------|-------------|
-| `cmd/root.go` | Entry point, command registration, strict mode pruning |
-| `cmd/profile/` | Multi-profile management (add/list/use/rename/remove) |
-| `cmd/config/` | Config init, show, strict-mode |
-| `cmd/service/` | Auto-registered API commands from embedded metadata |
-| `shortcuts/common/runner.go` | Shortcut execution pipeline, Flag.Input (@file/stdin) resolution |
-| `shortcuts/` | Domain-specific shortcut implementations |
-| `internal/cmdutil/factory.go` | Factory pattern — identity resolution, credential, config |
-| `internal/cmdutil/factory_default.go` | Production factory wiring |
-| `internal/credential/` | Credential provider chain (extension → default) |
-| `extension/credential/` | Plugin-facing credential interfaces and env provider |
-| `internal/client/client.go` | APIClient: DoSDKRequest, DoStream |
-| `internal/core/config.go` | Multi-profile config loading/saving |
-| `internal/vfs/` | Filesystem abstraction (use `vfs.*` instead of `os.*`) |
-| `internal/validate/path.go` | Path safety validation |
-
-## Who Uses This CLI
-
-This CLI's primary consumers include AI agents (Claude Code, Cursor, Gemini CLI). Your code is read by machines — error messages, output format, and flag design all directly affect agent success rates.
-
-The one rule to internalize: **every error message you write will be parsed by an AI to decide its next action.** Make errors structured, actionable, and specific.
-
-## Code Conventions
-
-### Structured errors in commands
-
-`RunE` functions must return `output.Errorf` / `output.ErrWithHint` — never bare `fmt.Errorf`. AI agents parse stderr as JSON; bare errors break this contract.
-
-### stdout is data, stderr is everything else
-
-Program output (JSON envelopes) goes to stdout. Progress, warnings, hints go to stderr. Mixing them corrupts pipe chains.
-
-### Use `vfs.*` instead of `os.*`
-
-All filesystem access goes through `internal/vfs`. This enables test mocking.
-
-### Validate paths before reading
-
-CLI arguments are untrusted (they come from AI agents). Call `validate.SafeInputPath` before any file I/O.
-
-### Tests
-
-- Every behavior change needs a test alongside the change.
-- `cmdutil.TestFactory(t, config)` for test factories.
-- `t.Setenv("LARKSUITE_CLI_CONFIG_DIR", t.TempDir())` to isolate config state.
-
-### E2E Testing
-
-**Dry-run E2E (required for every shortcut change)**
-- Validates request structure without calling real APIs
-- Place in `tests/cli_e2e/dryrun/` or the corresponding domain directory
-- Set env vars `LARKSUITE_CLI_APP_ID`/`APP_SECRET`/`BRAND`, use `--dry-run`, assert method/URL/params
-- No secrets needed — runs on fork PRs
-- Explore correct params with `lark-cli <domain> --help` and `lark-cli schema` first
-
-**Live E2E (required for new flows or behavior changes)**
-- Validates real API round-trips
-- Place in `tests/cli_e2e/<domain>/`
-- Must be self-contained: create -> use -> cleanup
-- Needs bot credentials (CI secrets, skipped on fork PRs)
-- Reference: `tests/cli_e2e/task/task_status_workflow_test.go`
-
-| Change | Dry-run E2E | Live E2E |
-|--------|:-----------:|:--------:|
-| New shortcut | Required | Required |
-| Modify shortcut flags/params | Required | If behavior changes |
-| Shortcut bug fix | Required | If regression risk |
-| Internal refactor (no shortcut impact) | Not needed | Not needed |
+- 用 `SendUserFile` 发送交付物并给出文件路径（读取文件**并不会**把它展示给用户）。
+- 产物完成并提交后，按 [`../creative-design.md`](../creative-design.md)「发布」一节发布到妙搭——交付给用户的可分享链接是 `+release-get` 返回的 `online_url`。
 
 ---
 > Source: [larksuite/cli](https://github.com/larksuite/cli) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
