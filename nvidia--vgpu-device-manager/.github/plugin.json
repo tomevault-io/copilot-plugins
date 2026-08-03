@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--vgpu-device-manager",
+  "displayName": "vgpu-device-manager",
+  "description": "vgpu-device-manager",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/vgpu-device-manager",
+  "skills": []
+}
