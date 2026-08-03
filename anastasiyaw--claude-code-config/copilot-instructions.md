@@ -1,77 +1,85 @@
 ## claude-code-config
 
-> This is a configuration system repository for AI coding agents, not an application. It collects battle-tested architectural principles, security hardening, and decision frameworks that any coding agent can drop into any project.
+> > Read this file first. It points at the sources of truth for writing
 
-# AGENTS.md
+# AGENTS.md -- entry point for coding agents
 
-This is a configuration system repository for AI coding agents, not an application. It collects battle-tested architectural principles, security hardening, and decision frameworks that any coding agent can drop into any project.
+> Read this file first. It points at the sources of truth for writing
+> code that matches this repo. Keep it under 150 lines so it fits in a
+> cached prompt prefix.
 
-## Purpose
+## What this project is
 
-- `principles/` - 19 architectural principles, each preventing a specific failure mode
-- `alternatives/` - side-by-side comparisons of 2-5 approaches per problem
-- `hooks/` - ready-to-use Python hook scripts (session management, safety guards)
-- `templates/` - starter CLAUDE.md and REVIEW.md files for different project types
-- `skills/` - domain-specific knowledge bundles (loaded on demand)
-- `rules/` - drop-in `.claude/rules/` files
-- `scripts/` - diagnostic utilities (config drift validator, KV-cache stats)
-- `CLAUDE.md` - Claude Code-specific overlay (extends this file)
+<!-- TODO: one paragraph. What is the product, who uses it, what is the
+current phase. -->
 
-## How agents should use this repo
+## Quick commands
 
-When the user asks you to "set up this project" or "apply these principles":
-
-1. Read `README.md` first - it lists the 23 principles by problem they solve
-2. Read `principles/README.md` for the maturity-level map (L1 -> L2 -> L3)
-3. Do NOT bulk-copy everything. Pick what matches the user's actual project:
-   - Any project: Principle 09 (Supply Chain Defense), Principle 10 (Agent Security), Principle 11 (Documentation Integrity)
-   - Long sessions expected: Principle 07 (Codified Context) + `alternatives/context-management.md`
-   - Multi-agent work: Principle 01 (Harness Design) + Principle 06 (Multi-Agent Decomposition)
-   - Iterative optimization: Principle 03 (Autoresearch)
-4. Before copying a principle, verify the user's stack matches the examples
-5. After setup, run `scripts/validate_config.py` to catch drift in the freshly assembled config
-
-## Style conventions for this repo
-
-- Principles are standalone files in `principles/NN-name.md`
-- Each principle has: Overview, The Paradigm, The Mechanism, Case Study, Sources
-- Alternatives follow the 5-approach comparison format with a decision table
-- Skills are `skills/<category>/<name>/SKILL.md` with an optional `references/` folder
-- Descriptions must be model triggers, not human summaries
-- Keep SKILL.md under 5000 words; detail goes in `references/`
-
-## Do not touch
-
-- `principles/` existing files: edit only to fix drift, not to restructure
-- `scripts/validate_config.py`: any change requires re-testing against the full repo
-- `LICENSE`, `UPDATES.md` commit history: append only
-
-## Commands
-
-This repo has no build, test, or deploy commands. It is pure markdown + one Python validator script. To verify the validator works:
+<!-- TODO: the ~5 commands you run daily. pytest / ruff / mypy / build /
+deploy / lint. -->
 
 ```bash
-python scripts/validate_config.py
+# Example:
+# pytest                          # run all tests
+# ruff check .                    # lint
+# python -m <package>             # run local
 ```
 
-Expected output: `[config-validator] OK: N files, no drift detected`.
+## Source-of-truth docs
 
-## Context engineering notes
+| Topic | File |
+|-------|------|
+| High-level architecture | `docs/ARCHITECTURE.md` |
+| Operations runbook | `docs/OPERATIONS.md` |
+| **Hard rules that MUST hold** | `docs/kb/INVARIANTS.md` |
+| **Coding conventions / idioms** | `docs/kb/conventions.md` |
+| **Recipes for common tasks** | `docs/kb/patterns.md` |
+| **Known foot-guns** | `docs/kb/gotchas.md` |
+| **Why we chose what we chose** | `docs/kb/decisions.md` |
+| **Per-module API contract** | `docs/kb/modules/*.md` |
 
-This file is designed for KV-cache efficiency and the 150-line AGENTS.md standard:
+Minimum reading when you are about to write code:
+`INVARIANTS.md` + `conventions.md` + the `modules/<area>.md` that
+covers the files you touch.
 
-- Under 80 lines - fits in a single cached prompt prefix
-- No timestamps or dynamic content
-- Stable section order - do not shuffle
-- Append-only edits preferred over restructuring
-- For Claude Code-specific behaviors (hooks, skills automation), see `CLAUDE.md` as an overlay
+## Hard boundaries (no-go zones)
 
-## Related standards
+<!-- TODO: list places the agent MUST NOT touch. -->
 
-- [AGENTS.md specification](https://agents.md) - Linux Foundation / Agentic AI Foundation
-- [How to write a great AGENTS.md](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/) - GitHub best practices from 2500+ repos
-- See `CLAUDE.md` for Claude Code-specific extensions to this file
+- `.env`, `.env.*`, `*.env`, `secrets/` -- gitignored, never commit.
+- <your-sensitive-path>/ -- reason.
+
+## Writing code -- short version
+
+1. **Find the nearest kb page.** `docs/kb/modules/` has per-area rules.
+2. **Read the file you are editing entirely.**
+3. **Check `INVARIANTS.md`** for any rule that applies. Violation =
+   either the code or the invariant must change, and invariants change
+   only via explicit proposal in `decisions.md`.
+4. **Run regression tests** before claiming completion. Tests carry
+   docstrings naming the finding they lock in.
+5. **Write a regression test for any new convention** you establish.
+
+## Review workflow
+
+<!-- TODO: if you use agent-based code review (see principle 21), list
+your review templates here. Otherwise delete this section. -->
+
+## Multi-agent collaboration
+
+<!-- TODO: if multiple Claude sessions / Codex / teammates push here,
+describe the handoff convention. Common pattern:
+docs/handoffs/YYYY-MM-DD-from-<name>.md -->
+
+## Asking "should I X or Y?"
+
+1. Check `decisions.md` -- the question may already have a documented
+   answer.
+2. Check `conventions.md` -- there may be an idiom that resolves it.
+3. Ask the human.
+4. If still unblocked, pick the option that is easier to revert;
+   document your choice at the top of the commit.
 
 ---
 > Source: [AnastasiyaW/claude-code-config](https://github.com/AnastasiyaW/claude-code-config) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
