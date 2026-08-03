@@ -1,6 +1,6 @@
 # sepal
 
-> Source: [openforis/sepal](https://github.com/openforis/sepal). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [openforis/sepal](https://github.com/openforis/sepal). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
