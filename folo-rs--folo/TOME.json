@@ -2,7 +2,7 @@
   "name": "folo",
   "owner": "folo-rs",
   "repo": "folo",
-  "description": "Mechanisms for high-performance hardware-aware programming in Rust",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/folo-rs/folo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T12:42:50Z"
+  "distributed_at": "2026-08-03T23:47:58Z"
 }
