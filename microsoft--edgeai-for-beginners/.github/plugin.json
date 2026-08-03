@@ -1,7 +1,7 @@
 {
   "name": "microsoft--edgeai-for-beginners",
   "displayName": "edgeai-for-beginners",
-  "description": "This course is designed to guide beginners through the exciting world of Edge AI, covering fundamental concepts, popular models, inference techniques, device-specific applications, model optimization,",
+  "description": "edgeai-for-beginners",
   "version": "1.0.0",
   "author": "microsoft",
   "homepage": "https://github.com/microsoft/edgeai-for-beginners",
