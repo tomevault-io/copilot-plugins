@@ -1,0 +1,9 @@
+{
+  "name": "ha-parcel-integrations--ha-dhl-nl",
+  "displayName": "ha-dhl-nl",
+  "description": "Track DHL eCommerce parcels in Home Assistant",
+  "version": "1.0.0",
+  "author": "ha-parcel-integrations",
+  "homepage": "https://github.com/ha-parcel-integrations/ha-dhl-nl",
+  "skills": []
+}
