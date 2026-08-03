@@ -1,110 +1,80 @@
 ## robots
 
-> `strands-robots` is a robot control library for [Strands Agents](https://strandsagents.com). It provides policy inference, teleoperation, calibration, and simulation tools for physical robots.
+> Hand a Robot() to a Strands Agent and control it with plain English.
 
-# AGENTS.md — strands-labs/robots
 
-## Overview
+# AI agents
 
-`strands-robots` is a robot control library for [Strands Agents](https://strandsagents.com). It provides policy inference, teleoperation, calibration, and simulation tools for physical robots.
+A `Robot()` is a Strands tool. Hand it to an `Agent` and it drives the robot for you - picking actions from natural language.
 
-## Project Dashboard
+```python
+from strands import Agent
+from strands_robots import Robot
 
-**Board**: https://github.com/orgs/strands-labs/projects/2
-**Project ID**: `PVT_kwDOD151Fs4BSRJP`
+robot = Robot("so100")
+agent = Agent(tools=[robot])   # one tool, 60+ actions
 
-> **RULE**: ALWAYS use the project board to track work. When creating follow-up items,
-> create GitHub issues and add them to this board with Status + Priority set.
-> Never track work only in local markdown — the board is the source of truth.
-
-## Repository Structure
-
+agent("Add a red cube on the table and pick it up")
+# → calls robot.add_object(...) then robot.run_policy(...)
 ```
-strands_robots/
-├── policies/              # Policy providers (pluggable via registry)
-│   ├── base.py            # Abstract Policy base class
-│   ├── factory.py         # create_policy() factory + registry
-│   ├── mock.py            # MockPolicy for testing
-│   ├── groot/             # NVIDIA GR00T N1.5/N1.6/N1.7 inference
-│   │   ├── policy.py      # Gr00tPolicy (ZMQ + HTTP modes)
-│   │   ├── client.py      # Gr00tInferenceClient
-│   │   ├── data_config.py # Gr00tDataConfig + ModalityConfig
-│   │   └── data_configs.json  # 25 robot embodiment configs
-│   └── lerobot_local/     # HuggingFace LeRobot direct inference
-│       ├── policy.py      # LerobotLocalPolicy (RTC support)
-│       ├── processor.py   # ProcessorBridge (pre/post pipelines)
-│       └── resolution.py  # Policy class resolution (v0.4/v0.5)
-├── registry/              # JSON registry for policy discovery
-├── tools/                 # Strands @tool functions
-│   ├── gr00t_inference.py # GR00T inference tool
-│   ├── lerobot_calibrate.py
-│   ├── lerobot_camera.py
-│   ├── lerobot_teleoperate.py
-│   ├── pose_tool.py
-│   └── serial_tool.py
-├── robot.py               # Core Robot class
-└── utils.py               # Shared utilities (require_optional, etc.)
-
-tests/                     # Unit tests (run with: hatch run test)
-tests_integ/               # Integration tests (run with: hatch run test-integ)
-```
-
-## Development
 
 ```bash
-# Install with all optional deps
-pip install -e ".[all,dev]"
-
-# Run tests
-hatch run test              # unit tests
-hatch run test-integ        # integration tests (needs GPU + model weights)
-
-# Lint & format
-hatch run lint              # ruff check, ruff format --check, mypy
-hatch run format            # ruff check --fix, ruff format
+uv pip install strands-agents "strands-robots[sim-mujoco]"
 ```
 
-> **Note**: Hatch uses `uv` as installer (`installer = "uv"` in pyproject.toml) for faster
-> environment creation. No manual uv install needed — hatch handles it.
+## Add more tools
 
-## Key Conventions
+```python
+from strands_robots.tools import gr00t_inference, pose_tool
 
-1. **Python 3.12+** — `requires-python = ">=3.12"` (LeRobot >=0.5.0 requires 3.12)
-2. **Dependency bounds** — `>=1.0` deps: cap major. `<1.0` deps: cap minor. E.g. `lerobot>=0.5.0,<0.6.0`
-3. **`__init__.py` must be thin** — exports only, no logic
-4. **Imports at file top** — unless lazy-loading heavy deps with documented reason
-5. **Raise on fatal errors** — never warn-and-continue if the system will behave unexpectedly
-6. **No silent defaults on error** — returning zero-valued actions on failure is forbidden
-7. **Use `require_optional()`** — from `strands_robots/utils.py` for all optional deps
-8. **Integration tests required** — each policy needs `tests_integ/` tests with real inference
-9. **Test behavior, not implementation** — assert on outputs, not internal state
-10. **No dead code** — if it's not called and not part of base class, delete it
+agent = Agent(tools=[robot, gr00t_inference, pose_tool])
+agent("Start a GR00T server on port 5555 with so100_dualcam, "
+      "then pick up the cube using groot")
+```
 
-## PR Workflow
+Everything in `strands_robots/tools/` is a `@tool` the agent can call directly.
 
-1. Create feature branch from `main`
-2. Make changes, run `hatch run format && hatch run lint && hatch run test`
-3. All tests must pass, lint must be clean
-4. Open PR from your fork, address all review comments
-5. Track follow-up items as issues on the [project board](https://github.com/orgs/strands-labs/projects/2)
-6. Squash merge into `main`
+## Multi-turn
 
+```python
+agent("Set up a blue ball and a red cube in opposite corners")
+agent("Add a side camera looking at the workspace")
+agent("Run the mock policy for 5 seconds and report which objects are still on the table")
+```
 
-## Registry conventions (strands_robots/registry/robots.json)
+## Sim to real
 
-- **Flat asset paths** (e.g. `"model_xml": "scene.xml"`) are the common case.
-- **Nested asset paths** (e.g. `"model_xml": "xmls/asimov.xml"`) are allowed when
-  the upstream source repo uses a subdir layout. Example: `asimov_v0` maps to
-  `asimovinc/asimov-v0` which has `sim-model/xmls/asimov.xml` +
-  `sim-model/assets/`. The `_safe_join` helper in `strands_robots/utils.py`
-  guards against traversal (`..`).
-- **Auto-download strategy** — every robot with an `asset` block must declare
-  exactly one of:
-    1. `asset.robot_descriptions_module` (preferred)
-    2. `asset.source` with `type: "github"`
-    3. `asset.auto_download: false` (explicit opt-out)
-  Enforced by `tests/test_registry_integrity.py`.
+```python
+robot = Robot("so100", mode="real",                                    # requires hardware
+              cameras={"wrist": {"type": "opencv",
+                                 "index_or_path": "/dev/video0", "fps": 30}})
+agent = Agent(tools=[robot])
+agent("Pick up the cube")
+```
+
+The agent sees the same tool spec in both modes; only the implementation changes.
+
+## Common patterns
+
+| Instruction | Action chain |
+|-------------|--------------|
+| "Reset the world" | `reset` |
+| "Add a 5cm red cube" | `add_object(shape='box', size=[0.025]*3, color=[1,0,0,1])` |
+| "Take a picture" | `render` |
+| "Run the policy" | `run_policy(robot_name='so100', ...)` |
+| "What's in the scene?" | `list_objects` + `get_state` |
+| "Try 10 episodes, report success" | `eval_policy(robot_name='so100', n_episodes=10)` |
+| "Record a session" | `start_recording` → `run_policy` → `stop_recording` |
+
+Inspect the full spec: `print(robot.tool_spec)` - JSON schema with all 60+ actions.
+
+## See also
+
+- [Multi-robot mesh](mesh.md) - the agent coordinates multiple robots.
+- [Hardware tools](hardware/tools.md) - the `@tool` helpers.
+- [Simulation overview](simulation/overview.md) - every action the agent can call.
+- [Strands Agents documentation](https://strandsagents.com/) - provider setup, advanced patterns.
 
 ---
 > Source: [strands-labs/robots](https://github.com/strands-labs/robots) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
