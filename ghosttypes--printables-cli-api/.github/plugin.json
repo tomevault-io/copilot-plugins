@@ -1,0 +1,9 @@
+{
+  "name": "ghosttypes--printables-cli-api",
+  "displayName": "printables-cli-api",
+  "description": "A command-line utility to search for 3D models on printables.com",
+  "version": "1.0.0",
+  "author": "GhostTypes",
+  "homepage": "https://github.com/GhostTypes/printables-cli-api",
+  "skills": []
+}
