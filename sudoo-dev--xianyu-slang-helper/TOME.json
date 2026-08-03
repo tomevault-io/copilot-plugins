@@ -1,0 +1,44 @@
+{
+  "name": "xianyu-slang-helper",
+  "owner": "sudoo-dev",
+  "repo": "xianyu-slang-helper",
+  "description": "Chrome extension to decode coded slang on Xianyu (Goofish) marketplace \u00b7 Search \u00b7 Highlight \u00b7 Custom dict \u00b7 Built-in AI",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sudoo-dev/xianyu-slang-helper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-03T07:46:56Z"
+}
