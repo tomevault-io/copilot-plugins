@@ -4,7 +4,7 @@
   "repo": "ai-workspace-standards",
   "description": "Master configuration for Vibe Coding and Harness Engineering \u2014 workspace standards for Claude Code, Gemini CLI, and all AI tools",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/5throck/ai-workspace-standards",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T01:43:07Z"
+  "distributed_at": "2026-08-03T19:53:10Z"
 }
