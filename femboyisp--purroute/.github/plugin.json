@@ -1,0 +1,9 @@
+{
+  "name": "femboyisp--purroute",
+  "displayName": "purroute",
+  "description": "purrformant advance proxy server that supports protocol detection (socks5, socks4, http, https, etc on the same port) and protocol translation (http -> socks5, socks5 -> http, etc), supports proxy cha",
+  "version": "1.0.0",
+  "author": "femboyisp",
+  "homepage": "https://github.com/femboyisp/purroute",
+  "skills": []
+}
