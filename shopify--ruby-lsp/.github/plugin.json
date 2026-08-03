@@ -1,0 +1,9 @@
+{
+  "name": "shopify--ruby-lsp",
+  "displayName": "ruby-lsp",
+  "description": "ruby-lsp",
+  "version": "1.0.0",
+  "author": "Shopify",
+  "homepage": "https://github.com/Shopify/ruby-lsp",
+  "skills": []
+}
