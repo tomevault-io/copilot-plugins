@@ -1179,6 +1179,11 @@
       "description": "marktext"
     },
     {
+      "name": "rclone--rclone",
+      "source": "./rclone--rclone",
+      "description": "rclone"
+    },
+    {
       "name": "rails--rails",
       "source": "./rails--rails",
       "description": "rails"
@@ -7059,6 +7064,11 @@
       "description": "laradock"
     },
     {
+      "name": "laradock--laradock",
+      "source": "./laradock--laradock",
+      "description": "laradock"
+    },
+    {
       "name": "blackboardsh--electrobun",
       "source": "./blackboardsh--electrobun",
       "description": "electrobun"
@@ -7072,6 +7082,11 @@
       "name": "antvis--g2",
       "source": "./antvis--g2",
       "description": "G2"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
     },
     {
       "name": "nearai--ironclaw",
@@ -7652,6 +7667,11 @@
       "name": "the-pr-agent--pr-agent",
       "source": "./the-pr-agent--pr-agent",
       "description": "pr-agent"
+    },
+    {
+      "name": "zilliztech--claude-context",
+      "source": "./zilliztech--claude-context",
+      "description": "claude-context"
     },
     {
       "name": "markmead--hyperui",
@@ -8452,6 +8472,11 @@
       "name": "ecomfe--vue-echarts",
       "source": "./ecomfe--vue-echarts",
       "description": "vue-echarts"
+    },
+    {
+      "name": "47ng--nuqs",
+      "source": "./47ng--nuqs",
+      "description": "nuqs"
     },
     {
       "name": "microsoft--fluentui-system-icons",
@@ -9684,6 +9709,11 @@
       "description": "origin"
     },
     {
+      "name": "openshift--origin",
+      "source": "./openshift--origin",
+      "description": "origin"
+    },
+    {
       "name": "pdm-project--pdm",
       "source": "./pdm-project--pdm",
       "description": "pdm"
@@ -10864,6 +10894,26 @@
       "description": "gopass"
     },
     {
+      "name": "jgraph--drawio",
+      "source": "./jgraph--drawio",
+      "description": "drawio"
+    },
+    {
+      "name": "jgraph--drawio",
+      "source": "./jgraph--drawio",
+      "description": "drawio"
+    },
+    {
+      "name": "jgraph--drawio",
+      "source": "./jgraph--drawio",
+      "description": "drawio"
+    },
+    {
+      "name": "jgraph--drawio",
+      "source": "./jgraph--drawio",
+      "description": "drawio"
+    },
+    {
       "name": "flwrlabs--flower",
       "source": "./flwrlabs--flower",
       "description": "flower"
@@ -11489,6 +11539,11 @@
       "description": "ublacklist"
     },
     {
+      "name": "leejet--stable-diffusion-cpp",
+      "source": "./leejet--stable-diffusion-cpp",
+      "description": "stable-diffusion.cpp"
+    },
+    {
       "name": "thecraighewitt--seomachine",
       "source": "./thecraighewitt--seomachine",
       "description": "A specialized Claude Code workspace for creating long-form, SEO-optimized blog content for any business. This system helps you research, write, analyze, and optimize content that ranks well and serves"
@@ -11567,6 +11622,11 @@
       "name": "k3d-io--k3d",
       "source": "./k3d-io--k3d",
       "description": "k3d"
+    },
+    {
+      "name": "makepad--makepad",
+      "source": "./makepad--makepad",
+      "description": "makepad"
     },
     {
       "name": "makepad--makepad",
@@ -13069,6 +13129,11 @@
       "description": "Static analysis for GitHub Actions"
     },
     {
+      "name": "the-open-agent--openagent",
+      "source": "./the-open-agent--openagent",
+      "description": "openagent"
+    },
+    {
       "name": "chrxh--alien",
       "source": "./chrxh--alien",
       "description": "alien"
@@ -13142,6 +13207,11 @@
       "name": "blackboxo--cleanmywechat",
       "source": "./blackboxo--cleanmywechat",
       "description": "CleanMyWechat"
+    },
+    {
+      "name": "middleapi--orpc",
+      "source": "./middleapi--orpc",
+      "description": "orpc"
     },
     {
       "name": "rocketride-org--rocketride-server",
@@ -16459,6 +16529,11 @@
       "description": "A full-stack AI Red Teaming platform securing AI ecosystems via OpenClaw Security Scan, Agent Scan, Skills Scan, MCP scan, AI Infra scan and LLM jailbreak evaluation."
     },
     {
+      "name": "fasterxml--jackson-databind",
+      "source": "./fasterxml--jackson-databind",
+      "description": "jackson-databind"
+    },
+    {
       "name": "openchamber--openchamber",
       "source": "./openchamber--openchamber",
       "description": "Desktop and web interface for OpenCode AI agent"
@@ -18407,6 +18482,11 @@
       "name": "saghul--txiki-js",
       "source": "./saghul--txiki-js",
       "description": "txiki.js"
+    },
+    {
+      "name": "trash-guides--guides",
+      "source": "./trash-guides--guides",
+      "description": "Guides"
     },
     {
       "name": "tsedio--tsed",
@@ -20367,6 +20447,16 @@
       "name": "openflagr--flagr",
       "source": "./openflagr--flagr",
       "description": "flagr"
+    },
+    {
+      "name": "vexa-ai--vexa",
+      "source": "./vexa-ai--vexa",
+      "description": "vexa"
+    },
+    {
+      "name": "vexa-ai--vexa",
+      "source": "./vexa-ai--vexa",
+      "description": "vexa"
     },
     {
       "name": "rust-lang-nursery--rust-cookbook",
@@ -22967,6 +23057,11 @@
       "name": "sequinstream--sequin",
       "source": "./sequinstream--sequin",
       "description": "Postgres change data capture to streams, queues, and search indexes like Kafka, SQS, Elasticsearch, HTTP endpoints, and more"
+    },
+    {
+      "name": "blazemeter--taurus",
+      "source": "./blazemeter--taurus",
+      "description": "taurus"
     },
     {
       "name": "modelengine-group--fit-framework",
@@ -28139,6 +28234,11 @@
       "description": "emulate"
     },
     {
+      "name": "skforecast--skforecast",
+      "source": "./skforecast--skforecast",
+      "description": "skforecast"
+    },
+    {
       "name": "chrisryugj--korean-law-mcp",
       "source": "./chrisryugj--korean-law-mcp",
       "description": "\uad6d\uac00\ubc95\ub839\uc815\ubcf4MCP | \ubc95\uc81c\ucc98 41\uac1c API \u2192 16\uac1c MCP \ub3c4\uad6c. \ubc95\ub839\u00b7\ud310\ub840\u00b7\uc870\ub840\u00b7\uc870\uc57d\uc744 AI\ub85c \uac80\uc0c9\u00b7\uc870\ud68c\u00b7\ubd84\uc11d + LLM \ud658\uac01 \ubc29\uc9c0 \uc778\uc6a9 \uac80\uc99d | 41 Korean legal APIs \u2192 16 MCP tools with AI citation hallucination guard"
@@ -28647,6 +28747,11 @@
       "name": "project-oak--oak",
       "source": "./project-oak--oak",
       "description": "oak"
+    },
+    {
+      "name": "redocly--redocly-cli",
+      "source": "./redocly--redocly-cli",
+      "description": "redocly-cli"
     },
     {
       "name": "thanglequoc--vietnamese-provinces-database",
@@ -30417,6 +30522,11 @@
       "name": "uxlfoundation--scikit-learn-intelex",
       "source": "./uxlfoundation--scikit-learn-intelex",
       "description": "scikit-learn-intelex"
+    },
+    {
+      "name": "kubenetworks--kubevpn",
+      "source": "./kubenetworks--kubevpn",
+      "description": "kubevpn"
     },
     {
       "name": "uxlfoundation--scikit-learn-intelex",
@@ -37744,6 +37854,16 @@
       "description": "godot-kotlin-jvm"
     },
     {
+      "name": "utopia-rise--godot-kotlin-jvm",
+      "source": "./utopia-rise--godot-kotlin-jvm",
+      "description": "godot-kotlin-jvm"
+    },
+    {
+      "name": "utopia-rise--godot-kotlin-jvm",
+      "source": "./utopia-rise--godot-kotlin-jvm",
+      "description": "godot-kotlin-jvm"
+    },
+    {
       "name": "argotorg--sourcify",
       "source": "./argotorg--sourcify",
       "description": "sourcify"
@@ -41779,6 +41899,11 @@
       "description": "performance"
     },
     {
+      "name": "deepcoldy--botmux",
+      "source": "./deepcoldy--botmux",
+      "description": "botmux"
+    },
+    {
       "name": "magicdawn--bilibili-gate",
       "source": "./magicdawn--bilibili-gate",
       "description": "Bilibili-Gate"
@@ -45719,6 +45844,11 @@
       "description": "ServerKit"
     },
     {
+      "name": "johnmarktaylor91--torchlens",
+      "source": "./johnmarktaylor91--torchlens",
+      "description": "torchlens"
+    },
+    {
       "name": "nomadamas--slides-grab",
       "source": "./nomadamas--slides-grab",
       "description": "Best harness + editor + linter for generating slides in Claude Code / Codex - Claude Design Open Source Alternative "
@@ -49299,6 +49429,11 @@
       "description": "oxo"
     },
     {
+      "name": "sympozium-ai--sympozium",
+      "source": "./sympozium-ai--sympozium",
+      "description": "sympozium"
+    },
+    {
       "name": "oil-oil--wolfcha",
       "source": "./oil-oil--wolfcha",
       "description": "AI-powered Werewolf (Mafia) social deduction game where every player is controlled by top LLMs like DeepSeek, Qwen, Gemini, and more"
@@ -49912,6 +50047,11 @@
       "name": "coliff--dark-mode-switch",
       "source": "./coliff--dark-mode-switch",
       "description": "dark-mode-switch"
+    },
+    {
+      "name": "microsoft--power-platform-skills",
+      "source": "./microsoft--power-platform-skills",
+      "description": "power-platform-skills"
     },
     {
       "name": "miscusi-peek--cheatengine-mcp-bridge",
@@ -58122,6 +58262,11 @@
       "name": "signalk--signalk-server",
       "source": "./signalk--signalk-server",
       "description": "signalk-server"
+    },
+    {
+      "name": "containers--gvisor-tap-vsock",
+      "source": "./containers--gvisor-tap-vsock",
+      "description": "gvisor-tap-vsock"
     },
     {
       "name": "samrolken--nokode",
@@ -75814,6 +75959,11 @@
       "description": "studio"
     },
     {
+      "name": "freebsd-ask--freebsd-ask",
+      "source": "./freebsd-ask--freebsd-ask",
+      "description": "FreeBSD-Ask"
+    },
+    {
       "name": "remorses--zele",
       "source": "./remorses--zele",
       "description": "Email & Calendar CLI \u2014 Gmail, IMAP/SMTP, Google Calendar from your terminal"
@@ -88454,6 +88604,11 @@
       "description": "cai"
     },
     {
+      "name": "gridprotectionalliance--openhistorian",
+      "source": "./gridprotectionalliance--openhistorian",
+      "description": "openHistorian"
+    },
+    {
       "name": "btahir--react-kino",
       "source": "./btahir--react-kino",
       "description": "Cinematic scroll-driven storytelling for React"
@@ -89977,6 +90132,11 @@
       "name": "sswconsulting--ssw-cleanarchitecture",
       "source": "./sswconsulting--ssw-cleanarchitecture",
       "description": "SSW.CleanArchitecture"
+    },
+    {
+      "name": "osbuild--osbuild-composer",
+      "source": "./osbuild--osbuild-composer",
+      "description": "osbuild-composer"
     },
     {
       "name": "osbuild--osbuild-composer",
@@ -93362,6 +93522,11 @@
       "name": "zigflow--zigflow",
       "source": "./zigflow--zigflow",
       "description": "zigflow"
+    },
+    {
+      "name": "admonstrator--paperless-ai-next",
+      "source": "./admonstrator--paperless-ai-next",
+      "description": "paperless-ai-next"
     },
     {
       "name": "hypothesi--mcp-server-tauri",
@@ -105354,6 +105519,11 @@
       "description": "ngx-countUp"
     },
     {
+      "name": "sebagomez--azurestorageexplorer",
+      "source": "./sebagomez--azurestorageexplorer",
+      "description": "azurestorageexplorer"
+    },
+    {
       "name": "think41--extrasuite",
       "source": "./think41--extrasuite",
       "description": "Token-efficient pull/edit/push workflow for AI agents editing Google Workspace files (Sheets, Docs, Slides, Forms)"
@@ -107447,6 +107617,11 @@
       "name": "open-telemetry--opentelemetry-php-instrumentation",
       "source": "./open-telemetry--opentelemetry-php-instrumentation",
       "description": "opentelemetry-php-instrumentation"
+    },
+    {
+      "name": "eljulians--skillfile",
+      "source": "./eljulians--skillfile",
+      "description": "skillfile"
     },
     {
       "name": "softspark--ai-toolkit",
@@ -116227,6 +116402,11 @@
       "name": "devducks--astroarch",
       "source": "./devducks--astroarch",
       "description": "astroarch"
+    },
+    {
+      "name": "starrocks--demo",
+      "source": "./starrocks--demo",
+      "description": "demo"
     },
     {
       "name": "iusztinpaul--designing-real-world-ai-agents-workshop",
@@ -127367,6 +127547,11 @@
       "name": "ahoo-wang--cosky",
       "source": "./ahoo-wang--cosky",
       "description": "CoSky"
+    },
+    {
+      "name": "initmahesh--mlai-community-labs",
+      "source": "./initmahesh--mlai-community-labs",
+      "description": "MLAI-community-labs"
     },
     {
       "name": "espennilsen--pi",
@@ -138762,6 +138947,11 @@
       "name": "nocodemf--werld",
       "source": "./nocodemf--werld",
       "description": "werld"
+    },
+    {
+      "name": "erickxavier--no-js",
+      "source": "./erickxavier--no-js",
+      "description": "no-js"
     },
     {
       "name": "sonarsource--sonarqube-agent-plugins",
@@ -162994,6 +163184,286 @@
       "description": "shinode"
     },
     {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
       "name": "bioliminal--bioliminal-mobile-application",
       "source": "./bioliminal--bioliminal-mobile-application",
       "description": "Bioliminal mobile application (Flutter)"
@@ -166942,6 +167412,11 @@
       "name": "flupkede--codesearch",
       "source": "./flupkede--codesearch",
       "description": "codesearch"
+    },
+    {
+      "name": "lebmatter--exampro",
+      "source": "./lebmatter--exampro",
+      "description": "exampro"
     },
     {
       "name": "tencentcloud--cubesandbox",
@@ -171432,6 +171907,11 @@
       "name": "reactivemarbles--crisscross",
       "source": "./reactivemarbles--crisscross",
       "description": "CrissCross"
+    },
+    {
+      "name": "mamift--linqtoxsdcore",
+      "source": "./mamift--linqtoxsdcore",
+      "description": "LinqToXsdCore"
     },
     {
       "name": "anhtester--antigravity-testing-kit",
@@ -180204,6 +180684,11 @@
       "description": "CommitSage"
     },
     {
+      "name": "smith-and-web--kindling",
+      "source": "./smith-and-web--kindling",
+      "description": "kindling"
+    },
+    {
       "name": "mikkelkrogsholm--skills",
       "source": "./mikkelkrogsholm--skills",
       "description": "skills"
@@ -186659,6 +187144,11 @@
       "description": "runtime"
     },
     {
+      "name": "openanonymity--nanomem",
+      "source": "./openanonymity--nanomem",
+      "description": "nanomem"
+    },
+    {
       "name": "zhaono1--agent-playbook",
       "source": "./zhaono1--agent-playbook",
       "description": "agent-playbook"
@@ -189032,6 +189522,11 @@
       "name": "phax--en16931-cii2ubl",
       "source": "./phax--en16931-cii2ubl",
       "description": "en16931-cii2ubl"
+    },
+    {
+      "name": "dependablesystemslab--lltfi",
+      "source": "./dependablesystemslab--lltfi",
+      "description": "LLTFI"
     },
     {
       "name": "izittmarvin--memcoach",
@@ -196074,6 +196569,46 @@
       "description": "svelte-pivottable"
     },
     {
+      "name": "sisaku-security--sisakulint",
+      "source": "./sisaku-security--sisakulint",
+      "description": "sisakulint"
+    },
+    {
+      "name": "sisaku-security--sisakulint",
+      "source": "./sisaku-security--sisakulint",
+      "description": "sisakulint"
+    },
+    {
+      "name": "sisaku-security--sisakulint",
+      "source": "./sisaku-security--sisakulint",
+      "description": "sisakulint"
+    },
+    {
+      "name": "sisaku-security--sisakulint",
+      "source": "./sisaku-security--sisakulint",
+      "description": "sisakulint"
+    },
+    {
+      "name": "sisaku-security--sisakulint",
+      "source": "./sisaku-security--sisakulint",
+      "description": "sisakulint"
+    },
+    {
+      "name": "sisaku-security--sisakulint",
+      "source": "./sisaku-security--sisakulint",
+      "description": "sisakulint"
+    },
+    {
+      "name": "sisaku-security--sisakulint",
+      "source": "./sisaku-security--sisakulint",
+      "description": "sisakulint"
+    },
+    {
+      "name": "sisaku-security--sisakulint",
+      "source": "./sisaku-security--sisakulint",
+      "description": "sisakulint"
+    },
+    {
       "name": "66reapollo2--agentsge",
       "source": "./66reapollo2--agentsge",
       "description": " Open-source CLI for AGENTS.md, .agents project   memory, MCP sync, and automatic knowledge   capture across AI coding agents"
@@ -200869,6 +201404,11 @@
       "description": "AssurancePlatform"
     },
     {
+      "name": "x10xchange--python-sdk",
+      "source": "./x10xchange--python-sdk",
+      "description": "python_sdk"
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
@@ -205407,6 +205947,11 @@
       "name": "magic5644--graph-it-live",
       "source": "./magic5644--graph-it-live",
       "description": "Graph-It-Live"
+    },
+    {
+      "name": "makeabilitylab--physcomp",
+      "source": "./makeabilitylab--physcomp",
+      "description": "physcomp"
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -213994,6 +214539,11 @@
       "description": "eoc"
     },
     {
+      "name": "the-codegen-project--cli",
+      "source": "./the-codegen-project--cli",
+      "description": "cli"
+    },
+    {
       "name": "r44vc0rp--itui",
       "source": "./r44vc0rp--itui",
       "description": "itui"
@@ -216777,6 +217327,11 @@
       "name": "acm-vit--conclave",
       "source": "./acm-vit--conclave",
       "description": "conclave"
+    },
+    {
+      "name": "alexfalkowski--go-service",
+      "source": "./alexfalkowski--go-service",
+      "description": "go-service"
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -389297,6 +389852,11 @@
       "name": "bketelsen--bespoke",
       "source": "./bketelsen--bespoke",
       "description": "A personal app platform: one-off software for exactly one user \u2014 built, maintained, and operated by LLM agents. Steal the idea before you steal the code."
+    },
+    {
+      "name": "xiaotianxt--tg",
+      "source": "./xiaotianxt--tg",
+      "description": "tg"
     },
     {
       "name": "cheerhuan--save-your-token",
