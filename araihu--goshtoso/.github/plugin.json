@@ -1,0 +1,9 @@
+{
+  "name": "araihu--goshtoso",
+  "displayName": "goshtoso",
+  "description": "Server Side Rendering for go backends using Go + Alpine.js + Tailwind + Templ and HTMX",
+  "version": "1.0.0",
+  "author": "araihu",
+  "homepage": "https://github.com/araihu/goshtoso",
+  "skills": []
+}
