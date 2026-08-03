@@ -1,0 +1,9 @@
+{
+  "name": "uiverify--uiverify",
+  "displayName": "uiverify",
+  "description": "Visual testing for agents: the uiverify CLI, Playwright capture SDK, and agent skills for UI Verify.",
+  "version": "1.0.0",
+  "author": "uiverify",
+  "homepage": "https://github.com/uiverify/uiverify",
+  "skills": []
+}
