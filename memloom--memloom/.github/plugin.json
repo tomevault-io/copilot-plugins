@@ -1,0 +1,9 @@
+{
+  "name": "memloom--memloom",
+  "displayName": "memloom",
+  "description": "Local-first memory engine for AI agents",
+  "version": "1.0.0",
+  "author": "memloom",
+  "homepage": "https://github.com/memloom/memloom",
+  "skills": []
+}
