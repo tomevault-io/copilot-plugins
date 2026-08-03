@@ -1,0 +1,9 @@
+{
+  "name": "veloxpack--csi-driver-rclone",
+  "displayName": "csi-driver-rclone",
+  "description": "csi-driver-rclone",
+  "version": "1.0.0",
+  "author": "veloxpack",
+  "homepage": "https://github.com/veloxpack/csi-driver-rclone",
+  "skills": []
+}
