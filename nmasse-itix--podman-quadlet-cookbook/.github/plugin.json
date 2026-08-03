@@ -1,0 +1,9 @@
+{
+  "name": "nmasse-itix--podman-quadlet-cookbook",
+  "displayName": "podman-quadlet-cookbook",
+  "description": "Collection of cookbooks for Podman Quadlets",
+  "version": "1.0.0",
+  "author": "nmasse-itix",
+  "homepage": "https://github.com/nmasse-itix/podman-quadlet-cookbook",
+  "skills": []
+}
