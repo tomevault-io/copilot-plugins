@@ -1,0 +1,9 @@
+{
+  "name": "dapr--quickstarts",
+  "displayName": "quickstarts",
+  "description": "quickstarts",
+  "version": "1.0.0",
+  "author": "dapr",
+  "homepage": "https://github.com/dapr/quickstarts",
+  "skills": []
+}
