@@ -1,0 +1,51 @@
+## brah
+
+> Electron desktop voice assistant that uses the OpenAI Realtime API to listen, view the screen, control the computer (browser + OS), and manage a local planner — all in realtime.
+
+# Brah
+
+Electron desktop voice assistant that uses the OpenAI Realtime API to listen, view the screen, control the computer (browser + OS), and manage a local planner — all in realtime.
+
+## Layout
+
+- `src/main.js` — Electron main process: window modes, OpenAI OAuth, IPC handlers, screenshots, auto-update.
+- `src/preload.js` — context-isolated bridge; exposes the `window.brah` API to the renderer. All renderer↔main communication goes through these `ipcRenderer.invoke` channels.
+- `src/os-permissions.js` — macOS/Windows OS permission status + settings deep-links.
+- `src/renderer/` — UI: `index.html`, `renderer.js`, `panel.js`, `styles.css`, plus realtime playback/tool-handler glue.
+- `src/realtime/prompts.js` — builds the realtime session instructions.
+- `src/realtime/tool-permissions.js` — per-tool permission metadata (read/low/write/destructive/network levels).
+- `src/realtime/tools/` — tool implementations dispatched by `tools/index.js` (`executeRealtimeTool`): planner, web, screenshot, computer-use, session.
+- `test/` — `node --test` suites (one per tool module).
+
+## Architecture notes
+
+- **Tool dispatch:** `executeRealtimeTool(name, args, options)` in `src/realtime/tools/index.js` tries each module's executor in order; each returns a falsy value when it does not own the tool name. New tools must be wired into both `tool-schemas.js` (definition) and a module executor.
+- **Storage:** planner + activity persist in SQLite via `node:sqlite` (`brah.db`), not JSON. Schema lives in `src/realtime/tools/database.js`. `database.js` defaults the user-data dir to `os.tmpdir()/brah-user-data` unless `setDatabaseUserDataPath()` is called (main.js sets it to Electron `userData`). Legacy JSON stores are auto-migrated once.
+- **Computer use:** browser mode via Playwright (`computer-use-browser.js`), OS mode via `@nut-tree-fork/nut-js` (`computer-use-os.js`); driven through `computer-use-tools.js`.
+- **Credentials:** OpenAI auth tokens are encrypted with Electron `safeStorage` (system keychain). OAuth callback uses a local server on port `1455`.
+- **Known Realtime OAuth issue:** Brah intentionally uses ChatGPT/Codex OAuth for Realtime; do not suggest API-key fallback as a fix. Status verified 2026-06-06 by decrypting stored creds via Electron `safeStorage` and probing the live endpoints; the failure is now two-stage:
+  - **Mint works:** `POST api.openai.com/v1/realtime/client_secrets` returns **200** with a valid `ek_…` for `gpt-realtime-2`/`gpt-realtime`/`gpt-4o-realtime-preview`. (This was the call that 401'd around 2026-06-03/04; that part of the regression has cleared.)
+  - **Call fails:** `POST api.openai.com/v1/realtime/calls` with that `ek_` returns **500 Internal Server Error** for every model — reproduced in the real app (renderer.js:712, genuine `RTCPeerConnection` offer) and via synthetic SDP. The response still carries a `Location: …/rtc_…` header, so the call object is created and OpenAI 500s while producing the answer SDP. Most likely an OAuth-subscription entitlement gap surfacing late (allowed to mint a session, not allowed to run the call), not a client bug.
+  - **Codex's backend realtime route 404s for Brah (verified 2026-06-06):** current `openai/codex` (`codex-rs/codex-api/src/endpoint/realtime_call.rs`) does realtime over OAuth via `chatgpt.com/backend-api/codex/realtime/calls` (ChatGPT backend, JSON `{sdp,session}` body + sideband WS join by `call_id`), not the public API. This is NOT an identity wall: Brah uses the same OAuth `client_id` as the Codex CLI (`app_EMoamEEZ73f0CkXaXp7hrann`, main.js:70), and Brah's token authenticates to the backend fine — sending Codex's exact headers (`originator: codex_cli_rs`, `chatgpt-account-id`, Codex `User-Agent`) to `chatgpt.com/backend-api/codex/responses` returns a semantic **400** ("model is not supported when using Codex with a ChatGPT account"), proving auth/identity are accepted. But `.../codex/realtime/calls` returns **404 `{"detail":"Not Found"}`** with or without those headers (also tried `openai-alpha: quicksilver=v1`/`=v2` and `OpenAI-Beta: realtime=v1` — still 404). The route simply isn't deployed/enabled for this account. The client code is ahead of the server; reusing Codex's identity does not help.
+  - **Why it (apparently) works in the Codex app but not here:** Codex posts to the *exact same URL* (`CHATGPT_CODEX_BASE_URL` + `realtime/calls` in `model-provider-info/src/lib.rs`), so the difference is not URL or request shape. The realtime feature is explicitly **experimental** in Codex's own config (`experimental_realtime_*` fields, comment "Experimental / do not use") and WebRTC only became the default transport ~2026-04-09 (CLI v0.119.0). The likely gate is something Brah cannot reproduce: a **device attestation header** (`x-oai-attestation`, generated by the signed Codex app via its attestation provider — see `core/src/client.rs` `generate_attestation_header_for`) and/or an **account-level alpha entitlement** for the quicksilver realtime backend. A hidden/un-entitled route returning **404** (rather than 401/403) is the classic signature of exactly that gating. (Note: the open-source Codex build never sends attestation — `attestation_provider` is always `None` and no `AttestationProvider` impl exists in the repo — so the working attestation must come from the signed/released Codex binary, not the OSS source.)
+  - **End-to-end proof via the Codex OAuth proxy (`Soju06/codex-lb`, tested 2026-06-06):** stood up codex-lb in Docker, imported Brah's real account (decrypted creds → `auth.json` → `/api/accounts/import`; it reported `planType: plus`, `active`), and drove its passthrough proxy with the real OAuth token. `POST /backend-api/codex/responses` → semantic **400** ("model is not supported when using Codex with a ChatGPT account") = proxy + account work. `POST /backend-api/codex/realtime/calls` (real SDP) → **404 upstream** (`{"error":"Not Found","code":"upstream_error"}`). So a dedicated Codex OAuth proxy forwarding a genuine Plus token gets the **same 404** as direct probing. codex-lb is a transparent forwarder (allowlists `x-openai-*`/`x-codex-*` headers; cannot synthesize `x-oai-attestation`), so it adds nothing. Confirms the wall is upstream/route-level, not a Brah client bug or an identity/proxy gap.
+  - Treat remaining breakage as an OAuth entitlement/upstream-access issue to investigate, not a missing API-key setup.
+- **Window modes:** `orb`, `call`, `panel` (sizes/placement defined in `main.js`); switched via `window:set-mode`.
+
+## Commands
+
+- `npm start` — run the app (`electron .`).
+- `npm run check` — Biome format-check + lint.
+- `npm test` — `npm run check` then `node --test`.
+- `npm run build:mac` — `electron-builder --mac dir` (dir target only).
+- `npm run open:mac` — build then launch `dist/mac-arm64/Brah.app`.
+- `npm run update:deps` — `ncu -u && npm install`.
+
+## Build constraints
+
+- `@nut-tree-fork/**` must stay in `asarUnpack` (native addon, can't run from asar).
+- macOS build is the `dir` target with hardened runtime + the entitlements in `build/`. Code signing is auto-discovered from the keychain / `CSC_*` env vars; with no cert it falls back to ad-hoc/unsigned.
+
+---
+> Source: [KenKaiii/brah](https://github.com/KenKaiii/brah) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
