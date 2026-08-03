@@ -1,7 +1,7 @@
 {
   "name": "deepcoldy--botmux",
   "displayName": "botmux",
-  "description": "Bridge between IM platforms and AI coding CLIs \u2014 one topic, one CLI session with live streaming",
+  "description": "botmux",
   "version": "1.0.0",
   "author": "deepcoldy",
   "homepage": "https://github.com/deepcoldy/botmux",
