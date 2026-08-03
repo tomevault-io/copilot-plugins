@@ -1,17 +1,15 @@
 # AI instruction files for clamui
 
-> Sourced from [linx-systems/clamui](https://github.com/linx-systems/clamui) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-ClamAV Desktop application ( GUI )
+> Sourced from [linx-systems/clamui](https://github.com/linx-systems/clamui), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [linx-systems/clamui](https://github.com/linx-systems/clamui).
+Original source: `AGENTS.md` in [linx-systems/clamui](https://github.com/linx-systems/clamui).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
