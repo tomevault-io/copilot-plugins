@@ -1,8 +1,6 @@
 # react-native-nitro-device-info
 
-> Source: [l2hyunwoo/react-native-nitro-device-info](https://github.com/l2hyunwoo/react-native-nitro-device-info) — distributed by [TomeVault](https://tomevault.io)
-
-Device Info at the Speed of Nitro ⚡️
+> Source: [l2hyunwoo/react-native-nitro-device-info](https://github.com/l2hyunwoo/react-native-nitro-device-info). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [l2hyunwoo/react-native-nitro-device-info](https
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [l2hyunwoo/react-native-nitro-device-info](https://github.com/l2hyunwoo/react-native-nitro-device-info) — a repo with 174+ stars on GitHub.
+From [l2hyunwoo/react-native-nitro-device-info](https://github.com/l2hyunwoo/react-native-nitro-device-info) — a repo with 179+ stars on GitHub.
 
 ---
 
