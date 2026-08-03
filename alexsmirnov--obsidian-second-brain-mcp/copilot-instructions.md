@@ -1,0 +1,35 @@
+## obsidian-second-brain-mcp
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Type
+
+FastMCP-based Model Context Protocol server with RAG capabilities for Obsidian vault semantic search. Python 3.12+ with async/await and strict interface-based architecture.
+
+## Essential Commands
+
+
+# Run server
+uv run mcps
+```
+
+## Obsidian Vault Specifics
+
+The RAG system is optimized for Obsidian structure:
+- Wikilinks `[[filename]]` extracted to chunk metadata for future graph-based search
+- YAML frontmatter: `title`, `description`, `tags`, `source` properties indexed
+- Semantic chunking splits by H2 headers (atomic information units in scientific essay structure)
+- Tag filtering (exact match) and path filtering (LIKE patterns) supported in search
+- Files organized in topic-based folders, with optional subfolders for narrow subjects
+
+## Documentation
+
+- Comprehensive project documentation: [docs/index.md](docs/index.md)
+
+---
+> Source: [alexsmirnov/obsidian-second-brain-mcp](https://github.com/alexsmirnov/obsidian-second-brain-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
