@@ -1,0 +1,9 @@
+{
+  "name": "o1xhack--obsidian-chatting",
+  "displayName": "obsidian-chatting",
+  "description": "Agentic AI chat plugin for Obsidian. Anthropic + OpenAI + experimental ChatGPT OAuth.",
+  "version": "1.0.0",
+  "author": "o1xhack",
+  "homepage": "https://github.com/o1xhack/obsidian-chatting",
+  "skills": []
+}
