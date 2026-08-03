@@ -1,0 +1,9 @@
+{
+  "name": "redocly--redocly-cli",
+  "displayName": "redocly-cli",
+  "description": "redocly-cli",
+  "version": "1.0.0",
+  "author": "Redocly",
+  "homepage": "https://github.com/Redocly/redocly-cli",
+  "skills": []
+}
