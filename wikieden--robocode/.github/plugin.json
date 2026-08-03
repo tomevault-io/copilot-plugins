@@ -1,7 +1,7 @@
 {
   "name": "wikieden--robocode",
   "displayName": "robocode",
-  "description": "Rust-first reimplementation of a local agent CLI inspired by Claude Code.",
+  "description": "robocode",
   "version": "1.0.0",
   "author": "wikieden",
   "homepage": "https://github.com/wikieden/robocode",
