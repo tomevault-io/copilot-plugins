@@ -1,8 +1,6 @@
 # robots
 
-> Source: [strands-labs/robots](https://github.com/strands-labs/robots) — distributed by [TomeVault](https://tomevault.io)
-
-Control robots and physical hardware with natural language through Strands Agents.
+> Source: [strands-labs/robots](https://github.com/strands-labs/robots). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [strands-labs/robots](https://github.com/strands
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [strands-labs/robots](https://github.com/strands-labs/robots) — a repo with 46+ stars on GitHub.
+From [strands-labs/robots](https://github.com/strands-labs/robots) — a repo with 104+ stars on GitHub.
 
 ---
 
