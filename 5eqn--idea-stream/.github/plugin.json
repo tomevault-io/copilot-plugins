@@ -1,0 +1,9 @@
+{
+  "name": "5eqn--idea-stream",
+  "displayName": "idea-stream",
+  "description": "Stream ideas from arXiv with given topic, sorted over quality / relevance / currency",
+  "version": "1.0.0",
+  "author": "5eqn",
+  "homepage": "https://github.com/5eqn/idea-stream",
+  "skills": []
+}
