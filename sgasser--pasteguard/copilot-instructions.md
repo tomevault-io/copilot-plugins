@@ -1,129 +1,60 @@
 ## pasteguard
 
-> Privacy proxy for LLMs. Masks personal data and secrets before sending prompts to your provider (OpenAI, Anthropic, etc.).
+> PasteGuard is a Bun/Hono privacy proxy for LLMs. It masks PII and secrets before forwarding requests to configured providers, then restores placeholders in responses where supported.
 
-# PasteGuard
+# PasteGuard Agent Instructions
 
-Privacy proxy for LLMs. Masks personal data and secrets before sending prompts to your provider (OpenAI, Anthropic, etc.).
+## Project
 
-## Tech Stack
+PasteGuard is a Bun/Hono privacy proxy for LLMs. It masks PII and secrets before forwarding requests to configured providers, then restores placeholders in responses where supported.
+
+Primary endpoints:
+
+- `POST /openai/v1/chat/completions`
+- `POST /anthropic/v1/messages`
+- `POST /codex/responses`
+- `GET /health`
+- `GET /info`
+
+## Stack
 
 - Runtime: Bun
-- Framework: Hono (with JSX for dashboard)
+- Web framework: Hono
 - Validation: Zod
 - Styling: Tailwind CSS v4
-- Database: SQLite (`data/pasteguard.db`)
-- PII Detection: Microsoft Presidio (Docker)
-- Code Style: Biome (see @biome.json)
-
-## Architecture
-
-```
-src/
-├── index.ts                 # Hono server entry
-├── config.ts                # YAML config + Zod validation
-├── constants/               # Shared constants
-│   ├── languages.ts         # Supported languages
-│   └── timeouts.ts          # HTTP timeout values
-├── routes/
-│   ├── openai.ts            # /openai/v1/* (chat completions + wildcard proxy)
-│   ├── anthropic.ts         # /anthropic/v1/* (messages + wildcard proxy)
-│   ├── dashboard.tsx        # Dashboard routes + API
-│   ├── health.ts            # GET /health
-│   ├── info.ts              # GET /info
-│   └── utils.ts             # Shared route utilities
-├── providers/
-│   ├── errors.ts            # Shared provider errors
-│   ├── local.ts             # Local LLM client (Ollama/OpenAI-compatible)
-│   ├── openai/
-│   │   ├── client.ts        # OpenAI API client
-│   │   ├── stream-transformer.ts  # SSE unmasking for streaming
-│   │   └── types.ts         # OpenAI request/response types
-│   └── anthropic/
-│       ├── client.ts        # Anthropic API client
-│       ├── stream-transformer.ts  # SSE unmasking for streaming
-│       └── types.ts         # Anthropic request/response types
-├── masking/
-│   ├── service.ts           # Masking orchestration
-│   ├── context.ts           # Masking context management
-│   ├── placeholders.ts      # Placeholder generation
-│   ├── conflict-resolver.ts # Overlapping entity resolution
-│   ├── types.ts             # Shared masking types
-│   └── extractors/
-│       ├── openai.ts        # OpenAI text extraction/insertion
-│       └── anthropic.ts     # Anthropic text extraction/insertion
-├── pii/
-│   ├── detect.ts            # Presidio client
-│   └── mask.ts              # PII masking logic
-├── secrets/
-│   ├── detect.ts            # Secret detection
-│   ├── mask.ts              # Secret masking
-│   └── patterns/            # Secret pattern definitions
-├── services/
-│   ├── pii.ts               # PII detection service
-│   ├── secrets.ts           # Secrets processing service
-│   ├── language-detector.ts # Auto language detection
-│   └── logger.ts            # SQLite logging
-├── utils/
-│   └── content.ts           # Content utilities
-└── views/
-    └── dashboard/
-        └── page.tsx         # Dashboard UI
-```
-
-Tests are colocated (`*.test.ts`).
-
-## Modes
-
-Two modes configured in `config.yaml`:
-
-- **Route**: Routes PII-containing requests to local LLM (requires `local` provider config)
-- **Mask**: Masks PII before sending to configured provider, unmasks response (no local provider needed)
-
-See @config.example.yaml for full configuration.
+- Database: SQLite at `data/pasteguard.db`
+- PII detection: GLiNER + regex/checksum detector service (`detector/`) exposing `/analyze`
+- Formatting/linting: Biome
 
 ## Commands
 
-- `bun run dev` - Development (hot reload)
-- `bun run start` - Production
-- `bun run build` - Build to dist/
-- `bun test` - Run tests
-- `bun run typecheck` - Type check
-- `bun run lint` - Lint only
-- `bun run check` - Lint + format check
-- `bun run format` - Format code
+- `bun run dev` - development server
+- `bun run start` - production server
+- `bun run build` - build to `dist/`
+- `bun test` - test suite
+- `bun run typecheck` - TypeScript check
+- `bun run check` - Biome lint and format check
+- `bun run format` - apply Biome formatting for `src/`
 
-## Setup
+## Workflow
 
-**Production:**
-```bash
-cp config.example.yaml config.yaml
-docker compose up -d
-```
+- Prefer existing route/provider/extractor patterns over new abstractions.
+- Add or update tests when changing masking, provider forwarding, logging, config parsing, or public endpoints.
+- Run `bun test`, `bun run typecheck`, and `bun run check` before handing off code changes.
+- Update README and docs when public endpoints, provider config, or user setup steps change.
+- Do not commit tracked `config.yaml` changes.
+- Do not create commits or push branches unless the user explicitly asks.
 
-**Development:** Presidio in Docker, Bun locally with hot-reload:
-```bash
-docker compose up presidio -d
-bun run dev
-```
+## Architecture Pointers
 
-**Multi-language:** Use EU image or build custom:
-```bash
-PASTEGUARD_TAG=eu docker compose up -d
-LANGUAGES=en,de,ja docker compose up -d --build
-```
-
-See @docker/presidio/languages.yaml for 24 available languages.
-
-## Testing
-
-- `GET /health` - Health check
-- `GET /info` - Mode info
-- `POST /openai/v1/chat/completions` - OpenAI endpoint
-- `POST /anthropic/v1/messages` - Anthropic endpoint
-
-Response header `X-PasteGuard-PII-Masked: true` indicates PII was masked.
+- `src/index.ts` mounts routes and prints startup provider info.
+- `src/config.ts` owns YAML config loading and defaults.
+- `src/routes/` contains HTTP route handlers.
+- `src/providers/` contains provider clients and stream transformers.
+- `src/masking/extractors/` contains provider-specific text extraction and insertion.
+- `src/logging/logger.ts` owns SQLite dashboard logging.
+- `docs/mint.json` registers API reference docs.
 
 ---
 > Source: [sgasser/pasteguard](https://github.com/sgasser/pasteguard) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
