@@ -1,0 +1,9 @@
+{
+  "name": "scitix--sieval",
+  "displayName": "sieval",
+  "description": "SiEval is a model delivery quality verification system.",
+  "version": "1.0.0",
+  "author": "scitix",
+  "homepage": "https://github.com/scitix/sieval",
+  "skills": []
+}
