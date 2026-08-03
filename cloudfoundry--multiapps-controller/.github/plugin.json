@@ -1,0 +1,9 @@
+{
+  "name": "cloudfoundry--multiapps-controller",
+  "displayName": "multiapps-controller",
+  "description": "multiapps-controller",
+  "version": "1.0.0",
+  "author": "cloudfoundry",
+  "homepage": "https://github.com/cloudfoundry/multiapps-controller",
+  "skills": []
+}
