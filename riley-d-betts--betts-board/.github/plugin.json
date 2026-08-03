@@ -1,0 +1,9 @@
+{
+  "name": "riley-d-betts--betts-board",
+  "displayName": "betts-board",
+  "description": "A self-hosted family organizer for the kitchen tablet, the TV, and everyone's phones. One Docker container, one data volume, no subscriptions, no accounts with big tech \u2014 your family's calendar, chore",
+  "version": "1.0.0",
+  "author": "Riley-D-Betts",
+  "homepage": "https://github.com/Riley-D-Betts/betts-board",
+  "skills": []
+}
