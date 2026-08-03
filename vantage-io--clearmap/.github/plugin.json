@@ -1,0 +1,9 @@
+{
+  "name": "vantage-io--clearmap",
+  "displayName": "clearmap",
+  "description": "Local-first HIPAA technical-risk scanner and guardrail for healthcare software built with AI coding agents. Not a compliance certification.",
+  "version": "1.0.0",
+  "author": "Vantage-IO",
+  "homepage": "https://github.com/Vantage-IO/clearmap",
+  "skills": []
+}
