@@ -1,0 +1,9 @@
+{
+  "name": "dbt-labs--metricflow",
+  "displayName": "metricflow",
+  "description": "metricflow",
+  "version": "1.0.0",
+  "author": "dbt-labs",
+  "homepage": "https://github.com/dbt-labs/metricflow",
+  "skills": []
+}
