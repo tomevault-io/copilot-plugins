@@ -1,0 +1,9 @@
+{
+  "name": "manoharc07--digiframe",
+  "displayName": "DigiFrame",
+  "description": "A wall frame for a 64\u00d764 HUB75 LED matrix, turning it into a smart clock. It shows an NTP clock, live weather, a living ambient scene, looping GIFs, scrolling messages, and themed celebrations on your",
+  "version": "1.0.0",
+  "author": "manoharc07",
+  "homepage": "https://github.com/manoharc07/DigiFrame",
+  "skills": []
+}
