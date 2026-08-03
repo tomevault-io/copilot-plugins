@@ -1,48 +1,17 @@
-## controller-rules
+## default-rules
 
-> Controller'lar mimarinin giriş noktasıdır ve mümkün olduğunca "zayıf" (thin) tutulmalıdır. Sorumlulukları kesin olarak belirlenmiştir.
+> - Birincil hedefiniz, kullanıcının belirttiği görevi yerine getirmektir.
 
-# Controller Katmanı Kuralları
-
-Controller'lar mimarinin giriş noktasıdır ve mümkün olduğunca "zayıf" (thin) tutulmalıdır. Sorumlulukları kesin olarak belirlenmiştir.
-
-## Controller'ların Görevleri
-Bir controller metodunun yapması gerekenler sadece şunlardır:
-1.  Gelen HTTP isteğini karşılamak.
-2.  İlgili `FormRequest` sınıfını kullanarak isteğin validasyonunu ve yetkilendirmesini tetiklemek.
-3.  Doğrulanmış veriyi bir `DTO` (Data Transfer Object) nesnesine dönüştürmek.
-4.  Bu DTO'yu ilgili `Service` metoduna parametre olarak geçmek.
-5.  Servisten dönen `ServiceResponse` nesnesini doğrudan `return` etmek.
-
-## Yasaklar
-- **İş Mantığı YOK**: Controller içinde `if/else`, `foreach` gibi kontrol yapıları veya herhangi bir iş mantığı bulunmamalıdır.
-- **Doğrudan Veritabanı Erişimi YOK**: Controller'lar asla `Eloquent` modellerini veya `Repository`'leri doğrudan çağırmamalıdır.
-- **Manuel Validasyon YOK**: `$request->validate()` gibi manuel validasyon yöntemleri kullanılmamalıdır. Her zaman FormRequest kullanılmalıdır.
-- **Doğrudan Yanıt Oluşturma YOK**: `response()->json(...)` gibi manuel yanıtlar oluşturulmamalıdır. Servisten dönen `ServiceResponse` yeterlidir.
-- **Model Binding YOK**: Bu projede model binding kullanmıyoruz. Controller method imzalarında model parametreleri (örn: `Survey $survey`) bulunmamalıdır. ID'ler request'ten alınmalıdır.
-
-## Örnek Yapı
-
-```php
-class SurveyController extends Controller
-{
-    public function __construct(
-        private readonly SurveyServiceInterface $surveyService
-    ) {}
-
-    public function store(CreateSurveyRequest $request): ServiceResponse
-    {
-        $dto = new SurveyDto(...$request->validated());
-        return $this->surveyService->create($dto);
-    }
-    
-    // Model binding kullanmıyoruz - ID'yi request'ten alıyoruz
-    public function show(Request $request, int $id): ServiceResponse
-    {
-        return $this->surveyService->getById($id);
-    }
-}
-```
+- Birincil hedefiniz, kullanıcının belirttiği görevi yerine getirmektir.
+- Kodunuzun temiz, verimli ve bakımı kolay olduğundan emin olun.
+- İthalatları gerektiği gibi ekleyin veya kaldırın.
+- Mevcut kodla tutarlılığı koruyun.
+- Açık olmayan veya karmaşık kodu yorumlayın.
+- Kodunuzun üretime hazır olduğundan emin olun (sağlam hata işleme, yeniden deneme vb. dahil).
+- Bir kerede yalnızca bir kod bloğunu düzenleyin.
+- Mümkün olduğunda yardımcı işlevleri yeniden kullanın veya oluşturun.
+- Gerekirse (örneğin yeni bir özellik uygularken) testler ekleyin.
+- Mevcut geliştirme/güncelleme ile ilgili olmayan kısımları asla değiştirmeyin. Mevcut mantık korunmalıdır. Yalnızca işlem için gerçekten gerekli olan değişiklikler yapılmalıdır. Bunun dışında, mevcut kod/mantık mümkün olduğunca korunmalıdır.
 
 ---
 > Source: [fzengin19/polling](https://github.com/fzengin19/polling) — distributed by [TomeVault](https://tomevault.io).
