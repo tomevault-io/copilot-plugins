@@ -1,6 +1,6 @@
 # appdotbuild-agent
 
-> Source: [neondatabase/appdotbuild-agent](https://github.com/neondatabase/appdotbuild-agent). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [neondatabase/appdotbuild-agent](https://github.com/neondatabase/appdotbuild-agent). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [neondatabase/appdotbuild-agent](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [neondatabase/appdotbuild-agent](https://github.com/neondatabase/appdotbuild-agent) — a repo with 765+ stars on GitHub.
+From [neondatabase/appdotbuild-agent](https://github.com/neondatabase/appdotbuild-agent) — a repo with 764+ stars on GitHub.
 
 ---
 
