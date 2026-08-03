@@ -1,0 +1,9 @@
+{
+  "name": "ophi-dev--antlr-rust-runtime",
+  "displayName": "antlr-rust-runtime",
+  "description": "Rust Runtime for ANTLR4",
+  "version": "1.0.0",
+  "author": "ophi-dev",
+  "homepage": "https://github.com/ophi-dev/antlr-rust-runtime",
+  "skills": []
+}
