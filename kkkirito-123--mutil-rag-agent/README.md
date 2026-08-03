@@ -1,11 +1,13 @@
-# AI instruction files for mutil-rag-agent
+# AI instruction files for Mutil-Rag-Agent
 
-> Sourced from [Kkkirito-123/mutil-rag-agent](https://github.com/Kkkirito-123/mutil-rag-agent), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [Kkkirito-123/Mutil-Rag-Agent](https://github.com/Kkkirito-123/Mutil-Rag-Agent), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
+
+An improved multi-agent AIOps and RAG platform for OnCall troubleshooting, featuring LangGraph-based diagnosis workflows, Milvus vector search, MCP tool integration, Prometheus alert knowledge from awesome-prometheus-alerts, and sanitized configuration for safe public deployment.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Kkkirito-123/mutil-rag-agent](https://github.com/Kkkirito-123/mutil-rag-agent).
+Original source: `CLAUDE.md` in [Kkkirito-123/Mutil-Rag-Agent](https://github.com/Kkkirito-123/Mutil-Rag-Agent).
 
 ## Also available for
 
@@ -15,19 +17,14 @@ Original source: `CLAUDE.md` in [Kkkirito-123/mutil-rag-agent](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (6)
-
-- [mutil-rag-agent](https://github.com/Kkkirito-123/mutil-rag-agent/tree/main/app/skills/definitions/generic_oncall/SKILL.md)
-- [mutil-rag-agent](https://github.com/Kkkirito-123/mutil-rag-agent/tree/main/app/skills/definitions/network_diagnosis/SKILL.md)
-- [mutil-rag-agent](https://github.com/Kkkirito-123/mutil-rag-agent/tree/main/open-webSearch-main/skills/open-websearch/SKILL.md)
-- [mutil-rag-agent](https://github.com/Kkkirito-123/mutil-rag-agent/tree/main/app/skills/definitions/container_diagnosis/SKILL.md)
-- [mutil-rag-agent](https://github.com/Kkkirito-123/mutil-rag-agent/tree/main/app/skills/definitions/host_resource_diagnosis/SKILL.md)
-- [mutil-rag-agent](https://github.com/Kkkirito-123/mutil-rag-agent/tree/main/open-webSearch-main/skills/open-websearch-maintainer/SKILL.md)
-
-From [Kkkirito-123/mutil-rag-agent](https://github.com/Kkkirito-123/mutil-rag-agent) — a repo with 109+ stars on GitHub.
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/Kkkirito-123/Mutil-Rag-Agent](https://github.com/Kkkirito-123/Mutil-Rag-Agent)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
+Install this config instantly:
+```
+npx tomevault install Kkkirito-123/Mutil-Rag-Agent
+```
+Source: [github.com/Kkkirito-123/Mutil-Rag-Agent](https://github.com/Kkkirito-123/Mutil-Rag-Agent).
 
-<!-- genome:a-e-s -->
+<!-- genome:a-i-q -->
