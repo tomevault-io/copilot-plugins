@@ -1,0 +1,9 @@
+{
+  "name": "zcag--tela",
+  "displayName": "tela",
+  "description": "Open-source, self-hostable markdown team wiki with a built-in MCP server \u2014 so AI agents read, write, and search your docs as first-class teammates. Live multiplayer, semantic + full-text search. Go + ",
+  "version": "1.0.0",
+  "author": "zcag",
+  "homepage": "https://github.com/zcag/tela",
+  "skills": []
+}
