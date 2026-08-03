@@ -1,17 +1,15 @@
 # claude-code-config
 
-> Source: [AnastasiyaW/claude-code-config](https://github.com/AnastasiyaW/claude-code-config) — distributed by [TomeVault](https://tomevault.io)
-
-Claude Code skills, architectural principles, and alternative approaches for AI-assisted development
+> Source: [AnastasiyaW/claude-code-config](https://github.com/AnastasiyaW/claude-code-config). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [AnastasiyaW/claude-code-config](https://github.com/AnastasiyaW/claude-code-config).
+Original source: `AGENTS.md` in [AnastasiyaW/claude-code-config](https://github.com/AnastasiyaW/claude-code-config).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-p -->
