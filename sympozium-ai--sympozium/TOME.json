@@ -2,9 +2,9 @@
   "name": "sympozium",
   "owner": "sympozium-ai",
   "repo": "sympozium",
-  "description": "Run a fleet of AI agents on Kubernetes. Administer your cluster agentically",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sympozium-ai/sympozium",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T11:07:19Z"
+  "distributed_at": "2026-08-03T05:51:55Z"
 }
