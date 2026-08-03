@@ -1,0 +1,9 @@
+{
+  "name": "roshanarnav25-sloth--google-flow-mcp",
+  "displayName": "google-flow-mcp",
+  "description": "MCP server that drives Google Flow (Veo / Nano Banana) through its internal tRPC API, with a hard credit-cost gate",
+  "version": "1.0.0",
+  "author": "roshanarnav25-sloth",
+  "homepage": "https://github.com/roshanarnav25-sloth/google-flow-mcp",
+  "skills": []
+}
