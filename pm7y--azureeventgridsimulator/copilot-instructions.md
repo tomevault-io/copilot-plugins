@@ -1,0 +1,97 @@
+## azureeventgridsimulator
+
+> Azure Event Grid Simulator - local HTTPS simulator for Azure Event Grid topics/subscribers. Compatible with Microsoft.Azure.EventGrid client library, supports EventGrid and CloudEvents v1.0 schemas.
+
+# AGENTS.md
+
+## Overview
+
+Azure Event Grid Simulator - local HTTPS simulator for Azure Event Grid topics/subscribers. Compatible with Microsoft.Azure.EventGrid client library, supports EventGrid and CloudEvents v1.0 schemas.
+
+**Stack:** .NET (multi-targets net8.0/net9.0/net10.0; tests run net10.0), C#, Serilog, xUnit/Shouldly/NSubstitute
+
+## Commands
+
+```bash
+# Build
+dotnet build src/AzureEventGridSimulator.slnx --configuration Release
+
+# Test
+dotnet test src/AzureEventGridSimulator.slnx --configuration Release
+dotnet test src/AzureEventGridSimulator.slnx --filter "Category=unit"
+dotnet test src/AzureEventGridSimulator.slnx --filter "Category=integration"
+
+# Run
+dotnet run --project src/AzureEventGridSimulator/AzureEventGridSimulator.csproj
+
+# Format (runs automatically on build)
+dotnet csharpier format src
+```
+
+## Project Structure
+
+```
+src/
+├── AzureEventGridSimulator/           # Main application
+│   ├── Controllers/                    # API endpoints
+│   ├── Domain/                         # Business logic
+│   │   ├── Commands/                   # Command handlers
+│   │   ├── Entities/                   # Domain models
+│   │   └── Services/                   # Domain services (Delivery/, Retry/)
+│   ├── Infrastructure/                 # Cross-cutting concerns
+│   │   ├── Mediator/                   # Custom mediator (no MediatR)
+│   │   ├── Middleware/                 # HTTP middleware
+│   │   └── Settings/                   # Configuration models
+│   └── Program.cs                      # Entry point
+├── AzureEventGridSimulator.Tests/      # Tests (UnitTests/, IntegrationTests/)
+├── Directory.Build.props               # Shared MSBuild properties
+└── Directory.Packages.props            # Central Package Management
+```
+
+## Code Style
+
+- **Framework:** .NET 10.0, latest C# features
+- **Nullable:** Enabled
+- **Formatter:** CSharpier (100 char width, runs on build)
+- **Namespaces:** File-scoped required
+- **Preferences:** `var` for variables, pattern matching, primary constructors, collection expressions (`[]`)
+
+## Testing
+
+```csharp
+[Trait("Category", "unit")]  // or "integration"
+public class MyTests
+{
+    [Fact]
+    public void Should_DoX_When_Y()
+    {
+        // Arrange/Act/Assert with Shouldly
+        result.ShouldBe(expected);
+    }
+}
+```
+
+## Key Constraints
+
+- **HTTPS only** - all topic endpoints require HTTPS
+- **Authentication** - `aeg-sas-key` or `aeg-sas-token` headers when topic has `key` configured
+- **Message limits** - defaults: 1,049,600 bytes (~1 MB) per event, 1,536,000 bytes (~1.5 MB) overall body
+- **Schemas** - EventGrid (default) or CloudEvents v1.0, auto-detected or configured
+- **Build flavours** - the AppHost builds the simulator with `ASPIRE_ENABLED=true` into separate `bin/aspire/` and `obj/aspire/` paths; the regular build uses `bin/`/`obj/`. Don't mix artifacts between the two.
+
+## Commits & Releases
+
+Uses [Conventional Commits](https://www.conventionalcommits.org/) with Release Please:
+
+- `feat:` = minor bump, `fix:` = patch bump, `feat!:`/`fix!:` = major bump
+- `docs`, `style`, `refactor`, `test`, `chore` = no version bump
+
+Merging Release Please PRs triggers GitHub releases, NuGet publish, and Docker builds.
+
+## Configuration
+
+Topics configured in `appsettings.json`. Each topic needs `name`, `port`, optional `key`. Subscribers support HTTP webhooks, Service Bus, Storage Queue, and Event Hub with filtering, retry, and dead-letter options.
+
+---
+> Source: [pm7y/AzureEventGridSimulator](https://github.com/pm7y/AzureEventGridSimulator) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
