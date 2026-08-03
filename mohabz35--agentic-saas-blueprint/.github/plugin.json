@@ -1,0 +1,9 @@
+{
+  "name": "mohabz35--agentic-saas-blueprint",
+  "displayName": "agentic-saas-blueprint",
+  "description": "Production blueprint for building SaaS with Claude: prompts, theme system templates, and the workflow that prevents looping. Distilled from a 3-month real-world build.",
+  "version": "1.0.0",
+  "author": "Mohabz35",
+  "homepage": "https://github.com/Mohabz35/agentic-saas-blueprint",
+  "skills": []
+}
