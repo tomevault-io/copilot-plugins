@@ -1,0 +1,9 @@
+{
+  "name": "redhat-appstudio--infra-deployments",
+  "displayName": "infra-deployments",
+  "description": "infra-deployments",
+  "version": "1.0.0",
+  "author": "redhat-appstudio",
+  "homepage": "https://github.com/redhat-appstudio/infra-deployments",
+  "skills": []
+}
