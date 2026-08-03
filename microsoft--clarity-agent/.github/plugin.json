@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--clarity-agent",
+  "displayName": "clarity-agent",
+  "description": "clarity-agent",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/clarity-agent",
+  "skills": []
+}
