@@ -1,0 +1,9 @@
+{
+  "name": "xieziyu--better-review",
+  "displayName": "better-review",
+  "description": "Local-first PR review helper \u2014 drives claude or codex agents under a browser UI, ships findings to GitHub via gh.",
+  "version": "1.0.0",
+  "author": "xieziyu",
+  "homepage": "https://github.com/xieziyu/better-review",
+  "skills": []
+}
