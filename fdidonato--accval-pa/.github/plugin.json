@@ -1,0 +1,9 @@
+{
+  "name": "fdidonato--accval-pa",
+  "displayName": "accval-pa",
+  "description": "Validatore di accessibilita WCAG 2.1 e WCAG 2.2 locale, con report HTML navigabile secondo il modello MAUVE++",
+  "version": "1.0.0",
+  "author": "fdidonato",
+  "homepage": "https://github.com/fdidonato/accval-pa",
+  "skills": []
+}
