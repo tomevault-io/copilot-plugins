@@ -1,0 +1,44 @@
+{
+  "name": "code-to-uml",
+  "owner": "pingwurth",
+  "repo": "code-to-uml",
+  "description": "Code-To-UML is a zero-dependency, browser-first PlantUML rendering tool for converting code into interactive UML reports. No building tools needed, pure HTML/CSS/JS implementation, service provided through lightweight Node.js development servers.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pingwurth/code-to-uml",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-03T22:07:16Z"
+}
