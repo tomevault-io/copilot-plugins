@@ -1,49 +1,25 @@
-## general-architecture
+## model-rules
 
-> Bu proje, katmanlı ve SOLID prensiplerine uygun modern bir Laravel mimarisi kullanılarak geliştirilmiştir. Geliştirme yaparken aşağıdaki temel ilkelere ve yapılara her zaman uyulmalıdır. Referans döküman `docs/architecture.md` dosyasıdır.
+> Modeller, veritabanı tablolarının bir temsilidir ve sadece veri yapısıyla ilgili tanımlamaları içermelidir.
 
-# Proje Mimarisi ve Geliştirme Standartları
+# Eloquent Model Kuralları
 
-Bu proje, katmanlı ve SOLID prensiplerine uygun modern bir Laravel mimarisi kullanılarak geliştirilmiştir. Geliştirme yaparken aşağıdaki temel ilkelere ve yapılara her zaman uyulmalıdır. Referans döküman `docs/architecture.md` dosyasıdır.
+Modeller, veritabanı tablolarının bir temsilidir ve sadece veri yapısıyla ilgili tanımlamaları içermelidir.
 
-## 1. Katmanlı Mimari
+## Sorumluluklar
+- **Veritabanı Tablosunu Temsil Etme**: `protected $table`, `protected $primaryKey` gibi özelliklerle tabloyu tanımlamak.
+- **Toplu Atama (Mass Assignment)**: `protected $fillable` veya `protected $guarded` dizilerini tanımlayarak güvenliği sağlamak.
+- **Tip Dönüşümleri (Casts)**: `protected $casts` dizisi ile veritabanından gelen verilerin doğru tiplere (örn: `boolean`, `datetime`, `json`) dönüştürülmesini sağlamak.
+- **İlişkiler (Relationships)**: `hasMany`, `belongsTo` gibi metotlarla diğer modellerle olan ilişkileri tanımlamak.
+- **Tarih Alanları**: `protected $dates` veya `created_at`, `updated_at` gibi zaman damgalarını yönetmek.
 
-Proje aşağıdaki ana katmanlardan oluşur. Her katmanın net bir sorumluluğu vardır:
+## Yasaklar
+- **İş Mantığı YOK**: Modellerin içine iş mantığı eklenmemelidir. Örneğin, bir şifrenin hash'lenmesi gibi işlemler `Observer`'lar veya `Service` katmanında yapılmalıdır. Bir model, bir anketin yayınlanıp yayınlanamayacağını bilmemelidir.
+- **Karmaşık Sorgular YOK**: Karmaşık sorgu mantıkları model içinde scope olarak (`public function scopePublished(Builder $query)`) eklenebilir ancak bu sorguların çağrılması ve birleştirilmesi Repository katmanının sorumluluğundadır.
+- **Doğrudan Kullanım YOK**: Uygulamanın geri kalanı (Controller, Service) modelleri doğrudan kullanmamalı, bunun yerine Repository katmanı üzerinden etkileşim kurmalıdır.
 
-- **Controller**: HTTP isteklerini karşılar, `FormRequest` ile validasyon yapar, veriyi `DTO`'ya dönüştürür ve `Service` katmanına iletir. **İş mantığı içermez.**
-- **Service**: Tüm iş mantığının bulunduğu yerdir. `Repository` ve diğer servislerle konuşur.
-- **Repository**: Veritabanı işlemlerini soyutlar. Sadece `Eloquent` modelleri ile iletişim kurar.
-- **DTO (Data Transfer Object)**: `Controller` ve `Service` katmanları arasında tip güvenli veri taşımak için kullanılır.
-- **Resource**: API yanıtlarını standart bir formata dönüştürür.
-- **Model**: Veritabanı tablolarını temsil eden `Eloquent` sınıflarıdır.
-
-## 2. API İsteği Akışı
-
-Bir API isteğinin yaşam döngüsü aşağıdaki gibidir:
-
-`Route` -> `Controller` -> `FormRequest` (Validasyon) -> `DTO` -> `Service` (İş Mantığı) -> `Repository` -> `Model` -> `ServiceResponse` -> `Resource` -> `JSON Response`
-
-## 3. API Yanıt Standardı (JSend Benzeri)
-
-Tüm API yanıtları, frontend ile tutarlılığı sağlamak için aşağıdaki standart yapıyı takip etmelidir:
-
-```json
-{
-    "success": true, // veya false
-    "data": { ... } // veya [...] veya null
-    "message": "İşlem başarılı." // veya "Hata mesajı."
-}
-```
-- Servis katmanından dönen `ServiceResponse` nesnesi, bu yapıyı otomatik olarak oluşturur.
-
-## 4. Ana Teknolojiler
-
-- **Backend**: Laravel, PHP
-- **Kimlik Doğrulama**: Laravel Sanctum (Token-based)
-- **Rol ve Yetkilendirme**: `spatie/laravel-permission`
-- **Medya Yönetimi**: `spatie/laravel-medialibrary`
-- **Veritabanı Yapısı**: `PROJECT_BASE_STRUCTURE.md` dosyasında detaylandırılmıştır.
-- **API Özellikleri**: `PROJECT_FEATURES.md` dosyasında özetlenmiştir.
+## Referans
+- Tüm modellerin sütunları ve ilişkileri için projenin ana dökümanı olan `PROJECT_BASE_STRUCTURE.md` dosyası tek doğru kaynak olarak kabul edilmelidir.
 
 ---
 > Source: [fzengin19/polling](https://github.com/fzengin19/polling) — distributed by [TomeVault](https://tomevault.io).
