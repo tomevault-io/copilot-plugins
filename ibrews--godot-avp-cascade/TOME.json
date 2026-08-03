@@ -1,0 +1,44 @@
+{
+  "name": "godot-avp-cascade",
+  "owner": "ibrews",
+  "repo": "godot-avp-cascade",
+  "description": "Cascade Countdown \u2014 a hand-tracked physics arcade game for Apple Vision Pro, built on the Godot engine. RigidBody3D + procedural audio at 90 FPS locked in immersive mode. Live on TestFlight.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ibrews/godot-avp-cascade",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-03T20:05:53Z"
+}
