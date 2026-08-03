@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes--org",
+  "displayName": "org",
+  "description": "org",
+  "version": "1.0.0",
+  "author": "kubernetes",
+  "homepage": "https://github.com/kubernetes/org",
+  "skills": []
+}
