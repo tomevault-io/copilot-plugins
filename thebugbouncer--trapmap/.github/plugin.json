@@ -1,0 +1,9 @@
+{
+  "name": "thebugbouncer--trapmap",
+  "displayName": "TrapMap",
+  "description": "A project to record and view all active traps across the given map.",
+  "version": "1.0.0",
+  "author": "thebugbouncer",
+  "homepage": "https://github.com/thebugbouncer/TrapMap",
+  "skills": []
+}
