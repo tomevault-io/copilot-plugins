@@ -1,6 +1,6 @@
 # Synapse-Repository-Services
 
-> Source: [Sage-Bionetworks/Synapse-Repository-Services](https://github.com/Sage-Bionetworks/Synapse-Repository-Services). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [Sage-Bionetworks/Synapse-Repository-Services](https://github.com/Sage-Bionetworks/Synapse-Repository-Services). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
