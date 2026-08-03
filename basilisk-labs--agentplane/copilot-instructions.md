@@ -1,257 +1,78 @@
 ## agentplane
 
-> AGENTS_POLICY: gateway-v1.1
-
-<!--
-AGENTS_POLICY: gateway-v1.1
-repo_namespace: .agentplane
-default_initiator: ORCHESTRATOR
--->
-
-<!-- ap:fragment id="gateway.agents.purpose.purpose" slot="purpose" mutability="replaceable" -->
-
-# PURPOSE
-
-`AGENTS.md` is the policy gateway for agents in this repository.
-It provides strict routing, hard constraints, and command contracts.
-Detailed procedures live in canonical modules from `## CANONICAL DOCS`.
-
-<!-- /ap:fragment -->
-
-<!-- ap:fragment id="gateway.agents.purpose.project" slot="purpose" mutability="replaceable" -->
-
-## PROJECT
-
-- Repository type: user project initialized with `agentplane`.
-- Gateway role: keep this file compact and deterministic; move scenario-specific details to policy modules.
-- CLI rule: use `agentplane` from `PATH`; if unavailable, stop and request installation guidance (do not invent repo-local entrypoints).
-- Startup shortcut: run `## COMMANDS -> Preflight`, then use `agentplane quickstart`; activate `agentplane role ORCHESTRATOR` for planning and `agentplane role <ROLE>` for the active owner before owner-scoped execution; then apply `## LOAD RULES` before any mutation. The guarded route is determined by `workflow_mode` in `.agentplane/config.json`; use `agentplane quickstart` as the canonical summary of the active path before mutating. In `branch_pr`, start from `agentplane work start ... --worktree`; in `direct`, stay in the current checkout and use the task lifecycle route.
-
-<!-- /ap:fragment -->
-<!-- ap:fragment id="gateway.agents.source_of_truth.sources.of.truth" slot="source_of_truth" mutability="replaceable" -->
-
-## SOURCES OF TRUTH
-
-Priority order (highest first):
-
-1. Enforcement: CI, tests, linters, hooks, CLI validations.
-2. Policy gateway: `AGENTS.md`.
-3. Canonical policy modules from `## CANONICAL DOCS`.
-4. CLI guidance: `agentplane quickstart`, `agentplane role <ROLE>`, `.agentplane/config.json`.
-5. Reference examples from `## REFERENCE EXAMPLES`.
-
-Conflict rule:
-
-- If documentation conflicts with enforcement, enforcement wins.
-- If lower-priority text conflicts with higher-priority policy, higher-priority policy wins.
-
-<!-- /ap:fragment -->
-<!-- ap:fragment id="gateway.agents.hard_constraint.scope.boundary" slot="hard_constraint" mutability="append_only" -->
-
-## SCOPE BOUNDARY
-
-- MUST keep all actions inside this repository unless the user explicitly approves outside-repo access.
-- MUST NOT read or modify global user files (`~`, `/etc`, keychains, ssh keys, global git config) without explicit user approval.
-- MUST treat network access as approval-gated when `agents.approvals.require_network=true`.
-
-<!-- /ap:fragment -->
-<!-- ap:fragment id="gateway.agents.commands.commands" slot="commands" mutability="replaceable" -->
-
-## COMMANDS
-
-### Preflight
-
-```bash
-agentplane config show
-agentplane quickstart
-agentplane task list
-git status --short --untracked-files=no
-git rev-parse --abbrev-ref HEAD
-```
-
-### Task lifecycle
-
-```bash
-agentplane task new --title "..." --description "..." --priority med --owner <ROLE> --tag <tag>
-agentplane task plan set <task-id> --text "..." --updated-by <ROLE>
-agentplane task plan approve <task-id> --by ORCHESTRATOR
-agentplane task start-ready <task-id> --author <ROLE> --body "Start: ..."
-agentplane verify <task-id> --ok|--rework --by <ROLE> --note "..." [--observation "..." --impact "..." --resolution "..."] [--local-only]
-agentplane finish <task-id> --author <ROLE> --body "Verified: ..." --result "..." --commit <git-rev>
-```
-
-### branch_pr lifecycle
-
-```bash
-agentplane work start <task-id> --agent <ROLE> --slug <slug> --worktree
-agentplane pr open <task-id> --branch task/<task-id>/<slug> --author <ROLE>
-agentplane pr update <task-id>
-agentplane integrate <task-id> --branch task/<task-id>/<slug> --run-verify
-agentplane finish <task-id> --author INTEGRATOR --body "Verified: ..." --result "..." --commit <git-rev> --close-commit
-```
-
-### Verification
-
-```bash
-agentplane task verify-show <task-id>
-agentplane verify <task-id> --ok|--rework --by <ROLE> --note "..." [--observation "..." --impact "..." --resolution "..."] [--local-only]
-agentplane incidents advise <task-id>
-agentplane incidents collect <task-id> --check
-agentplane doctor
-node .agentplane/policy/check-routing.mjs
-```
-
-<!-- /ap:fragment -->
-<!-- ap:fragment id="gateway.agents.body.tooling" slot="body" mutability="replaceable" -->
-
-## TOOLING
-
-- Use `## COMMANDS` as the canonical command source.
-- Use `agentplane quickstart` as the canonical installed startup path and `agentplane role <ROLE>` to activate the current role before role-scoped planning or execution.
-- For policy changes, routing validation MUST pass via `node .agentplane/policy/check-routing.mjs`.
-
-<!-- /ap:fragment -->
-<!-- ap:fragment id="gateway.agents.body.shared.prompt.contract" slot="body" mutability="replaceable" -->
-
-## SHARED PROMPT CONTRACT
-
-- Outcome-first, concise, evidence-first: state goal, success criteria, constraints, stop rules, and output; use procedure only for command contracts, state machines, or irreversible gates; ask one narrow question only when missing information changes scope, task graph, security, or irreversible action.
-- Retrieval/progress/cache: preamble before multi-step or tool-heavy work; load only matched policy, task README, Verify Steps, and relevant files; use incidents only for analogous scope/tags; final output names actions, checks, blockers/drift, and next approval; keep stable gateway/policy/role before dynamic context and never cache mutable task state.
-
-<!-- /ap:fragment -->
-<!-- ap:fragment id="gateway.agents.load_rules.load.rules" slot="load_rules" mutability="replaceable" -->
-
-## LOAD RULES
-
-Routing is strict. Load only modules that match the current task.
-
-### Always imports for mutating tasks
-
-Condition: task includes mutation (file edits, task-state changes, commits, merge/integrate, release/publish).
-
-- `@.agentplane/policy/security.must.md`
-- `@.agentplane/policy/dod.core.md`
-
-### Conditional imports (linear IF -> LOAD contract)
-
-1. IF `workflow_mode=direct` THEN LOAD `@.agentplane/policy/workflow.direct.md`.
-2. IF `workflow_mode=branch_pr` THEN LOAD `@.agentplane/policy/workflow.branch_pr.md`.
-3. IF task touches release/version/publish THEN LOAD `@.agentplane/policy/workflow.release.md`.
-4. IF task runs `agentplane upgrade` or touches `.agentplane/.upgrade/**` THEN LOAD `@.agentplane/policy/workflow.upgrade.md`.
-5. IF task modifies implementation code paths THEN LOAD `@.agentplane/policy/dod.code.md`.
-6. IF task modifies docs/policy-only paths (`AGENTS.md`, docs, `.agentplane/policy/**`) THEN LOAD `@.agentplane/policy/dod.docs.md`.
-7. IF task modifies policy files (`AGENTS.md` or `.agentplane/policy/**`) THEN LOAD `@.agentplane/policy/governance.md`.
-8. IF task modifies `.agentplane/policy/incidents.md` THEN LOAD `@.agentplane/policy/incidents.md`.
-
-Routing examples:
-
-- Example (docs-only task): rules `1|6` apply in `direct`; do not load `dod.code.md`.
-- Example (upgrade task): rules `4|7` apply plus workflow mode rule.
-
-Routing constraints:
-
-- MUST NOT load unrelated policy modules.
-- MUST NOT use wildcard policy paths.
-- MUST keep loaded policy set minimal (target: 2-4 files per task).
-- If routing is ambiguous, ask one clarifying question before loading extra modules.
-
----
-
-<!-- /ap:fragment -->
-<!-- ap:fragment id="gateway.agents.hard_constraint.must.must.not" slot="hard_constraint" mutability="append_only" -->
-
-## MUST / MUST NOT
-
-- MUST start with ORCHESTRATOR preflight and plan summary.
-- MUST NOT perform mutating actions before explicit user approval.
-- MUST create/reuse executable task IDs for any repo-state mutation.
-- MUST use `agentplane` commands for task lifecycle updates; MUST NOT manually edit `.agentplane/tasks.json`.
-- MUST run `agentplane task plan approve ...` and `agentplane task start-ready ...` sequentially (never in parallel).
-- MUST activate `agentplane role ORCHESTRATOR` for planning and `agentplane role <ROLE>` for the active task owner before owner-scoped execution or verification.
-- MUST keep repository artifacts in English by default (unless user explicitly requests another language for a specific artifact).
-- MUST NOT fabricate repository facts.
-- MUST stage/commit only intentional changes for the active task scope.
-- MUST stop and request re-approval when scope, risk, or verification criteria materially drift.
-- MUST NOT let ORCHESTRATOR perform owner-scoped implementation or verification once a task owner is known, unless the approved plan explicitly makes ORCHESTRATOR the owner.
-
-Role boundaries:
-
-- ORCHESTRATOR: preflight + plan + approvals.
-- PLANNER: executable task graph creation/update.
-- INTEGRATOR: base integration/finish in `branch_pr`.
-
----
-
-<!-- /ap:fragment -->
-<!-- ap:fragment id="gateway.agents.body.core.dod" slot="body" mutability="replaceable" -->
-
-## CORE DOD
-
-A task is done only when all are true:
-
-1. Approved scope is satisfied; no unresolved drift.
-2. Required checks from loaded policy modules passed.
-3. Security and approval gates were respected.
-4. Traceability exists (task ID + updated task docs).
-5. Verification evidence is recorded.
-6. No unintended tracked changes remain.
-
-Detailed DoD rules are in `.agentplane/policy/dod.core.md`, `.agentplane/policy/dod.code.md`, and `.agentplane/policy/dod.docs.md`.
-
----
-
-<!-- /ap:fragment -->
-<!-- ap:fragment id="gateway.agents.hard_constraint.size.budget" slot="hard_constraint" mutability="append_only" -->
-
-## SIZE BUDGET
-
-- `AGENTS.md` MUST stay <= 250 lines.
-- Every policy markdown module under `.agentplane/policy/*.md` MUST stay <= 100 lines.
-- Worst-case loaded policy graph (always imports + all conditional imports) MUST stay <= 600 lines.
-- Enforced by `node .agentplane/policy/check-routing.mjs`.
-
----
-
-<!-- /ap:fragment -->
-<!-- ap:fragment id="gateway.agents.body.canonical.docs" slot="body" mutability="replaceable" -->
-
-## CANONICAL DOCS
-
-- DOC `.agentplane/policy/workflow.md`
-- DOC `.agentplane/policy/workflow.direct.md`
-- DOC `.agentplane/policy/workflow.branch_pr.md`
-- DOC `.agentplane/policy/workflow.release.md`
-- DOC `.agentplane/policy/workflow.upgrade.md`
-- DOC `.agentplane/policy/security.must.md`
-- DOC `.agentplane/policy/dod.core.md`
-- DOC `.agentplane/policy/dod.code.md`
-- DOC `.agentplane/policy/dod.docs.md`
-- DOC `.agentplane/policy/governance.md`
-- DOC `.agentplane/policy/incidents.md`
-
----
-
-<!-- /ap:fragment -->
-<!-- ap:fragment id="gateway.agents.example.reference.examples" slot="example" mutability="replaceable" -->
-
-## REFERENCE EXAMPLES
-
-- EXAMPLE `.agentplane/policy/examples/pr-note.md`
-- EXAMPLE `.agentplane/policy/examples/unit-test-pattern.md`
-- EXAMPLE `.agentplane/policy/examples/migration-note.md`
-
----
-
-<!-- /ap:fragment -->
-<!-- ap:fragment id="gateway.agents.body.change.control" slot="body" mutability="replaceable" -->
-
-## CHANGE CONTROL
-
-- Follow incident-log, immutability, and policy-budget rules in `.agentplane/policy/governance.md`.
-- Record situational incident rules only in `.agentplane/policy/incidents.md`; use targeted lookup/promotion (`task start-ready`, `incidents advise`, `incidents collect`, `finish`) instead of bulk-loading it during normal startup.
-- Keep `AGENTS.md` as a gateway; move detailed procedures to canonical modules.
-<!-- /ap:fragment -->
+> 1. [`docs/adr/0001-zod-config-parity.md`](../../../../docs/adr/0001-zod-config-parity.md)
+
+
+## Sources
+
+1. [`docs/adr/0001-zod-config-parity.md`](../../../../docs/adr/0001-zod-config-parity.md)
+2. [`docs/adr/0004-keep-custom-cli-stack.md`](../../../../docs/adr/0004-keep-custom-cli-stack.md)
+3. [`docs/adr/0005-defer-biome-migration.md`](../../../../docs/adr/0005-defer-biome-migration.md)
+4. [`docs/adr/0006-no-effect-fp-ts-migration.md`](../../../../docs/adr/0006-no-effect-fp-ts-migration.md)
+5. [`docs/adr/0007-freeze-yaml-parser-stack.md`](../../../../docs/adr/0007-freeze-yaml-parser-stack.md)
+6. [`docs/adr/0008-keep-yauzl-for-zip-validation.md`](../../../../docs/adr/0008-keep-yauzl-for-zip-validation.md)
+7. [`docs/adr/0009-recipes-index-signing-algorithm-policy.md`](../../../../docs/adr/0009-recipes-index-signing-algorithm-policy.md)
+8. [`docs/adr/0010-core-root-export-compatibility.md`](../../../../docs/adr/0010-core-root-export-compatibility.md)
+9. [`docs/adr/0011-v0.3-surface-freeze.md`](../../../../docs/adr/0011-v0.3-surface-freeze.md)
+10. [`docs/adr/0013-zod-contract-ssot.md`](../../../../docs/adr/0013-zod-contract-ssot.md)
+11. [`docs/adr/README.md`](../../../../docs/adr/README.md)
+12. [`docs/archive/v0-3/cli-bug-ledger-v0-3-x.mdx`](../../../../docs/archive/v0-3/cli-bug-ledger-v0-3-x.mdx)
+13. [`docs/archive/v0-3/framework-refactor-program.mdx`](../../../../docs/archive/v0-3/framework-refactor-program.mdx)
+14. [`docs/compare.mdx`](../../../../docs/compare.mdx)
+15. [`docs/concepts/agent-workflows.mdx`](../../../../docs/concepts/agent-workflows.mdx)
+16. [`docs/concepts/context-engineering.mdx`](../../../../docs/concepts/context-engineering.mdx)
+17. [`docs/concepts/harness-engineering.mdx`](../../../../docs/concepts/harness-engineering.mdx)
+18. [`docs/concepts/traces.mdx`](../../../../docs/concepts/traces.mdx)
+19. [`docs/context/agent-guide.mdx`](../../../../docs/context/agent-guide.mdx)
+20. [`docs/context/files.mdx`](../../../../docs/context/files.mdx)
+
+# agents concept
+
+Matched in 190 release/docs source files.
+
+## Representative sources
+
+- `docs/adr/0001-zod-config-parity.md`: ADR 0001: Config Zod Parity Baseline
+- `docs/adr/0004-keep-custom-cli-stack.md`: ADR 0004: Keep Custom CLI Stack
+- `docs/adr/0005-defer-biome-migration.md`: ADR 0005: Defer Biome Migration
+- `docs/adr/0006-no-effect-fp-ts-migration.md`: ADR 0006: No Effect or fp-ts Migration
+- `docs/adr/0007-freeze-yaml-parser-stack.md`: ADR 0007: Freeze YAML Parser Stack
+- `docs/adr/0008-keep-yauzl-for-zip-validation.md`: ADR 0008: Keep yauzl for ZIP Validation
+- `docs/adr/0009-recipes-index-signing-algorithm-policy.md`: ADR 0009: Recipes Index Signing Algorithm Policy
+- `docs/adr/0010-core-root-export-compatibility.md`: ADR 0010: Core Root Export Compatibility
+- `docs/adr/0011-v0.3-surface-freeze.md`: ADR 0011: v0.3 Surface Freeze
+- `docs/adr/0013-zod-contract-ssot.md`: 0013-zod-contract-ssot
+- `docs/adr/README.md`: Architecture Decision Records
+- `docs/archive/v0-3/cli-bug-ledger-v0-3-x.mdx`: cli-bug-ledger-v0-3-x
+- `docs/archive/v0-3/framework-refactor-program.mdx`: framework-refactor-program
+- `docs/compare.mdx`: Agentplane is the agent-agnostic evidence layer
+- `docs/concepts/agent-workflows.mdx`: Agent workflows
+- `docs/concepts/context-engineering.mdx`: Context engineering for AI agents
+- `docs/concepts/harness-engineering.mdx`: Harness engineering for AI agents
+- `docs/concepts/traces.mdx`: Traces for AI agent runs
+- `docs/context/agent-guide.mdx`: Agent guide to project context
+- `docs/context/files.mdx`: What context writes
+- `docs/context/index.mdx`: Context
+- `docs/context/ingest.mdx`: Add documents to context
+- `docs/context/modes.mdx`: Choose a context mode
+- `docs/context/quickstart.mdx`: Context quickstart
+- `docs/context/troubleshooting.mdx`: Context troubleshooting
+- `docs/contributing/citation-guidelines.mdx`: Citation guidelines
+- `docs/developer/agent-change-record-implementation.mdx`: agent-change-record-implementation
+- `docs/developer/architecture.mdx`: architecture
+- `docs/developer/blueprints.mdx`: blueprints
+- `docs/developer/cli-contract.mdx`: cli-contract
+- `docs/developer/cli-help-json.mdx`: cli-help-json
+- `docs/developer/cloud-backend-integration-plan.mdx`: cloud-backend-integration-plan
+- `docs/developer/code-quality.mdx`: code-quality
+- `docs/developer/contributing.mdx`: contributing
+- `docs/developer/design-principles.mdx`: design-principles
+- `docs/developer/documentation-information-architecture.mdx`: documentation-information-architecture
+- `docs/developer/evaluation-and-recursive-improvement.mdx`: evaluation-and-recursive-improvement
+- `docs/developer/harness-dev.mdx`: harness-dev
+- `docs/developer/harness-engineering.mdx`: harness-engineering
+- `docs/developer/incident-archive.mdx`: Incident Archive
 
 ---
 > Source: [basilisk-labs/agentplane](https://github.com/basilisk-labs/agentplane) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
