@@ -1,0 +1,9 @@
+{
+  "name": "zrktty--nestjs-nextjs-trpc-poc",
+  "displayName": "nestjs-nextjs-trpc-poc",
+  "description": "A minimal full-stack proof-of-concept demonstrating end-to-end type safety across a NestJS backend and Next.js frontend using tRPC \u2014 no REST, no manual type duplication, just a single shared type cont",
+  "version": "1.0.0",
+  "author": "ZRktty",
+  "homepage": "https://github.com/ZRktty/nestjs-nextjs-trpc-poc",
+  "skills": []
+}
