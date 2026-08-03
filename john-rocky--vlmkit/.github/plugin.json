@@ -1,0 +1,9 @@
+{
+  "name": "john-rocky--vlmkit",
+  "displayName": "VLMKit",
+  "description": "On-device structured VLM fan-out on Apple Silicon (MLX): pair Apple Vision with a local VLM to count, locate, and describe. Multi-demo example app.",
+  "version": "1.0.0",
+  "author": "john-rocky",
+  "homepage": "https://github.com/john-rocky/VLMKit",
+  "skills": []
+}
