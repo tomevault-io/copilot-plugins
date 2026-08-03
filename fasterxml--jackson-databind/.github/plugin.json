@@ -1,0 +1,9 @@
+{
+  "name": "fasterxml--jackson-databind",
+  "displayName": "jackson-databind",
+  "description": "jackson-databind",
+  "version": "1.0.0",
+  "author": "FasterXML",
+  "homepage": "https://github.com/FasterXML/jackson-databind",
+  "skills": []
+}
