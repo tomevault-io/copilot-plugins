@@ -1,0 +1,9 @@
+{
+  "name": "clima--cloudmicrophysics-jl",
+  "displayName": "CloudMicrophysics.jl",
+  "description": "CloudMicrophysics.jl",
+  "version": "1.0.0",
+  "author": "CliMA",
+  "homepage": "https://github.com/CliMA/CloudMicrophysics.jl",
+  "skills": []
+}
