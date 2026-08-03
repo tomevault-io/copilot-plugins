@@ -4,7 +4,7 @@
   "repo": "docs-book-cloudfoundry",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cloudfoundry/docs-book-cloudfoundry",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T12:21:48Z"
+  "distributed_at": "2026-08-03T14:18:27Z"
 }
