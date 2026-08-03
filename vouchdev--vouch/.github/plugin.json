@@ -1,0 +1,9 @@
+{
+  "name": "vouchdev--vouch",
+  "displayName": "vouch",
+  "description": "A git-native, review-gated knowledge base for AI agents: they propose writes, you approve them. Every claim cites a source, every change is a diff in your repo. MCP + CLI.",
+  "version": "1.0.0",
+  "author": "vouchdev",
+  "homepage": "https://github.com/vouchdev/vouch",
+  "skills": []
+}
