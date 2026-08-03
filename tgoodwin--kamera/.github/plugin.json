@@ -1,7 +1,7 @@
 {
   "name": "tgoodwin--kamera",
   "displayName": "kamera",
-  "description": "kamera is a simulation toolkit for observing, analyzing, and verifying the behavior of Kubernetes control planes.",
+  "description": "kamera",
   "version": "1.0.0",
   "author": "tgoodwin",
   "homepage": "https://github.com/tgoodwin/kamera",
