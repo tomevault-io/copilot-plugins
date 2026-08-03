@@ -1,0 +1,9 @@
+{
+  "name": "jfryman--flashkit-md-dotnet",
+  "displayName": "flashkit-md-dotnet",
+  "description": ".NET port of https://krikzz.com/pub/support/flashkit-md/",
+  "version": "1.0.0",
+  "author": "jfryman",
+  "homepage": "https://github.com/jfryman/flashkit-md-dotnet",
+  "skills": []
+}
