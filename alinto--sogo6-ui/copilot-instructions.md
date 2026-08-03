@@ -1,17 +1,43 @@
-## i18n
+## rtk-query
 
-> Internationalisation rules for SOGo. Apply when creating or editing React components, forms, or any UI text.
+> RTK Query conventions for SOGo. Apply when creating or modifying API endpoints, RTK Query slices, or data fetching logic.
 
 
-# i18n Conventions — SOGo
+# RTK Query Conventions — SOGo
 
-## Hard rule
-NEVER hardcode strings in JSX. ESLint rule `react/jsx-no-literals` will fail the build.
+## Canonical reference
+@src/features/mails/store/mails-api.ts
+@src/lib/redux/api/api-slice.ts
 
-## Correct pattern
-```tsx
-const t = useTranslations('NAMESPACE')
-return <span>{t('MY_KEY')}</span>
+## Endpoint structure
+- ALWAYS use `apiSlice.injectEndpoints()`, never `createApi()` directly in features
+- ALWAYS provide `providesTags` on queries and `invalidatesTags` on mutations — no exception
+- ALWAYS add `transformResponse` to normalize backend response → frontend types
+- Backend wraps responses in `BackendResponse<T> { data: T, error_code, error_msg }` — always unwrap with `response.data`
+
+## URL helpers
+- Define URL builder as a separate named function above `injectEndpoints` (see `getFoldersQuery`, `getFolderMessagesQuery`)
+- Use `encodeURIComponent()` on dynamic path segments (folder, mailId)
+- Base URL comes from `dynamicBaseQuery` in api-slice — NEVER hardcode base URL in endpoints
+
+## Tags
+- All tag types must be declared in the `tagTypes` array in @src/lib/redux/api/api-slice.ts before use
+- Use string tags for collections: `providesTags: ['mails/folders']`
+- Use object tags for individual items: `providesTags: (result, error, { mailId }) => [{ type: 'mail', id: mailId }]`
+
+## Cache
+- Mail messages: `keepUnusedDataFor: 3600`
+- SSE events: `keepUnusedDataFor: Infinity`
+- Default: omit (use RTK Query default of 60s)
+
+## Mutations
+- ALWAYS use `createApiNotificationHandler` for user-facing mutations
+- See `moveToTrash` in @src/features/mails/store/mails-api.ts for the pattern
+
+## Exports
+- Export generated hooks individually: `export const { useGetFoldersQuery, ... } = injectedEndpoints`
+- Also export `injectedEndpoints` as named export: `export const mailsApiEndpoints = injectedEndpoints`
+- Export URL builder functions for reuse in components
 
 ---
 > Source: [Alinto/SOGo6-UI](https://github.com/Alinto/SOGo6-UI) — distributed by [TomeVault](https://tomevault.io).
