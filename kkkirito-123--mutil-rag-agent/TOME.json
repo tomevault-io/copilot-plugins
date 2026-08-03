@@ -1,9 +1,9 @@
 {
-  "name": "mutil-rag-agent",
+  "name": "Mutil-Rag-Agent",
   "owner": "Kkkirito-123",
-  "repo": "mutil-rag-agent",
-  "description": "",
-  "type": "tome",
+  "repo": "Mutil-Rag-Agent",
+  "description": "An improved multi-agent AIOps and RAG platform for OnCall troubleshooting, featuring LangGraph-based diagnosis workflows, Milvus vector search, MCP tool integration, Prometheus alert knowledge from awesome-prometheus-alerts, and sanitized configuration for safe public deployment.",
+  "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,45 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "mutil-rag-agent",
-      "path": "app/skills/definitions/generic_oncall/SKILL.md",
-      "github_url": "https://github.com/Kkkirito-123/mutil-rag-agent/tree/main/app/skills/definitions/generic_oncall/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "mutil-rag-agent",
-      "path": "app/skills/definitions/network_diagnosis/SKILL.md",
-      "github_url": "https://github.com/Kkkirito-123/mutil-rag-agent/tree/main/app/skills/definitions/network_diagnosis/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "mutil-rag-agent",
-      "path": "open-webSearch-main/skills/open-websearch/SKILL.md",
-      "github_url": "https://github.com/Kkkirito-123/mutil-rag-agent/tree/main/open-webSearch-main/skills/open-websearch/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "mutil-rag-agent",
-      "path": "app/skills/definitions/container_diagnosis/SKILL.md",
-      "github_url": "https://github.com/Kkkirito-123/mutil-rag-agent/tree/main/app/skills/definitions/container_diagnosis/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "mutil-rag-agent",
-      "path": "app/skills/definitions/host_resource_diagnosis/SKILL.md",
-      "github_url": "https://github.com/Kkkirito-123/mutil-rag-agent/tree/main/app/skills/definitions/host_resource_diagnosis/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "mutil-rag-agent",
-      "path": "open-webSearch-main/skills/open-websearch-maintainer/SKILL.md",
-      "github_url": "https://github.com/Kkkirito-123/mutil-rag-agent/tree/main/open-webSearch-main/skills/open-websearch-maintainer/SKILL.md",
-      "description": ""
-    }
-  ],
-  "source_url": "https://github.com/Kkkirito-123/mutil-rag-agent",
+  "skills": [],
+  "source_url": "https://github.com/Kkkirito-123/Mutil-Rag-Agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T13:47:48Z"
+  "distributed_at": "2026-08-03T08:14:50Z"
 }
