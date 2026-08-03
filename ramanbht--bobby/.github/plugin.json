@@ -1,0 +1,9 @@
+{
+  "name": "ramanbht--bobby",
+  "displayName": "bobby",
+  "description": "One local-first chat dashboard over Claude Code, Hermes & pi \u2014 saves every chat, distills memories into Obsidian. TypeScript, MIT.",
+  "version": "1.0.0",
+  "author": "ramanbht",
+  "homepage": "https://github.com/ramanbht/bobby",
+  "skills": []
+}
