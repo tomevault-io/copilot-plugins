@@ -1,0 +1,9 @@
+{
+  "name": "philipkocanda--canair",
+  "displayName": "canair",
+  "description": "Reverse engineering toolkit for WiCAN OBD-II WiFi/BLE to CAN adapter",
+  "version": "1.0.0",
+  "author": "philipkocanda",
+  "homepage": "https://github.com/philipkocanda/canair",
+  "skills": []
+}
