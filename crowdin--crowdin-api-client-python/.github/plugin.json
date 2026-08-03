@@ -1,0 +1,9 @@
+{
+  "name": "crowdin--crowdin-api-client-python",
+  "displayName": "crowdin-api-client-python",
+  "description": "crowdin-api-client-python",
+  "version": "1.0.0",
+  "author": "crowdin",
+  "homepage": "https://github.com/crowdin/crowdin-api-client-python",
+  "skills": []
+}
