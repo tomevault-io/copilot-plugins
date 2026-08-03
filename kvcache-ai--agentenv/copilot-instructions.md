@@ -1,0 +1,153 @@
+## agentenv
+
+> AgentENV is a Rust workspace for running AI agents inside isolated, snapshot-capable Firecracker-based environments. It exposes an E2B-compatible HTTP API so agents can create, pause, resume, and reuse sandboxes. Requires a Linux host with `/dev/kvm` access.
+
+# CLAUDE.md
+
+## What is AgentENV
+
+AgentENV is a Rust workspace for running AI agents inside isolated, snapshot-capable Firecracker-based environments. It exposes an E2B-compatible HTTP API so agents can create, pause, resume, and reuse sandboxes. Requires a Linux host with `/dev/kvm` access.
+
+## Build, Lint, Test Commands
+
+```bash
+make                          # build the workspace
+make fmt                      # rustfmt check (agentenv, envd, uvm-ublk, uvm-ublk-daemon)
+make clippy                   # clippy with -D warnings
+make test                     # full test suite (agent + envd + ublk)
+make test-unit                # unit tests only
+make test-agent-integration   # integration tests (tests/integration/*.rs)
+make bench                    # snapshot benchmarks
+make start-server             # build and run the API server (auto-provisions dependencies)
+```
+
+Dev/CI tooling via `cargo adev` (delegated from Makefile):
+```bash
+cargo adev codegen            # regenerate all OpenAPI clients/server
+cargo adev mutants            # run mutation tests
+cargo adev coverage           # run code coverage
+make firecracker-client       # shorthand for cargo adev codegen firecracker
+make envd-http-client         # shorthand for cargo adev codegen envd
+make agentenv-server          # shorthand for cargo adev codegen server
+make custom-extension-client  # shorthand for cargo adev codegen custom-extension
+```
+
+Dependency downloads, generated OverlayBD runtime configs, and OverlayBD packaging are provisioned automatically during server startup. Machine-wide KVM group access, ublk device permissions, OverlayBD system config, and network sysctls require a one-time root setup via `server --setup-host --runtime-user <user> --runtime-group <group>`; normal startup validates those prerequisites and fails with actionable errors when they are missing.
+
+All registry access goes through `regctl`: userImage manifest fetch, config blob fetch, layer download, tools drive image download (`src/setup/deps.rs::extract_ext4_from_ghcr`, unpacked with `umoci`), and OCI referrers lookup when `[image_resolver].try_referrers_overlaybd_prefixes` is non-empty (referrers lookup failures fall back to the source image). Server setup provisions both automatically: `regctl` is downloaded from the `[regclient]` entry in `config/deps_manifest.toml` to `/usr/local/bin/regctl`, and `umoci` is installed as a `[packages.runtime]` system package. `src/image/oci_image.rs` fetches the manifest via `regctl manifest get` and classifies it — standard OCI tar images trigger a full `regctl image copy` + per-layer conversion into local `.commit` files, while overlaybd-native images skip blob download entirely and emit a remote-ref `image.json` that the overlaybd runtime's `registryfs_v2` backend reads directly from the registry. User-facing image references are normalized by `ImageResolver` from template API `userImage` fields and CLI image arguments. For private registries referenced by `userImage`, run `docker login <registry>` before starting the server; `write_generated_overlaybd_global_config` auto-detects `~/.docker/config.json` (or `$DOCKER_CONFIG/config.json`) and wires the overlaybd runtime's `credentialConfig.mode=file` so the runtime can authenticate too.
+
+P2P artifact transport (`src/p2p/`) is a project-wide, optional node-to-node artifact layer. Consumers depend on `P2pTransport` rather than a concrete backend. `DisabledP2pTransport` is the default no-op implementation; `IrohBlobsP2pTransport` embeds an `iroh` endpoint and `iroh-blobs` `FsStore`, serving bytes, byte ranges, and a small AgentENV catalog protocol from the AgentENV server process. Configure it with `[p2p]`. When enabled for overlaybd, the server also starts a localhost HTTP facade: `/p2p-http/{*origin}` is patched into overlaybd registryfs for foreground range reads, while `/p2p-control/publish-layer` lets the ublk daemon publish completed background-downloaded layers as full-layer artifacts by reference. Overlaybd layer artifact identity is owned by `src/overlaybd/p2p/artifact.rs` (`overlaybd-layer/v1/sha256:<digest>` plus `LayerMetadata`); snapshot publishing must reuse that helper instead of inventing snapshot-specific layer keys. Snapshot publishing also advertises fixed artifacts under `snapshot/v1/artifacts/{snapshot_id}/...` after repository commit; OSS runtime resolution tries P2P before object storage for those fixed artifacts, while POSIX resolution does not consume P2P. Scheduler integration covers endpoint discovery and a lightweight in-memory artifact-to-node index: heartbeats advertise the local `P2pEndpoint`, `ListP2pPeers` returns ready peers for a backend, `RecordP2pArtifact`/`ForgetP2pArtifact`/`LookupP2pArtifact` maintain a key-to-node hint index that accelerates artifact lookup before falling back to broad peer polling. Scheduler stores only key-to-node mappings and never stores artifact locators, metadata, or proxies bytes. Node unregister removes all artifact mappings for that node. See `docs/src/internals/p2p-design.md`.
+
+Local RocksDB helper (`src/local_store.rs`) is the shared async-friendly wrapper for small node-local key/value metadata stores. Use `LocalKvStore` with an explicit `LocalStoreDurability` (`Memory`, `Wal`, or `Sync`) for new local record/catalog persistence instead of hand-maintaining per-record JSON files. It runs RocksDB operations through `spawn_blocking`; keep values compact (for example compact JSON or other binary encodings) and let callers choose durability in code rather than config unless a user-facing knob is explicitly required.
+
+Go control-plane services (`services/` module):
+```bash
+make -C services build        # build gateway + scheduler
+make -C services test         # run gateway + scheduler tests
+make -C services run-scheduler
+make -C services run-gateway
+
+# from services/ directly
+go test ./...
+```
+
+Run a single test:
+```bash
+# Unit test by name
+cargo test -p agentenv --lib test_name
+# Integration test module
+sudo -E cargo test -p agentenv --test orchestrator_integration orchestrator::
+# Specific integration test
+sudo -E cargo test -p agentenv --test orchestrator_integration orchestrator::test_name
+```
+
+Integration tests require root (network namespaces), `/dev/kvm`, and `AENV_CONFIG_PATH` pointing to a valid config.
+
+## Architecture
+
+See `docs/src/internals/architecture.md` for detailed design with data flow diagrams.
+
+### Storage
+
+The storage subsystem is the core of AgentENV. It serves two orthogonal data paths: **block devices** (rootfs/extra drives) and **memory snapshots** (ublk-backed memory restore from overlaybd layers).
+
+**Block device pipeline**: overlaybd image layers -> ublk userspace block device -> `/dev/ublkbN` in VM.
+
+**overlaybd** (`storage/overlaybd/`): LSMT-based layered image format. Stacks immutable compressed read-only layers with a single writable upper layer. Each layer has a `HeaderTrailer` (magic, UUID, offsets) and `DiskSegmentMapping` entries (16-byte bit-packed records mapping virtual block ranges to physical locations). Reads resolve through the layer stack top-down; writes append to the upper layer. Pluggable backends: `LocalFile` (io_uring pread/pwrite, optional O_DIRECT), `registryfs_v2` (OCI registry), `tar`. Compression via zstd with random-access jump tables. `image/image_file.rs` is the high-level entry point. LSMT implementation lives under `lsmt/file/`: `readonly.rs` and `readwrite.rs` define `LSMTReadOnlyFile` and `LSMTFile`, `stack.rs` handles open/merge/stack helpers, `helper.rs` owns shared format/cache helpers, and `types.rs` contains public LSMT types and `PremergedIndexCachePolicy`; the persistent premerged lower-index artifact cache remains under `cacheConfig.cacheDir/premerged-index/`. Image-level runtime helpers live in `image/helper.rs`, including runtime upper preparation and the path rewriting helpers formerly split across `runtime_upper.rs` and `path_rewrite.rs`. Image resolution also maintains `{image.cache.root_dir}/{commits,indexes,configs}` for content-addressed overlaybd commits, OCI conversion indexes, and resolved OCI image configs. `image/snapshot.rs` retains the explicit upper-export path used by packaging/export flows, while the primary Firecracker pause path now uses `close_seal + restack` to turn the live upper into the newest lower and reopen a fresh writable upper in place.
+
+OverlayBD write-path optimizations use in-memory append cursors (`rw_data_append_offset`, `rw_index_append_offset`) to avoid steady-state `size()` metadata calls. Small buffered writes (`<= 4 KiB`) use synchronous `pwrite` to reduce local write latency; this assumes fast local storage, while slow or network-backed filesystems can block the Tokio `LocalSet` thread.
+
+**ublk** (`storage/ublk/`): Low-level async ublk block device primitives using Linux's ublk driver. Provides `UVMUblkCtrl` for ADD/DEL commands to `/dev/ublk-control` via io_uring, per-queue worker threads with thread-local `AsyncIoRing` and slab-allocated I/O slots. Two target implementations: `OverlaybdTarget` (wraps `ImageFile` for full layered image access) and `BasicCowTarget` (chunk-based copy-on-write over a read-only origin file, with per-chunk `AtomicU8` state tracking: Origin -> Copying -> Cow). Optional zero-copy via `UBLK_F_AUTO_BUF_REG` (kernel 6.8+).
+
+**ublk-daemon** (`storage/ublk-daemon/`): Long-running daemon process (`uvm-ublk-daemon`) that manages all ublk devices within a single process. Communicates with the main AgentENV server via a Unix domain socket using a length-prefixed JSON protocol. Supports `CreateOverlaybd`, `CreateOverlaybdRuntimeDevice`, `AcquireOverlaybd`, `ReleaseOverlaybd`, `UpdateSize`, `GetFeatures`, `CreateCow`, `Delete`, `RestackSnapshot`, and `Shutdown` RPCs. The daemon owns a shared `ImageService` and io_uring control ring, tracks legacy active devices in a `DashMap`, and maintains a warm pool of reusable overlaybd ublk devices for pooled acquire/release flows. The client (`UblkDaemonClient`) spawns the daemon process, waits for readiness, and runs a background watchdog that detects unexpected daemon exits. `src/sandbox/ublk/device.rs` provides the `UblkDeviceManager` global singleton that wraps the daemon client and keeps the node-local shared-memory device cache.
+
+**storage-util** (`storage/util/`): Shared io_uring abstractions. `AsyncIoRing<S>` is a generic async wrapper with slab-based futures for CQE delivery. `IoRingWorker` spawns dedicated worker threads with thread-local io_uring instances. `ReloadableIDAllocator` provides reusable monotonic ID allocation/recycling with a free-list and lookup set.
+
+**Sandbox integration** (`src/sandbox/ublk/` + `src/sandbox/extra_drive.rs`): `overlaybd.rs` materializes runtime configs (rewrites paths, creates symlinks to layer files). Rootfs and extra drives both create daemon-managed ublk devices through the process-wide `UblkDeviceManager`. `extra_drive.rs` prepares user-specified extra drives with rollback on failure, and attached-drive snapshots now export per-drive `drives/<id>/image.json` state so writable drives survive pause/resume and template publication.
+
+**Memory snapshot pipeline**: On pause, Firecracker's native diff snapshot (`SnapshotType::Diff`) produces a sparse `mem.bin` where only present pages have data (uses mincore internally). The sparse file is then packaged into an overlaybd layer via `convert_sparse_mem_to_overlaybd`. Parent layers from previous snapshots are stacked to form the full memory image. On resume, a read-only ublk device is created from the stacked overlaybd layers and passed to Firecracker as a file-backed memory backend. Firecracker mmaps the block device and COWs pages into anonymous memory on write. Multiple sandboxes from the same snapshot template share a single memory ublk device via reference counting, enabling page cache reuse.
+
+**uffd-core** (`storage/uffd-core/`): Retained for reference but excluded from the workspace build. Contains an alternative userfaultfd-based memory restore implementation.
+
+### Distributed Control Plane (`services/`)
+
+The multi-node control plane is a prototype. Gateway (`services/gateway/`) is an HTTP reverse proxy that routes client traffic to backend nodes and exposes `GET /nodes` / `GET /nodes/{id}` for aggregated node views. Scheduler (`services/scheduler/`) is a gRPC service managing static node discovery (`static` or `kubernetes`), sandbox-to-node bindings, observed-node heartbeat state, and the lightweight P2P artifact index. RPCs include `Schedule`, `LookupNode`, `RecordAssignment`, `ListNodes`, `Heartbeat`, `ListObservedNodes`, `ReportSandboxEvent`, `GetNode`, `UnregisterNode`, and P2P peer/artifact lookup/update methods. Strategies: round_robin, random. Bindings are seeded by `RecordAssignment`, refreshed and reconciled from heartbeat `sandbox_ids` rosters, expired by `scheduler.binding_ttl`, and cleared for a node on `UnregisterNode`. Runtime nodes also send best-effort `ReportSandboxEvent` updates for create/delete/pause/resume/fork (fork is reported once per child sandbox with the child's ID/resources); the scheduler currently accepts/logs these events without mutating binding or resource state. By default bindings are in-memory and lost on scheduler restart; setting `scheduler.redis_addr` switches bindings to Redis so a primary scheduler can share them with query-only scheduler replicas started with `--query-only`. Gateways can send sandbox data-plane `LookupNode` traffic to those replicas via `gateway.query_only_scheduler_addr`, keeping proxy-to-existing-sandbox requests available during primary scheduler restarts. This HA mode is intentionally data-plane only: scheduling, sandbox creation, assignment writes, node APIs, P2P scheduler APIs, and other control-plane operations still depend on the primary scheduler. Observed-node state and the P2P artifact index remain in-memory/ephemeral. See `services/README.md` for details.
+
+`services/` is a separate Go module containing the prototype distributed control-plane (gateway + scheduler). See `services/README.md` for build/run/deploy instructions.
+
+When changing code under `services/`, validate via `make -C services test` (or `go test ./...` inside `services/`) in addition to Rust workspace checks.
+
+### Per-Node Subsystems
+
+Each node is an AgentENV server binary (`src/bin/server.rs`) running on a Linux host with `/dev/kvm`. It wires together:
+
+**API layer** (`src/api/`): Axum HTTP server with OpenAPI-generated endpoint traits (`src/api/generated/` from `src/api/openapi.yml`) plus a reverse proxy. Implementations live in `src/api/impls/` (sandbox CRUD, snapshot CRUD, template-facing CRUD, auth, generic cursor-based pagination). The proxy (`src/api/proxy.rs`) forwards HTTP/WebSocket to sandboxes using routing headers (`x-agentenv-sandbox-id`, `x-agentenv-target-port`).
+
+**Orchestrator** (`src/orchestrator/`): Manages sandbox lifecycle (create, fork, pause, resume, snapshot, delete) with state machine transitions (Creating -> Running -> Forking | Snapshotting | Pausing -> Paused, Resuming, Killing). `service.rs` is the core logic. `fork_sandbox` forks one running source sandbox into multiple running children on the same node, records child create successes/failures in `OrchestratorCounters`, and publishes one `SandboxLifecycleEventType::Fork` event per child with the child sandbox ID/resources. `capture_snapshot` drives the `Running -> Snapshotting -> Running` flow used by the user-facing snapshot API: it delegates the actual capture to the sandbox backend, rolls back to `Running` on recoverable failure, and tears the sandbox down on `SandboxCaptureError::Terminal` (when the runtime was mutated past the point of safe resume). Uses an in-memory metadata store and a proxy route table for fast sandbox discovery. Maintains incremental `OrchestratorCounters` for create success/failure totals, while running/starting sandbox counts and allocated CPU/memory are derived on demand from sandbox metadata via `aggregate_resource_metrics`. Publishes non-blocking broadcast lifecycle events for successful create/delete/pause/resume/fork; these are best-effort and dropped if there are no subscribers. Runs an auto-eviction task for expired sandboxes. On graceful shutdown, running sandboxes are paused and persisted rather than deleted; on next startup they are restored as `Paused` and can be resumed. The `SandboxPersister` trait abstracts durable storage of paused sandbox state across server restarts. On startup, `Orchestrator::new` restore persisted `Paused` sandboxes into the in-memory store.
+
+**Observability** (`src/observability/`): Builds node-level snapshots for the admin/node APIs by combining static node identity (node ID, cluster ID, service instance ID, build version/commit), machine information detected from `/proc/cpuinfo`, request-time host metrics collection (CPU, memory, disks), orchestrator runtime metrics sampled on request via `metrics_snapshot()`, and the current sandbox ID roster from orchestrator. `reporter.rs` runs a background task that periodically sends gRPC `Heartbeat` RPCs to the scheduler so the control plane can track live node state, reconcile sandbox bindings, and advertise the node's optional P2P endpoint; the same loop also drains orchestrator lifecycle events and sends `ReportSandboxEvent` RPCs for create/delete/pause/resume/fork (fork events use child sandbox IDs/resources). The event receiver handles lagged receivers and disables the event branch when the broadcast channel closes to avoid busy loops. The reporter is created via `ObservabilityReporter::new` and started explicitly with `start()` before shutdown via `shutdown()`. `observability.enabled` controls whether this subsystem is exposed by the node/admin APIs. At startup, `machine.rs` optionally runs `cpu-template-helper template dump` (resolved from `{deps_path}/firecracker/{version}/cpu-template-helper`) and includes the output in each heartbeat's `MachineInfo.cpu_config_json`; the scheduler computes a cluster-wide bitwise AND intersection of all node configs and returns it in the heartbeat response, where it is stored in a shared `Arc<RwLock<Option<String>>>` and applied to new VMs via Firecracker's pre-boot `PUT /cpu-config` API.
+
+**Sandbox** (`src/sandbox/`): Manages Firecracker VMs, network namespaces (veth pairs, iptables isolation), rootfs mounting/file injection via debugfs, envd init system communication, MMDS metadata service, and ublk block devices. `firecracker/sandbox.rs` is the main wrapper coordinating all subsystems, and now owns a stable `SandboxId` passed in by the orchestrator so that Firecracker serial logs live under `{serial_output_base_dir}/{SandboxId}/firecracker-*.log`. The `SandboxBackend` trait exposes `snapshot()` and `fork()` alongside `pause`/`resume`/`stop`; capture/fork paths return typed errors where recoverable failures roll back to `Running` and terminal failures mean the live runtime was mutated and must be torn down. Captured state travels as an opaque `CapturedSandboxSnapshot` handle (backed by `FirecrackerCapturedSnapshot` in the Firecracker impl) that keeps the temp artifact dir alive until the repository publishes it. `firecracker/mmds.rs` defines the metadata structure exposed to VMs via Firecracker's MMDS V2 interface, providing sandbox and snapshot identity information to envd at the standard 169.254.169.254 address.
+
+**Snapshot + Template Builder** (`src/snapshot/`, `src/template/`): `src/snapshot/` owns the first-class committed snapshot model, repository backends, runtime resolution, and artifact layout conventions. `SnapshotManager::publish_captured` turns a `CapturedSandboxSnapshot` (produced by a running sandbox) into a committed snapshot, and `SnapshotMetadata::source_sandbox_id` records provenance. `src/template/` now contains the template-builder API that lets users declaratively build snapshots through RUN / ENV / WORKDIR steps while preserving the existing external template API semantics. `builder.rs` coordinates build / rebuild flows over committed snapshots. The committed snapshot manifest stores logical snapshot content (metadata, rootfs layers, attached-drive layers) rather than repeating fixed artifact file paths like `vm_state.bin` / `mem_image.json`; backend/resolver code derives those paths from layout conventions. When P2P is configured, `SnapshotManager` best-effort publishes fixed snapshot artifacts (`vm_state.bin`, `firecracker-manifest.json`) and local overlaybd layers after commit; failed P2P publish does not roll back the repository. OSS resolver consumes fixed artifacts P2P-first with backend fallback, but overlaybd layer acceleration belongs to overlaybd's P2P facade and POSIX resolver should not repair missing repository files from P2P.
+
+For the OSS repository backend, `snapshot_image_storage = "source_registry"` publishes compatible overlaybd-native rootfs and attached-drive snapshot deltas back to their source OCI registry via `src/snapshot/repository/backends/common/acr/`; `object_storage` keeps the conservative OSS managed-layer behavior.
+
+**Custom extension** (`src/custom_extension_api/`, `src/sandbox/custom_extension/`): Optional external HTTP service configured via `[custom_extension].url` (unset = fully disabled). Its only current capability is sandbox lifecycle hooks under `POST {url}/sandbox-hook/*`: `start-fresh` (before a fresh boot, after network slot allocation; may return `extraBootArgs` appended to the kernel cmdline), `start-resume` (before snapshot resume), `patch-params` (applies an extension-defined patch to the custom extension params — the patch document is passed through verbatim and the hook returns the updated full params, which the runtime stores; failure rejects the patch), and `stop` (before network slot release, fired on any runtime teardown — including pause, which stops the VM and releases the netns after persisting; best-effort — delivery failures are only logged inside the client and it is also fired fire-and-forget on drop without blocking). Start hook requests carry `networkNamespacePath` (host path of the sandbox's netns file from `Slot::namespace_path()`); start and stop hooks also carry a fresh per-runtime-instance `sandboxInstanceId` (generated per start, reused by the matching stop) so the extension can ignore out-of-order stop notifications for superseded instances (sandbox ids are reused across pause/resume). All non-stop hook failures fail the corresponding sandbox operation. The process-wide hook client lives in `src/sandbox/custom_extension/client.rs` (backend-agnostic); the Firecracker backend only invokes start/stop hooks, while patch-params is driven by the orchestrator (`patch_sandbox_custom_extension_params` calls the hook, then pushes the approved value into the backend via the infallible `SandboxBackend::update_custom_extension_params` assignment). Users supply opaque `customExtensionParams` JSON at sandbox creation; an absent value and an empty object are equivalent (empty params), and non-empty params are rejected when no extension URL is configured. Internally params are `CustomExtensionParams` (`serde_json::Map<String, Value>`; `None` = empty). The params flow `CreateSandboxRequest -> SandboxLaunchConfig -> FirecrackerCommonConfig` into the start hooks (always invoked when the extension is configured, empty params included), persist through pause/resume (serde of the common config) and into committed snapshots (`SandboxMetadata -> SnapshotPublishMetadata -> CommittedSnapshot`; a launch-provided value overrides the snapshot-persisted one), and can be read via `GET /sandboxes/{sandboxID}/custom-extension-params` (returns `{}` when empty) or patched on Running sandboxes via `PATCH /sandboxes/{sandboxID}/custom-extension-params` (body semantics defined entirely by the extension; the extension returns the updated full params). The hook client crate (`custom_extension_client`) is generated from `src/custom_extension_api/openapi.yml` via `make custom-extension-client`; the generator does not delete removed model files, so prune orphan files under `src/custom_extension_api/generated/` manually after schema removals.
+
+**Config** (`src/cfg.rs`): Reads `config/default.toml` (or `AENV_CONFIG_PATH`). `home_path` (overridden by `AENV_HOME_PATH`) is the base for `$AENV_HOME/...` local state paths such as Firecracker work dirs, generated OverlayBD configs, image cache, snapshot local cache, p2p store, persisted sandboxes, and default deps. `deps_path` (overridden by `AENV_DEPS_PATH`) is only the root for downloaded runtime assets such as Firecracker, kernel, tools drive, and OverlayBD packages. The config also covers firecracker binary paths, kernel/rootfs image paths, machine specs, envd settings, orchestrator timeouts, observability identity/enablement settings, P2P transport settings, network pool tuning, ublk configuration, and custom extension settings (`[custom_extension]` url/timeout).
+
+## Workspace Crates
+
+- `agentenv` (root): main crate
+- `adev`: dev/CI tooling CLI (`cargo adev`) for codegen, mutation tests, coverage, and CI config
+- `crates/aenv` (`aenv`): native Rust CLI wrapping the AgentENV HTTP API and envd Connect-RPC endpoints
+- `crates/linux-cap`: shared Linux capability inspection and child-process delegation primitives
+- `crates/object-store-operator`: shared S3-compatible object store client construction and refreshable credential handling
+- `crates/test-support`: shared test fixtures and helpers used across workspace integration tests
+- `crates/shell-util`: shared `shell_quote` helper used by `agentenv` and `aenv` to single-quote shell arguments
+- `crates/warm-pool`: generic watermark-based resource pool shared by the network slot manager and overlaybd ublk device pooling
+- `services` (Go module): control-plane services (`gateway`, `scheduler`) with independent `go.mod` and `services/Makefile`
+- `src/api/generated`: OpenAPI-generated Axum server; regenerate with `make agentenv-server`
+- `src/custom_extension_api/generated` (`custom_extension_client`): generated custom extension hook client from `src/custom_extension_api/openapi.yml`; regenerate with `make custom-extension-client`
+- `thirdparty/firecracker-client`: generated Firecracker API client; regenerate with `make firecracker-client`
+- `thirdparty/envd`: container init system integration; regenerate HTTP client with `make envd-http-client`
+- `storage/ublk` (`uvm-ublk`): async ublk block device primitives with pluggable target implementations (COW, overlaybd)
+- `storage/ublk-daemon` (`uvm-ublk-daemon`): single-process ublk device daemon with Unix socket IPC; manages all ublk devices and their lifecycle
+- `storage/overlaybd`: layered filesystem image format with pluggable backends (local, registry, tar) and io_uring-based I/O
+- `storage/util` (`storage-util`): shared io_uring abstraction and ID allocator used by ublk and overlaybd
+- `storage/uffd-core` (`uvm-uffd-core`): async userfaultfd handler (retained for reference, excluded from workspace build)
+
+Treat generated code in `thirdparty/`, `src/api/generated/`, and `src/custom_extension_api/generated/` as machine-managed. Prefer `make` targets over manual edits.
+For Firecracker runtime upgrades, update `thirdparty/firecracker-client/firecracker.yaml`, run `make firecracker-client`, package the matching Firecracker binary as `firecracker-{version}-{arch}.tgz`, update `config/deps_manifest.toml`, and follow `docs/src/internals/sandbox-testing.md`'s Firecracker upgrade checklist.
+
+## Coding Conventions
+
+- Rust 2021 edition. Keep touched code `rustfmt`-clean and clippy-clean.
+- Use `info` for lifecycle events, `debug` for internal transitions, `warn` for recoverable issues, `error` for unrecoverable failures. Initialize tracing only in binary entrypoints.
+- Conventional Commit prefixes: `feat:`, `fix:`, `refactor:`, `ci:`, `chore:`.
+- Push to a fork repository and open PRs against `https://github.com/kvcache-ai/AgentENV/`. Never push branches to `https://github.com/kvcache-ai/AgentENV/` directly.
+
+---
+> Source: [kvcache-ai/AgentENV](https://github.com/kvcache-ai/AgentENV) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
