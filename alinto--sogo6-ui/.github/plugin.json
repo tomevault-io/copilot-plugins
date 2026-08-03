@@ -1,0 +1,9 @@
+{
+  "name": "alinto--sogo6-ui",
+  "displayName": "SOGo6-UI",
+  "description": "SOGo 6 UI is the Next.js web frontend of SOGo 6. SOGo 6 is a web application for mails, calendars and address books.",
+  "version": "1.0.0",
+  "author": "Alinto",
+  "homepage": "https://github.com/Alinto/SOGo6-UI",
+  "skills": []
+}
