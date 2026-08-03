@@ -1,59 +1,48 @@
-## racore-project
+## racore-browser
 
-> Racore Browser project context -- Go daemon + React frontend + Tauri v2 desktop
+> Racore Browser has three runtime layers:
 
+# Racore Browser project guide
 
-# Racore Browser Project
+Racore Browser has three runtime layers:
 
-## Overview
+1. React/Vinext for the hosted application and a static Vite entry for desktop.
+2. Rust/Tauri v2 for native commands, windows, security, and sidecar lifecycle.
+3. The Go `racored` daemon for providers, vault, authority, IPFS, and mesh behavior.
 
-Three-tier desktop app:
-- **Frontend**: `app/` -- Next.js 16 / Vinext / React / TypeScript / Tailwind
-- **Backend**: `god/` -- Go daemon (`racored`), REST API on `127.0.0.1:47831`
-- **Desktop**: `src-tauri/` -- Tauri v2 Rust shell
+## Important paths
 
-API client: `app/lib/racore-client.ts` `daemonRequest()` (single entry point for all frontend-to-daemon calls)
+| Area | Path |
+| --- | --- |
+| Shared React UI | `app/` |
+| Typed desktop adapter | `app/lib/desktop.ts` |
+| Daemon client | `app/lib/racore-client.ts` |
+| Desktop React entry | `desktop-ui/` |
+| Rust application | `src-tauri/` |
+| Go daemon and CLI | `god/` |
+| Architecture docs | `.llms/` and `docs/` |
 
-## Documentation
+## Invariants
 
-Read these files for context before making changes:
-
-| Topic | File |
-|-------|------|
-| Architecture | `.llms/01-architecture.md` |
-| Frontend | `.llms/02-frontend.md` |
-| Go backend | `.llms/03-backend.md` |
-| Tauri desktop | `.llms/04-desktop.md` |
-| API reference | `.llms/05-api-reference.md` |
-| Data flow | `.llms/06-data-flow.md` |
-| Types | `.llms/07-types.md` |
-| Build & test | `.llms/08-build-and-test.md` |
+- Preserve daemon error bodies as `{ "detail": "message" }`.
+- Keep frontend and Go request/response types aligned.
+- Desktop daemon traffic always targets `http://127.0.0.1:47831` through the Rust allowlist.
+- Remote browser windows must not inherit the trusted main-window capability.
+- Do not add frontend filesystem, OS, or unrestricted shell permissions.
+- Run Go tests with `-race -count=1` where the platform toolchain supports race detection.
+- Keep `src-tauri/Cargo.lock` and `package-lock.json` committed.
 
 ## Commands
 
-```bash
-# Build Go daemon
-cd god && go build -o build/racored ./cmd/racored/
-
-# Start daemon
-RACORE_DATA_DIR=/tmp/racored-dev ./god/build/racored
-
-# Start frontend
-npm run dev
-
-# Go tests
-cd god && go test -race -count=1 ./internal/...
-
-# All tests
+```powershell
+npm run build
+npm run desktop:ui
+npm run desktop:dev
+npm run desktop:package
 npm test
+npm run lint
+cargo test --manifest-path src-tauri/Cargo.toml
 ```
-
-## Conventions
-
-- Error responses: `{"detail": "message"}` (not `{"error": "..."}`)
-- JSON fields: camelCase in both Go and TypeScript
-- Config: `RACORE_*` environment variables
-- Transport `Close()` must `syscall.Shutdown(SHUT_RD)` before closing
 
 ---
 > Source: [racore-xyz/racore-browser](https://github.com/racore-xyz/racore-browser) — distributed by [TomeVault](https://tomevault.io).
