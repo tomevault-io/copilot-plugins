@@ -1,0 +1,9 @@
+{
+  "name": "adamanz--video-demo-agent",
+  "displayName": "video-demo-agent",
+  "description": "Automated demo video creation agent powered by Claude Code and MCP. Creates compelling technical demos from GitHub repositories.",
+  "version": "1.0.0",
+  "author": "adamanz",
+  "homepage": "https://github.com/adamanz/video-demo-agent",
+  "skills": []
+}
