@@ -1,0 +1,9 @@
+{
+  "name": "openlineage--openlineage",
+  "displayName": "OpenLineage",
+  "description": "OpenLineage",
+  "version": "1.0.0",
+  "author": "OpenLineage",
+  "homepage": "https://github.com/OpenLineage/OpenLineage",
+  "skills": []
+}
