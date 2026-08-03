@@ -1,0 +1,9 @@
+{
+  "name": "clickhouse--spark-clickhouse-connector",
+  "displayName": "spark-clickhouse-connector",
+  "description": "spark-clickhouse-connector",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/spark-clickhouse-connector",
+  "skills": []
+}
