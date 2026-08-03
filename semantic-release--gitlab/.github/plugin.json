@@ -1,0 +1,9 @@
+{
+  "name": "semantic-release--gitlab",
+  "displayName": "gitlab",
+  "description": "gitlab",
+  "version": "1.0.0",
+  "author": "semantic-release",
+  "homepage": "https://github.com/semantic-release/gitlab",
+  "skills": []
+}
