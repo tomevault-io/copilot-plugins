@@ -1,0 +1,9 @@
+{
+  "name": "ebi-metagenomics--mobilome-annotation-pipeline",
+  "displayName": "mobilome-annotation-pipeline",
+  "description": "mobilome-annotation-pipeline",
+  "version": "1.0.0",
+  "author": "EBI-Metagenomics",
+  "homepage": "https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline",
+  "skills": []
+}
