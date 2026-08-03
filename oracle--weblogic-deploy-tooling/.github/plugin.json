@@ -1,0 +1,9 @@
+{
+  "name": "oracle--weblogic-deploy-tooling",
+  "displayName": "weblogic-deploy-tooling",
+  "description": "weblogic-deploy-tooling",
+  "version": "1.0.0",
+  "author": "oracle",
+  "homepage": "https://github.com/oracle/weblogic-deploy-tooling",
+  "skills": []
+}
