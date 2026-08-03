@@ -2,9 +2,9 @@
   "name": "conclave",
   "owner": "ACM-VIT",
   "repo": "conclave",
-  "description": "Real-time meetings platform with web/mobile clients, SFU, and an apps SDK",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ACM-VIT/conclave",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T18:21:44Z"
+  "distributed_at": "2026-08-03T04:44:33Z"
 }
