@@ -1,0 +1,9 @@
+{
+  "name": "ecmwf-ifs--loki",
+  "displayName": "loki",
+  "description": "loki",
+  "version": "1.0.0",
+  "author": "ecmwf-ifs",
+  "homepage": "https://github.com/ecmwf-ifs/loki",
+  "skills": []
+}
