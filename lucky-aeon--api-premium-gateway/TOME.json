@@ -4,7 +4,7 @@
   "repo": "API-Premium-Gateway",
   "description": "api \u9ad8\u53ef\u7528\u7f51\u5173",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lucky-aeon/API-Premium-Gateway",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T15:59:47Z"
+  "distributed_at": "2026-08-03T08:57:42Z"
 }
