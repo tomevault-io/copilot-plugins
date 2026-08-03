@@ -1,8 +1,6 @@
 # AI instruction files for LeggedGym-Ex
 
-> Sourced from [lupinjia/LeggedGym-Ex](https://github.com/lupinjia/LeggedGym-Ex) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Legged Robot environments for reinforcement learning in Multiple Simulators
+> Sourced from [lupinjia/LeggedGym-Ex](https://github.com/lupinjia/LeggedGym-Ex), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [lupinjia/LeggedGym-Ex](https://github.com/lupin
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/lupinjia/LeggedGym-Ex](https://github.com/lupinjia/LeggedGym-Ex)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/lupinjia/LeggedGym-Ex](https://github.com/lupinjia/LeggedGym-Ex)
 
 ---
 
