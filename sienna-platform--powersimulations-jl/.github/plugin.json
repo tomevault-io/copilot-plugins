@@ -1,0 +1,9 @@
+{
+  "name": "sienna-platform--powersimulations-jl",
+  "displayName": "PowerSimulations.jl",
+  "description": "PowerSimulations.jl",
+  "version": "1.0.0",
+  "author": "Sienna-Platform",
+  "homepage": "https://github.com/Sienna-Platform/PowerSimulations.jl",
+  "skills": []
+}
