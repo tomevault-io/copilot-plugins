@@ -1,130 +1,72 @@
 ## k3s-gitops
 
-> Guidance for AI agents working in this repository.
+> Flux2 GitOps repo for a single homelab k3s cluster. Flux reconciles the whole repo from `main` via one Kustomization (`flux-system/gotk-sync.yaml`) with SOPS decryption and `postBuild.substituteFrom` injecting the `cluster-settings` ConfigMap and `cluster-secrets` Secret (`flux-system-extra/cluster/`). Changes take effect only after commit + push.
 
-# AGENTS.md
+# CLAUDE.md
 
-Guidance for AI agents working in this repository.
+Flux2 GitOps repo for a single homelab k3s cluster. Flux reconciles the whole repo from `main` via one Kustomization (`flux-system/gotk-sync.yaml`) with SOPS decryption and `postBuild.substituteFrom` injecting the `cluster-settings` ConfigMap and `cluster-secrets` Secret (`flux-system-extra/cluster/`). Changes take effect only after commit + push.
 
-## Architecture
+## Layout
+- Top-level dirs are namespaces (`default/`, `media/`, `social/`, `kube-system/`, …), each with a `README.md` index — keep it updated when adding/removing apps.
+- HelmRepository sources: `flux-system-extra/helm-chart-repositories/`.
+- Core stack: Envoy Gateway (Gateway API), Rook-Ceph (`rook-ceph-block`), MetalLB, Authelia, cert-manager, SOPS, VolSync.
 
-- **GitOps**: Flux2 manages all cluster state from this repo (`flux-system/gotk-sync.yaml`).
-- **Namespaces**: Organized by function (`default/`, `media/`, `social/`, `kube-system/`, etc.) with per-namespace README indexes.
-- **Chart Repositories**: Stored in the `flux-system-extra/helm-chart-repositories` directory.
-- **Core stack**:
-  - Gateway: Envoy Gateway (Gateway API) with internal + external Gateways
-  - Storage: Rook-Ceph (`rook-ceph-block` for PVCs)
-  - LoadBalancer: MetalLB
-  - Secrets: SOPS + Flux substitutions
+## Adding an app
+Create `<namespace>/<app>/` with:
+- `<app>.yaml` — HelmRelease; prefer the bjw-s `app-template` chart (HelmRepository `bjw-s-helm-charts`).
+- `pvc.yaml` if persistent storage (storageClass `rook-ceph-block`).
+- `volsync.yaml` if backups: per-app restic config Secret (MinIO S3 repo, `${SECRET_VOLSYNC_*}` creds) + `ReplicationSource`.
+- `gateway-policies.yaml` only if the app must bypass Authelia (see Auth).
+- Use `${SECRET_*}` / `${SVC_*}` Flux substitutions for secrets and service IPs.
+- Add the app to the namespace README.
 
-## Adding New Applications
+Every YAML file gets a `# yaml-language-server: $schema=...` header:
+- bjw-s app-template values: `https://raw.githubusercontent.com/bjw-s-labs/helm-charts/common-5.0.0/charts/library/common/values.schema.json`
+- HelmRelease: `https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json`
+- HelmRepository: `https://kubernetes-schemas.devbu.io/helmrepository_v1beta2.json`
 
-1. **Pick the namespace** (or create one with a README entry).
-2. **Create app directory** under the namespace with:
-   - `appname.yaml` (usually a `HelmRelease`).
-   - `pvc.yaml` if persistent storage is required.
-   - `volsync.yaml` if backups are needed.
-3. **Prefer bjw-s app-template**:
-   - Most apps use `bjw-s-labs/app-template`.
-   - Include YAML schema header for editor validation.
-4. **Use Flux substitutions**:
-   - `${SECRET_*}` for secrets (from `cluster-secrets`)
-   - `${SVC_*}` for service IPs (from `cluster-settings`)
-5. **Add to namespace README** with a short description and file links.
-
-## Secrets Handling
-
-- **SOPS required** for secrets if the helm release requires a kubernetes secret. Substitution is allowed if the secret can be in-line.
-  - `.sops.yaml` encrypts only `data`/`stringData`.
-  - Secrets are stored as `*.sops.yaml`.
-- **Substitutions**:
-  - `cluster-secrets` Secret and `cluster-settings` ConfigMap are injected via `postBuild.substituteFrom`.
-
-**Do not create a secret yourself** only stub out the secrets needed and prompt the user on how to create the secret required.
-**Do not commit plaintext secrets**.
-
-## Gateway & Routing
-
-HTTP/S traffic is served by **Envoy Gateway** (Gateway API), apps are exposed with `HTTPRoute`.
-Gateway infrastructure lives in `kube-system/envoy-gateway/`.
-
-Two `Gateway`s exist in the `kube-system` namespace, each with a matching
-`GatewayClass`:
-
-### Internal routes
-
-- Gateway: `internal` (GatewayClass `eg-internal`)
-- Example: `rook-ceph/dashboard/rook-ceph-dashboard.yaml`
-
-### External routes
-
-- Gateway: `external` (GatewayClass `eg-external`)
-- Example: `social/synapse/synapse-httproutes.yaml`
-
-### Attaching an HTTPRoute:
+## Routing
+Expose HTTP/S apps with an `HTTPRoute` attached to the `internal` or `external` Gateway (namespace `kube-system`, `sectionName: https`), hostname `<app>.${SECRET_DOMAIN}` (external) or `<app>.${SECRET_DOMAIN}` (internal). Gateway infra: `kube-system/envoy-gateway/`.
 
 ```yaml
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
-metadata:
-  name: myapp
-  namespace: default
-  labels:
-    ext-auth: enabled   # opt into Authelia (see below); omit if app handles its own auth
 spec:
   parentRefs:
-    - name: internal     # or external
+    - name: internal        # or external
       namespace: kube-system
       sectionName: https
-  hostnames:
-    - myapp.${SECRET_DOMAIN}
+  hostnames: ["myapp.${SECRET_DOMAIN}"]
   rules:
-    - matches:
-        - path: { type: PathPrefix, value: / }
-      backendRefs:
-        - name: myapp
-          port: 8080
+    - matches: [{ path: { type: PathPrefix, value: / } }]
+      backendRefs: [{ name: myapp, port: 8080 }]
 ```
 
-### Auth & TLS:
+- Label `error-pages: enabled` on an HTTPRoute opts into the default `BackendTrafficPolicy` (custom error pages, compression, retries).
+- **Auth**: Authelia is enforced on *all* routes by default — a Gateway-scoped `SecurityPolicy` (`kube-system/envoy-gateway/policies/security-policy-authelia.yaml`) targets both Gateways. Apps with their own auth opt out via a per-app `<app>-no-authz` SecurityPolicy targeting their HTTPRoute (see any `gateway-policies.yaml`, e.g. `media/plex/`).
+- **TLS** terminates at the Gateway listeners (shared `acme-crt-secret`, `letsencrypt-prod` ClusterIssuer). No per-route TLS config.
+- Non-HTTP workloads (e.g. `media/plex`, `default/valheim`) use `type: LoadBalancer` with a MetalLB IP from a `${SVC_*_IP}` substitution.
 
-- **Authelia** is wired via an Envoy Gateway `SecurityPolicy`
-  (`kube-system/envoy-gateway/policies/security-policy-authelia.yaml`), which
-  targets any `HTTPRoute` carrying the label `ext-auth: enabled`. Add that label
-  to protect a route; omit it if the chart provides its own authentication.
-- **TLS** is terminated at the Gateway listeners using a shared cert-manager
-  certificate (`acme-crt-secret` in the `cert-manager` namespace) backed by the
-  `letsencrypt-prod` ClusterIssuer. Per-route TLS annotations are not used.
+## Secrets
+- Kubernetes Secrets go in `*.sops.yaml`, SOPS-encrypted (`.sops.yaml` encrypts only `data`/`stringData`). Inline `${SECRET_*}` substitution is fine where a value can live in `cluster-secrets`.
+- **Never create or commit real secret values.** Stub what's needed and tell the user how to create it.
 
-### LoadBalancer services:
+## Dependencies
+Renovate manages image/chart bumps (`.github/renovate.json5` + `.github/renovate/`); images are digest-pinned. A Claude workflow (`.github/workflows/renovate-review.yaml`) reviews Renovate PRs.
 
-Some workloads (e.g. `media/plex/plex.yaml`, `default/valheim`) are exposed
-directly via `type: LoadBalancer` with a MetalLB IP from a `${SVC_*_IP}`
-substitution instead of an HTTPRoute.
+## Working notes
+- Flux and Kubernetes MCP tools are available for live cluster state (logs, events, resources, Flux reconciliation status) — use them to investigate and verify.
+- Stage changes with `git add`; do **not** commit — GPG signing needs interactive pinentry, the user commits.
+- Interactive shell is fish: `(…)` not `$(…)`, `and`/`or` not `&&`/`||`, `set -gx` not `export`. Script files may be bash/POSIX sh.
+- Missing utilities: run via `nix-shell -p <pkg> --run '…'`; never install globally.
 
-## YAML Schema Documentation
+## CodeGraph
 
-Always include a `# yaml-language-server: $schema=...` header for editor validation.
-The schemas actually in use in this repo:
-- **bjw-s app-template values**: `$schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/common-5.0.0/charts/library/common/values.schema.json`
-- **HelmRelease**: `$schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json`
-- **HelmRepository**: `$schema=https://kubernetes-schemas.devbu.io/helmrepository_v1beta2.json`
+If `.codegraph/` exists at the repo root, prefer CodeGraph over grep/find/Read for understanding or locating code:
 
-## Storage & Backups
+- **MCP** (if loaded): `codegraph_explore("<names or question>")` — one call returns verbatim source, call paths, and dynamic-dispatch hops grep misses. If deferred, load it via tool search first.
+- **Shell** (fallback): `codegraph explore "<names or question>"`.
 
-- **PVCs** generally use `rook-ceph-block`.
-- **Volsync** is used for backups with `ReplicationSource` + Restic.
-
-## AI Agent Notes
-
-- Prefer the **bjw-s app-template** (HelmRepository `bjw-s-helm-charts`, chart
-  `app-template`) unless a service requires its own chart.
-- Maintain **namespace README.md** indexes.
-- Expose apps with an `HTTPRoute` on the `internal` or `external` Gateway; add the
-  `ext-auth: enabled` label when Authelia protection is wanted.
-- Ensure secrets are encrypted and referenced via `${SECRET_*}`.
-- Keep schema headers for YAML validation.
+No `.codegraph/` directory → skip CodeGraph.
 
 ---
 > Source: [wrmilling/k3s-gitops](https://github.com/wrmilling/k3s-gitops) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
