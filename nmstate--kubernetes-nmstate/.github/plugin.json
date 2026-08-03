@@ -1,0 +1,9 @@
+{
+  "name": "nmstate--kubernetes-nmstate",
+  "displayName": "kubernetes-nmstate",
+  "description": "kubernetes-nmstate",
+  "version": "1.0.0",
+  "author": "nmstate",
+  "homepage": "https://github.com/nmstate/kubernetes-nmstate",
+  "skills": []
+}
