@@ -1,0 +1,9 @@
+{
+  "name": "tadams42--relget",
+  "displayName": "relget",
+  "description": "Downloads binaries from GitHub releases and installs them to `/usr/local`",
+  "version": "1.0.0",
+  "author": "tadams42",
+  "homepage": "https://github.com/tadams42/relget",
+  "skills": []
+}
