@@ -1,0 +1,9 @@
+{
+  "name": "openvidu--openvidu-loadtest",
+  "displayName": "openvidu-loadtest",
+  "description": "openvidu-loadtest",
+  "version": "1.0.0",
+  "author": "OpenVidu",
+  "homepage": "https://github.com/OpenVidu/openvidu-loadtest",
+  "skills": []
+}
