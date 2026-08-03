@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cluster-kube-descheduler-operator",
+  "displayName": "cluster-kube-descheduler-operator",
+  "description": "cluster-kube-descheduler-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cluster-kube-descheduler-operator",
+  "skills": []
+}
