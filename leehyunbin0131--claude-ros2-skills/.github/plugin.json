@@ -1,0 +1,9 @@
+{
+  "name": "leehyunbin0131--claude-ros2-skills",
+  "displayName": "claude-ros2-skills",
+  "description": "Zero-hallucination Claude Code skills for ROS 2 Jazzy \u2014 routes to official docs and verifies against the real robot instead of guessing APIs from memory.",
+  "version": "1.0.0",
+  "author": "Leehyunbin0131",
+  "homepage": "https://github.com/Leehyunbin0131/claude-ros2-skills",
+  "skills": []
+}
