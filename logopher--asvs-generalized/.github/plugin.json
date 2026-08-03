@@ -1,0 +1,9 @@
+{
+  "name": "logopher--asvs-generalized",
+  "displayName": "asvs-generalized",
+  "description": "OWASP ASVS audit methodology generalized for non-web software: CLI tools, libraries, config bundles, daemons.",
+  "version": "1.0.0",
+  "author": "Logopher",
+  "homepage": "https://github.com/Logopher/asvs-generalized",
+  "skills": []
+}
