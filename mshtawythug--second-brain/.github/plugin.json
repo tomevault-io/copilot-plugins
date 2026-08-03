@@ -1,0 +1,9 @@
+{
+  "name": "mshtawythug--second-brain",
+  "displayName": "second-brain",
+  "description": "Local-first personal knowledge base CLI \u2014 hybrid FTS + pgvector search, a GraphRAG entity graph, and LLM enrichment over your notes, transcripts, Slack & Gmail. Runs fully local on Ollama (no cloud, n",
+  "version": "1.0.0",
+  "author": "mshtawythug",
+  "homepage": "https://github.com/mshtawythug/second-brain",
+  "skills": []
+}
