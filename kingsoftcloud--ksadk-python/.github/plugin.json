@@ -1,0 +1,9 @@
+{
+  "name": "kingsoftcloud--ksadk-python",
+  "displayName": "ksadk-python",
+  "description": "Kingsoft Cloud Agent Development Kit for Python",
+  "version": "1.0.0",
+  "author": "kingsoftcloud",
+  "homepage": "https://github.com/kingsoftcloud/ksadk-python",
+  "skills": []
+}
