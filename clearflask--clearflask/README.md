@@ -1,6 +1,6 @@
 # clearflask
 
-> Source: [clearflask/clearflask](https://github.com/clearflask/clearflask). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [clearflask/clearflask](https://github.com/clearflask/clearflask). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
