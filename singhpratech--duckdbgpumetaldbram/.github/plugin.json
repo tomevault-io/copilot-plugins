@@ -1,0 +1,9 @@
+{
+  "name": "singhpratech--duckdbgpumetaldbram",
+  "displayName": "duckdbgpumetaldbram",
+  "description": "GPU-accelerated DuckDB extension on NVIDIA CUDA + Apple Silicon Metal \u2014 first SQL execution engine for Apple Silicon GPUs",
+  "version": "1.0.0",
+  "author": "singhpratech",
+  "homepage": "https://github.com/singhpratech/duckdbgpumetaldbram",
+  "skills": []
+}
