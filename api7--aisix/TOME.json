@@ -2,9 +2,9 @@
   "name": "aisix",
   "owner": "api7",
   "repo": "aisix",
-  "description": "An open source, Native AI Gateway and LLM proxy built in Rust",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/api7/aisix",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T19:34:59Z"
+  "distributed_at": "2026-08-03T02:49:00Z"
 }
