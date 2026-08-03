@@ -1,0 +1,9 @@
+{
+  "name": "palios-taey--claude-code-fleet-orchestrator",
+  "displayName": "claude-code-fleet-orchestrator",
+  "description": "Tmux-fleet orchestration: supervisor\u2194worker dispatch, plan/task tracking, recurring schedules, universal Stop+notify across Claude Code / codex / gemini / grok / any REPL CLI. Depends on claude-code-f",
+  "version": "1.0.0",
+  "author": "palios-taey",
+  "homepage": "https://github.com/palios-taey/claude-code-fleet-orchestrator",
+  "skills": []
+}
