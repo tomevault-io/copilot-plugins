@@ -1,0 +1,9 @@
+{
+  "name": "lzj-developer--buypilot-ai",
+  "displayName": "BuyPilot-AI",
+  "description": "\u591a\u6a21\u6001\u7535\u5546\u667a\u80fd\u5bfc\u8d2d Agent - \u57fa\u4e8e RAG \u7684\u8d2d\u4e70\u51b3\u7b56\u52a9\u624b\uff08ByteDance AI Challenge \u53c2\u8d5b\u9879\u76ee\uff09",
+  "version": "1.0.0",
+  "author": "LZJ-Developer",
+  "homepage": "https://github.com/LZJ-Developer/BuyPilot-AI",
+  "skills": []
+}
