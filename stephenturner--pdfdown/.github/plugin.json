@@ -1,0 +1,9 @@
+{
+  "name": "stephenturner--pdfdown",
+  "displayName": "pdfdown",
+  "description": "Drop a PDF onto a page, get markdown back. Everything runs locally in the browser, no uploads, no server.",
+  "version": "1.0.0",
+  "author": "stephenturner",
+  "homepage": "https://github.com/stephenturner/pdfdown",
+  "skills": []
+}
