@@ -4,7 +4,7 @@
   "repo": "notion-electron",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/anechunaev/notion-electron",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-02T00:01:06Z"
+  "distributed_at": "2026-08-03T16:18:13Z"
 }
