@@ -1,0 +1,9 @@
+{
+  "name": "honeycombio--anthropic-usage-receiver",
+  "displayName": "anthropic-usage-receiver",
+  "description": "An OpenTelemetry Collector receiver that collects usage and cost data on AI model usage from Anthropic.",
+  "version": "1.0.0",
+  "author": "honeycombio",
+  "homepage": "https://github.com/honeycombio/anthropic-usage-receiver",
+  "skills": []
+}
