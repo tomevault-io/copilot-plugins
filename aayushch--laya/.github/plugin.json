@@ -1,0 +1,9 @@
+{
+  "name": "aayushch--laya",
+  "displayName": "laya",
+  "description": "Laya is an open-source, local-first AI notification command center that aggregates Slack, Gmail, GitHub, Jira, Notion, Outlook,  Calendar (and more) notifications using local LLMs via Ollama and LM St",
+  "version": "1.0.0",
+  "author": "aayushch",
+  "homepage": "https://github.com/aayushch/laya",
+  "skills": []
+}
