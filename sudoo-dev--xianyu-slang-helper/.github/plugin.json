@@ -1,0 +1,9 @@
+{
+  "name": "sudoo-dev--xianyu-slang-helper",
+  "displayName": "xianyu-slang-helper",
+  "description": "Chrome extension to decode coded slang on Xianyu (Goofish) marketplace \u00b7 Search \u00b7 Highlight \u00b7 Custom dict \u00b7 Built-in AI",
+  "version": "1.0.0",
+  "author": "sudoo-dev",
+  "homepage": "https://github.com/sudoo-dev/xianyu-slang-helper",
+  "skills": []
+}
