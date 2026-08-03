@@ -4,7 +4,7 @@
   "repo": "arrows.app",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/neo4j-labs/arrows.app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T16:57:52Z"
+  "distributed_at": "2026-08-03T16:40:33Z"
 }
