@@ -1,0 +1,9 @@
+{
+  "name": "aws--aws-ofi-nccl",
+  "displayName": "aws-ofi-nccl",
+  "description": "aws-ofi-nccl",
+  "version": "1.0.0",
+  "author": "aws",
+  "homepage": "https://github.com/aws/aws-ofi-nccl",
+  "skills": []
+}
