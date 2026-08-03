@@ -1,0 +1,9 @@
+{
+  "name": "homebridge-plugins--homebridge-lutron",
+  "displayName": "homebridge-lutron",
+  "description": "homebridge-lutron",
+  "version": "1.0.0",
+  "author": "homebridge-plugins",
+  "homepage": "https://github.com/homebridge-plugins/homebridge-lutron",
+  "skills": []
+}
