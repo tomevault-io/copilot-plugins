@@ -1,0 +1,9 @@
+{
+  "name": "douglasmonsky--codex-usage-tracker",
+  "displayName": "codex-usage-tracker",
+  "description": "Local-first MCP tools and dashboard for investigating Codex token usage, credits, costs, caching, and thread patterns.",
+  "version": "1.0.0",
+  "author": "douglasmonsky",
+  "homepage": "https://github.com/douglasmonsky/codex-usage-tracker",
+  "skills": []
+}
