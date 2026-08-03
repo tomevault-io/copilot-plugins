@@ -1,0 +1,9 @@
+{
+  "name": "vaquill-ai--vaquill-word-addin",
+  "displayName": "vaquill-word-addin",
+  "description": "Open Source Legal AI assistant for MS Word as Plugin - contract review, playbooks, drafting, and legal research task-pane add-in.",
+  "version": "1.0.0",
+  "author": "Vaquill-AI",
+  "homepage": "https://github.com/Vaquill-AI/vaquill-word-addin",
+  "skills": []
+}
