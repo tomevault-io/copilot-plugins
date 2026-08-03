@@ -1,0 +1,9 @@
+{
+  "name": "shuricksumy--foyer",
+  "displayName": "foyer",
+  "description": "Config-driven homelab start page \u2014 sidebar of self-hosted services that load into an in-page pane, no build step, everything driven by YAML",
+  "version": "1.0.0",
+  "author": "shuricksumy",
+  "homepage": "https://github.com/shuricksumy/foyer",
+  "skills": []
+}
