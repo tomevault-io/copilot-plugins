@@ -1,0 +1,9 @@
+{
+  "name": "expectbugs--agents",
+  "displayName": "agents",
+  "description": "LangGraph Multi-Agent System: Production-ready multi-agent orchestration with AI-enhanced web search and persistent memory",
+  "version": "1.0.0",
+  "author": "expectbugs",
+  "homepage": "https://github.com/expectbugs/agents",
+  "skills": []
+}
