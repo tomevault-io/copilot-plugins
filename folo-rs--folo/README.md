@@ -1,8 +1,6 @@
 # folo
 
-> Source: [folo-rs/folo](https://github.com/folo-rs/folo) — distributed by [TomeVault](https://tomevault.io)
-
-Mechanisms for high-performance hardware-aware programming in Rust
+> Source: [folo-rs/folo](https://github.com/folo-rs/folo). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
