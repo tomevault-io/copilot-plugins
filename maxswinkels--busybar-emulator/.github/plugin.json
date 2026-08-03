@@ -1,0 +1,9 @@
+{
+  "name": "maxswinkels--busybar-emulator",
+  "displayName": "busybar-emulator",
+  "description": "A faithful local emulator of the Flipper BUSY Bar: mock HTTP API and live LED display. Unofficial community project.",
+  "version": "1.0.0",
+  "author": "maxswinkels",
+  "homepage": "https://github.com/maxswinkels/busybar-emulator",
+  "skills": []
+}
