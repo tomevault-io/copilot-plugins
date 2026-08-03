@@ -1,0 +1,9 @@
+{
+  "name": "juliaml--mlutils-jl",
+  "displayName": "MLUtils.jl",
+  "description": "MLUtils.jl",
+  "version": "1.0.0",
+  "author": "JuliaML",
+  "homepage": "https://github.com/JuliaML/MLUtils.jl",
+  "skills": []
+}
