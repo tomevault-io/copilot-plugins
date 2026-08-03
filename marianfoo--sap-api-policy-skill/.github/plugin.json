@@ -1,0 +1,9 @@
+{
+  "name": "marianfoo--sap-api-policy-skill",
+  "displayName": "sap-api-policy-skill",
+  "description": "Agent skill (npx skills) for evidence-based SAP API Policy alignment assessments \u2014 sourced, confidence-rated, never legal advice.",
+  "version": "1.0.0",
+  "author": "marianfoo",
+  "homepage": "https://github.com/marianfoo/sap-api-policy-skill",
+  "skills": []
+}
