@@ -1,0 +1,9 @@
+{
+  "name": "netobserv--netobserv-operator",
+  "displayName": "netobserv-operator",
+  "description": "netobserv-operator",
+  "version": "1.0.0",
+  "author": "netobserv",
+  "homepage": "https://github.com/netobserv/netobserv-operator",
+  "skills": []
+}
