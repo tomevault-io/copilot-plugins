@@ -1,113 +1,143 @@
 ## torchlens
 
-> Audience: agents and developers maintaining the `notebooks/audit/` tree.
+> `visual_audit.pdf` is a scrollable montage of the complete TorchLens visual
 
-# Audit Notebooks — Maintenance Recipe
+# Visual Audit Pack — Agent & Maintainer Guide
 
-Audience: agents and developers maintaining the `notebooks/audit/` tree.
+`visual_audit.pdf` is a scrollable montage of the complete TorchLens visual
+language. Its acceptance bar: after a few minutes of scrolling, there are
+**zero surprises** about how any TorchLens render can look. It is a debugging
+and polishing instrument — every page states what is demonstrated and what the
+eye should check.
 
-## What this folder is
-
-Coverage-optimized notebooks that exercise EVERY human-facing TorchLens surface.
-Sliced by **user workflow** (not data-structure, not submodule).  Three locked decisions:
-
-1. **Public/committed.** Notebook source, `_models.py`, README, CLAUDE.md, and
-   `visual/generate_visual_pack.py` + `visual/coverage_matrix.md` are all tracked.
-   Heavy regenerable artifacts (executed HTML, intermediate PDFs, the stapled PDF) are
-   gitignored via `.gitignore` in this directory.
-2. **Sliced by user workflow.** Each notebook = one user-facing workflow, not one class.
-3. **Visual pack = single script** (`visual/generate_visual_pack.py`), render-then-staple.
-
-## How to run the full audit suite
+## Regenerating
 
 ```bash
-# Activate the torchlens dev environment first, then:
-
-cd /path/to/torchlens
-
-# 1. Smoke-test the model zoo
-python notebooks/audit/_models.py
-
-# 2. Execute all notebooks (saves outputs in-place)
-for nb in notebooks/audit/[0-9]*.ipynb; do
-    echo "=== $nb ==="
-    jupyter nbconvert --to notebook --execute --inplace "$nb"
-done
-
-# 3. Export to HTML for review (goes to _exports/)
-mkdir -p notebooks/audit/_exports
-for nb in notebooks/audit/[0-9]*.ipynb; do
-    jupyter nbconvert --to html --output-dir notebooks/audit/_exports/ "$nb"
-done
-
-# 4. Regenerate the visual pack
 python notebooks/audit/visual/generate_visual_pack.py
-# => writes notebooks/audit/visual/visual_audit.pdf
 ```
 
-## Lockstep rule — MANDATORY
+Produces (all untracked/regenerable, per `notebooks/audit/.gitignore`):
+- `visual_audit.pdf` — the stapled pack
+- `_pages/` — per-page intermediates (PNG renders + per-page PDFs)
 
-Whenever a **public surface is added, renamed, or removed** anywhere in `torchlens/`,
-update the matching audit notebook AND the `visual/coverage_matrix.md` **in the same
-commit**. This mirrors the glossary lockstep rule from `CLAUDE.md` at the project root.
+and regenerates the **tracked** `coverage_matrix.md` (auto-generated — never
+hand-edit it; edit `AXES` / page `covers=` tags in the script instead).
 
-Concretely:
-- Added `tl.foo` -> add a cell in the appropriate notebook; update README coverage row.
-- Renamed `trace.bar` -> find it in the "Surfaces covered" list at the top of the
-  notebook (the checklist is the rename target), update the cell, re-execute.
-- Removed a surface -> mark it as a GAP callout (see below) so the removal is visible.
+Runtime is minutes (torchvision resnet18/resnet50/mobilenet_v2 are constructed
+with `weights=None` — no downloads; structure is all the pack needs). Run
+renders sequentially; do not parallelize torch processes.
 
-## Centralized vocabulary convention
+## Structure
 
-Each notebook starts with a markdown cell listing **"Surfaces covered"** as a checkbox
-list.  This is the canonical rename checklist: when a name changes, search `README.md`
-and that checklist first, then update the code cells.  Never hard-code a name only in
-a code cell without listing it in the header — future-you won't find it.
+Single render-then-staple script (a locked design decision):
+- `generate_visual_pack.py` — the page/section specs (`SECTIONS`), coverage
+  axes (`AXES` + `NA_AXES`), trace cache, and main loop.
+- `_pagekit.py` — page composition (header + caption + PNG panels embedded at
+  native resolution; matplotlib's PDF backend preserves full raster detail
+  when zooming).
+- `_visual_models.py` — models beyond the shared `../_models.py` ZOO
+  (recurrent cells, weight-tied loops, block stacks, mini transformer /
+  inception, degenerate cases). Do not edit `../_models.py` from here; it is
+  shared with the audit notebooks.
 
-## The GAP callout rule — never fake output
+### Section map
 
-Every notebook ends with a **"⚠️ GAPs / ergonomic smells"** markdown cell.  If a
-surface errors or doesn't exist:
-- Write a short `⚠️ GAP: expected X, got Y` note in that cell.
-- Keep the failing code cell but wrap it in a try/except that prints the error.
-- **Never comment out a failure silently. Never fabricate output.**
+| Section | Contents |
+|---------|----------|
+| A | Node & edge vocabulary: baseline anatomy, buffers, multi-I/O, edge multiplicity, legend |
+| B | Layout & direction: direction, order_siblings, large-graph regression, dot vs rank |
+| C | Containers, module focus, call depth, skip_fn/collapse_fn/node_spec_fn hooks, override dicts |
+| D | Loop rolling & recurrence: unrolled-vs-rolled, back-edges, pass-count sweep, fused-kernel contrast, loops with branching |
+| E | Collapse & run folding: none/auto/max, float-t filmstrip, fold_repeats, ellipsis grammar, segments, remainder labels, known artifacts, plan/schedule diagnostics |
+| F | Node content: node_mode presets, overlays (incl. the NaN debugger), label fields, code panel, typography, raw I/O thumbnails, input-transform summary |
+| G | Themes (all five presets) |
+| H | Backward & combined graphs |
+| I | Control flow & interventions |
+| J | Real architectures at page scale (resnet18 auto, transformer, inception) |
+| K | Degenerate & edge cases |
+| L | Adjacent rendering surfaces (fastlog predicate preview, bundle_diff) |
 
-This is a tripwire, the same spirit as `validation/`.  A GAP callout = the audit
-working correctly.  Silencing it defeats the point.
+## The visual-grammar cheat sheet
 
-## How to add a new notebook
+These three claims look similar and must never be conflated:
 
-1. Copy the structure from `00_setup_and_first_capture.ipynb`:
-   - Cell 1 markdown: title + purpose + "Surfaces covered" checklist.
-   - Sections: markdown header + code cell + shown human output.
-   - Final cell: "⚠️ GAPs / ergonomic smells".
-2. Add an entry to `README.md`'s coverage matrix.
-3. Execute green: `jupyter nbconvert --to notebook --execute --inplace <nb>.ipynb`.
-4. Commit with `docs(audit): ...` (NOT feat/fix/perf -- those cut a release).
+- **`(xN)`** — true recurrence: the SAME parameters applied N times
+  (rolled mode / loop rolling, Section D).
+- **`+N more Class`** — ellipsis from run folding: N further DISTINCT
+  same-class instances, each with its own parameters (Section E).
+- **dashed segment box** — adjacency-only range: "these consecutive siblings
+  live here" — NOT a real module, never carries a single class name for mixed
+  content (Section E).
 
-## How to add a new visual page
+Also: collapsed boxes carry an honest `N layers total` remainder that includes
+buffer leaves; ops with hidden buffer dependencies get a double border
+(`peripheries=2`).
 
-1. Add a row to `visual/coverage_matrix.md` with: model name, options dict, what to nit-check.
-2. `generate_visual_pack.py` reads the matrix and rebuilds `visual_audit.pdf` idempotently.
-3. Run: `python notebooks/audit/visual/generate_visual_pack.py`
+## How to extend when a new visual feature ships
 
-## Model zoo
+A new draw() kwarg, node kind, edge style, or label form is **not done** until
+it is in this pack:
 
-`_models.py` is the single source of truth for all tiny models used across notebooks.
-- Do NOT import from `tests/` (tests are not a package).
-- Every entry must pass `tl.trace(model, x)` before being added.
-- Run `python _models.py` (from `notebooks/audit/`) to smoke-test all entries.
-- ZOO is a `dict[str, callable]` mapping name -> zero-arg factory returning `(model, x)`.
+1. Add the new axis tag(s) to `AXES` in `generate_visual_pack.py` (or to
+   `NA_AXES` with an honest rationale if it truly has no visual identity).
+2. Add a `Page` (or panel on an existing page) to `SECTIONS` demonstrating it
+   on the SMALLEST model that shows the phenomenon. Write the caption for a
+   reader who has never seen TorchLens: what is shown, what to check.
+3. Declare the axis in the page's `covers=` list.
+4. Re-run the script; confirm the console reports no GAPs and
+   `coverage_matrix.md` has no `UNCOVERED — DEFECT` rows.
+5. Re-run the two critic passes (see below) before calling it shipped.
+6. Commit script + regenerated `coverage_matrix.md` together
+   (`feat(audit-viz): ...`).
 
-## Commit discipline
+### Critic passes
 
-- Type: `docs(audit):` or `chore(audit):` ONLY. NEVER `feat`, `fix`, `perf` -- those
-  trigger semantic-release and cut a package version bump.
-- No AI attribution anywhere (commits, PR bodies, code comments).
-- If `git commit` fails on `.git/index.lock`, wait 2s and retry once.
-- Pre-commit hooks (ruff-format/eof) may auto-fix files and fail the first attempt:
-  re-add the changed files and re-commit; confirm HEAD advanced.
+- **Completeness critic:** independently enumerate every draw() kwarg x value
+  and every node/edge kind emitted by `torchlens/visualization/rendering.py`;
+  diff against `AXES` + `NA_AXES`. Anything unrepresented is a defect.
+- **Fresh-eyes clarity critic:** scroll the PDF as someone who has never seen
+  TorchLens. Every page must be self-explanatory from its caption alone; flag
+  any caption that doesn't match what the panels actually show.
+
+## Known traps
+
+- **Import the checkout under audit:** `python3 path/to/script.py` puts the
+  SCRIPT directory (not the cwd) at `sys.path[0]`, so a pip `-e` install of a
+  DIFFERENT checkout can silently supply the renderer. The script injects the
+  repo root into `sys.path` and hard-fails if `torchlens.__file__` resolves
+  elsewhere. Do not remove that guard.
+- **Feature preconditions** (a panel silently showing nothing usually means a
+  missing trace flag, not a broken renderer):
+  - intervention site/cone/hook styling marks PLANNED interventions:
+    `tl.trace(..., intervention_ready=True)` then `trace.set(...)`. Live
+    `intervene=` fire records do not style nodes.
+  - raw-input thumbnails need `tl.trace(model, raw, transform=fn)` (raw input
+    is only stored when a transform produced the model-ready tensor).
+  - container labels/collapsed need `intervention_ready=True`;
+    `show_containers='nodes'` needs `capture_container_structure=True`;
+    'cluster' currently always falls back to labels; 'collapsed' only merges
+    homogeneous containers larger than `container_max_inline`.
+  - `show_input_transform_summary` renders only when the trace carries an
+    input-preprocessing record (bridge-populated; the pack injects a demo one).
+  - `collapse_fn`/`skip_fn`: the Module predicate matches on `.class_name`;
+    `skip_fn(layer) is True` means SKIP (inputs/outputs may never be skipped).
+- **Train-mode BatchNorm noise:** BN models traced in train mode scatter
+  orphaned dashed buffer-update ops when buffers are hidden; `.eval()` your
+  demo models unless that artifact is the point of the page.
+- **AI-review image caps:** when inspecting pages with a vision model, convert
+  with `pdftoppm -png -r 100` and keep each image <= 2000 px on the longest
+  side (crop or lower `-r`); multi-image requests reject larger panels.
+- **Huge renders:** full unrolled torchvision graphs exceed Graphviz's cairo
+  bitmap cap (~32k px) and get scaled down — expected for the deliberately
+  unreadable `collapse='none'` panels.
+- **Model weights:** keep `weights=None` on torchvision constructors. The pack
+  must not download checkpoints.
+- **Page-render time:** resnet50 `collapse='max'` and the resnet18 filmstrip
+  dominate runtime. Reuse the trace cache (one trace, many draws) when adding
+  panels.
+- **Randomness:** the script seeds torch (`torch.manual_seed`) so
+  branch-taking models (e.g. conditional demos) render deterministically.
 
 ---
 > Source: [johnmarktaylor91/torchlens](https://github.com/johnmarktaylor91/torchlens) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
