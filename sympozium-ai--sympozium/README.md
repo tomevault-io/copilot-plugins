@@ -1,17 +1,15 @@
 # sympozium
 
-> Tome by [sympozium-ai](https://github.com/sympozium-ai/sympozium) — distributed by [TomeVault](https://tomevault.io)
-
-Run a fleet of AI agents on Kubernetes. Administer your cluster agentically
+> Tome by [sympozium-ai](https://github.com/sympozium-ai/sympozium), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [sympozium-ai/sympozium](https://github.com/sympozium-ai/sympozium).
+Original source: `CLAUDE.md` in [sympozium-ai/sympozium](https://github.com/sympozium-ai/sympozium).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
