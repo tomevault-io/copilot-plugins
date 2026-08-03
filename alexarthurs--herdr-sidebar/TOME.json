@@ -1,0 +1,44 @@
+{
+  "name": "herdr-sidebar",
+  "owner": "alexarthurs",
+  "repo": "herdr-sidebar",
+  "description": "VS Code-style sidebar for the herdr: file explorer + git source control in one pane \u2014 syntax-highlighted previews, VS Code-style diffs, GitLens-style drawers, AI commit messages",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/alexarthurs/herdr-sidebar",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-03T11:05:06Z"
+}
