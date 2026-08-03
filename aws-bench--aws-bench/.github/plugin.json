@@ -1,0 +1,9 @@
+{
+  "name": "aws-bench--aws-bench",
+  "displayName": "aws-bench",
+  "description": "aws-bench measures how well AI agents and model combinations perform on real AWS work \u2014 diagnosing misconfigurations, provisioning infrastructure, and operating live cloud environments.",
+  "version": "1.0.0",
+  "author": "aws-bench",
+  "homepage": "https://github.com/aws-bench/aws-bench",
+  "skills": []
+}
