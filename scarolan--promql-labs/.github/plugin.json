@@ -1,0 +1,9 @@
+{
+  "name": "scarolan--promql-labs",
+  "displayName": "promql-labs",
+  "description": "Prometheus Lab Exercises",
+  "version": "1.0.0",
+  "author": "scarolan",
+  "homepage": "https://github.com/scarolan/promql-labs",
+  "skills": []
+}
