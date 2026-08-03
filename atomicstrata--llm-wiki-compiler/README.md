@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [atomicstrata/llm-wiki-compiler](https://github.com/atomicstrata/llm-wiki-compiler).
+Original source: `CLAUDE.md` in [atomicstrata/llm-wiki-compiler](https://github.com/atomicstrata/llm-wiki-compiler).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [atomicstrata/llm-wiki-compiler](https://github.com/atomicstrata/llm-wiki-compiler) — a repo with 1808+ stars on GitHub.
+From [atomicstrata/llm-wiki-compiler](https://github.com/atomicstrata/llm-wiki-compiler) — a repo with 1831+ stars on GitHub.
 
 ---
 
