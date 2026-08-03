@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [drona23/claude-token-efficient](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [drona23/claude-token-efficient](https://github.com/drona23/claude-token-efficient) — a repo with 5867+ stars on GitHub.
+From [drona23/claude-token-efficient](https://github.com/drona23/claude-token-efficient) — a repo with 5870+ stars on GitHub.
 
 ---
 
