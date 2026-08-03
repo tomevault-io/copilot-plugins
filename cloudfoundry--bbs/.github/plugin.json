@@ -1,0 +1,9 @@
+{
+  "name": "cloudfoundry--bbs",
+  "displayName": "bbs",
+  "description": "bbs",
+  "version": "1.0.0",
+  "author": "cloudfoundry",
+  "homepage": "https://github.com/cloudfoundry/bbs",
+  "skills": []
+}
