@@ -1,0 +1,9 @@
+{
+  "name": "nginx--documentation",
+  "displayName": "documentation",
+  "description": "documentation",
+  "version": "1.0.0",
+  "author": "nginx",
+  "homepage": "https://github.com/nginx/documentation",
+  "skills": []
+}
