@@ -1,0 +1,9 @@
+{
+  "name": "reactiveui--primitives",
+  "displayName": "Primitives",
+  "description": "A compact, high-performance reactive library for .NET applications",
+  "version": "1.0.0",
+  "author": "reactiveui",
+  "homepage": "https://github.com/reactiveui/Primitives",
+  "skills": []
+}
