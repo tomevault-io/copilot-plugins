@@ -1,123 +1,26 @@
 ## robocode
 
-> RoboCode is a Rust-first, local-first agentic developer CLI inspired by
+> > 跨工具 agent 入口指针(Codex / Cursor 等读 `AGENTS.md`,Claude Code 读 `CLAUDE.md`)。
 
-# RoboCode Agent Guide
+# AGENTS.md
 
-## Mission
+> 跨工具 agent 入口指针(Codex / Cursor 等读 `AGENTS.md`,Claude Code 读 `CLAUDE.md`)。
+> **本文件只做指针,不复制任何内容**——复制 = 漂移。真源全在下面指向的文件。
 
-RoboCode is a Rust-first, local-first agentic developer CLI inspired by
-`.ref/claude-code-main`. Treat the reference project as a behavioral guide, not
-as a file-by-file port. Preserve user-facing runtime patterns where valuable,
-but keep the implementation Rust-native and simpler than the reference when the
-extra platform machinery is not yet needed.
+## 先读这两个
+- **`CLAUDE.md`**(根) —— 项目说明 + 文档体系 + 工作纪律 + 收尾同步表(DoD)。**入口,先读它。**
+- **`docs/DESIGN-REF.md`** —— 组件 / token / 图标速查(类名 + 最小 HTML)。复用组件前读它。
 
-## Current Architecture
+## 冷启动找东西
+找 **组件 / 样式 / token / 图标 / 屏** → 看 `CLAUDE.md`「快速检索（冷启动地图）」一节,按表定位真源再 grep。
 
-- `robocode-cli`: binary entrypoint and lightweight REPL.
-- `robocode-core`: session engine, slash commands, provider/tool loop, workflow command routing.
-- `robocode-model`: provider abstraction for Anthropic, OpenAI, OpenAI-compatible, Ollama, and fallback flows.
-- `robocode-tools`: local shell, file, search, web, and Git tool implementations.
-- `robocode-permissions`: permission modes, path scope checks, and allow/ask/deny decisions.
-- `robocode-session`: JSONL transcript storage and rebuildable SQLite session index.
-- `robocode-types`: shared domain types for messages, tools, permissions, sessions, runtime snapshots, tasks, and memory.
-- `robocode-config`: layered config resolution.
-- `robocode-workflows`: project tasks, project/session memory, resume context, and workflow event storage.
+## 把设计翻译成 app（Rust + Tauri）
+看 `CLAUDE.md`「翻译成 app（防漂移）」一节:① `tokens.css` + `GUI/gui-kit.css` + `brand-assets/` 直接共享(零漂移)· ② 原生侧色值走脚本派生 · ③ 原型脚手架(Babel 运行时 / chrome.js / 窗口管理器 / mock 数据)原生重写。
 
-## Non-Negotiable Invariants
-
-- All model tool calls and local command effects must flow through the shared runtime path.
-- Permission checks happen before mutation, not after.
-- Transcript history remains auditable and append-only for session facts.
-- JSONL stays canonical for durable logs; SQLite is a derived, rebuildable index.
-- Session state and workflow state are related but separate:
-  - `robocode-session` records what happened in a session.
-  - `robocode-workflows` records durable project task and memory state.
-- Project memory suggested by an assistant must not become active without explicit confirmation.
-- Plan mode must block mutating workflow, file, shell, Git, and memory/task changes.
-
-## Working Rules
-
-- Use an isolated git worktree for feature work. Preferred location: `.worktrees/<branch-name>`.
-- Preserve dirty user changes. Do not revert or overwrite work you did not create.
-- Use focused commits. Each commit should describe one coherent checkpoint.
-- Use TDD for behavior changes:
-  - write a failing test,
-  - verify it fails for the expected reason,
-  - implement the smallest passing change,
-  - rerun focused tests.
-- Keep docs bilingual when editing user-facing documentation:
-  - update English and `*.zh-CN.md` counterparts together.
-- Treat documentation and code comments as part of the implementation and as a
-  required coding standard:
-  - update relevant docs whenever behavior, commands, architecture, configuration, or user-visible UI changes;
-  - add concise comments for non-obvious control flow, invariants, protocol boundaries, or safety rules;
-  - avoid noisy comments that merely restate obvious code.
-- Before finishing any code change, explicitly check whether the diff needs
-  documentation updates or explanatory comments, and include that decision in
-  verification notes when relevant.
-- Follow `docs/development-standards.md` for the project coding standard,
-  especially the documentation and code-comment requirements.
-- Keep root docs compact. Put full product detail under `docs/`.
-- Treat GitHub Release and Homebrew tap sync as one release unit:
-  - every GitHub Release must update `wikieden/homebrew-tap` to the same version;
-  - release completion requires post-publish smoke with both GitHub assets and
-    Homebrew validation;
-  - do not report a release as complete while the Homebrew tap is stale or
-    unverified.
-- Do not edit `.ref/`; it is reference material only.
-- Keep `.omx/`, `.robocode/`, `.worktrees/`, `.ref/`, and build artifacts out of tracked source.
-
-## Testing
-
-Use focused checks while developing:
-
-```bash
-cargo test -p robocode-types
-cargo test -p robocode-session
-cargo test -p robocode-workflows
-cargo test -p robocode-core
-```
-
-Before calling a branch complete, run:
-
-```bash
-cargo test --workspace --quiet
-```
-
-For CLI-facing behavior, add a fallback-provider smoke test when practical:
-
-```bash
-cargo run -p robocode-cli -- --provider fallback --model test-local
-```
-
-## Reference Project Guidance
-
-Useful `.ref/claude-code-main` patterns:
-
-- `main.tsx`: startup and runtime orchestration.
-- `commands.ts`: broad slash-command surface and command family structure.
-- `Tool.ts`: tool contracts and shared execution semantics.
-- `types/permissions.ts`: permission modes and policy shape.
-- `tasks/*`: task/session workflow ideas.
-- `bridge/*`, `plugins/*`, `context/*`, `keybindings/*`: future platform expansion references.
-
-Do not copy:
-
-- Bun, React, or Ink implementation details.
-- Product analytics and managed settings before core workflows mature.
-- Remote/bridge/MCP/multi-agent complexity before the local CLI model is stable.
-
-## Current Branch Context
-
-At time of writing, active development is `V2-C Memory and Task Workflows` on
-`codex/v2-memory-task-workflows`. This branch adds `robocode-workflows`, task
-and memory shared types, project workflow event logs, task/memory reducers,
-resume context derivation, and initial `/task` / `/memory` command integration.
-
-If this branch has already merged, treat `PLAN.md` and `docs/staged-roadmap.md`
-as the current roadmap source.
+## 铁律
+- **单一真源**:数值只在 `tokens.css`;组件登记在 `docs/DESIGN-REF.md` 才算可复用;改源不改副本。
+- **先 grep 再写**:命中现有 class 就抄,别重造已沉淀的组件。
 
 ---
 > Source: [wikieden/robocode](https://github.com/wikieden/robocode) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
