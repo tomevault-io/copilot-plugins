@@ -1,0 +1,9 @@
+{
+  "name": "bigbio--sdrf-pipelines",
+  "displayName": "sdrf-pipelines",
+  "description": "sdrf-pipelines",
+  "version": "1.0.0",
+  "author": "bigbio",
+  "homepage": "https://github.com/bigbio/sdrf-pipelines",
+  "skills": []
+}
