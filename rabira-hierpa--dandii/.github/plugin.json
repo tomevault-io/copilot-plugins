@@ -1,0 +1,9 @@
+{
+  "name": "rabira-hierpa--dandii",
+  "displayName": "dandii",
+  "description": "Dandii is a role-based public transport route management system for Addis Ababa, built on the DT4A GTFS 2026 feed",
+  "version": "1.0.0",
+  "author": "rabira-hierpa",
+  "homepage": "https://github.com/rabira-hierpa/dandii",
+  "skills": []
+}
