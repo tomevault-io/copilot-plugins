@@ -1,0 +1,9 @@
+{
+  "name": "moonmodules--projectmm",
+  "displayName": "projectMM",
+  "description": "A high-performance multi-platform system that drives large LED installations and DMX lighting fixtures.",
+  "version": "1.0.0",
+  "author": "MoonModules",
+  "homepage": "https://github.com/MoonModules/projectMM",
+  "skills": []
+}
