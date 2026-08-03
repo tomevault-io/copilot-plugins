@@ -1,8 +1,6 @@
 # rustorio
 
-> Tome by [albertsgarde](https://github.com/albertsgarde/rustorio) — distributed by [TomeVault](https://tomevault.io)
-
-The first game written and played entirely in Rust's type system. Not only do you play by writing Rust code, but the rules of the game are enforced by the Rust compiler. If you can write the program so it compiles and doesn't panic, you win!
+> Tome by [albertsgarde](https://github.com/albertsgarde/rustorio), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [albertsgarde/rustorio](https://github.com/alber
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/albertsgarde/rustorio](https://github.com/albertsgarde/rustorio)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/albertsgarde/rustorio](https://github.com/albertsgarde/rustorio)
 
 ---
 
