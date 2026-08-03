@@ -1,0 +1,9 @@
+{
+  "name": "giovannibrees--travel-roamradar",
+  "displayName": "travel-roamradar",
+  "description": "Open-source, self-hosted personal travel app by Giovanni Brees - keep every flight, hotel, ride and trip on one living timeline. Built with AI agents, runs on Cloudflare Workers.",
+  "version": "1.0.0",
+  "author": "giovannibrees",
+  "homepage": "https://github.com/giovannibrees/travel-roamradar",
+  "skills": []
+}
