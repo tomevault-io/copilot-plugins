@@ -1,0 +1,9 @@
+{
+  "name": "reddimus--spc-cpp",
+  "displayName": "spc-cpp",
+  "description": "Open-source C++23 SDK for NOAA SPC severe-weather outlooks (convective, fire weather, watches, mesoscale discussions, storm reports) \u2014 static GeoJSON + ArcGIS MapServer + IEM archive.",
+  "version": "1.0.0",
+  "author": "Reddimus",
+  "homepage": "https://github.com/Reddimus/spc-cpp",
+  "skills": []
+}
