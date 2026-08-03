@@ -1,0 +1,9 @@
+{
+  "name": "peczenyj--structalign",
+  "displayName": "structalign",
+  "description": "Preview Go struct field-alignment savings as a diff, not a rewrite.",
+  "version": "1.0.0",
+  "author": "peczenyj",
+  "homepage": "https://github.com/peczenyj/structalign",
+  "skills": []
+}
