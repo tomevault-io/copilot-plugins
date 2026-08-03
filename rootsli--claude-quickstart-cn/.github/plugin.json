@@ -1,0 +1,9 @@
+{
+  "name": "rootsli--claude-quickstart-cn",
+  "displayName": "claude-quickstart-cn",
+  "description": "Claude \u4e2d\u6587\u7248\u5165\u95e8\u914d\u7f6e\u5957\u4ef6\uff0c\u5305\u542bClaude\u5168\u5c40\u914d\u7f6e\u6a21\u677f\u3001\u9879\u76ee\u7ea7\u914d\u7f6e\u6a21\u677f\u3001.claude\u914d\u7f6e\u6a21\u677f\uff08hooks\u3001rules\u3001skills\u7b49\uff09\uff0c\u8ba9\u4f60\u4ece0\u5f00\u59cb\u5feb\u901f\u914d\u7f6e\u9879\u76ee\u7684Claude\u89c4\u5219",
+  "version": "1.0.0",
+  "author": "rootsli",
+  "homepage": "https://github.com/rootsli/claude-quickstart-cn",
+  "skills": []
+}
