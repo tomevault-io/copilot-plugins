@@ -1,0 +1,9 @@
+{
+  "name": "nikolays--pgsimcity",
+  "displayName": "PGSimCity",
+  "description": "An explorable 3D city that shows how Postgres actually works",
+  "version": "1.0.0",
+  "author": "NikolayS",
+  "homepage": "https://github.com/NikolayS/PGSimCity",
+  "skills": []
+}
