@@ -1,14 +1,9 @@
 {
   "name": "marswaveai--listenhub-cli",
   "displayName": "listenhub-cli",
-  "description": "ListenHub CLI - command-line interface for ListenHub SDK",
+  "description": "listenhub-cli",
   "version": "1.0.0",
   "author": "marswaveai",
   "homepage": "https://github.com/marswaveai/listenhub-cli",
-  "skills": [
-    {
-      "name": "listenhub",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
