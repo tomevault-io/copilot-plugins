@@ -1,0 +1,9 @@
+{
+  "name": "givemifi--agentstore",
+  "displayName": "AgentStore",
+  "description": "AgentStore\u662f\u4e00\u4e2a\u5f00\u6e90Agent\u5546\u4e1a\u5316\u5e73\u53f0,\u5e2e\u52a9\u5f00\u53d1\u8005\u5feb\u901f\u6784\u5efa\u53ef\u53d1\u5e03\u3001\u53ef\u8ba1\u8d39\u3001\u53ef\u552e\u5356\u7684AI Agent\u4ea7\u54c1",
+  "version": "1.0.0",
+  "author": "Givemifi",
+  "homepage": "https://github.com/Givemifi/AgentStore",
+  "skills": []
+}
