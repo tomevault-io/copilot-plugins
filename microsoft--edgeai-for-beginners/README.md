@@ -1,8 +1,6 @@
 # AI instruction files for edgeai-for-beginners
 
-> Sourced from [microsoft/edgeai-for-beginners](https://github.com/microsoft/edgeai-for-beginners) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-This course is designed to guide beginners through the exciting world of Edge AI, covering fundamental concepts, popular models, inference techniques, device-specific applications, model optimization, and the development of intelligent Edge AI agents.
+> Sourced from [microsoft/edgeai-for-beginners](https://github.com/microsoft/edgeai-for-beginners), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [microsoft/edgeai-for-beginners](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/microsoft/edgeai-for-beginners](https://github.com/microsoft/edgeai-for-beginners)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/microsoft/edgeai-for-beginners](https://github.com/microsoft/edgeai-for-beginners)
 
 ---
 
