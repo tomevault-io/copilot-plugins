@@ -1,17 +1,15 @@
 # AI instruction files for construct-cli
 
-> Sourced from [EstebanForge/construct-cli](https://github.com/EstebanForge/construct-cli) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-The secure loading program (sandbox) for AI Agents
+> Sourced from [EstebanForge/construct-cli](https://github.com/EstebanForge/construct-cli), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [EstebanForge/construct-cli](https://github.com/EstebanForge/construct-cli).
+Original source: `AGENTS.md` in [EstebanForge/construct-cli](https://github.com/EstebanForge/construct-cli).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
