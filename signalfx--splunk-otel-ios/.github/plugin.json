@@ -1,0 +1,9 @@
+{
+  "name": "signalfx--splunk-otel-ios",
+  "displayName": "splunk-otel-ios",
+  "description": "splunk-otel-ios",
+  "version": "1.0.0",
+  "author": "signalfx",
+  "homepage": "https://github.com/signalfx/splunk-otel-ios",
+  "skills": []
+}
