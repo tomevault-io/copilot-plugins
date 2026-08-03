@@ -1,0 +1,9 @@
+{
+  "name": "clima--thermodynamics-jl",
+  "displayName": "Thermodynamics.jl",
+  "description": "Thermodynamics.jl",
+  "version": "1.0.0",
+  "author": "CliMA",
+  "homepage": "https://github.com/CliMA/Thermodynamics.jl",
+  "skills": []
+}
