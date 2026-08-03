@@ -1,0 +1,9 @@
+{
+  "name": "rossoctl--operator",
+  "displayName": "operator",
+  "description": "Kubernetes operator for deploying and lifecycle management of Agents and Tools",
+  "version": "1.0.0",
+  "author": "rossoctl",
+  "homepage": "https://github.com/rossoctl/operator",
+  "skills": []
+}
