@@ -1,109 +1,151 @@
 ## ardrive-core-js
 
-> - `src/`: TypeScript source modules and unit tests (e.g. \*.test.ts). Public API is exported via `exports.ts` and compiled to `lib/`.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Repository Guidelines
+# CLAUDE.md
 
-## Project Structure & Module Organization
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-- `src/`: TypeScript source modules and unit tests (e.g. \*.test.ts). Public API is exported via `exports.ts` and compiled to `lib/`.
-- `src/web/`: Browser-compatible web build modules (see `docs/WEB_BUILD.md`).
-- `lib/`: Build output (do not edit by hand).
-- `dist/web/`: Web bundle output (JavaScript + TypeScript declarations).
-- `tests/`: Integration and example tests (e.g., `tests/integration/*.int.test.ts`).
-- `tests/playwright/`: Browser tests using Playwright.
-- `docs/`: Architecture and design documentation for AI and developers.
-- Config: `.mocharc.js`, `nyc.config.js`, `.eslintrc`, `.prettierrc`, `tsconfig*.json`.
+## Common Development Commands
 
-## Build, Test, and Development Commands
+### Build Commands
+- `yarn build` - Clean and build the TypeScript library
+- `yarn dev` - Build in watch mode for development
+- `yarn typecheck` - Run TypeScript type checking without emitting files
+- `yarn clean` - Remove build artifacts (lib/, coverage/, .nyc_output/)
 
-- `yarn install --check-cache`: Install dependencies (Yarn 3, Node >= 18).
-- `yarn build`: Clean and compile to `lib/`.
-- `yarn build:web`: Build browser-compatible web bundle to `dist/web/`.
-- `yarn build:all`: Build both Node.js and web versions.
-- `yarn dev`: Build in watch mode.
-- `yarn test`: Run Mocha tests via NYC.
-- `yarn test:playwright`: Run Playwright browser tests.
-- `yarn coverage`: Generate coverage report (text + HTML).
-- `yarn arlocal-docker-test`: Start ArLocal in Docker, run tests, then stop.
-- `yarn lint` / `yarn lintfix`: Lint (and fix) with ESLint.
-- `yarn format`: Format with Prettier.
-- `yarn typecheck`: TypeScript type checking.
+### Testing Commands
+- `yarn test` - Run all tests with code coverage (uses Mocha with parallel execution)
+- `yarn test -g 'pattern'` - Run specific tests matching the pattern
+- `yarn coverage` - Generate detailed HTML coverage report
+- `yarn power-assert -g 'pattern'` - Debug specific test with detailed assertions (runs without parallel)
+- `yarn arlocal-docker-test` - Run integration tests against local Arweave instance
+- `yarn test:sync` - Run all incremental sync tests (no parallel, uses --grep incremental)
+- `yarn test:sync:unit` - Run unit tests for incremental sync features
+- `yarn test:sync:integration` - Run integration tests for incremental sync
 
-## Coding Style & Naming Conventions
+### Code Quality Commands
+- `yarn lint` - Run ESLint on all TypeScript files
+- `yarn lintfix` - Automatically fix linting issues
+- `yarn format` - Format code with Prettier
 
-- Language: TypeScript; 4‑space tabs, semicolons, single quotes, `printWidth: 120` (see `.prettierrc`).
-- Linting: ESLint with `@typescript-eslint` and Prettier integration; pre‑commit runs `prettier` and `eslint --fix` on `src/**/*.{ts,js,json}`.
-- Names: `camelCase` for variables/functions, `PascalCase` for classes/types, `SCREAMING_SNAKE_CASE` for constants.
-- Files: Implementation `*.ts`; tests `*.test.ts`; integration tests may use `*.int.test.ts` under `tests/`.
+### CI Commands
+- `yarn ci` - Run integration tests and build (arlocal-docker-test + build)
 
-## Testing Guidelines
+## High-Level Architecture
 
-- Frameworks: Mocha + Chai + Sinon; TypeScript via `ts-node/register` (`.mocharc.js`).
-- Locations: `src/**/*.test.ts` and `tests/**/*.test.ts`.
-- Run subsets: `yarn test -g "pattern"`.
-- Coverage: Managed by NYC; sources included `src/**/*.ts`, tests excluded. HTML report in `coverage/`.
-- ArLocal: Requires Docker; use `yarn arlocal-docker-test` for integration flows.
+### Core Design Patterns
 
-## Commit & Pull Request Guidelines
+1. **Factory Pattern**: The library uses factory functions (`arDriveFactory`, `arDriveAnonymousFactory`) to construct instances with proper dependency injection. This allows for easy testing and configuration.
 
-- Commits: Follow Conventional Commits (e.g., `feat:`, `fix:`, `chore:`). Keep changes focused.
-- Before PR: `yarn lint`, `yarn typecheck`, `yarn test`, and `yarn build` must pass. Ensure Node >= 18 and Yarn are used.
-- PRs: Provide a clear description, link issues, note breaking changes, and include screenshots/logs when relevant.
-- Hooks: Enable once per clone with `yarn husky install`.
+2. **Inheritance Hierarchy**: 
+   - `ArDriveAnonymous` - Base class for read-only operations
+   - `ArDrive` extends `ArDriveAnonymous` - Adds authenticated write operations and sync methods
+   - Similar pattern for `ArFSDAOAnonymous` → `ArFSDAO` → `ArFSDAOIncrementalSync`
 
-## Security & Configuration Tips
+3. **Type Safety**: Extensive use of branded types (e.g., `DriveID`, `FolderID`, `FileID`, `TransactionID`) to prevent mixing up different ID types at compile time.
 
-- Do not commit real wallets/keys; `tests/test_wallet.json` is for testing only.
-- Optional envs: `ARDRIVE_PROGRESS_LOG=1`, `ARDRIVE_CACHE_LOG=1` for verbose logs.
-- Cache paths: macOS/Linux `~/.ardrive/caches/metadata`, Windows `%USERPROFILE%/ardrive-caches/metadata`.
+4. **Separation of Concerns**:
+   - **ArDrive Layer**: High-level API for users
+   - **ArFS Layer**: File system operations and entity management
+   - **DAO Layer**: Direct blockchain interactions (with incremental sync extensions)
+   - **Oracle Layer**: External service integrations (pricing, community)
+   - **Sync State Layer**: State management for incremental synchronization
 
-## Architecture Overview
+### Key Architectural Components
 
-- Core: `src/ardrive.ts` defines the `ArDrive` class; construct via `src/ardrive_factory.ts`. Anonymous reads live in `src/ardrive_anonymous.ts`.
-- ArFS: `src/arfs/**` contains entity models (drives/folders/files), builders, metadata factories, and tx types.
-- Pricing: `src/pricing/**` provides data price estimators and gateway/oracle integrations.
-- Community: `src/community/**` implements community tip/oracle logic.
-- Wallet & Types: `src/wallet*.ts`, `src/jwk_wallet.ts`, and `src/types/**`. All public exports are wired through `src/exports.ts`.
+1. **Entity System**: Everything is an entity (Drive, Folder, File) with metadata and data transactions. Private entities add encryption.
 
-### Signing Systems
+2. **Transaction Planning**: Before executing blockchain transactions, the system plans all operations, calculates costs, and resolves conflicts.
 
-The library supports two parallel signing approaches for maximum flexibility:
+3. **Bundling Logic**: Multiple small transactions are automatically bundled for efficiency using ANS-104 data bundles.
 
-**JWK-based Signing (Node.js/Traditional):**
+4. **Streaming Architecture**: Large file operations use streams to avoid memory issues. Sync operations use cursor-based pagination for memory efficiency.
 
-- Uses raw JWK (JSON Web Key) interfaces with Node.js crypto primitives
-- Primary classes: `JWKWallet`, `ArFSDAO`, `TxPreparer`
-- Direct access to private keys for cryptographic operations
-- Suitable for server environments and CLI applications
+5. **Caching Strategy**: Multi-level caching with different TTLs:
+   - Entity metadata caches (long-lived)
+   - Sync state cache (5 minutes for session continuity)
+   - Promise-based caching to avoid duplicate requests
 
-**Signer-based Signing (Browser/Universal):**
+### Testing Strategy
 
-- Uses `Signer` interface from `@dha-team/arbundles` for DataItem creation
-- Web classes: `ArDriveWeb`, `ArFSDAOAuthenticatedWeb`, browser-compatible `TxPreparer`
-- Supports multiple signer types: `ArweaveSigner`, `ArconnectSigner`, and `ArDriveSigner`
-- Browser wallet integration via `ArDriveSigner` interface abstraction (see `docs/ARDRIVE_SIGNER.md`)
-- Enables wallet providers like Wander (formerly ArConnect), ArweaveWalletKit without exposing private keys
-- Uses Turbo DataItem uploads instead of V2 Arweave transactions (the latter to be added later)
+- **Unit Tests**: Test individual functions/classes in isolation (located next to source files as `*.test.ts`)
+- **Integration Tests**: Test against real services (in `/tests` directory)
+- **Test Helpers**: Extensive stubs and test utilities in `tests/stubs.ts` and `tests/test_helpers.ts`
+- **Test Configuration**: Mocha configuration in `.mocharc.js`, tests run in parallel by default
 
-The signer system allows browser applications to integrate with wallet providers while maintaining the same ArFS functionality as the Node.js implementation.
+### Important Patterns to Follow
 
-## CI Tips
+1. **Error Handling**: Always throw typed errors with meaningful messages
+2. **Async/Await**: All I/O operations should be Promise-based
+3. **Dependency Injection**: Pass dependencies through constructors, not imports
+4. **Immutability**: Prefer immutable data structures where possible
+5. **Type Guards**: Use type guards for runtime type checking
 
-- Local CI run: `yarn ci` (runs `arlocal-docker-test` then `build`). Requires Docker installed and available.
-- Engines: Node >= 18 (`.nvmrc` present). Use Yarn 3 (`yarn set version berry` if needed) and `yarn install --check-cache` for reproducible installs.
-- Pre-flight locally: `yarn lint && yarn typecheck && yarn test && yarn build` before pushing.
-- Artifacts: build output in `lib/`; coverage HTML in `coverage/` for inspection.
+### Key Files for Understanding the Codebase
 
-## Documentation for AI & Developers
+- `src/exports.ts` - All public exports
+- `src/ardrive.ts` - Main user-facing API (includes sync methods)
+- `src/arfs/arfsdao.ts` - Blockchain interactions
+- `src/arfs/arfsdao_incremental_sync.ts` - Incremental sync implementation
+- `src/arfs/arfsdao_anonymous_incremental_sync.ts` - Public drive sync implementation
+- `src/arfs/turbo.ts` - Turbo integration for optimized uploads
+- `src/ardrive_factory.ts` - Factory functions with dependency injection
+- `src/types/` - All type definitions
+- `src/types/sync_types.ts` - Incremental sync type definitions
+- `src/utils/constants.ts` - Important constants and limits
+- `src/utils/sync_state.ts` - Sync state management utilities
 
-The `docs/` folder contains architecture and design documentation:
+### Incremental Drive Synchronization
 
-- `docs/WEB_BUILD.md`: Comprehensive web build architecture, design decisions, and API reference
-- `docs/ARDRIVE_SIGNER.md`: ArDriveSigner interface documentation for browser wallet integration
+The library provides efficient incremental sync capabilities:
 
-These documents provide context for AI assistants and developers working on the codebase.
+1. **Block-Height Based**: Tracks changes using Arweave block heights for precise synchronization
+2. **Change Detection**: Identifies added, modified, and unreachable entities
+3. **State Persistence**: Sync state can be serialized/deserialized for cross-session continuity
+4. **Progress Tracking**: Built-in progress callbacks for UI integration
+5. **Optimizations**: 
+   - Configurable batch sizes (default/max: 100)
+   - Early termination after N consecutive known entities
+   - Query optimization starting from last synced block + 1
+
+Key methods:
+- `ArDrive.syncPublicDrive()` - Sync public drives
+- `ArDrive.syncPrivateDrive()` - Sync private drives with decryption
+- `serializeSyncState()` / `deserializeSyncState()` - State persistence utilities
+
+Sync Options:
+```typescript
+interface IncrementalSyncOptions {
+  earlyTerminationConsecutiveEntityThreshold?: number; // Default: 25
+  graphqlPageSize?: number; // Default: 100, Max: 100
+  progressCallback?: (progress: IncrementalSyncProgress) => void;
+}
+```
+
+Error Handling:
+- `IncrementalSyncError` preserves partial results when sync fails mid-process
+- Statistics tracking for monitoring sync performance
+
+### Turbo Integration
+
+The library supports Turbo for optimized uploads:
+
+1. **Turbo Class**: Wrapper around @ardrive/turbo-sdk for uploads
+2. **Factory Integration**: ArDrive factory accepts `turboSettings` parameter
+3. **Automatic Bundling**: When Turbo is enabled, uploads are optimized through Turbo service
+4. **Dry Run Support**: Turbo operations respect the `dryRun` flag for testing
+
+### Environment Variables
+
+- `ARDRIVE_PROGRESS_LOG=1` - Enable upload progress logging to stderr
+- `ARDRIVE_CACHE_LOG=1` - Enable cache operation logging
+
+### Node Version Requirements
+
+- Node.js >= 18 (enforced in package.json)
+- Use with nvm: `nvm install && nvm use`
 
 ---
 > Source: [ardriveapp/ardrive-core-js](https://github.com/ardriveapp/ardrive-core-js) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
