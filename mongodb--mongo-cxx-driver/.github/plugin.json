@@ -1,0 +1,9 @@
+{
+  "name": "mongodb--mongo-cxx-driver",
+  "displayName": "mongo-cxx-driver",
+  "description": "mongo-cxx-driver",
+  "version": "1.0.0",
+  "author": "mongodb",
+  "homepage": "https://github.com/mongodb/mongo-cxx-driver",
+  "skills": []
+}
