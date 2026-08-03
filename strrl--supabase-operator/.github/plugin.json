@@ -1,0 +1,9 @@
+{
+  "name": "strrl--supabase-operator",
+  "displayName": "supabase-operator",
+  "description": "multi tenant/project supabase on kubernetes",
+  "version": "1.0.0",
+  "author": "STRRL",
+  "homepage": "https://github.com/STRRL/supabase-operator",
+  "skills": []
+}
