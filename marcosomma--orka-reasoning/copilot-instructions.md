@@ -1,529 +1,93 @@
 ## orka-reasoning
 
-> Validates answers for correctness and structures them into memory objects with metadata.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Agent Types in OrKa
+# CLAUDE.md
 
-> **Last Updated:** 03 January 2026  
-> **Status:** 🟢 Current  
-> **Related:** [Advanced Agents](agents-advanced.md) | [Extending Agents](extending-agents.md) | [Agent Index](AGENT_NODE_TOOL_INDEX.md) | [INDEX](index.md)
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-In OrKa, **agents** are modular processing units that receive input and return structured output — all orchestrated via a declarative YAML configuration.
+## Project status
 
-Agents can represent different cognitive functions: classification, decision-making, web search, conditional routing, memory management, and more.
+OrKa is an unmaintained personal research playground (see the maintainer note in `README.md`). It is **not** production software, but it values stability: changes should preserve backward compatibility, keep agent-level logging/tracing intact, and come with a test or log trace. PRs that are "random LLM wrappers" or "black-box logic with no traceable reasoning" are explicitly out of scope.
 
-The OrKa framework uses a unified agent base implementation that supports both modern asynchronous patterns and legacy synchronous patterns for backward compatibility.
+## What OrKa is
 
----
+A local-first, YAML-driven engine for composing AI agent workflows. You declare an `orchestrator` (strategy + ordered agent ids) and a list of `agents`/nodes in YAML, then run it with `orka run workflow.yml "input"`. Execution is async, traced, and backed by a RedisStack memory store with HNSW vector search and time-based decay.
 
-## 🧱 Core Agent Types
+## Common commands
 
-### � `brain`
+```bash
+# Install for development
+pip install -e ".[dev]"          # or ".[all]" for prod+ml+docs extras
 
-Procedural skill memory — learns abstract, transferable skills from LLM reasoning traces and re-applies them across domains.
+# Run a workflow
+orka run workflow.yml "input text" [--verbose]
+orka system status               # check services
+orka memory watch                # TUI memory dashboard
+orka-start                       # boot RedisStack + backend API (8000) + UI (8080)
 
-**Use case:** Cross-domain knowledge transfer, continuous learning, skill accumulation.
+# Tests (config in pytest.ini / pyproject.toml — coverage gate is 80%)
+pytest                           # full unit+integration suite with coverage
+pytest tests/unit/path/to/test_x.py::test_name   # single test
+pytest -m "not slow"             # skip slow tests
+pytest -m unit                   # markers: unit, integration, slow, performance, redis, llm, asyncio
 
-**Operations:**
-- `learn` — Extract a transferable skill from an execution trace
-- `recall` — Find applicable skills for a new context
-- `feedback` — Record whether a transferred skill succeeded
-
-**Example config:**
-```yaml
-- id: brain_learn
-  type: brain
-  operation: learn
-  prompt: "{{ previous_outputs.llm_reasoner }}"
-
-- id: brain_recall
-  type: brain
-  operation: recall
-  prompt: "{{ previous_outputs.new_context }}"
-
-- id: brain_feedback
-  type: brain
-  operation: feedback
-  prompt: "{{ previous_outputs.brain_recall }}"
+# Lint / typecheck (must pass CI)
+flake8 orka --count --select=E9,F63,F7,F82 --show-source --statistics   # critical errors (CI gate)
+flake8 orka                      # full lint (max-line-length 120, max-complexity 10, google docstrings)
+mypy orka                        # config in mypy.ini (permissive; many modules excluded)
+black .                          # line-length 120, py311
 ```
 
-**📖 [Complete Brain Documentation](./BRAIN_SYSTEM_GUIDE.md)**
+Requires Python >= 3.11. Integration tests need real services (Redis/LLM) and run locally only; unit tests mock externals with `fakeredis`.
 
-### �🧭 `graph-scout`
+## Architecture
 
-Intelligent workflow graph inspection and optimal multi-agent path execution. GraphScout automatically discovers, evaluates, and executes the best sequence of agents for any given input.
+### Orchestrator (composed via multiple inheritance)
+`orka/orchestrator.py` defines the public `Orchestrator(config_path)` class, but it is **only a composition of mixins** from `orka/orchestrator/` — understanding the system means reading the mixins, not the thin top-level file:
+- `base.OrchestratorBase` — config loading, memory backend setup
+- `agent_factory.AgentFactory` — the `AGENT_TYPES` registry (string type name → class) and `_init_agents()`
+- `execution_engine.ExecutionEngine` — the main async run loop and agent coordination (provides `run()`)
+- `simplified_prompt_rendering.SimplifiedPromptRenderer` — Jinja2 prompt rendering
+- `error_handling.ErrorHandler`, `metrics.MetricsCollector`
 
-**Use case:** Dynamic routing, intelligent workflow orchestration, adaptive agent selection.
+MRO matters: `Orchestrator(ExecutionEngine, OrchestratorBase, AgentFactory, ErrorHandler, MetricsCollector)`. Each mixin's `__init__` is called explicitly in `Orchestrator.__init__`.
 
-**Key Features:**
-- **Intelligent Path Discovery**: Automatically finds optimal agent sequences
-- **Memory-Aware Routing**: Positions memory agents optimally (readers first, writers last)
-- **Multi-Agent Execution**: Executes ALL agents in shortlist sequentially
-- **LLM-Powered Evaluation**: Advanced reasoning for path selection
-- **Budget & Safety Control**: Respects token/latency budgets and safety thresholds
+### Agents vs Nodes
+The distinction blurs in the registry but conceptually: **agents** (`orka/agents/`) produce reasoning output (LLM answer builders, binary/classification, validation, RAG, local LLM via direct HTTP to Ollama/LM Studio/OpenAI-compatible endpoints). **Nodes** (`orka/nodes/`) are control-flow primitives: `router` (conditional branching), `fork`/`join` (parallel execution + sync via `fork_group_manager.py`), `loop` (iterative refinement, see the `loop/` subpackage), `failover`, `memory_reader`/`memory_writer`, and `graph_scout_agent` (beta dynamic path discovery).
 
-**Example config:**
-```yaml
-- id: smart_router
-  type: graph-scout
-  k_beam: 5                # Top-k candidate paths
-  max_depth: 3             # Maximum path depth
-  commit_margin: 0.15      # Confidence threshold
-  cost_budget_tokens: 1000 # Token budget limit
-  latency_budget_ms: 2000  # Latency budget limit
-  safety_threshold: 0.2    # Lower is safer (0.0-1.0)
-  prompt: "Find the best path for: {{ input }}"
-```
+Both register through `AGENT_TYPES` in `agent_factory.py`. The string `"special_handler"` marks types instantiated specially in `_init_agents` (e.g. `memory`, `brain`, `path_executor` — the last is lazy-loaded to avoid circular imports). Note: `pyproject.toml` declares `orka.agents` / `orka.nodes` entry points, but no code loads them — third-party registration through entry points does not currently work; the hardcoded `AGENT_TYPES` dict is the only registry.
 
-**Decision Types:**
-- `commit_next`: High confidence single path → Execute immediately
-- `shortlist`: Multiple good options → Execute all sequentially  
-- `no_path`: No suitable path → Fallback to response builder
+### Prompts and the template layer
+Agent `prompt:` fields are Jinja2 templates rendered against workflow context. Custom helpers live in `orka/orchestrator/template_helpers.py` and are the canonical way to read prior state from a prompt: `get_input()`, `get_agent_response('agent_id')`, `safe_get_response(...)`, `previous_outputs.<agent_id>`. Prefer these helpers over raw dict access — they fail safe.
 
-**📖 [Complete GraphScout Documentation](./GRAPH_SCOUT_AGENT.md)**
+### Memory system
+`memory_logger.py` / `create_memory_logger("redisstack"|"redis")` is the factory. The RedisStack backend (`orka/memory/redisstack_logger.py`) does HNSW vector search + hybrid metadata filtering with namespace isolation. Memory config is driven by **presets** (`orka/memory/presets.py`) — 6 Minsky-inspired cognitive types (`sensory`, `working`, `episodic`, `semantic`, `procedural`, `meta`) that bundle decay/TTL/importance/vector settings. In YAML, `memory_preset: "semantic"` replaces what used to be ~15 lines of decay config. The unified `type: memory` agent with `config.operation: read|write` handles both directions.
 
-### 🔘 `binary`
+### Brain (learning/transfer engine)
+`orka/brain/` is a separate, more experimental subsystem: a learn → recall → execute → feedback loop built on `SkillGraph`, `ContextAnalyzer`, and `SkillTransferEngine`. It abstracts reusable skills from successful executions and adapts them across domains. Wired in as the `brain` agent type.
 
-Returns a boolean (`"true"` or `"false"` as strings) based on a question or statement.
+### CLI and server
+`orka/orka_cli.py` (entry `orka`) re-exports `orka/cli/` (parser, core, memory + orchestrator subcommands). `orka/server.py` is the FastAPI backend; `orka/orka_start.py` (entry `orka-start`) boots the full stack. `orka/tui/` is the Textual-based memory dashboard.
 
-**Use case:** Fact checking, condition validation, flag triggering.
+## Working rules (must follow)
 
-**Example config:**
-```yaml
-- id: is_fact
-  type: binary
-  prompt: >
-    Is the following statement factually accurate? Return TRUE or FALSE.
-  queue: orka:binary_check
-```
+These are non-negotiable for any change in this repo:
 
-### 🧾 `classification`
+- **Always run mypy AND the full test suite before calling work done.** Both are CI gates: `mypy orka` must report `Success`, and `pytest --cov=orka --cov-fail-under=80` must pass. "It looks right" is not done — run them.
+- **Mirror the CI environment when verifying.** A stale dev venv can hide failures (e.g. a removed dependency that's still installed locally). When deps change, verify against what `pip install -e .` actually provides — uninstall the removed package locally, or use a clean venv — don't trust a polluted local environment. If code imports a third party at module level, it must be a declared dependency.
+- **Never fake to make tests pass.** Do not stub out the code under test, assert on hard-coded constants, or mock past the real logic. Mock only true external boundaries (network, Redis, LLM HTTP, filesystem when necessary) — everything inside `orka` should run for real. Tests must exercise real code paths and stay as close to production behavior as possible; a test that can't fail when the code breaks is worse than no test.
+- **Never edit docs to match broken code, or code to make a test pass.** Fix the real thing. If behavior changed intentionally, update the test to assert the new *real* contract (not to paper over a regression).
+- **Never add a `Co-Authored-By: Claude ...` trailer (or any AI co-author/attribution) to commit messages.** Commits are authored by the user only.
 
-**⚠️ Deprecated** - kept only for backward compatibility.
+## Conventions
 
-This agent no longer performs classification and returns `"deprecated"`.
-
-**Use case:** Basic topic detection (legacy support only).
-
-### 🤖 `openai-binary`
-
-Uses OpenAI's LLM to perform binary classification with sophisticated reasoning.
-
-**Use case:** Complex true/false decisions requiring natural language understanding.
-
-**Example config:**
-```yaml
-- id: content_appropriate
-  type: openai-binary
-  prompt: >
-    Is this content appropriate for a professional environment?
-    Content: {{ input }}
-  queue: orka:moderation
-```
-
-### 🎯 `openai-classification`
-
-Uses OpenAI's LLM to classify input into multiple predefined categories.
-
-**Use case:** Advanced topic classification, sentiment analysis, content categorization.
-
-**Example config:**
-```yaml
-- id: domain_classifier
-  type: openai-classification
-  prompt: >
-    Classify this question into one of the following domains:
-  options: [science, geography, history, technology, general]
-  queue: orka:classify
-```
-
-### 📝 `openai-answer`
-
-Builds comprehensive answers using OpenAI's LLM, typically enriched with context from previous agents.
-
-**Use case:** Question answering, content generation, summarization.
-
-**Example config:**
-```yaml
-- id: answer_builder
-  type: openai-answer
-  prompt: |
-    Based on the search results: {{ previous_outputs.web_search }}
-    And classification: {{ previous_outputs.classifier }}
-    Provide a comprehensive answer to: {{ input }}
-  queue: orka:answer
-```
-
-### 🏠 `local_llm`
-
-Interfaces with locally running large language models (Ollama, LM Studio, etc.) for privacy-preserving AI processing.
-
-**Use case:** Offline processing, privacy-sensitive applications, custom model deployment.
-
-**Supported Providers:**
-- `ollama`: Native Ollama API
-- `lm_studio`: LM Studio OpenAI-compatible endpoint
-- `openai_compatible`: Any OpenAI-compatible API
-
-**Example config:**
-```yaml
-- id: local_summarizer
-  type: local_llm
-  prompt: "Summarize this text: {{ input }}"
-  model: "llama3.2:latest"
-  model_url: "http://localhost:1234"
-  provider: "ollama"
-  temperature: 0.7
-  queue: orka:local
-```
-
-### ✅ `validate_and_structure`
-
-Validates answers for correctness and structures them into memory objects with metadata.
-
-**Use case:** Answer validation, data structuring, quality assurance.
-
-**Example config:**
-```yaml
-- id: validator
-  type: validate_and_structure
-  prompt: "Validate and structure this answer"
-  store_structure: |
-    {
-      "topic": "extracted topic",
-      "confidence": "confidence score",
-      "key_points": ["list", "of", "points"]
-    }
-  queue: orka:validate
-```
-
----
-
-## 🔧 Tools
-
-### 🌐 `duckduckgo`
-
-Performs real-time web search using DuckDuckGo's search engine.
-
-**Use case:** Information retrieval, fact-checking, current events.
-
-**Example config:**
-```yaml
-- id: web_search
-  type: duckduckgo
-  prompt: "Search for: {{ input }}"
-  params:
-    num_results: 5
-    region: "us-en"
-    safe_search: "moderate"
-  queue: orka:search
-```
-
----
-
-## 💾 Memory Agents **⚡ 100x Faster with RedisStack HNSW**
-
-OrKa configures memory via a single agent type: `memory`. The operation is selected via `config.operation`.
-
-### 📖 Read (`type: memory`, `config.operation: read`)
-
-```yaml
-- id: memory_reader
-  type: memory
-  namespace: conversations
-  memory_preset: episodic
-  config:
-    operation: read
-    limit: 10
-    similarity_threshold: 0.6
-    enable_context_search: false
-    enable_temporal_ranking: false
-  prompt: "Find memories about: {{ input }}"
-```
-
-### 💾 Write (`type: memory`, `config.operation: write`)
-
-```yaml
-- id: memory_writer
-  type: memory
-  namespace: conversations
-  memory_preset: working
-  config:
-    operation: write
-  metadata:
-    source: user
-  prompt: "Store: {{ input }}"
-```
-
----
-
-## 🧵 Control Flow Nodes
-
-### 🔀 `router`
-
-Dynamically routes execution based on previous agent outputs.
-
-**Example config:**
-```yaml
-- id: content_router
-  type: router
-  params:
-    decision_key: content_type
-    routing_map:
-      "question": [search_agent, answer_builder]
-      "statement": [fact_checker, validator]
-      "request": [task_processor]
-```
-
-### 🔄 `failover`
-
-Executes child agents sequentially until one succeeds, providing resilience.
-
-**Example config:**
-```yaml
-- id: resilient_search
-  type: failover
-  children:
-    - id: primary_search
-      type: duckduckgo
-      prompt: "Search: {{ input }}"
-    - id: backup_method
-      type: openai-answer
-      prompt: "Answer from knowledge: {{ input }}"
-```
-
-### 🌿 `fork`
-
-Splits execution into multiple parallel branches for concurrent processing.
-
-**Example config:**
-```yaml
-- id: parallel_validation
-  type: fork
-  targets:
-    - [sentiment_check]
-    - [toxicity_check]
-    - [fact_validation]
-  mode: parallel
-```
-
-### 🔗 `join`
-
-Waits for forked agents to complete and aggregates their outputs.
-
-**Example config:**
-```yaml
-- id: validation_merger
-  type: join
-  prompt: "Combine validation results"
-```
-
-### 🔥 `failing`
-
-Intentionally fails for testing error handling and failover scenarios.
-
-**Example config:**
-```yaml
-- id: test_failure
-  type: failing
-  prompt: "This will always fail"
-```
-
-### 🔄 `loop`
-
-Executes an internal workflow repeatedly until a score threshold is met or maximum loops are reached. Features cognitive insight extraction and iterative improvement capabilities.
-
-**Use case:** Iterative refinement, consensus building, multi-agent deliberation, self-improving systems.
-
-**Key Features:**
-- **Threshold-based execution** - Continues until score meets requirements
-- **Cognitive insight extraction** - Automatically extracts insights, improvements, and mistakes
-- **Past loops context** - Maintains memory of previous iterations for learning
-- **Flexible scoring** - Configurable score extraction via regex patterns or direct keys
-- **Iterative improvement** - Agents learn from previous attempts
-
-**Example config:**
-```yaml
-- id: iterative_improver
-  type: loop
-  max_loops: 10
-  score_threshold: 0.85
-  score_extraction_pattern: "SCORE:\\s*([0-9.]+)"
-  
-  # Cognitive extraction configuration
-  cognitive_extraction:
-    enabled: true
-    max_length_per_category: 300
-    extract_patterns:
-      insights:
-        - "(?:provides?|identifies?|shows?)\\s+(.+?)(?:\\n|$)"
-        - "(?:solid|good|comprehensive)\\s+(.+?)(?:\\n|$)"
-      improvements:
-        - "(?:lacks?|needs?|requires?|should)\\s+(.+?)(?:\\n|$)"
-        - "(?:would improve|could benefit from)\\s+(.+?)(?:\\n|$)"
-      mistakes:
-        - "(?:overlooked|missed|inadequate)\\s+(.+?)(?:\\n|$)"
-        - "(?:weakness|limitation|gap)\\s*[:\\s]*(.+?)(?:\\n|$)"
-  
-  # Past loops metadata template
-  past_loops_metadata:
-    loop_number: "{{ loop_number }}"
-    score: "{{ score }}"
-    key_insights: "{{ insights }}"
-    improvements_needed: "{{ improvements }}"
-    mistakes_identified: "{{ mistakes }}"
-  
-  # Internal workflow that gets repeated
-  internal_workflow:
-    orchestrator:
-      id: internal-loop
-      strategy: sequential
-      agents: [analyzer, scorer]
-    agents:
-      - id: analyzer
-        type: openai-answer
-        prompt: |
-          Analyze: {{ input }}
-          
-          {% if previous_outputs.past_loops %}
-          Previous attempts:
-          {% for loop in previous_outputs.past_loops %}
-          - Loop {{ loop.loop_number }} (Score: {{ loop.score }}):
-            * Insights: {{ loop.key_insights }}
-            * Improvements: {{ loop.improvements_needed }}
-            * Mistakes: {{ loop.mistakes_identified }}
-          {% endfor %}
-          
-          Build upon these insights and address the gaps.
-          {% endif %}
-          
-          Provide comprehensive analysis with clear insights.
-      
-      - id: scorer
-        type: openai-answer
-        prompt: |
-          Rate this analysis (0.0 to 1.0): {{ previous_outputs.analyzer.result }}
-          
-          Format: SCORE: X.XX
-          Explain what needs improvement if score is below threshold.
-```
-
-**Multi-Agent Deliberation Example:**
-```yaml
-- id: cognitive_society
-  type: loop
-  max_loops: 5
-  score_threshold: 0.95
-  score_extraction_pattern: "AGREEMENT_SCORE[\":]?\\s*\"?([0-9.]+)\"?"
-  
-  internal_workflow:
-    orchestrator:
-      id: deliberation
-      strategy: sequential
-      agents: [fork_reasoning, join_perspectives, moderator]
-    agents:
-      - id: fork_reasoning
-        type: fork
-        targets:
-          - [logic_agent]
-          - [empathy_agent]
-          - [skeptic_agent]
-      
-      - id: logic_agent
-        type: openai-answer
-        prompt: "Provide logical analysis of: {{ input }}"
-      
-      - id: empathy_agent
-        type: openai-answer
-        prompt: "Provide empathetic perspective on: {{ input }}"
-      
-      - id: skeptic_agent
-        type: openai-answer
-        prompt: "Provide critical analysis of: {{ input }}"
-      
-      - id: join_perspectives
-        type: join
-        group: fork_reasoning
-      
-      - id: moderator
-        type: openai-answer
-        prompt: |
-          Evaluate agent convergence on: {{ input }}
-          
-          Logic: {{ previous_outputs.logic_agent.response }}
-          Empathy: {{ previous_outputs.empathy_agent.response }}
-          Skeptic: {{ previous_outputs.skeptic_agent.response }}
-          
-          Score agreement level (0.0-1.0):
-          AGREEMENT_SCORE: [score]
-```
-
----
-
-## 🤖 Advanced Nodes
-
-### 🔍 `rag`
-
-Performs Retrieval-Augmented Generation with vector search and LLM generation.
-
-**Configuration:**
-```yaml
-- id: knowledge_qa
-  type: rag
-  params:
-    top_k: 5
-    score_threshold: 0.7
-  prompt: "Answer using knowledge base"
-```
-
----
-
-## 📊 Agent Summary
-
-| Agent Type | Category | Purpose | Status |
-|:-----------|:---------|:--------|:-------|
-| `binary` | Agent | Simple true/false decisions | Active |
-| `classification` | Agent | Basic categorization | Deprecated |
-| `openai-binary` | Agent | LLM-powered binary decisions | Active |
-| `openai-classification` | Agent | LLM-powered categorization | Active |
-| `openai-answer` | Agent | Content generation | Active |
-| `local_llm` | Agent | Local model inference | Active |
-| `validate_and_structure` | Agent | Answer validation | Active |
-| `duckduckgo` | Tool | Web search | Active |
-| `memory` (read) | Node | Memory retrieval | Active |
-| `memory` (write) | Node | Memory storage | Active |
-| `rag` | Node | RAG operations | Active |
-| `router` | Node | Dynamic routing | Active |
-| `failover` | Node | Error resilience | Active |
-| `fork` | Node | Parallel execution | Active |
-| `join` | Node | Result aggregation | Active |
-| `loop` | Node | Iterative workflows | Active |
-| `failing` | Node | Testing failures | Active |
-
----
-
-## 🧩 Structured Output
-
-Agents support provider-enforced structured outputs via `params.structured_output`.
-Enable it per agent to receive valid JSON matching a schema. Modes: `auto`, `model_json`, `tool_call`, `prompt`.
-See the Structured Output Guide for details and examples.
-
----
-
-## 🚀 Getting Started
-
-1. **Choose your agent types** based on your workflow needs
-2. **Configure YAML** with appropriate prompts and parameters
-3. **Test individually** before chaining agents
-4. **Monitor execution** through OrKa UI or logs
-5. **Iterate and optimize** based on results
-
-For detailed configuration examples, see the [YAML Configuration Guide](./YAML_CONFIGURATION.md).
-
-← [YAML Configuration](YAML_CONFIGURATION.md) | [📚 index](index.md) | [Advanced Agents](agents-advanced.md) →
----
-← [Streaming Guide](STREAMING_GUIDE.md) | [📚 INDEX](index.md) | [Advanced Agents](agents-advanced.md) →
+- Every source file carries the Apache-2.0 OrKa attribution header — preserve it on new files.
+- Async-first: agents implement `async def _run_impl(self, ctx)`; use `await` throughout the execution path.
+- Commits follow conventional-commit prefixes (`feat:`, `fix:`, `docs:`, `test:`, `chore:`).
+- Runnable workflow examples live in `examples/*.yml` (30+); the `examples/benchmark*` dirs hold benchmark configs. Use these as references for valid YAML shapes.
+- Extensive docs in `docs/` — `YAML_CONFIGURATION.md`, `MEMORY_SYSTEM_GUIDE.md`, `AGENT_NODE_TOOL_INDEX.md`, `GRAPH_SCOUT_AGENT.md`, `TESTING.md` are the most useful entry points.
 
 ---
 > Source: [marcosomma/orka-reasoning](https://github.com/marcosomma/orka-reasoning) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
