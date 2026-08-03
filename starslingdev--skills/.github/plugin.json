@@ -1,0 +1,9 @@
+{
+  "name": "starslingdev--skills",
+  "displayName": "skills",
+  "description": "Agent skills from StarSling",
+  "version": "1.0.0",
+  "author": "starslingdev",
+  "homepage": "https://github.com/starslingdev/skills",
+  "skills": []
+}
