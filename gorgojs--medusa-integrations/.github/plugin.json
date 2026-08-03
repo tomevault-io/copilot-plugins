@@ -1,0 +1,9 @@
+{
+  "name": "gorgojs--medusa-integrations",
+  "displayName": "medusa-integrations",
+  "description": "Medusa plugins and integrations by Gorgo",
+  "version": "1.0.0",
+  "author": "gorgojs",
+  "homepage": "https://github.com/gorgojs/medusa-integrations",
+  "skills": []
+}
