@@ -1,0 +1,9 @@
+{
+  "name": "docker--buildkit-syft-scanner",
+  "displayName": "buildkit-syft-scanner",
+  "description": "buildkit-syft-scanner",
+  "version": "1.0.0",
+  "author": "docker",
+  "homepage": "https://github.com/docker/buildkit-syft-scanner",
+  "skills": []
+}
