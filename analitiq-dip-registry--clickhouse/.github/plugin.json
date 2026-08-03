@@ -1,0 +1,9 @@
+{
+  "name": "analitiq-dip-registry--clickhouse",
+  "displayName": "clickhouse",
+  "description": "Analitiq DIP connector for ClickHouse \u2014 high-performance, open-source column-oriented database management system (DBMS) designed for online analytical processing (OLAP). Built for AI-driven data integ",
+  "version": "1.0.0",
+  "author": "analitiq-dip-registry",
+  "homepage": "https://github.com/analitiq-dip-registry/clickhouse",
+  "skills": []
+}
