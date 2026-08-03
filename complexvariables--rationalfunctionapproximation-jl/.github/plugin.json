@@ -1,0 +1,9 @@
+{
+  "name": "complexvariables--rationalfunctionapproximation-jl",
+  "displayName": "RationalFunctionApproximation.jl",
+  "description": "RationalFunctionApproximation.jl",
+  "version": "1.0.0",
+  "author": "complexvariables",
+  "homepage": "https://github.com/complexvariables/RationalFunctionApproximation.jl",
+  "skills": []
+}
