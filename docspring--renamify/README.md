@@ -7,13 +7,13 @@ Smart search & replace for code and files with case-aware transformations and bu
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [DocSpring/renamify](https://github.com/DocSpring/renamify).
+Original source: `CLAUDE.md` in [DocSpring/renamify](https://github.com/DocSpring/renamify).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
