@@ -1,0 +1,9 @@
+{
+  "name": "danbyte-net--danbyte",
+  "displayName": "danbyte",
+  "description": "A customizable IPAM / DCIM platform \u2014 one place for your IP space, your physical gear, and how it all connects.",
+  "version": "1.0.0",
+  "author": "danbyte-net",
+  "homepage": "https://github.com/danbyte-net/danbyte",
+  "skills": []
+}
