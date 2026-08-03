@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cluster-openshift-apiserver-operator",
+  "displayName": "cluster-openshift-apiserver-operator",
+  "description": "cluster-openshift-apiserver-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cluster-openshift-apiserver-operator",
+  "skills": []
+}
