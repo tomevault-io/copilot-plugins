@@ -1,0 +1,9 @@
+{
+  "name": "contains-studio--fable-delegator",
+  "displayName": "fable-delegator",
+  "description": "Plan with Claude, implement via Codex/Grok/Cursor/Antigravity/Droid CLIs on their own token pools. Verified headless invocations, gotchas, and a quota-failover model map.",
+  "version": "1.0.0",
+  "author": "contains-studio",
+  "homepage": "https://github.com/contains-studio/fable-delegator",
+  "skills": []
+}
