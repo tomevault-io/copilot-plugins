@@ -1,0 +1,9 @@
+{
+  "name": "firstintent--ccteam",
+  "displayName": "ccteam",
+  "description": "ccteam turns the coding agents you already run (Claude Code, Codex, Grok, Kimi\u2026) into one team \u2014 any session can spawn, dispatch, and collect work from any vendor on any machine, while you steer it al",
+  "version": "1.0.0",
+  "author": "firstintent",
+  "homepage": "https://github.com/firstintent/ccteam",
+  "skills": []
+}
