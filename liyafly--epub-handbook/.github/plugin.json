@@ -1,0 +1,9 @@
+{
+  "name": "liyafly--epub-handbook",
+  "displayName": "epub-handbook",
+  "description": "A practical handbook for EPUB authoring, typography, compatibility, and reading-system behavior across Apple Books, Kindle, Readium, and Readest.",
+  "version": "1.0.0",
+  "author": "liyafly",
+  "homepage": "https://github.com/liyafly/epub-handbook",
+  "skills": []
+}
