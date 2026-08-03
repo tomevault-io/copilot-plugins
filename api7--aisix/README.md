@@ -1,17 +1,15 @@
 # aisix
 
-> Tome by [api7](https://github.com/api7/aisix) — distributed by [TomeVault](https://tomevault.io)
-
-An open source, Native AI Gateway and LLM proxy built in Rust
+> Tome by [api7](https://github.com/api7/aisix), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [api7/aisix](https://github.com/api7/aisix).
+Original source: `CLAUDE.md` in [api7/aisix](https://github.com/api7/aisix).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
