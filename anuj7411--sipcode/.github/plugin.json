@@ -1,0 +1,9 @@
+{
+  "name": "anuj7411--sipcode",
+  "displayName": "sipcode",
+  "description": "Keep Claude Code context clean. Open-source toolkit: drift detection, re-read dedup, integrity scoring, AST-aware reads, 15 MCP tools. 62.6% measured savings, reproducible.",
+  "version": "1.0.0",
+  "author": "Anuj7411",
+  "homepage": "https://github.com/Anuj7411/sipcode",
+  "skills": []
+}
