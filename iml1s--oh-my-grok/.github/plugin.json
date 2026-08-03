@@ -1,0 +1,9 @@
+{
+  "name": "iml1s--oh-my-grok",
+  "displayName": "oh-my-grok",
+  "description": "OMC-style multi-agent orchestration for Grok Build: plugin + omg CLI (ulw/ralph/ralplan)",
+  "version": "1.0.0",
+  "author": "ImL1s",
+  "homepage": "https://github.com/ImL1s/oh-my-grok",
+  "skills": []
+}
