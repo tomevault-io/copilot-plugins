@@ -52,6 +52,22 @@
 - Use UI components from the `zudoku/ui` module. (based on shadcn/ui)
 - Use icons from the `zudoku/icons` module (based on Lucide icons)
 
+## Config Schema (Zod)
+
+- The loader parses the user config via `validateConfig()`, so schema `.default()`/`.transform()`
+  values apply to everything downstream. Don't re-parse config sections in consumers.
+- Order is always transform-then-parse: plugin `transformConfig` hooks run on the RAW authored
+  config (same shape they see in the client bundle), then the result is schema-parsed. Hook
+  additions must conform to the schema; unknown keys are stripped on the server side.
+- Zod only applies nested `.default()`s when the parent object is present in the input. A parent
+  that is `.optional()` short-circuits to `undefined` and inner defaults never run. Sub-schemas
+  whose defaults should apply when omitted must use `.prefault({})` on the schema itself (see
+  `DocsConfigSchema`). `.default({})` does NOT work for this: it returns the literal `{}` without
+  running the inner schema.
+- Exceptions that read the raw (unparsed) config: the client bundle via `virtual:zudoku-config`, and
+  `buildManifest` when called from the SSR entry. The prerender worker parses the built bundle's
+  config itself via `validateConfig()`.
+
 ## OpenAPI Schema Processing Pipeline
 
 There are two distinct pipelines depending on how schemas are loaded:
@@ -82,6 +98,25 @@ responses/request bodies is passed as `JSONSchemaScalar`, which serializes the r
 through `handleCircularRefs()`. Media-type level `example`/`examples` are resolved into
 `ExampleItem` arrays by the GraphQL resolvers before reaching the client.
 
+## SSR and Module-Level State
+
+Most of `src/lib` and `src/app` is evaluated in BOTH the client bundle and the SSR bundle. On the
+server, module-level mutable state (`let`, singletons, the zustand stores) is shared across ALL
+requests and users for the lifetime of the process — never store per-request or per-user data there.
+Rules:
+
+- Per-request server state (auth, profile, tokens) must flow through request-scoped channels:
+  `resolveSsrAuth()` → `SSRAuthState` → `RenderContext` (see `entry.server.tsx`). The `authState`
+  zustand store is NOT trusted on the server; `hook.ts` reads from `RenderContext` instead.
+- Client-only side effects (writing auth state, fetch to same-origin endpoints, storage access) must
+  sit behind a `typeof window === "undefined"` guard, like `setupCookieSync` and the
+  `hydrateFromServerSession` call in `getAccessToken`. Module-level `let`s written only behind such
+  guards are fine: on the client they are per-tab state; on the server they stay at their initial
+  value.
+- The same applies to react-query: a module-level `QueryClient` rendered during SSR leaks one user's
+  cached data into another user's HTML. Create per-request clients on the server (`entry.server.tsx`
+  does) and dehydrate/hydrate instead.
+
 ## Polyfills
 
 `polyfills.ts` is a side-effect module imported in `main.tsx` and listed in `package.json`
@@ -106,6 +141,11 @@ When adding new components that depend on these, either lazy-load them or place 
 plugin code. A static import chain from `MdxComponents.tsx` or similar always-loaded modules will
 pull the heavy dependency into `entry.client`.
 
+`motion`/`motion/react`: The core (`m`, `LazyMotion`, `AnimatePresence`, ~5kb) can be statically
+imported, but `domAnimation` (~37kb) must load via `LazyMotion`'s async `features` prop using a
+separate module (see `navigation/motionFeatures.ts`). Always use `m.*` (not `motion.*`) inside
+`<LazyMotion strict features={...}>`.
+
 ## Plugin Architecture
 
 - Plugins live in packages/zudoku/lib/plugins/
@@ -119,4 +159,4 @@ pull the heavy dependency into `entry.client`.
 
 ---
 > Source: [zuplo/zudoku](https://github.com/zuplo/zudoku) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
