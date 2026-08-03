@@ -1,0 +1,9 @@
+{
+  "name": "whoisbe--adclaim",
+  "displayName": "AdClaim",
+  "description": "Grounded FTC advertising-compliance Q&A with a CrewAI faithfulness verifier, evaluated against a retrieve-then-answer baseline via Ragas",
+  "version": "1.0.0",
+  "author": "whoisbe",
+  "homepage": "https://github.com/whoisbe/AdClaim",
+  "skills": []
+}
