@@ -1,0 +1,9 @@
+{
+  "name": "streamthoughts--kafka-connect-file-pulse",
+  "displayName": "kafka-connect-file-pulse",
+  "description": "kafka-connect-file-pulse",
+  "version": "1.0.0",
+  "author": "streamthoughts",
+  "homepage": "https://github.com/streamthoughts/kafka-connect-file-pulse",
+  "skills": []
+}
