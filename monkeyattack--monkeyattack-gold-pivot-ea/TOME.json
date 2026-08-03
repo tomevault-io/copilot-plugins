@@ -1,0 +1,44 @@
+{
+  "name": "monkeyattack-gold-pivot-ea",
+  "owner": "Monkeyattack",
+  "repo": "monkeyattack-gold-pivot-ea",
+  "description": "?? Professional MT4 Expert Advisor for Gold trading using institutional pivot strategy. Proven +$7,448.54 profit (49% ROI). Enhanced v2.01 with trade quality scoring and advanced risk management.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Monkeyattack/monkeyattack-gold-pivot-ea",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-03T12:47:04Z"
+}
