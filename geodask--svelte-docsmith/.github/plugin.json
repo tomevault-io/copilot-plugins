@@ -1,0 +1,9 @@
+{
+  "name": "geodask--svelte-docsmith",
+  "displayName": "svelte-docsmith",
+  "description": "A simple framework for building beautiful documentation sites with Svelte quickly and efficiently",
+  "version": "1.0.0",
+  "author": "geodask",
+  "homepage": "https://github.com/geodask/svelte-docsmith",
+  "skills": []
+}
