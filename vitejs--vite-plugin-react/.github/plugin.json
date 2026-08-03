@@ -1,0 +1,9 @@
+{
+  "name": "vitejs--vite-plugin-react",
+  "displayName": "vite-plugin-react",
+  "description": "vite-plugin-react",
+  "version": "1.0.0",
+  "author": "vitejs",
+  "homepage": "https://github.com/vitejs/vite-plugin-react",
+  "skills": []
+}
