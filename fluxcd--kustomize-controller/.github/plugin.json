@@ -1,0 +1,9 @@
+{
+  "name": "fluxcd--kustomize-controller",
+  "displayName": "kustomize-controller",
+  "description": "kustomize-controller",
+  "version": "1.0.0",
+  "author": "fluxcd",
+  "homepage": "https://github.com/fluxcd/kustomize-controller",
+  "skills": []
+}
