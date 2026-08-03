@@ -1,0 +1,9 @@
+{
+  "name": "apache--trafficserver-ingress-controller",
+  "displayName": "trafficserver-ingress-controller",
+  "description": "trafficserver-ingress-controller",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/trafficserver-ingress-controller",
+  "skills": []
+}
