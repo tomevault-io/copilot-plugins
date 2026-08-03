@@ -1,0 +1,9 @@
+{
+  "name": "jennydove--self-improving-claude",
+  "displayName": "self-improving-claude",
+  "description": "A self-improving Claude Code setup: session commands, audits, fixes, and memory that compound over time.",
+  "version": "1.0.0",
+  "author": "jennydove",
+  "homepage": "https://github.com/jennydove/self-improving-claude",
+  "skills": []
+}
