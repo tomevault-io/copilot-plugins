@@ -1,0 +1,9 @@
+{
+  "name": "openshift-knative--serverless-operator",
+  "displayName": "serverless-operator",
+  "description": "serverless-operator",
+  "version": "1.0.0",
+  "author": "openshift-knative",
+  "homepage": "https://github.com/openshift-knative/serverless-operator",
+  "skills": []
+}
