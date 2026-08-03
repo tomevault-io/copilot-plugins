@@ -1,0 +1,9 @@
+{
+  "name": "srsholmes--loadout",
+  "displayName": "loadout",
+  "description": "An in-game overlay and plugin platform for Linux gaming handhelds \u2014 tune TDP, fan curves, RGB, frame-gen, custom art and more without leaving your game.",
+  "version": "1.0.0",
+  "author": "srsholmes",
+  "homepage": "https://github.com/srsholmes/loadout",
+  "skills": []
+}
