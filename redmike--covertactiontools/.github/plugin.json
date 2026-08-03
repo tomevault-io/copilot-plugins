@@ -1,0 +1,9 @@
+{
+  "name": "redmike--covertactiontools",
+  "displayName": "CovertActionTools",
+  "description": "Tools for inspecting/modifying game files for Sid Meier's Covert Action",
+  "version": "1.0.0",
+  "author": "RedMike",
+  "homepage": "https://github.com/RedMike/CovertActionTools",
+  "skills": []
+}
