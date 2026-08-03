@@ -1,13 +1,13 @@
-# AI instruction files for Futureboard
+# futureboard
 
-> Sourced from [futureboard/Futureboard](https://github.com/futureboard/Futureboard) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Tome by [futureboard](https://github.com/futureboard/futureboard), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 An open-source digital audio workstation with Native GPUI, React WebUI, Rust DSP, and native plugin hosting.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [futureboard/Futureboard](https://github.com/futureboard/Futureboard).
+Original source: `CLAUDE.md` in [futureboard/futureboard](https://github.com/futureboard/futureboard).
 
 ## Also available for
 
@@ -17,10 +17,10 @@ Original source: `CLAUDE.md` in [futureboard/Futureboard](https://github.com/fut
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/futureboard/Futureboard](https://github.com/futureboard/Futureboard)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/futureboard/futureboard](https://github.com/futureboard/futureboard)
 
 ---
 
 Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
-<!-- genome:a-c-p -->
+<!-- genome:t-c-p -->
