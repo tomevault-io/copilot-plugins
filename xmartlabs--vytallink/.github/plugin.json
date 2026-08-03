@@ -1,0 +1,9 @@
+{
+  "name": "xmartlabs--vytallink",
+  "displayName": "vytalLink",
+  "description": "VytalLink is a digital health platform connecting personal health data\u2014including Apple Health, Google Fit, and wearables\u2014with AI assistants like ChatGPT and Claude. Includes a Flutter app, Node.js MCP",
+  "version": "1.0.0",
+  "author": "xmartlabs",
+  "homepage": "https://github.com/xmartlabs/vytalLink",
+  "skills": []
+}
