@@ -1,69 +1,42 @@
 ## sidecar
 
-> @V := "tape" :: spec [active]
+> > Local guide for the AI/human working in this folder. Top-level design is repo-root [ARCHITECTURE.json](../ARCHITECTURE.json).
 
-@V := "tape" :: spec [active]
-  version = "1.4"
+# pi — Pi coding-agent bridge
 
-@I := "sidecar" :: identity [active]
-  kind     = "Claude Code marketplace plugin pack — concept-separated guardrails · commands · skills"
-  brief    = "Side-mounts onto Claude Code · carries the cross-project do/dont layer in hooks/commons/"
-  parent   = "dancinlab"
-  ssot     = "github.com/dancinlab/sidecar (`hx install sidecar`)"
-  siblings = "hexa-lang · pool · secret"
+> Local guide for the AI/human working in this folder. Top-level design is repo-root [ARCHITECTURE.json](../ARCHITECTURE.json).
 
-@D s1 := "concept separation" :: governance [required active]
-  do   = "1 plugin = exactly 1 of {hook · command · skill} · top-level dir matches the concept"
-  dont = "mix concepts in one plugin (skill+command ok when the command IS the skill's mechanism)"
+## Purpose
+Wires sidecar governance into **Pi (earendil-works/pi-coding-agent)**. Claude Code does it via
+`hooks/hooks.json` + `run.sh`; Pi does it via the single TS extension in this folder — **both call the same
+`sidecar` CLI (modules/*.ts)**. The engine (60 modules) is not touched by a single line; this
+file is the adapter that translates Pi events ↔ CC-style hook JSON.
 
-@D s2 := "structured carriers over prose" :: governance [required active]
-  do   = "use structured carriers: `.tape` · `plugin.json` · `hooks.json` · `marketplace.json` · `.lsp.json`"
+## Key files
+| File | Role |
+|------|------|
+| `sidecar.ts` | Pi extension — `pi.on()` lifecycle handlers spawn `sidecar <verb>`, translating CC-style output (`hookSpecificOutput.additionalContext` / `permissionDecision:"deny"`) into Pi return shapes (`{message}` / `{block}`) |
 
-@D s3 := "portable plugin scripts" :: governance [required active]
-  dont = "absolute paths in plugin scripts — use ${CLAUDE_PLUGIN_ROOT} · $HOME · $CLAUDE_PLUGIN_DATA · PATH"
+## Surface mapping (CC hooks.json ↔ Pi events)
+| Claude Code | Pi event | sidecar verb |
+|------|------|------|
+| UserPromptSubmit (per-turn inject + prompt-scan) | `before_agent_start` | commons·claudemd·recommend·prefs·easy·load·ing·frontier inject + prompt |
+| SessionStart (one-time inject + gc) | `session_start` + first `before_agent_start` | architecture·git-context·toolkit·companions inject · worktree gc |
+| PreToolUse (guards) | `tool_call` (can block) | pre bash/write/touch/tool |
+| PostToolUse (Write\|Edit) | `tool_result` (advisory) | post edit |
+| Stop (hard re-turn gate) | — | **not wired** (Pi has no blocking stop hook → CC-only) |
 
-@D s4 := "commons carries cross-project rules" :: governance [active]
-  do   = "`commons` hook carries cross-project do/dont · re-injects SessionStart + PreCompact + PostCompact"
+## Rules / gotchas
+- **No engine edits** — only this adapter handles the Pi-side translation. When a new CC hook surface appears, mirror its mapping here in lockstep.
+- The inject verbs must read stdin's `{"hook_event_name": "..."}` before they emit (CC's run.sh inherits stdin) — `before_agent_start` synthesizes the `UserPromptSubmit`/`SessionStart` carrier and pipes it.
+- Inject text has **two** carriers — most via stdout JSON (`additionalContext`), some (toolkit·companions) via **stderr plain text** → `extractContext(.., true)` absorbs both.
+- `git-context` is intentionally silent when clean + on the default branch (empty output is normal).
+- block uses the current CC schema `hookSpecificOutput.permissionDecision:"deny"` (the legacy `decision:"block"` is also parsed).
+- Install: `sidecar pi install` symlinks this file to `~/.pi/agent/extensions/sidecar.ts` (global clone → self-update refreshes it too) + adds `~/.claude/skills` to Pi settings.skills[]. `sidecar install` also wires it automatically when Pi is detected.
 
-@D s5 := "project.tape carries project-level rules" :: governance [active]
-  do   = "project.tape (= CLAUDE.md) carries sidecar identity + governance · re-injected on compact"
-
-@D s6 := "skill SKILL.md — minimal tape-style do/dont body" :: governance [required active]
-  do   = "SKILL.md body = one `@D <name> :: skill` block · do/dont only · project.tape lint standard"
-  dont = "prose · tables · examples in a SKILL.md body · keys beyond do/dont · per-skill README.md"
-
-@D s7 := "ship governance + its enforcement together" :: governance [required active]
-  do   = "new governance rule / plugin → ship its lint or guard hook in the same cycle"
-  dont = "land a rule with no enforcement · defer the lint to later · rely on model self-discipline only"
-
-@D ship := "ship cycle — atomic commit + push + sync (install + enable)" :: governance [required active]
-  do   = "commit (explicit paths · g28 cred-scan) → push → `sidecar sync` (cache · install · enable)"
-  dont = "`ship` as cross-repo batch · sync without enable · `git add -A`/`-u` · unshipped diffs at pauses"
-
-@D s8 := "pi5-akida is anima-only — exclude from general pool dispatch" :: governance [required active]
-  do   = "use pi5-akida ONLY for anima work · explicit `pool on pi5-akida <cmd>` only"
-  dont = "include pi5-akida in `pool route` / load-balancing / round-robin / auto-dispatch candidates"
-
-@D s9 := "claude sessions exempt from local load assessment" :: governance [required active]
-  do   = "exclude `claude` PIDs from CPU/load attribution · attribute load to non-claude consumers only"
-  dont = "count `claude` toward 'Mac overloaded → pool' · suggest killing claude as load remedy unasked"
-
-@D s10 := "pool-route routes on explicit classifier only — never on load" :: governance [required active]
-  do   = "route to pool only on explicit heavy classifier · git/gh/abs-path/local-fs cmds stay local"
-  dont = "route on high system load — 'busy' ≠ 'portable'; local-bound cmds break on the wrong host"
-
-@D s11 := "no opt-out / escape-hatch variables in guards or auto-hooks" :: governance [required active]
-  do   = "guards + auto-hooks unconditional · gate only on real preconditions (binary · dirty-tree skip)"
-  dont = "env var/config/exception that DISABLES a guard — gets auto-flipped to silence, defeats purpose"
-
-@D s12 := "pool never consumes macOS resources — goal: zero macOS offload" :: governance [required active]
-  do   = "auto-route heavy work to Linux pool hosts only · run macOS-capable cmds local on the workstation"
-  dont = "auto-route any command to a macOS pool host (mini) — macOS compute stays on the local Mac"
-
-@D s13 := "governance SSOT files are sign-gated — user sign-off before agent edits" :: governance [required active]
-  do   = "edit commons.tape · project.tape ONLY after the USER runs `sidecar sign <key>` · obey the deny"
-  dont = "self-mint the sign · edit a sign-gated file without a fresh user token · add an opt-out"
+## Related
+- CC wiring: [hooks/](../hooks/) · install module: [modules/pi.ts](../modules/pi.ts) · design SSOT: [ARCHITECTURE.json](../ARCHITECTURE.json)
 
 ---
 > Source: [dancinlab/sidecar](https://github.com/dancinlab/sidecar) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
