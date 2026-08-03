@@ -1,0 +1,9 @@
+{
+  "name": "greghavens--moonshiner",
+  "displayName": "moonshiner",
+  "description": "Unified model-distillation harness for code abilities: pi / claude-code / codex teachers, configurable judge, verified agentic traces",
+  "version": "1.0.0",
+  "author": "greghavens",
+  "homepage": "https://github.com/greghavens/moonshiner",
+  "skills": []
+}
