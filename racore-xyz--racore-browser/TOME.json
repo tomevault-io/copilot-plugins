@@ -4,7 +4,7 @@
   "repo": "racore-browser",
   "description": "Racore Browser When Web3 Ipfs Meets Agetnic AI - X Product ",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/racore-xyz/racore-browser",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T06:48:43Z"
+  "distributed_at": "2026-08-03T08:38:10Z"
 }
