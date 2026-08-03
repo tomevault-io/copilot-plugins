@@ -1,0 +1,9 @@
+{
+  "name": "daax-dev--gitloop",
+  "displayName": "gitloop",
+  "description": "Local, git-only inner-loop tool that lets AI coding agents hand off work deterministically using git tags as the single source of truth.",
+  "version": "1.0.0",
+  "author": "daax-dev",
+  "homepage": "https://github.com/daax-dev/gitloop",
+  "skills": []
+}
