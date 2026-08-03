@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--sentry-ruby",
+  "displayName": "sentry-ruby",
+  "description": "sentry-ruby",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/sentry-ruby",
+  "skills": []
+}
