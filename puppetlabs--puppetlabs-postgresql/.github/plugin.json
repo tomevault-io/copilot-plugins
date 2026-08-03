@@ -1,0 +1,9 @@
+{
+  "name": "puppetlabs--puppetlabs-postgresql",
+  "displayName": "puppetlabs-postgresql",
+  "description": "puppetlabs-postgresql",
+  "version": "1.0.0",
+  "author": "puppetlabs",
+  "homepage": "https://github.com/puppetlabs/puppetlabs-postgresql",
+  "skills": []
+}
