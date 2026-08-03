@@ -1,8 +1,6 @@
 # AI instruction files for vexa
 
-> Sourced from [Vexa-ai/vexa](https://github.com/Vexa-ai/vexa) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Open-source meeting transcription API for Google Meet, Microsoft Teams & Zoom. Auto-join bots, real-time WebSocket transcripts, MCP server for AI agents. Self-host or use hosted SaaS.
+> Sourced from [Vexa-ai/vexa](https://github.com/Vexa-ai/vexa), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [Vexa-ai/vexa](https://github.com/Vexa-ai/vexa).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Vexa-ai/vexa](https://github.com/Vexa-ai/vexa) — a repo with 2062+ stars on GitHub.
+From [Vexa-ai/vexa](https://github.com/Vexa-ai/vexa) — a repo with 2601+ stars on GitHub.
 
 ---
 
