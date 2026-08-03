@@ -1,0 +1,9 @@
+{
+  "name": "17nbist--jobapplier",
+  "displayName": "jobApplier",
+  "description": "Local-first job-application copilot: MV3 browser extension for resume tailoring, cover letters, and ATS form autofill via OpenRouter (GLM 5.2). No server.",
+  "version": "1.0.0",
+  "author": "17nbist",
+  "homepage": "https://github.com/17nbist/jobApplier",
+  "skills": []
+}
