@@ -1,7 +1,7 @@
 {
   "name": "shuvonsec--claude-bug-bounty",
   "displayName": "claude-bug-bounty",
-  "description": "AI-powered bug bounty hunting from your terminal - recon, 20 vuln classes,   autonomous hunting, and report generation. All inside Claude Code.",
+  "description": "claude-bug-bounty",
   "version": "1.0.0",
   "author": "shuvonsec",
   "homepage": "https://github.com/shuvonsec/claude-bug-bounty",
