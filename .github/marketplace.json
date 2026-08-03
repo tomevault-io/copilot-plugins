@@ -108774,6 +108774,16 @@
       "description": "dolos"
     },
     {
+      "name": "uipath--skills",
+      "source": "./uipath--skills",
+      "description": "skills"
+    },
+    {
+      "name": "uipath--skills",
+      "source": "./uipath--skills",
+      "description": "skills"
+    },
+    {
       "name": "aitorllj93--obsidian-lovely-bases",
       "source": "./aitorllj93--obsidian-lovely-bases",
       "description": "Beautiful, visual bases views for Obsidian"
@@ -111954,6 +111964,21 @@
       "description": "madara"
     },
     {
+      "name": "benseverndev-oss--goldenmatch",
+      "source": "./benseverndev-oss--goldenmatch",
+      "description": "goldenmatch"
+    },
+    {
+      "name": "benseverndev-oss--goldenmatch",
+      "source": "./benseverndev-oss--goldenmatch",
+      "description": "goldenmatch"
+    },
+    {
+      "name": "benseverndev-oss--goldenmatch",
+      "source": "./benseverndev-oss--goldenmatch",
+      "description": "goldenmatch"
+    },
+    {
       "name": "cloveric--cc-telegram-bridge",
       "source": "./cloveric--cc-telegram-bridge",
       "description": "Real Claude Code & Codex CLI on Telegram \u2014 runs their native harness directly, no reimplemented API wrappers. Sessions, memory, tools, all built-in. Multi-bot Agent Bus, resume local sessions on your "
@@ -114524,6 +114549,11 @@
       "description": "noisemaker"
     },
     {
+      "name": "trystan-sa--rproc",
+      "source": "./trystan-sa--rproc",
+      "description": "rproc"
+    },
+    {
       "name": "lasect--pg-turret",
       "source": "./lasect--pg-turret",
       "description": "postgres extension for streaming logs"
@@ -115504,6 +115534,11 @@
       "description": "android-templates"
     },
     {
+      "name": "devducks--astroarch",
+      "source": "./devducks--astroarch",
+      "description": "astroarch"
+    },
+    {
       "name": "iusztinpaul--designing-real-world-ai-agents-workshop",
       "source": "./iusztinpaul--designing-real-world-ai-agents-workshop",
       "description": "Hands-on workshop: Build a multi-agent AI system from scratch \u2014 Deep Research Agent + Writing Workflow served as MCP servers. Includes code, slides, and video (coming soon)"
@@ -116357,6 +116392,11 @@
       "name": "nipreps--niworkflows",
       "source": "./nipreps--niworkflows",
       "description": "niworkflows"
+    },
+    {
+      "name": "bitrise-io--bitrise-workflow-editor",
+      "source": "./bitrise-io--bitrise-workflow-editor",
+      "description": "bitrise-workflow-editor"
     },
     {
       "name": "macrocosm-os--dataverse-cli",
@@ -118844,6 +118884,11 @@
       "description": "vox"
     },
     {
+      "name": "kaotoio--kaoto",
+      "source": "./kaotoio--kaoto",
+      "description": "kaoto"
+    },
+    {
       "name": "everettjf--liney",
       "source": "./everettjf--liney",
       "description": "Liney is a native macOS terminal workspace built with AppKit, SwiftUI, and Ghostty, designed for multi-repo workflows, worktree switching, and focused vibe coding."
@@ -119437,6 +119482,11 @@
       "name": "doist--todoist-sdk-typescript",
       "source": "./doist--todoist-sdk-typescript",
       "description": "todoist-sdk-typescript"
+    },
+    {
+      "name": "sportsdataverse--sportsdataverse-py",
+      "source": "./sportsdataverse--sportsdataverse-py",
+      "description": "sportsdataverse-py"
     },
     {
       "name": "productdevbook--sumak",
@@ -121017,6 +121067,11 @@
       "name": "asifkibria--claude-code-toolkit",
       "source": "./asifkibria--claude-code-toolkit",
       "description": "claude-code-toolkit"
+    },
+    {
+      "name": "thegatesbrowser--thegates",
+      "source": "./thegatesbrowser--thegates",
+      "description": "thegates"
     },
     {
       "name": "aws-samples--sample-kolya-br-proxy",
@@ -123819,6 +123874,11 @@
       "description": "retro.tools"
     },
     {
+      "name": "shiguredo--media-processors",
+      "source": "./shiguredo--media-processors",
+      "description": "media-processors"
+    },
+    {
       "name": "mitchellh--go-libghostty",
       "source": "./mitchellh--go-libghostty",
       "description": "Go bindings for libghostty-vt."
@@ -124252,6 +124312,11 @@
       "name": "yako-dev--flutter-full-screen-menu",
       "source": "./yako-dev--flutter-full-screen-menu",
       "description": "flutter-full-screen-menu"
+    },
+    {
+      "name": "rocm--aotriton",
+      "source": "./rocm--aotriton",
+      "description": "aotriton"
     },
     {
       "name": "dnakov--kittyfarm",
@@ -125587,6 +125652,11 @@
       "name": "mbbill--mind-expander",
       "source": "./mbbill--mind-expander",
       "description": "mind-expander"
+    },
+    {
+      "name": "zeljkoobrenovic--sokrates",
+      "source": "./zeljkoobrenovic--sokrates",
+      "description": "sokrates"
     },
     {
       "name": "livekit--livekit-wakeword",
@@ -127029,6 +127099,11 @@
       "description": "cuppa_mobile"
     },
     {
+      "name": "bartz-org--bartz",
+      "source": "./bartz-org--bartz",
+      "description": "bartz"
+    },
+    {
       "name": "xiashao--kaiyantool",
       "source": "./xiashao--kaiyantool",
       "description": "\u5f00\u6f14AI \u5c06\u5f71\u89c6\u521b\u4f5c\u5168\u6d41\u7a0b\u6574\u5408\u5230\u4e00\u4e2a\u5f3a\u5927\u7684\u5e73\u53f0\u4e2d\u3002\u4ece\u5267\u672c\u521b\u4f5c\u5230\u89c6\u9891\u5236\u4f5c\uff0c\u6211\u4eec\u7684AI\u5de5\u5177\u5e2e\u52a9\u521b\u4f5c\u8005\u66f4\u5feb\u5730\u5c06\u6545\u4e8b\u53d8\u4e3a\u73b0\u5b9e\u3002  \u6838\u5fc3\u4f18\u52bf\uff1a  \ud83c\udfaf \u4e00\u7ad9\u5f0f\u89e3\u51b3\u65b9\u6848 - \u5267\u672c\u3001\u5206\u955c\u3001\u56fe\u50cf\u3001\u89c6\u9891\u4e00\u7ad9\u5f0f\u5b8c\u6210 \ud83e\udd16 AI\u9a71\u52a8 - \u667a\u80fd\u89e3\u6790\u3001\u751f\u6210\u548c\u4f18\u5316 \u26a1 \u6781\u901f\u521b\u4f5c - \u79d2\u7ea7\u751f\u6210\u5206\u955c\uff0c\u544a\u522b\u7e41\u7410\u5de5\u4f5c \ud83c\udfa8 \u4e13\u4e1a\u54c1\u8d28 - \u7535\u5f71\u7ea7\u8f93\u51fa\u8d28\u91cf"
@@ -127717,6 +127792,11 @@
       "name": "paddlepaddle--graphnet",
       "source": "./paddlepaddle--graphnet",
       "description": "GraphNet"
+    },
+    {
+      "name": "query-farm--shellfs",
+      "source": "./query-farm--shellfs",
+      "description": "shellfs"
     },
     {
       "name": "nickcirv--engram",
@@ -130184,6 +130264,11 @@
       "description": "ai900"
     },
     {
+      "name": "http4k--examples",
+      "source": "./http4k--examples",
+      "description": "examples"
+    },
+    {
       "name": "sugarforever--01coder-agent-skills",
       "source": "./sugarforever--01coder-agent-skills",
       "description": "01coder-agent-skills"
@@ -130892,6 +130977,11 @@
       "name": "liuzhengdongfortest--ma",
       "source": "./liuzhengdongfortest--ma",
       "description": "MA"
+    },
+    {
+      "name": "openshift-online--ocm-cli",
+      "source": "./openshift-online--ocm-cli",
+      "description": "ocm-cli"
     },
     {
       "name": "jjongguet--oh-my-product",
@@ -132959,6 +133049,11 @@
       "description": "EODHD-APIs-Python-Financial-Library"
     },
     {
+      "name": "nizos--probity",
+      "source": "./nizos--probity",
+      "description": "probity"
+    },
+    {
       "name": "cohen-liel--hivemind",
       "source": "./cohen-liel--hivemind",
       "description": "One prompt. A full AI engineering team. Go lie on the couch. \ud83e\udde0"
@@ -133592,6 +133687,11 @@
       "name": "agustinusnathaniel--vite-react-tailwind-starter",
       "source": "./agustinusnathaniel--vite-react-tailwind-starter",
       "description": "vite-react-tailwind-starter"
+    },
+    {
+      "name": "kuadrant--limitador",
+      "source": "./kuadrant--limitador",
+      "description": "limitador"
     },
     {
       "name": "mag123c--toktrack",
@@ -134417,6 +134517,31 @@
       "name": "sylius--pluginskeleton",
       "source": "./sylius--pluginskeleton",
       "description": "PluginSkeleton"
+    },
+    {
+      "name": "databricks--zerobus-sdk",
+      "source": "./databricks--zerobus-sdk",
+      "description": "zerobus-sdk"
+    },
+    {
+      "name": "databricks--zerobus-sdk",
+      "source": "./databricks--zerobus-sdk",
+      "description": "zerobus-sdk"
+    },
+    {
+      "name": "databricks--zerobus-sdk",
+      "source": "./databricks--zerobus-sdk",
+      "description": "zerobus-sdk"
+    },
+    {
+      "name": "databricks--zerobus-sdk",
+      "source": "./databricks--zerobus-sdk",
+      "description": "zerobus-sdk"
+    },
+    {
+      "name": "databricks--zerobus-sdk",
+      "source": "./databricks--zerobus-sdk",
+      "description": "zerobus-sdk"
     },
     {
       "name": "kulterryan--who-to-bother-at-on-x",
@@ -136969,6 +137094,11 @@
       "description": "mobius"
     },
     {
+      "name": "mmacpherson--tenforty",
+      "source": "./mmacpherson--tenforty",
+      "description": "tenforty"
+    },
+    {
       "name": "dotnet--maui-labs",
       "source": "./dotnet--maui-labs",
       "description": "Experimental and pre-release tools for .NET MAUI"
@@ -138634,6 +138764,11 @@
       "description": "czan"
     },
     {
+      "name": "sgt-imalas--sgt-imalas-oni-mods",
+      "source": "./sgt-imalas--sgt-imalas-oni-mods",
+      "description": "Sgt_Imalas-Oni-Mods"
+    },
+    {
       "name": "keep-starknet-strange--starknet-agentic",
       "source": "./keep-starknet-strange--starknet-agentic",
       "description": "Smart contracts, tools, and skills for AI agents that transact on Starknet"
@@ -139312,6 +139447,11 @@
       "name": "wjmelements--evm",
       "source": "./wjmelements--evm",
       "description": "evm"
+    },
+    {
+      "name": "open-guji--luatex-cn",
+      "source": "./open-guji--luatex-cn",
+      "description": "luatex-cn"
     },
     {
       "name": "alibaba--opc-starter",
@@ -140219,6 +140359,11 @@
       "description": "pekko-connectors"
     },
     {
+      "name": "ethpandaops--spamoor",
+      "source": "./ethpandaops--spamoor",
+      "description": "spamoor"
+    },
+    {
       "name": "m1zz--higlab",
       "source": "./m1zz--higlab",
       "description": "HIGLab"
@@ -141002,6 +141147,11 @@
       "name": "liferay-design--liferay-design",
       "source": "./liferay-design--liferay-design",
       "description": "liferay.design"
+    },
+    {
+      "name": "hastehealth--hastehealth",
+      "source": "./hastehealth--hastehealth",
+      "description": "HasteHealth"
     },
     {
       "name": "edisonwong520--wanny",
@@ -147494,6 +147644,11 @@
       "description": "openclaw-appplatform"
     },
     {
+      "name": "chaynhq--bloom-frontend",
+      "source": "./chaynhq--bloom-frontend",
+      "description": "bloom-frontend"
+    },
+    {
       "name": "dceoy--speckit-agent-skills",
       "source": "./dceoy--speckit-agent-skills",
       "description": "Agent skills for Spec Kit"
@@ -148317,6 +148472,11 @@
       "name": "ai21labs--ai21-python",
       "source": "./ai21labs--ai21-python",
       "description": "ai21-python"
+    },
+    {
+      "name": "raspiblitz--raspiblitz-web",
+      "source": "./raspiblitz--raspiblitz-web",
+      "description": "raspiblitz-web"
     },
     {
       "name": "aelf-hzz780--ai-bounty-skill",
@@ -150422,6 +150582,31 @@
       "name": "eschnou--opengpa",
       "source": "./eschnou--opengpa",
       "description": "OpenGPA"
+    },
+    {
+      "name": "gtapps--claude-code-hermit",
+      "source": "./gtapps--claude-code-hermit",
+      "description": "claude-code-hermit"
+    },
+    {
+      "name": "gtapps--claude-code-hermit",
+      "source": "./gtapps--claude-code-hermit",
+      "description": "claude-code-hermit"
+    },
+    {
+      "name": "gtapps--claude-code-hermit",
+      "source": "./gtapps--claude-code-hermit",
+      "description": "claude-code-hermit"
+    },
+    {
+      "name": "gtapps--claude-code-hermit",
+      "source": "./gtapps--claude-code-hermit",
+      "description": "claude-code-hermit"
+    },
+    {
+      "name": "gtapps--claude-code-hermit",
+      "source": "./gtapps--claude-code-hermit",
+      "description": "claude-code-hermit"
     },
     {
       "name": "knowsuchagency--fulcrum",
@@ -152554,6 +152739,11 @@
       "description": "claude-code-synthesis"
     },
     {
+      "name": "dkorunic--e-dnevnik-bot",
+      "source": "./dkorunic--e-dnevnik-bot",
+      "description": "e-dnevnik-bot"
+    },
+    {
       "name": "chongdashu--phaserjs-oakwoods",
       "source": "./chongdashu--phaserjs-oakwoods",
       "description": "A vibe coded implementation of an RPG platformer"
@@ -153747,6 +153937,16 @@
       "name": "otiai10--lookpath",
       "source": "./otiai10--lookpath",
       "description": "lookpath"
+    },
+    {
+      "name": "davraamides--todotxt-mode",
+      "source": "./davraamides--todotxt-mode",
+      "description": "todotxt-mode"
+    },
+    {
+      "name": "dkorunic--findlargedir",
+      "source": "./dkorunic--findlargedir",
+      "description": "findlargedir"
     },
     {
       "name": "dykyi-roman--awesome-claude-code",
@@ -160217,6 +160417,291 @@
       "name": "vicnaum--shinode",
       "source": "./vicnaum--shinode",
       "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "joserzapata--data-science-project-template",
+      "source": "./joserzapata--data-science-project-template",
+      "description": "data-science-project-template"
     },
     {
       "name": "vicnaum--shinode",
@@ -168622,6 +169107,11 @@
       "name": "viperjuice--code-index-mcp",
       "source": "./viperjuice--code-index-mcp",
       "description": "Code-Index-MCP"
+    },
+    {
+      "name": "avelikiy--great-cto",
+      "source": "./avelikiy--great-cto",
+      "description": "great_cto"
     },
     {
       "name": "anhtester--antigravity-testing-kit",
@@ -205239,6 +205729,11 @@
       "description": "beignet"
     },
     {
+      "name": "commontoolsinc--labs",
+      "source": "./commontoolsinc--labs",
+      "description": "labs"
+    },
+    {
       "name": "affitor--open-affiliate",
       "source": "./affitor--open-affiliate",
       "description": "The open registry of affiliate programs. Built for developers and AI agents."
@@ -207567,6 +208062,36 @@
       "name": "kaeawc--auto-mobile",
       "source": "./kaeawc--auto-mobile",
       "description": "auto-mobile"
+    },
+    {
+      "name": "astronomy-commons--hats",
+      "source": "./astronomy-commons--hats",
+      "description": "hats"
+    },
+    {
+      "name": "cobaltdb--cobaltdb",
+      "source": "./cobaltdb--cobaltdb",
+      "description": "cobaltdb"
+    },
+    {
+      "name": "seethroughlab--familiar",
+      "source": "./seethroughlab--familiar",
+      "description": "familiar"
+    },
+    {
+      "name": "seethroughlab--familiar",
+      "source": "./seethroughlab--familiar",
+      "description": "familiar"
+    },
+    {
+      "name": "seethroughlab--familiar",
+      "source": "./seethroughlab--familiar",
+      "description": "familiar"
+    },
+    {
+      "name": "seethroughlab--familiar",
+      "source": "./seethroughlab--familiar",
+      "description": "familiar"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -210724,6 +211249,21 @@
       "description": "ngx-barcode6"
     },
     {
+      "name": "go-openapi--analysis",
+      "source": "./go-openapi--analysis",
+      "description": "analysis"
+    },
+    {
+      "name": "ugcs--geohammer",
+      "source": "./ugcs--geohammer",
+      "description": "GeoHammer"
+    },
+    {
+      "name": "openwatersio--neaps",
+      "source": "./openwatersio--neaps",
+      "description": "neaps"
+    },
+    {
       "name": "r44vc0rp--itui",
       "source": "./r44vc0rp--itui",
       "description": "itui"
@@ -213492,6 +214032,11 @@
       "name": "cyclopsmc--iconexporter",
       "source": "./cyclopsmc--iconexporter",
       "description": "IconExporter"
+    },
+    {
+      "name": "proto-graphql--proto-graphql-js",
+      "source": "./proto-graphql--proto-graphql-js",
+      "description": "proto-graphql-js"
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -219044,6 +219589,11 @@
       "description": "stupid-simple-s3"
     },
     {
+      "name": "symfony--ai-agent",
+      "source": "./symfony--ai-agent",
+      "description": "ai-agent"
+    },
+    {
       "name": "inureyes--gyeol",
       "source": "./inureyes--gyeol",
       "description": "gyeol"
@@ -221847,6 +222397,16 @@
       "name": "symfony--ai-bundle",
       "source": "./symfony--ai-bundle",
       "description": "ai-bundle"
+    },
+    {
+      "name": "alxndrkalinin--cubic",
+      "source": "./alxndrkalinin--cubic",
+      "description": "cubic"
+    },
+    {
+      "name": "be-hase--kuery-client",
+      "source": "./be-hase--kuery-client",
+      "description": "kuery-client"
     },
     {
       "name": "compozy--kb",
