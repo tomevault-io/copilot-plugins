@@ -1,0 +1,9 @@
+{
+  "name": "datadog--datadog-lambda-extension",
+  "displayName": "datadog-lambda-extension",
+  "description": "datadog-lambda-extension",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/datadog-lambda-extension",
+  "skills": []
+}
