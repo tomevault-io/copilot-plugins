@@ -1,0 +1,9 @@
+{
+  "name": "uebelack--bug-bounty-hunting-ai",
+  "displayName": "bug-bounty-hunting-ai",
+  "description": "Demo code and presentation materials for the talk \"Bug Bounty Hunting with AI Agents\" at Basel One 2025.",
+  "version": "1.0.0",
+  "author": "uebelack",
+  "homepage": "https://github.com/uebelack/bug-bounty-hunting-ai",
+  "skills": []
+}
