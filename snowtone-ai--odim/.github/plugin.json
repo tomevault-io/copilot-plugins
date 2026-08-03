@@ -1,0 +1,9 @@
+{
+  "name": "snowtone-ai--odim",
+  "displayName": "odim",
+  "description": "Reality gap analyzer \u2014 scrapes signals across 7 layers (finance, job postings, patents, OSS, social) and detects discrepancies vs corporate narrative using Evidence GraphRAG + Gemini.",
+  "version": "1.0.0",
+  "author": "snowtone-ai",
+  "homepage": "https://github.com/snowtone-ai/odim",
+  "skills": []
+}
