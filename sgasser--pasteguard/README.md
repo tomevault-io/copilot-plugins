@@ -1,17 +1,15 @@
 # pasteguard
 
-> Source: [sgasser/pasteguard](https://github.com/sgasser/pasteguard) — distributed by [TomeVault](https://tomevault.io)
-
-AI gets the context. Not your secrets. Open-source privacy proxy for LLMs.
+> Source: [sgasser/pasteguard](https://github.com/sgasser/pasteguard). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sgasser/pasteguard](https://github.com/sgasser/pasteguard).
+Original source: `AGENTS.md` in [sgasser/pasteguard](https://github.com/sgasser/pasteguard).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-p -->
