@@ -1,0 +1,9 @@
+{
+  "name": "saiki77--easy-git",
+  "displayName": "Easy-Git",
+  "description": "Sync Obsidian vault folders with GitHub repositories. Private repos, multiple folder mappings, bidirectional sync, conflict resolution.",
+  "version": "1.0.0",
+  "author": "Saiki77",
+  "homepage": "https://github.com/Saiki77/Easy-Git",
+  "skills": []
+}
