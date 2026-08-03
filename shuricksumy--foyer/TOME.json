@@ -1,0 +1,44 @@
+{
+  "name": "foyer",
+  "owner": "shuricksumy",
+  "repo": "foyer",
+  "description": "Config-driven homelab start page \u2014 sidebar of self-hosted services that load into an in-page pane, no build step, everything driven by YAML",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shuricksumy/foyer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-03T11:06:02Z"
+}
