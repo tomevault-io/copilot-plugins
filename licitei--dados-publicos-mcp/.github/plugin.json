@@ -1,0 +1,9 @@
+{
+  "name": "licitei--dados-publicos-mcp",
+  "displayName": "dados-publicos-mcp",
+  "description": "Servidor MCP local-first para consultar legisla\u00e7\u00e3o, compras p\u00fablicas e dados p\u00fablicos brasileiros.",
+  "version": "1.0.0",
+  "author": "Licitei",
+  "homepage": "https://github.com/Licitei/dados-publicos-mcp",
+  "skills": []
+}
