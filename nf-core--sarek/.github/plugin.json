@@ -1,0 +1,9 @@
+{
+  "name": "nf-core--sarek",
+  "displayName": "sarek",
+  "description": "sarek",
+  "version": "1.0.0",
+  "author": "nf-core",
+  "homepage": "https://github.com/nf-core/sarek",
+  "skills": []
+}
