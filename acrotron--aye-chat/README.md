@@ -1,8 +1,6 @@
 # aye-chat
 
-> Source: [acrotron/aye-chat](https://github.com/acrotron/aye-chat) — distributed by [TomeVault](https://tomevault.io)
-
-Aye Chat: AI-powered terminal workspace
+> Source: [acrotron/aye-chat](https://github.com/acrotron/aye-chat). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
