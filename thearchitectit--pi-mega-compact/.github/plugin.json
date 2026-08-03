@@ -1,0 +1,9 @@
+{
+  "name": "thearchitectit--pi-mega-compact",
+  "displayName": "pi-mega-compact",
+  "description": "Layered, local, vector-backed context compressor for the pi coding agent (extension, no remote server).",
+  "version": "1.0.0",
+  "author": "TheArchitectit",
+  "homepage": "https://github.com/TheArchitectit/pi-mega-compact",
+  "skills": []
+}
