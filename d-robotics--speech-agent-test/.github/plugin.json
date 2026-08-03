@@ -1,0 +1,9 @@
+{
+  "name": "d-robotics--speech-agent-test",
+  "displayName": "speech_agent_test",
+  "description": "A test script for the speech_agent that integrates module testing and generates reports.",
+  "version": "1.0.0",
+  "author": "D-Robotics",
+  "homepage": "https://github.com/D-Robotics/speech_agent_test",
+  "skills": []
+}
