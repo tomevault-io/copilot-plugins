@@ -1,0 +1,9 @@
+{
+  "name": "digoal--claude-handbook",
+  "displayName": "claude-handbook",
+  "description": "Claude Code CLI Handbook",
+  "version": "1.0.0",
+  "author": "digoal",
+  "homepage": "https://github.com/digoal/claude-handbook",
+  "skills": []
+}
