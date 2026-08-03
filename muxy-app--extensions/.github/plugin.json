@@ -1,0 +1,9 @@
+{
+  "name": "muxy-app--extensions",
+  "displayName": "extensions",
+  "description": "Muxy Extensions",
+  "version": "1.0.0",
+  "author": "muxy-app",
+  "homepage": "https://github.com/muxy-app/extensions",
+  "skills": []
+}
