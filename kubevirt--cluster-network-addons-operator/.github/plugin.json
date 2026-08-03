@@ -1,0 +1,9 @@
+{
+  "name": "kubevirt--cluster-network-addons-operator",
+  "displayName": "cluster-network-addons-operator",
+  "description": "cluster-network-addons-operator",
+  "version": "1.0.0",
+  "author": "kubevirt",
+  "homepage": "https://github.com/kubevirt/cluster-network-addons-operator",
+  "skills": []
+}
