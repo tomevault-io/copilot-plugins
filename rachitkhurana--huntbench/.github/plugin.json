@@ -1,0 +1,9 @@
+{
+  "name": "rachitkhurana--huntbench",
+  "displayName": "huntbench",
+  "description": "Your job hunt as mission control \u2014 a zero-dependency, agent-native job-search toolkit + local dashboard, driven by your own coding agent (Claude Code / Codex / Cursor).",
+  "version": "1.0.0",
+  "author": "rachitkhurana",
+  "homepage": "https://github.com/rachitkhurana/huntbench",
+  "skills": []
+}
