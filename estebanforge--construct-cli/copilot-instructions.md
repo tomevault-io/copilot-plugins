@@ -1,82 +1,38 @@
 ## construct-cli
 
-> - Build: `make build` (outputs `bin/construct`, unsigned local build)
+> You are running inside **The Construct**, a secure, isolated Linux sandbox (Debian-based).
 
-# AGENTS.md
+# Construct Sandbox Environment - Agent Instructions
 
-## Build & Test
-- Build: `make build` (outputs `bin/construct`, unsigned local build)
-- Sign (optional, macOS): `make sign` or `make build-signed`
-- Lint: `make lint` (golangci-lint)
-- Full checks: `make check` or `./scripts/checks.sh` (`fmt -> vet -> lint -> test -> build`)
-- CI alias: `make ci` (same as `make check`)
-- Test: `make test` (`go mod download`, `go mod verify`, then `go test ./...`; `-race` when CGO is enabled)
-- Unit only: `make test-unit` or `go test ./internal/...`
-- Integration only: `make test-integration`
-- Single test: `go test -run TestName ./internal/path/...`
-- Single package: `go test -v ./internal/config`
-- Coverage: `make test-coverage` (outputs `coverage.html`)
+You are running inside **The Construct**, a secure, isolated Linux sandbox (Debian-based).
 
-## Code Style
-- Format: `make fmt` (`go fmt ./...`, then `goimports -w .` if installed)
-- Naming: MixedCaps (no underscores), Uppercase=exported, lowercase=unexported
-- Errors: Always check, use `fmt.Errorf("context: %w", err)` for wrapping
-- Comments: `// Package name` at top, godoc for exported funcs
-- Interfaces: Single-method interfaces end with `-er` suffix
-- Testing: `TestXxx` funcs, `BenchmarkXxx` for benches
-- Line length: No limit, let `gofmt` wrap
+## 1. Environment Context
+- **Isolation**: You are NOT running directly on the user's host machine. You are in a container.
+- **Persistence**: Your home directory (`/home/construct`) and the tools installed via Homebrew/NPM are persistent across sessions.
+- **Projects**: The user's project code is typically mounted at `/workspaces/<hash>/` (in daemon mode) or `/projects/<folder_name>/`.
+- **Operating System**: Linux (regardless of whether the host is macOS or Windows).
 
-## PATH Construction
-- PATH is hardcoded and must be kept in sync across these files:
-- `internal/env/env.go` (BuildConstructPath)
-- `internal/templates/entrypoint.sh`
-- `internal/templates/docker-compose.yml`
-- `internal/templates/Dockerfile`
+## 2. Path Mapping & File Access
+- **Host vs. Sandbox Paths**: If the user provides an absolute host path (e.g., starting with `/Users/`, `/home/`, or `C:\`), you MUST translate it to the corresponding path you see in `/workspaces/` or `/projects/`.
+- **Clipboard Images**: When the user pastes an image, the system fetches it from the host and saves it as a local file (e.g., `.construct-clipboard/clipboard-123.png`). You will see this path injected into your input.
 
-## Version Bumping
-- **NEVER** modify the `VERSION` file - it's managed by GitHub Actions
-- **NEVER** modify the `VERSION-BETA` file manually - it's managed by GitHub Actions for prereleases
-- When asked to bump version: update `internal/constants/constants.go` only
-- When asked to add CHANGELOG entry: add new section with current version from constants.go
-- `VERSION` is updated by release workflow for stable tags (e.g. `1.3.8`)
-- `VERSION-BETA` is updated by release workflow for prerelease tags (e.g. `1.3.9-beta.1`)
-- Version strings and release tags are plain semver/prerelease values with **no** `v` prefix (use `1.4.0-beta.3`, never `v1.4.0-beta.3`)
-- Keep `internal/constants/constants.go` version exactly aligned with the tag being released (stable or prerelease), or `make release` fails `check-version`
-- Stable users track `VERSION`; beta users track `VERSION-BETA` when `runtime.update_channel = "beta"`
+## 3. Communication Protocol
+- **External Info**: If you need information that is not available inside the sandbox (e.g., host system configuration, hardware details, or files outside the mounted project), you MUST ask the user to provide it or run a command to fetch it.
+- **Permissions**: You have `sudo` access inside this sandbox, but it does not grant you permissions on the host machine.
+- **Security**: Do not attempt to "break out" of the sandbox. If you encounter network restrictions, explain them to the user so they can adjust the `construct network` settings.
 
-## Adding/Removing CLI Agents
+## 4. Installed Tools
+The environment is pre-loaded with a modern toolchain (Go, Rust, Node.js, Python, etc.) via Homebrew. If a tool is missing, you can suggest the user add it to their `packages.toml`.
 
-### Adding an Agent
-1. Add package to `internal/templates/packages.toml` under the correct section (`[npm]`, `[bun]`, or `[brew]`).
-2. Register agent mount in `internal/agent/agent.go` (Name, Slug, ConfigPath).
-3. Register AGENTS.md rules path in `internal/sys/memories.go` and update `internal/sys/memories_test.go` (bump count + add assertion).
-4. Add slug to the available agents list in `internal/ui/help.go`.
-5. Add slug to post-update verification loop in `internal/templates/update-all.sh`.
-6. Add slug to post-install verification loop in `internal/config/packages.go` (`GenerateInstallScript`).
-7. Update docs:
-   - `README.md` — "Available AGENTS" list + yolo_agents comment.
-   - `docs/ARCHITECTURE-DESIGN.md` — Section 5 agent list.
-   - `AGENTS.md` — Agent Additions Log (below).
-8. If the agent needs setup commands, add them in `[post_install].commands` in `internal/templates/packages.toml`.
-9. If the agent requires first-run setup that should not be automated, gate the run in `internal/agent/runner.go` and use a marker file under Construct home (e.g., `~/.config/<agent>/.construct_configured`) to prompt once and record completion.
+### Host-Proxied Binaries
+The user may have configured certain binaries to run **on the host machine** when you invoke them, rather than inside the sandbox. These appear on your PATH like any normal tool, but a shim transparently proxies each call to a host-side bridge.
 
-### Removing an Agent
-Reverse the steps above: remove the package from `packages.toml`, unregister from `agent.go`, remove from `memories.go` + test, remove from `help.go`, remove from both verification loops (`update-all.sh` and `packages.go`), and remove from docs (`README.md`, `ARCHITECTURE-DESIGN.md`). Add a removal note to the Agent Additions Log.
-
-## Agent Additions Log
-- Kilo Code CLI
-  - Command: `npm install -g @kilocode/cli` (run as `kilocode`)
-  - Rules path: `~/.kilocode/rules/AGENTS.md`
-  - Files updated: `internal/templates/packages.toml`, `internal/agent/agent.go`, `internal/sys/memories.go`, `internal/sys/memories_test.go`, `internal/ui/help.go`, `README.md`
-- Oh My Pi
-  - Command: `bun install -g @oh-my-pi/pi-coding-agent` (run as `omp`)
-  - Rules path: `~/.omp/agent/AGENTS.md`
-  - Files updated: `internal/templates/packages.toml`, `internal/agent/agent.go`, `internal/sys/memories.go`, `internal/sys/memories_test.go`, `internal/ui/help.go`, `README.md`, `docs/ARCHITECTURE-DESIGN.md`
-- Crush CLI
-  - Command: `npm install -g @charmland/crush` (run as `crush`)
-  - Rules path: `~/.config/crush/AGENTS.md`
-  - Files updated: `internal/templates/packages.toml`, `internal/agent/agent.go`, `internal/sys/memories.go`, `internal/sys/memories_test.go`, `internal/ui/help.go`, `internal/templates/update-all.sh`, `internal/config/packages.go`, `internal/agent/runner.go`, `internal/templates/config.toml`, `README.md`, `docs/ARCHITECTURE-DESIGN.md`
+- **How to tell**: check `$CONSTRUCT_HOST_BINARIES` (comma-separated list of proxied names).
+- **Behavior**: invoking any of these runs the real binary on the host, as the user's own account, with your argv passed through verbatim. Output streams back normally; exit codes are preserved.
+- **Non-interactive only**: there is no controlling terminal/PTY. Pipe stdin (one-shot) works; interactive prompts do not. Many CLIs offer a `--no-interactive` / `--json` / `--yes` flag for scripted use — pass it.
+- **Security note for the user (not you)**: each proxied binary runs on the host with container-controlled argv. The allowlist is configured in `[sandbox] host_binaries` in `config.toml`. See `docs/HOST-EXEC.md`.
+- **If a proxied binary exits 126**: the host bridge was unreachable or misconfigured. Tell the user to run `construct build` (the shim must be baked into the image) and check `~/.config/construct-cli/logs/host_exec.log` on the host.
 
 ---
 > Source: [EstebanForge/construct-cli](https://github.com/EstebanForge/construct-cli) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
