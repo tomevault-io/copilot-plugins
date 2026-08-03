@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cluster-node-tuning-operator",
+  "displayName": "cluster-node-tuning-operator",
+  "description": "cluster-node-tuning-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cluster-node-tuning-operator",
+  "skills": []
+}
