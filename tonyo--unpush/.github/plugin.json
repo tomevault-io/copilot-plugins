@@ -1,0 +1,9 @@
+{
+  "name": "tonyo--unpush",
+  "displayName": "unpush",
+  "description": "Continuous deployment service for Uncloud",
+  "version": "1.0.0",
+  "author": "tonyo",
+  "homepage": "https://github.com/tonyo/unpush",
+  "skills": []
+}
