@@ -1,0 +1,9 @@
+{
+  "name": "ddev--signing-tools",
+  "displayName": "signing_tools",
+  "description": "signing_tools",
+  "version": "1.0.0",
+  "author": "ddev",
+  "homepage": "https://github.com/ddev/signing_tools",
+  "skills": []
+}
