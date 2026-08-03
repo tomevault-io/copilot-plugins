@@ -1,8 +1,6 @@
 # create-fastapi-app
 
-> Tome by [JiayuXu0](https://github.com/JiayuXu0/create-fastapi-app) — distributed by [TomeVault](https://tomevault.io)
-
-企业级 FastAPI 项目生成器。基于 Cookiecutter，一键创建包含 JWT 认证、RBAC 权限、三层架构的生产就绪 FastAPI 项目。Enterprise FastAPI project generator. One-click creation of production-ready FastAPI projects with JWT auth, RBAC, and clean architecture via Cookiecutter.
+> Tome by [JiayuXu0](https://github.com/JiayuXu0/create-fastapi-app), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `CLAUDE.md` in [JiayuXu0/create-fastapi-app](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/JiayuXu0/create-fastapi-app](https://github.com/JiayuXu0/create-fastapi-app)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/JiayuXu0/create-fastapi-app](https://github.com/JiayuXu0/create-fastapi-app)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-q -->
