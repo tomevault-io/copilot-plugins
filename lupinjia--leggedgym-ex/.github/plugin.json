@@ -1,7 +1,7 @@
 {
   "name": "lupinjia--leggedgym-ex",
   "displayName": "LeggedGym-Ex",
-  "description": "Legged Robot environments for reinforcement learning in Multiple Simulators",
+  "description": "LeggedGym-Ex",
   "version": "1.0.0",
   "author": "lupinjia",
   "homepage": "https://github.com/lupinjia/LeggedGym-Ex",
