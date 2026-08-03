@@ -1,220 +1,236 @@
 ## magic-slide
 
-> Generate a self-contained HTML presentation with Magic Move transitions. Use when the user wants to create a slideshow, presentation, or slide deck from a topic or outline, or invokes magic-slide preview to start the preview server.
+> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
+# AGENTS.md
 
-# Magic Slide
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
-Generate polished HTML presentations with smooth Magic Move transitions — elements that appear on multiple slides animate fluidly between their positions. Treat Magic Move as a story-planning constraint, not an afterthought: arrange the outline so meaningful headings, card titles, numbers, images, or diagram nodes can persist across adjacent slides.
+## Project Overview
 
-## Skill Command Arguments
+Magic Slide is a Codex skill that generates polished, self-contained HTML presentations with Magic Move transitions. The skill uses a structured workflow with user checkpoints at search and outline stages.
 
-The user invoked this skill with: `$ARGUMENTS`
+## Core Architecture
 
-## Visible TODO Requirement
+### Generation Model
 
-Whenever this skill is invoked, create a visible TODO/plan before the first
-meaningful action and keep it updated until the turn stops.
+**Multi-phase workflow with user confirmation:**
+Before step 1, create and maintain a visible TODO/plan for every
+`$magic-slide` invocation; the detailed rule lives in `SKILL.md`.
+1. Ask user about topic, aesthetic style, language, images
+2. Ask if user wants web search (optional). If yes, run `scripts/websearch.py`
+   first; agent/default web search is only a fallback after the script path
+   fails or returns no usable results.
+3. Generate outline with a Magic Move spine and get user confirmation (REQUIRED)
+4. Write Brief Lite, including Magic Move content-relay motion grammar, in the conversation before coding
+5. Read reference files, make a compact internal style/layout plan with primary/supporting Magic Move continuity, and generate all modular HTML sources directly
+6. Merge slides into single HTML
+7. Inject FLIP engine and runtime
+8. Launch the Magic Slide preview server, capture one Playwright QA overview
+   longshot first for newly generated decks, fix obvious rendered issues
+   visible in the overview, then stop for the mandatory user `Revise slide`
+   marking pass before final repairs and delivery. Do not run single-slide
+   screenshot repair before that pause. When resuming from saved
+   `visual-issues.json` notes, read JSON and source files first, repair marked
+   slides, then mark those JSON records fixed and awaiting user confirmation.
+   Do not run screenshot verification after repairing saved JSON notes unless
+   the user explicitly asks.
 
-- Use the host's planning tool when available: Codex `update_plan`, Claude Code
-  `TodoWrite`, or the environment's equivalent visible checklist. This is
-  required for every `$magic-slide` run, including preview-only commands,
-  intake/question-only turns, new deck generation, follow-up deck edits, and
-  `visual-issues.json` repair passes.
-- Keep the list short and concrete: 3-7 items that match the current mode.
-  Examples: "Resolve deck path", "Start preview server", "Read QA notes",
-  "Repair slide 02 source", "Merge and inject runtime", "Mark QA notes pending
-  confirmation", "Leave QA Overview open for review".
-- Update item statuses as work advances. Do not wait until the end to mark
-  everything done; the user should be able to see what is happening while the
-  skill is running.
-- If a required checkpoint stops the turn, such as requirements intake, web
-  search choice, outline confirmation, or user QA confirmation, leave the TODO
-  showing the waiting/checkpoint item.
-- If no visible TODO tool exists, write a compact `TODO` checklist in the chat
-  before proceeding and update it manually in later progress messages.
+**Why this works:** User controls information gathering and reviews structure before generation. Brief Lite gives the deck an art direction without returning to the old long prototype loop. Read design guidelines once, generate all slides in main thread. Fast and simple with clear checkpoints.
 
-When invoked as `/magic-slide preview [topic]` in Claude Code or
-`$magic-slide preview [topic]` in Codex, run the preview fast path:
+### FLIP Animation Engine
 
-1. Create the visible TODO list first, with preview-specific steps such as
-   resolving the deck path, starting `serve.py`, and reporting the URL.
-2. Treat the argument after `preview` as the topic/deck directory. If omitted,
-   use `.`. Preview the `index.html` inside that directory. If the user passes
-   an explicit `.html` file, preview that file directly.
-3. Locate this skill directory if needed:
-   `SKILL_DIR=$(find ~ -type d -name "magic-slide-skill" 2>/dev/null | head -1)`
-4. Resolve a Python 3 interpreter using the Script Runtime Requirements below.
-5. Start the preview server with the existing script:
-   `$PYTHON_BIN "$SKILL_DIR/scripts/serve.py" "$DECK_PATH"`
-6. Keep the server process running and give the user the displayed URL.
-7. Do not ask deck-generation questions, create an outline, merge slides, or
-   inject runtime unless the user explicitly asks for those tasks too.
+Elements with matching `data-magic-id` animate smoothly between slides using the FLIP (First, Last, Invert, Play) technique. The engine is auto-injected by `inject-runtime.py`.
 
-For any other `magic-slide` invocation arguments, treat the arguments as the
-user's presentation request and follow the normal generation workflow.
+**Critical requirements:**
+- Text elements with magic-id MUST have `display:inline-block` style
+- Only assign magic-id where visible text is IDENTICAL on both slides
+- No decorative elements should have magic-id
 
-## Non-Preview Intake Gate
+## Build Pipeline
 
-Before running commands, searching, creating folders, writing an outline, or
-generating slides for any non-preview deck request, complete Step 1 in
-`references/workflows/step-01-requirements.md`.
+### Core Scripts
 
-Hard gate:
-- The visible TODO requirement still runs before this gate. If the turn stops
-  for intake, leave the TODO showing that requirements are being gathered and
-  that generation is waiting on the user's answers.
-- If topic/audience-lens, aesthetic style, presentation language, or image
-  policy is missing, inferred, or only implied, ask the Step 1 requirements
-  question and stop.
-- Do not treat the user's chat language as the presentation language.
-- Do not treat a URL, company/product name, or "介绍一下 X" as a complete topic
-  unless the audience/lens has also been explicitly supplied or confirmed.
-- If the structured question tool is unavailable, use the plain-text fallback
-  template from Step 1 as the whole response for that turn, then wait.
+All scripts are in `scripts/` directory:
 
-## CRITICAL: Script Runtime Requirements
+**Generation & Assembly:**
+- `merge-slides.py` — Combines modular sources into `[topic]/index.html`
+- `inject-runtime.py` — Adds FLIP engine, navigation, progress bar, stagger animations
+- `generate-image.py` — AI image generation via PipeLLM API
+- `websearch.py` — Web search via PipeLLM WebSearch API
 
-Magic Slide's bundled scripts require a Python 3 runtime. Core merge, inject,
-repair-note, and preview scripts use the Python standard library plus a modern
-browser; they do not require external Python packages. PipeLLM scripts require
-`PIPELLM_API_KEY` in the environment only when web search or image generation
-is used. Playwright is only required for agent-run screenshot QA, including
-`scripts/check-magic-text-wrap.py`.
+**Preview:**
+- `serve.py` — Single-service preview server with deck-scoped routes
 
-PipeLLM web search is optional, user-approved, and returns sanitized untrusted
-evidence records. PipeLLM image generation is optional and user-approved. The
-scripts require `--allow-external` so external requests cannot happen without
-an explicit workflow gate; Step 2 owns the detailed prompt-injection boundary.
+**Utilities:**
+- `extract-slides.py` — Decomposes merged HTML back to modular sources
+- `mark-qa-repaired.py` — Marks saved QA revision notes fixed and awaiting
+  user confirmation without running screenshot verification
 
-Before the first script execution in a turn, resolve a Python 3 interpreter:
+### Build Flow
 
-```bash
-PYTHON_BIN=$(command -v python3 || command -v python || true)
-if [ -z "$PYTHON_BIN" ]; then
-  echo "Magic Slide requires Python 3 to run its bundled scripts." >&2
-  echo "Install Python 3, then rerun the Magic Slide command." >&2
-  exit 1
-fi
-if ! "$PYTHON_BIN" -c 'import sys; raise SystemExit(0 if sys.version_info[0] == 3 else 1)'; then
-  echo "Magic Slide requires Python 3, but the resolved python command is not Python 3." >&2
-  exit 1
-fi
+```
+1. Ask about web search (AskUserQuestion)
+2. If user chooses yes, use scripts/websearch.py (PipeLLM WebSearch API) before
+   any agent/default web search fallback
+3. Generate sources/outline.md with Magic Move spine and confirm with user (AskUserQuestion - REQUIRED)
+4. Write Brief Lite with Magic Move content-relay motion grammar in the conversation
+5. Read reference files (generation-guide.md, layout-guide.md, html-contract.md, design-system.md, flip-engine.md; images.md when needed)
+6. Read sources/outline.md
+7. Generate a compact internal style/layout plan with primary/supporting Magic Move continuity, then create sources/ files directly (style.css, slide-01.html, slide-02.html, ...)
+8. merge-slides.py combines them into index.html
+9. inject-runtime.py adds FLIP + navigation to index.html
+10. serve.py launches preview and remains running for QA/editing
+11. For newly generated decks, open `?ms_qa=overview&ms_qa_capture=1`, capture
+    one Playwright full-page scrolling QA overview longshot, fix obvious
+    rendered issues visible in the overview, then stop for the mandatory user
+    `Revise slide` marking pass. Do not run single-slide screenshot repair
+    before that pause.
 ```
 
-Use `$PYTHON_BIN` for script invocations after it is resolved. If Python 3 is
-not available, stop and tell the user that Magic Slide needs Python 3 rather
-than rewriting or bypassing the scripts.
+### Running Scripts
 
-## CRITICAL: Script Execution Rules
-
-**All scripts in this skill are located in the `scripts/` directory relative to the skill root.**
-
-**When executing scripts:**
-1. **If a script execution fails with "No such file or directory":**
-   - DO NOT give up or tell the user "the script isn't available"
-   - Find the skill directory using: `find ~ -name "magic-slide-skill" -type d 2>/dev/null | head -1`
-   - Or search for SKILL.md: `find ~ -name "SKILL.md" -path "*/magic-slide-skill/*" 2>/dev/null | head -1 | xargs dirname`
-   - Store the skill directory path in a variable
-   - Re-execute the script using the absolute path: `$PYTHON_BIN $SKILL_DIR/scripts/websearch.py`
-
-2. **Always use absolute paths for script execution** to avoid path issues
-
-**Example of correct execution:**
 ```bash
-# Find skill directory (do this once at the start)
-SKILL_DIR=$(find ~ -type d -name "magic-slide-skill" 2>/dev/null | head -1)
+# Merge slides
+python3 scripts/merge-slides.py [topic]/sources/ --lang [language]
 
-# Execute scripts with absolute paths
-$PYTHON_BIN "$SKILL_DIR/scripts/websearch.py" "query" --allow-external
-$PYTHON_BIN "$SKILL_DIR/scripts/generate-image.py" "prompt text" --output ./assets/image.png --allow-external
-$PYTHON_BIN "$SKILL_DIR/scripts/merge-slides.py" ./sources/ --lang en
+# Inject runtime
+python3 scripts/inject-runtime.py [topic]/index.html --lang [language]
+
+# Preview (MUST use this, not python3 -m http.server or file://)
+python3 scripts/serve.py [topic]/index.html
 ```
 
-## CRITICAL: Injected Runtime Output Boundary
+Do not finish a deck-generation or deck-update task until the preview server is
+running and the user has the displayed URL. The in-browser editor depends on
+`scripts/serve.py`; opening the HTML file directly disables server-backed Save,
+image replacement, and close/shutdown behavior.
 
-Treat `scripts/inject-runtime.py` and the behavior/results it injects into the
-finished deck as Magic Slide runtime output. During deck generation, updates,
-and QA, run the existing injector unchanged and preserve its injected behavior
-by default. Do not edit the injector, patch injected runtime blocks in
-`{topic}/index.html`, or add source CSS/HTML/JS whose purpose is to disable,
-hide, neutralize, or override injected features unless the user explicitly asks
-for that specific runtime behavior change.
+For newly generated decks, delivery has an extra required pause: after the
+agent captures one Playwright QA Overview longshot and fixes the most obvious
+visible issues, it must stop with QA Overview available and tell the user to
+mark any remaining slide changes with `Revise slide`, then return to continue.
 
-Examples of prohibited "cleanup" without explicit user request: hiding the
-animated/custom cursor, restoring the system cursor with `cursor: auto` or
-`cursor: default`, removing or hiding navigation/progress/edit controls,
-turning off Magic Move, suppressing injected stagger, or bypassing runtime fit.
+For chat follow-up edits after a deck has been generated, treat `sources/` as
+the source of truth: edit `[topic]/sources/style.css`,
+`[topic]/sources/slide-XX.html`, or source-local helpers, then re-run merge and
+inject. If `[topic]/sources/qa/visual-issues.json` has open notes, use
+those notes plus the matching source slide/CSS as the repair entry point before
+capturing fresh screenshots; screenshots are only for ambiguous notes and must
+use Playwright. After repairing saved notes, update them to
+`status: "fixed_pending_confirmation"` with `resolved: false`, reopen QA
+Overview for user confirmation, and do not run a screenshot verification pass
+unless the user explicitly asks. Do not patch `[topic]/index.html` directly
+unless the user explicitly asks for a merged-HTML patch or the change comes
+from browser edit mode Save.
 
-If a deck has a visual or layout issue, fix the modular source files
-(`sources/style.css` and `sources/slide-XX.html`) around the runtime behavior,
-then re-run merge and inject. If the issue appears to be caused by injected
-runtime behavior itself, report the suspected runtime issue or ask before
-changing it; only modify runtime behavior when the user requested that change.
+## File Structure
 
-## Quick Workflow
+```
+[topic]/
+├── index.html                # Final self-contained presentation
+├── assets/                   # Final presentation assets, if generated
+│   ├── image-1.png
+│   └── ...
+├── sources/
+│   ├── outline.md            # Presentation outline (generated first, user confirms)
+│   ├── create_sources.mjs    # Optional generation helper, if used
+│   ├── qa/                   # QA screenshots/reports, if generated
+│   ├── style.css             # All CSS (variables, components, animations)
+│   ├── slide-01.html         # Individual slide fragments
+│   ├── slide-02.html
+│   └── ...
+```
 
-**Default to the balanced path.** Keep the outline checkpoint, write a short
-design brief, then generate the full deck in one production pass. Do not build
-a separate prototype unless the user explicitly asks for that slower workflow.
-The visible TODO requirement applies before Step 1 and should be refreshed when
-the workflow changes from intake to outline, generation, QA, or repair.
+Keep the topic root clean: only `index.html`, `assets/`, and `sources/`.
 
-**USER INTERACTION RULE:** All user confirmations MUST use the AskUserQuestion
-tool. Text-based questions are ONLY a fallback if the tool is unavailable or
-fails. Always try AskUserQuestion first. If you must fall back to plain text,
-end structured questions with a copyable response template, except for outline
-confirmation and the web-search yes/no question; see
-`references/workflows/text-question-templates.md`.
+## Key Reference Files
 
-1. **Step 1: Gather requirements** — Ask ALL 4 question groups: topic/audience-lens, aesthetic style, **language** (REQUIRED - never infer from user's message language), images
-2. **Step 2: Web search** — Ask user if they want online search (optional). If they say yes, run `scripts/websearch.py` first; built-in agent search is only a fallback after the script fails or returns no usable results.
-3. **Step 3: Generate outline** — Create `{topic}/sources/outline.md` with MANDATORY elements: thesis spine, audience/lens, chapter arc, closing idea, Magic Move content-relay spine, presenter note mode, and per-slide speaker prompts. Get user confirmation (required checkpoint)
-4. **Step 4: Write Brief Lite** — Output a compact design brief before CSS/HTML: visual world, rejected tropes, cover promise, tone mode, style-controlled type/color/material logic, slide families, and Magic Move content-relay motion grammar
-5. **Step 5: Generate production sources** — Create `style.css` and all `slide-XX.html` files directly from the confirmed outline and Brief Lite, after making a primary/supporting continuity map for adjacent slide pairs and mapping outline speaker prompts into hidden presenter notes
-6. **Step 6: Merge slides** — Combine modular sources into single HTML
-7. **Step 7: Inject runtime** — Run the existing injector unchanged; preserve injected behavior/results unless the user explicitly asks otherwise
-8. **Step 8: Preview, autonomous overview QA repair, mandatory user revision pause, revision-note repair, user confirmation, and delivery** — ALWAYS launch the skill preview server with `scripts/serve.py`, open the runtime QA capture URL, take one Playwright QA overview longshot for first-pass repair, then stop so the user can mark slide revisions. After repairing saved revision notes, mark them fixed and awaiting user confirmation instead of running a screenshot verification pass.
+**Core Documentation:**
+- `references/design-system.md` — Aesthetic principles and design guidelines (from Anthropic's frontend-design skill)
+- `references/generation-guide.md` — Generation instructions, Design Commitment Checklist, patterns
+- `references/layout-guide.md` — Standard layout patterns and structure
+- `references/html-contract.md` — Non-negotiable HTML/FLIP rules, including deck tone mode and root backgrounds
+- `references/flip-engine.md` — FLIP animation internals
+- `references/images.md` — Image generation guidelines
 
-**NON-NEGOTIABLE DELIVERY RULE:** After generating or updating a deck, do not finish until `$PYTHON_BIN "$SKILL_DIR/scripts/serve.py" {topic}/index.html` is running and you have given the user the preview URL. Opening the HTML file directly is not enough: edit mode, save, image replacement, and close/shutdown controls require the Magic Slide preview server. Never substitute `python3 -m http.server`, `npx serve`, or a file URL for the skill server.
+**All detailed rules (content density, HTML structure, magic-id usage, layout patterns, font sizing, etc.) are in these reference files. SKILL.md loads them during generation.**
 
-**NON-NEGOTIABLE QA GATE:** After `serve.py` is running for a newly generated deck, open `?ms_qa=overview&ms_qa_capture=1`, wait until the QA wall reports iframe-loaded readiness, capture one Playwright full-page/scrolling QA overview longshot, and repair the most obvious rendered visual issues by slide number first. During this autonomous first pass, do not capture full-size single-slide screenshots after the overview repair. Follow `references/workflows/step-10-preview.md` for the detailed triage order and Playwright-only screenshot rule. Then reopen/leave QA Overview running and stop: tell the user to mark slide changes with `Revise slide` on the QA cards and return when ready. This user revision pause is mandatory before final QA or delivery. When continuing repairs, first read open JSON notes from `{topic}/sources/qa/visual-issues.json`.
+## Runtime Prompt Maintenance
 
-**NON-NEGOTIABLE UPDATE RULE:** When the user continues in chat after a deck has been generated and asks for changes, read `{topic}/sources/qa/visual-issues.json` first and prioritize open revision requests when present. If open notes exist, repair from the saved JSON plus the corresponding `{topic}/sources/slide-XX.html` and `{topic}/sources/style.css`; screenshots are only for notes that are too ambiguous to interpret from JSON/source context and must be captured with Playwright. Edit the modular source files first, then re-run `merge-slides.py`, re-run the existing `inject-runtime.py` unchanged, mark repaired JSON records `status: "fixed_pending_confirmation"` with `resolved: false`, refresh or restart the Magic Slide preview server, and leave/open QA Overview for the user to confirm or continue requesting changes. Do not run a screenshot verification pass after repairing saved JSON notes unless the user explicitly asks for visual verification. Do not edit `{topic}/index.html` directly for agent-driven follow-up changes unless the user explicitly asks to patch the merged HTML, or the change comes from the browser edit mode Save flow.
+When changing skill instructions, avoid creating multiple full copies of the
+same runtime rule. Keep each detailed rule in its authoritative reference file
+and use short pointers elsewhere:
 
-**Brief Lite is not optional.** It is the quality guardrail that prevents
-generic or frightening template output. Keep it concise. Only use the slower
-prototype gate when the user asks for high-touch design exploration, a risky
-visual direction, or a small sample before generating the whole deck.
+- Workflow/checkpoints: `SKILL.md` and `references/workflows/`
+- Visible TODO/plan behavior for every `$magic-slide` invocation: `SKILL.md`
+- Brief Lite format: `references/workflows/step-04-design-brief.md`
+- Visual direction and anti-template rules: `references/design-system.md`
+- Generation strategy: `references/generation-guide.md`
+- Layout, overflow, source notes, and vertical balance: `references/layout-guide.md`
+- HTML structure, deck tone mode, SVG, file naming, and verification checklist: `references/html-contract.md`
+- Magic Move / `data-magic-id`: `references/flip-engine.md`
+- Images, uploadable wrappers, and cover-image policy: `references/images.md`
 
-## Detailed Workflow Steps
+If a rule needs to be mentioned outside its owner file, write a one-sentence
+reminder plus a reference link. Do not paste the full rule into `SKILL.md`,
+workflow steps, or this `AGENTS.md`.
 
-Each step has detailed instructions in the `references/workflows/` directory. Read the relevant file when you reach that step:
+## Design System Enforcement
 
-- [Step 1: Gather Requirements](references/workflows/step-01-requirements.md) - **MUST ask ALL 4 question groups: topic/audience-lens, style, language (REQUIRED), images. Never skip language question.**
-- [Step 2: Web Search](references/workflows/step-02-websearch.md) - Optional online search for current information
-- [Step 3: Generate Outline](references/workflows/step-03-outline.md) - Create and confirm presentation structure
-- [Step 4: Write Brief Lite](references/workflows/step-04-design-brief.md) - Compact required design brief before coding
-- [Step 5: Generate Production Sources](references/workflows/step-07-generate.md) - Create `style.css` and all slides directly from the confirmed outline and Brief Lite
-- [Step 6: Merge Slides](references/workflows/step-08-merge.md) - Combine modular sources into single HTML
-- [Step 7: Inject Runtime](references/workflows/step-09-inject.md) - Run the existing injector and preserve injected behavior/results unless explicitly requested otherwise
-- [Step 8: Preview & Final QA](references/workflows/step-10-preview.md) - Launch preview and verify quality
+**CRITICAL:** The design-system.md contains principles from Anthropic's official frontend-design skill. These MUST be enforced during generation.
 
-Legacy optional workflow files:
-- [Optional: Build Visual Prototype](references/workflows/step-05-prototype.md) - Use only when the user requests a sample first
-- [Optional: Pass Visual Gate](references/workflows/step-06-visual-gate.md) - Use only with the optional prototype workflow
+**Before generating CSS/HTML, output Brief Lite covering:**
+1. Aesthetic direction (Brutalist/Luxury/Playful/Editorial/etc.)
+2. Typography strategy (Why this pairing? Is it overused?)
+3. Color depth system (primary + soft + hot + muted variants)
+4. Deck tone mode (primary light/dark + named inverse exceptions, if any)
+5. Visual layers (base + atmosphere + texture)
+6. Spatial composition (asymmetric/grid-breaking/overlapping)
+7. Uniqueness check (Is this generic? First thing that comes to mind?)
+
+Keep Brief Lite concise. Do not output the old long design brief unless the user
+asks for high-touch design exploration.
+
+**Hard stop:** for AI, infrastructure, investor, SaaS, and developer-tool decks,
+do not default to dark/neon green, circuit-board traces, Matrix/cyber motifs,
+terminal wallpaper, or ominous gradients. Those are generic and can feel
+frightening. Use them only if the user explicitly asks for that mood.
+
+**Common AI slop patterns to AVOID:**
+- Font combos: Bebas Neue + Oswald + Montserrat, Playfair + Lato, Space Grotesk + Inter
+- Colors: Purple + Cyan on dark, simple Black + Gold without variants
+- Layouts: Everything centered, no asymmetry, no overlap
+
+See `references/design-system.md` for complete list.
+
+## Layout And SVG Reliability
+
+- Do not generate top-edge browser/address-bar-like chrome or full-width brand
+  pills; `html-contract.md` owns direct-child and slide-chrome rules.
+- Do not invent Magic Move labels, focus-token rows, or body chips whose main
+  purpose is motion; `flip-engine.md` owns content-first anchor rules.
+- Do not generate `data-stagger="none"` as a default. Use `cascade` for most
+  slides and `zoom-in` for covers/reveal beats. Slide-level `none` requires an
+  explicit no-animation request and `data-stagger-disabled="true"`.
+- Sparse slides should be vertically centered unless deliberately dense or top-aligned.
+- Large split-layout headings need real width budgets (`minmax(0, ...)`, `min-width:0`, capped `clamp()` sizes) so they do not cover diagrams or cards.
+- Card groups must use available slide width before shrinking text; see the
+  usable-width/card-group rule in `references/layout-guide.md`.
+- Source notes require reserved footer space.
+- Inline SVG connector paths must include `fill="none"` and fallback stroke attributes directly on the path.
+- Avoid complex SVG filters, masks, blend modes, `foreignObject`, and decorative filled path blobs.
 
 ## Post-Generation Editing
 
-Users can edit the presentation in two ways, but agent-driven follow-up work
-must preserve the source-of-truth files.
+Users can edit the presentation in two ways, but agent-driven follow-up changes
+must preserve the modular source files.
 
-**Editing requires the preview server.** Before mentioning edit mode, ensure the deck is being served through `scripts/serve.py` and give the user the server URL. If the server is not running, start it first.
-
-**Keyboard scope.** When a deck is opened through the local `serve.py` preview route (`http://localhost:.../deck/...`), all runtime shortcuts are available. When the same HTML is opened outside that local preview context, only presentation-safe shortcuts remain active: `O` for overview, `C` for cursor visibility, `Space`/arrow keys for slide navigation.
+Editing requires the preview server from `scripts/serve.py`. Start it before
+telling users to press `e` or use Save.
 
 **1. Edit modular sources** (default for all agent changes):
-- Edit `{topic}/sources/slide-XX.html` or `style.css`
+- Edit `[topic]/sources/slide-XX.html` or `style.css`
 - Re-run merge and inject scripts
 - Refresh browser
 
@@ -223,81 +239,25 @@ must preserve the source-of-truth files.
 - Click any text to edit inline
 - Click "Save" to write changes back to `index.html`
 - The preview server attempts to sync browser-saved changes back to `sources/`
-- If editing `index.html` directly outside the browser Save flow, warn that the
-  modular sources may become stale and prefer `sources/` instead
+- If editing `index.html` directly outside browser Save, warn that modular
+  sources may become stale and prefer `sources/` instead
 
-## File Structure
+## Dependencies
 
-```
-{topic}/
-├── index.html          # Final merged presentation (deliverable)
-├── assets/             # Final presentation assets (if generated)
-│   ├── image-1.png
-│   └── ...
-└── sources/            # Process files and modular source files
-    ├── outline.md      # Confirmed outline
-    ├── create_sources.mjs  # Optional generation helper, if used
-    ├── qa/             # QA screenshots/reports, if generated
-    ├── style.css
-    ├── slide-01.html
-    ├── slide-02.html
-    └── ...
-```
+- Python 3.7+
+- No external Python packages required (uses stdlib only)
+- Browser with JavaScript enabled for preview
+- Playwright for agent-run screenshot QA
+- Optional: PipeLLM API key for image generation AND web search
+  - Set via `PIPELLM_API_KEY` env var or `~/.config/pipellm/api_key`
+  - Used for both `generate-image.py` and `websearch.py`
+  - Web search: $0.05 per request
+  - Image generation: varies by model
 
-Keep the topic root clean. Apart from `index.html`, `assets/`, and `sources/`,
-all process artifacts belong inside `{topic}/sources/`.
+## File Naming Rules
 
-## Key Reference Files
-
-Read these files as needed during generation. Treat them as the single
-authoritative source for their topic; do not reconstruct long versions of their
-rules in this file or workflow steps.
-
-- [design-system.md](references/design-system.md) — aesthetic direction and anti-template guardrails
-- [generation-guide.md](references/generation-guide.md) — production planning and generation strategy
-- [layout-guide.md](references/layout-guide.md) — layout primitives, stage fit, overflow, vertical balance, and source-note placement
-- [html-contract.md](references/html-contract.md) — required slide structure, deck tone mode, root backgrounds, SVG contract, file naming, and verification checklist
-- [flip-engine.md](references/flip-engine.md) — Magic Move / `data-magic-id` planning and reliability rules
-- [images.md](references/images.md) — generated image use, uploadable wrappers, and cover-image policy
-
-## Design Philosophy
-
-1. **Outline must be an argument, not a topic list** — Every slide advances a thesis, not just "this also exists"
-2. **Brief Lite first** — Commit to a topic-specific visual world and primary light/dark tone before writing CSS. Keep it concise, but output it so the design promise is visible.
-3. **Magic Move is planned early** — The outline should create content relay opportunities before HTML exists: overview/detail, metric/hero-stat, map/zoom, compare/case, and other primary anchors. Do not rely on decorative duplicates to manufacture motion late.
-4. **Generate once, inspect, then pause** — Produce the full deck after outline and Brief Lite, repair obvious Playwright QA overview longshot issues, then stop for the mandatory user `Revise slide` marking pass before final delivery.
-5. **QA overview is visual, not diagnostic** — Use the overview as a rendered slide wall and revision-note capture surface for human/agent visual review. Keep separate checks limited to syntax, preview startup, runtime controls, and Playwright-rendered screenshot inspection.
-6. **Cover is a special moment** — Slide 1 must be a distinct opening
-   composition with concise cover copy; for product/AI/infrastructure decks it
-   should stay title-led rather than carrying readable process diagrams. Use
-   `design-system.md`, `images.md`, and `html-contract.md` for the detailed
-   cover rules.
-7. **Fast iteration** — If something's wrong, revise CSS and affected source slides quickly, then merge/inject again.
-8. **Merged HTML is an artifact** — Treat `{topic}/index.html` as generated output. Direct HTML edits are only for explicit one-off patches or the browser edit mode Save flow.
-9. **Layout reliability is mandatory** — Follow `layout-guide.md` for
-   primitives, stage fit, overflow, vertical balance, and source-note placement.
-10. **No artificial slide chrome or Magic-only labels** — Follow
-    `html-contract.md` and `flip-engine.md`: do not generate browser-bar-like
-    top strips, full-width brand pills, or body token rows whose main purpose is
-    to create Magic Move continuity.
-
-**Quality bar:** Every deck should feel distinctive and intentional, not like the first thing that came to mind. If another topic could use the same design unchanged, the design is too generic.
-
-**Readability bar:** Treat unreadable text as a broken deck, not a taste issue.
-Use `html-contract.md`, `layout-guide.md`, and `design-system.md` for the
-detailed text contrast and text-fit rules.
-
-## Output Quality
-
-Every presentation should be:
-- **Self-contained** — Single HTML file, no external dependencies
-- **Smooth** — Magic Move creates fluid transitions
-- **Portable** — Works offline, easy to share
-- **Editable** — Modular sources for easy iteration
-- **Distinctive** — Unique visual style, not generic AI aesthetics
-
-The goal is speed with taste: decide the visual world, preview it early, then generate fast and iterate against the rendered deck.
+**CRITICAL:** All file and folder names MUST be English-only (no CJK characters). This prevents URL encoding issues in the preview server.
 
 ---
 > Source: [daniel-style/magic-slide](https://github.com/daniel-style/magic-slide) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
