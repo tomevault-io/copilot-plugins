@@ -1,0 +1,9 @@
+{
+  "name": "hasnaintypes--sendable-monorepo",
+  "displayName": "sendable-monorepo",
+  "description": "A research-first AI email outreach engine built with Next.js, Convex, and Gemini for personalized cold mailing and marketing.",
+  "version": "1.0.0",
+  "author": "hasnaintypes",
+  "homepage": "https://github.com/hasnaintypes/sendable-monorepo",
+  "skills": []
+}
