@@ -1,0 +1,9 @@
+{
+  "name": "quareth--drowai",
+  "displayName": "drowAI",
+  "description": "Pre-v1 platform for task-isolated red teaming AI agent.",
+  "version": "1.0.0",
+  "author": "quareth",
+  "homepage": "https://github.com/quareth/drowAI",
+  "skills": []
+}
