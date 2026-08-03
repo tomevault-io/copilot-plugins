@@ -1,0 +1,9 @@
+{
+  "name": "azuread--azure-activedirectory-identitymodel-extensions-for-dotnet",
+  "displayName": "azure-activedirectory-identitymodel-extensions-for-dotnet",
+  "description": "azure-activedirectory-identitymodel-extensions-for-dotnet",
+  "version": "1.0.0",
+  "author": "AzureAD",
+  "homepage": "https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet",
+  "skills": []
+}
