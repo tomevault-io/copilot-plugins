@@ -1,0 +1,9 @@
+{
+  "name": "openshift--external-dns-operator",
+  "displayName": "external-dns-operator",
+  "description": "external-dns-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/external-dns-operator",
+  "skills": []
+}
