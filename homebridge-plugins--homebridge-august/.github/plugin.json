@@ -1,0 +1,9 @@
+{
+  "name": "homebridge-plugins--homebridge-august",
+  "displayName": "homebridge-august",
+  "description": "homebridge-august",
+  "version": "1.0.0",
+  "author": "homebridge-plugins",
+  "homepage": "https://github.com/homebridge-plugins/homebridge-august",
+  "skills": []
+}
