@@ -1,0 +1,9 @@
+{
+  "name": "kvcache-ai--agentenv",
+  "displayName": "AgentENV",
+  "description": "AgentENV (AENV) is a distributed platform for running agent environments at scale.",
+  "version": "1.0.0",
+  "author": "kvcache-ai",
+  "homepage": "https://github.com/kvcache-ai/AgentENV",
+  "skills": []
+}
