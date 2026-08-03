@@ -1,23 +1,21 @@
 # conclave
 
-> Source: [ACM-VIT/conclave](https://github.com/ACM-VIT/conclave) — distributed by [TomeVault](https://tomevault.io)
-
-Real-time meetings platform with web/mobile clients, SFU, and an apps SDK
+> Source: [ACM-VIT/conclave](https://github.com/ACM-VIT/conclave). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ACM-VIT/conclave](https://github.com/ACM-VIT/conclave).
+Original source: `CLAUDE.md` in [ACM-VIT/conclave](https://github.com/ACM-VIT/conclave).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [ACM-VIT/conclave](https://github.com/ACM-VIT/conclave) — a repo with 31+ stars on GitHub.
+From [ACM-VIT/conclave](https://github.com/ACM-VIT/conclave) — a repo with 34+ stars on GitHub.
 
 ---
 
