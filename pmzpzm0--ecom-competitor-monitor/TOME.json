@@ -1,0 +1,44 @@
+{
+  "name": "ecom-competitor-monitor",
+  "owner": "PMZPZM0",
+  "repo": "ecom-competitor-monitor",
+  "description": "\u672c\u5730\u8fd0\u884c\u7684\u5929\u732b/\u6dd8\u5b9d\u7ade\u54c1\u4ef7\u683c\u3001SKU\u3001\u7d20\u6750\u4e0e\u98de\u4e66\u63d0\u9192\u76d1\u63a7\u5de5\u5177",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/PMZPZM0/ecom-competitor-monitor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-03T08:42:46Z"
+}
