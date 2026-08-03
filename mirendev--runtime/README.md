@@ -1,8 +1,6 @@
 # runtime
 
-> Source: [mirendev/runtime](https://github.com/mirendev/runtime) — distributed by [TomeVault](https://tomevault.io)
-
-Runtime by Miren
+> Source: [mirendev/runtime](https://github.com/mirendev/runtime). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [mirendev/runtime](https://github.com/mirendev/r
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [mirendev/runtime](https://github.com/mirendev/runtime) — a repo with 33+ stars on GitHub.
+From [mirendev/runtime](https://github.com/mirendev/runtime) — a repo with 46+ stars on GitHub.
 
 ---
 
