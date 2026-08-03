@@ -2,9 +2,9 @@
   "name": "pasteguard",
   "owner": "sgasser",
   "repo": "pasteguard",
-  "description": "AI gets the context. Not your secrets. Open-source privacy proxy for LLMs.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sgasser/pasteguard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T08:14:40Z"
+  "distributed_at": "2026-08-03T20:36:02Z"
 }
