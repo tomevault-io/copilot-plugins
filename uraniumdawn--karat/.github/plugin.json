@@ -1,0 +1,9 @@
+{
+  "name": "uraniumdawn--karat",
+  "displayName": "karat",
+  "description": "A powerful Terminal UI (TUI) for Apache Kafka that provides an intuitive, keyboard-driven interface for managing and monitoring your Kafka clusters, topics, consumer groups, and Schema Registry.",
+  "version": "1.0.0",
+  "author": "uraniumdawn",
+  "homepage": "https://github.com/uraniumdawn/karat",
+  "skills": []
+}
