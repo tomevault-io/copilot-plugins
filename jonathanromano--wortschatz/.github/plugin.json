@@ -1,0 +1,9 @@
+{
+  "name": "jonathanromano--wortschatz",
+  "displayName": "wortschatz",
+  "description": "AI-powered German learning platform. Next.js 15 + Express + Postgres. Exercises generated and graded by Claude & GPT across 10 types, with M\u00fcnzen gamification and multilingual UI (PT/EN/TR/UK).",
+  "version": "1.0.0",
+  "author": "JonathanRomano",
+  "homepage": "https://github.com/JonathanRomano/wortschatz",
+  "skills": []
+}
