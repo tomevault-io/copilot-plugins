@@ -1,6 +1,6 @@
 # dotfiles
 
-> Source: [IvanWng97/dotfiles](https://github.com/IvanWng97/dotfiles) — distributed by [TomeVault](https://tomevault.io)
+> Source: [IvanWng97/dotfiles](https://github.com/IvanWng97/dotfiles). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -19,6 +19,6 @@ From [IvanWng97/dotfiles](https://github.com/IvanWng97/dotfiles) — a repo with
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-s -->
