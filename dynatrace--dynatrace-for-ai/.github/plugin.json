@@ -1,0 +1,9 @@
+{
+  "name": "dynatrace--dynatrace-for-ai",
+  "displayName": "dynatrace-for-ai",
+  "description": "dynatrace-for-ai",
+  "version": "1.0.0",
+  "author": "Dynatrace",
+  "homepage": "https://github.com/Dynatrace/dynatrace-for-ai",
+  "skills": []
+}
