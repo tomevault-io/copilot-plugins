@@ -4,7 +4,7 @@
   "repo": "langchain-aws",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/langchain-ai/langchain-aws",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T07:07:13Z"
+  "distributed_at": "2026-08-03T09:07:50Z"
 }
