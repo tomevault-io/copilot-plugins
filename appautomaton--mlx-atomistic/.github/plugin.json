@@ -1,0 +1,9 @@
+{
+  "name": "appautomaton--mlx-atomistic",
+  "displayName": "mlx-atomistic",
+  "description": "Apple Silicon-native molecular dynamics and DFT runtime built on MLX and Metal \u2014 the GPU on your Mac, no CUDA or cloud.",
+  "version": "1.0.0",
+  "author": "appautomaton",
+  "homepage": "https://github.com/appautomaton/mlx-atomistic",
+  "skills": []
+}
