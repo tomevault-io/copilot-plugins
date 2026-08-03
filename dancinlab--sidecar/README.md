@@ -1,6 +1,6 @@
 # sidecar
 
-> Source: [dancinlab/sidecar](https://github.com/dancinlab/sidecar) — distributed by [TomeVault](https://tomevault.io)
+> Source: [dancinlab/sidecar](https://github.com/dancinlab/sidecar). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [dancinlab/sidecar](https://github.com/dancinlab
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [dancinlab/sidecar](https://github.com/dancinlab/sidecar) — a repo with 137+ stars on GitHub.
+From [dancinlab/sidecar](https://github.com/dancinlab/sidecar) — a repo with 1+ stars on GitHub.
 
 ---
 
