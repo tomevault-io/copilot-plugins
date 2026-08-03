@@ -1,8 +1,6 @@
 # AI instruction files for open-webui-developer-toolkit
 
-> Sourced from [jrkropp/open-webui-developer-toolkit](https://github.com/jrkropp/open-webui-developer-toolkit) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Pipes • Filters • Tools for Open WebUI
+> Sourced from [jrkropp/open-webui-developer-toolkit](https://github.com/jrkropp/open-webui-developer-toolkit), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
