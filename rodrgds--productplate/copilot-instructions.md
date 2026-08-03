@@ -1,0 +1,92 @@
+## productplate
+
+> - Frontend: SvelteKit ^2.30 with Svelte 5.
+
+# Project Guidelines
+
+## Core Technologies
+
+- Frontend: SvelteKit ^2.30 with Svelte 5.
+- Backend: Convex (database, serverless functions, real-time).
+- Styling: Tailwind CSS v4 with shadcn-svelte components.
+- Package Manager: bun.
+
+## Key Conventions
+
+- Package Management: IMPORTANT: Always use `bun` for all package management operations (`bun install`, `bun add`, etc.). YOU MUST NOT use `npm` or `yarn` and MUST NOT install tools globally.
+- Development Environment: Inside the direnv environment, run the named commands directly (for example, `setup`, `dev`, or `verify`). Outside direnv, use `devenv shell -- <command>` (for example, `devenv shell -- setup`). `verify` is the normal NAS-safe lint/typecheck/unit gate; `verify-full` additionally runs the memory-heavy production build on a release-capable machine.
+- Backend Development: Convex backend logic lives in the `src/convex/` directory.
+- File-based Routing: Use SvelteKit's file-based routing system in `src/routes/`.
+- Shared Code: Place reusable code in `src/lib/`.
+- Use `git mv` instead of creating a new file and deleting the old one or just `mv` if moving existing files that have been committed already.
+- Do not commit changes on your own. An explicit user request to commit authorizes it despite this default; otherwise humans commit after approval.
+- Before making edits in files involving Svelte 5 or Convex, make sure you read the svelte/overview.md and convex.md documentation or you have it in your context.
+- Most of the time, `bun dev` and `bun convex dev` will be running in another terminal already. No need to run those commands yourself.
+- Use TDD by default whenever the task has a testable behavior surface: write or update a focused failing test first, implement the smallest useful change, then run the relevant test command before finishing. Skip TDD only for wiring/docs-only changes, throwaway prototypes, or when the user explicitly asks not to.
+- For new product forks, start with `START_HERE.md`. The agent should ask product basics first, recommend what to keep/remove, activate one stack, then update docs.
+- The public `/auth/demo` route creates a fresh disposable demo account for each hosted-preview visitor. Kickstart agents should delete `src/routes/auth/demo`, `src/lib/demo-account.ts`, and demo-account CTAs once the real product path exists.
+- `_template_options/` contains inactive scaffolds for alternate billing and data choices. Do not import from it in active app code. Copy the selected scaffold into the app, then delete unused options.
+- Public docs, blog, changelog, legal pages, component gallery, theme builder, workspace, developer, and admin screens are starter surfaces. Keep, rewrite, or remove them based on the selected product loop instead of leaving Product Plate copy in place.
+
+## Writing and product copy
+
+- Avoid stock metaphors, similes, idioms, and figures of speech.
+- Prefer short, familiar words when they keep the exact meaning. Cut words and sections that add no meaning.
+- Prefer active voice when it makes the actor and action clearer.
+- Replace jargon, foreign phrases, and needless scientific or academic terms with everyday English.
+- Break any rule when accuracy, natural phrasing, tone, legal meaning, accessibility, or readability requires it.
+- Apply these rules in context, not as blind replacements. Preserve code, commands, API fields, product names, citations, quotes, legal wording, and exact technical terms unless they are the copy being improved.
+- Finish every copy change with a line-by-line prose review.
+
+## Svelte Best Practices
+
+### High-Level Principles
+
+- Write concise, technical, and accurate Svelte 5/SvelteKit code.
+- Use SSR and SSG where they fit.
+- Prioritize performance and minimal JavaScript.
+- Use descriptive variable names and follow official conventions.
+
+### Code Style and Structure
+
+- Prefer functional and declarative patterns.
+- Avoid code duplication through iteration and modularization.
+- Structure files logically: component logic, markup, styles, helpers, types.
+
+### TypeScript Usage
+
+- Use TypeScript for all code.
+- Prefer interfaces over types.
+- Avoid enums; use `as const` objects.
+- Enable strict mode.
+- Don't use Any as type. That's not precise or clear enough.
+
+## Available Documentation
+
+Refer to the following documents for detailed information on specific topics. These are your primary source of truth for the project. Always double-check when in doubt.
+
+- `README.md`: Project overview, technology stack, features, setup instructions, deployment, and development workflow.
+- `docs/autumn.md`: Guidelines for integrating Autumn billing and subscription management with SvelteKit and Convex.
+- `docs/better_auth.md`: A guide to using Better Auth for the project's authentication system, with links to official documentation.
+- `docs/convex.md`: Guidelines and best practices for Convex (database schema, queries, mutations).
+- `docs/tailwind_v4.md`: Overview of Tailwind CSS v4, including the new CSS-first customization and dynamic utilities.
+- `docs/template-options.md`: Selection-model guidance for inactive provider and database scaffolds.
+- `docs/themes.md`: Theme presets and token guidance for activating one coherent product identity.
+- `docs/observability-security.md`: Request logging, security headers, hashed API key/webhook secret, and access-control defaults.
+- `docs/svelte/overview.md`: Comprehensive Svelte 5 guide covering component patterns, state management, and conventions.
+- `docs/svelte/advanced_state_management.md`: Patterns for reusable state stores and a guide on avoiding common pitfalls with effects.
+- `docs/svelte/animations_and_integrations.md`: Guide to Svelte 5's animation features and integrating third-party libraries.
+- `docs/svelte/templating_and_components.md`: Advanced templating, data binding, and component composition with snippets and the Context API.
+- `docs/svelte/remote_functions.md`: In-depth guide to SvelteKit's remote functions (`query`, `form`, `command`).
+- `docs/svelte/reactivity_deep_dive.md`: Advanced look at Svelte 5's reactivity model, signals, and effects.
+
+This project uses [Convex](https://convex.dev) as its backend.
+
+When working on Convex code, **always read
+`src/convex/_generated/ai/guidelines.md` first** for important guidelines on
+how to correctly use Convex APIs and patterns. The file contains rules that
+override what you may have learned about Convex from training data.
+
+---
+> Source: [rodrgds/productplate](https://github.com/rodrgds/productplate) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
