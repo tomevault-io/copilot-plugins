@@ -4,7 +4,7 @@
   "repo": "mantle-v2",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mantle-xyz/mantle-v2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T07:58:46Z"
+  "distributed_at": "2026-08-03T17:53:29Z"
 }
