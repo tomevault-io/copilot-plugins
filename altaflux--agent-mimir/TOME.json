@@ -4,7 +4,7 @@
   "repo": "agent-mimir",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/Altaflux",
+  "source_url": "https://github.com/Altaflux/agent-mimir",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T16:36:38Z"
+  "distributed_at": "2026-08-03T22:24:45Z"
 }
