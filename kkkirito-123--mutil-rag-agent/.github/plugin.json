@@ -1,34 +1,9 @@
 {
   "name": "kkkirito-123--mutil-rag-agent",
-  "displayName": "mutil-rag-agent",
-  "description": "mutil-rag-agent",
+  "displayName": "Mutil-Rag-Agent",
+  "description": "An improved multi-agent AIOps and RAG platform for OnCall troubleshooting, featuring LangGraph-based diagnosis workflows, Milvus vector search, MCP tool integration, Prometheus alert knowledge from aw",
   "version": "1.0.0",
   "author": "Kkkirito-123",
-  "homepage": "https://github.com/Kkkirito-123/mutil-rag-agent",
-  "skills": [
-    {
-      "name": "mutil-rag-agent",
-      "description": ""
-    },
-    {
-      "name": "mutil-rag-agent",
-      "description": ""
-    },
-    {
-      "name": "mutil-rag-agent",
-      "description": ""
-    },
-    {
-      "name": "mutil-rag-agent",
-      "description": ""
-    },
-    {
-      "name": "mutil-rag-agent",
-      "description": ""
-    },
-    {
-      "name": "mutil-rag-agent",
-      "description": ""
-    }
-  ]
+  "homepage": "https://github.com/Kkkirito-123/Mutil-Rag-Agent",
+  "skills": []
 }
