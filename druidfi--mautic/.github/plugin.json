@@ -1,0 +1,9 @@
+{
+  "name": "druidfi--mautic",
+  "displayName": "mautic",
+  "description": "DruidXP variant for Mautic",
+  "version": "1.0.0",
+  "author": "druidfi",
+  "homepage": "https://github.com/druidfi/mautic",
+  "skills": []
+}
