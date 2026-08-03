@@ -1,0 +1,9 @@
+{
+  "name": "dancolta--x-engage",
+  "displayName": "x-engage",
+  "description": "X reply auto-drafter for personal-brand authority builds. Voice-matched drafts, chat-approval queue, Playwright publisher. Built as a Claude Code skill.",
+  "version": "1.0.0",
+  "author": "dancolta",
+  "homepage": "https://github.com/dancolta/x-engage",
+  "skills": []
+}
