@@ -1,0 +1,9 @@
+{
+  "name": "crimeacs--product-demo-director",
+  "displayName": "product-demo-director",
+  "description": "Turn product evidence and raw footage into narration-paced, source-bound demo films\u2014with Codex or Claude Code directing cuts, zooms, render, and QA.",
+  "version": "1.0.0",
+  "author": "crimeacs",
+  "homepage": "https://github.com/crimeacs/product-demo-director",
+  "skills": []
+}
