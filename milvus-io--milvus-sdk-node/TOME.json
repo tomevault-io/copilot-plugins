@@ -4,7 +4,7 @@
   "repo": "milvus-sdk-node",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/milvus-io/milvus-sdk-node",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T15:45:51Z"
+  "distributed_at": "2026-08-03T23:54:54Z"
 }
