@@ -2,7 +2,7 @@
   "name": "edgeai-for-beginners",
   "owner": "microsoft",
   "repo": "edgeai-for-beginners",
-  "description": "This course is designed to guide beginners through the exciting world of Edge AI, covering fundamental concepts, popular models, inference techniques, device-specific applications, model optimization, and the development of intelligent Edge AI agents.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/microsoft/edgeai-for-beginners",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T06:40:33Z"
+  "distributed_at": "2026-08-03T16:19:00Z"
 }
