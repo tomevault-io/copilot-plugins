@@ -1,0 +1,9 @@
+{
+  "name": "rent-a-developer--resxlocalization",
+  "displayName": "ResXLocalization",
+  "description": "Type-safe .resx localization for Avalonia and WPF with live language switching.",
+  "version": "1.0.0",
+  "author": "rent-a-developer",
+  "homepage": "https://github.com/rent-a-developer/ResXLocalization",
+  "skills": []
+}
