@@ -1,0 +1,9 @@
+{
+  "name": "lensapp--lens-sandbox-core",
+  "displayName": "lens-sandbox-core",
+  "description": "Core Rust library for Lens sandbox policy enforcement, networking, DNS, proxying, and boundary credential exchange.",
+  "version": "1.0.0",
+  "author": "lensapp",
+  "homepage": "https://github.com/lensapp/lens-sandbox-core",
+  "skills": []
+}
