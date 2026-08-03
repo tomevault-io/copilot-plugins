@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cluster-image-registry-operator",
+  "displayName": "cluster-image-registry-operator",
+  "description": "cluster-image-registry-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cluster-image-registry-operator",
+  "skills": []
+}
