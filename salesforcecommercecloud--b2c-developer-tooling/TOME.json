@@ -2,9 +2,9 @@
   "name": "b2c-developer-tooling",
   "owner": "SalesforceCommerceCloud",
   "repo": "b2c-developer-tooling",
-  "description": "B2C CLI, MCP, and Tooling SDK for Salesforce Agentforce Commerce B2C ",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SalesforceCommerceCloud/b2c-developer-tooling",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T13:48:34Z"
+  "distributed_at": "2026-08-03T00:51:36Z"
 }
