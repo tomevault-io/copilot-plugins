@@ -1,51 +1,33 @@
-## service-rules
+## testing-rules
 
-> Service katmanı, uygulamanın tüm iş mantığının (business logic) bulunduğu yerdir.
+> Testler, uygulamanın doğruluğunu ve kararlılığını garanti altına almanın en önemli parçasıdır. Tüm yeni özellikler ve hata düzeltmeleri testlerle desteklenmelidir.
 
-# Service Katmanı Kuralları
+# Test Yazma Kuralları
 
-Service katmanı, uygulamanın tüm iş mantığının (business logic) bulunduğu yerdir.
+Testler, uygulamanın doğruluğunu ve kararlılığını garanti altına almanın en önemli parçasıdır. Tüm yeni özellikler ve hata düzeltmeleri testlerle desteklenmelidir.
 
-## Temel Sorumluluklar
-- **İş Mantığı**: Bir özelliğin veya kullanım senaryosunun gerektirdiği tüm adımları, kontrolleri ve operasyonları yönetmek.
-- **Orkestrasyon**: Gerekli `Repository` metotlarını çağırmak, diğer `Service`'lerle iletişim kurmak, event'leri tetiklemek gibi işlemleri koordine etmek.
-- **Arayüz (Interface) Implementasyonu**: Her somut servis (`Concrete`), `app/Services/Abstract` altında tanımlanmış olan kendi arayüzünü (`interface`) implement etmelidir.
-- **Bağımlılıklar**: Diğer katmanlara (çoğunlukla Repository'ler) olan bağımlılıklar, constructor üzerinden arayüzleri kullanılarak enjekte edilmelidir.
+## Genel Kurallar
+- **Pest Framework**: Tüm testler `Pest` test çatısı kullanılarak yazılmalıdır. `it()` ve `test()` fonksiyonları kullanılmalıdır.
+- **Açıklayıcı İsimler**: Test isimleri, test edilen senaryoyu açık ve net bir şekilde anlatmalıdır. Örneğin, `it('cannot create a survey without authentication')`.
+- **Veritabanı Temizliği**: Her testten sonra veritabanının temizlendiğinden emin olmak için `RefreshDatabase` trait'i kullanılmalıdır.
+- **Factory Kullanımı**: Test verisi oluşturmak için **her zaman** `Eloquent Factory`'ler (`database/factories`) kullanılmalıdır.
 
-## Kurallar
-1.  **Sadece İş Mantığı**: Bu katman, HTTP'ye özgü (`Request`, `Response`) hiçbir şey bilmemelidir. Sadece DTO'lar ve temel veri tipleri ile çalışır.
-2.  **Repository Kullanımı**: Veritabanı işlemleri için daima Repository katmanını kullanmalıdır. Asla doğrudan `Eloquent` modeli (`User::create()`) kullanmamalıdır.
-3.  **Standart Yanıt**: Tüm public metotlar, işlemin sonucunu (başarı, hata, veri) sarmalayan bir `App\Responses\ServiceResponse` nesnesi döndürmelidir.
-4.  **Hata Yönetimi**: Beklenen iş mantığı hataları (örn: "Kullanıcı zaten mevcut") `ServiceResponse` içinde yönetilmelidir. Beklenmedik istisnalar (exception) için merkezi hata yöneticisi devreye girecektir, bu nedenle gereksiz `try-catch` bloklarından kaçınılmalıdır.
+## Feature Testleri (`tests/Feature`)
+- **Odak**: Feature testleri, API endpoint'lerini dışarıdan bir kullanıcı gibi test etmelidir. Uygulamanın iç yapısını (servisler, repository'ler) bilmemelidir.
+- **Akış**: Bir feature testi genellikle şu adımları izler:
+    1.  Gerekli veriyi factory'ler ile oluştur (`User`, `Survey` vb.).
+    2.  Gerekirse `actingAs($user)` ile kullanıcıyı authenticate et.
+    3.  İlgili API endpoint'ine bir istek yap (`$this->getJson()`, `$this->postJson()` vb.).
+    4.  Gelen yanıt üzerinde `assert`'ler yap.
+- **Assertion'lar**: Yanıt üzerinde en azından şunlar kontrol edilmelidir:
+    -   Doğru HTTP durum kodu (`assertStatus(200)`, `assertCreated()`, `assertNotFound()`, `assertForbidden()`).
+    -   Yanıtın JSON yapısının beklenen API standardına uyması (`assertJsonStructure`, `assertJsonFragment`).
+    -   Veritabanında beklenen değişikliğin gerçekleşmesi (`assertDatabaseHas`, `assertDatabaseMissing`).
 
-## Örnek Yapı
-
-```php
-class AuthService implements AuthServiceInterface
-{
-    public function __construct(
-        private readonly UserRepositoryInterface $userRepository,
-        private readonly ResourceMapInterface $resourceMap
-    ) {}
-
-    public function register(RegisterDto $dto): ServiceResponse
-    {
-        if ($this->userRepository->findByEmail($dto->email)) {
-            return ServiceResponse::error('Bu e-posta adresi zaten kullanılıyor.');
-        }
-
-        $user = $this->userRepository->create([...]);
-        $token = $user->createToken('api-token')->plainTextToken;
-
-        $data = [
-            'user' => $this->resourceMap->map($user),
-            'token' => $token,
-        ];
-        
-        return ServiceResponse::success('Kayıt başarılı.', $data, 201);
-    }
-}
-```
+## Unit Testleri (`tests/Unit`)
+- **Odak**: Unit testleri, tek bir sınıfın veya metodun (genellikle `Service` veya karmaşık bir Action sınıfı) mantığını izole bir şekilde test etmelidir.
+- **Mocking**: Bağımlılıkları (örneğin bir servisin bağımlı olduğu repository) mock'layarak testi izole edin.
+- **Kullanım Alanı**: Daha çok karmaşık algoritmalar, hesaplamalar veya özel iş kurallarını test etmek için kullanılır. Projenin ana test yükü Feature testlerinde olmalıdır.
 
 ---
 > Source: [fzengin19/polling](https://github.com/fzengin19/polling) — distributed by [TomeVault](https://tomevault.io).
