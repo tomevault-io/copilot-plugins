@@ -57564,6 +57564,11 @@
       "description": "motia-examples"
     },
     {
+      "name": "tejas-ta--predikit",
+      "source": "./tejas-ta--predikit",
+      "description": "predikit"
+    },
+    {
       "name": "elc0mpa--aws-doctor",
       "source": "./elc0mpa--aws-doctor",
       "description": "Powerful open-source CLI to audit security, costs, and best practices in AWS. \ud83e\ude7a \u2601\ufe0f"
@@ -111979,6 +111984,76 @@
       "description": "goldenmatch"
     },
     {
+      "name": "benseverndev-oss--goldenmatch",
+      "source": "./benseverndev-oss--goldenmatch",
+      "description": "goldenmatch"
+    },
+    {
+      "name": "benseverndev-oss--goldenmatch",
+      "source": "./benseverndev-oss--goldenmatch",
+      "description": "goldenmatch"
+    },
+    {
+      "name": "benseverndev-oss--goldenmatch",
+      "source": "./benseverndev-oss--goldenmatch",
+      "description": "goldenmatch"
+    },
+    {
+      "name": "benseverndev-oss--goldenmatch",
+      "source": "./benseverndev-oss--goldenmatch",
+      "description": "goldenmatch"
+    },
+    {
+      "name": "benseverndev-oss--goldenmatch",
+      "source": "./benseverndev-oss--goldenmatch",
+      "description": "goldenmatch"
+    },
+    {
+      "name": "benseverndev-oss--goldenmatch",
+      "source": "./benseverndev-oss--goldenmatch",
+      "description": "goldenmatch"
+    },
+    {
+      "name": "benseverndev-oss--goldenmatch",
+      "source": "./benseverndev-oss--goldenmatch",
+      "description": "goldenmatch"
+    },
+    {
+      "name": "benseverndev-oss--goldenmatch",
+      "source": "./benseverndev-oss--goldenmatch",
+      "description": "goldenmatch"
+    },
+    {
+      "name": "benseverndev-oss--goldenmatch",
+      "source": "./benseverndev-oss--goldenmatch",
+      "description": "goldenmatch"
+    },
+    {
+      "name": "benseverndev-oss--goldenmatch",
+      "source": "./benseverndev-oss--goldenmatch",
+      "description": "goldenmatch"
+    },
+    {
+      "name": "benseverndev-oss--goldenmatch",
+      "source": "./benseverndev-oss--goldenmatch",
+      "description": "goldenmatch"
+    },
+    {
+      "name": "benseverndev-oss--goldenmatch",
+      "source": "./benseverndev-oss--goldenmatch",
+      "description": "goldenmatch"
+    },
+    {
+      "name": "benseverndev-oss--goldenmatch",
+      "source": "./benseverndev-oss--goldenmatch",
+      "description": "goldenmatch"
+    },
+    {
+      "name": "benseverndev-oss--goldenmatch",
+      "source": "./benseverndev-oss--goldenmatch",
+      "description": "goldenmatch"
+    },
+    {
       "name": "cloveric--cc-telegram-bridge",
       "source": "./cloveric--cc-telegram-bridge",
       "description": "Real Claude Code & Codex CLI on Telegram \u2014 runs their native harness directly, no reimplemented API wrappers. Sessions, memory, tools, all built-in. Multi-bot Agent Bus, resume local sessions on your "
@@ -134544,6 +134619,11 @@
       "description": "zerobus-sdk"
     },
     {
+      "name": "mprpic--cooldowns",
+      "source": "./mprpic--cooldowns",
+      "description": "cooldowns"
+    },
+    {
       "name": "kulterryan--who-to-bother-at-on-x",
       "source": "./kulterryan--who-to-bother-at-on-x",
       "description": "Find the right people to reach out to at your favorite tech companies"
@@ -146814,6 +146894,11 @@
       "description": "weilSieDichLieben"
     },
     {
+      "name": "fivetran--connector-sdk",
+      "source": "./fivetran--connector-sdk",
+      "description": "connector_sdk"
+    },
+    {
       "name": "motoya0118--pavlok-cli-agent",
       "source": "./motoya0118--pavlok-cli-agent",
       "description": "CLI agent\u306bpavlok\u3092\u4f7f\u7528\u3055\u305b\u305f\u3089\u3069\u3046\u306a\u308b\u304b\u81ea\u50b7\u5b9f\u9a13"
@@ -157879,6 +157964,11 @@
       "description": "SimpleTypes"
     },
     {
+      "name": "luckytiger12138--qq-farm",
+      "source": "./luckytiger12138--qq-farm",
+      "description": "QQ_Farm"
+    },
+    {
       "name": "ursushoribilismusic--agentic-fleet-hub",
       "source": "./ursushoribilismusic--agentic-fleet-hub",
       "description": "Self-hosted orchestration layer for autonomous AI agent teams. Shared memory, heartbeat scheduling, vault-first secrets, and cross-model peer review \u2014 one command to deploy."
@@ -159162,6 +159252,11 @@
       "name": "fluxcd--pkg",
       "source": "./fluxcd--pkg",
       "description": "pkg"
+    },
+    {
+      "name": "gopolymarket--polymarket-go-sdk",
+      "source": "./gopolymarket--polymarket-go-sdk",
+      "description": "polymarket-go-sdk"
     },
     {
       "name": "hw-native-sys--pypto",
@@ -160719,6 +160814,286 @@
       "description": "shinode"
     },
     {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
       "name": "bioliminal--bioliminal-mobile-application",
       "source": "./bioliminal--bioliminal-mobile-application",
       "description": "Bioliminal mobile application (Flutter)"
@@ -161682,6 +162057,11 @@
       "name": "faust-machines--fusion360-mcp-server",
       "source": "./faust-machines--fusion360-mcp-server",
       "description": "fusion360-mcp-server"
+    },
+    {
+      "name": "ginoleeswan--hero",
+      "source": "./ginoleeswan--hero",
+      "description": "hero"
     },
     {
       "name": "shinchven--nano-banana-skills",
@@ -163017,6 +163397,16 @@
       "name": "sfkislev--flue",
       "source": "./sfkislev--flue",
       "description": "Flue"
+    },
+    {
+      "name": "nvidia--nodewright",
+      "source": "./nvidia--nodewright",
+      "description": "nodewright"
+    },
+    {
+      "name": "carohauta--oma-helen-ha-integration",
+      "source": "./carohauta--oma-helen-ha-integration",
+      "description": "oma-helen-ha-integration"
     },
     {
       "name": "rstackjs--agent-skills",
@@ -164642,6 +165032,16 @@
       "name": "flume--enthistory",
       "source": "./flume--enthistory",
       "description": "enthistory"
+    },
+    {
+      "name": "viamrobotics--viam-python-sdk",
+      "source": "./viamrobotics--viam-python-sdk",
+      "description": "viam-python-sdk"
+    },
+    {
+      "name": "flupkede--codesearch",
+      "source": "./flupkede--codesearch",
+      "description": "codesearch"
     },
     {
       "name": "tencentcloud--cubesandbox",
@@ -167429,6 +167829,11 @@
       "description": "ably-python"
     },
     {
+      "name": "doudou-start--airgate-core",
+      "source": "./doudou-start--airgate-core",
+      "description": "airgate-core"
+    },
+    {
       "name": "domye--solace",
       "source": "./domye--solace",
       "description": "Solace - \u57fa\u4e8e Go + React + TypeScript + PostgreSQL \u7684\u5168\u6808\u535a\u5ba2\u7cfb\u7edf\u3002\u652f\u6301 Markdown \u7f16\u8f91\u3001\u76f8\u518c\u7ba1\u7406\u3001\u6df1\u8272\u6a21\u5f0f\u3001SEO \u4f18\u5316\u3001Docker \u90e8\u7f72\u3002\u91c7\u7528\u6574\u6d01\u67b6\u6784\uff0c\u9002\u5408\u4e2a\u4eba\u535a\u5ba2\u3001\u6280\u672f\u535a\u5ba2\u3001\u5f00\u53d1\u8005\u4f5c\u54c1\u96c6\u3002MIT \u5f00\u6e90\uff0c\u751f\u4ea7\u5c31\u7eea"
@@ -169114,6 +169519,11 @@
       "description": "great_cto"
     },
     {
+      "name": "reactivemarbles--crisscross",
+      "source": "./reactivemarbles--crisscross",
+      "description": "CrissCross"
+    },
+    {
       "name": "anhtester--antigravity-testing-kit",
       "source": "./anhtester--antigravity-testing-kit",
       "description": "\u0110\u00e2y l\u00e0 b\u1ed9 SKILL, WORKFLOW, RULE do Anh Tester x\u00e2y d\u1ef1ng d\u00e0nh ri\u00eang cho c\u1ed9ng \u0111\u1ed3ng Tester \u0111\u1ec3 thi\u1ebft l\u1eadp AI Agent tr\u00ean Antigravity h\u1ed7 tr\u1ee3 ki\u1ec3m th\u1eed ph\u1ea7n m\u1ec1m."
@@ -170747,6 +171157,11 @@
       "name": "johsand--orsak",
       "source": "./johsand--orsak",
       "description": "Orsak"
+    },
+    {
+      "name": "klotzbrocken--simplebanking",
+      "source": "./klotzbrocken--simplebanking",
+      "description": "simplebanking"
     },
     {
       "name": "andrew-malitchuk--kite-aos",
@@ -172509,6 +172924,11 @@
       "description": "rustar-aligner"
     },
     {
+      "name": "visus-io--cuid-net",
+      "source": "./visus-io--cuid-net",
+      "description": "cuid.net"
+    },
+    {
       "name": "lktiep--cortex-hub",
       "source": "./lktiep--cortex-hub",
       "description": "Self-hosted AI Agent Memory + Code Intelligence Platform \u2014 one MCP endpoint for persistent memory, AST-aware code search, shared knowledge, and quality enforcement across all your AI coding agents."
@@ -174127,6 +174547,11 @@
       "name": "coolcooltomato--learnlang",
       "source": "./coolcooltomato--learnlang",
       "description": "LearnLang"
+    },
+    {
+      "name": "tryghost--gctools",
+      "source": "./tryghost--gctools",
+      "description": "gctools"
     },
     {
       "name": "hyhmrright--brooks-lint",
@@ -176109,6 +176534,11 @@
       "description": "vibe-coder-3d"
     },
     {
+      "name": "cozystack--blockstor",
+      "source": "./cozystack--blockstor",
+      "description": "blockstor"
+    },
+    {
       "name": "timoncool--ace-step-studio",
       "source": "./timoncool--ace-step-studio",
       "description": "Portable AI music generator \u2014 full songs with vocals, covers, music videos. One-click install, 100% offline, NVIDIA GPU."
@@ -177842,6 +178272,11 @@
       "name": "broadinstitute--str-analysis",
       "source": "./broadinstitute--str-analysis",
       "description": "str-analysis"
+    },
+    {
+      "name": "dashpay--grovedb",
+      "source": "./dashpay--grovedb",
+      "description": "grovedb"
     },
     {
       "name": "mikkelkrogsholm--skills",
@@ -179662,6 +180097,16 @@
       "name": "troylar--ai-journal-kit",
       "source": "./troylar--ai-journal-kit",
       "description": "ai-journal-kit"
+    },
+    {
+      "name": "complexvariables--rationalfunctionapproximation-jl",
+      "source": "./complexvariables--rationalfunctionapproximation-jl",
+      "description": "RationalFunctionApproximation.jl"
+    },
+    {
+      "name": "salesforcecommercecloud--b2c-developer-tooling",
+      "source": "./salesforcecommercecloud--b2c-developer-tooling",
+      "description": "b2c-developer-tooling"
     },
     {
       "name": "rudrankriyam--foundation-models-framework-cli",
@@ -181612,6 +182057,11 @@
       "name": "teradata-labs--loom",
       "source": "./teradata-labs--loom",
       "description": "loom"
+    },
+    {
+      "name": "stolostron--multicloud-operators-subscription",
+      "source": "./stolostron--multicloud-operators-subscription",
+      "description": "multicloud-operators-subscription"
     },
     {
       "name": "rust-works--succinctly",
@@ -184189,6 +184639,16 @@
       "description": "provider-kafka"
     },
     {
+      "name": "codeplain-ai--codeplain",
+      "source": "./codeplain-ai--codeplain",
+      "description": "codeplain"
+    },
+    {
+      "name": "mirendev--runtime",
+      "source": "./mirendev--runtime",
+      "description": "runtime"
+    },
+    {
       "name": "zhaono1--agent-playbook",
       "source": "./zhaono1--agent-playbook",
       "description": "agent-playbook"
@@ -186554,6 +187014,16 @@
       "description": "ClimaCoupler.jl"
     },
     {
+      "name": "carpetsage--egg",
+      "source": "./carpetsage--egg",
+      "description": "egg"
+    },
+    {
+      "name": "phax--en16931-cii2ubl",
+      "source": "./phax--en16931-cii2ubl",
+      "description": "en16931-cii2ubl"
+    },
+    {
       "name": "izittmarvin--memcoach",
       "source": "./izittmarvin--memcoach",
       "description": "\u4e00\u4e2aAI \u9762\u8bd5\u6559\u7ec3\u5e73\u53f0\uff1a\u7ad9\u5728\u5de8\u4eba\u80a9\u8180\u4e0a\uff0c\u878d\u5408\u7b80\u5386\u9762\u8bd5\u3001GitHub \u9879\u76ee\u5206\u6790\u4e0e\u6301\u4e45\u5316\u753b\u50cf\u8bb0\u5fc6\u4e09\u5927\u667a\u80fd\u95ed\u73af\uff0c\u63d0\u4f9b\u52a8\u6001\u8ffd\u95ee\u3001\u6e90\u7801\u8bc1\u636e\u9a71\u52a8\u7684\u95ee\u9898\u751f\u6210\u4e0e\u6301\u7eed   \u8fdb\u5316\u7684\u4e2a\u6027\u5316\u8bad\u7ec3\u8def\u5f84\u3002"
@@ -188747,6 +189217,11 @@
       "name": "aayush9029--peeri",
       "source": "./aayush9029--peeri",
       "description": "Peeri"
+    },
+    {
+      "name": "cue-lang--cuelang-org",
+      "source": "./cue-lang--cuelang-org",
+      "description": "cuelang.org"
     },
     {
       "name": "agents-squads--squads-cli",
@@ -196104,6 +196579,11 @@
       "description": "notebooklmreimagined"
     },
     {
+      "name": "tidal-music--tidal-sdk-ios",
+      "source": "./tidal-music--tidal-sdk-ios",
+      "description": "tidal-sdk-ios"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -198274,6 +198754,26 @@
       "description": "agentview"
     },
     {
+      "name": "okuvshynov--llama-sandbox",
+      "source": "./okuvshynov--llama-sandbox",
+      "description": "llama-sandbox"
+    },
+    {
+      "name": "readmeio--markdown",
+      "source": "./readmeio--markdown",
+      "description": "markdown"
+    },
+    {
+      "name": "zmre--pwnvim",
+      "source": "./zmre--pwnvim",
+      "description": "pwnvim"
+    },
+    {
+      "name": "konflux-ci--build-definitions",
+      "source": "./konflux-ci--build-definitions",
+      "description": "build-definitions"
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
@@ -200372,6 +200872,11 @@
       "name": "stellio-hub--stellio-context-broker",
       "source": "./stellio-hub--stellio-context-broker",
       "description": "stellio-context-broker"
+    },
+    {
+      "name": "mayurpise--draft",
+      "source": "./mayurpise--draft",
+      "description": "draft"
     },
     {
       "name": "bobmatnyc--claude-mpm-skills",
@@ -202792,6 +203297,11 @@
       "name": "monorailcss--monorailcss-framework",
       "source": "./monorailcss--monorailcss-framework",
       "description": "MonorailCss.Framework"
+    },
+    {
+      "name": "dariusznewecki--core",
+      "source": "./dariusznewecki--core",
+      "description": "CORE"
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -205734,6 +206244,16 @@
       "description": "labs"
     },
     {
+      "name": "jburrow--monaco-editor-code-review",
+      "source": "./jburrow--monaco-editor-code-review",
+      "description": "monaco-editor-code-review"
+    },
+    {
+      "name": "shellyusa--hubitat-drivers",
+      "source": "./shellyusa--hubitat-drivers",
+      "description": "Hubitat-Drivers"
+    },
+    {
       "name": "affitor--open-affiliate",
       "source": "./affitor--open-affiliate",
       "description": "The open registry of affiliate programs. Built for developers and AI agents."
@@ -208092,6 +208612,11 @@
       "name": "seethroughlab--familiar",
       "source": "./seethroughlab--familiar",
       "description": "familiar"
+    },
+    {
+      "name": "tangle-network--dapp",
+      "source": "./tangle-network--dapp",
+      "description": "dapp"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -211264,6 +211789,11 @@
       "description": "neaps"
     },
     {
+      "name": "objectionary--eoc",
+      "source": "./objectionary--eoc",
+      "description": "eoc"
+    },
+    {
       "name": "r44vc0rp--itui",
       "source": "./r44vc0rp--itui",
       "description": "itui"
@@ -214037,6 +214567,11 @@
       "name": "proto-graphql--proto-graphql-js",
       "source": "./proto-graphql--proto-graphql-js",
       "description": "proto-graphql-js"
+    },
+    {
+      "name": "rpsft--etlbox",
+      "source": "./rpsft--etlbox",
+      "description": "etlbox"
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -219594,6 +220129,11 @@
       "description": "ai-agent"
     },
     {
+      "name": "dylanchiang-dev--dc-family-task-manager",
+      "source": "./dylanchiang-dev--dc-family-task-manager",
+      "description": "DC-family-task-manager"
+    },
+    {
       "name": "inureyes--gyeol",
       "source": "./inureyes--gyeol",
       "description": "gyeol"
@@ -222409,6 +222949,11 @@
       "description": "kuery-client"
     },
     {
+      "name": "openshift--splunk-forwarder-operator",
+      "source": "./openshift--splunk-forwarder-operator",
+      "description": "splunk-forwarder-operator"
+    },
+    {
       "name": "compozy--kb",
       "source": "./compozy--kb",
       "description": "kb"
@@ -225027,6 +225572,21 @@
       "name": "dd-center--submit-vtbs-moe",
       "source": "./dd-center--submit-vtbs-moe",
       "description": "submit.vtbs.moe"
+    },
+    {
+      "name": "crynners--accbot",
+      "source": "./crynners--accbot",
+      "description": "AccBot"
+    },
+    {
+      "name": "ddev--signing-tools",
+      "source": "./ddev--signing-tools",
+      "description": "signing_tools"
+    },
+    {
+      "name": "stacksjs--bun-plugin-dtsx",
+      "source": "./stacksjs--bun-plugin-dtsx",
+      "description": "bun-plugin-dtsx"
     },
     {
       "name": "navikt--cplt",
