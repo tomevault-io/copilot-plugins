@@ -1,6 +1,6 @@
 ## create-fastapi-app
 
-> Validates user input before template generation:
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 # CLAUDE.md
 
@@ -8,179 +8,326 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Create FastAPI App** is a Cookiecutter-based project generator that creates enterprise-grade FastAPI backend applications. It serves as a template system that generates production-ready FastAPI projects with comprehensive features including RBAC authorization, JWT authentication, audit logging, file management, and clean three-layer architecture.
+This is an enterprise-grade FastAPI backend template named "evoai-backend-template" with a clean three-layer architecture (API → Service → Repository → Model). It includes built-in RBAC permission management, user management, file management, audit logging, and other core enterprise features. The project uses UV for package management and focuses on providing a production-ready, scalable backend framework.
 
-## Common Development Commands
+**Key Features:**
+- 🏗️ **Clean Architecture**: Three-layer separation (API/Service/Repository)
+- 🔐 **RBAC Authorization**: Role-based access control with menus and API permissions
+- 👤 **User Management**: Complete user lifecycle with JWT authentication
+- 📝 **Audit Logging**: Comprehensive activity tracking and monitoring
+- 📁 **File Management**: Secure file upload/download with validation
+- 🚀 **Performance**: Redis caching, database optimization, rate limiting
+- 🐳 **Production Ready**: Docker support, health checks, monitoring
+- 📖 **Documentation**: Auto-generated API docs with MkDocs integration
 
-### Template Generation
+## Common Commands
+
+### Environment Setup
 ```bash
-# Generate a new FastAPI project from this template
-cookiecutter https://github.com/JiayuXu0/create-fastapi-app
+# Install UV package manager (if not installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Generate locally (for testing template changes)
-cookiecutter . --no-input --overwrite-if-exists
-```
+# Install project dependencies
+uv sync
 
-### Template Testing
-```bash
-# Test template generation with default values
-cd /tmp && cookiecutter /path/to/create-fastapi-app --no-input
-
-# Test generated project setup
-cd my-fastapi-project
-cp .env.example .env
+# Install development dependencies (includes testing, linting tools)
 uv sync --dev
-uv run aerich init-db
-uv run uvicorn src:app --reload
+
+# Install documentation dependencies
+uv sync --group docs
 ```
 
-### Template Development
+### Development Server
 ```bash
-# Validate cookiecutter configuration
-cookiecutter --help
+# Run development server with hot reload (entry point is src/__init__.py)
+uv run uvicorn src:app --reload --host 0.0.0.0 --port 8000
 
-# Test hooks execution
-python hooks/pre_gen_project.py
-python hooks/post_gen_project.py
+# Run production server with multiple workers
+uv run uvicorn src:app --host 0.0.0.0 --port 8000 --workers 4
+
+# Alternative: Run via Python module
+uv run python -m uvicorn src:app --reload
 ```
 
-## Architecture
-
-### Cookiecutter Template Structure
-The template uses Cookiecutter's Jinja2 templating system with the following key components:
-
-- **cookiecutter.json**: Defines template variables and defaults
-- **{{cookiecutter.project_slug}}/**: Template directory containing the FastAPI project structure
-- **hooks/**: Pre and post-generation Python scripts for validation and setup
-- **README.md**: Documentation for template users
-
-### Generated Project Architecture
-The template creates projects with clean three-layer architecture:
-
-```
-API Layer (src/api/v1/) 
-    ↓ calls
-Service Layer (src/services/) 
-    ↓ calls  
-Repository Layer (src/repositories/)
-    ↓ calls
-Model Layer (src/models/)
-```
-
-### Key Template Features
-- **Enterprise-Ready**: RBAC authorization, JWT auth, audit logging
-- **Modern Stack**: FastAPI + Tortoise ORM + UV package manager + Ruff formatting
-- **Production Features**: Docker support, Redis caching, rate limiting, security middleware
-- **Developer Experience**: Pre-commit hooks, comprehensive testing, MkDocs documentation
-- **Flexible Configuration**: PostgreSQL/SQLite, optional Redis, Docker, docs generation
-
-## Template Configuration Options
-
-### Basic Information
-- `project_name`: Human-readable project name
-- `project_slug`: URL-friendly identifier (auto-generated from project_name)
-- `project_description`: Brief project description
-- `author_name` / `author_email`: Author information
-- `github_username`: GitHub username for repository links
-
-### Technical Choices
-- `python_version`: 3.11 or 3.12
-- `database_type`: postgresql or sqlite
-- `use_redis`: yes/no - Redis caching support
-- `include_docs`: yes/no - MkDocs documentation
-- `include_docker`: yes/no - Docker configuration files
-- `use_pre_commit`: yes/no - Pre-commit hooks setup
-
-## Hook Scripts
-
-### Pre-generation Hook (hooks/pre_gen_project.py)
-Validates user input before template generation:
-- Project name length (minimum 3 characters)
-- Project slug format (valid Python package name)
-- Email format validation
-- GitHub username format validation
-
-### Post-generation Hook (hooks/post_gen_project.py)
-Performs cleanup and setup after generation:
-- Removes unused files based on configuration choices
-- Creates appropriate .env.example file
-- Sets executable permissions on scripts
-- Displays setup instructions to user
-
-## Development Workflow
-
-### Making Template Changes
-1. **Edit Template Files**: Modify files in `{{cookiecutter.project_slug}}/`
-2. **Update Configuration**: Adjust `cookiecutter.json` if adding new options
-3. **Test Generation**: Use `cookiecutter . --no-input` to test locally
-4. **Test Generated Project**: Verify the generated project works correctly
-5. **Update Hooks**: Modify validation/setup logic if needed
-
-### Adding New Features to Generated Projects
-1. **Add to Template**: Implement feature in `{{cookiecutter.project_slug}}/src/`
-2. **Update Dependencies**: Modify `pyproject.toml` template
-3. **Add Configuration**: Update environment variables in hooks
-4. **Update Documentation**: Modify generated `README.md` and `CLAUDE.md`
-5. **Add Tests**: Include test coverage in template
-
-### Template Variables Usage
-Use Jinja2 syntax for dynamic content:
-- `{{ cookiecutter.variable_name }}`: Insert variable value
-- `{% if cookiecutter.option == "yes" %}...{% endif %}`: Conditional content
-- Template files use `.j2` extension or are processed by default
-
-## Generated Project Standards
-
-### Code Quality Tools
-- **Ruff**: Modern linting and formatting (replaces Black, isort, flake8)
-- **MyPy**: Type checking with strict configuration
-- **Pre-commit**: Automated code quality checks
-- **Pytest**: Comprehensive testing with async support
-
-### Security Best Practices
-- Argon2 password hashing
-- JWT token management with refresh tokens
-- CORS configuration with specific origins
-- Rate limiting with SlowAPI
-- Input validation with Pydantic
-- Environment-based configuration
-
-### Development Commands (Generated Projects)
+### Database Operations
 ```bash
-# Setup
-uv sync --dev
+# Initialize database (first time setup)
 uv run aerich init-db
 
-# Development
-uv run uvicorn src:app --reload
+# Generate migration after model changes
+uv run aerich migrate --name "describe_your_changes"
 
-# Testing
-uv run pytest
-uv run pytest --cov=src --cov-report=html
-
-# Code Quality
-uv run ruff check --fix src/
-uv run ruff format src/
-uv run mypy src/
-
-# Database
-uv run aerich migrate --name "description"
+# Apply migrations
 uv run aerich upgrade
 
-# Documentation
+# View migration history
+uv run aerich history
+```
+
+### Testing
+```bash
+# Run all tests
+uv run pytest
+
+# Run specific test file
+uv run pytest tests/test_users.py
+
+# Run with coverage report
+uv run pytest --cov=src --cov-report=html
+```
+
+### Code Quality
+
+#### 🔧 Pre-commit Hooks (自动化)
+```bash
+# hooks 会在 uv sync 时自动安装并配置
+# 每次 git commit 时自动运行，确保代码质量
+
+# 手动运行所有检查
+uv run pre-commit run --all-files
+
+# 禁用 hooks (如不需要)
+uv run pre-commit uninstall
+
+# 跳过单次检查 (紧急提交)
+git commit --no-verify -m "urgent fix"
+```
+
+#### ⚙️ 手动检查命令
+```bash
+# 代码检查和自动修复 (替代 black + isort)
+uv run ruff check --fix src/
+
+# 代码格式化
+uv run ruff format src/
+
+# 类型检查 (可选)
+uv run mypy src/
+```
+
+📖 **详细配置**: 查看 [docs/pre-commit-guide.md](docs/pre-commit-guide.md)
+
+### Docker Operations
+```bash
+# Build image
+docker build -t backend-template .
+
+# Run container
+docker run -p 8000:8000 backend-template
+```
+
+### Documentation
+```bash
+# Install documentation dependencies
+uv sync --group docs
+
+# Serve documentation locally
 uv run mkdocs serve
+
+# Build documentation
+uv run mkdocs build
+
+# Deploy documentation to GitHub Pages
+uv run mkdocs gh-deploy
+```
+
+## Architecture Overview
+
+The project follows a clean three-layer architecture with clear separation of concerns:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                        API Layer                            │
+│  (src/api/v1/) - Routes, parameter validation, responses    │
+└─────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────┐
+│                      Service Layer                          │
+│  (src/services/) - Business logic, permissions, validation  │
+└─────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────┐
+│                   Repository Layer                          │
+│  (src/repositories/) - Data access, CRUD operations         │
+└─────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────┐
+│                      Model Layer                            │
+│  (src/models/) - Tortoise ORM models, database schemas     │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Key Design Principles
+- **Single Responsibility**: Each layer handles only its own logic
+- **Dependency Injection**: Managed through FastAPI's dependency system
+- **Type Safety**: Comprehensive Python type annotations throughout
+- **Async First**: All I/O operations are asynchronous
+- **Security First**: Multiple built-in security mechanisms
+
+### Core Components
+
+- **Authentication**: JWT-based with access tokens (4 hours) and refresh tokens (7 days)
+- **Authorization**: RBAC system with roles, menus, and API permissions
+- **Rate Limiting**: Built-in request rate limiting using SlowAPI
+- **File Management**: Secure file upload/download with type validation and size limits
+- **Audit Logging**: HTTP request logging and user activity tracking via middleware
+- **Caching**: Redis integration with configurable TTL and smart caching strategies
+- **Middleware Stack**: Security headers, request logging, background tasks, audit logging
+- **Data Processing**: Built-in sensitive content filtering and data processors
+
+## Development Workflow for New Features
+
+When adding new functionality, follow this standard process:
+
+1. **Define Model** (`src/models/admin.py`) - Create Tortoise ORM model
+2. **Create Schema** (`src/schemas/`) - Define Pydantic validation schemas
+3. **Implement Repository** (`src/repositories/`) - Add data access layer
+4. **Write Service** (`src/services/`) - Implement business logic
+5. **Add API Routes** (`src/api/v1/`) - Create endpoint handlers
+6. **Generate Migration** - Run `uv run aerich migrate --name "feature_name"`
+7. **Write Tests** (`tests/`) - Add test coverage
+
+## Security Considerations
+
+- JWT tokens are configured with HS256 algorithm
+- Default admin credentials: username=`admin`, password=`abcd1234` (change immediately!)
+- Password requirements: minimum 8 characters with letters and numbers
+- File upload restrictions: whitelist validation, size limits, dangerous file detection
+- Production checklist:
+  - Set `DEBUG=False`
+  - Generate strong `SECRET_KEY` with `openssl rand -hex 32`
+  - Configure proper `CORS_ORIGINS`
+  - Use PostgreSQL instead of SQLite
+  - Set strong `SWAGGER_UI_PASSWORD`
+
+## Database Best Practices
+
+- Models inherit from `BaseModel` and `TimestampMixin` for consistency
+- Use `select_related()` for foreign key preloading
+- Use `prefetch_related()` for many-to-many optimization
+- Add indexes on frequently queried fields
+- String references for relationships to avoid circular imports: `fields.ForeignKeyField("models.User")`
+
+## Environment Configuration
+
+Key environment variables (configured in `.env`):
+
+### Core Settings
+- `APP_ENV`: development/production/testing (default: development)
+- `DEBUG`: Enable debug mode (default: True)
+- `SECRET_KEY`: JWT signing key (auto-generated if missing, minimum 32 chars)
+- `APP_TITLE`: Application title (default: "Vue FastAPI Admin")
+- `PROJECT_NAME`: Project name for identification
+
+### Database Configuration
+- `DB_ENGINE`: postgres/sqlite (default: postgres for production)
+- `DB_HOST`: Database host (default: localhost)
+- `DB_PORT`: Database port (default: 5432)
+- `DB_USER`: Database username (default: postgres)
+- `DB_PASSWORD`: Database password (required for production)
+- `DB_NAME`: Database name (default: fastapi_backend)
+
+### Authentication & Security
+- `JWT_ACCESS_TOKEN_EXPIRE_MINUTES`: Access token expiry (default: 240)
+- `JWT_REFRESH_TOKEN_EXPIRE_DAYS`: Refresh token expiry (default: 7)
+- `SWAGGER_UI_USERNAME`: Swagger UI username (default: admin)
+- `SWAGGER_UI_PASSWORD`: Swagger UI password (required, minimum 8 chars)
+
+### CORS & External Access
+- `CORS_ORIGINS`: Comma-separated allowed origins (default: localhost:3000,localhost:8080)
+- `CORS_ALLOW_CREDENTIALS`: Allow credentials in CORS (default: True)
+
+### Caching & Performance
+- `REDIS_URL`: Redis connection URL (default: redis://localhost:6379/0)
+- `CACHE_TTL`: Default cache TTL in seconds (default: 300)
+
+## Project Structure
+
+```
+src/
+├── __init__.py                 # FastAPI app entry point
+├── api/                        # API Layer
+│   └── v1/                    # API version 1
+│       ├── apis/              # API management endpoints
+│       ├── auditlog/          # Audit logging endpoints
+│       ├── base/              # Base/health endpoints
+│       ├── depts/             # Department management
+│       ├── files/             # File management
+│       ├── menus/             # Menu management
+│       ├── roles/             # Role management
+│       └── users/             # User management
+├── core/                      # Core functionality
+│   ├── crud.py               # Base CRUD operations
+│   ├── dependency.py         # FastAPI dependencies
+│   ├── exceptions.py         # Custom exceptions
+│   ├── init_app.py          # App initialization
+│   └── middlewares.py       # Custom middleware
+├── handlers/                  # Data processing
+│   ├── data_processor.py    # Data processing utilities
+│   └── sensitive_filter.py   # Content filtering
+├── models/                    # Data Models (Tortoise ORM)
+│   ├── admin.py             # User, Role, API, Menu models
+│   ├── base.py              # Base model classes
+│   └── enums.py             # Enum definitions
+├── repositories/              # Repository Layer
+│   ├── api.py               # API data access
+│   ├── dept.py              # Department data access
+│   ├── menu.py              # Menu data access
+│   ├── role.py              # Role data access
+│   └── user.py              # User data access
+├── schemas/                   # Pydantic Schemas
+│   ├── apis.py              # API validation schemas
+│   ├── base.py              # Base schemas
+│   ├── depts.py             # Department schemas
+│   ├── login.py             # Authentication schemas
+│   ├── menus.py             # Menu schemas
+│   ├── roles.py             # Role schemas
+│   └── users.py             # User schemas
+├── services/                  # Service Layer (Business Logic)
+│   ├── base_service.py      # Base service class
+│   ├── file_service.py      # File handling service
+│   └── user_service.py      # User business logic
+├── settings/                  # Configuration
+│   └── config.py            # Application settings
+├── log/                       # Logging utilities
+│   ├── context.py           # Logging context
+│   └── log.py               # Logger configuration
+└── utils/                     # Utilities
+    ├── cache.py             # Redis caching utilities
+    ├── jwt.py               # JWT token utilities
+    ├── password.py          # Password hashing utilities
+    └── sensitive_word_filter.py  # Content filtering
 ```
 
 ## Important Notes
 
-- **Template Location**: Main template content is in `{{cookiecutter.project_slug}}/`
-- **Variable References**: Use exact cookiecutter variable names from `cookiecutter.json`
-- **File Filtering**: Use `_copy_without_render` for files that shouldn't be templated
-- **Hook Execution**: Pre-gen hook runs before generation, post-gen after
-- **Testing Required**: Always test both template generation and generated project functionality
-- **UV Package Manager**: Generated projects use UV exclusively, not pip
-- **Entry Point**: Generated FastAPI apps start from `src/__init__.py`
+- **Entry Point**: Application starts from `src/__init__.py` which creates the FastAPI app
+- **Async Operations**: All routes and database operations are async - always use `await`
+- **Repository Pattern**: Data access through repositories only - avoid direct model queries in services
+- **Service Layer**: Business logic and permissions handled in services - keep routes thin
+- **Authentication**: Use `current_user: User = Depends(get_current_user)` for auth
+- **Admin Endpoints**: Use `current_user: User = Depends(SuperUserRequired)` for admin-only access
+- **Database Changes**: Always generate migrations with `uv run aerich migrate --name "description"`
+- **Package Management**: Use UV exclusively - avoid pip direct usage
+- **Environment**: Copy `.env.example` to `.env` and configure appropriately
+- **Testing**: Comprehensive test suite in `tests/` directory with pytest
+
+## API Documentation & Monitoring
+
+After starting the server:
+- **Swagger UI**: http://localhost:8000/docs (requires authentication)
+- **ReDoc**: http://localhost:8000/redoc (requires authentication)
+- **OpenAPI Schema**: http://localhost:8000/openapi.json (requires authentication)
+- **Health Check**: http://localhost:8000/api/v1/base/health
+- **Version Info**: http://localhost:8000/api/v1/base/version
+
+### Default Credentials
+- **Username**: `admin`
+- **Password**: `abcd1234`
+- **Email**: `admin@admin.com`
+
+⚠️ **Security Warning**: Change default credentials immediately in production!
 
 ---
 > Source: [JiayuXu0/create-fastapi-app](https://github.com/JiayuXu0/create-fastapi-app) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
