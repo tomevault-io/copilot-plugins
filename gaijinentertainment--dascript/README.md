@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [GaijinEntertainment/daScript](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [GaijinEntertainment/daScript](https://github.com/GaijinEntertainment/daScript) — a repo with 1142+ stars on GitHub.
+From [GaijinEntertainment/daScript](https://github.com/GaijinEntertainment/daScript) — a repo with 1144+ stars on GitHub.
 
 ---
 
