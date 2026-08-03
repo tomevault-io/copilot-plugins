@@ -1,0 +1,9 @@
+{
+  "name": "shionit--zed-todo-highlight",
+  "displayName": "zed-todo-highlight",
+  "description": "TODO Highlighter for Zed",
+  "version": "1.0.0",
+  "author": "shionit",
+  "homepage": "https://github.com/shionit/zed-todo-highlight",
+  "skills": []
+}
