@@ -1,0 +1,9 @@
+{
+  "name": "gitcapoom--sharp-depth-injection",
+  "displayName": "Sharp_Depth_Injection",
+  "description": "External-depth-prior extension for Apple's ml-sharp Gaussian Splat predictor. Houdini cam_zdepth + Nano Banana RGB -> metric Gaussian Splat. Previz pipeline.",
+  "version": "1.0.0",
+  "author": "gitcapoom",
+  "homepage": "https://github.com/gitcapoom/Sharp_Depth_Injection",
+  "skills": []
+}
