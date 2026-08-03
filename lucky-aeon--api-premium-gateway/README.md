@@ -7,13 +7,13 @@ api 高可用网关
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [lucky-aeon/API-Premium-Gateway](https://github.com/lucky-aeon/API-Premium-Gateway).
+Original source: `CLAUDE.md` in [lucky-aeon/API-Premium-Gateway](https://github.com/lucky-aeon/API-Premium-Gateway).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
