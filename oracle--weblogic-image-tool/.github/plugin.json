@@ -1,0 +1,9 @@
+{
+  "name": "oracle--weblogic-image-tool",
+  "displayName": "weblogic-image-tool",
+  "description": "weblogic-image-tool",
+  "version": "1.0.0",
+  "author": "oracle",
+  "homepage": "https://github.com/oracle/weblogic-image-tool",
+  "skills": []
+}
