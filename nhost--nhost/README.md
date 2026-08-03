@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [nhost/nhost](https://github.com/nhost/nhost).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [nhost/nhost](https://github.com/nhost/nhost) — a repo with 9243+ stars on GitHub.
+From [nhost/nhost](https://github.com/nhost/nhost) — a repo with 9252+ stars on GitHub.
 
 ---
 
