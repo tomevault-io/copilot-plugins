@@ -1,0 +1,9 @@
+{
+  "name": "deltares--wflow-jl",
+  "displayName": "Wflow.jl",
+  "description": "Wflow.jl",
+  "version": "1.0.0",
+  "author": "Deltares",
+  "homepage": "https://github.com/Deltares/Wflow.jl",
+  "skills": []
+}
