@@ -1,0 +1,9 @@
+{
+  "name": "easymailing--easymailing-sdk",
+  "displayName": "easymailing-sdk",
+  "description": "Official Easymailing SDKs for Node and PHP. Generated from OpenAPI.",
+  "version": "1.0.0",
+  "author": "easymailing",
+  "homepage": "https://github.com/easymailing/easymailing-sdk",
+  "skills": []
+}
