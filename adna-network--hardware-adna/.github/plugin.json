@@ -1,0 +1,9 @@
+{
+  "name": "adna-network--hardware-adna",
+  "displayName": "Hardware.aDNA",
+  "description": "Hardware.aDNA \u2014 hardware strengths/limits silo (edge AI, Jetson, Pi-class, GPU/TPU/NPU/FPGA, memory bandwidth, quantization). Matches workloads to silicon. Sub-vault of DataEngineering.aDNA.",
+  "version": "1.0.0",
+  "author": "aDNA-Network",
+  "homepage": "https://github.com/aDNA-Network/Hardware.aDNA",
+  "skills": []
+}
