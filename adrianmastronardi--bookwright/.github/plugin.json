@@ -1,0 +1,9 @@
+{
+  "name": "adrianmastronardi--bookwright",
+  "displayName": "bookwright",
+  "description": "A six-phase pipeline for long-form nonfiction writing, packaged as a Claude Code skill",
+  "version": "1.0.0",
+  "author": "AdrianMastronardi",
+  "homepage": "https://github.com/AdrianMastronardi/bookwright",
+  "skills": []
+}
