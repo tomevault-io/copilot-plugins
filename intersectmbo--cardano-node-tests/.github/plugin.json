@@ -1,0 +1,9 @@
+{
+  "name": "intersectmbo--cardano-node-tests",
+  "displayName": "cardano-node-tests",
+  "description": "cardano-node-tests",
+  "version": "1.0.0",
+  "author": "IntersectMBO",
+  "homepage": "https://github.com/IntersectMBO/cardano-node-tests",
+  "skills": []
+}
