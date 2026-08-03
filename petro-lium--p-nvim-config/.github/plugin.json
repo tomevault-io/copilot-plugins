@@ -1,0 +1,9 @@
+{
+  "name": "petro-lium--p-nvim-config",
+  "displayName": "p_nvim_config",
+  "description": "My neovim config",
+  "version": "1.0.0",
+  "author": "Petro-lium",
+  "homepage": "https://github.com/Petro-lium/p_nvim_config",
+  "skills": []
+}
