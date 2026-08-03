@@ -1,35 +1,17 @@
-## components
+## i18n
 
-> React component conventions for SOGo. Apply when creating or editing React components.
+> Internationalisation rules for SOGo. Apply when creating or editing React components, forms, or any UI text.
 
 
-# Component Conventions - SOGo
+# i18n Conventions — SOGo
 
-## Canonical reference
-@src/features/mails/components/list-item-desktop.tsx
+## Hard rule
+NEVER hardcode strings in JSX. ESLint rule `react/jsx-no-literals` will fail the build.
 
-## Structure rules
-- Add `'use client'` on any component using hooks, events, Redux, or browser APIs
-- Always type props with a named interface: `interface MyComponentProps { ... }`
-- Export `memo()` wrapped component as default for list items and frequently re-rendering components
-- Use `React.FC<Props>` typing on component definition
-
-## Styling
-- Use `cn()` from `@/lib/utils` for conditional class merging - never string concatenation or template literals for Tailwind classes
-- Tailwind classes are sorted automatically by Prettier on save
-
-## Routing
-- Import `useRouter`, `usePathname` from `@/lib/i18n/navigation` - NEVER from `next/navigation`
-- Use `useParams()` from `next/navigation` for dynamic route params
-
-## Lazy loading
-- Wrap heavy components (CKEditor, charts, complex modals) with `createLazyImport()` or `createDynamicComponent()` from `@/components/dynamic-imports`
-- Add corresponding skeleton in `@/components/ui/skeletons/`
-
-## Redux
-- Read state with typed selectors, never access `store.getState()` directly in components
-- Dispatch actions via `useDispatch()` hook
-- Static reducers: `auth`, `mailCompose`, `notifications` - do not add new static reducers without discussion
+## Correct pattern
+```tsx
+const t = useTranslations('NAMESPACE')
+return <span>{t('MY_KEY')}</span>
 
 ---
 > Source: [Alinto/SOGo6-UI](https://github.com/Alinto/SOGo6-UI) — distributed by [TomeVault](https://tomevault.io).
