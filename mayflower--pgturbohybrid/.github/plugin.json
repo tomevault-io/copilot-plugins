@@ -1,0 +1,9 @@
+{
+  "name": "mayflower--pgturbohybrid",
+  "displayName": "pgturbohybrid",
+  "description": "Hot-hatch turboquant powered whybrid vector + BM25 search for PostgreSQL on top of pgvector",
+  "version": "1.0.0",
+  "author": "mayflower",
+  "homepage": "https://github.com/mayflower/pgturbohybrid",
+  "skills": []
+}
