@@ -1,0 +1,44 @@
+{
+  "name": "sofia-agente-voz",
+  "owner": "Carlos-Dominguez-faber",
+  "repo": "sofia-agente-voz",
+  "description": "Sof\u00eda \u2014 agente de voz con IA que contesta el tel\u00e9fono, califica y agenda citas en GoHighLevel. Inst\u00e1lalo con un comando.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Carlos-Dominguez-faber/sofia-agente-voz",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-03T09:13:16Z"
+}
