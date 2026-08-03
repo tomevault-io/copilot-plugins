@@ -4269,6 +4269,11 @@
       "description": "livewire"
     },
     {
+      "name": "decolua--9router",
+      "source": "./decolua--9router",
+      "description": "9router"
+    },
+    {
       "name": "everyinc--compound-engineering-plugin",
       "source": "./everyinc--compound-engineering-plugin",
       "description": "compound-engineering-plugin"
@@ -10189,6 +10194,11 @@
       "description": "reconftw"
     },
     {
+      "name": "six2dez--reconftw",
+      "source": "./six2dez--reconftw",
+      "description": "reconftw"
+    },
+    {
       "name": "jo-inc--camofox-browser",
       "source": "./jo-inc--camofox-browser",
       "description": "camofox-browser"
@@ -10912,6 +10922,11 @@
       "name": "fujiapple852--trippy",
       "source": "./fujiapple852--trippy",
       "description": "trippy"
+    },
+    {
+      "name": "aome510--spotify-player",
+      "source": "./aome510--spotify-player",
+      "description": "spotify-player"
     },
     {
       "name": "hathach--tinyusb",
@@ -12482,6 +12497,11 @@
       "name": "dolanmiu--docx",
       "source": "./dolanmiu--docx",
       "description": "docx"
+    },
+    {
+      "name": "cortexproject--cortex",
+      "source": "./cortexproject--cortex",
+      "description": "cortex"
     },
     {
       "name": "cortexproject--cortex",
@@ -17794,6 +17814,11 @@
       "description": "litecli"
     },
     {
+      "name": "goodwithtech--dockle",
+      "source": "./goodwithtech--dockle",
+      "description": "dockle"
+    },
+    {
       "name": "nvidia--model-optimizer",
       "source": "./nvidia--model-optimizer",
       "description": "Model-Optimizer"
@@ -19989,6 +20014,11 @@
       "description": "slick"
     },
     {
+      "name": "davidwells--analytics",
+      "source": "./davidwells--analytics",
+      "description": "analytics"
+    },
+    {
       "name": "tale--headplane",
       "source": "./tale--headplane",
       "description": "headplane"
@@ -20177,6 +20207,11 @@
       "name": "openlit--openlit",
       "source": "./openlit--openlit",
       "description": "openlit"
+    },
+    {
+      "name": "israel-dryer--ttkbootstrap",
+      "source": "./israel-dryer--ttkbootstrap",
+      "description": "ttkbootstrap"
     },
     {
       "name": "nexu-io--nexu",
@@ -20547,6 +20582,11 @@
       "name": "facet-rs--facet",
       "source": "./facet-rs--facet",
       "description": "facet"
+    },
+    {
+      "name": "huangwb8--chineseresearchlatex",
+      "source": "./huangwb8--chineseresearchlatex",
+      "description": "ChineseResearchLaTeX"
     },
     {
       "name": "huangwb8--chineseresearchlatex",
@@ -25154,6 +25194,11 @@
       "description": "midea_ac_lan"
     },
     {
+      "name": "wuwentao--midea-ac-lan",
+      "source": "./wuwentao--midea-ac-lan",
+      "description": "midea_ac_lan"
+    },
+    {
       "name": "cisco-ai-defense--skill-scanner",
       "source": "./cisco-ai-defense--skill-scanner",
       "description": "Security Scanner for Agent Skills"
@@ -25702,6 +25747,11 @@
       "name": "flutter--devtools",
       "source": "./flutter--devtools",
       "description": "devtools"
+    },
+    {
+      "name": "david-crty--databasement",
+      "source": "./david-crty--databasement",
+      "description": "databasement"
     },
     {
       "name": "ballred--obsidian-claude-pkm",
@@ -27122,6 +27172,11 @@
       "name": "pixeltable--pixeltable",
       "source": "./pixeltable--pixeltable",
       "description": "pixeltable"
+    },
+    {
+      "name": "mlcommons--inference",
+      "source": "./mlcommons--inference",
+      "description": "inference"
     },
     {
       "name": "yuzu-hub--appscreen",
@@ -28842,6 +28897,11 @@
       "name": "abh--geodns",
       "source": "./abh--geodns",
       "description": "geodns"
+    },
+    {
+      "name": "sakura-editor--sakura",
+      "source": "./sakura-editor--sakura",
+      "description": "sakura"
     },
     {
       "name": "enisn--uraniumui",
@@ -34167,6 +34227,11 @@
       "name": "schemahero--schemahero",
       "source": "./schemahero--schemahero",
       "description": "schemahero"
+    },
+    {
+      "name": "gaijinentertainment--dascript",
+      "source": "./gaijinentertainment--dascript",
+      "description": "daScript"
     },
     {
       "name": "deadwavewave--opencove",
@@ -40274,6 +40339,11 @@
       "description": "opentabs"
     },
     {
+      "name": "ryanlamansky--dotnet-webassembly",
+      "source": "./ryanlamansky--dotnet-webassembly",
+      "description": "dotnet-webassembly"
+    },
+    {
       "name": "vercel-labs--next-skills",
       "source": "./vercel-labs--next-skills",
       "description": "next-skills"
@@ -46132,6 +46202,21 @@
       "name": "kubernetes-csi--external-snapshotter",
       "source": "./kubernetes-csi--external-snapshotter",
       "description": "external-snapshotter"
+    },
+    {
+      "name": "carlosnz--json-edit-react",
+      "source": "./carlosnz--json-edit-react",
+      "description": "json-edit-react"
+    },
+    {
+      "name": "carlosnz--json-edit-react",
+      "source": "./carlosnz--json-edit-react",
+      "description": "json-edit-react"
+    },
+    {
+      "name": "carlosnz--json-edit-react",
+      "source": "./carlosnz--json-edit-react",
+      "description": "json-edit-react"
     },
     {
       "name": "evan-kolberg--prediction-market-backtesting",
@@ -56264,6 +56349,11 @@
       "description": "owlstack-laravel"
     },
     {
+      "name": "clearflask--clearflask",
+      "source": "./clearflask--clearflask",
+      "description": "clearflask"
+    },
+    {
       "name": "mmarinovic--react2aws",
       "source": "./mmarinovic--react2aws",
       "description": "Write AWS infrastructure like you write React components"
@@ -62274,6 +62364,11 @@
       "description": "tsugi"
     },
     {
+      "name": "pseudo-corp--synergismofficial",
+      "source": "./pseudo-corp--synergismofficial",
+      "description": "SynergismOfficial"
+    },
+    {
       "name": "sportinger--masterselects",
       "source": "./sportinger--masterselects",
       "description": "realtime media editor in the browser, no backend."
@@ -67449,6 +67544,11 @@
       "description": "havener"
     },
     {
+      "name": "aisecuritylab--hackagent",
+      "source": "./aisecuritylab--hackagent",
+      "description": "hackagent"
+    },
+    {
       "name": "astronomer--agents",
       "source": "./astronomer--agents",
       "description": "AI agent tooling for data engineering workflows."
@@ -69817,6 +69917,11 @@
       "name": "rhett-lee--nim-duilib",
       "source": "./rhett-lee--nim-duilib",
       "description": "nim_duilib"
+    },
+    {
+      "name": "goldentrii--agentrecall-mcp",
+      "source": "./goldentrii--agentrecall-mcp",
+      "description": "AgentRecall-MCP"
     },
     {
       "name": "indragiek--ghfs",
@@ -72592,6 +72697,11 @@
       "name": "prowide--prowide-core",
       "source": "./prowide--prowide-core",
       "description": "prowide-core"
+    },
+    {
+      "name": "odomojuli--regextokens",
+      "source": "./odomojuli--regextokens",
+      "description": "regextokens"
     },
     {
       "name": "geekjourneyx--jina-cli",
@@ -77184,6 +77294,11 @@
       "description": "ursula"
     },
     {
+      "name": "haddocking--haddock3",
+      "source": "./haddocking--haddock3",
+      "description": "haddock3"
+    },
+    {
       "name": "kesslernity--awesome-copilot-studio-agents",
       "source": "./kesslernity--awesome-copilot-studio-agents",
       "description": "73 paste-ready declarative agents for Microsoft 365 Copilot. No coding. No Azure. Deploy in minutes."
@@ -80832,6 +80947,11 @@
       "name": "red-hex-consulting--ankou",
       "source": "./red-hex-consulting--ankou",
       "description": "Ankou"
+    },
+    {
+      "name": "benbalter--word-to-markdown-js",
+      "source": "./benbalter--word-to-markdown-js",
+      "description": "word-to-markdown-js"
     },
     {
       "name": "muxy-app--muxy",
@@ -89619,6 +89739,11 @@
       "description": "pytorch_connectomics"
     },
     {
+      "name": "airbus--scikit-decide",
+      "source": "./airbus--scikit-decide",
+      "description": "scikit-decide"
+    },
+    {
       "name": "austintgriffith--ethskills",
       "source": "./austintgriffith--ethskills",
       "description": "The missing knowledge between AI agents and production Ethereum."
@@ -98147,6 +98272,21 @@
       "name": "becheran--mlc",
       "source": "./becheran--mlc",
       "description": "mlc"
+    },
+    {
+      "name": "dancinlab--anima",
+      "source": "./dancinlab--anima",
+      "description": "anima"
+    },
+    {
+      "name": "dancinlab--anima",
+      "source": "./dancinlab--anima",
+      "description": "anima"
+    },
+    {
+      "name": "dancinlab--anima",
+      "source": "./dancinlab--anima",
+      "description": "anima"
     },
     {
       "name": "jduncan-rva--skill-porter",
@@ -108907,6 +109047,11 @@
       "name": "phax--ph-schematron",
       "source": "./phax--ph-schematron",
       "description": "ph-schematron"
+    },
+    {
+      "name": "devlaner--devlane",
+      "source": "./devlaner--devlane",
+      "description": "devlane"
     },
     {
       "name": "trngtien--vfs",
@@ -125669,6 +125814,16 @@
       "description": "elemento"
     },
     {
+      "name": "wikieden--robocode",
+      "source": "./wikieden--robocode",
+      "description": "robocode"
+    },
+    {
+      "name": "wikieden--robocode",
+      "source": "./wikieden--robocode",
+      "description": "robocode"
+    },
+    {
       "name": "okikusan-public--stock-skills",
       "source": "./okikusan-public--stock-skills",
       "description": "stock_skills"
@@ -128394,6 +128549,11 @@
       "description": "shellfs"
     },
     {
+      "name": "wingrunr21--hassio-xcel-itron-mqtt",
+      "source": "./wingrunr21--hassio-xcel-itron-mqtt",
+      "description": "hassio-xcel-itron-mqtt"
+    },
+    {
       "name": "nickcirv--engram",
       "source": "./nickcirv--engram",
       "description": "The context spine for AI coding agents. 8 providers, 88% proven token savings, 5 IDE integrations (Claude Code, Continue.dev, Cursor, Zed, Aider). Hook-based Read interception, HTTP API, tree-sitter A"
@@ -129657,6 +129817,11 @@
       "name": "hathornetwork--hathor-core",
       "source": "./hathornetwork--hathor-core",
       "description": "hathor-core"
+    },
+    {
+      "name": "marcosomma--orka-reasoning",
+      "source": "./marcosomma--orka-reasoning",
+      "description": "orka-reasoning"
     },
     {
       "name": "freepeak--leankg",
@@ -141779,6 +141944,11 @@
       "description": "HasteHealth"
     },
     {
+      "name": "nilsjr--snappy",
+      "source": "./nilsjr--snappy",
+      "description": "Snappy"
+    },
+    {
       "name": "edisonwong520--wanny",
       "source": "./edisonwong520--wanny",
       "description": "A real Jarvis, connecting your appliances, AI controls everything in realworld. Wanny = nanny in Wechat"
@@ -143812,6 +143982,11 @@
       "name": "barry-jones--live-documenter",
       "source": "./barry-jones--live-documenter",
       "description": "live-documenter"
+    },
+    {
+      "name": "chrisurf--obsidian-voice",
+      "source": "./chrisurf--obsidian-voice",
+      "description": "obsidian-voice"
     },
     {
       "name": "liangdabiao--tikhub-api-skill",
@@ -162534,6 +162709,291 @@
       "description": "shinode"
     },
     {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "comamoca--dotfiles",
+      "source": "./comamoca--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
+      "name": "vicnaum--shinode",
+      "source": "./vicnaum--shinode",
+      "description": "shinode"
+    },
+    {
       "name": "bioliminal--bioliminal-mobile-application",
       "source": "./bioliminal--bioliminal-mobile-application",
       "description": "Bioliminal mobile application (Flutter)"
@@ -177994,6 +178454,11 @@
       "description": "blockstor"
     },
     {
+      "name": "crossmint--crossmint-sdk",
+      "source": "./crossmint--crossmint-sdk",
+      "description": "crossmint-sdk"
+    },
+    {
       "name": "timoncool--ace-step-studio",
       "source": "./timoncool--ace-step-studio",
       "description": "Portable AI music generator \u2014 full songs with vocals, covers, music videos. One-click install, 100% offline, NVIDIA GPU."
@@ -179732,6 +180197,11 @@
       "name": "dashpay--grovedb",
       "source": "./dashpay--grovedb",
       "description": "grovedb"
+    },
+    {
+      "name": "vizzletf--commitsage",
+      "source": "./vizzletf--commitsage",
+      "description": "CommitSage"
     },
     {
       "name": "mikkelkrogsholm--skills",
@@ -193009,6 +193479,26 @@
       "description": "opensyte"
     },
     {
+      "name": "tx7do--go-wind-uba",
+      "source": "./tx7do--go-wind-uba",
+      "description": "go-wind-uba"
+    },
+    {
+      "name": "tx7do--go-wind-uba",
+      "source": "./tx7do--go-wind-uba",
+      "description": "go-wind-uba"
+    },
+    {
+      "name": "tx7do--go-wind-uba",
+      "source": "./tx7do--go-wind-uba",
+      "description": "go-wind-uba"
+    },
+    {
+      "name": "tx7do--go-wind-uba",
+      "source": "./tx7do--go-wind-uba",
+      "description": "go-wind-uba"
+    },
+    {
       "name": "janbjorge--rekal",
       "source": "./janbjorge--rekal",
       "description": "Long-term memory for LLMs. MCP server backed by hybrid search in a single SQLite file."
@@ -198134,6 +198624,51 @@
       "description": "fnord"
     },
     {
+      "name": "zhengbrody--multimodal-rag-system",
+      "source": "./zhengbrody--multimodal-rag-system",
+      "description": "multimodal-rag-system"
+    },
+    {
+      "name": "bofai--x402",
+      "source": "./bofai--x402",
+      "description": "x402"
+    },
+    {
+      "name": "bofai--x402",
+      "source": "./bofai--x402",
+      "description": "x402"
+    },
+    {
+      "name": "bofai--x402",
+      "source": "./bofai--x402",
+      "description": "x402"
+    },
+    {
+      "name": "bofai--x402",
+      "source": "./bofai--x402",
+      "description": "x402"
+    },
+    {
+      "name": "bofai--x402",
+      "source": "./bofai--x402",
+      "description": "x402"
+    },
+    {
+      "name": "bofai--x402",
+      "source": "./bofai--x402",
+      "description": "x402"
+    },
+    {
+      "name": "bofai--x402",
+      "source": "./bofai--x402",
+      "description": "x402"
+    },
+    {
+      "name": "aleph-alpha-research--eval-framework",
+      "source": "./aleph-alpha-research--eval-framework",
+      "description": "eval-framework"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -202437,6 +202972,11 @@
       "name": "mayurpise--draft",
       "source": "./mayurpise--draft",
       "description": "draft"
+    },
+    {
+      "name": "himanshumohanty-git24--rakshaquant",
+      "source": "./himanshumohanty-git24--rakshaquant",
+      "description": "RakshaQuant"
     },
     {
       "name": "bobmatnyc--claude-mpm-skills",
@@ -207904,6 +208444,11 @@
       "description": "ecchronos"
     },
     {
+      "name": "baking-bad--bcdhub",
+      "source": "./baking-bad--bcdhub",
+      "description": "bcdhub"
+    },
+    {
       "name": "affitor--open-affiliate",
       "source": "./affitor--open-affiliate",
       "description": "The open registry of affiliate programs. Built for developers and AI agents."
@@ -210267,6 +210812,11 @@
       "name": "tangle-network--dapp",
       "source": "./tangle-network--dapp",
       "description": "dapp"
+    },
+    {
+      "name": "lza6--googletranslate-2api",
+      "source": "./lza6--googletranslate-2api",
+      "description": "googletranslate-2api"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -216222,6 +216772,11 @@
       "name": "rpsft--etlbox",
       "source": "./rpsft--etlbox",
       "description": "etlbox"
+    },
+    {
+      "name": "acm-vit--conclave",
+      "source": "./acm-vit--conclave",
+      "description": "conclave"
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -397277,6 +397832,11 @@
       "name": "sourcegraph-community--amp-tab-demos",
       "source": "./sourcegraph-community--amp-tab-demos",
       "description": "amp-tab-demos"
+    },
+    {
+      "name": "dancinlab--sidecar",
+      "source": "./dancinlab--sidecar",
+      "description": "sidecar"
     },
     {
       "name": "dancinlab--sidecar",
