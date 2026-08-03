@@ -1,0 +1,9 @@
+{
+  "name": "awksedgreep--snmpkit",
+  "displayName": "snmpkit",
+  "description": "SNMP Kit for Elixir with SNMP Manager and Simulator",
+  "version": "1.0.0",
+  "author": "awksedgreep",
+  "homepage": "https://github.com/awksedgreep/snmpkit",
+  "skills": []
+}
