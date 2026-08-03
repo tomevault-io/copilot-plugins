@@ -4,7 +4,7 @@
   "repo": "fabric-token-sdk",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hyperledger-labs/fabric-token-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T17:40:29Z"
+  "distributed_at": "2026-08-03T13:58:12Z"
 }
