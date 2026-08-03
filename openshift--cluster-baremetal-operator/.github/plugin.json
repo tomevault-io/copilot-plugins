@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cluster-baremetal-operator",
+  "displayName": "cluster-baremetal-operator",
+  "description": "cluster-baremetal-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cluster-baremetal-operator",
+  "skills": []
+}
