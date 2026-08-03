@@ -1,0 +1,9 @@
+{
+  "name": "foamtor--agentbridge",
+  "displayName": "AgentBridge",
+  "description": "AgentBridge is a self-hosted, AI-readable foundation for Vibe Coding business tools. It lets an AI and your developers write the business-specific domain and tools, while the platform owns the difficu",
+  "version": "1.0.0",
+  "author": "Foamtor",
+  "homepage": "https://github.com/Foamtor/AgentBridge",
+  "skills": []
+}
