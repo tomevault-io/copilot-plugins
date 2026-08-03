@@ -1,0 +1,9 @@
+{
+  "name": "dmitrymatv--classifast",
+  "displayName": "classifast",
+  "description": "(Almost) instant and highly accurate classification according to standards. Easily find codes for UNSPSC, NAICS, ISIC, ETIM, HS/CN, etc.",
+  "version": "1.0.0",
+  "author": "DmitryMatv",
+  "homepage": "https://github.com/DmitryMatv/classifast",
+  "skills": []
+}
