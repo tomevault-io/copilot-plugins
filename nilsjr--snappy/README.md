@@ -1,15 +1,15 @@
 # Snappy
 
-> Source: [nilsjr/Snappy](https://github.com/nilsjr/Snappy) — distributed by [TomeVault](https://tomevault.io)
+> Source: [nilsjr/Snappy](https://github.com/nilsjr/Snappy). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nilsjr/Snappy](https://github.com/nilsjr/Snappy).
+Original source: `CLAUDE.md` in [nilsjr/Snappy](https://github.com/nilsjr/Snappy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
