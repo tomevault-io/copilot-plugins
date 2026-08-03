@@ -1,0 +1,9 @@
+{
+  "name": "grafana--xk6-redis",
+  "displayName": "xk6-redis",
+  "description": "xk6-redis",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/xk6-redis",
+  "skills": []
+}
