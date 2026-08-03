@@ -1,0 +1,9 @@
+{
+  "name": "zixi-liu--content-machine",
+  "displayName": "content_machine",
+  "description": "AI content intelligence + creation pipeline (source analysis -> vault -> draft -> council). Bilingual EN/ZH.",
+  "version": "1.0.0",
+  "author": "zixi-liu",
+  "homepage": "https://github.com/zixi-liu/content_machine",
+  "skills": []
+}
