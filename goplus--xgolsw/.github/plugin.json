@@ -1,0 +1,9 @@
+{
+  "name": "goplus--xgolsw",
+  "displayName": "xgolsw",
+  "description": "XGo Language Server that runs in the browser using WebAssembly",
+  "version": "1.0.0",
+  "author": "goplus",
+  "homepage": "https://github.com/goplus/xgolsw",
+  "skills": []
+}
