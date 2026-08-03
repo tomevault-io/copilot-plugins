@@ -1,0 +1,9 @@
+{
+  "name": "signalfx--splunk-otel-collector-chart",
+  "displayName": "splunk-otel-collector-chart",
+  "description": "splunk-otel-collector-chart",
+  "version": "1.0.0",
+  "author": "signalfx",
+  "homepage": "https://github.com/signalfx/splunk-otel-collector-chart",
+  "skills": []
+}
