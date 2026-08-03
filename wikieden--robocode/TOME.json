@@ -2,9 +2,9 @@
   "name": "robocode",
   "owner": "wikieden",
   "repo": "robocode",
-  "description": "Rust-first reimplementation of a local agent CLI inspired by Claude Code.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wikieden/robocode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-20T06:40:31Z"
+  "distributed_at": "2026-08-03T04:36:27Z"
 }
