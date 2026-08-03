@@ -1,0 +1,9 @@
+{
+  "name": "kastarter--eyeball",
+  "displayName": "eyeball",
+  "description": "One typed, authenticated tool API for AI agents \u2014 email, messaging, voice, business systems. TypeScript SDK, MCP gateway, 37 toolkits.",
+  "version": "1.0.0",
+  "author": "Kastarter",
+  "homepage": "https://github.com/Kastarter/eyeball",
+  "skills": []
+}
