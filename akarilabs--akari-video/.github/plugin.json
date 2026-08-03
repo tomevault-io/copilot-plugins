@@ -1,0 +1,9 @@
+{
+  "name": "akarilabs--akari-video",
+  "displayName": "akari-video",
+  "description": "AKARI Video \u2014 AI video editing tool (Theia-based monorepo)",
+  "version": "1.0.0",
+  "author": "AkariLabs",
+  "homepage": "https://github.com/AkariLabs/akari-video",
+  "skills": []
+}
