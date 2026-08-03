@@ -1,0 +1,9 @@
+{
+  "name": "mmartinez--postern",
+  "displayName": "postern",
+  "description": "Credential-brokering HTTPS proxy for AI agents \u2014 brokers 1Password & Bitwarden secrets at request time, so agents call authenticated APIs without ever holding the credentials.",
+  "version": "1.0.0",
+  "author": "mmartinez",
+  "homepage": "https://github.com/mmartinez/postern",
+  "skills": []
+}
