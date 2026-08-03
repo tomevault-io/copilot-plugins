@@ -1,8 +1,10 @@
 ## dory
 
-> - Professional, neutral tone. Use exclamation points sparingly.
+> This is the canonical agent guidance for this repository. `CLAUDE.md` intentionally points here to avoid duplicate instructions drifting apart.
 
-# CLAUDE.md
+# AGENTS.md
+
+This is the canonical agent guidance for this repository. `CLAUDE.md` intentionally points here to avoid duplicate instructions drifting apart.
 
 ## Communication Style
 - Professional, neutral tone. Use exclamation points sparingly.
@@ -163,4 +165,4 @@ Plugins loaded in main config (in order):
 
 ---
 > Source: [clidey/dory](https://github.com/clidey/dory) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
