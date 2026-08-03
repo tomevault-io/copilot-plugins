@@ -1,0 +1,9 @@
+{
+  "name": "adeanima--coding-toolkit",
+  "displayName": "coding-toolkit",
+  "description": "Personal Claude Code plugin: coding principles skill (DRY/YAGNI/KISS/SINE) + warn-only worktree-gate hook",
+  "version": "1.0.0",
+  "author": "AdeAnima",
+  "homepage": "https://github.com/AdeAnima/coding-toolkit",
+  "skills": []
+}
