@@ -1,0 +1,9 @@
+{
+  "name": "grafana--cloudcost-exporter",
+  "displayName": "cloudcost-exporter",
+  "description": "cloudcost-exporter",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/cloudcost-exporter",
+  "skills": []
+}
