@@ -1,0 +1,9 @@
+{
+  "name": "kamioj--spec-workflow",
+  "displayName": "spec-workflow",
+  "description": "Personal Claude Code plugin marketplace for SDD workflow (research / ask / propose / apply / verify / archive)",
+  "version": "1.0.0",
+  "author": "kamioj",
+  "homepage": "https://github.com/kamioj/spec-workflow",
+  "skills": []
+}
