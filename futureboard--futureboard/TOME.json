@@ -1,7 +1,7 @@
 {
-  "name": "Futureboard",
+  "name": "futureboard",
   "owner": "futureboard",
-  "repo": "Futureboard",
+  "repo": "futureboard",
   "description": "An open-source digital audio workstation with Native GPUI, React WebUI, Rust DSP, and native plugin hosting.",
   "type": "config",
   "source_format": "CLAUDE.md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/futureboard/Futureboard",
+  "source_url": "https://github.com/futureboard/futureboard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-08T00:44:31Z"
+  "distributed_at": "2026-08-03T08:19:22Z"
 }
