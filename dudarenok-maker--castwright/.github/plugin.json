@@ -1,0 +1,9 @@
+{
+  "name": "dudarenok-maker--castwright",
+  "displayName": "Castwright",
+  "description": "A local, multi-voice audiobook generator: an LLM casts every character in its own voice, kept consistent across a whole series \u2014 with voice design, per-line emotion, seven languages, and M4B / Audiobo",
+  "version": "1.0.0",
+  "author": "dudarenok-maker",
+  "homepage": "https://github.com/dudarenok-maker/Castwright",
+  "skills": []
+}
