@@ -1,22 +1,21 @@
 # magic-slide
 
-> Tome by [daniel-style](https://github.com/daniel-style/magic-slide) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [daniel-style](https://github.com/daniel-style/magic-slide), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [daniel-style/magic-slide](https://github.com/daniel-style/magic-slide).
+Original source: `AGENTS.md` in [daniel-style/magic-slide](https://github.com/daniel-style/magic-slide).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [daniel-style/magic-slide](https://github.com/daniel-style/magic-slide) — a repo with 166+ stars on GitHub.
+From [daniel-style/magic-slide](https://github.com/daniel-style/magic-slide) — a repo with 170+ stars on GitHub.
 
 ---
 
