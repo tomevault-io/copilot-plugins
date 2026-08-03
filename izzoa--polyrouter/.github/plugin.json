@@ -1,0 +1,9 @@
+{
+  "name": "izzoa--polyrouter",
+  "displayName": "polyrouter",
+  "description": "A self-hostable LLM router / gateway: OpenAI- and Anthropic-compatible, explicit-first routing with fallbacks, spend limits, and metadata-only cost tracking. No markup, no third-party proxy \u2014 your key",
+  "version": "1.0.0",
+  "author": "izzoa",
+  "homepage": "https://github.com/izzoa/polyrouter",
+  "skills": []
+}
