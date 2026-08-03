@@ -1,0 +1,44 @@
+{
+  "name": "seahorse-agent",
+  "owner": "onceMisery",
+  "repo": "seahorse-agent",
+  "description": "Seahorse Agent \u662f\u4e00\u4e2a\u9762\u5411\u4f01\u4e1a\u77e5\u8bc6\u3001\u957f\u671f\u8bb0\u5fc6\u548c\u53ef\u6cbb\u7406\u667a\u80fd\u4f53\u7684\u5de5\u7a0b\u5316\u5e73\u53f0\u3002\u5b83\u4e0d\u662f\u5355\u4e00\u804a\u5929 Demo\uff0c\u800c\u662f\u4e00\u5957\u7528\u4e8e\u6784\u5efa\u4f01\u4e1a\u7ea7 AI \u5e94\u7528\u7684\u53c2\u8003\u5b9e\u73b0\uff1a\u628a RAG\u3001\u7528\u6237\u8bb0\u5fc6\u3001\u7528\u6237\u753b\u50cf\u3001Agent/Skill/Tool\u3001\u79df\u6237\u6cbb\u7406\u3001\u5ba1\u8ba1\u548c\u53ef\u89c2\u6d4b\u6027\u653e\u5728\u540c\u4e00\u6761\u53ef\u90e8\u7f72\u3001\u53ef\u9a8c\u8bc1\u3001\u53ef\u6269\u5c55\u7684\u7cfb\u7edf\u94fe\u8def\u91cc\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/onceMisery/seahorse-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-03T08:52:19Z"
+}
