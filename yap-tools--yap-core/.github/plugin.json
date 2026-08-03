@@ -1,0 +1,9 @@
+{
+  "name": "yap-tools--yap-core",
+  "displayName": "yap-core",
+  "description": "Open source context layer",
+  "version": "1.0.0",
+  "author": "yap-tools",
+  "homepage": "https://github.com/yap-tools/yap-core",
+  "skills": []
+}
