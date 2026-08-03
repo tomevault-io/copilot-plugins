@@ -1,0 +1,9 @@
+{
+  "name": "baronunread--rdyrct",
+  "displayName": "rdyrct",
+  "description": "Open-source URL shortener for teams: branded short links, QR codes, and custom domains on Cloudflare Workers.",
+  "version": "1.0.0",
+  "author": "baronunread",
+  "homepage": "https://github.com/baronunread/rdyrct",
+  "skills": []
+}
