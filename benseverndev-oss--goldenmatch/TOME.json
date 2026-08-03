@@ -4,7 +4,7 @@
   "repo": "goldenmatch",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/benseverndev-oss/goldenmatch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T06:14:26Z"
+  "distributed_at": "2026-08-03T00:10:39Z"
 }
