@@ -1,0 +1,9 @@
+{
+  "name": "thehuanlwd--deepseek-v4-prompt-plus",
+  "displayName": "deepseek-v4-prompt-plus",
+  "description": "Local DeepSeek V4 proxy: reduces hallucinations  strengthens system prompt following  stops reasoning loops  repairs empty tool-call replies \u2014 with built-in session analysis and GUI. / \u672c\u5730 DeepSeek V4 ",
+  "version": "1.0.0",
+  "author": "thehuanlwd",
+  "homepage": "https://github.com/thehuanlwd/deepseek-v4-prompt-plus",
+  "skills": []
+}
