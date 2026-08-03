@@ -1,0 +1,9 @@
+{
+  "name": "fasterxml--jackson-core",
+  "displayName": "jackson-core",
+  "description": "jackson-core",
+  "version": "1.0.0",
+  "author": "FasterXML",
+  "homepage": "https://github.com/FasterXML/jackson-core",
+  "skills": []
+}
