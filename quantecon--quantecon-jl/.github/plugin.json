@@ -1,0 +1,9 @@
+{
+  "name": "quantecon--quantecon-jl",
+  "displayName": "QuantEcon.jl",
+  "description": "QuantEcon.jl",
+  "version": "1.0.0",
+  "author": "QuantEcon",
+  "homepage": "https://github.com/QuantEcon/QuantEcon.jl",
+  "skills": []
+}
