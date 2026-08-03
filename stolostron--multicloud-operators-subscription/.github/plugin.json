@@ -1,0 +1,9 @@
+{
+  "name": "stolostron--multicloud-operators-subscription",
+  "displayName": "multicloud-operators-subscription",
+  "description": "multicloud-operators-subscription",
+  "version": "1.0.0",
+  "author": "stolostron",
+  "homepage": "https://github.com/stolostron/multicloud-operators-subscription",
+  "skills": []
+}
