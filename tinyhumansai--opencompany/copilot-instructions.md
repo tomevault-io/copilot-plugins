@@ -1,0 +1,118 @@
+## opencompany
+
+> OpenCompany is a Rust 2024 crate rooted at `Cargo.toml`. Rust source lives
+
+# Repository Guidelines
+
+## Project Structure & Module Organization
+
+OpenCompany is a Rust 2024 crate rooted at `Cargo.toml`. Rust source lives
+under `src/`. Public module surfaces live in source module directories:
+
+- `src/app/`: runtime configuration and shared Axum state
+- `src/server/`: Axum router and HTTP handlers
+- `src/openhuman/`: launcher and integration seams for the vendored OpenHuman checkout
+- `src/tiny/`: optional TinyAgents crate feature/status surface
+
+The command-line entrypoint lives in `src/bin/opencompany.rs`. Business types
+are data-only definitions under `companies/` (a `company.toml` manifest plus a
+`README.md` — not Cargo crates), loaded at runtime via `opencompany serve
+--company companies/<name>`. The operator console is a Vite/React app under
+`frontend/`. Design notes and module specifications live in `docs/`, with
+`docs/spec/README.md` as the top-level architecture reference and
+`docs/modules/` holding per-surface design docs.
+Vendored runtime sources live under `vendor/` as Git submodules:
+
+- `vendor/openhuman/`
+- `vendor/tinyagents/`
+
+Prefer small modules with focused responsibilities. Keep core type definitions
+in a dedicated `types.rs` file and package-local tests in the module file or a
+dedicated `test.rs` file when they grow.
+
+## Build, Test, and Development Commands
+
+- `cargo fmt --all -- --check`: verify Rust formatting without changing files.
+- `cargo fmt`: format Rust source files.
+- `cargo clippy --all-targets -- -D warnings`: run lint checks.
+- `cargo build --all-targets`: compile library, binary, tests, and examples.
+- `cargo test`: run the full test suite.
+- `cargo run --bin opencompany`: run the CLI.
+- `cargo run --bin opencompany -- serve`: run the Axum HTTP server on `127.0.0.1:8080`.
+- `git submodule update --init --recursive`: initialize OpenHuman and TinyAgents.
+- `cargo check --features tiny`: compile against vendored TinyAgents.
+
+Run commands from the repository root unless a future workspace layout changes
+the module location.
+
+## Coding Style & Naming Conventions
+
+Use standard `rustfmt` output and Rust 2024 idioms. Module and file names should
+be `snake_case`; public types should be `PascalCase`; functions, methods,
+fields, and local variables should be `snake_case`. Return `Result<T>` using
+the crate error type from `src/error.rs`.
+
+## Testing Guidelines
+
+Add focused tests with every behavior change. Keep tests near the module they
+exercise unless they verify cross-module behavior, in which case place them in
+the consuming module or a future `tests/` directory.
+
+Maintain at least 80% coverage for meaningful library behavior. Document any
+intentionally untested edge case in the PR description.
+
+## Documentation Expectations
+
+Keep `README.md`, `docs/spec/README.md`, and module docs in `docs/modules/`
+aligned with code changes. Prefer concrete examples over vague descriptions,
+especially for Axum routes, OpenHuman launcher behavior, and `tiny*` feature
+integration.
+
+Keep every Markdown file, including this one, at 500 lines or fewer. When a
+topic grows past that limit, split it into focused files and link them from the
+module's `README.md`.
+
+## Running under the platform harness (hosted mode)
+
+This repo is also the tenant workload of the OpenCompany hosting platform:
+the `opencompany-manager` control plane (the superproject at
+`tinyhumansai/opencompany-microservices`, where this repo is the
+`opencompany/` submodule) builds this crate into a per-tenant container and
+injects its environment. When developing hosted behavior, know the seams:
+
+- The manager injects `OPENCOMPANY_COMPANY`, `OPENCOMPANY_BIND=0.0.0.0:8080`,
+  `OPENCOMPANY_DATA_DIR=/data`, and `OPENCOMPANY_PUBLIC_URL` into every
+  tenant container, plus — when database-per-tenant storage is enabled —
+  `OPENCOMPANY_STORAGE=mongodb`, `OPENCOMPANY_MONGODB_URI` (credentials
+  scoped to that tenant's database only), and `OPENCOMPANY_MONGODB_DB`.
+- In the alternative **shared-single-DB** mode (all tenants on one logical
+  MongoDB), the manager also injects `OPENCOMPANY_TENANT_ID=<tenant-slug>`.
+  The workload then namespaces company ids with `<tenant>--` and records
+  `owners` rows so tenants stay apart in the shared database. Isolation is
+  application-layer only in this mode — a compromised container can reach
+  every tenant's documents; db-per-tenant stays the security default. See
+  `docs/spec/runtime/storage.md`. Unset (the default) is a full no-op.
+- Storage backend selection and the MongoDB backend are documented in
+  `docs/spec/runtime/storage.md`; the port traits it implements are the
+  entire persistence contract (`docs/spec/runtime/ports.md`).
+- The container must serve `/healthz` on `:8080` quickly — the manager's
+  wake-on-request proxy blocks on it and gives up after its startup timeout.
+- Run the full platform locally by following
+  `docs/local-development.md` in the superproject.
+
+## Commit & Pull Request Guidelines
+
+Use concise, imperative commit subjects. Keep the first line specific to the
+change and avoid bundling unrelated work.
+
+Keep commits small and concise. Commit each coherent, validated slice on its
+own rather than batching many changes together, and keep the message short and
+focused on that one change.
+
+Pull requests should include a short summary, the commands run locally, and any
+API or behavior changes. Include updated examples or docs when public APIs,
+architecture, or expected usage changes.
+
+---
+> Source: [tinyhumansai/opencompany](https://github.com/tinyhumansai/opencompany) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
