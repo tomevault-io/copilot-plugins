@@ -1,0 +1,9 @@
+{
+  "name": "beppetemp--cartographer",
+  "displayName": "cartographer",
+  "description": "MCP governance server in Go for the Agentic Wiki \u2014 knowledge that composes, not that you query",
+  "version": "1.0.0",
+  "author": "BeppeTemp",
+  "homepage": "https://github.com/BeppeTemp/cartographer",
+  "skills": []
+}
