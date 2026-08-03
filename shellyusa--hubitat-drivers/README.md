@@ -5,11 +5,10 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [ShellyUSA/Hubitat-Drivers](https://github.com/ShellyUSA/Hubitat-Drivers).
+Original source: `CLAUDE.md` in [ShellyUSA/Hubitat-Drivers](https://github.com/ShellyUSA/Hubitat-Drivers).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
