@@ -1,0 +1,9 @@
+{
+  "name": "rclone--rclone",
+  "displayName": "rclone",
+  "description": "rclone",
+  "version": "1.0.0",
+  "author": "rclone",
+  "homepage": "https://github.com/rclone/rclone",
+  "skills": []
+}
