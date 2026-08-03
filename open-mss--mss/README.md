@@ -1,6 +1,6 @@
 # MSS
 
-> Source: [Open-MSS/MSS](https://github.com/Open-MSS/MSS). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [Open-MSS/MSS](https://github.com/Open-MSS/MSS). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
