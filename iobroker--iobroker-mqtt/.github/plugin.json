@@ -1,0 +1,9 @@
+{
+  "name": "iobroker--iobroker-mqtt",
+  "displayName": "ioBroker.mqtt",
+  "description": "ioBroker.mqtt",
+  "version": "1.0.0",
+  "author": "ioBroker",
+  "homepage": "https://github.com/ioBroker/ioBroker.mqtt",
+  "skills": []
+}
