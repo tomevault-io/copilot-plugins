@@ -1,56 +1,27 @@
-## specify-rules
+## gsm-sip-bridge
 
-> Project Development Guidelines
-
-
-# gsm-sip-bridge Development Guidelines
-
-Auto-generated from all feature plans. Last updated: 2026-05-26
-
-## Active Technologies
-- C++17 (GCC 9+) + PJSIP/PJSUA2 (SIP + media), mINI (INI parsing, header-only, MIT) (002-sip-audio-echo)
-- N/A (configuration file only, no persistent state) (002-sip-audio-echo)
-- C++17 + ALSA (`libasound2`), PJSIP (`libpjproject`), mINI (MIT, header-only INI parser), Google Test (003-gsm-sip-bridge)
-- N/A (stateless runtime) (003-gsm-sip-bridge)
-- C++17 (GCC 9+) + PJSIP/PJSUA2 (SIP + media), libasound2 (ALSA), mINI (INI parsing, header-only, MIT), Google Test (004-multi-card-support)
-- N/A (stateless runtime, config.ini read-only at startup) (004-multi-card-support)
-- C++17 (GCC 9+) + prometheus-cpp (MIT, Prometheus client for C++), PJSIP/PJSUA2, libasound2, mINI (005-observability-metrics)
-- N/A (Prometheus handles metric storage) (005-observability-metrics)
-- C++17 (GCC 9+) + cpp-httplib v0.41.0 (MIT, header-only HTTP client), SQLite3 (public domain), existing PJSIP/ALSA/prometheus-cpp stack (006-sms-discord-forward)
-- SQLite3 for SMS persistence (`sms.db`) (006-sms-discord-forward)
-- Rust stable (pinned by `rust-toolchain.toml`); same MSRV as v5.x. (010-scheduled-card-restart)
-- None. The scheduler is stateless across process restarts (per FR-015, no catch-up). All cycle state lives in memory inside `CardPool` for the duration of a cycle. (010-scheduled-card-restart)
-
-- C++17 (GCC 9+) + libasound2 (ALSA), libudev (USB discovery) (001-gsm-audio-echo)
-
-## Project Structure
-
-```text
-src/
-tests/
-```
-
-## Commands
-
-# Add commands for C++17 (GCC 9+)
-
-## Code Style
-
-C++17 (GCC 9+): Follow standard conventions
-
-## Recent Changes
-- 010-scheduled-card-restart: Added Rust stable (pinned by `rust-toolchain.toml`); same MSRV as v5.x.
-- 006-sms-discord-forward: Added C++17 (GCC 9+) + cpp-httplib v0.41.0 (MIT, header-only HTTP client), SQLite3 (public domain), existing PJSIP/ALSA/prometheus-cpp stack
-- 005-observability-metrics: Added C++17 (GCC 9+) + prometheus-cpp (MIT, Prometheus client for C++), PJSIP/PJSUA2, libasound2, mINI
-
-
-<!-- MANUAL ADDITIONS START -->
-<!-- MANUAL ADDITIONS END -->
+> <!-- SPECKIT START -->
 
 <!-- SPECKIT START -->
 For additional context about technologies to be used, project structure,
-shell commands, and other important information, read the current plan
+shell commands, and other important information, read the current plan at
+`specs/014-vowifi-metrics-restore/plan.md`.
 <!-- SPECKIT END -->
+
+## Pre-commit Checklist
+
+**MANDATORY — run before EVERY commit, no exceptions:**
+
+```bash
+cargo fmt --all          # fix formatting in place
+make lint                # rustfmt check + clippy -D warnings + unsafe ratio
+cargo test --workspace   # all tests must pass
+```
+
+Or equivalently: `make format && make lint && make test`
+
+Do NOT commit if any of these fail. `make lint` failing has caused broken
+commits in the past (e.g. rustfmt line-length violations in test files).
 
 ---
 > Source: [selvakn/gsm-sip-bridge](https://github.com/selvakn/gsm-sip-bridge) — distributed by [TomeVault](https://tomevault.io).
