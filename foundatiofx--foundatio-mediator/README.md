@@ -1,8 +1,6 @@
 # AI instruction files for Foundatio.Mediator
 
-> Sourced from [FoundatioFx/Foundatio.Mediator](https://github.com/FoundatioFx/Foundatio.Mediator) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Blazingly fast, convention-based C# mediator powered by source generators and interceptors.
+> Sourced from [FoundatioFx/Foundatio.Mediator](https://github.com/FoundatioFx/Foundatio.Mediator), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [FoundatioFx/Foundatio.Mediator](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [FoundatioFx/Foundatio.Mediator](https://github.com/FoundatioFx/Foundatio.Mediator) — a repo with 35+ stars on GitHub.
+From [FoundatioFx/Foundatio.Mediator](https://github.com/FoundatioFx/Foundatio.Mediator) — a repo with 40+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-s -->
