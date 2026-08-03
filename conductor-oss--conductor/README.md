@@ -1,6 +1,6 @@
 # conductor
 
-> Source: [conductor-oss/conductor](https://github.com/conductor-oss/conductor). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [conductor-oss/conductor](https://github.com/conductor-oss/conductor). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [conductor-oss/conductor](https://github.com/con
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [conductor-oss/conductor](https://github.com/conductor-oss/conductor) — a repo with 32032+ stars on GitHub.
+From [conductor-oss/conductor](https://github.com/conductor-oss/conductor) — a repo with 32043+ stars on GitHub.
 
 ---
 
