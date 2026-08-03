@@ -1,0 +1,9 @@
+{
+  "name": "apache--datafusion-sqlparser-rs",
+  "displayName": "datafusion-sqlparser-rs",
+  "description": "datafusion-sqlparser-rs",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/datafusion-sqlparser-rs",
+  "skills": []
+}
