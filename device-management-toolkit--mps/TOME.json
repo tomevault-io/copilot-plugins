@@ -4,7 +4,7 @@
   "repo": "mps",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/device-management-toolkit/mps",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T07:41:57Z"
+  "distributed_at": "2026-08-03T21:44:12Z"
 }
