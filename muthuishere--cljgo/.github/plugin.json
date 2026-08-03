@@ -1,0 +1,9 @@
+{
+  "name": "muthuishere--cljgo",
+  "displayName": "cljgo",
+  "description": "Clojure hosted on Go \u2014 AOT-emits Go source (the ClojureScript model), tree-walk REPL, universal Go interop",
+  "version": "1.0.0",
+  "author": "muthuishere",
+  "homepage": "https://github.com/muthuishere/cljgo",
+  "skills": []
+}
