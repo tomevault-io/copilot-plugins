@@ -4,7 +4,7 @@
   "repo": "tipoca-stream",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/practo/tipoca-stream",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T05:18:02Z"
+  "distributed_at": "2026-08-03T02:48:22Z"
 }
