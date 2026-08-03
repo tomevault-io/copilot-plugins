@@ -1,0 +1,9 @@
+{
+  "name": "apache--spark-docker",
+  "displayName": "spark-docker",
+  "description": "spark-docker",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/spark-docker",
+  "skills": []
+}
