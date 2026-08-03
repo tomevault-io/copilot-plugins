@@ -1,0 +1,9 @@
+{
+  "name": "avinava--glimmer",
+  "displayName": "glimmer",
+  "description": "A pixel-art always-on desk widget for GeekMagic SmallTV-Ultra. Custom firmware that rotates through glanceable channels (Claude/Codex usage, clock, weather, push cards).",
+  "version": "1.0.0",
+  "author": "Avinava",
+  "homepage": "https://github.com/Avinava/glimmer",
+  "skills": []
+}
