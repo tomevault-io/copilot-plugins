@@ -1,0 +1,9 @@
+{
+  "name": "dauliac--nix-oci",
+  "displayName": "nix-oci",
+  "description": "nix-oci",
+  "version": "1.0.0",
+  "author": "Dauliac",
+  "homepage": "https://github.com/Dauliac/nix-oci",
+  "skills": []
+}
