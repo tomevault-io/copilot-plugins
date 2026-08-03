@@ -1,0 +1,9 @@
+{
+  "name": "akasecurity--ai-tc",
+  "displayName": "ai-tc",
+  "description": "Guardrails for the agent harness. Regulated data stays on your machine, and every prompt and tool call is scanned before it runs.",
+  "version": "1.0.0",
+  "author": "akasecurity",
+  "homepage": "https://github.com/akasecurity/ai-tc",
+  "skills": []
+}
