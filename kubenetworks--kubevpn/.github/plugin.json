@@ -1,0 +1,9 @@
+{
+  "name": "kubenetworks--kubevpn",
+  "displayName": "kubevpn",
+  "description": "kubevpn",
+  "version": "1.0.0",
+  "author": "kubenetworks",
+  "homepage": "https://github.com/kubenetworks/kubevpn",
+  "skills": []
+}
