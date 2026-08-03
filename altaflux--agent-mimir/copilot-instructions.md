@@ -1,86 +1,46 @@
 ## agent-mimir
 
-> This document presents a high-level overview of the Agent Mimir architecture, its component layout, main files, and typical development workflows. It is meant to serve as a guide for engineering agents and developers to quickly understand how the application handles multi-agent operations, the client interface boundaries, and data flows.
+> This is an npm workspace TypeScript monorepo. Core agent logic lives in `agent-core/src`, shared runtime utilities in `runtime-shared/src`, and API contract types in `api-contracts/src`. Entry points are split by interface: `api-server/src`, `lg-server/src`, and `web-interface/src`. Tool packages live under `tools/*`, examples under `tool-examples/*`, technical docs under `docs/technical`, and static/readme assets under `assets`.
 
-# Agent Mimir Architecture Guide
+# Repository Guidelines
 
-This document presents a high-level overview of the Agent Mimir architecture, its component layout, main files, and typical development workflows. It is meant to serve as a guide for engineering agents and developers to quickly understand how the application handles multi-agent operations, the client interface boundaries, and data flows.
+## Project Structure & Module Organization
 
-## 1. High-Level Concept
+This is an npm workspace TypeScript monorepo. Core agent logic lives in `agent-core/src`, shared runtime utilities in `runtime-shared/src`, and API contract types in `api-contracts/src`. Entry points are split by interface: `api-server/src`, `lg-server/src`, and `web-interface/src`. Tool packages live under `tools/*`, examples under `tool-examples/*`, technical docs under `docs/technical`, and static/readme assets under `assets`.
 
-Agent Mimir is a highly flexible agent framework built on top of [LangChainJS](https://js.langchain.com/docs/) and [LangGraph](https://langchain-ai.github.io/langgraphjs/). It allows Large Language Models (LLMs) to use external tools, manage conversation context dynamically, and orchestrate complex, multi-step problem-solving inspired by Auto-GPT loops. The application features multiple client interfaces (Discord, CLI, Web) that communicate with the core agent brain securely.
+## Build, Test, and Development Commands
 
----
+- `npm install`: install workspace dependencies.
+- `npm run build`: run the Turbo build across packages.
+- `npm run dev`: run package `dev` tasks through Turbo.
+- `npm run lint`: run workspace lint tasks.
+- `npm run format`: format `ts`, `tsx`, and Markdown files with Prettier.
+- `npm test`: run the root test command, currently `agent-core` Jest tests.
 
-## 2. Directory Structure & Monorepo Workspaces
+- `npm run start-web-dev`: start API and Vite web interface for local web development.
 
-The repository is a TypeScript monorepo, managed via NPM Workspaces and Turborepo (`turbo.json`).
+Copy `.env.example` to `.env` before running services that require provider keys or Discord/API settings.
 
-### 2.1 Frontends and Interfaces
-- **`web-interface/`**: A Next.js React frontend. The primary visual UI handling interactive sessions, rendering Markdown, viewing agent thoughts, collapsible messages, and streaming event sequences in real-time.
-- **`api-server/`**: The backend server representing the interface for the web frontend. It listens for interactions seamlessly via REST/SSE endpoints and coordinates sessions with `agent-core`.
-- **`discord-interface/`**: Implements a bot connection enabling Discord servers to host, mention, and converse with agents.
-- **`cli-interface/`**: The simplest interface. It runs the agent directly in terminal stdio streams, managing inputs and file attachments.
+Do not worry at all about backwards compatibility when having to make changes to how we persist data and state. This includes schema changes, file and folder structure, Langgrapgh, etc.. We are working on a not yet production deployed system so it is perfectly acceptable to make breaking changes where needed and do not need to support compatibility or migration of previous data. 
 
-### 2.2 Core Application Logistics
-- **`agent-core/`**: **The central nervous system of the project.** It contains the abstract interfaces, LangGraph state-machines, factory patterns for agent architectures, chat history compression models, multi-agent orchestration code, and plugin base structures.
-- **`api-contracts/`**: Simple workspace holding Shared types and Zod payloads representing messaging protocols bridging the `api-server` backends and `web-interface` frontends.
-- **`runtime-shared/`**: Contains shared configuration schemas, runtime utilities, and code needed transparently by cross-boundary code.
+The same goes with APIs, interfaces, etc.. breaking changes are perfectly acceptable.
 
-### 2.3 Plugins & Capabilities
-- **`tools/`**: A directory acting as a workspace for specific plugins you can inject into an agent. For example:
-  - `@agent-mimir/code-interpreter`: Grants the agent a sandboxed or local Python execution pipeline.
-  - `@agent-mimir/mcp-client`: Uses the Model Context Protocol to talk to complex remote servers (e.g., local SQL server or isolated integrations).
-  - `@agent-mimir/selenium-browser`: A controlled browser instance the agent can use to extract data or traverse web apps.
+## Coding Style & Naming Conventions
 
-### 2.4 User Configurations
-- **`agent-config/`**: Where user-specific overrides like `.env` and `mimir-cfg.js` can be specified, pointing to new LLM models or instantiating different sets of plugins overriding default behavior.
+Use TypeScript ES modules and preserve package-local patterns. Existing source generally uses 4-space indentation, named exports, and explicit domain types. Use `PascalCase` for classes, React components, and exported types; `camelCase` for functions, variables, and methods; and lowercase package folders such as `tools/serper-search`. Keep generated files like `web-interface/src/routeTree.gen.ts` generated by their owning tool. Run `npm run format` before submitting broad edits.
 
----
+## Testing Guidelines
 
-## 3. The `agent-core` Internals
+`agent-core` uses Jest with `ts-jest` and keeps tests under `src` as `*.test.ts`, for example `agent-core/src/plugins/context-provider.test.ts`. `web-interface` has a Vitest script via `npm run test -w web-interface`. Add focused tests beside the code they cover, especially for shared runtime behavior, contracts, plugins, and agent-manager changes. Run the smallest relevant workspace test first, then `npm test` when touching core behavior.
 
-Inside `agent-core/src/agent-manager`, logic is segmented into precise factories handling discrete topologies for agents.
+## Commit & Pull Request Guidelines
 
-- **Agent Factories (`agent-manager/factory.ts`)**: Base contracts containing definitions of the `profession`, `constitution`, and model. This lets the backend initialize instances dynamically.
-- **Code Agent (`code-agent/agent.ts`)**: An implementation explicitly tailored for interacting heavily with source code, code-interpreters, or complex structural logic requiring strict JSON format outputs or script injection.
-- **Tool/Function Agent (`tool-agent/agent.ts`)**: Usually leveraging OpenAI Function Calling or standard Tool inputs. It focuses purely on invoking external APIs cleanly.
-- **LangGraph Agent (`langgraph-agent.ts`)**: Represents the modern cyclic loop framework, compiling the agents into predictable workflow steps to gracefully handle recursive actions, tool executions, error fallbacks, and human-in-the-loop breakpoints.
-- **Multi-Agent Orchestrator (`communication/multi-agent.ts`)**: The mechanism combining multiple agent factories. It serves as an umbrella determining how `function-agent`, `code-agent`, and user messages get dispatched and communicated internally.
+Recent history uses short imperative commits, often Conventional Commit prefixes such as `fix:`, `feat:`, `docs:`, and `chore:`. Prefer that style, for example `fix: trim agent name before setting in agent manager`. Pull requests should describe the behavior change, list tests run, link related issues, and include screenshots or terminal output for UI/CLI-visible changes.
+
+## Security & Configuration Tips
+
+Do not commit `.env`, `agent-config/`, generated local dependency folders, or provider tokens. Use `agent-config.example/` as the template for local agent configuration. Treat continuous-mode and tool-execution changes as security-sensitive and document any new execution permissions in `docs/technical`.
 
 ---
-
-## 4. Main Workflows & Where to Look
-
-### A. Developing or Modifying the Web Interface
-- **Context:** Looking to change how chats render, or how streaming tokens look.
-- **Look Inside:** `web-interface/src/components/chat/`
-  - `chat-app.tsx` handles large layout and logic connections.
-  - `message-event.tsx` or similar components render an individual user or agent response.
-  - `use-chat-session.ts` typically parses the Server-Sent Events (SSE) arriving from the backend matching them via stable message chunks (`messageId`).
-
-### B. Altering the Communication Payloads / Events
-- **Context:** Wanting to send a new type of metadata along with a stream response (e.g., token usage arrays, user avatars, debug timing).
-- **Look Inside:** 
-  1. Add the shape update inside `api-contracts/src/contracts.ts` and compile.
-  2. Emit this shape down the stream pipeline originating from `api-server/src/server.ts`.
-  3. Respond to the payload inside the Next.js `web-interface` component hooks matching the new types.
-
-### C. Adjusting Agent Core Capabilities & Prompts
-- **Context:** You want to modify how the agent generates thoughts, constructs system instructions, or what baseline restrictions exist.
-- **Look Inside:** `agent-core/src/agent-manager/`
-  - Open `code-agent/agent.ts` or `tool-agent/agent.ts` to locate string templates or LangChain `SystemMessagePromptTemplate`.
-  - To adjust the cyclic behavior (what it does right after finishing a tool call), look into the nodes initialized inside `langgraph-agent.ts`.
-
-### D. Creating a New Tool (Plugin)
-- **Context:** The agent needs to interact with an entirely fresh API or system wrapper (e.g., a Jira client).
-- **Look Inside:**
-  1. Generate a new module within the `tools/jira-plugin` workspace.
-  2. Implement an interface extending Langchain's `Tool` object or Agent Mimir `PluginFactory` (often defined in `agent-core/src/plugins/index.ts`).
-  3. Ensure the plugin outputs valid descriptive Markdown or Strings so the LLM understands the result.
-  4. Enable it within the user `mimir-cfg.js` config file.
-
----
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Altaflux)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Altaflux)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [Altaflux/agent-mimir](https://github.com/Altaflux/agent-mimir) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
