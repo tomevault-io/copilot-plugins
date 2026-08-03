@@ -1,0 +1,9 @@
+{
+  "name": "xhulianomalaj--slot-game",
+  "displayName": "Slot-Game",
+  "description": "Browser-based slot game engine built with Pixi.js, Preact, MobX and TypeScript. Features a finite-state-machine game loop, adaptive layout across all screen sizes, and a full Playwright + Vitest test ",
+  "version": "1.0.0",
+  "author": "xhulianomalaj",
+  "homepage": "https://github.com/xhulianomalaj/Slot-Game",
+  "skills": []
+}
