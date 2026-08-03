@@ -2,7 +2,7 @@
   "name": "botmux",
   "owner": "deepcoldy",
   "repo": "botmux",
-  "description": "Bridge between IM platforms and AI coding CLIs \u2014 one topic, one CLI session with live streaming",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/deepcoldy/botmux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T05:56:36Z"
+  "distributed_at": "2026-08-03T05:51:05Z"
 }
