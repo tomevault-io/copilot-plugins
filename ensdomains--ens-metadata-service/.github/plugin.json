@@ -1,0 +1,9 @@
+{
+  "name": "ensdomains--ens-metadata-service",
+  "displayName": "ens-metadata-service",
+  "description": "ens-metadata-service",
+  "version": "1.0.0",
+  "author": "ensdomains",
+  "homepage": "https://github.com/ensdomains/ens-metadata-service",
+  "skills": []
+}
