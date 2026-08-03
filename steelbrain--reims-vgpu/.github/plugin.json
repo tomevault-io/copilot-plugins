@@ -1,0 +1,9 @@
+{
+  "name": "steelbrain--reims-vgpu",
+  "displayName": "reims-vgpu",
+  "description": "reims-vgpu is an experimental virtual GPU for macOS guests",
+  "version": "1.0.0",
+  "author": "steelbrain",
+  "homepage": "https://github.com/steelbrain/reims-vgpu",
+  "skills": []
+}
