@@ -1,0 +1,9 @@
+{
+  "name": "kubeflow--community-distribution",
+  "displayName": "community-distribution",
+  "description": "community-distribution",
+  "version": "1.0.0",
+  "author": "kubeflow",
+  "homepage": "https://github.com/kubeflow/community-distribution",
+  "skills": []
+}
