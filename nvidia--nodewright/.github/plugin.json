@@ -1,7 +1,7 @@
 {
   "name": "nvidia--nodewright",
   "displayName": "nodewright",
-  "description": "A Kubernetes Operator to manage Node OS customizations.",
+  "description": "nodewright",
   "version": "1.0.0",
   "author": "NVIDIA",
   "homepage": "https://github.com/NVIDIA/nodewright",
