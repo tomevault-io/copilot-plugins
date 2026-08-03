@@ -1,0 +1,9 @@
+{
+  "name": "aftership--clickhouse-sql-parser",
+  "displayName": "clickhouse-sql-parser",
+  "description": "clickhouse-sql-parser",
+  "version": "1.0.0",
+  "author": "AfterShip",
+  "homepage": "https://github.com/AfterShip/clickhouse-sql-parser",
+  "skills": []
+}
