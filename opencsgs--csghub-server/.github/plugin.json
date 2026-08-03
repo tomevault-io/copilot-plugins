@@ -1,0 +1,9 @@
+{
+  "name": "opencsgs--csghub-server",
+  "displayName": "csghub-server",
+  "description": "csghub-server",
+  "version": "1.0.0",
+  "author": "OpenCSGs",
+  "homepage": "https://github.com/OpenCSGs/csghub-server",
+  "skills": []
+}
