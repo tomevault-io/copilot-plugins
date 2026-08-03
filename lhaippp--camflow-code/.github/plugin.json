@@ -1,0 +1,9 @@
+{
+  "name": "lhaippp--camflow-code",
+  "displayName": "CamFlow-Code",
+  "description": "[ICCV 2025] Estimating 2D Camera Motion with Hybrid Motion Basis",
+  "version": "1.0.0",
+  "author": "lhaippp",
+  "homepage": "https://github.com/lhaippp/CamFlow-Code",
+  "skills": []
+}
