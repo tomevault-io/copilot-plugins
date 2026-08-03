@@ -1,0 +1,9 @@
+{
+  "name": "spytensor--openmozi",
+  "displayName": "openmozi",
+  "description": "A custom Agent OS built to be hackable, heavily inspired by OpenClaw.",
+  "version": "1.0.0",
+  "author": "spytensor",
+  "homepage": "https://github.com/spytensor/openmozi",
+  "skills": []
+}
