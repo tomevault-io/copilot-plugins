@@ -4,7 +4,7 @@
   "repo": "Amplitude-TypeScript",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/amplitude/Amplitude-TypeScript",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T06:55:01Z"
+  "distributed_at": "2026-08-03T13:31:39Z"
 }
