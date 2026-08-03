@@ -1,0 +1,9 @@
+{
+  "name": "yy446-tech--2026aicontest-flame-object-recognition",
+  "displayName": "2026aicontest-flame_object_recognition",
+  "description": "Ultralytics YOLO26, YOLO11, YOLOv8 \u2014 object detection, instance segmentation, semantic segmentation, image classification, pose estimation, object tracking",
+  "version": "1.0.0",
+  "author": "yy446-tech",
+  "homepage": "https://github.com/yy446-tech/2026aicontest-flame_object_recognition",
+  "skills": []
+}
