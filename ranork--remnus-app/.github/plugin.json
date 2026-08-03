@@ -1,0 +1,9 @@
+{
+  "name": "ranork--remnus-app",
+  "displayName": "remnus-app",
+  "description": "MCP Native Workspace (Databases, pages, kanbans, calendars etc.)",
+  "version": "1.0.0",
+  "author": "Ranork",
+  "homepage": "https://github.com/Ranork/remnus-app",
+  "skills": []
+}
