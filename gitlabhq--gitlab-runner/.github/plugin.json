@@ -1,0 +1,9 @@
+{
+  "name": "gitlabhq--gitlab-runner",
+  "displayName": "gitlab-runner",
+  "description": "gitlab-runner",
+  "version": "1.0.0",
+  "author": "gitlabhq",
+  "homepage": "https://github.com/gitlabhq/gitlab-runner",
+  "skills": []
+}
