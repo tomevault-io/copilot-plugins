@@ -1,0 +1,9 @@
+{
+  "name": "bad3r--nix-logseq-git-flake",
+  "displayName": "nix-logseq-git-flake",
+  "description": "Nix flake packaging Logseq nightly builds with an Electron-ready FHS wrapper",
+  "version": "1.0.0",
+  "author": "Bad3r",
+  "homepage": "https://github.com/Bad3r/nix-logseq-git-flake",
+  "skills": []
+}
