@@ -1,0 +1,9 @@
+{
+  "name": "istio--release-builder",
+  "displayName": "release-builder",
+  "description": "release-builder",
+  "version": "1.0.0",
+  "author": "istio",
+  "homepage": "https://github.com/istio/release-builder",
+  "skills": []
+}
