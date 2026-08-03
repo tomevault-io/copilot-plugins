@@ -1,0 +1,9 @@
+{
+  "name": "nicosuave--m5mic",
+  "displayName": "m5mic",
+  "description": "Streaming wifi/bluetooth/usb microphone firmware for m5sticks3",
+  "version": "1.0.0",
+  "author": "nicosuave",
+  "homepage": "https://github.com/nicosuave/m5mic",
+  "skills": []
+}
