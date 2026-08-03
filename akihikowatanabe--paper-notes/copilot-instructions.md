@@ -1,0 +1,11 @@
+## paper-notes
+
+> - **Repository Metadata**: For all details and meta-information regarding this repository, read strictly from `README.md`. There is no need to search other files for repository context.
+
+- **Repository Metadata**: For all details and meta-information regarding this repository, read strictly from `README.md`. There is no need to search other files for repository context.
+- **Papers & Study Notes**: When responding to queries about papers or study notes, look solely inside the `agent_docs/` directory. All necessary knowledge is centralized there.
+- **Data Structure (`agent_docs`)**: Inside `agent_docs`, data is stored in XML files named after specific tags (e.g., `<tag_name>.xml`). These files aggregate all Issue content associated with those tags. Base your responses directly on the contents of these XML files.
+
+---
+> Source: [AkihikoWatanabe/paper_notes](https://github.com/AkihikoWatanabe/paper_notes) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
