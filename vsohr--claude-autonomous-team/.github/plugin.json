@@ -1,0 +1,9 @@
+{
+  "name": "vsohr--claude-autonomous-team",
+  "displayName": "claude-autonomous-team",
+  "description": "A set of skills for a autonomous software engineering team using Claude Code",
+  "version": "1.0.0",
+  "author": "vsohr",
+  "homepage": "https://github.com/vsohr/claude-autonomous-team",
+  "skills": []
+}
