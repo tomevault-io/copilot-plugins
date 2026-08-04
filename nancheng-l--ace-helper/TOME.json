@@ -1,0 +1,44 @@
+{
+  "name": "ace-helper",
+  "owner": "NanCheng-L",
+  "repo": "ace-helper",
+  "description": "ACE Helper\uff08ACE \u5c0f\u52a9\u624b\uff09 - Windows\u684c\u9762\u5de5\u5177\uff0c\u4f18\u5316\u817e\u8baf\u6e38\u620f\u53cd\u4f5c\u5f0a\u8fdb\u7a0b(SGuard)\uff0c\u964d\u4f4eCPU/\u78c1\u76d8\u5360\u7528\uff0c\u89e3\u51b3\u6e38\u620f\u5361\u987f\u95ee\u9898",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NanCheng-L/ace-helper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T12:46:40Z"
+}
