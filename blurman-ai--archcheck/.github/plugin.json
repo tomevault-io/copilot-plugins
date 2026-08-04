@@ -1,0 +1,9 @@
+{
+  "name": "blurman-ai--archcheck",
+  "displayName": "archcheck",
+  "description": "Architecture testing and dependency rules for C++ projects",
+  "version": "1.0.0",
+  "author": "blurman-ai",
+  "homepage": "https://github.com/blurman-ai/archcheck",
+  "skills": []
+}
