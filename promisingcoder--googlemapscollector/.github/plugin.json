@@ -1,0 +1,9 @@
+{
+  "name": "promisingcoder--googlemapscollector",
+  "displayName": "GoogleMapsCollector",
+  "description": "Extract businesses from Google Maps at scale. No browser needed. Reverse-engineers the internal API. 100K+ records/week.",
+  "version": "1.0.0",
+  "author": "promisingcoder",
+  "homepage": "https://github.com/promisingcoder/GoogleMapsCollector",
+  "skills": []
+}
