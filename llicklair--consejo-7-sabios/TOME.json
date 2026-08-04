@@ -1,0 +1,44 @@
+{
+  "name": "consejo-7-sabios",
+  "owner": "Llicklair",
+  "repo": "consejo-7-sabios",
+  "description": "El Consejo de los 7 Sabios \u2014 debate t\u00e9cnico estructurado entre 7 agentes con visiones opuestas + animaci\u00f3n pixel-art en terminal",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Llicklair/consejo-7-sabios",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T15:35:44Z"
+}
