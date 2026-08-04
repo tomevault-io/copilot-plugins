@@ -1,0 +1,9 @@
+{
+  "name": "thalesholleben--ccx",
+  "displayName": "ccx",
+  "description": "Monitora a cota das contas Claude Code e Codex CLI e troca de conta automaticamente antes de bater o limite. Python stdlib puro, sem dependencia, sem servidor.",
+  "version": "1.0.0",
+  "author": "thalesholleben",
+  "homepage": "https://github.com/thalesholleben/ccx",
+  "skills": []
+}
