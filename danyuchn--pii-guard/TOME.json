@@ -2,9 +2,9 @@
   "name": "pii-guard",
   "owner": "danyuchn",
   "repo": "pii-guard",
-  "description": "\u7e41\u9ad4\u4e2d\u6587\uff08\u53f0\u7063\uff09\u500b\u4eba\u8cc7\u6599\u53bb\u8b58\u5225\u5316\u5de5\u5177\uff0c\u8b93\u696d\u52d9\u6587\u4ef6\u53ef\u4ee5\u5b89\u5168\u5730\u9001\u9032 AI \u8655\u7406",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/danyuchn/pii-guard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T22:47:05Z"
+  "distributed_at": "2026-08-04T08:25:06Z"
 }
