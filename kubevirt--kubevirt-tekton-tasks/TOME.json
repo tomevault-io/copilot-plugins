@@ -4,7 +4,7 @@
   "repo": "kubevirt-tekton-tasks",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kubevirt/kubevirt-tekton-tasks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T14:12:40Z"
+  "distributed_at": "2026-08-04T04:17:11Z"
 }
