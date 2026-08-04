@@ -1,0 +1,44 @@
+{
+  "name": "kintsugi-usb",
+  "owner": "jmagly",
+  "repo": "kintsugi-usb",
+  "description": "AI-assisted rescue boot USB \u2014 a Ventoy multi-boot drive on Ubuntu 24.04 with offline LLM inference (Ollama + llama.cpp), pre-installed agentic CLIs (Claude Code, Codex, OpenCode, Copilot, OpenClaw, omnius, Aider), rescue ISOs, and a one-command build wizard.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jmagly/kintsugi-usb",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T15:37:06Z"
+}
