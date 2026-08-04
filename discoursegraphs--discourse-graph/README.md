@@ -1,8 +1,6 @@
 # discourse-graph
 
-> Source: [DiscourseGraphs/discourse-graph](https://github.com/DiscourseGraphs/discourse-graph) — distributed by [TomeVault](https://tomevault.io)
-
-A tool and ecosystem for collaborative knowledge synthesis
+> Source: [DiscourseGraphs/discourse-graph](https://github.com/DiscourseGraphs/discourse-graph). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
