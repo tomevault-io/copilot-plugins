@@ -1,0 +1,9 @@
+{
+  "name": "simoneferrari--ntfy-desktop",
+  "displayName": "ntfy-desktop",
+  "description": "Native Windows desktop client for ntfy.sh \u2014 multiple servers, Windows toast notifications, multiple topics, per-topic and global notification pause, active hours, access token (DPAPI-encrypted), and m",
+  "version": "1.0.0",
+  "author": "simoneferrari",
+  "homepage": "https://github.com/simoneferrari/ntfy-desktop",
+  "skills": []
+}
