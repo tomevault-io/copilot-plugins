@@ -5,11 +5,11 @@
 # Agentic Flink
 
 Standalone agentic framework for Apache Flink with LangChain4J integration.
-Java 17 target, Flink 1.20.1, LangChain4J 0.35.0.
+Java 17 target, Flink 2.2.1, LangChain4J 1.16.3.
 
 ## Project Structure
 
-- `src/main/java/com/ververica/flink/agent/` -- main source root
+- `src/main/java/org/agentic/flink/` -- main source root
   - `config/` -- AgenticFlinkConfig, ConfigKeys (env-var-based configuration)
   - `core/` -- ToolDefinition, shared model classes
   - `dsl/` -- AgentBuilder fluent DSL for defining agents
@@ -61,4 +61,4 @@ See `docs/configuration.md` for the full reference.
 
 ---
 > Source: [Ugbot/Agentic-Flink](https://github.com/Ugbot/Agentic-Flink) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
