@@ -1,0 +1,9 @@
+{
+  "name": "wildpino--siliconllm",
+  "displayName": "SiliconLLM",
+  "description": "A CPU-native LLM co-designed for the memory wall: a cache-resident ternary/sparse SSM core + a sparse retrieval & MoE tier. Validated on Zen 2.",
+  "version": "1.0.0",
+  "author": "WildPino",
+  "homepage": "https://github.com/WildPino/SiliconLLM",
+  "skills": []
+}
