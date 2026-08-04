@@ -2,9 +2,9 @@
   "name": "ris-claude-code",
   "owner": "serejaris",
   "repo": "ris-claude-code",
-  "description": "AI skills for Claude Code \u2014 product audit, business ops, project management",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,33 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "cc-analytics",
-      "path": "skills/cc-analytics",
-      "github_url": "https://github.com/serejaris/ris-claude-code/tree/main/skills/cc-analytics",
-      "description": ""
-    },
-    {
-      "name": "claude-md-writer",
-      "path": "skills/claude-md-writer",
-      "github_url": "https://github.com/serejaris/ris-claude-code/tree/main/skills/claude-md-writer",
-      "description": ""
-    },
-    {
-      "name": "gh-issues",
-      "path": "skills/gh-issues",
-      "github_url": "https://github.com/serejaris/ris-claude-code/tree/main/skills/gh-issues",
-      "description": ""
-    },
-    {
-      "name": "readme-generator",
-      "path": "skills/readme-generator",
-      "github_url": "https://github.com/serejaris/ris-claude-code/tree/main/skills/readme-generator",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/serejaris/ris-claude-code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T17:36:23Z"
+  "distributed_at": "2026-08-04T15:47:21Z"
 }
