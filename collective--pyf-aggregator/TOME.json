@@ -4,7 +4,7 @@
   "repo": "pyf.aggregator",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/collective/pyf.aggregator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T05:25:13Z"
+  "distributed_at": "2026-08-04T10:04:33Z"
 }
