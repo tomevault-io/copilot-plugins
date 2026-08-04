@@ -2,9 +2,9 @@
   "name": "openconcho",
   "owner": "offendingcommit",
   "repo": "openconcho",
-  "description": "Fast, privacy-first desktop & web UI for self-hosted Honcho \u2014 browse memories, peers, sessions, conclusions, and chat with memory context.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/offendingcommit/openconcho",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T12:59:05Z"
+  "distributed_at": "2026-08-04T23:42:19Z"
 }
