@@ -1,0 +1,9 @@
+{
+  "name": "rookslog--zlibrary-mcp",
+  "displayName": "zlibrary-mcp",
+  "description": "MCP server for Z-Library: search, download, and process books into RAG-ready text for AI assistants (Claude Code, Claude Desktop, Cline, RooCode)",
+  "version": "1.0.0",
+  "author": "rookslog",
+  "homepage": "https://github.com/rookslog/zlibrary-mcp",
+  "skills": []
+}
