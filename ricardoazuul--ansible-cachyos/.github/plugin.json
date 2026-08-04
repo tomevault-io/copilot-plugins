@@ -1,0 +1,9 @@
+{
+  "name": "ricardoazuul--ansible-cachyos",
+  "displayName": "ansible-cachyos",
+  "description": "Config CachyOS using Ansible",
+  "version": "1.0.0",
+  "author": "RicardoAzuul",
+  "homepage": "https://github.com/RicardoAzuul/ansible-cachyos",
+  "skills": []
+}
