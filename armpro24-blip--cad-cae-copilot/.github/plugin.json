@@ -1,0 +1,9 @@
+{
+  "name": "armpro24-blip--cad-cae-copilot",
+  "displayName": "cad-cae-copilot",
+  "description": "CAD/CAE Copilot \u2014 an AI-native CAD/CAE/CAX workbench for AI agents. Text-to-CAD, text-to-CAE, real build123d/OpenCASCADE geometry, editable parameters, stable topology pointers, deterministic critique",
+  "version": "1.0.0",
+  "author": "armpro24-blip",
+  "homepage": "https://github.com/armpro24-blip/cad-cae-copilot",
+  "skills": []
+}
