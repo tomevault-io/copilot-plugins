@@ -1,0 +1,9 @@
+{
+  "name": "alexanderbailey--tailscale-policies",
+  "displayName": "tailscale_policies",
+  "description": "GitOps repo for tailscale ACL",
+  "version": "1.0.0",
+  "author": "alexanderbailey",
+  "homepage": "https://github.com/alexanderbailey/tailscale_policies",
+  "skills": []
+}
