@@ -1,0 +1,9 @@
+{
+  "name": "akobe-ajibolu--infosec-suite",
+  "displayName": "infosec-suite",
+  "description": "AI-driven security engagement framework built on Claude Code. Claude runs full engagements: plan \u2192 recon \u2192 vuln-scan.",
+  "version": "1.0.0",
+  "author": "Akobe-Ajibolu",
+  "homepage": "https://github.com/Akobe-Ajibolu/infosec-suite",
+  "skills": []
+}
