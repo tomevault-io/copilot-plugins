@@ -1,0 +1,9 @@
+{
+  "name": "knative-extensions--net-gateway-api",
+  "displayName": "net-gateway-api",
+  "description": "net-gateway-api",
+  "version": "1.0.0",
+  "author": "knative-extensions",
+  "homepage": "https://github.com/knative-extensions/net-gateway-api",
+  "skills": []
+}
