@@ -1,0 +1,44 @@
+{
+  "name": "korean-elementary-learning-map-mcp",
+  "owner": "taehyeonglim",
+  "repo": "korean-elementary-learning-map-mcp",
+  "description": "\ud55c\uad6d \ucd08\ub4f1 2022 \uac1c\uc815 \uad50\uc721\uacfc\uc815 \ud559\uc2b5 \uadf8\ub798\ud504 MCP \uc11c\ubc84 \u2014 \uc131\ucde8\uae30\uc900 \uc6d0\ubb38 \uc218\ub85d",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/taehyeonglim/korean-elementary-learning-map-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T10:24:22Z"
+}
