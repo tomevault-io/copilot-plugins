@@ -1,0 +1,9 @@
+{
+  "name": "paveg--hono-idempotency",
+  "displayName": "hono-idempotency",
+  "description": "Stripe-style Idempotency-Key middleware for Hono with KV/D1/Memory stores",
+  "version": "1.0.0",
+  "author": "paveg",
+  "homepage": "https://github.com/paveg/hono-idempotency",
+  "skills": []
+}
