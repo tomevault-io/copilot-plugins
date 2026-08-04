@@ -1,0 +1,61 @@
+## openapi-code-generator
+
+> This document provides essential information for AI agents and developers working on the `@nahkies/openapi-code-generator` monorepo.
+
+# Agent Guide
+
+This document provides essential information for AI agents and developers working on the `@nahkies/openapi-code-generator` monorepo.
+
+## Project Overview
+
+This is a monorepo managed with `pnpm`. It produces a CLI tool for generating high-quality TypeScript client SDKs and server scaffolding from OpenAPI 3.0, 3.1, and TypeSpec specifications.
+
+## Critical Constraints
+
+- **Execution**: NEVER use `npx`. ALWAYS use `pnpm run <script>` or `pnpm exec <command>`.
+- **Read-Only Directories**: 
+    - `integration-tests-definitions/`: Contains source specifications.
+    - `integration-tests/*/src/generated/`: Contains generated code.
+    - `tsconfig.tsbuildinfo`: Compiler state files.
+
+## Development Workflow
+
+### Environment
+- **Node.js**: >= 22.x (CI tests on 22.x and 24.x).
+- **Package Manager**: `pnpm` (Corepack enabled).
+
+### Common Commands
+- **Install**: `pnpm install`
+- **Build**: `pnpm run build` (generates validators, bundles packages, and runs `tsc -b`).
+- **Lint/Format**: `pnpm run lint` (uses Biome). For CI-style checks, use `pnpm run ci-lint`.
+- **Unit Tests**: `pnpm run test` (uses Vitest). For coverage, use `pnpm run ci-test`.
+- **Integration Tests**:
+    - Generate: `pnpm run integration:generate`
+    - Validate/Build: `pnpm run integration:validate`
+- **E2E Tests**:
+    - Generate: `pnpm run e2e:generate`
+    - Validate: `pnpm run e2e:validate`
+- **Full Pipeline**: `pnpm run ci-pipeline` (runs all checks locally).
+
+## Testing Standards
+
+- **Unit Testing**: Tests are co-located with source code (`.spec.ts`).
+- **Vitest Globals**: You MUST explicitly import Vitest globals in test files:
+  ```typescript
+  import {describe, expect, it} from "vitest"
+  ```
+- **Regression**: Always ensure `pnpm run integration:validate` passes after changes to generation logic.
+
+## Project Structure
+
+For a detailed overview of the system's design, internal patterns (such as Builders and the Intermediate Representation), and data flows, please refer to [docs/architecture.md](docs/architecture.md).
+
+- `packages/*`: Implementation of the generator and its runtimes.
+- `integration-tests-definitions`: OpenAPI/TypeSpec definitions for testing.
+- `integration-tests`: Generated code from the above definitions.
+- `scripts/`: Maintenance and CI/CD scripts.
+- `e2e/`: End-to-end tests.
+
+---
+> Source: [mnahkies/openapi-code-generator](https://github.com/mnahkies/openapi-code-generator) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
