@@ -1,0 +1,249 @@
+## ai-short-drama
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## 项目概述
+
+这是一个 Claude Code 插件，用于系统化地完成 AI 短剧的文字创作工作。输出物可直接用于即梦AI等平台进行视频制作。
+
+> **v2.0 重大更新**：新增场景设定工作流，完整支持角色+场景双锚点一致性控制！
+
+## 插件结构
+
+```
+ai-short-drama/
+├── .claude-plugin/
+│   ├── plugin.json           # 插件元数据
+│   └── marketplace.json      # 插件市场配置
+├── commands/
+│   ├── ai-short-drama.md     # 工作流概览命令
+│   ├── drama-new.md          # 创建新项目
+│   ├── drama-plan.md         # 策划阶段
+│   ├── drama-character.md    # 角色设计
+│   ├── drama-scene.md        # 场景设计 🆕
+│   ├── drama-image.md        # 图片提示词专家
+│   ├── drama-prompt.md       # 视频提示词专家
+│   ├── drama-storyboard.md   # 分镜脚本
+│   ├── drama-fill-prompts.md # 补充提示词
+│   ├── drama-review.md       # 分镜审核
+│   ├── drama-script.md       # 配音台本
+│   └── drama-export.md       # 导出
+├── skills/
+│   ├── ai-short-drama/
+│   │   ├── SKILL.md          # 技能定义和触发条件
+│   │   └── references/       # 各阶段工作流参考文档
+│   │       ├── phase1-planning.md      # 策划阶段
+│   │       ├── phase2-character.md     # 角色设计
+│   │       ├── phase2b-scene.md        # 场景设计 🆕
+│   │       ├── phase3-storyboard.md    # 分镜脚本
+│   │       ├── phase3-fill-prompts.md  # 补充提示词
+│   │       ├── phase3.5-review.md      # 分镜审核
+│   │       ├── phase4-script.md        # 配音台本
+│   │       ├── phase5-export.md        # 导出
+│   │       ├── story-outline.md        # 故事大纲模板
+│   │       ├── character-card.md       # 角色设定卡模板
+│   │       ├── scene-card.md           # 场景设定卡模板 🆕
+│   │       ├── storyboard.md           # 分镜脚本模板
+│   │       └── prompt-templates.md     # 提示词模板库
+│   ├── seedream-prompts/              # Seedream 4.0-4.5 图片提示词专家
+│   │   ├── SKILL.md
+│   │   └── references/
+│   └── seedance-prompts/              # Seedance 2.0 视频提示词专家
+│       ├── SKILL.md
+│       └── references/
+├── CLAUDE.md
+└── README.md
+```
+
+## 命令列表
+
+| 命令 | 说明 | 阶段 |
+|------|------|------|
+| `/drama-new` | 创建新项目 | 阶段0 |
+| `/drama-plan` | 策划故事大纲 | 阶段1 |
+| `/drama-character` | 设计角色设定卡 | 阶段2A |
+| `/drama-scene` | 设计场景设定卡 | 阶段2B |
+| `/drama-image` | 图片提示词专家（角色/场景） | 阶段3A/3B |
+| `/drama-storyboard` | 生成分镜脚本 | 阶段5 |
+| `/drama-prompt` | 视频提示词专家 | 阶段6 |
+| `/drama-fill-prompts` | 检查并补充缺失的提示词 | 阶段7 |
+| `/drama-review` | 审核分镜与提示词一致性 | 阶段8 |
+| `/drama-script` | 生成配音台本（传统模式） | - |
+| `/drama-export` | 导出全部提示词包 | 阶段9 |
+
+## 工作流程（v2.0）
+
+```
+阶段0          阶段1          阶段2A         阶段2B
+┌─────┐       ┌─────┐       ┌─────┐       ┌─────┐
+│需求  │ ───→ │故事  │ ───→ │角色  │ ───→ │场景  │
+│定义  │       │大纲  │       │设定  │       │设定  │
+└─────┘       └─────┘       └─────┘       └─────┘
+    │             │             │             │
+    ▼             ▼             ▼             ▼
+ 项目配置      故事大纲      角色设定卡     场景设定卡
+                              │             │
+                              ▼             ▼
+                          阶段3A         阶段3B
+                          ┌─────┐       ┌─────┐
+                          │角色图│ ───→ │场景图│
+                          │提示词│       │提示词│
+                          └─────┘       └─────┘
+                              │             │
+                              ▼             ▼
+                          角色成品图     场景成品图
+                              │             │
+                              └──────┬──────┘
+                                     │
+                                     ▼
+                                 阶段5-9
+                              ┌─────────┐
+                              │分镜→视频 │
+                              │→审核→导出│
+                              └─────────┘
+```
+
+## 一致性控制（核心特性）
+
+### 双锚点控制
+- **角色锚点**：`03_角色图片/` 中的成品图
+- **场景锚点**：`05_场景图片/` 中的成品图
+
+### 提示词引用
+在视频提示词中使用 `@` 语法引用参考图：
+```
+@林小美_半身.jpg @天台_全景_黄昏.jpg
+
+[提示词内容]
+```
+
+## 输出文件结构（v2.0）
+
+用户项目目录的标准结构：
+
+```
+/项目目录/
+├── 00_项目配置.md              # 项目元信息和进度追踪
+├── 01_故事大纲.md              # 三幕结构 + 分集大纲
+│
+├── 02_角色设定/                # 角色设定卡
+│   ├── 角色A_设定卡.md
+│   └── 角色B_设定卡.md
+│
+├── 03_角色图片/                # 角色成品图 ★ 一致性锚点
+│   ├── 角色A/
+│   │   ├── 角色A_提示词.md
+│   │   ├── 角色A_全身.jpg
+│   │   ├── 角色A_半身.jpg
+│   │   └── 角色A_特写.jpg
+│   └── 角色B/
+│       └── ...
+│
+├── 04_场景设定/                # 场景设定卡
+│   ├── 场景1_设定卡.md
+│   └── 场景2_设定卡.md
+│
+├── 05_场景图片/                # 场景成品图 ★ 一致性锚点
+│   ├── 场景1/
+│   │   ├── 场景1_提示词.md
+│   │   ├── 场景1_全景.jpg
+│   │   ├── 场景1_中景.jpg
+│   │   └── 场景1_特写.jpg
+│   └── 场景2/
+│       └── ...
+│
+├── 06_分镜脚本/                # 分镜表格
+│   └── 第1集_分镜.md
+│
+├── 07_视频提示词/              # 视频提示词（含参考图）
+│   └── 第1集_视频提示词.md
+│
+├── 08_配音台本/                # 传统模式专用
+│   └── 第1集_配音.md
+│
+└── 99_导出包/                  # 最终输出
+    ├── 融合提示词.md            # Seedance 2.0 专用
+    ├── 角色参考图索引.md
+    ├── 场景参考图索引.md
+    └── 制作清单.md
+```
+
+## 提示词编写规范
+
+### 视频提示词公式（融合模式）
+```
+@角色参考图 @场景参考图
+
+[主体描述]，[动作描述]，[情绪状态]。
+[场景描述]，[时间天气]，[氛围]。
+[视觉风格]，[色调光影]。
+[镜头类型]，[运镜描述]。
+
+配音：
+- 角色：[说话角色]
+- 声音：[声音特点]
+- 台词：「[台词内容]」
+- 情绪：[情绪]
+- 语速：[语速]
+
+音频：
+- 环境音：[环境声音]
+- 配乐：[背景音乐风格]
+
+高清，4K，画面稳定，口型同步
+```
+
+### 角色图片提示词公式（/drama-image --character）
+```
+一位[年龄]的[性别]，[发型发色]，[面部特征]，
+穿着[服装描述]，[配饰描述]，
+[表情]，[姿态/动作]，
+[风格]风格，[光影]光影。
+```
+
+### 场景图片提示词公式（/drama-image）
+```
+[场景描述]，[时间天气]。
+[主要元素]，[空间层次]。
+[视觉风格]，[色调光影]。
+```
+
+## 与即梦AI的配合流程（v2.0）
+
+### 完整工作流
+1. **角色图**：`/drama-image --character` → 即梦AI → 保存到 `03_角色图片/`
+2. **场景图**：`/drama-image` → 即梦AI → 保存到 `05_场景图片/`
+3. **视频**：复制提示词（含 `@角色图 @场景图`）→ 即梦AI → 一键生成带配音视频
+4. 剪辑软件整合
+
+### 参考图命名规范
+```
+角色：@角色名_类型.jpg    例：@林小美_半身.jpg
+场景：@场景名_视角.jpg    例：@天台_全景_黄昏.jpg
+```
+
+## 扩展指南
+
+### 添加新的工作流阶段
+
+1. 在 `skills/ai-short-drama/references/` 创建 `phaseN-xxx.md`
+2. 更新 `SKILL.md` 中的执行步骤
+3. 在 `commands/` 目录创建新的 `drama-xxx.md` 命令文件
+4. 更新 `commands/ai-short-drama.md` 的命令列表
+
+### 添加新的提示词模板
+
+在 `references/prompt-templates.md` 中按场景类型添加模板，遵循现有结构：
+
+- 场景模板
+- 角色动作模板
+- 运镜模板
+- 风格模板
+
+---
+> Source: [hestudy/ai-short-drama](https://github.com/hestudy/ai-short-drama) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-30 -->
