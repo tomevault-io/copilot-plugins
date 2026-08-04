@@ -1,0 +1,9 @@
+{
+  "name": "emberian--dregg",
+  "displayName": "dregg",
+  "description": "Distributed object-capability authorization with ZK proofs",
+  "version": "1.0.0",
+  "author": "emberian",
+  "homepage": "https://github.com/emberian/dregg",
+  "skills": []
+}
