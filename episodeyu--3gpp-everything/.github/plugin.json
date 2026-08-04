@@ -1,0 +1,9 @@
+{
+  "name": "episodeyu--3gpp-everything",
+  "displayName": "3GPP-Everything",
+  "description": "\u751f\u4ea7\u7ea7 3GPP 5G \u89c4\u8303 RAG Agent\uff1a\u81ea\u7136\u8bed\u8a00\u63d0\u95ee\uff0c\u56de\u7b54\u5e26\u6bb5\u843d\u7ea7\u539f\u6587\u5f15\u7528 + \u4e25\u683c grounding\uff0c\u8986\u76d6 Rel-18/19 \u5168\u90e8 TS\u3002",
+  "version": "1.0.0",
+  "author": "EpisodeYu",
+  "homepage": "https://github.com/EpisodeYu/3GPP-Everything",
+  "skills": []
+}
