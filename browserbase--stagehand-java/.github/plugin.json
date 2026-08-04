@@ -1,0 +1,9 @@
+{
+  "name": "browserbase--stagehand-java",
+  "displayName": "stagehand-java",
+  "description": "\u2615 [ALPHA] Official Stagehand AI Browser Automation SDK for Java users. Built by Browserbase.com",
+  "version": "1.0.0",
+  "author": "browserbase",
+  "homepage": "https://github.com/browserbase/stagehand-java",
+  "skills": []
+}
