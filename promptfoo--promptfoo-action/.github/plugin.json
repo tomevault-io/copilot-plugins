@@ -1,0 +1,9 @@
+{
+  "name": "promptfoo--promptfoo-action",
+  "displayName": "promptfoo-action",
+  "description": "promptfoo-action",
+  "version": "1.0.0",
+  "author": "promptfoo",
+  "homepage": "https://github.com/promptfoo/promptfoo-action",
+  "skills": []
+}
