@@ -2,9 +2,9 @@
   "name": "agent-skills",
   "owner": "neondatabase",
   "repo": "agent-skills",
-  "description": "Agent Skills for Neon Severless Postgres",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "neon-postgres",
-      "path": "skills/neon-postgres",
-      "github_url": "https://github.com/neondatabase/agent-skills/tree/main/skills/neon-postgres",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/neondatabase/agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T16:46:11Z"
+  "distributed_at": "2026-08-04T04:06:22Z"
 }
