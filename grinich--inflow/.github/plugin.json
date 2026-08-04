@@ -1,0 +1,9 @@
+{
+  "name": "grinich--inflow",
+  "displayName": "inflow",
+  "description": "An experimental Chrome extension that reimagines LinkedIn messaging with a keyboard-driven, local-first UI.",
+  "version": "1.0.0",
+  "author": "grinich",
+  "homepage": "https://github.com/grinich/inflow",
+  "skills": []
+}
