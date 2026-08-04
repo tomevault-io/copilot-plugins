@@ -1,0 +1,9 @@
+{
+  "name": "lagrowthmachine--gtm-system",
+  "displayName": "gtm-system",
+  "description": "Open-source Claude skills and an MCP server for Sales and GTM teams: build Sales Navigator searches, write multichannel campaigns, and handle every reply from Claude.",
+  "version": "1.0.0",
+  "author": "LaGrowthMachine",
+  "homepage": "https://github.com/LaGrowthMachine/gtm-system",
+  "skills": []
+}
