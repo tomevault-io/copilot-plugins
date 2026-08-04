@@ -1,14 +1,9 @@
 {
   "name": "mralexsaavedra--spotiarr",
   "displayName": "spotiarr",
-  "description": "Self-hosted Spotify downloader with Jellyfin/Plex integration. Lidarr-inspired music automation.",
+  "description": "spotiarr",
   "version": "1.0.0",
   "author": "mralexsaavedra",
   "homepage": "https://github.com/mralexsaavedra/spotiarr",
-  "skills": [
-    {
-      "name": "spotiarr-i18n",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
