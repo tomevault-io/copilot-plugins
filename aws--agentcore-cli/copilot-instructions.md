@@ -1,157 +1,65 @@
 ## agentcore-cli
 
-> CLI tool for Amazon Bedrock AgentCore. Manages agent infrastructure lifecycle.
+> This directory contains **manually maintained** TypeScript type definitions optimized for LLM consumption.
 
-# AgentCore CLI
+# LLM-Compacted Schema Maintenance
 
-CLI tool for Amazon Bedrock AgentCore. Manages agent infrastructure lifecycle.
+This directory contains **manually maintained** TypeScript type definitions optimized for LLM consumption.
 
-## Package Structure
+## How It Works
 
-```
-src/
-├── index.ts           # Library entry - exports ConfigIO, types
-├── schema/            # Schema definitions with Zod validators
-├── lib/               # Shared utilities (ConfigIO, packaging)
-├── cli/               # CLI implementation
-│   ├── primitives/    # Resource primitives (add/remove logic per resource type)
-│   ├── commands/      # CLI commands (thin Commander registration)
-│   ├── tui/           # Terminal UI (Ink/React)
-│   ├── operations/    # Shared business logic (schema mapping, deploy, etc.)
-│   ├── cdk/           # CDK toolkit wrapper for programmatic CDK operations
-│   └── templates/     # Project templating
-└── assets/            # Template assets vended to users
-```
+1. The CLI embeds these `.ts` files as text at build time (via Bun's text import)
+2. During `init`, they're written to the user's `agentcore/.llm-context/` directory
+3. AI coding assistants read these files when editing AgentCore JSON configs
 
-Note: CDK L3 constructs are in a separate package `@aws/agentcore-cdk`.
+## Keeping In Sync With Zod Schemas
 
-## Global Options
+When Zod schemas in `schemas/` are updated, manually update the corresponding file here:
 
-These options are available on all commands:
+| Compacted File   | Zod Source Files                               |
+| ---------------- | ---------------------------------------------- |
+| `agentcore.ts`   | `schemas/agentcore-project.ts`                 |
+| `agent-env.ts`   | `schemas/agent-env.ts`, `schemas/primitives/*` |
+| `mcp.ts`         | `schemas/mcp.ts`, `schemas/mcp-defs.ts`        |
+| `aws-targets.ts` | `schemas/aws-targets.ts`                       |
 
-- `-h, --help` - Show help for any command
-- `--version` - Print CLI version (root command only)
+## Critical: Enum and Regex Accuracy
 
-## CLI Commands
+**Every enum (union type) and regex pattern MUST be exactly correct.**
 
-- `create` - Create new AgentCore project
-- `add` - Add resources (agent, memory, credential, evaluator, online-eval, gateway, gateway-target, policy-engine,
-  policy)
-- `remove` - Remove resources (agent, memory, credential, evaluator, online-eval, gateway, gateway-target,
-  policy-engine, policy, all)
-- `deploy` - Deploy infrastructure to AWS
-- `status` - Check deployment status
-- `dev` - Local development server (CodeZip: uvicorn with hot-reload; Container: Docker build + run with volume mount)
-- `invoke` - Invoke agents (local or deployed)
-- `run eval` - Run on-demand evaluation against agent sessions
-- `evals history` - View past eval run results
-- `fetch access` - Fetch access info for a deployed gateway or agent
-- `import` - Import resources from a Bedrock AgentCore Starter Toolkit project
-- `pause online-eval` - Pause (disable) a deployed online eval config
-- `resume online-eval` - Resume (enable) a paused online eval config
-- `logs` - Stream or search agent runtime logs
-- `logs evals` - Stream or search online eval logs
-- `traces list` - List recent traces for a deployed agent
-- `traces get` - Download a trace to a JSON file
-- `package` - Package agent artifacts without deploying (zip for CodeZip, container image build for Container)
-- `validate` - Validate configuration files
-- `update` - Check for CLI updates
-- `help` - Display help information
+On every update:
 
-### Agent Types
+1. **Re-verify ALL union types** match the Zod enum values exactly
+2. **Re-verify ALL regex patterns** match the Zod regex constraints exactly
+3. **Re-verify ALL min/max values** match the Zod constraints exactly
 
-- **Template agents**: Created from framework templates (Strands, LangChain_LangGraph, GoogleADK, OpenAIAgents)
-- **BYO agents**: Bring your own code with `agentcore add agent --type byo`
-- **Imported agents**: Import from Bedrock Agents with `agentcore add agent --type import`
+Incorrect enums or regex will cause agents to generate invalid JSON that fails validation.
 
-### Build Types
+## Update Checklist
 
-- **CodeZip**: Python source is packaged into a zip artifact and deployed to AgentCore Runtime (default)
-- **Container**: Agent is built as a Docker container image, deployed via ECR and CodeBuild. Requires a `Dockerfile` in
-  the agent's code directory. Supported container runtimes: Docker, Podman, Finch.
+- [ ] Add new fields to the relevant interface
+- [ ] Add validation constraint comments (`@regex`, `@min`, `@max`)
+- [ ] **Re-check ALL enum union types match Zod source exactly**
+- [ ] **Re-check ALL regex patterns match Zod source exactly**
+- [ ] Keep each file self-contained (duplicate shared types if needed)
 
-## Primitives Architecture
+## Format Guidelines
 
-All resource types (agent, memory, credential, evaluator, online-eval, gateway, gateway-target, policy-engine, policy)
-are modeled as **primitives** -- self-contained classes in `src/cli/primitives/` that own the full add/remove lifecycle
-for their resource type. Resources support config-driven tagging via `agentcore.json`, with tags flowing through to
-deployed CloudFormation resources.
+### Constraint Comments
 
-Each primitive extends `BasePrimitive` and implements: `add()`, `remove()`, `previewRemove()`, `getRemovable()`,
-`registerCommands()`, and `addScreen()`.
-
-Current primitives:
-
-- `AgentPrimitive` — agent creation (template + BYO), removal, credential resolution
-- `MemoryPrimitive` — memory creation with strategies, removal
-- `CredentialPrimitive` — credential creation, .env management, removal
-- `EvaluatorPrimitive` — custom evaluator creation/removal with cross-reference validation
-- `OnlineEvalConfigPrimitive` — online eval config creation/removal
-- `GatewayPrimitive` — gateway creation/removal
-- `GatewayTargetPrimitive` — gateway target creation/removal with code generation
-- `PolicyEnginePrimitive` — Cedar policy engine creation/removal
-- `PolicyPrimitive` — Cedar policy creation/removal within policy engines
-
-Singletons are created in `registry.ts` and wired into CLI commands via `cli.ts`. See `src/cli/AGENTS.md` for details on
-adding new primitives.
-
-## Vended CDK Project
-
-When users run `agentcore create`, we vend a CDK project at `agentcore/cdk/` that:
-
-- Imports `@aws/agentcore-cdk` for L3 constructs
-- Reads schema files and synthesizes CloudFormation
-
-## Library Exports
-
-This package exports utilities for programmatic use:
-
-- `ConfigIO` - Read/write schema files
-- Schema types - `AgentEnvSpec`, `AgentCoreProjectSpec`, etc.
-- `findConfigRoot()` - Locate agentcore/ directory
-
-## Testing
-
-### Unit Tests
-
-```bash
-npm test              # Run unit tests
-npm run test:unit     # Same as above
-npm run test:integ    # Run integration tests
+```typescript
+name: string; // @regex ^[a-zA-Z][a-zA-Z0-9]{0,63}$ @max 48
+eventExpiryDuration: number; // @min 7 @max 365 (days)
+targets: Target[]; // @min 1 - at least one required
 ```
 
-### Snapshot Tests
+### File Structure
 
-Asset files in `src/assets/` are protected by snapshot tests. When modifying templates:
-
-```bash
-npm run test:update-snapshots  # Update snapshots after intentional changes
-```
-
-See `docs/TESTING.md` for details.
-
-## Related Package
-
-- `@aws/agentcore-cdk` - CDK constructs used by vended projects
-
-## Code Style
-
-- Never use inline imports. Imports must always go at the top of the file.
-- Wheverever there is a requirement to use something that returns a success result and an error message you must use
-  this format
-
-```javascript
-{ success: Boolean, error?:string}
-```
-
-- Always look for existing types before creating a new type inline.
-- Re-usable constants must be defined in a constants file in the closest sensible subdirectory.
-
-## TUI Harness
-
-See `docs/tui-harness.md` for the full TUI harness usage guide (MCP tools, screen markers, examples, and error
-recovery).
+1. Header with JSON file reference and read-only notice
+2. Root schema interface at top
+3. Component types below
+4. Enums as union types (`type Foo = 'A' | 'B'`)
 
 ---
 > Source: [aws/agentcore-cli](https://github.com/aws/agentcore-cli) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
