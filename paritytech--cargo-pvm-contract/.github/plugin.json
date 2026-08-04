@@ -1,0 +1,9 @@
+{
+  "name": "paritytech--cargo-pvm-contract",
+  "displayName": "cargo-pvm-contract",
+  "description": "Build commands for Rust PVM contracts",
+  "version": "1.0.0",
+  "author": "paritytech",
+  "homepage": "https://github.com/paritytech/cargo-pvm-contract",
+  "skills": []
+}
