@@ -1,0 +1,9 @@
+{
+  "name": "vigil-harbor--petasos",
+  "displayName": "Petasos",
+  "description": "Petasos is a pluggable, session-aware content security pipeline for Python AI agents. It composes best-in-class OSS scanners (LLM Guard, Llama Firewall, Presidio) behind a unified Scanner protocol. Ad",
+  "version": "1.0.0",
+  "author": "Vigil-Harbor",
+  "homepage": "https://github.com/Vigil-Harbor/Petasos",
+  "skills": []
+}
