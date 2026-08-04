@@ -1,0 +1,9 @@
+{
+  "name": "apache--directory-kerby",
+  "displayName": "directory-kerby",
+  "description": "directory-kerby",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/directory-kerby",
+  "skills": []
+}
