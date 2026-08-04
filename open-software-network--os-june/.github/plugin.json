@@ -1,0 +1,9 @@
+{
+  "name": "open-software-network--os-june",
+  "displayName": "os-june",
+  "description": "Private AI on your Mac. Chat, dictation, meeting notes, and a local agent in one open source workspace.",
+  "version": "1.0.0",
+  "author": "open-software-network",
+  "homepage": "https://github.com/open-software-network/os-june",
+  "skills": []
+}
