@@ -2,9 +2,9 @@
   "name": "line",
   "owner": "cartesia-ai",
   "repo": "line",
-  "description": "Cartesia Line SDK for voice agents.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cartesia-ai/line",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T05:18:10Z"
+  "distributed_at": "2026-08-04T22:09:14Z"
 }
