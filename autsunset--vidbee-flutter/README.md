@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Autsunset/VidBee_Flutter](https://github.com/Autsunset/VidBee_Flutter).
+Original source: `AGENTS.md` in [Autsunset/VidBee_Flutter](https://github.com/Autsunset/VidBee_Flutter).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Autsunset/VidBee_Flutter](https://github.com/Autsunset/VidBee_Flutter) — a repo with 63+ stars on GitHub.
+From [Autsunset/VidBee_Flutter](https://github.com/Autsunset/VidBee_Flutter) — a repo with 62+ stars on GitHub.
 
 ---
 
