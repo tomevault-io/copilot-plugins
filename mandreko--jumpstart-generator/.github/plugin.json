@@ -1,0 +1,9 @@
+{
+  "name": "mandreko--jumpstart-generator",
+  "displayName": "jumpstart-generator",
+  "description": "Generates Card Conjurer JSON files for MTG Jumpstart packs by querying Scryfall API for card data. Also downloads and processes face card images with black borders for MPC printing.",
+  "version": "1.0.0",
+  "author": "mandreko",
+  "homepage": "https://github.com/mandreko/jumpstart-generator",
+  "skills": []
+}
