@@ -1,0 +1,9 @@
+{
+  "name": "soniqo--speech-studio",
+  "displayName": "speech-studio",
+  "description": "Open-source desktop voice-cloning studio for creators \u2014 clone a voice, script lines with emotion markers, synthesize on-device. Tauri + VoxCPM2, runs on macOS, Windows, and Linux.",
+  "version": "1.0.0",
+  "author": "soniqo",
+  "homepage": "https://github.com/soniqo/speech-studio",
+  "skills": []
+}
