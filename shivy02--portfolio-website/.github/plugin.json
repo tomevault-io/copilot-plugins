@@ -1,0 +1,9 @@
+{
+  "name": "shivy02--portfolio-website",
+  "displayName": "portfolio-website",
+  "description": "A modern, animated portfolio template built with Next.js 15, React 19, TypeScript, Tailwind & Framer Motion - with live Spotify, WakaTime & GitHub widgets and a Markdown blog.",
+  "version": "1.0.0",
+  "author": "shivy02",
+  "homepage": "https://github.com/shivy02/portfolio-website",
+  "skills": []
+}
