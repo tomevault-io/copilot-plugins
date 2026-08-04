@@ -1,0 +1,9 @@
+{
+  "name": "eubyt--servson",
+  "displayName": "servson",
+  "description": "Complete REST Mock API in seconds using just a single JSON file.",
+  "version": "1.0.0",
+  "author": "eubyt",
+  "homepage": "https://github.com/eubyt/servson",
+  "skills": []
+}
