@@ -1,0 +1,9 @@
+{
+  "name": "panel-ui--panelui",
+  "displayName": "PanelUI",
+  "description": "High-performance React Native components for Expo.",
+  "version": "1.0.0",
+  "author": "panel-ui",
+  "homepage": "https://github.com/panel-ui/PanelUI",
+  "skills": []
+}
