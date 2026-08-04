@@ -1,0 +1,44 @@
+{
+  "name": "deepworkplan-website",
+  "owner": "DailybotHQ",
+  "repo": "deepworkplan-website",
+  "description": "Turn any repo AI-first and run resumable, multi-hour Deep Work Plans \u2014 the methodology, the spec, the kit, and the /init URL your AI agent fetches to do it.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DailybotHQ/deepworkplan-website",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T13:18:45Z"
+}
