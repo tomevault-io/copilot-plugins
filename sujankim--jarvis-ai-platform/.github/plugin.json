@@ -1,0 +1,9 @@
+{
+  "name": "sujankim--jarvis-ai-platform",
+  "displayName": "jarvis-ai-platform",
+  "description": "Local-first, open-source AI assistant platform built with Java, Spring Boot 4 and Spring AI 2.0",
+  "version": "1.0.0",
+  "author": "sujankim",
+  "homepage": "https://github.com/sujankim/jarvis-ai-platform",
+  "skills": []
+}
