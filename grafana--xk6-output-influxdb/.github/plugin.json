@@ -1,0 +1,9 @@
+{
+  "name": "grafana--xk6-output-influxdb",
+  "displayName": "xk6-output-influxdb",
+  "description": "xk6-output-influxdb",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/xk6-output-influxdb",
+  "skills": []
+}
