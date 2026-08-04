@@ -1,0 +1,9 @@
+{
+  "name": "crowdin--crowdin-api-client-php",
+  "displayName": "crowdin-api-client-php",
+  "description": "crowdin-api-client-php",
+  "version": "1.0.0",
+  "author": "crowdin",
+  "homepage": "https://github.com/crowdin/crowdin-api-client-php",
+  "skills": []
+}
