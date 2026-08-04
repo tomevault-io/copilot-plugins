@@ -1,0 +1,9 @@
+{
+  "name": "qingqiz--bmsruleset",
+  "displayName": "BmsRuleset",
+  "description": "An osu! lazer plugin (ruleset) that can directly play BMS without needing to convert the beatmaps.",
+  "version": "1.0.0",
+  "author": "QingQiz",
+  "homepage": "https://github.com/QingQiz/BmsRuleset",
+  "skills": []
+}
