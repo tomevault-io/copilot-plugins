@@ -1,0 +1,9 @@
+{
+  "name": "ftelnov--leshy",
+  "displayName": "leshy",
+  "description": "DNS-driven split-tunnel router - automatic, no leaks, no over-routing. We've got your back.",
+  "version": "1.0.0",
+  "author": "ftelnov",
+  "homepage": "https://github.com/ftelnov/leshy",
+  "skills": []
+}
