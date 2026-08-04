@@ -1,11 +1,13 @@
-## debugging
+## environment-variables
 
-> Debugging guidance for the CodeLogic MCP Server
+> Key environment variables for the CodeLogic MCP Server
 
-- Enable Debug Mode by setting `CODELOGIC_DEBUG_MODE=true`
-- Use debugpy capabilities for remote debugging
-- Check logs in the logs directory for detailed information
-- Use proper logging levels for different types of information
+- `CODELOGIC_SERVER_HOST`: CodeLogic server URL
+- `CODELOGIC_USERNAME`: Username for authentication
+- `CODELOGIC_PASSWORD`: Password for authentication
+- `CODELOGIC_WORKSPACE_NAME`: Workspace name
+- `CODELOGIC_DEBUG_MODE`: Enable debug logging
+- `CODELOGIC_TEST_MODE`: Used by test framework
 
 ---
 > Source: [lineai-intelligence/codelogic-mcp-server](https://github.com/lineai-intelligence/codelogic-mcp-server) — distributed by [TomeVault](https://tomevault.io).
