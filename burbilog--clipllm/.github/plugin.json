@@ -1,0 +1,9 @@
+{
+  "name": "burbilog--clipllm",
+  "displayName": "clipllm",
+  "description": "Copy text/image, press hotkey, get AI response - without leaving your workflow",
+  "version": "1.0.0",
+  "author": "burbilog",
+  "homepage": "https://github.com/burbilog/clipllm",
+  "skills": []
+}
