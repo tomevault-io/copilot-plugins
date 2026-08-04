@@ -1,0 +1,9 @@
+{
+  "name": "miopea--swarm",
+  "displayName": "swarm",
+  "description": "Web dashboard + autopilot for Claude Code agents \u2014 manage sessions, tasks, and approvals from your browser",
+  "version": "1.0.0",
+  "author": "miopea",
+  "homepage": "https://github.com/miopea/swarm",
+  "skills": []
+}
