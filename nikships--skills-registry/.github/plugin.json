@@ -1,0 +1,9 @@
+{
+  "name": "nikships--skills-registry",
+  "displayName": "skills-registry",
+  "description": "Your personal GitHub registry for AI Agent Skills. One repo. EVERY agent. EVERY device. Loaded on demand \u2014 Zero startup bloat.",
+  "version": "1.0.0",
+  "author": "nikships",
+  "homepage": "https://github.com/nikships/skills-registry",
+  "skills": []
+}
