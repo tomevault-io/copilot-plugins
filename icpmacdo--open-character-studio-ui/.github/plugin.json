@@ -1,0 +1,9 @@
+{
+  "name": "icpmacdo--open-character-studio-ui",
+  "displayName": "Open-Character-Studio-UI",
+  "description": "A no-code open-source implementation of the \"Open Character Training\" recipe with Tinker",
+  "version": "1.0.0",
+  "author": "icpmacdo",
+  "homepage": "https://github.com/icpmacdo/Open-Character-Studio-UI",
+  "skills": []
+}
