@@ -1,0 +1,9 @@
+{
+  "name": "robertsdotpm--runloom",
+  "displayName": "runloom",
+  "description": "Real Goroutines for Python 3.13t+ free-threaded.",
+  "version": "1.0.0",
+  "author": "robertsdotpm",
+  "homepage": "https://github.com/robertsdotpm/runloom",
+  "skills": []
+}
