@@ -1,0 +1,9 @@
+{
+  "name": "vinceamstoutz--symfony-security-auditor",
+  "displayName": "symfony-security-auditor",
+  "description": "AI-powered multi-agent security auditor for Symfony applications \u2014 provider-agnostic via symfony/ai.",
+  "version": "1.0.0",
+  "author": "vinceAmstoutz",
+  "homepage": "https://github.com/vinceAmstoutz/symfony-security-auditor",
+  "skills": []
+}
