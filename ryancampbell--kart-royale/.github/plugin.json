@@ -1,0 +1,9 @@
+{
+  "name": "ryancampbell--kart-royale",
+  "displayName": "kart-royale",
+  "description": "A Mario Kart-style racer in the browser with zero art assets \u2014 every texture, mesh, material and sound is generated in code. Built by a fleet of Claude agents in four days.",
+  "version": "1.0.0",
+  "author": "ryancampbell",
+  "homepage": "https://github.com/ryancampbell/kart-royale",
+  "skills": []
+}
