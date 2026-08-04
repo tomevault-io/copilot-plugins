@@ -1,0 +1,9 @@
+{
+  "name": "deaneeth--tiny-tpu",
+  "displayName": "tiny-tpu",
+  "description": "A TPU you can watch run - real SystemVerilog systolic array, compiled to WASM, visualized live in your browser.",
+  "version": "1.0.0",
+  "author": "deaneeth",
+  "homepage": "https://github.com/deaneeth/tiny-tpu",
+  "skills": []
+}
