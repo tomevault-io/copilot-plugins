@@ -4,7 +4,7 @@
   "repo": "dabble.me",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/parterburn/dabble.me",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T23:27:38Z"
+  "distributed_at": "2026-08-04T22:32:14Z"
 }
