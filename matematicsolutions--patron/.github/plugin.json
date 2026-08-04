@@ -1,0 +1,9 @@
+{
+  "name": "matematicsolutions--patron",
+  "displayName": "patron",
+  "description": "Self-hosted, GDPR-safe AI agent for law firms. Zero-cloud, hash-chained audit trail (AI Act art. 12), bring-your-own-model, 9 language editions. Hard fork of willchen96/mike, AGPL-3.0.",
+  "version": "1.0.0",
+  "author": "matematicsolutions",
+  "homepage": "https://github.com/matematicsolutions/patron",
+  "skills": []
+}
