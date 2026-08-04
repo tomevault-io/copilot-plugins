@@ -1,0 +1,44 @@
+{
+  "name": "language-learning-sop-kit",
+  "owner": "edu-ai-builders",
+  "repo": "language-learning-sop-kit",
+  "description": "  \u4e00\u5957\u5f00\u6e90 Skill \u5de5\u5177\u96c6,\u5e2e\u52a9\u6258\u798f\u96c5\u601d\u72ec\u7acb\u8001\u5e08 / \u7559\u5b66\u5de5\u4f5c\u5ba4\u628a\u539f\u59cb\u6559\u5b66\u7d20\u6750(\u9605\u8bfb\u7bc7\u7ae0\u3001\u957f\u96be\u53e5\u3001\u9009\u62e9\u9898\u3001\u5199\u4f5c\u9898)\u4e00\u952e\u8f6c\u5316\u4e3a\u6709\u6559\u5b66\u6cd5\u652f\u6491\u7684\u53ef\u4ea4\u4e92 HTML   \u7ec3\u4e60\u5de5\u5177,\u96f6\u4ee3\u7801\u95e8\u69db   |      \u4e00\u5957\u5f00\u6e90 Skill \u5de5\u5177\u96c6,\u5e2e\u52a9\u6258\u798f\u96c5\u601d\u72ec\u7acb\u8001\u5e08 / \u7559\u5b66\u5de5\u4f5c\u5ba4\u628a\u539f\u59cb\u6559\u5b66\u7d20\u6750(\u9605\u8bfb\u7bc7\u7ae0\u3001\u957f\u96be\u53e5\u3001\u9009\u62e9\u9898\u3001\u5199\u4f5c\u9898)\u4e00\u952e\u8f6c\u5316\u4e3a\u6709\u6559\u5b66\u6cd5\u652f\u6491\u7684\u53ef\u4ea4\u4e92 HTML   \u7ec3\u4e60\u5de5\u5177,\u96f6\u4ee3\u7801\u95e8\u69db",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/edu-ai-builders/language-learning-sop-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T15:42:47Z"
+}
