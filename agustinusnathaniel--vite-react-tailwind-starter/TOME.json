@@ -4,7 +4,7 @@
   "repo": "vite-react-tailwind-starter",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agustinusnathaniel/vite-react-tailwind-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-02T09:34:35Z"
+  "distributed_at": "2026-08-04T18:04:36Z"
 }
