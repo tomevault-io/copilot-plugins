@@ -1,0 +1,9 @@
+{
+  "name": "pa--tessera",
+  "displayName": "tessera",
+  "description": "A keyboard-driven tiling window manager for macOS \u2014 tmux/Zellij workflows for any app.",
+  "version": "1.0.0",
+  "author": "pa",
+  "homepage": "https://github.com/pa/tessera",
+  "skills": []
+}
