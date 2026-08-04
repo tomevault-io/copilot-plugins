@@ -1,0 +1,9 @@
+{
+  "name": "wenhanweime--herdr-plugin-renamer",
+  "displayName": "herdr-plugin-renamer",
+  "description": "LLM-powered session naming for herdr: Claude Code / Codex / Grok / Pi / opencode, Chinese or English tab labels, free opencode zen engine by default",
+  "version": "1.0.0",
+  "author": "wenhanweime",
+  "homepage": "https://github.com/wenhanweime/herdr-plugin-renamer",
+  "skills": []
+}
