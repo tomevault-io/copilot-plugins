@@ -1,0 +1,44 @@
+{
+  "name": "open-green-button",
+  "owner": "rocketraman",
+  "repo": "open-green-button",
+  "description": "Stateless OAuth proxy server bridging Green Button (NAESB ESPI) utility data to local software like Home Assistant. Hosted on Fly.io; backs the open-green-button-homeassistant integration.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rocketraman/open-green-button",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T14:08:40Z"
+}
