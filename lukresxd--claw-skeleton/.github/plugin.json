@@ -1,0 +1,9 @@
+{
+  "name": "lukresxd--claw-skeleton",
+  "displayName": "claw-skeleton",
+  "description": "\ud83e\udebc A personal AI assistant that lives in Telegram \u2014 every topic is its own isolated Claude Code agent with layered persistent memory and proactive cron heartbeats. Open skeleton of a real, running syst",
+  "version": "1.0.0",
+  "author": "LuKresXD",
+  "homepage": "https://github.com/LuKresXD/claw-skeleton",
+  "skills": []
+}
