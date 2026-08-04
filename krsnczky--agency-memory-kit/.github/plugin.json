@@ -1,0 +1,9 @@
+{
+  "name": "krsnczky--agency-memory-kit",
+  "displayName": "agency-memory-kit",
+  "description": "Per-client, no-mixing memory engine for agencies running Claude Code. Deterministic context loading, weekly consolidation, human-approved candidate review, a self-improving tool-craft loop, and cheap-",
+  "version": "1.0.0",
+  "author": "krsnczky",
+  "homepage": "https://github.com/krsnczky/agency-memory-kit",
+  "skills": []
+}
