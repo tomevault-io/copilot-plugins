@@ -1,0 +1,9 @@
+{
+  "name": "pixxelhq--clay",
+  "displayName": "clay",
+  "description": "Open-source framework for packaging ML models as deployable blocks",
+  "version": "1.0.0",
+  "author": "pixxelhq",
+  "homepage": "https://github.com/pixxelhq/clay",
+  "skills": []
+}
