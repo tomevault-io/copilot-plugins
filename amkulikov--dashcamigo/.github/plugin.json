@@ -1,0 +1,9 @@
+{
+  "name": "amkulikov--dashcamigo",
+  "displayName": "dashcamigo",
+  "description": "Open-source, browser-based dashcam viewer/editor: multi-vendor GPS telemetry parsing, synced map + speed chart, lossless trim and re-encoded export with overlays. No backend.   Self-hostable.",
+  "version": "1.0.0",
+  "author": "amkulikov",
+  "homepage": "https://github.com/amkulikov/dashcamigo",
+  "skills": []
+}
