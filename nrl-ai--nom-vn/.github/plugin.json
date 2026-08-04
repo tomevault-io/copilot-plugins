@@ -1,0 +1,9 @@
+{
+  "name": "nrl-ai--nom-vn",
+  "displayName": "nom-vn",
+  "description": "Open-source Python toolkit + playground for Vietnamese AI \u2014 RAG over docs, diacritic restore, segmentation, OCR, normalization. Local-first, multi-backend (Ollama / llama.cpp / HF Transformers / OpenA",
+  "version": "1.0.0",
+  "author": "nrl-ai",
+  "homepage": "https://github.com/nrl-ai/nom-vn",
+  "skills": []
+}
