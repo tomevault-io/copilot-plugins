@@ -1,0 +1,9 @@
+{
+  "name": "rtk-ai--rtk-ldp",
+  "displayName": "rtk-ldp",
+  "description": "Landing page for rtk \u2014 Rust Token Killer",
+  "version": "1.0.0",
+  "author": "rtk-ai",
+  "homepage": "https://github.com/rtk-ai/rtk-ldp",
+  "skills": []
+}
