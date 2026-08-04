@@ -1,0 +1,9 @@
+{
+  "name": "sicuranext--karna",
+  "displayName": "karna",
+  "description": "Modern Web Application Firewall for Kong Gateway",
+  "version": "1.0.0",
+  "author": "sicuranext",
+  "homepage": "https://github.com/sicuranext/karna",
+  "skills": []
+}
