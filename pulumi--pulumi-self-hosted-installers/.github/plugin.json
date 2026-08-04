@@ -1,0 +1,9 @@
+{
+  "name": "pulumi--pulumi-self-hosted-installers",
+  "displayName": "pulumi-self-hosted-installers",
+  "description": "pulumi-self-hosted-installers",
+  "version": "1.0.0",
+  "author": "pulumi",
+  "homepage": "https://github.com/pulumi/pulumi-self-hosted-installers",
+  "skills": []
+}
