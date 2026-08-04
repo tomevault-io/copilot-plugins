@@ -1,0 +1,44 @@
+{
+  "name": "phi-boundary-gate",
+  "owner": "tigerless-labs",
+  "repo": "phi-boundary-gate",
+  "description": "Detect, gate, redact, and report PHI candidate flows across healthcare and insurance AI prompts, RAG, tools, memory, logs, and provider boundaries.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tigerless-labs/phi-boundary-gate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T17:44:15Z"
+}
