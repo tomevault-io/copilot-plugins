@@ -1,0 +1,9 @@
+{
+  "name": "pingcap--ticdc",
+  "displayName": "ticdc",
+  "description": "ticdc",
+  "version": "1.0.0",
+  "author": "pingcap",
+  "homepage": "https://github.com/pingcap/ticdc",
+  "skills": []
+}
