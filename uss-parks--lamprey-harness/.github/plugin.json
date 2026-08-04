@@ -1,0 +1,9 @@
+{
+  "name": "uss-parks--lamprey-harness",
+  "displayName": "Lamprey-Harness",
+  "description": "Local-first, multi-provider coding desktop with Codex-style Steering, task controls, inline artifacts, PR review, tools, skills, MCP, and research.",
+  "version": "1.0.0",
+  "author": "USS-Parks",
+  "homepage": "https://github.com/USS-Parks/Lamprey-Harness",
+  "skills": []
+}
