@@ -1,0 +1,9 @@
+{
+  "name": "xu62u4u6--pymaftools",
+  "displayName": "pymaftools",
+  "description": "A Python toolkit for MAF files and multi-omics cancer genomics \u2014 parsing, analysis, ML, and publication-ready visualization. ",
+  "version": "1.0.0",
+  "author": "xu62u4u6",
+  "homepage": "https://github.com/xu62u4u6/pymaftools",
+  "skills": []
+}
