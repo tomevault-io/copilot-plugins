@@ -1,0 +1,44 @@
+{
+  "name": "O-olho-de-DEUS",
+  "owner": "Lelolima",
+  "repo": "O-olho-de-DEUS",
+  "description": "\"Olho de Deus\": Sistema de seguran\u00e7a com IA que analisa c\u00e2meras em tempo real. Detecta comportamentos suspeitos, identifica rostos e gera alertas autom\u00e1ticos para autoridades. Tecnologia avan\u00e7ada de machine learning para seguran\u00e7a p\u00fablica e privada.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Lelolima/O-olho-de-DEUS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T10:00:08Z"
+}
