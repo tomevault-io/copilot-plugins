@@ -1,0 +1,9 @@
+{
+  "name": "farukkamcici--mectrics",
+  "displayName": "mectrics",
+  "description": "A lightweight, private system monitor that lives in your macOS menu bar. CPU, memory, battery, network, disk, GPU, temperature, fans. Zero telemetry.",
+  "version": "1.0.0",
+  "author": "farukkamcici",
+  "homepage": "https://github.com/farukkamcici/mectrics",
+  "skills": []
+}
