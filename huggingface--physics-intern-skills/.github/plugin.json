@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--physics-intern-skills",
+  "displayName": "physics-intern-skills",
+  "description": "Agentic framework for physics",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/physics-intern-skills",
+  "skills": []
+}
