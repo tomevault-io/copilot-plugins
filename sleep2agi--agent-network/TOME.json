@@ -4,7 +4,7 @@
   "repo": "agent-network",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sleep2agi/agent-network",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T19:36:59Z"
+  "distributed_at": "2026-08-04T06:03:07Z"
 }
