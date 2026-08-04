@@ -1,0 +1,213 @@
+## mcu-debug
+
+> This file captures architectural facts that are not obvious from reading the code alone. Read this before making changes to the debug adapter, proxy, or RTT subsystems.
+
+# MCU Debug — AI Agent Context
+
+This file captures architectural facts that are not obvious from reading the code alone. Read this before making changes to the debug adapter, proxy, or RTT subsystems.
+
+---
+
+## Key Reference Documents
+
+| Document                                                       | What it covers                                                                                                    |
+| -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| [docs-internal/Proxy-Plan.md](docs-internal/Proxy-Plan.md)     | Definitive topology for remote probe support — two scenarios, terminology, Funnel Protocol                        |
+| [docs-internal/ARCHITECTURE.md](docs-internal/ARCHITECTURE.md) | High-level architecture; may have drifted from current implementation in details, but the overall arch is correct |
+| [docs/rtt.md](docs/rtt.md)                                     | RTT implementation — this project's approach is a superset of the standard gdb-server model                       |
+
+---
+
+## Critical: Terminology Inversion
+
+**VS Code's "Local" / "Remote" terminology is inverted relative to the intuitive meaning in this project.**
+
+- VS Code calls the machine with the USB probe **"Local"** (the UI side).
+- VS Code calls the machine running the extension's workspace (WSL / container / SSH) **"Remote"**.
+- The `mcu-debug` UI extension runs on the **VS Code Local** side (probe host).
+- The Debug Adapter (DA) and GDB run on the **VS Code Remote** side (workspace / engineer's source).
+
+When the Proxy-Plan.md says "Engineer Machine" and "Probe Host", use those terms — they are unambiguous. Do not use "local" or "remote" without qualifying which convention you mean.
+
+---
+
+## Debug Adapter is Three Components, Not One
+
+The debug adapter is **not** a single TypeScript process. It has three cooperating parts:
+
+1. **TypeScript DA** (`packages/mcu-debug/src/adapter/`) — The DAP server. Talks to VS Code, manages sessions, orchestrates GDB via stdio.
+
+2. **`da_helper`** (Rust, `packages/mdbg/src/da_helper/`) — A Rust binary invoked by the TS DA as a subprocess. Responsible for ELF parsing, symbol table lookup, and disassembly (via objdump + Capstone). The TS side does **not** parse ELF directly. Any feature that requires symbol information goes through this helper.
+
+3. **Proxy client** (`packages/mdbg/src/proxy_helper/`) — Also Rust. Implements the client side of the Funnel Protocol for reaching a Probe Agent on a remote/host machine. Used when the probe is not accessible directly from the DA process (WSL, Dev Container, or LAB topology).
+
+The `mdbg` binary is a single Rust binary with subcommands (`da-helper`, `proxy`, …). Do not assume these are separate binaries.
+
+---
+
+## Remote Probe Topologies
+
+There are two distinct scenarios. See [Proxy-Plan.md](docs-internal/Proxy-Plan.md) for full detail.
+
+**Topology A — VS Code Remote (WSL / Dev Container)**
+- DA runs inside WSL or a container; probe is on the host machine.
+- The `mcu-debug` **UI extension** (not the DA) runs on the host and spawns the Probe Agent.
+- DA reaches the Probe Agent via `127.0.0.1` (WSL mirrored mode) or `host.docker.internal`.
+- This is the `type: "auto"` case in config.
+
+**Topology B — LAB (physically separate machine)**
+- DA and all tooling run on the engineer's machine; probe is on a lab server.
+- An SSH tunnel (`ssh -L`) is established by the UI extension.
+- The DA sees "ghost ports" on `127.0.0.1` that tunnel through to the lab server's Probe Agent.
+- No inbound firewall rules are needed on the lab server.
+
+**Probe Agent** (`mdbg proxy`) always runs on the machine physically attached to the probe. It manages gdb-server lifecycle and implements the Funnel Protocol.
+
+---
+
+## Module Boundary Rules (`packages/mcu-debug/src/`)
+
+These rules are **hard constraints**. Enforce them on every change.
+
+### 1. VS Code APIs are confined to `frontend/`
+
+Only files inside `src/frontend/` may import from `vscode` or use any `vscode.*` API.
+`common/`, `adapter/`, and `cli/` must never import `vscode`.
+
+### 2. Nothing outside `frontend/` may import from `frontend/`
+
+`common/`, `adapter/`, and `cli/` must never import a file whose path contains `src/frontend/`.
+`frontend/` is a consumer of `common/` — not a library for it.
+
+### 3. Platform differences go through `IHostAdapter`
+
+When behaviour differs between the VS Code extension and the CLI, the difference is expressed through the `IHostAdapter` interface (`common/host-adapter.ts`).
+
+- **`VscodeAdapter`** (`frontend/vscode-adapter.ts`) — calls `vscode.*` APIs.
+- **`CliAdapter`** (`cli/cli-adapter.ts`, to be created) — writes to the mux stream / logger.
+
+`adapter/` (the DAP server) does **not** use `IHostAdapter`. It conforms to the DAP protocol and has no platform-specific UI calls.
+
+### 4. Logging via `logger`, not `console` or `MCUDebugChannel`
+
+Use `logger` from `common/logger.ts` in `cli/` only. Use getHostAdapter().debugMessage in `common/` and `frontend/`
+Transports are registered by each entry point (CLI adds `Console`+`File`; VS Code extension adds `VscodeOutputChannelTransport` — see `frontend/vscode-transport.ts`).
+`MCUDebugChannel` (`frontend/dbgmsgs.ts`) is VS Code-only and may only be used within `frontend/`.
+
+### Summary table
+
+| Directory   | May use `vscode.`? | May import from `frontend/`? | Uses `IHostAdapter`? |
+| ----------- | ------------------ | ---------------------------- | -------------------- |
+| `frontend/` | ✅ yes              | ✅ yes (it IS frontend)       | Implements it        |
+| `common/`   | ❌ no               | ❌ no                         | Calls it             |
+| `adapter/`  | ❌ no               | ❌ no                         | ❌ no (DAP only)      |
+| `cli/`      | ❌ no               | ❌ no                         | Implements it        |
+
+---
+
+## RTT: Two Modes
+
+This project supports RTT in two ways. Most other debuggers only support the first.
+
+**Standard mode (gdb-server TCP)**
+- gdb-server (OpenOCD, JLink, etc.) handles RTT polling and exposes TCP ports.
+- Limitations: JLink allows only one channel; OpenOCD requires manual polling or a breakpoint to start RTT.
+
+**Alternate mode (GDB memory I/O)**
+- The DA uses GDB to directly read/write the RTT control block in target memory.
+- Bypasses the gdb-server for RTT data entirely.
+- Supports up to 16 bidirectional RTT channels.
+- Has an optional per-channel **pre-decoder** pipeline (e.g., `defmt-print` for Rust's defmt format).
+- Performance bottleneck is the SWD interface, not the memory I/O round-trip; polling at 40 Hz is practical.
+
+When making changes that touch RTT, determine which mode is in play. Do not assume the gdb-server TCP path is the only one.
+
+---
+
+## Variable Streaming (Push Model)
+
+This debugger has a **push/subscription model for variable values** that is not present in standard DAP. Clients (webviews, external tools) can subscribe to named variables and receive streaming updates rather than polling. This is used for the graphing/live watch features. This is distinct from the standard DAP `variables` request flow and runs on a separate internal channel.
+
+---
+
+## Package Structure
+
+```text
+packages/
+  mcu-debug/            # VS Code extension (TypeScript) — DAP server + UI
+  mdbg/                 # Rust binary — da_helper + proxy_helper subcommands
+  mcu-debug-proxy/      # Proxy-related extension packaging
+  shared/               # Shared TypeScript types and protocol definitions
+  shared/proxy-protocol # GENERATED files by ts_rs. DO NOT EDIT
+  shared/serial-helper  # GENERATED files by ts_rs. DO NOT EDIT
+  shared/dasm-helper    # GENERATED files by ts_rs. DO NOT EDIT
+```
+
+Some directories in the `packages/shared` dir. are generated files and the script `scripts/build-binaries.sh` contains the code to generate and prettify them
+
+The `mdbg` binary is pre-built and checked in under `packages/mcu-debug/bin/` and `packages/mcu-debug-proxy/bin` for each platform. It is also built locally via the `Build Helper` task.
+
+## Building
+
+| What                   | command                  |
+| ---------------------- | ------------------------- |
+| Rust only build (dev)  | npm run build:rust:dev   |
+| Rust only build (prod) | npm run build:rust:prod  |
+| Compile all (dev)      | npm run compile          |
+| Compile all (prod)     | npm run package          |
+
+prod - production builds builds all OSes and archictures (optimized and stripped)
+dev  - development builds builds just the current OS+arch for
+
+`npm run build:rust:dev` / `build:rust:prod` (runnable from the repo root) delegate to
+`packages/mcu-debug`'s scripts of the same name, which wrap `./scripts/build-binaries.sh dev|prod`:
+they regenerate the ts-rs TypeScript bindings, **format them with prettier**, then build the
+`mdbg` Rust binary (host-only for dev, all platforms for prod). This is the fast, Rust-only path.
+
+`npm run build` (root) is a full production build across every workspace — all Rust targets,
+manifest generation, the cockpit webview, esbuild bundling of the extension — and is much
+heavier than a Rust-only build. Reach for `npm run build:rust:dev`/`build:rust:prod` instead
+when you only touched Rust code.
+
+**How to apply:** When Rust structs change, prefer `npm run build:rust:dev` to regenerate and
+reformat the generated TS files in one step. If you instead run the underlying cargo tests
+directly for speed:
+
+```bash
+  cd packages/mdbg && cargo test --lib da_helper::helper_requests::tests::ensure_ts_exports --quiet
+  cd packages/mdbg && cargo test --lib proxy_helper::proxy_server::tests::ensure_ts_exports --quiet
+```
+
+this regenerates the files but **skips the prettier pass**. The raw ts-rs output differs
+cosmetically from the committed (prettier-formatted) files in
+`packages/shared/{dasm-helper,proxy-protocol,serial-helper}`, so `git diff` will show noisy
+whitespace-only changes there that aren't real edits — before treating them as something to fix
+or commit, check whether they're just this formatting drift (`git checkout -- packages/shared/...`
+to discard, or run prettier to match: `node_modules/.bin/prettier --write --print-width 120
+packages/shared/dasm-helper packages/shared/proxy-protocol packages/shared/serial-helper`).
+
+There is no `npm run build:types` — an earlier version of this repo had one, but it was leftover
+from a defunct Go-based codegen pipeline (`packages/proxy-server` + `tygo`) that no longer exists,
+and it silently reported success while doing nothing. It was removed; use `npm run build:rust:dev`
+for a Rust-only build instead.
+
+## Rust linting (clippy)
+
+`cargo build`/`cargo check` never run clippy — it's a separate, much larger lint set that isn't
+part of the compiler. This repo surfaces clippy in three places, all running the exact same
+`cargo clippy --all-targets -- -D warnings` so nothing is CI-only or hidden:
+
+- **Editor**: `.vscode/settings.json` sets `rust-analyzer.check.command` to `clippy`, so lint
+  violations show up live as you type, the same as any other diagnostic.
+- **Manual**: `npm run lint:rust` from the repo root, or the "rust: cargo clippy" VS Code task
+  (Run Task), runs it on demand.
+- **CI**: `.github/workflows/rust-ci.yml` runs `npm run test:rust` and `npm run lint:rust` on every
+  push/PR — the identical commands available locally, so a CI failure is always reproducible on a
+  laptop without needing to guess what CI is actually doing.
+
+**How to apply:** if you add or change Rust code, run `npm run lint:rust` (or trust the live
+rust-analyzer diagnostics) before considering the change done — don't rely on CI to catch it first.
+
+---
+> Source: [mcu-debug/mcu-debug](https://github.com/mcu-debug/mcu-debug) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-28 -->
