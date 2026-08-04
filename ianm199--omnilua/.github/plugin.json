@@ -1,0 +1,9 @@
+{
+  "name": "ianm199--omnilua",
+  "displayName": "omnilua",
+  "description": "Every Lua, everywhere \u2014 pure-Rust Lua 5.1-5.5, suite-passing, LuaRocks-compatible, wasm-ready.",
+  "version": "1.0.0",
+  "author": "ianm199",
+  "homepage": "https://github.com/ianm199/omnilua",
+  "skills": []
+}
