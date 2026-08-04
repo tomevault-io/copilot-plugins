@@ -7,14 +7,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [ChronoAIProject/consensus-rnd](https://github.com/ChronoAIProject/consensus-rnd).
+Original source: `CLAUDE.md` in [ChronoAIProject/consensus-rnd](https://github.com/ChronoAIProject/consensus-rnd).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [ChronoAIProject/consensus-rnd](https://github.com/ChronoAIProject/consensus-rnd) — a repo with 23+ stars on GitHub.
