@@ -1,0 +1,9 @@
+{
+  "name": "devxplay--herdr-nvim",
+  "displayName": "herdr.nvim",
+  "description": "Neovim integration for Herdr pane navigation",
+  "version": "1.0.0",
+  "author": "devxplay",
+  "homepage": "https://github.com/devxplay/herdr.nvim",
+  "skills": []
+}
