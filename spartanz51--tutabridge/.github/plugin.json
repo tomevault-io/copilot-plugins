@@ -1,0 +1,9 @@
+{
+  "name": "spartanz51--tutabridge",
+  "displayName": "tutabridge",
+  "description": "Local IMAP/SMTP bridge for Tuta encrypted email. Use Thunderbird, Apple Mail or any mail client. Rust + Tauri, with backup, search and a read-only MCP server.",
+  "version": "1.0.0",
+  "author": "spartanz51",
+  "homepage": "https://github.com/spartanz51/tutabridge",
+  "skills": []
+}
