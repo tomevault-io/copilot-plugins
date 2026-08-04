@@ -1,0 +1,9 @@
+{
+  "name": "ovh--ovhcloud-docs",
+  "displayName": "ovhcloud-docs",
+  "description": "New GitHub repository for the OVHcloud public documentation",
+  "version": "1.0.0",
+  "author": "ovh",
+  "homepage": "https://github.com/ovh/ovhcloud-docs",
+  "skills": []
+}
