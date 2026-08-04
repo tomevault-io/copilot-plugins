@@ -1,0 +1,9 @@
+{
+  "name": "appleweiping--weiping-council",
+  "displayName": "WEIPING_COUNCIL",
+  "description": "Multi-LLM deliberation system with 6 protocols: council, debate, red-team, consensus, specialist, tournament",
+  "version": "1.0.0",
+  "author": "appleweiping",
+  "homepage": "https://github.com/appleweiping/WEIPING_COUNCIL",
+  "skills": []
+}
