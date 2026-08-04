@@ -2,7 +2,7 @@
   "name": "coop",
   "owner": "roostorg",
   "repo": "coop",
-  "description": "Review and moderation, your way. Online safety dashboard, queues, routing and automatic enforcement rules, and integrations.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/roostorg/coop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T04:51:43Z"
+  "distributed_at": "2026-08-04T17:59:28Z"
 }
