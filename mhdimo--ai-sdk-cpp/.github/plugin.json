@@ -1,0 +1,9 @@
+{
+  "name": "mhdimo--ai-sdk-cpp",
+  "displayName": "ai-sdk-cpp",
+  "description": "A C++20 framework for building AI-powered applications. The orchestration layer between your application and LLM providers \u2014 inspired by the Vercel AI SDK, reimagined for native performance.",
+  "version": "1.0.0",
+  "author": "mhdimo",
+  "homepage": "https://github.com/mhdimo/ai-sdk-cpp",
+  "skills": []
+}
