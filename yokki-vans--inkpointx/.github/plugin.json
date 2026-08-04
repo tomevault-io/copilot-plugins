@@ -1,0 +1,9 @@
+{
+  "name": "yokki-vans--inkpointx",
+  "displayName": "InkPointX",
+  "description": "Firmware for Xteink X3/X4. Personal fork of Crosspoint and CrossInk.",
+  "version": "1.0.0",
+  "author": "yokki-vans",
+  "homepage": "https://github.com/yokki-vans/InkPointX",
+  "skills": []
+}
