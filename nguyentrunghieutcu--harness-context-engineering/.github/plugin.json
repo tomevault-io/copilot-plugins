@@ -1,0 +1,9 @@
+{
+  "name": "nguyentrunghieutcu--harness-context-engineering",
+  "displayName": "Harness-context-engineering",
+  "description": "MCP Tool Server ch\u1ea1y local \u2014 t\u1ed1i \u01b0u h\u00f3a context window cho AI assistant (Codex / Claude) v\u1edbi Hybrid RAG, Memory Tiers, dynamic token budgeting, v\u00e0 global prompt optimization.",
+  "version": "1.0.0",
+  "author": "nguyentrunghieutcu",
+  "homepage": "https://github.com/nguyentrunghieutcu/Harness-context-engineering",
+  "skills": []
+}
