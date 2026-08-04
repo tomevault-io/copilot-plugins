@@ -1,0 +1,9 @@
+{
+  "name": "daften--fireflyiii-mcp",
+  "displayName": "fireflyiii-mcp",
+  "description": "Connect any MCP client to Firefly III \u2014 140 tools via stdio (PAT) or HTTP (OAuth",
+  "version": "1.0.0",
+  "author": "daften",
+  "homepage": "https://github.com/daften/fireflyiii-mcp",
+  "skills": []
+}
