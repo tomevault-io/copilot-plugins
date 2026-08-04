@@ -1,0 +1,9 @@
+{
+  "name": "artexis10--exomem",
+  "displayName": "exomem",
+  "description": "Self-hosted MCP server that makes your Obsidian/markdown vault searchable \u2014 text, PDFs, Office docs, images, audio \u2014 from any MCP client. Hybrid retrieval over a typed, governed corpus, sub-second at ",
+  "version": "1.0.0",
+  "author": "Artexis10",
+  "homepage": "https://github.com/Artexis10/exomem",
+  "skills": []
+}
