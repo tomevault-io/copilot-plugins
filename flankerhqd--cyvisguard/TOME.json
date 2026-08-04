@@ -1,0 +1,44 @@
+{
+  "name": "cyvisguard",
+  "owner": "flankerhqd",
+  "repo": "cyvisguard",
+  "description": "Security control plane for AI agents \u2014 identity and delegation, capability policy, data-flow taint and a live audit trail, enforced over MCP. Guards a real Claude Code end to end.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/flankerhqd/cyvisguard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T00:24:50Z"
+}
