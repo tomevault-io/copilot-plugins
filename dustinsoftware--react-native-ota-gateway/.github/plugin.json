@@ -1,0 +1,9 @@
+{
+  "name": "dustinsoftware--react-native-ota-gateway",
+  "displayName": "react-native-ota-gateway",
+  "description": "Self-host the expo-updater manifest with full environment switching",
+  "version": "1.0.0",
+  "author": "dustinsoftware",
+  "homepage": "https://github.com/dustinsoftware/react-native-ota-gateway",
+  "skills": []
+}
