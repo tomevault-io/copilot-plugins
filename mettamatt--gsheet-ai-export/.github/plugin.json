@@ -1,0 +1,9 @@
+{
+  "name": "mettamatt--gsheet-ai-export",
+  "displayName": "gSheet-AI-Export",
+  "description": "Export a spreadsheet and its formulas for AI. ",
+  "version": "1.0.0",
+  "author": "mettamatt",
+  "homepage": "https://github.com/mettamatt/gSheet-AI-Export",
+  "skills": []
+}
