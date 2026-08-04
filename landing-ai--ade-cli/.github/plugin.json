@@ -1,0 +1,9 @@
+{
+  "name": "landing-ai--ade-cli",
+  "displayName": "ade-cli",
+  "description": "The official CLI for Agentic Document Extraction (ADE) by LandingAI \u2014 parse documents and extract schema-shaped data from your terminal",
+  "version": "1.0.0",
+  "author": "landing-ai",
+  "homepage": "https://github.com/landing-ai/ade-cli",
+  "skills": []
+}
