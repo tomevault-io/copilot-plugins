@@ -1,0 +1,9 @@
+{
+  "name": "foresthubai--edge-agents",
+  "displayName": "edge-agents",
+  "description": "The 30 MB open-source edge AI agent runtime. Run AI agents offline on Linux (Raspberry Pi, Jetson). GPIO, UART, MQTT as first-class nodes. Industrial protocols (OPC-UA, Modbus) on the roadmap.",
+  "version": "1.0.0",
+  "author": "ForestHubAI",
+  "homepage": "https://github.com/ForestHubAI/edge-agents",
+  "skills": []
+}
