@@ -1,0 +1,9 @@
+{
+  "name": "operator-framework--operator-registry",
+  "displayName": "operator-registry",
+  "description": "operator-registry",
+  "version": "1.0.0",
+  "author": "operator-framework",
+  "homepage": "https://github.com/operator-framework/operator-registry",
+  "skills": []
+}
