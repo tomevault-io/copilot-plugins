@@ -1,0 +1,9 @@
+{
+  "name": "digitalocean--droplet-agent",
+  "displayName": "droplet-agent",
+  "description": "droplet-agent",
+  "version": "1.0.0",
+  "author": "digitalocean",
+  "homepage": "https://github.com/digitalocean/droplet-agent",
+  "skills": []
+}
