@@ -1,0 +1,44 @@
+{
+  "name": "Lucie-AI",
+  "owner": "vincenzo-afk",
+  "repo": "Lucie-AI",
+  "description": "Late-night voice chats with an AI who blushes when you flirt, laughs at your jokes, and never forgets a thing.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vincenzo-afk/Lucie-AI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T20:54:33Z"
+}
