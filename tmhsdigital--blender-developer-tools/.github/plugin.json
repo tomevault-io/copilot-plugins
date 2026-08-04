@@ -1,0 +1,9 @@
+{
+  "name": "tmhsdigital--blender-developer-tools",
+  "displayName": "Blender-Developer-Tools",
+  "description": "Skills, rules, snippets, templates, and smoke-gated runnable examples for Blender Python development \u2014 Blender 5.1 with 4.5 LTS fallback.",
+  "version": "1.0.0",
+  "author": "TMHSDigital",
+  "homepage": "https://github.com/TMHSDigital/Blender-Developer-Tools",
+  "skills": []
+}
