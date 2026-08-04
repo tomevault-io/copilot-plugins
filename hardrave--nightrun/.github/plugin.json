@@ -1,0 +1,9 @@
+{
+  "name": "hardrave--nightrun",
+  "displayName": "NIGHTRUN",
+  "description": "Boot your PC straight into an LLM. Rust, UEFI-resident, no operating system underneath.",
+  "version": "1.0.0",
+  "author": "hardrave",
+  "homepage": "https://github.com/hardrave/NIGHTRUN",
+  "skills": []
+}
