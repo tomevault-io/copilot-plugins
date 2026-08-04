@@ -1,0 +1,9 @@
+{
+  "name": "genius-cai--claude-usage-dashboard",
+  "displayName": "claude-usage-dashboard",
+  "description": "A modern web dashboard to monitor Claude Code usage, costs, and sessions. Built with Next.js 14, FastAPI, and PWA support.",
+  "version": "1.0.0",
+  "author": "Genius-Cai",
+  "homepage": "https://github.com/Genius-Cai/claude-usage-dashboard",
+  "skills": []
+}
