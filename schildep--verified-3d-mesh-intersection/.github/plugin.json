@@ -1,0 +1,9 @@
+{
+  "name": "schildep--verified-3d-mesh-intersection",
+  "displayName": "verified-3d-mesh-intersection",
+  "description": "Formally verified 3D mesh intersection - trust 93 lines of spec, not 1000+ lines of AI-written code",
+  "version": "1.0.0",
+  "author": "schildep",
+  "homepage": "https://github.com/schildep/verified-3d-mesh-intersection",
+  "skills": []
+}
