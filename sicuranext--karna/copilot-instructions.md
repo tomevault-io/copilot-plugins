@@ -1,0 +1,174 @@
+## karna
+
+> **Karna** (`karna`) is a Lua plugin for Kong Gateway that acts as a
+
+# Karna — CLAUDE.md
+
+## Project Overview
+
+**Karna** (`karna`) is a Lua plugin for Kong Gateway that acts as a
+**WAF (Web Application Firewall) engine** compatible with the
+**OWASP CoreRuleSet (CRS)**. It runs as a fully self-contained Kong
+plugin with no required dependency on other plugins.
+
+## Architecture
+
+### Entry Point
+- `kong/plugins/karna/handler.lua` — Kong plugin handler (priority 8300).
+  Implements `init_worker`, `access`, `header_filter`, `body_filter`, and `log` phases.
+  - On `init_worker`: loads and caches CRS rules (parsed from SecLang `.conf` files) into an LRU cache.
+  - On `access`: evaluates rules against the incoming request (rule controls first, then local rules, then global CRS rules).
+  - On `log`: writes JSON audit logs to disk asynchronously.
+  - **Self-identification** (always on, no toggle): a request to the reserved path `GET /.well-known/karna` short-circuits in `access` and returns `{engine, version, commit, commit_short, built_at}` (build identity from `version.lua`). The same `version`/`commit` are also embedded in the `engine` block of audit log v2 (`ka_utils.lua:get_auditlog_v2`). This is a transparent license-compliance watermark — passive (no phone-home), reserved path does not reach the upstream.
+
+### Schema
+- `kong/plugins/karna/schema.lua` — Plugin configuration schema. Key settings:
+  - `engine_blocking_mode` (bool): when true, matched rules return 403; otherwise detection-only.
+  - `paranoia_level` (number, 1-4): OWASP CRS paranoia level.
+  - `coreruleset_enabled` (default true): toggle for the OWASP CRS rule pack loaded from disk at `init_worker`. The in-repo CRS-fix rule controls (`coreruleset_fix.lua`) are always applied independently.
+  - `local_rules_enabled`: per-service custom rules.
+  - `rules_request`: per-service JSON rule array (all phases; each rule runs in the phase named by its `phase` field — `access` or `header_filter`).
+  - `auditlog_enabled`, `auditlog_path`, `auditlog_modsec`: audit logging config.
+  - `redis_host`, `redis_port`, `redis_password`: Redis connection for counters.
+  - Various request validation limits (arg length, arg count, methods, content types, extensions, charsets).
+
+### Core Modules (in `kong/plugins/karna/modules/`)
+- **`ka_engine.lua`** — The rule evaluation engine. Loads CRS rules via `seclang`, resolves variables from the request context, applies transformation functions, runs operators (regex, libinjection, string match, etc.), and evaluates rule chains. This is the largest and most critical module.
+- **`seclang.lua`** — SecLang (ModSecurity rule language) parser. Reads OWASP CRS `.conf` files from the path in `seclang.crs_path` (default `/opt/coreruleset/rules/`, override via `KARNA_CRS_PATH` env var). Matches canonical `SecRule <vars> "<op>" "<actions>"` only — `SecRule*` derivatives like `SecRuleUpdateTargetById` (CRS 4.x exception files) are intentionally skipped, not parsed. A defensive guard skips any malformed `SecRule` with a `WARN` print so a single bad rule cannot crash `init_worker`.
+- **`ka_body_parser.lua`** — Request body parser. Handles URL-encoded, JSON, multipart, and XML body formats. Flattens nested structures into key-value pairs for rule evaluation. Supports optional base64 decoding. Gzip-encoded bodies require `lua-zlib` (declared in rockspec).
+- **`ka_mcp.lua`** — MCP (Model Context Protocol) request-side detection and JSON-RPC envelope parsing. Populates the `mcp.*` variable namespace used by rules and exposes operators `mcp_method_in` and `mcp_jsonrpc_valid`. Brand-neutral (`mcp.*` names are protocol-level, not Karna-branded).
+- **`ka_mcp_sse.lua`** — Response-side SSE reassembler for the MCP Streamable HTTP transport. Reconstructs `event:` / `data:` frames, evaluates rules per event in the `mcp_event` phase, and supports streaming actions (drop / replace / terminate / inject).
+- **`ka_global_rules.lua`** — Redis-distributed **global rules pack**: one rule set evaluated on EVERY service Karna is attached to (Kong runs a single plugin instance per request, so a "global plugin instance" cannot coexist with per-service ones — this module is the answer). One Redis hash `karna:global_rules` (fields `json` / `seclang` / `version` / `sig`) published atomically by `scripts/karna-rules.py --type global-rules`; workers poll the version field and hot-swap the parsed+compiled pack (no `kong reload`). HMAC-SHA256 signature verification — message `version\n sha256hex(json)\n sha256hex(seclang)`, MUST stay in lockstep with `_sign_message()` in the Python script — plus a version-monotonicity replay guard; any failure (Redis down, bad sig, unparseable payload) keeps the last known good pack, while an explicit `DEL` of the hash clears it. `init()` only schedules timers (`ngx.timer.at(0)` + `ngx.timer.every`) because cosockets are unavailable in `init_worker`; engine/compile refs are dependency-injected by handler.lua so the module stays requirable from plain-Lua unit tests (`ka-unittest/global_rules.lua`). Feature switch: `KARNA_REDIS_URL` env (unset = off, zero overhead); key: `KARNA_GLOBAL_RULES_HMAC_KEY` (unset = unsigned mode + loud warning); poll: `KARNA_GLOBAL_RULES_POLL` (default 30s, min 5). Evaluation order: after rule controls and CRS-plugin `ctl:*` pass (so per-service exclusions/overrides can tame a global rule), BEFORE local rules and CRS. Phases: access, header_filter, mcp_event (body_filter not evaluated, same as local rules). No per-service opt-out by design — tag pack rules so `rule_action_overrides` can select them.
+- **`ka_utils.lua`** — Utility functions: URL decode/encode, base64 decode, UTF-8/hex conversion, audit log generation, Redis operations, URL parsing.
+- **`ka_multipart.lua`** — Custom multipart form-data parser.
+- **`libinjection.lua`** — SQL injection and XSS detection via libinjection (FFI-loaded). Path defaults to `/usr/local/lib/libinjection.so`, overridable via `KARNA_LIBINJECTION_SO` env var.
+- **`slaxml.lua`** — Pure Lua SAX XML parser used for XML body parsing.
+
+### Rules (in `kong/plugins/karna/rules/`)
+- **`coreruleset_fix.lua`** — Rule controls that fix/adjust problematic CRS rules in production: removes known false-positive-prone rules, narrows over-broad condition variables. Loaded unconditionally at `init_worker` (no toggle). This is the operational-wisdom layer that makes OWASP CRS deployable without drowning in FPs.
+
+## Key Concepts
+
+- **Rule format**: Rules are Lua tables with `id`, `phase`, `conditions` (array of `{variables, op, value, transform}`), `action`, `message`, `tags`, `paranoia_level`, and optional `rule_control`.
+- **Rule controls**: Mechanism to remove rules, remove specific targets from rules, or modify rule conditions at runtime (similar to ModSecurity `ctl:ruleRemoveById`).
+- **Rule actions**:
+  - `fixed_response` — terminate with the given status / body / headers. Standard "block" path.
+  - `fix_matched_parts` — Karna's **sanitize-not-block** primitive. Strips `remove_chars_pattern` from every matched target (path / query arg / header / body) in place via `kong.service.request.set_*`, then lets the request flow upstream. The audit log marks the entry `action: "sanitized"`. Takes precedence over `fixed_response` when both declared on the same rule. Wired in `handler.lua:evaluate_rules` → `engine:__fix_matching_parts`. Killer feature for FP mitigation.
+  - `setvar` — populate `kong.ctx.plugin.tx_variables` (ModSec `setvar:tx.*` semantics).
+  - `set_variable` — write into `kong.ctx.plugin` (private) or `kong.ctx.shared` (sibling-plugin visible). See `apply_set_variable`.
+  - `rate_limit` — Redis-backed fixed-window rate limiter. Fields: `key` (macro string, default `%{remote_addr}`), `limit`, `window_seconds`, optional `response`. Increments the counter `karna:rl:<rule_id>:<resolved_key>` and returns 429 (with auto `Retry-After`) when the counter exceeds `limit`. Counter is bumped regardless of `engine_blocking_mode`; the terminal 429 only fires in blocking mode. Macro resolution in access phase uses a lightweight inline resolver (`resolve_request_macros` in handler.lua) — supports `%{remote_addr}`, `%{request.method|host|scheme|path}`. Unsupported macros stay literal (fail-soft).
+- **Action / response overrides** (`rule_action_overrides`, `rule_response_overrides`): schema-level arrays of JSON entries `{selector, action}` / `{selector, response}` that mutate the effective behaviour of *existing* rules at match time. Selector grammar: `ids`, `id_ranges`, `tags`, `except_ids`, `except_tags`, `any: true`. Action override types: `fix` (switch to sanitize), `passthrough` (drop terminal action), `block` (force fixed_response). Response override fields: `status_code`, `body` (static string served verbatim — no `%{var}` macro resolution, so request data is never reflected into the block response, which would be a reflected-XSS sink), `headers` (merged). First matching entry wins. Never mutates the cached rule pack — `handler.lua` shallow-copies the matched rule and swaps `.action` per request.
+- **Default response pages** (schema config, all served verbatim — no `%{var}` macros, reflected-input safe). Single builder `ka_utils.build_block_response(plugin_conf, explicit_body, explicit_headers, fallback_body, extra_headers, variant)` is the one point of truth; `build_50x_response` is separate.
+  - `default_block_response_body` / `_headers` — the block page for every deny point (rules + always-on gates). Body precedence explicit → conf → per-point fallback; headers merge `DEFAULT_BLOCK_HEADERS` ← conf ← explicit ← extra.
+  - `default_ratelimit_response_body` / `_headers` — dedicated 429 page for the `rate_limit` action (so throttled-but-legit clients don't get the attack-block page). Selected via `build_block_response(..., variant="ratelimit")`: the ratelimit layer sits between the rule's own `response` and the block-page defaults, so a block-page-only deployment keeps the historical 429-falls-to-block-page behaviour. Auto `Retry-After` still added.
+  - `default_50x_response_body` / `_headers` — masks an UPSTREAM 500-599 (status preserved, only body+headers swapped) for info-leak hygiene. Applied in `handler.lua:header_filter` AFTER the response-phase rules, guarded by `if plugin_conf.default_50x_response_body` (unset = feature off, zero cost) and by `kong.response.get_source() == "service"|"error"` (NEVER masks Karna's own blocks / sibling-plugin responses = `"exit"`). Independent of `engine_blocking_mode`. Does NOT inherit block-page headers. `kong.response.exit` with a body IS supported in header_filter (Kong buffers via `ngx.ctx.response_body`, recomputes content-length). Unit-tested in `ka-unittest/default_block_response.lua`.
+- **Operators (base set, all support negation via the `negated` boolean — see below)**: `rx`, `eq`, `ge`, `gt`, `lt`, `le`, `beginsWith`, `endsWith`, `contains`, `isSet`, `pm`, `pmFromFile`, `within`, `ipMatch`, `libinjection_sqli`, `libinjection_xss`, `validateUrlEncoding`, `validateByteRange`, `validateUtf8Encoding`, `unconditionalMatch`, `mcp_method_in`, `mcp_jsonrpc_valid`. (CRS-targeted gaps to watch: `@ipMatchF[romFile]`, `@verifyCC`, `@geoLookup` — not implemented. `validateUtf8Encoding` exists only as a transformation function, not an operator.)
+- **Operator negation** (`negated` boolean on the condition): Karna's canonical condition shape is `{op = "<base>", negated = true|false, ...}`. `negated` defaults to `false` when absent (the field is strictly checked with `== true`, so stray truthy strings/numbers don't accidentally negate). The ModSecurity-style `op = "!<base>"` shorthand is still accepted on input — the engine normalizes it to `{op = "<base>", negated = true}` at the top of `__match_rule_conditions`. SecLang parsing now emits the canonical shape; `coreruleset_fix.lua` overrides have been migrated; hand-written JSON local rules can use either form, but new rules should prefer the canonical one. The legacy `!op` is a back-compat surface, not the documented public API.
+- **Transformation functions**: `urlDecodeUni`, `lowercase`, `htmlEntityDecode`, etc. — applied to values before operator matching.
+- **Variables**: Internal naming convention like `request.arg.value`, `request.header.value:host`, `request.cookie.name`, `request.body`, etc. Note: `request.query.value:<name>` is produced by the body parser as a values-table key (and `__fix_matching_parts` reads it) but is NOT a directly-resolvable variable in `__match_rule_conditions` — local-rule authors should target `request.arg.value:<name>` (canonical args = query + body urlencoded) instead. Drift to fix later.
+- **Path-confusion / phantom-query args**: `__get_values_request_query_value` also surfaces material hidden in the request path into the query/ARGS namespace as `request.query.value:__ka_path_confusion_<n>` — the text after an encoded `?` (`%3f`) and each `;key=value` path parameter. A backend that decodes `%3f` or parses matrix params would treat that as args, so the WAF must too (CVE-2024-1019 class). Additive and value-scanned (libinjection), so benign matrix params / `jsessionid` / encoded filenames don't false-positive.
+- **Phases**: Rules run in Kong phases — `access` (request), `header_filter` (response headers), `body_filter` (response body).
+
+## Language & Runtime
+- **Language**: Lua (LuaJIT via OpenResty)
+- **Runtime**: Kong Gateway (OpenResty/nginx)
+- **Lua dependencies (bundled with OpenResty / Kong)**: `resty.lrucache`, `resty.ipmatcher`, `resty.redis`, `cjson`, `ngx.base64`, `ngx.re`
+- **Lua dependencies (declared in rockspec)**: `lua-zlib` (gzip request bodies). The image installs it from a direct rockspec URL because the luarocks.org manifest exceeds LuaJIT's 65k-constants limit (`luarocks install lua-zlib` plain fails on Kong's image — see `docker/Dockerfile`).
+- **Native dependencies**: `libinjection.so` (system library, FFI-loaded). Default path `/usr/local/lib/libinjection.so`, overridable via `KARNA_LIBINJECTION_SO` env var.
+- **Data dependencies**: OWASP CRS rules at `/opt/coreruleset/rules/` (download separately). Override the path with the `KARNA_CRS_PATH` env var (read once at `init_worker` via `modules/seclang.lua`; trailing slash auto-normalized).
+- **Env var propagation**: env vars are read with `os.getenv()` from worker processes. nginx wipes the env by default, so any var you want available must be declared in the main context via `env <NAME>;`. With Kong, point `KONG_NGINX_MAIN_INCLUDE` at a snippet such as `docker/main-env.conf` (the prod Docker image now bakes this include + `KONG_NGINX_MAIN_INCLUDE` so `docker run -e KARNA_REDIS_URL=…` just works). Global-rules vars: `KARNA_REDIS_URL`, `KARNA_GLOBAL_RULES_HMAC_KEY`, `KARNA_GLOBAL_RULES_POLL`.
+
+## Module Require Paths
+Modules use Kong's plugin require convention:
+```lua
+require "kong.plugins.karna.ka_engine"
+require "kong.plugins.karna.ka_seclang"
+-- etc.
+```
+The actual files live under `kong/plugins/karna/modules/` and `kong/plugins/karna/rules/`, but the rockspec maps short names (without `ka_` prefix in some cases — check the rockspec for the authoritative mapping).
+
+## Audit Logging
+- Logs are written to `auditlog_path` (default `/usr/local/openresty/nginx/logs`) as JSON Lines, one file per worker per minute: `karna_auditlog_<worker_id>_<YYYYMMDDHHMM>.jsonl` (UTC minute). Each record is one appended line; the file rolls over implicitly when the minute changes (the computed filename changes — no rotation timer, no persistent handle, no lock). Per-worker isolation means no cross-process append. `request_id` stays in the record body, so logs are still searchable. Filename built in `ka_utils.lua:write_auditlog`; worker id + minute epoch passed from `handler.lua` log phase.
+- Format `v2` (default): one entry per request, all matched rules in `matches` array.
+- Format `v1` (legacy): last-match wins, ModSecurity-compatible when `auditlog_modsec` is enabled.
+- The upstream latency in v2 is read from header `x-karna-upstream-latency`
+  if present, otherwise computed from `ngx.var.upstream_response_time`.
+- Writing is done asynchronously via `ngx.timer.at`.
+- **The audit-log directory must be writable by the Kong worker user.** The dev image chowns `/usr/local/openresty/nginx/logs` to `kong:kong` for this reason. On a custom deployment, ensure the configured `auditlog_path` matches.
+
+## Always-on validation gates (not toggle-gated)
+The access phase runs four request-validation methods *before* the rule
+loops, and they fire regardless of `coreruleset_enabled` /
+`local_rules_enabled`:
+
+- `engine:method_allowed(plugin_conf)` — vs `request_methods_allowed`
+- `engine:uri_path_check_violation(plugin_conf)` — special-char / invalid-char limits in path
+- `engine:check_request_headers_allowed(plugin_conf)` — vs `request_headers_denied`
+- `engine:check_request_content_type_charset(plugin_conf)` — vs `request_content_type_*`
+- `engine:check_request_body_parser(plugin_conf)` — blocks a body whose declared structured type (multipart / JSON / XML) fails to parse. Malformed structure (multipart hardening rejections, JSON with lone NUL / trailing junk / duplicate keys, XML with a raw `<` in an attribute) means the body was never flattened into ARGS, so an attack hidden in it would skip inspection. "Deny what you can't inspect."
+
+A fifth gate, `engine:check_request_content_type_enforce(plugin_conf)`,
+runs in the same pre-rule block but IS toggle-gated by
+`request_content_type_enforce` (default `true`): a body-bearing request
+must declare a `Content-Type` whose base type is in
+`request_content_type_allowed`, else it's blocked. This is the
+"uninspectable body" gate — it closes the text/plain & missing-CT body
+bypass class (the body would otherwise fall to the raw "text" path and
+never reach ARGS). Set the flag `false` for deployments that legitimately
+accept arbitrary body content types.
+
+Treat these as hard limits — they cannot be turned off short of removing
+the plugin (except `check_request_content_type_enforce`, which honours its
+flag). To loosen them, raise the relevant numeric limits or
+allow-lists (`limit_special_chars_in_path`, `request_methods_allowed`,
+…). When debugging "why was this blocked with all toggles off?", these
+are usually the answer.
+
+## Optional integration points (for chained-plugin deployments)
+
+Karna can opportunistically read state set by sibling plugins. These are
+all guarded — when no sibling plugin sets them, Karna works fine in isolation.
+
+- `kong.ctx.shared.response_from_cache` — short-circuits WAF when an upstream cache plugin served the response.
+- Header `x-karna-upstream-latency` (ms) — overrides the nginx upstream timer in audit logs.
+- **Request enrichment** — well-known string keys `kong.ctx.shared.geoip_country_code|country_name|continent_code|continent_name|asn_id|asn_org` and table `kong.ctx.shared.useragent` are picked up by Karna and surfaced two ways: (a) as rule variables `geoip.*` / `asn.*` (useragent not exposed as rule var), (b) as the `enrichment.geoip` / `enrichment.asn` / `enrichment.useragent` block in audit log v2. The free-form bucket `kong.ctx.shared.karna.enrichment` (table) is pass-through-merged as `enrichment.custom`. `false` values are treated as absent so sibling plugins that initialise these keys with `false` (a common Lua pattern when a lookup hasn't run or didn't match) don't yield an empty enrichment block. Logic lives in `ka_utils.lua:build_enrichment_block` (unit-tested in `ka-unittest/enrichment_block.lua`); ASN rule vars added in `ka_engine.lua` next to the geoip ones.
+- `kong.ctx.shared.karna.log_entries` (array) — sibling plugins can append `{source, rule_id, message, tags?, metadata?}` records here and Karna will emit them as `external_matches[]` in the audit log v2. Malformed entries are silently dropped; oversize strings are clipped (`source`/`rule_id` at 100B, `message` at 1000B). The presence of valid entries forces an audit log write even when no Karna rule matched (overrides `auditlog_only_on_match`). v2-only — `external_matches` is not emitted in v1/ModSecurity-compatible format. Normalisation lives in `ka_utils.lua:build_external_matches` (unit-tested in `ka-unittest/external_log_entries.lua`).
+- **Karna rules writing into `kong.ctx.shared`** — the rule action `set_variable` with `type: "shared"` writes a value (literal or `%{...}`-resolved template string) into `kong.ctx.shared[<name>]`, where sibling Kong plugins downstream can read it. This is how a Karna detection (e.g. "this looks like a trusted internal request") can switch off another plugin's behaviour without that plugin knowing about Karna. The mirror action `type: "plugin"` writes into `kong.ctx.plugin[<name>]` (Karna-private). Implementation: `ka_engine.lua:apply_set_variable` (unit-tested in `ka-unittest/set_variable_action.lua`).
+
+## Tests
+- `tests/` — ad-hoc Lua scripts (run from repo root: `lua tests/<name>.lua`)
+- `ka-unittest/` — unit test snippets
+- `ka-regression-tests/` — regression suite (requires `busted` + a kong/ngx mock — see `kong_ngx_global.lua`)
+- `ka-integration-tests/` — `hurl`-based end-to-end against a running Kong
+- `ka-stress-test/` — Python load test
+- `crs-regression-test/` — official OWASP CRS regression suite runner
+
+CI runs on GitHub Actions (`.github/workflows/ci.yml`): a Lua syntax check,
+the unit tests, an anti-leak audit, and the OWASP CRS PL1 regression with a
+pass-rate floor.
+
+## Versioning
+SemVer + LuaRocks revision (`MAJOR.MINOR.PATCH-REV`). **Don't forget**: on every
+release the version string is duplicated across six spots that must all move
+together (a bare `grep -rn "<old-version>"` before pushing catches strays — the
+rockspec rename in particular breaks a hardcoded `COPY` in the Dockerfile and CI
+fails at image build, not at the test):
+1. `version` in `kong/plugins/karna/version.lua` — the source of truth;
+   `handler.lua` sets `plugin.VERSION = ka_version.version` at load. (`handler.lua`
+   also carries a static `VERSION = "<ver>"` placeholder that is overwritten at
+   load — cosmetic, but bump it too so the grep stays clean.)
+2. the rockspec `version` field (carries the `-REV` suffix).
+3. the rockspec `source.tag` (`v<MAJOR.MINOR.PATCH>`).
+4. the rockspec **filename** (`kong-plugin-karna-<ver>-<rev>.rockspec`).
+5. `docker/Dockerfile` — the `COPY kong-plugin-karna-<ver>-<rev>.rockspec` line
+   AND the `version = "<ver>"` string in the build-time `version.lua` stamp.
+6. `docker/docker-compose.dev.yml` — the rockspec bind-mount path (both sides),
+   and `scripts/install.sh` — the `version = "<ver>"` string in its stamp.
+
+`version.lua` is committed with placeholder `commit`/`built_at`; the build stamps
+the real commit (Docker build arg `KARNA_COMMIT`, or `scripts/install.sh` via
+`git rev-parse`). `scripts/build.sh` wraps the stamped Docker build.
+
+---
+> Source: [sicuranext/karna](https://github.com/sicuranext/karna) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-28 -->
