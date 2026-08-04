@@ -1,0 +1,9 @@
+{
+  "name": "mrtactical--avatarbridge",
+  "displayName": "AvatarBridge",
+  "description": "Convert VRChat avatars to ChilloutVR \u2014 bakes VRCFury/Modular Avatar, PhysBones to MagicaCloth2 or DynamicBone, native contacts, face tracking, and a full conversion report",
+  "version": "1.0.0",
+  "author": "MrTactical",
+  "homepage": "https://github.com/MrTactical/AvatarBridge",
+  "skills": []
+}
