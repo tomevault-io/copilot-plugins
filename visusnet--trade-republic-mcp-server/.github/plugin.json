@@ -1,0 +1,9 @@
+{
+  "name": "visusnet--trade-republic-mcp-server",
+  "displayName": "trade-republic-mcp-server",
+  "description": "MCP server for Trade Republic \u2013 enables AI assistants to trade assets, check balances, and access market data",
+  "version": "1.0.0",
+  "author": "visusnet",
+  "homepage": "https://github.com/visusnet/trade-republic-mcp-server",
+  "skills": []
+}
