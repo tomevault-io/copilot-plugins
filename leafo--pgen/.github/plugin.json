@@ -1,0 +1,9 @@
+{
+  "name": "leafo--pgen",
+  "displayName": "pgen",
+  "description": "A parser generator that generates a fast C Lua module for parsing PEG defined by LPEG style syntax",
+  "version": "1.0.0",
+  "author": "leafo",
+  "homepage": "https://github.com/leafo/pgen",
+  "skills": []
+}
