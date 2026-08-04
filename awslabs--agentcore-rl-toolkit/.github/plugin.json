@@ -1,0 +1,9 @@
+{
+  "name": "awslabs--agentcore-rl-toolkit",
+  "displayName": "agentcore-rl-toolkit",
+  "description": "agentcore-rl-toolkit",
+  "version": "1.0.0",
+  "author": "awslabs",
+  "homepage": "https://github.com/awslabs/agentcore-rl-toolkit",
+  "skills": []
+}
