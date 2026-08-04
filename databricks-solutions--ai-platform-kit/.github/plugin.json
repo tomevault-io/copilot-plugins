@@ -1,0 +1,9 @@
+{
+  "name": "databricks-solutions--ai-platform-kit",
+  "displayName": "ai-platform-kit",
+  "description": "AI-powered Databricks platform engineering \u2014 provision workspaces, configure Unity Catalog, manage identity & governance, and set up networking across Azure, AWS, and GCP, all through natural language",
+  "version": "1.0.0",
+  "author": "databricks-solutions",
+  "homepage": "https://github.com/databricks-solutions/ai-platform-kit",
+  "skills": []
+}
