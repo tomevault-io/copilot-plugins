@@ -1,0 +1,9 @@
+{
+  "name": "sleeplesshan--token-router",
+  "displayName": "token-router",
+  "description": "Lossless local line routing for massive logs, source files, and agent-context references before they reach Claude Code or Codex.",
+  "version": "1.0.0",
+  "author": "sleeplesshan",
+  "homepage": "https://github.com/sleeplesshan/token-router",
+  "skills": []
+}
