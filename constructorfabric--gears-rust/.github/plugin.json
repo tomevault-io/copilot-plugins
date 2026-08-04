@@ -1,0 +1,9 @@
+{
+  "name": "constructorfabric--gears-rust",
+  "displayName": "gears-rust",
+  "description": "All-in-one open-source framework & middleware for enterprise-grade multi-tenant and multi-tier XaaS Services development",
+  "version": "1.0.0",
+  "author": "constructorfabric",
+  "homepage": "https://github.com/constructorfabric/gears-rust",
+  "skills": []
+}
