@@ -1,284 +1,122 @@
 ## ai-coding-tools
 
-> **Skills are executable code, not documentation.** Markdown files in `skills/[skill-name]/` directories (SKILL.md, references/*.md) are instruction files that Claude Code reads and executes. Modifying these files changes the skill's behavior directly - treat them as you would Python or JavaScript code.
+> ├── README.md                           # Developer quick reference
 
 @README.md
 
-# Shopware AI Coding Tools Marketplace - Technical Reference
-
-## Understanding Skills
-
-**Skills are executable code, not documentation.** Markdown files in `skills/[skill-name]/` directories (SKILL.md, references/*.md) are instruction files that Claude Code reads and executes. Modifying these files changes the skill's behavior directly - treat them as you would Python or JavaScript code.
-
-## Understanding Slash Commands
-
-**Slash commands are executable code, not documentation.** Markdown files in `commands/` directories are instruction files that Claude Code reads and executes when users invoke the command. Modifying these files changes what happens when users run the slash command.
-
-## Understanding Developer Documentation
-
-**AGENTS.md, README.md, and CHANGELOG.md inside plugins are developer documentation, not runtime code.** These files are read by humans maintaining this repository. Claude Code does not load or execute them when the plugin is installed. Changes to these files affect documentation only, not plugin behavior.
-
-Runtime files (executed by Claude Code):
-- `skills/*/SKILL.md` and `skills/*/references/*.md`
-- `agents/*.md`
-- `commands/*.md`
-- `hooks/` (hooks.json and scripts)
-- `.mcp.json`
-
-When modifying runtime behavior (e.g. MCP tool references, workflow instructions), edit only runtime files. When updating architectural descriptions or usage guides, edit the developer documentation.
-
-## Marketplace Architecture
-
-This marketplace uses a **distributed metadata pattern** where plugin metadata is stored in individual `plugin.json` files rather than centralized in `marketplace.json`.
-
-### Structure
-```
-.claude-plugin/marketplace.json       # Minimal registry (name + source only)
-plugins/
-  [category]/
-    [plugin-name]/
-      .claude-plugin/plugin.json      # Full plugin metadata
-      ...                             # Plugin components
-```
-
-### marketplace.json Schema (Minimal Registry)
-
-The marketplace configuration acts as a lightweight registry pointing to plugins. Each plugin entry only needs `name` and `source`.
-
-**Required fields:**
-- `name` - Marketplace identifier in kebab-case
-- `owner` - Object with at least `name` property (optionally `email`, `url`)
-- `plugins` - Array of plugin definitions
-
-**Plugin entry structure (minimal):**
-- `name` (required) - Plugin identifier in kebab-case
-- `source` (required) - Relative path starting with `./`
-
-**Optional marketplace-level metadata:**
-- `metadata.description` - Marketplace description
-- `metadata.version` - Marketplace version
-- `metadata.pluginRoot` - Root directory for plugins
-
-### plugin.json Schema (Per-Plugin Metadata)
-
-Each plugin has its own `.claude-plugin/plugin.json` containing full metadata:
-
-```json
-{
-  "name": "plugin-name",
-  "version": "1.0.0",
-  "description": "Plugin description",
-  "author": { "name": "Author Name", "email": "email@example.com" },
-  "license": "MIT",
-  "keywords": ["tag1", "tag2"],
-  "homepage": "https://github.com/...",
-  "repository": "https://github.com/..."
-}
-```
-
-**Fields:**
-- `name` (required) - Plugin identifier in kebab-case
-- `version` (required) - Semantic version string
-- `description` - Full description of functionality
-- `author` - Object with `name`, optionally `email` and `url`
-- `license` - SPDX license identifier (e.g., "MIT", "Apache-2.0")
-- `keywords` - Array of tags for discovery
-- `homepage` - Documentation URL
-- `repository` - Source code repository URL
-
-## Plugin Component Types
-
-Claude Code plugins can include any combination of these components:
-
-- **Commands** - Custom slash commands (markdown files in `commands/`)
-- **Agents** - Specialized subagents (markdown files in `agents/`)
-- **Skills** - Model-invoked capabilities (`skills/[skill-name]/SKILL.md`)
-- **Hooks** - Event handlers (configured via `hooks/hooks.json`)
-- **MCP Servers** - External tool integration (`.mcp.json` configuration)
-
-### MCP Server Cross-Plugin Dependencies
-
-When an MCP config plugin needs to reference server code from another plugin, **do not use relative paths** like `${CLAUDE_PLUGIN_ROOT}/../other-plugin/`. This fails because the plugin cache uses versioned subdirectories (`plugin-name/1.0.0/`).
-
-**Solution**: Use a wrapper script that dynamically discovers the dependency:
-
-```bash
-#!/bin/bash
-# run-server.sh
-CACHE_ROOT="$(dirname "$(dirname "$(cd "$(dirname "$0")" && pwd)")")"
-SERVER=$(find "$CACHE_ROOT/dependency-plugin" -name "server.sh" -path "*/mcp-server/*" 2>/dev/null | sort -V | tail -1)
-[ -z "$SERVER" ] && echo '{"jsonrpc":"2.0","error":{"code":-32603,"message":"dependency-plugin not found"}}' >&2 && exit 1
-exec "$SERVER" "$@"
-```
-
-Reference in `.mcp.json`: `"command": "${CLAUDE_PLUGIN_ROOT}/run-server.sh"`
-
-See `plugins/dev-tooling/` for implementation.
-
-### Skills Directory Structure
-
-Skills follow this pattern:
-```
-plugin-root/
-└── skills/
-    └── skill-name/
-        └── SKILL.md
-```
-
-Example: `plugins/adr-writing/skills/adr-creating/SKILL.md`
-
-## Commit Messages
-
-All commit messages in this repository MUST be generated using the `commit-message-generating` skill at `.claude/skills/commit-message-generating/SKILL.md`. Do not write commit messages manually. Invoke the skill, which determines type, scope, and subject from the changes.
-
-## Development Workflow
-
-### Adding a New Plugin
-
-1. **Create plugin directory**: `plugins/[category]/[plugin-name]/`
-2. **Create plugin.json**: `plugins/[category]/[plugin-name]/.claude-plugin/plugin.json`
-   ```json
-   {
-     "name": "plugin-name",
-     "version": "1.0.0",
-     "description": "Plugin description",
-     "author": { "name": "Author Name" },
-     "license": "MIT",
-     "keywords": ["tag1", "tag2"],
-     "homepage": "https://github.com/...",
-     "repository": "https://github.com/..."
-   }
-   ```
-3. **Add component files** (choose any combination):
-   - `commands/` - Custom slash commands
-   - `agents/` - Specialized agents
-   - `skills/[skill-name]/SKILL.md` - Model-invoked skills
-   - `hooks/` - Event handlers (hooks.json)
-   - `.mcp.json` - MCP server configuration
-4. **Register in marketplace.json**: Add minimal entry to `plugins` array:
-   ```json
-   { "name": "plugin-name", "source": "./plugins/[category]/plugin-name" }
-   ```
-5. **Update README.md**: Add to "Available Plugins" section
-6. **Validate**: `claude plugin validate .`
-
-### Version Management
-
-Use the `plugin-updating` skill at `.claude/skills/plugin-updating/SKILL.md` for all version bumps. It handles plugin.json, SKILL.md frontmatters, CHANGELOG updates, and setup skill synchronization. Do not bump versions manually.
-
-## Testing & Validation
-
-### Local Testing
-```bash
-# Validate marketplace structure
-claude plugin validate .
-
-# Test locally before publishing
-/plugin marketplace add /path/to/ai-coding-tools
-```
-
-### Hook Script Testing
-```bash
-# Setup BATS (one-time)
-./.github/scripts/setup-bats.sh
-
-# Run all hook tests
-.bats/bats-core/bin/bats plugin-tests/**/*.bats
-```
-
-Tests are in `plugin-tests/<category>/<plugin-name>/` mirroring plugin structure.
-
-### Pre-release Checklist
-- [ ] `claude plugin validate .` passes
-- [ ] All plugin versions updated in `.claude-plugin/plugin.json` files
-- [ ] All skill versions updated in SKILL.md frontmatter (must match plugin version)
-- [ ] README.md "Available Plugins" section current
-- [ ] Issue template dropdowns current (`.github/scripts/validate-issue-templates.sh`)
-- [ ] Hook tests pass (`.bats/bats-core/bin/bats plugin-tests/**/*.bats`)
-
-## Distribution
-
-Repository must be public with `.claude-plugin/marketplace.json` in root for GitHub distribution.
-
-## Agent Skills Export
-
-Some skills are exported as portable packages following the [Agent Skills](https://agentskills.io) specification for use in Cursor, Codex, Gemini, and other compatible tools. Skills opt in via an empty `.agent-skills` marker file placed next to `SKILL.md`.
-
-### Validation
-
-When placing an `.agent-skills` marker on a skill or modifying a skill that has one, validate the exported output:
-
-```bash
-# Build and validate (from repo root)
-uv run --project agent-skills-export build-agent-skill <skill-dir> /tmp/agent-skills-out
-uv run --project agent-skills-export skills-ref validate /tmp/agent-skills-out/<skill-name>
-```
-
-Fix any validation errors before committing.
-
-## Plugin Usage Directives
-
-Directives for using official Anthropic plugins when developing this marketplace. Follow the thin subagent pattern for context isolation.
-
-### Thin Subagent Invocation Pattern
-
-When invoking plugin-dev skills, use the Task tool for context isolation:
+## Directory & File Structure
 
 ```
-Task(subagent_type="skill-reviewer", prompt="Review the skill at [path]")
+.github/scripts/
+├── README.md                           # Developer quick reference
+├── AGENTS.md                          # This file - LLM navigation guide
+├── lib/
+│   ├── common.sh                      # Shared utilities (logging, validation, env)
+│   ├── yaml-operations.sh             # YAML extraction and update functions
+│   └── version-operations.sh          # Version extraction and sync functions
+├── discover-components.sh             # Component discovery library (plugins/commands/skills/agents)
+├── validate-issue-templates.sh        # Read-only template validation (CI/CD ready)
+├── update-issue-templates.sh          # Write-only template updates
+├── validate-versions.sh               # Read-only version validation (CI/CD ready)
+├── update-versions.sh                 # Write-only version synchronization
+└── setup-bats.sh                      # BATS testing framework installer
 ```
 
-This provides:
-- **Context isolation** - Skill runs in separate context window
-- **Role specification** - Agent focuses solely on skill task
-- **Clean output** - Results returned without polluting main context
+## Component Overview
 
-### Plugin Development (plugin-dev)
+This directory provides scripts for maintaining the AI Coding Tools repository:
 
-**Proactive Usage Rules:**
-- ALWAYS use `/plugin-dev:create-plugin` when creating new plugins for this marketplace
-- ALWAYS invoke `skill-reviewer` agent after creating or modifying any skill
-- ALWAYS invoke `plugin-validator` agent before committing plugin changes
+**Issue Template Management:**
+- **Validation Script** (`validate-issue-templates.sh`) - CI/CD validation with GitHub Actions integration
+- **Update Script** (`update-issue-templates.sh`) - Simple maintenance updates
 
-**Skill Invocation (via Task tool for isolation):**
+**Version Management:**
+- **Validation Script** (`validate-versions.sh`) - CI/CD validation of version consistency
+- **Update Script** (`update-versions.sh`) - Synchronize versions from plugin.json (authoritative source)
 
-| Skill | When to Invoke | Pre-validation |
-|-------|---------------|----------------|
-| `plugin-dev:skill-development` | Creating/improving skills | Verify skills/ directory exists |
-| `plugin-dev:agent-development` | Creating/improving agents | Verify agents/ directory exists |
-| `plugin-dev:command-development` | Creating slash commands | Verify commands/ directory exists |
-| `plugin-dev:hook-development` | Adding hooks | Verify hooks/ directory structure |
-| `plugin-dev:mcp-integration` | Configuring MCP servers | Verify .mcp.json path |
-| `plugin-dev:plugin-structure` | Setting up plugin architecture | Verify plugin root path |
-| `plugin-dev:plugin-settings` | Adding plugin configuration | Verify .claude/ directory exists |
+**Libraries:**
+- `lib/common.sh` - Shared utilities (logging, validation, env)
+- `lib/yaml-operations.sh` - YAML extraction and update functions
+- `lib/version-operations.sh` - Version extraction and sync functions
+- `discover-components.sh` - Component discovery library
 
-**Agent Invocation (via Task tool):**
+**Testing:**
+- `setup-bats.sh` - BATS testing framework installer (tests in `plugin-tests/`)
 
-| Agent | When to Invoke | Scope Constraints |
-|-------|---------------|-------------------|
-| `skill-reviewer` | After creating/modifying skills | Read-only analysis, no edits |
-| `agent-creator` | When user requests new agent | Generate config only, user applies |
-| `plugin-validator` | Before commits/publishing | Validation only, report issues |
+## Architecture
 
-### Feature Development (feature-dev)
+**Two-script design split by responsibility (validate vs update):**
 
-**Proactive Usage Rules:**
-- Use `/feature-dev` when implementing significant new features
-- Use `code-explorer` agent to understand existing patterns before making changes
-- Use `code-architect` agent for non-trivial implementation decisions
-- Use `code-reviewer` agent after completing significant code changes
+### Issue Template Scripts
 
-**Command:**
-- `/feature-dev [description]` - 7-phase guided workflow: Discovery → Exploration → Clarification → Architecture → Implementation → Review → Integration
+- **`validate-issue-templates.sh`** - Read-only validation for CI/CD
+  - Compares current template dropdowns against discovered components
+  - Never modifies files
+  - Integrates with GitHub Actions (annotations, job summaries, outputs)
 
-**Agent Invocation (via Task tool):**
+- **`update-issue-templates.sh`** - Write-only updates for local maintenance
+  - Updates template YAML files with discovered components
+  - Creates `.bak` backups before modifications
+  - Simple operation, no CI features
 
-| Agent | When to Invoke | Scope Constraints |
-|-------|---------------|-------------------|
-| `code-explorer` | Research before changes | Read-only exploration |
-| `code-architect` | Architectural decisions | Design only, no implementation |
-| `code-reviewer` | After significant changes | Review only, suggest improvements |
+### Version Management Scripts
+
+- **`validate-versions.sh`** - Read-only validation for CI/CD
+  - Compares versions across plugin.json, SKILL.md, and CHANGELOG.md
+  - Each plugin's `.claude-plugin/plugin.json` is the authoritative source
+  - Integrates with GitHub Actions (annotations, job summaries, outputs)
+
+- **`update-versions.sh`** - Write-only synchronization
+  - Propagates versions from plugin.json to all other locations
+  - Creates `.bak` backups before modifications
+  - Supports `--dry-run` and `--plugin <name>` options
+
+**Shared libraries** (sourced by scripts):
+- `lib/common.sh` - Logging, validation, dependency checks
+- `lib/yaml-operations.sh` - YAML parsing and manipulation with AWK
+- `lib/version-operations.sh` - Version extraction and update functions
+- `discover-components.sh` - Component discovery from marketplace structure
+
+## Key Navigation Points
+
+| Task | Primary File | Secondary File | Key Concepts |
+|------|--------------|----------------|--------------|
+| Add GitHub Actions feature | `validate-*.sh` scripts | `lib/common.sh` | Annotations, job summaries, output vars |
+| Add logging function | `lib/common.sh` | - | log_info, log_success, log_warning, log_error |
+| Add YAML operation | `lib/yaml-operations.sh` | - | AWK-based parsing, extraction, updates |
+| Add version operation | `lib/version-operations.sh` | - | jq/awk/sed parsing, extraction, updates |
+| Add component discovery | `discover-components.sh` | - | find commands, jq parsing |
+| Modify template validation | `validate-issue-templates.sh` | `lib/yaml-operations.sh` | validate_dropdown(), array comparison |
+| Modify template update | `update-issue-templates.sh` | `lib/yaml-operations.sh` | update_dropdown(), backup creation |
+| Modify version validation | `validate-versions.sh` | `lib/version-operations.sh` | validate_*_version(), per-plugin checks |
+| Modify version update | `update-versions.sh` | `lib/version-operations.sh` | update_*_version(), backup creation |
+| Add template type | template scripts + ISSUE_TEMPLATE | `discover-components.sh` | Discovery + validation + update functions |
+| Add version location | version scripts | `lib/version-operations.sh` | Extract + update functions |
+
+## When to Modify What
+
+**Adding GitHub Actions feature** (annotations, summaries, outputs) → Edit `validate-*.sh` scripts with `GITHUB_ACTIONS_MODE` checks + update `lib/common.sh` for logging if needed
+
+**Adding new logging level** → Edit `lib/common.sh` log functions + add both normal and GitHub Actions mode outputs
+
+**Adding YAML operation** → Edit `lib/yaml-operations.sh` + add new function with AWK-based parsing pattern
+
+**Adding version operation** → Edit `lib/version-operations.sh` + add extract_*_version() and update_*_version() functions
+
+**Adding component discovery type** → Edit `discover-components.sh` + add new function with find/jq pattern + export function
+
+**Adding template type** → Create discovery function in `discover-components.sh` + add validation function in `validate-issue-templates.sh` + add update function in `update-issue-templates.sh` + call from main() in both scripts + create template in `.github/ISSUE_TEMPLATE/`
+
+**Note:** Hook and MCP templates are already implemented as examples.
+
+**Adding version location** (new file with version) → Add extract function + update function in `lib/version-operations.sh` + add validation in `validate-versions.sh` + add sync in `update-versions.sh`
+
+**Changing template file locations** → Edit TEMPLATES_DIR in main scripts + update validation/update functions
+
+**Modifying backup behavior** → Edit update functions in `lib/yaml-operations.sh` or `lib/version-operations.sh` + modify cp command or add versioning
+
+**Adding environment variable** → Edit `lib/common.sh` or main script setup sections + add validation in validate_*_files()
 
 ---
 > Source: [shopwareLabs/ai-coding-tools](https://github.com/shopwareLabs/ai-coding-tools) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
