@@ -1,0 +1,9 @@
+{
+  "name": "shadcndashboard--shadcndashboard",
+  "displayName": "shadcndashboard",
+  "description": "Free, open source admin dashboard built with React + vite, shadcn/ui, Tailwind CSS, and TypeScript.",
+  "version": "1.0.0",
+  "author": "shadcndashboard",
+  "homepage": "https://github.com/shadcndashboard/shadcndashboard",
+  "skills": []
+}
