@@ -2,7 +2,7 @@
 
 > Collection of Claude Code customizations: skills, statusline, hooks.
 
-# ris-claude-code
+# personal-corp-skills
 
 Collection of Claude Code customizations: skills, statusline, hooks.
 
@@ -13,6 +13,8 @@ Collection of Claude Code customizations: skills, statusline, hooks.
 - Adding/removing skills → update skills list in both READMEs
 - Adding/removing any component → update corresponding section in both READMEs
 - Release without README updates = incomplete release
+- Public repo hygiene changes must keep `SECURITY.md`, `CODE_OF_CONDUCT.md`,
+  issue templates, plugin metadata, and `scripts/validate_repo.py` aligned.
 
 ## Never
 
@@ -26,6 +28,7 @@ Collection of Claude Code customizations: skills, statusline, hooks.
 | Path | Purpose |
 |------|---------|
 | `skills/` | Reusable skill templates |
+| `archive/skills/` | Historical skills kept for reference; not active plugin skills |
 | `statusline/` | Custom statusline scripts |
 | `hooks/` | Pre/post command hooks |
 
@@ -52,11 +55,17 @@ READMEs update only when skills list changes (add/remove).
 
 1. Update CHANGELOG.md
 2. Update READMEs (only if skills list changed)
-3. Commit: `docs: update changelog for vX.Y.Z`
-4. Tag: `git tag -a vX.Y.Z -m "Release vX.Y.Z"`
-5. Push: `git push && git push --tags`
-6. GitHub release via `gh release create`
+3. Run `python3 scripts/validate_repo.py`
+4. Run `claude plugin validate .claude-plugin/marketplace.json`
+5. Run `claude plugin tag --dry-run --force .`
+6. Run a clean Codex install smoke:
+   `tmp_home=$(mktemp -d); HOME="$tmp_home" codex plugin marketplace add .; HOME="$tmp_home" codex plugin add personal-corp-skills@personal-corp-skills; rm -rf "$tmp_home"`
+7. Run `git diff --check`
+8. Commit: `docs: update changelog for vX.Y.Z`
+9. Tag: `git tag -a vX.Y.Z -m "Release vX.Y.Z"`
+10. Push: `git push && git push --tags`
+11. GitHub release via `gh release create`
 
 ---
 > Source: [serejaris/ris-claude-code](https://github.com/serejaris/ris-claude-code) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
