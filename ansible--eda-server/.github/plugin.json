@@ -1,0 +1,9 @@
+{
+  "name": "ansible--eda-server",
+  "displayName": "eda-server",
+  "description": "eda-server",
+  "version": "1.0.0",
+  "author": "ansible",
+  "homepage": "https://github.com/ansible/eda-server",
+  "skills": []
+}
