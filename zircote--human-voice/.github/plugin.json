@@ -1,0 +1,9 @@
+{
+  "name": "zircote--human-voice",
+  "displayName": "human-voice",
+  "description": "Detect and eliminate AI writing patterns in your content. This Claude Code plugin performs multi-tier analysis of character patterns, language cues, structural issues, and voice authenticity. Auto-fix",
+  "version": "1.0.0",
+  "author": "zircote",
+  "homepage": "https://github.com/zircote/human-voice",
+  "skills": []
+}
