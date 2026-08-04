@@ -1,0 +1,9 @@
+{
+  "name": "flankerhqd--cyvisguard",
+  "displayName": "cyvisguard",
+  "description": "Security control plane for AI agents \u2014 identity and delegation, capability policy, data-flow taint and a live audit trail, enforced over MCP. Guards a real Claude Code end to end.",
+  "version": "1.0.0",
+  "author": "flankerhqd",
+  "homepage": "https://github.com/flankerhqd/cyvisguard",
+  "skills": []
+}
