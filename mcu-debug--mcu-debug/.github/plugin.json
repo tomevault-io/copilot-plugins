@@ -1,0 +1,9 @@
+{
+  "name": "mcu-debug--mcu-debug",
+  "displayName": "mcu-debug",
+  "description": "Debug Adapter for MCUs",
+  "version": "1.0.0",
+  "author": "mcu-debug",
+  "homepage": "https://github.com/mcu-debug/mcu-debug",
+  "skills": []
+}
