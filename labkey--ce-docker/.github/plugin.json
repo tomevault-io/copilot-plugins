@@ -1,0 +1,9 @@
+{
+  "name": "labkey--ce-docker",
+  "displayName": "ce-docker",
+  "description": "LabKey Community Edition docker quick start guide",
+  "version": "1.0.0",
+  "author": "LabKey",
+  "homepage": "https://github.com/LabKey/ce-docker",
+  "skills": []
+}
