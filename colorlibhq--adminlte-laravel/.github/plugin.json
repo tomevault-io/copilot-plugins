@@ -1,0 +1,9 @@
+{
+  "name": "colorlibhq--adminlte-laravel",
+  "displayName": "adminlte-laravel",
+  "description": "Official AdminLTE 4 integration for Laravel \u2014 Bootstrap 5.3, vanilla JS, Vite-ready.",
+  "version": "1.0.0",
+  "author": "ColorlibHQ",
+  "homepage": "https://github.com/ColorlibHQ/adminlte-laravel",
+  "skills": []
+}
