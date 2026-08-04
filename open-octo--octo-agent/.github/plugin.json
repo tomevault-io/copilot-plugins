@@ -1,0 +1,9 @@
+{
+  "name": "open-octo--octo-agent",
+  "displayName": "octo-agent",
+  "description": "Private, self-hosted AI agent \u2014 your models and data stay on your machine. A feature-rich coding + assistant toolset across eight interfaces (CLI, Web, desktop, IM, VS Code, Obsidian, SDK, Mobile), al",
+  "version": "1.0.0",
+  "author": "open-octo",
+  "homepage": "https://github.com/open-octo/octo-agent",
+  "skills": []
+}
