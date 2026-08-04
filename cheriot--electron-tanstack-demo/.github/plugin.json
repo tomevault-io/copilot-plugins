@@ -1,0 +1,9 @@
+{
+  "name": "cheriot--electron-tanstack-demo",
+  "displayName": "electron-tanstack-demo",
+  "description": "Electron wrapping a Tanstack Start app",
+  "version": "1.0.0",
+  "author": "cheriot",
+  "homepage": "https://github.com/cheriot/electron-tanstack-demo",
+  "skills": []
+}
