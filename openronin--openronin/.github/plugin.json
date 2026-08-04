@@ -1,0 +1,9 @@
+{
+  "name": "openronin--openronin",
+  "displayName": "openronin",
+  "description": "AI dev teammate for GitHub. Picks up issues, asks questions, ships PRs, answers your review comments, resolves conflicts, merges when green. Self-hosted.",
+  "version": "1.0.0",
+  "author": "openronin",
+  "homepage": "https://github.com/openronin/openronin",
+  "skills": []
+}
