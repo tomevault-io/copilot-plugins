@@ -1,8 +1,6 @@
 # AI instruction files for ai-coding-tools
 
-> Sourced from [shopwareLabs/ai-coding-tools](https://github.com/shopwareLabs/ai-coding-tools) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Claude Code plugin marketplace for Shopware development. Provides MCP servers, skills, agents, hooks, and commands to integrate development tools directly into your AI coding workflow.
+> Sourced from [shopwareLabs/ai-coding-tools](https://github.com/shopwareLabs/ai-coding-tools), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [shopwareLabs/ai-coding-tools](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/shopwareLabs/ai-coding-tools](https://github.com/shopwareLabs/ai-coding-tools)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/shopwareLabs/ai-coding-tools](https://github.com/shopwareLabs/ai-coding-tools)
 
 ---
 
