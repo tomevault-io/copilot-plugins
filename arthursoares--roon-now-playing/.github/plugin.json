@@ -1,0 +1,9 @@
+{
+  "name": "arthursoares--roon-now-playing",
+  "displayName": "roon-now-playing",
+  "description": "A now-playing display for Roon and other music sources. Shows real-time album artwork and track metadata on any web-connected client. Perfect for \"always-on\" displays like tablets and wall-mounted scr",
+  "version": "1.0.0",
+  "author": "arthursoares",
+  "homepage": "https://github.com/arthursoares/roon-now-playing",
+  "skills": []
+}
