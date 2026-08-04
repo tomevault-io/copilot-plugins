@@ -1,0 +1,44 @@
+{
+  "name": "cctrace",
+  "owner": "androidZzT",
+  "repo": "cctrace",
+  "description": "Real-time profiler for AI coding agents (Claude Code / Codex) \u2014 wraps your agent and renders every session event on a local waterfall timeline. Single Go binary, JSONL on disk, no telemetry, local-first.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/androidZzT/cctrace",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T15:39:59Z"
+}
