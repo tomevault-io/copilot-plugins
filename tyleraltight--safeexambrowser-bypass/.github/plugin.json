@@ -1,0 +1,9 @@
+{
+  "name": "tyleraltight--safeexambrowser-bypass",
+  "displayName": "SafeExamBrowser_bypass",
+  "description": "A toolkit for running Safe Exam Browser inside a VMware virtual machine. \uff08via IL patching\uff09",
+  "version": "1.0.0",
+  "author": "Tyleraltight",
+  "homepage": "https://github.com/Tyleraltight/SafeExamBrowser_bypass",
+  "skills": []
+}
