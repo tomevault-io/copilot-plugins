@@ -1,0 +1,9 @@
+{
+  "name": "sakuradairong--omp-config",
+  "displayName": "omp-config",
+  "description": "Oh My Pi (OMP) \u914d\u7f6e\u5408\u96c6 \u2014 \u8131\u654f\u540e\u53ef\u590d\u7528\u7684 agent \u914d\u7f6e\u3001\u6a21\u578b\u8986\u76d6\u3001hooks \u548c skills",
+  "version": "1.0.0",
+  "author": "sakuradairong",
+  "homepage": "https://github.com/sakuradairong/omp-config",
+  "skills": []
+}
