@@ -1,0 +1,9 @@
+{
+  "name": "thansheer--obsidian-mermaid-flow",
+  "displayName": "obsidian-mermaid-flow",
+  "description": "Visual drag-and-drop WYSIWYG editor for Mermaid flowcharts inside Obsidian \u2014 build and rearrange diagrams by moving nodes and drawing connections, no Mermaid syntax required. Edits round-trip safely b",
+  "version": "1.0.0",
+  "author": "THANSHEER",
+  "homepage": "https://github.com/THANSHEER/obsidian-mermaid-flow",
+  "skills": []
+}
