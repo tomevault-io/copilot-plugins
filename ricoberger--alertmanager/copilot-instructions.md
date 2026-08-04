@@ -1,0 +1,219 @@
+## alertmanager
+
+> Guidance for coding agents working in this repository.
+
+# AGENTS.md
+
+Guidance for coding agents working in this repository.
+
+## Project
+
+**Alertmanager** is a native macOS app (SwiftUI + SwiftData) for viewing alerts
+from
+[Prometheus Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)
+and [Grafana Alerting](https://grafana.com/docs/grafana/latest/alerting/).
+
+- Bundle ID: `de.ricoberger.Alertmanager`
+- Swift: 5.0, macOS deployment target: 26.4
+- Project file: `Alertmanager.xcodeproj` (no Swift Package Manager dependencies)
+- Persistence: SwiftData store at
+  `~/Library/Application Support/de.ricoberger.Alertmanager/default.sqlite`
+- The app is **non-sandboxed** by design — token retrieval via shell commands
+  (`/bin/sh -c …`) requires `Process` which is unavailable in the sandbox.
+
+## Build, test, run
+
+All commands run from the repo root.
+
+```bash
+# Build (Debug, macOS)
+xcodebuild -project Alertmanager.xcodeproj -scheme Alertmanager -configuration Debug build
+
+# Build (Release)
+xcodebuild -project Alertmanager.xcodeproj -scheme Alertmanager -configuration Release archive -archivePath build/Alertmanager.xcarchive
+```
+
+```bash
+# Run all tests
+xcodebuild -project Alertmanager.xcodeproj -scheme Alertmanager test
+
+# Unit tests only (Swift Testing)
+xcodebuild test -project Alertmanager.xcodeproj -scheme Alertmanager -only-testing:AlertmanagerTests
+
+# UI tests only (XCTest)
+xcodebuild test -project Alertmanager.xcodeproj -scheme Alertmanager -only-testing:AlertmanagerUITests
+```
+
+Unit tests under `AlertmanagerTests/` use the **Swift Testing** framework
+(`import Testing`, `@Test`). UI tests under `AlertmanagerUITests/` use
+**XCTest** (`XCUIApplication`, `XCTAssert…`). Don't mix the two — match whatever
+the surrounding file uses.
+
+Running `xcodebuild` locally is the source of truth for green.
+
+## Code layout
+
+```
+Alertmanager/
+  AlertmanagerApp.swift     @main entry point; wires ModelContainer,
+                            MenuBarExtra, Settings scene, menu commands.
+  ContentView.swift         Main window NavigationSplitView + lifecycle hooks
+                            (polling start, import/export, notification taps).
+  MenuBarContentView.swift  500x600 popup shown from the menu bar extra.
+  Models/
+    Alertmanager.swift      @Model — a configured backend (Prom or Grafana).
+                            AuthenticationType + TokenSource enums live here.
+    Alert.swift             GettableAlert DTO mirroring /api/v2/alerts.
+    Filter.swift            @Model — predicate set; LabelMatcher parser.
+  Services/
+    AlertmanagerService.swift  Stateless HTTP client. Prom + Grafana variants,
+                               auth header construction, token resolution.
+    AlertsManager.swift     Singleton. Polling timers + per-AM alert cache.
+                            Posts `.alertsDidUpdate` after every fetch.
+    NotificationService.swift  Singleton. Diffs alerts per filter, posts
+                               local UNNotifications with deep-link actions.
+    AlertAggregator.swift   Pure helper: collect+dedupe+filter from cache.
+    AlertDeepLinks.swift    Pure helper: source/silence/dashboard/panel URLs.
+    AlertMarkdown.swift     Pure helper: alert → markdown snippet for copying.
+    SettingsManager.swift   @Published wrapper around UserDefaults.
+    ImportExportManager.swift  JSON v1.0 export/import; references by name.
+    UpdateCheckService.swift   Singleton. One-shot GitHub release probe that
+                               feeds the in-app update banner.
+    APIServer.swift         Singleton. Opt-in loopback HTTP API (NWListener)
+                            exposing alertmanagers/filters/alerts + Analyze.
+    APIModels.swift         Pure HTTP request/response + routing + JSON DTOs
+                            for APIServer (unit-testable, no app state).
+  Views/                    SwiftUI views (form sheets, detail panes, rows).
+AlertmanagerTests/          Swift Testing — model + service logic.
+AlertmanagerUITests/        XCTest — driven via accessibilityIdentifiers.
+```
+
+## Architecture notes that aren't obvious from the code
+
+- **Singletons by design**: `AlertsManager.shared`,
+  `NotificationService.shared`, and `SettingsManager.shared` are intentionally
+  process-wide. Polling state and notification baselines must outlive any
+  individual view and be shared between the main window and the `MenuBarExtra`.
+  Don't refactor them to per-view objects.
+- **Polling**: one repeating `Timer` per `Alertmanager.id`, keyed in
+  `AlertsManager.refreshTimers`. `startMonitoring` is idempotent and safe to
+  call from multiple `.onAppear` handlers — it replaces any existing timer.
+  Concurrent fetches for the same AM are deduplicated via `inFlightTasks`.
+- **Two backend shapes**: a "standard" Prometheus Alertmanager hits
+  `/api/v2/alerts` directly; a "Grafana" entry queries the single datasource
+  UID stored in `grafanaAlertmanager` via
+  `/api/alertmanager/{uid}/api/v2/alerts`. Alerts are **not** tagged with
+  their source — views and `NotificationService` re-resolve the producing AM
+  by scanning the per-AM caches (`AlertAggregator.alertsWithSources`,
+  `resolveAlertmanager`). Grafana silence deep-links need the datasource
+  *name*, which `AlertmanagerService.resolveSilenceURL` resolves from the
+  UID at link-build time (the built-in `"grafana"` value is used verbatim).
+- **Notification flow**:
+  1. `AlertmanagerApp.onAppear` calls
+     `NotificationService.shared.configure(with:)`.
+  2. `NotificationService` subscribes to `.alertsDidUpdate` and re-evaluates
+     **every** filter on every fetch (not just the one currently visible).
+  3. First fetch for a filter is a silent **baseline** — no notifications. A
+     filter is only baselined once all the AMs it covers have completed at
+     least one fetch attempt — successful or failed
+     (`AlertsManager.hasCompletedFetchByAlertmanager`) — so partial data
+     doesn't seed a bad baseline, while a permanently failing AM can't block
+     notifications for the healthy ones. Stale AM IDs that no longer resolve
+     are ignored; an empty selection covers all AMs.
+  4. 31 notification categories (`ALERT_1` … `ALERT_31`) are pre-registered
+     (`ALERT_0` — no actions — is deliberately left unregistered); each
+     notification picks the one whose action set matches the URLs it
+     actually has (bitmask: source=1, silence=2, runbook=4, dashboard=8,
+     panel=16). When adding a new deep-link action, update both
+     `registerNotificationCategories` _and_ `categoryIdentifier(for:)`.
+- **Menu commands → NotificationCenter**: `AlertmanagerApp.commands` posts
+  `Notification.Name` events (`.addAlertmanager`, `.importConfiguration`,
+  `.openAlertDetail`, …) which `ContentView` observes. This indirection exists
+  because the `CommandGroup` builder can't capture view bindings. All custom
+  event names are declared in `AlertsManager.swift` at file top.
+- **SwiftData + associated-value enums**: SwiftData can't persist enums with
+  associated values (`AuthenticationType`, `[LabelMatcher]`). The pattern used
+  here is: store a private `Data?` backing property, expose a `@Transient`
+  computed accessor that JSON-encodes/decodes on access, fall back to a safe
+  default on decode failure with a `print` log. Mirror this pattern if you need
+  to add another such field.
+- **`@MainActor` is the project-wide default**. Most types are implicitly
+  main-actor isolated. Delegate methods that the system calls on background
+  queues (e.g. `UNUserNotificationCenterDelegate`) are marked `nonisolated` and
+  hop back to `@MainActor` via `Task { @MainActor in … }`.
+- **`Alertmanager` (`@Model`) is not `Sendable`**. Where it must cross an
+  isolation boundary (e.g. into a `Timer` closure or async `Task`), use
+  `nonisolated(unsafe) let ref = …` and hop back to `@MainActor` immediately
+  inside the closure. See `AlertsManager.startMonitoring` for the canonical
+  pattern.
+- **Import/export references by name, not UUID**: `ExportFilter` stores
+  `alertmanagerNames` (not IDs) and `ExportSettings` stores `menuBarFilterName`
+  (not UUID). This lets an export be re-imported into a store with different
+  IDs. Preserve this when changing the export format and bump
+  `ExportData.version` on incompatible changes.
+- **HTTP API server (`APIServer`)**: opt-in (off by default;
+  `SettingsManager.apiServerEnabled`). A hand-rolled HTTP/1.1 server on
+  Network.framework's `NWListener` — **no** SPM dependency — bound to
+  `127.0.0.1:9093` (loopback only, **no auth**; port collides with a local
+  Prometheus Alertmanager by design). `APIServer.shared.startFromSettings()`
+  subscribes to the toggle and starts/stops the listener view-independently;
+  `start()` also (idempotently) `startMonitoring`s every AM so responses don't
+  depend on any view having appeared. The class is `@MainActor` for state
+  access; the socket read/write loop is `nonisolated` and hops to the main
+  actor only to route a parsed request. Transport primitives, routing, and the
+  encode-only JSON DTOs live in `APIModels.swift` (pure, unit-tested).
+  Endpoints (`/api`, nested REST): list alertmanagers/filters, alerts per
+  AM/filter (each alert carries curated fields + credential-free markdown +
+  keyed `actions` + `analysis` state + full `raw` payload), `GET /api/analyses`
+  (all analysis files on disk, parsed from filenames), plus `POST …/analyze`
+  (202/409/422/404) and `GET …/analysis`. Bind failures are logged via `print`
+  only. When adding an endpoint, extend `APIRoute.match` (path→route) **and**
+  `APIServer.route` (dispatch) together.
+
+## Conventions
+
+- **Style**: 4-space indent for `.swift`, 2 for everything else (see
+  `.editorconfig`). LF line endings, final newline, trim trailing whitespace.
+- **Doc comments**: this codebase has thorough triple-slash (`///`) docs on
+  types, methods, and non-trivial properties. New public-ish API should match
+  that style. Don't strip existing docs.
+- **Inline comments**: explain _why_ (non-obvious invariants, ordering
+  constraints, workarounds). Don't explain _what_ — the code already does.
+- **Errors**: bubble typed `LocalizedError` cases (`AlertmanagerError`) so
+  `errorDescription` is directly displayable. Don't `try?`-swallow in service
+  code; log + propagate.
+- **Logging**: `print(…)` is used throughout. There is no `os.Logger` wrap;
+  follow the existing style and prefix the source (`"NotificationService: …"`)
+  for grep-ability.
+- **Tests**:
+  - Unit tests use Swift Testing (`@Test func`, `#expect`). Test files
+    `@testable import Alertmanager`.
+  - UI tests rely on `accessibilityIdentifier` strings (e.g. `"sidebar-list"`,
+    `"menubar-no-filter-state"`). When you add or rename a view that a UI test
+    exercises, update the identifier in lockstep.
+
+## Things to be careful with
+
+- **Don't sandbox the app.** Adding entitlements that re-enable the sandbox
+  breaks `TokenSource.command` (uses `Process` + `/bin/sh -c`).
+- **Don't change the `buildServer.json` gitignore policy** without thought —
+  it's intentionally ignored because it embeds an absolute DerivedData path.
+- **Don't reorder polling lifecycle**: in `ContentView.deleteAlertmanagers`,
+  `AlertsManager.stopMonitoring` must run _before_ `modelContext.delete` so the
+  timer can't fire against a deleted entity.
+- **Don't `union` the seen-set** in `NotificationService.checkForNewAlerts`.
+  Replacing (not unioning) lets resolved-then-refiring alerts re-notify, which
+  is the intended UX. The current code replaces on purpose.
+- **Don't add build/test CI workflows** without confirming intent — the
+  previous `.github/workflows/build.yaml` was removed deliberately in the
+  reimplementation branch. The existing `continuous-delivery.yaml` and
+  `release.yaml` workflows cover packaging and releases only.
+
+## When in doubt
+
+Match the surrounding code. The codebase is small, internally consistent, and
+heavily commented; the existing patterns are usually the answer.
+
+---
+> Source: [ricoberger/Alertmanager](https://github.com/ricoberger/Alertmanager) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
