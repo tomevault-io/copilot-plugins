@@ -1,0 +1,9 @@
+{
+  "name": "eynzof--hermes-cn-desktop",
+  "displayName": "Hermes-CN-Desktop",
+  "description": "Hermes Agent CN desktop app, Windows-First, built with Tauri, Typescript and Rust. Isolated Hermes Agent core insides. ",
+  "version": "1.0.0",
+  "author": "Eynzof",
+  "homepage": "https://github.com/Eynzof/Hermes-CN-Desktop",
+  "skills": []
+}
