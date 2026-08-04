@@ -1,0 +1,9 @@
+{
+  "name": "cortega26--chile-hub",
+  "displayName": "chile-hub",
+  "description": "Datos p\u00fablicos de Chile curados, normalizados y validados: geograf\u00eda, demograf\u00eda, econom\u00eda, salud, educaci\u00f3n y distritos electorales. Listos para consumir en una l\u00ednea de c\u00f3digo con Polars, DuckDB, SQ",
+  "version": "1.0.0",
+  "author": "cortega26",
+  "homepage": "https://github.com/cortega26/chile-hub",
+  "skills": []
+}
