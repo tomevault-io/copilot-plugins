@@ -1,0 +1,44 @@
+{
+  "name": "unimarc-sudoc-reconciler",
+  "owner": "InseeFrLab",
+  "repo": "unimarc-sudoc-reconciler",
+  "description": "Application web POC de la biblioth\u00e8que de l'Insee. Elle permet de comparer les notices bibliographiques du SIGB Syracuse au catalogue Sudoc (ABES), met en \u00e9vidence les \u00e9carts, et permet \u00e0 un\u00b7e documentaliste de corriger et compl\u00e9ter les notices avant de les r\u00e9exporter dans Syracuse.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/InseeFrLab/unimarc-sudoc-reconciler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T08:15:35Z"
+}
