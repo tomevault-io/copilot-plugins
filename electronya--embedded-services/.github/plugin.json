@@ -1,0 +1,9 @@
+{
+  "name": "electronya--embedded-services",
+  "displayName": "embedded-services",
+  "description": "Electronya embedded services for Zephyr RTOS based firmware",
+  "version": "1.0.0",
+  "author": "Electronya",
+  "homepage": "https://github.com/Electronya/embedded-services",
+  "skills": []
+}
