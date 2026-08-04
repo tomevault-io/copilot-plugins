@@ -1,0 +1,9 @@
+{
+  "name": "lambdayh--scrcpyforharmonyos",
+  "displayName": "ScrcpyForHarmonyOS",
+  "description": "\u7b2c\u4e09\u65b9scrcpy\u9e3f\u8499\u5ba2\u6237\u7aef A third-party scrcpy client for HarmonyOS",
+  "version": "1.0.0",
+  "author": "LambdaYH",
+  "homepage": "https://github.com/LambdaYH/ScrcpyForHarmonyOS",
+  "skills": []
+}
