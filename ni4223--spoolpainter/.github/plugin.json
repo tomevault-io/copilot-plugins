@@ -1,0 +1,9 @@
+{
+  "name": "ni4223--spoolpainter",
+  "displayName": "SpoolPainter",
+  "description": "An Android NFC application for managing 3D printer filament spools with OpenSpool data format support.",
+  "version": "1.0.0",
+  "author": "ni4223",
+  "homepage": "https://github.com/ni4223/SpoolPainter",
+  "skills": []
+}
