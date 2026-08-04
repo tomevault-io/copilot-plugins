@@ -2,7 +2,7 @@
   "name": "opencode-processing-skills",
   "owner": "DasDigitaleMomentum",
   "repo": "opencode-processing-skills",
-  "description": "Skills, Agents and Tools for daily Work - espcially with GitHub as LLM Provider",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DasDigitaleMomentum/opencode-processing-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T06:16:05Z"
+  "distributed_at": "2026-08-04T09:37:47Z"
 }
