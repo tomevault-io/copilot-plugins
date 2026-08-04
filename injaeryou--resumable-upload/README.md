@@ -7,14 +7,14 @@ A Python implementation of the [TUS resumable upload protocol](https://tus.io/) 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [injaeryou/resumable-upload](https://github.com/injaeryou/resumable-upload).
+Original source: `CLAUDE.md` in [injaeryou/resumable-upload](https://github.com/injaeryou/resumable-upload).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [injaeryou/resumable-upload](https://github.com/injaeryou/resumable-upload) — a repo with 9+ stars on GitHub.
