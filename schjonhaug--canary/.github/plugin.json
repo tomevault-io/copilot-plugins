@@ -1,0 +1,9 @@
+{
+  "name": "schjonhaug--canary",
+  "displayName": "canary",
+  "description": "Bitcoin monitoring tool with transaction alerts and intelligent balance notifications. Set custom balance thresholds, monitor wallet drains, track all transactions - all with watch-only security.",
+  "version": "1.0.0",
+  "author": "schjonhaug",
+  "homepage": "https://github.com/schjonhaug/canary",
+  "skills": []
+}
