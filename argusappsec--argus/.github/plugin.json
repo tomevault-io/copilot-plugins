@@ -1,0 +1,9 @@
+{
+  "name": "argusappsec--argus",
+  "displayName": "argus",
+  "description": "An open-source AppSec agent that reasons like an analyst: real scanners, your org's context, and a conversation instead of 400 findings.",
+  "version": "1.0.0",
+  "author": "argusappsec",
+  "homepage": "https://github.com/argusappsec/argus",
+  "skills": []
+}
