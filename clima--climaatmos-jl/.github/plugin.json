@@ -1,0 +1,9 @@
+{
+  "name": "clima--climaatmos-jl",
+  "displayName": "ClimaAtmos.jl",
+  "description": "ClimaAtmos.jl",
+  "version": "1.0.0",
+  "author": "CliMA",
+  "homepage": "https://github.com/CliMA/ClimaAtmos.jl",
+  "skills": []
+}
