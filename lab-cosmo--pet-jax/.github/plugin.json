@@ -1,0 +1,9 @@
+{
+  "name": "lab-cosmo--pet-jax",
+  "displayName": "pet-jax",
+  "description": "Universal PET models in JAX",
+  "version": "1.0.0",
+  "author": "lab-cosmo",
+  "homepage": "https://github.com/lab-cosmo/pet-jax",
+  "skills": []
+}
