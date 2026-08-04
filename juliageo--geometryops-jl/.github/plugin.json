@@ -1,0 +1,9 @@
+{
+  "name": "juliageo--geometryops-jl",
+  "displayName": "GeometryOps.jl",
+  "description": "GeometryOps.jl",
+  "version": "1.0.0",
+  "author": "JuliaGeo",
+  "homepage": "https://github.com/JuliaGeo/GeometryOps.jl",
+  "skills": []
+}
