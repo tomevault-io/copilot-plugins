@@ -1,0 +1,9 @@
+{
+  "name": "abpframework--abp-skills",
+  "displayName": "abp-skills",
+  "description": "abp-skills",
+  "version": "1.0.0",
+  "author": "abpframework",
+  "homepage": "https://github.com/abpframework/abp-skills",
+  "skills": []
+}
