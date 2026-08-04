@@ -1,0 +1,9 @@
+{
+  "name": "paiml--copia",
+  "displayName": "copia",
+  "description": "Pure Rust rsync-style delta synchronization library",
+  "version": "1.0.0",
+  "author": "paiml",
+  "homepage": "https://github.com/paiml/copia",
+  "skills": []
+}
