@@ -1,0 +1,9 @@
+{
+  "name": "cloudfoundry--guardian",
+  "displayName": "guardian",
+  "description": "guardian",
+  "version": "1.0.0",
+  "author": "cloudfoundry",
+  "homepage": "https://github.com/cloudfoundry/guardian",
+  "skills": []
+}
