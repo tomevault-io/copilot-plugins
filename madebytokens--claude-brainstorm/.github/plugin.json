@@ -1,0 +1,9 @@
+{
+  "name": "madebytokens--claude-brainstorm",
+  "displayName": "claude-brainstorm",
+  "description": "A Claude Code plugin that enforces brainstorming mode, preventing Claude from jumping to solutions.",
+  "version": "1.0.0",
+  "author": "MadeByTokens",
+  "homepage": "https://github.com/MadeByTokens/claude-brainstorm",
+  "skills": []
+}
