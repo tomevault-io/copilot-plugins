@@ -1,0 +1,9 @@
+{
+  "name": "thydynh03--agent-center",
+  "displayName": "Agent_Center",
+  "description": "You give it a goal. It plans, executes, checks its own work, and fixes what it broke",
+  "version": "1.0.0",
+  "author": "thydynh03",
+  "homepage": "https://github.com/thydynh03/Agent_Center",
+  "skills": []
+}
