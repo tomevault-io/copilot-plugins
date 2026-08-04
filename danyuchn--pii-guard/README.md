@@ -1,23 +1,21 @@
 # pii-guard
 
-> Tome by [danyuchn](https://github.com/danyuchn/pii-guard) — distributed by [TomeVault](https://tomevault.io)
-
-繁體中文（台灣）個人資料去識別化工具，讓業務文件可以安全地送進 AI 處理
+> Tome by [danyuchn](https://github.com/danyuchn/pii-guard), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [danyuchn/pii-guard](https://github.com/danyuchn/pii-guard).
+Original source: `AGENTS.md` in [danyuchn/pii-guard](https://github.com/danyuchn/pii-guard).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/danyuchn/pii-guard](https://github.com/danyuchn/pii-guard)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/danyuchn/pii-guard](https://github.com/danyuchn/pii-guard)
 
 ---
 
