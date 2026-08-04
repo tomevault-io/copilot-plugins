@@ -1,0 +1,9 @@
+{
+  "name": "rush-auto-works--aim-racestudio3-mac",
+  "displayName": "aim-racestudio3-mac",
+  "description": "Free one-click installer to run AiM RaceStudio 3 on Apple Silicon Macs: a notarized, drag-to-Applications DMG. No Windows, Parallels, or CrossOver. Community project, not affiliated with AiM.",
+  "version": "1.0.0",
+  "author": "Rush-Auto-Works",
+  "homepage": "https://github.com/Rush-Auto-Works/aim-racestudio3-mac",
+  "skills": []
+}
