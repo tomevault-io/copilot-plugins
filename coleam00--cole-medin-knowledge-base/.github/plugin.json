@@ -1,0 +1,9 @@
+{
+  "name": "coleam00--cole-medin-knowledge-base",
+  "displayName": "cole-medin-knowledge-base",
+  "description": "An OKF (Open Knowledge Format) knowledge base + Karpathy-style LLM wiki synthesized from Cole Medin's entire long-form YouTube catalog. Drop it next to any project for agent-ready, cited reference. No",
+  "version": "1.0.0",
+  "author": "coleam00",
+  "homepage": "https://github.com/coleam00/cole-medin-knowledge-base",
+  "skills": []
+}
