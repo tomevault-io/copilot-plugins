@@ -1,0 +1,9 @@
+{
+  "name": "wheregoes--byd-apps",
+  "displayName": "byd-apps",
+  "description": "Custom Android apps for BYD electric vehicles \u2014 door sounds, CAN bus tools, and more. No root needed.",
+  "version": "1.0.0",
+  "author": "wheregoes",
+  "homepage": "https://github.com/wheregoes/byd-apps",
+  "skills": []
+}
