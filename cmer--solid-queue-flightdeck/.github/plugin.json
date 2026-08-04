@@ -1,0 +1,9 @@
+{
+  "name": "cmer--solid-queue-flightdeck",
+  "displayName": "solid_queue-flightdeck",
+  "description": "A beautiful, featureful dashboard for Solid Queue. Live charts, failure triage, bulk retries, fleet health, and recurring-task control. ",
+  "version": "1.0.0",
+  "author": "cmer",
+  "homepage": "https://github.com/cmer/solid_queue-flightdeck",
+  "skills": []
+}
