@@ -1,26 +1,9 @@
 {
   "name": "serejaris--ris-claude-code",
   "displayName": "ris-claude-code",
-  "description": "AI skills for Claude Code \u2014 product audit, business ops, project management",
+  "description": "ris-claude-code",
   "version": "1.0.0",
   "author": "serejaris",
   "homepage": "https://github.com/serejaris/ris-claude-code",
-  "skills": [
-    {
-      "name": "cc-analytics",
-      "description": ""
-    },
-    {
-      "name": "claude-md-writer",
-      "description": ""
-    },
-    {
-      "name": "gh-issues",
-      "description": ""
-    },
-    {
-      "name": "readme-generator",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
