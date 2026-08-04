@@ -1,0 +1,9 @@
+{
+  "name": "red-hat-storage--ocs-operator",
+  "displayName": "ocs-operator",
+  "description": "ocs-operator",
+  "version": "1.0.0",
+  "author": "red-hat-storage",
+  "homepage": "https://github.com/red-hat-storage/ocs-operator",
+  "skills": []
+}
