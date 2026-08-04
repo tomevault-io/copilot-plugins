@@ -1,0 +1,9 @@
+{
+  "name": "xuhongxu96--instcombine-instrumentor",
+  "displayName": "instcombine-instrumentor",
+  "description": "Instrument LLVM InstCombine pass to record every new instruction and every RAUW replacement",
+  "version": "1.0.0",
+  "author": "xuhongxu96",
+  "homepage": "https://github.com/xuhongxu96/instcombine-instrumentor",
+  "skills": []
+}
