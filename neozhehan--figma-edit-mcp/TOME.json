@@ -4,7 +4,7 @@
   "repo": "figma-edit-mcp",
   "description": "Read, create, and modify Figma designs programmatically via MCP, empowering AI to execute Figma changes safer, cleaner, and faster.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/neozhehan/figma-edit-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-28T04:38:18Z"
+  "distributed_at": "2026-08-04T03:52:29Z"
 }
