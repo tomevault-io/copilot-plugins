@@ -1,0 +1,9 @@
+{
+  "name": "josortmel--ecorelay",
+  "displayName": "EcoRelay",
+  "description": "Inter-session messaging for AI coding assistants. Hub-and-spoke architecture with persistent groups and LAN federation.",
+  "version": "1.0.0",
+  "author": "josortmel",
+  "homepage": "https://github.com/josortmel/EcoRelay",
+  "skills": []
+}
