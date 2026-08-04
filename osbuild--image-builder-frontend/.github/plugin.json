@@ -1,0 +1,9 @@
+{
+  "name": "osbuild--image-builder-frontend",
+  "displayName": "image-builder-frontend",
+  "description": "image-builder-frontend",
+  "version": "1.0.0",
+  "author": "osbuild",
+  "homepage": "https://github.com/osbuild/image-builder-frontend",
+  "skills": []
+}
