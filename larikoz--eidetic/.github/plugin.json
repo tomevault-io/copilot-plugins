@@ -1,0 +1,9 @@
+{
+  "name": "larikoz--eidetic",
+  "displayName": "eidetic",
+  "description": "Claude Code memory system \u2014 auto context injection, drift detection, compounding, FTS5/vector search, Obsidian vault export. Zero core deps.",
+  "version": "1.0.0",
+  "author": "LARIkoz",
+  "homepage": "https://github.com/LARIkoz/eidetic",
+  "skills": []
+}
