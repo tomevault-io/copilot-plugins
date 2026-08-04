@@ -1,0 +1,9 @@
+{
+  "name": "drozmotix--iobroker-esphome",
+  "displayName": "ioBroker.esphome",
+  "description": "ioBroker.esphome",
+  "version": "1.0.0",
+  "author": "DrozmotiX",
+  "homepage": "https://github.com/DrozmotiX/ioBroker.esphome",
+  "skills": []
+}
