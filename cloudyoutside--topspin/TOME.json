@@ -4,7 +4,7 @@
   "repo": "TopSpin",
   "description": "Top arena Roblox game",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CloudyOutside/TopSpin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-01T06:35:49Z"
+  "distributed_at": "2026-08-04T21:55:42Z"
 }
