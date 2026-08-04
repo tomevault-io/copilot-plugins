@@ -1,0 +1,9 @@
+{
+  "name": "teaqu--shader-studio",
+  "displayName": "shader-studio",
+  "description": "A GLSL Shader Toy extension for VSCode with hot reloading and debugging",
+  "version": "1.0.0",
+  "author": "teaqu",
+  "homepage": "https://github.com/teaqu/shader-studio",
+  "skills": []
+}
