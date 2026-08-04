@@ -1,0 +1,9 @@
+{
+  "name": "geckozr--nog-cli",
+  "displayName": "nog-cli",
+  "description": "nog-cli - NestJS OpenAPI Generator CLI: Generate NestJS services, interfaces and modules from OpenAPI specifications",
+  "version": "1.0.0",
+  "author": "geckozr",
+  "homepage": "https://github.com/geckozr/nog-cli",
+  "skills": []
+}
