@@ -1,0 +1,9 @@
+{
+  "name": "stahl-g--briefloop",
+  "displayName": "briefloop",
+  "description": "Open-source loop engineering for auditable business briefings: claims, evidence, gates, findings, repairs, and human review.",
+  "version": "1.0.0",
+  "author": "Stahl-G",
+  "homepage": "https://github.com/Stahl-G/briefloop",
+  "skills": []
+}
