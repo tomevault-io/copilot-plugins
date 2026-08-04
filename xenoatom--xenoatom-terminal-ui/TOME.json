@@ -2,9 +2,9 @@
   "name": "XenoAtom.Terminal.UI",
   "owner": "XenoAtom",
   "repo": "XenoAtom.Terminal.UI",
-  "description": "XenoAtom.Terminal.UI is a modern, reactive retained-mode terminal UI framework for .NET",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/XenoAtom/XenoAtom.Terminal.UI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T09:57:47Z"
+  "distributed_at": "2026-08-04T11:36:23Z"
 }
