@@ -1,19 +1,19 @@
 # pi-agent-desktop
 
-> Source: [Chasen-Liao/pi-agent-desktop](https://github.com/Chasen-Liao/pi-agent-desktop). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [Chasen-Liao/pi-agent-desktop](https://github.com/Chasen-Liao/pi-agent-desktop). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 Pi Agent Desktop — 基于 Electron 的 Pi 编程智能体桌面客户端 (衍生自 pi-web)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Chasen-Liao/pi-agent-desktop](https://github.com/Chasen-Liao/pi-agent-desktop).
+Original source: `CLAUDE.md` in [Chasen-Liao/pi-agent-desktop](https://github.com/Chasen-Liao/pi-agent-desktop).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
