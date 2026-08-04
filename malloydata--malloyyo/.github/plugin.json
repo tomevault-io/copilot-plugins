@@ -1,0 +1,9 @@
+{
+  "name": "malloydata--malloyyo",
+  "displayName": "malloyyo",
+  "description": " Serve any AI a Malloy semantic model over MCP \u2014 accurate, consistent answers from your data.",
+  "version": "1.0.0",
+  "author": "malloydata",
+  "homepage": "https://github.com/malloydata/malloyyo",
+  "skills": []
+}
