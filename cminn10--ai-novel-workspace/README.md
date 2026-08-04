@@ -7,13 +7,13 @@ AI 辅助小说创作工作区。通过结构化的文风分析、项目记忆�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [cminn10/ai-novel-workspace](https://github.com/cminn10/ai-novel-workspace).
+Original source: `CLAUDE.md` in [cminn10/ai-novel-workspace](https://github.com/cminn10/ai-novel-workspace).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
