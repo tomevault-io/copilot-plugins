@@ -1,0 +1,9 @@
+{
+  "name": "myuron--nvimx",
+  "displayName": "nvimx",
+  "description": "nvimx manages your Neovim plugins with Nix, driven by the same lazy.nvim-style Lua config you already write.",
+  "version": "1.0.0",
+  "author": "myuron",
+  "homepage": "https://github.com/myuron/nvimx",
+  "skills": []
+}
