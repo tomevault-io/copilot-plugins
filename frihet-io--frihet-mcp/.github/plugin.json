@@ -1,0 +1,9 @@
+{
+  "name": "frihet-io--frihet-mcp",
+  "displayName": "frihet-mcp",
+  "description": "Official MCP server for Frihet ERP \u2014 157 tools for AI-powered invoicing, tax & e-invoicing compliance (VeriFactu, TicketBAI, Facturae), banking, CRM, HR/payroll & POS. Works with Claude, ChatGPT, Curs",
+  "version": "1.0.0",
+  "author": "Frihet-io",
+  "homepage": "https://github.com/Frihet-io/frihet-mcp",
+  "skills": []
+}
