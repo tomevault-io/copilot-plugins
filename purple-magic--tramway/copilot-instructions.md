@@ -1,0 +1,775 @@
+## tramway
+
+> This document guides AI-assisted code generation for Rails applications built with **Tramway**. It is designed for founders, designers, PMs, and engineers who rely on AI tools (ChatGPT/Copilot/etc.) to build maintainable Rails code that fits Tramway’s conventions without a senior engineer reworking everything.
+
+## Start of Tramway AGENTS.md
+
+# AGENTS.md: Tramway Code Generation Standards
+
+This document guides AI-assisted code generation for Rails applications built with **Tramway**. It is designed for founders, designers, PMs, and engineers who rely on AI tools (ChatGPT/Copilot/etc.) to build maintainable Rails code that fits Tramway’s conventions without a senior engineer reworking everything.
+
+**Core Principle:** Generated code should feel like curated documentation—simple, explicit, and aligned with Tramway’s defaults. Prefer composable ViewComponents, Tailwind-friendly markup, and Rails-native patterns over bespoke architectures.
+
+---
+
+## Project Overview
+
+Tramway extends Rails with:
+- **CRUD** actions that can be configured in `config/initializers/tramway.rb`.
+- **Generators** that wire Tailwind, ViewComponent, and pagination defaults (`bin/rails g tramway:install`).
+- **ViewComponents** for reusable UI pieces.
+- **Tailwind safelist** utilities to keep dynamic classes in the build.
+
+Generated code should:
+- Lean on Rails conventions and Tramway generators instead of hand-rolled setup.
+- Use domain language (e.g., `Participant`, `Dashboard`) over generic terms.
+- Keep logic in the right layer: models for data/validations, controllers for HTTP, components for repeatable UI, views for simple rendering.
+- Be readable without comments; short methods, guard clauses, and clear naming.
+
+---
+
+## Quick Start Workflow (Preferred)
+
+1) **Install Tramway defaults**
+
+```bash
+bin/rails g tramway:install
+```
+
+- The install generator appends missing gems, copies Tailwind safelist config, ensures `app/assets/tailwind/application.css` imports Tailwind, and adds a Codex instruction to use or install `tramway-skill`.
+
+---
+
+## Technology Stack & Gems
+
+Tramway expects and installs:
+- `rails` (7+), `kaminari`, `view_component`, `haml-rails`, `dry-initializer`, `tailwindcss-rails`.
+- Prefer Haml for views unless a component template uses ERB.
+- Keep JavaScript minimal; use Stimulus if needed, avoid SPAs.
+
+Do **not** introduce alternative architectures (contexts/operation gems) unless explicitly requested.
+
+---
+
+## File Structure & Organization
+
+Follow Rails defaults. When extracting logic, namespace under the owning model or component:
+
+```
+app/
+  components/               # ViewComponent classes and templates
+    participants/
+      card_component.rb
+      card_component.html.erb
+  controllers/
+    participants_controller.rb
+  decorators/               # Tramway Decorator pattern
+    participant_decorator.rb
+  forms/                    # Tramway Form pattern
+    participant_form.rb
+  models/
+    participant.rb
+  views/
+    participants/
+      show.html.haml
+config/
+  initializers/
+      tramway.rb              # Tramway configuration
+  tailwind.config.js        # Safelist managed by tramway:install
+```
+
+---
+
+## Rules
+
+### Rule 1
+If CRUD is requested or some default actions like (index, show, create, update, destroy) are requestsed, use Tramway Entities by default unless custom behavior is needed. Configure in `config/initializers/tramway.rb`. Do not create controllers, views, or routes manually for CRUD actions if Tramway Entities can handle it.
+
+When `namespace` is mentioned in the request, configure it in the entity definition.
+
+Example of CRUD configuration for model `Participant`:
+
+*config/initializers/tramway.rb*:
+```ruby
+Tramway.configure do |config|
+  config.entities = [
+    {
+      name: :participant,
+      pages: [
+        { action: :index },
+        { action: :show },
+        { action: :create },
+        { action: :update },
+        { action: :destroy }
+      ]
+    }
+  ]
+end
+```
+
+If admin panel requested to be implemented from scratch, do the same with `namespace: :admin`
+
+### Rule 1.1
+Search is disabled by default on index pages. Enable it with `search: true` on the `:index` page definition:
+
+```ruby
+Tramway.configure do |config|
+  config.entities = [
+    {
+      name: :participant,
+      pages: [
+        {
+          action: :index,
+          search: true
+        }
+      ]
+    }
+  ]
+end
+```
+
+If `Model.search` exists, Tramway uses it. Otherwise it falls back to `Model.tramway_search` and logs a warning.
+The fallback is generic, not tailored to the data structure, and should not be used long-term because it may be slow or not scalable.
+
+### Rule 2
+Normalize input with `normalizes` (from Tramway) for attributes like email, phone, etc. Don't use `normalizes` in model unless it requested explicitly.
+
+### Rule 2.1
+When you need form-level validation, use Tramway Form `validates` on the form object (ActiveModel/ActiveRecord validation options like `presence: true` work, and `with:` is optional unless a validator requires it). Keep data integrity validations in the model unless the request explicitly needs form-only logic.
+
+### Rule 3
+Use Tramway Navbar for navigation. Put there basic links: Login, Logout.
+
+### Rule 4
+Use Tramway Flash for user notifications.
+
+```
+= tramway_flash text: flash[:notice], type: :hope
+= tramway_flash text: 'Double check your data', type: :greed, class: 'mt-2', data: { turbo: 'false' }
+```
+
+`type:` argument supports lantern colors.
+
+### Rule 5
+Use Tramway Table for tabular data display.
+
+`tramway_row` supports `href:` for clickable rows and `preview:` for mobile row preview behavior. Keep `preview: true` as the
+default unless the request explicitly needs preview disabled.
+
+### Rule 6
+Use Tramway Button for buttons. Always add a color of the button via `color:` or `type:` argument. `color:` argument support directs colors only: red, yellow, blue, etc. `type:` argument supports only lantern colors: will, hope, rage, etc.
+
+### Rule 7
+Use `tramway_form_for` instead `form_with`, `form_for`
+
+`tramway_form_for` has an upgraded `select` helper. Use `autocomplete: true` when you need an autocomplete select instead
+of the usual select element. Do not use `autocomplete: true` together with `multiselect: true` on the same field.
+
+Available `tramway_form_for` helpers:
+- `text_field`
+- `email_field`
+- `number_field`
+- `text_area`
+- `password_field`
+- `file_field`
+- `check_box`
+- `select`
+- `date_field`
+- `datetime_field`
+- `time_field`
+- `tramway_select`
+- `submit`
+
+### Rule 7.1
+Use `tramway_form_for(remote: true)` only when the form must submit asynchronously and update part of the current page (for example: modal forms, inline edits, or list updates without full page reload).
+For standard create/update flows that redirect and show regular flash messages, keep it synchronous (do not set `remote: true`).
+
+### Rule 8
+Inherit all components from Tramway::BaseComponent
+
+### Rule 8.1
+When you need chat UI, use the `tramway_chat` helper. Pass `chat_id`, `messages`, `message_form`, and `send_message_path`.
+Each message must include `:id` and a `:type` of `:sent` or `:received`, and other keys (like `:text`, `:data`, `:sent_at`)
+are forwarded to `tramway/chats/message_component`. Use `message_form: nil` when you only need read-only chat rendering.
+Use `send_messages_enabled:` (defaults to `true`) to control whether the message input is enabled. Set it to `false`
+when chat should be visible but sending is temporarily unavailable.
+
+For live updates to a rendered `tramway_chat`, use `tramway_chat_append_message(chat_id:, message_type:, text:, sent_at:)`.
+This method is included in all controllers and ActiveRecord models. `message_type` must be `:sent` or `:received`, otherwise
+it raises `ArgumentError`. `chat_id` must match the stream id used in `tramway_chat`.
+
+`message_form` object must be a `Tramway::BaseForm` or an inherited class object. It must contain `text` attribute.
+`send_message_path` must be a `POST` route that receives data on sending messsage submition.
+
+Here an example of usage:
+
+*app/views/chats/show.html.haml*
+```haml
+= tramway_chat chat_id: @chat.id,
+  messages: @chat.messages_for_chat,
+  message_form: @message_form,
+  send_message_path: chats_messages_path
+```
+
+*app/decorators/chat_decorator.rb*
+```ruby
+class ChatDecorator < Tramway::BaseDecorator
+  def messages_for_chat
+    object.messages.map do |message|
+      {
+        id: message.id,
+        type: :sent, # or received
+        text: message.text,
+        sent_at: message.created_at,
+      }
+    end
+  end
+end
+```
+
+*app/controllers/chats_controller.rb*
+```ruby
+  def show
+    @chat = tramway_decorate Chat.find params[:id]
+    @message_form = tramway_form chat.messages.build
+  end
+```
+
+**app/forms/message_form.rb**
+```ruby
+class Chats::MessageForm < Tramway::BaseForm
+  properties :text, :chat_id
+end
+```
+
+**config/routes.rb**
+```ruby
+    resources :messages, only: :create
+```
+
+**app/controllers/messages_controller.rb**
+```ruby
+  def create
+    @message = tramway_form chat.creator.messages.build(chat:)
+
+    if @message.submit params[:message]
+      tramway_chat_append_message chat_id: @message.object.chat.id,
+        type: :sent,
+        text: @message.object.text,
+        sent_at: @message.object.created_at
+    end
+  end
+```
+
+### Rule 9
+If page `create` or `update` is configured for an entity, use Tramway Form pattern for forms. Visible fields are configured via `form_fields` method.
+
+Use `fields` in your form class to customize which form helpers get rendered and which options are passed to them. Each field must map to a form helper method name. When you need to pass options, use a hash where :type is the helper method name and the remaining keys are passed as named arguments.
+
+Example:
+
+```ruby
+class UserForm < Tramway::BaseForm
+  properties :email, :about_me, :user_type, :score
+
+  fields email: :email,
+    name: :text,
+    about_me: {
+      type: :text_area,
+      rows: 5
+    },
+    user_type: {
+      type: :select,
+      collection: ['regular', 'user']
+    },
+    score: {
+      type: :number,
+      value: -> (object) { Score.find_by(user_id: object.id).value }
+    }
+
+  def score=(value)
+    Score.find_by(user_id: object.id).update(value:)
+  end
+end
+```
+
+### Rule 10
+Do not use `strong_parameters` in controllers. Use Tramway Form pattern for parameter whitelisting.
+
+### Rule 11
+Create tests for show models pages inside `spec/features/#{pluralized model_name}/show_spec.rb` using RSpec and Capybara if it needed.
+
+Here is an example for `Task` model:
+
+```ruby
+describe 'Tasks Show Page', type: :feature do
+  let!(:task) do
+    create(:task)
+  end
+
+  it 'displays the task' do
+    visit task_path(task)
+
+    expect(page).to have_current_path(task_path(task))
+    expect(page).to have_content(task.name)
+    expect(page).to have_content('Pending')
+  end
+end
+```
+
+### Rule 12
+Create tests for index models pages inside `spec/features/#{pluralized model_name}/index_spec.rb` using RSpec and Capybara if it needed.
+
+Here is an example for `Project` model:
+
+```ruby
+describe 'Projects Index Page', type: :feature do
+  let!(:projects) { create_list(:project, 3) }
+
+  describe 'visiting the index page' do
+    before do
+      visit projects_path
+    end
+
+    it 'displays all projects' do
+      expect(page).to have_current_path(projects_path)
+
+      projects.each do |project|
+        expect(page).to have_content(project.name)
+      end
+    end
+  end
+end
+```
+
+### Rule 13
+Create tests for create models pages inside `spec/features/#{pluralized model_name}/create_spec.rb` using RSpec and Capybara if it needed.
+
+Here is an example for `Project` model:
+
+```ruby
+describe 'Projects Create', type: :feature do
+  let!(:project_attributes) do
+    attributes_for(:project)
+  end
+  
+  let(:project) { Project.last }
+
+  it 'creates a new project' do
+    visit new_project_path
+
+    expect(page).to have_current_path(new_project_path)
+
+    fill_in 'project[name]', with: project_attributes[:name]
+    fill_in 'project[description]', with: project_attributes[:description]
+    select project_attributes[:project_type], from: 'project[project_type]'
+
+    click_on 'Save'
+
+    expect(project).to have_attributes(
+      name: project_attributes[:name],
+      description: project_attributes[:description],
+    )
+  end
+end
+```
+
+### Rule 14
+Create tests for update models pages inside `spec/features/#{pluralized model_name}/update_spec.rb` using RSpec and Capybara if it needed.
+
+Here is an example for `Project` model:
+
+```ruby
+describe 'Projects Update', type: :feature do
+  let!(:project) do
+    create('project', user: current_user)
+  end
+
+  let!(:project_attributes) do
+    attributes_for(:project)
+  end
+
+  it 'updates the project' do
+    visit edit_project_path(project)
+
+    expect(page).to have_current_path(edit_project_path(project))
+
+    fill_in 'project[name]', with: project_attributes[:name]
+    fill_in 'project[description]', with: project_attributes[:description]
+
+    click_on 'Save'
+
+    expect(page).to have_content('Project was successfully updated.')
+    expect(page).to have_content(project_attributes[:name])
+    expect(page).to have_content(project_attributes[:description])
+
+    project.reload
+
+    expect(project).to have_attributes(
+      name: project_attributes[:name],
+      description: project_attributes[:description]
+    )
+  end
+end
+```
+
+### Rule 15
+Create tests for destroy models pages inside `spec/features/#{pluralized model_name}/destroy_spec.rb` using RSpec and Capybara if it needed.
+
+Here is an example for `Project` model:
+
+```ruby
+describe 'Project Destroy', type: :feature do
+  let!(:project) do
+    create('project')
+  end
+
+  it 'destroys the project' do
+    visit project_path(project)
+
+    expect(page).to have_current_path(project_path(project))
+
+    click_on 'Delete'
+
+    expect(page).to have_content('Project was successfully destroyed.')
+
+    expect { Project.find(project.id) }.to raise_error(ActiveRecord::RecordNotFound)
+  end
+end
+```
+
+### Rule 16
+If you created any tests for Tramway Entities pages, make sure to add this to `spec/rails_helper.rb`.
+
+*spec/rails_helper.rb*:
+```ruby
+RSpec.configure do |config|
+  config.include Tramway::Helpers::RoutesHelper, type: :feature
+end
+```
+
+### Rule 17
+If application has authentication in the web then use `application_controller` config in `config/initializers/tramway.rb` to setup authentication method for Tramway Entities.
+
+*config/initializers/tramway.rb*:
+```ruby
+Tramway.configure do |config|
+  config.application_controller = 'ApplicationController'
+end
+```
+
+### Rule 18
+If you use `index` page for Tramway Entity, make sure to create `index_attributes` method in the entity decorator.
+
+Example for `Participant` model:
+
+*app/decorators/participant_decorator.rb*:
+```ruby
+class ParticipantDecorator < Tramway::BaseDecorator
+  def self.index_attributes
+    [
+      :id,
+      :name,
+      :email,
+      :created_at
+    ]
+  end
+end
+```
+
+### Rule 19
+In specs ALWAYS use factories (FactoryBot gem) to create models and attributes hash. In case there is no factory for the model, create one inside `spec/factories/#{pluralized model_name}.rb`.
+
+### Rule 20
+In case you need enumerize for model attribute, make sure to use `enumerize` gem for that. DO NOT use `boolean` or `integer` types for enumerations. Make sure you made `extend Enumerize` in `ApplicationRecord`.
+
+### Rule 21
+In case you need something that looks like enumerize but it's a process state, use `aasm` gem for that.
+
+### Rule 22
+Use model scopes instead of creating private methods for object collections.
+
+### Rule 23
+Use `tramway_title` for the main title on pages. `tramway_title text: 'Title'` OR
+
+```
+tramway_title do
+  More complicated title with HTML tags
+```
+
+Example
+*app/models/user.rb*
+```ruby
+class User < ApplicationRecord
+  scope :this_month_registered_users, -> { where(created_at: Time.current.all_month) }
+end
+```
+
+### Rule 24
+In case you implementing API, use `api` namespaces for forms and decorators.
+
+### Rule 25
+DO NOT use `#{model_name}_params` method with `permit` method inside controllers. When you use `tramway_form`, it's unnecessary.
+
+### Rule 26
+DO NOT create new private methods in the controller for business logic stuff. Use service objects instead.
+Create `app/services/base_service.rb` if it does not exist.
+
+```ruby
+class BaseService
+  extend Dry::Initializer[undefined: false]
+  include Dry::Monads[:do, :result]
+
+  def self.call(...)
+    new(...).call
+  end
+end
+```
+
+And instead of this in a controller
+
+```ruby
+  def create
+    user = tramway_form User.new
+
+    if user.submit params[:user]
+      notify_admin user
+
+      # other stuff
+    else
+    end
+  end
+
+  private
+
+  def notify_admin(user)
+    # stuff
+  end
+```
+
+Make this
+
+*app/services/notify_admin.rb*
+```ruby
+class NotifyAdmin < BaseService
+  option :user
+
+  def call
+    # stuff
+  end
+end
+```
+
+and in a controller
+
+```
+  def create
+    user = tramway_form User.new
+
+    if user.submit params[:user]
+      NotifyAdmin.call user:
+
+      # other stuff
+    else
+    end
+  end
+```
+
+Use dry-monads while call these services.
+
+Instead of this 
+
+```ruby
+result = SomeService.call(args)
+
+case result
+when :success
+  # code
+when :failure
+  # code
+end
+```
+
+Do this 
+
+```ruby
+case SomeService.call(args)
+in Success(result)
+  # use result
+in Success(another_result)
+  # use another result
+in Failure(reason_or_error)
+  # do stuff
+end
+```
+
+Success and Failure must describe all possible results of calling certain service.
+
+### Rule 27
+Don't create scopes for enumerated values, use `scope: :shallow` of the enumerize gem.
+
+Do this 
+
+```
+enumerize :role, in: [:admin, :default], scope: :shallow
+```
+
+Instead of this
+
+```
+scope :for_role, -> (role) { where role: role }
+```
+
+### Rule 28
+In case, you need to make a one link in tramway_table on each row. Use `tramway_row href: your_link` instead of putting the like inside a cell.
+
+### Rule 29
+Always use tramway decorated objects in views.
+
+### Rule 30
+For Tailwind classes with arbitrary values (with `/`, `[`, `]` characters) use `{ class: 'here is the complicated class' }` in HAML.
+
+### Rule 31
+Always `tramway_decorate` and `tramway_form` for creating these types of objects. Don't use decorator and form classes for this.
+
+### Rule 32
+In Tramway Decorators, use `delegate_attributes` method instead of `delegate :something, to: :object`
+
+### Rule 33
+In case you want to use container on the page, use `tramway_container` helper instead of creating a component for that or using a plain div with Tailwind classes. In case you need to use container in layout view, use `tramway_main_container` for this. Here is example of using `tramway_main_container` inside application layout.
+
+```
+= tramway_main_container do
+  - if flash.any?
+    = tramway_flash text: flash[:notice].presence || flash[:alert],
+      type: flash[:notice].present? ? :will : :rage,
+      id: 'flash-container'
+```
+
+### Rule 34
+If for some model already has index and show pages via Tramway Entity, and the request explicitly needs state management. Do not create a new controller for that. Instead, create a new component for buttons and use it via `show_header_content` in Tramway Decorator for show page and new columns (Actions) in `list_attributes` for index page. This column should be rendered via the component and contain buttons for state management.
+
+### Rule 35
+If you need select input for an attribute that enumerized via `enumerize` gem, use `collection: Model.attribute.values` in the field definition.
+
+Example for `User` model with `role` attribute:
+
+```ruby
+= f.select :model_attribute, User.role.values.map { [it.humanize, it] }
+```
+
+## Controller Patterns
+
+- Keep actions short and explicit with guard clauses.
+- Delegate heavy lifting to models, jobs, or components.
+- Render components for complex UI rather than partials with logic.
+
+Example:
+```ruby
+class ParticipantsController < ApplicationController
+  def index
+    @participants = tramway_decorate Participant.all.page(params[:page])
+  end
+
+  def new
+    @participant_form = tramway_form Participant.new
+  end
+
+  def create
+    @participant_form = tramway_form Participant.new
+
+    if @participant_form.submit params[:participant]
+      redirect_to participants_path, notice: 'Participant created successfully.'
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def show
+    @participant = tramway_decorate Participant.find(params[:id])
+  end
+
+  def edit
+    @participant_form = tramway_form Participant.find(params[:id])
+  end
+
+  def update
+    @participant_form = tramway_form Participant.find(params[:id])
+
+    if @participant_form.submit params[:participant]
+      redirect_to participant_path(@participant_form), notice: 'Participant updated successfully.'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    participant = Participant.find(params[:id])
+    participant.destroy
+
+    redirect_to participants_path, notice: 'Participant deleted successfully.'
+  end
+end
+```
+
+`tramway_form_for` example
+
+```ruby
+= tramway_form_for @user do |f|
+  = f.email_field :email, hint: 'Use the address where you receive account notifications.'
+  = f.password_field :password
+  = f.select :role, [["Admin", "admin"], ["Manager", "manager"]], include_blank: "Select role"
+  = f.submit 'Save'
+```
+
+Use `hint:` on fields when short helper text should appear below the input. Tramway renders the hint separately and does
+not forward it to the input as an HTML attribute.
+
+Autocomplete select example:
+
+```ruby
+= tramway_form_for @user do |f|
+  = f.select :role, [["Admin", "admin"], ["Manager", "manager"]], autocomplete: true
+  = f.submit 'Save'
+```
+
+`autocomplete: true` renders an autocomplete select. `autocomplete: true` and `multiselect: true` cannot be used together
+in one select field.
+
+`tramway_form_for` supports `horizontal: true` for horizontal form layout.
+
+```ruby
+= tramway_form_for @user, horizontal: true do |f|
+  = f.email_field :email
+  = f.password_field :password
+  = f.submit 'Save'
+```
+
+
+---
+
+## Tailwind Practices
+
+- Keep `config/tailwind.config.js` managed by the generator. If you add dynamic classes, update the `safelist` via the generator template rather than rewriting the config.
+- Add imports to `app/assets/tailwind/application.css`; avoid inline `<style>` blocks.
+
+---
+
+## Configuration
+
+- Use `anyway_config` (installed by Tramway) for configuration, not direct `ENV` reads.
+
+---
+
+## Checklist (Before Shipping)
+
+- [ ] Used Tramway generators instead of manual setup where available.
+- [ ] Controller actions are concise with guard clauses.
+- [ ] Reusable UI is a ViewComponent using Tailwind utilities and accessible semantics.
+- [ ] Tailwind safelist covers dynamic classes.
+
+## End of Tramway AGENTS.md
+
+---
+> Source: [Purple-Magic/tramway](https://github.com/Purple-Magic/tramway) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
