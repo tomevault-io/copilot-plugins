@@ -1,0 +1,9 @@
+{
+  "name": "transparent-pegasus--qr-crypt",
+  "displayName": "qr-crypt",
+  "description": "exchange keys in person, encrypt text fully offline.",
+  "version": "1.0.0",
+  "author": "transparent-pegasus",
+  "homepage": "https://github.com/transparent-pegasus/qr-crypt",
+  "skills": []
+}
