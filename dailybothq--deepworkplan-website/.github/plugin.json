@@ -1,0 +1,9 @@
+{
+  "name": "dailybothq--deepworkplan-website",
+  "displayName": "deepworkplan-website",
+  "description": "Turn any repo AI-first and run resumable, multi-hour Deep Work Plans \u2014 the methodology, the spec, the kit, and the /init URL your AI agent fetches to do it.",
+  "version": "1.0.0",
+  "author": "DailybotHQ",
+  "homepage": "https://github.com/DailybotHQ/deepworkplan-website",
+  "skills": []
+}
