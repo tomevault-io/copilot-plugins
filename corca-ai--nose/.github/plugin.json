@@ -1,0 +1,9 @@
+{
+  "name": "corca-ai--nose",
+  "displayName": "nose",
+  "description": "nose: bounded type-4 clone detector",
+  "version": "1.0.0",
+  "author": "corca-ai",
+  "homepage": "https://github.com/corca-ai/nose",
+  "skills": []
+}
