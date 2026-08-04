@@ -1,0 +1,9 @@
+{
+  "name": "grafana--grafana-app-sdk",
+  "displayName": "grafana-app-sdk",
+  "description": "grafana-app-sdk",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/grafana-app-sdk",
+  "skills": []
+}
