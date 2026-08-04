@@ -1,0 +1,9 @@
+{
+  "name": "habit-hooks--habit-hooks",
+  "displayName": "habit-hooks",
+  "description": "Automated quality checks that nudge AI coding agents toward better habits",
+  "version": "1.0.0",
+  "author": "habit-hooks",
+  "homepage": "https://github.com/habit-hooks/habit-hooks",
+  "skills": []
+}
