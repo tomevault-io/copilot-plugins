@@ -4,7 +4,7 @@
   "repo": "frontend-expert",
   "description": "Frontend Expert \u2014 chat-first agent skills for shipping product web UI (tokens, anti-slop, shell chrome, responsive, motion).",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sukirman1901/frontend-expert",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T12:32:48Z"
+  "distributed_at": "2026-08-04T18:23:39Z"
 }
