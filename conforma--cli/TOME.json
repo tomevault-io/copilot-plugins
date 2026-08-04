@@ -4,7 +4,7 @@
   "repo": "cli",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/conforma/cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T13:04:32Z"
+  "distributed_at": "2026-08-04T07:44:49Z"
 }
