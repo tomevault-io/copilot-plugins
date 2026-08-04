@@ -1,0 +1,9 @@
+{
+  "name": "openshift--console-plugin-template",
+  "displayName": "console-plugin-template",
+  "description": "console-plugin-template",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/console-plugin-template",
+  "skills": []
+}
