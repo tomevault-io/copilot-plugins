@@ -1,0 +1,9 @@
+{
+  "name": "electron-vite--electron-incremental-update",
+  "displayName": "electron-incremental-update",
+  "description": "electron-incremental-update",
+  "version": "1.0.0",
+  "author": "electron-vite",
+  "homepage": "https://github.com/electron-vite/electron-incremental-update",
+  "skills": []
+}
