@@ -1,42 +1,152 @@
-## codegraph
+## meetmind
 
-> CodeGraph MCP usage guide — when to use which tool
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-<!-- CODEGRAPH_START -->
-## CodeGraph
+# CLAUDE.md
 
-This project has a CodeGraph MCP server (`codegraph_*` tools) configured. CodeGraph is a tree-sitter-parsed knowledge graph of every symbol, edge, and file. Reads are sub-millisecond and return structural information grep cannot.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-### When to prefer codegraph over native search
+## 项目概述
 
-Use codegraph for **structural** questions — what calls what, what would break, where is X defined, what is X's signature. Use native grep/read only for **literal text** queries (string contents, comments, log messages) or after you already have a specific file open.
+MeetMind 是一个多 Agent RAG 协作系统的 demo（**TypeScript 项目**，monorepo：`apps/runtime` 后端 + `apps/desktop` 前端）：5 个角色 Agent（架构师、后端、前端、测试、产品经理）围绕一个项目需求展开讨论。架构师作为入口和终止者，其他角色在 LangGraph 条件边的驱动下自由路由。每个 Agent 拥有独立的 PostgreSQL 表 + 私有 RAG 工具（**PostgreSQL 混合检索：pgvector 向量 kNN + pg_trgm 关键字召回**，再过 **本地 cross-encoder rerank**）。存储已从 Elasticsearch 迁移到 PostgreSQL（pgvector）。
 
-| Question | Tool |
-|---|---|
-| "Where is X defined?" / "Find symbol named X" | `codegraph_search` |
-| "What calls function Y?" | `codegraph_callers` |
-| "What does Y call?" | `codegraph_callees` |
-| "How does X reach/become Y? / trace the flow from X to Y" | `codegraph_trace` (one call = the whole path, incl. callback/React/JSX dynamic hops) |
-| "What would break if I changed Z?" | `codegraph_impact` |
-| "Show me Y's signature / source / docstring" | `codegraph_node` |
-| "Give me focused context for a task/area" | `codegraph_context` |
-| "See several related symbols' source at once" | `codegraph_explore` |
-| "What files exist under path/" | `codegraph_files` |
-| "Is the index healthy?" | `codegraph_status` |
+LLM 通过 OpenAI 兼容协议调用（默认配置小米 MiMo），所以 `new ChatOpenAI({...})` 里有一个 `modelKwargs: { thinking: { type: "disabled" } }`（给后端关掉 thinking 模式）不能改。
 
-### Rules of thumb
+## 常用命令
 
-- **Answer directly — don't delegate exploration.** For "how does X work" / architecture questions, answer with 2-3 codegraph calls: `codegraph_context` first, then ONE `codegraph_explore` for the source of the symbols it surfaces. For a specific **flow** ("how does X reach Y") start with `codegraph_trace` from→to — one call returns the whole path with dynamic hops bridged — then ONE `codegraph_explore` for the bodies; don't rebuild the path with `codegraph_search` + `codegraph_callers`. Codegraph IS the pre-built index, so spawning a separate file-reading sub-task/agent — or running a grep + read loop — repeats work codegraph already did and costs more for the same answer.
-- **Trust codegraph results.** They come from a full AST parse. Do NOT re-verify them with grep — that's slower, less accurate, and wastes context.
-- **Don't grep first** when looking up a symbol by name. `codegraph_search` is faster and returns kind + location + signature in one call.
-- **Don't chain `codegraph_search` + `codegraph_node`** when you just want context — `codegraph_context` is one call.
-- **Don't loop `codegraph_node` over many symbols** — one `codegraph_explore` call returns several symbols' source grouped in a single capped call, while each separate node/Read call re-reads the whole context and costs far more.
-- **Index lag — check the staleness banner, don't guess a wait.** When a codegraph response starts with "⚠️ Some files referenced below were edited since the last index sync…", the listed files are pending re-index — Read those specific files for accurate content. Files NOT in that banner are fresh and codegraph is authoritative for them. `codegraph_status` also lists pending files under "Pending sync".
+包管理用 **pnpm**，不要用 npm / yarn。运行用 **tsx** 直接跑 `.ts`，开发期不需要预编译。
 
-### If `.codegraph/` doesn't exist
+```bash
+# 第一次（或换机）启动:
+docker compose up -d                   # 起本地单节点 PostgreSQL+pgvector (pgvector/pgvector:pg17, 宿主机端口 5433)
+pnpm install                           # 安装依赖（无 torch；主要是 onnxruntime + langchain + pg，首次较慢）
+pnpm dev                               # tsx src/index.ts 启动 CLI
+pnpm start                             # 同上
 
-The MCP server returns "not initialized." Ask the user: *"I notice this project doesn't have CodeGraph initialized. Want me to run `codegraph init -i` to build the index?"*
-<!-- CODEGRAPH_END -->
+# 生产 / 编译:
+pnpm build                             # tsc 编译到 dist/
+pnpm start:prod                        # node dist/index.js
+pnpm typecheck                         # tsc --noEmit，只做类型检查
+
+# 重置某个 agent 的 PostgreSQL 表并重灌（开发时常用）
+pnpm exec tsx -e "import('./src/database/ingestion/initializer.ts').then(m => m.resetAgentDb('backend'))"
+
+# 完全抹库后重灌（删 docker volume，下次启动重新建表 + 灌种子）
+docker compose down -v && docker compose up -d
+```
+
+环境变量在 `.env`（参考 `.env.example`）：LLM 三件套 `API_KEY` / `BASE_URL` / `MODEL_NAME` 是调用 LLM 的必需项；`PG_URL` 默认 `postgresql://meetmind:meetmind@localhost:5433/meetmind`（宿主机 5432 常被本地原生 postgres 占用，docker-compose 把容器映射到 **5433** 避让）。**rerank 已改为本地 cross-encoder，不再需要 `COHERE_API_KEY`。** 启动时唯一的硬退出是 `pingDb()` 失败（`process.exit(1)`）；LLM 的 key/baseUrl 缺失不会在启动时被拦截，会在第一次调用模型时抛错（zod 对这些字段给空字符串默认值，不报错）。
+
+## 高层架构
+
+### 调用链一句话
+
+```
+src/index.ts (load dotenv) → bootstrap() → buildGraph() → startServer(3002)   ← 默认入口（HTTP/SSE 服务）
+                                              ↓
+   POST /api → handleRpc → chat.send → runExecution(graph, …) → graph.stream(["custom","values"], thread_id)
+                                              ↓
+   START → rewrite_node → intent_node → route_node ──┬─► assistant_node → END      （右侧回答助手）
+                                                     └─► architect_node → … 团队   （左侧 5 角色协作）
+                                              ↓
+              createNode(agent) 闭包 → agent.invoke()（Phase1 工具循环 + Phase2 结构化收尾）
+                                              ↓
+                                    routeToWhichAgent(state) → 下一个 _node 或 END
+```
+
+> `apps/runtime/src/cli/main.ts:main()` 仍是保留的旧交互式 CLI（非流式、无服务，`pnpm dev:cli`）；默认入口已是 HTTP 服务。预处理流水线（rewrite → intent → route）每轮入口跑一次、不计入 `iteration`，详见下文。
+
+### 三层职责分离
+
+1. **`src/agents/`** — 角色定义。子类只重写 `get systemPrompt()`，公共能力都在 `BaseAgent` 里。`BaseAgent` **在构造阶段**就 `bindTools(allTools)`（`allTools` 由 `src/tools/toolRegister.ts` 在模块加载时用 `ToolRegister` 类逐个 `register()` 拼好并导出，base.ts 直接 import 这个数组引用；MCP 工具由 bootstrap 阶段 `initMcpTools()` 异步 push 进同一数组）存进 `this._modelWithTools`，不在每轮 invoke 里反复 bindTools。`BaseAgent.invoke()` 是核心，**分两阶段**：(0) 用 `cleanBadChars` 清掉孤立 surrogate 码点，并把会话主人的个人记忆经 `memorySection` 拼到 systemPrompt 最前；(1) **Phase 1 工具循环**（抽到 `agents/toolLoop.ts` 的 `runToolLoop`，base 与 assistant 共用）—— 复用 `this._modelWithTools` 让 LLM 自主调工具，最多 `_MAX_TOOL_ITERATIONS` 轮，按 tool_call 名字在 `allTools` 里找工具执行（通过 `config.configurable.agentName` 传自己名字 + `expansionTerms` 传检索扩展词）；工具带 `metadata.risk`，`> low` 的执行前先发 `tool_approval_request` 等用户审批（HITL）；模型幻觉的未知工具跳过、只回占位 ToolMessage；(2) **Phase 2 结构化收尾** —— `withStructuredOutput(ModelOutputSchema)` 强制 LLM 输出 `{content, next_agent, done}` 三字段，`_buildAgentResponse` 把 `done` 字符串 coerce 成 bool、校验 `next_agent` 合法性。右侧 `AssistantAgent.answer()`（`agents/assistant.ts`）复用同一工具循环，但 Phase 2 改成纯自然语言流式收尾（不结构化、不路由），答完即 END。
+
+2. **`src/graph/`** — LangGraph 编排。`AgentStateAnnotation`（`Annotation.Root`）是共享状态（`messages` 用 `concat` reducer 追加、其他字段用 `(_e,u)=>u` 覆盖）。图入口先过 **预处理流水线** `graph/preprocess/`：`rewrite_node`（改写独立句 + 检索扩展词）→ `intent_node`（本地 NLI 意图识别 + 规则短路）→ `route_node`（按 top-1/top-2 **间距** `INTENT_ROUTE_MARGIN` 分流），再由 `routeAfterPreprocess` 条件边按 `state.route` 走 `assistant_node`（右侧回答助手单节点，答完即 END）或 `architect_node`（左侧团队）。左侧团队内 `routeToWhichAgent` 是 5 个角色节点共用的条件边，按 `iteration >= maxIterations` → `state.done` → `isAgentName(state.next_agent)` → `architect_node` 兜底的顺序决定下一节点。图 `compile({ checkpointer: PostgresSaver })`，被打断/崩溃的一轮留 checkpoint，可经 `chat.getResumable` / `chat.resume` / `chat.discardResumable` 续跑或放弃。
+
+3. **`src/database/`** — RAG + 持久化，**PostgreSQL（pgvector）+ 全本地模型**（embedding / rerank / 意图分类都走 `@huggingface/transformers`，不依赖 Cohere / ES）。目录已分子模块：`connection/`（`client.ts` 的 `pg.Pool` 单例 + 每 agent 一张表 `id text 主键 / content text / metadata jsonb / embedding vector(dim)`，`ensureExtensions()` 建 `vector` + `pg_trgm` 扩展、HNSW + GIN 索引；`constants.ts` 表名）、`models/`（`embedding.ts` 本地加载 `Xenova/all-MiniLM-L6-v2` 算 384 维；`reranker.ts` 本地 cross-encoder；`intentClassifier.ts` 本地 zero-shot NLI）、`ingestion/`（`initializer.loadSeedsToPg` 跑「load → split → embed → INSERT ... ON CONFLICT DO NOTHING」灌库，主键 `<agent>_md5(content)[:12]` 幂等）、`retrieval/`（`rag_retriever.RAGRetriever.retrieve(query)`：**并行关键字召回（`word_similarity` / pg_trgm）+ 向量 kNN（`<=>` cosine / pgvector）→ 按行 `id` 去重合并 → 送 `reranker.rerank()` 本地 cross-encoder（`Xenova/bge-reranker-base`）→ 按 relevanceScore 返回 top-K**，`RETRIEVE_TOP_N=20` / `RERANK_TOP_N=5`）、`chat/chatStore.ts`（sessions / messages 持久化 + 压缩状态 + 在途 thread 标记，按 owner 用户隔离）、`users/userStore.ts`（账号鉴权 + 个人记忆）。
+
+### 关键设计点
+
+- **路由协议从字符串标记改为结构化输出**：旧版本 Agent 在回复末尾写 `[NEXT_AGENT: name]` / `[DONE]` 再用正则解析；现在改为 zod `ModelOutputSchema = { content, next_agent, done }` + `withStructuredOutput`。已**没有** `_get_next_agent` 正则函数，解析与兜底都在 `_buildAgentResponse`：`done` 接受 `"true"/"yes"/"1"/"y"/"done"/"完成"` 视为真，`next_agent` 不在 `AGENT_NAMES` 里时兜底回 architect，保证图永远不卡死。
+- **invoke 是两阶段（先工具、后收尾）**：Phase 1 复用构造阶段已 bindTools 的 `this._modelWithTools`、不约束格式，让 LLM 自由调工具；Phase 2 只 `withStructuredOutput`、不带工具，追加一条 wrap-up 的 `HumanMessage` 要求按 `ModelOutput` 汇总。两阶段分开是因为「边调工具边强制结构化」在很多 OpenAI 兼容后端上不稳。
+- **工具集中在 `src/tools/`，结构刻意极简**：每个工具一个 `xxxTool.ts` 文件，**直接导出一个 LangChain `tool()` 单例**（不是工厂、没有 `ToolContext`/`types.ts`），如 `export const ragSearchTool = tool(...)`，并带 `metadata: { risk: "low"|"medium"|"high" }`。`toolRegister.ts` 导出 `ToolRegister` 类 + 单例，**在模块加载时**逐个 `register()` 本地工具拼成 `allTools` 并导出；`base.ts` 直接 import 这个 `allTools` 引用 `bindTools`（新增本地工具 = 新建文件 + 在 `toolRegister.ts` 加一行 import + 一行 `register`）。所有 agent 共用同一批工具单例。当前一批：`rag_search`（私有 RAG，见下）、`Read` / `list_dir` / `glob` / `grep` / `echo` / `list_processes` / `skill`（low）、`Edit` / `web_fetch`（medium）、`Write`（high），外加 MCP 注入的 `AIsearch`（联网搜索，见下）。文件类工具经 `pathAuth.ts` 做路径授权。
+- **RAG 工具靠 config 区分 agent**：`rag_search` 是单例，但要查哪个 agent 的私有表，由 `BaseAgent` 执行工具时通过 `RunnableConfig` 的 `configurable.agentName` 传入；工具内部 `getRetriever(agentName)`（`rag_retriever.ts` 里按 agent 名缓存的 `RAGRetriever` 单例表）拿到对应检索器。`BaseAgent.RAGRetriever` 也走同一个 `getRetriever(name)`，于是工具里的检索次数能被 `used_rag`（`callCount`）统计到。
+- **联网搜索 `AIsearch` 走外部 MCP**：[src/tools/mcp/mcpClient.ts](apps/runtime/src/tools/mcp/mcpClient.ts) 的 `initMcpTools()`（bootstrap 调，buildGraph 之前）用 `@langchain/mcp-adapters` 的 `MultiServerMCPClient` 连**百度 AI Search 的 MCP 服务**（SSE），`getTools()` 发现的工具（上游名 `AIsearch`，必填 `query`）异步 push 进 `allTools` 同一数组。它**与 agent 无关**（搜公网、忽略 config）；连接失败 / 未配 key 时只跳过、不挂启动。端点 + key 由 `.env` 的 `BAIDU_SEARCH_MCP_URL` / `BAIDU_SEARCH_API_KEY` 配（**端点要用 https**）。注意版本兼容 shim `wrapMcpToolWithZod`：1.1.3 的 MCP 工具 `.schema` 是 JSON Schema，本仓库 `@langchain/openai` 的 `bindTools` 假定 zod 会崩，故登记前现造等价 zod schema 再包一层——改 MCP 相关代码别动这层。`web_fetch`（`webFetchTool.ts`，medium）是另一个本地工具，直接抓 URL 正文，与 MCP 无关。
+- **RAG 是 Tool 不是 prompt 注入**：`src/tools/ragSearchTool.ts` 导出的 `ragSearchTool` 把 `getRetriever(agentName).retrieve()` 包成 LangChain `tool()`（名字 `rag_search`；`agentName` 来自调用时的 `config.configurable.agentName`，据此查对应 agent 的私有表），LLM 用 function-calling 自主决定是否调用。代价是模型必须支持 OpenAI function calling 协议。
+- **rerank 已本地化**：旧版调 Cohere `rerank-v4.0-pro` API；现在用 `@huggingface/transformers` 在本地跑 cross-encoder（默认 `Xenova/bge-reranker-base`，`dtype=q8`），逐条算 query↔候选 的 logit 过 sigmoid 当 relevanceScore。失败时降级为「原序返回前 N 条」（见 `reranker.rerank` 的 catch 分支），不让链路断。返回结构与旧 Cohere 版一致，上游 `rag_retriever` 无需改。
+- **embedding 也本地化**：`@huggingface/transformers` 的 feature-extraction pipeline 加载 `Xenova/all-MiniLM-L6-v2`（ONNX，`dtype=fp32`），mean pooling + 归一化，输出 384 维直接做余弦检索。
+- **预处理流水线（rewrite → intent → route）**：每轮入口跑一次、不计入 `iteration`。`rewrite_node` 用 LLM `withStructuredOutput` 产 `rewritten_query`（消解指代的独立句，喂 agent + 检索）+ `expansion_terms`（只透传给 `rag_search` 提召回）；`intent_node` 跑本地 NLI（`intentClassifier.ts`，懒加载单例），两条规则短路绕过脆弱 NLI——问候白名单 `CHITCHAT_GREETINGS`（整句匹配→闲聊）、开发关键词白名单 `TEAM_KEYWORDS`（**包含**匹配→开发需求）；`route_node` 按 **top-1/top-2 间距** `INTENT_ROUTE_MARGIN`（默认 0.08，不是绝对阈值——NLI 4 标签 softmax 贴近均匀线 0.25 绝对分几乎过不了）判可信，可信按意图分流（闲聊/知识问答→右侧助手，开发需求/任务指令→左侧团队），判定不了默认走助手。**注意**：旧版用绝对阈值 `intentRouteThreshold` + 兜底走团队，已改为间距 + 兜底走助手；state 里 `intent_score` 退化为仅展示、`intent_margin` 才是分流依据。
+- **HITL 工具审批**：工具 `metadata.risk > low` 时，`runToolLoop` 执行前发 `tool_approval_request` 事件并 `await toolApprovals.createPending(approvalId, signal)` 挂起，等前端 `toolApproval` RPC 兑现（`server/toolApprovals.ts` 持挂起 Promise）；拒绝则回占位字符串、不执行。
+- **断点续跑（checkpoint）**：图 `compile` 挂 `PostgresSaver`（`graph/checkpointer.ts` 单例，复用 `PG_URL`，自管 `checkpoint*` 表）。`runExecution` 每轮带 `thread_id` 跑并 `setPendingThread` 落在途标记；崩溃/打断后标记 + checkpoint 残留 = 可恢复信号，`chat.getResumable`（读 checkpoint 超出 DB 的发言）/ `chat.resume`（`resumeExecution` 传 `null` 从最后 checkpoint 续）/ `chat.discardResumable`（清标记 + 删 checkpoint）据此工作。
+- **上下文压缩**：`server/compaction.ts` 的 `compactSession`（`chat.compact` 触发）把边界前历史滚动总结成 `sessions.summary`（+ `summarized_through_seq` 边界）；喂 LLM 的历史走 `getContextMessages`（摘要 + 边界后尾部），`messages` 表不动，前端展示仍全量。
+- **用户账号 + 个人记忆**：`users` 表（`userStore.ts`，种子 admin/admin）做登录鉴权；会话按 `owner` 用户名隔离；个人记忆 `getMemory(owner)` 在每轮经 `userMemory` 透传、`memorySection` 拼进各 agent systemPrompt 最前（CLI / 未登录为空串）。
+- **模型热切换**：`model.set` 调 `setModelOverrides` 写进程内覆盖 + 清 settings 缓存，再 `buildGraph()` 重建图（agent 只在构造期读 settings，必须重建才生效）；进行中的那轮已捕获旧 graph 引用，下一轮才换。
+- **路径相对性**：`config/settings.ts` 里 `resolveRel` 作为 zod `.transform` 把 `.env` 里 `SEED_DATA_PATH=./data/seed`、`EMBEDDING_CACHE_DIR=./models` 这类相对路径自动锚定到 `PROJECT_ROOT`。不要去掉这个 transform，否则从 IDE / 不同 cwd 启动会找不到种子 / 模型目录。
+- **首次启动会下载模型到 `./models/`**：embedding `Xenova/all-MiniLM-L6-v2` ~80MB；reranker `Xenova/bge-reranker-base`（q8）~280MB。都是一次性，缓存目录由 `EMBEDDING_CACHE_DIR` 决定（reranker 复用同一目录）。**没有 torch 依赖**，纯 ONNX 运行时，依赖体积很小。
+- **种子目录结构**：`data/seed/<agent>/*.{json,pdf,docx,md,txt}` —— 把任意支持的文件丢进对应 agent 子目录即可。`loaders.ts` 按后缀分发，`splitters.ts` 再按 `type` 字段二次切块。目录不存在时回退旧布局 `data/seed/<agent>_seeds.json`。重灌某 agent 用 `resetAgentDb('xxx')`；抹整库用 `docker compose down -v`。
+- **PostgreSQL 是硬依赖**：CLI 启动会 `pingDb()`（`SELECT 1`），挂了直接 `process.exit(1)`。本地默认走 `docker-compose.yml` 起的 `pgvector/pgvector:pg17` 单节点（用户 / 库 / 密码都是 `meetmind`，宿主机端口 **5433**）。生产改 `.env` 的 `PG_URL` 指向已有实例即可（连接串自带账号密码）。**镜像必须带 pgvector 扩展**——stock `postgres` 镜像没有 `vector`，向量检索会建表失败。
+
+## 这个仓库的命名习惯（重要：不要"修正"）
+
+仓库主人保留了一些**有意为之**的命名，遇到时请遵循，不要自动重命名：
+
+| 项                       | 当前命名                                                                                                                                        | 备注                                                                                                                                                                                                                |
+|-------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `BaseAgent` 实例上的 RAG 引用 | `this.RAGRetriever`                                                                                                                         | 刻意 PascalCase，不是 `this.ragRetriever`                                                                                                                                                                              |
+| State / 响应字段            | `next_agent` / `agent_name` / `used_rag` / `done`                                                                                           | 刻意 snake_case，会序列化进 LangGraph state，统一用 snake_case 不混 camelCase                                                                                                                                                   |
+| 历史条目类型                  | `AgentResponse`（`base.ts`）                                                                                                                  | `AgentState.messages` 直接存 `AgentResponse[]`，`createNode` 把整条 `response` push 进去                                                                                                                                   |
+| 图节点名                    | `` `${name}_node` ``                                                                                                                        | snake_case 后缀，如 `architect_node`                                                                                                                                                                                  |
+| BaseAgent prompt 拼装     | `_userPrompt(requirement, history)` / `_routingPrompt()`                                                                                    | 不是 `_buildUserPrompt` / `_routingInstructions`                                                                                                                                                                    |
+| BaseAgent 主方法           | `invoke(requirement, conversationHistory)`                                                                                                  | 不是 `process()`                                                                                                                                                                                                    |
+| 路由 / 收尾解析               | `_buildAgentResponse(output)`                                                                                                               | 结构化输出后构造 AgentResponse；**没有** `_getNextAgent` / `_parseRouting`（旧正则方案已删）                                                                                                                                          |
+| 字符清理                    | `cleanBadChars(text)`                                                                                                                       | 模块级导出函数                                                                                                                                                                                                           |
+| RAG 检索器                 | `RAGRetriever.restart()` / `.retrieve()` / `getRetriever(name)`                                                                             | 不是 `resetTracking()`；直接查 PostgreSQL，不需要 `markDirty()`。每 agent 一个实例由 `rag_retriever.getRetriever(name)` 缓存；包成 LangChain Tool 的逻辑在 `src/tools/ragSearchTool.ts`（`ragSearchTool` 单例），`RAGRetriever` 上不再有 `getTool()` |
+| 工具 / 登记表                | `src/tools/*Tool.ts` 直接 `export const xxxTool = tool(...)` / `toolRegister.ts` 导出 `ToolRegister` 类，并**在模块加载时** `register()` 拼出 `allTools`（base.ts 直接 import 这个引用，不自己 register） | 工具是单例，不是工厂；没有 `ToolContext`/`types.ts`。RAG 用 `config.configurable.agentName` 在调用时区分 agent，检索器走 `rag_retriever.getRetriever(name)` 缓存                                                                              |
+| Initializer 私函数         | `loadSeedsToPg` / `getSeedsContent` / `generateDocId` / `getExistingIds`                                                                    | 单 agent 灌库入口是 `loadSeedsToPg`（ES 时代叫 `loadSeedsToEs`），不是 `_populateOneAgent`                                                                                                                                      |
+| Initializer 入口 / 重置     | `buildAgentsTables()` / `resetAgentDb(agent)`                                                                                               | 给所有 agent 建 PostgreSQL 表 + 灌种子                                                                                                                                                                                    |
+| PostgreSQL 连接池 / 表      | `getPgPool()` / `ensureExtensions()` / `ensureAgentTable(agent)` / `countDocs(agent)` / `deleteAgentTable(agent)`                           | 表名由 `getTableName(agent)` → `<prefix>_<agent>`（ES 时代是 `getEsClient` / `ensureAgentIndex` / `getIndexName`）                                                                                                        |
+| CLI 复盘 / 输出             | `printRoundReview(state)` / `printAgentInfo(...)`                                                                                           | 不是 `formatAgentOutput()`                                                                                                                                                                                          |
+| State 完成字段              | `state.done`                                                                                                                                | 不是 `complete`                                                                                                                                                                                                     |
+| 消息发送时间                  | 后端 `AgentResponse.created_at`（只读）/ 前端 `Bubble.createdAt`（epoch 毫秒）                                                                          | 仅前端展示发送时间。`created_at` 只由 `getMessages` 回填（DB 列 `DEFAULT now()` 自动生成），**不由 `appendMessages` 写、不进 LLM**；前端 live 气泡用 `Date.now()`、历史气泡用 DB `created_at`，`MessageBubble` 格式化成 `2026-6-2 18:23`                       |
+| 结构化输出 schema            | `ModelOutputSchema` / `ModelOutput`                                                                                                         | zod schema + 推导类型                                                                                                                                                                                                 |
+
+写注释优先用中文，符合现有风格。
+
+## 容易踩的坑
+
+- **runtime 用 tsx 起、不 watch**：`apps/runtime` 的 `pnpm dev` = `tsx src/index.ts`，**改了服务端代码（尤其 `server/rpcServer.ts` 新增 method）后必须重启 runtime 进程**，否则前端调新 method 会收到 `未知方法: xxx`。「会话重命名失效」一类问题先怀疑这个——老进程跑旧代码，非代码 bug。前端 `apps/desktop` 走 vite，有 HMR 不用重启。
+- **复现前端 bug 的最短路**：`pnpm dev:runtime`(3002) + `pnpm dev:desktop`(5173)，vite 把 `/api`、`/events` 代理到 3002；用浏览器（Playwright 连 5173）实操，比起 Tauri 外壳快。改完别忘按上一条重启 runtime。
+- **本轮结束要清空气泡**：`apps/desktop` 的 `chat` store `finishRound` 会 `pop` 掉末尾「已建但没吐出任何字」的 agent 占位气泡（`!isUser && text===""`），否则它会被 `MessageBubble.thinking` 判定为思考中、`TypingDots` 一直跳停不下来；被打断的本轮不落库，删掉正合适。
+- **进程入口顺序**：`src/index.ts` 必须先 `config()`（dotenv）再动态 `import("./cli/main.js")`，因为 LangSmith 等 SDK 在 import 时就读 `process.env`。另外 `settings.ts` 在 import 期也会自行 `loadDotenv`，所以单独 import 模块跑脚本（如 reset）时也能读到 .env。
+- **import 路径要带 `.js` 后缀**：项目是 ESM + NodeNext，所有相对 import 写成 `./foo.js`（即便源文件是 `foo.ts`）。这是 TS 在 NodeNext 下的硬要求，不是笔误。
+- **stdin 编码**：`cli/main.ts` 里 `process.stdin.setEncoding("utf8")` + `BaseAgent.invoke` 里的 `cleanBadChars` 是两道防线，避免中文输入产生孤立 UTF-16 surrogate 导致下游 HTTP 客户端序列化崩。两者都要保留。
+- **rerank/embedding 失败降级**：所有检索直接查 PostgreSQL，无内存索引，灌库后无需通知 RAGRetriever。本地 rerank 模型加载或前向失败时，`rerank` 内部降级为「原序返回前 N 条」（score=0），不会让链路完全断；关键字 / 向量任一路检索 SQL 抛错时，`KeyWordSearch` / `VectorSearch` 各自 catch 返回空数组，另一路仍可独立工作。
+- **关键字召回用 `pg_trgm` 的 `word_similarity`**：对中文按 trigram（3 字一组）算重叠，比 jieba 粗、比 ES `standard` 单字切更严（只在有 3 字共现时才命中）。**但因为后面有本地 cross-encoder rerank + 向量 kNN 兜底**，关键字粗一点没关系。`KeyWordSearch` 用 `WHERE word_similarity($1, content) > 0` 只取有重叠的候选；想要精细中文分词可装 `pg_jieba` / `zhparser` 改走 tsvector 全文检索。
+- **向量维度建表时确定**：`ensureAgentTable` 建表前会先 `getEmbedModelDim()` 探一次维度（跑一条样本 embedding），列类型是 `vector(dim)`。换 embedding 模型会改维度 → 旧表不兼容，得 `deleteAgentTable` 或 `docker compose down -v` 重建。
+- **LangGraph 节点返回值按 Annotation 合并进 State**：`messages` 走 `concat` reducer 追加，其他字段覆盖。在 `createNode` 闭包里只 return 增量更新即可。
+- **表名约定** `<pg_table_prefix>_<agent>`（默认 `meetmind_architect` 等）。换前缀（`PG_TABLE_PREFIX`）后旧表不会自动迁移，得手动迁移或 `docker compose down -v` 重灌。表名只由受控 prefix + 固定 agent 名拼成（合法标识符），所以 DDL / 检索 SQL 里直接字符串内插表名是安全的，而正文 / 向量 / 参数一律走 `$n` 占位符。
+- **`.env.example` 里的 `EMBEDDING_MODEL_NAME` 写的是 `sentence-transformers/...`**，但 `settings.ts` 默认值是 `Xenova/all-MiniLM-L6-v2`。`@huggingface/transformers` 需要带 ONNX 权重的仓库（`Xenova/*`），改 embedding 模型时注意选 ONNX 版，否则加载会失败。
+
+## 编码风格
+
+**核心原则：代码首先是写给人看的，不是给机器优化的。** 任何陌生人第一次读代码，不应该需要反向推导才能明白每一行在做什么。这条在 TS 版同样成立——现有代码到处是显式 `for` 循环 + 具名中间变量，而不是 `.map().filter()` 链。
+
+具体禁止的写法：
+
+- **禁止数组方法链做数据管道**（`xs.map(...).filter(...).reduce(...)`）：用显式 `for` 循环 + `push` / 赋值替代；
+- **禁止嵌套 / 复杂三元表达式**：多分支或带副作用的判断用 `if/else` 块展开，每个分支单独一行；
+- **禁止多层链式调用**（`a.b().c()` 或 `fn1(fn2(x))`）：把每一步的结果赋给一个有名字的中间变量，再传给下一步；
+- **中间结果必须命名**：每一步计算产生的值，用一个见名知意的变量名存起来，不要直接嵌入下一层调用。
+
+例外：以下场景不受此限制——
+
+- 单层、语义一目了然的三元用于「默认值 / 类型收窄」（如 `typeof x === "string" ? x : ""`、`date ? a : b`）以及 `??` / 可选链 `?.`；
+- `Array.join()` 的直接用法（`lines.join("\n")`），前提是 `lines` 已经是具名变量；
+- `logger.info(...)` 等日志调用内部的简单模板字符串；
+- 两层以内、语义一目了然的属性访问（`settings.pgUrl`）。
+
+## 项目入口
+
+`src/index.ts` 是薄壳：`config()` 加载 .env，再动态 `import("./cli/main.js")` 调 `main()`。真正的 CLI 逻辑在 `src/cli/main.ts:main()`。
 
 ---
 > Source: [superman1006/MeetMind](https://github.com/superman1006/MeetMind) — distributed by [TomeVault](https://tomevault.io).
