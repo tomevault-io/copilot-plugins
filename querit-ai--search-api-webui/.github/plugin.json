@@ -1,0 +1,9 @@
+{
+  "name": "querit-ai--search-api-webui",
+  "displayName": "search-api-webui",
+  "description": "Python WebUI with native Mac/Windows Apps for testing, comparing, and visualizing Search APIs (Querit, You, Tavily, Exa, Baidu, Brave, Parallel etc.).",
+  "version": "1.0.0",
+  "author": "querit-ai",
+  "homepage": "https://github.com/querit-ai/search-api-webui",
+  "skills": []
+}
