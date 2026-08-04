@@ -1,0 +1,9 @@
+{
+  "name": "tigerless-labs--phi-boundary-gate",
+  "displayName": "phi-boundary-gate",
+  "description": "Detect, gate, redact, and report PHI candidate flows across healthcare and insurance AI prompts, RAG, tools, memory, logs, and provider boundaries.",
+  "version": "1.0.0",
+  "author": "tigerless-labs",
+  "homepage": "https://github.com/tigerless-labs/phi-boundary-gate",
+  "skills": []
+}
