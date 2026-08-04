@@ -2,9 +2,9 @@
   "name": "neurostack",
   "owner": "raphasouthall",
   "repo": "neurostack",
-  "description": "Your second brain, starting today. CLI + MCP server that helps you build, maintain, and search a knowledge vault that gets better every day. Works with any AI provider. Local-first, zero-prereq install.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/raphasouthall/neurostack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T05:31:33Z"
+  "distributed_at": "2026-08-04T19:35:31Z"
 }
