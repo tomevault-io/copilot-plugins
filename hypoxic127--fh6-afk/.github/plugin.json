@@ -1,0 +1,9 @@
+{
+  "name": "hypoxic127--fh6-afk",
+  "displayName": "FH6-AFK",
+  "description": "Fully autonomous AFK skill point and super wheelspin farming bot for Forza Horizon 6 - computer-vision perception + virtual Xbox 360 controller, with a real-time web dashboard.",
+  "version": "1.0.0",
+  "author": "hypoxic127",
+  "homepage": "https://github.com/hypoxic127/FH6-AFK",
+  "skills": []
+}
