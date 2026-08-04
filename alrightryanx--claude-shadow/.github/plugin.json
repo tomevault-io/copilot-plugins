@@ -1,0 +1,9 @@
+{
+  "name": "alrightryanx--claude-shadow",
+  "displayName": "claude-shadow",
+  "description": "Claude Code plugin - Get push notifications on your phone when Claude Code needs input. Approve, deny, or reply from ShadowAI Android app.",
+  "version": "1.0.0",
+  "author": "alrightryanx",
+  "homepage": "https://github.com/alrightryanx/claude-shadow",
+  "skills": []
+}
