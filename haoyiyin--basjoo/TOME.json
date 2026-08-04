@@ -2,9 +2,9 @@
   "name": "basjoo",
   "owner": "haoyiyin",
   "repo": "basjoo",
-  "description": "AI customer support platform with a FastAPI backend, Next.js admin dashboard, embeddable chat widget, and Qdrant-powered knowledge   retrieval.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/haoyiyin/basjoo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T11:36:02Z"
+  "distributed_at": "2026-08-04T21:51:29Z"
 }
