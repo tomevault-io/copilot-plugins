@@ -1,0 +1,14 @@
+## codestable-lite
+
+> 更新 `cs` 的核心结构或行动模式时，同步检查相关 references、templates、scripts 和 README，避免同一契约出现两套表述。
+
+
+
+更新 `cs` 的核心结构或行动模式时，同步检查相关 references、templates、scripts 和 README，避免同一契约出现两套表述。
+
+
+单个 skill 或 `codestable/` 工作文档应当适当精简，但不设统一行数上限。优先完整说明会影响理解和判断的背景、结构、原则与契约；当细节只在特定场景需要、偏离主线或已经妨碍阅读时，再按渐进式披露抽到同 skill 或同实体目录下的 references/templates/scripts/相邻子文档，并在入口文件里清楚指过去。不要为了缩短文件硬压缩或拆散核心叙事。
+
+---
+> Source: [codestable/CodeStable-Lite](https://github.com/codestable/CodeStable-Lite) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-28 -->
