@@ -1,0 +1,9 @@
+{
+  "name": "foundry-rs--foundry-toolchain",
+  "displayName": "foundry-toolchain",
+  "description": "foundry-toolchain",
+  "version": "1.0.0",
+  "author": "foundry-rs",
+  "homepage": "https://github.com/foundry-rs/foundry-toolchain",
+  "skills": []
+}
