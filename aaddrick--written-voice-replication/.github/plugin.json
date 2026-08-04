@@ -1,0 +1,9 @@
+{
+  "name": "aaddrick--written-voice-replication",
+  "displayName": "written-voice-replication",
+  "description": "A Claude Code pipeline that analyzes text corpora and produces voice-replication prompts",
+  "version": "1.0.0",
+  "author": "aaddrick",
+  "homepage": "https://github.com/aaddrick/written-voice-replication",
+  "skills": []
+}
