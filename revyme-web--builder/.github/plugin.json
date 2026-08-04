@@ -1,0 +1,9 @@
+{
+  "name": "revyme-web--builder",
+  "displayName": "builder",
+  "description": "Revyme's website builder.",
+  "version": "1.0.0",
+  "author": "revyme-web",
+  "homepage": "https://github.com/revyme-web/builder",
+  "skills": []
+}
