@@ -1,0 +1,9 @@
+{
+  "name": "artursepp--trendfollowingsystems",
+  "displayName": "TrendFollowingSystems",
+  "description": "Closed-form Sharpe ratios and complete implementations of trend-following systems - companion to Sepp & Lucic (SSRN 3167787)",
+  "version": "1.0.0",
+  "author": "ArturSepp",
+  "homepage": "https://github.com/ArturSepp/TrendFollowingSystems",
+  "skills": []
+}
