@@ -1,0 +1,9 @@
+{
+  "name": "lucadeltort--delcard-games",
+  "displayName": "delcard_games",
+  "description": "Peer-to-peer card games you can play with friends, no server needed. Built with SvelteKit & WebRTC.",
+  "version": "1.0.0",
+  "author": "LucaDeltort",
+  "homepage": "https://github.com/LucaDeltort/delcard_games",
+  "skills": []
+}
