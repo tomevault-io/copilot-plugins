@@ -1,8 +1,6 @@
 # RWKV_APP
 
-> Source: [RWKV-APP/RWKV_APP](https://github.com/RWKV-APP/RWKV_APP) — distributed by [TomeVault](https://tomevault.io)
-
-A fast, lightweight, and extensible RWKV chat UI powered by Flutter. Offline-ready, multi-backend support, ideal for local RWKV inference.
+> Source: [RWKV-APP/RWKV_APP](https://github.com/RWKV-APP/RWKV_APP). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [RWKV-APP/RWKV_APP](https://github.com/RWKV-APP/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [RWKV-APP/RWKV_APP](https://github.com/RWKV-APP/RWKV_APP) — a repo with 93+ stars on GitHub.
+From [RWKV-APP/RWKV_APP](https://github.com/RWKV-APP/RWKV_APP) — a repo with 107+ stars on GitHub.
 
 ---
 
