@@ -4,7 +4,7 @@
   "repo": "ARI",
   "description": "ARI \u2014 Artificial Reasoning Intelligence. Personal AI operating system with 7-layer architecture, three-pillar cognition (LOGOS/ETHOS/PATHOS), constitutional governance, and tamper-evident SHA-256 audit trails. Local-first. Multi-agent. TypeScript.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ari-OS/ARI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T08:31:33Z"
+  "distributed_at": "2026-08-04T18:05:07Z"
 }
