@@ -1,0 +1,9 @@
+{
+  "name": "dosu-ai--dosu-cli",
+  "displayName": "dosu-cli",
+  "description": "\ud83d\udd01 The Dosu CLI Utility",
+  "version": "1.0.0",
+  "author": "dosu-ai",
+  "homepage": "https://github.com/dosu-ai/dosu-cli",
+  "skills": []
+}
