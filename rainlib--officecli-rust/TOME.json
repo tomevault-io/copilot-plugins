@@ -1,10 +1,10 @@
 {
-  "name": "OfficeCli-rust",
+  "name": "OfficeCLI-rust",
   "owner": "RainLib",
-  "repo": "OfficeCli-rust",
-  "description": "",
+  "repo": "OfficeCLI-rust",
+  "description": "A pure-Rust CLI for AI agents to create, read, modify, and render Office documents and PDFs.",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/RainLib/OfficeCli-rust",
+  "source_url": "https://github.com/RainLib/OfficeCLI-rust",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T10:39:12Z"
+  "distributed_at": "2026-08-04T14:02:33Z"
 }
