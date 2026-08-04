@@ -2,9 +2,9 @@
   "name": "trace-mcp",
   "owner": "nikolai-vysotskyi",
   "repo": "trace-mcp",
-  "description": "MCP server for Claude Code and Codex. One tool call replaces ~42 minutes of agent exploration",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nikolai-vysotskyi/trace-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T21:10:57Z"
+  "distributed_at": "2026-08-04T18:12:08Z"
 }
