@@ -1,0 +1,9 @@
+{
+  "name": "avikde--tiny-xpu",
+  "displayName": "tiny-xpu",
+  "description": "Modular systolic array with software interface",
+  "version": "1.0.0",
+  "author": "avikde",
+  "homepage": "https://github.com/avikde/tiny-xpu",
+  "skills": []
+}
