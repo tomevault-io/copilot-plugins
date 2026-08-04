@@ -1,0 +1,9 @@
+{
+  "name": "onebusaway--waystation",
+  "displayName": "waystation",
+  "description": "Transportation information display built with SvelteKit",
+  "version": "1.0.0",
+  "author": "OneBusAway",
+  "homepage": "https://github.com/OneBusAway/waystation",
+  "skills": []
+}
