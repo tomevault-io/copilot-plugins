@@ -1,0 +1,9 @@
+{
+  "name": "vailsen--paperless-brain",
+  "displayName": "paperless-brain",
+  "description": "AI brain for your Paperless-ngx archive \u2014 chat with your documents via local (Ollama) or cloud  LLMs, with agentic tool use, semantic search, and long-term memory.",
+  "version": "1.0.0",
+  "author": "vailsen",
+  "homepage": "https://github.com/vailsen/paperless-brain",
+  "skills": []
+}
