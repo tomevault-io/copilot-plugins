@@ -1,0 +1,9 @@
+{
+  "name": "mihiarc--pyfia",
+  "displayName": "pyfia",
+  "description": "High-performance Python toolkit for USDA Forest Inventory & Analysis (FIA) data \u2014 Polars + DuckDB, design-based estimates matching EVALIDator",
+  "version": "1.0.0",
+  "author": "mihiarc",
+  "homepage": "https://github.com/mihiarc/pyfia",
+  "skills": []
+}
