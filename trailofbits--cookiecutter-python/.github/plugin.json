@@ -1,0 +1,9 @@
+{
+  "name": "trailofbits--cookiecutter-python",
+  "displayName": "cookiecutter-python",
+  "description": "cookiecutter-python",
+  "version": "1.0.0",
+  "author": "trailofbits",
+  "homepage": "https://github.com/trailofbits/cookiecutter-python",
+  "skills": []
+}
