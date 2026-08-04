@@ -2,9 +2,9 @@
   "name": "growlrrr",
   "owner": "moltenbits",
   "repo": "growlrrr",
-  "description": "A modern CLI focused notification tool",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/moltenbits/growlrrr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T16:51:35Z"
+  "distributed_at": "2026-08-04T05:54:57Z"
 }
