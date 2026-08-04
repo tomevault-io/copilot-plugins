@@ -1,0 +1,9 @@
+{
+  "name": "metal3-io--ironic-image",
+  "displayName": "ironic-image",
+  "description": "ironic-image",
+  "version": "1.0.0",
+  "author": "metal3-io",
+  "homepage": "https://github.com/metal3-io/ironic-image",
+  "skills": []
+}
