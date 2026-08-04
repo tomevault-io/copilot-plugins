@@ -1,0 +1,9 @@
+{
+  "name": "nimble-giant--ailloy",
+  "displayName": "ailloy",
+  "description": "The package manager for AI instructions. Author, compile, package, and distribute reusable & agnostic AI workflow packages \u2014 like Helm, but for AI agents.",
+  "version": "1.0.0",
+  "author": "nimble-giant",
+  "homepage": "https://github.com/nimble-giant/ailloy",
+  "skills": []
+}
