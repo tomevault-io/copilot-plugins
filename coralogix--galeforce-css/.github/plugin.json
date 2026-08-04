@@ -1,0 +1,9 @@
+{
+  "name": "coralogix--galeforce-css",
+  "displayName": "galeforce-css",
+  "description": "Tailwind v3 rust compiler",
+  "version": "1.0.0",
+  "author": "coralogix",
+  "homepage": "https://github.com/coralogix/galeforce-css",
+  "skills": []
+}
