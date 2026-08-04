@@ -1,0 +1,9 @@
+{
+  "name": "buzzer-re--tocode",
+  "displayName": "ToCode",
+  "description": "Transform binaries into source-code-like projects that coding agents can traverse, analyze, and use as an oracle for large binaries. Supports IDA Pro, radare2, angr and Binary Ninja.",
+  "version": "1.0.0",
+  "author": "buzzer-re",
+  "homepage": "https://github.com/buzzer-re/ToCode",
+  "skills": []
+}
