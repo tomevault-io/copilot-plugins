@@ -1,0 +1,9 @@
+{
+  "name": "0xnyn--canary",
+  "displayName": "canary",
+  "description": "QA harness built for Claude Code | E2E testing with screen recordings, console logs, network HARs, and Playwright traces",
+  "version": "1.0.0",
+  "author": "0xnyn",
+  "homepage": "https://github.com/0xnyn/canary",
+  "skills": []
+}
