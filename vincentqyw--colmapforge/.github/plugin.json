@@ -1,0 +1,9 @@
+{
+  "name": "vincentqyw--colmapforge",
+  "displayName": "colmapforge",
+  "description": "A simple tool to prepare video & images for COLMAP 3D reconstruction.",
+  "version": "1.0.0",
+  "author": "Vincentqyw",
+  "homepage": "https://github.com/Vincentqyw/colmapforge",
+  "skills": []
+}
