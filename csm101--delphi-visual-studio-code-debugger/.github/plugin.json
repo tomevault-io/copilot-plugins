@@ -1,0 +1,9 @@
+{
+  "name": "csm101--delphi-visual-studio-code-debugger",
+  "displayName": "delphi-visual-studio-code-debugger",
+  "description": "A debugger for delphi in visual studio code, and also a MCP server to give claude/copilot/etc authonomous delphi debugging capabilities",
+  "version": "1.0.0",
+  "author": "csm101",
+  "homepage": "https://github.com/csm101/delphi-visual-studio-code-debugger",
+  "skills": []
+}
