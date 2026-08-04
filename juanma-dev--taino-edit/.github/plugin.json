@@ -1,0 +1,9 @@
+{
+  "name": "juanma-dev--taino-edit",
+  "displayName": "taino-edit",
+  "description": "An extensible, tree-based rich text editor for Rust and Leptos...",
+  "version": "1.0.0",
+  "author": "juanma-dev",
+  "homepage": "https://github.com/juanma-dev/taino-edit",
+  "skills": []
+}
