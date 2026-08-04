@@ -1,12 +1,11 @@
-## technologies
+## testing-approach
 
-> Key technologies used in the CodeLogic MCP Server project
+> Testing approach for the CodeLogic MCP Server
 
-- Python 3.13+ with extensive use of async/await
-- Model Context Protocol SDK (`mcp[cli]`)
-- HTTPX for API requests
-- Environment variables via dotenv for configuration
-- CodeLogic graph HTTP API under `/ai-retrieval/graph/` for `codelogic-graph-*` tools
+- Use unit tests for functions without external dependencies
+- Use integration tests for tests against a real CodeLogic server
+- Set the `CODELOGIC_TEST_MODE` environment variable for test runs
+- Test both success cases and error handling patterns
 
 ---
 > Source: [lineai-intelligence/codelogic-mcp-server](https://github.com/lineai-intelligence/codelogic-mcp-server) — distributed by [TomeVault](https://tomevault.io).
