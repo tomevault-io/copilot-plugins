@@ -1,0 +1,9 @@
+{
+  "name": "yasunori0418--nput",
+  "displayName": "nput",
+  "description": "Place nix store paths (whole repo, subdirectory, or single file) at arbitrary user paths via symlink or copy \u2014 a placement primitive that doesn't generate config.",
+  "version": "1.0.0",
+  "author": "yasunori0418",
+  "homepage": "https://github.com/yasunori0418/nput",
+  "skills": []
+}
