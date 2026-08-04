@@ -1,0 +1,9 @@
+{
+  "name": "fossisawesome--firmium",
+  "displayName": "firmium",
+  "description": "firmium; a awesome music player! supports: android tv, wearOS, android auto, mac, windows, freebsd, linux, and android. can be used with any subsonic/opensubsonic server. supports local files too!",
+  "version": "1.0.0",
+  "author": "fossisawesome",
+  "homepage": "https://github.com/fossisawesome/firmium",
+  "skills": []
+}
