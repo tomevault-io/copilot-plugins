@@ -1,7 +1,7 @@
 {
   "name": "dremio--dremio-mcp",
   "displayName": "dremio-mcp",
-  "description": "Dremio MCP server",
+  "description": "dremio-mcp",
   "version": "1.0.0",
   "author": "dremio",
   "homepage": "https://github.com/dremio/dremio-mcp",
