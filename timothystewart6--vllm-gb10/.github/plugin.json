@@ -1,0 +1,9 @@
+{
+  "name": "timothystewart6--vllm-gb10",
+  "displayName": "vllm-gb10",
+  "description": "Bleeding edge vLLM Docker image for the NVIDIA DGX Spark (GB10 / sm_121a).",
+  "version": "1.0.0",
+  "author": "timothystewart6",
+  "homepage": "https://github.com/timothystewart6/vllm-gb10",
+  "skills": []
+}
