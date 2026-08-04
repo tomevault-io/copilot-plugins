@@ -1,0 +1,9 @@
+{
+  "name": "fermionresearch--llama-cpp",
+  "displayName": "llama.cpp",
+  "description": "Fermion Research fork of llama.cpp: FV5/FV5B five-value ternary types for Neutrino GGUF packs (CPU + CUDA)",
+  "version": "1.0.0",
+  "author": "fermionresearch",
+  "homepage": "https://github.com/fermionresearch/llama.cpp",
+  "skills": []
+}
