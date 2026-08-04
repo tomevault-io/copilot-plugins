@@ -1,11 +1,12 @@
-## about-codebase
+## best-practices
 
-> General information about the CodeLogic MCP Server codebase and its purpose
+> Best practices for working with the CodeLogic MCP Server codebase
 
-- This repository contains a Model Context Protocol (MCP) server that integrates with CodeLogic's knowledge graph APIs
-- It enables AI programming assistants to access dependency data from CodeLogic to analyze code and database impacts
-- Tools: `codelogic-method-impact`, `codelogic-database-impact`, and `codelogic-graph-*` (capabilities, search, impact, path-explain, validate-change-scope, owners)
-- The core package is in `src/codelogic_mcp_server/` with `server.py`, `handlers/` (package), and `utils.py`
+- Use semantic search before grep for broader context
+- Maintain proper error handling and logging
+- Keep code changes atomic and focused
+- Prefer graph tools (`codelogic-graph-*`) for discovery when available; fall back to method/database impact tools
+- Return results as clear markdown for AI assistants
 
 ---
 > Source: [lineai-intelligence/codelogic-mcp-server](https://github.com/lineai-intelligence/codelogic-mcp-server) — distributed by [TomeVault](https://tomevault.io).
