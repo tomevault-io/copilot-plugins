@@ -1,0 +1,9 @@
+{
+  "name": "pulumi--pulumi-dotnet",
+  "displayName": "pulumi-dotnet",
+  "description": "pulumi-dotnet",
+  "version": "1.0.0",
+  "author": "pulumi",
+  "homepage": "https://github.com/pulumi/pulumi-dotnet",
+  "skills": []
+}
