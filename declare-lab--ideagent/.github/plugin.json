@@ -1,0 +1,9 @@
+{
+  "name": "declare-lab--ideagent",
+  "displayName": "IDEAgent",
+  "description": "Agentic Quality-Diversity Search for Research Idea Generation",
+  "version": "1.0.0",
+  "author": "declare-lab",
+  "homepage": "https://github.com/declare-lab/IDEAgent",
+  "skills": []
+}
