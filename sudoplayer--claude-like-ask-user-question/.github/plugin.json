@@ -1,0 +1,9 @@
+{
+  "name": "sudoplayer--claude-like-ask-user-question",
+  "displayName": "Claude-like-ask-user-question",
+  "description": "Interactive agent-side questions in OpenWebUI \u2014 LangGraph interrupt + injected JS widgets.",
+  "version": "1.0.0",
+  "author": "sudoplayer",
+  "homepage": "https://github.com/sudoplayer/Claude-like-ask-user-question",
+  "skills": []
+}
