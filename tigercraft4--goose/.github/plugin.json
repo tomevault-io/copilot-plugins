@@ -1,0 +1,9 @@
+{
+  "name": "tigercraft4--goose",
+  "displayName": "goose",
+  "description": "Self-hosted WHOOP biometric platform \u2014 iOS (SwiftUI + Rust) + Android, BLE data capture, zero external dependencies.",
+  "version": "1.0.0",
+  "author": "tigercraft4",
+  "homepage": "https://github.com/tigercraft4/goose",
+  "skills": []
+}
