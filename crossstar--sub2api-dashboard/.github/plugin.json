@@ -1,0 +1,9 @@
+{
+  "name": "crossstar--sub2api-dashboard",
+  "displayName": "sub2api-dashboard",
+  "description": "Security-focused read-only quota dashboard for sub2api",
+  "version": "1.0.0",
+  "author": "CrossStar",
+  "homepage": "https://github.com/CrossStar/sub2api-dashboard",
+  "skills": []
+}
