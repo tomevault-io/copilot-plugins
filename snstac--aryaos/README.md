@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [snstac/aryaos](https://github.com/snstac/aryaos).
+Original source: `AGENTS.md` in [snstac/aryaos](https://github.com/snstac/aryaos).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [snstac/aryaos](https://github.com/snstac/aryaos) — a repo with 73+ stars on GitHub.
+From [snstac/aryaos](https://github.com/snstac/aryaos) — a repo with 71+ stars on GitHub.
 
 ---
 
