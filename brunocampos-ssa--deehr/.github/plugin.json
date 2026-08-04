@@ -1,0 +1,9 @@
+{
+  "name": "brunocampos-ssa--deehr",
+  "displayName": "deEHR",
+  "description": "Open-source, patient-owned Electronic Health Record platform \u2014 FHIR/SMART standards with Klever blockchain anchoring",
+  "version": "1.0.0",
+  "author": "brunocampos-ssa",
+  "homepage": "https://github.com/brunocampos-ssa/deEHR",
+  "skills": []
+}
