@@ -1,0 +1,9 @@
+{
+  "name": "devdanzin--labeille",
+  "displayName": "labeille",
+  "description": "Hunt for CPython JIT bugs by running real-world test suites",
+  "version": "1.0.0",
+  "author": "devdanzin",
+  "homepage": "https://github.com/devdanzin/labeille",
+  "skills": []
+}
