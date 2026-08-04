@@ -1,0 +1,44 @@
+{
+  "name": "subagents-vs-teams",
+  "owner": "ShawhinT",
+  "repo": "subagents-vs-teams",
+  "description": "A repository for comparing the performance of Claude Code's subagents and (experimental) agent teams features.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ShawhinT/subagents-vs-teams",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T16:02:34Z"
+}
