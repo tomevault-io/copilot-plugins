@@ -1,0 +1,9 @@
+{
+  "name": "knowbe4--frieren-dast-ai",
+  "displayName": "frieren-dast-ai",
+  "description": "AI-driven Dynamic Application Security Testing tool for security engineers.  Combines an HTTPS MITM proxy with a multi-agent scanner and a real-time web dashboard. Route any browser or tool through th",
+  "version": "1.0.0",
+  "author": "knowbe4",
+  "homepage": "https://github.com/knowbe4/frieren-dast-ai",
+  "skills": []
+}
