@@ -1,0 +1,44 @@
+{
+  "name": "unifi-map",
+  "owner": "gitkodak",
+  "repo": "unifi-map",
+  "description": " Export your UniFi network topology as zoomable SVG, PDF, or an editable draw.io diagram, with real Ubiquiti device   artwork.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gitkodak/unifi-map",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T18:38:01Z"
+}
