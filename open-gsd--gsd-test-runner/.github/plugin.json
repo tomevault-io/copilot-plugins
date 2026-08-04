@@ -1,0 +1,9 @@
+{
+  "name": "open-gsd--gsd-test-runner",
+  "displayName": "gsd-test-runner",
+  "description": "Remote dockerized Node test runner for the get-shit-done project. Syncs working tree to a Linux host via rsync, runs tests in a one-shot container, returns JSON Lines results.",
+  "version": "1.0.0",
+  "author": "open-gsd",
+  "homepage": "https://github.com/open-gsd/gsd-test-runner",
+  "skills": []
+}
