@@ -1,0 +1,9 @@
+{
+  "name": "metal3-io--ironic-standalone-operator",
+  "displayName": "ironic-standalone-operator",
+  "description": "ironic-standalone-operator",
+  "version": "1.0.0",
+  "author": "metal3-io",
+  "homepage": "https://github.com/metal3-io/ironic-standalone-operator",
+  "skills": []
+}
