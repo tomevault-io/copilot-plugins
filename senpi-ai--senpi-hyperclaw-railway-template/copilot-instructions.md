@@ -1,0 +1,254 @@
+## senpi-hyperclaw-railway-template
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Overview
+
+This is a Railway deployment wrapper for **Openclaw** (an AI coding assistant platform). It provides:
+
+- A web-based setup wizard at `/setup` (protected by `SETUP_PASSWORD` when set)
+- Automatic reverse proxy from public URL → internal Openclaw gateway (requires `SETUP_PASSWORD` when set)
+- Persistent state via Railway Volume at `/data`
+- One-click backup export of configuration and workspace
+
+The wrapper manages the Openclaw lifecycle: onboarding → gateway startup → traffic proxying.
+
+## Development Commands
+
+```bash
+# Local development (requires Openclaw in /openclaw or OPENCLAW_ENTRY set)
+npm run dev
+
+# Production start
+npm start
+
+# Syntax check
+npm run lint
+
+# Local smoke test (requires Docker)
+npm run smoke
+```
+
+## Docker Build & Local Testing
+
+```bash
+# Build the container (builds Openclaw from source)
+docker build -t openclaw-railway-template .
+
+# Run locally with volume
+docker run --rm -p 8080:8080 \
+  -e PORT=8080 \
+  -e SETUP_PASSWORD=test \
+  -e OPENCLAW_STATE_DIR=/data/.openclaw \
+  -e OPENCLAW_WORKSPACE_DIR=/data/workspace \
+  -v $(pwd)/.tmpdata:/data \
+  openclaw-railway-template
+
+# Access setup wizard
+open http://localhost:8080/setup  # password: test
+```
+
+## Architecture
+
+### Request Flow
+
+1. **User → Railway → Wrapper (Express on PORT)** → routes to:
+   - `/setup/*` → setup wizard (auth: Basic with `SETUP_PASSWORD` when set; returns 500 if unset)
+   - All other routes → proxied to internal gateway (auth: Basic with `SETUP_PASSWORD` when set; returns 500 if unset)
+
+2. **Wrapper → Gateway** (localhost:18789 by default)
+   - HTTP/WebSocket reverse proxy via `http-proxy`
+   - Automatically injects `Authorization: Bearer <token>` header
+
+### Security architecture (wrapper auth, then token injection)
+
+The intended design is **wrapper-level auth first**, then token injection:
+
+```
+Internet → Railway → Wrapper (auth: Basic SETUP_PASSWORD) → [if auth OK] inject gateway token & proxy → Gateway → Agent
+```
+
+- **Wrapper** enforces authentication (Basic auth with `SETUP_PASSWORD`) on all proxy and Control UI routes before any request reaches the gateway. No unauthenticated traffic is proxied.
+- **Gateway token** is injected by the wrapper only after the incoming request has been authenticated. Clients never need to know the gateway token; the wrapper acts as a trusted intermediary.
+- So the gateway’s token check is not “bypassed”—it still validates the injected token. The wrapper ensures only authenticated users can trigger those requests.
+
+### Lifecycle States
+
+1. **Unconfigured**: No `openclaw.json` exists
+   - All non-`/setup` routes redirect to `/setup`
+   - User completes setup wizard → runs `openclaw onboard --non-interactive`
+
+2. **Configured**: `openclaw.json` exists
+   - Wrapper spawns `openclaw gateway run` as child process
+   - Waits for gateway to respond on multiple health endpoints
+   - Proxies all traffic with injected bearer token
+
+### Key Files
+
+- **src/server.js** (main entry): Express wrapper, proxy setup, gateway lifecycle management, configuration persistence (server logic only - no inline HTML/CSS)
+- **src/public/** (static assets for setup wizard):
+  - **setup.html**: Setup wizard HTML structure
+  - **styles.css**: Setup wizard styling (extracted from inline styles)
+  - **setup-app.js**: Client-side JS for `/setup` wizard (vanilla JS, no build step)
+- **Dockerfile**: Multi-stage build (builds Openclaw from source, installs wrapper deps)
+
+### Environment Variables
+
+**Required (for zero-touch):** AI_PROVIDER, AI_API_KEY, TELEGRAM_*, etc. (see README)
+
+**Recommended:**
+
+- `SETUP_PASSWORD` — when set, protects `/setup` and gateway/Control UI (/, /openclaw) with Basic auth. When **not** set, those routes are disabled (return 500) and a prominent startup warning is logged; the deployment is not publicly accessible for setup or Control UI.
+
+**Recommended (Railway template defaults):**
+
+- `OPENCLAW_STATE_DIR=/data/.openclaw` — config + credentials
+- `OPENCLAW_WORKSPACE_DIR=/data/workspace` — agent workspace
+
+**Optional:**
+
+- `OPENCLAW_GATEWAY_TOKEN` — auth token for gateway (auto-generated if unset)
+- `PORT` — wrapper HTTP port (default 8080)
+- `INTERNAL_GATEWAY_PORT` — gateway internal port (default 18789)
+- `OPENCLAW_ENTRY` — path to `entry.js` (default `/openclaw/dist/entry.js`)
+
+### Authentication Flow
+
+The wrapper manages a **two-layer auth scheme**:
+
+1. **Setup wizard auth**: Basic auth with `SETUP_PASSWORD` (src/server.js:190)
+2. **Gateway auth**: Bearer token with multi-source resolution and automatic sync
+   - **Token resolution order** (src/server.js:25-55):
+     1. `OPENCLAW_GATEWAY_TOKEN` env variable (highest priority) ✅
+     2. Persisted file at `${STATE_DIR}/gateway.token`
+     3. Generate new random token and persist
+   - **Token synchronization**:
+     - During onboarding: Synced to `openclaw.json` with verification (src/server.js:478-511)
+     - Every gateway start: Synced to `openclaw.json` with verification (src/server.js:120-143)
+     - Reason: Openclaw gateway reads token from config file, not from `--token` flag
+   - **Token injection**:
+     - HTTP requests: via `proxy.on("proxyReq")` event handler (src/server.js:761)
+     - WebSocket upgrades: via `proxy.on("proxyReqWs")` event handler (src/server.js:766)
+
+### Onboarding Process
+
+When the user runs setup (src/server.js:447-650):
+
+1. Calls `openclaw onboard --non-interactive` with user-selected auth provider and `--gateway-token` flag
+2. **Syncs wrapper token to `openclaw.json`** (overwrites whatever `onboard` generated):
+   - Sets `gateway.auth.token` to `OPENCLAW_GATEWAY_TOKEN` env variable
+   - Verifies sync succeeded by reading config file back
+   - Logs warning/error if mismatch detected
+3. Writes channel configs (Telegram/Discord/Slack) directly to `openclaw.json` via `openclaw config set --json`
+4. Force-sets gateway config to use token auth + loopback bind + allowInsecureAuth
+5. Restarts gateway process to apply all config changes
+6. Waits for gateway readiness (polls multiple endpoints)
+
+**Important**: Channel setup bypasses `openclaw channels add` and writes config directly because `channels add` is flaky across different Openclaw builds.
+
+### Gateway Token Injection
+
+The wrapper **always** injects the bearer token into proxied requests so browser clients don't need to know it:
+
+- HTTP requests: via `proxy.on("proxyReq")` event handler (src/server.js:736)
+- WebSocket upgrades: via `proxy.on("proxyReqWs")` event handler (src/server.js:741)
+
+**Important**: Token injection uses `http-proxy` event handlers (`proxyReq` and `proxyReqWs`) rather than direct `req.headers` modification. Direct header modification does not reliably work with WebSocket upgrades, causing intermittent `token_missing` or `token_mismatch` errors.
+
+This allows the Control UI at `/openclaw` to work without user authentication.
+
+### Backup Export
+
+`GET /setup/export` (src/server.js):
+
+- Creates a `.tar.gz` archive of `STATE_DIR` and `WORKSPACE_DIR`
+- **Excludes secrets:** `gateway.token`, `openclaw.json`, `mcporter.json`, and `*.token` files are not included
+- Audit log: each export request is logged with a warning
+
+## Common Development Tasks
+
+### Testing the setup wizard
+
+1. Delete `${STATE_DIR}/openclaw.json` (or run Reset in the UI)
+2. Visit `/setup` and complete onboarding
+3. Check logs for gateway startup and channel config writes
+
+### Testing authentication
+
+- Setup wizard: Clear browser auth, verify Basic auth challenge
+- Gateway: Remove `Authorization` header injection (src/server.js:736) and verify requests fail
+
+### Debugging gateway startup
+
+Check logs for:
+
+- `[gateway] starting with command: ...` (src/server.js:142)
+- `[gateway] ready at <endpoint>` (src/server.js:100)
+- `[gateway] failed to become ready after 20000ms` (src/server.js:109)
+
+If gateway doesn't start:
+
+- Verify `openclaw.json` exists and is valid JSON
+- Check `STATE_DIR` and `WORKSPACE_DIR` are writable
+- Ensure bearer token is set in config
+
+### Modifying onboarding args
+
+Edit `buildOnboardArgs()` (src/server.js:442-496) to add new CLI flags or auth providers.
+
+### Adding new channel types
+
+1. Add channel-specific fields to `/setup` HTML (src/public/setup.html)
+2. Add config-writing logic in `/setup/api/run` handler (src/server.js)
+3. Update client JS to collect the fields (src/public/setup-app.js)
+
+## Railway Deployment Notes
+
+- Template must mount a volume at `/data`
+- **Recommended:** set `SETUP_PASSWORD` in Railway Variables so `/setup` and Control UI (/, /openclaw) are accessible. If unset, those routes return 500 and a startup warning is logged.
+- Public networking must be enabled (assigns `*.up.railway.app` domain)
+- Openclaw version is pinned via Docker build arg `OPENCLAW_GIT_REF` (default: `v2026.2.12`). We use a pre-2026.2.19 version (e.g. 2026.2.6, 2026.2.9, 2026.2.12) to avoid the scope tightening that causes cron/agent to hit "pairing required"; see [releases](https://github.com/openclaw/openclaw/releases). For 2026.2.22 pairing fixes (loopback operator scopes, auto-approve) use `OPENCLAW_GIT_REF=v2026.2.22`.
+
+## Serena Semantic Coding
+
+This project has been onboarded with **Serena** (semantic coding assistant via MCP). Comprehensive memory files are available covering:
+
+- Project overview and architecture
+- Tech stack and codebase structure
+- Code style and conventions
+- Development commands and task completion checklist
+- Quirks and gotchas
+
+**When working on tasks:**
+
+1. Check `mcp__serena__check_onboarding_performed` first to see available memories
+2. Read relevant memory files before diving into code (e.g., `mcp__serena__read_memory`)
+3. Use Serena's semantic tools for efficient code exploration:
+   - `get_symbols_overview` - Get high-level file structure without reading entire file
+   - `find_symbol` - Find classes, functions, methods by name path
+   - `find_referencing_symbols` - Understand dependencies and usage
+4. Prefer symbolic editing (`replace_symbol_body`, `insert_after_symbol`) for precise modifications
+
+This avoids repeatedly reading large files and provides instant context about the project.
+
+## Quirks & Gotchas
+
+1. **Gateway token must be stable across redeploys** → Always set `OPENCLAW_GATEWAY_TOKEN` env variable in Railway (highest priority); token is synced to `openclaw.json` during onboarding (src/server.js:478-511) and on every gateway start (src/server.js:120-143) with verification. This is required because `openclaw onboard` generates its own random token and the gateway reads from config file, not from `--token` CLI flag. Sync failures throw errors and prevent gateway startup.
+2. **Channels are written via `config set --json`, not `channels add`** → avoids CLI version incompatibilities
+3. **Gateway readiness check polls multiple endpoints** (`/openclaw`, `/`, `/health`) → some builds only expose certain routes (src/server.js:92)
+4. **Discord bots require MESSAGE CONTENT INTENT** → document this in setup wizard (src/server.js:295-298)
+5. **Gateway spawn inherits stdio** → logs appear in wrapper output (src/server.js:134)
+6. **WebSocket auth requires proxy event handlers** → Direct `req.headers` modification doesn't work for WebSocket upgrades with http-proxy; must use `proxyReqWs` event (src/server.js:741) to reliably inject Authorization header
+7. **Control UI and headless internal clients** → We set `gateway.controlUi.allowInsecureAuth=true` (Control UI behind proxy) and `gateway.controlUi.dangerouslyDisableDeviceAuth=true` (headless: no device to pair). The latter is required so internal clients (Telegram provider, cron, session WS) connecting from 127.0.0.1 with the token from config are not rejected with `code=1008 reason=connect failed` / "pairing required". Both are set in bootstrap.mjs, onboard.js, gateway.js sync, and setup.js post-onboard.
+8. **"pairing required" / "connect failed" (1008)** → If you still see this after the above: check that `openclaw.json` has `gateway.controlUi.dangerouslyDisableDeviceAuth: true` and restart the gateway (redeploy or restart the process). Wrapper logs `[ws-upgrade]` only for browser→wrapper→gateway; internal client failures appear in gateway logs as `[ws] closed before connect ... code=1008 reason=connect failed`.
+9. **`[tools] read failed: ENOENT ... access '/openclaw/src/...'`** → The agent tried to read a path outside the workspace (e.g. OpenClaw source). Bootstrap sets `tools.fs.workspaceOnly: true` so read/write/edit are limited to the workspace (e.g. `/data/workspace`). Redeploy so the patched config is applied; then the agent won't hit ENOENT on system paths.
+10. **`[telegram] sendChatAction failed: Network request for 'sendChatAction' failed!`** → Telegram API call (e.g. "typing…" indicator) failed. Usually transient (network, rate limit, or egress). If persistent, check TELEGRAM_BOT_TOKEN and egress to api.telegram.org. Chat delivery can still work when sendChatAction fails.
+11. **@senpi-ai/runtime plugin** → Installed via `openclaw plugins install @senpi-ai/runtime`. In `openclaw.json`, `plugins.allow` / `plugins.entries` use the **plugin manifest id** `runtime` (OpenClaw derives `idHint` from the unscoped npm name; manifest `id` must be `runtime`, not `@senpi-ai/runtime`). Set `SENPI_TRADING_RUNTIME_ENABLED=false` to disable.
+
+---
+> Source: [Senpi-ai/senpi-hyperclaw-railway-template](https://github.com/Senpi-ai/senpi-hyperclaw-railway-template) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-30 -->
