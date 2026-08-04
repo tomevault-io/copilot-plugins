@@ -1,0 +1,9 @@
+{
+  "name": "eai-org--agent-toolkit",
+  "displayName": "agent-toolkit",
+  "description": "Minimalistic, project-agnostic skills and rules for AI coding agents",
+  "version": "1.0.0",
+  "author": "eai-org",
+  "homepage": "https://github.com/eai-org/agent-toolkit",
+  "skills": []
+}
