@@ -1,0 +1,9 @@
+{
+  "name": "oprai-labs--oprai",
+  "displayName": "oprai",
+  "description": "OPRAI - DeFi-native conversational AI assistant for Solana. Polyglot microservices (Go/Python/Rust) + Angular frontend. SIWS auth, gRPC, Caddy/Let's Encrypt.",
+  "version": "1.0.0",
+  "author": "Oprai-Labs",
+  "homepage": "https://github.com/Oprai-Labs/oprai",
+  "skills": []
+}
