@@ -1,0 +1,9 @@
+{
+  "name": "kevinherzig--mudimodem",
+  "displayName": "MudiModem",
+  "description": "Modem control panel for the GL-E5800 (Mudi) stock web admin \u2014 band lock, cell lock, AT console, SIM/APN, community AT library.",
+  "version": "1.0.0",
+  "author": "kevinherzig",
+  "homepage": "https://github.com/kevinherzig/MudiModem",
+  "skills": []
+}
