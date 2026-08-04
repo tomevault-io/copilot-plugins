@@ -1,0 +1,9 @@
+{
+  "name": "kuadrant--kuadrant-operator",
+  "displayName": "kuadrant-operator",
+  "description": "kuadrant-operator",
+  "version": "1.0.0",
+  "author": "Kuadrant",
+  "homepage": "https://github.com/Kuadrant/kuadrant-operator",
+  "skills": []
+}
