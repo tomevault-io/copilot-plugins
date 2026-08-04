@@ -4,7 +4,7 @@
   "repo": "the-blue-alliance-android",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/the-blue-alliance/the-blue-alliance-android",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T19:47:12Z"
+  "distributed_at": "2026-08-04T15:33:51Z"
 }
