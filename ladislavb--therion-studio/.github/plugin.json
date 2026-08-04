@@ -1,0 +1,9 @@
+{
+  "name": "ladislavb--therion-studio",
+  "displayName": "therion-studio",
+  "description": "Therion Studio is a cross-platform Qt desktop editor for Therion \u2013 cave surveying software.",
+  "version": "1.0.0",
+  "author": "ladislavb",
+  "homepage": "https://github.com/ladislavb/therion-studio",
+  "skills": []
+}
