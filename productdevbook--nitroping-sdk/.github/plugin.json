@@ -1,0 +1,9 @@
+{
+  "name": "productdevbook--nitroping-sdk",
+  "displayName": "nitroping-sdk",
+  "description": "Official client libraries for nitroping push notifications \u2014 TypeScript, Swift, Python, Go, Kotlin, PHP.",
+  "version": "1.0.0",
+  "author": "productdevbook",
+  "homepage": "https://github.com/productdevbook/nitroping-sdk",
+  "skills": []
+}
