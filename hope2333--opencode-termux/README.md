@@ -1,8 +1,6 @@
 # opencode-termux
 
-> Source: [Hope2333/opencode-termux](https://github.com/Hope2333/opencode-termux) — distributed by [TomeVault](https://tomevault.io)
-
-OpenCode on Termux (OCT)
+> Source: [Hope2333/opencode-termux](https://github.com/Hope2333/opencode-termux). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [Hope2333/opencode-termux](https://github.com/Ho
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Hope2333/opencode-termux](https://github.com/Hope2333/opencode-termux) — a repo with 49+ stars on GitHub.
+From [Hope2333/opencode-termux](https://github.com/Hope2333/opencode-termux) — a repo with 157+ stars on GitHub.
 
 ---
 
