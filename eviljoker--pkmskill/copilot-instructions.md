@@ -1,176 +1,148 @@
-## state
+## pkmskill
 
-> CursorRIPER Framework - State Management
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-<!-- Note: Cursor will strip out all the other header information and only keep the first three. -->
-# CursorRIPER Framework - State Management
-# Version 1.0.2
+# CLAUDE.md
 
-## AI PROCESSING INSTRUCTIONS
-This file defines the current state of the project within the CursorRIPER Framework. As an AI assistant, you MUST:
-- Always load this file after core.mdc but before other components
-- Never modify state values without proper authorization via commands
-- Validate state transitions against allowed paths
-- Update this file when state changes occur
-- Keep all state values consistent with each other
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## CURRENT PROJECT STATE
+## 项目概述
+PKM (Personal Knowledge Management) - 任务和项目管理服务，基于 FastAPI + SQLite + Click CLI
 
-PROJECT_PHASE: "UNINITIATED"
-# Possible values: "UNINITIATED", "INITIALIZING", "DEVELOPMENT", "MAINTENANCE"
+## 常用命令
+```bash
+# 安装依赖
+make install
 
-RIPER_CURRENT_MODE: "NONE"
-# Possible values: "NONE", "RESEARCH", "INNOVATE", "PLAN", "EXECUTE", "REVIEW"
+# 构建 wheel 包
+make build-client
 
-START_PHASE_STATUS: "NOT_STARTED"
-# Possible values: "NOT_STARTED", "IN_PROGRESS", "COMPLETED", "ARCHIVED"
+# 构建 Docker 镜像
+make build-server
 
-START_PHASE_STEP: 0
-# Possible values: 0-6 (0=Not started, 1=Requirements, 2=Technology, 3=Architecture, 4=Scaffolding, 5=Environment, 6=Memory Bank)
+# 启动服务（生产环境，使用 snapshot 镜像）
+make start
 
-LAST_UPDATE: "2025-04-05T00:00:00Z"
-# ISO 8601 formatted timestamp of last state update
+# 启动开发环境（本地构建，容器内执行 CLI）
+make start-dev
 
-INITIALIZATION_DATE: ""
-# When START phase was completed, empty if not completed
+# 查看日志
+make logs
 
-FRAMEWORK_VERSION: "1.0.0"
-# Current version of the framework
+# 运行测试
+make test
 
-## STATE TRANSITION RULES
-
-```mermaid
-stateDiagram-v2
-    [*] --> UNINITIATED
-    
-    UNINITIATED --> INITIALIZING: /start
-    INITIALIZING --> DEVELOPMENT: START phase complete
-    DEVELOPMENT --> MAINTENANCE: User request
-    MAINTENANCE --> DEVELOPMENT: User request
-    
-    state INITIALIZING {
-        [*] --> NOT_STARTED
-        NOT_STARTED --> IN_PROGRESS: Begin START
-        IN_PROGRESS --> COMPLETED: All steps finished
-        COMPLETED --> ARCHIVED: Enter DEVELOPMENT
-    }
-    
-    state "DEVELOPMENT/MAINTENANCE" as DM {
-        [*] --> RESEARCH
-        RESEARCH --> INNOVATE: /innovate
-        INNOVATE --> PLAN: /plan
-        PLAN --> EXECUTE: /execute
-        EXECUTE --> REVIEW: /review
-        REVIEW --> RESEARCH: /research
-    }
+# 运行部署测试（CI 使用， 本地不使用）
+make test-deploy
 ```
 
-### Phase Transitions
-- UNINITIATED → INITIALIZING
-  - Trigger: "/start" or "BEGIN START PHASE"
-  - Requirements: None
-  
-- INITIALIZING → DEVELOPMENT
-  - Trigger: Automatic upon START phase completion
-  - Requirements: START_PHASE_STATUS = "COMPLETED"
-  
-- DEVELOPMENT → MAINTENANCE
-  - Trigger: Manual transition by user
-  - Requirements: Explicit user request
-  
-- MAINTENANCE → DEVELOPMENT
-  - Trigger: Manual transition by user
-  - Requirements: Explicit user request
+## 容器操作规则（重要）
+**禁止直接使用 docker compose 命令，必须使用 make 命令！**
 
-### Mode Transitions
-- Any mode → RESEARCH
-  - Trigger: "/research" or "ENTER RESEARCH MODE"
-  - Requirements: PROJECT_PHASE in ["DEVELOPMENT", "MAINTENANCE"]
-  
-- Any mode → INNOVATE
-  - Trigger: "/innovate" or "ENTER INNOVATE MODE"
-  - Requirements: PROJECT_PHASE in ["DEVELOPMENT", "MAINTENANCE"]
-  
-- Any mode → PLAN
-  - Trigger: "/plan" or "ENTER PLAN MODE"
-  - Requirements: PROJECT_PHASE in ["DEVELOPMENT", "MAINTENANCE"]
-  
-- Any mode → EXECUTE
-  - Trigger: "/execute" or "ENTER EXECUTE MODE"
-  - Requirements: PROJECT_PHASE in ["DEVELOPMENT", "MAINTENANCE"]
-  
-- Any mode → REVIEW
-  - Trigger: "/review" or "ENTER REVIEW MODE"
-  - Requirements: PROJECT_PHASE in ["DEVELOPMENT", "MAINTENANCE"]
+| 环境 | 命令 | 用途 |
+|------|------|------|
+| 生产环境 | `make start` | 部署真实环境，拉取 snapshot 镜像 |
+| 开发环境 | `make start-dev` | 日常开发调试，本地构建镜像 |
 
-### START Phase Status Transitions
-- NOT_STARTED → IN_PROGRESS
-  - Trigger: "/start" or "BEGIN START PHASE"
-  - Requirements: PROJECT_PHASE = "UNINITIATED"
-  
-- IN_PROGRESS → COMPLETED
-  - Trigger: Completion of all START phase steps
-  - Requirements: START_PHASE_STEP = 6
-  
-- COMPLETED → ARCHIVED
-  - Trigger: Automatic after transition to DEVELOPMENT
-  - Requirements: PROJECT_PHASE = "DEVELOPMENT"
+**禁止的操作：**
+- ❌ `docker compose up/down/restart` — 必须用 `make start/start-dev`
+- ❌ `docker compose -f docker-compose.yml ...` — 必须用 `make start`
+- ❌ `docker compose -f docker-compose.dev.yml ...` — 必须用 `make start-dev`
+- ❌ 直接在宿主机执行 pkm CLI — CLI 在容器内执行
 
-## STATE UPDATE PROCEDURES
+## 测试注意事项
+**重要：不要删除用户的实际数据！**
+- 本地测试使用 `make test`（使用 docker-compose.dev.yml）
+- **禁止执行** `docker exec pkm-server rm -f /root/.pkm/pkm.db` — 这会删除用户实际数据
+- 测试运行在容器内，使用的是容器内的数据库，不是本地测试数据库
+- 代码修改后需要重建镜像再测试：`make build-server && make start-dev`
 
-### Update Project Phase
-1. Validate transition is allowed
-2. Create backup of current state
-3. Update PROJECT_PHASE value
-4. Update LAST_UPDATE timestamp
-5. Perform any phase-specific initialization
+## 代码质量要求
+- **行覆盖率**: 75% 以上
+- **分支覆盖率**: 55% 以上（当前可达值）
 
-### Update RIPER Mode
-1. Validate transition is allowed
-2. Update RIPER_CURRENT_MODE value
-3. Update LAST_UPDATE timestamp
-4. Update activeContext.md to reflect mode change
+## CI/CD 流程
 
-### Update START Phase Status
-1. Validate transition is allowed
-2. Update START_PHASE_STATUS value
-3. Update LAST_UPDATE timestamp
-4. If transitioning to COMPLETED, set INITIALIZATION_DATE
+### Workflows
+- **snapshot.yml**: 构建 + 测试 + 发布制品（push main 时触发）
+- **deploy.yml**: 部署验证（push main 时触发，下载安装最新发布版本）
+- **base-image.yml**: 构建基础镜像（push base-image 分支时触发）
 
-### Update START Phase Step
-1. Validate step increment is logical
-2. Update START_PHASE_STEP value
-3. Update LAST_UPDATE timestamp
-4. If reaching step 6, trigger completion process
+### 流程约束
+**每次推送到远端后，必须检查 CI 执行结果，如果失败需要修复：**
+- 检查 `Snapshot CI` workflow：构建、测试、发布是否成功
+- 检查 `Deploy Test` workflow：部署安装是否成功
+- 任一 workflow 失败都需要定位并修复问题后再次推送
 
-## AUTOMATIC STATE DETECTION
+### 基础镜像构建
+**重要：基础镜像（ghcr.io/eviljoker/pkm:base-latest）在 GitHub Actions 远端构建，本地不要尝试构建。**
 
-When determining current project state:
-1. Check for existence of memory bank files
-2. If complete memory bank exists but STATE_PHASE is "UNINITIATED":
-   - Set PROJECT_PHASE to "DEVELOPMENT"
-   - Set START_PHASE_STATUS to "COMPLETED"
-   - Set START_PHASE_STEP to 6
-   - Set INITIALIZATION_DATE based on file timestamps
-3. If partial memory bank exists:
-   - Set PROJECT_PHASE to "INITIALIZING"
-   - Set START_PHASE_STATUS to "IN_PROGRESS"
-   - Determine START_PHASE_STEP based on existing files
+如果修改了 `requirements.txt` 或 `Dockerfile.base`：
+1. 推送代码后，远端会自动触发 `base-image.yml` workflow
+2. 构建完成后会推送新镜像到 ghcr.io
+3. 等待基础镜像构建完成后，再触发业务镜像构建
 
-## RE-INITIALIZATION PROTECTION
+### 本地开发
+**开发环境使用 pkm-server目录下 `make start-dev`（本地构建镜像，CLI在容器内执行）：**
+```bash
+make start-dev  # 本地构建 + 启动
+make status-dev     # 检查服务状态
+make logs-dev      # 查看日志
+make clean-dev      # 清理容器
+```
 
-If "/start" or "BEGIN START PHASE" is detected when PROJECT_PHASE is not "UNINITIATED":
-1. Warn user about re-initialization risks
-2. Require explicit confirmation: "CONFIRM RE-INITIALIZATION"
-3. If confirmed:
-   - Create backup of current memory bank
-   - Reset state to PROJECT_PHASE = "INITIALIZING"
-   - Reset START_PHASE_STATUS to "IN_PROGRESS"
-   - Reset START_PHASE_STEP to 1
+**生产环境使用 `make start`（拉取 snapshot 镜像）：**
+```bash
+make start      # 使用 snapshot 镜像启动
+```
 
----
+**本地开发流程：**
+1. 修改代码
+2. `make start-dev` 重新构建并启动
+3. `make status` 验证服务状态
+4. 测试完成后 `make clean` 清理
 
-*This file automatically tracks the current state of the project. It should never be edited manually.*
+## 架构
+- `main.py` - FastAPI 应用，定义所有 REST API 端点
+- `database.py` - SQLite 数据库操作层
+- `models.py` - Pydantic 数据模型
+- `knowledge.py` - 知识回流核心逻辑，支持 Wiki 增量更新
+- `pkm/cli.py` - Click CLI 命令行接口
+- `pkm/config.py` - 配置文件加载模块
+
+## 目录结构
+```
+~/.pkm/
+├── 10_Tasks/           # 任务层
+├── 20_Projects/        # 项目层（Raw Sources）
+├── 30_Raw/            # Raw 层
+├── 40_Knowledge/      # Wiki 层
+│   ├── _wiki/         # LLM 维护的概念页面
+│   │   ├── index.md   # 总导航
+│   │   ├── index.yaml # 结构化索引
+│   │   └── {topic}/   # 按主题分类
+│   └── _schema/       # Wiki 维护规则
+└── 80_Archives/      # 归档层
+```
+
+## 配置
+- 默认配置路径: `~/.pkm/config.yaml`
+- 环境变量: `PKM_API_BASE` 可覆盖 API 地址（容器内测试时设为 `http://localhost:8890`）
+- 知识库路径: `~/.pkm/40_Knowledge`（Wiki 格式）
+
+## 文档
+- 文档位置都在 `docs`, 禁止放在 `pkm-server/docs`
+
+## 开发经验总结
+
+**本项目成功的关键因素：**
+
+1. **Demo 优先**：先搭起最小可运行 demo 验证可行性，再完善细节
+2. **自动化测试反馈**：make test-local + CI 确保每次改动都被验证
+3. **TDD 先写测试**：用测试驱动实现，减少返工
+4. **小步快走**：每次迭代控制在较小改动，快速交付价值
+
+**适用场景**：个人工具类项目、快速原型验证
 
 ---
 > Source: [EvilJoker/pkmskill](https://github.com/EvilJoker/pkmskill) — distributed by [TomeVault](https://tomevault.io).
