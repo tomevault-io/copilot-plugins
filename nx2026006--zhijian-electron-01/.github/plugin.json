@@ -1,0 +1,9 @@
+{
+  "name": "nx2026006--zhijian-electron-01",
+  "displayName": "zhijian_electron_01",
+  "description": "Desktop image batch compression tool. Supports API Key auth, custom quality, real-time progress, CDN upload. Built with Electron + Vue 3.",
+  "version": "1.0.0",
+  "author": "nx2026006",
+  "homepage": "https://github.com/nx2026006/zhijian_electron_01",
+  "skills": []
+}
