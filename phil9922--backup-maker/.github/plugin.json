@@ -1,0 +1,9 @@
+{
+  "name": "phil9922--backup-maker",
+  "displayName": "backup-maker",
+  "description": "Real-time, versioned backups of your folders to any drive you can reach \u2014 SD cards, USB drives, NAS, router drives, or other computers. Any OS, LAN-only, no cloud.",
+  "version": "1.0.0",
+  "author": "phil9922",
+  "homepage": "https://github.com/phil9922/backup-maker",
+  "skills": []
+}
