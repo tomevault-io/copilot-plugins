@@ -1,0 +1,9 @@
+{
+  "name": "toshipepe--tokimeter",
+  "displayName": "tokimeter",
+  "description": "Local-first usage & cost meter for AI coding agents: Claude Code, Codex, Cursor, Grok Build, Hermes, opencode, Cline, and Copilot CLI. No account or telemetry.",
+  "version": "1.0.0",
+  "author": "toshipepe",
+  "homepage": "https://github.com/toshipepe/tokimeter",
+  "skills": []
+}
