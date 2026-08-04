@@ -1,0 +1,9 @@
+{
+  "name": "mohamad-balouza--bioshock-vr",
+  "displayName": "bioshock-vr",
+  "description": "Native VR mod for BioShock Remastered: stereo rendering, 6DOF, motion controllers (OpenXR)",
+  "version": "1.0.0",
+  "author": "mohamad-balouza",
+  "homepage": "https://github.com/mohamad-balouza/bioshock-vr",
+  "skills": []
+}
