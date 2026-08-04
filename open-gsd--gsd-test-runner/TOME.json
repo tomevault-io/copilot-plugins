@@ -1,0 +1,44 @@
+{
+  "name": "gsd-test-runner",
+  "owner": "open-gsd",
+  "repo": "gsd-test-runner",
+  "description": "Remote dockerized Node test runner for the get-shit-done project. Syncs working tree to a Linux host via rsync, runs tests in a one-shot container, returns JSON Lines results.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/open-gsd/gsd-test-runner",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T00:14:08Z"
+}
