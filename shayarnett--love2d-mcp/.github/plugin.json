@@ -1,0 +1,9 @@
+{
+  "name": "shayarnett--love2d-mcp",
+  "displayName": "love2d-mcp",
+  "description": "MCP server for L\u00d6VE2D game development - enables AI assistants to interact with running games",
+  "version": "1.0.0",
+  "author": "shayarnett",
+  "homepage": "https://github.com/shayarnett/love2d-mcp",
+  "skills": []
+}
