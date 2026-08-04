@@ -1,0 +1,9 @@
+{
+  "name": "ccebelenski--anas",
+  "displayName": "anas",
+  "description": "ANAS \u2014 A NAS: TrueNAS-style storage management for Proxmox VE (ZFS, SMB/NFS shares, snapshots, replication) as native PVE UI panels",
+  "version": "1.0.0",
+  "author": "ccebelenski",
+  "homepage": "https://github.com/ccebelenski/anas",
+  "skills": []
+}
