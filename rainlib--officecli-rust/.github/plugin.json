@@ -1,9 +1,9 @@
 {
   "name": "rainlib--officecli-rust",
-  "displayName": "OfficeCli-rust",
-  "description": "OfficeCli-rust",
+  "displayName": "OfficeCLI-rust",
+  "description": "A pure-Rust CLI for AI agents to create, read, modify, and render Office documents and PDFs.",
   "version": "1.0.0",
   "author": "RainLib",
-  "homepage": "https://github.com/RainLib/OfficeCli-rust",
+  "homepage": "https://github.com/RainLib/OfficeCLI-rust",
   "skills": []
 }
