@@ -1,0 +1,9 @@
+{
+  "name": "powerdns-authadmin--powerdns-authadmin",
+  "displayName": "powerdns-authadmin",
+  "description": "Modern self-hosted DNS administration UI for PowerDNS Authoritative - RBAC, OIDC SSO, audit log, DNSSEC, multi-backend (clusters & primary/secondary). A maintained alternative to PowerDNS-Admin.",
+  "version": "1.0.0",
+  "author": "PowerDNS-AuthAdmin",
+  "homepage": "https://github.com/PowerDNS-AuthAdmin/powerdns-authadmin",
+  "skills": []
+}
