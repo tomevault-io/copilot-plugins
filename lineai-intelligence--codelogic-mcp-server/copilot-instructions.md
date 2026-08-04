@@ -1,12 +1,11 @@
-## best-practices
+## debugging
 
-> Best practices for working with the CodeLogic MCP Server codebase
+> Debugging guidance for the CodeLogic MCP Server
 
-- Use semantic search before grep for broader context
-- Maintain proper error handling and logging
-- Keep code changes atomic and focused
-- Prefer graph tools (`codelogic-graph-*`) for discovery when available; fall back to method/database impact tools
-- Return results as clear markdown for AI assistants
+- Enable Debug Mode by setting `CODELOGIC_DEBUG_MODE=true`
+- Use debugpy capabilities for remote debugging
+- Check logs in the logs directory for detailed information
+- Use proper logging levels for different types of information
 
 ---
 > Source: [lineai-intelligence/codelogic-mcp-server](https://github.com/lineai-intelligence/codelogic-mcp-server) — distributed by [TomeVault](https://tomevault.io).
