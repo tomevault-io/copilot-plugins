@@ -1,0 +1,9 @@
+{
+  "name": "knative-extensions--eventing-natss",
+  "displayName": "eventing-natss",
+  "description": "eventing-natss",
+  "version": "1.0.0",
+  "author": "knative-extensions",
+  "homepage": "https://github.com/knative-extensions/eventing-natss",
+  "skills": []
+}
