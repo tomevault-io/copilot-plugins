@@ -1,0 +1,9 @@
+{
+  "name": "backenly--backenly",
+  "displayName": "backenly",
+  "description": "Autonomous backend platform. Your coding agent builds it over MCP, Backenly keeps it running: Postgres, REST APIs, auth, storage, realtime, and functions, with every change governed, verified, and rev",
+  "version": "1.0.0",
+  "author": "backenly",
+  "homepage": "https://github.com/backenly/backenly",
+  "skills": []
+}
