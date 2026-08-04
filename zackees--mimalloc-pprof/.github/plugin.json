@@ -1,0 +1,9 @@
+{
+  "name": "zackees--mimalloc-pprof",
+  "displayName": "mimalloc-pprof",
+  "description": "mimalloc fork with pprof-compatible sampled heap profiling (Windows-first), plus Rust crates",
+  "version": "1.0.0",
+  "author": "zackees",
+  "homepage": "https://github.com/zackees/mimalloc-pprof",
+  "skills": []
+}
