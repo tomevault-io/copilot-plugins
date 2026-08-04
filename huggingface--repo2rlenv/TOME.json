@@ -4,7 +4,7 @@
   "repo": "Repo2RLEnv",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/huggingface/Repo2RLEnv",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-02T22:49:03Z"
+  "distributed_at": "2026-08-04T18:08:26Z"
 }
