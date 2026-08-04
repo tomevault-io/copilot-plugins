@@ -1,0 +1,44 @@
+{
+  "name": "PharmaCMC-Workbench",
+  "owner": "Allan9719",
+  "repo": "PharmaCMC-Workbench",
+  "description": "\u4e00\u4e2a\u7edf\u4e00\u7684AI \u8f85\u52a9 CMC \u5de5\u4f5c\u53f0\uff0c\u96c6\u6210\u4e86\u4e09\u4e2a\u4e13\u4e1a\u6a21\u5757\uff1aCMC Research (\u77e5\u8bc6\u5e95\u5ea7) \u2192 CMC Forge (\u6267\u884c\u5f15\u64ce) \u2192 Scientific Writer (\u5199\u4f5c\u8d28\u91cf)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Allan9719/PharmaCMC-Workbench",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T17:46:58Z"
+}
