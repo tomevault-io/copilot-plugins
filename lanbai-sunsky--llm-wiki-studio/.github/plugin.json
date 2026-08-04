@@ -1,0 +1,9 @@
+{
+  "name": "lanbai-sunsky--llm-wiki-studio",
+  "displayName": "llm-wiki-studio",
+  "description": "Local course learning workbench powered by Claude Code CLI and Skills",
+  "version": "1.0.0",
+  "author": "lanbai-sunsky",
+  "homepage": "https://github.com/lanbai-sunsky/llm-wiki-studio",
+  "skills": []
+}
