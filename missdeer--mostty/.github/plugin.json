@@ -1,0 +1,9 @@
+{
+  "name": "missdeer--mostty",
+  "displayName": "mostty",
+  "description": "Mostty: a fast, lightweight native terminal emulator with libghostty at its core. Currently designed and implemented for Windows 10/11 only.",
+  "version": "1.0.0",
+  "author": "missdeer",
+  "homepage": "https://github.com/missdeer/mostty",
+  "skills": []
+}
