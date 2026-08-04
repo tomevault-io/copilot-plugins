@@ -1,0 +1,9 @@
+{
+  "name": "slidespeak--slide-design-skill",
+  "displayName": "slide-design-skill",
+  "description": "AI presentation engine. Describe your deck and the look, it derives a bespoke style and renders polished 1920x1080 HTML slides with real charts, tables and imagery. Agent skill: npx skills add SlideSp",
+  "version": "1.0.0",
+  "author": "SlideSpeak",
+  "homepage": "https://github.com/SlideSpeak/slide-design-skill",
+  "skills": []
+}
