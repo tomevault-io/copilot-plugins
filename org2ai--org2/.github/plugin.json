@@ -1,0 +1,9 @@
+{
+  "name": "org2ai--org2",
+  "displayName": "ORG2",
+  "description": "System of record for how agents build software: Built-in rust harness & 20+ CLIs.",
+  "version": "1.0.0",
+  "author": "org2AI",
+  "homepage": "https://github.com/org2AI/ORG2",
+  "skills": []
+}
