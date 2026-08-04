@@ -1,0 +1,9 @@
+{
+  "name": "rpatrik96--hallmark",
+  "displayName": "hallmark",
+  "description": "HALLMARK: Citation hallucination detection benchmark for ML papers \u2014 2,525 entries, 14 hallucination types, 3 difficulty tiers, 10 baselines including LLMs and verification tools",
+  "version": "1.0.0",
+  "author": "rpatrik96",
+  "homepage": "https://github.com/rpatrik96/hallmark",
+  "skills": []
+}
