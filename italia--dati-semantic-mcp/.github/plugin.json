@@ -1,0 +1,9 @@
+{
+  "name": "italia--dati-semantic-mcp",
+  "displayName": "dati-semantic-mcp",
+  "description": "MCP server per interagire con schema.gov.it",
+  "version": "1.0.0",
+  "author": "italia",
+  "homepage": "https://github.com/italia/dati-semantic-mcp",
+  "skills": []
+}
