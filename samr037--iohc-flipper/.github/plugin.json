@@ -1,0 +1,9 @@
+{
+  "name": "samr037--iohc-flipper",
+  "displayName": "iohc-flipper",
+  "description": "Flipper Zero FAP for io-homecontrol (Velux + Somfy). 868 MHz sniff/pair/control with per-shutter identity isolation.",
+  "version": "1.0.0",
+  "author": "samr037",
+  "homepage": "https://github.com/samr037/iohc-flipper",
+  "skills": []
+}
