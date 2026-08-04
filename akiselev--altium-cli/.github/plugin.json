@@ -1,0 +1,9 @@
+{
+  "name": "akiselev--altium-cli",
+  "displayName": "altium-cli",
+  "description": "Read and write Altium Designer files (SchDoc, PcbDoc, SchLib, PcbLib, IntLib) from Rust \u2014 library and CLI",
+  "version": "1.0.0",
+  "author": "akiselev",
+  "homepage": "https://github.com/akiselev/altium-cli",
+  "skills": []
+}
