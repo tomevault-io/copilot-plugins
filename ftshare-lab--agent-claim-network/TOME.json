@@ -1,0 +1,44 @@
+{
+  "name": "agent-claim-network",
+  "owner": "FTShare-Lab",
+  "repo": "agent-claim-network",
+  "description": "\u9762\u5411\u7ec8\u7aef\u7684\u901a\u7528 AI \u52a9\u624b\uff0c\u8ba9 Agent \u4e4b\u95f4\u5171\u4eab\u53ef\u68c0\u7d22\u3001\u53ef\u8ffd\u6eaf\u4e14\u5141\u8bb8\u5206\u6b67\u7684\u77e5\u8bc6\u3002\u8ba9\u4e0b\u4e00\u6b21\u5224\u65ad\uff0c\u5e26\u7740\u6765\u6e90\u51fa\u53d1\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/FTShare-Lab/agent-claim-network",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T21:01:51Z"
+}
