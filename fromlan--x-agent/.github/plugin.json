@@ -1,0 +1,9 @@
+{
+  "name": "fromlan--x-agent",
+  "displayName": "X-agent",
+  "description": "\u57fa\u4e8e [Pi] SDK \u7684Godot\u4e13\u7528\u684c\u9762 Agent \u5ba2\u6237\u7aef\u3002",
+  "version": "1.0.0",
+  "author": "Fromlan",
+  "homepage": "https://github.com/Fromlan/X-agent",
+  "skills": []
+}
