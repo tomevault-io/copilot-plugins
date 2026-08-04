@@ -1,0 +1,9 @@
+{
+  "name": "tenstorrent--ttsim",
+  "displayName": "ttsim",
+  "description": "ttsim",
+  "version": "1.0.0",
+  "author": "tenstorrent",
+  "homepage": "https://github.com/tenstorrent/ttsim",
+  "skills": []
+}
