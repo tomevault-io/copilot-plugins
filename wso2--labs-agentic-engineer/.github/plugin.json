@@ -1,0 +1,9 @@
+{
+  "name": "wso2--labs-agentic-engineer",
+  "displayName": "labs-agentic-engineer",
+  "description": "An AI-driven software development platform built on top of OpenChoreo.",
+  "version": "1.0.0",
+  "author": "wso2",
+  "homepage": "https://github.com/wso2/labs-agentic-engineer",
+  "skills": []
+}
