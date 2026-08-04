@@ -1,0 +1,9 @@
+{
+  "name": "frappe--pilot",
+  "displayName": "pilot",
+  "description": "Frappe Server Manager",
+  "version": "1.0.0",
+  "author": "frappe",
+  "homepage": "https://github.com/frappe/pilot",
+  "skills": []
+}
