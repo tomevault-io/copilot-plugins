@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cluster-ingress-operator",
+  "displayName": "cluster-ingress-operator",
+  "description": "cluster-ingress-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cluster-ingress-operator",
+  "skills": []
+}
