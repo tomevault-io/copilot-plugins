@@ -1,0 +1,9 @@
+{
+  "name": "cashcon57--corkscrew",
+  "displayName": "corkscrew",
+  "description": "A mod manager for CrossOver and Wine/Proton games on macOS and Linux",
+  "version": "1.0.0",
+  "author": "cashcon57",
+  "homepage": "https://github.com/cashcon57/corkscrew",
+  "skills": []
+}
