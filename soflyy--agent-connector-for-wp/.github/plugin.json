@@ -1,0 +1,9 @@
+{
+  "name": "soflyy--agent-connector-for-wp",
+  "displayName": "agent-connector-for-wp",
+  "description": "Give agents unrestricted execution capability on WordPress (shell, PHP eval, filesystem, process) via the WordPress MCP stack. Trusted dev environments only.",
+  "version": "1.0.0",
+  "author": "soflyy",
+  "homepage": "https://github.com/soflyy/agent-connector-for-wp",
+  "skills": []
+}
