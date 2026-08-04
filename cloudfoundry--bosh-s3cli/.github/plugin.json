@@ -1,0 +1,9 @@
+{
+  "name": "cloudfoundry--bosh-s3cli",
+  "displayName": "bosh-s3cli",
+  "description": "bosh-s3cli",
+  "version": "1.0.0",
+  "author": "cloudfoundry",
+  "homepage": "https://github.com/cloudfoundry/bosh-s3cli",
+  "skills": []
+}
