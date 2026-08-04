@@ -1,0 +1,9 @@
+{
+  "name": "contentful--contentful-mcp-server",
+  "displayName": "contentful-mcp-server",
+  "description": "contentful-mcp-server",
+  "version": "1.0.0",
+  "author": "contentful",
+  "homepage": "https://github.com/contentful/contentful-mcp-server",
+  "skills": []
+}
