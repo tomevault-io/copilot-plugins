@@ -1,18 +1,35 @@
-## 30-quality-gates
+## data-engineering-agent-skills
 
-> Quality and operational gates for data engineering work
+> Use the shared data engineering skill pack from this repository as the primary workflow source.
 
+# Copilot Instructions
 
-# Quality Gates
+Use the shared data engineering skill pack from this repository as the primary workflow source.
 
-For production-facing data work:
+## Loading Order
 
-- use `data-quality-and-contract-testing`
-- use `data-observability-and-sla-management`
-- use `incident-triage-and-pipeline-recovery` for incident work
-- for `/backfill` or replay work, require `safe-backfill-and-replay-orchestration` and `templates/backfill-plan.yaml` evidence
-- for Kafka or serverless Spark changes, load `kafka-resilience-and-schema-evolution` or `spark-serverless-reliability-and-state-management` as appropriate
-- require evidence for correctness, replay safety, and publish readiness
+1. Start with `AGENTS.md`
+2. Use `skills/using-data-engineering-agent-skills/SKILL.md`
+3. Load one platform preset from `presets/`
+4. Load one or more workflow skills from `skills/`
+5. Use checklist references from `references/` for review and verification
+
+## Behavior
+
+- prefer specification before code changes
+- keep contracts, grain, and ownership explicit
+- do not treat a successful run as proof of correctness
+- prefer small, verifiable changes over wide rewrites
+- use examples and templates when starting a new data product
+- treat `/validate` and `/backfill` as first-class workflow phases
+
+## Common Task Mappings
+
+- new data product: `data-specification`, `pipeline-planning-and-task-breakdown`
+- warehouse modeling: `warehouse-and-schema-design`, `dbt-and-analytics-engineering`
+- lakehouse: `data-lake-and-zone-architecture`, `lakehouse-table-format-engineering`
+- streaming: `streaming-and-messaging-systems`, `data-observability-and-sla-management`
+- incidents: `incident-triage-and-pipeline-recovery`
 
 ---
 > Source: [vaquarkhan/data-engineering-agent-skills](https://github.com/vaquarkhan/data-engineering-agent-skills) — distributed by [TomeVault](https://tomevault.io).
