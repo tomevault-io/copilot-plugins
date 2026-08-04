@@ -1,0 +1,9 @@
+{
+  "name": "openstack-k8s-operators--openstack-operator",
+  "displayName": "openstack-operator",
+  "description": "openstack-operator",
+  "version": "1.0.0",
+  "author": "openstack-k8s-operators",
+  "homepage": "https://github.com/openstack-k8s-operators/openstack-operator",
+  "skills": []
+}
