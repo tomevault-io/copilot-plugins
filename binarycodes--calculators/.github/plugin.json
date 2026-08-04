@@ -1,0 +1,9 @@
+{
+  "name": "binarycodes--calculators",
+  "displayName": "calculators",
+  "description": "Self-hostable personal-finance calculators (retirement, loan, buy-vs-rent & more) \u2014 your numbers never leave your browser. Vaadin + Spring Boot.",
+  "version": "1.0.0",
+  "author": "binarycodes",
+  "homepage": "https://github.com/binarycodes/calculators",
+  "skills": []
+}
