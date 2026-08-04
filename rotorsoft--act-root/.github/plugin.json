@@ -1,0 +1,9 @@
+{
+  "name": "rotorsoft--act-root",
+  "displayName": "act-root",
+  "description": "Event-sourcing framework for TypeScript. Three primitives (actions, state, reactions), Zod end to end, no broker required. Postgres, SQLite, or in-memory.",
+  "version": "1.0.0",
+  "author": "Rotorsoft",
+  "homepage": "https://github.com/Rotorsoft/act-root",
+  "skills": []
+}
