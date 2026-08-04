@@ -1,0 +1,9 @@
+{
+  "name": "victoriametrics--victorialogs-datasource",
+  "displayName": "victorialogs-datasource",
+  "description": "victorialogs-datasource",
+  "version": "1.0.0",
+  "author": "VictoriaMetrics",
+  "homepage": "https://github.com/VictoriaMetrics/victorialogs-datasource",
+  "skills": []
+}
