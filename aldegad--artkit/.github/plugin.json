@@ -1,0 +1,9 @@
+{
+  "name": "aldegad--artkit",
+  "displayName": "artkit",
+  "description": "A web-based graphics editor for sprites, pixel art, and SVG",
+  "version": "1.0.0",
+  "author": "aldegad",
+  "homepage": "https://github.com/aldegad/artkit",
+  "skills": []
+}
