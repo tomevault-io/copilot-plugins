@@ -1,0 +1,9 @@
+{
+  "name": "towardsai--ai-tutor-app",
+  "displayName": "ai-tutor-app",
+  "description": "Agentic RAG tutor for applied AI, LLMs, RAG, and Python: a LangGraph agent (FastAPI + Next.js) grounded in a curated course and library corpus.",
+  "version": "1.0.0",
+  "author": "towardsai",
+  "homepage": "https://github.com/towardsai/ai-tutor-app",
+  "skills": []
+}
