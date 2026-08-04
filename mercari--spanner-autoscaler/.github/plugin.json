@@ -1,0 +1,9 @@
+{
+  "name": "mercari--spanner-autoscaler",
+  "displayName": "spanner-autoscaler",
+  "description": "spanner-autoscaler",
+  "version": "1.0.0",
+  "author": "mercari",
+  "homepage": "https://github.com/mercari/spanner-autoscaler",
+  "skills": []
+}
