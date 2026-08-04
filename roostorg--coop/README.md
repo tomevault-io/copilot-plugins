@@ -1,8 +1,6 @@
 # coop
 
-> Source: [roostorg/coop](https://github.com/roostorg/coop) — distributed by [TomeVault](https://tomevault.io)
-
-Review and moderation, your way. Online safety dashboard, queues, routing and automatic enforcement rules, and integrations.
+> Source: [roostorg/coop](https://github.com/roostorg/coop). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [roostorg/coop](https://github.com/roostorg/coop
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/roostorg/coop](https://github.com/roostorg/coop)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/roostorg/coop](https://github.com/roostorg/coop)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-q -->
