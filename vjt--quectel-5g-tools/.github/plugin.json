@@ -1,0 +1,9 @@
+{
+  "name": "vjt--quectel-5g-tools",
+  "displayName": "quectel-5g-tools",
+  "description": "A parser and monitor to read cells information out of Quectel modems",
+  "version": "1.0.0",
+  "author": "vjt",
+  "homepage": "https://github.com/vjt/quectel-5g-tools",
+  "skills": []
+}
