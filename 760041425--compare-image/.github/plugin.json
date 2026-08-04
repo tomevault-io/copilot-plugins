@@ -1,0 +1,9 @@
+{
+  "name": "760041425--compare-image",
+  "displayName": "compare_image",
+  "description": "Image comparison system: extract video frames, compare with query images using XFeat/ALIKED/LightGlue/ORB",
+  "version": "1.0.0",
+  "author": "760041425",
+  "homepage": "https://github.com/760041425/compare_image",
+  "skills": []
+}
