@@ -1,0 +1,9 @@
+{
+  "name": "cytoscape--cytoscape-web",
+  "displayName": "cytoscape-web",
+  "description": "cytoscape-web",
+  "version": "1.0.0",
+  "author": "cytoscape",
+  "homepage": "https://github.com/cytoscape/cytoscape-web",
+  "skills": []
+}
