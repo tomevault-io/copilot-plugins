@@ -1,23 +1,21 @@
 # trace-mcp
 
-> Tome by [nikolai-vysotskyi](https://github.com/nikolai-vysotskyi/trace-mcp) — distributed by [TomeVault](https://tomevault.io)
-
-MCP server for Claude Code and Codex. One tool call replaces ~42 minutes of agent exploration
+> Tome by [nikolai-vysotskyi](https://github.com/nikolai-vysotskyi/trace-mcp), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nikolai-vysotskyi/trace-mcp](https://github.com/nikolai-vysotskyi/trace-mcp).
+Original source: `AGENTS.md` in [nikolai-vysotskyi/trace-mcp](https://github.com/nikolai-vysotskyi/trace-mcp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/nikolai-vysotskyi/trace-mcp](https://github.com/nikolai-vysotskyi/trace-mcp)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/nikolai-vysotskyi/trace-mcp](https://github.com/nikolai-vysotskyi/trace-mcp)
 
 ---
 
