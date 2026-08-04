@@ -1,0 +1,9 @@
+{
+  "name": "serhiikorniienko--bullshit-detector",
+  "displayName": "bullshit-detector",
+  "description": "Agent skills that fact-check the internet: claim-by-claim verification with sources and a 0-10 BS score for any YouTube video, article, tweet, or PDF",
+  "version": "1.0.0",
+  "author": "SerhiiKorniienko",
+  "homepage": "https://github.com/SerhiiKorniienko/bullshit-detector",
+  "skills": []
+}
