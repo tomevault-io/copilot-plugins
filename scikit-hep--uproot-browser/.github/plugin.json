@@ -1,0 +1,9 @@
+{
+  "name": "scikit-hep--uproot-browser",
+  "displayName": "uproot-browser",
+  "description": "uproot-browser",
+  "version": "1.0.0",
+  "author": "scikit-hep",
+  "homepage": "https://github.com/scikit-hep/uproot-browser",
+  "skills": []
+}
