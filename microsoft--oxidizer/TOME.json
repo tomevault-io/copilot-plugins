@@ -2,7 +2,7 @@
   "name": "oxidizer",
   "owner": "microsoft",
   "repo": "oxidizer",
-  "description": "Oxidizer is a platform for Rust service development which bridges the gaps in the crate ecosystem to deliver a turn-key solution to enable the efficient creation of high-scale high-availability and high-performance services in Rust.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/microsoft/oxidizer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T20:52:12Z"
+  "distributed_at": "2026-08-04T01:31:52Z"
 }
