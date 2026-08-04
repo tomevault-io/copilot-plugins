@@ -1,0 +1,9 @@
+{
+  "name": "karpeleslab--cterm",
+  "displayName": "cterm",
+  "description": "CodeTerm, ClaudeTerm... a terminal emulator optimized for AI coding tools",
+  "version": "1.0.0",
+  "author": "KarpelesLab",
+  "homepage": "https://github.com/KarpelesLab/cterm",
+  "skills": []
+}
