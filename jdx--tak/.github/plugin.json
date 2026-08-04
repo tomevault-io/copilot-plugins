@@ -1,0 +1,9 @@
+{
+  "name": "jdx--tak",
+  "displayName": "tak",
+  "description": "Experimental: benchmark CLIs and track performance over time. Do not use.",
+  "version": "1.0.0",
+  "author": "jdx",
+  "homepage": "https://github.com/jdx/tak",
+  "skills": []
+}
