@@ -1,0 +1,9 @@
+{
+  "name": "okturan--dirwiz",
+  "displayName": "dirwiz",
+  "description": "See where your disk went. A fast macOS disk analyzer with a Metal treemap \u2014 4.4M files in 23 seconds. Free, open source, notarized.",
+  "version": "1.0.0",
+  "author": "okturan",
+  "homepage": "https://github.com/okturan/dirwiz",
+  "skills": []
+}
