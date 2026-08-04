@@ -1,0 +1,9 @@
+{
+  "name": "199-biotechnologies--whatsrust",
+  "displayName": "whatsrust",
+  "description": "WhatsApp in pure Rust. Single binary, 5 MB, 15 MB RAM. 54 API endpoints, 30 MCP tools, full protocol.",
+  "version": "1.0.0",
+  "author": "199-biotechnologies",
+  "homepage": "https://github.com/199-biotechnologies/whatsrust",
+  "skills": []
+}
