@@ -1,0 +1,9 @@
+{
+  "name": "mm5agm--yaesu-web-control",
+  "displayName": "Yaesu_Web_Control",
+  "description": "Browser-based CAT controller for Yaesu HF transceivers",
+  "version": "1.0.0",
+  "author": "mm5agm",
+  "homepage": "https://github.com/mm5agm/Yaesu_Web_Control",
+  "skills": []
+}
