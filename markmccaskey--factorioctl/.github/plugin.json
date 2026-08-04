@@ -1,0 +1,9 @@
+{
+  "name": "markmccaskey--factorioctl",
+  "displayName": "factorioctl",
+  "description": "CLI to control Factorio + tools for Claude code to play Factorio",
+  "version": "1.0.0",
+  "author": "MarkMcCaskey",
+  "homepage": "https://github.com/MarkMcCaskey/factorioctl",
+  "skills": []
+}
