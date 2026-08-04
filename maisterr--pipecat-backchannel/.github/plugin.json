@@ -1,0 +1,9 @@
+{
+  "name": "maisterr--pipecat-backchannel",
+  "displayName": "pipecat-backchannel",
+  "description": "Make voice AI conversations feel live. Pipecat agents that listen back with natural \"mhm\"s and \"yeah\"s while the user is still talking.",
+  "version": "1.0.0",
+  "author": "maisterr",
+  "homepage": "https://github.com/maisterr/pipecat-backchannel",
+  "skills": []
+}
