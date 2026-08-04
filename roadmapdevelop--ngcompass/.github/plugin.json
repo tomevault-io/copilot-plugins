@@ -1,0 +1,9 @@
+{
+  "name": "roadmapdevelop--ngcompass",
+  "displayName": "ngcompass",
+  "description": "Angular-aware static analysis CLI for architecture, performance, SSR, security, reactivity, and code quality.",
+  "version": "1.0.0",
+  "author": "RoadmapDevelop",
+  "homepage": "https://github.com/RoadmapDevelop/ngcompass",
+  "skills": []
+}
