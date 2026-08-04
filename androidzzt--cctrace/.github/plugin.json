@@ -1,0 +1,9 @@
+{
+  "name": "androidzzt--cctrace",
+  "displayName": "cctrace",
+  "description": "Real-time profiler for AI coding agents (Claude Code / Codex) \u2014 wraps your agent and renders every session event on a local waterfall timeline. Single Go binary, JSONL on disk, no telemetry, local-fir",
+  "version": "1.0.0",
+  "author": "androidZzT",
+  "homepage": "https://github.com/androidZzT/cctrace",
+  "skills": []
+}
