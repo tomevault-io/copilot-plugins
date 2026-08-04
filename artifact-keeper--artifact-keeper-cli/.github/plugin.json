@@ -1,0 +1,9 @@
+{
+  "name": "artifact-keeper--artifact-keeper-cli",
+  "displayName": "artifact-keeper-cli",
+  "description": "CLI/TUI tool to integrate with artifact-keeper",
+  "version": "1.0.0",
+  "author": "artifact-keeper",
+  "homepage": "https://github.com/artifact-keeper/artifact-keeper-cli",
+  "skills": []
+}
