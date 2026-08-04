@@ -1,0 +1,9 @@
+{
+  "name": "juherr--kill-the-news",
+  "displayName": "kill-the-news",
+  "description": "Self-hosted Cloudflare Worker that turns email newsletters into private RSS feeds \u2014 your data, your domain, your reader.",
+  "version": "1.0.0",
+  "author": "juherr",
+  "homepage": "https://github.com/juherr/kill-the-news",
+  "skills": []
+}
