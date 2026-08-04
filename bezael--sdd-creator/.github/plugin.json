@@ -1,0 +1,9 @@
+{
+  "name": "bezael--sdd-creator",
+  "displayName": "sdd-creator",
+  "description": "Genera specs siguiendo la metodolog\u00eda Spec-Driven Development de Dominicode (Bezael P\u00e9rez)",
+  "version": "1.0.0",
+  "author": "bezael",
+  "homepage": "https://github.com/bezael/sdd-creator",
+  "skills": []
+}
