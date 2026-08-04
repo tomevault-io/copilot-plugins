@@ -1,0 +1,9 @@
+{
+  "name": "exdenta--oinkaijobsearch",
+  "displayName": "OinkAIJobSearch",
+  "description": "AI job-search agent in Telegram \u2014 scrapes 25+ job boards, scores every posting against your CV with Claude, pushes real matches to your chat. Self-host free or use the hosted bot.",
+  "version": "1.0.0",
+  "author": "Exdenta",
+  "homepage": "https://github.com/Exdenta/OinkAIJobSearch",
+  "skills": []
+}
