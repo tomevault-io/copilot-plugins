@@ -1,0 +1,9 @@
+{
+  "name": "siedi--ha-fairland",
+  "displayName": "ha-fairland",
+  "description": "Home Assistant integration for Fairland (iGarden) pool heat pumps and pool pumps \u2014 connects directly to the iGarden cloud (not Tuya)",
+  "version": "1.0.0",
+  "author": "siedi",
+  "homepage": "https://github.com/siedi/ha-fairland",
+  "skills": []
+}
