@@ -1,0 +1,9 @@
+{
+  "name": "coursier--setup-action",
+  "displayName": "setup-action",
+  "description": "setup-action",
+  "version": "1.0.0",
+  "author": "coursier",
+  "homepage": "https://github.com/coursier/setup-action",
+  "skills": []
+}
