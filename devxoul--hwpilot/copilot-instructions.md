@@ -1,0 +1,263 @@
+## hwpilot
+
+> hwpilot is a native HWP/HWPX document editor CLI for AI agents. It provides programmatic access to read and write Korean word processor documents.
+
+# hwpilot — Development Guide
+
+## Overview
+
+hwpilot is a native HWP/HWPX document editor CLI for AI agents. It provides programmatic access to read and write Korean word processor documents.
+
+## TypeScript Execution Model
+
+### Development (Bun)
+During development, run TypeScript directly with Bun:
+```bash
+bun src/cli.ts <command> [options]
+```
+
+Bun handles TypeScript compilation on-the-fly, enabling fast iteration.
+
+### Production (Node.js)
+For distribution, compile to JavaScript and run with Node.js:
+```bash
+bun run build
+node dist/src/cli.js <command> [options]
+```
+
+The build pipeline:
+1. `tsc` compiles TypeScript to JavaScript in `dist/`
+2. `tsc-alias` resolves path aliases (`@/*` → `src/*`)
+3. `postbuild.ts` replaces shebangs (`#!/usr/bin/env bun` → `#!/usr/bin/env node`)
+4. `prepublish.ts` rewrites bin paths in package.json for npm publishing
+
+## Project Structure
+
+```
+src/
+├── cli.ts                 # CLI entry point
+├── types.ts               # Shared type definitions
+├── commands/              # Command implementations
+│   ├── convert.ts         # HWP → HWPX conversion
+│   ├── create.ts          # New document creation
+│   ├── edit-format.ts     # Character formatting
+│   ├── edit-text.ts       # Text editing
+│   ├── find.ts            # Text search
+│   ├── image.ts           # Image operations
+│   ├── paragraph.ts       # Paragraph addition
+│   ├── read.ts            # Document reading
+│   ├── table.ts           # Table operations
+│   ├── text.ts            # Text extraction
+│   └── validate.ts        # File validation
+├── daemon/                # Persistent daemon for batch operations
+│   ├── client.ts          # Client-side daemon connection
+│   ├── dispatch.ts        # Command dispatch
+│   ├── entry.ts           # Daemon entry point
+│   ├── flush.ts           # Write-back/flush logic
+│   ├── holder-hwp.ts      # HWP file holder
+│   ├── holder-hwpx.ts     # HWPX file holder
+│   ├── launcher.ts        # Daemon process launcher
+│   ├── protocol.ts        # Client-server protocol
+│   ├── server.ts          # Daemon server
+│   └── state-file.ts      # Daemon state persistence
+├── formats/
+│   ├── hwpx/              # HWPX format (ZIP+XML)
+│   │   ├── elements.ts    # XML element definitions
+│   │   ├── header-parser.ts # Document header parsing
+│   │   ├── loader.ts      # HWPX file loading
+│   │   ├── mutator.ts     # HWPX document mutation
+│   │   ├── namespaces.ts  # XML namespace handling
+│   │   ├── paths.ts       # Internal ZIP paths
+│   │   ├── section-parser.ts # Section content parsing
+│   │   └── writer.ts      # HWPX file writing
+│   └── hwp/               # HWP 5.0 format (binary CFB)
+│       ├── cfb-writer.ts  # CFB container writing
+│       ├── control-id.ts  # Control character IDs
+│       ├── creator.ts     # New HWP file creation
+│       ├── mutator.ts     # HWP record mutation
+│       ├── reader.ts      # HWP file reading
+│       ├── record-parser.ts # Binary record parsing
+│       ├── record-serializer.ts # Binary record serialization
+│       ├── stream-util.ts # Stream utilities
+│       ├── tag-ids.ts     # HWP tag ID constants
+│       ├── validator.ts    # HWP structural validation
+│       └── writer.ts      # HWP file writing
+└── shared/                # Shared utilities
+    ├── document-ops.ts    # Document read/write operations
+    ├── edit-types.ts      # Edit operation types
+    ├── error-handler.ts   # Error formatting
+    ├── format-detector.ts # Magic-byte format detection
+    ├── output.ts          # JSON output formatting
+    ├── ref-hints.ts       # Reference hint generation
+    ├── refs.ts            # Reference system (s0.p0.t1...)
+    └── viewer.ts          # Hancom Viewer integration
+
+scripts/
+├── postbuild.ts           # Post-build shebang replacement
+└── prepublish.ts          # Pre-publish bin path rewriting
+
+skills/hwpilot/            # Agent skill definition
+└── SKILL.md
+
+.claude-plugin/            # Claude plugin metadata
+
+playground/                # Manual testing with real HWP files
+```
+
+## Build Pipeline
+
+### Development Build
+```bash
+bun run typecheck    # Type-check without emitting
+bun run lint         # Lint with oxlint
+```
+
+### Production Build
+```bash
+bun run build        # Compile + alias resolution + postbuild
+```
+
+Output: `dist/src/cli.js` (executable with Node.js)
+
+### Publishing
+```bash
+bun run prepublishOnly   # Build + typecheck + test + rewrite bin paths
+npm publish
+bun run postpublish      # Restore package.json
+```
+
+## Test Commands
+
+```bash
+bun test src/        # Run all unit tests
+bun test e2e/        # Run all E2E tests
+bun run typecheck    # Type-check
+bun run lint         # Lint
+bun run lint:fix     # Auto-fix lint issues
+bun run format       # Format code
+```
+
+## E2E Testing
+
+### Philosophy
+E2E tests are real-world — they use actual Korean legal documents, invoke the CLI as a subprocess (not function imports), and cross-validate through independent code paths. Unit tests test particular features in controlled environments; E2E tests simulate what an AI agent would actually do with real documents.
+
+### Structure
+One test file per fixture document in `e2e/`. Tests match fixtures. When a new failing case is found, add the HWP file as a fixture and create a matching test file.
+
+### Cross-Validation
+Edits are validated by converting HWP→HWPX and inspecting raw XML, ensuring two independent code paths agree. This prevents the "write broken, read broken, pass" anti-pattern.
+
+### Anti-Pattern Warning
+Never validate edits by reading back with the same code path that wrote. Always verify through an independent path (e.g., convert to HWPX and inspect XML directly).
+
+### Running E2E Tests
+```bash
+bun test e2e/
+```
+
+### Adding New Fixtures
+Drop HWP file in `e2e/fixtures/`, run probe to discover editable paragraphs, create matching test file in `e2e/` following existing patterns.
+
+### Known Issues
+See `e2e/KNOWN-ISSUES.md` for interface limitations discovered during testing (table detection, paragraph editability mismatch, charShape corruption, etc.).
+
+## HWP/HWPX Format Overview
+
+**Important**: Format is detected by file content (magic bytes), NOT by file extension. A `.hwp` file may actually contain HWPX format (ZIP+XML). See `src/shared/format-detector.ts`.
+
+### HWPX (Full R/W)
+- **Structure**: ZIP archive containing XML files
+- **Magic bytes**: `50 4B 03 04` (ZIP)
+- **Capabilities**: Full read/write support
+- **Key files**:
+  - `content.xml` — document content
+  - `styles.xml` — styles and formatting
+  - `meta.xml` — metadata
+  - `settings.xml` — document settings
+- **Advantages**: Human-readable, extensible, modern
+
+### HWP 5.0 (R/W)
+- **Structure**: Compound File Binary (CFB) format
+- **Magic bytes**: `D0 CF 11 E0` (CFB)
+- **Capabilities**: Read + write (text, table cells, character formatting, new document creation)
+- **Write approach**: Record-patching (modifies binary records in-place, preserves file structure)
+- **New file creation**: Uses an embedded base64 template (`TEMPLATE_BASE64` in `src/sdk/formats/hwp/creator.ts`) as base, patches font/size into DocInfo records
+- **Key sections**:
+  - `FileHeader` — document metadata
+  - `BodyText` — document content (record stream per section)
+  - `DocInfo` — styles and formatting (CharShape, ParaShape, etc.)
+- **Not supported**: Image insert/extract/replace (convert to HWPX first)
+
+## Reference System
+
+Documents use a hierarchical reference notation: `s0.p0`, `s0.t1.r2.c0`
+
+- `s` = section (0-indexed)
+- `p` = paragraph
+- `t` = table
+- `r` = row
+- `c` = cell
+
+Example: `s0.t1.r2.c0` = Section 0, Table 1, Row 2, Cell 0
+
+## Adding New Commands
+
+1. Create `src/commands/<name>.ts`:
+```typescript
+export async function <name>(options: CommandOptions): Promise<void> {
+  // Implementation
+}
+```
+
+2. Register in `src/cli.ts`:
+```typescript
+import { <name> } from '@/commands/<name>'
+
+program
+  .command('<name>')
+  .description('...')
+  .action(<name>)
+```
+
+3. Test with:
+```bash
+bun src/cli.ts <name> [options]
+```
+
+## Key Dependencies
+
+- **cfb** — Compound File Binary parsing (HWP 5.0 format)
+- **jszip** — ZIP file handling (HWPX format)
+- **fast-xml-parser** — XML parsing and generation
+- **pako** — Zlib compression/decompression (HWP record streams)
+- **commander** — CLI argument parsing
+- **typescript** — Type checking
+- **oxlint** — Linting
+- **oxfmt** — Code formatting
+
+## Development Workflow
+
+1. **Type-check**: `bun run typecheck`
+2. **Lint**: `bun run lint`
+3. **Test**: `bun test src/`
+4. **Build**: `bun run build`
+5. **Run**: `node dist/src/cli.js <command>`
+
+## Troubleshooting
+
+### Build fails with "Cannot find module"
+- Run `bun install` to ensure dependencies are installed
+- Check that path aliases in `tsconfig.json` match your file structure
+
+### Lint errors
+- Run `bun run lint:fix` to auto-fix common issues
+- Check `.oxlintrc.json` for rule configuration
+
+### Type errors
+- Run `bun run typecheck` to see all type issues
+- Ensure all imports use correct paths with `@/` alias
+
+---
+> Source: [devxoul/hwpilot](https://github.com/devxoul/hwpilot) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-30 -->
