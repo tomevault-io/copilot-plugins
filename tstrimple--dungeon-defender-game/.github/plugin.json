@@ -1,0 +1,9 @@
+{
+  "name": "tstrimple--dungeon-defender-game",
+  "displayName": "dungeon_defender_game",
+  "description": "A basic tower defense game built with Rust and Bevy, featuring third-person controls and geometric representations",
+  "version": "1.0.0",
+  "author": "tstrimple",
+  "homepage": "https://github.com/tstrimple/dungeon_defender_game",
+  "skills": []
+}
