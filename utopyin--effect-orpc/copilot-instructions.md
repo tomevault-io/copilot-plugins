@@ -1,114 +1,85 @@
-## use-bun-instead-of-node-vite-npm-pnpm
+## effect-orpc
 
-> Use Bun instead of Node.js, npm, pnpm, or vite.
+> This is the Effect library repository, focusing on functional programming patterns and effect systems in TypeScript.
 
+# Agent Instructions
 
-Default to using Bun instead of Node.js.
+This is the Effect library repository, focusing on functional programming patterns and effect systems in TypeScript.
 
-- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
-- Use `bun test` instead of `jest` or `vitest`
-- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
-- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
-- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
-- Bun automatically loads .env, so don't use dotenv.
+## Development Workflow
 
-## APIs
+- The git base branch is `main`
+- Use `pnpm` as the package manager
 
-- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
-- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
-- `Bun.redis` for Redis. Don't use `ioredis`.
-- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
-- `WebSocket` is built-in. Don't use `ws`.
-- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
-- Bun.$`ls` instead of execa.
+### Core Principles
+
+- **Zero Tolerance for Errors**: All automated checks must pass
+- **Clarity over Cleverness**: Choose clear, maintainable solutions
+- **Conciseness**: Keep code and any wording concise and to the point. Sacrifice grammar for the sake of concision.
+- **Reduce comments**: Avoid comments unless absolutely required to explain unusual or complex logic. Comments in jsdocs are acceptable.
+
+### Mandatory Validation Steps
+
+- Run `pnpm lint-fix` after editing files
+- Always run tests after making changes: `pnpm test run <test_file.ts>`
+- Run type checking: `pnpm check`
+  - If type checking continues to fail, run `pnpm clean` to clear caches, then re-run `pnpm check`
+- Build the project: `pnpm build`
+- Check JSDoc examples compile: `pnpm docgen`
+
+## Code Style Guidelines
+
+**Always** look at existing code in the repository to learn and follow
+established patterns before writing new code.
+
+Do not worry about getting code formatting perfect while writing. Use `pnpm lint-fix`
+to automatically format code according to the project's style guidelines.
+
+### Barrel files
+
+The `index.ts` files are automatically generated. Do not manually edit them. Use
+`pnpm codegen` to regenerate barrel files after adding or removing modules.
+
+## Changesets
+
+All pull requests must include a changeset in the `.changeset/` directory.
+This is important for maintaining a clear changelog and ensuring proper versioning of packages.
+
+## Running test code
+
+If you need to run some code for testing or debugging purposes, create a new
+file in the `scratchpad/` directory at the root of the repository. You can then
+run the file with `tsx scratchpad/your-file.ts`.
+
+Make sure to delete the file after you are done testing.
 
 ## Testing
 
-Use `bun test` to run tests.
+Before writing tests, look at existing tests in the codebase for similar
+functionality to follow established patterns.
 
-```ts#index.test.ts
-import { test, expect } from "bun:test";
+- Test files are located in `packages/*/test/` directories for each package
+- Main Effect library tests: `packages/effect/test/`
+- Always verify implementations with tests
+- Run specific tests with: `pnpm test <filename>`
 
-test("hello world", () => {
-  expect(1).toBe(1);
-});
-```
+### it.effect Testing Pattern
 
-## Frontend
+- Use `it.effect` for all Effect-based tests, not `Effect.runSync` with regular `it`
+- Import `{ assert, describe, it }` from `@effect/vitest`
+- Never use `expect` from vitest in Effect tests - use `assert` methods instead
+- All tests should use `it.effect("description", () => Effect.gen(function*() { ... }))`
 
-Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
+Before writing tests, look at existing tests in the codebase for similar
+functionality to follow established patterns.
 
-Server:
+## Learning about "effect" v4
 
-```ts#index.ts
-import index from "./index.html"
+If you need to learn more about the new version of effect (version 4), you can
+access the repository here:
 
-Bun.serve({
-  routes: {
-    "/": index,
-    "/api/users/:id": {
-      GET: (req) => {
-        return new Response(JSON.stringify({ id: req.params.id }));
-      },
-    },
-  },
-  // optional websocket support
-  websocket: {
-    open: (ws) => {
-      ws.send("Hello, world!");
-    },
-    message: (ws, message) => {
-      ws.send(message);
-    },
-    close: (ws) => {
-      // handle close
-    }
-  },
-  development: {
-    hmr: true,
-    console: true,
-  }
-})
-```
-
-HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
-
-```html#index.html
-<html>
-  <body>
-    <h1>Hello, world!</h1>
-    <script type="module" src="./frontend.tsx"></script>
-  </body>
-</html>
-```
-
-With the following `frontend.tsx`:
-
-```tsx#frontend.tsx
-import React from "react";
-
-// import .css files directly and it works
-import './index.css';
-
-import { createRoot } from "react-dom/client";
-
-const root = createRoot(document.body);
-
-export default function Frontend() {
-  return <h1>Hello, world!</h1>;
-}
-
-root.render(<Frontend />);
-```
-
-Then, run index.ts
-
-```sh
-bun --hot ./index.ts
-```
-
-For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
+\`.repos/effect-v4\`
 
 ---
 > Source: [utopyin/effect-orpc](https://github.com/utopyin/effect-orpc) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
