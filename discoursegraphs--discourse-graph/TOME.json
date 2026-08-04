@@ -2,7 +2,7 @@
   "name": "discourse-graph",
   "owner": "DiscourseGraphs",
   "repo": "discourse-graph",
-  "description": "A tool and ecosystem for collaborative knowledge synthesis",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DiscourseGraphs/discourse-graph",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-03T05:31:59Z"
+  "distributed_at": "2026-08-04T04:12:13Z"
 }
