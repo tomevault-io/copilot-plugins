@@ -1,0 +1,9 @@
+{
+  "name": "k8snetworkplumbingwg--kubemacpool",
+  "displayName": "kubemacpool",
+  "description": "kubemacpool",
+  "version": "1.0.0",
+  "author": "k8snetworkplumbingwg",
+  "homepage": "https://github.com/k8snetworkplumbingwg/kubemacpool",
+  "skills": []
+}
