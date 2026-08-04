@@ -1,0 +1,9 @@
+{
+  "name": "jastinxyz--fana",
+  "displayName": "fana",
+  "description": "Self-hostable disposable email with an API your tests can actually use: private inboxes, wait-for-mail, OTP extraction, webhooks.",
+  "version": "1.0.0",
+  "author": "JastinXyz",
+  "homepage": "https://github.com/JastinXyz/fana",
+  "skills": []
+}
