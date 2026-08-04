@@ -1,0 +1,9 @@
+{
+  "name": "kako-jun--friendly-filer",
+  "displayName": "friendly-filer",
+  "description": "TRON-styled terminal FPS disc shooter that doubles as a real file manager, built in Rust with termray raycasting",
+  "version": "1.0.0",
+  "author": "kako-jun",
+  "homepage": "https://github.com/kako-jun/friendly-filer",
+  "skills": []
+}
