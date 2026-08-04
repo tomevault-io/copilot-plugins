@@ -1,0 +1,9 @@
+{
+  "name": "timer-err--qml4j",
+  "displayName": "qml4j",
+  "description": "Render QML With Skia Backend",
+  "version": "1.0.0",
+  "author": "TIMER-err",
+  "homepage": "https://github.com/TIMER-err/qml4j",
+  "skills": []
+}
