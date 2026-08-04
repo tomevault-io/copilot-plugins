@@ -1,0 +1,9 @@
+{
+  "name": "algolia--algoliasearch-client-kotlin",
+  "displayName": "algoliasearch-client-kotlin",
+  "description": "algoliasearch-client-kotlin",
+  "version": "1.0.0",
+  "author": "algolia",
+  "homepage": "https://github.com/algolia/algoliasearch-client-kotlin",
+  "skills": []
+}
