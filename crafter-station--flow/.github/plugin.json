@@ -1,0 +1,9 @@
+{
+  "name": "crafter-station--flow",
+  "displayName": "flow",
+  "description": "A zero-dependency and infinite canvas library for React.",
+  "version": "1.0.0",
+  "author": "crafter-station",
+  "homepage": "https://github.com/crafter-station/flow",
+  "skills": []
+}
