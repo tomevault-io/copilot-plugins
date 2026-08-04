@@ -4,7 +4,7 @@
   "repo": "wemod_enhancer",
   "description": "Wemod patcher impl getting rid of C#",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/e-gleba/wemod_enhancer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-02T10:38:06Z"
+  "distributed_at": "2026-08-04T23:42:55Z"
 }
