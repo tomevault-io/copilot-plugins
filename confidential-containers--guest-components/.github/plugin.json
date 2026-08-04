@@ -1,0 +1,9 @@
+{
+  "name": "confidential-containers--guest-components",
+  "displayName": "guest-components",
+  "description": "guest-components",
+  "version": "1.0.0",
+  "author": "confidential-containers",
+  "homepage": "https://github.com/confidential-containers/guest-components",
+  "skills": []
+}
