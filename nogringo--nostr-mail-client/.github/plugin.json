@@ -1,0 +1,9 @@
+{
+  "name": "nogringo--nostr-mail-client",
+  "displayName": "nostr-mail-client",
+  "description": "nostr-mail-client",
+  "version": "1.0.0",
+  "author": "nogringo",
+  "homepage": "https://github.com/nogringo/nostr-mail-client",
+  "skills": []
+}
