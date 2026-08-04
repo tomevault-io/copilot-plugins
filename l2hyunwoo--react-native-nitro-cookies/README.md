@@ -1,8 +1,6 @@
 # react-native-nitro-cookies
 
-> Source: [l2hyunwoo/react-native-nitro-cookies](https://github.com/l2hyunwoo/react-native-nitro-cookies) — distributed by [TomeVault](https://tomevault.io)
-
-Fetch, Get Cookies 🍪 at the Speed of Nitro
+> Source: [l2hyunwoo/react-native-nitro-cookies](https://github.com/l2hyunwoo/react-native-nitro-cookies). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [l2hyunwoo/react-native-nitro-cookies](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [l2hyunwoo/react-native-nitro-cookies](https://github.com/l2hyunwoo/react-native-nitro-cookies) — a repo with 63+ stars on GitHub.
+From [l2hyunwoo/react-native-nitro-cookies](https://github.com/l2hyunwoo/react-native-nitro-cookies) — a repo with 73+ stars on GitHub.
 
 ---
 
