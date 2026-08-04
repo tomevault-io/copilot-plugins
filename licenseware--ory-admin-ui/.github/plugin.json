@@ -1,0 +1,9 @@
+{
+  "name": "licenseware--ory-admin-ui",
+  "displayName": "ory-admin-ui",
+  "description": "A modern admin panel for Ory Kratos. Manage identities, sessions, and schemas through a responsive dark/light UI \u2014 ships as a single Go binary or Docker image.",
+  "version": "1.0.0",
+  "author": "licenseware",
+  "homepage": "https://github.com/licenseware/ory-admin-ui",
+  "skills": []
+}
