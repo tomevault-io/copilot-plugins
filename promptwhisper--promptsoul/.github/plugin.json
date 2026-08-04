@@ -1,0 +1,9 @@
+{
+  "name": "promptwhisper--promptsoul",
+  "displayName": "promptsoul",
+  "description": "Local-first AI Live2D NPC with safe prompt-to-motion generation.",
+  "version": "1.0.0",
+  "author": "promptwhisper",
+  "homepage": "https://github.com/promptwhisper/promptsoul",
+  "skills": []
+}
