@@ -1,0 +1,9 @@
+{
+  "name": "patrickdarke--darksidepwr",
+  "displayName": "DarksidePWR",
+  "description": "Victron GX power monitor for CrowPanel Advance 3.5\" (ESP32-S3) \u2014 Modbus TCP, DSODash design language. Private.",
+  "version": "1.0.0",
+  "author": "patrickdarke",
+  "homepage": "https://github.com/patrickdarke/DarksidePWR",
+  "skills": []
+}
