@@ -1,0 +1,9 @@
+{
+  "name": "hiberius--whatsapp-receptionist",
+  "displayName": "whatsapp-receptionist",
+  "description": "Open-source AI receptionist for WhatsApp. Books real appointments, transcribes voice, integrates Google Calendar + Stripe. Multi-tenant SaaS starter kit. Crafted in Italy with GDPR built-in.",
+  "version": "1.0.0",
+  "author": "Hiberius",
+  "homepage": "https://github.com/Hiberius/whatsapp-receptionist",
+  "skills": []
+}
