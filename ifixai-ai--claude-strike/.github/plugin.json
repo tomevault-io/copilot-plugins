@@ -1,0 +1,9 @@
+{
+  "name": "ifixai-ai--claude-strike",
+  "displayName": "claude-strike",
+  "description": "Spec-driven Claude Code, dropped into your repo in one command.",
+  "version": "1.0.0",
+  "author": "ifixai-ai",
+  "homepage": "https://github.com/ifixai-ai/claude-strike",
+  "skills": []
+}
