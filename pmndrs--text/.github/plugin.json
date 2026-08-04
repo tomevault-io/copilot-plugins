@@ -1,0 +1,9 @@
+{
+  "name": "pmndrs--text",
+  "displayName": "text",
+  "description": "High quality text rendering for all canvases.",
+  "version": "1.0.0",
+  "author": "pmndrs",
+  "homepage": "https://github.com/pmndrs/text",
+  "skills": []
+}
