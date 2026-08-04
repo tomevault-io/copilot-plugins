@@ -1,0 +1,9 @@
+{
+  "name": "joeldroid--vppspy",
+  "displayName": "vppspy",
+  "description": "A Virtual Power Plant(VPP) metrics importer for Prometheus",
+  "version": "1.0.0",
+  "author": "joeldroid",
+  "homepage": "https://github.com/joeldroid/vppspy",
+  "skills": []
+}
