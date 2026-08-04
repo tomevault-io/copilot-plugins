@@ -1,0 +1,9 @@
+{
+  "name": "gitkodak--unifi-map",
+  "displayName": "unifi-map",
+  "description": " Export your UniFi network topology as zoomable SVG, PDF, or an editable draw.io diagram, with real Ubiquiti device   artwork.",
+  "version": "1.0.0",
+  "author": "gitkodak",
+  "homepage": "https://github.com/gitkodak/unifi-map",
+  "skills": []
+}
