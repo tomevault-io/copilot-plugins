@@ -1,0 +1,9 @@
+{
+  "name": "nolly-studio--eve-directory",
+  "displayName": "eve-directory",
+  "description": "The open registry for Eve agents",
+  "version": "1.0.0",
+  "author": "nolly-studio",
+  "homepage": "https://github.com/nolly-studio/eve-directory",
+  "skills": []
+}
