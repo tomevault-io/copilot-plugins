@@ -1,0 +1,9 @@
+{
+  "name": "alexandermattturner--agent-glovebox",
+  "displayName": "agent-glovebox",
+  "description": "You've probably been using Claude irresponsibly. Today, you can turn a new leaf.",
+  "version": "1.0.0",
+  "author": "AlexanderMattTurner",
+  "homepage": "https://github.com/AlexanderMattTurner/agent-glovebox",
+  "skills": []
+}
