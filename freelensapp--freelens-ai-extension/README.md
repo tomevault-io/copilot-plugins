@@ -1,15 +1,15 @@
 # freelens-ai-extension
 
-> Source: [freelensapp/freelens-ai-extension](https://github.com/freelensapp/freelens-ai-extension). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [freelensapp/freelens-ai-extension](https://github.com/freelensapp/freelens-ai-extension). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [freelensapp/freelens-ai-extension](https://github.com/freelensapp/freelens-ai-extension).
+Original source: `AGENTS.md` in [freelensapp/freelens-ai-extension](https://github.com/freelensapp/freelens-ai-extension).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
