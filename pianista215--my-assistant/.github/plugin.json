@@ -1,0 +1,9 @@
+{
+  "name": "pianista215--my-assistant",
+  "displayName": "my-assistant",
+  "description": "Basic REST provider for my eink device integrated with Google Calendar and Spreadsheets organizing a life with a baby",
+  "version": "1.0.0",
+  "author": "pianista215",
+  "homepage": "https://github.com/pianista215/my-assistant",
+  "skills": []
+}
