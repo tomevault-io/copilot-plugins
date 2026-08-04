@@ -1,13 +1,57 @@
 ## xenoatom-terminal-ui
 
-> Single source of truth: read and follow `../AGENTS.md`.
+> This folder contains the static website for XenoAtom.Terminal.UI, built with **lunet**.
 
-# GitHub Copilot Instructions
 
-Single source of truth: read and follow `../AGENTS.md`.
+# Website (lunet) Contribution Instructions
 
-Do not duplicate instructions here. If anything conflicts, `../AGENTS.md` wins.
+This folder contains the static website for XenoAtom.Terminal.UI, built with **lunet**.
+
+## Structure
+
+- `site/readme.md` -> home page (`/`)
+- `site/docs/**` -> documentation section (`/docs/**`)
+  - `site/docs/menu.yml` -> sidebar menu for docs pages
+  - `site/docs/controls/**` -> controls reference (`/docs/controls/**`)
+  - `site/docs/controls/menu.yml` -> sidebar menu for controls pages
+  - `site/docs/specs/**` -> specs/design notes (`/docs/specs/**`)
+- `site/menu.yml` -> top navigation (navbar)
+- `site/.lunet/**` -> layouts, CSS, JS, and build output
+  - `site/.lunet/layouts/**` -> Scriban HTML layouts
+  - `site/.lunet/css/**` / `site/.lunet/js/**` -> site assets
+  - `site/.lunet/build/**` -> generated output (cache + `www/`)
+
+## Building the website
+
+Install lunet (once):
+
+`dotnet tool install -g lunet`
+
+Build the site (always run this after changing `site/**`):
+
+`lunet build`
+
+Run from the `site` folder.
+
+## Generating control screenshots
+
+The controls documentation uses auto-generated PNG screenshots rendered from the ControlsDemo.
+
+Regenerate all screenshots (run from the repo root):
+
+`dotnet run -c Release --project samples/ControlsDemo -- --export-screenshots`
+
+Outputs are written under `site/img/controls/**`.
+
+## Notes for agents
+
+- `readme.md` in a folder becomes the folder's `index.html`. Keep these `readme.md` files compatible with both GitHub and the website.
+- Update menus when adding/moving pages:
+  - `site/menu.yml` (top nav)
+  - `site/docs/menu.yml` (docs sidebar)
+  - `site/docs/controls/menu.yml` (controls sidebar)
+- Prefer stable, readable URLs. Add new docs under `site/docs/**`.
 
 ---
 > Source: [XenoAtom/XenoAtom.Terminal.UI](https://github.com/XenoAtom/XenoAtom.Terminal.UI) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
