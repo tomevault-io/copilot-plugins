@@ -1,0 +1,9 @@
+{
+  "name": "gergchen--astock-market-engine",
+  "displayName": "astock-market-engine",
+  "description": "AStock AI Copilot V2 \u2014 \u771f\u6b63\u7406\u89e3A\u80a1\u5e02\u573a\u884c\u4e3a\u903b\u8f91\u7684AI\u8ba4\u77e5\u7cfb\u7edf\u3002AI\u5206\u6790/\u4e3b\u529b\u884c\u4e3a/\u60c5\u7eea\u5468\u671f/\u9f99\u5934\u8bc6\u522b/\u677f\u5757\u8f6e\u52a8\uff0c\u65e0\u9700API Key\u5373\u53ef\u8fd0\u884c\u3002",
+  "version": "1.0.0",
+  "author": "gergchen",
+  "homepage": "https://github.com/gergchen/astock-market-engine",
+  "skills": []
+}
