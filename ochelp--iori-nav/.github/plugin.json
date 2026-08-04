@@ -1,0 +1,9 @@
+{
+  "name": "ochelp--iori-nav",
+  "displayName": "iori-nav",
+  "description": "\u4e00\u4e2a\u4f18\u96c5\u7684\u4e66\u7b7e\u6536\u85cf\u4e0e\u5206\u4eab\u5e73\u53f0\uff0c\u57fa\u4e8eCloudflare Workers\u6784\u5efa",
+  "version": "1.0.0",
+  "author": "ochelp",
+  "homepage": "https://github.com/ochelp/iori-nav",
+  "skills": []
+}
