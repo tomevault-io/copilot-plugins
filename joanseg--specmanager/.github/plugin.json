@@ -1,0 +1,9 @@
+{
+  "name": "joanseg--specmanager",
+  "displayName": "specmanager",
+  "description": "Spec-driven development plugin for Claude Code. SpecManager gives you an agile AI team that takes a feature from interview \u2192 PRD \u2192 Architecture \u2192 Design \u2192 Plan \u2192 Build \u2192 Walkthrough.",
+  "version": "1.0.0",
+  "author": "joanseg",
+  "homepage": "https://github.com/joanseg/specmanager",
+  "skills": []
+}
