@@ -1,0 +1,9 @@
+{
+  "name": "elizaos--llama-cpp",
+  "displayName": "llama.cpp",
+  "description": "Milady-controlled llama.cpp fork: TurboQuant + QJL + PolarQuant + DFlash unified",
+  "version": "1.0.0",
+  "author": "elizaOS",
+  "homepage": "https://github.com/elizaOS/llama.cpp",
+  "skills": []
+}
