@@ -1,0 +1,9 @@
+{
+  "name": "rosbean--balatro-dualscreen",
+  "displayName": "balatro-dualscreen",
+  "description": "Android mod of Balatro, optimised for dual screen devices and targeting and tested on the AYN Thor.",
+  "version": "1.0.0",
+  "author": "rosbean",
+  "homepage": "https://github.com/rosbean/balatro-dualscreen",
+  "skills": []
+}
