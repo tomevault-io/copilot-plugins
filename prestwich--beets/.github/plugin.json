@@ -1,0 +1,9 @@
+{
+  "name": "prestwich--beets",
+  "displayName": "beets",
+  "description": "A cute in-memory B+Tree",
+  "version": "1.0.0",
+  "author": "prestwich",
+  "homepage": "https://github.com/prestwich/beets",
+  "skills": []
+}
