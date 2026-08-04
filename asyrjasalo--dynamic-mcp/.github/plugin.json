@@ -1,0 +1,9 @@
+{
+  "name": "asyrjasalo--dynamic-mcp",
+  "displayName": "dynamic-mcp",
+  "description": "MCP proxy server that reduces LLM context overhead with on-demand tool loading from multiple upstream servers.",
+  "version": "1.0.0",
+  "author": "asyrjasalo",
+  "homepage": "https://github.com/asyrjasalo/dynamic-mcp",
+  "skills": []
+}
