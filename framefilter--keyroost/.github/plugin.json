@@ -1,0 +1,9 @@
+{
+  "name": "framefilter--keyroost",
+  "displayName": "keyroost",
+  "description": "Vendor Neutral, Rust-Based Management UI and CLI for U2F/FIDO2 and other hardware security keys ",
+  "version": "1.0.0",
+  "author": "framefilter",
+  "homepage": "https://github.com/framefilter/keyroost",
+  "skills": []
+}
