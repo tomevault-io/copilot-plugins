@@ -1,12 +1,12 @@
-## style-guidelines
+## technologies
 
-> Style guidelines for the CodeLogic MCP Server project
+> Key technologies used in the CodeLogic MCP Server project
 
-- Include MPL 2.0 copyright headers in all Python files
-- Use Google-style docstrings for modules/classes/functions
-- Always use Python type hints
-- Keep I/O operations asynchronous
-- Return markdown-formatted text in tool responses
+- Python 3.13+ with extensive use of async/await
+- Model Context Protocol SDK (`mcp[cli]`)
+- HTTPX for API requests
+- Environment variables via dotenv for configuration
+- CodeLogic graph HTTP API under `/ai-retrieval/graph/` for `codelogic-graph-*` tools
 
 ---
 > Source: [lineai-intelligence/codelogic-mcp-server](https://github.com/lineai-intelligence/codelogic-mcp-server) — distributed by [TomeVault](https://tomevault.io).
