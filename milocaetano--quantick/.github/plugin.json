@@ -1,0 +1,9 @@
+{
+  "name": "milocaetano--quantick",
+  "displayName": "quantick",
+  "description": "Real-time alternative bar charts for order flow trading: tick, volume, dollar and imbalance bars from live market data. Rust desktop app with a bot-ready engine.",
+  "version": "1.0.0",
+  "author": "milocaetano",
+  "homepage": "https://github.com/milocaetano/quantick",
+  "skills": []
+}
