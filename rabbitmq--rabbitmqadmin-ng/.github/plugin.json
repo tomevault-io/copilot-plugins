@@ -1,0 +1,9 @@
+{
+  "name": "rabbitmq--rabbitmqadmin-ng",
+  "displayName": "rabbitmqadmin-ng",
+  "description": "rabbitmqadmin-ng",
+  "version": "1.0.0",
+  "author": "rabbitmq",
+  "homepage": "https://github.com/rabbitmq/rabbitmqadmin-ng",
+  "skills": []
+}
