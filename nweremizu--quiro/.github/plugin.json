@@ -1,0 +1,9 @@
+{
+  "name": "nweremizu--quiro",
+  "displayName": "quiro",
+  "description": "Quiro is a desktop screen recording and editing app built with Electron, React, TypeScript, PixiJS, and FFmpeg. It is designed for product walkthroughs, demos, tutorials, social clips, and internal vi",
+  "version": "1.0.0",
+  "author": "Nweremizu",
+  "homepage": "https://github.com/Nweremizu/quiro",
+  "skills": []
+}
