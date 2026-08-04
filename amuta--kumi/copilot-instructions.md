@@ -1,48 +1,68 @@
 ## kumi
 
-> Ignore Linting issues for now.
+> A toolbox for inspecting and debugging the compiler pipeline. The pipeline is
 
-# Important
-Ignore Linting issues for now.
-Dont invent backward compatibility unless that is the plan.
+# Agent Reference
 
-# Vector Semantics
-Axes align by identity (lineage), not by name
+A toolbox for inspecting and debugging the compiler pipeline. The pipeline is
+SNAST → DFIR → VecIR → LoopIR → Ruby/JS emitters; see
+[ARCHITECTURE.md](ARCHITECTURE.md).
 
-# Analyzer
-> lib/kumi/analyzer.rb
-> lib/kumi/core/analyzer/passes/pass_base.rb
+## Inspect One Layer for One Schema
 
-# For a schema.kumi
-- To view a IRV2 `bin/kumi pp irv2 <schema.kumi>`
+```bash
+bundle exec bin/kumi pp <repr> <schema.kumi>
+# reprs: ast, input_plan, nast, snast, dfir, dfir_optimized, vecir, loopir,
+#        schema_ruby, schema_javascript
+bundle exec bin/kumi pp loopir golden/multi_loop_reduction/schema.kumi
+```
 
-# Golden tests
-- First udpate `bin/kumi golden update <empty for all | golden_name>` then `bin/kumi golden test <same>`
+This is the fastest way to surface a lowering crash in a specific layer.
 
+## Sweep for Crashes
 
+```bash
+for d in golden/*/; do
+  bundle exec bin/kumi pp loopir "$d/schema.kumi" >/dev/null || echo "$d"
+done
+```
 
-# Debug Tools:
-`bin/kumi pp <ast|nast|snast|ir> <schema>` - Pretty print representations
-`bin/kumi analyze <schema> --dump <state_key>` - Dump analyzer state (call_table, declaration_table, snast_module, etc.)
-`bin/kumi golden list` - List all golden test schemas
-`bin/kumi golden record [name]` - Record expected representations
-`bin/kumi golden verify [name]` - Verify current vs expected
-`bin/kumi golden diff <name>` - Show diffs when verification fails
+## Phase-Scoped Golden Checks
 
-# Documentation Generation
-`bin/kumi-doc-gen` - Generate IDE-friendly JSON + Markdown docs from function/kernel definitions
-See docs/DEVELOPMENT.md for details
+```bash
+bundle exec bin/kumi golden_v2 verify --repr loop            # one layer, all schemas
+bundle exec bin/kumi golden_v2 diff --repr df <schema>       # unified diff
+bundle exec bin/kumi golden_v2 update --repr vec,loop        # regenerate layers
+```
 
-# Kernels Invariants
-All reducers are pure binary combiner f : T × T → T applied over the last axis of a value. Example: agg.sum(a,b) = a+b.
+Groups: `frontend`, `df`, `vec`, `loop`, `codegen`, `all`.
 
+## Runtime Ground Truth
 
-# KernelRegistry:
-You can use the KernelRegistry like this:
-> registry = Kumi::KernelRegistry.load_ruby
-> registry.impl_for("agg.sum:ruby:v1")
-=> "->(a,b) {a + b}"
+```bash
+bundle exec bin/kumi golden test            # regenerate + execute Ruby and JS
+bundle exec bin/kumi golden test <schema>
+```
+
+## Search Goldens Instead of Reading Them
+
+Some golden artifacts are large (`game_of_life`, `us_tax_2024`) — grep them:
+
+```bash
+rg -n "reduce" golden -g"dfir*.txt"
+rg -n "axis_shift" golden -g"vecir.txt"
+rg -n "function" golden/<schema>/expected/loopir.txt
+```
+
+## Other Useful Commands
+
+```bash
+bundle exec bin/kumi analyze <schema> --dump <state_key>   # inspect analyzer state
+bundle exec rspec                                          # full test suite
+```
+
+`tmp/` is gitignored and a good place for debug scripts.
 
 ---
 > Source: [amuta/kumi](https://github.com/amuta/kumi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
