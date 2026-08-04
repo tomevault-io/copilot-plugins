@@ -1,0 +1,9 @@
+{
+  "name": "fluxcd--source-watcher",
+  "displayName": "source-watcher",
+  "description": "source-watcher",
+  "version": "1.0.0",
+  "author": "fluxcd",
+  "homepage": "https://github.com/fluxcd/source-watcher",
+  "skills": []
+}
