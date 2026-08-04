@@ -1,0 +1,9 @@
+{
+  "name": "oluceps--nixos-config",
+  "displayName": "nixos-config",
+  "description": "nixos-config",
+  "version": "1.0.0",
+  "author": "oluceps",
+  "homepage": "https://github.com/oluceps/nixos-config",
+  "skills": []
+}
