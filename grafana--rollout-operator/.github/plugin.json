@@ -1,0 +1,9 @@
+{
+  "name": "grafana--rollout-operator",
+  "displayName": "rollout-operator",
+  "description": "rollout-operator",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/rollout-operator",
+  "skills": []
+}
