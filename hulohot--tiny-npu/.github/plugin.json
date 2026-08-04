@@ -1,0 +1,9 @@
+{
+  "name": "hulohot--tiny-npu",
+  "displayName": "tiny-npu",
+  "description": "Open-source NPU (Neural Processing Unit) for LLM inference - runs GPT-2, LLaMA, Mistral, Qwen2",
+  "version": "1.0.0",
+  "author": "hulohot",
+  "homepage": "https://github.com/hulohot/tiny-npu",
+  "skills": []
+}
