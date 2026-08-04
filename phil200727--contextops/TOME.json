@@ -4,7 +4,7 @@
   "repo": "contextops",
   "description": "A lightweight, file-based Kanban engine for orchestrating AI coding agents \u2014 plan, assign, and review tasks through a local board, with full context tracking in plain Markdown/YAML files.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Phil200727/contextops",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-28T10:33:47Z"
+  "distributed_at": "2026-08-04T05:58:16Z"
 }
