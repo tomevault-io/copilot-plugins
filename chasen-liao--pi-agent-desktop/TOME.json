@@ -4,7 +4,7 @@
   "repo": "pi-agent-desktop",
   "description": "Pi Agent Desktop \u2014 \u57fa\u4e8e Electron \u7684 Pi \u7f16\u7a0b\u667a\u80fd\u4f53\u684c\u9762\u5ba2\u6237\u7aef (\u884d\u751f\u81ea pi-web)",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Chasen-Liao/pi-agent-desktop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T02:36:36Z"
+  "distributed_at": "2026-08-04T13:50:43Z"
 }
