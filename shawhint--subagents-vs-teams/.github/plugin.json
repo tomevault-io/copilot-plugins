@@ -1,0 +1,9 @@
+{
+  "name": "shawhint--subagents-vs-teams",
+  "displayName": "subagents-vs-teams",
+  "description": "A repository for comparing the performance of Claude Code's subagents and (experimental) agent teams features.",
+  "version": "1.0.0",
+  "author": "ShawhinT",
+  "homepage": "https://github.com/ShawhinT/subagents-vs-teams",
+  "skills": []
+}
