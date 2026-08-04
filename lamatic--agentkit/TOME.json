@@ -4,7 +4,7 @@
   "repo": "AgentKit",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Lamatic/AgentKit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T07:36:26Z"
+  "distributed_at": "2026-08-04T00:29:56Z"
 }
