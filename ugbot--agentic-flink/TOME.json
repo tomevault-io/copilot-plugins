@@ -4,7 +4,7 @@
   "repo": "Agentic-Flink",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ugbot/Agentic-Flink",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T06:01:53Z"
+  "distributed_at": "2026-08-04T05:52:33Z"
 }
