@@ -1,48 +1,69 @@
-## workflow
+## ai-workflow-harness
 
-> Workflow canonical adapter and intent routing rules.
+> Codex entry point for this repository.
 
+# AGENTS.md
 
-# Workflow Rules
+Codex entry point for this repository.
+Keep this file thin. Global behavior principles live in `docs/BEHAVIOR-PRINCIPLES.md`. Shared operating rules live in `docs/AGENT-WORKFLOW.md`.
 
-This file is the Cursor adapter for workflow procedures.
-Detailed procedures live in `skills/workflow/*.md`.
+## Entry Contract
 
-## Step 0
+MUST:
 
-When the user's intent matches a workflow operation, first load the matching canonical file:
+- Treat this file and `CLAUDE.md` as equal tool-specific entry points. Supported tools are Claude Code / Codex / Antigravity (Gemini-based) / Cursor.
+- Read and follow `docs/BEHAVIOR-PRINCIPLES.md` at session start for global behavioral principles that apply to all tasks.
+- Read and follow `docs/AGENT-WORKFLOW.md` at session start for common workflow, context routing, status rules, and validation defaults.
+- Read `docs/STATUS.md` current sections before choosing or continuing work.
+- Do not check `docs/BOOTSTRAP.md` just because it exists; use it only when `docs/STATUS.md` Next Actions explicitly points to scaffold bootstrap/onboarding work.
+- Treat `.claude/commands/*.md` as Claude Code command definitions, not as executable Codex commands. Do not read them at session start or follow them directly; run workflows through the Codex skill adapters per Codex Skill Routing below.
+- Treat `.claude/rules/*.md` as project-local rule references. Do not load them at session start; when editing files whose paths match a rule's `paths` frontmatter, read only the matching rule files and apply their guidance manually.
+- Follow `docs/AGENT-WORKFLOW.md` Approval Matrix before execution, scope expansion, state changes, and every commit.
+- On failure: follow `docs/HARNESS-PROTOCOL.md` Failure And Recovery.
 
-| Intent | Canonical procedure |
-| --- | --- |
-| Session start / current state summary | `skills/workflow/session-start.md` |
-| Session summary / handoff | `skills/workflow/session-summary.md` |
-| Select next work | `skills/workflow/work-select.md` |
-| Register / add a work item | `skills/workflow/work-register.md` |
-| Start / plan a specific task | `skills/workflow/work-plan.md` |
-| Resume interrupted work | `skills/workflow/work-resume.md` |
-| Close Work as Done | `skills/workflow/work-close.md` |
-| Debug a scoped issue | `skills/workflow/work-debug.md` |
-| Create strategy/comparison/position brief or classify a document | `skills/workflow/work-brief.md` |
-| Run optional cross-agent review relay | `skills/workflow/cross-review.md` |
-| Create presentation/report/review material | `skills/workflow/work-doc.md` |
-| Repository health / cascade audit | `skills/workflow/repo-health.md` |
-| Record a decision as DR | `skills/workflow/record-decision.md` |
-| Merge / PR branch integration | Follow `docs/GIT-WORKFLOW.md` when present |
+NEVER:
 
-## Hard Stops
+- Duplicate shared rules here.
+- Bypass `docs/STATUS.md` or the Approval Matrix.
 
-- If the required `skills/workflow/{command}.md` file is missing or unreadable, stop before editing files, changing state, committing, opening a PR, or merging. Report the missing canonical file and ask the user how to proceed.
-- Before any file edit, state change, commit, PR creation, or merge, enforce branch isolation, the Approval Matrix, and validation-before-commit/PR gates.
-- Do not duplicate detailed checklists or cascade matrices in this adapter. Use the canonical workflow file for detailed procedure.
+## Codex Skill Routing
 
-## Entry Mechanism
+When a workflow command is invoked or its intent is matched,
+load `.agents/skills/workflow-{name}/SKILL.md` and follow the procedure.
+Skill name maps directly to command name (e.g., `/session-start` → `workflow-session-start`).
+Each skill adapter must load the matching canonical procedure in `skills/workflow/{name}.md` as Step 0.
 
-Cursor has no Claude slash command file and no Codex skill directory. This rule maps natural-language intent to the canonical workflow file.
+Available workflow skills are the directories under `.agents/skills/`.
+
+Antigravity (Gemini-based) consumes this same `.agents/` surface: it auto-loads root `AGENTS.md` and discovers `.agents/skills/workflow-{name}/SKILL.md`, following the identical Step 0 → canonical procedure. No Antigravity-specific adapter exists; the `Antigravity` row in each canonical adapter table reuses the Codex adapter.
+
+If the matched skill intent is uncertain or multiple skills are equally plausible, confirm the interpreted intent in one line before loading a skill. Do not silently pick one and execute.
 
 ## Language Policy
 
-- This Cursor rule is English Only.
-- Korean-primary workflow details belong in `skills/workflow/*.md`, `docs/*.md`, prompts, and Claude/Codex adapters as defined by `docs/decisions/DR-007-language-policy.md`.
+`docs/decisions/DR-007-language-policy.md` is the single SSoT for language. When creating or editing any document, prompt, command, rule, hook message, **commit message, or PR body** — confirm DR-007 applies.
+
+- **English Only:** `AGENTS.md`, `CLAUDE.md`, `.claude/rules/*.md`, `.cursor/rules/*.mdc`
+- **Korean primary + Bilingual Rules:** `docs/*.md`, `prompts/*.md`, `skills/workflow/*.md`, `.claude/commands/*.md`, `.agents/skills/*/SKILL.md`
+- **Commit message:** English type prefix; Korean-primary subject/body (Bilingual Rules); English co-author trailer.
+- **PR body:** Korean-primary + Bilingual Rules.
+- **Agent user-facing output** (progress narration, tool descriptions, echo labels): follow the conversation language (default Korean). Default conversational convention, not a hard gate.
+
+Full policy: `docs/decisions/DR-007-language-policy.md`
+
+## Branch Flow
+
+When the user expresses branch merge intent (e.g., asking to merge, open a PR, or merge into develop),
+If this repository has `docs/GIT-WORKFLOW.md`, load it and follow §2 (Feature Development Cycle) and §3 (Release Cycle). Otherwise, check the project-specific branch/release policy first.
+If this repository has `docs/GIT-WORKFLOW.md`, follow §5 for commit format.
+
+NEVER open a PR from a feature branch without `--base develop`. Default GitHub base (main) is wrong for this repo.
+
+Before opening a feature PR, sync the latest `develop` into the feature branch (`git fetch origin && git merge origin/develop`) per `docs/GIT-WORKFLOW.md` §2-3, resolving conflicts locally. Default to `merge` (squash policy makes rebase's linear history moot); `--force-with-lease` only on your own feature branch, never on `develop`/`main`.
+
+After `gh pr merge` completes, follow the merge type:
+- feature→develop: use `--squash` (default per harness merge policy); use `--merge` only when commit-level history must be preserved. Then execute §2-5 (sync develop, delete local feature branch, suggest next feature branch).
+- develop→main: use `--merge` (regular merge is the default per harness merge policy). Then execute §3-4 (Post-Merge Develop Sync: sync main, merge origin/main into develop, push develop).
 
 ---
 > Source: [kyungseo/ai-workflow-harness](https://github.com/kyungseo/ai-workflow-harness) — distributed by [TomeVault](https://tomevault.io).
