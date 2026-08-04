@@ -1,0 +1,9 @@
+{
+  "name": "crowdin--crowdin-api-client-dotnet",
+  "displayName": "crowdin-api-client-dotnet",
+  "description": "crowdin-api-client-dotnet",
+  "version": "1.0.0",
+  "author": "crowdin",
+  "homepage": "https://github.com/crowdin/crowdin-api-client-dotnet",
+  "skills": []
+}
