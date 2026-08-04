@@ -1,0 +1,9 @@
+{
+  "name": "miltos22--llama-wackmall",
+  "displayName": "llama-wackMall",
+  "description": "Caching experts made model agnostic for llama. Drastically speeds up generation speed on MoE models that fully fit in the RAM but partially in Vram. WIP: Same speedup but for models that don't fit in ",
+  "version": "1.0.0",
+  "author": "miltos22",
+  "homepage": "https://github.com/miltos22/llama-wackMall",
+  "skills": []
+}
