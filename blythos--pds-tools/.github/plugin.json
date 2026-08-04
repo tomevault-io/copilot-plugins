@@ -1,0 +1,9 @@
+{
+  "name": "blythos--pds-tools",
+  "displayName": "pds-tools",
+  "description": "Full decompilation and modern reimplementation of Panzer Dragoon Saga (Sega Saturn, 1998)",
+  "version": "1.0.0",
+  "author": "blythos",
+  "homepage": "https://github.com/blythos/pds-tools",
+  "skills": []
+}
