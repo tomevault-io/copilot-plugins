@@ -1,0 +1,9 @@
+{
+  "name": "hirokisakabe--pptx-glimpse",
+  "displayName": "pptx-glimpse",
+  "description": "Render and edit PowerPoint (.pptx) files in Node.js or the browser. Output slides as SVG or PNG.",
+  "version": "1.0.0",
+  "author": "hirokisakabe",
+  "homepage": "https://github.com/hirokisakabe/pptx-glimpse",
+  "skills": []
+}
