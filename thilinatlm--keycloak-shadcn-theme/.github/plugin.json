@@ -1,0 +1,9 @@
+{
+  "name": "thilinatlm--keycloak-shadcn-theme",
+  "displayName": "keycloak-shadcn-theme",
+  "description": "A sleek, customizable Keycloak login theme built with Keycloakify, React, TypeScript, shadcn/ui, and Tailwind CSS \u2014 responsive, accessible, and fully internationalized.",
+  "version": "1.0.0",
+  "author": "ThilinaTLM",
+  "homepage": "https://github.com/ThilinaTLM/keycloak-shadcn-theme",
+  "skills": []
+}
