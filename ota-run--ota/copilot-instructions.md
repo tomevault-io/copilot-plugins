@@ -1,0 +1,44 @@
+## ota
+
+> ██████  ███████    ██████
+
+<!--
+                █████
+               ░░███
+       ██████  ███████    ██████
+      ███░░███░░░███░    ░░░░░███
+     ░███ ░███  ░███      ███████
+     ░███ ░███  ░███ ███ ███░░███
+     ░░██████   ░░█████ ░░████████
+      ░░░░░░     ░░░░░   ░░░░░░░░
+
+   Copyright (C) 2026 — 2026, Ota. All Rights Reserved.
+
+   DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+
+   Licensed under the Apache License, Version 2.0. See LICENSE for the full license text.
+   You may not use this file except in compliance with that License.
+   Unless required by applicable law or agreed to in writing, software distributed under the
+   License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+   either express or implied. See the License for the specific language governing permissions
+   and limitations under the License.
+
+   If you need additional information or have any questions, please email: os@ota.run
+-->
+
+# AGENTS.md
+
+This example is a full contract surface for ota.
+
+- use `ota validate` to verify the contract before relying on it
+- use `ota doctor` to inspect readiness and surface the primary blocker
+- use `ota workflows` to inspect the declared repo paths before picking one
+- use `ota up --workflow app` for the canonical container-backed app path
+- use `ota run test` to exercise the main verification path
+- keep edits inside the declared writable paths: `src`, `docs`
+- avoid casual edits to `ota.yaml`
+- rerun the verification task after changes
+
+---
+> Source: [ota-run/ota](https://github.com/ota-run/ota) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
