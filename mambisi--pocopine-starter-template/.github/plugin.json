@@ -1,0 +1,9 @@
+{
+  "name": "mambisi--pocopine-starter-template",
+  "displayName": "pocopine-starter-template",
+  "description": "Minimal starter template for pocopine apps (#[component] + .poco). Clone or 'Use this template' to start a new project.",
+  "version": "1.0.0",
+  "author": "mambisi",
+  "homepage": "https://github.com/mambisi/pocopine-starter-template",
+  "skills": []
+}
