@@ -2,9 +2,9 @@
   "name": "volta",
   "owner": "volta-net",
   "repo": "volta",
-  "description": "The AI-powered GitHub inbox for open-source maintainers.",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/volta-net/volta",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T22:10:05Z"
+  "distributed_at": "2026-08-04T23:51:05Z"
 }
