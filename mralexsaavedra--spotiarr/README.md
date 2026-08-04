@@ -1,27 +1,21 @@
 # spotiarr
 
-> Tome by [mralexsaavedra](https://github.com/mralexsaavedra/spotiarr) — distributed by [TomeVault](https://tomevault.io)
-
-Self-hosted Spotify downloader with Jellyfin/Plex integration. Lidarr-inspired music automation.
+> Tome by [mralexsaavedra](https://github.com/mralexsaavedra/spotiarr), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mralexsaavedra/spotiarr](https://github.com/mralexsaavedra/spotiarr).
+Original source: `AGENTS.md` in [mralexsaavedra/spotiarr](https://github.com/mralexsaavedra/spotiarr).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [spotiarr-i18n](https://github.com/mralexsaavedra/spotiarr/tree/main/.agents/skills/spotiarr-i18n)
-
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/mralexsaavedra/spotiarr](https://github.com/mralexsaavedra/spotiarr)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/mralexsaavedra/spotiarr](https://github.com/mralexsaavedra/spotiarr)
 
 ---
 
