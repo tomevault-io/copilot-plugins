@@ -1,0 +1,9 @@
+{
+  "name": "tudoroancea--zigbind",
+  "displayName": "zigbind",
+  "description": "build python bindings for zig code",
+  "version": "1.0.0",
+  "author": "tudoroancea",
+  "homepage": "https://github.com/tudoroancea/zigbind",
+  "skills": []
+}
