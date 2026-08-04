@@ -1,0 +1,9 @@
+{
+  "name": "lineai-intelligence--codelogic-mcp-server",
+  "displayName": "codelogic-mcp-server",
+  "description": "An MCP Server to utilize Codelogic's rich software dependency data in your AI programming assistant.",
+  "version": "1.0.0",
+  "author": "lineai-intelligence",
+  "homepage": "https://github.com/lineai-intelligence/codelogic-mcp-server",
+  "skills": []
+}
