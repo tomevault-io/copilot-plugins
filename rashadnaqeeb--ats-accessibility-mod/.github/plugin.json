@@ -1,0 +1,9 @@
+{
+  "name": "rashadnaqeeb--ats-accessibility-mod",
+  "displayName": "ats-accessibility-mod",
+  "description": "Accessibility mod for Against the Storm \u2014 makes the roguelite city-builder playable by blind users via screen-reader support (BepInEx + HarmonyX, Prism).",
+  "version": "1.0.0",
+  "author": "rashadnaqeeb",
+  "homepage": "https://github.com/rashadnaqeeb/ats-accessibility-mod",
+  "skills": []
+}
