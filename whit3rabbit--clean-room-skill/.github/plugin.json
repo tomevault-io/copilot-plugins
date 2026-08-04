@@ -1,0 +1,9 @@
+{
+  "name": "whit3rabbit--clean-room-skill",
+  "displayName": "clean-room-skill",
+  "description": "A skill for claude/codex to take source code and implement a clean-room of agents to generate specs",
+  "version": "1.0.0",
+  "author": "whit3rabbit",
+  "homepage": "https://github.com/whit3rabbit/clean-room-skill",
+  "skills": []
+}
