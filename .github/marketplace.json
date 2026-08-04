@@ -25649,6 +25649,11 @@
       "description": "teletraan"
     },
     {
+      "name": "nisshi-io--nisshi",
+      "source": "./nisshi-io--nisshi",
+      "description": "Apache Kafka\u00ae compatible broker with S3, PostgreSQL, SQLite, Apache Iceberg and Delta Lake"
+    },
+    {
       "name": "atomicstrata--llm-wiki-compiler",
       "source": "./atomicstrata--llm-wiki-compiler",
       "description": "llm-wiki-compiler"
@@ -107214,6 +107219,221 @@
       "description": "hermes-lark-streaming"
     },
     {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
+      "name": "huanfeng--windinput",
+      "source": "./huanfeng--windinput",
+      "description": "WindInput"
+    },
+    {
       "name": "inclusionai--asystem-awex",
       "source": "./inclusionai--asystem-awex",
       "description": "A high-performance RL training-inference weight synchronization framework, designed to enable second-level parameter updates from training to inference in RL workflows"
@@ -114919,6 +115139,11 @@
       "description": "clawbench"
     },
     {
+      "name": "confidential-containers--guest-components",
+      "source": "./confidential-containers--guest-components",
+      "description": "guest-components"
+    },
+    {
       "name": "zhanghandong--mempal",
       "source": "./zhanghandong--mempal",
       "description": "AI Agent Memory"
@@ -115272,6 +115497,11 @@
       "name": "ronron-gh--ai-stackchan-ex",
       "source": "./ronron-gh--ai-stackchan-ex",
       "description": "AI_StackChan_Ex"
+    },
+    {
+      "name": "metal3-io--metal3-dev-env",
+      "source": "./metal3-io--metal3-dev-env",
+      "description": "metal3-dev-env"
     },
     {
       "name": "absolutelyskilled--absolutelyskilled",
@@ -134669,6 +134899,26 @@
       "description": "jscodeshift-typescript-example"
     },
     {
+      "name": "techwolf-ai--ai-first-toolkit",
+      "source": "./techwolf-ai--ai-first-toolkit",
+      "description": "ai-first-toolkit"
+    },
+    {
+      "name": "techwolf-ai--ai-first-toolkit",
+      "source": "./techwolf-ai--ai-first-toolkit",
+      "description": "ai-first-toolkit"
+    },
+    {
+      "name": "techwolf-ai--ai-first-toolkit",
+      "source": "./techwolf-ai--ai-first-toolkit",
+      "description": "ai-first-toolkit"
+    },
+    {
+      "name": "techwolf-ai--ai-first-toolkit",
+      "source": "./techwolf-ai--ai-first-toolkit",
+      "description": "ai-first-toolkit"
+    },
+    {
       "name": "freepeak--leankg",
       "source": "./freepeak--leankg",
       "description": "LeanKG: Stop Burning Tokens. Start Coding Lean."
@@ -146514,6 +146764,11 @@
       "description": "Sandbox untrusted code with safe access to the host."
     },
     {
+      "name": "21cmfast--21cmfast",
+      "source": "./21cmfast--21cmfast",
+      "description": "21cmFAST"
+    },
+    {
       "name": "m1zz--higlab",
       "source": "./m1zz--higlab",
       "description": "HIGLab"
@@ -147362,6 +147617,11 @@
       "name": "zhangquanchen--4dthinker",
       "source": "./zhangquanchen--4dthinker",
       "description": "4DThinker"
+    },
+    {
+      "name": "coolguy1771--home-ops",
+      "source": "./coolguy1771--home-ops",
+      "description": "home-ops"
     },
     {
       "name": "edisonwong520--wanny",
@@ -196389,6 +196649,21 @@
       "description": "mobie-viewer-fiji"
     },
     {
+      "name": "svenjacobs--lokksmith",
+      "source": "./svenjacobs--lokksmith",
+      "description": "lokksmith"
+    },
+    {
+      "name": "raphasouthall--neurostack",
+      "source": "./raphasouthall--neurostack",
+      "description": "neurostack"
+    },
+    {
+      "name": "raphasouthall--neurostack",
+      "source": "./raphasouthall--neurostack",
+      "description": "neurostack"
+    },
+    {
       "name": "izittmarvin--memcoach",
       "source": "./izittmarvin--memcoach",
       "description": "\u4e00\u4e2aAI \u9762\u8bd5\u6559\u7ec3\u5e73\u53f0\uff1a\u7ad9\u5728\u5de8\u4eba\u80a9\u8180\u4e0a\uff0c\u878d\u5408\u7b80\u5386\u9762\u8bd5\u3001GitHub \u9879\u76ee\u5206\u6790\u4e0e\u6301\u4e45\u5316\u753b\u50cf\u8bb0\u5fc6\u4e09\u5927\u667a\u80fd\u95ed\u73af\uff0c\u63d0\u4f9b\u52a8\u6001\u8ffd\u95ee\u3001\u6e90\u7801\u8bc1\u636e\u9a71\u52a8\u7684\u95ee\u9898\u751f\u6210\u4e0e\u6301\u7eed   \u8fdb\u5316\u7684\u4e2a\u6027\u5316\u8bad\u7ec3\u8def\u5f84\u3002"
@@ -200969,6 +201244,11 @@
       "description": "pulumi-dotnet"
     },
     {
+      "name": "geiserx--lynxprompt",
+      "source": "./geiserx--lynxprompt",
+      "description": "LynxPrompt"
+    },
+    {
       "name": "janbjorge--rekal",
       "source": "./janbjorge--rekal",
       "description": "Long-term memory for LLMs. MCP server backed by hybrid search in a single SQLite file."
@@ -203647,6 +203927,11 @@
       "name": "armpro24-blip--cad-cae-copilot",
       "source": "./armpro24-blip--cad-cae-copilot",
       "description": "CAD/CAE Copilot \u2014 an AI-native CAD/CAE/CAX workbench for AI agents. Text-to-CAD, text-to-CAE, real build123d/OpenCASCADE geometry, editable parameters, stable topology pointers, deterministic critique"
+    },
+    {
+      "name": "collectionbuilder--collectionbuilder-csv",
+      "source": "./collectionbuilder--collectionbuilder-csv",
+      "description": "collectionbuilder-csv"
     },
     {
       "name": "66reapollo2--agentsge",
@@ -376349,6 +376634,141 @@
       "description": " Export your UniFi network topology as zoomable SVG, PDF, or an editable draw.io diagram, with real Ubiquiti device   artwork."
     },
     {
+      "name": "mischavandenburg--oura-scraper",
+      "source": "./mischavandenburg--oura-scraper",
+      "description": "oura-scraper"
+    },
+    {
+      "name": "saramali15792--sneakora-tec",
+      "source": "./saramali15792--sneakora-tec",
+      "description": "A modern, full-stack e-commerce web application for browsing and purchasing Skechers shoes. Built with Node.js, Express, and vanilla JavaScript with a beautiful, responsive UI."
+    },
+    {
+      "name": "patcon--polislike-partykit-reaction-canvas",
+      "source": "./patcon--polislike-partykit-reaction-canvas",
+      "description": "A real-time collaborative reaction canvas for gathering continuous polislike data."
+    },
+    {
+      "name": "fprime-community--fpy",
+      "source": "./fprime-community--fpy",
+      "description": "Fpy: an advanced sequencing language for F-Prime"
+    },
+    {
+      "name": "ryancampbell--kart-royale",
+      "source": "./ryancampbell--kart-royale",
+      "description": "A Mario Kart-style racer in the browser with zero art assets \u2014 every texture, mesh, material and sound is generated in code. Built by a fleet of Claude agents in four days."
+    },
+    {
+      "name": "sinkingsugar--bpkit",
+      "source": "./sinkingsugar--bpkit",
+      "description": "Drive Unreal Engine 5 Blueprint node graphs from outside the editor: read, author, edit, inject and compile K2 graphs over the remote-exec channel via an in-process ctypes bridge. No C++, no editor UI"
+    },
+    {
+      "name": "rush-auto-works--aim-racestudio3-mac",
+      "source": "./rush-auto-works--aim-racestudio3-mac",
+      "description": "Free one-click installer to run AiM RaceStudio 3 on Apple Silicon Macs: a notarized, drag-to-Applications DMG. No Windows, Parallels, or CrossOver. Community project, not affiliated with AiM."
+    },
+    {
+      "name": "colorlibhq--adminlte-laravel",
+      "source": "./colorlibhq--adminlte-laravel",
+      "description": "Official AdminLTE 4 integration for Laravel \u2014 Bootstrap 5.3, vanilla JS, Vite-ready."
+    },
+    {
+      "name": "jlckfb--openkits-skills",
+      "source": "./jlckfb--openkits-skills",
+      "description": "\u7acb\u521b\u5f00\u53d1\u677f AI skill \u96c6\u5408\u3002\u8ba9 Claude Code\u3001Codex\u3001Trae\u3001Cursor \u7b49 Agent \u7406\u89e3\u4f60\u7684\u5f00\u53d1\u677f\u5f15\u811a\u3001\u5916\u8bbe\u548c\u5de5\u5177\u94fe\uff0c\u5b9e\u73b0\u4f7f\u7528\u81ea\u7136\u8bed\u8a00\u5b8c\u6210\u5de5\u7a0b\u521b\u5efa->\u5f00\u53d1->\u7f16\u8bd1->\u70e7\u5f55\u5168\u6d41\u7a0b\u3002"
+    },
+    {
+      "name": "stahl-g--briefloop",
+      "source": "./stahl-g--briefloop",
+      "description": "Open-source loop engineering for auditable business briefings: claims, evidence, gates, findings, repairs, and human review."
+    },
+    {
+      "name": "coralogix--galeforce-css",
+      "source": "./coralogix--galeforce-css",
+      "description": "Tailwind v3 rust compiler"
+    },
+    {
+      "name": "devxplay--herdr-nvim",
+      "source": "./devxplay--herdr-nvim",
+      "description": "Neovim integration for Herdr pane navigation"
+    },
+    {
+      "name": "yiguaren---agent",
+      "source": "./yiguaren---agent",
+      "description": "\u4e00\u4e2a\u5b9e\u73b0\u804a\u5929\u7684\u8def\u7ebf\u89c4\u5212\u667a\u80fd\u4f53"
+    },
+    {
+      "name": "krsnczky--agency-memory-kit",
+      "source": "./krsnczky--agency-memory-kit",
+      "description": "Per-client, no-mixing memory engine for agencies running Claude Code. Deterministic context loading, weekly consolidation, human-approved candidate review, a self-improving tool-craft loop, and cheap-"
+    },
+    {
+      "name": "daniel-g0--dotfiles",
+      "source": "./daniel-g0--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "fabiobiondi--spinner-games",
+      "source": "./fabiobiondi--spinner-games",
+      "description": "Spinner Games for your website for Angular, React, Vue and Web Components"
+    },
+    {
+      "name": "dmy997--mybot",
+      "source": "./dmy997--mybot",
+      "description": "mybot"
+    },
+    {
+      "name": "brunocampos-ssa--deehr",
+      "source": "./brunocampos-ssa--deehr",
+      "description": "Open-source, patient-owned Electronic Health Record platform \u2014 FHIR/SMART standards with Klever blockchain anchoring"
+    },
+    {
+      "name": "samael-z--jadx-headless-mcp",
+      "source": "./samael-z--jadx-headless-mcp",
+      "description": "jadx\u65e0\u5934mcp"
+    },
+    {
+      "name": "atralvarez--drizzle-rollback",
+      "source": "./atralvarez--drizzle-rollback",
+      "description": "drizzle-rollback"
+    },
+    {
+      "name": "juspay--rescript-bindgen",
+      "source": "./juspay--rescript-bindgen",
+      "description": "rescript-bindgen"
+    },
+    {
+      "name": "paultyng--ideate",
+      "source": "./paultyng--ideate",
+      "description": "One home for every idea \u2014 local-first macOS desktop app for tracking work-in-flight with linked repo worktrees, context files, external resources, and AI agent sessions, all per-idea."
+    },
+    {
+      "name": "santiquiroz--openwinblue",
+      "source": "./santiquiroz--openwinblue",
+      "description": "Free, open-source Windows Bluetooth audio codec manager. LDAC, aptX HD, aptX LL, SBC, AAC support with AI enhancement."
+    },
+    {
+      "name": "understudylabs--understudy-agent-tools",
+      "source": "./understudylabs--understudy-agent-tools",
+      "description": "Public MIT-licensed Understudy agent tools and skill library"
+    },
+    {
+      "name": "x380kkm--380kkm-clean-vibing",
+      "source": "./x380kkm--380kkm-clean-vibing",
+      "description": "380kkm-clean-vibing"
+    },
+    {
+      "name": "aetik-yue--godomaster",
+      "source": "./aetik-yue--godomaster",
+      "description": " GodoMaster \u662f\u4e00\u4e2a\u57fa\u4e8e Godot \u5b98\u65b9\u6587\u6863\u6253\u9020\u7684 Claude Code \u6e38\u620f\u5f00\u53d1\u6280\u80fd\u5305\uff0c\u8986\u76d6 Godot 4.x \u5b8c\u6574\u5f00\u53d1\u5de5\u4f5c\u6d41\u3002\u5305\u542b   GDScript\u3001\u8282\u70b9\u4e0e\u573a\u666f\u30012D/3D\u3001\u7269\u7406\u3001\u52a8\u753b\u3001UI\u3001\u97f3\u9891\u3001\u8f93\u5165\u3001\u7740\u8272\u5668\u3001\u7f51\u7edc\u8054\u673a\u3001\u6027\u80fd\u4f18\u5316\u3001\u5bfc\u51fa\u53d1\u5e03\u548c\u5b58\u6863\u7cfb\u7edf\u5171 16   \u4e2a\u6a21\u5757\uff0c\u652f\u6301 /godomaster \u4e00\u952e\u8c03\u7528\u6216\u5173\u952e\u8bcd\u81ea\u52a8\u89e6\u53d1\u3002"
+    },
+    {
+      "name": "deaneeth--tiny-tpu",
+      "source": "./deaneeth--tiny-tpu",
+      "description": "A TPU you can watch run - real SystemVerilog systolic array, compiled to WASM, visualized live in your browser."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -401247,6 +401667,51 @@
       "name": "wwwweeia--palantir-aip-study",
       "source": "./wwwweeia--palantir-aip-study",
       "description": "Palantir AIP \u5b66\u4e60\u7b14\u8bb0 - Ontology\u3001FDE\u3001Enterprise AI Landing"
+    },
+    {
+      "name": "k1ngbanana--aipocket",
+      "source": "./k1ngbanana--aipocket",
+      "description": "\u4e00\u8d77\u6253\u91ce\uff01\u57fa\u4e8e FOFA\u3001Shodan \u4e0e GitHub Artifact Hunter\uff0c\u81ea\u52a8\u53d1\u73b0 AI \u57fa\u7840\u8bbe\u65bd\u66b4\u9732\u9762\u4e0e\u6cc4\u9732\u51ed\u8bc1\uff0c\u5e76\u5b8c\u6210\u5f52\u56e0\u3001\u9a8c\u8bc1\u3001\u4f59\u989d\u67e5\u8be2\u548c\u6301\u4e45\u5316\u3002"
+    },
+    {
+      "name": "leolee0812--media-studio-oss",
+      "source": "./leolee0812--media-studio-oss",
+      "description": "\u81ea\u5a92\u4f53\u300c\u7d20\u6750\u2192\u7a3f\u4ef6\u300d\u5de5\u4f5c\u53f0\uff1aRSS \u91c7\u96c6\u9009\u9898 \u2192 AI \u516c\u4f17\u53f7\u6210\u7a3f\uff08\u914d\u56fe+\u5c01\u9762\uff09\u2192 \u5c0f\u7ea2\u4e66/\u6296\u97f3\u957f\u6587\u4e00\u952e\u5bfc\u51fa"
+    },
+    {
+      "name": "buffoons8-sketch--aidente",
+      "source": "./buffoons8-sketch--aidente",
+      "description": "Aidente \u2014 an independent open-source macOS battery care, power monitoring, and Liquid Glass menu bar utility for Apple silicon MacBooks."
+    },
+    {
+      "name": "tokuhirom--mdroll",
+      "source": "./tokuhirom--mdroll",
+      "description": "A terminal Markdown viewer with big headings and real GFM support"
+    },
+    {
+      "name": "dustinsoftware--react-native-ota-gateway",
+      "source": "./dustinsoftware--react-native-ota-gateway",
+      "description": "Self-host the expo-updater manifest with full environment switching"
+    },
+    {
+      "name": "toshipepe--tokimeter",
+      "source": "./toshipepe--tokimeter",
+      "description": "Local-first usage & cost meter for AI coding agents: Claude Code, Codex, Cursor, Grok Build, Hermes, opencode, Cline, and Copilot CLI. No account or telemetry."
+    },
+    {
+      "name": "baekpica--oh-my-field",
+      "source": "./baekpica--oh-my-field",
+      "description": "Field-fit agents to real work. Turn tacit know-how into reusable capabilities."
+    },
+    {
+      "name": "lab-cosmo--pet-jax",
+      "source": "./lab-cosmo--pet-jax",
+      "description": "Universal PET models in JAX"
+    },
+    {
+      "name": "degueba--onda",
+      "source": "./degueba--onda",
+      "description": "Open-source motion graphics components for Remotion \u2014 copy-paste, fully yours, beautifully animated. Build videos with code."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -534867,6 +535332,96 @@
       "name": "erenalpturk--serafront",
       "source": "./erenalpturk--serafront",
       "description": "seraFront"
+    },
+    {
+      "name": "daymeiion--bltz",
+      "source": "./daymeiion--bltz",
+      "description": "bltz"
+    },
+    {
+      "name": "abetai--slide-generation-system",
+      "source": "./abetai--slide-generation-system",
+      "description": "slide-generation-system"
+    },
+    {
+      "name": "bogdansolga--reference-next-js-project",
+      "source": "./bogdansolga--reference-next-js-project",
+      "description": "A reference Next.js project"
+    },
+    {
+      "name": "geckozr--nog-cli",
+      "source": "./geckozr--nog-cli",
+      "description": "nog-cli - NestJS OpenAPI Generator CLI: Generate NestJS services, interfaces and modules from OpenAPI specifications"
+    },
+    {
+      "name": "ricardoazuul--ansible-cachyos",
+      "source": "./ricardoazuul--ansible-cachyos",
+      "description": "Config CachyOS using Ansible"
+    },
+    {
+      "name": "whitewolfot--ancient-ocr",
+      "source": "./whitewolfot--ancient-ocr",
+      "description": "Ancient-OCR"
+    },
+    {
+      "name": "pachz--moonshot-gold",
+      "source": "./pachz--moonshot-gold",
+      "description": "moonshot.gold"
+    },
+    {
+      "name": "systemslibrarian--postquantum-identity",
+      "source": "./systemslibrarian--postquantum-identity",
+      "description": "Post-quantum integration for ASP.NET Core Identity with hybrid JWT tokens and Argon2id password hashing."
+    },
+    {
+      "name": "mahsa7haft--paidup",
+      "source": "./mahsa7haft--paidup",
+      "description": "UK MP donor transparency tool \u2014 live Parliament data, visual donor cards, and AI conflict-of-interest analysis."
+    },
+    {
+      "name": "j4s0nzhang--theoracle",
+      "source": "./j4s0nzhang--theoracle",
+      "description": "MTG helper tools"
+    },
+    {
+      "name": "kevineick030--pokemon-tracker",
+      "source": "./kevineick030--pokemon-tracker",
+      "description": "pokemon-tracker"
+    },
+    {
+      "name": "sollabstech--lokkho",
+      "source": "./sollabstech--lokkho",
+      "description": "lokkho"
+    },
+    {
+      "name": "pmd1965--ha-analyzer",
+      "source": "./pmd1965--ha-analyzer",
+      "description": "ha-analyzer"
+    },
+    {
+      "name": "nkurikiye--dunia-ventures-2",
+      "source": "./nkurikiye--dunia-ventures-2",
+      "description": "Dunia-Ventures-2"
+    },
+    {
+      "name": "river-io--sloth",
+      "source": "./river-io--sloth",
+      "description": "sloth"
+    },
+    {
+      "name": "devhassanalikhan--employee-attendance",
+      "source": "./devhassanalikhan--employee-attendance",
+      "description": "employee-attendance"
+    },
+    {
+      "name": "mindongdong--maple-mate",
+      "source": "./mindongdong--maple-mate",
+      "description": "maple-mate"
+    },
+    {
+      "name": "raposo06--portuguese-legal-rag-bot",
+      "source": "./raposo06--portuguese-legal-rag-bot",
+      "description": "Portuguese-Legal-RAG-Bot"
     }
   ]
 }
