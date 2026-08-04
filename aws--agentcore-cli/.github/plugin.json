@@ -1,7 +1,7 @@
 {
   "name": "aws--agentcore-cli",
   "displayName": "agentcore-cli",
-  "description": "The new terminal experience for AgentCore!",
+  "description": "agentcore-cli",
   "version": "1.0.0",
   "author": "aws",
   "homepage": "https://github.com/aws/agentcore-cli",
