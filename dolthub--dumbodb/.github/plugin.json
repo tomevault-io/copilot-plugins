@@ -1,0 +1,9 @@
+{
+  "name": "dolthub--dumbodb",
+  "displayName": "dumbodb",
+  "description": "dumbodb",
+  "version": "1.0.0",
+  "author": "dolthub",
+  "homepage": "https://github.com/dolthub/dumbodb",
+  "skills": []
+}
