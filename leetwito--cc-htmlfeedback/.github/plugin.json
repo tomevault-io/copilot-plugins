@@ -1,0 +1,9 @@
+{
+  "name": "leetwito--cc-htmlfeedback",
+  "displayName": "cc-htmlfeedback",
+  "description": "The tool for interactively reviewing an HTML plan for Claude Code",
+  "version": "1.0.0",
+  "author": "leetwito",
+  "homepage": "https://github.com/leetwito/cc-htmlfeedback",
+  "skills": []
+}
