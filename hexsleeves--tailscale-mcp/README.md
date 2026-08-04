@@ -1,23 +1,21 @@
 # tailscale-mcp
 
-> Source: [HexSleeves/tailscale-mcp](https://github.com/HexSleeves/tailscale-mcp) — distributed by [TomeVault](https://tomevault.io)
-
-server that provides seamless integration with Tailscale's CLI commands and REST API, enabling automated network management and monitoring through a standardized interface
+> Source: [HexSleeves/tailscale-mcp](https://github.com/HexSleeves/tailscale-mcp). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [HexSleeves/tailscale-mcp](https://github.com/HexSleeves/tailscale-mcp).
+Original source: `AGENTS.md` in [HexSleeves/tailscale-mcp](https://github.com/HexSleeves/tailscale-mcp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/HexSleeves/tailscale-mcp](https://github.com/HexSleeves/tailscale-mcp)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/HexSleeves/tailscale-mcp](https://github.com/HexSleeves/tailscale-mcp)
 
 ---
 
