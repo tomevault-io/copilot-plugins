@@ -1,0 +1,9 @@
+{
+  "name": "dewashishcodes--tokenmeter",
+  "displayName": "tokenmeter",
+  "description": "Local-first Claude Code token usage dashboard for Windows \u2014 costs, heatmap, cache savings, and a pixel companion",
+  "version": "1.0.0",
+  "author": "DewashishCodes",
+  "homepage": "https://github.com/DewashishCodes/tokenmeter",
+  "skills": []
+}
