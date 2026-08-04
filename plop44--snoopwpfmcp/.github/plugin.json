@@ -1,0 +1,9 @@
+{
+  "name": "plop44--snoopwpfmcp",
+  "displayName": "SnoopWpfMcp",
+  "description": "A Model Context Protocol (MCP) infrastructure for WPF applications using snoopwpf injection techniques. Allows code injection into running WPF processes and communication via Named Pipes.",
+  "version": "1.0.0",
+  "author": "plop44",
+  "homepage": "https://github.com/plop44/SnoopWpfMcp",
+  "skills": []
+}
