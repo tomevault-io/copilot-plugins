@@ -1,7 +1,7 @@
 {
   "name": "discoursegraphs--discourse-graph",
   "displayName": "discourse-graph",
-  "description": "A tool and ecosystem for collaborative knowledge synthesis",
+  "description": "discourse-graph",
   "version": "1.0.0",
   "author": "DiscourseGraphs",
   "homepage": "https://github.com/DiscourseGraphs/discourse-graph",
