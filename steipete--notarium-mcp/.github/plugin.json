@@ -1,0 +1,9 @@
+{
+  "name": "steipete--notarium-mcp",
+  "displayName": "notarium-mcp",
+  "description": "Notarium: encrypted Simplenote \u2192 MCP gateway, built for speed and clarity.",
+  "version": "1.0.0",
+  "author": "steipete",
+  "homepage": "https://github.com/steipete/notarium-mcp",
+  "skills": []
+}
