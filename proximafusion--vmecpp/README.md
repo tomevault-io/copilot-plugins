@@ -1,17 +1,15 @@
 # AI instruction files for vmecpp
 
-> Sourced from [proximafusion/vmecpp](https://github.com/proximafusion/vmecpp) and converted for every major platform by [TomeVault](https://tomevault.io)
-
- From-scratch C++ and Python reimplementation of the Variational Moments Equilibrium Code (VMEC).
+> Sourced from [proximafusion/vmecpp](https://github.com/proximafusion/vmecpp), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [proximafusion/vmecpp](https://github.com/proximafusion/vmecpp).
+Original source: `AGENTS.md` in [proximafusion/vmecpp](https://github.com/proximafusion/vmecpp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
