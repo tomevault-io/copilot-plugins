@@ -1,0 +1,44 @@
+{
+  "name": "aipocket",
+  "owner": "k1ngbanana",
+  "repo": "aipocket",
+  "description": "\u4e00\u8d77\u6253\u91ce\uff01\u57fa\u4e8e FOFA\u3001Shodan \u4e0e GitHub Artifact Hunter\uff0c\u81ea\u52a8\u53d1\u73b0 AI \u57fa\u7840\u8bbe\u65bd\u66b4\u9732\u9762\u4e0e\u6cc4\u9732\u51ed\u8bc1\uff0c\u5e76\u5b8c\u6210\u5f52\u56e0\u3001\u9a8c\u8bc1\u3001\u4f59\u989d\u67e5\u8be2\u548c\u6301\u4e45\u5316\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/k1ngbanana/aipocket",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T19:32:07Z"
+}
