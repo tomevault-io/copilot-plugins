@@ -1,0 +1,9 @@
+{
+  "name": "ansible--ansible-creator",
+  "displayName": "ansible-creator",
+  "description": "ansible-creator",
+  "version": "1.0.0",
+  "author": "ansible",
+  "homepage": "https://github.com/ansible/ansible-creator",
+  "skills": []
+}
