@@ -1,0 +1,9 @@
+{
+  "name": "artemnovichkov--octavo",
+  "displayName": "Octavo",
+  "description": "Native macOS replacement for calibre: syncs an ebook library to a Kindle over MTP and edits metadata. No dependencies, 3 MB.",
+  "version": "1.0.0",
+  "author": "artemnovichkov",
+  "homepage": "https://github.com/artemnovichkov/Octavo",
+  "skills": []
+}
