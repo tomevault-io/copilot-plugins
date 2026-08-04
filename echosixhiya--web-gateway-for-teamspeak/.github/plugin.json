@@ -1,0 +1,9 @@
+{
+  "name": "echosixhiya--web-gateway-for-teamspeak",
+  "displayName": "web-gateway-for-TeamSpeak",
+  "description": "Server-side browser gateway for TeamSpeak. Deploy on your server \u2014 users join voice channels from any browser, no TeamSpeak client needed. | TeamSpeak \u6d4f\u89c8\u5668\u7f51\u5173\u3002\u90e8\u7f72\u5728\u670d\u52a1\u5668\u4e0a\uff0c\u7528\u6237\u65e0\u9700\u5b89\u88c5 TS             \u5ba2\u6237\u7aef\uff0c\u6d4f\u89c8\u5668\u5373\u52a0\u5165\u8bed\u97f3\u9891",
+  "version": "1.0.0",
+  "author": "EchoSixHIYA",
+  "homepage": "https://github.com/EchoSixHIYA/web-gateway-for-TeamSpeak",
+  "skills": []
+}
