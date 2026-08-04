@@ -1,0 +1,9 @@
+{
+  "name": "gbeurier--nirs4all-formats",
+  "displayName": "nirs4all-formats",
+  "description": "Rust-first NIRS and spectroscopy file loading core with Python/R bindings and conformance fixtures",
+  "version": "1.0.0",
+  "author": "GBeurier",
+  "homepage": "https://github.com/GBeurier/nirs4all-formats",
+  "skills": []
+}
