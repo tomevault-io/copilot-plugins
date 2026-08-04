@@ -1,0 +1,9 @@
+{
+  "name": "operator-framework--api",
+  "displayName": "api",
+  "description": "api",
+  "version": "1.0.0",
+  "author": "operator-framework",
+  "homepage": "https://github.com/operator-framework/api",
+  "skills": []
+}
