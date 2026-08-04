@@ -1,0 +1,9 @@
+{
+  "name": "bifeiextern--job-application-ai-agent",
+  "displayName": "job-application-ai-agent",
+  "description": "A Claude Code-native AI agent that searches real jobs, maps your skills against market demand, writes tailored applications, and tracks your pipeline \u2014 built around the 9-Grid Internship Search Strate",
+  "version": "1.0.0",
+  "author": "bifeiExtern",
+  "homepage": "https://github.com/bifeiExtern/job-application-ai-agent",
+  "skills": []
+}
