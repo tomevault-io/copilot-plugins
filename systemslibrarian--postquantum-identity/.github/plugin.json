@@ -1,0 +1,9 @@
+{
+  "name": "systemslibrarian--postquantum-identity",
+  "displayName": "postquantum-identity",
+  "description": "Post-quantum integration for ASP.NET Core Identity with hybrid JWT tokens and Argon2id password hashing.",
+  "version": "1.0.0",
+  "author": "systemslibrarian",
+  "homepage": "https://github.com/systemslibrarian/postquantum-identity",
+  "skills": []
+}
