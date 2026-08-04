@@ -1,0 +1,9 @@
+{
+  "name": "anolilab--lunora",
+  "displayName": "lunora",
+  "description": "Type-safe, real-time backend framework on your own Cloudflare account \u2014 Workers, Durable Objects, D1, R2, Queues. Convex-style DX, Vite-first.",
+  "version": "1.0.0",
+  "author": "anolilab",
+  "homepage": "https://github.com/anolilab/lunora",
+  "skills": []
+}
