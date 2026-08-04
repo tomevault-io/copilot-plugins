@@ -1,0 +1,9 @@
+{
+  "name": "declansx--sports-prediction-market-aggregator",
+  "displayName": "sports-prediction-market-aggregator",
+  "description": "Aggregator and smart order router for sports prediction markets. Fetches real-time odds and liquidity from SX Bet and Polymarket and routes your trade to the best odds at execution. Telegram bot + web",
+  "version": "1.0.0",
+  "author": "declansx",
+  "homepage": "https://github.com/declansx/sports-prediction-market-aggregator",
+  "skills": []
+}
