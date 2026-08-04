@@ -1,0 +1,9 @@
+{
+  "name": "nisshi-io--nisshi",
+  "displayName": "nisshi",
+  "description": "Apache Kafka\u00ae compatible broker with S3, PostgreSQL, SQLite, Apache Iceberg and Delta Lake",
+  "version": "1.0.0",
+  "author": "nisshi-io",
+  "homepage": "https://github.com/nisshi-io/nisshi",
+  "skills": []
+}
