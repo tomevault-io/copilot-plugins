@@ -1,0 +1,9 @@
+{
+  "name": "verified-zkevm--polyfun",
+  "displayName": "PolyFun",
+  "description": "Lean 4 library for polynomial functors, interaction trees, and frameworks for modeling interactive and effectful protocols",
+  "version": "1.0.0",
+  "author": "Verified-zkEVM",
+  "homepage": "https://github.com/Verified-zkEVM/PolyFun",
+  "skills": []
+}
