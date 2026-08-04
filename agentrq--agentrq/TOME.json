@@ -2,9 +2,9 @@
   "name": "agentrq",
   "owner": "agentrq",
   "repo": "agentrq",
-  "description": "AgentRQ: Human-in-loop realtime conversational task manager for Agents.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agentrq/agentrq",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T09:56:54Z"
+  "distributed_at": "2026-08-04T05:36:24Z"
 }
