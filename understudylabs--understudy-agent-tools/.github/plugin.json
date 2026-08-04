@@ -1,0 +1,9 @@
+{
+  "name": "understudylabs--understudy-agent-tools",
+  "displayName": "understudy-agent-tools",
+  "description": "Public MIT-licensed Understudy agent tools and skill library",
+  "version": "1.0.0",
+  "author": "understudylabs",
+  "homepage": "https://github.com/understudylabs/understudy-agent-tools",
+  "skills": []
+}
