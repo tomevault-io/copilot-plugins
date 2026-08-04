@@ -1,0 +1,9 @@
+{
+  "name": "sinkingsugar--bpkit",
+  "displayName": "bpkit",
+  "description": "Drive Unreal Engine 5 Blueprint node graphs from outside the editor: read, author, edit, inject and compile K2 graphs over the remote-exec channel via an in-process ctypes bridge. No C++, no editor UI",
+  "version": "1.0.0",
+  "author": "sinkingsugar",
+  "homepage": "https://github.com/sinkingsugar/bpkit",
+  "skills": []
+}
