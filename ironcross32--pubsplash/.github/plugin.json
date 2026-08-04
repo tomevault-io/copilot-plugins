@@ -1,0 +1,9 @@
+{
+  "name": "ironcross32--pubsplash",
+  "displayName": "pubsplash",
+  "description": "Pubsplash is a screen-reader accessible app that allows livestreaming to any Audiopub instance.",
+  "version": "1.0.0",
+  "author": "ironcross32",
+  "homepage": "https://github.com/ironcross32/pubsplash",
+  "skills": []
+}
