@@ -1,0 +1,9 @@
+{
+  "name": "xieziyu--duetlens",
+  "displayName": "duetlens",
+  "description": "Conversational code review on macOS: review a PR or local branch together with a codex agent, and ask about any line instead of just reading its findings.",
+  "version": "1.0.0",
+  "author": "xieziyu",
+  "homepage": "https://github.com/xieziyu/duetlens",
+  "skills": []
+}
