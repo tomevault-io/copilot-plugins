@@ -1,0 +1,9 @@
+{
+  "name": "nimblecoorg--swarm-map",
+  "displayName": "swarm-map",
+  "description": "Multiplayer admin and orchestrator platform for heterogeneous agent runtimes \u2014 Hermes (container-per-agent) and Letta (memory-first agents on a shared server) in one control plane, with multi-tenant s",
+  "version": "1.0.0",
+  "author": "NimbleCoOrg",
+  "homepage": "https://github.com/NimbleCoOrg/swarm-map",
+  "skills": []
+}
