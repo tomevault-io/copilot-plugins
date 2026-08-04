@@ -1,0 +1,9 @@
+{
+  "name": "eldergenix--proofloop",
+  "displayName": "Proofloop",
+  "description": "Proof-driven Claude/Codex agent loop with paired execution, persistent resume, and adversarial security/performance gates.",
+  "version": "1.0.0",
+  "author": "Eldergenix",
+  "homepage": "https://github.com/Eldergenix/Proofloop",
+  "skills": []
+}
