@@ -1,0 +1,9 @@
+{
+  "name": "agentcommunity--dmv-for-agents",
+  "displayName": "DMV_for_agents",
+  "description": "Department of Machine Verification",
+  "version": "1.0.0",
+  "author": "agentcommunity",
+  "homepage": "https://github.com/agentcommunity/DMV_for_agents",
+  "skills": []
+}
