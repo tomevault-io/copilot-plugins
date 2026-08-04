@@ -1,0 +1,9 @@
+{
+  "name": "nx202603--zhijian-electron-08",
+  "displayName": "zhijian_electron_08",
+  "description": "Desktop image batch compression tool. Built with Electron + Vue 3.",
+  "version": "1.0.0",
+  "author": "nx202603",
+  "homepage": "https://github.com/nx202603/zhijian_electron_08",
+  "skills": []
+}
