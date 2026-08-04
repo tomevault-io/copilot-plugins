@@ -1,49 +1,51 @@
 ## oxidizer
 
-> Code in this repository should follow the guidelines specified in the [Microsoft Rust Guidelines](https://microsoft.github.io/rust-guidelines/agents/all.txt).
+> Code in this crate should follow the [Microsoft Rust Guidelines](https://microsoft.github.io/rust-guidelines/agents/all.txt).
 
-# AI Agents Guidelines
+# AI Agents Guidelines for `bytesbuf`
 
-Code in this repository should follow the guidelines specified in the [Microsoft Rust Guidelines](https://microsoft.github.io/rust-guidelines/agents/all.txt).
+Code in this crate should follow the [Microsoft Rust Guidelines](https://microsoft.github.io/rust-guidelines/agents/all.txt).
 
-## README Files
+## Design Assumptions
 
-Crate README files are auto-generated via `just readme`. Do not manually update them.
+These assumptions shape how we write and optimize code in this crate. Keep them in mind when
+proposing or reviewing changes, especially performance-related ones.
 
-## Executing `just` commands
+### Thread-isolated architecture (mutexes are never contended)
 
-If you only touch one crate, you may use `just package=crate_name command` to narrow command scope to one crate.
+Our types are intended to be used in a thread-isolated architecture where mutexes are almost
+never contended. Any mutex that exists does so for safety in degenerate scenarios (e.g. memory
+allocated on one thread but released on another), not because we expect concurrent access on the
+hot path. We never optimize for contention and we never expect a mutex to be contended.
 
-## Pre-commit Checklist
+### Spans per buffer/view (0 to hundreds)
 
-- Run `just format` to format code.
-- Run `just readme` to regenerate crate-level readme files.
-- Run `just spellcheck` to check spelling in code comments and docs.
+We expect our buffers and views to consist of different numbers of spans in real-world
+scenarios, ranging from 0 to hundreds. Code must handle the full range correctly, not just the
+small-count case.
 
-## Spelling
+### Inline spans are performance-sensitive
 
-The spell checker dictionary is in the `.spelling` file, one word per line in arbitrary order.
+Assembling a buffer/view from a small handful of existing spans can be a performance-sensitive
+scenario for some workloads. Therefore, we inline a small number of spans directly in our
+buffer/view objects, avoiding extra heap allocations for the common case. We accept that this makes
+our buffer/view objects larger as a deliberate trade-off.
 
-## Changelogs
+### Metrics-driven fine-tuning (via the `nm` crate)
 
-Manually update the relevant `CHANGELOG.md` file(s) when making user-visible changes. Add entries under an `## Unreleased` section, following the existing format. Changelogs are not auto-generated.
+We rely on metrics emitted via the `nm` crate to fine-tune our constants and algorithms according
+to real-world customer data. Fine-tuning for synthetic test data is not a priority. The `nm` crate
+is designed for low-level metrics and is low overhead — acceptable to emit even on hot paths in
+release builds — so do not remove or feature-gate these metrics purely on hot-path performance
+grounds.
 
-## Pull Requests
+### Buffer/view size matches the unit of work
 
-Pull request titles must follow [Conventional Commits](https://www.conventionalcommits.org/) naming, e.g. `feat(bytesbuf): add new metric` or `fix(cachet): correct eviction logic`.
-
-## Maintainability
-
-While it is fine to use `.expect()`, the precondition is that it is either a programming error (the caller did something wrong)
-or a situation that can never happen (in the absence of bugs). The expect-message must document either what the caller did wrong
-in their code or why we believe the situation could never happen.
-
-This is bad code: `self_span.get(self_offset..).expect("self_offset out of bounds")` - it does not explain what the caller did
-wrong and it does not explain why we believe this access can never be out of bounds.
-
-This is good code: `self_span.get(self_offset..).expect("guarded by min() above to never exceed span length")` - this explains
-why we believe the operation can never cause an out of bounds access.
+Our buffers and views are intended to match the unit of work size in the customer operation. For
+example, the chunk size when copying data or performing I/O, or an entire HTTP request/response
+when performing buffered HTTP. Design and tuning decisions should assume buffers/views are sized
+to one unit of work, not arbitrarily large or arbitrarily small.
 
 ---
 > Source: [microsoft/oxidizer](https://github.com/microsoft/oxidizer) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
