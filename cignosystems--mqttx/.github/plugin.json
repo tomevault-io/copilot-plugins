@@ -1,0 +1,9 @@
+{
+  "name": "cignosystems--mqttx",
+  "displayName": "mqttx",
+  "description": "Pure Elixir MQTT 3.1.1/5.0 library - high-performance codec, transport-agnostic server, and modern client. Optimized for Cellular IoT with Protobuf support. 2.9-4.2x faster encoding than alternatives.",
+  "version": "1.0.0",
+  "author": "cignosystems",
+  "homepage": "https://github.com/cignosystems/mqttx",
+  "skills": []
+}
