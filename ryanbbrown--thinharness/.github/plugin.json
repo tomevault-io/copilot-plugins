@@ -1,0 +1,9 @@
+{
+  "name": "ryanbbrown--thinharness",
+  "displayName": "thinharness",
+  "description": "A minimal, opinionated agent harness \u2014 focused scope, straightforward code, easy to fork",
+  "version": "1.0.0",
+  "author": "ryanbbrown",
+  "homepage": "https://github.com/ryanbbrown/thinharness",
+  "skills": []
+}
