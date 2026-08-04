@@ -1,0 +1,9 @@
+{
+  "name": "datadog--java-profiler",
+  "displayName": "java-profiler",
+  "description": "java-profiler",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/java-profiler",
+  "skills": []
+}
