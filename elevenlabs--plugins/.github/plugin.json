@@ -1,0 +1,9 @@
+{
+  "name": "elevenlabs--plugins",
+  "displayName": "plugins",
+  "description": "Claude Code plugins for voice interactions",
+  "version": "1.0.0",
+  "author": "elevenlabs",
+  "homepage": "https://github.com/elevenlabs/plugins",
+  "skills": []
+}
