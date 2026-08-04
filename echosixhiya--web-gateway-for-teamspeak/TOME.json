@@ -1,0 +1,44 @@
+{
+  "name": "web-gateway-for-TeamSpeak",
+  "owner": "EchoSixHIYA",
+  "repo": "web-gateway-for-TeamSpeak",
+  "description": "Server-side browser gateway for TeamSpeak. Deploy on your server \u2014 users join voice channels from any browser, no TeamSpeak client needed. | TeamSpeak \u6d4f\u89c8\u5668\u7f51\u5173\u3002\u90e8\u7f72\u5728\u670d\u52a1\u5668\u4e0a\uff0c\u7528\u6237\u65e0\u9700\u5b89\u88c5 TS             \u5ba2\u6237\u7aef\uff0c\u6d4f\u89c8\u5668\u5373\u52a0\u5165\u8bed\u97f3\u9891\u9053\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/EchoSixHIYA/web-gateway-for-TeamSpeak",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T13:22:31Z"
+}
