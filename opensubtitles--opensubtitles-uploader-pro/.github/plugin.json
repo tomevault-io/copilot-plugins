@@ -1,0 +1,9 @@
+{
+  "name": "opensubtitles--opensubtitles-uploader-pro",
+  "displayName": "OpenSubtitles-Uploader-PRO",
+  "description": "A professional React-based subtitle uploader application that integrates with both OpenSubtitles APIs for seamless subtitle management and upload.",
+  "version": "1.0.0",
+  "author": "opensubtitles",
+  "homepage": "https://github.com/opensubtitles/OpenSubtitles-Uploader-PRO",
+  "skills": []
+}
