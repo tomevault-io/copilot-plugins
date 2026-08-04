@@ -1,539 +1,561 @@
 ## atlas
 
-> This document defines the coding conventions, architecture standards, and quality rules for this Laravel package. All agents (human or AI) must follow these rules — non-compliant contributions will be rejected.
+> Agents are reusable AI configurations — a class that defines provider, model, instructions, tools, and behavior.
 
-# AGENTS
+# Agents
 
-This document defines the coding conventions, architecture standards, and quality rules for this Laravel package. All agents (human or AI) must follow these rules — non-compliant contributions will be rejected.
+Agents are reusable AI configurations — a class that defines provider, model, instructions, tools, and behavior.
 
-For workflow, task management, and Claude Code-specific behavioral rules, see `CLAUDE.md`.
+## Defining an Agent
 
----
-
-## Critical Rules
-
-1. **Read documentation first** – Before working on any module, read the relevant documentation
-2. **Documentation is the source of truth** – Documentation overrides all assumptions
-3. **Run `composer check` before submitting code changes** – All lint, analyse, and test checks must pass (not required for documentation-only changes)
-4. **Update documentation when code changes** – Keep docs in sync with implementation
-5. **No function-level namespace imports** – Never use `use function json_decode;`
-6. **Include PHPDoc on every class** – Document purpose and usage
-7. **Respect layer boundaries** – Never violate the layer responsibility model
-8. **Use dependency injection** – Never directly instantiate services; use contracts where appropriate
-9. **Earn your abstractions** – Do not introduce indirection without concrete justification
-
----
-
-## Atlas v3 Architecture
-
-Atlas v3 is a unified AI SDK for Laravel applications. It owns its own provider layer — no external AI package dependency.
-
-### Layer Model
-
-```
-Consumer API (Facade, fluent builders)
-         ↓
-Executor (tool loop, steps, orchestration events)
-         ↓
-Driver (routes modality calls to handlers)
-         ↓
-Handlers + Resolvers (build HTTP payloads, parse responses)
-         ↓
-HttpClient (sends HTTP, fires transport events)
-```
-
-### Key Principles
-
-1. **Own the provider layer** — Atlas talks directly to AI provider APIs
-2. **Drivers are thin coordinators** — they route to modality handlers, never build HTTP payloads
-3. **Handlers compose resolvers** — MessageFactory, MediaResolver, ToolMapper, ResponseParser
-4. **Stateless drivers** — one request → one response; the executor handles loops
-5. **Shared HttpClient** — all providers use the same transport with consistent event dispatching
-
----
-
-## Core Principles
-
-1. Follow **PSR-12** and **Laravel Pint** formatting
-2. Use **strict types** and modern **PHP 8.2+** syntax
-3. All code must be **stateless**, **framework-aware**, and **application-agnostic**
-4. Keep everything **self-contained** with no hard dependency on a consuming app
-5. Always reference **documentation** for functional requirements and naming accuracy
-6. Write clear, testable, deterministic code
-7. Every class must include a **PHPDoc block** summarizing its purpose
-8. **Program to interfaces, not implementations**, when multiple implementations or testing seams are required
-9. **Single responsibility** – each class does one thing well
-10. **Dependencies flow downward** – higher layers depend on lower layers only
-11. **Earn your abstractions** – every layer must provide real value
-
-**Example PHPDoc:**
-```php
-/**
- * Class UserWebhookService
- *
- * Handles webhook registration, processing, and retry logic for user-related events.
- */
-```
-
----
-
-## Package Structure
-
-```
-package-root/
-├── docs/                 # VitePress documentation
-├── src/
-│   ├── Concerns/         # Cross-domain traits
-│   ├── Console/          # Artisan commands
-│   ├── Embeddings/       # Vector embeddings and similarity search
-│   ├── Enums/            # Shared enums (Provider, Role, Modality, FinishReason, etc.)
-│   ├── Events/           # Transport and orchestration events
-│   ├── Exceptions/       # Exception hierarchy
-│   ├── Executor/         # Agent executor, tool loop, steps
-│   ├── Facades/          # Atlas facade
-│   ├── Input/            # Media input types (Image, Audio, Video, Document)
-│   ├── Messages/         # Typed conversation messages
-│   ├── Middleware/        # MiddlewareStack and context objects
-│   ├── Pending/          # Fluent request builders + Concerns/
-│   ├── Persistence/      # Models/, Services/, Middleware/, Enums/, Concerns/
-│   ├── Providers/        # Contracts/, Concerns/, Handlers/, Tools/, {Provider}/
-│   ├── Queue/            # Queue dispatch infrastructure + Jobs/
-│   ├── Requests/         # Immutable request DTOs
-│   ├── Responses/        # Response objects and StorableContract
-│   ├── Schema/           # JSON schema builder + Fields/
-│   ├── Support/          # Pure utilities
-│   ├── Testing/          # Fakes for testing
-│   ├── Tools/            # Tool infrastructure (definition, serialization)
-│   └── Voice/            # Voice session HTTP controllers
-├── config/
-├── tests/
-│   ├── Unit/
-│   └── Feature/
-└── sandbox/
-```
-
-### Directory Rules
-
-1. **Domain-organized** – Each top-level `src/` directory represents a domain concern, not a generic pattern
-2. **Namespacing follows structure** – e.g., `Atlasphp\Atlas\Messages\UserMessage`
-3. **Cross-domain references are allowed** – Domains may import types from other domains
-4. **Domain-local contracts** – Interfaces live with their domain (e.g., `Providers/Contracts/`), not in a shared `Contracts/` directory
-5. **Domain-local concerns** – Traits scoped to a single domain live in that domain's `Concerns/` subdirectory; only genuinely cross-cutting traits live in the top-level `Concerns/`
-6. **Provider sub-structure** – `Providers/` contains subdirectories for handlers (`Handlers/`), resolver contracts (`Contracts/`), provider tools (`Tools/`), and per-provider implementations (`OpenAi/`, `Anthropic/`, etc.)
-7. **No unnecessary nesting** – Don't create subdirectories until there are enough files to justify them
-
-### Adding Files
-
-| Adding...                          | Location                            |
-|------------------------------------|-------------------------------------|
-| New enum                           | `src/Enums/`                        |
-| New message type                   | `src/Messages/`                     |
-| New request/response object        | `src/Requests/` or `src/Responses/` |
-| New exception                      | `src/Exceptions/`                   |
-| New event                          | `src/Events/`                       |
-| New handler interface              | `src/Providers/Handlers/`           |
-| New resolver contract              | `src/Providers/Contracts/`          |
-| Provider-specific implementation   | `src/Providers/{ProviderName}/`     |
-| Provider-scoped contract           | `src/Providers/Contracts/`          |
-| New tool class                     | `src/Tools/`                        |
-| Embedding/vector feature           | `src/Embeddings/`                   |
-| Cross-domain trait                 | `src/Concerns/`                     |
-| Domain-scoped trait                | `src/{Domain}/Concerns/`            |
-| Domain-scoped contract             | `src/{Domain}/Contracts/`           |
-| Persistence model/service          | `src/Persistence/Models/` or `src/Persistence/Services/` |
-| Queue infrastructure               | `src/Queue/`                        |
-| Fluent builder                     | `src/Pending/`                      |
-| Test fake                          | `src/Testing/`                      |
-
----
-
-## Layer Responsibilities
-
-### Dependency Direction
-
-Dependencies must flow downward only:
-
-```
-Controllers / Commands
-         ↓
-   Services/Domain (Business Layer)
-         ↓
-   Services/Models (Model Layer)
-         ↓
-      Integrations (External Layer)
-         ↓
-       Support (Utility Layer)
-```
-
-**Never allow upward dependencies.** A lower layer must never import from a higher layer.
-
----
-
-### Services/Models (Model Layer)
-
-**Purpose:** Single point of truth for all persistence operations on a model.
-
-**Allowed:** Create, update, delete operations. Model-specific query helpers. Data normalization pre-persistence. Returning models or collections.
-
-**Forbidden:** Orchestrating workflows. Calling other domain services. Calling integrations directly. Cross-domain logic. Event dispatching.
-
-**Naming:** `{Model}ModelService` (e.g., `AgentModelService`)
+Extend `Atlasphp\Atlas\Agent` and override the methods you need. All methods have sensible defaults — an agent with no overrides is valid.
 
 ```php
-// ✅ Correct
-class AgentModelService
+use Atlasphp\Atlas\Agent;
+use Atlasphp\Atlas\Enums\Provider;
+use Atlasphp\Atlas\Providers\Tools\ProviderTool;
+
+class SupportAgent extends Agent
 {
-    public function create(array $data): Agent
+    public function key(): string
     {
-        return Agent::create($data);
+        return 'support'; // Auto-generated by default
     }
 
-    public function findByName(string $name): ?Agent
+    public function name(): string
     {
-        return Agent::where('name', $name)->first();
+        return 'Support'; // Auto-generated by default
+    }
+
+    public function description(): ?string
+    {
+        return 'Handles customer support inquiries.';
+    }
+
+    public function provider(): Provider|string|null
+    {
+        return 'anthropic';
+    }
+
+    public function model(): ?string
+    {
+        return 'claude-sonnet-4-20250514';
+    }
+
+    public function instructions(): ?string
+    {
+        return <<<'PROMPT'
+        You are a customer support specialist for {APP_NAME}.
+
+        ## Customer Context
+        - **Name:** {customer_name}
+        - **Account Tier:** {account_tier}
+
+        ## Guidelines
+        - Always greet the customer by name
+        - For order inquiries, use `lookup_order` before providing details
+        PROMPT;
+    }
+
+    public function tools(): array
+    {
+        return [
+            LookupOrderTool::class,
+            ProcessRefundTool::class,
+        ];
+    }
+
+    public function providerTools(): array
+    {
+        return [];
+    }
+
+    public function temperature(): ?float
+    {
+        return 0.7;
+    }
+
+    public function maxTokens(): ?int
+    {
+        return null;
+    }
+
+    public function maxSteps(): ?int
+    {
+        return 8;
+    }
+
+    public function concurrent(): bool
+    {
+        return false;
+    }
+
+    public function providerOptions(): array
+    {
+        return [];
     }
 }
 ```
 
+### Auto-Key Convention
+
+The `key()` method defaults to the class name in kebab-case, minus the "Agent" suffix:
+
+- `SupportAgent` → `'support'`
+- `BillingAssistantAgent` → `'billing-assistant'`
+- `CustomerServiceAgent` → `'customer-service'`
+
+## Using Agents
+
 ```php
-// ❌ Violation — orchestrating workflow in model layer
-class AgentModelService
+use Atlasphp\Atlas\Atlas;
+
+$response = Atlas::agent('support')
+    ->withVariables([
+        'customer_name' => 'Sarah',
+        'account_tier' => 'Premium',
+    ])
+    ->message('I need help with my order.')
+    ->asText();
+
+echo $response->text;
+```
+
+### Streaming
+
+```php
+$stream = Atlas::agent('support')
+    ->withVariables(['customer_name' => 'Sarah'])
+    ->message('Where is my order #12345?')
+    ->asStream();
+
+foreach ($stream as $chunk) {
+    echo $chunk->text;
+}
+```
+
+### With Media
+
+Send images, documents, audio, or video alongside your message. The agent's provider processes the media inline (e.g. vision for images, transcription for audio):
+
+```php
+use Atlasphp\Atlas\Input\Image;
+use Atlasphp\Atlas\Input\Document;
+
+// Send an image for the agent to analyze
+$response = Atlas::agent('support')
+    ->message('What does this receipt show?', Image::fromUpload($request->file('receipt')))
+    ->asText();
+
+// Send a document for context
+$response = Atlas::agent('analyst')
+    ->message('Summarize this report', Document::fromStorage('reports/q4.pdf'))
+    ->asText();
+
+// Multiple attachments
+$response = Atlas::agent('reviewer')
+    ->message('Compare these two images', [
+        Image::fromUrl('https://example.com/before.jpg'),
+        Image::fromUrl('https://example.com/after.jpg'),
+    ])
+    ->asText();
+```
+
+Media can be loaded from uploads, URLs, local paths, Laravel storage, or base64. See [Message Attachments](/guides/conversations#message-attachments) for persistence and how agent-generated files are tracked.
+
+### Structured Output
+
+```php
+use Atlasphp\Atlas\Schema\Schema;
+
+$schema = Schema::object('sentiment', 'Sentiment analysis result')
+    ->enum('sentiment', 'Detected sentiment', ['positive', 'negative', 'neutral'])
+    ->number('confidence', 'Confidence score 0-1')
+    ->string('reasoning', 'Explanation')
+    ->build();
+
+$response = Atlas::agent('analyzer')
+    ->withSchema($schema)
+    ->message('I love this product!')
+    ->asStructured();
+
+$response->structured['sentiment'];   // "positive"
+$response->structured['confidence'];  // 0.95
+```
+
+### Voice
+
+Start a real-time voice session using the agent's tools, instructions, and voice config:
+
+```php
+$session = Atlas::agent('sarah-voice')
+    ->for($user)
+    ->forConversation($conversationId)
+    ->asVoice();
+
+return response()->json($session->toClientPayload());
+```
+
+The browser connects directly to the provider for audio. Tools are executed server-side via the package-provided endpoint.
+
+Voice agents can define a `voice()` method to set their voice identity:
+
+```php
+class SarahVoiceAgent extends Agent
 {
-    public function createAndNotify(array $data): Agent
+    public function voice(): ?string
     {
-        $agent = Agent::create($data);
-        $this->notificationService->send($agent);
-        event(new AgentCreated($agent));
-        return $agent;
+        return 'eve'; // xAI voice ID
     }
 }
 ```
 
----
+When `forConversation($id)` is set, the voice agent receives the conversation's text history as context — so it knows what was discussed in prior text messages. Voice transcripts are stored in a dedicated `VoiceCall` record, not as individual messages. Listen for `VoiceCallCompleted` to post-process the transcript (summarize, create messages, embed into memory).
 
-### Services/Domain (Business Layer)
+See [Voice Modality](/modalities/voice) for transport details, [Voice Integration](/guides/voice-integration) for the full setup guide, and [Post-Processing Patterns](/modalities/voice#post-processing-patterns) for handling transcripts.
 
-**Purpose:** Implements business logic and orchestrates workflows.
+## Runtime Overrides
 
-**Allowed:** Orchestrating multiple model services. Managing transactions. Dispatching events and jobs. Calling integrations through contracts. Cross-domain coordination.
-
-**Forbidden:** Direct Eloquent queries (use model services). Direct model creation/updates. Containing integration implementation details.
-
-**Naming:** Named by intent (e.g., `CreateAgentService`, `ProcessToolCallService`)
+Every agent configuration can be overridden at call time via fluent methods on `AgentRequest`:
 
 ```php
-// ✅ Correct
-class CreateAgentService
-{
-    public function __construct(
-        private AgentModelServiceContract $agentModelService,
-        private AuditLoggerContract $auditLogger,
-    ) {}
+$response = Atlas::agent('support')
+    ->withProvider('openai', 'gpt-4o')
+    ->withMaxTokens(500)
+    ->withTemperature(0.3)
+    ->withMaxSteps(5)
+    ->withConcurrent()
+    ->withTools([ExtraTool::class])
+    ->withProviderTools([new WebSearch])
+    ->withProviderOptions(['seed' => 12345])
+    ->withVariables(['customer_name' => 'John'])
+    ->withMeta(['user_id' => 123])
+    ->withMessages($conversationHistory)
+    ->withSchema($schema)
+    ->message('Hello')
+    ->asText();
+```
 
-    public function execute(array $data): Agent
+## Agent with Tools
+
+Define tools the agent can call. Atlas handles the tool loop automatically — calling the model, executing tools, and feeding results back until the model produces a final response.
+
+```php
+class ResearchAgent extends Agent
+{
+    public function provider(): Provider|string|null
     {
-        return DB::transaction(function () use ($data) {
-            $agent = $this->agentModelService->create($data);
-            $this->auditLogger->log('agent.created', $agent);
-            event(new AgentCreated($agent));
-            return $agent;
-        });
+        return 'openai';
+    }
+
+    public function model(): ?string
+    {
+        return 'gpt-4o';
+    }
+
+    public function instructions(): ?string
+    {
+        return 'You are a research assistant. Use your tools to find and analyze information.';
+    }
+
+    public function tools(): array
+    {
+        return [
+            SearchWebTool::class,
+            ReadUrlTool::class,
+            SummarizeTool::class,
+        ];
+    }
+
+    public function maxSteps(): ?int
+    {
+        return 10;
     }
 }
 ```
 
+::: tip Delegating to another agent
+You can also list an **agent** in `tools()` to hand a task off to it. See [Sub-agents](/features/sub-agents).
+:::
+
+Use `maxSteps()` to limit tool loop iterations and prevent runaway execution.
+
+## Concurrent Tool Execution
+
+By default, tool calls execute **sequentially** — one at a time. This is the safest option and works with all configurations including persistence tracking.
+
+### Enabling Concurrency
+
+Override `concurrent()` in your agent to run tool calls in parallel:
+
 ```php
-// ❌ Violation — direct Eloquent and direct instantiation
-class CreateAgentService
+class ResearchAgent extends Agent
 {
-    public function execute(array $data): Agent
+    public function concurrent(): bool
     {
-        $agent = Agent::create($data);
-        $logger = new AuditLogger();
-        $logger->log('agent.created', $agent);
-        return $agent;
+        return true;
+    }
+
+    // ...
+}
+```
+
+Or enable at call time:
+
+```php
+$response = Atlas::agent('research')
+    ->withConcurrent()
+    ->message('Research these three topics')
+    ->asText();
+```
+
+### How It Works
+
+When the model requests multiple tool calls in a single step, Atlas runs them simultaneously using Laravel's `Concurrency` facade:
+
+- **With `spatie/fork` + `pcntl`** — true parallel execution via OS-level process forking
+- **Without** — falls back to sequential execution through the sync driver
+
+A step that contains only **one** tool call always runs inline — there is nothing to parallelize.
+
+### Concurrent Sub-agents
+
+Sub-agent delegations parallelize too. When the model delegates to several [sub-agents](/features/sub-agents) in a single step, they run **at the same time** — each in its own forked process — and every sub-agent's response is returned to the parent. The parent's tool loop resumes only once **all** of them complete, so it always continues with the full set of results:
+
+```php
+class CoordinatorAgent extends Agent
+{
+    public function concurrent(): bool
+    {
+        return true;
+    }
+
+    public function tools(): array
+    {
+        // Three independent sub-agents the model can fan out to in one step.
+        return [ResearchAgent::class, PricingAgent::class, LegalAgent::class];
     }
 }
 ```
 
----
+The complete execution lineage is preserved across the fork boundary: the parent → child tree, each sub-agent's own token usage, the rolled-up subtree usage, and the depth/cycle guards all behave exactly as they do sequentially. Only wall-clock time changes.
 
-### Integrations (External Layer)
+::: warning Real-time events from concurrent sub-agents
+The parent still emits its own `AgentToolCallStarted` / `AgentToolCallCompleted` events for each delegation (so the call and its result broadcast normally). But a sub-agent's **internal** orchestration events — its own `AgentStarted` / `AgentCompleted`, step events, and nested tool-call events — fire inside the forked child process and are **not** delivered to in-process listeners in the parent. There is no inter-process channel back.
 
-**Purpose:** Low-level clients for external APIs and services.
-
-**Allowed:** API/SDK calls. Authentication handling. Request/response transformation. Retry logic and error handling. Returning DTOs or primitives.
-
-**Forbidden:** Business logic or decisions. Database access. Workflow orchestration. Depending on domain services.
-
-**Naming:** `{Vendor}Client` (e.g., `OpenAiClient`)
+This affects only **live, in-process** observability *while a sub-agent is still running* (broadcasting each step as it happens, listener-driven side effects). It does **not** limit what you can show **after** it completes. The child writes its full execution / step / tool-call tree to the database from inside the fork, so once a concurrent sub-agent finishes you can load and display **everything** it did — its final response, each step's text, and every tool it ran (with arguments, results, and timing) — by drilling into the [delegation tree](/features/sub-agents#auditing-the-delegation-tree):
 
 ```php
-// ✅ Correct
-class OpenAiClient implements LlmClientContract
-{
-    public function complete(array $messages): CompletionResponse
-    {
-        $response = Http::post('https://api.openai.com/v1/chat/completions', [
-            'messages' => $messages,
-        ]);
+use Atlasphp\Atlas\Persistence\Models\Execution;
 
-        return new CompletionResponse($response->json());
-    }
-}
+// Open a completed delegation tool call → the sub-agent that ran it.
+$child = Execution::where('parent_tool_call_id', $toolCallId)->first();
+
+$child->steps;      // each step, with ->content (response text) and ->reasoning
+$child->toolCalls;  // every tool it ran, with ->arguments, ->result, ->duration_ms
+$child->usage;      // its own token usage
 ```
+
+So a UI that opens a finished sub-agent call shows its complete response, steps, and tools. Only the **live, as-it-happens** stream of a sub-agent's internals is unavailable under concurrency — for that, use **sequential** delegation (the default).
+:::
+
+### Persistence & Fork Safety
+
+Persistence tracking writes to the database from **inside** the forked child processes. Database connections (PostgreSQL, MySQL) are not fork-safe — a child that inherits and uses the parent's connection socket would corrupt the wire protocol.
+
+**Atlas handles this for you.** Before forking, it closes the parent's resolved database connections so each child opens its own fresh connection; the parent transparently reconnects on its next query. This reset runs **only** when the fork driver is active *and* persistence is enabled, so the in-process sync driver and non-persistent runs are never affected. Concurrent execution with persistence tracking is safe out of the box — no configuration required.
+
+### Requirements & Environment
+
+- Atlas ships with `spatie/fork` as a dependency — no extra installation needed. True parallelism requires the **`pcntl`** PHP extension (standard on Linux/macOS, **not available on Windows**). Without `pcntl`, concurrent mode falls back to sequential execution.
+- Fork-based parallelism runs in **CLI, queue-worker, and Artisan** contexts. It does **not** run inside PHP-FPM web requests (forking a live web worker is unsafe), where Atlas falls back to sequential. To parallelize long-running agent work from a web request without blocking it, dispatch the execution to the [queue](/guides/queue) and let workers run concurrently.
+
+### When to Use
+
+Enable concurrency when:
+- Tools or sub-agents are **independent** and don't depend on each other's results
+- They make **external API calls** (including sub-agent model calls) where parallelism reduces wall-clock time
+
+Keep sequential (default) when:
+- Tools have **side effects** that depend on execution order
+- You're running on Windows or an environment without `pcntl` (it falls back to sequential anyway)
+
+## Conversations (Optional)
+
+For persistent conversations, use `->for()` and `->forConversation()`. Requires [persistence](/guides/conversations#setup) to be enabled.
 
 ```php
-// ❌ Violation — business logic and database access in integration
-class OpenAiClient
-{
-    public function completeAndSave(Agent $agent, array $messages): CompletionResponse
-    {
-        $response = $this->complete($messages);
-        $agent->conversations()->create(['response' => $response->content]);
-        return $response;
-    }
-}
+// Start a new conversation for a user
+$response = Atlas::agent('support')
+    ->for($user)
+    ->message('I need help with my account.')
+    ->asText();
+
+// Continue an existing conversation
+$response = Atlas::agent('support')
+    ->for($user)
+    ->forConversation($conversationId)
+    ->message('What about my billing?')
+    ->asText();
+
+// Multi-user conversation — specify who is sending the message
+$response = Atlas::agent('support')
+    ->for($team, as: $currentUser)
+    ->forConversation($conversationId)
+    ->message('Adding a note to this conversation.')
+    ->asText();
 ```
 
----
+### Respond Without User Message
 
-### Support (Utility Layer)
-
-**Purpose:** Pure utilities with no side effects.
-
-**Allowed:** Helper functions, traits, value objects, data transformers, pure functions.
-
-**Forbidden:** Database access, external API calls, service dependencies, side effects, state mutation.
+Proactively have the agent respond in a conversation thread without a new user message. Useful for scheduled follow-ups, background task results, or proactive notifications.
 
 ```php
-// ✅ Correct
-class TokenCounter
-{
-    public static function count(string $text): int
-    {
-        return (int) ceil(strlen($text) / 4);
-    }
-}
+// Agent responds to the thread without a new user message
+$response = Atlas::agent('support')
+    ->forConversation($conversationId)
+    ->respond()
+    ->asText();
 ```
+
+::: warning Requires Existing Conversation
+`respond()` requires `forConversation($id)`. The agent must join an existing conversation — there's no user message to create one.
+:::
+
+### Retry Last Response
+
+Regenerate the last assistant response to get a different answer — like hitting "regenerate" in a chat UI.
 
 ```php
-// ❌ Violation — side effect via caching
-class TokenCounter
-{
-    public function __construct(private CacheContract $cache) {}
-
-    public function count(string $text): int
-    {
-        return $this->cache->remember("tokens:$text", fn() => ceil(strlen($text) / 4));
-    }
-}
+$response = Atlas::agent('support')
+    ->forConversation($conversationId)
+    ->retry()
+    ->asText();
 ```
 
----
+When you retry:
+1. The current active response is deactivated (`is_active = false`)
+2. A new response is generated with the same conversation context
+3. The new response shares the same `parent_id` as the original — creating a **sibling**
+4. Only the latest response is active and included in future conversation history
 
-## Contracts and Dependency Injection
+You can retry multiple times. Each retry creates another sibling. Only one is active at a time.
 
-### When to Create a Contract
+::: tip Can Retry?
+A response can only be retried if no user message was sent after it. Once the conversation continues, earlier responses are locked.
+:::
 
-**Create a contract when:** Multiple implementations exist or are planned. Testing requires substituting a mock or fake. The dependency crosses a package/module boundary. Requirements explicitly specify extensibility.
+### Sibling Messages
 
-**Don't create a contract when:** Only one implementation exists and none are planned. The class is internal to a module and not a testing boundary. Direct instantiation is simpler and testing is not impacted.
+Retries create sibling messages — multiple responses to the same user message. Only one sibling group is active at a time.
 
-### Injection Rules
-
-| Do                                 | Don't                                                 |
-|------------------------------------|-------------------------------------------------------|
-| Inject contracts in constructor    | Instantiate services with `new`                       |
-| Use Laravel's container            | Use static service locators                           |
-| Type-hint interfaces               | Type-hint concrete classes (when an interface exists)  |
-| Let container resolve dependencies | Manually wire dependencies                            |
+For chat UIs that show "1 of 3" navigation between response alternatives:
 
 ```php
-// ✅ Correct
-class ProcessAgentResponseService
-{
-    public function __construct(
-        private LlmClientContract $llmClient,
-        private AgentModelService $agentModelService,
-    ) {}
-}
+use Atlasphp\Atlas\Persistence\Services\ConversationService;
+
+$service = app(ConversationService::class);
+
+// Get sibling info for a message
+$info = $service->siblingInfo($message);
+// ['current' => 2, 'total' => 3, 'groups' => [...]]
+
+// Switch to a different sibling
+$service->cycleSibling($conversation, $message->parent_id, $targetIndex);
 ```
+
+See the [Conversations Guide](/guides/conversations) for the full persistence system.
+
+## Auto-Discovery
+
+Agents are automatically discovered from your configured directory. Set the path and namespace in `config/atlas.php`:
 
 ```php
-// ❌ Violation — direct instantiation, service locator, static call
-class ProcessAgentResponseService
-{
-    public function execute(): void
-    {
-        $agentService = new AgentModelService();
-        $toolExecutor = app(ToolExecutor::class);
-        AgentModelService::create($data);
-    }
-}
+'agents' => [
+    'path' => app_path('Agents'),
+    'namespace' => 'App\\Agents',
+],
 ```
 
----
+Any class extending `Agent` in that directory is registered and available via `Atlas::agent('key')`.
 
-## Naming Conventions
+## API Reference
 
-### Class Naming
+### Agent Methods
 
-| Type                | Pattern                   | Example                          |
-|---------------------|---------------------------|----------------------------------|
-| Providers           | `*ServiceProvider`        | `PackageServiceProvider`         |
-| Model Services      | `{Model}ModelService`     | `AgentModelService`              |
-| Domain Services     | `{Action}{Domain}Service` | `CreateAgentService`             |
-| Contracts           | Domain noun               | `MediaResolver`, `Storable`      |
-| Handler interfaces  | `*Handler`                | `TextHandler`, `AudioHandler`    |
-| Models              | Singular                  | `Agent`, `Tool`, `Conversation`  |
-| Exceptions          | `*Exception`              | `AgentNotFoundException`         |
-| DTOs                | `*Data` or `*Dto`         | `CompletionResponseData`         |
-| Events              | Past tense                | `AgentCreated`, `ToolExecuted`   |
-| Enums (shared)      | Singular noun             | `Role`, `Provider`, `Modality`   |
-| Enums (persistence) | Context-prefixed          | `ExecutionStatus`, `MessageRole` |
-| Traits (capability) | `Has*`                    | `HasMeta`, `HasOwner`            |
-| Traits (builder)    | `Builds*`                 | `BuildsHeaders`                  |
-| Traits (resolver)   | `Resolves*`               | `ResolvesProvider`               |
-| Traits (action)     | `{Verb}s*`                | `TracksExecution`, `StoresMedia` |
+All methods have sensible defaults. Override only what you need.
 
-> **Handler vs Contract interfaces:** Handler interfaces (`src/Providers/Handlers/`) use `*Handler` naming — they define modality capabilities (what a provider can do). Resolver contracts (`src/Providers/Contracts/`) use `*Contract` naming — they define composition seams (how provider internals plug together). Both are PHP interfaces; the naming distinction reflects their architectural role.
+<div class="full-width-table">
 
-### Methods
+| Method | Return | Default | Description |
+|--------|--------|---------|-------------|
+| `key()` | `string` | Class name in kebab-case | Unique key for `Atlas::agent('key')` |
+| `name()` | `string` | Class name with spaces | Display name |
+| `description()` | `?string` | `null` | Description for agent-to-agent delegation |
+| `provider()` | `Provider\|string\|null` | `null` | Provider (falls back to config default) |
+| `model()` | `?string` | `null` | Model identifier (falls back to config default) |
+| `instructions()` | `?string` | `null` | System instructions with `{variable}` interpolation |
+| `tools()` | `array` | `[]` | Atlas tool classes the agent can invoke |
+| `providerTools()` | `array` | `[]` | Provider-native tools (web search, code execution) |
+| `temperature()` | `?float` | `null` | Sampling temperature |
+| `maxTokens()` | `?int` | `null` | Maximum response tokens |
+| `maxSteps()` | `?int` | `null` | Maximum tool loop iterations |
+| `reasoning()` | `?Reasoning` | `null` | Reasoning/thinking config — see [Reasoning](/modalities/text#reasoning-thinking) |
+| `concurrent()` | `bool` | `false` | Execute tool calls concurrently |
+| `providerOptions()` | `array` | `[]` | Provider-specific options passed through directly |
 
-- Short, descriptive, predictable
-- Boolean methods prefixed with `is`, `has`, or `can`
-- Must match documented terminology
-- Action methods use verbs: `create`, `execute`, `process`
+</div>
 
----
+### AgentRequest Fluent Methods
 
-## Code Practices
+Returned by `Atlas::agent('key')`. Chain these before a terminal method.
 
-### Required
+<div class="full-width-table">
 
-1. Business logic lives in `Services/<Domain>/`
-2. Use `Services/Models/` for all persistence
-3. Support classes must be pure (no side effects)
-4. Config files belong in `config/` with sensible defaults
-5. Write full test coverage
-6. Enforce strict type declarations
-7. Use custom exceptions for expected failures
-8. Inject dependencies via constructor
-9. Include PHPDoc block on every class
-10. **Never use function-level namespace imports** (`use function ...`)
+| Method | Description |
+|--------|-------------|
+| `->message(string $text, array\|Input $media = [])` | Set the user message (with optional media) |
+| `->instructions(string $directive)` | Override the agent's system instructions |
+| `->withVariables(array $variables)` | Set variables for instruction interpolation |
+| `->withMeta(array $meta)` | Attach metadata accessible in tools via `ToolContext` |
+| `->withProvider(Provider\|string $provider, string $model)` | Override provider and model |
+| `->withMaxTokens(int $tokens)` | Override max response tokens |
+| `->withTemperature(float $temp)` | Override sampling temperature |
+| `->reasoning(ReasoningEffort $effort, ?int $budgetTokens = null, bool $includeSummary = false)` | Enable reasoning/thinking — see [Reasoning](/modalities/text#reasoning-thinking) |
+| `->withMaxSteps(?int $maxSteps)` | Override max tool loop iterations |
+| `->withConcurrent(bool $concurrent = true)` | Override concurrent tool execution |
+| `->withTools(array $tools)` | Add tools in addition to the agent's tools |
+| `->withProviderTools(array $providerTools)` | Add provider tools at runtime |
+| `->withProviderOptions(array $options)` | Override provider-specific options |
+| `->withSchema(Schema $schema)` | Set structured output schema |
+| `->withMessages(array $messages)` | Provide conversation history |
+| `->for(Model $owner, ?Model $as = null)` | Set conversation owner. Optionally pass `as:` to set a different message sender (persistence) |
+| `->forConversation(int $id)` | Join an existing conversation (persistence) |
+| `->asUser(Model $owner)` | *(Deprecated)* Use `for($owner, as: $user)` instead |
+| `->withMessageLimit(int $limit)` | Override message history limit (persistence) |
+| `->respond()` | Respond without a new user message (persistence) |
+| `->retry()` | Retry the last assistant response (persistence) |
+| `->asText()` | Execute and return `TextResponse` |
+| `->asStream()` | Execute and return `StreamResponse` |
+| `->asStructured()` | Execute and return `StructuredResponse` |
+| `->asVoice()` | Start a voice session and return `VoiceSession` |
 
-### Forbidden
+</div>
 
-1. Direct instantiation of services in methods (`new ServiceName()`)
-2. Static service calls (`ServiceName::method()`)
-3. Service locator pattern in business code (`app(ServiceName::class)` outside providers)
-4. Business logic in models (beyond accessors/mutators/scopes)
-5. Database queries in controllers
-6. Upward layer dependencies
-7. Circular dependencies between services
-8. **Interfaces without purpose** – Don't create contracts for single-implementation classes unless testing requires it
-9. **Speculative generalization** – Don't build extensibility for requirements that don't exist
-10. **Proxy services** – Don't create services that just pass through to another service
-11. **Wrapper classes** – Don't wrap a class just to rename methods or add no behavior
-12. **DTOs that mirror models** – Don't create DTOs that are 1:1 copies of Eloquent models
-
----
-
-## Code Quality
-
-### Testability
-
-- Keep methods focused enough to test with a single assertion or small group of related assertions
-- Avoid hidden dependencies — if a method needs something, inject it via the constructor
-- If testing requires mocking 5+ dependencies, the class is doing too much — split it
-- Don't bury logic in untestable private methods; extract to a separate class if complex
-- Avoid global state and singletons
-
-### Complexity
-
-- Keep methods under 20–30 lines; extract smaller methods if larger
-- Avoid nesting deeper than 3 levels (use early returns, extract methods)
-- If a class has 10+ public methods, consider splitting by responsibility
-- Prefer explicit conditionals over clever one-liners
-- If you need a comment to explain what code does, consider renaming or restructuring
-
-### Performance
-
-- Use eager loading (`with()`) for relationships accessed in loops
-- Never run queries inside loops — batch or pre-fetch
-- Consider query count when adding features; use `DB::enableQueryLog()` during development
-- Use chunking (`chunk()`, `chunkById()`) for large dataset operations
-- Cache expensive computations only when measured as slow, not preemptively
-
-### Redundancy
-
-- Extract repeated logic into model service methods or Support utilities
-- If the same validation or transformation appears in 3+ places, consolidate it
-- Duplication is acceptable when isolation or clarity benefits outweigh DRY
-- If you intentionally duplicate, add a brief comment explaining why
-- Watch for "almost identical" code — subtle differences often indicate bugs
-
----
-
-## Quality Checks
+## Artisan Command
 
 ```bash
-composer check       # Run all checks (Pint, PHPStan, Pest) in sequence
-composer lint        # Fix code style with Pint
-composer lint:test   # Check code style without fixing
-composer analyse     # Run PHPStan static analysis
-composer test        # Run Pest tests
+php artisan make:agent SupportAgent
 ```
 
-All checks must pass before submitting code changes. Not required for documentation-only changes.
+## Next Steps
 
----
-
-## Sandbox Testing
-
-The sandbox provides real API testing for validating package features against actual providers. See `sandbox/README.md` for full details.
-
-**When to use:** Verifying API/provider integration. Testing real database persistence. Validating end-to-end behavior before deployment.
-
-**CRITICAL:** Many features use Laravel queues. **Horizon MUST be running** for queue jobs to process:
-
-```bash
-cd sandbox
-php artisan horizon              # Start Horizon (blocks terminal)
-php artisan horizon &            # Or run in background
-```
-
-Horizon must be **restarted after code changes** to pick up new code. If tests seem to hang or return empty responses, check if Horizon is running.
-
----
-
-## Documentation
-
-**Public documentation:** VitePress site at [atlasphp.org](https://atlasphp.org)
-
-**Key directories:** `docs/getting-started/`, `docs/core-concepts/`, `docs/capabilities/`, `docs/guides/`, `docs/api-reference/`
-
-### Maintenance Rules
-
-| Code Change         | Documentation Update                                |
-|---------------------|-----------------------------------------------------|
-| Adding a feature    | Update relevant VitePress docs                      |
-| Changing behavior   | Update docs immediately                             |
-| Adding a new module | Add documentation to appropriate section            |
-| Fixing a bug        | No docs update unless behavior was misdocumented    |
-| Deprecating         | Mark as deprecated in docs, add migration notes     |
-| Removing            | Remove from docs completely (no "removed" comments) |
-
-- All code examples must be syntactically correct and runnable
-- Cross-references must use relative links
-- No duplicate content across files
-- For Prism-level features, link to Prism documentation instead of duplicating
-
----
-
-All agents must follow this document and the referenced guides. Non-compliant contributions will be rejected.
+- [Instructions](/features/instructions) — Variable interpolation in instructions
+- [Tools](/features/tools) — Build tools agents can call
+- [Text](/modalities/text) — Text generation, streaming, and structured output
+- [Schema](/features/schema) — Schema fields for structured output
+- [Middleware](/features/middleware) — Add middleware to agent execution
 
 ---
 > Source: [atlas-php/atlas](https://github.com/atlas-php/atlas) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
