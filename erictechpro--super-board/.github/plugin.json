@@ -1,0 +1,9 @@
+{
+  "name": "erictechpro--super-board",
+  "displayName": "super-board",
+  "description": "Autonomous GitHub-Project-driven build/QA/review loop for Claude Code. Drag a card to Ready, walk away, come back to merged PRs.",
+  "version": "1.0.0",
+  "author": "EricTechPro",
+  "homepage": "https://github.com/EricTechPro/super-board",
+  "skills": []
+}
