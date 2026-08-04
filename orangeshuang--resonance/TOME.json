@@ -1,0 +1,44 @@
+{
+  "name": "Resonance",
+  "owner": "OrangesHuang",
+  "repo": "Resonance",
+  "description": "\u540c\u9891\uff08Resonance\uff09\u662f\u4e00\u4e2a\u672c\u5730\u5316\u7684 ETF\u300c\u56fd\u5bb6\u961f\u300d\u8d44\u91d1\u76d1\u63a7\u7cfb\u7edf\u3002\u5b83\u901a\u8fc7\u4ef7\u683c\u4f4d\u7f6e\u3001\u4efd\u989d\u6d41\u5411\u3001\u4ea4\u6613\u65b9\u5411\u3001\u6210\u4ea4\u989d\u70ed\u5ea6\u3001\u878d\u8d44\u6760\u6746\u4e94\u4e2a\u6307\u6807\u5404\u81ea\u4eae\u706f\uff0c\u5f53\u540c\u8272\u706f\u22653\u76cf\u65f6\u5224\u5b9a\u4e3a\u300c\u5371\u9669\u5171\u632f\u300d\u6216\u300c\u673a\u4f1a\u5171\u632f\u300d\uff0c\u91cf\u5316\u8bc6\u522b\u4e2d\u592e\u6c47\u91d1\u7b49\u8d44\u91d1\u7684\u7cfb\u7edf\u6027\u8fdb\u51fa\u3002\u6570\u636e\u3001\u8ba1\u7b97\u3001\u5b58\u50a8\u5168\u90e8\u5728\u672c\u673a\uff0c\u652f\u6301\u4e00\u952e\u91cd\u5efa\u5168\u91cf\u5386\u53f2\u3001\u5b9a\u65f6\u589e\u91cf\u62c9\u53d6\uff0c\u5e76\u63d0\u4f9b CLI \u4f9b\u5916\u90e8Agent \u8f6c IM \u9884\u8b66\u3002\u4ec5\u7528\u4e8e\u7814\u7a76\uff0c\u975e\u6295\u8d44\u5efa\u8bae\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/OrangesHuang/Resonance",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T21:00:56Z"
+}
