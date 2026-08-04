@@ -1,0 +1,9 @@
+{
+  "name": "helgejo--cowork-template",
+  "displayName": "cowork-template",
+  "description": "A production-ready workspace template for Claude Cowork \u2014 file organization, task management, and cross-session memory.",
+  "version": "1.0.0",
+  "author": "helgejo",
+  "homepage": "https://github.com/helgejo/cowork-template",
+  "skills": []
+}
