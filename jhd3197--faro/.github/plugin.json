@@ -1,0 +1,9 @@
+{
+  "name": "jhd3197--faro",
+  "displayName": "faro",
+  "description": "Modern desktop client for FTP, SFTP, SSH, and S3-compatible storage. FTP, SFTP, SSH, and S3 in one clean workspace.",
+  "version": "1.0.0",
+  "author": "jhd3197",
+  "homepage": "https://github.com/jhd3197/faro",
+  "skills": []
+}
