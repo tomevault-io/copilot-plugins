@@ -1,134 +1,159 @@
 ## opencode-processing-skills
 
-> This is a meta-project for creating agents, skills, tools, and templates that standardize documentation and planning workflows for AI-assisted software development using OpenCode.
+> Handles legacy repo cleanup before generating fresh docs.
 
-# OpenCode Processing Skills - Agent Instructions
+# Agents Reference
 
-## Project Overview
+The agent architecture is designed around **delegation** and **file-based persistence**. The primary agent orchestrates; subagents do the heavy lifting.
 
-This is a meta-project for creating agents, skills, tools, and templates that standardize documentation and planning workflows for AI-assisted software development using OpenCode.
+---
 
-## Project Structure
+## Primary Agent
+
+### `maintainer`
+
+The orchestrator. Handles planning decisions, user interaction, and Git operations.
+
+**What it does:**
+- Loads skills automatically based on what you're asking for
+- Delegates expensive exploration to subagents
+- Keeps context lean by receiving digests instead of full outputs
+- Persists everything to `docs/` and `plans/`
+- Commits only when you ask
+
+**When it works itself vs. delegates:**
+- Works itself: planning decisions, user negotiation, and bounded low-risk changes in known files
+- Delegates: codebase exploration, doc generation, implementation, reviews
+
+### `maintainer-direct`
+
+Non-interactive variant of `maintainer`. It uses the same routing, safety, testing, and planning rules, but asks questions only for genuine decisions and otherwise reports progress directly.
+
+---
+
+## Subagents
+
+### `delegate`
+
+The one canonical, skill-driven delegate persona. Skills provide task expertise, workflow, write boundaries, and output contracts.
+
+**Typical tasks:**
+- Codebase exploration
+- Running commands (tests, builds, verification)
+- Analyzing data or logs
+- Quick lookups and research
+
+**Write boundary:** `delegate` is read/analyze/verify by default. It may write skill-defined artifacts with explicit output paths/templates, such as reviews and implementation plans. Larger ad-hoc writes with undefined shape/targets should start with an informal Blueprint for primary approval. Code changes normally route to `implementer`; delegates do not perform Git operations.
+
+After an implementation or implementation-plan review, `review-fix` is the preferred same-session remediation path for accepted related findings, including multi-file runtime changes. The review artifact remains unchanged. A new implementation or authoring session is reserved for changed scope/objective, missing context, new primary decisions, or an explicit fresh perspective.
+
+**Model:** Configured via `config.yaml`. Defaults to provider's choice if not set.
+
+**Why it exists:** The built-in `general` uses the provider's default model. `delegate` uses your configured model — cheaper, faster, and predictable for routine tasks.
+
+### `doc-explorer`
+
+Docs-focused subagent for project documentation and selected template-governed planning artifacts.
+
+**Writes to:**
+- `docs/` — project documentation
+- `plans/` — selected framework planning artifacts when explicitly routed by relevant skills
+
+**Does NOT write:** Code files or ad-hoc analysis writeups; use `delegate` for those. Implementation plans default to the canonical delegate via `author-and-verify-implementation-plan`.
+
+**Used by:** `generate-docs`, `update-docs`, `create-plan`, `update-plan`, `generate-handover`
+
+### `implementer`
+
+Executes code changes following the gated protocol.
+
+**Protocol:** BLUEPRINT → GATE → EXECUTE → DIGEST
+
+**Does:**
+- Proposes step lists (blueprint mode)
+- Implements changes and runs verification (execute mode)
+- Returns compact digests
+
+**Does NOT:**
+- Git operations (commit, push, rebase)
+- Write to `docs/` or `plans/`
+
+### `legacy-curator`
+
+Handles legacy repo cleanup before generating fresh docs.
+
+**Does:**
+- Moves scattered documentation to `docs-legacy/`
+- Generates `docs-legacy/summary.md`
+
+**Does NOT:** Commit changes (you review and commit).
+
+---
+
+## Delegation Philosophy
+
+### Scope and review posture
+
+**No Gold-Plating. No Adversarial Reviewing. No Scope Creep.** Maintainers and
+delegates should pursue evidence-backed problems, not invent improvements,
+hunt for gotchas, or broaden the objective. Related files, call sites,
+integration points, and tests remain discoverable when they are required for
+accepted work. Real defects must still be reported and fixed.
+
+### Why delegate instead of doing everything in the primary?
+
+**Context limits.** The primary reads a lot during exploration — file contents, search results, tool outputs. Most of it isn't needed long-term. Delegating keeps the primary lean.
+
+**Cost predictability.** Subagents run on your configured model. The primary can use a frontier model for planning; subagents can use cheaper models for routine work.
+
+**Separation of concerns.** Subagents write according to workflow ownership: docs-focused artifacts, skill-defined review/implementation-plan artifacts, or gated code execution. The primary orchestrates and owns the conversation.
+
+### When to use `delegate` vs `general`
+
+| Agent | Model | Use when |
+|-------|-------|----------|
+| `delegate` | Your config | Default for routine tasks |
+| `general` (built-in) | Provider default | User explicitly asks, or you want a different perspective |
+
+### Stateful delegate reuse
+
+The primary should resume an existing delegate `task_id` for follow-ups within the same analysis, review, or debugging thread. This includes loading `review-fix` after an implementation or implementation-plan review. Start a new delegate for changed scope, parallel work, model/variant changes, fresh independent opinions, or stale context. `task_id`s are session-local; durable continuity belongs in `docs/`, `plans/`, todos, and handovers.
+
+### When to use delegate variants
+
+Additional delegates (`delegate-strong`, `delegate-fast`, etc.) are generated model aliases of `agents/delegate.md`, not separate personas. They let you change capacity without duplicating task expertise:
 
 ```
-.
-├── AGENTS.md              # This file - agent instructions
-├── README.md              # Project overview (English)
-├── config.yaml.example    # Model configuration template
-├── skills/                # Reusable skill definitions
-├── agents/                # Agent configurations  
-└── docs/                  # Project documentation
+> use delegate-strong for this review
+> delegate to delegate-fast for a quick lookup
 ```
 
-## Core Entities
+See [Installation → Additional Delegate Variants](installation.md#additional-delegate-variants) for setup.
 
-### Workspace Entities
-- **Project**: The entire workspace/repository
-- **Module**: Self-contained part (service, container, frontend)
-- **File/Directory**: Filesystem manifestation
-- **Symbol**: Referenceable language element with meaning
+---
 
-### Planning Entities
-- **Plan**: Implementation plan for features (with DoD, tests, requirements)
-- **Phase**: Subdivision when plan exceeds single-session capacity (defines scope: what and why)
-- **Implementation Plan**: Per-phase technical approach, above code level (defines: how)
-- **Persistent Todo List**: Items with status + changelog
-- **Session Handover**: Context transfer for session continuity (created on demand, multiple per plan possible)
-
-### Documentation Entities
-- **Project Overview**: High-level architecture, modules, references
-- **Module Documentation**: Overview + inventories (directories/files + symbols) with explanations for each entry
-- **Feature Documentation**: How features work, with implementation references
-
-## Architecture Principles
-
-- **File-based interface**: Subagents write to the defined file structure (templates). The file structure IS the interface, not return values. Every subagent that produces artifacts writes them to disk; the primary agent receives only a short status summary.
-- **One subagent per output domain**: Subagents are organized by what they WRITE, not by what they do. `doc-explorer` writes to `docs/` and `plans/`. There is no separate analysis agent -- analysis is an intermediate step within the writing agent's workflow.
-- **Self-delegation for scale**: When a subagent's workload would exceed comfortable context limits (e.g., documenting a project with many modules), it spawns additional instances of itself, each scoped to a smaller unit of work.
-- **Agent extension over commands**: Skills extend the primary agent's behavior. Subagents handle expensive exploration.
-- **Stack-agnostic**: No assumptions about language or framework
-- **Two-tier documentation**: Overview with references + detail docs, deliberately curated to manage complexity
-- **Redundancy-free**: Templates reference each other instead of duplicating content
-- **Session-resilient**: Everything persisted, handover on demand
-- **Context-aware**: Documents structured for partial loading (not everything into context at once)
-
-## Design Decisions
-
-Key architectural decisions and their rationale. These explain WHY the framework works the way it does.
-
-### Why separate Phase (What/Why) from Implementation Plan (How)?
-
-Phases define scope and acceptance criteria independent of technical approach. The implementation plan may be revised (e.g., "we chose a different library") without changing what the phase delivers. This separation also allows a plan reviewer to evaluate scope without needing to understand the technical details.
-
-### Why does the primary agent author plans, not doc-explorer?
-
-Plans are conversation-anchored: requirements emerge from user dialogue, trade-offs are negotiated, DoD is agreed upon. This context lives in the primary agent's conversation. Delegating plan creation to a subagent would require serializing all this context into a prompt, risking loss of intent and nuance. Documentation, by contrast, is codebase-anchored -- it can be derived from files without conversation context.
-
-### Why one subagent (doc-explorer) instead of separate analysis and writing agents?
-
-Earlier iterations had a separate `code-analyzer` (read-only analysis) and `doc-explorer` (writing). This created problems: (1) code-analyzer could only return text, violating the file-based interface principle; (2) the delegation chain primary -> doc-explorer -> code-analyzer added indirection without value, since doc-explorer already has the same read capabilities; (3) the primary spawning code-analyzer directly for plan creation would dump the entire analysis into the primary's context, causing token bloat. The solution: doc-explorer handles both analysis and writing. For scale, it self-delegates (spawns additional doc-explorer instances per module) rather than delegating to a different agent type.
-
-### Why does doc-explorer self-delegate instead of the primary spawning per-module instances?
-
-The primary agent should not need to know the internal module structure of a project. Doc-explorer discovers modules during exploration and decides how to partition the work. This keeps the primary's prompt simple ("document this project") and avoids leaking implementation details of the documentation process into the primary's context.
-
-### Why bundle templates in each skill directory?
-
-OpenCode skills are self-contained units. A skill loaded into an agent session must have all its resources available without depending on external paths. Therefore, `tpl-*` files live alongside each skill as the operational (and canonical) templates. This avoids drift between a separate "human reference" template set and the templates agents actually follow.
-
-### Why no "implementation" skill?
-
-The framework deliberately stops at the boundary between planning and coding. Implementation is the domain of the coding agent (OpenCode's primary capability). The `resume-plan` skill bootstraps context so the agent can implement effectively, but the actual coding workflow is left to the agent's native capabilities. An "implement-phase" skill would either be too generic to be useful or too prescriptive for the variety of possible implementations.
-
-### How is execution handled then?
-
-Instead of a generic "implementation" skill that tries to plan-and-code, this framework uses:
-
-- A dedicated **execution protocol** (`execute-work-package`) that is explicitly **gated** (step list -> primary approval -> execute -> digest)
-- A dedicated execution-only **subagent** (`implementer`) that reduces primary context bloat by returning compact digests
-
-This keeps planning and execution responsibilities separated while still standardizing implementation as a repeatable workflow.
-
-## Target Project File Convention
-
-When skills/agents create artifacts in a target project:
+## Agent Routing
 
 ```
-project-root/
-├── AGENTS.md
-├── docs/
-│   ├── overview.md
-│   ├── modules/<module-name>.md
-│   ├── features/<feature-name>.md
-│   └── handovers/session-YYYY-MM-DD.md  (standalone, without plan)
-├── plans/
-│   └── <plan-name>/
-│       ├── plan.md
-│       ├── phases/phase-N.md
-│       ├── implementation/phase-N-impl.md
-│       ├── reviews/
-│       │   ├── plan-review.md
-│       │   ├── impl-plan-review-phase-N.md
-│       │   └── impl-review-phase-N.md
-│       ├── todo.md
-│       └── handovers/session-YYYY-MM-DD.md
+You ──prompt──▸ @maintainer ──delegates──▸ subagents
+                    │                         │
+                    │  skills loaded           │  writes to disk
+                    │  automatically           │  returns digest
+                    ▼                         ▼
+               docs/ & plans/           code changes
+               (persistent)             (maintainer commits
+                                         when you ask)
+
+Delegation targets:
+  delegate ......... exploration, research, reviews, implementation plans
+  doc-explorer ..... docs/ and selected skill-governed plans/ artifacts
+  implementer ...... code changes (gated execution)
+  legacy-curator ... docs-legacy/ archive
+  general (built-in) second opinion, user-requested
 ```
 
-## Development Guidelines
-
-- When creating skills or agents, ensure they follow the entity model above
-- Templates should be modular - avoid redundancy by referencing shared sections
-- Documentation must be updatable (not just generatable)
-- Plans must support multi-session workflows with clear phase boundaries
-- Always consider the context window limitation when designing artifacts
-- Skills define WHAT to create and HOW - the file structure defines WHERE
-
-## File Conventions
-
-- Templates use Markdown with YAML frontmatter where metadata is needed
-- Plan files include a changelog section for tracking progress across sessions
-- Todo lists are persisted as structured Markdown with checkbox syntax
+The file structure IS the interface. Framework docs/plans persist in `docs/` and `plans/`, and the primary reads from them. No magic state, no hidden context — just files.
 
 ---
 > Source: [DasDigitaleMomentum/opencode-processing-skills](https://github.com/DasDigitaleMomentum/opencode-processing-skills) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
