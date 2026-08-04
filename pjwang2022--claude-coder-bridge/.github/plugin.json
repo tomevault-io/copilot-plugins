@@ -1,0 +1,9 @@
+{
+  "name": "pjwang2022--claude-coder-bridge",
+  "displayName": "claude-coder-bridge",
+  "description": "Self-hosted multi-channel gateway that brings Claude to LINE, Telegram, Slack, Discord, Email, and WebUI for coding assistance.",
+  "version": "1.0.0",
+  "author": "pjwang2022",
+  "homepage": "https://github.com/pjwang2022/claude-coder-bridge",
+  "skills": []
+}
