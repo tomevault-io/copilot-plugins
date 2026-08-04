@@ -1,0 +1,9 @@
+{
+  "name": "apache--spark-kubernetes-operator",
+  "displayName": "spark-kubernetes-operator",
+  "description": "spark-kubernetes-operator",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/spark-kubernetes-operator",
+  "skills": []
+}
