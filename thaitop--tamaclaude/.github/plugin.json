@@ -1,0 +1,9 @@
+{
+  "name": "thaitop--tamaclaude",
+  "displayName": "tamaclaude",
+  "description": "Desk device that mirrors live Claude Code session state onto a Cheap Yellow Display over BLE",
+  "version": "1.0.0",
+  "author": "thaitop",
+  "homepage": "https://github.com/thaitop/tamaclaude",
+  "skills": []
+}
