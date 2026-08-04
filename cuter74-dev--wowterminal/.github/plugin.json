@@ -1,0 +1,9 @@
+{
+  "name": "cuter74-dev--wowterminal",
+  "displayName": "wowTerminal",
+  "description": "A context-aware AI terminal with SSH, SFTP, and local/remote LLM support.",
+  "version": "1.0.0",
+  "author": "cuter74-dev",
+  "homepage": "https://github.com/cuter74-dev/wowTerminal",
+  "skills": []
+}
