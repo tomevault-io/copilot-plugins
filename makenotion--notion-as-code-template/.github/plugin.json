@@ -1,0 +1,9 @@
+{
+  "name": "makenotion--notion-as-code-template",
+  "displayName": "notion-as-code-template",
+  "description": "Template for Notion as Code Project",
+  "version": "1.0.0",
+  "author": "makenotion",
+  "homepage": "https://github.com/makenotion/notion-as-code-template",
+  "skills": []
+}
