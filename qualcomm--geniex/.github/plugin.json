@@ -1,0 +1,9 @@
+{
+  "name": "qualcomm--geniex",
+  "displayName": "GenieX",
+  "description": "Run frontier LLMs and VLMs locally on Qualcomm devices across NPU, GPU, and CPU with a few lines of code",
+  "version": "1.0.0",
+  "author": "qualcomm",
+  "homepage": "https://github.com/qualcomm/GenieX",
+  "skills": []
+}
