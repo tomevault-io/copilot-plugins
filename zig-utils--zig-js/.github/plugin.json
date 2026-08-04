@@ -1,0 +1,9 @@
+{
+  "name": "zig-utils--zig-js",
+  "displayName": "zig-js",
+  "description": "A JavaScript engine in pure Zig.",
+  "version": "1.0.0",
+  "author": "zig-utils",
+  "homepage": "https://github.com/zig-utils/zig-js",
+  "skills": []
+}
