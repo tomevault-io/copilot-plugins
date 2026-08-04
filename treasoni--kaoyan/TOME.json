@@ -1,0 +1,44 @@
+{
+  "name": "kaoyan",
+  "owner": "Treasoni",
+  "repo": "kaoyan",
+  "description": "\u57fa\u4e8e Claude Code \u6784\u5efa\u7684\u667a\u80fd\u5316\u8003\u7814\u5b66\u4e60\u7cfb\u7edf\uff0c\u96c6\u6210 MemOS \u8bb0\u5fc6\u7cfb\u7edf\uff0c\u652f\u6301\u8de8\u8bbe\u5907\u540c\u6b65\u4e0e\u8de8\u5b66\u79d1\u77e5\u8bc6\u5173\u8054\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Treasoni/kaoyan",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T16:32:51Z"
+}
