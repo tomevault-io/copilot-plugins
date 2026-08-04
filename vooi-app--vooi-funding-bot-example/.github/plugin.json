@@ -1,0 +1,9 @@
+{
+  "name": "vooi-app--vooi-funding-bot-example",
+  "displayName": "vooi-funding-bot-example",
+  "description": "Example open-source implementation of a delta-neutral funding-rate arbitrage bot over the VOOI Perps API (Hyperliquid + Lighter).",
+  "version": "1.0.0",
+  "author": "vooi-app",
+  "homepage": "https://github.com/vooi-app/vooi-funding-bot-example",
+  "skills": []
+}
