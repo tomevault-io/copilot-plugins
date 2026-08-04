@@ -1,0 +1,9 @@
+{
+  "name": "petyok--sshub",
+  "displayName": "SSHub",
+  "description": "Terminal UI for SSH: hybrid ~/.ssh/config + host DB, embedded PTY sessions, SFTP browser, tunnels, key management, and audit log",
+  "version": "1.0.0",
+  "author": "Petyok",
+  "homepage": "https://github.com/Petyok/SSHub",
+  "skills": []
+}
