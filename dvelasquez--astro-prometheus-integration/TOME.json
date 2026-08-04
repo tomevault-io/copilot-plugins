@@ -4,7 +4,7 @@
   "repo": "astro-prometheus-integration",
   "description": "An Astro Prometheus nodejs middleware integration for Astro",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dvelasquez/astro-prometheus-integration",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T04:32:47Z"
+  "distributed_at": "2026-08-04T20:50:59Z"
 }
