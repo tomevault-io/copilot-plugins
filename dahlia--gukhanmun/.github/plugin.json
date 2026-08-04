@@ -1,0 +1,9 @@
+{
+  "name": "dahlia--gukhanmun",
+  "displayName": "gukhanmun",
+  "description": "A Rust/JavaScript library and CLI tool that converts mixed-script Korean text into hangul-only text",
+  "version": "1.0.0",
+  "author": "dahlia",
+  "homepage": "https://github.com/dahlia/gukhanmun",
+  "skills": []
+}
