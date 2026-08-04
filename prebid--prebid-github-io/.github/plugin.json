@@ -1,0 +1,9 @@
+{
+  "name": "prebid--prebid-github-io",
+  "displayName": "prebid.github.io",
+  "description": "prebid.github.io",
+  "version": "1.0.0",
+  "author": "prebid",
+  "homepage": "https://github.com/prebid/prebid.github.io",
+  "skills": []
+}
