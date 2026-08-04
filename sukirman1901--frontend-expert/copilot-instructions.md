@@ -1,57 +1,108 @@
-## design-system-enforcer
+## frontend-expert
 
-> Auto-route Frontend Expert suite skills — chat-first, judgment first, slash optional
+> Guidance for AI coding agents when this pack is available.
 
+# AGENTS.md
 
-# Frontend Expert (auto)
+Guidance for AI coding agents when this pack is available.
 
-**Users should not need slash commands.** Map natural language to skills yourself. Pillars: `docs/pillars.md`.
+## Chat-first (default)
 
-## Intent → load (mandatory)
+**Users should not need to type slash commands.** When the request matches an intent below, load the skills automatically. Slash commands are optional shortcuts only.
 
-| User intent (examples) | Load skills in order |
-|------------------------|----------------------|
-| Build/change UI, page, screen, component, layout, styling | `frontend-judgment` (if non-trivial) → `design-tokens` → (+ **`marketing-landing`** if landing) → `ui-components` → **`responsive-ui`** → **`motion`** (light) → `anti-ai-slop` → `ui-feel` → `accessibility` |
-| + form / validasi | above + `forms-validation` |
-| + API list/detail / async data | above + `data-fetching` |
-| + shell / sidebar / routing | above + `app-shell-routing` |
-| + architecture / folder / state | + `fe-architecture` |
-| + SEO / meta / OG | + `fe-seo` |
-| Mobile / responsive / semua device | **`responsive-ui` MUST** |
-| Marketing landing / homepage / logo cloud / testimonials | + **`marketing-landing`** (section stack **hand-roll** — not `@tailark`/block registry) → `motion` → `fe-seo` as needed |
-| Animation / transition / motion / marquee / parallax / text reveal | above + `motion` (families/patterns in `motion-families.md`; hand-roll — not registry default) |
-| Match Figma / mock / pixel perfect / fidelity | `design-fidelity` → `design-tokens` → `responsive-ui` → `ui-feel` |
-| Lighthouse / axe / DevTools / measured scores | `fe-devtools` → `accessibility` → `web-performance` |
-| Hierarchy / unclear primary / competing CTAs | `frontend-judgment` Hierarchy pass → `anti-ai-slop` → `ui-feel` |
-| Typography / type scale / multi-h1 | `frontend-judgment` Typography ladder → `ui-feel` |
-| Figma Auto Layout / Fill / Hug | `responsive-ui` (Auto Layout ↔ CSS) |
-| Feels off / rapihin detail / micro polish | `ui-feel` (+ `anti-ai-slop` if generik) — one pass |
-| Design audit, AI slop, "UI jelek/generik", visual review | `anti-ai-slop` → `ui-feel` → `design-tokens` → `responsive-ui` → `accessibility` → `web-performance` (+ `marketing-landing` if landing) |
-| Tests / TDD / coverage / regresi UI | `frontend-testing` → `ui-components` → `accessibility` |
-| Polish / rapihin **sampai bagus** / until audit passes | `ui-quality-loop` (max 3) |
-| Slow UI / LCP / optimize performance | `web-performance` |
-| WebGL / shader / Plasma / animated canvas background | **`webgl` required** |
-| Sentry / analytics / observability | `monitoring` |
+## What this pack is
+
+**Frontend Expert** — a **suite of pillars** for shipping product **web** UI: UI quality + responsive (all devices) + ship FE (shell/data/forms) + depth (architecture/SEO). Not a full roadmap.sh curriculum; not React Native.
+
+Pillar map: `docs/pillars.md`.
+
+## Auto intent map
+
+| User says / means | Load skills (order) | Optional shortcut |
+|-------------------|---------------------|-------------------|
+| Build/change UI, page, component, layout, styling | `frontend-judgment`* → `design-tokens` → (+ **`marketing-landing`** if landing) → `ui-components` → **`responsive-ui`** → **`motion`** (light shell defaults) → `anti-ai-slop` → `ui-feel` → `accessibility` | `/ui` |
+| + form / validasi / wizard | … + `forms-validation` (before or with ui-components) | `/ui` |
+| + list/detail API / loading data | … + `data-fetching` | `/ui` |
+| + app shell / sidebar / routing / 404 | … + `app-shell-routing` | `/ui` |
+| + architecture / folder structure / state choice | … + `fe-architecture` | — |
+| + SEO / meta / OG / landing public | … + `fe-seo` (+ `web-performance` if CWV) | — |
+| + marketing landing / homepage sections / logo cloud / testimonials | … + **`marketing-landing`** (+ `motion` / `fe-seo`) | `/ui` |
+| + animation / motion / marquee / parallax / text reveal / landing motion | … + `motion` (families/patterns in `motion-families.md`; hand-roll — no registry default) | `/ui` |
+| Mobile / responsive / semua device / tablet | **`responsive-ui`** (MUST on layout UI) | `/ui` |
+| Audit design, AI slop, UI generik | `anti-ai-slop` → `ui-feel` → `design-tokens` → `responsive-ui` → `accessibility` → `web-performance` (+ `motion` if animated; **`marketing-landing`** if landing; + `frontend-judgment` hierarchy/type if scores claimed) | `/design` or `/audit` |
+| Match Figma / mock / pixel / fidelity | `design-fidelity` → `design-tokens` → `responsive-ui` → `ui-feel` | `/design` |
+| Lighthouse / axe / DevTools / measured audit | `fe-devtools` → `accessibility` → `web-performance` → `frontend-testing` | `/test-ui` or `/design` |
+| Hierarchy / visual hierarchy / primary CTA unclear | `frontend-judgment` (Hierarchy pass) → `anti-ai-slop` → `ui-feel` | `/design` |
+| Typography / type scale / multi-h1 / heading ladder | `frontend-judgment` (Typography ladder) → `ui-feel` → `anti-ai-slop` | `/design` |
+| Figma Auto Layout / Fill / Hug / layout from Figma | `responsive-ui` (Auto Layout ↔ CSS) → `ui-components` | `/ui` |
+| Feels off / rapihin **detail** | `ui-feel` (+ `anti-ai-slop` if generik) — **one pass** | — |
+| Test / TDD / coverage | `frontend-testing` → `ui-components` → `accessibility` | `/test-ui` |
+| Polish / rapihin **sampai bagus** | `ui-quality-loop` | `/polish` |
+| Slow / LCP / optimize | `web-performance` | — |
+| WebGL / shader / Plasma | `webgl` | — |
+| Monitoring / Sentry / OTel | `monitoring` | — |
+
+\* `frontend-judgment` for non-trivial / blank-canvas only — see skip rules.
+
+**“Rapihin”:** alone on existing UI → `ui-feel`. Vague *new* UI → judgment. “Sampai bagus” → `ui-quality-loop`.
+
+Personas: build → `ui-developer`; audit → `design-reviewer`; test → `test-engineer`.
 
 ## Expert judgment
 
-For blank-canvas or ambiguous UI: offer **2–3 approaches + tradeoffs + one recommendation** before coding. Skip for tiny clear fixes or “just implement”. See skill `frontend-judgment`.
+1. At most 1–2 clarifying questions if blocked
+2. Offer **2–3 approaches on distinct axes** with tradeoffs + one recommendation
+3. Wait for a clear pick (or “langsung saja”)
+4. Then run domain skills (including **responsive-ui** for layout)
 
-## Rules (compliance — do not silently skip)
+## Skills (suite)
 
-- Prefer project design system if one exists; else walk token decision tree in `references/token-preset-scoring.md`
-- **Responsive: MUST** — `responsive-ui`; Conventions `Responsive: 320/768/1024/1440 checked` + **full-width primary CTA <768**
-- **Hierarchy + Typography: MUST** on blank-canvas / layout polish — Hierarchy pass + one h1 / type ladder (`frontend-judgment`)
-- **Icons: MUST use [Reicon](https://reicon.dev)** unless project icon lib or text-only waiver
-- Light **Motion** defaults on shell/dashboard (`motion`) unless waived; marketing: name families/patterns and hand-roll (registry install is not the pack default)
-- **Shell chrome:** theme in **topbar** (icon); profile = **avatar → account menu**; product filters = **custom select** (`app-shell-routing` / `ui-components`)
-- **Marketing landing:** section stack via `marketing-landing` / `landing-sections.md` — not hero-only; **hand-roll** (not block-registry install)
-- WebGL/shader/plasma → load **`webgl`**; prefer Plasma
-- No raw hex, purple/indigo defaults, Lorem ipsum, or `rounded-2xl` everywhere
-- Handle loading / error / empty; keyboard accessible
-- Before DONE on UI builds, output the **Conventions check** from `references/compliance-gates.md`
-- Optional shortcuts only: `/ui`, `/design`, `/audit`, `/test-ui`, `/polish`
-- Audits: do not fabricate visual metrics without tokens/screenshots
+| Skill | Pillar | Triggers |
+|-------|--------|----------|
+| `frontend-expert` | Suite root | Catalog / install entry — routes into pillars |
+| `frontend-judgment` | UI Quality | Blank-canvas / ambiguous UI |
+| `design-tokens` | UI Quality | Theme — decision tree + scoring |
+| `ui-components` | UI Quality | Components, states, composition |
+| `responsive-ui` | Responsive MUST | Every layout UI / all devices |
+| `anti-ai-slop` | UI Quality | Build + audits |
+| `ui-feel` | UI Quality | Micro craft |
+| `accessibility` | UI Quality | Build/audit a11y |
+| `web-performance` | UI Quality | CWV / slow |
+| `motion` | UI Quality | Shell defaults + family/pattern vocabulary (`motion-families.md`); hand-roll |
+| `frontend-testing` | UI Quality | Tests / TDD |
+| `ui-quality-loop` | UI Quality | Polish until clean |
+| `webgl` | UI Quality | Plasma backgrounds |
+| `monitoring` | UI Quality | Sentry / analytics |
+| `app-shell-routing` | Ship FE | Shell, nav, routes |
+| `data-fetching` | Ship FE | Async API UI |
+| `forms-validation` | Ship FE | Forms / wizards |
+| `fe-architecture` | Depth | Folders / state boundaries |
+| `fe-seo` | Depth | Meta / OG / indexability |
+| `marketing-landing` | UI Quality | Marketing section stack (hero→footer); **hand-roll** — not registry install |
+| `design-fidelity` | UI Quality | Spec / Figma / screenshot match |
+| `fe-devtools` | UI Quality | Lighthouse / axe / measured checks |
+
+## Hard rules
+
+1. Tokens via decision tree (`token-preset-scoring.md`) or project system — never vibe-pick
+2. Icons: **MUST ship Reicon** unless waiver — `compliance-gates.md`
+3. **Responsive: MUST** verify 320/768/1024/1440 on layout UI — `responsive-ui`
+4. **Primary CTAs full-width below 768** (forms / toolbars / action rows) — no tiny desktop-width CTAs on phone
+5. **Hierarchy pass** before DONE on blank-canvas / layout polish — one primary focus + one primary CTA (`frontend-judgment`)
+6. **Typography ladder** — ≤2 families; **one h1/page**; sequential levels; token type roles
+7. WebGL → `webgl` / Plasma — no parallel invented stack
+8. No purple/indigo defaults / Lorem (purple only via scored/hard-gated/explicit token)
+9. Loading / error / empty for interactive + async surfaces
+10. Light **Motion** defaults on shell/dashboard (or waiver) — `motion`; marketing: name families/patterns from `motion-families.md` and hand-roll (registry install is **not** the default)
+11. **Shell chrome** — theme in topbar (icon); profile = avatar → account menu; filters = custom select (`app-shell-routing` / `ui-components`)
+12. **Marketing landing** — section stack via `marketing-landing` / `landing-sections.md`; hero-only fails; hand-roll (registry install is **not** the default)
+13. Do not fabricate visual audit scores without tokens/screenshots
+14. Never block on slash commands when intent is clear
+15. Blank-canvas → judgment first
+16. “Sampai bagus” → `ui-quality-loop` (cap 3)
+17. Before DONE → **Conventions check** including **Responsive**, **Hierarchy**, **Typography**, **Motion**, **Shell**, **Landing**
+
+Orchestration: session agent loads skills; agents do not call agents. See `docs/pack-layers.md`, `docs/pillars.md`.
 
 ---
 > Source: [sukirman1901/frontend-expert](https://github.com/sukirman1901/frontend-expert) — distributed by [TomeVault](https://tomevault.io).
