@@ -1,0 +1,9 @@
+{
+  "name": "jpoindexter--design-md-extractor",
+  "displayName": "design-md-extractor",
+  "description": "Extract a website's visual system \u2014 colors, type, spacing, components \u2014 into a DESIGN.md, design tokens, and AI-ready prompts. CLI + local GUI.",
+  "version": "1.0.0",
+  "author": "jpoindexter",
+  "homepage": "https://github.com/jpoindexter/design-md-extractor",
+  "skills": []
+}
