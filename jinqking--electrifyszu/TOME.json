@@ -1,0 +1,44 @@
+{
+  "name": "ElectrifySZU",
+  "owner": "jinqKing",
+  "repo": "ElectrifySZU",
+  "description": "\u26a1 \u6df1\u5927\u5bbf\u820d\u7535\u8d39\u7ba1\u5bb6 \u2014 \u4f59\u989d\u67e5\u8be2\u00b7\u8d8b\u52bf\u56fe\u8868\u00b7\u4f4e\u7535\u9884\u8b66",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jinqKing/ElectrifySZU",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T18:31:44Z"
+}
