@@ -1,0 +1,44 @@
+{
+  "name": "infosec-suite",
+  "owner": "Akobe-Ajibolu",
+  "repo": "infosec-suite",
+  "description": "AI-driven security engagement framework built on Claude Code. Claude runs full engagements: plan \u2192 recon \u2192 vuln-scan.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Akobe-Ajibolu/infosec-suite",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T08:34:41Z"
+}
