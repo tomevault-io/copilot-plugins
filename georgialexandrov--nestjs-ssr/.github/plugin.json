@@ -1,0 +1,9 @@
+{
+  "name": "georgialexandrov--nestjs-ssr",
+  "displayName": "nestjs-ssr",
+  "description": "React as a view layer for NestJS",
+  "version": "1.0.0",
+  "author": "georgialexandrov",
+  "homepage": "https://github.com/georgialexandrov/nestjs-ssr",
+  "skills": []
+}
