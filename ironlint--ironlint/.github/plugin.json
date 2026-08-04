@@ -1,0 +1,9 @@
+{
+  "name": "ironlint--ironlint",
+  "displayName": "ironlint",
+  "description": "Agentic-native linting tool to enforce deterministic quality gates",
+  "version": "1.0.0",
+  "author": "ironlint",
+  "homepage": "https://github.com/ironlint/ironlint",
+  "skills": []
+}
