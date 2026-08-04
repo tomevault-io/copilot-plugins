@@ -1,0 +1,45 @@
+## claude-plugins
+
+> This site is the official catalog of Claude Code plugins and MCP servers from 2389 Research Inc. It is generated from `.claude-plugin/marketplace.json` in [2389-research/claude-plugins](https://github.com/2389-research/claude-plugins).
+
+# Agents guide — 2389 Research Claude Code Plugin Marketplace
+
+This site is the official catalog of Claude Code plugins and MCP servers from 2389 Research Inc. It is generated from `.claude-plugin/marketplace.json` in [2389-research/claude-plugins](https://github.com/2389-research/claude-plugins).
+
+## What's here
+
+- The homepage at [https://skills.2389.ai/](https://skills.2389.ai/) lists every plugin grouped into Development, Testing & Review, Agents & Orchestration, Infrastructure & Ops, Strategy & Reflection.
+- Each plugin has its own page under `/plugins/{name}/` with the full README, install command, and source link.
+- A [glossary](https://skills.2389.ai/glossary/) defines marketplace-specific terms (plugin, skill, MCP server, hook, scorecard).
+- Machine-readable index files: [sitemap.xml](https://skills.2389.ai/sitemap.xml), [sitemap.md](https://skills.2389.ai/sitemap.md), [llms.txt](https://skills.2389.ai/llms.txt).
+- Every HTML page advertises a markdown mirror via `<link rel="alternate" type="text/markdown" href="…/index.md">`. Fetch the `index.md` URL directly for the markdown copy.
+
+## Install a plugin
+
+Default — any agent (Claude Code, Cursor, Codex, …) via [vercel-labs/skills](https://github.com/vercel-labs/skills):
+
+```
+npx skills add 2389-research/<plugin-name>
+```
+
+Or natively in Claude Code:
+
+```
+/plugin marketplace add 2389-research/claude-plugins
+/plugin install <plugin-name>@2389-research
+```
+
+(MCP servers — slack-mcp, agent-drugs, socialmedia, journal — install via Claude Code only; they ship no skills for npx.)
+
+## a14y configuration
+
+- Target URL: https://skills.2389.ai/
+- Scorecard: 0.2.0
+- Mode: site
+- Last runs:
+  - 2026-05-19 — 82 (scorecard 0.2.0)
+  - 2026-05-19 — 67 (scorecard 0.2.0, baseline)
+
+---
+> Source: [2389-research/claude-plugins](https://github.com/2389-research/claude-plugins) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
