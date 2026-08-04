@@ -4,7 +4,7 @@
   "repo": "data-engineering-agent-skills",
   "description": "Production-grade Agent Skills for data engineering AI agents: 73 workflows, platform presets, safe backfill/replay, Kafka & Spark reliability, MCP observability, and VS Code/JetBrains installers.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vaquarkhan/data-engineering-agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T02:45:09Z"
+  "distributed_at": "2026-08-04T13:51:36Z"
 }
