@@ -1,7 +1,7 @@
 {
   "name": "rustfs--operator",
   "displayName": "operator",
-  "description": "RustFS k8s operator ",
+  "description": "operator",
   "version": "1.0.0",
   "author": "rustfs",
   "homepage": "https://github.com/rustfs/operator",
