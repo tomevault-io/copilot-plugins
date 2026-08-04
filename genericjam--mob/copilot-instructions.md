@@ -1,288 +1,337 @@
 ## mob
 
-> See [`guides/agentic_coding.md`](guides/agentic_coding.md) for a full guide on the
+> You're in the **mob** repo, the runtime library for the Mob mobile framework.
 
-# Mob — Agent Instructions
+# AGENTS.md — orientation for AI agents working on Mob
 
-See [`guides/agentic_coding.md`](guides/agentic_coding.md) for a full guide on the
-agent round-trip workflow: how to connect to the running Erlang node, when to use
-`Mob.Test` vs MCP platform tools, and how to avoid the instinct to reach for
-`xcrun simctl` screenshots.
+You're in the **mob** repo, the runtime library for the Mob mobile framework.
+Read this in full before making changes — it's the 5-minute orientation that
+will keep you from re-deriving things the rest of the team has already learned
+(or learned the hard way).
 
-## Standard debugging workflow
+## What Mob is, in one paragraph
 
-The preferred tool is `mix mob.connect` (from `mob_dev` package):
+Mob lets you write iOS and Android apps in Elixir, with the BEAM running
+on-device. The phone hosts an Erlang node — a real one, distribution-capable,
+introspectable, hot-code-loadable. Two modes: a SwiftUI/Compose UI driven by
+Elixir GenServers (Mob UI apps), or a sidecar BEAM embedded in a normal native
+app to give agents and tests live access (Mob as test harness). The sidecar
+mode is the long-term bet. Both modes produce a real Erlang node you can `Node.connect/1` to.
+
+For the *why* (the BEAM-on-mobile pitch), see `guides/why_beam.md`.
+
+## Repo topology
+
+Mob is three coordinated repos. **Know which one to edit before you change anything.**
+
+| Repo | Path | What lives here | Edit when |
+|---|---|---|---|
+| **mob** | `~/code/mob` | Runtime library: `Mob.Screen`, `Mob.App`, `Mob.Renderer`, `Mob.Dist`, `Mob.Test`, the iOS Swift / Android Kotlin native bridges, the NIF | UI behavior, on-device runtime, native bridge changes |
+| **mob_dev** | `~/code/mob_dev` | Mix tasks: `mob.deploy`, `mob.connect`, `mob.devices`, `mob.emulators`, `mob.provision`, `mob.doctor`, `mob.battery_bench_*`. Igniter installers (`mob.add_nif`, `mob.enable`, `mob.adopt`). Device discovery (`MobDev.Discovery.{Android,IOS}`). Native build orchestration (`MobDev.NativeBuild`). OTP tarball download/cache (`MobDev.OtpDownloader`). | Build/deploy mechanics, device handling, dev tooling, **Igniter tasks that mutate an existing project** |
+| **mob_new** | `~/code/mob_new` | Project generator. Hex archive (`mix archive.install hex mob_new`). Templates in `priv/templates/mob.new/`. Generates both native Mob UI projects and Phoenix LiveView wrappers. | Greenfield generator output. **Must stay self-contained** (`ArchiveSelfContainedTest`) — no hex-dep modules reachable from archive code, so Igniter-based tasks live in mob_dev, not here |
+
+Cross-repo changes are common — fixing one user-visible behavior often needs
+the runtime patched in `mob`, the build retooled in `mob_dev`, **and** the
+generator template updated in `mob_new` so newly-generated projects pick up
+the fix without manual edits.
+
+The OTP runtime tarballs (Android arm64/arm32, iOS sim, iOS device) are built
+separately and uploaded to GitHub Releases — see `mob_dev/build_release.md`
+and `mob_dev/scripts/release/`. Patches we apply to OTP source live at
+`mob_dev/scripts/release/patches/`.
+
+## Driving apps from your session
+
+The default instinct — screenshots — is wrong. Mob apps run a real Erlang node
+you can talk to directly. Read the BEAM, drive it, then verify visually only
+when state isn't enough.
+
+### Connect
 
 ```bash
-cd ~/code/mob_demo
-mix mob.connect          # discover all devices, tunnel, restart, connect IEx
-mix mob.connect --no-iex # same but print node names instead of starting IEx
-mix mob.devices          # list connected devices and their status
+mix mob.devices                 # list everything connected (sims, emulators, physical)
+mix mob.emulators --list        # list virtual devices (running and stopped)
+mix mob.connect                 # set up tunnels, start IEx attached to all running nodes
+mix mob.connect --no-iex        # just print node names + tunnels (for scripting)
 ```
 
 Node names are platform-specific:
-- iOS simulator:    `mob_demo_ios@127.0.0.1`
-- Android emulator: `mob_demo_android@127.0.0.1`
-
-### EPMD tunneling
-
-iOS simulator shares the Mac's network stack — the iOS BEAM registers directly in
-the Mac's EPMD on port 4369. No forwarding needed.
-
-Android is a separate network namespace. `mob_dev` sets up adb tunnels automatically:
 
 ```
-adb reverse tcp:4369 tcp:4369   # EPMD: device → Mac (Android BEAM registers in Mac EPMD)
-adb forward tcp:9100 tcp:9100   # dist:  Mac → device
+mob_demo_ios@127.0.0.1                     # iOS simulator
+mob_demo_android_<serial-suffix>@127.0.0.1  # Android (suffix from ro.serialno)
 ```
 
-### Port assignment (handled by mob_dev)
+For iOS simulator, the sim shares the Mac's network stack — distribution Just
+Works. For Android (and iOS device), `mix mob.connect` sets up `adb reverse` /
+similar tunnels.
 
-Devices are assigned dist ports by index to avoid conflicts:
-- Device 0 (Android): port 9100
-- Device 1 (iOS sim): port 9101
-
-iOS dist port is passed via `SIMCTL_CHILD_MOB_DIST_PORT` env var; `mob_beam.m` reads
-`MOB_DIST_PORT` at startup. Android dist port is passed as an intent extra (`mob_dist_port`);
-**`MainActivity.java` does NOT yet read this — multi-Android support is pending.**
-
-Both iOS and Android end up registered in the same Mac EPMD. `mix mob.connect` sets
-up all tunnels automatically.
-
-## Day-to-day development loop
-
-```bash
-# Edit Elixir code, then:
-mix mob.deploy          # compile + push BEAMs + restart apps
-mix mob.connect         # tunnel + wait for nodes + drop into IEx
-
-# In IEx (after mob.connect):
-mix compile && nl(MobDemo.CounterScreen)   # hot-push one module without restart
-Node.list()                                # verify both devices connected
-:rpc.call(:"mob_demo_android@127.0.0.1", MobDemo.CounterScreen, :some_fn, [])
-```
-
-### Reading live screen state
-
-```elixir
-# Screen pid is logged at app start: "[mob] step 5 => {ok,<0.92.0>}"
-pid = :rpc.call(:"mob_demo_android@127.0.0.1", :erlang, :list_to_pid, [~c"<0.92.0>"])
-socket = :rpc.call(:"mob_demo_android@127.0.0.1", Mob.Screen, :get_socket, [pid])
-socket.assigns   # live assigns
-```
-
-### Hot code push
-
-```bash
-# After editing a screen (from the terminal):
-mix mob.push          # compile + push all changed modules to all connected devices
-mix mob.push --all    # force-push every module
-
-# Or from inside IEx (after mob.connect), one module at a time:
-nl(MobDemo.CounterScreen)
-# Returns: {:ok, [{:"mob_demo@127.0.0.1", :loaded, MobDemo.CounterScreen}]}
-```
-
-### Android distribution
-
-Android cannot start distribution at BEAM launch (races with hwui thread pool, causes
-SIGABRT via FORTIFY `pthread_mutex_lock on destroyed mutex`). Instead, `Mob.Dist.ensure_started/1`
-defers `Node.start/2` by 3 seconds after app startup. This is handled in the mob library —
-app code just calls `Mob.Dist.ensure_started(node: :"my_app_android@127.0.0.1", cookie: :my_secret)`.
-
-ERTS helper binaries (`erl_child_setup`, `inet_gethost`, `epmd`) cannot be exec'd from the
-app data directory (SELinux `app_data_file` blocks `execute_no_trans`). They are packaged in
-the APK as `lib*.so` in `jniLibs/arm64-v8a/` (gets `apk_data_file` label, which allows exec).
-`mob_beam.c` symlinks `BINDIR/<name>` → `<nativeLibraryDir>/lib<name>.so` before `erl_start`.
-
-## Agent round-trip workflow
-
-The standard loop for AI-assisted feature development or debugging. Use all three
-layers in order — BEAM state first, then visual verification only when needed.
-
-### 1. Edit and deploy
-
-```bash
-mix mob.push            # compile + push changed BEAMs to all connected nodes
-# or for a native rebuild (e.g. after NIF or Swift/Kotlin change):
-mix mob.deploy --native
-```
-
-### 2. Inspect BEAM state via IEx or Mob.Test
-
-Connect (or use an already-open IEx session from `mix mob.connect`):
-
-```bash
-mix mob.connect --no-iex   # sets up tunnels, prints node names, exits
-```
-
-Then from a separate IEx session or script:
+### Inspect (`Mob.Test`, BEAM-state, fast, exact — prefer this)
 
 ```elixir
 node = :"mob_demo_ios@127.0.0.1"
-Mob.Test.screen(node)    # which screen is showing?
-Mob.Test.assigns(node)   # live assigns — count, selected items, etc.
-Mob.Test.tap(node, :some_button)   # drive a tap programmatically
-Mob.Test.find(node, "Submit")      # locate a widget by visible text
+
+Mob.Test.screen(node)            # which screen is showing?  → ModuleName
+Mob.Test.assigns(node)           # live socket assigns        → %{...}
+Mob.Test.find(node, "Submit")    # locate widget by visible text
+Mob.Test.inspect(node)           # full snapshot: screen, assigns, nav stack, widget tree
 ```
 
-This is the fastest path. BEAM state is exact and doesn't require image decoding.
+This is faster, exact (not pixel-inferred), and works without taking a
+screenshot. Use it as the default.
 
-### 3. Visual verification via MCP tools
+### Drive
 
-When you need to confirm rendering, layout, or animations — use the platform MCP
-servers. These are available as tools in the agent environment.
+```elixir
+Mob.Test.tap(node, :open_text)              # tap by tag atom (the on_tap: {self(), :tag})
+Mob.Test.send_message(node, {:custom, :msg}) # arbitrary handle_info
+```
 
-**iOS Simulator** (`mcp__ios-simulator__*`):
+After a tap, call `Mob.Test.screen(node)` again to confirm navigation
+happened. Call `Mob.Test.assigns(node)` to confirm state changed.
 
-| Tool | When to use |
-|------|-------------|
-| `screenshot` | Capture the current simulator frame |
-| `ui_tap` | Tap at x,y coordinates |
-| `ui_type` | Type text into focused input |
-| `ui_swipe` | Swipe gesture |
-| `ui_view` | Inspect the accessibility tree |
-| `ui_describe_point` | What element is at this coordinate? |
-| `ui_describe_all` | Full accessibility dump |
-| `record_video` / `stop_recording` | Record an interaction sequence |
+### Visual verify (MCP, slower, image-based — only when needed)
 
-**Android** (`mcp__adb__*`):
+When layout/animation/rendering matters, fall back to MCP platform tools:
 
-| Tool | When to use |
-|------|-------------|
-| `dump_image` | Screenshot from the connected device/emulator |
-| `inspect_ui` | XML accessibility dump of the current view |
-| `adb_shell` | Run arbitrary shell commands on the device |
-| `adb_logcat` | Tail logcat (Elixir logs appear under the `Elixir` tag) |
+| iOS simulator | Android |
+|---|---|
+| `mcp__ios-simulator__screenshot` | `mcp__adb__dump_image` |
+| `mcp__ios-simulator__ui_view` | `mcp__adb__inspect_ui` |
+| `mcp__ios-simulator__ui_tap {x, y}` | `adb shell input tap` |
+| `mcp__ios-simulator__ui_swipe` | `adb shell input swipe` |
+| `mcp__ios-simulator__record_video` | `adb shell screenrecord` |
 
-### Typical round-trip
+Use these to confirm a layout looks right, spot animation glitches, or
+debug rendering. **Don't use them for state queries** — `Mob.Test.assigns/1`
+is always better.
+
+### Round-trip workflow
 
 ```
-1. Edit Elixir code
-2. mix mob.push
-3. Mob.Test.screen(node)   ← confirm navigation / state
-4. mcp__ios-simulator__screenshot  ← visual sanity check
-5. Mob.Test.tap(node, :button)     ← drive interaction
-6. Mob.Test.assigns(node)  ← confirm state updated correctly
+1. Edit Elixir/Swift/Kotlin code
+2. mix mob.push                  # fast: BEAM-only push, no native rebuild
+   mix mob.deploy --native       # slower: native rebuild needed (NIF / Swift / Kotlin change)
+3. Mob.Test.screen(node)         # confirm navigation / state
+4. mcp__*__screenshot            # spot-check visual (only if layout matters)
+5. Mob.Test.tap(node, :button)   # drive next interaction
+6. Mob.Test.assigns(node)        # confirm state updated
 7. repeat
 ```
 
-Use `Mob.Test` for assertions (exact, fast, no image parsing). Use MCP screenshot/UI
-tools for layout checks, animation spot-checks, or when a bug is only visible
-in the rendered output.
+Full workflow detail: `guides/agentic_coding.md`.
 
-## Device automation with Mob.Test
+## Pre-empt-failure rules — read before you touch anything
 
-After connecting via `mix mob.connect`, use `Mob.Test` to inspect and drive the
-running app without touching the native UI. Prefer this over screenshot-based
-inspection — it gives exact state, not a visual approximation.
+These are the things we've burned ourselves on. Following them isn't optional.
 
-```elixir
-node = :"mob_demo_ios@127.0.0.1"   # or mob_demo_android@127.0.0.1
+1. **Default arguments evaluate eagerly.** `System.get_env("ROOTDIR", Path.expand("~/..."))`
+   evaluates `Path.expand` *every call*, regardless of whether `ROOTDIR` is set.
+   `Path.expand("~/...")` calls `System.user_home!()` which raises on Android
+   (no `HOME` env var). Use `case System.get_env(...)` or `||` instead. Burned us
+   once — see commit `d77932e`.
 
-# What screen is showing and what state is it in?
-Mob.Test.screen(node)    #=> MobDemo.NavScreen
-Mob.Test.assigns(node)   #=> %{depth: 0, safe_area: %{top: 62.0, ...}}
+2. **Don't silently swallow `Mob.Screen.start_root` errors.** It returns
+   `{:ok, pid}` or `{:error, reason}` and crashes from inside `init` are reported
+   via `{:error, ...}`. If you don't pattern-match, the screen never renders and
+   the app sits on the "Starting BEAM…" splash forever. The on_start callback
+   should `{:ok, _} = Mob.Screen.start_root(...)` so failures crash loudly.
 
-# Find a node by visible text
-Mob.Test.find(node, "Device APIs")
-#=> [{[0, 0, 9], %{"type" => "button", ...}}]
+3. **TDD discipline in mob_dev.** Every new public function gets a test.
+   `mob_dev/CLAUDE.md` makes this explicit. Don't bypass — the tests are how we
+   catch the multi-step regressions like the iOS-device deploy chain.
 
-# Trigger a tap by the tag atom used in on_tap: {self(), tag}
-Mob.Test.tap(node, :open_device)
+4. **Format + credo before commit.** `mix format && mix credo --strict` from the
+   relevant repo, every time. Both are clean across the codebase today; don't
+   regress them.
 
-# Full snapshot for debugging
-Mob.Test.inspect(node)
-# %{screen: MobDemo.NavScreen, assigns: ..., nav_history: [...], tree: ...}
-```
+5. **Multi-repo changes batch together.** A user-visible fix in mob often needs
+   matching changes in mob_dev (build) and mob_new (template). Bumping versions
+   without coordination produces ghost regressions. Check all three before
+   declaring done.
 
-Tag atoms come from `on_tap: {self(), :tag_atom}` in the render tree. Check the
-screen's `render/1` to find them. After a tap, call `Mob.Test.screen/1` again to
-confirm the navigation happened.
+6. **iOS device sandbox blocks `fork()`.** The BEAM's `forker_start` and EPMD's
+   `run_daemon` both call fork; both are patched in our OTP cross-compile.
+   Patches at `mob_dev/scripts/release/patches/`. Don't undo them.
 
-## Running tests
+7. **iOS sim and iOS device are different build paths.** Sim → `ios/build.sh`
+   (`build_ios/1` in NativeBuild). Device → `ios/build_device.sh`
+   (`build_ios_physical/2`). When `--device <udid>` is passed, mob_dev resolves
+   it via `IOS.list_devices/0` to know which path to take. Don't shortcut.
 
-```bash
-mix test          # from ~/code/mob
-```
+8. **LV port 4200 is global per device.** Two installed Mob LV apps + one
+   running = the second can't bind. Workaround for now: force-stop the squatter.
+   Real fix tracked in `issues.md` #4 (hash bundle id into port).
 
-### Onboarding integration tests
+9. **Compile-time `~r//` literals are unsafe on OTP 28.** They bake a
+   `:re_exported_pattern` and call `:re.import/1` at runtime; OTP 28.0 removed
+   that function. Use `Regex.compile!("...", "flags")` to compile at runtime.
+   71 literals across mob_dev were swept in 0.3.17.
 
-The `test/onboarding/` suite verifies the full first-run flow end-to-end: archive
-install, project generation, `mix mob.install`, `mix mob.doctor`, and failure modes.
-These tests are **excluded from `mix test` by default** (they take minutes and require
-Hex/network access). Run them explicitly:
+10. **`:mob_nif.log/1` for early startup logging, `Logger` after Mob.App.start.**
+    `Mob.NativeLogger.install()` runs as part of `Mob.App.start` and reroutes
+    `Logger` to NSLog/logcat. Before that point (steps 1–4 in the Erlang
+    bootstrap), `Logger` output goes to stderr and is invisible. Use
+    `:mob_nif.log("message")` for diagnostics during early init.
 
-```bash
-# Fast subset — no simulator needed (~3 min, suitable for PR gating)
-MIX_ENV=test mix test --only generator
+11. **NIFs on Android must be statically linked, not `dlopen`'d.** Android's
+    `System.loadLibrary` loads native libs `RTLD_LOCAL` by default — the
+    parent's `enif_*` symbols are invisible to subsequently-`dlopen`'d
+    children. The OTP-internal NIFs (`crypto`, `asn1rt_nif`) are built as
+    `.a` archives and linked into the app's main native lib via
+    `--whole-archive`; the BEAM resolves their `nif_init` via
+    `dlsym(RTLD_DEFAULT)` (registered through `--enable-static-nifs` at
+    OTP build time, listed in `erts_static_nif_tab[]`). Any custom NIFs
+    a mob app adds must follow the same pattern. See
+    `mob/common_fixes.md` for symptoms and the dead-end attempts (we
+    tried `-Wl,--export-dynamic` and runtime `RTLD_GLOBAL` self-dlopen;
+    neither works on Android).
 
-# Failure-mode checks — no simulator needed (~2 min)
-MIX_ENV=test mix test --only pre_device
+12. **`:crypto` on-device is real OpenSSL** (3.x, statically linked).
+    No more shim — old code that special-cased "no crypto on mobile"
+    can be deleted. The deployer's `generate_crypto_shim/0` only fires
+    when a cached OTP runtime *lacks* `lib/crypto-*/ebin/crypto.beam`;
+    current tarballs have it. See `mob/crypto_plan.md` for the rebuild
+    process when bumping OpenSSL.
 
-# Everything above in one pass
-MIX_ENV=test mix test --only onboarding
+13. **Igniter-based tasks live in mob_dev, never in the mob_new archive.**
+    mob_new ships as a self-contained Mix archive; `ArchiveSelfContainedTest`
+    pins that no hex-dep modules are reachable from archive code (an archive
+    bundles only its own beams, so a call into a hex dep crashes every
+    installed user with `UndefinedFunctionError`). Igniter is a hex dep, so any
+    `Igniter.Mix.Task` (`mob.add_nif`, `mob.enable`, `mob.adopt`) belongs in
+    mob_dev — a normal project dependency where Igniter is on the path. A task
+    that needs mob_new's *templates* (e.g. `mob.adopt --android/--ios`) reads
+    them from the installed mob_new archive via `:code.priv_dir(:mob_new)`
+    rather than duplicating them. See
+    `mob_dev/decisions/2026-06-19-mob-adopt-lives-in-mob_dev.md`.
 
-# Full suite including post-device tests (requires a booted iOS simulator)
-MIX_ENV=test mix test --only failure_modes
-```
+## Where to look
 
-Run one file at a time with `--max-cases 1` to avoid workspace ID collisions between
-concurrent tests:
+| Question | File |
+|---|---|
+| Round-trip workflow + MCP setup | `guides/agentic_coding.md` |
+| System architecture / native cocoon model | `CLAUDE.md` (top half), `ARCHITECTURE.md` |
+| "I hit error X — has this happened before?" | `common_fixes.md` |
+| "Does this user-facing setup issue ring a bell?" | `user_issues.md` |
+| Open known issues with diagnoses + fixes | `issues.md` |
+| Speculative ideas, longer-term plans | `future_developments.md`, `wire_tap.md`, `PLAN.md` |
+| Per-feature deep dives (events, navigation, theming, ...) | `guides/*.md` |
+| Architecture decisions (one ADR per cross-cutting decision) | `docs/decisions/` |
+| iOS device deployment (provisioning, build chain, gotchas) | `guides/ios_physical_device.md` |
+| Generator templates (mob_new) | `mob_new/priv/templates/mob.new/` |
+| Build / release tooling | `mob_dev/scripts/release/`, `mob_dev/build_release.md` |
 
-```bash
-MIX_ENV=test mix test test/onboarding/generator_test.exs --only generator --max-cases 1
-MIX_ENV=test mix test test/onboarding/failure_modes_test.exs --only pre_device --max-cases 1
-```
+## Conventions worth knowing
 
-**What they test:**
+- **Terse responses.** Default to short, dense communication. The user reads code
+  changes via diff; don't recap them in chat.
+- **No premature abstractions.** Three similar lines beats a half-baked helper.
+- **No comments explaining the code.** Comments explain *why* — invariants,
+  hidden constraints, surprising behavior. Never the *what*.
+- **Trust internal callers.** Don't add validation/error handling for cases
+  that can't happen. Validate at system boundaries (user input, external APIs).
+- **Don't add features beyond what was requested.** A bug fix doesn't need
+  surrounding cleanup; a one-shot doesn't need a helper.
+- **Write UI the LiveView way.** The `~MOB` sigil supports `@assigns` shorthand
+  and `:if` / `:for` control attributes (`<Row :for={u <- @users}>`), and
+  `Mob.Socket` has `assign/2,3`, `update/3`, `assign_new/3`. See
+  `guides/components.md` → Control flow.
 
-| Tag | File | Covers |
-|-----|------|--------|
-| `:generator` | `generator_test.exs` | Archive install, `mix mob.new`, `mix mob.install`, `mix mob.doctor` |
-| `:pre_device` | `failure_modes_test.exs` | Failure modes that don't need a running simulator |
-| `:post_device` | `failure_modes_test.exs` | Failures requiring a live iOS simulator |
+## Don't write this slop
 
-**Preserved workspaces:** When a test fails, its workspace is kept at
-`/tmp/mob_onboarding/run_<PID>/<test_id>/`. Inspect `logs/` for per-step output.
-Workspaces from passing tests are deleted automatically.
+LLMs reach for the same anti-patterns over and over. The list below is the
+shape of code our `mix credo --strict` (via `ex_slop`) refuses to merge — but
+catching it post-hoc costs a round-trip. Don't write it in the first place.
 
-**Known limitations (published `mob_dev 0.1.7`):**
+**Error handling**
+- No blanket `rescue _ -> nil` or `rescue _e -> {:error, "..."}`. Rescue the
+  specific exception or let it crash.
+- No `rescue e -> Logger.error(...); :error` — that logs the bug into oblivion.
+  Either reraise or return a typed error tuple the caller can match on.
+- No `try/rescue` around functions that don't raise (`Map.get`, `Enum.find`,
+  `String.split`). Look up whether the function actually raises before wrapping it.
 
-- `MOB_OTP_BASE_URL` is not respected — OTP download URL cannot be overridden for
-  failure injection. Network failure tests verify OTP reporting format instead.
-- `check_elixir` reads `System.version()` (the running BEAM) — PATH-based fake Elixir
-  versions have no effect. The Elixir version test verifies the check produces clear output.
-- `check_java` ignores exit code (`{out, _}` pattern) — a fake java always shows ✓.
-  The java test verifies the check is present and reports useful version info.
-- `xcrun` and `java` share `/usr/bin` with `dirname`/`basename` used by mise/asdf elixir
-  launcher scripts. Filtering `/usr/bin` from PATH crashes the subprocess. Tests for these
-  tools verify the success path format instead of injecting a missing-tool failure.
+**Database access**
+- Filter in SQL, not in Elixir: `from(u in User, where: u.active)` —
+  not `Repo.all(User) |> Enum.filter(& &1.active)`.
+- No N+1 in `Enum.map`: don't `Enum.map(ids, &Repo.get(...))`. Use `Repo.all(from … where: id in ^ids)`.
+- Don't write a GenServer whose entire job is `Map.get`/`Map.put` on state —
+  use ETS, Agent, or a struct passed by value.
 
-## Common pitfalls
+**Maps**
+- Pick one key type per map. Don't `Map.get(m, :key) || Map.get(m, "key")` —
+  normalize once at the boundary.
+- Iterate the map directly. Not `Map.keys(m) |> Enum.map(fn k -> m[k] end)`.
 
-See [`common_fixes.md`](common_fixes.md) for a running log of diagnosed bugs and their
-fixes — consult it first when hitting silent crashes or unexpected BEAM behavior.
+**Enum / list idioms** — use the function that exists:
+- `Enum.reject(&is_nil/1)`     not `Enum.filter(&(&1 != nil))`
+- `Enum.empty?(x)`             not `length(x) == 0`
+- `List.last(x)` / `Enum.at(x, -1)` not `Enum.at(x, length(x) - 1)`
+- `Map.new/2`                  not `Enum.reduce(%{}, fn ..., &Map.put/3)`
+- `Enum.into(list, %{})`       only if you actually have a Collectable target;
+  for a plain literal target it's just `Map.new`.
+- `Enum.filter`                not `Enum.flat_map(fn x -> if cond, do: [x], else: [] end)`
+- `Enum.sum`                   not a hand-rolled reduce with `+`
+- `Enum.max` / `Kernel.max`    not `if a > b, do: a, else: b`
+- `Enum.sort(list, :desc)`     not `Enum.sort(list) |> Enum.reverse()`
+- `Enum.min(list)`             not `Enum.sort(list) |> Enum.at(0)`
+- `Enum.map_join(list, sep, &f/1)` not `Enum.map(list, &f/1) |> Enum.join(sep)`
 
-## User issues log
+**`with` blocks**
+- No identity `else` clause. `with :ok <- foo() do :ok end` — drop the
+  `else err -> err` part.
 
-See [`user_issues.md`](user_issues.md) for a record of real issues encountered by
-beta users, their root causes, and fixes applied. Read this before working on setup,
-deployment, or tooling problems — the same issues recur, especially for Nix users.
-User alias "Nova" = macOS + Nix-managed toolchain throughout.
+**Strings**
+- `String.length(s)` not `length(String.graphemes(s))`.
+- For counting specific ASCII chars, prefer `:binary.matches/2` over graphemes.
+- No manual string reverse via graphemes + reverse + join — use `String.reverse/1`.
 
-## Key files
+**Paths**
+- `Application.app_dir(:my_app, "priv/...")` over `Path.expand("...priv...", __DIR__)`.
+  The Mix-task code in `mob_dev` is an exception — it needs cwd-relative paths
+  for the *user's* project.
 
-- `lib/mob/screen.ex` — GenServer wrapper, lifecycle callbacks
-- `lib/mob/socket.ex` — assigns + internal mob state
-- `lib/mob/renderer.ex` — walks component tree, issues NIF calls
-- `lib/mob/dist.ex` — platform-aware distribution startup
-- `src/mob_nif.erl` — Erlang NIF stub (declares all NIF functions)
-- `ios/mob_nif.m` — iOS NIF implementation (SwiftUI bridge)
-- `android/jni/mob_nif.c` — Android NIF implementation (JNI bridge)
-- `ios/mob_beam.m` — iOS BEAM launcher
-- `android/jni/mob_beam.c` — Android BEAM launcher
+**Docs and comments**
+- No "This module provides functionality for..." moduledoc. State *why* it
+  exists or what's surprising; if there's nothing to say, omit it.
+- No obvious comments (`# Fetch the user` above `Repo.get(User, id)`).
+- No narrator comments (`# We need to...`, `# Here we...`).
+- No step comments (`# Step 1: Do X`, `# Step 2: Do Y`) — function names cover that.
+- No `@doc false` on a `defp` — private already means undocumented.
+- Boilerplate `## Parameters / ## Returns` sections are noise unless the
+  parameters are non-obvious.
+
+**Code shape**
+- Don't shadow `Kernel` functions with local variables named `length`, `min`,
+  `max`, `node`, etc.
+- Don't rebind a parameter inside the function body. Pick a new name.
+- Don't write `x = foo(); x` at the end of a function — just `foo()`.
+- Don't extract `[a, b] = list` only to immediately rebuild `[a, b]`.
+- Use the same name for the same parameter across all clauses of a function.
+
+> **Periodic check:** `ex_slop` and the related (but heavier) [`credence`](https://hex.pm/packages/credence)
+> linter add new AI-pattern checks regularly. Both ecosystems are young —
+> when something here feels stale or you spot a new ExSlop release, skim
+> the changelogs and update this section. Credence has ~70 rules ExSlop
+> doesn't port yet; if any get backported (or if `credence` becomes worth
+> wiring in alongside Credo), revisit `mob/CLAUDE.md` and the deps lists.
+
+## Keep this file up to date
+
+The next agent's first decision will be informed by this file. Stale guidance
+here causes wrong decisions everywhere downstream.
+
+When you change something this doc describes — repo topology, conventions,
+gotchas, a new piece of CLI surface area, a deprecated workflow — **update
+this file in the same commit**. Not in a follow-up. The history of "I'll fix
+the docs later" is that it doesn't happen.
+
+If you discover a gotcha that bit you — something that should have been on the
+pre-empt list but wasn't — add it to rule #N+1 with a one-line summary and a
+link to the commit/test that demonstrates it. Future you will thank present
+you.
 
 ---
 > Source: [GenericJam/mob](https://github.com/GenericJam/mob) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
