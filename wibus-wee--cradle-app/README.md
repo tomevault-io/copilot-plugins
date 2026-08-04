@@ -1,19 +1,19 @@
 # cradle-app
 
-> Source: [wibus-wee/cradle-app](https://github.com/wibus-wee/cradle-app). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [wibus-wee/cradle-app](https://github.com/wibus-wee/cradle-app). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 🔧 One layer above your AI tools. Your AI coding tools are brilliant. Managing them is a mess. :electron: Cradle is the command center that coordinates all of them.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [wibus-wee/cradle-app](https://github.com/wibus-wee/cradle-app).
+Original source: `CLAUDE.md` in [wibus-wee/cradle-app](https://github.com/wibus-wee/cradle-app).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
