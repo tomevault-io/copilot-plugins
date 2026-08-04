@@ -1,0 +1,44 @@
+{
+  "name": "obsidian-mermaid-flow",
+  "owner": "THANSHEER",
+  "repo": "obsidian-mermaid-flow",
+  "description": "Visual drag-and-drop WYSIWYG editor for Mermaid flowcharts inside Obsidian \u2014 build and rearrange diagrams by moving nodes and drawing connections, no Mermaid syntax required. Edits round-trip safely back to clean Mermaid code.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/THANSHEER/obsidian-mermaid-flow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T15:50:48Z"
+}
