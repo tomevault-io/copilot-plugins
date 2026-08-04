@@ -1,0 +1,678 @@
+## mixcut-windows
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## 项目概述
+
+MixCut Windows 版 —— macOS 原生应用 [MixCut](https://github.com/RoshanGH/mixed_cut) 的 Windows 移植版，
+功能完整对齐。面向广告投放团队的 AI 视频混剪工具：导入广告素材，AI 按语义切分镜头并标注类型，
+再智能排列组合生成多条差异化混剪广告。
+
+技术栈：**C# + WPF + .NET 8**（`net8.0-windows`），目标系统 Windows 10 及以上（x64）。
+
+---
+
+## 🥇 最高原则：商业化 ToC 软件标准（一切环节的总闸 ⚠️⚠️⚠️）
+
+**MixCut Windows 不是工程 demo、不是内部工具、不是「能跑就行」的 MVP。它是一款最终要卖给真实付费用户的 ToC 桌面软件，每一个环节都必须按商业化产品的标准来要求。**
+
+> 「无论是哪一个功能，无论写哪一个文档，最终目标是一定要以一个商业化 ToC 软件的要求来要求每一个环节。」—— 项目用户原话（2026-05-29）
+
+### 适用范围（每一个环节都要套用这把尺）
+
+| 环节 | 商业化 ToC 标准的具体含义 |
+|---|---|
+| **新功能** | 必须达到本文件 §「商用 C 端软件丝滑标准」全部 10 条；否则不算完成 |
+| **Bug 修复** | 修一个不能改坏三个；必须自验证再让用户测；故障描述要翻译成人话 |
+| **UI / 交互** | 像剪映 / Final Cut Pro 一样丝滑，没有静默成功 / 静默失败 / 卡顿 / 神秘消失的窗口 |
+| **错误提示** | 不许把 stack trace / JsonException / ExitCode=-XXX 直接丢用户看；必须翻译为人能看懂的描述 + 重试入口 |
+| **进度反馈** | 任何 >1s 的操作必须有可视进度；多阶段任务显示「N/M 当前阶段」；细到单个视频/单个文件 |
+| **依赖下载** | 国内国外都能用 —— 没国内可访问源就不做依赖下载化（用打包代替）|
+| **安装包** | 装上即跑，不挑机器；不能依赖目标机器装过 VS / VC++ Redist / .NET SDK |
+| **文档（README / Release notes / Issues）** | 用户读得懂；不堆英文报错；Gitee / GitHub 各自当独立发布渠道，不互相引导 |
+| **发版 notes** | 用户视角讲「新增了什么 / 修了什么 / 怎么下载」；不是 commit log 复制粘贴 |
+| **代码注释 / 错误码** | 给未来维护者读 —— 解释为什么这么做，而不是这是什么 |
+| **测试与回归** | 改完自验证再让用户测（详见 §「自我验证铁律」）；发版前在干净环境跑完整 e2e |
+| **issue / PR 描述** | 让 Windows 端 / Mac 端 / 国内代理跑步的工程师都能照着复现 + 实施 |
+
+### 判定原则（每次完成任务前先自问）
+
+1. **这个完成度，敢卖钱吗？** 不敢 → 没完成。
+2. **真实用户首次打开就能用吗？** 需要他改注册表 / 装 VC Redist / 加白名单 → 没完成。
+3. **国内国外用户都能正常下载与更新吗？** 一边断了 → 没完成。
+4. **如果是我自己付了 199 元下载的，我会满意这一段体验吗？** 不会 → 没完成。
+5. **如果出错了，用户看屏幕能不能知道发生了什么 + 下一步怎么办？** 不能 → 没完成。
+
+### 红线（任何一条踩中即视为不达标）
+
+- ❌ 发版前没在干净 Win 10/11 环境跑完整 e2e（导入 → ASR → 切分 → 生成方案 → 导出 → 播放）
+- ❌ 任何用户面板上能看到的英文 stack trace / 原生报错码
+- ❌ 「能跑通」就汇报完成（必须达到 §「商用 C 端软件丝滑标准」基线）
+- ❌ 国内 Gitee 渠道引导用户去 GitHub 下载
+- ❌ Release notes / issue 描述写得像 commit log，不是给最终用户看的
+- ❌ 任何「让用户当第一测试者」的偷懒做法
+
+**本节是整个 CLAUDE.md 的总闸 —— 当下游章节的规则与本节冲突时，本节优先。当下游规则需要解释「为什么这么严」，回到本节查就行。**
+
+---
+
+## 🪟 目标平台铁律：Windows 10 + Windows 11 双系统兼容（必须 ⚠️⚠️⚠️）
+
+**本项目目标用户机器是 Windows 10 和 Windows 11（x64）。任何改动、任何依赖、任何发版都必须保证：用户下载安装包 → 双击 setup.exe → 装完即用，Win 10 / Win 11 双平台都不允许出现「装完不能跑」「需要装别的东西」「需要改注册表」「需要装防火墙白名单」等情况。**
+
+> 「这个项目要兼容 Win 10 系统和 Win 11 系统」—— 项目用户原话（2026-05-29）
+
+### 支持范围
+
+| 系统 | 最低版本 | 架构 | 状态 |
+|---|---|---|---|
+| **Windows 10** | 1809（17763）及以上 | x64 | ✅ 必须支持 |
+| **Windows 11** | 全部版本 | x64 | ✅ 必须支持 |
+| Windows 10 1809 之前 | n/a | n/a | ❌ 不支持（.NET 8 硬性下限） |
+| Windows 7 / 8 / 8.1 | n/a | n/a | ❌ 不支持 |
+| Windows ARM64 | n/a | n/a | ❌ 暂不支持 |
+| Windows 10/11 N 版（不含 Media Pack） | n/a | n/a | ✅ 导出/缩略图/**预览**均走自带 ffmpeg（v0.7.x 预览已统一到 `FfmpegFramePlayer` 进程外裸帧管道，不再依赖系统编解码器），N 版 / 缺 HEVC 扩展机器同样可用；有 N 版机时仍建议真机 e2e 兜底 |
+
+> .NET 8 官方最低支持 Win 10 1809。低于此版本系统市占率 < 1%，不在支持范围。
+
+### 装上即跑（铁律）
+
+用户首次安装后，**必须**不依赖以下任何外部条件就能跑全部核心功能：
+
+| 项 | 必须自带 | 不依赖用户机器有 |
+|---|---|---|
+| .NET 8 Runtime | ✅ 已 self-contained 打包 | ❌ 不要求用户装 .NET Desktop Runtime |
+| VC++ Redistributable (2015-2022) | ✅ publish/bin/ 已含 6 个 VC Runtime DLL | ❌ 不要求用户装 VC++ Redist |
+| OpenMP runtime (vcomp140) | ✅ publish/bin/ 已含 | ❌ 不要求用户装 Office |
+| FFmpeg / ffprobe / whisper-cli | ✅ publish/bin/ 已含 | ❌ 不要求用户装 FFmpeg |
+| 视频解码（HEVC/VP9/AV1 等） | ✅ 导出/缩略图/预览**全部**走自带 ffmpeg（v0.7.x 起预览也已统一，见 §兼容性总纲） | ❌ 不要求用户装系统编解码器 / HEVC 扩展 / VLC |
+| Whisper 语音模型（按需下载） | ⚠️ 首次用 ASR 时下载 | ✅ 应用内有下载进度 UI + 国内镜像源 |
+
+> 注：v0.6.1 已移除 LibVLC（NuGet 包 + VlcBootstrap.cs + 365 plugins，见 commit `af0ddd7`）；v0.7.x 预览统一到自带 ffmpeg 进程外裸帧管道（`FfmpegFramePlayer`，与导出同源、不碰系统编解码器）。§兼容性总纲的「预览掉队」待修项**已闭环**。
+
+发版前自检 grep 关键字：`[VcRuntimeDiag] all 6 VC Runtime DLLs present`、`[EnvDiag] pass=True`。
+
+### 发版前 Win 10/11 双平台兼容性 checklist
+
+**每次改动引入新 native 依赖（LibVLC、ffmpeg 升级、whisper 升级等）必须跑完**：
+
+- [ ] **静态分析**：对每个**新引入的 native dll** 跑 PE import 表扫描（`Get-PeImports`），列所有依赖 dll → 对比 publish/bin/ 和 publish/libvlc/ 是否完备 → 缺啥补啥（参考 v0.4.1 vcomp140 沉淀方法）
+- [ ] **构建机自验**：远端 publish + 启动 + grep 启动期诊断日志 `[VcRuntimeDiag]` `[EnvDiag]` 全绿
+- [ ] **干净 Win 10 e2e**（**有干净机时必跑**）：装安装包 → 启动 → 完整跑导入 → ASR → 切分 → 方案生成 → 导出 → 用系统播放器播一遍
+- [ ] **干净 Win 11 e2e**（**有干净机时必跑**）：同上
+- [ ] **N 版 Win 10/11 e2e**（**有 N 版机时必跑**）：N 版不含 Windows Media Foundation，确认导出/缩略图/**预览**（v0.7.x 起均走自带 ffmpeg）都不撞 mfplat.dll、正常出画
+- [ ] **无干净机时**：dumpbin 静态分析 + 构建机用「新用户账号 + 不继承 VC++ Redist」模拟干净环境跑
+
+### 已知容易撞双平台兼容性的雷区（动相关代码时必查）
+
+| 雷区 | 表现 | 防范 |
+|---|---|---|
+| **VC Runtime 缺失** | 干净机启动崩，`ExitCode=-1073741515` (`STATUS_DLL_NOT_FOUND`) | v0.3.0 沉淀：必带 6 个 VC Runtime DLL |
+| **vcomp140 缺失** | ggml-cpu / 部分 OpenMP 加速代码崩 | v0.4.0 沉淀：必带 vcomp140 + concrt140 |
+| **ffmpeg codec-private 选项** | N 卡 / I 卡 / A 卡 不同 GPU 路径行为不一致 | v0.4.0 沉淀：构建机只能测一种 GPU，其它 GPU 路径需用户实测 |
+| ~~预览依赖系统编解码器~~ ✅ 已解决 | （历史）HEVC / iPhone「高效」格式 hover 预览曾报 `0xC00D109B 该格式可能需要系统媒体编解码支持` | v0.7.x 起 `InlineVideoPlayer` 已改走自带 ffmpeg（`FfmpegFramePlayer` 进程外裸帧管道），与导出同源、不碰系统编解码器 —— 遗留架构不一致已消除 |
+| ~~WPF MediaElement seek 闪帧~~ ✅ 已解决 | （历史）hover 播放分镜先闪视频第 0 秒 | v0.3.0 行为；v0.6.0 曾用 LibVLC 根治但引入卡死→v0.6.1 退回 MediaElement 接受闪帧；v0.7.x 预览统一到自带 ffmpeg 裸帧管道后彻底消除（首帧就绪前不显示播放层，见 §H） |
+| **Windows SmartScreen 拦截** | 首次启动「Windows 已保护你的电脑」拦 | 长期：买 EV 代码签名证书；短期：用户点「仍要运行」 |
+| **antivirus 误报** | whisper-cli / ffmpeg 被识为可疑 | 短期容忍；发版 notes 提示用户加白名单 |
+| **Win 10 1809 之前** | .NET 8 安装失败 | 不在支持范围，安装包不主动检查（用户极少） |
+
+### 反模式（绝对禁止）
+
+- ❌ 引入新 native 依赖（如换 ffmpeg / 升级 whisper / 加新 codec）后不做 dumpbin 静态分析就发版
+- ❌ 假设「构建机能跑 = 用户机能跑」—— 构建机已有 VS / VC++ Redist / .NET SDK，远比干净用户机器宽松
+- ❌ 发版前没跑过干净 Win 10 e2e（**有干净机时**）
+- ❌ Release notes 写「请先装 VC++ Redist」/「请先装 .NET Runtime」—— 这违反「装上即跑」原则
+- ❌ 提示用户「请把 X 加入防火墙白名单」/「请关闭杀软」—— 短期容忍提示但长期必须自己签证书
+
+---
+
+## 🧬 兼容性总纲：核心能力「自带 · 自控 · 与系统解耦」（一切技术决策的出发点 ⚠️⚠️⚠️）
+
+> 「永远都会有兼容性的问题，你需要自己去思考……既然是 Windows 环境下要支持 Win10/11（不含 Win7）的商业化 ToC 软件，那么它应该是个什么样的标准……我们所做的一切的一切都是以这个为出发点的。」—— 项目用户原话（2026-06-05）
+
+本节回答一个比任何单个 bug 更根本的问题：**作为一款只跑在 Win10/11（不含 Win7）的商业化 ToC 桌面软件，遇到「兼容性」类问题（能不能播 / 能不能导 / 能不能装 / 能不能跑）时，判断标准到底是什么。** §「装上即跑」「双平台兼容」都只是本总纲的推论。遇到任何新的兼容性问题，先回这一节量，而不是临时拍方案。
+
+### 一条法则
+
+> **凡是核心功能依赖的能力（解码 / 编码 / 运行库 / 字体 / GPU 路径 / 任何 native 能力），一律由我们自带、自己控制版本、与导出/处理同源；绝不把「能不能用」赌在「用户机器恰好装了某个系统组件 / 商店扩展 / 编解码器 / 播放器」上。**
+
+四个推论（遇到兼容问题按此顺序自查）：
+
+1. **不信任目标机器**：基线是 Win10/11 的「默认裸装状态」——没装过 VS、没装过 VC++ Redist、没装过 HEVC 扩展、没装过任何播放器、没有独显。凡是这个状态下不保证存在的东西，一律不许依赖。
+2. **自带引擎、与系统解耦**：媒体能力（解码 / 编码）一律走我们打包的 **FFmpeg**，**绝不调用 Windows Media Foundation / 系统编解码器 / 微软商店扩展**。操作系统只负责给窗口和画像素，不负责「懂格式」。
+3. **同源一致（所见即所得）**：预览、缩略图、导出**共用同一套解码 / 编码栈**。用户预览看到什么，导出就是什么——这是商业级软件的基本盘，也根除「预览能播但导出失败」「导出成功但预览打不开」这类自相矛盾。
+4. **降级而非报错**：万一某条路真走不通，必须**优雅降级 + 人话提示 + 可恢复入口**，绝不把 `0xC00D109B` / stack trace / exit code 这种系统原文丢用户脸上（呼应 §最高原则红线）。
+
+### worked example：拿这把尺量两个真实问题（2026-06-05 用户反馈）
+
+| 问题 | 错误现象 | 用总纲一量 | 正确处理 |
+|---|---|---|---|
+| **预览播放** | `0xC00D109B 该格式可能需要系统媒体编解码支持`（HEVC / iPhone「高效」格式） | ❌ 违反推论 2：hover 预览还在用 WPF MediaElement → Windows Media Foundation，赌用户装了 HEVC 扩展。这是**全工程唯一**还依赖系统编解码器的一环 | 预览改走自带 FFmpeg 解码（和导出同源），与剪映 / Premiere / DaVinci 同架构 |
+| **导出失败** | `Unrecognized option 'allow_sw'` exit -1414549496 | ✅ 自带 ffmpeg 方向没错，是**用户在跑 v0.4.1 之前的旧版**；当前代码早删该选项（`FFmpegRunner.cs` 只剩注释） | 引导用户更新到最新版即可；反过来印证「自带引擎 + 同源」方向正确 |
+
+**关键洞察**：导出和缩略图能正常处理 HEVC，**正因为**它们走自带 FFmpeg；预览之所以曾崩，**正因为**它当时是唯一掉队、还在依赖系统编解码器的一环。把它拉回总纲即根治——这不是「要不要做」，是消除一处遗留的架构不一致。
+
+> ✅ **现状（v0.7.x 起，此结论已落地）**：预览已改走自带 ffmpeg 进程外裸帧管道（`FfmpegFramePlayer` + `InlineVideoPlayer`），与导出/缩略图同源，全工程再无任何一环依赖系统编解码器。上面这段是「拿总纲量出问题→落地修复」的完整范例，保留作教学，不再是未修项。
+
+### 历史教训（这一环为什么曾经掉队）
+
+v0.6.0 曾用 LibVLCSharp 替换 MediaElement（**方向对**：自带解码引擎），但实现写错——每次 hover 都重建整个 VLC 生命周期，UI 线程同步阻塞卡死 0.5-2s；v0.6.1 退回 MediaElement「消灭卡死、接受不能预览」，**为了修一个实现 bug，退回了违反总纲的系统编解码方案**，把兼容债留了一版。**v0.7.x 最终按正确姿势收口**：自带 ffmpeg 但用**常驻帧泵 + 按帧节流**（不是 per-hover 重建整个引擎），既自带解码又不卡死。教训印证：**实现 bug 不该用「放弃正确架构」来修**——卡死的根因是「per-hover 重建」，不是「自带引擎」本身。
+
+### 反模式（违反总纲即不达标）
+
+- ❌ 任何核心能力依赖「用户机器恰好装了 X」（系统编解码器 / 商店扩展 / 运行库 / 播放器 / 特定显卡）
+- ❌ 预览、缩略图、导出用**不同**的解码 / 编码栈（必然出现「能预览不能导 / 能导不能预览」的自相矛盾）
+- ❌ 为了修一个实现 bug（卡顿 / 崩溃）退回到违反总纲的方案（如退回系统编解码器），把兼容债转嫁给用户机器
+- ❌ 把系统错误码（`0xC00D109B` 等）直接展示给用户，而不是降级 + 人话提示 + 重试 / 替代入口
+
+---
+
+## 本地开发工作流（关键）
+
+**代码编写、构建、运行、测试全部在这台 Windows 电脑上本地进行**（不再走 Mac 编码 + SSH 到 Windows 的旧工作流）。
+所有工具、命令、日志都在本机直接操作，无需 Tailscale / SSH / sync。
+
+- **项目目录**：`D:\Dev\mixcut-windows`（即当前工作目录）
+- **.NET SDK**：`C:\Users\mlamp\dotnet\dotnet.exe`（8.0.x，未加入系统 PATH，用全路径调用）
+- **主 shell**：PowerShell（另有 Bash 工具可跑 POSIX 脚本）
+
+### 构建（首选构建脚本，绕开 WPF MarkupCompile 卡死）
+
+WPF `dotnet build/publish` 会不定期卡死在 MarkupCompile（详见记忆 `wpf-build-hang-fix`）。
+`MixCut.csproj` 已加 `<AlwaysCompileMarkupFilesInSeparateDomain>false</AlwaysCompileMarkupFilesInSeparateDomain>` 根治，
+仍以构建脚本兜底（清 obj/bin + 关编译服务器 + 超时重试）：
+
+```powershell
+# Debug 构建（UI/逻辑快速迭代）
+scripts\win-build.ps1
+# self-contained 发布（更新 publish\ 下的可运行 EXE）
+scripts\win-build.ps1 -Publish
+```
+
+脚本卡死时的逃生阀（直接前台调 dotnet + 清整个 obj/bin）见记忆 `wpf-build-hang-fix`。
+纯语法/类型检查可直接 `dotnet build src\MixCut\MixCut.csproj -c Debug`（本机是 Windows，无需旧 Mac 交叉编译的 `-p:EnableWindowsTargeting=true` 开关）。
+
+### 构建定时检查铁律（每 1 分钟必查，绝不傻等超时 ⚠️⚠️⚠️）
+
+**任何 dotnet build / publish 一律后台启动 + 每 60 秒检查一次进度；发现卡死立即杀掉重来，严禁挂着几分钟超时干等。**
+（2026-07-24 用户暴怒沉淀：构建卡死时我连续两次傻等 240~300 秒超时，浪费几十分钟。）
+
+标准流程：
+
+```powershell
+# 1) 后台启动，输出重定向到文件
+$log = "$env:TEMP\mixcut-build.log"
+$p = Start-Process C:\Users\mlamp\dotnet\dotnet.exe -ArgumentList 'build','D:\Dev\mixcut-windows\src\MixCut\MixCut.csproj','-c','Debug','-nodeReuse:false','-p:UseSharedCompilation=false','-v:m' -RedirectStandardOutput $log -NoNewWindow -PassThru
+# 2) 每 60 秒查一次：进程退出→看结果；没退出→对比 CPU 时间增量
+#    60 秒内 CPU 增量 < 2 秒 ≈ MarkupCompile 卡死 → Stop-Process + 清 obj → 重跑
+```
+
+判卡标准（满足即杀，不要犹豫）：
+- 进程 60 秒内 CPU 时间几乎不涨（增量 < 2 秒），或
+- 输出日志文件 60 秒内大小无变化且已过 Restore 阶段
+
+卡死处理：`Stop-Process` 全部 dotnet 构建进程 → `Remove-Item -Recurse -Force src\MixCut\obj` → 重跑（正常一次构建 20~60 秒就该完）。连续两次卡死 → 连 bin 一起清。
+
+反模式（绝对禁止）：
+- ❌ 给构建命令挂 240s/300s 超时然后干等它到点
+- ❌ 卡死后不清 obj 直接原样重跑（大概率复卡）
+
+### 运行 + 自验证
+
+改完 → 构建 → **确认 publish\MixCut.exe（或 bin\Debug 下 EXE）的 LastWriteTime 晚于本次改动** → 启动 → 读日志实证。
+详见 §「自我验证铁律」与记忆 `mixcut-ui-iteration-workflow`（截图助手在 `.uiwork\`）、`stale-publish-verify-before-user-test`。
+
+```powershell
+Get-Process MixCut -ErrorAction SilentlyContinue | Stop-Process -Force
+Start-Process D:\Dev\mixcut-windows\publish\MixCut.exe   # 或 src\MixCut\bin\Debug\net8.0-windows\MixCut.exe
+Start-Sleep -Seconds 12   # 等恢复上次项目 + 缩略图
+```
+
+### 读取运行日志
+
+应用日志写入 `%APPDATA%\MixCut\logs\mixcut-<date>.log`（Serilog 按天滚动，同一天累积 —— 过滤最后一个 `MixCut 启动` 标记之后的行）。
+排查问题直接读该文件：`Get-Content <最新log> | Select-String -Pattern "<诊断 tag>"`。
+
+## 架构（MVVM + Service Layer，对齐 macOS 版）
+
+```
+src/MixCut/
+├── App.xaml(.cs)   入口 + 泛型主机（DI / 日志 / 生命周期）
+├── Models/         EF Core 实体（对应 SwiftData @Model）
+├── ViewModels/     CommunityToolkit.Mvvm ObservableObject
+├── Views/          WPF 窗口与用户控件（XAML）
+├── Services/       业务逻辑，async/await，无 UI 依赖
+├── Utilities/      AppPaths 等工具类
+└── Resources/      AI Prompt 模板 + 内置二进制（FFmpeg/Whisper）
+```
+
+macOS → Windows 技术映射：SwiftUI→WPF、SwiftData→EF Core 8 + SQLite、
+`@Observable`→CommunityToolkit.Mvvm、AVFoundation 播放→LibVLCSharp、
+`Process` 调 FFmpeg/Whisper→`System.Diagnostics.Process`。
+
+## 数据目录（Windows）
+
+集中由 `Utilities/AppPaths.cs` 管理，根目录 `%APPDATA%\MixCut\`：
+`logs\` 日志、`Videos\{hash}\` 按哈希全局共享的视频、`mixcut.db` SQLite 数据库。
+
+## 移植约定（macOS Swift → Windows C#）
+
+- Swift `actor`/`class` → C# 普通 `class`，`async/await`，方法返回 `Task`，可取消的接 `CancellationToken`
+- 日志：构造注入 `ILogger<T>`；服务在 `App.xaml.cs` 的 `ConfigureServices` 登记
+- 服务层均为单例；数据访问用 `IDbContextFactory<MixCutDbContext>` 按操作建短上下文
+- ViewModel：`CommunityToolkit.Mvvm.ObservableObject` + `[ObservableProperty]`/`[RelayCommand]`，
+  集合用 `ObservableCollection<T>`；改动数据后保存并**重新查询集合**刷新 UI
+  （对齐 macOS 版 `fetchProjects()`/`applyFilter()` 模式）
+- EF 实体保持纯 POCO（不加 INPC）；列表项变更靠重新查询体现
+- Prompt 模板、边界优化算法、AI 提示词与 macOS 版逐行对齐，不改逻辑
+
+## 开发阶段
+
+- Phase 0 骨架 ✓ / Phase 1 数据层 ✓ / Phase 2-3 基础设施+服务层 ✓
+- 进行中：Phase 4 ViewModel → Phase 5 视图(XAML) → Phase 6 联调 → Phase 7 打包
+- Phase 7 需获取 Windows 版 FFmpeg/ffprobe/whisper-cli 二进制放入 `src/MixCut/Resources/bin/`
+  （csproj 复制到输出 `bin/`，由 `Infrastructure/BundledBinaries.cs` 定位）
+
+---
+
+## 不要在修改过程中破坏已有功能（最重要 ⚠️⚠️⚠️）
+
+修改任何代码前，**必须先识别该文件/模块已有的功能点**；改完后这些功能必须依然完整可用。**严禁为了修一个问题而误伤相邻功能**。对齐 macOS commit `9a43cd0` + `6530fd6` 的教训。
+
+### 强制 SOP（每次代码改动都必走）
+1. **改动前**：通读要改的文件 + 周边文件（相同视图树），用一句话列出"这里能做的事"（点击 / 双击 / 编辑 / 拖拽 / 右键菜单 / 键盘快捷键 / 项目切换联动 等等）。
+2. **改动中**：每次修改只针对当前任务，**不要顺手"重构"周边代码**。
+3. **改动后**：人工跑一遍受影响的视图（或如不能跑就读 XAML 走一遍渲染逻辑），**逐项验证**第 1 步列出的能力是否都还在。
+4. **疑似删改**：不确定某段代码的作用时，先查 `git blame` / `git log`，不要随意删改。
+
+### 已知容易被误伤的功能清单（动相关文件时必须回归验证）
+- **素材导入页**：拖拽导入、`+ 选择文件` 按钮、卡片右键菜单（复制文件名 / 在资源管理器中显示 / 删除）、台词面板滚动、卡片内联视频播放（hover 切换播放器/缩略图）
+- **分镜素材库**：多选模式（全选/反选/清空）、批量导出（编号 + 命名规则）、批量删除、卡片右键菜单、起点/终点 ±0.5s 微调
+- **分镜库 / 项目概览 / 素材导入**：**切换项目时**所有数据必须重新加载（`IProjectView.LoadProject(project)` 是入口，不要绕过）
+- **导出**：默认 H.264 硬件加速、分镜导出第一帧不黑屏（`trim filter + setpts`）、批量导出记忆目录
+- **应用启动恢复上次项目**：`AppSettings.LastSelectedProjectId`，初始化 MainWindow 时恢复
+- **缩略图全局缓存**：`ThumbnailCache.Shared`，不要重新引入 `new BitmapImage()` 直接同步加载
+- **Toast / InlineBanner / SkeletonView**：全局共享组件，新视图需要错误/loading 提示时复用
+- **侧边栏依赖警告**：API Key / Whisper 模型未配置时的橙色 ⚠ 徽章
+- **应用启动崩溃捕获**：`App.xaml.cs` 三个 unhandled exception hook（DispatcherUnhandledException / AppDomain.UnhandledException / TaskScheduler.UnobservedTaskException）
+- **ChildProcessTracker**：所有 `Process.Start()` 都必须 `AddProcess()`，否则 MixCut 退出后子进程变孤儿
+
+### 当出现 bug 时不要"修一个改坏三个"
+本项目（含 Mac 原版）已多次出现"修一个 bug 把别的功能改坏"。**当改动跨越多个文件 / 改了核心视图时，必须用第 3 步的人工验证兜底**，不要假设 WPF 数据绑定会保护你。
+
+### 切换项目联动（铁律 ⚠️）
+
+所有依赖项目数据的视图必须实现 `IProjectView.LoadProject(Project)` 接口，且：
+- **每次 `LoadProject` 调用都重新查询数据**（不要假设上次的 `_segments`/`_strategies` 还有效）
+- **重置该视图所有可变状态**（多选、筛选、滚动位置等）—— 例如 `SegmentLibraryView.LoadProject` 必须 `SetSelectionMode(false) + ClearSelection()`
+- `MainWindow.UpdateContent` 是唯一调用 `LoadProject` 的入口；不要在视图内部自行监听 `SelectedProject` 变化
+
+不联动的常见症状：从项目 A 切到 B 看到的还是 A 的数据；从 B 切回 A 时多选状态泄露过来；统计数字不刷新。
+
+---
+
+## 自我验证铁律（最重要 ⚠️⚠️⚠️）
+
+**改完代码必须自己先跑通验证，再让用户测试。** 严禁把用户当第一测试者。
+本项目反复出现「改完没自验 → 用户打开发现还是坏 → 我再改 → 越改越多 bug」的循环，必须靠流程兜住。
+
+### 标准自验证流水线（已铺好，无脑跑）
+
+1. 本地构建：`scripts\win-build.ps1`（Debug 迭代）或 `scripts\win-build.ps1 -Publish`（发布） → 过
+2. 启动 EXE：`Stop-Process MixCut → Start-Process publish\MixCut.exe（或 bin\Debug 下 EXE）→ Start-Sleep 12`
+3. 应用按 `AppSettings.LastNavItem` 自动恢复到上次的视图 → 触发该视图的诊断日志
+4. 读日志关键字：`Get-Content <最新log> | Select-String -Pattern "<诊断 tag>"`
+5. **看到具体计数/状态全对，且无 WRN/ERR 关联到刚改的功能，才算修好**
+
+### 强制规则
+
+- 编译过 ≠ 跑得起来 ≠ 功能对，**必须看运行日志中的实证**（数字、状态、时间），不能凭直觉
+- 改任何关键路径要顺手打一行 `[FooDiag]` / `[FooRepair]` 日志，便于自验证 grep
+- 现有诊断 tag：`[ThumbDiag]`（缩略图汇总，应 `missing=0`）、`[ThumbRepair]`（缩略图补齐，应无 WRN）、`[HwProbe]`（硬件加速探测）
+- 日志里有 WRN/ERR 跟刚改的功能相关 → **继续排查**，不许"留 TODO 再说"
+
+### 反模式（绝对禁止）
+
+- ❌ 改完只跑 `dotnet build` 看到 0 错误就汇报"完成"
+- ❌ 让用户做第一个测试者，等用户报"还是不行"才回头查日志
+- ❌ 凭"应该没问题吧"判断功能是否好，不看日志实证
+
+---
+
+## FFmpeg 硬件加速适用范围（已锁死，不要乱改）
+
+| 场景 | hwaccel | 原因 |
+|---|---|---|
+| 缩略图提取 `-frames:v 1 -y x.jpg` | ❌ 不要加 | hardware frame 不能直接 encode 成 jpg，加上会 0 帧失败 —— **这是用户报「分镜卡片首帧黑屏」的真凶** |
+| 场景检测 `-vf scene,showinfo -f null` | ❌ 不要加 | scene filter 是 software filter，需要 hwdownload 才能配合，得不偿失 |
+| 视频片段裁剪（mp4 输出） | ✓ encoder 用 NVENC/QSV/AMF | 真正省 CPU 的场景，已通过 `HardwareEncoderProbe` smoke test |
+
+加 hwaccel / 硬件 encoder 前必须先确认：**hardware frame 能不能被下游 filter/encoder 直接消费**。不能就走 software，**不要顺手"统一加上"**。
+全局性的"统一优化"（如硬件加速、并发上限、超时时间）必须列出所有调用点逐一验证（参考"不要破坏已有功能"SOP）。
+
+---
+
+## 商用 C 端软件丝滑标准（所有 UI/UX 改动必读）
+
+MixCut 面向广告投放团队，目标是**像剪映/Final Cut Pro 一样丝滑的桌面工具**，不是技术 demo。
+每个新功能或修改 PR 都必须达到以下基线，否则不算完成。
+
+### 1. 进度反馈：永远不要让用户看着不动的界面
+
+- **任何耗时 > 1 秒**的操作都必须显示进度（百分比 / spinner / 阶段名）
+- **能算百分比的就算**（whisper `--print-progress`、ffmpeg `time=`、HTTP `Content-Length`）；
+  算不出的用无限 `IsIndeterminate` 进度条
+- **多阶段任务**显示「当前阶段 / 总阶段」（如「2/4 语音识别中 42%」）
+- **细到单个视频/单个文件**的进度，不只是整体批次进度
+
+### 2. 状态可见：UI 永远清楚地告诉用户「在干嘛」
+
+- 处理中 / 完成 / 失败 / 已取消 四种状态都要**显著区分**（颜色 + 图标 + 文字）
+- 失败必须给**人能看懂的错误描述**（不是 `JsonException at line 42`）+ 重试按钮
+- 长时间等待的环节（如 whisper 跑大模型）显示**预估剩余时间**或至少 spinner，不要静默
+
+### 3. 操作反馈：每个点击都有视觉响应
+
+- 按钮 hover/pressed 状态明显
+- 卡片 hover 有 subtle 高亮（border / shadow / 微动）
+- 拖拽时整个 drop zone 高亮 + 显示「松手以导入」类提示
+- 提交/保存/删除等操作完成后用 **Toast / 微动效**告知结果（不要静默成功）
+
+### 4. 防错与可恢复：用户不会被坑
+
+- **进程孤儿**：所有外部子进程（whisper/ffmpeg）必须挂 Job Object，主进程死时一起死（见 `ChildProcessTracker`）
+- **崩溃捕获**：`App.xaml.cs` 三个 unhandled exception hook 必须保留，不让窗口神秘消失
+- **async void**：所有 `async void` 事件处理器必须 try/catch 包裹全部 body，异常不许逃逸
+- **状态恢复**：应用崩溃/强退后，下次启动自动把卡在「分析中」的视频状态重置（见 `ResetStaleAnalyzingStatus`）
+- **断点续传**：大文件下载（whisper 模型）支持 HTTP Range，断网重连续传，不重头来
+
+### 5. 性能：UI 永不卡顿
+
+- 长任务**绝对**不在 UI 线程跑，全部 `async/await`
+- 列表刷新避免整个 `ItemsSource` 替换（会重建播放器/破坏选中态）；
+  ImportView 例外：处理中只在 Phase 切换时重建，进度通过 INPC 更新
+- WPF binding 用 `INotifyPropertyChanged` 单字段更新，不要全量重渲染
+- 数据库访问用短生命周期 `DbContext`（per-operation），避免阻塞
+
+### 6. 资源调度：不抢自己
+
+- **whisper-cli 全局串行**（`SemaphoreSlim(1)`），独占 CPU，避免互相拖慢导致全部超时
+- 单 whisper 进程吃满 `Environment.ProcessorCount` 线程
+- whisper 超时**按视频时长动态计算**（`max(5min, duration × 4)`），不写死
+- 失败重试 1 次（whisper 偶发 hang，重试往往能过）
+
+### 7. 视觉品质：每个像素都讲究
+
+- 卡片圆角统一 8-10px，间距 8/12/16/24 几个挡，不乱来
+- 颜色用预定义（主色 #1D6BE5，绿 #2E8B57，橙 #C06F00，红 #D33A3A）
+- 字体大小 10/11/12/13/14 几个挡，不乱来
+- 状态切换有过渡动画（fade / scale），不闪现
+- 处理中遮罩用半透明 + 居中 spinner + 文字，不是大色块盖住
+
+### 8. 跨平台对齐（针对 Windows 移植）
+
+- macOS 版（[RoshanGH/mixed_cut](https://github.com/RoshanGH/mixed_cut)）是设计参考
+- 视觉差异允许（SF Symbol → emoji 等价物），交互流程必须对齐
+- Windows 特有的偏离（如 explorer.exe 取代 Finder）必须有合理理由
+
+### 9. 发布工作流
+
+- **publish** = 跑 `scripts\win-build.ps1 -Publish`（内部 `dotnet publish`）把 EXE 更新到 `D:\Dev\mixcut-windows\publish\`，
+  是开发循环的常规操作，每次代码改完自动跑（默认行为）
+- **发版** = GitHub Release / Gitee Release / 打 tag / 制作安装包，需用户明确确认
+- 两者不要混淆
+
+#### 双平台发版铁律（GitHub + Gitee 必须同步）
+
+仓库：
+- GitHub：`RoshanGH/mixcut-windows`（gh CLI 已登录，可直接操作）
+- Gitee：`jinxiushanhehao/mixcut-windows`（remote 名 `gitee`，SSH 已配置）
+
+每次发版**必须两个平台都推**，国内用户主要走 Gitee 渠道（GitHub 慢/被墙）。
+
+**分工（2026-07-24 用户再次确认）**：我负责**打包 + 双平台发 release（tag + notes）**；
+**安装包不上传任何地方**（不挂 GitHub release 附件、不传 Gitee 附件、不传 CN 服务器）——
+打包产物留在本机，由用户自己放到下载网页（下载网页维护另有人做）。
+release notes 里下载指向 **http://47.119.175.47/mixcut/**（该网址只允许出现在 release notes 里，README 与应用界面一律不放）。
+
+1. 改版本号：`MixCut.csproj` 三处（Version / AssemblyVersion / FileVersion）+ `installer/MixCut.iss` 的 `MyAppVersion`
+2. publish（带防卡参数直调 dotnet，见 §构建定时检查铁律；别用 build-installer.ps1 内置 publish）→ 冒烟：跑 publish\MixCut.exe，日志确认 `[VcRuntimeDiag] all 6` + `[EnvDiag] pass=True`
+3. 打安装包：`%LOCALAPPDATA%\Programs\Inno Setup 6\ISCC.exe installer\MixCut.iss`（单文件，DiskSpanning=no），**产物留本机不上传**
+4. commit + `git tag -a vX.Y.Z` → `git push origin main && git push origin vX.Y.Z`（GitHub 走 credential manager）→ `git push gitee main && git push gitee vX.Y.Z`（Gitee 走 HTTPS+token，**不要忘**）
+5. **两版 notes**：Gitee 版把 GitHub 链接换成 Gitee 链接（独立渠道原则，Gitee 不引导去 GitHub）
+6. 发 GitHub release：本机无 gh CLI，用 API（token 从 credential manager 取）；body 用 `[IO.File]::ReadAllText`（`Get-Content -Raw` 会 422）
+7. 发 Gitee release：**必须用 PowerShell `Invoke-RestMethod` + UTF8 字节 body**（curl 发中文必乱码）：
+   `Invoke-RestMethod -Body ([Text.Encoding]::UTF8.GetBytes($json)) -ContentType 'application/json; charset=utf-8'`
+   `GITEE_TOKEN` 在 `.env`（gitignored）
+
+反模式：
+- ❌ 只发 GitHub 不发 Gitee（国内用户拿不到）
+- ❌ 两边 tag 不一致 / 版本号不一致
+- ❌ 只 push main 不 push tag（release 会找不到 tag）
+- ❌ 把安装包上传到 release 附件 / CN 服务器（现行分工是只发 notes，包留本机给用户）
+
+#### Issue 只提 GitHub（不提 Gitee）⚠️
+
+**Release 必须双发，但 Issue 仅在 GitHub 提**。这是项目用户明确定的规则（2026-05-29 沉淀）。
+
+工作流：
+- 用 `gh issue create --repo RoshanGH/mixcut-windows ...` 提交
+- 不需要 `GITEE_TOKEN`，不需要双平台同步
+- 不必询问用户「要不要 Gitee 也提一份」
+
+为什么不双提：
+- Issue 是工程内部协作品（让工程师照着复现 + 实施），不是发给终端用户看的发布物
+- Gitee issue 没有人维护 / 不看，双提会造成两边状态不一致
+- 终端用户该看的是 Release notes（双平台同步），不是 issue tracker
+
+边界（不要搞混）：
+- ✅ **Release / Release notes**：仍然必须 GitHub + Gitee 双发（§「双平台发版铁律」原文不变）
+- ❌ **Issue**：只 GitHub
+- 即「**发版给用户看的双发，issue 给自己看的单发**」
+
+反模式：
+- ❌ 提完 GitHub issue 还问用户「要不要给我 GITEE_TOKEN 同步到 Gitee」 —— 不要问，直接结束
+- ❌ 用 Gitee issue 跟踪 Windows 端工作进度（Gitee 不看）
+
+#### 发版前**干净环境**自测铁律（v0.3.0 事故沉淀 ⚠️）
+
+开发机（本机，即用来构建/自测的这台 Windows）装了 VS / .NET SDK / VC++ Redist，**用它自测过 ≠ 用户机能跑**。
+v0.3.0 因此踩了 `whisper-cli.exe` 缺 VCRUNTIME140.dll 的坑，用户机器直接报 `ExitCode=-1073741515` (`STATUS_DLL_NOT_FOUND` / `0xC0000135`)。
+
+发版前必查清单：
+- 所有内置二进制（whisper-cli / ffmpeg / ffprobe）依赖的 native DLL 是否都在 `publish/bin/` 里
+- 6 个 VC Runtime DLL（vcruntime140 / vcruntime140_1 / msvcp140 / msvcp140_1 / msvcp140_2 / concrt140）必须随包分发
+- 启动期 `[VcRuntimeDiag]` 日志应输出 `all 6 VC Runtime DLLs present`，缺任意一个立即 WRN
+- 如果有干净 Win10/11 测试机（无 VS / 无 VC++ Redist），发版前必跑完整流程：导入 → ASR → AI 切分 → 生成方案 → 导出
+- 没有干净测试机时，至少 `dumpbin /imports whisper-cli.exe` 看 import 列表，确认所有 DLL 都已打包
+
+诊断 grep 关键字：`[VcRuntimeDiag]` —— 启动期；`ExitCode=-1073741515` —— 用户机器跑外部进程时撞 DLL 缺失的标志。
+
+#### 外部进程 codec-specific 选项必须真实路径自验证（v0.4.0 事故沉淀 ⚠️）
+
+`HardwareEncoderProbe` 启动期跑的 NVENC/QSV smoke test **只验证「能编 1 帧」**，不能保证我们实际导出命令里的 codec-private 选项被新版 ffmpeg 接受。
+v0.4.0 因此踩了 `-allow_sw 0` 的坑 —— gyan.dev ffmpeg 8.1.1 起把这个曾经 NVENC 私有的选项移除，全局解析器拒识，导出全部失败 `exit -1414549496` (`0xABABABAB` "Unrecognized option, Error splitting the argument list: Option not found")。
+**关键**：构建机选 QSV 路径，**根本走不到 NVENC 死代码**，所以 smoke test + 启动检查全绿，但 N 卡用户机器一导出就崩。
+
+发版前必跑：
+- **真实导出测试**（不是 smoke test）：导入视频 → 生成方案 → **导出 MP4 → 用播放器播一遍**
+- 构建机如果只能选某个 codec（如只有 QSV），用 `ffmpeg -h encoder=<codec>` 检查所有 codec-private 选项是否仍有效
+- 看实际 `FFmpegRunner` 拼的命令，**每个 codec 私有参数都要在 `ffmpeg -h encoder=<那个 codec>` 输出里能找到**
+
+诊断 grep 关键字：`exit -1414549496` / `Unrecognized option` —— ffmpeg 选项解析失败。
+
+### 10. 不允许的反模式
+
+- ❌ 把 `dotnet publish` 当作发版门槛挂在用户确认上
+- ❌ `Process.Start()` 后不挂 `ChildProcessTracker`（必出孤儿）
+- ❌ 写死的超时 / 写死的并发数（要么按 CPU 算，要么按数据规模算）
+- ❌ 把 PB 级错误日志原文丢给用户看（必须翻译成人话）
+- ❌ 任何视图功能比 macOS 版**少**（除非已开 issue 标记 Windows 版主动废弃）
+- ❌ 用户报告问题后只读代码不读运行日志
+
+---
+
+## 会话踩坑沉淀（v0.3.0 → v0.5.0）⚠️⚠️⚠️
+
+本节是 v0.3.0 首发 → v0.5.0 期间累积的全部教训。下次开新会话上下文清零后，**先 grep 这一节**避免重蹈覆辙。
+
+### A. 用户定的不可妥协原则
+
+| # | 原则 | 用户原话 / 背景 |
+|---|---|---|
+| 1 | **「装完即跑」** —— 不管目标机器原本什么样，安装包装上就能用全部核心功能 | 「不管它本身是什么样子，它只要用我的安装包安装了这个东西，要保证这个东西能正常的运行」|
+| 2 | **真正自验证再让用户测** —— 用户拒绝当第一测试者 | 「首帧黑屏 这个问题你每次改完自己能不能 验证 你已经让我验证 很多了」|
+| 3 | **开发机不是用户机器** —— 本机（装了 SDK/VC++ Redist）能跑 ≠ 干净用户机器能跑 | 「你自己脸上 windows 服务器 测试不行吗」（提醒本机可做静态分析 + 实跑自测） |
+| 4 | **依赖下载源必须国内可访问** —— 没 GitHub raw / HuggingFace / gyan.dev 直链 | 「我说的是这个软件安装好了以后，我去下载它的依赖，这些依赖要用国内的链接去下载」|
+| 5 | **没国内源就不做依赖下载化** —— 不要为了瘦身把功能搞复杂 | 「没有的话那就不做这个功能了，那就依然用现在的打包方式」|
+| 6 | **Gitee 当独立发布渠道** —— 不引导用户去 GitHub | 「你就当 两个是独立 发布 该怎么写怎么写」|
+
+### B. 具体坑 + 错误码速查表（按版本排序）
+
+| 版本 | 症状 | 错误码 | 根因 | 修复 |
+|---|---|---|---|---|
+| v0.3.0 | whisper-cli 在干净 Win 上崩 | `ExitCode=-1073741515` `0xC0000135 STATUS_DLL_NOT_FOUND` | 没打包 VC++ Runtime DLL；构建机装了 VC++ Redist 自测看不出 | v0.3.1 打包 6 个 VC Runtime DLL |
+| v0.4.0 | ggml-cpu 启动期可能崩 | `0xC0000135` | `ggml-cpu.dll` 依赖 **vcomp140.dll** (OpenMP runtime)，干净 Win 没有 | v0.4.0 起补 vcomp140 + concrt140 |
+| v0.4.0 | N 卡机器导出 0/30 全失败 | `exit -1414549496` `0xABABABAB Unrecognized option 'allow_sw'` | `FFmpegRunner` 加 `-allow_sw 0`，gyan.dev ffmpeg 8.1.1 移除该选项；**构建机选 QSV 路径根本走不到 NVENC 死代码**，潜伏 v0.3.x 全期 | v0.4.1 删 NVENC `-allow_sw 0`|
+| v0.4.x | 分析完分镜库没分镜，重启才有 | n/a | `MainWindow._viewLastLoadedProjectId` 缓存「同 project 不重 LoadProject」，性能优化把「数据变更要刷新」case 搞坏 | v0.5.0 `ImportViewModel.SegmentsChanged` 事件 + `MainWindow.OnSegmentsChanged` 失效缓存 |
+
+### C. 容易被开发机隐藏的隐患（关键盲点）
+
+开发机（本机）是 **Win11 Pro Build 26200**，装了 .NET SDK + VC++ Redist + 集成显卡（Intel 核显）。**这些是开发机有但干净用户机可能没有的东西**：
+
+| 开发机有 | 用户机可能没有 | 不在开发机自测能踩的坑 |
+|---|---|---|
+| Visual C++ Redistributable 14.x | 没装过 VS / VC++ Redist 的全新 Win | VC Runtime DLL 全部缺失（v0.3.0 坑）|
+| Office / Excel | 不装 Office 的纯净系统 | `vcomp140.dll` 等 OpenMP runtime 缺失（v0.4.0 坑）|
+| **Intel 核显（QSV）** | NVIDIA 独显（NVENC）/ AMD 独显（AMF）/ 无 GPU | **NVENC / AMF codec-specific option 死代码**（v0.4.0 -allow_sw 坑）|
+| .NET 8 Runtime（手动装的）| 大多数普通用户没装 | 启动直接弹「需安装 .NET Desktop Runtime」（v0.4.0 起 self-contained 已解决）|
+
+**死规矩**：改任何**有 GPU 厂商分支**的代码（HwProbe / FFmpegRunner 编码路径 / 解码 hwaccel），必须告诉用户「构建机只能测 QSV 路径，N 卡 / A 卡路径需要你在对应硬件机器上跑一遍真实导出」。
+
+### D. 容易被构建机抓到的工具（自验证武器库）
+
+1. **PE 文件 import 表静态分析**（v0.4.1 用这方法发现 vcomp140 漏网）
+   - 用 PowerShell 读 PE 文件二进制，正则 `[\w\-\.]+\.dll` 抓所有 import
+   - 流程：`Get-PeImports whisper-cli.exe` → 看依赖什么 → 对比 publish/bin 看缺啥
+   - **比"启动跑通"更可靠**：能发现潜伏的 native DLL 依赖
+
+2. **ffmpeg encoder 私有选项查询**（v0.4.1 验证 `-allow_sw` 是否还有效）
+   - `ffmpeg -h encoder=h264_nvenc | grep <option_name>`
+   - 改 codec 选项前先 query，不靠"以前能用"假设
+
+3. **实跑测试用例**（不只看启动 EnvDiag）
+   - 任何 GPU/编码相关改动 → 跑 5-30 秒真实导出（`ffmpeg -f lavfi -i testsrc=...`）
+   - 任何 ASR 改动 → 跑一个 5 秒 silence.wav 看 whisper 加载流程
+   - 任何 import 流程改动 → 端到端跑导入 + 分析
+
+### E. Gitee 独立发布原则（v0.5.0 沉淀）
+
+Gitee Release 单文件 **100MB 上限**。我们安装包 101 MB / zip 137 MB **超线**。
+**不能在 Gitee Release notes 引导用户去 GitHub**（违反「独立发布」原则）。
+
+唯一可行方案：**Inno Setup DiskSpanning 分卷**：
+```
+DiskSpanning=yes
+DiskSliceSize=94371840   ; 90 MB 留余量
+SlicesPerDisk=1
+```
+输出：`Setup.exe`（stub ~2 MB）+ `Setup-1.bin` (~88 MB) + `Setup-2.bin` (~11 MB)
+用户下 3 个文件放同目录双击 setup.exe 即装。
+
+打安装包时确认 `installer/`（含 `.iss`）就在本机项目目录下，`iscc` 直接编译本地路径即可（本地开发已无同步环节；旧的 `scripts/sync.sh` 跨机同步流程已废弃）。
+
+### F. 「数据变更 → UI 刷新」通道清单（不要再破坏）
+
+`MainWindow.UpdateContent` 的 nav 切换性能优化使用 `_viewLastLoadedProjectId` 缓存。**任何会修改 segments / schemes / videos / project status 的 DB 写入必须广播事件失效对应缓存**：
+
+| DB 写入来源 | 触发事件 | 应失效缓存 |
+|---|---|---|
+| `ImportViewModel` 视频导入 | `VideoListChanged` | 走 `RefreshAfterProjectChange`（已有） |
+| `ImportViewModel` 视频分析完成 | `SegmentsChanged` (v0.5.0 新增) | `SegmentLibrary` / `Schemes` / `Overview` |
+| ⚠️ 未来：`SchemeViewModel` 生成新方案 | 应加 `SchemesChanged` | `Schemes` / `Overview` / `Export` |
+| ⚠️ 未来：`ExportService` 完成导出 | 应加 `ExportFinished` | `Overview`（状态更新） |
+| ⚠️ 未来：删除单个 segment | 应加 `SegmentDeleted` | `SegmentLibrary` 自身刷新（同 view 内）|
+
+### G. GPU 感知设计原则（v0.5.0 沉淀）
+
+并发数 magic number **不要散落在多处**（之前 `ImportViewModel` / `ExportView` / `SettingsWindow` 三个地方各算各的）。统一走 `Infrastructure/ConcurrencyPolicy`：
+- `MaxAnalyzeConcurrency(videosCount)` —— 分析（whisper + ffmpeg 场景检测）
+- `MaxExportConcurrency(tasksCount)` —— 导出（ffmpeg 编码）
+- `ExplainExportFormula()` / `ExplainAnalyzeFormula()` —— Settings UI 透明拆解显示
+
+**有 GPU 编码 +3 路（封顶 11）**，**有 GPU 解码 +1 路（封顶 4）**，**无 GPU 维持原 CPU 公式不变**。
+
+Settings → 系统信息必须显示：
+- `HardwareEncoderProbe.HardwareDescription` —— 编码加速友好名
+- `HardwareEncoderProbe.DecodeHwaccelDescription` —— 解码加速友好名
+- `HardwareEncoderProbe.WhisperBackendDescription` —— Whisper 后端
+- `ConcurrencyPolicy.Explain*Formula()` —— 让用户看到「10 路（CPU 7 + GPU 加成 +3，上限 11）」
+
+**永远不要把 token 写进代码 / commit / 长期日志**。
+
+---
+
+## 会话踩坑沉淀（v0.7.x UI / 预览 / 撤销）⚠️⚠️⚠️
+
+本节是 v0.7.x「商业化丝滑」UI/性能打磨 + 四个用户反馈修复期间的教训，承接上一节 §会话踩坑沉淀，下次开新会话先 grep。
+
+### H. 自带 ffmpeg 预览的「丝滑」铁律（v0.7.x 沉淀）
+
+预览统一到自带 ffmpeg 帧泵后（`FfmpegFramePlayer` + `InlineVideoPlayer`），「丝滑」有三条不可破坏的硬规矩：
+
+| 现象 | 根因 | 铁律 |
+|---|---|---|
+| **开播第一秒明显加速 / 快进** | 帧泵墙钟秒表在 ffmpeg 冷启动**之前**就 `StartNew`。ffmpeg 拉起+打开+seek+解首帧要 300~800ms，等首帧到时墙钟已走了几百 ms，前十几帧节流 delay 全为负→不睡→快放追赶 | 墙钟**必须以「首帧落地」为 t=0**（`sw ??= Stopwatch.StartNew()` 放在首帧 ReadFull 成功之后），绝不在开播前起算 |
+| **hover/点击播放前先黑屏** | 播放层（裸帧位图）一显示就盖住缩略图，但首帧还没解出来=纯黑。曾错误假设「裸帧位图首帧前透明、缩略图能透出」（R10），实测仍露黑 | **首帧就绪（`OnMediaOpened`）前不显示播放层**，缩略图（真实 `Image`）一直在，首帧到达再原子切换。不要赌位图透明合成 |
+| **整片播放进度条乱跳 / 总时长显示 0:00** | 整片模式（非分镜）没传已知时长，滑块上限只能「随播放兜底增长」，总时长无从显示 | 整片播放**必须把已知 `Video.Duration` 传进播放器**（`SetVideo(path, thumb, duration)`）；分镜模式用 start/end。兜底增长只能当 fallback，不能当常态 |
+
+> 对应 §兼容性总纲推论 3「同源一致」：预览/缩略图/导出共用自带 ffmpeg。预览既然是自带引擎，就要把流畅度做到剪映级，上面三条是底线。
+
+> **播放交互＝全局点击播放（勿改回 hover 自动播）**：分镜卡片**整张缩略图都是点击区**（不是只有小 ▶ 可点 —— 用户点缩略图别处会以为「点了不播」），居中显示 ▶ 作提示。点击 → 在该卡 `VideoHost` 里懒创建 `InlineVideoPlayer` 并播放；hover 只做卡片高亮、不创建播放器、不自动播。切到另一张时全局唯一播放（`PlaybackStarted` 静态事件）自动停掉上一张并还原其缩略图。hover 自动播放（350ms 触发）会让鼠标划过卡片就乱起停，体感极差，已废弃 —— 勿恢复 `AutoPlayOnHover=true`、勿把播放器创建挪回 `OnCardMouseEnter`。播完 / 停止 / 被抢占由 `InlineVideoPlayer.Idle` 事件拆掉播放器、还原静态缩略图 + ▶。**防抖**：点击时若该卡已在播（`videoHost.Content is InlineVideoPlayer { IsPlaying: true }`）直接 return，避免重复 Open 抖动（自验证 grep `[SegPlayDiag]` 一次点击应只对应一条 `OnPlayClick→Open`）。
+>
+> **懒创建播放器的布局坑**：刚 `new` 出来、刚塞进 `VideoHost` 的播放器尚未布局，`ActualWidth=0` → 帧泵 `FrameTargetPixels` 拿到 0 → 解码目标退化成 240×134 小横帧 → **竖屏分镜整片黑屏**（日志 `Open frame=240x134 target=0x0`）。修法：用已布局好的 `videoHost` 尺寸 `player.PrimeDecodeSize(wPx, hPx)` 预置解码目标（日志应为 `target=315x560` 这类），**不要用同步 `UpdateLayout()`** —— 数十张卡时一次同步全量布局 ~150-200ms，是「点击到出画」的大头延迟。
+>
+> **预览 seek「点了等 1 秒」的真因＝用错 seek 方式**：分镜预览曾用 `trim=start_frame=N` 滤镜定位起点 —— 这是**输出级裁剪：ffmpeg 从第 0 帧开始解码、把起点之前的帧全解出来再丢弃**，越靠后的分镜白解码越多帧（startFrame=1042 的分镜首帧要 ~1s+），而第一个分镜 startFrame=0 无需丢帧所以「秒开」（正是用户「只有第一个能立刻播」的现象）。修法：用**输入级 seek**（`-ss` 放 `-i` 前，跳关键帧），本地文件深分镜首帧 ~530ms。`InlineVideoPlayer` 传给帧泵的 start/dur 已是帧换算的秒数，直接走 `FramePipeArgs.Video` 输入级 seek 即可（导出走 `FFmpegRunner` 另一套帧精确逻辑，不受影响）。
+>
+> **别迷信「减少探测」加速**：实测给预览 ffmpeg 加 `-analyzeduration 0 / 小 -probesize / -fflags +nobuffer` 反而**拖慢** `-ss` 精确 seek（深分镜首帧 ~680ms → ~1950ms），因为削弱流信息探测使 seek 走了更慢路径。已移除，保持默认探测最快。进程级 ffmpeg「每次点击重新拉起」有 ~300ms 固有冷启动，要做到真·秒开需常驻/池化解码器（更大改造）。自验证 grep `首帧延迟`。
+>
+> **剪映式逐帧边界预览**：调分镜 IN/OUT 帧边界（±1 帧）时，卡片预览实时跟到「当前调到的那一帧」—— 调 IN 显示新起始帧、调 OUT 显示新末帧（EndFrame 不含，末画面是 `FrameTime.LastIncludedFrame`）。实现：`SegmentCardViewModel.ScrubImage`（+ 计算属性 `PreviewImage = ScrubImage ?? ThumbnailImage`，卡片画面绑 `PreviewImage`）；host `ShowBoundaryFrame` 用 `FFmpegRunner.GenerateThumbnailAsync`（`-ss` 输入级 seek 抽单帧、与缩略图同源）抽边界帧设入 `ScrubImage`，带内存缓存（key=路径|帧号，来回微调瞬时命中）+ 每卡递增 token「最新优先」（连点不被旧帧覆盖）。抽帧文件落 `%APPDATA%\MixCut\ScrubCache\`。自验证 grep `[ScrubDiag]`。
+
+### I. 覆盖层 Toast / 浮层的命中测试陷阱（v0.7.x 沉淀）
+
+商业 ToC 软件的「撤销」必须**可见可点**（toast 上的「撤销」按钮），不能只靠 Ctrl+Z —— 用户发现不了、记不住（对齐 Mac 的一键撤销 toast）。实现时踩的坑：
+
+- **父级 `IsHitTestVisible=False` 会让所有子元素都点不到**。`MainWindow.xaml` 的 `ToastHost` 跨窗口浮层曾设 `IsHitTestVisible="False"`（图省事「不拦点击」），结果 toast 上的撤销按钮一起点不到，点击穿透到背后的卡片（还误触发卡片播放）。
+- 正确姿势：浮层容器 `IsHitTestVisible="True"` + **无 `Background`**（`Grid` 默认 `null`，空白区不参与命中测试，点击照常穿透下层 UI）；只有**带背景且自身 `IsHitTestVisible=true`** 的子元素接收点击。纯提示 toast 的 `Border` 自身设 `IsHitTestVisible=false` 继续穿透不挡操作。
+- `ToastService.Show` 已支持 `actionText + onAction`：删除类 toast 统一传 `("撤销", () => UndoManager.Shared.Undo())`，与 Ctrl+Z 同一条恢复路径；有按钮时停留 6s（给点击时间）、纯提示 2.5s。
+
+### J. AI 结构化输出（OpenAI 兼容）的约束与报错（v0.7.x 沉淀）
+
+- 所有模型走 OpenAI 兼容调用；JSON 解析失败**先自动重试一次**（`StrictJsonRetrySuffix` 追加更强硬的「只输出 JSON」指令再请求一次），而不是一次失败就甩锅用户手动重试。三层解析逻辑抽成 `TryParseJson<T>` 供重试复用。
+- 报错必须**完整人话**：展示模型实际返回开头（~200 字，让用户判断该换哪个模型）+ 说明完整响应已存 `logs/ai-fail/`；绝不把原始报错码 / 截断到看不懂的片段丢用户（呼应 §最高原则红线）。
+
+### K. 排查「你把功能改坏了」的标准动作（v0.7.x 沉淀）
+
+用户报「某功能没了 / 你改坏了」时，先 `git diff` / `git log` **区分三种来源**，再动手：
+1. **我这次改的** —— 看未提交 diff 是否真碰了该功能的代码路径；
+2. **会话开始前就存在的未提交改动** —— `git status` 里早就是 `M` 的文件不是我这次的（可能是用户或更早 WIP）；
+3. **从来如此** —— 用户记的可能是 **Mac 版**的交互。本次「撤销消失」真相是 ③：Windows 版一直只有 Ctrl+Z、从无可点击撤销按钮 —— 但仍按商业标准补齐了可点击入口。
+
+**破坏性验证纪律**：在用户真实项目上验证删除/撤销，先确认有可靠回滚（Ctrl+Z / 快照）再动；每步用日志 `[GroupDiag] totalCards` 核对计数确认无重复插入；点击用 UIA 拿**精确坐标**，不要盲点（盲点坐标点偏会穿透误触发别的控件）。
+
+### L. UI 打磨沉淀（v0.7.x）
+
+一轮轮 UI 优化里值得复用的点：
+- **小字发虚的头号元凶**是 WPF 默认 `TextFormattingMode=Ideal`；全局 `Window` 隐式样式设 `TextOptions.TextFormattingMode=Display` + ClearType 后中文小字立刻清晰（性价比最高的一处改动）。
+- 缩略图**必须 `DecodePixelWidth` 按显示尺寸解码**：竖屏 1080×1920 整图解进内存约 8MB×几十张 = 数百 MB，卡顿主因（`ThumbnailCache` + `InlineVideoPlayer.LoadThumb` 都设了 540）。不要 `new BitmapImage()` 全分辨率同步加载。
+- 设计系统集中在 `Resources/Theme/`：`Brushes/Typography/Spacing` + `Styles.xaml`（keyed）+ `Controls.xaml`（隐式：滚动条/复选框/下拉/Tooltip/滑块/右键菜单）。注意 WPF 隐式样式模板里 `StaticResource` 解析要求每个字典自合并依赖字典（`Controls.xaml` 漏 merge `Typography` 会在右键菜单弹出时崩 `StaticResourceHolder`）。
+- 失败态视觉**不要整张红色洪水盖住画面**：暗色蒙版（缩略图仍可辨识）+ 红色圆形徽章 + 红状态文案即可；失败语义靠左红边带/红徽章/红文案/重试按钮多处表达，不靠刺眼。
+- 汇总「总时长」用 `FrameTime.HumanDuration`（mm:ss / h:mm:ss），不要给用户看原始秒数「2313s」。
+
+---
+> Source: [RoshanGH/mixcut-windows](https://github.com/RoshanGH/mixcut-windows) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-29 -->
