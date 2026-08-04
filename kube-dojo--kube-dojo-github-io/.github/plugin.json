@@ -1,0 +1,9 @@
+{
+  "name": "kube-dojo--kube-dojo-github-io",
+  "displayName": "kube-dojo.github.io",
+  "description": "Free, comprehensive training for all 5 Kubernetes certifications (Kubestronaut path)",
+  "version": "1.0.0",
+  "author": "kube-dojo",
+  "homepage": "https://github.com/kube-dojo/kube-dojo.github.io",
+  "skills": []
+}
