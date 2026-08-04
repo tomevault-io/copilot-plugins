@@ -1,0 +1,9 @@
+{
+  "name": "skills-il--security-compliance",
+  "displayName": "security-compliance",
+  "description": "AI agent skills for Israeli privacy law, GDPR, and regulatory compliance",
+  "version": "1.0.0",
+  "author": "skills-il",
+  "homepage": "https://github.com/skills-il/security-compliance",
+  "skills": []
+}
