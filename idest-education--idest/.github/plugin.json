@@ -1,0 +1,9 @@
+{
+  "name": "idest-education--idest",
+  "displayName": "Idest",
+  "description": "Idest English teaching platform with trained IELTS grading model and realtime streaming meeting room",
+  "version": "1.0.0",
+  "author": "Idest-education",
+  "homepage": "https://github.com/Idest-education/Idest",
+  "skills": []
+}
