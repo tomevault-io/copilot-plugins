@@ -1,0 +1,9 @@
+{
+  "name": "finch04--lightbot",
+  "displayName": "LightBot",
+  "description": "\u9762\u5411\u4f01\u4e1a\u7684\u8f7b\u91cf\u7ea7 Java AI Agent \u5e73\u53f0\u3002\u6db5\u76d6Agent\u3001Agent\u5de5\u4f5c\u6d41\u3001\u77e5\u8bc6\u5e93\u3001\u5de5\u5177\u3001Skill\u3001MCP\u3001Subagents\u3001Prompt\u5de5\u7a0b\u3001\u8bc4\u6d4b\u3001\u53ef\u89c2\u6d4b\u6027\u7b49\u9ad8\u7ea7AI\u529f\u80fd",
+  "version": "1.0.0",
+  "author": "finch04",
+  "homepage": "https://github.com/finch04/LightBot",
+  "skills": []
+}
