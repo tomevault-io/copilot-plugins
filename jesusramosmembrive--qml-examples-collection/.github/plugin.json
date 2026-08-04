@@ -1,0 +1,9 @@
+{
+  "name": "jesusramosmembrive--qml-examples-collection",
+  "displayName": "QML-Examples-Collection",
+  "description": "50+ production-ready QML components and Qt Quick examples \u2014 HUDs, PFDs, avionics displays, industrial HMIs, shaders & charts (Qt 6)",
+  "version": "1.0.0",
+  "author": "JesusRamosMembrive",
+  "homepage": "https://github.com/JesusRamosMembrive/QML-Examples-Collection",
+  "skills": []
+}
