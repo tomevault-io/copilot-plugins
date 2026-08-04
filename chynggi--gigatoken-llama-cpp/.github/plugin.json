@@ -1,0 +1,9 @@
+{
+  "name": "chynggi--gigatoken-llama-cpp",
+  "displayName": "gigatoken-llama.cpp",
+  "description": "LLM inference in C/C++ with Gigatoken",
+  "version": "1.0.0",
+  "author": "chynggi",
+  "homepage": "https://github.com/chynggi/gigatoken-llama.cpp",
+  "skills": []
+}
