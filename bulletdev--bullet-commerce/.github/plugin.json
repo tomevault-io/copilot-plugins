@@ -1,0 +1,9 @@
+{
+  "name": "bulletdev--bullet-commerce",
+  "displayName": "bullet-commerce",
+  "description": "RESTful Go API for eccomerce management",
+  "version": "1.0.0",
+  "author": "Bulletdev",
+  "homepage": "https://github.com/Bulletdev/bullet-commerce",
+  "skills": []
+}
