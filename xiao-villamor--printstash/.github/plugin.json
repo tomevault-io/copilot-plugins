@@ -1,0 +1,9 @@
+{
+  "name": "xiao-villamor--printstash",
+  "displayName": "PrintStash",
+  "description": "Self-hosted asset management for 3D printing files, slicer metadata, and printer workflows.",
+  "version": "1.0.0",
+  "author": "xiao-villamor",
+  "homepage": "https://github.com/xiao-villamor/PrintStash",
+  "skills": []
+}
