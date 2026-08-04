@@ -1,0 +1,9 @@
+{
+  "name": "kaikei-e--alt",
+  "displayName": "Alt",
+  "description": "Alt is a Compose-first knowledge platform built for turning information into reusable knowledge. Starting from RSS ingestion, Alt runs a local-first AI pipeline for summarization, tag extraction, sear",
+  "version": "1.0.0",
+  "author": "Kaikei-e",
+  "homepage": "https://github.com/Kaikei-e/Alt",
+  "skills": []
+}
