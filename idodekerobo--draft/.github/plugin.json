@@ -1,0 +1,9 @@
+{
+  "name": "idodekerobo--draft",
+  "displayName": "draft",
+  "description": "Draft keeps your team's AI sessions grounded. It runs in the background, capturing context from multiple sources, then injects it for everyone.",
+  "version": "1.0.0",
+  "author": "idodekerobo",
+  "homepage": "https://github.com/idodekerobo/draft",
+  "skills": []
+}
