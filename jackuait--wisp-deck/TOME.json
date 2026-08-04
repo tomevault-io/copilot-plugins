@@ -1,0 +1,44 @@
+{
+  "name": "wisp-deck",
+  "owner": "JackUait",
+  "repo": "wisp-deck",
+  "description": "The most advanced agent multiplexer that combines the best practices from UI and TUI interfaces in a single tool \ud83d\udc7b",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JackUait/wisp-deck",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-04T02:23:18Z"
+}
