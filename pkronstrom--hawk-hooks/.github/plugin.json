@@ -1,0 +1,9 @@
+{
+  "name": "pkronstrom--hawk-hooks",
+  "displayName": "hawk-hooks",
+  "description": "A modular Claude Code hooks manager. Organize hooks by event, enable/disable via CLI or interactive menu, auto-generate runners. Includes examples for dangerous command blocking, file protection, auto",
+  "version": "1.0.0",
+  "author": "pkronstrom",
+  "homepage": "https://github.com/pkronstrom/hawk-hooks",
+  "skills": []
+}
