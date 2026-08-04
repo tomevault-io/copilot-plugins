@@ -1,0 +1,9 @@
+{
+  "name": "deicyde--wikilean",
+  "displayName": "WikiLean",
+  "description": "WikiLean \u2014 Wikipedia mathematics annotated with Mathlib4/Lean formalization links",
+  "version": "1.0.0",
+  "author": "Deicyde",
+  "homepage": "https://github.com/Deicyde/WikiLean",
+  "skills": []
+}
