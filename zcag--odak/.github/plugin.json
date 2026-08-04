@@ -1,0 +1,9 @@
+{
+  "name": "zcag--odak",
+  "displayName": "odak",
+  "description": "World's fastest todo app. Server + WebUI/TUI/CLI all backed from an human-readable md file.",
+  "version": "1.0.0",
+  "author": "zcag",
+  "homepage": "https://github.com/zcag/odak",
+  "skills": []
+}
