@@ -1,0 +1,9 @@
+{
+  "name": "tpierrain--kenjaku",
+  "displayName": "kenjaku",
+  "description": "Kenjaku is a Karpathy-style LLM wiki, reinforced where it counts with battle-tested software (including a local RAG).",
+  "version": "1.0.0",
+  "author": "tpierrain",
+  "homepage": "https://github.com/tpierrain/kenjaku",
+  "skills": []
+}
