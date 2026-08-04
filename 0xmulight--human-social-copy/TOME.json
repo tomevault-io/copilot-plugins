@@ -4,7 +4,7 @@
   "repo": "human-social-copy",
   "description": "AI/\u5de5\u5177/crypto \u5185\u5bb9\u5199\u6210\u771f\u4eba\u98ce\u683c\u7684\u4e2d\u6587\u793e\u4ea4\u5a92\u4f53\u6587\u6848\u3002\u7528\u4e8e\u5199\u63a8\u6587\u3001X\u5e16\u5b50\u3001\u4e2d\u6587\u793e\u4ea4\u5206\u4eab\u3002",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/0xMulight/human-social-copy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T03:33:06Z"
+  "distributed_at": "2026-08-04T20:47:31Z"
 }
