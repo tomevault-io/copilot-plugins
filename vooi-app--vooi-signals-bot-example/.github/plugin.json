@@ -1,0 +1,9 @@
+{
+  "name": "vooi-app--vooi-signals-bot-example",
+  "displayName": "vooi-signals-bot-example",
+  "description": "Automated crypto-futures trading bot: Telegram signals -> LLM parser -> VOOI Ultra API (Hyperliquid/Lighter/Aster).",
+  "version": "1.0.0",
+  "author": "vooi-app",
+  "homepage": "https://github.com/vooi-app/vooi-signals-bot-example",
+  "skills": []
+}
