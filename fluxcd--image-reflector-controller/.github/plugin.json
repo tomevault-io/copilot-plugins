@@ -1,0 +1,9 @@
+{
+  "name": "fluxcd--image-reflector-controller",
+  "displayName": "image-reflector-controller",
+  "description": "image-reflector-controller",
+  "version": "1.0.0",
+  "author": "fluxcd",
+  "homepage": "https://github.com/fluxcd/image-reflector-controller",
+  "skills": []
+}
