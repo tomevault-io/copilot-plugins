@@ -1,0 +1,9 @@
+{
+  "name": "no-1nternet--my-neovim-config",
+  "displayName": "my-neovim-config",
+  "description": "My personal Neovim configuration with LSP, Telescope, and more",
+  "version": "1.0.0",
+  "author": "no-1nternet",
+  "homepage": "https://github.com/no-1nternet/my-neovim-config",
+  "skills": []
+}
