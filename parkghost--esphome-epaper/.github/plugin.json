@@ -1,0 +1,9 @@
+{
+  "name": "parkghost--esphome-epaper",
+  "displayName": "esphome-epaper",
+  "description": "ESPHome component for driving e-paper displays.",
+  "version": "1.0.0",
+  "author": "parkghost",
+  "homepage": "https://github.com/parkghost/esphome-epaper",
+  "skills": []
+}
