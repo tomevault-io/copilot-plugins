@@ -1,0 +1,9 @@
+{
+  "name": "dreamlab-ai--nostr-rust-forum",
+  "displayName": "nostr-rust-forum",
+  "description": "Decentralized Nostr forum \u2014 all Rust. Leptos WASM client + 5 Cloudflare Workers. Passkey auth, Solid pods, trust system, moderation, badges. 469 tests.",
+  "version": "1.0.0",
+  "author": "DreamLab-AI",
+  "homepage": "https://github.com/DreamLab-AI/nostr-rust-forum",
+  "skills": []
+}
