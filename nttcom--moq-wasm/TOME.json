@@ -4,7 +4,7 @@
   "repo": "moq-wasm",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nttcom/moq-wasm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T22:05:09Z"
+  "distributed_at": "2026-08-04T06:28:37Z"
 }
