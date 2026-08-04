@@ -1,0 +1,9 @@
+{
+  "name": "rocm--madengine",
+  "displayName": "madengine",
+  "description": "madengine is a streamlined CLI tool for running and benchmarking AI models on ROCm GPUs, offering a production\u2011ready workflow for local single node or remote multi node execution with integrated perfo",
+  "version": "1.0.0",
+  "author": "ROCm",
+  "homepage": "https://github.com/ROCm/madengine",
+  "skills": []
+}
