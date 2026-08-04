@@ -1,0 +1,9 @@
+{
+  "name": "voxpelli--pretty-ts-errors-cli",
+  "displayName": "pretty-ts-errors-cli",
+  "description": "CLI helper for @pretty-ts-errors/formatter",
+  "version": "1.0.0",
+  "author": "voxpelli",
+  "homepage": "https://github.com/voxpelli/pretty-ts-errors-cli",
+  "skills": []
+}
