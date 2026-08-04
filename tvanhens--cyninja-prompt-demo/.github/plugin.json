@@ -1,0 +1,9 @@
+{
+  "name": "tvanhens--cyninja-prompt-demo",
+  "displayName": "cyninja-prompt-demo",
+  "description": "Demo code for prompting a generative cybernetic ninja using Claude code.",
+  "version": "1.0.0",
+  "author": "tvanhens",
+  "homepage": "https://github.com/tvanhens/cyninja-prompt-demo",
+  "skills": []
+}
