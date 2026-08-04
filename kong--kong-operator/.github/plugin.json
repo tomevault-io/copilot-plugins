@@ -1,0 +1,9 @@
+{
+  "name": "kong--kong-operator",
+  "displayName": "kong-operator",
+  "description": "kong-operator",
+  "version": "1.0.0",
+  "author": "Kong",
+  "homepage": "https://github.com/Kong/kong-operator",
+  "skills": []
+}
