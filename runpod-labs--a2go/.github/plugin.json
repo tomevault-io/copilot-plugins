@@ -1,0 +1,9 @@
+{
+  "name": "runpod-labs--a2go",
+  "displayName": "a2go",
+  "description": "run your open source agent with open weight models",
+  "version": "1.0.0",
+  "author": "runpod-labs",
+  "homepage": "https://github.com/runpod-labs/a2go",
+  "skills": []
+}
