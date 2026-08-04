@@ -1,0 +1,9 @@
+{
+  "name": "pro-vi--loopgen",
+  "displayName": "loopgen",
+  "description": "A prompt compiler skill for /goal and ralph loop",
+  "version": "1.0.0",
+  "author": "pro-vi",
+  "homepage": "https://github.com/pro-vi/loopgen",
+  "skills": []
+}
