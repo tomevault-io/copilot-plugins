@@ -1,0 +1,9 @@
+{
+  "name": "databricks-solutions--solution-builder",
+  "displayName": "solution-builder",
+  "description": "Installable Databricks Project that lets customers & partners build just about any use-case on our platform! Featuring vetted solution blueprints.",
+  "version": "1.0.0",
+  "author": "databricks-solutions",
+  "homepage": "https://github.com/databricks-solutions/solution-builder",
+  "skills": []
+}
