@@ -1,0 +1,9 @@
+{
+  "name": "inseefrlab--unimarc-sudoc-reconciler",
+  "displayName": "unimarc-sudoc-reconciler",
+  "description": "Application web POC de la biblioth\u00e8que de l'Insee. Elle permet de comparer les notices bibliographiques du SIGB Syracuse au catalogue Sudoc (ABES), met en \u00e9vidence les \u00e9carts, et permet \u00e0 un\u00b7e documen",
+  "version": "1.0.0",
+  "author": "InseeFrLab",
+  "homepage": "https://github.com/InseeFrLab/unimarc-sudoc-reconciler",
+  "skills": []
+}
