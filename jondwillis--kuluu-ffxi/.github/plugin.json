@@ -1,0 +1,9 @@
+{
+  "name": "jondwillis--kuluu-ffxi",
+  "displayName": "kuluu-ffxi",
+  "description": "A faithful, open-source FINAL FANTASY XI client \u2014 rebuilt in Rust + Bevy",
+  "version": "1.0.0",
+  "author": "jondwillis",
+  "homepage": "https://github.com/jondwillis/kuluu-ffxi",
+  "skills": []
+}
