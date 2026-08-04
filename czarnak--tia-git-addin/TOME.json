@@ -4,7 +4,7 @@
   "repo": "tia-git-addin",
   "description": "TIA Portal V21 Add-In eabling comfortable work with TIA Portal Version Control.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Czarnak/tia-git-addin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T06:33:28Z"
+  "distributed_at": "2026-08-04T17:50:47Z"
 }
