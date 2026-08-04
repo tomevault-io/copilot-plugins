@@ -1,0 +1,9 @@
+{
+  "name": "sonarsource--sonar-migration-tool",
+  "displayName": "sonar-migration-tool",
+  "description": "SonarQubeServer to SonarQubeCloud Migration tool",
+  "version": "1.0.0",
+  "author": "SonarSource",
+  "homepage": "https://github.com/SonarSource/sonar-migration-tool",
+  "skills": []
+}
