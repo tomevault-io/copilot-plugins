@@ -1,0 +1,9 @@
+{
+  "name": "mkabumattar--asciiquarium-python",
+  "displayName": "asciiquarium-python",
+  "description": "An aquarium/sea animation in ASCII art for your terminal! This is a Python reimplementation of the classic Perl asciiquarium, designed to work cross-platform on Windows, Linux, and macOS.",
+  "version": "1.0.0",
+  "author": "MKAbuMattar",
+  "homepage": "https://github.com/MKAbuMattar/asciiquarium-python",
+  "skills": []
+}
