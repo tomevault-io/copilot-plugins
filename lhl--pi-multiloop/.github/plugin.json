@@ -1,0 +1,9 @@
+{
+  "name": "lhl--pi-multiloop",
+  "displayName": "pi-multiloop",
+  "description": "Multi-lane autonomous iteration loops for pi \u2014 optimization, punchlist, research, and dev modes",
+  "version": "1.0.0",
+  "author": "lhl",
+  "homepage": "https://github.com/lhl/pi-multiloop",
+  "skills": []
+}
