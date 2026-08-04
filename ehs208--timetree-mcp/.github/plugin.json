@@ -1,0 +1,9 @@
+{
+  "name": "ehs208--timetree-mcp",
+  "displayName": "TimeTree-MCP",
+  "description": "Unofficial TimeTree MCP server for Claude, Codex, Cursor, and other MCP clients \u2014 read and manage calendars, events, memos, comments, labels, and members.",
+  "version": "1.0.0",
+  "author": "ehs208",
+  "homepage": "https://github.com/ehs208/TimeTree-MCP",
+  "skills": []
+}
