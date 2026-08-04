@@ -1,0 +1,9 @@
+{
+  "name": "yairchu--moops",
+  "displayName": "moops",
+  "description": "Easily write Marimo notebooks that work as CLI scripts with minimal boilerplate",
+  "version": "1.0.0",
+  "author": "yairchu",
+  "homepage": "https://github.com/yairchu/moops",
+  "skills": []
+}
