@@ -1,0 +1,9 @@
+{
+  "name": "starling-build--starling",
+  "displayName": "starling",
+  "description": "Starling \u2014 a new Linux desktop environment: Swift shell, its own compositor, a Flutter-to-Swift framework port, and first-party apps",
+  "version": "1.0.0",
+  "author": "starling-build",
+  "homepage": "https://github.com/starling-build/starling",
+  "skills": []
+}
