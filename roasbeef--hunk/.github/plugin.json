@@ -1,0 +1,9 @@
+{
+  "name": "roasbeef--hunk",
+  "displayName": "hunk",
+  "description": "coding agent friendly CLI for making sparse commits",
+  "version": "1.0.0",
+  "author": "Roasbeef",
+  "homepage": "https://github.com/Roasbeef/hunk",
+  "skills": []
+}
