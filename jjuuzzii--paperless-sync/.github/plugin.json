@@ -1,0 +1,9 @@
+{
+  "name": "jjuuzzii--paperless-sync",
+  "displayName": "paperless-sync",
+  "description": "Desktop tool that matches bank statement CSV transactions against Paperless-ngx documents, with accountant-ready export folders.",
+  "version": "1.0.0",
+  "author": "jjuuzzii",
+  "homepage": "https://github.com/jjuuzzii/paperless-sync",
+  "skills": []
+}
