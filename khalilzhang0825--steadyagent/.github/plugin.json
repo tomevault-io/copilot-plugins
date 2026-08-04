@@ -1,0 +1,9 @@
+{
+  "name": "khalilzhang0825--steadyagent",
+  "displayName": "steadyagent",
+  "description": "SteadyAgent: a bilingual local-first harness for Codex and Claude Code with workflow rules, safety hooks, validation gates, checkpoint commits, and release evidence.",
+  "version": "1.0.0",
+  "author": "Khalilzhang0825",
+  "homepage": "https://github.com/Khalilzhang0825/steadyagent",
+  "skills": []
+}
