@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cluster-autoscaler-operator",
+  "displayName": "cluster-autoscaler-operator",
+  "description": "cluster-autoscaler-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cluster-autoscaler-operator",
+  "skills": []
+}
