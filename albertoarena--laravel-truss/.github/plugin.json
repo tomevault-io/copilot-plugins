@@ -1,0 +1,9 @@
+{
+  "name": "albertoarena--laravel-truss",
+  "displayName": "laravel-truss",
+  "description": "A live database structure viewer for Laravel that renders your schema as a scrollable, zoomable ER diagram. Structure only, never data.",
+  "version": "1.0.0",
+  "author": "albertoarena",
+  "homepage": "https://github.com/albertoarena/laravel-truss",
+  "skills": []
+}
