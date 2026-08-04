@@ -4,7 +4,7 @@
   "repo": "resumable-upload",
   "description": "A Python implementation of the [TUS resumable upload protocol](https://tus.io/) v1.0.0 for server and client, with zero runtime dependencies.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/injaeryou/resumable-upload",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-28T16:34:01Z"
+  "distributed_at": "2026-08-04T07:38:56Z"
 }
