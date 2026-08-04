@@ -1,0 +1,9 @@
+{
+  "name": "jinplu--teamwork",
+  "displayName": "Teamwork",
+  "description": "Evidence-first skills for Codex, Cursor, and Claude Code: research, debugging, planning, execution, review, and goal loops.",
+  "version": "1.0.0",
+  "author": "JinPLu",
+  "homepage": "https://github.com/JinPLu/Teamwork",
+  "skills": []
+}
