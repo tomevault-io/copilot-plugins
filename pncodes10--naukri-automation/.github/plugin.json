@@ -1,0 +1,9 @@
+{
+  "name": "pncodes10--naukri-automation",
+  "displayName": "Naukri-Automation",
+  "description": "A generative AI-powered CLI tool that auto-applies to relevant jobs on Naukri.com, saving you hours of manual effort.",
+  "version": "1.0.0",
+  "author": "pncodes10",
+  "homepage": "https://github.com/pncodes10/Naukri-Automation",
+  "skills": []
+}
