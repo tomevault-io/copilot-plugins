@@ -1,0 +1,9 @@
+{
+  "name": "bittoku--bsv-sdk-elixir",
+  "displayName": "bsv_sdk_elixir",
+  "description": "BSV SDK for Elixir \u2014 primitives, script, transactions, wallet, tokens, SPV",
+  "version": "1.0.0",
+  "author": "Bittoku",
+  "homepage": "https://github.com/Bittoku/bsv_sdk_elixir",
+  "skills": []
+}
