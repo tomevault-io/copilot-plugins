@@ -1,0 +1,9 @@
+{
+  "name": "dailybothq--deepworkplan-skill",
+  "displayName": "deepworkplan-skill",
+  "description": "Turn any repo AI-first and run resumable, multi-hour Deep Work Plans. An installable agent skill for any cloud agent like Claude Code, Cursor, Codex, Gemini & Copilot. Markdown-only, MIT.",
+  "version": "1.0.0",
+  "author": "DailybotHQ",
+  "homepage": "https://github.com/DailybotHQ/deepworkplan-skill",
+  "skills": []
+}
