@@ -1,0 +1,9 @@
+{
+  "name": "pulumi--pulumi-java",
+  "displayName": "pulumi-java",
+  "description": "pulumi-java",
+  "version": "1.0.0",
+  "author": "pulumi",
+  "homepage": "https://github.com/pulumi/pulumi-java",
+  "skills": []
+}
