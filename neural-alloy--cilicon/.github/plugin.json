@@ -1,0 +1,9 @@
+{
+  "name": "neural-alloy--cilicon",
+  "displayName": "cilicon",
+  "description": "boots your firmware and inference on N real targets. 0 setup, 0 hardware to own.",
+  "version": "1.0.0",
+  "author": "neural-alloy",
+  "homepage": "https://github.com/neural-alloy/cilicon",
+  "skills": []
+}
