@@ -1,0 +1,9 @@
+{
+  "name": "roquerodrigo--ha-ttlock-ble",
+  "displayName": "ha-ttlock-ble",
+  "description": "Home Assistant integration for TTLock smart locks over Bluetooth \u2014 local control, real-time push events, battery monitoring.",
+  "version": "1.0.0",
+  "author": "roquerodrigo",
+  "homepage": "https://github.com/roquerodrigo/ha-ttlock-ble",
+  "skills": []
+}
