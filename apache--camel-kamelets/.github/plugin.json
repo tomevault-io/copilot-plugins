@@ -1,0 +1,9 @@
+{
+  "name": "apache--camel-kamelets",
+  "displayName": "camel-kamelets",
+  "description": "camel-kamelets",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/camel-kamelets",
+  "skills": []
+}
