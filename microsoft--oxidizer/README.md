@@ -1,8 +1,6 @@
 # oxidizer
 
-> Tome by [microsoft](https://github.com/microsoft/oxidizer) — distributed by [TomeVault](https://tomevault.io)
-
-Oxidizer is a platform for Rust service development which bridges the gaps in the crate ecosystem to deliver a turn-key solution to enable the efficient creation of high-scale high-availability and high-performance services in Rust.
+> Tome by [microsoft](https://github.com/microsoft/oxidizer), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,10 +15,10 @@ Original source: `AGENTS.md` in [microsoft/oxidizer](https://github.com/microsof
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [microsoft/oxidizer](https://github.com/microsoft/oxidizer) — a repo with 86+ stars on GitHub.
+From [microsoft/oxidizer](https://github.com/microsoft/oxidizer) — a repo with 124+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-s -->
