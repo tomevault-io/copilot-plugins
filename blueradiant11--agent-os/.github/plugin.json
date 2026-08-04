@@ -1,0 +1,9 @@
+{
+  "name": "blueradiant11--agent-os",
+  "displayName": "agent-os",
+  "description": "A personal operating system built on Claude Code \u2014 chief-of-staff contract, sub-agent roster, memory layer, context-injection hooks. Fill-in-the-blanks template.",
+  "version": "1.0.0",
+  "author": "BlueRadiant11",
+  "homepage": "https://github.com/BlueRadiant11/agent-os",
+  "skills": []
+}
