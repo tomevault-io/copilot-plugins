@@ -1,0 +1,44 @@
+{
+  "name": "video-translate",
+  "owner": "cl1107",
+  "repo": "video-translate",
+  "description": "\u79bb\u7ebf\u89c6\u9891\u7ffb\u8bd1\u52a9\u624b - Electron + Whisper/Sherpa + Ollama",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cl1107/video-translate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-05T19:43:11Z"
+}
