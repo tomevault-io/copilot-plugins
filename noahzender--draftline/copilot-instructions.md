@@ -1,36 +1,55 @@
-## open-source-safety
+## draftline
 
-> Prevent secrets, private data, and internal information from entering this public repository
+> - Build for the Obsidian Community Plugins directory.
 
+# Obsidian community plugin
 
-# Open-source safety
+## Target
 
-Treat every tracked file, commit, issue, log, fixture, screenshot, and generated artifact as publicly visible.
+- Build for the Obsidian Community Plugins directory.
+- Preserve desktop and mobile compatibility. Node.js and Electron APIs are not available on mobile.
+- Use TypeScript, npm, esbuild, strict type checking, and `eslint-plugin-obsidianmd`.
+- Keep `src/main.ts` focused on plugin lifecycle and registration. Put feature logic in focused modules.
 
-## Never add
+## Safety
 
-- Secrets: API keys, tokens, passwords, cookies, private keys, connection strings, or signed URLs.
-- Secret-bearing files such as `.env*` (except sanitized templates), credentials files, key stores, private certificates, or cloud/SSH configs.
-- Customer, employee, or user data; private communications; support content; meeting notes; analytics exports; or proprietary documents.
-- Internal hostnames, private repository links, non-public architecture details, account IDs, or local paths that expose a person's username.
+- Develop and manually test only in a dedicated disposable vault, never a primary or valuable vault.
+- Default to local, offline behavior. Do not add client-side telemetry, self-updates, remote code, or undisclosed network or outside-vault access.
+- Treat vault content, filenames, settings, and paths as private user data.
+- Use Obsidian registration helpers for cleanup and safe Editor, Vault, and FileManager APIs for mutations.
 
-## Required behavior
+## Development gates
 
-- Externalize runtime secrets through a secrets manager or deployment-injected environment variables. Prefer short-lived, least-privilege credentials.
-- Use obvious placeholders such as `YOUR_API_KEY` and synthetic example data.
-- Keep `.env.example` and other templates limited to placeholders or demonstrably non-sensitive defaults.
-- Do not copy content from private services (including Slack, Granola, Notion, Linear, CRM, support, or analytics tools) into the repo unless the user confirms that exact content is approved for publication.
-- Treat logs, test fixtures, database dumps, screenshots, recordings, archives, binaries, source maps, and generated files as potential leak sources.
-- Before committing or publishing, inspect staged, unstaged, untracked, generated, and binary files, and verify risky file types are ignored.
-- Use layered automated secret scanning: locally before commit, in CI for pull requests, and repository-host push protection. Do not rely on `.gitignore` or manual review alone.
-- If content previously lived in a private repository, scan the full Git history before publication.
-- Never bypass a scanner unless the match is verified as a false positive and the bypass contains no sensitive value.
-- Do not print discovered secrets in chat, command arguments, shell history, logs, diffs, or error messages. Refer to the file and redact the value.
-- If a value might be sensitive, stop and ask before adding it.
+Once the plugin scaffold exists:
 
-## If exposure is found
+1. Install reproducibly with `npm ci` when dependencies need installation.
+2. Run `npm run build`.
+3. Run `npm run lint`.
+4. Run `npm run test` when the test script exists; a missing test script must be reported.
+5. Smoke-test changed behavior in the dedicated vault on desktop and in mobile emulation or a real mobile device.
 
-Treat a committed secret as compromised: stop publication, alert the user without repeating the value, and revoke or rotate it immediately. Then remove it from the current tree and assess history cleanup. Rewriting history does not make an exposed credential safe and must be coordinated because forks, clones, pull requests, and caches may retain copies.
+Never claim a manual check was completed unless a person or browser/device workflow actually completed it.
+
+## Release contract
+
+- Release assets are `main.js`, `manifest.json`, and `styles.css` when present.
+- The release tag exactly equals `manifest.json#version` without a leading `v`.
+- Keep `manifest.json`, `package.json`, and `versions.json` consistent.
+- Do not track `main.js`, source maps, `data.json`, `node_modules`, or vault contents.
+
+## Project docs
+
+- Development: [docs/development.md](docs/development.md)
+- Releasing: [docs/releasing.md](docs/releasing.md)
+
+## Canonical references
+
+- [Build a plugin](https://docs.obsidian.md/Plugins/Getting+started/Build+a+plugin)
+- [Developer policies](https://docs.obsidian.md/Developer+policies)
+- [Plugin guidelines](https://docs.obsidian.md/Plugins/Releasing/Plugin+guidelines)
+- [Manifest reference](https://docs.obsidian.md/Reference/Manifest)
+- [Mobile development](https://docs.obsidian.md/Plugins/Getting+started/Mobile+development)
+- [Official sample plugin](https://github.com/obsidianmd/obsidian-sample-plugin)
 
 ---
 > Source: [noahzender/draftline](https://github.com/noahzender/draftline) — distributed by [TomeVault](https://tomevault.io).
