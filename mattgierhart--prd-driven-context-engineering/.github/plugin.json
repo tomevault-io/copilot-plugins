@@ -1,89 +1,413 @@
 {
   "name": "mattgierhart--prd-driven-context-engineering",
   "displayName": "PRD-driven-context-engineering",
-  "description": "PRD-driven Context Engineering: A systematic approach to building AI-powered products using progressive documentation and context-aware development workflows",
+  "description": "PRD-driven-context-engineering",
   "version": "1.0.0",
   "author": "mattgierhart",
   "homepage": "https://github.com/mattgierhart/PRD-driven-context-engineering",
   "skills": [
     {
-      "name": "ghm-id-register",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "ghm-template-sync",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "prd-v01-user-value-articulation",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "prd-v02-product-type-classification",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "prd-v03-outcome-definition",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "prd-v03-pricing-model",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "prd-v04-screen-flow-definition",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "prd-v05-risk-discovery-interview",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "prd-v05-technical-stack-selection",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "prd-v06-architecture-design",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "prd-v06-environment-setup",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "prd-v06-technical-specification",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "prd-v07-epic-scoping",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "prd-v07-implementation-loop",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "prd-v07-test-planning",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "prd-v08-monitoring-setup",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "prd-v08-release-planning",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "prd-v08-runbook-creation",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "prd-v09-feedback-loop-setup",
+      "name": "PRD-driven-context-engineering",
       "description": ""
     },
     {
-      "name": "prd-v09-launch-metrics",
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
       "description": ""
     }
   ]
