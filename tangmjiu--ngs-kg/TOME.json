@@ -4,7 +4,7 @@
   "repo": "NGS-KG",
   "description": "\u4e00\u4e2a\u57fa\u4e8eFlutter\u5236\u4f5c\u7684\u8de8\u5e73\u53f0\u9177\u72d7\u7b2c\u4e09\u65b9\u5ba2\u6237\u7aef",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Tangmjiu/NGS-KG",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T07:50:27Z"
+  "distributed_at": "2026-08-05T16:22:44Z"
 }
