@@ -1,0 +1,9 @@
+{
+  "name": "aadhil-kh--winui-markdown",
+  "displayName": "WinUI.Markdown",
+  "description": "WinUI.Markdown is a WinUI 3 Markdown control for Windows App SDK apps. It supports native WinUI rendering for common Markdown, WebView2 rendering for rich HTML scenarios, and an Auto mode that chooses",
+  "version": "1.0.0",
+  "author": "aadhil-kh",
+  "homepage": "https://github.com/aadhil-kh/WinUI.Markdown",
+  "skills": []
+}
