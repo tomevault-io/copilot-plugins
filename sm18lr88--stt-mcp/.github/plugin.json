@@ -1,0 +1,9 @@
+{
+  "name": "sm18lr88--stt-mcp",
+  "displayName": "STT-MCP",
+  "description": "Fast, local speech-to-text MCP server",
+  "version": "1.0.0",
+  "author": "sm18lr88",
+  "homepage": "https://github.com/sm18lr88/STT-MCP",
+  "skills": []
+}
