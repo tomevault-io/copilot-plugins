@@ -7,11 +7,11 @@ UI Sound Effects for your interfaces
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [romainsimon/uisfx](https://github.com/romainsimon/uisfx).
+Original source: `AGENTS.md` in [romainsimon/uisfx](https://github.com/romainsimon/uisfx).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
