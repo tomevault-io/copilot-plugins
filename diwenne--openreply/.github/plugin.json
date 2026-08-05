@@ -1,0 +1,9 @@
+{
+  "name": "diwenne--openreply",
+  "displayName": "openreply",
+  "description": "open sourced Manychat: comment-dm automation + account analytics. the link below will not allow you to oauth; you must self-host with your own api keys.",
+  "version": "1.0.0",
+  "author": "diwenne",
+  "homepage": "https://github.com/diwenne/openreply",
+  "skills": []
+}
