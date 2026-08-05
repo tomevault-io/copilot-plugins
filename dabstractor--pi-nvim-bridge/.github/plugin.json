@@ -1,0 +1,9 @@
+{
+  "name": "dabstractor--pi-nvim-bridge",
+  "displayName": "pi-nvim-bridge",
+  "description": "Your Pi prompt edit features right in your neovim $EDITOR window",
+  "version": "1.0.0",
+  "author": "dabstractor",
+  "homepage": "https://github.com/dabstractor/pi-nvim-bridge",
+  "skills": []
+}
