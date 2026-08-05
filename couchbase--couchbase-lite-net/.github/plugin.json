@@ -1,0 +1,9 @@
+{
+  "name": "couchbase--couchbase-lite-net",
+  "displayName": "couchbase-lite-net",
+  "description": "couchbase-lite-net",
+  "version": "1.0.0",
+  "author": "couchbase",
+  "homepage": "https://github.com/couchbase/couchbase-lite-net",
+  "skills": []
+}
