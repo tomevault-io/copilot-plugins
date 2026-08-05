@@ -4,7 +4,7 @@
   "repo": "agentbro",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -49,9 +49,15 @@
       "path": "skills/agentbro-pr-merge/SKILL.md",
       "github_url": "https://github.com/shirenchuang/agentbro/tree/main/skills/agentbro-pr-merge/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "agentbro",
+      "path": ".agents/skills/source-command-check/SKILL.md",
+      "github_url": "https://github.com/shirenchuang/agentbro/tree/main/.agents/skills/source-command-check/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/shirenchuang/agentbro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T11:22:51Z"
+  "distributed_at": "2026-08-05T21:54:06Z"
 }
