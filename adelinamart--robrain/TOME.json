@@ -2,9 +2,9 @@
   "name": "robrain",
   "owner": "adelinamart",
   "repo": "robrain",
-  "description": "RoBrain is shared institutional memory for teams using AI agents across users, machines, and tools, captured passively.",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/adelinamart/robrain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T20:31:49Z"
+  "distributed_at": "2026-08-05T11:37:22Z"
 }
