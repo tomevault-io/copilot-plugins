@@ -1,0 +1,9 @@
+{
+  "name": "agent-hellboy--mcp-server-fuzzer",
+  "displayName": "mcp-server-fuzzer",
+  "description": "mcp-server-fuzzer",
+  "version": "1.0.0",
+  "author": "Agent-Hellboy",
+  "homepage": "https://github.com/Agent-Hellboy/mcp-server-fuzzer",
+  "skills": []
+}
