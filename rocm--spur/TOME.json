@@ -2,9 +2,9 @@
   "name": "spur",
   "owner": "ROCm",
   "repo": "spur",
-  "description": "spur your compute",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ROCm/spur",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T14:21:27Z"
+  "distributed_at": "2026-08-05T07:04:05Z"
 }
