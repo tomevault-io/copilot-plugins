@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [kwakseongjae/oh-my-design](https://github.com/kwakseongjae/oh-my-design).
+Original source: `AGENTS.md` in [kwakseongjae/oh-my-design](https://github.com/kwakseongjae/oh-my-design).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (50)
+## Bundled Skills (59)
 
 - [omd-sync](https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-sync)
 - [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-init/SKILL.md)
@@ -67,8 +67,17 @@ Original source: `CLAUDE.md` in [kwakseongjae/oh-my-design](https://github.com/k
 - [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-lab-01-designmd-impact/SKILL.md)
 - [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-feel/SKILL.md)
 - [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-feel/SKILL.md)
+- [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-humanize/SKILL.md)
+- [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/skills/omd-slop-audit/SKILL.md)
+- [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-taste/SKILL.md)
+- [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-humanize/SKILL.md)
+- [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/claude-design/SKILL.md)
+- [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-slop-audit/SKILL.md)
+- [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-asset-fetch/SKILL.md)
+- [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-reference-capture/SKILL.md)
+- [oh-my-design](https://github.com/kwakseongjae/oh-my-design/tree/main/.claude/skills/omd-experiment-gallery/SKILL.md)
 
-From [kwakseongjae/oh-my-design](https://github.com/kwakseongjae/oh-my-design) — a repo with 385+ stars on GitHub.
+From [kwakseongjae/oh-my-design](https://github.com/kwakseongjae/oh-my-design) — a repo with 0+ stars on GitHub.
 
 ---
 
