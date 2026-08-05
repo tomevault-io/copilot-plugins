@@ -1,0 +1,44 @@
+{
+  "name": "s1er",
+  "owner": "Shirolin",
+  "repo": "s1er",
+  "description": "S1er \u2014 \u7b2c\u4e09\u65b9 Stage1st\uff08S1\uff09\u8bba\u575b\u5ba2\u6237\u7aef\uff0c\u57fa\u4e8e Flutter\uff08Web / Android / iOS / \u684c\u9762\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Shirolin/s1er",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-05T15:47:44Z"
+}
