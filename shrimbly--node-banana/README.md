@@ -1,23 +1,21 @@
 # node-banana
 
-> Source: [shrimbly/node-banana](https://github.com/shrimbly/node-banana) — distributed by [TomeVault](https://tomevault.io)
-
-Free and open node based generative workflows. 
+> Source: [shrimbly/node-banana](https://github.com/shrimbly/node-banana). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [shrimbly/node-banana](https://github.com/shrimbly/node-banana).
+Original source: `AGENTS.md` in [shrimbly/node-banana](https://github.com/shrimbly/node-banana).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/shrimbly/node-banana](https://github.com/shrimbly/node-banana)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/shrimbly/node-banana](https://github.com/shrimbly/node-banana)
 
 ---
 
