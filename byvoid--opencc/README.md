@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [BYVoid/OpenCC](https://github.com/BYVoid/OpenCC
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [BYVoid/OpenCC](https://github.com/BYVoid/OpenCC) — a repo with 9845+ stars on GitHub.
+From [BYVoid/OpenCC](https://github.com/BYVoid/OpenCC) — a repo with 9853+ stars on GitHub.
 
 ---
 
