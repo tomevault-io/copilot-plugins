@@ -1,0 +1,9 @@
+{
+  "name": "would2000--xq-auto-writer-skill",
+  "displayName": "XQ-Auto-Writer-Skill",
+  "description": "Codex skill for writing and compiling XScript in XQ \u5168\u7403\u8d0f\u5bb6",
+  "version": "1.0.0",
+  "author": "would2000",
+  "homepage": "https://github.com/would2000/XQ-Auto-Writer-Skill",
+  "skills": []
+}
