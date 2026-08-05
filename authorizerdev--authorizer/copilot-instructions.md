@@ -2,7 +2,7 @@
 
 > Project instructions for AI coding tools (Claude Code, Cursor, Gemini, Copilot).
 
-# CLAUDE.md
+# AGENTS.md
 
 Project instructions for AI coding tools (Claude Code, Cursor, Gemini, Copilot).
 
@@ -12,46 +12,159 @@ Detailed conventions live in `.claude/skills/authorizer-*/SKILL.md` and load on 
 
 Open-source, self-hosted authentication and authorization server. Supports 13+ databases, OAuth2/OIDC, social logins, MFA, magic links, role-based access, webhooks, and email templating.
 
-**Stack**: Go 1.24+, Gin, gqlgen, GORM, zerolog, Cobra CLI, JWT, OAuth2/OIDC.
+**Stack**: Go 1.24+, Gin, gqlgen, GORM, zerolog, Cobra CLI, JWT, OAuth2/OIDC, gRPC (+ grpc-gateway REST), buf/protobuf.
 **v2**: CLI flags for all config — no `.env` or OS env vars.
 
-## Quick Commands
+## Make Commands
+
+### Dev & build
 
 ```bash
-make dev                  # Run with SQLite (dev mode)
-make build                # Build server binary
+make dev                  # Run server locally (SQLite, embedded dev RSA keys)
+make build                # Cross-compile server binary → build/{os}/{arch}/authorizer
 make build-app            # Build login UI (web/app)
 make build-dashboard      # Build admin UI (web/dashboard)
-make generate-graphql     # Regenerate after schema.graphqls change
+make all                  # build + build-app + build-dashboard
+make bootstrap            # Install gox (required by make build)
+make clean                # Remove build/
+```
 
-make test                 # SQLite integration + storage (via TEST_DBS)
-make test-sqlite          # SQLite everywhere (no Docker)
-make test-all-db          # All 7 databases via Docker
+### Docker
 
-# Single test
+```bash
+make build-local-image    # docker build (IMAGE defaults to quay.io/authorizer/authorizer:$(VERSION))
+make build-push-image     # Multi-arch buildx push
+make trivy-scan           # Scan Docker image for HIGH/CRITICAL CVEs (IMAGE= override)
+```
+
+`VERSION` defaults to `0.1.0-local`; override with `make build VERSION=1.2.3`.
+
+### Code generation
+
+```bash
+make generate-graphql     # Regenerate gqlgen output after schema.graphqls change; runs go mod tidy
+make generate-db-template # Scaffold new storage provider: make generate-db-template dbname=foo
+
+make proto-gen            # buf generate → gen/ (installs buf if missing)
+make proto-lint           # buf lint on proto/
+make proto-breaking       # Breaking-change check vs origin/main (override: BUF_BREAKING_AGAINST)
+make proto-check          # proto-gen + fail if gen/ is stale (CI)
+make proto-tools          # Install buf only
+```
+
+After editing `internal/graph/schema.graphqls` → `make generate-graphql`.
+After editing `proto/` → `make proto-gen` and commit `gen/`.
+
+### Format & lint
+
+```bash
+make fmt                  # fmt-go + fmt-ts
+make fmt-go               # gofmt -s (excludes gen/)
+make fmt-ts               # Prettier on web/app and web/dashboard
+
+make lint                 # lint-go + lint-ts
+make lint-go              # golangci-lint (installs if missing; excludes gen/ via .golangci.yml)
+make lint-ts              # Prettier --check on both web apps
+make lint-tools           # Install golangci-lint only
+```
+
+Run `make fmt` before committing; CI runs `make lint`.
+
+### Tests
+
+```bash
+make test                 # Full module test run; TEST_DBS=sqlite (integration tests always SQLite)
+make test-sqlite          # Same as test — explicit SQLite-only, no Docker
+make test-all-db          # All 7 DBs via Docker (postgres, sqlite, mongodb, arangodb, scylladb, dynamodb, couchbase)
+make smoke                # Release e2e smoke tests (build tag `smoke`, 5m timeout)
+
+# Single-DB targets (each spins up Docker, runs tests, tears down)
+make test-postgres
+make test-mongodb
+make test-scylladb
+make test-arangodb
+make test-dynamodb
+make test-couchbase
+
+# Docker helpers for test-all-db
+make test-docker-up       # Start all test DB containers + Redis
+make test-cleanup         # Remove all test containers
+make test-cleanup-postgres | test-cleanup-mongodb | test-cleanup-scylladb
+make test-cleanup-arangodb | test-cleanup-dynamodb | test-cleanup-couchbase
+```
+
+**Test env vars**:
+- `TEST_DBS` — comma-separated list for storage provider tests (e.g. `sqlite`, `postgres,mongodb`). Defaults to all when unset in storage tests.
+- `TEST_ENABLE_REDIS=1` — include Redis memory_store tests (skipped by default).
+
+**Single test** (integration tests use SQLite via `getTestConfig()`):
+
+```bash
 go clean --testcache && TEST_DBS="sqlite" go test -p 1 -v -run TestSignup ./internal/integration_tests/
 ```
 
+Use `-p 1` for integration tests (shared state). Storage tests honour `TEST_DBS`.
+
+**Verifying a change before calling it done** — run these, in order, and only report success after they actually pass in this session:
+
+1. `go build ./...` — compiles.
+2. `go vet ./...` — catches suspicious constructs (nil-deref-prone patterns, unreachable code, struct-copy issues).
+3. `make test` (or the single-test command above for a targeted case) — SQLite integration suite passes.
+4. **Storage-layer changes only**: also run at least one non-SQL backend (`make test-mongodb`, `make test-arangodb`, etc.) or `make test-all-db` — a fix verified only on SQLite has not verified cross-DB parity, and this repo's whole storage layer is defined by that parity holding.
+5. `make lint` — must be clean before opening a PR; CI enforces it.
+
+**Smoke tests** (`make smoke` → `internal/e2e/smoke_test.go`, build tag `smoke`): black-box tests that build the real `authorizer` binary, boot it as a subprocess, and exercise every public API surface (GraphQL, REST, gRPC, MCP) end to end, including an authenticated FGA decision on each surface. Excluded from normal `go test ./...` runs (separate build tag) because they compile a binary and bind real ports — run them before a release, or whenever touching startup/wiring (`cmd/root.go`, `internal/server/`, `internal/grpcsrv/`).
+
+**E2E tests**: `internal/e2e/` *is* the e2e suite, run via `make smoke` — there is no separate e2e target in this repo; "e2e" and "release smoke" are the same tests.
+
 ## Architecture (Quick Reference)
 
-**Initialization order** (`cmd/root.go`): Config → Storage → MemoryStore → Token → Email/SMS → OAuth → Events → HTTP/GraphQL → Server
+**Initialization order** (`cmd/root.go`): Config → Storage → MemoryStore → Token → Email/SMS → OAuth → Events → HTTP/GraphQL → gRPC → Server
 
 **Key paths**:
-- GraphQL schema: `internal/graph/schema.graphqls` | Business logic: `internal/graphql/`
+- GraphQL schema: `internal/graph/schema.graphqls` | Resolvers: `internal/graphql/` | Business logic: `internal/service/`
+- gRPC: `proto/authorizer/v1/` → `gen/` | Server: `internal/grpcsrv/` | REST via grpc-gateway
+- gRPC auth docs: authorizer-docs repo, `specs/GRPC_REST_API_SPEC.md` (§2.3 client metadata)
+- Request principal (gRPC interceptor): `internal/authctx/`
 - Storage interface: `internal/storage/provider.go` | SQL: `internal/storage/db/sql/` | NoSQL: `mongodb/`, `arangodb/`, `cassandradb/`, `dynamodb/`, `couchbase/`
+- FGA engine: `internal/authorization/`
 - OAuth/OIDC endpoints: `internal/http_handlers/`
 - Token management: `internal/token/`
-- Tests: `internal/integration_tests/`
+- Tests: `internal/integration_tests/` | Release smoke: `internal/e2e/`
 - Frontend: `web/app/` (user UI) | `web/dashboard/` (admin UI)
 
-**Pattern**: Every subsystem uses `Dependencies` struct + `New()` → `Provider` interface.
+**Transport pattern**: Handlers (GraphQL, gRPC, REST) are thin; shared logic lives in `internal/service/` behind `Provider` / `AdminProvider` interfaces. gRPC uses `transport.MetaFromGRPC` to build `RequestMetadata`; the auth interceptor attaches `authctx.Principal` before handlers run.
+
+**Provider pattern**: Every subsystem uses `Dependencies` struct + `New()` → `Provider` interface.
+
+## Background Work (Goroutines)
+
+Request handlers and service methods fire side effects (email/SMS send, webhook events, audit logs) as detached goroutines so the response isn't blocked. **Never use a bare `go func() { ... }()` for this** — use `asyncutil.Go(log *zerolog.Logger, fn func())` (`internal/asyncutil/`) instead:
+
+- Tracks the goroutine so `internal/server/server.go`'s graceful shutdown (`asyncutil.Wait`) drains in-flight background work before the process exits. A bare `go func()` is invisible to shutdown and gets killed mid-flight.
+- Recovers any panic in `fn` and logs it. A bare `go func()` that panics takes down the **entire process** — Go's default behavior for an unrecovered goroutine panic is to crash the whole binary, not just the request.
+- Pass the call site's `*zerolog.Logger` (`p.Log` / `h.Log`), not a local `log` value, so a recovered panic is still logged correctly.
+
+Only wrap **detached, request-scoped, one-shot** work this way (fire once, no further caller interaction). Do NOT wrap long-running loops already tied to `ctx` (HTTP/gRPC listeners, ticker-based cache eviction) — those have their own lifecycle via `ctx.Done()`/`Shutdown()` and don't need draining.
+
+When the background closure needs a context, use `context.WithoutCancel(ctx)` (not `context.Background()`) so log/trace correlation carries over without inheriting the request's cancellation — this is the existing convention throughout `internal/service/`.
+
+## Database Conventions (GORM / Storage)
+
+- Every `*gorm.DB` call must use `.WithContext(ctx)` — never a bare `p.db.Where(...)` with no context — so cancellation, timeouts, and tracing propagate.
+- **Multi-step writes that must be atomic** (cascade deletes, multi-table inserts) **MUST** be wrapped in `p.db.WithContext(ctx).Transaction(func(tx *gorm.DB) error { ... })`, and every call inside the callback must use `tx`, never the outer `p.db` — reaching for the outer handle inside a transaction silently escapes it and defeats the atomicity.
+- Bulk operations (e.g. an `UpdateUsers`-style method) must **reject** an empty/unscoped filter rather than silently applying to every row — verify this contract holds identically across **all** provider implementations (SQL, MongoDB, ArangoDB, Cassandra/ScyllaDB, DynamoDB, Couchbase), not just SQL. A safety guard present in one backend and missing in another is a parity bug.
+- Any indexed lookup added to one provider (e.g. `GetUserByExternalID`) needs the matching index/equivalent in every other provider — a method that's O(1) in one backend and a full collection/table scan in another is a parity bug, not a perf nit.
+- Never build a query by string-concatenating or `fmt.Sprintf`-ing request-derived values into a WHERE/SET/CQL clause, even for NoSQL backends — always parameterize/bind, and never let a map of column names sourced from a request reach a query builder without an explicit allow-list.
 
 ## Critical Rules (Top of Mind)
 
-1. **Admin GraphQL ops prefixed with `_`** — not for public use.
+1. **Admin GraphQL ops prefixed with `_`** — not for public use. Same for `AuthorizerAdminService` gRPC.
 2. **Schema changes MUST update all 13+ database providers.**
 3. **Run `make generate-graphql`** after editing `schema.graphqls`.
-4. **NEVER commit to main** — always use a feature branch (`feat/`, `fix/`, `security/`, `chore/`), push, open a PR. Main must stay deployable.
+4. **Run `make proto-gen`** (or `make proto-check`) after editing `proto/`; commit `gen/`.
+5. **NEVER commit to main** — always use a feature branch (`feat/`, `fix/`, `security/`, `chore/`), push, open a PR. Main must stay deployable.
+6. **Fire-and-forget side effects go through `asyncutil.Go`, never a bare `go func()`** — see Background Work above.
 
 Detailed rules load via skills (see below) — don't restate them here.
 
@@ -59,9 +172,12 @@ Detailed rules load via skills (see below) — don't restate them here.
 
 | Agent | Model | Focus |
 |---|---|---|
-| `principal-engineer` | opus | Full SDLC: Plan → Execute → Test → Review across Go, storage, GraphQL, HTTP. Use for any change touching >1 subsystem. |
+| `principal-engineer` | opus | Full SDLC: Plan → Execute → Test → Review across Go, storage, GraphQL, HTTP, gRPC. Use for any change touching >1 subsystem. |
 | `security-engineer` | opus | OAuth2/OIDC, JWT, MFA, vulnerability audit. Second-pass on auth-sensitive PRs. |
 | `doc-writer` | haiku | API docs, guides, migration docs. |
+| `authz-researcher` | opus | Deep, adversarially-verified research on authz standards (OpenFGA, RFC 8693/8707/9728, MCP, CIBA, AuthZEN). Run before designing/building any authz capability. |
+| `fga-engineer` | opus | Implements the OpenFGA migration (Wave 1) per specs/FGA_OPENFGA_MIGRATION_PLAN.md (authorizer-docs repo). |
+| `delegation-engineer` | opus | Implements the agentic delegation chain (Wave 2) per specs/AGENTIC_DELEGATION_DESIGN.md (authorizer-docs repo). Security-critical. |
 
 ## Project Skills (auto-load on matching files)
 
@@ -74,6 +190,8 @@ Detailed rules load via skills (see below) — don't restate them here.
 | `authorizer-security` | auth-sensitive code or `security/` branches |
 | `authorizer-testing` | any `*_test.go` |
 | `authorizer-frontend` | `web/app/`, `web/dashboard/` |
+| `openfga-modeling` | FGA engine (`internal/authorization/`), authz models/tuples, `check_permissions`/`list_permissions`/`_fga_*` GraphQL |
+| `agentic-auth-standards` | token exchange, delegation, MCP, agent-identity (`internal/token/`, `internal/http_handlers/`) |
 
 ## Token Optimization Notes
 
@@ -84,5 +202,51 @@ Detailed rules load via skills (see below) — don't restate them here.
 - Prefer reading specific line ranges over full files.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/authorizerdev) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+
+# Behavioral Guidelines
+
+Behavioral guidelines to reduce common LLM coding mistakes.
+
+## 1. Think Before Coding
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
+Before implementing:
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
+
+## 2. Simplicity First
+**Minimum code that solves the problem. Nothing speculative.**
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+## 3. Surgical Changes
+**Touch only what you must. Clean up only your own mess.**
+When editing existing code:
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it - don't delete it.
+When your changes create orphans:
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
+
+## 4. Goal-Driven Execution
+**Define success criteria. Loop until verified.**
+Transform tasks into verifiable goals:
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
+
+For multi-step tasks, state a brief plan:
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
+
+---
+> Source: [authorizerdev/authorizer](https://github.com/authorizerdev/authorizer) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
