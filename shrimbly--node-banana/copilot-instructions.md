@@ -1,10 +1,10 @@
 ## node-banana
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## Build & Development Commands
 
@@ -20,7 +20,7 @@ npm run test:run # Run all tests once (CI mode)
 ## Environment Setup
 
 Create `.env.local` in the root directory:
-```
+```bash
 GEMINI_API_KEY=your_gemini_api_key
 OPENAI_API_KEY=your_openai_api_key  # Optional, for OpenAI LLM provider
 KIE_API_KEY=your_kie_api_key        # Optional, for Kie.ai models (Sora, Veo, Kling, etc.)
@@ -202,7 +202,7 @@ If the model uses different endpoints than `/api/v1/jobs/createTask` and `/api/v
 - Add a detection function (e.g., `isVeoModel()`)
 - Add a model-ID-to-API-model mapping function
 - Add a custom polling function for the model's status endpoint
-- Add a branch in `generateWithKie()` for the custom request format
+- Add a branch in the Kie request-building logic (see `src/app/api/generate/providers/kie.ts`) for the custom request format
 
 ## API Routes
 
@@ -237,4 +237,4 @@ All routes in `src/app/api/`:
 
 ---
 > Source: [shrimbly/node-banana](https://github.com/shrimbly/node-banana) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
