@@ -4,7 +4,7 @@
   "repo": "Feeds4U",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/EvgenyKarkan/Feeds4U",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T14:25:19Z"
+  "distributed_at": "2026-08-05T23:48:53Z"
 }
