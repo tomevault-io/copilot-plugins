@@ -1,9 +1,26 @@
 {
   "name": "jerry609--paperbot",
   "displayName": "PaperBot",
-  "description": "Academic Personal AI Infrastructure",
+  "description": "PaperBot",
   "version": "1.0.0",
   "author": "jerry609",
   "homepage": "https://github.com/jerry609/PaperBot",
-  "skills": []
+  "skills": [
+    {
+      "name": "PaperBot",
+      "description": ""
+    },
+    {
+      "name": "PaperBot",
+      "description": ""
+    },
+    {
+      "name": "PaperBot",
+      "description": ""
+    },
+    {
+      "name": "PaperBot",
+      "description": ""
+    }
+  ]
 }
