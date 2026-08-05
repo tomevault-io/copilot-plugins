@@ -1,6 +1,6 @@
 # radar-sdk-android
 
-> Source: [radarlabs/radar-sdk-android](https://github.com/radarlabs/radar-sdk-android). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [radarlabs/radar-sdk-android](https://github.com/radarlabs/radar-sdk-android). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
