@@ -4,7 +4,7 @@
   "repo": "CrissCross",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/reactivemarbles/CrissCross",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T00:45:33Z"
+  "distributed_at": "2026-08-05T00:20:32Z"
 }
