@@ -1,0 +1,9 @@
+{
+  "name": "u-ichi--reviewable-html-workbench",
+  "displayName": "reviewable-html-workbench",
+  "description": "Claude Code / Codex CLI plugin for generating reviewable HTML documents with preview, inline review comments, and agent feedback ingestion.",
+  "version": "1.0.0",
+  "author": "u-ichi",
+  "homepage": "https://github.com/u-ichi/reviewable-html-workbench",
+  "skills": []
+}
