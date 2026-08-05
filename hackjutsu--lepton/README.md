@@ -1,21 +1,21 @@
 # AI instruction files for Lepton
 
-> Sourced from [hackjutsu/Lepton](https://github.com/hackjutsu/Lepton) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [hackjutsu/Lepton](https://github.com/hackjutsu/Lepton), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [hackjutsu/Lepton](https://github.com/hackjutsu/Lepton).
+Original source: `AGENTS.md` in [hackjutsu/Lepton](https://github.com/hackjutsu/Lepton).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [hackjutsu/Lepton](https://github.com/hackjutsu/Lepton) — a repo with 10334+ stars on GitHub.
+From [hackjutsu/Lepton](https://github.com/hackjutsu/Lepton) — a repo with 10340+ stars on GitHub.
 
 ---
 
