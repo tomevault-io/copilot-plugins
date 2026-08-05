@@ -1,0 +1,9 @@
+{
+  "name": "openeggbert--cna",
+  "displayName": "cna",
+  "description": "Modern C++23 reimplementation of the Microsoft XNA 4.0 API on SDL3, with pluggable rendering backends (SDL_Renderer, OpenGL, bgfx) and cross-platform networking.",
+  "version": "1.0.0",
+  "author": "openeggbert",
+  "homepage": "https://github.com/openeggbert/cna",
+  "skills": []
+}
