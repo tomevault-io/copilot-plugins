@@ -1,0 +1,9 @@
+{
+  "name": "datadog--nginx-datadog",
+  "displayName": "nginx-datadog",
+  "description": "nginx-datadog",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/nginx-datadog",
+  "skills": []
+}
