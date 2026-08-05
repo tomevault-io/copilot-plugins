@@ -39,19 +39,13 @@
   ],
   "skills": [
     {
-      "name": "skill-creator",
-      "path": "vtcode-core/src/skills/assets/samples/skill-creator",
-      "github_url": "https://github.com/vinhnx/vtcode/tree/main/vtcode-core/src/skills/assets/samples/skill-creator",
-      "description": ""
-    },
-    {
-      "name": "skill-installer",
-      "path": "vtcode-core/src/skills/assets/samples/skill-installer",
-      "github_url": "https://github.com/vinhnx/vtcode/tree/main/vtcode-core/src/skills/assets/samples/skill-installer",
+      "name": "vtchat",
+      "path": ".opencode/skills/codemod/SKILL.md",
+      "github_url": "https://github.com/vinhnx/vtcode/tree/main/.opencode/skills/codemod/SKILL.md",
       "description": ""
     }
   ],
   "source_url": "https://github.com/vinhnx/vtcode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T08:41:17Z"
+  "distributed_at": "2026-08-05T09:01:20Z"
 }
