@@ -1,0 +1,9 @@
+{
+  "name": "ceyhunsenol--navlens",
+  "displayName": "NAVLens",
+  "description": "Open-source toolkit for explainable investment fund return estimation and backtesting, built with Rust and Python.",
+  "version": "1.0.0",
+  "author": "ceyhunsenol",
+  "homepage": "https://github.com/ceyhunsenol/NAVLens",
+  "skills": []
+}
