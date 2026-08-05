@@ -4,7 +4,7 @@
   "repo": "iot-dc3-web",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pnoker/iot-dc3-web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-01T03:16:27Z"
+  "distributed_at": "2026-08-05T08:38:28Z"
 }
