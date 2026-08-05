@@ -2,9 +2,9 @@
   "name": "PRD-driven-context-engineering",
   "owner": "mattgierhart",
   "repo": "PRD-driven-context-engineering",
-  "description": "PRD-driven Context Engineering: A systematic approach to building AI-powered products using progressive documentation and context-aware development workflows",
+  "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -39,127 +39,613 @@
   ],
   "skills": [
     {
-      "name": "ghm-id-register",
-      "path": ".claude/skills/ghm-id-register",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/ghm-id-register",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/ghm-harvest/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/ghm-harvest/SKILL.md",
       "description": ""
     },
     {
-      "name": "ghm-template-sync",
-      "path": ".claude/skills/ghm-template-sync",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/ghm-template-sync",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/ghm-gate-check/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/ghm-gate-check/SKILL.md",
       "description": ""
     },
     {
-      "name": "prd-v01-user-value-articulation",
-      "path": ".claude/skills/prd-v01-user-value-articulation",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v01-user-value-articulation",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/SKILL_TEMPLATE/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/SKILL_TEMPLATE/SKILL.md",
       "description": ""
     },
     {
-      "name": "prd-v02-product-type-classification",
-      "path": ".claude/skills/prd-v02-product-type-classification",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v02-product-type-classification",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/ghm-sot-builder/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/ghm-sot-builder/SKILL.md",
       "description": ""
     },
     {
-      "name": "prd-v03-outcome-definition",
-      "path": ".claude/skills/prd-v03-outcome-definition",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v03-outcome-definition",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/ghm-id-register/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/ghm-id-register/SKILL.md",
       "description": ""
     },
     {
-      "name": "prd-v03-pricing-model",
-      "path": ".claude/skills/prd-v03-pricing-model",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v03-pricing-model",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/ghm-status-sync/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/ghm-status-sync/SKILL.md",
       "description": ""
     },
     {
-      "name": "prd-v04-screen-flow-definition",
-      "path": ".claude/skills/prd-v04-screen-flow-definition",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v04-screen-flow-definition",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v09-aeo-audit/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v09-aeo-audit/SKILL.md",
       "description": ""
     },
     {
-      "name": "prd-v05-risk-discovery-interview",
-      "path": ".claude/skills/prd-v05-risk-discovery-interview",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v05-risk-discovery-interview",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/ghm-template-sync/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/ghm-template-sync/SKILL.md",
       "description": ""
     },
     {
-      "name": "prd-v05-technical-stack-selection",
-      "path": ".claude/skills/prd-v05-technical-stack-selection",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v05-technical-stack-selection",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v07-epic-scoping/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v07-epic-scoping/SKILL.md",
       "description": ""
     },
     {
-      "name": "prd-v06-architecture-design",
-      "path": ".claude/skills/prd-v06-architecture-design",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v06-architecture-design",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v09-gtm-strategy/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v09-gtm-strategy/SKILL.md",
       "description": ""
     },
     {
-      "name": "prd-v06-environment-setup",
-      "path": ".claude/skills/prd-v06-environment-setup",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v06-environment-setup",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v07-test-planning/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v07-test-planning/SKILL.md",
       "description": ""
     },
     {
-      "name": "prd-v06-technical-specification",
-      "path": ".claude/skills/prd-v06-technical-specification",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v06-technical-specification",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v03-pricing-model/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v03-pricing-model/SKILL.md",
       "description": ""
     },
     {
-      "name": "prd-v07-epic-scoping",
-      "path": ".claude/skills/prd-v07-epic-scoping",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v07-epic-scoping",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v09-launch-metrics/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v09-launch-metrics/SKILL.md",
       "description": ""
     },
     {
-      "name": "prd-v07-implementation-loop",
-      "path": ".claude/skills/prd-v07-implementation-loop",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v07-implementation-loop",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v03-moat-definition/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v03-moat-definition/SKILL.md",
       "description": ""
     },
     {
-      "name": "prd-v07-test-planning",
-      "path": ".claude/skills/prd-v07-test-planning",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v07-test-planning",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v01-problem-framing/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v01-problem-framing/SKILL.md",
       "description": ""
     },
     {
-      "name": "prd-v08-monitoring-setup",
-      "path": ".claude/skills/prd-v08-monitoring-setup",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v08-monitoring-setup",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v08-runbook-creation/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v08-runbook-creation/SKILL.md",
       "description": ""
     },
     {
-      "name": "prd-v08-release-planning",
-      "path": ".claude/skills/prd-v08-release-planning",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v08-release-planning",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v08-monitoring-setup/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v08-monitoring-setup/SKILL.md",
       "description": ""
     },
     {
-      "name": "prd-v08-runbook-creation",
-      "path": ".claude/skills/prd-v08-runbook-creation",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v08-runbook-creation",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v08-release-planning/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v08-release-planning/SKILL.md",
       "description": ""
     },
     {
-      "name": "prd-v09-feedback-loop-setup",
-      "path": ".claude/skills/prd-v09-feedback-loop-setup",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v09-feedback-loop-setup",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v09-hn-reddit-launch/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v09-hn-reddit-launch/SKILL.md",
       "description": ""
     },
     {
-      "name": "prd-v09-launch-metrics",
-      "path": ".claude/skills/prd-v09-launch-metrics",
-      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v09-launch-metrics",
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v06-environment-setup/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v06-environment-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v10-mom-test-interview/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v10-mom-test-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v09-alternatives-pages/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v09-alternatives-pages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v10-case-study-builder/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v10-case-study-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v04-persona-definition/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v04-persona-definition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v03-outcome-definition/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v03-outcome-definition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v07-implementation-loop/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v07-implementation-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v09-feedback-loop-setup/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v09-feedback-loop-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v06-architecture-design/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v06-architecture-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v09-launch-channels-orb/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v09-launch-channels-orb/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v09-positioning-dunford/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v09-positioning-dunford/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v10-chasm-adoption-moore/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v10-chasm-adoption-moore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v09-cold-outreach-tiered/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v09-cold-outreach-tiered/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v04-user-journey-mapping/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v04-user-journey-mapping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v08-marketing-ops-handoff/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v08-marketing-ops-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v10-testimonial-collector/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v10-testimonial-collector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v04-visual-prototype-gate/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v04-visual-prototype-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v08-changelog-as-marketing/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v08-changelog-as-marketing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v08-drift-baseline-compare/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v08-drift-baseline-compare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v04-screen-flow-definition/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v04-screen-flow-definition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v06-technical-specification/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v06-technical-specification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v01-user-value-articulation/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v01-user-value-articulation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v03-features-value-planning/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v03-features-value-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v05-risk-discovery-interview/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v05-risk-discovery-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v05-technical-stack-selection/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v05-technical-stack-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v09-offer-construction-hormozi/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v09-offer-construction-hormozi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v10-continuous-discovery-torres/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v10-continuous-discovery-torres/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v02-product-type-classification/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v02-product-type-classification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/prd-v02-competitive-landscape-mapping/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v02-competitive-landscape-mapping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "temp/v0.5-requirements/prd-v05-technical-stack-selection/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/temp/v0.5-requirements/prd-v05-technical-stack-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/init/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/init/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/init/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": ".claude/skills/ghm-self-install/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/ghm-self-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/ghm-harvest/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/ghm-harvest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/ghm-gate-check/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/ghm-gate-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/SKILL_TEMPLATE/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/SKILL_TEMPLATE/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/ghm-sot-builder/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/ghm-sot-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/ghm-id-register/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/ghm-id-register/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/ghm-status-sync/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/ghm-status-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/ghm-self-install/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/ghm-self-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v09-aeo-audit/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v09-aeo-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/ghm-template-sync/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/ghm-template-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v07-epic-scoping/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v07-epic-scoping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v09-gtm-strategy/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v09-gtm-strategy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v07-test-planning/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v07-test-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v03-pricing-model/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v03-pricing-model/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v09-launch-metrics/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v09-launch-metrics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v03-moat-definition/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v03-moat-definition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v01-problem-framing/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v01-problem-framing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v08-runbook-creation/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v08-runbook-creation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v08-monitoring-setup/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v08-monitoring-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v08-release-planning/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v08-release-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v09-hn-reddit-launch/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v09-hn-reddit-launch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v06-environment-setup/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v06-environment-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v10-mom-test-interview/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v10-mom-test-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v09-alternatives-pages/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v09-alternatives-pages/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v10-case-study-builder/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v10-case-study-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v04-persona-definition/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v04-persona-definition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v03-outcome-definition/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v03-outcome-definition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v07-implementation-loop/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v07-implementation-loop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v09-feedback-loop-setup/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v09-feedback-loop-setup/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v06-architecture-design/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v06-architecture-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v09-launch-channels-orb/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v09-launch-channels-orb/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v09-positioning-dunford/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v09-positioning-dunford/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v10-chasm-adoption-moore/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v10-chasm-adoption-moore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v09-cold-outreach-tiered/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v09-cold-outreach-tiered/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v04-user-journey-mapping/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v04-user-journey-mapping/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v08-marketing-ops-handoff/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v08-marketing-ops-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v10-testimonial-collector/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v10-testimonial-collector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v04-visual-prototype-gate/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v04-visual-prototype-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v08-changelog-as-marketing/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v08-changelog-as-marketing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v08-drift-baseline-compare/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v08-drift-baseline-compare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v04-screen-flow-definition/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v04-screen-flow-definition/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v06-technical-specification/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v06-technical-specification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v01-user-value-articulation/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v01-user-value-articulation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v03-features-value-planning/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v03-features-value-planning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v05-risk-discovery-interview/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v05-risk-discovery-interview/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v05-technical-stack-selection/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v05-technical-stack-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v09-offer-construction-hormozi/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v09-offer-construction-hormozi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v10-continuous-discovery-torres/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v10-continuous-discovery-torres/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v02-product-type-classification/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v02-product-type-classification/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PRD-driven-context-engineering",
+      "path": "plugins/prd-ce/skills/prd-v02-competitive-landscape-mapping/SKILL.md",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/plugins/prd-ce/skills/prd-v02-competitive-landscape-mapping/SKILL.md",
       "description": ""
     }
   ],
   "source_url": "https://github.com/mattgierhart/PRD-driven-context-engineering",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T20:30:14Z"
+  "distributed_at": "2026-08-05T23:24:11Z"
 }
