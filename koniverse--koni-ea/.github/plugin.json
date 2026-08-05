@@ -1,0 +1,9 @@
+{
+  "name": "koniverse--koni-ea",
+  "displayName": "Koni-ea",
+  "description": "Build a MetaTrader 5 trading bot and deploy it on Senti \u2014 starting from a template that already gets the hard parts right.",
+  "version": "1.0.0",
+  "author": "Koniverse",
+  "homepage": "https://github.com/Koniverse/Koni-ea",
+  "skills": []
+}
