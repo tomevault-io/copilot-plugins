@@ -1,0 +1,44 @@
+{
+  "name": "XQ-Auto-Writer-Skill",
+  "owner": "would2000",
+  "repo": "XQ-Auto-Writer-Skill",
+  "description": "Codex skill for writing and compiling XScript in XQ \u5168\u7403\u8d0f\u5bb6",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/would2000/XQ-Auto-Writer-Skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-05T15:39:45Z"
+}
