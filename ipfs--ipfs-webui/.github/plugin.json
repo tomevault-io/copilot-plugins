@@ -1,0 +1,9 @@
+{
+  "name": "ipfs--ipfs-webui",
+  "displayName": "ipfs-webui",
+  "description": "ipfs-webui",
+  "version": "1.0.0",
+  "author": "ipfs",
+  "homepage": "https://github.com/ipfs/ipfs-webui",
+  "skills": []
+}
