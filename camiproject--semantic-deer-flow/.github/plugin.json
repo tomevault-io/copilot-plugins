@@ -1,0 +1,9 @@
+{
+  "name": "camiproject--semantic-deer-flow",
+  "displayName": "semantic-deer-flow",
+  "description": "Unofficial DeerFlow downstream for governed SaaS semantic queries and controlled actions",
+  "version": "1.0.0",
+  "author": "CamiProject",
+  "homepage": "https://github.com/CamiProject/semantic-deer-flow",
+  "skills": []
+}
