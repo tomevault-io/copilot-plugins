@@ -1,0 +1,9 @@
+{
+  "name": "observiq--bindplane-otel-collector",
+  "displayName": "bindplane-otel-collector",
+  "description": "bindplane-otel-collector",
+  "version": "1.0.0",
+  "author": "observIQ",
+  "homepage": "https://github.com/observIQ/bindplane-otel-collector",
+  "skills": []
+}
