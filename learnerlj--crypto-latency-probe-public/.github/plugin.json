@@ -1,0 +1,9 @@
+{
+  "name": "learnerlj--crypto-latency-probe-public",
+  "displayName": "crypto-latency-probe-public",
+  "description": "Measure Binance USD-M WebSocket and signed REST latency in microseconds.",
+  "version": "1.0.0",
+  "author": "learnerLj",
+  "homepage": "https://github.com/learnerLj/crypto-latency-probe-public",
+  "skills": []
+}
