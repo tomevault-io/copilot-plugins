@@ -4,7 +4,7 @@
   "repo": "authorizer",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/authorizerdev",
+  "source_url": "https://github.com/authorizerdev/authorizer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T19:50:20Z"
+  "distributed_at": "2026-08-05T04:56:40Z"
 }
