@@ -1,8 +1,6 @@
 # AI instruction files for openclaw-project-webos
 
-> Sourced from [pgedeon/openclaw-project-webos](https://github.com/pgedeon/openclaw-project-webos) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-OpenClaw Desktop — WebOS-style project management dashboard with native kanban board, Gantt timeline, activity feed, and workflow runbooks
+> Sourced from [pgedeon/openclaw-project-webos](https://github.com/pgedeon/openclaw-project-webos), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [pgedeon/openclaw-project-webos](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/pgedeon/openclaw-project-webos](https://github.com/pgedeon/openclaw-project-webos)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/pgedeon/openclaw-project-webos](https://github.com/pgedeon/openclaw-project-webos)
 
 ---
 
