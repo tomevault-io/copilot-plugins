@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--scriptc",
+  "displayName": "scriptc",
+  "description": "TypeScript-to-Native Compiler",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/scriptc",
+  "skills": []
+}
