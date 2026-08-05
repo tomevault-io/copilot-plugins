@@ -7,11 +7,11 @@ Structured research skills and quality gates for humanities scholars using AI ag
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [icerain-cmd/humanities-superpowers](https://github.com/icerain-cmd/humanities-superpowers).
+Original source: `AGENTS.md` in [icerain-cmd/humanities-superpowers](https://github.com/icerain-cmd/humanities-superpowers).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
