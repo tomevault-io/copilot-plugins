@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--frankensim-website",
+  "displayName": "frankensim_website",
+  "description": "FrankenSim \u2014 the certified simulation & design kernel for Rust. Marketing + docs site with 20 real Rust kernels compiled to WebAssembly, running live in the browser. https://frankensim.org",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/frankensim_website",
+  "skills": []
+}
