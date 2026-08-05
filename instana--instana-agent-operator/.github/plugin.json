@@ -1,0 +1,9 @@
+{
+  "name": "instana--instana-agent-operator",
+  "displayName": "instana-agent-operator",
+  "description": "instana-agent-operator",
+  "version": "1.0.0",
+  "author": "instana",
+  "homepage": "https://github.com/instana/instana-agent-operator",
+  "skills": []
+}
