@@ -2,9 +2,9 @@
   "name": "td",
   "owner": "marcus",
   "repo": "td",
-  "description": "A minimalist CLI for tracking tasks across AI coding sessions.",
+  "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -51,19 +51,19 @@
       "description": ""
     },
     {
-      "name": "td-review-session",
-      "path": "skills/td-review-session",
-      "github_url": "https://github.com/marcus/td/tree/main/skills/td-review-session",
+      "name": "td",
+      "path": "td-task-management/SKILL.md",
+      "github_url": "https://github.com/marcus/td/tree/main/td-task-management/SKILL.md",
       "description": ""
     },
     {
-      "name": "td-task-management",
-      "path": "skills/td-task-management",
-      "github_url": "https://github.com/marcus/td/tree/main/skills/td-task-management",
+      "name": "td",
+      "path": ".claude/skills/td-integration-test/SKILL.md",
+      "github_url": "https://github.com/marcus/td/tree/main/.claude/skills/td-integration-test/SKILL.md",
       "description": ""
     }
   ],
   "source_url": "https://github.com/marcus/td",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T19:42:32Z"
+  "distributed_at": "2026-08-05T09:00:36Z"
 }
