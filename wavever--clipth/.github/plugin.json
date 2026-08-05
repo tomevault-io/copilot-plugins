@@ -1,0 +1,9 @@
+{
+  "name": "wavever--clipth",
+  "displayName": "Clipth",
+  "description": "Local-first clipboard history for macOS \u2014 offline semantic search, OCR, content protection, and a built-in MCP server for AI tools. \u672c\u5730\u4f18\u5148\u7684 macOS \u526a\u8d34\u677f\u7ba1\u7406\u5668",
+  "version": "1.0.0",
+  "author": "wavever",
+  "homepage": "https://github.com/wavever/Clipth",
+  "skills": []
+}
