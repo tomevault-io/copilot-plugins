@@ -1,0 +1,9 @@
+{
+  "name": "riscv--riscv-arch-test",
+  "displayName": "riscv-arch-test",
+  "description": "riscv-arch-test",
+  "version": "1.0.0",
+  "author": "riscv",
+  "homepage": "https://github.com/riscv/riscv-arch-test",
+  "skills": []
+}
