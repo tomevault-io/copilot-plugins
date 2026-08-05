@@ -2,7 +2,7 @@
 
 > This repository is a template with sensible defaults for building Tauri React apps.
 
-# Claude Instructions
+# AI Agents
 
 ## Current Status
 
@@ -36,7 +36,7 @@ If you need to check some codex app-server related things, use "codex app-server
 5. **Match Code Style**: Follow existing formatting and patterns
 6. **Test Coverage**: Write comprehensive tests for business logic
 7. **Quality Gates**: Run `bun run check:all` after significant changes
-8. **No Dev Server**: Ask user to run and report back
+8. **Dev Server**: You may start the dev server (`bun run tauri dev`) when needed
 9. **No Unsolicited Commits**: Only when explicitly requested
 10. **Documentation**: Update relevant `docs/developer/` files for new patterns
 11. **Removing files**: Always use `rm -f`
@@ -192,6 +192,48 @@ To diagnose unnecessary re-renders, temporarily install [why-did-you-render](htt
 5. Check browser console for "Re-rendered because of hook changes" / "different objects that are equal by value"
 6. **Before releasing:** Remove all annotations, `wdyr.ts`, its import, and `bun remove @welldone-software/why-did-you-render`
 
+#### PI CLI JSON Output Format
+
+**Read this before changing PI chat parsing** (`src-tauri/src/chat/pi.rs`).
+
+Interactive Jean chat runs PI through Jean's detached PI RPC host on Unix/macOS:
+Jean launches itself with `--jean-pi-rpc-host`; that host owns a `pi --mode rpc`
+child, keeps stdin open after Jean quits, writes PI stdout JSONL into Jean's
+run log, and accepts local socket commands for `prompt`, `steer`, and `abort`.
+The socket lives under Jean's app-data directory with a short filename to stay
+within macOS Unix socket path limits. This is required because PI RPC exits when
+stdin closes. Windows/non-detached fallbacks may still use direct child
+execution and are non-survivable.
+
+Jean persists its own session/run JSONL (run logs) — PI's event/session format
+is only used to parse PI output before writing Jean history. References:
+https://pi.dev/docs/latest/rpc and https://pi.dev/docs/latest/session-format
+
+- **Streaming assistant text** arrives as `message_update` / `assistant` events.
+  Deltas are read from `assistantMessageEvent.delta` (type `text_delta`), or a
+  top-level `delta`/`text` field. Thinking deltas use `delta.type == "thinking_delta"`.
+- **Final assistant content** (text, thinking, tool calls), tool results, and
+  usage are nested under `type: "message"` lifecycle entries — `message.role` is
+  `assistant` (content blocks: `text`, `thinking`, `toolCall`) or `toolResult`.
+- **Tool lifecycle** also emitted as discrete `tool_execution_start` / `tool_call`
+  and `tool_execution_end` / `tool_result` events.
+- **Session id** comes from `session_id` / `sessionId`, or a `type: "session"`
+  entry's `id`. This becomes Jean's `pi_session_id` resume id.
+- **Usage** is read from `usage` / `token_usage` on `message`, `message_end`,
+  `turn_end`, `agent_end`, or `result` events.
+- **Steering** uses the RPC `steer` command through `steer_pi_turn`. Only plain
+  queued prompts (no files/images/skills/text attachments) are steerable.
+- **Background recovery** mirrors Codex's survivable app-server pattern:
+  host-backed PI runs store the host PID on the run, are treated as detached
+  survivable sessions, and `resume_session` tails the run JSONL with the PI
+  parser after Jean restarts. The host appends a synthetic `type: "result"`
+  marker after `agent_end` so completed-while-closed runs recover as completed.
+
+**Parsing is incremental:** `merge_pi_line()` merges one parsed line into the
+accumulating `PiResponse`. Both the batch parser (`parse_pi_json_stream_inner`)
+and the live streaming parser (`parse_pi_stream`) call it per line — never
+re-parse the whole accumulated buffer (avoids O(n²) on long sessions).
+
 #### Claude CLI JSON Schema Pattern
 
 **CRITICAL:** When using `--json-schema` with Claude CLI, structured output is returned via a tool call, not plain text.
@@ -344,6 +386,15 @@ The helper is defined in `src-tauri/src/platform/process.rs` and exported via `p
 - `SessionListRow.tsx` - Compact row component for list view
 - `session-card-utils.tsx` - `computeSessionCardData()`, `SessionCardData`, and `SessionCardProps` types
 
+#### Keyboard Affordances in Web/Mobile
+
+Keyboard-only affordances are native-desktop only by default:
+
+- Hide `<Kbd>` shortcut hints in web access and mobile views unless the shortcut is explicitly useful there.
+- Disable matching keyboard-only default actions in web access/mobile (examples: toast default action `Alt+Enter`, unread session mark-read `R`).
+- Keep the click/tap action available; only gate the desktop keyboard hint/handler.
+- Use `isNativeApp()` plus `useIsMobile()`/viewport width for gating, and add tests for native desktop, web access, and mobile.
+
 #### Image Processing on Paste/Drop
 
 Images pasted or dropped into chat are processed before saving (`process_image()` in `src-tauri/src/chat/commands.rs`):
@@ -359,11 +410,93 @@ Images pasted or dropped into chat are processed before saving (`process_image()
 
 Three files need updating when adding a new model option:
 
-1. **`src/types/preferences.ts`** — Add to `ClaudeModel` type union and `modelOptions` array (full labels like "Claude Sonnet 4.6"). Model IDs use short names: `opus`, `sonnet`, `haiku`
+1. **`src/types/preferences.ts`** — Add to `ClaudeModel` type union and `modelOptions` array (full labels like "Claude Fable 5" or "Claude Sonnet 4.6"). Current first-party Claude Code model IDs use API-style names such as `claude-fable-5`, `claude-opus-4-8[1m]`, and `claude-sonnet-4-6[1m]`; legacy/provider aliases may still use `opus`, `sonnet`, or `haiku`.
 2. **`src/store/chat-store.ts`** — Add to duplicated `ClaudeModel` type union (line ~27)
 3. **`src/components/chat/ChatToolbar.tsx`** — Add to `MODEL_OPTIONS` array (short labels like "Sonnet 4.6")
 
 No Rust changes needed — model is stored as `String` in `AppPreferences` and passed directly to `--model` CLI flag.
+
+#### Adding a New AI Backend
+
+When adding a backend like Claude, Codex, OpenCode, Cursor, Pi, Command Code, or a future CLI/API backend, verify the integration is complete across Rust, TypeScript, UI, persistence, and web access.
+
+**Backend capability classification:**
+
+- [ ] Classify transport shape: persistent server/API, streaming CLI, final-output CLI, or non-chat helper
+- [ ] Document capability flags: streaming, structured tool calls, resume/session id, cancellation, interactive approvals, MCP, model listing, usage, images/files
+- [ ] Define MVP fallback behavior for unsupported capabilities before wiring UI affordances
+- [ ] If backend is final-output-only, emit one synthetic final `chat:chunk` and persist Jean-managed transcript/context
+- [ ] If backend has no resume/session id, do not fake resume support; store Jean session id only
+- [ ] If backend has no structured tool events, skip tool-call UI or synthesize only safe high-level placeholders
+
+**Backend identity and preferences:**
+
+- [ ] Add backend enum/type in Rust (`src-tauri/src/chat/types.rs`) and TypeScript (`src/types/chat.ts`, `src/types/preferences.ts`)
+- [ ] Add backend label/icon/model options (`src/components/ui/backend-label.tsx`, `src/components/icons/`, `ChatToolbar.tsx`)
+- [ ] Add persisted preferences for default backend, selected model, reasoning/effort, source (`jean` vs `path`) when applicable
+- [ ] Add project-level `default_backend` support and build/yolo backend/model/effort overrides
+- [ ] Keep persisted preference fields in `snake_case` and provide serde/default migration safety
+
+**Install, status, auth, and login:**
+
+- [ ] Add CLI module (`src-tauri/src/<backend>_cli/`) with config/status/auth/install/update commands as needed
+- [ ] Avoid binary-name ambiguity; support canonical binary and documented aliases when applicable (e.g. `cmd`, `command-code`)
+- [ ] For npm-distributed CLIs, decide PATH-only vs Jean-managed npm install/update/uninstall before adding Settings controls
+- [ ] Detect whether backend is installed before checking auth
+- [ ] Add auth status command and frontend hook/types (e.g. `check_<backend>_auth`, `use<Backend>CliAuth`, `src/types/<backend>-cli.ts`)
+- [ ] Auth result distinguishes installed+authenticated, installed+unauthenticated, not installed, command failed, and unknown/error
+- [ ] Add login/relogin commands if the backend supports them
+- [ ] If login requires terminal/browser, open the terminal login command, auth URL, or backend-native login flow
+- [ ] Add Settings → General login/relogin buttons with loading state and toast feedback
+- [ ] Re-fetch auth status after login/relogin
+- [ ] Include backend auth readiness in onboarding; do not mark backend ready unless installed and authenticated
+- [ ] Support both Jean-managed binary and system PATH binary login flows
+- [ ] Register every status/auth/login command in both `src-tauri/src/lib.rs` and `src-tauri/src/http_server/dispatch.rs`
+- [ ] Add tests/mocks for authenticated, unauthenticated, not installed, login failure, and `jean` vs `path` source
+
+**Main chat execution:**
+
+- [ ] Create execution module (`src-tauri/src/chat/<backend>.rs`) and export it from `chat/mod.rs`
+- [ ] Return the common response shape: content, backend resume id, tool calls, content blocks, cancelled flag, usage, and error state if needed
+- [ ] Route backend in `src-tauri/src/chat/commands.rs` send-message match
+- [ ] Store backend resume id on Rust/TS `Session` and persist/restore it
+- [ ] Map backend streaming to common events: `chat:chunk`, `chat:tool-use`, `chat:tool-result`, `chat:tool-block`, `chat:thinking`, `chat:done`, `chat:error`, `chat:cancelled`
+- [ ] Preserve ordered `ContentBlock[]`, normalize tool call IDs/names, and attach outputs to matching tool calls
+- [ ] Add cancellation support in `src-tauri/src/chat/registry.rs` (process kill, interrupt request, or cancel flag)
+- [ ] Update run logs, incomplete-run recovery, synthetic plan injection, and session resume behavior
+
+**System prompts, modes, and context:**
+
+- [ ] Assemble prompts with project custom prompt, global system prompt, execution-mode instruction, `RECAP_INSTRUCTION`, language preference, and parallel-execution prompt when enabled
+- [ ] Use the backend-native system prompt mechanism when available; otherwise use a safe fallback
+- [ ] Map Jean execution modes (`plan`, `build`, `yolo`) to backend-native sandbox/approval controls
+- [ ] Update `getSupportedExecutionModes`, `isExecutionModeSupported`, and `normalizeExecutionModeForBackend`
+- [ ] Support backend-native plan tool/approval flow or synthesize a Jean-compatible plan tool call
+- [ ] Apply build/yolo backend/model/effort overrides when approving plans
+- [ ] Merge all relevant context: project/worktree, GitHub issue/PR/security/advisory, Linear issue, saved context files, linked projects, attached files/images, and denied-message re-send context
+- [ ] Embed context directly when the backend cannot access external files/APIs
+
+**Permissions, magic prompts, providers, MCP, and UI:**
+
+- [ ] Add permission/user-input approval structs, events, UI, persistence, and approve/deny commands if backend supports them
+- [ ] Add one-shot execution support for all magic prompt operations (session naming, context summary, PR content, commit message, code review, resolve conflicts, release notes, investigations, review comments)
+- [ ] Add robust structured JSON extraction for one-shot outputs; define the backend-specific strategy (native JSON schema/tool call, strict JSON text, repair pass, or unsupported-with-UI-disable)
+- [ ] For non-JSON-capable backends, wrap prompts with strict JSON instructions and implement tolerant extraction/failure messages
+- [ ] Update Magic Prompts UI backend/model/default presets and per-prompt backend/provider/model/effort resolution
+- [ ] Add provider/profile support if backend supports custom routing; respect project/global/per-prompt provider precedence
+- [ ] Add MCP discovery/health/toggle support if backend supports MCP, including settings-pane grouping, chat status dots, and backend-specific auth hints
+- [ ] Update frontend chat/settings/onboarding/usage UI and backend-specific pending request components
+- [ ] Add backend to favorite models and fast-mode model handling if relevant
+- [ ] Update toolbar/model picker behavior for backend tabs, locked sessions, search scoping, keyboard shortcuts, favorites, and fast-mode controls
+
+**Web access, tests, and docs:**
+
+- [ ] Register every new `#[tauri::command]` in both native `generate_handler![]` and WebSocket dispatch
+- [ ] Use dispatch helpers (`field`, `field_opt`, `from_field`, `from_field_opt`, `to_value`) and emit cache invalidation for mutations
+- [ ] Use `silent_command()` for background processes to avoid Windows console flashes
+- [ ] Add Rust tests for parsing, default backend resolution, cancellation, one-shot JSON extraction, and auth/login
+- [ ] Add TS/component/E2E tests for preferences, auth/login UI, execution mode normalization, backend selection, plan approval, cancellation, and magic prompt overrides
+- [ ] Update developer docs, user docs, troubleshooting, and all comments that list supported backends
 
 #### Per-Project Worktrees Location
 
@@ -437,4 +570,4 @@ crate::background_tasks::commands::my_command(state, arg)?;
 
 ---
 > Source: [coollabsio/jean](https://github.com/coollabsio/jean) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
