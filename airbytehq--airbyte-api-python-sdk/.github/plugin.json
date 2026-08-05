@@ -1,0 +1,9 @@
+{
+  "name": "airbytehq--airbyte-api-python-sdk",
+  "displayName": "airbyte-api-python-sdk",
+  "description": "airbyte-api-python-sdk",
+  "version": "1.0.0",
+  "author": "airbytehq",
+  "homepage": "https://github.com/airbytehq/airbyte-api-python-sdk",
+  "skills": []
+}
