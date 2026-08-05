@@ -1,0 +1,150 @@
+## kurso-zagreba-metodo
+
+> Gvidilo por aŭtomatigitaj kodaj agentoj laborantaj en ĉi tiu deponejo.
+
+# AGENTS.md
+
+Gvidilo por aŭtomatigitaj kodaj agentoj laborantaj en ĉi tiu deponejo.
+
+## Projekta Superrigardo
+
+Ĉi tiu deponejo enhavas la Esperanto-kurson laŭ la Zagreba metodo. La kursa enhavo estas konservita ĉefe kiel YAML kaj Markdown, poste transformata al HTML, Markdown, PDF, EPUB aŭ rilataj formatoj.
+
+La projekta lingvo kaj la dokumentaro videbla al uzantoj estas plejparte Esperantaj. Konservu ekzistantajn Esperantajn vortumojn kaj dosiernomajn konvenciojn krom se tasko eksplicite petas tradukon aŭ tekstajn ŝanĝojn.
+
+## Git Kaj Kunlaboro
+
+- Uzu Esperanton por branĉonomoj, commit-mesaĝoj kaj PR-titoloj/priskriboj, krom se la uzanto eksplicite petas alian lingvon.
+
+## Gravaj Dosierujoj
+
+- `enhavo/netradukenda/`: netradukenda fontenhavo komuna al ĉiuj lingvoj.
+- `enhavo/netradukenda/tekstoj/`: Esperantaj leciontekstoj. Ili estas licencitaj laŭ CC BY-ND kaj ne devas esti ŝanĝitaj.
+- `enhavo/tradukenda/<lingvo>/`: lingvospecifaj tradukoj, gramatikaj klarigoj, ekzercoj, vortaroj, enkonduko kaj posta teksto.
+- `specifoj/tradukenda/`: la fonto de vero por tradukenda enhavo; legu la koncernajn specifojn antaŭ ŝanĝi tradukojn, ekzercojn, vortaron, gramatikon, fasadon, enkondukon aŭ posttekston.
+- `ai/`: reuzeblaj promptoj kaj laborinstrukcioj por agentoj, ekzemple por plibonigi tradukojn aŭ generi OG-bildojn.
+- `agordoj/`: agordo de lingvoj kaj aŭtoroj.
+- `fonto/py/`: Python-generatoroj. La ĉefa enirpunkto estas `fonto.py.generu`.
+- `fonto/html/` kaj `fonto/md/`: ŝablonoj por HTML kaj Markdown.
+- `fonto/css/`, `fonto/js/`, `fonto/bildoj/` kaj `fonto/sonoj/`: statikaj fontdosieroj kopiataj al la reteja eligo.
+- `eligo/retejo/`: generita HTML-retejo. Ne versikontrolu ĝin.
+- `package.json` kaj `package-lock.json`: ŝlositaj npm-dependecoj por la publikaj `/vendor/...` frontend-bibliotekoj.
+- `iloj/`: prizorgaj helpiloj.
+
+## Agordo Kaj Komandoj
+
+Kreu virtualan medion kaj instalu Python- kaj npm-dependecojn per:
+
+```sh
+make install
+```
+
+La kanonika taska tavolo por agentoj estas `make`, simile al `npm run ...` en JavaScript-projektoj:
+
+```sh
+make install
+make check
+make check-yaml
+make check-pwa
+make html LINGVO=en
+make html-all
+make md LINGVO=en
+make serve
+make clean
+```
+
+`make check` instalas nenion. Ĝi estas la normala kontrolo por plej multaj ŝanĝoj: ĝi kontrolas la anglan eligon, unue forigas `eligo/retejo`, generas `eligo/md/en.md` kaj `eligo/retejo/en`, kaj kontrolas kernajn HTML-dosierojn, vendor-versiomarkilojn kaj la Anki-APKG-on. Se `venv/bin/python`, Python-dependecoj aŭ `node_modules` mankas, rulu `make install`. La virtuala medio estas `venv` defaŭlte; oni povas uzi alian per `VENV=.venv make install`.
+
+Kiam ŝanĝo rilatas nur al unu lingvo, preferu lingvolimitan kontrolon per
+`LINGVO=<kodo>` ĉe celoj, kiuj subtenas tion: `check-yaml`,
+`check-yaml-normalized`, `check-md-normalized` kaj `check-pwa`. Sen eksplicita
+`LINGVO`, tiuj kontroloj restas tut-enhavaj aŭ tut-eligaj.
+
+Rulu kromajn kontrolojn nur kiam la koncerna surfaco ŝanĝiĝis:
+
+- `make check-yaml`: kiam ŝanĝiĝis `enhavo/`, `skemoj/`, YAML-validiga kodo aŭ YAML-linteraj dependecoj.
+- `make check-ui`: kiam ŝanĝiĝis frontendaj fontoj, HTML/CSS/JS-ŝablonoj aŭ generatora kodo sub `fonto/`, kiu povas influi la retumilan UI-on.
+- `make html-all` kaj `make check-pwa`: kiam ŝanĝiĝis PWA-aŭ produktada reteja eligo, ekzemple `fonto/py/pwa.py`, PWA-ŝablonoj, komunaj aktivoj aŭ service-worker-rilata kodo.
+
+Python-dependecoj estas mastrumataj per pip kaj pip-tools. Redaktu rektajn dependecojn en `requirements.in`, poste rulu `make lock` por regeneri la ŝlositan `requirements.txt`. Por intence ĝisdatigi ĉiujn ŝlositajn versiojn, rulu `make lock-upgrade`.
+
+Frontend-vendoroj estas mastrumataj per npm kaj bezonas Node.js kun npm; la pinglita Node-versio troviĝas en `.nvmrc`, kaj la GitHub Actions-laborfluo uzas tiun saman version. Ne reenkonduku fontan `vendor/` dosierujon; ŝanĝu `package.json`, regeneru `package-lock.json`, kaj lasu la generatoron kopii el `node_modules` al `eligo/retejo/vendor`.
+
+Generu HTML por lingvo, ekzemple la angla:
+
+```sh
+make html LINGVO=en
+```
+
+Tio skribas al `eligo/retejo/en`.
+
+`make html` kaj `make html-all` kreas ankaŭ PWA-dosierojn (`manifest.webmanifest`, `pwa/registru.js`, `pwa/images/` kaj `sw.js`). Tiuj dosieroj estas provizore ne ligitaj el la HTML, do la retejo nuntempe ne proponas instaleblan PWA-on al vizitantoj. Ne redaktu `eligo/retejo/sw.js` permane. Post `make html-all`, rulu `make check-pwa` por kontroli la nepublike proponatan PWA-eligon.
+
+Por antaŭrigardi jam generitan HTML-on loke, rulu:
+
+```sh
+make serve
+```
+
+Tio nur servas la ekzistantan enhavon de `eligo/retejo`; ĝi ne regeneras dosierojn.
+
+Por forigi generitan retejan eligon, rulu:
+
+```sh
+make clean
+```
+
+Generu Markdown:
+
+```sh
+make md LINGVO=en
+```
+
+La Markdown-eligo estas skribata al stdout. Generado de PDF kaj EPUB bezonas Pandoc, kiel priskribite en `README.md`.
+
+La produkta retejo `esperanto12.net` estas disponigata per GitHub Pages el `eligo/retejo` uzante `make html-all` kaj `make check-pwa`. PR-oj al `master` rulas kontrolon kaj HTML-kunmeton, sed ne disponigas retejon. Ne aldonu apartajn disponigajn skriptojn por produktado; la Pages-artefakta laborfluo estas la kanonika disponigo.
+
+## Redaktado De Enhavo
+
+- Gardu YAML-on valida kaj preferu ekzistantan proksiman strukturon anstataŭ enkonduki novajn formatojn.
+- Metu inter citilojn YAML-valorojn, kiuj povus esti interpretataj kiel buleaj aŭ specialaj skalaroj, ekzemple `on`, `off`, `yes`, aŭ valorojn enhavantajn apostrofojn.
+- Antaŭ enhavaj ŝanĝoj, legu la koncernajn dosierojn en `specifoj/tradukenda/`; ili superas ekzemplojn aŭ malnovajn kutimojn en ekzistantaj tradukoj.
+- Kiam tasko sekvas reuzeblan agentan laborfluon, legu la taŭgan prompton en `ai/`, ekzemple `ai/plibonigi-tradukon.md` por tradukaj plibonigoj aŭ `ai/generi-og-bildojn.md` por OG-bildoj.
+- Post kiam KI aŭ aŭtomatigita agento redaktis YAML-dosierojn, ĉiam rulu `venv/bin/python iloj/normaligu-yaml.py <koncernaj vojoj>` por la tuŝitaj dosieroj aŭ dosierujoj antaŭ validigo aŭ commit. Por normaligi la tutan `enhavo/`, uzu `make normalize-yaml`.
+- Por gramatika Markdown, sekvu la konvenciojn en `KONTRIBUADO.md`: Esperantaj ekzemploj uzas kursivon, tradukoj estas apartigitaj per `–`, emfazitaj morfemoj uzas normalan Markdown-formon kiel `_patr**in**o_` aŭ `_**-o**_`, kaj fluaj alineoj ne ricevas manajn linisaltojn meze de frazo.
+- Kiam vi aldonas aŭ ĝisdatigas lingvon, spegulu la ekzistantan dosierujan strukturon sub `enhavo/tradukenda/`.
+- Ne modifu `enhavo/netradukenda/tekstoj/` krom se la uzanto eksplicite konfirmas licencokonscian ŝanĝon.
+
+## Kodstilaj Notoj
+
+- Ĉi tio estas malgranda Python-projekto, kiu uzas simplajn modulojn kaj ŝablonojn laŭ Jinja/Chevron-stilo. Preferu rektajn ŝanĝojn al novaj abstraktaĵoj.
+- Konservu UTF-8-tekston kaj Esperantajn supersignojn.
+- `fonto.py.generu` estas la ĉefa enirpunkto kaj atendas enhavajn vojojn relative al la deponeja radiko.
+- Evitu enmeti generitajn kaŝmemorojn kiel `__pycache__/` aŭ `.pyc`-dosierojn en versikontrolon.
+
+## Validigo
+
+Ne estas dokumentita aŭtomata testaro ĉe la deponeja radiko. Por ŝanĝoj al generiloj aŭ ŝablonoj, rulu almenaŭ:
+
+```sh
+make check
+```
+
+Se ŝanĝo influas la PWA-on aŭ la produktadan retejan eligon, rulu ankaŭ:
+
+```sh
+make html-all
+make check-pwa
+```
+
+Se ŝanĝo influas specifan lingvon, rulu la generilon ankaŭ por tiu lingvo.
+
+Por malpli oftaj opcioj de la generilo, uzu rekte:
+
+```sh
+venv/bin/python -m fonto.py.generu --help
+```
+
+---
+> Source: [Esperanto/kurso-zagreba-metodo](https://github.com/Esperanto/kurso-zagreba-metodo) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
