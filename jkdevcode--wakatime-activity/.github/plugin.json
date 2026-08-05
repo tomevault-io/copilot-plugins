@@ -1,0 +1,9 @@
+{
+  "name": "jkdevcode--wakatime-activity",
+  "displayName": "wakatime-activity",
+  "description": "GitHub-style WakaTime activity heatmap generator with automated SVG updates via GitHub Actions.",
+  "version": "1.0.0",
+  "author": "jkdevcode",
+  "homepage": "https://github.com/jkdevcode/wakatime-activity",
+  "skills": []
+}
