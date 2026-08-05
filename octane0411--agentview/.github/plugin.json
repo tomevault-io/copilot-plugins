@@ -1,0 +1,9 @@
+{
+  "name": "octane0411--agentview",
+  "displayName": "agentview",
+  "description": "Agent View for orchestrating Codex sessions",
+  "version": "1.0.0",
+  "author": "Octane0411",
+  "homepage": "https://github.com/Octane0411/agentview",
+  "skills": []
+}
