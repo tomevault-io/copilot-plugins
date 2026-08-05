@@ -1,0 +1,9 @@
+{
+  "name": "fxbin--topiceye",
+  "displayName": "TopicEye",
+  "description": "TopicEye \u2014 \u5185\u5bb9\u9009\u9898\u96f7\u8fbe\uff0c\u591a\u4fe1\u6e90\u6293\u53d6 + LLM \u8bc4\u5206 + \u8d8b\u52bf\u8ffd\u8e2a + \u65e5\u62a5\u5468\u520a",
+  "version": "1.0.0",
+  "author": "fxbin",
+  "homepage": "https://github.com/fxbin/TopicEye",
+  "skills": []
+}
