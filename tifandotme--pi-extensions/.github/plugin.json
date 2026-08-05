@@ -1,0 +1,9 @@
+{
+  "name": "tifandotme--pi-extensions",
+  "displayName": "pi-extensions",
+  "description": "A collection of Pi coding agent extensions",
+  "version": "1.0.0",
+  "author": "tifandotme",
+  "homepage": "https://github.com/tifandotme/pi-extensions",
+  "skills": []
+}
