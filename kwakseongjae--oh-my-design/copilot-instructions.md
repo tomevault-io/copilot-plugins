@@ -1,15 +1,62 @@
 ## oh-my-design
 
-> - 시작: `scripts/context_restore.sh` 실행(또는 docs/CURRENT_STATE.md 읽기) → 막힘/대기부터 처리.
+> A 60-line operational context card. Loaded into the project at install via `omd install-skills`. Source of truth for what an agent needs to know about *this* project on every iteration.
 
-@AGENTS.md
+# AGENT.md — oh-my-design harness compact context (≤ 60 lines, Ralph convention)
 
-## 세션 연속성 프로토콜
-- 시작: `scripts/context_restore.sh` 실행(또는 docs/CURRENT_STATE.md 읽기) → 막힘/대기부터 처리.
-- 체크포인트: 작업 단위 완료·결정 확정마다 CURRENT_STATE.md를 먼저 갱신하고 나서 보고한다.
-- 종료: JOURNAL.md 맨 위에 항목 추가(한 일/열린 것/다음, 5줄 이내). 채팅에만 있는 맥락은 잃어버린 것으로 간주.
-- 컨텍스트가 요약(compact)된 채 재개되면: 첫 행동으로 context_restore.sh를 실행해 복원한다.
+A 60-line operational context card. Loaded into the project at install via `omd install-skills`. Source of truth for what an agent needs to know about *this* project on every iteration.
+
+## Identity
+- **Project:** oh-my-design — a CLI + skill bundle that turns AI coding agents into a design harness.
+- **Output artifact:** `DESIGN.md` (Google Stitch 1–9 + OmD 10–15) + harness run dir at `.omd/runs/`.
+- **Target users:** vibe coders, junior designers, solo founders.
+
+## Stack & commands
+- Build: `npm run build` (tsup) · Lint: `npm run lint` (tsc --noEmit) · Test: `npm test` (vitest)
+- The harness skill bootstraps run directories directly; the CLI exposes installation and diagnostics only.
+- User-facing entry: `/omd-harness <task>` (Claude Code or Codex skill)
+
+## Directory map
+- `agents/` — canonical sub-agent definitions (master + specialists; source-of-truth, generates channel-native Claude Code, Codex, and OpenCode roles)
+- `skills/omd-harness/` — entry skill that calls master orchestrator
+- `skills/omd-init/`, `skills/omd-apply/`, `skills/omd-remember/`, `skills/omd-learn/`, `skills/omd-sync/` — project design-system skills
+- `skills/omd-humanize/`, `skills/omd-slop-audit/` — locale-native copy editing and evidence-based anti-slop audit
+- `data/reference-fingerprints.json` — resolved-catalog voice fingerprint manifest (skill-side semantic match)
+- `data/vocabulary.json`, `data/synonyms.json`, `data/reference-tags.md` — controlled vocab + tagging
+- `references/<id>/DESIGN.md` — bundled reference design systems resolved from the catalog
+- `spec/omd-v0.1.md` — OmD spec (15-section DESIGN.md format)
+- `.omd/runs/run-<ts>-<slug>/` — every harness run; permanent archive
+- `skills/omd-lab-02-design-harness/runs/v<N>-...` — Lab #02 versioned experiments
+
+## Core architecture (re-read every Phase 8)
+- **Single Ralph-style loop**, fan-out only at: ux-research (parallel readers), persona-testing (parallel adversarial)
+- **OmD spec is already a harness signature** — §10 → microcopy, §12 → orchestrator constraint, §13 → tester input, §14 → QA checklist
+- **Eval pipeline**: deterministic gate (axe + lighthouse + spec validate) → cross-judge ensemble (3-prompt diversity, no API key) → adversarial persona walkthrough (4 personas, ABANDON token, hard turn budget)
+- **3 mandatory user checkpoints**: Phase 3 (journey), Phase 5 (DESIGN.md.patch), Phase 8 (validation summary)
+- **3-iteration cap**, critic between iterations forces root-cause re-entry (no surface patches)
+
+## Brand non-negotiables (apply to *this* project's own UI)
+- No Inter on white. No purple-on-white. No gradient backgrounds. No unjustified emoji.
+- Korean and Latin script co-equal (this is a bilingual project).
+- Hex + name together for every color: `Toss Blue (#3182f6)`, never just `#3182f6`.
+- AI slop means context-free pattern convergence, not proof that AI authored a screen. Audit clusters, quality issues, and preferences separately.
+
+## Numbered-9s (re-read at every iteration boundary)
+- 9 → re-read sub-agent output before acting
+- 99 → user feedback → trace to Phase decision (critic), not surface-patch
+- 999 → never fabricate §11–13 facts
+- 9999 → never invent tokens absent from DESIGN.md
+- 99999 → never auto-skip user checkpoints
+- 999999 → never invent reference ids; use only IDs present in the resolved catalog
+- 9999999 → never claim success when output is empty; Read the file
+- 99999999 → never overwrite previous iteration; snapshot to `iteration-<N>/`
+
+## Where to look when stuck
+- `research/harness-design/06-omd-integration-design.md` — full architecture
+- `research/harness-design/07-poc-spec.md` — Scenario A/B/C
+- `skills/omd-lab-02-design-harness/runs/live-*.md` — accumulated live-run insights
+- `research/harness-design/docs-todo.md` — pending docs/blogs queue
 
 ---
 > Source: [kwakseongjae/oh-my-design](https://github.com/kwakseongjae/oh-my-design) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
