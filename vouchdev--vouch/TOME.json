@@ -4,7 +4,7 @@
   "repo": "vouch",
   "description": "A git-native, review-gated knowledge base for AI agents: they propose writes, you approve them. Every claim cites a source, every change is a diff in your repo. MCP + CLI.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vouchdev/vouch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T13:10:09Z"
+  "distributed_at": "2026-08-05T22:06:54Z"
 }
