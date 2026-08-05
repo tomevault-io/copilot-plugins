@@ -1,0 +1,9 @@
+{
+  "name": "perinchiang--kimi-code-dashboard",
+  "displayName": "kimi-code-dashboard",
+  "description": "Flask web dashboard for monitoring Kimi Code CLI usage, token quota, tool/skill calls, and memory status",
+  "version": "1.0.0",
+  "author": "perinchiang",
+  "homepage": "https://github.com/perinchiang/kimi-code-dashboard",
+  "skills": []
+}
