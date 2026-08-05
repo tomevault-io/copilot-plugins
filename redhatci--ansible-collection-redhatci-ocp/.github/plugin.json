@@ -1,0 +1,9 @@
+{
+  "name": "redhatci--ansible-collection-redhatci-ocp",
+  "displayName": "ansible-collection-redhatci-ocp",
+  "description": "ansible-collection-redhatci-ocp",
+  "version": "1.0.0",
+  "author": "redhatci",
+  "homepage": "https://github.com/redhatci/ansible-collection-redhatci-ocp",
+  "skills": []
+}
