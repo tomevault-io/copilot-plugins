@@ -1,0 +1,9 @@
+{
+  "name": "sous-chefs--apache2",
+  "displayName": "apache2",
+  "description": "apache2",
+  "version": "1.0.0",
+  "author": "sous-chefs",
+  "homepage": "https://github.com/sous-chefs/apache2",
+  "skills": []
+}
