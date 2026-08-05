@@ -2,9 +2,9 @@
   "name": "imap-mcp-server",
   "owner": "nikolausm",
   "repo": "imap-mcp-server",
-  "description": "A powerful Model Context Protocol (MCP) server for IMAP email integration with Claude",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nikolausm/imap-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T08:58:34Z"
+  "distributed_at": "2026-08-05T02:23:03Z"
 }
