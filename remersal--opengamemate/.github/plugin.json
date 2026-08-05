@@ -1,0 +1,9 @@
+{
+  "name": "remersal--opengamemate",
+  "displayName": "OpenGameMate",
+  "description": "An open-source Windows companion that lets ChatGPT Voice watch your gameplay and chat like a gaming buddy.",
+  "version": "1.0.0",
+  "author": "Remersal",
+  "homepage": "https://github.com/Remersal/OpenGameMate",
+  "skills": []
+}
