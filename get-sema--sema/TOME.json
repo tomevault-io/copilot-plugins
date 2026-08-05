@@ -4,7 +4,7 @@
   "repo": "sema",
   "description": "Local semantic code index and MCP server for Claude Code, Codex, and opencode. Includes semantic search, reuse checks, impact analysis, and a VS Code chat and agent supporting local CLIs and API providers\u2014all powered by tree-sitter, SBERT, and ChromaDB.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/get-sema/sema",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T13:20:13Z"
+  "distributed_at": "2026-08-05T22:16:50Z"
 }
