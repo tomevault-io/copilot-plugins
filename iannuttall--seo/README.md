@@ -1,17 +1,17 @@
 # seo
 
-> Source: [iannuttall/seo](https://github.com/iannuttall/seo). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [iannuttall/seo](https://github.com/iannuttall/seo). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 The only SEO skill your agent needs. 50+ SEO audit tools through a local CLI and MCP server, using your own crawl, Search Console, and GA4 data.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [iannuttall/seo](https://github.com/iannuttall/seo).
+Original source: `AGENTS.md` in [iannuttall/seo](https://github.com/iannuttall/seo).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
