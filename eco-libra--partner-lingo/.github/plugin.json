@@ -1,0 +1,9 @@
+{
+  "name": "eco-libra--partner-lingo",
+  "displayName": "partner-lingo",
+  "description": "AI language learning app for international couples \u2014 learn from your partner's actual words (Next.js + Claude API)",
+  "version": "1.0.0",
+  "author": "eco-libra",
+  "homepage": "https://github.com/eco-libra/partner-lingo",
+  "skills": []
+}
