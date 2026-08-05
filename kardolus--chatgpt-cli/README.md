@@ -1,6 +1,6 @@
 # chatgpt-cli
 
-> Source: [kardolus/chatgpt-cli](https://github.com/kardolus/chatgpt-cli) — distributed by [TomeVault](https://tomevault.io)
+> Source: [kardolus/chatgpt-cli](https://github.com/kardolus/chatgpt-cli). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [kardolus/chatgpt-cli](https://github.com/kardol
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [kardolus/chatgpt-cli](https://github.com/kardolus/chatgpt-cli) — a repo with 940+ stars on GitHub.
+From [kardolus/chatgpt-cli](https://github.com/kardolus/chatgpt-cli) — a repo with 945+ stars on GitHub.
 
 ---
 
