@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [noonghunna/club-3090](https://github.com/noongh
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [noonghunna/club-3090](https://github.com/noonghunna/club-3090) — a repo with 1770+ stars on GitHub.
+From [noonghunna/club-3090](https://github.com/noonghunna/club-3090) — a repo with 1778+ stars on GitHub.
 
 ---
 
