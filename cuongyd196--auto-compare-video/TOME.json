@@ -4,7 +4,7 @@
   "repo": "auto-compare-video",
   "description": "\ud83c\udfac T\u1ea1o video \"so s\u00e1nh ki\u1ebfn th\u1ee9c\" ng\u1eafn t\u1ef1 \u0111\u1ed9ng \u2014 HyperFrames + AI voice, 1 template nhi\u1ec1u ch\u1ee7 \u0111\u1ec1.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Cuongyd196/auto-compare-video",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T12:40:55Z"
+  "distributed_at": "2026-08-05T21:44:51Z"
 }
