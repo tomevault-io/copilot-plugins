@@ -4,7 +4,7 @@
   "repo": "fries",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/go-fries/fries",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T20:57:06Z"
+  "distributed_at": "2026-08-05T03:13:24Z"
 }
