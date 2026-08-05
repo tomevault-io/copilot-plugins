@@ -2,9 +2,9 @@
   "name": "rapidfireai",
   "owner": "RapidFireAI",
   "repo": "rapidfireai",
-  "description": "RapidFire AI: Rapid AI Customization from RAG to Fine-Tuning",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RapidFireAI/rapidfireai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T15:17:48Z"
+  "distributed_at": "2026-08-05T11:01:15Z"
 }
