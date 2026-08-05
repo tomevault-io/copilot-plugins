@@ -1,7 +1,7 @@
 {
   "name": "marcus--td",
   "displayName": "td",
-  "description": "A minimalist CLI for tracking tasks across AI coding sessions.",
+  "description": "td",
   "version": "1.0.0",
   "author": "marcus",
   "homepage": "https://github.com/marcus/td",
@@ -15,11 +15,11 @@
       "description": ""
     },
     {
-      "name": "td-review-session",
+      "name": "td",
       "description": ""
     },
     {
-      "name": "td-task-management",
+      "name": "td",
       "description": ""
     }
   ]
