@@ -1,0 +1,9 @@
+{
+  "name": "openshift--configure-alertmanager-operator",
+  "displayName": "configure-alertmanager-operator",
+  "description": "configure-alertmanager-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/configure-alertmanager-operator",
+  "skills": []
+}
