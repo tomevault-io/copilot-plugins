@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [microsoft/oxidizer](https://github.com/microsof
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [microsoft/oxidizer](https://github.com/microsoft/oxidizer) — a repo with 124+ stars on GitHub.
+From [microsoft/oxidizer](https://github.com/microsoft/oxidizer) — a repo with 125+ stars on GitHub.
 
 ---
 
