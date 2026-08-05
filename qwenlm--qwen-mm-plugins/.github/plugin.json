@@ -1,0 +1,9 @@
+{
+  "name": "qwenlm--qwen-mm-plugins",
+  "displayName": "Qwen-MM-Plugins",
+  "description": "Make any agent harness multimodal-native.",
+  "version": "1.0.0",
+  "author": "QwenLM",
+  "homepage": "https://github.com/QwenLM/Qwen-MM-Plugins",
+  "skills": []
+}
