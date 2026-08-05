@@ -1,21 +1,21 @@
 # AI instruction files for vscode-vibrancy-continued
 
-> Sourced from [illixion/vscode-vibrancy-continued](https://github.com/illixion/vscode-vibrancy-continued) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [illixion/vscode-vibrancy-continued](https://github.com/illixion/vscode-vibrancy-continued), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [illixion/vscode-vibrancy-continued](https://github.com/illixion/vscode-vibrancy-continued).
+Original source: `AGENTS.md` in [illixion/vscode-vibrancy-continued](https://github.com/illixion/vscode-vibrancy-continued).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [illixion/vscode-vibrancy-continued](https://github.com/illixion/vscode-vibrancy-continued) — a repo with 840+ stars on GitHub.
+From [illixion/vscode-vibrancy-continued](https://github.com/illixion/vscode-vibrancy-continued) — a repo with 852+ stars on GitHub.
 
 ---
 
