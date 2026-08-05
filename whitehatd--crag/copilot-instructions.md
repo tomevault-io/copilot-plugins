@@ -3,48 +3,78 @@
 > <!-- crag:auto-start -->
 
 <!-- crag:auto-start -->
-# CLAUDE.md — @whitehatd/crag
+# AGENTS.md
 
-> Generated from governance.md by [crag](https://crag.sh). Regenerate: `crag compile --target claude`
+> Generated from governance.md by [crag](https://crag.sh). Regenerate: `crag compile --target agents-md`
+
+## Project: @whitehatd/crag
 
 Make every AI agent obey your codebase. One governance.md → compiled to CI, hooks, and every agent. No drift.
 
-**Stack:** node
-**Runtimes:** node
-
 ## Quality Gates
 
-Run these in order before committing. Stop on first MANDATORY failure:
+All changes must pass these checks before commit:
 
-- `node test/all.js`
-- `node --check bin/crag.js`
-- `node bin/crag.js help > /dev/null`
-- `node bin/crag.js version`
-- `node bin/crag.js analyze --dry-run > /dev/null`
-- `node bin/crag.js upgrade --check > /dev/null`
-- `node bin/crag.js workspace --json > /dev/null`
-- `node bin/crag.js analyze > /dev/null`
+### Test
+1. `node test/all.js`
 
-## Rules
+### Build
+1. `node --check bin/crag.js`
+2. `node --check bin/crag-mcp.js`
 
-1. Read `governance.md` at the start of every session — it is the single source of truth.
-2. Run all mandatory quality gates before committing.
-3. If a gate fails, attempt an automatic fix (lint/format) with bounded retry (max 2 attempts). If it still fails, escalate to the user.
-4. Never modify files outside this repository.
-5. Never run destructive system commands (`rm -rf /`, `DROP TABLE`, force-push to main).
-- Use conventional commits (feat:, fix:, docs:, etc.)
-- Commit trailer: `Co-Authored-By: Claude <noreply@anthropic.com>`
+### Ci (inferred from workflow)
+1. `node bin/crag.js help > /dev/null`
+2. `node bin/crag.js version`
+3. `node bin/crag.js analyze --dry-run > /dev/null`
+4. `node bin/crag.js upgrade --check > /dev/null`
+5. `node bin/crag.js workspace --json > /dev/null`
+
+## Coding Standards
+
+- Stack: node
+- Conventional commits (feat:, fix:, docs:, etc.)
+- Commit trailer: Co-Authored-By: Claude <noreply@anthropic.com>
+
+## Architecture
+
+- Type: cli
+- Entry: bin/crag.js, bin/crag-mcp.js
+
+## Key Directories
+
+- `.circleci/` — CI/CD
+- `.github/` — CI/CD
+- `assets/` — static assets
+- `bin/` — executables
+- `docs/` — documentation
+- `scripts/` — tooling
+- `src/` — source
+- `test/` — tests
+
+## Code Style
+
+- Indent: 2 spaces
+
+## Anti-Patterns
+
+Do not:
+- Do not write absolute local paths in governance (e.g. `D:/project/src/`) — use relative paths only (e.g. `src/`). Governance files are checked into the repo and must remain portable across machines.
+- Do not leave `console.log` in production code — use a proper logger
+- Do not use synchronous filesystem APIs in request handlers
 
 ## Security
 
 - No hardcoded secrets — grep for sk_live, AKIA, password= before commit
 
-## Tool Context
+## Workflow
 
-This project uses **crag** (https://crag.sh) as its governance engine. The `governance.md` file is the authoritative source. Run `crag audit` to detect drift and `crag compile --target all` to recompile all targets.
+1. Read `AGENTS.md` at the start of every session — it is the single source of truth.
+2. Run all mandatory quality gates before committing.
+3. If a gate fails, fix the issue and re-run only the failed gate.
+4. Use the project commit conventions for all changes.
 
 <!-- crag:auto-end -->
 
 ---
 > Source: [WhitehatD/crag](https://github.com/WhitehatD/crag) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
