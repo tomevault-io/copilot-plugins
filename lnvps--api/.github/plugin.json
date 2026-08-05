@@ -1,0 +1,9 @@
+{
+  "name": "lnvps--api",
+  "displayName": "api",
+  "description": "API backend for LNVPS",
+  "version": "1.0.0",
+  "author": "LNVPS",
+  "homepage": "https://github.com/LNVPS/api",
+  "skills": []
+}
