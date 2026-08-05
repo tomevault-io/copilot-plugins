@@ -1,0 +1,9 @@
+{
+  "name": "yibie--md-mode",
+  "displayName": "md-mode",
+  "description": "Org-inspired Markdown editing and same-buffer rendering for Emacs",
+  "version": "1.0.0",
+  "author": "yibie",
+  "homepage": "https://github.com/yibie/md-mode",
+  "skills": []
+}
