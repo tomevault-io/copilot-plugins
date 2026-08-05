@@ -1,0 +1,9 @@
+{
+  "name": "ridemountainpig--threads-analytics",
+  "displayName": "threads-analytics",
+  "description": "A self-hosted Threads analytics dashboard. Connect your access token and explore post performance with detailed charts and metrics",
+  "version": "1.0.0",
+  "author": "ridemountainpig",
+  "homepage": "https://github.com/ridemountainpig/threads-analytics",
+  "skills": []
+}
