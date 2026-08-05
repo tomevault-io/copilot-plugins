@@ -1,0 +1,9 @@
+{
+  "name": "rockenrooster--smash64ds-port",
+  "displayName": "Smash64DS_Port",
+  "description": "Nintendo DS source port of Super Smash Bros. 64 via the BattleShip decomp.",
+  "version": "1.0.0",
+  "author": "rockenrooster",
+  "homepage": "https://github.com/rockenrooster/Smash64DS_Port",
+  "skills": []
+}
