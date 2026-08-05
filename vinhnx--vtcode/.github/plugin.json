@@ -7,11 +7,7 @@
   "homepage": "https://github.com/vinhnx/vtcode",
   "skills": [
     {
-      "name": "skill-creator",
-      "description": ""
-    },
-    {
-      "name": "skill-installer",
+      "name": "vtchat",
       "description": ""
     }
   ]
