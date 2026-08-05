@@ -1,0 +1,9 @@
+{
+  "name": "lx2026--relaybar",
+  "displayName": "RelayBar",
+  "description": "Tiny native macOS menu-bar manager for SSH local port forwards",
+  "version": "1.0.0",
+  "author": "lx2026",
+  "homepage": "https://github.com/lx2026/RelayBar",
+  "skills": []
+}
