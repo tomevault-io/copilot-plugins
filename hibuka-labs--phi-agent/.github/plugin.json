@@ -1,0 +1,9 @@
+{
+  "name": "hibuka-labs--phi-agent",
+  "displayName": "phi-agent",
+  "description": "phi-agent: A general-purpose AI Agent framework in Rust. Provides a builder factory for assembling agents with configurable LLM clients, tools, middleware, and approval handlers. Ships with a CLI supp",
+  "version": "1.0.0",
+  "author": "hibuka-labs",
+  "homepage": "https://github.com/hibuka-labs/phi-agent",
+  "skills": []
+}
