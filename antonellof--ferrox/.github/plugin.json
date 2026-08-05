@@ -1,0 +1,9 @@
+{
+  "name": "antonellof--ferrox",
+  "displayName": "ferrox",
+  "description": "Pure-Rust GGUF inference engine with quantized CPU, Metal & CUDA kernels, MoE support, OpenAI-compatible server. Benchmarked head-to-head against llama.cpp.",
+  "version": "1.0.0",
+  "author": "antonellof",
+  "homepage": "https://github.com/antonellof/ferrox",
+  "skills": []
+}
