@@ -1,0 +1,9 @@
+{
+  "name": "substrait-io--substrait-java",
+  "displayName": "substrait-java",
+  "description": "substrait-java",
+  "version": "1.0.0",
+  "author": "substrait-io",
+  "homepage": "https://github.com/substrait-io/substrait-java",
+  "skills": []
+}
