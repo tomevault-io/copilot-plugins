@@ -1,0 +1,9 @@
+{
+  "name": "selmiabderrahim--dockstash",
+  "displayName": "dockstash",
+  "description": " Self-hosted backup orchestration for Docker \u2014 encrypted restic snapshots on storage you own, scheduled, with automated restore drills.",
+  "version": "1.0.0",
+  "author": "SelmiAbderrahim",
+  "homepage": "https://github.com/SelmiAbderrahim/dockstash",
+  "skills": []
+}
