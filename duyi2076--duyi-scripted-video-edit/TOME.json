@@ -1,0 +1,44 @@
+{
+  "name": "duyi-scripted-video-edit",
+  "owner": "duyi2076",
+  "repo": "duyi-scripted-video-edit",
+  "description": "\u5199\u7a3f\u53e3\u64ad\u81ea\u52a8\u526a\u8f91 Skill\uff1a\u8bed\u97f3\u6e05\u7406\u3001\u56fa\u5b9a\u5b57\u5e55\u3001\u6a21\u677f\u52a8\u753b\u4e0e\u53ef\u9760\u5bfc\u51fa",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/duyi2076/duyi-scripted-video-edit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-05T22:27:25Z"
+}
