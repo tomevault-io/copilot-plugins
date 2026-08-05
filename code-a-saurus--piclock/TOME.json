@@ -4,7 +4,7 @@
   "repo": "PiClock",
   "description": "A Raspberry Pi Zero W bedside clock appliance: HT16K33 7-segment display driven directly over I2C, NTP/DST-correct, with systemd packaging, HomeKit, and a printable case.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/code-a-saurus/PiClock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T09:09:36Z"
+  "distributed_at": "2026-08-05T18:43:35Z"
 }
