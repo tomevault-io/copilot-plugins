@@ -1,6 +1,6 @@
 # claude-code-nextjs-skills
 
-> Source: [laguagu/claude-code-nextjs-skills](https://github.com/laguagu/claude-code-nextjs-skills). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [laguagu/claude-code-nextjs-skills](https://github.com/laguagu/claude-code-nextjs-skills). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
