@@ -4,7 +4,7 @@
   "repo": "Linghun",
   "description": "AGI-oriented, hallucination-resistant AI coding runtime grounded in evidence, tools, memory, agents, and verification.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/linghungegeg/Linghun",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T08:13:56Z"
+  "distributed_at": "2026-08-05T17:37:03Z"
 }
