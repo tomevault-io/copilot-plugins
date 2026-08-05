@@ -1,17 +1,15 @@
 # ccbot
 
-> Source: [six-ddc/ccbot](https://github.com/six-ddc/ccbot) — distributed by [TomeVault](https://tomevault.io)
-
-Telegram ↔ tmux bridge for Claude Code: 1 topic = 1 window = 1 session
+> Source: [six-ddc/ccbot](https://github.com/six-ddc/ccbot). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [six-ddc/ccbot](https://github.com/six-ddc/ccbot).
+Original source: `AGENTS.md` in [six-ddc/ccbot](https://github.com/six-ddc/ccbot).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
@@ -21,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-p -->
