@@ -1,0 +1,9 @@
+{
+  "name": "tuot--rawback",
+  "displayName": "RawBack",
+  "description": "RawBack helps you jump from raw Git file URLs back to the matching repository file page.",
+  "version": "1.0.0",
+  "author": "tuot",
+  "homepage": "https://github.com/tuot/RawBack",
+  "skills": []
+}
