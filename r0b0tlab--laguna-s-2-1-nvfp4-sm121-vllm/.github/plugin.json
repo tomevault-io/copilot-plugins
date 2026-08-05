@@ -1,0 +1,9 @@
+{
+  "name": "r0b0tlab--laguna-s-2-1-nvfp4-sm121-vllm",
+  "displayName": "laguna-s-2.1-nvfp4-sm121-vllm",
+  "description": "Native SM121 vLLM runtime and reproducible qualification for Poolside Laguna S 2.1 NVFP4",
+  "version": "1.0.0",
+  "author": "r0b0tlab",
+  "homepage": "https://github.com/r0b0tlab/laguna-s-2.1-nvfp4-sm121-vllm",
+  "skills": []
+}
