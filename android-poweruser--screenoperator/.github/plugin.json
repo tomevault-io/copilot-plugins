@@ -1,0 +1,9 @@
+{
+  "name": "android-poweruser--screenoperator",
+  "displayName": "ScreenOperator",
+  "description": "Screen Operator - Android app that operates the screen with vision LLMs",
+  "version": "1.0.0",
+  "author": "Android-PowerUser",
+  "homepage": "https://github.com/Android-PowerUser/ScreenOperator",
+  "skills": []
+}
