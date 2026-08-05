@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [owncloud/ocis](https://github.com/owncloud/ocis
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [owncloud/ocis](https://github.com/owncloud/ocis) — a repo with 2060+ stars on GitHub.
+From [owncloud/ocis](https://github.com/owncloud/ocis) — a repo with 2063+ stars on GitHub.
 
 ---
 
