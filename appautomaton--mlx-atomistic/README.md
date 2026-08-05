@@ -7,11 +7,11 @@ Apple Silicon-native molecular dynamics and DFT runtime built on MLX and Metal �
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [appautomaton/mlx-atomistic](https://github.com/appautomaton/mlx-atomistic).
+Original source: `AGENTS.md` in [appautomaton/mlx-atomistic](https://github.com/appautomaton/mlx-atomistic).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
