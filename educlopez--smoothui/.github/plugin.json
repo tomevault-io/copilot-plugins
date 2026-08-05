@@ -1,9 +1,34 @@
 {
   "name": "educlopez--smoothui",
   "displayName": "smoothui",
-  "description": "SmoothUI is a collection of beautifully designed components with smooth animations built with React, Tailwind CSS, Shadcn/ui and Motion",
+  "description": "smoothui",
   "version": "1.0.0",
   "author": "educlopez",
   "homepage": "https://github.com/educlopez/smoothui",
-  "skills": []
+  "skills": [
+    {
+      "name": "smoothui",
+      "description": ""
+    },
+    {
+      "name": "smoothui",
+      "description": ""
+    },
+    {
+      "name": "smoothui",
+      "description": ""
+    },
+    {
+      "name": "smoothui",
+      "description": ""
+    },
+    {
+      "name": "smoothui",
+      "description": ""
+    },
+    {
+      "name": "smoothui",
+      "description": ""
+    }
+  ]
 }
