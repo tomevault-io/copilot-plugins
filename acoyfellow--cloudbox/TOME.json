@@ -2,7 +2,7 @@
   "name": "cloudbox",
   "owner": "acoyfellow",
   "repo": "cloudbox",
-  "description": "Synthetic cloud computers for training and evaluating long-horizon agents on Cloudflare. Persona \u2192 filesystem \u2192 artifacts \u2192 collaborators \u2192 simulation \u2192 retrospective.",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/acoyfellow/cloudbox",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T01:31:31Z"
+  "distributed_at": "2026-08-05T05:07:11Z"
 }
