@@ -1,0 +1,9 @@
+{
+  "name": "openstack-k8s-operators--install-yamls",
+  "displayName": "install_yamls",
+  "description": "install_yamls",
+  "version": "1.0.0",
+  "author": "openstack-k8s-operators",
+  "homepage": "https://github.com/openstack-k8s-operators/install_yamls",
+  "skills": []
+}
