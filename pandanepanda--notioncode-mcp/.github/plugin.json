@@ -1,0 +1,9 @@
+{
+  "name": "pandanepanda--notioncode-mcp",
+  "displayName": "notioncode_mcp",
+  "description": "MCP that allows you to use top-tier LLM's, such as GPT-5.6 and Fable 5, in any IDE via Notion provider",
+  "version": "1.0.0",
+  "author": "PandaNePanda",
+  "homepage": "https://github.com/PandaNePanda/notioncode_mcp",
+  "skills": []
+}
