@@ -1,0 +1,9 @@
+{
+  "name": "nospor--teams-tui-go",
+  "displayName": "teams-tui-go",
+  "description": "A keyboard-driven terminal UI client for Microsoft Teams, written in Go.",
+  "version": "1.0.0",
+  "author": "nospor",
+  "homepage": "https://github.com/nospor/teams-tui-go",
+  "skills": []
+}
