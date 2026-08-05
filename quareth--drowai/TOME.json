@@ -4,7 +4,7 @@
   "repo": "drowAI",
   "description": "Pre-v1 platform for task-isolated red teaming AI agent.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/quareth/drowAI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T08:11:22Z"
+  "distributed_at": "2026-08-05T17:35:53Z"
 }
