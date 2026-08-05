@@ -4,7 +4,7 @@
   "repo": "stardrive",
   "description": "The Astro boilerplate to create super stable and fast websites in the AI age",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/peltmonger/stardrive",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T04:05:10Z"
+  "distributed_at": "2026-08-05T17:37:28Z"
 }
