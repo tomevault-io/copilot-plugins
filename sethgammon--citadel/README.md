@@ -1,26 +1,24 @@
 # Citadel
 
-> Tome by [SethGammon](https://github.com/SethGammon/Citadel) — distributed by [TomeVault](https://tomevault.io)
-
-Agent orchestration harness for Claude Code. Four-tier routing (/do), campaign persistence across sessions, parallel agents in isolated worktrees, discovery relay between waves, lifecycle hooks, circuit breaker, and 6 production-quality skills. From solo developer to institutional scale.
+> Tome by [SethGammon](https://github.com/SethGammon/Citadel), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [SethGammon/Citadel](https://github.com/SethGammon/Citadel).
+Original source: `AGENTS.md` in [SethGammon/Citadel](https://github.com/SethGammon/Citadel).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [SethGammon/Citadel](https://github.com/SethGammon/Citadel) — a repo with 509+ stars on GitHub.
+From [SethGammon/Citadel](https://github.com/SethGammon/Citadel) — a repo with 801+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-s -->
