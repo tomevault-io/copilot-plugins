@@ -4,7 +4,7 @@
   "repo": "sharpemu-site",
   "description": "SharpEmu website \u2014 landing page and PS5 game compatibility database",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sharpemu/sharpemu-site",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T12:50:46Z"
+  "distributed_at": "2026-08-05T21:49:39Z"
 }
