@@ -1,0 +1,9 @@
+{
+  "name": "engineerwithai--lilli-e2e-import-fixture",
+  "displayName": "lilli-e2e-import-fixture",
+  "description": "Minimal Next.js scaffold used by lilliapp-desktop's github-import e2e (original generation)",
+  "version": "1.0.0",
+  "author": "EngineerWithAI",
+  "homepage": "https://github.com/EngineerWithAI/lilli-e2e-import-fixture",
+  "skills": []
+}
