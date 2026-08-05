@@ -7,11 +7,11 @@ A retro RPG themed expense tracker for managing income, expenses, savings, and r
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ali-ahnaf/pocket_pixel](https://github.com/ali-ahnaf/pocket_pixel).
+Original source: `AGENTS.md` in [ali-ahnaf/pocket_pixel](https://github.com/ali-ahnaf/pocket_pixel).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
