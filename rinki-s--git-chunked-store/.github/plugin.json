@@ -1,0 +1,9 @@
+{
+  "name": "rinki-s--git-chunked-store",
+  "displayName": "git-chunked-store",
+  "description": "Chunked storage backend for Git \u2014 split large binaries into 64KB content-addressed chunks with zlib compression and per-chunk deduplication.",
+  "version": "1.0.0",
+  "author": "Rinki-S",
+  "homepage": "https://github.com/Rinki-S/git-chunked-store",
+  "skills": []
+}
