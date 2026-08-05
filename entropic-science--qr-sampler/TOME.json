@@ -2,9 +2,9 @@
   "name": "qr-sampler",
   "owner": "Entropic-Science",
   "repo": "qr-sampler",
-  "description": "Integrate any source of randomness into LLM token sampling. Easily create new profiles for inference engines, entropy sources, sampling methods, or \"consciousness signal amplification algorithms\" for use in machine consciousness research.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Entropic-Science/qr-sampler",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T23:37:21Z"
+  "distributed_at": "2026-08-05T02:57:35Z"
 }
