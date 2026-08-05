@@ -1,0 +1,9 @@
+{
+  "name": "remcostoeten--dora",
+  "displayName": "dora",
+  "description": "Native cross-platform database workbench built with Tauri and Rust. Browse data, run SQL, visualize schemas, manage Docker databases, and generate queries with AI. Supports PostgreSQL, MySQL, SQLite, ",
+  "version": "1.0.0",
+  "author": "remcostoeten",
+  "homepage": "https://github.com/remcostoeten/dora",
+  "skills": []
+}
