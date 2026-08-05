@@ -1,0 +1,9 @@
+{
+  "name": "uniquechao--pandados",
+  "displayName": "PandaDOS",
+  "description": "Your self-hosted control plane for Claude Code and Codex. Turn issues into queued, observable, approval-aware coding workflows\u2014from any browser.",
+  "version": "1.0.0",
+  "author": "uniquechao",
+  "homepage": "https://github.com/uniquechao/PandaDOS",
+  "skills": []
+}
