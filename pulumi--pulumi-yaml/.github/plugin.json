@@ -1,0 +1,9 @@
+{
+  "name": "pulumi--pulumi-yaml",
+  "displayName": "pulumi-yaml",
+  "description": "pulumi-yaml",
+  "version": "1.0.0",
+  "author": "pulumi",
+  "homepage": "https://github.com/pulumi/pulumi-yaml",
+  "skills": []
+}
