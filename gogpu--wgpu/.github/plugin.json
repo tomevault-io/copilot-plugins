@@ -1,0 +1,9 @@
+{
+  "name": "gogpu--wgpu",
+  "displayName": "wgpu",
+  "description": "wgpu",
+  "version": "1.0.0",
+  "author": "gogpu",
+  "homepage": "https://github.com/gogpu/wgpu",
+  "skills": []
+}
