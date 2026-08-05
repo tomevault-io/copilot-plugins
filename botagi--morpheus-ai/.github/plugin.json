@@ -1,0 +1,9 @@
+{
+  "name": "botagi--morpheus-ai",
+  "displayName": "morpheus-ai",
+  "description": "WAKE.md for AI agents: compile project state so agents stop starting cold.",
+  "version": "1.0.0",
+  "author": "botAGI",
+  "homepage": "https://github.com/botAGI/morpheus-ai",
+  "skills": []
+}
