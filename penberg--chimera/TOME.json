@@ -4,7 +4,7 @@
   "repo": "chimera",
   "description": "Sandbox untrusted code with safe access to the host.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/penberg/chimera",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T13:12:57Z"
+  "distributed_at": "2026-08-05T22:11:17Z"
 }
