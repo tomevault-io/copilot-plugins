@@ -1,0 +1,9 @@
+{
+  "name": "hyungchulc--memory-forest",
+  "displayName": "memory-forest",
+  "description": "A verifiable local memory architecture for long-running AI agents",
+  "version": "1.0.0",
+  "author": "hyungchulc",
+  "homepage": "https://github.com/hyungchulc/memory-forest",
+  "skills": []
+}
