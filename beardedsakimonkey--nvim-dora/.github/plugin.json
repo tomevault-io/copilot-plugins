@@ -1,0 +1,9 @@
+{
+  "name": "beardedsakimonkey--nvim-dora",
+  "displayName": "nvim-dora",
+  "description": "Directory explorer for Neovim 0.12+",
+  "version": "1.0.0",
+  "author": "beardedsakimonkey",
+  "homepage": "https://github.com/beardedsakimonkey/nvim-dora",
+  "skills": []
+}
