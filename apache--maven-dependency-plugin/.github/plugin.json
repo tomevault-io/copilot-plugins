@@ -1,0 +1,9 @@
+{
+  "name": "apache--maven-dependency-plugin",
+  "displayName": "maven-dependency-plugin",
+  "description": "maven-dependency-plugin",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/maven-dependency-plugin",
+  "skills": []
+}
