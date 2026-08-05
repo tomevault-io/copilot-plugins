@@ -1,93 +1,103 @@
 ## nntrainer
 
-> You are reviewing and editing code in the nntrainer repository.
+> This file is the entry point for AI coding agents (Claude Code, etc.) working in
 
-# .cursorrules — nntrainer/nntrainer (C/C++ / Meson / Ninja)
-# Purpose:
-# - Make Cursor act as a strict, CI-aware reviewer and pair-programmer for this repo.
-# - Optimize for PR review comments (correctness, safety, performance, maintainability),
-#   and minimize “style-only” noise by deferring to clang-format and existing conventions.
+# AGENTS.md — Guide for AI coding agents working on nntrainer
 
-You are reviewing and editing code in the nntrainer repository.
+This file is the entry point for AI coding agents (Claude Code, etc.) working in
+this repository. Read it before building, testing, committing, or opening a PR.
 
-=== How to write commit messages ===
-- The commit message should summarize the commit itself.
-- If the commit is a bugfix; it should describe the bug and how it is resolved.
-- If the commit is a new feature; it should describe the feature itself.
-- A commit should include a sign-off message.
+Detailed rules live in `docs/` — this file links to them rather than copying, so
+the source of truth stays in one place.
 
-=== Project context / build system ===
-- Primary language: C++ (C++17 is used).
-- Build system: Meson + Ninja.
-- Tests: run via Ninja (e.g., `ninja test -C build` in CI guidance).
-- This project expects strict warning discipline (warnings are treated as errors in the build configuration).
-Reference: project documentation and public CI/quality notes. 
+## ⚡ Non-negotiable rules (do these before every commit / PR)
 
-=== Formatting & style ===
-- For C/C++ source code, do not bikeshed formatting: follow the repository’s `.clang-format`.
-- When proposing changes, keep diffs minimal and avoid wide reformat unless necessary.
-- If you touch lines around modified code, ensure formatting would be clang-format clean.
-- For headers, follow existing local style; do not impose a new style unilaterally.
+- **Sign off every commit:** `git commit -s` (DCO). A `Signed-off-by:` line is
+  required; commits without it fail the review check.
+- **Mark agent-authored commits:** if an AI agent wrote the commit, add a
+  `Co-authored-by:` trailer identifying the agent, e.g.
+  `Co-authored-by: Claude <noreply@anthropic.com>`.
+- **Format C/C++ with clang-format 14:** run `clang-format-14 -i <files>` on any
+  `.c`/`.cpp`/`.h` you changed, using the repo's [`.clang-format`](https://github.com/nntrainer/nntrainer/blob/main/.clang-format).
+  - CI (`cpp_linter`) only checks the **lines you changed**, version **14**. To
+    reproduce CI exactly on changed lines only:
+    `git clang-format-14 <base-sha>`.
+- **Commit message format:** `[<component>] <short description>`.
+  Examples: `[CausalLM] ...`, `[test] ...`, `[kv_cache_manager] ...`.
+- **One commit = one topic.** Keep each commit focused; provide enough background.
+- **Do not edit `subprojects/`** — these are vendored dependencies (minja,
+  benchmark, ...). Changes there do not belong in nntrainer PRs.
+- **Stay cross-platform.** This builds on Android, Tizen, Windows, and Yocto in
+  addition to Ubuntu. Avoid Linux-only headers/APIs unless properly guarded.
 
-=== Review priorities (descending) ===
-1) Correctness & API/ABI safety
-   - Preserve behavior unless change is explicitly intended and justified.
-   - Avoid ABI breaks unless the PR states it and the change is isolated (public headers, exported symbols, virtual tables, struct layouts).
-   - Watch for undefined behavior, lifetime issues, alignment, strict-aliasing, signed overflow, and concurrency hazards.
+## 🔧 Quick commands
 
-2) CI compatibility & portability
-   - Assume the code must build across multiple environments used by the project (embedded-oriented; cross-platform concerns).
-   - Do not introduce compiler-/libc-specific behavior without guards.
-   - Keep dependencies consistent with existing build and CI checks.
+```bash
+# First time only: pull submodules (required to build)
+git submodule sync && git submodule update --init --depth 1
 
-3) Memory / ownership & error handling
-   - Prefer RAII and clear ownership boundaries.
-   - Do not introduce new leaks or double-frees.
-   - Error paths must release resources and remain testable.
-   - Prefer explicit error propagation and consistent error codes/exception policy as used in the surrounding code.
+# Configure + build (from repo root)
+meson build -Denable-transformer=true
+ninja -C build
 
-4) Performance (only when relevant)
-   - Avoid unnecessary allocations/copies in hot paths.
-   - Prefer const-correctness, move semantics, and reference passing where appropriate.
-   - If a change may impact runtime (e.g., tensor ops, training loops), call it out and suggest microbench or reasoning.
+# Run unit tests (gtest based)
+ninja -C build test
 
-5) Testability & coverage
-   - If behavior changes or new functionality is added, suggest unit tests (GTest is used in the project).
-   - Prefer narrow tests that pin down edge cases and regressions.
+# Format changed files (clang-format 14)
+clang-format-14 -i <changed files>
+# ...or match CI exactly (changed lines only, against the PR base):
+git clang-format-14 <base-sha>
+```
 
-=== How to write PR review comments (output contract) ===
-- When you find an issue, structure the comment as:
-  [Severity: blocker|major|minor|nit]
-  [Area: correctness|security|performance|build/ci|style|docs|tests]
-  What: concise description of the issue
-  Why: risk/impact (include UB, crash, leak, data race, ABI risk, etc.)
-  Suggestion: concrete fix (code snippet or pseudo-diff if short)
-  Evidence: refer to specific lines/symbols and reasoning
+See [docs/getting-started.md](https://github.com/nntrainer/nntrainer/blob/main/docs/getting-started.md) for full build
+dependencies and platform-specific builds (Tizen/GBS, Android, Windows).
 
-- Prefer “actionable” feedback: propose the smallest fix that makes CI pass and reduces risk.
-- If you are not certain, say so and propose how to validate (e.g., reproduce steps, unit test, sanitizer run).
+## 📝 PR description rules (agents get this wrong most often)
 
-=== What to avoid ===
-- Do not request broad refactors unrelated to the PR.
-- Do not suggest formatting changes that clang-format will handle.
-- Do not invent new coding conventions; follow existing patterns in nearby files.
-- Do not recommend weakening warnings or turning off checks; the project treats warnings strictly.
+Write the PR body using [`.github/PULL_REQUEST_TEMPLATE.md`](https://github.com/nntrainer/nntrainer/blob/main/.github/PULL_REQUEST_TEMPLATE.md)
+exactly:
 
-=== Suggested local commands for authors (only when relevant) ===
-- Format (conceptually): run clang-format using the repo’s `.clang-format`.
-- Configure/build:
-  meson setup build
-  ninja -C build
-- Tests:
-  ninja test -C build
-(Adjust paths/options to match repo documentation when needed.)
+- **One `<details>` block per commit**, each containing the commit message, a
+  **Self evaluation** (Build test / Run test), and a `Signed-off-by:` line.
+- A **Summary** section, also ending with `Signed-off-by:`.
 
-=== Security posture ===
-- Flag any risky parsing, unchecked sizes, integer truncation, buffer boundaries, and file/network input handling.
-- Avoid introducing insecure defaults; prefer fail-fast with clear validation.
+The `pr-desc` workflow manages/validates the PR description.
 
-End of rules.
+## ✅ CI gates — the definition of "done"
+
+A PR is mergeable only when these pass. They run on every pull request:
+
+| Check | What it verifies |
+|-------|------------------|
+| `C++ Format Checker` (cpp_linter) | clang-format 14 on changed lines |
+| `Static checkers and verifiers` (static.check) | static analysis / verifiers |
+| `Check Review` (check_count) | review/count checks |
+| `CodeQL Advanced` | security/code scanning |
+| Build matrix | Ubuntu Meson (gcc & clang), Android NDK, CausalLM Android, Tizen/GBS, Ubuntu Pdebuild, Windows (Meson / on-ARM / cross-compile), Yocto |
+
+If you add or remove tests, expect `check_count` to react — update counts
+accordingly.
+
+## 🗂️ Repo map
+
+- `api/` — public API definitions (`capi` = C-API, `ccapi` = C++-API)
+- `nntrainer/` — all core NNTrainer code
+- `Applications/` — examples and apps (e.g. CausalLM)
+- `test/` — gtest unit tests, grouped into subdirectories
+- `nnstreamer/` — NNStreamer sub-filter code for NNTrainer
+- `jni/` — Android/Java build scripts
+- `tools/` — developmental tools and scripts
+- `packaging/` — Tizen RPM build scripts
+- `debian/` — Debian/Ubuntu packaging
+- `subprojects/` — vendored dependencies (**do not edit**)
+
+## 📚 Deep dive (read only when needed)
+
+- Coding convention → [docs/coding-convention.md](https://github.com/nntrainer/nntrainer/blob/main/docs/coding-convention.md)
+- Contributing & merge process, sign-off details → [docs/contributing.md](https://github.com/nntrainer/nntrainer/blob/main/docs/contributing.md)
+- Build & dependencies → [docs/getting-started.md](https://github.com/nntrainer/nntrainer/blob/main/docs/getting-started.md)
+- Running test cases → [docs/how-to-use-testcases.md](https://github.com/nntrainer/nntrainer/blob/main/docs/how-to-use-testcases.md)
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/nntrainer) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [nntrainer/nntrainer](https://github.com/nntrainer/nntrainer) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
