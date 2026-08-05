@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [bruin-data/bruin](https://github.com/bruin-data
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [bruin-data/bruin](https://github.com/bruin-data/bruin) — a repo with 1646+ stars on GitHub.
+From [bruin-data/bruin](https://github.com/bruin-data/bruin) — a repo with 1653+ stars on GitHub.
 
 ---
 
