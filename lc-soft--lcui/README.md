@@ -1,6 +1,6 @@
 # LCUI
 
-> Tome by [lc-soft](https://github.com/lc-soft/LCUI) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [lc-soft](https://github.com/lc-soft/LCUI), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
