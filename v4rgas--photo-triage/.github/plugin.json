@@ -1,0 +1,9 @@
+{
+  "name": "v4rgas--photo-triage",
+  "displayName": "photo-triage",
+  "description": "I switched phones and found thousands of WhatsApp photos waiting for me, mostly memes and screenshots. This finds the ones worth keeping: search your pictures by describing them, and bin the rest into",
+  "version": "1.0.0",
+  "author": "v4rgas",
+  "homepage": "https://github.com/v4rgas/photo-triage",
+  "skills": []
+}
