@@ -70,4 +70,4 @@ npm run build
 
 ---
 > Source: [wxkingstar/SpecFusion](https://github.com/wxkingstar/SpecFusion) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
