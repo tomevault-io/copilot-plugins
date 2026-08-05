@@ -4,7 +4,7 @@
   "repo": "OpenDoge",
   "description": "OpenDoge \u662f\u4e00\u4e2a local-first \u7684\u91cf\u5316\u6295\u7814 Agent \u5e73\u53f0\uff0c\u7528\u4e8e\u628a\u5e02\u573a\u626b\u63cf\u3001\u7814\u7a76\u5907\u5fd8\u5f55\u3001\u7ec4\u5408\u98ce\u9669\u68c0\u67e5\u3001\u8bc1\u636e\u5f15\u7528\u3001\u5ba1\u6279\u548c\u672c\u5730 Agent \u8fd0\u884c\uff0c\u7edf\u4e00\u5230\u4e00\u4e2a\u53ef\u8ffd\u8e2a\u3001\u53ef\u5ba1\u8ba1\u3001\u53ef\u590d\u76d8\u7684\u6295\u7814\u5de5\u4f5c\u6d41\u4e2d",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Negentropy-Laby/OpenDoge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T12:23:38Z"
+  "distributed_at": "2026-08-05T14:10:44Z"
 }
