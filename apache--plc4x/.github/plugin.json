@@ -1,0 +1,9 @@
+{
+  "name": "apache--plc4x",
+  "displayName": "plc4x",
+  "description": "plc4x",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/plc4x",
+  "skills": []
+}
