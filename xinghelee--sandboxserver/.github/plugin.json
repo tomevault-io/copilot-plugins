@@ -1,0 +1,9 @@
+{
+  "name": "xinghelee--sandboxserver",
+  "displayName": "SandboxServer",
+  "description": "DEBUG-only iOS SDK that embeds an HTTP + WebSocket server in your app: browser console + MCP bridge for inspecting files, databases, network, logs, and the live screen. Zero third-party dependencies.",
+  "version": "1.0.0",
+  "author": "xinghelee",
+  "homepage": "https://github.com/xinghelee/SandboxServer",
+  "skills": []
+}
