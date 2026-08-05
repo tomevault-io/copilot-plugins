@@ -1,0 +1,9 @@
+{
+  "name": "agentik-os--omegaos",
+  "displayName": "OmegaOS",
+  "description": "Agentic Terminal Operating System \u2014 rmux + multi-agent orchestration for any VPS",
+  "version": "1.0.0",
+  "author": "agentik-os",
+  "homepage": "https://github.com/agentik-os/OmegaOS",
+  "skills": []
+}
