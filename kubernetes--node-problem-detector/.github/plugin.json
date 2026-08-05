@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes--node-problem-detector",
+  "displayName": "node-problem-detector",
+  "description": "node-problem-detector",
+  "version": "1.0.0",
+  "author": "kubernetes",
+  "homepage": "https://github.com/kubernetes/node-problem-detector",
+  "skills": []
+}
