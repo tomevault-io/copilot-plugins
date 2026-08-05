@@ -1,0 +1,9 @@
+{
+  "name": "dotnet--cli-lab",
+  "displayName": "cli-lab",
+  "description": "cli-lab",
+  "version": "1.0.0",
+  "author": "dotnet",
+  "homepage": "https://github.com/dotnet/cli-lab",
+  "skills": []
+}
