@@ -1,0 +1,9 @@
+{
+  "name": "wernerhp--ha-integration-load-shedding",
+  "displayName": "ha.integration.load_shedding",
+  "description": "ha.integration.load_shedding",
+  "version": "1.0.0",
+  "author": "wernerhp",
+  "homepage": "https://github.com/wernerhp/ha.integration.load_shedding",
+  "skills": []
+}
