@@ -1,12 +1,9 @@
 ## vtchat
 
-> <!-- Source: .ruler/AGENTS.md -->
+> - **Monorepo**: Turborepo-managed, with `apps/` (main: Next.js web app) and `packages/` (shared code: `common`, `shared`, `ai`, `ui`, etc.).
 
 
-
-<!-- Source: .ruler/AGENTS.md -->
-
-# AGENTS.md
+# AGENT.md - Development Guidelines
 
 ## Tech Stack & Project Overview
 
@@ -98,7 +95,7 @@
 
 ## Testing
 
-- use ChatMode.ChatMode.GEMINI_2_5_FLASH_LITE to test instead GEMINI_2_5_PRO because cost.
+- use ChatMode.ChatMode.GEMINI_3_FLASH_LITE to test instead GEMINI_3_PRO because cost.
 - Test files should be in `apps/web/app/tests/`. Example: `./test-vt-plus-only.js` should be moved to `apps/web/app/tests/test-vt-plus-only.js`
 - Every implemented feature should have a test case to maintain quality
 - Every unit test should cover critical paths and edge cases
@@ -329,6 +326,8 @@ bun --hot ./index.ts
 
 For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
 
+Do not mix command with other running commands, run command in a separate terminal.
+
 ---
 > Source: [vinhnx/vtchat](https://github.com/vinhnx/vtchat) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
