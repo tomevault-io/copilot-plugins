@@ -1,0 +1,44 @@
+{
+  "name": "wenke-radar",
+  "owner": "onism1767-creator",
+  "repo": "wenke-radar",
+  "description": "\u4e0d\u7edd\u671b\u7684\u6587\u79d1\u751f\u79cb\u62db \u00b7 \u6587\u79d1\u751f\u7684\u79cb\u62db\u81ea\u52a8\u5c97\u4f4d\u63a8\u9001\u5de5\u5177\uff1a\u5df2\u63a5\u5165 45 \u4e2a\u62db\u8058\u6e90\uff0c\u6bcf\u5929\u65e9\u4e0a\u628a\u4eca\u5929\u65b0\u653e\u51fa\u7684\u5bf9\u53e3\u5c97\u4f4d\u63a8\u5230\u4f60\u5fae\u4fe1",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/onism1767-creator/wenke-radar",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-05T00:23:00Z"
+}
