@@ -4,7 +4,7 @@
   "repo": "laguna-s-vllm",
   "description": "Laguna-S 2.1 NVFP4 with DFlash on a single RTX PRO 6000 Blackwell",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Infatoshi/laguna-s-vllm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T08:54:58Z"
+  "distributed_at": "2026-08-05T18:29:47Z"
 }
