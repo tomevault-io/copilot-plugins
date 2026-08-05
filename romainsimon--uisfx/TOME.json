@@ -4,7 +4,7 @@
   "repo": "uisfx",
   "description": "UI Sound Effects for your interfaces",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/romainsimon/uisfx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T10:52:26Z"
+  "distributed_at": "2026-08-05T20:14:31Z"
 }
