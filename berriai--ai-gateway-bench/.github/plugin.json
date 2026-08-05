@@ -1,0 +1,9 @@
+{
+  "name": "berriai--ai-gateway-bench",
+  "displayName": "ai-gateway-bench",
+  "description": "Benchmarks for evaluating ai-gateways",
+  "version": "1.0.0",
+  "author": "BerriAI",
+  "homepage": "https://github.com/BerriAI/ai-gateway-bench",
+  "skills": []
+}
