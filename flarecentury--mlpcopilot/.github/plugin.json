@@ -1,0 +1,9 @@
+{
+  "name": "flarecentury--mlpcopilot",
+  "displayName": "mlpcopilot",
+  "description": "A vertical agent runtime for machine-learning-potential training.",
+  "version": "1.0.0",
+  "author": "flarecentury",
+  "homepage": "https://github.com/flarecentury/mlpcopilot",
+  "skills": []
+}
