@@ -1,0 +1,9 @@
+{
+  "name": "zernio-dev--ads-dashboard",
+  "displayName": "ads-dashboard",
+  "description": "Open-source ads reporting dashboard for the Zernio API. Paste your API key, see your ads data.",
+  "version": "1.0.0",
+  "author": "zernio-dev",
+  "homepage": "https://github.com/zernio-dev/ads-dashboard",
+  "skills": []
+}
