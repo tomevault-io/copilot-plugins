@@ -2,9 +2,9 @@
   "name": "PaperBot",
   "owner": "jerry609",
   "repo": "PaperBot",
-  "description": "Academic Personal AI Infrastructure",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,33 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "PaperBot",
+      "path": ".claude/skills/trend-analysis/SKILL.md",
+      "github_url": "https://github.com/jerry609/PaperBot/tree/main/.claude/skills/trend-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PaperBot",
+      "path": ".claude/skills/literature-review/SKILL.md",
+      "github_url": "https://github.com/jerry609/PaperBot/tree/main/.claude/skills/literature-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PaperBot",
+      "path": ".claude/skills/paper-reproduction/SKILL.md",
+      "github_url": "https://github.com/jerry609/PaperBot/tree/main/.claude/skills/paper-reproduction/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "PaperBot",
+      "path": ".claude/skills/scholar-monitoring/SKILL.md",
+      "github_url": "https://github.com/jerry609/PaperBot/tree/main/.claude/skills/scholar-monitoring/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/jerry609/PaperBot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T22:27:04Z"
+  "distributed_at": "2026-08-05T09:01:38Z"
 }
