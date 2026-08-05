@@ -1,0 +1,9 @@
+{
+  "name": "invaro--opentax-engine",
+  "displayName": "opentax-engine",
+  "description": "The deterministic tax engine for AI agents. Highest score ever recorded on TaxCalcBench (96% exact returns)",
+  "version": "1.0.0",
+  "author": "Invaro",
+  "homepage": "https://github.com/Invaro/opentax-engine",
+  "skills": []
+}
