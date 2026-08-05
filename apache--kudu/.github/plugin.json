@@ -1,0 +1,9 @@
+{
+  "name": "apache--kudu",
+  "displayName": "kudu",
+  "description": "kudu",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/kudu",
+  "skills": []
+}
