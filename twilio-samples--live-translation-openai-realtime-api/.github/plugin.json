@@ -1,0 +1,9 @@
+{
+  "name": "twilio-samples--live-translation-openai-realtime-api",
+  "displayName": "live-translation-openai-realtime-api",
+  "description": "live-translation-openai-realtime-api",
+  "version": "1.0.0",
+  "author": "twilio-samples",
+  "homepage": "https://github.com/twilio-samples/live-translation-openai-realtime-api",
+  "skills": []
+}
