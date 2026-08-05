@@ -4,7 +4,7 @@
   "repo": "go-service",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alexfalkowski/go-service",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T06:03:58Z"
+  "distributed_at": "2026-08-05T03:08:42Z"
 }
