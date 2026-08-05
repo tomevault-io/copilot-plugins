@@ -4,7 +4,7 @@
   "repo": "ticket-agent",
   "description": "\u6f14\u5531\u4f1a\u9ec4\u725b\u7968\u6bd4\u4ef7/\u8ffd\u8e2a/\u6eaf\u6e90\u52a9\u624b\uff1a\u622a\u56fe\u79d2\u53d8\u7ed3\u6784\u5316\u6bd4\u4ef7\uff0c\u6bcf\u8868\u4e00\u7ebf carry-forward \u4ef7\u683c\u8ffd\u8e2a\uff0c\u62a5\u4ef7\u53cd\u67e5\u6d77\u62a5\u539f\u4ef7\uff0c\u5168\u94fe\u8def\u53ef\u6eaf\u6e90\u3002Qwen-VL + Node 24 \u5185\u7f6e SQLite\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wxyyb00/ticket-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T10:51:08Z"
+  "distributed_at": "2026-08-05T20:11:11Z"
 }
