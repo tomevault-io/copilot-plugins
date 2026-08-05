@@ -1,17 +1,15 @@
 # LocalSite-ai
 
-> Tome by [weise25](https://github.com/weise25/LocalSite-ai) — distributed by [TomeVault](https://tomevault.io)
-
-Generate Web Pages and Components with text prompts, with Local Models. (or Cloud Models, if you want)
+> Tome by [weise25](https://github.com/weise25/LocalSite-ai), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [weise25/LocalSite-ai](https://github.com/weise25/LocalSite-ai).
+Original source: `AGENTS.md` in [weise25/LocalSite-ai](https://github.com/weise25/LocalSite-ai).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
