@@ -1,0 +1,9 @@
+{
+  "name": "leonwenhao--wagmi-bench",
+  "displayName": "wagmi-bench",
+  "description": "Deterministic BTC perps survival benchmark for trading agents \u2014 sealed, replayable evidence bundles",
+  "version": "1.0.0",
+  "author": "Leonwenhao",
+  "homepage": "https://github.com/Leonwenhao/wagmi-bench",
+  "skills": []
+}
