@@ -2,9 +2,9 @@
   "name": "claudian",
   "owner": "YishenTu",
   "repo": "claudian",
-  "description": "An Obsidian plugin that embeds Claude Code as an AI collaborator in your vault",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/YishenTu/claudian",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T12:11:29Z"
+  "distributed_at": "2026-08-05T12:00:19Z"
 }
