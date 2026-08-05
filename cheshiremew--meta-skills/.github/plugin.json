@@ -1,0 +1,9 @@
+{
+  "name": "cheshiremew--meta-skills",
+  "displayName": "meta-skills",
+  "description": "Create, refactor, audit, migrate, and validate Codex agent skills",
+  "version": "1.0.0",
+  "author": "CheshireMew",
+  "homepage": "https://github.com/CheshireMew/meta-skills",
+  "skills": []
+}
