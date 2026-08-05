@@ -4,7 +4,7 @@
   "repo": "my-nft-shop",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sayana04/my-nft-shop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T07:20:13Z"
+  "distributed_at": "2026-08-05T15:52:16Z"
 }
