@@ -1,0 +1,9 @@
+{
+  "name": "brij-coda--aipark",
+  "displayName": "aipark",
+  "description": "A vehicle register for parking gates. On-device plate reading, offline-first, running at a gurudwara in Bengaluru. Built with the sherpa harness.",
+  "version": "1.0.0",
+  "author": "brij-coda",
+  "homepage": "https://github.com/brij-coda/aipark",
+  "skills": []
+}
