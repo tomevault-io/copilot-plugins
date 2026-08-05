@@ -1,0 +1,9 @@
+{
+  "name": "dzianisv--opencode-mobile",
+  "displayName": "opencode-mobile",
+  "description": "OpenCode Mobile \u2014 open-source Android client for the OpenCode AI coding agent. Run AI coding sessions from your phone against your self-hosted server over Tailscale. Available on F-Droid.",
+  "version": "1.0.0",
+  "author": "dzianisv",
+  "homepage": "https://github.com/dzianisv/opencode-mobile",
+  "skills": []
+}
