@@ -1,53 +1,88 @@
 ## imap-mcp-server
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Cross-agent project guide for **imap-mcp-server** — a Model Context Protocol (MCP)
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Project Overview
-
-This is an IMAP MCP (Model Context Protocol) server built with TypeScript that provides comprehensive IMAP email integration with secure account management and connection pooling.
-
-## Common Development Commands
-
-- Build the project: `npm run build`
-- Run in development mode: `npm run dev`
-- Start the compiled server: `npm start`
-- Install dependencies: `npm install`
+Cross-agent project guide for **imap-mcp-server** — a Model Context Protocol (MCP)
+server that gives AI assistants (Claude, ChatGPT, Cursor, …) access to IMAP/SMTP
+mailboxes. This file is the shared source of truth for any agent or contributor
+working in this repository.
 
 ## Architecture
 
-### Core Components
+- **Entry point** — `src/index.ts` boots an `McpServer` (MCP SDK) over **stdio**
+  and registers all tools via `src/tools/index.ts`.
+- **Services** (`src/services/`):
+  - `ImapService` — IMAP protocol via **`imapflow`**, with connection pooling,
+    folder operations, search, fetch, move/delete, append (Sent/Drafts).
+  - `SmtpService` — outbound mail via **`nodemailer`**; composes raw MIME and sends.
+  - `AccountManager` — account CRUD with **AES-256-CBC** encrypted credential
+    storage at `~/.imap-mcp/accounts.json` (key at `~/.imap-mcp/.key`).
+  - `SpamService` — disposable/known-spam domain detection.
+- **Tools** (`src/tools/`), grouped by area:
+  - `account-tools.ts` — add / update / list / remove / connect / disconnect / test.
+  - `email-tools.ts` — search, get, latest, send, reply, forward, save draft,
+    mark read/unread, delete, bulk delete, move, attachments, upload, threads.
+  - `folder-tools.ts` — list, status, create, unread counts.
+  - `spam-tools.ts` — spam analysis, domain stats, allow/deny lists.
+- **Web setup wizard** — `src/web/server.ts` (Express) serves `public/` for
+  account onboarding (`npm run setup` / `imap-setup`).
+- **Types** — `src/types/index.ts`.
+- All tools return **JSON-formatted text** content; errors are returned as
+  structured JSON where practical rather than thrown for caller-facing failures.
 
-1. **MCP Server (`src/index.ts`)**: The main entry point that sets up the MCP server using the McpServer class from the MCP SDK.
+## Build / Test commands
 
-2. **Services**:
-   - `ImapService`: Manages IMAP connections, email operations, and folder management with connection pooling
-   - `AccountManager`: Handles secure account storage with AES-256 encryption
+```bash
+npm install          # install dependencies
+npm run build        # bundle to dist/ via esbuild (build.mjs)
+npm test             # run the vitest suite (run mode)
+npm run test:watch   # vitest in watch mode
+npm run lint         # tsc --noEmit type-check
+npm run dev          # run the server from source (tsx watch)
+npm run setup        # launch the web setup wizard
+```
 
-3. **Tools**: MCP tools are organized into three categories:
-   - `account-tools.ts`: Account management (add, remove, list, connect, disconnect)
-   - `email-tools.ts`: Email operations (search, read, download attachments, mark, delete, move, bulk delete, send, reply, forward)
-   - `folder-tools.ts`: Folder operations (list, status, unread counts)
+Always run `npm run build` **and** `npm test` before committing changes that
+touch `src/`. Keep the suite green (currently 271 tests).
 
-### Key Design Decisions
+> Note: `npm run lint` (`tsc --noEmit`) is memory-hungry on this project — the
+> MCP SDK's `registerTool` generics are deep enough to surface a pre-existing
+> `TS2589` and can OOM on low-RAM machines. Run it with a larger heap if needed
+> (`node --max-old-space-size=8192 ./node_modules/typescript/bin/tsc --noEmit`).
 
-- Uses `node-imap` for IMAP protocol implementation
-- Implements connection pooling to efficiently manage multiple IMAP connections
-- Stores encrypted credentials in `~/.imap-mcp/accounts.json`
-- All MCP tools return JSON-formatted text responses
-- TypeScript for type safety with comprehensive type definitions in `src/types/`
+## Security rules (must follow)
 
-## Adding New Features
+1. **Never log secrets.** Passwords, encryption keys, `accounts.json` contents,
+   raw auth tokens, and full message bodies must not be written to stdout/stderr
+   or to disk outside the user's mailbox/download directories. When adding logs,
+   log identifiers (account id, folder, uid), not credentials.
+2. **No destructive mail operations without explicit guard logic.** Deletes,
+   bulk deletes, and moves must be driven by explicit caller input. Bulk/criteria
+   deletion must keep its `dryRun` path and require concrete criteria — never
+   delete a whole folder by default, and never widen a delete beyond what the
+   caller specified.
+3. **Tool schema changes require docs + tests.** Do not rename existing tools or
+   change their input/output shape without (a) updating the tool `description`,
+   (b) updating `README.md`, and (c) adding/adjusting tests. Prefer additive,
+   backward-compatible changes (new optional fields) over breaking ones.
+4. **Credentials stay local.** Do not add telemetry, analytics, crash reporting,
+   or any third-party network calls. The only outbound connections are to the
+   user's own IMAP/SMTP servers.
+5. **Validate and sanitize file paths** for attachment upload/download (already
+   done via `path.basename`); keep writes confined to the configured directories.
 
-When adding new IMAP operations:
-1. Add the operation to the appropriate service (`ImapService`)
-2. Create or update the corresponding tool in the tools directory
-3. Ensure proper error handling and connection management
-4. Update types if needed in `src/types/index.ts`
+## Conventions
+
+- TypeScript, ESM (`"type": "module"`), Node ≥ 18.
+- Tool names are stable public API: `imap_*`. Do not rename without a strong
+  reason and a migration note.
+- Zod schemas describe every tool input; every field gets a `.describe()` that
+  tells an LLM **when and how** to use it.
+- Match the surrounding code style; keep error handling and connection cleanup
+  consistent with existing tools.
 
 ---
 > Source: [nikolausm/imap-mcp-server](https://github.com/nikolausm/imap-mcp-server) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
