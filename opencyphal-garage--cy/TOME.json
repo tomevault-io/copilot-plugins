@@ -4,7 +4,7 @@
   "repo": "cy",
   "description": "Cyphal v1.1 in C: robust decentralized pub/sub with optional reliability and service discovery in a few thousand lines of code that runs anywhere.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenCyphal-Garage/cy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T15:00:00Z"
+  "distributed_at": "2026-08-05T16:07:53Z"
 }
