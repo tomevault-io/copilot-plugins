@@ -4,7 +4,7 @@
   "repo": "awsmux",
   "description": "Run one AWS CLI command across hundreds of AWS accounts in parallel. MCP built in for AI agents.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/0hardik1/awsmux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T13:11:06Z"
+  "distributed_at": "2026-08-05T22:08:29Z"
 }
