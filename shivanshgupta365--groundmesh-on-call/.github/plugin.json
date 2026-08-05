@@ -1,0 +1,9 @@
+{
+  "name": "shivanshgupta365--groundmesh-on-call",
+  "displayName": "GroundMesh-On-Call",
+  "description": "GroundMesh On-Call is a Hermes-powered incident-response agency for failed deployments. It gathers current runtime, code, configuration, Git, and runbook evidence; detects stale or conflicting context",
+  "version": "1.0.0",
+  "author": "shivanshgupta365",
+  "homepage": "https://github.com/shivanshgupta365/GroundMesh-On-Call",
+  "skills": []
+}
