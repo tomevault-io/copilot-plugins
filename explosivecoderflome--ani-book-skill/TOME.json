@@ -1,0 +1,44 @@
+{
+  "name": "ani-book-skill",
+  "owner": "ExplosiveCoderflome",
+  "repo": "ani-book-skill",
+  "description": "\u9762\u5411 Codex \u7684\u957f\u7bc7\u4e2d\u6587\u5c0f\u8bf4\u751f\u4ea7 Skill\uff1a\u4ee5\u53ef\u6062\u590d\u7684 Markdown \u5de5\u4f5c\u6d41\u8d2f\u901a\u7075\u611f\u3001\u89c4\u5212\u3001\u7ae0\u8282\u5199\u4f5c\u3001\u5ba1\u6821\u4e0e\u8fde\u7eed\u6027\u7ba1\u7406\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ExplosiveCoderflome/ani-book-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-05T18:26:24Z"
+}
