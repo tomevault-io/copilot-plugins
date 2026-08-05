@@ -1,0 +1,9 @@
+{
+  "name": "open-telemetry--opentelemetry-specification",
+  "displayName": "opentelemetry-specification",
+  "description": "opentelemetry-specification",
+  "version": "1.0.0",
+  "author": "open-telemetry",
+  "homepage": "https://github.com/open-telemetry/opentelemetry-specification",
+  "skills": []
+}
