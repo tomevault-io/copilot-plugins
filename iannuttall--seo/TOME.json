@@ -4,7 +4,7 @@
   "repo": "seo",
   "description": "The only SEO skill your agent needs. 50+ SEO audit tools through a local CLI and MCP server, using your own crawl, Search Console, and GA4 data.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iannuttall/seo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T18:48:38Z"
+  "distributed_at": "2026-08-05T15:35:31Z"
 }
