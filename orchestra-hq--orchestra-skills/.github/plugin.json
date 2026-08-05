@@ -1,0 +1,9 @@
+{
+  "name": "orchestra-hq--orchestra-skills",
+  "displayName": "orchestra-skills",
+  "description": "Repository of Agent Skills for Orchestra",
+  "version": "1.0.0",
+  "author": "orchestra-hq",
+  "homepage": "https://github.com/orchestra-hq/orchestra-skills",
+  "skills": []
+}
