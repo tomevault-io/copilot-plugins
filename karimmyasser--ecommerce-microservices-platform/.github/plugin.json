@@ -1,0 +1,9 @@
+{
+  "name": "karimmyasser--ecommerce-microservices-platform",
+  "displayName": "ecommerce-microservices-platform",
+  "description": "Production-grade distributed Spring Cloud microservices platform featuring checkout saga, JWT security, Resilience4j fault tolerance, and database-per-service architecture",
+  "version": "1.0.0",
+  "author": "KarimmYasser",
+  "homepage": "https://github.com/KarimmYasser/ecommerce-microservices-platform",
+  "skills": []
+}
