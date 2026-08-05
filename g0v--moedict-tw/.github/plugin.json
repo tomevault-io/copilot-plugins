@@ -1,0 +1,9 @@
+{
+  "name": "g0v--moedict-tw",
+  "displayName": "moedict.tw",
+  "description": "\u840c\u5178cloudFlare worker\u8907\u523b\u7248, \u6574\u5408 React + Vite + Wrangler + Functions + SSR \u652f\u63f4",
+  "version": "1.0.0",
+  "author": "g0v",
+  "homepage": "https://github.com/g0v/moedict.tw",
+  "skills": []
+}
