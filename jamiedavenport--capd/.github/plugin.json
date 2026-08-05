@@ -1,0 +1,9 @@
+{
+  "name": "jamiedavenport--capd",
+  "displayName": "capd",
+  "description": "Open-source native macOS capture and bookmarking app. A Pinboard successor with a menu-bar app and CLI.",
+  "version": "1.0.0",
+  "author": "jamiedavenport",
+  "homepage": "https://github.com/jamiedavenport/capd",
+  "skills": []
+}
