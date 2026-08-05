@@ -4,7 +4,7 @@
   "repo": "xgolsw",
   "description": "XGo Language Server that runs in the browser using WebAssembly",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/goplus/xgolsw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T11:20:41Z"
+  "distributed_at": "2026-08-05T20:29:17Z"
 }
