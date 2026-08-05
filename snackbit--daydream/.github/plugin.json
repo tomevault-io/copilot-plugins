@@ -1,0 +1,9 @@
+{
+  "name": "snackbit--daydream",
+  "displayName": "daydream",
+  "description": "Local-first desktop recall assistant that turns screen, audio, activity, and window context into a searchable timeline of your day.",
+  "version": "1.0.0",
+  "author": "snackbit",
+  "homepage": "https://github.com/snackbit/daydream",
+  "skills": []
+}
