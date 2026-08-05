@@ -15,11 +15,6 @@ Original source: `AGENTS.md` in [Astro-Han/pawwork](https://github.com/Astro-Han
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
-
-- [pawwork](https://github.com/Astro-Han/pawwork/tree/main/packages/opencode/test/fixture/skills/cloudflare/SKILL.md)
-- [pawwork](https://github.com/Astro-Han/pawwork/tree/main/packages/opencode/test/fixture/skills/agents-sdk/SKILL.md)
-
 From [Astro-Han/pawwork](https://github.com/Astro-Han/pawwork) — a repo with 76+ stars on GitHub.
 
 ---
