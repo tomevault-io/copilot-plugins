@@ -1,0 +1,9 @@
+{
+  "name": "pianista215--e1001-my-assistant-firmware",
+  "displayName": "e1001-my-assistant-firmware",
+  "description": "Basic firmware for reterminal 1001 in order to retrieve my-assistant images in the best battery way",
+  "version": "1.0.0",
+  "author": "pianista215",
+  "homepage": "https://github.com/pianista215/e1001-my-assistant-firmware",
+  "skills": []
+}
