@@ -1,66 +1,88 @@
 ## xtalmet
 
-> Crystal structure evaluation package for generative models (Validity, Stability, Uniqueness, Novelty — VSUN metrics).
+> `xtalmet` is a Python package for crystal-structure distance functions and VSUN
 
-# xtalmet
+# xtalmet agent guide
 
-Crystal structure evaluation package for generative models (Validity, Stability, Uniqueness, Novelty — VSUN metrics).
+`xtalmet` is a Python package for crystal-structure distance functions and VSUN
+(Validity, Stability, Uniqueness, Novelty) evaluation metrics for generative
+crystal models.
 
-## Build & Environment
+## Environment
 
-- **Package manager**: `uv` (not pip). All commands go through `uv run` or `uv add`.
-- **Python version**: 3.12+ (see `.python-version`)
-
-## Testing
-
-```bash
-uv run pytest tests/ -s # all tests
-```
-
-- Test data (POSCAR files, pickles) lives in `tests/data/`
-- `test_stability.py` is slow — it loads MACE ML force fields; skip unless testing stability changes
-
-## Code Style
-
-- **Indentation**: tabs (not spaces) — enforced by Ruff formatter
-- **Line length**: 88 characters
-- **Quotes**: double quotes
-- **Docstrings**: Google-style
-- **Formatter/linter**: Ruff — run with `uv run ruff format .` and `uv run ruff check .`
-
-## Architecture
-
-Six modules in `src/xtalmet/`:
-
-| Module | Purpose |
-|---|---|
-| `crystal.py` | `Crystal` class extending `pymatgen.Structure`; `_to_crystal`/`_to_crystal_list` helpers |
-| `distance.py` | All distance functions + embedding helpers |
-| `evaluator.py` | `Evaluator` — main user-facing API for VSUN evaluation |
-| `validity.py` | `SMACTValidator`, `StructureValidator` |
-| `stability.py` | `StabilityCalculator` (MACE energy calculation + MP phase diagram) |
-| `constants.py` | Type aliases and supported metric lists |
-
-**Distance metric types** (defined in `constants.py`):
-- Binary (0.0 or 1.0): `smat`, `comp`, `wyckoff`
-- Continuous normalized (0–1): `elmd+amd`
-- Continuous unnormalized (can be normalized): `magpie`, `pdd`, `amd`, `elmd`
-
-## Documentation
+- Target Python 3.12; see `.python-version`.
+- Use `uv` for dependency and environment management.
+- Prefer `rtk` as a command prefix when it is available; otherwise run the same
+  command without `rtk`.
 
 ```bash
-cd docs && uv run make clean && uv run python build_docs.py # build Sphinx HTML
+uv sync --group dev
 ```
 
-Docs deploy automatically to GitHub Pages on push to `main` via `.github/workflows/sphinx.yml`.
+## Common commands
 
-## Common Gotchas
+```bash
+# Full test suite
+uv run pytest tests/ -s
 
-- Heavy dependencies (PyTorch, MACE) — imports can be slow on first load
-- `distance.py` uses multiprocessing for matrix computations; set `n_jobs` appropriately
-- Embeddings can be pre-computed and cached (see `Evaluator` API) to avoid recomputation
-- Reference dataset (MP20) is downloaded from Hugging Face on first use
+# Focused tests
+uv run pytest tests/test_distance.py -s
+uv run pytest tests/test_evaluator.py -s
+
+# Lint and format
+uv run ruff check .
+uv run ruff format .
+
+# Install pre-commit hooks once per clone
+uv run pre-commit install
+
+# Build docs
+cd docs && uv run python build_docs.py
+```
+
+Run the most focused relevant tests before finishing code changes. Run Ruff when
+changing imports, formatting, or public Python code.
+
+## Repository layout
+
+- `src/xtalmet/`: package source.
+- `tests/`: pytest suite and test data under `tests/data/`.
+- `docs/`: Sphinx docs and `build_docs.py`.
+- `examples/`: tutorial and paper/workshop examples.
+- `dev/`: development utilities for datasets, samples, and uploads.
+
+## Code style
+
+- Ruff is the formatter and linter.
+- Use tabs for indentation, double quotes, 88-character line length, and
+  Google-style docstrings.
+- Keep public APIs typed and documented when behavior changes.
+- Prefer local project patterns over new abstractions.
+
+## Domain notes
+
+- `Evaluator` is the main user-facing VSUN evaluation API.
+- `distance.py` owns distance metrics and embedding helpers.
+- `stability.py` uses MACE and Materials Project phase-diagram logic.
+- Binary metrics include `smat`, `comp`, and `wyckoff`.
+- Continuous metrics include `elmd+amd`, `magpie`, `pdd`, `amd`, and `elmd`.
+
+## Gotchas
+
+- `tests/test_stability.py` is slow because it loads MACE ML force fields; run it
+  when touching stability behavior, not for unrelated changes.
+- First use can download heavy models or reference datasets from Hugging Face.
+- Distance matrix work can use multiprocessing; choose `n_jobs` deliberately.
+- Preserve generated data and ignored result directories unless the task
+  explicitly asks to change them.
+
+## Done criteria
+
+- Keep changes scoped to the request.
+- Add or update focused tests for behavior changes when practical.
+- Run relevant checks, then review the diff before final response.
+- Report checks run and any checks skipped.
 
 ---
 > Source: [WMD-group/xtalmet](https://github.com/WMD-group/xtalmet) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
