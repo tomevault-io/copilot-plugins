@@ -1,0 +1,9 @@
+{
+  "name": "opendataensemble--ode",
+  "displayName": "ode",
+  "description": "The Open Data Ensemble (ODE) is an open-source platform for building offline-first mobile data collection applications. It equips field workers and researchers with the tools to collect, sync, and man",
+  "version": "1.0.0",
+  "author": "OpenDataEnsemble",
+  "homepage": "https://github.com/OpenDataEnsemble/ode",
+  "skills": []
+}
