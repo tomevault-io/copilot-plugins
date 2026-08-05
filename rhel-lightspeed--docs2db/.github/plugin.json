@@ -1,0 +1,9 @@
+{
+  "name": "rhel-lightspeed--docs2db",
+  "displayName": "docs2db",
+  "description": "docs2db",
+  "version": "1.0.0",
+  "author": "rhel-lightspeed",
+  "homepage": "https://github.com/rhel-lightspeed/docs2db",
+  "skills": []
+}
