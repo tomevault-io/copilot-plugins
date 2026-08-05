@@ -1,0 +1,9 @@
+{
+  "name": "randomphrase--harmonist",
+  "displayName": "harmonist",
+  "description": "Self-hosted tagger that turns Bandcamp purchases into an organized music library, with metadata from MusicBrainz",
+  "version": "1.0.0",
+  "author": "randomphrase",
+  "homepage": "https://github.com/randomphrase/harmonist",
+  "skills": []
+}
