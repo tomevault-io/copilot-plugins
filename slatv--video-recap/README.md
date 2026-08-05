@@ -7,11 +7,11 @@ Genera un borrador de newsletter semanal a partir del VOD del programa
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [SLAtv/video-recap](https://github.com/SLAtv/video-recap).
+Original source: `AGENTS.md` in [SLAtv/video-recap](https://github.com/SLAtv/video-recap).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
