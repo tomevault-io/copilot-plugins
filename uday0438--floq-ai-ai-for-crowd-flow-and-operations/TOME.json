@@ -1,0 +1,44 @@
+{
+  "name": "FLOQ-AI-AI-for-crowd-flow-and-operations",
+  "owner": "uday0438",
+  "repo": "FLOQ-AI-AI-for-crowd-flow-and-operations",
+  "description": "FLOQ AI is a GenAI platform for the FIFA World Cup 2026 at Estadio Azteca. Fans get multilingual navigation, accessibility and transport help; organizers get live crowd intelligence and AI-generated operational briefings.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/uday0438/FLOQ-AI-AI-for-crowd-flow-and-operations",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-05T22:31:39Z"
+}
