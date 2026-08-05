@@ -1,0 +1,9 @@
+{
+  "name": "pantsbuild--pants",
+  "displayName": "pants",
+  "description": "pants",
+  "version": "1.0.0",
+  "author": "pantsbuild",
+  "homepage": "https://github.com/pantsbuild/pants",
+  "skills": []
+}
