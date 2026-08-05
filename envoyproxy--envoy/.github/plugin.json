@@ -1,0 +1,9 @@
+{
+  "name": "envoyproxy--envoy",
+  "displayName": "envoy",
+  "description": "envoy",
+  "version": "1.0.0",
+  "author": "envoyproxy",
+  "homepage": "https://github.com/envoyproxy/envoy",
+  "skills": []
+}
