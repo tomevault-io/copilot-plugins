@@ -1,0 +1,44 @@
+{
+  "name": "supabase-turkiye-community",
+  "owner": "akin-umit",
+  "repo": "supabase-turkiye-community",
+  "description": "Supabase ekosistemi i\u00e7in T\u00fcrk\u00e7e dok\u00fcmantasyon, self-host iyile\u015ftirmeleri ve a\u00e7\u0131k kaynak topluluk katk\u0131lar\u0131.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/akin-umit/supabase-turkiye-community",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-05T14:07:33Z"
+}
