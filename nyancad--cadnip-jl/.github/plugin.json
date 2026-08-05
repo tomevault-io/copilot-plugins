@@ -1,0 +1,9 @@
+{
+  "name": "nyancad--cadnip-jl",
+  "displayName": "Cadnip.jl",
+  "description": "Circuit Analysis & Differentiable Numerical Integration Program",
+  "version": "1.0.0",
+  "author": "NyanCAD",
+  "homepage": "https://github.com/NyanCAD/Cadnip.jl",
+  "skills": []
+}
