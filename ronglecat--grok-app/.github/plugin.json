@@ -1,0 +1,9 @@
+{
+  "name": "ronglecat--grok-app",
+  "displayName": "grok-app",
+  "description": "Desktop workbench for Grok Build CLI \u2014 sessions, projects, media, automations (Tauri 2 \u00b7 unofficial)",
+  "version": "1.0.0",
+  "author": "RongleCat",
+  "homepage": "https://github.com/RongleCat/grok-app",
+  "skills": []
+}
