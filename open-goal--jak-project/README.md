@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [open-goal/jak-project](https://github.com/open-goal/jak-project).
+Original source: `AGENTS.md` in [open-goal/jak-project](https://github.com/open-goal/jak-project).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [open-goal/jak-project](https://github.com/open-goal/jak-project) — a repo with 3463+ stars on GitHub.
+From [open-goal/jak-project](https://github.com/open-goal/jak-project) — a repo with 3464+ stars on GitHub.
 
 ---
 
