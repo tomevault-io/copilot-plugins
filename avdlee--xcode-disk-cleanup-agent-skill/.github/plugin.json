@@ -1,0 +1,9 @@
+{
+  "name": "avdlee--xcode-disk-cleanup-agent-skill",
+  "displayName": "Xcode-Disk-Cleanup-Agent-Skill",
+  "description": "Audit Xcode developer storage, report recoverable GiB, and clean only explicitly approved items.",
+  "version": "1.0.0",
+  "author": "AvdLee",
+  "homepage": "https://github.com/AvdLee/Xcode-Disk-Cleanup-Agent-Skill",
+  "skills": []
+}
