@@ -1,0 +1,9 @@
+{
+  "name": "oath-md--oathmcp",
+  "displayName": "OathMCP",
+  "description": "Agent-native MCP server for evidence-backed clinical calculators.",
+  "version": "1.0.0",
+  "author": "OATH-md",
+  "homepage": "https://github.com/OATH-md/OathMCP",
+  "skills": []
+}
