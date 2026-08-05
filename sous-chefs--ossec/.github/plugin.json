@@ -1,0 +1,9 @@
+{
+  "name": "sous-chefs--ossec",
+  "displayName": "ossec",
+  "description": "ossec",
+  "version": "1.0.0",
+  "author": "sous-chefs",
+  "homepage": "https://github.com/sous-chefs/ossec",
+  "skills": []
+}
