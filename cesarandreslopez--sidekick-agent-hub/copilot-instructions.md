@@ -1,20 +1,26 @@
 ## sidekick-agent-hub
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to Codex and other coding agents when working with code in this repository. `CLAUDE.md` mirrors the same project guidance for Claude Code.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex and other coding agents when working with code in this repository. `CLAUDE.md` mirrors the same project guidance for Claude Code.
 
 ## Project Overview
 
-Sidekick for Max is a VS Code extension providing AI-powered inline completions, code transforms, commit messages, session monitoring, and more — using the user's existing Claude Max subscription or Anthropic API key. It also supports OpenCode and Codex CLI as inference and monitoring providers.
+Sidekick Agent Hub is an AI coding assistant with real-time agent monitoring. It ships as a VS Code extension and a terminal dashboard, using Claude Max, Claude API, OpenCode, or Codex CLI for inference and session monitoring.
 
-All extension source lives in `sidekick-vscode/`. The root directory contains only documentation and assets.
+The repo is a small monorepo:
+
+- `sidekick-vscode/` — VS Code extension, extension-host services, and webview source
+- `sidekick-shared/` — shared TypeScript library used by the extension and CLI; published as `sidekick-shared`
+- `sidekick-cli/` — Ink-based terminal dashboard; published as `sidekick-agent-hub` with the `sidekick` binary
+- `docs/`, `mkdocs.yml`, `assets/`, `images/` — documentation site content and assets
+- `scripts/` — cross-package build, lint, and version helpers
 
 ## Build & Development Commands
 
-All commands run from `sidekick-vscode/`:
+Extension commands run from `sidekick-vscode/`:
 
 ```bash
 npm run compile      # Dev build with source maps (esbuild)
@@ -24,12 +30,45 @@ npm test             # Run all tests (Vitest)
 npm run test:watch   # Watch mode for tests
 npm run lint         # ESLint check
 npm run lint:fix     # ESLint auto-fix
+npm run format       # Prettier write for this package
+npm run format:check # Prettier check for this package
 npm run package      # Create .vsix for distribution
 ```
 
 Run a single test file: `npx vitest run src/services/ModelResolver.test.ts` (from `sidekick-vscode/`).
 
 Press **F5** in VS Code with `sidekick-vscode/` open to launch the Extension Development Host.
+
+Shared library commands run from `sidekick-shared/`:
+
+```bash
+npm run build        # tsc build to dist/
+npm test             # Build, then run Vitest
+npm run lint         # ESLint check
+npm run format       # Prettier write for this package
+npm run format:check # Prettier check for this package
+```
+
+CLI commands run from `sidekick-cli/`:
+
+```bash
+npm run build        # esbuild ESM binary to dist/sidekick-cli.mjs
+npm test             # Run Vitest
+npm run lint         # ESLint check
+npm run format       # Prettier write for this package
+npm run format:check # Prettier check for this package
+```
+
+**Monorepo-wide helpers** (run from repo root) cover all three packages — `sidekick-shared`, `sidekick-vscode`, `sidekick-cli`:
+
+```bash
+bash scripts/lint-all.sh          # Lint all three packages (CI lints each separately)
+bash scripts/lint-all.sh --fix    # Lint + auto-fix all three
+bash scripts/format-all.sh        # Prettier write across packages, docs, root markdown/YAML, and workflows
+bash scripts/format-check-all.sh  # Prettier check across packages, docs, root markdown/YAML, and workflows
+bash scripts/build-all.sh         # npm install + build all three; CLI binary at sidekick-cli/dist/sidekick-cli.mjs
+bash scripts/bump-version.sh X.Y.Z # Update package.json versions; sync lockfiles separately
+```
 
 ### Documentation Site
 
@@ -46,16 +85,17 @@ Do **not** use `mkdocs build` or `mkdocs serve` — use `zensical` instead.
 
 ### Build System (esbuild.js)
 
-esbuild produces four bundles:
+`sidekick-vscode/esbuild.js` produces five bundles:
 
-| Output | Format | Platform |
-|--------|--------|----------|
-| `out/extension.js` (from `src/extension.ts`) | CommonJS | Node.js |
-| `out/webview/explain.js` | IIFE | Browser |
-| `out/webview/error.js` | IIFE | Browser |
-| `out/webview/dashboard.js` | IIFE | Browser |
+| Output                                       | Format   | Platform |
+| -------------------------------------------- | -------- | -------- |
+| `out/extension.js` (from `src/extension.ts`) | CommonJS | Node.js  |
+| `out/webview/explain.js`                     | IIFE     | Browser  |
+| `out/webview/error.js`                       | IIFE     | Browser  |
+| `out/webview/chartjs-vendor.js`              | IIFE     | Browser  |
+| `out/webview/d3-vendor.js`                   | IIFE     | Browser  |
 
-Only `vscode` is externalized. All other dependencies (including `@anthropic-ai/claude-agent-sdk` and `@opencode-ai/sdk`) are bundled by esbuild. The `conditions: ['import']`, `banner`, and `define` settings in esbuild.js polyfill `import.meta.url` for ESM deps bundled into CJS.
+Only `vscode` is externalized from the extension-host bundle. Other extension dependencies (including `@anthropic-ai/claude-agent-sdk`, `@opencode-ai/sdk`, and `sidekick-shared`) are bundled by esbuild. The `conditions: ['import']`, `banner`, and `define` settings in `esbuild.js` polyfill `import.meta.url` for ESM deps bundled into CJS. Chart.js and D3.js are bundled into local browser vendor files so the dashboard and mind map work offline.
 
 ### Dual Provider System
 
@@ -109,20 +149,23 @@ Provider implementations live in `src/services/providers/`. Each normalizes raw 
 - **Prompt templates**: `src/utils/prompts.ts`, `src/utils/analysisPrompts.ts`, `src/utils/summaryPrompts.ts`
 - **Inference clients**: `src/services/AuthService.ts`, `MaxSubscriptionClient.ts`, `ApiKeyClient.ts`, `OpenCodeClient.ts`, `CodexClient.ts` (spawns CLI directly, no SDK)
 - **Session providers**: `src/services/providers/ClaudeCodeSessionProvider.ts`, `OpenCodeSessionProvider.ts`, `CodexSessionProvider.ts`
-- **Webview UI**: `src/webview/` — vanilla TS, bundled as IIFE; Chart.js for dashboard, D3.js for mind map
+- **z.ai quota** (shared): `sidekick-shared/src/zaiQuotaApi.ts` — `resolveZaiQuota()` reads z.ai's authoritative `api/monitor/usage/quota/limit` endpoint (5-Hour / Weekly windows), discovering credentials from OpenCode's stored z.ai token (`zai-coding-plan` → `zai`) or `ANTHROPIC_BASE_URL` / `ANTHROPIC_AUTH_TOKEN`, with cached-snapshot fallback. The older observed-traffic estimator (`zaiQuota.ts` / `zaiQuotaWatcher.ts`) is retained for backward compatibility but deprecated and no longer used for product quota display. z.ai is monitored-only — no z.ai inference provider or account-management surface yet
+- **Webview UI**: `src/webview/` — vanilla TS bundled as IIFE; Chart.js and D3.js load from local vendor bundles
 
 ### Persistence
 
 Cross-session data stored in `~/.config/sidekick/`:
+
 - `historical-data.json` — token/cost/tool usage stats
 - `tasks/{projectSlug}.json` — kanban board carry-over
 - `decisions/{projectSlug}.json` — decision log
 
-## Sidekick CLI
+## Sidekick CLI and Shared Library
 
-The CLI reads from `~/.config/sidekick/` (same data as the VS Code extension). Build with `bash scripts/build-all.sh`. Source in `sidekick-shared/` (pure TS library) and `sidekick-cli/` (esbuild-bundled binary).
+The CLI reads from `~/.config/sidekick/` (same data as the VS Code extension). Build everything with `bash scripts/build-all.sh`. Shared data access lives in `sidekick-shared/` (tsc-built TypeScript library); the terminal dashboard lives in `sidekick-cli/` (esbuild-bundled ESM binary).
 
 - **npm package**: `sidekick-agent-hub` — the **binary name** is `sidekick` (defined in `sidekick-cli/package.json` `bin` field), not `sidekick-agent-hub`
+- **shared npm package**: `sidekick-shared` — published independently for consumers that need readers, providers, schemas, formatting, model info, and session asset extraction
 - **CLI discovery**: `SidekickCliService.ts` searches configured path → common paths (including nvm) → `which sidekick`
 - **VS Code terminal launch gotcha**: `vscode.window.createTerminal({ shellPath })` bypasses shell init (`.bashrc`/`.zshrc`), so nvm/volta `node` is not in PATH. The service injects the CLI's bin directory into the terminal `env.PATH` to fix this.
 
@@ -132,7 +175,7 @@ Tests use **Vitest** with co-located files (`Foo.ts` / `Foo.test.ts`). The `vsco
 
 ## Conventions
 
-- **TypeScript**: `strict: true`, target ES2022, no tsc emission (`noEmit: true` — esbuild builds)
+- **TypeScript**: `strict: true`, target ES2022. The extension uses `noEmit: true` and builds with esbuild; `sidekick-shared` emits declarations and JavaScript via `tsc`.
 - **Linting**: ESLint 9 + typescript-eslint; `@typescript-eslint/no-explicit-any` is `warn`; unused vars prefixed with `_` are allowed
 - **Commits**: Conventional Commits (`feat(scope):`, `fix(scope):`, etc.)
 - **Branches**: `feature/`, `fix/`, `docs/`, `refactor/` prefixes
@@ -141,25 +184,28 @@ Tests use **Vitest** with co-located files (`Foo.ts` / `Foo.test.ts`). The `vsco
 
 ## Release Process
 
-Releases are triggered by pushing a `v*` tag to `main`. The CI workflow (`.github/workflows/release.yml`) runs four jobs:
+Releases are triggered by pushing a `v*` tag to `main`. The CI workflow (`.github/workflows/release.yml`) runs five jobs:
 
 1. **Validate Version** — verifies tag is on `main` and all three `package.json` versions match the tag
 2. **Publish VS Code Extension** — lint, test, package `.vsix`, upload as artifact, publish to Open VSX
-3. **Publish CLI to npm** — build shared lib, test CLI, build CLI, publish to npm (skips if version already published)
-4. **Create GitHub Release** — downloads `.vsix` artifact, extracts changelog section, creates release with `.vsix` attached
+3. **Publish Shared Library to npm** — lint, test, build, publish `sidekick-shared` (skips if version already published)
+4. **Publish CLI to npm** — build shared lib, test CLI, build CLI, verify binary, publish `sidekick-agent-hub` (skips if version already published)
+5. **Create GitHub Release** — downloads `.vsix` artifact, extracts changelog section, creates release with `.vsix` attached
 
 **Version bump checklist** (all must match the tag):
-- `sidekick-vscode/package.json`
-- `sidekick-cli/package.json`
-- `sidekick-shared/package.json`
-- `sidekick-cli/package-lock.json` and `sidekick-shared/package-lock.json` (run `npm install --package-lock-only` in each)
 
-**Changelogs to update** (four total):
+- `bash scripts/bump-version.sh <version>` bumps the three `package.json` files at once. It does **not** touch lockfiles, so still:
+  - `sidekick-vscode/package-lock.json`, `sidekick-cli/package-lock.json`, and `sidekick-shared/package-lock.json` (run `npm install --package-lock-only` in each workspace)
+- If bumping by hand instead, the three `package.json` files are: `sidekick-vscode/`, `sidekick-cli/`, `sidekick-shared/`
+
+**Changelogs to update** (five total):
+
 - `CHANGELOG.md` (root — full project)
 - `sidekick-vscode/CHANGELOG.md` (extension-specific)
 - `sidekick-cli/CHANGELOG.md` (CLI-specific)
+- `sidekick-shared/CHANGELOG.md` (shared-library-specific)
 - `docs/changelog.md` (documentation site)
 
 ---
 > Source: [cesarandreslopez/sidekick-agent-hub](https://github.com/cesarandreslopez/sidekick-agent-hub) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
