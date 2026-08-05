@@ -1,563 +1,396 @@
 ## octocode
 
-> > Single source of AI agent guidance for the Octocode monorepo. Covers the root and every package — there is **no** per-package `AGENTS.md`.
+> Agent guide for `@octocodeai/skills`. Read this before any edit to this package.
 
-# AGENTS.md — Octocode Monorepo
+# AGENTS.md — `packages/octocode-skills`
 
-> Single source of AI agent guidance for the Octocode monorepo. Covers the root and every package — there is **no** per-package `AGENTS.md`.
-
-## Contents
-
-**Monorepo**
-- [Documentation Links Rule](#documentation-links-rule)
-- [Core Methodology](#core-methodology)
-- [Repository Structure](#repository-structure)
-- [Access Control](#access-control-monorepo-wide)
-- [Quick Commands](#quick-commands)
-- [Key References](#key-references)
-
-**Packages**
-- [`octocode-mcp`](#package-octocode-mcp) — MCP server (14 tools)
-- [`octocode-cli`](#package-octocode-cli) — CLI installer + tool runner
-- [`octocode-shared`](#package-octocode-shared) — Credentials, sessions, platform
-- [`octocode-vscode`](#package-octocode-vscode) — VS Code extension
-- [`octocode-security-utils`](#package-octocode-security-utils) — Security utilities
+Agent guide for `@octocodeai/skills`. Read this before any edit to this package.
+Root `AGENTS.md` applies everywhere; this file narrows scope to this package only.
 
 ---
 
-## Documentation Links Rule
+## What this package is
 
-All links in documentation files (`docs/`, package READMEs) **MUST** use absolute GitHub URLs — never relative paths.
+A zero-runtime-dep CLI + library that:
+1. **Bundles** all skills from `../../skills/` at build time into `skills/` (package root).
+2. **Lists** bundled skills with install status and env readiness.
+3. **Installs** skills to a canonical home (`~/.octocode/skills/<name>/`) then symlinks into platform dirs.
+4. **Checks** all installation locations and env param configuration.
+5. **Informs** — every command tells the user what is missing and how to fix it.
 
-**Base URL:** `https://github.com/bgauryy/octocode-mcp/blob/main/`
-
-```
-❌ WRONG: Config -> ./CONFIGURATION_REFERENCE.md
-❌ WRONG: Auth -> ../docs/AUTHENTICATION_SETUP.md
-✅ RIGHT: [Config](https://github.com/bgauryy/octocode-mcp/blob/main/docs/configuration/CONFIGURATION_REFERENCE.md)
-✅ RIGHT: [Auth](https://github.com/bgauryy/octocode-mcp/blob/main/docs/configuration/providers/AUTHENTICATION_SETUP.md)
-```
-
-## Core Methodology
-
-1. **Task Management**: Review → Plan (use `todo` tool) → Track progress
-2. **Research**: Prefer `octocode-local` MCP tools. LSP first, then local search, then GitHub
-3. **TDD**: Write failing test → Run (`yarn test`) → Fix → Verify coverage (90%)
-4. **ReAct Loop**: Reason → Act → Observe → Loop
-5. **Quality**: Clean Code, run `yarn lint` + `yarn test`, use `npx knip` for dead code
-6. **Efficiency**: Use Linux commands (`mv`, `cp`, `sed`) for file operations
-
-> **File Operations**: Use Linux commands for file changes and prefer batching changes.
-> For command examples and workflows, see: [Linux & File Operations](https://github.com/bgauryy/octocode-mcp/blob/main/docs/dev/DEVELOPMENT_GUIDE.md#linux--file-operations)
-
-## Repository Structure
-
-```
-octocode-mcp/
-├── packages/
-│   ├── octocode-mcp/             # MCP server: GitHub/GitLab/Bitbucket, local tools, LSP
-│   ├── octocode-cli/             # CLI installer, tool runner, skills marketplace
-│   ├── octocode-vscode/          # VS Code extension (OAuth, multi-editor MCP install)
-│   ├── octocode-shared/          # Shared utilities (credentials, platform, session)
-│   └── octocode-security-utils/  # Standalone security utilities (no AGENTS section)
-├── skills/                       # AI agent skills (research, plan, roast, etc.)
-├── docs/                         # ALL monorepo documentation (provider setup, references, workflows)
-└── package.json                  # Workspace root (yarn workspaces)
-```
-
-## Access Control (monorepo-wide)
-
-| Path | Access |
-|------|--------|
-| `packages/*/src/`, `packages/*/tests/` | ✅ Auto |
-| `docs/` | ✅ Auto |
-| `*.json`, `*.config.*` | ⚠️ Ask |
-| `.env*`, `.octocode/`, `node_modules/`, `dist/`, `out/`, `coverage/` | ❌ Never |
-
-## Quick Commands
-
-Canonical command list lives in the [Development Guide](https://github.com/bgauryy/octocode-mcp/blob/main/docs/dev/DEVELOPMENT_GUIDE.md) (Commands & Workflow section).
-
-## Key References
-
-### Core
-- **Docs Index**: [docs/README.md](https://github.com/bgauryy/octocode-mcp/blob/main/docs/README.md)
-- **Configuration Docs**: [docs/configuration/](https://github.com/bgauryy/octocode-mcp/tree/main/docs/configuration) — install, auth providers, MCP clients, env/config, troubleshooting
-- **Developer Docs**: [docs/dev/](https://github.com/bgauryy/octocode-mcp/tree/main/docs/dev) — tool/API references, workflows, architecture, contributing, skills
-- **Specs**: [docs/specs/](https://github.com/bgauryy/octocode-mcp/tree/main/docs/specs) — design specs and RFCs
-- **Development Guide**: [docs/dev/DEVELOPMENT_GUIDE.md](https://github.com/bgauryy/octocode-mcp/blob/main/docs/dev/DEVELOPMENT_GUIDE.md)
-- **Configuration**: [docs/configuration/CONFIGURATION_REFERENCE.md](https://github.com/bgauryy/octocode-mcp/blob/main/docs/configuration/CONFIGURATION_REFERENCE.md)
-- **Troubleshooting**: [docs/configuration/TROUBLESHOOTING.md](https://github.com/bgauryy/octocode-mcp/blob/main/docs/configuration/TROUBLESHOOTING.md)
-
-### Octocode MCP
-- **GitHub/GitLab/Bitbucket Tools**: [docs/dev/reference/GITHUB_GITLAB_TOOLS_REFERENCE.md](https://github.com/bgauryy/octocode-mcp/blob/main/docs/dev/reference/GITHUB_GITLAB_TOOLS_REFERENCE.md)
-- **Local + LSP Tools**: [docs/dev/reference/LOCAL_TOOLS_REFERENCE.md](https://github.com/bgauryy/octocode-mcp/blob/main/docs/dev/reference/LOCAL_TOOLS_REFERENCE.md)
-- **Clone & Local Workflow**: [docs/dev/workflows/CLONE_AND_LOCAL_TOOLS_WORKFLOW.md](https://github.com/bgauryy/octocode-mcp/blob/main/docs/dev/workflows/CLONE_AND_LOCAL_TOOLS_WORKFLOW.md)
-- **Authentication**: [docs/configuration/providers/AUTHENTICATION_SETUP.md](https://github.com/bgauryy/octocode-mcp/blob/main/docs/configuration/providers/AUTHENTICATION_SETUP.md) · [GitHub](https://github.com/bgauryy/octocode-mcp/blob/main/docs/configuration/providers/GITHUB_SETUP_GUIDE.md) · [GitLab](https://github.com/bgauryy/octocode-mcp/blob/main/docs/configuration/providers/GITLAB_SETUP_GUIDE.md) · [Bitbucket](https://github.com/bgauryy/octocode-mcp/blob/main/docs/configuration/providers/BITBUCKET_SETUP_GUIDE.md)
-- **Using with Pi**: [docs/configuration/clients/PI_SETUP_GUIDE.md](https://github.com/bgauryy/octocode-mcp/blob/main/docs/configuration/clients/PI_SETUP_GUIDE.md)
-
-### Octocode CLI
-- **CLI Reference**: [docs/dev/reference/CLI_REFERENCE.md](https://github.com/bgauryy/octocode-mcp/blob/main/docs/dev/reference/CLI_REFERENCE.md)
-- **Skills Guide**: [docs/dev/SKILLS_GUIDE.md](https://github.com/bgauryy/octocode-mcp/blob/main/docs/dev/SKILLS_GUIDE.md)
-- **CLI vs MCP Benchmark**: [docs/dev/workflows/BENCHMARK.md](https://github.com/bgauryy/octocode-mcp/blob/main/docs/dev/workflows/BENCHMARK.md)
-
-### Octocode Shared
-- **API Reference**: [docs/dev/reference/SHARED_API_REFERENCE.md](https://github.com/bgauryy/octocode-mcp/blob/main/docs/dev/reference/SHARED_API_REFERENCE.md)
-- **Credentials**: [docs/dev/architecture/CREDENTIALS_ARCHITECTURE.md](https://github.com/bgauryy/octocode-mcp/blob/main/docs/dev/architecture/CREDENTIALS_ARCHITECTURE.md)
-- **Session Persistence**: [docs/dev/architecture/SESSION_PERSISTENCE.md](https://github.com/bgauryy/octocode-mcp/blob/main/docs/dev/architecture/SESSION_PERSISTENCE.md)
-
-### Skills
-- **All Skills**: [skills/README.md](https://github.com/bgauryy/octocode-mcp/blob/main/skills/README.md)
-- **Skills Guide**: [docs/dev/SKILLS_GUIDE.md](https://github.com/bgauryy/octocode-mcp/blob/main/docs/dev/SKILLS_GUIDE.md)
+**Hard invariants:**
+- Zero npm runtime dependencies — Node.js builtins only (`node:fs`, `node:path`, `node:os`, `node:url`).
+- `src/cli.ts` must NOT start with `#!/usr/bin/env node` — esbuild adds it via `banner`; a source shebang creates a double-shebang that crashes Node ESM.
+- All TypeScript is compiled with `exactOptionalPropertyTypes: true` — never assign `undefined` to an optional property; use conditional spread `...(x !== undefined ? { x } : {})`.
+- `out/` is always generated — never edit it by hand; always rebuild after changes.
 
 ---
 
-# Package: `octocode-mcp`
-
-MCP server for GitHub/GitLab/Bitbucket research, local code exploration, and LSP semantic navigation.
-
-Run commands from `packages/octocode-mcp/`.
-
-### Commands
-
-| Task | Command |
-|------|---------|
-| Build | `yarn build` (lint + bundle with tsdown) |
-| Build (dev) | `yarn build:dev` |
-| Build (watch) | `yarn build:watch` |
-| Clean | `yarn clean` |
-| Test | `yarn test` (coverage) · `yarn test:full` · `yarn test:quiet` · `yarn test:watch` · `yarn test:ui` |
-| Typecheck | `yarn typecheck` |
-| Lint | `yarn lint` / `yarn lint:fix` |
-| Format | `yarn format` / `yarn format:check` |
-| Debug | `yarn debug` (MCP Inspector) |
-| Binary builds | `yarn build:bin[:darwin-arm64|:darwin-x64|:linux-arm64|:linux-x64|:linux-x64-musl|:windows-x64|:all]` |
-
-### Source layout
+## Directory map
 
 ```
-src/
-├── index.ts, serverConfig.ts, session.ts, responses.ts, errorCodes.ts, types.ts, public.ts
-├── hints/        # Dynamic + static hint generation
-├── scheme/       # Shared schema utilities (baseSchema.ts)
-├── tools/        # 14 tool modules, each: execution.ts, scheme.ts, types.ts, register.ts, index.ts
-│                 # toolsManager.ts, toolRegistry.ts, toolConfig.ts, toolMetadata.ts, toolNames.ts
-├── github/       # Octokit client, code/repo/PR/file search, query builders, errors
-├── gitlab/       # GitLab API + provider implementation
-├── providers/    # Multi-provider abstraction (github/gitlab/bitbucket) via factory
-├── lsp/          # LSP client pool, server lifecycle, symbol resolution
-├── security/     # withSecurityValidation, contentSanitizer, pathValidator, commandValidator,
-│                 # 200+ secret regexes (ai-providers, cloud-infrastructure, auth-crypto, etc.)
-├── commands/     # Builders: Ripgrep / Find / Ls (whitelist only)
-├── utils/        # core/, credentials/, environment/, exec/, file/, http/, minifier/,
-│                 # package/, pagination/, parsers/, response/
-└── prompts/      # MCP prompt registration
+packages/octocode-skills/
+├── src/
+│   ├── cli.ts              ← CLI entry point — arg parsing, command dispatch, help text
+│   ├── index.ts            ← Library exports (programmatic API)
+│   ├── registry.ts         ← Read bundled skills list; parse SKILL.md frontmatter
+│   ├── installer.ts        ← Copy/symlink a skill to home, platform dirs, workspace, custom path
+│   ├── checker.ts          ← Probe install locations: installed | linked | broken | missing
+│   ├── env-params.ts       ← Static env param registry per skill; runtime set/missing check
+│   ├── home.ts             ← getOctocodeHome(), getSkillsHome() — inlined, zero deps
+│   ├── platforms.ts        ← Platform → dir mapping; parsePlatforms()
+│   ├── commands/
+│   │   ├── list.ts         ← `octocode-skills list`    — skills + install + env status
+│   │   ├── install.ts      ← `octocode-skills install` — install with override/keep + env warning
+│   │   ├── check.ts        ← `octocode-skills check`   — verify install + env per skill
+│   │   └── info.ts         ← `octocode-skills info`    — SKILL.md + env params detail
+│   └── utils/
+│       ├── colors.ts       ← dim / bold / green / yellow / red / cyan — single-file, no dep
+│       └── spinner.ts      ← TTY spinner on stderr; silent when !isTTY or CI=true
+├── skills/                 ← GENERATED at build — copy of ../../skills/ (no scripts/ dirs)
+├── out/                    ← GENERATED — esbuild bundles (cli.js, index.js)
+├── build.mjs               ← Build script: clean → sync skills → esbuild CLI + index
+├── package.json
+├── tsconfig.json
+└── README.md
 ```
-
-```
-tests/  ←  index.*, serverConfig.*, session.*, errorCodes,
-          commands/, errors/, github/ (29), lsp/ (9), security/ (15),
-          scheme/, hints/, tools/ (54), utils/ (37), integration/, helpers/, fixtures/
-```
-
-### Tools (14)
-
-| Tool | Type | Local | Description |
-|------|------|-------|-------------|
-| `githubSearchCode` | search | ❌ | Search code across GitHub/GitLab |
-| `githubGetFileContent` | content | ❌ | Fetch file or directory (`type:"directory"` needs `ENABLE_CLONE`) |
-| `githubViewRepoStructure` | content | ❌ | Browse repo tree |
-| `githubCloneRepo` | content | ✅ | Clone GitHub repos/subtrees for local + LSP analysis (`ENABLE_CLONE`) |
-| `githubSearchRepositories` | search | ❌ | Search repositories |
-| `githubSearchPullRequests` | history | ❌ | Search PRs/MRs and view diffs |
-| `packageSearch` | search | ❌ | NPM/PyPI package + repo URL lookup |
-| `localSearchCode` | search | ✅ | ripgrep search |
-| `localViewStructure` | content | ✅ | Browse local directories |
-| `localFindFiles` | search | ✅ | Find files by metadata |
-| `localGetFileContent` | content | ✅ | Read local file content |
-| `lspGotoDefinition` | LSP | ✅ | Jump to symbol definition |
-| `lspFindReferences` | LSP | ✅ | Find all usages of a symbol |
-| `lspCallHierarchy` | LSP | ✅ | Trace function call relationships |
-
-LSP tools are standalone (no IDE required); TS/JS bundled, 30+ other langs via installed servers; cross-platform.
-
-### Tool registration flow
-
-```
-Schema (Zod) → registerTool() → Security wrapper → Bulk handler → Implementation → Sanitizer → Response
-```
-
-Tools return `structuredContent` validated against `outputSchema`. Handles tracked in `toolRegistry.ts` (runtime `enable()`/`disable()`/`remove()`). Server advertises `listChanged: true`; background init deferred to `oninitialized`.
-
-### Design rules
-
-- **Modular tools** — self-contained directory per tool
-- **Bulk queries** — every tool accepts 1–5 queries per request
-- **Research context required** — every query needs `mainResearchGoal`, `researchGoal`, `reasoning`
-- **Security first** — all I/O sanitized, secrets redacted, paths validated, command whitelist (`rg`, `find`, `ls`)
-- **Single-engine search** — `localSearchCode` uses bundled `@vscode/ripgrep` only; no grep fallback
-- **Pooled LSP clients** — acquire through `LspClientPool`; callers MUST NOT call `client.stop()`
-- **Token efficiency** — minification, YAML default, response prioritization
-
-### Environment variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `GITHUB_TOKEN` / `OCTOCODE_TOKEN` / `GH_TOKEN` | GitHub auth (priority: OCTOCODE > GH > GITHUB) | – |
-| `GITHUB_API_URL` | GitHub API base URL | `https://api.github.com` |
-| `GITLAB_TOKEN` / `GL_TOKEN` | GitLab auth | – |
-| `GITLAB_HOST` | GitLab instance URL | `https://gitlab.com` |
-| `ENABLE_LOCAL` | Enable local FS tools | `true` |
-| `ENABLE_CLONE` | Enable `githubCloneRepo` + directory mode (requires `ENABLE_LOCAL`) | `false` |
-| `OCTOCODE_CACHE_TTL_MS` | Clone cache TTL (ms) | `86400000` |
-| `DISABLE_PROMPTS` | Disable prompts/slash commands | `false` |
-| `LOG` | Enable session logging | `true` |
-| `REQUEST_TIMEOUT` | API timeout (ms) | `30000` |
-| `MAX_RETRIES` | Max retry attempts | `3` |
-| `TOOLS_TO_RUN` / `ENABLE_TOOLS` / `DISABLE_TOOLS` | Comma-separated tool filters | – |
-| `OCTOCODE_OUTPUT_FORMAT` | `yaml` (default) or `json` | `yaml` |
-
-### Key files
-
-| Purpose | File(s) |
-|---------|---------|
-| Entry point | `src/index.ts` |
-| Tool registration | `src/tools/toolsManager.ts`, `src/tools/toolConfig.ts` |
-| Tool registry | `src/tools/toolRegistry.ts` |
-| Tool modules | `src/tools/<tool_name>/` (scheme.ts, execution.ts, types.ts) |
-| Hints | `src/hints/` |
-| Security wrapper | `src/security/withSecurityValidation.ts` |
-| Secret detection | `src/security/contentSanitizer.ts`, `src/security/regexes/` |
-| Path validation | `src/security/pathValidator.ts` |
-| GitHub / GitLab clients | `src/github/client.ts`, `src/gitlab/client.ts` |
-| Provider factory | `src/providers/factory.ts` |
-| LSP client + config | `src/lsp/client.ts`, `src/lsp/config.ts`, `src/lsp/manager.ts` |
-| Bulk operations | `src/utils/response/bulk.ts` |
-| Package search | `src/utils/package/npm.ts`, `src/utils/package/python.ts` |
-
-### Safety (package)
-
-| Path | Access |
-|------|--------|
-| `src/`, `tests/` | ✅ FULL |
-| `*.json`, `*.config.*` | ⚠️ ASK |
-| `dist/`, `coverage/`, `node_modules/` | ❌ NEVER |
-
-### Testing — 90% coverage required, Vitest + v8.
 
 ---
 
-# Package: `octocode-cli`
-
-CLI binary that **manages** Octocode (install, auth, skills, MCP marketplace, sync, cache) and **runs tools** (any Octocode tool from terminal).
-
-Run commands from `packages/octocode-cli/`.
-
-### Using the CLI
+## Data flow
 
 ```
-octocode-cli --help                          # all commands + all 14 tools
-octocode-cli --tool <name> --help            # input/output schema for one tool
-octocode-cli --tools-context                 # full MCP instructions + all schemas (~2200 lines)
-octocode-cli --tool <name> --queries '<json>' [--json]
+../../skills/<name>/SKILL.md   ← source of truth for skill content
+        ↓  build.mjs (sync at build time, excludes scripts/)
+skills/<name>/SKILL.md         ← bundled copy inside this package
+        ↓  src/registry.ts
+listSkills() / getSkill()      ← SkillInfo { name, folder, description, dir }
+        ↓  src/env-params.ts
+getSkillEnvStatus()            ← SkillEnvStatus { readiness, params[] }
+        ↓  src/checker.ts
+checkSkill()                   ← SkillCheckResult { home, platforms[], workspace }
+        ↓  src/commands/*.ts
+list / install / check / info  ← human or JSON output to stdout
 ```
 
-`--queries` accepts an object, array, or `{ "queries": [...] }`. Fields `id`, `researchGoal`, `reasoning`, `mainResearchGoal` are auto-filled — only provide tool-specific fields.
-
-```bash
-octocode-cli --tool localSearchCode --queries '{"path":".","pattern":"runCLI"}'
-octocode-cli --tool githubSearchCode --queries '{"keywordsToSearch":["useReducer"],"owner":"facebook","repo":"react"}'
-```
-
-Output shape: `{ "content": [{ "type": "text", "text": "..." }], "structuredContent": {}, "isError": false }`
-
-### Management commands
-
-| Command | Aliases | Usage |
-|---------|---------|-------|
-| `install` | `i`, `setup` | `install --ide <client> [--method <npx\|direct>] [--force]` |
-| `auth` | `a`, `gh` | `auth [login\|logout\|status\|token]` |
-| `login` | `l` | `login [--hostname <host>] [--git-protocol <ssh\|https>]` |
-| `logout` | – | `logout [--hostname <host>]` |
-| `status` | `s` | `status [--hostname <host>]` |
-| `token` | `t` | `token [--type <auto\|octocode-cli\|gh>] [--hostname <host>] [--source] [--json]` |
-| `sync` | `sy` | `sync [--force] [--dry-run] [--status]` |
-| `skills` | `sk` | `skills [install\|remove\|list] [--skill <name>] [--targets <list>] [--mode <copy\|symlink>] [--force]` |
-| `mcp` | – | `mcp [list\|install\|remove\|status] [--id <id>] [--client <client>\|--config <path>] [--search <text>] [--category <name>] [--env K=V] [--installed] [--force]` |
-| `cache` | – | `cache [status\|clean] [--repos] [--skills] [--logs] [--tools\|--local\|--lsp\|--api] [--all]` |
-
-Supported clients: `cursor`, `claude-desktop`, `claude-code`, `windsurf`, `zed`, `vscode-cline`, `vscode-roo`, `vscode-continue`, `opencode`, `trae`, `antigravity`, `codex`, `gemini-cli`, `goose`, `kiro`.
-
-### Dev commands
-
-| Task | Command |
-|------|---------|
-| Build | `yarn build` (lint + bundle) · `yarn build:dev` |
-| Test | `yarn test` (coverage) |
-| Lint / Typecheck / Start | `yarn lint` · `yarn lint:fix` · `yarn typecheck` · `yarn start` |
-| Validate registries | `yarn validate:mcp` · `yarn validate:skills` |
-
-### Source layout
-
-```
-src/
-├── index.ts, interactive.ts
-├── cli/        # runCLI, parser, commands, tool-command, help, types
-├── configs/    # mcp-registry (70+ MCPs), skills-marketplace
-├── features/   # gh-auth, github-oauth, install, node-check, sync
-├── types/, ui/, utils/  # colors, fs, mcp-config, mcp-io, mcp-paths,
-                         # platform, shell, skills, token-storage, etc.
-```
-
-```
-tests/  ←  cli/, configs/, features/, security/ (audit-findings, oauth-security),
-           ui/ (external-mcp-flow), utils/
-```
-
-### Architecture
-
-```
-main() → runCLI() → [command handler] OR runInteractiveMode()
-```
-
-CLI args parse first; if a command or `--tool` matches, it runs. Otherwise falls through to interactive menu.
-
-### Skills directory
-
-Bundled skills live at repo root [`skills/`](https://github.com/bgauryy/octocode-mcp/tree/main/skills). At publish, `prepack` copies them into `packages/octocode-cli/skills`. Run `yarn validate:skills` after changes.
-
-### Adding things
-
-- **New command** — define in `commands.ts`, add help spec in `command-help-specs.ts`, test in `cli/commands.test.ts`.
-- **New tool** — tools come from `octocode-mcp`; CLI auto-discovers them via MCP. No CLI changes needed.
-- **New IDE** — add to `types/index.ts`, paths in `mcp-paths.ts`, install logic in `ui/install/`, add tests.
-- **New skill** — create `skills/<name>/SKILL.md`, update `skills-marketplace.ts`, run `yarn validate:skills`.
-- **New MCP server** — add entry in `mcp-registry.ts`, run `yarn validate:mcp`.
-
-### Safety (package)
-
-| Path | Access |
-|------|--------|
-| `src/`, `tests/` | ✅ FULL |
-| `scripts/`, `*.json`, `*.config.*` | ⚠️ ASK |
-| `out/`, `node_modules/` | ❌ NEVER |
-
-Tokens encrypted in `~/.octocode/` (AES-256-GCM). Never log tokens. Coverage: 90% required.
+All four commands read from these three modules. Changes to skill content flow through
+registry; changes to env requirements flow through env-params; installation state flows
+through checker.
 
 ---
 
-# Package: `octocode-shared`
+## Task: Adding a new skill
 
-Shared utilities for credentials, session persistence, and platform detection across Octocode packages. Consumers: `octocode-cli`, `octocode-mcp`.
+**1. Create the skill folder** in `../../skills/<new-name>/` with at least a `SKILL.md`
+   that has YAML frontmatter:
+   ```yaml
+   ---
+   name: <new-name>
+   description: "One sentence — shown in list and info."
+   ---
+   ```
 
-Run commands from `packages/octocode-shared/`.
+**2. Register env params** in `src/env-params.ts` → `SKILL_ENV_PARAMS`:
+   ```ts
+   // If the skill needs no env params — do nothing. Skills absent from the map are treated as "ok".
 
-### Commands
+   // If it needs web search (like brainstorming):
+   'new-skill-name': WEB_SEARCH_PARAMS,
 
-| Task | Command |
-|------|---------|
-| Build | `yarn build` (lint + tsc) · `yarn build:dev` · `yarn clean` |
-| Test | `yarn test` (coverage) · `yarn test:quiet` · `yarn test:watch` |
-| Lint / Typecheck | `yarn lint` · `yarn lint:fix` · `yarn typecheck` |
+   // If it needs GitHub token (like research):
+   'new-skill-name': GITHUB_TOKEN_PARAMS,
 
-### Source layout
+   // If it needs something unique:
+   'new-skill-name': [
+     {
+       key: 'MY_KEY',
+       description: 'What it is for',
+       required: 'recommended',   // 'required' | 'recommended' | 'optional'
+       link: 'https://where-to-get.it/',
+       // group: 'my-group',  ← add only if AT LEAST ONE of multiple keys is enough
+     },
+   ],
+   ```
 
+**3. Rebuild and verify:**
+   ```bash
+   cd packages/octocode-skills
+   node build.mjs
+   node out/cli.js list
+   node out/cli.js info <new-name>
+   node out/cli.js list --json | python3 -c "import sys,json; s=json.load(sys.stdin)['skills']; [print(x['name'], x['env']['readiness']) for x in s]"
+   ```
+
+**4. Update README.md** — add a skill entry under `## Bundled skills` following the
+   existing pattern: name, one-liner, when-to-use, env params table.
+
+**No other files need to change.** `registry.ts` auto-discovers all SKILL.md folders;
+`checker.ts` probes paths by name; `list/check/info/install` all call the shared modules.
+
+---
+
+## Task: Updating an existing skill
+
+Changes to skill _content_ (SKILL.md, references, docs) in `../../skills/<name>/`:
+- **No source change needed** — `build.mjs` syncs `skills/` at every build.
+- Rebuild: `node build.mjs` — that's it.
+
+Changes to skill _env requirements_:
+- Edit `SKILL_ENV_PARAMS` in `src/env-params.ts`.
+- Rebuild and run `node out/cli.js check <name>` to verify output.
+
+Changes to skill _name or description_ (SKILL.md frontmatter):
+- Edit frontmatter in `../../skills/<name>/SKILL.md`.
+- `registry.ts:parseFrontmatter()` reads `name:` and `description:` — no code change.
+- Rebuild and verify with `node out/cli.js list`.
+
+---
+
+## Task: Changing or adding a CLI command
+
+### Adding a command
+
+1. **Create** `src/commands/<command>.ts` exporting `run<Command>(opts): void`.
+   - Accept a typed options object. Never read `process.argv` directly.
+   - Always support `opts.json: boolean` — JSON goes to stdout, human to stdout, errors to stderr.
+   - Exit code: `process.exitCode = 1` on failure (never `process.exit(1)` — it skips cleanup).
+
+2. **Register** in `src/cli.ts`:
+   - Add an `import` at the top.
+   - Add a `case '<command>':` in the `switch` block.
+   - Parse flags from `flags` / `positional` (already parsed by `parseArgs()`).
+   - Add to the help text block in `printHelp()`.
+
+3. **Export** from `src/index.ts` if it has programmatic use.
+
+### Changing an existing command
+
+- Each command is fully contained in its `src/commands/*.ts` file.
+- `cli.ts` only parses args and dispatches — never put business logic there.
+- Flag parsing is in `cli.ts`; flag _handling_ is in the command.
+- To add a flag: add it to `cli.ts` dispatch `case`, pass it in the options object, handle it in the command, document it in `printHelp()`.
+
+### Arg parser rules (`src/cli.ts:parseArgs`)
+
+- `--key value` → `flags['key'] = 'value'` (next token not starting with `-`)
+- `--key` alone → `flags['key'] = true`
+- `-h` → `flags['help'] = true`
+- Bare tokens → `positional[]`; first positional is command, rest go to the command
+
+To read a string flag safely:
+```ts
+const raw = flags['my-flag'];
+const val = typeof raw === 'string' ? raw : null;
 ```
-src/
-├── index.ts                     # Package exports
-├── credentials/
-│   ├── index.ts
-│   ├── credentialEncryption.ts  # AES-256-GCM encryption + file I/O
-│   ├── storage.ts               # Encrypted storage
-│   └── types.ts
-├── platform/
-│   ├── index.ts
-│   └── platform.ts              # OS detection & paths
-└── session/
-    ├── index.ts
-    ├── storage.ts               # Deferred-write session storage
-    └── types.ts
+To read a boolean flag:
+```ts
+const myFlag = Boolean(flags['my-flag']);
 ```
 
-### Module exports (entry points)
+---
+
+## Task: Changing output
+
+### JSON output invariants
+
+Every command's `--json` output must:
+- Always have `"success": boolean` at the top level.
+- Exit code 0 when `success: true`, non-zero when `success: false`.
+- Never write anything other than a single JSON object to stdout.
+- Use `process.exitCode = 1` (not `process.exit`) before returning.
+- Errors: `{ "success": false, "error": "human message" }`.
+
+**Stable JSON shapes per command:**
+
+| Command | Top-level fields |
+|---|---|
+| `list --json` | `success`, `source`, `count`, `installedCount`, `skills[]` |
+| `install --json` | `success`, `dryRun`, `override`, `skills[]`, `summary` |
+| `check --json` | `success`, `skills[]`, `summary.install`, `summary.env` |
+| `info --json` | `success`, `skill` (with `name`, `folder`, `description`, `dir`, `skillMd`, `env`) |
+
+Each `skills[i]` in `list` carries: `name`, `folder`, `description`, `installed`, `linkedPlatforms`, `hasWorkspaceLink`, `hasBroken`, `env` (`readiness`, `params[]`, `hint`).
+
+Each `skills[i]` in `check` carries: `name`, `installStatus`, `home`, `platforms[]`, `workspace`, `env`.
+
+**Do not rename existing fields** — agents depend on them. Add new fields; never remove or rename.
+
+### Human output rules
+
+- All output goes to **stdout** (`console.log`). Only fatal parse errors go to stderr (`console.error`).
+- Spinner goes to **stderr** so `--json` mode stays clean.
+- Indentation: 2 spaces.
+- Icons: `✓` green = good, `–` dim = absent/skipped, `⚠` yellow = warning, `✗` red = error, `→` green = symlink.
+- Env icons: `✓` ready/ok, `⚠` partial, `✗` needs-config.
+- Always end output with a blank line.
+- Footer: actionable next-step commands, not just status.
+- Color helpers are in `src/utils/colors.ts` — use only those, never ANSI escapes inline.
+
+---
+
+## Task: Changing env params
+
+All env param knowledge lives exclusively in `src/env-params.ts`.
+
+### Anatomy of an `EnvParam`
 
 ```ts
-import { ... } from 'octocode-shared';
-import { ... } from 'octocode-shared/credentials';
-import { ... } from 'octocode-shared/platform';
-import { ... } from 'octocode-shared/session';
+{
+  key: 'TAVILY_API_KEY',          // exact env var name
+  description: 'One line what it does',
+  required: 'recommended',        // 'required' | 'recommended' | 'optional'
+  group: 'web-search',            // optional — AT LEAST ONE in group satisfies the group
+  link: 'https://...',            // where to get the key
+}
 ```
 
-Full export tables: see [`docs/SHARED_API_REFERENCE.md`](https://github.com/bgauryy/octocode-mcp/blob/main/docs/dev/reference/SHARED_API_REFERENCE.md).
+### Group semantics
 
-### Credential storage
+When multiple params share a `group`, the group is satisfied if **any one** of them is set.
+This models "Tavily OR Serper OR Exa" — user only needs one of the three.
 
-```
-Token → AES-256-GCM → Base64 → ~/.octocode/credentials.json
-Key:    ~/.octocode/.key  (file-based, restrictive perms)
-```
+- `required` on each param in the group = the group itself is `required`
+- `recommended` on each param = the group is `recommended`
+- Do not mix levels inside a group.
 
-- **AES-256-GCM** authenticated encryption, random IV per encryption
-- **Token resolution chain**: env → encrypted storage → `gh` CLI fallback
-- **Auto-refresh** for tokens with `refreshToken` (GitHub App tokens, 8h expiry); OAuth App tokens never expire
-- **In-memory cache**: 5-min TTL, invalidated on `storeCredentials` / `deleteCredentials` / `updateToken` / `refreshAuthToken`
+### Adding a new shared param set
 
-### Token resolution flow
+```ts
+// in env-params.ts, before SKILL_ENV_PARAMS:
+const MY_NEW_PARAMS: EnvParam[] = [
+  { key: 'MY_KEY', description: '...', required: 'recommended', link: '...' },
+];
 
-```
-resolveTokenFull(options)
-    ↓
-getTokenFromEnv()  → highest priority, NO refresh (user-managed)
-    1. OCTOCODE_TOKEN  2. GH_TOKEN  3. GITHUB_TOKEN
-    ↓
-getTokenWithRefresh(host)  → ONLY octocode tokens are refreshed
-    in-memory cache (5-min TTL) → file storage → auto-refresh via @octokit/oauth-methods
-    ↓
-getGhCliToken(host)  → fallback, gh manages its own refresh
+// then in SKILL_ENV_PARAMS:
+export const SKILL_ENV_PARAMS: Record<string, EnvParam[]> = {
+  ...
+  'my-skill': MY_NEW_PARAMS,
+};
 ```
 
-| Token source | Auto-refresh? | Reason |
-|---|---|---|
-| Env vars | ❌ | User-managed |
-| Octocode credentials | ✅ if `refreshToken` present | GitHub App tokens |
-| `gh` CLI | ❌ | gh manages its own |
+### `readiness` values and what triggers them
 
-### Session storage
-
-```
-In-memory cache ↔ Deferred writes → ~/.octocode/session.json
-Flush triggers: timer, explicit flush, SIGINT/SIGTERM, beforeExit
-```
-
-Tracks: `sessionId`, `createdAt`, `lastActiveAt`, `stats.{toolCalls, promptCalls, errors, rateLimits}`.
-
-### Package guidelines
-
-1. Minimal runtime dependencies (currently: `zod`, `@octokit/oauth-methods`, `@octokit/request`)
-2. Cross-platform (macOS, Linux, Windows)
-3. Type-safe exports — strict mode
-4. Security-first — every credential operation encrypts
-5. Performance — session writes deferred
-6. Minimal API surface — export only what consumers need
-
-### Safety (package)
-
-| Path | Access |
-|------|--------|
-| `src/`, `tests/` | ✅ FULL |
-| `*.json`, `*.config.*` | ⚠️ ASK |
-| `dist/`, `coverage/`, `node_modules/` | ❌ NEVER |
-
-Coverage: 90% required.
-
----
-
-# Package: `octocode-vscode`
-
-VS Code extension: GitHub OAuth, MCP server install across editors (Cursor, Windsurf, Antigravity, Trae, Cline, Roo Code), token sync.
-
-Run commands from `packages/octocode-vscode/`.
-
-### Commands
-
-| Task | Command |
-|------|---------|
-| Build | `yarn build` (esbuild, minified) · `yarn watch` |
-| Lint / Typecheck / Test | `yarn lint` · `yarn typecheck` · `yarn test` (Vitest) · `yarn test:quiet` |
-| Verify | `yarn verify` (lint + typecheck + tests + build) |
-| Package / Publish | `yarn package` (`.vsix`) · `yarn publish` (Marketplace) |
-
-### Source layout
-
-```
-src/
-├── extension.ts      # Extension activation + VS Code wiring
-├── configPaths.ts    # Editor detection + MCP client config paths (pure, testable)
-└── jsonUtils.ts      # Safe JSON file helper
-
-tests/
-├── configPaths.test.ts
-└── jsonUtils.test.ts
-
-images/icon.png
-out/extension.js     # esbuild bundle
-```
-
-### Key components
-
-| Component | Purpose |
-|-----------|---------|
-| `getEditorInfo()` | Detect current editor (Cursor, Windsurf, …) |
-| `loginToGitHub()` | OAuth device flow |
-| `syncTokenToAllConfigs()` | Push token to all detected MCP configs |
-| `installMcpServer()` | Configure MCP server in editor config |
-| `startMcpServer()` / `stopMcpServer()` | MCP server process lifecycle |
-| `MCP_CLIENTS` | Registry of supported MCP clients |
-
-### Extension commands
-
-| Command ID | Description |
+| Value | Meaning |
 |---|---|
-| `octocode.loginGitHub` / `logoutGitHub` / `showAuthStatus` | Auth lifecycle |
-| `octocode.installMcp` / `startServer` / `stopServer` | MCP server |
-| `octocode.installForCline` / `installForRooCode` / `installForTrae` / `installForAll` | Per-client install |
+| `ok` | Skill has no env params at all |
+| `ready` | All required groups satisfied, all standalone required params set |
+| `partial` | Required ok, but ≥1 recommended param/group missing |
+| `needs-config` | ≥1 required param or required group fully missing |
 
-### Supported editors
+### What displays where
 
-| Editor | Config path (macOS) | Detection |
-|---|---|---|
-| Cursor | `~/.cursor/mcp.json` | `appName.includes('cursor')` |
-| Windsurf | `~/.codeium/windsurf/mcp_config.json` | `appName.includes('windsurf')` |
-| Antigravity | `~/.gemini/antigravity/mcp_config.json` | `appName.includes('antigravity')` |
-| Trae | `~/Library/Application Support/Trae/mcp.json` | `appName.includes('trae')` |
-| VS Code | Claude Desktop config | Default fallback |
-| Cline | `Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json` | – |
-| Roo Code | `Code/User/globalStorage/rooveterinaryinc.roo-cline/settings/mcp_settings.json` | – |
-
-### Architecture
-
-```
-"Sign in to GitHub"
-    ↓
-vscode.authentication.getSession(GITHUB_SCOPES, createIfNone)
-    ↓
-OAuth device flow (VS Code handles UI)
-    ↓
-syncTokenToAllConfigs(session.accessToken)
-    ↓
-Update all detected MCP configs with GITHUB_TOKEN env
-```
-
-### Package guidelines
-
-1. Thin entry point — keep VS Code wiring in `extension.ts`; extract pure helpers for testing
-2. Cross-platform (macOS, Linux, Windows)
-3. Non-invasive — modify only MCP configs, never editor settings
-4. Graceful degradation — handle missing configs, failed auth gracefully
-5. Token security — use VS Code's auth API; never log tokens
-
-### Safety (package)
-
-| Path | Access |
-|------|--------|
-| `src/`, `tests/`, `images/` | ✅ FULL/EDIT |
-| `*.json`, `*.config.*` | ⚠️ ASK |
-| `out/`, `node_modules/` | ❌ NEVER |
-
-### Manual test checklist
-
-- [ ] Extension activates on startup
-- [ ] GitHub OAuth completes
-- [ ] Token syncs to all detected MCP configs
-- [ ] MCP server starts and responds
-- [ ] Works in Cursor, Windsurf, VS Code
+| readiness | `list` | `install` post-install | `check` | `info` |
+|---|---|---|---|---|
+| `ok` | nothing | nothing | "none needed" | "none needed" |
+| `ready` | `✓ env ready` | nothing | `✓ env: ready` | "all set" |
+| `partial` | `⚠ env partial · recommended: ...` | warning block | `⚠ env: ...` | yellow warning |
+| `needs-config` | `✗ env missing · missing: ...` | warning block | `✗ env: ...` | red warning |
 
 ---
 
-# Package: `octocode-security-utils`
+## Task: Changing the installation model
 
-Standalone security utilities. Self-contained — no special agent guidance beyond access rules and the root core methodology. See `packages/octocode-security-utils/README.md` for API details.
+The install flow is entirely in `src/installer.ts:installSkill()`.
+
+**Steps (in order):**
+1. If `customPath` is set → install directly there (copy or symlink), skip home.
+2. Otherwise → install to `getSkillsHome()/<name>/` (real copy via `copyDir`).
+3. For each `platform` → symlink `getPlatformSkillsDir(platform)/<name>` → home.
+4. If `workspace` → symlink `<cwd>/.agents/skills/<name>` → home.
+
+**Key behaviors:**
+- `force: true` (default) — removes existing target before writing.
+- `force: false` (`--keep`) — skips if target exists; `homeStatus: 'skipped'`.
+- `dryRun: true` — computes what would happen, returns the outcome object without touching disk.
+- Windows symlinks use `junction` (directory junction, no admin required).
+
+**To add a new installation target**, follow the `workspace` block pattern in `installSkill()`:
+compute the dest path, call `createLink()`, push result into `links[]`.
+
+**`checker.ts` is independent** — it only probes paths with `lstatSync`/`existsSync`. It is
+never called by the installer; only by `list`, `check`, and (implicitly) post-install hints.
+
+---
+
+## Build & verify
+
+```bash
+cd packages/octocode-skills
+
+# Full build (clean → sync skills → esbuild)
+node build.mjs
+
+# Typecheck only (no emit)
+npx tsc --noEmit
+
+# Smoke tests
+node out/cli.js list
+node out/cli.js list --json
+node out/cli.js info octocode-research
+node out/cli.js info octocode-research --json
+node out/cli.js install octocode-research --dry-run
+node out/cli.js install octocode-research --dry-run --json
+node out/cli.js install octocode-research --platform pi --dry-run
+node out/cli.js check
+node out/cli.js check --json
+node out/cli.js check octocode-research
+node out/cli.js --help
+```
+
+**Acceptance criteria before concluding any change:**
+1. `npx tsc --noEmit` → 0 errors
+2. `node build.mjs` → `✓ Skills synced` + `✓ @octocodeai/skills built`
+3. `node out/cli.js list --json` → parses cleanly, `success: true`
+4. `node out/cli.js check --json` → parses cleanly
+5. Human `list` and `check` outputs show expected badges and env hints
+
+---
+
+## Common pitfalls
+
+| Pitfall | Cause | Fix |
+|---|---|---|
+| `SyntaxError: Invalid or unexpected token` on `node out/cli.js` | Double shebang: `src/cli.ts` has `#!/usr/bin/env node` AND `build.mjs` adds it via `banner` | Remove shebang from `src/cli.ts` — esbuild adds it |
+| `TS2375 exactOptionalPropertyTypes` | Assigning `undefined` to an optional field | Use `...(x !== undefined ? { x } : {})` instead of `x: x` |
+| New skill not appearing in `list` | `SKILL.md` missing or frontmatter malformed | Check `---` delimiters; `description:` must be quoted if it contains colons |
+| Env param shows wrong readiness | Group logic wrong | Each group is satisfied by ANY set key; re-read `getSkillEnvStatus()` carefully |
+| `out/cli.js` has stale code | Forgot to rebuild after source change | Always `node build.mjs` before testing |
+| Spinner output in `--json` stdout | Spinner writing to stdout instead of stderr | Spinner must use `process.stderr.write()`; check `spinner.ts` |
+| `process.exit(1)` kills cleanup | Hard exit skips `finally` blocks | Always use `process.exitCode = 1; return;` |
+| Skills dir empty after build | `../../skills/` path not found | Run build from `packages/octocode-skills/`; check monorepo root has `skills/` |
+
+---
+
+## File ownership and what NOT to touch
+
+| File | Rule |
+|---|---|
+| `out/` | Never edit — always generated |
+| `skills/` | Never edit — always generated by `build.mjs` from `../../skills/` |
+| `../../skills/` | Source of truth for skill content; edits there flow here at next build |
+| `build.mjs` | Edit only to change what gets synced/excluded or add new esbuild entry points |
+| `tsconfig.json` | Do not loosen `exactOptionalPropertyTypes` or `strict` — they catch real bugs |
+| `package.json` `"files"` | Must include `"out/**"` and `"skills/**"` — remove either and publish breaks |
+
+---
+
+## Module responsibilities (one-line each)
+
+| Module | Single responsibility |
+|---|---|
+| `registry.ts` | Read bundled `skills/` dir; parse SKILL.md frontmatter; return `SkillInfo[]` |
+| `installer.ts` | Write files and symlinks; return `SkillInstallOutcome`; never read UI state |
+| `checker.ts` | Read-only FS probe of install locations; return `SkillCheckResult`; never writes |
+| `env-params.ts` | Static env param registry + runtime `process.env` probe; no FS I/O |
+| `home.ts` | Resolve `OCTOCODE_HOME` / platform default; pure computation, no side effects |
+| `platforms.ts` | Map platform name → directory path; parse comma-separated platform flag |
+| `cli.ts` | Parse argv; dispatch to command; print help; no business logic |
+| `commands/*.ts` | Orchestrate registry + checker + env-params + installer; format output |
+
+Never put installer logic in commands. Never put output formatting in installer or checker.
+Never import `commands/` from `registry.ts`, `installer.ts`, `checker.ts`, or `env-params.ts`.
+Dependencies only flow inward: `commands → {registry, installer, checker, env-params, home, platforms}`.
 
 ---
 > Source: [bgauryy/octocode](https://github.com/bgauryy/octocode) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
