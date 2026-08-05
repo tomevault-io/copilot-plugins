@@ -1,0 +1,38 @@
+## airalogy
+
+> This repository is the Airalogy monorepo. Keep package boundaries explicit and avoid mixing repository migration work with API or parser behavior changes.
+
+# Repository Guidelines
+
+This repository is the Airalogy monorepo. Keep package boundaries explicit and avoid mixing repository migration work with API or parser behavior changes.
+
+## Layout
+
+- `packages/pypi/airalogy`: Python protocol core.
+- `packages/pypi/airalogy-engine`: Python engine package.
+- `packages/npm/*`: npm packages.
+- `packages/runtime/airalogy-engine-image`: sandbox image files.
+- `apps/aimd-demo`: AIMD browser demo app.
+- `docs/aimd`: AIMD package documentation site.
+- `spec/fixtures`: shared compatibility fixtures.
+
+## Validation
+
+- Airalogy core: `uv --directory packages/pypi/airalogy run pytest tests/`
+- Airalogy engine Python: `uv --directory packages/pypi/airalogy-engine run pytest tests/ --sandbox-mode=rootfs`
+- npm packages: `pnpm build:npm`, `pnpm test:aimd`, `pnpm type-check`
+
+When adding or changing AIMD syntax, add or update a fixture in `spec/fixtures` and wire it into both Python and npm parser tests where practical.
+
+## Release Metadata
+
+- If a change affects a published package's external behavior, add a `.changeset/*.md` entry instead of manually editing package `CHANGELOG.md` files.
+- Do not bump package versions or edit generated package changelogs during normal feature work; Changesets release preparation generates those updates.
+
+## Markdown Prose
+
+For user-facing Markdown docs and README files, keep prose paragraphs as single logical lines. Do not hard-wrap normal text by column width. Use blank lines to separate paragraphs, and reserve manual line breaks for lists, tables, code blocks, command continuations, and intentional Markdown line breaks.
+
+---
+> Source: [airalogy/airalogy](https://github.com/airalogy/airalogy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
