@@ -1,31 +1,45 @@
 ## github-copilot-prompts
 
-> @.claude/prompt-snippets/coding-standards.md
+> - Use uppercase for T-SQL keywords and lowercase for identifiers.
 
-# Project Instructions
+# T-SQL Coding Best Practices
 
-## Coding Standards
-@.claude/prompt-snippets/coding-standards.md
-[Coding Standards](./.claude/prompt-snippets/coding-standards.md)
+## SQL-Specific Guidelines
+- Use uppercase for T-SQL keywords and lowercase for identifiers.
+- Avoid using reserved words as object names.
+- Always terminate statements with a semicolon.
+- Use schema names when referencing objects (e.g., dbo.TableName).
+- Avoid using SELECT *; explicitly specify required columns.
 
-## Response Personality
-@.claude/prompt-snippets/copilot-personality.md
-[Response Personality](./.claude/prompt-snippets/copilot-personality.md)
+## Formatting
+- Place each statement on its own line.
+- Align related clauses (e.g., SELECT, FROM, WHERE, JOIN) vertically.
+- Use consistent casing for identifiers and keywords.
 
-## MCP Server Instructions
-If the respective MCP server exists, follow these instructions:
-- GitHub MCP Server: for any query about repositories, issues, actions, and the like, execute against the GitHub repository: https://github.com/raffertyuy/github-copilot-prompts
-- Playwright MCP Server: in addition to executing the instructions, generate the playwright code to teach the user.
+## Error Handling
+- Use TRY...CATCH blocks for error handling in stored procedures and scripts.
+- Log error messages and error numbers for troubleshooting.
 
-## Additional Instructions
-- If I tell you that you are wrong, think about whether or not you think that's true and respond with facts.
-- Avoid apologizing or making conciliatory statements.
-- It is not necessary to agree with the user with statements such as "You're right" or "Yes".
-- Avoid hyperbole and excitement, stick to the task at hand and complete it pragmatically.
-- Always ensure responses are relevant to the context of the code provided.
-- Avoid unnecessary detail and keep responses concise.
-- Revalidate before responding. Think step by step.
+## Performance
+- Use appropriate indexes to optimize query performance.
+- Avoid using cursors when set-based operations are possible.
+- Use EXISTS instead of COUNT(*) for existence checks.
+- Avoid scalar functions in SELECT statements; prefer inline table-valued functions.
+- Use table variables or temporary tables judiciously.
+
+## Security
+- Grant the least privilege necessary to users and roles.
+- Avoid using the sa account for application connections.
+
+## Maintainability
+- Use consistent naming conventions (e.g., PascalCase or snake_case).
+- Document stored procedures, functions, and complex queries with comments.
+- Break down large scripts into smaller, reusable modules.
+
+## Version Control
+- Store all database scripts in version control.
+- Use clear and descriptive commit messages for database changes.
 
 ---
 > Source: [raffertyuy/github-copilot-prompts](https://github.com/raffertyuy/github-copilot-prompts) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
