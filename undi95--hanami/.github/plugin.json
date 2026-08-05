@@ -1,0 +1,9 @@
+{
+  "name": "undi95--hanami",
+  "displayName": "Hanami",
+  "description": "An ultra-light, local-first LLM chat companion with a living 3D VRM avatar; it listens while you type, walks, sits and gestures in measured, glitch-free scenes. No database, no cloud, no paywall.",
+  "version": "1.0.0",
+  "author": "Undi95",
+  "homepage": "https://github.com/Undi95/Hanami",
+  "skills": []
+}
