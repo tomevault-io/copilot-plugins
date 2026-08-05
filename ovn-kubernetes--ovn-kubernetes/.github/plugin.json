@@ -1,0 +1,9 @@
+{
+  "name": "ovn-kubernetes--ovn-kubernetes",
+  "displayName": "ovn-kubernetes",
+  "description": "ovn-kubernetes",
+  "version": "1.0.0",
+  "author": "ovn-kubernetes",
+  "homepage": "https://github.com/ovn-kubernetes/ovn-kubernetes",
+  "skills": []
+}
