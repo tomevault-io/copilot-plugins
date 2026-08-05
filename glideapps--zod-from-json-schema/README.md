@@ -1,23 +1,21 @@
 # zod-from-json-schema
 
-> Tome by [glideapps](https://github.com/glideapps/zod-from-json-schema) — distributed by [TomeVault](https://tomevault.io)
-
-Create Zod types from JSON Schema at runtime
+> Tome by [glideapps](https://github.com/glideapps/zod-from-json-schema), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [glideapps/zod-from-json-schema](https://github.com/glideapps/zod-from-json-schema).
+Original source: `AGENTS.md` in [glideapps/zod-from-json-schema](https://github.com/glideapps/zod-from-json-schema).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/glideapps/zod-from-json-schema](https://github.com/glideapps/zod-from-json-schema)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/glideapps/zod-from-json-schema](https://github.com/glideapps/zod-from-json-schema)
 
 ---
 
