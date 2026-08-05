@@ -4,7 +4,7 @@
   "repo": "B3DFramework",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GameFoundry/B3DFramework",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T16:03:31Z"
+  "distributed_at": "2026-08-05T23:56:57Z"
 }
