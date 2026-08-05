@@ -1,0 +1,44 @@
+{
+  "name": "retrodash",
+  "owner": "Igor-Ponticelli",
+  "repo": "retrodash",
+  "description": "RetrosDash is a platform designed to streamline sprint retrospectives, helping Agile teams reflect, collaborate, and improve at the end of each cycle.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Igor-Ponticelli/retrodash",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-05T22:18:34Z"
+}
