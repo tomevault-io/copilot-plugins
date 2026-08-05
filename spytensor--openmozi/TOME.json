@@ -4,7 +4,7 @@
   "repo": "openmozi",
   "description": "A custom Agent OS built to be hackable, heavily inspired by OpenClaw.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/spytensor/openmozi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T11:01:46Z"
+  "distributed_at": "2026-08-05T20:21:46Z"
 }
