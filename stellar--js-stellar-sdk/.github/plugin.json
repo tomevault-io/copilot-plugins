@@ -1,0 +1,9 @@
+{
+  "name": "stellar--js-stellar-sdk",
+  "displayName": "js-stellar-sdk",
+  "description": "js-stellar-sdk",
+  "version": "1.0.0",
+  "author": "stellar",
+  "homepage": "https://github.com/stellar/js-stellar-sdk",
+  "skills": []
+}
