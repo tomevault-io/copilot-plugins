@@ -1,6 +1,6 @@
 # dbt-core
 
-> Source: [dbt-labs/dbt-core](https://github.com/dbt-labs/dbt-core). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [dbt-labs/dbt-core](https://github.com/dbt-labs/dbt-core). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [dbt-labs/dbt-core](https://github.com/dbt-labs/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [dbt-labs/dbt-core](https://github.com/dbt-labs/dbt-core) — a repo with 13489+ stars on GitHub.
+From [dbt-labs/dbt-core](https://github.com/dbt-labs/dbt-core) — a repo with 13513+ stars on GitHub.
 
 ---
 
