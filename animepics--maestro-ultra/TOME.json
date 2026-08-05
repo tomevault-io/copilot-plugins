@@ -4,7 +4,7 @@
   "repo": "maestro-ultra",
   "description": "\"DO NOT PROMPTING\" Coding-Agent Maestro. claude code single point. it'll make more powerful your model by using ultraprompt",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/animepics/maestro-ultra",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T14:54:00Z"
+  "distributed_at": "2026-08-05T14:33:07Z"
 }
