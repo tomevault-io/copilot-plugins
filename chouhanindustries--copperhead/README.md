@@ -1,17 +1,17 @@
 # copperhead
 
-> Source: [chouhanindustries/copperhead](https://github.com/chouhanindustries/copperhead). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [chouhanindustries/copperhead](https://github.com/chouhanindustries/copperhead). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 Cursor for circuit boards
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [chouhanindustries/copperhead](https://github.com/chouhanindustries/copperhead).
+Original source: `AGENTS.md` in [chouhanindustries/copperhead](https://github.com/chouhanindustries/copperhead).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
