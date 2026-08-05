@@ -1,0 +1,44 @@
+{
+  "name": "franken_lean",
+  "owner": "Dicklesworthstone",
+  "repo": "franken_lean",
+  "description": "A ground-up, native-Rust reimplementation of the entire Lean 4 toolchain \u2014 drop-in at the binary surfaces (.olean, C ABI, LSP, CLI), deterministic under parallelism, declaration-granular incremental, with a \u226412 KLOC dual-engine kernel that ships receipts.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Dicklesworthstone/franken_lean",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-05T16:02:33Z"
+}
