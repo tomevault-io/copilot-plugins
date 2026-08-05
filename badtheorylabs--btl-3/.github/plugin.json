@@ -1,0 +1,9 @@
+{
+  "name": "badtheorylabs--btl-3",
+  "displayName": "BTL-3",
+  "description": "Native runtime, integrations, and reproducible packaging for BTL-3 and BTL-3 Compact",
+  "version": "1.0.0",
+  "author": "Badtheorylabs",
+  "homepage": "https://github.com/Badtheorylabs/BTL-3",
+  "skills": []
+}
