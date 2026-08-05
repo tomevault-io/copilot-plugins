@@ -1,0 +1,44 @@
+{
+  "name": "deep-candidate-agent",
+  "owner": "CatalinBalut",
+  "repo": "deep-candidate-agent",
+  "description": "DeepCandidate is a local-first, open-source AI career memory and job application agent. It turns a candidate's real CVs, project notes, career stories, and application answers into source-grounded evidence, then retrieves the right facts to prepare a role-specific answer or tailored CV without inventing experience.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CatalinBalut/deep-candidate-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-05T16:38:56Z"
+}
