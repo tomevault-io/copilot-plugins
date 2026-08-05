@@ -4,7 +4,7 @@
   "repo": "afd-plugin",
   "description": "vLLM plugin for attention-ffn disaggregation support",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vllm-project/afd-plugin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T13:15:42Z"
+  "distributed_at": "2026-08-05T22:15:14Z"
 }
