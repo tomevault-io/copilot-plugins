@@ -1,0 +1,9 @@
+{
+  "name": "amagicpear--pichamber",
+  "displayName": "pichamber",
+  "description": "A lightweight AI coding agent terminal environment \u2014 TUI-based chat with editor, diff viewer, and workspace management.",
+  "version": "1.0.0",
+  "author": "AMagicPear",
+  "homepage": "https://github.com/AMagicPear/pichamber",
+  "skills": []
+}
