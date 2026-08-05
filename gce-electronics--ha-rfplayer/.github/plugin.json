@@ -1,0 +1,9 @@
+{
+  "name": "gce-electronics--ha-rfplayer",
+  "displayName": "HA_RFPlayer",
+  "description": "HA_RFPlayer",
+  "version": "1.0.0",
+  "author": "gce-electronics",
+  "homepage": "https://github.com/gce-electronics/HA_RFPlayer",
+  "skills": []
+}
