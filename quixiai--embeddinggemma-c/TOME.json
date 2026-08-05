@@ -4,7 +4,7 @@
   "repo": "embeddinggemma.c",
   "description": "Standalone C11 and Metal inference server for EmbeddingGemma 300M",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/QuixiAI/embeddinggemma.c",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T12:36:48Z"
+  "distributed_at": "2026-08-05T15:58:24Z"
 }
