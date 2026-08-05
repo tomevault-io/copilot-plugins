@@ -1,65 +1,48 @@
 ## vscode-vibrancy-continued
 
-> VSCode extension that applies vibrancy/transparency effects to the Visual Studio Code UI. Works by modifying VSCode's internal files (workbench HTML, main JS, Electron JS) and injecting runtime modules.
+> This file is read by AI coding assistants (Cursor, GitHub Copilot, Codex, Aider,
 
-## Project Overview
+# Agent & contributor guide
 
-VSCode extension that applies vibrancy/transparency effects to the Visual Studio Code UI. Works by modifying VSCode's internal files (workbench HTML, main JS, Electron JS) and injecting runtime modules.
+This file is read by AI coding assistants (Cursor, GitHub Copilot, Codex, Aider,
+Claude Code, and similar) and by human contributors. Follow it when opening pull
+requests against this repository.
 
-## Key Architecture
+## ⚠️ Pull requests MUST target the `development` branch — never `main`
 
-### Extension entry point
-- `extension/index.js` — Main extension logic: install, uninstall, update flows
-- `extension/elevated-file-writer.js` — Cross-platform elevated file operations (UAC on Windows, pkexec on Linux, osascript on macOS)
-- `extension/platform.js` — Platform detection
-- `extension/uninstallHook.js` — Cleanup on extension uninstall
+`main` is the **release branch**. It only receives changes through the
+maintainer's release process. **Do not open a pull request against `main`.**
 
-### Runtime modules
-- `runtime/` — ESM runtime injected into VSCode's workbench (modern VSCode)
-- `runtime-pre-esm/` — CJS runtime for older VSCode versions
-- `native/` — C++ native modules for Windows vibrancy effects; prebuilt binaries in `native/prebuilt/`
+- Base branch for every PR: **`development`**
+- A PR opened against `main` will be asked to re-target or closed.
 
-### Themes and i18n
-- `themes/` — Theme configuration and CSS files
-- `package.nls.json`, `package.nls.ja.json`, `package.nls.zh-CN.json` — Localization strings
-
-## Important Patterns
-
-### StagedFileWriter (elevated-file-writer.js)
-All file modifications to VSCode's install directory go through `StagedFileWriter`. When elevation is needed, writes are staged to a temp directory and executed in a single elevated operation. Never bypass the writer with direct `fs` calls to the VSCode install path.
-
-### ElectronJSFile === JSFile (VSCode 1.95+)
-Since VSCode 1.95, the Electron main.js and workbench main.js are the same file. Any code that reads/writes both must handle this: use a single in-memory buffer for all modifications to avoid the second disk read (from the elevated staged path) overwriting the first write.
-
-### Windows elevation uses PowerShell, not batch
-The elevated copy on Windows uses PowerShell cmdlets (`Copy-Item`, `Remove-Item`, `New-Item`) with `-EncodedCommand` (Base64 UTF-16LE) passed through `Start-Process -Verb RunAs`. This avoids batch script quoting pitfalls (`rem` eating command chains, `&&` cascading failures, parentheses in paths).
-
-### Windows .node file locking
-Windows hard-locks `.node` native modules while VSCode is running. The elevated PowerShell script uses `-ErrorAction SilentlyContinue` on `Remove-Item` so locked files don't abort the entire operation. This is expected and acceptable — the locked files are replaced on next restart.
-
-### Concurrency guard
-`operationInProgress` flag in `index.js` prevents concurrent Install/Update/Uninstall operations. The `onDidChangeConfiguration` handler is suppressed during operations to prevent `applyPostInstallSettings()` (which changes VSCode settings) from triggering a spurious Update cycle.
-
-## Build & Test
-
-This is a VSCode extension — no build step required. Load it via F5 (Run Extension) in VSCode for testing or ask the user for manual testing. The extension modifies VSCode's own installation files, so test with care.
-
-### Running tests locally
-
-After making changes, run the unit/integration tests (same as CI minus E2E):
-
-```sh
-npm install   # ensure deps are up to date
-npm test      # runs `vitest run`
-```
-
-Do **not** run E2E tests (`npm run test:e2e`) locally — they require platform-specific setup (xvfb, native module builds, etc.) and are handled by CI.
+If your tool defaulted the base branch to `main`, change it to `development`
+before opening the PR. On GitHub the base branch is the left-hand dropdown in
+the "Open a pull request" / "Comparing changes" view.
 
 ## Branches
 
-- `main` — Release branch
-- `development` — Active development branch
+- `main` — release branch. Protected. Do not target with PRs.
+- `development` — active development branch. **Target this with all PRs.**
+
+## How to contribute
+
+1. Fork the repository.
+2. Create your feature branch off `development`
+   (`git checkout development && git checkout -b feature/AmazingFeature`).
+3. Commit your changes.
+4. Push to your fork.
+5. Open a pull request **with `development` as the base branch**.
+
+## Project notes
+
+- This is a VSCode extension — no build step is required.
+- After changes, run the unit/integration tests: `npm install && npm test`
+  (runs `vitest run`).
+- Do **not** run the E2E suite (`npm run test:e2e`) locally; it needs
+  platform-specific setup and is handled by CI.
+- The extension modifies VSCode's own installation files, so test with care.
 
 ---
 > Source: [illixion/vscode-vibrancy-continued](https://github.com/illixion/vscode-vibrancy-continued) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
