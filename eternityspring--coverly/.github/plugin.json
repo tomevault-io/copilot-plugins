@@ -1,0 +1,9 @@
+{
+  "name": "eternityspring--coverly",
+  "displayName": "Coverly",
+  "description": "Coverly \u2014 a DOM-native (no <canvas>) design editor for social-media covers & text-image cards. Nuxt 4 + Vue 3 + Pinia.",
+  "version": "1.0.0",
+  "author": "eternityspring",
+  "homepage": "https://github.com/eternityspring/Coverly",
+  "skills": []
+}
