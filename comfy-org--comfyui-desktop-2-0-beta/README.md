@@ -1,6 +1,6 @@
 # AI instruction files for ComfyUI-Desktop-2.0-Beta
 
-> Sourced from [Comfy-Org/ComfyUI-Desktop-2.0-Beta](https://github.com/Comfy-Org/ComfyUI-Desktop-2.0-Beta) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [Comfy-Org/ComfyUI-Desktop-2.0-Beta](https://github.com/Comfy-Org/ComfyUI-Desktop-2.0-Beta), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,11 +15,7 @@ Original source: `AGENTS.md` in [Comfy-Org/ComfyUI-Desktop-2.0-Beta](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [writing-storybook-stories](https://github.com/Comfy-Org/ComfyUI-Desktop-2.0-Beta/tree/main/.claude/skills/writing-storybook-stories)
-
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Comfy-Org/ComfyUI-Desktop-2.0-Beta](https://github.com/Comfy-Org/ComfyUI-Desktop-2.0-Beta)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/Comfy-Org/ComfyUI-Desktop-2.0-Beta](https://github.com/Comfy-Org/ComfyUI-Desktop-2.0-Beta)
 
 ---
 
