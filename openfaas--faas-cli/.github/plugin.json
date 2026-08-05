@@ -1,0 +1,9 @@
+{
+  "name": "openfaas--faas-cli",
+  "displayName": "faas-cli",
+  "description": "faas-cli",
+  "version": "1.0.0",
+  "author": "openfaas",
+  "homepage": "https://github.com/openfaas/faas-cli",
+  "skills": []
+}
