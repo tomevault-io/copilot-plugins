@@ -4,7 +4,7 @@
   "repo": "spike",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/spiffe/spike",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T02:02:45Z"
+  "distributed_at": "2026-08-05T06:23:01Z"
 }
