@@ -4,7 +4,7 @@
   "repo": "vytalLink",
   "description": "VytalLink is a digital health platform connecting personal health data\u2014including Apple Health, Google Fit, and wearables\u2014with AI assistants like ChatGPT and Claude. Includes a Flutter app, Node.js MCP server, and Firebase landing page. Focused on privacy and user control.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xmartlabs/vytalLink",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T12:51:41Z"
+  "distributed_at": "2026-08-05T21:50:50Z"
 }
