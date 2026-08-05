@@ -1,0 +1,9 @@
+{
+  "name": "jia-ethan--grok-keysmith",
+  "displayName": "grok-keysmith",
+  "description": "Preview-first Grok Build instruction deployment with compat and hook isolation, durable recovery, and layered uninstall.",
+  "version": "1.0.0",
+  "author": "Jia-Ethan",
+  "homepage": "https://github.com/Jia-Ethan/grok-keysmith",
+  "skills": []
+}
