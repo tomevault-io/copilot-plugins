@@ -1,0 +1,9 @@
+{
+  "name": "renezander030--agentic-task-system",
+  "displayName": "agentic-task-system",
+  "description": "MCP server + CLI that turns the task manager you already use into persistent agent memory for Claude Code and any MCP client. Hybrid retrieval (RRF), no vector database. Adapters: TickTick, Obsidian, ",
+  "version": "1.0.0",
+  "author": "renezander030",
+  "homepage": "https://github.com/renezander030/agentic-task-system",
+  "skills": []
+}
