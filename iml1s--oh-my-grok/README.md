@@ -7,11 +7,11 @@ OMC-style multi-agent orchestration for Grok Build: plugin + omg CLI (ulw/ralph/
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ImL1s/oh-my-grok](https://github.com/ImL1s/oh-my-grok).
+Original source: `AGENTS.md` in [ImL1s/oh-my-grok](https://github.com/ImL1s/oh-my-grok).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
