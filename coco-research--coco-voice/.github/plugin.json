@@ -1,0 +1,9 @@
+{
+  "name": "coco-research--coco-voice",
+  "displayName": "Coco-Voice",
+  "description": "A free, open source, and extensible speech-to-text desktop app built with Tauri that works completely offline.",
+  "version": "1.0.0",
+  "author": "coco-research",
+  "homepage": "https://github.com/coco-research/Coco-Voice",
+  "skills": []
+}
