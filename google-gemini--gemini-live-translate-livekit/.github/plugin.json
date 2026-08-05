@@ -1,0 +1,9 @@
+{
+  "name": "google-gemini--gemini-live-translate-livekit",
+  "displayName": "gemini-live-translate-livekit",
+  "description": "Real-time broadcast translation powered by the Gemini Live API and LiveKit.",
+  "version": "1.0.0",
+  "author": "google-gemini",
+  "homepage": "https://github.com/google-gemini/gemini-live-translate-livekit",
+  "skills": []
+}
