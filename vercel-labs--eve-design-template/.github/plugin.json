@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--eve-design-template",
+  "displayName": "eve-design-template",
+  "description": "An eve agent to act as your design collaborator",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/eve-design-template",
+  "skills": []
+}
