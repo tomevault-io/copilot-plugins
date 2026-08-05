@@ -7,11 +7,11 @@ Run one AWS CLI command across hundreds of AWS accounts in parallel. MCP built i
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [0hardik1/awsmux](https://github.com/0hardik1/awsmux).
+Original source: `AGENTS.md` in [0hardik1/awsmux](https://github.com/0hardik1/awsmux).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
