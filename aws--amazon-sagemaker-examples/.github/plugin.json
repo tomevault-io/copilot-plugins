@@ -1,0 +1,9 @@
+{
+  "name": "aws--amazon-sagemaker-examples",
+  "displayName": "amazon-sagemaker-examples",
+  "description": "amazon-sagemaker-examples",
+  "version": "1.0.0",
+  "author": "aws",
+  "homepage": "https://github.com/aws/amazon-sagemaker-examples",
+  "skills": []
+}
