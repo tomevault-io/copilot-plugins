@@ -1,0 +1,9 @@
+{
+  "name": "wgross19--unraidclaw-cli",
+  "displayName": "unraidclaw-cli",
+  "description": "CLI for the UnraidClaw AI Agent Gateway \u2014 manage Unraid servers from the terminal",
+  "version": "1.0.0",
+  "author": "wgross19",
+  "homepage": "https://github.com/wgross19/unraidclaw-cli",
+  "skills": []
+}
