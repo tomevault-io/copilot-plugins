@@ -1,0 +1,9 @@
+{
+  "name": "wagtail--bakerydemo",
+  "displayName": "bakerydemo",
+  "description": "bakerydemo",
+  "version": "1.0.0",
+  "author": "wagtail",
+  "homepage": "https://github.com/wagtail/bakerydemo",
+  "skills": []
+}
