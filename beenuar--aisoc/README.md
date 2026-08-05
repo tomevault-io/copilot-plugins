@@ -1,8 +1,6 @@
 # AiSOC
 
-> Source: [beenuar/AiSOC](https://github.com/beenuar/AiSOC) — distributed by [TomeVault](https://tomevault.io)
-
-Open-source AI-powered Security Operations Center — alert fusion, purple-team drills, agent-assisted triage, MITRE ATT&CK investigation. MIT-licensed, self-hostable.
+> Source: [beenuar/AiSOC](https://github.com/beenuar/AiSOC). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [beenuar/AiSOC](https://github.com/beenuar/AiSOC
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [beenuar/AiSOC](https://github.com/beenuar/AiSOC) — a repo with 8+ stars on GitHub.
+From [beenuar/AiSOC](https://github.com/beenuar/AiSOC) — a repo with 1666+ stars on GitHub.
 
 ---
 
