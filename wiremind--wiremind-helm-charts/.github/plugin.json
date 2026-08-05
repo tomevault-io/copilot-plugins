@@ -1,0 +1,9 @@
+{
+  "name": "wiremind--wiremind-helm-charts",
+  "displayName": "wiremind-helm-charts",
+  "description": "wiremind-helm-charts",
+  "version": "1.0.0",
+  "author": "wiremind",
+  "homepage": "https://github.com/wiremind/wiremind-helm-charts",
+  "skills": []
+}
