@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [ClickHouse/agent-skills](https://github.com/Cli
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [ClickHouse/agent-skills](https://github.com/ClickHouse/agent-skills) — a repo with 494+ stars on GitHub.
+From [ClickHouse/agent-skills](https://github.com/ClickHouse/agent-skills) — a repo with 496+ stars on GitHub.
 
 ---
 
