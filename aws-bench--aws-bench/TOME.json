@@ -4,7 +4,7 @@
   "repo": "aws-bench",
   "description": "aws-bench measures how well AI agents and model combinations perform on real AWS work \u2014 diagnosing misconfigurations, provisioning infrastructure, and operating live cloud environments.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aws-bench/aws-bench",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T11:00:22Z"
+  "distributed_at": "2026-08-05T20:21:16Z"
 }
