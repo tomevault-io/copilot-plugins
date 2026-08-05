@@ -1,0 +1,9 @@
+{
+  "name": "eumetsat--firecube",
+  "displayName": "firecube",
+  "description": "A plugin-based batch ingestion CLI for turning Earth Observation products into analysis-ready datacubes.",
+  "version": "1.0.0",
+  "author": "eumetsat",
+  "homepage": "https://github.com/eumetsat/firecube",
+  "skills": []
+}
