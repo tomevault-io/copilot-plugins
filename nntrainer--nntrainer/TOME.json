@@ -4,7 +4,7 @@
   "repo": "nntrainer",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/nntrainer",
+  "source_url": "https://github.com/nntrainer/nntrainer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T19:12:50Z"
+  "distributed_at": "2026-08-05T05:43:06Z"
 }
