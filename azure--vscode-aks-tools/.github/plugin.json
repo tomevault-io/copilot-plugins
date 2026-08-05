@@ -1,0 +1,9 @@
+{
+  "name": "azure--vscode-aks-tools",
+  "displayName": "vscode-aks-tools",
+  "description": "vscode-aks-tools",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/vscode-aks-tools",
+  "skills": []
+}
