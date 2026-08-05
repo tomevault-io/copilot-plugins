@@ -1,0 +1,9 @@
+{
+  "name": "steelbrain--metal2vulkan",
+  "displayName": "metal2vulkan",
+  "description": "Translate Metal AIR / LLVM IR to Vulkan SPIR-V with a native Rust emitter",
+  "version": "1.0.0",
+  "author": "steelbrain",
+  "homepage": "https://github.com/steelbrain/metal2vulkan",
+  "skills": []
+}
