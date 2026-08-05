@@ -7,11 +7,11 @@ Always-on Okay Hermes wakeword voice daemon for Hermes Agent
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [H-Ali13381/okay-hermes-voice](https://github.com/H-Ali13381/okay-hermes-voice).
+Original source: `AGENTS.md` in [H-Ali13381/okay-hermes-voice](https://github.com/H-Ali13381/okay-hermes-voice).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
