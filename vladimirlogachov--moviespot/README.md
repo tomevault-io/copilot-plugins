@@ -1,6 +1,6 @@
 # MoviesPot
 
-> Source: [vladimirlogachov/MoviesPot](https://github.com/vladimirlogachov/MoviesPot) — distributed by [TomeVault](https://tomevault.io)
+> Source: [vladimirlogachov/MoviesPot](https://github.com/vladimirlogachov/MoviesPot). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [vladimirlogachov/MoviesPot](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/vladimirlogachov/MoviesPot](https://github.com/vladimirlogachov/MoviesPot)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/vladimirlogachov/MoviesPot](https://github.com/vladimirlogachov/MoviesPot)
 
 ---
 
