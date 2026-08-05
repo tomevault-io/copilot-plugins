@@ -1,0 +1,9 @@
+{
+  "name": "amirbrooks--tvtime-backup-extractor",
+  "displayName": "tvtime-backup-extractor",
+  "description": "Free, open-source, privacy-conscious TV Time extractor for authorized local iOS backups",
+  "version": "1.0.0",
+  "author": "amirbrooks",
+  "homepage": "https://github.com/amirbrooks/tvtime-backup-extractor",
+  "skills": []
+}
