@@ -4,7 +4,7 @@
   "repo": "github-copilot-prompts",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -43,9 +43,57 @@
       "path": ".claude/skills/generate-copilot-instructions",
       "github_url": "https://github.com/raffertyuy/github-copilot-prompts/tree/main/.claude/skills/generate-copilot-instructions",
       "description": ""
+    },
+    {
+      "name": "github-copilot-prompts",
+      "path": ".claude/skills/ado/SKILL.md",
+      "github_url": "https://github.com/raffertyuy/github-copilot-prompts/tree/main/.claude/skills/ado/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "github-copilot-prompts",
+      "path": ".claude/skills/context7/SKILL.md",
+      "github_url": "https://github.com/raffertyuy/github-copilot-prompts/tree/main/.claude/skills/context7/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "github-copilot-prompts",
+      "path": ".claude/skills/playwright/SKILL.md",
+      "github_url": "https://github.com/raffertyuy/github-copilot-prompts/tree/main/.claude/skills/playwright/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "github-copilot-prompts",
+      "path": ".claude/skills/unit-tester/SKILL.md",
+      "github_url": "https://github.com/raffertyuy/github-copilot-prompts/tree/main/.claude/skills/unit-tester/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "github-copilot-prompts",
+      "path": ".claude/skills/task-manager/SKILL.md",
+      "github_url": "https://github.com/raffertyuy/github-copilot-prompts/tree/main/.claude/skills/task-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "github-copilot-prompts",
+      "path": ".claude/skills/ado-bookstore/SKILL.md",
+      "github_url": "https://github.com/raffertyuy/github-copilot-prompts/tree/main/.claude/skills/ado-bookstore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "github-copilot-prompts",
+      "path": ".claude/skills/external-reference/SKILL.md",
+      "github_url": "https://github.com/raffertyuy/github-copilot-prompts/tree/main/.claude/skills/external-reference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "github-copilot-prompts",
+      "path": ".claude/skills/generate-copilot-instructions/SKILL.md",
+      "github_url": "https://github.com/raffertyuy/github-copilot-prompts/tree/main/.claude/skills/generate-copilot-instructions/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/raffertyuy/github-copilot-prompts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-04T18:31:16Z"
+  "distributed_at": "2026-08-05T08:58:10Z"
 }
