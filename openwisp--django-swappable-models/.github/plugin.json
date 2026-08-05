@@ -1,0 +1,9 @@
+{
+  "name": "openwisp--django-swappable-models",
+  "displayName": "django-swappable-models",
+  "description": "django-swappable-models",
+  "version": "1.0.0",
+  "author": "openwisp",
+  "homepage": "https://github.com/openwisp/django-swappable-models",
+  "skills": []
+}
