@@ -1,0 +1,9 @@
+{
+  "name": "temporalio--sdk-python",
+  "displayName": "sdk-python",
+  "description": "sdk-python",
+  "version": "1.0.0",
+  "author": "temporalio",
+  "homepage": "https://github.com/temporalio/sdk-python",
+  "skills": []
+}
