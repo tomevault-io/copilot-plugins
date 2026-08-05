@@ -2,9 +2,9 @@
   "name": "zod-from-json-schema",
   "owner": "glideapps",
   "repo": "zod-from-json-schema",
-  "description": "Create Zod types from JSON Schema at runtime",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/glideapps/zod-from-json-schema",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T07:20:32Z"
+  "distributed_at": "2026-08-05T02:41:11Z"
 }
