@@ -1,6 +1,6 @@
 # react-native-examples
 
-> Source: [reown-com/react-native-examples](https://github.com/reown-com/react-native-examples). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [reown-com/react-native-examples](https://github.com/reown-com/react-native-examples). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
