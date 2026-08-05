@@ -1,0 +1,9 @@
+{
+  "name": "cl1107--video-translate",
+  "displayName": "video-translate",
+  "description": "\u79bb\u7ebf\u89c6\u9891\u7ffb\u8bd1\u52a9\u624b - Electron + Whisper/Sherpa + Ollama",
+  "version": "1.0.0",
+  "author": "cl1107",
+  "homepage": "https://github.com/cl1107/video-translate",
+  "skills": []
+}
