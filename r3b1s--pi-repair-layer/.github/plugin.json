@@ -1,0 +1,9 @@
+{
+  "name": "r3b1s--pi-repair-layer",
+  "displayName": "pi-repair-layer",
+  "description": "Repairs predictable tool-call mistakes that often derail open weight models. Supports integration with other extensions' custom tools.",
+  "version": "1.0.0",
+  "author": "r3b1s",
+  "homepage": "https://github.com/r3b1s/pi-repair-layer",
+  "skills": []
+}
