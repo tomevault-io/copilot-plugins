@@ -4,7 +4,7 @@
   "repo": "second-brain",
   "description": "Local-first personal knowledge base CLI \u2014 hybrid FTS + pgvector search, a GraphRAG entity graph, and LLM enrichment over your notes, transcripts, Slack & Gmail. Runs fully local on Ollama (no cloud, no API keys); queryable by any AI agent through the built-in MCP server. Postgres-backed, publishes an Obsidian-style Quartz wiki.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mshtawythug/second-brain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T08:50:07Z"
+  "distributed_at": "2026-08-05T18:17:21Z"
 }
