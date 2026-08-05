@@ -1,0 +1,9 @@
+{
+  "name": "theesfeld--clun",
+  "displayName": "clun",
+  "description": "A scoped JavaScript/TypeScript runtime and toolkit written in pure Common Lisp",
+  "version": "1.0.0",
+  "author": "theesfeld",
+  "homepage": "https://github.com/theesfeld/clun",
+  "skills": []
+}
