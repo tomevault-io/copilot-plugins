@@ -4,7 +4,7 @@
   "repo": "humanities-superpowers",
   "description": "Structured research skills and quality gates for humanities scholars using AI agents.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/icerain-cmd/humanities-superpowers",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T11:03:02Z"
+  "distributed_at": "2026-08-05T20:23:34Z"
 }
