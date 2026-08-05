@@ -1,10 +1,10 @@
 ## filament-sticky-table-header
 
-> This file provides guidance to Claude Code when working with this repository.
+> This file provides guidance to coding agents working with this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code when working with this repository.
+This file provides guidance to coding agents working with this repository.
 
 ## Project Overview
 
@@ -95,4 +95,4 @@ composer test:ci
 
 ---
 > Source: [WatheqAlshowaiter/filament-sticky-table-header](https://github.com/WatheqAlshowaiter/filament-sticky-table-header) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
