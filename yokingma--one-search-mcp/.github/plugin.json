@@ -1,7 +1,7 @@
 {
   "name": "yokingma--one-search-mcp",
   "displayName": "one-search-mcp",
-  "description": "\ud83d\ude80 OneSearch MCP Server: Web Search & Scraper & Extract,  Support agent-browser, SearXNG, Tavily, DuckDuckGo, Bing, etc.",
+  "description": "one-search-mcp",
   "version": "1.0.0",
   "author": "yokingma",
   "homepage": "https://github.com/yokingma/one-search-mcp",
