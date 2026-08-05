@@ -7,11 +7,11 @@ The Daily Diff is a web-based curated feed that aggregates and presents daily te
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [arpitbbhayani/the-daily-diff](https://github.com/arpitbbhayani/the-daily-diff).
+Original source: `AGENTS.md` in [arpitbbhayani/the-daily-diff](https://github.com/arpitbbhayani/the-daily-diff).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
