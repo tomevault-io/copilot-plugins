@@ -1,381 +1,151 @@
 ## rapidfireai
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Operational instructions for **AI coding agents** (Claude Code, Cursor, Codex, GitHub Copilot, Windsurf, Aider, Junie, and similar) that are helping an end user install, configure, and run the `rapidfireai` Python package.
 
-# CLAUDE.md
+# RapidFire AI — Agent Install & Setup Guide
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Operational instructions for **AI coding agents** (Claude Code, Cursor, Codex, GitHub Copilot, Windsurf, Aider, Junie, and similar) that are helping an end user install, configure, and run the `rapidfireai` Python package.
 
-## Project Overview
+This file is **not** for rapidfireai contributors. If you are working *on* rapidfireai itself, stop and read the repo's root [`AGENTS.md`](https://github.com/RapidFireAI/rapidfireai/blob/main/AGENTS.md) and [`CONTRIBUTING.md`](https://github.com/RapidFireAI/rapidfireai/blob/main/CONTRIBUTING.md) instead.
 
-RapidFire AI is an experiment execution framework for LLM fine-tuning and post-training that enables hyperparallelized training, dynamic real-time experiment control (IC Ops), and automatic multi-GPU orchestration. The system uses chunk-based scheduling to allow concurrent training of multiple configurations even on a single GPU.
+## 1. Audience and authority
 
-## Key Commands
+### Source-of-truth rule (read first)
 
-### Development Setup
+This guide does **not** restate version-specific install commands, package versions, port numbers, or known-issue workarounds. Those live in the canonical [`README.md`](https://github.com/RapidFireAI/rapidfireai/blob/main/README.md) (sections **§Prerequisites**, **§Install and Get Started**, **§Troubleshooting**) and in the codebase, and they change between releases. **Whenever this guide and the README disagree on a specific command or version, trust the README.**
 
-```bash
-# Create and activate virtual environment
-python3 -m venv .venv
-source .venv/bin/activate
+What this guide *does* provide that the README does not:
 
-# Install dependencies from source
-pip install -r requirements.txt
+- A workflow decision tree (RAG vs fine-tuning vs post-training; OpenAI vs self-hosted; lite vs full).
+- Trainer-type taxonomy for fine-tuning (`SFT` / `DPO` / `GRPO`).
+- Safety rules for handling user secrets, GPU assumptions, and gated model access.
 
-# Install Node.js 22.x and build frontend
-cd rapidfireai/frontend
-node ./yarn/releases/yarn-4.9.1.cjs install
-node ./yarn/releases/yarn-4.9.1.cjs build
-cd ../..
+### Version awareness
 
-# Start all services in development mode
-chmod +x ./rapidfireai/start_dev.sh
-./rapidfireai/start_dev.sh start
+After installing, run `rapidfireai --version` to see the live version. This guide assumes the **0.15+ API surface**. If the installed package differs significantly, prefer the canonical docs at <https://oss-docs.rapidfire.ai>.
 
-# Stop services
-./rapidfireai/start_dev.sh stop
-```
+Canonical raw URL of this file (for `WebFetch`): <https://raw.githubusercontent.com/RapidFireAI/rapidfireai/main/docs/AGENTS.md>.
 
-### Running from Installed Package
+---
 
-```bash
-# Initialize RapidFire (installs dependencies, copies tutorials)
-rapidfireai init
+## 2. Workflow decision tree
 
-# Start RapidFire servers (dispatcher, mlflow, frontend)
-rapidfireai start
+Pick a branch **before** running any install commands — the two workflows install different dependency sets that are not interchangeable.
 
-# Stop all servers
-rapidfireai stop
+- **User wants RAG / context-engineering evaluation** → use `Experiment(..., mode="evals")` and run the default `rapidfireai init` (evals dependencies are the default).
+  - Generation/embedding via **OpenAI / Azure OpenAI / Anthropic** APIs → use `RFAPIModelConfig`. **No GPU strictly required** — viable on CPU-only machines.
+  - Generation via **self-hosted Hugging Face** models → use `RFvLLMModelConfig`. **GPU required.** May require Hugging Face authentication for gated models.
+- **User wants fine-tuning or post-training** → use `Experiment(..., mode="fit")` and run `rapidfireai init --train` (the training-only opt-in).
+  - **SFT** (supervised fine-tuning, e.g., chat/QA tuning) → `trainer_type="SFT"`.
+  - **DPO** (direct preference optimization, alignment from `chosen`/`rejected` pairs) → `trainer_type="DPO"`.
+  - **GRPO** (group relative policy optimization, RL with reward functions) → `trainer_type="GRPO"`.
 
-# System diagnostics (GPU, CUDA, Python env)
-rapidfireai doctor
+### Environment selectors
 
-# Check version
-rapidfireai --version
-```
+- **Remote / cloud machine** → an SSH port-forward is required to view the dashboard locally. The set of ports differs by workflow (smaller for fit, larger for evals because Jupyter and MLflow are also exposed). The current port set and the exact `ssh` command are in the README §Install — read them from there, do not memorize.
+- **GPU issues** (CUDA absent, OOM, driver mismatch) → run `rapidfireai doctor` and act on its output. For OOM, switch the user to a *lite* tutorial variant (see §6).
+- **Hugging Face permission issues** → confirm the user has run the README's HF auth step and has been granted access on the gated model's HF page. If access is blocked, suggest an open-license substitute (TinyLlama, Qwen-0.5B/3B) where licensing permits.
 
-### Testing
+The full install command sequence and the exact set of port numbers are in the README, the authoritative install reference.
 
-```bash
-# Run all tests
-pytest
+---
 
-# Run specific test file
-pytest tests/test_chunks.py
+## 3. Setup order
 
-# Run with verbose output
-pytest -v
-```
+Run the steps in the order below. The **commands** are in the README; the **decisions, ordering, and pitfalls** below are what you should add on top.
 
-### Code Quality
+1. **Verify the user's environment matches README §Prerequisites *before* installing.** At minimum: (a) check the Python version (`python --version`); (b) for any **GPU-required workflow** — all fine-tuning (SFT/DPO/GRPO) and self-hosted RAG/eval — confirm GPU presence and CUDA via `nvidia-smi`. If GPU is required but absent, **stop and redirect**: the API-based RAG/eval workflow (with `RFAPIModelConfig`) does not need a GPU and is the only viable path on CPU-only hosts. Do not paper over a Python or GPU mismatch by trying to "fix" the system; surface the requirement to the user.
+2. **Create and activate a virtual environment** *before* `pip install`. Do not assume the user is already in one.
+3. **Install** the package as documented in README §Install. The exact `pip install` line lives there.
+4. **Verify** the install: `rapidfireai --version` should return a version string. If it does not, stop and diagnose; do not proceed.
+5. **Hugging Face authentication** *before* `init`/`start`, but only if the user's chosen workflow needs it (gated models, or any HF model download for self-hosted RAG/eval, or any fine-tuning). The README gives the auth command. **You must not invent a token; ask the user.**
+6. **Apply current workarounds** that the README's install section calls out (for example, an `hf-xet` uninstall step, if still listed). These known-issue steps are *volatile* — read them from the live README each time, never from memory or this guide.
+7. **Choose the init variant based on workflow.** This is the most-missed step. The two `rapidfireai init` variants install **different dependency sets** that are not interchangeable. The README §Install shows both invocations; §2 of this guide tells you which one to pick. If the user has already run the wrong variant, they may need to recreate the venv before re-initing.
+8. **Run `rapidfireai doctor`** and confirm no critical failures (Python, GPU/CUDA where applicable, ports, packages). Do not proceed past failures without diagnosing the root cause.
+9. **Start the dashboard stack** with `rapidfireai start` (frontend, MLflow, dispatcher). For the RAG/evals workflow, also start a Jupyter listener as documented in the README — the evals tutorials run inside Jupyter rather than an arbitrary IDE notebook.
+10. **(Remote/cloud machines only) Port-forward** the workflow-appropriate set with `ssh` *before* clicking the dashboard URL. The current set and SSH syntax are in README §Install. VS Code typically auto-forwards the dashboard port; other clients require the explicit `ssh -L` invocation. Skip this step on a local machine.
+11. **Open the tutorial notebook** under `./tutorial_notebooks/` (see §6 for the filename matching the workflow). Two non-obvious requirements:
+    - Notebooks **cannot** run via `python notebook.ipynb` — there is a multiprocessing restriction. Open the notebook in an IDE that supports Jupyter (VS Code, Cursor, JetBrains), or use `rapidfireai jupyter` (mandatory for the RAG/evals tutorials).
+    - The notebook's kernel **must** be set to the `.venv` you created in step 2, not the system Python; otherwise `import rapidfireai` fails. In VS Code / Cursor, click the kernel selector in the upper-right of the notebook and pick the venv interpreter.
+    - The dashboard URL printed by `rapidfireai start` (or by `rapidfireai jupyter` for evals) shows live run progress as cells execute.
+12. **Stop the stack** with `rapidfireai stop` when the user is done.
 
-```bash
-# Format code with ruff (line-length: 120)
-ruff format .
+**Hard rule**: if any specific command above is missing here and present in the README, **use the README's version**. This guide is intentionally silent on volatile commands so it cannot drift from the README.
 
-# Run linter
-ruff check .
+---
 
-# Fix auto-fixable issues
-ruff check --fix .
-```
+## 4. Agent safety rules
 
-### Building and Releasing
+- **Do not** paste, invent, or guess API keys, Hugging Face tokens, or any other secrets. Always ask the user; if they decline, stop.
+- **Do not** assume the user has a GPU. Verify with `nvidia-smi` or `rapidfireai doctor` before suggesting GPU-only workflows.
+- **Do not** assume gated model access. Llama, Gemma, and several Mistral variants require explicit HF approval. Ask before substituting; never download as a different account.
+- **Do not** bypass a failed `init` or `start`. Diagnose the root cause (missing CUDA, wrong Python, port conflict, dependency mismatch). Suppressing errors leads to silent breakage downstream.
+- **Make minimal, explainable edits to user code.** If a change is non-obvious, explain why. Do not refactor surrounding code for style.
+- **Prefer lite tutorial configs** when testing on limited hardware. The full variants assume substantial VRAM.
 
-```bash
-# Build PyPI package (requires frontend build first)
-rm -rf dist/ *.egg-info/ .eggs/ && python -m build
+---
 
-# Bump version (creates commit and tag)
-./bump_version.sh patch  # 0.10.1 → 0.10.2
-./bump_version.sh minor  # 0.10.1 → 0.11.0
-./bump_version.sh major  # 0.10.1 → 1.0.0
+## 5. Troubleshooting
 
-# Push version tag to trigger TestPyPI deployment
-git push origin test0.10.2
-```
+Match the symptom to the diagnostic direction. Specific commands (kill-by-port, SSH-forward, hf-xet uninstall, etc.) are in README §Troubleshooting and §Install — do not paste them from memory.
 
-### Port Management
+| Symptom | Likely cause | Diagnostic direction |
+|---|---|---|
+| `ImportError` on `vllm`, `langchain`, or other RAG/eval-only packages | Wrong `init` variant — fit deps installed when evals deps were needed (or vice versa) | Re-run `rapidfireai init` with the variant that matches the workflow; may require recreating the venv |
+| Hugging Face download hangs, or `xet` errors in the traceback | Known `hf-xet` issue (if still listed in the README) | Apply the README's current `hf-xet` workaround |
+| 403 on model download | Gated model + missing/wrong HF auth | Have the user run the README's HF auth step; confirm the user has access granted on the model's HF page |
+| `Address already in use` on a service port | Stale RapidFire services | Run `rapidfireai stop` first; if it persists, see README §Troubleshooting for the kill-by-port command |
+| Frontend not loading from a remote machine | Missing SSH port forward | Forward the workflow-appropriate port set (see README §Install) |
+| `CUDA out of memory` during fit | Model too large for available VRAM | Switch to a `*-lite` tutorial; reduce per-device batch size; consider gradient accumulation |
+| `nvidia-smi` not found, or no GPU detected | CUDA toolkit absent or no GPU on host | Run `rapidfireai doctor`; on CPU-only hosts, only the API-based RAG/evals workflow is viable |
+| `rapidfireai start` exits silently or fails | A service port already bound, or a service init failure | Read the printed log; check service log files reported by `rapidfireai doctor` |
+| Notebook crashes immediately on `Experiment(...)` | Often a multiprocessing restriction (CLI-launched Jupyter cannot spawn child processes) | Run the notebook through an IDE (VS Code / Cursor) or `rapidfireai jupyter`, not raw `python notebook.py` |
+| `ImportError: No module named 'rapidfireai'` *inside the notebook* (but `rapidfireai --version` works in the shell) | Notebook kernel is the system Python, not the project `.venv` | In the IDE's notebook UI, change the kernel/interpreter to the `.venv` you created; restart the kernel and re-run cells |
 
-```bash
-# Kill services on specific ports if conflicts occur
-lsof -t -i:8851 | xargs kill -9  # dispatcher
-lsof -t -i:8852 | xargs kill -9  # mlflow
-lsof -t -i:8853 | xargs kill -9  # frontend
-```
-
-## Architecture
-
-RapidFire AI uses a microservices-inspired distributed architecture:
-
-### Core Components
-
-1. **Experiment** (`experiment.py`): Top-level API for users. Manages experiment lifecycle, creates database tables, sets up logging and signal handlers. Entry point for `run_fit()` and `get_results()`.
-
-2. **Controller** (`backend/controller.py`): Orchestrates the entire training lifecycle. Runs in the user's process. Responsible for:
-   - Creating models from parameter configurations
-   - Initializing and managing Workers
-   - Running the Scheduler to assign chunks to workers
-   - Handling Interactive Control Operations (IC Ops)
-   - Monitoring training progress
-
-3. **Scheduler** (`backend/scheduler.py`): Pure scheduling logic that assigns runs to available workers for specific chunks. Uses round-robin and fairness algorithms to ensure optimal GPU utilization. Tracks which runs have completed which chunks.
-
-4. **Worker** (`backend/worker.py`): Separate GPU processes that execute actual training. Each worker:
-   - Polls database for assigned tasks
-   - Loads model checkpoints from shared memory or disk
-   - Trains on assigned data chunks
-   - Saves checkpoints back to shared memory/disk
-   - Reports progress to MLflow
-
-5. **Dispatcher** (`dispatcher/dispatcher.py`): Flask-based REST API for UI communication. Provides endpoints for:
-   - Viewing experiment status
-   - Interactive Control Operations (stop, resume, clone, delete runs)
-   - Real-time run metrics
+---
 
-6. **Database** (`db/rf_db.py`): SQLite-based persistence layer with async operations. Stores:
-   - Experiment metadata
-   - Run configurations and status
-   - Task scheduling state
-   - Checkpoint locations
+## 6. Tutorials
 
-7. **Frontend** (`frontend/`): React-based dashboard (MLflow fork) with IC Ops panel. Displays live experiment tracking and enables dynamic control.
+After `rapidfireai init`, tutorial notebooks are copied to `./tutorial_notebooks/`. Always prefer the on-disk copy — it matches the installed version.
 
-### Data Flow
+| Workflow | Lite (small VRAM) | Full |
+|---|---|---|
+| SFT | `fine-tuning/rf-tutorial-sft-chatqa-lite.ipynb` | `fine-tuning/rf-tutorial-sft-chatqa.ipynb` |
+| DPO | `post-training/rf-tutorial-dpo-alignment-lite.ipynb` | `post-training/rf-tutorial-dpo-alignment.ipynb` |
+| GRPO | `post-training/rf-tutorial-grpo-mathreasoning-lite.ipynb` | `post-training/rf-tutorial-grpo-mathreasoning.ipynb` |
+| RAG, self-hosted (HF) | `rag-contexteng/rf-tutorial-rag-fiqa.ipynb` | `rag-contexteng/rf-tutorial-rag-fiqa-pgvector.ipynb`, `…-pinecone.ipynb` |
+| RAG, OpenAI / API | `rag-contexteng/rf-tutorial-scifact-generators.ipynb` | `rag-contexteng/rf-tutorial-scifact-full-evaluation.ipynb` |
+| Few-shot eval (no retrieval) | `rag-contexteng/rf-tutorial-gsm8k-fewshot.ipynb` | — |
 
-1. User creates `Experiment` and calls `run_fit()` with configs and datasets
-2. Controller creates runs in database and spawns Worker processes
-3. Controller runs Scheduler loop to assign (run_id, chunk_id) to available workers
-4. Workers poll database, load models, train on chunks, save checkpoints
-5. Workers report metrics to MLflow and update database task status
-6. Scheduler continues until all runs complete all chunks (epochs)
-7. User can invoke IC Ops through UI to stop/resume/clone runs mid-training
+Online directory: <https://github.com/RapidFireAI/rapidfireai/tree/main/tutorial_notebooks>. Filenames may shift across versions — list `./tutorial_notebooks/` to confirm the current set.
 
-### Shared Memory System
-
-RapidFire uses shared memory (`utils/shm_manager.py`) to avoid disk I/O bottlenecks:
-- Model checkpoints stored in shared memory between chunks (configurable via `USE_SHARED_MEMORY`)
-- Registry tracks which models are in memory
-- Process locks prevent concurrent access issues
-- Fallback to disk for larger models
+---
 
-### Interactive Control (IC Ops)
-
-Unique feature enabling real-time experiment control:
-- **Stop**: Pause a run, saves checkpoint
-- **Resume**: Restart a stopped run from checkpoint
-- **Clone**: Create new run from existing, optionally warm-start from parent's weights
-- **Delete**: Remove unwanted runs
+## 7. Validation checklist (run before reporting "done")
 
-Implemented via database state changes that Controller/Workers poll.
+Before telling the user setup is complete, confirm each:
 
-## Directory Structure
+1. `rapidfireai --version` returns a version string.
+2. `rapidfireai doctor` reports no critical failures.
+3. The right `init` variant ran for the user's workflow (fit *or* evals — not both, not the wrong one).
+4. Hugging Face auth is configured iff the workflow needs it.
+5. `rapidfireai start` brought up the stack without errors. The user can reach the dashboard URL printed by `start`.
+6. (Remote/cloud) The `ssh -L` forward is active in a separate terminal.
+7. (Tutorial path) The notebook's kernel is the project `.venv`, not the system Python. The first import cell (`from rapidfireai import Experiment`) runs without `ImportError`.
 
-```
-rapidfireai/
-├── automl/           # Grid search, random search, AutoML algorithms
-├── backend/          # Controller, Scheduler, Worker, Chunks
-├── db/               # SQLite database interface
-├── dispatcher/       # Flask REST API for UI
-├── frontend/         # React dashboard (MLflow fork with IC Ops)
-├── ml/               # Trainer classes, checkpoint utils, callbacks
-├── utils/            # Logging, MLflow manager, shared memory, serialization
-├── experiment.py     # Main Experiment class (user-facing API)
-├── cli.py            # CLI commands (rapidfireai start/stop/init/doctor)
-├── start.sh          # Production server startup script
-├── start_dev.sh      # Development mode startup script
-└── version.py        # Version number
-```
+If any check fails, stop and diagnose — do not paper over with retries.
 
-## Key Concepts
-
-### Chunk-Based Training
-
-Instead of training one model at a time for full epochs, RapidFire splits datasets into chunks and interleaves training:
-- Dataset divided into N chunks (user configurable)
-- Multiple runs train on different chunks concurrently
-- Scheduler ensures fair distribution across GPUs
-- Enables side-by-side comparison of hyperparameters with minimal latency
-
-### Run Configuration
-
-Runs are created from parameter configurations:
-- Single dict: creates one run
-- AutoML algorithms (GridSearch, RandomSearch): create multiple runs
-- Each run gets unique ID, tracked in database
-- Supports warm starting from parent runs (clone-modify)
-
-### Task System
+---
 
-Database tracks tasks for coordination:
-- **ExperimentTask**: High-level experiment state
-- **ControllerTask**: Controller operations (create_models, schedule, etc.)
-- **WorkerTask**: Worker operations (fit, validate, etc.)
-- Status: PENDING → IN_PROGRESS → COMPLETED/FAILED
-
-## MLflow Integration
+## 8. References
 
-RapidFire wraps MLflow for experiment tracking:
-- Each RapidFire Experiment maps to an MLflow experiment
-- Runs tracked with metrics, parameters, artifacts
-- Checkpoints saved as MLflow artifacts
-- UI extends MLflow with IC Ops panel
-- Access MLflow directly at `http://localhost:8852`
-
-## Development Notes
-
-### Python Version
-
-Requires Python 3.12.x (specified in pyproject.toml and README).
-
-### Frontend Development
-
-The frontend is a fork of MLflow. For frontend-specific guidance, see `rapidfireai/frontend/CLAUDE.md`.
-
-To run frontend in development mode with hot reload:
-```bash
-cd rapidfireai/frontend
-node ./yarn/releases/yarn-4.9.1.cjs start  # Runs on localhost:8853
-```
-
-### Database Schema
-
-Defined in `db/*.sql` files. Tables include:
-- experiments: Experiment metadata and paths
-- runs: Run configurations, status, metrics
-- tasks: Task queue for controller-worker coordination
-- checkpoints: Checkpoint locations and metadata
-
-### Environment Variables
-
-- `RF_EXPERIMENT_PATH`: Base path for experiments (default: `./rapidfire_experiments`)
-- `RF_TUTORIAL_PATH`: Path for tutorial notebooks (default: `./tutorial_notebooks`)
-- `RF_MLFLOW_HOST`: MLflow tracking server Host (default: `localhost`)
-- `RF_MLFLOW_PORT`: MLflow tracking server Port (default: `8852`)
-- `USE_SHARED_MEMORY`: Enable shared memory for checkpoints (default: True)
-
-### Logging
-
-Multi-logger system using loguru:
-- `experiment`: Experiment-level logs
-- `controller`: Controller operations
-- `worker_{N}`: Per-worker training logs
-- `user`: User-facing messages
-- `interactive-control`: IC Ops operations
-
-Logs written to experiment directory.
-
-### Testing Notebooks
-
-Tutorial notebooks in `tutorial_notebooks/` demonstrate usage:
-- Require HuggingFace token for model downloads
-- Run via `jupyter notebook` or IDE with proper kernel
-- Cannot run directly from CLI due to multiprocessing restrictions
-
-## Common Patterns
-
-### Creating an Experiment
-
-```python
-from rapidfireai import Experiment
-
-exp = Experiment("my_experiment")
-exp.run_fit(
-    param_config=config_dict_or_automl,
-    create_model_fn=my_model_factory,
-    train_dataset=train_data,
-    eval_dataset=eval_data,
-    num_chunks=8,
-    seed=42
-)
-results_df = exp.get_results()
-```
-
-### Defining Model Factory
-
-```python
-def create_model_fn(config):
-    # config contains hyperparameters for this run
-    model = YourModel(**config)
-    return model, optimizer, loss_fn, trainer_config
-```
-
-### AutoML Usage
-
-```python
-from rapidfireai.automl import GridSearch
-
-param_config = GridSearch({
-    'learning_rate': [1e-4, 1e-5, 1e-6],
-    'batch_size': [8, 16],
-    'epochs': [3]
-})
-```
-
-## Git Workflow
-
-Current branch: `feat/enable-colab`
-Main branch: `main`
-
-Use standard PR workflow to merge features into main.
-
-## Dependencies
-
-Core dependencies (see pyproject.toml for full list):
-- torch >= 2.8.0
-- transformers >= 4.55.2
-- peft >= 0.17.0
-- trl == 0.21.0
-- mlflow >= 3.2.0
-- flask >= 3.1.1
-
-Dev dependencies:
-- pytest >= 8.4.1
-- black >= 21.0
-- ruff (via ruff.toml)
-- mypy >= 0.800
-
-## README Guidelines
-
-### Image URLs Must Be Absolute
-
-Always use absolute URLs for images in `README.md`, not relative paths. The README is rendered on multiple platforms (GitHub, PyPI, npm, etc.), and relative paths only work on GitHub where the repository file structure is accessible.
-
-**Correct:**
-```markdown
-<img src="https://raw.githubusercontent.com/RapidFireAI/rapidfireai/main/docs/images/example.svg">
-```
-
-**Incorrect:**
-```markdown
-<img src="docs/images/example.svg">
-```
-
-Use the pattern `https://raw.githubusercontent.com/RapidFireAI/rapidfireai/main/...` for all image references to ensure cross-platform compatibility.
-
-## Troubleshooting
-
-### GPU Issues
-
-Run `rapidfireai doctor` to diagnose:
-- CUDA installation
-- GPU availability
-- Driver version compatibility
-
-### Port Conflicts
-
-Common ports:
-- 8853: Frontend dashboard
-- 8852: MLflow tracking server
-- 8851: Dispatcher API
-
-Use port killing commands above if conflicts occur.
-
-### Multiprocessing Issues
-
-RapidFire uses `spawn` method for multiprocessing. Notebooks must be run through IDE or Jupyter, not CLI.
+- **Canonical install instructions and troubleshooting**: <https://github.com/RapidFireAI/rapidfireai/blob/main/README.md>
+- **Full documentation**: <https://oss-docs.rapidfire.ai>
+- **Repository**: <https://github.com/RapidFireAI/rapidfireai>
+- **PyPI**: <https://pypi.org/project/rapidfireai/>
+- **Discord**: <https://discord.gg/6vSTtncKNN>
+- **This guide describes the 0.15+ API surface.** Confirm `rapidfireai --version` against the canonical docs when behavior differs.
 
 ---
 > Source: [RapidFireAI/rapidfireai](https://github.com/RapidFireAI/rapidfireai) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
