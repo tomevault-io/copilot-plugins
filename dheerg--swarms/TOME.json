@@ -2,9 +2,9 @@
   "name": "swarms",
   "owner": "DheerG",
   "repo": "swarms",
-  "description": "Achieve extraordinary results with claude code across a variety of tasks",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DheerG/swarms",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T00:10:56Z"
+  "distributed_at": "2026-08-05T10:51:40Z"
 }
