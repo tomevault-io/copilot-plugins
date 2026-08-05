@@ -1,0 +1,9 @@
+{
+  "name": "gstvbatista--mod-turbotab",
+  "displayName": "mod_turbotab",
+  "description": "CLI-first TurboTable-style calculations (Erlang B/C/A, staffing, queue, trunks) for contact-center planning.",
+  "version": "1.0.0",
+  "author": "gstvbatista",
+  "homepage": "https://github.com/gstvbatista/mod_turbotab",
+  "skills": []
+}
