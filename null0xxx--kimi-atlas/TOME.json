@@ -1,0 +1,44 @@
+{
+  "name": "kimi-atlas",
+  "owner": "null0xxx",
+  "repo": "kimi-atlas",
+  "description": "Many-agent, quality-calibrated orchestrator for Kimi Code with 115 vendored official skill packages \u2014 a first-class agentic backbone (live ContextGraph, explicit state machine, forward-only rollback) over a deterministic 6-lens verification harness with pure pass/fail gates and human-gated output. No LLM ever computes pass/fail.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/null0xxx/kimi-atlas",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-05T18:23:33Z"
+}
