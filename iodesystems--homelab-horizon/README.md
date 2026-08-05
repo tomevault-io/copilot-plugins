@@ -1,8 +1,6 @@
 # AI instruction files for homelab-horizon
 
-> Sourced from [IodeSystems/homelab-horizon](https://github.com/IodeSystems/homelab-horizon) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Homelab VPN, Service Routing, and Horizon DNS for your network device
+> Sourced from [IodeSystems/homelab-horizon](https://github.com/IodeSystems/homelab-horizon), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [IodeSystems/homelab-horizon](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/IodeSystems/homelab-horizon](https://github.com/IodeSystems/homelab-horizon)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/IodeSystems/homelab-horizon](https://github.com/IodeSystems/homelab-horizon)
 
 ---
 
