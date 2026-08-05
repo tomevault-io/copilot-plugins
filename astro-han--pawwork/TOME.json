@@ -3,7 +3,7 @@
   "owner": "Astro-Han",
   "repo": "pawwork",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,21 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "pawwork",
-      "path": "packages/opencode/test/fixture/skills/cloudflare/SKILL.md",
-      "github_url": "https://github.com/Astro-Han/pawwork/tree/main/packages/opencode/test/fixture/skills/cloudflare/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "pawwork",
-      "path": "packages/opencode/test/fixture/skills/agents-sdk/SKILL.md",
-      "github_url": "https://github.com/Astro-Han/pawwork/tree/main/packages/opencode/test/fixture/skills/agents-sdk/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/Astro-Han/pawwork",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T00:08:30Z"
+  "distributed_at": "2026-08-05T03:01:23Z"
 }
