@@ -1,0 +1,44 @@
+{
+  "name": "pickthought.koplugin",
+  "owner": "Mr54233",
+  "repo": "pickthought.koplugin",
+  "description": "\u628a\u5fae\u4fe1\u8bfb\u4e66\u7684\u60f3\u6cd5\u7f1d\u8fdb\u4f60\u7684\u4e66\u91cc\u2014\u2014KOReader \u60f3\u6cd5\u6ce8\u5165\u63d2\u4ef6",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Mr54233/pickthought.koplugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-05T00:00:43Z"
+}
