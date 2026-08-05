@@ -1,0 +1,9 @@
+{
+  "name": "prunaai--pruna-skills",
+  "displayName": "pruna-skills",
+  "description": "Agent skills and plugins to give your agents access to Pruna API and generation workflows.",
+  "version": "1.0.0",
+  "author": "PrunaAI",
+  "homepage": "https://github.com/PrunaAI/pruna-skills",
+  "skills": []
+}
