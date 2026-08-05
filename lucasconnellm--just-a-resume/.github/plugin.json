@@ -1,0 +1,9 @@
+{
+  "name": "lucasconnellm--just-a-resume",
+  "displayName": "just-a-resume",
+  "description": "Evidence-first, accessible Typst resume-as-code template",
+  "version": "1.0.0",
+  "author": "lucasconnellm",
+  "homepage": "https://github.com/lucasconnellm/just-a-resume",
+  "skills": []
+}
