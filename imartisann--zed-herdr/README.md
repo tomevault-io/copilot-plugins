@@ -7,11 +7,11 @@ Automatically keeps your active HerdR workspace in sync with your existing Zed s
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ImArtisann/zed-herdr](https://github.com/ImArtisann/zed-herdr).
+Original source: `AGENTS.md` in [ImArtisann/zed-herdr](https://github.com/ImArtisann/zed-herdr).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
