@@ -1,0 +1,9 @@
+{
+  "name": "tcsenpai--lumorev",
+  "displayName": "lumorev",
+  "description": "Unofficial reverse-engineered TypeScript SDK for the Proton Lumo chatbot API (OpenAI-shaped, E2E encrypted). Not affiliated with Proton.",
+  "version": "1.0.0",
+  "author": "tcsenpai",
+  "homepage": "https://github.com/tcsenpai/lumorev",
+  "skills": []
+}
