@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--deepops",
+  "displayName": "deepops",
+  "description": "deepops",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/deepops",
+  "skills": []
+}
