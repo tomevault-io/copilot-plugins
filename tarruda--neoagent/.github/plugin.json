@@ -1,0 +1,9 @@
+{
+  "name": "tarruda--neoagent",
+  "displayName": "neoagent",
+  "description": "Sloppy port of pi coding harness to a Neovim plugin",
+  "version": "1.0.0",
+  "author": "tarruda",
+  "homepage": "https://github.com/tarruda/neoagent",
+  "skills": []
+}
