@@ -1,0 +1,9 @@
+{
+  "name": "evokoa--pgcontext",
+  "displayName": "pgContext",
+  "description": "A full AI search engine, built into Postgres.",
+  "version": "1.0.0",
+  "author": "Evokoa",
+  "homepage": "https://github.com/Evokoa/pgContext",
+  "skills": []
+}
