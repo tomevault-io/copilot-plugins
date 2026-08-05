@@ -1,10 +1,10 @@
 ## shark
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## Overview
 
@@ -62,7 +62,6 @@ shark MyApp.xcodeproj ./Sources/MyApp/ --target MyAppTarget --framework swiftui 
 # Localization workflow
 shark lint MyApp.xcodeproj --target MyAppTarget --format github
 shark translate MyApp.xcodeproj --target MyAppTarget --to de,fr --dry-run
-shark translate MyApp.xcodeproj --target MyAppTarget --to de,fr --yes
 shark translate MyApp.xcodeproj --target MyAppTarget --to de,fr --backend claude-code --yes
 shark translate MyApp.xcodeproj --target MyAppTarget --to de,fr --backend codex --yes
 ```
@@ -123,7 +122,7 @@ Revisit vendoring/submoduling only if XcodeGraph itself needs format-driven chan
 
 #### SwiftPM warning output during package mapping
 
-XcodeGraph 1.34.5's `PackageInfoLoader` shells out to `swift package dump-package` while mapping Swift package references and can collect stdout and stderr together before decoding JSON. Some package manifests, notably newer Swift manifests using deprecated PackageDescription APIs, emit non-fatal diagnostics to stderr while still returning valid JSON on stdout. Keep `SwiftPackageDumpWrapper` in `Project/XcodeProjectHelper.swift`: it is intentionally scoped around `mapper.map(at:)`, suppresses stderr only for successful `dump-package` calls, and forwards stderr on failures so real SwiftPM errors remain visible.
+`XcodeGraphMapper` shells out to `swift package dump-package` while mapping Swift package references. Some SwiftPM releases print non-fatal diagnostics to stderr even when stdout contains valid JSON; older XcodeGraph plumbing can feed those bytes into JSON decoding and surface only "The data couldn't be read because it isn't in the correct format." Keep `SwiftPackageDumpWrapper` in `Project/XcodeProjectHelper.swift`: it is intentionally scoped around `mapper.map(at:)`, suppresses stderr only for successful `dump-package` calls, and forwards stderr on failures so real SwiftPM errors remain visible.
 
 ### Regression fixture
 
@@ -131,18 +130,10 @@ XcodeGraph 1.34.5's `PackageInfoLoader` shells out to `swift package dump-packag
 
 `Examples/LocalizationWorkflowExample/` is a hand-crafted localization workflow fixture with expected lint findings across `.strings` and `.xcstrings`, skipped plural catalog entries, and stable `translate --dry-run` gaps.
 
-`Scripts/smoke-fixtures.sh` also creates a temporary XcodeGen project during the run. With XcodeGen 2.45.x this covers `objectVersion = 77`, giving the parser both committed Xcode 16.3 fixtures and a generator-produced project format.
-
 Smoke-test the toolchain against committed fixtures after dependency bumps:
 
 ```bash
 Scripts/smoke-fixtures.sh
-```
-
-Also smoke-test against a real project with local Swift package dependencies that can emit manifest warnings:
-
-```bash
-swift run Shark /path/to/App.xcodeproj /tmp/SharkSmoke.swift --target App --deps /tmp/shark-smoke.d
 ```
 
 Real-world projects under `$HOME/Documents/late` are useful before release tags, but they are not CI fixtures. If one fails, reduce it to the smallest synthetic `.xcodeproj` and commit that under `Examples/`.
@@ -152,7 +143,7 @@ Real-world projects under `$HOME/Documents/late` are useful before release tags,
 2. Extracts resource file paths based on target selection
 3. Different builders process each asset type:
    - `.xcassets` → Images, Colors, Data Assets
-   - `.strings`/`.xcstrings` → Localizations  
+   - `.strings`/`.xcstrings` → Localizations
    - `.ttf`/`.otf`/`.ttc` → Fonts
    - `.storyboard` → Storyboards
 4. Generated enums are namespaced based on folder structure (if "Provides Namespace" is enabled)
@@ -160,7 +151,7 @@ Real-world projects under `$HOME/Documents/late` are useful before release tags,
 
 ### Framework-Specific Generation
 - **UIKit**: Uses `UIImage`, `UIColor`, `UIFont` APIs
-- **AppKit**: Uses `NSImage`, `NSColor`, `NSFont` APIs  
+- **AppKit**: Uses `NSImage`, `NSColor`, `NSFont` APIs
 - **SwiftUI**: Uses `Image`, `Color`, `Font` APIs with `LocalizedStringKey` extension
 
 ### Build Integration
@@ -168,4 +159,4 @@ Shark is designed to integrate with Xcode build phases to automatically regenera
 
 ---
 > Source: [kaandedeoglu/Shark](https://github.com/kaandedeoglu/Shark) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
