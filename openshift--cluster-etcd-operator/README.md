@@ -1,6 +1,6 @@
 # cluster-etcd-operator
 
-> Source: [openshift/cluster-etcd-operator](https://github.com/openshift/cluster-etcd-operator). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [openshift/cluster-etcd-operator](https://github.com/openshift/cluster-etcd-operator). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
