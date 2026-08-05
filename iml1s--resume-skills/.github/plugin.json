@@ -1,0 +1,9 @@
+{
+  "name": "iml1s--resume-skills",
+  "displayName": "resume-skills",
+  "description": "Offline portable resume-* skills: migrate inert agent session context across Claude/Codex/Cursor/OpenCode/Antigravity/Grok (6\u00d76 packaging). Python stdlib only. Not live process restore.",
+  "version": "1.0.0",
+  "author": "ImL1s",
+  "homepage": "https://github.com/ImL1s/resume-skills",
+  "skills": []
+}
