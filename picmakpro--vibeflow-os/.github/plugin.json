@@ -1,0 +1,9 @@
+{
+  "name": "picmakpro--vibeflow-os",
+  "displayName": "vibeflow-os",
+  "description": "Modules VibeFlow distribu\u00e9s aux labs (consolidator, infrastructure-audit, validator)",
+  "version": "1.0.0",
+  "author": "picmakpro",
+  "homepage": "https://github.com/picmakpro/vibeflow-os",
+  "skills": []
+}
