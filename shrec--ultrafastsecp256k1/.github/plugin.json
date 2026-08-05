@@ -1,0 +1,9 @@
+{
+  "name": "shrec--ultrafastsecp256k1",
+  "displayName": "UltrafastSecp256k1",
+  "description": "UltrafastSecp256k1",
+  "version": "1.0.0",
+  "author": "shrec",
+  "homepage": "https://github.com/shrec/UltrafastSecp256k1",
+  "skills": []
+}
