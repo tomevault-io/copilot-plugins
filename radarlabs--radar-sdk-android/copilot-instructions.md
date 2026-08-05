@@ -1,100 +1,78 @@
 ## radar-sdk-android
 
-> This file orients AI coding agents (Claude Code, Cursor, Aider, etc.) working on this repo. `CLAUDE.md` is a symlink to this file — edit `AGENTS.md` only.
+> This is the sample app demonstrating the Radar Android SDK. It's a Jetpack Compose +
 
-# Radar SDK for Android — Agent Guide
+# Radar SDK Android example app — architecture
 
-This file orients AI coding agents (Claude Code, Cursor, Aider, etc.) working on this repo. `CLAUDE.md` is a symlink to this file — edit `AGENTS.md` only.
+This is the sample app demonstrating the Radar Android SDK. It's a Jetpack Compose +
+Material3 app organized into a store/service layer, a pluggable map-overlay registry, and
+feature-per-folder UI.
 
-## Project
+## Package organization
 
-Radar's Android SDK for geofencing, location tracking, trips, geocoding, beacons, and verification. Published as a library to Maven Central. Public docs: https://docs.radar.com/.
+`example/src/main/java/io/radar/example/`
 
-- Current version: see `version` in [sdk/build.gradle](sdk/build.gradle)
-- Migration history: [MIGRATION.md](MIGRATION.md)
-- User-facing overview: [README.md](README.md)
+```
+MainActivity.kt        # Lifecycle, SDK init, store wiring, overlay-source registration
+MainView.kt            # 3-tab shell (Map / Debug / Tests); map stays composed underneath
+MyInAppMessageReceiver # In-app message callbacks → LogStore
+MockableLocationEngine # MapLibre location engine with a mock override (long-press mocking)
+Utils.kt               # Radar status/event/source string formatters (reused by the console)
 
-## Build, test, lint
+store/                 # Observable stores (one per concern) + value types
+  LogStore.kt          # The single RadarReceiver + unified console source-of-truth
+  ConsoleEntry.kt      # One console row (+ Kind enum)
+  SettingsStore.kt     # SDK identity/tracking snapshot + persisted publishable-key override
+  PermissionsStore.kt  # Runtime-permission status snapshot
+  TripBuilderStore.kt  # Map-driven trip selection + active-trip mirror + visualization
+  TestPreset.kt        # Bundled tracking presets
+  TripDestination.kt / TripEventMarker.kt  # Cross-cutting value types
+  AppStores.kt         # CompositionLocals + ProvideStores (app-wide store injection)
 
-All commands run from the repo root:
+components/            # Reusable primitives: ActionButton, TogglePanel, ControlRow, FieldEditor
+console/               # Debug tab: ConsoleView, ConsoleEntryRow, ConsoleKindUi (icon/tint)
+map/                   # Map tab: MapScreen + trip-builder UI + MockLocationController
+  overlays/            # Pluggable map sources: MapOverlaySource + MapOverlayRegistry + sources
+tests/                 # Tests tab: TestsView, RecentActivityCard
+  panels/              # 6 collapsible panels of ActionButtons
+  settings/            # Settings sheet sections (behind the Tests-tab gear)
+theme/                 # Radar-branded Material3 theme
+```
 
-- `./gradlew build` — full build
-- `./gradlew test` — unit tests (Robolectric + JUnit 4)
-- `./gradlew lint` — Android lint. Warnings are errors (`lintOptions { warningsAsErrors true }` in [sdk/build.gradle](sdk/build.gradle)) — a lint warning will fail the build.
-- `./gradlew :sdk:ktlintCheck` — Kotlin style check
-- `./gradlew :sdk:assembleRelease` — SDK-only release build
+## Conventions
 
-Lint and ktlint both use baselines ([sdk/lint-baseline.xml](sdk/lint-baseline.xml), [sdk/ktlint-baseline.xml](sdk/ktlint-baseline.xml)) to suppress pre-existing violations. **Only fix lint/ktlint errors on lines you changed** — do not run repo-wide formatters (`./gradlew :sdk:ktlintFormat` reformats every file and will produce a sprawling, unreviewable diff). Fix the specific issues CI reports on your diff, leave the rest to the baseline.
+- **One store per concern.** Don't merge stores. Cross-store coordination lives in
+  `MainActivity` (registration) or in store `bind(...)` methods (e.g. `TripBuilderStore.bind`).
+- **One RadarReceiver.** `LogStore` is the *only* receiver — passed to `Radar.initialize`.
+  Everything else reads `LogStore.entries` (UI) or subscribes via `LogStore.onEvents` /
+  `onLocation` (non-UI, e.g. the trip builder). Don't call `Radar.setReceiver` elsewhere.
+- **All console output flows through `LogStore`.** Don't `Log.v` from UI — use
+  `logStore.write*`. `ActionButton` auto-logs its own tap, so the Tests tab is
+  self-documenting; API completion handlers log their result via `logStore.writeStatus(...)`.
+- **Map overlays are plugins.** Adding a layer = one new `MapOverlaySource` subclass +
+  one `register(...)` line in `MainActivity`. Trip-related sources are `isTripModeWhitelisted`
+  (force-render during a trip) and `userToggleable = false` (hidden from the layer picker).
+- **Trip lifecycle lives in `TripBuilderStore`.** New trip features hang off that store
+  rather than mirroring `Radar.getTrip()` elsewhere.
 
-**When you do fix violations in a file (by formatting it or editing the offending lines), remove that file's entries from the relevant baseline** so the baseline only reflects what's still being suppressed. Stale baseline entries point at line numbers that no longer match real violations — they're dead weight and obscure what's actually suppressed. After deleting a file's `<file name="…">…</file>` block from the baseline, re-run `./gradlew :sdk:ktlintCheck` (or `:sdk:lint`); if any genuine violations remain (e.g. a non-auto-fixable rule like `property-naming`), add just those entries back rather than restoring the whole block.
+## Platform notes
 
-The example app requires an API key set in its `MainActivity`. A pre-commit hook validates that real API keys aren't committed in the example.
+- **Map:** MapLibre with Radar vector tiles; overlays use GeoJSON sources + layers +
+  `queryRenderedFeatures` hit-testing.
+- **3 tabs:** Map / Debug / Tests.
+- **Synced data** comes from `filesDir/RadarSDK/offlineData.json` (the internal
+  `RadarSyncManager` isn't visible to the example module).
+- **Tracking-options breakdown** uses the public `Radar.getTrackingOptions()` JSON
+  (the server-driven `RadarSdkConfiguration` is `internal`).
+- **Trip progress** surfaces through the custom foreground-service notification configured in
+  `MainActivity`.
 
-## Repo layout
+## Setup
 
-- [sdk/](sdk/) — the published library
-  - [sdk/src/main/java/io/radar/sdk/](sdk/src/main/java/io/radar/sdk/) — source
-  - [sdk/src/test/java/io/radar/sdk/](sdk/src/test/java/io/radar/sdk/) — tests
-- [example/](example/) — sample app demonstrating SDK usage
-- `sdk-fraud/` — optional fraud-detection module (git submodule, conditionally included by Gradle if present)
-- [buildSrc/](buildSrc/) — custom Gradle plugins and CI helpers
-- [.github/workflows/radar-release-actions.yml](.github/workflows/radar-release-actions.yml) — release CI
-
-## Architecture
-
-Public API entry point: [sdk/src/main/java/io/radar/sdk/Radar.kt](sdk/src/main/java/io/radar/sdk/Radar.kt) — a Kotlin `object` (singleton) exposing all SDK methods and callback interfaces (`RadarLocationCallback`, `RadarBeaconCallback`, etc.).
-
-Internal structure under [sdk/src/main/java/io/radar/sdk/](sdk/src/main/java/io/radar/sdk/):
-
-- **Managers** — orchestration of subsystems
-  - `RadarLocationManager` — background location tracking
-  - `RadarSyncManager` — event sync and batching
-  - `RadarOfflineEventManager` — offline event queueing with retry-timeout ramping
-  - `RadarBeaconManager` — beacon ranging
-  - `RadarVerificationManager` — location verification
-  - `RadarInAppMessageManager` — in-app messages
-- **Networking**
-  - `RadarApiClient.kt` — HTTP requests and response parsing
-  - `RadarApiHelper.kt` — request helpers
-- **Location clients** (pluggable per device)
-  - `RadarAbstractLocationClient` — base interface
-  - `RadarGoogleLocationClient` — Google Play Services
-  - `RadarHuaweiLocationClient` — Huawei HMS
-- **State / config**
-  - `RadarState`, `RadarSettings` (SharedPreferences-backed)
-  - `RadarSdkConfiguration`, `RadarRemoteTrackingOptions`
-  - `RadarLogger`, `RadarNotificationHelper`
-- **Background entry points**
-  - `RadarReceiver`, `RadarLocationReceiver` — broadcast receivers
-  - `RadarForegroundService` — continuous foreground tracking
-  - `RadarJobScheduler` — `JobScheduler` integration
-- **Models** — [sdk/src/main/java/io/radar/sdk/model/](sdk/src/main/java/io/radar/sdk/model/) — data classes (`RadarUser`, `RadarEvent`, `RadarGeofence`, `RadarTrip`, `RadarAddress`, `RadarBeacon`, etc.)
-
-When adding a public API, surface it via `Radar.kt` and keep the implementation in the appropriate manager — `Radar.kt` should stay a thin facade.
-
-## Testing
-
-- Framework: Robolectric 4.x + JUnit 4 (via `androidx.test.ext:junit`)
-- Primary test surface: [sdk/src/test/java/io/radar/sdk/RadarTest.kt](sdk/src/test/java/io/radar/sdk/RadarTest.kt)
-- Per-manager tests: e.g. `RadarSyncManagerTest`, `RadarOfflineEventManagerTest`
-- Test helpers live alongside tests:
-  - `matchers/` — custom assertion matchers
-  - `model/` — test-data builders
-  - `util/` — shared test utilities (`RadarMockLocationProvider`, `RadarApiHelperMock`, `RadarTestUtils`)
-- Style: spies + mocks against real Robolectric `Context`. Prefer extending existing helpers over introducing new mocking patterns.
-
-## Code style
-
-- Language: Kotlin (idiomatic / modern). Some legacy Java may exist; new code should be Kotlin.
-- `compileSdk` 36, `minSdk` 16, Java 8 target — see [sdk/build.gradle](sdk/build.gradle).
-- Lint is strict (warnings = errors). Fix at the source rather than suppressing.
-
-## Release
-
-- Published via the New Maven Central Portal aggregation plugin.
-- Release tags trigger [.github/workflows/radar-release-actions.yml](.github/workflows/radar-release-actions.yml), which runs `./gradlew publishAggregationToCentralPortal`.
-- Bump the version in [sdk/build.gradle](sdk/build.gradle) and add a [MIGRATION.md](MIGRATION.md) entry for any breaking changes.
+Set a real test publishable key at runtime via the Tests-tab settings gear ("Publishable key
+override", persisted; restart to apply), or replace `SettingsStore.DEFAULT_PUBLISHABLE_KEY`.
+The committed default is the `prj_test_pk_` placeholder (a pre-commit hook blocks real keys).
 
 ---
 > Source: [radarlabs/radar-sdk-android](https://github.com/radarlabs/radar-sdk-android) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-20 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
