@@ -1,0 +1,9 @@
+{
+  "name": "jingxuanc--causal-memory",
+  "displayName": "causal-memory",
+  "description": "Causal memory layer for AI agents \u2014 MCP server that records decision\u2192outcome relationships. Survives compaction.",
+  "version": "1.0.0",
+  "author": "JingxuanC",
+  "homepage": "https://github.com/JingxuanC/causal-memory",
+  "skills": []
+}
