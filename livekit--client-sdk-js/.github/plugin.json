@@ -1,0 +1,9 @@
+{
+  "name": "livekit--client-sdk-js",
+  "displayName": "client-sdk-js",
+  "description": "client-sdk-js",
+  "version": "1.0.0",
+  "author": "livekit",
+  "homepage": "https://github.com/livekit/client-sdk-js",
+  "skills": []
+}
