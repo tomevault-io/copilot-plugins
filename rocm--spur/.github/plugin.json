@@ -1,7 +1,7 @@
 {
   "name": "rocm--spur",
   "displayName": "spur",
-  "description": "spur your compute",
+  "description": "spur",
   "version": "1.0.0",
   "author": "ROCm",
   "homepage": "https://github.com/ROCm/spur",
