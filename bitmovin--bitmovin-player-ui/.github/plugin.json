@@ -1,0 +1,9 @@
+{
+  "name": "bitmovin--bitmovin-player-ui",
+  "displayName": "bitmovin-player-ui",
+  "description": "bitmovin-player-ui",
+  "version": "1.0.0",
+  "author": "bitmovin",
+  "homepage": "https://github.com/bitmovin/bitmovin-player-ui",
+  "skills": []
+}
