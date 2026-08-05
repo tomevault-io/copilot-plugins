@@ -2,9 +2,9 @@
   "name": "smoothui",
   "owner": "educlopez",
   "repo": "smoothui",
-  "description": "SmoothUI is a collection of beautifully designed components with smooth animations built with React, Tailwind CSS, Shadcn/ui and Motion",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,45 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "smoothui",
+      "path": ".claude/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/educlopez/smoothui/tree/main/.claude/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smoothui",
+      "path": ".opencode/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/educlopez/smoothui/tree/main/.opencode/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smoothui",
+      "path": ".claude/skills/smoothui-component-craft/SKILL.md",
+      "github_url": "https://github.com/educlopez/smoothui/tree/main/.claude/skills/smoothui-component-craft/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smoothui",
+      "path": ".claude/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/educlopez/smoothui/tree/main/.claude/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smoothui",
+      "path": ".opencode/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/educlopez/smoothui/tree/main/.opencode/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "smoothui",
+      "path": "apps/docs/registry-assets/SKILL.md",
+      "github_url": "https://github.com/educlopez/smoothui/tree/main/apps/docs/registry-assets/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/educlopez/smoothui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T20:07:06Z"
+  "distributed_at": "2026-08-05T09:03:29Z"
 }
