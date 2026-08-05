@@ -4,7 +4,7 @@
   "repo": "official-document-ai-assistant",
   "description": "Local official-document review, formatting repair, and compliant export desktop assistant.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NextWeb4/official-document-ai-assistant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T08:44:03Z"
+  "distributed_at": "2026-08-05T18:08:06Z"
 }
