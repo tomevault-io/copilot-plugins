@@ -1,0 +1,9 @@
+{
+  "name": "awakecoding--rustlyn",
+  "displayName": "rustlyn",
+  "description": "Rust as a .NET language",
+  "version": "1.0.0",
+  "author": "awakecoding",
+  "homepage": "https://github.com/awakecoding/rustlyn",
+  "skills": []
+}
