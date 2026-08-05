@@ -1,0 +1,9 @@
+{
+  "name": "nshttpd--mikrotik-exporter",
+  "displayName": "mikrotik-exporter",
+  "description": "mikrotik-exporter",
+  "version": "1.0.0",
+  "author": "nshttpd",
+  "homepage": "https://github.com/nshttpd/mikrotik-exporter",
+  "skills": []
+}
