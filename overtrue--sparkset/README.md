@@ -1,8 +1,6 @@
 # sparkset
 
-> Tome by [overtrue](https://github.com/overtrue/sparkset) — distributed by [TomeVault](https://tomevault.io)
-
-Sparkset is an AI-powered operational assistant that helps teams interact with databases using natural language.
+> Tome by [overtrue](https://github.com/overtrue/sparkset), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [overtrue/sparkset](https://github.com/overtrue/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [overtrue/sparkset](https://github.com/overtrue/sparkset) — a repo with 30+ stars on GitHub.
+From [overtrue/sparkset](https://github.com/overtrue/sparkset) — a repo with 32+ stars on GitHub.
 
 ---
 
