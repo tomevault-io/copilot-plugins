@@ -1,125 +1,141 @@
-## velith-pipeline
+## velith
 
-> Velith book publishing pipeline — phases, router, agents, quality gates, and project structure
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+# CLAUDE.md
 
-# Velith — AI-Native Book Publishing Pipeline
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Overview
+## What is Velith
 
-Build books like software. 6-phase pipeline from blank page to published book, with quality gates at every stage.
+A Claude Code plugin for AI-native book publishing. 6-phase pipeline (Onboarding → Ideation → Outlining → Drafting → Editing → Publishing) with 16 skills, 7 agents, and 7 genre systems. Ships as a plugin with an optional Svelte dashboard.
+
+## Architecture
+
+### Plugin structure
 
 ```
-Phase 0: Onboarding → Phase 1: Ideation → Phase 2: Outlining → Phase 3: Drafting → Phase 4: Editing → Phase 5: Publishing
+skills/{skill-name}/SKILL.md    — Skills (slash commands): frontmatter (name, description) + prompt
+agents/{agent-name}.md          — Agents: frontmatter (name, description, tools[]) + prompt
+velith.mjs                      — Unified CLI + HTTP server (scan/agents/stats/words/list/migrate/serve)
+vendor/sql.js/sql-wasm.js/wasm  — Vendored SQLite WASM binary (no npm install required)
+.claude-plugin/plugin.json      — Plugin manifest (skills path, agent list)
 ```
 
-## Phase Router
+Skills are the user-facing entry points (`/book-init`, `/book-draft`, etc.). Agents are specialized subagents invoked by skills during pipeline phases. The `loom` skill is the router that detects project state and routes to the correct phase.
 
-Detect current project state and route to the correct phase:
+### Skill → Agent mapping
 
-1. **No project exists** → Phase 0 (Onboarding)
-2. **Project exists, no outline** → Phase 1 (Ideation)
-3. **Outline exists, no drafts** → Phase 2 (Outlining) validation, then Phase 3
-4. **Drafts exist, incomplete** → Phase 3 (Drafting)
-5. **All drafts complete** → Phase 4 (Editing)
-6. **Editing complete** → Phase 5 (Publishing)
+| Phase | Skill | Agent(s) used |
+|-------|-------|---------------|
+| 0 | `/book-init` | — |
+| 1 | `/book-ideation` | — |
+| 2 | `/book-outline` | `book-architect` |
+| 3 | `/book-draft` | `chapter-writer`, `scene-generator` (fiction), `continuity-editor` |
+| 4 | `/book-edit` | `style-doctor`, `continuity-editor` |
+| 5 | `/book-publish` | `cover-designer`, `marketing-expert` |
 
-**Detection:** check for `drafts/` directory, `outline.md`, `STYLE.md`, `PRD.md`.
+### Agent tool constraints
 
-## Phase Details
+- Each agent has minimal tool access by design (e.g., style-doctor has Read/Edit/Glob/Grep/Bash but no Write)
 
-### Phase 0: Onboarding
-- Genre selection (fiction/non-fiction/technical/screenplay/poetry/game/academic/custom)
-- Target audience definition
-- Language selection
-- Project directory setup
-- Source material scan (existing notes, articles, code)
-- Generate `STYLE.md` (voice, tone, conventions)
-- Generate `PRD.md` (book requirements)
+### Genre system
 
-### Phase 1: Ideation
-- Market research (competing titles, gaps)
-- Core concept distillation (elevator pitch)
-- Unique value proposition
-- Scope definition (chapters, word count, timeline)
-- Save to `ideation.md`
+8 genre skills provide genre-specific templates and validation rules: `book-fiction`, `book-nonfiction`, `book-technical`, `book-screenplay`, `book-poetry`, `book-game`, `book-academic`, `book-genre-creator` (meta-skill for custom genres).
 
-### Phase 2: Outlining
-- Generate full chapter outline with dependencies
-- Per-chapter specs: title, hook, key concepts, word target, difficulty level
-- Cross-chapter reference map
-- Save to `outline.md`
-- Agent `book-architect` validates structure
+Genres are string-based (no typed enum) — branching happens via conditional logic in skills and agents. Adding a new genre requires creating `skills/book-{genre}/SKILL.md` and updating the genre lists in `skills/loom/SKILL.md`, `README.md`, dashboard `HelpView.svelte`, and i18n files.
 
-### Phase 3: Drafting
-- Plan-Then-Execute: chapter-by-chapter generation
-- Each chapter gets: outline context + previous chapter summary + style guide
-- Parallel chapter generation (max 4 concurrent)
-- Agent `scene-generator` decomposes chapters into scenes (fiction only)
-- Agent `chapter-writer` generates each chapter
-- Agent `continuity-editor` checks cross-chapter consistency
-- Quality gate: line count, frontmatter, style compliance
+### Book project runtime structure
 
-### Phase 4: Editing
-- 5-stage editing pipeline:
-  1. Editorial Assessment (macro structure)
-  2. Developmental Edit (flow, pacing, gaps)
-  3. Line Edit (sentence-level clarity)
-  4. Copy Edit (grammar, consistency)
-  5. Proofread (final typos)
-- Agent `style-doctor` enforces voice consistency
-- Generate editing report with severity-ranked issues
-
-### Phase 5: Publishing
-- Format conversion: EPUB, PDF, MOBI, TXT, Markdown (via Pandoc + Calibre)
-- Agent `cover-designer` generates cover concepts + image prompts
-- Agent `marketing-expert` creates launch strategy
-- Metadata, title candidates, KDP checklist
-
-## Agents
-
-| Agent | Role | Phase |
-|-------|------|-------|
-| `book-architect` | Structure validation, outline scoring | 2 |
-| `chapter-writer` | Chapter draft generation | 3 |
-| `continuity-editor` | Cross-chapter consistency | 3-4 |
-| `style-doctor` | Voice/tone consistency, AI-slop detection | 4 |
-| `scene-generator` | Scene-level GMC+RDD breakdown (fiction only) | 3 |
-| `cover-designer` | Cover concepts + image prompts | 5 |
-| `marketing-expert` | Reader personas, launch strategy | 5 |
-
-## Project Structure
-
+When Velith creates a book project, it generates:
 ```
 {project-dir}/
-├── PRD.md              # Book requirements (Phase 0)
-├── STYLE.md            # Voice, tone, conventions (Phase 0)
-├── ideation.md         # Ideas, market research (Phase 1)
-├── outline.md          # Full chapter outline (Phase 2)
-├── drafts/             # Chapter drafts (Phase 3)
-├── edits/              # Editing reports (Phase 4)
-├── publish/            # Final outputs (Phase 5)
-└── sources/            # Source material references
+├── PRD.md          # Book requirements (genre flows as string field)
+├── STYLE.md        # Voice, tone, conventions
+├── ideation.md     # Phase 1 output
+├── outline.md      # Phase 2 output
+├── drafts/         # Phase 3 output (ch{NN}-{slug}.md)
+├── edits/          # Phase 4 output
+├── publish/        # Phase 5 output (EPUB/PDF/MOBI + cover/)
+├── sources/        # Reference material
+└── .velith/status.json  # Dashboard status data
 ```
 
-## Quality Gates
+## Dashboard
 
-| Phase | Gate | Evidence |
-|-------|------|----------|
-| 0 | Project initialized | PRD.md + STYLE.md exist |
-| 1 | Concept validated | Elevator pitch + 3 competing titles analyzed |
-| 2 | Outline complete | All chapters specified + cross-reference map |
-| 3 | Drafts complete | All chapters meet word target + frontmatter |
-| 4 | Editing complete | 5-stage pipeline passed + <5 issues remaining |
-| 5 | Publish ready | EPUB/PDF generated + metadata complete |
+Svelte 5 + Vite + Tailwind CSS (CDN). Single-file app architecture in `dashboard/src/App.svelte` with view components in `dashboard/src/views/`.
 
-## Design Principles
+### Key patterns
 
-- **Plan-Then-Execute** — Outline first, validate, then write
-- **Idempotent** — Skip completed chapters, resume from where you left off
-- **Token Efficient** — Summary-based context, not full text
-- **Genre-Aware** — Different structures, templates, and validation per genre
-- **Quality Gated** — Each phase must pass criteria before proceeding
+- **Routing**: Manual URL path parsing with `View` union type and `VALID_VIEWS` set. No router library.
+- **Styling**: Tailwind via CDN with CSS custom properties for theming. Light/dark mode via `.dark` class on `<html>`. Sidebar is permanently dark.
+- **i18n**: 10 locales (en, ko, ja, zh, es, fr, de, pt, it, ru). Source of truth is `en.ts` with `StringKey` type. All locales must have the same keys. Locale stored in `localStorage` as `bf-locale`, defaults to `ko`.
+- **Data**: SQLite (`sql.js`, WASM, vendored in `vendor/sql.js/`) at `~/.velith/velith.db`. Zero npm dependencies at root — plugin works after git clone. Both `vite.config.ts` (dev) and `velith.mjs serve` (production) read via `getStatus()`. Legacy JSON files auto-migrate on first `scan`/`serve` and rename to `.bak`.
+- **Help view**: Accessible without project selection — sidebar onclick has `|| item.id === 'help'` guard, and render chain checks `activeView === 'help'` before project-selection landing.
+
+### Dashboard commands
+
+```bash
+cd dashboard
+npm install
+npm run dev       # http://localhost:5173 (with live status.json API)
+npm run build     # rebuild dist/ (included in repo for plugin users)
+```
+
+### Adding a new view
+
+1. Create `dashboard/src/views/{Name}View.svelte`
+2. Add `View` type variant in `App.svelte`
+3. Add to `VALID_VIEWS` set
+4. Add sidebar nav item with `icon` and `labelKey`
+5. Add render block in the `{:else if}` chain
+6. Add `nav.*` and `view.*` i18n keys to all 10 locale files
+
+## Conventions
+
+- **Commits**: Conventional Commits (`type(scope): description`). Use `/git-cc`.
+- **License**: Apache-2.0
+- **i18n**: All user-facing strings must go through the i18n system. When adding keys, add to all 10 locale files.
+- **Idempotent agents**: Agents must skip already-completed work (e.g., chapter-writer skips existing draft files).
+- **Agent status tracking**: All agents call `node {PLUGIN_ROOT}/velith.mjs agents {id} {running|complete|error} [task]` to update status (SQLite + JSON backward compat). Auto-migration runs on `scan`/`serve` when legacy JSON data is detected.
+
+## Codex (OpenAI) Plugin Support
+
+Velith also supports OpenAI Codex CLI discovery via `.codex-plugin/plugin.json`, which points to the same `skills/` and `agents/*.md` used by Claude Code.
+
+### Multi-Platform Support
+
+| Platform | Files | Purpose |
+|----------|-------|---------|
+| Claude Code | `.claude-plugin/plugin.json` | Skills + agent definitions |
+| Codex CLI | `.codex-plugin/plugin.json` + `.codex-plugin/agents/*.toml` | Skill directory + agent prompts |
+| Agy | GitHub URL install (`agy plugin install`) | Auto-discovers skills/agents from repo root |
+| Cursor | `.cursor/rules/*.mdc` | Always-on pipeline context (3 rule files) |
+| Cline | `.clinerules` | Project-level instructions |
+| Aider | `CONVENTIONS.md` + `.aider.conf.yml` | Writing conventions (auto-loaded) |
+
+## Versioning and Release
+
+This is a multi-platform plugin. Before every push to `main`, bump the `version` field in **all four** version-bearing files to the same value:
+
+| File | Purpose |
+|------|---------|
+| `.claude-plugin/plugin.json` | Claude Code plugin manifest |
+| `.codex-plugin/plugin.json` | OpenAI Codex CLI plugin manifest |
+| `plugin.json` (root) | Agy auto-discovery manifest |
+| `README.md` badge URL | `badge/version-{version}` |
+
+Also bump the **UI version** constant in `dashboard/src/App.svelte` (`UI_VERSION`) to match.
+
+> **Do NOT bump** `dashboard/package.json`. That file holds the version of the Svelte/Vite *build toolchain* (`"private": true`, `"name": "velith-dashboard"`), not the Velith product version. It is never published and is intentionally excluded from the release set above. The product version has one source of truth: the five locations listed here.
+
+Version bump semantics:
+
+- **PATCH** (`0.1.0` → `0.1.1`): Bug fixes, typo corrections, minor dashboard styling tweaks, i18n string fixes — no new functionality.
+- **MINOR** (`0.1.0` → `0.2.0`): New skills, new agents, new genre support, new dashboard views, new i18n keys, feature additions to existing skills/agents.
+- **MAJOR** (`0.1.0` → `1.0.0`): Breaking changes to skill/agent interfaces, pipeline phase restructuring, removed skills or agents, incompatible plugin manifest changes.
+
+**Process**: bump all five locations → rebuild dashboard (`cd dashboard && npm run build`) → commit → tag `v{version}` → push with `--tags`. Do not push without bumping.
 
 ---
 > Source: [epicsagas/Velith](https://github.com/epicsagas/Velith) — distributed by [TomeVault](https://tomevault.io).
