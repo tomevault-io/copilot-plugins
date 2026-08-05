@@ -1,0 +1,9 @@
+{
+  "name": "fausecteam--ctf-gameserver",
+  "displayName": "ctf-gameserver",
+  "description": "ctf-gameserver",
+  "version": "1.0.0",
+  "author": "fausecteam",
+  "homepage": "https://github.com/fausecteam/ctf-gameserver",
+  "skills": []
+}
