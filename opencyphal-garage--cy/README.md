@@ -7,11 +7,11 @@ Cyphal v1.1 in C: robust decentralized pub/sub with optional reliability and ser
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [OpenCyphal-Garage/cy](https://github.com/OpenCyphal-Garage/cy).
+Original source: `AGENTS.md` in [OpenCyphal-Garage/cy](https://github.com/OpenCyphal-Garage/cy).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
