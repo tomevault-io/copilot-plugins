@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-nemo--labs-oo-agents",
+  "displayName": "labs-OO-Agents",
+  "description": "labs-OO-agents",
+  "version": "1.0.0",
+  "author": "NVIDIA-NeMo",
+  "homepage": "https://github.com/NVIDIA-NeMo/labs-OO-Agents",
+  "skills": []
+}
