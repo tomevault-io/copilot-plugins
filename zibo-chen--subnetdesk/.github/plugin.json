@@ -1,0 +1,9 @@
+{
+  "name": "zibo-chen--subnetdesk",
+  "displayName": "SubnetDesk",
+  "description": "LAN-only remote desktop based on RustDesk",
+  "version": "1.0.0",
+  "author": "zibo-chen",
+  "homepage": "https://github.com/zibo-chen/SubnetDesk",
+  "skills": []
+}
