@@ -1,0 +1,44 @@
+{
+  "name": "agentic-task-system",
+  "owner": "renezander030",
+  "repo": "agentic-task-system",
+  "description": "MCP server + CLI that turns the task manager you already use into persistent agent memory for Claude Code and any MCP client. Hybrid retrieval (RRF), no vector database. Adapters: TickTick, Obsidian, Notion, GitHub, Airtable, Google, OKF, Taskmaster, Beads.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/renezander030/agentic-task-system",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-05T16:24:59Z"
+}
