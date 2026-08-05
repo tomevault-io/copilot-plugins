@@ -1,0 +1,9 @@
+{
+  "name": "hellomypastor--claude-agent-sdk-java",
+  "displayName": "claude-agent-sdk-java",
+  "description": "Java SDK for Claude Code \u2014 Build AI agents with Claude. Feature-complete, aligned with the official TypeScript SDK. Java 11+, minimal dependencies.",
+  "version": "1.0.0",
+  "author": "hellomypastor",
+  "homepage": "https://github.com/hellomypastor/claude-agent-sdk-java",
+  "skills": []
+}
