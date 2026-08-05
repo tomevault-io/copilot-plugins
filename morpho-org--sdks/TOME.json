@@ -2,7 +2,7 @@
   "name": "sdks",
   "owner": "morpho-org",
   "repo": "sdks",
-  "description": "Collection of SDKs to ease interactions with the Morpho protocol and Morpho Vaults",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/morpho-org/sdks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-10T23:36:54Z"
+  "distributed_at": "2026-08-05T02:24:17Z"
 }
