@@ -1,0 +1,9 @@
+{
+  "name": "rondoval--emu68-gic400-library",
+  "displayName": "emu68-gic400-library",
+  "description": "GIC-400 library for Amiga OS 3.x",
+  "version": "1.0.0",
+  "author": "rondoval",
+  "homepage": "https://github.com/rondoval/emu68-gic400-library",
+  "skills": []
+}
