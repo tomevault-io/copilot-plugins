@@ -7,11 +7,11 @@ Local-first personal knowledge base CLI — hybrid FTS + pgvector search, a Grap
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mshtawythug/second-brain](https://github.com/mshtawythug/second-brain).
+Original source: `AGENTS.md` in [mshtawythug/second-brain](https://github.com/mshtawythug/second-brain).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
