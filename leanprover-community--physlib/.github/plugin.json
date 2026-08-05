@@ -1,0 +1,9 @@
+{
+  "name": "leanprover-community--physlib",
+  "displayName": "physlib",
+  "description": "physlib",
+  "version": "1.0.0",
+  "author": "leanprover-community",
+  "homepage": "https://github.com/leanprover-community/physlib",
+  "skills": []
+}
