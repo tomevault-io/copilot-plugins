@@ -1,0 +1,9 @@
+{
+  "name": "valkey-io--spring-data-valkey",
+  "displayName": "spring-data-valkey",
+  "description": "spring-data-valkey",
+  "version": "1.0.0",
+  "author": "valkey-io",
+  "homepage": "https://github.com/valkey-io/spring-data-valkey",
+  "skills": []
+}
