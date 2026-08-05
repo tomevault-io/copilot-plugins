@@ -1,0 +1,9 @@
+{
+  "name": "alokdhir--spinwin",
+  "displayName": "spinwin",
+  "description": "macOS menubar app that visually rotates or spins another app's window, using ScreenCaptureKit to fake what macOS has no API to do",
+  "version": "1.0.0",
+  "author": "alokdhir",
+  "homepage": "https://github.com/alokdhir/spinwin",
+  "skills": []
+}
