@@ -1,0 +1,9 @@
+{
+  "name": "aws-bench--aws-bench-datasets",
+  "displayName": "aws-bench-datasets",
+  "description": "Scenarios and tasks for evaluating AI agents on real-world AWS automation tasks. Use the aws-bench framework (https://github.com/aws-bench/aws-bench) to provision isolated AWS environments, run agents",
+  "version": "1.0.0",
+  "author": "aws-bench",
+  "homepage": "https://github.com/aws-bench/aws-bench-datasets",
+  "skills": []
+}
