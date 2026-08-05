@@ -1,0 +1,9 @@
+{
+  "name": "ulas96--luima",
+  "displayName": "luima",
+  "description": "GraphQL Fiber Library interacting with a PostgreSQL database using Go PG ORM and Gqlgen",
+  "version": "1.0.0",
+  "author": "ulas96",
+  "homepage": "https://github.com/ulas96/luima",
+  "skills": []
+}
