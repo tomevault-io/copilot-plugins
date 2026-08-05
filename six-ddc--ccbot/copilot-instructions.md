@@ -1,10 +1,10 @@
 ## ccbot
 
-> ccmux — Telegram bot that bridges Telegram Forum topics to Claude Code sessions via tmux windows. Each topic is bound to one tmux window running one Claude Code instance.
+> ccmux — Telegram bot that bridges Telegram Forum topics to Codex sessions via tmux windows. Each topic is bound to one tmux window running one Codex instance.
 
-# CLAUDE.md
+# AGENTS.md
 
-ccmux — Telegram bot that bridges Telegram Forum topics to Claude Code sessions via tmux windows. Each topic is bound to one tmux window running one Claude Code instance.
+ccmux — Telegram bot that bridges Telegram Forum topics to Codex sessions via tmux windows. Each topic is bound to one tmux window running one Codex instance.
 
 Tech stack: Python, python-telegram-bot, tmux, uv.
 
@@ -15,7 +15,7 @@ uv run ruff check src/ tests/         # Lint — MUST pass before committing
 uv run ruff format src/ tests/        # Format — auto-fix, then verify with --check
 uv run pyright src/ccbot/             # Type check — MUST be 0 errors before committing
 ./scripts/restart.sh                  # Restart the ccbot service after code changes
-ccbot hook --install                  # Auto-install Claude Code SessionStart hook
+ccbot hook --install                  # Auto-install Codex SessionStart hook
 ```
 
 ## Core Design Constraints
@@ -43,7 +43,7 @@ ccbot hook --install                  # Auto-install Claude Code SessionStart ho
 
 Auto-install: `ccbot hook --install`
 
-Or manually in `~/.claude/settings.json`:
+Or manually in `~/.Codex/settings.json`:
 ```json
 {
   "hooks": {
@@ -58,10 +58,10 @@ Or manually in `~/.claude/settings.json`:
 
 ## Architecture Details
 
-See @.claude/rules/architecture.md for full system diagram and module inventory.
-See @.claude/rules/topic-architecture.md for topic→window→session mapping details.
-See @.claude/rules/message-handling.md for message queue, merging, and rate limiting.
+See @.Codex/rules/architecture.md for full system diagram and module inventory.
+See @.Codex/rules/topic-architecture.md for topic→window→session mapping details.
+See @.Codex/rules/message-handling.md for message queue, merging, and rate limiting.
 
 ---
 > Source: [six-ddc/ccbot](https://github.com/six-ddc/ccbot) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
