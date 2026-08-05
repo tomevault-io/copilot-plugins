@@ -1,0 +1,9 @@
+{
+  "name": "matteyeux--binja-diff",
+  "displayName": "binja-diff",
+  "description": "Binary Ninja diffing tool",
+  "version": "1.0.0",
+  "author": "matteyeux",
+  "homepage": "https://github.com/matteyeux/binja-diff",
+  "skills": []
+}
