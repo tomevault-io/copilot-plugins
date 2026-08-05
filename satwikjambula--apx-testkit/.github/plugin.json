@@ -1,0 +1,9 @@
+{
+  "name": "satwikjambula--apx-testkit",
+  "displayName": "apx-testkit",
+  "description": "Deterministic Playwright test generation for Oracle APEX 26.1+ from APEXlang (.apx) exports",
+  "version": "1.0.0",
+  "author": "satwikjambula",
+  "homepage": "https://github.com/satwikjambula/apx-testkit",
+  "skills": []
+}
