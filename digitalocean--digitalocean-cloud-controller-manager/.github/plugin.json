@@ -1,0 +1,9 @@
+{
+  "name": "digitalocean--digitalocean-cloud-controller-manager",
+  "displayName": "digitalocean-cloud-controller-manager",
+  "description": "digitalocean-cloud-controller-manager",
+  "version": "1.0.0",
+  "author": "digitalocean",
+  "homepage": "https://github.com/digitalocean/digitalocean-cloud-controller-manager",
+  "skills": []
+}
