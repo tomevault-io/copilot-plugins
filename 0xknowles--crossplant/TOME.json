@@ -4,7 +4,7 @@
   "repo": "CrossPlant",
   "description": "CrossPlant is an open-source custom firmware fork for the XTEink X3 and X4 e-ink readers. It merges the advanced typography, performance optimizations, and stable base of CrossInk with the virtual plant mechanics of CrossPet, adding a collection of enhancements, modern UI layouts, and deep reading integrations.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/0xKnowles/CrossPlant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T09:59:55Z"
+  "distributed_at": "2026-08-05T15:52:43Z"
 }
