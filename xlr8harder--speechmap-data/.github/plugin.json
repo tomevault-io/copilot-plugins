@@ -1,0 +1,9 @@
+{
+  "name": "xlr8harder--speechmap-data",
+  "displayName": "speechmap-data",
+  "description": "Versioned model responses and production compliance analyses for SpeechMap",
+  "version": "1.0.0",
+  "author": "xlr8harder",
+  "homepage": "https://github.com/xlr8harder/speechmap-data",
+  "skills": []
+}
