@@ -1,0 +1,9 @@
+{
+  "name": "ixjosemi--agentglance",
+  "displayName": "AgentGlance",
+  "description": "A quiet macOS notch indicator for Claude Code, OpenCode, and Codex CLI sessions",
+  "version": "1.0.0",
+  "author": "ixjosemi",
+  "homepage": "https://github.com/ixjosemi/AgentGlance",
+  "skills": []
+}
