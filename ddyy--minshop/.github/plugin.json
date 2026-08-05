@@ -1,0 +1,9 @@
+{
+  "name": "ddyy--minshop",
+  "displayName": "minshop",
+  "description": "Full-stack ecommerce on Cloudflare Workers, D1, and R2 - with admin, Stripe, OpenNode, Lightning payments, and agent-ready APIs.",
+  "version": "1.0.0",
+  "author": "ddyy",
+  "homepage": "https://github.com/ddyy/minshop",
+  "skills": []
+}
