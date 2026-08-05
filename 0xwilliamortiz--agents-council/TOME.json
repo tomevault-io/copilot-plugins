@@ -4,7 +4,7 @@
   "repo": "agents-council",
   "description": "Multi-agents collaboration plugin for Claude Code - orchestrate multiple AI agents (Codex CLI, Gemini CLI, etc.) for diverse perspectives",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/0xwilliamortiz/agents-council",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T04:09:46Z"
+  "distributed_at": "2026-08-05T14:09:27Z"
 }
