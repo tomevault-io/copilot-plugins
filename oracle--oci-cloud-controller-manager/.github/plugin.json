@@ -1,0 +1,9 @@
+{
+  "name": "oracle--oci-cloud-controller-manager",
+  "displayName": "oci-cloud-controller-manager",
+  "description": "oci-cloud-controller-manager",
+  "version": "1.0.0",
+  "author": "oracle",
+  "homepage": "https://github.com/oracle/oci-cloud-controller-manager",
+  "skills": []
+}
