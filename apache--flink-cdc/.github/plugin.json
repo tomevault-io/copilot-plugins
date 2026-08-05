@@ -1,0 +1,9 @@
+{
+  "name": "apache--flink-cdc",
+  "displayName": "flink-cdc",
+  "description": "flink-cdc",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/flink-cdc",
+  "skills": []
+}
