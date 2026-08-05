@@ -1,6 +1,6 @@
 # polaris
 
-> Source: [RadiantAILabs/polaris](https://github.com/RadiantAILabs/polaris). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [RadiantAILabs/polaris](https://github.com/RadiantAILabs/polaris). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
