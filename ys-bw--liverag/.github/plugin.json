@@ -1,0 +1,9 @@
+{
+  "name": "ys-bw--liverag",
+  "displayName": "LiveRAG",
+  "description": "LiveRAG personal knowledge-base voice agent",
+  "version": "1.0.0",
+  "author": "YS-BW",
+  "homepage": "https://github.com/YS-BW/LiveRAG",
+  "skills": []
+}
