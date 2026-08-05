@@ -1,0 +1,9 @@
+{
+  "name": "minchenlee--rmdv",
+  "displayName": "rmdv",
+  "description": "Native Rust markdown viewer \u2014 Mermaid, Graphviz DOT, LaTeX math, mind maps. No Electron, no browser. ~150ms cold start. Agent-controllable via IPC. MIT.",
+  "version": "1.0.0",
+  "author": "minchenlee",
+  "homepage": "https://github.com/minchenlee/rmdv",
+  "skills": []
+}
