@@ -1,7 +1,7 @@
 {
   "name": "nikolausm--imap-mcp-server",
   "displayName": "imap-mcp-server",
-  "description": "A powerful Model Context Protocol (MCP) server for IMAP email integration with Claude",
+  "description": "imap-mcp-server",
   "version": "1.0.0",
   "author": "nikolausm",
   "homepage": "https://github.com/nikolausm/imap-mcp-server",
