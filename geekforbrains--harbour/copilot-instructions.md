@@ -1,125 +1,39 @@
 ## harbour
 
-> Harbour is a control plane for AI agents doing ongoing work. See README.md for full architecture, API surface, and design rationale.
+> Harbour is a control plane for AI agents doing ongoing work.
 
 @README.md
 
-Harbour is a control plane for AI agents doing ongoing work. See README.md for full architecture, API surface, and design rationale.
+Harbour is a control plane for AI agents doing ongoing work.
 
-## Tech
+## Where to find what
 
-Next.js (App Router), SQLite (better-sqlite3), Tailwind / shadcn/ui, TypeScript.
+One fact, one home — facts about how Harbour works, and how to run, develop, and
+release it, live in [docs/](docs/README.md), not here. This file only routes you
+there and flags the handful of tripwires below; it never restates doc content.
+Route by task and read the doc first:
 
-## Key paths
+- **Running it locally / first run** → [docs/guides/getting-started.md](docs/guides/getting-started.md) — install, `harbour setup`, first boot
+- **The local dev loop** → [docs/guides/local-development.md](docs/guides/local-development.md) — dev server + ports, validate/rebuild/restart, browser review, worktrees
+- **Any development work** → [docs/reference/development-standards.md](docs/reference/development-standards.md) — **required reading before writing or testing any code**: validation commands, Biome rules, component/API/DB conventions, testing layout
+- **Deciding if a change fits** → [docs/prd.md](docs/prd.md) (north star) and [docs/README.md](docs/README.md) (map of every doc)
+- **Changing code** → [docs/reference/architecture.md](docs/reference/architecture.md) first — auth model and route wrappers, polling ladder, run lifecycle, runner internals, and a ranked list of key source files
+- **Touching API routes** → [docs/reference/api.md](docs/reference/api.md) — route map, the auth wrapper each route uses, `?orgId=`/`?projectId=` scoping rules
+- **Touching the DB** → [docs/reference/database-schema.md](docs/reference/database-schema.md); the schema *is* `src/lib/db/schema.ts`
+- **Building or restyling UI** → [docs/reference/design-language.md](docs/reference/design-language.md) — required reading, the color rules are strict
+- **How a feature is meant to behave** → [docs/concepts/](docs/README.md#concepts--how-the-pieces-fit) — agents, jobs & runs, workflows, orgs & projects, shared context, Captain, attachments
+- **On-the-wire payloads** → [docs/guide.md](docs/guide.md) / [docs/admin-guide.md](docs/admin-guide.md) — served live at `/api/guide` / `/api/admin-guide`, source of truth for wire behavior
+- **Cutting a release** → [docs/guides/releasing.md](docs/guides/releasing.md) — changelog, version bump, tag
 
-- `src/app/(app)/` — dashboard pages (runs, jobs, agents, docs, databases, env-vars, settings)
-- `src/app/api/` — API routes (agent-facing + dashboard), all use `withAuth`/`withUserAuth` wrappers
-- `src/lib/db/projects.ts` — project CRUD + linking/unlinking (auto-links job dependencies)
-- `src/components/app/project-switcher.tsx` — sidebar/mobile project dropdown with create dialog
-- `src/components/app/project-link-dialog.tsx` — "Add Existing" dialog for linking items to projects
-- `src/lib/hooks/use-project-filter.ts` — hook for passing active project to API queries
-- `src/lib/auth.ts` — `withAuth`, `withUserAuth`, `requireAgentOwnership` HOF wrappers for API routes (admin API keys resolve to creating user's identity)
-- `src/lib/db/admin-api-keys.ts` — admin API key CRUD + authentication
-- `ADMIN_GUIDE.md` — admin agent onboarding guide, served at `/api/admin-guide`
-- `src/lib/db/` — database schema, queries, migrations
-- `src/lib/encryption.ts` — AES-256-GCM encryption for env vars
-- `src/lib/schedule.ts` — schedule parsing and timezone-aware next-run-time calculation
-- `src/lib/cli-config.ts` — shared CLI tool config (models, thinking options per tool)
-- `src/lib/runners.ts` — harbour agent runner config (read/write ~/.harbour/runners.json)
-- `src/components/app/create-dialog.tsx` — unified New Run / New Job dialog (shared component)
-- `src/components/app/trigger-dialog.tsx` — shared trigger confirmation modal with optional extra instructions
-- `src/components/app/model-thinking-select.tsx` — shared Model/Thinking select for CLI agents
-- `bin/` — CLI entry point and agent runner (harbour agents, providers, launchd install)
-- `GUIDE.md` — agent-facing API contract, served at `/api/guide`
+## Before you touch anything
 
-## Conventions
+A few tripwires worth knowing up front — everything else is in the docs above:
 
-- Jobs are static configuration (what to do, when, which docs/databases/env vars). Runs are the dynamic unit of work.
-- Docs and env vars are top-level, linked to jobs. Injected into runs automatically via `/next`.
-- Pinned docs and env vars are auto-attached to all new jobs and one-off runs.
-- Agents poll for work via `/api/agents/:id/next`. Harbour never calls out to agents.
-- Run statuses: `scheduled` → `running` → `waiting` (needs human) → `pending` (human responded, awaiting agent pickup) → `done`/`failed`/`skipped`.
-- Failed/skipped runs can be retried (go back to `pending`).
-- The database is a single SQLite file (default `./harbour.db`).
-- Env vars are encrypted with AES-256-GCM. Key at `~/.harbour/encryption.key` (auto-generated on first run).
-- System timezone (configured in Settings) is used for all schedule calculations.
-- Model and thinking/effort can be set per agent (default) and overridden per job.
-- API routes use `withAuth(handler)` or `withUserAuth(handler)` — never inline auth checks. Agent-facing mutation routes use `requireAgentOwnership()` to enforce scope.
-- Job and run creation functions (`createJob`, `createOneOffRun`, `getAgentNextRun`) are wrapped in transactions.
-- Projects are optional view-layer groupings. Entities don't know about projects — linking tables hold the references. All list queries accept an optional `projectId` filter. Adding a job to a project auto-links its agent, docs, env vars, and databases.
-
-## Dev server
-
-Always start a dev server before testing UI changes locally or using the playwright-browser skill. Check which ports are in use first, then pick an available one:
-
-- **Port 3000** — production server (reserved, never use for dev)
-- **Port 3001** — main repo dev server (`npm run dev -- -p 3001`)
-- **Ports 3010-3020** — worktree dev servers (one per worktree)
-
-Before starting a dev server, run `lsof -iTCP:3010-3020 -sTCP:LISTEN` to see which ports are already taken, then use the lowest available port in the range.
-
-```bash
-# Start dev server in a worktree (pick an available port from 3010-3020)
-npm run dev -- -p 3010
-```
-
-## Development workflow
-
-```bash
-# 1. Make changes, then validate
-npm run lint                    # ESLint (pre-existing `any` warnings are expected)
-npm run test                    # Vitest unit tests
-npm run build                   # Next.js production build
-
-# 2. Rebuild and restart production (REQUIRED after every change — the
-#    running server won't pick up a new build until restarted)
-kill $(lsof -ti :3000)          # stop current production server
-npm run build                   # rebuild
-npm start -- -p 3000 &          # restart in background
-```
-
-## Browser testing / screenshots
-
-Use `playwright-cli` for visual review and screenshots. The dev server must be running first (see above).
-
-```bash
-# Open browser and navigate (browser persists across commands)
-playwright-cli open "http://localhost:3010/some-page"
-
-# Auth: set session cookie (get a valid session ID from the sessions table)
-playwright-cli eval "document.cookie = 'harbour_session=SESSION_ID; path=/'"
-playwright-cli goto "http://localhost:3010/some-page"  # reload with auth
-
-# Screenshots
-playwright-cli screenshot --full-page --filename /tmp/screenshot.png
-
-# Resize for mobile/desktop testing
-playwright-cli resize 1280 900    # desktop
-playwright-cli resize 390 844     # mobile (iPhone 14)
-
-# Other useful commands
-playwright-cli snapshot           # accessibility tree (element refs)
-playwright-cli click <ref>        # interact with elements
-playwright-cli eval "js expression"  # run JS in page context
-```
-
-## Parallel development (git worktrees)
-
-Use `claude --worktree <name>` to run multiple Claude Code sessions in parallel. Each worktree gets its own branch (`worktree-<name>`) and isolated file tree.
-
-```bash
-claude --worktree feature-auth       # Terminal 1
-claude --worktree bugfix-notifs      # Terminal 2
-claude                               # Terminal 3 — main repo on current branch
-```
-
-- Each worktree needs its own `npm install`.
-- `.worktreeinclude` copies `.env` / `.env.local` to new worktrees automatically.
-- All worktrees share the same `~/.harbour/harbour.db` by default. For isolated databases, set `HARBOUR_DB_PATH` in a per-worktree `.env`.
-- Use different ports if running dev servers in multiple worktrees (3010-3020 range).
-- Merge back via PR: `git push origin worktree-<name>` then `gh pr create`.
-- Cleanup: worktrees with no changes are auto-removed on session exit. Otherwise `git worktree remove .claude/worktrees/<name>`.
+- **Port 3000 is production — never run a dev server on it.** Dev is 3001 (main repo) / 3010–3020 (worktrees). → [local development](docs/guides/local-development.md)
+- **Rebuild + restart after every change.** A running server won't pick up a new build until restarted: `kill $(lsof -ti :3000); npm run build; npm start -- -p 3000 &`. (A `npm run dev` server hot-reloads and needs none of this.)
+- **Node 24 LTS, enforced.** `npm install` fails on the wrong Node (`engine-strict`); after switching Node versions run `npm rebuild better-sqlite3` or Harbour won't boot (`NODE_MODULE_VERSION`).
+- **Validate before calling work done:** `typecheck · lint · test · build` (+ `test:e2e` when UI or routes changed). Full ladder and conventions in [development standards](docs/reference/development-standards.md).
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/geekforbrains) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [geekforbrains/harbour](https://github.com/geekforbrains/harbour) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
