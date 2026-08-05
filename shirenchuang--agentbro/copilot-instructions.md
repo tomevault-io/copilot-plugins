@@ -1,74 +1,169 @@
 ## agentbro
 
-> > Project guidance for AI coding agents (Codex / Cursor / Aider / GitHub Copilot / Gemini CLI / …).
+> > 这份文件会被 Claude Code 在每次会话开始时自动加载。**请先读一遍再开始改代码。**
 
-# AGENTS.md
+# AgentBro — Claude Code 项目级指令
 
-> Project guidance for AI coding agents (Codex / Cursor / Aider / GitHub Copilot / Gemini CLI / …).
-> Claude Code users should also read [`.claude/CLAUDE.md`](.claude/CLAUDE.md) for deeper detail.
+> 这份文件会被 Claude Code 在每次会话开始时自动加载。**请先读一遍再开始改代码。**
+> 通用的 AI Agent 约定见根目录 [`AGENTS.md`](../AGENTS.md);
+> 贡献流程、PR 规范见 [`CONTRIBUTING.md`](../CONTRIBUTING.md)。
 
-## What this is
+---
 
-**AgentBro** is a macOS-only Tauri app (Rust backend + React 19 / TypeScript frontend) that surfaces events from AI coding agents (Claude Code, Codex, Gemini CLI, Cursor, Copilot, etc.) into a floating "Dynamic Island" overlay.
+## 1. 项目画像
 
-## Local commands
+AgentBro 是一个 **macOS 桌面悬浮窗(灵动岛)**,用来收纳 Claude Code / Codex / Gemini CLI / Cursor / Copilot 等 AI 编程 Agent 的运行状态。技术栈:
+
+- **前端**:React 19 + TypeScript + Vite + Zustand + i18next + framer-motion
+- **后端**:Rust + Tauri 2(macOS only,Windows 在路线图)
+- **构建产物**:macOS 通用二进制 `.dmg`(arm64 + x86_64)
+- **本地 Hook Server**:`/tmp/agentbro.sock` 或 `127.0.0.1:17892`
+
+第一性原则是 **本地优先 + 低打扰**。所有改动都要服务于这两个目标。
+
+---
+
+## 2. 目录速查表
+
+| 路径 | 作用 |
+| --- | --- |
+| `src/` | 前端 React 应用(灵动岛 UI、设置面板) |
+| `src/components/notch/` | 灵动岛主界面组件(折叠条、悬停列表、聊天面板、权限审批…) |
+| `src/components/settings/` | 设置面板各 Section |
+| `src/components/shared/` | 跨模块复用组件 |
+| `src/stores/` | Zustand 状态:`sessionStore`、`configStore`、`agentStore`、`themeStore`、`petStore` |
+| `src/services/tauriApi.ts` | 前端调用 Tauri 命令的统一入口 |
+| `src/hooks/useTauri.ts` | 监听后端 IPC 事件的 React Hook 集合 |
+| `src/i18n/locales/{en,zh,ja,ko,tr}.json` | 五语言资源,必须同步更新 |
+| `src/themes/` | 主题定义(midnight、ink-amber、apple…) |
+| `src-tauri/` | Rust 后端 |
+| `src-tauri/src/agents/` | **每个支持的 AI Agent 一个 `.rs` 文件**(扩展点 #1) |
+| `src-tauri/src/agents/traits.rs` | `AgentAdapter` trait 定义 |
+| `src-tauri/src/agents/mod.rs` | Agent 注册中心(见第 214 行 `all_adapters()`) |
+| `src-tauri/src/agents/profiles.rs` | Hook 安装配置(`AgentIntegrationProfile` + 事件描述符) |
+| `src-tauri/src/agents/hook_manager.rs` | JSON/YAML/TOML Hook 注入与卸载 |
+| `src-tauri/src/commands/` | Tauri IPC 命令(`#[tauri::command]`) |
+| `src-tauri/src/lib.rs` | 应用入口 + 命令注册表(`invoke_handler`) |
+| `src-tauri/src/hooks/` | Hook Server 与恢复逻辑 |
+| `src-tauri/src/remote/` | SSH Remote 转发 |
+| `src-tauri/tauri.conf.json` | Tauri 打包/权限配置 |
+| `docs/release.md` | 发布与签名流程(maintainer 用) |
+
+---
+
+## 3. 核心扩展点
+
+### 3.1 新增 / 修改 Agent 适配器
+
+参考最简实现:`src-tauri/src/agents/kimi.rs`;复杂实现:`src-tauri/src/agents/claude_code.rs`。
+
+步骤:
+1. 在 `src-tauri/src/agents/` 新建 `<agent_name>.rs`,实现 `AgentAdapter` trait 的 7 个必需方法。
+2. `src-tauri/src/agents/mod.rs`:
+   - 文件顶部加 `pub mod <agent_name>;`
+   - 在 `all_adapters()`(~第 214 行)末尾加 `Box::new(<agent_name>::<Name>Adapter::new())`
+   - 在 `impl_default_adapter!` 宏调用里加上 `<agent_name>::<Name>Adapter`
+3. 如果该 Agent 走标准 Hook 安装流程,在 `src-tauri/src/agents/profiles.rs` 加一个 `fn <name>_profile() -> AgentIntegrationProfile`,并在 `profile_for_agent()` match 里注册。
+4. 给 `parse_event()` 写单元测试,模仿 `kimi.rs` 第 231 行起的 `mod tests`。
+5. 前端 icon:在 `src/components/notch/AgentIcon.tsx` 或对应映射里加一行;i18n 名称同步五份 `locales/*.json`。
+6. 跑 `/check` 验证。
+
+也可以直接用 slash 命令 `/add-agent <name>` 引导。
+
+### 3.2 新增 Tauri 命令(后端→前端)
+
+1. 在 `src-tauri/src/commands/` 对应子模块或新文件里加 `#[tauri::command] pub async fn ...`。
+2. 在 `src-tauri/src/lib.rs` 的 `invoke_handler(tauri::generate_handler![...])` 里追加函数名。
+3. 前端在 `src/services/tauriApi.ts` 写一层薄封装(类型签名 + 错误处理)。
+4. 需要异步事件推送的话,在 `src/hooks/useTauri.ts` 里加一个 `useXxxEvents` Hook,模式参考第 436 行的 `useSessionEvents`。
+
+错误统一用 `Result<T, String>` 跨 Tauri 边界(序列化代价小)。
+
+### 3.3 新增前端组件
+
+- 放在 `src/components/{notch|settings|shared|overlay}/` 对应域。
+- 样式:**plain `.css`** + 同名文件 + BEM 命名(如 `.approval-bar__warning`)。**不要引入 CSS Modules、Tailwind 或 styled-components**。
+- 颜色全部走 CSS 变量(`var(--island-bg)`、`var(--text-primary)`…),不要硬编码,否则主题会失效。
+- 状态优先用现有 Zustand store。新 store 也放 `src/stores/` 并走 `create<State & Actions>()` 的模式。
+
+### 3.4 新增主题
+
+`src/themes/` 加主题定义,同时更新 `README.md` 与 `README.en.md` 的主题表、`src/i18n/locales/*.json` 的主题名翻译。
+
+### 3.5 新增国际化字符串
+
+`src/i18n/locales/{en,zh,ja,ko,tr}.json` **同步加键**。漏一种语言会触发兜底 fallback,体验差。
+
+---
+
+## 4. 必跑的本地检查
+
+在提交 / 提 PR **之前**,这四个命令必须全绿:
 
 ```bash
-pnpm install                                              # one-time
-pnpm dev                                                  # browser UI only at http://localhost:1423
-pnpm tauri:dev                                            # full native app
-pnpm lint                                                 # ESLint
-pnpm test:run                                             # vitest (one-shot)
-pnpm build                                                # tsc + vite build
-cargo check --manifest-path src-tauri/Cargo.toml          # Rust quick check
-cargo test  --manifest-path src-tauri/Cargo.toml          # Rust tests
-cargo fmt   --manifest-path src-tauri/Cargo.toml          # Rust format
-cargo clippy --manifest-path src-tauri/Cargo.toml -- -D warnings
+pnpm lint
+pnpm test:run
+pnpm build
+cargo check --manifest-path src-tauri/Cargo.toml
 ```
 
-Before any PR, all of these must be green: `pnpm lint`, `pnpm test:run`, `pnpm build`, `cargo check`.
+也可以直接 `/check`(已封装上面这条流水线)。
 
-## Where to make changes
+Rust 单元测试:`cargo test --manifest-path src-tauri/Cargo.toml`。
+Rust 格式与 lint:`cargo fmt --manifest-path src-tauri/Cargo.toml`、`cargo clippy --manifest-path src-tauri/Cargo.toml -- -D warnings`。
 
-| Goal | Files |
-| --- | --- |
-| Add a new Agent adapter | `src-tauri/src/agents/<name>.rs` + register in `src-tauri/src/agents/mod.rs` (`all_adapters()`, `impl_default_adapter!`) + add profile in `src-tauri/src/agents/profiles.rs`. Simplest reference: `kimi.rs`. |
-| Add a Tauri IPC command | `#[tauri::command]` in `src-tauri/src/commands/`, register in `src-tauri/src/lib.rs` `invoke_handler`, wrap in `src/services/tauriApi.ts`, listen via `src/hooks/useTauri.ts` if event-driven |
-| Add a frontend component | `src/components/{notch|settings|shared|overlay}/`, plain `.css` + BEM, theme via `var(--*)` CSS variables, state via existing Zustand stores in `src/stores/` |
-| Add a translation | `src/i18n/locales/{en,zh,ja,ko,tr}.json` — **all five must be updated together** |
-| Add a theme | `src/themes/` + README theme table + i18n names |
+启动调试:
+- 完整 Tauri 应用:`pnpm tauri:dev`(会先 `cargo build` bridge 二进制,再起 Vite + 原生窗口)
+- 只跑浏览器 UI:`pnpm dev` → http://localhost:1423 / `#settings`
 
-Detailed extension recipes: see [`.claude/CLAUDE.md`](.claude/CLAUDE.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md).
+---
 
-## Branching & commits
+## 5. 提交与分支
 
-- Branch off `dev`. **PRs target `dev`**, not `main`.
-- [Conventional Commits](https://www.conventionalcommits.org/): `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`.
-- Do NOT bump version numbers in PRs. Versions are kept in sync by maintainers across four files (`package.json`, `src-tauri/tauri.conf.json`, `src-tauri/Cargo.toml`, `Cargo.lock`); `pnpm release:check` validates this.
+- **PR 提到 `dev` 分支**,不是 `main`。`dev` 是集成分支,`main` 是 release 分支。
+- 提交信息走 [Conventional Commits](https://www.conventionalcommits.org/):`feat:`、`fix:`、`docs:`、`refactor:`、`test:`、`chore:`。
+- 不要在 PR 里 bump 版本号。版本号统一由 maintainer 在出 release 时更新,**且要四处同步**:
+  - `package.json` 的 `version`
+  - `src-tauri/tauri.conf.json` 的 `version`
+  - `src-tauri/Cargo.toml` 的 `[package].version`
+  - `src-tauri/Cargo.lock` 里 `agentbro` 条目
+  - `pnpm release:check` 会校验这四处一致。
+- **不要** 跳 hooks(`--no-verify`)、不要 force-push 别人的分支、不要改 `.github/workflows/release.yml` 除非你跟 maintainer 对齐过。
 
-## Do NOT touch
+---
 
-- Brand assets: `public/agentbro-*.{png,jpg}`, `docs/brand/`, `src-tauri/icons/`
-- Legal / trademark: `LICENSE`, `NOTICE`, `TRADEMARKS.md`
-- Signing / release: `src-tauri/Entitlements.plist`, any `*.key`/`*.p12`/`*.pem`/`*.mobileprovision`, `.github/workflows/release.yml`, `homebrew/`
-- Generated: `src-tauri/target/`, `dist/`, `output/`, `node_modules/`
+## 6. 禁区(不要动)
 
-**Never commit secrets** (`.env`, signing keys, API tokens). `.gitignore` covers the common patterns; double-check before staging.
+以下文件 / 目录 **不要修改、复制或重新生成**,除非用户明确要求:
 
-If you fork and redistribute, you **must rename** the product — see [`TRADEMARKS.md`](TRADEMARKS.md).
+- 品牌资产:`public/agentbro-*.png`、`public/agentbro-*.jpg`、`docs/brand/`、`src-tauri/icons/`
+- 法律文本:`LICENSE`、`NOTICE`、`TRADEMARKS.md`
+- 签名相关:`src-tauri/Entitlements.plist`、所有 `*.key` / `*.p12` / `*.pem` / `*.mobileprovision`
+- Maintainer 发布配置:`.github/workflows/release.yml`、`.github/release-notes.md`、`homebrew/`、`docs/release.md`
+- 已编译产物:`src-tauri/target/`、`dist/`、`output/`
 
-## Code style
+如果你 Fork 后准备分发,**必须改名**,见 [`TRADEMARKS.md`](../TRADEMARKS.md)。Agent 名字保留 "AgentBro" 字样的修改版会引起混淆。
 
-- Default to **no comments**. Only write one when the WHY is non-obvious (hidden constraint, prior bug, surprising behavior). Don't explain WHAT.
-- Don't add features, refactor, or introduce abstractions beyond what the task requires.
-- Frontend: hooks > class components; no `any`; reuse Zustand stores in `src/stores/`.
-- Rust: errors as `Result<T, String>` at the Tauri boundary; `unwrap()` only in tests.
-- No new dependencies without discussing in the issue/PR first — extra Tauri crates inflate the binary noticeably.
+---
 
-## Platform support
+## 7. 代码风格约定
 
-macOS only for now. Windows is on the roadmap but the codebase is not yet abstracted for it — don't `#[cfg(windows)]`-pepper the code preemptively.
+- **默认不写注释。** 只在 WHY 不明显(隐藏约束、历史 bug、反直觉的实现)时写一两行。不要解释 WHAT 已被命名表达的事。
+- 不做未要求的 refactor。bug fix 就只改 bug,不要顺手"清理"周边代码。
+- 不引入新依赖前先在 Issue 或 PR 描述里说明动机。Tauri 端的新 crate 尤其要克制(影响包体积和构建时间)。
+- 前端:hooks 优先,避免 class 组件;props 类型显式声明;不要 `any`。
+- Rust:错误用 `Result<_, String>` 透传到 Tauri 边界;长函数拆成小函数;`unwrap()` 仅限测试。
+- 不要在 PR 里掺杂无关的格式化变更(导致 diff 变大、review 困难)。
+
+---
+
+## 8. 用 AI 协作时的小贴士
+
+- 这份 CLAUDE.md 已经把扩展点位置都标好了,**不要 grep 一通乱猜**,先按这里给的文件路径直接读。
+- 涉及多个 Agent 的改动,优先复用 `profiles.rs` 已有的事件描述符(`BASIC_AGENT_EVENTS`、`SESSION_TOOL_EVENTS`、`CODEBUDDY_EVENTS`、`KIMI_EVENTS`),不要重复定义。
+- 修复 Hook 解析 bug 时,先在对应 `<agent>.rs` 的 `mod tests` 加一个回归测试,再改实现。
+- 改完跑 `/check`,不要把锅推给 CI。
 
 ---
 > Source: [shirenchuang/agentbro](https://github.com/shirenchuang/agentbro) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
