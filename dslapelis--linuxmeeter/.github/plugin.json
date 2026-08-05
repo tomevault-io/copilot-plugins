@@ -1,0 +1,9 @@
+{
+  "name": "dslapelis--linuxmeeter",
+  "displayName": "linuxmeeter",
+  "description": "VoiceMeeter-style virtual audio mixer for Linux, built on PipeWire",
+  "version": "1.0.0",
+  "author": "dslapelis",
+  "homepage": "https://github.com/dslapelis/linuxmeeter",
+  "skills": []
+}
