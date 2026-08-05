@@ -1,16 +1,15 @@
 # factory-factory
 
-> Source: [purplefish-ai/factory-factory](https://github.com/purplefish-ai/factory-factory). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [purplefish-ai/factory-factory](https://github.com/purplefish-ai/factory-factory). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [purplefish-ai/factory-factory](https://github.com/purplefish-ai/factory-factory).
+Original source: `AGENTS.md` in [purplefish-ai/factory-factory](https://github.com/purplefish-ai/factory-factory).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
