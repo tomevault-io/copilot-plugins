@@ -1,0 +1,9 @@
+{
+  "name": "suruicd-ux--ai-agent-config",
+  "displayName": "ai-agent-config",
+  "description": "Codex\u5168\u5c40AGENT\u6a21\u677f",
+  "version": "1.0.0",
+  "author": "suruicd-ux",
+  "homepage": "https://github.com/suruicd-ux/ai-agent-config",
+  "skills": []
+}
