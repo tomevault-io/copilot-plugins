@@ -4,7 +4,7 @@
   "repo": "classifast",
   "description": "(Almost) instant and highly accurate classification according to standards. Easily find codes for UNSPSC, NAICS, ISIC, ETIM, HS/CN, etc.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DmitryMatv/classifast",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T13:02:45Z"
+  "distributed_at": "2026-08-05T22:02:33Z"
 }
