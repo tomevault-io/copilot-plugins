@@ -1,0 +1,9 @@
+{
+  "name": "jupyterlab--jupyter-ai",
+  "displayName": "jupyter-ai",
+  "description": "jupyter-ai",
+  "version": "1.0.0",
+  "author": "jupyterlab",
+  "homepage": "https://github.com/jupyterlab/jupyter-ai",
+  "skills": []
+}
