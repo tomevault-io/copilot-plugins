@@ -1,0 +1,9 @@
+{
+  "name": "catalinbalut--deep-candidate-agent",
+  "displayName": "deep-candidate-agent",
+  "description": "DeepCandidate is a local-first, open-source AI career memory and job application agent. It turns a candidate's real CVs, project notes, career stories, and application answers into source-grounded evi",
+  "version": "1.0.0",
+  "author": "CatalinBalut",
+  "homepage": "https://github.com/CatalinBalut/deep-candidate-agent",
+  "skills": []
+}
