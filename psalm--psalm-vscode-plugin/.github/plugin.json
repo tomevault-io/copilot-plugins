@@ -1,0 +1,9 @@
+{
+  "name": "psalm--psalm-vscode-plugin",
+  "displayName": "psalm-vscode-plugin",
+  "description": "psalm-vscode-plugin",
+  "version": "1.0.0",
+  "author": "psalm",
+  "homepage": "https://github.com/psalm/psalm-vscode-plugin",
+  "skills": []
+}
