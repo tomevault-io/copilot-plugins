@@ -1,0 +1,9 @@
+{
+  "name": "gvastethecreator--codex-studio",
+  "displayName": "codex-studio",
+  "description": "Image Generation workspace using Codex as the main orchestrator.",
+  "version": "1.0.0",
+  "author": "gvastethecreator",
+  "homepage": "https://github.com/gvastethecreator/codex-studio",
+  "skills": []
+}
