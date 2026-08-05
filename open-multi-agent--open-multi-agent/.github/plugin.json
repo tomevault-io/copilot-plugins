@@ -1,7 +1,7 @@
 {
   "name": "open-multi-agent--open-multi-agent",
   "displayName": "open-multi-agent",
-  "description": "From a goal to a task DAG, automatically. TypeScript-native multi-agent orchestration with MCP and live tracing. Three runtime dependencies.",
+  "description": "open-multi-agent",
   "version": "1.0.0",
   "author": "open-multi-agent",
   "homepage": "https://github.com/open-multi-agent/open-multi-agent",
