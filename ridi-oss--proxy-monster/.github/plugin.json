@@ -1,0 +1,9 @@
+{
+  "name": "ridi-oss--proxy-monster",
+  "displayName": "proxy-monster",
+  "description": "Self-hosted database access-control proxy for MySQL and PostgreSQL: lineage-aware column masking, Cedar policy, fail-closed deny, tamper-evident audit trail.",
+  "version": "1.0.0",
+  "author": "ridi-oss",
+  "homepage": "https://github.com/ridi-oss/proxy-monster",
+  "skills": []
+}
