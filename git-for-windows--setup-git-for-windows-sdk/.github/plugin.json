@@ -1,0 +1,9 @@
+{
+  "name": "git-for-windows--setup-git-for-windows-sdk",
+  "displayName": "setup-git-for-windows-sdk",
+  "description": "setup-git-for-windows-sdk",
+  "version": "1.0.0",
+  "author": "git-for-windows",
+  "homepage": "https://github.com/git-for-windows/setup-git-for-windows-sdk",
+  "skills": []
+}
