@@ -1,23 +1,28 @@
 # eGEOagents
 
-> Source: [mverab/eGEOagents](https://github.com/mverab/eGEOagents) — distributed by [TomeVault](https://tomevault.io)
-
-Generative Engine Optimization skills for AI agents. Optimize content for ChatGPT, Perplexity, Claude, and Gemini.
+> Source: [mverab/eGEOagents](https://github.com/mverab/eGEOagents). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mverab/eGEOagents](https://github.com/mverab/eGEOagents).
+Original source: `AGENTS.md` in [mverab/eGEOagents](https://github.com/mverab/eGEOagents).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [mverab/eGEOagents](https://github.com/mverab/eGEOagents) — a repo with 99+ stars on GitHub.
+## Bundled Skills (4)
+
+- [eGEOagents](https://github.com/mverab/eGEOagents/tree/main/.claude/skills/content-scoring/SKILL.md)
+- [eGEOagents](https://github.com/mverab/eGEOagents/tree/main/.claude/skills/schema-generator/SKILL.md)
+- [eGEOagents](https://github.com/mverab/eGEOagents/tree/main/.claude/skills/validation-doctor/SKILL.md)
+- [eGEOagents](https://github.com/mverab/eGEOagents/tree/main/.claude/skills/competitive-analysis/SKILL.md)
+
+From [mverab/eGEOagents](https://github.com/mverab/eGEOagents) — a repo with 0+ stars on GitHub.
 
 ---
 
