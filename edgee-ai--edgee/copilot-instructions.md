@@ -1,20 +1,16 @@
 ## edgee
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Edgee is an **Agent Gateway** written in Rust. It sits between coding agents (Claude Code, CodeBuddy, Codex, OpenCode, Cursor, GitHub Copilot — more coming) or any llm client and LLM providers (Anthropic, OpenAI) and compresses token-heavy traffic on the fly. **This repository ships the `edgee` CLI (launch agents through Edgee, auth, stats, local relay for GUI apps)**.
 
 ## What this repo is
 
-Edgee is an **open-source AI Gateway** written in Rust. It sits between coding agents (Claude Code, Codex, OpenCode — Cursor and OpenClaw coming soon) or any llm client and LLM providers (Anthropic, OpenAI) and compresses token-heavy traffic on the fly. A hosted / edge version of the same gateway is available at [`www.edgee.ai`](https://www.edgee.ai); **this repository is the OSS core** you can self-host.
 
-The distinguishing feature is the compression engine. Today it ships a single technique — **tool-results compression** — but the architecture is explicitly designed to host **multiple composable techniques** that a developer selects and combines per request. When extending compression, add a new technique alongside the existing ones rather than threading a new code path through the provider dispatch layer.
+Edgee is an **Agent Gateway** written in Rust. It sits between coding agents (Claude Code, CodeBuddy, Codex, OpenCode, Cursor, GitHub Copilot — more coming) or any llm client and LLM providers (Anthropic, OpenAI) and compresses token-heavy traffic on the fly. **This repository ships the `edgee` CLI (launch agents through Edgee, auth, stats, local relay for GUI apps)**.
+
 
 **Verify correct installation:**
 ```bash
-edgee --version  # Should show "edgee 0.2.2" (or newer)
+edgee --version  # Should show "edgee 0.2.12" (or newer)
 edgee stats      # Should show token savings stats (NOT "command not found")
 ```
 
@@ -24,12 +20,14 @@ If `edgee stats` fails, you have the wrong package installed.
 
 Entry point: `crates/cli/src/main.rs`. Subcommands declared in `crates/cli/src/commands/mod.rs`:
 
-- `edgee launch {claude|codex|opencode}` — launches the agent with `ANTHROPIC_BASE_URL` and custom headers pointing at the local gateway. Implementation per agent under `crates/cli/src/commands/launch/`.
+- `edgee launch {claude|codebuddy|codex|opencode|crush|cursor|copilot}` — launches a coding agent or app through Edgee. CLI agents get gateway env/headers; app targets (`cursor`, `copilot`) use the hidden relay. Naming rules: [`crates/cli/src/commands/launch/README.md`](crates/cli/src/commands/launch/README.md). Implementation per target under `crates/cli/src/commands/launch/`.
 - `edgee auth {login|status|list|switch}` — OAuth-style flow against the Edgee console. See `crates/cli/src/api.rs` and `crates/cli/src/commands/auth/`.
+- `edgee settings` — configures compression, fallback, and reroute settings for a coding-agent key against the console API.
 - `edgee stats` (visible alias `report`) — prints session token counts and compression savings.
-- `edgee alias` — installs shell aliases for quick access.
+- `edgee statusline` — renders/manages the Claude Code statusline integration (see README.md's Statusline section for the install/doctor/fix flow).
+- `edgee alias` — installs CLI PATH shims/shell aliases and desktop app wrappers (`cursor`, `copilot-vscode`) when the host app is installed.
 - `edgee reset` — clears credentials.
-- `edgee self-update` — compiled in only under the `self-update` feature.
+- `edgee update` — compiled in only under the `self-update` feature.
 
 Global flag: `-p/--profile` overrides the active profile.
 
@@ -69,68 +67,24 @@ cargo deb                     # DEB package (needs cargo-deb)
 cargo generate-rpm            # RPM package (needs cargo-generate-rpm, after release build)
 ```
 
+## Code conventions
+
+- **Edition**: the workspace targets Rust edition 2024. `crates/cli` is still pinned to 2021 — check a crate's own `Cargo.toml` before relying on 2024-only syntax there.
+- **Dependency versions**: pinned once in the root `Cargo.toml`'s `[workspace.dependencies]`; every crate references them as `dep.workspace = true` (or `{ workspace = true, features = [...] }` to opt into extra features). Add a new dependency to the workspace table first — never as a version pin inside a crate's own `Cargo.toml`.
+- **`use` statement grouping**: order imports in blank-line-separated blocks:
+  1. `std::...`
+  2. external crates (crates.io dependencies)
+  3. internal (`crate::...`, `super::...`)
+
+  Apply the three-block grouping to new and edited code going forward.
+
 ## Workspace layout
 
 Cargo workspace (resolver 3), members under `crates/`:
 
 | Crate | Path | Purpose |
 |---|---|---|
-| `edgee-cli` | `crates/cli` | The `edgee` binary. Launches coding agents, manages auth / profiles / session stats. |
-| `edgee-ai-gateway-core` | `crates/gateway-core` | Canonical request/response types, `Provider` trait, passthrough services, `ProviderDispatchService`. No hard tokio/reqwest dependency — runs on WASM/Fastly too. |
-| `edgee-compressor` | `crates/compressor` | Pure compression library. Per-tool and per-bash-command strategies. No I/O. |
-| `edgee-compression-layer` | `crates/compression-layer` | Tower `Layer` / `Service` that applies `edgee-compressor` to in-flight requests. |
-
-
-## Architecture — request flow
-
-The gateway is a Tower `Service` chain:
-
-```text
-CompletionRequest
-      │
-      v
-┌──────────────────────┐
-│  [User layers]       │  ← Any tower::Layer (compression, logging, …)
-└──────┬───────────────┘
-       │
-       v
-┌──────────────────────┐
-│  ProviderDispatch    │  ← Service<CompletionRequest>
-│  Service             │
-└──────────────────────┘
-       │
-       v
- GatewayResponse
-```
-
-The canonical format is OpenAI-Chat-Completions-compatible. `ProviderDispatchService` is intended to translate that into each provider's native format — **today it is a stub** (`crates/gateway-core/src/service.rs:65-71` returns `"not yet implemented"`).
-
-The working path today is **passthrough**: provider-native bodies are forwarded without translation. Two passthrough services:
-
-- `AnthropicPassthroughService` — `POST /v1/messages` (`crates/gateway-core/src/passthrough/anthropic.rs`)
-- `OpenAIPassthroughService` — `POST /v1/responses` (`crates/gateway-core/src/passthrough/openai.rs`)
-
-Both strip hop-by-hop and gateway-internal headers before forwarding. The HTTP backend is abstracted behind `HttpClient` (`crates/gateway-core/src/backend/http.rs`); enable the `tokio` feature to get `ReqwestHttpClient`, or implement `HttpClient` yourself for a different runtime.
-
-## Token compression — current state & roadmap
-
-### Today: tool-results compression
-
-Entry point: `compress_tool_output(tool_name, arguments, output)` in `crates/compressor/src/lib.rs:32-35`. It looks up a per-tool compressor and applies it, preserving `<system-reminder>` blocks verbatim via `compress_claude_tool_with_segment_protection` (`crates/compressor/src/util.rs`).
-
-Strategies live under `crates/compressor/src/strategy/`:
-
-- `claude/` — Claude Code tools: `Bash`, `Read`, `Grep`, `Glob`.
-- `codex/` — Codex CLI tools.
-- `opencode/` — OpenCode tools.
-- `bash/` — per-command bash output compressors: `ls`, `find`, `tree`, `grep`, `rg`, `cargo`, `npm`, `tsc`, `eslint`, `pytest`, `diff`, `docker`, `env`, `curl`, `go`, `psql`.
-
-Each compressor implements the `ToolCompressor` trait (`crates/compressor/src/strategy/mod.rs`). Bash sub-compressors implement `BashCompressor`; the `Bash` tool compressor parses out the command and dispatches.
-
-Agent-specific tool naming is selected by `AgentType` in `crates/compression-layer/src/config.rs` — `Claude` (PascalCase tool names), `Codex` (e.g. `shell_command`, `read_file`), or `OpenCode` (lowercase).
-
-The Tower integration lives in `crates/compression-layer/src/{layer.rs,service.rs}`: `CompressionLayer` wraps any `Service<CompletionRequest>`, `CompressionService` intercepts requests, mutates them in-place via `compress.rs`, and forwards to the inner service.
-
+| `edgee-cli` | `crates/cli` | The `edgee` binary. Launches coding agents, manages auth / profiles / session stats, local MITM relay for GUI apps. |
 
 ## Build Verification (Mandatory)
 
@@ -185,4 +139,4 @@ When user provides a numbered plan (QW1-QW4, Phase 1-5, sprint tasks, etc.):
 
 ---
 > Source: [edgee-ai/edgee](https://github.com/edgee-ai/edgee) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
