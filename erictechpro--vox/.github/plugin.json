@@ -1,0 +1,9 @@
+{
+  "name": "erictechpro--vox",
+  "displayName": "vox",
+  "description": "One command from a topic to a finished narrated motion-graphics explainer video. Runs on the Higgsfield CLI.",
+  "version": "1.0.0",
+  "author": "EricTechPro",
+  "homepage": "https://github.com/EricTechPro/vox",
+  "skills": []
+}
