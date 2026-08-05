@@ -7,11 +7,11 @@ A macOS menu bar app that puts Claude Code right in your MacBook's notch. Commun
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [bones7456/notchy](https://github.com/bones7456/notchy).
+Original source: `AGENTS.md` in [bones7456/notchy](https://github.com/bones7456/notchy).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
