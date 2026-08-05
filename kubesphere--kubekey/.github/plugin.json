@@ -1,0 +1,9 @@
+{
+  "name": "kubesphere--kubekey",
+  "displayName": "kubekey",
+  "description": "kubekey",
+  "version": "1.0.0",
+  "author": "kubesphere",
+  "homepage": "https://github.com/kubesphere/kubekey",
+  "skills": []
+}
