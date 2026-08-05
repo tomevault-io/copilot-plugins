@@ -1,0 +1,9 @@
+{
+  "name": "jdeveloperweb--archstudio",
+  "displayName": "archstudio",
+  "description": "Editor de diagramas de arquitetura em um unico arquivo HTML. Sem build, sem dependencias, sem conta.",
+  "version": "1.0.0",
+  "author": "jdeveloperweb",
+  "homepage": "https://github.com/jdeveloperweb/archstudio",
+  "skills": []
+}
