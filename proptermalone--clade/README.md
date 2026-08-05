@@ -7,11 +7,11 @@ Your own contact rolodex, built from the data exports the big platforms already 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [PropterMalone/clade](https://github.com/PropterMalone/clade).
+Original source: `AGENTS.md` in [PropterMalone/clade](https://github.com/PropterMalone/clade).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
