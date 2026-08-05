@@ -4,7 +4,7 @@
   "repo": "Mutil-Rag-Agent",
   "description": "An improved multi-agent AIOps and RAG platform for OnCall troubleshooting, featuring LangGraph-based diagnosis workflows, Milvus vector search, MCP tool integration, Prometheus alert knowledge from awesome-prometheus-alerts, and sanitized configuration for safe public deployment.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Kkkirito-123/Mutil-Rag-Agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T08:14:50Z"
+  "distributed_at": "2026-08-05T17:38:39Z"
 }
