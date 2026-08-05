@@ -4,7 +4,7 @@
   "repo": "beets-web-manager",
   "description": "Self-hosted Beets music library manager with import review, playlist repair, cleanup jobs, and metadata verification.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Iranman/beets-web-manager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T17:05:34Z"
+  "distributed_at": "2026-08-05T15:31:34Z"
 }
