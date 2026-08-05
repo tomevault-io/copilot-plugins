@@ -1,0 +1,44 @@
+{
+  "name": "grok-app",
+  "owner": "RongleCat",
+  "repo": "grok-app",
+  "description": "Desktop workbench for Grok Build CLI \u2014 sessions, projects, media, automations (Tauri 2 \u00b7 unofficial)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/RongleCat/grok-app",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-05T19:58:45Z"
+}
