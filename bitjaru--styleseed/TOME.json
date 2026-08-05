@@ -4,7 +4,7 @@
   "repo": "styleseed",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -167,5 +167,5 @@
   ],
   "source_url": "https://github.com/bitjaru/styleseed",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T11:37:38Z"
+  "distributed_at": "2026-08-05T09:06:20Z"
 }
