@@ -4,7 +4,7 @@
   "repo": "oh-my-grok",
   "description": "OMC-style multi-agent orchestration for Grok Build: plugin + omg CLI (ulw/ralph/ralplan)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ImL1s/oh-my-grok",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T12:44:22Z"
+  "distributed_at": "2026-08-05T21:48:42Z"
 }
