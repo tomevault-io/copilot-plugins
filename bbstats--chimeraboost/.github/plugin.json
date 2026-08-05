@@ -1,0 +1,9 @@
+{
+  "name": "bbstats--chimeraboost",
+  "displayName": "chimeraboost",
+  "description": "A Python-backend gradient boosting library",
+  "version": "1.0.0",
+  "author": "bbstats",
+  "homepage": "https://github.com/bbstats/chimeraboost",
+  "skills": []
+}
