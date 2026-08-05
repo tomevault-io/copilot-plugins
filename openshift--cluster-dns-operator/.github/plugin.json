@@ -1,0 +1,9 @@
+{
+  "name": "openshift--cluster-dns-operator",
+  "displayName": "cluster-dns-operator",
+  "description": "cluster-dns-operator",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/cluster-dns-operator",
+  "skills": []
+}
