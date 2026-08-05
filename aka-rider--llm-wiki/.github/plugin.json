@@ -1,0 +1,9 @@
+{
+  "name": "aka-rider--llm-wiki",
+  "displayName": "llm-wiki",
+  "description": "Fully automated llm-wiki for local Qwen3.6-27B or better",
+  "version": "1.0.0",
+  "author": "aka-rider",
+  "homepage": "https://github.com/aka-rider/llm-wiki",
+  "skills": []
+}
