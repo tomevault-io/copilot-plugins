@@ -2,9 +2,9 @@
   "name": "remote-factory",
   "owner": "akashgit",
   "repo": "remote-factory",
-  "description": "Domain-agnostic multi-agent software design and evolution harness",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/akashgit/remote-factory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T21:19:19Z"
+  "distributed_at": "2026-08-05T02:45:35Z"
 }
