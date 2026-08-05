@@ -1,0 +1,9 @@
+{
+  "name": "nether403--spritegamegen",
+  "displayName": "SpriteGameGen",
+  "description": "AI Sprite & Game Asset Tool with its own local MCP server and Agent skills",
+  "version": "1.0.0",
+  "author": "Nether403",
+  "homepage": "https://github.com/Nether403/SpriteGameGen",
+  "skills": []
+}
