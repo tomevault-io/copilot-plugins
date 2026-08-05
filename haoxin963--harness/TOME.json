@@ -4,7 +4,7 @@
   "repo": "Harness",
   "description": "\u8fd9\u662f\u4e00\u4e2a\u9762\u5411\u524d\u7aef\u9879\u76ee\u7684 Harness Engineering \u6700\u4f73\u5b9e\u8df5\u6837\u677f\uff1a\u7528\u6e05\u6670\u7684\u67b6\u6784\u3001\u53ef\u6267\u884c\u7684\u89c4\u5219\u3001\u9636\u6bb5\u5316 Skill\u3001\u6301\u4e45\u5316\u53d8\u66f4\u8bb0\u5f55\u548c\u8d28\u91cf\u95e8\u7981\uff0c\u628a AI \u7f16\u7801\u4ece\u201c\u5355\u6b21\u5bf9\u8bdd\u6280\u5de7\u201d\u5347\u7ea7\u4e3a\u201c\u53ef\u590d\u7528\u7684\u5de5\u7a0b\u7cfb\u7edf\u201d\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/haoxin963/Harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T07:54:01Z"
+  "distributed_at": "2026-08-05T16:24:28Z"
 }
