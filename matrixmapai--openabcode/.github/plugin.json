@@ -1,0 +1,9 @@
+{
+  "name": "matrixmapai--openabcode",
+  "displayName": "openabcode",
+  "description": "OpenABCode is an LLM-routing coding agent that dynamically routes tasks to the best-suited models",
+  "version": "1.0.0",
+  "author": "matrixmapai",
+  "homepage": "https://github.com/matrixmapai/openabcode",
+  "skills": []
+}
