@@ -4,7 +4,7 @@
   "repo": "Velith",
   "description": "AI-native publishing system \u2014 build books like software. 6-phase pipeline from blank page to EPUB/PDF, with 16 skills, 7 agents, and 8 genre templates. Claude Code plugin.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/epicsagas/Velith",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T02:39:08Z"
+  "distributed_at": "2026-08-05T22:17:55Z"
 }
