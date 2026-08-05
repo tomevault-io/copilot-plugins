@@ -1,17 +1,17 @@
 # self-llm-wiki
 
-> Source: [tongtong050/self-llm-wiki](https://github.com/tongtong050/self-llm-wiki). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [tongtong050/self-llm-wiki](https://github.com/tongtong050/self-llm-wiki). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 通用个人知识库 vault，配合 cognition-hub Obsidian 插件与 Claude Code Agent 工作流，构成完整的认知生产管线。
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tongtong050/self-llm-wiki](https://github.com/tongtong050/self-llm-wiki).
+Original source: `AGENTS.md` in [tongtong050/self-llm-wiki](https://github.com/tongtong050/self-llm-wiki).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
