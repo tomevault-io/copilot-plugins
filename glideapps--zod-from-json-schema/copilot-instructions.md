@@ -39,4 +39,4 @@ For release process, see RELEASE.md
 
 ---
 > Source: [glideapps/zod-from-json-schema](https://github.com/glideapps/zod-from-json-schema) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
