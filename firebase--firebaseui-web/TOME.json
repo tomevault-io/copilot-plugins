@@ -4,7 +4,7 @@
   "repo": "firebaseui-web",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/firebase/firebaseui-web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T19:05:04Z"
+  "distributed_at": "2026-08-05T10:44:34Z"
 }
