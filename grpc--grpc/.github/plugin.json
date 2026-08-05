@@ -1,0 +1,9 @@
+{
+  "name": "grpc--grpc",
+  "displayName": "grpc",
+  "description": "grpc",
+  "version": "1.0.0",
+  "author": "grpc",
+  "homepage": "https://github.com/grpc/grpc",
+  "skills": []
+}
