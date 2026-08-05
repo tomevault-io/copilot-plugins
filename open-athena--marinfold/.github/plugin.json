@@ -1,0 +1,9 @@
+{
+  "name": "open-athena--marinfold",
+  "displayName": "MarinFold",
+  "description": "Protein structure via next token prediction",
+  "version": "1.0.0",
+  "author": "Open-Athena",
+  "homepage": "https://github.com/Open-Athena/MarinFold",
+  "skills": []
+}
