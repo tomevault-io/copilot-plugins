@@ -1,0 +1,9 @@
+{
+  "name": "null0xxx--kimi-atlas",
+  "displayName": "kimi-atlas",
+  "description": "Many-agent, quality-calibrated orchestrator for Kimi Code with 115 vendored official skill packages \u2014 a first-class agentic backbone (live ContextGraph, explicit state machine, forward-only rollback) ",
+  "version": "1.0.0",
+  "author": "null0xxx",
+  "homepage": "https://github.com/null0xxx/kimi-atlas",
+  "skills": []
+}
