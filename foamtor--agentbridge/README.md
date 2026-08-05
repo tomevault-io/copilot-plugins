@@ -7,13 +7,13 @@ AgentBridge is a self-hosted, AI-readable foundation for Vibe Coding business to
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Foamtor/AgentBridge](https://github.com/Foamtor/AgentBridge).
+Original source: `CLAUDE.md` in [Foamtor/AgentBridge](https://github.com/Foamtor/AgentBridge).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
