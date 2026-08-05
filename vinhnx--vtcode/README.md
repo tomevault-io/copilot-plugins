@@ -15,12 +15,11 @@ Original source: `AGENTS.md` in [vinhnx/vtcode](https://github.com/vinhnx/vtcode
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
+## Bundled Skills (1)
 
-- [skill-creator](https://github.com/vinhnx/vtcode/tree/main/vtcode-core/src/skills/assets/samples/skill-creator)
-- [skill-installer](https://github.com/vinhnx/vtcode/tree/main/vtcode-core/src/skills/assets/samples/skill-installer)
+- [vtchat](https://github.com/vinhnx/vtcode/tree/main/.opencode/skills/codemod/SKILL.md)
 
-From [vinhnx/vtcode](https://github.com/vinhnx/vtcode) — a repo with 764+ stars on GitHub.
+From [vinhnx/vtcode](https://github.com/vinhnx/vtcode) — a repo with 0+ stars on GitHub.
 
 ---
 
