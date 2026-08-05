@@ -1,0 +1,9 @@
+{
+  "name": "jellydn--pi-qwencloud-provider",
+  "displayName": "pi-qwencloud-provider",
+  "description": "QwenCloud provider for pi \u2014 Qwen3.8, DeepSeek V4, GLM-5.2, Wan image, HappyHorse video via OpenAI-compatible API",
+  "version": "1.0.0",
+  "author": "jellydn",
+  "homepage": "https://github.com/jellydn/pi-qwencloud-provider",
+  "skills": []
+}
