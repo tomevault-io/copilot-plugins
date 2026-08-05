@@ -2,7 +2,7 @@
   "name": "openclaw-project-webos",
   "owner": "pgedeon",
   "repo": "openclaw-project-webos",
-  "description": "OpenClaw Desktop \u2014 WebOS-style project management dashboard with native kanban board, Gantt timeline, activity feed, and workflow runbooks",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pgedeon/openclaw-project-webos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T13:10:44Z"
+  "distributed_at": "2026-08-05T01:39:29Z"
 }
