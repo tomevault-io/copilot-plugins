@@ -1,0 +1,9 @@
+{
+  "name": "jyjeanne--okf-rs",
+  "displayName": "okf-rs",
+  "description": "A fast, open-source Rust toolkit for generating, validating and serving Open Knowledge Format (OKF) knowledge bases from source code.",
+  "version": "1.0.0",
+  "author": "jyjeanne",
+  "homepage": "https://github.com/jyjeanne/okf-rs",
+  "skills": []
+}
