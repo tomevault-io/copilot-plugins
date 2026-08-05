@@ -1,0 +1,9 @@
+{
+  "name": "zapier--wade-skills",
+  "displayName": "wade-skills",
+  "description": "The most frequently used agent skills of Wade Foster, CEO of Zapier",
+  "version": "1.0.0",
+  "author": "zapier",
+  "homepage": "https://github.com/zapier/wade-skills",
+  "skills": []
+}
