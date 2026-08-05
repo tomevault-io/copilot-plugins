@@ -1,0 +1,9 @@
+{
+  "name": "apache--fineract",
+  "displayName": "fineract",
+  "description": "fineract",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/fineract",
+  "skills": []
+}
