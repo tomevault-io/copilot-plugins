@@ -1,0 +1,9 @@
+{
+  "name": "swnotmetal--project-koma",
+  "displayName": "Project-Koma",
+  "description": "AI firewall for Node.js & TypeScript. Stop prompt injection, audio hallucinations, and RAG data scraping. Zero dependencies. MIT",
+  "version": "1.0.0",
+  "author": "swnotmetal",
+  "homepage": "https://github.com/swnotmetal/Project-Koma",
+  "skills": []
+}
