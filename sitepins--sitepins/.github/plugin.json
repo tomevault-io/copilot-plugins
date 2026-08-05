@@ -1,0 +1,9 @@
+{
+  "name": "sitepins--sitepins",
+  "displayName": "sitepins",
+  "description": "The open-source Git-based headless CMS you've been looking for. Connect your Git repo and start editing. No manual config or schema setup.",
+  "version": "1.0.0",
+  "author": "sitepins",
+  "homepage": "https://github.com/sitepins/sitepins",
+  "skills": []
+}
