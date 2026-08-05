@@ -1,0 +1,9 @@
+{
+  "name": "qiskit-community--quantum-challenge-grader",
+  "displayName": "Quantum-Challenge-Grader",
+  "description": "Quantum-Challenge-Grader",
+  "version": "1.0.0",
+  "author": "qiskit-community",
+  "homepage": "https://github.com/qiskit-community/Quantum-Challenge-Grader",
+  "skills": []
+}
