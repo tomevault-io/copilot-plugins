@@ -1,0 +1,9 @@
+{
+  "name": "morluto--leantoken",
+  "displayName": "leantoken",
+  "description": "CLI + MCP to cut token costs for coding agents through context engineering. Indexes your code so agents see only what they need.",
+  "version": "1.0.0",
+  "author": "morluto",
+  "homepage": "https://github.com/morluto/leantoken",
+  "skills": []
+}
