@@ -1,0 +1,9 @@
+{
+  "name": "linutronix--rtc-testbench",
+  "displayName": "RTC-Testbench",
+  "description": "RTC-Testbench",
+  "version": "1.0.0",
+  "author": "Linutronix",
+  "homepage": "https://github.com/Linutronix/RTC-Testbench",
+  "skills": []
+}
