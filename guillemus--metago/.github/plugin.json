@@ -1,0 +1,9 @@
+{
+  "name": "guillemus--metago",
+  "displayName": "metago",
+  "description": "template based metaprogramming for golang",
+  "version": "1.0.0",
+  "author": "guillemus",
+  "homepage": "https://github.com/guillemus/metago",
+  "skills": []
+}
