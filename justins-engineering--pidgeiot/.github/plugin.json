@@ -1,0 +1,9 @@
+{
+  "name": "justins-engineering--pidgeiot",
+  "displayName": "pidgeiot",
+  "description": "An open-source, edge-native IoT platform built in 100% Rust. Combining Cloudflare Workers performance with self-hosted data sovereignty.",
+  "version": "1.0.0",
+  "author": "justins-engineering",
+  "homepage": "https://github.com/justins-engineering/pidgeiot",
+  "skills": []
+}
