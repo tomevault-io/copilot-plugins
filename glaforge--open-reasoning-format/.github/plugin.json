@@ -1,0 +1,9 @@
+{
+  "name": "glaforge--open-reasoning-format",
+  "displayName": "open-reasoning-format",
+  "description": "File-based memory and experience retrieval architecture for AI agents, enabling progressive disclosure of playbooks, heuristics, and traps without vector DBs.",
+  "version": "1.0.0",
+  "author": "glaforge",
+  "homepage": "https://github.com/glaforge/open-reasoning-format",
+  "skills": []
+}
