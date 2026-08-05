@@ -4,7 +4,7 @@
   "repo": "shannon-prover",
   "description": "LLM agents that write machine-checked cryptographic proofs in EasyCrypt (arXiv:2607.02847)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SkyShannonProver/shannon-prover",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T04:39:08Z"
+  "distributed_at": "2026-08-05T15:41:54Z"
 }
