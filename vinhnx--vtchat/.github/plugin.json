@@ -1,9 +1,14 @@
 {
   "name": "vinhnx--vtchat",
   "displayName": "vtchat",
-  "description": "VT Chat - A modern, privacy-first AI chat application with security",
+  "description": "vtchat",
   "version": "1.0.0",
   "author": "vinhnx",
   "homepage": "https://github.com/vinhnx/vtchat",
-  "skills": []
+  "skills": [
+    {
+      "name": "vtchat",
+      "description": ""
+    }
+  ]
 }
