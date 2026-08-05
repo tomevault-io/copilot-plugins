@@ -1,0 +1,9 @@
+{
+  "name": "trustbound--dream-test",
+  "displayName": "dream_test",
+  "description": "A testing framework for Gleam that gets out of your way.",
+  "version": "1.0.0",
+  "author": "TrustBound",
+  "homepage": "https://github.com/TrustBound/dream_test",
+  "skills": []
+}
