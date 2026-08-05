@@ -1,0 +1,9 @@
+{
+  "name": "kritt-ai--open-kritt",
+  "displayName": "open-kritt",
+  "description": "Orchestrate AI agents to find real vulnerabilities in code.",
+  "version": "1.0.0",
+  "author": "Kritt-ai",
+  "homepage": "https://github.com/Kritt-ai/open-kritt",
+  "skills": []
+}
