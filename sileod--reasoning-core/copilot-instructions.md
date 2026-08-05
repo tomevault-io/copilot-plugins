@@ -1,0 +1,20 @@
+## reasoning-core
+
+> - Start with `TASK_AUTHORING_GUIDE.md` before adding or changing tasks. It explains the expected `Task`/`DevTask` shape, canonical answers, scoring, validation, and dataset hygiene.
+
+# Agent Notes
+
+- Start with `TASK_AUTHORING_GUIDE.md` before adding or changing tasks. It explains the expected `Task`/`DevTask` shape, canonical answers, scoring, validation, and dataset hygiene.
+- Use `GALLERY.md` for concrete examples of prompt/answer style. Keep new tasks similarly short, unambiguous, and easy to score.
+- Prefer `Task` only for stable core datasets. Use `DevTask` for deprecated datasets.
+- `generate()` should return a `Problem`, not `None`. Let retries happen inside generation helpers or raise a clear `RuntimeError` after bounded attempts.
+- Keep answers canonical and compact: booleans, numbers, or exact constrained strings. Avoid asking models to copy long bodies unless the task is explicitly about generation.
+- Do not touch unrelated dirty files. Check `git status --short` first; this repo often has work in progress.
+- `rg` may be unavailable in this environment. Fall back to `find`, `grep`, and `sed`.
+- Task files live in `reasoning_core/tasks/` (not top-level `tasks/`).
+- Avoid traversing `reasoning_core/openenv`, `.venv`, checkpoints, and other generated environments when searching.
+- Keep code concise, favor external libraries when possible.
+
+---
+> Source: [sileod/reasoning-core](https://github.com/sileod/reasoning-core) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
