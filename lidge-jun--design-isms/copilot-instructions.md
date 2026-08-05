@@ -1,0 +1,298 @@
+## design-isms
+
+> 49개 디자인 ism의 시각적 레퍼런스 보드와 94개 프런트엔드 UI 패턴/이펙트 카탈로그, 그리고 4개 자매 카탈로그(Color 25 / Typography 20 / Layout 25 / Motion 20). GitHub Pages 배포.
+
+# AGENTS.md — Design -isms 프로젝트 가이드
+
+## 프로젝트 개요
+49개 디자인 ism의 시각적 레퍼런스 보드와 94개 프런트엔드 UI 패턴/이펙트 카탈로그, 그리고 4개 자매 카탈로그(Color 25 / Typography 20 / Layout 25 / Motion 20). GitHub Pages 배포.
+각 신규 카탈로그는 `assets/data/{color,typography,layout,motion}.json` + `src/{도메인}.ts`(CatalogShell 위 어댑터) + `assets/css/{도메인}.css` + `assets/images/{도메인}/{id}/guide.png` 구조를 따르고, `scripts/verify-catalog.mjs`의 validateDomain 분기와 guide ledger(030/041·042/051/061)가 검증한다.
+- **라이브**: https://lidge-jun.github.io/design-isms/
+- **스택**: 정적 HTML/CSS + TypeScript source → browser JS build
+- **이미지**: ima2 (`gpt-5.6-sol`, reasoning high, 1536x1024, high quality)
+
+## 디렉토리 구조
+```
+701_design-isms/
+├── index.html                    # 메인 페이지
+├── effects.html                  # 모바일/데스크탑 UI 후보군 페이지 (94)
+├── color.html                    # Color Systems 카탈로그 (25)
+├── typography.html               # Typography Pairings 카탈로그 (20)
+├── layout.html                   # Layout Patterns 카탈로그 (25)
+├── motion.html                   # Motion Presets 카탈로그 (20)
+├── AGENTS.md                     # 이 파일
+├── README.md
+├── assets/
+│   ├── css/style.css             # 전체 스타일
+│   ├── css/nav.css               # 공통 상단 메뉴 스타일
+│   ├── css/effects.css           # UX 효과 페이지 전용 스타일
+│   ├── css/effects-docs.css      # 효과별 장문 문서 섹션
+│   ├── css/effects-demos.css     # 초기 공통 UX demo/animation
+│   ├── css/effects-demos-candidates.css # 18개 legacy 비주얼 demo (46 패턴=patterns.css, WP4 신규 30개=effects-demos-expansion-*.css 6파일)
+│   ├── js/app.js                 # 메인 로직 (src/app.ts build 산출물)
+│   ├── js/effects-demos.js       # 효과 demo renderer (src/effects-demos.ts build 산출물)
+│   ├── js/effects-docs.js        # 효과 문서 renderer (src/effects-docs.ts build 산출물)
+│   ├── js/effects.js             # 효과 페이지 로직 (src/effects.ts build 산출물)
+│   ├── data/isms.json            # 핵심 데이터 (49개 ism)
+│   ├── data/effects.json         # 프런트엔드 UI 후보군 데이터
+│   ├── data/effects-docs.json    # 효과별 배경/히스토리/사용 시점 문서
+│   ├── data/research-prompts.json # Grok/ima2 프롬프트 레코드
+│   └── images/
+│       ├── minimalism/           # ism별 폴더
+│       │   ├── landing.png
+│       │   ├── shop.png
+│       │   └── portfolio.png
+│       ├── thumbs/               # WebP thumbnail/preview 산출물
+│       │   ├── minimalism/
+│       │   └── effects/
+│       ├── brutalism/
+│       └── ...                   # 35개 폴더
+├── src/
+│   ├── app.ts
+│   ├── effects-demos.ts
+│   ├── effects-docs.ts
+│   └── effects.ts
+├── structure/
+│   └── README.md                 # 현재 구조와 source-of-truth 요약
+├── devlog/
+│   └── 260510_mobile_ux_effects/ # UI 후보군 phase docs
+├── scripts/
+│   └── update-isms.mjs           # JSON 업데이트 스크립트
+└── .github/workflows/
+    └── deploy.yml                # GitHub Pages 배포
+```
+
+---
+
+## 현재 구현 불변 조건
+
+<!-- data-sot:agents-counts:start -->카탈로그 source-of-truth 카운트: 49 ISMs / 94 effects / 18 FAQ answers.<!-- data-sot:agents-counts:end -->
+
+- README, `AGENTS.md`, `structure/README.md`, `devlog/`의 설명은 실제 구현과 어긋나면 안 된다.
+- 소스는 `src/*.ts`, 브라우저 산출물은 `assets/js/*.js`다. GitHub Pages가 static file을 직접 배포하므로 JS 산출물도 커밋 대상이다.
+- HTML은 non-module script를 사용한다. `effects.html`은 `assets/js/effects-demos.js`를 먼저, `assets/js/effects.js`를 나중에 로드해야 한다.
+- 상단 메뉴는 공개 7페이지(`index.html`, `effects.html`, `faq.html`, `color.html`, `typography.html`, `layout.html`, `motion.html`)에서 `Isms / Catalog / FAQ / GitHub / Lang / Count` 6축을 같은 순서로 유지한다. Catalog 축은 드롭다운(`src/nav-dropdown.ts`)이며 Effects / Color / Typography / Layout / Motion을 담고, 미완성 항목은 `aria-disabled`+"준비 중" 배지다. static HTML이라 공통 컴포넌트가 없으므로 7페이지를 함께 수정하고, `npm run verify:nav`가 축 순서/단일 `aria-current`(카탈로그 페이지는 트리거 소유)/드롭다운 계약/count 라벨/skip link를 검증한다.
+- 페이지 전용 CSS는 inline `<style>`이 아니라 `assets/css/*.css` 파일로 둔다. FAQ는 `assets/data/faq.json` + `src/faq.ts` + `assets/css/faq.css`로 렌더링하며 `faq.html`은 thin entry 문서다.
+- 셸 토큰은 `assets/css/theme-atlas.css`가 소유한다(로드 순서: `style.css` → `theme-atlas.css` → `nav.css` → 페이지 CSS). 셸 UI에 이모지 글리프를 쓰지 않는다(브랜드 마크는 `assets/icons/atlas-mark.svg`).
+- `index.html`은 `assets/js/app-dialog.js`(전역 `AppDialogA11y`)와 `assets/js/app-runtime.js`(전역 `AppRuntime`)를 `assets/js/app.js`보다 먼저 로드해야 한다. `effects.html`, `faq.html`도 페이지 렌더러보다 `app-runtime.js`를 먼저 로드한다.
+- 세 페이지의 안전한 storage/history 접근, loading overlay 종료, 재시도 가능한 치명 오류, 이미지 fallback은 `src/app-runtime.ts`와 `assets/css/runtime-states.css`가 공통 소유한다.
+- `npm run verify`는 파일을 생성하지 않는다. `src/*.ts`를 수정하면 먼저 `npm run build`로 `assets/js/*.js`를 갱신한 뒤 verify를 실행한다.
+- `data-sot:*` 마커는 `scripts/sync-sot.mjs`만 수정한다. `npm run sot:check`는 49/94/18 값을 데이터에서 유도하고, `npm run sot:sync`는 검증된 마커 내부만 원자적으로 갱신한다.
+- 전체 331 PNG/WebP 쌍(211 legacy + 신규 카탈로그 120)의 해시 SoT는 `assets/data/image-pairs-manifest.json`이다. `npm run images:thumbs`가 source/preview SHA와 독립 픽셀 관계(MAE ≤18)를 기준으로 재생성 여부를 결정하고 manifest를 원자 갱신한다.
+- 완성판 이미지 품질 SoT는 `091_image_quality_audit.csv`, `092_image_generation_attempts/`, immutable 093–097 baseline, 그리고 098 final sheet receipt다. `npm run verify:image-quality`는 immutable legacy 211개 슬롯과 catalog-addition 쌍(live hash), 승인된 교체, 프롬프트 provenance, 비대상 byte 안정성을 비생성 방식으로 검증한다.
+- `--bootstrap-manifest`는 감사된 최초 이관 전용이며 기존 manifest가 있으면 거부된다. manifest 누락을 일반 생성으로 재신뢰하지 않는다.
+- 공개 배포 입력은 `npm run pages:stage`가 만드는 `.pages/`뿐이다. `.github/workflows/deploy.yml`은 verify와 stage 이후 `.pages`만 업로드한다.
+- 신규 파일은 500줄 이하를 유지한다. 초과하면 역할별 파일로 분리한다.
+- 커밋/푸시는 사용자가 같은 턴에서 명시적으로 요청한 경우에만 실행한다.
+
+## 메인 ISM 모달 원칙
+
+- 카드 클릭 모달은 구현된 기능이다. `docs/PLAN-popup-detail.md`는 계획/설계 기록이며 현재 상태의 source of truth는 `src/app.ts`, `assets/js/app.js`, README, structure 문서다.
+- 모달 제목 바로 아래에 `history`를 표시한다.
+- 프롬프트는 메인 이미지 1개를 항상 노출하고, 나머지 이미지는 접이식 섹션에 둔다.
+- 예시 사이트는 링크만 사용한다. 썸네일을 추가하지 않는다.
+- 예시 사이트 10개는 처음 3개만 보이고 나머지는 더 보기로 펼친다.
+- 관련 ISM은 JSON에 저장하지 않고 keyword overlap으로 런타임 계산한다.
+- 이미지 preview는 WebP thumbnail을 우선 쓰고, lightbox 확대는 원본 PNG를 사용한다.
+
+## Effects 후보군 원칙
+
+- `effects.html`은 모바일 전용 목록이 아니라 7개 family(Interface Pattern 46 + 비주얼 이펙트 family 6×8)로 구성된 94개 카탈로그다.
+- `assets/data/effects.json`의 각 항목은 `demo.type`을 가져야 하며 값은 해당 effect `id`와 같아야 한다.
+- 긴 배경 설명, 히스토리, 사용 시점, 예시는 `assets/data/effects-docs.json`에 둔다. `effects.json`은 카드/데모/운영 필드 중심으로 작게 유지한다.
+- 효과 문서는 `src/effects-docs.ts`의 `EffectsDocs` namespace로 로드/검증/렌더링하고, `effects.html`에서 `assets/js/effects-docs.js`를 `assets/js/effects.js`보다 먼저 로드한다.
+- `src/effects-demos.ts` registry에는 94개 effect id가 모두 있어야 한다. 새 후보군을 기존 12개 seed animation에 재사용으로 연결하지 않는다.
+- 후보군마다 카드/모달에서 식별 가능한 전용 CSS demo animation을 둔다. 확장 demo 스타일은 `assets/css/effects-demos-candidates.css`에 둔다.
+- guide 원본은 `assets/images/effects/{effect-id}/guide.png`, WebP preview는 `assets/images/thumbs/effects/{effect-id}/guide.webp`다.
+- guide 이미지를 생성/교체하면 `npm run images:thumbs`로 WebP preview를 갱신하고 `npm run verify`를 통과시킨다.
+- guide 재생성은 감사 기록을 남긴다: `devlog/_fin/260715_production_upgrade/031_effect_guide_audit.csv`에 감사 행, `032_effect_guide_manifest.jsonl`에 프롬프트/명령/해시 provenance 행을 추가하고 `npm run images:audit`를 통과시킨다(경로는 `devlog/_fin/260715_production_upgrade/`). 썸네일 파이프라인은 sharp 기반(`--force`, `--scope effects|isms|color|typography|layout|motion|all`)이며 시스템 `cwebp` 의존은 제거됐다.
+- 데스크탑과 모바일 모두에서 카드 수 94개, demo type 94개, horizontal overflow 없음, console error 없음까지 확인해야 완료로 보고한다.
+
+## ISMS 확장 원칙
+
+- 공개 사이트에는 별도 reference/backlog 페이지를 만들지 않는다.
+- ima2로 만든 시각 스타일 후보는 승인되면 `assets/data/isms.json`과 `assets/images/{ism-id}/`에 직접 편입한다.
+- 공식 디자인 시스템 자료는 effects 문서의 참고 링크로만 쓰고, 공개 ISMS 카드나 별도 reference 페이지로 전시하지 않는다.
+- Grok 리서치 프롬프트와 ima2 이미지 프롬프트는 `assets/data/research-prompts.json`과 `devlog/260510_nav_taxonomy_effect_docs/grok_research_prompts.md`에 같이 남긴다.
+- 새 ISM 이미지는 PNG 원본을 보관하고 runtime에서는 `assets/images/thumbs/{ism-id}/*.webp`를 우선 로드한다.
+- ISMS를 늘리면 `assets/data/isms.json`, 이미지 원본, WebP 썸네일, README, AGENTS, structure, devlog를 함께 확인한다.
+- ISM 스키마 확장 필드: `kind`(`style`|`anti-pattern`, 생략 시 style), `sources`(신규 항목은 https 소스 2개 이상), `reviewedOn`(YYYY-MM-DD). `anti-pattern`은 `ai-slop` 하나만 허용되고 추천/관련 ISM에 절대 노출되지 않는다. 카운트 불변 조건은 49 ISMs / 94 effects이며 `npm run verify:isms`가 강제한다.
+- ISM 구현 가이드의 단일 SoT는 `assets/data/dev-guides.json`(`implementation` 블록 포함)이다. `src/app.ts`에 가이드 데이터를 임베드하지 않는다(1050줄 상한).
+
+## ima2 / WebP batch 원칙
+
+- 이미지 생성 전 `ima2 ping`으로 local server와 provider 상태를 확인한다.
+- 현재 확인된 생성 명령은 `ima2 gen --stdin -q high -s 1536x1024 -o <target.png> --json --timeout 300`이다.
+- 여러 job은 deterministic manifest에서 target path를 먼저 확정한 뒤 병렬 실행한다.
+- 생성 후 `npm run images:thumbs`로 WebP preview를 만들고 원본 PNG와 WebP preview 존재 여부를 모두 검증한다.
+- `npm run images:thumbs` 후 `assets/data/image-pairs-manifest.json`의 해당 source/preview SHA가 갱신되었는지 확인한다.
+- runtime grid/card/modal preview는 WebP 우선이다. PNG는 lightbox/source asset 용도다.
+
+---
+
+## 새 ISM 추가하기
+
+### 1단계: 데이터 준비
+`assets/data/isms.json`에 새 항목 추가:
+
+```json
+{
+  "id": "new-ism-id",
+  "name": "New Ism Name",
+  "nameKr": "한국어 이름",
+  "tagline": "One-line English tagline",
+  "description": "2-3문장 한국어 설명. 핵심 시각 특성, 대표 기법, 느낌을 압축.",
+  "history": "역사적 맥락. 탄생 시기, 창시자/대표 인물, 발전 과정, 웹 디자인에서의 채택 시점 등을 2-3문장으로.",
+  "keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"],
+  "palette": ["#HEX1", "#HEX2", "#HEX3", "#HEX4"],
+  "examples": [
+    { "name": "Site Name", "url": "https://example.com" },
+    // ... 10개 (실제 사이트, Dribbble/Behance/wiki 금지)
+  ],
+  "images": [
+    { "file": "landing.png", "label": "Landing Page" },
+    { "file": "shop.png", "label": "쇼핑몰" },
+    { "file": "dashboard.png", "label": "Dashboard" }
+  ]
+}
+```
+
+### 2단계: 이미지 생성 (3장)
+```bash
+# 폴더 생성
+mkdir -p assets/images/new-ism-id
+
+# GPT Image 2로 생성 (예시)
+# model: gpt-image-2
+# size: 1536x1024
+# quality: high
+# 프롬프트 패턴:
+#   "A [ism-name] style [page-type] screenshot. [visual characteristics].
+#    Clean mockup, no browser chrome, realistic UI elements."
+```
+
+**이미지 종류 (3장, 택1씩)**:
+| 카테고리 | 선택지 |
+|----------|--------|
+| 메인 | landing.png, portfolio.png, agency.png |
+| 상업 | shop.png, pricing.png, saas.png |
+| 앱/기능 | dashboard.png, mobile-app.png, blog.png, music-player.png, login.png |
+
+### 3단계: 예시 사이트 찾기
+```bash
+# agbrowse web-ai로 Grok에게 질문
+agbrowse web-ai query --vendor grok --model auto --inline-only \
+  --prompt "List 10 real, currently live websites that exemplify [ISM NAME] design style. No Dribbble/Behance/Pinterest/wiki. Only real product/company/portfolio sites. Format as JSON: [{\"name\": \"...\", \"url\": \"...\"}]" \
+  --timeout 300 --json
+```
+
+### 4단계: 검증
+```bash
+# JSON 유효성 검사
+node -e "JSON.parse(require('fs').readFileSync('assets/data/isms.json'))"
+
+# 이미지 카운트 확인
+ls assets/images/new-ism-id/ | wc -l  # 3이어야 함
+
+# 전체 ism 수 확인
+node -e "const d=JSON.parse(require('fs').readFileSync('assets/data/isms.json'));console.log(d.length+' isms')"
+```
+
+### 5단계: 배포
+```bash
+git add assets/data/isms.json assets/images/new-ism-id/
+git commit -m "feat: add [ism-name] to design-isms collection"
+git push
+# GitHub Actions가 자동 배포
+```
+
+---
+
+## 필드 설명
+
+| 필드 | 타입 | 필수 | 설명 |
+|------|------|------|------|
+| `id` | string | ✅ | URL-safe kebab-case. 이미지 폴더명과 동일 |
+| `name` | string | ✅ | 영문 표시명 |
+| `nameKr` | string | ✅ | 한국어 표시명 |
+| `tagline` | string | ✅ | 영문 한 줄 요약 |
+| `description` | string | ✅ | 한국어 2-3문장 설명 |
+| `history` | string | ✅ | 한국어 역사/맥락 (탄생시기, 핵심 인물, 발전과정) |
+| `keywords` | string[] | ✅ | 5개, 영문 kebab-case |
+| `palette` | string[] | ✅ | 4개 HEX 컬러 |
+| `examples` | object[] | ✅ | 10개 실제 사이트 `{name, url}` |
+| `images` | object[] | ✅ | 3개 이미지 `{file, label}` |
+| `prompts` | object[] | 선택 | 각 이미지 생성 프롬프트 `{file, prompt, model, quality, size}` |
+
+---
+
+## 기존 ISM 수정하기
+
+### 예시 사이트 업데이트
+사이트가 죽었거나 리디자인된 경우:
+1. `assets/data/isms.json`에서 해당 ism의 `examples` 배열 수정
+2. agbrowse로 대체 사이트 검색 (위 3단계 참고)
+
+### 이미지 교체
+1. 새 이미지를 `assets/images/{ism-id}/` 에 덮어쓰기
+2. 파일명은 `isms.json`의 `images[].file`과 일치해야 함
+3. 크기: 1536x1024, 형식: PNG
+4. `npm run images:thumbs`로 WebP thumbnail을 갱신해야 함
+
+### 프런트엔드 UI 후보군 guide 이미지
+1. 원본은 `assets/images/effects/{effect-id}/guide.png`
+2. WebP preview는 `assets/images/thumbs/effects/{effect-id}/guide.webp`
+3. `effects.html` modal은 WebP를 우선 로드하고 lightbox는 원본 PNG를 사용함
+4. guide 이미지를 바꾸면 `npm run images:thumbs`와 `npm run verify`를 함께 실행해야 함
+
+### 설명/키워드 수정
+`isms.json`에서 직접 편집. 키워드 변경 시 필터 바의 popular 키워드 목록도 확인:
+```js
+// app.js line 22-25
+const popular = [
+  'whitespace', 'bold-color', 'dark-bg', 'gradient', 'neon',
+  '3D', 'retro', 'geometric', 'rounded', 'playful'
+].filter(k => keywords.has(k));
+```
+
+---
+
+## 메인 ISM 팝업 기능
+
+구현 기준: `src/app.ts` → `assets/js/app.js`
+설계 기록: `docs/PLAN-popup-detail.md`
+
+### 현재 동작
+- **프롬프트**: 메인 1개 항상 펼침 + 나머지 접이식
+- **메인 라벨**: "ㅇㅇ 디자인 시안" (hero page 같은 라벨 제거)
+- **예시 사이트**: 링크만, 처음 3개 노출 + 더 보기로 나머지 표시
+- **역사/맥락**: 제목 바로 밑에 표시
+- **관련 ISM**: 키워드 겹침 기반 자동 계산 (런타임)
+- **URL hash**: `#minimalism` 형태 직링크 지원
+
+---
+
+## 배포
+
+- **호스팅**: GitHub Pages (lidge-jun/design-isms)
+- **빌드**: `npm run build`로 `src/*.ts`를 `assets/js/*.js`에 생성
+- **배포**: `main` 브랜치 push → `.github/workflows/deploy.yml` 자동 실행
+- **URL**: https://lidge-jun.github.io/design-isms/
+
+---
+
+## 코딩 규칙
+
+- GitHub Pages는 빌드 산출물 `assets/js/*.js`를 직접 로드
+- TypeScript source는 `src/*.ts`, browser script는 `assets/js/*.js`
+- 효과 후보군 demo type은 `assets/data/effects.json`의 `demo.type`과 `src/effects-demos.ts`의 registry가 일치해야 함
+- ES Module 문법 사용하지 않음 (script type="module" 아님)
+- CSS 변수는 `:root`에 정의, 일관되게 사용
+- 폰트: Pretendard (한국어), Outfit (영문 제목), SF Mono (코드)
+- 반응형: 1440px / 1024px / 640px 브레이크포인트
+- 이미지: lazy loading (`loading="lazy"`)
+- 접근성: aria-label, 키보드 네비게이션, prefers-reduced-motion
+
+---
+> Source: [lidge-jun/design-isms](https://github.com/lidge-jun/design-isms) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
