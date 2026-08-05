@@ -1,0 +1,9 @@
+{
+  "name": "davideast--inbrowser-agent",
+  "displayName": "inbrowser-agent",
+  "description": "The in-browser AI stack",
+  "version": "1.0.0",
+  "author": "davideast",
+  "homepage": "https://github.com/davideast/inbrowser-agent",
+  "skills": []
+}
