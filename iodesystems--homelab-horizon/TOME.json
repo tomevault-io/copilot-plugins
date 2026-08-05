@@ -2,7 +2,7 @@
   "name": "homelab-horizon",
   "owner": "IodeSystems",
   "repo": "homelab-horizon",
-  "description": "Homelab VPN, Service Routing, and Horizon DNS for your network device",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/IodeSystems/homelab-horizon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T03:44:50Z"
+  "distributed_at": "2026-08-05T02:16:15Z"
 }
