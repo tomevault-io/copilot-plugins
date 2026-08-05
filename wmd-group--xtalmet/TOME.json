@@ -2,9 +2,9 @@
   "name": "xtalmet",
   "owner": "WMD-group",
   "repo": "xtalmet",
-  "description": "Python package containing a variety of distance functions for crystals, as well as evaluation metrics for crystal generation.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WMD-group/xtalmet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T04:02:50Z"
+  "distributed_at": "2026-08-05T02:55:25Z"
 }
