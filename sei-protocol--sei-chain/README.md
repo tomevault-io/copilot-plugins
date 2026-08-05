@@ -1,6 +1,6 @@
 # sei-chain
 
-> Source: [sei-protocol/sei-chain](https://github.com/sei-protocol/sei-chain). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [sei-protocol/sei-chain](https://github.com/sei-protocol/sei-chain). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
