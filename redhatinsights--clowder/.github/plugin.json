@@ -1,0 +1,9 @@
+{
+  "name": "redhatinsights--clowder",
+  "displayName": "clowder",
+  "description": "clowder",
+  "version": "1.0.0",
+  "author": "RedHatInsights",
+  "homepage": "https://github.com/RedHatInsights/clowder",
+  "skills": []
+}
