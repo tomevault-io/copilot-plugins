@@ -1,0 +1,9 @@
+{
+  "name": "vicondoa--d2b",
+  "displayName": "d2b",
+  "description": "A reasonably isolated NixOS desktop microVM framework: isolated networking and stores, mediated TPM/USB/audio/graphics, all on one Wayland desktop.",
+  "version": "1.0.0",
+  "author": "vicondoa",
+  "homepage": "https://github.com/vicondoa/d2b",
+  "skills": []
+}
