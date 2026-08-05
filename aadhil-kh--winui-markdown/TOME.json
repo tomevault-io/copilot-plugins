@@ -1,0 +1,44 @@
+{
+  "name": "WinUI.Markdown",
+  "owner": "aadhil-kh",
+  "repo": "WinUI.Markdown",
+  "description": "WinUI.Markdown is a WinUI 3 Markdown control for Windows App SDK apps. It supports native WinUI rendering for common Markdown, WebView2 rendering for rich HTML scenarios, and an Auto mode that chooses the right renderer for the input.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aadhil-kh/WinUI.Markdown",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-05T18:18:38Z"
+}
