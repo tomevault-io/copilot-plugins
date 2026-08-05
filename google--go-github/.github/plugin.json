@@ -1,0 +1,9 @@
+{
+  "name": "google--go-github",
+  "displayName": "go-github",
+  "description": "go-github",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/go-github",
+  "skills": []
+}
