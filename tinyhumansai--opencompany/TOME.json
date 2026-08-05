@@ -4,7 +4,7 @@
   "repo": "opencompany",
   "description": "Run a billion dollar startup \ud83e\udd84 with just one person. Your entire company run by OpenHuman agents. Powered by Medulla. ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tinyhumansai/opencompany",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T09:05:36Z"
+  "distributed_at": "2026-08-05T18:41:43Z"
 }
