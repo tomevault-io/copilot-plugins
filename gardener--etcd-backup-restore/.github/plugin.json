@@ -1,0 +1,9 @@
+{
+  "name": "gardener--etcd-backup-restore",
+  "displayName": "etcd-backup-restore",
+  "description": "etcd-backup-restore",
+  "version": "1.0.0",
+  "author": "gardener",
+  "homepage": "https://github.com/gardener/etcd-backup-restore",
+  "skills": []
+}
