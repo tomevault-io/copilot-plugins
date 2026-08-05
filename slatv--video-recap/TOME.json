@@ -4,7 +4,7 @@
   "repo": "video-recap",
   "description": "Genera un borrador de newsletter semanal a partir del VOD del programa",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SLAtv/video-recap",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T10:32:33Z"
+  "distributed_at": "2026-08-05T19:45:59Z"
 }
