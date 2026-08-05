@@ -2,9 +2,9 @@
   "name": "eGEOagents",
   "owner": "mverab",
   "repo": "eGEOagents",
-  "description": "Generative Engine Optimization skills for AI agents. Optimize content for ChatGPT, Perplexity, Claude, and Gemini.",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,33 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "eGEOagents",
+      "path": ".claude/skills/content-scoring/SKILL.md",
+      "github_url": "https://github.com/mverab/eGEOagents/tree/main/.claude/skills/content-scoring/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eGEOagents",
+      "path": ".claude/skills/schema-generator/SKILL.md",
+      "github_url": "https://github.com/mverab/eGEOagents/tree/main/.claude/skills/schema-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eGEOagents",
+      "path": ".claude/skills/validation-doctor/SKILL.md",
+      "github_url": "https://github.com/mverab/eGEOagents/tree/main/.claude/skills/validation-doctor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "eGEOagents",
+      "path": ".claude/skills/competitive-analysis/SKILL.md",
+      "github_url": "https://github.com/mverab/eGEOagents/tree/main/.claude/skills/competitive-analysis/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/mverab/eGEOagents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T12:14:51Z"
+  "distributed_at": "2026-08-05T09:02:20Z"
 }
