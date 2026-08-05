@@ -1,0 +1,9 @@
+{
+  "name": "soflyy--katalystwp",
+  "displayName": "katalystwp",
+  "description": "Scaffold a local WordPress + AI-agent dev environment (Docker): WordPress + MariaDB + an isolated Node/Claude Code/WP-CLI workspace container.",
+  "version": "1.0.0",
+  "author": "soflyy",
+  "homepage": "https://github.com/soflyy/katalystwp",
+  "skills": []
+}
