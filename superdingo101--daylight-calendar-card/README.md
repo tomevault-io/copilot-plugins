@@ -1,6 +1,6 @@
 # daylight-calendar-card
 
-> Source: [superdingo101/daylight-calendar-card](https://github.com/superdingo101/daylight-calendar-card). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [superdingo101/daylight-calendar-card](https://github.com/superdingo101/daylight-calendar-card). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
