@@ -1,0 +1,9 @@
+{
+  "name": "apache--spark-connect-swift",
+  "displayName": "spark-connect-swift",
+  "description": "spark-connect-swift",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/spark-connect-swift",
+  "skills": []
+}
