@@ -1,0 +1,9 @@
+{
+  "name": "ihongren--agentconfig",
+  "displayName": "AgentConfig",
+  "description": "AI coding agent configuration management tool",
+  "version": "1.0.0",
+  "author": "iHongRen",
+  "homepage": "https://github.com/iHongRen/AgentConfig",
+  "skills": []
+}
