@@ -1,23 +1,21 @@
 # DeepSeekAI
 
-> Tome by [DeepLifeStudio](https://github.com/DeepLifeStudio/DeepSeekAI) — distributed by [TomeVault](https://tomevault.io)
-
-Browser extension for invoking the DeepSeek AI large model.
+> Tome by [DeepLifeStudio](https://github.com/DeepLifeStudio/DeepSeekAI), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [DeepLifeStudio/DeepSeekAI](https://github.com/DeepLifeStudio/DeepSeekAI).
+Original source: `AGENTS.md` in [DeepLifeStudio/DeepSeekAI](https://github.com/DeepLifeStudio/DeepSeekAI).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/DeepLifeStudio/DeepSeekAI](https://github.com/DeepLifeStudio/DeepSeekAI)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/DeepLifeStudio/DeepSeekAI](https://github.com/DeepLifeStudio/DeepSeekAI)
 
 ---
 
