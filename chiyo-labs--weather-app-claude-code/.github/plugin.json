@@ -1,0 +1,9 @@
+{
+  "name": "chiyo-labs--weather-app-claude-code",
+  "displayName": "weather-app-claude-code",
+  "description": "\u5929\u6c17\u4e88\u5831 API\uff08OpenWeatherMap \uff09\u3068\u9023\u643a\u3057\u305f Web \u30a2\u30d7\u30ea\u3092 Claude Code \u3067\u4f5c\u6210",
+  "version": "1.0.0",
+  "author": "chiyo-labs",
+  "homepage": "https://github.com/chiyo-labs/weather-app-claude-code",
+  "skills": []
+}
