@@ -4,7 +4,7 @@
   "repo": "four-card-feature-section",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/runny-life/four-card-feature-section",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T11:34:38Z"
+  "distributed_at": "2026-08-05T21:31:00Z"
 }
