@@ -1,0 +1,9 @@
+{
+  "name": "pydantic--httpx2",
+  "displayName": "httpx2",
+  "description": "httpx2",
+  "version": "1.0.0",
+  "author": "pydantic",
+  "homepage": "https://github.com/pydantic/httpx2",
+  "skills": []
+}
