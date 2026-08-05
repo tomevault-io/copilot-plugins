@@ -1,0 +1,9 @@
+{
+  "name": "openwisp--django-loci",
+  "displayName": "django-loci",
+  "description": "django-loci",
+  "version": "1.0.0",
+  "author": "openwisp",
+  "homepage": "https://github.com/openwisp/django-loci",
+  "skills": []
+}
