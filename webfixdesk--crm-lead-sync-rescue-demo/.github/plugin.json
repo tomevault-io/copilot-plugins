@@ -1,0 +1,9 @@
+{
+  "name": "webfixdesk--crm-lead-sync-rescue-demo",
+  "displayName": "crm-lead-sync-rescue-demo",
+  "description": "Transparent public demo of a CRM lead sync timeout and idempotency repair",
+  "version": "1.0.0",
+  "author": "webfixdesk",
+  "homepage": "https://github.com/webfixdesk/crm-lead-sync-rescue-demo",
+  "skills": []
+}
