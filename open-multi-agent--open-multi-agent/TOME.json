@@ -2,9 +2,9 @@
   "name": "open-multi-agent",
   "owner": "open-multi-agent",
   "repo": "open-multi-agent",
-  "description": "From a goal to a task DAG, automatically. TypeScript-native multi-agent orchestration with MCP and live tracing. Three runtime dependencies.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/open-multi-agent/open-multi-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T16:51:06Z"
+  "distributed_at": "2026-08-05T13:57:45Z"
 }
