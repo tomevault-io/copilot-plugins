@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [realpython/materials](https://github.com/realpy
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [realpython/materials](https://github.com/realpython/materials) — a repo with 5191+ stars on GitHub.
+From [realpython/materials](https://github.com/realpython/materials) — a repo with 5192+ stars on GitHub.
 
 ---
 
