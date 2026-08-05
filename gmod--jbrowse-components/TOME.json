@@ -4,7 +4,7 @@
   "repo": "jbrowse-components",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GMOD/jbrowse-components",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T16:10:33Z"
+  "distributed_at": "2026-08-05T13:47:19Z"
 }
