@@ -1,6 +1,6 @@
 # AI instruction files for demo-mock-server
 
-> Sourced from [MingGH/demo-mock-server](https://github.com/MingGH/demo-mock-server) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [MingGH/demo-mock-server](https://github.com/MingGH/demo-mock-server), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [MingGH/demo-mock-server](https://github.com/Min
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/MingGH/demo-mock-server](https://github.com/MingGH/demo-mock-server)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/MingGH/demo-mock-server](https://github.com/MingGH/demo-mock-server)
 
 ---
 
