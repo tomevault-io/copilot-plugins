@@ -1,0 +1,44 @@
+{
+  "name": "openai-cover-skill",
+  "owner": "Niall-Young",
+  "repo": "openai-cover-skill",
+  "description": "\u751f\u6210 openai \u5b98\u7f51\u4e2d\u5927\u91cf\u6587\u4ef6\u914d\u56fe\u7684\u98ce\u683c\u7684 skill",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Niall-Young/openai-cover-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-05T15:47:02Z"
+}
