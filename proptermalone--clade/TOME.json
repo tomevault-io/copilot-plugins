@@ -4,7 +4,7 @@
   "repo": "clade",
   "description": "Your own contact rolodex, built from the data exports the big platforms already owe you \u2014 merged, enriched by web research, searchable. Claude Code as operator.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PropterMalone/clade",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T12:45:17Z"
+  "distributed_at": "2026-08-05T21:49:11Z"
 }
