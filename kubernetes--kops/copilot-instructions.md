@@ -1,178 +1,48 @@
 ## kops
 
-> generates Go client/server/shape code from Smithy models.
+> - This is a Go workspace (`go.work`) with three modules: root `github.com/linode/linodego/v2`, `./k8s`, and `./test`.
 
 # AGENTS.md
 
-## Project overview
+## Repo Shape
+- This is a Go workspace (`go.work`) with three modules: root `github.com/linode/linodego/v2`, `./k8s`, and `./test`.
+- Root package files implement the public API client; `k8s/` is a separate helper module for LKE Kubernetes client behavior; `test/` is a separate module for unit and integration tests and replaces both local modules.
+- API resource files follow a flat root pattern (`instances.go`, `volumes.go`, etc.) and usually pair public types with `Client` methods that call helpers in `request_helpers.go`.
 
-smithy-go is the Go code generator and runtime for [Smithy](https://smithy.io/).
-It has two major components:
+## Commands
+- Full CI-like local check: `make test` runs build, lint, unit tests, and fixture-backed integration tests; it can be slow because `test-int` uses a 5h timeout.
+- Faster focused default: run `go test ./...` at the repo root for root-module unit coverage only, then run focused tests in `test/` or `k8s/` as needed.
+- Unit tests excluding integration playback: `make test-unit`; pass focused args as `make TEST_ARGS="-run TestName" test-unit`.
+- Integration fixture playback: `make test-int`; focused playback: `make TEST_ARGS="-run TestListVolumes" test-int`.
+- K8s module verification: `cd k8s && go test ./...` or use root `make build`/`make vet`, which enter `k8s/` explicitly.
+- Tidy all modules after dependency changes: `make tidy`.
 
-1. **Codegen** (`codegen/`) — A Smithy build plugin written in Java that
-   generates Go client/server/shape code from Smithy models.
-2. **Runtime** (`./`, top-level Go module) — The Go packages that generated
-   code depends on at runtime.
+## Lint And Formatting
+- `make lint` uses Docker by default: `docker run ... golangci/golangci-lint:latest`; set `SKIP_DOCKER=1` to use local `golangci-lint`.
+- `golangci-lint fmt` is the preferred formatter, if available. Fallback to `gofumpt` if `golangci-lint` is unavailable. Fallback to `go fmt` if `gofumpt` is unavailable.
+- `make build` already depends on `vet` and `lint`; use `SKIP_LINT=1 make test` only when intentionally matching CI's test job behavior.
+- CI runs `make tidy`, then installs `gofumpt` at commit `86bffd62437a3c437c0b84d5d5ab244824e762fc` and runs `gofumpt -l -w .`, then fails on any diff.
 
-The primary downstream consumer is
-[aws-sdk-go-v2](https://github.com/aws/aws-sdk-go-v2).
+## Tests And Fixtures
+- `test/unit` uses embedded JSON fixtures from `test/unit/fixtures/*.json` and `ClientBaseCase` helpers in `test/unit/base.go`; add/update JSON fixtures there for unit tests.
+- `test/integration` uses go-vcr YAML fixtures under `test/integration/fixtures`; `make test-int` runs them in replay mode with a fake token and `LINODE_API_VERSION=v4beta`.
+- To record integration fixtures, set a real `LINODE_TOKEN` and run `make fixtures`; focus recording with `make TEST_ARGS="-run TestName" fixtures`.
+- Fixture recording creates real Linode resources and `TestMain` creates a Cloud Firewall by default; set `ENABLE_CLOUD_FW=false` only if you intentionally want to skip that setup.
+- Fixture sanitization is partial: auth headers, dates, some keys, and IPv6 are scrubbed, but `README.md` warns that sensitive account details such as `fixtures/*Account*.yaml` are not fully sanitized. Inspect recorded fixture diffs before committing.
+- Smoke tests are live record-mode tests: `make test-smoke` requires `LINODE_TOKEN`.
 
-## Repository layout
+## Environment
+- `.env` is loaded by the root Makefile if present; `.gitignore` excludes it.
+- Common env vars: `LINODE_TOKEN`, `LINODE_DEBUG`, `LINODE_URL`, `LINODE_API_VERSION`, `LINODE_CA`, `LINODE_CONFIG`, and `LINODE_PROFILE`.
+- `NewClient` reads `LINODE_URL`, `LINODE_API_VERSION`, `LINODE_CA`, and `LINODE_DEBUG`; `NewClientFromEnv` prefers `LINODE_TOKEN` over config-file profiles.
 
-```
-.                               # Root Go module (github.com/aws/smithy-go)
-├── auth/                       # Auth identity + scheme interfaces
-│   └── bearer/                 # Bearer token auth
-├── aws-http-auth/              # Separate module: AWS SigV4/SigV4A HTTP signing
-├── codegen/                    # Java/Gradle: Smithy code generator
-│   ├── smithy-go-codegen/      # Main codegen source (Java)
-│   └── smithy-go-codegen-test/ # Codegen integration tests
-├── container/                  # Generic container types
-├── context/                    # Context helpers
-├── document/                   # Smithy document type abstraction
-│   └── json/                   # JSON document codec
-├── encoding/                   # Wire format encoders/decoders
-│   ├── cbor/                   # CBOR (used by rpcv2Cbor)
-│   ├── httpbinding/            # HTTP binding serde helpers
-│   ├── json/                   # JSON encoder/decoder
-│   └── xml/                    # XML encoder/decoder
-├── endpoints/                  # Endpoint resolution types
-├── internal/                   # Internal utilities (singleflight, etc.)
-├── io/                         # I/O helpers
-├── logging/                    # Logging interfaces
-├── metrics/                    # Metrics interfaces
-│   └── smithyotelmetrics/      # Separate module: OpenTelemetry metrics adapter
-├── middleware/                 # Middleware stack (the core of the operation pipeline)
-├── ptr/                        # Pointer-to/from-value helpers
-├── testing/                    # Test assertion helpers for generated protocol tests
-│   └── xml/                    # XML comparison utilities
-├── time/                       # Smithy timestamp format helpers
-├── tracing/                    # Tracing interfaces
-│   └── smithyoteltracing/      # Separate module: OpenTelemetry tracing adapter
-└── transport/
-    └── http/                   # HTTP request/response types and middleware
-```
-
-## Building and testing
-
-### Runtime (Go)
-
-```bash
-# Run unit tests
-make unit
-```
-
-### Codegen (Java)
-
-```bash
-# Build and test codegen
-cd codegen && ./gradlew build
-
-# Publish to local Maven for downstream use
-cd codegen && ./gradlew publishToMavenLocal
-```
-
-The codegen artifact version is fixed at `0.1.0` and is not published to
-Maven Central — you **MUST** `publishToMavenLocal`.
-
-## Runtime architecture
-
-### Middleware stack
-
-The operation pipeline is built on a middleware stack defined in `middleware/`.
-Steps execute in order: Initialize → Serialize → Build → Finalize →
-Deserialize. Each step is a `middleware.Step` that holds an ordered list of
-middleware. The codegen generates middleware registrations for each operation.
-
-### Encoding packages
-
-Each wire format has its own encoder/decoder under `encoding/`. These are
-low-level — they produce/consume raw tokens or values, not full Smithy shapes.
-Generated serde code calls into these packages.
-
-## Codegen: GoWriter and template system
-
-GoWriter extends Smithy's `SymbolWriter` and is the primary mechanism for
-generating Go source. It has **two distinct writing styles** that must not be
-confused.
-
-### Style 1: Positional args (`writer.write` / `writer.openBlock`)
-
-Inherited from `SymbolWriter`. Arguments are positional and referenced with
-`$`-prefixed format characters. Each `$X` consumes the next argument in order.
-
-Format characters:
-- `$L` — Literal (toString). Strings, names, anything that should be inserted
-  verbatim.
-- `$S` — String, quoted. Wraps the value in Go double-quotes.
-- `$T` — Type (Symbol). Inserts the symbol name and auto-adds its import.
-- `$P` — Pointable type (Symbol). Like `$T` but prepends `*` if the symbol is
-  marked pointable.
-- `$W` — Writable. Evaluates a `Writable` (lambda/closure) inline.
-- `$D` — Dependency. Adds a `GoDependency` import, expands to empty string.
-
-Numbered variants (`$1L`, `$2T`, etc.) allow reusing the same argument
-multiple times. The number is 1-indexed and refers to the position in the
-argument list:
-
-```java
-// $1L is used twice, $2L once — only 2 args needed
-writer.write("type $1L struct{}\nvar _ $2L = (*$1L)(nil)",
-    DEFAULT_NAME, INTERFACE_NAME);
-```
-
-`openBlock`/`closeBlock` manage indentation for braced blocks. Arguments are
-positional:
-
-```java
-writer.openBlock("func (c $P) $T(ctx $T) ($P, error) {", "}",
-    serviceSymbol, operationSymbol, contextSymbol, outputSymbol,
-    () -> {
-        writer.write("return nil, nil");
-    });
-```
-
-### Style 2: Named template args (`goTemplate` / `writeGoTemplate`)
-
-Uses `$name:X` syntax where `name` is a key in a `Map<String, Object>` and `X`
-is the format character. Arguments are passed as one or more maps. This is the
-**preferred style for new code** — it is more readable and less error-prone
-than positional args.
-
-```java
-return goTemplate("""
-    func $name:L(v $cborValue:T) ($type:T, error) {
-        return $coercer:T(v)
-    }
-    """,
-    Map.of(
-        "name", getDeserializerName(shape),
-        "cborValue", SmithyGoTypes.Encoding.Cbor.Value,
-        "type", symbolProvider.toSymbol(shape),
-        "coercer", coercer
-    ));
-```
-
-Rules:
-- `goTemplate(String, Map...)` is a **static** method that returns a
-  `Writable` (a `Consumer<GoWriter>` lambda). It does NOT write immediately.
-- `writeGoTemplate(String, Map...)` is an **instance** method that writes
-  immediately to the writer.
-- Maps are merged into the writer's context scope for the duration of the
-  template. Multiple maps can be passed and are applied in order.
-- The writer pre-populates common symbols in context: `fmt.Sprintf`,
-  `fmt.Errorf`, `errors.As`, `context.Context`, `time.Now`.
-
-### Composing writables
-
-- `ChainWritable` — Collects multiple `Writable`s and composes them with
-  newlines between each. Use `.compose()` (with newlines) or
-  `.compose(false)` (without).
-
-### Symbol constants
-
-For symbols, use `SmithyGoDependency.*.valueSymbol("Name")` or
-`SmithyGoDependency.*.pointableSymbol("Name")`.
+## Conventions And Gotchas
+- Optional fields in create or update options structs must use `json:",omitzero"`.
+- Optional fields in create or update options structs must be pointer types so explicit zero values can be serialized when needed.
+- List APIs mutate the supplied `*ListOptions` with `Page`, `Pages`, and `Results`; do not reuse one `ListOptions` across list calls.
+- Use `formatAPIPath` for endpoint paths with user-provided string path segments so path escaping matches the client helpers.
+- CI enforces PR titles like `TPT-1234: Description` unless labels exempt the PR (`dependencies`, `hotfix`, `community-contribution`, `ignore-for-release`).
+- The `e2e_scripts` directory is a git submodule used by CI report/upload and cleanup jobs; clone/update submodules before reproducing those workflows.
 
 ---
 > Source: [kubernetes/kops](https://github.com/kubernetes/kops) — distributed by [TomeVault](https://tomevault.io).
