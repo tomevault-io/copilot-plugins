@@ -7,11 +7,11 @@ AI가 청중에 맞는 HTML 발표자료와 발표 노트를 만들고 Chromium 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mclub4/build-html-ppt](https://github.com/mclub4/build-html-ppt).
+Original source: `AGENTS.md` in [mclub4/build-html-ppt](https://github.com/mclub4/build-html-ppt).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
