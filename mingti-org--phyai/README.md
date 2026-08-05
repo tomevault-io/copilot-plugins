@@ -7,11 +7,11 @@ PhyAI is a high-performance framework for running Physical AI models (VLA, WAM, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mingti-org/phyai](https://github.com/mingti-org/phyai).
+Original source: `AGENTS.md` in [mingti-org/phyai](https://github.com/mingti-org/phyai).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
