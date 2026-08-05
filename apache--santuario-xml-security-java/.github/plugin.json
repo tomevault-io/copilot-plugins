@@ -1,0 +1,9 @@
+{
+  "name": "apache--santuario-xml-security-java",
+  "displayName": "santuario-xml-security-java",
+  "description": "santuario-xml-security-java",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/santuario-xml-security-java",
+  "skills": []
+}
