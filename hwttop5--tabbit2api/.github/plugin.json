@@ -1,0 +1,9 @@
+{
+  "name": "hwttop5--tabbit2api",
+  "displayName": "tabbit2api",
+  "description": "\u4e00\u4e2a\u672c\u5730\u7f51\u5173\uff0c\u628a Tabbit Web Chat \u80fd\u529b\u6865\u63a5\u6210 API \u7ed9\u5916\u90e8\u8c03\u7528\uff0c\u767d\u5ad6\u6700\u65b0\u7684\u5927\u6a21\u578b GPT-5.5\u3001 Opus-4.8 \u7b49\u3002|  A local gateway that turns Tabbit into an API, letting you freeload the latest LLMs \u2014 GPT-5.5, Opus 4.8, and more.",
+  "version": "1.0.0",
+  "author": "hwttop5",
+  "homepage": "https://github.com/hwttop5/tabbit2api",
+  "skills": []
+}
