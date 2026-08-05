@@ -1,7 +1,7 @@
 {
   "name": "bgauryy--octocode",
   "displayName": "octocode",
-  "description": "MCP server for semantic code research and context generation on real-time using LLM patterns | Search naturally across public & private repos based on your permissions | Transform any accessible codeb",
+  "description": "octocode",
   "version": "1.0.0",
   "author": "bgauryy",
   "homepage": "https://github.com/bgauryy/octocode",
