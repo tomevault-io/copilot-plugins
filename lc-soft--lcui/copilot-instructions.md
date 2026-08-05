@@ -1,196 +1,327 @@
 ## lcui
 
-> 遵循 .clang-format 文件中定义的规则，修改文件后需格式化。
+> 本文档为 AI agent 和人类贡献者编写 doc-viewer 项目文档源文件时的指令参考。
 
-## 代码格式
+# doc-viewer 文档编写规范
 
-遵循 .clang-format 文件中定义的规则，修改文件后需格式化。
+本文档为 AI agent 和人类贡献者编写 doc-viewer 项目文档源文件时的指令参考。
 
-### 缩进
+## 目录结构
 
-使用八个空格缩进。
+```
+docs/
+  sidebars.json                        # 导航栏数据
+  widget-fields/
+    widget.ts                          # FieldData 接口 + 公共字段
+    {name}.ts                          # 各组件专属字段
+  {locale}/widgets/{name}.mdx          # 页面源文件
+  examples/
+    {widget}-basic/main.c              # C 语言 demo
+    {widget}-basic-xml/main.c ui.xml   # XML 变体
+    {widget}-basic-tsx/main.c example.tsx # TSX 变体
+examples/doc-viewer/
+  scripts/compiler/                    # MDX → page.tsx 编译管线
+```
 
-### 代码结构
+## Widget 页面模板
 
-源文件中的代码结构应该为：
+每个 widget 的 MDX 文件**必须**按以下固定顺序编写：
 
-1. 预处理指令
-2. 类型
-3. 全局变量
-4. 函数声明
-5. 函数定义
+```mdx
+# WidgetName
 
-其中“函数定义”应该按照功能类别分组、按依赖关系从基础到高级的顺序排列，例如：
+一句话功能简介。
 
-```c
-static int var1;
-static int var1;
+<WidgetExample name="widget-basic" />
 
-static void func1();
-static void func2();
+## 适用场景
 
-// object 1
+- **适用**：...
+- **不适用**：...
 
-void object1_func1()
-{
-  // ..
-}
+## 用法
 
-void object1_func2() {
-    // ...
-     object1_func1();
-}
+\`\`\`tsx
+import { WidgetName } from "@lcui/react"
+\`\`\`
 
+\`\`\`tsx
+<WidgetName />
+\`\`\`
 
-// object 2
+## 组合（可选）
 
-void object2_func1()
-{
-  // ..
-}
+使用以下组合来构建 `WidgetName`：
 
-void object2_func2() {
-    // ...
-     object2_func1();
+\`\`\`
+WidgetName
+├── SubComponent
+└── SubComponent
+\`\`\`
+
+## API 参考
+
+<FieldTable name="widget" />
+```
+
+### 各小节说明
+
+#### # 标题与简介
+- H1 标题：组件名（英文，PascalCase）
+- 紧跟一段功能描述（一至两句话）
+
+#### WidgetExample（demo 嵌入）
+- 紧跟简介后，放在任何 `##` 之前
+- `name` 属性对应 `docs/examples/` 目录名（不含 `-tsx` / `-xml` 后缀）
+- 一个 widget 页面放一个 basic 示例
+
+#### ## 适用场景
+- 每个列表项以 `- **适用**：` 或 `- **不适用**：` 开头
+- 中文用全角冒号 `：`，英文用半角冒号 `: `
+
+#### ## 用法（Usage）
+- 两个代码块，均为 ` ```tsx `（无 title 属性）
+- 第一个代码块：import 语句
+- 第二个代码块：组件核心用法（无需构造完整函数实现）
+- 代码块**前**无需引导语
+
+#### ## 组合（Composition）—— 仅多部件组件需要
+- 仅当组件包含子部件（如 ScrollArea 由 ScrollAreaContent + Scrollbar 组成）时才写此小节，单组件省略
+- 代码块标签：` ``` `（无语言标记，纯文本块）
+- 内容：用树形结构展示组件层次关系（`├──` / `└──`）
+- 代码块**前**写一行引导语：`使用以下组合来构建 `WidgetName`：`（英文：`Use the following composition to build a `WidgetName`:`）
+- 代码块后**禁止**写"X 由 Y + Z 组成"等内部实现说明
+- **可以**写行为/模式描述（如 Anchor 的 URL 与 XML 视图模式区别）
+
+#### ## 示例（可选）
+- 用 `###` 三级标题分组
+- 每个示例一段代码（c / xml / tsx），须带 `title="..."` 元数据
+- 放在 API 参考之前或之后均可
+
+#### ## API 参考
+- 只用 `<FieldTable name="xxx" />`，编译器自动从 `docs/widget-fields/{name}.ts` 读取字段数据
+- 不手写 API 小节、属性列表或事件列表
+- **多部件组件**：每个 FieldTable 前必须用 `### <WidgetName>` 三级标题 + 一句话描述（参考 `docs/zh-CN/widgets/scrollarea.mdx`）。zh-CN 模板：
+  ```mdx
+  ## API 参考
+
+  ### RadioGroup
+
+  单选组容器，管理组内各项的互斥选中状态。
+
+  <FieldTable name="radio-group" />
+
+  ### RadioGroupItem
+
+  单选项，每一项代表一个可选值。
+
+  <FieldTable name="radio-group-item" />
+  ```
+  en 模板：标题 `## API Reference`，子标题 PascalCase，描述同步翻译。
+
+#### ## 注意事项（可选）
+- 每个注意点独立一个 admonition 容器
+- 容器类型：`:::note` / `:::info` / `:::tip` / `:::caution` / `:::warning`
+- 容器内首句加粗：`:::warning` 包裹 `**核心警告**。详细补充...`
+
+#### ## 内联样式标签（可选）
+- 仅支持 BBCode 标签的组件（Text、TextInput）需要此小节
+
+## 非 Widget 页面模板
+
+overview、handbook 等页面结构更自由，仅要求：
+1. H1 标题 + 简介段落
+2. `##` 小节自由组织
+3. 示例代码块须带 `title="..."` 元数据
+
+## 文档工作流
+
+以中文文档为主，英文文档在中文文档更新完毕后再全量翻译。
+
+1. **新增组件文档**：先在 `docs/zh-CN/widgets/{name}.mdx` 完成全部内容。
+2. **修改/补充文档**：同样先改 zh-CN，确认章节结构、示例、描述完整后再同步。
+3. **同步英文**：对照 zh-CN 版本逐节翻译到 `docs/en/widgets/{name}.mdx`。
+   - 保留 `<WidgetExample>` / `<FieldTable>` / 代码块 / admonition 标签原样
+   - 仅翻译普通文本（标题、段落、list item、admonition 内容）
+   - 代码注释无需翻译
+4. **不要双语并行开发**：zh-CN 未定稿时不改 en，避免两边结构漂移。
+
+## MDX 语法参考
+
+| 语法 | 渲染效果 |
+|------|----------|
+| `# H1` | 页面标题 |
+| `## H2` | 节标题 |
+| `### H3` / `#### H4` | 节内子标题 |
+| `**bold**` | `[b]...[/b]` |
+| `*italic*` | `[i]...[/i]` |
+| `` ``code`` `` | `[bgcolor=#eee] code [/bgcolor]` |
+| ` ```lang title="x" ` | 代码块（带 header + Copy 按钮） |
+| ` ```lang title="" ` | 代码块（无 header，仅 Copy 按钮） |
+| ` ```lang ` | 代码块（带语言名 header + Copy 按钮） |
+| `- item` 或 `* item` | 无序列表 |
+| `1. item` | 有序列表 |
+| `| 表格 |` | flexbox 模拟表格 |
+| `:::note` / `info` / `tip` / `caution` / `warning` | admonition 容器 |
+| `<WidgetExample name="..." />` | 嵌入 demo |
+| `<FieldTable name="..." />` | 嵌入 API 参考表 |
+
+## Demo 示例文件
+
+每个示例是一个目录：
+
+```
+docs/examples/{name}/
+  main.c
+docs/examples/{name}-xml/
+  main.c
+  ui.xml
+docs/examples/{name}-tsx/
+  main.c
+  example.tsx
+```
+
+- **三变体必齐**：C、XML、TSX 三种实现都要提供。即使 widget 暂未在 `@lcui/react` 中导出，也要给出 TSX 变体作为前瞻占位（example.tsx 仅作为代码块展示，不会实际编译）。
+- **TSX 优先展示**：编译器按 `tsx > xml > c` 排序变体，TSX 是默认激活的标签。
+- C 变体的 main.c 须定义 `{widget}_{variant}_init(ui_widget_t *parent)`
+- TSX 变体的 main.c 须 `#include "example.h"` 并调用 `example_load()`
+- 编译器自动用 highlight.js 高亮并提取 local symbols
+- **`<LCUI.h>` 是聚合头**，已包含 `<LCUI/widgets.h>`、`<ptk.h>`、`<ui_xml.h>`、`<LCUI/app.h>` 等。Demo 的 main.c **只能**写 `#include <LCUI.h>`，不要重复 include 子头。
+
+## widget-fields 数据
+
+```typescript
+interface FieldData {
+  name: string;
+  type: string;
+  default: string;        // "-" 表示必填
+  description: {
+    en: string;
+    "zh-CN": string;
+  };
 }
 ```
 
-注意！优先通过调整函数定义代码块的顺序来解决声明问题，而不是前置声明函数。
+- `docs/widget-fields/widget.ts`：公共字段（className、children），所有组件通过 `...widgetFields` 继承
+- `docs/widget-fields/{name}.ts`：用 `...widgetFields` 展开后追加组件专属字段
+- 字段数据来源：lcui-toolkit types.d.ts 中的 props 类型信息，现阶段手动维护
 
-## 测试用例
+## 中英对照
 
-### 归属规则
+| zh-CN | en |
+|-------|-----|
+| 适用场景 | Use cases |
+| 用法 | Usage |
+| 组合 | Composition |
+| API 参考 | API Reference |
+| 示例 | Examples |
+| 注意事项 | Caveats |
+| 内联样式标签 | Inline style tags |
+| 使用以下组合来构建 `WidgetName`： | Use the following composition to build a `WidgetName`: |
 
-按下面优先级判定一个测试归属：
+### FieldTable labels
 
-1. case 实际 `#include` 的库头文件集合（含传递依赖）。
-2. 调用的运行时入口（`lcui_init` / `ui_init` / `pd_*_init` 等）。
-3. xmake target 上需要的 `add_deps`。
+| zh-CN | en |
+|-------|-----|
+| 属性名 | Prop |
+| 类型 | Type |
+| 默认值 | Default |
+| 描述 | Description |
 
-仅触达单 lib（外加 yutil/ctest/标准库）的测试放 `lib/<name>/tests/`；触达两个及以上同级 lib，或依赖 `src/widgets/` 注册的 widget 类型的测试放 `tests/integration/`。
+## 构建验证
 
-### 文件与函数命名
-
-- 文件名：`test_<topic>.c`
-- 套件入口（lib 内）：`void test_<lib>_<topic>(void)`，如 `test_ui_xml_parser`、`test_pandagl_image_reader`
-- 套件入口（顶层集成）：`void test_<topic>(void)`，无前缀，如 `test_settings`
-- 套件入口必须在两个位置都注册：所属 lib 的 `tests/main.c` 与顶层 `tests/main.c` 中的 `suites[]` 表
-- 内部分组用 `static void <动词>_<group>(void)`，由 `ctest_describe` 注册
-
-### 描述文本风格
-
-- `ctest_describe(name, fn)` 的 `name` 是名词性主题，全小写空格分词，无 `test` 前缀。例：`"widget opacity"`、`"flex layout"`、`"settings.fps_cap"`
-- `ctest_equal_*(name, ...)` 的 `name` 用 `should ...` 行为陈述。例：`"should default fps_cap to 120"`、`"should match parent border color"`
-- 当上下文清晰（例如 layout case 中描述某 selector 对应的 box）时，可保留 jQuery 选择器风格的描述，无需强行加 should
-
-### 资源文件
-
-- 跨 lib 共享的 fixture 放 `tests/fixtures/`
-- 仅本 lib 用的 fixture 也建议复制到 `tests/fixtures/`（顶层 lcui-tests 与单 lib binary 共用同一 rundir）
-- xmake target 的 `set_rundir` 指向 `tests/fixtures/`
-- 测试代码加载资源时直接用文件名，不带目录前缀
-
-### 三种文件职责
-
-- `tests/integration/test_<topic>.c`：跨 lib 集成测试，自动断言。不调用 `lcui_main`，必要时由 `tests/previews/preview_<topic>.c` 提供可视诊断
-- `tests/scenes/<topic>_scene.{c,h}`：可视化场景搭建模块，签名 `void <topic>_scene_build(...)`。只构造 widget 树和应用样式，不做断言、不调用 `ctest_*`、不调用 `lcui_main`/`lcui_quit`。给 cases 与未来的 examples demo 共用
-- `lib/<name>/tests/test_<topic>.c`：纯 lib 测试，仅断言
-
-### 编写示例
-
-```c
-#include <ctest-custom.h>
-
-void test_my_case(void)
-{
-        ctest_equal_int("should add two numbers", 1 + 1, 2);
-}
+```bash
+bun run compile                   # 全量编译 MDX → page.tsx
+bun run compile --watch           # 监听变更
+npx lcui build app --force        # 重生成 C 层 .tsx.h / main.h
+xmake build doc-viewer            # 编译链接
+xmake run doc-viewer              # 运行验证
 ```
 
-注册：
+每次修改 MDX 或 widget-fields 后，须依次运行：
 
-```c
-/* lib/<name>/tests/main.c 或 tests/main.c */
-extern void test_my_case(void);
-
-static const ctest_suite_t suites[] = {
-        { "my case", test_my_case },
-        { NULL, NULL }
-};
-
-CTEST_MAIN(suites)
+```bash
+bun run compile
+npx lcui build app --force
+xmake build doc-viewer
 ```
 
-### 运行
+> ⚠️ `npx lcui build app --force` 输出末尾的 `unknown target(lcui) for doc-viewer.deps!` 警告无害，是已知问题，可忽略。`bun run compile` 自动复制 `widget-fields/` 并触发页面生成；任何一步失败都会产生连锁错误。
 
-- 全量：`xmake test`
-- 按 pattern 过滤：`xmake test "*/widget*"`（匹配 target/test 名）
-- 按 group 过滤：`xmake test -g tests`
-- 单 binary 跑全部 suite：`xmake run <lib>-tests`，例如 `xmake run lcui-tests`
-- 单 binary 内细粒度过滤：`xmake run lcui-tests --grep="<pattern>"`，子串匹配 suite 名
-- 单 binary 列出 suite：`xmake run lcui-tests --list`
-- 内存检查：`xmake f --memcheck=y && xmake test`，调用 drmemory（Windows）或 valgrind（Linux）；恢复正常运行：`xmake f --memcheck=n`
+## Demo 变体命名约定
 
-### 不要触碰
+`docs/examples/` 下的 demo 目录名是文档里 `<WidgetExample name="...">` 的 `name` 属性值：
 
-- `lib/yutil/tests/`：使用旧 libtest 框架自管理，不并入 ctest 体系，不被 lcui-tests 收集
+| 变体后缀 | 含义 | 内容 |
+|---------|------|------|
+| （无后缀） | 基础 / 唯一示例 | `main.c` 实现 `void <slug>_basic_init(ui_widget_t *parent)` |
+| `-xml` | XML 标记声明式 | `ui.xml` + `main.c`（`lcui_init` + `ui_load_xml_file`） |
+| `-tsx` | TSX 声明式 | `example.tsx` + `main.c`（`lcui_init` + `example_load()`） |
+| `-<feature>` | 特性示例 | 镜像 `-tsx` 三件套结构，如 `-disabled`、`-dual-scrollbars` |
 
-## 重构约定
+**三变体必齐**：C、XML、TSX 三种实现都要提供。即使 widget 暂未在 `@lcui/react` 中导出，也要给出 TSX 变体作为前瞻占位（`example.tsx` 仅作为代码块展示，不会实际编译）。
 
-### 合并重复分支
+## widget-fields 文件命名与目录复制陷阱
 
-当存在两个分支仅输入不同但后续处理相同（如选择 obs->root 或 ui_root），用局部变量合并公共逻辑，避免重复代码。
+`<FieldTable name="radio-group-item" />` 解析为 `docs/widget-fields/radio-group-item.ts`。**文件名必须用 `-`（dash）**，不能用 `_`（underscore）。命名约定是 slug 原文，camelCase 变量名（如 `radioGroupItemFields`）由文件作者自己定。
+
+⚠️ **`examples/doc-viewer/app/widget-fields/` 是编译时副本，不会自动清理**：
+
+`scripts/compiler/index.ts:55` 的 `copyWidgetFields()` 只 `copyFileSync` 不删除。如果在 `docs/widget-fields/` 重命名或删除文件，旧的 `app/widget-fields/<old-name>.ts` 会残留。下次编译时编译器可能：
+
+- 找不到新名（如果旧文件还在 dest）→ 报 `ModuleLoaderError: File does not exist`
+- 引用错文件（如果同名但内容已变）
+
+**修正步骤**：删 `examples/doc-viewer/app/widget-fields/` 下 stale 文件，或 `git clean -fd examples/doc-viewer/app/widget-fields` 强制重生成。
+
+## Demo 预览容器布局陷阱
+
+doc-viewer 的 demo preview 区域本身是 flex 容器，所以**多个独立 flex 行直接 append 到 parent 会横排**。需要在 C/XML demo 外层包一个 `display:flex; flex-direction:column; gap:8px` 容器：
 
 ```c
-/* before */
-if (ctx->logger) {
-    write_log(ctx->logger, msg);
-} else {
-    logger_t *logger = get_default_logger();
-    write_log(logger, msg);
-}
-
-/* after */
-logger_t *logger = ctx->logger ? ctx->logger : get_default_logger();
-write_log(logger, msg);
+ui_widget_t *box = ui_create_widget(NULL);
+ui_widget_set_style_string(box, "display", "flex");
+ui_widget_set_style_string(box, "flex-direction", "column");
+ui_widget_set_style_string(box, "gap", "8px");
+ui_widget_append(box, row1);
+ui_widget_append(box, row2);
+ui_widget_append(parent, box);
 ```
 
-### 提取公共逻辑
+XML 用外层 `<div style="display:flex; flex-direction:column; gap:8px">` 包裹。TSX 用 `<Widget className="flex flex-col gap-2">...</Widget>` 包裹。
 
-若公共逻辑较长，可提取为独立函数，并保持调用路径一致，减少分叉实现。
+RadioGroup / ScrollArea / Field 等本身是垂直容器，item 直接 append 进 group 即可，无需外层 wrapper。
 
-## LCUI CSS 引擎约束
+## 生成的 `index.c` 在 Linux 上的 `static` 不一致问题
 
-### 选择器
+`lcui build app --force` 对 `examples/doc-viewer/app/examples/<name>/index.c`
+使用 skeleton-once 策略：只在文件不存在时写入，后续构建保留手写改动。
+首次生成的 `index.c` 中 `<ns>_demo_update` 函数被声明为 `static`，
+但同名的 `<ns>_demo_update(ui_widget_t *)` 在对应 `index.h` 里是非
+`static` 的全局声明。MSVC 默认不报警告；GCC/Clang 在开启 `-Wall`
+或项目使用 `set_warnings("all", "error")`（LCUI 在 Ubuntu 上的
+默认配置）时会因声明/定义不一致而**编译失败**。
 
-- 仅支持：通配符 `*`、类型 `type`、类 `.cls`、ID `#id`、后代空格 `A B`
-- 不支持：子代 `>`、相邻兄弟 `+`、通用兄弟 `~`
-- 不支持：属性选择器 `[attr]` `[data-x]`
-- 不支持：功能性伪类 `:not()` `:is()` `:where()` `:has()` `:nth-child()`（解析器无 `(` 语法）
-- 不支持：伪元素 `::before` `::after`
+**触发场景**：每次新增 demo（含 `WidgetExample` 引用）或首次为新
+demo 生成 `index.c` 后。
 
-### 优先级
+**手动修复**：在生成的 `index.c` 里删除 `static` 关键字：
 
-- Rank：`GENERAL=0`，`TYPE=1`，`CLASS=10`，`PCLASS=10`，`ID=100`
-- 同 rank 用 `batch_num`（声明顺序）决胜，后声明覆盖先声明
-- 无 `!important` 机制
-- class 与 pclass rank 相同（都是 10）
+```c
+// before
+static void checkbox_disabled_demo_update(ui_widget_t *w) { ... }
 
-### 属性与值
+// after
+void checkbox_disabled_demo_update(ui_widget_t *w) { ... }
+```
 
-- `position`：仅 `static` / `relative` / `absolute`，无 `fixed`
-- `white-space`：仅 `normal` / `nowrap`
-- `border-style`：仅 `none` / `solid`
-- 无 `calc()` / `var()` / CSS 自定义属性
-- 无 `calc()` / `var()` / `em` / `rem` / `vh` / `vw` 单位（可用 `dp` / `px` / `pt` / `%`）
-- 无 `overflow` 属性
+⚠️ 只去掉 `<ns>_demo_update` 上的 `static`，**保留** `<ns>_demo_init` /
+`<ns>_demo_destroy` 上的 `static`——这两个没有对应 header 声明，是
+prototype 内部回调，加 `static` 是正确的。
 
-## 指令
-
-### gen-commit
-
-用于生成符合 Angular 规范的提交信息，scope 应为 lib 目录下的任意目录名（例如：ui、css），标题长度限制在 80 字符以内，应结合本次会话内容生成，无需读取实际改动文件内容。
+详细说明见 `~/.config/opencode/skills/lcui-cli/SKILL.md` 的
+"Known limitations / open bugs" 节。
 
 ---
 > Source: [lc-soft/LCUI](https://github.com/lc-soft/LCUI) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
