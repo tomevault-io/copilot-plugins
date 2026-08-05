@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [DiscourseGraphs/discourse-graph](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [DiscourseGraphs/discourse-graph](https://github.com/DiscourseGraphs/discourse-graph) — a repo with 43+ stars on GitHub.
+From [DiscourseGraphs/discourse-graph](https://github.com/DiscourseGraphs/discourse-graph) — a repo with 44+ stars on GitHub.
 
 ---
 
