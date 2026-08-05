@@ -1,7 +1,7 @@
 {
   "name": "agoda-com--api-agent",
   "displayName": "api-agent",
-  "description": "Universal MCP server for GraphQL/REST APIs",
+  "description": "api-agent",
   "version": "1.0.0",
   "author": "agoda-com",
   "homepage": "https://github.com/agoda-com/api-agent",
