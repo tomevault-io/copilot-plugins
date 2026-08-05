@@ -1,0 +1,9 @@
+{
+  "name": "ma-nucho-pro--wife",
+  "displayName": "wife",
+  "description": "Local, persistent and auditable memory layer for Claude Code and Codex. Your coding agent stops treating you like a stranger every morning.",
+  "version": "1.0.0",
+  "author": "ma-nucho-pro",
+  "homepage": "https://github.com/ma-nucho-pro/wife",
+  "skills": []
+}
