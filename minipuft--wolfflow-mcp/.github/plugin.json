@@ -1,0 +1,9 @@
+{
+  "name": "minipuft--wolfflow-mcp",
+  "displayName": "wolfflow-mcp",
+  "description": "Wolfflow: Model Context Protocol (MCP) server for reusable prompt templates, multi-step workflow chains, and quality gates. Compose agentic workflows with an operator syntax; export as native skills t",
+  "version": "1.0.0",
+  "author": "minipuft",
+  "homepage": "https://github.com/minipuft/wolfflow-mcp",
+  "skills": []
+}
