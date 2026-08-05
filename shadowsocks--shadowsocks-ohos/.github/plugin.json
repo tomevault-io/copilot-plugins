@@ -1,0 +1,9 @@
+{
+  "name": "shadowsocks--shadowsocks-ohos",
+  "displayName": "shadowsocks-ohos",
+  "description": "Shadowsocks for HarmonyOS NEXT",
+  "version": "1.0.0",
+  "author": "shadowsocks",
+  "homepage": "https://github.com/shadowsocks/shadowsocks-ohos",
+  "skills": []
+}
