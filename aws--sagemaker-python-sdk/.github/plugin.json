@@ -1,0 +1,9 @@
+{
+  "name": "aws--sagemaker-python-sdk",
+  "displayName": "sagemaker-python-sdk",
+  "description": "sagemaker-python-sdk",
+  "version": "1.0.0",
+  "author": "aws",
+  "homepage": "https://github.com/aws/sagemaker-python-sdk",
+  "skills": []
+}
