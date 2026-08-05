@@ -1,23 +1,21 @@
 # robrain
 
-> Tome by [adelinamart](https://github.com/adelinamart/robrain) — distributed by [TomeVault](https://tomevault.io)
-
-RoBrain is shared institutional memory for teams using AI agents across users, machines, and tools, captured passively.
+> Tome by [adelinamart](https://github.com/adelinamart/robrain), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [adelinamart/robrain](https://github.com/adelinamart/robrain).
+Original source: `AGENTS.md` in [adelinamart/robrain](https://github.com/adelinamart/robrain).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/adelinamart/robrain](https://github.com/adelinamart/robrain)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/adelinamart/robrain](https://github.com/adelinamart/robrain)
 
 ---
 
