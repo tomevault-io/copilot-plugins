@@ -2,9 +2,9 @@
   "name": "api-agent",
   "owner": "agoda-com",
   "repo": "api-agent",
-  "description": "Universal MCP server for GraphQL/REST APIs",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agoda-com/api-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T09:47:17Z"
+  "distributed_at": "2026-08-05T03:22:13Z"
 }
