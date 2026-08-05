@@ -1,0 +1,9 @@
+{
+  "name": "sous-chefs--fail2ban",
+  "displayName": "fail2ban",
+  "description": "fail2ban",
+  "version": "1.0.0",
+  "author": "sous-chefs",
+  "homepage": "https://github.com/sous-chefs/fail2ban",
+  "skills": []
+}
