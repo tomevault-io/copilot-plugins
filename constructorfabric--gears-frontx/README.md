@@ -7,15 +7,15 @@ Cyber Ware FrontX - UI development kit for modern SaaS applications
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [constructorfabric/gears-frontx](https://github.com/constructorfabric/gears-frontx).
+Original source: `.cursor/rules/*.mdc` in [constructorfabric/gears-frontx](https://github.com/constructorfabric/gears-frontx).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/constructorfabric/gears-frontx](https://github.com/constructorfabric/gears-frontx)
 
