@@ -1,0 +1,9 @@
+{
+  "name": "kserve--kserve",
+  "displayName": "kserve",
+  "description": "kserve",
+  "version": "1.0.0",
+  "author": "kserve",
+  "homepage": "https://github.com/kserve/kserve",
+  "skills": []
+}
