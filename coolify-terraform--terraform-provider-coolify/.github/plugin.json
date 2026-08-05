@@ -1,0 +1,9 @@
+{
+  "name": "coolify-terraform--terraform-provider-coolify",
+  "displayName": "terraform-provider-coolify",
+  "description": "Terraform provider for Coolify \u2014 manage 33 resources, 44 data sources, 950+ tests. Self-hosted PaaS as code.",
+  "version": "1.0.0",
+  "author": "coolify-terraform",
+  "homepage": "https://github.com/coolify-terraform/terraform-provider-coolify",
+  "skills": []
+}
