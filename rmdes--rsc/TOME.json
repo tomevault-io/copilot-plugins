@@ -4,7 +4,7 @@
   "repo": "rsc",
   "description": "RSC \u2014 Really Simple Conversations \u2014 is a feeds-native social timeline: people who post here and people who post on their own site are equal citizens. Everything travels as RSS \u2014 posts, replies, whole conversations \u2014 so following, threading, and federation work with nothing but open feeds.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rmdes/rsc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T09:27:55Z"
+  "distributed_at": "2026-08-05T19:43:52Z"
 }
