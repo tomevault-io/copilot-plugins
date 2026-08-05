@@ -7,11 +7,11 @@ VocalBridge-style Package for AI agent
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [pramodthe/guidebridge](https://github.com/pramodthe/guidebridge).
+Original source: `AGENTS.md` in [pramodthe/guidebridge](https://github.com/pramodthe/guidebridge).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
