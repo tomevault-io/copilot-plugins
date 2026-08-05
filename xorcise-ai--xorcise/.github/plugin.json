@@ -1,0 +1,9 @@
+{
+  "name": "xorcise-ai--xorcise",
+  "displayName": "xorcise",
+  "description": "Run cyber-AI agents against real missions in isolated environments. Record everything as OpenTelemetry evidence. Grade the evidence, not the claim.",
+  "version": "1.0.0",
+  "author": "xorcise-ai",
+  "homepage": "https://github.com/xorcise-ai/xorcise",
+  "skills": []
+}
