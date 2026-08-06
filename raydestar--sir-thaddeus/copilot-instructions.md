@@ -1,305 +1,169 @@
-## sir-thaddeus-rules
-
-> > **Purpose:** Keep the project from drifting into “something else” as velocity increases.
-
-
-# Cursor Rules — Sir Thaddeus (Local‑First Copilot Guardrails)
-
-> **Purpose:** Keep the project from drifting into “something else” as velocity increases.
->
-> **How Cursor should behave:** When a change request violates (or risks violating) these guardrails, **do not refuse**. Instead, **pause and push back** with a short check-in:
->
-> **Pushback template:**
-> *“Are you sure? You asked me to push back when we drift. This change touches: [Invariant(s)]. If we proceed, we should do it by: [safe alternative].”*
-
----
-
-## 0) North Star
-
-Sir Thaddeus is a **local‑first, explicit‑permission copilot runtime**.
-
-* **Runs on the user’s machine** (Windows).
-* **Desktop UI is optional** (tray/headless is first‑class).
-* **LLM is local** (LM Studio / OpenAI‑compatible server).
-* **Tools execute through a strict boundary** (MCP stdio tool server).
-* **Audit log is always on**.
-
-**If a feature makes it feel like a cloud agent, a spyware assistant, or an auto‑executing bot — it’s drift.**
-
----
-
-## 1) Design Invariants (Non‑Negotiables)
-
-### I1 — Agent has *no authority*
-
-The agent may **request**, **route**, and **summarize**, but it does not decide policy.
-
-* No “confidence-based” auto-approval.
-* No hidden escalations.
-* No silent capability expansion.
-
-**Cursor pushback when:** agent logic becomes a policy engine (permissions, trust scores, “smart” auto behavior).
-
-### I2 — Tools are behind a trust boundary (MCP)
-
-All side effects occur through **MCP tools** in a **separate process**.
-
-* No “direct calls” to system APIs from the agent loop for convenience.
-* No bypassing MCP just because it’s local.
-
-**Cursor pushback when:** code adds new side effects outside MCP.
-
-### I3 — Explicit permission for side effects
-
-Any action that changes the system, files, network state, or reveals sensitive data must be **explicitly permitted**.
-
-* Default stance: **deny** until approved.
-* Denial must be explicit and logged.
-
-**Cursor pushback when:** someone suggests “just do it” or “auto-run” behaviors.
-
-### I4 — Auditability is first-class
-
-Everything meaningful is written to an **append-only audit log**.
-
-* Include: timestamp, session/run id, tool name, inputs (redacted as needed), outputs (redacted), decision/permission outcome.
-
-**Cursor pushback when:** features introduce invisible actions or unlogged tool execution.
-
-### I5 — UI is not the identity
-
-UI is a shell. Runtime is the product.
-
-* Removing WPF should not collapse the architecture.
-
-**Cursor pushback when:** logic migrates into UI code-behind or UI becomes required for core flows.
-
-### I6 — Local-first means no surprise networking
-
-Networking is explicit and bounded.
-
-* No telemetry by default.
-* No background “helpful” uploads.
-* Any outbound request must be via a tool with policy + audit.
-
-**Cursor pushback when:** libraries/services introduce network calls implicitly.
-
----
-
-## 2) Architecture Rules (Keep the separation clean)
-
-### A1 — Frontend (apps/desktop-runtime)
-
-Allowed:
-
-* Tray, overlay, hotkeys, PTT trigger, TTS output
-* UI rendering of agent events
-
-Not allowed:
-
-* Tool execution
-* Permission decisions
-* Policy logic
-
-### A2 — Agent (packages/agent)
-
-Allowed:
-
-* Conversation loop
-* Tool routing (MCP client)
-* State machine transitions
-* Prompt construction
-
-Not allowed:
-
-* Direct system modifications
-* Direct filesystem/shell calls (except launching MCP server process)
-
-### A3 — LLM client (packages/llm-client)
-
-Allowed:
-
-* Transport only (OpenAI-compatible calls)
-
-Not allowed:
-
-* Tool logic
-* State logic
-
-### A4 — MCP server (apps/mcp-server)
-
-Allowed:
-
-* Implement tools
-* Enforce allowlists / guardrails per tool
-* Be stateless per tool call where possible
-
-Not allowed:
-
-* Agent logic
-* UI coupling
-
----
-
-## 3) Tooling Rules (Prevent “agent cleverness creep”)
-
-### T1 — Tools must be **declarative + bounded**
-
-Every tool must declare:
-
-* inputs schema
-* output schema
-* max size/limits (time, bytes, entries)
-* safety constraints
-
-### T2 — Tools must be **idempotent** or carry an idempotency key
-
-MCP calls may be retried.
-
-* Tools should not double-apply side effects.
-* If side effects exist, require an **idempotency key** and store a short-lived dedupe record.
-
-**Cursor pushback when:** adding side-effecting tools without retry safety.
-
-### T3 — Strict allowlists for execution
-
-`SystemExecute`:
-
-* Use an allowlist of commands and argument patterns.
-* No raw shell execution.
-* Prefer structured tools over “execute arbitrary command.”
-
-### T4 — “Observation” tools are safer than “Action” tools
-
-Prioritize:
-
-* FileList, FileRead (bounded)
-* BrowserNavigate (bounded)
-* ScreenCapture (explicit permission + redaction)
-
-Over:
-
-* arbitrary write/delete
-* arbitrary system calls
-
----
-
-## 4) Permission Model Rules (Before you expand tools)
-
-### P1 — One universal enforcement point
-
-Pick a single mechanism to enforce permissions and apply it to **all MCP tool calls**.
-
-* No “legacy path” half-enforced.
-
-### P2 — Permission tokens must be time-boxed + scope-boxed
-
-* token: {tool, scope, expiresAt, reason}
-* short TTL
-* minimum scope
-
-### P3 — Permissions are user-visible and auditable
-
-* prompts are clear
-* outcomes logged
-
-**Cursor pushback when:** permission becomes implicit, inferred, or hidden.
-
----
-
-## 5) Data & Memory Rules
-
-### D1 — Default: ephemeral session memory
-
-* Conversation history exists for the session/run.
-* No long-term memory unless user explicitly enables it.
-
-### D2 — Redaction by default
-
-Audit log should avoid leaking secrets.
-
-* redact tokens, passwords, keys
-* store hashes or placeholders when needed
-
-### D3 — No training / telemetry
-
-* No collection for training.
-* If diagnostics exist, they’re opt-in.
-
----
-
-## 6) “Are we drifting?” Checklist (Cursor must ask this)
-
-When adding a feature, Cursor must quickly check:
-
-1. **Does this give the agent more authority?** (policy decisions, auto approvals)
-2. **Does this bypass MCP or blur the trust boundary?**
-3. **Does this add side effects without explicit permission?**
-4. **Does this reduce auditability or add hidden state?**
-5. **Does this introduce surprise networking/telemetry?**
-6. **Does this make UI required for core runtime?**
-
-If any answer is “yes” or “maybe,” Cursor must push back using the template.
-
----
-
-## 7) Safe Growth Path (preferred order)
-
-When unsure, prioritize in this order:
-
-1. **Permission enforcement for MCP calls** (universal)
-2. **Tool idempotency / retry safety**
-3. **ScreenCapture implemented with explicit consent + redaction**
-4. **Playwright wired through MCP** (bounded, auditable)
-5. **Transcription (Whisper) integrated locally**
-6. **More tools** (only after the above)
-
-**Cursor pushback when:** expanding tool surface area before permissions + idempotency are solved.
-
----
-
-## 8) PR / Change Rules (How Cursor should propose changes)
-
-When Cursor proposes code changes, it should include:
-
-* what invariant(s) the change touches
-* how permission is enforced
-* how it’s audited
-* bounds (timeouts, max bytes, allowlists)
-* retry/idempotency approach for tool calls
-
----
-
-## 9) Standard Pushback Messages
-
-Use one of these when needed:
-
-* **Drift warning (general):**
-  *“Are you sure? You told me to push back when we drift. This change risks violating [I#]. Safer approach: [X].”*
-
-* **Permission warning:**
-  *“Are you sure? This introduces side effects without explicit user permission. You wanted local-first + explicit permission. Add [token/confirm] first?”*
-
-* **Boundary warning:**
-  *“Are you sure? This bypasses MCP and weakens the trust boundary. You asked me to keep tools isolated. Keep it behind MCP?”*
-
-* **Audit warning:**
-  *“Are you sure? This action wouldn’t be auditable. You insisted audit is always-on. Add audit event [name] with redaction?”*
-
-* **Networking warning:**
-  *“Are you sure? This adds network calls implicitly. Local-first means no surprise networking. Make it an explicit tool call?”*
-
----
-
-## 10) Tiny Constitution (Pin this)
-
-1. **Local-first.**
-2. **Explicit permission for side effects.**
-3. **MCP is the boundary.**
-4. **Audit is always-on.**
-5. **UI is optional.**
-
-If a feature breaks these, we redesign it.
+## sir-thaddeus
+
+> Apply this guide to the entire repository. Treat more-specific `AGENTS.md`
+
+# Sir Thaddeus Agent Guide
+
+## Scope
+
+Apply this guide to the entire repository. Treat more-specific `AGENTS.md`
+files, when present, as additional instructions for their directory only.
+
+## Product objective
+
+Sir Thaddeus is a local-first assistant intended to show that a small model can
+complete a large share of ordinary work when deterministic capabilities,
+memory, permissions, tools, and observable verification are used well.
+
+Keep two claims separate:
+
+- **Model capacity:** closed-book knowledge and reasoning, measured with MMLU
+  and related controls.
+- **Harness capability:** successful user outcomes created by tools, retrieval,
+  state, permissions, and external verification.
+
+Do not substitute one score for the other. State the primary metric before an
+experiment begins. Preserve raw-model language quality while improving product
+capability.
+
+Track **product quality** as a third, independent scorecard: latency, safety,
+personality, continuity, validity, permissions, false success, and resource use.
+Changing to a larger or newer model may be a useful deployment comparison, but
+it is not evidence that the harness improved the fixed model under test.
+
+## Required orientation
+
+Before changing assistant behavior, read:
+
+1. `docs/ASSISTANT_PIPELINE.md` for the supported production path and retired
+   experiments.
+2. `docs/EXPERIMENTATION.md` for benchmark and promotion policy.
+3. `docs/TESTING.md` for the narrowest trustworthy verification command.
+
+For optimization work, also read `docs/CALIBRATED_IMPROVEMENT_PLAN.md` and the
+current evidence in `docs/research/` before selecting a candidate.
+
+Use `THADDEUS_ROUTING_LATENCY_SCOPE.md` as historical evidence, not as the
+current architecture contract. Verify drift-prone claims against current code,
+GitHub state, and fresh artifacts.
+
+When available, use the `sir-thaddeus-experiment-loop` skill for MMLU, harness,
+prompt, routing, model-comparison, latency, VRAM, or benchmark work.
+
+## Production invariants
+
+- Preserve safety boundaries, personality, memory, dialogue continuity,
+  permissions, tool policy, auditing, sanitization, and explicit response
+  contracts unless the task explicitly changes one of them.
+- Keep desktop and headless behavior aligned.
+- Keep benchmark datasets, expected answers, suite identifiers, scorer logic,
+  and promotion thresholds outside production assemblies.
+- Prefer a generalized fix at the narrowest product seam over a broad rewrite.
+- Do not retain rejected behavior behind a disabled flag. Remove it.
+- Treat external tools and model providers as untrusted boundaries.
+
+## Experiment contract
+
+- Change one mechanism per experimental branch.
+- Predeclare the hypothesis, controls, primary metric, guardrails, time budget,
+  promotion threshold, and rollback before running the candidate.
+- Compare the candidate with both the raw-model control and the unchanged
+  Thaddeus control under the same model and sampling configuration.
+- Use a development slice of roughly ten minutes or less for rejection and
+  iteration. A small development win is not promotion evidence.
+- Treat ten minutes as a ceiling, not a target. Use deterministic checks and a
+  balanced reject-only triage slice before the full development battery, and
+  record the planned case-evaluation count before making model calls.
+- Reject a clearly losing candidate immediately. If it wins or reaches the
+  exact-repeat gate with a credible directional improvement, retain it long
+  enough to rerun the exact candidate.
+- Use a disjoint frozen validation set only after the exact repeat succeeds.
+- Run broad product regressions only after the candidate survives the focused
+  gates.
+- Require explicit large-campaign acknowledgement before multi-model, repeated,
+  validation, or confirmation sweeps. Reuse compatible frozen controls only
+  when hashes match and a small unchanged-harness sentinel shows no drift.
+- Record correctness, validity, paired wins/losses, model calls, tokens,
+  latency, peak memory/VRAM, and escalation or tool-use rates when applicable.
+- Delete clearly non-working implementation branches, but preserve their
+  manifests, raw artifacts, and verdicts in the experiment record. A candidate
+  that reaches exact repeat or validation may remain as a labeled, unmerged
+  research branch until the campaign decision; do not keep it as dormant
+  production code or imply that retention is promotion.
+- Treat every material mutation after a failed run as a new candidate. Do not
+  tune repeatedly against a holdout until one run happens to pass.
+
+## Benchmark integrity
+
+- Never add task IDs, fixture names, expected-answer fragments, subject-specific
+  answer keys, scorer imports, or benchmark-aware conditionals to runtime code.
+- Do not read hidden expected outputs or scoring predicates while optimizing
+  product behavior. Inspect raw model outputs, traces, tool results, and public
+  task inputs instead.
+- Do not weaken thresholds, rewrite expected answers, or make scoring more
+  lenient to promote a candidate.
+- Use semantic mutations, renamed tools/arguments, changed numbers/entities,
+  paraphrases, irrelevant-tool distractors, and temporal holdouts to test
+  generalization.
+- Keep stronger-model calls visible. Report them as escalation, not local-model
+  success.
+- Score final state and independently verifiable outcomes when possible. Treat
+  formatting, valid JSON, plausible plans, and LLM-judge approval as enabling
+  signals rather than proof of completion.
+
+## Known evidence and stop rules
+
+- Sampled self-consistency and tool-aware majority voting added latency and did
+  not beat unchanged controls. Do not reintroduce them without materially new
+  evidence and an independent selector.
+- Global retry removal and global completion-validation removal reduced quality.
+  Keep the supported path unless a route-specific controlled experiment proves
+  a better replacement.
+- The historical raw-versus-harness MMLU gap used different system prompts. Do
+  not attribute that gap to routing without a same-prompt control.
+- Always-on retrieval, blind regeneration, recursive autonomous planning, and
+  same-model self-critique are not default strategies.
+- Use oracle-route, oracle-tool, and gold-evidence controls to identify the model
+  ceiling. Stop adding routing machinery when the model still fails with the
+  correct capability and evidence supplied.
+
+## Branch and delivery policy
+
+- Keep only `master` and `dev` as permanent product branches. A promising
+  experiment that reaches exact repeat or validation may remain temporarily as
+  a clearly labeled research branch while its verdict is reviewed.
+- Create short-lived branches from the current production baseline. Use
+  `codex/experiment-<mechanism>` for behavioral experiments and `codex/<change>`
+  for normal product work.
+- `master` is protected. Deliver changes through a PR and wait for the actual
+  remote checks.
+- Keep `dev` synchronized with `master` between experiments.
+- Delete the temporary branch after merge or a clear rejection. Retained,
+  below-promotion candidates must stay unmerged and carry a current verdict.
+- Preserve unrelated user work and do not rewrite or discard a dirty worktree.
+
+## Verification ladder
+
+Use the cheapest layer that can falsify the current hypothesis, then expand:
+
+1. Static checks and focused unit tests.
+2. One deterministic stage test or one harness case.
+3. The containing suite.
+4. Exact benchmark repeat.
+5. Disjoint validation and product regression suites.
+6. `./dev/test.ps1` and the relevant conversation-level smoke coverage.
+7. Protected PR checks, package smoke tests, and the post-merge `master` run.
+
+Read the exact GitHub Actions log before changing code for CI failures. On this
+Windows environment, prefer the repository scripts and isolated project tests
+over ad hoc whole-solution commands when the test host is unstable.
+
+## Reporting
+
+Lead with the verdict: promoted, rejected, inconclusive, or blocked. Include the
+baseline SHA, model/configuration, exact commands, artifact locations, paired
+results, resource costs, regressions, and remaining uncertainty. Be explicit
+when a result is historical, estimated, or not independently verified.
 
 ---
 > Source: [raydeStar/sir-thaddeus](https://github.com/raydeStar/sir-thaddeus) — distributed by [TomeVault](https://tomevault.io).
