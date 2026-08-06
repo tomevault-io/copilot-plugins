@@ -1,0 +1,9 @@
+{
+  "name": "sightmap--sightmap",
+  "displayName": "sightmap",
+  "description": "Specification, tooling, and documentation for the .sightmap spec.",
+  "version": "1.0.0",
+  "author": "sightmap",
+  "homepage": "https://github.com/sightmap/sightmap",
+  "skills": []
+}
