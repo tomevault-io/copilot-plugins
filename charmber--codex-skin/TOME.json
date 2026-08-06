@@ -1,0 +1,44 @@
+{
+  "name": "codex-skin",
+  "owner": "charmber",
+  "repo": "codex-skin",
+  "description": "codex\u4e3b\u9898\u66ff\u6362\uff0c\u652f\u6301\u81ea\u5b9a\u4e49\u80cc\u666f\uff0c\u4e3b\u9898\uff0c\u914d\u8272\u7b49\u529f\u80fd\uff0cMac\u652f\u6301dmg\u4e00\u952e\u5b89\u88c5Codex theme replacement, supporting custom background, theme, color scheme, and other functions, with one-click installation via dmg on Mac",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/charmber/codex-skin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T14:55:16Z"
+}
