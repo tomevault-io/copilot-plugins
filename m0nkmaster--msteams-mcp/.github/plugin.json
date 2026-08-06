@@ -1,0 +1,9 @@
+{
+  "name": "m0nkmaster--msteams-mcp",
+  "displayName": "msteams-mcp",
+  "description": "Microsoft Teams MCP Server using standard user sign in flows.",
+  "version": "1.0.0",
+  "author": "m0nkmaster",
+  "homepage": "https://github.com/m0nkmaster/msteams-mcp",
+  "skills": []
+}
