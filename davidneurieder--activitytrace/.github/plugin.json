@@ -1,0 +1,9 @@
+{
+  "name": "davidneurieder--activitytrace",
+  "displayName": "ActivityTrace",
+  "description": "On-device cross-app memory search for Android. No AI, no cloud, no internet permission.",
+  "version": "1.0.0",
+  "author": "DavidNeurieder",
+  "homepage": "https://github.com/DavidNeurieder/ActivityTrace",
+  "skills": []
+}
