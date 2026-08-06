@@ -1,0 +1,9 @@
+{
+  "name": "pymss-project--pymss-studio",
+  "displayName": "pymss-studio",
+  "description": "Cross-platform desktop GUI for music source separation",
+  "version": "1.0.0",
+  "author": "pymss-project",
+  "homepage": "https://github.com/pymss-project/pymss-studio",
+  "skills": []
+}
