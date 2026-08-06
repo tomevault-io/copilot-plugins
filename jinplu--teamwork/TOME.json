@@ -4,7 +4,7 @@
   "repo": "Teamwork",
   "description": "Evidence-first skills for Codex, Cursor, and Claude Code: research, debugging, planning, execution, review, and goal loops.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JinPLu/Teamwork",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T06:22:01Z"
+  "distributed_at": "2026-08-06T12:48:26Z"
 }
