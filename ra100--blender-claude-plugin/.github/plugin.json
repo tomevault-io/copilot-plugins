@@ -1,0 +1,9 @@
+{
+  "name": "ra100--blender-claude-plugin",
+  "displayName": "blender-claude-plugin",
+  "description": "Plugin for blender to be used in coding agents as claude, opencode, kilocode, ...",
+  "version": "1.0.0",
+  "author": "ra100",
+  "homepage": "https://github.com/ra100/blender-claude-plugin",
+  "skills": []
+}
