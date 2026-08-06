@@ -4,7 +4,7 @@
   "repo": "gitloop",
   "description": "Local, git-only inner-loop tool that lets AI coding agents hand off work deterministically using git tags as the single source of truth.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/daax-dev/gitloop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T21:53:21Z"
+  "distributed_at": "2026-08-06T06:54:23Z"
 }
