@@ -1,0 +1,9 @@
+{
+  "name": "nguyenchu--quickfit",
+  "displayName": "quickfit",
+  "description": "Cross-platform fitness & workout tracker built with React Native + Expo (iOS, Android, web).",
+  "version": "1.0.0",
+  "author": "nguyenchu",
+  "homepage": "https://github.com/nguyenchu/quickfit",
+  "skills": []
+}
