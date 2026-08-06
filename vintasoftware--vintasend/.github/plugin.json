@@ -1,0 +1,9 @@
+{
+  "name": "vintasoftware--vintasend",
+  "displayName": "vintasend",
+  "description": "A flexible package for implementing transactional notifications",
+  "version": "1.0.0",
+  "author": "vintasoftware",
+  "homepage": "https://github.com/vintasoftware/vintasend",
+  "skills": []
+}
