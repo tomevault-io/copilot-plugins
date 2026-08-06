@@ -1,0 +1,9 @@
+{
+  "name": "ricardodantas--feedo",
+  "displayName": "feedo",
+  "description": "\ud83d\udce1 A stunning terminal RSS reader built with Rust and ratatui",
+  "version": "1.0.0",
+  "author": "ricardodantas",
+  "homepage": "https://github.com/ricardodantas/feedo",
+  "skills": []
+}
