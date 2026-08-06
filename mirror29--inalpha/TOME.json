@@ -4,7 +4,7 @@
   "repo": "inalpha",
   "description": "\ud83e\udd8a Open-source professional quant agent framework. Agents pick the factors working now to time entries, write full strategies, and evolve them in   a sandbox \u2014 every order through machine approval, the LLM never on the order path. Multi-market, audit-grade.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mirror29/inalpha",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T12:44:42Z"
+  "distributed_at": "2026-08-06T17:24:13Z"
 }
