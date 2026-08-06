@@ -1,0 +1,9 @@
+{
+  "name": "qvmconsole--qvmconsole",
+  "displayName": "QVMConsole",
+  "description": "Ubuntu/Debian\u9002\u7528\u4e8e\u53d1\u884c\u7248\u7684\u865a\u62df\u673a\u63a7\u5236\u53f0\uff0c\u9762\u5411\u79c1\u6709\u4e91\u548c\u516c\u7528\u4e91\u53cc\u73af\u5883\u3002",
+  "version": "1.0.0",
+  "author": "QVMConsole",
+  "homepage": "https://github.com/QVMConsole/QVMConsole",
+  "skills": []
+}
