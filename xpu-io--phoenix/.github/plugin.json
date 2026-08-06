@@ -1,0 +1,9 @@
+{
+  "name": "xpu-io--phoenix",
+  "displayName": "phoenix",
+  "description": "Phoenix is a direct hub between storage and xPU \u2014 plug in any accelerator (GPU/NPU) or AI app and stream data straight to the chip.",
+  "version": "1.0.0",
+  "author": "xPU-IO",
+  "homepage": "https://github.com/xPU-IO/phoenix",
+  "skills": []
+}
