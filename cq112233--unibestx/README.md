@@ -7,11 +7,11 @@ unibestX —— 最好的 uni-app X 开发模板，由 uni-app X + Vue3 + UTS + 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [cq112233/unibestX](https://github.com/cq112233/unibestX).
+Original source: `AGENTS.md` in [cq112233/unibestX](https://github.com/cq112233/unibestX).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
