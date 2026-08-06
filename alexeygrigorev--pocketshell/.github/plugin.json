@@ -1,0 +1,9 @@
+{
+  "name": "alexeygrigorev--pocketshell",
+  "displayName": "pocketshell",
+  "description": "Voice-first, tmux-native, agent-aware Android SSH client",
+  "version": "1.0.0",
+  "author": "alexeygrigorev",
+  "homepage": "https://github.com/alexeygrigorev/pocketshell",
+  "skills": []
+}
