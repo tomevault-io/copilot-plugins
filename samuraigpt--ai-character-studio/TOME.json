@@ -1,0 +1,44 @@
+{
+  "name": "ai-character-studio",
+  "owner": "SamurAIGPT",
+  "repo": "ai-character-studio",
+  "description": "Open-source AI character creator & roleplay chat studio \u2014 production-ready Next.js SaaS that generates custom AI character portraits and enables interactive conversational personas. Free Character.ai & Replika alternative with Stripe billing, credits, NextAuth, and Prisma.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SamurAIGPT/ai-character-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T19:18:56Z"
+}
