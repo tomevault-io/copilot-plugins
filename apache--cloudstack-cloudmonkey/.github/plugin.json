@@ -1,0 +1,9 @@
+{
+  "name": "apache--cloudstack-cloudmonkey",
+  "displayName": "cloudstack-cloudmonkey",
+  "description": "cloudstack-cloudmonkey",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/cloudstack-cloudmonkey",
+  "skills": []
+}
