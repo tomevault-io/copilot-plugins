@@ -1,0 +1,9 @@
+{
+  "name": "jeeftor--abs-mcp",
+  "displayName": "abs-mcp",
+  "description": "Model Context Protocol server for inspecting and safely operating Audiobookshelf instances",
+  "version": "1.0.0",
+  "author": "jeeftor",
+  "homepage": "https://github.com/jeeftor/abs-mcp",
+  "skills": []
+}
