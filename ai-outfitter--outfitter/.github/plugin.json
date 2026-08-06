@@ -1,0 +1,9 @@
+{
+  "name": "ai-outfitter--outfitter",
+  "displayName": "outfitter",
+  "description": "Swap between configurations in Pi \u2014 it's like dotfiles for your coding agent.",
+  "version": "1.0.0",
+  "author": "ai-outfitter",
+  "homepage": "https://github.com/ai-outfitter/outfitter",
+  "skills": []
+}
