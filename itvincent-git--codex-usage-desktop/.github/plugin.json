@@ -1,0 +1,9 @@
+{
+  "name": "itvincent-git--codex-usage-desktop",
+  "displayName": "codex-usage-desktop",
+  "description": "Local-first macOS dashboard for Codex CLI token usage, cost estimates, model usage, and project usage from ~/.codex logs.",
+  "version": "1.0.0",
+  "author": "itvincent-git",
+  "homepage": "https://github.com/itvincent-git/codex-usage-desktop",
+  "skills": []
+}
