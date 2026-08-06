@@ -4,7 +4,7 @@
   "repo": "danbyte",
   "description": "A customizable IPAM / DCIM platform \u2014 one place for your IP space, your physical gear, and how it all connects.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/danbyte-net/danbyte",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T18:10:51Z"
+  "distributed_at": "2026-08-06T04:43:31Z"
 }
