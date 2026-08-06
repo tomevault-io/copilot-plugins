@@ -1,0 +1,9 @@
+{
+  "name": "findyourpaths--phil",
+  "displayName": "phil",
+  "description": "Generalized-LR (GLR) Parser of datetime ranges.",
+  "version": "1.0.0",
+  "author": "findyourpaths",
+  "homepage": "https://github.com/findyourpaths/phil",
+  "skills": []
+}
