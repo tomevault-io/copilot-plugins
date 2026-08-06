@@ -1,0 +1,9 @@
+{
+  "name": "sudomichael--openspeech",
+  "displayName": "openspeech",
+  "description": "Open directory of open-source TTS models. Every voice reads the same three scripts so you can actually compare them.",
+  "version": "1.0.0",
+  "author": "sudomichael",
+  "homepage": "https://github.com/sudomichael/openspeech",
+  "skills": []
+}
