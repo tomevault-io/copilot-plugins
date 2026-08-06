@@ -1,0 +1,9 @@
+{
+  "name": "qiniu--ci-runner",
+  "displayName": "ci-runner",
+  "description": "ci-runner",
+  "version": "1.0.0",
+  "author": "qiniu",
+  "homepage": "https://github.com/qiniu/ci-runner",
+  "skills": []
+}
