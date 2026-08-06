@@ -1,0 +1,9 @@
+{
+  "name": "moyaspace--openspec-superpowers-opencode",
+  "displayName": "openspec-superpowers-opencode",
+  "description": "Bridges Superpowers + OpenSpec workflows into OpenCode with enforced worktree isolation.",
+  "version": "1.0.0",
+  "author": "moyaspace",
+  "homepage": "https://github.com/moyaspace/openspec-superpowers-opencode",
+  "skills": []
+}
