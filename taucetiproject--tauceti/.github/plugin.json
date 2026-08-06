@@ -1,0 +1,9 @@
+{
+  "name": "taucetiproject--tauceti",
+  "displayName": "TauCeti",
+  "description": "An AIs-welcome Lean library downstream of Mathlib: AI handle the implementation and review, humans write the roadmaps and review rubrics",
+  "version": "1.0.0",
+  "author": "TauCetiProject",
+  "homepage": "https://github.com/TauCetiProject/TauCeti",
+  "skills": []
+}
