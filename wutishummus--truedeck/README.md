@@ -7,11 +7,11 @@ Free multi-agent coding workbench: Grok/Codex/Claude/Cursor panes + TrueMemory (
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [WutIsHummus/TrueDeck](https://github.com/WutIsHummus/TrueDeck).
+Original source: `AGENTS.md` in [WutIsHummus/TrueDeck](https://github.com/WutIsHummus/TrueDeck).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
