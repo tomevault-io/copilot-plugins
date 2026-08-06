@@ -1,0 +1,9 @@
+{
+  "name": "simoncorry--foundry",
+  "displayName": "foundry",
+  "description": "An agent process for building software meant to last",
+  "version": "1.0.0",
+  "author": "simoncorry",
+  "homepage": "https://github.com/simoncorry/foundry",
+  "skills": []
+}
