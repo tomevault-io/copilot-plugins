@@ -4,7 +4,7 @@
   "repo": "simplicio-loop-marketing",
   "description": "Provider-agnostic AI marketing engine. CLI that drops into any host project. Pipeline: brief -> script -> creative -> caption -> compliance -> publish -> metrics -> ads. Switch LLM/image/video provider via env, never via skill rewrite.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wesleysimplicio/simplicio-loop-marketing",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T00:01:49Z"
+  "distributed_at": "2026-08-06T08:43:04Z"
 }
