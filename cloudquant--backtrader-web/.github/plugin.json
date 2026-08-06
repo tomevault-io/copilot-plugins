@@ -1,0 +1,9 @@
+{
+  "name": "cloudquant--backtrader-web",
+  "displayName": "backtrader_web",
+  "description": "A web-based full-cycle Backtrader strategy management tool covering backtesting analysis, paper trading, live execution, and data management.",
+  "version": "1.0.0",
+  "author": "cloudQuant",
+  "homepage": "https://github.com/cloudQuant/backtrader_web",
+  "skills": []
+}
