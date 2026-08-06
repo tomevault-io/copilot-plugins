@@ -4,7 +4,7 @@
   "repo": "oh-my-field",
   "description": "Field-fit agents to real work. Turn tacit know-how into reusable capabilities.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Baekpica/oh-my-field",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T20:12:25Z"
+  "distributed_at": "2026-08-06T22:42:33Z"
 }
