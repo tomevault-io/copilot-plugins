@@ -1,0 +1,44 @@
+{
+  "name": "dice-pattern-recorder",
+  "owner": "sahiko9683-cmyk",
+  "repo": "dice-pattern-recorder",
+  "description": "\uc804\ub9f9 \uc0ac\uc6a9\uc790\ub97c \uc704\ud55c \uc811\uadfc\uc131 \uc6b0\uc120 \uc8fc\uc0ac\uc704 \uc138\uc158 \uae30\ub85d\u00b7\uc790\uc5f0\uc5b4 \uc804\ub7b5 \ucd94\ucc9c \uc6f9\uc571 (Next.js + Prisma + MySQL on Railway)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sahiko9683-cmyk/dice-pattern-recorder",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T05:37:19Z"
+}
