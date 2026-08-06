@@ -4,7 +4,7 @@
   "repo": "eidetic",
   "description": "Claude Code memory system \u2014 auto context injection, drift detection, compounding, FTS5/vector search, Obsidian vault export. Zero core deps.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LARIkoz/eidetic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T13:14:05Z"
+  "distributed_at": "2026-08-06T18:32:04Z"
 }
