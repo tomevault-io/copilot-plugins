@@ -1,0 +1,9 @@
+{
+  "name": "motherduckdb--motherduck-cookbook",
+  "displayName": "motherduck-cookbook",
+  "description": "Example projects built on MotherDuck",
+  "version": "1.0.0",
+  "author": "motherduckdb",
+  "homepage": "https://github.com/motherduckdb/motherduck-cookbook",
+  "skills": []
+}
