@@ -1,0 +1,9 @@
+{
+  "name": "cnrmurphy--vocast",
+  "displayName": "vocast",
+  "description": "Local TTS pipeline for converting text to audio and streaming to devices",
+  "version": "1.0.0",
+  "author": "cnrmurphy",
+  "homepage": "https://github.com/cnrmurphy/vocast",
+  "skills": []
+}
