@@ -1,0 +1,9 @@
+{
+  "name": "antonygiomarxdev--synapse",
+  "displayName": "synapse",
+  "description": "Decentralized inference protocol for Mixture-of-Experts (MoE) models. Turns thousands of consumer GPUs into a distributed swarm to run frontier AI like Kimi K3 without gatekeepers, rate limits, or dat",
+  "version": "1.0.0",
+  "author": "antonygiomarxdev",
+  "homepage": "https://github.com/antonygiomarxdev/synapse",
+  "skills": []
+}
