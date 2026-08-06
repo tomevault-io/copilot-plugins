@@ -4,7 +4,7 @@
   "repo": "giro-certo-next",
   "description": "Sistema de dashboard do app Giro Certo APP",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jeffinho-ns/giro-certo-next",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-28T04:34:18Z"
+  "distributed_at": "2026-08-06T11:01:58Z"
 }
