@@ -1,0 +1,9 @@
+{
+  "name": "trinity-cloud--tess-server",
+  "displayName": "tess-server",
+  "description": "tess-server",
+  "version": "1.0.0",
+  "author": "trinity-cloud",
+  "homepage": "https://github.com/trinity-cloud/tess-server",
+  "skills": []
+}
