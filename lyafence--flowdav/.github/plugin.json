@@ -1,0 +1,9 @@
+{
+  "name": "lyafence--flowdav",
+  "displayName": "flowdav",
+  "description": "A lightweight SOCKS5 proxy that uses WebDAV as a transport layer",
+  "version": "1.0.0",
+  "author": "lyafence",
+  "homepage": "https://github.com/lyafence/flowdav",
+  "skills": []
+}
