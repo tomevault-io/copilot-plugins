@@ -1,0 +1,44 @@
+{
+  "name": "Health-Atlas",
+  "owner": "CSJ-PJT",
+  "repo": "Health-Atlas",
+  "description": "\uac74\uac15\u00b7\uc6b4\ub3d9\u00b7\uc218\uba74 \ub370\uc774\ud130\ub97c \ub9e4\uc77c \uae30\ub85d\ud558\uace0 \ubd84\uc11d\ud558\ub294 \ud5ec\uc2a4 \ub300\uc2dc\ubcf4\ub4dc",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CSJ-PJT/Health-Atlas",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T21:22:35Z"
+}
