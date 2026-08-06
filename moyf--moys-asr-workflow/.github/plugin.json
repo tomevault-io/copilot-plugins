@@ -1,0 +1,9 @@
+{
+  "name": "moyf--moys-asr-workflow",
+  "displayName": "moys-asr-workflow",
+  "description": "Moy \u7684 ASR \u5b57\u5e55\u751f\u6210\u5de5\u4f5c\u6d41\u53ca\u7f16\u8f91\u5668\uff0c\u7b80\u79f0 MAW",
+  "version": "1.0.0",
+  "author": "Moyf",
+  "homepage": "https://github.com/Moyf/moys-asr-workflow",
+  "skills": []
+}
