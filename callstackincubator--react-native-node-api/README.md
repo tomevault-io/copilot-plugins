@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [callstackincubator/react-native-node-api](https://github.com/callstackincubator/react-native-node-api).
+Original source: `AGENTS.md` in [callstackincubator/react-native-node-api](https://github.com/callstackincubator/react-native-node-api).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
