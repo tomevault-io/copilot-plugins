@@ -7,11 +7,11 @@ A lightweight CodeStable distribution
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [codestable/CodeStable-Lite](https://github.com/codestable/CodeStable-Lite).
+Original source: `AGENTS.md` in [codestable/CodeStable-Lite](https://github.com/codestable/CodeStable-Lite).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
