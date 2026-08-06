@@ -1,0 +1,44 @@
+{
+  "name": "react-native-alternate-app-icon",
+  "owner": "rutvik24",
+  "repo": "react-native-alternate-app-icon",
+  "description": "High-performance React Native App Icon Changer for iOS and Android. Change your app icon dynamically at runtime using Nitro Modules.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rutvik24/react-native-alternate-app-icon",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T05:16:19Z"
+}
