@@ -1,0 +1,9 @@
+{
+  "name": "huangruiteng--loopx",
+  "displayName": "loopx",
+  "description": "Lightweight loop engineering state kernel for long-running AI agent teams. Agent-loop agnostic across Codex, Claude Code, and other coding agents, with durable goals, quota-aware auto-wake, executable",
+  "version": "1.0.0",
+  "author": "huangruiteng",
+  "homepage": "https://github.com/huangruiteng/loopx",
+  "skills": []
+}
