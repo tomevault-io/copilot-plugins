@@ -1,0 +1,9 @@
+{
+  "name": "textura-agency--next16-claude-starter",
+  "displayName": "next16-claude-starter",
+  "description": "AI-first Next.js 16 starter for animation-heavy sites, wired with an Obsidian vault & Claude Code hooks",
+  "version": "1.0.0",
+  "author": "textura-agency",
+  "homepage": "https://github.com/textura-agency/next16-claude-starter",
+  "skills": []
+}
