@@ -1,0 +1,9 @@
+{
+  "name": "kririae--smallgwn",
+  "displayName": "smallgwn",
+  "description": "Header-only CUDA library for fast generalized winding number (GWN) queries",
+  "version": "1.0.0",
+  "author": "kririae",
+  "homepage": "https://github.com/kririae/smallgwn",
+  "skills": []
+}
