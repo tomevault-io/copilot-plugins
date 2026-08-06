@@ -1,0 +1,9 @@
+{
+  "name": "zcg--ghostty-win",
+  "displayName": "ghostty-win",
+  "description": "Ghostty terminal emulator for Windows - Win32 native port with Direct2D/D3D11 renderer",
+  "version": "1.0.0",
+  "author": "zcg",
+  "homepage": "https://github.com/zcg/ghostty-win",
+  "skills": []
+}
