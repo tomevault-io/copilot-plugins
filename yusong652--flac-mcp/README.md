@@ -7,11 +7,11 @@ MCP server connecting AI agents to ITASCA FLAC — run continuum simulations thr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [yusong652/flac-mcp](https://github.com/yusong652/flac-mcp).
+Original source: `AGENTS.md` in [yusong652/flac-mcp](https://github.com/yusong652/flac-mcp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
