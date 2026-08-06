@@ -1,0 +1,9 @@
+{
+  "name": "xubin0903--grokpool",
+  "displayName": "GrokPool",
+  "description": "Free Grok OAuth pool: register \u2192 grok-build OAuth \u2192 patched Sub2API scheduler \u2192 OpenAI gateway for CC Switch",
+  "version": "1.0.0",
+  "author": "xubin0903",
+  "homepage": "https://github.com/xubin0903/GrokPool",
+  "skills": []
+}
