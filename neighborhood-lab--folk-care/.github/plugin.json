@@ -1,0 +1,9 @@
+{
+  "name": "neighborhood-lab--folk-care",
+  "displayName": "folk-care",
+  "description": "Folk Care - Open source home healthcare software. EVV, scheduling, care plans, and billing for community-owned agencies. AGPL-3.0.",
+  "version": "1.0.0",
+  "author": "neighborhood-lab",
+  "homepage": "https://github.com/neighborhood-lab/folk-care",
+  "skills": []
+}
