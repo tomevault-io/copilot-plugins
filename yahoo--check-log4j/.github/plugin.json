@@ -1,0 +1,9 @@
+{
+  "name": "yahoo--check-log4j",
+  "displayName": "check-log4j",
+  "description": "check-log4j",
+  "version": "1.0.0",
+  "author": "yahoo",
+  "homepage": "https://github.com/yahoo/check-log4j",
+  "skills": []
+}
