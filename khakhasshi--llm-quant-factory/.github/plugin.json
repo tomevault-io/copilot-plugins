@@ -1,0 +1,9 @@
+{
+  "name": "khakhasshi--llm-quant-factory",
+  "displayName": "LLM_QUANT_FACTORY",
+  "description": "Auditable multi-agent A-share factor research, knowledge base, long-only backtesting, AutoCombine and QuantCombine.",
+  "version": "1.0.0",
+  "author": "khakhasshi",
+  "homepage": "https://github.com/khakhasshi/LLM_QUANT_FACTORY",
+  "skills": []
+}
