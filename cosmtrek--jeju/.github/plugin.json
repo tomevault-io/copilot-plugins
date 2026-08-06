@@ -1,0 +1,9 @@
+{
+  "name": "cosmtrek--jeju",
+  "displayName": "jeju",
+  "description": "Declarative, local-first runtime for bounded AI agents \u2014 define an agent in one manifest, run it headless, and audit every effect.",
+  "version": "1.0.0",
+  "author": "cosmtrek",
+  "homepage": "https://github.com/cosmtrek/jeju",
+  "skills": []
+}
