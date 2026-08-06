@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-bluetooth-low-energy",
+  "displayName": "capacitor-bluetooth-low-energy",
+  "description": "Capacitor plugin Bluetooth Low Energy",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-bluetooth-low-energy",
+  "skills": []
+}
