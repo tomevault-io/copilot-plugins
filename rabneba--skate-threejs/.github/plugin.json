@@ -1,0 +1,9 @@
+{
+  "name": "rabneba--skate-threejs",
+  "displayName": "skate-threejs",
+  "description": "PS2-era street skating in Three.js \u2014 a fully generated spot, built with the Genex CLI. Design contract, build log and review harnesses included.",
+  "version": "1.0.0",
+  "author": "Rabneba",
+  "homepage": "https://github.com/Rabneba/skate-threejs",
+  "skills": []
+}
