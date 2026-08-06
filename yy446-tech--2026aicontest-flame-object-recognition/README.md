@@ -7,11 +7,11 @@ Ultralytics YOLO26, YOLO11, YOLOv8 — object detection, instance segmentation, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [yy446-tech/2026aicontest-flame_object_recognition](https://github.com/yy446-tech/2026aicontest-flame_object_recognition).
+Original source: `AGENTS.md` in [yy446-tech/2026aicontest-flame_object_recognition](https://github.com/yy446-tech/2026aicontest-flame_object_recognition).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
