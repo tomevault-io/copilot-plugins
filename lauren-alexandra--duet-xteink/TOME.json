@@ -4,7 +4,7 @@
   "repo": "duet-xteink",
   "description": "Open-source reading-first firmware for the Xteink X3 and X4",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lauren-alexandra/duet-xteink",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T20:53:39Z"
+  "distributed_at": "2026-08-06T23:26:41Z"
 }
