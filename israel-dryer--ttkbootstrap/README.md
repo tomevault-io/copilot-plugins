@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [israel-dryer/ttkbootstrap](https://github.com/israel-dryer/ttkbootstrap).
+Original source: `AGENTS.md` in [israel-dryer/ttkbootstrap](https://github.com/israel-dryer/ttkbootstrap).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [israel-dryer/ttkbootstrap](https://github.com/israel-dryer/ttkbootstrap) — a repo with 2633+ stars on GitHub.
+From [israel-dryer/ttkbootstrap](https://github.com/israel-dryer/ttkbootstrap) — a repo with 2632+ stars on GitHub.
 
 ---
 
