@@ -1,0 +1,9 @@
+{
+  "name": "mihozip--school-admin-daily-dashboard",
+  "displayName": "school-admin-daily-dashboard",
+  "description": "\u53ef\u4f9d\u8655\u5ba4\u5b89\u88dd\u7684 Google Apps Script \u6821\u52d9\u884c\u653f\u6bcf\u65e5\u4efb\u52d9\u7ba1\u7406\u8207\u96fb\u5b50\u7d19\u770b\u677f\u7cfb\u7d71",
+  "version": "1.0.0",
+  "author": "mihozip",
+  "homepage": "https://github.com/mihozip/school-admin-daily-dashboard",
+  "skills": []
+}
