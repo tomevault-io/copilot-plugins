@@ -4,7 +4,7 @@
   "repo": "nose",
   "description": "nose: bounded type-4 clone detector",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/corca-ai/nose",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T12:11:15Z"
+  "distributed_at": "2026-08-06T16:52:35Z"
 }
