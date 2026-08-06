@@ -1,0 +1,9 @@
+{
+  "name": "grave0x--rapiscm",
+  "displayName": "rapiscm",
+  "description": "Rust API scanner \u2014 spec, URL, fuzz, ghost mode, JS bundle analysis",
+  "version": "1.0.0",
+  "author": "grave0x",
+  "homepage": "https://github.com/grave0x/rapiscm",
+  "skills": []
+}
