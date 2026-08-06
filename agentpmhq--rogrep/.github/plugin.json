@@ -1,0 +1,9 @@
+{
+  "name": "agentpmhq--rogrep",
+  "displayName": "rogrep",
+  "description": "rollout grep: local search, stats, and trajectory analysis over coding-agent sessions (Claude Code, Codex, Cursor, Grok, Hermes, opencode)",
+  "version": "1.0.0",
+  "author": "agentpmhq",
+  "homepage": "https://github.com/agentpmhq/rogrep",
+  "skills": []
+}
