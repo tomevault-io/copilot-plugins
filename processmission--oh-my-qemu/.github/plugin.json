@@ -1,0 +1,9 @@
+{
+  "name": "processmission--oh-my-qemu",
+  "displayName": "oh-my-qemu",
+  "description": "A collection of AI agent skills for QEMU hardware modeling",
+  "version": "1.0.0",
+  "author": "processmission",
+  "homepage": "https://github.com/processmission/oh-my-qemu",
+  "skills": []
+}
