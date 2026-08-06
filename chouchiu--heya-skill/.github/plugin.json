@@ -1,7 +1,7 @@
 {
   "name": "chouchiu--heya-skill",
   "displayName": "heya-skill",
-  "description": "heya-skill",
+  "description": "\u57fa\u4e8e B \u7ad9\u535a\u4e3b \u9ed1\u9e26\uff08Heya\uff09\u89c6\u9891\u6807\u9898\u7684\u6df1\u5ea6\u5206\u6790\uff0c\u8ba9 AI \u5b66\u4f1a\u9ed1\u9e26\u7684\u6807\u5fd7\u6027\u98ce\u683c\uff1a\u957f\u6807\u9898\u3001\u60c5\u7eea\u70b8\u5f39\u3001\u591a\u4e8b\u4ef6\u5408\u5e76\u3002",
   "version": "1.0.0",
   "author": "ChouChiu",
   "homepage": "https://github.com/ChouChiu/heya-skill",
