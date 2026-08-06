@@ -4,7 +4,7 @@
   "repo": "ercm_agent",
   "description": "\u98ce\u9669\u63a7\u5236\u667a\u80fd\u4f53",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xuanyuan4612/ercm_agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T08:32:53Z"
+  "distributed_at": "2026-08-06T06:39:37Z"
 }
