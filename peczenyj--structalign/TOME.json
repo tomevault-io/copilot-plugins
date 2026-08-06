@@ -4,7 +4,7 @@
   "repo": "structalign",
   "description": "Preview Go struct field-alignment savings as a diff, not a rewrite.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/peczenyj/structalign",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T20:12:42Z"
+  "distributed_at": "2026-08-06T05:21:05Z"
 }
