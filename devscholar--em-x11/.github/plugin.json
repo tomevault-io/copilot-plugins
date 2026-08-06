@@ -1,0 +1,9 @@
+{
+  "name": "devscholar--em-x11",
+  "displayName": "em-x11",
+  "description": "\ud83d\udcab\ud835\udd4f \ud83c\udf10X11 Client API Shim Implemented in WASM",
+  "version": "1.0.0",
+  "author": "DevScholar",
+  "homepage": "https://github.com/DevScholar/em-x11",
+  "skills": []
+}
