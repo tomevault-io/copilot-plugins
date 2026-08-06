@@ -1,0 +1,9 @@
+{
+  "name": "kent-liu--meshtastic-firmware-zhtw",
+  "displayName": "meshtastic-firmware-zhtw",
+  "description": "Unofficial Meshtastic firmware with Traditional Chinese display and a Bopomofo input method",
+  "version": "1.0.0",
+  "author": "Kent-Liu",
+  "homepage": "https://github.com/Kent-Liu/meshtastic-firmware-zhtw",
+  "skills": []
+}
