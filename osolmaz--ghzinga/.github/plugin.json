@@ -1,0 +1,9 @@
+{
+  "name": "osolmaz--ghzinga",
+  "displayName": "ghzinga",
+  "description": "Easy, clickable TUI to view a single GitHub issue or PR, in Rust",
+  "version": "1.0.0",
+  "author": "osolmaz",
+  "homepage": "https://github.com/osolmaz/ghzinga",
+  "skills": []
+}
