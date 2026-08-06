@@ -1,0 +1,9 @@
+{
+  "name": "tcballard--oexl",
+  "displayName": "OEXL",
+  "description": "The exchange layer for agentic outcomes. Define the outcome. Verify the evidence. Settle the result.",
+  "version": "1.0.0",
+  "author": "tcballard",
+  "homepage": "https://github.com/tcballard/OEXL",
+  "skills": []
+}
