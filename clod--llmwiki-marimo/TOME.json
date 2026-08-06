@@ -4,7 +4,7 @@
   "repo": "llmwiki-marimo",
   "description": "Local-first LLM wiki \u2014 ingests your documents into a curated, citation-backed knowledge base you can read and chat with. Marimo + SQLite/FTS5, any OpenAI-compatible model, no cloud required.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Clod/llmwiki-marimo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T13:57:50Z"
+  "distributed_at": "2026-08-06T18:52:49Z"
 }
