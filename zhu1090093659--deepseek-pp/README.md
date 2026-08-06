@@ -1,6 +1,6 @@
 # deepseek-pp
 
-> Source: [zhu1090093659/deepseek-pp](https://github.com/zhu1090093659/deepseek-pp). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [zhu1090093659/deepseek-pp](https://github.com/zhu1090093659/deepseek-pp). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [zhu1090093659/deepseek-pp](https://github.com/z
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (10)
+## Bundled Skills (14)
 
 - [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/docs/archives/deepseek-automation/skill/SKILL.md)
 - [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli/SKILL.md)
@@ -27,6 +27,10 @@ Original source: `AGENTS.md` in [zhu1090093659/deepseek-pp](https://github.com/z
 - [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli-word-form/SKILL.md)
 - [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli-pitch-deck/SKILL.md)
 - [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli-data-dashboard/SKILL.md)
+- [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/spec-driven-develop-official/review-spd/SKILL.md)
+- [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/spec-driven-develop-official/deep-discuss/SKILL.md)
+- [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/spec-driven-develop-official/spec-driven-develop/SKILL.md)
+- [deepseek-pp](https://github.com/zhu1090093659/deepseek-pp/tree/main/docs/archives/deepseek-pp-reliability-compatibility-refactor/skill/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/zhu1090093659/deepseek-pp](https://github.com/zhu1090093659/deepseek-pp)
 
