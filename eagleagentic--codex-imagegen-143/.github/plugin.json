@@ -1,0 +1,9 @@
+{
+  "name": "eagleagentic--codex-imagegen-143",
+  "displayName": "codex-imagegen-143",
+  "description": "To solve 'image generation failed: network error' issue from latest Codex version. Delegate imagegen to stable version @openai/codex@0.143.0 from any coding agent.",
+  "version": "1.0.0",
+  "author": "eagleagentic",
+  "homepage": "https://github.com/eagleagentic/codex-imagegen-143",
+  "skills": []
+}
