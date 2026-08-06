@@ -1,27 +1,14 @@
 ## agent-skills
 
-> Public shared skills for agent workflows.
+> - Canonical source: `openclaw/agent-skills`, under `skills/autoreview`.
 
-# AGENTS.md
+# Autoreview Skill
 
-Public shared skills for agent workflows.
-
-## Rules
-
-- Canonical shared skills live under `skills/<name>/SKILL.md`.
-- Keep repo-specific workflows out unless they are useful as public examples.
-- Keep secrets, private hostnames, private account IDs, and private URLs out.
-- Skill descriptions: short trigger phrase, not full documentation.
-- Skill bodies: operational, terse, current.
-- Helper scripts belong under `skills/<name>/scripts/`.
-- Validate after edits: `scripts/validate-skills`.
-- Do not edit generated/vendor copies in downstream repos; update here, then sync.
-
-## Layout
-
-- `skills/autoreview`: shared closeout/code-review helper.
-- `skills/crabbox`: shared Crabbox/Testbox remote validation workflow.
+- Canonical source: `openclaw/agent-skills`, under `skills/autoreview`.
+- Before editing any copy, fast-forward a checkout of `openclaw/agent-skills` from `origin/main`.
+- Make and validate shared changes in canonical `skills/autoreview` first, then sync the complete directory into downstream repos.
+- Never create repo-local behavior variants; downstream differences belong in repo-level validation, not the skill.
 
 ---
 > Source: [openclaw/agent-skills](https://github.com/openclaw/agent-skills) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
