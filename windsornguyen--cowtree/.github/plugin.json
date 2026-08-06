@@ -1,0 +1,9 @@
+{
+  "name": "windsornguyen--cowtree",
+  "displayName": "cowtree",
+  "description": "Copy-on-write git worktrees for AI agent fleets",
+  "version": "1.0.0",
+  "author": "windsornguyen",
+  "homepage": "https://github.com/windsornguyen/cowtree",
+  "skills": []
+}
