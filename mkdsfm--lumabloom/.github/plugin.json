@@ -1,0 +1,9 @@
+{
+  "name": "mkdsfm--lumabloom",
+  "displayName": "LumaBloom",
+  "description": "Monitor brightness adjustment device based on ESP32-C6",
+  "version": "1.0.0",
+  "author": "mkdsfm",
+  "homepage": "https://github.com/mkdsfm/LumaBloom",
+  "skills": []
+}
