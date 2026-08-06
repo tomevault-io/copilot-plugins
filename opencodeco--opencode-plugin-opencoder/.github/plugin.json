@@ -1,0 +1,9 @@
+{
+  "name": "opencodeco--opencode-plugin-opencoder",
+  "displayName": "opencode-plugin-opencoder",
+  "description": "OpenCode plugin providing autonomous development agents for continuous codebase improvement",
+  "version": "1.0.0",
+  "author": "opencodeco",
+  "homepage": "https://github.com/opencodeco/opencode-plugin-opencoder",
+  "skills": []
+}
