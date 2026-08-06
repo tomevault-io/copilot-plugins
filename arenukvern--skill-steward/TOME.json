@@ -4,7 +4,7 @@
   "repo": "skill_steward",
   "description": "\u201cWhat\u2019s the thing?\u201d You\u2019d answer: \u201cSkills that teach you how to maintain skills & repos\u201d. Engineering Stewardship for any repository (app, library, tool), a structural governance and quality layer for agent-operated engineering repos. ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Arenukvern/skill_steward",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T20:08:28Z"
+  "distributed_at": "2026-08-06T05:18:31Z"
 }
