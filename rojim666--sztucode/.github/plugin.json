@@ -1,0 +1,9 @@
+{
+  "name": "rojim666--sztucode",
+  "displayName": "SztuCode",
+  "description": "\u672c\u5730\u4f18\u5148\u7684 AI \u7f16\u7a0b Agent\uff0c\u652f\u6301 TUI/\u684c\u9762\u7aef\u3001\u5de5\u5177\u6743\u9650\u3001\u4f1a\u8bdd\u8bb0\u5fc6\u3001Skills\u3001Subagents \u4e0e MCPA local-first AI coding agent with TUI and desktop clients, tool permissions, memory, Skills, Subagents, and MCP support.\u3002",
+  "version": "1.0.0",
+  "author": "rojim666",
+  "homepage": "https://github.com/rojim666/SztuCode",
+  "skills": []
+}
