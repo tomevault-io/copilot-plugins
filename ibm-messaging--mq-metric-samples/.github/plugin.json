@@ -1,0 +1,9 @@
+{
+  "name": "ibm-messaging--mq-metric-samples",
+  "displayName": "mq-metric-samples",
+  "description": "mq-metric-samples",
+  "version": "1.0.0",
+  "author": "ibm-messaging",
+  "homepage": "https://github.com/ibm-messaging/mq-metric-samples",
+  "skills": []
+}
