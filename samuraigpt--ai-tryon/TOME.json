@@ -1,0 +1,44 @@
+{
+  "name": "ai-tryon",
+  "owner": "SamurAIGPT",
+  "repo": "ai-tryon",
+  "description": "Open-source AI virtual try-on tool \u2014 production-ready Next.js SaaS that fits garments onto any person photo. Free Botika & Lalaland alternative for fashion brands, e-commerce, and stylists. Stripe, credits, NextAuth, Prisma.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SamurAIGPT/ai-tryon",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T19:00:17Z"
+}
