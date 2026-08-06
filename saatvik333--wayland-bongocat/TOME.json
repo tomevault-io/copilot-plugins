@@ -2,9 +2,9 @@
   "name": "wayland-bongocat",
   "owner": "saatvik333",
   "repo": "wayland-bongocat",
-  "description": "bongocat for your desktop \u208d^. .^\u208e",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/saatvik333/wayland-bongocat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T09:25:39Z"
+  "distributed_at": "2026-08-06T00:19:03Z"
 }
