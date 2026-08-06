@@ -1,0 +1,9 @@
+{
+  "name": "laplaceyoung--ansys-aedt-mcp",
+  "displayName": "ansys-aedt-mcp",
+  "description": "MCP server for Ansys Electronics Desktop automation with PyAEDT, HFSS, Maxwell, Q3D, Icepak, native AEDT APIs, reports, sweeps, and simulation workflows.",
+  "version": "1.0.0",
+  "author": "LaplaceYoung",
+  "homepage": "https://github.com/LaplaceYoung/ansys-aedt-mcp",
+  "skills": []
+}
