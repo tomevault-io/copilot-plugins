@@ -1,0 +1,9 @@
+{
+  "name": "mdjastrzebski--react-native-plain-text",
+  "displayName": "react-native-plain-text",
+  "description": "A faster, lower-memory React Native <Text> alternative for simple, single-style text",
+  "version": "1.0.0",
+  "author": "mdjastrzebski",
+  "homepage": "https://github.com/mdjastrzebski/react-native-plain-text",
+  "skills": []
+}
