@@ -1,0 +1,9 @@
+{
+  "name": "dilukangelosl--fluidkit",
+  "displayName": "fluidkit",
+  "description": "Framework-agnostic WebGL2 fluid simulation \u2014 decoupled sim engine + pluggable render modes (smoky dye, flat sticker-liquid, custom shaders). AI-agent ready.",
+  "version": "1.0.0",
+  "author": "dilukangelosl",
+  "homepage": "https://github.com/dilukangelosl/fluidkit",
+  "skills": []
+}
