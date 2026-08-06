@@ -1,0 +1,9 @@
+{
+  "name": "robertvanhoesel--astro-agent-annotate",
+  "displayName": "astro-agent-annotate",
+  "description": "Click any astro element, add notes, copy into your agent.",
+  "version": "1.0.0",
+  "author": "robertvanhoesel",
+  "homepage": "https://github.com/robertvanhoesel/astro-agent-annotate",
+  "skills": []
+}
