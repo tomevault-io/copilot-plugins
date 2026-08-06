@@ -1,0 +1,44 @@
+{
+  "name": "FirstCoder",
+  "owner": "KomorGiaoGiao",
+  "repo": "FirstCoder",
+  "description": "FirstCoder is an open-source local coding agent that\u2019s useful enough to run, small enough to read end to end, and structured enough to learn from. If you\u2019re building your own agent, it\u2019s a practical reference\u2014not a black box.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/KomorGiaoGiao/FirstCoder",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T10:46:32Z"
+}
