@@ -4,7 +4,7 @@
   "repo": "carve-harness",
   "description": "Harness Engineering for Project",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/claude-code-expert/carve-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T20:09:44Z"
+  "distributed_at": "2026-08-06T05:20:09Z"
 }
