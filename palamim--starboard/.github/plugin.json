@@ -1,0 +1,9 @@
+{
+  "name": "palamim--starboard",
+  "displayName": "starboard",
+  "description": "A terminal that's always beside your Dock \u2014 not a Quake-style hotkey overlay, a permanent fixture",
+  "version": "1.0.0",
+  "author": "palamim",
+  "homepage": "https://github.com/palamim/starboard",
+  "skills": []
+}
