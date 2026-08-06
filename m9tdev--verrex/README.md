@@ -7,11 +7,11 @@ an Effect-native UI framework where E/R channels survive to compile-time — for
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [m9tdev/verrex](https://github.com/m9tdev/verrex).
+Original source: `AGENTS.md` in [m9tdev/verrex](https://github.com/m9tdev/verrex).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
