@@ -1,0 +1,9 @@
+{
+  "name": "xiaomiku01--tetherkit",
+  "displayName": "TetherKit",
+  "description": "macOS \u7528\u6237\u6001 RNDIS \u9a71\u52a8 \u2014\u2014 \u628a RNDIS \u8bbe\u5907\u53d8\u6210\u7cfb\u7edf\u53ef\u89c1\u7684\u7f51\u5361\uff0c\u65e0\u5185\u6838\u4ee3\u7801\uff0c\u7eaf C++23",
+  "version": "1.0.0",
+  "author": "XiaoMiku01",
+  "homepage": "https://github.com/XiaoMiku01/TetherKit",
+  "skills": []
+}
