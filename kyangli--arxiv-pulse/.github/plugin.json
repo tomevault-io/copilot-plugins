@@ -1,0 +1,9 @@
+{
+  "name": "kyangli--arxiv-pulse",
+  "displayName": "arXiv-Pulse",
+  "description": "Automated Daily ArXiv Paper Scraper & Summarizer tracks the latest papers on arXiv. It automatically retrieves new submissions and provides intelligent summaries, helping researchers stay updated effo",
+  "version": "1.0.0",
+  "author": "kYangLi",
+  "homepage": "https://github.com/kYangLi/arXiv-Pulse",
+  "skills": []
+}
