@@ -1,0 +1,44 @@
+{
+  "name": "LoreGraph",
+  "owner": "YunyueLi",
+  "repo": "LoreGraph",
+  "description": "Knowledge graphs from fiction \u2014 every edge quotes the page it came from. \u4ece\u865a\u6784\u6587\u672c\u751f\u6210\u77e5\u8bc6\u56fe\u8c31\uff1a\u6bcf\u6761\u8fb9\u90fd\u80fd\u6eaf\u6e90\u5230\u539f\u6587\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/YunyueLi/LoreGraph",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T06:37:42Z"
+}
