@@ -1,0 +1,44 @@
+{
+  "name": "DeskZero",
+  "owner": "LanRhyme",
+  "repo": "DeskZero",
+  "description": "Turn your Windows desktop into a fully customizable workspace. | \u5c06\u60a8\u7684 Windows \u684c\u9762\u53d8\u4e3a\u4e00\u4e2a\u5168\u65b0\u7684\u3001\u53ef\u9ad8\u5ea6\u81ea\u5b9a\u4e49\u7684\u5de5\u4f5c\u533a",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LanRhyme/DeskZero",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T16:59:28Z"
+}
