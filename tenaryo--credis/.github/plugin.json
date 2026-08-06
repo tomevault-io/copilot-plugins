@@ -1,0 +1,9 @@
+{
+  "name": "tenaryo--credis",
+  "displayName": "Credis",
+  "description": "A High-Performance Redis 7.0-Compatible Server in C++23",
+  "version": "1.0.0",
+  "author": "Tenaryo",
+  "homepage": "https://github.com/Tenaryo/Credis",
+  "skills": []
+}
