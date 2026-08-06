@@ -1,0 +1,9 @@
+{
+  "name": "geo-vi--the-datagrid",
+  "displayName": "the-datagrid",
+  "description": "TanStack + Tailwind 4 + ShadCN - Successor of @inovua/reactdatagrid-community that was deleted without any pre-notice and wiped half of my src code. Thanks!",
+  "version": "1.0.0",
+  "author": "geo-vi",
+  "homepage": "https://github.com/geo-vi/the-datagrid",
+  "skills": []
+}
