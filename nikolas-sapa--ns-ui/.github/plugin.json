@@ -1,0 +1,9 @@
+{
+  "name": "nikolas-sapa--ns-ui",
+  "displayName": "ns-ui",
+  "description": "A registry of 197 React components built one at a time, each earning its place. Tailwind v4 + Motion + r3f. Install with npx shadcn.",
+  "version": "1.0.0",
+  "author": "nikolas-sapa",
+  "homepage": "https://github.com/nikolas-sapa/ns-ui",
+  "skills": []
+}
