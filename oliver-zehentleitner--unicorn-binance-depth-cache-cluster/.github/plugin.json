@@ -1,0 +1,9 @@
+{
+  "name": "oliver-zehentleitner--unicorn-binance-depth-cache-cluster",
+  "displayName": "unicorn-binance-depth-cache-cluster",
+  "description": "Install one package, run one command \u2014 and every script, bot, or service on your machine gets reliable, synchronized Binance order book data via REST API. Use it from Python, JavaScript, TypeScript, N",
+  "version": "1.0.0",
+  "author": "oliver-zehentleitner",
+  "homepage": "https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster",
+  "skills": []
+}
