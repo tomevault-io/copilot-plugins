@@ -7,11 +7,11 @@ The loop never sleeps — you finally can. Agents automate the entire developmen
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [JSONbored/loopover](https://github.com/JSONbored/loopover).
+Original source: `AGENTS.md` in [JSONbored/loopover](https://github.com/JSONbored/loopover).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
