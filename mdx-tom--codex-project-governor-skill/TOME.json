@@ -1,0 +1,44 @@
+{
+  "name": "codex-project-governor-skill",
+  "owner": "MDX-Tom",
+  "repo": "codex-project-governor-skill",
+  "description": "Initialize Codex project docs, synchronize state, save breakpoints, and hand off long-running Codex work. \u4e3a\u957f\u671f Codex \u9879\u76ee\u521d\u59cb\u5316\u6587\u6863\u3001\u540c\u6b65\u72b6\u6001\u3001\u4fdd\u5b58\u65ad\u70b9\u5e76\u5b8c\u6210\u7ebf\u7a0b\u4ea4\u63a5\u7b49\u4e8b\u52a1\u6027\u5de5\u4f5c\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MDX-Tom/codex-project-governor-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T11:21:41Z"
+}
