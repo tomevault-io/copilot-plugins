@@ -1,0 +1,44 @@
+{
+  "name": "adm",
+  "owner": "autoDeploymentModel",
+  "repo": "adm",
+  "description": "ADM (Auto Deploy Model) \u8ba9\u672c\u5730\u5927\u6a21\u578b\u90e8\u7f72\u66f4\u7b80\u5355 \u8ba9\u4eba\u4eba\u90fd\u7528\u5f97\u8d77\u5927\u6a21\u578b \u8ba9\u60a8\u4e0d\u518d\u4e3a\u627e\u6a21\u578b\u70e6\u607c \u57fa\u4e8e Tauri 2.x \u6784\u5efa\u7684\u5927\u6a21\u578b\u56fe\u5f62\u5316\u7ba1\u7406\u5de5\u5177\uff0c\u544a\u522b\u547d\u4ee4\u884c\uff0c\u4e00\u952e\u4e0b\u8f7d\u542f\u52a8\u6a21\u578b",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/autoDeploymentModel/adm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T17:25:27Z"
+}
