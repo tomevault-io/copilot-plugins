@@ -1,0 +1,9 @@
+{
+  "name": "jhuus--hawkears",
+  "displayName": "HawkEars",
+  "description": "Scan audio recordings and identify birds, amphibians and other classes.",
+  "version": "1.0.0",
+  "author": "jhuus",
+  "homepage": "https://github.com/jhuus/HawkEars",
+  "skills": []
+}
