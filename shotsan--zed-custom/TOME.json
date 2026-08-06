@@ -4,7 +4,7 @@
   "repo": "zed-custom",
   "description": "Enhanced AI agent fork of Zed: persistent memory, LSP symbol search, headless web browsing & Azure Anthropic caching.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shotsan/zed-custom",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T17:43:01Z"
+  "distributed_at": "2026-08-06T20:39:45Z"
 }
