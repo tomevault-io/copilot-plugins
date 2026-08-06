@@ -1,0 +1,9 @@
+{
+  "name": "metax7--payload-icon-picker",
+  "displayName": "payload-icon-picker",
+  "description": "A dynamic icon picker field plugin for Payload CMS 3.x supporting custom icon packs, searching, and custom SVG rendering.",
+  "version": "1.0.0",
+  "author": "Metax7",
+  "homepage": "https://github.com/Metax7/payload-icon-picker",
+  "skills": []
+}
