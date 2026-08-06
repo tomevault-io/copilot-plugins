@@ -1,0 +1,9 @@
+{
+  "name": "levonalp--handy-ai",
+  "displayName": "handy-ai",
+  "description": "Handy fork: offline dictation + Ollama formatting with hotword routing & live Obsidian memory (v2 of Handy 2.0)",
+  "version": "1.0.0",
+  "author": "Levonalp",
+  "homepage": "https://github.com/Levonalp/handy-ai",
+  "skills": []
+}
