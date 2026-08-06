@@ -1,9 +1,0 @@
-{
-  "name": "badhope--data-ai",
-  "displayName": "DATA-AI",
-  "description": "Self-hosted AI agent for enterprise data \u2014 financial, internal knowledge, the important stuff. Knowledge bases, workflows, agents, vector DBs, all in one box.",
-  "version": "1.0.0",
-  "author": "badhope",
-  "homepage": "https://github.com/badhope/DATA-AI",
-  "skills": []
-}
