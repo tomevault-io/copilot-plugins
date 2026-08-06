@@ -4,7 +4,7 @@
   "repo": "CoPet",
   "description": "\ud83d\udc3e A desktop pet that reacts in real time to your AI agents \u2014 Claude Code, Codex, Antigravity, OpenCode, Cursor, Copilot, Gemini.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ChanceYu/CoPet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T23:38:25Z"
+  "distributed_at": "2026-08-06T07:35:32Z"
 }
