@@ -1,0 +1,9 @@
+{
+  "name": "sonnysangha--ai-receptionist-live-youtube-demo",
+  "displayName": "AI-Receptionist-Live-YouTube-Demo",
+  "description": "Multi-tenant AI receptionist / front-desk SaaS built live on YouTube with Next.js 16, Clerk (auth, orgs, billing), Convex, and ElevenLabs voice agents.",
+  "version": "1.0.0",
+  "author": "sonnysangha",
+  "homepage": "https://github.com/sonnysangha/AI-Receptionist-Live-YouTube-Demo",
+  "skills": []
+}
