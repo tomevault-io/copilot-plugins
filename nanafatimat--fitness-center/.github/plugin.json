@@ -1,0 +1,9 @@
+{
+  "name": "nanafatimat--fitness-center",
+  "displayName": "fitness-center",
+  "description": "A comprehensive Fitness Center developed using Typescript, Nextjs, TailwinCSS, ShadeUI, PostgresSQL, Drizz",
+  "version": "1.0.0",
+  "author": "NanaFatimat",
+  "homepage": "https://github.com/NanaFatimat/fitness-center",
+  "skills": []
+}
