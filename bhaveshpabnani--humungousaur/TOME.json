@@ -1,0 +1,44 @@
+{
+  "name": "Humungousaur",
+  "owner": "bhaveshpabnani",
+  "repo": "Humungousaur",
+  "description": "Humungousaur is the agent runtime. Janus is the active agent that lives inside it: a personal assistant that can run on your machine, understand ongoing work, operate trusted tools, remember what matters, ask before risky actions, and keep a durable record of what it did.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bhaveshpabnani/Humungousaur",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T22:36:36Z"
+}
