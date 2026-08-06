@@ -1,56 +1,39 @@
-## context-engine-pipeline
+## context-engine-retrievers
 
-> Context Engine core pipeline — router through memory writer
+> Context Engine retrievers — shared interface and all source implementations
 
 
-# Core Pipeline Modules
+# Retrievers
 
-## Source Router (`packages/core/router`)
+## Shared interface (`retriever-interface`)
 
-Decides which sources to query per request — not every query needs every source. For voice: fast path (memory + cached context, sub-300ms) vs full path (full fan-out) based on topic shift detection.
+```ts
+interface Retriever {
+  retrieve(query: string, opts: { userId: string; workspaceId: string }): Promise<Context[]>
+}
+```
 
-## Ranking (`packages/core/ranking`)
+`Context` shape: `text`, `source`, `score`, `metadata` — uniform across all sources so ranking/dedup/conflict-resolution treat them the same.
 
-Score on: semantic similarity, recency, importance, confidence, user personalization, source reliability.
+## Implementations
 
-## Dedup (`packages/core/dedup`)
+| Package | Backend | Auth |
+|---------|---------|------|
+| `memory-retriever` | mem0 | workspace config |
+| `rag-retriever` | Qdrant + Voyage | index config (RAG core exists — wrap it) |
+| `slack-retriever` | Slack | OAuth |
+| `notion-retriever` | Notion | OAuth |
+| `github-retriever` | GitHub | OAuth |
+| `sql-retriever` | PostgreSQL, Snowflake | API keys / credentials |
+| `crm-retriever` | HubSpot, Salesforce, Stripe | API keys |
+| `mcp-retriever` | MCP servers | server registration |
+| `voice-stream-retriever` | live ASR | direct feed — bypasses rank/dedup |
 
-Embedding-similarity threshold across contexts from different sources — collapse duplicate facts to one representation.
+## Execution rules
 
-## Conflict Resolution (`packages/core/conflict-resolution`)
-
-Detect contradictions across sources. Default: most-recent-source-wins. Expose conflicts in `diagnostics` so calling app can override.
-
-## Compression (`packages/core/compression`)
-
-Summarize oversized retrieved chunks to maximize information per token.
-
-## Token Budget (`packages/core/budget`)
-
-Dynamic allocation based on query and source relevance (not fixed split). Tokenizer-based counting per section; truncate/summarize on overflow.
-
-## Prompt Builder (`packages/core/prompt-builder`)
-
-Structured sections — not inline string concatenation:
-system instructions → user memory → relevant documents → workspace context → retrieved API data → conversation → current message.
-
-Voice: live transcription injected into conversation section, bypassing router/rank/dedup.
-
-## Memory Writer (`packages/core/memory-writer`)
-
-Async post-response: extract durable facts, merge duplicates, update importance, archive stale, delete obsolete. Voice: extract on finalized turns only, not mid-utterance ASR.
-
-## Query Planning (`packages/core/query-planning`)
-
-Decompose complex/multi-part questions into retrieval sub-steps.
-
-## Adaptive Retrieval (`packages/core/adaptive-retrieval`)
-
-Track which retrieval strategies perform best over time and adjust.
-
-## API return shape
-
-Every `getContext()` / `getContextFast()` call must return full contract including `diagnostics` (ranking scores, discarded context, conflicts, latency by source).
+- Retrievers run in parallel with per-source timeouts.
+- A slow or failing source must not block the whole response — note omissions in `diagnostics`.
+- Adding a new source = new package under `packages/retrievers/`, no changes to `packages/core/`.
 
 ---
 > Source: [nikhil008-git/nmemo-ai](https://github.com/nikhil008-git/nmemo-ai) — distributed by [TomeVault](https://tomevault.io).
