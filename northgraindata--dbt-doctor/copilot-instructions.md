@@ -1,49 +1,33 @@
-## release-changelog
+## dbt-doctor
 
-> Keep a Changelog and semver steps when cutting dbt-doctor releases
+> Clone of [react-doctor](https://github.com/millionco/react-doctor) adapted for dbt projects. **Static analysis and health checks for dbt projects** (SQL, YAML, Jinja).
 
+# dbt-doctor
 
-# Release & CHANGELOG
+Clone of [react-doctor](https://github.com/millionco/react-doctor) adapted for dbt projects. **Static analysis and health checks for dbt projects** (SQL, YAML, Jinja).
 
-When preparing a **version bump** or **npm publish**, always update the root changelog.
+## Stack
 
-## Required files
+- pnpm monorepo: `packages/dbt-doctor` (CLI), `@dbt-doctor/core`, `@dbt-doctor/project-info`, `@dbt-doctor/types`, `dbt-doctor-rules`, `packages/website`
+- Lint: custom TypeScript rules + optional **sqlfluff** subprocess
+- Scoring: local formula in `@dbt-doctor/core`; optional API at `dbt-doctor.northgraindata.com`
 
-1. **`CHANGELOG.md`** (repo root) — primary, human-readable history for adopters ([Keep a Changelog](https://keepachangelog.com/)).
-2. **`.changeset/*.md`** — drives semver + per-package changelogs via Changesets.
-3. **`packages/*/CHANGELOG.md`** — updated by `pnpm changeset version` (do not hand-edit unless fixing).
+## Commands
 
-## Release workflow
-
-1. Add a Changeset describing user-facing impact (not implementation detail).
-2. Update **`CHANGELOG.md`** under `[Unreleased]` → move items into `[X.Y.Z] - YYYY-MM-DD` before tagging.
-3. Run `pnpm changeset version` then `pnpm build && pnpm test`.
-4. Commit: `chore(release): version packages to X.Y.Z`.
-5. Tag with package-scoped tags (`dbt-doctor@X.Y.Z`, not `vX.Y.Z`).
-6. `pnpm changeset publish` (npm OTP if required).
-7. GitHub release on tag `dbt-doctor@X.Y.Z`; link to root `CHANGELOG.md` section.
-
-## CHANGELOG sections
-
-Use: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**, **Security**.
-
-Write for **adopters** (what changed in behavior), not for maintainers (file names).
-
-## Semver
-
-- **patch** — bug fixes, false-positive reductions, docs-only if user-visible.
-- **minor** — new rules/features, backward-compatible preset/config changes.
-- **major** — breaking CLI/config/API removals or default behavior breaks.
-
-## Example entry
-
-```markdown
-## [0.3.1] - 2026-05-31
-
-### Fixed
-
-- SQL style rules skip Jinja in `source()` and `{{ config() }}` blocks.
+```bash
+pnpm install
+pnpm build
+pnpm test
+pnpm lint
+pnpm typecheck
 ```
+
+## Conventions
+
+- Use `@antfu/ni`: `ni`, `nr`, `nun`
+- kebab-case files; arrow functions; interfaces over types
+- Magic numbers in `constants.ts` with `SCREAMING_SNAKE_CASE` suffixes
+- `// HACK:` prefix for non-obvious workarounds
 
 ---
 > Source: [northgraindata/dbt-doctor](https://github.com/northgraindata/dbt-doctor) — distributed by [TomeVault](https://tomevault.io).
