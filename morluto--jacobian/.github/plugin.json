@@ -1,0 +1,9 @@
+{
+  "name": "morluto--jacobian",
+  "displayName": "jacobian",
+  "description": "Jacobian: an MCP server, CLI, and Python library that gives AI agents a composable toolbox of mathematical capabilities with inspectable artifacts and independent verification.",
+  "version": "1.0.0",
+  "author": "morluto",
+  "homepage": "https://github.com/morluto/jacobian",
+  "skills": []
+}
