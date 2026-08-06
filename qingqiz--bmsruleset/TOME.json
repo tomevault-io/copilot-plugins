@@ -4,7 +4,7 @@
   "repo": "BmsRuleset",
   "description": "An osu! lazer plugin (ruleset) that can directly play BMS without needing to convert the beatmaps.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/QingQiz/BmsRuleset",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T13:21:36Z"
+  "distributed_at": "2026-08-06T18:38:24Z"
 }
