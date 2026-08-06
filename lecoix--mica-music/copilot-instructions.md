@@ -1,35 +1,28 @@
-## audio-quality-consent
+## mica-music
 
-> 禁止在未事先说明且获明确允许时引入任何降音质改动
+> Issues 和 PRDs 以 markdown 文件存放在 `.scratch/<feature-slug>/` 下。详见 `docs/agents/issue-tracker.md`。
 
+## Agent skills
 
-# 音质改动须事先说明并获允许
+### Issue tracker
 
-## 硬性要求
+Issues 和 PRDs 以 markdown 文件存放在 `.scratch/<feature-slug>/` 下。详见 `docs/agents/issue-tracker.md`。
 
-任何**可能降低播放音质或保真度**的改动，在实现前必须：
+### Triage labels
 
-1. **提前、明确说明**——写清影响哪些格式/路径、具体劣化点（位深、采样率、重采样、float 直通、offload、有损编码等）、影响范围（仅 DSD / 全 Exo / 软件引擎等）、以及是否有替代方案。
-2. **获得用户明确允许**——用户口头同意、issue/PRD 中写明批准、或对话中明确说「可以」「按这个做」等；**未得到允许前不得合入或默认启用**。
+五个 canonical triage roles 使用默认 label 字符串。详见 `docs/agents/triage-labels.md`。
 
-## 视为降音质（非穷尽）
+### Domain docs
 
-- 提高位深/采样率以外的 **downsample、bit-depth 截断**（如 24bit→16bit、float→int16）
-- 关闭 **float 直通 / hi-res 输出** 且影响非目标格式
-- 为某一格式修 bug 而让 **其他格式**（如 FLAC）走更差链路
-- 默认开启 **EQ / 限幅 / 有损转码** 或改变默认输出码率
-- 移除 **gapless / 无损容器直解** 等保真路径且无等价替代
+Single-context 布局：根目录 `CONTEXT.md` + `docs/adr/`（尚未创建，skills 会在需要时懒创建）。详见 `docs/agents/domain.md`。
 
-## 允许不经单独批准的情况
+### 音质改动（硬性）
 
-- 用户**当前任务**里已明确授权该降质（例如「先 16bit 跑通 Exo DSD」）
-- **纯恢复/修复**：恢复与用户已批准设计一致的音质，而非新增劣化
-- **文档/注释**仅描述现状，不改变运行时行为
+任何可能**降音质**的改动须**事先向用户明确说明影响范围**，并**得到明确允许**后才能实现或默认启用。详见 `CONTEXT.md`（**Audio quality consent**）与 `.cursor/rules/audio-quality-consent.mdc`。
 
-## 实施时
+### 超大曲库容量基线（硬性）
 
-- 在 PR、commit 说明或 `docs/adr/` 中留下「为何降质、范围、是否临时」
-- 若无法避免全格式副作用，必须在同一变更中 **文档化**（如 `docs/DSD_EXO_PLAYBACK.md`、`CONTEXT.md`）
+任何涉及曲库的设计或改动，必须以“**10,000 首歌曲、每首均有完整逐字歌词、8 GB 内存 Android 手机**”作为容量基线，评估启动、扫描、加载、排序、保存、同步和缓存时的内存峰值与稳定性。不得非必要地全量解析、编码、复制或常驻歌词；优先使用懒加载、有界缓存、分批或流式处理。完成前须用测试、测量或可审查的内存上界说明该设备能够承受；无法确认时必须明确标注风险，不得宣称安全。
 
 ---
 > Source: [lecoix/mica-music](https://github.com/lecoix/mica-music) — distributed by [TomeVault](https://tomevault.io).
