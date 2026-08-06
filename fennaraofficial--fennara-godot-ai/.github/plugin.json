@@ -1,0 +1,9 @@
+{
+  "name": "fennaraofficial--fennara-godot-ai",
+  "displayName": "fennara-godot-ai",
+  "description": "AI chat and agent tooling for Godot, with both MCP support and in-built native chat window.",
+  "version": "1.0.0",
+  "author": "fennaraOfficial",
+  "homepage": "https://github.com/fennaraOfficial/fennara-godot-ai",
+  "skills": []
+}
