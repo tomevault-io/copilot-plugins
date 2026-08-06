@@ -4,7 +4,7 @@
   "repo": "Mingyi-Atlas",
   "description": "  Harness-driven terminal AI agent for authorized security assessment, with TUI, headless automation, persistent context, 150 built-in skills, and a   dedicated pentest mode.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MingyiSecLab/Mingyi-Atlas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T20:17:42Z"
+  "distributed_at": "2026-08-06T05:22:36Z"
 }
