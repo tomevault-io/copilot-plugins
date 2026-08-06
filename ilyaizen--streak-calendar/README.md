@@ -1,24 +1,24 @@
 # AI instruction files for streak-calendar
 
-> Sourced from [ilyaizen/streak-calendar](https://github.com/ilyaizen/streak-calendar) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [ilyaizen/streak-calendar](https://github.com/ilyaizen/streak-calendar), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [ilyaizen/streak-calendar](https://github.com/ilyaizen/streak-calendar).
+Original source: `AGENTS.md` in [ilyaizen/streak-calendar](https://github.com/ilyaizen/streak-calendar).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/ilyaizen)
+From [ilyaizen/streak-calendar](https://github.com/ilyaizen/streak-calendar) — a repo with 118+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/ilyaizen) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:a-c-s -->
