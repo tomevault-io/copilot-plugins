@@ -4,7 +4,7 @@
   "repo": "fireflyiii-mcp",
   "description": "Connect any MCP client to Firefly III \u2014 140 tools via stdio (PAT) or HTTP (OAuth",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/daften/fireflyiii-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T13:17:49Z"
+  "distributed_at": "2026-08-06T18:36:21Z"
 }
