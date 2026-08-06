@@ -7,11 +7,11 @@ Drive your Mac focus-free over MCP: OS APIs, AppleScript, CDP, and Accessibility
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [PrithviSeran/hunch-mcp](https://github.com/PrithviSeran/hunch-mcp).
+Original source: `AGENTS.md` in [PrithviSeran/hunch-mcp](https://github.com/PrithviSeran/hunch-mcp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
