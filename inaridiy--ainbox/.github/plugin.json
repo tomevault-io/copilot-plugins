@@ -1,0 +1,9 @@
+{
+  "name": "inaridiy--ainbox",
+  "displayName": "ainbox",
+  "description": "CLI-operable email inbox for AI agents on Cloudflare Workers \u2014 Email Routing/Sending + D1 + R2 + AI Search",
+  "version": "1.0.0",
+  "author": "inaridiy",
+  "homepage": "https://github.com/inaridiy/ainbox",
+  "skills": []
+}
