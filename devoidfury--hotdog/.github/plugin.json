@@ -1,0 +1,9 @@
+{
+  "name": "devoidfury--hotdog",
+  "displayName": "hotdog",
+  "description": "AI agent with zero dependencies, bring your own bun",
+  "version": "1.0.0",
+  "author": "devoidfury",
+  "homepage": "https://github.com/devoidfury/hotdog",
+  "skills": []
+}
