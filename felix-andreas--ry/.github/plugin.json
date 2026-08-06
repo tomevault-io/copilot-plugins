@@ -1,0 +1,9 @@
+{
+  "name": "felix-andreas--ry",
+  "displayName": "ry",
+  "description": "An extremely fast R language server and code formatter, written in Rust.",
+  "version": "1.0.0",
+  "author": "felix-andreas",
+  "homepage": "https://github.com/felix-andreas/ry",
+  "skills": []
+}
