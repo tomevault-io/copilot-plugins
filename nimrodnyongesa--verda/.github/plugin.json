@@ -1,0 +1,9 @@
+{
+  "name": "nimrodnyongesa--verda",
+  "displayName": "verda",
+  "description": "Codex-built litigation toolkits for human rights defenders. FastAPI + Next.js 16, Kenyan Article 22/23 constitutional petition track. Runs fully offline on one laptop.",
+  "version": "1.0.0",
+  "author": "nimrodnyongesa",
+  "homepage": "https://github.com/nimrodnyongesa/verda",
+  "skills": []
+}
