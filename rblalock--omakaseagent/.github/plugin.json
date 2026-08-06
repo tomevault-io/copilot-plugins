@@ -1,0 +1,9 @@
+{
+  "name": "rblalock--omakaseagent",
+  "displayName": "omakaseagent",
+  "description": "The chef's standard for AI agent work: twelve rules, a critique gate, and project memory. One skill. Craftsman's taste. Zero AI slop.",
+  "version": "1.0.0",
+  "author": "rblalock",
+  "homepage": "https://github.com/rblalock/omakaseagent",
+  "skills": []
+}
