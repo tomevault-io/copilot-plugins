@@ -1,0 +1,44 @@
+{
+  "name": "firefox-cli",
+  "owner": "respawn-llc",
+  "repo": "firefox-cli",
+  "description": "Let AI Agents control your real firefox browser: fill forms, authenticate, automate actions, web development; all via token-efficient, easy to use CLI. Claude plugin / Codex skill included. agent-browser, but for Firefox chads.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/respawn-llc/firefox-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T19:09:31Z"
+}
