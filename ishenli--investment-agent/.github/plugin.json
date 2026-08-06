@@ -1,7 +1,7 @@
 {
   "name": "ishenli--investment-agent",
   "displayName": "investment-agent",
-  "description": "investment-agent",
+  "description": "\u4e00\u4e2a \u7b80\u5355\u7684 AI \u6295\u8d44\u52a9\u7406\uff0c\u7ba1\u7406\u80a1\u7968\uff08\u7f8e\u80a1\u3001\u6e2f\u80a1\uff09\u548c\u57fa\u91d1\uff08\u56fd\u5185\u57fa\u91d1\uff09\uff0c\u540c\u65f6\u5177\u5907\u81ea\u8fed\u4ee3\u5b66\u4e60\u7684\u80fd\u529b",
   "version": "1.0.0",
   "author": "ishenli",
   "homepage": "https://github.com/ishenli/investment-agent",
