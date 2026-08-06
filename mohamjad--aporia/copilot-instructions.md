@@ -1,0 +1,328 @@
+## aporia
+
+> This repo is Aporia: a measurement contract compiler for reinforcement-learning
+
+# AGENTS.md
+
+This repo is Aporia: a measurement contract compiler for reinforcement-learning
+evaluation.
+
+This file is the standing operating contract for coding agents. If chat context
+conflicts with this file and the governing docs, follow the docs unless the user
+explicitly changes the project direction.
+
+## Governing Docs
+
+Read these before major work:
+
+- `docs/SOURCE_OF_TRUTH.md`
+- `docs/DIFFERENTIATION_DOCTRINE.md`
+- `docs/APORIA_COMPILER_SPEC.md`
+- `docs/CONSISTENCY_REVIEW.md`
+- `docs/PROVENANCE_AND_REVIEW.md`
+- `docs/ARCHITECTURE_INTEGRITY_REVIEW.md`
+- `docs/PRE_C14_AUDIT.md`
+
+Use specific implementation docs when touching their surface:
+
+- Contract work: `docs/CONTRACT_SCHEMA.md`, `docs/VALIDATION_ERRORS.md`
+- Manifest work: `docs/MANIFEST_SCHEMA.md`
+- Trace/runtime work: `docs/OFFLINE_TRACE_SCHEMA.md`
+- Offline audit assembly: `docs/OFFLINE_AUDIT_RUNTIME.md`
+- Evidence manifests: `docs/EVIDENCE_MANIFEST_SCHEMA.md`
+- Invariant execution: `docs/INVARIANT_INTERFACE.md`
+- Witness reports: `docs/WITNESS_REPORT_SCHEMA.md`
+- Backend work: `docs/BACKEND_CAPABILITY_MATRIX.md`
+- Verdict work: `docs/VERDICT_PREDICATES.md`
+- Claim cards: `docs/CLAIM_CARD.md`
+- Gymnasium/MuJoCo backend spike: `docs/GYMNASIUM_MUJOCO_FRICTION_SPIKE.md`
+- Backend execution reports: `docs/BACKEND_EXECUTION_REPORT.md`
+- CLI work: `docs/CLI_ERRORS.md`
+
+## One-Sentence Purpose
+
+Aporia turns an RL evaluation's declared measurement claim into executable
+worlds, falsifiers, evidence requirements, witness searches, and verdict
+conditions for auditing whether the score is licensed to mean what it claims.
+
+## Non-Negotiable Framing
+
+Aporia is not:
+
+- A reward-hacking detector.
+- A robustness benchmark.
+- A Gym wrapper.
+- An offline trace summarizer.
+- A dashboard.
+- A generic eval toolkit.
+
+Those may be mechanics Aporia uses. They are not the product.
+
+The core chain is:
+
+```text
+measurement contract
+  -> compiler IR
+  -> generated worlds and falsifiers
+  -> executable audit manifest
+  -> evidence and witness search
+  -> licensed verdict
+```
+
+Every feature must support this chain or be cut.
+
+## Current Boundary
+
+The compiler currently can:
+
+- Parse and validate YAML measurement contracts.
+- Build ClaimGraph and SourceGraph IR.
+- Expand WorldSetPlan, FalsifierPlan, DriftPlan, and EvidencePlan.
+- Lower plans to backend jobs with capability honesty.
+- Assemble and validate audit manifests.
+- Emit deterministic artifacts and compile reports.
+- Compile the canonical HalfCheetah contract.
+- Run consistency audits.
+- Load compiled audit manifests and JSONL offline trace files.
+- Reconstruct offline trace episodes deterministically.
+- Validate trace world IDs, timestep continuity, terminal-step consistency, and
+  checkpoint requirements for policy-support drift.
+- Preserve run, policy, checkpoint, environment, seed, reward-component, and
+  per-step `info` context during episode reconstruction.
+- Aggregate episode rewards by world, policy, and checkpoint.
+- Aggregate reward components separately from total reward.
+- Parse invariant result objects.
+- Execute explicitly registered invariant callables over reconstructed episodes.
+- Summarize behavior traces: universally computable `episode_length` and
+  `episode_reward`, numeric fixed-action `action_smoothness`, and
+  discrete-action `action_entropy`.
+- Assemble an evidence manifest from reconstructed episodes, reward summaries,
+  reward-component summaries, behavior summaries, and externally supplied
+  invariant results while computing conservative construct scores from
+  invariants, supported construct-scored behavior evidence, and normalized
+  declared judge-family outputs plus explicit human-preference comparisons when
+  evidence exists.
+- Emit per-episode evidence units that align reward and construct evidence while
+  preserving raw invariant and behavior component values separately.
+- Rank high-reward, low-construct witness candidates using available invariant
+  and supported behavior construct evidence, then match them to same-world
+  trajectory, checkpoint, or policy references for witness contradiction
+  predicates.
+- Evaluate predicate results for rank-based metric/construct agreement over
+  complete paired evidence units, invariant violation rate, no-witness search
+  outcomes, and same-world candidate/reference witness contradictions.
+- Resolve conservative verdicts from evaluated predicate results and manifest
+  verdict policy.
+- Render Markdown claim cards that expose evidence gaps, unscored construct
+  sources, missing predicates, witness limitations, and the resolved verdict.
+- Run `aporia audit-offline` to assemble offline evidence, witness, predicate,
+  verdict, and claim-card artifacts from an emitted manifest and JSONL traces,
+  including compatible traces generated by concrete backends.
+- Route invariant execution through an explicit execution-mode boundary where
+  trusted in-process execution is supported and isolated subprocess execution
+  enforces timeout and payload-size limits without silently falling back to
+  trusted mode. OS-level sandboxing is not implemented.
+- Run a narrow Gymnasium/MuJoCo HalfCheetah friction-mutation backend path and
+  script that mutate `env.unwrapped.model.geom_friction` and emit offline trace
+  JSONL.
+- Lower a concrete `mujoco_geom_friction` nuisance axis into an executable
+  `gymnasium_mujoco` backend job.
+- Execute an emitted `audit_manifest.json` backend job through the narrow MuJoCo
+  friction rollout path.
+- Embed live Gymnasium target ids in backend job parameters with
+  `compile --env-id`.
+- Emit a backend execution report for the narrow `gymnasium_mujoco` manifest
+  path, including executed friction jobs, skipped unsupported jobs, and trace
+  paths.
+
+The repo does not yet implement:
+
+- Live runtime audit execution beyond offline trace assembly.
+- OS-level sandboxing for untrusted invariant code beyond subprocess timeout
+  and payload-size enforcement.
+- Broad construct scoring from non-invariant evidence sources beyond the
+  supported `action_smoothness` behavior trace and normalized judge-family
+  outputs plus explicit human-preference comparisons. `action_entropy` is
+  summarized for discrete actions but not construct-scored.
+- Cross-world or policy-family witness matching.
+- Full predicate evaluation over all declared evidence types.
+- A general live Gymnasium adapter.
+
+Do not imply these exist until implemented and tested.
+
+## Operating Practice
+
+Before adding code, answer:
+
+1. Which spec section does this implement?
+2. Which contract field, IR object, artifact, or runtime evidence object does it
+   consume or emit?
+3. What unsupported case fails loudly?
+4. What test proves it works?
+5. Does this preserve Aporia's differentiation from generic eval tooling?
+
+If the answers are unclear, update the spec first.
+
+## Source-of-Truth Maintenance
+
+Do not optimize in isolation from the project contract.
+
+Agents must regularly reference the governing docs during work, especially:
+
+- Before starting a new state or stage.
+- Before changing compiler semantics.
+- Before adding runtime behavior.
+- Before integrating an external backend or framework.
+- Before making any claim about what Aporia can do.
+
+Update the source-of-truth documents when implementation changes the real system
+boundary. At minimum, keep these aligned:
+
+- `docs/SOURCE_OF_TRUTH.md`: product boundary and anti-dilution contract.
+- `docs/APORIA_COMPILER_SPEC.md`: compiler inputs, IR, passes, and artifacts.
+- `docs/SPEC_READINESS_REVIEW.md`: current readiness and remaining gaps.
+- `docs/IMPLEMENTATION_SEGMENTS.md`: staged roadmap.
+- `docs/CONSISTENCY_REVIEW.md`: checks required to prevent drift.
+- Stage review docs such as `docs/STAGE_C13_REVIEW.md`.
+
+If code behavior and docs disagree, either update the docs intentionally or fix
+the code. Do not leave the disagreement implicit.
+
+## System Structure
+
+Keep responsibilities separated:
+
+- `contracts`: parse and validate measurement contracts.
+- `compiler`: lower valid contracts into IR, plans, backend jobs, manifests, and
+  artifacts.
+- `manifests`: validate executable audit manifests.
+- `traces`: validate and reconstruct offline trace records.
+- `reports`: render human-readable artifacts from the same IR/evidence used by
+  machine artifacts.
+- `audit`: consistency and future runtime audit logic.
+- `specs`: executable registries that mirror docs.
+- `cli`: thin command layer over stable APIs.
+
+Do not let backend adapters define compiler semantics. Backends provide
+mechanics; Aporia provides measurement semantics.
+
+## Progression Rules
+
+Build in this order unless there is a clear reason to revise the roadmap:
+
+```text
+compiler polish
+  -> offline runtime
+  -> concrete Gymnasium/MuJoCo backend proof
+  -> evidence scoring
+  -> witness mining
+  -> predicate evaluation
+  -> verdict engine
+  -> claim card
+  -> live Gymnasium/backend integrations
+```
+
+Runtime work must not claim verdicts before predicate evaluation exists.
+Evidence work must not treat construct score as ground truth.
+Backend work must not silently degrade unsupported worlds or falsifiers.
+Do not harden compiler abstractions further when a generated obligation has not
+yet been proven against a real backend surface. For Gymnasium/MuJoCo work, the
+minimum proof is a normal `env.reset(seed=...)` after mutating a latent MuJoCo
+model parameter such as `env.unwrapped.model.geom_friction`.
+
+## External Sourcing
+
+Use external sources when claims may be stale, backend behavior matters, or
+prior-art boundaries are relevant.
+
+Rules:
+
+- Prefer primary sources: official docs, papers, repositories, and benchmark
+  documentation.
+- Use external frameworks for mechanics where appropriate: Gymnasium, CARL,
+  Robust-Gymnasium, Procgen, TextArena-style environments, verifier/judge eval
+  work, and reward-hacking/specification-gaming literature.
+- Do not cite prior art as decoration. Map each borrowed mechanic to:
+
+```text
+Borrowed mechanic:
+Contract field that licenses it:
+Compiler pass or runtime component that emits/uses it:
+Artifact where it appears:
+Failure mode if unsupported:
+```
+
+- If a source reveals Aporia is duplicating existing work, sharpen the boundary
+  rather than hiding the overlap.
+
+## Quality Gates
+
+Before pushing non-doc changes:
+
+```bash
+python -m compileall -q src
+pytest
+```
+
+The `dev` extra intentionally installs `gymnasium[mujoco]` because the current
+concrete backend proof depends on Gymnasium/MuJoCo. A compiler-only install may
+use `pip install -e .`, but backend work should verify `pip install -e ".[dev]"`
+or `pip install -e ".[mujoco]"`.
+
+Before major stage transitions:
+
+```bash
+PYTHONPATH=src python -m aporia.cli.main audit-consistency --root .
+PYTHONPATH=src python -m aporia.cli.main compile --contract examples/contracts/halfcheetah.yaml --backend offline_traces --lowering-mode planned --out .aporia/halfcheetah_compile_check
+```
+
+For CLI-facing changes, verify expected failures return structured errors, not
+tracebacks.
+
+For artifact changes, preserve deterministic emission or update the golden
+stability tests intentionally.
+
+## What Not To Do
+
+- Do not add generic metrics because they are easy.
+- Do not add dashboards before evidence and verdict artifacts exist.
+- Do not add a backend adapter without capability checks.
+- Do not treat missing evidence as support.
+- Do not treat high reward as construct validity.
+- Do not collapse nuisance, construct, exploit, and drift worlds into one
+  perturbation bucket.
+- Do not add verdict language without executable predicates.
+- Do not add "planned" behavior that looks executable.
+- Do not use broad research notes as substitutes for exact schemas.
+
+## Provenance
+
+Use coherent commits with state labels such as `c14`, `d1`, or `d2`. Treat
+numbered labels as distinct tasks, not default sub-slices. Use nested labels such
+as `d1.1` only when a numbered task is genuinely too large, blocked, or
+externally coordinated.
+
+For ongoing implementation work, each numbered state should normally be prepared
+as 10 reviewable commits. Keep the commits meaningful and scoped to that
+numbered state.
+
+Current status docs must be updated alongside implementation when the supported
+system boundary changes. Authoritative docs such as `SOURCE_OF_TRUTH.md` should
+be updated when the product boundary or staged capability boundary changes; more
+routine implementation progress should update README/current-status and the
+stage readiness docs.
+
+Every pushed state should say:
+
+```text
+Spec:
+Why:
+Tests:
+Known gaps:
+```
+
+Never rewrite public history unless the user explicitly requests it.
+
+---
+> Source: [mohamjad/aporia](https://github.com/mohamjad/aporia) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-29 -->
