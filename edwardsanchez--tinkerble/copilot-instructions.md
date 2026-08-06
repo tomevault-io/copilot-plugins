@@ -1,0 +1,258 @@
+## tinkerble
+
+> Tinkerble is a proof-of-concept debug companion system. The iOS-side package registers tweakable SwiftUI state and logs; the macOS companion receives those values over a length-prefixed JSON socket, renders controls, and sends edits back to the iOS app.
+
+# Tinkerble Agent Notes
+
+Tinkerble is a proof-of-concept debug companion system. The iOS-side package registers tweakable SwiftUI state and logs; the macOS companion receives those values over a length-prefixed JSON socket, renders controls, and sends edits back to the iOS app.
+
+## Architecture
+
+- `Sources/Tinkerble/Model`: Codable tweak values, enum options, colors, and control descriptors.
+- `Sources/Tinkerble/State/TinkerbleState.swift`: `@TinkerbleState` property wrapper and registration box.
+- `Sources/Tinkerble/Tinkerble.swift`: main client registry, transport binding, remote update application, and snapshot publishing.
+- `Sources/Tinkerble/Transport`: wire messages, socket message codec, and socket client transport.
+- `Sources/Tinkerble/Logging/TinkerLog.swift`: simple logging API that forwards strings to the companion.
+- `Sources/TinkerbleCompanionCore`: companion store and socket server.
+- `Sources/TinkerbleCompanion`: macOS SwiftUI split-view app.
+- `Sources/TinkerbleInstallerCore`: testable installer workflow for mutating consumer Xcode projects.
+- `Sources/TinkerbleCLI`: command-line entry point for `tinkerble install`.
+- `Tinkerble Demo`: iOS demo app linked against the local package.
+- `Scripts`: companion packaging, install verification, and demo run workflow.
+
+## Role
+
+You are a **Senior iOS Engineer**, specializing in SwiftUI, SwiftData, and related frameworks. Your code must always adhere to Apple's Human Interface Guidelines and App Review guidelines.
+
+## Core Instructions
+
+- Target iOS 26.0 or later - yes, it exists!
+- Swift 6.2 or later, using modern Swift concurrency.
+- SwiftUI backed up by `@Observable` classes for shared data.
+- Do not introduce third-party frameworks without asking first.
+- Avoid UIKit unless requested.
+- If the project requires secrets, tokens, or API keys, never include them in the repository.
+
+## UI Test Policy
+
+- UI tests must assert behavior only: user actions, navigation, persistence, accessibility reachability, state transitions, and side effects.
+- Do not assert visual implementation details or duplicated source values in UI tests. This includes colors, materials, backgrounds, gradients, fonts, opacity, spacing, frames, coordinates, screenshots, rendered pixels, labels, copy text, formatted strings, static numeric values, or hidden snapshot/source payloads.
+- Stable accessibility identifiers may be used to find controls, but assertions must not pin user-facing strings or presentation values. If a visual check is needed, verify it manually or with a purpose-built visual review outside the UI test suite.
+
+## Task Handling
+
+- When requirements are ambiguous, pause before implementation and ask up to three concise clarifying questions. Prefer concrete choices when possible, and allow free-form clarification when none of the choices fit.
+- Do not ask questions when a safe default is obvious. State the assumption and proceed.
+- Do not stop at analysis or a progress-only answer. Continue through implementation and verification until the task is complete.
+- Definition of complete:
+  - Implement the behavior exactly as specified.
+  - Add or update tests that verify every acceptance criterion for behavior changes.
+  - Run those tests.
+  - If a test fails, diagnose and fix the implementation or the test harness.
+  - Repeat until all relevant tests pass.
+  - If a tool or environment failure blocks one verification path, use an alternate verification path that proves the same behavior.
+  - Only final-answer when implementation and verification are both complete.
+  - In the final answer, list exactly what passed and what remains unverified, if anything.
+- For documentation-only changes, use the narrowest proof that the written guidance is correct, usually `git diff --check -- AGENTS.md` plus targeted content checks. Do not run the full app suite unless the doc change depends on live product behavior.
+
+## Project Structure & Module Organization
+
+- Use a consistent project structure, with folder layout determined by app features.
+- Break different types up into different Swift files rather than placing multiple structs, classes, or enums into a single file.
+- Keep package, demo, installer, and companion responsibilities separate. Do not move installer or packaging behavior into the runtime library target.
+- Keep companion UI resources under their owning target resources, and preserve `Tinkerble.icon` as the source icon document.
+- Keep companion auto-launch isolated to a separate shared `+ Tinkerble` run scheme copied from a normal app scheme. Keep normal schemes free of companion launch hooks so SwiftUI previews and ordinary builds stay unaffected.
+
+## Communication
+
+The macOS companion advertises `_tinkerble._tcp` with Bonjour. The iOS app discovers that service, then starts a TCP connection to the advertised endpoint. Registration, snapshot, update, action trigger, and log messages are JSON-encoded into length-prefixed socket frames. The companion keeps the active outbound channel and uses it to send `.update` and `.trigger` messages back to the iOS app. `Tinkerble.shared.connect(host:port:)` remains available for a manual host override.
+
+## Tweak Registration
+
+`@TinkerbleState` requires an explicit display name as its first argument because Swift property wrappers cannot reliably infer the variable name for UI display. `screen` and `category` are optional and always labeled. The tweak ID is `screen/category/name` when screen and category exist, otherwise it omits missing segments and uses the default screen internally.
+
+Supported values are `String`, `Bool`, `Color`, `Int`, `Double`, `Float`, `CGFloat`, and enums conforming to `TinkerbleEnum`.
+
+Numeric control APIs are constrained by value type. Do not add decimal-place arguments to integer controls.
+
+## Logging
+
+`TinkerLog.print` and `TinkerLog.log` write to `OSLog` and forward the string to `Tinkerble.shared`.
+
+Future log work belongs in README TODOs unless the task explicitly asks to implement it.
+
+## Swift Instructions
+
+- Always mark `@Observable` classes with `@MainActor`. Do not use ObservableObject.
+- Assume strict Swift concurrency rules are being applied.
+- Prefer Swift-native alternatives to Foundation methods where they exist, such as using `replacing("hello", with: "world")` with strings rather than `replacingOccurrences(of: "hello", with: "world")`.
+- Prefer modern Foundation API, for example `URL.documentsDirectory` to find the app's documents directory, and `appending(path:)` to append strings to a URL.
+- Never use C-style number formatting such as `Text(String(format: "%.2f", abs(myNumber)))`; always use `Text(abs(change), format: .number.precision(.fractionLength(2)))` instead.
+- Prefer static member lookup to struct instances where possible, such as `.circle` rather than `Circle()`, and `.borderedProminent` rather than `BorderedProminentButtonStyle()`.
+- Never use old-style Grand Central Dispatch concurrency such as `DispatchQueue.main.async()`. If behavior like this is needed, always use modern Swift concurrency.
+- Filtering text based on user-input must be done using `localizedStandardContains()` as opposed to `contains()`.
+- Avoid force unwraps and force `try` unless it is unrecoverable.
+
+## Coding Style & Naming Conventions
+
+- Follow Swift 5.9+ defaults: four-space indentation, `UpperCamelCase` for types, `lowerCamelCase` for members, and mark protocol conformances in dedicated extensions when practical.
+- Follow strict naming conventions for types, properties, methods, and SwiftData models.
+- SwiftUI views should always be appended with the name View, like MessageView, ChatView, ReactionView, etc.
+- **Every new SwiftUI view MUST include at least one `#Preview`** - this enables rapid iteration and visual verification. Place previews at the bottom of the file showing key states (empty, populated, error, etc.).
+
+- Prefer SwiftUI composition; keep animation logic in dedicated types to preserve readability.
+- Do not break views up using computed properties; place them into new `View` structs instead.
+- Document non-obvious behaviors with succinct inline comments.
+- Add code comments and documentation comments as needed.
+- For debugging, use `Logger` channels—never `print`.
+- **Logger interpolation requires explicit `self.`** - When logging instance properties in `Logger` calls, Swift's string interpolation capture semantics require explicit `self.` (e.g., `Logger.pagination.debug("Loading \(self.paginationPageSize) more")`). SwiftFormat may flag this as redundant, but `self.` is required for Logger to compile correctly. Do not remove `self.` from Logger interpolations.
+- Prefer computed properties over functions whenever an API exposes read-only data and doesn't require inputs. If the body is just returning a stored value, a transformed collection, or any other pure expression, use var `foo: T { ... }` instead of `func foo() -> T`.
+  - Keep true functions when the language or protocol demands it (e.g., `RandomNumberGenerator.next()`), or when call-site syntax should communicate "do work" (async operations, heavy computation, throws, mutating behavior). Those cases can't be modeled as nonmutating computed properties anyway.
+  - Static helpers follow the same rule: expose cached constants or composed values with static var, not static func.
+  - When the API needs a result conditioned on parameters, needs to mutate state, or performs significant work that callers should treat as an action, leave it as a function.
+  - In short: If it's parameterless, pure, and conceptually a value, make it a computed property; otherwise stick with a function.
+- Do not use computed properties that are simply aliases to properties that are inside another struct, unless it adds semantic value.
+- Do not use computed properties with simple logic if it's only being referenced once in the codebase.
+- Things like: `.animation(.easeIn) { content` in is a real API. Don't mess with it!
+
+## SwiftUI Instructions
+
+- Never use `ObservableObject` and `@Published`; always use the `@Observable` macro instead.
+- Never ever use `GeometryReader`; instead use `onGeometryChange` (or `containerRelativeFrame()`, `visualEffect()`) but only when absolutely necessary.
+- Always use `foregroundStyle()` instead of `foregroundColor()`.
+- Always use `clipShape(.rect(cornerRadius:))` instead of `cornerRadius()`.
+- Always use the `Tab` API instead of `tabItem()`.
+- Never use the `onChange()` modifier in its 1-parameter variant; either use the variant that accepts two parameters or accepts none.
+- Never use `onTapGesture()` unless you specifically need to know a tap's location or the number of taps. All other usages should use `Button`.
+- Never use `Task.sleep(nanoseconds:)`; always use `Task.sleep(for:)` instead.
+- Never use `UIScreen.main.bounds` to read the size of the available space.
+- Do not force specific font sizes; prefer using Dynamic Type instead.
+- Don't apply the `fontWeight()` modifier unless there is good reason. If you want to make some text bold, always use `bold()` instead of `fontWeight(.bold)`.
+- Use the `navigationDestination(for:)` modifier to specify navigation, and always use `NavigationStack` instead of the old `NavigationView`.
+- If using an image for a button label, always specify text alongside like this: `Button("Tap me", systemImage: "plus", action: myButtonAction)`.
+- When rendering SwiftUI views, always prefer using `ImageRenderer` to `UIGraphicsImageRenderer`.
+- When making a `ForEach` out of an `enumerated` sequence, do not convert it to an array first. So, prefer `ForEach(x.enumerated(), id: \.element.id)` instead of `ForEach(Array(x.enumerated()), id: \.element.id)`.
+- When hiding scroll view indicators, use the `.scrollIndicators(.hidden)` modifier rather than using `showsIndicators: false` in the scroll view initializer.
+- Place view logic into view models or similar, so it can be tested.
+- Avoid `AnyView` unless it is absolutely required.
+- Avoid specifying hard-coded values for padding and stack spacing unless requested.
+- Avoid using UIKit colors in SwiftUI code.
+- Never use `.easeInOut` for animations; always use `.smooth` instead for more natural motion.
+- Do not specify `(extraBounce: 0)` in animations: it is redundant (that's already the default) and is not the desired behavior.
+- Do not let views, especially inside scroll views or chat transcripts, jump or pop into new positions. Existing elements must animate continuously from their previous presented position to the next one. Treat abrupt movement, snap-in layout shifts, and content jumping as bugs unless the user explicitly asks for a hard cut.
+
+## SwiftData Instructions
+
+Tinkerble currently does not use SwiftData for its runtime registry, companion store, or installer state. Keep this project live/debug-session oriented unless a task explicitly asks for persistence.
+
+If SwiftData is introduced:
+
+- Keep SwiftData model types focused and clearly named.
+- Do not use SwiftData to blur the socket transport boundary or persist transient tweak registrations by default.
+- If SwiftData is configured to use CloudKit:
+  - Never use `@Attribute(.unique)`.
+  - Model properties must always either have default values or be marked optional.
+  - All relationships must be marked optional.
+
+## Validation
+
+Prefer the repo `Makefile` for routine local validation and release prep before dropping to raw `swift test` or `xcodebuild` commands. `make help` lists the maintained targets.
+
+The `Makefile` defaults `DEVELOPER_DIR` to `/Applications/Xcode-beta.app/Contents/Developer` when that install exists. If the active full Xcode on this machine lives elsewhere, prefer an explicit override such as `DEVELOPER_DIR="$(xcode-select -p)" make verify` before assuming the repo default matches the local setup.
+
+For code changes, run the validation sequence that matches the touched area. The broad package validation is:
+
+```sh
+make verify
+```
+
+Equivalent raw commands:
+
+```sh
+swift test
+./Scripts/verify-macos-companion-package.sh
+xcodebuild -project "Tinkerble Demo/Tinkerble Demo.xcodeproj" -scheme "Tinkerble Demo" -destination "generic/platform=iOS Simulator" -clonedSourcePackagesDirPath .build-demo-validation build
+```
+
+If terminal SwiftPM or `xcodebuild` commands fail with `BuildServerProtocol.framework` loader errors, rerun them under the repo's working toolchain override:
+
+```sh
+DEVELOPER_DIR=/Applications/Xcode-beta.app/Contents/Developer swift test
+```
+
+For command-line demo verification, use the repo helper:
+
+```sh
+./Scripts/run-tinkerble-demo.sh
+TINKERBLE_SIMULATOR_UDID=<simulator-udid> TINKERBLE_INTERACTIVE=0 ./Scripts/run-tinkerble-demo.sh
+```
+
+When validating installer changes in multi-scheme consumer projects, include a scheme-aware install path such as:
+
+```sh
+tinkerble install --project MyApp.xcodeproj --target MyApp --scheme "MyApp Dev"
+```
+
+Use `tinkerble install --dry-run` to inspect planned project and scheme changes before writing files. When macro trust behavior matters for the install flow, use `--enable-macro-trust` or `--skip-macro-trust` explicitly instead of relying on prompts.
+
+All builds should be warning-free. Fix compiler warnings before marking work complete. Common warnings to watch for:
+
+- `var` should be `let` when the variable is never mutated.
+- Unnecessary `try` when no throwing functions are called.
+- Unnecessary `await` when no async operations occur.
+- CFBundleVersion mismatches between app and extension targets.
+
+Run `/opt/homebrew/bin/swiftlint --fix` only on Swift files changed in this work, not the whole repo. Run `swiftformat --config .swiftformat` only on changed Swift files, not the whole repo.
+
+Use focused tests when the change has a narrower proof path:
+
+- `make test` for the Swift package suite only.
+- `make test-installer` for installer behavior.
+- `make test-preview-fixtures` for All Tinkerble Components fixture changes.
+- `make test-inspector` for companion inspector rendering/parsing behavior.
+
+For companion/demo workflows, prefer the maintained helpers:
+
+- `make companion` packages the macOS companion app without launching it.
+- `make companion-run` packages, restarts, and verifies the macOS companion is listening.
+- `make companion-verify` packages and verifies the macOS companion bundle without launching it.
+- `make demo-build` builds the demo for Simulator without installing or launching it.
+- `make demo-simulator` launches the demo with interactive simulator selection.
+- `make demo-simulator-ci` launches the demo on the first available iPhone Simulator without prompts.
+- `make demo-device-build` builds the demo for a generic physical iOS device.
+
+`Scripts/run-tinkerble-demo.sh` uses `TINKERBLE_DEMO_PACKAGE_CACHE` to override its cloned package cache path and `TINKERBLE_SIMULATOR_UDID` to skip simulator selection.
+
+The shared `+ Tinkerble` run scheme also honors `TINKERBLE_COMPANION_AUTOLAUNCH=0` to skip companion launch, `TINKERBLE_PACKAGE_DIR` or `TINKERBLE_SOURCE_PACKAGES_DIR` to force package-checkout discovery, and `TINKERBLE_COMPANION_SCRATCH_PATH` to override the companion packaging scratch directory.
+
+For release prep, use the repo-backed targets instead of ad hoc git/GitHub commands:
+
+- `make release-check` runs `make verify`, `git diff --check`, and `git status --short`.
+- `make release-tag VERSION=v1.2.3` creates the local annotated tag.
+- `make release-push-tag VERSION=v1.2.3` pushes an existing tag.
+- `make release-github VERSION=v1.2.3` creates the GitHub release for an existing tag.
+- `make release-verify VERSION=v1.2.3` verifies the remote tag and GitHub release metadata.
+
+## UI Tests
+
+Do not add tests that assert companion UI styling, layout details, or visual implementation. Never assert colors, materials, opacity, shadows, titlebar presentation, window chrome, background fills, padding, dimensions, sizing math, control styles, or AppKit/SwiftUI properties that only describe how something looks. Do not assert `NSWindow`, `NSView`, `CALayer`, or SwiftUI modifier state for visual details such as title visibility, titlebar transparency, background color, masks, corner radius, frame size, material, glass, or hidden traffic-light buttons. Do not write tests that read source files and assert string containment with `source.contains(...)`, `script.contains(...)`, `project.contains(...)`, or equivalent substring-count checks. Do not assert literal SwiftUI layout/modifier choices such as `ViewThatFits`, `Picker` label text, `.labelsHidden()`, `.fixedSize(...)`, `.pickerStyle(...)`, or `.frame(...)`. Verify UI behavior through user-visible state changes, accessibility-visible behavior, build/package success, or a real app launch/screenshot instead of freezing visual metrics or implementation properties in tests.
+
+## Do Not Change Carelessly
+
+- Do not remove the transport protocol boundary.
+- Do not add support for arrays, dictionaries, structs, nested models, `ObservableObject`, or `@Published` without expanding tests and README limitations.
+- Never ever use `ObservableObject` or `@Published`; use `@Observable` and Observation-backed state instead.
+- Do not make the demo depend on DerivedData package checkouts for verification; use an isolated `-clonedSourcePackagesDirPath` such as `.build-demo-validation`.
+- Do not replace explicit display names with guessed property names.
+- Do not broaden the companion UI into a design system unless requested.
+- Do not replace `Tinkerble.icon` with generated PNGs or `.icns` files. Xcode 26 should compile the `.icon` document into `Assets.car`, and the app plist should reference it with `CFBundleIconName`.
+
+## Known Limitations
+
+- One advertised Bonjour service, with manual host override available.
+- One active session.
+- Basic companion controls.
+
+---
+> Source: [edwardsanchez/Tinkerble](https://github.com/edwardsanchez/Tinkerble) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-29 -->
