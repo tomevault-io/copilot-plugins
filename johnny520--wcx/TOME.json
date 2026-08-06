@@ -1,0 +1,44 @@
+{
+  "name": "wcx",
+  "owner": "Johnny520",
+  "repo": "wcx",
+  "description": "\u4e00\u4e2a\u96c6\u6210\u4e86\u5fae\u4fe1 Xposed \u6a21\u5757\u4e0e\u53bb\u6df7\u6dc6\u5206\u6790\u5de5\u5177\u7684\u7efc\u5408\u9879\u76ee",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Johnny520/wcx",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T13:16:10Z"
+}
