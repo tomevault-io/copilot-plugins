@@ -4,7 +4,7 @@
   "repo": "backenly",
   "description": "Autonomous backend platform. Your coding agent builds it over MCP, Backenly keeps it running: Postgres, REST APIs, auth, storage, realtime, and functions, with every change governed, verified, and reversible.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/backenly/backenly",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T21:08:33Z"
+  "distributed_at": "2026-08-06T23:36:55Z"
 }
