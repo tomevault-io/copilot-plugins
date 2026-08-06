@@ -1,0 +1,9 @@
+{
+  "name": "odvcencio--fluffyui",
+  "displayName": "FluffyUI",
+  "description": "A Go TUI framework with widgets, FSS styling, accessibility, reactive state, web backends, and agent tooling.",
+  "version": "1.0.0",
+  "author": "odvcencio",
+  "homepage": "https://github.com/odvcencio/FluffyUI",
+  "skills": []
+}
