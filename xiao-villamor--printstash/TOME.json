@@ -4,7 +4,7 @@
   "repo": "PrintStash",
   "description": "Self-hosted asset management for 3D printing files, slicer metadata, and printer workflows.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xiao-villamor/PrintStash",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T11:49:15Z"
+  "distributed_at": "2026-08-06T15:44:57Z"
 }
