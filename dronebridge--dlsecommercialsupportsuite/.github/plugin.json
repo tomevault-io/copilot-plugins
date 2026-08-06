@@ -1,0 +1,9 @@
+{
+  "name": "dronebridge--dlsecommercialsupportsuite",
+  "displayName": "DLSECommercialSupportSuite",
+  "description": "Drone Light Show Edition Support Suite for DroneBridge for ESP32",
+  "version": "1.0.0",
+  "author": "DroneBridge",
+  "homepage": "https://github.com/DroneBridge/DLSECommercialSupportSuite",
+  "skills": []
+}
