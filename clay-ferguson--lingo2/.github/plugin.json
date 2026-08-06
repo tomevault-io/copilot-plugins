@@ -1,0 +1,9 @@
+{
+  "name": "clay-ferguson--lingo2",
+  "displayName": "lingo2",
+  "description": "Lingo2 - A Whisper.cpp-based Speech-To-Text for Voice input into Linux",
+  "version": "1.0.0",
+  "author": "Clay-Ferguson",
+  "homepage": "https://github.com/Clay-Ferguson/lingo2",
+  "skills": []
+}
