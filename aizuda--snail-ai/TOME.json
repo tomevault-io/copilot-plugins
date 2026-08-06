@@ -1,0 +1,44 @@
+{
+  "name": "snail-ai",
+  "owner": "aizuda",
+  "repo": "snail-ai",
+  "description": "Snail AI \u4f01\u4e1a\u7ea7 AI Agent \u5e73\u53f0 - \u8ba9 AI \u66f4\u667a\u80fd\uff0c\u8ba9\u5f00\u53d1\u66f4\u9ad8\u6548",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aizuda/snail-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T17:17:50Z"
+}
