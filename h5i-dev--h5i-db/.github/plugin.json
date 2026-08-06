@@ -1,0 +1,9 @@
+{
+  "name": "h5i-dev--h5i-db",
+  "displayName": "h5i-db",
+  "description": "A high-performance analytical database for quantitative finance and time-series workloads, designed for AI agents and written in Rust.",
+  "version": "1.0.0",
+  "author": "h5i-dev",
+  "homepage": "https://github.com/h5i-dev/h5i-db",
+  "skills": []
+}
