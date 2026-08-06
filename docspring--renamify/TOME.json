@@ -4,7 +4,7 @@
   "repo": "renamify",
   "description": "Smart search & replace for code and files with case-aware transformations and built-in undo/redo.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DocSpring/renamify",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T18:23:34Z"
+  "distributed_at": "2026-08-06T04:50:51Z"
 }
