@@ -1,0 +1,9 @@
+{
+  "name": "papperrollinggery--zhijuan-prompt-card",
+  "displayName": "zhijuan-prompt-card",
+  "description": "Local-first Chrome extension that turns images into generator-ready prompts.",
+  "version": "1.0.0",
+  "author": "papperrollinggery",
+  "homepage": "https://github.com/papperrollinggery/zhijuan-prompt-card",
+  "skills": []
+}
