@@ -1,0 +1,9 @@
+{
+  "name": "glassyiris--honk",
+  "displayName": "honk",
+  "description": "Inspired by dae & sing-box, it's an ebpf based proxy with clash-api",
+  "version": "1.0.0",
+  "author": "Glassyiris",
+  "homepage": "https://github.com/Glassyiris/honk",
+  "skills": []
+}
