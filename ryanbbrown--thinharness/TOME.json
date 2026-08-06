@@ -4,7 +4,7 @@
   "repo": "thinharness",
   "description": "A minimal, opinionated agent harness \u2014 focused scope, straightforward code, easy to fork",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ryanbbrown/thinharness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T18:02:33Z"
+  "distributed_at": "2026-08-06T20:55:45Z"
 }
