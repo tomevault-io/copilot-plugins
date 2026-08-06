@@ -1,0 +1,44 @@
+{
+  "name": "modbus-studio",
+  "owner": "agentthink",
+  "repo": "modbus-studio",
+  "description": "\u662f\u4e00\u6b3e\u4e13\u4e3a\u81ea\u52a8\u5316\u5de5\u7a0b\u5e08\u4e0e\u5de5\u63a7\u5f00\u53d1\u8005\u6253\u9020\u7684\u73b0\u4ee3\u5316 Modbus \u4e3b\u7ad9\u8c03\u8bd5\u4e0e\u684c\u9762\u8f7b\u91cf\u7ea7\u7ec4\u6001\u76d1\u63a7\u5de5\u5177\u3002\u9879\u76ee\u57fa\u4e8e .NET 8 \u67b6\u6784\u5f00\u53d1\uff0c\u65e8\u5728\u6253\u7834\u4f20\u7edf\u5de5\u63a7\u8c03\u8bd5\u8f6f\u4ef6\u754c\u9762\u9648\u65e7\u3001\u4ea4\u4e92\u7e41\u7410\u7684\u5c40\u9650\uff0c\u5c06\u67af\u71e5\u7684\u5bc4\u5b58\u5668\u6570\u636e\u8f6c\u5316\u4e3a\u53ef\u89c6\u5316\u7684\u4ea4\u4e92\u5361\u7247\u4e0e\u52a8\u6001\u8d8b\u52bf\u56fe\uff0c\u5b9e\u73b0\u201c\u5373\u63d2\u5373\u7528\u3001\u6240\u89c1\u5373\u6240\u5f97\u201d\u7684\u5de5\u63a7\u8c03\u8bd5\u4f53\u9a8c\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/agentthink/modbus-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T01:36:04Z"
+}
