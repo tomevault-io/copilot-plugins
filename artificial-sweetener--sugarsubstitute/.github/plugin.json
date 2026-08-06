@@ -1,0 +1,9 @@
+{
+  "name": "artificial-sweetener--sugarsubstitute",
+  "displayName": "SugarSubstitute",
+  "description": "The desktop native Qt front-end for ComfyUI",
+  "version": "1.0.0",
+  "author": "Artificial-Sweetener",
+  "homepage": "https://github.com/Artificial-Sweetener/SugarSubstitute",
+  "skills": []
+}
