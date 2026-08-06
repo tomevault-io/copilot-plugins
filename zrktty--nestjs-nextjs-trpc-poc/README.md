@@ -7,11 +7,11 @@ A minimal full-stack proof-of-concept demonstrating end-to-end type safety acros
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ZRktty/nestjs-nextjs-trpc-poc](https://github.com/ZRktty/nestjs-nextjs-trpc-poc).
+Original source: `AGENTS.md` in [ZRktty/nestjs-nextjs-trpc-poc](https://github.com/ZRktty/nestjs-nextjs-trpc-poc).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
