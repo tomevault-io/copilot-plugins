@@ -7,11 +7,11 @@ One home for every idea — local-first macOS desktop app for tracking work-in-f
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [paultyng/ideate](https://github.com/paultyng/ideate).
+Original source: `AGENTS.md` in [paultyng/ideate](https://github.com/paultyng/ideate).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
