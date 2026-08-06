@@ -4,7 +4,7 @@
   "repo": "cilicon",
   "description": "boots your firmware and inference on N real targets. 0 setup, 0 hardware to own.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/neural-alloy/cilicon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T12:04:40Z"
+  "distributed_at": "2026-08-06T16:46:56Z"
 }
