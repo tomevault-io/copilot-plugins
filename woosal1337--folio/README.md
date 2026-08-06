@@ -7,11 +7,11 @@ Local-first meeting notes for macOS. Records system audio + mic, transcribes on-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [woosal1337/folio](https://github.com/woosal1337/folio).
+Original source: `AGENTS.md` in [woosal1337/folio](https://github.com/woosal1337/folio).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
