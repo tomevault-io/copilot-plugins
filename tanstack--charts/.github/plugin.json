@@ -1,0 +1,9 @@
+{
+  "name": "tanstack--charts",
+  "displayName": "charts",
+  "description": "A tiny TypeScript visualization grammar for responsive, accessible, server-rendered charts\u2014powered by granular D3 primitives.",
+  "version": "1.0.0",
+  "author": "TanStack",
+  "homepage": "https://github.com/TanStack/charts",
+  "skills": []
+}
