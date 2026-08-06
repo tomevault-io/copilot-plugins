@@ -1,0 +1,9 @@
+{
+  "name": "myyimu--codex-session-transfer",
+  "displayName": "codex-session-transfer",
+  "description": "\u672c\u5730\u4f18\u5148\u7684codex\u684c\u9762\u5de5\u5177\uff0c\u7528\u4e8e\u5728\u591a\u53f0\u7535\u8111\u95f4codex\u4efb\u52a1\u4f1a\u8bdd\u3001\u9879\u76ee\u4f1a\u8bdd\u7684\u5bfc\u51fa\u3001\u5bfc\u5165\u3001\u540c\u6b65\u548c\u6062\u590d\u3002Local-first desktop utility for exporting, importing, syncing, and restoring Codex task sessions across computers.",
+  "version": "1.0.0",
+  "author": "myyimu",
+  "homepage": "https://github.com/myyimu/codex-session-transfer",
+  "skills": []
+}
