@@ -1,0 +1,9 @@
+{
+  "name": "vectorpeak--llm-wiki",
+  "displayName": "LLM-Wiki",
+  "description": "A structured knowledge base for large language model technologies, covering LLMs, Agents, RAG, model training, evaluation methodologies, and AI engineering practices.",
+  "version": "1.0.0",
+  "author": "VectorPeak",
+  "homepage": "https://github.com/VectorPeak/LLM-Wiki",
+  "skills": []
+}
