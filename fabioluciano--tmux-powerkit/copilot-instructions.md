@@ -26,73 +26,77 @@ Mocha is the most popular variant with excellent contrast.
 
 ## Migration Summary
 
-**Status**: ✅ COMPLETE - All 46 plugins migrated to contract system
+**Status**: ✅ COMPLETE - All 51 plugins migrated to contract system
 
 ### Migration Statistics
 
-- **Total Plugins**: 46
+- **Total Plugins**: 51
 - **Migration Date**: January 2025
 - **Architecture**: Contract-based plugin system with strict separation of concerns
 - **Lines of Code**: ~5,500 lines (plugins only)
 
 ### Migrated Plugins (Alphabetical)
 
-1. **appearance** - macOS light/dark/auto toggle with theme switching
-2. **audiodevices** - Audio output device (macOS, SwitchAudioSource)
-3. **battery** - Battery level with charge state (pmset/upower)
-4. **bitbucket** - Pull requests count (API)
-5. **bitwarden** - Vault lock status (bw CLI)
-6. **bluetooth** - BT status + connected devices (blueutil/bluetoothctl)
-7. **brightness** - Screen brightness (Linux only - sysfs/brightnessctl/light/xbacklight)
-8. **camera** - Camera usage indicator (macOS, lsof)
-9. **chezmoi** - Pending dotfile changes (chezmoi CLI)
-10. **cloud** - Cloud provider profile (AWS/Azure/GCP)
-11. **cloudstatus** - Service status monitoring (status APIs)
-12. **cpu** - CPU usage with thresholds (sysctl/top)
-13. **crypto** - Cryptocurrency prices (CoinGecko API)
-14. **datetime** - Date/time with 15 format presets
-15. **disk** - Disk usage with thresholds (df)
-16. **external_ip** - Public IP address (ipify API)
-17. **fan** - Fan speed (macOS: osx-cpu-temp/iStats, Linux: hwmon/dell_smm/thinkpad)
-18. **git** - Branch + modified files status
-19. **github** - Notifications/PRs/issues (gh CLI)
-20. **gitlab** - Merge requests/todos (glab CLI)
-21. **gpu** - GPU usage (NVIDIA: nvidia-smi, AMD: sysfs, Intel: frequency-based, macOS: powerkit-gpu)
-22. **hostname** - System hostname
-23. **iops** - Disk I/O operations (iostat)
-24. **jira** - Assigned issues count (API)
-25. **kubernetes** - Context + namespace (kubectl)
-26. **loadavg** - Load average with cores (uptime)
-27. **memory** - Memory usage with thresholds (vm_stat/free)
-28. **microphone** - Mic mute status (macOS, osascript)
-29. **netspeed** - Upload/download speed (ifstat/netstat)
-30. **nowplaying** - Current music track (Music/Spotify)
-31. **packages** - Pending updates (brew/apt/yum/pacman)
-32. **ping** - Network latency with thresholds
-33. **pomodoro** - Timer with work/break phases
-34. **smartkey** - Custom environment variable display
-35. **ssh** - SSH session indicator
-36. **stocks** - Stock prices (Yahoo Finance API)
-37. **swap** - Swap memory usage (sysctl/vm_stat/proc)
-38. **temperature** - CPU temperature (macOS, osx-cpu-temp)
-39. **terraform** - Workspace indicator
-40. **timezones** - Multi-timezone display
-41. **uptime** - System uptime
-42. **volume** - System volume (macOS, osascript)
-43. **vpn** - VPN connection status (tun/tap interfaces)
-44. **weather** - Weather from wttr.in
-45. **wifi** - WiFi SSID + signal strength
-46. **yadm** - yadm dotfile repository status (modified, untracked, ahead/behind)
+1. **aiquotas** - AI provider quotas, usage, balances, and rate limits
+2. **appearance** - macOS light/dark/auto toggle with theme switching
+3. **audiodevices** - Audio output device (macOS, SwitchAudioSource)
+4. **battery** - Battery level with charge state (pmset/upower)
+5. **bitbucket** - Pull requests count (API)
+6. **bitwarden** - Vault lock status (bw CLI)
+7. **bluetooth** - BT status + connected devices (blueutil/bluetoothctl)
+8. **brightness** - Screen brightness (Linux only - sysfs/brightnessctl/light/xbacklight)
+9. **camera** - Camera usage indicator (macOS, lsof)
+10. **chezmoi** - Pending dotfile changes (chezmoi CLI)
+11. **cloud** - Cloud provider profile (AWS/Azure/GCP)
+12. **cloudstatus** - Service status monitoring (status APIs)
+13. **connectivity** - Internet connectivity status (curl)
+14. **cpu** - CPU usage with thresholds (sysctl/top)
+15. **crypto** - Cryptocurrency prices (CoinGecko API)
+16. **datetime** - Date/time with 15 format presets
+17. **disk** - Disk usage with thresholds (df)
+18. **docker** - Docker or Podman container status
+19. **external_ip** - Public IP address (ipify API)
+20. **fan** - Fan speed (macOS: osx-cpu-temp/iStats, Linux: hwmon/dell_smm/thinkpad)
+21. **git** - Branch + modified files status
+22. **github** - Notifications/PRs/issues (gh CLI)
+23. **gitlab** - Merge requests/todos (glab CLI)
+24. **gpu** - GPU usage (NVIDIA: nvidia-smi, AMD: sysfs, Intel: frequency-based, macOS: powerkit-gpu)
+25. **hostname** - System hostname
+26. **iops** - Disk I/O operations (iostat)
+27. **jira** - Assigned issues count (API)
+28. **kubernetes** - Context + namespace (kubectl)
+29. **loadavg** - Load average with cores (uptime)
+30. **memory** - Memory usage with thresholds (vm_stat/free)
+31. **microphone** - Mic mute status (macOS, osascript)
+32. **netspeed** - Upload/download speed (ifstat/netstat)
+33. **nowplaying** - Current music track (Music/Spotify)
+34. **packages** - Pending updates (brew/apt/yum/pacman)
+35. **ping** - Network latency with thresholds
+36. **pomodoro** - Timer with work/break phases
+37. **smartkey** - Custom environment variable display
+38. **ssh** - SSH session indicator
+39. **stocks** - Stock prices (Yahoo Finance API)
+40. **swap** - Swap memory usage (sysctl/vm_stat/proc)
+41. **sysstatus** - Aggregated system health badge
+42. **temperature** - CPU temperature (macOS, osx-cpu-temp)
+43. **terraform** - Workspace indicator
+44. **timezones** - Multi-timezone display
+45. **topproc** - Process consuming the most CPU
+46. **uptime** - System uptime
+47. **volume** - System volume (macOS, osascript)
+48. **vpn** - VPN connection status (tun/tap interfaces)
+49. **weather** - Weather from wttr.in
+50. **wifi** - WiFi SSID + signal strength
+51. **yadm** - yadm dotfile repository status (modified, untracked, ahead/behind)
 
 ### Plugin Categories
 
-- **System Monitoring** (13): battery, cpu, disk, fan, gpu, iops, loadavg, memory, swap, temperature, uptime, volume, brightness
-- **Network** (7): external_ip, netspeed, ping, vpn, weather, wifi, ssh
-- **Development** (10): git, github, gitlab, bitbucket, jira, kubernetes, terraform, cloud, chezmoi, yadm
-- **Media** (4): nowplaying, audiodevices, camera, microphone
+- **System Monitoring** (15): battery, cpu, memory, swap, disk, loadavg, uptime, temperature, fan, gpu, iops, hostname, topproc, sysstatus, volume
+- **Network** (8): netspeed, wifi, vpn, ping, external_ip, ssh, weather, connectivity
+- **Media** (6): nowplaying, audiodevices, camera, microphone, bluetooth, brightness
+- **Development** (14): aiquotas, git, github, gitlab, bitbucket, jira, kubernetes, terraform, cloud, cloudstatus, packages, chezmoi, yadm, docker
 - **Productivity** (6): datetime, timezones, pomodoro, smartkey, bitwarden, appearance
 - **Financial** (2): crypto, stocks
-- **Services** (4): cloudstatus, packages, bluetooth, hostname
 
 ### Platform-Specific Plugins
 
@@ -498,12 +502,12 @@ plugin_get_context() {
 
 ## Icon Selection Helpers
 
-Use in `plugin_get_icon()` to eliminate DRY violations for health-based and state-based icon selection:
+Use in `plugin_get_icon()` to eliminate DRY violations for state-based and value-based icon selection:
 
 ```bash
-# Select icon based on health level
-# Returns: icon_critical if error, icon_warning if warning, icon otherwise
-plugin_get_icon_by_health "$(plugin_get_health)"
+# ⚠️ DEPRECATED: plugin_get_icon_by_health
+# This helper couples icon selection to health re-evaluation, violating the contract.
+# See "Contract Violations to Avoid" section below for details.
 
 # Select icon based on boolean state (on/off, connected/disconnected, etc.)
 plugin_get_icon_by_state "$muted" "icon_muted" "icon"
@@ -550,7 +554,8 @@ plugin_get_icon() {
 
 # NEW (14 lines - 55% reduction):
 plugin_get_icon() {
-    local status
+    local percent status
+    percent=$(plugin_data_get "percent")
     status=$(plugin_data_get "status")
 
     # Charging/AC power takes precedence
@@ -561,8 +566,8 @@ plugin_get_icon() {
             ;;
     esac
 
-    # Use health-based icon selection (icon_critical -> icon_low -> icon)
-    plugin_get_icon_by_health "$(plugin_get_health)"
+    # Use value-based icon selection (data-driven, not health-driven)
+    plugin_get_icon_by_range "$percent" "15:icon_critical" "30:icon_low" "icon"
 }
 ```
 
@@ -582,36 +587,13 @@ plugin_get_icon() {
 }
 ```
 
-**Example (temperature.sh):**
-
-```bash
-# OLD:
-plugin_get_icon() {
-    local temp health
-    temp=$(plugin_data_get "temperature")
-    health=$(plugin_get_health)
-
-    case "$health" in
-        error)   get_option "icon_critical"; return ;;
-        warning) get_option "icon_warning"; return ;;
-        *)       get_option "icon"; return ;;
-    esac
-}
-
-# NEW:
-plugin_get_icon() {
-    plugin_get_icon_by_health "$(plugin_get_health)"
-}
-```
-
 **Benefits:**
 
 - **Saves 8-15 lines per plugin** × 12 plugins = **96-180 lines**
 - Consistent icon selection patterns across all plugins
-- Three helpers cover different scenarios:
-  - `plugin_get_icon_by_health`: Most common - maps health levels to icons
+- Two helpers cover different scenarios:
   - `plugin_get_icon_by_state`: Boolean state (on/off, muted/unmuted)
-  - `plugin_get_icon_by_range`: Value-based thresholds (battery percentage)
+  - `plugin_get_icon_by_range`: Value-based thresholds (battery percentage, temperature ranges)
 
 ## macOS Native Binary System
 
@@ -1194,6 +1176,27 @@ POWERKIT_ROOT="$(pwd)" ./bin/powerkit-render
 POWERKIT_ROOT="$(pwd)" ./bin/powerkit-plugin battery
 ```
 
+## Validation
+
+Always run the full test suite before committing:
+
+```bash
+bash tests/run_all_tests.sh
+```
+
+This runs:
+
+1. **Bash Syntax Validation** — validates `bash -n` on all .sh files
+2. **ShellCheck Validation** — runs shellcheck with project config (`.shellcheckrc`)
+3. **Contract Compliance** — validates all plugins, themes, contracts, and utilities
+
+Test individual plugins:
+
+```bash
+POWERKIT_ROOT="$(pwd)" ./bin/powerkit-plugin <name>
+POWERKIT_ROOT="$(pwd)" ./bin/powerkit-render
+```
+
 ## Code Style
 
 ### Function Naming
@@ -1232,17 +1235,23 @@ plugin_get_health() {
 }
 # Renderer maps health='error' → red color
 
-# WRONG: Icon based on health
+# WRONG: Icon based on health (couples icon to health re-evaluation)
 plugin_get_icon() {
     local health=$(plugin_get_health)
-    [[ "$health" == "error" ]] && printf '%s' "$critical_icon"  # UI logic!
+    [[ "$health" == "error" ]] && printf '%s' "$critical_icon"  # Violates contract!
 }
+# Problem: plugin_get_icon() calls plugin_get_health() again, re-evaluating thresholds.
+# This couples icon selection to health logic, making it impossible to change icon
+# independently of health without re-evaluating the entire health function.
 
-# CORRECT: Icon based on internal data
+# CORRECT: Icon based on internal data (data-driven, not health-driven)
 plugin_get_icon() {
     local percent=$(plugin_data_get "percent")
     (( percent < 15 )) && printf '%s' "$(get_option 'icon_critical')"
 }
+# Correct: Icon selection uses raw data from plugin_data_get(), not health.
+# Health is evaluated separately in plugin_get_health() for color mapping.
+# Icon and health can evolve independently.
 ```
 
 ## Plugin Example (battery.sh)
@@ -1375,7 +1384,7 @@ plugin_get_icon() {
 
 ## Performance Notes
 
-- **46 plugins** — performance is critical
+- **51 plugins** — performance is critical
 - Cache data, not rendered output (allows dynamic color changes)
 - Use pure bash arithmetic over external commands
 - One `date +%s` call per render cycle
@@ -2326,4 +2335,4 @@ The `toast()` function is available globally after bootstrap via `ui_backend.sh`
 
 ---
 > Source: [fabioluciano/tmux-powerkit](https://github.com/fabioluciano/tmux-powerkit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
