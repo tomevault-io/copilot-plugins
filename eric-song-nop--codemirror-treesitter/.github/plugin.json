@@ -1,0 +1,9 @@
+{
+  "name": "eric-song-nop--codemirror-treesitter",
+  "displayName": "codemirror-treesitter",
+  "description": "GroveMd, the local-sync-first collab markdown editor, includes a codemirror but use treesitter as the parser.",
+  "version": "1.0.0",
+  "author": "Eric-Song-Nop",
+  "homepage": "https://github.com/Eric-Song-Nop/codemirror-treesitter",
+  "skills": []
+}
