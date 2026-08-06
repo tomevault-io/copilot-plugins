@@ -1,0 +1,9 @@
+{
+  "name": "nwalsh2102--ctx",
+  "displayName": "ctx",
+  "description": "Semantic + full-text codebase search that runs on your machine. AST-aware chunking, Candle BERT embeddings, incremental indexing. Pure Rust. Built for developers and AI agents.",
+  "version": "1.0.0",
+  "author": "nwalsh2102",
+  "homepage": "https://github.com/nwalsh2102/ctx",
+  "skills": []
+}
