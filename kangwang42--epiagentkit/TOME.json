@@ -4,7 +4,7 @@
   "repo": "EpiAgentKit",
   "description": "Shared Claude Code and Codex workflows for epidemiology and biostatistics: rules, skills, hooks, and reproducible R/Python research tooling.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KangWang42/EpiAgentKit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T02:03:36Z"
+  "distributed_at": "2026-08-06T09:31:32Z"
 }
