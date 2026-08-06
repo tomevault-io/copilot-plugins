@@ -4,7 +4,7 @@
   "repo": "qshell",
   "description": "\u4e00\u4e2a\u8de8\u5e73\u53f0\u7684\u7ec8\u7aef\u7ba1\u7406\u5668\uff0c\u652f\u6301 local shell, ssh, \u4e32\u53e3",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/qiushao/qshell",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T04:28:59Z"
+  "distributed_at": "2026-08-06T11:24:29Z"
 }
