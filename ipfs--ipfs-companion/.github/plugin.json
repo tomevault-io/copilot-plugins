@@ -1,0 +1,9 @@
+{
+  "name": "ipfs--ipfs-companion",
+  "displayName": "ipfs-companion",
+  "description": "ipfs-companion",
+  "version": "1.0.0",
+  "author": "ipfs",
+  "homepage": "https://github.com/ipfs/ipfs-companion",
+  "skills": []
+}
