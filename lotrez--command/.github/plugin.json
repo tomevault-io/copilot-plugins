@@ -1,0 +1,9 @@
+{
+  "name": "lotrez--command",
+  "displayName": "command",
+  "description": "Rest-like mod for balatro to control the game from http requests",
+  "version": "1.0.0",
+  "author": "lotrez",
+  "homepage": "https://github.com/lotrez/command",
+  "skills": []
+}
