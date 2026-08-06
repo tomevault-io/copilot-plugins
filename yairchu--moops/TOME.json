@@ -4,7 +4,7 @@
   "repo": "moops",
   "description": "Easily write Marimo notebooks that work as CLI scripts with minimal boilerplate",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yairchu/moops",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T17:49:41Z"
+  "distributed_at": "2026-08-06T20:43:31Z"
 }
