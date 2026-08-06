@@ -1,0 +1,9 @@
+{
+  "name": "uvwt--agentdock",
+  "displayName": "agentdock",
+  "description": "Secure MCP runtime for AI agents to operate local machines, servers, and containers with multi-device orchestration.",
+  "version": "1.0.0",
+  "author": "uvwt",
+  "homepage": "https://github.com/uvwt/agentdock",
+  "skills": []
+}
