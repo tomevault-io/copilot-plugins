@@ -7,11 +7,11 @@ Evidence-first skills for Codex, Cursor, and Claude Code: research, debugging, p
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [JinPLu/Teamwork](https://github.com/JinPLu/Teamwork).
+Original source: `AGENTS.md` in [JinPLu/Teamwork](https://github.com/JinPLu/Teamwork).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
