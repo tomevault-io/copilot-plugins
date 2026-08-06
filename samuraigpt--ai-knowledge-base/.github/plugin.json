@@ -1,0 +1,9 @@
+{
+  "name": "samuraigpt--ai-knowledge-base",
+  "displayName": "ai-knowledge-base",
+  "description": "Open-source AI knowledge base & custom chatbot builder \u2014 production-ready Next.js SaaS with RAG, document upload, URL scraping, Q&A training, citations, and embeddable chatbot widgets. Stripe, credits",
+  "version": "1.0.0",
+  "author": "SamurAIGPT",
+  "homepage": "https://github.com/SamurAIGPT/ai-knowledge-base",
+  "skills": []
+}
