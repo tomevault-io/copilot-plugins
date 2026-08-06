@@ -1,0 +1,9 @@
+{
+  "name": "block--chalkline",
+  "displayName": "chalkline",
+  "description": "Snap a line before your agents build.",
+  "version": "1.0.0",
+  "author": "block",
+  "homepage": "https://github.com/block/chalkline",
+  "skills": []
+}
