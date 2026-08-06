@@ -4,7 +4,7 @@
   "repo": "2026aicontest-flame_object_recognition",
   "description": "Ultralytics YOLO26, YOLO11, YOLOv8 \u2014 object detection, instance segmentation, semantic segmentation, image classification, pose estimation, object tracking",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yy446-tech/2026aicontest-flame_object_recognition",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T22:25:21Z"
+  "distributed_at": "2026-08-06T07:18:20Z"
 }
