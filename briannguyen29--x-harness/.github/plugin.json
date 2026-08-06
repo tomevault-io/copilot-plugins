@@ -1,0 +1,9 @@
+{
+  "name": "briannguyen29--x-harness",
+  "displayName": "x-harness",
+  "description": "A small, file-first verification harness that turns an AI agent's \"I'm done\" claim into an auditable admission decision. 100% offline & zero-infra",
+  "version": "1.0.0",
+  "author": "BrianNguyen29",
+  "homepage": "https://github.com/BrianNguyen29/x-harness",
+  "skills": []
+}
