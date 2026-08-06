@@ -1,15 +1,15 @@
 # macterm
 
-> Source: [thdxg/macterm](https://github.com/thdxg/macterm). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [thdxg/macterm](https://github.com/thdxg/macterm). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [thdxg/macterm](https://github.com/thdxg/macterm).
+Original source: `AGENTS.md` in [thdxg/macterm](https://github.com/thdxg/macterm).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
