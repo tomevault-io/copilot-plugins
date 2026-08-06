@@ -4,7 +4,7 @@
   "repo": "antlr-rust-runtime",
   "description": "Rust Runtime for ANTLR4",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ophi-dev/antlr-rust-runtime",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T23:51:01Z"
+  "distributed_at": "2026-08-06T08:34:54Z"
 }
