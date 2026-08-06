@@ -1,0 +1,9 @@
+{
+  "name": "eliask--lawvm",
+  "displayName": "lawvm",
+  "description": "LawVM compiles human-written amendment acts into auditable point-in-time legal text-state. It treats legislation as executable state transitions, preserving provenance, replay evidence, and divergence",
+  "version": "1.0.0",
+  "author": "eliask",
+  "homepage": "https://github.com/eliask/lawvm",
+  "skills": []
+}
