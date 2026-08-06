@@ -4,7 +4,7 @@
   "repo": "MCISLAB_DeepRead",
   "description": "AI Research Notebook - GUI Agent, VLM, AI Agent papers and notes  ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Kendrick-Stein/MCISLAB_DeepRead",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T17:59:57Z"
+  "distributed_at": "2026-08-06T20:52:39Z"
 }
