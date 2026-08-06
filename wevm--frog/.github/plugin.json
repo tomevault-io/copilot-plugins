@@ -1,0 +1,9 @@
+{
+  "name": "wevm--frog",
+  "displayName": "frog",
+  "description": "Automated friction logging for agents.",
+  "version": "1.0.0",
+  "author": "wevm",
+  "homepage": "https://github.com/wevm/frog",
+  "skills": []
+}
