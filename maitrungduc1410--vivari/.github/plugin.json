@@ -1,0 +1,9 @@
+{
+  "name": "maitrungduc1410--vivari",
+  "displayName": "vivari",
+  "description": "An open-source, MIT-licensed WebContainer - run Node projects (Vite, Express, and more) 100% in the browser. No server. Bun support in progress.",
+  "version": "1.0.0",
+  "author": "maitrungduc1410",
+  "homepage": "https://github.com/maitrungduc1410/vivari",
+  "skills": []
+}
