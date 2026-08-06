@@ -4,7 +4,7 @@
   "repo": "oats",
   "description": "The free, open-source meeting-notes app for your Mac \u2014 offline transcription and AI notes, free in the cloud or 100% on-device.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ariso-ai/oats",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T13:16:54Z"
+  "distributed_at": "2026-08-06T18:33:52Z"
 }
