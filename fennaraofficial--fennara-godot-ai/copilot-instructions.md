@@ -1,0 +1,62 @@
+## fennara-godot-ai
+
+> Read this file before changing the repository.
+
+# Agent Instructions
+
+Read this file before changing the repository.
+
+## Core Rules
+
+- Keep changes small, focused, and easy to review.
+- Prefer simple code and clear ownership boundaries.
+- Do not add game-specific MCP tools or guidance. Fennara should expose Godot feedback and primitive controls, not assumptions about a particular game's movement, combat, inventory, quests, UI flow, or objectives.
+- Do not publish releases, create tags, or run release workflows unless a maintainer explicitly asks for that exact action.
+- Keep branch names human-readable and do not prefix Codex-created branches with `codex/`.
+- Do not change GitHub Actions release behavior casually. Explain any workflow change in the pull request.
+- Keep platform-specific native code behind explicit platform files or small bridge boundaries. Windows, macOS, Linux, and unsupported fallback behavior should remain obvious from filenames and call sites.
+- Do not bundle heavyweight browser runtimes into the Godot addon. Linux CEF is a shared local webview runtime installed under the user's Fennara app-data directory, not copied into every `res://addons/fennara/`.
+
+## Source Of Truth
+
+- `README.md` is the human-facing project overview.
+- `llms.txt` is the short index for language models and coding agents.
+- `CONTEXT.md` defines shared Fennara vocabulary.
+- `docs/repo-map.md` explains repository layout.
+- `docs/architecture.md` explains the high-level system.
+- `docs/release.md` explains release expectations.
+- `local/templates/` contains project guidance written by `fennara install` and refreshed by `fennara update`.
+- `ui/chat/` contains the source web chat UI. `godot_demo/addons/fennara/dist/` is the synced addon copy.
+- `runtime/` contains the source Godot runtime helper scripts. `godot_demo/addons/fennara/runtime/` is the synced addon copy.
+
+## Generated And Packaged Files
+
+- After editing `ui/chat/`, run `node scripts/sync-chat-ui.mjs` and commit the matching `godot_demo/addons/fennara/dist/` changes.
+- After editing `runtime/`, run `node scripts/sync-runtime.mjs` and commit the matching `godot_demo/addons/fennara/runtime/` changes.
+- After editing `local/templates/fennara-guidelines.md`, run `node scripts/sync-guidance.mjs` and commit the matching `godot_demo/addons/fennara/ai/guidelines.md` changes.
+- Do not hand-edit generated addon webview files in `godot_demo/addons/fennara/dist/` without also updating the source in `ui/chat/`.
+- Do not hand-edit synced addon runtime helpers in `godot_demo/addons/fennara/runtime/` without also updating the source in `runtime/`.
+- Do not hand-edit generated addon guidance in `godot_demo/addons/fennara/ai/guidelines.md` without also updating `local/templates/fennara-guidelines.md`.
+- Root `dist/` and `.package-preview/` are build outputs and should stay untracked.
+- `godot_demo/addons/fennara/dist/` is intentionally tracked because release addon zips must contain the built chat UI.
+- `godot_demo/addons/fennara/runtime/` is intentionally tracked because release addon zips must contain the Godot runtime helper scripts.
+- `godot_demo/addons/fennara/ai/guidelines.md` is intentionally tracked because release addon zips should mirror the installed addon guidance layout.
+
+## Documentation Updates
+
+When changing tool behavior, setup behavior, or release behavior, update the relevant docs in the same pull request.
+
+When adding source areas, update `docs/repo-map.md` so contributors and agents can find the right files quickly.
+
+When changing Linux webview runtime installation, update the release docs and keep package-preview limitations explicit. Package Preview is for test artifacts; Release is the source of truth for user-facing install assets.
+
+## Pull Requests
+
+- Use Conventional Commit style for pull request titles.
+- Keep descriptions short and specific.
+- Explain how the change was verified.
+- Avoid unrelated cleanup in feature or fix pull requests.
+
+---
+> Source: [fennaraOfficial/fennara-godot-ai](https://github.com/fennaraOfficial/fennara-godot-ai) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-29 -->
