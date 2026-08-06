@@ -7,11 +7,11 @@ Frontend Expert — chat-first agent skills for shipping product web UI (tokens,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sukirman1901/frontend-expert](https://github.com/sukirman1901/frontend-expert).
+Original source: `AGENTS.md` in [sukirman1901/frontend-expert](https://github.com/sukirman1901/frontend-expert).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
