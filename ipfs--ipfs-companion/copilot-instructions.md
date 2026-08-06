@@ -1,0 +1,64 @@
+## ipfs-companion
+
+> IPFS Companion is a Manifest V3 browser extension for Chromium and Firefox. For build and run details start with the [developer notes](docs/DEVELOPER-NOTES.md); see [CONTRIBUTING.md](docs/CONTRIBUTING.md) for the contribution flow and [docs/MV3.md](docs/MV3.md) for the MV3 architecture.
+
+# AGENTS.md
+
+IPFS Companion is a Manifest V3 browser extension for Chromium and Firefox. For build and run details start with the [developer notes](docs/DEVELOPER-NOTES.md); see [CONTRIBUTING.md](docs/CONTRIBUTING.md) for the contribution flow and [docs/MV3.md](docs/MV3.md) for the MV3 architecture.
+
+## Values that constrain changes
+
+IPFS Companion gives people local-first, content-addressed access to the web,
+with the user in control of their own machine and browsing. The rules below are
+hard constraints on every change, ahead of passing tests. The user-facing
+version lives in [PRIVACY-POLICY.md](PRIVACY-POLICY.md).
+
+- Never track the user. No analytics, telemetry, or phone-home. Outbound
+  requests belong to a feature the user asked for (a gateway fetch, an RPC call
+  to their own node), never measurement. If this ever changes, the data
+  collected must be spelled out in [PRIVACY-POLICY.md](PRIVACY-POLICY.md) and
+  declared in `data_collection_permissions` under `browser_specific_settings`
+  in `add-on/manifest.firefox.json` (`["none"]` today); keep the two in sync.
+- Never leak browsing activity. The extension sees every URL the user visits;
+  that data stays on the machine and goes to no third party.
+- Preserve user agency. Automatic behavior (redirects, gateway choice, node
+  connection) stays under the user's control with a visible off switch. Removing
+  one is a breaking change.
+- Never weaken security. Do not trust remote input (a site-controlled header, a
+  page's script) to change how traffic is routed or rendered, and keep per-site
+  origin isolation intact.
+
+## Setup
+
+Node and npm versions come from `.nvmrc` and `engines` in `package.json`. Install with `npm ci`, or use `npm run dev-build` for an all-in-one install plus build.
+
+## Common tasks
+
+| Task                  | Command                                                              |
+|-----------------------|---------------------------------------------------------------------|
+| Build                 | `npm run build` (bundles with rspack, then packages with web-ext)   |
+| Bundle JS only        | `npm run build:js:rspack`                                            |
+| Unit/functional tests | `npm run test:functional` (vitest)                                  |
+| Coverage              | `npm run test:coverage`                                              |
+| Lint                  | `npm run lint` (eslint, a `tsc` type-check, and web-ext)            |
+| Autofix lint          | `npm run fix:lint`                                                   |
+| e2e tests             | `npm run test:e2e` (playwright)                                      |
+| Run in a browser      | `npm run firefox` / `npm run chromium`                              |
+
+## Conventions
+
+- Code style is [standard](https://standardjs.com), enforced by neostandard and eslint 9 (flat config in `eslint.config.js`): no semicolons, single quotes, 2-space indent.
+- TypeScript is transpiled type-strip only by rspack/SWC; type errors are caught by `npm run lint`, which runs `tsc` over the `.ts` files. `tsconfig.json` is strict.
+- The per-browser manifests are merged from `add-on/manifest.common.json` and `add-on/manifest.{chromium,firefox}.json` at bundle time. Edit those, not the generated `add-on/manifest.json`.
+- Source lives in `add-on/src/`; the UI is built on [choo](https://github.com/choojs/choo).
+- The `x-ipfs-path` response header is not a source of truth and is ignored by default. DNSLink upgrades happen generically (the `onBeforeRequest` lookup plus `lateDnslinkRedirect`), independent of the header, so a site is never redirected just because it set it. Reading the header value to pick a redirect target is available only as an off-by-default, warned legacy opt-in (`redirectToXIpfsPathValue`), because trusting it caused more bugs than it solved: sites put gateways behind custom reverse proxies that emit misconfigured paths and stranded users on frozen `/ipfs/` snapshots (#1052). That opt-in lives in `onHeadersReceived` in `add-on/src/lib/ipfs-request.js`.
+- `@material/switch` stays on 10.x. Later majors rewrote the switch into a `<button role="switch">` using `mdc-switch__handle` and `mdc-switch--selected`, but `add-on/src/pages/components/switch-toggle.js` builds the 10.x DOM (an `<input type="checkbox">` inside `mdc-switch__thumb-underlay`). The newer CSS styles none of the classes we use, so a bump unstyles every toggle. Nothing in CI renders CSS, so such a bump passes all checks. Bumping it means rewriting the component along with `switch-toggle.css` and the `.mdc-switch` rules in `options.css`, and only landing it once someone has looked at the toggles in the options page and popup and confirmed they still render correctly.
+- Commits follow [Conventional Commits](https://www.conventionalcommits.org/).
+
+## Before opening a PR
+
+Run `npm run lint` and `npm run test:functional`. For anything touching redirects, the options page, or the node connection, also run the e2e suite (`npm run test:e2e`, which needs a built extension, a reachable Kubo node, and `TEST_E2E=true`). Do not land changes that have not passed e2e.
+
+---
+> Source: [ipfs/ipfs-companion](https://github.com/ipfs/ipfs-companion) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
