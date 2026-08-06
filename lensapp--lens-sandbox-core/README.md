@@ -7,11 +7,11 @@ Core Rust library for Lens sandbox policy enforcement, networking, DNS, proxying
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [lensapp/lens-sandbox-core](https://github.com/lensapp/lens-sandbox-core).
+Original source: `AGENTS.md` in [lensapp/lens-sandbox-core](https://github.com/lensapp/lens-sandbox-core).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
