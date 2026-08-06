@@ -4,7 +4,7 @@
   "repo": "TimeTree-MCP",
   "description": "Unofficial TimeTree MCP server for Claude, Codex, Cursor, and other MCP clients \u2014 read and manage calendars, events, memos, comments, labels, and members.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ehs208/TimeTree-MCP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T16:27:46Z"
+  "distributed_at": "2026-08-06T19:33:58Z"
 }
