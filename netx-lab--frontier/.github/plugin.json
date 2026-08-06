@@ -1,0 +1,9 @@
+{
+  "name": "netx-lab--frontier",
+  "displayName": "Frontier",
+  "description": "Frontier: A Discrete-Event Simulator for Modern LLM Serving",
+  "version": "1.0.0",
+  "author": "NetX-lab",
+  "homepage": "https://github.com/NetX-lab/Frontier",
+  "skills": []
+}
