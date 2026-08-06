@@ -1,0 +1,9 @@
+{
+  "name": "adamcohen8--orbital-engagement-lab",
+  "displayName": "orbital-engagement-lab",
+  "description": "Orbital Engagement Lab is a physics-based simulation framework for modeling Orbital Engagements. The simulator supports high-fidelity orbital propagation, spacecraft attitude dynamics, actuator-constr",
+  "version": "1.0.0",
+  "author": "adamcohen8",
+  "homepage": "https://github.com/adamcohen8/orbital-engagement-lab",
+  "skills": []
+}
