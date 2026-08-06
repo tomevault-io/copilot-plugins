@@ -1,0 +1,9 @@
+{
+  "name": "turtiesocks--zendriver-rs",
+  "displayName": "zendriver-rs",
+  "description": "Async-first, undetectable browser automation in Rust via the Chrome DevTools Protocol. Stealth-by-default port of zendriver \u2014 no WebDriver, no JS shim.",
+  "version": "1.0.0",
+  "author": "TurtIeSocks",
+  "homepage": "https://github.com/TurtIeSocks/zendriver-rs",
+  "skills": []
+}
