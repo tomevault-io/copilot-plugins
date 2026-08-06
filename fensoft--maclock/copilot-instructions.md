@@ -1,0 +1,250 @@
+## maclock
+
+> Operational notes for future Codex sessions in this repository.
+
+# AGENTS.md
+
+Operational notes for future Codex sessions in this repository.
+
+## Project Snapshot
+
+Maclock is ESP32-S3 firmware for replacing a Maclock's original screen with a
+320x240 IPS display. It has two mutually exclusive runtime modes:
+
+- A normal LVGL clock interface with startup animation, MP3 effects, RTC and
+  weather data, touch calibration, and persistent brightness/boot settings.
+- A Mini vMac emulator that can launch from Boot Options or directly at
+  power-on when the saved default selects the emulator.
+
+Main stack:
+
+- PlatformIO with the Arduino framework and the `lolin_s3` environment.
+- TFT_eSPI for the ILI9341 display.
+- LVGL 9 for the normal clock UI.
+- LittleFS for images, sounds, the Mini vMac ROM, and disk images.
+- FreeRTOS tasks for input polling, MP3 decoding, and emulator rendering.
+- A generated Mini vMac 36.04 source tree plus tracked ESP32 glue.
+
+## Runtime Shape
+
+`src/main.cpp` is a minimal Arduino adapter. Its static `MaclockApp` delegates
+`setup()` to `begin()` and `loop()` to `tick()`; `MaclockApp` owns the boot
+decision and service graph.
+
+- It initializes NVS preferences, LittleFS, the TFT, and touch first.
+- Holding the clock button at boot requests the boot-options UI.
+- Otherwise, the saved `floppy_emulator` preference calls `minivmac()`
+  immediately, independently of the physical floppy switch.
+- Mini vMac runs synchronously. Its Clock+Alarm safe-exit chord returns from
+  the call, after which the LVGL clock stack is initialized and Boot Options
+  opens.
+- The normal path initializes the ES8311 codec, LVGL, LittleFS's LVGL driver,
+  UI assets, RTC, encoder, input/audio tasks, and weather sensor.
+- `MaclockApp::tick()` then runs the UI state machine, can call `minivmac()`
+  again from Boot Options, and remains the only owner of LVGL calls.
+- In the normal clock state, holding Clock+Alarm for two seconds opens Boot
+  Options; a Clock-only press opens date/time editing on release.
+
+Do not try to run the clock UI and Mini vMac concurrently unless the user
+explicitly asks for an architectural change. They share the display, touch,
+LittleFS, and boot lifecycle.
+
+## Important Files
+
+- `platformio.ini`: board, libraries, pin assignments, TFT configuration,
+  optimization flags, emulator include paths, and generated-source filters.
+- `partitions.csv`: one 3 MiB application partition and a large LittleFS
+  partition.
+- `prepare.sh`: downloads and extracts Mini vMac 36.04, applies tracked
+  patches, and downloads ignored ROM/disk images when absent.
+- `src/main.cpp`: the under-50-line Arduino adapter.
+- `include/maclock_app.h`, `src/maclock_app.cpp`: composition root, owned
+  services, typed state, event sink, and private UI callback context.
+- `src/ui/*.cpp`: focused Boot Options, clock-face, shared-shell, asset, and
+  state-machine implementation units. They are included into
+  `maclock_app.cpp` under `MACLOCK_COMBINED_SOURCE` and intentionally compile
+  empty when PlatformIO discovers them separately.
+- `include/*_service.h`, matching `src/*.cpp`: settings, I2C, RTC, weather,
+  input, display, audio, Wi-Fi, alarm, and timer ownership.
+- `include/control_panel.h` and `src/control_panel.cpp`: station-only local
+  web controls and JSON routes. This is intentionally separate from the
+  captive Wi-Fi setup portal in `wifi_mode.cpp`.
+- `web/control-panel/`: responsive Vue source for the classic Macintosh web
+  control panel. `scripts/build_control_panel.py` runs as a PlatformIO prebuild
+  hook and regenerates the gzip-compressed `src/control_panel_page.h` whenever
+  the web-source fingerprint changes. Never hand-edit the generated header.
+- `src/init.cpp`: `DisplayService`, including TFT/LVGL, LittleFS LVGL driver,
+  ES8311/I2S ownership, and the narrow Mini vMac hardware bridge.
+- `src/datetime_ui.cpp`: state-owning date/time editor; it reports RTC changes
+  and transitions through `AppEventSink`.
+- `src/touch.cpp`, `include/touch.h`: FT6336 coordinate mapping and
+  EEPROM-backed four-corner calibration.
+- `src/FT6336.cpp`, `include/FT6336.h`: low-level I2C touch-controller driver.
+- `include/TouchSensor.h`: discrete GPIO touch/button helper used for wake
+  activity and the emulator mouse button.
+- `src/es8311.cpp`, `include/es8311*.h`: audio-codec driver.
+- `src/minivmac_ArduinoAPI.cpp`, `include/minivmac/ArduinoAPI.h`: Arduino,
+  LittleFS, display, memory, time, and touch adapter for Mini vMac.
+- `src/minivmac_OSGLUE.c`: tracked Mini vMac host glue for ROM/disk access,
+  timing, input, and screen invalidation.
+- `include/minivmac/*.h`: tracked generated/configured Mini vMac build
+  settings, including the Macintosh Plus model and 304x224 monochrome screen.
+- `patches/`: reproducible changes applied to the generated upstream tree.
+- `data/`: LittleFS image contents—tracked UI/audio assets plus ignored local
+  ROM and `disk*.dsk` files.
+- `docs/ARCHITECTURE.md`: deeper system overview.
+
+## Generated And Binary Inputs
+
+`src/minivmac/` is generated by `prepare.sh` and ignored by Git. Do not treat it
+as the canonical place for project-specific changes.
+
+- Put reproducible upstream changes in `patches/` and update `prepare.sh` when
+  necessary.
+- Keep the tracked bridge/configuration files outside the generated subtree in
+  sync with any Mini vMac change.
+- `prepare.sh` only extracts and patches when `src/minivmac/` does not exist.
+  A new patch is not automatically applied to an already prepared tree.
+- Do not commit `.pio/`, `src/minivmac/`, downloaded archives, ROMs,
+  `disk*.dsk`, or platform metadata such as `.DS_Store` and `._*`.
+- ROM and disk images can contain licensed or user-modified data. Never replace,
+  delete, publish, or commit them without explicit direction.
+
+## Hardware Contract
+
+Pin assignments live in `platformio.ini`; keep documentation and code aligned
+with that file.
+
+| Function | GPIO / address |
+| --- | --- |
+| TFT SPI | CS 10, MOSI 11, SCLK 12, MISO 13, DC 46, backlight 45 |
+| ES8311 I2S | enable 1, MCLK 4, BCLK 5, WS 7, DOUT 8 |
+| Shared I2C | SDA 16, SCL 15 |
+| FT6336 touch | I2C `0x38`, interrupt 17, reset 18 |
+| ES8311 codec | I2C `0x18` |
+| BMP580/BMP581 | I2C `0x47` |
+| HTU2x | I2C `0x40` |
+| DS1307/DS3231 | I2C `0x68` |
+| Encoder | 14 and 21 |
+| Discrete touch | 2 |
+| Floppy / alarm / clock | 47 / 40 / 48 |
+| Battery signals | charging 43, enable 44, ADC 9 |
+
+The I2C bus is shared. Preserve `Wire` initialization, the 100 kHz codec setup,
+and device-address assumptions when changing any peripheral.
+
+## Display And Input Invariants
+
+- The physical TFT is 320x240 at rotation 3.
+- LVGL creates a 304x224 display and flushes it with a 16-pixel top offset,
+  leaving the top/right Mac-style border outside the logical canvas.
+- Mini vMac is configured for the same 304x224 logical screen and renders it
+  into a full 320x240 frame with a 16-pixel top and right border.
+- The normal UI uses mapped FT6336 coordinates. Calibration is stored in EEPROM.
+- Mini vMac uses raw FT6336 deltas for pointer motion and the discrete
+  `TouchSensor` on GPIO 2 as its mouse button.
+- Keep all LVGL object mutation on the Arduino loop. The input task should only
+  publish edge/state snapshots through `g_input_state_mux`.
+
+## Concurrency
+
+- The `InputService` task runs on core 1 every 20 ms and publishes floppy state plus
+  alarm, clock, and touch rising edges.
+- The `AudioService` task runs on core 0 and advances the normal-mode MP3
+  decoder. Its instance lock protects playback and completion state.
+- Emulator mode creates `RenderTask` on core 0. `RenderTaskLock` coordinates
+  screen-buffer handoff and `SPIBusLock` serializes emulator display/filesystem
+  operations.
+- Mini vMac PCM is produced on the calling Arduino task and written
+  synchronously through the shared `AudioOutputI2S` object. Clock MP3 playback
+  must be stopped while the emulator owns I2S.
+- Mini vMac allocates large blocks from PSRAM through the Arduino API.
+
+Do not remove these locks or access service state from another task without
+defining a replacement ownership model.
+
+## Persistent Settings And Filesystem
+
+- `SettingsStore` owns namespace `maclock` in `Preferences`, existing keys,
+  defaults, and validation. Alarm and Wi-Fi receive its Preferences handle to
+  preserve their existing storage formats.
+- EEPROM stores FT6336 calibration with the `TOUC` magic value.
+- LittleFS paths use `/name` through Arduino and `S:/name` through LVGL.
+- Mini vMac expects `/vMac.ROM` and sequential `/disk1.dsk`,
+  `/disk2.dsk`, and so on, stopping at the first missing disk number.
+- The normal boot diagnostic expects the codec, touch controller, one detected
+  weather sensor, and RTC. A missing expected plugin deliberately enters an
+  infinite red-blink diagnostic.
+
+Avoid renaming assets or emulator images without updating every lookup and the
+README/upload workflow.
+
+## Build And Verification
+
+Prepare a fresh checkout before the first build:
+
+```bash
+./prepare.sh
+```
+
+Use PlatformIO for builds:
+
+```bash
+pio run -e lolin_s3
+pio run -e lolin_s3 -t buildfs
+```
+
+If `pio` is not on `PATH`, use `~/.platformio/penv/bin/pio`.
+
+There is no automated test suite. For code changes, at minimum run the firmware
+build. Also build LittleFS when changing `data/`, partitioning, or filesystem
+lookups. Treat hardware validation as separate and report what was not tested.
+
+Do not run upload targets unless the user asks and the intended serial device is
+known:
+
+```bash
+pio run -e lolin_s3 -t upload
+pio run -e lolin_s3 -t uploadfs
+pio device monitor -b 115200
+```
+
+## Gotchas
+
+- Preserve unrelated dirty work and ignored local ROM/disk assets.
+- `prepare.sh` performs network downloads, including non-TLS legacy URLs, and
+  has no checksum validation. Do not run it unnecessarily.
+- A firmware-only upload does not update LittleFS. Asset changes require a
+  filesystem build/upload.
+- `LittleFS.begin()` currently mounts without formatting or explicit failure
+  handling. Do not add automatic formatting casually; it could erase disks.
+- The boot-time `minivmac()` call occurs before codec/LVGL initialization and
+  blocks in the emulator main loop until safe exit.
+- Mini vMac sound is enabled in `include/minivmac/CNFGGLOB.h`. Its native
+  22,255 Hz mono PCM and normal-mode 44.1 kHz MP3 sound share the ES8311 and
+  `AudioOutputI2S`; preserve the entry/exit reconfiguration.
+- The alarm edge has no Clock-only action, but the normal state polls the Alarm
+  level as half of its Boot Options chord. Mini vMac polls Alarm directly as
+  Escape and as half of its safe-exit chord.
+- The RTC fallback value is `2000-01-01 00:00:00` when no supported RTC is
+  active.
+- BMP5xx is preferred over HTU2x when both are present. The displayed gauge is
+  pressure for BMP5xx and humidity for HTU2x.
+- Aggressive `-O3`, `-ffast-math`, no exceptions, and no RTTI are intentional
+  emulator-performance settings. Check library compatibility before changing
+  them.
+
+## Things To Preserve
+
+- Mutually exclusive display ownership while either the clock UI or emulator
+  is active.
+- The 304x224 logical display inside the 320x240 physical frame.
+- LittleFS path compatibility for both LVGL and Mini vMac.
+- The generated/upstream boundary for Mini vMac.
+- Persistent user brightness, boot choice, touch calibration, ROM, and disk
+  data.
+- Single-owner LVGL updates and the existing cross-core synchronization.
+
+---
+> Source: [fensoft/maclock](https://github.com/fensoft/maclock) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-28 -->
