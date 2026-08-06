@@ -1,0 +1,9 @@
+{
+  "name": "leonardodipace--semola",
+  "displayName": "semola",
+  "description": "\u26a1 Zero-dependency TypeScript utilities for modern Bun apps. Type-safe APIs, Redis queues, pub/sub, i18n, caching, auth policies and more",
+  "version": "1.0.0",
+  "author": "leonardodipace",
+  "homepage": "https://github.com/leonardodipace/semola",
+  "skills": []
+}
