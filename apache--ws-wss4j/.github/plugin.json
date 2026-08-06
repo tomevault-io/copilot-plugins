@@ -1,0 +1,9 @@
+{
+  "name": "apache--ws-wss4j",
+  "displayName": "ws-wss4j",
+  "description": "ws-wss4j",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/ws-wss4j",
+  "skills": []
+}
