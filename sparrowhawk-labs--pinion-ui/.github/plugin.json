@@ -1,0 +1,9 @@
+{
+  "name": "sparrowhawk-labs--pinion-ui",
+  "displayName": "pinion-ui",
+  "description": "Blade UI component library for Laravel \u2014 Tailwind v4 + daisyUI v5 + Alpine.js, with a 10-preset Tune token system. Pairs with sparrowhawk-labs/pinion-icons.",
+  "version": "1.0.0",
+  "author": "sparrowhawk-labs",
+  "homepage": "https://github.com/sparrowhawk-labs/pinion-ui",
+  "skills": []
+}
