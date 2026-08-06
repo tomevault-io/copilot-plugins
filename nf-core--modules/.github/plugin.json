@@ -1,0 +1,9 @@
+{
+  "name": "nf-core--modules",
+  "displayName": "modules",
+  "description": "modules",
+  "version": "1.0.0",
+  "author": "nf-core",
+  "homepage": "https://github.com/nf-core/modules",
+  "skills": []
+}
