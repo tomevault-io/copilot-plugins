@@ -1,6 +1,6 @@
 # rust-sdks
 
-> Source: [livekit/rust-sdks](https://github.com/livekit/rust-sdks). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [livekit/rust-sdks](https://github.com/livekit/rust-sdks). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
