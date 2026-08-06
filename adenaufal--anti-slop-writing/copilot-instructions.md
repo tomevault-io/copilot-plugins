@@ -637,4 +637,4 @@ Setelah nyusun draf, jalanin daftar periksa ini:
 
 ---
 > Source: [adenaufal/anti-slop-writing](https://github.com/adenaufal/anti-slop-writing) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
