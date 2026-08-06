@@ -1,0 +1,9 @@
+{
+  "name": "watheqalshowaiter--quran-validator-php",
+  "displayName": "quran-validator-php",
+  "description": "Validate and verify Quranic verses in LLM-generated text with high accuracy.",
+  "version": "1.0.0",
+  "author": "WatheqAlshowaiter",
+  "homepage": "https://github.com/WatheqAlshowaiter/quran-validator-php",
+  "skills": []
+}
