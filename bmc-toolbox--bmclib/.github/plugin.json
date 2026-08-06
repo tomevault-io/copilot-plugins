@@ -1,0 +1,9 @@
+{
+  "name": "bmc-toolbox--bmclib",
+  "displayName": "bmclib",
+  "description": "bmclib",
+  "version": "1.0.0",
+  "author": "bmc-toolbox",
+  "homepage": "https://github.com/bmc-toolbox/bmclib",
+  "skills": []
+}
