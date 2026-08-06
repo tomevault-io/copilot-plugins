@@ -1,0 +1,9 @@
+{
+  "name": "timpara--opencode-academic-research",
+  "displayName": "opencode-academic-research",
+  "description": "OpenCode port of academic-research-skills: 4 skills, 13 slash commands, 38-agent pipeline for academic research, writing, peer review, and revision",
+  "version": "1.0.0",
+  "author": "timpara",
+  "homepage": "https://github.com/timpara/opencode-academic-research",
+  "skills": []
+}
