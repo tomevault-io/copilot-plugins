@@ -1,0 +1,9 @@
+{
+  "name": "misonl--visual-journal",
+  "displayName": "visual-journal",
+  "description": "\u9762\u5411\u4e2d\u6587\u5185\u5bb9\u8fd0\u8425\u8005\u7684\u672c\u5730 AI \u56fe\u7247\u521b\u4f5c\u5de5\u4f5c\u53f0\uff0c\u652f\u6301 gpt-image-2\u3001OpenAI \u517c\u5bb9\u63a5\u53e3\u3001\u56fe\u751f\u56fe\u3001\u906e\u7f69\u7f16\u8f91\u3001\u6279\u91cf\u751f\u6210\u3001\u8d39\u7528\u8ffd\u8e2a\u548c Agent API",
+  "version": "1.0.0",
+  "author": "MisonL",
+  "homepage": "https://github.com/MisonL/visual-journal",
+  "skills": []
+}
