@@ -1,0 +1,135 @@
+{
+  "name": "dotfiles",
+  "owner": "sfc-gh-eraigosa",
+  "repo": "dotfiles",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mbo-plan",
+      "path": "ai/skills/mbo-plan",
+      "github_url": "https://github.com/sfc-gh-eraigosa/dotfiles/tree/main/ai/skills/mbo-plan",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "src/ssh-host-finder/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-eraigosa/dotfiles/tree/main/src/ssh-host-finder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "ai/skills/sync-forks/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-eraigosa/dotfiles/tree/main/ai/skills/sync-forks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "src/git-machete/skill/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-eraigosa/dotfiles/tree/main/src/git-machete/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "ai/skills/sync-skills/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-eraigosa/dotfiles/tree/main/ai/skills/sync-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "ai/skills/gdocsintegration/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-eraigosa/dotfiles/tree/main/ai/skills/gdocsintegration/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "sdk/gss/skill/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-eraigosa/dotfiles/tree/main/sdk/gss/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "sdk/gsl/skill/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-eraigosa/dotfiles/tree/main/sdk/gsl/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "ai/skills/mbo-plan/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-eraigosa/dotfiles/tree/main/ai/skills/mbo-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "sdk/tmux-mgr/skill/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-eraigosa/dotfiles/tree/main/sdk/tmux-mgr/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "src/wispr-flow-debug/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-eraigosa/dotfiles/tree/main/src/wispr-flow-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "src/teams-tune/skill/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-eraigosa/dotfiles/tree/main/src/teams-tune/skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "ai/skills/remote-claude-session/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-eraigosa/dotfiles/tree/main/ai/skills/remote-claude-session/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "ai/skills/team/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-eraigosa/dotfiles/tree/main/ai/skills/team/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "ai/skills/pr-list/SKILL.md",
+      "github_url": "https://github.com/sfc-gh-eraigosa/dotfiles/tree/main/ai/skills/pr-list/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sfc-gh-eraigosa/dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T15:50:30Z"
+}
