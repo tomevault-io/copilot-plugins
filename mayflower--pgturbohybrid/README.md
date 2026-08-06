@@ -7,11 +7,11 @@ Hot-hatch turboquant powered whybrid vector + BM25 search for PostgreSQL on top 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mayflower/pgturbohybrid](https://github.com/mayflower/pgturbohybrid).
+Original source: `AGENTS.md` in [mayflower/pgturbohybrid](https://github.com/mayflower/pgturbohybrid).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
