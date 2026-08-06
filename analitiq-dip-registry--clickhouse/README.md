@@ -7,11 +7,11 @@ Analitiq DIP connector for ClickHouse — high-performance, open-source column-o
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [analitiq-dip-registry/clickhouse](https://github.com/analitiq-dip-registry/clickhouse).
+Original source: `AGENTS.md` in [analitiq-dip-registry/clickhouse](https://github.com/analitiq-dip-registry/clickhouse).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
