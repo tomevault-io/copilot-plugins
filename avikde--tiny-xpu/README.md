@@ -7,11 +7,11 @@ Modular systolic array with software interface
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [avikde/tiny-xpu](https://github.com/avikde/tiny-xpu).
+Original source: `AGENTS.md` in [avikde/tiny-xpu](https://github.com/avikde/tiny-xpu).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
