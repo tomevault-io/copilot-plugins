@@ -4,7 +4,7 @@
   "repo": "ai-dev-toolkit",
   "description": "A toolkit that makes developers\u2019 lives easier with AI",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/saketananddotme/ai-dev-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T23:37:26Z"
+  "distributed_at": "2026-08-06T07:35:03Z"
 }
