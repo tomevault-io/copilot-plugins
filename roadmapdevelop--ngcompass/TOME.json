@@ -4,7 +4,7 @@
   "repo": "ngcompass",
   "description": "Angular-aware static analysis CLI for architecture, performance, SSR, security, reactivity, and code quality.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RoadmapDevelop/ngcompass",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T02:19:53Z"
+  "distributed_at": "2026-08-06T09:39:33Z"
 }
