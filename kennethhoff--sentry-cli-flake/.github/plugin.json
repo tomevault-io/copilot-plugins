@@ -1,0 +1,9 @@
+{
+  "name": "kennethhoff--sentry-cli-flake",
+  "displayName": "sentry-cli-flake",
+  "description": "Nix flake for the Sentry CLI (getsentry/cli) \u2014 the query CLI for developers and agents",
+  "version": "1.0.0",
+  "author": "KennethHoff",
+  "homepage": "https://github.com/KennethHoff/sentry-cli-flake",
+  "skills": []
+}
