@@ -1,0 +1,9 @@
+{
+  "name": "ochub-team--ochub",
+  "displayName": "OcHub",
+  "description": "Native desktop control center for AI coding tools \u2014 provider switching, local relay, MCP, skills, sessions, usage, and sync. Built with GPUI + axum.",
+  "version": "1.0.0",
+  "author": "OcHub-team",
+  "homepage": "https://github.com/OcHub-team/OcHub",
+  "skills": []
+}
