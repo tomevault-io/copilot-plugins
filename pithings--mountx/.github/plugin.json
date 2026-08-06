@@ -1,0 +1,9 @@
+{
+  "name": "pithings--mountx",
+  "displayName": "mountx",
+  "description": "\u26f0\ufe0f Write a filesystem in JavaScript, mount it as a real kernel filesystem.",
+  "version": "1.0.0",
+  "author": "pithings",
+  "homepage": "https://github.com/pithings/mountx",
+  "skills": []
+}
