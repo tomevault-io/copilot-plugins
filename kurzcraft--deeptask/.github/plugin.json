@@ -1,0 +1,9 @@
+{
+  "name": "kurzcraft--deeptask",
+  "displayName": "DeepTask",
+  "description": "open source agent in vscodium",
+  "version": "1.0.0",
+  "author": "kurzcraft",
+  "homepage": "https://github.com/kurzcraft/DeepTask",
+  "skills": []
+}
