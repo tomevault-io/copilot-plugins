@@ -1,0 +1,9 @@
+{
+  "name": "michael-ovo--obsidian-knowledge-agent",
+  "displayName": "obsidian-knowledge-agent",
+  "description": "Agent-driven pipeline that turns raw material (PDFs, slides, syllabi, papers, URLs) into structured, teaching-quality Obsidian notes: ingest, compile, distribute.",
+  "version": "1.0.0",
+  "author": "Michael-OvO",
+  "homepage": "https://github.com/Michael-OvO/obsidian-knowledge-agent",
+  "skills": []
+}
