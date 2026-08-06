@@ -7,11 +7,11 @@ MCP Native Workspace (Databases, pages, kanbans, calendars etc.)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Ranork/remnus-app](https://github.com/Ranork/remnus-app).
+Original source: `AGENTS.md` in [Ranork/remnus-app](https://github.com/Ranork/remnus-app).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
