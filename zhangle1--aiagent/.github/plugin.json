@@ -1,0 +1,9 @@
+{
+  "name": "zhangle1--aiagent",
+  "displayName": "AiAgent",
+  "description": "\u8ba9\u56e2\u961f\u5728\u53d7\u63a7\u4ee3\u7801\u5e93\u4e2d\u501f\u52a9 Codex CLI \u5b8c\u6210\u6539\u7801\u4e0e Git \u4ea4\u4ed8",
+  "version": "1.0.0",
+  "author": "zhangle1",
+  "homepage": "https://github.com/zhangle1/AiAgent",
+  "skills": []
+}
