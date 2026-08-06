@@ -1,0 +1,9 @@
+{
+  "name": "armahajan24--claude-salesforce-development-demo",
+  "displayName": "claude-salesforce-development-demo",
+  "description": "Sample Salesforce DX project demonstrating a Claude Code workflow: repo-level instructions, sub-agents, bulk-safe Apex/LWC/Flow, and full docs. Synthetic data only.",
+  "version": "1.0.0",
+  "author": "armahajan24",
+  "homepage": "https://github.com/armahajan24/claude-salesforce-development-demo",
+  "skills": []
+}
