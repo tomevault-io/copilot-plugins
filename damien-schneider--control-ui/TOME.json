@@ -1,0 +1,44 @@
+{
+  "name": "control-ui",
+  "owner": "damien-schneider",
+  "repo": "control-ui",
+  "description": "Production-ready, shadcn-compatible React components, blocks, and skins for agent interfaces. Editable source, no runtime lock-in. https://control-ui.dev",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/damien-schneider/control-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T04:47:51Z"
+}
