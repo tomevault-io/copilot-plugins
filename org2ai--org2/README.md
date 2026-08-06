@@ -7,11 +7,11 @@ System of record for how agents build software: Built-in rust harness & 20+ CLIs
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [org2AI/ORG2](https://github.com/org2AI/ORG2).
+Original source: `AGENTS.md` in [org2AI/ORG2](https://github.com/org2AI/ORG2).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
