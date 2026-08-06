@@ -1,0 +1,9 @@
+{
+  "name": "wavenumber-eng--altium-cruncher",
+  "displayName": "altium_cruncher",
+  "description": "an altium cli toolkit based upon the altium_monkey library",
+  "version": "1.0.0",
+  "author": "wavenumber-eng",
+  "homepage": "https://github.com/wavenumber-eng/altium_cruncher",
+  "skills": []
+}
