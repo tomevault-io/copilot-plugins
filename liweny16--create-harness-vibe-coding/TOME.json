@@ -4,7 +4,7 @@
   "repo": "create-harness-vibe-coding",
   "description": "Scaffold a 0-1 product harness for AI-assisted research, PRD, planning, architecture, build, test, and feedback loops",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LiWeny16/create-harness-vibe-coding",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T01:34:08Z"
+  "distributed_at": "2026-08-06T09:09:04Z"
 }
