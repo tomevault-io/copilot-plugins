@@ -4,7 +4,7 @@
   "repo": "pythinker-cli",
   "description": "Think first, then code. Where Claude Code and Codex jump straight to writing, this stays review-first: a code reviewer, security scanner, root-cause debugger, and code generator, all in one shell-native loop.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Pythoughts-labs/pythinker-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-06T04:32:18Z"
+  "distributed_at": "2026-08-06T04:33:37Z"
 }
