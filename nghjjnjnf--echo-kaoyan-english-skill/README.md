@@ -7,11 +7,11 @@ Echo_考研英语SKILL：真题精析、翻译作文批改与模拟训练的 Cod
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nghjjnjnf/echo-kaoyan-english-skill](https://github.com/nghjjnjnf/echo-kaoyan-english-skill).
+Original source: `AGENTS.md` in [nghjjnjnf/echo-kaoyan-english-skill](https://github.com/nghjjnjnf/echo-kaoyan-english-skill).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
