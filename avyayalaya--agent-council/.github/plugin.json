@@ -1,0 +1,9 @@
+{
+  "name": "avyayalaya--agent-council",
+  "displayName": "agent-council",
+  "description": "A runtime-portable 5-agent adjudicator council for universal quality gating of text artifacts.",
+  "version": "1.0.0",
+  "author": "Avyayalaya",
+  "homepage": "https://github.com/Avyayalaya/agent-council",
+  "skills": []
+}
