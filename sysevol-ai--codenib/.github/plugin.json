@@ -1,0 +1,9 @@
+{
+  "name": "sysevol-ai--codenib",
+  "displayName": "CodeNib",
+  "description": "A multi-view data system for serving repository context to coding agents.",
+  "version": "1.0.0",
+  "author": "sysevol-ai",
+  "homepage": "https://github.com/sysevol-ai/CodeNib",
+  "skills": []
+}
