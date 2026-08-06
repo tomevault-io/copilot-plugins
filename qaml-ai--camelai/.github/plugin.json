@@ -1,0 +1,9 @@
+{
+  "name": "qaml-ai--camelai",
+  "displayName": "camelAI",
+  "description": "camelAI \u2014 an AI coding assistant platform built on Cloudflare Workers and Durable Objects",
+  "version": "1.0.0",
+  "author": "qaml-ai",
+  "homepage": "https://github.com/qaml-ai/camelAI",
+  "skills": []
+}
