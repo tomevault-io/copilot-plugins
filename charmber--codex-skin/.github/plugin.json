@@ -1,0 +1,9 @@
+{
+  "name": "charmber--codex-skin",
+  "displayName": "codex-skin",
+  "description": "codex\u4e3b\u9898\u66ff\u6362\uff0c\u652f\u6301\u81ea\u5b9a\u4e49\u80cc\u666f\uff0c\u4e3b\u9898\uff0c\u914d\u8272\u7b49\u529f\u80fd\uff0cMac\u652f\u6301dmg\u4e00\u952e\u5b89\u88c5Codex theme replacement, supporting custom background, theme, color scheme, and other functions, with one-click installation via dmg on Mac",
+  "version": "1.0.0",
+  "author": "charmber",
+  "homepage": "https://github.com/charmber/codex-skin",
+  "skills": []
+}
