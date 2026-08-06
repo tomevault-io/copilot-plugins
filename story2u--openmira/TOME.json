@@ -4,7 +4,7 @@
   "repo": "OpenMIRA",
   "description": "\u57fa\u4e8e websocket \u7684\u9ad8\u5e76\u53d1 IM \u6848\u4f8b",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/story2u/OpenMIRA",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T04:10:21Z"
+  "distributed_at": "2026-08-06T11:13:35Z"
 }
