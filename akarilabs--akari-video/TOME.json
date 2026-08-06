@@ -4,7 +4,7 @@
   "repo": "akari-video",
   "description": "AKARI Video \u2014 AI video editing tool (Theia-based monorepo)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AkariLabs/akari-video",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T18:21:20Z"
+  "distributed_at": "2026-08-06T04:50:26Z"
 }
