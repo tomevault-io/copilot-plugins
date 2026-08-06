@@ -1,6 +1,6 @@
 # cabin
 
-> Source: [cabinpkg/cabin](https://github.com/cabinpkg/cabin). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [cabinpkg/cabin](https://github.com/cabinpkg/cabin). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
