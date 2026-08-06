@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [StuffAnThings/qbit_manage](https://github.com/StuffAnThings/qbit_manage).
+Original source: `AGENTS.md` in [StuffAnThings/qbit_manage](https://github.com/StuffAnThings/qbit_manage).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [StuffAnThings/qbit_manage](https://github.com/StuffAnThings/qbit_manage) — a repo with 1575+ stars on GitHub.
+From [StuffAnThings/qbit_manage](https://github.com/StuffAnThings/qbit_manage) — a repo with 1581+ stars on GitHub.
 
 ---
 
