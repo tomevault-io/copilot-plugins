@@ -1,0 +1,9 @@
+{
+  "name": "sivaprasadreddy--agentic-expense-manager",
+  "displayName": "agentic-expense-manager",
+  "description": "A basic Spring Boot project to experiment with different AI Agents and different workflows (Vibe Coding, SDD, etc)",
+  "version": "1.0.0",
+  "author": "sivaprasadreddy",
+  "homepage": "https://github.com/sivaprasadreddy/agentic-expense-manager",
+  "skills": []
+}
