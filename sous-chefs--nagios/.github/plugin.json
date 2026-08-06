@@ -1,0 +1,9 @@
+{
+  "name": "sous-chefs--nagios",
+  "displayName": "nagios",
+  "description": "nagios",
+  "version": "1.0.0",
+  "author": "sous-chefs",
+  "homepage": "https://github.com/sous-chefs/nagios",
+  "skills": []
+}
