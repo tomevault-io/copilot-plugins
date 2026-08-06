@@ -1,0 +1,44 @@
+{
+  "name": "liepin-cli",
+  "owner": "Viy1204",
+  "repo": "liepin-cli",
+  "description": "\u730e\u8058\u81ea\u52a8\u5316 CLI\uff1a\u6279\u91cf\u53d1\u6d88\u606f\u3001\u81ea\u52a8\u6253\u62db\u547c\u3001\u5019\u9009\u4eba\u7ba1\u7406\u3001\u804c\u4f4d\u641c\u7d22\u3002\u57fa\u4e8e Puppeteer/CDP \u9a71\u52a8\u672c\u673a Chrome\uff0c\u652f\u6301 AI Agent \u7f16\u6392",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Viy1204/liepin-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T21:29:39Z"
+}
