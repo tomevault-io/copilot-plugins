@@ -4,7 +4,7 @@
   "repo": "cad-cae-copilot",
   "description": "CAD/CAE Copilot \u2014 an AI-native CAD/CAE/CAX workbench for AI agents. Text-to-CAD, text-to-CAE, real build123d/OpenCASCADE geometry, editable parameters, stable topology pointers, deterministic critique, and MCP server tools.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/armpro24-blip/cad-cae-copilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T12:33:42Z"
+  "distributed_at": "2026-08-06T17:14:10Z"
 }
