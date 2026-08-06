@@ -1,8 +1,6 @@
 # agent-skills
 
-> Tome by [openclaw](https://github.com/openclaw/agent-skills) — distributed by [TomeVault](https://tomevault.io)
-
-Useful skills for agents and claws.
+> Tome by [openclaw](https://github.com/openclaw/agent-skills), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `AGENTS.md` in [openclaw/agent-skills](https://github.com/openc
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/openclaw/agent-skills](https://github.com/openclaw/agent-skills)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/openclaw/agent-skills](https://github.com/openclaw/agent-skills)
 
 ---
 
