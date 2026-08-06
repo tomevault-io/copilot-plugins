@@ -1,6 +1,6 @@
 # local-storage-operator
 
-> Source: [openshift/local-storage-operator](https://github.com/openshift/local-storage-operator). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [openshift/local-storage-operator](https://github.com/openshift/local-storage-operator). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
