@@ -1,0 +1,9 @@
+{
+  "name": "ki4nb--vsphereransomwarerecovery",
+  "displayName": "VSphereRansomwareRecovery",
+  "description": "Recover VMware ESXi VMs after Babuk/.babyk ransomware. The encryptor only destroys the first 512 MiB per file, so 99%+ of each VMDK survives as plaintext. Analysis, IOCs, tools, runbook.",
+  "version": "1.0.0",
+  "author": "Ki4nb",
+  "homepage": "https://github.com/Ki4nb/VSphereRansomwareRecovery",
+  "skills": []
+}
