@@ -4,7 +4,7 @@
   "repo": "media-studio-oss",
   "description": "\u81ea\u5a92\u4f53\u300c\u7d20\u6750\u2192\u7a3f\u4ef6\u300d\u5de5\u4f5c\u53f0\uff1aRSS \u91c7\u96c6\u9009\u9898 \u2192 AI \u516c\u4f17\u53f7\u6210\u7a3f\uff08\u914d\u56fe+\u5c01\u9762\uff09\u2192 \u5c0f\u7ea2\u4e66/\u6296\u97f3\u957f\u6587\u4e00\u952e\u5bfc\u51fa",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LeoLee0812/media-studio-oss",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T19:33:26Z"
+  "distributed_at": "2026-08-06T21:17:53Z"
 }
