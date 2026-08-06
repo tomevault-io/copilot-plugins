@@ -1,0 +1,9 @@
+{
+  "name": "ryneexplorer--solvify-agent",
+  "displayName": "Solvify-Agent",
+  "description": "\u57fa\u4e8eGolang\u4e0eRAG\u6784\u5efa\u7684AI Agent \u7cfb\u7edf\uff0c\u805a\u7126\u77e5\u8bc6\u52a9\u7406\u573a\u666f\uff0c\u652f\u6301\u591a Agent \u534f\u540c\u3001\u5de5\u4f5c\u6d41\u7f16\u6392\u3001\u5de5\u5177\u8c03\u7528\u4e0e\u4f01\u4e1a\u77e5\u8bc6\u5e93\u63a5\u5165\u3002",
+  "version": "1.0.0",
+  "author": "RyneExplorer",
+  "homepage": "https://github.com/RyneExplorer/Solvify-Agent",
+  "skills": []
+}
