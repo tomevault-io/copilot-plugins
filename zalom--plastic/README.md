@@ -7,11 +7,11 @@ Intent-driven development for AI agents and humans in the loop.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [zalom/plastic](https://github.com/zalom/plastic).
+Original source: `AGENTS.md` in [zalom/plastic](https://github.com/zalom/plastic).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
