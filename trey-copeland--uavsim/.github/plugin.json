@@ -1,0 +1,9 @@
+{
+  "name": "trey-copeland--uavsim",
+  "displayName": "uavsim",
+  "description": "Software-in-the-loop quadrotor GNC: flight dynamics, control, Monte Carlo, interactive 3D showcase.",
+  "version": "1.0.0",
+  "author": "trey-copeland",
+  "homepage": "https://github.com/trey-copeland/uavsim",
+  "skills": []
+}
