@@ -1,30 +1,60 @@
-## windows-powershell-git-gh-workflow
+## bkn-studio
 
-> Windows PowerShell git/gh workflow and feature-branch PR policy
+> Entry point for AI agents (Claude Code / Codex / others) working in this repo.
 
+# AGENTS.md
 
-# Windows PowerShell Git/GH Workflow
+Entry point for AI agents (Claude Code / Codex / others) working in this repo.
+Read this first, then load the rules under [`rules/`](rules/). Before working in any subdirectory, locate and read every `AGENTS.md` from the repository root through that target directory; rules in the more specific (deeper) file take precedence.
 
-- On Windows, prefer PowerShell-compatible shell syntax over bash syntax.
-- Do not use `&&`, bash heredocs, or other bash-only constructs in shell commands.
-- For multiline content such as PR bodies, use PowerShell here-strings.
-- Before pushing code, fetch and compare against `origin/main` first.
-- If a command returns no exit status, retry with a simpler PowerShell-safe command before assuming git or gh failed.
-- If `pnpm` or another expected tool is unavailable, verify the local environment before changing implementation just to work around the missing command.
+## Read before doing anything
 
-## Feature branch + PR (required)
+| Topic | File |
+| --- | --- |
+| How we collaborate (humans + Agents) | [rules/WORKFLOW.md](rules/WORKFLOW.md) |
+| Contribution guide (branches, commits, style) | [rules/CONTRIBUTING.md](rules/CONTRIBUTING.md) |
+| Architecture & module boundaries | [rules/ARCHITECTURE.md](rules/ARCHITECTURE.md) |
+| API / HTTP / error conventions | [rules/DEVELOPMENT.md](rules/DEVELOPMENT.md) |
+| Testing conventions | [rules/TESTING.md](rules/TESTING.md) |
+| Module owners (review routing) | [.github/CODEOWNERS](.github/CODEOWNERS) |
+| Issue templates (bug / feature / task) | [.github/ISSUE_TEMPLATE/](.github/ISSUE_TEMPLATE/) |
+| Pull request template | [.github/pull_request_template.md](.github/pull_request_template.md) |
 
-**Default for all new work:** do not commit or push directly to `main` unless the user explicitly asks to push `main`.
+## Hard rules for Agents
 
-1. **Branch**: Create `feature/<short-topic>` from up-to-date `main` (fetch first).
-2. **Implement**: Commit on the feature branch with focused messages.
-3. **Push**: `git push -u origin HEAD` (not `git push origin main`).
-4. **Review**: Open a PR with `gh pr create` (summary + test plan).
-5. **Merge**: Let the user review and merge; do not force-push `main`.
+- **Review before external writes**: Unless the requester explicitly directs otherwise, after making and verifying code changes, present the working-tree diff for review first. Do **not** commit, push, create or update a PR, or post Issue/PR comments before the requester approves.
+- **Language**: Communicate with users in Chinese by default. Use another language only when the requester explicitly asks for it or the artifact itself requires it.
+- **Clarify material ambiguity**: Before editing, ask for direction when an ambiguity would materially change scope, behavior, risk, or the intended solution; otherwise proceed with a stated, reasonable assumption.
+- **Bug regression coverage**: For bug fixes, add or update a focused regression test that demonstrates the reported failure whenever it is practical.
+- **Verification handoff**: After implementing a change, report relevant edge cases and any remaining test-coverage gaps along with the commands run.
+- **Issue / PR templates**: Before creating an Issue, select the matching template under [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/) and preserve its structure when filling in all applicable sections. Before creating or updating a PR, read and fully complete [`.github/pull_request_template.md`](.github/pull_request_template.md). Do not delete required sections; mark non-applicable items explicitly with a brief reason.
+- **Only pick up Issues labeled `agent-ready`** (acceptance criteria complete + independently doable) that are unassigned. Self-assign to lock.
+- **Acceptance criteria**: a human approves them (label `ac-approved`) before an Issue becomes `agent-ready`. You may *draft* them for human approval.
+- **Risky operations** (deploy, delete/modify data, schema migration, prod config, secrets/permissions, major dependency bumps, cross-service breaking changes): do **not** execute. Post the three-part confirmation (what / blast radius / rollback), apply label `awaiting-confirmation`, and wait for an Owner to apply `owner-confirmed`.
+- **You may never**: merge a PR, bypass or skip CI, or act without the confirmation above. Merging is human-only. Do not approve PRs yourself either — the sole exception is the automated review workflow ([`automation-claude-review.yml`](.github/workflows/automation-claude-review.yml)), which may submit an approving or change-requesting review as a signal; its approval never merges and never replaces the human merge decision.
+- **Open PRs with `Closes #<issue>`** and write back progress as Issue/PR comments. Label your PRs `by-agent`.
+- **Stuck / off-track / tests won't pass** → comment the blocker, return the Issue to triage, clear your assignee, label `needs-human`.
 
-**When the user asks to "提交代码" or "推送"** without naming a branch: create/use a `feature/*` branch, push it, and offer or create a PR—not a direct `main` push.
+## Commits & branches
 
-**Exceptions** (only if the user clearly requests): hotfix directly on `main`, amend/push `main`, or push without a PR.
+- Conventional Commits: `type(scope): subject` (`feat` / `fix` / `chore` / `refactor` / `docs` / `test`; scope = service name).
+- Branch from the Issue's "Create a branch"; one PR per Issue, kept small.
+- Branch names must use a valid type prefix and at most two path segments after it: `<type>/<description>`, `<type>/<issue-number>-<description>`, or `<type>/<module>/<description>`; segments start with lowercase letters or digits and may contain `-`, `.`, or `_`.
+
+## Mandatory pre-commit CI checks
+
+Before **every** commit, run the same quality checks enforced by `.github/workflows/ci-quality.yml`. Do not commit if any command fails or emits warnings where CI requires zero warnings:
+
+```bash
+node scripts/check-license-headers.mjs
+pnpm exec eslint . --config eslint.config.typechecked.js --max-warnings 0
+pnpm exec vitest --run
+pnpm exec tsc -b --pretty false
+pnpm exec vite build
+pnpm audit --prod
+```
+
+For changes under `src/modules/execution-factory/**`, also run `pnpm test:execution-factory`, matching the path-scoped CI workflow. Report every command run and any CI-only check that was not practical to run locally.
 
 ---
 > Source: [openbkn-ai/bkn-studio](https://github.com/openbkn-ai/bkn-studio) — distributed by [TomeVault](https://tomevault.io).
