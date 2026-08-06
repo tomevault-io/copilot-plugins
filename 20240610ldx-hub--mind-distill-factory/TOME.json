@@ -4,7 +4,7 @@
   "repo": "Mind-Distill-Factory",
   "description": "Distill great thinkers into source-grounded Codex Skills that reason, debate, and expose their own limits.\u601d\u7ef4\u84b8\u998f\u5de5\u5382\uff1a\u5c06\u601d\u60f3\u5bb6\u7684\u5224\u65ad\u65b9\u6cd5\u3001\u8868\u8fbe\u8d28\u611f\u4e0e\u5931\u6548\u8fb9\u754c\uff0c\u84b8\u998f\u6210\u53ef\u5b89\u88c5\u3001\u53ef\u8bc4\u6d4b\u3001\u53ef\u8fa9\u8bba\u7684Skills\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/20240610ldx-hub/Mind-Distill-Factory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T23:49:22Z"
+  "distributed_at": "2026-08-06T08:30:58Z"
 }
