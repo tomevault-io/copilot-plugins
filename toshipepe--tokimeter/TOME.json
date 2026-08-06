@@ -4,7 +4,7 @@
   "repo": "tokimeter",
   "description": "Local-first usage & cost meter for AI coding agents: Claude Code, Codex, Cursor, Grok Build, Hermes, opencode, Cline, and Copilot CLI. No account or telemetry.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/toshipepe/tokimeter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T19:49:27Z"
+  "distributed_at": "2026-08-06T21:26:51Z"
 }
