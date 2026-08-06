@@ -4,7 +4,7 @@
   "repo": "decaid",
   "description": "Companion to your Decent Espresso machine",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/decentespresso/decaid",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T21:02:45Z"
+  "distributed_at": "2026-08-06T23:32:15Z"
 }
