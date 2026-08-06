@@ -1,0 +1,9 @@
+{
+  "name": "moonbit-community--proton",
+  "displayName": "proton",
+  "description": "A MoonBit framework for building native desktop applications with a web frontend",
+  "version": "1.0.0",
+  "author": "moonbit-community",
+  "homepage": "https://github.com/moonbit-community/proton",
+  "skills": []
+}
