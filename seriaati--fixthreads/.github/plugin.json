@@ -1,0 +1,9 @@
+{
+  "name": "seriaati--fixthreads",
+  "displayName": "fixthreads",
+  "description": "Fixes Meta's Threads metadata for sites like Discord, Telegram, etc.",
+  "version": "1.0.0",
+  "author": "seriaati",
+  "homepage": "https://github.com/seriaati/fixthreads",
+  "skills": []
+}
