@@ -1,0 +1,44 @@
+{
+  "name": "MantisZip",
+  "owner": "mantis3d",
+  "repo": "MantisZip",
+  "description": "MantisZip is a free, open-source compression/decompression tool for Windows, featuring in-archive preview and password manager for enhanced convenience. You can directly view images, text, Markdown, and HTML files inside archives without extracting them first.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mantis3d/MantisZip",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T07:31:09Z"
+}
