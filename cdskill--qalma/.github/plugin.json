@@ -1,0 +1,9 @@
+{
+  "name": "cdskill--qalma",
+  "displayName": "qalma",
+  "description": "Angular-first, headless rich text editor toolkit built on ProseMirror \u2014 lightweight, signals-based, MIT.",
+  "version": "1.0.0",
+  "author": "cdskill",
+  "homepage": "https://github.com/cdskill/qalma",
+  "skills": []
+}
