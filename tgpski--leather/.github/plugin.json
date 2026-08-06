@@ -1,0 +1,9 @@
+{
+  "name": "tgpski--leather",
+  "displayName": "leather",
+  "description": "Local agent infrastructure in one stdlib-only Go binary",
+  "version": "1.0.0",
+  "author": "TGPSKI",
+  "homepage": "https://github.com/TGPSKI/leather",
+  "skills": []
+}
