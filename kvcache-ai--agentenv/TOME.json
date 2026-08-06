@@ -4,7 +4,7 @@
   "repo": "AgentENV",
   "description": "AgentENV (AENV) is a distributed platform for running agent environments at scale.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kvcache-ai/AgentENV",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T23:56:21Z"
+  "distributed_at": "2026-08-06T08:39:00Z"
 }
