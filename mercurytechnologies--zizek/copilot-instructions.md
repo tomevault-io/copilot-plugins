@@ -1,0 +1,180 @@
+## zizek
+
+> This file provides guidance to Claude Code (claude.ai/code) and other coding agents when working with code in this repository.
+
+# AGENTS.md
+
+This file provides guidance to Claude Code (claude.ai/code) and other coding agents when working with code in this repository.
+
+## Overview
+
+This is the Haskell library for Hegel, a universal property-based testing framework. The library drives a Hypothesis-style engine in-process via FFI to the `libhegel` C library.
+
+```bash
+just check                                           # run check-format + build + test (CI gate)
+just test                                            # run tests
+just test <name>                                     # run a specific test suite (e.g. just test ffi)
+just lint                                            # STUB: run linters (add hlint to flake.nix first)
+just format                                          # run formatters (cabal, Haskell, Nix)
+just check-format                                    # check formatting without modifying files
+just docs                                            # build API docs via haddock
+just check-coverage                                  # STUB: check coverage (add hpc-codecov to flake.nix first)
+just profile-run <scenario>                          # smoke-run a profiling scenario on the dev build
+just profile-space <scenario>                        # capture .prof/heap/eventlog into profiles/O<n>/ (prof_opt=0 for -O0)
+just profile-time                                    # hyperfine wall-clock of all scenarios on the default -O1 build
+just profile-time-compare                            # per-scenario -O1 vs -O0 A/B into profiles/compare/
+cabal test zizek:unit --test-options='--pattern "name"'  # run a single test (tasty --pattern glob)
+```
+
+Minimum supported GHC version is 9.10 (enforced in CI and `zizek.cabal`). If you bump it, also bump `ci.yml`.
+
+## Package Structure
+
+- `library/Hegel.hs` — Public API: `prop`/`forEach`/`forEachWith`; re-exports `Gen`, settings, database, reports, phases, and assertions
+- `library/Hegel/Property.hs` — Property monad public API: `PropertyT`/`Property`, `forAll`/`forAllWith`/`forAllWithLabel`/`forAllSilent`, `annotate`/`footnote`, `assume`/`discard`, `registerFinalizer`, `check`/`check_`, `assert`/`failure`, `(===)`/`(/==)`. Internals in `library/Hegel/Property/Internal.hs`. `registerFinalizer act` queues per-case cleanup drained (LIFO) at the case boundary on every exit and replay; a throwing finalizer aborts the run as `Errored`. `forAllWithLabel "qty" g` labels a draw so the report reads `restock item="apple" qty=5` instead of a bare positional value — the fix for cryptic rule rows (no source parsing).
+- `library/Hegel/Stateful.hs` — stateful (model-based) testing: `Machine`/`Rule`/`Invariant` and `run`, layered on `PropertyT` (see Stateful Testing below)
+- `library/Hegel/Pool.hs` — engine-managed pools of values for stateful rules to draw from; an empty-pool draw discards the case. `named` labels a pool's values for the report; `transfer` moves a value between pools with the identity link declared (one lifeline across pools)
+- `library/Hegel/Report.hs` — `Report`/`Result`/`Stats` plus the plain/ANSI renderers: what a property run produces; for step-structured (stateful) failures the rich path composes the report (event log + splice + footer)
+- `library/Hegel/Report/*.hs` — the rich renderers: `Ann` (annotations/styles), `Discovery` (declaration lookup), `Source` (splicing/layout), `Span`, `Note` (journal entries; also `renderValue`), `Journal` (depth regrouping + structured rendering), `Stateful` (the failing step's source splice), `Style` (glyphs, phrases, and layout budgets in one record; `HEGEL_GLYPHS` + encoding detection pick ascii); and `Trace` (the IR zipping journal + pool events on their shared `Tick`) with `Layout` (the flat chronological event log: one row per step, a bare `✗`/blank gutter, and touch-irrelevant runs collapsed into a single elision row; also owns `displayName`). Eyeball via `just gallery` (plain splice → stateful splice → pool-free flat log → multi-root flat log); design rationale in `notes/design/slim-stateful-reporting.md`
+- `library/Hegel/Diff.hs` — structural and line-level diffs backing `(===)` failures
+- `library/Hegel/Assertion.hs` — `assert`/`failure` (`MonadIO`-polymorphic, call-stack-aware), failure-origin formatting
+- `library/Hegel/Hspec.hs`, `library/Hegel/Tasty.hs` — framework integrations with automatic database keying (see Framework Integrations below)
+- `library/Hegel/Settings.hs` (with `Backend`, `Database`, `HealthCheck`, `Phase`, `Verbosity`) — run configuration
+- `library/Hegel/Runner.hs` — `check`: drives the `libhegel` engine, applies `Settings`, pumps test cases, replays reproduction blobs
+- `library/Hegel/Gen.hs` — Umbrella re-export; designed for `import Hegel.Gen qualified as Gen`
+- `library/Hegel/Gen/Internal.hs` — `Gen` GADT, combinators (`oneOf`, `filtered`, `assume`, `draw`), `enumerate`
+- `library/Hegel/Gen/Builder.hs` — `Build`, `HasMin`, `HasMax`, `HasSize` typeclasses
+- `library/Hegel/Gen/*.hs` — per-category builders (bool, integer, float, binary, char, text, regex, uri, uuid, list, set, map, …)
+- `library/Hegel/Collection.hs` — `libhegel`-managed variable-length collection handle, used by the list/set/map generators
+- `library/Hegel/Internal/Tick.hs` — the recording substrate: a monotonic per-case sequence stamp (`Tick`) plus the `Silent`/`Active` toggle and the generic gated `record`, shared by the note journal and the pool-event stream. Domain-agnostic (knows nothing of pools, notes, or state machines); records only in the final reconstruction replay
+- `library/Hegel/Internal/Event.hs` — the per-case pool-event stream (`Event`/`Operation`/`Var`), stamped via `Tick`
+- `library/Hegel/Internal/Foreign/*.hs(c)` — the `libhegel` interop: `Raw` (raw `foreign import ccall` bindings — all `hegel_*` C functions, opaque handle types, `HEGEL_*` pattern synonyms, bracket helpers) and `CString` (C-string marshalling) feeding it
+- `library/Hegel/Internal/TestCase.hs` and `library/Hegel/Internal/DataSource.hs` — the per-test-case engine interaction: `TestCase` (the handle — context + `hegel_test_case_t*` pointer — carrying the recording toggle, plus `markComplete`/`Status`) and `DataSource` (the generator-facing channel: `generate`, spans (`startSpan`/`stopSpan`, `Label`), collections, pools, state machines)
+- `library/Hegel/Internal/Control.hs` — control signals (`AssumeRejected`/`TestStopped`) and the exception-discipline helpers (`catchControl`/`onFailure`/`isFailure`/`tryProperty`)
+- `library/Hegel/Internal/DatabaseKey.hs` — database-key derivation
+
+## Module Style
+
+Prefer a module structure that allows functions to be imported fully qualified, with standalone types that are meant to be imported on their own.
+
+For example:
+
+```haskell
+import Hegel.Collection (Collection)
+import Hegel.Collection qualified as Collection
+```
+
+...which brings `Collection.new :: TestCase -> Collection` into scope.
+
+### Generator builder pattern
+
+Generators are built via a fluent builder API. `Gen.integral`, `Gen.double`, etc. are *builders* that accumulate constraints via `&`-chained modifiers and materialise with `& Gen.build`. The integral builder has type-pinned aliases — `Gen.int`, `Gen.int8`–`Gen.int64`, `Gen.word`–`Gen.word64` — so element types are usually fixed by alias rather than by type application (`Gen.int`, not `Gen.integral @Int`):
+
+```haskell
+import Data.Function ((&))
+import Hegel.Gen qualified as Gen
+
+g1 = Gen.int    & Gen.min 0 & Gen.max 100            & Gen.build
+g2 = Gen.double & Gen.min 0 & Gen.max 1              & Gen.build
+g3 = Gen.double & Gen.disallowNan                    & Gen.build
+g4 = Gen.binary & Gen.minSize 4 & Gen.maxSize 64     & Gen.build
+g5 = Gen.bool                                        & Gen.build
+```
+
+The `Build`, `HasMin`, `HasMax`, and `HasSize` typeclasses in `Hegel.Gen.Builder` provide the shared modifier vocabulary; builder-specific modifiers are plain functions on their builder type (float: `exclusiveMin`/`exclusiveMax`/`disallowNan`/`disallowInfinity`; char: `minCodepoint`/`categories`/…; regex: `fullMatch`/`alphabet`; uuid: `version`; bool: `weighted`). Applying an inapplicable modifier (e.g. `Gen.uuid & Gen.min 0`) is a type error. There are no `*Options` records on the public API.
+
+Builder families beyond the sample above: `text`, `char`, `regex`, `uuid`, `uri`/`uriText`, `domain`, and the collections (`list` with `unique`, `set`/`hashSet`/`intSet`, `map`/`hashMap`/`intMap`). Choice and conditional combinators (`oneOf`, `element`, `frequency`, `filtered`, `enum`/`enumBounded`, `maybe`, `either`) are not builders — they produce `Gen` values directly, with no `& Gen.build`.
+
+## Documentation & Comment Style
+
+Haddocks and comments describe what a thing is *for* — its contract — not what the code does. These rules are ordered; earlier ones win.
+
+1. **State the contract, not the mechanism.** What a caller must satisfy and what they get back. Function-internal reasoning ("marshals to an unsigned wire type where a negative `Int` wraps", "NaN compares `False`, so the ordering check would accept it", "GHC folds the check away") belongs in the code, not the Haddock — the reader opens the source for the how.
+
+2. **Never narrate the motivating incident.** The code's present purpose is the whole story. Cut "the exact mistake the UUID near-miss caught", "since libhegel 0.28.0 … rather than clamping", "before this coverage existed, nothing tested…".
+
+3. **Define positively, not by contrast.** State what a thing *is*, not what it isn't. If a contrast isn't load-bearing, the opening positive sentence stands alone — delete the rest.
+   - Bad: `The module defining the builder, not the user-facing @Gen.text@ spelling.`
+   - Good: `The fully-qualified module of the builder that raised it, e.g. @"Hegel.Gen.Text"@.`
+
+4. **Avoid parentheses.** An aside listing examples or caveats reads better as a plain clause, or cut. Keep foreign syntax out (no Rust `4..=255` in a Haskell Haddock — write `in @[4, 255]@`).
+
+5. **Avoid em-dashes; don't launder them.** Swapping an em-dash for a colon or semicolon is not a fix. Rephrase so the sentence runs without the interruption. A comma-offset mid-sentence interjection ("but only when both bounds are set, for builders where…") reads badly — rewrite it to flow.
+
+6. **Write sentences, not compressed fragments.** LLM prose compresses for density; a human writes a plain sentence with a subject and a verb. The tells: a dropped-subject, verb-first fragment ("Hoisted out of the closure: …", "Confirms the guard fires…"); a fronted noun phrase with a colon carrying a stack of clauses; semicolons chaining facts into one telegraphic line; a stock flourish standing in for the actual reason ("a real win", "earns its place/keep"). Say who does what and why.
+   - Bad: `Hoisted out of the 'Draw' closure: a real per-draw allocation win at @-O0@; full laziness already does this at @-O1@.`
+   - Good: `Bound here, not inside the lambda, so this isn't reallocated on every draw.`
+   - Bad: `Confirms the guard fires on misuse, not just that ordinary in-bounds usage still works.`
+   - Good: `These cases cover ordinary in-bounds usage and confirm the guard fires on misuse.`
+
+7. **Prefer one sentence.** Condense before adding a second.
+
+8. **Visual weight matches content weight.** One idea, one line-group. A second sentence that carries real weight gets its own paragraph — set it off with a blank `--` line. One that doesn't gets cut.
+   - Bad: `Require @n >= 0@, throwing 'GenValidationError' otherwise. Size bounds marshal to unsigned wire types, where a negative 'Int' silently wraps to a huge value.`
+   - Good: `Require @n >= 0@ for a size or codepoint bound, throwing 'GenValidationError' otherwise.`
+
+9. **No internal references leak into shipped docs.** Never cite `notes/` paths, `AGENTS.md`, or other repo-internal conventions from a Haddock or comment. Point at code and public API only.
+
+10. **Don't restate the module path.** A module under `Hegel.Internal.*` is already marked internal by its name, so it needs no `__Internal module.__` banner or "may change without notice" boilerplate. Lead with the one-line summary of what it provides.
+
+Genuine invariants and warnings stay: why `finally` must guard a buffer free, why an exclusive bound has to be strictly ordered. The test is whether the reader needs it to *use* the thing correctly, not to understand how it works inside.
+
+## Architecture
+
+### How It Works
+
+`zizek` drives the Hypothesis engine in-process via FFI to `libhegel`. The engine owns sampling, choice-sequence bookkeeping, and integrated shrinking; `zizek` calls a dedicated FFI entry point per generator kind and interprets the result directly, with no intermediate schema or encoding step.
+
+There are two property-writing surfaces, both yielding a `Report`: the simple `prop settings gen body` API (sugar over `forEach`), and `check settings property`, where a `Property` interleaves `forAll` draws, effects, and assertions (see `Hegel.Property`). Stateful testing is not a third surface: `Stateful.run machine` is an ordinary `PropertyT` action run via `check`.
+
+### Protocol
+
+Each generator kind has its own FFI entry point, with parameters marshalled directly rather than through an intermediate wire encoding. For each test case:
+1. a draw asks the engine for a value: a scalar draw (`drawBool`, `drawInteger`, `drawFloat`, `drawBytes`, `drawUuid`, `drawDate`, `drawTime`, `drawDatetime`) returns it directly, while a string draw first builds a native string-generator handle (`buildTextGen`, `buildRegexGen`, `buildEmailGen`, `buildUrlGen`, `buildDomainGen`) that the engine samples and shrinks against internally
+2. `startSpan`/`stopSpan` bracket groups of related draws so the engine can shrink them as a unit
+3. `markComplete` reports the outcome (VALID, INVALID, or INTERESTING) at the end of each test case
+
+All of these are FFI calls into `libhegel` via `Hegel.Internal.Foreign.Raw`, wrapped by `Hegel.Internal.DataSource`/`Hegel.Internal.TestCase`.
+
+### `Gen` GADT
+
+`Gen a` is a GADT (not a typeclass) defined in `Hegel.Gen.Internal`, with constructors `Pure`, `Draw` (an opaque `TestCase -> IO a` leaf — every leaf generator and combinators like `filtered`/`frequency` bottom out here), `Map`, `Ap`, `Bind`, and `OneOf`. `draw :: TestCase -> Gen a -> IO a` produces a value from a live test case.
+
+The GADT structure is interpreted, not just executed: `runInteractive` walks the constructors to decide span nesting for shrinking — `Map` opens MAPPED, `Ap` opens TUPLE (only with ≥2 non-`Pure` leaves), `Bind` opens FLAT_MAP, `OneOf` opens ONE_OF.
+
+`enumerate :: Gen a -> Maybe [a]` walks `Pure`/`Map`/`Ap`/`OneOf` to return a generator's finite value set when statically knowable (`Nothing` at any `Draw` or `Bind`). `filtered`/`mapMaybe` use it as a single-round-trip fast path over finite sources, falling back to a bounded retry loop otherwise.
+
+### Span System
+
+Spans (`start_span`/`stop_span`) group related generation calls so the engine can shrink them as a unit. The `Label` type in `Hegel.Internal.DataSource` identifies span types (LIST, TUPLE, ONE_OF, FILTER, etc.).
+
+### Collections
+
+`libhegel`-managed collections (`Collection.new`/`Collection.more`/`Collection.reject` in `Hegel.Collection`) drive variable-length generation; the list/set/map generators are built on them. Rejecting duplicates requires variable-size mode — see Note [Variable-size mode required for reject] in `Hegel.Collection`.
+
+### Stateful Testing
+
+`Hegel.Stateful.run` drives a `Machine` (initial state, `Rule`s, `Invariant`s) inside an ordinary property. The engine owns rule selection (including swarm testing: per-test-case rule subsets), the step cap, and shrinking; invariants are checked after every successful step, and a failing assertion is journaled in-band at the step that produced it. Replay alignment is load-bearing: every draw, and every poll for the next rule, is part of the choice sequence and happens unconditionally, on replay too — skipping one misaligns every later draw and the counterexample stops reproducing. `Hegel.Pool` provides engine-managed value pools for rules to draw from.
+
+### Framework Integrations
+
+`Hegel.Hspec.prop` and `Hegel.Tasty.testProperty` derive a stable example-database key from the module plus the test's describe/name path, and enable database persistence (plain `defaultSettings`/`def` leave it off). Renaming a test or its group orphans its stored failures. Caveat: a tasty leaf cannot see its enclosing `testGroup`, so identically-named `testProperty` leaves in one module collide on the same key. Stored replays only reproduce against deterministic fixtures.
+
+### Test Suites
+
+- `tests/unit/` — the `unit` cabal suite (tasty wrapping hspec specs): generators, property checks, report/source rendering, control signals, stateful, pool events, trace/blame IR, ledger/verdict rendering, database replay, framework integrations
+- `tests/ffi/` — the `ffi` cabal suite: wire-level checks, plus a closed-world guard (`cbits/wire_enum_guard.c`, compiled with `-Werror=switch-enum`) that fails the build if `libhegel` adds an enum variant
+- `tests/string-gen-handles/` — the `string-gen-handles` cabal suite: asserts unreferenced `HegelStringGenerator` handles (see `Hegel.Internal.DataSource`) actually get GC-reclaimed. Isolated in its own process deliberately — the same assertion is flaky inside the shared, hundreds-of-tests `unit` binary (see `settleStringGenerators`'s haddock for why)
+- `tests/profile/` — the `profile-hegel` executable: deterministic named workloads for profiling the Haskell-side hot paths, driven by the `just profile-*` recipes. Not a test suite — a completed run always exits 0. Scenario table lives in `tests/profile/` alongside the workloads.
+
+## Miscellaneous Conventions
+
+- Use jujutsu (`jj`) for version control.
+- **Prototype loose, land tight**: while a workflow's design is still moving, driving `cabal` (or other tools) by hand is fine. Once it solidifies, fold the surviving invocations into `scripts/` + `justfile` recipes — the justfile is the discoverable surface, and one-off invocations in a transcript force the next session (human or agent) to rediscover them.
+- **Exception discipline**: Hegel's control signals (`AssumeRejected`, `TestStopped`) are async exceptions precisely so user catch-alls pass them through. Never hand-roll a `catch @SomeException` (or a base `try @SomeException`) around code that draws or asserts — it would swallow the discard/stop signals and corrupt the run. Use `Hegel.Internal.Control` (`catchControl`, `onFailure`, `tryProperty`) instead.
+- Design work lives in `notes/`: `notes/decisions/` holds decision records for shipped work (rationale not to be re-litigated); `notes/roadmap/` holds upcoming work in priority order (`00-scope.md` is the map that fixes project structure and the Core/Extensions/Engine-gated boundary; `01-obligations.md` is next up); `notes/design/` holds first-principles exploration informing future roadmap items (not yet committed work). Read the relevant note before starting work it covers, and keep it current as decisions change — including moving a roadmap note to `decisions/` when its work ships.
+- `references/hegel-rust/` vendors the Rust/C engine reference (`hegel-c/include/hegel.h`, `src/stateful.rs`, …). It is the ground truth for engine semantics when Haskell-side documentation and behavior disagree.
+
+---
+> Source: [MercuryTechnologies/zizek](https://github.com/MercuryTechnologies/zizek) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-29 -->
