@@ -4,7 +4,7 @@
   "repo": "pi-extensions",
   "description": "Pi packages monorepo \u2014 installable extensions for the pi coding agent (npm @pi-extensions). Includes Pac-Man working/thinking indicator.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/smarzban/pi-extensions",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T18:25:55Z"
+  "distributed_at": "2026-08-06T04:56:15Z"
 }
