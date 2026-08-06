@@ -4,7 +4,7 @@
   "repo": "odim",
   "description": "Reality gap analyzer \u2014 scrapes signals across 7 layers (finance, job postings, patents, OSS, social) and detects discrepancies vs corporate narrative using Evidence GraphRAG + Gemini.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/snowtone-ai/odim",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T22:08:43Z"
+  "distributed_at": "2026-08-06T07:02:53Z"
 }
