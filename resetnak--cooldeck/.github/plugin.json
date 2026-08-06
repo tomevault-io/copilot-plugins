@@ -1,0 +1,9 @@
+{
+  "name": "resetnak--cooldeck",
+  "displayName": "cooldeck",
+  "description": "Keyboard-first terminal dashboard for Coolify: deployments, live logs across your whole fleet, and an MCP server for your agent",
+  "version": "1.0.0",
+  "author": "Resetnak",
+  "homepage": "https://github.com/Resetnak/cooldeck",
+  "skills": []
+}
