@@ -1,0 +1,44 @@
+{
+  "name": "metaforge",
+  "owner": "svy04",
+  "repo": "metaforge",
+  "description": "Meta\u00b7MFH\u00b7Orchestra proof-bounded AI OS \u2014 \uc2e4\ud589 \uc8fc\uc7a5\uc740 evidence gate\ub97c \ud1b5\uacfc\ud55c\ub2e4.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/svy04/metaforge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T19:06:55Z"
+}
