@@ -4,7 +4,7 @@
   "repo": "mostty",
   "description": "Mostty: a fast, lightweight native terminal emulator with libghostty at its core. Currently designed and implemented for Windows 10/11 only.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/missdeer/mostty",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T14:06:10Z"
+  "distributed_at": "2026-08-06T18:54:47Z"
 }
