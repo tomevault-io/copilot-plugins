@@ -4,7 +4,7 @@
   "repo": "dados-publicos-mcp",
   "description": "Servidor MCP local-first para consultar legisla\u00e7\u00e3o, compras p\u00fablicas e dados p\u00fablicos brasileiros.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Licitei/dados-publicos-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T23:32:02Z"
+  "distributed_at": "2026-08-06T07:30:40Z"
 }
