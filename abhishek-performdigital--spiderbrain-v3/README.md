@@ -7,11 +7,11 @@ SpiderBrain v3 is a multi-platform skill/framework to reduce token usage and AI 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [abhishek-performdigital/Spiderbrain-V3](https://github.com/abhishek-performdigital/Spiderbrain-V3).
+Original source: `AGENTS.md` in [abhishek-performdigital/Spiderbrain-V3](https://github.com/abhishek-performdigital/Spiderbrain-V3).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
