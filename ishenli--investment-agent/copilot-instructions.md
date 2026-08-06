@@ -21,14 +21,6 @@ Keep this managed block so 'openspec update' can refresh the instructions.
 
 <!-- OPENSPEC:END -->
 
-# 项目上下文信息
-
-## 研发工具
-
-- 使用 pnpm 替代 npm
-- 项目研发规范位于`.claude/rules`目录中，包含以下规则文件：controller-rule.md, db-rule.md, request-rule.md, route-rule.md, script-rule.md, store-rule.md, test-rule.md，repository-rule.md，请按需查阅和遵循
-- 项目远程分支是 github
-
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/ishenli) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [ishenli/investment-agent](https://github.com/ishenli/investment-agent) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-28 -->
