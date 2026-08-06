@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [google/filament](https://github.com/google/fila
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [google/filament](https://github.com/google/filament) — a repo with 20293+ stars on GitHub.
+From [google/filament](https://github.com/google/filament) — a repo with 20296+ stars on GitHub.
 
 ---
 
