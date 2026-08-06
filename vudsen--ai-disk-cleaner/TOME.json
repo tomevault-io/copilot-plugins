@@ -1,0 +1,44 @@
+{
+  "name": "ai-disk-cleaner",
+  "owner": "vudsen",
+  "repo": "ai-disk-cleaner",
+  "description": "An AI-powered intelligent disk cleanup assistant;  \u4e00\u6b3e AI \u9a71\u52a8\u7684\u667a\u80fd\u78c1\u76d8\u6e05\u7406\u52a9\u624b\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vudsen/ai-disk-cleaner",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T23:00:25Z"
+}
