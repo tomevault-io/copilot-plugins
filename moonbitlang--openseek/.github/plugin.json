@@ -1,0 +1,9 @@
+{
+  "name": "moonbitlang--openseek",
+  "displayName": "openseek",
+  "description": "DeepSeek-backed MoonBit coding agent.",
+  "version": "1.0.0",
+  "author": "moonbitlang",
+  "homepage": "https://github.com/moonbitlang/openseek",
+  "skills": []
+}
