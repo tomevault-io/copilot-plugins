@@ -1,0 +1,9 @@
+{
+  "name": "n283t--zsasa",
+  "displayName": "zsasa",
+  "description": "High-performance SASA (Solvent Accessible Surface Area) calculation in Zig with Python bindings",
+  "version": "1.0.0",
+  "author": "N283T",
+  "homepage": "https://github.com/N283T/zsasa",
+  "skills": []
+}
