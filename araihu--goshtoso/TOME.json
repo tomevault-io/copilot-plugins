@@ -4,7 +4,7 @@
   "repo": "goshtoso",
   "description": "Server Side Rendering for go backends using Go + Alpine.js + Tailwind + Templ and HTMX",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/araihu/goshtoso",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T23:45:01Z"
+  "distributed_at": "2026-08-06T07:39:28Z"
 }
