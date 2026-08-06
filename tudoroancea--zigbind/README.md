@@ -7,11 +7,11 @@ build python bindings for zig code
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tudoroancea/zigbind](https://github.com/tudoroancea/zigbind).
+Original source: `AGENTS.md` in [tudoroancea/zigbind](https://github.com/tudoroancea/zigbind).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
