@@ -4,7 +4,7 @@
   "repo": "qwengate",
   "description": "Drop-in OpenAI-compatible API gateway for Qwen AI models. Use your Qwen account (chat.qwen.ai) as a free AI API provider in any OpenAI-compatible client \u2014 Cursor, Continue.dev, Claude Code, VS Code Copilot, or any coding agent. Self-hosted, Chromium-based auth, streaming support, tool calling, dashboard.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/youssefvdel/qwengate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T20:43:49Z"
+  "distributed_at": "2026-08-06T23:10:31Z"
 }
