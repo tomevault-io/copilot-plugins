@@ -1,0 +1,9 @@
+{
+  "name": "openthread--ot-br-posix",
+  "displayName": "ot-br-posix",
+  "description": "ot-br-posix",
+  "version": "1.0.0",
+  "author": "openthread",
+  "homepage": "https://github.com/openthread/ot-br-posix",
+  "skills": []
+}
