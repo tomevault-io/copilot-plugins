@@ -1,0 +1,9 @@
+{
+  "name": "btnalit--hermes-memory-os",
+  "displayName": "Hermes-Memory-OS",
+  "description": "An engineering-focused Agent OS runtime for Hermes Agent. Features dual-engine memory (SQLite + Flat files), deterministic state machine locks to prevent model drift, and temporal-decay weighted retri",
+  "version": "1.0.0",
+  "author": "btnalit",
+  "homepage": "https://github.com/btnalit/Hermes-Memory-OS",
+  "skills": []
+}
