@@ -1,0 +1,9 @@
+{
+  "name": "anelkabag--bag-ui",
+  "displayName": "bag-ui",
+  "description": "BagUI is an open-source shadcn/ui registry with production-ready components, blocks, templates, and animations for React, Next.js, and Tailwind CSS. Copy, customize, and build faster.",
+  "version": "1.0.0",
+  "author": "anelkabag",
+  "homepage": "https://github.com/anelkabag/bag-ui",
+  "skills": []
+}
