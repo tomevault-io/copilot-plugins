@@ -1,0 +1,44 @@
+{
+  "name": "Koharia",
+  "owner": "Mister-album",
+  "repo": "Koharia",
+  "description": "\u9762\u5411 Komga \u670d\u52a1\u5668\u5185\u5bb9\u6d4f\u89c8\u4e0e\u9605\u8bfb\u7684\u72ec\u7acb\u7b2c\u4e09\u65b9 Android \u9605\u8bfb\u5668 / An independent third-party Android reader for browsing and reading content from Komga servers.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Mister-album/Koharia",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T16:43:10Z"
+}
