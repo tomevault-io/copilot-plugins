@@ -1,0 +1,9 @@
+{
+  "name": "nomisrev--ktor-quickstart",
+  "displayName": "ktor-quickstart",
+  "description": "Opinionated Ktor Template",
+  "version": "1.0.0",
+  "author": "nomisRev",
+  "homepage": "https://github.com/nomisRev/ktor-quickstart",
+  "skills": []
+}
