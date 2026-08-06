@@ -1,0 +1,9 @@
+{
+  "name": "toonhuysmans--pocket-scion-synth",
+  "displayName": "pocket-scion-synth",
+  "description": "Real-time generative synthesis firmware for the Pocket SCION",
+  "version": "1.0.0",
+  "author": "toonhuysmans",
+  "homepage": "https://github.com/toonhuysmans/pocket-scion-synth",
+  "skills": []
+}
