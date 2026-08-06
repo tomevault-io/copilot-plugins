@@ -7,11 +7,11 @@ Type-safe, real-time backend framework on your own Cloudflare account — Worker
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [anolilab/lunora](https://github.com/anolilab/lunora).
+Original source: `AGENTS.md` in [anolilab/lunora](https://github.com/anolilab/lunora).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
