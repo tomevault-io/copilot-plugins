@@ -1,60 +1,56 @@
-## context-engine-core
+## context-engine-pipeline
 
-> Context Engine — project context, goals, and non-negotiable design decisions
+> Context Engine core pipeline — router through memory writer
 
 
-# Context Engine — Core Context
+# Core Pipeline Modules
 
-This monorepo is building a **multi-source context orchestration engine** for AI agents. Developers call one function instead of writing custom glue code:
+## Source Router (`packages/core/router`)
 
-```ts
-const context = await engine.getContext({ userId, workspaceId, query, conversationId, agent })
-```
+Decides which sources to query per request — not every query needs every source. For voice: fast path (memory + cached context, sub-300ms) vs full path (full fan-out) based on topic shift detection.
 
-Voice/low-latency variant:
+## Ranking (`packages/core/ranking`)
 
-```ts
-const context = await engine.getContextFast({ query, userId, workspaceId, conversationId })
-```
+Score on: semantic similarity, recency, importance, confidence, user personalization, source reliability.
 
-## What it is
+## Dedup (`packages/core/dedup`)
 
-A decision-making layer that answers "what should the model actually see?" — not another storage layer. It orchestrates retrieval, ranking, dedup, conflict resolution, compression, token budgeting, and prompt assembly across all context sources.
+Embedding-similarity threshold across contexts from different sources — collapse duplicate facts to one representation.
 
-**Long-term vision:** agents ask one system for the best context; Context Engine is the intelligence layer between data sources and language models.
+## Conflict Resolution (`packages/core/conflict-resolution`)
 
-## Context sources (full set)
+Detect contradictions across sources. Default: most-recent-source-wins. Expose conflicts in `diagnostics` so calling app can override.
 
-Memory (mem0), documents/RAG (Qdrant + Voyage), workspace (Notion, Drive), communication (Slack, Email), development (GitHub, Jira), business (CRM, SQL), external tools (APIs, MCP), live voice/transcription (direct to prompt builder).
+## Compression (`packages/core/compression`)
 
-## Pipeline (non-negotiable shape)
+Summarize oversized retrieved chunks to maximize information per token.
 
-Source Router → Retrievers (parallel, per-source timeouts) → Ranking → Dedup → Conflict Resolution → Compression → Token Budget → Prompt Builder → LLM → Memory Writer (async)
+## Token Budget (`packages/core/budget`)
 
-Voice: live transcription bypasses router/rank/dedup; `getContextFast()` uses fast path (memory + cached context, sub-300ms).
+Dynamic allocation based on query and source relevance (not fixed split). Tokenizer-based counting per section; truncate/summarize on overflow.
 
-## API contract (from day one)
+## Prompt Builder (`packages/core/prompt-builder`)
 
-Return shape must include: `prompt`, `memories`, `documents`, `sources`, `citations`, `tokenUsage`, `diagnostics`.
+Structured sections — not inline string concatenation:
+system instructions → user memory → relevant documents → workspace context → retrieved API data → conversation → current message.
 
-`diagnostics` must expose: ranking scores, discarded context, conflicts, latency by source. Never omit it.
+Voice: live transcription injected into conversation section, bypassing router/rank/dedup.
 
-## Design principles
+## Memory Writer (`packages/core/memory-writer`)
 
-- **Source agnostic** — `Retriever` interface; new source = new package under `packages/retrievers/`
-- **Model agnostic** — OpenAI, Anthropic, Google, DeepSeek, local models
-- **Framework agnostic** — Vercel AI SDK, LangChain, Mastra, LlamaIndex, custom agents
+Async post-response: extract durable facts, merge duplicates, update importance, archive stale, delete obsolete. Voice: extract on finalized turns only, not mid-utterance ASR.
 
-## Target repo layout
+## Query Planning (`packages/core/query-planning`)
 
-```
-apps/dashboard, apps/api, apps/worker
-packages/core/{router,ranking,dedup,conflict-resolution,compression,budget,prompt-builder,memory-writer,query-planning,adaptive-retrieval}
-packages/retrievers/{retriever-interface,memory-retriever,rag-retriever,slack-retriever,notion-retriever,github-retriever,sql-retriever,crm-retriever,mcp-retriever,voice-stream-retriever}
-packages/{db,ai,sdk,observability,config}
-```
+Decompose complex/multi-part questions into retrieval sub-steps.
 
-Full spec: `docs/context-engine/PROJECT_SPEC.md`. Follow it strictly.
+## Adaptive Retrieval (`packages/core/adaptive-retrieval`)
+
+Track which retrieval strategies perform best over time and adjust.
+
+## API return shape
+
+Every `getContext()` / `getContextFast()` call must return full contract including `diagnostics` (ranking scores, discarded context, conflicts, latency by source).
 
 ---
 > Source: [nikhil008-git/nmemo-ai](https://github.com/nikhil008-git/nmemo-ai) — distributed by [TomeVault](https://tomevault.io).
