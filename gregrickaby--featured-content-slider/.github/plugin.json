@@ -1,0 +1,9 @@
+{
+  "name": "gregrickaby--featured-content-slider",
+  "displayName": "featured-content-slider",
+  "description": "A Gutenberg block for creating responsive carousels with date-based scheduling and auto-play. Perfect for featured content, promotions, and marketing campaigns.",
+  "version": "1.0.0",
+  "author": "gregrickaby",
+  "homepage": "https://github.com/gregrickaby/featured-content-slider",
+  "skills": []
+}
