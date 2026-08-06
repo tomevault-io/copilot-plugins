@@ -1,0 +1,9 @@
+{
+  "name": "empudik--kurkuro",
+  "displayName": "kurkuro",
+  "description": "AI Router with fallback chains",
+  "version": "1.0.0",
+  "author": "empudik",
+  "homepage": "https://github.com/empudik/kurkuro",
+  "skills": []
+}
