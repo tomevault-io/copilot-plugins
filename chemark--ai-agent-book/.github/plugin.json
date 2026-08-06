@@ -1,0 +1,9 @@
+{
+  "name": "chemark--ai-agent-book",
+  "displayName": "ai-agent-book",
+  "description": "\u6df1\u5165\u7406\u89e3 AI Agent\uff1a\u8bbe\u8ba1\u539f\u7406\u4e0e\u5de5\u7a0b\u5b9e\u8df5\uff08\u5b66\u4e60\u526f\u672c\uff0cupstream: bojieli/ai-agent-book\uff09",
+  "version": "1.0.0",
+  "author": "chemark",
+  "homepage": "https://github.com/chemark/ai-agent-book",
+  "skills": []
+}
