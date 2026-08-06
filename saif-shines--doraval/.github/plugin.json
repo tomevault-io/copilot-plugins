@@ -1,0 +1,9 @@
+{
+  "name": "saif-shines--doraval",
+  "displayName": "doraval",
+  "description": "Make agent context work on every try. Context engineering toolkit for coding agents (Claude, Cursor, Codex, Copilot, Grok).",
+  "version": "1.0.0",
+  "author": "saif-shines",
+  "homepage": "https://github.com/saif-shines/doraval",
+  "skills": []
+}
