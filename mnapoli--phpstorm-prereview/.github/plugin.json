@@ -1,0 +1,9 @@
+{
+  "name": "mnapoli--phpstorm-prereview",
+  "displayName": "phpstorm-prereview",
+  "description": "PhpStorm AI review",
+  "version": "1.0.0",
+  "author": "mnapoli",
+  "homepage": "https://github.com/mnapoli/phpstorm-prereview",
+  "skills": []
+}
