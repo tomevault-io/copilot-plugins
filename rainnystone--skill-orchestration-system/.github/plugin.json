@@ -1,0 +1,9 @@
+{
+  "name": "rainnystone--skill-orchestration-system",
+  "displayName": "skill-orchestration-system",
+  "description": "Skill-first CLI for turning agent skills into reviewable, routing-friendly packs.",
+  "version": "1.0.0",
+  "author": "Rainnystone",
+  "homepage": "https://github.com/Rainnystone/skill-orchestration-system",
+  "skills": []
+}
