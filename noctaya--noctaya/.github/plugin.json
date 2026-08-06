@@ -1,0 +1,9 @@
+{
+  "name": "noctaya--noctaya",
+  "displayName": "noctaya",
+  "description": "Kubernetes-native control plane for scale-to-zero serving of long-tail LLMs",
+  "version": "1.0.0",
+  "author": "noctaya",
+  "homepage": "https://github.com/noctaya/noctaya",
+  "skills": []
+}
