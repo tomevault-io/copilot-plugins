@@ -1,0 +1,9 @@
+{
+  "name": "perseus-computing-llc--perseus",
+  "displayName": "perseus",
+  "description": "Live context engine for AI agents: resolve verified workspace state before the context window opens. Pairs with Perseus Vault for persistent encrypted memory. Local-first, MIT. pip install perseus-ctx",
+  "version": "1.0.0",
+  "author": "Perseus-Computing-LLC",
+  "homepage": "https://github.com/Perseus-Computing-LLC/perseus",
+  "skills": []
+}
