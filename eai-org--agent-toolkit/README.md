@@ -7,11 +7,11 @@ Minimalistic, project-agnostic skills and rules for AI coding agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [eai-org/agent-toolkit](https://github.com/eai-org/agent-toolkit).
+Original source: `AGENTS.md` in [eai-org/agent-toolkit](https://github.com/eai-org/agent-toolkit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
