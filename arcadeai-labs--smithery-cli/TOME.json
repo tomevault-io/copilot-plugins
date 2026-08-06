@@ -4,7 +4,7 @@
   "repo": "smithery-cli",
   "description": "Install, manage and develop MCP servers and skills for agents",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/arcadeai-labs/smithery-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T03:59:00Z"
+  "distributed_at": "2026-08-06T11:02:37Z"
 }
