@@ -1,0 +1,9 @@
+{
+  "name": "nomadamas--codexplain",
+  "displayName": "Codexplain",
+  "description": "Codex explanations suck.  Codexplain improves them into clear Claude-like explanations with better UX and Gordon Ramsay-level intolerance for terrible AI output.",
+  "version": "1.0.0",
+  "author": "NomaDamas",
+  "homepage": "https://github.com/NomaDamas/Codexplain",
+  "skills": []
+}
