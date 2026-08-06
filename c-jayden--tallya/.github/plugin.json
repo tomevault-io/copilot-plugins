@@ -1,0 +1,9 @@
+{
+  "name": "c-jayden--tallya",
+  "displayName": "tallya",
+  "description": "Local-first work memory app: jot down what you did in one line, search it back instantly, and turn entries into daily/weekly reports with optional AI. Built with Tauri 2 + React.",
+  "version": "1.0.0",
+  "author": "c-jayden",
+  "homepage": "https://github.com/c-jayden/tallya",
+  "skills": []
+}
