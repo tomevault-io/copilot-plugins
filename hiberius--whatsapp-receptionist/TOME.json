@@ -4,7 +4,7 @@
   "repo": "whatsapp-receptionist",
   "description": "Open-source AI receptionist for WhatsApp. Books real appointments, transcribes voice, integrates Google Calendar + Stripe. Multi-tenant SaaS starter kit. Crafted in Italy with GDPR built-in.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Hiberius/whatsapp-receptionist",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T00:02:49Z"
+  "distributed_at": "2026-08-06T08:45:36Z"
 }
