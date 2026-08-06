@@ -1,0 +1,9 @@
+{
+  "name": "whut09--opencode-plusplus",
+  "displayName": "opencode-plusplus",
+  "description": "OpenCode++: a Coding Agent Reliability Harness for OpenCode, adding context, edit boundaries, command evidence, verification gates, impact analysis, and repair loops.OpenCode++\uff1a\u9762\u5411 OpenCode \u7684 AI \u7f16\u7a0b\u53ef\u9760\u6027\u589e",
+  "version": "1.0.0",
+  "author": "whut09",
+  "homepage": "https://github.com/whut09/opencode-plusplus",
+  "skills": []
+}
