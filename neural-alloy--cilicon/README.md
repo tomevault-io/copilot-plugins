@@ -7,11 +7,11 @@ boots your firmware and inference on N real targets. 0 setup, 0 hardware to own.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [neural-alloy/cilicon](https://github.com/neural-alloy/cilicon).
+Original source: `AGENTS.md` in [neural-alloy/cilicon](https://github.com/neural-alloy/cilicon).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
