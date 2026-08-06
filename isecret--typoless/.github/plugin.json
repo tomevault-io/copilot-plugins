@@ -1,0 +1,9 @@
+{
+  "name": "isecret--typoless",
+  "displayName": "typoless",
+  "description": "A macOS menu bar app for global voice-to-text input with local ASR and OpenAI-compatible LLM polishing.",
+  "version": "1.0.0",
+  "author": "isecret",
+  "homepage": "https://github.com/isecret/typoless",
+  "skills": []
+}
