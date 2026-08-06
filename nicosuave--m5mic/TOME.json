@@ -4,7 +4,7 @@
   "repo": "m5mic",
   "description": "Streaming wifi/bluetooth/usb microphone firmware for m5sticks3",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nicosuave/m5mic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T23:43:47Z"
+  "distributed_at": "2026-08-06T07:38:19Z"
 }
