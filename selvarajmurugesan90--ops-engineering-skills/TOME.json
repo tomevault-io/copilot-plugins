@@ -1,0 +1,44 @@
+{
+  "name": "ops-engineering-skills",
+  "owner": "selvarajmurugesan90",
+  "repo": "ops-engineering-skills",
+  "description": "Open-source, cross-agent Agent Skills for DevOps, DevSecOps, Cloud, Kubernetes/platform engineering, CI/CD tooling, GitOps/Argo, policy, security scanning, SRE, standards/compliance, MLOps, AgentOps, and enterprise collaboration. Build once, use in Claude Code, GitHub Copilot, OpenAI Codex, Cursor and Gemini CLI.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/selvarajmurugesan90/ops-engineering-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T15:20:04Z"
+}
