@@ -1,0 +1,9 @@
+{
+  "name": "damien-schneider--control-ui",
+  "displayName": "control-ui",
+  "description": "Production-ready, shadcn-compatible React components, blocks, and skins for agent interfaces. Editable source, no runtime lock-in. https://control-ui.dev",
+  "version": "1.0.0",
+  "author": "damien-schneider",
+  "homepage": "https://github.com/damien-schneider/control-ui",
+  "skills": []
+}
