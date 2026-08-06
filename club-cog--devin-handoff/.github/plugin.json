@@ -1,0 +1,9 @@
+{
+  "name": "club-cog--devin-handoff",
+  "displayName": "devin-handoff",
+  "description": "Hand off tasks to Devin \u2014 a plugin/skill for Claude Code, Codex, Cursor, and any coding agent",
+  "version": "1.0.0",
+  "author": "club-cog",
+  "homepage": "https://github.com/club-cog/devin-handoff",
+  "skills": []
+}
