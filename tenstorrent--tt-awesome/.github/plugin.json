@@ -1,0 +1,9 @@
+{
+  "name": "tenstorrent--tt-awesome",
+  "displayName": "tt-awesome",
+  "description": "A curated collection of awesome demos, tools, projects, and resources built by and for the Tenstorrent ecosystem.",
+  "version": "1.0.0",
+  "author": "tenstorrent",
+  "homepage": "https://github.com/tenstorrent/tt-awesome",
+  "skills": []
+}
