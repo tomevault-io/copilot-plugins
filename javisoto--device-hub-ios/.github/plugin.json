@@ -1,0 +1,9 @@
+{
+  "name": "javisoto--device-hub-ios",
+  "displayName": "device-hub-ios",
+  "description": "Xcode 27\u2019s Device Hub, ported to iOS and iPadOS.",
+  "version": "1.0.0",
+  "author": "JaviSoto",
+  "homepage": "https://github.com/JaviSoto/device-hub-ios",
+  "skills": []
+}
