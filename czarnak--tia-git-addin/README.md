@@ -7,11 +7,11 @@ TIA Portal V21 Add-In eabling comfortable work with TIA Portal Version Control.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Czarnak/tia-git-addin](https://github.com/Czarnak/tia-git-addin).
+Original source: `AGENTS.md` in [Czarnak/tia-git-addin](https://github.com/Czarnak/tia-git-addin).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
