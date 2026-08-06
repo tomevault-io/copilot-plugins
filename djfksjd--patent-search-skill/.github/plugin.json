@@ -1,0 +1,9 @@
+{
+  "name": "djfksjd--patent-search-skill",
+  "displayName": "patent-search-skill",
+  "description": "\ud83c\uddf0\ud83c\uddf7 \ubc1c\uba85 \uc120\ud589\uae30\uc220\uc870\uc0ac \uc5d0\uc774\uc804\ud2b8 \uc2a4\ud0ac [Claude Code\u00b7Codex\u00b7agy(Antigravity)\u00b7Cursor\u00b7Gemini CLI\u00b7Grok Build \uc9c0\uc6d0] KIPRIS+Google Patents \uae30\ubc18 \ud2b9\ud5c8\uc131\u00b7\uc608\ube44 FTO \ubd84\ub9ac \uc870\uc0ac + claim chart + \uccad\uad6c\ud56d \ucc28\ubcc4\ud654 \uac00\uc774\ub4dc",
+  "version": "1.0.0",
+  "author": "djfksjd",
+  "homepage": "https://github.com/djfksjd/patent-search-skill",
+  "skills": []
+}
