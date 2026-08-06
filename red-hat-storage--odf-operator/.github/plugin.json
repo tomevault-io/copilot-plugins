@@ -1,0 +1,9 @@
+{
+  "name": "red-hat-storage--odf-operator",
+  "displayName": "odf-operator",
+  "description": "odf-operator",
+  "version": "1.0.0",
+  "author": "red-hat-storage",
+  "homepage": "https://github.com/red-hat-storage/odf-operator",
+  "skills": []
+}
