@@ -1,0 +1,9 @@
+{
+  "name": "aipathjp--lattica",
+  "displayName": "lattica",
+  "description": "High-performance, framework-agnostic data grid & spreadsheet engine for React/Next.js. Clean-room, zero-copyleft, MIT. Canvas rendering, formula engine, CRDT collaboration, multi-level headers.",
+  "version": "1.0.0",
+  "author": "aipathjp",
+  "homepage": "https://github.com/aipathjp/lattica",
+  "skills": []
+}
