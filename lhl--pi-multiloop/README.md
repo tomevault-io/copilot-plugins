@@ -7,11 +7,11 @@ Multi-lane autonomous iteration loops for pi — optimization, punchlist, resear
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [lhl/pi-multiloop](https://github.com/lhl/pi-multiloop).
+Original source: `AGENTS.md` in [lhl/pi-multiloop](https://github.com/lhl/pi-multiloop).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
