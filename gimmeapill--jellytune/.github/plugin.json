@@ -1,0 +1,9 @@
+{
+  "name": "gimmeapill--jellytune",
+  "displayName": "JellyTune",
+  "description": "Bastard child of Jellyfin Android (https://github.com/jellyfin/jellyfin-android) and Phonograph Music Player (https://github.com/karimknaebel/Phonograph)",
+  "version": "1.0.0",
+  "author": "Gimmeapill",
+  "homepage": "https://github.com/Gimmeapill/JellyTune",
+  "skills": []
+}
