@@ -1,0 +1,9 @@
+{
+  "name": "mike1978uk--win95-intel-inboard-386pc",
+  "displayName": "win95-intel-inboard-386pc",
+  "description": "Windows 95 running on a real IBM 5160 + Intel Inboard 386/PC accelerator - the fixes, patches, and DDK-built custom VKD.VXD that made it work",
+  "version": "1.0.0",
+  "author": "Mike1978uk",
+  "homepage": "https://github.com/Mike1978uk/win95-intel-inboard-386pc",
+  "skills": []
+}
