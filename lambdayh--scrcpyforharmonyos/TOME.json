@@ -4,7 +4,7 @@
   "repo": "ScrcpyForHarmonyOS",
   "description": "\u7b2c\u4e09\u65b9scrcpy\u9e3f\u8499\u5ba2\u6237\u7aef A third-party scrcpy client for HarmonyOS",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LambdaYH/ScrcpyForHarmonyOS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T05:36:58Z"
+  "distributed_at": "2026-08-06T11:25:53Z"
 }
