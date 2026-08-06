@@ -1,0 +1,9 @@
+{
+  "name": "rcs2153--workflow-os",
+  "displayName": "workflow-os",
+  "description": "Local-first kernel for governed AI workflows. Public read-only integration preview.",
+  "version": "1.0.0",
+  "author": "rcs2153",
+  "homepage": "https://github.com/rcs2153/workflow-os",
+  "skills": []
+}
