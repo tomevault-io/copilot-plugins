@@ -1,0 +1,9 @@
+{
+  "name": "pinvou--pinvou-agent",
+  "displayName": "pinvou-agent",
+  "description": "Open-source desktop AI agent for tools, files, knowledge, workflows, and real deliverables.",
+  "version": "1.0.0",
+  "author": "Pinvou",
+  "homepage": "https://github.com/Pinvou/pinvou-agent",
+  "skills": []
+}
