@@ -1,0 +1,44 @@
+{
+  "name": "JPW-Live-Cut",
+  "owner": "Jasper-Wei1",
+  "repo": "JPW-Live-Cut",
+  "description": "\u672c\u5730\u4f18\u5148\u7684\u76f4\u64ad\u7cbe\u5f69\u5207\u7247\u5de5\u4f5c\u6d41\uff1aQwen3-ASR \u5168\u65f6\u95f4\u8f74\u8f6c\u5f55\uff0cAgent \u7b5b\u9009\u4e0e\u4eba\u5de5\u786e\u8ba4\uff0cRemotion 9:16 \u6e32\u67d3\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Jasper-Wei1/JPW-Live-Cut",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T23:29:22Z"
+}
