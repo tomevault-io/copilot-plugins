@@ -1,0 +1,44 @@
+{
+  "name": "jyxr",
+  "owner": "jyx-remake",
+  "repo": "jyxr",
+  "description": "\u91d1\u5eb8\u7fa4\u4fa0\u4f20x Godot Mono\u91cd\u7f6e\u7248\uff08\u91d1XR\uff09\u672c\u4f53\u5de5\u7a0b",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jyx-remake/jyxr",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T08:46:33Z"
+}
