@@ -1,0 +1,44 @@
+{
+  "name": "unicorn-binance-depth-cache-cluster",
+  "owner": "oliver-zehentleitner",
+  "repo": "unicorn-binance-depth-cache-cluster",
+  "description": "Install one package, run one command \u2014 and every script, bot, or service on your machine gets reliable, synchronized Binance order book data via REST API. Use it from Python, JavaScript, TypeScript, Node.js, Go, Rust, Java, Kotlin, C#, C++, C, Ruby, PHP, Swift, Scala, R, Julia, MATLAB, Dart, Elixir, Perl, Bash/curl, ...",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T15:21:31Z"
+}
