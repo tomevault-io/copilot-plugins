@@ -4,7 +4,7 @@
   "repo": "editor",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mdx-editor/editor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T11:11:06Z"
+  "distributed_at": "2026-08-06T00:11:22Z"
 }
