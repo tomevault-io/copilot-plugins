@@ -4,7 +4,7 @@
   "repo": "epub-handbook",
   "description": "A practical handbook for EPUB authoring, typography, compatibility, and reading-system behavior across Apple Books, Kindle, Readium, and Readest.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/liyafly/epub-handbook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T23:39:39Z"
+  "distributed_at": "2026-08-06T07:36:01Z"
 }
