@@ -1,0 +1,9 @@
+{
+  "name": "enowdev--succubus",
+  "displayName": "succubus",
+  "description": "Cross-agent coordination for AI coding agents. One daemon, one database \u2014 so multiple agents in one repo can see each other's plan, tasks, and file claims.",
+  "version": "1.0.0",
+  "author": "enowdev",
+  "homepage": "https://github.com/enowdev/succubus",
+  "skills": []
+}
