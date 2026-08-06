@@ -7,11 +7,11 @@ An osu! lazer plugin (ruleset) that can directly play BMS without needing to con
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [QingQiz/BmsRuleset](https://github.com/QingQiz/BmsRuleset).
+Original source: `AGENTS.md` in [QingQiz/BmsRuleset](https://github.com/QingQiz/BmsRuleset).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
