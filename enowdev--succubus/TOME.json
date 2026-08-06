@@ -1,0 +1,44 @@
+{
+  "name": "succubus",
+  "owner": "enowdev",
+  "repo": "succubus",
+  "description": "Cross-agent coordination for AI coding agents. One daemon, one database \u2014 so multiple agents in one repo can see each other's plan, tasks, and file claims.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/enowdev/succubus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T12:59:38Z"
+}
