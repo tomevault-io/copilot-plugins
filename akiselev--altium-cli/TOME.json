@@ -4,7 +4,7 @@
   "repo": "altium-cli",
   "description": "Read and write Altium Designer files (SchDoc, PcbDoc, SchLib, PcbLib, IntLib) from Rust \u2014 library and CLI",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/akiselev/altium-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T03:41:43Z"
+  "distributed_at": "2026-08-06T10:52:21Z"
 }
