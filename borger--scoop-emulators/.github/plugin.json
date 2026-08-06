@@ -1,0 +1,9 @@
+{
+  "name": "borger--scoop-emulators",
+  "displayName": "scoop-emulators",
+  "description": "scoop-emulators",
+  "version": "1.0.0",
+  "author": "borger",
+  "homepage": "https://github.com/borger/scoop-emulators",
+  "skills": []
+}
