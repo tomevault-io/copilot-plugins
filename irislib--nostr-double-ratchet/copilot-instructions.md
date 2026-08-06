@@ -1,0 +1,16 @@
+## nostr-double-ratchet
+
+> - Prefer hashtree remotes for canonical sharing. Hashtree-first: `origin=htree://self/reponame`, GitHub as `github`. GitHub PR repos: `origin` fork, `upstream` canonical, `htree` alongside.
+
+- Prefer hashtree remotes for canonical sharing. Hashtree-first: `origin=htree://self/reponame`, GitHub as `github`. GitHub PR repos: `origin` fork, `upstream` canonical, `htree` alongside.
+- Commit to `master`; no feature branches unless asked.
+- Start with `git status --porcelain=v1`; inspect unexpected changes. Re-check status/log after interruptions.
+- Do not claim Rust/TS sync or feature existence without `rg` in both codebases and/or passing e2e/interop tests.
+- TDD for non-trivial changes: failing test, implementation, passing tests.
+- Fix build warnings and failing tests you encounter.
+- Never publish a message recipient's long-term public key in double-ratchet message events.
+- After relevant checks pass, commit and push to hashtree unless this is explicitly GitHub PR/mirror work.
+
+---
+> Source: [irislib/nostr-double-ratchet](https://github.com/irislib/nostr-double-ratchet) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-29 -->
