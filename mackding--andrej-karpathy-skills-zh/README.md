@@ -7,11 +7,11 @@ Claude Code / Codex / Cursor AI 编程规则：Karpathy 编码准则中文版，
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [MackDing/andrej-karpathy-skills-zh](https://github.com/MackDing/andrej-karpathy-skills-zh).
+Original source: `AGENTS.md` in [MackDing/andrej-karpathy-skills-zh](https://github.com/MackDing/andrej-karpathy-skills-zh).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
