@@ -1,0 +1,9 @@
+{
+  "name": "transitrix--methodology",
+  "displayName": "methodology",
+  "description": "Open methodology and tools to describe an enterprise as text \u2014 and let humans and machines run it together. Architecture-as-Code; built on ArchiMate 3.2, BPMN 2.0, CMM. Authored by Valerii Korobeiniko",
+  "version": "1.0.0",
+  "author": "transitrix",
+  "homepage": "https://github.com/transitrix/methodology",
+  "skills": []
+}
