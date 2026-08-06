@@ -4,7 +4,7 @@
   "repo": "llama-wackMall",
   "description": "Caching experts made model agnostic for llama. Drastically speeds up generation speed on MoE models that fully fit in the RAM but partially in Vram. WIP: Same speedup but for models that don't fit in the ram either.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/miltos22/llama-wackMall",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T07:47:49Z"
+  "distributed_at": "2026-08-06T13:03:08Z"
 }
