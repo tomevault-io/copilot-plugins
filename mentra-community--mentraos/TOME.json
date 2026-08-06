@@ -4,7 +4,7 @@
   "repo": "MentraOS",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Mentra-Community/MentraOS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T22:34:43Z"
+  "distributed_at": "2026-08-06T01:57:49Z"
 }
