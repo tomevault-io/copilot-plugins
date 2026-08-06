@@ -1,0 +1,9 @@
+{
+  "name": "tektoncd--tekton-kueue",
+  "displayName": "tekton-kueue",
+  "description": "Kueue extension for Tekton",
+  "version": "1.0.0",
+  "author": "tektoncd",
+  "homepage": "https://github.com/tektoncd/tekton-kueue",
+  "skills": []
+}
