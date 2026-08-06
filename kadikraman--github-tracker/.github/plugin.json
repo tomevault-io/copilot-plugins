@@ -1,0 +1,9 @@
+{
+  "name": "kadikraman--github-tracker",
+  "displayName": "github-tracker",
+  "description": "React Native macOS app for keeping track of GitHub notifications",
+  "version": "1.0.0",
+  "author": "kadikraman",
+  "homepage": "https://github.com/kadikraman/github-tracker",
+  "skills": []
+}
