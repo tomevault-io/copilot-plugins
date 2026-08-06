@@ -1,0 +1,44 @@
+{
+  "name": "qwertty-term",
+  "owner": "joshka",
+  "repo": "qwertty-term",
+  "description": "A full Rust rewrite of Ghostty \u2014 terminal emulator engine, font stack, Metal renderer, and native macOS app \u2014 ported subsystem-by-subsystem from the Zig source (pinned at 2da015cd6) with differential testing against the original as the correctness oracle.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/joshka/qwertty-term",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T08:41:19Z"
+}
