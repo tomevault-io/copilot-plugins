@@ -7,11 +7,11 @@ Cinux, C/C++'s version of X64 Operating System, using modern feature in C/C++!
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Awesome-Embedded-Learning-Studio/Cinux](https://github.com/Awesome-Embedded-Learning-Studio/Cinux).
+Original source: `AGENTS.md` in [Awesome-Embedded-Learning-Studio/Cinux](https://github.com/Awesome-Embedded-Learning-Studio/Cinux).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
