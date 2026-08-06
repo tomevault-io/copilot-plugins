@@ -1,44 +1,43 @@
 ## chrome-cocopy
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> - `src/` contains the Manifest V3 extension. Runtime entry points are `popup.tsx`, `options.tsx`, and `sandbox.ts`.
 
-# CLAUDE.md
+# Repository Guidelines
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Project Structure & Module Organization
 
-## Project Overview
+- `src/` contains the Manifest V3 extension. Runtime entry points are `popup.tsx`, `options.tsx`, and `sandbox.ts`.
+- `src/lib/` holds shared domain logic, storage, validation, and the sandbox message protocol; React UI is under `src/components/`.
+- Tests live beside their implementation as `*.test.ts` or `*.test.tsx`; Jest snapshots are stored in nearby `__snapshots__/` directories.
+- `gallery/` is a separate gallery sub-project. Edit `gallery/gallery.yaml`; `gallery/README.md` is generated. `sozai/` contains source artwork and release assets.
+- `build/` and packaged ZIPs are generated outputs and should not be edited or committed unless a release workflow requires them.
 
-cocopy is a Chrome extension (Manifest V3) that lets users define small JavaScript functions to extract/transform text from the current page (title, url, content, selection) and copy the result to the clipboard. See `README.md` for end-user usage and `gallery/README.md` for example user functions.
+## Build, Test, and Development Commands
 
-## Tech Stack
+Use Node 24.15.0 from `.node-version` and pnpm with the committed lockfile (`pnpm-lock.yaml`); the pnpm version is pinned via `packageManager` in `package.json` (corepack).
 
-TypeScript 7 / React 19 / CSS Modules / Vite (build: `vite.config.ts` + `scripts/vite-manifest-plugin.ts` for manifest generation) / Vitest 4 (test: `vitest.config.ts` + `vitest.setup.ts`) / oxlint + oxfmt (lint/format: `.oxlintrc.json` + `.oxfmtrc.json`) / `tsc --noEmit` (typecheck, since neither Vite nor oxlint type-check) / tsx (gallery script runner). Node 24 (see `.node-version`), pnpm with committed lockfile (`pnpm-lock.yaml`); the pnpm version is pinned via `packageManager` in `package.json` (corepack).
+- `pnpm install --frozen-lockfile` installs the exact dependency set.
+- `pnpm test` runs Jest and then the `gts check` post-test lint/type checks.
+- `pnpm run build` bundles the extension into `build/`; use `pnpm run watch` for incremental development.
+- `pnpm run fix` applies gts formatting/lint fixes; the Husky pre-commit hook runs lint-staged automatically.
+- `pnpm run update-gallery` regenerates gallery documentation; `pnpm run zip` builds and archives the extension.
 
-`tsconfig.json` is self-contained (previously extended gts's
-`tsconfig-google.json`; those compiler options are now inlined). TypeScript 7
-is used for typechecking; gallery generation runs through tsx because ts-node
-10 does not support TypeScript 7's compiler API.
+## Coding Style & Naming Conventions
 
-See `package.json` for the full script list.
+Write TypeScript/TSX using the Google TypeScript Style enforced by gts (two-space indentation, single quotes, trailing commas). Use `PascalCase` for React components, `camelCase` for functions and variables, and descriptive `*.test.ts(x)` names. Keep shared types and protocols in `src/lib/` rather than duplicating them in components.
 
-## Architecture
+## Testing Guidelines
 
-The defining design constraint: **user-defined code must never run in the extension context.** All evaluation happens inside `src/sandbox.ts`, an isolated iframe that communicates with popup/options via `postMessage`. The protocol and result type (`CopyResult`) live in `src/lib/eval.ts`; the function shape lives in `src/lib/function.ts`. Never evaluate user code directly in popup/options code — always route through the sandbox protocol.
+Jest with `ts-jest`, jsdom, and Testing Library is the project standard. Add or update a co-located test for behavior changes, and update snapshots intentionally. Run a focused test with `pnpm exec jest path/to/file.test.tsx`, then run `pnpm test` and `pnpm run build` before submitting.
 
-Entry points: `src/popup.tsx`, `src/options.tsx`, `src/sandbox.ts`. React UI is split under `src/components/popup/`, `src/components/options/`, and `src/components/common/` (shared, including `Sandbox.ts` which wraps the iframe messaging).
+## Architecture & Security Notes
 
-Storage uses `chrome.storage.sync` (`src/lib/config.ts`). Functions are validated against the Valibot schema in `src/lib/function.schema.ts`.
+User-defined functions must execute only in the isolated iframe (`src/sandbox.ts`), communicating through the protocol in `src/lib/eval.ts`; never evaluate them in popup or options code. Storage uses `chrome.storage.sync`, and function definitions are validated against the Valibot schema in `src/lib/function.schema.ts`.
 
-`gallery/` is a separate sub-project (functions gallery for end users). `gallery/gallery.yaml` is the source of truth; `gallery/README.md` is generated by `pnpm run update-gallery` and should not be hand-edited. `sozai/` holds source artwork/release assets — not part of the extension build.
+## Commit & Pull Request Guidelines
 
-`build/` and packaged ZIPs are generated output; don't hand-edit or commit them outside a release workflow.
-
-## Verifying Changes
-
-- `pnpm test` — Vitest tests (`vitest run`), then `pnpm run check` (oxlint + `oxfmt --check` + `tsc --noEmit`) via `posttest`. A lint/format/typecheck failure fails the command; `pnpm run fix` (oxlint --fix + oxfmt write) auto-fixes lint/format issues.
-- `pnpm exec vitest run path/to/file.test.tsx` — run a single test file during focused development. `pnpm run test-watch` (`vitest`) for watch mode.
-- `pnpm run build` — confirms the extension compiles (bundles into `build/`); `pnpm run watch` for incremental builds during development.
+Follow the existing concise, conventional prefixes such as `fix:`, `docs:`, `chore:`, and `chore(deps):`; keep subjects imperative and focused. PRs should explain the user-visible change, link relevant issues, list validation commands, and include screenshots or recordings for UI changes. Mention regenerated validator/gallery files explicitly.
 
 ---
 > Source: [pokutuna/chrome-cocopy](https://github.com/pokutuna/chrome-cocopy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
