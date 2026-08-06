@@ -7,11 +7,11 @@ DNS-driven split-tunnel router - automatic, no leaks, no over-routing. We've got
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ftelnov/leshy](https://github.com/ftelnov/leshy).
+Original source: `AGENTS.md` in [ftelnov/leshy](https://github.com/ftelnov/leshy).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
