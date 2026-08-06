@@ -1,0 +1,9 @@
+{
+  "name": "geekjourneyx--hyperframes-motion-director",
+  "displayName": "hyperframes-motion-director",
+  "description": "Agent Skill for Chinese-first HyperFrames motion-video production from articles, products, websites, and README files.",
+  "version": "1.0.0",
+  "author": "geekjourneyx",
+  "homepage": "https://github.com/geekjourneyx/hyperframes-motion-director",
+  "skills": []
+}
