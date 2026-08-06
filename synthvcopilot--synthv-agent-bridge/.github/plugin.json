@@ -1,0 +1,9 @@
+{
+  "name": "synthvcopilot--synthv-agent-bridge",
+  "displayName": "synthv-agent-bridge",
+  "description": "synthv-agent-bridge",
+  "version": "1.0.0",
+  "author": "SynthVCopilot",
+  "homepage": "https://github.com/SynthVCopilot/synthv-agent-bridge",
+  "skills": []
+}
