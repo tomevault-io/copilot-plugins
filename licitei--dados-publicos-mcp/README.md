@@ -7,11 +7,11 @@ Servidor MCP local-first para consultar legislação, compras públicas e dados 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Licitei/dados-publicos-mcp](https://github.com/Licitei/dados-publicos-mcp).
+Original source: `AGENTS.md` in [Licitei/dados-publicos-mcp](https://github.com/Licitei/dados-publicos-mcp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
