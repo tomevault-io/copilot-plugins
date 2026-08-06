@@ -1,0 +1,9 @@
+{
+  "name": "gaodes--pi-graphify",
+  "displayName": "pi-graphify",
+  "description": "Pi extension wrapping graphify CLI for knowledge graph generation and exploration",
+  "version": "1.0.0",
+  "author": "gaodes",
+  "homepage": "https://github.com/gaodes/pi-graphify",
+  "skills": []
+}
