@@ -1,0 +1,9 @@
+{
+  "name": "fensoft--maclock",
+  "displayName": "maclock",
+  "description": "maclock retrofit with 2.8 lcd screen + esp32 with audio",
+  "version": "1.0.0",
+  "author": "fensoft",
+  "homepage": "https://github.com/fensoft/maclock",
+  "skills": []
+}
