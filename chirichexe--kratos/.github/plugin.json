@@ -1,0 +1,9 @@
+{
+  "name": "chirichexe--kratos",
+  "displayName": "kratos",
+  "description": "Application-aware Kubernetes GPU Scheduler",
+  "version": "1.0.0",
+  "author": "chirichexe",
+  "homepage": "https://github.com/chirichexe/kratos",
+  "skills": []
+}
