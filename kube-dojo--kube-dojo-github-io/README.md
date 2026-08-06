@@ -7,11 +7,11 @@ Free, comprehensive training for all 5 Kubernetes certifications (Kubestronaut p
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [kube-dojo/kube-dojo.github.io](https://github.com/kube-dojo/kube-dojo.github.io).
+Original source: `AGENTS.md` in [kube-dojo/kube-dojo.github.io](https://github.com/kube-dojo/kube-dojo.github.io).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
