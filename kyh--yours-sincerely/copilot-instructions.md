@@ -1,221 +1,164 @@
 ## yours-sincerely
 
-> Anonymous love letters app with disappearing ink. T3 Turbo stack + Supabase (as the
+> **Yours Sincerely** is an anonymous love-letter app — letters written in disappearing ink.
 
-# Agent Instructions
+# AGENTS.md
 
-Anonymous love letters app with disappearing ink. T3 Turbo stack + Supabase (as the
-Postgres host — see "Architecture decisions" before assuming anything else about it).
+**Yours Sincerely** is an anonymous love-letter app — letters written in disappearing ink.
+One typed stack (tRPC · Drizzle · Postgres) behind a Next.js web app (`apps/web`) and an
+Expo native app (`apps/expo`). This is the tool-agnostic guide for coding agents: it is
+meant to be **run**, not just read. Claude also reads `CLAUDE.md` — that file holds the
+architecture decisions you must not reverse; this one holds the workflow.
 
-## Agent-driven development
+## Quickstart (headless)
 
-`AGENTS.md` is the tool-agnostic guide: provisioning that actually works from a fresh
-clone, how to verify a change end-to-end (`pnpm verify` plus a browser recipe against the
-real UI), and which surfaces an agent can check at runtime at all. **Read it before
-starting work**; it is meant to be run, not skimmed. This file stays the Claude-facing
-reference for conventions and for the architecture decisions below — the two do not
-duplicate each other.
-
-## Stack
-
-- **Monorepo**: pnpm + Turborepo
-- **Web**: Next.js (App Router, Turbopack), Tailwind v4, tRPC
-- **Mobile**: Expo / React Native (`apps/expo`) — the shipping native app
-- **Legacy mobile**: Capacitor (`apps/mobile`) — superseded WebView shell, plus the
-  `@capacitor/*` runtime inside `apps/web` (see "Architecture decisions"). Do not add
-  features; do not delete either without reading "Architecture decisions" first.
-- **DB**: Postgres (Supabase) + Drizzle ORM
-- **Auth**: hand-rolled signed-cookie sessions (`packages/api/src/auth/session.ts`).
-  **Not Supabase Auth.** Supabase is the Postgres host and local CLI only.
-  Read "Architecture decisions" before changing anything here.
-- **Notifications**: Knock
-- **Hosting**: Vercel
-
-## Structure
-
-```
-apps/
-  web/         # Next.js web app
-  expo/        # iOS/Android native app (Expo) — the one that ships
-  mobile/      # Legacy Capacitor shell — superseded, pending removal. Its Android
-               # applicationId still matches the live Play Store package, so it is
-               # the only source that can rebuild the legacy Android artifact.
-packages/
-  api/         # tRPC routers + auth/session
-  contracts/   # SHARED domain: zod schemas + pure rules used by BOTH web and expo.
-               # Shared domain logic belongs HERE, not duplicated per-platform.
-  db/          # Drizzle schema, Postgres client
-  ui/          # shadcn-ui components (web only)
+```sh
+pnpm install
+cp .env.example .env   # COOKIE_SECRET may stay empty in development (see below)
+pnpm db:start          # local Supabase — REQUIRES Docker
+pnpm db:push           # REQUIRED: `supabase start` brings up an EMPTY database
+pnpm dev:web           # → http://localhost:3000
 ```
 
-## Commands
+There is no bootstrap script; the five commands above are the whole provisioning story.
 
-```bash
-pnpm dev              # All packages (turbo watch)
-pnpm dev:web          # Web only
-pnpm dev:expo         # Expo only
-pnpm db:start         # Start local Supabase
-pnpm db:stop          # Stop Supabase
-pnpm db:reset         # Reset DB
-pnpm db:push          # Push schema to local
-pnpm db:push-remote   # Push schema to production
-pnpm db:seed          # Perf fixture — large, NOT idempotent, no signable accounts
-pnpm verify           # typecheck + lint + format + test — mirrors CI, run before commit
-pnpm lint             # oxlint (NOT ESLint), warnings are errors
-pnpm format           # oxfmt --check (use format:fix to write)
-pnpm typecheck        # TypeScript
-pnpm test             # node:test suites (turbo run test)
-pnpm build            # Build all
+`pnpm db:push` is not optional. There is no `packages/db/supabase/migrations` directory —
+the schema is declared, not migrated — so a fresh clone that skips it gets a database with
+no tables and a 500 on first page load. `db:push` runs `drizzle-kit push --force` (forced so
+it cannot hang on a TTY confirmation) and then applies every file in `packages/db/sql/`.
+
+Liveness: there is **no** `/api/health` route. Use the home page.
+
+```sh
+curl -s -o /dev/null -w '%{http_code}\n' http://localhost:3000/   # 200 when up
 ```
 
-## DB (packages/db)
+### When `pnpm db:start` misbehaves
 
-```bash
-pnpm -F db studio     # Drizzle Studio
-pnpm -F db seed       # Run seed script
-pnpm -F db apply-sql  # Re-apply sql/ only (push already does this)
+- `supabase start is already running` while the container is gone → `pnpm db:stop`, retry.
+- `Bind for 0.0.0.0:54322 failed: port is already allocated` → another local Supabase
+  project owns the port. Stop it (`supabase stop --project-id <other>`) or work without the
+  database; `pnpm verify` and `pnpm build` do not need it.
+
+## Fresh clone & remote sessions
+
+Everything is committed except `node_modules` and `.env`. `.codex/environments/environment.toml`
+describes the cloud runner (it runs `pnpm i` on clone and exposes a `dev:web` action) — note
+it is autogenerated, do not hand-edit it. A sandbox **without Docker** can still run
+`pnpm verify` and `pnpm build`; anything that reads or writes data cannot run there.
+
+`COOKIE_SECRET` signs the session cookie, and the session cookie **is** the user id. Under
+`NODE_ENV=development` or `test` an empty value falls back to a public dev constant, which is
+why local runs work out of the box. Every other environment fails to boot without it —
+that is deliberate (`packages/api/src/auth/session-core.ts`). Generate one with
+`openssl rand -base64 32` (32-character minimum).
+
+Every other key in `.env.example` may stay empty. A missing one disables its feature rather
+than crashing boot: no `KNOCK_*` means no notifications, no `RESEND_API_KEY` means
+`auth.requestPasswordReset` returns `PRECONDITION_FAILED` instead of sending mail.
+
+## Login
+
+**There is no seeded login.** `pnpm db:seed` runs `packages/db/src/seed/initial.ts`, which is a
+_performance_ fixture — 200 users, ~8k letters, 40k likes, shaped to make `EXPLAIN` honest. It
+sets no password hash, so none of those accounts can sign in, and it is **not idempotent**:
+running it twice duplicates the whole dataset. Reach for it when profiling, not when you need
+an account.
+
+You usually do not need one. Identity here is **anonymous-first**: writing a letter requires no
+account — the server mints a credential-less user on first write. Only Settings, Profile and
+the blocked-writers list need a real account, and you make one in three steps:
+
+```sh
+agent-browser open http://localhost:3000/auth/sign-up
+agent-browser fill '[data-test="email-input"]' dev@yourssincerely.local
+agent-browser fill '[data-test="password-input"]' password
+agent-browser find text 'Sign Up' click
 ```
 
-**The schema is declared, not migrated. There are no migrations.** It has two halves,
-and `pnpm db:push` applies both, in this order:
+The session comes back as a signed `Set-Cookie` and the browser keeps it. `/auth/sign-in`
+takes an optional `?next=<same-origin path>` to land somewhere other than `/`.
 
-1. `src/drizzle-schema.ts` — tables, columns, indexes. `drizzle-kit push` syncs these.
-2. `sql/*.sql` — functions, triggers, grants, **and views**. `src/apply-sql.ts` runs
-   every file, in filename order, in one transaction. Every file is idempotent; it
-   re-runs on every push. See `sql/README.md`.
+The HTTP API is tRPC with a **superjson-transformed** body at `/api/trpc/<router>.<procedure>`
+(e.g. `auth.signInWithPassword`) — there is no REST `/api/auth/*` endpoint, so a plain
+`curl -d '{"email":…}'` will not sign you in. Drive the UI instead.
 
-`pnpm db:push` is therefore the whole deploy, and `pnpm db:reset` is
-`supabase db reset && push && seed`. Nothing is replayed, so no migration history can
-drift from the schema.
+## Verify a change end-to-end
 
-The LOCAL `push` runs `drizzle-kit push --force` so a headless run cannot hang on the TTY
-confirmation prompt. `--force` accepts data-loss statements without asking, which is fine
-against a disposable local database and is why `push:remote` deliberately does **not** carry
-it — production stays interactive.
+Static gate — run before every commit. It is exactly what `.github/workflows/ci.yml` runs,
+in the same order:
 
-**`drizzle-kit push` does NOT diff a view's body.** This is the trap. It creates a view
-that is missing and drops one deleted from the schema file, but when the name already
-exists it emits _nothing_, however much the SELECT changed — exit 0, no warning.
-Verified against a production-shaped database. So: **any view is declared `.existing()`
-in `drizzle-schema.ts` (for column types only) and its DDL lives in `sql/090-views.sql`.**
-A view written with `.as(...)` will silently rot in production while push reports
-success. `main` shipped a `Feed` whose drizzle copy had already drifted from the
-deployed view (it was missing `AND p."parentId" IS NULL`, which would have put every
-comment in the feed); it never broke anything _only_ because push ignored it.
+```sh
+pnpm verify   # typecheck · lint · format · test
+```
 
-Corollary: **push cannot roll a view back either.** Reverting the schema file and
-pushing will leave the new view live. A rollback needs explicit SQL.
+`pnpm test` is `turbo run test`: the `*.test.ts` unit suites in `@repo/api`, `@repo/contracts`,
+`@repo/db` and `@repo/expo`. The `*.integration.ts` suites need a live local Supabase and are
+deliberately outside CI — run them yourself with `pnpm -F @repo/api test:db` when you touch a
+router, a query or the schema.
 
-The old `generate`/`migrate` scripts are gone, which retired the standing footgun that
-generate emitted `DROP TABLE "auth"."users" CASCADE` into every migration (an artifact
-of `schemaFilter: ["public"]` hiding Supabase's `auth` schema). `push` never had that
-bug — verified, it emits no `auth` DDL.
+Runtime — drive the real web UI with [agent-browser](https://github.com/vercel-labs/agent-browser).
+The core flow needs no login:
 
-## Testing
+```sh
+pnpm dev:web &
+agent-browser open http://localhost:3000
+agent-browser snapshot                       # accessibility tree with @eN refs
+agent-browser fill '#post-input' 'A letter from an agent'
+agent-browser find text 'Publish' click
+agent-browser get text                       # assert the letter is in the feed
+agent-browser screenshot /tmp/after.png
+```
 
-Test runner is Node's built-in `node:test` + `node:assert/strict`. **Do not add vitest or jest.**
+Stable hooks that already exist, so you do not have to add any: `#post-input` (the letter
+textarea), `[data-test="email-input"]` and `[data-test="password-input"]` (the auth form).
+The inline compose box is desktop-only — below the `md` breakpoint, open the floating
+"New Post" button first (`agent-browser find text 'New Post' click`).
 
-- `pnpm test` — unit suites (`*.test.ts`), no I/O, runs in CI.
-- `pnpm -F @repo/api test:db` — integration suites (`*.integration.ts`) against a local
-  Supabase. Not run in CI (CI has no Supabase).
+Don't stop at typecheck and tests. Exercise the flow and look at the result.
 
-The pattern to follow for anything with I/O: extract a pure, dependency-injected core
-(`*-core.ts`) and test it with in-memory fakes. The exemplars are
-`apps/expo/src/lib/legacy-session-migration-core.ts` and
-`packages/api/src/auth/session-core.ts` — read one before writing new tests.
+## Platform matrix
 
-Test globs in package.json scripts MUST stay single-quoted (`'src/**/*.test.ts'`) so
-/bin/sh cannot expand them and silently narrow the test run.
+| Surface                  | Dev command           | Agent-verifiable at runtime?         |
+| ------------------------ | --------------------- | ------------------------------------ |
+| Web (Next.js)            | `pnpm dev:web`        | **Yes** — headless via agent-browser |
+| Native (Expo)            | `pnpm dev:expo`       | No — needs a simulator or device     |
+| Legacy shell (Capacitor) | `pnpm dev:mobile-ios` | No — and it has no JS of its own     |
 
-## Architecture decisions — do not reverse
+`apps/mobile` is `android/`, `ios/` and a Capacitor config; it has no `src/`, no typecheck and
+no tests, so `pnpm verify` structurally cannot cover it. It is **not** dead code — see
+`CLAUDE.md` → "Architecture decisions". For Expo, `pnpm typecheck` plus `pnpm -F @repo/expo test`
+is as far as an agent gets; a runtime check needs a human with a device.
 
-These look like anti-patterns from the outside. They are deliberate, and each one has a
-failure mode that is silent and severe. Read this section before "fixing" any of them.
+## Rules that matter
 
-### Sessions are hand-rolled, not Supabase Auth
+- **Every mutation calls an invalidation policy.** There is no global `MutationCache` and no
+  default `mutations.onSuccess` — TanStack merges mutation options by spread, so a default
+  would be silently replaced by any per-mutation handler. Add a `useMutation`, add its policy:
+  `@/lib/query-policies` (both web and expo). Mutations go through tRPC,
+  never a Next Server Action.
+- **Shared domain logic lives in `packages/contracts`**, used by both web and expo — not
+  duplicated per platform.
+- **No `any`, no non-null `!`, no `as` casts.** Kebab-case filenames. Make illegal states
+  unrepresentable.
+- **The schema is declared, not migrated.** `pnpm db:push` is the whole deploy. `drizzle-kit`
+  does not diff a view's body, so every view is `.existing()` in `drizzle-schema.ts` and its
+  DDL lives in `packages/db/sql/090-views.sql`. `pnpm db:push-remote` writes **production** —
+  never run it to check something.
+- **Read `CLAUDE.md` → "Architecture decisions — do not reverse" before touching sessions,
+  RLS/the Supabase Data API, or `apps/mobile`.** Each one has a silent, severe failure mode.
 
-Sessions are a signed cookie: `base64({user, iat})` signed with `COOKIE_SECRET` via
-`cookie-signature`. Implementation: `packages/api/src/auth/session.ts`.
+## Map
 
-**Why:**
-
-1. **Anonymous-first identity.** Writing a letter requires no account. The server mints a
-   credential-less `User` row on first write (`packages/api/src/auth/auth-utils.ts`,
-   `createUserIfNotExists`) and hands back a session. A stock auth provider has no model
-   for "a user with no credentials, created as a side effect of a POST" — and this is the
-   product's core act, not an edge case.
-2. **Sessions NEVER expire.** This is deliberate and load-bearing — not an oversight, and
-   not a security gap to close. **Do not add a timeout, an idle expiry, or a shorter max
-   age.** A user who wrote letters anonymously years ago must still own them, and the
-   legacy cookies carried forward by the native app have no expiry semantics at all. The
-   400-day cookie `maxAge` is the browser's hard ceiling, refreshed by sliding renewal
-   (`renewSessionIfStale`) — a workaround for a browser limit, **not** a session lifetime.
-3. **Revocation is a different thing, and it exists.** `sessionEpoch` on the user row lets
-   us invalidate a user's outstanding sessions on demand ("sign out everywhere"). That is
-   desirable and orthogonal to (2) — revocation is deliberate; expiry is not.
-4. **Signer rotation must not log anyone out.** `COOKIE_SECRET_LEGACY` is a
-   comma-separated list of secrets accepted for verification only. This is what makes the
-   live Capacitor→Expo identity migration survivable — the native app carries the legacy
-   cookie forward verbatim.
-
-**Consequences:** we own the security of this code. Any change to the cookie payload shape
-must stay backward-compatible with cookies already in the wild, or it is a mass logout.
-
-**Rejected:** Supabase Auth — no anonymous-user model that fits (1); migrating would orphan
-every existing anonymous author from their letters.
-
-### The Supabase Data API is OFF — that is why there are no RLS policies
-
-There is not a single RLS policy in this repo, and that is correct: nothing can reach the
-tables except `packages/api`, which holds the Postgres connection directly.
-
-**If anyone re-enables the Data API (PostgREST), every table in `public` becomes directly
-readable and writable with the anon key, bypassing all of `packages/api`** — every
-authorization check, rate limit, and input cap in the tRPC layer becomes optional. Turning
-it on without first writing RLS policies for every table is a full data breach, not a
-config change.
-
-### Legacy Capacitor runtime in `apps/web` is load-bearing
-
-`apps/web` still depends on `@capacitor/app`, `@capacitor/core`, `@capacitor/splash-screen`
-and mounts `apps/web/src/components/providers/capacitor-provider.tsx` in the root layout.
-**Do not remove them.** The legacy Capacitor app is a _remote WebView_ pointed at production
-web — it runs `apps/web`'s JavaScript live on users' phones today. The provider hides its
-splash screen (`launchAutoHide: false` makes `SplashScreen.hide()` mandatory) and wires the
-Android back button. Removing it strands every remaining legacy install on a permanent
-splash screen. Gated on store-rollout data; tracked as GitHub issue #72.
-
-`apps/expo/src/lib/legacy-session-migration*.ts` is the identity-upgrade path off that app.
-It must survive.
-
-### `apps/mobile` cannot be deleted yet either — the Android id still matches
-
-It is tempting to delete `apps/mobile` on the grounds that its `appId`
-(`com.kyh.yourssincerely`) does not match the live iOS bundle
-(`com.tehkaiyu.yourssincerely`). That reasoning is **only true for iOS**.
-
-On Android it is the opposite: `apps/mobile/android/app/build.gradle` declares
-`applicationId "com.kyh.yourssincerely"`, which is **exactly** `MOBILE_ANDROID_PACKAGE` in
-`packages/contracts/src/mobile-identity.ts` — the live Play Store package. So `apps/mobile`
-is the only source in the repo that can rebuild the shipped legacy **Android** app, and
-`docs/wayfinder/expo-mobile-parity/07-release-gate.md` still has "Android legacy-session
-upgrade journey" unchecked. Delete it only once that gate is closed (or once it is agreed
-the store build alone is enough — `docs/phone-testing.md` says the upgrade test installs
-the public store build, which would make deletion safe).
-
-## Tracked constraints — do not "fix" these
-
-- **TypeScript is held at v6.** TS 7 removed the JS Compiler API that Next.js's type-check
-  step loads, so `next build` fails on TS 7. `pnpm.updateConfig.ignoreDependencies` keeps
-  update sweeps off it. Exit criterion: Next ships non-experimental `tsgo` support. Re-test
-  with `pnpm -F @repo/web build` on a scratch branch before lifting.
-- **NativeWind is on `5.0.0-preview.3`** (exact pin) with `react-native-css@3.0.7`. Do not
-  bump either without bumping both and running a real device build. Exit criterion:
-  NativeWind 5.0.0 stable.
-- **`lightningcss` is pinned** via `pnpm.overrides` in the root `package.json`.
-- **Expo's `react`/`react-dom` are pinned via the `expo` named catalog**, not the default
-  one. Expo must hold an SDK-blessed React, which may diverge from web.
+- `apps/web` (Next.js) · `apps/expo` (React Native) · `apps/mobile` (legacy Capacitor)
+- `packages/api` — tRPC routers, sessions, `env.ts` · `packages/contracts` — shared zod
+  schemas and pure rules · `packages/db` — Drizzle schema + `sql/` · `packages/ui` — shadcn
+- `CLAUDE.md` — architecture decisions and tracked constraints (read before changing anything
+  structural) · `README.md` — human-facing setup · `docs/` — phone testing, release inputs,
+  the expo/mobile parity wayfinder
+- `packages/api/src/auth/session.ts` + `session-core.ts` — the hand-rolled auth
+  (**not** Supabase Auth) · `packages/db/src/drizzle-schema.ts` — the tables
 
 ---
 > Source: [kyh/yours-sincerely](https://github.com/kyh/yours-sincerely) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
