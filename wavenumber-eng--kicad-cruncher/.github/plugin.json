@@ -1,0 +1,9 @@
+{
+  "name": "wavenumber-eng--kicad-cruncher",
+  "displayName": "kicad_cruncher",
+  "description": "a python based kicad cli with some useful utilities",
+  "version": "1.0.0",
+  "author": "wavenumber-eng",
+  "homepage": "https://github.com/wavenumber-eng/kicad_cruncher",
+  "skills": []
+}
