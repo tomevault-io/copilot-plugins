@@ -1,0 +1,9 @@
+{
+  "name": "snapetech--iptvtunerr",
+  "displayName": "iptvtunerr",
+  "description": "IPTV live TV streaming + XMLTV guide for Plex, Emby, and Jellyfin. EPG DVR injection and HDHomeRun tuner emulation with external EPG remapping",
+  "version": "1.0.0",
+  "author": "snapetech",
+  "homepage": "https://github.com/snapetech/iptvtunerr",
+  "skills": []
+}
