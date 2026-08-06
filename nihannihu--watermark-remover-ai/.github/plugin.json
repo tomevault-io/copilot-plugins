@@ -1,0 +1,9 @@
+{
+  "name": "nihannihu--watermark-remover-ai",
+  "displayName": "watermark-remover-ai",
+  "description": "Free & unlimited AI video and image watermark remover. Uses Florence-2 and LaMA to seamlessly erase watermarks and logos offline",
+  "version": "1.0.0",
+  "author": "nihannihu",
+  "homepage": "https://github.com/nihannihu/watermark-remover-ai",
+  "skills": []
+}
