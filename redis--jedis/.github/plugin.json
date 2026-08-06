@@ -1,0 +1,9 @@
+{
+  "name": "redis--jedis",
+  "displayName": "jedis",
+  "description": "jedis",
+  "version": "1.0.0",
+  "author": "redis",
+  "homepage": "https://github.com/redis/jedis",
+  "skills": []
+}
