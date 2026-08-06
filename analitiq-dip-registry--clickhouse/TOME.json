@@ -4,7 +4,7 @@
   "repo": "clickhouse",
   "description": "Analitiq DIP connector for ClickHouse \u2014 high-performance, open-source column-oriented database management system (DBMS) designed for online analytical processing (OLAP). Built for AI-driven data integration pipelines.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/analitiq-dip-registry/clickhouse",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T22:05:06Z"
+  "distributed_at": "2026-08-06T06:59:43Z"
 }
