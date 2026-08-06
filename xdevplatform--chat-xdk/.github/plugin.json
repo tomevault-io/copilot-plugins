@@ -1,0 +1,9 @@
+{
+  "name": "xdevplatform--chat-xdk",
+  "displayName": "chat-xdk",
+  "description": "X Chat encryption SDK",
+  "version": "1.0.0",
+  "author": "xdevplatform",
+  "homepage": "https://github.com/xdevplatform/chat-xdk",
+  "skills": []
+}
