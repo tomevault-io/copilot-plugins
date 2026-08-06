@@ -1,0 +1,9 @@
+{
+  "name": "coreyryanhanson--pi-tbox",
+  "displayName": "pi-tbox",
+  "description": "List, toggle, group, and focus tools from any Pi extension in one place. Choices persist in chat state, and you can see the context cost of what's active.",
+  "version": "1.0.0",
+  "author": "coreyryanhanson",
+  "homepage": "https://github.com/coreyryanhanson/pi-tbox",
+  "skills": []
+}
