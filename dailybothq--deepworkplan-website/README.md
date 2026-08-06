@@ -7,11 +7,11 @@ Turn any repo AI-first and run resumable, multi-hour Deep Work Plans — the met
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [DailybotHQ/deepworkplan-website](https://github.com/DailybotHQ/deepworkplan-website).
+Original source: `AGENTS.md` in [DailybotHQ/deepworkplan-website](https://github.com/DailybotHQ/deepworkplan-website).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
