@@ -1,0 +1,9 @@
+{
+  "name": "200lz--llm-engineering-platform",
+  "displayName": "llm-engineering-platform",
+  "description": "A production-oriented LLM engineering platform with OpenAI-compatible serving, streaming, observability, evaluation, reproducible experiments, and deterministic RAG.",
+  "version": "1.0.0",
+  "author": "200lz",
+  "homepage": "https://github.com/200lz/llm-engineering-platform",
+  "skills": []
+}
