@@ -4,7 +4,7 @@
   "repo": "gba_translator",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AntonyKervazoCanut/gba_translator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T06:09:40Z"
+  "distributed_at": "2026-08-06T12:44:14Z"
 }
