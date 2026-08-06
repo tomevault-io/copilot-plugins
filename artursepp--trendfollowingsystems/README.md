@@ -7,11 +7,11 @@ Closed-form Sharpe ratios and complete implementations of trend-following system
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ArturSepp/TrendFollowingSystems](https://github.com/ArturSepp/TrendFollowingSystems).
+Original source: `AGENTS.md` in [ArturSepp/TrendFollowingSystems](https://github.com/ArturSepp/TrendFollowingSystems).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
