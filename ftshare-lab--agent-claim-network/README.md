@@ -7,11 +7,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [FTShare-Lab/agent-claim-network](https://github.com/FTShare-Lab/agent-claim-network).
+Original source: `AGENTS.md` in [FTShare-Lab/agent-claim-network](https://github.com/FTShare-Lab/agent-claim-network).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
