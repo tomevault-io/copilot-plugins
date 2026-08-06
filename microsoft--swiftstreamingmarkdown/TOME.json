@@ -4,7 +4,7 @@
   "repo": "SwiftStreamingMarkdown",
   "description": "A performant markdown library for iOS & macOS that supports streaming",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/microsoft/SwiftStreamingMarkdown",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T11:37:55Z"
+  "distributed_at": "2026-08-06T15:33:01Z"
 }
