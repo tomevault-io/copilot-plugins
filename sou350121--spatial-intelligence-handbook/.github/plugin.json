@@ -1,0 +1,9 @@
+{
+  "name": "sou350121--spatial-intelligence-handbook",
+  "displayName": "Spatial-Intelligence-Handbook",
+  "description": "\u7a7a\u9593\u667a\u80fd\u7684\u8de8 embodiment \u624b\u518a \u2014\u2014 \u628a SLAM / VIO / 3D \u8868\u5fb5 / \u611f\u6e2c\u5668\u5806\u758a / \u90e8\u7f72\u5751 \u5728 \u6a5f\u68b0\u81c2 / \u7121\u4eba\u6a5f / \u81ea\u99d5 / \u4eba\u5f62 / \u6c34\u4e0b \u4e4b\u9593\u6a6b\u5411\u6bd4\u8f03\uff0c\u5e95\u5c64\u5171\u7528 3DGS / VGGT / depth foundation\u3002\u7167\u898b\u4e09\u518a perception \u7aef\uff08VLA-Handbook + Physics-Controllable-Generation-Handbo",
+  "version": "1.0.0",
+  "author": "sou350121",
+  "homepage": "https://github.com/sou350121/Spatial-Intelligence-Handbook",
+  "skills": []
+}
