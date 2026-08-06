@@ -1,0 +1,9 @@
+{
+  "name": "guqiong96--lvllmds4-x",
+  "displayName": "Lvllmds4-x",
+  "description": "CPU-GPU hybrid inference for DeepSeek-V4 on NVIDIA SM80+ (A100/RTX 4090 etc.), forked from yhfgyyf/vllm-deepseek-v4-sm89.",
+  "version": "1.0.0",
+  "author": "guqiong96",
+  "homepage": "https://github.com/guqiong96/Lvllmds4-x",
+  "skills": []
+}
