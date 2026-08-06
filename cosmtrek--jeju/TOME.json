@@ -1,0 +1,44 @@
+{
+  "name": "jeju",
+  "owner": "cosmtrek",
+  "repo": "jeju",
+  "description": "Declarative, local-first runtime for bounded AI agents \u2014 define an agent in one manifest, run it headless, and audit every effect.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cosmtrek/jeju",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T18:44:57Z"
+}
