@@ -1,0 +1,44 @@
+{
+  "name": "growth-lab",
+  "owner": "tsingyuai",
+  "repo": "growth-lab",
+  "description": "An end-to-end growth tool that understands the product, fetch the data it needs, researches the market, executes campaigns, and reviews results to improve the next round of growth. \u4ece\u4ee3\u7801\u5230\u5e02\u573a\u7684\u5f00\u6e90\u7aef\u5230\u7aef\u589e\u957f\u5de5\u5177\u3002\u7406\u89e3\u4ea7\u54c1\u3001\u63a5\u5165\u4fe1\u606f\u6e20\u9053\u3001\u7814\u7a76\u5e02\u573a\u3001\u6267\u884c\u589e\u957f\u884c\u52a8\uff0c\u5e76\u57fa\u4e8e\u771f\u5b9e\u6570\u636e\u81ea\u6211\u6539\u8fdb\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tsingyuai/growth-lab",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T20:32:35Z"
+}
