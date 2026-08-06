@@ -1,0 +1,9 @@
+{
+  "name": "lincwang123-bot--humanized-social-publisher",
+  "displayName": "humanized-social-publisher",
+  "description": "Agent-friendly local publisher for Xiaohongshu, Douyin and WeChat Channels with multi-account safety, scheduling and deduplication.",
+  "version": "1.0.0",
+  "author": "lincwang123-bot",
+  "homepage": "https://github.com/lincwang123-bot/humanized-social-publisher",
+  "skills": []
+}
