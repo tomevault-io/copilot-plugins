@@ -1,0 +1,9 @@
+{
+  "name": "deepgrove-ai--llama-cpp",
+  "displayName": "llama.cpp",
+  "description": "llama.cpp",
+  "version": "1.0.0",
+  "author": "deepgrove-ai",
+  "homepage": "https://github.com/deepgrove-ai/llama.cpp",
+  "skills": []
+}
