@@ -1,0 +1,9 @@
+{
+  "name": "touying-typ--seaslides",
+  "displayName": "seaslides",
+  "description": "AI skills for presentation slides generation with Typst and Touying",
+  "version": "1.0.0",
+  "author": "touying-typ",
+  "homepage": "https://github.com/touying-typ/seaslides",
+  "skills": []
+}
