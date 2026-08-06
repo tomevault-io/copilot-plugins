@@ -133,7 +133,7 @@ The project has an explicit preference for a **short, newcomer-friendly
 5. **Tool / CLI / architecture sections must be kept current.** When you
    add or remove an agent tool, CLI subcommand, or top-level package,
    update the matching `README.md` table and architecture tree. Tool
-   count references in the `README.md` (currently **37**) must match
+   count references in the `README.md` (currently **44**) must match
    `openharness.tools.impact.__all__`.
 
 6. **Frameworks & Standards is a single consolidated table.** Do not
@@ -350,4 +350,4 @@ work today but will emit the Node 20 deprecation warning.
 
 ---
 > Source: [joejoe168168/impact-vision](https://github.com/joejoe168168/impact-vision) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
