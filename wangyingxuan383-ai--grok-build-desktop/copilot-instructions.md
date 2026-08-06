@@ -1,0 +1,20 @@
+## grok-build-desktop
+
+> Before changing this repository:
+
+# Repository Instructions
+
+Before changing this repository:
+
+1. Read `docs/NEXT_SESSION_HANDOFF.md` when it exists.
+2. Read `docs/IMPLEMENTATION_PLAN.md`.
+3. Read `docs/FEATURE_MATRIX.md`.
+4. Read `CHANGELOG.md` and `docs/CLI_COMPATIBILITY.md`.
+5. Keep the implementation-plan checklist and changelog current with every completed milestone.
+6. Do not claim a feature works until its automated test or documented live verification passes.
+
+The application is a Windows-first Electron GUI for the locally installed Grok Build CLI. Keep the renderer sandboxed (`nodeIntegration: false`, `contextIsolation: true`) and put filesystem, process, credential, and ACP work in the Electron main process.
+
+---
+> Source: [wangyingxuan383-ai/grok-build-desktop](https://github.com/wangyingxuan383-ai/grok-build-desktop) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-28 -->
