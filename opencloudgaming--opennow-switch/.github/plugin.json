@@ -1,0 +1,9 @@
+{
+  "name": "opencloudgaming--opennow-switch",
+  "displayName": "OpenNOW-Switch",
+  "description": "Native GeForce NOW client for Nintendo Switch homebrew with a controller-first UI and low-latency streaming.",
+  "version": "1.0.0",
+  "author": "OpenCloudGaming",
+  "homepage": "https://github.com/OpenCloudGaming/OpenNOW-Switch",
+  "skills": []
+}
