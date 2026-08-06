@@ -4,7 +4,7 @@
   "repo": "newsjack",
   "description": "The open-source skills that turn your agent into a full PR team.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/elvisun/newsjack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T03:32:33Z"
+  "distributed_at": "2026-08-06T10:41:21Z"
 }
