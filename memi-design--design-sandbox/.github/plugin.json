@@ -1,0 +1,9 @@
+{
+  "name": "memi-design--design-sandbox",
+  "displayName": "design-sandbox",
+  "description": "memi-ready Next.js, Tailwind, shadcn, MCP, and Agent Skills sandbox for interface understanding and design-to-code exploration.",
+  "version": "1.0.0",
+  "author": "memi-design",
+  "homepage": "https://github.com/memi-design/design-sandbox",
+  "skills": []
+}
