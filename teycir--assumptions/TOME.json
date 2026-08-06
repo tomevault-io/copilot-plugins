@@ -4,7 +4,7 @@
   "repo": "Assumptions",
   "description": "A SKILL that turns a code diff into an evidence-backed ledger of hidden assumptions, failure modes, and falsification tests.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Teycir/Assumptions",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T19:36:03Z"
+  "distributed_at": "2026-08-06T05:02:12Z"
 }
