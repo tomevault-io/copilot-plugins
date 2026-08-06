@@ -1,0 +1,9 @@
+{
+  "name": "servosity--msp-skills",
+  "displayName": "msp-skills",
+  "description": "Free MCP servers + Claude Code Skills for MSP tools - PSA, RMM, backup, M365. Local-first: your data never leaves your network.",
+  "version": "1.0.0",
+  "author": "Servosity",
+  "homepage": "https://github.com/Servosity/msp-skills",
+  "skills": []
+}
