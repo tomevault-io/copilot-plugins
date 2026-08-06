@@ -1,0 +1,9 @@
+{
+  "name": "gccnb--embedded-career-roadmap",
+  "displayName": "Embedded-Career-Roadmap",
+  "description": "\u5d4c\u5165\u5f0f\u8f6f\u4ef6\u5de5\u7a0b\u5e08\u5b66\u4e60\u8def\u7ebf\u4e0e\u9879\u76ee\u5b9e\u8df5\u8d44\u6599\u5e93\uff1a\u5355\u7247\u673a\u3001\u5d4c\u5165\u5f0fC\u3001RS485/Modbus\u3001FreeRTOS\u3001Linux\u3001Qt\u4e0a\u4f4d\u673a\u3001\u9879\u76ee\u5b9e\u6218\u4e0e\u9762\u8bd5\u6c42\u804c",
+  "version": "1.0.0",
+  "author": "gccnb",
+  "homepage": "https://github.com/gccnb/Embedded-Career-Roadmap",
+  "skills": []
+}
