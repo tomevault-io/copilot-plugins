@@ -4,7 +4,7 @@
   "repo": "hunch-mcp",
   "description": "Drive your Mac focus-free over MCP: OS APIs, AppleScript, CDP, and Accessibility",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PrithviSeran/hunch-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T01:35:23Z"
+  "distributed_at": "2026-08-06T09:09:34Z"
 }
