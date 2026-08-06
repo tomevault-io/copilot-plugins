@@ -1,0 +1,9 @@
+{
+  "name": "feiyulc--opencodex-account-importer",
+  "displayName": "opencodex-account-importer",
+  "description": "Import Antigravity Tools, Sub2API, and CLIProxyAPI credentials into OpenCodex without repeated OAuth login.",
+  "version": "1.0.0",
+  "author": "feiyulc",
+  "homepage": "https://github.com/feiyulc/opencodex-account-importer",
+  "skills": []
+}
