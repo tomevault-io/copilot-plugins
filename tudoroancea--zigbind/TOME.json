@@ -4,7 +4,7 @@
   "repo": "zigbind",
   "description": "build python bindings for zig code",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tudoroancea/zigbind",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T00:16:03Z"
+  "distributed_at": "2026-08-06T08:52:33Z"
 }
