@@ -4,7 +4,7 @@
   "repo": "zede-zero-learning-roadmap",
   "description": "\u4ece\u539f\u70b9\u51fa\u53d1\uff0c\u65e0\u9650\u903c\u8fd1\u771f\u77e5\u3002\u76ee\u6807\u9a71\u52a8\u3001\u8bc1\u636e\u5bfc\u5411\u3001\u53ef\u9a8c\u8bc1\u3001\u53ef\u8fed\u4ee3\u7684\u5b66\u4e60\u8def\u7ebf\u89c4\u5212 Skill\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ssuixinsuoyu/zede-zero-learning-roadmap",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T05:57:37Z"
+  "distributed_at": "2026-08-06T12:38:05Z"
 }
