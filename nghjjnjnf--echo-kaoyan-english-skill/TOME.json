@@ -4,7 +4,7 @@
   "repo": "echo-kaoyan-english-skill",
   "description": "Echo_\u8003\u7814\u82f1\u8bedSKILL\uff1a\u771f\u9898\u7cbe\u6790\u3001\u7ffb\u8bd1\u4f5c\u6587\u6279\u6539\u4e0e\u6a21\u62df\u8bad\u7ec3\u7684 Codex skill-only plugin\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nghjjnjnf/echo-kaoyan-english-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T10:31:26Z"
+  "distributed_at": "2026-08-06T15:19:32Z"
 }
