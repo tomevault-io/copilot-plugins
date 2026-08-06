@@ -1,0 +1,9 @@
+{
+  "name": "cordedmink2--obsidian-google-sync",
+  "displayName": "obsidian-google-sync",
+  "description": "Obsidian plugin to sync Markdown events and tasks with Google Calendar and Google Tasks",
+  "version": "1.0.0",
+  "author": "Cordedmink2",
+  "homepage": "https://github.com/Cordedmink2/obsidian-google-sync",
+  "skills": []
+}
