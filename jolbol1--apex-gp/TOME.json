@@ -1,0 +1,44 @@
+{
+  "name": "apex-gp",
+  "owner": "jolbol1",
+  "repo": "apex-gp",
+  "description": "A fully procedural Formula 1 racing game in three.js \u2014 no asset files, no network fetches. Built by fanned-out agents under the Gauntlet Loop: harsh critic agents blind-scored every frame against the real F1 games and fed measured defects back in. 137 agents, 22M tokens, 10 rounds.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jolbol1/apex-gp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T01:34:18Z"
+}
