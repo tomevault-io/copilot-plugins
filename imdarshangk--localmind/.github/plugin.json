@@ -1,0 +1,9 @@
+{
+  "name": "imdarshangk--localmind",
+  "displayName": "localmind",
+  "description": "Offline AI assistant - chat with your documents locally. No cloud, no API key, no data leaks. Built with Python + FastAPI + Ollama + LangChain.",
+  "version": "1.0.0",
+  "author": "imDarshanGK",
+  "homepage": "https://github.com/imDarshanGK/localmind",
+  "skills": []
+}
