@@ -4,7 +4,7 @@
   "repo": "emisar",
   "description": "An MCP that lets AI tools securely connect to your infrastructure, write IaaS code, debug issues, and assist during incidents - without risking production stability. Built for security teams to approve and infrastructure teams to experience like magic.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AndrewDryga/emisar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T03:33:44Z"
+  "distributed_at": "2026-08-06T10:42:26Z"
 }
