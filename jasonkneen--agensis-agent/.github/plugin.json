@@ -1,0 +1,9 @@
+{
+  "name": "jasonkneen--agensis-agent",
+  "displayName": "agensis-agent",
+  "description": "Open-source local agent daemon for Agensis workspaces",
+  "version": "1.0.0",
+  "author": "jasonkneen",
+  "homepage": "https://github.com/jasonkneen/agensis-agent",
+  "skills": []
+}
