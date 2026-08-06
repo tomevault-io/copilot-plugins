@@ -4,7 +4,7 @@
   "repo": "speech-studio",
   "description": "Open-source desktop voice-cloning studio for creators \u2014 clone a voice, script lines with emotion markers, synthesize on-device. Tauri + VoxCPM2, runs on macOS, Windows, and Linux.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/soniqo/speech-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T12:25:56Z"
+  "distributed_at": "2026-08-06T17:11:27Z"
 }
