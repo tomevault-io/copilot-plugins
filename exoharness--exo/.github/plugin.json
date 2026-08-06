@@ -1,0 +1,9 @@
+{
+  "name": "exoharness--exo",
+  "displayName": "exo",
+  "description": "Exo is an agent + harness architecture that is fully recursive, able to safely edit all aspects of itself at runtime to get better at your tasks.",
+  "version": "1.0.0",
+  "author": "exoharness",
+  "homepage": "https://github.com/exoharness/exo",
+  "skills": []
+}
