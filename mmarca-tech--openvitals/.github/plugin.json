@@ -1,0 +1,9 @@
+{
+  "name": "mmarca-tech--openvitals",
+  "displayName": "OpenVitals",
+  "description": "THIS IS JUST A MIRROR FROM https://codeberg.org/mmarca-tech/OpenVitals           Privacy-first Android dashboard for viewing and adding Health Connect data locally, with no account or cloud required. ",
+  "version": "1.0.0",
+  "author": "mmarca-tech",
+  "homepage": "https://github.com/mmarca-tech/OpenVitals",
+  "skills": []
+}
