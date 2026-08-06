@@ -7,11 +7,11 @@ Therion Studio is a cross-platform Qt desktop editor for Therion – cave survey
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ladislavb/therion-studio](https://github.com/ladislavb/therion-studio).
+Original source: `AGENTS.md` in [ladislavb/therion-studio](https://github.com/ladislavb/therion-studio).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
