@@ -1,0 +1,9 @@
+{
+  "name": "sectl--viewstage",
+  "displayName": "ViewStage",
+  "description": "ViewStage\u662f\u4e00\u4e2a\u6444\u50cf\u5934\u3001\u6587\u6863\u7684\u5c55\u53f0\u5e94\u7528\uff0c\u4f7f\u7528tauri\u4e0eRust\u6784\u5efa\uff0c\u524d\u7aef\u4f7f\u7528JS+HTML5+CSS\u6784\u5efa\uff0c\u65e0\u524d\u7aef\u4f9d\u8d56\uff0c\u8f7b\u91cf\u9ad8\u6027\u80fd\uff0c\u9002\u7528\u4e0e\u8bfe\u5802\u53ca\u9700\u8981\u5927\u5c4f\u6279\u6ce8\u6587\u6863\u3001\u56fe\u7247\u7b49\u573a\u666f",
+  "version": "1.0.0",
+  "author": "SECTL",
+  "homepage": "https://github.com/SECTL/ViewStage",
+  "skills": []
+}
