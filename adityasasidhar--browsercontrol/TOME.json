@@ -4,7 +4,7 @@
   "repo": "browsercontrol",
   "description": "a vision first broswer tool",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/adityasasidhar/browsercontrol",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T18:15:35Z"
+  "distributed_at": "2026-08-06T21:02:40Z"
 }
