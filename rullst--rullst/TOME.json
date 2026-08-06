@@ -1,0 +1,44 @@
+{
+  "name": "Rullst",
+  "owner": "Rullst",
+  "repo": "Rullst",
+  "description": "\ud83d\udcdc\ud83e\udd80\ud83c\udf10 Full-Stack Web Framework for Rust \ud83c\udf10\ud83e\udd80\ud83d\udcdc\"Rust for those who want to build securely and easily, but not suffer\"\ud83e\udd16 The Next-Gen Paradigm: Designed for Humans & AI. Rullst is built from the ground up to be a developer-first framework, optimized for seamless AI-assisted coding and effortless human productivity.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Rullst/Rullst",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T18:55:14Z"
+}
