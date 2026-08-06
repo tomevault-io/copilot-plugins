@@ -2,9 +2,9 @@
   "name": "Sub-Merger-CFWorker",
   "owner": "figozhu",
   "repo": "Sub-Merger-CFWorker",
-  "description": "\u8ba2\u9605\u5408\u5e76\uff08\u57fa\u4e8eCF Worker\uff09",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/figozhu/Sub-Merger-CFWorker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T14:15:30Z"
+  "distributed_at": "2026-08-06T02:03:04Z"
 }
