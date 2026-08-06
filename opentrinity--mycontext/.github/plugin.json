@@ -1,0 +1,9 @@
+{
+  "name": "opentrinity--mycontext",
+  "displayName": "mycontext",
+  "description": "MyContext is a local-first desktop app for everyday communication and knowledge work",
+  "version": "1.0.0",
+  "author": "openTrinity",
+  "homepage": "https://github.com/openTrinity/mycontext",
+  "skills": []
+}
