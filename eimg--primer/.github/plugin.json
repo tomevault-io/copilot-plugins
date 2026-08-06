@@ -1,0 +1,9 @@
+{
+  "name": "eimg--primer",
+  "displayName": "primer",
+  "description": "A knowledge system for turning organizational sources into trustworthy evidence and cited answers.",
+  "version": "1.0.0",
+  "author": "eimg",
+  "homepage": "https://github.com/eimg/primer",
+  "skills": []
+}
