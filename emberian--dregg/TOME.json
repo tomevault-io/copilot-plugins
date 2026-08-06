@@ -4,7 +4,7 @@
   "repo": "dregg",
   "description": "Distributed object-capability authorization with ZK proofs",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/emberian/dregg",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T08:35:46Z"
+  "distributed_at": "2026-08-06T13:40:04Z"
 }
