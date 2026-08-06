@@ -1,6 +1,6 @@
 # claudekit
 
-> Source: [duthaho/claudekit](https://github.com/duthaho/claudekit). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [duthaho/claudekit](https://github.com/duthaho/claudekit). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
