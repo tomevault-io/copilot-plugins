@@ -1,0 +1,9 @@
+{
+  "name": "developerz-ai--wurk",
+  "displayName": "wurk",
+  "description": "Drop-in replacement for Sidekiq + Pro + Enterprise. 100% API-compatible, free forever, meaningfully faster. Mountable Rails engine.",
+  "version": "1.0.0",
+  "author": "developerz-ai",
+  "homepage": "https://github.com/developerz-ai/wurk",
+  "skills": []
+}
