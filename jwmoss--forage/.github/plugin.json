@@ -1,0 +1,9 @@
+{
+  "name": "jwmoss--forage",
+  "displayName": "forage",
+  "description": "CLI tool to scrape posts, comments, and reactions from private Facebook groups",
+  "version": "1.0.0",
+  "author": "jwmoss",
+  "homepage": "https://github.com/jwmoss/forage",
+  "skills": []
+}
