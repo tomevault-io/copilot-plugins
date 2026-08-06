@@ -1,7 +1,7 @@
 {
   "name": "dapr--dapr-agents",
   "displayName": "dapr-agents",
-  "description": "Build autonomous, resilient and observable AI agents with built-in workflow orchestration, security, statefulness and telemetry.",
+  "description": "dapr-agents",
   "version": "1.0.0",
   "author": "dapr",
   "homepage": "https://github.com/dapr/dapr-agents",
