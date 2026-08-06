@@ -1,0 +1,9 @@
+{
+  "name": "blosc--miniexpr",
+  "displayName": "miniexpr",
+  "description": "A small, efficient C library for parsing and evaluating mathematical expressions with support for vectorized operations across multiple data types.",
+  "version": "1.0.0",
+  "author": "Blosc",
+  "homepage": "https://github.com/Blosc/miniexpr",
+  "skills": []
+}
