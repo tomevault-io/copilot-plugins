@@ -1,0 +1,44 @@
+{
+  "name": "prompt_gogo",
+  "owner": "astordu",
+  "repo": "prompt_gogo",
+  "description": "\u5168\u5c40\u5feb\u6377\u952e- \u4f7f\u7528AI\u5bf9\u6587\u672c\u8fdb\u884c\u5904\u7406\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/astordu/prompt_gogo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T12:56:31Z"
+}
