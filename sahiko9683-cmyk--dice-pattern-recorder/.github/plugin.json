@@ -1,0 +1,9 @@
+{
+  "name": "sahiko9683-cmyk--dice-pattern-recorder",
+  "displayName": "dice-pattern-recorder",
+  "description": "\uc804\ub9f9 \uc0ac\uc6a9\uc790\ub97c \uc704\ud55c \uc811\uadfc\uc131 \uc6b0\uc120 \uc8fc\uc0ac\uc704 \uc138\uc158 \uae30\ub85d\u00b7\uc790\uc5f0\uc5b4 \uc804\ub7b5 \ucd94\ucc9c \uc6f9\uc571 (Next.js + Prisma + MySQL on Railway)",
+  "version": "1.0.0",
+  "author": "sahiko9683-cmyk",
+  "homepage": "https://github.com/sahiko9683-cmyk/dice-pattern-recorder",
+  "skills": []
+}
