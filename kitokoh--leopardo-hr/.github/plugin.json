@@ -1,0 +1,9 @@
+{
+  "name": "kitokoh--leopardo-hr",
+  "displayName": "leopardo-hr",
+  "description": "Open-source, AI-native multi-tenant HR/Payroll OS \u2014 Laravel 12 + Next.js 15 + Flutter, avec pointage biometrique et paie automatisee.",
+  "version": "1.0.0",
+  "author": "kitokoh",
+  "homepage": "https://github.com/kitokoh/leopardo-hr",
+  "skills": []
+}
