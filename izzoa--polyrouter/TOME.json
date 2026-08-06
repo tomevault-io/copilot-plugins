@@ -4,7 +4,7 @@
   "repo": "polyrouter",
   "description": "A self-hostable LLM router / gateway: OpenAI- and Anthropic-compatible, explicit-first routing with fallbacks, spend limits, and metadata-only cost tracking. No markup, no third-party proxy \u2014 your keys, your box.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/izzoa/polyrouter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T18:24:37Z"
+  "distributed_at": "2026-08-06T04:55:08Z"
 }
