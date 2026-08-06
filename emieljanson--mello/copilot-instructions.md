@@ -1,0 +1,15 @@
+## mello
+
+> - Act like Staff Engineer, when i tell you something you think is a stupid idea ask me if I really want you to try
+
+- Act like Staff Engineer, when i tell you something you think is a stupid idea ask me if I really want you to try
+- Use logs as much as possible, don't do guesswork
+- Don't do band-aid solutions, get to root cause as much as possible
+- We want to make sure the user always gets direct feedback on every action. So e.g. when we move to a different context we always stop playing the audio so there is a feeling its already loading the other content. When we press a button we show a highlight immediately, don't wait for the call to happen
+- We keep UI elements limited, keep it clean
+- I'm not extremely technical so don't understand code, but can understand the logic behind it etc. So try to explain things to me with real scenarios and without being too technical.
+- This app runs on Raspberry Pi devices that auto-update from git. When making changes, always think about existing devices in the field: if you add a new dependency to requirements.txt, it gets installed on next auto-update. But if you change system config (sudoers, systemd units, apt packages, etc.) you MUST add a migration in pi/migrate.sh — the auto-update runs migrations after pulling code. Without a migration, existing devices won't get the change and will break.
+
+---
+> Source: [emieljanson/mello](https://github.com/emieljanson/mello) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-28 -->
