@@ -4,7 +4,7 @@
   "repo": "tiny-tpu",
   "description": "A TPU you can watch run - real SystemVerilog systolic array, compiled to WASM, visualized live in your browser.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/deaneeth/tiny-tpu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T20:11:29Z"
+  "distributed_at": "2026-08-06T22:40:11Z"
 }
