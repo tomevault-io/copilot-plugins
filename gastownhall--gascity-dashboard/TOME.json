@@ -4,7 +4,7 @@
   "repo": "gascity-dashboard",
   "description": "temporary workspace for developing the next Gas City dashboard",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gastownhall/gascity-dashboard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T20:15:14Z"
+  "distributed_at": "2026-08-06T05:22:08Z"
 }
