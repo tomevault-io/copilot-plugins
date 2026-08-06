@@ -1,0 +1,9 @@
+{
+  "name": "gendi-org--gendi",
+  "displayName": "gendi",
+  "description": "GenDI \u2014 Generated Dependency Injection for Go. YAML in, a type-checked container out: no runtime reflection, no autowiring.",
+  "version": "1.0.0",
+  "author": "gendi-org",
+  "homepage": "https://github.com/gendi-org/gendi",
+  "skills": []
+}
