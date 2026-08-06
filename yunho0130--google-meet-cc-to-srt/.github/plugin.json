@@ -1,0 +1,9 @@
+{
+  "name": "yunho0130--google-meet-cc-to-srt",
+  "displayName": "google-meet-cc-to-srt",
+  "description": "Google Meet CC Capturer is a lightweight Chrome extension that captures Google Meet's built-in closed captions and allows you to download them as TXT or SRT files. Unlike other solutions, it requires ",
+  "version": "1.0.0",
+  "author": "yunho0130",
+  "homepage": "https://github.com/yunho0130/google-meet-cc-to-srt",
+  "skills": []
+}
