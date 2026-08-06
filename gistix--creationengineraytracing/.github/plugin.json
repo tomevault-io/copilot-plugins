@@ -1,0 +1,9 @@
+{
+  "name": "gistix--creationengineraytracing",
+  "displayName": "CreationEngineRaytracing",
+  "description": "A module that adds hardware raytracing to compatible Creation Engine games.",
+  "version": "1.0.0",
+  "author": "Gistix",
+  "homepage": "https://github.com/Gistix/CreationEngineRaytracing",
+  "skills": []
+}
