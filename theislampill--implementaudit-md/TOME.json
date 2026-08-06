@@ -4,7 +4,7 @@
   "repo": "IMPLEMENTAUDIT.md",
   "description": "A loop skill to implement audit findings safely",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/theislampill/IMPLEMENTAUDIT.md",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T04:14:32Z"
+  "distributed_at": "2026-08-06T11:15:55Z"
 }
