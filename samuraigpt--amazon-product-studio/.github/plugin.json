@@ -1,0 +1,9 @@
+{
+  "name": "samuraigpt--amazon-product-studio",
+  "displayName": "amazon-product-studio",
+  "description": "Open-source AI product photography studio for Amazon sellers \u2014 production-ready Next.js SaaS with multi-image reference upload, preset templates, and webhook-backed scene generation. Free Flair AI & B",
+  "version": "1.0.0",
+  "author": "SamurAIGPT",
+  "homepage": "https://github.com/SamurAIGPT/amazon-product-studio",
+  "skills": []
+}
