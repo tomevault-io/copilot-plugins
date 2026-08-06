@@ -1,0 +1,9 @@
+{
+  "name": "nic-vdwalt--ingot",
+  "displayName": "ingot",
+  "description": "The app framework for Odin - polished, fast, native + web desktop apps on wgpu, without Electron.",
+  "version": "1.0.0",
+  "author": "nic-vdwalt",
+  "homepage": "https://github.com/nic-vdwalt/ingot",
+  "skills": []
+}
