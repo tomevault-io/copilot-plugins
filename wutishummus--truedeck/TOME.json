@@ -4,7 +4,7 @@
   "repo": "TrueDeck",
   "description": "Free multi-agent coding workbench: Grok/Codex/Claude/Cursor panes + TrueMemory (per-repo + global)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WutIsHummus/TrueDeck",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T10:13:43Z"
+  "distributed_at": "2026-08-06T14:55:58Z"
 }
