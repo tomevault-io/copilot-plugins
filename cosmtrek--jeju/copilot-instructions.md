@@ -1,0 +1,68 @@
+## jeju
+
+> - Jeju is a Go 1.25 experimental local-first agent harness.
+
+# Jeju Agent Coding Notes
+
+## Project Shape
+
+- Jeju is a Go 1.25 experimental local-first agent harness.
+- Keep implementation under `internal/`. Do not add `pkg/` until a public API is intentionally stabilized.
+- Agent manifest docs live in `docs/agent-manifest.md`; evolution experiment docs live in `docs/agent-evolution-manifest.md`.
+- Agent team docs live in `docs/agent-team.md`.
+- DeepSeek setup notes live in `docs/deepseek.md`.
+- First-party distributable agent packages live in `catalog/`.
+- The static project website lives in `website/`; it is not part of the Go module.
+- CLI entrypoint is `cmd/jeju/main.go`; command handlers live in `internal/cli/`.
+
+## Scope Rules
+
+- Keep the core runtime scope tight: no Web UI, broad multi-agent platform, Docker sandbox, remote sandbox, long-term memory, distributed workers, or full MCP client unless explicitly requested.
+- Agent Team is allowed as the bounded lead-worker outer controller described in `docs/agent-team.md`; do not expand it into peer-to-peer chat, shared mutable memory, distributed workers, or a general multi-agent platform unless explicitly requested.
+- Runtime must not read YAML directly. The path is `config.LoadFile -> config.Validate -> compiler.Compile -> runtime.Run`.
+- Agent behavior should come from manifest config, loaded instructions, tools, skills, policy, sandbox, trajectory, and evaluator config rather than hardcoded runtime branches.
+- `website/` is an Astro static site and must not grow runtime Web UI or console functionality.
+
+## Catalog Rules
+
+- `catalog/` is the first-party package catalog. These packages are maintained source artifacts, not examples or scratch agents.
+- Catalog packages must pass `jeju package validate <package-root>`.
+- Any catalog package content change must bump `metadata.version` in that package's `jeju.package.yaml`.
+- User-facing documentation and examples for published packages must use `jeju:` registry references, not GitHub subdirectory references.
+- Keep `catalog/` distinct from `examples/`: catalog is the installable shelf with versions and maintenance expectations; examples are teaching material for manifest authors.
+
+## Runtime Invariants
+
+- Every run creates a run directory through `runs.Store`.
+- Every run saves `trajectory.jsonl`; `report.html` is a derived inspection view when generated.
+- Trajectory is the canonical JSONL event log. Record model calls, tool calls, permission decisions, skill events, artifacts, optional evaluation, and run lifecycle events.
+- Config snapshots, final answers, evaluation results, and large model/tool payloads are trajectory artifacts. Do not write separate canonical sidecar files for them.
+- All tool calls must pass through `policy.Gate` before execution.
+- File tools must stay inside the configured local workspace. Shell runs must use the sandbox workdir and enforce timeout.
+- Skills use disclosure plus manual active loading. Do not inject all skill assets by default.
+- When editing a project `SKILL.md`, bump its `metadata.version` in the same change.
+
+## Generated Files
+
+- `jeju init <name>` is allowed to scaffold into the current directory, but tests and local quick-start runs should use `jeju init <name> --dir <workdir>`.
+- Do not leave temporary scaffold output such as `agents/research.agent.yaml`, `prompts/research.md`, `skills/web-research`, `runs/<run_id>`, or `workspace/<agent>` in the repo root unless the task explicitly asks to add source fixtures.
+- In the Jeju source checkout, local development, demo, benchmark, evolution, and team outputs must be written under repo-root `.jeju-dev/`, for example `--runs-dir .jeju-dev/runs/<scenario>`, `--out .jeju-dev/evolve/<scenario>`, or `--out .jeju-dev/team/<scenario>`.
+- Keep user project defaults separate from source-checkout hygiene: `./runs` is acceptable inside a generated agent project, but source-repo scripts and examples should not create root `runs/`, root `workspace/`, example-local `runs/`, or example-local `.jeju-dev/` directories.
+
+## Path Hygiene
+
+- Do not commit machine-local absolute paths from a developer home directory. Prefer neutral placeholders such as `/path/to/project`; use repo-relative paths such as `scripts/...` when the example is already rooted at the Jeju checkout.
+
+## Verification
+
+- Run `go test ./...` after code changes.
+- Run `go vet ./...` for runtime/compiler/tooling changes.
+- Use `make test-agent` or `./scripts/run-agent.sh mock` for a local one-command fixture agent run.
+- Use `make test-agent PROVIDER=deepseek` only when `DEEPSEEK_API_KEY` or `JEJU_DEEPSEEK_ENV_KEY` is intentionally set; it calls the real DeepSeek API.
+- Use `make test-agent PROVIDER=mimo` only when `MIMO_API_KEY` or `JEJU_MIMO_ENV_KEY` is intentionally set; it calls the real MiMo API.
+- Keep the core smoke test in `internal/cli/core_flow_test.go` fast and isolated with `t.TempDir()`. It should continue covering `init --dir -> validate -> run -> view -> inspect` plus run artifacts and key trajectory events.
+- `tests/fixtures/agent/` is the static full agent fixture for full-path testing. Tests must copy it into `t.TempDir()` before running so fixture sources do not accumulate `runs/` or `workspace/` outputs.
+
+---
+> Source: [cosmtrek/jeju](https://github.com/cosmtrek/jeju) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-29 -->
