@@ -1,0 +1,9 @@
+{
+  "name": "nanxstats--revdeprun",
+  "displayName": "revdeprun",
+  "description": "Rust CLI for automated reverse dependency checks of R packages",
+  "version": "1.0.0",
+  "author": "nanxstats",
+  "homepage": "https://github.com/nanxstats/revdeprun",
+  "skills": []
+}
