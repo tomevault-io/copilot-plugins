@@ -1,0 +1,9 @@
+{
+  "name": "zircote-plugins--sdlc-quality",
+  "displayName": "sdlc-quality",
+  "description": "Software Development Lifecycle standards plugin for AI coding assistants. Enforces build, quality, testing, CI/CD, security, and documentation best practices.",
+  "version": "1.0.0",
+  "author": "zircote-plugins",
+  "homepage": "https://github.com/zircote-plugins/sdlc-quality",
+  "skills": []
+}
