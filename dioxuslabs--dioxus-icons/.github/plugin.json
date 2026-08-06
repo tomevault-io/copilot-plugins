@@ -1,0 +1,9 @@
+{
+  "name": "dioxuslabs--dioxus-icons",
+  "displayName": "dioxus-icons",
+  "description": "An icon library for dioxus with rich documentation",
+  "version": "1.0.0",
+  "author": "DioxusLabs",
+  "homepage": "https://github.com/DioxusLabs/dioxus-icons",
+  "skills": []
+}
