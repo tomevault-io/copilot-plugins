@@ -1,0 +1,44 @@
+{
+  "name": "win-install-claude-cli",
+  "owner": "ting2tao",
+  "repo": "win-install-claude-cli",
+  "description": "Windows \u4e00\u952e\u5b89\u88c5 Claude Code CLI + CC-Switch \u684c\u9762\u5ba2\u6237\u7aef\uff0c\u56fd\u5185\u7f51\u7edc\u76f4\u8fde\u65e0\u9700\u4ee3\u7406",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ting2tao/win-install-claude-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T12:48:55Z"
+}
