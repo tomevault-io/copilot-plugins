@@ -4,7 +4,7 @@
   "repo": "llama.cpp",
   "description": "Fermion Research fork of llama.cpp: FV5/FV5B five-value ternary types for Neutrino GGUF packs (CPU + CUDA)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fermionresearch/llama.cpp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T09:51:00Z"
+  "distributed_at": "2026-08-06T14:42:37Z"
 }
