@@ -1,0 +1,44 @@
+{
+  "name": "orbital-engagement-lab",
+  "owner": "adamcohen8",
+  "repo": "orbital-engagement-lab",
+  "description": "Orbital Engagement Lab is a physics-based simulation framework for modeling Orbital Engagements. The simulator supports high-fidelity orbital propagation, spacecraft attitude dynamics, actuator-constrained control, and mission-level guidance for intercept and inspection scenarios.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/adamcohen8/orbital-engagement-lab",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T19:31:35Z"
+}
