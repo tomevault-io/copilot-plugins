@@ -1,0 +1,9 @@
+{
+  "name": "tiddlywiki--multiwikiserver",
+  "displayName": "MultiWikiServer",
+  "description": "MultiWikiServer",
+  "version": "1.0.0",
+  "author": "TiddlyWiki",
+  "homepage": "https://github.com/TiddlyWiki/MultiWikiServer",
+  "skills": []
+}
