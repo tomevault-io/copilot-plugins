@@ -1,0 +1,9 @@
+{
+  "name": "embarrassingmoment--quickbaker",
+  "displayName": "QuickBaker",
+  "description": "A lightweight Material to Texture Baker for Unreal Engine 5.5+. Bake Emissive outputs directly to Static Assets (.uasset), PNG, or EXR. Ideal for procedural noise and SDFs.",
+  "version": "1.0.0",
+  "author": "EmbarrassingMoment",
+  "homepage": "https://github.com/EmbarrassingMoment/QuickBaker",
+  "skills": []
+}
