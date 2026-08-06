@@ -7,11 +7,11 @@ NanoHermes 一个纯粹使用vibing coding完成的支持自我进化的Agent
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [werxiao882-cell/NanoHermes](https://github.com/werxiao882-cell/NanoHermes).
+Original source: `AGENTS.md` in [werxiao882-cell/NanoHermes](https://github.com/werxiao882-cell/NanoHermes).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
