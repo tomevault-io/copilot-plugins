@@ -1,0 +1,44 @@
+{
+  "name": "huohua",
+  "owner": "zhongrenfei1-hub",
+  "repo": "huohua",
+  "description": "\u706b\u82b1 \u00b7 AI \u5185\u5bb9\u8425\u9500\u684c\u9762\u7aef \u00b7 macOS \u00b7 fork from yikart/AiToEarn",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zhongrenfei1-hub/huohua",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T21:16:46Z"
+}
