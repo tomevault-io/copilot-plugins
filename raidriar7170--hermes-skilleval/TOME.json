@@ -1,0 +1,44 @@
+{
+  "name": "hermes-skilleval",
+  "owner": "Raidriar7170",
+  "repo": "hermes-skilleval",
+  "description": "Verification-gated skill routing and self-improvement harness for Hermes-style agent skills",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Raidriar7170/hermes-skilleval",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T16:33:34Z"
+}
