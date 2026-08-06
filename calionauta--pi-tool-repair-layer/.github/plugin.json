@@ -1,0 +1,9 @@
+{
+  "name": "calionauta--pi-tool-repair-layer",
+  "displayName": "pi-tool-repair-layer",
+  "description": "pi extension \u2014 harness-level repair + recovery for LLM tool calls + observability. >10 structural fixes, error recovery, failure tracking. works with any model.",
+  "version": "1.0.0",
+  "author": "calionauta",
+  "homepage": "https://github.com/calionauta/pi-tool-repair-layer",
+  "skills": []
+}
