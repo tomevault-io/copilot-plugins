@@ -1,0 +1,9 @@
+{
+  "name": "tw0po1nt--fshttp-studio",
+  "displayName": "FsHttp.Studio",
+  "description": "A VSCode extension that runs FsHttp requests from your F# scripts and renders the response richly - images, JSON, HTML, and more",
+  "version": "1.0.0",
+  "author": "tw0po1nt",
+  "homepage": "https://github.com/tw0po1nt/FsHttp.Studio",
+  "skills": []
+}
