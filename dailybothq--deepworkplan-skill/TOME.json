@@ -4,7 +4,7 @@
   "repo": "deepworkplan-skill",
   "description": "Turn any repo AI-first and run resumable, multi-hour Deep Work Plans. An installable agent skill for any cloud agent like Claude Code, Cursor, Codex, Gemini & Copilot. Markdown-only, MIT.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DailybotHQ/deepworkplan-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T12:50:25Z"
+  "distributed_at": "2026-08-06T17:26:08Z"
 }
