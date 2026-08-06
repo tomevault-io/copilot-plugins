@@ -1,25 +1,25 @@
 ## filegrc
 
-> This monorepo builds FileGRC, a Git-native GRC system for SOC 2 work. It has two Node.js packages:
+> This monorepo builds filegrc, a Git-native GRC system for SOC 2 work. It has two Node.js packages:
 
-# FileGRC Repository Instructions
+# filegrc Repository Instructions
 
 ## Purpose
 
-This monorepo builds FileGRC, a Git-native GRC system for SOC 2 work. It has two Node.js packages:
+This monorepo builds filegrc, a Git-native GRC system for SOC 2 work. It has two Node.js packages:
 
-- `filegrc`: the zero-dependency FileGRC engine, which validates, searches, edits, and renders GRC data.
-- `create-filegrc`: the FileGRC scaffolder, which creates a standalone SOC 2 repository.
+- `filegrc`: the zero-dependency filegrc engine, which validates, searches, edits, and renders GRC data.
+- `create-filegrc`: the filegrc scaffolder, which creates a standalone SOC 2 repository.
 
 The generated repository is the product. Keep it understandable to an engineer who opens it without prior context.
 
 ## Agent-facing product surface
 
-Treat headless use as a first-class interface. An agent with no FileGRC context must be able to discover the right record type, inspect current relationship candidates, create or update JSON and Markdown through one validated payload, complete scheduled and event work, prepare an audit, and verify the result without opening the renderer.
+Treat headless use as a first-class interface. An agent with no filegrc context must be able to discover the right record type, inspect current relationship candidates, create or update JSON and Markdown through one validated payload, complete scheduled and event work, prepare an audit, and verify the result without opening the renderer.
 
 - Keep the generated root `AGENTS.md` as the program and Git guide.
 - Keep `data/AGENTS.md` as the universal record workflow. Add collection-level `AGENTS.md` files only where a wrong action has material compliance, privacy, or audit consequences.
-- Keep `filegrc guide`, `types`, `list`, `get`, `references`, `scaffold`, CRUD, `content`, obligations, events, audit readiness, and evidence packets model-driven.
+- Keep `filegrc guide`, `types`, `list`, `get`, `references`, `scaffold`, CRUD, `content`, obligations, events, program readiness, audit readiness, and evidence packets model-driven.
 - Scaffold files are prompts, not compliance facts. They must keep incomplete work in a non-final state and make missing required values obvious.
 - Browser and CLI mutations must use the same domain functions and the same `{ record, content }` shape.
 - Every resource type must pass automated guide and scaffold coverage. Test first-class multi-record workflows through the CLI as well as their domain functions.
@@ -64,10 +64,10 @@ Treat headless use as a first-class interface. An agent with no FileGRC context 
 
 ## Data rules
 
-The authoritative model registry is `packages/filegrc/model/v1.json`. FileGRC has not shipped, so update v1, the starter data, generated docs, and tests together. Do not add a second model or migration code until a published version creates a real compatibility boundary.
+The authoritative model registry is `packages/filegrc/model/v1.json`. Model v1 is published. Before changing it, decide whether existing v1 workspaces remain valid. Keep compatible v1 changes, starter data, generated docs, and tests in sync. Add a new model version and an explicit migration path when a change would make existing v1 workspaces invalid.
 
 - Use UTF-8 JSON for structured records and Markdown for long-form content.
-- Store canonical long-form Markdown beside its structured JSON record. FileGRC derives companion names from the JSON location and Markdown slot; do not store those paths in record data.
+- Store canonical long-form Markdown beside its structured JSON record. filegrc derives companion names from the JSON location and Markdown slot; do not store those paths in record data.
 - Structure fields only when the engine needs them for validation, filtering, relationships, lifecycle rules, due-date calculations, or audit-period completeness.
 - Put variable procedures, questionnaires, interviews, per-item decisions, detailed results, and provider-specific analysis in Record Markdown. The model's `recordContent` settings determine when the renderer shows this companion body by default.
 - Do not reproduce a source form as a nested schema. Add a field only after a stable cross-workflow need is clear.
@@ -78,7 +78,7 @@ The authoritative model registry is `packages/filegrc/model/v1.json`. FileGRC ha
 - Store relationships as resource IDs, not relative file paths.
 - Treat IDs as immutable after a record is committed.
 - Keep attachments behind evidence records. Do not scatter unexplained files through `data/`.
-- Keep each policy and governed document approver separate from its owner. The starter requires an external independent reviewer who does not operate the controls under review; one-person organizations must appoint someone outside the company for this role.
+- Keep each policy and governed document approver separate from its owner. The reviewer may be another person in the organization or an external person. Most organizations use an internal reviewer with enough authority and separation to challenge the owner. A one-person organization needs an external reviewer because no second internal person is available.
 - Bind rendered-page evidence to the route, filters, audit period, and Git commit used to create it.
 - Bind signed attestations to the exact Git revisions of the acknowledged policies, training, or other content.
 - Do not commit secrets, credentials, session material, regulated personal data, or confidential reports unless the repository's access and retention rules explicitly permit them.
@@ -87,7 +87,7 @@ The authoritative model registry is `packages/filegrc/model/v1.json`. FileGRC ha
 - Model recurring policy work as reusable obligations with an explicit allowed completion range and first overdue cutoff. Every actionable obligation needs a deadline; use the end of its policy period or a reasonable policy-aligned event window when the source does not name one.
 - Model policy-triggering changes as one event record plus normal linked action items. Create the full checklist atomically and preserve exact timestamps when a policy uses hour-based deadlines.
 - Build audit packets from an explicit Type 1 or Type 2 engagement, its exact date or period and scope, model-defined dates, policy and control context, and linked evidence. Add obligation coverage, event checklists, populations, and samples for Type 2. Keep packet output under `.filegrc/` and bind delivery-ready output to a clean Git revision.
-- Never report FileGRC management checks as passed when the required scope, management documents, approved policy coverage, implemented control coverage, source systems, evidence, or Type 2 population work is missing. Do not imply that FileGRC decides whether evidence is sufficient or appropriate; the engagement team makes that judgment.
+- Never report filegrc management checks as passed when the required scope, management documents, approved policy coverage, implemented control coverage, source systems, evidence, or Type 2 population work is missing. Do not imply that filegrc decides whether evidence is sufficient or appropriate; the engagement team makes that judgment.
 - Export auditor control, population, and evidence indexes, committed historical source versions, and per-file checksums with every packet. External references remain warnings because the packet is not self-contained.
 - Use one `audit-population` record for each complete management population and link its fixed `population-export` evidence. Record the evidence generation time, exact query or report parameters, timezone, count, and completeness and accuracy checks, including when the count is zero. Link the population and sampled-item evidence from the related control test.
 - Catalog every authoritative evidence source as a `system`, assign its `evidenceSourceKinds`, name the people who can obtain evidence, and keep extraction instructions in Record Markdown. A reconciled population and its export must name the same source system. Split a population when its items require different source systems or queries.
@@ -118,11 +118,11 @@ Private exports may be inspected to understand generic workflows, but they are n
 
 ## Versions and releases
 
-The project is unreleased. Keep `filegrc`, `create-filegrc`, the template package, and the lockfile at `0.1.0` during normal development. Change the current v1 contract directly and keep all generated data and tests in sync. Do not build compatibility layers for versions nobody can have installed.
+Use semantic versioning for published releases. Keep package versions unchanged during normal development, then update the coordinated package, template, and lockfile versions as part of a release.
 
 At release time, bump each package whose published files or behavior changed. `filegrc` includes `bin/`, `src/`, and `model/`. `create-filegrc` includes its CLI, prompts, dependency resolution, template, starter records, policies, and generated lockfile behavior. Root-only documentation, tests, and development scripts do not need a package bump.
 
-After the first publication, use semantic versioning and reassess upgrades from the contract that actually shipped. Publish `filegrc` before any `create-filegrc` release that depends on it. A package update must never rewrite a consumer's policies or compliance records without an explicit command and reviewable Git diff.
+Publish `filegrc` before any `create-filegrc` release that depends on it. A package update must never rewrite a consumer's policies or compliance records without an explicit command and reviewable Git diff.
 
 ## Validation
 
@@ -146,5 +146,5 @@ Before completing a change:
 - Do not imply that using this repository alone makes an organization compliant.
 
 ---
-> Source: [Sunpeak-AI/FileGRC](https://github.com/Sunpeak-AI/FileGRC) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+> Source: [Sunpeak-AI/filegrc](https://github.com/Sunpeak-AI/filegrc) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-28 -->
