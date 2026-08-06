@@ -4,7 +4,7 @@
   "repo": "browser-ai-assistant",
   "description": "\u57fa\u4e8e\u5f53\u524d\u7f51\u9875\u4e0a\u4e0b\u6587\u7684 Chrome \u4fa7\u8fb9\u680f AI \u52a9\u624b\uff0c\u652f\u6301\u591a\u6a21\u578b\u6e20\u9053\u3001\u89c6\u89c9\u56fe\u7247\u8f93\u5165\u3001\u804a\u5929\u5386\u53f2\u3001\u9690\u79c1\u6a21\u5f0f\u548c\u6570\u636e\u540c\u6b65\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AhYi8/browser-ai-assistant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T11:47:29Z"
+  "distributed_at": "2026-08-06T15:40:18Z"
 }
