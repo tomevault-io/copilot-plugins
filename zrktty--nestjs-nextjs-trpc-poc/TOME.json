@@ -4,7 +4,7 @@
   "repo": "nestjs-nextjs-trpc-poc",
   "description": "A minimal full-stack proof-of-concept demonstrating end-to-end type safety across a NestJS backend and Next.js frontend using tRPC \u2014 no REST, no manual type duplication, just a single shared type contract from server to UI.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ZRktty/nestjs-nextjs-trpc-poc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T22:15:10Z"
+  "distributed_at": "2026-08-06T07:07:42Z"
 }
