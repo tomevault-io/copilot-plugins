@@ -7,11 +7,11 @@ Local-first, multi-provider coding desktop with Codex-style Steering, task contr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [USS-Parks/Lamprey-Harness](https://github.com/USS-Parks/Lamprey-Harness).
+Original source: `AGENTS.md` in [USS-Parks/Lamprey-Harness](https://github.com/USS-Parks/Lamprey-Harness).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
