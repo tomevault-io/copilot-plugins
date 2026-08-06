@@ -1,0 +1,9 @@
+{
+  "name": "helgesverre--sql-splitter",
+  "displayName": "sql-splitter",
+  "description": "Split large SQL dump files into individual table files. Fast, memory-efficient, multi-dialect.",
+  "version": "1.0.0",
+  "author": "HelgeSverre",
+  "homepage": "https://github.com/HelgeSverre/sql-splitter",
+  "skills": []
+}
