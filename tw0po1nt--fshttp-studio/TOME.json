@@ -1,0 +1,44 @@
+{
+  "name": "FsHttp.Studio",
+  "owner": "tw0po1nt",
+  "repo": "FsHttp.Studio",
+  "description": "A VSCode extension that runs FsHttp requests from your F# scripts and renders the response richly - images, JSON, HTML, and more",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tw0po1nt/FsHttp.Studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T08:56:31Z"
+}
