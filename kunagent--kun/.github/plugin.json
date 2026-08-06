@@ -1,0 +1,9 @@
+{
+  "name": "kunagent--kun",
+  "displayName": "Kun",
+  "description": "AI agent workspace with Code Write and Design modes built into your application.",
+  "version": "1.0.0",
+  "author": "KunAgent",
+  "homepage": "https://github.com/KunAgent/Kun",
+  "skills": []
+}
