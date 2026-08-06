@@ -1,0 +1,9 @@
+{
+  "name": "mizan0515--driftless",
+  "displayName": "driftless",
+  "description": "Overnight self-improving maintainer automation for Claude AND Codex. One edit improves both profiles; containment-first; a non-developer pastes one prompt and wakes up to merged PRs.",
+  "version": "1.0.0",
+  "author": "mizan0515",
+  "homepage": "https://github.com/mizan0515/driftless",
+  "skills": []
+}
