@@ -1,0 +1,9 @@
+{
+  "name": "fruit-guardians--pureautocodeql",
+  "displayName": "PureAutoCodeql",
+  "description": "Multi-agent CodeQL vulnerability analysis pipeline for CVE research, source/sink tracing, query generation, and path selection.",
+  "version": "1.0.0",
+  "author": "Fruit-Guardians",
+  "homepage": "https://github.com/Fruit-Guardians/PureAutoCodeql",
+  "skills": []
+}
