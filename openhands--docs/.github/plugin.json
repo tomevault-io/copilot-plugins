@@ -1,0 +1,9 @@
+{
+  "name": "openhands--docs",
+  "displayName": "docs",
+  "description": "Aggregated documentations across multiple repos, including OpenHands, agent-sdk, etc.",
+  "version": "1.0.0",
+  "author": "OpenHands",
+  "homepage": "https://github.com/OpenHands/docs",
+  "skills": []
+}
