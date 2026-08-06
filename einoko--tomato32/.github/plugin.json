@@ -1,0 +1,9 @@
+{
+  "name": "einoko--tomato32",
+  "displayName": "Tomato32",
+  "description": "ESP32 Pomodoro/productivity timer",
+  "version": "1.0.0",
+  "author": "einoko",
+  "homepage": "https://github.com/einoko/Tomato32",
+  "skills": []
+}
