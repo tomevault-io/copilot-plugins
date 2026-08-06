@@ -1,17 +1,15 @@
 # AI instruction files for Sub-Merger-CFWorker
 
-> Sourced from [figozhu/Sub-Merger-CFWorker](https://github.com/figozhu/Sub-Merger-CFWorker) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-订阅合并（基于CF Worker）
+> Sourced from [figozhu/Sub-Merger-CFWorker](https://github.com/figozhu/Sub-Merger-CFWorker), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [figozhu/Sub-Merger-CFWorker](https://github.com/figozhu/Sub-Merger-CFWorker).
+Original source: `AGENTS.md` in [figozhu/Sub-Merger-CFWorker](https://github.com/figozhu/Sub-Merger-CFWorker).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
