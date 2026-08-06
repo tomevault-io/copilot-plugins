@@ -1,0 +1,195 @@
+## feedo
+
+> This file helps AI agents understand and contribute to the Feedo codebase effectively.
+
+# AGENTS.md — Feedo Development Guide
+
+This file helps AI agents understand and contribute to the Feedo codebase effectively.
+
+## Project Overview
+
+**Feedo** is a beautiful terminal RSS reader built with Rust and ratatui. Think Reeder for the command line.
+
+
+```
+feedo/
+├── src/
+│   ├── main.rs          # CLI entry point, subcommands (update)
+│   ├── lib.rs           # Library root, public API
+│   ├── app/             # Application orchestration
+│   ├── config/          # Configuration (load/save, structs)
+│   ├── credentials.rs   # Encrypted credential storage
+│   ├── feed/            # Feed fetching & parsing
+│   ├── opml/            # OPML import/export
+│   ├── sync/            # GReader API sync (FreshRSS, Miniflux, etc.)
+│   ├── theme.rs         # Theme wrapper using ratatui-themes
+│   ├── update.rs        # Update checking & self-update
+│   └── ui/              # Terminal UI (ratatui)
+├── Cargo.toml           # Dependencies & metadata
+└── README.md            # User documentation
+```
+
+## Tech Stack
+
+| Component | Choice | Why |
+|-----------|--------|-----|
+| Language | Rust 2024 edition | Memory safety, performance |
+| Async | Tokio | Non-blocking feed fetching |
+| TUI | ratatui + crossterm | Modern, well-maintained |
+| Themes | ratatui-themes | Shared 15 themes with Hazelnut |
+| RSS Parsing | feed-rs | Handles RSS/Atom/JSON Feed |
+| HTTP | reqwest | Async, rustls for TLS |
+| Config | serde_json | Human-readable config |
+| Errors | color-eyre + thiserror | Rich error context |
+
+## Code Style
+
+### Rust Conventions
+- **No `unsafe` code** — `#![forbid(unsafe_code)]`
+- **Clippy pedantic** — All lints enabled, fix warnings
+- **Documentation** — Doc comments on all public items
+- **Error handling** — Use `Result<T>`, propagate with `?`
+- **Naming** — `snake_case` functions, `PascalCase` types
+
+### Architecture Patterns
+- **Separation of concerns** — Each module has one job
+- **Async by default** — Network ops never block UI
+- **State is explicit** — No hidden global state
+- **Config is consistent** — `~/.config/feedo/` on all platforms
+
+### File Organization
+```rust
+// Module structure pattern:
+// mod.rs — public exports, module docs
+// data.rs — data structures
+// impl files — implementation details
+```
+
+## Common Tasks
+
+### Adding a New Feed Source Type
+1. Add parser in `src/feed/parser.rs`
+2. Update `FeedItem` if new fields needed
+3. Add tests for the new format
+
+### Adding a New Keybinding
+1. Add handler in `src/ui/input.rs` → `handle_normal_key()`
+2. Update status bar hint in `src/ui/render.rs`
+3. Document in README.md keybindings table
+
+### Adding a New Theme
+Themes are managed by the `ratatui-themes` crate (shared with Hazelnut).
+1. Add theme to `ratatui-themes` crate
+2. Update both Feedo and Hazelnut dependencies
+
+### Adding a Config Option
+1. Add field to `Config` struct in `src/config/data.rs`
+2. Add `#[serde(default = "default_fn")]` for backwards compat
+3. Document in README.md configuration section
+
+## CLI Commands
+
+```bash
+# Launch the TUI
+feedo
+
+# Check for updates and install
+feedo update
+
+# Show version
+feedo --version
+```
+
+## Testing
+
+```bash
+# Run all tests
+cargo test
+
+# Run with output
+cargo test -- --nocapture
+
+# Check for issues without building
+cargo clippy --all-targets
+
+# Format code
+cargo fmt
+```
+
+## Building
+
+```bash
+# Development (fast compile)
+cargo build
+
+# Release (optimized, stripped)
+cargo build --release
+
+# Run directly
+cargo run -- --help
+```
+
+## Dependencies Policy
+
+- **Minimize dependencies** — Each dep is a maintenance burden
+- **Prefer pure Rust** — No C bindings if avoidable
+- **Check maintenance status** — Avoid abandoned crates
+- **Pin major versions** — `"1"` not `"*"`
+
+## Git Workflow
+
+- **Commit messages** — Imperative mood, explain *why*
+- **One feature per commit** — Atomic, reviewable changes
+- **Test before push** — `cargo test && cargo clippy`
+
+## Key Design Decisions
+
+### Why `~/.config/feedo` everywhere?
+Cross-platform consistency. Users shouldn't need to remember different paths.
+
+### Why no database?
+JSON config is human-editable, version-controllable, and simple. SQLite can come later if needed.
+
+### Why async for feeds?
+Fetching 50 feeds sequentially = 50× latency. Async lets us fetch in parallel without blocking the UI.
+
+### Why ratatui over other TUI libs?
+Active maintenance, good docs, immediate mode rendering fits our architecture.
+
+### Why ratatui-themes?
+Shared theme definitions with Hazelnut for consistent look across projects.
+
+### Why encrypted credential storage?
+Secure storage of sync service passwords without requiring OS keychain (works on all platforms).
+
+## Troubleshooting
+
+### Build fails with openssl errors
+We use rustls, not openssl. Check `reqwest` features in Cargo.toml.
+
+### UI looks broken
+Ensure terminal supports Unicode. Try: `echo "◕ᴥ◕"`
+
+### Feed not parsing
+Check if it's valid RSS/Atom. Some sites serve HTML at feed URLs.
+
+## Website URL
+
+https://feedo.ricardodantas.me
+
+## Related Projects
+
+- **Hazelnut** — Terminal file organizer (same author, shared themes)
+- **ratatui-themes** — Shared theme library
+
+## Resources
+
+- [ratatui docs](https://docs.rs/ratatui)
+- [ratatui-themes](https://crates.io/crates/ratatui-themes)
+- [Tokio tutorial](https://tokio.rs/tokio/tutorial)
+- [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/)
+- [feed-rs examples](https://github.com/feed-rs/feed-rs)
+
+---
+> Source: [ricardodantas/feedo](https://github.com/ricardodantas/feedo) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-28 -->
