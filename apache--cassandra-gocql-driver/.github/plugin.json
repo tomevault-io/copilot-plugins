@@ -1,0 +1,9 @@
+{
+  "name": "apache--cassandra-gocql-driver",
+  "displayName": "cassandra-gocql-driver",
+  "description": "cassandra-gocql-driver",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/cassandra-gocql-driver",
+  "skills": []
+}
