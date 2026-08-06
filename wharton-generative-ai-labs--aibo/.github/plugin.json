@@ -1,0 +1,9 @@
+{
+  "name": "wharton-generative-ai-labs--aibo",
+  "displayName": "AIBO",
+  "description": "An open-source tool for running controlled behavioral experiments on AI systems at scale.",
+  "version": "1.0.0",
+  "author": "wharton-generative-ai-labs",
+  "homepage": "https://github.com/wharton-generative-ai-labs/AIBO",
+  "skills": []
+}
