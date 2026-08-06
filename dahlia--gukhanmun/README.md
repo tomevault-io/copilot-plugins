@@ -7,11 +7,11 @@ A Rust/JavaScript library and CLI tool that converts mixed-script Korean text in
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [dahlia/gukhanmun](https://github.com/dahlia/gukhanmun).
+Original source: `AGENTS.md` in [dahlia/gukhanmun](https://github.com/dahlia/gukhanmun).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
