@@ -7,11 +7,11 @@ Streaming wifi/bluetooth/usb microphone firmware for m5sticks3
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nicosuave/m5mic](https://github.com/nicosuave/m5mic).
+Original source: `AGENTS.md` in [nicosuave/m5mic](https://github.com/nicosuave/m5mic).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
