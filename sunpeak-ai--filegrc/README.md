@@ -1,13 +1,13 @@
-# FileGRC
+# AI instruction files for filegrc
 
-> Source: [Sunpeak-AI/FileGRC](https://github.com/Sunpeak-AI/FileGRC). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
+> Sourced from [Sunpeak-AI/filegrc](https://github.com/Sunpeak-AI/filegrc), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 Git & file-based SOC 2
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Sunpeak-AI/FileGRC](https://github.com/Sunpeak-AI/FileGRC).
+Original source: `AGENTS.md` in [Sunpeak-AI/filegrc](https://github.com/Sunpeak-AI/filegrc).
 
 ## Also available for
 
@@ -17,14 +17,14 @@ Original source: `AGENTS.md` in [Sunpeak-AI/FileGRC](https://github.com/Sunpeak-
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Sunpeak-AI/FileGRC](https://github.com/Sunpeak-AI/FileGRC)
+From [Sunpeak-AI/filegrc](https://github.com/Sunpeak-AI/filegrc) — a repo with 13+ stars on GitHub.
 
 ---
 
 Install this config instantly:
 ```
-npx tomevault install Sunpeak-AI/FileGRC
+npx tomevault install Sunpeak-AI/filegrc
 ```
-Source: [github.com/Sunpeak-AI/FileGRC](https://github.com/Sunpeak-AI/FileGRC).
+Source: [github.com/Sunpeak-AI/filegrc](https://github.com/Sunpeak-AI/filegrc).
 
-<!-- genome:d-i-p -->
+<!-- genome:a-i-s -->
