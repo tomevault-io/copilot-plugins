@@ -7,11 +7,11 @@ Calming white, pink, and brown noise with a sleep timer,  a small, private, open
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [chmouel/noise-timer](https://github.com/chmouel/noise-timer).
+Original source: `AGENTS.md` in [chmouel/noise-timer](https://github.com/chmouel/noise-timer).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
