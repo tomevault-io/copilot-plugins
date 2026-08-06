@@ -1,0 +1,9 @@
+{
+  "name": "jon-vii--marigold-os",
+  "displayName": "marigold-os",
+  "description": "Lightweight Rust firmware for the XTEink X4 and X3 e-readers",
+  "version": "1.0.0",
+  "author": "Jon-Vii",
+  "homepage": "https://github.com/Jon-Vii/marigold-os",
+  "skills": []
+}
