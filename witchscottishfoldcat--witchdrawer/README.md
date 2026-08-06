@@ -7,11 +7,11 @@ WitchDrawer 是一款基于原生 WPF 构建的轻量级 Windows 桌面文件收
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [witchscottishfoldcat/WitchDrawer](https://github.com/witchscottishfoldcat/WitchDrawer).
+Original source: `AGENTS.md` in [witchscottishfoldcat/WitchDrawer](https://github.com/witchscottishfoldcat/WitchDrawer).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
