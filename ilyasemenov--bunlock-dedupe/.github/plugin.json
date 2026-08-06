@@ -1,0 +1,9 @@
+{
+  "name": "ilyasemenov--bunlock-dedupe",
+  "displayName": "bunlock-dedupe",
+  "description": "Analyze and deduplicate bun.lock dependencies.",
+  "version": "1.0.0",
+  "author": "IlyaSemenov",
+  "homepage": "https://github.com/IlyaSemenov/bunlock-dedupe",
+  "skills": []
+}
