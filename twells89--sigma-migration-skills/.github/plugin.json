@@ -1,0 +1,9 @@
+{
+  "name": "twells89--sigma-migration-skills",
+  "displayName": "sigma-migration-skills",
+  "description": "Claude Code plugin marketplace: migrate Tableau / Power BI / Qlik to Sigma (converter + assessment per tool). Validated with warehouse parity.",
+  "version": "1.0.0",
+  "author": "twells89",
+  "homepage": "https://github.com/twells89/sigma-migration-skills",
+  "skills": []
+}
