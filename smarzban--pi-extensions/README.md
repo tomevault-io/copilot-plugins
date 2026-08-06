@@ -7,11 +7,11 @@ Pi packages monorepo — installable extensions for the pi coding agent (npm @pi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [smarzban/pi-extensions](https://github.com/smarzban/pi-extensions).
+Original source: `AGENTS.md` in [smarzban/pi-extensions](https://github.com/smarzban/pi-extensions).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
