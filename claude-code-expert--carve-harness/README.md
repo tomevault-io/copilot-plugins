@@ -7,11 +7,11 @@ Harness Engineering for Project
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [claude-code-expert/carve-harness](https://github.com/claude-code-expert/carve-harness).
+Original source: `AGENTS.md` in [claude-code-expert/carve-harness](https://github.com/claude-code-expert/carve-harness).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
