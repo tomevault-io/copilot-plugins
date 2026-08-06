@@ -15,85 +15,138 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Dapr Agents - Developer Guide
+# AGENTS.md - dapr-agents-ext-drasi
 
-## Project Context
+## Repo-wide rules
 
-**Full Setup**: See [./docs/development/README.md](./docs/development/README.md)
+- Use the root [AGENTS.md](../../AGENTS.md) for environment setup, formatting, linting, type checking, testing, PR requirements, and licensing.
+- If this file and the root file disagree on shared rules, the root file wins.
 
-## Quick Commands
+## Source layout
 
-- **Setup**: `uv venv && source .venv/bin/activate && uv sync --group test`
-- **Before commit (REQUIRED)**: `uv run ruff format && uv run flake8 dapr_agents tests --ignore=E501,F401,W503,E203,E704 && uv run mypy --config-file mypy.ini && uv run pytest tests -m "not integration"`
-- **Individual checks**:
-  - Auto-format: `uv run ruff format`
-  - Lint: `uv run flake8 dapr_agents tests --ignore=E501,F401,W503,E203,E704`
-  - Type check: `uv run mypy --config-file mypy.ini`
-  - Unit tests: `uv run pytest tests -m "not integration"`
-- **Testing**:
-  - Integration tests (requires API keys): `uv run pytest tests -m integration`
+```text
+ext/dapr-agents-ext-drasi/
+├── pyproject.toml                          # Extension package metadata and uv config
+├── README.md                               # Extension overview and usage
+├── LICENSE                                 # Apache 2.0
+├── PROVENANCE.md                           # Provenance / generated-artifact notes
+├── scripts/
+│   └── regen-drasi-models.sh               # Regenerates Drasi schema models
+├── dapr_agents/
+│   └── ext/
+│       └── drasi/                          # PEP 420 namespace package under dapr_agents.ext
+│           ├── __init__.py                 # Public package exports
+│           ├── activations.py              # drasi_trigger activation wiring
+│           ├── types.py                    # Re-exported Drasi event models and public names
+│           ├── schemas/                    # Generated Drasi schema models
+│           │   └── unpacked/               # Generated model files (do not edit by hand)
+│           └── utils/
+│               └── validation.py           # Event/model validation helpers
+└── tests/
+    ├── test_drasi_trigger.py               # Activation wiring and trigger behavior tests
+    ├── schemas/
+    │   └── test_unpacked_event_models.py   # Generated event model smoke tests
+    └── utils/
+        └── test_validation.py              # Validation helper tests
+```
 
-## Code Standards
+## Architecture
 
-**Branch Names**: `feat/*`, `fix/*`, `bugfix/*`, `hotfix/*`
+```mermaid
+flowchart LR
+    A["drasi_trigger"] --> R["register_message_routes"]
+    R --> S["Pub/sub router"]
+    S <--> T["Dapr streaming subscription"]
+    S --> D["DurableAgent"]
+    T <--> C["Dapr sidecar (gRPC)"]
+```
 
-**Commit Format**: `<type>[scope]: <description>`
-- Types: `feat`, `fix`, `docs`, `chore`, `test`, `refactor`, `perf`, `ci`, `style`, `build`
-- Example: `feat(agents): add new orchestrator` or `fix(llm): handle timeout errors`
+The extension is intentionally thin:
 
-**Versioning**:
-Dapr Agents use semantic versioning for releasing. Prefer making changes that allow backward compatability.
+- `drasi_trigger` resolves and validates configuration at activation time.
+- Configuration is used to customize filtering/mapping/routing logic to be executed by the core pub/sub routing infrastructure via the `register_message_routes` interface.
+- Drasi change events arrive through Dapr pub/sub, pass through the core pub/sub routing infrastructure, and trigger agent workflows.
 
-**Code Quality** (enforced by CI):
-- **Python version**: >=3.11
-- **Formatting**: ruff (auto-format, no exceptions)
-- **Linting**: flake8 (ignores: E501, F401, W503, E203)
-- **Type Checking**: mypy (config: `./mypy.ini`)
-- **All checks MUST pass** before merge
-- **General**:
-  - **Typing**: Enforce strong typing (e.g., `variable: Dict[str, List[str]] = ..`)
-  - **Pydantic Models**: For validated/serialized data (APIs, configs, external input)
-  - **Dataclasses**: For internal data structures without validation
-  - **Logging**: Use module-level logger: `logger = logging.getLogger(__name__)`
-  - **ConfigDict**: Add `model_config = ConfigDict(arbitrary_types_allowed=True)` when Pydantic models contain non-serializable types
-  - **Custom Exceptions**: Define domain-specific exceptions (inherit from `Exception`); use descriptive names ending in `Error`
-  - **Async Execution**:
-    - Check for running loop with `asyncio.get_running_loop()` before creating new loops
-    - Use `asyncio.run_coroutine_threadsafe()` when submitting coroutines to a running loop from another thread
-    - Create fresh event loops only when no loop is running
-  - **Error Handling**:
-    - Always catch specific exceptions before general ones
-    - Log errors with context before raising: `logger.error("Operation failed: %s", error, exc_info=True)`
-    - Use `span.record_exception(e)` for observability when available
-  - **Function Signatures**: Return `None` explicitly for functions with no return value (e.g., `def setup() -> None:`)
-  - **Module Exports**: Define `__all__` in `__init__.py` to explicitly control public API
+## Public API
 
-## Testing
+All public symbols are exported from `dapr_agents.ext.drasi`:
 
-**Test Structure**: `./tests/` mirrors `./dapr_agents/` structure
-- `agents/`, `llm/`, `workflow/` - Unit tests
-- `quickstarts/` - E2E integration tests (requires API keys: `OPENAI_API_KEY`, etc.)
+```python
+from dapr_agents.ext.drasi import (
+    drasi_trigger,      # Register Drasi query subscriptions for an agent
+    DrasiChangeEvent,   # Drasi change event model emitted by a query
+    DrasiOperation,     # Drasi operation enum: i, u, or d
+)
+```
 
-**CI** (`./.github/workflows/build.yaml`): ruff → flake8 → mypy → pytest
-- Matrix: Python 3.11, 3.12, 3.13, 3.14
-- Failures block merge
+Notes:
 
-## Pull Request Rules
+- `dapr_agents.ext.drasi.__init__` re-exports the full public surface shown
+    above.
+- `types.py` re-exports generated Drasi schema models under extension-specific
+    public names, including `DrasiChangeEvent` and `DrasiOperation`.
+- Anything under `activations.py` or `utils/` should be treated as internal
+    unless it is explicitly re-exported or documented here.
 
-**REQUIRED Before PR**:
-1. Run `uv run ruff format && uv run flake8 dapr_agents tests --ignore=E501,F401,W503,E203,E704 && uv run mypy --config-file mypy.ini && uv run pytest tests -m "not integration"` locally - all checks must pass
-2. Use conventional commit format for PR title
-3. Update docs in `dapr/docs` repo for: API changes, new features, breaking changes, config options
-4. Include "AGENTS.md Notes" in the PR with suggestions to make this prompt better
+## Gotchas
 
-**PR Will Fail If**:
-- Commits are not signed
-- Not formatted with ruff
-- Flake8 errors exist
-- Mypy type errors present
-- Any tests fail
-- No corresponding docs PR (when required)
+- `dapr_agents.ext` is a PEP 420 namespace package. Do not add an
+    `__init__.py` to `dapr_agents/ext/`; that would change import behavior.
+- `drasi_trigger` is activation-time wiring only. It does not start the agent
+    runtime by itself; it registers pub/sub routes on the target `DurableAgent`.
+- The default topic is derived from the query ID as
+    `drasi-events-<query_id>`.
+- If `pubsub` is omitted, the extension falls back to the agent's configured
+    pub/sub. Activation fails if no pub/sub is available, or if the resolved
+    `(pubsub, topic)` matches the agent’s own `(pubsub, topic)`.
+- `operations` is normalized to a list and only Drasi operations `i`, `u`, and
+    `d` are supported.
+- `change_model` must be a supported dict, dataclass, or Pydantic model.
+- Dedupe is best-effort. If `cachetools` is unavailable, duplicate detection is
+    disabled and the extension logs a warning.
+- Generated schema files under `schemas/unpacked/` should be regenerated via
+    `scripts/generate-drasi-models.sh`; do not hand-edit them.
+
+## Testing and development
+
+- For shared setup, testing, code quality, and PR guidance, use the root
+    [AGENTS.md](../../AGENTS.md).
+- To install the extension in a consuming project:
+
+    ```bash
+    uv add dapr-agents[drasi]
+    ```
+
+- To install the extension in editable mode from the repo root:
+
+    ```bash
+    uv venv
+    source .venv/bin/activate
+    uv sync --active --group dev --group test --extra drasi
+    ```
+
+- To run extension tests from the repo root:
+
+    ```bash
+    uv run --group test pytest ext/dapr-agents-ext-drasi -m "not integration" -v
+    ```
+
+- Extension tests currently live in:
+
+    - `tests/test_drasi_trigger.py` — activation wiring and end-to-end trigger
+        behavior at the extension boundary
+    - `tests/utils/test_validation.py` — validation helpers and schema
+        coercion behavior
+    - `tests/schemas/test_unpacked_event_models.py` — smoke tests for generated
+        model imports and expected shape
+
+- When changing public behavior, add or update tests alongside the extension
+    test file and keep the README usage examples aligned.
+
+## Documentation updates
+
+- Update `README.md` when the public API or installation changes.
 
 ---
 > Source: [dapr/dapr-agents](https://github.com/dapr/dapr-agents) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
