@@ -7,11 +7,11 @@ A natural-language workflow for turning talking-head footage into tightly edited
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Endless1936/cut-motion](https://github.com/Endless1936/cut-motion).
+Original source: `AGENTS.md` in [Endless1936/cut-motion](https://github.com/Endless1936/cut-motion).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
