@@ -4,7 +4,7 @@
   "repo": "call-of-duty-2-docker-server",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bgauduch/call-of-duty-2-docker-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-28T01:12:03Z"
+  "distributed_at": "2026-08-06T02:59:25Z"
 }
