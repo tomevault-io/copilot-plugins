@@ -1,0 +1,9 @@
+{
+  "name": "eventhorizon-cli--eventhorizon-rocketmq",
+  "displayName": "EventHorizon.RocketMQ",
+  "description": "EventHorizon.RocketMQ",
+  "version": "1.0.0",
+  "author": "eventhorizon-cli",
+  "homepage": "https://github.com/eventhorizon-cli/EventHorizon.RocketMQ",
+  "skills": []
+}
