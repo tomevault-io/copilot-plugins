@@ -1,0 +1,9 @@
+{
+  "name": "acornops--acornops",
+  "displayName": "acornops",
+  "description": "Open-source, self-hosted AI-assisted operations for Kubernetes and Linux. Start here for source, architecture, deployment, and contributions.",
+  "version": "1.0.0",
+  "author": "acornops",
+  "homepage": "https://github.com/acornops/acornops",
+  "skills": []
+}
