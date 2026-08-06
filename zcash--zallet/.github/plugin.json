@@ -1,0 +1,9 @@
+{
+  "name": "zcash--zallet",
+  "displayName": "zallet",
+  "description": "An RPC wallet designed to replace the deprecated `zcashd` embedded wallet.",
+  "version": "1.0.0",
+  "author": "zcash",
+  "homepage": "https://github.com/zcash/zallet",
+  "skills": []
+}
