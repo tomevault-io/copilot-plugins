@@ -1,0 +1,9 @@
+{
+  "name": "open-fox--game-sudoku",
+  "displayName": "game-sudoku",
+  "description": "A cozy cat-placement Sudoku puzzle built with TanStack Start and Cloudflare Workers.",
+  "version": "1.0.0",
+  "author": "open-fox",
+  "homepage": "https://github.com/open-fox/game-sudoku",
+  "skills": []
+}
