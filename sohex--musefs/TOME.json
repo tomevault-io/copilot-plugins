@@ -4,7 +4,7 @@
   "repo": "musefs",
   "description": "Read-only passthrough FUSE filesystem presenting a virtually reorganized, re-tagged view of a music library backed by SQLite \u2014 without copying or modifying audio bytes.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sohex/musefs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T14:19:05Z"
+  "distributed_at": "2026-08-06T19:06:20Z"
 }
