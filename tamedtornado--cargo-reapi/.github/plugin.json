@@ -1,0 +1,9 @@
+{
+  "name": "tamedtornado--cargo-reapi",
+  "displayName": "cargo-reapi",
+  "description": "Cross-worktree Rust build reuse and miss coalescing with Cargo-authoritative correctness",
+  "version": "1.0.0",
+  "author": "TamedTornado",
+  "homepage": "https://github.com/TamedTornado/cargo-reapi",
+  "skills": []
+}
