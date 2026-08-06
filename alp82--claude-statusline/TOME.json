@@ -1,0 +1,44 @@
+{
+  "name": "claude-statusline",
+  "owner": "alp82",
+  "repo": "claude-statusline",
+  "description": "One bash script for the Claude Code statusline: dir, branch, model, context window, and 5h / 7d / Fable rate-limit bars.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/alp82/claude-statusline",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T12:45:52Z"
+}
