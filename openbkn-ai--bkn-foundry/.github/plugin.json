@@ -1,0 +1,9 @@
+{
+  "name": "openbkn-ai--bkn-foundry",
+  "displayName": "bkn-foundry",
+  "description": "BKN Foundry is the back-end foundation of OpenBKN. It transforms ontology-driven business semantics into runtime services: data, logic, actions, security governance, and observability.",
+  "version": "1.0.0",
+  "author": "openbkn-ai",
+  "homepage": "https://github.com/openbkn-ai/bkn-foundry",
+  "skills": []
+}
