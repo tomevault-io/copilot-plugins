@@ -1,0 +1,9 @@
+{
+  "name": "slexkit--slexkit",
+  "displayName": "slexkit",
+  "description": "Zero-build, Markdown-friendly reactive UI runtime for AI output.",
+  "version": "1.0.0",
+  "author": "slexkit",
+  "homepage": "https://github.com/slexkit/slexkit",
+  "skills": []
+}
