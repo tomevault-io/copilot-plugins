@@ -1,0 +1,45 @@
+## qvmconsole
+
+> 1. 所有功能实现除了用户相关，虚拟机层面尽量不要使用数据库以确保与已经在运行的虚拟机同步。如果有命令就优先使用命令获取一切必要信息，如果某些功能需要使用数据库再使用数据库，但在使用数据库的信息时应当考虑与用户现有生产环境的解耦性，必要时提供一套兼容方案或功能。
+
+# 其它方面
+
+1. 所有功能实现除了用户相关，虚拟机层面尽量不要使用数据库以确保与已经在运行的虚拟机同步。如果有命令就优先使用命令获取一切必要信息，如果某些功能需要使用数据库再使用数据库，但在使用数据库的信息时应当考虑与用户现有生产环境的解耦性，必要时提供一套兼容方案或功能。
+2. script目录下存放的是核心功能实现的逻辑，后端请务必优先按照脚本进行改写。
+3. 耗时操作全部使用任务队列进行处理。
+4. 代码应当完全模块化，方便后续扩展。
+5. 在编写由关虚拟机之前建议你可以使用MCP连接名为SSH-MCP_kvm-test服务器进行测试SSH-MCP_kvm-arm为arm测试机，如果需要我协助比如上传镜像之类请你告诉我之后再继续操作。你可以同时使用`qvmconsole` MCP来查看虚拟机的VNC画面和操作。
+6. 所有功能实现过程中如果使用到apt或第三方工具应当明确写入到docs\dependencies.md
+7. 代码最好不要硬编参数，尽可能使用表单或系统设置方式
+8. 对于解决由于虚拟机运行时的报错，应当分析关机和开机操作代价，我会更偏向让用户关机再操作
+9. 我的存储中的所有标签页无特殊说明的功能都需要纳入配额，目录不存在 → 补建 + 加入 project disk 目录已存在但不在 /etc/projects 中 → 自动加入 project mapping + 对已有文件追溯设置 project ID（chattr -p）disk 目录已存在且已在 project 中 → 正常返回。但是需要注意系统只会阻止非root用户的写入，所以你需要操作时使用用户级别操作，当前面板注册用户会自动在系统里创建一个用户所以你就用这个用户就行。使用我的存储前也要多一步校验是否开通了存储。
+10. 涉及界面上的修改应当先确认是否有其他地方同样使用了这个方式，应当一并修改。
+11. 不需要做编译验证
+12. 测试环境的机器目录是在/opt/project/new-web 管理员账号admin admin123 普通用户 test Qw133133133133@ 一般我来测试就行，除非是修复bug。测试环境数据库是/opt/project/new-web/data/kvm_console.db
+13. 敏感操作，如创建、删除虚拟机，重置密码等需要二次验证
+14. 所有文件都会实时同步到测试机并自动触发热重载你并不需要调用MCP上传文件，但是要注意的是当前启动程序启动的时候执行命令非常多所以启动比较慢大概10秒左右，验证后端是否更新需要注意等待。
+15. 后续新增后端业务接口时，除登录、注册、邀请、找回密码、安全初始化、邮箱、2FA 等账户安全流程外，必须默认兼容 API Key 调用；接口清单由 web/scripts/generate-api-endpoints.mjs 在构建时从后端源码自动解析生成（predev/prebuild 钩子），**无需手动往接口文档页添加**；新增接口时建议在 router.go 行尾写中文注释（会作为摘要兜底），并在 web/src/views/api-docs/endpointDescriptions.ts 补充中文文案（新增路由组时同步补 moduleGroups 分组映射）；docs 功能文档仍需同步补充。敏感操作即使支持 API Key，也必须保留二次验证。
+16. 如果实现的功能需要在面板安装前完成或安装依赖请写到install.sh脚本中
+17. 开通虚拟机分为单个开通和批量开通，批量开通字段独立，大部分功能字段都需要同时兼顾到批量开通的情况
+18. 前端要注意适配深色模式，确保在深色模式下能够正常显示，浅色仍然是优先，但是要有跟随系统
+19. 所有修改完毕之后必须要编译测试，Windows环境编译即可
+20. 对于新增的功能，应当评估此功能后续利用价值，若会有频繁调用的场景务必提取出函数文件，保持代码模块化。
+21. 遇到代码和实际表现不同的问题以及模糊边界，不要盲目猜想，必须连接测试机核实现状重新评估问题原有
+22. 所有输入密码的地方必须要接入密码泄露检测的函数
+23. 涉及架构专属等特殊场景的功能，前端应当只有在对应架构上再显示此功能
+24. 新增功能字段时，如果前端高级设置表单同时存在于编辑模式的选项卡和创建模式的步骤引导中，需要**两个位置都添加**（编辑模式在 VmForm.vue 的 `<el-tab-pane name="advanced">` 内，创建模式在 `createStep === 'advanced'` 的 step-pane 内）。后端同理：ISO 创建路径（CreateVmRequest → CreateVMParams → CreateVM）和模板克隆路径（CloneVmRequest/BatchCloneRequest → CloneParams/BatchCloneParams → CloneVM/defineAndStartNonWindowsClone/cloneWindows）是独立链路，需要**同步补齐字段**和 XML 注入。
+25. 本项目没有测试代码。不需要写测试代码 代码写完之后直接告诉我即可，我自己去测试。
+26. 编写前端的时候必须要读semi-ui-skills技能
+27. 深色模式下卡片/列表内的大面积标题与正文文字不要直接使用近白色 --qvm-text-0（#e7ebf3），高对比白字在暗背景上刺眼伤眼。应通过 body[theme-mode='dark'] 覆盖为柔和灰（模板页用 #b8c1cf）。仅极少量关键强调文字可保留高亮。新增页面的深色适配必须检查文字对比度，浅色仍以设计令牌为准不受影响。
+28. 本项目列表/行内操作按钮统一采用「纯图标 + Tooltip」模式：图标放按钮内，操作文字写到按钮外的 Tooltip 中（参考 VmActionsCell 的 qvm-act-ic 模式：span.tpl-act-ic/qvm-act-ic + Tooltip position="top"）。禁止把中文长文本直接写进小尺寸或 borderless 按钮内，行内空间不足时会逐字换行导致文字竖排。加载中状态用 IconRefresh spin 替换原图标。弹窗底部主操作按钮（取消/确定等）不受此限，可正常带文字。
+
+行内操作超过 2~3 个时容易误触，只保留 1 个高频操作图标在外，其余收进 ⋯ 下拉菜单（Dropdown trigger="click" position="bottomRight" clickToHide，危险项 type="danger"，与 VmActionsCell 一致），行级任务进行中时 ⋯ 图标显示 IconRefresh spin。
+
+同理，Semi Switch 统一在组件内部使用 checkedText/uncheckedText 展示状态；每个状态文字仅允许一个显示字符，例如“开/关”或“｜/〇”，禁止在开关右侧追加状态文字。
+29.项目中所有 Switch 组件允许且应使用 checkedText/uncheckedText 内嵌状态文字；checkedText 与 uncheckedText 必须各为一个显示字符。通用状态使用“开/关”，语义特殊时可使用对应的单字符，禁止使用开关外部状态文字。
+30. 前端开发前端开发前请务必阅读 semi-ui-skills 技能文档，确保对 Semi 组件库的使用规范有充分了解。
+31. 所有 Semi Modal 弹窗关闭时必须保留缩小离场动画。父组件按条件挂载弹窗时，必须使用 `web/src/hooks/useMountModalLifecycle.ts`：关闭时先调用 `requestClose` 将 `visible` 切换为 `false`，通过 `afterClose={afterModalClose}` 等待动画结束后再清理父组件状态或跳转页面；禁止在 `onCancel`、提交成功回调或刷新回调中直接卸载弹窗。父组件始终挂载的受控弹窗可继续直接切换 `visible`，但不得在关闭时同步卸载组件。
+
+---
+> Source: [QVMConsole/QVMConsole](https://github.com/QVMConsole/QVMConsole) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-29 -->
