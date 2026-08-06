@@ -1,0 +1,9 @@
+{
+  "name": "near-one--bridge-sdk-js",
+  "displayName": "bridge-sdk-js",
+  "description": "TypeScript SDK for seamless cross-chain token transfers using the Omni Bridge protocol",
+  "version": "1.0.0",
+  "author": "Near-One",
+  "homepage": "https://github.com/Near-One/bridge-sdk-js",
+  "skills": []
+}
