@@ -2,9 +2,9 @@
   "name": "UnravelEngine",
   "owner": "unravel-dev",
   "repo": "UnravelEngine",
-  "description": "Modern Cross-Platform C++ Game Engine with WYSIWYG Editor and C# Scipting",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/unravel-dev/UnravelEngine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T12:08:18Z"
+  "distributed_at": "2026-08-06T03:11:25Z"
 }
