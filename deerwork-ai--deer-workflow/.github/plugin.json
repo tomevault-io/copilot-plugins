@@ -1,0 +1,9 @@
+{
+  "name": "deerwork-ai--deer-workflow",
+  "displayName": "deer-workflow",
+  "description": "An open-source Dynamic Workflow runtime that keeps orchestration in TypeScript and delegates semantic work to replaceable Agent runtimes.",
+  "version": "1.0.0",
+  "author": "deerwork-ai",
+  "homepage": "https://github.com/deerwork-ai/deer-workflow",
+  "skills": []
+}
