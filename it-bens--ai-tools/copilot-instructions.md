@@ -1,17 +1,19 @@
 ## ai-tools
 
-> For ALL plugin and skill development, use the plugin-dev tools instead of manual creation:
+> For all plugin and skill development, consult the active assistant's matching authoring workflow before manually creating plugin structures.
 
 @README.md
 
 # Development Guide
 
-## Required: Use Plugin-Dev Tools
+## Required: Use Assistant Authoring Tools
 
-For ALL plugin and skill development, use the plugin-dev tools instead of manual creation:
+For all plugin and skill development, consult the active assistant's matching authoring workflow before manually creating plugin structures.
+
+### Claude Code
 
 | Task | Tool |
-|------|------|
+|---|---|
 | Create new plugin | `/create-plugin` command |
 | Plugin structure guidance | `plugin-dev:plugin-structure` skill |
 | Create/edit skills | `plugin-dev:skill-development` skill |
@@ -22,40 +24,40 @@ For ALL plugin and skill development, use the plugin-dev tools instead of manual
 | Validate plugin | `plugin-dev:plugin-validator` agent |
 | Review skill quality | `plugin-dev:skill-reviewer` agent |
 
-**Do not manually create plugin structures without consulting these tools first.**
+### Codex
 
-## Project-Specific Context
+| Task | Skill |
+|---|---|
+| Create or update a plugin and its marketplace entry | `plugin-creator` |
+| Create or update a skill | `skill-creator` |
+| Verify current Codex conventions | `openai-docs` |
 
-### Plugin Registration
+For agents, commands, hooks, and MCP integrations, use a matching installed authoring workflow when one is available. Otherwise, verify the active host's current conventions and inspect the nearest compatible plugin before editing.
 
-Each plugin has its own `.claude-plugin/plugin.json` for metadata. Plugins are also registered in the marketplace at `.claude-plugin/marketplace.json`:
+## Compatibility Contract
 
-```json
-{
-  "name": "plugin-name",
-  "source": "./plugins/plugin-name",
-  "category": "development"
-}
-```
+Plugins may support Claude Code, Codex, or both. Claim support only when the plugin has the manifest, marketplace registration, required runtime wiring, and documentation for that host.
 
-### Adding a New Plugin
+| Host | Plugin manifest | Marketplace registry |
+|---|---|---|
+| Claude Code | `.claude-plugin/plugin.json` | `.claude-plugin/marketplace.json` |
+| Codex | `.codex-plugin/plugin.json` | `.agents/plugins/marketplace.json` |
 
-When adding a new plugin:
+- Keep shared skills, scripts, hooks, and guidance host-neutral where behavior is shared.
+- Keep host-specific manifests, wrappers, and setup instructions additive.
+- Do not infer Codex compatibility from a plugin name or shared skill body. Use `✅` only when both the Codex manifest and marketplace entry exist, add a parenthesized note for Codex-specific prerequisites or behavior differences, and use `❌` otherwise.
 
-1. Create the plugin in `plugins/<plugin-name>/` using `/create-plugin`
-2. Add entry to `.claude-plugin/marketplace.json`:
-   ```json
-   {
-     "name": "<plugin-name>",
-     "source": "./plugins/<plugin-name>",
-     "category": "<category>"
-   }
-   ```
-3. Update the "Available Plugins" table in `README.md`
+## Adding a New Plugin
 
-### Claude Web Compatibility
+1. Choose the hosts the plugin will support.
+2. Create the plugin in `plugins/<plugin-name>/` with the active assistant's authoring workflow.
+3. Add the manifest and marketplace entry for each supported host, following a current neighboring entry for that host's schema.
+4. Keep shared implementation host-neutral and isolate unavoidable host-specific behavior.
+5. Update the `README.md` plugin table, keep it alphabetized by plugin name, and set Codex compatibility from the checked-in Codex manifest and marketplace entry.
 
-Skills use `allowed-tools` in frontmatter to restrict tool access in Claude Code. This field does NOT work in Claude Web.
+## Claude Web Compatibility
+
+Skills use `allowed-tools` in frontmatter to restrict tool access in Claude Code. This field does not work in Claude Web.
 
 To create Claude Web-compatible ZIPs that strip `allowed-tools`:
 
@@ -63,16 +65,20 @@ To create Claude Web-compatible ZIPs that strip `allowed-tools`:
 ./build-skill-for-web.sh ./plugins/<plugin>/skills/<skill>
 ```
 
-### Directory Purposes
+## Directory Purposes
 
 | Path | Purpose |
-|------|---------|
-| `plugins/` | Plugin implementations (skills, agents, commands, hooks) |
+|---|---|
+| `AGENTS.md` | Shared project guidance for Codex and Claude Code |
+| `AGENTS.override.md` | Codex project override that instructs reading `AGENTS.md` before project-specific additions |
+| `CLAUDE.md` | Claude Code wrapper that inlines `AGENTS.md` |
+| `plugins/` | Plugin implementations (skills, agents, commands, hooks, and MCP servers) |
 | `plugin-tests/` | BATS tests for hook scripts |
-| `.claude-plugin/marketplace.json` | Marketplace registry |
+| `.agents/plugins/marketplace.json` | Codex marketplace registry |
+| `.claude-plugin/marketplace.json` | Claude Code marketplace registry |
 | `.github/scripts/setup-bats.sh` | BATS test framework setup |
 | `build-skill-for-web.sh` | Creates Claude Web ZIPs |
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/it-bens) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [it-bens/ai-tools](https://github.com/it-bens/ai-tools) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-28 -->
