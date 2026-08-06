@@ -1,0 +1,9 @@
+{
+  "name": "mdjastrzebski--react-native-memory-footprint",
+  "displayName": "react-native-memory-footprint",
+  "description": "Measure your React Native app's memory footprint on iOS and Android.",
+  "version": "1.0.0",
+  "author": "mdjastrzebski",
+  "homepage": "https://github.com/mdjastrzebski/react-native-memory-footprint",
+  "skills": []
+}
