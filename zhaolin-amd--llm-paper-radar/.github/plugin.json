@@ -1,0 +1,9 @@
+{
+  "name": "zhaolin-amd--llm-paper-radar",
+  "displayName": "llm-paper-radar",
+  "description": "Daily LLM inference optimization paper digest",
+  "version": "1.0.0",
+  "author": "zhaolin-amd",
+  "homepage": "https://github.com/zhaolin-amd/llm-paper-radar",
+  "skills": []
+}
