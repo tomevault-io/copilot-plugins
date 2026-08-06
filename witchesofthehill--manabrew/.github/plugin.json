@@ -1,0 +1,9 @@
+{
+  "name": "witchesofthehill--manabrew",
+  "displayName": "manabrew",
+  "description": "Open-source MTG (Magic: The Gathering) game engine and desktop client built with Rust, Tauri, and React. Compatible with Forge card scripts.",
+  "version": "1.0.0",
+  "author": "witchesofthehill",
+  "homepage": "https://github.com/witchesofthehill/manabrew",
+  "skills": []
+}
