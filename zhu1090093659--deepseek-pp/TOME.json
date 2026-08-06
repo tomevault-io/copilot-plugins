@@ -97,9 +97,33 @@
       "path": "core/skill/officecli-official/skills/officecli-data-dashboard/SKILL.md",
       "github_url": "https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/officecli-official/skills/officecli-data-dashboard/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "deepseek-pp",
+      "path": "core/skill/spec-driven-develop-official/review-spd/SKILL.md",
+      "github_url": "https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/spec-driven-develop-official/review-spd/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepseek-pp",
+      "path": "core/skill/spec-driven-develop-official/deep-discuss/SKILL.md",
+      "github_url": "https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/spec-driven-develop-official/deep-discuss/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepseek-pp",
+      "path": "core/skill/spec-driven-develop-official/spec-driven-develop/SKILL.md",
+      "github_url": "https://github.com/zhu1090093659/deepseek-pp/tree/main/core/skill/spec-driven-develop-official/spec-driven-develop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "deepseek-pp",
+      "path": "docs/archives/deepseek-pp-reliability-compatibility-refactor/skill/SKILL.md",
+      "github_url": "https://github.com/zhu1090093659/deepseek-pp/tree/main/docs/archives/deepseek-pp-reliability-compatibility-refactor/skill/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/zhu1090093659/deepseek-pp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T08:12:57Z"
+  "distributed_at": "2026-08-06T09:43:58Z"
 }
