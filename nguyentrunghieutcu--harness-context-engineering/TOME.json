@@ -4,7 +4,7 @@
   "repo": "Harness-context-engineering",
   "description": "MCP Tool Server ch\u1ea1y local \u2014 t\u1ed1i \u01b0u h\u00f3a context window cho AI assistant (Codex / Claude) v\u1edbi Hybrid RAG, Memory Tiers, dynamic token budgeting, v\u00e0 global prompt optimization.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nguyentrunghieutcu/Harness-context-engineering",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T04:17:35Z"
+  "distributed_at": "2026-08-06T11:16:52Z"
 }
