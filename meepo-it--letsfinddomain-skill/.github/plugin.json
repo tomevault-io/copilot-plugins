@@ -1,0 +1,9 @@
+{
+  "name": "meepo-it--letsfinddomain-skill",
+  "displayName": "letsfinddomain-skill",
+  "description": "A read-only AI skill for finding domain names, checking availability in bulk, and comparing renewal prices.",
+  "version": "1.0.0",
+  "author": "meepo-it",
+  "homepage": "https://github.com/meepo-it/letsfinddomain-skill",
+  "skills": []
+}
