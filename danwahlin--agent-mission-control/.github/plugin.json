@@ -1,0 +1,9 @@
+{
+  "name": "danwahlin--agent-mission-control",
+  "displayName": "agent-mission-control",
+  "description": "Tauri 2 + Phaser 4 desktop dashboard that visualizes live GitHub Copilot CLI activity.",
+  "version": "1.0.0",
+  "author": "DanWahlin",
+  "homepage": "https://github.com/DanWahlin/agent-mission-control",
+  "skills": []
+}
