@@ -4,7 +4,7 @@
   "repo": "pi-multiloop",
   "description": "Multi-lane autonomous iteration loops for pi \u2014 optimization, punchlist, research, and dev modes",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lhl/pi-multiloop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T17:52:15Z"
+  "distributed_at": "2026-08-06T20:45:25Z"
 }
