@@ -1,0 +1,9 @@
+{
+  "name": "dasmeta--development-orchestrator",
+  "displayName": "development-orchestrator",
+  "description": "This repo is to orchestrate product development, requirement management, implementation",
+  "version": "1.0.0",
+  "author": "dasmeta",
+  "homepage": "https://github.com/dasmeta/development-orchestrator",
+  "skills": []
+}
