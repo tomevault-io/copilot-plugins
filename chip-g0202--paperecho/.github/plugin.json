@@ -1,0 +1,9 @@
+{
+  "name": "chip-g0202--paperecho",
+  "displayName": "PaperEcho",
+  "description": "\u542c\u89c1\u6587\u732e\u56de\u58f0\uff0c\u627e\u5230\u503c\u5f97\u8ffd\u968f\u7684\u7814\u7a76\u7ebf\u7d22\u3002\u57fa\u4e8e Codex \u7684\u591a\u5b66\u79d1\u6587\u732e\u5de5\u4f5c\u6d41\uff0c\u652f\u6301 OpenAlex\u3001PubMed/PMC\u3001RSS \u4e0e\u672c\u5730\u6570\u636e\uff0c\u53ef\u4ea4\u4ed8\u5230 Zotero Desktop\u3001Zotero Web \u6216\u672c\u5730\u62a5\u544a\u3002",
+  "version": "1.0.0",
+  "author": "Chip-G0202",
+  "homepage": "https://github.com/Chip-G0202/PaperEcho",
+  "skills": []
+}
