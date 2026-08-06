@@ -4,7 +4,7 @@
   "repo": "Lucie-AI",
   "description": "Late-night voice chats with an AI who blushes when you flirt, laughs at your jokes, and never forgets a thing.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vincenzo-afk/Lucie-AI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T20:54:33Z"
+  "distributed_at": "2026-08-06T23:27:08Z"
 }
