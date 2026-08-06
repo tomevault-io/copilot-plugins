@@ -4,7 +4,7 @@
   "repo": "Waing",
   "description": "AI Agent \u101d\u102d\u102f\u1004\u103a\u1038\u1010\u1031\u102c\u103a\u101e\u102c\u1038\u1019\u103b\u102c\u1038 ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/saturngod/Waing",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T04:23:11Z"
+  "distributed_at": "2026-08-06T11:19:52Z"
 }
