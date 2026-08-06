@@ -1,0 +1,9 @@
+{
+  "name": "daveebbelaar--e2e-invoice-review",
+  "displayName": "e2e-invoice-review",
+  "description": "A human-in-the-loop invoice and receipt review build with Azure extraction, deterministic finance rules, FastAPI, React, and SQLite.",
+  "version": "1.0.0",
+  "author": "daveebbelaar",
+  "homepage": "https://github.com/daveebbelaar/e2e-invoice-review",
+  "skills": []
+}
