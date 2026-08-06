@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [deweyjose/graphqlcodegen](https://github.com/de
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [deweyjose/graphqlcodegen](https://github.com/deweyjose/graphqlcodegen) — a repo with 111+ stars on GitHub.
+From [deweyjose/graphqlcodegen](https://github.com/deweyjose/graphqlcodegen) — a repo with 112+ stars on GitHub.
 
 ---
 
