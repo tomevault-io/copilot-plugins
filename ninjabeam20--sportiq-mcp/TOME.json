@@ -4,7 +4,7 @@
   "repo": "SportIQ-MCP",
   "description": "MCP server with 25+ AI-callable tools for IPL, F1 & FIFA WC 2026 \u2014 Dream11 solver, F1 pit-strategy model, Monte Carlo bracket simulator. Works with Claude, Cursor & Zed.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ninjabeam20/SportIQ-MCP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T14:13:58Z"
+  "distributed_at": "2026-08-06T19:01:42Z"
 }
