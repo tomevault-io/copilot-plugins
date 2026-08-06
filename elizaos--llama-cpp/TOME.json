@@ -4,7 +4,7 @@
   "repo": "llama.cpp",
   "description": "Milady-controlled llama.cpp fork: TurboQuant + QJL + PolarQuant + DFlash unified",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/elizaOS/llama.cpp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T00:15:11Z"
+  "distributed_at": "2026-08-06T08:50:42Z"
 }
