@@ -7,11 +7,11 @@ Render and edit PowerPoint (.pptx) files in Node.js or the browser. Output slide
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [hirokisakabe/pptx-glimpse](https://github.com/hirokisakabe/pptx-glimpse).
+Original source: `AGENTS.md` in [hirokisakabe/pptx-glimpse](https://github.com/hirokisakabe/pptx-glimpse).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
