@@ -2,9 +2,9 @@
   "name": "obsidian-dev-utils",
   "owner": "mnaoumov",
   "repo": "obsidian-dev-utils",
-  "description": "Collection of essential functions and CLI tools designed to streamline your Obsidian plugin development process",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mnaoumov/obsidian-dev-utils",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T18:34:49Z"
+  "distributed_at": "2026-08-06T02:56:54Z"
 }
