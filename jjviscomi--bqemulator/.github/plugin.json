@@ -1,0 +1,9 @@
+{
+  "name": "jjviscomi--bqemulator",
+  "displayName": "bqemulator",
+  "description": "Local emulator for Google BigQuery. DuckDB-backed, SQLGlot-powered. Drop-in replacement for the real service in dev, CI, and offline replicas.",
+  "version": "1.0.0",
+  "author": "jjviscomi",
+  "homepage": "https://github.com/jjviscomi/bqemulator",
+  "skills": []
+}
