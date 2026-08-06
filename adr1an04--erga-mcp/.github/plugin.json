@@ -1,0 +1,9 @@
+{
+  "name": "adr1an04--erga-mcp",
+  "displayName": "erga-mcp",
+  "description": "Organize and track job applications and tailor LaTeX resumes from the CLI or an MCP client.",
+  "version": "1.0.0",
+  "author": "Adr1an04",
+  "homepage": "https://github.com/Adr1an04/erga-mcp",
+  "skills": []
+}
