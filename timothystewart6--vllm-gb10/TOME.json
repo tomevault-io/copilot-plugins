@@ -4,7 +4,7 @@
   "repo": "vllm-gb10",
   "description": "Bleeding edge vLLM Docker image for the NVIDIA DGX Spark (GB10 / sm_121a).",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/timothystewart6/vllm-gb10",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T08:33:01Z"
+  "distributed_at": "2026-08-06T13:39:03Z"
 }
