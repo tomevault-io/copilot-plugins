@@ -7,11 +7,11 @@ Public MIT-licensed Understudy agent tools and skill library
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [understudylabs/understudy-agent-tools](https://github.com/understudylabs/understudy-agent-tools).
+Original source: `AGENTS.md` in [understudylabs/understudy-agent-tools](https://github.com/understudylabs/understudy-agent-tools).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
