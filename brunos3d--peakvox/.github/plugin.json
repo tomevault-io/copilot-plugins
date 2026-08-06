@@ -1,0 +1,9 @@
+{
+  "name": "brunos3d--peakvox",
+  "displayName": "peakvox",
+  "description": "A self-hosted, model-agnostic Voice AI platform for Text-to-Speech, Voice Cloning, and Runtime-Orchestrated Voice Management.",
+  "version": "1.0.0",
+  "author": "brunos3d",
+  "homepage": "https://github.com/brunos3d/peakvox",
+  "skills": []
+}
