@@ -4,7 +4,7 @@
   "repo": "staff-engineer-mode",
   "description": "Staff-level engineering judgment for coding agents, from design to production.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sirmarkz/staff-engineer-mode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T17:51:30Z"
+  "distributed_at": "2026-08-06T20:44:19Z"
 }
