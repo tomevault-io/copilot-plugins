@@ -4,7 +4,7 @@
   "repo": "spiderman-brand-new-day",
   "description": "Web oficial espa\u00f1ola para la pel\u00edcula Spiderman Brand New Day",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/midudev/spiderman-brand-new-day",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T07:44:12Z"
+  "distributed_at": "2026-08-06T13:00:21Z"
 }
