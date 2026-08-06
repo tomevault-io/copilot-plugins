@@ -1,0 +1,9 @@
+{
+  "name": "hiai-gg--docsmint",
+  "displayName": "docsmint",
+  "description": "DocsMint - self-hosted AI-native knowledge workspace with semantic search, GraphRAG, REST, CLI, SDK, and MCP.",
+  "version": "1.0.0",
+  "author": "HiAi-gg",
+  "homepage": "https://github.com/HiAi-gg/docsmint",
+  "skills": []
+}
