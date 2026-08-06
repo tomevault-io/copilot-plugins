@@ -1,0 +1,9 @@
+{
+  "name": "sa-san10--nyamuru-manga-name-studio",
+  "displayName": "nyamuru-manga-name-studio",
+  "description": "AI\u3068\u4e00\u7dd2\u306b\u6f2b\u753b\u30cd\u30fc\u30e0\u3092\u4f5c\u308b\u30aa\u30fc\u30d7\u30f3\u30bd\u30fc\u30b9\u30b9\u30bf\u30b8\u30aa\u3002Nyamuru Data Model\uff08NDM\uff09/ OMNY\u5f62\u5f0f\u306e\u30cd\u30fc\u30e0\u7de8\u96c6PWA\u30fbLLM\u5411\u3051\u751f\u6210\u30d7\u30ed\u30f3\u30d7\u30c8\u30fb\u753b\u50cf\u751f\u6210\u30ef\u30fc\u30af\u30d5\u30ed\u30fc\u3092\u53ce\u9332",
+  "version": "1.0.0",
+  "author": "sa-san10",
+  "homepage": "https://github.com/sa-san10/nyamuru-manga-name-studio",
+  "skills": []
+}
