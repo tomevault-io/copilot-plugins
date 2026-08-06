@@ -1,0 +1,9 @@
+{
+  "name": "nopnoping--micro-vllm",
+  "displayName": "micro-vllm",
+  "description": "A small, educational vLLM implementation for exploring LLM inference, scheduling, KV-cache management, and GPU execution.",
+  "version": "1.0.0",
+  "author": "nopnoping",
+  "homepage": "https://github.com/nopnoping/micro-vllm",
+  "skills": []
+}
