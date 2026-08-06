@@ -4,7 +4,7 @@
   "repo": "opensabre-framework",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/opensabre/opensabre-framework",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-28T01:57:52Z"
+  "distributed_at": "2026-08-06T00:12:29Z"
 }
