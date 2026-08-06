@@ -1,0 +1,9 @@
+{
+  "name": "tasirwimp--agent-desktop-automation-mcp-server",
+  "displayName": "Agent_Desktop_Automation_MCP_Server",
+  "description": "Policy-first MCP server foundation for agent desktop automation.",
+  "version": "1.0.0",
+  "author": "TasirWimp",
+  "homepage": "https://github.com/TasirWimp/Agent_Desktop_Automation_MCP_Server",
+  "skills": []
+}
