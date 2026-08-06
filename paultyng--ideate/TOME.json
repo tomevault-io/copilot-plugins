@@ -4,7 +4,7 @@
   "repo": "ideate",
   "description": "One home for every idea \u2014 local-first macOS desktop app for tracking work-in-flight with linked repo worktrees, context files, external resources, and AI agent sessions, all per-idea.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/paultyng/ideate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T20:06:28Z"
+  "distributed_at": "2026-08-06T21:34:52Z"
 }
