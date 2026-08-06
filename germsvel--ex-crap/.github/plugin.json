@@ -1,0 +1,9 @@
+{
+  "name": "germsvel--ex-crap",
+  "displayName": "ex_crap",
+  "description": "ExCrap is an Elixir library and Mix task for calculating Change Risk Anti-Patterns scores from cyclomatic complexity and test coverage.",
+  "version": "1.0.0",
+  "author": "germsvel",
+  "homepage": "https://github.com/germsvel/ex_crap",
+  "skills": []
+}
