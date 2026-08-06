@@ -1,0 +1,9 @@
+{
+  "name": "bitcoinalexis--lotokens-skill-claude-code",
+  "displayName": "Lotokens-Skill-Claude-Code",
+  "description": "\"Lotokens\" es un skill para ahorrar tokens al momento de utilizar claude code",
+  "version": "1.0.0",
+  "author": "bitcoinalexis",
+  "homepage": "https://github.com/bitcoinalexis/Lotokens-Skill-Claude-Code",
+  "skills": []
+}
