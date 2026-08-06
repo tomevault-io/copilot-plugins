@@ -1,0 +1,44 @@
+{
+  "name": "Learn-GAS",
+  "owner": "iamraven-tw",
+  "repo": "Learn-GAS",
+  "description": "\u8b93 AI Agent \u5e36\u9818\u521d\u5b78\u8005\u5b8c\u6210 Google Apps Script \u6559\u5b78\u3001\u5c08\u6848\u958b\u767c\u8207\u9664\u932f",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/iamraven-tw/Learn-GAS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T23:30:01Z"
+}
