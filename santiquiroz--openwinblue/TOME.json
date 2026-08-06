@@ -4,7 +4,7 @@
   "repo": "openwinblue",
   "description": "Free, open-source Windows Bluetooth audio codec manager. LDAC, aptX HD, aptX LL, SBC, AAC support with AI enhancement.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/santiquiroz/openwinblue",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T20:07:39Z"
+  "distributed_at": "2026-08-06T22:31:14Z"
 }
