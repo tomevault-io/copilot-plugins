@@ -1,0 +1,9 @@
+{
+  "name": "localai-org--rf-detr-cpp",
+  "displayName": "rf-detr.cpp",
+  "description": "rt-detr implementation in C++ with ggml",
+  "version": "1.0.0",
+  "author": "localai-org",
+  "homepage": "https://github.com/localai-org/rf-detr.cpp",
+  "skills": []
+}
