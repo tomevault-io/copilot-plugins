@@ -4,7 +4,7 @@
   "repo": "anti-slop-writing",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/adenaufal/anti-slop-writing",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-06T23:44:21Z"
+  "distributed_at": "2026-08-06T23:44:58Z"
 }
