@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-omniverse--ovstage",
+  "displayName": "ovstage",
+  "description": "A C and Python library providing a shared, high-performance, vectorized, GPU-capable scene data substrate for OpenUSD data across Omniverse Libraries (physics, rendering, sensors, animation).",
+  "version": "1.0.0",
+  "author": "NVIDIA-Omniverse",
+  "homepage": "https://github.com/NVIDIA-Omniverse/ovstage",
+  "skills": []
+}
