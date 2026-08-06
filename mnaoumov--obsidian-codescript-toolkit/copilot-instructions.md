@@ -2,9 +2,7 @@
 
 > - 35 integration tests across 7 files, all passing
 
-# Current Task
-
-None.
+# AGENTS.md
 
 ## What's done
 
@@ -15,7 +13,7 @@ None.
 - Added dedent dependency for multiline strings
 - Added strictProxy rule to global TypeScript rules
 
-## Integration test coverage (135 tests)
+## Integration test coverage (140 tests)
 
 | Feature                                                                                        | Tests |
 |------------------------------------------------------------------------------------------------|-------|
@@ -37,7 +35,7 @@ None.
 | Code buttons (render, autoRun, isRaw, import transform)                                        | 4     |
 | Code-button context (renderMarkdown, insertBefore/After, remove, replace)                      | 5     |
 | Code-button config (shouldAutoOutput, shouldWrapConsole, removeAfterExecution)                 | 3     |
-| Startup script (invoke, cleanup+reload)                                                        | 2     |
+| Startup script (invoke, shouldExecuteOnLoad, cleanup+reload)                                   | 3     |
 | Protocol handler (module via code, inline code)                                                | 2     |
 | Temp plugin registry (API access, register+unregister, getTempPlugin)                          | 3     |
 | File URLs (file:/// async + sync)                                                              | 2     |
@@ -48,20 +46,17 @@ None.
 | Synchronous require (all desktop-supported modules)                                            | 16    |
 | Emulate-mobile (all mobile features, file/resource/HTTP URLs, WASM, sync/electron/node throw)  | 21    |
 | Android (all mobile features, file/resource/HTTP URLs, WASM, sync/electron/node throw)         | 20    |
+| Skip transpilation (.cjs raw, shouldTranspile override, .js package.json type auto-detect)     | 4     |
 | Smoke test                                                                                     | 2     |
 
 ## Coverage status
 
-All features are now fully covered across code, docs, demo vault, and integration tests (135 tests).
+All features are now fully covered across code, docs, demo vault, and integration tests (140 tests).
 
 - ~~Integration test gaps (WASM, ASAR, node binaries)~~ — **Done**
 - ~~Demo vault gap (`requireAsyncWrapper()`)~~ — **Done**
 - ~~Docs gap (plugin integrations)~~ — **Done** (added demo vault link to `docs/usage.md`; dedicated guide pages intentionally out of scope)
 
-## Known Issues
-
-None.
-
 ---
 > Source: [mnaoumov/obsidian-codescript-toolkit](https://github.com/mnaoumov/obsidian-codescript-toolkit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
