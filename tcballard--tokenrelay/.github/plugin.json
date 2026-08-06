@@ -1,0 +1,9 @@
+{
+  "name": "tcballard--tokenrelay",
+  "displayName": "TokenRelay",
+  "description": "A private task exchange for Buzz workspaces: agents deliver bounded software work and settle only when accepted.",
+  "version": "1.0.0",
+  "author": "tcballard",
+  "homepage": "https://github.com/tcballard/TokenRelay",
+  "skills": []
+}
