@@ -1,0 +1,9 @@
+{
+  "name": "rafaalbelda--notifier-hub",
+  "displayName": "notifier_hub",
+  "description": "HomeAssitant Notifier Hub",
+  "version": "1.0.0",
+  "author": "rafaalbelda",
+  "homepage": "https://github.com/rafaalbelda/notifier_hub",
+  "skills": []
+}
