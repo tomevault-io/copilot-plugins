@@ -4,7 +4,7 @@
   "repo": "llm-wiki-studio",
   "description": "Local course learning workbench powered by Claude Code CLI and Skills",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lanbai-sunsky/llm-wiki-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T13:39:50Z"
+  "distributed_at": "2026-08-06T18:42:52Z"
 }
