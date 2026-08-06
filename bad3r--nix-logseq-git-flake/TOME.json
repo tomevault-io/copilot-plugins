@@ -4,7 +4,7 @@
   "repo": "nix-logseq-git-flake",
   "description": "Nix flake packaging Logseq nightly builds with an Electron-ready FHS wrapper",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Bad3r/nix-logseq-git-flake",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T18:15:12Z"
+  "distributed_at": "2026-08-06T04:45:39Z"
 }
