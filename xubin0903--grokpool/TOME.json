@@ -1,0 +1,44 @@
+{
+  "name": "GrokPool",
+  "owner": "xubin0903",
+  "repo": "GrokPool",
+  "description": "Free Grok OAuth pool: register \u2192 grok-build OAuth \u2192 patched Sub2API scheduler \u2192 OpenAI gateway for CC Switch",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xubin0903/GrokPool",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T08:38:18Z"
+}
