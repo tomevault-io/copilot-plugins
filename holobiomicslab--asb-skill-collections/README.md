@@ -7,11 +7,11 @@ Curated, evidence-grounded skill and software-tool collections for scientific AI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [HolobiomicsLab/asb-skill-collections](https://github.com/HolobiomicsLab/asb-skill-collections).
+Original source: `AGENTS.md` in [HolobiomicsLab/asb-skill-collections](https://github.com/HolobiomicsLab/asb-skill-collections).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
