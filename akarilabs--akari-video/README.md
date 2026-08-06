@@ -7,11 +7,11 @@ AKARI Video — AI video editing tool (Theia-based monorepo)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [AkariLabs/akari-video](https://github.com/AkariLabs/akari-video).
+Original source: `AGENTS.md` in [AkariLabs/akari-video](https://github.com/AkariLabs/akari-video).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
