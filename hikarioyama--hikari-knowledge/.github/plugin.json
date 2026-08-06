@@ -1,0 +1,9 @@
+{
+  "name": "hikarioyama--hikari-knowledge",
+  "displayName": "Hikari-knowledge",
+  "description": "Hikari's curated English measured notes on local LLM systems (serving, specdec, training, steering).",
+  "version": "1.0.0",
+  "author": "hikarioyama",
+  "homepage": "https://github.com/hikarioyama/Hikari-knowledge",
+  "skills": []
+}
