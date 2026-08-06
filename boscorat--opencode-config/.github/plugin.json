@@ -1,0 +1,9 @@
+{
+  "name": "boscorat--opencode-config",
+  "displayName": "opencode-config",
+  "description": "Synced global OpenCode agents, commands, and skills. See install.sh for one-shot bootstrap on a new machine.",
+  "version": "1.0.0",
+  "author": "boscorat",
+  "homepage": "https://github.com/boscorat/opencode-config",
+  "skills": []
+}
