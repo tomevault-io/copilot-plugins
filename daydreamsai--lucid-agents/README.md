@@ -1,6 +1,6 @@
 # lucid-agents
 
-> Source: [daydreamsai/lucid-agents](https://github.com/daydreamsai/lucid-agents). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [daydreamsai/lucid-agents](https://github.com/daydreamsai/lucid-agents). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
