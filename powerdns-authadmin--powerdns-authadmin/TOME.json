@@ -4,7 +4,7 @@
   "repo": "powerdns-authadmin",
   "description": "Modern self-hosted DNS administration UI for PowerDNS Authoritative - RBAC, OIDC SSO, audit log, DNSSEC, multi-backend (clusters & primary/secondary). A maintained alternative to PowerDNS-Admin.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PowerDNS-AuthAdmin/powerdns-authadmin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T13:24:42Z"
+  "distributed_at": "2026-08-06T18:39:19Z"
 }
