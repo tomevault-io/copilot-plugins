@@ -1,0 +1,9 @@
+{
+  "name": "moha-abdi--mitmproxy-mcp",
+  "displayName": "mitmproxy-mcp",
+  "description": "MCP server for mitmproxy -- analyze, intercept, and replay HTTP/HTTPS traffic through any MCP client",
+  "version": "1.0.0",
+  "author": "moha-abdi",
+  "homepage": "https://github.com/moha-abdi/mitmproxy-mcp",
+  "skills": []
+}
