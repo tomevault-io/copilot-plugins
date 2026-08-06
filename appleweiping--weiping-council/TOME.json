@@ -4,7 +4,7 @@
   "repo": "WEIPING_COUNCIL",
   "description": "Multi-LLM deliberation system with 6 protocols: council, debate, red-team, consensus, specialist, tournament",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/appleweiping/WEIPING_COUNCIL",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T04:05:44Z"
+  "distributed_at": "2026-08-06T11:11:56Z"
 }
