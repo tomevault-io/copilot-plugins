@@ -1,0 +1,9 @@
+{
+  "name": "dawit-devops--quantumed-hms-main",
+  "displayName": "quantumed-hms-main-",
+  "description": "Cloud-native, multi-tenant hospital management platform.  QuantuMed HMS is a modular monolith covering 17 healthcare bounded contexts (identity, tenancy, multi-hospital, patients, encounters, scheduli",
+  "version": "1.0.0",
+  "author": "dawit-devops",
+  "homepage": "https://github.com/dawit-devops/quantumed-hms-main-",
+  "skills": []
+}
