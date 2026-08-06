@@ -4,7 +4,7 @@
   "repo": "sloth",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/river-io/sloth",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T20:24:53Z"
+  "distributed_at": "2026-08-06T22:56:30Z"
 }
