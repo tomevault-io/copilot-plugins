@@ -1,0 +1,9 @@
+{
+  "name": "flatcar--mantle",
+  "displayName": "mantle",
+  "description": "mantle",
+  "version": "1.0.0",
+  "author": "flatcar",
+  "homepage": "https://github.com/flatcar/mantle",
+  "skills": []
+}
