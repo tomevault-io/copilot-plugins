@@ -1,0 +1,9 @@
+{
+  "name": "samuraigpt--ai-character-studio",
+  "displayName": "ai-character-studio",
+  "description": "Open-source AI character creator & roleplay chat studio \u2014 production-ready Next.js SaaS that generates custom AI character portraits and enables interactive conversational personas. Free Character.ai ",
+  "version": "1.0.0",
+  "author": "SamurAIGPT",
+  "homepage": "https://github.com/SamurAIGPT/ai-character-studio",
+  "skills": []
+}
