@@ -7,11 +7,11 @@ Pi Agent Desktop — 基于 Electron 的 Pi 编程智能体桌面客户端 (衍�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Chasen-Liao/pi-agent-desktop](https://github.com/Chasen-Liao/pi-agent-desktop).
+Original source: `AGENTS.md` in [Chasen-Liao/pi-agent-desktop](https://github.com/Chasen-Liao/pi-agent-desktop).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
