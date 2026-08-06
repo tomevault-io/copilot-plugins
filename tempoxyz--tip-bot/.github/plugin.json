@@ -1,0 +1,9 @@
+{
+  "name": "tempoxyz--tip-bot",
+  "displayName": "tip.bot",
+  "description": "Chat-native stablecoin micropayments",
+  "version": "1.0.0",
+  "author": "tempoxyz",
+  "homepage": "https://github.com/tempoxyz/tip.bot",
+  "skills": []
+}
