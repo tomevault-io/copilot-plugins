@@ -1,0 +1,9 @@
+{
+  "name": "brokezawa--nebble",
+  "displayName": "nebble",
+  "description": "Nim wrapper library for Pebble smartwatch development",
+  "version": "1.0.0",
+  "author": "Brokezawa",
+  "homepage": "https://github.com/Brokezawa/nebble",
+  "skills": []
+}
