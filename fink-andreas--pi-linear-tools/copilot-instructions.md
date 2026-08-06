@@ -1,0 +1,48 @@
+## pi-linear-tools
+
+> - Run `npm test` with `tail` to keep output shorter (for example: `npm test | tail -n 15`).
+
+# Project-specific agent instructions
+
+- Run `npm test` with `tail` to keep output shorter (for example: `npm test | tail -n 15`).
+- Never commit `PLAN.md` or `TODO.md` unless the user explicitly asks for that.
+
+## Linear GraphQL API Schema
+
+Use the official GraphQL schema as reference when working with Linear SDK/API:
+- **Local copy:** `docs/linear-schema.graphql`
+- **Source:** https://raw.githubusercontent.com/linear/linear/refs/heads/main/packages/sdk/src/schema.graphql
+
+## Live extension testing (install/remove + restart)
+
+Important behavior observed in practice:
+- `/reload` updates already-loaded extension code changes.
+- `/reload` does **not** reliably apply extension source add/remove.
+- After `pi remove ...` or `pi install ...`, fully restart pi (close and reopen) before validation.
+
+Use this order when reinstalling locally:
+
+1. List installed extensions:
+   - `pi list`
+2. Remove existing `pi-linear-tools` source(s):
+   - `pi remove <source>`
+3. Install local extension from current working directory:
+   - `pi install .`
+4. Restart pi (close and reopen session).
+5. Run `/reload` (optional but recommended after restart).
+6. Re-run live tool checks.
+
+## Release Workflow
+
+For publishing to npm, the user must authenticate manually (OTP required):
+
+```bash
+npm login
+npm publish --access public
+```
+
+This cannot be automated in the agent session. Prompt the user to run these commands in a separate terminal/bash before retrying the publish.
+
+---
+> Source: [fink-andreas/pi-linear-tools](https://github.com/fink-andreas/pi-linear-tools) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-30 -->
