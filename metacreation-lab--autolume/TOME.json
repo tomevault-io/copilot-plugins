@@ -4,7 +4,7 @@
   "repo": "autolume",
   "description": "Autolume is a no-coding generative AI system allowing artists to train, craft, and explore their own models.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Metacreation-Lab/autolume",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T02:07:33Z"
+  "distributed_at": "2026-08-06T09:33:23Z"
 }
