@@ -7,11 +7,11 @@ Fermion Research fork of llama.cpp: FV5/FV5B five-value ternary types for Neutri
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [fermionresearch/llama.cpp](https://github.com/fermionresearch/llama.cpp).
+Original source: `AGENTS.md` in [fermionresearch/llama.cpp](https://github.com/fermionresearch/llama.cpp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
