@@ -1,0 +1,9 @@
+{
+  "name": "mtbun--storeshots-mcp",
+  "displayName": "storeshots-mcp",
+  "description": "Store-ready App Store & Google Play screenshots from any MCP client. Device frames, benefit-driven headlines, exact store dimensions. No API keys.",
+  "version": "1.0.0",
+  "author": "mtbun",
+  "homepage": "https://github.com/mtbun/storeshots-mcp",
+  "skills": []
+}
