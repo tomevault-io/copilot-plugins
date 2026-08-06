@@ -1,0 +1,9 @@
+{
+  "name": "bmfreed--krita-smart-select",
+  "displayName": "krita-smart-select",
+  "description": "AI-assisted lasso selection plugin for Krita that creates soft alpha object masks locally.",
+  "version": "1.0.0",
+  "author": "BMFreed",
+  "homepage": "https://github.com/BMFreed/krita-smart-select",
+  "skills": []
+}
