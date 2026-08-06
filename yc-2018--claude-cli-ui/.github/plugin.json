@@ -1,0 +1,9 @@
+{
+  "name": "yc-2018--claude-cli-ui",
+  "displayName": "claude-cli-UI",
+  "description": "claude code cli UI \u5f88\u660e\u663e \u5c31\u662f\u7ed9 cli \u88c5\u4e2a\u58f3",
+  "version": "1.0.0",
+  "author": "yc-2018",
+  "homepage": "https://github.com/yc-2018/claude-cli-UI",
+  "skills": []
+}
