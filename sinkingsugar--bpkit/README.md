@@ -7,11 +7,11 @@ Drive Unreal Engine 5 Blueprint node graphs from outside the editor: read, autho
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sinkingsugar/bpkit](https://github.com/sinkingsugar/bpkit).
+Original source: `AGENTS.md` in [sinkingsugar/bpkit](https://github.com/sinkingsugar/bpkit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
