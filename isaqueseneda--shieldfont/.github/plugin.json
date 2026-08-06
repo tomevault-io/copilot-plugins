@@ -1,0 +1,9 @@
+{
+  "name": "isaqueseneda--shieldfont",
+  "displayName": "shieldfont",
+  "description": "A web font that protects written content from AI scraping \u2014 humans see the text, scrapers see a plausible decoy.",
+  "version": "1.0.0",
+  "author": "isaqueseneda",
+  "homepage": "https://github.com/isaqueseneda/shieldfont",
+  "skills": []
+}
