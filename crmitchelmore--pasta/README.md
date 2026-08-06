@@ -7,11 +7,11 @@ A blazing-fast, local-first clipboard history manager for macOS
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [crmitchelmore/pasta](https://github.com/crmitchelmore/pasta).
+Original source: `AGENTS.md` in [crmitchelmore/pasta](https://github.com/crmitchelmore/pasta).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
