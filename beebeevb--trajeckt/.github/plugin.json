@@ -1,0 +1,9 @@
+{
+  "name": "beebeevb--trajeckt",
+  "displayName": "trajeckt",
+  "description": "A causal firewall for AI agents: blocks multi-step tool-call chains that leak data, even when every call is individually allowed.",
+  "version": "1.0.0",
+  "author": "beebeeVB",
+  "homepage": "https://github.com/beebeeVB/trajeckt",
+  "skills": []
+}
