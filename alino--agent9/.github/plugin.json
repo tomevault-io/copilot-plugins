@@ -1,0 +1,9 @@
+{
+  "name": "alino--agent9",
+  "displayName": "agent9",
+  "description": "Plan9 distribution with AI agent (pi9) and tiny winXP inspired UI.",
+  "version": "1.0.0",
+  "author": "Alino",
+  "homepage": "https://github.com/Alino/agent9",
+  "skills": []
+}
