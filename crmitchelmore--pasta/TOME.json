@@ -4,7 +4,7 @@
   "repo": "pasta",
   "description": "A blazing-fast, local-first clipboard history manager for macOS",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/crmitchelmore/pasta",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T03:39:32Z"
+  "distributed_at": "2026-08-06T10:50:06Z"
 }
