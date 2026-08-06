@@ -4,7 +4,7 @@
   "repo": "gears-rust",
   "description": "All-in-one open-source framework & middleware for enterprise-grade multi-tenant and multi-tier XaaS Services development",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/constructorfabric/gears-rust",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T12:43:52Z"
+  "distributed_at": "2026-08-06T17:22:23Z"
 }
