@@ -1,0 +1,9 @@
+{
+  "name": "joshka--qwertty-term",
+  "displayName": "qwertty-term",
+  "description": "A full Rust rewrite of Ghostty \u2014 terminal emulator engine, font stack, Metal renderer, and native macOS app \u2014 ported subsystem-by-subsystem from the Zig source (pinned at 2da015cd6) with differential ",
+  "version": "1.0.0",
+  "author": "joshka",
+  "homepage": "https://github.com/joshka/qwertty-term",
+  "skills": []
+}
