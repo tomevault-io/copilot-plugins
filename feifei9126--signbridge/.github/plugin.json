@@ -1,0 +1,9 @@
+{
+  "name": "feifei9126--signbridge",
+  "displayName": "signbridge",
+  "description": "Chrome extension that turns video subtitles and tab audio into real-time 3D Chinese Sign Language with local Whisper.",
+  "version": "1.0.0",
+  "author": "feifei9126",
+  "homepage": "https://github.com/feifei9126/signbridge",
+  "skills": []
+}
