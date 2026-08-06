@@ -4,7 +4,7 @@
   "repo": "Fallout",
   "description": "\u2622\ufe0f Fallout \u2014 The C#/.NET Build System",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Fallout-build/Fallout",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T00:22:17Z"
+  "distributed_at": "2026-08-06T08:53:57Z"
 }
