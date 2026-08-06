@@ -1,0 +1,9 @@
+{
+  "name": "project-oxi--oxibrowser",
+  "displayName": "oxibrowser",
+  "description": "Headless browser in pure Rust \u2014 Servo-powered, CDP-compatible, designed for AI agents",
+  "version": "1.0.0",
+  "author": "project-oxi",
+  "homepage": "https://github.com/project-oxi/oxibrowser",
+  "skills": []
+}
