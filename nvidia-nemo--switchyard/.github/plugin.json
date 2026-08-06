@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-nemo--switchyard",
+  "displayName": "Switchyard",
+  "description": "Switchyard",
+  "version": "1.0.0",
+  "author": "NVIDIA-NeMo",
+  "homepage": "https://github.com/NVIDIA-NeMo/Switchyard",
+  "skills": []
+}
