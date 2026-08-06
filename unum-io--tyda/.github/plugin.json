@@ -1,0 +1,9 @@
+{
+  "name": "unum-io--tyda",
+  "displayName": "tyda",
+  "description": "Typed Dataset api for Scala 3",
+  "version": "1.0.0",
+  "author": "unum-io",
+  "homepage": "https://github.com/unum-io/tyda",
+  "skills": []
+}
