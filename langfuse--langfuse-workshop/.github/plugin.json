@@ -1,0 +1,9 @@
+{
+  "name": "langfuse--langfuse-workshop",
+  "displayName": "langfuse-workshop",
+  "description": "End-to-end Langfuse workshop using a TypeScript Agent to teach the AI engineering loop: tracing, prompt management, monitoring, datasets, experiments, and evaluation.",
+  "version": "1.0.0",
+  "author": "langfuse",
+  "homepage": "https://github.com/langfuse/langfuse-workshop",
+  "skills": []
+}
