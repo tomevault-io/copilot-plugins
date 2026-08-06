@@ -4,7 +4,7 @@
   "repo": "Donkey",
   "description": "Donkey Cut is what iMovie should have been",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DonkeyUseCorp/Donkey",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T22:35:39Z"
+  "distributed_at": "2026-08-06T07:29:31Z"
 }
