@@ -4,7 +4,7 @@
   "repo": "ailloy",
   "description": "The package manager for AI instructions. Author, compile, package, and distribute reusable & agnostic AI workflow packages \u2014 like Helm, but for AI agents.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nimble-giant/ailloy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T16:04:06Z"
+  "distributed_at": "2026-08-06T19:25:48Z"
 }
