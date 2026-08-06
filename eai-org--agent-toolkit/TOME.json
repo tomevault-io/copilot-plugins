@@ -4,7 +4,7 @@
   "repo": "agent-toolkit",
   "description": "Minimalistic, project-agnostic skills and rules for AI coding agents",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eai-org/agent-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T13:41:15Z"
+  "distributed_at": "2026-08-06T18:44:01Z"
 }
