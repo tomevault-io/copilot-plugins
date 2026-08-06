@@ -1,0 +1,9 @@
+{
+  "name": "dominiktobureto--awesome-grok-build",
+  "displayName": "awesome-grok-build",
+  "description": "Grok Build resources, reusable .grok/skills, AGENTS.md templates, hooks, prompts, and starter workflows.",
+  "version": "1.0.0",
+  "author": "DominikTobureto",
+  "homepage": "https://github.com/DominikTobureto/awesome-grok-build",
+  "skills": []
+}
