@@ -1,0 +1,9 @@
+{
+  "name": "md-riaz--omniroute-agent-extension",
+  "displayName": "omniroute-agent-extension",
+  "description": "A seamless Pi Coding Agent extension that brings OmniRoute \u2014 the ultimate AI gateway \u2014 directly into your editor environment.",
+  "version": "1.0.0",
+  "author": "md-riaz",
+  "homepage": "https://github.com/md-riaz/omniroute-agent-extension",
+  "skills": []
+}
