@@ -1,0 +1,9 @@
+{
+  "name": "matteobisi--apple-container-tui",
+  "displayName": "apple-container-tui",
+  "description": "Keyboard-first TUI for managing Apple Container on macOS.",
+  "version": "1.0.0",
+  "author": "matteobisi",
+  "homepage": "https://github.com/matteobisi/apple-container-tui",
+  "skills": []
+}
