@@ -1,0 +1,9 @@
+{
+  "name": "docker--compose",
+  "displayName": "compose",
+  "description": "compose",
+  "version": "1.0.0",
+  "author": "docker",
+  "homepage": "https://github.com/docker/compose",
+  "skills": []
+}
