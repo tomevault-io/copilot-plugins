@@ -1,0 +1,9 @@
+{
+  "name": "franksde--agy-hud",
+  "displayName": "agy-hud",
+  "description": "An Antigravity CLI plugin that displays context usage, quota usage, model info, and agent status",
+  "version": "1.0.0",
+  "author": "franksde",
+  "homepage": "https://github.com/franksde/agy-hud",
+  "skills": []
+}
