@@ -4,7 +4,7 @@
   "repo": "Hermes-CN-Desktop",
   "description": "Hermes Agent CN desktop app, Windows-First, built with Tauri, Typescript and Rust. Isolated Hermes Agent core insides. ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Eynzof/Hermes-CN-Desktop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T01:54:35Z"
+  "distributed_at": "2026-08-06T09:22:43Z"
 }
