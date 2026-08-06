@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [AntonyKervazoCanut/gba_translator](https://github.com/AntonyKervazoCanut/gba_translator).
+Original source: `AGENTS.md` in [AntonyKervazoCanut/gba_translator](https://github.com/AntonyKervazoCanut/gba_translator).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
