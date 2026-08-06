@@ -4,7 +4,7 @@
   "repo": "skills-registry",
   "description": "Your personal GitHub registry for AI Agent Skills. One repo. EVERY agent. EVERY device. Loaded on demand \u2014 Zero startup bloat.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nikships/skills-registry",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T13:09:25Z"
+  "distributed_at": "2026-08-06T17:37:40Z"
 }
