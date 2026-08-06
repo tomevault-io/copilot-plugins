@@ -1,0 +1,9 @@
+{
+  "name": "mercurytechnologies--zizek",
+  "displayName": "zizek",
+  "description": " Property-based testing for Haskell, built on Hypothesis.",
+  "version": "1.0.0",
+  "author": "MercuryTechnologies",
+  "homepage": "https://github.com/MercuryTechnologies/zizek",
+  "skills": []
+}
