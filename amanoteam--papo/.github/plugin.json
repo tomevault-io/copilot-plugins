@@ -1,0 +1,9 @@
+{
+  "name": "amanoteam--papo",
+  "displayName": "Papo",
+  "description": "Unofficial GTK client for WhatsApp, built with Rust.",
+  "version": "1.0.0",
+  "author": "AmanoTeam",
+  "homepage": "https://github.com/AmanoTeam/Papo",
+  "skills": []
+}
