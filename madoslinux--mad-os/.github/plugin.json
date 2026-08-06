@@ -1,0 +1,9 @@
+{
+  "name": "madoslinux--mad-os",
+  "displayName": "mad-os",
+  "description": "Custom Linux distribution based on Arch. Configurations, scripts, and dotfiles for optimized development environment. AI-orchestrated with OpenCode and Ollama. v1.0.0 - Production Ready.",
+  "version": "1.0.0",
+  "author": "madoslinux",
+  "homepage": "https://github.com/madoslinux/mad-os",
+  "skills": []
+}
