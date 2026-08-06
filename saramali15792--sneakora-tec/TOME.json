@@ -4,7 +4,7 @@
   "repo": "Sneakora_tec",
   "description": "A modern, full-stack e-commerce web application for browsing and purchasing Skechers shoes. Built with Node.js, Express, and vanilla JavaScript with a beautiful, responsive UI.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SARAMALI15792/Sneakora_tec",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T19:38:14Z"
+  "distributed_at": "2026-08-06T21:21:31Z"
 }
