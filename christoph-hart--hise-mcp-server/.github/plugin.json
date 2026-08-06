@@ -1,0 +1,9 @@
+{
+  "name": "christoph-hart--hise-mcp-server",
+  "displayName": "hise_mcp_server",
+  "description": "A MCP Server for AI Agents that verifies API methods & component properties",
+  "version": "1.0.0",
+  "author": "christoph-hart",
+  "homepage": "https://github.com/christoph-hart/hise_mcp_server",
+  "skills": []
+}
