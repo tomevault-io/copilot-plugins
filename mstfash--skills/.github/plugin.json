@@ -1,0 +1,9 @@
+{
+  "name": "mstfash--skills",
+  "displayName": "skills",
+  "description": "My daily AI agent skills for Claude Code, Codex, frontend QA, reviews, and workflow automation.",
+  "version": "1.0.0",
+  "author": "mstfash",
+  "homepage": "https://github.com/mstfash/skills",
+  "skills": []
+}
