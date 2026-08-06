@@ -4,7 +4,7 @@
   "repo": "firmium",
   "description": "firmium; a awesome music player! supports: android tv, wearOS, android auto, mac, windows, freebsd, linux, and android. can be used with any subsonic/opensubsonic server. supports local files too!",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fossisawesome/firmium",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T04:03:14Z"
+  "distributed_at": "2026-08-06T11:10:09Z"
 }
