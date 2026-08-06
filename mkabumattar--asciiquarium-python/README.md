@@ -7,11 +7,11 @@ An aquarium/sea animation in ASCII art for your terminal! This is a Python reimp
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [MKAbuMattar/asciiquarium-python](https://github.com/MKAbuMattar/asciiquarium-python).
+Original source: `AGENTS.md` in [MKAbuMattar/asciiquarium-python](https://github.com/MKAbuMattar/asciiquarium-python).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
