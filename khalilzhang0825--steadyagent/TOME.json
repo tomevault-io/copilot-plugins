@@ -4,7 +4,7 @@
   "repo": "steadyagent",
   "description": "SteadyAgent: a bilingual local-first harness for Codex and Claude Code with workflow rules, safety hooks, validation gates, checkpoint commits, and release evidence.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Khalilzhang0825/steadyagent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T12:00:04Z"
+  "distributed_at": "2026-08-06T16:42:03Z"
 }
