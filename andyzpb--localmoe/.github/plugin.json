@@ -1,0 +1,9 @@
+{
+  "name": "andyzpb--localmoe",
+  "displayName": "localMoE",
+  "description": "Run Deepseek-v4-pro (1600B MoE) on a 32GB-RAM consumer machine with WSL \u2014 Rust, experts streamed from disk.",
+  "version": "1.0.0",
+  "author": "andyzpb",
+  "homepage": "https://github.com/andyzpb/localMoE",
+  "skills": []
+}
