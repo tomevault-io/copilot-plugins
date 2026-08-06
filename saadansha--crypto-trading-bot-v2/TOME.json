@@ -4,7 +4,7 @@
   "repo": "crypto-trading-bot-v2",
   "description": "Cryptocurrency Trading Bot: For Binance, Bybit, Bitfinex, BitMEX... (Production Version)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/saadansha/crypto-trading-bot-v2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T11:41:27Z"
+  "distributed_at": "2026-08-06T15:35:10Z"
 }
