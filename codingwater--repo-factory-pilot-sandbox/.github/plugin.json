@@ -1,0 +1,9 @@
+{
+  "name": "codingwater--repo-factory-pilot-sandbox",
+  "displayName": "repo-factory-pilot-sandbox",
+  "description": "Disposable sandbox for testing whether Repo Factory Protocol can guide fresh AI agents through bounded software work without prior chat context.",
+  "version": "1.0.0",
+  "author": "CodingWater",
+  "homepage": "https://github.com/CodingWater/repo-factory-pilot-sandbox",
+  "skills": []
+}
