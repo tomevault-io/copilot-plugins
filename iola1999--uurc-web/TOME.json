@@ -1,0 +1,44 @@
+{
+  "name": "uurc-web",
+  "owner": "iola1999",
+  "repo": "uurc-web",
+  "description": "Self-hosted web controller for UU Remote\uff08UU \u8fdc\u7a0b\u63a7\u5236\u7f51\u9875\u7248\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/iola1999/uurc-web",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T07:27:41Z"
+}
