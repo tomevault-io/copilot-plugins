@@ -1,0 +1,44 @@
+{
+  "name": "featured-content-slider",
+  "owner": "gregrickaby",
+  "repo": "featured-content-slider",
+  "description": "A Gutenberg block for creating responsive carousels with date-based scheduling and auto-play. Perfect for featured content, promotions, and marketing campaigns.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gregrickaby/featured-content-slider",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T21:23:14Z"
+}
