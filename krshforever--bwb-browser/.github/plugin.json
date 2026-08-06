@@ -1,0 +1,9 @@
+{
+  "name": "krshforever--bwb-browser",
+  "displayName": "bwb-browser",
+  "description": "Browser Without Bloat \u2014 30KB MCP browser automation server. Raw CDP, zero bloat, works on any platform (Termux, Linux, macOS, Windows). The only MCP browser with live console/network event capture.",
+  "version": "1.0.0",
+  "author": "krshforever",
+  "homepage": "https://github.com/krshforever/bwb-browser",
+  "skills": []
+}
