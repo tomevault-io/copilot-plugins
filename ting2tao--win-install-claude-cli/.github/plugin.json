@@ -1,0 +1,9 @@
+{
+  "name": "ting2tao--win-install-claude-cli",
+  "displayName": "win-install-claude-cli",
+  "description": "Windows \u4e00\u952e\u5b89\u88c5 Claude Code CLI + CC-Switch \u684c\u9762\u5ba2\u6237\u7aef\uff0c\u56fd\u5185\u7f51\u7edc\u76f4\u8fde\u65e0\u9700\u4ee3\u7406",
+  "version": "1.0.0",
+  "author": "ting2tao",
+  "homepage": "https://github.com/ting2tao/win-install-claude-cli",
+  "skills": []
+}
