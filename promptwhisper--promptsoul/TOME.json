@@ -4,7 +4,7 @@
   "repo": "promptsoul",
   "description": "Local-first AI Live2D NPC with safe prompt-to-motion generation.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/promptwhisper/promptsoul",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T10:05:01Z"
+  "distributed_at": "2026-08-06T14:49:54Z"
 }
