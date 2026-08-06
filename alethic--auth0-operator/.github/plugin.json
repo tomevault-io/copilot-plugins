@@ -1,0 +1,9 @@
+{
+  "name": "alethic--auth0-operator",
+  "displayName": "auth0-operator",
+  "description": "Kubernetes Operator for Managing Auth0 Tenants, Clients, etc",
+  "version": "1.0.0",
+  "author": "alethic",
+  "homepage": "https://github.com/alethic/auth0-operator",
+  "skills": []
+}
