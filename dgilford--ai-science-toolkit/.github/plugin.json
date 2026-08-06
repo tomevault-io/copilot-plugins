@@ -1,0 +1,9 @@
+{
+  "name": "dgilford--ai-science-toolkit",
+  "displayName": "ai-science-toolkit",
+  "description": "Skills & reviewer agents for AI-first climate science \u2014 built and used by a PhD atmospheric scientist",
+  "version": "1.0.0",
+  "author": "dgilford",
+  "homepage": "https://github.com/dgilford/ai-science-toolkit",
+  "skills": []
+}
