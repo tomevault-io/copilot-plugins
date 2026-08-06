@@ -7,11 +7,11 @@ Self-hosted MCP server that makes your Obsidian/markdown vault searchable — te
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Artexis10/exomem](https://github.com/Artexis10/exomem).
+Original source: `AGENTS.md` in [Artexis10/exomem](https://github.com/Artexis10/exomem).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
