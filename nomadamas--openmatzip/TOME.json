@@ -1,0 +1,44 @@
+{
+  "name": "openmatzip",
+  "owner": "NomaDamas",
+  "repo": "openmatzip",
+  "description": "\ub9db\uc798\uc54c\ub4e4\uc774 GitHub \uacc4\uc815\uc744 \uac78\uace0 \ubcf4\uc99d\ud55c \ub300\ud55c\ubbfc\uad6d \ub9db\uc9d1 \uc624\ud508 \ub370\uc774\ud130\ubca0\uc774\uc2a4. Agent-native, CC BY 4.0.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NomaDamas/openmatzip",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T23:24:44Z"
+}
