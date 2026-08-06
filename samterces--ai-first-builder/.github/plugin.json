@@ -1,0 +1,9 @@
+{
+  "name": "samterces--ai-first-builder",
+  "displayName": "AI-first-Builder",
+  "description": "AI-Powered Website & App Builder - Generate modern, production-ready web apps using AI. Built with Next.js, Tailwind CSS, Convex, and OpenAI. Includes component-based architecture, dynamic UI generati",
+  "version": "1.0.0",
+  "author": "SamTerces",
+  "homepage": "https://github.com/SamTerces/AI-first-Builder",
+  "skills": []
+}
