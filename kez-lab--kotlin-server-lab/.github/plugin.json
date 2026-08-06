@@ -1,0 +1,9 @@
+{
+  "name": "kez-lab--kotlin-server-lab",
+  "displayName": "kotlin-server-lab",
+  "description": "Kotlin/JVM server learning lab built step by step with Spring Boot",
+  "version": "1.0.0",
+  "author": "kez-lab",
+  "homepage": "https://github.com/kez-lab/kotlin-server-lab",
+  "skills": []
+}
