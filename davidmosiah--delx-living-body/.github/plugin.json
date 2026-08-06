@@ -1,0 +1,9 @@
+{
+  "name": "davidmosiah--delx-living-body",
+  "displayName": "delx-living-body",
+  "description": "Meta-MCP that composes 15 Delx Wellness connectors. Ask one question, get a synthesized answer across whatever connectors you have installed.",
+  "version": "1.0.0",
+  "author": "davidmosiah",
+  "homepage": "https://github.com/davidmosiah/delx-living-body",
+  "skills": []
+}
