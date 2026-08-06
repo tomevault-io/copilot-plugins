@@ -20,7 +20,7 @@ Original source: `AGENTS.md` in [adenaufal/anti-slop-writing](https://github.com
 - [anti-slop-writing](https://github.com/adenaufal/anti-slop-writing/tree/main/english/SKILL.md)
 - [anti-slop-writing](https://github.com/adenaufal/anti-slop-writing/tree/main/indonesian/SKILL.md)
 
-From [adenaufal/anti-slop-writing](https://github.com/adenaufal/anti-slop-writing) — a repo with 99+ stars on GitHub.
+From [adenaufal/anti-slop-writing](https://github.com/adenaufal/anti-slop-writing) — a repo with 0+ stars on GitHub.
 
 ---
 
