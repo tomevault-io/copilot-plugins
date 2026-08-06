@@ -1,0 +1,9 @@
+{
+  "name": "merlinhu1--codex-game-studio",
+  "displayName": "codex-game-studio",
+  "description": "Codex-native CLI for AI-assisted game development, scaffolding local projects with studio roles, bounded prompts, and hard-failing validation.",
+  "version": "1.0.0",
+  "author": "merlinhu1",
+  "homepage": "https://github.com/merlinhu1/codex-game-studio",
+  "skills": []
+}
