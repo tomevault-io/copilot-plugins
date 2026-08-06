@@ -4,7 +4,7 @@
   "repo": "linglong-store",
   "description": "\u73b2\u73d1\u5546\u5e97",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SXFreell/linglong-store",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T20:38:30Z"
+  "distributed_at": "2026-08-06T23:03:56Z"
 }
