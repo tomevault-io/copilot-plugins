@@ -1,7 +1,7 @@
 {
-  "name": "FileGRC",
+  "name": "filegrc",
   "owner": "Sunpeak-AI",
-  "repo": "FileGRC",
+  "repo": "filegrc",
   "description": "Git & file-based SOC 2",
   "type": "config",
   "source_format": "AGENTS.md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/Sunpeak-AI/FileGRC",
+  "source_url": "https://github.com/Sunpeak-AI/filegrc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-06T09:16:39Z"
+  "distributed_at": "2026-08-06T12:53:29Z"
 }
