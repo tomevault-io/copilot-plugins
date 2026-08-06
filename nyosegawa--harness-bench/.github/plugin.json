@@ -1,0 +1,9 @@
+{
+  "name": "nyosegawa--harness-bench",
+  "displayName": "harness-bench",
+  "description": "Benchmark harness for Codex, Claude Code, and Cursor debugging runs",
+  "version": "1.0.0",
+  "author": "nyosegawa",
+  "homepage": "https://github.com/nyosegawa/harness-bench",
+  "skills": []
+}
