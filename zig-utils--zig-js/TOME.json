@@ -4,7 +4,7 @@
   "repo": "zig-js",
   "description": "A JavaScript engine in pure Zig.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zig-utils/zig-js",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T13:47:08Z"
+  "distributed_at": "2026-08-06T18:46:17Z"
 }
