@@ -4,7 +4,7 @@
   "repo": "edsl",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/expectedparrot/edsl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-01T05:57:55Z"
+  "distributed_at": "2026-08-06T03:17:06Z"
 }
