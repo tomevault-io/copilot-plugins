@@ -1,0 +1,9 @@
+{
+  "name": "bgyss--switchrecomp",
+  "displayName": "SwitchRecomp",
+  "description": "Preservation-focused static recompilation research for Nintendo Switch.",
+  "version": "1.0.0",
+  "author": "bgyss",
+  "homepage": "https://github.com/bgyss/SwitchRecomp",
+  "skills": []
+}
