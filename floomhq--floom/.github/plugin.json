@@ -1,0 +1,9 @@
+{
+  "name": "floomhq--floom",
+  "displayName": "floom",
+  "description": "AI runtime for creating, running, and supervising background AI workers.",
+  "version": "1.0.0",
+  "author": "floomhq",
+  "homepage": "https://github.com/floomhq/floom",
+  "skills": []
+}
