@@ -4,7 +4,7 @@
   "repo": "unibestX",
   "description": "unibestX \u2014\u2014 \u6700\u597d\u7684 uni-app X \u5f00\u53d1\u6a21\u677f\uff0c\u7531 uni-app X + Vue3 + UTS + Vite5 + UnoCSS + uview-ultra + z-paging-x \u6784\u6210\uff0c\u4f7f\u7528\u4e86\u4e0b\u4e00\u4ee3 uni-app \u539f\u751f\u5f00\u53d1\u6280\u672f\u6808\uff0c\u901a\u8fc7 HBuilderX \u8fd0\u884c Android\u3001iOS\u3001\u9e3f\u8499\u3001H5 \u548c \u5c0f\u7a0b\u5e8f \u7b49\u591a\u7aef\u5e73\u53f0\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cq112233/unibestX",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T14:23:05Z"
+  "distributed_at": "2026-08-06T19:09:03Z"
 }
