@@ -1,0 +1,44 @@
+{
+  "name": "TaikoZucchini",
+  "owner": "LucaSilva-r",
+  "repo": "TaikoZucchini",
+  "description": "The official repo of the TaikoZucchini project. It's purpose is to make Taiko Green and it's derivatives playable again",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LucaSilva-r/TaikoZucchini",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T18:55:53Z"
+}
