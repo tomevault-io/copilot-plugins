@@ -1,0 +1,9 @@
+{
+  "name": "chibios-upstream--chibios",
+  "displayName": "chibios",
+  "description": "ChibiOS \u2014 RTOS, HAL and ecosystem (authoritative git source, migrated from SVN)",
+  "version": "1.0.0",
+  "author": "chibios-upstream",
+  "homepage": "https://github.com/chibios-upstream/chibios",
+  "skills": []
+}
