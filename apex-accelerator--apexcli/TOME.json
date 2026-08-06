@@ -1,0 +1,44 @@
+{
+  "name": "apexcli",
+  "owner": "Apex-Accelerator",
+  "repo": "apexcli",
+  "description": "Apex Foundation is a Web3 accelerator and investor.  200+ portfolio companies. $100K\u2013$500K direct checks. This is where  we share what we learn screening projects, what separates funded  from rejected, and what's actually happening in Web3 infrastructure,  DeFi, and AI on-chain. No hype, no price talk.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Apex-Accelerator/apexcli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T21:26:14Z"
+}
