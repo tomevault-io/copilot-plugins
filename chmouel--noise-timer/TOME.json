@@ -4,7 +4,7 @@
   "repo": "noise-timer",
   "description": "Calming white, pink, and brown noise with a sleep timer,  a small, private, open-source Android app",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chmouel/noise-timer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T10:28:07Z"
+  "distributed_at": "2026-08-06T15:12:12Z"
 }
