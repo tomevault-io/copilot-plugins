@@ -4,7 +4,7 @@
   "repo": "deepworkplan-website",
   "description": "Turn any repo AI-first and run resumable, multi-hour Deep Work Plans \u2014 the methodology, the spec, the kit, and the /init URL your AI agent fetches to do it.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DailybotHQ/deepworkplan-website",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T13:18:45Z"
+  "distributed_at": "2026-08-06T18:36:50Z"
 }
