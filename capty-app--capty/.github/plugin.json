@@ -1,0 +1,9 @@
+{
+  "name": "capty-app--capty",
+  "displayName": "capty",
+  "description": "Capture anything on your Mac",
+  "version": "1.0.0",
+  "author": "capty-app",
+  "homepage": "https://github.com/capty-app/capty",
+  "skills": []
+}
