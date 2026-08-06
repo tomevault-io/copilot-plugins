@@ -7,11 +7,11 @@ The free, open-source meeting-notes app for your Mac — offline transcription a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ariso-ai/oats](https://github.com/ariso-ai/oats).
+Original source: `AGENTS.md` in [ariso-ai/oats](https://github.com/ariso-ai/oats).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
