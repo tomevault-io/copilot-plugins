@@ -1,0 +1,44 @@
+{
+  "name": "ZENCHE",
+  "owner": "Tauber01",
+  "repo": "ZENCHE",
+  "description": "\u5e27\u6f88 ZENCHE \u2014 \u8de8\u5e73\u53f0\u76f8\u673a\u63a7\u5236\u4e0e\u5f71\u50cf\u4f20\u8f93\u5de5\u5177 \u00b7 Capture \u00b7 Connect \u00b7 Flow",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Tauber01/ZENCHE",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-06T15:15:08Z"
+}
