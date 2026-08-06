@@ -1,0 +1,9 @@
+{
+  "name": "appian--dev-mcp-skills",
+  "displayName": "dev-mcp-skills",
+  "description": "dev-mcp-skills",
+  "version": "1.0.0",
+  "author": "appian",
+  "homepage": "https://github.com/appian/dev-mcp-skills",
+  "skills": []
+}
