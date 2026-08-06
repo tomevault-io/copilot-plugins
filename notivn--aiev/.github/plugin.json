@@ -1,0 +1,9 @@
+{
+  "name": "notivn--aiev",
+  "displayName": "AIEV",
+  "description": "Automatic AI video editing. Claude directs HyperFrames (HTML + GSAP motion graphics) and Remotion (timeline assembly) to turn raw footage into a finished MP4 - transcript, kinetic typography, karaoke ",
+  "version": "1.0.0",
+  "author": "notivn",
+  "homepage": "https://github.com/notivn/AIEV",
+  "skills": []
+}
