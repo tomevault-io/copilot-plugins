@@ -4,7 +4,7 @@
   "repo": "therion-studio",
   "description": "Therion Studio is a cross-platform Qt desktop editor for Therion \u2013 cave surveying software.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ladislavb/therion-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T13:55:12Z"
+  "distributed_at": "2026-08-06T18:50:01Z"
 }
