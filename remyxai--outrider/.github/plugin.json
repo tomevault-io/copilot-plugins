@@ -1,0 +1,9 @@
+{
+  "name": "remyxai--outrider",
+  "displayName": "outrider",
+  "description": "A GitHub Action to implement arXiv methods in your codebase.",
+  "version": "1.0.0",
+  "author": "remyxai",
+  "homepage": "https://github.com/remyxai/outrider",
+  "skills": []
+}
