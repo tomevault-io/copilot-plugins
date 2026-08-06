@@ -1,0 +1,9 @@
+{
+  "name": "risingtides-dev--ocean-os",
+  "displayName": "ocean-os",
+  "description": "an agentic harness system written in rust ",
+  "version": "1.0.0",
+  "author": "Risingtides-dev",
+  "homepage": "https://github.com/Risingtides-dev/ocean-os",
+  "skills": []
+}
