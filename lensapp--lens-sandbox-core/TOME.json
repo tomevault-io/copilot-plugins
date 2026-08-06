@@ -4,7 +4,7 @@
   "repo": "lens-sandbox-core",
   "description": "Core Rust library for Lens sandbox policy enforcement, networking, DNS, proxying, and boundary credential exchange.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lensapp/lens-sandbox-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T20:03:39Z"
+  "distributed_at": "2026-08-06T05:17:26Z"
 }
