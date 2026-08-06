@@ -4,7 +4,7 @@
   "repo": "a2go",
   "description": "run your open source agent with open weight models",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/runpod-labs/a2go",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T03:45:31Z"
+  "distributed_at": "2026-08-06T10:56:08Z"
 }
