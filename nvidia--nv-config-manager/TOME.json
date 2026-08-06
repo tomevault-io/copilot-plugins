@@ -4,7 +4,7 @@
   "repo": "nv-config-manager",
   "description": "NVIDIA Switch Infrastructure - Config Manager",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NVIDIA/nv-config-manager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T01:01:40Z"
+  "distributed_at": "2026-08-06T17:26:36Z"
 }
