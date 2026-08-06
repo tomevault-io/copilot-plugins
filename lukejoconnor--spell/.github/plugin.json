@@ -1,0 +1,9 @@
+{
+  "name": "lukejoconnor--spell",
+  "displayName": "spell",
+  "description": "A language for self-orchestrating language model agents",
+  "version": "1.0.0",
+  "author": "lukejoconnor",
+  "homepage": "https://github.com/lukejoconnor/spell",
+  "skills": []
+}
