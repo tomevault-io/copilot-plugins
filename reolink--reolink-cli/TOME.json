@@ -4,7 +4,7 @@
   "repo": "reolink-cli",
   "description": "The CLI for devices manufactured by Reolink",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/reolink/reolink-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T13:33:53Z"
+  "distributed_at": "2026-08-06T09:07:11Z"
 }
