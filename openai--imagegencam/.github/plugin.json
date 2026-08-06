@@ -1,0 +1,9 @@
+{
+  "name": "openai--imagegencam",
+  "displayName": "imagegencam",
+  "description": "A digital camera you can build yourself with Codex.",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/imagegencam",
+  "skills": []
+}
