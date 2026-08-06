@@ -1,142 +1,74 @@
 ## mcp-wordpress
 
-> AI assistant instructions for MCP WordPress project (v3.1.15).
+> The WordPress REST API client: authentication, request pipeline, and per-resource CRUD operations.
 
-# CLAUDE.md
+# src/client/
 
-AI assistant instructions for MCP WordPress project (v3.1.15).
+## Purpose
 
-## Quick Start
+The WordPress REST API client: authentication, request pipeline, and per-resource CRUD operations.
 
-**Status**: Production-ready | All tests passing (100%) | ~58% line coverage | 59 WordPress tools
+## Ownership
 
-```bash
-# Essential Commands
-npm test                   # Run tests
-npm run dev               # Development mode
-npm run health            # System check
-npm run fix:rest-auth     # Fix WordPress auth
-npm run build             # TypeScript compilation
-```
+Owns `src/client/` including `operations/` (per-resource CRUD) and `managers/` (see below). Consumed by
+`src/tools/AGENTS.md`; depends on `src/cache/AGENTS.md` (via `CachedWordPressClient`) and `src/config/AGENTS.md`
+(via `ServerConfiguration`).
 
-## Architecture
+## Local Contracts
 
-**Core**: MCP Server (`src/index.ts`) managing 59 WordPress tools across 10 categories **Client**: Composition pattern
-with dependency injection, 4 auth methods **Tools**: Posts(6), Pages(6), Media(5), Users(6), Comments(7),
-Taxonomies(10), Site(6), Auth(3), Cache(4), Performance(6) **Key Files**: `src/client/WordPressClient.ts`, `src/tools/`,
-`src/config/Config.ts`, `src/utils/logger.ts`
+**Composition, not inheritance**: `WordPressClient` (`api.ts:116`, `implements IWordPressClient`) builds seven
+operation instances in its constructor (`api.ts:156`) — `PostsOperations`, `PagesOperations`, `MediaOperations`,
+`UsersOperations`, `CommentsOperations`, `TaxonomiesOperations`, `SiteOperations` — passing itself in as a narrow
+interface (e.g. `PostsClientBase` in `operations/posts.ts:11` exposes only `get/post/put/delete`). Public methods
+(e.g. `getPosts()`, `api.ts:959`) delegate to the matching operations instance. New resource operations should follow
+this same narrow-interface pattern.
 
-## Configuration
+**`managers/` is dead code** (`ComposedWordPressClient`, `ComposedManagerFactory`, `AuthenticationManager`,
+`RequestManager`, `AuthManager`, and their `interfaces/`/`implementations/`/`composed/` subdirectories) — a parallel
+client architecture with its own tests but **not imported by `api.ts`, `ServerConfiguration.ts`, or any production
+path**. Do not extend it or route new work through it without checking with the user first; the production client is
+`src/client/api.ts`.
 
-**Multi-Site** (`mcp-wordpress.config.json`):
+**Auth methods** (5, implemented directly in `api.ts`): App Passwords, JWT, Basic, API Key — all four configurable
+via `.env`/`mcp-wordpress.config.json` (`ConfigurationSchema`'s `AuthMethodSchema`) — plus Cookie, which is
+implemented (`api.ts:407`, `447`, `532`) but intentionally excluded from `AuthMethodSchema` and only constructible
+programmatically (`{ method: "cookie", nonce }`), not via config. `authenticateWithBasic` (`api.ts:466`, covers both
+App Passwords and Basic), `authenticateWithJWT` (`api.ts:493`, POSTs to `${baseUrl}/wp-json/jwt-auth/v1/token`),
+API Key header (`api.ts:401-405`, `X-API-Key`, no handshake).
+`src/client/auth.ts` (`WordPressAuth`, provider classes, `createAuthProvider`) is a second, unwired implementation —
+same dead-code caveat as `managers/`.
 
-```json
-{
-  "sites": [
-    {
-      "id": "site1",
-      "config": {
-        "WORDPRESS_SITE_URL": "https://site.com",
-        "WORDPRESS_USERNAME": "user",
-        "WORDPRESS_APP_PASSWORD": "xxxx xxxx"
-      }
-    }
-  ]
-}
-```
+**URL validation (SSRF/HTTPS)**: `validateAndSanitizeUrl` (constructor + any `request()` call whose endpoint starts
+with `http`) requires `https:` and rejects private/loopback/link-local/metadata hostnames via the shared
+`isDisallowedHostname` helper (`src/utils/validation/network.ts`) — same policy as `ConfigurationSchema`'s
+`UrlSchema` (`src/config/AGENTS.md`). Escape hatches: `ALLOW_INSECURE_HTTP=true`, `ALLOW_PRIVATE_URLS=true`. Don't
+add a second hostname/protocol check here — extend the shared helper instead.
 
-**Single-Site** (`.env`):
+**Request pipeline**: tool → `WordPressClient` public method → `operations/*.ts` → `request()` (`api.ts:542`) →
+`requestRaw()` (`api.ts:575`) — builds URL/auth headers, applies `rateLimit()` (`api.ts:418`), retries GETs always
+and mutating requests only when `idempotent:true` (linear backoff, `api.ts:684`), retries only on 5xx/network errors
+(`shouldRetryError`, `api.ts:742`), and falls back to `index.php?rest_route=` on pretty-permalink 404s
+(`tryIndexPhpFallback`, `api.ts:833`). Throws `WordPressAPIError` / `AuthenticationError` / `RateLimitError`
+(`src/types/client.ts:285/299/307`).
 
-```bash
-WORDPRESS_SITE_URL=https://site.com
-WORDPRESS_USERNAME=user
-WORDPRESS_APP_PASSWORD=xxxx xxxx xxxx xxxx
-```
+**Subclasses**: `CachedWordPressClient` (transparent GET caching + write-invalidation via `src/cache/`),
+`SEOWordPressClient` (Yoast/RankMath metadata), `MockWordPressClient` (tests/CI, no live WP backend).
 
-## Authentication
+## Work Guidance
 
-**Methods**: App Passwords (recommended), JWT, Basic, API Key
+New auth methods or request-pipeline changes go in `api.ts`, matching existing method signatures — do not add to
+`managers/` or `auth.ts` unless directed to revive that architecture.
 
-**401 Fix**: `npm run fix:rest-auth` or add to `.htaccess`:
-
-```apache
-RewriteCond %{HTTP:Authorization} ^(.*)
-RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
-```
-
-## Troubleshooting
+## Verification
 
 ```bash
-npm run health             # System check
-npm run fix:rest-auth      # Fix WordPress 401 errors
-DEBUG=true npm run dev     # Debug logging
+npm run build && npx vitest run tests/client/
 ```
 
-**Common Issues:**
+## Child DOX Index
 
-- TypeScript: Use `| undefined` for optional properties
-- ESLint: Use `_` prefix for unused variables
-- WordPress 401: Run `npm run fix:rest-auth`
-- Cache: Clear with `rm -rf cache/`
-
-## CI/CD Pipeline
-
-**Automated Release**: Conventional commits trigger versioning **Publishing**: NPM + Docker Hub **Quality Gates**: All
-tests must pass, security scans clean
-
-## Development Workflow
-
-### Branch Strategy
-
-```bash
-git checkout -b feature/specific-improvement
-git checkout -b fix/specific-bug
-git checkout -b chore/maintenance-task
-```
-
-### Commit Standards
-
-```bash
-git commit -m "feat: add new WordPress tool"
-git commit -m "fix: resolve authentication issue"
-git commit -m "chore: update dependencies"
-```
-
-### Quality Gates
-
-```bash
-npm test                 # All tests must pass
-npm run lint            # ESLint validation
-npm run security:scan   # Security audit
-npm run build          # TypeScript compilation
-```
-
-## Key Project Info
-
-**Project**: Model Context Protocol (MCP) Server for WordPress
-**Language**: TypeScript with strict type safety
-**Testing**: All tests passing (100%), ~58% line coverage
-**Auth**: 4 methods (App Passwords recommended)
-**Multi-Site**: Full support via configuration
-**Tools**: 59 across 10 categories
-**Status**: Production-ready with CI/CD
-
-**Critical Files**:
-
-- `src/index.ts` - MCP Server
-- `src/client/WordPressClient.ts` - API client
-- `src/tools/` - Tool implementations
-- `mcp-wordpress.config.json` - Multi-site config
-- `.env` - Single-site environment
-
-## Security Notes
-
-- Never commit credentials or config files
-- Branch protection enforced on main
-- Pull requests required for all changes
-- CodeQL security scanning enabled
-- Use `npm run security:scan` before commits
+None.
 
 ---
 > Source: [docdyhr/mcp-wordpress](https://github.com/docdyhr/mcp-wordpress) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
