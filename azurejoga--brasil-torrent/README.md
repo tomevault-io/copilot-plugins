@@ -7,11 +7,11 @@ A fast, lightweight torrent client that won't mine cryptocurrency on your PC.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [azurejoga/brasil-torrent](https://github.com/azurejoga/brasil-torrent).
+Original source: `AGENTS.md` in [azurejoga/brasil-torrent](https://github.com/azurejoga/brasil-torrent).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
