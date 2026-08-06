@@ -1,0 +1,9 @@
+{
+  "name": "cnluminous--atom2api",
+  "displayName": "Atom2Api",
+  "description": "Expose AtomCode's CodingPlan AI models via a standard OpenAI\u2011compatible API.",
+  "version": "1.0.0",
+  "author": "cnluminous",
+  "homepage": "https://github.com/cnluminous/Atom2Api",
+  "skills": []
+}
