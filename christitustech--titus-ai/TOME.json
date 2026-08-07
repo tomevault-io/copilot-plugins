@@ -4,7 +4,7 @@
   "repo": "titus-ai",
   "description": "Codex and AI skills",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ChrisTitusTech/titus-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T01:25:14Z"
+  "distributed_at": "2026-08-07T14:42:55Z"
 }
