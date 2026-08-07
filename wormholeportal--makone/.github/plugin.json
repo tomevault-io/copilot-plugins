@@ -1,0 +1,9 @@
+{
+  "name": "wormholeportal--makone",
+  "displayName": "Makone",
+  "description": "Make Worlds with Code \u2014 your coding agent writes procedural three.js scenes, games and objects, screenshots them, and fixes what it sees.",
+  "version": "1.0.0",
+  "author": "wormholeportal",
+  "homepage": "https://github.com/wormholeportal/Makone",
+  "skills": []
+}
