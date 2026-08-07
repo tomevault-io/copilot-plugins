@@ -1,0 +1,9 @@
+{
+  "name": "dewasm--dewasm",
+  "displayName": "dewasm",
+  "description": "dewasm converts WebAssembly binaries into pure source code for languages like Ruby, Bash, and Go. No WebAssembly runtime is required.",
+  "version": "1.0.0",
+  "author": "dewasm",
+  "homepage": "https://github.com/dewasm/dewasm",
+  "skills": []
+}
