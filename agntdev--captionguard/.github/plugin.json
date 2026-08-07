@@ -1,0 +1,9 @@
+{
+  "name": "agntdev--captionguard",
+  "displayName": "captionguard",
+  "description": "Telegram bot that auto-deletes photos and albums posted without captions; per-group settings, optional notices, admin alerts and an audit log.",
+  "version": "1.0.0",
+  "author": "agntdev",
+  "homepage": "https://github.com/agntdev/captionguard",
+  "skills": []
+}
