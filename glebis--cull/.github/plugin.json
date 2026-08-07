@@ -1,0 +1,9 @@
+{
+  "name": "glebis--cull",
+  "displayName": "cull",
+  "description": "Local-first desktop Mac image viewer for fast review and curation of AI-generated image sets, built with Tauri, Svelte, Rust, SQLite, embeddings, and agent automation.",
+  "version": "1.0.0",
+  "author": "glebis",
+  "homepage": "https://github.com/glebis/cull",
+  "skills": []
+}
