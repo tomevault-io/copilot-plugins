@@ -1,0 +1,9 @@
+{
+  "name": "joe-cole1--pangolin-ip-rule-manager",
+  "displayName": "pangolin-ip-rule-manager",
+  "description": "\u200bAutomatically manage temporary Pangolin IP bypass rules for devices that can't use SSO (like smart TVs). Bootstraps trust from authenticated devices using real-time role validation and a fail-closed ",
+  "version": "1.0.0",
+  "author": "joe-cole1",
+  "homepage": "https://github.com/joe-cole1/pangolin-ip-rule-manager",
+  "skills": []
+}
