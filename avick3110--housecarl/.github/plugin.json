@@ -1,0 +1,9 @@
+{
+  "name": "avick3110--housecarl",
+  "displayName": "houseCARL",
+  "description": "Comprehensive data-layer access to your Skyrim SE load order: read any record, author patches into a new plugin, create/remove records, and look up record schemas, Papyrus signatures, and distributor ",
+  "version": "1.0.0",
+  "author": "Avick3110",
+  "homepage": "https://github.com/Avick3110/houseCARL",
+  "skills": []
+}
