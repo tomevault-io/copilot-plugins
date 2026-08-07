@@ -1,0 +1,9 @@
+{
+  "name": "saxy--tellstone",
+  "displayName": "Tellstone",
+  "description": "Tellstone is a high-performance in-memory database and drop-in replacement for Redis; Join https://discord.gg/kEf78DUFX",
+  "version": "1.0.0",
+  "author": "Saxy",
+  "homepage": "https://github.com/Saxy/Tellstone",
+  "skills": []
+}
