@@ -1,0 +1,9 @@
+{
+  "name": "iamaamir--pi-bifrost",
+  "displayName": "pi-bifrost",
+  "description": "Automatically route each Pi prompt to a model based on task complexity, price, speed, or context length. Smart model router for pi.",
+  "version": "1.0.0",
+  "author": "iamaamir",
+  "homepage": "https://github.com/iamaamir/pi-bifrost",
+  "skills": []
+}
