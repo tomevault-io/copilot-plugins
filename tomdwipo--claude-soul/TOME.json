@@ -4,7 +4,7 @@
   "repo": "claude-soul",
   "description": "Operating Soul for AI coding agents that captures how to think, not just rules \u2014 principle-over-rule, 7 delegation levels (Tell\u2192Delegate), a git-gated learning loop. Built for Claude Code, portable to Cursor/Gemini/Kiro/Copilot via AGENTS.md. Smarter every session.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tomdwipo/claude-soul",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T07:11:02Z"
+  "distributed_at": "2026-08-07T17:15:25Z"
 }
