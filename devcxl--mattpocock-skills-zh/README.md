@@ -7,11 +7,11 @@ Matt Pocock 技能集的中文翻译版 — 地道中文，原汁原味的技术
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [devcxl/mattpocock-skills-zh](https://github.com/devcxl/mattpocock-skills-zh).
+Original source: `AGENTS.md` in [devcxl/mattpocock-skills-zh](https://github.com/devcxl/mattpocock-skills-zh).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
