@@ -1,0 +1,9 @@
+{
+  "name": "tiagolauer--pieces-to-agents",
+  "displayName": "pieces-to-agents",
+  "description": "Turn your Pieces Long-Term Memory into an AGENTS.md your coding agents can read. Local-only, redaction-first.",
+  "version": "1.0.0",
+  "author": "tiagolauer",
+  "homepage": "https://github.com/tiagolauer/pieces-to-agents",
+  "skills": []
+}
