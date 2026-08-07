@@ -1,11 +1,11 @@
-## viberaven-payments
+## viberaven-supabase-rls
 
-> Apply when editing Stripe, Polar, or payment webhook handlers
+> Apply when editing Supabase migrations, RLS policies, or auth SQL
 
 
 Before editing these files, read `.viberaven/agent-context.md` and `.viberaven/mission-map.md`.
 
-Do NOT ship webhook handlers without signature verification; INSTEAD run `npx -y viberaven --agent-mode` after webhook edits.
+Do NOT enable RLS on only one table while leaving related tables open; INSTEAD read `.viberaven/mission-map.md` before migration edits.
 
 ---
 > Source: [ohad6k/VibeRaven](https://github.com/ohad6k/VibeRaven) — distributed by [TomeVault](https://tomevault.io).
