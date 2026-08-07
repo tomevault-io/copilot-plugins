@@ -1,0 +1,9 @@
+{
+  "name": "yamato-security--senrigan",
+  "displayName": "senrigan",
+  "description": "Offline, open-source AWS CloudTrail DFIR & threat hunting platform \u2014 120+ built-in hunts, 100+ Superset dashboard charts, AI chat, and an AWS Config resource graph.",
+  "version": "1.0.0",
+  "author": "Yamato-Security",
+  "homepage": "https://github.com/Yamato-Security/senrigan",
+  "skills": []
+}
