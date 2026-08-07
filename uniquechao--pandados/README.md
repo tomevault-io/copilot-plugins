@@ -7,11 +7,11 @@ Your self-hosted control plane for Claude Code and Codex. Turn issues into queue
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [uniquechao/PandaDOS](https://github.com/uniquechao/PandaDOS).
+Original source: `AGENTS.md` in [uniquechao/PandaDOS](https://github.com/uniquechao/PandaDOS).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
