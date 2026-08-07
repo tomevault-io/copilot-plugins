@@ -1,0 +1,9 @@
+{
+  "name": "wirasm--prp",
+  "displayName": "prp",
+  "description": "Prompts, workflows and more for agentic engineering ",
+  "version": "1.0.0",
+  "author": "Wirasm",
+  "homepage": "https://github.com/Wirasm/prp",
+  "skills": []
+}
