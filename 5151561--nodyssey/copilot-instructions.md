@@ -1,0 +1,72 @@
+## nodyssey
+
+> This is a single-module Android application. Production Kotlin lives under `app/src/main/java/io/github/nodyssey/`: `core/` contains networking, parsing, and shared utilities; `data/` owns repositories and Room persistence; `model/` defines domain types; and `ui/` contains Compose screens, view models, navigation, and theme code. Android resources are in `app/src/main/res`. JVM and Robolectric tests mirror production packages under `app/src/test/java`, with captured HTML in `app/src/test/resources/fixtures`. Instrumented tests belong in `app/src/androidTest`. Room schemas are versioned in `app/schemas`; architecture and design context lives in `docs/`.
+
+# Repository Guidelines
+
+## Project Structure & Module Organization
+
+This is a single-module Android application. Production Kotlin lives under `app/src/main/java/io/github/nodyssey/`: `core/` contains networking, parsing, and shared utilities; `data/` owns repositories and Room persistence; `model/` defines domain types; and `ui/` contains Compose screens, view models, navigation, and theme code. Android resources are in `app/src/main/res`. JVM and Robolectric tests mirror production packages under `app/src/test/java`, with captured HTML in `app/src/test/resources/fixtures`. Instrumented tests belong in `app/src/androidTest`. Room schemas are versioned in `app/schemas`; architecture and design context lives in `docs/`.
+
+## Build, Test, and Development Commands
+
+The project requires JDK 21 and Android SDK 37. Use the checked-in Gradle wrapper:
+
+- `./gradlew :app:assembleDebug` builds the debug APK.
+- `./gradlew :app:testDebugUnitTest` runs JVM, Robolectric, Room, Paging, and Compose tests.
+- `./gradlew :app:lintDebug` runs Android lint with warnings treated as errors.
+- `./gradlew spotlessCheck` verifies formatting; `./gradlew spotlessApply` fixes it.
+- `./gradlew resolveAndLockAll --write-locks` refreshes `app/gradle.lockfile` after dependency changes.
+
+Before submitting, run the same gates as `.github/workflows/ci.yml`. After builds, run `./gradlew --stop` so Gradle daemons do not remain in memory.
+
+## Dependencies & Official APIs
+
+`gradle/libs.versions.toml` is the single source of truth for every version, and it is kept current
+on purpose: AGP 9.2.1 / Kotlin 2.4.10 / Compose BOM 2026.06.00 / Material 3 1.5.0-alpha24 /
+Navigation 3 / OkHttp 5 / Coil 3 / Room 2.8 / Paging 3.5 / coroutines 1.11, on JDK 21, compileSdk 37,
+minSdk 26, targetSdk 36. Never inline a version in a build file, and run
+`./gradlew resolveAndLockAll --write-locks` after any dependency change.
+
+Before writing code against any of these libraries, find out what the **pinned** version actually
+offers — read its release notes or the resolved sources, do not code from memory of an older
+release. Recalled API shapes go stale faster than this catalog does. Prefer the newest supported
+API the pinned version provides over the older one that still compiles, and delete the workarounds a
+version bump makes obsolete instead of leaving them beside the new API.
+
+Implement each feature with the method the official component already provides; do not route around
+it with a hand-rolled equivalent. In practice:
+
+- Theming and motion come from `MaterialExpressiveTheme` with `MotionScheme.expressive()` in
+  `ui/theme/Theme.kt`. Take animation specs from `MaterialTheme.motionScheme`; do not hand-write
+  `tween`/`spring` at call sites.
+- Use Material 3 components and their slot/parameter APIs rather than re-implementing a component
+  out of `Box`/`Row`. Same rule for Navigation 3 back stacks, Paging 3 sources and mediators, Room
+  queries and migrations, DataStore, WorkManager, and Coil loaders.
+- Only hand-roll when the official API genuinely cannot express the requirement. When that happens,
+  say so in a comment at the site: which API was tried, what it could not do, and the condition
+  under which the workaround should be removed.
+
+Material 3 stays on a 1.5 alpha because that is where these APIs are public, and the adaptive
+libraries are on rc. Treat every bump of those as behavioural: run the full UI, lint, and release
+gates before trusting it.
+
+## Coding Style & Naming Conventions
+
+Use four-space indentation, LF endings, UTF-8, and trailing commas in multiline Kotlin. Spotless with ktlint is authoritative; rule overrides are in the root `build.gradle.kts`. Name classes and Composables in `PascalCase`, functions and properties in `camelCase`, and tests as readable backtick sentences. Preserve the repository’s UDF flow: Repository → ViewModel → immutable `UiState` → Compose. Keep CSS selectors centralized in `core/html/Selectors.kt`, inject dispatchers and clocks, and never swallow coroutine cancellation.
+
+## Testing Guidelines
+
+Name test files `*Test.kt` and place them beside the corresponding package. Parser tests must use committed fixtures, never the live NodeSeek site. Add regression tests for bug fixes and update committed Room schemas whenever entities or migrations change. No numeric coverage target exists; changed behavior should have focused tests.
+
+## Commit & Pull Request Guidelines
+
+Follow the history’s short, imperative summaries, in Chinese or English, such as `修复正文图片排版` or `Add offline cache`. Keep commits focused. Pull requests should explain the problem and solution, link relevant issues, list verification commands, and include before/after screenshots for UI changes. Call out schema, dependency-lock, session, or scraping-selector changes explicitly.
+
+## Security & Configuration
+
+Never commit cookies, credentials, local SDK paths, or captured authenticated data. Keep requests conservative, share session state only through the existing WebView/OkHttp cookie bridge, and treat changes to allowed WebView domains as security-sensitive.
+
+---
+> Source: [5151561/nodyssey](https://github.com/5151561/nodyssey) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-02 -->
