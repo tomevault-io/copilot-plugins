@@ -1,0 +1,9 @@
+{
+  "name": "wez--wiff",
+  "displayName": "wiff",
+  "description": "sniff out the wiff in your diff, from the comfort of your terminal. wiff is a terminal-centric code review tool",
+  "version": "1.0.0",
+  "author": "wez",
+  "homepage": "https://github.com/wez/wiff",
+  "skills": []
+}
