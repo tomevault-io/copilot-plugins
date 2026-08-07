@@ -4,7 +4,7 @@
   "repo": "-Harness-OS",
   "description": "Local semantic copilot and governed agent engineering runtime for AI-assisted software delivery.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/a672780966/-Harness-OS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T02:56:02Z"
+  "distributed_at": "2026-08-07T14:58:41Z"
 }
