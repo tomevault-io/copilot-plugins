@@ -1,0 +1,9 @@
+{
+  "name": "flashrt-project--flashrt-hf-kernels",
+  "displayName": "FlashRT-HF-kernels",
+  "description": "FlashRT-HF-kernels contains standalone FlashRT CUDA/CUTLASS kernels prepared for the Hugging Face kernels community, focusing on small-batch, low-latency inference paths for LLM, VLA, and physical AI ",
+  "version": "1.0.0",
+  "author": "flashrt-project",
+  "homepage": "https://github.com/flashrt-project/FlashRT-HF-kernels",
+  "skills": []
+}
