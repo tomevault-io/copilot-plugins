@@ -4,7 +4,7 @@
   "repo": "nbdev-upc-aidl-iemocap-datasets",
   "description": "nbdev package for iemocap datasts splits",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gofordiego/nbdev-upc-aidl-iemocap-datasets",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T06:34:04Z"
+  "distributed_at": "2026-08-07T09:35:04Z"
 }
