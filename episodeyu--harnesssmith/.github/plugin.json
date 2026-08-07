@@ -1,0 +1,9 @@
+{
+  "name": "episodeyu--harnesssmith",
+  "displayName": "HarnessSmith",
+  "description": "Forge your own agent harness \u2014 a config-to-code generator that renders a thin, standalone Python agent harness you fully own. No LangChain/LangGraph/ADK lock-in, no dependency on the generator after g",
+  "version": "1.0.0",
+  "author": "EpisodeYu",
+  "homepage": "https://github.com/EpisodeYu/HarnessSmith",
+  "skills": []
+}
