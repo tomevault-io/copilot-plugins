@@ -1,0 +1,9 @@
+{
+  "name": "genged--capshelf",
+  "displayName": "capshelf",
+  "description": "Shared Agent Configuration tool, share skills, configs and mcps across multiple projects",
+  "version": "1.0.0",
+  "author": "genged",
+  "homepage": "https://github.com/genged/capshelf",
+  "skills": []
+}
