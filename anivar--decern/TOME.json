@@ -1,0 +1,44 @@
+{
+  "name": "decern",
+  "owner": "anivar",
+  "repo": "decern",
+  "description": "Deterministic authorization + tamper-evident audit for AI agents, humans, and workloads \u2014 one principal type, safety invariants machine-checked by an SMT solver (cvc5), every decision independently verifiable offline. Pure Rust.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/anivar/decern",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T11:14:54Z"
+}
