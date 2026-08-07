@@ -1,0 +1,9 @@
+{
+  "name": "drowzeys--keys-1m-ctx-inkling-small-nvfp4-dspark-nvfp4-kv-cache-sglang-sm121-optimized-on-two-dgx-sparks",
+  "displayName": "keys-1M-CTX-Inkling-Small-NVFP4-Dspark-NVFP4-KV-Cache-SGlang-SM121-optimized-on-Two-DGX-Sparks",
+  "description": "keys- 1M context: Inkling-Small-NVFP4 + DSpark + NVFP4 KV  on SGLang, sm_121a-optimized on Two DGX Sparks \u2014 one-shot agent-executable recipe, all GB10 patches + bench numbers",
+  "version": "1.0.0",
+  "author": "drowzeys",
+  "homepage": "https://github.com/drowzeys/keys-1M-CTX-Inkling-Small-NVFP4-Dspark-NVFP4-KV-Cache-SGlang-SM121-optimized-on-Two-DGX-Sparks",
+  "skills": []
+}
