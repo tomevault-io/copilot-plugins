@@ -1,0 +1,9 @@
+{
+  "name": "heypandax--cc-pocket",
+  "displayName": "cc-pocket",
+  "description": "Drive Claude Code or OpenAI Codex from your phone \u2014 resume sessions, stream output, approve tool permissions remotely. End-to-end encrypted, zero-knowledge relay, open source.",
+  "version": "1.0.0",
+  "author": "heypandax",
+  "homepage": "https://github.com/heypandax/cc-pocket",
+  "skills": []
+}
