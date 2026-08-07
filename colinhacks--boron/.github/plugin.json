@@ -1,0 +1,9 @@
+{
+  "name": "colinhacks--boron",
+  "displayName": "boron",
+  "description": "A WYSIWYG editor for terminal screenshots",
+  "version": "1.0.0",
+  "author": "colinhacks",
+  "homepage": "https://github.com/colinhacks/boron",
+  "skills": []
+}
