@@ -7,11 +7,11 @@ A personal app platform: one-off software for exactly one user — built, mainta
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [bketelsen/bespoke](https://github.com/bketelsen/bespoke).
+Original source: `AGENTS.md` in [bketelsen/bespoke](https://github.com/bketelsen/bespoke).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
