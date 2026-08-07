@@ -1,0 +1,27 @@
+## wip
+
+> This project uses [Conventional Commits](https://www.conventionalcommits.org/).
+
+# AGENTS.md
+
+## Commit messages
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/).
+
+Format: `<type>[optional scope]: <description>`
+
+Common types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `ci`.
+
+Examples:
+
+- `feat(cli): add doctor command`
+- `fix(config): accept positional path argument`
+- `ci: add push trigger for main`
+
+## Version bumps
+
+Follow [Semantic Versioning](https://semver.org/). Bump minor for new commands/features (`feat`), patch for bug fixes (`fix`), major for breaking changes.
+
+---
+> Source: [slidict/wip](https://github.com/slidict/wip) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-06 -->
