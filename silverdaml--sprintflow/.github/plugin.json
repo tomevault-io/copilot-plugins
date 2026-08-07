@@ -1,0 +1,9 @@
+{
+  "name": "silverdaml--sprintflow",
+  "displayName": "SprintFlow",
+  "description": "A collaborative project management platform built with Next.js, TypeScript and modern frontend engineering practices.",
+  "version": "1.0.0",
+  "author": "SilverDaml",
+  "homepage": "https://github.com/SilverDaml/SprintFlow",
+  "skills": []
+}
