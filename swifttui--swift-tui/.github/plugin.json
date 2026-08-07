@@ -1,0 +1,9 @@
+{
+  "name": "swifttui--swift-tui",
+  "displayName": "swift-tui",
+  "description": "SwiftUI semantics, drawn in terminal cells. \u2014 Terminal + Web + macOS/iOS native + Android",
+  "version": "1.0.0",
+  "author": "SwiftTUI",
+  "homepage": "https://github.com/SwiftTUI/swift-tui",
+  "skills": []
+}
