@@ -7,11 +7,11 @@ Self-hosted OSINT situation console: live aircraft, ships, satellites, quakes an
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [AndrewCTF/velocity](https://github.com/AndrewCTF/velocity).
+Original source: `AGENTS.md` in [AndrewCTF/velocity](https://github.com/AndrewCTF/velocity).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
