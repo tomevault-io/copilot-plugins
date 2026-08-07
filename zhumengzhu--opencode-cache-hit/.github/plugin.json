@@ -1,0 +1,9 @@
+{
+  "name": "zhumengzhu--opencode-cache-hit",
+  "displayName": "opencode-cache-hit",
+  "description": "OpenCode sidebar plugin for cache hit rate, token usage, and session cost\u2014with sub-agent (child session) aggregation and optional per-call JSONL timeline.",
+  "version": "1.0.0",
+  "author": "zhumengzhu",
+  "homepage": "https://github.com/zhumengzhu/opencode-cache-hit",
+  "skills": []
+}
