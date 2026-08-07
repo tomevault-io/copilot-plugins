@@ -1,0 +1,9 @@
+{
+  "name": "domoarigatomrburato--userdata-switcher",
+  "displayName": "userdata-switcher",
+  "description": "Open VS Code-family editors with named isolated userdata roots.",
+  "version": "1.0.0",
+  "author": "domoarigatomrburato",
+  "homepage": "https://github.com/domoarigatomrburato/userdata-switcher",
+  "skills": []
+}
