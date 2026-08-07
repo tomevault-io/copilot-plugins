@@ -1,0 +1,9 @@
+{
+  "name": "apache--grails-intellij-plugin",
+  "displayName": "grails-intellij-plugin",
+  "description": "Grails plugin for IntelliJ IDEA",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/grails-intellij-plugin",
+  "skills": []
+}
