@@ -1,0 +1,44 @@
+{
+  "name": "odm_AIDataPlatform_demo",
+  "owner": "helloaiden0305",
+  "repo": "odm_AIDataPlatform_demo",
+  "description": "\u7cbe\u7b80\u7248\u6570\u636e\u4e2d\u53f0demo\uff0c\u4ec5\u7528\u4e8e\u4e2a\u4eba\u6280\u672f\u5b66\u4e60\u5206\u4eab\uff0c\u4e0d\u6d89\u53ca\u4efb\u4f55\u5546\u7528\u6570\u636e\uff0c\u5df2\u5904\u7406\u8131\u654f\u3002\u6b22\u8fce\u5404\u4f4d\u540c\u4e8b\u4ea4\u6d41\u5b66\u4e60\uff0c\u70b9\u70b9\u2728\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/helloaiden0305/odm_AIDataPlatform_demo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T08:41:10Z"
+}
