@@ -1,0 +1,9 @@
+{
+  "name": "solo-agent--solo",
+  "displayName": "solo",
+  "description": "For human and AI agents to collaborate through channels, tasks, and persistent workspaces.",
+  "version": "1.0.0",
+  "author": "solo-agent",
+  "homepage": "https://github.com/solo-agent/solo",
+  "skills": []
+}
