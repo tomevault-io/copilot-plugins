@@ -1,0 +1,9 @@
+{
+  "name": "risuncode--cartethyia",
+  "displayName": "Cartethyia",
+  "description": "OpenAI \u21c4 Anthropic compatibility reverse proxy built on Elysia + native Bun. One server, three client-facing API shapes \u2014 OpenAI Chat Completions, OpenAI Responses, and Anthropic Messages \u2014 each routa",
+  "version": "1.0.0",
+  "author": "risunCode",
+  "homepage": "https://github.com/risunCode/Cartethyia",
+  "skills": []
+}
