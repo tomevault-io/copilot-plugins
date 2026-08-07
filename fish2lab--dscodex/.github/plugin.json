@@ -1,0 +1,9 @@
+{
+  "name": "fish2lab--dscodex",
+  "displayName": "DSCodex",
+  "description": "Use DeepSeek V4 Flash inside the stock ChatGPT desktop app / Codex model picker \u2014 native Responses API, full agentic tool loop, no fork, no app patch. GPT models keep working via your ChatGPT OAuth su",
+  "version": "1.0.0",
+  "author": "fish2lab",
+  "homepage": "https://github.com/fish2lab/DSCodex",
+  "skills": []
+}
