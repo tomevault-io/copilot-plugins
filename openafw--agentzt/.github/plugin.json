@@ -1,0 +1,9 @@
+{
+  "name": "openafw--agentzt",
+  "displayName": "agentzt",
+  "description": "Zero Trust for AI Agents",
+  "version": "1.0.0",
+  "author": "openafw",
+  "homepage": "https://github.com/openafw/agentzt",
+  "skills": []
+}
