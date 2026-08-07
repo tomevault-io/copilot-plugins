@@ -1,0 +1,9 @@
+{
+  "name": "andrewctf--velocity",
+  "displayName": "velocity",
+  "description": "Self-hosted OSINT situation console: live aircraft, ships, satellites, quakes and conflict events fused on one 3D globe, with position history you own and replay for as long as you keep it. No API key",
+  "version": "1.0.0",
+  "author": "AndrewCTF",
+  "homepage": "https://github.com/AndrewCTF/velocity",
+  "skills": []
+}
