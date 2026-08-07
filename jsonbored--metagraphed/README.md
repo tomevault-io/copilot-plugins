@@ -7,11 +7,11 @@ Bittensor didn't ship with a map. We drew one — chain-direct block explorer, d
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [JSONbored/metagraphed](https://github.com/JSONbored/metagraphed).
+Original source: `AGENTS.md` in [JSONbored/metagraphed](https://github.com/JSONbored/metagraphed).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
