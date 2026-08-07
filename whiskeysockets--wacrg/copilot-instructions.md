@@ -1,0 +1,150 @@
+## wacrg
+
+> > Guidance for any AI coding agent (and humans) working on this repository.
+
+# AGENTS.md: working notes for agents contributing to wacrg
+
+> Guidance for any AI coding agent (and humans) working on this repository.
+> Follows the [agents.md](https://agents.md) convention. wacrg is a
+> GitHub-native, machine-readable, confidence-graded specification of the
+> WhatsApp 1:1 call protocol: signaling, keying, media, transport.
+>
+> Read this first, then the doc it points you to for your task. This file is
+> meant to accrete: when you learn something durable about the process,
+> add it here so the next agent starts where you finished.
+
+## The one rule
+
+Confidence is earned, and provenance is mandatory. Every fact is graded
+`confirmed | probable | speculative | unknown` and carries who/what/how/where.
+A single technique (one static read, one capture, one reconstruction) is
+`probable` at most. `confirmed` requires two or more independent
+techniques or contributors agreeing. Never round up; put uncertainty in
+`open_questions`, not in the grade. The full model:
+[CONTRIBUTING.md](CONTRIBUTING.md), [GOVERNANCE.md](GOVERNANCE.md),
+[docs/methodology/index.md](docs/methodology/index.md).
+
+## Repo layout
+
+```text
+spec/                 the CURATED corpus (YAML, schema-validated): the source of truth
+  stanzas/ flows/ enums/ techniques/ glossary.yaml
+  contributors/<id>.yaml   WHO (one per researcher)
+  flavors/<id>.yaml        WHICH reimplementations exist (whatsapp-rust, zapo-caller, ...)
+  flavors/<id>.map.yaml    WHERE each flavor realizes the spec (inverse Source-of-truth)
+  schema/*.schema.json     validation
+corpus/captures/      raw observations (intake), sanitized
+docs/                 the published MkDocs site (hand-written narrative + generated)
+  spec/**             GENERATED from spec/, committed, do not hand-edit
+  methodology/  techniques/
+  codec/mlow/   keying/   signaling/   reconstruction.md   ← deep RE narratives
+scripts/              validate / generate / coverage / ingest (TypeScript, tsx)
+```
+
+`docs/media/` is gitignored (a prior raw dump used that path). Put new
+sections under a real path like `docs/codec/`, `docs/keying/`, `docs/signaling/`.
+
+## Before you commit: the build gate
+
+```bash
+npm run build   # validate (schema + referential integrity) → generate docs/spec → coverage
+npm run check   # build + `git diff --exit-code` on generated files (CI parity)
+```
+
+`validate` fails if any `provenance.techniques`/`contributors` id is
+unregistered. `generate` rewrites `docs/spec/**`; `coverage` rewrites
+`COVERAGE.md` + `docs/coverage-badge.json`. Commit the regenerated files.
+A root-level file (this one, README) does not affect the gate, but any `spec/`
+change does.
+
+Stage explicit paths, never `git add -A`: this repo is edited concurrently
+by more than one agent/human. Check `git status` shows only your files first.
+Commit, do not push. [Conventional Commits](https://www.conventionalcommits.org/):
+`feat:` new fact/doc, `fix:` correction, `docs:` prose, `chore:` tooling.
+No Claude/AI attribution in commit messages. No real PII/keys/media, ever.
+
+## Attribution: the four provenance dimensions
+
+Every spec attribute/child carries `provenance` with: `techniques` (fixed set),
+`flavors` (independent
+reimplementations that corroborate it, must exist in `spec/flavors/` — a
+corroborating source, **not** a technique, and a port does not corroborate its
+upstream), `contributors` (must exist in `spec/contributors/`), `sources`
+(issue/PR/commit refs). Raw tool output (identity maps, dumps) lives under
+`corpus/` (or off-repo warden tooling), not `docs/`. Full model:
+[docs/attribution.md](docs/attribution.md). Register yourself once at
+`spec/contributors/<handle>.yaml`.
+
+## Methodology: techniques and independent reconstructions
+
+The seven fixed techniques (the only `provenance.techniques` values):
+`websocket-capture`, `baileys-instrumentation`, `frida-hooking`, `mitm-tls`,
+`static-smali-analysis`, `memory-dump`, `wasm-analysis`.
+
+The under-served area is keying and media internals. The main approach is
+`wasm-analysis` of the WhatsApp Web engine (it ships the codec and KDFs
+as WASM) plus independent reconstructions by the community. When two of
+these agree on a fact, it is corroborated toward `confirmed`. Treat an
+independent working reimplementation (e.g. a Rust/TS port that places real calls)
+as strong evidence, but record it as a **flavor** (`spec/flavors/<id>.yaml`) and
+cite it in `provenance.flavors` — a corroborating *source*, not a technique. Only
+call a fact `confirmed` when the agreeing *techniques* are genuinely independent
+(a reimplementation derived from the same capture is *not* independent of that
+capture, and a flavor that `derives_from` another is *not* independent of its
+upstream). External reconstructions are also surveyed in
+[docs/reconstruction.md](docs/reconstruction.md).
+
+## wasm-analysis operational guide
+
+The `wa.wasm` Web engine is reversed with [warden](https://github.com/purpshell/warden)
+into a knowledge base (`analysis/.warden/warden.db`, label `v1`). What works,
+and the traps:
+
+- Trust strings over agent names. The deep-analysis pass auto-named ~90% of
+  functions by guessing; those names are leads, not facts. Ground truth is
+  the binary's own strings: demangled C++ RTTI (`c++filt -t` on `N...E` typeinfo),
+  `__FILE__` source paths, and config/log literals. Recover identity from those.
+- String-xref has false positives. warden attributes a data string to a
+  function by an `i32.const` matching the string's address; large functions
+  collide. Examples that misfired here: #7466/#7952 matched MLow needles but are
+  H.264; #1522 "sframe_aes256_ctr" is float DSP. Always body-verify before any
+  rename (`kb.rename_function(sid, name, actor="human")` is reversible+logged).
+- Static-memory tables. `wa.wasm` uses bulk-memory *passive* segments (no
+  static offset). `analysis/extract_table.py <addr>` rebuilds the seg→address map
+  from the `memory.init` placements in `__wasm_init_memory` (#224) and reads any
+  CDF/codebook/scale table by address.
+- Grade honestly: structure recovered from RTTI/strings is `probable`; an
+  inferred algorithm is `speculative` until a body read or a second technique
+  confirms it.
+
+## Research-only: no executable code in source control
+
+wacrg is a research and specification corpus, not a code distribution. Do not add
+a runnable reference-implementation tree (`impl/`) to source control. Keep any
+executable reconstruction in a separate/off-repo project, and when it
+independently corroborates a finding, register it as a flavor
+(`spec/flavors/<id>.yaml`) and cite it in `provenance.flavors`. Verification
+principles still hold for the *finding*:
+- Prove primitives against an authoritative known-answer where one exists
+  (e.g. the SRTP HKDF vs RFC 5869; the CELT range coder vs a matched encoder
+  round-trip), and record in the doc's provenance that the check was done.
+- Mark stages not yet recovered as open rather than asserting plausible-but-wrong
+  output. Honesty over coverage.
+- Cite the WASM function indices / evidence each claim was built from.
+
+## Build on context that compounds
+
+This repo is designed to accumulate understanding: a finding becomes a doc,
+a doc cites its provenance, provenance lets the next contributor see exactly how
+sure we are and what to work on next. When you finish a piece:
+1. Write the narrative under `docs/...` (confidence-graded, provenance-stamped).
+2. Update [docs/reconstruction.md](docs/reconstruction.md) (the system-level
+   gap analysis) and the relevant roadmap so the open frontier moves visibly.
+3. Add any durable process lesson to this file.
+
+> Note: this is not [docs/AGENTS.md]-style; wacrg has no agent-crew feature.
+> This file is purely how to *work on wacrg*.
+
+---
+> Source: [WhiskeySockets/wacrg](https://github.com/WhiskeySockets/wacrg) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-06 -->
