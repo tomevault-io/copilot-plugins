@@ -1,0 +1,9 @@
+{
+  "name": "letya999--job-ftch",
+  "displayName": "job_ftch",
+  "description": "Open-source async pipeline for ingesting AI/tech job vacancies from Telegram and career sites",
+  "version": "1.0.0",
+  "author": "letya999",
+  "homepage": "https://github.com/letya999/job_ftch",
+  "skills": []
+}
