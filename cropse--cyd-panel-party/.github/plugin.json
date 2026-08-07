@@ -1,0 +1,9 @@
+{
+  "name": "cropse--cyd-panel-party",
+  "displayName": "CYD-panel-party",
+  "description": "yellow CYD for ESPhome control",
+  "version": "1.0.0",
+  "author": "cropse",
+  "homepage": "https://github.com/cropse/CYD-panel-party",
+  "skills": []
+}
