@@ -1,0 +1,44 @@
+{
+  "name": "unified-legal-ai-cn",
+  "owner": "laubeing-droid",
+  "repo": "unified-legal-ai-cn",
+  "description": "ULA \u2013 \u4ece\u6536\u6848\u5230\u6587\u4e66\u7684\u5f8b\u5e08\u8bc9\u8bbc\u5168\u6d41\u7a0b AI \u5de5\u4f5c\u53f0 \u00b7 WorkBuddy\u591aExpert\u5e76\u884c \u00b7 \u5143\u8ba4\u77e5\u81ea\u84b8\u998f \u00b7 \u975e\u4ee3\u7801\u5f8b\u5e08\u53cb\u597d",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/laubeing-droid/unified-legal-ai-cn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T07:29:39Z"
+}
