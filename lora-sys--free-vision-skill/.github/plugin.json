@@ -1,0 +1,9 @@
+{
+  "name": "lora-sys--free-vision-skill",
+  "displayName": "free-vision-skill",
+  "description": "A low-token visual evidence compiler for text-only coding agents. Convert images into compact Visual Evidence Packets (VEP) for DeepSeek, Codex, Claude Code, and other text-only models.",
+  "version": "1.0.0",
+  "author": "lora-sys",
+  "homepage": "https://github.com/lora-sys/free-vision-skill",
+  "skills": []
+}
