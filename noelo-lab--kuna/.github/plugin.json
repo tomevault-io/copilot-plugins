@@ -1,0 +1,9 @@
+{
+  "name": "noelo-lab--kuna",
+  "displayName": "kuna",
+  "description": "An agent-first decompiler designed to be refined by other agents. Kuna is written in Rust and was originally ported from Ghidra.",
+  "version": "1.0.0",
+  "author": "Noelo-Lab",
+  "homepage": "https://github.com/Noelo-Lab/kuna",
+  "skills": []
+}
