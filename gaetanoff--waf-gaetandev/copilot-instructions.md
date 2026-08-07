@@ -1,76 +1,57 @@
-## specific-dart
+## specific-docker
 
-> Dart and Flutter coding standards — null safety, patterns, state management
+> Docker and containerization best practices
 
 
-# Dart & Flutter Standards
+# Docker
 
-## Style & Naming
+## Dockerfile
 
-- Follow the official Dart style guide. Use `dart format` (enforced).
-- Classes, enums, typedefs: `PascalCase`. Variables, functions, parameters: `camelCase`.
-- Constants: `camelCase` (Dart convention, not UPPER_SNAKE).
-- Private members: prefix with `_`. Libraries: `snake_case`.
-- File names: `snake_case.dart` matching the primary class/content.
+- Use official, minimal base images (`alpine`, `slim`, `distroless`).
+- Use multi-stage builds to separate build and runtime stages.
+- Order layers by change frequency: system deps → app deps → source code.
+- Use `.dockerignore` to exclude `node_modules`, `.git`, `.env`, build artifacts.
+- Don't run as root — create and switch to a non-root user.
 
-## Null Safety
+```dockerfile
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
 
-- Dart is sound null-safe by default. Embrace it fully.
-- Use `?` only when null is a valid semantic value — not as a lazy default.
-- Prefer `late` over nullable for fields guaranteed to be initialized before access.
-- Use `??` (if-null) and `?.` (null-aware) operators to handle nullable values concisely.
-- Avoid `!` (null assertion) — handle the null case explicitly.
-
-## Patterns
-
-- Use enhanced enums with fields and methods for structured constants.
-- Use sealed classes (Dart 3) for exhaustive state modeling.
-- Use pattern matching (`switch` expressions, destructuring) for cleaner branching.
-- Use extension types for zero-cost type wrappers.
-- Prefer `final` variables by default — use `var` only when mutation is needed.
-
-```dart
-// ✅ Sealed class + pattern matching
-sealed class AuthState {}
-class Authenticated extends AuthState { final User user; ... }
-class Unauthenticated extends AuthState {}
-class Loading extends AuthState {}
-
-Widget build(BuildContext context) => switch (state) {
-  Authenticated(:final user) => HomeScreen(user: user),
-  Unauthenticated() => LoginScreen(),
-  Loading() => CircularProgressIndicator(),
-};
+FROM node:20-alpine
+RUN addgroup -S app && adduser -S app -G app
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+USER app
+EXPOSE 3000
+CMD ["node", "dist/main.js"]
 ```
 
-## Flutter Widgets
+## Best Practices
 
-- Extract widgets into separate classes — don't build deep `build()` methods.
-- Use `const` constructors wherever possible for widget reuse optimization.
-- Prefer `StatelessWidget` unless local mutable state is needed.
-- Use `Keys` correctly: `ValueKey` for data identity, `UniqueKey` for forced rebuilds.
-- Keep `build()` methods pure — no side effects.
+- Pin base image versions (`node:20.11-alpine`, not `node:latest`).
+- Combine `RUN` commands to reduce layers: `RUN apt-get update && apt-get install -y ...`.
+- Use `COPY` over `ADD` unless you need tar extraction or URL fetching.
+- Set `HEALTHCHECK` for production containers.
+- Use build args for build-time config, env vars for runtime config.
 
-## State Management
+## Docker Compose
 
-- Use Riverpod, Bloc, or Provider (pick one per project, stay consistent).
-- Separate business logic from UI. Never put logic in `build()`.
-- Use immutable state objects. Create new instances for state changes.
-- Handle loading, error, and data states explicitly (AsyncValue in Riverpod, etc.).
+- Use `docker-compose.yml` for local development orchestration.
+- Define named volumes for persistent data (databases).
+- Use `depends_on` with health checks for service startup ordering.
+- Override with `docker-compose.override.yml` for local dev settings.
+- Keep production deployment in separate compose files or use orchestrators.
 
-## Async
+## Security
 
-- Use `async/await` over raw `Future` chaining.
-- Use `Stream` for multiple async events. Prefer `StreamController` broadcast sparingly.
-- Always handle errors in Futures — unhandled errors crash the app.
-- Use `Completer` only when bridging callback-based APIs to Futures.
-
-## Testing
-
-- Use `flutter_test` for widget tests. `test` for pure Dart.
-- Use `mocktail` or `mockito` for mocking. Prefer fakes for simple cases.
-- Widget tests: `pumpWidget`, `pump`, `find`, `expect`. Test interaction flows.
-- Use golden tests for visual regression when UI precision matters.
+- Scan images for vulnerabilities (`docker scout`, `trivy`).
+- Don't store secrets in images — use runtime secrets/env vars.
+- Use read-only file systems where possible (`--read-only`).
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
