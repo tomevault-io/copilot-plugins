@@ -1,0 +1,9 @@
+{
+  "name": "dansreis--speclens",
+  "displayName": "speclens",
+  "description": "A desktop reader for OpenSpec projects - browse changes, trace how requirements evolved, and comment on specs, all from local folders",
+  "version": "1.0.0",
+  "author": "dansreis",
+  "homepage": "https://github.com/dansreis/speclens",
+  "skills": []
+}
