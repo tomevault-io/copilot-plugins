@@ -4,7 +4,7 @@
   "repo": "inflexa",
   "description": "Local-first CLI for reproducible biological analysis, with provenance tracked on every step.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/inflexa-ai/inflexa",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T06:59:30Z"
+  "distributed_at": "2026-08-07T17:09:27Z"
 }
