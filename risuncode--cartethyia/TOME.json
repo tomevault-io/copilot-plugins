@@ -1,0 +1,44 @@
+{
+  "name": "Cartethyia",
+  "owner": "risunCode",
+  "repo": "Cartethyia",
+  "description": "OpenAI \u21c4 Anthropic compatibility reverse proxy built on Elysia + native Bun. One server, three client-facing API shapes \u2014 OpenAI Chat Completions, OpenAI Responses, and Anthropic Messages \u2014 each routable to either upstream by model name, translated on the fly with prompt-cache awareness, tool-calling safety, and image handling. The lightweight",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/risunCode/Cartethyia",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T10:55:37Z"
+}
