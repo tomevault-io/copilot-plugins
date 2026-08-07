@@ -1,0 +1,44 @@
+{
+  "name": "Stellar-Unified-Price-Oracle-Aggregator-API-Contract",
+  "owner": "Stellar-Unified-Price-Oracle",
+  "repo": "Stellar-Unified-Price-Oracle-Aggregator-API-Contract",
+  "description": "\ud83d\udd10 Native Soroban smart contracts for the Stellar Unified Price Oracle. Implements secure multi-source ingestion, cryptographic payload validation, on-chain outlier filtering (medianizer), and optimized storage management.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Stellar-Unified-Price-Oracle/Stellar-Unified-Price-Oracle-Aggregator-API-Contract",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T16:52:55Z"
+}
