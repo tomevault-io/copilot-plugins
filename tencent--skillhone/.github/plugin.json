@@ -1,0 +1,9 @@
+{
+  "name": "tencent--skillhone",
+  "displayName": "SkillHone",
+  "description": "Continual agent skill evolution through persistent decision history. Whole-skill optimisation (SKILL.md + scripts + references) with every decision landing as a local Git issue / PR / wiki. Runs on an",
+  "version": "1.0.0",
+  "author": "Tencent",
+  "homepage": "https://github.com/Tencent/SkillHone",
+  "skills": []
+}
