@@ -7,11 +7,11 @@ Self-hostable, MCP-native testing platform. Manual test management, deterministi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [suiflex/suitest](https://github.com/suiflex/suitest).
+Original source: `AGENTS.md` in [suiflex/suitest](https://github.com/suiflex/suitest).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
