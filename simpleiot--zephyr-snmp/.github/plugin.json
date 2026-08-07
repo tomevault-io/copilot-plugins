@@ -1,0 +1,9 @@
+{
+  "name": "simpleiot--zephyr-snmp",
+  "displayName": "zephyr-snmp",
+  "description": "SNMP support for Zephyr",
+  "version": "1.0.0",
+  "author": "simpleiot",
+  "homepage": "https://github.com/simpleiot/zephyr-snmp",
+  "skills": []
+}
