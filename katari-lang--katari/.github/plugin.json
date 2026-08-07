@@ -1,0 +1,9 @@
+{
+  "name": "katari-lang--katari",
+  "displayName": "katari",
+  "description": "A language for orchestrating agents",
+  "version": "1.0.0",
+  "author": "katari-lang",
+  "homepage": "https://github.com/katari-lang/katari",
+  "skills": []
+}
