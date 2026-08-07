@@ -1,0 +1,9 @@
+{
+  "name": "secm8--contentops",
+  "displayName": "ContentOps",
+  "description": "Security content lifecycle management for Microsoft Sentinel and Microsoft Defender XDR.",
+  "version": "1.0.0",
+  "author": "SecM8",
+  "homepage": "https://github.com/SecM8/ContentOps",
+  "skills": []
+}
