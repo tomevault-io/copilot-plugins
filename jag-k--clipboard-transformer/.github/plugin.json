@@ -1,0 +1,9 @@
+{
+  "name": "jag-k--clipboard-transformer",
+  "displayName": "clipboard-transformer",
+  "description": "A native desktop app that quietly cleans copied text and links using rules you control",
+  "version": "1.0.0",
+  "author": "jag-k",
+  "homepage": "https://github.com/jag-k/clipboard-transformer",
+  "skills": []
+}
