@@ -1,0 +1,9 @@
+{
+  "name": "curatelabs--graphforge",
+  "displayName": "graphforge",
+  "description": "An embedded, openCypher-compatible graph workspace for Python, Node, (Swift, and Kotlin coming soon)",
+  "version": "1.0.0",
+  "author": "CurateLabs",
+  "homepage": "https://github.com/CurateLabs/graphforge",
+  "skills": []
+}
