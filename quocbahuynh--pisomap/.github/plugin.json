@@ -1,0 +1,9 @@
+{
+  "name": "quocbahuynh--pisomap",
+  "displayName": "PisoMap",
+  "description": "PISO API \u2014 a SaaS that provides real-time autocomplete, search, and place detail data from Google Maps through a simple REST API. Free API key, integrate in 30 seconds.",
+  "version": "1.0.0",
+  "author": "quocbahuynh",
+  "homepage": "https://github.com/quocbahuynh/PisoMap",
+  "skills": []
+}
