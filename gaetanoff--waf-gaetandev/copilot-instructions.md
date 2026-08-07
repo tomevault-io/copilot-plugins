@@ -1,57 +1,55 @@
-## specific-docker
+## specific-go
 
-> Docker and containerization best practices
+> Go coding standards — error handling, concurrency, idiomatic patterns
 
 
-# Docker
+# Go Standards
 
-## Dockerfile
+## Style
 
-- Use official, minimal base images (`alpine`, `slim`, `distroless`).
-- Use multi-stage builds to separate build and runtime stages.
-- Order layers by change frequency: system deps → app deps → source code.
-- Use `.dockerignore` to exclude `node_modules`, `.git`, `.env`, build artifacts.
-- Don't run as root — create and switch to a non-root user.
+- Follow `gofmt` — no debates about formatting.
+- Run `golangci-lint` with a strict config in CI.
+- Use `golint`/`staticcheck` for catching common mistakes.
+- Package names: short, lowercase, no underscores (`http`, `json`, not `http_utils`).
 
-```dockerfile
-FROM node:20-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
+## Error Handling
 
-FROM node:20-alpine
-RUN addgroup -S app && adduser -S app -G app
-WORKDIR /app
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-USER app
-EXPOSE 3000
-CMD ["node", "dist/main.js"]
+- Always check returned errors. Never discard with `_` unless explicitly justified.
+- Wrap errors with `fmt.Errorf("context: %w", err)` for stack-like tracing.
+- Use sentinel errors (`var ErrNotFound = errors.New(...)`) for expected error conditions.
+- Check errors with `errors.Is()` and `errors.As()`, not string comparison.
+- Return errors, don't panic. Reserve `panic` for truly unrecoverable situations.
+
+## Concurrency
+
+- Prefer channels for communication, mutexes for shared state.
+- Always use `context.Context` for cancellation and timeouts.
+- Start goroutines only when you know how they'll stop — prevent leaks.
+- Use `sync.WaitGroup` to wait for goroutine completion.
+- Use `errgroup.Group` for parallel tasks that can fail.
+
+## Patterns
+
+- Accept interfaces, return structs.
+- Keep interfaces small — 1-2 methods (Go proverb).
+- Use table-driven tests for comprehensive test coverage.
+- Use `struct{}` for signals/sets (zero memory allocation).
+- Use `defer` for cleanup — but be aware of loop pitfalls.
+
+## Project Layout
+
+```
+cmd/            # Entry points (main packages)
+internal/       # Private packages
+pkg/            # Public, reusable packages
+api/            # API definitions (proto, OpenAPI)
 ```
 
-## Best Practices
+## Dependencies
 
-- Pin base image versions (`node:20.11-alpine`, not `node:latest`).
-- Combine `RUN` commands to reduce layers: `RUN apt-get update && apt-get install -y ...`.
-- Use `COPY` over `ADD` unless you need tar extraction or URL fetching.
-- Set `HEALTHCHECK` for production containers.
-- Use build args for build-time config, env vars for runtime config.
-
-## Docker Compose
-
-- Use `docker-compose.yml` for local development orchestration.
-- Define named volumes for persistent data (databases).
-- Use `depends_on` with health checks for service startup ordering.
-- Override with `docker-compose.override.yml` for local dev settings.
-- Keep production deployment in separate compose files or use orchestrators.
-
-## Security
-
-- Scan images for vulnerabilities (`docker scout`, `trivy`).
-- Don't store secrets in images — use runtime secrets/env vars.
-- Use read-only file systems where possible (`--read-only`).
+- Use Go modules. Keep `go.mod` tidy with `go mod tidy`.
+- Vendor dependencies for reproducible builds when needed.
+- Minimize external dependencies — Go stdlib is comprehensive.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
