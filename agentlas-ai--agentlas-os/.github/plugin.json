@@ -1,0 +1,9 @@
+{
+  "name": "agentlas-ai--agentlas-os",
+  "displayName": "Agentlas-OS",
+  "description": "Agent OS: keep specialist agents in a hub, spin up a temporary orchestrator per task. Local-first, works with any model.",
+  "version": "1.0.0",
+  "author": "agentlas-ai",
+  "homepage": "https://github.com/agentlas-ai/Agentlas-OS",
+  "skills": []
+}
