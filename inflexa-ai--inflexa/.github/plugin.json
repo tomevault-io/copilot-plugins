@@ -1,0 +1,9 @@
+{
+  "name": "inflexa-ai--inflexa",
+  "displayName": "inflexa",
+  "description": "Local-first CLI for reproducible biological analysis, with provenance tracked on every step.",
+  "version": "1.0.0",
+  "author": "inflexa-ai",
+  "homepage": "https://github.com/inflexa-ai/inflexa",
+  "skills": []
+}
