@@ -1,0 +1,9 @@
+{
+  "name": "brennanwoodbury--factorio-stack-manager",
+  "displayName": "factorio-stack-manager",
+  "description": "Self-hosted manager for multiple Factorio dedicated servers on one host behind NAT, using DNS SRV records for per-subdomain routing",
+  "version": "1.0.0",
+  "author": "BrennanWoodbury",
+  "homepage": "https://github.com/BrennanWoodbury/factorio-stack-manager",
+  "skills": []
+}
