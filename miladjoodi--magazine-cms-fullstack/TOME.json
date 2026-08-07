@@ -1,0 +1,44 @@
+{
+  "name": "Magazine-CMS-Fullstack",
+  "owner": "MiladJoodi",
+  "repo": "Magazine-CMS-Fullstack",
+  "description": "Full-stack magazine platform \u2014 Next.js, Prisma, REST API, comments & views. (\ud835\uddf0\ud835\ude02\ud835\uddff\ud835\uddff\ud835\uddf2\ud835\uddfb\ud835\ude01\ud835\uddf9\ud835\ude06 \ud835\uddf6\ud835\uddfb \ud835\uddf1\ud835\uddf2\ud835\ude03\ud835\uddf2\ud835\uddf9\ud835\uddfc\ud835\uddfd\ud835\uddfa\ud835\uddf2\ud835\uddfb\ud835\ude01...)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MiladJoodi/Magazine-CMS-Fullstack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T15:28:12Z"
+}
