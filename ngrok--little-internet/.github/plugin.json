@@ -1,0 +1,9 @@
+{
+  "name": "ngrok--little-internet",
+  "displayName": "little-internet",
+  "description": "A hardware-based, reproducible little internet for learning how networking actually works",
+  "version": "1.0.0",
+  "author": "ngrok",
+  "homepage": "https://github.com/ngrok/little-internet",
+  "skills": []
+}
