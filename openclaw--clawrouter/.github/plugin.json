@@ -1,0 +1,9 @@
+{
+  "name": "openclaw--clawrouter",
+  "displayName": "clawrouter",
+  "description": "ClawRouter API gateway and provider router for OpenClaw services",
+  "version": "1.0.0",
+  "author": "openclaw",
+  "homepage": "https://github.com/openclaw/clawrouter",
+  "skills": []
+}
