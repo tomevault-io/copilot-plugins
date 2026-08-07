@@ -1,55 +1,71 @@
-## specific-go
+## specific-java
 
-> Go coding standards — error handling, concurrency, idiomatic patterns
+> Java coding standards — modern Java, Spring patterns, error handling
 
 
-# Go Standards
+# Java Standards
 
-## Style
+## Modern Java (17+)
 
-- Follow `gofmt` — no debates about formatting.
-- Run `golangci-lint` with a strict config in CI.
-- Use `golint`/`staticcheck` for catching common mistakes.
-- Package names: short, lowercase, no underscores (`http`, `json`, not `http_utils`).
+- Use records for immutable data carriers: `record User(String name, int age) {}`.
+- Use sealed classes/interfaces to restrict type hierarchies.
+- Use pattern matching for `instanceof`: `if (obj instanceof String s)`.
+- Use switch expressions with arrow syntax and exhaustiveness checks.
+- Use text blocks (`"""`) for multi-line strings (SQL, JSON, templates).
+- Use `var` for local variables when the type is obvious.
+
+```java
+// ✅ Modern switch expression
+String label = switch (status) {
+    case ACTIVE -> "Active";
+    case INACTIVE -> "Inactive";
+    case PENDING -> "Pending";
+};
+```
+
+## Naming & Style
+
+- Classes/interfaces: `PascalCase`. Methods/variables: `camelCase`. Constants: `UPPER_SNAKE_CASE`.
+- Package names: lowercase, reversed domain (`com.example.project.feature`).
+- Boolean methods: `is`, `has`, `can` prefix (`isValid()`, `hasAccess()`).
+- No wildcard imports (`import *`). Organize imports: java → javax → third-party → project.
+
+## Null Safety
+
+- Avoid returning `null`. Use `Optional<T>` for values that may be absent.
+- Never use `Optional` as a field or method parameter — only as return type.
+- Use `@Nullable` / `@NonNull` annotations for public API boundaries.
+- Use `Objects.requireNonNull()` for fail-fast null checks on parameters.
 
 ## Error Handling
 
-- Always check returned errors. Never discard with `_` unless explicitly justified.
-- Wrap errors with `fmt.Errorf("context: %w", err)` for stack-like tracing.
-- Use sentinel errors (`var ErrNotFound = errors.New(...)`) for expected error conditions.
-- Check errors with `errors.Is()` and `errors.As()`, not string comparison.
-- Return errors, don't panic. Reserve `panic` for truly unrecoverable situations.
+- Use checked exceptions for recoverable conditions, unchecked for programming errors.
+- Create domain-specific exception hierarchies extending `RuntimeException`.
+- Always include the cause: `throw new ServiceException("msg", cause)`.
+- Never catch `Throwable` or `Exception` generically — be specific.
+- Use try-with-resources for all `AutoCloseable` resources.
 
-## Concurrency
+## Collections & Streams
 
-- Prefer channels for communication, mutexes for shared state.
-- Always use `context.Context` for cancellation and timeouts.
-- Start goroutines only when you know how they'll stop — prevent leaks.
-- Use `sync.WaitGroup` to wait for goroutine completion.
-- Use `errgroup.Group` for parallel tasks that can fail.
+- Use `List.of()`, `Map.of()`, `Set.of()` for immutable collections.
+- Use Streams for data transformation pipelines. Avoid side effects in streams.
+- Don't overuse streams — a `for` loop is clearer for simple iterations with complex logic.
+- Prefer `Collection` or `List` over raw arrays in APIs.
 
-## Patterns
+## Spring / Enterprise Patterns
 
-- Accept interfaces, return structs.
-- Keep interfaces small — 1-2 methods (Go proverb).
-- Use table-driven tests for comprehensive test coverage.
-- Use `struct{}` for signals/sets (zero memory allocation).
-- Use `defer` for cleanup — but be aware of loop pitfalls.
+- Use constructor injection (implicit with single constructor). Avoid `@Autowired` on fields.
+- Keep controllers thin — delegate to service layer.
+- Use `@Transactional` at the service layer, not the repository layer.
+- Validate inputs with Bean Validation (`@Valid`, `@NotBlank`, `@Size`).
+- Use `@RestControllerAdvice` for centralized exception handling.
 
-## Project Layout
+## Testing
 
-```
-cmd/            # Entry points (main packages)
-internal/       # Private packages
-pkg/            # Public, reusable packages
-api/            # API definitions (proto, OpenAPI)
-```
-
-## Dependencies
-
-- Use Go modules. Keep `go.mod` tidy with `go mod tidy`.
-- Vendor dependencies for reproducible builds when needed.
-- Minimize external dependencies — Go stdlib is comprehensive.
+- Use JUnit 5 with `@DisplayName` for readable test names.
+- Use Mockito for mocking. Avoid `@MockBean` in unit tests (slow Spring context).
+- Use `@SpringBootTest` only for integration tests. Unit test with plain constructors.
+- Use AssertJ for fluent, readable assertions.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
