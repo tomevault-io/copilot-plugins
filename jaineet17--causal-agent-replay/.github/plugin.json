@@ -1,0 +1,9 @@
+{
+  "name": "jaineet17--causal-agent-replay",
+  "displayName": "causal-agent-replay",
+  "description": "Counterfactual replay and causal attribution over LLM-agent trajectories: find which step actually caused a failure by intervening on it.",
+  "version": "1.0.0",
+  "author": "jaineet17",
+  "homepage": "https://github.com/jaineet17/causal-agent-replay",
+  "skills": []
+}
