@@ -1,0 +1,9 @@
+{
+  "name": "nullskymc--aurevoy",
+  "displayName": "Aurevoy",
+  "description": "Personal AI agent  \u2014 tell it what you want, it figures out how. Runs locally, plans autonomously, writes code, browses the web, and gets things done. ",
+  "version": "1.0.0",
+  "author": "nullskymc",
+  "homepage": "https://github.com/nullskymc/Aurevoy",
+  "skills": []
+}
