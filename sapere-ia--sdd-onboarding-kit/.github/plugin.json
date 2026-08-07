@@ -1,0 +1,9 @@
+{
+  "name": "sapere-ia--sdd-onboarding-kit",
+  "displayName": "sdd-onboarding-kit",
+  "description": "SDD harness onboarding kit for Claude Code",
+  "version": "1.0.0",
+  "author": "Sapere-IA",
+  "homepage": "https://github.com/Sapere-IA/sdd-onboarding-kit",
+  "skills": []
+}
