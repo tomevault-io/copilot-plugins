@@ -1,0 +1,9 @@
+{
+  "name": "alexsergey--opensa",
+  "displayName": "opensa",
+  "description": "A from-scratch, high-performance WebGPU engine compatible with RenderWare (GTA San Andreas). Not a reimplementation: SA's worlds and mods in the browser, without its limits.",
+  "version": "1.0.0",
+  "author": "AlexSergey",
+  "homepage": "https://github.com/AlexSergey/opensa",
+  "skills": []
+}
