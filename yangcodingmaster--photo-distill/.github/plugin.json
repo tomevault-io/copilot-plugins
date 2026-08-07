@@ -1,0 +1,9 @@
+{
+  "name": "yangcodingmaster--photo-distill",
+  "displayName": "photo-distill",
+  "description": "Distil a photograph into a minimal poster \u2014 hand-written HTML/CSS/SVG, no image generation model. \u7167\u7247\u84b8\u998f\u6210\u6781\u7b80\u6d77\u62a5",
+  "version": "1.0.0",
+  "author": "yangcodingmaster",
+  "homepage": "https://github.com/yangcodingmaster/photo-distill",
+  "skills": []
+}
