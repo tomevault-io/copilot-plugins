@@ -1,0 +1,44 @@
+{
+  "name": "tiktok-region-hook",
+  "owner": "kjqg-cn",
+  "repo": "tiktok-region-hook",
+  "description": "\u4e00\u4e2a\u7528\u4e8e\u8986\u76d6 TikTok \u5730\u533a\u3001SIM \u5361\u3001\u8fd0\u8425\u5546\u53ca\u5e94\u7528\u5546\u5e97\u533a\u57df\u4fe1\u606f\u7684 LSPosed \u6a21\u5757\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kjqg-cn/tiktok-region-hook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T08:51:10Z"
+}
