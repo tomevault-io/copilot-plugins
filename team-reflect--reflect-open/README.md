@@ -7,11 +7,11 @@ Open-source Reflect rewrite: A local-first AI agent-friendly Markdown note-takin
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [team-reflect/reflect-open](https://github.com/team-reflect/reflect-open).
+Original source: `AGENTS.md` in [team-reflect/reflect-open](https://github.com/team-reflect/reflect-open).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
