@@ -1,0 +1,9 @@
+{
+  "name": "fastagent-sh--fastagent",
+  "displayName": "fastagent",
+  "description": "Vibe first. Then FastAgent \u2014 turn a local agent directory into a live service: in your app, on GitHub, in Telegram, or any channel.",
+  "version": "1.0.0",
+  "author": "fastagent-sh",
+  "homepage": "https://github.com/fastagent-sh/fastagent",
+  "skills": []
+}
