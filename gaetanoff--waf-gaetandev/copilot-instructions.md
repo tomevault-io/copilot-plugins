@@ -1,71 +1,56 @@
-## global-documentation
+## global-git-conventions
 
-> Living documentation — specs as the single source of truth, auto-generated docs
+> Git conventions — commits, branches, PR workflow with spec-driven additions
 
 
-# Documentation (Spec-Driven)
+# Git Conventions
 
-## Specs ARE Documentation
+## Commit Messages
 
-In SDD, specifications are the primary documentation. Code comments and separate docs are secondary.
+Follow **Conventional Commits** format:
 
-- **API documentation** is auto-generated from OpenAPI specs (Swagger UI, Redoc).
-- **Data model documentation** is auto-generated from JSON Schemas.
-- **Behavior documentation** is the Gherkin/Given-When-Then feature files.
-- **Architecture documentation** is the ADRs referencing spec decisions.
-- **Type documentation** is generated from TypeScript interfaces / data contracts.
+```
+<type>(<scope>): <short description>
 
-## Code Comments
+[optional body — explain WHY, not WHAT]
 
-- Code should be self-documenting first. Use comments only for the **why**, not the **what**.
-- Never add comments that restate the code (`// increment counter` above `counter++`).
-- Document non-obvious business rules, workarounds, performance trade-offs, and constraints.
-- Reference the spec when implementing non-obvious contract requirements: `// Per spec: specs/api/openapi.yaml#/paths/users/post`.
-- Use `TODO:`, `FIXME:`, `HACK:` prefixes for actionable items — include a ticket/name.
-- Keep comments up to date. Stale comments are worse than no comments.
+[optional footer — BREAKING CHANGE, closes #issue]
+```
 
-## Function/Method Documentation
+Types: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`, `perf`, `ci`, `style`, `build`, `spec`.
 
-- Document public APIs and exported functions with:
-  - Brief description of purpose.
-  - Parameter descriptions (types, constraints, defaults).
-  - Return value description.
-  - Exceptions/errors that can be thrown.
-  - Reference to the spec contract this function implements.
-- Skip docs for self-explanatory functions (`getName()`, `isValid()`).
+- `spec`: changes to specifications (OpenAPI, JSON Schema, Gherkin, contracts).
+- Subject line: imperative mood, lowercase, no period, max 72 chars.
+- Body: wrap at 80 chars, explain motivation and context.
+- One logical change per commit. Don't mix refactoring with features.
+- Spec changes and implementation changes should be in **separate commits**.
 
-## Project Documentation
+## Branches
 
-- Every project needs a `README.md` with: purpose, setup, usage, spec overview.
-- Document environment variables in a `.env.example` file.
-- Keep an `ARCHITECTURE.md` for system-level design decisions, referencing specs.
-- API documentation is auto-generated from `specs/api/openapi.yaml` — never hand-written.
-- Data model documentation is auto-generated from `specs/schemas/` — never hand-written.
+- `main` / `master`: production-ready code. Never commit directly.
+- `develop`: integration branch (if using Git Flow).
+- Feature: `feat/<ticket-id>-short-description`
+- Bugfix: `fix/<ticket-id>-short-description`
+- Hotfix: `hotfix/<ticket-id>-short-description`
+- Specification: `spec/<ticket-id>-short-description`
 
-## ADRs (Architecture Decision Records)
+## Pull Requests
 
-- Record significant technical decisions in short docs.
-- Format: Context → Decision → Consequences → **Spec References**.
-- Store in `specs/decisions/` (colocated with specs, not separate).
-- Every ADR must reference the specs that drove or were affected by the decision.
+- Keep PRs small and focused — under 400 lines of diff when possible.
+- Write a clear description: what changed, why, how to test.
+- For spec PRs: describe the contracts added/changed and their impact.
+- For implementation PRs: reference the spec the code conforms to.
+- Link related issues/tickets.
+- Ensure CI passes (including spec lint and conformance tests) before requesting review.
+- Squash or rebase before merging to keep history clean.
 
-## Documentation Anti-Patterns in SDD
+## Hygiene
 
-- **Hand-Written API Docs**: if you have an OpenAPI spec, generate the docs. Don't duplicate.
-- **Stale Docs**: docs that don't match the current spec. Auto-generation prevents this.
-- **Docs Without Spec Reference**: documentation that doesn't link back to the authoritative spec.
-- **Over-Documenting Code**: if the spec defines the contract, the code doesn't need to re-explain it.
-- **Under-Documenting Specs**: specs with no descriptions, no examples, no context.
-
-## Auto-Generation Tooling
-
-| Source | Generated Doc | Tool |
-|--------|--------------|------|
-| OpenAPI spec | Interactive API docs | Swagger UI, Redoc, Stoplight |
-| JSON Schema | Type/model reference | json-schema-docs, Docusaurus |
-| Gherkin features | Living behavior docs | Cucumber reports, Pickles |
-| TypeScript types | API reference | TypeDoc, TSDoc |
-| ADRs | Decision log | adr-tools, Log4brains |
+- Pull and rebase frequently to avoid large merge conflicts.
+- Delete branches after merging.
+- Never commit secrets, `.env`, or build artifacts.
+- Use `.gitignore` appropriate for the tech stack.
+- Commit specs alongside code — they live in the same repo.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
