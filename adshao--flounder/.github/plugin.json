@@ -1,0 +1,9 @@
+{
+  "name": "adshao--flounder",
+  "displayName": "flounder",
+  "description": "Autonomous white-hat security auditor for AI-driven code review, bug bounty research, exploit construction, and execution-grounded verification.",
+  "version": "1.0.0",
+  "author": "adshao",
+  "homepage": "https://github.com/adshao/flounder",
+  "skills": []
+}
