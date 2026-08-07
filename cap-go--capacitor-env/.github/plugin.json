@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-env",
+  "displayName": "capacitor-env",
+  "description": "Capacitor plugin to store and read env var in capacitor config, helpfull for multitenant app.",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-env",
+  "skills": []
+}
