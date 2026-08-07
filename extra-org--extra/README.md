@@ -7,11 +7,11 @@ Turn your app into an agentic product from one YAML file
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [extra-org/extra](https://github.com/extra-org/extra).
+Original source: `AGENTS.md` in [extra-org/extra](https://github.com/extra-org/extra).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
