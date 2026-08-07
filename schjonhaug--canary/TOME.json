@@ -4,7 +4,7 @@
   "repo": "canary",
   "description": "Bitcoin monitoring tool with transaction alerts and intelligent balance notifications. Set custom balance thresholds, monitor wallet drains, track all transactions - all with watch-only security.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/schjonhaug/canary",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T21:49:37Z"
+  "distributed_at": "2026-08-07T02:47:33Z"
 }
