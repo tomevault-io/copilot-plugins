@@ -4,7 +4,7 @@
   "repo": "agent-engineering-philosophy",
   "description": "An engineering philosophy that treats the agent as a worker: the system prompt is a JD, skills are certifications, model tiers are degrees, memory is a career record, the sandbox is a work computer. Bilingual, \u4e2d\u6587/English.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Onenightcarnival/agent-engineering-philosophy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T02:47:58Z"
+  "distributed_at": "2026-08-07T14:54:01Z"
 }
