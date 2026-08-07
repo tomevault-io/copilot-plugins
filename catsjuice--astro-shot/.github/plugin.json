@@ -1,0 +1,9 @@
+{
+  "name": "catsjuice--astro-shot",
+  "displayName": "astro-shot",
+  "description": "Interactive astronomical sky simulator",
+  "version": "1.0.0",
+  "author": "CatsJuice",
+  "homepage": "https://github.com/CatsJuice/astro-shot",
+  "skills": []
+}
