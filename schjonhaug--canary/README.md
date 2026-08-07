@@ -7,11 +7,11 @@ Bitcoin monitoring tool with transaction alerts and intelligent balance notifica
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [schjonhaug/canary](https://github.com/schjonhaug/canary).
+Original source: `AGENTS.md` in [schjonhaug/canary](https://github.com/schjonhaug/canary).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
