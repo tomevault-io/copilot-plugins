@@ -1,97 +1,223 @@
-## core-iteration
+## core-migration-strategy
 
-> Spec-driven iteration — specs evolve first, code follows
+> Spec-driven migration and versioning — schema evolution, API versioning, backward compatibility
 
 
-# Spec-Driven Iteration
+# Migration & Versioning Strategy
 
-## Feedback Loop
+## Schema Migration Lifecycle
 
-After each implementation cycle:
+Every data contract change follows this lifecycle:
 
-1. **Review**: Compare implementation against specs and conformance test results.
-2. **Identify gaps**: What spec scenarios are missing? What contracts are incomplete?
-3. **Update specs**: Evolve specs first — add missing contracts, refine existing ones.
-4. **Update conformance tests**: Generate new tests from updated specs.
-5. **Implement**: Make targeted changes to pass the new conformance tests.
-6. **Validate**: Re-run all conformance gates to confirm nothing broke.
+```
+Draft → Reviewed → Tested → Applied → Verified → (Rolled Back if needed)
+```
 
-## Spec Evolution Triggers
+### Migration Rules
 
-Update specs when you see:
-- **Missing scenarios**: real usage reveals behavior not covered by any spec.
-- **Contract gaps**: edge cases or error conditions not defined in the contract.
-- **Performance misses**: SLOs need adjustment based on real-world measurements.
-- **Security findings**: new threat vectors require additional security contracts.
-- **User feedback**: UX issues require changes to UI contracts or behavior specs.
-- **Integration changes**: external service changes require contract updates.
+- Every schema change produces a **versioned migration** (up + down).
+- Migrations are **atomic** — one logical change per migration file.
+- Migrations must be **reversible** — every `up` has a matching `down`.
+- Migrations are **idempotent** — running the same migration twice is safe.
+- Migration files are **immutable** once applied — never edit an applied migration.
+- Test migrations against a copy of production data before applying.
 
-## Spec Evolution Rules
+### Migration File Naming
 
-- **Spec changes come first**. Never change code without updating the spec.
-- Spec changes require review — they affect the contract with consumers.
-- Backward-compatible changes: add new fields (optional), new endpoints, new error codes.
-- Breaking changes: require a major version bump and migration guide in the spec.
-- Run all conformance tests before and after spec changes. Green → evolve → green.
-- Make small, incremental spec changes. Don't rewrite entire contracts at once.
+```
+migrations/
+  001_create_users_table.sql          # or .ts, .py depending on stack
+  002_add_email_verified_to_users.sql
+  003_create_orders_table.sql
+  004_add_index_orders_user_id.sql
+```
 
-## Refactoring (Spec-Aware)
+Naming convention: `<sequence>_<verb>_<description>.<ext>`
+- Verbs: `create`, `add`, `remove`, `rename`, `alter`, `drop`, `seed`
+- Always increment the sequence number — never reuse or reorder.
 
-Refactoring triggers remain the same, but with a spec constraint:
+### Migration Script Template
 
-- **Duplication**: same logic in 3+ places → extract, but ensure the shared code still conforms.
-- **Long functions**: >40 lines → split, but each piece must still satisfy its spec contract.
-- **Large files**: >300 lines → break into modules, but maintain spec conformance at each boundary.
-- **Contract violations**: code that no longer matches the spec → fix code, not spec (unless spec is wrong).
+```sql
+-- Migration: 001_create_users_table
+-- Created: YYYY-MM-DD
+-- Spec: specs/schemas/user.schema.json
 
-Refactoring rules:
-- Refactor in dedicated commits — never mix refactoring with spec changes.
-- Run conformance tests before and after. Green → refactor → green.
-- Internal refactoring (no contract change) doesn't require spec updates.
-- If refactoring changes a public interface, update the spec first.
+-- UP
+CREATE TABLE users (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  email VARCHAR(255) NOT NULL UNIQUE,
+  name VARCHAR(100) NOT NULL,
+  role VARCHAR(20) NOT NULL DEFAULT 'user' CHECK (role IN ('admin', 'user', 'viewer')),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
 
-## Performance Optimization Cycle (Spec-Driven)
+CREATE INDEX idx_users_email ON users(email);
 
-1. **Check SLOs**: compare actual metrics against performance specs.
-2. **Profile**: identify the actual bottleneck with tools.
-3. **Hypothesize**: propose a change that brings metrics within SLO bounds.
-4. **Implement**: make the change.
-5. **Measure**: compare against SLOs. If within bounds, done. If not, iterate.
-6. **Update specs**: if SLOs were unrealistic, update the performance spec with justification.
+-- DOWN
+DROP TABLE IF EXISTS users;
+```
 
-## Technical Debt Management
+## API Versioning Strategy
 
-- Track debt as **spec conformance gaps** — where code doesn't fully match specs.
-- Track debt as **spec completeness gaps** — where specs don't cover all real behavior.
-- Allocate time for debt reduction in each iteration.
-- Prioritize debt that causes conformance test failures or blocks new specs.
-- Distinguish between intentional debt (trade-off documented in ADR) and accidental debt.
+### Versioning Methods
 
-## UX Refinement (Driven by UI Specs)
+| Method | When to Use | SDD Signal |
+|--------|-------------|------------|
+| **URL path** (`/api/v1/`) | Public APIs, clear consumer contracts | Recommended default |
+| **Header** (`Accept: application/vnd.api.v2+json`) | Internal APIs, granular version control | When URL versioning is too coarse |
+| **Query param** (`?version=2`) | Simple APIs, quick iteration | Prototyping only |
 
-- Review the UI against UI contracts and component specs.
-- Check consistency: do components match their prop contracts?
-- Verify responsive behavior against breakpoint specs.
-- Test with keyboard-only navigation per accessibility specs.
-- When UX needs change, update the UI spec first, then the components.
+**Default recommendation**: URL path versioning (`/api/v1/`).
 
-## Documentation Updates
+### Version Lifecycle
 
-After each iteration:
-- Specs are the documentation — ensure they're up to date.
-- Auto-generate API docs from OpenAPI specs.
-- Auto-generate type docs from data contracts.
-- Update ADRs if architectural decisions evolved.
-- Update changelog with spec version changes.
-- Remove outdated specs — stale specs mislead worse than stale docs.
+```
+v1 (current) → v2 (development) → v2 (current) + v1 (deprecated) → v1 (sunset)
+```
 
-## Continuous Improvement Mindset
+- **Current**: actively maintained, receives bug fixes and security patches.
+- **Deprecated**: still functional, no new features, sunset date announced (minimum 6 months).
+- **Sunset**: removed, returns `410 Gone` with migration guide link.
 
-- After completing a project, conduct a retrospective on the spec process.
-- Which specs were most valuable? Which were over-specified?
-- Capture reusable spec patterns and templates for future projects.
-- Update bootstrap rules based on lessons learned.
-- Share spec authoring knowledge across the team.
+### Deprecation Contract
+
+When deprecating an endpoint or API version, include these headers:
+
+```yaml
+headers:
+  Deprecation:
+    schema:
+      type: string
+      format: date-time
+    description: Date when this endpoint was deprecated
+  Sunset:
+    schema:
+      type: string
+      format: date-time
+    description: Date when this endpoint will be removed
+  Link:
+    schema:
+      type: string
+    description: URL to migration guide
+```
+
+## Breaking vs Non-Breaking Changes
+
+### Non-Breaking (Safe — backward compatible)
+
+- ✅ Add a new optional field to a response body.
+- ✅ Add a new endpoint.
+- ✅ Add a new optional query parameter.
+- ✅ Add a new enum value (if clients handle unknown values gracefully).
+- ✅ Add a new error code.
+- ✅ Widen a type constraint (e.g. `maxLength: 50` → `maxLength: 100`).
+- ✅ Add new response headers.
+
+### Breaking (Requires major version bump)
+
+- ❌ Remove or rename a field from a response body.
+- ❌ Remove or rename an endpoint.
+- ❌ Change a field's type (e.g. `string` → `number`).
+- ❌ Make an optional field required.
+- ❌ Remove an enum value.
+- ❌ Tighten a type constraint (e.g. `maxLength: 100` → `maxLength: 50`).
+- ❌ Change a status code for an existing response.
+- ❌ Change the authentication mechanism.
+
+### Gray Area (Evaluate case by case)
+
+- ⚠️ Add a required field to a request body (breaking for existing clients).
+- ⚠️ Change default values.
+- ⚠️ Reorder fields (if clients depend on order — shouldn't but some do).
+
+## Data Contract Evolution Rules
+
+### Additive Changes (Preferred)
+
+```json
+// v1: Original schema
+{ "required": ["id", "email", "name"] }
+
+// v1.1: Add optional field (non-breaking)
+{ "required": ["id", "email", "name"],
+  "properties": { "avatar": { "type": "string", "format": "uri" } } }
+```
+
+### Deprecation Workflow
+
+1. Mark the field as deprecated in the spec:
+   ```yaml
+   properties:
+     legacyField:
+       type: string
+       deprecated: true
+       description: "DEPRECATED: Use newField instead. Will be removed in v3."
+   ```
+2. Add the replacement field alongside.
+3. Update all internal consumers to use the new field.
+4. After the deprecation period, remove the old field with a major version bump.
+
+### Schema Versioning
+
+- Embed version in `$id`: `https://example.com/schemas/v2/user.schema.json`.
+- Use `$comment` to document breaking changes.
+- Tag schema versions alongside API versions.
+
+## Backward Compatibility Verification
+
+### Pre-Merge Checklist
+
+- [ ] Run the OpenAPI diff tool (`oasdiff`, `openapi-diff`) against the previous version.
+- [ ] Verify no fields removed from response schemas.
+- [ ] Verify no required fields added to request schemas.
+- [ ] Verify no type changes on existing fields.
+- [ ] Verify no status code changes on existing endpoints.
+- [ ] Run existing conformance tests against the new schema — they must still pass.
+- [ ] If breaking: bump major version, write migration guide, update deprecation headers.
+
+### Automated Compatibility Check
+
+Add to CI pipeline:
+
+```yaml
+# In CI config
+- name: Check API compatibility
+  run: |
+    oasdiff breaking specs/api/openapi-previous.yaml specs/api/openapi.yaml
+    # Fails if breaking changes detected without version bump
+```
+
+## Migration Guide Template
+
+When introducing breaking changes, provide a migration guide:
+
+```markdown
+# Migration Guide: v1 → v2
+
+## Breaking Changes
+
+### 1. `POST /api/v1/users` → `POST /api/v2/users`
+- **Change**: `username` field renamed to `displayName`
+- **Before**: `{ "username": "alice" }`
+- **After**: `{ "displayName": "alice" }`
+- **Action**: Update all API calls to use `displayName`
+
+### 2. Response format change
+- **Change**: Error responses now use the standard error envelope
+- **Before**: `{ "message": "Not found" }`
+- **After**: `{ "error": { "code": "NOT_FOUND", "message": "Not found" } }`
+- **Action**: Update error handling to parse the new format
+
+## Timeline
+- **v2 available**: YYYY-MM-DD
+- **v1 deprecated**: YYYY-MM-DD
+- **v1 sunset**: YYYY-MM-DD (6 months after deprecation)
+
+## Support
+Contact <team@example.com> for migration assistance.
+```
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
