@@ -7,11 +7,11 @@ Build a MetaTrader 5 trading bot and deploy it on Senti — starting from a temp
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Koniverse/Koni-ea](https://github.com/Koniverse/Koni-ea).
+Original source: `AGENTS.md` in [Koniverse/Koni-ea](https://github.com/Koniverse/Koni-ea).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
