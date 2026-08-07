@@ -4,7 +4,7 @@
   "repo": "beacon",
   "description": "A dark and futuristic companion on a 2.16\" AMOLED touch device \u2014 built on the Waveshare ESP32-S3-Touch-AMOLED-2.16. It sits next to your keyboard and, at a glance, shows your Claude Code / Codex usage, live markets, weather, and a Claude coding \"buddy\" you can approve tool-prompts on.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/angaziz/beacon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T07:18:58Z"
+  "distributed_at": "2026-08-07T17:17:30Z"
 }
