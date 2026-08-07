@@ -1,0 +1,9 @@
+{
+  "name": "oomol-lab--wanta",
+  "displayName": "wanta",
+  "description": "An open-source desktop AI agent foundation powered by OpenCode and connected through OpenConnector, with local tools, permission controls, and artifacts.",
+  "version": "1.0.0",
+  "author": "oomol-lab",
+  "homepage": "https://github.com/oomol-lab/wanta",
+  "skills": []
+}
