@@ -1,0 +1,9 @@
+{
+  "name": "funluned--vetresearch-workbench",
+  "displayName": "vetresearch-workbench",
+  "description": "Evidence-grounded veterinary research workbench with local RAG, bounded LLM agents, auditable tool use, citations, abstention, and human review.",
+  "version": "1.0.0",
+  "author": "Funluned",
+  "homepage": "https://github.com/Funluned/vetresearch-workbench",
+  "skills": []
+}
