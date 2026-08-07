@@ -1,0 +1,9 @@
+{
+  "name": "caffe-in--inferlens",
+  "displayName": "inferlens",
+  "description": "A lightweight observability and benchmarking toolkit for self-hosted LLM inference services.",
+  "version": "1.0.0",
+  "author": "caffe-in",
+  "homepage": "https://github.com/caffe-in/inferlens",
+  "skills": []
+}
