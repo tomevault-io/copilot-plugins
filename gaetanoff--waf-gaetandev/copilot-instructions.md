@@ -1,50 +1,52 @@
-## specific-python
+## specific-react
 
-> Python coding standards — PEP8, typing, patterns, tooling
+> React component patterns, hooks, state management, and best practices
 
 
-# Python Standards
+# React Patterns
 
-## Style
+## Components
 
-- Follow PEP 8. Use a formatter (Black or Ruff) with default settings.
-- Max line length: 88 (Black default) or 100.
-- Use snake_case for functions/variables, PascalCase for classes, UPPER_SNAKE_CASE for constants.
-- Use trailing commas in multi-line structures for cleaner diffs.
+- Use functional components exclusively. No class components.
+- One component per file. Name file same as component (PascalCase).
+- Keep components small — extract sub-components when JSX exceeds ~50 lines.
+- Colocate styles, tests, and types with the component.
 
-## Type Hints
+## Props
 
-- Add type hints to all function signatures (parameters and return types).
-- Use modern syntax: `list[str]`, `dict[str, int]`, `X | None` (Python 3.10+).
-- Use `from __future__ import annotations` for forward references in older versions.
-- Run `mypy` or `pyright` in strict mode in CI.
+- Define props with TypeScript interfaces. Export them if consumers need them.
+- Destructure props in the function signature.
+- Use `children` for composition instead of render props when possible.
+- Avoid spreading `{...props}` blindly — be explicit about forwarded props.
 
-## Patterns
+## Hooks
 
-- Use dataclasses or Pydantic models for structured data — avoid raw dicts.
-- Use context managers (`with`) for resource management (files, connections, locks).
-- Use list/dict/set comprehensions when they improve readability. Avoid nested comprehensions.
-- Prefer `pathlib.Path` over `os.path` for file operations.
-- Use `enum.Enum` for fixed sets of values.
+- Follow the Rules of Hooks (top-level only, React functions only).
+- Extract reusable logic into custom hooks (`useXxx` naming).
+- Keep `useEffect` focused — one effect per concern.
+- Always specify complete dependency arrays. Use `eslint-plugin-react-hooks`.
+- Clean up effects: return a cleanup function for subscriptions, timers, listeners.
 
-## Error Handling
+## State Management
 
-- Catch specific exceptions, never bare `except:` or `except Exception:` without re-raising.
-- Use custom exception classes for domain errors.
-- Use `logging` module — not `print()` — for production code.
+- Start with local state (`useState`). Lift state up only when needed.
+- Use `useReducer` for complex state transitions.
+- Context for truly global state (theme, auth). Avoid overusing Context for frequent updates.
+- Consider external stores (Zustand, Jotai) only when Context causes performance issues.
 
-## Project Structure
+## Performance
 
-- Use `pyproject.toml` as the single config file (PEP 621).
-- Use virtual environments (`venv`, `uv`, or `poetry`).
-- Pin dependencies with a lockfile (`uv.lock`, `poetry.lock`, `requirements.txt`).
-- Organize: `src/<package>/`, `tests/`, `docs/`, `scripts/`.
+- Memoize expensive computations with `useMemo`.
+- Memoize callback references with `useCallback` only when passed to memoized children.
+- Use `React.memo()` for pure components that receive stable props.
+- Lazy-load routes and heavy components with `React.lazy()` + `Suspense`.
 
-## Testing
+## Anti-Patterns
 
-- Use `pytest` as the test runner. Follow `test_` naming convention.
-- Use fixtures for setup/teardown. Prefer factory fixtures over complex setup.
-- Use `parametrize` for testing multiple inputs.
+- Don't store derived state — compute it during render.
+- Don't mutate state directly — always return new objects/arrays.
+- Don't use array index as `key` for dynamic lists.
+- Don't call hooks conditionally.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
