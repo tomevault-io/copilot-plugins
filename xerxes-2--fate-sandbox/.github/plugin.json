@@ -1,0 +1,9 @@
+{
+  "name": "xerxes-2--fate-sandbox",
+  "displayName": "fate-sandbox",
+  "description": "A deterministic, tool-driven AI narrative runtime for TYPE-MOON settings, built on pi.",
+  "version": "1.0.0",
+  "author": "Xerxes-2",
+  "homepage": "https://github.com/Xerxes-2/fate-sandbox",
+  "skills": []
+}
