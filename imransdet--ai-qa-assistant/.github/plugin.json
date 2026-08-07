@@ -1,0 +1,9 @@
+{
+  "name": "imransdet--ai-qa-assistant",
+  "displayName": "ai-qa-assistant",
+  "description": "An autonomous QA agent that runs inside VS Code. Give it a staging URL and your requirements \u2014 in any form: plain-text description, a Jira ticket, acceptance criteria, a PRD, a Figma or design link, o",
+  "version": "1.0.0",
+  "author": "imransdet",
+  "homepage": "https://github.com/imransdet/ai-qa-assistant",
+  "skills": []
+}
