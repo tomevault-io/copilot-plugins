@@ -1,0 +1,9 @@
+{
+  "name": "codeinfinity1--stram",
+  "displayName": "Stram",
+  "description": "A proactive, local-first cognitive agent with approval-gated tools, memory, and collectors - runs on your own model API key.",
+  "version": "1.0.0",
+  "author": "CodeInfinity1",
+  "homepage": "https://github.com/CodeInfinity1/Stram",
+  "skills": []
+}
