@@ -1,48 +1,47 @@
-## specific-typescript
+## specific-vue
 
-> TypeScript coding standards — types, patterns, strict mode
+> Vue.js 3 patterns — Composition API, components, state management
 
 
-# TypeScript Standards
+# Vue.js 3 Standards
 
-## Type Safety
+## Composition API
 
-- Enable `strict: true` in `tsconfig.json`. Never use `// @ts-ignore` without a comment explaining why.
-- Avoid `any` — use `unknown` for truly unknown types, then narrow with type guards.
-- Prefer type inference where the type is obvious. Annotate function signatures explicitly.
-- Use `as const` for literal types and immutable objects.
+- Use `<script setup>` syntax — it's the recommended default.
+- Use `ref()` for primitives, `reactive()` for objects.
+- Extract reusable logic into composables (`use` prefix): `useAuth()`, `useFetch()`.
+- Use `computed()` for derived state. Never manually sync reactive values.
+- Use `watch` / `watchEffect` sparingly — prefer computed or template bindings.
 
-## Types & Interfaces
+## Components
 
-- Prefer `interface` for object shapes that may be extended. Use `type` for unions, intersections, and mapped types.
-- Export types from the module that defines them.
-- Use discriminated unions for state modeling:
+- One component per `.vue` file. Use PascalCase for component names.
+- Define props with `defineProps<T>()` using TypeScript generics.
+- Define emits with `defineEmits<T>()` for type-safe events.
+- Use `v-model` with `defineModel()` for two-way binding.
+- Keep templates readable — extract complex logic into computed properties.
 
-```typescript
-type Result<T> =
-  | { success: true; data: T }
-  | { success: false; error: Error };
-```
+## Component Design
 
-## Patterns
+- Use slots for flexible content distribution.
+- Use `provide/inject` for deep prop passing (theme, config), not for general state.
+- Prefer small, focused components over large monolithic ones.
+- Colocate styles with `<style scoped>`. Use CSS modules for complex cases.
 
-- Use `readonly` for properties that shouldn't change after initialization.
-- Prefer `Map`/`Set` over plain objects for dynamic key collections.
-- Use `satisfies` operator for type validation without widening.
-- Prefer `enum` alternatives: `as const` objects or union types.
-- Use generic constraints (`<T extends Base>`) to enforce contracts.
+## State Management
 
-## Nullability
+- Use Pinia as the standard store. One store per domain concern.
+- Access stores directly in components — no mappers needed.
+- Keep store actions for async operations and complex mutations.
+- Use `storeToRefs()` to destructure store state reactively.
 
-- Prefer explicit null checks over non-null assertion (`!`).
-- Use optional chaining (`?.`) and nullish coalescing (`??`) over manual checks.
-- Design APIs to avoid returning `null` — use `undefined` for "not present", or Result types.
+## Performance
 
-## Imports
-
-- Use named imports, avoid namespace imports (`import * as`).
-- Organize imports: external → internal → types (use auto-sorting).
-- Use `type` imports for type-only imports: `import type { Foo } from './foo'`.
+- Use `v-once` for static content that never changes.
+- Use `v-memo` for expensive list rendering.
+- Lazy-load routes with `defineAsyncComponent` or dynamic `import()`.
+- Use `<KeepAlive>` for components with expensive initialization.
+- Use `shallowRef` / `shallowReactive` for large objects when deep reactivity isn't needed.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
