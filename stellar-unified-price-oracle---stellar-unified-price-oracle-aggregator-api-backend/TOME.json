@@ -1,0 +1,44 @@
+{
+  "name": "-Stellar-Unified-Price-Oracle-Aggregator-API-Backend",
+  "owner": "Stellar-Unified-Price-Oracle",
+  "repo": "-Stellar-Unified-Price-Oracle-Aggregator-API-Backend",
+  "description": "\u2699\ufe0f Off-chain TypeScript ingestion engine and API gateway. Processes high-frequency price feeds from Chainlink, Redstone, Band, and Reflector, manages cryptographic submission signers, and exposes low-latency REST & WebSockets.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Stellar-Unified-Price-Oracle/-Stellar-Unified-Price-Oracle-Aggregator-API-Backend",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T16:53:35Z"
+}
