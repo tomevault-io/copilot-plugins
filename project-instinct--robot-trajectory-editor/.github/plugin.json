@@ -1,0 +1,9 @@
+{
+  "name": "project-instinct--robot-trajectory-editor",
+  "displayName": "robot_trajectory_editor",
+  "description": "A terrain-matched robot trajectory visualizer and editor. Supporting instinctlab ecosystem.",
+  "version": "1.0.0",
+  "author": "project-instinct",
+  "homepage": "https://github.com/project-instinct/robot_trajectory_editor",
+  "skills": []
+}
