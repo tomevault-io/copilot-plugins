@@ -1,0 +1,44 @@
+{
+  "name": "news-dashboard",
+  "owner": "lihor-hub",
+  "repo": "news-dashboard",
+  "description": "Self-hosted technical news inbox for curated feeds, article triage, source health, search, briefings, and saved/read history.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lihor-hub/news-dashboard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T07:04:51Z"
+}
