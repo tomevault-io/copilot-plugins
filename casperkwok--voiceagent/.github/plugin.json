@@ -1,0 +1,9 @@
+{
+  "name": "casperkwok--voiceagent",
+  "displayName": "VoiceAgent",
+  "description": "\u5b9e\u65f6 AI \u8bed\u97f3\u5916\u547c Agent\uff1aFreeSWITCH + \u6d41\u5f0f VAD/ASR/EOU/LLM/TTS\uff0c\u7aef\u5230\u7aef\u5ef6\u8fdf ~500ms",
+  "version": "1.0.0",
+  "author": "casperkwok",
+  "homepage": "https://github.com/casperkwok/VoiceAgent",
+  "skills": []
+}
