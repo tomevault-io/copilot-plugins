@@ -1,0 +1,9 @@
+{
+  "name": "sandsaber--grimoire",
+  "displayName": "Grimoire",
+  "description": "Local-first AI agents for your Obsidian vault.",
+  "version": "1.0.0",
+  "author": "sandsaber",
+  "homepage": "https://github.com/sandsaber/Grimoire",
+  "skills": []
+}
