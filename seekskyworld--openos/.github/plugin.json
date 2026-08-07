@@ -1,0 +1,9 @@
+{
+  "name": "seekskyworld--openos",
+  "displayName": "openos",
+  "description": "OpenOS is an open-source AI runtime where every app is generated in real time by large language models. Instead of installing software, users describe what they need, and OpenOS creates the interface,",
+  "version": "1.0.0",
+  "author": "seekskyworld",
+  "homepage": "https://github.com/seekskyworld/openos",
+  "skills": []
+}
