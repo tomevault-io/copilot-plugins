@@ -4,7 +4,7 @@
   "repo": "dither-blur-carousel",
   "description": "WebGL dither carousel on a vertical helix. Fully tunable in the browser.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Yousuf-developer/dither-blur-carousel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-06T08:32:50Z"
+  "distributed_at": "2026-08-07T13:10:06Z"
 }
