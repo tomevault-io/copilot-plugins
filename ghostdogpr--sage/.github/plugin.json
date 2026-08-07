@@ -1,0 +1,9 @@
+{
+  "name": "ghostdogpr--sage",
+  "displayName": "sage",
+  "description": "Modern Scala 3 client for Redis and Valkey, native and multi-backend",
+  "version": "1.0.0",
+  "author": "ghostdogpr",
+  "homepage": "https://github.com/ghostdogpr/sage",
+  "skills": []
+}
