@@ -4,7 +4,7 @@
   "repo": "jj-forklift",
   "description": "jj-native stacked PR workflow tool",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rivet-dev/jj-forklift",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T04:48:40Z"
+  "distributed_at": "2026-08-07T15:24:36Z"
 }
