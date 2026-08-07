@@ -1,0 +1,44 @@
+{
+  "name": "canvas-commerce",
+  "owner": "yiqing168",
+  "repo": "canvas-commerce",
+  "description": "\u5f00\u6e90\u81ea\u6258\u7ba1\u7684\u7535\u5546 AI \u751f\u56fe\u65e0\u9650\u753b\u5e03\uff0c\u652f\u6301 Agent \u667a\u80fd\u89c4\u5212\u3001\u591a Provider\u3001\u8282\u70b9\u5de5\u4f5c\u6d41\u4e0e\u6279\u91cf\u5546\u54c1\u56fe\u751f\u6210\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yiqing168/canvas-commerce",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T12:31:43Z"
+}
