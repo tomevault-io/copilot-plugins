@@ -7,11 +7,11 @@ Evidence-first reconstruction of Taiwan NHI drug reimbursement rule history
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [copper0722/nhi-rule-history](https://github.com/copper0722/nhi-rule-history).
+Original source: `AGENTS.md` in [copper0722/nhi-rule-history](https://github.com/copper0722/nhi-rule-history).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
