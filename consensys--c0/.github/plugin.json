@@ -1,0 +1,9 @@
+{
+  "name": "consensys--c0",
+  "displayName": "c0",
+  "description": "c0 is an open-source AI platform built for organizational work, tools, and context. A single deployment to Cloudflare to get started.",
+  "version": "1.0.0",
+  "author": "Consensys",
+  "homepage": "https://github.com/Consensys/c0",
+  "skills": []
+}
