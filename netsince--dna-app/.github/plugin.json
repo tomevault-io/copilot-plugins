@@ -1,0 +1,9 @@
+{
+  "name": "netsince--dna-app",
+  "displayName": "DNA-APP",
+  "description": "\u4e0e\u6c5d\u5171\u594f\uff08DNA - Duet Nurturing Ally\uff09\u662f\u5f00\u6e90\u672c\u5730\u5b58\u50a8\u7684 \u89d2\u8272\u626e\u6f14 RP \u5e94\u7528\u3002\u672c\u8f6f\u4ef6\u4f7f\u7528\u7b80\u5355\uff0c\u65e0\u9700\u7e41\u7410\u5b89\u88c5\u914d\u7f6e\uff0c\u53ea\u9700\u4e0b\u8f7dAPK\u540e\u914d\u7f6eKey\u5373\u53ef\u7545\u73a9\u3002",
+  "version": "1.0.0",
+  "author": "netsince",
+  "homepage": "https://github.com/netsince/DNA-APP",
+  "skills": []
+}
