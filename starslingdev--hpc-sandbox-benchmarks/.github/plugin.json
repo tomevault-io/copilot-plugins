@@ -1,0 +1,9 @@
+{
+  "name": "starslingdev--hpc-sandbox-benchmarks",
+  "displayName": "hpc-sandbox-benchmarks",
+  "description": "Compare sandbox providers with real high-performance developer and CI/CD tasks",
+  "version": "1.0.0",
+  "author": "starslingdev",
+  "homepage": "https://github.com/starslingdev/hpc-sandbox-benchmarks",
+  "skills": []
+}
