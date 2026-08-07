@@ -1,0 +1,26 @@
+## elegg-jp-retro-crt
+
+> docs/ apps/aa-maker/docs/
+
+# AGENTS
+
+## 検証
+
+‐以下フォルダーのドキュメントを読んで
+docs/ apps/aa-maker/docs/ 
+- このプロジェクトは React Native プロジェクトではありません。
+- このプロジェクトでは `rn-verify` を実行しないでください。
+- `commit-msg` を使う場合は、事前確認の `rn-verify` をスキップしてください。
+- 通常のコード変更後に `build` を実行しないでください。開発サーバーは HMR を使うため、ブラウザのリロードまたはサーバー状態の確認を優先してください。
+- サーバー起動時、明示的に依頼された場合、本番ビルド確認が作業目的の場合にのみ `build` を実行してください。
+- 開発サーバーは LAN から確認できるよう `0.0.0.0` で待ち受け、`pnpm dev` は `5173`、`pnpm dev:aa-maker` は `5174` を固定で使う。
+- 「サーバー再起動」と指示された場合は、Retro-CRT（`pnpm dev`）と AA Maker（`pnpm dev:aa-maker`）の両方を再起動してください。
+
+## UI デザイン
+
+- 今後新規追加・改修する UI はフラットデザインを基本としてください。
+- 影・立体的な装飾・過剰なグラデーションは避け、単色面、直線的な境界、明確な状態表示で構成してください。
+
+---
+> Source: [KEDARUMA/elegg.jp-retro-crt](https://github.com/KEDARUMA/elegg.jp-retro-crt) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-06 -->
