@@ -7,11 +7,11 @@ Offline, open-source AWS CloudTrail DFIR & threat hunting platform — 120+ buil
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Yamato-Security/senrigan](https://github.com/Yamato-Security/senrigan).
+Original source: `AGENTS.md` in [Yamato-Security/senrigan](https://github.com/Yamato-Security/senrigan).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
