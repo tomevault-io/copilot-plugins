@@ -1,0 +1,9 @@
+{
+  "name": "edcfoshan--arcgispro-baidu-amap-geocode-pyt",
+  "displayName": "ArcGISpro-baidu-amap-geocode-pyt",
+  "description": "\u96c6\u6210\u767e\u5ea6\u5730\u56fe\u4e0e\u9ad8\u5fb7\u5730\u56fe Web \u670d\u52a1 API \u7684 ArcGIS Pro Python \u5de5\u5177\u7bb1\u3002\u652f\u6301\u5730\u7406\u7f16\u7801\u3001\u9006\u5730\u7406\u7f16\u7801\u3001POI \u641c\u7d22\u3001\u884c\u653f\u533a\u5212\u8fb9\u754c\u5bfc\u51fa\u3001\u5750\u6807\u7cfb\u8f6c\u6362\u3002",
+  "version": "1.0.0",
+  "author": "edcfoshan",
+  "homepage": "https://github.com/edcfoshan/ArcGISpro-baidu-amap-geocode-pyt",
+  "skills": []
+}
