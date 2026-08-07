@@ -1,0 +1,9 @@
+{
+  "name": "dg--ai-access",
+  "displayName": "ai-access",
+  "description": "A flexible PHP library providing access to various AI models (OpenAI, Claude, Gemini, DeepSeek and Grok) via a consistent interface.",
+  "version": "1.0.0",
+  "author": "dg",
+  "homepage": "https://github.com/dg/ai-access",
+  "skills": []
+}
