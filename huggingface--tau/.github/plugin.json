@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--tau",
+  "displayName": "tau",
+  "description": "A Python port of Pi\u2019s minimalist coding agent.",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/tau",
+  "skills": []
+}
