@@ -1,0 +1,9 @@
+{
+  "name": "monthu56--landforge",
+  "displayName": "landforge",
+  "description": "Static landing-page generation system built on Claude Code skills \u2014 SEO, A/B testing, analytics, deploy and change-audit built in.",
+  "version": "1.0.0",
+  "author": "monthu56",
+  "homepage": "https://github.com/monthu56/landforge",
+  "skills": []
+}
