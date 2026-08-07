@@ -1,0 +1,9 @@
+{
+  "name": "luccahuguet--mars",
+  "displayName": "mars",
+  "description": "Mars Terminal: a Rio-derived, Ghostty-inspired Rust terminal emulator focused on Kitty protocols, modern graphics, Nix packaging, and Yazelix integration",
+  "version": "1.0.0",
+  "author": "luccahuguet",
+  "homepage": "https://github.com/luccahuguet/mars",
+  "skills": []
+}
