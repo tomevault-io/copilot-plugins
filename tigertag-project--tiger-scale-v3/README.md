@@ -7,11 +7,11 @@ TigerScale V3 — the connected filament scale for the TigerTag open NFC standar
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [TigerTag-Project/Tiger-Scale-V3](https://github.com/TigerTag-Project/Tiger-Scale-V3).
+Original source: `AGENTS.md` in [TigerTag-Project/Tiger-Scale-V3](https://github.com/TigerTag-Project/Tiger-Scale-V3).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
