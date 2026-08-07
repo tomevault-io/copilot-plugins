@@ -1,0 +1,9 @@
+{
+  "name": "svenschmid--desksynth",
+  "displayName": "desksynth",
+  "description": "A pixel pocket synth that lives on your desktop. Scale-locked keyboard, 48 synthesized sounds in eight packs, and a creature in the display that reacts to what you play.",
+  "version": "1.0.0",
+  "author": "SvenSchmid",
+  "homepage": "https://github.com/SvenSchmid/desksynth",
+  "skills": []
+}
