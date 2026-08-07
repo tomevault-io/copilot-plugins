@@ -1,0 +1,9 @@
+{
+  "name": "davitf--archivey-old",
+  "displayName": "archivey-old",
+  "description": "Python library for reading zip, tar, rar, 7z and other archives",
+  "version": "1.0.0",
+  "author": "davitf",
+  "homepage": "https://github.com/davitf/archivey-old",
+  "skills": []
+}
