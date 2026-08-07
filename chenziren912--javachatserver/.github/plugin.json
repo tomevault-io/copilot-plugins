@@ -1,0 +1,9 @@
+{
+  "name": "chenziren912--javachatserver",
+  "displayName": "JavaChatServer",
+  "description": "Lightweight Java 17 social platform built with the native HttpServer, featuring chat, moments, groups, cloud drive, music, video, mini-games, and AI assistance.",
+  "version": "1.0.0",
+  "author": "chenziren912",
+  "homepage": "https://github.com/chenziren912/JavaChatServer",
+  "skills": []
+}
