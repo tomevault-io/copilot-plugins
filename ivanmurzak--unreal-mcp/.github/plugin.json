@@ -1,0 +1,9 @@
+{
+  "name": "ivanmurzak--unreal-mcp",
+  "displayName": "Unreal-MCP",
+  "description": "AI Game Developer for Unreal Engine \u2014 MCP plugin (C++ editor plugin + .NET bridge), unreal-cli, connects Unreal Editor to AI agents via ai-game.dev or a local MCP server",
+  "version": "1.0.0",
+  "author": "IvanMurzak",
+  "homepage": "https://github.com/IvanMurzak/Unreal-MCP",
+  "skills": []
+}
