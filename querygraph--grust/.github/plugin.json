@@ -1,0 +1,9 @@
+{
+  "name": "querygraph--grust",
+  "displayName": "grust",
+  "description": "Graph API for Rust.",
+  "version": "1.0.0",
+  "author": "querygraph",
+  "homepage": "https://github.com/querygraph/grust",
+  "skills": []
+}
