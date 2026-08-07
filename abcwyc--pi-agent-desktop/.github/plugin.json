@@ -1,0 +1,9 @@
+{
+  "name": "abcwyc--pi-agent-desktop",
+  "displayName": "pi-agent-desktop",
+  "description": "Pi \u2014 A cross-platform AI coding agent, bringing the Claude Code experience to your desktop. No environment setup, no terminal commands. Download and start coding right away.",
+  "version": "1.0.0",
+  "author": "abcwyc",
+  "homepage": "https://github.com/abcwyc/pi-agent-desktop",
+  "skills": []
+}
