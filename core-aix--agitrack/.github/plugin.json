@@ -1,0 +1,9 @@
+{
+  "name": "core-aix--agitrack",
+  "displayName": "agitrack",
+  "description": "Every agent turn becomes a traceable commit carrying the full interaction trace, model, and token cost, plus a live dashboard and a coach that teaches you, from your own sessions, to drive agents and ",
+  "version": "1.0.0",
+  "author": "core-aix",
+  "homepage": "https://github.com/core-aix/agitrack",
+  "skills": []
+}
