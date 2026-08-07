@@ -7,11 +7,11 @@ Agent OS: keep specialist agents in a hub, spin up a temporary orchestrator per 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [agentlas-ai/Agentlas-OS](https://github.com/agentlas-ai/Agentlas-OS).
+Original source: `AGENTS.md` in [agentlas-ai/Agentlas-OS](https://github.com/agentlas-ai/Agentlas-OS).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
