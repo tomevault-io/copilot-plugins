@@ -1,0 +1,9 @@
+{
+  "name": "zime-ai--zime-gtm-skills",
+  "displayName": "zime-gtm-skills",
+  "description": "Build your own sales-call review tooling: Agent Skills that audit call transcripts and CRM exports against GTM rubrics.",
+  "version": "1.0.0",
+  "author": "zime-ai",
+  "homepage": "https://github.com/zime-ai/zime-gtm-skills",
+  "skills": []
+}
