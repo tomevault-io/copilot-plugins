@@ -1,14 +1,17 @@
-## code-organization
+## desktop-web-ui
 
-> File size, module boundaries, and where to put new code
+> Zagens Vite + React UI under crates/desktop/web-ui
 
 
-# Code organization
+# Zagens web UI
 
-- **Soft cap ~1000 lines** per implementation file (`.rs`, `.tsx`, `.ts`). Prefer **splitting** (submodules, `mod foo`, smaller components, `lib/*` helpers) **before** a file grows far past that.
-- **New work:** add **new files** or focused modules instead of appending large blocks to already-large sources.
-- **Legacy monoliths:** some paths (e.g. very large `runtime_api.rs`–style files) are **grandfathered**. Do **not** one-shot rewrite them; only **incrementally** extract when you already change that area.
-- **Layout:** follow each crate’s existing directories (`crates/<name>/src/`, `web-ui/src/components/`, etc.); match naming and import style of neighboring code.
+- **Stack:** Vite 6, React 18, TypeScript, Tailwind; runtime via [crates/desktop/web-ui/src/api/client.ts](crates/desktop/web-ui/src/api/client.ts) (same [API_DESIGN.md](docs/tech/API_DESIGN.md) / `runtime_api.rs` as sidecar).
+- **Desktop bridge:** Tauri `invoke` where already used ([RightPanel](crates/desktop/web-ui/src/components/RightPanel.tsx), [ApiKeyForm](crates/desktop/web-ui/src/components/ApiKeyForm.tsx), etc.); follow existing patterns.
+- **Build:** from `crates/desktop/web-ui`, `npm run build`; bundle sizing: `npm run build:analyze` → `dist/bundle-stats.html`.
+- **TypeScript:** Project uses **`strict: true`** ([tsconfig.json](crates/desktop/web-ui/tsconfig.json)). Avoid **`any`**; use proper types, `unknown` + narrowing, or shared types colocated / under `src/types/`. Run **`npm run build`** (`tsc -b`) after substantive edits.
+- **Scope:** match surrounding styles and types; avoid unrelated refactors. Prefer small, task-scoped diffs.
+
+**Rust shell** (windows, sidecar): `crates/desktop/src/`.
 
 ---
 > Source: [didclawapp-ai/zagens](https://github.com/didclawapp-ai/zagens) — distributed by [TomeVault](https://tomevault.io).
