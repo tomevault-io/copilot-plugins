@@ -1,0 +1,9 @@
+{
+  "name": "forward-future--loopy",
+  "displayName": "loopy",
+  "description": "A library of practical AI-agent loops and an installable skill for finding, adapting, and designing repeatable agent workflows.",
+  "version": "1.0.0",
+  "author": "Forward-Future",
+  "homepage": "https://github.com/Forward-Future/loopy",
+  "skills": []
+}
