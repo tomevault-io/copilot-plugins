@@ -7,11 +7,11 @@ Operating Soul for AI coding agents that captures how to think, not just rules �
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tomdwipo/claude-soul](https://github.com/tomdwipo/claude-soul).
+Original source: `AGENTS.md` in [tomdwipo/claude-soul](https://github.com/tomdwipo/claude-soul).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
