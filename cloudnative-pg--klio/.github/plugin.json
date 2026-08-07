@@ -1,0 +1,9 @@
+{
+  "name": "cloudnative-pg--klio",
+  "displayName": "klio",
+  "description": "Multi-Tiered Backup and Recovery Plugin for CloudNativePG",
+  "version": "1.0.0",
+  "author": "cloudnative-pg",
+  "homepage": "https://github.com/cloudnative-pg/klio",
+  "skills": []
+}
