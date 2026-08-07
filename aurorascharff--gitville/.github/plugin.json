@@ -1,0 +1,9 @@
+{
+  "name": "aurorascharff--gitville",
+  "displayName": "gitville",
+  "description": "An interactive pixel village showing the live work on any GitHub repo, built with Next.js 16 and SWR.",
+  "version": "1.0.0",
+  "author": "aurorascharff",
+  "homepage": "https://github.com/aurorascharff/gitville",
+  "skills": []
+}
