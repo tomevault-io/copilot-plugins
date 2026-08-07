@@ -1,0 +1,9 @@
+{
+  "name": "chiaro-hq--methodology",
+  "displayName": "methodology",
+  "description": "The complete Chiaro methodology for SOC 2 readiness and audit. Controls, criteria, evidence standards, and every judgment call, published so you can check it.",
+  "version": "1.0.0",
+  "author": "Chiaro-HQ",
+  "homepage": "https://github.com/Chiaro-HQ/methodology",
+  "skills": []
+}
