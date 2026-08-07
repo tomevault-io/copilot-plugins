@@ -1,0 +1,9 @@
+{
+  "name": "camchenry--oxc-checker",
+  "displayName": "oxc_checker",
+  "description": "Experimental type checker based on oxc",
+  "version": "1.0.0",
+  "author": "camchenry",
+  "homepage": "https://github.com/camchenry/oxc_checker",
+  "skills": []
+}
