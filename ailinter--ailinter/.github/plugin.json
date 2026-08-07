@@ -1,0 +1,9 @@
+{
+  "name": "ailinter--ailinter",
+  "displayName": "ailinter",
+  "description": "Open-source AI linter and safety visor for AI-assisted development",
+  "version": "1.0.0",
+  "author": "ailinter",
+  "homepage": "https://github.com/ailinter/ailinter",
+  "skills": []
+}
