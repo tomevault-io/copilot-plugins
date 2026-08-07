@@ -1,0 +1,9 @@
+{
+  "name": "tigerless-labs--autoharness",
+  "displayName": "autoharness",
+  "description": "Autoharness \u2014 a self-learning skill layer for Claude Code \u2014 distills skills from your real sessions, updates them as you work, and prunes the ones that stop getting used. No daemon, no benchmark.",
+  "version": "1.0.0",
+  "author": "tigerless-labs",
+  "homepage": "https://github.com/tigerless-labs/autoharness",
+  "skills": []
+}
