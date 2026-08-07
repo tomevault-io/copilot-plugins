@@ -1,0 +1,9 @@
+{
+  "name": "mdemou--ninjassets",
+  "displayName": "ninjassets",
+  "description": "Self-hosted IT asset management (ITAM): inventory lifecycle, sites and maps, custody via magic-link handovers and printable signed receipts, bulk assign and import/export, data-quality alerts (with di",
+  "version": "1.0.0",
+  "author": "mdemou",
+  "homepage": "https://github.com/mdemou/ninjassets",
+  "skills": []
+}
