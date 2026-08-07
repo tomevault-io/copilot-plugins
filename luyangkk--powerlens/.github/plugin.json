@@ -1,0 +1,9 @@
+{
+  "name": "luyangkk--powerlens",
+  "displayName": "powerlens",
+  "description": "Real-time macOS system metrics (power, battery, CPU, temp, fan, memory, network) in your zsh RPROMPT",
+  "version": "1.0.0",
+  "author": "luyangkk",
+  "homepage": "https://github.com/luyangkk/powerlens",
+  "skills": []
+}
