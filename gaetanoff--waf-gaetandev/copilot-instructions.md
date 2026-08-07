@@ -1,113 +1,240 @@
-## core-devops
+## core-discovery
 
-> DevOps and CI/CD — spec-aware pipelines, deployment, infrastructure, monitoring
+> Discovery phase — structured requirements gathering, anti-vibe coding protocol, clarification before implementation
 
 
-# DevOps & CI/CD (Spec-Aware)
+# Core Discovery — Anti-Vibe Coding Protocol
 
-## CI Pipeline
+> Discovery is the zero phase. No spec written, no architecture drawn, no code touched until discovery is complete and signed off.
 
-Every project should have a CI pipeline with **spec validation** as a first-class step:
+---
 
-### Minimum Pipeline
+## Anti-Vibe Coding — Mandatory Protocol
 
-```yaml
-# Stages (run in order)
-1. Install dependencies
-2. Spec lint (OpenAPI, JSON Schema validation)
-3. Spec conformance check (detect spec-to-code drift)
-4. Lint and format check
-5. Type check (if applicable)
-6. Conformance tests (spec-generated)
-7. Unit tests
-8. Build
-9. Integration tests (on PR/merge)
+**Never start coding from a vague request.** Vibe coding produces code that cannot be tested, maintained, or validated against any contract. It creates technical debt from line 1.
+
+### Trigger Conditions — Stop and Clarify
+
+Stop immediately and initiate discovery when:
+
+- The request uses vague terms: "do something with", "make it better", "add a feature", "fix the issue", "improve performance"
+- The domain model is undefined or implicit
+- Success criteria are missing or unmeasurable
+- The target user or actor is not named
+- The request contradicts an existing spec without acknowledging it
+- Edge cases are not mentioned for a business-critical flow
+- The scope is unbounded ("handle all cases", "support everything")
+
+### Minimum Viable Clarification — The 5 Questions
+
+Ask exactly the questions that unblock spec writing. Never more, never less. Group them in a single message.
+
+```
+Before I write the spec and start implementation, I need 5 answers:
+
+1. WHO — What actor/user triggers this? What system receives the result?
+2. WHAT — What is the precise expected outcome? (input → transformation → output)
+3. WHEN — What conditions/events trigger this flow?
+4. WHY WRONG — What does failure look like? What errors must be handled?
+5. DONE — What does "done" mean? How do we verify it works?
 ```
 
-### Extended Pipeline (for production projects)
+**Do not ask for implementation preferences** ("should I use REST or GraphQL?"). That is architecture, not discovery.
 
-```yaml
-# Additional stages
-10. Contract tests (Pact / consumer-driven)
-11. Security scan (dependency audit, SAST)
-12. E2E tests from behavior specs (on merge to main)
-13. Docker image build
-14. Deploy to staging
-15. Smoke tests on staging (conformance subset)
-16. Deploy to production (manual trigger or auto)
+### Discovery Output — Required Artifacts
+
+Discovery is complete only when these 3 artifacts are drafted:
+
+| Artifact | Format | Purpose |
+|---|---|---|
+| `specs/mission.md` | Markdown | Problem statement, actors, goals, non-goals |
+| `specs/requirements.md` | Markdown + Given-When-Then | Functional + non-functional requirements |
+| `specs/decisions/ADR-000-project-context.md` | ADR template | Initial architectural context |
+
+---
+
+## Structured Discovery Process
+
+### Phase 0.1 — Problem Statement
+
+```markdown
+## Problem Statement
+
+**Context**: [Current situation — what exists, what is broken or missing]
+**Problem**: [The actual pain point, with evidence if possible]
+**Impact**: [Who is affected, how often, what is the cost of inaction]
+**Hypothesis**: [The proposed solution direction — not the implementation]
 ```
 
-### Spec-Specific CI Steps
+### Phase 0.2 — Actor Mapping
 
-- **Spec lint**: validate OpenAPI with `spectral`, JSON Schema with `ajv`, AsyncAPI with `asyncapi-cli`.
-- **Spec drift detection**: compare generated types against spec schemas — fail if they diverge.
-- **Conformance tests**: run `dredd`/`prism`/`schemathesis` against the running API.
-- **Contract tests**: run `pact` tests to validate integration contracts.
-- **Spec change detection**: on PRs that modify `specs/`, require spec review approval.
+Identify every actor (human or system) that interacts with the feature:
 
-## Deployment Strategy
+```markdown
+## Actors
 
-Choose based on risk tolerance:
+| Actor | Type | Goal | Permissions |
+|---|---|---|---|
+| End user | Human | Creates and manages resources | Read, Write own |
+| Admin | Human | Oversees all resources | Full access |
+| Payment gateway | External system | Processes transactions | Webhook push |
+| Background job | Internal system | Processes async tasks | Internal |
+```
 
-| Strategy | Risk | Downtime | Complexity |
-|----------|------|----------|------------|
-| **Rolling** | Medium | Zero | Low |
-| **Blue-Green** | Low | Zero | Medium |
-| **Canary** | Low | Zero | High |
-| **Recreate** | High | Yes | Very low |
+### Phase 0.3 — Constraint Inventory
 
-## Environment Management
+Collect hard constraints before any design decision:
 
-- Maintain at least 3 environments: development, staging, production.
-- Staging should mirror production as closely as possible.
-- Use environment variables for all environment-specific configuration.
-- Never use production data in development. Use seed data or anonymized copies.
-- Run conformance tests against staging before promoting to production.
+```markdown
+## Constraints
 
-## Infrastructure as Code
+### Technical Constraints
+- [ ] Existing system integrations (APIs, databases, auth providers)
+- [ ] Performance SLOs (response time, throughput, availability)
+- [ ] Deployment environment (cloud provider, region, container runtime)
+- [ ] Security requirements (compliance, data residency, encryption)
 
-- Define infrastructure with Terraform, Pulumi, CDK, or similar.
-- Version control all infrastructure definitions.
-- Use modules/stacks for reusable infrastructure components.
-- Apply least privilege to all service accounts and IAM roles.
+### Business Constraints
+- [ ] Delivery deadline
+- [ ] Budget / infrastructure cost ceiling
+- [ ] Regulatory requirements (GDPR, HIPAA, SOC2, PCI-DSS)
+- [ ] Stakeholder sign-off requirements
 
-## Containerization
+### Knowledge Constraints
+- [ ] Team expertise gaps
+- [ ] Missing domain knowledge
+- [ ] External dependencies not yet evaluated
+```
 
-- Containerize all services for consistent deployment (see `specific-docker` rule).
-- Use multi-stage builds for smallest possible images.
-- Pin base image versions. Scan images for vulnerabilities.
-- Define health checks for all containers (matching the health endpoint contract).
-- Use docker-compose for local development, orchestrators for production.
+### Phase 0.4 — Assumption Tracker
 
-## Monitoring & Observability
+Every assumption made during discovery becomes an explicit, tracked decision.
 
-### The Three Pillars
+```markdown
+## Assumptions → Decisions
 
-1. **Logs**: structured JSON logs with correlation IDs. Centralize with ELK/Grafana Loki.
-2. **Metrics**: request rate, error rate, latency (RED). CPU, memory, disk (USE). Export to Prometheus/Datadog.
-3. **Traces**: distributed tracing for request flow across services. Use OpenTelemetry.
+| ID | Assumption | Risk if Wrong | Resolution | Status |
+|---|---|---|---|---|
+| A-001 | Users are authenticated via OAuth2 | Auth system incompatibility | Confirmed with auth team | ✅ Confirmed |
+| A-002 | p95 latency < 200ms is acceptable | SLA violation | Pending stakeholder review | ⏳ Pending |
+| A-003 | Data volume < 1M records/day | Architecture mismatch | Not yet evaluated | ❌ Unknown |
+```
 
-### SLO-Based Alerting (Spec-Driven)
+**Rule**: Every `❌ Unknown` assumption blocks spec approval. Resolve before proceeding.
 
-- Define SLOs in performance specs (p50/p95/p99 latency, error rate, availability).
-- Alert when SLI approaches the error budget defined in specs.
-- Alert on symptoms (high error rate, high latency), not causes.
-- Avoid alert fatigue — every alert should be actionable.
-- Establish on-call runbooks for common alerts.
+---
 
-## Secrets Management
+## Greenfield vs Legacy Discovery
 
-- Never store secrets in code, config files, or environment variables in CI/CD config.
-- Use a secrets manager: Vault, AWS Secrets Manager, GCP Secret Manager, Azure Key Vault.
-- Rotate secrets on a schedule and after any breach.
-- Audit secret access logs regularly.
+### Greenfield Project Discovery
 
-## Backup & Recovery
+Full discovery is required. No existing constraints to preserve.
 
-- Automate database backups. Test restoration regularly.
-- Define RPO (Recovery Point Objective) and RTO (Recovery Time Objective) in specs.
-- Document and test the disaster recovery plan.
-- Keep backups in a different region/zone than production.
+```
+Discovery Checklist — Greenfield
+- [ ] Problem statement written and validated
+- [ ] All actors identified and mapped
+- [ ] Functional requirements listed (happy path)
+- [ ] Non-functional requirements listed (performance, security, scale)
+- [ ] All constraints inventoried
+- [ ] All assumptions tracked
+- [ ] MVP scope defined (minimal set of specs that delivers value)
+- [ ] Non-goals explicitly listed
+- [ ] mission.md written
+- [ ] requirements.md drafted
+- [ ] ADR-000 written
+```
+
+### Legacy Project Discovery
+
+Legacy discovery adds reverse-engineering the existing system before any change.
+
+```
+Discovery Checklist — Legacy
+- [ ] Existing behavior documented (what does the system currently do?)
+- [ ] Existing contracts identified (what APIs, schemas, events exist?)
+- [ ] Existing tests inventoried (what is covered? what is not?)
+- [ ] Known bugs and limitations catalogued
+- [ ] Stakeholders affected by change identified
+- [ ] Backward compatibility requirements defined
+- [ ] Migration path outlined (data, API, client behavior)
+- [ ] Rollback plan defined
+- [ ] Problem statement written (delta from current state)
+- [ ] requirements.md written (delta + existing)
+```
+
+---
+
+## Feature Addition Discovery
+
+When adding a feature to an existing project:
+
+1. **Read existing specs first** — understand the current contract
+2. **Identify spec gaps** — what is not covered by existing specs?
+3. **Check for conflicts** — does the new feature contradict an existing contract?
+4. **Define the delta** — only document what changes, not the whole system
+5. **Write an ADR** if the feature introduces a new architectural pattern
+
+---
+
+## Bug Fix Discovery
+
+A bug is a spec violation. Discovery for a bug fix:
+
+1. **Reproduce the bug** with a failing test or specific input
+2. **Identify the broken contract** — which spec or expectation does the bug violate?
+3. **If no spec exists** — write the spec of the expected behavior first
+4. **Document the reproduction case** in `specs/features/<feature>.feature` as a new scenario
+5. **Fix is complete only when** the reproduction scenario passes
+
+```
+Bug Discovery Template
+
+## Bug Report
+
+**Observed behavior**: [What the system does]
+**Expected behavior**: [What the spec says it should do]
+**Reproduction steps**: [Exact sequence of actions]
+**Contract violated**: [Link to spec file, line number if possible]
+**Scope**: [Is this isolated to one component or does it affect multiple contracts?]
+```
+
+---
+
+## Discovery Anti-Patterns — Never Do These
+
+| Anti-Pattern | Why It's Wrong | Correct Action |
+|---|---|---|
+| Start coding from a Slack message | No contract, no success criteria | Initiate discovery, write spec |
+| Assume requirements from existing code | Code may be wrong; code is not a spec | Read specs, not code |
+| Skip discovery for "small" features | Small features break existing contracts | Even 1-line changes need a delta spec |
+| Discover and implement in the same session | No review cycle, no validation | Always separate discovery → review → implementation |
+| Accept vague acceptance criteria | "Works well" is not a test | Require Given-When-Then for every scenario |
+| Design the solution during discovery | Premature architecture | Discovery produces requirements, not designs |
+
+---
+
+## Discovery Gate — Proceed Checklist
+
+Before leaving the discovery phase, verify:
+
+```
+Discovery Gate
+
+[ ] Problem statement is crisp, specific, and bounded
+[ ] All actors are named and their goals are explicit
+[ ] Functional requirements cover happy path + at least 2 error paths
+[ ] Non-functional requirements have measurable thresholds
+[ ] All assumptions are tracked; no unknowns remain
+[ ] Non-goals are explicitly listed
+[ ] mission.md exists in specs/
+[ ] requirements.md exists in specs/
+[ ] At least one ADR exists in specs/decisions/
+[ ] No implementation decisions made during discovery
+[ ] Stakeholder sign-off obtained (or explicitly waived with reason)
+```
+
+**Only after this gate passes does spec writing begin.**
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
