@@ -1,0 +1,44 @@
+{
+  "name": "launchdb",
+  "owner": "theshubh77",
+  "repo": "launchdb",
+  "description": "LaunchDB is an open-source directory platform designed for developers, founders, and indie hackers to submit their SaaS to 150+ web directories, subreddits, X communities, Facebook groups, and GitHub repositories to find early adopters and build high-quality SEO backlinks.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/theshubh77/launchdb",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T16:43:18Z"
+}
