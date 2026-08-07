@@ -1,0 +1,9 @@
+{
+  "name": "15r10nk--matchify",
+  "displayName": "matchify",
+  "description": "converts if-else code to match statements",
+  "version": "1.0.0",
+  "author": "15r10nk",
+  "homepage": "https://github.com/15r10nk/matchify",
+  "skills": []
+}
