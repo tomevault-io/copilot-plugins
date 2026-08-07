@@ -1,281 +1,219 @@
-## core-quality-gates
+## core-scaffolding
 
-> Conformance gates — automated and manual validation that code exactly matches specifications, with PR checklist and hard blocking rules
+> Spec-driven project scaffolding — directory structures, spec tooling, CI/CD configuration
 
 
-# Quality Gates (Spec-Driven)
+# Scaffolding (Spec-Driven)
 
-> A quality gate is not "do the tests pass?" It is "does the system exactly match the contract?" These gates are non-negotiable. No exceptions for "it works locally" or "the client can adapt."
+## The `specs/` Directory
 
----
+Every project, regardless of the tech stack, must have a `specs/` directory at the root. This is the single source of truth for the project.
 
-## Gate Philosophy
-
-Gates are either **blocking** (merge is rejected until resolved) or **releasing** (deployment is blocked until resolved). There are no advisory gates — every issue is either fixed or explicitly documented as accepted risk with a timeline.
-
----
-
-## Gate 1 — Spec Validity (Blocking)
-
-Before any code is considered, specs must be syntactically and semantically valid.
-
-### Checks
-
-| Check | Tool | Pass Condition |
-|---|---|---|
-| OpenAPI 3.1 validity | `spectral lint` | 0 errors, 0 warnings |
-| JSON Schema validity | `ajv compile` | 0 errors |
-| Gherkin syntax | `cucumber --dry-run` | 0 parse errors |
-| AsyncAPI validity | `spectral lint` (AsyncAPI ruleset) | 0 errors |
-| All `$ref` resolvable | `redocly lint` | 0 unresolved refs |
-
-### Enforcement
-```bash
-# CI step
-npm run spec:lint
-# Must exit 0. Any error blocks the pipeline.
+```text
+my-project/
+├── specs/                   # The single source of truth
+│   ├── api/                 # OpenAPI, GraphQL, gRPC specs
+│   ├── schemas/             # JSON Schema data contracts
+│   ├── features/            # Gherkin behavior specs
+│   ├── contracts/           # Pact provider/consumer contracts
+│   ├── ui/                  # Component prop contracts
+│   ├── slos/                # Performance/reliability specs
+│   └── decisions/           # Architecture Decision Records (ADRs)
+├── src/                     # Implementation
+├── tests/                   # Conformance and unit tests
+├── .cursor/rules/           # AI behavior rules
+├── package.json
+└── README.md
 ```
 
-### Fail → Fix Protocol
-A spec lint failure means the spec is incomplete or malformed. Fix the spec — never bypass this gate.
+## Spec Validation Tooling
 
----
+When scaffolding a new project, immediately set up tooling to validate the specs themselves.
 
-## Gate 2 — Code Generation (Blocking)
+### Node.js / JavaScript Scaffolding
 
-Types and interfaces generated from specs must compile without errors.
+Add these to your `package.json`:
 
-### Checks
-- TypeScript types generated from JSON Schema compile: `tsc --noEmit`
-- OpenAPI client/server stubs compile (if using generator)
-- No type drift between spec and implementation (no `as any` escape hatches)
-
-### Enforcement
-```bash
-npm run spec:generate && npm run typecheck
+```json
+{
+  "scripts": {
+    "spec:lint": "spectral lint specs/api/*.yaml",
+    "spec:validate": "ajv validate -s specs/schemas/**/*.json -d specs/schemas/**/*.json",
+    "spec:generate:types": "openapi-typescript specs/api/openapi.yaml -o src/types/api.ts",
+    "spec:test": "prism mock specs/api/openapi.yaml",
+    "test:conformance": "dredd specs/api/openapi.yaml http://localhost:3000",
+    "pre-commit": "npm run spec:lint && npm run spec:validate"
+  },
+  "devDependencies": {
+    "@stoplight/spectral-cli": "^6.0.0",
+    "ajv-cli": "^5.0.0",
+    "openapi-typescript": "^6.0.0",
+    "@stoplight/prism-cli": "^4.0.0",
+    "dredd": "^14.0.0"
+  }
+}
 ```
 
-If generation fails, the spec is invalid or incompatible with the target. Fix the spec, not the generator output.
+## Architectural Scaffolding Templates
 
----
+### 1. API Backend (Node/Python/Go)
 
-## Gate 3 — API Conformance (Blocking)
+Organize by feature (vertical slices), not by layer:
 
-The running application must respond exactly as the OpenAPI spec defines.
-
-### What "Exactly" Means
-- Correct HTTP status codes (201 not 200 for resource creation)
-- Response body matches JSON Schema referenced in the spec (no extra undocumented fields, no missing required fields)
-- Request validation rejects invalid inputs with the correct error codes
-- Auth requirements enforced as declared in `securitySchemes`
-- Headers present as required by spec (Content-Type, Location, ETag, etc.)
-
-### Tools
-
-| Tool | Use Case |
-|---|---|
-| Dredd | Run OpenAPI spec as a test suite against live server |
-| Prism | Mock + validation proxy; contract testing |
-| Portman | Generate Postman/Newman tests from OpenAPI |
-| Pact | Consumer-driven contract testing for microservices |
-| Schemathesis | Property-based API testing from OpenAPI |
-
-```bash
-# Start server
-npm run start:test &
-
-# Run conformance suite
-npx dredd specs/api/openapi.yaml http://localhost:3000
-
-# Or with Prism in validation mode
-npx prism proxy specs/api/openapi.yaml http://localhost:3000 --errors
+```text
+src/
+├── app.ts                 # App entrypoint (wires up modules)
+├── server.ts              # HTTP server (binds ports)
+├── lib/                   # Shared utilities (logger, db connection)
+│   ├── logger.ts
+│   └── db.ts
+└── modules/               # Feature modules
+    ├── auth/              # Auth module (implements specs/api/openapi.yaml#/paths/~1auth)
+    │   ├── api.ts         # Route handlers (must conform to OpenAPI)
+    │   ├── service.ts     # Business logic (must pass Gherkin specs)
+    │   ├── repository.ts  # Data access (must conform to JSON schema)
+    │   └── tests/         # Module-specific tests
+    └── users/
+        ├── api.ts
+        ├── service.ts
+        └── repository.ts
 ```
 
-### Hard Rules
-- Every endpoint in the OpenAPI spec must have at least one passing conformance test
-- Undocumented endpoints (routes in code with no OpenAPI entry) fail the gate
-- Response body with extra undocumented fields fails the gate (use `additionalProperties: false`)
+### 2. Frontend Web App (React/Vue/Next.js)
 
----
-
-## Gate 4 — Behavior Conformance (Blocking)
-
-All Gherkin scenarios in `specs/features/` must pass.
-
-### Scope
-- Happy path scenarios (required)
-- Error path scenarios (required for all `4xx` and `5xx` codes in spec)
-- Edge cases (empty inputs, boundary values, concurrency scenarios)
-
-```bash
-npx cucumber-js specs/features/ --require test/steps/
+```text
+src/
+├── app/                   # Routing (Next.js/Nuxt) or Pages (React/Vue)
+├── components/            # UI Components
+│   ├── shared/            # Generic components (Button, Input)
+│   └── domain/            # Domain-specific (UserCard, CheckoutForm)
+├── lib/                   # Shared utilities
+│   ├── api-client.generated.ts # GENERATED from OpenAPI
+│   └── query-client.ts    # React Query / SWR setup
+├── types/                 # Type definitions
+│   └── api.generated.ts   # GENERATED from JSON Schemas
+└── features/              # Complex logic grouped by feature
+    └── checkout/
+        ├── hooks.ts
+        └── state.ts
 ```
 
-### Coverage Target
-- 100% of `specs/features/` scenarios must have step definitions and pass
-- No skipped (`@wip`) scenarios in a validated spec — they indicate incomplete implementation
+### 3. Mobile App (React Native / Flutter)
 
----
-
-## Gate 5 — Security (Blocking)
-
-### Automated Checks
-| Check | Tool | Pass Condition |
-|---|---|---|
-| No hardcoded secrets | `trufflehog` / `gitleaks` | 0 detections |
-| Dependency vulnerabilities | `npm audit --audit-level=high` | 0 high/critical |
-| SAST analysis | `semgrep` | 0 high severity findings |
-| Auth enforcement | Custom conformance test | All protected endpoints return 401 without token |
-
-### Manual Check
-- Auth scheme in code matches `securitySchemes` in OpenAPI spec
-- Role-based access control matches actor permissions defined in discovery
-- PII fields not logged (cross-reference logging config with data schemas)
-
-```bash
-npm run security:audit
-# Must exit 0 for merge.
+```text
+src/
+├── app/                   # Navigation/Routing
+├── screens/               # Screen components
+│   ├── auth/
+│   └── profile/
+├── components/            # Reusable UI elements
+├── core/                  # Core services
+│   ├── api.generated.ts   # GENERATED from OpenAPI
+│   ├── auth.service.ts
+│   └── storage.ts
+├── models/                # Domain models
+│   └── entities.gen.ts    # GENERATED from JSON Schemas
+└── store/                 # State management
 ```
 
----
+### 4. CLI Tool (Go / Rust / Node)
 
-## Gate 6 — Performance (Release-Blocking)
-
-Performance gates block release, not merge. Measured against SLOs in `specs/slos/*.slo.yaml`.
-
-### Default SLO Thresholds (override in your SLO spec)
-
-| Endpoint Type | p50 | p95 | p99 | Error Rate |
-|---|---|---|---|---|
-| Read (GET) | < 50ms | < 200ms | < 500ms | < 0.1% |
-| Write (POST/PUT/PATCH) | < 100ms | < 500ms | < 1s | < 0.5% |
-| Heavy computation | < 500ms | < 2s | < 5s | < 1% |
-| Async job trigger | < 50ms | < 200ms | < 500ms | < 0.1% |
-
-### Tools
-- `k6` for load testing
-- `autocannon` for HTTP benchmarking
-- `clinic.js` for Node.js profiling
-
----
-
-## Gate 7 — PR Checklist (Blocking — Human Review)
-
-Every pull request must include a signed-off checklist. No merge without all boxes checked.
-
-```markdown
-## PR Conformance Checklist
-
-### Spec
-- [ ] All modified endpoints have an OpenAPI spec at `status: approved`
-- [ ] All modified entities have a JSON Schema at `status: approved`
-- [ ] All critical behaviors have Gherkin scenarios at `status: approved`
-- [ ] If this is a breaking change: a MAJOR version bump is included
-- [ ] If this introduces a new architectural pattern: an ADR is included
-- [ ] SPEC-INDEX.md is updated with new/changed spec statuses
-- [ ] CHANGELOG.md [Unreleased] section is updated
-
-### Code Quality
-- [ ] No `TODO` or `FIXME` introduced without a linked ticket
-- [ ] No `console.log` / `print` / debug statements left in production paths
-- [ ] No `any` type escapes in TypeScript without justification comment
-- [ ] No hardcoded configuration values (use environment variables)
-- [ ] All new business logic has unit tests
-- [ ] No N+1 query patterns introduced
-
-### Gates
-- [ ] G1 spec:lint passes (0 errors)
-- [ ] G2 typecheck passes
-- [ ] G3 conformance tests pass
-- [ ] G4 behavior tests pass
-- [ ] G5 security audit passes
-- [ ] No regressions in existing test suite
-
-### Documentation
-- [ ] README updated if public interface changed
-- [ ] API docs regenerated from OpenAPI if spec changed
-- [ ] Migration guide written if breaking change introduced
+```text
+src/
+├── cmd/                   # Command definitions (CLI entrypoints)
+│   ├── root.ts
+│   ├── get.ts
+│   └── apply.ts
+├── internal/              # Private business logic
+│   ├── config/            # Config parsing & validation
+│   └── executor/          # Core execution logic
+├── pkg/                   # Public APIs (if any)
+└── api/                   # API clients (if it talks to servers)
+    └── client.generated.ts # GENERATED from OpenAPI
 ```
 
----
+## CI/CD Pipeline Scaffolding
 
-## Hard Gate Rules — Absolute Restrictions
+Every spec-driven project must have a CI pipeline configured at scaffolding time.
 
-These rules have no exceptions. No workaround, no "we'll fix it later."
-
-| Rule | What it Prevents |
-|---|---|
-| No implementation without `approved` spec | Vibe coding, undocumented behavior |
-| No endpoint without OpenAPI entry | Shadow APIs, security holes |
-| No entity without JSON Schema | Schema drift, silent data corruption |
-| No critical flow without Gherkin scenario | Untestable requirements |
-| No breaking change without MAJOR bump | Silent consumer breakage |
-| No PR without conformance test passing | Spec drift accumulation |
-| No merge with hardcoded secrets | Credential leaks |
-| No `additionalProperties: true` on response schemas | Undocumented field leakage |
-
----
-
-## Spec Coverage Metrics
-
-Track these in CI and publish in your pipeline summary:
-
-```
-Spec Coverage Report
-──────────────────────────────────────────────
-API Spec Coverage    : 47/47 endpoints (100%)
-Schema Coverage      : 12/12 entities  (100%)
-Behavior Coverage    : 38/40 scenarios  (95%) ← 2 @wip
-Conformance Pass Rate: 47/47 endpoints (100%)
-Security Gate        : PASS
-Performance Gate     : PASS (p95 = 142ms)
-──────────────────────────────────────────────
-Overall: ✅ RELEASE READY
-```
-
----
-
-## The Spec-Fix Workflow
-
-When a conformance gate fails, explicitly choose one path:
-
-```
-Conformance Gate Failed
-        │
-        ▼
-Is the spec accurately reflecting the requirement?
-        │
-   YES  │  NO
-        │   └─► Update spec (requires review → re-approval)
-        │       then update code and regenerate
-        ▼
-Is the code wrong?
-        │
-   YES ─► Fix the code to match the spec
-        │
-   NO  ─► The test is wrong → Fix the test to match the spec
-```
-
-**Never**: change the spec to match broken code. **Never**: skip the test to unblock a deploy.
-
----
-
-## CI Pipeline Order
+### GitHub Actions Template (`.github/workflows/ci.yml`)
 
 ```yaml
-# Enforced order — each step is a gate
-steps:
-  - spec:lint          # Gate 1 — blocks if specs are invalid
-  - spec:generate      # Gate 2a — generate types from specs
-  - typecheck          # Gate 2b — block if generated types don't compile
-  - test:unit          # Gate 4a — unit tests
-  - build              # Build the application
-  - start:test-server  # Start for contract testing
-  - test:conformance   # Gate 3 — API conformance
-  - test:behavior      # Gate 4b — Gherkin scenarios
-  - security:audit     # Gate 5 — security checks
-  - coverage:report    # Generate coverage report
+name: CI (Spec-Driven)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-specs:
+    name: 1. Validate Specs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: npm ci
+      - name: Lint OpenAPI
+        run: npm run spec:lint
+      - name: Validate JSON Schemas
+        run: npm run spec:validate
+      - name: Check for breaking spec changes
+        run: npx oasdiff breaking specs/api/openapi-main.yaml specs/api/openapi.yaml || echo "Warning: breaking changes detected"
+
+  type-check:
+    name: 2. Type Check (Contract Validation)
+    needs: validate-specs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: npm ci
+      - name: Generate types from spec
+        run: npm run spec:generate:types
+      - name: TypeScript Check
+        run: npx tsc --noEmit
+
+  test:
+    name: 3. Tests & Conformance
+    needs: type-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: npm ci
+      - name: Run Unit Tests
+        run: npm run test:unit
+      - name: Start Server
+        run: npm run start & sleep 5
+      - name: Run Spec Conformance Tests
+        run: npm run test:conformance
 ```
+
+## First Commit Checklist
+
+Before starting implementation, the first commit ("chore: initial spec-driven scaffolding") must include:
+
+- [ ] `specs/` directory created with initial templates (OpenAPI skeleton, error schema).
+- [ ] `README.md` updated with project description and spec overview.
+- [ ] Package manager initialized (`package.json`, `go.mod`, `Cargo.toml`).
+- [ ] Spec validation tools configured and working (`spectral`, `ajv`).
+- [ ] Code generation tools configured (`openapi-typescript`, `openapi-generator`).
+- [ ] Linter, formatter, and type-checker configured.
+- [ ] CI pipeline file created.
+- [ ] `.gitignore` configured.
+- [ ] `.env.example` created.
+
+## Rules for Code Generation
+
+In a Spec Driven Development workflow, code generation bridges the gap between specs and implementation.
+
+- **Types/Interfaces**: ALWAYS generate them from JSON Schema or OpenAPI. Never write them by hand.
+- **API Clients**: Generates client SDKs or React Query hooks from OpenAPI using tools like `openapi-typescript-codegen` or `orval`.
+- **API Route Stubs**: Optional, but strongly recommended to enforce route signatures.
+- **Do not modify generated files**: Output them to `.generated.ts` or a `__generated__` folder and add them to `.gitignore`.
+- **Run generation on pre-commit**: Ensure the codebase always matches the latest specs.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
