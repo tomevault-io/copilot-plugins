@@ -1,0 +1,9 @@
+{
+  "name": "ahmadhassan-bted--gardenpulse",
+  "displayName": "GardenPulse",
+  "description": "Method-agnostic smart garden companion built with React Native, Expo, and TypeScript. Adapts to soil, hydro, container, or indoor setups with location-aware intelligence, OpenWeather integration, and ",
+  "version": "1.0.0",
+  "author": "AhmadHassan-BTed",
+  "homepage": "https://github.com/AhmadHassan-BTed/GardenPulse",
+  "skills": []
+}
