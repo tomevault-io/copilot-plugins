@@ -1,0 +1,44 @@
+{
+  "name": "skillcheck",
+  "owner": "sx4im",
+  "repo": "skillcheck",
+  "description": " \ud83e\uddea A/B test your agent skills \u2014 skillcheck measures whether a SKILL.md actually improves an LLM's task performance, with blind grading, bootstrap confidence intervals, and a 0\u2013100 score. CLI for Claude Code, Codex & Cursor skills.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sx4im/skillcheck",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T04:43:38Z"
+}
