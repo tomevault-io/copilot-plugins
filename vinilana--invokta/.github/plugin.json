@@ -1,0 +1,9 @@
+{
+  "name": "vinilana--invokta",
+  "displayName": "invokta",
+  "description": "A TypeScript framework for reusable domain AI capabilities across direct, CLI, and MCP transports.",
+  "version": "1.0.0",
+  "author": "vinilana",
+  "homepage": "https://github.com/vinilana/invokta",
+  "skills": []
+}
