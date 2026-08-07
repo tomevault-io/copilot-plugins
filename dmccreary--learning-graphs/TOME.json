@@ -4,7 +4,7 @@
   "repo": "learning-graphs",
   "description": "A microsite for creating concept dependency graph networks for education.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dmccreary/learning-graphs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T18:35:01Z"
+  "distributed_at": "2026-08-07T19:35:03Z"
 }
