@@ -1,0 +1,44 @@
+{
+  "name": "NeoPasterDream1",
+  "owner": "LOVE-U987",
+  "repo": "NeoPasterDream1",
+  "description": "\u5e15\u65af\u7279\u4e4b\u68a6\u57281.21.1Neo\u4e0a\u7684\u91cd\u751f",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LOVE-U987/NeoPasterDream1",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T09:09:11Z"
+}
