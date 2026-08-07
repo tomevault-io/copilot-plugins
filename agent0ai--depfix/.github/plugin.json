@@ -1,0 +1,9 @@
+{
+  "name": "agent0ai--depfix",
+  "displayName": "depfix",
+  "description": "Python dependencies, solved.",
+  "version": "1.0.0",
+  "author": "agent0ai",
+  "homepage": "https://github.com/agent0ai/depfix",
+  "skills": []
+}
