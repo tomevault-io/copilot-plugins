@@ -1,0 +1,9 @@
+{
+  "name": "auravixstudio--caelo",
+  "displayName": "caelo",
+  "description": "Open-source desktop client for the xAI Grok API \u2014 chat, image & video generation, voice, and an agentic coding module with local file access. Bring your own key, no telemetry.",
+  "version": "1.0.0",
+  "author": "AuraVixStudio",
+  "homepage": "https://github.com/AuraVixStudio/caelo",
+  "skills": []
+}
