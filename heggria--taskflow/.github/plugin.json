@@ -1,0 +1,9 @@
+{
+  "name": "heggria--taskflow",
+  "displayName": "taskflow",
+  "description": "Compile, verify, and run multi-agent DAGs across Pi, Codex, Claude Code, OpenCode, and Grok\u2014with resume, replay, and incremental recomputation.",
+  "version": "1.0.0",
+  "author": "heggria",
+  "homepage": "https://github.com/heggria/taskflow",
+  "skills": []
+}
