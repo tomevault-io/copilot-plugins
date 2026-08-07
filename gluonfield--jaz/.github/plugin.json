@@ -1,0 +1,9 @@
+{
+  "name": "gluonfield--jaz",
+  "displayName": "jaz",
+  "description": "A personal AI on machines you own \u2014 any agent, loops that run overnight, boards, memory, and git control. Client/server split, always-on, open source end to end.",
+  "version": "1.0.0",
+  "author": "gluonfield",
+  "homepage": "https://github.com/gluonfield/jaz",
+  "skills": []
+}
