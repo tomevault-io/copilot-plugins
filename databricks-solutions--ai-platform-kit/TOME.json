@@ -4,7 +4,7 @@
   "repo": "ai-platform-kit",
   "description": "AI-powered Databricks platform engineering \u2014 provision workspaces, configure Unity Catalog, manage identity & governance, and set up networking across Azure, AWS, and GCP, all through natural language with Claude.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/databricks-solutions/ai-platform-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T15:33:14Z"
+  "distributed_at": "2026-08-07T11:18:03Z"
 }
