@@ -1,0 +1,9 @@
+{
+  "name": "alexbtlle--pi4-ia-homekit-camera",
+  "displayName": "pi4-IA-Homekit-Camera",
+  "description": "Turn a Raspberry Pi Zero 2W or Pi 3 - 4 into a Apple HomeKit camera with motion detection.",
+  "version": "1.0.0",
+  "author": "AlexBtlle",
+  "homepage": "https://github.com/AlexBtlle/pi4-IA-Homekit-Camera",
+  "skills": []
+}
