@@ -1,0 +1,9 @@
+{
+  "name": "myzel394--navidrome-musixmatch-plugin",
+  "displayName": "navidrome-musixmatch-plugin",
+  "description": "Scrape lyrics (plain & synced) from Musixmatch, the official lyrics provider for Spotify | No Auth required",
+  "version": "1.0.0",
+  "author": "Myzel394",
+  "homepage": "https://github.com/Myzel394/navidrome-musixmatch-plugin",
+  "skills": []
+}
