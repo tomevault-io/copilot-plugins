@@ -1,0 +1,61 @@
+## rolecraft
+
+> > 📖 Agent discovery paths are in [`docs/agents.md`](./docs/agents.md)
+
+# rolecraft — Development Guidelines
+
+> 📖 Agent discovery paths are in [`docs/agents.md`](./docs/agents.md)
+
+## ⚠️ STARTUP CHECKLIST (read before every task)
+
+1. `git checkout main && git pull` — start from latest main
+2. `git checkout -b feat/my-feature` or `fix/my-bug` — create branch
+3. Do all work on the feature branch (never on main)
+4. `npm run lint` — check syntax before pushing
+5. `npm test` — run tests
+6. Never leave changes that break tests
+7. Write tests for new features
+8. Update docs (README, docs/) when needed
+9. Test `--dry-run` flag if the feature supports it
+10. `git add ... && git commit -m "type: short description"` — title only, no body
+11. `git push -u origin <branch>` — push
+12. `gh pr create` — open PR with short one-sentence body
+13. Before merging, wait for all GitHub Actions checks to pass (`gh run watch` or check PR status). Never merge while checks are running.
+
+## Workflow
+- Before starting any task, ensure you're on `main` with latest changes (`git checkout main && git pull`), then create a new branch specific to the task (`git checkout -b feat/my-feature` or `fix/my-bug`)
+- Complete all work on the feature branch
+- After completing the work, run `npm run lint` and the tests: `node --test --test-concurrency=1`
+- Never leave changes that break tests
+- Write tests for new features
+- Update documentation (README, docs/) when needed
+- Test the `--dry-run` flag if the feature supports it
+- After tests pass, commit the changes (title only, no body), push the branch, and open a PR (one-sentence body)
+- Before merging, wait for all GitHub Actions checks to pass (`gh run watch` or check PR status). Never merge while checks are running.
+
+## Interaction rules
+- **Chat vs dev mode:** Before writing any code, confirm whether the user wants development or just information. Ask: "Are you asking me to develop something or just asking for information?"
+- **Commit messages:** Title only, no body. Example: `feat: add rolecraft mcp check command`
+- **PR body:** One-sentence summary. Example: "Adds rolecraft mcp check command for npm update checks."
+- **Branch strategy:** Always branch from latest main for any work that requires a commit, unless the user explicitly says otherwise.
+
+## Code style
+- Keep the zero-dependency principle for runtime (don't add production deps)
+- DevDependencies (Biome, VitePress) are allowed — they never ship to users
+- Use ES modules (`import`/`export`, no `require`)
+- Prefer built-in modules like `node:fs`, `node:path`
+- Tests are written with `node:test` and `node:assert`
+- Formatting is enforced by Biome (`biome.json`): 2-space indent, single quotes, no semicolons
+- Linting is enforced by Biome: `noUnusedVariables`, `noUnusedImports`, `noUnreachable` are errors
+
+## Linting rules
+- `npm run lint` runs `node --check` (syntax) then `biome check` (semantic + format)
+- Must be zero errors before pushing — CI fails on lint errors
+- Run `npx biome check --write` to auto-fix formatting and unused imports
+- Run `npx biome check --write --unsafe` for unsafe fixes (review the diff before committing)
+- Common CodeQL-equivalent traps Biome catches before push: `js/unused-local-variable`, `js/redundant-operation`, unreachable code
+- Biome does NOT catch security issues like `js/http-to-file-access`, `js/log-injection`, `js/insecure-temporary-file` — keep CodeQL enabled in CI for those
+
+---
+> Source: [rolecraft-sh/rolecraft](https://github.com/rolecraft-sh/rolecraft) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-07 -->
