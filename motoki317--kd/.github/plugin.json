@@ -1,0 +1,9 @@
+{
+  "name": "motoki317--kd",
+  "displayName": "kd",
+  "description": "A human-friendly, read-only, live Kubernetes dashboard for cluster operators and application developers.",
+  "version": "1.0.0",
+  "author": "motoki317",
+  "homepage": "https://github.com/motoki317/kd",
+  "skills": []
+}
