@@ -4,7 +4,7 @@
   "repo": "a2wave",
   "description": "Turn the agent CLIs you already use into shared services your whole team can call. Natural-language-driven agent orchestration for Claude Code, Cursor Agent, and OpenAI Codex.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LilithGames/a2wave",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T14:31:36Z"
+  "distributed_at": "2026-08-07T19:27:33Z"
 }
