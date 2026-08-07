@@ -1,0 +1,9 @@
+{
+  "name": "rudycity--superagent",
+  "displayName": "superagent",
+  "description": "An interactive, terminal-based AI coding assistant featuring a cyberpunk style terminal UI, context token tracking, and subagent orchestration.",
+  "version": "1.0.0",
+  "author": "RudyCity",
+  "homepage": "https://github.com/RudyCity/superagent",
+  "skills": []
+}
