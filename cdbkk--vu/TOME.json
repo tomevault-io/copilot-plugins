@@ -4,7 +4,7 @@
   "repo": "vu",
   "description": "A better customizable terminal",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cdbkk/vu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T17:35:12Z"
+  "distributed_at": "2026-08-07T12:44:42Z"
 }
