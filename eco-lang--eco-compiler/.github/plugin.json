@@ -1,0 +1,9 @@
+{
+  "name": "eco-lang--eco-compiler",
+  "displayName": "eco-compiler",
+  "description": "eco compiler for elm",
+  "version": "1.0.0",
+  "author": "eco-lang",
+  "homepage": "https://github.com/eco-lang/eco-compiler",
+  "skills": []
+}
