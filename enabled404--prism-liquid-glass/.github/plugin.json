@@ -1,0 +1,9 @@
+{
+  "name": "enabled404--prism-liquid-glass",
+  "displayName": "prism-liquid-glass",
+  "description": "PRISM... WebGL Liquid Glass Interactive Showcase built with Three.js, GSAP, and Next.js",
+  "version": "1.0.0",
+  "author": "enabled404",
+  "homepage": "https://github.com/enabled404/prism-liquid-glass",
+  "skills": []
+}
