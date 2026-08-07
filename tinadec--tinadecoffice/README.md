@@ -7,11 +7,11 @@ Agent Team. 智能体团队
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Tinadec/TinadecOffice](https://github.com/Tinadec/TinadecOffice).
+Original source: `AGENTS.md` in [Tinadec/TinadecOffice](https://github.com/Tinadec/TinadecOffice).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
