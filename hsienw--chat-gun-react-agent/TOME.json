@@ -4,7 +4,7 @@
   "repo": "chat-gun-react-agent",
   "description": "\ud83e\udd16A production-oriented full-stack Agent Chat system built with React, TypeScript, LangGraph JS, Qwen/OpenAI-compatible models, native tools, optional MCP, HITL, streaming events, multimodal input, and deep research workflows.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HsienW/chat-gun-react-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T02:38:46Z"
+  "distributed_at": "2026-08-07T14:51:38Z"
 }
