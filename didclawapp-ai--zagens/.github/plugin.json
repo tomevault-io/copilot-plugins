@@ -1,0 +1,9 @@
+{
+  "name": "didclawapp-ai--zagens",
+  "displayName": "zagens",
+  "description": "Open-source agent harness for DeepSeek V4",
+  "version": "1.0.0",
+  "author": "didclawapp-ai",
+  "homepage": "https://github.com/didclawapp-ai/zagens",
+  "skills": []
+}
