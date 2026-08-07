@@ -1,0 +1,34 @@
+## volcengine-skills
+
+> Volcengine (火山引擎) skills available in this repository's skills/ directory
+
+
+# Volcengine Skills
+
+This repository ships skills for Volcengine (火山引擎) scenarios under `skills/`.
+When a task involves Volcengine — operating cloud resources, deploying an app,
+managing infrastructure, or generating SDK code — read the relevant
+`skills/<skill-name>/SKILL.md` and follow it.
+
+Available skills:
+
+- `volcengine-cli` — operate cloud resources via the `ve` CLI (ECS/VPC/CLB/RDS/Redis/TOS).
+- `volcengine-prepare` — analyze a repo and recommend a deploy mode (ECS/VKE/veFaaS).
+- `volcengine-deploy` — deploy a local dir or GitHub repo to Volcengine (ECS/VKE).
+- `volcengine-iac` — Terraform-based infrastructure for Volcengine.
+- `volcengine-sdk-generator` — generate Volcengine SDK code examples and answer SDK configuration questions.
+- `volcengine-api` — query Volcengine API specifications.
+- `volcengine-tosutil` — access and manage TOS object storage resources on Volcengine.
+- `volcengine-vefaas` — deploy and manage serverless applications on Volcengine veFaaS.
+- `volcengine-db-supabase` — manage Volcengine AI-native BaaS (Supabase edition / AIDAP): workspaces, branches, SQL, Auth, Realtime, Edge Functions, Storage, frontend hosting, type generation; also the deployment database provider.
+- `volcengine-troubleshooting` — locally troubleshoot Volcengine errors across OpenAPI/CLI/SDK/IAM/billing/compute/network/storage/database/CDN/media/AI/security/VKE.
+- `volcengine-knowledge-search` — search Volcengine official documentation and fetch full document content.
+- `volcengine-landing-zone` — consult, set up, and manage a Volcengine Landing Zone, including initial setup, account factory, and baselines.
+- `volcengine-compliance` — Volcengine compliance best-practice assistant: recommends which official built-in compliance baselines to enable for the user's needs (flagging already-enabled ones), and summarizes the account's current compliance posture into an overview report grouped by category and severity. When built-in baselines don't cover a case, guides authoring a Rego policy as a custom compliance rule and registering it for evaluation. Can deploy a recommended template as a conformance pack; write operations (deploy / enable recorder / register custom rule) require explicit confirmation.
+
+Trigger on Volcengine / 火山引擎 / 火山 keywords, `ve` commands, or
+`VOLCENGINE_ACCESS_KEY` / `VOLCENGINE_SECRET_KEY` / `VOLCENGINE_REGION` usage.
+
+---
+> Source: [volcengine/volcengine-skills](https://github.com/volcengine/volcengine-skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-06 -->
