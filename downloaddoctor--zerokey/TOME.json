@@ -1,0 +1,44 @@
+{
+  "name": "zerokey",
+  "owner": "downloaddoctor",
+  "repo": "zerokey",
+  "description": "OpenAI-compatible local AI proxy for DeepSeek, ChatGPT, and Claude \u2014 pipe any of them into VS Code or Terax using your real browser session. Just paste a fetch().",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/downloaddoctor/zerokey",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T11:34:17Z"
+}
