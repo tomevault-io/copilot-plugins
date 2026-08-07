@@ -1,0 +1,9 @@
+{
+  "name": "stellar-unified-price-oracle---stellar-unified-price-oracle-aggregator-api-backend",
+  "displayName": "-Stellar-Unified-Price-Oracle-Aggregator-API-Backend",
+  "description": "\u2699\ufe0f Off-chain TypeScript ingestion engine and API gateway. Processes high-frequency price feeds from Chainlink, Redstone, Band, and Reflector, manages cryptographic submission signers, and exposes low-",
+  "version": "1.0.0",
+  "author": "Stellar-Unified-Price-Oracle",
+  "homepage": "https://github.com/Stellar-Unified-Price-Oracle/-Stellar-Unified-Price-Oracle-Aggregator-API-Backend",
+  "skills": []
+}
