@@ -1,8 +1,6 @@
 # AI instruction files for senpi
 
-> Sourced from [code-yeongyu/senpi](https://github.com/code-yeongyu/senpi) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-pi had nothing (nothing), so I made something (something) — sorry mariozechner-senpai, I went ahead and lovingly soiled your pure pi for you. opinionated fork of badlogic/pi-mono with extension-first additions. ganbare ganbare senpi 頑張れ頑張れ先輩
+> Sourced from [code-yeongyu/senpi](https://github.com/code-yeongyu/senpi), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,30 @@ Original source: `AGENTS.md` in [code-yeongyu/senpi](https://github.com/code-yeo
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [code-yeongyu/senpi](https://github.com/code-yeongyu/senpi) — a repo with 79+ stars on GitHub.
+## Bundled Skills (20)
+
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/.factory/skills/tmux-manual-qa/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/.factory/skills/coding-agent-extension-worker/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/packages/coding-agent/examples/extensions/dynamic-resources/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/.github/agent/skills/merge-upstream/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/packages/coding-agent/test/fixtures/skills/long-name/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/packages/coding-agent/test/fixtures/skills/valid-skill/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/packages/coding-agent/test/fixtures/skills/invalid-yaml/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/packages/coding-agent/test/fixtures/skills/name-mismatch/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/packages/coding-agent/test/fixtures/skills/unknown-field/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/packages/coding-agent/test/fixtures/skills/no-frontmatter/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/packages/coding-agent/test/fixtures/skills/nested/child-skill/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/packages/coding-agent/test/fixtures/skills/invalid-name-chars/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/packages/coding-agent/test/fixtures/skills/missing-description/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/packages/coding-agent/test/fixtures/skills/consecutive-hyphens/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/packages/coding-agent/test/fixtures/skills/multiline-description/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/packages/coding-agent/test/fixtures/skills-collision/first/calendar/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/packages/coding-agent/test/fixtures/skills/disable-model-invocation/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/packages/coding-agent/test/fixtures/skills-collision/second/calendar/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/packages/coding-agent/test/fixtures/skills/root-skill-preferred/nested-child/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/senpi/tree/main/.agents/skills/senpi-qa/SKILL.md)
+
+From [code-yeongyu/senpi](https://github.com/code-yeongyu/senpi) — a repo with 0+ stars on GitHub.
 
 ---
 
