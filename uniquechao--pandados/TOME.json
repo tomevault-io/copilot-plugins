@@ -4,7 +4,7 @@
   "repo": "PandaDOS",
   "description": "Your self-hosted control plane for Claude Code and Codex. Turn issues into queued, observable, approval-aware coding workflows\u2014from any browser.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/uniquechao/PandaDOS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T00:14:56Z"
+  "distributed_at": "2026-08-07T09:35:35Z"
 }
