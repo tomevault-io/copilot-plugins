@@ -1,0 +1,9 @@
+{
+  "name": "jwuthri--tracely",
+  "displayName": "Tracely",
+  "description": "Trace-native CI/CD for AI agents \u2014 production failures become regression tests that block the PR. Auto-detect, cluster, freeze into hermetic cases, replay in CI for $0.",
+  "version": "1.0.0",
+  "author": "Jwuthri",
+  "homepage": "https://github.com/Jwuthri/Tracely",
+  "skills": []
+}
