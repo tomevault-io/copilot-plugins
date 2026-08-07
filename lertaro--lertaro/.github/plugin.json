@@ -1,0 +1,9 @@
+{
+  "name": "lertaro--lertaro",
+  "displayName": "Lertaro",
+  "description": "A modern, high-performance local file search and productivity tool for Windows. A sleek, customizable alternative to Everything and Listary built with C# WPF and NT Services, featuring instant NTFS MF",
+  "version": "1.0.0",
+  "author": "Lertaro",
+  "homepage": "https://github.com/Lertaro/Lertaro",
+  "skills": []
+}
