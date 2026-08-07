@@ -4,7 +4,7 @@
   "repo": "dataplane",
   "description": "Rust data plane for Nantian Gateway. HTTP/gRPC proxy, stream passthrough, AI Gateway filters, and Wasm plugin runtime powered by Pingora.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nantian-gw/dataplane",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T02:40:23Z"
+  "distributed_at": "2026-08-07T14:52:08Z"
 }
