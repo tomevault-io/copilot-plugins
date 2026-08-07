@@ -1,0 +1,9 @@
+{
+  "name": "wtdcode--vllm-backport",
+  "displayName": "vllm-backport",
+  "description": "vllm-backport",
+  "version": "1.0.0",
+  "author": "wtdcode",
+  "homepage": "https://github.com/wtdcode/vllm-backport",
+  "skills": []
+}
