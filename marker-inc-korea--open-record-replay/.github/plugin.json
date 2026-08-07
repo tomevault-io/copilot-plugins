@@ -1,0 +1,9 @@
+{
+  "name": "marker-inc-korea--open-record-replay",
+  "displayName": "open-record-replay",
+  "description": "Privacy-first browser action recorder that generates reviewable markdown skill drafts",
+  "version": "1.0.0",
+  "author": "Marker-Inc-Korea",
+  "homepage": "https://github.com/Marker-Inc-Korea/open-record-replay",
+  "skills": []
+}
