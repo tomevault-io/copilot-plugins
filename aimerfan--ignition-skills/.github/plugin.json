@@ -1,0 +1,9 @@
+{
+  "name": "aimerfan--ignition-skills",
+  "displayName": "ignition-skills",
+  "description": "Conceptual-grounding Claude skills for Ignition 8.1 and SepaSoft Batch Procedure \u2014 anti-hallucination knowledge, not a troubleshooting DB.",
+  "version": "1.0.0",
+  "author": "aimerfan",
+  "homepage": "https://github.com/aimerfan/ignition-skills",
+  "skills": []
+}
