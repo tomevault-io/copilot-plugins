@@ -1,0 +1,44 @@
+{
+  "name": "pi-provider-newapi",
+  "owner": "ttimasdf",
+  "repo": "pi-provider-newapi",
+  "description": "pi provider extension for self-hosted NewAPI AI gateway \u2014 dynamic model discovery with cost calculation from ratio_config. \u9002\u7528\u4e8e\u81ea\u6258\u7ba1 NewAPI AI \u7f51\u5173\u7684 pi \u6a21\u578b\u63d0\u4f9b\u5546\u6269\u5c55 \u2014 \u652f\u6301\u57fa\u4e8e ratio_config \u8fdb\u884c\u52a8\u6001\u6a21\u578b\u53d1\u73b0\u5e76\u8ba1\u7b97\u6a21\u578b\u5355\u4ef7",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ttimasdf/pi-provider-newapi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T15:00:34Z"
+}
