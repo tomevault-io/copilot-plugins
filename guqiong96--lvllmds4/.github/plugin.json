@@ -1,0 +1,9 @@
+{
+  "name": "guqiong96--lvllmds4",
+  "displayName": "Lvllmds4",
+  "description": "A fork of jasl/vllm (codex/ds4-sm120-min-enable) with CPU-GPU hybrid inference support for DeepSeek-V4 on SM120+.",
+  "version": "1.0.0",
+  "author": "guqiong96",
+  "homepage": "https://github.com/guqiong96/Lvllmds4",
+  "skills": []
+}
