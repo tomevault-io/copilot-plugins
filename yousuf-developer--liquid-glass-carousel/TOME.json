@@ -1,0 +1,44 @@
+{
+  "name": "liquid-glass-carousel",
+  "owner": "Yousuf-developer",
+  "repo": "liquid-glass-carousel",
+  "description": "Infinite scroll-driven carousel with a liquid-glass lens shader \u2014 three.js + GSAP",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Yousuf-developer/liquid-glass-carousel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T14:41:12Z"
+}
