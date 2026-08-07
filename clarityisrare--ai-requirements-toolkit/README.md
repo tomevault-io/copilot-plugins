@@ -7,11 +7,11 @@ Practical toolkit for writing, reviewing & validating requirements in the AI era
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [clarityisrare/ai-requirements-toolkit](https://github.com/clarityisrare/ai-requirements-toolkit).
+Original source: `AGENTS.md` in [clarityisrare/ai-requirements-toolkit](https://github.com/clarityisrare/ai-requirements-toolkit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
