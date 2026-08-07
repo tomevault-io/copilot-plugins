@@ -1,0 +1,44 @@
+{
+  "name": "PocketVault",
+  "owner": "greyfreedom",
+  "repo": "PocketVault",
+  "description": "An open-source secure offline vault for your passwords and sensitive data. \u53e3\u888b\u5bc6\u672c\uff0c\u4e00\u6b3e\u5f00\u6e90\u79bb\u7ebf\u5bc6\u7801\u4fe1\u606f\u5b58\u50a8\u5de5\u5177",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/greyfreedom/PocketVault",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T19:21:31Z"
+}
