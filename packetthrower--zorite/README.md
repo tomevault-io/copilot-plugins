@@ -7,11 +7,11 @@ Local-first, Logseq-style daily journal. Rust + GPUI + SQLite, with a custom gpu
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [packetThrower/zorite](https://github.com/packetThrower/zorite).
+Original source: `AGENTS.md` in [packetThrower/zorite](https://github.com/packetThrower/zorite).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
