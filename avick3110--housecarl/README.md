@@ -7,11 +7,11 @@ Comprehensive data-layer access to your Skyrim SE load order: read any record, a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Avick3110/houseCARL](https://github.com/Avick3110/houseCARL).
+Original source: `AGENTS.md` in [Avick3110/houseCARL](https://github.com/Avick3110/houseCARL).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
