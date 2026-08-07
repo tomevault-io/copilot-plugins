@@ -1,0 +1,9 @@
+{
+  "name": "skymly--observables",
+  "displayName": "Observables",
+  "description": "Roslyn source generators bridging events and IO to reactive APIs (R3 / System.Reactive). Declarative proxies for HTTP, SignalR, MQTT, WebSocket, gRPC, SSE, NATS.",
+  "version": "1.0.0",
+  "author": "Skymly",
+  "homepage": "https://github.com/Skymly/Observables",
+  "skills": []
+}
