@@ -1,0 +1,9 @@
+{
+  "name": "agntdev--caloriemate",
+  "displayName": "caloriemate",
+  "description": "Telegram bot for lightweight daily calorie tracking with manual, database, or photo-assisted entries, reminders, and CSV export.",
+  "version": "1.0.0",
+  "author": "agntdev",
+  "homepage": "https://github.com/agntdev/caloriemate",
+  "skills": []
+}
