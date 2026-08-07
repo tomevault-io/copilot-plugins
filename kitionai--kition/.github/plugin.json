@@ -1,0 +1,9 @@
+{
+  "name": "kitionai--kition",
+  "displayName": "kition",
+  "description": "Kition brings Markdown documents, structured table files, a tool-using AI agent, browser research, and visual workflows into one desktop workspace. ",
+  "version": "1.0.0",
+  "author": "KitionAI",
+  "homepage": "https://github.com/KitionAI/kition",
+  "skills": []
+}
