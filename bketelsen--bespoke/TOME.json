@@ -4,7 +4,7 @@
   "repo": "bespoke",
   "description": "A personal app platform: one-off software for exactly one user \u2014 built, maintained, and operated by LLM agents. Steal the idea before you steal the code.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bketelsen/bespoke",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T00:05:33Z"
+  "distributed_at": "2026-08-07T09:01:19Z"
 }
