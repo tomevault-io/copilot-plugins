@@ -7,11 +7,11 @@ WikiLean — Wikipedia mathematics annotated with Mathlib4/Lean formalization li
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Deicyde/WikiLean](https://github.com/Deicyde/WikiLean).
+Original source: `AGENTS.md` in [Deicyde/WikiLean](https://github.com/Deicyde/WikiLean).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
