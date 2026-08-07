@@ -1,0 +1,9 @@
+{
+  "name": "asklear--klear-team-brain",
+  "displayName": "Klear-Team-Brain",
+  "description": "Turn your team's AI coding sessions, GitHub code, and docs into one shared, searchable memory \u2014 a self-hosted git truth store you query right from your editor over MCP.",
+  "version": "1.0.0",
+  "author": "Asklear",
+  "homepage": "https://github.com/Asklear/Klear-Team-Brain",
+  "skills": []
+}
