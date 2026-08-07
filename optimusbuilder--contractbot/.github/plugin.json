@@ -1,0 +1,9 @@
+{
+  "name": "optimusbuilder--contractbot",
+  "displayName": "contractbot",
+  "description": "Dependabot for APIs \u2014 discover API deps, watch contracts, BYOK-heal code, open PRs",
+  "version": "1.0.0",
+  "author": "optimusbuilder",
+  "homepage": "https://github.com/optimusbuilder/contractbot",
+  "skills": []
+}
