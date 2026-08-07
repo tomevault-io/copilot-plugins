@@ -1,0 +1,9 @@
+{
+  "name": "bme-lyh--codex-skill-manager",
+  "displayName": "Codex-Skill-Manager",
+  "description": "Review, install, update, and recover Codex Skills on Windows.",
+  "version": "1.0.0",
+  "author": "bme-lyh",
+  "homepage": "https://github.com/bme-lyh/Codex-Skill-Manager",
+  "skills": []
+}
