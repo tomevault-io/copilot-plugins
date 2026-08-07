@@ -1,0 +1,9 @@
+{
+  "name": "oracle--fusabase-js-sdk",
+  "displayName": "fusabase-js-sdk",
+  "description": "Fusabase JavaScript SDK provides a unified, developer-friendly interface to interact with backend services provided by Oracle directly from web application.",
+  "version": "1.0.0",
+  "author": "oracle",
+  "homepage": "https://github.com/oracle/fusabase-js-sdk",
+  "skills": []
+}
