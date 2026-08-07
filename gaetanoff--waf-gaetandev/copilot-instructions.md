@@ -1,69 +1,45 @@
-## specific-markdown
+## specific-nextjs
 
-> Markdown conventions for documentation and README files
+> Next.js App Router patterns, server components, data fetching
 
 
-# Markdown Standards
+# Next.js (App Router)
 
-## Style
+## Server vs Client Components
 
-- Use descriptive, intention-revealing names. A reader should understand purpose without comments.
-- Booleans: prefix with `is`, `has`, `should`, `can` (e.g. `isVisible`, `hasPermission`).
-- Functions: use verb phrases (`fetchUser`, `calculateTotal`, `validateInput`).
-- Constants: `UPPER_SNAKE_CASE` for true compile-time constants only.
-- Avoid abbreviations, single-letter variables (except short lambdas/loops), and Hungarian notation.
+- Default to Server Components. Add `"use client"` only when you need interactivity, hooks, or browser APIs.
+- Push `"use client"` boundary as low as possible in the component tree.
+- Server Components can import Client Components, but not vice versa.
+- Pass serializable props from Server to Client Components.
 
-## Structure
+## Data Fetching
 
-- Use a clear, logical structure.
-- Use headings to organize content.
-- Use lists to organize content.
-- Use code blocks to show code.
-- Use tables to show data.
-- Use images to show visuals.
-- Use links to show external content.
-- Use bold and italic to show emphasis.
-- Use strikethrough to show deleted content.
-- Use code to show code.
-- Use blockquotes to show quotes.
+- Fetch data in Server Components using `async/await` directly.
+- Use `fetch()` with Next.js caching: `{ cache: 'force-cache' }`, `{ next: { revalidate: 60 } }`.
+- Colocate data fetching with the component that uses it.
+- Use `loading.tsx` for streaming/suspense fallbacks.
+- Use `error.tsx` for error boundaries at the route level.
 
-## Formatting
+## Routing
 
-- Use 2 spaces for indentation.
-- Use 80 characters per line.
-- Use 1 line break between sections.
-- Use 1 line break between paragraphs.
-- Use 1 line break between lists.
-- Use 1 line break between code blocks.
-- Use 1 line break between blockquotes.
-- Use 1 line break between images.
-- Use 1 line break between links.
+- Use the `app/` directory with folder-based routing.
+- Leverage layouts (`layout.tsx`) for shared UI. They persist across navigations.
+- Use route groups `(group)` for organization without affecting URLs.
+- Use `generateStaticParams` for static generation of dynamic routes.
 
-## Links
+## Performance
 
-- Use relative links whenever possible.
-- Use external links with `[text](url)`.
-- Use internal links with `[text](path/to/file)`.
-- Use anchor links with `[text](#heading)`.
-- Use image links with `![alt text](path/to/image)`.
-- Use link text that describes the destination.
-- Use link text that is easy to understand.
-- Use link text that is easy to read.
-- Use link text that is easy to write.
+- Use `<Image>` component for automatic optimization.
+- Use `<Link>` for client-side navigation with prefetching.
+- Implement metadata with `generateMetadata` for SEO.
+- Use Parallel Routes and Intercepting Routes for complex UIs.
 
-## Content
+## Patterns
 
-- Use a clear, logical structure.
-- Use headings to organize content.
-- Use lists to organize content.
-- Use code blocks to show code.
-- Use tables to show data.
-- Use images to show visuals.
-- Use links to show external content.
-- Use bold and italic to show emphasis.
-- Use strikethrough to show deleted content.
-- Use code to show code.
-- Use blockquotes to show quotes.
+- Use Server Actions (`"use server"`) for mutations/form handling.
+- Validate inputs in Server Actions with Zod or similar.
+- Use `middleware.ts` for auth, redirects, and request-level logic.
+- Keep API Routes (`route.ts`) for webhook handlers and external API integrations.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
