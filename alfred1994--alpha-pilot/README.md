@@ -7,11 +7,11 @@ AI 驾驶的自愈式 A 股模拟盘交易赛车 · Self-healing paper-trading r
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [alfred1994/alpha-pilot](https://github.com/alfred1994/alpha-pilot).
+Original source: `AGENTS.md` in [alfred1994/alpha-pilot](https://github.com/alfred1994/alpha-pilot).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
