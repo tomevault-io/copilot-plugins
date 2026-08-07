@@ -1,0 +1,9 @@
+{
+  "name": "ratatui--ratatui-table",
+  "displayName": "ratatui-table",
+  "description": "An experimental evolution of Ratatui\u2019s built-in Table widget",
+  "version": "1.0.0",
+  "author": "ratatui",
+  "homepage": "https://github.com/ratatui/ratatui-table",
+  "skills": []
+}
