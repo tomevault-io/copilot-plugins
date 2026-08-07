@@ -1,0 +1,9 @@
+{
+  "name": "chamroro--tailwind-a11y",
+  "displayName": "tailwind-a11y",
+  "description": "Static accessibility analysis for Tailwind CSS projects.",
+  "version": "1.0.0",
+  "author": "chamroro",
+  "homepage": "https://github.com/chamroro/tailwind-a11y",
+  "skills": []
+}
