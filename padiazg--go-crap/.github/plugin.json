@@ -1,0 +1,9 @@
+{
+  "name": "padiazg--go-crap",
+  "displayName": "go-crap",
+  "description": "A CLI tool that calculates the CRAP score (cyclomatic complexity x coverage) for Go projects.",
+  "version": "1.0.0",
+  "author": "padiazg",
+  "homepage": "https://github.com/padiazg/go-crap",
+  "skills": []
+}
