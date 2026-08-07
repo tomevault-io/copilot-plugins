@@ -1,45 +1,49 @@
-## specific-nextjs
+## specific-nodejs
 
-> Next.js App Router patterns, server components, data fetching
+> Node.js backend patterns — async, error handling, API design
 
 
-# Next.js (App Router)
+# Node.js Backend
 
-## Server vs Client Components
+## Async Patterns
 
-- Default to Server Components. Add `"use client"` only when you need interactivity, hooks, or browser APIs.
-- Push `"use client"` boundary as low as possible in the component tree.
-- Server Components can import Client Components, but not vice versa.
-- Pass serializable props from Server to Client Components.
+- Always use `async/await` over raw Promises or callbacks.
+- Never forget to `await` async functions — unhandled promise rejections crash the process.
+- Use `Promise.all()` for independent parallel operations.
+- Use `Promise.allSettled()` when you need results regardless of individual failures.
+- Handle top-level unhandled rejections: `process.on('unhandledRejection', handler)`.
 
-## Data Fetching
+## Error Handling
 
-- Fetch data in Server Components using `async/await` directly.
-- Use `fetch()` with Next.js caching: `{ cache: 'force-cache' }`, `{ next: { revalidate: 60 } }`.
-- Colocate data fetching with the component that uses it.
-- Use `loading.tsx` for streaming/suspense fallbacks.
-- Use `error.tsx` for error boundaries at the route level.
+- Use a centralized error-handling middleware (Express/Fastify).
+- Create a hierarchy of custom error classes extending a base `AppError`.
+- Always pass errors to `next(error)` in Express — don't send responses in catch blocks of middleware.
+- Return consistent error response shapes: `{ error: { code, message, details } }`.
 
-## Routing
+## API Design
 
-- Use the `app/` directory with folder-based routing.
-- Leverage layouts (`layout.tsx`) for shared UI. They persist across navigations.
-- Use route groups `(group)` for organization without affecting URLs.
-- Use `generateStaticParams` for static generation of dynamic routes.
+- Use Express, Fastify, or Hono. Structure routes in separate modules.
+- Validate request bodies with Zod, Joi, or class-validator at the controller level.
+- Use middleware for cross-cutting concerns (auth, logging, rate limiting, CORS).
+- Return proper HTTP status codes (201 for created, 204 for no content, 422 for validation).
 
-## Performance
+## Configuration
 
-- Use `<Image>` component for automatic optimization.
-- Use `<Link>` for client-side navigation with prefetching.
-- Implement metadata with `generateMetadata` for SEO.
-- Use Parallel Routes and Intercepting Routes for complex UIs.
+- Use `dotenv` or built-in `--env-file` flag for environment variables.
+- Validate required env vars at startup — fail fast if missing.
+- Use a typed config module that validates and exports configuration.
 
-## Patterns
+## Process Management
 
-- Use Server Actions (`"use server"`) for mutations/form handling.
-- Validate inputs in Server Actions with Zod or similar.
-- Use `middleware.ts` for auth, redirects, and request-level logic.
-- Keep API Routes (`route.ts`) for webhook handlers and external API integrations.
+- Handle graceful shutdown: listen to `SIGTERM`/`SIGINT`, close connections, drain requests.
+- Use connection pooling for databases (e.g. `pg` pool, Prisma connection pool).
+- Set appropriate timeouts for HTTP clients and database connections.
+
+## Logging
+
+- Use a structured logger (pino, winston) — not `console.log`.
+- Log request ID, method, path, status, and duration for every request.
+- Use log levels correctly: debug, info, warn, error.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
