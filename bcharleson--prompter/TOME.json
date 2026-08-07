@@ -4,7 +4,7 @@
   "repo": "prompter",
   "description": "Agent-native Elgato Prompter CLI \u2014 push/pull scripts via Camera Hub (PrompterKit)",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bcharleson/prompter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-02T08:34:34Z"
+  "distributed_at": "2026-08-07T07:12:51Z"
 }
