@@ -1,0 +1,9 @@
+{
+  "name": "zgs225--pi2-nvim",
+  "displayName": "pi2.nvim",
+  "description": "Use the pi coding agent (pi.dev) without leaving Neovim \u2014 \u03c0\u00b2, a heavily extended fork of alex35mil/pi.nvim",
+  "version": "1.0.0",
+  "author": "zgs225",
+  "homepage": "https://github.com/zgs225/pi2.nvim",
+  "skills": []
+}
