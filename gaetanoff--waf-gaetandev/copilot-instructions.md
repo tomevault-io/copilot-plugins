@@ -1,301 +1,113 @@
-## core-changelog-release
+## core-devops
 
-> Changelog management, semantic versioning, and release checklist for spec-driven projects
+> DevOps and CI/CD — spec-aware pipelines, deployment, infrastructure, monitoring
 
 
-# Core Changelog & Release Management
+# DevOps & CI/CD (Spec-Aware)
 
-> Every release is a set of spec promotions. The changelog documents what contracts changed, not what code changed.
+## CI Pipeline
 
----
+Every project should have a CI pipeline with **spec validation** as a first-class step:
 
-## Semantic Versioning — Spec-Driven Rules
-
-Version increments are driven by the **spec changes**, not by line count or effort.
-
-```
-MAJOR.MINOR.PATCH
-
-MAJOR — Breaking contract change (field removed, type changed, endpoint renamed)
-MINOR — Additive contract change (new optional field, new endpoint, new event)
-PATCH — Non-contract change (bug fix within existing contract, perf, docs)
-```
-
-### Version Determination Workflow
-
-```
-1. List all spec changes in this release
-2. For each changed spec, classify the change (breaking / additive / patch)
-3. Apply the highest-severity classification to the release version
-4. If any spec is MAJOR → bump MAJOR, reset MINOR and PATCH to 0
-5. If highest is MINOR → bump MINOR, reset PATCH to 0
-6. If all are PATCH → bump PATCH only
-```
-
-### Breaking Change Definition (triggers MAJOR)
-
-A breaking change is any change that **requires existing clients to update**:
-
-- Removing a field from a response schema
-- Renaming a field in a request or response
-- Changing a field's type (string → number, optional → required)
-- Removing or renaming an endpoint
-- Changing an HTTP method for an existing endpoint
-- Changing authentication scheme
-- Removing an enum value that clients may have stored
-- Changing event payload structure in AsyncAPI specs
-
----
-
-## Changelog Format — Keep a Changelog Standard
-
-Every project maintains a `CHANGELOG.md` at the root with this structure:
-
-```markdown
-# Changelog
-
-All notable changes to this project will be documented in this file.
-Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
-Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
-
-## [Unreleased]
-<!-- Changes staged for next release. Updated with every merge to main. -->
-
-### Added
-- POST /users endpoint (spec: api-user-003, status: validated)
-
-### Changed
-- User.email field now requires RFC 5322 format (spec: schema-user-001 v1.3.0)
-
-### Deprecated
-- GET /users/search — use GET /users?q= instead. Sunset: 2025-01-01
-
-### Removed
-### Fixed
-### Security
-
----
-
-## [2.1.0] — 2024-03-20
-
-### Added
-- Order webhook events via AsyncAPI spec (spec: events-order-001)
-- Rate limiting headers on all endpoints (X-RateLimit-Limit, X-RateLimit-Remaining)
-
-### Changed
-- Order.status now uses enum values instead of free-form string
-
-### Fixed
-- Pagination cursor was not URL-safe (spec: api-order-002 patch)
-
-[2.1.0]: https://github.com/org/repo/compare/v2.0.0...v2.1.0
-```
-
-### Changelog Sections
-
-| Section | Use When |
-|---|---|
-| `Added` | New endpoints, fields, features, events — additive changes |
-| `Changed` | Modified behavior within existing contract |
-| `Deprecated` | Fields or endpoints marked for removal — include sunset date |
-| `Removed` | Previously deprecated items now removed |
-| `Fixed` | Bug fixes that do not change the contract |
-| `Security` | Vulnerability fixes, auth changes, CVE patches |
-
-**Always link to the relevant spec** in changelog entries: `(spec: api-user-003)`.
-
----
-
-## Release Process
-
-### Pre-Release Gate — Full Checklist
-
-```
-Release Readiness Gate
-
-Spec Status
-[ ] All specs referenced in this release are at status: validated
-[ ] SPEC-INDEX.md is up to date
-[ ] No spec debt items classified as Critical or High remain open
-[ ] Breaking changes are documented with migration guide
-
-Code Quality
-[ ] All conformance tests pass in CI
-[ ] Unit test coverage ≥ 80% on business logic
-[ ] Integration tests pass
-[ ] No open security vulnerabilities (npm audit / cargo audit / etc.)
-[ ] No linting errors
-[ ] Build is reproducible (lock files committed)
-
-Changelog & Versioning
-[ ] CHANGELOG.md [Unreleased] section is complete
-[ ] Version bump applied to package manifest (package.json, Cargo.toml, pyproject.toml, etc.)
-[ ] Git tag matches version
-[ ] [Unreleased] section renamed to [X.Y.Z] — YYYY-MM-DD
-[ ] Compare link added at bottom of CHANGELOG.md
-
-Documentation
-[ ] README.md reflects current version and usage
-[ ] API documentation regenerated from OpenAPI spec
-[ ] Migration guide written for any MAJOR version bump
-
-Deployment
-[ ] Staging environment validated
-[ ] Rollback plan documented
-[ ] Feature flags configured (if applicable)
-[ ] Database migrations tested (up and down)
-[ ] Dependent services notified of breaking changes
-```
-
-### Release Commit Convention
-
-```bash
-# Version bump commit
-git commit -m "chore(release): v2.1.0"
-
-# Tag the release
-git tag -a v2.1.0 -m "Release v2.1.0 — Order webhooks, rate limiting"
-
-# Never push without a complete changelog and passing CI
-```
-
----
-
-## Deprecation Protocol
-
-When deprecating a contract (field, endpoint, event):
-
-### Step 1 — Mark in Spec
+### Minimum Pipeline
 
 ```yaml
-# In OpenAPI spec
-/users/search:
-  get:
-    deprecated: true
-    description: |
-      DEPRECATED as of v2.1.0. Sunset date: 2025-01-01.
-      Use GET /users?q= instead.
-      Migration guide: docs/migration/v2.1.0.md
+# Stages (run in order)
+1. Install dependencies
+2. Spec lint (OpenAPI, JSON Schema validation)
+3. Spec conformance check (detect spec-to-code drift)
+4. Lint and format check
+5. Type check (if applicable)
+6. Conformance tests (spec-generated)
+7. Unit tests
+8. Build
+9. Integration tests (on PR/merge)
 ```
 
-### Step 2 — Add Response Header
+### Extended Pipeline (for production projects)
 
-```http
-Deprecation: true
-Sunset: Mon, 01 Jan 2025 00:00:00 GMT
-Link: <https://api.example.com/docs/migration/v2.1.0>; rel="deprecation"
+```yaml
+# Additional stages
+10. Contract tests (Pact / consumer-driven)
+11. Security scan (dependency audit, SAST)
+12. E2E tests from behavior specs (on merge to main)
+13. Docker image build
+14. Deploy to staging
+15. Smoke tests on staging (conformance subset)
+16. Deploy to production (manual trigger or auto)
 ```
 
-### Step 3 — Changelog Entry
+### Spec-Specific CI Steps
 
-```markdown
-### Deprecated
-- `GET /users/search` — deprecated in v2.1.0. Use `GET /users?q=` instead.
-  Sunset: 2025-01-01. See [migration guide](docs/migration/v2.1.0.md).
-```
+- **Spec lint**: validate OpenAPI with `spectral`, JSON Schema with `ajv`, AsyncAPI with `asyncapi-cli`.
+- **Spec drift detection**: compare generated types against spec schemas — fail if they diverge.
+- **Conformance tests**: run `dredd`/`prism`/`schemathesis` against the running API.
+- **Contract tests**: run `pact` tests to validate integration contracts.
+- **Spec change detection**: on PRs that modify `specs/`, require spec review approval.
 
-### Step 4 — Removal (at sunset date)
+## Deployment Strategy
 
-- Bump MAJOR version
-- Remove spec, code, and tests
-- Add entry to `### Removed` in CHANGELOG
-- Update migration guide with "migration period closed" note
+Choose based on risk tolerance:
 
----
+| Strategy | Risk | Downtime | Complexity |
+|----------|------|----------|------------|
+| **Rolling** | Medium | Zero | Low |
+| **Blue-Green** | Low | Zero | Medium |
+| **Canary** | Low | Zero | High |
+| **Recreate** | High | Yes | Very low |
 
-## Migration Guide Template
+## Environment Management
 
-For every MAJOR version bump, create `docs/migration/vX.0.0.md`:
+- Maintain at least 3 environments: development, staging, production.
+- Staging should mirror production as closely as possible.
+- Use environment variables for all environment-specific configuration.
+- Never use production data in development. Use seed data or anonymized copies.
+- Run conformance tests against staging before promoting to production.
 
-```markdown
-# Migration Guide — v[OLD] → v[NEW]
+## Infrastructure as Code
 
-## Summary of Breaking Changes
+- Define infrastructure with Terraform, Pulumi, CDK, or similar.
+- Version control all infrastructure definitions.
+- Use modules/stacks for reusable infrastructure components.
+- Apply least privilege to all service accounts and IAM roles.
 
-| Change | Old Behavior | New Behavior | Spec |
-|---|---|---|---|
-| `user.fullName` removed | String field | Use `user.firstName` + `user.lastName` | schema-user-001 v2.0.0 |
-| Auth scheme changed | Basic auth | Bearer JWT | api-auth-001 v2.0.0 |
+## Containerization
 
-## Migration Steps
+- Containerize all services for consistent deployment (see `specific-docker` rule).
+- Use multi-stage builds for smallest possible images.
+- Pin base image versions. Scan images for vulnerabilities.
+- Define health checks for all containers (matching the health endpoint contract).
+- Use docker-compose for local development, orchestrators for production.
 
-### 1. Update Authentication
+## Monitoring & Observability
 
-Before (v1.x):
-```http
-Authorization: Basic dXNlcjpwYXNz
-```
+### The Three Pillars
 
-After (v2.0):
-```http
-Authorization: Bearer <jwt-token>
-```
+1. **Logs**: structured JSON logs with correlation IDs. Centralize with ELK/Grafana Loki.
+2. **Metrics**: request rate, error rate, latency (RED). CPU, memory, disk (USE). Export to Prometheus/Datadog.
+3. **Traces**: distributed tracing for request flow across services. Use OpenTelemetry.
 
-Obtain JWT tokens from `POST /auth/token`.
+### SLO-Based Alerting (Spec-Driven)
 
-### 2. Update User Object Usage
+- Define SLOs in performance specs (p50/p95/p99 latency, error rate, availability).
+- Alert when SLI approaches the error budget defined in specs.
+- Alert on symptoms (high error rate, high latency), not causes.
+- Avoid alert fatigue — every alert should be actionable.
+- Establish on-call runbooks for common alerts.
 
-Before:
-```json
-{ "fullName": "John Doe" }
-```
+## Secrets Management
 
-After:
-```json
-{ "firstName": "John", "lastName": "Doe" }
-```
+- Never store secrets in code, config files, or environment variables in CI/CD config.
+- Use a secrets manager: Vault, AWS Secrets Manager, GCP Secret Manager, Azure Key Vault.
+- Rotate secrets on a schedule and after any breach.
+- Audit secret access logs regularly.
 
-## Timeline
+## Backup & Recovery
 
-| Date | Milestone |
-|---|---|
-| 2024-03-20 | v2.0.0 released, v1.x deprecated |
-| 2025-01-01 | v1.x sunset — endpoints return 410 Gone |
-```
-
----
-
-## Automated Changelog tooling
-
-Recommended tools aligned with conventional commits:
-
-```bash
-# Generate changelog from conventional commits
-npx conventional-changelog-cli -p angular -i CHANGELOG.md -s
-
-# Or with git-cliff (Rust-based, config-driven)
-git cliff --output CHANGELOG.md
-
-# Check for breaking changes between two versions
-npx @openapitools/openapi-diff old-spec.yaml new-spec.yaml
-```
-
-**CI integration**: Run OpenAPI diff on every PR that touches `specs/api/`. Block merge if breaking changes are detected without a MAJOR version bump.
-
----
-
-## Spec-Driven Release Notes
-
-Release notes are generated from the changelog, linking back to specs:
-
-```markdown
-## Release Notes — v2.1.0
-
-**Released**: 2024-03-20
-**Type**: Minor (non-breaking additions)
-
-### What's New
-
-**Order Webhooks** (spec: [events-order-001](specs/events/order.asyncapi.yaml))
-Subscribe to real-time order status updates via webhooks.
-Supported events: `order.created`, `order.fulfilled`, `order.cancelled`.
-
-**Rate Limiting** (spec: [api-order-002 v1.2.0](specs/api/order.openapi.yaml))
-All API endpoints now return rate limit headers to help clients implement backoff.
-
-### Full Changelog
-See [CHANGELOG.md](CHANGELOG.md#210---2024-03-20) for detailed changes.
-```
+- Automate database backups. Test restoration regularly.
+- Define RPO (Recovery Point Objective) and RTO (Recovery Time Objective) in specs.
+- Document and test the disaster recovery plan.
+- Keep backups in a different region/zone than production.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
