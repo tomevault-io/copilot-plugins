@@ -1,0 +1,44 @@
+{
+  "name": "costwise-mcp",
+  "owner": "okyashgajjar",
+  "repo": "costwise-mcp",
+  "description": "Local MCP server that helps coding agents stop re-reading the same code every turn. Repository intelligence, cache-write optimization, and long-term session memory. 100% local. No API keys.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/okyashgajjar/costwise-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T17:16:49Z"
+}
