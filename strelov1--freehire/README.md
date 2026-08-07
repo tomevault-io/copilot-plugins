@@ -7,11 +7,11 @@ freehire — the open-source search engine for job seekers
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [strelov1/freehire](https://github.com/strelov1/freehire).
+Original source: `AGENTS.md` in [strelov1/freehire](https://github.com/strelov1/freehire).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
