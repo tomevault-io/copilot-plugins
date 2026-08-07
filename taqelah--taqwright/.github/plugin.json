@@ -1,0 +1,9 @@
+{
+  "name": "taqelah--taqwright",
+  "displayName": "taqwright",
+  "description": "E2E mobile UI testing on the Playwright runner, with a flat locator API on top of Appium 3.",
+  "version": "1.0.0",
+  "author": "taqelah",
+  "homepage": "https://github.com/taqelah/taqwright",
+  "skills": []
+}
