@@ -1,64 +1,86 @@
-## specific-api-rest
+## specific-c
 
-> REST API design conventions — endpoints, responses, versioning
+> C coding standards — memory safety, defensive programming, portability
 
 
-# REST API Design
+# C Standards
 
-## URL Design
+## Memory Management
 
-- Use nouns for resources, not verbs: `/users`, not `/getUsers`.
-- Use plural nouns: `/users`, `/orders`, `/products`.
-- Nest for relationships: `/users/:id/orders`.
-- Use kebab-case for multi-word paths: `/order-items`.
-- Keep URLs shallow — max 2-3 levels of nesting.
+- Every `malloc`/`calloc`/`realloc` must have a corresponding `free`. No exceptions.
+- Always check the return value of allocation functions for `NULL`.
+- Set pointers to `NULL` after freeing to prevent use-after-free.
+- Prefer `calloc` over `malloc` — zero-initialization catches bugs early.
+- Use `sizeof(*ptr)` instead of `sizeof(Type)` for allocations to stay in sync with the type.
 
-## HTTP Methods
+```c
+// ✅ Safe allocation pattern
+int *buf = calloc(count, sizeof(*buf));
+if (!buf) {
+    return ERR_NOMEM;
+}
+// ... use buf ...
+free(buf);
+buf = NULL;
+```
 
-- `GET`: read (safe, idempotent). Never use GET for mutations.
-- `POST`: create a new resource. Return `201 Created` with the created resource.
-- `PUT`: full update (idempotent). Return `200 OK`.
-- `PATCH`: partial update. Return `200 OK`.
-- `DELETE`: remove. Return `204 No Content`.
+## Defensive Programming
 
-## Response Format
+- Check all function return values — especially I/O, system calls, and allocations.
+- Validate all pointer parameters at function entry. Return error codes for invalid input.
+- Use `const` liberally: `const` parameters, `const` pointers, `const` return types.
+- Prefer fixed-size integer types from `<stdint.h>` (`uint32_t`, `int64_t`) over `int`/`long`.
+- Guard against integer overflow in size calculations: check before multiplying.
 
-Use a consistent envelope:
+## Strings & Buffers
 
-```json
+- Always use bounded functions: `snprintf` over `sprintf`, `strncpy` over `strcpy`.
+- Always null-terminate strings explicitly after buffer operations.
+- Track buffer sizes alongside pointers — pass `(buf, buf_size)` pairs to functions.
+- Never use `gets()`. Use `fgets()` with explicit size limits.
+- Be aware of off-by-one errors in buffer size calculations.
+
+## Error Handling
+
+- Use return codes consistently: `0` for success, negative values for errors.
+- Define an `enum` for error codes with descriptive names.
+- Use a `goto cleanup` pattern for multi-resource functions to ensure proper cleanup.
+
+```c
+int process_file(const char *path)
 {
-  "data": { ... },
-  "meta": { "page": 1, "totalPages": 10, "totalCount": 95 }
+    int ret = 0;
+    FILE *fp = NULL;
+    char *buf = NULL;
+
+    fp = fopen(path, "r");
+    if (!fp) { ret = ERR_OPEN; goto cleanup; }
+
+    buf = malloc(BUF_SIZE);
+    if (!buf) { ret = ERR_NOMEM; goto cleanup; }
+
+    // ... process ...
+
+cleanup:
+    free(buf);
+    if (fp) fclose(fp);
+    return ret;
 }
 ```
 
-Error responses:
+## Headers & Organization
 
-```json
-{
-  "error": {
-    "code": "VALIDATION_ERROR",
-    "message": "Email is required",
-    "details": [{ "field": "email", "message": "must not be empty" }]
-  }
-}
-```
+- Use include guards in all headers: `#ifndef PROJECT_MODULE_H` / `#define` / `#endif`.
+- Expose only the public API in `.h` files. Use `static` for file-private functions.
+- One module = one `.c` + one `.h` pair. Keep interfaces minimal.
+- Include order: own header → project headers → system headers → third-party.
 
-## Status Codes
+## Portability & Safety
 
-- `200` OK — `201` Created — `204` No Content
-- `400` Bad Request — `401` Unauthorized — `403` Forbidden — `404` Not Found
-- `409` Conflict — `422` Unprocessable Entity — `429` Too Many Requests
-- `500` Internal Server Error
-
-## Best Practices
-
-- Version the API: `/api/v1/users` or via headers.
-- Paginate all list endpoints. Support `?page=1&limit=20` or cursor-based.
-- Support filtering (`?status=active`), sorting (`?sort=-createdAt`), and field selection.
-- Use `ETag` / `Last-Modified` for caching.
-- Document with OpenAPI/Swagger — keep the spec as the source of truth.
-- Rate limit all endpoints. Return `429` with `Retry-After` header.
+- Compile with `-Wall -Wextra -Werror` (GCC/Clang). Fix all warnings.
+- Run static analyzers (clang-tidy, cppcheck) and sanitizers (`-fsanitize=address,undefined`).
+- Avoid undefined behavior: no signed overflow, no out-of-bounds access, no uninitialized reads.
+- Use `static_assert` (C11) for compile-time invariants.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
