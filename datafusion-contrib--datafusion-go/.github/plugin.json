@@ -1,0 +1,9 @@
+{
+  "name": "datafusion-contrib--datafusion-go",
+  "displayName": "datafusion-go",
+  "description": "datafusion-go provides a database/sql driver for the datafusion query engine",
+  "version": "1.0.0",
+  "author": "datafusion-contrib",
+  "homepage": "https://github.com/datafusion-contrib/datafusion-go",
+  "skills": []
+}
