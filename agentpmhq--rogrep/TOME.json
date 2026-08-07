@@ -4,7 +4,7 @@
   "repo": "rogrep",
   "description": "rollout grep: local search, stats, and trajectory analysis over coding-agent sessions (Claude Code, Codex, Cursor, Grok, Hermes, opencode)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agentpmhq/rogrep",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-06T01:33:24Z"
+  "distributed_at": "2026-08-07T12:52:33Z"
 }
