@@ -1,0 +1,9 @@
+{
+  "name": "agent-deployment-co--argus",
+  "displayName": "argus",
+  "description": "Argus is a desktop app that helps find and fix wasted agent work. Local, free and open source. Focuses on business tasks, not code. Works with Claude Cowork / Chat / Code, ChatGPT Work and Codex.",
+  "version": "1.0.0",
+  "author": "Agent-Deployment-Co",
+  "homepage": "https://github.com/Agent-Deployment-Co/argus",
+  "skills": []
+}
