@@ -1,0 +1,44 @@
+{
+  "name": "marketing-machine",
+  "owner": "cagatayuncu",
+  "repo": "marketing-machine",
+  "description": "Claim-provenance and brand-compliance harness for marketing content: scans your codebase for product truth, lints copy against it, renders on-brand cards and video. Installs as a Claude Code plugin/skill, Cursor rule, or AGENTS.md section.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cagatayuncu/marketing-machine",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T09:03:08Z"
+}
