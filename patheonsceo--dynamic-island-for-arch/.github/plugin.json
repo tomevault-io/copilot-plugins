@@ -1,0 +1,9 @@
+{
+  "name": "patheonsceo--dynamic-island-for-arch",
+  "displayName": "Dynamic-island-for-arch",
+  "description": "macOS-style Dynamic Island desktop for Hyprland (Quickshell/QML on end-4) with live Claude Code agent status + Allow/Deny permission approval from the notch",
+  "version": "1.0.0",
+  "author": "patheonsceo",
+  "homepage": "https://github.com/patheonsceo/Dynamic-island-for-arch",
+  "skills": []
+}
