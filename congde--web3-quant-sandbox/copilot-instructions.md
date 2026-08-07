@@ -1,0 +1,65 @@
+## web3-quant-sandbox
+
+> ﻿# web3-quant-sandbox 项目说明
+
+﻿# web3-quant-sandbox 项目说明
+
+This repository is the companion workspace for a Codex delivery course. Treat
+course prose and the runnable Web3 research sandbox as one product: examples in
+`docs/v2/` must match the files and commands that actually exist.
+
+## Repository map
+
+- `docs/v2/`: publishable chapter drafts.
+- `src/`: runnable product code (backtest, research, strategy engine, web UI).
+- `data/`: fixed offline teaching samples.
+- `skills/`: reusable Codex skills taught by the course.
+- `docs/samples/`: small source artifacts used by non-code exercises.
+
+## Working rules
+
+- Do not recreate deleted legacy directories such as `app/`, `challenges/`,
+  `harness-kit/`, or `labs/`.
+- Product code belongs under `src/`, aligned with the web3-trading layout.
+- Public releases must not include private upstream checkouts or depend on files
+  outside this repository. Product code under `src/` must be independently
+  implemented or covered by explicit authorization.
+- When prose names a file or command, verify that it exists and works.
+- Prefer a small runnable example over a long hypothetical configuration.
+- Do not claim a command passed unless it was actually run.
+
+## Verification
+
+Run the project check while editing:
+
+```bash
+make verify
+```
+
+On Windows PowerShell:
+
+```powershell
+python scripts/course.py verify
+```
+
+Before finishing a repository-wide change, run:
+
+```bash
+make check
+```
+
+On Windows PowerShell:
+
+```powershell
+py scripts/course.py check
+```
+
+Regenerate Qbot-style teaching figures after editing plot scripts:
+
+```powershell
+py scripts/course.py teaching-plots
+```
+
+---
+> Source: [congde/web3-quant-sandbox](https://github.com/congde/web3-quant-sandbox) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-06 -->
