@@ -1,0 +1,9 @@
+{
+  "name": "mez-0--vulnify",
+  "displayName": "vulnify",
+  "description": "CVE ingestion + enrichment pipeline with an MCP server for AI agents.",
+  "version": "1.0.0",
+  "author": "mez-0",
+  "homepage": "https://github.com/mez-0/vulnify",
+  "skills": []
+}
