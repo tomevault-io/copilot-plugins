@@ -1,0 +1,9 @@
+{
+  "name": "javded-itres--holix",
+  "displayName": "Holix",
+  "description": "Helix is \u200b\u200ba powerful self-learning AI agent with memory, skills, and the ability to recall tools. It learns from successful tasks and creates reusable skills for the future.",
+  "version": "1.0.0",
+  "author": "javded-itres",
+  "homepage": "https://github.com/javded-itres/Holix",
+  "skills": []
+}
