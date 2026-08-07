@@ -4,7 +4,7 @@
   "repo": "SOGo6-UI",
   "description": "SOGo 6 UI is the Next.js web frontend of SOGo 6. SOGo 6 is a web application for mails, calendars and address books.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Alinto/SOGo6-UI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T19:36:45Z"
+  "distributed_at": "2026-08-07T10:46:14Z"
 }
