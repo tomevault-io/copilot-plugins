@@ -1,0 +1,9 @@
+{
+  "name": "matheuscamarques--pon-beam",
+  "displayName": "pon_beam",
+  "description": "PON-BEAM is a complete re-architecture of the Erlang/OTP Virtual Machine (ERTS \u2014 Erlang Run-Time System) using the Notification-Oriented Paradigm (PON)",
+  "version": "1.0.0",
+  "author": "matheuscamarques",
+  "homepage": "https://github.com/matheuscamarques/pon_beam",
+  "skills": []
+}
