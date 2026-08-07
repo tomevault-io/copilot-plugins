@@ -1,0 +1,9 @@
+{
+  "name": "aalejandrofer--grubdrops",
+  "displayName": "GrubDrops",
+  "description": "Self-hosted Twitch & Kick drops miner: multi-account, auto-claim, channel switching, web UI. AFK-farm timed drops on both platforms. Go + Docker.",
+  "version": "1.0.0",
+  "author": "aalejandrofer",
+  "homepage": "https://github.com/aalejandrofer/GrubDrops",
+  "skills": []
+}
