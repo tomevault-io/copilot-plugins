@@ -1,0 +1,9 @@
+{
+  "name": "geograms--aurora",
+  "displayName": "aurora",
+  "description": "Off-grid-first messenger and wapp launcher \u2014 messaging over APRS, Bluetooth LE and Reticulum, with a live map, social feed and content-addressed file sharing. Linux, Windows, macOS & Android.",
+  "version": "1.0.0",
+  "author": "geograms",
+  "homepage": "https://github.com/geograms/aurora",
+  "skills": []
+}
