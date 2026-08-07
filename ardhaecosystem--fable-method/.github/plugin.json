@@ -1,0 +1,9 @@
+{
+  "name": "ardhaecosystem--fable-method",
+  "displayName": "fable-method",
+  "description": "The Fable Method: a structured problem-solving loop that gives any model Fable 5 grade thinking. Four Hermes Agent skills (think/act/prove/grow) + adversarial eval.",
+  "version": "1.0.0",
+  "author": "ardhaecosystem",
+  "homepage": "https://github.com/ardhaecosystem/fable-method",
+  "skills": []
+}
