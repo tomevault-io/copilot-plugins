@@ -1,0 +1,9 @@
+{
+  "name": "mishabear94--iso-topology",
+  "displayName": "iso-topology",
+  "description": "Isometric architecture diagrams as code \u2014 text DSL in, design-grade 2.5D SVG out. Agent-first: LLMs can discover, generate, and validate the DSL.",
+  "version": "1.0.0",
+  "author": "MishaBear94",
+  "homepage": "https://github.com/MishaBear94/iso-topology",
+  "skills": []
+}
