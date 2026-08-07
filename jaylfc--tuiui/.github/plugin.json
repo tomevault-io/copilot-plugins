@@ -1,0 +1,9 @@
+{
+  "name": "jaylfc--tuiui",
+  "displayName": "tuiui",
+  "description": "tuiui \u2014 a window manager & desktop for your terminal: floating windows, a dock, an app launcher, and a mouse. Built in Rust.",
+  "version": "1.0.0",
+  "author": "jaylfc",
+  "homepage": "https://github.com/jaylfc/tuiui",
+  "skills": []
+}
