@@ -1,0 +1,9 @@
+{
+  "name": "kenryu42--pi-grok-cli",
+  "displayName": "pi-grok-cli",
+  "description": "Use your X Premium or SuperGrok subscription in pi\u2014with automatic vision routing for text-only models.",
+  "version": "1.0.0",
+  "author": "kenryu42",
+  "homepage": "https://github.com/kenryu42/pi-grok-cli",
+  "skills": []
+}
