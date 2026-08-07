@@ -1,98 +1,51 @@
-## global-security
+## global-solid-principles
 
-> Security best practices mapped to OWASP Top 10, security headers, rate limiting, and data classification
+> SOLID principles and design patterns for clean architecture
 
 
-# Security
+# SOLID Principles
 
-## The SDD Approach to Security
+## Single Responsibility (SRP)
 
-Security is a contract, not an afterthought. Secure by design means that security constraints (authentication, authorized roles, rate limits) are explicitly defined in the OpenAPI and JSON Schema specs.
+- Each module/class/function should have one reason to change.
+- If you describe what a class does and use "and", it probably does too much.
+- Extract distinct responsibilities into separate units.
 
-## OWASP Top 10 2025 Mapping & Mitigations
+## Open/Closed (OCP)
 
-### 1. Broken Access Control (IDOR)
-- **Vulnerability**: A user can access another user's data by guessing their ID.
-- **Spec Rule**: Define precise authorization policies per endpoint.
-- **Code Rule**: Validate resource ownership on *every* access. Never rely on hidden UI elements.
-  ```typescript
-  // BAD: Accessing without checking ownership
-  const order = await db.orders.find(req.params.id);
+- Open for extension, closed for modification.
+- Use interfaces, strategy pattern, or composition to extend behavior without modifying existing code.
+- Prefer adding new code over changing existing working code.
 
-  // GOOD: Always scoping by the authenticated user's ID
-  const order = await db.orders.find({ id: req.params.id, userId: req.user.id });
-  ```
+## Liskov Substitution (LSP)
 
-### 2. Cryptographic Failures
-- **Vulnerability**: Exposing sensitive data in transit or at rest.
-- **Code Rule**: Always use HTTPS. Encrypt sensitive fields (PII, SSN, tokens) at rest using a strong cipher (AES-256-GCM). Hash passwords with Argon2, scrypt, or bcrypt (min work factor 12).
-- **Code Rule**: Never write your own crypto. Use standard library or libsodium.
+- Subtypes must be substitutable for their base types without breaking correctness.
+- Don't override methods in ways that violate the base contract.
+- Prefer composition over inheritance when behavior diverges.
 
-### 3. Injection (SQL, NoSQL, OS Command)
-- **Vulnerability**: Untrusted data is sent to an interpreter as part of a command.
-- **Code Rule**: Parameterize *all* queries. Use an ORM/query builder that parameterizes automatically.
-- **Code Rule**: Never safely interpolate user strings into native SQL: `WHERE email = '${userInput}'`.
+## Interface Segregation (ISP)
 
-### 4. Insecure Design
-- **Code Rule**: Threat model before writing code. Enunciate the boundaries of trust. Fall back to secure defaults (Deny-by-Default).
+- Don't force clients to depend on methods they don't use.
+- Split large interfaces into smaller, focused ones.
+- A class implementing an interface should use all its methods.
 
-### 5. Security Misconfiguration
-- **Vulnerability**: Unnecessary features are enabled, default passwords kept, verbose error messages leaked.
-- **Code Rule**: Ensure production environments strip stack traces from errors (see `global-error-handling`). Disable directory listing. Configure CORS restrictively.
+## Dependency Inversion (DIP)
 
-### 6. Vulnerable and Outdated Components
-- **Code Rule**: Run `npm audit`/`pnpm audit`/`cargo audit` in CI. Pin dependencies via lockfiles. Upgrade aggressively.
+- High-level modules should not depend on low-level modules. Both should depend on abstractions.
+- Inject dependencies via constructor/parameters — don't instantiate them internally.
+- Use dependency injection for external services (DB, API clients, file system).
 
-### 7. Identification and Authentication Failures
-- **Vulnerability**: Session fixation, weak passwords, missing MFA.
-- **Code Rule**: Enforce strong password complexity. Throttle login attempts (prevent brute force). Use secure, HTTPOnly, SameSite=Strict cookies for session management (never `localStorage` for sensitive tokens unless mitigated against XSS).
+## DRY (Don't Repeat Yourself)
 
-### 8. Software and Data Integrity Failures
-- **Vulnerability**: CI/CD pipeline compromise, missing package signatures, insecure deserialization.
-- **Code Rule**: Verity checksums. Avoid `eval()`, `pickle.loads()`, or YAML's `unsafe_load()`.
+- Extract duplicated logic into shared functions/modules.
+- But avoid premature DRY — wait for 3 occurrences before abstracting (Rule of Three).
+- Shared code should represent the **same concept**, not just similar-looking code.
 
-### 9. Security Logging and Monitoring Failures
-- **Vulnerability**: Breaches go undetected for months.
-- **Code Rule**: Log all authentication events, authorization failures, and critical data changes. Add alerting triggers (see `core-observability`).
+## KISS & YAGNI
 
-### 10. Server-Side Request Forgery (SSRF)
-- **Vulnerability**: The server fetches a URL submitted by a user without validating the destination.
-- **Code Rule**: If fetching external URLs is required, use an allowlist of domains. Block internal IP addresses (e.g., 169.254.169.254, 127.0.0.1, 10.x.x.x).
-
-## Security Headers
-
-All web responses must include these headers:
-
-- `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload` (HSTS)
-- `X-Content-Type-Options: nosniff`
-- `X-Frame-Options: DENY` (or `SAMEORIGIN`)
-- `Content-Security-Policy`: Restrict scripts, styles, fonts, and iframes to trusted origins. Default to `default-src 'self'`.
-- `X-XSS-Protection: 1; mode=block` (Legacy, but good to keep)
-
-## Rate Limiting
-
-Define rate limits in the API Spec and enforce them at the API Gateway or Application layer.
-
-- Limit per User IP or Bearer Token.
-- Distinguish between standard API endpoints (e.g., 100/min) and sensitive endpoints (e.g., `/login` → 5/min).
-- Include standard `RateLimit` headers in responses (`RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`).
-- Return `429 Too Many Requests` when limits are exceeded.
-
-## Data Classification
-
-Annotate your JSON Schemas or code models with data classification tags to prevent accidental leakage.
-
-1. **Public**: Intended for public consumption (e.g., marketing copy, blog posts).
-2. **Internal**: Default for standard operational data (e.g., system logs without PII).
-3. **Confidential**: Personally Identifiable Information (PII) — names, emails, order histories. Requires authorization to access. Must NOT appear in standard logs.
-4. **Restricted**: Highly sensitive data — passwords, SSNs, credit card numbers. Must be encrypted at rest and in transit.
-
-## Secrets Management
-
-- **NEVER** commit secrets to version control. Add `.env` to `.gitignore`.
-- Use an external Secrets Manager (AWS Secrets Manager, HashiCorp Vault, Azure Key Vault) in staging/production.
-- Rotate secrets systematically.
-- Scan repositories for leaked secrets using `git-secrets` or TruffleHog in the CI pipeline.
+- **KISS**: Choose the simplest solution that meets requirements.
+- **YAGNI**: Don't build features or abstractions you don't need yet.
+- Refactor toward patterns when complexity demands it, not before.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
