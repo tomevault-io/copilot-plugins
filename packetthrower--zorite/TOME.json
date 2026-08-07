@@ -4,7 +4,7 @@
   "repo": "zorite",
   "description": "Local-first, Logseq-style daily journal. Rust + GPUI + SQLite, with a custom gpui-markdown renderer and PDF viewer, custom gpui-whiteboard, (clickable wiki-links, tags, slash menu).",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/packetThrower/zorite",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T07:09:43Z"
+  "distributed_at": "2026-08-07T17:14:15Z"
 }
