@@ -1,0 +1,44 @@
+{
+  "name": "safe_wallet",
+  "owner": "ascenx",
+  "repo": "safe_wallet",
+  "description": "A security-focused, self-custodial multichain mobile wallet for Android and iOS, built with Flutter.   Supports EVM, Bitcoin, TRON, Solana, Sui, dApps, and WalletConnect.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ascenx/safe_wallet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T19:22:41Z"
+}
