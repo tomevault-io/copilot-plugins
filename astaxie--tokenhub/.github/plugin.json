@@ -1,0 +1,9 @@
+{
+  "name": "astaxie--tokenhub",
+  "displayName": "TokenHub",
+  "description": "TokenHub gives enterprises a private gateway to unify AI model access and governance, making every request controllable, traceable, and attributable.",
+  "version": "1.0.0",
+  "author": "astaxie",
+  "homepage": "https://github.com/astaxie/TokenHub",
+  "skills": []
+}
