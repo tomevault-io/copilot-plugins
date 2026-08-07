@@ -1,0 +1,9 @@
+{
+  "name": "rivet-dev--jj-forklift",
+  "displayName": "jj-forklift",
+  "description": "jj-native stacked PR workflow tool",
+  "version": "1.0.0",
+  "author": "rivet-dev",
+  "homepage": "https://github.com/rivet-dev/jj-forklift",
+  "skills": []
+}
