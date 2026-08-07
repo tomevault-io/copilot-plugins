@@ -1,0 +1,9 @@
+{
+  "name": "oncologylab--fp-tools",
+  "displayName": "fp-tools",
+  "description": "Command-first ATAC-seq footprinting, motif analysis, and reproducible interactive reports",
+  "version": "1.0.0",
+  "author": "oncologylab",
+  "homepage": "https://github.com/oncologylab/fp-tools",
+  "skills": []
+}
