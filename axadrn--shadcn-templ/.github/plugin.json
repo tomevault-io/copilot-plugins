@@ -1,0 +1,9 @@
+{
+  "name": "axadrn--shadcn-templ",
+  "displayName": "shadcn-templ",
+  "description": "A set of beautifully-designed, accessible components and a code distribution platform. Works with Go and templ. Open Source. Open Code.",
+  "version": "1.0.0",
+  "author": "axadrn",
+  "homepage": "https://github.com/axadrn/shadcn-templ",
+  "skills": []
+}
