@@ -7,11 +7,11 @@ A Shell Extension Suite for Omarchy
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [OldJobobo/lacuna-shell](https://github.com/OldJobobo/lacuna-shell).
+Original source: `AGENTS.md` in [OldJobobo/lacuna-shell](https://github.com/OldJobobo/lacuna-shell).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
