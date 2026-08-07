@@ -4,7 +4,7 @@
   "repo": "Roster",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhiming-dev/Roster",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-06T04:34:39Z"
+  "distributed_at": "2026-08-07T13:02:27Z"
 }
