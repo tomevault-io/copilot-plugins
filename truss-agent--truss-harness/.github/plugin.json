@@ -1,0 +1,9 @@
+{
+  "name": "truss-agent--truss-harness",
+  "displayName": "truss-harness",
+  "description": "A modular coding-agent runtime for local models with a CLI, full-screen TUI, VS Code extension, and desktop app built on the same tools, safeguards, and workspace state.",
+  "version": "1.0.0",
+  "author": "truss-agent",
+  "homepage": "https://github.com/truss-agent/truss-harness",
+  "skills": []
+}
