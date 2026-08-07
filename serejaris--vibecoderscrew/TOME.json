@@ -4,7 +4,7 @@
   "repo": "vibecoderscrew",
   "description": "VibecodersCrew \u2014 local AI agent workspace with OpenAI Codex support. Independent community product based on Kiro Crew (Apache-2.0). Not affiliated with Amazon or OpenAI.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/serejaris/vibecoderscrew",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T16:33:19Z"
+  "distributed_at": "2026-08-07T19:31:50Z"
 }
