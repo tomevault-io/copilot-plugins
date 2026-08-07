@@ -4,7 +4,7 @@
   "repo": "mectrics",
   "description": "A lightweight, private system monitor that lives in your macOS menu bar. CPU, memory, battery, network, disk, GPU, temperature, fans. Zero telemetry.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/farukkamcici/mectrics",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T21:34:48Z"
+  "distributed_at": "2026-08-07T01:21:34Z"
 }
