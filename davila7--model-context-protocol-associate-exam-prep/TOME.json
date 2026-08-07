@@ -4,7 +4,7 @@
   "repo": "model_context_protocol_associate_exam_prep",
   "description": "MCPA Exam Prep - Linux Foundation Global Certification",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/davila7/model_context_protocol_associate_exam_prep",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T00:17:44Z"
+  "distributed_at": "2026-08-07T09:41:47Z"
 }
