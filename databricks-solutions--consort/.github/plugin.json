@@ -1,0 +1,9 @@
+{
+  "name": "databricks-solutions--consort",
+  "displayName": "consort",
+  "description": "Consort keeps AI-written code clean and correct: a coordinated ensemble of role agents, spec-first and test-driven, driven by a deterministic state machine against live branches of a real Lakebase dat",
+  "version": "1.0.0",
+  "author": "databricks-solutions",
+  "homepage": "https://github.com/databricks-solutions/consort",
+  "skills": []
+}
