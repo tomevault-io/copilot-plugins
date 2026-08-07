@@ -4,7 +4,7 @@
   "repo": "AgentBridge",
   "description": "AgentBridge is a self-hosted, AI-readable foundation for Vibe Coding business tools. It lets an AI and your developers write the business-specific domain and tools, while the platform owns the difficult shared behavior: JSON/SSE , session lifecycle, permissions, approvals, audit, and RAG ports.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Foamtor/AgentBridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T00:20:58Z"
+  "distributed_at": "2026-08-07T10:31:31Z"
 }
