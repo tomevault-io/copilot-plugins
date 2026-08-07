@@ -1,0 +1,9 @@
+{
+  "name": "ankitcharolia--kiro-gateway",
+  "displayName": "kiro-gateway",
+  "description": "\ud83d\udc7b ACP Compliant gateway for Kiro IDE & CLI (Amazon Q Developer / AWS CodeWhisperer). Works with any AI Harness.",
+  "version": "1.0.0",
+  "author": "ankitcharolia",
+  "homepage": "https://github.com/ankitcharolia/kiro-gateway",
+  "skills": []
+}
