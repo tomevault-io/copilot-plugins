@@ -4,7 +4,7 @@
   "repo": "warbell",
   "description": "Action-RPG: a Bevy 0.19 / Rust  game \u2014 town-building, night sieges, upgrades, bloodline succession",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/miskibin/warbell",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T01:29:57Z"
+  "distributed_at": "2026-08-07T14:44:06Z"
 }
