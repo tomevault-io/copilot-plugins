@@ -1,0 +1,9 @@
+{
+  "name": "youngfor-shoot--codex-agent-team",
+  "displayName": "codex-agent-team",
+  "description": "Codex Skill for choosing and coordinating the smallest safe Agent setup.",
+  "version": "1.0.0",
+  "author": "youngfor-shoot",
+  "homepage": "https://github.com/youngfor-shoot/codex-agent-team",
+  "skills": []
+}
