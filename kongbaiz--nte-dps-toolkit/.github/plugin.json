@@ -1,0 +1,9 @@
+{
+  "name": "kongbaiz--nte-dps-toolkit",
+  "displayName": "nte-dps-toolkit",
+  "description": "NTE DPS Toolkit - Open-source utility for DPS analysis, testing, automation and performance workflows.         NTE DPS Toolkit \u2014\u2014 \u7528\u4e8e DPS \u5206\u6790\u3001\u6d4b\u8bd5\u3001\u81ea\u52a8\u5316\u53ca\u6027\u80fd\u5de5\u4f5c\u6d41\u7684\u5f00\u6e90\u5de5\u5177\u3002",
+  "version": "1.0.0",
+  "author": "kongbaiz",
+  "homepage": "https://github.com/kongbaiz/nte-dps-toolkit",
+  "skills": []
+}
