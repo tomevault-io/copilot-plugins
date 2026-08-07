@@ -4,7 +4,7 @@
   "repo": "thinkroom",
   "description": "Thinkroom \u2014 where deeper thinking compounds. Try it free at https://thinkroom.kieranklaassen.com",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kieranklaassen/thinkroom",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T07:16:43Z"
+  "distributed_at": "2026-08-07T17:16:20Z"
 }
