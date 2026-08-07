@@ -1,0 +1,9 @@
+{
+  "name": "yyjeqhc--webcodex",
+  "displayName": "webcodex",
+  "description": "Self-hosted runtime for exposing controlled project tools to ChatGPT GPT Actions and MCP clients.",
+  "version": "1.0.0",
+  "author": "yyjeqhc",
+  "homepage": "https://github.com/yyjeqhc/webcodex",
+  "skills": []
+}
