@@ -1,0 +1,134 @@
+## wx-kit
+
+> > 本文件是 wx-kit 项目对所有 AI 编码 agent 的权威指南（CLAUDE.md 软链到此）。
+
+# wx-kit — Agent 指南
+
+> 本文件是 wx-kit 项目对所有 AI 编码 agent 的权威指南（CLAUDE.md 软链到此）。
+> 它是稳定的「宪法」——只放决策、不变量、陷阱，**不放易变的进度状态**。
+> 新开会话续接项目时，先读这里；**当前进度/路线图看 `ROADMAP.md`**，实现细节看 `docs/`。
+
+## 是什么
+微信百宝箱桌面应用。第一阶段只做"文章下载器"：把微信公众号文章下载为多种格式并在应用内浏览，同时提供 CLI 供 AI agent 调用。单进程 Electron，双启动模式：GUI 与 CLI。
+
+后续是可扩展的"百宝箱"，但**当前不预造空模块**（YAGNI）。
+
+本项目脱胎于技术探索原型 `../trae/x-downloader`（PyQt→Electron 迁移的遗留物），产品化时做了几个**已定的不可回退决策**。
+
+---
+
+## 已定关键决策（勿回退，2026-06 安哥确认）
+- **弃用代理模式**：原型用 AnyProxy 做全局 HTTPS MITM 拦截 PC 微信流量，装根证书、改系统代理，脆弱且有还原风险。**不要重新引入代理抓取。**
+- **纯 Node/Electron，无 Python 边车**：原型的 FastAPI + Playwright + PyInstaller 是 PyQt 时代遗留。**不要重新引入 Python / 独立 chromium / 数据库**——单一语言、单进程、单二进制。
+- **双启动模式服务于 AI agent**：CLI 输出纯 JSON 就是为了让 agent 通过 skill 调用，这是产品定位的一部分。
+- **第一阶段不做授权/激活系统**：开箱即用，不加付费门槛。后续要商业化再单独议（`electron/main.ts` 当前无 license 校验）。
+
+---
+
+## 工作流约定（每个里程碑）
+1. 先 `docs/plans/YYYY-MM-DD-<里程碑>.md` 写实现计划（参照 M1/M2 的规格：bite-sized 步骤、TDD、确切代码）。
+2. 就地开 feature 分支实现（`feat/<里程碑>`），完成后合回 main、删分支。
+3. 纯逻辑 TDD；依赖网络/Electron 的部分注入依赖 + 端到端验证。
+4. 改完跑 `npm test`、`npm run lint`、`npx tsc --noEmit -p tsconfig.json`。
+5. **完成一个相对独立的功能即自动收尾，无需询问**：验证通过后，若开了 feature 分支，默认合回 main 并删分支；commit 一律自动执行（message 用英文、描述变更意图）。此为本项目长期授权，覆盖「commit 前先问」的默认。**唯 `git push` 仍手动，等安哥发话**（跨设备同步用）。
+6. **每完成一个里程碑，更新 `docs/devlog/wx-kit-vibe-coding.md`**：把该里程碑的流程/决策/踩坑/方法论增补进复盘，保持其为活文档。
+7. **CLI 命令/参数/输出结构变更时，同步刷新 `agent/wx-kit-skill/`**（SKILL.md 速查表 + references 的命令参考与范例）——skill 是 agent 消费的说明书，漂移即失效（类比「发版刷 README」）。
+
+### 发版规约（统一，勿再不一致）
+发版只走一条路：**feat 分支 → 合 main → 在 main 打 annotated tag `vX.Y.Z` → 建 GitHub Release**。
+- **不单开 `release/*` 分支**——版本的不可变快照由 **tag** 锁定（分支会漂移、tag 不会）。历史上的 `release/v0.2.0` 是早期不一致的遗留，已删。
+- 步骤：① `package.json` + `package-lock.json` 根包 version bump（只改 version 行，别让工具重排 build 配置）；② `docs/releases/vX.Y.Z.md` 写发布说明；③ 重新 `npm run build` + `npm run package:win` 出包（走国内镜像，见下方网络规约）；④ **真实启动打包后的 .app 验证**（undici external 站得住）；⑤ **同步刷新 `README.md` 的版本相关处**（状态徽章、最新版本号、安装包文件名、项目状态/里程碑段——发版不刷 README 会漂，见 devlog §16/§20）。其中「这是什么」一节的版本亮点段**只保留最新版本、替换不追加**——旧版本亮点随发版删除,历史归「项目状态」与 ROADMAP 发布史（曾追加式维护堆出 7 版重复,2026-07-17 安哥指出后清理）；⑥ commit、合 main、打 tag。
+- **`gh release create` 中途别被中断**——它是「先建草稿 → 传附件 → 最后才 publish」，杀在中途会留下未发布的 Draft（外部不可见）。若已成 Draft，用 `gh release edit vX.Y.Z --draft=false --latest` 补发布。
+- **`gh` 命令与 `git push`/tag 推送一律 unset 代理直连**（见网络规约：8118 代理传 github 大文件会卡死）。大包上传慢/断时，逐个 `gh release upload vX.Y.Z <file> --clobber`。
+### 发版完成的定义（v0.6.0 起）
+
+**必做渠道 = GitHub Release + brew tap**，两者全部上线并逐一核实才算发版完成，缺一不得汇报「发版完成」。**npm 为可选渠道**：默认不发,仅当安哥明确说「发布到 npm」时执行(npm 官方仓库的版本落后于 GitHub/brew 是预期状态,不算异常)。
+
+| 渠道 | 必/选 | 上线动作（接上面步骤编号） | 核实动作 |
+|---|---|---|---|
+| GitHub Release | 必 | `gh release create` + 逐个 upload 三平台包 | `gh release view`（isDraft:false、标 Latest）+ 资产大小与本地逐字节比对 |
+| brew tap | 必 | ⑦ `scripts/update-brew-tap.sh <version>`（sha256 取自 **GitHub API 的资产 digest**，零下载） | ⑧ `scripts/verify-brew-tap.sh <version>` —— **零下载**核实：cask 语法/version、两个 dmg 的 sha256 与 url 逐一对上已发布资产、`brew info --cask` 报告的版本。约 7 秒 |
+| npm `@simiam/wx-kit` | **选**（安哥点名才发） | `node scripts/build-npm-pkg.mjs && cd dist-npm && npm publish`。**publish 须安哥终端执行**——需登录 + 浏览器二次认证，agent 的非交互 shell 做不了：agent 备好 dist-npm 后停下,把这条命令交给安哥 | `npm view @simiam/wx-kit version --registry=https://registry.npmjs.org`（view 会走镜像，核实要显式指官方源；可见延迟约 1–2 分钟），再从官方 registry 隔离 prefix 干净安装跑 `--version` |
+
+npm 包名与配置背景：无 scope 的 `wx-kit` 被 npm 相似度保护拒绝（与既有包 `wxkit` 太像），故用 `@simiam/wx-kit`，**bin 命令名不变仍是 `wx-kit`**；生成的 package.json 内置 `publishConfig`（官方 registry + access public）——publish 自动直发官方源，**不受也不用改 `~/.npmrc` 的国内镜像**，flag 都不用带。
+
+**brew tap 陷阱清单（v0.6.0 实录）**：① tap 是**本地 clone**——推送 tap 更新后，本机（和任何用户机）在 `brew update`（或对 tap clone `git pull`）前读到的仍是旧 cask，安哥曾据此装到旧版 + 旧 caveats。② Homebrew 5 已移除 `--no-quarantine`，且实测 quarantine 对未签名 app **连纯 CLI 都拦**（Gatekeeper 拦在 exec，进程挂起无输出）——装完必须 `xattr -cr`，勿回退成「仅 GUI 受影响」。③ 安装名是三段 `monkeychen/wx-kit/wx-kit`（用户/tap/包）；tap 过一次后短名 `brew install --cask wx-kit` 即可。④ 改安装说明时落点有四处：README、`agent/wx-kit-skill/SKILL.md`、cask caveats（update-brew-tap.sh 内嵌模板）、tap 仓库 README（独立仓库，脚本不管，要手动同步——曾漏改留过期文案）。⑤ **本地 tap clone 的 remote 是 https，本机 https 直连 github 会超时**（push 走 ssh 反而稳）——刷新本地 tap 用 `git -C "$(brew --repository monkeychen/wx-kit)" fetch git@github.com:monkeychen/homebrew-wx-kit.git main && git ... reset --hard FETCH_HEAD`，别死磕 `brew update`/`git pull`（v0.8.0 实录）。⑥ **别为了核实去重装一遍**：那个 dmg 就是我们自己上传的，拉回来要 139MB/20 分钟（v0.8.1 实测，国内直连约 100KB/s）。cask 每版只变 version + sha256，安装行为由模板固定；**要核实的是「cask 元数据是否指向正确的已发布资产」，这件事零下载可做**（`scripts/verify-brew-tap.sh`，靠 GitHub API 的 `.assets[].digest`）；**app 自身的行为用本地 build 产物验**，不必绕道 GitHub。仅两种情况才真装一遍：首次引入 cask、或改了安装结构（app 名/装载路径/caveats）。⑦ 真要装时用 `brew upgrade --cask wx-kit` 升主安装，别用 `--appdir=<临时目录>` 隔离——它会卸掉 `/Applications` 的主安装并把 appdir 记进 Caskroom（v0.7.0 踩过，收拾麻烦）。⑧ **`gh release download` 在国内直连会卡死**（v0.7.0/v0.8.0 连踩两次）——凡是「要拿已发布资产的哈希」，一律走 `gh api .../releases/tags/vX.Y.Z -q '.assets[].digest'`，别下载。
+
+## 结构约定
+- `src/core/`：UI 无关核心层，被 GUI（IPC）与 CLI 共享。**不得 import React/renderer/electron 运行时**（types 可以；electron 仅以注入的 BrowserWindow 构造器形式出现）。
+- `electron/`：主进程。`main.ts` 模式分流；`ipc.ts` IPC 处理器（薄委派）；`preload.ts` contextBridge；`protocol.ts` wxfile 协议；`services/` 主进程服务。
+- `src/cli/`：命令行入口，输出契约见 PRD §F4（stdout 纯 JSON，stderr 进度，退出码 0/1/2）。
+- `src/renderer/`：React 界面，只经 `window.api`（见 `src/renderer/api.ts`）调用能力，**绝不直接 import core**。
+- `tests/`：`tests/core`、`tests/electron` 镜像源码的 vitest 单测；`tests/fixtures` 放样本；`tests/e2e/gui.e2e.mjs` 是 Playwright Electron 端到端。
+
+## 沟通语言（强约束）
+- **与用户的所有交流一律用中文**——回答、解释、提问、进度报告、方案对比，全程中文。
+- 标识符（变量/函数/类型/文件名）、commit message、PR 描述用英文。
+- **代码注释以中文为主**——与全库既成风格一致（match surrounding code），不强制英文。
+
+## 命名/格式
+- 文件 kebab-case，类型 PascalCase，函数/变量 camelCase。
+- 密钥/token 不进代码。不为跑通而注释报错，找根因。
+
+---
+
+## 常用命令
+```bash
+npm install            # 安装依赖（Node 20+）
+npm run dev            # 启动 GUI 开发模式（vite + electron）
+npm test               # 跑 vitest 单测（纯逻辑，CI 友好）
+npm run test:e2e       # 构建 + Playwright 驱动真实 Electron 跑 GUI 全流程
+npm run lint           # eslint
+npx tsc --noEmit -p tsconfig.json   # 类型检查
+npm run build          # vite build + electron-builder（出安装包）
+
+# CLI（与 GUI 同一二进制，带子命令即进 CLI 模式）：
+npx electron . download --url "https://mp.weixin.qq.com/s/XXX" --formats md,html,pdf,meta --out <dir>
+```
+
+---
+
+## 关键约束与已知陷阱（容易重踩，务必注意）
+- **微信频控**：批量抓取默认串行 + 随机延迟（PRD §9）。已删除文章会返回 HTTP 200 错误页 → 用"解析后标题为空即视为无效文章"判定失败（见 `src/core/download-article.ts`）。
+- **文章库**：默认在用户文档目录下（`~/Documents/wx-kit`），可在设置改。文件系统存储 + `library.json` 索引，不用数据库。
+- **构建：undici 必须 external**（`vite.config.ts`）。cheerio 依赖 undici，其 sqlite-cache-store 静态 `require('node:sqlite')`，Electron 当前内置的 Node 没有该模块（Electron 42 仍如此），打进 bundle 会导致主进程加载即崩溃。我们只用 `cheerio.load`，故 external 让它惰性、永不加载。
+- **CLI 模式必须注册 no-op `window-all-closed`**（`electron/main.ts`）：否则 PDF 用的离屏 BrowserWindow 关闭会触发 Electron 默认自动退出，截断流程。
+- **文章列表只能用 `cgi-bin/appmsgpublish`,别换回 `cgi-bin/appmsg?type=9`**(v0.8.2 R4 实录)：后者拉的是「图文素材」,**只返回 `item_show_type=0`**——实测某号 appmsg 给 370 篇/最新卡在 2026-07-17,appmsgpublish 给 770 篇/最新 07-25,文字消息(10)与视频消息(5)全在里面。旧接口没有「取全部类型」的开关(`type` 换任何值都 `ret=200002`)。**后果不只是批量少几篇:订阅检查共用 `fetchPage`,曾长期静默漏检整类消息而检查记录显示「无新文章」**。新接口是三层嵌套(`publish_page` → `publish_list[].publish_info` → `appmsgex[]`,中间两层是 JSON 字符串),且 **`begin`/`count` 按「群发组」计不是文章数**,游标必须按组数推进。
+- **文章被拒之后,列表接口不再有任何标记**(v0.8.3 R1 实测,别再花时间找):`checking` 只在**审核期间**为 1,
+  审核结束后无论通过与否都归零——实测同两篇文章昨天 `checking:1`、今天 `checking:0`,而页面始终打不开
+  (「此内容发送失败无法查看…涉嫌违规」)。把 6 篇的每个字段(含嵌套)做过集合对比,
+  连最可能藏标记的 `sent_info` 都完全一致;**唯一相关的是 `line_info.line_count`**(打不开的为 0),
+  但它会误伤视频消息(天然没有正文行数却能下),**是启发式不是状态标记,已决定不用**——
+  误滤是静默的、代价远高于明确失败。所以:列表阶段过滤 `is_deleted`/`checking`/`ban_flag`(滤掉审核期间的),
+  **下载阶段靠错误页特征认出来**(`ArticleUnavailableError`),并把「读者本就打不开」与「下载故障」
+  在汇总里分成两类——混在一起会让用户以为工具坏了。
+- **文章 id 是 `mid_idx`(不含 `sn`),跨 URL 形态要靠 `canonicalId` 匹配**：同一篇文章后台列表给短链 `s/XXXX`、分享/旧接口给长链 `s?__biz=..&mid=..&idx=..&sn=..`,**光看 URL 认不出是同一篇**(换接口后重复下载的根因)。所以:① 判重用列表已给的 `appmsgid`/`itemidx`(= mid/idx),经 `DownloadQueue`(可接受 ref)透传到 `downloadArticle`;② `sn` 是防伪/追踪参数、同一篇在不同分享链接里会变,**含它会把一篇拆成两篇**;③ `Library.get/has` 按 `canonicalId` 比,让老库的 `mid_idx_sn` 与新的 `mid_idx` 认作同一篇(不必迁移 library.json);④ **`Library.remove` 保持字面匹配**——删除必须精确,canonical 会误删同篇的另一条。⑤ **不能按标题去重**:真实库里有周更同名但 mid 不同的不同文章。
+- **解析按 `item_show_type` 分发,不要用 `appmsg_type`**：两者**正交**——实测 `appmsg_type=10002` 出现在一篇**没有视频**的文字消息上,它不表示「有视频」。已知 `item_show_type`:`0` 图文 / `5` 视频消息 / `8` 图文消息(小绿书) / `10` 文字消息 / `11` 发布通告,**且是开放集合**。**未知类型必须走兜底 + 进 `warnings[]`**:旧的启发式链(`#js_content` 非空就当正文)对没见过的类型永远不报错,视频页的 `#js_content` 是分享提示壳,曾让 21.8 万字符内联 JS 当正文一路绿灯。告警条件要窄(读不到类型但正文正常时不报)——噪音多了告警会被无视。
+- **视频是内容不是格式**：`DownloadFormat` 里没有 video,有视频就下(和图片一样),由设置 `downloadVideos`(默认开)+ CLI `--no-video` 控制。直链带 `auth_key`/`dis_t` **有时效**,必须在解析同一次流程内下完、**URL 绝不入库**。择清晰度按 `width × height`,**`format_id` 数值与画质无关**(实测 `f10002`=1572×1080/133MB 最高清,`f10104`=480×328/12.9MB 最低)。`video_page_info: {}` / `mp_video_trans_info: []` 是**所有文章页都有的空壳**,判有无视频要看数组内容。
+- **超时按资源体量分档,别用一个常数**：页面 60 秒(视频消息页实测 2.4MB,20 秒等于要求 120KB/s,曾偶发整篇失败)、图片 30 秒(**刻意不放宽:一篇的图是串行下的**,单张放太松会让「整篇图拉不动」卡几十分钟)、视频 `max(60s, filesize÷200KB/s)`。
+- **新增 CLI 命令组必须同步加进 `electron/cli-dispatch.ts` 的 `CLI_COMMANDS`**：分流靠白名单，漏登**不报错**——命令被判成 GUI 调用，开窗口后永不退出，症状是**挂起**而非报错，离根因隔一层（v0.8.0 的 `site` 命令组实录，已有回归测试钉住）。
+- **打包后 CLI 走内层二进制，不是 `npx electron .`**（模式分流见 `electron/main.ts` 的 `app.isPackaged` 分支）：mac 是 `/Applications/wx-kit.app/Contents/MacOS/wx-kit <子命令>`（别用 `open -a`，拿不到 stdout/退出码），win 是 `%LOCALAPPDATA%\Programs\wx-kit\wx-kit.exe`。**Windows 坑：Electron 是 GUI 子系统程序，stdout 不回贴调用控制台**——直接在 cmd/PowerShell 跑看不到 JSON，必须重定向到文件（`> out.json`，GUI 子系统下仍生效），管道 `|` 取 stdout 不可靠。agent 集成优先 mac/Linux。
+- **`wxfile://` 协议**：阅读器读本地图片用，路径严格限制在库根内（`electron/protocol.ts` 的 `resolveWxfilePath`，含编码 `..` 穿越防护）。
+- **HTML 阅读器 iframe** 用 `sandbox`（无 `allow-scripts`）：安全，但意味着 Playwright 无法在其内部执行脚本——e2e 里 HTML 视图只断言 iframe src，图片渲染由 md 视图的 `naturalWidth>0` 等价证明。
+- **e2e 只能在主会话/本地跑**：子 agent 的沙箱解析不了 electron 二进制。Antd v6 会在两个汉字按钮文本间自动插空格（"阅 读"），写选择器时注意。
+- **commit message 含反引号/`$`/`!` 时必须用 `git commit -F <文件>`,不能用 `-m "…"`**(2026-07-26 实录):
+  双引号里的反引号会被 shell 当**命令替换真的执行**。当时 message 里写了 `` `brew update` ``/`` `brew list` ``
+  作说明,结果**真跑了 `brew update`**(把本机 Homebrew 从旧版升到 6.0.12、更新 4 个 tap),
+  `brew list` 的输出还被塞进了 message。**写技术说明的 commit message 几乎必然含反引号**,
+  所以规则是:message 一律写进临时文件再 `-F`(本项目的 message 都带代码标识,风险恒在)。
+  单引号 heredoc(`<<'EOF'`)同样安全。若已污染:未 push 的历史可 `reset --hard` + `cherry-pick -n` 重做。
+- **npm/依赖下载优先国内镜像，代理是最后兜底**：所有 npm 相关操作**尽量不依赖系统环境变量里的 `http_proxy`/`https_proxy`**。包优先走 `.npmrc` 指定的国内镜像（registry=`registry.npmmirror.com`）；npm 包国内镜像找不到才退官方 registry。二进制（electron 等）走国内镜像并给镜像域名加 `no_proxy`（让其直连）：`ELECTRON_MIRROR=https://cdn.npmmirror.com/binaries/electron/`、`ELECTRON_CUSTOM_DIR=v{{ version }}`、`ELECTRON_BUILDER_BINARIES_MIRROR=https://npmmirror.com/mirrors/electron-builder-binaries/`、`no_proxy=npmmirror.com,.npmmirror.com,cdn.npmmirror.com,registry.npmmirror.com`。**本机 8118 代理对 github 大文件（100MB+）上传/下载都会卡死/截断**，所以：`gh` 命令（release 上传、API）与 `git push` 到 github 一律**把 `http_proxy`/`https_proxy` unset 掉直连**（实测直连稳、走代理挂）；电脑能直连 github 时，代理别掺和。仅当某个国外资源**直连真的网络不可达**才临时用代理兜底，但大文件优先找国内镜像。（坑：本机无 `timeout` 命令，用 `curl --max-time`。详见 `docs/plans/2026-06-09-deps-audit.md` Round 2。）
+
+---
+
+## 文档索引
+- `ROADMAP.md` — **里程碑状态与路线图（续接看这里）**。状态/进度只在这里维护；各里程碑的详细实现计划放在 `docs/plans/`，其逐里程碑索引也在 ROADMAP 维护。
+- `docs/PRD.md` — 第一阶段（v0.1.0）产品需求（全貌、F1–F5、架构、风控、验收）。**后续每版一份 `docs/PRD-vX.Y.Z.md`**（§4 逐条可勾验收是验收契约），逐版清单见 ROADMAP 的 PRD 索引行。
+- `docs/devlog/wx-kit-vibe-coding.md` — vibe-coding 全程复盘（活文档，每完成一个里程碑增补；流程/决策/踩坑/方法论）。
+- `agent/` — 消费 wx-kit 的 skill：`wx-kit-skill/`（能力说明书，CLI 变更须同步刷新，见工作流第 7 条）、`wx-kit-compose/`（文库素材创作编排）。
+
+> 进度的唯一真相是 `git log` + `ROADMAP.md` + `docs/plans/`，不是散落在指南里的散文。
+
+---
+> Source: [monkeychen/wx-kit](https://github.com/monkeychen/wx-kit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-06 -->
