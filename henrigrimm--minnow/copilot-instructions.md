@@ -1,0 +1,85 @@
+## minnow
+
+> Guidance for AI coding agents (Cursor, Claude Code, etc.) working in the Minnow repo.
+
+# AGENTS.md
+
+Guidance for AI coding agents (Cursor, Claude Code, etc.) working in the Minnow repo.
+
+## Overview
+
+Minnow is a **Vite + TypeScript SPA** plus a **Node tool server** (`server.js`) and an **Electron desktop shell** (Minnow Shell). It is a local-first AI workspace for LM Studio and other OpenAI-compatible providers.
+
+- **Four composer modes** — General, Build, Plan (no-destructive guard), Debug — plus **Orchestrate** (opens from the sidebar hub, not the composer picker), **Super Plan**, **Desktop**, **Email**, and **Onboarding** as non-composer modes. Defined in [`src/chat/modes/registry.ts`](src/chat/modes/registry.ts); prompts in [`src/chat/prompts/modes/`](src/chat/prompts/modes/). Reef mode was removed (MIN-473) — do not reintroduce it.
+- **114 built-in tools** across web / utility / files / git / code / agents / browser / lsp ([`src/tools/definitions.ts`](src/tools/definitions.ts)). Includes `issue_*` tools and the read-only `minnow_docs_*` tools (search the shipped user manual under `documentation/manual/` only). Entries with an `appId` (8 calendar/email tools) are filtered out while that app is release-gated or user-disabled (MIN-472), so the shipped catalog is 106.
+- **Built-in slash skills** (17): core helpers (`git-commit`, `code-review`, `fix-ci`, `ask-user`, …), `impeccable` (default-on), `caveman`, `ui-designer`, `partymode`. Third-party packs — including the **Matt Pocock pack** (19 skills) — install from **Settings → Skills Library**; nothing else is bundled. See [`documentation/context.md`](documentation/context.md) § Skills.
+- **Minnow apps — released:** Chat (desktop), Code, Research, Models, Brain, **Issues**, Scheduler, Settings — all `core` (not user-disableable). **Hidden** (`releaseState: 'hidden'`, MIN-471): Compare, Bench, Experts, Calendar, Email — code stays in tree but is omitted from dock, onboarding, Settings, routes, notifications, and `launch_minnow_app`. Registry: [`src/os/app-registry.ts`](src/os/app-registry.ts).
+- **Persistence** lives under `~/.minnow` when the tool server runs.
+
+The **authoritative reference** is [`documentation/context.md`](documentation/context.md) — read it before touching unfamiliar subsystems. Product overview: [`README.md`](README.md). Setup and scripts: [`documentation/contributor/setup-from-source.md`](documentation/contributor/setup-from-source.md) and [`documentation/contributor/commands.md`](documentation/contributor/commands.md). Full doc index: [`documentation/`](documentation/README.md).
+
+## Running the app
+
+- **`npm start`** is the recommended dev command — Vite + the Node tool server on port **9473** (or next free port if `PORT` is set) and **launches the Electron desktop shell by default**. `MINNOW_BROWSER=1` opens the system browser instead; `BROWSER=none` or `MINNOW_HEADLESS=1` suppresses auto-open. `npm run desktop` / `npm run electron:dev` are HMR-friendly Electron aliases.
+- **`npm run dev`** is Vite-only (no tool server) — fine for pure UI work, but most tool-dependent features won't function.
+- **Headless CLI:** `minnow run --prompt "…"` (or `npm run minnow:run -- --prompt "…"`) drives the same generations + server tools without the SPA. Requires `npm start` (or `--start-server`). See `minnow run --help`.
+- Health checks: `curl http://localhost:9473/api/tools/ping`, `/api/config/ping`, `/api/memory/ping`, `/api/brain/ping` (substitute your `PORT` if overridden).
+- **LM Studio headless daemon** (`llmster`): install with `curl -fsSL https://lmstudio.ai/install.sh | bash`; `lms daemon up && lms server start`; `lms get <model> -y`; `lms load <model> -y`. CLI at `~/.lmstudio/bin/lms`.
+
+## Testing
+
+- **`npm test`** runs the full suite via [`test/run-all.mjs`](test/run-all.mjs) — auto-discovers `test/**/*.test.{js,mjs,mts,ts}` and batches by runner (`node --test`, `tsx` + [`test/test-loader.mjs`](test/test-loader.mjs)). New test files under `test/` are picked up with zero `package.json` edits.
+- **`npm run test:check-coverage`** fails if any discoverable test file is not covered (CI gate).
+- **CI:** [`.github/workflows/ci.yml`](.github/workflows/ci.yml) on every PR + push to `main` — `npm ci`, `test:check-coverage`, `npx tsc --noEmit`, `npm test` (Windows + Ubuntu). Enable branch protection per [`.github/BRANCH_PROTECTION.md`](.github/BRANCH_PROTECTION.md).
+- **`npx tsc --noEmit`** for type checking (no separate ESLint config).
+- Scoped suites: `npm run test:memory|brain|engine|lsp|mcp|browser|skills|attachments|research|benchmark|evals|calendar|email|webhooks|notifications|voice|servers|plugins|terminal-pty|ui-designer|scheduler|onboarding|issues|board`. See `package.json` for exact globs. Board testing: [documentation/contributor/orchestrate-board-testing.md](documentation/contributor/orchestrate-board-testing.md).
+- Many TS/UI suites run under `tsx` with `--import ./test/test-loader.mjs` (the loader stubs `.css` and xterm). Some use `--experimental-test-module-mocks`.
+
+## Building & packaging
+
+- **`npm run build`** → `tsc && vite build` → `dist/`. The `prebuild` step generates `src/skills/builtin-manifest.json`.
+- **`npm run package`** → build + `electron:build` + `electron-builder` (Windows NSIS → `release/`). `package:dir` produces an unpacked directory.
+
+## Performance budgets (MIN-400)
+
+Perf regressions fail CI the same way as `impeccable:detect` — loudly and with numbers.
+
+- **Bundle ceilings** live in [`budgets.json`](budgets.json) (entry JS/CSS, largest lazy JS chunk, total `dist/assets` excluding benchmark data packs). After `npm run build`, run `npm run check:performance-budgets` (or `npm run report:bundle-size -- --check`). Breaches print the chunk name and KB delta vs the limit and vs [`scripts/bundle-size-baseline.json`](scripts/bundle-size-baseline.json).
+- **Raising a budget** requires editing `budgets.json` in the same PR with a short rationale in the commit/PR body, then refresh the baseline: `npm run build && node scripts/check-performance-budgets.mjs --update-baseline`.
+- **Startup** is measured at `markAppReady()` ([`src/boot/app-ready.ts`](src/boot/app-ready.ts)); boot metrics surface in the dev console when `MINNOW_DEBUG=1`, under Settings → About → Performance diagnostics, and in CI via the happy-dom harness (`test/boot/boot-budget-ci.test.mts`).
+- **Long tasks (dev only):** with `MINNOW_DEBUG=1`, main-thread stalls ≥100ms log to the console (`src/boot/long-task-observer.ts`) — local only, no telemetry.
+
+## Key gotchas
+
+- `postinstall` runs `scripts/sync-impeccable-skill.mjs` (vendors the Impeccable skill) and `scripts/ensure-electron.mjs`. Both are expected and idempotent.
+- **Browser-only tools** (`get_datetime`, `calculate`, `ask_question`, sub-agent/board tools, mode handoff, `browser_*`) run client-side; calling them via `POST /api/tools` returns "Not implemented".
+- `browser_*` automation requires the Electron shell and an origin allowlist; hidden in a plain browser tab.
+- The `[providers] fetch failed` log on startup is normal without LM Studio (provider discovery can't reach `localhost:1234`).
+- **Streaming SSE** is parsed in [`src/api/sse-parse.ts`](src/api/sse-parse.ts) (event boundaries + glued JSON); non-streaming fallback uses `parseCompletionResponseBody` — do not call `Response.json()` on the generations shim. Some non–OpenAI providers (e.g. `llmster`) may still yield empty text; verify the provider's `chatCompletionsPath` is `/v1/chat/completions`.
+- **Secrets are encrypted** at rest with `~/.minnow/.key`. Deleting/rotating the key makes existing encrypted secrets unrecoverable.
+- **Path safety:** file/git tools resolve under the workspace root unless `TOOLS_ALLOW_ALL_PATHS=1`.
+- **LAN access** is opt-in (`Settings → General → Network access` or `MINNOW_NETWORK=lan`); default is loopback-only — restart after toggling.
+- **Release gating:** an app is only reachable when `releaseState: 'released'` in [`src/os/app-registry.ts`](src/os/app-registry.ts). Tests and code for hidden apps (Compare, Bench, Experts, Calendar, Email) still run — don't delete them — but nothing user-facing may assume they are visible. New or unfinished apps ship `hidden` first.
+- **Plan mode** denies mutating file edits and git writes; allows `save_file`/`make_directory` under `documentation/plans/` only (see `tool-groups.ts` + `plan-write-guard.ts`). Shell/code-exec is allowed per the mode matrix (MIN-332).
+- **GitHub in agent chats:** when tools include `execute_command`, the composed system prompt appends **`github-cli`** guidance — use the local **`gh`** CLI for this repo's PRs, issues, and CI; do not scrape github.com via browser or web-fetch tools (MIN-558).
+
+## Conventions
+
+- Match the surrounding code's style, naming, and comment density.
+- Application CSS uses `--mn-*` tokens; hex/rgba literals live only in [`src/styles/tokens.css`](src/styles/tokens.css). See [`DESIGN.md`](DESIGN.md).
+- Keep [`documentation/context.md`](documentation/context.md) updated when you ship a feature that changes architecture, APIs, or storage.
+
+## Cursor Cloud specific instructions
+
+Dependencies are already installed by the startup update script (`npm install`). Notes below are non-obvious caveats for running/testing in the headless cloud VM; standard commands live in [setup-from-source.md](documentation/contributor/setup-from-source.md) and [commands.md](documentation/contributor/commands.md).
+
+- **Headless startup:** the VM has no display/Electron GUI. Start the stack with `MINNOW_HEADLESS=1 BROWSER=none npm start` and open the SPA at `http://localhost:9473` in the in-VM browser. Plain `npm start` tries to launch the Electron desktop shell.
+- **API auth gate:** every `/api/*` call needs the per-boot token — `curl -H "X-Minnow-Token: $(cat ~/.minnow/session-token)" http://localhost:9473/api/tools/ping`. A tokenless request returns `401` (the gate working), not a broken server.
+- **Chatting without LM Studio:** run `node scripts/fake-model-server.mjs --port 18765` for an OpenAI-v1 stub. The reserved `fake-board` provider id is intentionally inert in the UI — `proxyModels` in [`server/providers/proxy.js`](server/providers/proxy.js) returns an empty model list for it unless the in-server board-testing fake host is running (needs `MINNOW_DEBUG=1`). To get a UI-selectable model, register the stub under a **different** provider id and set it active: `POST /api/providers` with `{"id":"local-fake","label":"Local Fake (dev)","baseUrl":"http://127.0.0.1:18765","apiKind":"openai-v1"}`, then `POST /api/providers/local-fake/set-active`. A general-mode chat then streams the stub's default reply (`Done.`).
+- **Benign startup noise:** `[servers] auto-provision searxng failed: tar: This does not look like a tar archive` is expected in the network-restricted VM and does not block the server.
+- **Test suite reality:** `npm test` runs end to end, but a small number of tests currently fail on `main` for reasons unrelated to environment setup (in-code default/fixture spec drift — e.g. `test/config/editor-ai-completion-meta.test.js`, the fake LSP formatting fixture). Don't assume a fully green suite; scope expectations to the area you touch.
+- **Fixture side effects:** the scratch Minnow homes under `test/fixtures/` (`lsp-*-home`, `mcp-secrets-home`) are runtime-generated — tests wipe and rebuild them each run, and they are gitignored (SQLite DBs, configs, diagnostics logs, secrets). No need to reset them before committing. If any other tracked fixture gets dirtied, reset with `git checkout -- test/fixtures/ && git clean -fd test/fixtures/`.
+
+---
+> Source: [HenriGrimm/Minnow](https://github.com/HenriGrimm/Minnow) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-05 -->
