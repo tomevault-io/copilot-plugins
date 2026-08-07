@@ -1,0 +1,9 @@
+{
+  "name": "katl-dev--katl",
+  "displayName": "katl",
+  "description": "KatlOS: an installable, upgradeable, systemd-native Kubernetes node OS.",
+  "version": "1.0.0",
+  "author": "katl-dev",
+  "homepage": "https://github.com/katl-dev/katl",
+  "skills": []
+}
