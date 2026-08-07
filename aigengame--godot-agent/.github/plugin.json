@@ -1,0 +1,9 @@
+{
+  "name": "aigengame--godot-agent",
+  "displayName": "godot-agent",
+  "description": "Godot AI agent CLI, Skill, and MCP server with structured JSON/schema output \u2014 headless scene/script/export automation plus live runtime control.",
+  "version": "1.0.0",
+  "author": "aigengame",
+  "homepage": "https://github.com/aigengame/godot-agent",
+  "skills": []
+}
