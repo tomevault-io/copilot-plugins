@@ -1,0 +1,44 @@
+{
+  "name": "quubee",
+  "owner": "msonrm",
+  "repo": "quubee",
+  "description": "QuuBee \u2014 PC-98 \u30d5\u30ea\u30fc\u30bd\u30d5\u30c8\u306e\u30d6\u30e9\u30a6\u30b6\u30d7\u30ec\u30a4\u30e4\u30fc (\u8457\u4f5c\u6a29\u30af\u30ea\u30fc\u30f3: NEC BIOS/MS-DOS \u4e0d\u4f7f\u7528)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/msonrm/quubee",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T05:02:21Z"
+}
