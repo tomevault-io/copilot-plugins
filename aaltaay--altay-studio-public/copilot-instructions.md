@@ -1,36 +1,73 @@
-## commit-push-deploy
+## karpathy-guidelines
 
-> description: Run commit, push, and deploy operations at the end of every task
+> Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
 
-﻿---
-description: Run commit, push, and deploy operations at the end of every task
-alwaysApply: true
+
+# Karpathy behavioral guidelines
+
+Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
+
+**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+
+## 1. Think Before Coding
+
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
+
+Before implementing:
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
+
+## 2. Simplicity First
+
+**Minimum code that solves the problem. Nothing speculative.**
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+## 3. Surgical Changes
+
+**Touch only what you must. Clean up only your own mess.**
+
+When editing existing code:
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it - don't delete it.
+
+When your changes create orphans:
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
+
+The test: Every changed line should trace directly to the user's request.
+
+## 4. Goal-Driven Execution
+
+**Define success criteria. Loop until verified.**
+
+Transform tasks into verifiable goals:
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
+
+For multi-step tasks, state a brief plan:
+```
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
+```
+
+Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
 ---
 
-# Commit, Push, and Deploy after Every Task
-
-At the end of every task or whenever you complete a chunk of work that has been verified/tested:
-
-1. **Verify the changes**
-   - Ensure the application builds and all automated tests pass before committing.
-
-2. **Commit the changes**
-   - Stage all intentional changes: `git add -A` (be careful not to commit secrets or untracked local environment files).
-   - Commit with a clear, descriptive, and imperative commit message summarizing the changes.
-
-3. **Push to the remote repository**
-   - Push the committed changes to the current branch on the remote: e.g., `git push` or `git push -u origin HEAD` if the upstream is not set.
-
-4. **Deploy the changes**
-   - Identify the project's deployment mechanism:
-     - **Git-Triggered Deployments**: If the project automatically deploys via Git pushes (e.g., connected to Vercel/Netlify GitHub integrations), confirm that pushing the changes is sufficient to trigger the deploy.
-     - **Vercel CLI / MCP**: If the `vercel` CLI or MCP tool is configured, deploy the changes (e.g. `vercel deploy` or `vercel --prod`).
-     - **Supabase CLI / MCP**: If Supabase edge functions or schemas were modified, deploy them using the `supabase` tool/CLI.
-     - **Custom Deploy Script**: Check if there's a deploy script/command in `package.json` (e.g., `npm run deploy`), `Makefile`, or project documentation and execute it.
-   - If the deployment command or target is not clear, ask the user for confirmation or check project documentation.
-   - Report the deployment status clearly to the user.
-
-Do not skip any of these steps (Commit, Push, Deploy) unless explicitly instructed otherwise.
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
 
 ---
 > Source: [aaltaay/altay-studio-public](https://github.com/aaltaay/altay-studio-public) — distributed by [TomeVault](https://tomevault.io).
