@@ -1,0 +1,9 @@
+{
+  "name": "droidective--droidective",
+  "displayName": "Droidective",
+  "description": "Native macOS command palette for Android & React Native debugging \u2014 58 tools over adb. Swift 6 + SwiftUI.",
+  "version": "1.0.0",
+  "author": "Droidective",
+  "homepage": "https://github.com/Droidective/Droidective",
+  "skills": []
+}
