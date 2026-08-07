@@ -1,0 +1,9 @@
+{
+  "name": "wildcake--pixel-art-lab",
+  "displayName": "pixel-art-lab",
+  "description": "Local GUI and CLI for converting AI pixel art into a strict pixel grid.",
+  "version": "1.0.0",
+  "author": "WildCake",
+  "homepage": "https://github.com/WildCake/pixel-art-lab",
+  "skills": []
+}
