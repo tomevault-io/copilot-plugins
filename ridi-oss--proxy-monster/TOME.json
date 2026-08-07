@@ -4,7 +4,7 @@
   "repo": "proxy-monster",
   "description": "Self-hosted database access-control proxy for MySQL and PostgreSQL: lineage-aware column masking, Cedar policy, fail-closed deny, tamper-evident audit trail.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ridi-oss/proxy-monster",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T01:44:24Z"
+  "distributed_at": "2026-08-07T10:56:18Z"
 }
