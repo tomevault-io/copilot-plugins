@@ -1,0 +1,44 @@
+{
+  "name": "Codex-CLI-Bridge-for-Lark-Feishu",
+  "owner": "Sunne927",
+  "repo": "Codex-CLI-Bridge-for-Lark-Feishu",
+  "description": "\u9762\u5411\u4e91\u670d\u52a1\u5668\u4e0e VPS \u5e38\u9a7b\u90e8\u7f72\u7684 Lark\uff08\u98de\u4e66\uff09Codex CLI \u6865\u63a5\u5668\uff0c\u540c\u65f6\u652f\u6301\u672c\u5730\u8fd0\u884c\uff1bLark (Feishu) Codex CLI Bridge for persistent deployment on cloud servers and VPS, with native local execution support.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Sunne927/Codex-CLI-Bridge-for-Lark-Feishu",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T19:33:57Z"
+}
