@@ -7,11 +7,11 @@ TypeScript SDK for seamless cross-chain token transfers using the Omni Bridge pr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Near-One/bridge-sdk-js](https://github.com/Near-One/bridge-sdk-js).
+Original source: `AGENTS.md` in [Near-One/bridge-sdk-js](https://github.com/Near-One/bridge-sdk-js).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
