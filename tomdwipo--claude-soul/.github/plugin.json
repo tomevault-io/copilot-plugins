@@ -1,0 +1,9 @@
+{
+  "name": "tomdwipo--claude-soul",
+  "displayName": "claude-soul",
+  "description": "Operating Soul for AI coding agents that captures how to think, not just rules \u2014 principle-over-rule, 7 delegation levels (Tell\u2192Delegate), a git-gated learning loop. Built for Claude Code, portable to",
+  "version": "1.0.0",
+  "author": "tomdwipo",
+  "homepage": "https://github.com/tomdwipo/claude-soul",
+  "skills": []
+}
