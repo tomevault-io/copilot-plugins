@@ -7,11 +7,11 @@ SSH, the way it should feel on a Mac — Metal-rendered terminal, connection mul
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [xinghelee/Berth](https://github.com/xinghelee/Berth).
+Original source: `AGENTS.md` in [xinghelee/Berth](https://github.com/xinghelee/Berth).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
