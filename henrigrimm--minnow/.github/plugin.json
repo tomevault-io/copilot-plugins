@@ -1,0 +1,9 @@
+{
+  "name": "henrigrimm--minnow",
+  "displayName": "Minnow",
+  "description": "A free and open source AI workspace: chat, code, research, plan and orchestrate multi-agent delivery, and grow a local knowledge base. Runs on any model and provider. Local or Cloud. AGPL-3.0 \u2014 no acc",
+  "version": "1.0.0",
+  "author": "HenriGrimm",
+  "homepage": "https://github.com/HenriGrimm/Minnow",
+  "skills": []
+}
