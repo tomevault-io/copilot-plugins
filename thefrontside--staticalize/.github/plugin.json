@@ -1,0 +1,9 @@
+{
+  "name": "thefrontside--staticalize",
+  "displayName": "staticalize",
+  "description": "The framework agnostic static site generator",
+  "version": "1.0.0",
+  "author": "thefrontside",
+  "homepage": "https://github.com/thefrontside/staticalize",
+  "skills": []
+}
