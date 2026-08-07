@@ -4,7 +4,7 @@
   "repo": "apx-testkit",
   "description": "Deterministic Playwright test generation for Oracle APEX 26.1+ from APEXlang (.apx) exports",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/satwikjambula/apx-testkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T00:13:41Z"
+  "distributed_at": "2026-08-07T09:34:39Z"
 }
