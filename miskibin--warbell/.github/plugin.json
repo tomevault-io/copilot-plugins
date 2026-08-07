@@ -1,0 +1,9 @@
+{
+  "name": "miskibin--warbell",
+  "displayName": "warbell",
+  "description": "Action-RPG: a Bevy 0.19 / Rust  game \u2014 town-building, night sieges, upgrades, bloodline succession",
+  "version": "1.0.0",
+  "author": "miskibin",
+  "homepage": "https://github.com/miskibin/warbell",
+  "skills": []
+}
