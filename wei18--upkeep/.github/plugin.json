@@ -1,0 +1,9 @@
+{
+  "name": "wei18--upkeep",
+  "displayName": "Upkeep",
+  "description": "Upkeep \u2014 an AI audit crew for your repo. Catches docs/spec/asset drift with evidence; output-only. Claude Code plugin/skill + reusable CI workflow.",
+  "version": "1.0.0",
+  "author": "wei18",
+  "homepage": "https://github.com/wei18/Upkeep",
+  "skills": []
+}
