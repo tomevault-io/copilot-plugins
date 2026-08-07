@@ -5,43 +5,38 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [code-yeongyu/lazycodex](https://github.com/code-yeongyu/lazycodex).
+Original source: `AGENTS.md` in [code-yeongyu/lazycodex](https://github.com/code-yeongyu/lazycodex).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (25)
+## Bundled Skills (20)
 
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/lsp/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/rules/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/refactor/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/ulw-plan/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/ulw-loop/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/init-deep/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/visual-qa/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/lsp-setup/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/debugging/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/start-work/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/git-master/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/lcx-doctor/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/programming/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/review-work/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/lcx-report-bug/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/remove-ai-slops/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/comment-checker/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/lsp/skills/lsp/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/lcx-contribute-bug-fix/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/rules/skills/rules/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/ulw-loop/skills/ulw-loop/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/ultrawork/skills/ulw-plan/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/components/comment-checker/skills/comment-checker/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/ast-grep/SKILL.md)
-- [lazycodex](https://github.com/code-yeongyu/lazycodex/tree/main/plugins/omo/skills/frontend/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/.factory/skills/tmux-manual-qa/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/.factory/skills/coding-agent-extension-worker/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/examples/extensions/dynamic-resources/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/.github/agent/skills/merge-upstream/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/long-name/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/valid-skill/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/invalid-yaml/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/name-mismatch/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/unknown-field/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/no-frontmatter/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/nested/child-skill/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/invalid-name-chars/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/missing-description/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/consecutive-hyphens/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/multiline-description/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills-collision/first/calendar/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/disable-model-invocation/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills-collision/second/calendar/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/packages/coding-agent/test/fixtures/skills/root-skill-preferred/nested-child/SKILL.md)
+- [senpi](https://github.com/code-yeongyu/lazycodex/tree/main/.agents/skills/senpi-qa/SKILL.md)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/code-yeongyu/lazycodex](https://github.com/code-yeongyu/lazycodex)
 
