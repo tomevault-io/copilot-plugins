@@ -4,7 +4,7 @@
   "repo": "math-research-harness",
   "description": "An agent-ready repository template for mathematical research: scope, literature, evidence, computation, and durable records.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/haruhisa-enomoto/math-research-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T21:46:24Z"
+  "distributed_at": "2026-08-07T02:46:06Z"
 }
