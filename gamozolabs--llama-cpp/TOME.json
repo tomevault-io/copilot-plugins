@@ -4,7 +4,7 @@
   "repo": "llama.cpp",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gamozolabs/llama.cpp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T01:37:47Z"
+  "distributed_at": "2026-08-07T10:52:41Z"
 }
