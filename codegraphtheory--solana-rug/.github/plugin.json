@@ -1,0 +1,9 @@
+{
+  "name": "codegraphtheory--solana-rug",
+  "displayName": "solana-rug",
+  "description": "Open-source Solana trust and safety analysis tool for token risk scoring, rug-pull detection, on-chain analysis, SPL Token checks, Pump.fun reviews, and Hermes workflows.",
+  "version": "1.0.0",
+  "author": "codegraphtheory",
+  "homepage": "https://github.com/codegraphtheory/solana-rug",
+  "skills": []
+}
