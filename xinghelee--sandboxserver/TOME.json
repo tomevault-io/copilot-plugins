@@ -4,7 +4,7 @@
   "repo": "SandboxServer",
   "description": "DEBUG-only iOS SDK that embeds an HTTP + WebSocket server in your app: browser console + MCP bridge for inspecting files, databases, network, logs, and the live screen. Zero third-party dependencies.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xinghelee/SandboxServer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T08:31:05Z"
+  "distributed_at": "2026-08-07T11:38:52Z"
 }
