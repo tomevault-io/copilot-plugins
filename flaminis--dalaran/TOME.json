@@ -4,7 +4,7 @@
   "repo": "Dalaran",
   "description": "Dalaran \u2014 Apache-2.0, robotics-first visualization and data infrastructure for multimodal time-series. ROS 2 native, reads existing .rrd recordings. A hard fork of Rerun.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Flaminis/Dalaran",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T16:32:11Z"
+  "distributed_at": "2026-08-07T19:28:32Z"
 }
