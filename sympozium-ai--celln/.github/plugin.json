@@ -1,0 +1,9 @@
+{
+  "name": "sympozium-ai--celln",
+  "displayName": "celln",
+  "description": "Run agents in isolated cells that borrow verified tools instead of rebuilding Linux environments.",
+  "version": "1.0.0",
+  "author": "sympozium-ai",
+  "homepage": "https://github.com/sympozium-ai/celln",
+  "skills": []
+}
