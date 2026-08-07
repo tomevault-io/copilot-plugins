@@ -4,7 +4,7 @@
   "repo": "stkflow-analytics",
   "description": "Base44 App: StkFlow Analytics",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/afbertuolsmart/stkflow-analytics",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T23:34:51Z"
+  "distributed_at": "2026-08-07T07:11:46Z"
 }
