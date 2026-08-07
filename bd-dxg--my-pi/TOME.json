@@ -1,0 +1,44 @@
+{
+  "name": "my-pi",
+  "owner": "bd-dxg",
+  "repo": "my-pi",
+  "description": "\u4e2a\u4eba\u7684pi Agent \u914d\u7f6e\u4ed3\u5e93",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bd-dxg/my-pi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T06:40:17Z"
+}
