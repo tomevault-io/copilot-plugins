@@ -1,0 +1,44 @@
+{
+  "name": "zhe-pian-da-di-font-pack",
+  "owner": "Minecrash98",
+  "repo": "zhe-pian-da-di-font-pack",
+  "description": "\u300a\u660e\u65e5\u65b9\u821f\u300b2026 \u5e74\u590f\u65e5\u6d3b\u52a8\u4e3b\u9898\u4e8c\u521b\u6587\u5b57\u56fe\u7247\u751f\u6210\u5668",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Minecrash98/zhe-pian-da-di-font-pack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T12:42:11Z"
+}
