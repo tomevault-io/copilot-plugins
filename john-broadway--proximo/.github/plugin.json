@@ -1,0 +1,9 @@
+{
+  "name": "john-broadway--proximo",
+  "displayName": "proximo",
+  "description": "The Proxmox MCP you can hand the keys: VE/PBS/PMG/PDM. Plan, prove, undo, diagnose. MCP/A2A/API.",
+  "version": "1.0.0",
+  "author": "john-broadway",
+  "homepage": "https://github.com/john-broadway/proximo",
+  "skills": []
+}
