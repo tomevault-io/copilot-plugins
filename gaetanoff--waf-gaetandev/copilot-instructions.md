@@ -1,71 +1,103 @@
-## specific-java
+## specific-kotlin
 
-> Java coding standards — modern Java, Spring patterns, error handling
+> Kotlin and Android best practices, coroutines, Flow, Compose, sealed classes
 
 
-# Java Standards
+# Kotlin & Android (Spec-Driven)
 
-## Modern Java (17+)
+## Language Fundamentals
 
-- Use records for immutable data carriers: `record User(String name, int age) {}`.
-- Use sealed classes/interfaces to restrict type hierarchies.
-- Use pattern matching for `instanceof`: `if (obj instanceof String s)`.
-- Use switch expressions with arrow syntax and exhaustiveness checks.
-- Use text blocks (`"""`) for multi-line strings (SQL, JSON, templates).
-- Use `var` for local variables when the type is obvious.
-
-```java
-// ✅ Modern switch expression
-String label = switch (status) {
-    case ACTIVE -> "Active";
-    case INACTIVE -> "Inactive";
-    case PENDING -> "Pending";
-};
-```
-
-## Naming & Style
-
-- Classes/interfaces: `PascalCase`. Methods/variables: `camelCase`. Constants: `UPPER_SNAKE_CASE`.
-- Package names: lowercase, reversed domain (`com.example.project.feature`).
-- Boolean methods: `is`, `has`, `can` prefix (`isValid()`, `hasAccess()`).
-- No wildcard imports (`import *`). Organize imports: java → javax → third-party → project.
+- Kotlin emphasizes conciseness and safety. Use its features to write robust, readable code.
+- Prefer `val` (read-only) over `var` (mutable). Immutability makes state predictable.
+- Use descriptive, CamelCase naming. Classes are `UpperCamelCase`, functions and variables are `lowerCamelCase`.
+- Favor expressions over statements. `if`, `when`, and `try` can return values.
 
 ## Null Safety
 
-- Avoid returning `null`. Use `Optional<T>` for values that may be absent.
-- Never use `Optional` as a field or method parameter — only as return type.
-- Use `@Nullable` / `@NonNull` annotations for public API boundaries.
-- Use `Objects.requireNonNull()` for fail-fast null checks on parameters.
+- Embrace Kotlin's null safety. Distinguish clearly between nullable (`String?`) and non-nullable (`String`) types.
+- Avoid the not-null assertion operator (`!!`). It causes `NullPointerException`.
+- Use safe calls (`?.`) and the Elvis operator (`?:`) to provide defaults or early returns.
+- Example: `val length = text?.length ?: 0`
+
+## Data Modeling & State Modeling
+
+- Derive data classes directly from JSON Schema specs.
+- Use `data class` for objects whose main purpose is holding data. They automatically provide `equals()`, `hashCode()`, and `toString()`.
+- Use `sealed class` or `sealed interface` for exhaustive state modeling. This is crucial for UI state (e.g., Loading, Success, Error).
+
+```kotlin
+// Example exhaustive state modeling
+sealed interface UiState<out T> {
+    data object Loading : UiState<Nothing>
+    data class Success<T>(val data: T) : UiState<T>
+    data class Error(val message: String, val code: String) : UiState<Nothing>
+}
+```
+
+## Functions and Scope Functions
+
+- Keep functions small. Use single-expression functions when appropriate (`fun double(x: Int): Int = x * 2`).
+- Use named arguments for readability, especially for functions with many parameters or consecutive booleans.
+- Use Kotlin Scope Functions (`let`, `run`, `with`, `apply`, `also`) judiciously.
+  - Use `apply` for object configuration.
+  - Use `let` for executing code only if an object is not null.
+
+## Concurrency (Coroutines & Flow)
+
+- Use Coroutines for all asynchronous programming. Avoid callbacks or RxJava unless maintaining legacy code.
+- Always specify the correct `CoroutineDispatcher` (e.g., `Dispatchers.IO` for network/db, `Dispatchers.Main` for UI).
+- Use `suspend` functions for one-shot async operations.
+- Use Kotlin `Flow` for streams of data. Prefer `StateFlow` and `SharedFlow` over `LiveData`.
+
+## Android & Jetpack Compose Best Practices
+
+- **Declarative UI**: Jetpack Compose is the standard. Avoid imperative View updates (XML).
+- **State Hoisting**: Move state up to the caller to make composables stateless and reusable.
+- **Unidirectional Data Flow (UDF)**: State flows down, events flow up.
+- Use `ViewModel` to hold and manage UI-related data in a lifecycle-conscious way. The ViewModel should expose a single `StateFlow` that the UI observes.
+- Composable functions should be `UpperCamelCase` and return `Unit`.
+- Keep Composables side-effect free. Use `LaunchedEffect` or `DisposableEffect` if side-effects are necessary.
+
+## Example: Spec-Driven Compose Architecture
+
+```kotlin
+// Feature specified in specs/features/login.feature
+
+@Composable
+fun LoginScreen(
+    viewModel: LoginViewModel = hiltViewModel(),
+    onLoginSuccess: () -> Unit
+) {
+    // Observe state from ViewModel
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+        when (val state = uiState) {
+            is LoginUiState.Loading -> CircularProgressIndicator()
+            is LoginUiState.Error -> Text("Error: ${state.message}", color = Color.Red)
+            is LoginUiState.Idle -> {
+                // UI form elements
+                Button(onClick = { viewModel.performLogin("user", "pass") }) {
+                    Text("Login")
+                }
+            }
+        }
+    }
+    
+    // Handle Navigation Event
+    LaunchedEffect(uiState) {
+        if (uiState is LoginUiState.Success) {
+            onLoginSuccess()
+        }
+    }
+}
+```
 
 ## Error Handling
 
-- Use checked exceptions for recoverable conditions, unchecked for programming errors.
-- Create domain-specific exception hierarchies extending `RuntimeException`.
-- Always include the cause: `throw new ServiceException("msg", cause)`.
-- Never catch `Throwable` or `Exception` generically — be specific.
-- Use try-with-resources for all `AutoCloseable` resources.
-
-## Collections & Streams
-
-- Use `List.of()`, `Map.of()`, `Set.of()` for immutable collections.
-- Use Streams for data transformation pipelines. Avoid side effects in streams.
-- Don't overuse streams — a `for` loop is clearer for simple iterations with complex logic.
-- Prefer `Collection` or `List` over raw arrays in APIs.
-
-## Spring / Enterprise Patterns
-
-- Use constructor injection (implicit with single constructor). Avoid `@Autowired` on fields.
-- Keep controllers thin — delegate to service layer.
-- Use `@Transactional` at the service layer, not the repository layer.
-- Validate inputs with Bean Validation (`@Valid`, `@NotBlank`, `@Size`).
-- Use `@RestControllerAdvice` for centralized exception handling.
-
-## Testing
-
-- Use JUnit 5 with `@DisplayName` for readable test names.
-- Use Mockito for mocking. Avoid `@MockBean` in unit tests (slow Spring context).
-- Use `@SpringBootTest` only for integration tests. Unit test with plain constructors.
-- Use AssertJ for fluent, readable assertions.
+- Use `Resource` or `Result` wrapper classes for network and database operations to encapsulate success and failure states.
+- Map general exceptions to domain-specific error codes defined in the API OpenApi specs.
+- Handle cancellation exceptions properly when using Coroutines. Do not catch `CancellationException` generically.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
