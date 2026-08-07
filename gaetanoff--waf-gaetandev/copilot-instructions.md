@@ -1,69 +1,49 @@
-## specific-csharp
+## specific-css-tailwind
 
-> C# coding standards — patterns, LINQ, async, .NET conventions
+> CSS and Tailwind CSS conventions — styling, responsive design, organization
 
 
-# C# Standards
+# CSS & Tailwind
 
-## Naming & Style
+## Tailwind CSS
 
-- Follow .NET naming conventions: `PascalCase` for public members, types, namespaces; `camelCase` for local variables and parameters.
-- Private fields: `_camelCase` with underscore prefix.
-- Interfaces: prefix with `I` (`IRepository`, `ILogger`).
-- Use `var` when the type is obvious from the right side. Be explicit for non-obvious types.
-- Use file-scoped namespaces (`namespace Foo;`) to reduce nesting.
+- Use Tailwind utility classes directly in markup. Avoid writing custom CSS when a utility exists.
+- Extract repeated class combinations into components, not `@apply` (prefer composition).
+- Use `@apply` only in base/global styles or when component extraction isn't possible.
+- Follow mobile-first responsive design: default styles → `sm:` → `md:` → `lg:` → `xl:`.
+- Use Tailwind's design tokens (`text-sm`, `p-4`, `gap-2`) — don't use arbitrary values unless necessary.
 
-## Patterns
+## Organization
 
-- Use records (`record`, `record struct`) for immutable data transfer objects.
-- Use `init`-only setters and required properties for safe object initialization.
-- Prefer pattern matching (`is`, `switch` expressions) over type casting chains.
-- Use `sealed` on classes not designed for inheritance.
-- Use `readonly struct` for small, immutable value types to avoid defensive copies.
+- Group Tailwind classes logically: layout → sizing → spacing → typography → colors → effects.
+- Use `clsx` or `cn()` (tailwind-merge) for conditional classes.
+- Keep class strings readable — break long strings across multiple lines.
 
-```csharp
-// ✅ Pattern matching with switch expression
-var result = shape switch
-{
-    Circle c => Math.PI * c.Radius * c.Radius,
-    Rectangle r => r.Width * r.Height,
-    _ => throw new ArgumentOutOfRangeException(nameof(shape))
-};
+```tsx
+<div
+  className={cn(
+    "flex items-center gap-4 p-4",
+    "rounded-lg border bg-white shadow-sm",
+    "hover:shadow-md transition-shadow",
+    isActive && "border-blue-500"
+  )}
+/>
 ```
 
-## Async/Await
+## Plain CSS
 
-- Suffix async methods with `Async`: `GetUserAsync()`.
-- Always use `async/await` — never `.Result` or `.Wait()` (deadlock risk).
-- Use `ValueTask<T>` for hot paths that often complete synchronously.
-- Pass `CancellationToken` through all async call chains.
-- Use `ConfigureAwait(false)` in library code, not in application/UI code.
+- Use CSS custom properties (variables) for theming and shared values.
+- Use logical properties (`margin-inline`, `padding-block`) for RTL support.
+- Avoid `!important` — fix specificity issues at the source.
+- Use CSS Grid for 2D layouts, Flexbox for 1D layouts.
 
-## LINQ
+## Responsive & Accessible
 
-- Prefer LINQ method syntax for simple queries, query syntax for complex joins.
-- Avoid multiple enumeration of `IEnumerable<T>` — materialize with `.ToList()` / `.ToArray()` when needed.
-- Use `Any()` instead of `Count() > 0`. Use `FirstOrDefault()` with null check over `Single()` when element may not exist.
-
-## Error Handling
-
-- Use specific exception types. Create custom exceptions for domain errors.
-- Use `ArgumentNullException.ThrowIfNull()` and guard methods (net6+).
-- Never catch `Exception` broadly without re-throwing or logging.
-- Use the Result pattern (`Result<T, TError>`) for expected failures instead of exceptions.
-
-## Dependency Injection
-
-- Register services in `Program.cs` or dedicated extension methods.
-- Use constructor injection. Avoid the service locator pattern.
-- Prefer `IOptions<T>` for configuration. Validate options at startup with `ValidateOnStart()`.
-- Scope lifetimes correctly: Singleton > Scoped > Transient.
-
-## Nullable Reference Types
-
-- Enable `<Nullable>enable</Nullable>` project-wide.
-- Annotate all public APIs. Use `?` only when null is a valid state.
-- Use null-forgiving (`!`) sparingly — prefer null checks or redesign.
+- Design mobile-first, enhance for larger screens.
+- Use relative units (`rem`, `em`) for typography and spacing.
+- Ensure sufficient color contrast (WCAG AA minimum: 4.5:1 for text).
+- Use `prefers-reduced-motion` for animation-sensitive users.
+- Use semantic HTML elements before adding ARIA attributes.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
