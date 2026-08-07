@@ -1,0 +1,9 @@
+{
+  "name": "taucetiproject--taucetiroadmap",
+  "displayName": "TauCetiRoadmap",
+  "description": "Human-controlled roadmaps for Tau Ceti, an AIs-welcome Lean library downstream of Mathlib.",
+  "version": "1.0.0",
+  "author": "TauCetiProject",
+  "homepage": "https://github.com/TauCetiProject/TauCetiRoadmap",
+  "skills": []
+}
