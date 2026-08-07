@@ -20419,6 +20419,11 @@
       "description": "apps-android-wikipedia"
     },
     {
+      "name": "forward-future--loopy",
+      "source": "./forward-future--loopy",
+      "description": "A library of practical AI-agent loops and an installable skill for finding, adapting, and designing repeatable agent workflows."
+    },
+    {
       "name": "holaboss-ai--holaos",
       "source": "./holaboss-ai--holaos",
       "description": "The agent environment for long-horizon work, continuity, and self-evolution."
@@ -50077,6 +50082,11 @@
       "name": "z3z1ma--dbt-osmosis",
       "source": "./z3z1ma--dbt-osmosis",
       "description": "dbt-osmosis"
+    },
+    {
+      "name": "solo-agent--solo",
+      "source": "./solo-agent--solo",
+      "description": "For human and AI agents to collaborate through channels, tasks, and persistent workspaces."
     },
     {
       "name": "simonw--research",
@@ -80264,6 +80274,16 @@
       "description": "reachy_mini_conversation_app"
     },
     {
+      "name": "coollabsio--shoutrrr",
+      "source": "./coollabsio--shoutrrr",
+      "description": "An open-source alternative to Buffer, Typefully, and Hootsuite. Write once and schedule everywhere."
+    },
+    {
+      "name": "coollabsio--shoutrrr",
+      "source": "./coollabsio--shoutrrr",
+      "description": "An open-source alternative to Buffer, Typefully, and Hootsuite. Write once and schedule everywhere."
+    },
+    {
       "name": "redai-infra--relax",
       "source": "./redai-infra--relax",
       "description": "An Asynchronous Reinforcement Learning Engine for Omni-Modal Post-Training at Scale"
@@ -105839,6 +105859,16 @@
       "description": "bitdance-agenthub"
     },
     {
+      "name": "devcxl--mattpocock-skills-zh",
+      "source": "./devcxl--mattpocock-skills-zh",
+      "description": "Matt Pocock \u6280\u80fd\u96c6\u7684\u4e2d\u6587\u7ffb\u8bd1\u7248 \u2014 \u5730\u9053\u4e2d\u6587\uff0c\u539f\u6c41\u539f\u5473\u7684\u6280\u672f\u672f\u8bed\u3002\u57fa\u4e8e mattpocock/skills \u590d\u523b\u3002\u6bcf\u65e5\u4e2d\u534812\u70b9\u949f\u540c\u6b65"
+    },
+    {
+      "name": "devcxl--mattpocock-skills-zh",
+      "source": "./devcxl--mattpocock-skills-zh",
+      "description": "Matt Pocock \u6280\u80fd\u96c6\u7684\u4e2d\u6587\u7ffb\u8bd1\u7248 \u2014 \u5730\u9053\u4e2d\u6587\uff0c\u539f\u6c41\u539f\u5473\u7684\u6280\u672f\u672f\u8bed\u3002\u57fa\u4e8e mattpocock/skills \u590d\u523b\u3002\u6bcf\u65e5\u4e2d\u534812\u70b9\u949f\u540c\u6b65"
+    },
+    {
       "name": "jduncan-rva--skill-porter",
       "source": "./jduncan-rva--skill-porter",
       "description": "Universal tool to convert Claude Code skills to Gemini CLI extensions and vice versa"
@@ -108937,6 +108967,11 @@
       "name": "rocketchat--fuselage",
       "source": "./rocketchat--fuselage",
       "description": "fuselage"
+    },
+    {
+      "name": "zqq-699--blockhelm-launcher",
+      "source": "./zqq-699--blockhelm-launcher",
+      "description": "\u7b80\u6d01\u73b0\u4ee3\u7684 Minecraft Java \u7248\u542f\u52a8\u5668\uff0c\u652f\u6301\u5b9e\u4f8b\u3001\u8d44\u6e90\u4e0e\u8d26\u6237\u7ba1\u7406\u3002"
     },
     {
       "name": "cnighswonger--claude-code-cache-fix",
@@ -156049,6 +156084,11 @@
       "description": "Shortly ELI5 Rules."
     },
     {
+      "name": "rolecraft-sh--rolecraft",
+      "source": "./rolecraft-sh--rolecraft",
+      "description": "The package manager for AI agents \u2014 install, test, publish, and manage skills & MCP servers across 86+ agents. Zero-dependency CLI."
+    },
+    {
       "name": "liangdabiao--tikhub-api-skill",
       "source": "./liangdabiao--tikhub-api-skill",
       "description": "TikHub API \u52a9\u624b\u662f\u4e00\u4e2a Claude Code Agent Skill\uff0c\u7528\u4e8e\u5e2e\u52a9\u7528\u6237\u641c\u7d22\u3001\u53d1\u73b0\u548c\u8c03\u7528 TikHub API\u3002TikHub \u63d0\u4f9b\u4e86\u591a\u5e73\u53f0\u793e\u4ea4\u5a92\u4f53\u6570\u636e API\uff0c\u652f\u6301\u6296\u97f3\u3001TikTok\u3001\u5c0f\u7ea2\u4e66\u3001Instagram\u3001YouTube\u3001Twitter\u3001Reddit \u7b49\u5e73\u53f0\u3002This is a TikHub API skill/documentation repository. Tik"
@@ -160867,6 +160907,11 @@
       "name": "cocofhu--approving",
       "source": "./cocofhu--approving",
       "description": "Compose coding agents into workflows you can trust"
+    },
+    {
+      "name": "luyangkk--powerlens",
+      "source": "./luyangkk--powerlens",
+      "description": "Real-time macOS system metrics (power, battery, CPU, temp, fan, memory, network) in your zsh RPROMPT"
     },
     {
       "name": "dceoy--speckit-agent-skills",
@@ -176839,6 +176884,16 @@
       "description": "Local-first, multi-provider coding desktop with Codex-style Steering, task controls, inline artifacts, PR review, tools, skills, MCP, and research."
     },
     {
+      "name": "droidective--droidective",
+      "source": "./droidective--droidective",
+      "description": "Native macOS command palette for Android & React Native debugging \u2014 58 tools over adb. Swift 6 + SwiftUI."
+    },
+    {
+      "name": "851-labs--tokenmaxxing",
+      "source": "./851-labs--tokenmaxxing",
+      "description": "A local CLI, built on ccusage, that syncs your token usage with everyone else."
+    },
+    {
       "name": "bioliminal--bioliminal-mobile-application",
       "source": "./bioliminal--bioliminal-mobile-application",
       "description": "Bioliminal mobile application (Flutter)"
@@ -181129,6 +181184,16 @@
       "description": "Privacy-first desktop reader and personal library for Windows"
     },
     {
+      "name": "oomol-lab--wanta",
+      "source": "./oomol-lab--wanta",
+      "description": "An open-source desktop AI agent foundation powered by OpenCode and connected through OpenConnector, with local tools, permission controls, and artifacts."
+    },
+    {
+      "name": "oomol-lab--wanta",
+      "source": "./oomol-lab--wanta",
+      "description": "An open-source desktop AI agent foundation powered by OpenCode and connected through OpenConnector, with local tools, permission controls, and artifacts."
+    },
+    {
       "name": "tencentcloud--cubesandbox",
       "source": "./tencentcloud--cubesandbox",
       "description": "Instant, Concurrent, Secure & Lightweight Sandbox for AI Agents."
@@ -182512,6 +182577,11 @@
       "name": "fastagent-sh--fastagent",
       "source": "./fastagent-sh--fastagent",
       "description": "Vibe first. Then FastAgent \u2014 turn a local agent directory into a live service: in your app, on GitHub, in Telegram, or any channel."
+    },
+    {
+      "name": "dicroce--wyrm-math",
+      "source": "./dicroce--wyrm-math",
+      "description": "Algebra engine."
     },
     {
       "name": "alonw0--llm-docs-optimizer",
@@ -195409,6 +195479,16 @@
       "description": "Zero-dependency TypeScript framework for production AI agents: durable execution, long-term memory, hybrid RAG, MCP tool calling, human-in-the-loop approval, planning and CodeAct sandboxes. One stream"
     },
     {
+      "name": "andrewctf--velocity",
+      "source": "./andrewctf--velocity",
+      "description": "Self-hosted OSINT situation console: live aircraft, ships, satellites, quakes and conflict events fused on one 3D globe, with position history you own and replay for as long as you keep it. No API key"
+    },
+    {
+      "name": "andrewctf--velocity",
+      "source": "./andrewctf--velocity",
+      "description": "Self-hosted OSINT situation console: live aircraft, ships, satellites, quakes and conflict events fused on one 3D globe, with position history you own and replay for as long as you keep it. No API key"
+    },
+    {
       "name": "mikkelkrogsholm--skills",
       "source": "./mikkelkrogsholm--skills",
       "description": "skills"
@@ -204822,6 +204902,11 @@
       "name": "a672780966---harness-os",
       "source": "./a672780966---harness-os",
       "description": "Local semantic copilot and governed agent engineering runtime for AI-assisted software delivery."
+    },
+    {
+      "name": "saberzero1--motions",
+      "source": "./saberzero1--motions",
+      "description": "Enhances Obsidian's built-in Vim mode with Markdown-aware text objects, structural navigation, workspace keyboard control, and a polished Neovim-native experience."
     },
     {
       "name": "izittmarvin--memcoach",
@@ -348907,6 +348992,26 @@
       "name": "zime-ai--zime-gtm-skills",
       "source": "./zime-ai--zime-gtm-skills",
       "description": "Build your own sales-call review tooling: Agent Skills that audit call transcripts and CRM exports against GTM rubrics."
+    },
+    {
+      "name": "shirohata--vc-rs",
+      "source": "./shirohata--vc-rs",
+      "description": "Real-time RVC voice changer in Rust: standalone GUI, CLI, and VST3 plugin running ONNX models on Windows ML or TensorRT"
+    },
+    {
+      "name": "likeagfeld--saturnmania",
+      "source": "./likeagfeld--saturnmania",
+      "description": "SaturnMania"
+    },
+    {
+      "name": "shirohata--vc-rs",
+      "source": "./shirohata--vc-rs",
+      "description": "Real-time RVC voice changer in Rust: standalone GUI, CLI, and VST3 plugin running ONNX models on Windows ML or TensorRT"
+    },
+    {
+      "name": "likeagfeld--saturnmania",
+      "source": "./likeagfeld--saturnmania",
+      "description": "SaturnMania"
     },
     {
       "name": "yschimke--compose-ai-tools",
