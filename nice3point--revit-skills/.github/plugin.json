@@ -1,0 +1,9 @@
+{
+  "name": "nice3point--revit-skills",
+  "displayName": "revit-skills",
+  "description": "Skills to assist AI coding agents with Revit API",
+  "version": "1.0.0",
+  "author": "Nice3point",
+  "homepage": "https://github.com/Nice3point/revit-skills",
+  "skills": []
+}
