@@ -4,7 +4,7 @@
   "repo": "finesse-brief",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mouse-lin/finesse-brief",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T18:33:49Z"
+  "distributed_at": "2026-08-07T19:34:34Z"
 }
