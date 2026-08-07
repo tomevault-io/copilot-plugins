@@ -1,0 +1,9 @@
+{
+  "name": "reddb-io--red-ui",
+  "displayName": "red-ui",
+  "description": "Universal client for reddb \u2014 embedded, server, docker, cluster. Tauri 2 + SvelteKit, ships as desktop app and PWA.",
+  "version": "1.0.0",
+  "author": "reddb-io",
+  "homepage": "https://github.com/reddb-io/red-ui",
+  "skills": []
+}
