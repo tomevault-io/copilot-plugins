@@ -1,0 +1,9 @@
+{
+  "name": "smaramwbc--statewave-multi-agent-memory",
+  "displayName": "statewave-multi-agent-memory",
+  "description": "Multi-agent demo for Statewave conflict resolution. Concurrent agents write to a shared subject; the compiler detects contradicting facts via Jaccard similarity and supersedes the stale one with prove",
+  "version": "1.0.0",
+  "author": "smaramwbc",
+  "homepage": "https://github.com/smaramwbc/statewave-multi-agent-memory",
+  "skills": []
+}
