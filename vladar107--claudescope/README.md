@@ -7,11 +7,11 @@ A scope for your Ai coding-agent sessions
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [vladar107/claudescope](https://github.com/vladar107/claudescope).
+Original source: `AGENTS.md` in [vladar107/claudescope](https://github.com/vladar107/claudescope).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
