@@ -4,7 +4,7 @@
   "repo": "gears-frontx",
   "description": "Cyber Ware FrontX - UI development kit for modern SaaS applications",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/constructorfabric/gears-frontx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T10:44:02Z"
+  "distributed_at": "2026-08-07T12:37:40Z"
 }
