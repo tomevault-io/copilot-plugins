@@ -1,0 +1,9 @@
+{
+  "name": "ranxianglei--billion-context-pi",
+  "displayName": "billion-context-pi",
+  "description": "Active Context Pruning for pi \uff0c150K tokens is enough. \uff0c\u4e3b\u52a8\u538b\u7f29\u4e0a\u4e0b\u6587\uff0c15w token\u8db3\u4ee5",
+  "version": "1.0.0",
+  "author": "ranxianglei",
+  "homepage": "https://github.com/ranxianglei/billion-context-pi",
+  "skills": []
+}
