@@ -1,0 +1,9 @@
+{
+  "name": "mstdokumaci--zsort",
+  "displayName": "zsort",
+  "description": "Opinionated import organizer for Zig similar to isort / goimports",
+  "version": "1.0.0",
+  "author": "mstdokumaci",
+  "homepage": "https://github.com/mstdokumaci/zsort",
+  "skills": []
+}
