@@ -1,0 +1,9 @@
+{
+  "name": "e1025735--nd-rating-sync",
+  "displayName": "nd-rating-sync",
+  "description": "A Navidrome plugin that reads embedded star-rating tags from your music files and syncs them into Navidrome's own user-rating system via the internal Subsonic API.",
+  "version": "1.0.0",
+  "author": "e1025735",
+  "homepage": "https://github.com/e1025735/nd-rating-sync",
+  "skills": []
+}
