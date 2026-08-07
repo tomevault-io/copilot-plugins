@@ -7,11 +7,11 @@ An engineering philosophy that treats the agent as a worker: the system prompt i
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Onenightcarnival/agent-engineering-philosophy](https://github.com/Onenightcarnival/agent-engineering-philosophy).
+Original source: `AGENTS.md` in [Onenightcarnival/agent-engineering-philosophy](https://github.com/Onenightcarnival/agent-engineering-philosophy).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
