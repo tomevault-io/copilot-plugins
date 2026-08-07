@@ -1,0 +1,44 @@
+{
+  "name": "governed-dcf-skill",
+  "owner": "noahnan-max",
+  "repo": "governed-dcf-skill",
+  "description": "An auditable DCF valuation skill with scenarios, reverse DCF, sensitivity analysis, and fail-closed governance gates.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/noahnan-max/governed-dcf-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T09:07:51Z"
+}
