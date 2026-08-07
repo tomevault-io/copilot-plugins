@@ -1,0 +1,9 @@
+{
+  "name": "dannote--skia-ex",
+  "displayName": "skia_ex",
+  "description": "Skia-backed Elixir drawing and rendering API with Rustler precompiled NIFs",
+  "version": "1.0.0",
+  "author": "dannote",
+  "homepage": "https://github.com/dannote/skia_ex",
+  "skills": []
+}
