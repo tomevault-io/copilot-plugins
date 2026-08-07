@@ -1,0 +1,9 @@
+{
+  "name": "sx4im--skillcheck",
+  "displayName": "skillcheck",
+  "description": " \ud83e\uddea A/B test your agent skills \u2014 skillcheck measures whether a SKILL.md actually improves an LLM's task performance, with blind grading, bootstrap confidence intervals, and a 0\u2013100 score. CLI for Claud",
+  "version": "1.0.0",
+  "author": "sx4im",
+  "homepage": "https://github.com/sx4im/skillcheck",
+  "skills": []
+}
