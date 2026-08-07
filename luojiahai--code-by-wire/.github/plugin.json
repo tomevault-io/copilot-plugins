@@ -1,0 +1,9 @@
+{
+  "name": "luojiahai--code-by-wire",
+  "displayName": "code-by-wire",
+  "description": "Pilot coding agents (Claude Code, Codex) and monitor their telemetry from one cockpit.",
+  "version": "1.0.0",
+  "author": "luojiahai",
+  "homepage": "https://github.com/luojiahai/code-by-wire",
+  "skills": []
+}
