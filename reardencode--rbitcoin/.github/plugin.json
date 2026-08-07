@@ -1,0 +1,9 @@
+{
+  "name": "reardencode--rbitcoin",
+  "displayName": "rbitcoin",
+  "description": "Bitcoin full node in Rust: map-free relational archive, pure-Rust consensus, multi-peer IBD, Electrum for wallet backends",
+  "version": "1.0.0",
+  "author": "reardencode",
+  "homepage": "https://github.com/reardencode/rbitcoin",
+  "skills": []
+}
