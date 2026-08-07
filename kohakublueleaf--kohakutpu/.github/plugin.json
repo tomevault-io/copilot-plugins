@@ -1,0 +1,9 @@
+{
+  "name": "kohakublueleaf--kohakutpu",
+  "displayName": "KohakuTPU",
+  "description": "An AI accelerator implementation with Xilinx FPGA",
+  "version": "1.0.0",
+  "author": "KohakuBlueleaf",
+  "homepage": "https://github.com/KohakuBlueleaf/KohakuTPU",
+  "skills": []
+}
