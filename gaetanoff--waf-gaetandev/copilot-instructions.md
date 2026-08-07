@@ -1,86 +1,73 @@
-## specific-c
+## specific-cpp
 
-> C coding standards — memory safety, defensive programming, portability
+> C++ modern standards — RAII, smart pointers, templates, safety
 
 
-# C Standards
+# C++ Standards (C++17/20/23)
 
-## Memory Management
+## Memory & Resource Management (RAII)
 
-- Every `malloc`/`calloc`/`realloc` must have a corresponding `free`. No exceptions.
-- Always check the return value of allocation functions for `NULL`.
-- Set pointers to `NULL` after freeing to prevent use-after-free.
-- Prefer `calloc` over `malloc` — zero-initialization catches bugs early.
-- Use `sizeof(*ptr)` instead of `sizeof(Type)` for allocations to stay in sync with the type.
+- Never use raw `new`/`delete`. Use `std::make_unique` and `std::make_shared`.
+- `std::unique_ptr` by default. `std::shared_ptr` only when ownership is truly shared.
+- Use RAII for every resource: memory, files, locks, sockets, handles.
+- Pass smart pointers to functions only when transferring or sharing ownership. Otherwise pass `T&` or `T*`.
+- Use `std::span<T>` (C++20) for non-owning views into contiguous data.
 
-```c
-// ✅ Safe allocation pattern
-int *buf = calloc(count, sizeof(*buf));
-if (!buf) {
-    return ERR_NOMEM;
-}
-// ... use buf ...
-free(buf);
-buf = NULL;
+```cpp
+// ✅ RAII + smart pointers
+auto user = std::make_unique<User>("Alice", 30);
+auto config = std::make_shared<Config>(load_config());
+
+// ✅ Non-owning parameter — no smart pointer needed
+void process(const User& user);
 ```
 
-## Defensive Programming
+## Modern C++ Patterns
 
-- Check all function return values — especially I/O, system calls, and allocations.
-- Validate all pointer parameters at function entry. Return error codes for invalid input.
-- Use `const` liberally: `const` parameters, `const` pointers, `const` return types.
-- Prefer fixed-size integer types from `<stdint.h>` (`uint32_t`, `int64_t`) over `int`/`long`.
-- Guard against integer overflow in size calculations: check before multiplying.
-
-## Strings & Buffers
-
-- Always use bounded functions: `snprintf` over `sprintf`, `strncpy` over `strcpy`.
-- Always null-terminate strings explicitly after buffer operations.
-- Track buffer sizes alongside pointers — pass `(buf, buf_size)` pairs to functions.
-- Never use `gets()`. Use `fgets()` with explicit size limits.
-- Be aware of off-by-one errors in buffer size calculations.
+- Use `auto` when the type is obvious. Be explicit when it aids readability.
+- Use structured bindings: `auto [key, value] = map_entry;`.
+- Use `constexpr` for compile-time computation. Prefer `constexpr` over `#define` macros.
+- Use `std::optional<T>` for values that may be absent. Never return raw pointers for "maybe null".
+- Use `std::variant` for type-safe unions. Use `std::visit` for exhaustive handling.
+- Use `std::string_view` for non-owning string references.
 
 ## Error Handling
 
-- Use return codes consistently: `0` for success, negative values for errors.
-- Define an `enum` for error codes with descriptive names.
-- Use a `goto cleanup` pattern for multi-resource functions to ensure proper cleanup.
+- Use exceptions for truly exceptional failures. Use `std::expected<T, E>` (C++23) or a Result type for expected errors.
+- Prefer `noexcept` on functions that cannot throw (move constructors, destructors).
+- Avoid exception specifications other than `noexcept`.
+- Use RAII so cleanup is automatic — no need for try/catch just for resource management.
 
-```c
-int process_file(const char *path)
-{
-    int ret = 0;
-    FILE *fp = NULL;
-    char *buf = NULL;
+## Containers & Algorithms
 
-    fp = fopen(path, "r");
-    if (!fp) { ret = ERR_OPEN; goto cleanup; }
+- Prefer STL containers (`std::vector`, `std::array`, `std::unordered_map`) over C arrays.
+- Use `std::vector` as the default container. Reserve capacity when size is known.
+- Use range-based `for` loops. Use `<algorithm>` and `<ranges>` (C++20) over hand-written loops.
+- Use `emplace_back` over `push_back` to avoid unnecessary copies.
+- Prefer `std::array` over C-style arrays for fixed-size collections.
 
-    buf = malloc(BUF_SIZE);
-    if (!buf) { ret = ERR_NOMEM; goto cleanup; }
+## Const Correctness
 
-    // ... process ...
+- Mark everything `const` that shouldn't change: variables, references, member functions.
+- Use `const&` for function parameters that don't need mutation.
+- Use `consteval` (C++20) for functions that must run at compile time.
+- Make member functions `const` unless they modify state.
 
-cleanup:
-    free(buf);
-    if (fp) fclose(fp);
-    return ret;
-}
-```
+## Concurrency
 
-## Headers & Organization
+- Use `std::thread`, `std::jthread` (C++20), or `std::async` for parallelism.
+- Protect shared data with `std::mutex` + `std::lock_guard` / `std::scoped_lock`.
+- Prefer lock-free structures (`std::atomic`) for simple shared state.
+- Use `std::condition_variable` for thread signaling.
+- Avoid data races — they are undefined behavior in C++.
 
-- Use include guards in all headers: `#ifndef PROJECT_MODULE_H` / `#define` / `#endif`.
-- Expose only the public API in `.h` files. Use `static` for file-private functions.
-- One module = one `.c` + one `.h` pair. Keep interfaces minimal.
-- Include order: own header → project headers → system headers → third-party.
+## Build & Safety
 
-## Portability & Safety
-
-- Compile with `-Wall -Wextra -Werror` (GCC/Clang). Fix all warnings.
-- Run static analyzers (clang-tidy, cppcheck) and sanitizers (`-fsanitize=address,undefined`).
-- Avoid undefined behavior: no signed overflow, no out-of-bounds access, no uninitialized reads.
-- Use `static_assert` (C11) for compile-time invariants.
+- Compile with `-Wall -Wextra -Wpedantic -Werror`. Enable sanitizers in debug builds.
+- Use `clang-tidy` with the C++ Core Guidelines checks.
+- Use CMake as the build system. Structure: `src/`, `include/`, `tests/`, `CMakeLists.txt`.
+- Use `#pragma once` or traditional include guards in all headers.
+- Minimize includes in headers — use forward declarations where possible.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
