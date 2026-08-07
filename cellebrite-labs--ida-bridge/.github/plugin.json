@@ -1,0 +1,9 @@
+{
+  "name": "cellebrite-labs--ida-bridge",
+  "displayName": "ida-bridge",
+  "description": "Bridge between agents and IDA Pro.",
+  "version": "1.0.0",
+  "author": "cellebrite-labs",
+  "homepage": "https://github.com/cellebrite-labs/ida-bridge",
+  "skills": []
+}
