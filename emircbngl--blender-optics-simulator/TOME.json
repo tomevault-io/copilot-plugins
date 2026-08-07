@@ -1,0 +1,44 @@
+{
+  "name": "blender-optics-simulator",
+  "owner": "emircbngl",
+  "repo": "blender-optics-simulator",
+  "description": "Blender add-on to design, simulate, align & render optical setups \u2014 live beam tracing, kinematic-mount auto-alignment, polarization (Jones/Stokes), interference fringes, Gaussian beams, wavelength optics, and a real-vendor component library. Driveable from the UI or a headless optics_api (AI/MCP-friendly).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/emircbngl/blender-optics-simulator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T15:37:00Z"
+}
