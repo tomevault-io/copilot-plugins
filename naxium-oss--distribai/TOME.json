@@ -4,7 +4,7 @@
   "repo": "DistribAI",
   "description": "A distributed AI training framework to distribute training across consumer devices, all edge cases handled.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/naxium-oss/DistribAI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-02T18:32:23Z"
+  "distributed_at": "2026-08-07T08:52:25Z"
 }
