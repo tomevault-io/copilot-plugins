@@ -1,0 +1,9 @@
+{
+  "name": "hmmhmmhm--ax-grep",
+  "displayName": "ax-grep",
+  "description": "Agent-ready CLI for static page inspection, search triage, and browser handoff.",
+  "version": "1.0.0",
+  "author": "hmmhmmhm",
+  "homepage": "https://github.com/hmmhmmhm/ax-grep",
+  "skills": []
+}
