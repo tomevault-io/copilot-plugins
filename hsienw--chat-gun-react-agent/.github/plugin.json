@@ -1,0 +1,9 @@
+{
+  "name": "hsienw--chat-gun-react-agent",
+  "displayName": "chat-gun-react-agent",
+  "description": "\ud83e\udd16A production-oriented full-stack Agent Chat system built with React, TypeScript, LangGraph JS, Qwen/OpenAI-compatible models, native tools, optional MCP, HITL, streaming events, multimodal input, and",
+  "version": "1.0.0",
+  "author": "HsienW",
+  "homepage": "https://github.com/HsienW/chat-gun-react-agent",
+  "skills": []
+}
