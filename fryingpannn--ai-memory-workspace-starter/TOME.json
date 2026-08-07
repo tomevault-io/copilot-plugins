@@ -4,7 +4,7 @@
   "repo": "ai-memory-workspace-starter",
   "description": "A Hermes-friendly, files-first AI memory workspace that survives fresh chats.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Fryingpannn/ai-memory-workspace-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T23:55:05Z"
+  "distributed_at": "2026-08-07T08:34:56Z"
 }
