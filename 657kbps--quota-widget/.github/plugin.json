@@ -1,0 +1,9 @@
+{
+  "name": "657kbps--quota-widget",
+  "displayName": "quota-widget",
+  "description": "An open-source widget for checking API balance and usage at a glance on the Android home screen.",
+  "version": "1.0.0",
+  "author": "657kbps",
+  "homepage": "https://github.com/657kbps/quota-widget",
+  "skills": []
+}
