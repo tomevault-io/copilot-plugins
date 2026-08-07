@@ -1,0 +1,9 @@
+{
+  "name": "rogerreed--agentlens",
+  "displayName": "agentlens",
+  "description": "Agentic AI monitoring and observability \u2014 OTEL traces and local log files from Copilot, Claude Code, Codex, and OpenCode. Token usage, cost, summaries, and efficiency insights. VS Code extension, npx,",
+  "version": "1.0.0",
+  "author": "RogerReed",
+  "homepage": "https://github.com/RogerReed/agentlens",
+  "skills": []
+}
