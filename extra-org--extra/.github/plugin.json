@@ -1,0 +1,9 @@
+{
+  "name": "extra-org--extra",
+  "displayName": "extra",
+  "description": "Turn your app into an agentic product from one YAML file",
+  "version": "1.0.0",
+  "author": "extra-org",
+  "homepage": "https://github.com/extra-org/extra",
+  "skills": []
+}
