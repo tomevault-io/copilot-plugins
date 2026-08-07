@@ -1,0 +1,9 @@
+{
+  "name": "stellar-unified-price-oracle--stellar-unified-price-oracle-aggregator-api-contract",
+  "displayName": "Stellar-Unified-Price-Oracle-Aggregator-API-Contract",
+  "description": "\ud83d\udd10 Native Soroban smart contracts for the Stellar Unified Price Oracle. Implements secure multi-source ingestion, cryptographic payload validation, on-chain outlier filtering (medianizer), and optimize",
+  "version": "1.0.0",
+  "author": "Stellar-Unified-Price-Oracle",
+  "homepage": "https://github.com/Stellar-Unified-Price-Oracle/Stellar-Unified-Price-Oracle-Aggregator-API-Contract",
+  "skills": []
+}
