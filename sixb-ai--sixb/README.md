@@ -7,11 +7,11 @@ Open-source TypeScript framework for building operational software used by human
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sixb-ai/sixb](https://github.com/sixb-ai/sixb).
+Original source: `AGENTS.md` in [sixb-ai/sixb](https://github.com/sixb-ai/sixb).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
