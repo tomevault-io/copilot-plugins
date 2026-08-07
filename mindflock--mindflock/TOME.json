@@ -1,0 +1,44 @@
+{
+  "name": "MindFlock",
+  "owner": "MindFlock",
+  "repo": "MindFlock",
+  "description": "Run a flock of AI coding agents, each in its own git worktree, started by your ticket queue, merged by you. Work assigned to you in Jira, Linear, GitHub Issues, Shortcut or Asana becomes a seeded, already-running session; you review the diff and click it home.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MindFlock/MindFlock",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T05:04:21Z"
+}
