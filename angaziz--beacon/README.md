@@ -7,11 +7,11 @@ A dark and futuristic companion on a 2.16" AMOLED touch device — built on the 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [angaziz/beacon](https://github.com/angaziz/beacon).
+Original source: `AGENTS.md` in [angaziz/beacon](https://github.com/angaziz/beacon).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
