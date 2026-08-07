@@ -4,7 +4,7 @@
   "repo": "HachimoDock",
   "description": "A desktop pet that reacts to your Claude Code sessions in real-time \u2014 thinking, typing,  juggling, sleeping, and more.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/YizhengWw/HachimoDock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T08:47:57Z"
+  "distributed_at": "2026-08-07T18:38:51Z"
 }
