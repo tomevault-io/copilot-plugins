@@ -1,0 +1,9 @@
+{
+  "name": "qualitymd--quality-md",
+  "displayName": "quality.md",
+  "description": "Open format, agent skill, and CLI for engineering quality loops: define what matters most, evaluate, act, and continuously improve.",
+  "version": "1.0.0",
+  "author": "qualitymd",
+  "homepage": "https://github.com/qualitymd/quality.md",
+  "skills": []
+}
