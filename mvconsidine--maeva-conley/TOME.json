@@ -4,7 +4,7 @@
   "repo": "maeva-conley",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mvconsidine/maeva-conley",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T00:09:04Z"
+  "distributed_at": "2026-08-07T09:14:29Z"
 }
