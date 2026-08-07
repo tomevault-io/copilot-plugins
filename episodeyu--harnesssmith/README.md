@@ -7,11 +7,11 @@ Forge your own agent harness — a config-to-code generator that renders a thin,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [EpisodeYu/HarnessSmith](https://github.com/EpisodeYu/HarnessSmith).
+Original source: `AGENTS.md` in [EpisodeYu/HarnessSmith](https://github.com/EpisodeYu/HarnessSmith).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
