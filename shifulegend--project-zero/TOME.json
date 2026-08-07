@@ -4,7 +4,7 @@
   "repo": "project-zero",
   "description": "CPU-optimized LLM inference engine (C)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shifulegend/project-zero",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T07:25:12Z"
+  "distributed_at": "2026-08-07T17:23:34Z"
 }
