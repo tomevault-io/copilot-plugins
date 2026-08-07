@@ -1,0 +1,9 @@
+{
+  "name": "prosus-cyber-xchange--anonymizer",
+  "displayName": "anonymizer",
+  "description": "A REST API service and embeddable Go library for PII detection and anonymization \u2014 email, CPF, credit cards, phone numbers, and more. Uses leakspok for analysis with Valkey/Redis caching.",
+  "version": "1.0.0",
+  "author": "Prosus-Cyber-Xchange",
+  "homepage": "https://github.com/Prosus-Cyber-Xchange/anonymizer",
+  "skills": []
+}
