@@ -1,0 +1,9 @@
+{
+  "name": "zetaloop--analyzed",
+  "displayName": "analyzed",
+  "description": "shared rust-analyzer daemon",
+  "version": "1.0.0",
+  "author": "zetaloop",
+  "homepage": "https://github.com/zetaloop/analyzed",
+  "skills": []
+}
