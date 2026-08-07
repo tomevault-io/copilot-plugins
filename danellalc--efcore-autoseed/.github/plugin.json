@@ -1,0 +1,9 @@
+{
+  "name": "danellalc--efcore-autoseed",
+  "displayName": "EFCore.AutoSeed",
+  "description": "Seeds a database by reading the EF Core model. No factories, no CSV, no manual ordering.",
+  "version": "1.0.0",
+  "author": "danellalc",
+  "homepage": "https://github.com/danellalc/EFCore.AutoSeed",
+  "skills": []
+}
