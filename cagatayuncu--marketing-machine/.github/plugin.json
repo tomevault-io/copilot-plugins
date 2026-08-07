@@ -1,0 +1,9 @@
+{
+  "name": "cagatayuncu--marketing-machine",
+  "displayName": "marketing-machine",
+  "description": "Claim-provenance and brand-compliance harness for marketing content: scans your codebase for product truth, lints copy against it, renders on-brand cards and video. Installs as a Claude Code plugin/sk",
+  "version": "1.0.0",
+  "author": "cagatayuncu",
+  "homepage": "https://github.com/cagatayuncu/marketing-machine",
+  "skills": []
+}
