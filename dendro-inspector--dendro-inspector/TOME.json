@@ -4,7 +4,7 @@
   "repo": "Dendro-Inspector",
   "description": " Eval-driven multimodal agent for identifying trees, logs, bark, leaves and wood from photographs. Dendrology is the reference domain; the engineering subject is evidence handling, calibrated uncertainty and evaluation.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Dendro-Inspector/Dendro-Inspector",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T00:03:04Z"
+  "distributed_at": "2026-08-07T08:54:58Z"
 }
