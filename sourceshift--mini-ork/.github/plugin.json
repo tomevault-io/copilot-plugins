@@ -1,0 +1,9 @@
+{
+  "name": "sourceshift--mini-ork",
+  "displayName": "mini-ork",
+  "description": "Ship AI-agent artifacts, not demo theater \u2014 verifier-gated, cross-family runs that learn which model wins.",
+  "version": "1.0.0",
+  "author": "SourceShift",
+  "homepage": "https://github.com/SourceShift/mini-ork",
+  "skills": []
+}
