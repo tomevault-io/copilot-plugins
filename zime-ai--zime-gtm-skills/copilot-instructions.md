@@ -1,0 +1,127 @@
+## zime-gtm-skills
+
+> Guidelines for AI agents working in this repository.
+
+# AGENTS.md
+
+Guidelines for AI agents working in this repository.
+
+## Repository overview
+
+Open-source [Agent Skills](https://agentskills.io/specification.md) that
+audit sales call transcripts and CRM exports against per-GTM-motion rubrics.
+No Zime product coupling: every skill runs standalone, no API keys, no
+gating, no data leaves the user's machine. Skills install to
+`.agents/skills/` (the cross-agent standard) and also work under
+`.claude/skills/`.
+
+- **Name**: zime-gtm-skills
+- **GitHub**: [zime-ai/zime-gtm-skills](https://github.com/zime-ai/zime-gtm-skills)
+- **Maintained by**: [Zime](https://zime.ai)
+- **License**: MIT
+
+## Repository structure
+
+```
+zime-gtm-skills/
+├── .claude-plugin/
+│   ├── marketplace.json       # /plugin marketplace add zime-ai/zime-gtm-skills
+│   └── plugin.json
+├── skills/
+│   └── skill-name/
+│       ├── SKILL.md          # required
+│       ├── references/       # optional, the rubric lives here
+│       ├── assets/           # optional, synthetic sample transcript/CSV
+│       └── evals/            # optional, evals.json, declarative for now
+├── validate-skills.sh         # local, zero-dep frontmatter/layout check
+├── CONTRIBUTING.md
+├── MAINTAINING.md              # process + decisions, for picking this repo back up
+├── LICENSE
+└── README.md
+```
+
+## Frontmatter contract
+
+| Field | Required | Constraints |
+|---|---|---|
+| `name` | yes | 1–64 chars, lowercase `[a-z0-9-]`, must equal the parent directory name |
+| `description` | yes | 1–1024 chars; state both *what* the skill does and *when* to use it |
+| `license` | no | defaults to MIT |
+| `metadata` | no | free-form; this repo uses `zime:category`, `zime:dimension` (`stage`/`initiative`/`vertical-context`), `zime:input-modes`, and (for stage skills) `zime:stage` |
+
+`SKILL.md` stays under 500 lines. Move detail into `references/`.
+`references/`, `scripts/`, `assets/`, `evals/` are one level deep, no nested
+reference chains.
+
+## Validate
+
+```bash
+./validate-skills.sh                        # local, seconds, zero deps
+./scripts/check-docs-sync.sh                # README count/table vs skills/, zero deps
+python3 scripts/scan-content.py             # content-level leak/injection scan, zero deps
+```
+
+CI additionally runs the upstream spec's `skills-ref validate` on every PR,
+pinned to a commit (see `.github/workflows/validate.yml`) since it isn't
+published to PyPI.
+
+`tests/run-checks-tests.sh` runs the above three against deliberately broken
+fixtures (missing frontmatter, un-ignored private dirs, a leaked home path,
+an injection pattern, ...) so a CI failure has been shown to actually catch
+something, not just assumed to. Run it after touching any validator.
+
+## Rule registry
+
+Every automated check enforces a named rule, so a CI failure line points at
+what to fix, not just which script ran.
+
+| Rule ID | Enforced by |
+|---|---|
+| `frontmatter-contract` | `validate-skills.sh` — name/description/dimension/line-count |
+| `private-data-ignored` | `validate-skills.sh` — `evals/{transcripts,gt,cases,labels}` stay gitignored |
+| `readme-in-sync` | `scripts/check-docs-sync.sh` |
+| `no-home-paths` | `scripts/scan-content.py` — no `/Users/<name>` or `C:\Users\<name>` in tracked files |
+| `no-injection` | `scripts/scan-content.py` — no prompt-injection patterns in `skills/*/SKILL.md` or `references/` |
+| `no-hidden-unicode` | `scripts/scan-content.py` — no zero-width/bidi-override/homoglyph chars |
+| `no-client-names` | `scripts/scan-content.py` — local-only, needs a gitignored `.private/client-denylist.txt`; skips (not a failure) when that file is absent, including in CI |
+| `sample-required` | `validate-skills.sh` — every skill with `zime:dimension: stage` or `initiative` must have `assets/` (at least one file) and `evals/evals.json`; `vertical-context` skills are exempt, they're loaded by other skills rather than run directly |
+
+## The two hard content rules
+
+1. **Every finding in a transcript-mode audit cites a quote or timestamp.**
+   An uncited finding doesn't ship: this is the trust bar the whole repo is
+   built on.
+2. **Never expose anything that isn't already customer-visible in the Zime
+   product.** Checklist titles and question text are customer-visible and
+   fine to draw on; internal scoring weights, thresholds, model
+   configuration, and customer/account data are not. See `MAINTAINING.md`
+   for the authoring process and how this gets enforced.
+
+Building several skills at once? See `MAINTAINING.md`'s "Building skills at
+scale" for the worktree-per-skill and create-validate-iterate flow.
+
+## Evals
+
+Each skill may carry `evals/evals.json`: declarative test cases (prompt +
+sample file + expected `expectations`). They are not run in CI yet. See
+`EVALS.md` for the full methodology: the three eval tiers, why format
+compliance and insight recall are reported as two separate metrics rather
+than one blended number, and where a human is required versus where nothing
+is. Treat evals as the source of truth for "does this skill actually work,"
+not the `skills-ref`/`validate-skills.sh` structural checks, which only
+catch frontmatter and layout errors.
+
+## Two dimensions: stage, initiative
+
+Skills cover deal stage and initiative as ordinary, flat skills
+(`zime:dimension: stage` or `initiative` in frontmatter), never nested
+under a `skills/stage/` or `skills/initiative/` directory, since that breaks
+the install command above and both validators. A third axis,
+`vertical-context` (a reference pack per industry any other skill can load
+on request), was pulled off `main` before public launch pending
+domain-expert review — see `MAINTAINING.md`'s "Two dimensions" and
+"Deferred work" sections, and the `vertical-context` branch.
+
+---
+> Source: [zime-ai/zime-gtm-skills](https://github.com/zime-ai/zime-gtm-skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-07 -->
