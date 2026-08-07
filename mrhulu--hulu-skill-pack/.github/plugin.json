@@ -1,0 +1,9 @@
+{
+  "name": "mrhulu--hulu-skill-pack",
+  "displayName": "hulu-skill-pack",
+  "description": "Original personal skill packages for AI coding agents.",
+  "version": "1.0.0",
+  "author": "MrHulu",
+  "homepage": "https://github.com/MrHulu/hulu-skill-pack",
+  "skills": []
+}
