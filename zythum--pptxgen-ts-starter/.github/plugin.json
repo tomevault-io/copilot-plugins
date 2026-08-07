@@ -1,0 +1,9 @@
+{
+  "name": "zythum--pptxgen-ts-starter",
+  "displayName": "pptxgen-ts-starter",
+  "description": "A starter template for creating PowerPoint presentations using JSX + TypeScript with pptxgenjs. Build slides declaratively, preview instantly in the browser, and generate professional .pptx files.",
+  "version": "1.0.0",
+  "author": "zythum",
+  "homepage": "https://github.com/zythum/pptxgen-ts-starter",
+  "skills": []
+}
