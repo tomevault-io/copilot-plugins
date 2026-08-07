@@ -1,0 +1,9 @@
+{
+  "name": "go-to-k--cdk-real-drift",
+  "displayName": "cdk-real-drift",
+  "description": "Drift detection for AWS CDK that sees what your template can't, including the properties you never declared. Detect it, record it, or revert it.",
+  "version": "1.0.0",
+  "author": "go-to-k",
+  "homepage": "https://github.com/go-to-k/cdk-real-drift",
+  "skills": []
+}
