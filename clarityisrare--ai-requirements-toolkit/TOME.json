@@ -4,7 +4,7 @@
   "repo": "ai-requirements-toolkit",
   "description": "Practical toolkit for writing, reviewing & validating requirements in the AI era \u2014 copy-paste AI prompts, checklists, reusable patterns, templates, and Mermaid diagrams, with worked before/after examples.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/clarityisrare/ai-requirements-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T21:34:43Z"
+  "distributed_at": "2026-08-07T12:48:39Z"
 }
