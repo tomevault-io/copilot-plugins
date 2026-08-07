@@ -1,305 +1,89 @@
-## core-observability
+## core-planning
 
-> Spec-driven observability — structured logging, metrics, tracing, SLOs, alerting defined as contracts
+> Spec-driven planning — requirements as specifications, contracts as acceptance criteria
 
 
-# Observability (Spec-Driven)
+# Spec-Driven Planning
 
-## Overview
+## Requirements as Specifications
 
-Observability is not an afterthought — it's a **contract**. Define logging, metrics, and tracing specs alongside your API and data contracts. Every observable signal traces back to a spec.
+- Decompose the project into epics → features → specs → tasks.
+- For each feature, write a **feature spec** defining: inputs, outputs, contracts, edge cases, error cases.
+- Distinguish between must-have (MVP), should-have, and nice-to-have specs.
+- Identify external dependencies and define **integration contracts** for each.
+- Map out the user journey for each core use case as a sequence of contract interactions.
 
-## Structured Logging Contract
+## Scoping
 
-### Log Entry Schema
+- Define MVP scope as a **minimal set of specs** that delivers value.
+- Identify risks and unknowns early. Write **spike specs** to prototype the riskiest contracts.
+- List assumptions and validate them against specs before building on top of them.
+- Estimate relative complexity for each spec (S/M/L/XL).
+- Plan for incremental delivery — each increment delivers a complete set of conforming specs.
 
-Define a standard log format as a JSON Schema:
+## Spec-Based Acceptance Criteria
 
-```json
-{
-  "title": "LogEntry",
-  "type": "object",
-  "required": ["timestamp", "level", "message", "service"],
-  "properties": {
-    "timestamp": {
-      "type": "string",
-      "format": "date-time",
-      "description": "ISO 8601 timestamp"
-    },
-    "level": {
-      "type": "string",
-      "enum": ["debug", "info", "warn", "error", "fatal"]
-    },
-    "message": {
-      "type": "string",
-      "description": "Human-readable log message"
-    },
-    "service": {
-      "type": "string",
-      "description": "Service name emitting the log"
-    },
-    "requestId": {
-      "type": "string",
-      "format": "uuid",
-      "description": "Correlation ID — traces a request across services"
-    },
-    "traceId": {
-      "type": "string",
-      "description": "Distributed trace ID (W3C Trace Context)"
-    },
-    "spanId": {
-      "type": "string",
-      "description": "Current span ID"
-    },
-    "userId": {
-      "type": "string",
-      "description": "Authenticated user ID (never log PII)"
-    },
-    "context": {
-      "type": "object",
-      "description": "Additional structured context (endpoint, method, duration, etc.)"
-    },
-    "error": {
-      "type": "object",
-      "properties": {
-        "name": { "type": "string" },
-        "message": { "type": "string" },
-        "stack": { "type": "string" }
-      }
-    }
-  }
-}
+Write acceptance criteria as **executable specifications**:
+
+```
+Feature: [Feature Name]
+Spec: [Contract Reference]
+
+Given [precondition — initial state / data contract]
+When [action — API call / user interaction / event]
+Then [expected outcome — response contract / state change / side effect]
+And [contract validation — response matches schema X]
 ```
 
-### Logging Rules
+Every feature spec needs:
+- Happy path criteria with exact input/output contracts.
+- Error path criteria with exact error response contracts.
+- Performance criteria (response time, throughput) as measurable SLOs.
+- Security criteria (access control, data protection) as authorization contracts.
 
-- **Always log**: request start/end, errors, auth failures, business events, performance anomalies.
-- **Never log**: passwords, tokens, PII (email, phone, address), credit card numbers, API keys.
-- **Log levels**:
-  - `debug`: detailed diagnostic info (disabled in production).
-  - `info`: normal operations (request handled, job completed, user action).
-  - `warn`: unexpected but recoverable situations (deprecated API call, retry, degraded service).
-  - `error`: failures that need attention (unhandled exception, external service down).
-  - `fatal`: system cannot continue (missing critical config, database unreachable on startup).
-- Every log entry includes `requestId` for correlation.
-- Use structured logging (JSON) — never `console.log("user: " + user)`.
+## Spec-Driven Task Breakdown
 
-## Metrics Contract
+For each feature, create a spec-first implementation plan:
 
-### RED Method (Request-Driven Services)
+1. **Spec authoring**: write data contracts, API contracts, UI contracts.
+2. **Spec review**: validate contracts with stakeholders, check consistency.
+3. **Conformance tests**: generate tests from specs before any implementation.
+4. **Data layer**: models and schema derived from data contracts.
+5. **Business logic**: services and validation derived from behavior specs.
+6. **API/Interface**: endpoints derived from API contracts.
+7. **UI** (if applicable): components derived from UI contracts.
+8. **Conformance validation**: all tests pass against implementation.
+9. **Documentation**: auto-generated from specs (OpenAPI docs, type docs).
 
-Define these metrics for every API endpoint in the spec:
+## Prioritization
 
-| Metric | Type | Description | Labels |
-|--------|------|-------------|--------|
-| `http_requests_total` | Counter | Total requests received | `method`, `path`, `status` |
-| `http_request_duration_seconds` | Histogram | Request latency | `method`, `path` |
-| `http_request_errors_total` | Counter | Total error responses (4xx, 5xx) | `method`, `path`, `status` |
+- Start with **foundational contracts** (auth contract, core entity schemas).
+- Build specs that unblock other specs first (shared types, common error contracts).
+- Defer optimization and polish specs until core contracts are stable.
+- Allocate time for spec review, conformance testing, and contract evolution.
 
-### USE Method (Resource-Driven Systems)
+## Constraints Checklist
 
-| Metric | Type | Description |
-|--------|------|-------------|
-| `cpu_utilization_ratio` | Gauge | CPU usage (0-1) |
-| `memory_utilization_bytes` | Gauge | Memory usage |
-| `db_connections_active` | Gauge | Active database connections |
-| `db_connections_pool_size` | Gauge | Connection pool size |
-| `queue_depth` | Gauge | Number of messages waiting in queue |
-| `disk_utilization_ratio` | Gauge | Disk usage (0-1) |
+Before writing specs, clarify:
+- [ ] Target platforms and browsers.
+- [ ] Performance requirements as SLOs (latency p50/p95/p99, throughput, concurrent users).
+- [ ] Security and compliance requirements (GDPR, HIPAA, SOC2) as security contracts.
+- [ ] Accessibility standards (WCAG level) as UI contracts.
+- [ ] Internationalization / localization needs as data format contracts.
+- [ ] Deployment environment (cloud provider, containers, serverless).
+- [ ] API versioning strategy and backward compatibility constraints.
+- [ ] Budget constraints for infrastructure and third-party services.
 
-### Business Metrics (From Specs)
+## Spec Formats by Layer
 
-Derive business metrics from behavior specs:
-
-```yaml
-# Example: derived from the checkout behavior spec
-business_metrics:
-  - name: orders_created_total
-    type: counter
-    description: Total orders created
-    labels: [payment_method, currency]
-    spec_ref: specs/features/checkout.feature
-
-  - name: order_value_total
-    type: counter
-    description: Total order value in cents
-    labels: [currency]
-
-  - name: checkout_abandonment_total
-    type: counter
-    description: Carts abandoned during checkout
-    labels: [step]
-```
-
-## Distributed Tracing Contract
-
-### Span Naming Convention
-
-Derive span names from API contracts:
-
-| Operation | Span Name |
-|-----------|-----------|
-| HTTP endpoint | `HTTP {METHOD} {path}` (e.g. `HTTP GET /api/v1/users`) |
-| Database query | `DB {operation} {table}` (e.g. `DB SELECT users`) |
-| External API call | `EXT {service} {operation}` (e.g. `EXT Stripe createCharge`) |
-| Message publish | `MSG PUBLISH {channel}` (e.g. `MSG PUBLISH orders.created`) |
-| Message consume | `MSG CONSUME {channel}` |
-| Background job | `JOB {name}` (e.g. `JOB sendWelcomeEmail`) |
-
-### Required Span Attributes
-
-```yaml
-# From OpenAPI spec
-http.method: GET
-http.url: /api/v1/users
-http.status_code: 200
-http.request_id: <uuid>
-
-# From data contracts
-db.system: postgresql
-db.statement: SELECT * FROM users WHERE id = $1
-db.operation: SELECT
-
-# From error contracts
-error: true
-error.code: NOT_FOUND
-error.message: User not found
-```
-
-### Trace Context Propagation
-
-- Use **W3C Trace Context** (`traceparent`, `tracestate` headers) for inter-service propagation.
-- Every HTTP client must forward trace headers.
-- Every message must include trace context in metadata.
-- Every background job must inherit the parent trace.
-
-## SLO/SLI/SLA Definitions
-
-### SLO Spec Format
-
-Define SLOs as formal specs in `specs/slos/`:
-
-```yaml
-# specs/slos/api-performance.yaml
-slos:
-  - name: API Availability
-    description: API responds successfully to requests
-    sli:
-      type: availability
-      metric: http_requests_total{status!~"5.."}
-      total: http_requests_total
-    target: 99.9%    # 3 nines
-    window: 30d
-    error_budget: 0.1%   # ~43 minutes/month
-
-  - name: API Latency (p99)
-    description: API responds within acceptable time
-    sli:
-      type: latency
-      metric: http_request_duration_seconds
-      threshold: 500ms   # p99 under 500ms
-    target: 99%
-    window: 30d
-
-  - name: API Latency (p50)
-    sli:
-      type: latency
-      metric: http_request_duration_seconds
-      threshold: 100ms
-    target: 95%
-    window: 30d
-
-  - name: Error Rate
-    description: Low error rate for client requests
-    sli:
-      type: error_rate
-      metric: http_request_errors_total{status=~"5.."}
-      total: http_requests_total
-    target: 99.5%    # <0.5% server errors
-    window: 7d
-```
-
-### Error Budget Policy
-
-- When error budget is above 50%: ship freely, focus on features.
-- When error budget is 25-50%: slow down, increase testing.
-- When error budget is below 25%: freeze features, focus on reliability.
-- When error budget is exhausted: stop all feature work, fix reliability.
-
-## Alerting Rules (Spec-Derived)
-
-### Alert Priority Levels
-
-| Priority | Response Time | Examples |
-|----------|--------------|---------|
-| **P1 — Critical** | 5 minutes | Service down, data loss, security breach |
-| **P2 — High** | 30 minutes | Error budget burning fast, degraded service |
-| **P3 — Medium** | 4 hours | SLO approaching violation, elevated error rate |
-| **P4 — Low** | Next business day | Non-urgent degradation, capacity planning |
-
-### Alert Rules Template
-
-```yaml
-alerts:
-  - name: HighErrorRate
-    priority: P2
-    condition: error_rate > 1% for 5m
-    slo_ref: specs/slos/api-performance.yaml#Error Rate
-    runbook: docs/runbooks/high-error-rate.md
-    channels: [pagerduty, slack-oncall]
-
-  - name: HighLatency
-    priority: P2
-    condition: p99_latency > 1s for 5m
-    slo_ref: specs/slos/api-performance.yaml#API Latency (p99)
-    runbook: docs/runbooks/high-latency.md
-
-  - name: ErrorBudgetBurn
-    priority: P3
-    condition: error_budget_remaining < 25%
-    slo_ref: specs/slos/api-performance.yaml#API Availability
-    channels: [slack-engineering]
-```
-
-### Alerting Anti-Patterns
-
-- **Alert on symptoms, not causes**: alert on high error rate, not on high CPU.
-- **Avoid flapping**: use sustained conditions (`for 5m`) not instant triggers.
-- **One alert, one action**: every alert should have a clear runbook.
-- **No alert fatigue**: if an alert fires daily and is ignored, fix it or remove it.
-
-## Dashboard Contract
-
-Link dashboards to API contracts:
-
-```yaml
-dashboards:
-  - name: API Overview
-    panels:
-      - title: Request Rate
-        metric: rate(http_requests_total[5m])
-        by: [method, path]
-      - title: Error Rate
-        metric: rate(http_request_errors_total[5m]) / rate(http_requests_total[5m])
-      - title: Latency Distribution
-        metric: histogram_quantile(0.99, http_request_duration_seconds)
-      - title: Active Connections
-        metric: db_connections_active
-    spec_ref: specs/api/openapi.yaml
-```
-
-## Observability Checklist
-
-- [ ] Structured logging implemented with consistent JSON format.
-- [ ] Request correlation ID (`requestId`) propagated across all services.
-- [ ] RED metrics exposed for every API endpoint.
-- [ ] USE metrics exposed for every infrastructure component.
-- [ ] Business metrics derived from behavior specs.
-- [ ] Distributed tracing configured with W3C Trace Context.
-- [ ] SLOs defined in `specs/slos/` with measurable SLIs.
-- [ ] Alerts configured for SLO violations with runbooks.
-- [ ] Dashboards link back to API contracts.
-- [ ] No PII or secrets in logs, traces, or metrics labels.
+| Layer | Spec Format | Example |
+|-------|-------------|---------|
+| **API** | OpenAPI 3.x / AsyncAPI | `specs/api/openapi.yaml` |
+| **Data** | JSON Schema / TypeScript interfaces | `specs/schemas/user.schema.json` |
+| **Events** | AsyncAPI / CloudEvents schema | `specs/events/order-created.yaml` |
+| **UI** | Component prop types / Storybook stories | `specs/ui/button.props.ts` |
+| **Integration** | Contract tests (Pact, Dredd) | `specs/contracts/payment-api.pact.json` |
+| **Behavior** | Given-When-Then / Cucumber | `specs/features/checkout.feature` |
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
