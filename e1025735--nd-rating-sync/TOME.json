@@ -1,0 +1,44 @@
+{
+  "name": "nd-rating-sync",
+  "owner": "e1025735",
+  "repo": "nd-rating-sync",
+  "description": "A Navidrome plugin that reads embedded star-rating tags from your music files and syncs them into Navidrome's own user-rating system via the internal Subsonic API.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/e1025735/nd-rating-sync",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T05:08:52Z"
+}
