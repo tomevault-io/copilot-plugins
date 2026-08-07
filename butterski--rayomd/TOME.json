@@ -1,0 +1,44 @@
+{
+  "name": "rayomd",
+  "owner": "Butterski",
+  "repo": "rayomd",
+  "description": "Tiny native Markdown-to-PDF converter in C++17. RayoMD ships as a small Windows Dear ImGui app and compact Linux CLI, with fast startup, batch conversion, Unicode text, tables, links, images, and no Chromium, Pandoc, LaTeX, or bundled runtime on the default path.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Butterski/rayomd",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T17:34:09Z"
+}
