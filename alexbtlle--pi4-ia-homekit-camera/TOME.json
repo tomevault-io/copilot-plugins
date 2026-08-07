@@ -4,7 +4,7 @@
   "repo": "pi4-IA-Homekit-Camera",
   "description": "Turn a Raspberry Pi Zero 2W or Pi 3 - 4 into a Apple HomeKit camera with motion detection.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AlexBtlle/pi4-IA-Homekit-Camera",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T07:00:55Z"
+  "distributed_at": "2026-08-07T17:09:57Z"
 }
