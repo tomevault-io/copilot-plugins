@@ -1,0 +1,9 @@
+{
+  "name": "memorax-ai--memorax-code",
+  "displayName": "memorax-code",
+  "description": "A memory plugin for AI coding that turns engineering experience, repository knowledge, and your way of working into memory that remains useful in future tasks.",
+  "version": "1.0.0",
+  "author": "memorax-ai",
+  "homepage": "https://github.com/memorax-ai/memorax-code",
+  "skills": []
+}
