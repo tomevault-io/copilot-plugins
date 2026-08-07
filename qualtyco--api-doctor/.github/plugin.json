@@ -1,0 +1,9 @@
+{
+  "name": "qualtyco--api-doctor",
+  "displayName": "api-doctor",
+  "description": "AI compiles hallucinated code that pass. This fixes it before accepting it. 100% Deterministic",
+  "version": "1.0.0",
+  "author": "qualtyco",
+  "homepage": "https://github.com/qualtyco/api-doctor",
+  "skills": []
+}
