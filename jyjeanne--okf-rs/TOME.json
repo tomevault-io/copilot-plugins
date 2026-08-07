@@ -4,7 +4,7 @@
   "repo": "okf-rs",
   "description": "A fast, open-source Rust toolkit for generating, validating and serving Open Knowledge Format (OKF) knowledge bases from source code.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jyjeanne/okf-rs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T01:34:45Z"
+  "distributed_at": "2026-08-07T10:48:48Z"
 }
