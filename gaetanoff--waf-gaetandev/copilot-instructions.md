@@ -1,90 +1,101 @@
-## core-tech-stack
+## core-ux-design
 
-> Technology selection framework — choosing the right tools for the job
+> UX/UI design principles — user experience, interface patterns, accessibility
 
 
-# Technology Selection
+# UX & UI Design
 
-## Decision Criteria
+## Principles
 
-Evaluate every technology choice against:
+- **Clarity over cleverness**: users should immediately understand what they can do.
+- **Consistency**: same action → same result, same element → same appearance.
+- **Feedback**: every user action should produce visible feedback (loading, success, error).
+- **Forgiveness**: allow undo, confirm destructive actions, make errors recoverable.
+- **Progressive disclosure**: show the essential first, reveal complexity on demand.
 
-1. **Fitness**: Does it solve the actual problem well?
-2. **Maturity**: Is it production-proven with a stable API?
-3. **Ecosystem**: Are there good libraries, tools, and integrations?
-4. **Community**: Active maintenance, documentation, Stack Overflow presence?
-5. **Team expertise**: Can the team be productive quickly?
-6. **Scalability**: Will it handle the expected growth?
-7. **Cost**: Licensing, infrastructure, and operational costs.
+## Layout & Visual Hierarchy
 
-## Stack Recommendations by Project Type
+- Use a clear visual hierarchy: size, weight, color, and spacing signal importance.
+- Maintain consistent spacing with a base unit system (4px or 8px grid).
+- Use whitespace generously — it improves readability and reduces cognitive load.
+- Group related elements visually. Separate unrelated groups with space or dividers.
+- Align elements to a grid. Inconsistent alignment looks unprofessional.
 
-### SaaS Web App
+## Interactive States
 
-| Layer | Recommended | Alternatives |
-|-------|------------|--------------|
-| **Frontend** | Next.js + React + TypeScript | Nuxt + Vue, SvelteKit |
-| **Styling** | Tailwind CSS + shadcn/ui | Chakra UI, MUI |
-| **Backend** | Node.js (Fastify/Express) or Next.js API routes | Python (FastAPI), Go (Gin/Fiber) |
-| **Database** | PostgreSQL + Prisma | MySQL, MongoDB |
-| **Auth** | NextAuth.js / Lucia / Clerk | Auth0, Supabase Auth |
-| **Cache** | Redis | Memcached |
-| **Hosting** | Vercel / AWS / GCP | Railway, Fly.io |
+Every interactive element needs these states:
 
-### API / Backend Service
+- **Default**: normal appearance.
+- **Hover**: visual feedback on mouse over.
+- **Focus**: visible focus ring for keyboard navigation (WCAG requirement).
+- **Active/Pressed**: feedback during click/tap.
+- **Disabled**: visually distinct + non-interactive + tooltip explaining why.
+- **Loading**: spinner or skeleton when waiting for async data.
 
-| Layer | Recommended | Alternatives |
-|-------|------------|--------------|
-| **Runtime** | Node.js + TypeScript | Python, Go, Rust, Java, C# |
-| **Framework** | Fastify / Hono | Express, FastAPI, Gin, Actix |
-| **Database** | PostgreSQL | MySQL, MongoDB, DynamoDB |
-| **ORM** | Prisma / Drizzle | SQLAlchemy, GORM, Diesel |
-| **Validation** | Zod | Joi, class-validator, Pydantic |
-| **Testing** | Vitest | Jest, pytest, go test |
+## Forms
 
-### Mobile App
+- Label every input. Don't use placeholder text as the label.
+- Show validation errors inline, next to the field, in real-time.
+- Use appropriate input types (`email`, `tel`, `url`, `number`) for mobile keyboards.
+- Pre-fill known values. Remember previous entries when appropriate.
+- Group related fields. Use multi-step forms for complex flows.
+- Place the primary action button at the end of the form, aligned with fields.
 
-| Layer | Recommended | Alternatives |
-|-------|------------|--------------|
-| **Framework** | React Native + Expo | Flutter, Swift/Kotlin native |
-| **Navigation** | Expo Router | React Navigation |
-| **State** | Zustand / TanStack Query | Redux, Riverpod (Flutter) |
-| **Backend** | Supabase / Firebase | Custom API |
+## Empty States & Errors
 
-### CLI Tool
+- Design empty states: show helpful guidance, not just "No data."
+- Error messages should be: specific, human-readable, actionable ("Try X" not "Error 500").
+- Provide a clear path forward from every error state (retry button, help link).
+- Use 404 pages that help users navigate back to useful content.
 
-| Layer | Recommended | Alternatives |
-|-------|------------|--------------|
-| **Language** | Go / Rust | Python, Node.js |
-| **CLI Framework** | Cobra (Go), Clap (Rust) | Click (Python), Commander (Node) |
-| **Distribution** | Single binary (Go/Rust) | pip/npm package |
+## Responsive Design
 
-## Dependency Selection Criteria
+- Design mobile-first, enhance for larger screens.
+- Test on real devices, not just browser dev tools.
+- Ensure touch targets are at least 44x44px on mobile.
+- Adjust layout, font sizes, and spacing per breakpoint.
+- Use responsive images (`srcset`, `<picture>`) for different screen sizes.
 
-Before adding any dependency:
+## Loading & Performance Perception
 
-- [ ] Is it actively maintained (commits in last 6 months)?
-- [ ] Does it have adequate documentation?
-- [ ] How many open issues and PRs? Are they addressed?
-- [ ] Are there known security vulnerabilities?
-- [ ] What's the bundle size impact (for frontend)?
-- [ ] Can you implement it yourself in reasonable time? (if yes, consider it)
-- [ ] Is it the most popular/standard solution for this problem?
+- Show skeleton screens instead of spinners for content-heavy pages.
+- Use optimistic updates for responsive-feeling interactions.
+- Prioritize above-the-fold content loading.
+- Show progress indicators for long operations (upload, processing).
+- Lazy-load content below the fold.
 
-## Anti-Patterns
+## Color & Typography
 
-- **Resume-Driven Development**: choosing tech to learn, not to ship.
-- **Hype-Driven Development**: choosing the newest/trendiest tool without evaluating fit.
-- **Over-engineering**: microservices for a todo app, Kubernetes for a blog.
-- **Lock-in Blindness**: deep coupling to a vendor without abstraction layer.
-- **Dependency Bloat**: npm-installing a package for a 5-line utility function.
+- Use a consistent color palette with defined semantic roles (primary, secondary, error, success).
+- Ensure text contrast meets WCAG AA: 4.5:1 for body text, 3:1 for large text.
+- Limit to 2-3 font families maximum.
+- Use a type scale for consistent sizing (e.g., 12, 14, 16, 20, 24, 32, 48).
+- Line height for body text: 1.5-1.75 for readability.
 
-## Version Pinning
+## Navigation
 
-- Always pin exact versions for production dependencies.
-- Use lockfiles (`package-lock.json`, `uv.lock`, `go.sum`) and commit them.
-- Update dependencies regularly (weekly or bi-weekly) with automated tools.
-- Run tests after every dependency update. Never blindly bump versions.
+- Keep primary navigation consistent across all pages.
+- Use breadcrumbs for deep hierarchies.
+- Indicate the current page/section in navigation.
+- Provide a search function for content-heavy applications.
+- Use clear, descriptive labels — not jargon or clever names.
+
+## Accessibility (a11y)
+
+- Use semantic HTML: `<nav>`, `<main>`, `<article>`, `<button>`, `<a>`.
+- All images need meaningful `alt` text (or `alt=""` for decorative images).
+- Support keyboard navigation for all interactive elements.
+- Use `aria-` attributes when semantic HTML isn't sufficient.
+- Test with screen readers (NVDA, VoiceOver).
+- Support `prefers-reduced-motion` and `prefers-color-scheme`.
+- Never rely on color alone to convey information (use icons, text, or patterns).
+
+## Micro-interactions
+
+- Animate state transitions smoothly (150-300ms for UI, 300-500ms for emphasis).
+- Use easing curves, not linear transitions.
+- Animate only what changes — don't animate entire page reloads.
+- Respect user preferences: disable animations when `prefers-reduced-motion` is set.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
