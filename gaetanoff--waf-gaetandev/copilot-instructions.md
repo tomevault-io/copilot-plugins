@@ -1,51 +1,117 @@
-## global-solid-principles
+## global-testing
 
-> SOLID principles and design patterns for clean architecture
+> Spec conformance testing — tests derived from specifications, contract validation
 
 
-# SOLID Principles
+# Testing (Spec-Driven)
 
-## Single Responsibility (SRP)
+## Test Hierarchy
 
-- Each module/class/function should have one reason to change.
-- If you describe what a class does and use "and", it probably does too much.
-- Extract distinct responsibilities into separate units.
+```
+Conformance Tests (from specs)    ← Validate implementation matches contracts
+  ├── Contract Tests              ← API responses match OpenAPI spec
+  ├── Schema Validation Tests     ← Data shapes match JSON Schema
+  ├── Behavior Tests              ← Given-When-Then scenarios pass
+  └── Integration Contract Tests  ← External service contracts hold
 
-## Open/Closed (OCP)
+Unit Tests (from logic)           ← Validate internal business logic
+Integration Tests (from flows)    ← Validate component interactions
+E2E Tests (from user journeys)    ← Validate critical user flows
+```
 
-- Open for extension, closed for modification.
-- Use interfaces, strategy pattern, or composition to extend behavior without modifying existing code.
-- Prefer adding new code over changing existing working code.
+## Conformance Tests (Spec-Generated)
 
-## Liskov Substitution (LSP)
+Conformance tests are **derived from specs**, not written from scratch:
 
-- Subtypes must be substitutable for their base types without breaking correctness.
-- Don't override methods in ways that violate the base contract.
-- Prefer composition over inheritance when behavior diverges.
+- **API contract tests**: validate that every endpoint returns responses matching the OpenAPI spec (schema, status codes, headers, content type).
+- **Schema validation tests**: validate that every data entity matches its JSON Schema (required fields, types, formats, constraints).
+- **Behavior tests**: validate that every Given-When-Then scenario in the behavior spec passes.
+- **Consumer-driven contract tests**: validate that integration points match Pact/contract definitions.
 
-## Interface Segregation (ISP)
+Tools for conformance testing:
+- `dredd` / `prism` / `schemathesis` for OpenAPI conformance.
+- `ajv` / `jsonschema` for JSON Schema validation.
+- `cucumber` / `behave` / `jest-cucumber` for behavior specs.
+- `pact` for consumer-driven contract testing.
 
-- Don't force clients to depend on methods they don't use.
-- Split large interfaces into smaller, focused ones.
-- A class implementing an interface should use all its methods.
+## Structure
 
-## Dependency Inversion (DIP)
+- Follow **Arrange-Act-Assert** (AAA) pattern in every test.
+- One logical assertion per test. Test one contract, not one function.
+- Name tests descriptively: `should return 201 with User schema when creating valid user`.
+- Group tests by spec: `describe('POST /api/v1/users — CreateUser contract')`.
 
-- High-level modules should not depend on low-level modules. Both should depend on abstractions.
-- Inject dependencies via constructor/parameters — don't instantiate them internally.
-- Use dependency injection for external services (DB, API clients, file system).
+## Test Pyramid (SDD-Adjusted)
 
-## DRY (Don't Repeat Yourself)
+- **Conformance tests** (40%): spec-generated, validate contracts hold.
+- **Unit tests** (30%): fast, isolated, test business logic not covered by specs.
+- **Integration tests** (20%): test component interactions and data flow.
+- **E2E tests** (10%): test critical user flows end-to-end.
 
-- Extract duplicated logic into shared functions/modules.
-- But avoid premature DRY — wait for 3 occurrences before abstracting (Rule of Three).
-- Shared code should represent the **same concept**, not just similar-looking code.
+## Best Practices
 
-## KISS & YAGNI
+- Conformance tests are **generated from specs** — don't write them manually when tools exist.
+- Tests must be deterministic — no flaky tests. Mock time, randomness, external services.
+- Keep tests independent — no shared mutable state between tests.
+- Test edge cases defined in specs: empty inputs, null/undefined, boundary values, error paths.
+- Write regression tests before fixing bugs — add the missing scenario to the behavior spec.
+- Treat test code with the same quality standards as production code.
 
-- **KISS**: Choose the simplest solution that meets requirements.
-- **YAGNI**: Don't build features or abstractions you don't need yet.
-- Refactor toward patterns when complexity demands it, not before.
+## What to Test
+
+- **From specs**: every contract, every scenario, every error code, every schema.
+- **Beyond specs**: internal business logic, algorithmic correctness, state transitions.
+- **Edge cases**: empty inputs, null/undefined, boundary values, concurrent access.
+- **Error paths**: every error code in the error contract must be reachable.
+
+## What NOT to Test
+
+- Framework internals or third-party library behavior.
+- Private implementation details — test public contracts.
+- Trivial getters/setters with no logic.
+- Behavior already covered by conformance tests (don't duplicate).
+
+## Mocking
+
+- Mock external dependencies at the **contract boundary** (use contract test mocks).
+- Prefer contract-based mocks (Pact mock server) over hand-written mocks.
+- Verify interactions only when the side effect IS the behavior being tested.
+- Use spec-defined example payloads as test fixtures.
+
+## Conformance Test Example
+
+```typescript
+describe('POST /api/v1/users', () => {
+  it('should return 201 with User schema for valid input', async () => {
+    const input = { email: 'alice@example.com', name: 'Alice', password: 'SecureP@ss1' };
+
+    const response = await request(app).post('/api/v1/users').send(input);
+
+    expect(response.status).toBe(201);
+    expect(validateSchema(response.body, 'User')).toBe(true);
+  });
+
+  it('should return 409 with ErrorResponse when email exists', async () => {
+    const input = { email: 'existing@example.com', name: 'Bob', password: 'SecureP@ss1' };
+
+    const response = await request(app).post('/api/v1/users').send(input);
+
+    expect(response.status).toBe(409);
+    expect(validateSchema(response.body, 'ErrorResponse')).toBe(true);
+    expect(response.body.error.code).toBe('EMAIL_ALREADY_EXISTS');
+  });
+
+  it('should return 422 with validation errors for invalid input', async () => {
+    const input = { email: 'not-an-email', name: '', password: '123' };
+
+    const response = await request(app).post('/api/v1/users').send(input);
+
+    expect(response.status).toBe(422);
+    expect(validateSchema(response.body, 'ErrorResponse')).toBe(true);
+    expect(response.body.error.details).toHaveLength(3);
+  });
+});
+```
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
