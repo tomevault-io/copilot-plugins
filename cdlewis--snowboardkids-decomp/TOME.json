@@ -4,7 +4,7 @@
   "repo": "snowboardkids-decomp",
   "description": "Decompilation of snowboard kids (N64)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cdlewis/snowboardkids-decomp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T03:19:46Z"
+  "distributed_at": "2026-08-07T15:11:07Z"
 }
