@@ -1,73 +1,69 @@
-## specific-cpp
+## specific-csharp
 
-> C++ modern standards — RAII, smart pointers, templates, safety
+> C# coding standards — patterns, LINQ, async, .NET conventions
 
 
-# C++ Standards (C++17/20/23)
+# C# Standards
 
-## Memory & Resource Management (RAII)
+## Naming & Style
 
-- Never use raw `new`/`delete`. Use `std::make_unique` and `std::make_shared`.
-- `std::unique_ptr` by default. `std::shared_ptr` only when ownership is truly shared.
-- Use RAII for every resource: memory, files, locks, sockets, handles.
-- Pass smart pointers to functions only when transferring or sharing ownership. Otherwise pass `T&` or `T*`.
-- Use `std::span<T>` (C++20) for non-owning views into contiguous data.
+- Follow .NET naming conventions: `PascalCase` for public members, types, namespaces; `camelCase` for local variables and parameters.
+- Private fields: `_camelCase` with underscore prefix.
+- Interfaces: prefix with `I` (`IRepository`, `ILogger`).
+- Use `var` when the type is obvious from the right side. Be explicit for non-obvious types.
+- Use file-scoped namespaces (`namespace Foo;`) to reduce nesting.
 
-```cpp
-// ✅ RAII + smart pointers
-auto user = std::make_unique<User>("Alice", 30);
-auto config = std::make_shared<Config>(load_config());
+## Patterns
 
-// ✅ Non-owning parameter — no smart pointer needed
-void process(const User& user);
+- Use records (`record`, `record struct`) for immutable data transfer objects.
+- Use `init`-only setters and required properties for safe object initialization.
+- Prefer pattern matching (`is`, `switch` expressions) over type casting chains.
+- Use `sealed` on classes not designed for inheritance.
+- Use `readonly struct` for small, immutable value types to avoid defensive copies.
+
+```csharp
+// ✅ Pattern matching with switch expression
+var result = shape switch
+{
+    Circle c => Math.PI * c.Radius * c.Radius,
+    Rectangle r => r.Width * r.Height,
+    _ => throw new ArgumentOutOfRangeException(nameof(shape))
+};
 ```
 
-## Modern C++ Patterns
+## Async/Await
 
-- Use `auto` when the type is obvious. Be explicit when it aids readability.
-- Use structured bindings: `auto [key, value] = map_entry;`.
-- Use `constexpr` for compile-time computation. Prefer `constexpr` over `#define` macros.
-- Use `std::optional<T>` for values that may be absent. Never return raw pointers for "maybe null".
-- Use `std::variant` for type-safe unions. Use `std::visit` for exhaustive handling.
-- Use `std::string_view` for non-owning string references.
+- Suffix async methods with `Async`: `GetUserAsync()`.
+- Always use `async/await` — never `.Result` or `.Wait()` (deadlock risk).
+- Use `ValueTask<T>` for hot paths that often complete synchronously.
+- Pass `CancellationToken` through all async call chains.
+- Use `ConfigureAwait(false)` in library code, not in application/UI code.
+
+## LINQ
+
+- Prefer LINQ method syntax for simple queries, query syntax for complex joins.
+- Avoid multiple enumeration of `IEnumerable<T>` — materialize with `.ToList()` / `.ToArray()` when needed.
+- Use `Any()` instead of `Count() > 0`. Use `FirstOrDefault()` with null check over `Single()` when element may not exist.
 
 ## Error Handling
 
-- Use exceptions for truly exceptional failures. Use `std::expected<T, E>` (C++23) or a Result type for expected errors.
-- Prefer `noexcept` on functions that cannot throw (move constructors, destructors).
-- Avoid exception specifications other than `noexcept`.
-- Use RAII so cleanup is automatic — no need for try/catch just for resource management.
+- Use specific exception types. Create custom exceptions for domain errors.
+- Use `ArgumentNullException.ThrowIfNull()` and guard methods (net6+).
+- Never catch `Exception` broadly without re-throwing or logging.
+- Use the Result pattern (`Result<T, TError>`) for expected failures instead of exceptions.
 
-## Containers & Algorithms
+## Dependency Injection
 
-- Prefer STL containers (`std::vector`, `std::array`, `std::unordered_map`) over C arrays.
-- Use `std::vector` as the default container. Reserve capacity when size is known.
-- Use range-based `for` loops. Use `<algorithm>` and `<ranges>` (C++20) over hand-written loops.
-- Use `emplace_back` over `push_back` to avoid unnecessary copies.
-- Prefer `std::array` over C-style arrays for fixed-size collections.
+- Register services in `Program.cs` or dedicated extension methods.
+- Use constructor injection. Avoid the service locator pattern.
+- Prefer `IOptions<T>` for configuration. Validate options at startup with `ValidateOnStart()`.
+- Scope lifetimes correctly: Singleton > Scoped > Transient.
 
-## Const Correctness
+## Nullable Reference Types
 
-- Mark everything `const` that shouldn't change: variables, references, member functions.
-- Use `const&` for function parameters that don't need mutation.
-- Use `consteval` (C++20) for functions that must run at compile time.
-- Make member functions `const` unless they modify state.
-
-## Concurrency
-
-- Use `std::thread`, `std::jthread` (C++20), or `std::async` for parallelism.
-- Protect shared data with `std::mutex` + `std::lock_guard` / `std::scoped_lock`.
-- Prefer lock-free structures (`std::atomic`) for simple shared state.
-- Use `std::condition_variable` for thread signaling.
-- Avoid data races — they are undefined behavior in C++.
-
-## Build & Safety
-
-- Compile with `-Wall -Wextra -Wpedantic -Werror`. Enable sanitizers in debug builds.
-- Use `clang-tidy` with the C++ Core Guidelines checks.
-- Use CMake as the build system. Structure: `src/`, `include/`, `tests/`, `CMakeLists.txt`.
-- Use `#pragma once` or traditional include guards in all headers.
-- Minimize includes in headers — use forward declarations where possible.
+- Enable `<Nullable>enable</Nullable>` project-wide.
+- Annotate all public APIs. Use `?` only when null is a valid state.
+- Use null-forgiving (`!`) sparingly — prefer null checks or redesign.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
