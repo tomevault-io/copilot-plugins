@@ -4,7 +4,7 @@
   "repo": "dewasm",
   "description": "dewasm converts WebAssembly binaries into pure source code for languages like Ruby, Bash, and Go. No WebAssembly runtime is required.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dewasm/dewasm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T09:01:46Z"
+  "distributed_at": "2026-08-07T18:55:36Z"
 }
