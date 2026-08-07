@@ -1,0 +1,9 @@
+{
+  "name": "soulbah--regeste",
+  "displayName": "regeste",
+  "description": "Privacy-first, in-browser chat with your documents. Parsing, embeddings, vector search, chats and citations all run locally; the only backend is one Cloudflare Worker for auth, quotas and the Assisted",
+  "version": "1.0.0",
+  "author": "soulbah",
+  "homepage": "https://github.com/soulbah/regeste",
+  "skills": []
+}
