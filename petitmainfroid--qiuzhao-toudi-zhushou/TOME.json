@@ -1,0 +1,44 @@
+{
+  "name": "qiuzhao-toudi-zhushou",
+  "owner": "petitmainfroid",
+  "repo": "qiuzhao-toudi-zhushou",
+  "description": "\u79cb\u62db\u6295\u9012\u52a9\u624b\uff1a\u672c\u5730\u4f18\u5148\u7684 Chrome/Edge \u62db\u8058\u8868\u5355\u81ea\u52a8\u586b\u5199\u6269\u5c55",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/petitmainfroid/qiuzhao-toudi-zhushou",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T13:21:42Z"
+}
