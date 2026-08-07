@@ -4,7 +4,7 @@
   "repo": "patron",
   "description": "Self-hosted, GDPR-safe AI agent for law firms. Zero-cloud, hash-chained audit trail (AI Act art. 12), bring-your-own-model, 9 language editions. Hard fork of willchen96/mike, AGPL-3.0.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/matematicsolutions/patron",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T23:48:08Z"
+  "distributed_at": "2026-08-07T07:35:43Z"
 }
