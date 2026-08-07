@@ -1,0 +1,44 @@
+{
+  "name": "YuduBid",
+  "owner": "liwg1995",
+  "repo": "YuduBid",
+  "description": "\u81ea\u52a8\u7f16\u5199\u6280\u672f\u6807\u4e66\u3001\u516c\u6587\u3001\u8f6f\u8457\u3001\u4e13\u5229\u3001\u9879\u76ee\u7ba1\u7406\u3001\u8bfe\u9898\u7533\u62a5\u3001\u5f15\u5bfc\u8bba\u6587\u7f16\u5199",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/liwg1995/YuduBid",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T14:37:04Z"
+}
