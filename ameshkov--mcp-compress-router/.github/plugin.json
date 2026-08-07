@@ -1,0 +1,9 @@
+{
+  "name": "ameshkov--mcp-compress-router",
+  "displayName": "mcp-compress-router",
+  "description": "Compress all connected MCP into a single router MCP and save up to 99% on tokens",
+  "version": "1.0.0",
+  "author": "ameshkov",
+  "homepage": "https://github.com/ameshkov/mcp-compress-router",
+  "skills": []
+}
