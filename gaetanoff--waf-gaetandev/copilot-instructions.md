@@ -1,47 +1,94 @@
-## specific-sql-database
+## specific-swift
 
-> SQL and database conventions — queries, schema design, migrations
+> Swift and SwiftUI best practices, value types, async/await, Combine, strict typings
 
 
-# SQL & Database
+# Swift & SwiftUI (Spec-Driven)
 
-## Schema Design
+## Language Fundamentals
 
-- Use singular table names (`user`, not `users`) or be consistent — pick one convention.
-- Primary keys: prefer `id` with UUID or auto-increment.
-- Use `created_at` and `updated_at` timestamps on every table.
-- Add `NOT NULL` constraints by default. Allow `NULL` only with explicit reason.
-- Use foreign keys for referential integrity. Name them: `fk_<table>_<referenced_table>`.
+- Swift emphasizes safety and clarity. Leverage the compiler to enforce correctness.
+- Prefer `let` (constants) over `var` (variables). Mutability should be explicit and scoped.
+- Prefer `struct` (value types) over `class` (reference types) by default. Use classes only when identity or shared mutable state is required.
+- Name types using `UpperCamelCase` and properties/methods using `lowerCamelCase`.
+- Use descriptive naming that reads like English. Include argument labels to clarify intent (e.g., `func fetchUser(withID id: String)`).
 
-## Naming
+## Null Safety & Optionals
 
-- Tables and columns: `snake_case`.
-- Indexes: `idx_<table>_<columns>`.
-- Constraints: `chk_<table>_<description>`, `uq_<table>_<columns>`.
-- Avoid reserved words as column names.
+- Avoid force-unwrapping (`!`) and implicitly unwrapped optionals as much as possible. They circumvent Swift's safety guarantees and cause crashes.
+- Use optional binding (`if let`, `guard let`) to cleanly unwrap optionals.
+- Use the nil-coalescing operator (`??`) to provide sensible defaults.
+- Use `guard` statements for early exits to prevent nested `if` statements (the "Happy Path" should not be indented).
 
-## Queries
+## Error Handling
 
-- Always use parameterized queries — never string concatenation.
-- Select only the columns you need — avoid `SELECT *` in application code.
-- Use `EXPLAIN ANALYZE` to understand and optimize query plans.
-- Add indexes for columns used in `WHERE`, `JOIN`, `ORDER BY`.
-- Paginate results with `LIMIT`/`OFFSET` or cursor-based pagination.
+- Follow `global-error-handling` rules.
+- Use `Throws` and `Result<T, Error>` for recoverable errors.
+- Create custom `Error` enums that conform to `LocalizedError` for user-facing error messages.
+- Use `do-catch` blocks to handle errors gracefully.
 
-## Migrations
+## Concurrency (async/await)
 
-- Use a migration tool (Prisma Migrate, Flyway, Alembic, Knex).
-- Each migration is a single, atomic schema change.
-- Migrations must be reversible — always write `up` and `down`.
-- Never modify a migration that has been applied to production.
-- Test migrations against a copy of production data before deploying.
+- Embrace modern Swift concurrency (`async`/`await`, `Task`, `TaskGroup`). Avoid legacy completion handlers and Grand Central Dispatch (GCD) where possible.
+- Use `@MainActor` to ensure UI updates happen on the main thread.
+- Use `Task.detached` only when the work is completely independent of the current context. Handle cancellation appropriately using `Task.isCancelled` or `Task.checkCancellation()`.
 
-## ORM Best Practices
+## SwiftUI Best Practices
 
-- Be aware of N+1 queries — use eager loading / `include` / `join`.
-- Use transactions for operations that must be atomic.
-- Use raw queries for complex reporting — ORMs aren't always the best tool.
-- Monitor query performance with slow query logs.
+- Make Views as small, focused, and reusable as possible.
+- Separate logic from presentation. Views should mostly reflect state, not compute it. (MVVM or pure Redux-like flow).
+- Use proper state wrappers:
+  - `@State` for simple, purely local, and private UI state.
+  - `@Binding` to pass read/write access down to child views.
+  - `@Environment` and `@EnvironmentObject` for global/dependency injection.
+  - `@StateObject` to instantiate an observable object that the view owns.
+  - `@ObservedObject` to pass an observable object down from a parent.
+- Leverage SwiftUI's built-in modifiers before creating custom ones.
+- Ensure accessibility. Provide meaningful accessibility labels (`.accessibilityLabel(_:)`) and traits, and support dynamic typing (`.font(.body)`).
+
+## Data Models & Parsing
+
+- Derive data models from JSON Schema specs.
+- Use `Codable` for parsing JSON. Don't write manual parsing code.
+- Keep network and parsing logic in dedicated services/repositories, separate from UI and ViewModels.
+- Use custom `CodingKeys` when API keys don't match Swift naming conventions (e.g., snake_case to camelCase).
+
+## UI/UX Rules
+
+- Follow Apple's Human Interface Guidelines (HIG).
+- Support Dark Mode dynamically. Use system colors (e.g., `.primary`, `.secondary`, `.systemBackground`) or define adaptive color assets in the Asset Catalog.
+- Ensure tap targets are minimum 44x44 points.
+
+## Example: Spec-Driven SwiftUI View
+
+```swift
+import SwiftUI
+
+// Feature specified in specs/features/profile.feature
+struct ProfileView: View {
+    @StateObject private var viewModel = ProfileViewModel()
+    
+    var body: some View {
+        NavigationView {
+            Group {
+                switch viewModel.state {
+                case .loading:
+                    ProgressView()
+                case .loaded(let profile):
+                    ProfileContentView(profile: profile)
+                case .error(let error):
+                    ErrorView(error: error, retryAction: viewModel.loadProfile)
+                }
+            }
+            .navigationTitle("Profile")
+        }
+        .task {
+            // Uses async/await inside .task
+            await viewModel.loadProfile()
+        }
+    }
+}
+```
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
