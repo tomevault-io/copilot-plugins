@@ -1,0 +1,9 @@
+{
+  "name": "bibi-chat--pure-lisp-kernel-lab",
+  "displayName": "pure-lisp-kernel-lab",
+  "description": "Verified SBCL experiments for shared-denominator RQ8 and pure-kernel compilation.",
+  "version": "1.0.0",
+  "author": "bibi-chat",
+  "homepage": "https://github.com/bibi-chat/pure-lisp-kernel-lab",
+  "skills": []
+}
