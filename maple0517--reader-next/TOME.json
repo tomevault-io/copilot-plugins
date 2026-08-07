@@ -4,7 +4,7 @@
   "repo": "reader-next",
   "description": "Independent continuation of reader-rust",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Maple0517/reader-next",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T02:49:37Z"
+  "distributed_at": "2026-08-07T14:54:29Z"
 }
