@@ -1,0 +1,9 @@
+{
+  "name": "finitoapp--payky",
+  "displayName": "payky",
+  "description": "Payky is a local-first payment terminal that combines classic bank transfers for the Czech and Slovak markets, cash payments, and Bitcoin Lightning payments.",
+  "version": "1.0.0",
+  "author": "finitoapp",
+  "homepage": "https://github.com/finitoapp/payky",
+  "skills": []
+}
