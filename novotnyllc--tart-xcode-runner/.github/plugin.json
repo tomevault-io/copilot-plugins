@@ -1,0 +1,9 @@
+{
+  "name": "novotnyllc--tart-xcode-runner",
+  "displayName": "tart-xcode-runner",
+  "description": "Run isolated Xcode builds and XCUITests in reusable, resettable Tart macOS VMs.",
+  "version": "1.0.0",
+  "author": "novotnyllc",
+  "homepage": "https://github.com/novotnyllc/tart-xcode-runner",
+  "skills": []
+}
