@@ -1,0 +1,9 @@
+{
+  "name": "jovidecroock--drydock",
+  "displayName": "drydock",
+  "description": "Review the artifact before you publish it: diffs the built npm/PyPI package against the last published version and pins risk signals to the changed lines",
+  "version": "1.0.0",
+  "author": "JoviDeCroock",
+  "homepage": "https://github.com/JoviDeCroock/drydock",
+  "skills": []
+}
