@@ -4,7 +4,7 @@
   "repo": "swift-tui",
   "description": "SwiftUI semantics, drawn in terminal cells. \u2014 Terminal + Web + macOS/iOS native + Android",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SwiftTUI/swift-tui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T07:07:15Z"
+  "distributed_at": "2026-08-07T17:12:38Z"
 }
