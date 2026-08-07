@@ -1,0 +1,9 @@
+{
+  "name": "deuz-ai--deuz-sdk",
+  "displayName": "Deuz-SDK",
+  "description": "Zero-dependency TypeScript framework for production AI agents: durable execution, long-term memory, hybrid RAG, MCP tool calling, human-in-the-loop approval, planning and CodeAct sandboxes. One stream",
+  "version": "1.0.0",
+  "author": "Deuz-AI",
+  "homepage": "https://github.com/Deuz-AI/Deuz-SDK",
+  "skills": []
+}
