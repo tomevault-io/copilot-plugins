@@ -7,11 +7,11 @@ jj-native stacked PR workflow tool
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rivet-dev/jj-forklift](https://github.com/rivet-dev/jj-forklift).
+Original source: `AGENTS.md` in [rivet-dev/jj-forklift](https://github.com/rivet-dev/jj-forklift).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
