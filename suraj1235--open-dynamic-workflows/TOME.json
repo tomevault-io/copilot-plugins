@@ -4,7 +4,7 @@
   "repo": "open-dynamic-workflows",
   "description": "Open-source dynamic multi-agent workflows for AI coding agents - the script-as-orchestrator engine behind Claude Code dynamic workflows & ultracode, for OpenCode, Codex, Antigravity & VS Code. Local-first, bring your own model (Anthropic/OpenAI/Ollama), MIT.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Suraj1235/open-dynamic-workflows",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T00:50:35Z"
+  "distributed_at": "2026-08-07T04:34:19Z"
 }
