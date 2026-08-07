@@ -1,0 +1,9 @@
+{
+  "name": "csuyincs-creator--fluidglass-ui",
+  "displayName": "fluidglass-ui",
+  "description": "WebGL fluid glass card interface generator \u2014 agent skill + zero-dependency reference implementation. Apache-2.0.",
+  "version": "1.0.0",
+  "author": "csuyincs-creator",
+  "homepage": "https://github.com/csuyincs-creator/fluidglass-ui",
+  "skills": []
+}
