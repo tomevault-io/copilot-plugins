@@ -1,0 +1,9 @@
+{
+  "name": "ccagentorg--bank-in-domains",
+  "displayName": "bank-in-domains",
+  "description": "Audit of *.bank.in and parallel Indian financial TLDs (.fin.in, .insurance.in, .nbfc.in, .npci.in, .bank) \u2014 DNS resolution, HTTPS probe, status codes. Data + scripts. Updated daily via GitHub Actions.",
+  "version": "1.0.0",
+  "author": "CCAgentOrg",
+  "homepage": "https://github.com/CCAgentOrg/bank-in-domains",
+  "skills": []
+}
