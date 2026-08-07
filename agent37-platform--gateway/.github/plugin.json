@@ -1,0 +1,9 @@
+{
+  "name": "agent37-platform--gateway",
+  "displayName": "gateway",
+  "description": "A single web API to route to Hermes/Openclaw/ClaudeCode/Codex on an instance and return a response.",
+  "version": "1.0.0",
+  "author": "agent37-platform",
+  "homepage": "https://github.com/agent37-platform/gateway",
+  "skills": []
+}
