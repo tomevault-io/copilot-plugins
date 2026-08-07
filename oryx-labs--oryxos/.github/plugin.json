@@ -1,0 +1,9 @@
+{
+  "name": "oryx-labs--oryxos",
+  "displayName": "oryxos",
+  "description": "OryxOS is an open-source Distributed AI Agent OS",
+  "version": "1.0.0",
+  "author": "oryx-labs",
+  "homepage": "https://github.com/oryx-labs/oryxos",
+  "skills": []
+}
