@@ -1,0 +1,513 @@
+## fate-sandbox
+
+> 面向在本项目工作的开发者与编码 agent。游玩说明见 `README.md`。
+
+# AGENTS.md
+
+面向在本项目工作的开发者与编码 agent。游玩说明见 `README.md`。
+
+---
+
+## 项目当前形态
+
+`fate-sandbox` 不是一张 prompt 卡；它是本地运行的互动叙事 runtime。
+
+核心组成：
+
+- `prompts/`：GM prompt 模块，按 pass 分目录：`settlement/`（system、principles、world-context、input-guide、tool-policy、hard-rules、story-driver、direction-contract）、`render/`（system、protocol、style-rules、style-blacklist、output-contract）、`user/`（本地覆盖层，镜像同构）。
+- `skills/start-game/`：新游戏初始化流程机。只负责新游戏/重新开始/创建角色，不负责续局或修档。
+- `engine/core/`：确定性领域引擎。state、scene、actor、servant、economy、memory、secret、offscreen 等逻辑在这里落地。
+- `tools/`：GM 领域事件工具。工具不是状态栏更新器，而是 GM 改变世界的接口。
+- `world-data/`：型月世界数据、lookup 数据、campaign preset、timeline contract。
+- `extensions/`：pi extension。玩家 UI panel、compaction policy、showrunner 审计子进程的 lookup 载体都在这里。
+- `sessions/`、`state/`、`.pi/agent/`：运行产物/本地私有配置，不属于发布内容，不进 git。
+
+---
+
+## 宪章
+
+本项目是跑在**自己机器上**的东西——没有用户兼容性包袱、没有遗留接口、没有「先这样后面再改」。每一次妥协都会留到下一次、再下一次，最终变成屎山。唯一能拦住这个螺旋的是：**从一开始就不妥协。**
+
+本文件是工程纪律的单一权威源。违反宪章的代码不叫「能跑就行」，叫「不合格」。
+
+### 硬切优先，schema migration 负责持久化兼容
+
+项目没有用户兼容性负担。旧概念一旦被判定为错误，就必须从当前契约中消失：
+
+- 不保留 alias、deprecated 字段、兼容 normalizer、旧工具入口或旧 engine public API。
+- 不在工具描述、prompt、错误信息里写「不要使用旧字段」；提到旧字段本身就是继续教模型使用它。
+- 不用运行时 fallback 读取新字段；state 只能先迁移到当前 schema，再进入业务逻辑。
+- 唯一允许的兼容层是 persisted state schema migration。
+
+State schema 变更必须 bump `schemaVersion`，并提供程序化逐版本迁移。迁移链必须是线性的 `v1 -> v2 -> v3`，每个函数只负责相邻版本；禁止写 `v1 -> current`、`v2 -> current` 这种 O(n²) 迁移矩阵。
+
+### Prompt 不是防线
+
+Prompt 负责引导，不能承担正确性。模型常犯错时，优先把约束下沉到 schema、tool boundary、normalizer、engine invariant、migration 和测试。只补一句 prompt 骂模型，等于没有修。
+
+---
+
+## 工具链基线
+
+| 工具       | 配置                                                                                              | 不可绕过                           |
+| ---------- | ------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| TypeScript | `tsconfig.json` — `strict` + `noUncheckedIndexedAccess` + `noUnusedLocals` + `noUnusedParameters` | `pnpm typecheck` 零错误才能 commit |
+| oxlint     | `.oxlintrc.json` — `correctness` + `suspicious` + `typeAware` + 逐条显式                          | `pnpm lint` 零错误                 |
+| oxfmt      | `.oxfmtrc.json` — import 分组排序                                                                 | `pnpm format:check` 零差异         |
+| pnpm       | `pnpm@11.3.0`, `node>=24`, `packageManager` 钉死                                                  | 不用 npm/yarn                      |
+
+任何绕过（`// @ts-ignore`、`// oxlint-disable-next-line`、`/* prettier-ignore */`）必须附带一行注释说明**为什么这里非绕过不可**。无注释的绕过视为蓄意违规。
+
+---
+
+## 类型系统戒律
+
+### 零 `any`
+
+`any` 是瘟疫。项目里不应出现。如果 pi SDK 的类型定义确实返回 `any`，在消费点立即窄化——写到类型守卫、写到 assert 函数里，不要扩散到业务代码。
+
+```ts
+// ❌ 不合格：把 any 传染出去
+const data: any = pi.session.get("state");
+return data.money;
+
+// ✅ 正确：在边界窄化
+const raw = pi.session.get("state");
+const state = assertStateSchema(raw);
+return state.money;
+```
+
+### `as` 断言必须有理由
+
+类型断言不是「我知道这是什么」的声明，是「编译器不知道，我来告诉它」的覆盖。每次 `as` 都是一次信任链断裂。
+
+```ts
+// ❌ 不合格：静默绕过
+const el = document.getElementById("root") as HTMLDivElement;
+
+// ✅ 合格：断言后立即验证，或注释说明为什么安全
+const el = document.getElementById("root");
+if (!el || !(el instanceof HTMLDivElement)) throw new Error("root not found");
+// 或
+const state = raw as State; // safe: validated by assertStateSchema above
+```
+
+### 导出函数必须标注返回类型
+
+公共 API 的返回类型是契约的一部分。让编译器推导是让契约变成「碰巧产生的副作用」。
+
+```ts
+// ❌ 不合格
+export function getStatus() {
+  return status();
+}
+
+// ✅ 合格
+export function getStatus(): StatusSnapshot {
+  return status();
+}
+```
+
+### 歧视联合 > optional 字段 > `| undefined`
+
+一个状态对象有 N 种形态 → 用 tagged union，不要靠 optional 字段的存在性区分。
+
+```ts
+// ❌ 不合格
+type SceneResult = {
+  settlement?: Settlement; // 只有 success 才有
+  events?: Event[];
+  error?: string; // 只有 failure 才有
+};
+
+// ✅ 合格
+type SceneResult =
+  { kind: "success"; settlement: Settlement; events: Event[] } | { kind: "failure"; error: string };
+```
+
+---
+
+## 叙事系统纪律
+
+### 工具是领域事件，不是 MVU 状态栏
+
+不要把工具设计成“把状态改一下”。工具必须表达世界里发生的事：
+
+- `commit_turn`：非 Scene Beat lifecycle 的 canonical turn 提交入口；顶层 `time` 是必填 turn envelope。
+- `progress_scene_beat`：玩家当前 Scene Beat 行动窗口的开启与收口；顶层 `time` 是必填 turn envelope。
+- `update_economy`：有账户、有来源、有 reason 的资金事件；修账户名用 `rename-purse`，不要伪造 spend/gain。
+- `update_actor_condition`：wound / affliction / outfit / tracked item 等可审计条件变化。
+- `reveal_secret`：隐藏真名、宝具、动机的配置与揭示；不能用叙事直接泄密。
+- `record_offscreen_event`：玩家视野外的真实后台事件；前台只能看到痕迹、传闻、梦境、异常投影或后果。
+
+模型犯错时，优先把错误沉淀成：
+
+1. 工具层归一化或拒绝；
+2. 领域引擎 invariant；
+3. 清晰错误信息，列出可用 id / summary / actor；
+4. 回归测试。
+
+不要只加 prompt 骂模型。
+
+### 时间推进是 turn envelope，不是 scene event
+
+每个 canonical turn 都必须推进 clock：
+
+- `commit_turn.time` / `progress_scene_beat.time` 必填。
+- 当前时间裁决只允许 `elapsed` 或 `travel`。
+- 没有 `none`；短促对白、瞬间反应、换装、抬手格挡也至少 `elapsedMinutes: 1`。
+- 地点移动用 `time.kind="travel"`，非移动耗时用 `time.kind="elapsed"`。
+- Scene event 不承担时间推进；时间不是 `scene.kind` 的一个分支。
+- `turnLog` 是审计账本，必须能看出每轮 `startedAt -> endedAt`。
+
+如果 JSONL 显示 accepted tool call 大量没有推进时间，说明当前工具契约仍有可绕过时间约束的路径；删契约，不要写提示。
+
+### Public / secrets / player knowledge 分层
+
+“玩家知道”不是 public state visibility。
+
+必须区分：
+
+| 层级              | 含义                        | 允许落点                                                  |
+| ----------------- | --------------------------- | --------------------------------------------------------- |
+| player-only       | 现实玩家知道；角色未必知道  | 不写 state；最多用于 GM 避免误剧透                        |
+| protagonist-known | 玩家角色本人知道            | public actor identity / public memory，前提是剧情内成立   |
+| scene-public      | 当前场景 NPC 或社会层也知道 | public state / public memory                              |
+| hidden-canonical  | 真实存在但未公开确认        | `secrets` / `reveal_secret` / hidden NP / private motives |
+
+典型禁区：
+
+- 玩家设定里知道从者真名 ≠ `public.servantForm.identity.trueName.status = "revealed"`。
+- 穿越者知道原作 ≠ public world fact。
+- GM 知道幕后阵营行动 ≠ NPC 台词或玩家记忆。
+- hidden-canonical 不得写入 public memory。
+
+### Protagonist 从者真名防线
+
+玩家就是从者时：
+
+- 初始化 protagonist 从者不得直接 `trueNameStatus: "revealed"`。
+- 未在剧情世界内公开时，public trueName 必须是 `hidden` 或 `suspected`，display 填职阶名或疑似称呼，如 `Saber`。
+- 真实真名通过 `reveal_secret kind=configure-servant-secrets` 写入 secret slot。
+- 修档时可用 `override_locked_fact kind=servant-true-name status=hidden/suspected` 把误公开状态改回去。
+
+### 新手模式
+
+不了解 Fate 的玩家可以玩，但必须从普通人/穿越者/低知识边界进入。
+
+- `/skill:start-game` 中，用户说“第一次玩”“不了解 Fate”“随便来”时默认新手模式。
+- 新手模式不把术语知识当解谜前提；危险不能来自玩家不知道“御主/令咒/真名/宝具”等专有名词。
+- 专有名词首次影响行动时，只给一句与下一步选择相关的场内解释；禁止百科式灌输。
+- 不建议新人第一次直接进入复杂 FSF 多阵营中心或从者开局，除非用户明确要求。
+
+---
+
+## 后台工作进程纪律
+
+后台工作进程是导演组/审计器，不是陪聊 NPC。两条都是引擎自有 spawn seam（`node:child_process` 直接 fork `pi -p`），不依赖任何子代理框架（理由见 `docs/adr/0005`、`docs/adr/0007`）；`.pi/agents/` 子代理定义已全部退役。
+
+当前两条引擎直起工作进程：
+
+- **后台平行线（异步 hermetic 导演）**：persona/契约住在 engine（`engine/core/backstage/backstage-director-persona.ts`）；`run_parallel_line` 用 `buildBackstageDirectorPrompt` 拼出 hermetic director prompt，并【直接 fork 一个 detached `pi -p` 后台导演】（`engine/core/backstage/backstage-spawn.ts`，不经主 agent loop、不阻塞），只输出结构化 offscreen 候选，不改 state、不面向玩家写正文。隔轮用返回的 run_id 调 `harvest_backstage_candidate`（引擎按 run_id 定位 director session、取回+验收，见 `engine/core/backstage/backstage-session-read.ts`）后落地。忘了 harvest 不会静默丢：`run_parallel_line` 启动后立即记录 pending-harvest（`engine/core/backstage/backstage-pending.ts`），commit 逐轮返回待办提醒，且 `resolve_backstage_line` 在有未 harvest run 时拒绝关闭义务（防 no-change 丢弃已产出候选）。
+- **showrunner 审计（同步 hermetic 审计员，ADR 0007）**：世界线/题材审计，检查 drift、hook 滥用、NPC autonomy、world motion、beat closure。persona 住在 engine（`engine/core/showrunner/showrunner-persona.ts`）；`run_showrunner_audit` 拼 persona + typed 输入 + Showrunner Projection（`showrunner-context-block.ts`，引擎内嵌，无任何侧通道/入参改写），【阻塞 fork 一个 `pi -p` 审计子进程】（`showrunner-spawn.ts`）等它跑完，verdict 过 `TimelineShowrunnerOutput` schema gate 才返回 GM。失败（启动/超时/无输出/结构非法）返回结构化失败，零引擎重试，绝不静默当通过。
+
+硬规则：
+
+- 子进程隔离由 spawn 现场的 flags 结构性保障，不靠 prompt：导演 `--no-tools`；审计员 `--no-extensions -e extensions/subagents/timeline/index.ts --no-builtin-tools`（唯一工具是 `lookup`，无 `read`/`bash`/写工具）。两者都带 `--no-approve --no-context-files`（审计员另加 `--no-skills --no-prompt-templates`），不加载项目 `extension.ts`/AGENTS.md/skills。
+- 子进程 session 必须落 gitignored `.pi/agent/` 树（`backstage-sessions/`、`showrunner-sessions/`）：transcript 含 hidden-canonical 内容，不得进 git。
+- 子进程输出必须是 bare JSON；回程必须过 engine schema 验收（`parseParallelLineOutput` / `parseShowrunnerOutput`）才能回到 GM 或落地，验收失败只报字段路径、不回流裸文本。
+- spawn 失败/超时/无输出不得静默当成成功；导演失败不清 backstage 义务，审计失败不算审计通过。
+- 后台事件必须归属到 actor / faction / location / consequence，并给前台一个可行动痕迹；新闻、巡逻、门响、信件不能替代事件本体。
+
+---
+
+## 发布与本地隐私纪律
+
+发布包不是 git 工作区原样打包。
+
+- 不要提交或发布 `.pi/agent/auth.json`、`sessions/`、`state/`、`.pi/npm/`、本地 session HTML。
+- 不要把 `prompts/user/` 本地玩家角色印象打进发布包。
+- `docs/` 是开发文档，不进 release zip。
+- 发布脚本会删除 `prompts/user/` 和 `*.test.ts`；不要移除这道防线。
+- `start.ps1` 必须保持 ASCII-safe / UTF-8 without BOM，避免 Windows PowerShell 编码误读。
+- README/release copy 描述项目为 experimental interactive narrative game；当前测试重点是 FSF 绫香线，但不要把具体玩家角色作为发布默认。
+- License 为 GPL-3.0-or-later；Fate / TYPE-MOON rights remain with their respective holders。
+
+---
+
+## 文件与命名
+
+### 文件按职责分目录，不按类型平铺
+
+```
+engine/                # 确定性运行时引擎
+  core/                # state、scene、actor、servant、economy、memory、secret 等领域逻辑
+  prompt-assembly/     # prompt 组装（素材在顶层 prompts/）、preset、render/injection 测试
+  world-data/          # lookup 索引与世界数据读取
+
+world-data/                  # 结构化世界数据、campaign preset、timeline contract
+
+tools/                 # 工具定义与注册
+  registry.ts          # pi tool schema/description/execute 注册
+  state/               # 状态领域工具
+  debug/               # debug/修档工具；常规玩法不得依赖
+  lookup/              # 世界数据查询工具
+
+prompts/                # GM prompt 分层模块
+skills/                # 玩家可调用技能，如 start-game
+extensions/            # pi extension 动态注入、UI panel、审计子进程 lookup 载体
+  subagents/
+scripts/               # 打包/发布脚本
+```
+
+### 文件名：kebab-case
+
+```
+core/state.ts     ✅
+core/State.ts     ❌
+core/stateStore.ts ❌（应拆成 state-store.ts）
+```
+
+### 变量/函数：camelCase。类型/接口：PascalCase。常量：UPPER_SNAKE_CASE
+
+```ts
+const INITIAL_STATE: GameState = { ... };
+function adjustMoney(delta: number): void { ... }
+type SceneParams = { ... };
+```
+
+### 带 `_` 前缀表示有意未使用
+
+```ts
+function handleTurn(state: State, _turnIndex: number): void {
+  // _turnIndex 保留给未来使用，当前不需要
+}
+```
+
+`noUnusedParameters` 已开启，不用 `_` 前缀的未用参数会直接编译失败。
+
+---
+
+## 导入纪律
+
+### 零副作用导入
+
+`import "./side-effects"` 不存在于本项目中。pi 用 jiti 加载、测试用 node 原生 type stripping 运行，模块初始化顺序不可靠。相对导入必须带 `.ts` 后缀（node 原生运行的硬性要求）。
+
+### type import 必须显式
+
+`verbatimModuleSyntax` 已开启。运行时用不到的东西必须标注 `type`：
+
+```ts
+import type { State, StatusSnapshot } from "./types";
+import { patchState } from "./state";
+```
+
+### 导入分组顺序
+
+oxfmt 已配置自动排序：`type-import` → `type-internal` → `type-parent/sibling/index` → `value-builtin/external` → `value-internal` → `value-parent/sibling/index`。不要手动排——跑 `pnpm format`。
+
+---
+
+## 错误处理
+
+### 不吞错误
+
+每个 `catch` 必须做点什么——throw、log、warp。空 `catch {}` 不存在。
+
+```ts
+// ❌ 不合格
+try {
+  doRisky();
+} catch {}
+
+// ✅ 合格：至少 log
+try {
+  doRisky();
+} catch (e) {
+  console.error("doRisky failed:", e);
+  throw e;
+}
+```
+
+### 抛有意义的错误
+
+```ts
+// ❌ 不合格
+throw new Error("failed");
+
+// ✅ 合格
+throw new Error(`lookup("location", "${query}"): no match found`);
+```
+
+### 不要用异常做控制流
+
+异常是异常。不要「try 一个操作，失败表示另一种状态」——用 discriminated union 表达两种可能性。
+
+---
+
+## 函数设计
+
+### 单一职责，小函数
+
+一个函数做一件事。函数体超过 30 行 → 开始怀疑它在做不止一件事。
+
+### 纯函数优先
+
+能不依赖外部状态的函数，就不依赖。纯函数可测试、可缓存、可复用。
+
+```ts
+// ❌ 不纯：依赖 global state store
+function getBalance(): number {
+  return globalThis.__idol_master_state_store__.money;
+}
+
+// ✅ 纯：传入 state
+function getBalance(state: State): number {
+  return state.money;
+}
+```
+
+### 不写「可能以后有用」的抽象
+
+YAGNI。只写当前需要的代码。多余的泛型参数、未调用的工厂函数、预留的扩展点——都是死后腐烂的尸体。
+
+---
+
+## 死代码零容忍
+
+`noUnusedLocals` + `noUnusedParameters` 保证函数级干净。但还要注意：
+
+- 未调用的导出函数 → 删
+- 注释掉的代码 → 删（git 里有历史）
+- 「先留着万一要用」的 `world-data/*.json` 字段 → 删
+- 写了但没在 `tools/registry.ts` 注册的工具 → 删或注册
+
+---
+
+## 注释
+
+### 注释解释「为什么」，不解释「是什么」
+
+代码说「是什么」。如果代码说清楚了自己是什么，就不要注释。如果代码说不清楚——**先改代码**，后补注释。
+
+```ts
+// ❌ 不合格：复述代码
+// increment money by delta
+money += delta;
+
+// ❌ 不合格：该改代码
+// if status is 3 it means banned
+if (user.status === 3) { ... }
+
+// ✅ 合格：解释不可见的约束
+// 必须用 adjustMoney 而非直接 patch——money 是 protected path，
+// 裸 patch 会被 schema guard 拒绝
+adjustMoney(delta);
+```
+
+### 不写 JSDoc 废话
+
+```ts
+// ❌ 不合格：复述签名
+/** Get the current status */
+export function getStatus(): StatusSnapshot { ... }
+```
+
+如果 JSDoc 只说了一遍类型签名已经写明的东西——删了它。
+
+---
+
+## 测试
+
+### 确定性代码必测
+
+state migration、schema validation、lookup 索引、场景结算公式——这些确定性逻辑必须有测试。测试跑在 `pnpm test` 里，CI 不可跳过。
+
+### 不测 LLM 行为
+
+GM 的叙事质量、工具调用的时机——这些不写测试。不是不想，是测不了。把测试资源集中在引擎逻辑上。
+
+### 测试文件跟源文件同目录，或放 `tests/`
+
+```
+engine/core/state.test.ts   ✅
+tests/state.test.ts         ✅
+__tests__/state.ts          ❌（不用 jest 目录惯例）
+```
+
+---
+
+## 提交
+
+### 一个 commit 做一件事
+
+不要「修了 A bug + 重构了 B + 加了 C 字段」。拆开。
+
+### 每步完成后 commit & push
+
+每完成一个独立可验收步骤，必须在四项检查通过后立即 commit 并 push；不要把多个已完成步骤堆在工作区里等最后一起提交。下一步开始前工作区应保持干净，除非用户明确要求继续累积未提交改动。
+
+### commit message 用英文 imperative
+
+```
+feat: add state rollback on session fork
+fix: reject bare patch on protected money path
+refactor: extract lookup index builder to shared utility
+```
+
+不要写「更新」「修」「改」这类无信息量的词。
+
+### 提交前必须通过四项检查
+
+```bash
+pnpm typecheck && pnpm lint && pnpm format:check && pnpm test
+```
+
+一条不过 = 不能 commit。不允许 `--no-verify`。
+
+---
+
+## 反模式黑名单
+
+以下模式在本项目中不存在，代码审查时看到即打回：
+
+| 反模式 | 为什么禁止 |
+| ---------------------------- | ----------------------------------------------------------------------------------- | ------------- | -------------- | --- | ----------------------------- |
+| `Record<string, any>` | any 瘟疫的载体。定义具体类型 |
+| `as unknown as T` | 双重断言等于放弃类型系统。写 type guard |
+| `setTimeout` 做异步控制 | pi 的事件循环不受你控制。用 hook/工具返回值驱动 |
+| mutation of function params | 纯函数不收副作用。clone 后改 |
+| `!!` 做布尔转换 | 写 `Boolean(x)`——意图明确 |
+| `x                           |                                                                                     | defaultValue` | 用 `??` 而非 `|     |`，除非你真的想捕获 `""`和`0` |
+| 导出 mutable 对象 | `export const X = {}` 是全局可变状态。用函数包装 |
+| magic number / magic string | 3.14 → `const TAX_RATE = 0.0314`。`"battle"` → `const SceneKind = { ... } as const` |
+| 深层嵌套三元 | `a ? b ? c : d : e` → 用 if-else 或 lookup table |
+| `import * as X` 命名空间导入 | 除非是 `import * as fs from "node:fs"` 这种标准库，否则具名导入 |
+| 裸 JSON Patch 修正常规玩法 | 用领域工具；没有工具就新增窄领域事件 |
+| 把 debug 工具当正常 GM 工具 | debug 只用于开发修档，正常剧情必须走领域工具 |
+
+---
+
+## 修改提示词 / 数据 / 引擎时的规则
+
+- **改 GM prompt** → 保持模块分工：`settlement/system.md` 与 `render/system.md` 只放身份与最高契约；世界边界在 `world-context.md`；硬规则在 `hard-rules.md`；工具路由在 `tool-policy.md`；剧情推进纪律在 `story-driver.md`；渲染在 `render/protocol.md`；输入解释在 `input-guide.md`；输出格式在 `output-contract.md`。不要把所有规则塞进 system 层。
+- **改 `/skill:start-game`** → 它只处理新游戏/重新开始/创建角色。必须保持流程机、public/secrets/player knowledge 分层、protagonist 从者真名防泄露、新手模式。
+- **新增工具** → 在 `tools/registry.ts` 注册；description 写成紧凑的「一行用途 + 使用边界 bullet + 禁区 bullet」，避免「必须调用场景/严禁行为」长清单诱导模型过度推理。工具应是领域事件，不是状态栏 setter。不要在当前工具契约里提旧字段、旧 kind 或旧入口。
+- **模型常犯错** → 先写回归测试或 JSONL 统计复现，再加工具拒绝/领域 invariant/schema 约束/迁移。不要只补 prompt。
+- **改 state 结构** → bump `schemaVersion`，同步 initial state + schema + protected paths 白名单，新增逐版本 migration 和 migration 测试。只允许经 migration 后访问新字段，不做运行时 fallback。
+- **查 state 的代码** → 必须处理 `noUncheckedIndexedAccess` 带来的 `| undefined`——每个索引访问都有判空路径。
+- **改 lookup/data** → 保留 canonical fact skeleton，避免复制 wiki prose；不要引入非 TYPE-MOON 材料污染目标世界。
+- **改后台工作进程（director/showrunner）** → spawn flags 的隔离不变量、bare JSON + engine schema 验收、gitignored session 落点、失败不静默这四条必须保留；persona 改动只改 engine 内的 persona 模块。
+- **改 release 包** → 跑打包检查，确认不含 `sessions/`、`runtime/`、`.pi/agent/`、`prompts/user/`、`docs/`、`*.test.ts`。
+- **任何改动** → `pnpm typecheck && pnpm lint && pnpm format:check && pnpm test` 全过。
+
+---
+
+## 与 tavern2agent skill 的关系
+
+tavern2agent 是迁移工具——它产出的代码只需要「能代表卡片逻辑」。但本项目的工程标准**远高于** tavern2agent 的基线要求。skill 迁移完之后的代码，必须在本项目的 lint/typecheck/format 三件套下归零，该重构就重构。不通过的不算「迁移完成」。
+
+---
+> Source: [Xerxes-2/fate-sandbox](https://github.com/Xerxes-2/fate-sandbox) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-06 -->
