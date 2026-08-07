@@ -1,0 +1,9 @@
+{
+  "name": "frankekn--george-hotz-skills",
+  "displayName": "george-hotz-skills",
+  "description": "Unofficial George Hotz\u2013inspired radical-simplicity coding guidelines for AI agents \u2014 Claude Code skill/plugin + Cursor rule. Complexity is the enemy.",
+  "version": "1.0.0",
+  "author": "frankekn",
+  "homepage": "https://github.com/frankekn/george-hotz-skills",
+  "skills": []
+}
