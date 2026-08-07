@@ -1,0 +1,9 @@
+{
+  "name": "redhat-community-ai-tools--harness-eval",
+  "displayName": "harness-eval",
+  "description": "Evaluate (lint, review, and security-audit) your AI coding agent harness.",
+  "version": "1.0.0",
+  "author": "redhat-community-ai-tools",
+  "homepage": "https://github.com/redhat-community-ai-tools/harness-eval",
+  "skills": []
+}
