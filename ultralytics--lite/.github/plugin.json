@@ -1,0 +1,9 @@
+{
+  "name": "ultralytics--lite",
+  "displayName": "lite",
+  "description": "A fast, local workspace for Claude Code, Codex, Kimi Code, DeepSeek, and your shell.",
+  "version": "1.0.0",
+  "author": "ultralytics",
+  "homepage": "https://github.com/ultralytics/lite",
+  "skills": []
+}
