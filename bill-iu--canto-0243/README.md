@@ -7,13 +7,13 @@ Offline Cantonese lyric rhyme dictionary (0243 code, Jyutping, synonyms) — Can
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [bill-iu/Canto-0243](https://github.com/bill-iu/Canto-0243).
+Original source: `AGENTS.md` in [bill-iu/Canto-0243](https://github.com/bill-iu/Canto-0243).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
