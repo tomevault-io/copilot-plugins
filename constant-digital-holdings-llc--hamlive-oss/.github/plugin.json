@@ -1,0 +1,9 @@
+{
+  "name": "constant-digital-holdings-llc--hamlive-oss",
+  "displayName": "hamlive-oss",
+  "description": "Self-hostable web app for running amateur radio nets (MIT, open-source edition).",
+  "version": "1.0.0",
+  "author": "Constant-Digital-Holdings-LLC",
+  "homepage": "https://github.com/Constant-Digital-Holdings-LLC/hamlive-oss",
+  "skills": []
+}
