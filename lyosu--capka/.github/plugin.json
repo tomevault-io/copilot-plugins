@@ -1,0 +1,9 @@
+{
+  "name": "lyosu--capka",
+  "displayName": "capka",
+  "description": "Capka AI \u2014 An open-source, self-hosted sandbox for AI agents. A community-driven alternative to Claude's Cowork",
+  "version": "1.0.0",
+  "author": "LyoSU",
+  "homepage": "https://github.com/LyoSU/capka",
+  "skills": []
+}
