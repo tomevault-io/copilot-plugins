@@ -1,0 +1,204 @@
+## quality-md
+
+> QUALITY.md is an open format for modeling a project's quality for the purpose
+
+# QUALITY.md
+
+## Project context
+
+QUALITY.md is an open format for modeling a project's quality for the purpose
+of evaluation, team/agent alignment, and continuous improvement.
+
+Read [`README.md`](README.md), [`CONTRIBUTING.md`](CONTRIBUTING.md), and
+[`domain.md`](domain.md) before you continue for important project context,
+development guidance, and terminology.
+
+The QUALITY.md experience is largely agent and skill-first. Users do not
+typically use the CLI for most use cases. Instead, the CLI and edits to
+`QUALITY.md` are managed by the agent skill. Users are still encouraged to edit
+`QUALITY.md` manually or with thoughtful AI assistance, especially the Markdown
+body. User-facing docs, guides, explainers, etc. should foreground the
+`/quality` agent skill or the `QUALITY.md` file itself and only highlight the
+CLI if necessary.
+
+## Major components
+
+| Component         | Where to look                                                                                                                                                         |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| QUALITY.md format | [`SPECIFICATION.md`](SPECIFICATION.md) is the source of truth for the model schema, Markdown body guidance, and evaluation semantics.                                 |
+| `/quality` skill  | Runtime files live in [`skills/quality/`](skills/quality/); functional specs and guide outlines live in [`specs/skills/quality-skill/`](specs/skills/quality-skill/). |
+| `qualitymd` CLI   | Source starts at [`src/`](src/) and [`test/`](test/); CLI specs live in [`specs/cli/`](specs/cli/) and [`specs/cli.md`](specs/cli.md).                                |
+
+## Working rules
+
+### Instruction style
+
+Keep this file extremely concise. Brevity over grammar.
+
+### Routine changes
+
+Routine prompted edits do not require a Change Case. Use `changes/` only when
+the user asks for a Change Case, when continuing an existing `changes/NNNN-*`
+item, or when the work needs durable spec/design/review history. Other routine
+changes follow the normal change guide: make the scoped edit, update directly
+relevant docs, tests, and specs, and verify.
+
+### Early-alpha compatibility
+
+QUALITY.md is early alpha. Breaking changes are acceptable when they keep the
+current model, skill, CLI, specs, and docs simpler and clearer.
+
+Do not author backward-compatibility shims, legacy aliases, fallback readers,
+dual writers, migration commands, deprecated command paths, or legacy specs
+unless an active spec or release task explicitly requires them. Prefer clean
+breaks: update the current contract, tests, docs, examples, and release notes
+together.
+
+When legacy compatibility code, specs, or docs are found in active surfaces,
+remove them as part of the scoped change when safe. Preserve historical records
+in `changes/archive/`, changelogs, and append-only logs unless the task is
+explicitly cleaning history.
+
+### Smoke testing
+
+- Do not add smoke-test scripts, utilities, fixtures, or code to the repo.
+- Temporary helpers only in `tmp/` or throwaway dirs; remove when done.
+
+## Guides
+
+Before work, read the relevant [`docs/guides/`](docs/guides/index.md):
+
+| When you are…                                     | Read                                                                           |
+| ------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Cutting or verifying a release                    | [Cut a release](docs/guides/cut-a-release.md)                                  |
+| Creating or advancing a Change Case               | [Working with change cases](docs/guides/work-with-change-cases.md)             |
+| Writing a functional spec (the `specs/` bundle)   | [Writing functional specs](docs/guides/write-functional-specs.md)              |
+| Writing a design doc                              | [Writing design docs](docs/guides/write-design-docs.md)                        |
+| Reading or editing any OKF bundle                 | [Working with OKF](docs/guides/work-with-okf.md)                               |
+| Designing or reshaping an agent-run workflow      | [Designing agent-mediated UX](docs/guides/agent-mediated-ux.md)                |
+| Adding or reviewing example quality-model content | [Modeling quality across domains](docs/guides/model-quality-across-domains.md) |
+| Designing or reshaping a CLI command              | [Designing CLI interfaces](docs/guides/cli-design.md)                          |
+| Writing Effect TypeScript or tests                | [Write Effect TypeScript](docs/guides/effect-typescript-style.md)              |
+
+## Repository conventions
+
+### Naming QUALITY.md
+
+- Use QUALITY.md plain by default, including when referring to QUALITY.md in
+  the abstract or conceptual sense.
+- Use `QUALITY.md` in backticks when describing a concrete instance of a
+  QUALITY.md in an operational use case.
+- Use bold/emphasized **QUALITY.md** only for first-mention emphasis in user-facing intro prose.
+- Prefer no bold in agent instructions, specs, and dense technical docs.
+
+### QUALITY.md vocabulary capitalization
+
+- Use normal English capitalization for model vocabulary everywhere, including
+  `SPECIFICATION.md`: model, area, factor, requirement, assessment, finding,
+  rating scale, rating level, source, evaluation report.
+- Use backticks for concrete YAML fields, file names, commands, and literal
+  values: `areas`, `factors`, `requirements`, `ratingScale`, `QUALITY.md`,
+  `qualitymd`.
+- Capitalize only proper nouns and acronyms: QUALITY.md, `qualitymd`, OKF,
+  YAML, RFC 2119 keywords in all caps.
+- Definitions (the spec's Terminology section, the glossary), not
+  capitalization, carry precision.
+- When a defined term collides with its ordinary English sense, rephrase rather
+  than capitalize: in the spec, bare "requirement" means the model object;
+  write "conformance requirement" or "normative requirement" for the RFC 2119
+  sense.
+- Exported code identifiers keep their language-native casing; this rule covers
+  prose, including help text, descriptions, and error messages.
+
+### Heading capitalization
+
+- Use sentence case for headings in active Markdown/MDX surfaces, including
+  README, docs, guides, specs, runtime skill docs, Mintlify docs, generated
+  report artifacts, and active project records: capitalize only the first word,
+  the first word after a colon, and proper nouns.
+- Keep these capitalized in headings and prose as proper nouns: QUALITY.md,
+  `qualitymd`, acronyms (CLI, OKF, YAML), and the named loop framing
+  (Quality Loop Stack; the Inner Loop, Middle Loop, Meta Loop, Outer Loop).
+  Model vocabulary (model, area, factor, agent harness) is not a proper noun.
+- This proper-noun list is closed; lowercase generic or descriptive uses (quality
+  loops, loop engineering, "up the loop stack") and preserve a cited source's own
+  casing (e.g. Annie Vella's lowercase _middle loop_).
+- Generated Contents labels follow the same rule. Table headers, frontmatter
+  `type`, enum display labels, structured metadata, and user/model-provided
+  display titles are separate surfaces.
+- Preserve historical headings in `changes/archive/`,
+  `.quality/evaluations/archive/`, and historical changelog/log entries unless
+  intentionally editing history.
+- No trailing period in headings.
+
+### Keep the motivation and taxonomy registers distinct
+
+- The stewardship/care core language — stewardship, care, tending, vulnerability,
+  concern — is **motivation-layer**: it describes _why_ a concern exists and what
+  it means to tend an entity. The taxonomy — factor, area, requirement,
+  constituent, audience — names the slots in the model.
+- Do not let a motivation-layer word modify or replace a taxonomy noun. A
+  stewardship concern _projects into_ a factor/constituent/audience; it is not one.
+  Avoid "stewardship factor" / "stewardship lens" / "care requirement" — they
+  demote a term of art to a subcategory of the philosophical word.
+- Name the root's recurring factors **model-wide** or **cross-cutting factors**
+  (the established terms). You may note they _trace to_ stewardship concerns, but
+  do not render that link by making "stewardship" an adjective on the taxonomy
+  noun.
+- The singular gloss "a factor is a quality _lens_" is fine — it defines what a
+  factor is. Only a philosophical word substituting for the noun is the problem.
+
+### Quality-domain agnostic examples and agentic use context
+
+Authoritative rules:
+[Modeling quality across domains](docs/guides/model-quality-across-domains.md)
+(sections "Rules for domain-agnostic example content" and "Agentic use context").
+Read it before adding or reviewing example quality-model content. Summary:
+
+- QUALITY.md is quality-domain agnostic. Concrete model content here is
+  illustrative unless it defines this project's own model or a normative format
+  rule; mark it so and frame domain/factor lists as non-exhaustive and
+  overlapping.
+- Lead with domain-neutral principles; do not make software product quality the
+  default. For worked examples, pair software/product quality with one cite-worthy
+  secondary domain, balanced.
+- Factors are earned per model from the modeled entity's own risks and needs; do
+  not adopt an external standard's characteristic list as a default factor family.
+- Domain agnostic is not context neutral: the _modeled domain_ stays agnostic, but
+  the _use context_ is agent- and skill-first. Preserve agentic/AI references that
+  describe how QUALITY.md is used; do not treat that operating context as the
+  default modeled domain. Flag AI/harness wording only when it sounds inherent to
+  all QUALITY.md files, not when it correctly describes a use context or this
+  project. The guide's decision test resolves which register a phrase is in.
+- Use-context constituents (agent harness, QUALITY.md self-check) may have explicit
+  guidance, but their factors and requirements stay agnostic to the served domain.
+
+### Open Knowledge Format (OKF) bundles
+
+OKF bundles register concept types in the root `schema.md`:
+
+| Folder     | What it holds                                                |
+| ---------- | ------------------------------------------------------------ |
+| `specs/`   | Specifications for the deterministic `qualitymd` surface.    |
+| `docs/`    | Project documentation, organized by the four Diátaxis modes. |
+| `changes/` | Change Cases — formal work records with spec/design history. |
+
+A Change Case records significant work: motivation, status, affected durable
+artifacts, a functional spec, and optional design doc.
+
+### Referencing ISO standards
+
+- Keep ISO lineage background.
+- Do not cite specific ISO standards in public code/artifacts unless requested
+  or relevant to the file's purpose.
+- Use QUALITY.md vocabulary instead of ISO terms.
+- [`SPECIFICATION.md`](SPECIFICATION.md) may cite ISO for provenance.
+
+### Agent guidance files
+
+- `CLAUDE.md` and `GEMINI.md` symlink to this file. Edit `AGENTS.md` only.
+- Both symlinks are gitignored.
+
+---
+> Source: [qualitymd/quality.md](https://github.com/qualitymd/quality.md) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-06 -->
