@@ -1,0 +1,44 @@
+{
+  "name": "OpenThorn",
+  "owner": "BuildingTechAlternatives",
+  "repo": "OpenThorn",
+  "description": "Free, browser-based BYOK AI website builder \u2014 v0 / Lovable / Bolt.new alternative. Bring your own key from 17 providers, generate & deploy full code, no subscription.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BuildingTechAlternatives/OpenThorn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T09:28:49Z"
+}
