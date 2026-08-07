@@ -1,0 +1,44 @@
+{
+  "name": "zime-gtm-skills",
+  "owner": "zime-ai",
+  "repo": "zime-gtm-skills",
+  "description": "Build your own sales-call review tooling: Agent Skills that audit call transcripts and CRM exports against GTM rubrics.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zime-ai/zime-gtm-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T19:26:51Z"
+}
