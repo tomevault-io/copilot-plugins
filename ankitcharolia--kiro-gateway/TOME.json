@@ -4,7 +4,7 @@
   "repo": "kiro-gateway",
   "description": "\ud83d\udc7b ACP Compliant gateway for Kiro IDE & CLI (Amazon Q Developer / AWS CodeWhisperer). Works with any AI Harness.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ankitcharolia/kiro-gateway",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T03:01:03Z"
+  "distributed_at": "2026-08-07T15:02:50Z"
 }
