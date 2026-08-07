@@ -1,0 +1,44 @@
+{
+  "name": "Echocode",
+  "owner": "Echocode-Agent",
+  "repo": "Echocode",
+  "description": "\u9762\u5411\u771f\u5b9e\u8f6f\u4ef6\u5f00\u53d1\u7684\u5f00\u6e90\u684c\u9762\u7f16\u7a0b AI Agent\uff0c\u652f\u6301\u591a\u6a21\u578b\u534f\u540c\u5b8c\u6210\u4ee3\u7801\u7406\u89e3\u3001\u4efb\u52a1\u89c4\u5212\u3001\u6587\u4ef6\u4fee\u6539\u3001\u547d\u4ee4\u6267\u884c\u4e0e\u4ee3\u7801\u5ba1\u67e5\u3002An open-source desktop coding AI Agent for real software development, bringing multiple models together for code understanding, planning, file editing, command execution, and code review.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Echocode-Agent/Echocode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T11:12:21Z"
+}
