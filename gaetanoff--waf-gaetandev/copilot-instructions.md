@@ -1,240 +1,125 @@
-## core-discovery
+## core-implementation
 
-> Discovery phase — structured requirements gathering, anti-vibe coding protocol, clarification before implementation
+> Spec-first implementation — code derived from specifications, conformance over creativity
 
 
-# Core Discovery — Anti-Vibe Coding Protocol
+# Spec-First Implementation
 
-> Discovery is the zero phase. No spec written, no architecture drawn, no code touched until discovery is complete and signed off.
+## Spec-Driven Vertical Slices
 
----
-
-## Anti-Vibe Coding — Mandatory Protocol
-
-**Never start coding from a vague request.** Vibe coding produces code that cannot be tested, maintained, or validated against any contract. It creates technical debt from line 1.
-
-### Trigger Conditions — Stop and Clarify
-
-Stop immediately and initiate discovery when:
-
-- The request uses vague terms: "do something with", "make it better", "add a feature", "fix the issue", "improve performance"
-- The domain model is undefined or implicit
-- Success criteria are missing or unmeasurable
-- The target user or actor is not named
-- The request contradicts an existing spec without acknowledging it
-- Edge cases are not mentioned for a business-critical flow
-- The scope is unbounded ("handle all cases", "support everything")
-
-### Minimum Viable Clarification — The 5 Questions
-
-Ask exactly the questions that unblock spec writing. Never more, never less. Group them in a single message.
+Build features as complete vertical slices, starting from the spec:
 
 ```
-Before I write the spec and start implementation, I need 5 answers:
-
-1. WHO — What actor/user triggers this? What system receives the result?
-2. WHAT — What is the precise expected outcome? (input → transformation → output)
-3. WHEN — What conditions/events trigger this flow?
-4. WHY WRONG — What does failure look like? What errors must be handled?
-5. DONE — What does "done" mean? How do we verify it works?
+❌ Code-first (write code, spec later):    ✅ Spec-first (spec drives code):
+1. Write models                             1. Auth spec → conformance tests → model → service → API → UI
+2. Write services                           2. Users spec → conformance tests → model → service → API → UI
+3. Write controllers                        3. Orders spec → conformance tests → model → service → API → UI
+4. Write UI                                 4. Dashboard spec → conformance tests → model → service → API → UI
+5. Write tests
+6. Write docs
 ```
 
-**Do not ask for implementation preferences** ("should I use REST or GraphQL?"). That is architecture, not discovery.
+Each slice: **spec → conformance tests → implementation → validation**.
 
-### Discovery Output — Required Artifacts
+## Implementation Order
 
-Discovery is complete only when these 3 artifacts are drafted:
+1. **Shared contracts**: error envelope, pagination, auth headers, shared schemas.
+2. **Conformance test harness**: set up spec validation tooling and test runners.
+3. **Authentication**: auth contract is usually a dependency for all other contracts.
+4. **Core entities**: implement data contracts as models, schemas, migrations.
+5. **Business logic**: implement behavior specs as services and use cases.
+6. **API layer**: implement API contracts as routes, controllers, middleware.
+7. **UI layer**: implement UI contracts as components, pages, state management.
+8. **Integration layer**: implement integration contracts as external service clients.
 
-| Artifact | Format | Purpose |
-|---|---|---|
-| `specs/mission.md` | Markdown | Problem statement, actors, goals, non-goals |
-| `specs/requirements.md` | Markdown + Given-When-Then | Functional + non-functional requirements |
-| `specs/decisions/ADR-000-project-context.md` | ADR template | Initial architectural context |
+## Spec-First Coding Patterns
 
----
+### Contract-to-Code Flow
 
-## Structured Discovery Process
+For each spec contract:
 
-### Phase 0.1 — Problem Statement
+1. **Read the spec**: understand the exact input/output contract.
+2. **Generate types**: derive TypeScript interfaces / Pydantic models / Go structs from the schema.
+3. **Write conformance tests**: tests that validate the implementation matches the spec.
+4. **Implement**: write the minimal code that passes conformance tests.
+5. **Validate**: run conformance tests. Green = done. Red = fix implementation, not the test.
 
-```markdown
-## Problem Statement
+### Spec Gap Protocol
 
-**Context**: [Current situation — what exists, what is broken or missing]
-**Problem**: [The actual pain point, with evidence if possible]
-**Impact**: [Who is affected, how often, what is the cost of inaction]
-**Hypothesis**: [The proposed solution direction — not the implementation]
-```
+When implementation reveals something the spec didn't cover:
 
-### Phase 0.2 — Actor Mapping
+1. **Stop implementing**. Don't invent behavior not in the spec.
+2. **Document the gap**: what scenario is missing from the spec?
+3. **Update the spec**: add the missing contract/scenario.
+4. **Review the spec change**: get approval if needed.
+5. **Write conformance test**: for the new spec.
+6. **Resume implementation**: now implement the new behavior.
 
-Identify every actor (human or system) that interacts with the feature:
+### Error-First from Contracts
 
-```markdown
-## Actors
+- The error contract defines all possible error responses.
+- Implement error handling FIRST — the error envelope is a shared contract.
+- For every endpoint, implement error responses before success responses.
+- Every error code in the spec must be reachable and tested.
 
-| Actor | Type | Goal | Permissions |
-|---|---|---|---|
-| End user | Human | Creates and manages resources | Read, Write own |
-| Admin | Human | Oversees all resources | Full access |
-| Payment gateway | External system | Processes transactions | Webhook push |
-| Background job | Internal system | Processes async tasks | Internal |
-```
+## Code Generation from Specs
 
-### Phase 0.3 — Constraint Inventory
+Leverage specs to generate boilerplate:
 
-Collect hard constraints before any design decision:
+| Spec | Generated Code |
+|------|---------------|
+| OpenAPI | Route definitions, request/response types, API client SDK |
+| JSON Schema | TypeScript interfaces, validation functions, DB schema |
+| AsyncAPI | Event handlers, message types, pub/sub boilerplate |
+| Pact contracts | Integration test stubs, mock servers |
+| Gherkin features | E2E test skeletons, step definitions |
 
-```markdown
-## Constraints
+Use code generation tools when available:
+- `openapi-generator` / `orval` / `swagger-codegen` for API types and clients.
+- `json-schema-to-typescript` / `quicktype` for data types.
+- `dredd` / `prism` for API contract testing.
 
-### Technical Constraints
-- [ ] Existing system integrations (APIs, databases, auth providers)
-- [ ] Performance SLOs (response time, throughput, availability)
-- [ ] Deployment environment (cloud provider, region, container runtime)
-- [ ] Security requirements (compliance, data residency, encryption)
+## Incremental Delivery
 
-### Business Constraints
-- [ ] Delivery deadline
-- [ ] Budget / infrastructure cost ceiling
-- [ ] Regulatory requirements (GDPR, HIPAA, SOC2, PCI-DSS)
-- [ ] Stakeholder sign-off requirements
+### Conforming Software at Every Step
 
-### Knowledge Constraints
-- [ ] Team expertise gaps
-- [ ] Missing domain knowledge
-- [ ] External dependencies not yet evaluated
-```
+- Every commit should leave the project in a **spec-conforming** state.
+- Use feature flags to merge incomplete features without exposing non-conforming endpoints.
+- Deploy to a staging environment frequently — validate conformance in realistic conditions.
 
-### Phase 0.4 — Assumption Tracker
+### Progressive Spec Implementation
 
-Every assumption made during discovery becomes an explicit, tracked decision.
+- Implement the core contracts first with minimal UI.
+- Add interactivity, animations, and polish incrementally.
+- Optimize only after conformance tests pass and profiling shows a real bottleneck.
 
-```markdown
-## Assumptions → Decisions
+## Common Anti-Patterns
 
-| ID | Assumption | Risk if Wrong | Resolution | Status |
-|---|---|---|---|---|
-| A-001 | Users are authenticated via OAuth2 | Auth system incompatibility | Confirmed with auth team | ✅ Confirmed |
-| A-002 | p95 latency < 200ms is acceptable | SLA violation | Pending stakeholder review | ⏳ Pending |
-| A-003 | Data volume < 1M records/day | Architecture mismatch | Not yet evaluated | ❌ Unknown |
-```
+- **Code Before Spec**: writing code then retro-fitting a spec to match. Spec first, always.
+- **Spec Ignorance**: implementing behavior not defined in any spec. If it's not spec'd, don't build it.
+- **Test-Last Conformance**: writing conformance tests after implementation. Tests come from specs, before code.
+- **Spec Drift**: implementation diverges from spec without updating the spec. Conformance tests catch this.
+- **Over-Implementation**: building more than the spec requires. The spec is the scope.
+- **Hardcoded Contracts**: embedding contract values in code instead of deriving from spec definitions.
 
-**Rule**: Every `❌ Unknown` assumption blocks spec approval. Resolve before proceeding.
-
----
-
-## Greenfield vs Legacy Discovery
-
-### Greenfield Project Discovery
-
-Full discovery is required. No existing constraints to preserve.
+## Code Organization Within Features
 
 ```
-Discovery Checklist — Greenfield
-- [ ] Problem statement written and validated
-- [ ] All actors identified and mapped
-- [ ] Functional requirements listed (happy path)
-- [ ] Non-functional requirements listed (performance, security, scale)
-- [ ] All constraints inventoried
-- [ ] All assumptions tracked
-- [ ] MVP scope defined (minimal set of specs that delivers value)
-- [ ] Non-goals explicitly listed
-- [ ] mission.md written
-- [ ] requirements.md drafted
-- [ ] ADR-000 written
+features/users/
+  specs/                  # Feature-level specs (if not in top-level specs/)
+  __tests__/
+    conformance/          # Spec conformance tests
+    unit/                 # Unit tests for business logic
+    integration/          # Integration tests
+  components/             # UI components matching UI contracts
+  hooks/                  # Custom hooks for this feature
+  services/               # Business logic matching behavior specs
+  types.ts                # Types generated from data contracts
+  schema.ts               # Validation schemas derived from JSON Schema
+  routes.ts               # Routes derived from API contract
+  constants.ts            # Feature-specific constants
+  index.ts                # Public API of the feature module
 ```
-
-### Legacy Project Discovery
-
-Legacy discovery adds reverse-engineering the existing system before any change.
-
-```
-Discovery Checklist — Legacy
-- [ ] Existing behavior documented (what does the system currently do?)
-- [ ] Existing contracts identified (what APIs, schemas, events exist?)
-- [ ] Existing tests inventoried (what is covered? what is not?)
-- [ ] Known bugs and limitations catalogued
-- [ ] Stakeholders affected by change identified
-- [ ] Backward compatibility requirements defined
-- [ ] Migration path outlined (data, API, client behavior)
-- [ ] Rollback plan defined
-- [ ] Problem statement written (delta from current state)
-- [ ] requirements.md written (delta + existing)
-```
-
----
-
-## Feature Addition Discovery
-
-When adding a feature to an existing project:
-
-1. **Read existing specs first** — understand the current contract
-2. **Identify spec gaps** — what is not covered by existing specs?
-3. **Check for conflicts** — does the new feature contradict an existing contract?
-4. **Define the delta** — only document what changes, not the whole system
-5. **Write an ADR** if the feature introduces a new architectural pattern
-
----
-
-## Bug Fix Discovery
-
-A bug is a spec violation. Discovery for a bug fix:
-
-1. **Reproduce the bug** with a failing test or specific input
-2. **Identify the broken contract** — which spec or expectation does the bug violate?
-3. **If no spec exists** — write the spec of the expected behavior first
-4. **Document the reproduction case** in `specs/features/<feature>.feature` as a new scenario
-5. **Fix is complete only when** the reproduction scenario passes
-
-```
-Bug Discovery Template
-
-## Bug Report
-
-**Observed behavior**: [What the system does]
-**Expected behavior**: [What the spec says it should do]
-**Reproduction steps**: [Exact sequence of actions]
-**Contract violated**: [Link to spec file, line number if possible]
-**Scope**: [Is this isolated to one component or does it affect multiple contracts?]
-```
-
----
-
-## Discovery Anti-Patterns — Never Do These
-
-| Anti-Pattern | Why It's Wrong | Correct Action |
-|---|---|---|
-| Start coding from a Slack message | No contract, no success criteria | Initiate discovery, write spec |
-| Assume requirements from existing code | Code may be wrong; code is not a spec | Read specs, not code |
-| Skip discovery for "small" features | Small features break existing contracts | Even 1-line changes need a delta spec |
-| Discover and implement in the same session | No review cycle, no validation | Always separate discovery → review → implementation |
-| Accept vague acceptance criteria | "Works well" is not a test | Require Given-When-Then for every scenario |
-| Design the solution during discovery | Premature architecture | Discovery produces requirements, not designs |
-
----
-
-## Discovery Gate — Proceed Checklist
-
-Before leaving the discovery phase, verify:
-
-```
-Discovery Gate
-
-[ ] Problem statement is crisp, specific, and bounded
-[ ] All actors are named and their goals are explicit
-[ ] Functional requirements cover happy path + at least 2 error paths
-[ ] Non-functional requirements have measurable thresholds
-[ ] All assumptions are tracked; no unknowns remain
-[ ] Non-goals are explicitly listed
-[ ] mission.md exists in specs/
-[ ] requirements.md exists in specs/
-[ ] At least one ADR exists in specs/decisions/
-[ ] No implementation decisions made during discovery
-[ ] Stakeholder sign-off obtained (or explicitly waived with reason)
-```
-
-**Only after this gate passes does spec writing begin.**
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
