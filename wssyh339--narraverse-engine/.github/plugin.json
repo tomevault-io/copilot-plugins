@@ -1,0 +1,9 @@
+{
+  "name": "wssyh339--narraverse-engine",
+  "displayName": "Narraverse-Engine",
+  "description": "\u672c\u5730\u4f18\u5148\u7684\u591a\u6a21\u578b\u957f\u7bc7\u5c0f\u8bf4\u5927\u7eb2\u4e0e\u4e16\u754c\u89c2\u63a8\u6f14\u5de5\u4f5c\u5ba4\uff0c\u56f4\u7ed5 LangGraph / langgraph-swarm \u591a Agent \u7f16\u6392\u3001\u6b63\u5178\u5e93\u3001\u5173\u7cfb\u56fe\u8c31\u3001\u4e16\u754c\u89c4\u5219\u63a8\u6f14\u3001\u5927\u7eb2\u63a8\u6f14\u548c\u4eba\u5de5\u786e\u8ba4\u6d41\u7a0b\u6784\u5efa\u3002",
+  "version": "1.0.0",
+  "author": "wssyh339",
+  "homepage": "https://github.com/wssyh339/Narraverse-Engine",
+  "skills": []
+}
