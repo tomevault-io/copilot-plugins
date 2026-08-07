@@ -1,0 +1,9 @@
+{
+  "name": "siddharthjaswal--logpose",
+  "displayName": "logpose",
+  "description": "A lightweight Android Studio / IntelliJ plugin for reading your app's network traffic without the logcat pain. \ud83e\udded",
+  "version": "1.0.0",
+  "author": "siddharthjaswal",
+  "homepage": "https://github.com/siddharthjaswal/logpose",
+  "skills": []
+}
