@@ -1,0 +1,9 @@
+{
+  "name": "onenightcarnival--agent-engineering-philosophy",
+  "displayName": "agent-engineering-philosophy",
+  "description": "An engineering philosophy that treats the agent as a worker: the system prompt is a JD, skills are certifications, model tiers are degrees, memory is a career record, the sandbox is a work computer. B",
+  "version": "1.0.0",
+  "author": "Onenightcarnival",
+  "homepage": "https://github.com/Onenightcarnival/agent-engineering-philosophy",
+  "skills": []
+}
