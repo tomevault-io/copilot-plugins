@@ -1,0 +1,9 @@
+{
+  "name": "fs0cietyx--ai-slop-detector",
+  "displayName": "ai-slop-detector",
+  "description": "A production-ready AI text classifier that detects machine-generated content using PyTorch and LoRA. Features zero-trust security, strict CI/CD, and containerized deployment. ",
+  "version": "1.0.0",
+  "author": "fs0cietyx",
+  "homepage": "https://github.com/fs0cietyx/ai-slop-detector",
+  "skills": []
+}
