@@ -1,475 +1,468 @@
-## core-spec-templates
+## core-specification
 
-> Ready-to-use specification templates — OpenAPI, JSON Schema, Gherkin, ADR, Pact, AsyncAPI
+> Specification authoring — how to write, structure, and manage specs as the single source of truth
 
 
-# Spec Templates
+# Specification Authoring
 
-## Overview
+## Principles
 
-These templates ensure every specification follows a consistent, complete format. Use them as starting points — adapt to the project's needs but preserve the required sections.
+- Specs are **the single source of truth** for the system's behavior and contracts.
+- Specs must be **machine-readable** whenever possible — they generate tests, docs, and stubs.
+- Specs must be **human-readable** — any developer should understand the system from specs alone.
+- Specs are **living documents** — they evolve with the project, never become stale.
+- Specs are **versioned** — changes to specs are tracked, reviewed, and approved like code.
 
-## OpenAPI 3.1 Skeleton
+## Spec Directory Structure
 
-Start every API spec from this skeleton:
-
-```yaml
-openapi: 3.1.0
-info:
-  title: <Project Name> API
-  description: <One-line purpose of the API>
-  version: 1.0.0
-  contact:
-    name: <Team Name>
-    email: <team@example.com>
-
-servers:
-  - url: http://localhost:3000/api/v1
-    description: Local development
-  - url: https://staging.example.com/api/v1
-    description: Staging
-  - url: https://api.example.com/api/v1
-    description: Production
-
-security:
-  - bearerAuth: []
-
-paths:
-  /health:
-    get:
-      summary: Health check
-      operationId: healthCheck
-      tags: [System]
-      security: []
-      responses:
-        '200':
-          description: Service is healthy
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HealthResponse'
-
-  # Add resource endpoints here following the pattern:
-  # /<resource>:
-  #   get:   listResources   → 200 (paginated list)
-  #   post:  createResource  → 201 (created entity)
-  # /<resource>/{id}:
-  #   get:    getResource    → 200 (single entity)
-  #   put:    updateResource → 200 (updated entity)
-  #   delete: deleteResource → 204 (no content)
-
-components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-
-  parameters:
-    PageParam:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    LimitParam:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 20
-    IdParam:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-
-  schemas:
-    HealthResponse:
-      type: object
-      required: [status, timestamp]
-      properties:
-        status:
-          type: string
-          enum: [healthy, degraded, unhealthy]
-        timestamp:
-          type: string
-          format: date-time
-        version:
-          type: string
-        services:
-          type: object
-          additionalProperties:
-            type: string
-            enum: [up, down]
-
-    PaginatedResponse:
-      type: object
-      required: [data, meta]
-      properties:
-        data:
-          type: array
-          items: {}
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
-
-    PaginationMeta:
-      type: object
-      required: [page, limit, total, totalPages]
-      properties:
-        page:
-          type: integer
-        limit:
-          type: integer
-        total:
-          type: integer
-        totalPages:
-          type: integer
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-
-    ErrorResponse:
-      type: object
-      required: [error]
-      properties:
-        error:
-          type: object
-          required: [code, message, timestamp]
-          properties:
-            code:
-              type: string
-              description: Machine-readable error code (UPPER_SNAKE_CASE)
-            message:
-              type: string
-              description: Human-readable error message
-            timestamp:
-              type: string
-              format: date-time
-            requestId:
-              type: string
-              format: uuid
-              description: Correlation ID for tracing
-            details:
-              type: array
-              items:
-                type: object
-                required: [field, message]
-                properties:
-                  field:
-                    type: string
-                  message:
-                    type: string
-                  code:
-                    type: string
-
-  responses:
-    BadRequest:
-      description: Invalid request payload
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: VALIDATION_ERROR
-              message: Request validation failed
-              timestamp: '2024-01-01T00:00:00Z'
-              details:
-                - field: email
-                  message: Must be a valid email address
-                  code: INVALID_FORMAT
-    Unauthorized:
-      description: Missing or invalid authentication
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHORIZED
-              message: Authentication required
-              timestamp: '2024-01-01T00:00:00Z'
-    Forbidden:
-      description: Insufficient permissions
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Conflict:
-      description: Resource conflict (duplicate)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Rate limit exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          headers:
-            Retry-After:
-              schema:
-                type: integer
-              description: Seconds until rate limit resets
-            X-RateLimit-Limit:
-              schema:
-                type: integer
-            X-RateLimit-Remaining:
-              schema:
-                type: integer
+```
+specs/
+  api/                    # API contracts
+    openapi.yaml          # REST API specification (OpenAPI 3.x)
+    schema.graphql        # GraphQL schema definition
+    service.proto         # gRPC service definition
+    asyncapi.yaml         # Event-driven API specification
+  schemas/                # Data contracts
+    user.schema.json      # JSON Schema for User entity
+    order.schema.json     # JSON Schema for Order entity
+    shared/               # Shared schema definitions ($ref targets)
+      address.schema.json
+      pagination.schema.json
+      error.schema.json
+  contracts/              # Integration contracts
+    payment-api.pact.json # Consumer-driven contract (Pact)
+    email-service.yaml    # External service contract
+  features/               # Behavior specifications
+    auth.feature          # Gherkin / Given-When-Then
+    checkout.feature
+  ui/                     # UI component contracts
+    button.props.ts       # Component prop types and variants
+    form-field.props.ts
+  slos/                   # Performance/reliability specs
+    api-performance.yaml  # SLOs, SLIs, error budgets
+  decisions/              # Architecture Decision Records
+    001-database-choice.md
+    002-auth-strategy.md
 ```
 
-## JSON Schema Entity Template
+## Data Contracts
 
-Every data entity should follow this skeleton:
+Define every entity as a formal schema:
 
 ```json
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.com/schemas/<entity>.schema.json",
-  "title": "<Entity>",
-  "description": "<What this entity represents>",
+  "title": "User",
   "type": "object",
-  "required": ["id", "createdAt", "updatedAt"],
+  "required": ["id", "email", "name", "role", "createdAt"],
   "properties": {
-    "id": {
-      "type": "string",
-      "format": "uuid",
-      "description": "Unique identifier"
-    },
-    "createdAt": {
-      "type": "string",
-      "format": "date-time",
-      "description": "Creation timestamp (ISO 8601)"
-    },
-    "updatedAt": {
-      "type": "string",
-      "format": "date-time",
-      "description": "Last update timestamp (ISO 8601)"
-    }
+    "id": { "type": "string", "format": "uuid" },
+    "email": { "type": "string", "format": "email" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+    "role": { "enum": ["admin", "user", "viewer"] },
+    "createdAt": { "type": "string", "format": "date-time" }
   },
   "additionalProperties": false
 }
 ```
 
-Required properties for every entity schema:
-- `$id` — globally unique schema identifier.
-- `title` and `description` — human-readable context.
-- `id`, `createdAt`, `updatedAt` — standard audit fields.
-- `additionalProperties: false` — enforce strict shape.
+Rules for data contracts:
+- Every entity has a schema. No untyped data flows through the system.
+- Use `$ref` for shared definitions (address, pagination, error envelope).
+- Define `required` fields explicitly. Default to required, opt-in to optional.
+- Use `additionalProperties: false` to catch unexpected fields.
+- Include format constraints (`email`, `uuid`, `date-time`, `uri`).
+- Define enums for all finite value sets.
 
-## Gherkin Feature Template
+## API Contracts
+
+### REST API (OpenAPI)
+
+Define every endpoint in OpenAPI format:
+
+```yaml
+paths:
+  /api/v1/users:
+    get:
+      summary: List users
+      operationId: listUsers
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
+      responses:
+        '200':
+          description: Paginated list of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      summary: Create a user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '409':
+          $ref: '#/components/responses/Conflict'
+```
+
+Rules for REST API contracts:
+- Every endpoint has a full OpenAPI definition BEFORE implementation.
+- Define all response codes (success + every error case).
+- Use `$ref` to reference data schemas — don't duplicate.
+- Include request/response examples for each endpoint.
+- Define shared components: error envelope, pagination, auth headers.
+- Version the API in the spec (`/api/v1/`).
+
+### GraphQL Schema
+
+Define the schema using SDL:
+
+```graphql
+type Query {
+  """List users with pagination"""
+  users(page: Int = 1, limit: Int = 20): UserConnection!
+
+  """Get a single user by ID"""
+  user(id: ID!): User
+}
+
+type Mutation {
+  """Create a new user"""
+  createUser(input: CreateUserInput!): CreateUserPayload!
+
+  """Update an existing user"""
+  updateUser(id: ID!, input: UpdateUserInput!): UpdateUserPayload!
+
+  """Delete a user"""
+  deleteUser(id: ID!): DeleteUserPayload!
+}
+
+type User {
+  id: ID!
+  email: String!
+  name: String!
+  role: UserRole!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum UserRole {
+  ADMIN
+  USER
+  VIEWER
+}
+
+input CreateUserInput {
+  email: String!
+  name: String!
+  password: String!
+  role: UserRole = USER
+}
+
+type CreateUserPayload {
+  user: User
+  errors: [UserError!]
+}
+
+type UserError {
+  field: String!
+  message: String!
+  code: String!
+}
+
+type UserConnection {
+  nodes: [User!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  currentPage: Int!
+  totalPages: Int!
+}
+```
+
+Rules for GraphQL contracts:
+- Define all types, inputs, and enums before implementing resolvers.
+- Use **Payload types** for mutations (not bare objects) — include `errors` for partial failures.
+- Use **Connection pattern** for paginated lists.
+- Add docstrings to every type, field, and argument.
+- Define custom scalars (`DateTime`, `Email`, `UUID`) with validation.
+
+### gRPC / Protocol Buffers
+
+```protobuf
+syntax = "proto3";
+
+package users.v1;
+
+import "google/protobuf/timestamp.proto";
+
+service UserService {
+  // List users with pagination
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
+
+  // Get a single user by ID
+  rpc GetUser(GetUserRequest) returns (User);
+
+  // Create a new user
+  rpc CreateUser(CreateUserRequest) returns (User);
+
+  // Update an existing user
+  rpc UpdateUser(UpdateUserRequest) returns (User);
+
+  // Delete a user
+  rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty);
+}
+
+message User {
+  string id = 1;
+  string email = 2;
+  string name = 3;
+  UserRole role = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+enum UserRole {
+  USER_ROLE_UNSPECIFIED = 0;
+  USER_ROLE_ADMIN = 1;
+  USER_ROLE_USER = 2;
+  USER_ROLE_VIEWER = 3;
+}
+
+message ListUsersRequest {
+  int32 page = 1;
+  int32 limit = 2;
+}
+
+message ListUsersResponse {
+  repeated User users = 1;
+  int32 total = 2;
+  int32 total_pages = 3;
+}
+```
+
+Rules for gRPC contracts:
+- Use `v1`, `v2` package versioning for breaking changes.
+- Always include `UNSPECIFIED = 0` for enums.
+- Define request/response messages per RPC — don't reuse across RPCs.
+- Use `google.protobuf.Timestamp` for dates, not strings.
+- Add comments to every service, RPC, message, and field.
+
+### WebSocket Contract
+
+```yaml
+# specs/api/websocket.yaml
+websocket:
+  endpoint: /ws
+  auth:
+    type: query_param
+    param: token
+
+  messages:
+    client_to_server:
+      - type: subscribe
+        description: Subscribe to a channel
+        payload:
+          channel: { type: string, required: true }
+          filters: { type: object }
+
+      - type: unsubscribe
+        payload:
+          channel: { type: string, required: true }
+
+      - type: ping
+        payload: null
+
+    server_to_client:
+      - type: data
+        description: Real-time data push
+        payload:
+          channel: { type: string }
+          data: { type: object }
+          timestamp: { type: string, format: date-time }
+
+      - type: error
+        payload:
+          code: { type: string }
+          message: { type: string }
+
+      - type: pong
+        payload: null
+
+  channels:
+    notifications:
+      description: User notifications in real time
+      payload_schema: { $ref: 'schemas/notification.schema.json' }
+
+    orders.{orderId}:
+      description: Order status updates
+      payload_schema: { $ref: 'schemas/order-event.schema.json' }
+```
+
+Rules for WebSocket contracts:
+- Define all message types (client → server and server → client).
+- Specify authentication mechanism (token in query, header, or first message).
+- Define channel naming conventions and payload schemas.
+- Include heartbeat/ping-pong contract.
+- Define reconnection behavior and message buffering rules.
+
+## Behavior Specifications
+
+Define feature behavior in Given-When-Then format:
 
 ```gherkin
-Feature: <Feature Name>
-  As a <role>
-  I want to <capability>
-  So that <benefit>
+Feature: User Registration
 
-  Background:
-    Given the system is initialized
-    And the following users exist:
-      | email             | role  |
-      | admin@example.com | admin |
+  Scenario: Successful registration
+    Given no user exists with email "alice@example.com"
+    When POST /api/v1/auth/register with:
+      | email    | alice@example.com |
+      | password | SecureP@ss1       |
+      | name     | Alice             |
+    Then response status is 201
+    And response body matches schema "User"
+    And a verification email is sent to "alice@example.com"
 
-  # --- Happy Path ---
-
-  Scenario: <Successful action description>
-    Given <precondition>
-    When <action with specific input>
-    Then response status is <expected status>
-    And response body matches schema "<SchemaName>"
-    And <specific assertion on the response>
-
-  # --- Error Paths ---
-
-  Scenario: <Action with invalid input>
-    Given <precondition>
-    When <action with invalid input>
-    Then response status is <error status>
+  Scenario: Registration with existing email
+    Given a user exists with email "alice@example.com"
+    When POST /api/v1/auth/register with:
+      | email    | alice@example.com |
+      | password | SecureP@ss1       |
+      | name     | Alice             |
+    Then response status is 409
     And response body matches schema "ErrorResponse"
-    And error code is "<ERROR_CODE>"
-
-  Scenario: <Action without authorization>
-    Given the user is not authenticated
-    When <action>
-    Then response status is 401
-    And error code is "UNAUTHORIZED"
-
-  # --- Edge Cases ---
-
-  Scenario: <Boundary condition>
-    Given <edge case precondition>
-    When <action at boundary>
-    Then <expected behavior at boundary>
-
-  Scenario Outline: <Parameterized scenario>
-    Given <precondition>
-    When <action with "<param>">
-    Then response status is <status>
-
-    Examples:
-      | param   | status |
-      | valid   | 200    |
-      | invalid | 422    |
-      | empty   | 422    |
+    And error code is "EMAIL_ALREADY_EXISTS"
 ```
 
-## ADR Template
+Rules for behavior specs:
+- Write scenarios for happy path AND every error path.
+- Reference data contracts by name (`matches schema "User"`).
+- Include edge cases: empty input, boundary values, concurrent access.
+- Behavior specs are executable — they drive integration/E2E tests.
 
-Store in `specs/decisions/NNN-<short-title>.md`:
+## Error Contracts
 
-```markdown
-# ADR-NNN: <Decision Title>
-
-**Status**: Proposed | Accepted | Deprecated | Superseded by ADR-XXX
-**Date**: YYYY-MM-DD
-**Deciders**: <who was involved>
-
-## Context
-
-<What requirement, constraint, or spec drove this decision?>
-<Reference specific specs: specs/api/openapi.yaml, specs/schemas/user.schema.json>
-
-## Options Considered
-
-### Option A: <Name>
-- **Pros**: <advantages>
-- **Cons**: <disadvantages>
-- **Spec impact**: <which contracts are affected>
-
-### Option B: <Name>
-- **Pros**: <advantages>
-- **Cons**: <disadvantages>
-- **Spec impact**: <which contracts are affected>
-
-## Decision
-
-<Which option was chosen and why.>
-
-## Consequences
-
-- <What changes in the system>
-- <What new specs or contracts are needed>
-- <What technical debt is introduced>
-- <What becomes easier/harder>
-
-## Spec References
-
-- `specs/api/openapi.yaml` — <how this decision affects the API contract>
-- `specs/schemas/<entity>.schema.json` — <how this affects data contracts>
-- `specs/decisions/NNN-related.md` — <related ADRs>
-```
-
-## Pact Consumer Contract Template
+Define a standard error envelope used across all APIs:
 
 ```json
 {
-  "consumer": { "name": "<Consumer Service>" },
-  "provider": { "name": "<Provider Service>" },
-  "interactions": [
-    {
-      "description": "<Describe the interaction>",
-      "providerState": "<Provider state precondition>",
-      "request": {
-        "method": "GET",
-        "path": "/api/v1/<resource>",
-        "headers": {
-          "Accept": "application/json",
-          "Authorization": "Bearer <token>"
-        }
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "body": {
-          "data": []
-        },
-        "matchingRules": {
-          "body": {
-            "$.data": { "min": 0 },
-            "$.data[*].id": { "match": "type" }
+  "title": "ErrorResponse",
+  "type": "object",
+  "required": ["error"],
+  "properties": {
+    "error": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": { "type": "string", "description": "Machine-readable error code" },
+        "message": { "type": "string", "description": "Human-readable error message" },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "field": { "type": "string" },
+              "message": { "type": "string" },
+              "code": { "type": "string" }
+            }
           }
         }
       }
     }
-  ],
-  "metadata": {
-    "pactSpecification": { "version": "2.0.0" }
   }
 }
 ```
 
-## AsyncAPI Event Template
+## Spec Dependency Graph
 
-```yaml
-asyncapi: 2.6.0
-info:
-  title: <Service Name> Events
-  version: 1.0.0
-  description: <Event-driven contracts for this service>
+Specs have dependencies — respect the order:
 
-channels:
-  <domain>/<event-name>:
-    description: <What triggers this event>
-    publish:
-      operationId: on<EventName>
-      message:
-        $ref: '#/components/messages/<EventName>'
-
-components:
-  messages:
-    <EventName>:
-      name: <EventName>
-      title: <Human-readable event title>
-      contentType: application/json
-      payload:
-        $ref: '#/components/schemas/<EventPayload>'
-
-  schemas:
-    <EventPayload>:
-      type: object
-      required: [eventId, occurredAt, data]
-      properties:
-        eventId:
-          type: string
-          format: uuid
-        occurredAt:
-          type: string
-          format: date-time
-        source:
-          type: string
-          description: Service that emitted the event
-        data:
-          type: object
-          description: Event-specific payload
+```
+Shared schemas (error, pagination) ← referenced by all
+    ↓
+Entity schemas (user, order)       ← referenced by API + behavior specs
+    ↓
+API contracts (OpenAPI, GraphQL)   ← references entity schemas
+    ↓
+Behavior specs (Gherkin)           ← references API + entity schemas
+    ↓
+Integration contracts (Pact)       ← references API contracts
+    ↓
+UI contracts (component props)     ← references entity schemas
+    ↓
+SLO specs                          ← references API contracts
 ```
 
-## Template Usage Rules
+Rules:
+- Write shared schemas first — they are the foundation.
+- Never create circular spec dependencies.
+- When updating a shared schema, check all specs that `$ref` it.
+- Use `$ref` for shared definitions — single source of truth.
 
-- **Always start from a template**. Don't write specs from scratch when a template exists.
-- **Remove unused sections**. Templates are maximal — trim what doesn't apply.
-- **Customize names and descriptions**. Never leave placeholder text (`<...>`) in approved specs.
-- **Maintain consistency**. If the project uses a subset of templates, apply that subset uniformly.
-- **Version templates**. When the team improves a template, apply the improvement retroactively.
+## Spec Review Checklist
+
+Before approving any spec, verify:
+
+### Completeness
+- [ ] All entities have data contracts (JSON Schema/types).
+- [ ] All endpoints have API contracts (OpenAPI/GraphQL/gRPC).
+- [ ] All features have behavior specs (Given-When-Then).
+- [ ] All error cases are defined with error codes.
+- [ ] All integrations have contracts (Pact/consumer-driven).
+
+### Consistency
+- [ ] Naming conventions are consistent across all specs.
+- [ ] Shared schemas are used via `$ref` — no duplication.
+- [ ] Error codes follow the same pattern (`UPPER_SNAKE_CASE`).
+- [ ] Pagination follows the same contract everywhere.
+- [ ] Authentication scheme is consistent across endpoints.
+
+### Backward Compatibility
+- [ ] No required fields removed from responses.
+- [ ] No type changes on existing fields.
+- [ ] New required request fields have defaults or are in new endpoints.
+- [ ] Deprecated fields are marked with sunset dates.
+
+### Quality
+- [ ] Every field has a description.
+- [ ] Examples are provided for request/response payloads.
+- [ ] No `TODO`, `TBD`, or placeholder text in approved specs.
+- [ ] Spec passes linting (`spectral`, `ajv`, `graphql-schema-linter`).
+
+## Spec Lifecycle
+
+1. **Draft**: write the initial spec based on requirements.
+2. **Review**: validate with stakeholders and other developers.
+3. **Approved**: spec is locked for implementation. Changes require a spec update PR.
+4. **Implemented**: code conforms to the spec. Conformance tests pass.
+5. **Evolved**: requirements change → spec is updated first → code follows.
+
+## Anti-Patterns
+
+- **Spec After Code**: writing specs to match existing code defeats the purpose. Spec first.
+- **Vague Specs**: "returns user data" is not a spec. Define the exact schema.
+- **Orphan Specs**: specs that no code references or tests validate. Every spec must be wired.
+- **Spec Drift**: code that diverges from specs without updating them. Conformance tests prevent this.
+- **Over-Specification**: specifying internal implementation details. Specs define contracts, not internals.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
