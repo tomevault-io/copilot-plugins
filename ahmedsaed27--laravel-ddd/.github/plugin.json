@@ -1,0 +1,9 @@
+{
+  "name": "ahmedsaed27--laravel-ddd",
+  "displayName": "laravel-ddd",
+  "description": "Lightweight DDD and modular architecture tooling for Laravel, with context generators, Laravel-style scaffolding, and architecture checks.",
+  "version": "1.0.0",
+  "author": "ahmedsaed27",
+  "homepage": "https://github.com/ahmedsaed27/laravel-ddd",
+  "skills": []
+}
