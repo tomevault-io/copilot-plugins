@@ -1,52 +1,52 @@
-## specific-react
+## specific-rust
 
-> React component patterns, hooks, state management, and best practices
+> Rust coding standards — ownership, error handling, idiomatic patterns
 
 
-# React Patterns
+# Rust Standards
 
-## Components
+## Ownership & Borrowing
 
-- Use functional components exclusively. No class components.
-- One component per file. Name file same as component (PascalCase).
-- Keep components small — extract sub-components when JSX exceeds ~50 lines.
-- Colocate styles, tests, and types with the component.
+- Prefer borrowing (`&T`, `&mut T`) over cloning. Clone only when necessary.
+- Use `&str` for function parameters accepting strings, `String` for owned data.
+- Prefer `&[T]` over `&Vec<T>` for function parameters.
+- Use `Cow<'_, str>` when a function may or may not need to allocate.
 
-## Props
+## Error Handling
 
-- Define props with TypeScript interfaces. Export them if consumers need them.
-- Destructure props in the function signature.
-- Use `children` for composition instead of render props when possible.
-- Avoid spreading `{...props}` blindly — be explicit about forwarded props.
+- Use `Result<T, E>` for recoverable errors, `panic!` only for unrecoverable bugs.
+- Define custom error types with `thiserror` for libraries, `anyhow` for applications.
+- Use the `?` operator for error propagation — avoid manual `match` on `Result` when not needed.
+- Provide context with `.context("message")` (anyhow) or custom error variants.
 
-## Hooks
+## Idiomatic Patterns
 
-- Follow the Rules of Hooks (top-level only, React functions only).
-- Extract reusable logic into custom hooks (`useXxx` naming).
-- Keep `useEffect` focused — one effect per concern.
-- Always specify complete dependency arrays. Use `eslint-plugin-react-hooks`.
-- Clean up effects: return a cleanup function for subscriptions, timers, listeners.
+- Use iterators and combinators (`map`, `filter`, `collect`) over manual loops.
+- Prefer `match` over `if let` chains for exhaustive pattern matching.
+- Use `Option` methods: `unwrap_or`, `unwrap_or_else`, `map`, `and_then`.
+- Use `impl Trait` in function signatures for cleaner APIs.
+- Derive common traits: `Debug`, `Clone`, `PartialEq` on structs.
 
-## State Management
+## Safety
 
-- Start with local state (`useState`). Lift state up only when needed.
-- Use `useReducer` for complex state transitions.
-- Context for truly global state (theme, auth). Avoid overusing Context for frequent updates.
-- Consider external stores (Zustand, Jotai) only when Context causes performance issues.
+- Avoid `unsafe` unless absolutely necessary. Document every `unsafe` block with a safety comment.
+- Use `clippy` with `--deny warnings` in CI.
+- Use `rustfmt` for consistent formatting.
+- Prefer `Arc<Mutex<T>>` for shared mutable state across threads.
+
+## Project Structure
+
+- Use workspaces for multi-crate projects.
+- Keep `lib.rs` as the public API surface. Use `mod.rs` or file-based modules.
+- Expose minimal public API — default to private, make public only what's needed.
+- Use `#[cfg(test)]` modules for unit tests colocated with source.
 
 ## Performance
 
-- Memoize expensive computations with `useMemo`.
-- Memoize callback references with `useCallback` only when passed to memoized children.
-- Use `React.memo()` for pure components that receive stable props.
-- Lazy-load routes and heavy components with `React.lazy()` + `Suspense`.
-
-## Anti-Patterns
-
-- Don't store derived state — compute it during render.
-- Don't mutate state directly — always return new objects/arrays.
-- Don't use array index as `key` for dynamic lists.
-- Don't call hooks conditionally.
+- Use `&str` / slices to avoid unnecessary allocations.
+- Use `Vec::with_capacity()` when the size is known upfront.
+- Profile with `cargo flamegraph` or `criterion` before optimizing.
+- Prefer stack allocation over heap when data size is small and known.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
