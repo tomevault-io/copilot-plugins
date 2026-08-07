@@ -1,0 +1,9 @@
+{
+  "name": "pasky--pi-super",
+  "displayName": "pi-super",
+  "description": "Your desk setup, in your pocket \u2014 a phone-shaped remote for the tmux full of pi sessions, plus a voice-driven meta agent",
+  "version": "1.0.0",
+  "author": "pasky",
+  "homepage": "https://github.com/pasky/pi-super",
+  "skills": []
+}
