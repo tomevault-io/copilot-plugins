@@ -1,0 +1,9 @@
+{
+  "name": "stuey3d--vibesdr",
+  "displayName": "VibeSDR",
+  "description": "Vibe-coded, but not slop. A mobile-first SDR receiver for iOS, Android & Apple Watch \u2014 the live waterfall on your wrist, tuned with the Digital Crown. Multi-backend (UberSDR, OpenWebRX/+, KiwiSDR, FM-",
+  "version": "1.0.0",
+  "author": "Stuey3D",
+  "homepage": "https://github.com/Stuey3D/VibeSDR",
+  "skills": []
+}
