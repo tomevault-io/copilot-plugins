@@ -1,0 +1,44 @@
+{
+  "name": "velocity",
+  "owner": "AndrewCTF",
+  "repo": "velocity",
+  "description": "Self-hosted OSINT situation console: live aircraft, ships, satellites, quakes and conflict events fused on one 3D globe, with position history you own and replay for as long as you keep it. No API keys required.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AndrewCTF/velocity",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T23:38:31Z"
+}
