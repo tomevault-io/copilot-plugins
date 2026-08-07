@@ -1,0 +1,44 @@
+{
+  "name": "BlockHelm-Launcher",
+  "owner": "zqq-699",
+  "repo": "BlockHelm-Launcher",
+  "description": "\u7b80\u6d01\u73b0\u4ee3\u7684 Minecraft Java \u7248\u542f\u52a8\u5668\uff0c\u652f\u6301\u5b9e\u4f8b\u3001\u8d44\u6e90\u4e0e\u8d26\u6237\u7ba1\u7406\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zqq-699/BlockHelm-Launcher",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T23:35:26Z"
+}
