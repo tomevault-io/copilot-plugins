@@ -1,0 +1,9 @@
+{
+  "name": "0xtlt--md2pdf",
+  "displayName": "md2pdf",
+  "description": "Fast, standalone Markdown-to-PDF converter written entirely in Rust",
+  "version": "1.0.0",
+  "author": "0xtlt",
+  "homepage": "https://github.com/0xtlt/md2pdf",
+  "skills": []
+}
