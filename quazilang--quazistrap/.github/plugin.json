@@ -1,0 +1,9 @@
+{
+  "name": "quazilang--quazistrap",
+  "displayName": "quazistrap",
+  "description": "Reference Quazi bootstrap compiler written in Rust.",
+  "version": "1.0.0",
+  "author": "quazilang",
+  "homepage": "https://github.com/quazilang/quazistrap",
+  "skills": []
+}
