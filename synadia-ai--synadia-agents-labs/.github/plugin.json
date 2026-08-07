@@ -1,0 +1,9 @@
+{
+  "name": "synadia-ai--synadia-agents-labs",
+  "displayName": "synadia-agents-labs",
+  "description": "Learn to build NATS-native AI agents with the Synadia Agent Protocol - small, runnable SDK examples.",
+  "version": "1.0.0",
+  "author": "synadia-ai",
+  "homepage": "https://github.com/synadia-ai/synadia-agents-labs",
+  "skills": []
+}
