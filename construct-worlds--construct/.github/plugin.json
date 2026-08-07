@@ -1,0 +1,9 @@
+{
+  "name": "construct-worlds--construct",
+  "displayName": "construct",
+  "description": "A terminal-native ADE (agentic development environment).",
+  "version": "1.0.0",
+  "author": "construct-worlds",
+  "homepage": "https://github.com/construct-worlds/construct",
+  "skills": []
+}
