@@ -7,11 +7,11 @@ Fairbairn & Co Shopify Store v2
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [fairbo3000/fairbairn-co-shopify-v2](https://github.com/fairbo3000/fairbairn-co-shopify-v2).
+Original source: `AGENTS.md` in [fairbo3000/fairbairn-co-shopify-v2](https://github.com/fairbo3000/fairbairn-co-shopify-v2).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
