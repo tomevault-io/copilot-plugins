@@ -1,0 +1,9 @@
+{
+  "name": "fractalyze--zorch",
+  "displayName": "zorch",
+  "description": "JAX-native building blocks for Modern SNARKs (\u2211 IOP). Proving-scheme- and Implementation-agnostic; fusion-first.",
+  "version": "1.0.0",
+  "author": "fractalyze",
+  "homepage": "https://github.com/fractalyze/zorch",
+  "skills": []
+}
