@@ -7,15 +7,15 @@ The intelligence layer behind the organization
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [masumi-network/Citadel](https://github.com/masumi-network/Citadel).
+Original source: `AGENTS.md` in [masumi-network/Citadel](https://github.com/masumi-network/Citadel).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 From [masumi-network/Citadel](https://github.com/masumi-network/Citadel) — a repo with 10+ stars on GitHub.
 
