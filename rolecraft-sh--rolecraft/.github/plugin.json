@@ -1,0 +1,9 @@
+{
+  "name": "rolecraft-sh--rolecraft",
+  "displayName": "rolecraft",
+  "description": "The package manager for AI agents \u2014 install, test, publish, and manage skills & MCP servers across 86+ agents. Zero-dependency CLI.",
+  "version": "1.0.0",
+  "author": "rolecraft-sh",
+  "homepage": "https://github.com/rolecraft-sh/rolecraft",
+  "skills": []
+}
