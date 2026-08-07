@@ -1,0 +1,9 @@
+{
+  "name": "romanticamaj--promptasy",
+  "displayName": "promptasy",
+  "description": "A browser game to learn prompt engineering by playing \u2014 explore a world and solve challenges by writing prompts. Techniques from OpenAI, Anthropic, Google & xAI, each cited.",
+  "version": "1.0.0",
+  "author": "romanticamaj",
+  "homepage": "https://github.com/romanticamaj/promptasy",
+  "skills": []
+}
