@@ -1,0 +1,9 @@
+{
+  "name": "rejifald--movar",
+  "displayName": "movar",
+  "description": "Movar \u2014 keep the internet in your language. Cross-browser extension that enforces your language preferences (UA first, EN fallback).",
+  "version": "1.0.0",
+  "author": "rejifald",
+  "homepage": "https://github.com/rejifald/movar",
+  "skills": []
+}
