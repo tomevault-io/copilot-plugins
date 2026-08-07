@@ -1,0 +1,9 @@
+{
+  "name": "ascenx--safe-wallet",
+  "displayName": "safe_wallet",
+  "description": "A security-focused, self-custodial multichain mobile wallet for Android and iOS, built with Flutter.   Supports EVM, Bitcoin, TRON, Solana, Sui, dApps, and WalletConnect.",
+  "version": "1.0.0",
+  "author": "ascenx",
+  "homepage": "https://github.com/ascenx/safe_wallet",
+  "skills": []
+}
