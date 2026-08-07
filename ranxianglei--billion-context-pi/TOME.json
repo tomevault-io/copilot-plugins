@@ -1,0 +1,44 @@
+{
+  "name": "billion-context-pi",
+  "owner": "ranxianglei",
+  "repo": "billion-context-pi",
+  "description": "Active Context Pruning for pi \uff0c150K tokens is enough. \uff0c\u4e3b\u52a8\u538b\u7f29\u4e0a\u4e0b\u6587\uff0c15w token\u8db3\u4ee5",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ranxianglei/billion-context-pi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T13:30:13Z"
+}
