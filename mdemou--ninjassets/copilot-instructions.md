@@ -1,9 +1,13 @@
-## database-migrations
+## e2e-testing
 
-> How to create and structure Knex database migrations in the backend
+> How to run and develop Playwright E2E tests — read docs/e2e-testing.md
 
 
-**Read `backend/docs/database-migrations.md` before doing anything — it contains all patterns, conventions, and examples for this rule.**
+**Read `docs/e2e-testing.md` before doing anything — it contains all patterns, conventions, and examples for this rule.**
+
+**npm scripts:** `e2e/README.md`.
+
+**Automated agents:** always run E2E from `e2e/` with `npm run test:agent`.
 
 ---
 > Source: [mdemou/ninjassets](https://github.com/mdemou/ninjassets) — distributed by [TomeVault](https://tomevault.io).
