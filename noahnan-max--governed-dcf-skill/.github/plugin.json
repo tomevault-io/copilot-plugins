@@ -1,0 +1,9 @@
+{
+  "name": "noahnan-max--governed-dcf-skill",
+  "displayName": "governed-dcf-skill",
+  "description": "An auditable DCF valuation skill with scenarios, reverse DCF, sensitivity analysis, and fail-closed governance gates.",
+  "version": "1.0.0",
+  "author": "noahnan-max",
+  "homepage": "https://github.com/noahnan-max/governed-dcf-skill",
+  "skills": []
+}
