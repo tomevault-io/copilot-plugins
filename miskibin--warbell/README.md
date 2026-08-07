@@ -7,11 +7,11 @@ Action-RPG: a Bevy 0.19 / Rust  game — town-building, night sieges, upgrades, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [miskibin/warbell](https://github.com/miskibin/warbell).
+Original source: `AGENTS.md` in [miskibin/warbell](https://github.com/miskibin/warbell).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
