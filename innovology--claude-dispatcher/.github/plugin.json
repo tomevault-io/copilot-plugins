@@ -1,0 +1,9 @@
+{
+  "name": "innovology--claude-dispatcher",
+  "displayName": "claude-dispatcher",
+  "description": "Terminal cockpit for running a fleet of Claude Code sessions across all your repos \u2014 dispatch work, watch what ships, and act on what's blocked, from one screen.",
+  "version": "1.0.0",
+  "author": "Innovology",
+  "homepage": "https://github.com/Innovology/claude-dispatcher",
+  "skills": []
+}
