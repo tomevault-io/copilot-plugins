@@ -7,11 +7,11 @@ Trigger AI to test your software the way a real adversarial user would break it.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [shaifulshabuj/teststop](https://github.com/shaifulshabuj/teststop).
+Original source: `AGENTS.md` in [shaifulshabuj/teststop](https://github.com/shaifulshabuj/teststop).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
