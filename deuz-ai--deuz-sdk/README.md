@@ -7,11 +7,11 @@ Zero-dependency TypeScript framework for production AI agents: durable execution
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Deuz-AI/Deuz-SDK](https://github.com/Deuz-AI/Deuz-SDK).
+Original source: `AGENTS.md` in [Deuz-AI/Deuz-SDK](https://github.com/Deuz-AI/Deuz-SDK).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
