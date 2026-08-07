@@ -1,0 +1,9 @@
+{
+  "name": "cq27-dev--rag-rat",
+  "displayName": "rag-rat",
+  "description": "Local repo-intelligence index + MCP server: semantic search, symbol/graph navigation, impact-surface preflight, git + GitHub papertrail, and a source-anchored memory graph.",
+  "version": "1.0.0",
+  "author": "cq27-dev",
+  "homepage": "https://github.com/cq27-dev/rag-rat",
+  "skills": []
+}
