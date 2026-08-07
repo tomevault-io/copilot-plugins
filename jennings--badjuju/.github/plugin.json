@@ -1,0 +1,9 @@
+{
+  "name": "jennings--badjuju",
+  "displayName": "badjuju",
+  "description": "A Jujutsu client for all editors, inspired by Matklad's description of an LSP-powered VCS integration",
+  "version": "1.0.0",
+  "author": "jennings",
+  "homepage": "https://github.com/jennings/badjuju",
+  "skills": []
+}
