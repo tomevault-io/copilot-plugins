@@ -4,7 +4,7 @@
   "repo": "lacuna-shell",
   "description": "A Shell Extension Suite for Omarchy",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OldJobobo/lacuna-shell",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T01:42:41Z"
+  "distributed_at": "2026-08-07T10:54:29Z"
 }
