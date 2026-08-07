@@ -4,7 +4,7 @@
   "repo": "godot-agent",
   "description": "Godot AI agent CLI, Skill, and MCP server with structured JSON/schema output \u2014 headless scene/script/export automation plus live runtime control.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aigengame/godot-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T07:02:12Z"
+  "distributed_at": "2026-08-07T17:10:28Z"
 }
