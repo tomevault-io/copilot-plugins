@@ -1,0 +1,9 @@
+{
+  "name": "opentokenz--mcpx",
+  "displayName": "mcpx",
+  "description": "MCPX \u662f\u8fd0\u884c\u5728\u5f00\u53d1\u73af\u5883\u4e2d\u7684 MCP Runtime\uff08\u7f51\u5173\uff09\u3002ChatGPT\u3001Claude\u3001Cursor\u3001Grok \u53ca\u5176\u4ed6\u652f\u6301 Streamable HTTP \u7684 MCP \u5ba2\u6237\u7aef\uff0c\u53ef\u4ee5\u901a\u8fc7\u7edf\u4e00\u5de5\u5177\u9762\u7406\u89e3\u9879\u76ee\u3001\u67e5\u770b Unified Diff\u3001\u4fee\u6539\u6e90\u7801\u3001\u8fd0\u884c\u4efb\u52a1\u3001\u91c7\u96c6\u73af\u5883\u4fe1\u606f\uff0c\u5e76\u8c03\u7528\u672c\u5730 MCP \u4e0e Skill\u3002",
+  "version": "1.0.0",
+  "author": "opentokenz",
+  "homepage": "https://github.com/opentokenz/mcpx",
+  "skills": []
+}
