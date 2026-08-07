@@ -7,11 +7,11 @@ A fast, open-source Rust toolkit for generating, validating and serving Open Kno
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jyjeanne/okf-rs](https://github.com/jyjeanne/okf-rs).
+Original source: `AGENTS.md` in [jyjeanne/okf-rs](https://github.com/jyjeanne/okf-rs).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
