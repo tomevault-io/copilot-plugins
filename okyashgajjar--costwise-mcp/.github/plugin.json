@@ -1,0 +1,9 @@
+{
+  "name": "okyashgajjar--costwise-mcp",
+  "displayName": "costwise-mcp",
+  "description": "Local MCP server that helps coding agents stop re-reading the same code every turn. Repository intelligence, cache-write optimization, and long-term session memory. 100% local. No API keys.",
+  "version": "1.0.0",
+  "author": "okyashgajjar",
+  "homepage": "https://github.com/okyashgajjar/costwise-mcp",
+  "skills": []
+}
