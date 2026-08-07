@@ -1,0 +1,44 @@
+{
+  "name": "codex-obsidian",
+  "owner": "charlestang",
+  "repo": "codex-obsidian",
+  "description": "\u5c06 claude-obsidian \u88c1\u526a\u4e3a codex-obsidian\uff0c\u89e3\u51b3\u4e86\u5bf9 codex \u517c\u5bb9\u4e0d\u597d\uff0c\u4ee5\u53ca\u5bf9\u4e2d\u6587\u652f\u6301\u4e0d\u597d\u7684\u95ee\u9898\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/charlestang/codex-obsidian",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T17:28:02Z"
+}
