@@ -1,0 +1,9 @@
+{
+  "name": "artisan-build--ext-ffmpeg",
+  "displayName": "ext-ffmpeg",
+  "description": "Native PHP extension binding the FFmpeg libraries (pure C / Zend API). An Artisan Build project.",
+  "version": "1.0.0",
+  "author": "artisan-build",
+  "homepage": "https://github.com/artisan-build/ext-ffmpeg",
+  "skills": []
+}
