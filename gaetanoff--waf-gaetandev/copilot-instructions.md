@@ -1,98 +1,46 @@
-## global-performance
+## global-project-structure
 
-> Performance optimization strategies, budgets, caching, DB queries, and frontend rendering
+> Project structure and file organization conventions
 
 
-# Performance
+# Project Structure
 
-## Performance Philosophy
+## Principles
 
-- **Measure first, optimize second.** Never optimize blindly without profiling.
-- Algorithmic improvements always beat micro-optimizations (e.g., O(1) > O(n) > O(n^2)).
-- Performance expectations are formalized as SLO targets (see `core-observability`).
-- Favor deterministic background processing (queues) over blocking user-facing requests.
+- Organize by **feature/domain**, not by file type (prefer `user/controller.ts` over `controllers/user.ts`).
+- Keep related files close together (colocation).
+- Maintain a flat structure — avoid deep nesting beyond 3-4 levels.
+- Every directory should have a clear, single purpose.
 
-## Performance Budgets
+## Naming Conventions
 
-Define rigid limits for application metrics to prevent regression:
+- Directories: `kebab-case` (e.g. `user-profile/`, `api-clients/`).
+- Files: match the language convention (PascalCase for components, kebab-case for modules, snake_case for Python).
+- Index/barrel files: use sparingly — they can hide dependencies and slow builds.
 
-### Frontend Budget
-- **Bundle Size**: Initial JS payload < 200KB (gzipped).
-- **Core Web Vitals** (75th percentile):
-  - Largest Contentful Paint (LCP): < 2.5s
-  - First Input Delay (FID): < 100ms
-  - Cumulative Layout Shift (CLS): < 0.1
-- **Time to Interactive (TTI)**: < 3.5s on Fast 3G.
-
-### Backend Budget
-- **API Response Latency**: p95 < 200ms, p99 < 500ms.
-- **Database Query Time**: < 10ms for OLTP queries.
-- **Payload Size**: < 100KB uncompressed for standard JSON payloads (paginate otherwise).
-
-## Database Query Optimization
-
-The database is usually the bottleneck.
-
-### 1. The N+1 Query Problem
-- **Smell**: Fetching a list of $N$ items, then making $N$ separate sub-queries to fetch related data.
-- **Fix**: Use JOINs, Batching (e.g., GraphQL DataLoader), or `WHERE id IN (...)` to fetch related data in exactly 1+1 queries.
-
-### 2. Indexes
-- Add indexes to all Foreign Keys.
-- Add indexes to fields used frequently in `WHERE`, `ORDER BY`, or `GROUP BY` clauses.
-- Use Compound Indexes intelligently (order of columns matters!).
-- Avoid over-indexing (slows down `INSERT`, `UPDATE`, `DELETE`).
-
-### 3. Query Selectivity
-- **NEVER use `SELECT *`**. Only query the exact columns defined by the data contract (JSON Schema).
-- Use database-level pagination (`LIMIT`, `OFFSET` or Cursor-based pagination).
-
-### 4. Analysis
-- Run `EXPLAIN` or `EXPLAIN ANALYZE` on slow queries to understand query plans and identify missing indexes or sequential scans.
-
-## Caching Strategy Decision Tree
-
-Caching is hard. Choose the right cache for the job:
+## Standard Layout
 
 ```
-Is the response identical for all users?
-│
-├── YES ↓
-│   Is the data rarely changed? (e.g., static assets, config lists)
-│   ├── YES → HTTP Cache (CDN, Varnish) + Cache-Control max-age.
-│   └── NO  → App-Level Cache (Redis, Memcached) with pub/sub invalidation.
-│
-└── NO  (Data is user-specific) ↓
-    Does the query take > 50ms to run?
-    ├── YES → Cache the *fragment* or *query result* in Redis using `user:{id}:data:{hash}` key.
-    └── NO  → Do not cache. Query the database directly. Keep complexity low.
+src/
+  features/          # Feature-based modules
+  shared/            # Shared utilities, types, constants
+  infrastructure/    # Database, external services, config
+  tests/             # Test files (or colocated with source)
+docs/                # Documentation
+scripts/             # Build, deploy, migration scripts
 ```
 
-- **Cache Invalidation is hard**: Prefer expiring caches (TTL) over explicit invalidation whenever the business logic allows "eventual consistency".
+## Configuration Files
 
-## Frontend Performance Patterns
+- Keep config files at the project root (`tsconfig.json`, `pyproject.toml`, etc.).
+- Use `.env.example` as a template — never commit `.env`.
+- Centralize environment-specific config in a single module.
 
-### 1. Code Splitting & Lazy Loading
-- Never load the entire app bundle on the first paint.
-- Split bundles by Route/Page.
-- Lazy load heavy components (charts, rich text editors) or data outside the viewport until the user scrolls `IntersectionObserver`.
+## Boundaries
 
-### 2. Image Optimization
-- Use next-gen formats (WebP, AVIF).
-- Resize images on the server — never send a 4MB 4K image and render it in a `200x200` CSS box.
-- Use `loading="lazy"` on images below the fold.
-
-### 3. Rendering
-- Prevent unnecessary React component re-renders (use `React.memo`, `useMemo`, `useCallback` deliberately, not universally).
-- Virtualize/window massive lists (e.g., `react-window` for a list of 10,000 logs).
-- Keep CSS selectors simple (avoid huge descendant chains). Use utility classes (Tailwind) which minimize CSS payload.
-
-## Node.js / Backend Performance
-
-- **Async I/O**: Use `Promise.all` for parallel execution of unrelated HTTP or DB calls. Don't block the event loop with synchronous heavy CPU tasks.
-- **Worker Threads**: Offload CPU-heavy computation (hashing, image processing, massive JSON parsing) to Worker Threads or separate microservices.
-- **Connection Pooling**: Keep a persistent pool of database connections open to avoid the overhead of a TCP handshake per request.
-- **Garbage Collection**: Avoid massive in-memory objects (e.g., buffering a 1GB CSV file into an array). Stream files instead (`fs.createReadStream`).
+- Define clear module boundaries. Modules should expose a public API and hide internals.
+- Avoid circular dependencies between modules.
+- Shared code goes in `shared/` or `common/` — not duplicated across features.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
