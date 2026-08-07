@@ -1,0 +1,44 @@
+{
+  "name": "Rumpus-Engine",
+  "owner": "jarredksmith",
+  "repo": "Rumpus-Engine",
+  "description": "A single-file browser game studio \u2014 build worlds, play them (FPS, driving & racing, top-down, side-scroll), and share them with peer-to-peer multiplayer and a community level library. Everything \u2014 engine glue, editor, netcode, assets pipeline \u2014 ships in one html file. No build step, no server.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jarredksmith/Rumpus-Engine",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T05:13:57Z"
+}
