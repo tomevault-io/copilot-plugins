@@ -1,0 +1,109 @@
+## termui
+
+> Welcome to the **termui** codebase. This document serves as a comprehensive developer and AI agent handbook detailing the product vision, core architectures, package layouts, element tree lifecycles, and testing practices.
+
+# Developer & AI Agent Handbook: CLI Element-based Windowing System
+
+Welcome to the **termui** codebase. This document serves as a comprehensive developer and AI agent handbook detailing the product vision, core architectures, package layouts, element tree lifecycles, and testing practices.
+
+---
+
+## 1. Product Overview & System Map
+
+`termui` is a high-performance, double-buffered **Terminal User Interface (TUI)** and **Windowing System** written in Dart. It moves away from naive CLI output printing (which causes terminal flicker and high overhead) and provides a desktop-like environment inside standard ANSI/TTY terminal applications.
+
+### Core Goals
+* **Overlapping Window Management**: Supports floating, draggable, and resizeable frames with custom titles, borders, and Z-index layering.
+* **Double Buffering**: Prevents terminal flickering by maintaining an in-memory frame buffer of what is visible on-screen and comparing it with a previous frame to compute delta updates.
+* **Minimal ANSI Diffing**: Emits the shortest possible terminal sequences (cursor jumps and style transitions) to repaint only the modified cells.
+* **Element & Widget Tree**: Re-implements a Flutter-like reactive layout system where widgets describe configurations, elements manage tree lifecycles, and states hold stateful properties.
+* **Hierarchical Input & Focus System**: Translates raw ANSI byte streams from `stdin` into high-level event objects (keys, mouse clicks/scrolls/drags, paste segments) and dispatches them down a keyboard focus node tree.
+* **Modular Widget Toolkit**: Standard widgets including paragraph wrappers, lists, interactive input fields with visual cursors, progress bars, a braille-based grid canvas, tile maps, and menu overlays.
+
+---
+
+## 2. Monorepo Package Architecture
+
+The project is managed as a Melos monorepo with the following workspace packages:
+
+1. **[termui](/packages/termui)** (Core package): Implements the layout engine, widgets, elements, focus management, and ANSI rendering pipeline.
+2. **[termui_flutter](/packages/termui_flutter)** (Core package): Performant Flutter renderer.
+3. **[termui_test](/packages/termui_test)** (Core package): Fakes, Mocks, Integration testing, Matchers, Goldent testing.
+4. **[termui_shared_examples](/packages/termui_shared_examples)**: Contains example interfaces and reusable scenario layouts.
+5. **[termui_recorder](/packages/termui_recorder)**: Asciicast v3 recording and playback, screenshots.
+
+### Dependencies & Platforms
+* **Dart SDK**: Target environment is `sdk: ">=3.11.0 <4.0.0"`.
+* **Platform APIs**: Interacts with libc APIs on Linux/Unix using `dart:ffi` and Windows APIs using [win32](/pubspec.yaml#L17) (`^6.0.0`) to configure TTY raw mode and query screen sizing.
+* **Unicode / Wide Characters**: Uses [characters](/pubspec.yaml#L12) (`^1.4.0`) to correctly measure and slice grapheme clusters (correctly handling multi-byte characters, ZWJ sequences, and emojis).
+
+---
+
+## 3. Development Guidelines & Rules
+
+When writing or modifying code in this repository:
+
+1. **Use Modern Dart Collections**: Leverage Dart collection language features such as `if` elements, `for` elements, spread operators (`...`), and null-aware collection entries. See the [Dart Collections Guide](https://dart.dev/language/collections) for syntax references.
+2. **Multi-byte & Emoji Safety**: Never use `String.length` or `String.substring` for coordinates or drawing offsets. Always use `text.characters` from `package:characters` to handle grapheme cluster boundaries.
+3. **Always Check if Mounted**: Focus changes can fire when widgets are being unmounted or cleaned up. Always guard `setState` calls in focus listeners with an `if (mounted)` check:
+   ```dart
+   focusNode.onFocusChange = (hasFocus) {
+     if (hasFocus && mounted) {
+       setState(() {
+         // Update state properties
+       });
+     }
+   };
+   ```
+4. **Propagate InheritedWidget Updates**: Ensure [InheritedElement.update](/packages/termui/lib/ui/layout.dart#L734) always calls `rebuild()` to ensure that children configurations get updated downstream when the parent rebuilds.
+5. **Conventional Commits**: Write structured, clear commit messages conforming to the Conventional Commits 1.0.0 specification (e.g. `feat(core): ...`, `fix(focus): ...`).
+6. **Avoid stdout Terminal Properties**: Never use `stdout.terminalColumns` or `stdout.hasTerminal` to determine screen dimensions or check for a terminal. Tests run in headless environments where these getters throw exceptions. Always use the `terminal` instance provided by the mock environment (e.g., `MockTerminalBackend` from `termui_test`) or `globalSceneManager.terminal.size`.
+7. **Consider Terminal Emulator/Muxer Hotkey Conflicts**: When assigning keyboard shortcuts for the TUI, always consider conflicts with common terminal multiplexers (tmux, byobu) and emulators (iTerm2, Windows Terminal, PowerShell). For example, `Ctrl+S` is often intercepted by flow control (XOFF) or tmux prefixes, and `Ctrl+W` or `Ctrl+T` are common tab-management shortcuts. Always report potential conflicts to the developer and offer alternative/fallback bindings (e.g., providing `Alt+S` as an alternative to `Ctrl+S`).
+8. **Finalizing Tasks (Format & Analyze)**: Always run `dart format .` and then `dart analyze --fatal-infos` when completing tasks. The `dart analyze` check must complete cleanly with no reported issues before you finish your task.
+9. **Avoid Unnecessary Caching / Prefer Generational GC**: In Dart, generational GC is highly optimized for short-lived nursery objects. Avoid caching objects (like `Canvas` or `Element` render trees) and manually calling `clear()` or `reset()` on every frame, as the O(N) list-clearing overhead often exceeds the cost of a fresh bump-pointer allocation. Rely on microbenchmarks to justify caching/pooling.
+
+---
+
+## 6. Testing & Golden Suites
+
+All test files are located in [packages/termui/test](/packages/termui/test).
+
+### Testing Practices
+* **Stateful Rebuilds**: Unlike running applications which schedule frame updates on the microtask queue, tests run synchronously. You must call `element.rebuild()`, followed by `element.layout(...)` and `element.paint(...)` to force widgets to redraw after focus or state changes.
+* **Focus Singleton Cleanup**: Since `FocusManager` is a singleton, focus state persists across tests. You must call `FocusManager.instance.setPrimaryFocus(null)` in `setUp()` to ensure a clean slate.
+* **Golden Tests**: Uses `fake_async` and mock recorders to output Golden ANSI files under `test/goldens/` and verifies pixel-perfect compliance.
+
+### Commands
+Run the following commands inside `/app/packages/termui`:
+* Run all unit and integration tests:
+  ```bash
+  dart test
+  ```
+* Run specific test suites:
+  ```bash
+  dart test test/multi_pane_settings_test.dart
+  ```
+* Verify static analysis (returns zero warnings):
+  ```bash
+  dart analyze
+  ```
+* Format codebase:
+  ```bash
+  dart format .
+  ```
+
+---
+
+## 7. Example Gallery & Links
+
+Check out the interactive examples in `packages/termui/example/`:
+* **[01_questionnaire_example.dart](/packages/termui/example/01_questionnaire_example.dart)**: A simple terminal form collecting user answers.
+* **[02_progress_bars.dart](/packages/termui/example/02_progress_bars.dart)**: Demonstrates linear and spinner progression indicators.
+* **[03_responsive_dashboard.dart](/packages/termui/example/03_responsive_dashboard.dart)**: Grid-aligned terminal dashboard that reflows on resize.
+* **[04_multi_pane_settings.dart](/packages/termui/example/04_multi_pane_settings.dart)**: Dual-pane settings panel displaying list-to-detail sibling traversal and text inputs.
+* **[braille_canvas.dart](/packages/termui/example/braille_canvas.dart)**: Demonstrates vector graphics mapping on a braille sub-pixel layout.
+* **[widget_book.dart](/packages/termui/example/widget_book.dart)**: Interactive widget component book with custom page routes.
+
+---
+> Source: [jtmcdole/termui](https://github.com/jtmcdole/termui) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-06 -->
