@@ -1,0 +1,9 @@
+{
+  "name": "kenryu42--open-grok-build",
+  "displayName": "open-grok-build",
+  "description": "Use Grok 4.5, Grok Composer 2.5 Fast model in OpenCode",
+  "version": "1.0.0",
+  "author": "kenryu42",
+  "homepage": "https://github.com/kenryu42/open-grok-build",
+  "skills": []
+}
