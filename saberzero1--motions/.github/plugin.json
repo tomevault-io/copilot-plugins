@@ -1,0 +1,9 @@
+{
+  "name": "saberzero1--motions",
+  "displayName": "motions",
+  "description": "Enhances Obsidian's built-in Vim mode with Markdown-aware text objects, structural navigation, workspace keyboard control, and a polished Neovim-native experience.",
+  "version": "1.0.0",
+  "author": "saberzero1",
+  "homepage": "https://github.com/saberzero1/motions",
+  "skills": []
+}
