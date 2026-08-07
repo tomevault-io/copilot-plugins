@@ -4,7 +4,7 @@
   "repo": "talos_26",
   "description": "RoboMaster aiming vision",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Blackjack200/talos_26",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T08:55:24Z"
+  "distributed_at": "2026-08-07T18:51:18Z"
 }
