@@ -1,0 +1,44 @@
+{
+  "name": "30x-mckinsey-research-deck",
+  "owner": "norahe0304-art",
+  "repo": "30x-mckinsey-research-deck",
+  "description": "McKinsey-grade market research decks for Claude Code \u2014 adversarially verified numbers, 15 McKinsey methodologies as executable workflow, multi-agent pipeline. \u4e00\u6761\u6307\u4ee4\u4ea7\u51fa\u6562\u88ab\u6311\u6218\u7684\u9ea6\u80af\u9521\u7ea7\u5e02\u573a\u7814\u7a76 deck\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/norahe0304-art/30x-mckinsey-research-deck",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T08:45:22Z"
+}
