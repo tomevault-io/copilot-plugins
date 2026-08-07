@@ -1,125 +1,97 @@
-## core-implementation
+## core-iteration
 
-> Spec-first implementation — code derived from specifications, conformance over creativity
+> Spec-driven iteration — specs evolve first, code follows
 
 
-# Spec-First Implementation
+# Spec-Driven Iteration
 
-## Spec-Driven Vertical Slices
+## Feedback Loop
 
-Build features as complete vertical slices, starting from the spec:
+After each implementation cycle:
 
-```
-❌ Code-first (write code, spec later):    ✅ Spec-first (spec drives code):
-1. Write models                             1. Auth spec → conformance tests → model → service → API → UI
-2. Write services                           2. Users spec → conformance tests → model → service → API → UI
-3. Write controllers                        3. Orders spec → conformance tests → model → service → API → UI
-4. Write UI                                 4. Dashboard spec → conformance tests → model → service → API → UI
-5. Write tests
-6. Write docs
-```
+1. **Review**: Compare implementation against specs and conformance test results.
+2. **Identify gaps**: What spec scenarios are missing? What contracts are incomplete?
+3. **Update specs**: Evolve specs first — add missing contracts, refine existing ones.
+4. **Update conformance tests**: Generate new tests from updated specs.
+5. **Implement**: Make targeted changes to pass the new conformance tests.
+6. **Validate**: Re-run all conformance gates to confirm nothing broke.
 
-Each slice: **spec → conformance tests → implementation → validation**.
+## Spec Evolution Triggers
 
-## Implementation Order
+Update specs when you see:
+- **Missing scenarios**: real usage reveals behavior not covered by any spec.
+- **Contract gaps**: edge cases or error conditions not defined in the contract.
+- **Performance misses**: SLOs need adjustment based on real-world measurements.
+- **Security findings**: new threat vectors require additional security contracts.
+- **User feedback**: UX issues require changes to UI contracts or behavior specs.
+- **Integration changes**: external service changes require contract updates.
 
-1. **Shared contracts**: error envelope, pagination, auth headers, shared schemas.
-2. **Conformance test harness**: set up spec validation tooling and test runners.
-3. **Authentication**: auth contract is usually a dependency for all other contracts.
-4. **Core entities**: implement data contracts as models, schemas, migrations.
-5. **Business logic**: implement behavior specs as services and use cases.
-6. **API layer**: implement API contracts as routes, controllers, middleware.
-7. **UI layer**: implement UI contracts as components, pages, state management.
-8. **Integration layer**: implement integration contracts as external service clients.
+## Spec Evolution Rules
 
-## Spec-First Coding Patterns
+- **Spec changes come first**. Never change code without updating the spec.
+- Spec changes require review — they affect the contract with consumers.
+- Backward-compatible changes: add new fields (optional), new endpoints, new error codes.
+- Breaking changes: require a major version bump and migration guide in the spec.
+- Run all conformance tests before and after spec changes. Green → evolve → green.
+- Make small, incremental spec changes. Don't rewrite entire contracts at once.
 
-### Contract-to-Code Flow
+## Refactoring (Spec-Aware)
 
-For each spec contract:
+Refactoring triggers remain the same, but with a spec constraint:
 
-1. **Read the spec**: understand the exact input/output contract.
-2. **Generate types**: derive TypeScript interfaces / Pydantic models / Go structs from the schema.
-3. **Write conformance tests**: tests that validate the implementation matches the spec.
-4. **Implement**: write the minimal code that passes conformance tests.
-5. **Validate**: run conformance tests. Green = done. Red = fix implementation, not the test.
+- **Duplication**: same logic in 3+ places → extract, but ensure the shared code still conforms.
+- **Long functions**: >40 lines → split, but each piece must still satisfy its spec contract.
+- **Large files**: >300 lines → break into modules, but maintain spec conformance at each boundary.
+- **Contract violations**: code that no longer matches the spec → fix code, not spec (unless spec is wrong).
 
-### Spec Gap Protocol
+Refactoring rules:
+- Refactor in dedicated commits — never mix refactoring with spec changes.
+- Run conformance tests before and after. Green → refactor → green.
+- Internal refactoring (no contract change) doesn't require spec updates.
+- If refactoring changes a public interface, update the spec first.
 
-When implementation reveals something the spec didn't cover:
+## Performance Optimization Cycle (Spec-Driven)
 
-1. **Stop implementing**. Don't invent behavior not in the spec.
-2. **Document the gap**: what scenario is missing from the spec?
-3. **Update the spec**: add the missing contract/scenario.
-4. **Review the spec change**: get approval if needed.
-5. **Write conformance test**: for the new spec.
-6. **Resume implementation**: now implement the new behavior.
+1. **Check SLOs**: compare actual metrics against performance specs.
+2. **Profile**: identify the actual bottleneck with tools.
+3. **Hypothesize**: propose a change that brings metrics within SLO bounds.
+4. **Implement**: make the change.
+5. **Measure**: compare against SLOs. If within bounds, done. If not, iterate.
+6. **Update specs**: if SLOs were unrealistic, update the performance spec with justification.
 
-### Error-First from Contracts
+## Technical Debt Management
 
-- The error contract defines all possible error responses.
-- Implement error handling FIRST — the error envelope is a shared contract.
-- For every endpoint, implement error responses before success responses.
-- Every error code in the spec must be reachable and tested.
+- Track debt as **spec conformance gaps** — where code doesn't fully match specs.
+- Track debt as **spec completeness gaps** — where specs don't cover all real behavior.
+- Allocate time for debt reduction in each iteration.
+- Prioritize debt that causes conformance test failures or blocks new specs.
+- Distinguish between intentional debt (trade-off documented in ADR) and accidental debt.
 
-## Code Generation from Specs
+## UX Refinement (Driven by UI Specs)
 
-Leverage specs to generate boilerplate:
+- Review the UI against UI contracts and component specs.
+- Check consistency: do components match their prop contracts?
+- Verify responsive behavior against breakpoint specs.
+- Test with keyboard-only navigation per accessibility specs.
+- When UX needs change, update the UI spec first, then the components.
 
-| Spec | Generated Code |
-|------|---------------|
-| OpenAPI | Route definitions, request/response types, API client SDK |
-| JSON Schema | TypeScript interfaces, validation functions, DB schema |
-| AsyncAPI | Event handlers, message types, pub/sub boilerplate |
-| Pact contracts | Integration test stubs, mock servers |
-| Gherkin features | E2E test skeletons, step definitions |
+## Documentation Updates
 
-Use code generation tools when available:
-- `openapi-generator` / `orval` / `swagger-codegen` for API types and clients.
-- `json-schema-to-typescript` / `quicktype` for data types.
-- `dredd` / `prism` for API contract testing.
+After each iteration:
+- Specs are the documentation — ensure they're up to date.
+- Auto-generate API docs from OpenAPI specs.
+- Auto-generate type docs from data contracts.
+- Update ADRs if architectural decisions evolved.
+- Update changelog with spec version changes.
+- Remove outdated specs — stale specs mislead worse than stale docs.
 
-## Incremental Delivery
+## Continuous Improvement Mindset
 
-### Conforming Software at Every Step
-
-- Every commit should leave the project in a **spec-conforming** state.
-- Use feature flags to merge incomplete features without exposing non-conforming endpoints.
-- Deploy to a staging environment frequently — validate conformance in realistic conditions.
-
-### Progressive Spec Implementation
-
-- Implement the core contracts first with minimal UI.
-- Add interactivity, animations, and polish incrementally.
-- Optimize only after conformance tests pass and profiling shows a real bottleneck.
-
-## Common Anti-Patterns
-
-- **Code Before Spec**: writing code then retro-fitting a spec to match. Spec first, always.
-- **Spec Ignorance**: implementing behavior not defined in any spec. If it's not spec'd, don't build it.
-- **Test-Last Conformance**: writing conformance tests after implementation. Tests come from specs, before code.
-- **Spec Drift**: implementation diverges from spec without updating the spec. Conformance tests catch this.
-- **Over-Implementation**: building more than the spec requires. The spec is the scope.
-- **Hardcoded Contracts**: embedding contract values in code instead of deriving from spec definitions.
-
-## Code Organization Within Features
-
-```
-features/users/
-  specs/                  # Feature-level specs (if not in top-level specs/)
-  __tests__/
-    conformance/          # Spec conformance tests
-    unit/                 # Unit tests for business logic
-    integration/          # Integration tests
-  components/             # UI components matching UI contracts
-  hooks/                  # Custom hooks for this feature
-  services/               # Business logic matching behavior specs
-  types.ts                # Types generated from data contracts
-  schema.ts               # Validation schemas derived from JSON Schema
-  routes.ts               # Routes derived from API contract
-  constants.ts            # Feature-specific constants
-  index.ts                # Public API of the feature module
-```
+- After completing a project, conduct a retrospective on the spec process.
+- Which specs were most valuable? Which were over-specified?
+- Capture reusable spec patterns and templates for future projects.
+- Update bootstrap rules based on lessons learned.
+- Share spec authoring knowledge across the team.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
