@@ -4,7 +4,7 @@
   "repo": "xnano",
   "description": "an extremely nano python ui experience, built on rust",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hsaeed3/xnano",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T15:32:07Z"
+  "distributed_at": "2026-08-07T12:42:51Z"
 }
