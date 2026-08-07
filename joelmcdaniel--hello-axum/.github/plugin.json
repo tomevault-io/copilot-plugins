@@ -1,0 +1,9 @@
+{
+  "name": "joelmcdaniel--hello-axum",
+  "displayName": "hello-axum",
+  "description": "Simple Rust Axum Hello API",
+  "version": "1.0.0",
+  "author": "joelmcdaniel",
+  "homepage": "https://github.com/joelmcdaniel/hello-axum",
+  "skills": []
+}
