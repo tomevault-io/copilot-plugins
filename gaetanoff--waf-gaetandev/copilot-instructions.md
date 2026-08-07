@@ -1,49 +1,76 @@
-## specific-css-tailwind
+## specific-dart
 
-> CSS and Tailwind CSS conventions — styling, responsive design, organization
+> Dart and Flutter coding standards — null safety, patterns, state management
 
 
-# CSS & Tailwind
+# Dart & Flutter Standards
 
-## Tailwind CSS
+## Style & Naming
 
-- Use Tailwind utility classes directly in markup. Avoid writing custom CSS when a utility exists.
-- Extract repeated class combinations into components, not `@apply` (prefer composition).
-- Use `@apply` only in base/global styles or when component extraction isn't possible.
-- Follow mobile-first responsive design: default styles → `sm:` → `md:` → `lg:` → `xl:`.
-- Use Tailwind's design tokens (`text-sm`, `p-4`, `gap-2`) — don't use arbitrary values unless necessary.
+- Follow the official Dart style guide. Use `dart format` (enforced).
+- Classes, enums, typedefs: `PascalCase`. Variables, functions, parameters: `camelCase`.
+- Constants: `camelCase` (Dart convention, not UPPER_SNAKE).
+- Private members: prefix with `_`. Libraries: `snake_case`.
+- File names: `snake_case.dart` matching the primary class/content.
 
-## Organization
+## Null Safety
 
-- Group Tailwind classes logically: layout → sizing → spacing → typography → colors → effects.
-- Use `clsx` or `cn()` (tailwind-merge) for conditional classes.
-- Keep class strings readable — break long strings across multiple lines.
+- Dart is sound null-safe by default. Embrace it fully.
+- Use `?` only when null is a valid semantic value — not as a lazy default.
+- Prefer `late` over nullable for fields guaranteed to be initialized before access.
+- Use `??` (if-null) and `?.` (null-aware) operators to handle nullable values concisely.
+- Avoid `!` (null assertion) — handle the null case explicitly.
 
-```tsx
-<div
-  className={cn(
-    "flex items-center gap-4 p-4",
-    "rounded-lg border bg-white shadow-sm",
-    "hover:shadow-md transition-shadow",
-    isActive && "border-blue-500"
-  )}
-/>
+## Patterns
+
+- Use enhanced enums with fields and methods for structured constants.
+- Use sealed classes (Dart 3) for exhaustive state modeling.
+- Use pattern matching (`switch` expressions, destructuring) for cleaner branching.
+- Use extension types for zero-cost type wrappers.
+- Prefer `final` variables by default — use `var` only when mutation is needed.
+
+```dart
+// ✅ Sealed class + pattern matching
+sealed class AuthState {}
+class Authenticated extends AuthState { final User user; ... }
+class Unauthenticated extends AuthState {}
+class Loading extends AuthState {}
+
+Widget build(BuildContext context) => switch (state) {
+  Authenticated(:final user) => HomeScreen(user: user),
+  Unauthenticated() => LoginScreen(),
+  Loading() => CircularProgressIndicator(),
+};
 ```
 
-## Plain CSS
+## Flutter Widgets
 
-- Use CSS custom properties (variables) for theming and shared values.
-- Use logical properties (`margin-inline`, `padding-block`) for RTL support.
-- Avoid `!important` — fix specificity issues at the source.
-- Use CSS Grid for 2D layouts, Flexbox for 1D layouts.
+- Extract widgets into separate classes — don't build deep `build()` methods.
+- Use `const` constructors wherever possible for widget reuse optimization.
+- Prefer `StatelessWidget` unless local mutable state is needed.
+- Use `Keys` correctly: `ValueKey` for data identity, `UniqueKey` for forced rebuilds.
+- Keep `build()` methods pure — no side effects.
 
-## Responsive & Accessible
+## State Management
 
-- Design mobile-first, enhance for larger screens.
-- Use relative units (`rem`, `em`) for typography and spacing.
-- Ensure sufficient color contrast (WCAG AA minimum: 4.5:1 for text).
-- Use `prefers-reduced-motion` for animation-sensitive users.
-- Use semantic HTML elements before adding ARIA attributes.
+- Use Riverpod, Bloc, or Provider (pick one per project, stay consistent).
+- Separate business logic from UI. Never put logic in `build()`.
+- Use immutable state objects. Create new instances for state changes.
+- Handle loading, error, and data states explicitly (AsyncValue in Riverpod, etc.).
+
+## Async
+
+- Use `async/await` over raw `Future` chaining.
+- Use `Stream` for multiple async events. Prefer `StreamController` broadcast sparingly.
+- Always handle errors in Futures — unhandled errors crash the app.
+- Use `Completer` only when bridging callback-based APIs to Futures.
+
+## Testing
+
+- Use `flutter_test` for widget tests. `test` for pure Dart.
+- Use `mocktail` or `mockito` for mocking. Prefer fakes for simple cases.
+- Widget tests: `pumpWidget`, `pump`, `find`, `expect`. Test interaction flows.
+- Use golden tests for visual regression when UI precision matters.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
