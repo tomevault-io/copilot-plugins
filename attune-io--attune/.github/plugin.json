@@ -1,0 +1,9 @@
+{
+  "name": "attune-io--attune",
+  "displayName": "attune",
+  "description": "Safe, in-place Kubernetes pod resource right-sizing. VPA done right.",
+  "version": "1.0.0",
+  "author": "attune-io",
+  "homepage": "https://github.com/attune-io/attune",
+  "skills": []
+}
