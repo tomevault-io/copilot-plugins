@@ -4,7 +4,7 @@
   "repo": "ummah-library",
   "description": "An open-source Quran platform and Islamic knowledge ecosystem (AGPL-3.0).",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/UmmahLibrary/ummah-library",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T07:26:23Z"
+  "distributed_at": "2026-08-07T17:24:46Z"
 }
