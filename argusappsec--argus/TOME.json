@@ -4,7 +4,7 @@
   "repo": "argus",
   "description": "An open-source AppSec agent that reasons like an analyst: real scanners, your org's context, and a conversation instead of 400 findings.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/argusappsec/argus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T21:39:29Z"
+  "distributed_at": "2026-08-07T01:32:25Z"
 }
