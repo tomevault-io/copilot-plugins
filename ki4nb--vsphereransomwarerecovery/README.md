@@ -7,11 +7,11 @@ Recover VMware ESXi VMs after Babuk/.babyk ransomware. The encryptor only destro
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Ki4nb/VSphereRansomwareRecovery](https://github.com/Ki4nb/VSphereRansomwareRecovery).
+Original source: `AGENTS.md` in [Ki4nb/VSphereRansomwareRecovery](https://github.com/Ki4nb/VSphereRansomwareRecovery).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
