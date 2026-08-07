@@ -1,0 +1,9 @@
+{
+  "name": "finlater--weread-koplugin",
+  "displayName": "weread.koplugin",
+  "description": "\u5fae\u4fe1\u8bfb\u4e66 koreader \u63d2\u4ef6\uff0c\u5728 koreader \u91cc\u9605\u8bfb\u5fae\u4fe1\u8bfb\u4e66\u91cc\u7684\u4e66\u7c4d\u3001\u516c\u4f17\u53f7\u6587\u7ae0\uff0c\u5e76\u505a\u5230\u8fdb\u5ea6\u3001\u9605\u8bfb\u65f6\u957f\u540c\u6b65\uff0c\u9605\u8bfb\u65f6\u95f4\u4e0a\u62a5\u3002",
+  "version": "1.0.0",
+  "author": "finlater",
+  "homepage": "https://github.com/finlater/weread.koplugin",
+  "skills": []
+}
