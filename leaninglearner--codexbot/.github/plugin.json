@@ -1,0 +1,9 @@
+{
+  "name": "leaninglearner--codexbot",
+  "displayName": "codexbot",
+  "description": "CodexBot lifecycle notifications through QQ",
+  "version": "1.0.0",
+  "author": "LeaningLearner",
+  "homepage": "https://github.com/LeaningLearner/codexbot",
+  "skills": []
+}
