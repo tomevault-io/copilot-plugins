@@ -1,0 +1,9 @@
+{
+  "name": "bespok3d--bespok3d-desktop",
+  "displayName": "Bespok3d-desktop",
+  "description": "Besok3d is an app store and package manager for Klipper 3D printers. Install plugins, adapters, and features with one tap. No terminal, no custom firmware.",
+  "version": "1.0.0",
+  "author": "Bespok3d",
+  "homepage": "https://github.com/Bespok3d/Bespok3d-desktop",
+  "skills": []
+}
