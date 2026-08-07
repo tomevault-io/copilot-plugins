@@ -1,0 +1,9 @@
+{
+  "name": "beriberikix--usbipd-mac",
+  "displayName": "usbipd-mac",
+  "description": "A macOS implementation of the USB/IP protocol.",
+  "version": "1.0.0",
+  "author": "beriberikix",
+  "homepage": "https://github.com/beriberikix/usbipd-mac",
+  "skills": []
+}
