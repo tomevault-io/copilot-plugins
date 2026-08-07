@@ -1,0 +1,9 @@
+{
+  "name": "jolars--badness",
+  "displayName": "badness",
+  "description": "LaTeX language server, formatter, and linter",
+  "version": "1.0.0",
+  "author": "jolars",
+  "homepage": "https://github.com/jolars/badness",
+  "skills": []
+}
