@@ -4,7 +4,7 @@
   "repo": "portfolio-site-template",
   "description": "A fun little personal portfolio site template",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fayazara/portfolio-site-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T22:20:42Z"
+  "distributed_at": "2026-08-07T05:15:46Z"
 }
