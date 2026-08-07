@@ -4,7 +4,7 @@
   "repo": "fana",
   "description": "Self-hostable disposable email with an API your tests can actually use: private inboxes, wait-for-mail, OTP extraction, webhooks.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JastinXyz/fana",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T21:38:26Z"
+  "distributed_at": "2026-08-07T01:30:59Z"
 }
