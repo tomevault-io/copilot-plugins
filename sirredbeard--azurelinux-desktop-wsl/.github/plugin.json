@@ -1,0 +1,9 @@
+{
+  "name": "sirredbeard--azurelinux-desktop-wsl",
+  "displayName": "azurelinux-desktop-wsl",
+  "description": "Azure Linux. In a container. On WSL. In a .NET app. With some whimsical desktop goodness.",
+  "version": "1.0.0",
+  "author": "sirredbeard",
+  "homepage": "https://github.com/sirredbeard/azurelinux-desktop-wsl",
+  "skills": []
+}
