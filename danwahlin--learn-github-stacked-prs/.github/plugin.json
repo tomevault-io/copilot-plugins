@@ -1,0 +1,9 @@
+{
+  "name": "danwahlin--learn-github-stacked-prs",
+  "displayName": "learn-github-stacked-prs",
+  "description": "Practical learning and adoption resource for GitHub Stacked PRs and the gh stack CLI",
+  "version": "1.0.0",
+  "author": "DanWahlin",
+  "homepage": "https://github.com/DanWahlin/learn-github-stacked-prs",
+  "skills": []
+}
