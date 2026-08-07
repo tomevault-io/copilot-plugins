@@ -1,0 +1,9 @@
+{
+  "name": "kpsuperplane--hermes-guardian",
+  "displayName": "hermes-guardian",
+  "description": "Prevent data leakage. Guard your private information. ",
+  "version": "1.0.0",
+  "author": "kpsuperplane",
+  "homepage": "https://github.com/kpsuperplane/hermes-guardian",
+  "skills": []
+}
