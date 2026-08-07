@@ -1,27 +1,36 @@
-## browser-testing
+## commit-push-deploy
 
-> Rules for web verification and browser testing using local browser connection or agent-browser. Use when finishing tasks involving web deployments, frontend changes, or UI updates.
+> description: Run commit, push, and deploy operations at the end of every task
 
+﻿---
+description: Run commit, push, and deploy operations at the end of every task
+alwaysApply: true
+---
 
-# Browser Testing & Web Verification Guidelines
+# Commit, Push, and Deploy after Every Task
 
-## 1. Web Verification Requirement
-At the end of every task involving web deployments or changes, you MUST open a headless/headed browser (using `agent-browser` or Playwright) and test the actual live URL or local dev server to ensure it loads successfully and functions correctly before declaring the task complete.
+At the end of every task or whenever you complete a chunk of work that has been verified/tested:
 
-## 2. Available Browser Skills
-- **Agent Browser CLI (`agent-browser`):** Used for fast, lightweight browser tasks.
-  - Commands:
-    - `npx agent-browser@latest open <url>`
-    - `npx agent-browser@latest snapshot` (Get DOM snapshot with `@eN` references)
-    - `npx agent-browser@latest click '@eN'`
-    - `npx agent-browser@latest fill '@eN' "text"`
-    - `npx agent-browser@latest screenshot --annotate ./page.png`
-- **Local Browser Connection (CDP):** For using the user's personal authenticated browser session instead of a fresh isolated instance.
-  - Chrome port: `9222`
-  - Edge port: `9223`
-  - **MANDATORY Security Protocol:** Before connecting to the local browser via Playwright/CDP, you MUST run:
-    `[YOUR_LOCAL_PATH]\anaconda3\python.exe "[YOUR_LOCAL_PATH]\github\AhmiOS\local-browser-skill\security_prompt.py" --browser [Chrome/Edge]`
-    Only proceed with the CDP connection if this script prints `APPROVED`.
+1. **Verify the changes**
+   - Ensure the application builds and all automated tests pass before committing.
+
+2. **Commit the changes**
+   - Stage all intentional changes: `git add -A` (be careful not to commit secrets or untracked local environment files).
+   - Commit with a clear, descriptive, and imperative commit message summarizing the changes.
+
+3. **Push to the remote repository**
+   - Push the committed changes to the current branch on the remote: e.g., `git push` or `git push -u origin HEAD` if the upstream is not set.
+
+4. **Deploy the changes**
+   - Identify the project's deployment mechanism:
+     - **Git-Triggered Deployments**: If the project automatically deploys via Git pushes (e.g., connected to Vercel/Netlify GitHub integrations), confirm that pushing the changes is sufficient to trigger the deploy.
+     - **Vercel CLI / MCP**: If the `vercel` CLI or MCP tool is configured, deploy the changes (e.g. `vercel deploy` or `vercel --prod`).
+     - **Supabase CLI / MCP**: If Supabase edge functions or schemas were modified, deploy them using the `supabase` tool/CLI.
+     - **Custom Deploy Script**: Check if there's a deploy script/command in `package.json` (e.g., `npm run deploy`), `Makefile`, or project documentation and execute it.
+   - If the deployment command or target is not clear, ask the user for confirmation or check project documentation.
+   - Report the deployment status clearly to the user.
+
+Do not skip any of these steps (Commit, Push, Deploy) unless explicitly instructed otherwise.
 
 ---
 > Source: [aaltaay/altay-studio-public](https://github.com/aaltaay/altay-studio-public) — distributed by [TomeVault](https://tomevault.io).
