@@ -4,7 +4,7 @@
   "repo": "vox",
   "description": "One command from a topic to a finished narrated motion-graphics explainer video. Runs on the Higgsfield CLI.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/EricTechPro/vox",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T01:54:47Z"
+  "distributed_at": "2026-08-07T11:07:43Z"
 }
