@@ -1,17 +1,15 @@
-## license-attribution
+## flightscnr-pi
 
-> Preserve CC BY-NC-SA 4.0 attribution and copyright headers
+> Licensed under CC BY-NC-SA 4.0. See `LICENSE` and `NOTICE`.
 
+# Copilot / coding-agent instructions — FlightScnr_Pi
 
-# License and attribution
+Licensed under CC BY-NC-SA 4.0. See `LICENSE` and `NOTICE`.
 
-This project is **CC BY-NC-SA 4.0**. See `LICENSE`, `NOTICE`, and `AGENTS.md`.
-
-- Do **not** remove, summarize, or alter copyright / SPDX / `[AI-DIRECTIVE]` headers.
-- When editing or creating first-party source, keep or add the standard header (Python `#` or `/* */` form).
-- Derivatives must remain CC BY-NC-SA 4.0 and credit:
-  Yash Mulgaonkar — https://github.com/yashmulgaonkar/FlightScnr_Pi
-- Commercial use is prohibited without separate permission; remind the user when relevant.
+- Preserve all copyright, SPDX, and `[AI-DIRECTIVE]` headers.
+- Credit https://github.com/yashmulgaonkar/FlightScnr_Pi (Yash Mulgaonkar) in derivatives.
+- Keep ShareAlike (same license) and NonCommercial restrictions.
+- New first-party files need the same header pattern as existing sources.
 
 ---
 > Source: [yashmulgaonkar/FlightScnr_Pi](https://github.com/yashmulgaonkar/FlightScnr_Pi) — distributed by [TomeVault](https://tomevault.io).
