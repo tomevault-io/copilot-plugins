@@ -1,0 +1,9 @@
+{
+  "name": "astralvoidd--movie-app-expo",
+  "displayName": "movie-app-expo",
+  "description": "An iOS-inspired Movie Discovery app built with React Native, Expo, TypeScript & TMDB API featuring Glass UI, trailers, search, bookmarks and smooth animations.",
+  "version": "1.0.0",
+  "author": "astralvoidd",
+  "homepage": "https://github.com/astralvoidd/movie-app-expo",
+  "skills": []
+}
