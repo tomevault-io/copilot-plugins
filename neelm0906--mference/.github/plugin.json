@@ -1,0 +1,9 @@
+{
+  "name": "neelm0906--mference",
+  "displayName": "Mference",
+  "description": "Swift + Metal MoE inference for Apple Silicon: Gemma 4 26B in ~2 GB, Qwen 3.6 35B in ~1.45 GB, and DeepSeek-V4-Flash 284B at up to 4.8 tok/s on a 24 GB Mac. SSD-streamed experts, native Mac app, CLI, ",
+  "version": "1.0.0",
+  "author": "NeelM0906",
+  "homepage": "https://github.com/NeelM0906/Mference",
+  "skills": []
+}
