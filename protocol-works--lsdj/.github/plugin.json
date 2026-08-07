@@ -1,0 +1,9 @@
+{
+  "name": "protocol-works--lsdj",
+  "displayName": "lsdj",
+  "description": "An instrument for real-time AI music. Prompt two decks, mix them, and invent genres as you play.",
+  "version": "1.0.0",
+  "author": "protocol-works",
+  "homepage": "https://github.com/protocol-works/lsdj",
+  "skills": []
+}
