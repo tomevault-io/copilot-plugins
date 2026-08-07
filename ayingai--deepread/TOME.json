@@ -4,7 +4,7 @@
   "repo": "deepread",
   "description": "\u5e2e\u52a9\u7528\u6237\u6df1\u5ea6\u9605\u8bfb",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AyingAI/deepread",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T04:58:33Z"
+  "distributed_at": "2026-08-07T15:30:49Z"
 }
