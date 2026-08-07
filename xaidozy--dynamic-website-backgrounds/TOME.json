@@ -1,0 +1,44 @@
+{
+  "name": "dynamic-website-backgrounds",
+  "owner": "xaidozy",
+  "repo": "dynamic-website-backgrounds",
+  "description": "html css javascript canvas iframe animated-background dynamic-background web-background background-animation pure-html single-file dark-mode responsive-design material-you cloudflare-pages static-site frontend ui \u7f51\u9875\u80cc\u666f \u52a8\u6001\u80cc\u666f",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xaidozy/dynamic-website-backgrounds",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T14:57:20Z"
+}
