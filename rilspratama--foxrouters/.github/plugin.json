@@ -1,0 +1,9 @@
+{
+  "name": "rilspratama--foxrouters",
+  "displayName": "Foxrouters",
+  "description": "OpenAI-compatible AI Gateway for Grok + CodeBuddy. Multi-account round-robin, auto-refresh, circuit breaker, cookie auth, web dashboard. Zero-config deploy via ghcr.io.",
+  "version": "1.0.0",
+  "author": "rilspratama",
+  "homepage": "https://github.com/rilspratama/Foxrouters",
+  "skills": []
+}
