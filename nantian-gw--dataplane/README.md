@@ -7,11 +7,11 @@ Rust data plane for Nantian Gateway. HTTP/gRPC proxy, stream passthrough, AI Gat
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nantian-gw/dataplane](https://github.com/nantian-gw/dataplane).
+Original source: `AGENTS.md` in [nantian-gw/dataplane](https://github.com/nantian-gw/dataplane).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
