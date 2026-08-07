@@ -1,0 +1,44 @@
+{
+  "name": "TreeMap-Disk-Visualizer",
+  "owner": "Prithvi-Web",
+  "repo": "TreeMap-Disk-Visualizer",
+  "description": "TreeMap is a fully downloadable app that can run on mac, windows, and linux. That visualizeses all of your disk-space into charts and square board. It also lets you delete unwanted files and opens files for you aswell. ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Prithvi-Web/TreeMap-Disk-Visualizer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T13:40:18Z"
+}
