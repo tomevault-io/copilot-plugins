@@ -4,7 +4,7 @@
   "repo": "Deuz-SDK",
   "description": "Zero-dependency TypeScript framework for production AI agents: durable execution, long-term memory, hybrid RAG, MCP tool calling, human-in-the-loop approval, planning and CodeAct sandboxes. One streaming API for Claude, GPT, Gemini, Grok, Mistral and DeepSeek \u2014 Node, Bun, Deno, serverless and edge.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Deuz-AI/Deuz-SDK",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T02:54:22Z"
+  "distributed_at": "2026-08-07T14:56:09Z"
 }
