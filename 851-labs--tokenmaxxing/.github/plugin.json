@@ -1,0 +1,9 @@
+{
+  "name": "851-labs--tokenmaxxing",
+  "displayName": "tokenmaxxing",
+  "description": "A local CLI, built on ccusage, that syncs your token usage with everyone else.",
+  "version": "1.0.0",
+  "author": "851-labs",
+  "homepage": "https://github.com/851-labs/tokenmaxxing",
+  "skills": []
+}
