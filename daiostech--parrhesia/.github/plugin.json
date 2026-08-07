@@ -1,0 +1,9 @@
+{
+  "name": "daiostech--parrhesia",
+  "displayName": "parrhesia",
+  "description": "Replaces sycophancy with truth-telling in open-weight LLMs via Aristotelian virtue training, a third path beyond RLHF and Constitutional AI. Ships a LoRA adapter, the training method, and a model-agno",
+  "version": "1.0.0",
+  "author": "daiostech",
+  "homepage": "https://github.com/daiostech/parrhesia",
+  "skills": []
+}
