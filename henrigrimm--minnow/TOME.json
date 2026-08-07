@@ -1,0 +1,44 @@
+{
+  "name": "Minnow",
+  "owner": "HenriGrimm",
+  "repo": "Minnow",
+  "description": "A free and open source AI workspace: chat, code, research, plan and orchestrate multi-agent delivery, and grow a local knowledge base. Runs on any model and provider. Local or Cloud. AGPL-3.0 \u2014 no accounts, no subscriptions, no cloud, forever.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/HenriGrimm/Minnow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T12:40:10Z"
+}
