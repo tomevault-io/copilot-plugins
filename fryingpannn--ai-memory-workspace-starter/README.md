@@ -7,11 +7,11 @@ A Hermes-friendly, files-first AI memory workspace that survives fresh chats.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Fryingpannn/ai-memory-workspace-starter](https://github.com/Fryingpannn/ai-memory-workspace-starter).
+Original source: `AGENTS.md` in [Fryingpannn/ai-memory-workspace-starter](https://github.com/Fryingpannn/ai-memory-workspace-starter).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
