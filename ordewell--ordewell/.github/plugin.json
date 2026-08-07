@@ -1,0 +1,9 @@
+{
+  "name": "ordewell--ordewell",
+  "displayName": "ordewell",
+  "description": "Multi-agent task orchestration for coding agents. Turn one goal into an ordered plan of tasks \u2014 each with its own runner, model and mode \u2014 then execute and verify the results.",
+  "version": "1.0.0",
+  "author": "ordewell",
+  "homepage": "https://github.com/ordewell/ordewell",
+  "skills": []
+}
