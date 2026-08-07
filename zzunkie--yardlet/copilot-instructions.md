@@ -1,0 +1,74 @@
+## yardlet
+
+> Authoritative guidance for AI agents working in the `yardlet` repository.
+
+# AGENTS
+
+Authoritative guidance for AI agents working in the `yardlet` repository.
+
+> **Claude mirror:** `CLAUDE.md` is a symlink to this file.
+> **Codex adapter:** see `.codex/README.md`.
+> **Shared agent assets:** `.agents/` is the source of truth for reusable rules, skills, and agent prompts.
+>
+> ⚠️ **`.agents/` is dual-purpose here.** It is *also* Yardlet's own canonical runtime state. Treat `rules/`, `skills/`, `agents/` as **harness assets** (edit freely). Treat `yardlet.yaml`, `*-policy.yaml`, `workers.yaml`, `work-queue.yaml`, `intent-contract.yaml`, and `runs/ checkpoints/ handoffs/ telemetry/` as **Yardlet-owned operational state** — Yardlet writes them through `src/state.rs`; do not hand-edit casually.
+
+---
+
+## What Yardlet is
+
+A local terminal AI workbench (Rust + Ratatui). You describe work in a few sentences; Yardlet plans it into an intent + task queue, runs each task through a hidden worker CLI (**Codex**, **Claude Code**, or any CLI via the generic adapter), validates with a deterministic evaluator, and leaves checkpoints/handoffs under `.agents/`.
+
+**Identity** ([`docs/identity.md`](docs/identity.md)): *rent the intelligence, own the work.* The core stays deterministic; everything generative sits behind the worker contract; prompts are compiled from user-owned state, never hand-written; the records/rules/skills/telemetry in `.agents/` are compounding user capital.
+
+Routing/telemetry design: [`docs/routing-and-telemetry.md`](docs/routing-and-telemetry.md). Parallel queue / queue-vs-subagent boundary: [`docs/parallel-queue.md`](docs/parallel-queue.md). Shared harness & learning loop: [`docs/harness.md`](docs/harness.md). Skill lifecycle (classify/research/create/manage): [`docs/skills.md`](docs/skills.md). Absorption plan: [`docs/absorption.md`](docs/absorption.md). Identity: [`docs/identity.md`](docs/identity.md).
+
+## Tech Stack
+
+Rust 2021 (rustc ≥ 1.82) | Ratatui (TUI) | clap (CLI) | serde / serde_json / serde_yaml_ng | anyhow | chrono
+
+## Core Principles
+
+1. **Bring-your-own CLI workers.** Yardlet drives the user's already-installed Claude Code / Codex (or any agent CLI via the generic adapter) exactly as they are — core needs no AI accounts or keys of its own and never silently calls a provider API. Worker subprocess env is sanitized by default (billing vars scrubbed); a worker profile can opt specific vars back in via `invocation.pass_env`. If no safe worker is ready, Yardlet stops with a clear readiness message. See `src/guard.rs` + `.agents/billing-policy.yaml`.
+2. **Policy vs mechanism.** Routing resolution is deterministic and auditable (`src/routing.rs`); telemetry only *suggests* policy changes a human applies (`src/review.rs`). Telemetry never binds at run-time.
+3. **Yardlet owns canonical state.** Workers author content; Yardlet writes the canonical `.agents/` files (`src/state.rs` is the only place that touches them). LLMs never edit the system-of-record directly.
+4. **Layered safety.** Sanitized worker env (billing vars scrubbed by default) + a packet danger-list the worker self-gates against (soft) + an evaluator forbidden-path check that fails a run post-hoc.
+5. **Simple over clever.** Match the surrounding code; small typed structs; no over-abstraction.
+
+## Key Rules
+
+| Rule | Details |
+|------|---------|
+| Worker contract | Workers are interchangeable CLIs behind one contract: packet in → subprocess → result **files** out. CLI flags live only in `src/workers/mod.rs::build_command`. |
+| Structured output | Yardlet uses **no** provider JSON mode. It prompts the worker to write a JSON file, then parses it. Be tolerant on parse, validate after (see `src/planner.rs`). |
+| Access levels | Two only: `sandboxed` (default) / `full` (opt-in via `yardlet access full`). No true read-only — workers must write their result artifacts. |
+| `.agents/` writes | Only through `src/state.rs`. Do not hand-edit Yardlet-owned operational files. |
+| Don't expand scope | Keep `out_of_scope` strict. An adjacent idea becomes a queue candidate, never a silent expansion of the current task. |
+
+## Build / Test
+
+```bash
+cargo build && cargo test              # fast tier: units + fast integration
+cargo test --all-features              # everything, including the slow process tier
+cargo install --path .                 # installs `yardlet` to ~/.cargo/bin
+```
+
+`cargo test` leaves out four process targets that are 56% of a full run's wall
+clock (issue #105). CI runs them on every PR with `--all-features`; locally they
+are opt-in. The skip is never silent — each gated target keeps a test whose name
+says so, e.g.
+`v010_001a_serial_git_finish_process_is_gated_off_run_with_features_slow_process_tests`,
+so a local run lists what it did not verify.
+
+**Before claiming a change is verified, run `--all-features`.** The gated tier is
+where the defects unit tests structurally cannot see get caught (#52, #64, #83,
+#91, #107 were all found or proven there).
+
+## Operational rules
+
+See [`.agents/rules/`](.agents/rules/) (symlinked into `.claude/` and `.codex/`):
+- `multi-session-safety.md` — git/commit hygiene across parallel sessions.
+- `worktree-tooling.md` — working-directory discipline for worktree work.
+
+---
+> Source: [zzunkie/yardlet](https://github.com/zzunkie/yardlet) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-06 -->
