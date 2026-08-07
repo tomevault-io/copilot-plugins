@@ -1,0 +1,9 @@
+{
+  "name": "lilithgames--a2wave",
+  "displayName": "a2wave",
+  "description": "Turn the agent CLIs you already use into shared services your whole team can call. Natural-language-driven agent orchestration for Claude Code, Cursor Agent, and OpenAI Codex.",
+  "version": "1.0.0",
+  "author": "LilithGames",
+  "homepage": "https://github.com/LilithGames/a2wave",
+  "skills": []
+}
