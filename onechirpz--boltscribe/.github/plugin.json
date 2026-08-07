@@ -1,0 +1,9 @@
+{
+  "name": "onechirpz--boltscribe",
+  "displayName": "BoltScribe",
+  "description": "MacOS voice input with ASR transcription, LLM correction, and global hotkeys.",
+  "version": "1.0.0",
+  "author": "OneChirpZ",
+  "homepage": "https://github.com/OneChirpZ/BoltScribe",
+  "skills": []
+}
