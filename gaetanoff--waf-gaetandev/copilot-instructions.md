@@ -1,117 +1,64 @@
-## global-testing
+## specific-api-rest
 
-> Spec conformance testing — tests derived from specifications, contract validation
+> REST API design conventions — endpoints, responses, versioning
 
 
-# Testing (Spec-Driven)
+# REST API Design
 
-## Test Hierarchy
+## URL Design
 
+- Use nouns for resources, not verbs: `/users`, not `/getUsers`.
+- Use plural nouns: `/users`, `/orders`, `/products`.
+- Nest for relationships: `/users/:id/orders`.
+- Use kebab-case for multi-word paths: `/order-items`.
+- Keep URLs shallow — max 2-3 levels of nesting.
+
+## HTTP Methods
+
+- `GET`: read (safe, idempotent). Never use GET for mutations.
+- `POST`: create a new resource. Return `201 Created` with the created resource.
+- `PUT`: full update (idempotent). Return `200 OK`.
+- `PATCH`: partial update. Return `200 OK`.
+- `DELETE`: remove. Return `204 No Content`.
+
+## Response Format
+
+Use a consistent envelope:
+
+```json
+{
+  "data": { ... },
+  "meta": { "page": 1, "totalPages": 10, "totalCount": 95 }
+}
 ```
-Conformance Tests (from specs)    ← Validate implementation matches contracts
-  ├── Contract Tests              ← API responses match OpenAPI spec
-  ├── Schema Validation Tests     ← Data shapes match JSON Schema
-  ├── Behavior Tests              ← Given-When-Then scenarios pass
-  └── Integration Contract Tests  ← External service contracts hold
 
-Unit Tests (from logic)           ← Validate internal business logic
-Integration Tests (from flows)    ← Validate component interactions
-E2E Tests (from user journeys)    ← Validate critical user flows
+Error responses:
+
+```json
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Email is required",
+    "details": [{ "field": "email", "message": "must not be empty" }]
+  }
+}
 ```
 
-## Conformance Tests (Spec-Generated)
+## Status Codes
 
-Conformance tests are **derived from specs**, not written from scratch:
-
-- **API contract tests**: validate that every endpoint returns responses matching the OpenAPI spec (schema, status codes, headers, content type).
-- **Schema validation tests**: validate that every data entity matches its JSON Schema (required fields, types, formats, constraints).
-- **Behavior tests**: validate that every Given-When-Then scenario in the behavior spec passes.
-- **Consumer-driven contract tests**: validate that integration points match Pact/contract definitions.
-
-Tools for conformance testing:
-- `dredd` / `prism` / `schemathesis` for OpenAPI conformance.
-- `ajv` / `jsonschema` for JSON Schema validation.
-- `cucumber` / `behave` / `jest-cucumber` for behavior specs.
-- `pact` for consumer-driven contract testing.
-
-## Structure
-
-- Follow **Arrange-Act-Assert** (AAA) pattern in every test.
-- One logical assertion per test. Test one contract, not one function.
-- Name tests descriptively: `should return 201 with User schema when creating valid user`.
-- Group tests by spec: `describe('POST /api/v1/users — CreateUser contract')`.
-
-## Test Pyramid (SDD-Adjusted)
-
-- **Conformance tests** (40%): spec-generated, validate contracts hold.
-- **Unit tests** (30%): fast, isolated, test business logic not covered by specs.
-- **Integration tests** (20%): test component interactions and data flow.
-- **E2E tests** (10%): test critical user flows end-to-end.
+- `200` OK — `201` Created — `204` No Content
+- `400` Bad Request — `401` Unauthorized — `403` Forbidden — `404` Not Found
+- `409` Conflict — `422` Unprocessable Entity — `429` Too Many Requests
+- `500` Internal Server Error
 
 ## Best Practices
 
-- Conformance tests are **generated from specs** — don't write them manually when tools exist.
-- Tests must be deterministic — no flaky tests. Mock time, randomness, external services.
-- Keep tests independent — no shared mutable state between tests.
-- Test edge cases defined in specs: empty inputs, null/undefined, boundary values, error paths.
-- Write regression tests before fixing bugs — add the missing scenario to the behavior spec.
-- Treat test code with the same quality standards as production code.
-
-## What to Test
-
-- **From specs**: every contract, every scenario, every error code, every schema.
-- **Beyond specs**: internal business logic, algorithmic correctness, state transitions.
-- **Edge cases**: empty inputs, null/undefined, boundary values, concurrent access.
-- **Error paths**: every error code in the error contract must be reachable.
-
-## What NOT to Test
-
-- Framework internals or third-party library behavior.
-- Private implementation details — test public contracts.
-- Trivial getters/setters with no logic.
-- Behavior already covered by conformance tests (don't duplicate).
-
-## Mocking
-
-- Mock external dependencies at the **contract boundary** (use contract test mocks).
-- Prefer contract-based mocks (Pact mock server) over hand-written mocks.
-- Verify interactions only when the side effect IS the behavior being tested.
-- Use spec-defined example payloads as test fixtures.
-
-## Conformance Test Example
-
-```typescript
-describe('POST /api/v1/users', () => {
-  it('should return 201 with User schema for valid input', async () => {
-    const input = { email: 'alice@example.com', name: 'Alice', password: 'SecureP@ss1' };
-
-    const response = await request(app).post('/api/v1/users').send(input);
-
-    expect(response.status).toBe(201);
-    expect(validateSchema(response.body, 'User')).toBe(true);
-  });
-
-  it('should return 409 with ErrorResponse when email exists', async () => {
-    const input = { email: 'existing@example.com', name: 'Bob', password: 'SecureP@ss1' };
-
-    const response = await request(app).post('/api/v1/users').send(input);
-
-    expect(response.status).toBe(409);
-    expect(validateSchema(response.body, 'ErrorResponse')).toBe(true);
-    expect(response.body.error.code).toBe('EMAIL_ALREADY_EXISTS');
-  });
-
-  it('should return 422 with validation errors for invalid input', async () => {
-    const input = { email: 'not-an-email', name: '', password: '123' };
-
-    const response = await request(app).post('/api/v1/users').send(input);
-
-    expect(response.status).toBe(422);
-    expect(validateSchema(response.body, 'ErrorResponse')).toBe(true);
-    expect(response.body.error.details).toHaveLength(3);
-  });
-});
-```
+- Version the API: `/api/v1/users` or via headers.
+- Paginate all list endpoints. Support `?page=1&limit=20` or cursor-based.
+- Support filtering (`?status=active`), sorting (`?sort=-createdAt`), and field selection.
+- Use `ETag` / `Last-Modified` for caching.
+- Document with OpenAPI/Swagger — keep the spec as the source of truth.
+- Rate limit all endpoints. Return `429` with `Retry-After` header.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
