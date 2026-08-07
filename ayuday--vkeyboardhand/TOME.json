@@ -1,0 +1,44 @@
+{
+  "name": "vkeyboardhand",
+  "owner": "ayuday",
+  "repo": "vkeyboardhand",
+  "description": "By integrating SVG keyboard graphics, SVG gesture graphics, and JavaScript event-driven interaction, an interactive virtual keyboard and fingering display teaching system is realized! \u901a\u8fc7 SVG \u952e\u76d8\u56fe + SVG \u624b\u52bf\u56fe + JavaScript \u4e8b\u4ef6\u9a71\u52a8 \u8054\u52a8\uff0c\u5b9e\u73b0\u4e00\u4e2a\u4ea4\u4e92\u5f0f\u865a\u62df\u952e\u76d8\u53ca\u6307\u6cd5\u663e\u793a\u6559\u5b66\u7cfb\u7edf!",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ayuday/vkeyboardhand",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T13:17:45Z"
+}
