@@ -1,0 +1,9 @@
+{
+  "name": "agntdev--joblink-bot",
+  "displayName": "joblink-bot",
+  "description": "Telegram bot connecting employers and job seekers worldwide with auto-moderated job posts, searchable listings, saved alerts, and application forwarding.",
+  "version": "1.0.0",
+  "author": "agntdev",
+  "homepage": "https://github.com/agntdev/joblink-bot",
+  "skills": []
+}
