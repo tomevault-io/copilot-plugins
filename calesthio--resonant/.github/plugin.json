@@ -1,0 +1,9 @@
+{
+  "name": "calesthio--resonant",
+  "displayName": "Resonant",
+  "description": "Free, local AI music studio for Windows\u2014generate songs, play instruments, arrange, mix, export WAV, and connect Codex or Claude through MCP.",
+  "version": "1.0.0",
+  "author": "calesthio",
+  "homepage": "https://github.com/calesthio/Resonant",
+  "skills": []
+}
