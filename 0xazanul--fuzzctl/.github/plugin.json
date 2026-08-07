@@ -1,0 +1,9 @@
+{
+  "name": "0xazanul--fuzzctl",
+  "displayName": "fuzzctl",
+  "description": "Fuzzing Infrastructure using afl++ for coverage guided fuzzing including triaging and live dashboard.",
+  "version": "1.0.0",
+  "author": "0xazanul",
+  "homepage": "https://github.com/0xazanul/fuzzctl",
+  "skills": []
+}
