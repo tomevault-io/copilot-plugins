@@ -7,11 +7,11 @@ Turn the agent CLIs you already use into shared services your whole team can cal
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [LilithGames/a2wave](https://github.com/LilithGames/a2wave).
+Original source: `AGENTS.md` in [LilithGames/a2wave](https://github.com/LilithGames/a2wave).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
