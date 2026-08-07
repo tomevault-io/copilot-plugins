@@ -4,7 +4,7 @@
   "repo": "autonomous-os",
   "description": "An Open Source Operating System for Physical AI Agents",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/autonomous-ai/autonomous-os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T03:02:42Z"
+  "distributed_at": "2026-08-07T15:03:19Z"
 }
