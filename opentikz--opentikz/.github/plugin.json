@@ -1,0 +1,9 @@
+{
+  "name": "opentikz--opentikz",
+  "displayName": "opentikz",
+  "description": "TikZ for paper diagrams, without hand-writing TikZ \u2014 copyable icons, editable templates, and a Claude Code skill",
+  "version": "1.0.0",
+  "author": "opentikz",
+  "homepage": "https://github.com/opentikz/opentikz",
+  "skills": []
+}
