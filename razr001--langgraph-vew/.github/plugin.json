@@ -1,0 +1,9 @@
+{
+  "name": "razr001--langgraph-vew",
+  "displayName": "langgraph-vew",
+  "description": "LangGraph \u53ef\u89c6\u5316\u8c03\u8bd5\u5668 | A visual debugger for LangGraph \u2014 interactive graph canvases, streaming runs, step-through debugging, and checkpoint editing in the browser.",
+  "version": "1.0.0",
+  "author": "razr001",
+  "homepage": "https://github.com/razr001/langgraph-vew",
+  "skills": []
+}
