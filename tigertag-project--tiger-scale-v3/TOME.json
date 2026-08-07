@@ -4,7 +4,7 @@
   "repo": "Tiger-Scale-V3",
   "description": "TigerScale V3 \u2014 the connected filament scale for the TigerTag open NFC standard. ESP32-S3, 3.5\" touchscreen (LVGL), dual PN532 NFC readers, battery (MIT).",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TigerTag-Project/Tiger-Scale-V3",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T02:36:36Z"
+  "distributed_at": "2026-08-07T11:30:50Z"
 }
