@@ -1,0 +1,9 @@
+{
+  "name": "gabisonia--pdfiumraster-orchestrator",
+  "displayName": "PdfiumRaster.Orchestrator",
+  "description": "Multi-process PDFium rendering for .NET with isolated workers, bounded scheduling, crash recovery, and hard timeouts.",
+  "version": "1.0.0",
+  "author": "gabisonia",
+  "homepage": "https://github.com/gabisonia/PdfiumRaster.Orchestrator",
+  "skills": []
+}
