@@ -4,7 +4,7 @@
   "repo": "attention-control",
   "description": "Air traffic control discipline for agent output. Written for a reader with ADHD.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aaddrick/attention-control",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T00:29:48Z"
+  "distributed_at": "2026-08-07T10:45:48Z"
 }
