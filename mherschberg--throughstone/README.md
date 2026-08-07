@@ -7,11 +7,11 @@ Disciplined software development — build real, well-architected software with 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mherschberg/Throughstone](https://github.com/mherschberg/Throughstone).
+Original source: `AGENTS.md` in [mherschberg/Throughstone](https://github.com/mherschberg/Throughstone).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
