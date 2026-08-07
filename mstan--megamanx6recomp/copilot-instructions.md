@@ -1,0 +1,45 @@
+## megamanx6recomp
+
+> Static recompilation of **Mega Man X6 (USA)** — serial **SLUS-01395**, disc
+
+# MegaManX6Recomp Rules
+
+Static recompilation of **Mega Man X6 (USA)** — serial **SLUS-01395**, disc
+revision **v1.1** — to native code, built with the shared **psxrecomp v4**
+framework. The end goal is a binary that plays without an emulator behind it,
+exactly like TombaRecomp.
+
+## Inheritance
+
+This project inherits, in order:
+
+1. `F:/Projects/recomp-template/PRINCIPLES.md` — system-agnostic recomp/debug
+   discipline (ground truth = original EXE + emulator oracle; generated C is
+   evidence, not authority; first-divergence; no guessing).
+2. The framework constitution at `psxrecomp-v4/CLAUDE.md` — a junction →
+   `F:/Projects/psxrecomp/psxrecomp`. Read it first: no MIPS interpreter, no
+   HLE BIOS shims, no stubs, recompiled-BIOS-first, fix the
+   framework/runtime/config and **regenerate** — never hand-edit `generated/`.
+
+## Project rules
+
+- Game binaries (disc image, extracted boot EXE, the headerless Ghidra dump),
+  Ghidra databases, memory cards, and build outputs are **local only** and must
+  not be committed. See `.gitignore`.
+- Tracked: `game.toml`, `seeds/`, `annotations/`, `ghidra/instructions.txt`,
+  `ghidra/scripts/`, `ghidra/annotations/`, `CMakeLists.txt`, `tools/`, docs.
+- Codegen/runtime fixes belong in the framework (`psxrecomp-v4/`) or in
+  per-game `game.toml` config — never in `generated/*.c`. A fix that only this
+  game needs is a smell; prefer a class fix that the next title inherits.
+- After every run, resolve all dispatch misses before any other debugging.
+- The framework version this project builds against is recorded as the
+  `psxrecomp-v4` git submodule pointer (see `.gitmodules`); the former
+  `psxrecomp-v4.pin` file was retired in favor of the submodule (its changelog
+  is preserved in `docs/framework_pin_history.md`). The source disc is the
+  **v1.1** revision — record its
+  hashes (see `ghidra/instructions.txt`) so a future dump can be verified
+  identical before blaming a regression.
+
+---
+> Source: [mstan/MegaManX6Recomp](https://github.com/mstan/MegaManX6Recomp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-06 -->
