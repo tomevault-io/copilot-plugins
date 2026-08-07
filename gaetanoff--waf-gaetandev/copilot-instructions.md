@@ -1,52 +1,47 @@
-## specific-rust
+## specific-sql-database
 
-> Rust coding standards — ownership, error handling, idiomatic patterns
+> SQL and database conventions — queries, schema design, migrations
 
 
-# Rust Standards
+# SQL & Database
 
-## Ownership & Borrowing
+## Schema Design
 
-- Prefer borrowing (`&T`, `&mut T`) over cloning. Clone only when necessary.
-- Use `&str` for function parameters accepting strings, `String` for owned data.
-- Prefer `&[T]` over `&Vec<T>` for function parameters.
-- Use `Cow<'_, str>` when a function may or may not need to allocate.
+- Use singular table names (`user`, not `users`) or be consistent — pick one convention.
+- Primary keys: prefer `id` with UUID or auto-increment.
+- Use `created_at` and `updated_at` timestamps on every table.
+- Add `NOT NULL` constraints by default. Allow `NULL` only with explicit reason.
+- Use foreign keys for referential integrity. Name them: `fk_<table>_<referenced_table>`.
 
-## Error Handling
+## Naming
 
-- Use `Result<T, E>` for recoverable errors, `panic!` only for unrecoverable bugs.
-- Define custom error types with `thiserror` for libraries, `anyhow` for applications.
-- Use the `?` operator for error propagation — avoid manual `match` on `Result` when not needed.
-- Provide context with `.context("message")` (anyhow) or custom error variants.
+- Tables and columns: `snake_case`.
+- Indexes: `idx_<table>_<columns>`.
+- Constraints: `chk_<table>_<description>`, `uq_<table>_<columns>`.
+- Avoid reserved words as column names.
 
-## Idiomatic Patterns
+## Queries
 
-- Use iterators and combinators (`map`, `filter`, `collect`) over manual loops.
-- Prefer `match` over `if let` chains for exhaustive pattern matching.
-- Use `Option` methods: `unwrap_or`, `unwrap_or_else`, `map`, `and_then`.
-- Use `impl Trait` in function signatures for cleaner APIs.
-- Derive common traits: `Debug`, `Clone`, `PartialEq` on structs.
+- Always use parameterized queries — never string concatenation.
+- Select only the columns you need — avoid `SELECT *` in application code.
+- Use `EXPLAIN ANALYZE` to understand and optimize query plans.
+- Add indexes for columns used in `WHERE`, `JOIN`, `ORDER BY`.
+- Paginate results with `LIMIT`/`OFFSET` or cursor-based pagination.
 
-## Safety
+## Migrations
 
-- Avoid `unsafe` unless absolutely necessary. Document every `unsafe` block with a safety comment.
-- Use `clippy` with `--deny warnings` in CI.
-- Use `rustfmt` for consistent formatting.
-- Prefer `Arc<Mutex<T>>` for shared mutable state across threads.
+- Use a migration tool (Prisma Migrate, Flyway, Alembic, Knex).
+- Each migration is a single, atomic schema change.
+- Migrations must be reversible — always write `up` and `down`.
+- Never modify a migration that has been applied to production.
+- Test migrations against a copy of production data before deploying.
 
-## Project Structure
+## ORM Best Practices
 
-- Use workspaces for multi-crate projects.
-- Keep `lib.rs` as the public API surface. Use `mod.rs` or file-based modules.
-- Expose minimal public API — default to private, make public only what's needed.
-- Use `#[cfg(test)]` modules for unit tests colocated with source.
-
-## Performance
-
-- Use `&str` / slices to avoid unnecessary allocations.
-- Use `Vec::with_capacity()` when the size is known upfront.
-- Profile with `cargo flamegraph` or `criterion` before optimizing.
-- Prefer stack allocation over heap when data size is small and known.
+- Be aware of N+1 queries — use eager loading / `include` / `join`.
+- Use transactions for operations that must be atomic.
+- Use raw queries for complex reporting — ORMs aren't always the best tool.
+- Monitor query performance with slow query logs.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
