@@ -1,0 +1,44 @@
+{
+  "name": "saynow",
+  "owner": "liujuntao123",
+  "repo": "saynow",
+  "description": "\u4e00\u6b3e\u771f\u6b63\u61c2\u4f60\u7684\u8bed\u97f3\u8f93\u5165\u6cd5",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/liujuntao123/saynow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T16:31:31Z"
+}
