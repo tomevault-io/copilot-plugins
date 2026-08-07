@@ -1,0 +1,9 @@
+{
+  "name": "atlassian--twg-cli",
+  "displayName": "twg-cli",
+  "description": "Public home for Atlassian Teamwork Graph CLI users, release notes, issue tracking, agent skills, and marketplace plugin integration notes.",
+  "version": "1.0.0",
+  "author": "atlassian",
+  "homepage": "https://github.com/atlassian/twg-cli",
+  "skills": []
+}
