@@ -1,0 +1,9 @@
+{
+  "name": "cscheid--braid",
+  "displayName": "braid",
+  "description": "An automerge-centric issue tracker for LLM agents",
+  "version": "1.0.0",
+  "author": "cscheid",
+  "homepage": "https://github.com/cscheid/braid",
+  "skills": []
+}
