@@ -1,0 +1,9 @@
+{
+  "name": "jsonbored--metagraphed",
+  "displayName": "metagraphed",
+  "description": "Bittensor didn't ship with a map. We drew one \u2014 chain-direct block explorer, developer registry, and an agent toolkit built right in.",
+  "version": "1.0.0",
+  "author": "JSONbored",
+  "homepage": "https://github.com/JSONbored/metagraphed",
+  "skills": []
+}
