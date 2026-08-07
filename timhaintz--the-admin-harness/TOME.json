@@ -4,7 +4,7 @@
   "repo": "the-admin-harness",
   "description": "Source-driven agentic harness for IT administrators",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/timhaintz/the-admin-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T03:18:17Z"
+  "distributed_at": "2026-08-07T15:10:38Z"
 }
