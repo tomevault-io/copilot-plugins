@@ -1,0 +1,9 @@
+{
+  "name": "gtrabanco--agentic-workflow",
+  "displayName": "agentic-workflow",
+  "description": "Stack-agnostic agentic-programming workflow skills + documentation scaffold",
+  "version": "1.0.0",
+  "author": "gtrabanco",
+  "homepage": "https://github.com/gtrabanco/agentic-workflow",
+  "skills": []
+}
