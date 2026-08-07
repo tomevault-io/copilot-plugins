@@ -1,0 +1,44 @@
+{
+  "name": "Telegram-Bot-Shop-Acc",
+  "owner": "6c696e68",
+  "repo": "Telegram-Bot-Shop-Acc",
+  "description": "Telegram Bot Shop Acc",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/6c696e68/Telegram-Bot-Shop-Acc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T17:34:49Z"
+}
