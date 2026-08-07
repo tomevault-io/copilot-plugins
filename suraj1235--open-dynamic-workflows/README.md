@@ -7,14 +7,14 @@ Open-source dynamic multi-agent workflows for AI coding agents - the script-as-o
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [Suraj1235/open-dynamic-workflows](https://github.com/Suraj1235/open-dynamic-workflows).
+Original source: `.cursor/rules/*.mdc` in [Suraj1235/open-dynamic-workflows](https://github.com/Suraj1235/open-dynamic-workflows).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [Suraj1235/open-dynamic-workflows](https://github.com/Suraj1235/open-dynamic-workflows) — a repo with 24+ stars on GitHub.
