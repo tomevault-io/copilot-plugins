@@ -1,0 +1,9 @@
+{
+  "name": "dodopayments--chimely",
+  "displayName": "chimely",
+  "description": "Open-source, self-hostable in-app notification inbox infrastructure: one Rust binary + Postgres + Redis, a small HTTP API, and a drop-in <Inbox /> React component.",
+  "version": "1.0.0",
+  "author": "dodopayments",
+  "homepage": "https://github.com/dodopayments/chimely",
+  "skills": []
+}
