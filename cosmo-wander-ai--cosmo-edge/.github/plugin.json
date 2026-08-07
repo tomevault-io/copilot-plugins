@@ -1,0 +1,9 @@
+{
+  "name": "cosmo-wander-ai--cosmo-edge",
+  "displayName": "cosmo-edge",
+  "description": "Production-grade C++ edge AI engine for video analytics with visual pipeline orchestration, on-device VLM, and real-time OSD.",
+  "version": "1.0.0",
+  "author": "cosmo-wander-ai",
+  "homepage": "https://github.com/cosmo-wander-ai/cosmo-edge",
+  "skills": []
+}
