@@ -7,11 +7,11 @@ An open-source desktop AI agent foundation powered by OpenCode and connected thr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [oomol-lab/wanta](https://github.com/oomol-lab/wanta).
+Original source: `AGENTS.md` in [oomol-lab/wanta](https://github.com/oomol-lab/wanta).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
