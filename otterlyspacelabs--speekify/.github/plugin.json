@@ -1,0 +1,9 @@
+{
+  "name": "otterlyspacelabs--speekify",
+  "displayName": "speekify",
+  "description": "Speekify turns CLI text, stdin, local .txt/.md/.pdf files and YouTube video transcripts or the readable content of a URL into a local WAV file",
+  "version": "1.0.0",
+  "author": "OtterlySpaceLabs",
+  "homepage": "https://github.com/OtterlySpaceLabs/speekify",
+  "skills": []
+}
