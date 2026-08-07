@@ -1,0 +1,9 @@
+{
+  "name": "atroci--br-skill",
+  "displayName": "br-skill",
+  "description": "Skill brasileira portatil para OpenCode, Codex, Gemini CLI e Google Antigravity",
+  "version": "1.0.0",
+  "author": "Atroci",
+  "homepage": "https://github.com/Atroci/br-skill",
+  "skills": []
+}
