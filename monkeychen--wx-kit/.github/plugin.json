@@ -1,0 +1,9 @@
+{
+  "name": "monkeychen--wx-kit",
+  "displayName": "wx-kit",
+  "description": "\u628a\u5fae\u4fe1\u516c\u4f17\u53f7\u6587\u7ae0\u4e0b\u8f7d\u4e3a\u591a\u79cd\u683c\u5f0f\u5e76\u5728\u5e94\u7528\u5185\u6d4f\u89c8;\u652f\u6301\u6309\u516c\u4f17\u53f7\u6279\u91cf\u722c\u53d6,\u5e26 CLI \u4f9b AI agent \u8c03\u7528\u3002",
+  "version": "1.0.0",
+  "author": "monkeychen",
+  "homepage": "https://github.com/monkeychen/wx-kit",
+  "skills": []
+}
