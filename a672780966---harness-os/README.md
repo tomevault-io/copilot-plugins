@@ -7,11 +7,11 @@ Local semantic copilot and governed agent engineering runtime for AI-assisted so
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [a672780966/-Harness-OS](https://github.com/a672780966/-Harness-OS).
+Original source: `AGENTS.md` in [a672780966/-Harness-OS](https://github.com/a672780966/-Harness-OS).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
