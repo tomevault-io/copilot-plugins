@@ -1,0 +1,9 @@
+{
+  "name": "opensource-for-valkey--valkey-timeseries",
+  "displayName": "valkey-timeseries",
+  "description": "A Timeseries data type for Valkey",
+  "version": "1.0.0",
+  "author": "opensource-for-valkey",
+  "homepage": "https://github.com/opensource-for-valkey/valkey-timeseries",
+  "skills": []
+}
