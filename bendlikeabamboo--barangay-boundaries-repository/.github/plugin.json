@@ -1,0 +1,9 @@
+{
+  "name": "bendlikeabamboo--barangay-boundaries-repository",
+  "displayName": "barangay-boundaries-repository",
+  "description": "April 2026 | Enriched Philippine barangay boundaries (GeoJSON) and PSGC RDF linked data from PSA snapshots and NAMRIA shapefiles.",
+  "version": "1.0.0",
+  "author": "bendlikeabamboo",
+  "homepage": "https://github.com/bendlikeabamboo/barangay-boundaries-repository",
+  "skills": []
+}
