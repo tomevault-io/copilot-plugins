@@ -7,11 +7,11 @@ Argus is a desktop app that helps find and fix wasted agent work. Local, free an
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Agent-Deployment-Co/argus](https://github.com/Agent-Deployment-Co/argus).
+Original source: `AGENTS.md` in [Agent-Deployment-Co/argus](https://github.com/Agent-Deployment-Co/argus).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
