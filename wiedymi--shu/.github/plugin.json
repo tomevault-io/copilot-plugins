@@ -1,0 +1,9 @@
+{
+  "name": "wiedymi--shu",
+  "displayName": "shu",
+  "description": "A tiny, declarative, agent-friendly library for your Git repositories.",
+  "version": "1.0.0",
+  "author": "wiedymi",
+  "homepage": "https://github.com/wiedymi/shu",
+  "skills": []
+}
