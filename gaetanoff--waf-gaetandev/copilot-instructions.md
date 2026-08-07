@@ -1,49 +1,50 @@
-## specific-nodejs
+## specific-python
 
-> Node.js backend patterns — async, error handling, API design
+> Python coding standards — PEP8, typing, patterns, tooling
 
 
-# Node.js Backend
+# Python Standards
 
-## Async Patterns
+## Style
 
-- Always use `async/await` over raw Promises or callbacks.
-- Never forget to `await` async functions — unhandled promise rejections crash the process.
-- Use `Promise.all()` for independent parallel operations.
-- Use `Promise.allSettled()` when you need results regardless of individual failures.
-- Handle top-level unhandled rejections: `process.on('unhandledRejection', handler)`.
+- Follow PEP 8. Use a formatter (Black or Ruff) with default settings.
+- Max line length: 88 (Black default) or 100.
+- Use snake_case for functions/variables, PascalCase for classes, UPPER_SNAKE_CASE for constants.
+- Use trailing commas in multi-line structures for cleaner diffs.
+
+## Type Hints
+
+- Add type hints to all function signatures (parameters and return types).
+- Use modern syntax: `list[str]`, `dict[str, int]`, `X | None` (Python 3.10+).
+- Use `from __future__ import annotations` for forward references in older versions.
+- Run `mypy` or `pyright` in strict mode in CI.
+
+## Patterns
+
+- Use dataclasses or Pydantic models for structured data — avoid raw dicts.
+- Use context managers (`with`) for resource management (files, connections, locks).
+- Use list/dict/set comprehensions when they improve readability. Avoid nested comprehensions.
+- Prefer `pathlib.Path` over `os.path` for file operations.
+- Use `enum.Enum` for fixed sets of values.
 
 ## Error Handling
 
-- Use a centralized error-handling middleware (Express/Fastify).
-- Create a hierarchy of custom error classes extending a base `AppError`.
-- Always pass errors to `next(error)` in Express — don't send responses in catch blocks of middleware.
-- Return consistent error response shapes: `{ error: { code, message, details } }`.
+- Catch specific exceptions, never bare `except:` or `except Exception:` without re-raising.
+- Use custom exception classes for domain errors.
+- Use `logging` module — not `print()` — for production code.
 
-## API Design
+## Project Structure
 
-- Use Express, Fastify, or Hono. Structure routes in separate modules.
-- Validate request bodies with Zod, Joi, or class-validator at the controller level.
-- Use middleware for cross-cutting concerns (auth, logging, rate limiting, CORS).
-- Return proper HTTP status codes (201 for created, 204 for no content, 422 for validation).
+- Use `pyproject.toml` as the single config file (PEP 621).
+- Use virtual environments (`venv`, `uv`, or `poetry`).
+- Pin dependencies with a lockfile (`uv.lock`, `poetry.lock`, `requirements.txt`).
+- Organize: `src/<package>/`, `tests/`, `docs/`, `scripts/`.
 
-## Configuration
+## Testing
 
-- Use `dotenv` or built-in `--env-file` flag for environment variables.
-- Validate required env vars at startup — fail fast if missing.
-- Use a typed config module that validates and exports configuration.
-
-## Process Management
-
-- Handle graceful shutdown: listen to `SIGTERM`/`SIGINT`, close connections, drain requests.
-- Use connection pooling for databases (e.g. `pg` pool, Prisma connection pool).
-- Set appropriate timeouts for HTTP clients and database connections.
-
-## Logging
-
-- Use a structured logger (pino, winston) — not `console.log`.
-- Log request ID, method, path, status, and duration for every request.
-- Use log levels correctly: debug, info, warn, error.
+- Use `pytest` as the test runner. Follow `test_` naming convention.
+- Use fixtures for setup/teardown. Prefer factory fixtures over complex setup.
+- Use `parametrize` for testing multiple inputs.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
