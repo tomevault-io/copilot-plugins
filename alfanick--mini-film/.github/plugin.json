@@ -1,0 +1,9 @@
+{
+  "name": "alfanick--mini-film",
+  "displayName": "mini-film",
+  "description": "Batch processor of camera raw files supporting Adobe XMP profiles for film emulation",
+  "version": "1.0.0",
+  "author": "alfanick",
+  "homepage": "https://github.com/alfanick/mini-film",
+  "skills": []
+}
