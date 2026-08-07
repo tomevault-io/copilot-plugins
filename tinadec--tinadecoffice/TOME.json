@@ -4,7 +4,7 @@
   "repo": "TinadecOffice",
   "description": "Agent Team. \u667a\u80fd\u4f53\u56e2\u961f",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Tinadec/TinadecOffice",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T01:45:15Z"
+  "distributed_at": "2026-08-07T10:59:24Z"
 }
