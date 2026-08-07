@@ -1,17 +1,16 @@
-## desktop-web-ui
+## rust-workspace
 
-> Zagens Vite + React UI under crates/desktop/web-ui
+> Rust workspace — stable toolchain and canonical binaries
 
 
-# Zagens web UI
+# Rust workspace
 
-- **Stack:** Vite 6, React 18, TypeScript, Tailwind; runtime via [crates/desktop/web-ui/src/api/client.ts](crates/desktop/web-ui/src/api/client.ts) (same [API_DESIGN.md](docs/tech/API_DESIGN.md) / `runtime_api.rs` as sidecar).
-- **Desktop bridge:** Tauri `invoke` where already used ([RightPanel](crates/desktop/web-ui/src/components/RightPanel.tsx), [ApiKeyForm](crates/desktop/web-ui/src/components/ApiKeyForm.tsx), etc.); follow existing patterns.
-- **Build:** from `crates/desktop/web-ui`, `npm run build`; bundle sizing: `npm run build:analyze` → `dist/bundle-stats.html`.
-- **TypeScript:** Project uses **`strict: true`** ([tsconfig.json](crates/desktop/web-ui/tsconfig.json)). Avoid **`any`**; use proper types, `unknown` + narrowing, or shared types colocated / under `src/types/`. Run **`npm run build`** (`tsc -b`) after substantive edits.
-- **Scope:** match surrounding styles and types; avoid unrelated refactors. Prefer small, task-scoped diffs.
-
-**Rust shell** (windows, sidecar): `crates/desktop/src/`.
+- **Toolchain:** MSRV **1.88+**; dev/CI pin [rust-toolchain.toml](rust-toolchain.toml) (currently **1.96**). No nightly `feature`; `let_chains` in `if`/`while` is OK on 1.88+.
+- **Before push:** `just verify` (L1) or `just verify-all` (L3). PR gate: `just check`. Optional hooks: `just hooks` / `scripts/ci/install-git-hooks.sh`. See [`justfile`](justfile) tier guide.
+- **Verify:** `cargo build`, `cargo test --workspace --all-features`, `cargo clippy --workspace --all-targets --all-features -- -D warnings` before claiming the change compiles.
+- **Modules:** Prefer **smaller sources** (~**1000** lines soft cap); split rather than growing one file. See **code-organization** rule for extraction policy on legacy large files.
+- **CLI entry:** prefer documenting **`deepseek`** (dispatcher); not `deepseek-tui` alone for general flows.
+- **HTTP runtime:** [docs/tech/API_DESIGN.md](docs/tech/API_DESIGN.md) and `crates/tui/src/runtime_api.rs` for `/v1/...` contracts used by Zagens WebView.
 
 ---
 > Source: [didclawapp-ai/zagens](https://github.com/didclawapp-ai/zagens) — distributed by [TomeVault](https://tomevault.io).
