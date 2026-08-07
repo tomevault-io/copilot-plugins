@@ -1,0 +1,44 @@
+{
+  "name": "promptasy",
+  "owner": "romanticamaj",
+  "repo": "promptasy",
+  "description": "A browser game to learn prompt engineering by playing \u2014 explore a world and solve challenges by writing prompts. Techniques from OpenAI, Anthropic, Google & xAI, each cited.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/romanticamaj/promptasy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T07:23:17Z"
+}
