@@ -1,0 +1,9 @@
+{
+  "name": "am423--hermes-bench-tool-call",
+  "displayName": "hermes-bench-tool-call",
+  "description": "Hermes Agent benchmark v0.1 \u2014 evaluate local models on the actual tool-calling patterns Hermes users hit. Reproducible, trace-capturing, training-data ready.",
+  "version": "1.0.0",
+  "author": "am423",
+  "homepage": "https://github.com/am423/hermes-bench-tool-call",
+  "skills": []
+}
