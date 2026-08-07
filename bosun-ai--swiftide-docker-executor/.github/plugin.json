@@ -1,0 +1,9 @@
+{
+  "name": "bosun-ai--swiftide-docker-executor",
+  "displayName": "swiftide-docker-executor",
+  "description": "A docker based tool executor for Swiftide agents",
+  "version": "1.0.0",
+  "author": "bosun-ai",
+  "homepage": "https://github.com/bosun-ai/swiftide-docker-executor",
+  "skills": []
+}
