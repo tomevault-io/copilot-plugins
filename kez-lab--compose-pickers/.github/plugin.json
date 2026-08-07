@@ -1,0 +1,9 @@
+{
+  "name": "kez-lab--compose-pickers",
+  "displayName": "Compose-Pickers",
+  "description": "Constraint-aware wheel selection for Compose Multiplatform: a generic WheelPicker plus date, time, duration, and range presets for Android, iOS, Desktop, and Web",
+  "version": "1.0.0",
+  "author": "kez-lab",
+  "homepage": "https://github.com/kez-lab/Compose-Pickers",
+  "skills": []
+}
