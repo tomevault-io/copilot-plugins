@@ -1,0 +1,44 @@
+{
+  "name": "photo-distill",
+  "owner": "yangcodingmaster",
+  "repo": "photo-distill",
+  "description": "Distil a photograph into a minimal poster \u2014 hand-written HTML/CSS/SVG, no image generation model. \u7167\u7247\u84b8\u998f\u6210\u6781\u7b80\u6d77\u62a5",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yangcodingmaster/photo-distill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T10:43:10Z"
+}
