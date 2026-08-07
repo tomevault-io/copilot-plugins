@@ -4,7 +4,7 @@
   "repo": "Qwen-MM-Plugins",
   "description": "Make any agent harness multimodal-native.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/QwenLM/Qwen-MM-Plugins",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T02:10:36Z"
+  "distributed_at": "2026-08-07T11:22:25Z"
 }
