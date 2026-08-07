@@ -1,0 +1,9 @@
+{
+  "name": "lakernote--easy-postman",
+  "displayName": "easy-postman",
+  "description": "An open-source API debugging and stress testing tool inspired by Postman and a simplified JMeter, optimized for developers with a clean UI and powerful features.",
+  "version": "1.0.0",
+  "author": "lakernote",
+  "homepage": "https://github.com/lakernote/easy-postman",
+  "skills": []
+}
