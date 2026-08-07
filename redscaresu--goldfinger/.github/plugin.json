@@ -1,0 +1,9 @@
+{
+  "name": "redscaresu--goldfinger",
+  "displayName": "goldfinger",
+  "description": "SRE toolkit for managing repos in github at scale",
+  "version": "1.0.0",
+  "author": "redscaresu",
+  "homepage": "https://github.com/redscaresu/goldfinger",
+  "skills": []
+}
