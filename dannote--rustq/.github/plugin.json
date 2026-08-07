@@ -1,0 +1,9 @@
+{
+  "name": "dannote--rustq",
+  "displayName": "rustq",
+  "description": "Rust template quasiquoting and code generation for Elixir",
+  "version": "1.0.0",
+  "author": "dannote",
+  "homepage": "https://github.com/dannote/rustq",
+  "skills": []
+}
