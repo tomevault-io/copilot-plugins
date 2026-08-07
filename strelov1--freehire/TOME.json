@@ -4,7 +4,7 @@
   "repo": "freehire",
   "description": "freehire \u2014 the open-source search engine for job seekers",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/strelov1/freehire",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T00:57:24Z"
+  "distributed_at": "2026-08-07T14:32:19Z"
 }
