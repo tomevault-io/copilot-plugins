@@ -1,0 +1,9 @@
+{
+  "name": "brucelanlan--sol-luna-engineering-workflow",
+  "displayName": "sol-luna-engineering-workflow",
+  "description": "Luna-first Codex workflow: Luna Max by default, parallel Luna workers, and Sol Advisor only for genuinely difficult decisions.",
+  "version": "1.0.0",
+  "author": "BruceLanLan",
+  "homepage": "https://github.com/BruceLanLan/sol-luna-engineering-workflow",
+  "skills": []
+}
