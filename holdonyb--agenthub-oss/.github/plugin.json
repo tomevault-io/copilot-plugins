@@ -1,0 +1,9 @@
+{
+  "name": "holdonyb--agenthub-oss",
+  "displayName": "AgentHub-OSS",
+  "description": "Self-hosted control plane for Codex, Claude, Kimi, and other local agent sessions across your own machines.",
+  "version": "1.0.0",
+  "author": "holdonyb",
+  "homepage": "https://github.com/holdonyb/AgentHub-OSS",
+  "skills": []
+}
