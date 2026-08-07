@@ -1,0 +1,9 @@
+{
+  "name": "timbrinded--pi-workflow-engine",
+  "displayName": "pi-workflow-engine",
+  "description": "Zero-dependency Dynamax workflows for pi: live parallel subagents, typed handoffs, synthesized results.",
+  "version": "1.0.0",
+  "author": "timbrinded",
+  "homepage": "https://github.com/timbrinded/pi-workflow-engine",
+  "skills": []
+}
