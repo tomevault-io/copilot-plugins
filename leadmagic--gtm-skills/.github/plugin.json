@@ -1,0 +1,18 @@
+{
+  "name": "leadmagic--gtm-skills",
+  "displayName": "gtm-skills",
+  "description": "205 production GTM agent skills for Claude Code \u2014 sales, outbound, prospecting, RevOps, ABM, PLG, CS, automation. Framework-cited playbooks with artifacts + QA scripts.",
+  "version": "1.0.0",
+  "author": "LeadMagic",
+  "homepage": "https://github.com/LeadMagic/gtm-skills",
+  "skills": [
+    {
+      "name": "content-marketing",
+      "description": ""
+    },
+    {
+      "name": "using-gtm-skills",
+      "description": ""
+    }
+  ]
+}
