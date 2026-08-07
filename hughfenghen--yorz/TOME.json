@@ -1,0 +1,44 @@
+{
+  "name": "YorZ",
+  "owner": "hughfenghen",
+  "repo": "YorZ",
+  "description": "Spec-Driven Development + Solution Visualization + Custom UI to Reduce Information Overload and Unlock Your Agent's Full Potential. Spec \u9a71\u52a8\u5f00\u53d1 + \u6280\u672f\u65b9\u6848\u53ef\u89c6\u5316 + \u5b9a\u5236 UI\uff0c\u964d\u4f4e\u4fe1\u606f\u8fc7\u8f7d\uff0c\u91ca\u653e Agent \u6f5c\u529b",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hughfenghen/YorZ",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T18:47:02Z"
+}
