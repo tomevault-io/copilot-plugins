@@ -1,0 +1,9 @@
+{
+  "name": "bigliao--wechat-tui",
+  "displayName": "wechat-tui",
+  "description": "A terminal client for WeChat. \u4e00\u4e2a\u5728\u7ec8\u7aef\u91cc\u4f7f\u7528\u7684\u5fae\u4fe1\u6d88\u606f\u5de5\u5177\uff0c\u57fa\u4e8e Web \u5fae\u4fe1\u534f\u8bae\u5b9e\u73b0\u3002",
+  "version": "1.0.0",
+  "author": "BigLiao",
+  "homepage": "https://github.com/BigLiao/wechat-tui",
+  "skills": []
+}
