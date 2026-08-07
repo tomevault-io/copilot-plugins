@@ -1,0 +1,9 @@
+{
+  "name": "christitustech--agent-proxy",
+  "displayName": "agent-proxy",
+  "description": "Linux API gateway for Claude Code, Codex, Google Antigravity, and Grok CLI tools",
+  "version": "1.0.0",
+  "author": "ChrisTitusTech",
+  "homepage": "https://github.com/ChrisTitusTech/agent-proxy",
+  "skills": []
+}
