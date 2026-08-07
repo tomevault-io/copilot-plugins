@@ -4,7 +4,7 @@
   "repo": "capka",
   "description": "Capka AI \u2014 An open-source, self-hosted sandbox for AI agents. A community-driven alternative to Claude's Cowork",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LyoSU/capka",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T06:53:11Z"
+  "distributed_at": "2026-08-07T17:03:39Z"
 }
