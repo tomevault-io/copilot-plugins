@@ -7,11 +7,11 @@ DEBUG-only iOS SDK that embeds an HTTP + WebSocket server in your app: browser c
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [xinghelee/SandboxServer](https://github.com/xinghelee/SandboxServer).
+Original source: `AGENTS.md` in [xinghelee/SandboxServer](https://github.com/xinghelee/SandboxServer).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
