@@ -1,0 +1,9 @@
+{
+  "name": "vllm-project--vvm",
+  "displayName": "vvm",
+  "description": "Manage multiple vLLM installations with isolated Python virtual environments. Switch between releases, commits, branches, and PRs instantly.",
+  "version": "1.0.0",
+  "author": "vllm-project",
+  "homepage": "https://github.com/vllm-project/vvm",
+  "skills": []
+}
