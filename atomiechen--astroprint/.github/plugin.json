@@ -1,0 +1,9 @@
+{
+  "name": "atomiechen--astroprint",
+  "displayName": "astroprint",
+  "description": "Print-ready Markdown documents for Astro, with normal web preview, paged preview, and PDF export.",
+  "version": "1.0.0",
+  "author": "atomiechen",
+  "homepage": "https://github.com/atomiechen/astroprint",
+  "skills": []
+}
