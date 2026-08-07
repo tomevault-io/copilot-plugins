@@ -1,0 +1,9 @@
+{
+  "name": "sourcey--startup-credits",
+  "displayName": "startup-credits",
+  "description": "The open Sourcey catalog of startup credits and offers. Canonical YAML, reviewed in public.",
+  "version": "1.0.0",
+  "author": "sourcey",
+  "homepage": "https://github.com/sourcey/startup-credits",
+  "skills": []
+}
