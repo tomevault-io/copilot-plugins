@@ -1,0 +1,9 @@
+{
+  "name": "shirohata--vc-rs",
+  "displayName": "vc-rs",
+  "description": "Real-time RVC voice changer in Rust: standalone GUI, CLI, and VST3 plugin running ONNX models on Windows ML or TensorRT",
+  "version": "1.0.0",
+  "author": "shirohata",
+  "homepage": "https://github.com/shirohata/vc-rs",
+  "skills": []
+}
