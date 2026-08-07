@@ -1,0 +1,9 @@
+{
+  "name": "dkeken--codex-skills-alternative",
+  "displayName": "codex-skills-alternative",
+  "description": "17 vendor-neutral Agent Skills (SKILL.md) reimplementing the Codex Creative Production + Product Design plugin workflows. Works with Claude Code, opencode, Cursor, Codex CLI, Gemini CLI, Copilot.",
+  "version": "1.0.0",
+  "author": "DKeken",
+  "homepage": "https://github.com/DKeken/codex-skills-alternative",
+  "skills": []
+}
