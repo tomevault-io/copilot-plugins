@@ -1,0 +1,9 @@
+{
+  "name": "syrinoxsis--irondeploy",
+  "displayName": "IronDeploy",
+  "description": "Deploy Windows 10 and 11 from WinPE: images, drivers, offline domain join, and post-install software, driven by a local API.",
+  "version": "1.0.0",
+  "author": "Syrinoxsis",
+  "homepage": "https://github.com/Syrinoxsis/IronDeploy",
+  "skills": []
+}
