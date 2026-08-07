@@ -1,0 +1,9 @@
+{
+  "name": "zigai--pi-tweaks",
+  "displayName": "pi-tweaks",
+  "description": "A collection of small Pi coding agent extensions",
+  "version": "1.0.0",
+  "author": "zigai",
+  "homepage": "https://github.com/zigai/pi-tweaks",
+  "skills": []
+}
