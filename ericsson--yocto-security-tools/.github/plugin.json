@@ -1,0 +1,9 @@
+{
+  "name": "ericsson--yocto-security-tools",
+  "displayName": "yocto-security-tools",
+  "description": "yocto-security-tools",
+  "version": "1.0.0",
+  "author": "Ericsson",
+  "homepage": "https://github.com/Ericsson/yocto-security-tools",
+  "skills": []
+}
