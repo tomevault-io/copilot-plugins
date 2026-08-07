@@ -4,7 +4,7 @@
   "repo": "tak",
   "description": "Experimental: benchmark CLIs and track performance over time. Do not use.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jdx/tak",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T22:30:38Z"
+  "distributed_at": "2026-08-07T06:41:34Z"
 }
