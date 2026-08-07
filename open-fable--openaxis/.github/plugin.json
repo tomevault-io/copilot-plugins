@@ -1,0 +1,9 @@
+{
+  "name": "open-fable--openaxis",
+  "displayName": "OpenAxis",
+  "description": "macOS AI workspace \u2014 chat, multi-agent orchestrator, code agent, design tool in one sidebar. Supports Anthropic, OpenAI, OpenRouter, Ollama, Gemini, and any OpenAI-compatible provider. MIT.",
+  "version": "1.0.0",
+  "author": "Open-Fable",
+  "homepage": "https://github.com/Open-Fable/OpenAxis",
+  "skills": []
+}
