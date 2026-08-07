@@ -4,7 +4,7 @@
   "repo": "Koni-ea",
   "description": "Build a MetaTrader 5 trading bot and deploy it on Senti \u2014 starting from a template that already gets the hard parts right.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Koniverse/Koni-ea",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T00:16:00Z"
+  "distributed_at": "2026-08-07T09:40:40Z"
 }
