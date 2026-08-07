@@ -1,0 +1,9 @@
+{
+  "name": "downloaddoctor--zerokey",
+  "displayName": "zerokey",
+  "description": "OpenAI-compatible local AI proxy for DeepSeek, ChatGPT, and Claude \u2014 pipe any of them into VS Code or Terax using your real browser session. Just paste a fetch().",
+  "version": "1.0.0",
+  "author": "downloaddoctor",
+  "homepage": "https://github.com/downloaddoctor/zerokey",
+  "skills": []
+}
