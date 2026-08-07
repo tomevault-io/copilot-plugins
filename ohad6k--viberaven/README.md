@@ -7,13 +7,13 @@ The open-source cockpit for AI coding agents. Map your repo, control what your a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [ohad6k/VibeRaven](https://github.com/ohad6k/VibeRaven).
+Original source: `CLAUDE.md` in [ohad6k/VibeRaven](https://github.com/ohad6k/VibeRaven).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
