@@ -1,56 +1,98 @@
-## global-git-conventions
+## global-performance
 
-> Git conventions — commits, branches, PR workflow with spec-driven additions
+> Performance optimization strategies, budgets, caching, DB queries, and frontend rendering
 
 
-# Git Conventions
+# Performance
 
-## Commit Messages
+## Performance Philosophy
 
-Follow **Conventional Commits** format:
+- **Measure first, optimize second.** Never optimize blindly without profiling.
+- Algorithmic improvements always beat micro-optimizations (e.g., O(1) > O(n) > O(n^2)).
+- Performance expectations are formalized as SLO targets (see `core-observability`).
+- Favor deterministic background processing (queues) over blocking user-facing requests.
+
+## Performance Budgets
+
+Define rigid limits for application metrics to prevent regression:
+
+### Frontend Budget
+- **Bundle Size**: Initial JS payload < 200KB (gzipped).
+- **Core Web Vitals** (75th percentile):
+  - Largest Contentful Paint (LCP): < 2.5s
+  - First Input Delay (FID): < 100ms
+  - Cumulative Layout Shift (CLS): < 0.1
+- **Time to Interactive (TTI)**: < 3.5s on Fast 3G.
+
+### Backend Budget
+- **API Response Latency**: p95 < 200ms, p99 < 500ms.
+- **Database Query Time**: < 10ms for OLTP queries.
+- **Payload Size**: < 100KB uncompressed for standard JSON payloads (paginate otherwise).
+
+## Database Query Optimization
+
+The database is usually the bottleneck.
+
+### 1. The N+1 Query Problem
+- **Smell**: Fetching a list of $N$ items, then making $N$ separate sub-queries to fetch related data.
+- **Fix**: Use JOINs, Batching (e.g., GraphQL DataLoader), or `WHERE id IN (...)` to fetch related data in exactly 1+1 queries.
+
+### 2. Indexes
+- Add indexes to all Foreign Keys.
+- Add indexes to fields used frequently in `WHERE`, `ORDER BY`, or `GROUP BY` clauses.
+- Use Compound Indexes intelligently (order of columns matters!).
+- Avoid over-indexing (slows down `INSERT`, `UPDATE`, `DELETE`).
+
+### 3. Query Selectivity
+- **NEVER use `SELECT *`**. Only query the exact columns defined by the data contract (JSON Schema).
+- Use database-level pagination (`LIMIT`, `OFFSET` or Cursor-based pagination).
+
+### 4. Analysis
+- Run `EXPLAIN` or `EXPLAIN ANALYZE` on slow queries to understand query plans and identify missing indexes or sequential scans.
+
+## Caching Strategy Decision Tree
+
+Caching is hard. Choose the right cache for the job:
 
 ```
-<type>(<scope>): <short description>
-
-[optional body — explain WHY, not WHAT]
-
-[optional footer — BREAKING CHANGE, closes #issue]
+Is the response identical for all users?
+│
+├── YES ↓
+│   Is the data rarely changed? (e.g., static assets, config lists)
+│   ├── YES → HTTP Cache (CDN, Varnish) + Cache-Control max-age.
+│   └── NO  → App-Level Cache (Redis, Memcached) with pub/sub invalidation.
+│
+└── NO  (Data is user-specific) ↓
+    Does the query take > 50ms to run?
+    ├── YES → Cache the *fragment* or *query result* in Redis using `user:{id}:data:{hash}` key.
+    └── NO  → Do not cache. Query the database directly. Keep complexity low.
 ```
 
-Types: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`, `perf`, `ci`, `style`, `build`, `spec`.
+- **Cache Invalidation is hard**: Prefer expiring caches (TTL) over explicit invalidation whenever the business logic allows "eventual consistency".
 
-- `spec`: changes to specifications (OpenAPI, JSON Schema, Gherkin, contracts).
-- Subject line: imperative mood, lowercase, no period, max 72 chars.
-- Body: wrap at 80 chars, explain motivation and context.
-- One logical change per commit. Don't mix refactoring with features.
-- Spec changes and implementation changes should be in **separate commits**.
+## Frontend Performance Patterns
 
-## Branches
+### 1. Code Splitting & Lazy Loading
+- Never load the entire app bundle on the first paint.
+- Split bundles by Route/Page.
+- Lazy load heavy components (charts, rich text editors) or data outside the viewport until the user scrolls `IntersectionObserver`.
 
-- `main` / `master`: production-ready code. Never commit directly.
-- `develop`: integration branch (if using Git Flow).
-- Feature: `feat/<ticket-id>-short-description`
-- Bugfix: `fix/<ticket-id>-short-description`
-- Hotfix: `hotfix/<ticket-id>-short-description`
-- Specification: `spec/<ticket-id>-short-description`
+### 2. Image Optimization
+- Use next-gen formats (WebP, AVIF).
+- Resize images on the server — never send a 4MB 4K image and render it in a `200x200` CSS box.
+- Use `loading="lazy"` on images below the fold.
 
-## Pull Requests
+### 3. Rendering
+- Prevent unnecessary React component re-renders (use `React.memo`, `useMemo`, `useCallback` deliberately, not universally).
+- Virtualize/window massive lists (e.g., `react-window` for a list of 10,000 logs).
+- Keep CSS selectors simple (avoid huge descendant chains). Use utility classes (Tailwind) which minimize CSS payload.
 
-- Keep PRs small and focused — under 400 lines of diff when possible.
-- Write a clear description: what changed, why, how to test.
-- For spec PRs: describe the contracts added/changed and their impact.
-- For implementation PRs: reference the spec the code conforms to.
-- Link related issues/tickets.
-- Ensure CI passes (including spec lint and conformance tests) before requesting review.
-- Squash or rebase before merging to keep history clean.
+## Node.js / Backend Performance
 
-## Hygiene
-
-- Pull and rebase frequently to avoid large merge conflicts.
-- Delete branches after merging.
-- Never commit secrets, `.env`, or build artifacts.
-- Use `.gitignore` appropriate for the tech stack.
-- Commit specs alongside code — they live in the same repo.
+- **Async I/O**: Use `Promise.all` for parallel execution of unrelated HTTP or DB calls. Don't block the event loop with synchronous heavy CPU tasks.
+- **Worker Threads**: Offload CPU-heavy computation (hashing, image processing, massive JSON parsing) to Worker Threads or separate microservices.
+- **Connection Pooling**: Keep a persistent pool of database connections open to avoid the overhead of a TCP handshake per request.
+- **Garbage Collection**: Avoid massive in-memory objects (e.g., buffering a 1GB CSV file into an array). Stream files instead (`fs.createReadStream`).
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
