@@ -4,7 +4,7 @@
   "repo": "work-os",
   "description": "A downloadable work OS for Obsidian and your agent. ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jonathanlewell/work-os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T16:34:26Z"
+  "distributed_at": "2026-08-07T19:32:19Z"
 }
