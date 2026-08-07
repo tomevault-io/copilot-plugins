@@ -1,0 +1,9 @@
+{
+  "name": "linshidream--skill-hub",
+  "displayName": "skill-hub",
+  "description": "\u4e00\u4e2a\u9762\u5411\u591a Agent\u3001\u4f01\u4e1a\u81ea\u5efa Agent \u548c\u670d\u52a1\u5668\u8fd0\u884c\u65f6\u7684\u901a\u7528 Skill Hub\uff0c\u53ef\u4ee5\u50cf\u8f6f\u4ef6\u4e00\u6837\u7ecf\u5386\u5171\u5efa\u3001\u6821\u9a8c\u3001\u6253\u5305\u3001\u53d1\u5e03\u3001\u90e8\u7f72\u3001\u52a0\u8f7d\u548c\u56de\u6eda\u7684 Agent Skill \u901a\u7528\u4ed3\u5e93\u3002",
+  "version": "1.0.0",
+  "author": "linshidream",
+  "homepage": "https://github.com/linshidream/skill-hub",
+  "skills": []
+}
