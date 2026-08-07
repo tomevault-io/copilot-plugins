@@ -1,0 +1,9 @@
+{
+  "name": "zuke-build--zuke",
+  "displayName": "zuke",
+  "description": "\ud83e\udd77 A code-first, strongly-typed build automation system for Deno.",
+  "version": "1.0.0",
+  "author": "zuke-build",
+  "homepage": "https://github.com/zuke-build/zuke",
+  "skills": []
+}
