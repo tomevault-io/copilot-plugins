@@ -1,0 +1,9 @@
+{
+  "name": "rishipr--der-koloss-ce",
+  "displayName": "der-koloss-ce",
+  "description": "Der Koloss - Community Edition: a browser-based round-based zombie survival game built as a tribute to Der Riese. Three.js, no engine, no install, no build step.",
+  "version": "1.0.0",
+  "author": "rishipr",
+  "homepage": "https://github.com/rishipr/der-koloss-ce",
+  "skills": []
+}
