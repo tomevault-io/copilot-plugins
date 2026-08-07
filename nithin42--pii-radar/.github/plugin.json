@@ -1,0 +1,9 @@
+{
+  "name": "nithin42--pii-radar",
+  "displayName": "pii-radar",
+  "description": "CLI tool to scan CSV, JSON and Parquet files for PII -> emails, phones, SSNs, credit cards and more",
+  "version": "1.0.0",
+  "author": "nithin42",
+  "homepage": "https://github.com/nithin42/pii-radar",
+  "skills": []
+}
