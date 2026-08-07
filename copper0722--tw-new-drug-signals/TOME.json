@@ -4,7 +4,7 @@
   "repo": "tw-new-drug-signals",
   "description": "\u53f0\u7063\u65b0\u4e0a\u5e02\u897f\u85e5\uff1a\u5f9e\u98df\u85e5\u7f72\u8a31\u53ef\u8b49\u8cc7\u6599\u5224\u65b7\u300c\u65b0\u85e5\u300d\u7684\u4e09\u7a2e\u4e92\u4e0d\u7b49\u50f9\u8a0a\u865f\u2014\u2014\u6cd5\u6e90\u3001\u754c\u7dda\u3001\u9677\u9631\u8207\u53ef\u57f7\u884c\u7684\u6b63\u8ca0\u63a7\u3002Three non-equivalent TFDA signals for whether a Taiwan drug permit is a new drug: statutory basis, limits, parsing traps, and runnable controls.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/copper0722/tw-new-drug-signals",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-06T04:37:03Z"
+  "distributed_at": "2026-08-07T13:04:21Z"
 }
