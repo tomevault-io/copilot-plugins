@@ -1,286 +1,475 @@
-## core-spec-lifecycle
+## core-spec-templates
 
-> Spec lifecycle management — states, transitions, ownership, and enforcement rules for every specification artifact
+> Ready-to-use specification templates — OpenAPI, JSON Schema, Gherkin, ADR, Pact, AsyncAPI
 
 
-# Core Spec Lifecycle
+# Spec Templates
 
-> Every specification artifact has a state. State transitions are explicit, gated, and tracked. No code ships against an unapproved spec.
+## Overview
 
----
+These templates ensure every specification follows a consistent, complete format. Use them as starting points — adapt to the project's needs but preserve the required sections.
 
-## Spec States
+## OpenAPI 3.1 Skeleton
 
-```
-draft ──► reviewed ──► approved ──► implemented ──► validated ──► deprecated
-  │                        │              │                │
-  └──────── rejected ──────┘              └── superseded ──┘
-```
-
-| State | Meaning | Who Can Set | What It Enables |
-|---|---|---|---|
-| `draft` | Work in progress, not ready for review | Author | Nothing — no implementation |
-| `reviewed` | Reviewed, feedback addressed | Reviewer | Nothing — awaiting approval |
-| `approved` | Contract is final, ready to implement | Lead / Stakeholder | Implementation may start |
-| `implemented` | Code conforms to spec | Developer | Validation may start |
-| `validated` | Conformance tests pass, contract verified | QA / CI | Release may proceed |
-| `deprecated` | Spec is no longer active, sunset in progress | Lead | Migration required |
-| `superseded` | Replaced by a newer version of the spec | Author | Old spec archived |
-
----
-
-## Frontmatter Convention
-
-Every spec file **must** include a `status` field in its YAML frontmatter:
+Start every API spec from this skeleton:
 
 ```yaml
----
-id: spec-001
-title: User Authentication API
-type: openapi | json-schema | gherkin | adr | pact | asyncapi
-status: draft | reviewed | approved | implemented | validated | deprecated
-version: 1.0.0
-authors:
-  - name: John Doe
-    email: john@example.com
-created: 2024-01-15
-updated: 2024-03-20
-depends_on:
-  - spec-002  # User schema
-supersedes: ~
----
+openapi: 3.1.0
+info:
+  title: <Project Name> API
+  description: <One-line purpose of the API>
+  version: 1.0.0
+  contact:
+    name: <Team Name>
+    email: <team@example.com>
+
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Local development
+  - url: https://staging.example.com/api/v1
+    description: Staging
+  - url: https://api.example.com/api/v1
+    description: Production
+
+security:
+  - bearerAuth: []
+
+paths:
+  /health:
+    get:
+      summary: Health check
+      operationId: healthCheck
+      tags: [System]
+      security: []
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  # Add resource endpoints here following the pattern:
+  # /<resource>:
+  #   get:   listResources   → 200 (paginated list)
+  #   post:  createResource  → 201 (created entity)
+  # /<resource>/{id}:
+  #   get:    getResource    → 200 (single entity)
+  #   put:    updateResource → 200 (updated entity)
+  #   delete: deleteResource → 204 (no content)
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    PageParam:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    LimitParam:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    IdParam:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+  schemas:
+    HealthResponse:
+      type: object
+      required: [status, timestamp]
+      properties:
+        status:
+          type: string
+          enum: [healthy, degraded, unhealthy]
+        timestamp:
+          type: string
+          format: date-time
+        version:
+          type: string
+        services:
+          type: object
+          additionalProperties:
+            type: string
+            enum: [up, down]
+
+    PaginatedResponse:
+      type: object
+      required: [data, meta]
+      properties:
+        data:
+          type: array
+          items: {}
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+
+    PaginationMeta:
+      type: object
+      required: [page, limit, total, totalPages]
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+        totalPages:
+          type: integer
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message, timestamp]
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code (UPPER_SNAKE_CASE)
+            message:
+              type: string
+              description: Human-readable error message
+            timestamp:
+              type: string
+              format: date-time
+            requestId:
+              type: string
+              format: uuid
+              description: Correlation ID for tracing
+            details:
+              type: array
+              items:
+                type: object
+                required: [field, message]
+                properties:
+                  field:
+                    type: string
+                  message:
+                    type: string
+                  code:
+                    type: string
+
+  responses:
+    BadRequest:
+      description: Invalid request payload
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: VALIDATION_ERROR
+              message: Request validation failed
+              timestamp: '2024-01-01T00:00:00Z'
+              details:
+                - field: email
+                  message: Must be a valid email address
+                  code: INVALID_FORMAT
+    Unauthorized:
+      description: Missing or invalid authentication
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHORIZED
+              message: Authentication required
+              timestamp: '2024-01-01T00:00:00Z'
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Conflict:
+      description: Resource conflict (duplicate)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds until rate limit resets
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
 ```
 
-**Required fields**: `id`, `title`, `type`, `status`, `version`, `authors`, `created`, `updated`
+## JSON Schema Entity Template
 
----
+Every data entity should follow this skeleton:
 
-## Transition Rules
-
-### `draft` → `reviewed`
-
-Requirements to transition:
-- [ ] Spec is syntactically valid (YAML/JSON lints cleanly, OpenAPI validates)
-- [ ] All required sections are filled (no `TODO` or `TBD` placeholders)
-- [ ] At least one example per endpoint / field / scenario
-- [ ] Error cases are documented
-- [ ] Author has self-reviewed the spec
-
-Action: Open a spec review (PR, doc comment, or team review session).
-
-### `reviewed` → `approved`
-
-Requirements to transition:
-- [ ] All review comments addressed or explicitly rejected with reason
-- [ ] No open blocking questions
-- [ ] Lead or designated approver has signed off
-- [ ] Dependent specs are also at `approved` or `validated`
-- [ ] ADR exists if the spec introduces a new architectural pattern
-
-Action: Approver sets status to `approved`. This is a binding decision.
-
-### `approved` → `implemented`
-
-Requirements to transition:
-- [ ] All conformance tests generated from the spec
-- [ ] Code passes all conformance tests
-- [ ] No deviations from spec — if a deviation was found, spec was updated first
-- [ ] Code review completed with spec conformance verified
-
-Action: Developer sets status to `implemented` in the spec file.
-
-### `implemented` → `validated`
-
-Requirements to transition:
-- [ ] Conformance test suite passes in CI
-- [ ] Integration tests pass
-- [ ] Performance SLOs meet spec thresholds
-- [ ] Security review passed (if spec declares security requirements)
-- [ ] No spec debt items remain open
-
-Action: CI/CD pipeline or QA engineer sets status to `validated`.
-
-### `validated` → `deprecated`
-
-Requirements to transition:
-- [ ] Migration guide written
-- [ ] Consumers notified (internal teams, external clients)
-- [ ] Sunset date published
-- [ ] Replacement spec exists at `validated` status
-- [ ] Deprecation header added to API responses if applicable
-
-Action: Lead sets status to `deprecated`. Start sunset clock.
-
----
-
-## Spec Types and Their Artifacts
-
-| Type | File Pattern | Tool | Validates With |
-|---|---|---|---|
-| OpenAPI 3.1 | `specs/api/*.openapi.yaml` | Spectral | Dredd, Prism |
-| JSON Schema | `specs/schemas/*.schema.json` | AJV | Unit tests |
-| Gherkin | `specs/features/*.feature` | Cucumber | Playwright, Vitest |
-| ADR | `specs/decisions/ADR-*.md` | Manual review | PR approval |
-| Pact | `specs/contracts/*.pact.json` | Pact Broker | Pact verifier |
-| AsyncAPI | `specs/events/*.asyncapi.yaml` | Spectral | Event bus tests |
-| SLO | `specs/slos/*.slo.yaml` | Custom | Alerting system |
-
----
-
-## Spec Versioning
-
-Specs follow **semantic versioning**. Version increments are governed by the change type:
-
-| Change Type | Version Bump | Example |
-|---|---|---|
-| Typo fix, clarification | `patch` | 1.0.0 → 1.0.1 |
-| New optional field, new endpoint | `minor` | 1.0.0 → 1.1.0 |
-| Renamed field, removed field, changed type | `major` | 1.0.0 → 2.0.0 |
-
-**Major version bumps require**:
-- A new ADR documenting the breaking change
-- A migration guide
-- A deprecation period for the previous version
-
----
-
-## Spec ID Convention
-
-Specs are assigned a unique, stable ID at creation:
-
-```
-<type>-<domain>-<sequence>
-
-Examples:
-  api-user-001       → First user API spec
-  schema-order-003   → Third order schema
-  feat-checkout-007  → Seventh checkout feature spec
-  adr-auth-002       → Second auth decision record
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/<entity>.schema.json",
+  "title": "<Entity>",
+  "description": "<What this entity represents>",
+  "type": "object",
+  "required": ["id", "createdAt", "updatedAt"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp (ISO 8601)"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp (ISO 8601)"
+    }
+  },
+  "additionalProperties": false
+}
 ```
 
-IDs never change, even after spec updates.
+Required properties for every entity schema:
+- `$id` — globally unique schema identifier.
+- `title` and `description` — human-readable context.
+- `id`, `createdAt`, `updatedAt` — standard audit fields.
+- `additionalProperties: false` — enforce strict shape.
 
----
+## Gherkin Feature Template
 
-## Spec Directory Structure
+```gherkin
+Feature: <Feature Name>
+  As a <role>
+  I want to <capability>
+  So that <benefit>
 
+  Background:
+    Given the system is initialized
+    And the following users exist:
+      | email             | role  |
+      | admin@example.com | admin |
+
+  # --- Happy Path ---
+
+  Scenario: <Successful action description>
+    Given <precondition>
+    When <action with specific input>
+    Then response status is <expected status>
+    And response body matches schema "<SchemaName>"
+    And <specific assertion on the response>
+
+  # --- Error Paths ---
+
+  Scenario: <Action with invalid input>
+    Given <precondition>
+    When <action with invalid input>
+    Then response status is <error status>
+    And response body matches schema "ErrorResponse"
+    And error code is "<ERROR_CODE>"
+
+  Scenario: <Action without authorization>
+    Given the user is not authenticated
+    When <action>
+    Then response status is 401
+    And error code is "UNAUTHORIZED"
+
+  # --- Edge Cases ---
+
+  Scenario: <Boundary condition>
+    Given <edge case precondition>
+    When <action at boundary>
+    Then <expected behavior at boundary>
+
+  Scenario Outline: <Parameterized scenario>
+    Given <precondition>
+    When <action with "<param>">
+    Then response status is <status>
+
+    Examples:
+      | param   | status |
+      | valid   | 200    |
+      | invalid | 422    |
+      | empty   | 422    |
 ```
-specs/
-├── api/                    # OpenAPI specs
-│   ├── user.openapi.yaml   # status: approved
-│   └── order.openapi.yaml  # status: draft
-├── schemas/                # JSON Schema contracts
-│   ├── user.schema.json
-│   └── order.schema.json
-├── features/               # Gherkin behavior specs
-│   ├── auth.feature
-│   └── checkout.feature
-├── decisions/              # Architecture Decision Records
-│   ├── ADR-000-project-context.md
-│   └── ADR-001-auth-strategy.md
-├── contracts/              # Pact consumer-driven contracts
-├── events/                 # AsyncAPI event schemas
-├── slos/                   # Service Level Objectives
-│   └── api.slo.yaml
-└── SPEC-INDEX.md           # Auto-generated index of all specs and their status
-```
 
----
+## ADR Template
 
-## SPEC-INDEX.md Convention
-
-A machine-readable index tracking all specs and their current lifecycle state:
+Store in `specs/decisions/NNN-<short-title>.md`:
 
 ```markdown
-# Spec Index
+# ADR-NNN: <Decision Title>
 
-Generated: 2024-03-20
+**Status**: Proposed | Accepted | Deprecated | Superseded by ADR-XXX
+**Date**: YYYY-MM-DD
+**Deciders**: <who was involved>
 
-## API Specs
+## Context
 
-| ID | Title | Version | Status | Updated |
-|---|---|---|---|---|
-| api-user-001 | User Authentication API | 2.1.0 | ✅ validated | 2024-03-15 |
-| api-order-002 | Order Management API | 1.0.0 | 🔵 approved | 2024-03-20 |
+<What requirement, constraint, or spec drove this decision?>
+<Reference specific specs: specs/api/openapi.yaml, specs/schemas/user.schema.json>
 
-## Schema Specs
+## Options Considered
 
-| ID | Title | Version | Status | Updated |
-|---|---|---|---|---|
-| schema-user-001 | User Entity Schema | 1.2.0 | ✅ validated | 2024-03-10 |
+### Option A: <Name>
+- **Pros**: <advantages>
+- **Cons**: <disadvantages>
+- **Spec impact**: <which contracts are affected>
 
-## Legend
-- 📝 draft  🔍 reviewed  🔵 approved  🔨 implemented  ✅ validated  ⚠️ deprecated
+### Option B: <Name>
+- **Pros**: <advantages>
+- **Cons**: <disadvantages>
+- **Spec impact**: <which contracts are affected>
+
+## Decision
+
+<Which option was chosen and why.>
+
+## Consequences
+
+- <What changes in the system>
+- <What new specs or contracts are needed>
+- <What technical debt is introduced>
+- <What becomes easier/harder>
+
+## Spec References
+
+- `specs/api/openapi.yaml` — <how this decision affects the API contract>
+- `specs/schemas/<entity>.schema.json` — <how this affects data contracts>
+- `specs/decisions/NNN-related.md` — <related ADRs>
 ```
 
----
+## Pact Consumer Contract Template
 
-## Spec Debt Tracking
-
-A spec debt item is any gap between the spec and the implementation:
-
-```markdown
-## Spec Debt Register
-
-| ID | Debt Type | Description | Spec | Priority | Due |
-|---|---|---|---|---|---|
-| SD-001 | Missing scenario | Error case for invalid payment not covered | feat-checkout-007 | High | Sprint 12 |
-| SD-002 | Schema drift | `user.role` field type changed in code but not in spec | schema-user-001 | Critical | Immediate |
-| SD-003 | No SLO defined | Checkout endpoint has no latency SLO | api-order-002 | Medium | Sprint 13 |
+```json
+{
+  "consumer": { "name": "<Consumer Service>" },
+  "provider": { "name": "<Provider Service>" },
+  "interactions": [
+    {
+      "description": "<Describe the interaction>",
+      "providerState": "<Provider state precondition>",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/<resource>",
+        "headers": {
+          "Accept": "application/json",
+          "Authorization": "Bearer <token>"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "data": []
+        },
+        "matchingRules": {
+          "body": {
+            "$.data": { "min": 0 },
+            "$.data[*].id": { "match": "type" }
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": { "version": "2.0.0" }
+  }
+}
 ```
 
-**Rule**: Critical spec debt blocks release. High spec debt blocks feature merge.
+## AsyncAPI Event Template
 
----
+```yaml
+asyncapi: 2.6.0
+info:
+  title: <Service Name> Events
+  version: 1.0.0
+  description: <Event-driven contracts for this service>
 
-## Enforcement Rules
+channels:
+  <domain>/<event-name>:
+    description: <What triggers this event>
+    publish:
+      operationId: on<EventName>
+      message:
+        $ref: '#/components/messages/<EventName>'
 
-### Hard Rules (CI blocks merge)
-- Any spec file with `status: draft` must not be referenced in a PR as "implemented"
-- No code changes to a domain may merge without a corresponding spec at `approved` or higher
-- API endpoint additions must have a linked OpenAPI spec at `approved` status
-- Schema changes must have a linked JSON Schema spec at `approved` status
+components:
+  messages:
+    <EventName>:
+      name: <EventName>
+      title: <Human-readable event title>
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/<EventPayload>'
 
-### Soft Rules (PR review checklist)
-- Spec status should be promoted after each phase completes
-- Spec debt items should be logged, not ignored
-- Superseded specs should be marked immediately, not left ambiguous
-- SPEC-INDEX.md should be updated in the same commit as status changes
-
----
-
-## Spec Review Checklist
-
-When reviewing a spec (transition: `draft` → `reviewed`):
-
+  schemas:
+    <EventPayload>:
+      type: object
+      required: [eventId, occurredAt, data]
+      properties:
+        eventId:
+          type: string
+          format: uuid
+        occurredAt:
+          type: string
+          format: date-time
+        source:
+          type: string
+          description: Service that emitted the event
+        data:
+          type: object
+          description: Event-specific payload
 ```
-Spec Review Checklist
 
-Content
-[ ] Spec addresses the requirements from specs/requirements.md
-[ ] All actors from discovery are represented
-[ ] Happy path is complete and unambiguous
-[ ] At least 2 error paths documented
-[ ] All fields have types, formats, and examples
-[ ] No TODO / TBD placeholders remain
+## Template Usage Rules
 
-Contracts
-[ ] Request schema is defined (for API specs)
-[ ] Response schema is defined (for API specs)
-[ ] Error envelope matches the project error contract
-[ ] HTTP status codes are correct and consistent
-
-Consistency
-[ ] Naming follows project conventions (camelCase, snake_case, etc.)
-[ ] This spec does not contradict any existing validated spec
-[ ] Dependent specs are referenced in `depends_on`
-[ ] Version number is correct (semantic versioning rules applied)
-
-Completeness
-[ ] At least one working example included
-[ ] Non-functional requirements referenced (SLOs, security schemes)
-[ ] Deprecation / migration notes included if this supersedes another spec
-```
+- **Always start from a template**. Don't write specs from scratch when a template exists.
+- **Remove unused sections**. Templates are maximal — trim what doesn't apply.
+- **Customize names and descriptions**. Never leave placeholder text (`<...>`) in approved specs.
+- **Maintain consistency**. If the project uses a subset of templates, apply that subset uniformly.
+- **Version templates**. When the team improves a template, apply the improvement retroactively.
 
 ---
 > Source: [GaetanOff/WAF-GaetanDev](https://github.com/GaetanOff/WAF-GaetanDev) — distributed by [TomeVault](https://tomevault.io).
