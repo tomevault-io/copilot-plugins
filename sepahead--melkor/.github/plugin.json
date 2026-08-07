@@ -1,0 +1,9 @@
+{
+  "name": "sepahead--melkor",
+  "displayName": "melkor",
+  "description": "C++17 toolkit for 3D Gaussian splats: deterministic conversion, inspection, geometry-based scene completion and viewing across PLY, SPZ and glTF, with CPU/Metal and optional CUDA backends. v2 hardenin",
+  "version": "1.0.0",
+  "author": "sepahead",
+  "homepage": "https://github.com/sepahead/melkor",
+  "skills": []
+}
