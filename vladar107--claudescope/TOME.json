@@ -4,7 +4,7 @@
   "repo": "claudescope",
   "description": "A scope for your Ai coding-agent sessions",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vladar107/claudescope",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T05:28:22Z"
+  "distributed_at": "2026-08-07T16:44:26Z"
 }
