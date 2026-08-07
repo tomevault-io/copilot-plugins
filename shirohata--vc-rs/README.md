@@ -7,11 +7,11 @@ Real-time RVC voice changer in Rust: standalone GUI, CLI, and VST3 plugin runnin
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [shirohata/vc-rs](https://github.com/shirohata/vc-rs).
+Original source: `AGENTS.md` in [shirohata/vc-rs](https://github.com/shirohata/vc-rs).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
