@@ -1,0 +1,9 @@
+{
+  "name": "laofeng-mouse--flyingmouse-format",
+  "displayName": "flyingmouse-format",
+  "description": "\u98de\u9f20\u683c\u5f0f FlyingMouse Format - Windows \u4e07\u80fd\u6587\u4ef6\u683c\u5f0f\u8f6c\u6362\u5de5\u5177\uff08\u79bb\u7ebf\u53ef\u7528\uff0c\u5185\u7f6e FFmpeg/LibreOffice/Poppler/Tesseract\uff09\u3002\u56fe\u7247/\u6587\u6863/\u8868\u683c/PPT/PDF/\u97f3\u89c6\u9891/WPS \u683c\u5f0f\u4e92\u8f6c + OCR + \u6279\u91cf\u8f6c\u6362",
+  "version": "1.0.0",
+  "author": "LaoFeng-mouse",
+  "homepage": "https://github.com/LaoFeng-mouse/flyingmouse-format",
+  "skills": []
+}
