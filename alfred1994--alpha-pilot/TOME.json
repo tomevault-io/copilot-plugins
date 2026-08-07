@@ -1,0 +1,44 @@
+{
+  "name": "alpha-pilot",
+  "owner": "alfred1994",
+  "repo": "alpha-pilot",
+  "description": "AI \u9a7e\u9a76\u7684\u81ea\u6108\u5f0f A \u80a1\u6a21\u62df\u76d8\u4ea4\u6613\u8d5b\u8f66 \u00b7 Self-healing paper-trading race car driven by AI agents",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/alfred1994/alpha-pilot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T06:48:09Z"
+}
