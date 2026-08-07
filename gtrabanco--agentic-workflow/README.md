@@ -7,11 +7,11 @@ Stack-agnostic agentic-programming workflow skills + documentation scaffold
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [gtrabanco/agentic-workflow](https://github.com/gtrabanco/agentic-workflow).
+Original source: `AGENTS.md` in [gtrabanco/agentic-workflow](https://github.com/gtrabanco/agentic-workflow).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
