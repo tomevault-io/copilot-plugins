@@ -1,0 +1,9 @@
+{
+  "name": "anionex--codex-vision-proxy",
+  "displayName": "codex-vision-proxy",
+  "description": "\u8ba9\u7eaf\u6587\u672c\u6a21\u578b\u5728 Codex \u4e2d\u65e0\u969c\u788d\u8c03\u7528\u5185\u7f6e\u770b\u56fe\u5de5\u5177\uff08view_image\uff09\u7684\u65b9\u6848\uff0c\u9644\u4e3a\u7eaf\u6587\u672c LLM \u8bbe\u8ba1\u7684\u89c6\u89c9\u5de5\u5177\u5305 \uff5c  Let text-only models call Codex's built-in view_image seamlessly, plus a vision toolkit designed for text-only LLMs.",
+  "version": "1.0.0",
+  "author": "Anionex",
+  "homepage": "https://github.com/Anionex/codex-vision-proxy",
+  "skills": []
+}
