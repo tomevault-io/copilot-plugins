@@ -1,0 +1,35 @@
+## atrium
+
+> - **Best practice first** — research, cite the evidence (issue / doc / thread), then decide.
+
+# Atrium · Project Instructions
+
+## Engineering principles
+
+- **Best practice first** — research, cite the evidence (issue / doc / thread), then decide.
+- **Latest stable major** — pin every package to its latest stable major; bump when new majors ship. On conflict with best-practice, use the version best-practice prescribes.
+- **Reuse package types, don't reinvent them.** Before hand-rolling a type (especially a loose `Record<string, unknown>` shim), check whether the package already exports it. Prefer importing the real type; when no single export fits, derive from one with indexed/utility types (e.g. `Exclude<ModelMessage['content'], string>[number]` for a content part) over re-declaring the shape. *Why: hand-rolled types drift from the source of truth and lose the package's discriminated-union narrowing.*
+
+## Vercel AI SDK (core code)
+
+- **Read the docs before writing.** Any Vercel AI SDK code MUST be preceded by reading the official docs (ai-sdk.dev) and using the latest documented best practice — proactively, before writing or changing it, not after being told. *Why: this is the software's core code region, so it must always be correct and best-practice.*
+
+## Code comments
+
+- **Placement decides the style.** Inside a function body, prefer single-line comments. At a function head/top, or for hack / trick / non-obvious logic, use a multi-line comment that fully explains the *why* — don't truncate where understanding is at stake.
+- **No internal numbers.** Never reference project design / step numbers in comments (D6.1, Variant A, Step 5, 5.c, V0…). Describe what the code is and why — carry the knowledge into the comment, not the bookkeeping.
+
+## Commits
+
+- **Angular Conventional Commits** format: `type(scope): subject` (e.g. `feat(chat): stream tool calls`). Types: `feat`, `fix`, `refactor`, `docs`, `style`, `test`, `chore`, `perf`, `build`, `ci`. Scope is the area touched (`chat`, `tools`, `agent`, `db`…); omit it if the change is cross-cutting. Subject is imperative and lowercase.
+- Describe what the change does in plain functional terms; **never** include project-internal numbering (Step 1.1, D8, V0, Phase…). Reference a design by its semantic name ("empty state"), not its D-number.
+- Commit cadence: each reviewed sub-task → commit before the next; don't batch a whole step into one big diff.
+
+## Pull requests
+
+- **Squash-merge only.** A PR lands on `main` as exactly **one** commit, so the release-please changelog shows a single entry per PR. The branch may carry many small per-step commits for review — squashing collapses them. Never rebase-merge or merge-commit a PR. The repo is configured to allow squash only (the other buttons are disabled). The squash commit's subject is the **PR title**, so write the PR title as a clean `type(scope): subject` conventional commit — that's what release-please reads.
+- Merge via `gh pr merge <n> --squash` (add `--auto` after `gh pr ready` to land on green CI).
+
+---
+> Source: [lhz960904/atrium](https://github.com/lhz960904/atrium) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-06 -->
