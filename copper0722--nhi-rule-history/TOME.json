@@ -4,7 +4,7 @@
   "repo": "nhi-rule-history",
   "description": "Evidence-first reconstruction of Taiwan NHI drug reimbursement rule history",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/copper0722/nhi-rule-history",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T09:05:49Z"
+  "distributed_at": "2026-08-07T18:56:35Z"
 }
