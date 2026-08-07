@@ -1,0 +1,9 @@
+{
+  "name": "sunne927--codex-cli-bridge-for-lark-feishu",
+  "displayName": "Codex-CLI-Bridge-for-Lark-Feishu",
+  "description": "\u9762\u5411\u4e91\u670d\u52a1\u5668\u4e0e VPS \u5e38\u9a7b\u90e8\u7f72\u7684 Lark\uff08\u98de\u4e66\uff09Codex CLI \u6865\u63a5\u5668\uff0c\u540c\u65f6\u652f\u6301\u672c\u5730\u8fd0\u884c\uff1bLark (Feishu) Codex CLI Bridge for persistent deployment on cloud servers and VPS, with native local execution support.",
+  "version": "1.0.0",
+  "author": "Sunne927",
+  "homepage": "https://github.com/Sunne927/Codex-CLI-Bridge-for-Lark-Feishu",
+  "skills": []
+}
