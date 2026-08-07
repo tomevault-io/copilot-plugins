@@ -1,0 +1,44 @@
+{
+  "name": "JavaChatServer",
+  "owner": "chenziren912",
+  "repo": "JavaChatServer",
+  "description": "Lightweight Java 17 social platform built with the native HttpServer, featuring chat, moments, groups, cloud drive, music, video, mini-games, and AI assistance.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chenziren912/JavaChatServer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T08:38:30Z"
+}
