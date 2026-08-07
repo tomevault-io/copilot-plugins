@@ -1,0 +1,9 @@
+{
+  "name": "lud1161--agentjail",
+  "displayName": "agentjail",
+  "description": "Policy guardrails for coding agents (Claude Code, Codex, Cursor) \u2014 every tool call is checked locally, before it runs.",
+  "version": "1.0.0",
+  "author": "LuD1161",
+  "homepage": "https://github.com/LuD1161/agentjail",
+  "skills": []
+}
