@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-omniverse--omniverse-labs",
+  "displayName": "omniverse-labs",
+  "description": "Omniverse Labs is a project housing experimental Omniverse sample content",
+  "version": "1.0.0",
+  "author": "NVIDIA-Omniverse",
+  "homepage": "https://github.com/NVIDIA-Omniverse/omniverse-labs",
+  "skills": []
+}
