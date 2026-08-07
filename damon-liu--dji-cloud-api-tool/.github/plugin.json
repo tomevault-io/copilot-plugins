@@ -1,0 +1,9 @@
+{
+  "name": "damon-liu--dji-cloud-api-tool",
+  "displayName": "Dji-cloud-api-tool",
+  "description": "\u4e00\u6b3e\u7528\u4e8e\u5927\u7586\u4e0a\u4e91API\u7684\u8c03\u8bd5\u5de5\u5177\uff0c\u652f\u6301\u591aBroker\u8fde\u63a5\u3001\u591a\u8bbe\u5907\uff08\u673a\u573a\u3001\u65e0\u4eba\u673a\uff09\u8ba2\u9605\uff0cTopic\u89e3\u6790\u3001\u53d1\u9001\u7b49\u529f\u80fd\uff0c\u65e8\u5728\u51cf\u8f7b\u5f00\u53d1\u6216\u8005\u8fd0\u7ef4\u4eba\u5458\u8c03\u8bd5\u5bf9\u63a5\u5de5\u4f5c\u3002 \u672c\u9879\u76ee\u5b8c\u5168\u57fa\u4e8eAI\u7f16\u5199\uff1aClaude Code+Superpowers+OpenSpec+Comet",
+  "version": "1.0.0",
+  "author": "damon-liu",
+  "homepage": "https://github.com/damon-liu/Dji-cloud-api-tool",
+  "skills": []
+}
