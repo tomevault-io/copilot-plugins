@@ -1,0 +1,44 @@
+{
+  "name": "LinkGauge",
+  "owner": "KISSMonX",
+  "repo": "LinkGauge",
+  "description": "A cross-platform iperf3 desktop GUI built with Rust, Tauri, and Vue for TCP/UDP/Ping testing, real-time metrics, logs, and reports.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/KISSMonX/LinkGauge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T12:33:41Z"
+}
