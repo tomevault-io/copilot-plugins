@@ -1,0 +1,9 @@
+{
+  "name": "reshadat--first-principles-destructor",
+  "displayName": "first-principles-destructor",
+  "description": "Universal AI agent skill \u2014 strips assumptions to reality floor, calculates convention tax, rebuilds from first principles. Works with Claude Code, Codex CLI, Gemini CLI, Cursor, Kiro.",
+  "version": "1.0.0",
+  "author": "reshadat",
+  "homepage": "https://github.com/reshadat/first-principles-destructor",
+  "skills": []
+}
