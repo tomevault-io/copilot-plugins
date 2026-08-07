@@ -1,0 +1,9 @@
+{
+  "name": "ayuday--vkeyboardhand",
+  "displayName": "vkeyboardhand",
+  "description": "By integrating SVG keyboard graphics, SVG gesture graphics, and JavaScript event-driven interaction, an interactive virtual keyboard and fingering display teaching system is realized! \u901a\u8fc7 SVG \u952e\u76d8\u56fe + SVG",
+  "version": "1.0.0",
+  "author": "ayuday",
+  "homepage": "https://github.com/ayuday/vkeyboardhand",
+  "skills": []
+}
