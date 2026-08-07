@@ -1,0 +1,103 @@
+## regeste
+
+> Regeste is an open-source, privacy-first "chat with your documents" web app. Everything document-related (parsing, chunking, embeddings, vector index, chats, citations) runs **in the browser** and stays on the user's device. The only backend is a single Cloudflare Worker (this SvelteKit app) handling auth, quotas and the Assisted endpoint (Workers AI). Product docs are in French, code and repo docs are in English.
+
+# Regeste — agent guide
+
+Regeste is an open-source, privacy-first "chat with your documents" web app. Everything document-related (parsing, chunking, embeddings, vector index, chats, citations) runs **in the browser** and stays on the user's device. The only backend is a single Cloudflare Worker (this SvelteKit app) handling auth, quotas and the Assisted endpoint (Workers AI). Product docs are in French, code and repo docs are in English.
+
+## Current phase
+
+Foundation. The UI shell, browser pipeline and specs are being built incrementally — pick work from the active spec in `specs/`, not from your own judgment of what's missing.
+
+## Read before working
+
+| You are about to…           | Read first                                                                                                      |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Any task                    | `PROGRESS.md` (project state), the active `specs/NNN-*/tasks.md`                                                |
+| Touch product behavior      | `docs/internal/PRD.md`, `docs/internal/FEATURES.md` (frozen feature set + decisions; local-only, not versioned) |
+| Touch stack/architecture    | `docs/internal/RESEARCH-2026-07-stack.md`, `docs/constitution.md`                                               |
+| Touch UI                    | `.claude/rules/ui.md` (shadcn-only rule)                                                                        |
+| Touch retrieval/NLU/answers | `.claude/rules/nlp.md` (no hand-maintained vocabularies)                                                        |
+| Touch server/API/DB         | `.claude/rules/server.md`                                                                                       |
+| Write user-facing text      | `.claude/rules/copy.md` (human-sounding copy, no AI markers; strings live in `src/lib/i18n/`)                   |
+
+## Commands
+
+```bash
+bun run dev              # vite dev with emulated CF bindings (D1 local, AI proxied)
+bun run check            # svelte-kit sync + svelte-check (typecheck)
+bun run lint             # prettier --check + eslint
+bun run format           # prettier --write
+bun run test             # vitest run (client browser project + server node project)
+bun run build            # vite build (Cloudflare adapter)
+bun run verify           # check + lint + test + build — THE done gate
+bun run db:generate      # drizzle-kit generate (after editing src/lib/server/db/schema.ts)
+bun run db:migrate:local # wrangler d1 migrations apply regeste-db --local
+bun run cf:types         # regenerate worker-configuration.d.ts after wrangler.jsonc changes
+```
+
+Bun 1.2 + Node 22 (`.nvmrc`). bun only — never npm/pnpm/yarn. Always `bun run test` (never bare `bun test`: that invokes Bun's own runner, not vitest).
+
+## Definition of done
+
+A task is complete only when:
+
+1. `bun run verify` exits 0.
+2. Every `Done when:` command of the task in the active spec passed — run them, don't assume.
+3. The change was exercised for real (via the `verify` skill: dev server + driving the affected flow), not just compiled.
+4. `PROGRESS.md` is updated (status + one log line) in the same change.
+
+Never batch-check tasks you did not verify. Never claim done with a failing or skipped check — report the failure instead.
+
+## Grounding rules (anti-hallucination)
+
+- Never invent an API, import or package name. Check `package.json` before importing; check the actual file before referencing an export.
+- Read a file before editing it. Read neighboring code before writing new code — match its idioms.
+- Library APIs: trust the installed version's types/docs over memory. **When in doubt about any library/API behavior, fetch the official docs BEFORE coding** (owner rule). Cloudflare APIs move fast — check https://developers.cloudflare.com/llms.txt (and the product's `llms-full.txt`) before citing limits, bindings or model names.
+- Cloudflare-first: before adding any external service or dependency for infra concerns, check if Cloudflare has it (see `docs/constitution.md`).
+- Uncertain about product behavior? Add `[NEEDS CLARIFICATION: question]` to the spec and stop that thread — never guess on user-visible behavior.
+
+## Hard rules
+
+- **UI: shadcn-svelte components only.** Before using any native HTML interactive element, check the registry — if a shadcn-svelte component exists, install and use it. Raw `<button>`, `<a>`-as-button, `<input>` etc. in app code is a task failure. Details in `.claude/rules/ui.md`.
+- **Privacy is the product.** No document content, chat content, chunk, embedding or filename may ever reach the server, the database, logs or analytics. The Assisted endpoint receives excerpts transiently and must never persist or log them.
+- **NLP: no hand-maintained vocabularies.** A regex that enumerates words is a classifier with a hand-written weight vector, and it is a task failure. Patterns over token _types_ (an amount, a date, an honorific) stay; word lists become prototype embeddings, and answer shape becomes a decoding grammar. Details in `.claude/rules/nlp.md`.
+- **Validated edges**: every API endpoint validates input with valibot before use. No `any` at boundaries.
+- **Secrets**: never write `.env*` / `.dev.vars` (hook-enforced); use `wrangler secret put`.
+- **Fixtures are fiction.** Any name, address, email, phone number, IBAN, account or file reference, or amount in test data, corpus fixtures, docs or commit messages must be invented — never copied from a real document, not even "anonymized" fragments. CI scans the full history with gitleaks (`.gitleaks.toml`); a hit blocks the merge.
+- **Migrations**: never edit an applied migration — create a new one (use the `db-migration` skill).
+- **Simplicity**: smallest change that satisfies the spec. No speculative abstractions, no extra deps without need.
+- **Tests: no sugar tests.** A test must protect real logic or a real regression; ceremony coverage is a task failure. When unsure whether a test is necessary, it isn't.
+- **UI work starts from the frontend-design skill + real inspiration research.** Distinctive identity is a product goal — default-looking shadcn output is a task failure. The right contextual panel (not modal dialogs) hosts contextual flows: documents, pre-send review, What AI saw, viewer.
+
+## Conventions
+
+- TypeScript strict; Svelte 5 runes (`$state`, `$derived`, `$props`) — no legacy stores in new code.
+- Formatting/lint: prettier + eslint (configs in repo). Tabs, single quotes, width 100.
+- Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:`…). No AI attribution in commit messages.
+- Repo docs are English, including `PROGRESS.md`. The log is the first thing an outside reader opens, so an entry written in French is unreadable to most of them — French belongs in product copy (`src/lib/i18n/fr.ts`) and in `docs/internal/`. Quoting the owner verbatim in French inside an English entry is fine; the entry around it is not.
+- File naming: kebab-case for files, PascalCase Svelte components live in `src/lib/components/`.
+- Shared state: `.svelte.ts` rune modules in `src/lib/state/`; workers are plain TS (no runes) under `src/lib/workers/`.
+
+## Repo layout
+
+```
+src/routes/            # SvelteKit routes; api/* = server endpoints (the Worker)
+src/lib/components/ui/ # shadcn-svelte components (owned, themable — edit variants here)
+src/lib/server/        # server-only: auth, db schema
+migrations/            # D1 migrations (generated; append-only)
+specs/                 # numbered specs; 000-template is the model
+docs/                  # constitution (public); internal/ = PRD, features, research (local-only, gitignored)
+.agents/skills/        # canonical skills (Codex reads these; .claude/skills is a symlink)
+```
+
+## Git & deploys
+
+- No direct commits to `develop` (owner decision, 2026-08-05; enforced by a repository ruleset). Work on a branch named `type/short-slug` after the Conventional Commit type it carries (`feat/`, `fix/`, `chore/`, `docs/`…, plus the issue number when one exists: `feat/42-viewer-panel`), then open a PR to `develop`. Small, frequent commits on the branch (owner decision, 2026-07-18) — commit after each verified task, never batch a day of work into one commit.
+- PRs to `develop` are squash-merged: the PR title becomes the commit subject on `develop`, and semantic-release later reads that subject to pick the version. Write the title as a Conventional Commit; CI lints both the branch commits and the title. `develop → main` release PRs are merge commits, never squashed — semantic-release needs the individual subjects.
+- CI runs on every push/PR (`.github/workflows/ci.yml`): `bun run verify` + knip on Linux, and both are required checks — nothing merges red. Releases: a merge to `main` runs semantic-release (tag `vX.Y.Z`, CHANGELOG, GitHub Release), which dispatches the production deploy (`.github/workflows/deploy.yml`, tag refs only) with `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` from GitHub secrets. Local deploys stay available for pre-merge checks (`bun run deploy`) when the owner asks. D1 migrations are applied manually on purpose (`bun run db:migrate:remote`), never by CI.
+
+---
+> Source: [soulbah/regeste](https://github.com/soulbah/regeste) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-07 -->
