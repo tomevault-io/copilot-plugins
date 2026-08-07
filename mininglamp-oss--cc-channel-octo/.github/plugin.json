@@ -1,0 +1,9 @@
+{
+  "name": "mininglamp-oss--cc-channel-octo",
+  "displayName": "cc-channel-octo",
+  "description": "Bridge Claude Code (Claude Agent SDK) to Octo IM \u2014 independent Node.js gateway",
+  "version": "1.0.0",
+  "author": "Mininglamp-OSS",
+  "homepage": "https://github.com/Mininglamp-OSS/cc-channel-octo",
+  "skills": []
+}
