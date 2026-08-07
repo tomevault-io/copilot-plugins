@@ -1,350 +1,272 @@
-## core-agent-orchestration
+## core-architecture
 
-> Agent orchestration protocol for SDD — context injection, spec-first prompting, handoff sequences, and anti-patterns for all AI coding tools
+> Contract-first architecture — design driven by specifications, C4 model, DDD patterns
 
 
-# Agent Orchestration (Spec-Driven)
+# Contract-First Architecture
 
-> Never ask an AI to "build a feature" without its specification. AI agents will immediately write code when asked. Your job is to enforce the SDD protocol before any implementation prompt is issued.
+## Decision Framework
 
----
+For every architectural decision, document as an ADR referencing the specs that drove it:
 
-## Supported Environments
+1. **Context**: What spec requirement or contract constraint drives this decision?
+2. **Options**: What are the viable approaches? (minimum 2)
+3. **Trade-offs**: Pros and cons of each option against the spec requirements.
+4. **Decision**: Which option and why — with spec references.
+5. **Consequences**: What contracts are affected? What new specs are needed?
 
-| Tool | Context injection | Spec reference |
-|---|---|---|
-| Cursor | `@specs/api/openapi.yaml` in Composer | `@` file references |
-| Claude Code | `@specs/` directory | Direct file paths |
-| GitHub Copilot | `#file:specs/api/openapi.yaml` | `#file` references |
-| Windsurf | `@specs/` in Cascade | `@` file references |
-| OpenCode / generic | Include spec content in system context | Inline or `@` |
+## Architecture Patterns
 
----
+Choose based on the contracts defined in the Specification phase:
 
-## Context Injection Protocol
+| Pattern | When to Use | Spec Signal |
+|---------|-------------|-------------|
+| **Monolith** | Small team, single product, few API contracts | <10 endpoints, single data store |
+| **Modular Monolith** | Growing product, clear contract boundaries | Multiple bounded contexts in specs |
+| **Microservices** | Independent contracts, different scaling needs | Separate API specs per domain |
+| **Serverless** | Event-driven contracts, async workflows | AsyncAPI specs, event schemas |
+| **Jamstack** | Content-heavy, static + dynamic hybrid | Few API contracts, CDN-friendly |
+| **Event-Driven** | Async workflows, decoupled contracts | Event schemas, pub/sub contracts |
 
-Before any SDD session, inject the project context into the agent. This prevents the agent from making assumptions about the project.
+## C4 Architecture Model
 
-### Context Injection Template
+Document architecture at four levels of abstraction, driven by specs:
 
-```
-You are working on [Project Name], a [brief description].
+### Level 1: System Context Diagram
 
-Current project state:
-- Mode: [Greenfield | Legacy]
-- Phase: [Discovery | Specification | Architecture | Implementation | Validation]
-- Spec maturity: [L0 | L1 | L2 | L3 | L4]
-
-Active specs (reference these before writing any code):
-- @specs/api/*.openapi.yaml       ← API contracts
-- @specs/schemas/*.schema.json    ← Data contracts
-- @specs/features/*.feature       ← Behavior contracts
-- @specs/decisions/               ← Architecture decisions
-
-SDD Rules:
-- Do not write implementation code before specs are approved
-- If the request is vague, ask the 5 clarification questions
-- If a spec gap is found, stop and document it before continuing
-- Reference spec IDs in every code comment and test description
-- Promote spec status after each phase completes
-```
-
----
-
-## SDD Prompting Sequences
-
-Break tasks into strictly ordered prompts. **Do not combine phases into a single prompt.**
-
-### Sequence A — New Feature (Greenfield)
+Shows the system and its external actors/dependencies. Derived from integration contracts.
 
 ```
-Step 1: Discovery
-─────────────────
-"I want to add [feature]. Before writing any spec or code, run the discovery
-protocol. Ask the 5 minimum questions (WHO, WHAT, WHEN, WHY WRONG, DONE).
-Do not proceed to specification until I answer them."
-
-Step 2: Specification
-─────────────────────
-"Discovery is complete. Write the specs for [feature]:
-1. JSON Schema in specs/schemas/[entity].schema.json (status: draft)
-2. OpenAPI paths in specs/api/[domain].openapi.yaml (status: draft)
-3. Gherkin scenarios in specs/features/[feature].feature (status: draft)
-Use the templates in templates/specs/. Do not write any implementation code."
-
-Step 3: Spec Review
-───────────────────
-[Human reviews and approves specs — sets status: approved]
-
-Step 4: Conformance Scaffolding
-───────────────────────────────
-"Specs are approved. Do not write business logic yet.
-1. Generate TypeScript types from the approved schemas
-2. Scaffold empty route handler and service stubs
-3. Write the conformance test (expect it to fail — no logic yet)
-Confirm the test fails for the right reason before continuing."
-
-Step 5: Implementation
-──────────────────────
-"Now implement [feature] strictly against:
-- @specs/schemas/[entity].schema.json
-- @specs/api/[domain].openapi.yaml (operation: [operationId])
-- @specs/features/[feature].feature (scenarios: [list])
-Run the conformance test after each layer (data → logic → API).
-Do not modify specs unless a gap is found — follow the spec gap protocol."
-
-Step 6: Validation
-──────────────────
-"Run the full gate check: spec:lint, typecheck, test:conformance, test:behavior.
-Report each gate result. If any gate fails, apply the spec-fix workflow."
+┌─────────────────────────────────────────────────────┐
+│                   SYSTEM CONTEXT                     │
+│                                                      │
+│  [User] ──→ [Your System] ──→ [Payment Provider]    │
+│                  │                                    │
+│                  ├──→ [Email Service]                 │
+│                  └──→ [Auth Provider]                 │
+│                                                      │
+│  Sources: specs/contracts/*.pact.json                │
+│           specs/api/openapi.yaml (security schemes)  │
+└─────────────────────────────────────────────────────┘
 ```
-
-### Sequence B — Bug Fix
-
-```
-Step 1: Bug Discovery
-─────────────────────
-"Bug reported: [description].
-1. Find the spec that defines the expected behavior for this scenario
-2. If no spec exists, write the spec of the expected behavior first (status: draft)
-3. Write a failing test that reproduces the bug
-Do not fix the code yet."
-
-Step 2: Spec Verification
-─────────────────────────
-"Confirm the failing test accurately reflects the spec.
-Apply the SDD debugging decision tree:
-- Is the spec correct? → fix the code
-- Is the spec missing? → write the spec, get it approved, then fix the code
-- Is the test wrong? → fix the test to match the spec
-Tell me which path applies before writing any fix."
-
-Step 3: Fix
-───────────
-"[Path confirmed]. Implement the fix so the reproduction test passes.
-Do not change the spec unless the spec itself was wrong (in which case get it approved first)."
-```
-
-### Sequence C — Legacy Refactor
-
-```
-Step 1: Retro-Spec
-──────────────────
-"Write retro-specs for [module/file] — describe CURRENT behavior as-is.
-Do not improve or change behavior. Write:
-1. JSON Schema for each entity the module processes
-2. OpenAPI entries for each route (if applicable)
-3. Gherkin scenarios for the most critical behaviors
-Mark all as status: implemented (they describe existing behavior)."
-
-Step 2: Gap Analysis
-────────────────────
-"Analyze the retro-specs against the desired behavior.
-List:
-- Behaviors that should change (delta specs needed)
-- Behaviors that should stay (retro-specs are final)
-- Missing coverage (spec debt)
-Do not refactor yet."
-
-Step 3: Delta Specs
-────────────────────
-"Write delta specs for the changes identified:
-- New/modified OpenAPI entries (status: draft)
-- Modified schemas (status: draft)
-- New Gherkin scenarios for changed behaviors (status: draft)
-These are additive. Do not touch the retro-specs."
-
-Step 4: Refactor
-────────────────
-"Refactor [module] so it:
-1. Still passes all retro-spec conformance tests
-2. Also passes all delta-spec conformance tests
-Commit after every spec-green step. Do not break existing gates."
-```
-
----
-
-## Prompt Library — Common Scenarios
-
-### Generate Spec From Requirements
-
-```
-Given this requirement: "[paste requirements.md extract]"
-Write the following specs:
-1. JSON Schema for [entity] at specs/schemas/[entity].schema.json
-2. OpenAPI operation for [endpoint] (add to specs/api/[domain].openapi.yaml)
-3. 3 Gherkin scenarios (happy path + 2 error paths) at specs/features/[feature].feature
 
 Rules:
-- All fields must have types, formats, and descriptions
-- Response schema must have additionalProperties: false
-- Error codes must match the project error envelope
-- Status: draft on all files
-Stop and wait for my review before proceeding to implementation.
-```
+- Every external dependency must have an integration contract.
+- Every actor must be referenced in behavior specs.
 
-### ADR Generation
+### Level 2: Container Diagram
+
+Shows the major containers (apps, databases, queues). Derived from API specs and data contracts.
 
 ```
-We need to decide between [Option A] and [Option B] for [requirement].
-Draft an ADR at specs/decisions/ADR-[NNN]-[title].md.
-- Context: explain what the requirement is
-- Options: describe each with specific trade-offs against our existing specs
-- Reference: @specs/api/openapi.yaml if the decision affects the API contract
-Do not make the decision for me. Present the analysis.
+┌────────────────────────────────────────────────────────────┐
+│                    CONTAINER DIAGRAM                        │
+│                                                             │
+│  [Web App (Next.js)] ──API──→ [API Server (Node.js)]       │
+│                                     │                       │
+│                              ┌──────┼──────┐                │
+│                              ↓      ↓      ↓                │
+│                          [PostgreSQL] [Redis] [S3]          │
+│                                                             │
+│  [Mobile App] ──API──→ [API Server]                         │
+│                                                             │
+│  Sources: specs/api/openapi.yaml (API boundaries)           │
+│           specs/schemas/ (data store decisions)              │
+│           specs/decisions/ (ADRs)                            │
+└────────────────────────────────────────────────────────────┘
 ```
 
-### Spec Gap Report
+### Level 3: Component Diagram
+
+Shows modules within a container. Derived from feature specs and bounded contexts.
 
 ```
-Review @specs/api/[domain].openapi.yaml against @src/[module]/.
-List every gap:
-1. Routes in code that have no OpenAPI entry
-2. Response fields in code that are not in the spec schema
-3. Error codes returned by code that are not in the spec
-4. Request validation in code that is not in the spec
-Format as a table: [Gap] | [Location in code] | [Missing spec element] | [Priority]
+┌──────────────────────────────────────────────────────────┐
+│              API SERVER — COMPONENT DIAGRAM               │
+│                                                           │
+│  ┌──────────┐  ┌──────────┐  ┌──────────────┐           │
+│  │   Auth   │  │  Users   │  │   Orders     │           │
+│  │  Module  │  │  Module  │  │   Module     │           │
+│  └────┬─────┘  └────┬─────┘  └──────┬───────┘           │
+│       │              │               │                    │
+│  ┌────┴──────────────┴───────────────┴────┐              │
+│  │         Shared Infrastructure           │              │
+│  │  (middleware, error handler, logger)     │              │
+│  └─────────────────────────────────────────┘              │
+│                                                           │
+│  Sources: specs/features/ (one module per feature area)   │
+│           specs/schemas/ (shared schemas = shared infra)  │
+└──────────────────────────────────────────────────────────┘
 ```
 
-### Security Audit Against Spec
+### Level 4: Code Diagram
+
+Shows classes/functions within a component. Derived from data contracts and behavior specs. Use sparingly — code should be self-documenting at this level.
+
+## Domain-Driven Design Patterns (Spec-Driven)
+
+For complex domains, use DDD patterns mapped to specs:
+
+### Bounded Contexts
+
+Each bounded context maps to a separate set of specs:
 
 ```
-Audit @src/[module]/ against the security requirements in @specs/api/[domain].openapi.yaml.
-Check:
-1. All endpoints marked with security schemes in the spec are actually protected in code
-2. All endpoints NOT in the spec or without securitySchemes are unreachable from outside
-3. Input validation in code matches the request schema constraints in the spec
-4. PII fields in @specs/schemas/*.schema.json are not appearing in logs
-Report findings as: [PASS | FAIL | WARN] | [Detail] | [Spec reference]
-Do not fix anything yet.
+specs/
+  contexts/
+    identity/               # Auth & user management context
+      api/openapi.yaml
+      schemas/user.schema.json
+      features/auth.feature
+    ordering/               # Order management context
+      api/openapi.yaml
+      schemas/order.schema.json
+      features/checkout.feature
+    shipping/               # Shipping context
+      api/openapi.yaml
+      schemas/shipment.schema.json
+    shared-kernel/          # Shared across contexts
+      schemas/address.schema.json
+      schemas/money.schema.json
 ```
 
-### Conformance Test Generator
+Rules:
+- Each bounded context owns its specs — no cross-context `$ref` except shared-kernel.
+- Context boundaries align with team boundaries (Conway's Law).
+- Communication between contexts is via explicit contracts (API, events, shared-kernel).
 
-```
-Generate conformance tests for @specs/api/[domain].openapi.yaml.
-For each operation:
-1. One test for the success response (correct status code + schema)
-2. One test for the 400 validation error (invalid request body)
-3. One test for the 401 unauthorized response (no auth token)
-4. One test for the 404 not found response (if applicable)
-Tests must use [Vitest/Jest/pytest] and reference the spec operation IDs.
-```
+### Aggregates
 
----
+Map aggregate roots to data contracts:
 
-## Debugging Decision Tree
+- The aggregate root schema is the main entity schema.
+- Child entities within the aggregate are nested in the root schema.
+- Invariants (business rules) are expressed in behavior specs.
+- Each aggregate boundary defines a transaction boundary.
 
-When a test fails or a bug is found, explicitly run this tree before writing any fix:
+### Domain Events
 
-```
-Bug reported or test failed
-          │
-          ▼
-Step 1 — Check the spec
-   Is this behavior defined in the spec?
-   ├── NO → Spec Gap
-   │        Stop. Write the spec (status: draft).
-   │        Get it reviewed and approved.
-   │        Then write the test, then fix the code.
-   └── YES ▼
+Map domain events to AsyncAPI specs:
 
-Step 2 — Check the test
-   Does the test accurately reflect the spec?
-   ├── NO → Test Bug
-   │        Fix the test to match the spec.
-   └── YES ▼
-
-Step 3 — Check the code
-   Does the code match the spec?
-   ├── NO → Code Bug
-   │        Fix the code to satisfy the spec.
-   └── YES → Spec is ambiguous
-             Update spec for clarity (requires review).
+```yaml
+channels:
+  ordering/order-placed:
+    publish:
+      message:
+        payload:
+          type: object
+          required: [orderId, userId, items, total, placedAt]
+          properties:
+            orderId: { type: string, format: uuid }
+            userId: { type: string, format: uuid }
+            items: { type: array }
+            total: { type: number }
+            placedAt: { type: string, format: date-time }
 ```
 
-**Prompt to run this tree:**
-```
-We have a bug: [description]. Apply the SDD debugging decision tree.
-First, tell me what spec defines this behavior and what it says.
-If the spec is missing or ambiguous, tell me before suggesting any fix.
-```
+Rules:
+- Every state transition that other contexts care about → domain event.
+- Events are immutable facts — define them as past-tense verbs (`OrderPlaced`, `UserRegistered`).
+- Include all data the consumer needs — consumers should not call back to the producer.
 
----
+## API Gateway Patterns
 
-## Agent Handoff Protocol
+When multiple API specs exist (microservices, bounded contexts):
 
-When switching agents or sessions on a large task, always start with a handoff prompt:
+### Aggregation
 
-```
-Handoff context for continuing SDD work on [Project]:
+```yaml
+# Gateway aggregates multiple backend APIs into one consumer-facing API
+gateway:
+  routes:
+    /api/v1/users:
+      upstream: identity-service
+      spec: specs/contexts/identity/api/openapi.yaml
 
-Current phase: [phase name]
-Last completed: [what was done]
-Pending: [what remains]
+    /api/v1/orders:
+      upstream: ordering-service
+      spec: specs/contexts/ordering/api/openapi.yaml
 
-Approved specs in use:
-- @specs/api/[domain].openapi.yaml (v[X.Y.Z], status: approved)
-- @specs/schemas/[entity].schema.json (v[X.Y.Z], status: approved)
-- @specs/features/[feature].feature (status: approved)
-
-Open spec debt:
-- SD-[NNN]: [description] (priority: [high/medium/low])
-
-Open assumptions:
-- A-[NNN]: [assumption] (status: [confirmed/pending/unknown])
-
-Next action: [precise next step]
+    /api/v1/shipping:
+      upstream: shipping-service
+      spec: specs/contexts/shipping/api/openapi.yaml
 ```
 
----
+### Gateway Responsibilities (from specs)
+- **Authentication**: validate JWT per the security scheme in OpenAPI spec.
+- **Rate limiting**: enforce limits per the rate limit contract.
+- **Request routing**: map paths to upstream services per API specs.
+- **Response aggregation**: combine responses from multiple specs (BFF pattern).
+- **Protocol translation**: GraphQL → REST, REST → gRPC per contract mappings.
 
-## Agent Anti-Patterns — Interrupt Immediately
+## Contract-Driven Data Modeling
 
-Interrupt the agent and reset to SDD protocol when you observe these:
+- Start from the **data contracts** (JSON Schema / TypeScript interfaces) defined in specs.
+- Map each schema to a database table/collection — the spec IS the source of truth.
+- Normalize for writes, denormalize for reads (when performance specs require it).
+- Choose the right database for the workload based on contract shapes:
+  - **Relational** (PostgreSQL, MySQL): structured schemas, complex query contracts, ACID.
+  - **Document** (MongoDB, Firestore): flexible schemas, nested data contracts.
+  - **Key-Value** (Redis, DynamoDB): simple lookup contracts, high-throughput.
+  - **Graph** (Neo4j): relationship-heavy contracts.
+- Plan for data migrations from day one. Schema evolution must maintain contract compatibility.
 
-| Anti-Pattern | Signal | Correction |
-|---|---|---|
-| Jumping to code | Agent writes `src/` files before `specs/` exist | "Stop. Write the spec first." |
-| Hallucinated contracts | Agent invents an API endpoint not in the spec | "That endpoint is not in the spec. Reference @specs/api/" |
-| Silent spec changes | Agent modifies schema/OpenAPI without explaining | "Explain the spec change. Is it a breaking change? Does it need a version bump?" |
-| Wrong status code | Agent returns 200 where spec says 201 | "The spec says 201. Fix the implementation." |
-| Extra response fields | Agent adds undocumented fields to response | "Remove fields not in the spec or add them to the spec first." |
-| Spec bypass | Agent uses `as any` or casts to avoid type errors | "Fix the spec gap properly. No type casts." |
-| Vague progress | Agent says "done" without running gates | "Run the full gate check and report each gate result." |
-| All-at-once implementation | Agent implements everything in one shot | "Implement one vertical slice at a time. Show me after each layer." |
+## Contract-Driven API Design
 
----
+- API architecture is derived directly from the **OpenAPI / GraphQL / gRPC specs**.
+- Every endpoint in the spec maps to a route, controller, and service.
+- Shared spec components (`$ref`) map to shared middleware and utilities.
+- Error contracts define the error handling middleware.
+- Pagination, filtering, and sorting contracts define query parameter handling.
+- Versioning strategy is defined in the spec (`/api/v1/`).
 
-## Multi-Agent Patterns
+## State Management (Driven by Contracts)
 
-For large features, split work across specialized agents:
+- Identify what state lives where based on the data contracts:
+  - Server state: entities defined in data schemas.
+  - Client state: UI component contracts and prop types.
+  - URL state: query parameters defined in API specs.
+  - Cache state: derived from response contracts and cache-control specs.
+- Minimize client-side state. Derive what you can from server contracts.
+- Use optimistic updates for responsive UIs with server contract reconciliation.
+
+## Security Architecture (Driven by Security Specs)
+
+- Authentication strategy defined in the API spec's security schemes.
+- Authorization model derived from endpoint-level security requirements in the spec.
+- Trust boundaries mapped from the contract boundaries between services.
+- Secrets management, encryption specs defined as non-functional requirements.
+
+## Scalability (Driven by Performance Specs)
+
+- Performance SLOs from specs drive scaling decisions (p50/p95/p99 latency, throughput).
+- Identify bottlenecks by analyzing contract call patterns and data flow.
+- Use stateless services where contracts allow (easier to scale).
+- Plan caching layers based on response contract cache-control headers.
+- Async processing for contracts with high latency tolerance (queues, background jobs).
+
+## Cross-Cutting Concerns (Defined in Shared Specs)
+
+Plan these upfront as shared spec components:
+- **Error envelope**: standard error response contract used by all endpoints.
+- **Pagination**: shared pagination contract (`page`, `limit`, `total`, `next`).
+- **Logging**: structured log format spec with correlation IDs (see `core-observability` rule).
+- **Health checks**: health endpoint contract (`/health`, `/ready`).
+- **Rate limiting**: rate limit headers contract (`X-RateLimit-*`).
+- **Auth headers**: authentication header contract (`Authorization: Bearer <token>`).
+
+## From Specs to Architecture Diagram
 
 ```
-Agent 1 — Spec Writer
-  Input: requirements.md + discovery answers
-  Output: specs/schemas/, specs/api/, specs/features/ (all status: draft)
-  Boundary: does not write implementation code
-
-Agent 2 — Spec Reviewer
-  Input: draft specs from Agent 1
-  Output: review comments + approved specs (status: approved)
-  Boundary: reviews only, no implementation
-
-Agent 3 — Conformance Test Writer
-  Input: approved specs
-  Output: test/conformance/*.test.ts (all failing — no implementation yet)
-  Boundary: writes tests against spec contracts only
-
-Agent 4 — Implementer
-  Input: approved specs + failing conformance tests
-  Output: implementation code that makes conformance tests pass
-  Boundary: cannot change specs — raises a spec gap if needed
-
-Agent 5 — Validator
-  Input: implemented code + all specs
-  Output: gate check report + spec status promotions
-  Boundary: promotes spec status, does not fix code
+specs/api/openapi.yaml     → Routes, Controllers, Middleware
+specs/api/schema.graphql   → Resolvers, DataLoaders, Subscriptions
+specs/api/service.proto    → gRPC Services, Message Handlers
+specs/schemas/*.json       → Database Schema, ORM Models, Validation
+specs/contracts/*.pact     → Integration Layer, External Service Clients
+specs/features/*.feature   → Use Cases, Business Logic Services
+specs/ui/*.props.ts        → Component Tree, State Management
+specs/slos/*.yaml          → Monitoring, Alerting, Dashboards
+specs/decisions/*.md       → ADRs, Architecture Documentation
 ```
 
 ---
