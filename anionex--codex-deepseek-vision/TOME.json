@@ -1,0 +1,44 @@
+{
+  "name": "codex-deepseek-vision",
+  "owner": "Anionex",
+  "repo": "codex-deepseek-vision",
+  "description": "\u4e00\u4e2a\u53ef\u4ee5\u8ba9\u50cfdeepseek-v4\u8fd9\u6837\u7684\u7eaf\u6587\u672c\u6a21\u578b, \u5728codex\u4e2d\u65e0\u969c\u788d\u8c03\u7528\u5185\u7f6e\u770b\u56fe\u5de5\u5177(view_image)\u7684\u65b9\u6848",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Anionex/codex-deepseek-vision",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-07T04:53:10Z"
+}
