@@ -1,0 +1,9 @@
+{
+  "name": "packetthrower--zorite",
+  "displayName": "zorite",
+  "description": "Local-first, Logseq-style daily journal. Rust + GPUI + SQLite, with a custom gpui-markdown renderer and PDF viewer, custom gpui-whiteboard, (clickable wiki-links, tags, slash menu).",
+  "version": "1.0.0",
+  "author": "packetThrower",
+  "homepage": "https://github.com/packetThrower/zorite",
+  "skills": []
+}
