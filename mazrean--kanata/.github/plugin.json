@@ -1,0 +1,9 @@
+{
+  "name": "mazrean--kanata",
+  "displayName": "kanata",
+  "description": "Real Kubernetes on your Mac, without an always-on VM.",
+  "version": "1.0.0",
+  "author": "mazrean",
+  "homepage": "https://github.com/mazrean/kanata",
+  "skills": []
+}
