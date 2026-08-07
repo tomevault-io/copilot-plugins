@@ -4,7 +4,7 @@
   "repo": "token-sprite",
   "description": "\ud83c\udf31 \u4e00\u53ea\u517b\u5728 macOS \u684c\u9762\u4e0a\u7684\u5c0f\u7cbe\u7075\uff0c\u7528\u4f60\u672c\u673a Claude Code + Codex \u7684\u771f\u5b9e token \u7528\u91cf\u81ea\u52a8\u517b\u5927\u3002npm install && npm start \u5373\u53ef\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shiyubao78/token-sprite",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T02:34:54Z"
+  "distributed_at": "2026-08-07T11:30:21Z"
 }
