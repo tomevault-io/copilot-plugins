@@ -1,0 +1,9 @@
+{
+  "name": "anivar--decern",
+  "displayName": "decern",
+  "description": "Deterministic authorization + tamper-evident audit for AI agents, humans, and workloads \u2014 one principal type, safety invariants machine-checked by an SMT solver (cvc5), every decision independently ve",
+  "version": "1.0.0",
+  "author": "anivar",
+  "homepage": "https://github.com/anivar/decern",
+  "skills": []
+}
