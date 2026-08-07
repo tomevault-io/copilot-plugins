@@ -1,0 +1,9 @@
+{
+  "name": "emircbngl--blender-optics-simulator",
+  "displayName": "blender-optics-simulator",
+  "description": "Blender add-on to design, simulate, align & render optical setups \u2014 live beam tracing, kinematic-mount auto-alignment, polarization (Jones/Stokes), interference fringes, Gaussian beams, wavelength opt",
+  "version": "1.0.0",
+  "author": "emircbngl",
+  "homepage": "https://github.com/emircbngl/blender-optics-simulator",
+  "skills": []
+}
