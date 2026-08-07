@@ -7,11 +7,11 @@ A skill for claude/codex to take source code and implement a clean-room of agent
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [whit3rabbit/clean-room-skill](https://github.com/whit3rabbit/clean-room-skill).
+Original source: `AGENTS.md` in [whit3rabbit/clean-room-skill](https://github.com/whit3rabbit/clean-room-skill).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
