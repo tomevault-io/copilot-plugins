@@ -1,0 +1,9 @@
+{
+  "name": "adsfaaron--nexflow",
+  "displayName": "NexFlow",
+  "description": "NexFlow \u2014 Open-source Android automation app. Create triggers & actions like iOS Shortcuts, import MacroDroid scripts, and share flows with the community. Built with Kotlin, Jetpack Compose & Material",
+  "version": "1.0.0",
+  "author": "ADSFAaron",
+  "homepage": "https://github.com/ADSFAaron/NexFlow",
+  "skills": []
+}
