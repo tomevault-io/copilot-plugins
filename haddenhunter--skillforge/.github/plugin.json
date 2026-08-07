@@ -1,0 +1,9 @@
+{
+  "name": "haddenhunter--skillforge",
+  "displayName": "SkillForge",
+  "description": "\u7ed9 AI Coding Agent\uff08Claude Code / Cursor / Codex / Gemini CLI\uff09\u7528\u7684 **\u6280\u80fd\u7248 npm** \u2014\u2014 \u672c\u5730\u4f18\u5148\u3001\u6a21\u578b\u65e0\u5173\u3001MCP \u539f\u751f\u3002  ",
+  "version": "1.0.0",
+  "author": "HaddenHunter",
+  "homepage": "https://github.com/HaddenHunter/SkillForge",
+  "skills": []
+}
