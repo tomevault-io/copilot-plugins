@@ -1,0 +1,9 @@
+{
+  "name": "cverinc--sheersweep",
+  "displayName": "sheersweep",
+  "description": "The Mac cleaner you can read \u2014 open source, dry-run first, never touches your real files, sweeps every account.",
+  "version": "1.0.0",
+  "author": "CVERInc",
+  "homepage": "https://github.com/CVERInc/sheersweep",
+  "skills": []
+}
