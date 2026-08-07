@@ -1,9 +1,9 @@
-## backend-layering
+## database-migrations
 
-> Backend architecture conventions for controllers, domains, and repositories
+> How to create and structure Knex database migrations in the backend
 
 
-**Read `backend/docs/backend-layering.md` before doing anything — it contains all patterns, conventions, and examples for this rule.**
+**Read `backend/docs/database-migrations.md` before doing anything — it contains all patterns, conventions, and examples for this rule.**
 
 ---
 > Source: [mdemou/ninjassets](https://github.com/mdemou/ninjassets) — distributed by [TomeVault](https://tomevault.io).
