@@ -1,0 +1,9 @@
+{
+  "name": "angaziz--beacon",
+  "displayName": "beacon",
+  "description": "A dark and futuristic companion on a 2.16\" AMOLED touch device \u2014 built on the Waveshare ESP32-S3-Touch-AMOLED-2.16. It sits next to your keyboard and, at a glance, shows your Claude Code / Codex usage",
+  "version": "1.0.0",
+  "author": "angaziz",
+  "homepage": "https://github.com/angaziz/beacon",
+  "skills": []
+}
