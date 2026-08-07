@@ -7,11 +7,11 @@ Cloudflare Warp endpoint+IP scanner — scans Cloudflare Warp endpoints using xr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [QMahyar/Cloudflare-Scanner](https://github.com/QMahyar/Cloudflare-Scanner).
+Original source: `AGENTS.md` in [QMahyar/Cloudflare-Scanner](https://github.com/QMahyar/Cloudflare-Scanner).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
