@@ -1,0 +1,9 @@
+{
+  "name": "lihor-hub--news-dashboard",
+  "displayName": "news-dashboard",
+  "description": "Self-hosted technical news inbox for curated feeds, article triage, source health, search, briefings, and saved/read history.",
+  "version": "1.0.0",
+  "author": "lihor-hub",
+  "homepage": "https://github.com/lihor-hub/news-dashboard",
+  "skills": []
+}
