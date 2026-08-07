@@ -4,7 +4,7 @@
   "repo": "xharness",
   "description": "\ud83e\udd1d \u88c5\u5728\u4f60\u7535\u8111\u4e0a\u7684 AI \u7f16\u7a0b\u642d\u6863\uff08macOS GUI + CLI\uff09\uff1a\u628a\u9879\u76ee\u6587\u4ef6\u5939\u4e22\u7ed9\u5b83\uff0c\u7528\u804a\u5929\u5e03\u7f6e\u4efb\u52a1\u2014\u2014\u81ea\u52a8\u8bfb\u4ee3\u7801\u3001\u6539\u4ee3\u7801\u3001\u8dd1\u547d\u4ee4\u9a8c\u8bc1\uff0c\u5168\u7a0b\u53ef\u89c1\u3002\u652f\u6301 DeepSeek / Kimi / \u4efb\u610f Anthropic \u517c\u5bb9\u6a21\u578b\uff1b\u622a\u56fe\u7c98\u8d34\u770b\u56fe\u5e72\u6d3b\uff1b\u6280\u80fd\u7cfb\u7edf\uff1b\u6570\u636e\u5168\u672c\u5730\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/linearuncle/xharness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T00:02:00Z"
+  "distributed_at": "2026-08-07T08:44:55Z"
 }
