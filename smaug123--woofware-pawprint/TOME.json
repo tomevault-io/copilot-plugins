@@ -4,7 +4,7 @@
   "repo": "WoofWare.PawPrint",
   "description": "An *extremely WIP* implementation of a .NET runtime.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Smaug123/WoofWare.PawPrint",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T02:16:51Z"
+  "distributed_at": "2026-08-07T11:26:46Z"
 }
