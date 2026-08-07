@@ -7,11 +7,11 @@ Path of Exile MCP Suite
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [charleslucas/poe_mcp_suite](https://github.com/charleslucas/poe_mcp_suite).
+Original source: `AGENTS.md` in [charleslucas/poe_mcp_suite](https://github.com/charleslucas/poe_mcp_suite).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
