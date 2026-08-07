@@ -1,0 +1,9 @@
+{
+  "name": "ccf--agentcairn",
+  "displayName": "agentcairn",
+  "description": "Long-term, cross-project memory for AI coding agents. Your own Obsidian vault as the source of truth. Daemonless and without opaque databases, your memory belongs to you.",
+  "version": "1.0.0",
+  "author": "ccf",
+  "homepage": "https://github.com/ccf/agentcairn",
+  "skills": []
+}
