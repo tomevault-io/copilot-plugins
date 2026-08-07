@@ -1,0 +1,9 @@
+{
+  "name": "nantian-gw--gateway",
+  "displayName": "gateway",
+  "description": "Nantian Gateway \u2014 Kubernetes Gateway API implementation with AI proxy, WASM plugin system, split control plane (Go) and data plane (Rust)",
+  "version": "1.0.0",
+  "author": "nantian-gw",
+  "homepage": "https://github.com/nantian-gw/gateway",
+  "skills": []
+}
