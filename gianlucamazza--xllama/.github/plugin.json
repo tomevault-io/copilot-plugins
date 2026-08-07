@@ -1,0 +1,9 @@
+{
+  "name": "gianlucamazza--xllama",
+  "displayName": "xllama",
+  "description": "Local LLM chat and Stable Diffusion on Xbox Series S|X (UWP Dev Mode) \u2014 llama.cpp (GGUF) + ONNX Runtime GenAI, CPU and DirectML.",
+  "version": "1.0.0",
+  "author": "gianlucamazza",
+  "homepage": "https://github.com/gianlucamazza/xllama",
+  "skills": []
+}
