@@ -7,11 +7,11 @@ Pilot coding agents (Claude Code, Codex) and monitor their telemetry from one co
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [luojiahai/code-by-wire](https://github.com/luojiahai/code-by-wire).
+Original source: `AGENTS.md` in [luojiahai/code-by-wire](https://github.com/luojiahai/code-by-wire).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
