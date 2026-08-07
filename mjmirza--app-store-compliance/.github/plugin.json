@@ -1,0 +1,9 @@
+{
+  "name": "mjmirza--app-store-compliance",
+  "displayName": "app-store-compliance",
+  "description": "Enterprise App Store and Google Play rejection compliance playbook: rejection maps, mistake taxonomy, 2026 enforcement and legal layer, a tested pre-submission guard, and an agent audit skill.",
+  "version": "1.0.0",
+  "author": "mjmirza",
+  "homepage": "https://github.com/mjmirza/app-store-compliance",
+  "skills": []
+}
