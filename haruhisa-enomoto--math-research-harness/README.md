@@ -7,11 +7,11 @@ An agent-ready repository template for mathematical research: scope, literature,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [haruhisa-enomoto/math-research-harness](https://github.com/haruhisa-enomoto/math-research-harness).
+Original source: `AGENTS.md` in [haruhisa-enomoto/math-research-harness](https://github.com/haruhisa-enomoto/math-research-harness).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
