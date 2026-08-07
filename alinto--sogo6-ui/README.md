@@ -7,13 +7,13 @@ SOGo 6 UI is the Next.js web frontend of SOGo 6. SOGo 6 is a web application for
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Alinto/SOGo6-UI](https://github.com/Alinto/SOGo6-UI).
+Original source: `AGENTS.md` in [Alinto/SOGo6-UI](https://github.com/Alinto/SOGo6-UI).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
