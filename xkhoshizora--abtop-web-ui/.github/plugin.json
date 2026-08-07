@@ -1,0 +1,9 @@
+{
+  "name": "xkhoshizora--abtop-web-ui",
+  "displayName": "abtop-web-ui",
+  "description": "Local-first web UI for the abtop AI-agent monitor \u2014 watch every Claude Code, Codex & OpenCode session on your machine, live in your browser.",
+  "version": "1.0.0",
+  "author": "XKHoshizora",
+  "homepage": "https://github.com/XKHoshizora/abtop-web-ui",
+  "skills": []
+}
