@@ -7,11 +7,11 @@ A slim, local-LLM-first AI coding assistant. TUI, Web UI, and desktop app. Runs 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [bobbyjohnstx/tinycode](https://github.com/bobbyjohnstx/tinycode).
+Original source: `AGENTS.md` in [bobbyjohnstx/tinycode](https://github.com/bobbyjohnstx/tinycode).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
