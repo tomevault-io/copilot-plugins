@@ -265844,6 +265844,11 @@
       "description": "The home for the Knecht. Let agents boot, reproduce and test changes. "
     },
     {
+      "name": "appllama--top-welcome-screens",
+      "source": "./appllama--top-welcome-screens",
+      "description": "How top iOS apps say hello | 10 animated welcome screens inspired by top-earning apps. Rebuilt in React Native + Expo."
+    },
+    {
       "name": "lucianaib0318--geomind",
       "source": "./lucianaib0318--geomind",
       "description": "\ud83c\udf0d GeoMind\uff1a\u57fa\u4e8e\u98de\u4e66 CLI + \u817e\u8baf\u4f4d\u7f6e\u7684\u79d1\u7814\u4e0e\u4ea7\u4e1a\u5730\u7406\u60c5\u62a5\u53ef\u89c6\u5316 Skill"
