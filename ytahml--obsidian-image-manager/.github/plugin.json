@@ -1,0 +1,9 @@
+{
+  "name": "ytahml--obsidian-image-manager",
+  "displayName": "obsidian-image-manager",
+  "description": "Obsidian image management plugin \u2014 supports image compression, image hosting upload, reference format conversion, image browser, and more.",
+  "version": "1.0.0",
+  "author": "ytahml",
+  "homepage": "https://github.com/ytahml/obsidian-image-manager",
+  "skills": []
+}
