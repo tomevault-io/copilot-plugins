@@ -1,0 +1,9 @@
+{
+  "name": "sarv--sarvterminal",
+  "displayName": "SarvTerminal",
+  "description": "Fast, open-source macOS terminal + SSH connection manager \u2014 saved-host vault, SFTP/SCP, SSH keys, tunnels, Docker/K8s attach, AI command assist, and zero-knowledge settings sync.",
+  "version": "1.0.0",
+  "author": "Sarv",
+  "homepage": "https://github.com/Sarv/SarvTerminal",
+  "skills": []
+}
