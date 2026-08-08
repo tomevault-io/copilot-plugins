@@ -4,7 +4,7 @@
   "repo": "akm",
   "description": "AKM \u2014 universal Agent Knowledge Management. A tool-agnostic Markdown knowledge OS for AI agents: memory / brain / vault over seven layers, with a Learn Back loop. Works with Claude Code, Codex, OpenClaw, and any agent.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DECK6/akm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T00:49:03Z"
+  "distributed_at": "2026-08-08T00:49:40Z"
 }
