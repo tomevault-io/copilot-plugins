@@ -1,0 +1,9 @@
+{
+  "name": "lmilojevicc--seshagy",
+  "displayName": "seshagy",
+  "description": "Agent-aware session manager for tmux & herdr \u2014 discover projects, launch sessions, and track your AI agents work.",
+  "version": "1.0.0",
+  "author": "lmilojevicc",
+  "homepage": "https://github.com/lmilojevicc/seshagy",
+  "skills": []
+}
