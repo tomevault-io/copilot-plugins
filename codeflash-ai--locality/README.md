@@ -7,11 +7,11 @@ Locality: agent-local file system access to systems of record for safe local edi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [codeflash-ai/locality](https://github.com/codeflash-ai/locality).
+Original source: `AGENTS.md` in [codeflash-ai/locality](https://github.com/codeflash-ai/locality).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
