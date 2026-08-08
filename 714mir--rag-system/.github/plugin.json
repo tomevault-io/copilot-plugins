@@ -1,0 +1,9 @@
+{
+  "name": "714mir--rag-system",
+  "displayName": "rag-system",
+  "description": "End-to-end custom RAG pipeline.",
+  "version": "1.0.0",
+  "author": "714mir",
+  "homepage": "https://github.com/714mir/rag-system",
+  "skills": []
+}
