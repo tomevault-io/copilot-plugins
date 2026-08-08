@@ -4,7 +4,7 @@
   "repo": "Lineage",
   "description": "Evolve LLM prompts with a genetic algorithm: score candidates on your test set across real models, breed the winners, keep the champion that survives a holdout. CLI + Electron desktop app.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/darktw1nk/Lineage",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T10:31:29Z"
+  "distributed_at": "2026-08-08T10:32:06Z"
 }
