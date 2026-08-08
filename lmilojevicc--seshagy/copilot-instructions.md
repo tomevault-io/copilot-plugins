@@ -1,0 +1,94 @@
+## seshagy
+
+> This is a Go CLI/TUI project for `seshagy`, an agent-aware terminal dashboard that supports both tmux and [herdr](https://herdr.dev) as multiplexer backends. The command entry point is `cmd/seshagy/`. Core packages live under `internal/`: `config` for TOML config, `sessionmgr` for the `Multiplexer` backend abstraction (tmux/herdr/noop), tmux sessions and agent pane metadata + detection engine, `integrations` for hook/plugin installs, and `tui` for Bubble Tea UI state/rendering. Tests sit beside code as `*_test.go` files. The active backend is auto-detected from the environment (`$HERDR_ENV=1` → herdr wins; else `$TMUX` → tmux; else noop).
+
+# Repository Guidelines
+
+## Project Structure & Module Organization
+
+This is a Go CLI/TUI project for `seshagy`, an agent-aware terminal dashboard that supports both tmux and [herdr](https://herdr.dev) as multiplexer backends. The command entry point is `cmd/seshagy/`. Core packages live under `internal/`: `config` for TOML config, `sessionmgr` for the `Multiplexer` backend abstraction (tmux/herdr/noop), tmux sessions and agent pane metadata + detection engine, `integrations` for hook/plugin installs, and `tui` for Bubble Tea UI state/rendering. Tests sit beside code as `*_test.go` files. The active backend is auto-detected from the environment (`$HERDR_ENV=1` → herdr wins; else `$TMUX` → tmux; else noop).
+
+### Agent detection subsystem
+
+The agent-state-detection subsystem lives in `internal/sessionmgr/`:
+
+- `agents.go` — pane scan format (`@seshagy_agent_*` fields), `ParseAgents`, `detectAgent`/`detectAgentName` (process-name table + arch-suffix + descendant walk for node-based agents), `NormalizeAgentState`, `isStateFresh`.
+- `agents_report.go` — `ReportAgent`/`ReleaseAgent` (seq strict-`>` + per-pane flock + tombstone release), `MarkAgentVisited`/`MarkActiveDoneAgentsIdle` (done→idle-on-visit), `ResolvePaneByCwd` (cwd→pane unique-match for the OpenCode plugin).
+- `agents_capture.go` — `CaptureAgentPane`, `ApplyManifestFallback` (the capture-pane screen-rule backstop; Tier A/B authority gate via `integrations.LifecycleAuthorityFor`).
+- `manifest.go` — manifest TOML schema, compiler, classifier (`detectManifest`), regex normalization, gate matcher. The manifest classifier itself emits only idle/working/blocked/done; the broader `AgentState` enum adds `unknown` for herdr's `agent_status` wire value (undetected).
+- `mux.go` — `Multiplexer` interface, `Terms` (terminology), `BackendKind`, `Detect`/`DetectFromEnv` (env-based backend selection: herdr wins over tmux).
+- `tmux_backend.go` / `herdr_backend.go` / `noop_backend.go` — backend implementations. Under herdr, agent-state writes (`ReportAgent`/`ReleaseAgent`/`MarkAgentVisited`/`MarkActiveDoneAgentsIdle`) and the capture-pane manifest backstop are no-ops — herdr owns detection.
+- `herdr_parse.go` — JSON parsers for herdr CLI output (workspace/pane/agent payloads); ids are treated as opaque strings.
+- `completion.go` — read-only one-call pane/session snapshots used only by shell completion; never route it through full source/agent loading.
+- `manifest_regions.go` — region slice helpers (whole_recent, osc_title, bottom_lines(N), bottom_non_empty_lines(N), after_last_prompt_marker, after_last_horizontal_rule, prompt_box_body, osc_progress).
+- `manifest_update.go` — launch-time async fetch of manifests from the herdr public catalog; local-override > cached-remote > bundled precedence; version-guarded; HTTPS-only.
+- `proctree.go` — process-tree descendant walk (node-agent discovery).
+- `flock_{unix,windows}.go` — per-pane flock via `x/sys/unix.Flock` (cgo-free).
+
+Bundled manifests: `internal/sessionmgr/manifests/*.toml` (offline fallback; hot-updated from herdr.dev at runtime).
+
+Integrations live in `internal/integrations/`:
+
+- `install.go` — registry (`Available`: pi, codex, claude, droid, opencode), `Install`/`Uninstall`, shell-hook JSON merge (idempotent, preserves user + herdr entries), `LifecycleAuthority` per integration.
+- `assets/seshagy-agent-state.sh` — shared TMUX-gated best-effort hook script (codex/claude/droid).
+- `assets/seshagy-agent-state.ts` — Pi TypeScript extension.
+- `assets/seshagy-opencode-plugin.ts` — OpenCode TS plugin (session.idle/permission.ask/tool.execute).
+
+## Build, Test, and Development Commands
+
+- `mise run verify`: runs CI checks (`fmt:check`, `lint`, `vet`, `test`, `build`).
+- `mise run fmt`: formats Go and YAML files using the configured formatters.
+- `mise run vuln`: runs `govulncheck ./...`; GitHub CI runs this as a separate gate.
+- `mise run release:check`: validates `.goreleaser.yml` without publishing.
+- `make build`: builds the local `./seshagy` binary from `./cmd/seshagy`.
+- `go run ./cmd/seshagy`: runs the TUI from the checkout.
+
+Go 1.26 is in `go.mod`. Runtime behavior expects a multiplexer (`tmux` or `herdr`); optional tools include `zoxide`, `fd`, `yazi`, and `eza`.
+
+## Coding Style & Naming Conventions
+
+Use `mise run fmt` before submitting changes. Formatting uses `golangci-lint fmt`, `gofumpt`, `goimports`, `gci`, `golines`, and `yamlfmt`. Prefer small package-local helpers and existing domain terms: sessions, panes, agents, integrations, sources, and launch state. Export identifiers only when used across packages or by command-facing code.
+
+## CLI output
+
+All user-facing stdout/stderr output from `cmd/seshagy` and `internal/` MUST go through the `internal/cli` package (`cli.Error`/`Warn`/`Note` → stderr, `cli.Success`/`Info` → stdout, `cli.Print`/`Println`/`Printf` for verbatim machine-readable output like `--json`/`--version`/config paths/TOML/`--get-*` list lines). It applies cargo/rustc-style severity coloring (only the prefix word is colored) and auto-disables color for non-TTY streams or `NO_COLOR` (`CLICOLOR_FORCE` overrides). Never call `fmt.Print`/`Printf`/`Println` (implicit stdout) or `fmt.Fprint*` to `os.Stdout`/`os.Stderr` directly — the golangci-lint `forbidigo` rule in `.golangci.yml` fails CI on both, and the pi-lens ast-grep rule `no-raw-cli-output` flags them in the editor too. Formatting into a non-CLI buffer (`strings.Builder`) with `fmt.Fprintf` is allowed but needs a `//nolint:forbidigo` comment (it writes to a buffer, not a stream); `fmt.Sprintf` needs no exemption. The TUI (`internal/tui`) is out of scope — it renders via its own Bubble Tea/lipgloss theme.
+
+## Structured diagnostics
+
+Diagnostic logging is owned by `internal/logging` and is file-only JSONL; never attach `slog` to stdout/stderr or call `slog.SetDefault` (it mutates the standard `log` package). New events must be registered in the static safety handler and emitted through `logging.LogAttrs` with one operation owner to avoid duplicates. Allowed fields are stable enums/categories, counts, booleans, durations, generations, and raw multiplexer IDs at debug level only. Never log raw errors, user-controlled names or messages, paths/cwd, commands/argv, environment/config values, pane captures/OSC content, prompts/search/key input, subprocess output, URLs, or agent-supplied session IDs. Use `logging.ClassifyError` and add privacy-sentinel tests for new call sites. Logging `off` must perform no log filesystem, random-ID, lock, or retention work. Human `diagnostics` output may show local paths; `diagnostics --json` must keep expanded paths redacted.
+
+## Testing Guidelines
+
+Add focused table-driven tests near the package being changed. Use names like `TestParseAgentsSkipsNonAgentsAndFormatsLocation` that describe behavior. `mise run verify` is the default check; use `mise run test:focused ./internal/sessionmgr ParseAgents` for narrow loops. Some `sessionmgr` tests create temporary tmux sessions and skip when `tmux` is unavailable.
+
+## Agent-state invariants
+
+- **Namespace:** only `@seshagy_agent_*` under tmux. Never `@agent_*` — that namespace belongs to the separate `gentle-agent-state` / `tmux-agent-state` project, NOT to herdr. (herdr exposes agent state via its own CLI/socket API and the `agent_status` field, not tmux user options.) Under herdr (`HERDR_ENV=1`), seshagy writes NO agent state at all — herdr owns detection; the `@seshagy_agent_*` writes, capture-pane manifest backstop, and state-reporting hooks are all tmux-only and suppress under herdr.
+- **Stale-can't-resurrect:** every state write goes through `@seshagy_agent_seq` strict-`>` + flock + tombstone release. `MarkAgentVisited` does NOT advance the seq.
+- **No pane scraping except the capture-pane manifest backstop** (the `manifest_fallback` sanctioned exception, default-on, hot-updated from herdr).
+- **Authority model:** lifecycle agents (pi/opencode) suppress manifest when hooks are fresh; partial-hook agents (codex/claude/droid) and hook-less agents always run the manifest classifier. Manifest overwrites state only on a positive rule match; no-match preserves the existing state.
+- **Done is hook-only:** capture-only agents (cursor/agy/grok + hot-update-only agents like amp/cline/devin/gemini/hermes/kilo/kimi/kiro/qodercli) can show working/blocked/idle but NOT done — `done` requires a hook/plugin report because the screen cannot distinguish "turn finished" from "idle and waiting". This is inherent to screen-based detection.
+- **Release suppression:** after `ReleaseAgent` clears state, capture-pane manifest is suppressed for 10s (`@seshagy_agent_released_at`) to prevent visual resurrection of a just-released pane.
+- **Zero new go.mod deps if avoidable.** cgo-free. `BurntSushi/toml` is the only non-stdlib dep for manifests.
+
+## Shell completion invariants
+
+The operational parser remains authoritative; Cobra is a completion-only shadow
+tree pinned to v1.10.2. Any PR that changes a command, alias, flag, positional,
+fixed enum, or registry must update the shadow tree and focused completion/parity
+tests in the same PR. Generated endpoint/grouping patches are pinned and
+fail-closed; never add an executable `eval` path for command-line input.
+
+## Commit & Pull Request Guidelines
+
+All repository commits must follow Conventional Commits: `<type>[optional scope]: <description>`. Keep descriptions focused, imperative, and without trailing punctuation. Examples include `feat(tui): add ranked fuzzy search`, `fix(sessionmgr): prevent stale agent resurrection`, and `refactor(config): simplify validation`. Mark breaking changes with `!` before the colon.
+
+Changes are accepted through pull requests only. Pull requests should include a short problem/solution summary, `mise run verify` results, and screenshots or terminal captures for visible TUI changes. Call out any config, tmux, integration, or completion-parity behavior changes. Use only generic `Closes #NN` issue links.
+
+## CI/CD and Release Workflow
+
+GitHub Actions runs formatting, linting, vet, tests, vulnerability checks, and build through pinned `mise` tools. Releases are tag-driven: after `mise run verify`, `mise run vuln`, and `mise run release:check` pass on a clean tree, push a `v*` tag to run GoReleaser.
+
+---
+> Source: [lmilojevicc/seshagy](https://github.com/lmilojevicc/seshagy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-07 -->
