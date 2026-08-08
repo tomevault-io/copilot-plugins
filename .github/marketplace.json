@@ -423514,6 +423514,16 @@
       "description": "Send one prompt, watch up to three AI models answer it at the same time, vote for the best one."
     },
     {
+      "name": "leoxlin--smolpowers",
+      "source": "./leoxlin--smolpowers",
+      "description": "A lightweight, configurable SDD framework based on Superpowers and designed to compose with other skills."
+    },
+    {
+      "name": "diaozxin007--reading-claude-code",
+      "source": "./diaozxin007--reading-claude-code",
+      "description": "reading-claude-code"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
