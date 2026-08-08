@@ -4,7 +4,7 @@
   "repo": "cyancat",
   "description": "\u6570\u636e\u5e93\u7ba1\u7406\u5de5\u5177",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cyan-daimao/cyancat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T03:05:25Z"
+  "distributed_at": "2026-08-08T03:10:46Z"
 }
