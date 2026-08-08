@@ -395604,6 +395604,16 @@
       "description": "This repository provides the user interface for the GPT-RAG solution, enabling seamless interaction with the Orchestrator backend. Built with Chainlit, it supports customization, theming, and ensures "
     },
     {
+      "name": "codejunkie99--autoharness",
+      "source": "./codejunkie99--autoharness",
+      "description": "macOS coding-agent control center: one objective, routed to direct execution, a bounded loop, a swarm, or a dynamic DAG. Local only, no external writes."
+    },
+    {
+      "name": "taotao7--framebaker",
+      "source": "./taotao7--framebaker",
+      "description": "Pixel-art frame animation studio: multi-source import, built-in rembg matting, PixiJS onion-skin editor, spritesheet export. Bun + Elysia + React monorepo."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -423432,6 +423442,16 @@
       "name": "sergiiob--intel-arc-pro-b70-inference-cookbook",
       "source": "./sergiiob--intel-arc-pro-b70-inference-cookbook",
       "description": "Open recipes, engine patches, and benchmark harnesses for LLM inference on Intel Arc Pro B60/B70 (Battlemage, Xe2). MoE 35B at 126 t/s decode / 7.5K t/s prefill single-stream \u2014 vLLM XPU MTP unlocked."
+    },
+    {
+      "name": "rocm301--mrrss",
+      "source": "./rocm301--mrrss",
+      "description": "Modified fork of MrRSS with custom local translation and AI reliability fixes"
+    },
+    {
+      "name": "rocm301--mrrss",
+      "source": "./rocm301--mrrss",
+      "description": "Modified fork of MrRSS with custom local translation and AI reliability fixes"
     },
     {
       "name": "cheerhuan--save-your-token",
