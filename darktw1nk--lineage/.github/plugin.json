@@ -1,0 +1,9 @@
+{
+  "name": "darktw1nk--lineage",
+  "displayName": "Lineage",
+  "description": "Evolve LLM prompts with a genetic algorithm: score candidates on your test set across real models, breed the winners, keep the champion that survives a holdout. CLI + Electron desktop app.",
+  "version": "1.0.0",
+  "author": "darktw1nk",
+  "homepage": "https://github.com/darktw1nk/Lineage",
+  "skills": []
+}
