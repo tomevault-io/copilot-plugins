@@ -7,11 +7,11 @@ Modified fork of MrRSS with custom local translation and AI reliability fixes
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [RocM301/MrRSS](https://github.com/RocM301/MrRSS).
+Original source: `AGENTS.md` in [RocM301/MrRSS](https://github.com/RocM301/MrRSS).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
