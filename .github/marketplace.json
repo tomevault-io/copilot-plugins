@@ -395629,6 +395629,16 @@
       "description": "Pixel-art frame animation studio: multi-source import, built-in rembg matting, PixiJS onion-skin editor, spritesheet export. Bun + Elysia + React monorepo."
     },
     {
+      "name": "open-video-ai--open-video",
+      "source": "./open-video-ai--open-video",
+      "description": "Open-source video generation \u2014 Ollama for MiniMax H3. Local director on ComfyUI."
+    },
+    {
+      "name": "iamvinny--weather-app",
+      "source": "./iamvinny--weather-app",
+      "description": "A low effort reverse enginered version of the iOS Weather App."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -423482,6 +423492,26 @@
       "name": "darktw1nk--lineage",
       "source": "./darktw1nk--lineage",
       "description": "Evolve LLM prompts with a genetic algorithm: score candidates on your test set across real models, breed the winners, keep the champion that survives a holdout. CLI + Electron desktop app."
+    },
+    {
+      "name": "nativesoil--handover",
+      "source": "./nativesoil--handover",
+      "description": "An open JSON format and local toolchain for carrying an AI assisted project's working state between agents, tools and model providers."
+    },
+    {
+      "name": "adrianhajdin--llm-arena",
+      "source": "./adrianhajdin--llm-arena",
+      "description": "Send one prompt, watch up to three AI models answer it at the same time, vote for the best one."
+    },
+    {
+      "name": "nativesoil--handover",
+      "source": "./nativesoil--handover",
+      "description": "An open JSON format and local toolchain for carrying an AI assisted project's working state between agents, tools and model providers."
+    },
+    {
+      "name": "adrianhajdin--llm-arena",
+      "source": "./adrianhajdin--llm-arena",
+      "description": "Send one prompt, watch up to three AI models answer it at the same time, vote for the best one."
     },
     {
       "name": "cheerhuan--save-your-token",
