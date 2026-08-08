@@ -1,0 +1,9 @@
+{
+  "name": "zakura-core--zakura",
+  "displayName": "zakura",
+  "description": "Zcash full node, built for scale.",
+  "version": "1.0.0",
+  "author": "zakura-core",
+  "homepage": "https://github.com/zakura-core/zakura",
+  "skills": []
+}
