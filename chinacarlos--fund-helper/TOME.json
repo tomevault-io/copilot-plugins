@@ -1,0 +1,44 @@
+{
+  "name": "fund-helper",
+  "owner": "ChinaCarlos",
+  "repo": "fund-helper",
+  "description": "\u517b\u57fa\u5b9d\u57fa\u91d1\u6536\u76ca\u76d1\u63a7\uff1aWeb / Chrome / VS Code / Desktop \u591a\u7aef\u6301\u4ed3\u9762\u677f\uff0c\u652f\u6301\u5f53\u65e5\u6536\u76ca\u3001\u901a\u77e5\u63a8\u9001\u4e0e Docker \u90e8\u7f72",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ChinaCarlos/fund-helper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-08T00:41:27Z"
+}
