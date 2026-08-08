@@ -1,0 +1,9 @@
+{
+  "name": "personaljarvis--personaljarvis",
+  "displayName": "PersonalJarvis",
+  "description": "Self-hosted voice assistant. Speak to your computer: it answers aloud, types your dictation, and operates your apps.",
+  "version": "1.0.0",
+  "author": "PersonalJarvis",
+  "homepage": "https://github.com/PersonalJarvis/PersonalJarvis",
+  "skills": []
+}
