@@ -1,0 +1,9 @@
+{
+  "name": "jsungmin--vs-token-safer",
+  "displayName": "vs-token-safer",
+  "description": "Token-saving code search for AI coding agents \u2014 TypeScript, JavaScript & Python (zero setup), C#, C++, Go & 30+ more, via a language-server or tree-sitter index instead of grep. Local-only, no IDE. Cl",
+  "version": "1.0.0",
+  "author": "JSungMin",
+  "homepage": "https://github.com/JSungMin/vs-token-safer",
+  "skills": []
+}
