@@ -1,0 +1,54 @@
+## derive
+
+> Derive leans on a **deterministic gate** rather than on remembering conventions. The
+
+# Working in this repo (humans and agents)
+
+Derive leans on a **deterministic gate** rather than on remembering conventions. The
+rules that matter are machine-enforced, so a mistake fails the build instead of
+shipping. Before you call a change done:
+
+```bash
+pnpm verify        # exactly what CI's `check` job runs, in the same order
+```
+
+which is these three, and you can run them one at a time while iterating:
+
+```bash
+pnpm run ci        # biome + the design-token / frontend / test-id / dead-code checks
+pnpm typecheck     # tsgo across the workspace
+pnpm test:coverage # vitest (embedded SQLite) + the per-package coverage ratchet
+```
+
+Run `pnpm verify` before you push, not a shorter approximation of it. `pnpm test`
+skips the coverage ratchet, so it can pass on a change that CI then fails.
+
+`check` is the big gate but not the only one: CI also runs a gitleaks secret scan,
+the Postgres and D1 store contracts against real engines, and the bundle and runner
+image builds. Those need services or a network, so they stay in CI — a green
+`pnpm verify` means the check job will pass, not that every job will. A test fixture
+that reads like a credential is the usual way the secret scan bites; mark it with an
+inline `gitleaks:allow` and say why.
+
+A green gate is the bar. Don't work around a guardrail — fix the code it points at,
+or use the rule's documented escape hatch (an inline comment such as `authz-exempt:`,
+`tokens-ignore`, `frontend-ignore`, or `testid-ignore`) only when the exception is
+genuinely correct, with a reason.
+
+The full list of what's enforced and why is in
+[CONTRIBUTING.md → Guardrails](CONTRIBUTING.md#guardrails-you-dont-have-to-remember-these--the-tooling-does).
+Highlights:
+
+- Every mutating route gates on auth; colors and text sizes come from the token system,
+  not hardcoded; no non-null assertions; storage keys and interactive-control test-ids are
+  centralized / required.
+- The backend reaches the database only through `ctx.meta` (the `MetaStore` port), never a
+  driver; server code logs through `log`, not `console`.
+
+When you add a capability that a future change could silently regress, prefer adding a
+guardrail (a Biome rule, a `scripts/check-*.mjs`, or a test) over a note in a doc: an
+agent can ignore an instruction or a review comment, but it cannot ignore a red build.
+
+---
+> Source: [derive-to/derive](https://github.com/derive-to/derive) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-07 -->
