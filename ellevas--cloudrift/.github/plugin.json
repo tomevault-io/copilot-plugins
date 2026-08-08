@@ -1,0 +1,9 @@
+{
+  "name": "ellevas--cloudrift",
+  "displayName": "cloudrift",
+  "description": "Cloudrift is an open-source AWS cost optimization CLI that discovers idle, orphaned and overprovisioned resources and estimates potential savings before you pay for them.",
+  "version": "1.0.0",
+  "author": "elleVas",
+  "homepage": "https://github.com/elleVas/cloudrift",
+  "skills": []
+}
