@@ -1,0 +1,44 @@
+{
+  "name": "vscode-universal-chat-provider",
+  "owner": "maxdewald",
+  "repo": "vscode-universal-chat-provider",
+  "description": "Claude, Codex, Antigravity & more in GitHub Copilot Chat. No API key, just OAuth.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/maxdewald/vscode-universal-chat-provider",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-08T02:54:13Z"
+}
