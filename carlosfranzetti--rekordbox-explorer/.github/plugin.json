@@ -1,0 +1,9 @@
+{
+  "name": "carlosfranzetti--rekordbox-explorer",
+  "displayName": "rekordbox-explorer",
+  "description": "A web-based viewer for Rekordbox USBs directly in your browser with zero upload time. No installation required.",
+  "version": "1.0.0",
+  "author": "CarlosFranzetti",
+  "homepage": "https://github.com/CarlosFranzetti/rekordbox-explorer",
+  "skills": []
+}
