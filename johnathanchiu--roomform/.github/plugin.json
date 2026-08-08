@@ -1,0 +1,9 @@
+{
+  "name": "johnathanchiu--roomform",
+  "displayName": "roomform",
+  "description": "converting indoor point cloud scans into structured data",
+  "version": "1.0.0",
+  "author": "johnathanchiu",
+  "homepage": "https://github.com/johnathanchiu/roomform",
+  "skills": []
+}
