@@ -1,0 +1,44 @@
+{
+  "name": "Kammel_ssh",
+  "owner": "Jhongdlp",
+  "repo": "Kammel_ssh",
+  "description": "SSH client for Android & Linux built for driving AI coding agents (Claude Code, Codex, Aider, Gemini CLI\u2026) from your phone: multi-session terminal that survives backgrounding, notifications when the agent needs you, SFTP explorer, code editor, git panel and a Docker/DB server console. Flutter, MIT.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Jhongdlp/Kammel_ssh",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-08T03:06:27Z"
+}
