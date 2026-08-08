@@ -4,7 +4,7 @@
   "repo": "DN7-Panel",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Digital-Network-7/DN7-Panel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T01:21:15Z"
+  "distributed_at": "2026-08-08T01:31:02Z"
 }
