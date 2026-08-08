@@ -1,0 +1,9 @@
+{
+  "name": "aisee-lab--aisee-plugin",
+  "displayName": "aisee-plugin",
+  "description": "AI software engineering toolkit for OpenSpec and Compound Engineering workflows.",
+  "version": "1.0.0",
+  "author": "AISEE-LAB",
+  "homepage": "https://github.com/AISEE-LAB/aisee-plugin",
+  "skills": []
+}
