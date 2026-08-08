@@ -1,0 +1,9 @@
+{
+  "name": "wuwahe--many-foot",
+  "displayName": "Many-Foot",
+  "description": "A multi vendor AI agent orchestration framework built on Java, supporting autonomous task execution in Docker sandboxes.",
+  "version": "1.0.0",
+  "author": "wuwahe",
+  "homepage": "https://github.com/wuwahe/Many-Foot",
+  "skills": []
+}
