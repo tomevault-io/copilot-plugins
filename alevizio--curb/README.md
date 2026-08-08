@@ -7,11 +7,11 @@ SF street-parking rules on a map — street sweeping, meters & permit zones, wit
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [alevizio/curb](https://github.com/alevizio/curb).
+Original source: `AGENTS.md` in [alevizio/curb](https://github.com/alevizio/curb).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
