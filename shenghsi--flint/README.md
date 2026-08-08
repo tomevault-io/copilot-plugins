@@ -7,11 +7,11 @@ Flint is a terminal-first fork of Zed built for developers who use tools such as
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [shenghsi/flint](https://github.com/shenghsi/flint).
+Original source: `AGENTS.md` in [shenghsi/flint](https://github.com/shenghsi/flint).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
