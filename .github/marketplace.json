@@ -280404,6 +280404,11 @@
       "description": "jamrah"
     },
     {
+      "name": "carlosfranzetti--rekordbox-explorer",
+      "source": "./carlosfranzetti--rekordbox-explorer",
+      "description": "A web-based viewer for Rekordbox USBs directly in your browser with zero upload time. No installation required."
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
