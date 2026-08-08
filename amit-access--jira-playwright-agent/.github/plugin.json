@@ -1,0 +1,9 @@
+{
+  "name": "amit-access--jira-playwright-agent",
+  "displayName": "jira-playwright-agent",
+  "description": "QA automation agent that reads Jira stories and generates Playwright tests",
+  "version": "1.0.0",
+  "author": "Amit-access",
+  "homepage": "https://github.com/Amit-access/jira-playwright-agent",
+  "skills": []
+}
