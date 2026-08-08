@@ -1,0 +1,44 @@
+{
+  "name": "Byakko-Writer",
+  "owner": "xiaofei114",
+  "repo": "Byakko-Writer",
+  "description": "ai\u8f85\u52a9\u957f\u7bc7\u5c0f\u8bf4\u5199\u4f5c\u684c\u9762app",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xiaofei114/Byakko-Writer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-08T03:18:41Z"
+}
