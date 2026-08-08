@@ -54009,6 +54009,11 @@
       "description": "apollo-client-integrations"
     },
     {
+      "name": "modiqo--cliare",
+      "source": "./modiqo--cliare",
+      "description": "CLI agent-readiness measurement, command-shape inference, and CI scorecards"
+    },
+    {
       "name": "gradio-app--daggr",
       "source": "./gradio-app--daggr",
       "description": "Chain apps and models to build robust AI workflows \ud83e\udd17"
@@ -119739,6 +119744,11 @@
       "description": "alfa"
     },
     {
+      "name": "stefanprodan--cctop",
+      "source": "./stefanprodan--cctop",
+      "description": "Live top-style monitor for Claude Code sessions"
+    },
+    {
       "name": "currycan--hatickets",
       "source": "./currycan--hatickets",
       "description": "\u5927\u9ea6\u7f51\u62a2\u7968\u81ea\u52a8\u5316 \u2014 Mobile(U2) / Desktop(Tauri+Rust) \u65b9\u6848"
@@ -127332,6 +127342,11 @@
       "name": "komorgiaogiao--firstcoder",
       "source": "./komorgiaogiao--firstcoder",
       "description": "FirstCoder is an open-source local coding agent that\u2019s useful enough to run, small enough to read end to end, and structured enough to learn from. If you\u2019re building your own agent, it\u2019s a practical r"
+    },
+    {
+      "name": "langgenius--mosoo",
+      "source": "./langgenius--mosoo",
+      "description": "Open-source, Cloudflare-native agent runtime for Codex, Claude Agent SDK, and OpenCode\u2014with API endpoints, isolated sandboxes, and inspectable runs."
     },
     {
       "name": "sk-wang--slio-git",
@@ -135137,6 +135152,11 @@
       "name": "fallout-build--fallout",
       "source": "./fallout-build--fallout",
       "description": "\u2622\ufe0f Fallout \u2014 The C#/.NET Build System"
+    },
+    {
+      "name": "archerthegoat--mars-research-assistant",
+      "source": "./archerthegoat--mars-research-assistant",
+      "description": "Trading research system: idea validation, planned trades, intraday scans, trade records, reviews and statistics."
     },
     {
       "name": "mitchellh--go-libghostty",
@@ -153157,6 +153177,11 @@
       "name": "aruxyz--trauso",
       "source": "./aruxyz--trauso",
       "description": "Trauso - A Full Speed terabox downloader!"
+    },
+    {
+      "name": "gaixianggeng--mimi-remote",
+      "source": "./gaixianggeng--mimi-remote",
+      "description": "Open-source native iPhone/iPad client for OpenAI Codex CLI and Claude Code \u2014 review diffs, approve actions, steer sessions, and manage Git remotely."
     },
     {
       "name": "m1zz--higlab",
@@ -179479,6 +179504,11 @@
       "description": "Modern Scala 3 client for Redis and Valkey, native and multi-backend"
     },
     {
+      "name": "hahwul--gori",
+      "source": "./hahwul--gori",
+      "description": "A fast, keyboard-driven HTTP intercepting proxy and hacking & pentesting toolkit for the terminal."
+    },
+    {
       "name": "rstackjs--agent-skills",
       "source": "./rstackjs--agent-skills",
       "description": "A collection of Agent Skills for Rstack."
@@ -197527,6 +197557,11 @@
       "name": "xaidozy--dynamic-website-backgrounds",
       "source": "./xaidozy--dynamic-website-backgrounds",
       "description": "html css javascript canvas iframe animated-background dynamic-background web-background background-animation pure-html single-file dark-mode responsive-design material-you cloudflare-pages static-site"
+    },
+    {
+      "name": "indecenti--nucleoos",
+      "source": "./indecenti--nucleoos",
+      "description": "Web-native OS for the M5Stack Cardputer (ESP32-S3): native firmware + a desktop-class browser shell, offline AI assistant (ANIMA), bilingual voice, games, a security lab, OTA."
     },
     {
       "name": "rudrankriyam--foundation-models-framework-cli",
@@ -306754,6 +306789,16 @@
       "description": "converting indoor point cloud scans into structured data"
     },
     {
+      "name": "personaljarvis--personaljarvis",
+      "source": "./personaljarvis--personaljarvis",
+      "description": "Self-hosted voice assistant. Speak to your computer: it answers aloud, types your dictation, and operates your apps."
+    },
+    {
+      "name": "personaljarvis--personaljarvis",
+      "source": "./personaljarvis--personaljarvis",
+      "description": "Self-hosted voice assistant. Speak to your computer: it answers aloud, types your dictation, and operates your apps."
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
@@ -350047,6 +350092,16 @@
       "name": "prrao87--tea-hypervectors",
       "source": "./prrao87--tea-hypervectors",
       "description": "Intro to Hyperdimensional Computing (HDC)"
+    },
+    {
+      "name": "vericle--heyclaw",
+      "source": "./vericle--heyclaw",
+      "description": "\ud83e\udd9e Headless real-time Python voice assistant powered by ElevenLabs, Gemini, Mem0, MCP tools, and local wake-word detection."
+    },
+    {
+      "name": "peva3--lightroom-presets",
+      "source": "./peva3--lightroom-presets",
+      "description": "Free Lightroom film simulation presets \u2014 Kodak Portra, Fujifilm Classic Chrome, Cinestill 800T, Ilford HP5, and more vintage & trending photo looks"
     },
     {
       "name": "yschimke--compose-ai-tools",
