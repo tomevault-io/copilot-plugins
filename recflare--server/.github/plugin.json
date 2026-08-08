@@ -1,0 +1,9 @@
+{
+  "name": "recflare--server",
+  "displayName": "server",
+  "description": "2023 Rec Room server written in Node.js with Hono, designed for Cloudflare. Infinitely scalable and safe (open source).",
+  "version": "1.0.0",
+  "author": "recflare",
+  "homepage": "https://github.com/recflare/server",
+  "skills": []
+}
