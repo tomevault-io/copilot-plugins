@@ -1,0 +1,9 @@
+{
+  "name": "thelastoutpostworkshop--esp-pinout-explorer",
+  "displayName": "esp-pinout-explorer",
+  "description": "A bench-side atlas for finding the right ESP pin before wires, boot straps, USB signals, flash pins, and board hardware collide",
+  "version": "1.0.0",
+  "author": "thelastoutpostworkshop",
+  "homepage": "https://github.com/thelastoutpostworkshop/esp-pinout-explorer",
+  "skills": []
+}
