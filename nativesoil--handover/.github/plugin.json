@@ -1,0 +1,9 @@
+{
+  "name": "nativesoil--handover",
+  "displayName": "handover",
+  "description": "An open JSON format and local toolchain for carrying an AI assisted project's working state between agents, tools and model providers.",
+  "version": "1.0.0",
+  "author": "nativesoil",
+  "homepage": "https://github.com/nativesoil/handover",
+  "skills": []
+}
