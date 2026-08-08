@@ -4,7 +4,7 @@
   "repo": "xllm-workflow",
   "description": "This is the ai coding workflow repository for xLLM.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xLLM-AI/xllm-workflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T01:15:45Z"
+  "distributed_at": "2026-08-08T01:24:10Z"
 }
