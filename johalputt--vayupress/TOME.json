@@ -4,7 +4,7 @@
   "repo": "VayuPress",
   "description": "Your whole online presence in one sovereign Go binary \u2014 website, blog, PGP mail, E2E-encrypted chat, anti-DDoS bot shield, privacy analytics, one-click Tor .onion, and Stripe/PayPal/crypto monetization. No SaaS bills, no third parties, no telemetry. Own your content, your mailbox, your infrastructure.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/johalputt/VayuPress",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T03:12:10Z"
+  "distributed_at": "2026-08-08T03:15:52Z"
 }
