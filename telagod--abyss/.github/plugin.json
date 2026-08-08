@@ -1,0 +1,9 @@
+{
+  "name": "telagod--abyss",
+  "displayName": "abyss",
+  "description": "The code graph your agent checks before it edits \u2014 call graph + temporal intelligence CLI",
+  "version": "1.0.0",
+  "author": "telagod",
+  "homepage": "https://github.com/telagod/abyss",
+  "skills": []
+}
