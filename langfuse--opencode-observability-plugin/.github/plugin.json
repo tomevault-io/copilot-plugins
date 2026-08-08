@@ -1,0 +1,9 @@
+{
+  "name": "langfuse--opencode-observability-plugin",
+  "displayName": "opencode-observability-plugin",
+  "description": "\ud83e\udea2 An opencode plugin that instruments sessions in Langfuse",
+  "version": "1.0.0",
+  "author": "langfuse",
+  "homepage": "https://github.com/langfuse/opencode-observability-plugin",
+  "skills": []
+}
