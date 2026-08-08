@@ -1,0 +1,9 @@
+{
+  "name": "taotao7--framebaker",
+  "displayName": "FrameBaker",
+  "description": "Pixel-art frame animation studio: multi-source import, built-in rembg matting, PixiJS onion-skin editor, spritesheet export. Bun + Elysia + React monorepo.",
+  "version": "1.0.0",
+  "author": "taotao7",
+  "homepage": "https://github.com/taotao7/FrameBaker",
+  "skills": []
+}
