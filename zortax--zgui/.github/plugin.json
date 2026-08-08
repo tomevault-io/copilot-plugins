@@ -1,0 +1,9 @@
+{
+  "name": "zortax--zgui",
+  "displayName": "zgui",
+  "description": "reactive, retained rust ui framework",
+  "version": "1.0.0",
+  "author": "zortax",
+  "homepage": "https://github.com/zortax/zgui",
+  "skills": []
+}
