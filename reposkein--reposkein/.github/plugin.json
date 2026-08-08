@@ -1,0 +1,9 @@
+{
+  "name": "reposkein--reposkein",
+  "displayName": "reposkein",
+  "description": "Deterministic code-graph (GraphRAG) over your repo for LLM agents \u2014 local-first, git-native, zero-infra, served via MCP. Python, TS/JS, Rust, Go, Java, C#.",
+  "version": "1.0.0",
+  "author": "reposkein",
+  "homepage": "https://github.com/reposkein/reposkein",
+  "skills": []
+}
