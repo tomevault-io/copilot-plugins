@@ -1,0 +1,9 @@
+{
+  "name": "leoxlin--smolpowers",
+  "displayName": "smolpowers",
+  "description": "A lightweight, configurable SDD framework based on Superpowers and designed to compose with other skills.",
+  "version": "1.0.0",
+  "author": "leoxlin",
+  "homepage": "https://github.com/leoxlin/smolpowers",
+  "skills": []
+}
