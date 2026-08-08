@@ -1,0 +1,9 @@
+{
+  "name": "aigengame--cli-agentic-workflow",
+  "displayName": "cli-agentic-workflow",
+  "description": "A lightweight local-first CLI that orchestrates AI agent CLIs (claude, codex) into powerful workflows with a simple YAML.",
+  "version": "1.0.0",
+  "author": "aigengame",
+  "homepage": "https://github.com/aigengame/cli-agentic-workflow",
+  "skills": []
+}
