@@ -1,0 +1,44 @@
+{
+  "name": "claude-seo-geo",
+  "owner": "Thibaultbm",
+  "repo": "claude-seo-geo",
+  "description": "SEO & GEO skills for Claude Code, built with Claude Mythos 5. Rank in Google AND in LLMs (ChatGPT, Perplexity, Gemini): technical audits, backlinks, AI-optimized content, local SEO, and social amplification.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Thibaultbm/claude-seo-geo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-08T01:22:56Z"
+}
