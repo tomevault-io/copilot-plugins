@@ -1,0 +1,9 @@
+{
+  "name": "espressif--esp-vision",
+  "displayName": "esp-vision",
+  "description": "Low-Code Edge AI & Computer Vision Framework for Espressif SoCs",
+  "version": "1.0.0",
+  "author": "espressif",
+  "homepage": "https://github.com/espressif/esp-vision",
+  "skills": []
+}
