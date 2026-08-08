@@ -350044,6 +350044,11 @@
       "description": "A lightweight, Git-native knowledge base skill for AI Agents \u2014 no vector DB, no chunking, no embeddings. Just TOC + line numbers + full source."
     },
     {
+      "name": "prrao87--tea-hypervectors",
+      "source": "./prrao87--tea-hypervectors",
+      "description": "Intro to Hyperdimensional Computing (HDC)"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
