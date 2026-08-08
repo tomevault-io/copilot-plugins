@@ -7,11 +7,11 @@ Madeline pet on desktop
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [solstice23/desk-madeline](https://github.com/solstice23/desk-madeline).
+Original source: `AGENTS.md` in [solstice23/desk-madeline](https://github.com/solstice23/desk-madeline).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
