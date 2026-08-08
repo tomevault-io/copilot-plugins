@@ -1,0 +1,9 @@
+{
+  "name": "langgenius--mosoo",
+  "displayName": "mosoo",
+  "description": "Open-source, Cloudflare-native agent runtime for Codex, Claude Agent SDK, and OpenCode\u2014with API endpoints, isolated sandboxes, and inspectable runs.",
+  "version": "1.0.0",
+  "author": "langgenius",
+  "homepage": "https://github.com/langgenius/mosoo",
+  "skills": []
+}
