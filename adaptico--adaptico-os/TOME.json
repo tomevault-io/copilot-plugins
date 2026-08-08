@@ -4,7 +4,7 @@
   "repo": "adaptico-os",
   "description": "The go-to-market operating system for early-stage software products. AI marketing skills for Claude Code - scored audits, stage-aware advice, per-project memory. For marketers and founders.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/adaptico/adaptico-os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T00:54:23Z"
+  "distributed_at": "2026-08-08T00:59:46Z"
 }
