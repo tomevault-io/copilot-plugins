@@ -1,0 +1,9 @@
+{
+  "name": "azure--gpt-rag-ui",
+  "displayName": "gpt-rag-ui",
+  "description": "This repository provides the user interface for the GPT-RAG solution, enabling seamless interaction with the Orchestrator backend. Built with Chainlit, it supports customization, theming, and ensures ",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/gpt-rag-ui",
+  "skills": []
+}
