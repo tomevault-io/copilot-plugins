@@ -1,0 +1,9 @@
+{
+  "name": "evilbocchi--crossfs",
+  "displayName": "crossfs",
+  "description": "Synchronous filesystem API for Rust. Works identically on native and WASM.",
+  "version": "1.0.0",
+  "author": "evilbocchi",
+  "homepage": "https://github.com/evilbocchi/crossfs",
+  "skills": []
+}
