@@ -1,0 +1,9 @@
+{
+  "name": "exonfang--gdllm-godot-agentic-harness",
+  "displayName": "gdllm-godot-agentic-harness",
+  "description": "A fully transparent in-editor agentic harness for large language models inside the Godot Engine. Connect to any LLM provider via API and provide your agents the tools, context management, and guidance",
+  "version": "1.0.0",
+  "author": "Exonfang",
+  "homepage": "https://github.com/Exonfang/gdllm-godot-agentic-harness",
+  "skills": []
+}
