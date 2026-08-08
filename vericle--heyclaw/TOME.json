@@ -1,0 +1,44 @@
+{
+  "name": "heyclaw",
+  "owner": "vericle",
+  "repo": "heyclaw",
+  "description": "\ud83e\udd9e Headless real-time Python voice assistant powered by ElevenLabs, Gemini, Mem0, MCP tools, and local wake-word detection.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vericle/heyclaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-08T23:34:33Z"
+}
