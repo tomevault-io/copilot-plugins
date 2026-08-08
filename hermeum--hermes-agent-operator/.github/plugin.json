@@ -1,0 +1,9 @@
+{
+  "name": "hermeum--hermes-agent-operator",
+  "displayName": "hermes-agent-operator",
+  "description": "Kubernetes operator for managing Hermes agent instances in declarative manner. ",
+  "version": "1.0.0",
+  "author": "hermeum",
+  "homepage": "https://github.com/hermeum/hermes-agent-operator",
+  "skills": []
+}
