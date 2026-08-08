@@ -350034,6 +350034,11 @@
       "description": "Lossless code formatters that adjust only whitespace, so they never reject or rewrite your code. CSS/SCSS/Less, SQL, and HTML/XML/SVG/Vue/Svelte. Faster and safer than the parsers they replace. Powers"
     },
     {
+      "name": "waylondev--kb-pilot",
+      "source": "./waylondev--kb-pilot",
+      "description": "A lightweight, Git-native knowledge base skill for AI Agents \u2014 no vector DB, no chunking, no embeddings. Just TOC + line numbers + full source."
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
