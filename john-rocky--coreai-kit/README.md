@@ -7,11 +7,11 @@ Run LLMs, VLMs, ASR, TTS, diarization and more fully on-device with Apple's Core
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [john-rocky/coreai-kit](https://github.com/john-rocky/coreai-kit).
+Original source: `AGENTS.md` in [john-rocky/coreai-kit](https://github.com/john-rocky/coreai-kit).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
