@@ -1,0 +1,9 @@
+{
+  "name": "cleanunicorn--earheart",
+  "displayName": "earheart",
+  "description": "Talk to your coding agents \u2014 press a hotkey, speak your prompt, and it lands in Claude Code, Codex, or Cursor. Fully local voice dictation (Parakeet + Gemma), nothing leaves your machine. Windows, mac",
+  "version": "1.0.0",
+  "author": "cleanunicorn",
+  "homepage": "https://github.com/cleanunicorn/earheart",
+  "skills": []
+}
