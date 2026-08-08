@@ -1,0 +1,9 @@
+{
+  "name": "npxcnency-ux--pi-trace-extension",
+  "displayName": "pi-trace-extension",
+  "description": "Langfuse-style trace viewer for pi-agent \u2014 local-first, zero-setup, single-file HTML",
+  "version": "1.0.0",
+  "author": "npxcnency-ux",
+  "homepage": "https://github.com/npxcnency-ux/pi-trace-extension",
+  "skills": []
+}
