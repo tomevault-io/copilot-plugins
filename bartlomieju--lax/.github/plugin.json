@@ -1,0 +1,9 @@
+{
+  "name": "bartlomieju--lax",
+  "displayName": "lax",
+  "description": "Lossless code formatters that adjust only whitespace, so they never reject or rewrite your code. CSS/SCSS/Less, SQL, and HTML/XML/SVG/Vue/Svelte. Faster and safer than the parsers they replace. Powers",
+  "version": "1.0.0",
+  "author": "bartlomieju",
+  "homepage": "https://github.com/bartlomieju/lax",
+  "skills": []
+}
