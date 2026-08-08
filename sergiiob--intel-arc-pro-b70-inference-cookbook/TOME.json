@@ -1,0 +1,44 @@
+{
+  "name": "intel-arc-pro-b70-inference-cookbook",
+  "owner": "SergiioB",
+  "repo": "intel-arc-pro-b70-inference-cookbook",
+  "description": "Open recipes, engine patches, and benchmark harnesses for LLM inference on Intel Arc Pro B60/B70 (Battlemage, Xe2). MoE 35B at 126 t/s decode / 7.5K t/s prefill single-stream \u2014 vLLM XPU MTP unlocked.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SergiioB/intel-arc-pro-b70-inference-cookbook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-08T06:32:49Z"
+}
