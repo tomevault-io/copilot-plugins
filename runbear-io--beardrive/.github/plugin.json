@@ -1,0 +1,9 @@
+{
+  "name": "runbear-io--beardrive",
+  "displayName": "beardrive",
+  "description": "Google Drive for AI agents \u2014 share files with your team, share context across your agents. Open source, no server required.",
+  "version": "1.0.0",
+  "author": "runbear-io",
+  "homepage": "https://github.com/runbear-io/beardrive",
+  "skills": []
+}
