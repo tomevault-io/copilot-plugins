@@ -4,7 +4,7 @@
   "repo": "mattpocock-skills-zh",
   "description": "\u539f\u9879\u76ee\u5730\u5740\uff1a https://github.com/mattpocock/skills  \u4f7f\u7528claude code \u5c06\u9879\u76ee\u7ffb\u8bd1\u6210\u4e2d\u6587\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WenWuZhiDao/mattpocock-skills-zh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T02:56:03Z"
+  "distributed_at": "2026-08-08T02:57:54Z"
 }
