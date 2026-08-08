@@ -1,0 +1,9 @@
+{
+  "name": "stefanprodan--cctop",
+  "displayName": "cctop",
+  "description": "Live top-style monitor for Claude Code sessions",
+  "version": "1.0.0",
+  "author": "stefanprodan",
+  "homepage": "https://github.com/stefanprodan/cctop",
+  "skills": []
+}
