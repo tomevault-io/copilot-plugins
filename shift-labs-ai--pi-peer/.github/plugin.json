@@ -1,0 +1,9 @@
+{
+  "name": "shift-labs-ai--pi-peer",
+  "displayName": "pi-peer",
+  "description": "A pi extension that lets your pi sessions find and message each other",
+  "version": "1.0.0",
+  "author": "shift-labs-ai",
+  "homepage": "https://github.com/shift-labs-ai/pi-peer",
+  "skills": []
+}
