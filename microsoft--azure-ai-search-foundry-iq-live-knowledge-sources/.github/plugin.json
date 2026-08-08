@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--azure-ai-search-foundry-iq-live-knowledge-sources",
+  "displayName": "azure-ai-search-foundry-iq-live-knowledge-sources",
+  "description": "Reusable accelerator for Foundry IQ live grounding with Fabric Ontology and MCP Server Knowledge Sources.",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/azure-ai-search-foundry-iq-live-knowledge-sources",
+  "skills": []
+}
