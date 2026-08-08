@@ -395639,6 +395639,11 @@
       "description": "A low effort reverse enginered version of the iOS Weather App."
     },
     {
+      "name": "oyorf--person-dashboard",
+      "source": "./oyorf--person-dashboard",
+      "description": "\u5c0f\u6234AI\u5de5\u4f5c\u53f0"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -423522,6 +423527,31 @@
       "name": "diaozxin007--reading-claude-code",
       "source": "./diaozxin007--reading-claude-code",
       "description": "reading-claude-code"
+    },
+    {
+      "name": "solstice23--desk-madeline",
+      "source": "./solstice23--desk-madeline",
+      "description": "Madeline pet on desktop"
+    },
+    {
+      "name": "solstice23--desk-madeline",
+      "source": "./solstice23--desk-madeline",
+      "description": "Madeline pet on desktop"
+    },
+    {
+      "name": "nh13--tachyon",
+      "source": "./nh13--tachyon",
+      "description": "Detect the cloaked: measure a host's memory access rate under current contention"
+    },
+    {
+      "name": "sikandarjodd--sv-table",
+      "source": "./sikandarjodd--sv-table",
+      "description": "Include Svelte Data table components & examples, Inspired from Bazza UI & COSS UI"
+    },
+    {
+      "name": "cavalry-collective--visual-stack",
+      "source": "./cavalry-collective--visual-stack",
+      "description": "A visual interface for building software with Claude Code/Codex."
     },
     {
       "name": "cheerhuan--save-your-token",
