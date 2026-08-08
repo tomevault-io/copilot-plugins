@@ -1,0 +1,9 @@
+{
+  "name": "lazulikao--luci-theme-fluent",
+  "displayName": "luci-theme-fluent",
+  "description": "Brand new Fluent 2 Theme for OpenWrt LuCI",
+  "version": "1.0.0",
+  "author": "LazuliKao",
+  "homepage": "https://github.com/LazuliKao/luci-theme-fluent",
+  "skills": []
+}
