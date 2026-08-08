@@ -1,0 +1,9 @@
+{
+  "name": "sh1ft-w--flode",
+  "displayName": "flode",
+  "description": "Visual flow + node editor for Home Assistant. design automations as diagrams, transpiled to 100% native HA YAML",
+  "version": "1.0.0",
+  "author": "SH1FT-W",
+  "homepage": "https://github.com/SH1FT-W/flode",
+  "skills": []
+}
