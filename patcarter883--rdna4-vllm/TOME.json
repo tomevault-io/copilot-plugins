@@ -1,0 +1,44 @@
+{
+  "name": "rdna4-vllm",
+  "owner": "patcarter883",
+  "repo": "rdna4-vllm",
+  "description": "vLLM on AMD RDNA4 (gfx1201 / RX 9070 XT-9070): clone-and-docker-compose-up, with a W4A8-FP8-WMMA MoE kernel",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/patcarter883/rdna4-vllm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-08T03:08:55Z"
+}
