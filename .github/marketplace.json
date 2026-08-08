@@ -423464,6 +423464,21 @@
       "description": "Modified fork of MrRSS with custom local translation and AI reliability fixes"
     },
     {
+      "name": "helloxz--zacp",
+      "source": "./helloxz--zacp",
+      "description": "\u57fa\u4e8e ACP \u534f\u8bae\u7684\u591a Agent Web \u7f51\u5173\uff0c\u8ba9 CLI Agent \u4e5f\u80fd\u5728\u6d4f\u89c8\u5668\u4e2d\u4f7f\u7528\u3002"
+    },
+    {
+      "name": "darktw1nk--lineage",
+      "source": "./darktw1nk--lineage",
+      "description": "Evolve LLM prompts with a genetic algorithm: score candidates on your test set across real models, breed the winners, keep the champion that survives a holdout. CLI + Electron desktop app."
+    },
+    {
+      "name": "darktw1nk--lineage",
+      "source": "./darktw1nk--lineage",
+      "description": "Evolve LLM prompts with a genetic algorithm: score candidates on your test set across real models, breed the winners, keep the champion that survives a holdout. CLI + Electron desktop app."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
