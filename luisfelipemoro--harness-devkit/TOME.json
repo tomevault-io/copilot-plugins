@@ -4,7 +4,7 @@
   "repo": "Harness-devkit",
   "description": "Harness Devkit for agentic development",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LuisFelipeMoro/Harness-devkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T00:30:56Z"
+  "distributed_at": "2026-08-08T00:34:32Z"
 }
