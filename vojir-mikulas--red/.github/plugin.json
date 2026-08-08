@@ -1,0 +1,9 @@
+{
+  "name": "vojir-mikulas--red",
+  "displayName": "red",
+  "description": "A fast, native database explorer, featuring an AI assistant that understands your schema, drafts queries for approval, and turns results into charts.",
+  "version": "1.0.0",
+  "author": "vojir-mikulas",
+  "homepage": "https://github.com/vojir-mikulas/red",
+  "skills": []
+}
