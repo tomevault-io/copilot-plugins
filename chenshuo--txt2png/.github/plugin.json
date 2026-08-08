@@ -1,0 +1,9 @@
+{
+  "name": "chenshuo--txt2png",
+  "displayName": "txt2png",
+  "description": "Knuth-Plass line-breaking in Python and C++",
+  "version": "1.0.0",
+  "author": "chenshuo",
+  "homepage": "https://github.com/chenshuo/txt2png",
+  "skills": []
+}
