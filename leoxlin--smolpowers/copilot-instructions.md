@@ -1,0 +1,23 @@
+## smolpowers
+
+> - Keep the cross-agent runtime lightweight and evidence-driven across Design → Plan → Execute → Finish.
+
+# Repository Guidelines
+- Keep the cross-agent runtime lightweight and evidence-driven across Design → Plan → Execute → Finish.
+- Write all documentation in ASD-STE100 Simplified Technical English.
+- Make all Smolpowers design and plan artifacts comply with ASD-STE100.
+- Use `.smolpowers.json`; keep parsing, validation, path resolution, and defaults in `load-config.py`.
+- Invalid or unsafe configuration must warn once and fall back atomically to all defaults.
+- Test observable behavior and structured interfaces, not prose, headings, or static file substrings.
+- Ignore `.smolpowers/` in code reviews unless the review is part of the Smolpowers SDD flow.
+- Test skill behavior with Harbor tests, not unit tests.
+- Use proportional TDD by default; strict mode requires an observed failing test before production code.
+- Run focused tests via `mise run test:unit -- <paths>` and the full unit suite via `mise run test:unit`.
+- Do not create unit tests for Harbor.
+- Keep Harbor/model-backed fixtures isolated from the source repo; never commit or push from fixtures.
+- Use conventional commit subjects (`feat:`, `fix:`, `test:`, `docs:`, `chore:`).
+- Use release-please for releases; merge the release pull request to publish a release.
+
+---
+> Source: [leoxlin/smolpowers](https://github.com/leoxlin/smolpowers) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-08 -->
