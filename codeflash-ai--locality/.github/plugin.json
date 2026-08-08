@@ -1,0 +1,9 @@
+{
+  "name": "codeflash-ai--locality",
+  "displayName": "locality",
+  "description": "Locality: agent-local file system access to systems of record for safe local editing and AI workflows.",
+  "version": "1.0.0",
+  "author": "codeflash-ai",
+  "homepage": "https://github.com/codeflash-ai/locality",
+  "skills": []
+}
