@@ -1,0 +1,9 @@
+{
+  "name": "shenghsi--flint",
+  "displayName": "flint",
+  "description": "Flint is a terminal-first fork of Zed built for developers who use tools such as Codex, Claude Code, and Pi from the command line.",
+  "version": "1.0.0",
+  "author": "shenghsi",
+  "homepage": "https://github.com/shenghsi/flint",
+  "skills": []
+}
