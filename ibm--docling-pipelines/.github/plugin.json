@@ -1,0 +1,9 @@
+{
+  "name": "ibm--docling-pipelines",
+  "displayName": "docling-pipelines",
+  "description": "docling-pipelines",
+  "version": "1.0.0",
+  "author": "IBM",
+  "homepage": "https://github.com/IBM/docling-pipelines",
+  "skills": []
+}
