@@ -1,0 +1,9 @@
+{
+  "name": "condense-chat--dense",
+  "displayName": "dense",
+  "description": "Local condense interceptor",
+  "version": "1.0.0",
+  "author": "condense-chat",
+  "homepage": "https://github.com/condense-chat/dense",
+  "skills": []
+}
