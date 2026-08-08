@@ -1,0 +1,9 @@
+{
+  "name": "balaenis--pi-x-ide",
+  "displayName": "pi-x-ide",
+  "description": "Pi extension package for IDE selection context integration.",
+  "version": "1.0.0",
+  "author": "balaenis",
+  "homepage": "https://github.com/balaenis/pi-x-ide",
+  "skills": []
+}
