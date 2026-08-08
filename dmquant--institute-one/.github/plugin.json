@@ -1,0 +1,9 @@
+{
+  "name": "dmquant--institute-one",
+  "displayName": "institute-one",
+  "description": "Single-node AI research institute: one Python process, one SQLite file, one Obsidian vault \u2014 AI analysts running briefings, whiteboards, mailbox and deep research on local agent CLIs",
+  "version": "1.0.0",
+  "author": "dmquant",
+  "homepage": "https://github.com/dmquant/institute-one",
+  "skills": []
+}
