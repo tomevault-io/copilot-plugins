@@ -1,0 +1,9 @@
+{
+  "name": "jhongdlp--kammel-ssh",
+  "displayName": "Kammel_ssh",
+  "description": "SSH client for Android & Linux built for driving AI coding agents (Claude Code, Codex, Aider, Gemini CLI\u2026) from your phone: multi-session terminal that survives backgrounding, notifications when the a",
+  "version": "1.0.0",
+  "author": "Jhongdlp",
+  "homepage": "https://github.com/Jhongdlp/Kammel_ssh",
+  "skills": []
+}
