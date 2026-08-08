@@ -1,0 +1,9 @@
+{
+  "name": "open-video-ai--open-video",
+  "displayName": "open-video",
+  "description": "Open-source video generation \u2014 Ollama for MiniMax H3. Local director on ComfyUI.",
+  "version": "1.0.0",
+  "author": "open-video-ai",
+  "homepage": "https://github.com/open-video-ai/open-video",
+  "skills": []
+}
