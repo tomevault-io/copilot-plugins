@@ -116329,6 +116329,11 @@
       "description": "matterbridge-shelly"
     },
     {
+      "name": "outlmd--outl",
+      "source": "./outlmd--outl",
+      "description": "Local-first outliner. Markdown is the source of truth. Sync that doesn't corrupt your tree when two devices edit offline"
+    },
+    {
       "name": "softspark--ai-toolkit",
       "source": "./softspark--ai-toolkit",
       "description": "Professional-grade AI coding toolkit: 94 skills, 44 agents, multi-platform (Claude, Cursor, Windsurf, Copilot, Gemini, Cline, Roo Code, Aider, Augment, Antigravity, Codex CLI, opencode)."
@@ -423374,6 +423379,11 @@
       "description": "An open-source repository of detailed solutions to the Canadian Computing Competition (CCC)"
     },
     {
+      "name": "ranxianglei--acp-kernel",
+      "source": "./ranxianglei--acp-kernel",
+      "description": "ACP compression & state management engine \u2014 standalone,  zero runtime dependencies"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -559527,6 +559537,61 @@
       "name": "anthonydubon--programacionmovil-bookapp",
       "source": "./anthonydubon--programacionmovil-bookapp",
       "description": "Proyecto de clase"
+    },
+    {
+      "name": "cybertoplee--egdesk-publicsms",
+      "source": "./cybertoplee--egdesk-publicsms",
+      "description": "egdesk-PublicSMS"
+    },
+    {
+      "name": "yunusemrekilic44--propertypulse",
+      "source": "./yunusemrekilic44--propertypulse",
+      "description": "PropertyPulse"
+    },
+    {
+      "name": "andurehhh--flyrank-starter",
+      "source": "./andurehhh--flyrank-starter",
+      "description": "flyrank-starter"
+    },
+    {
+      "name": "henry-okeke-chibundum--mtje-hub",
+      "source": "./henry-okeke-chibundum--mtje-hub",
+      "description": "Everything More Than Just Emails"
+    },
+    {
+      "name": "sanchitrk--sarvamhack",
+      "source": "./sanchitrk--sarvamhack",
+      "description": "Sarvam Hackathon"
+    },
+    {
+      "name": "sakibfakir69--sql-sprint",
+      "source": "./sakibfakir69--sql-sprint",
+      "description": "sql-sprint"
+    },
+    {
+      "name": "darkdemondcoin--joyful-core",
+      "source": "./darkdemondcoin--joyful-core",
+      "description": "joyful-core"
+    },
+    {
+      "name": "ash9119i9--trueai-harness",
+      "source": "./ash9119i9--trueai-harness",
+      "description": "TrueAI-harness"
+    },
+    {
+      "name": "maaruwaa--capstone-frontend",
+      "source": "./maaruwaa--capstone-frontend",
+      "description": "capstone_frontend"
+    },
+    {
+      "name": "mstwithmcapital--the-book-project",
+      "source": "./mstwithmcapital--the-book-project",
+      "description": "A place where users get book recommendations"
+    },
+    {
+      "name": "sherifaq--mesakareen-app22",
+      "source": "./sherifaq--mesakareen-app22",
+      "description": "mesakareen-app22"
     }
   ]
 }
