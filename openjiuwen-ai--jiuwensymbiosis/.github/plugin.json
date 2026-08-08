@@ -1,0 +1,9 @@
+{
+  "name": "openjiuwen-ai--jiuwensymbiosis",
+  "displayName": "jiuwensymbiosis",
+  "description": "Built on the openJiuwen agent-core framework, JiuwenSymbiosis is a Physical AI assistant.",
+  "version": "1.0.0",
+  "author": "openJiuwen-ai",
+  "homepage": "https://github.com/openJiuwen-ai/jiuwensymbiosis",
+  "skills": []
+}
