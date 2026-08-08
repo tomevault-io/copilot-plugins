@@ -7,11 +7,11 @@ Local-first learning agent that turns your materials into grounded conversations
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Hyr1sky/TheGrandQuiz](https://github.com/Hyr1sky/TheGrandQuiz).
+Original source: `AGENTS.md` in [Hyr1sky/TheGrandQuiz](https://github.com/Hyr1sky/TheGrandQuiz).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
