@@ -4,7 +4,7 @@
   "repo": "kotlin-native-nuget",
   "description": "A plugin that packages a Kotlin/Native library as a NuGet package with generated C# bindings, and consumes C# NuGet packages from Kotlin",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xxfast/kotlin-native-nuget",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T02:58:20Z"
+  "distributed_at": "2026-08-08T03:00:12Z"
 }
