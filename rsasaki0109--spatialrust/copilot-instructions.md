@@ -1,26 +1,32 @@
-## long-horizon
+## spatialrust
 
-> Long-horizon delivery defaults for SpatialRust agents
+> SpatialRust is a Rust-native spatial computing framework: point clouds, geometry, GPU compute, robotics integration, and AI-native spatial data.
 
+# AGENTS
 
-# Long-horizon delivery
+## Purpose
+SpatialRust is a Rust-native spatial computing framework: point clouds, geometry, GPU compute, robotics integration, and AI-native spatial data.
 
-When the user asks to work a ROADMAP range, epic sequence, or says forms like
-`iku`, `susumete`, `yatte`, `tudukete`:
+## Scope
+- Follow the master architecture in `docs/ARCHITECTURE.md`.
+- Keep `spatialrust-core` small and stable.
+- Isolate heavy dependencies (ROS2, ONNX, CUDA) behind feature flags and dedicated crates.
+- Do not commit sensitive sensor dumps, private keys, or customer data.
 
-1. Treat it as authorization to run end-to-end without step-by-step confirmation.
-2. Default loop per deliverable: survey → ROADMAP slices → implement → tests →
-   docs/CHANGELOG/notes → commit → push → PR → merge (unless merge is unsafe).
-3. Prefer reviewable PR units (one Epic or one named slice family). Do not wait
-   for the user between those steps.
-4. Only pause for true blockers: irreversible git risk, secrets, or an explicit
-   architecture fork with irreversible public-API consequences.
-5. After merge, continue the next Epic in dependency order until the requested
-   horizon is done or a blocker is reached. Report progress briefly in Japanese
-   when the user has been using Japanese/romaji.
-6. Never add `Co-authored-by: Cursor` to commits.
-7. Keep `spatialrust-core` small; heavy formats/runtimes stay feature-gated
-   dedicated crates.
+## Operating rules
+- Data model and execution traits before algorithm breadth.
+- Explicit CPU/GPU transfers; no hidden device copies in production APIs.
+- Public APIs stay safe; restrict `unsafe` to audited GPU/FFI boundaries.
+- Prefer capability traits (`HasPositions3`, etc.) over monolithic point structs.
+- For ROADMAP ranges (for example Epic 91–100), follow
+  `.cursor/rules/long-horizon.mdc`: implement → test → commit → PR → merge
+  without waiting for step-by-step confirmation unless a true blocker appears.
+
+## Delivery standards
+- Keep changes focused and reviewable.
+- Add tests for correctness-critical math, schema, and IO behavior.
+- Use absolute paths when referencing files in notes and reports.
+- Prefer one Epic (or named slice family) per PR on the long-horizon track.
 
 ---
 > Source: [rsasaki0109/SpatialRust](https://github.com/rsasaki0109/SpatialRust) — distributed by [TomeVault](https://tomevault.io).
