@@ -1,0 +1,9 @@
+{
+  "name": "mokudev--docurip",
+  "displayName": "docurip",
+  "description": "Slash LLM Token Costs by 90%. Engineered for solo developers, RAG builders, and AI engineers. Docurip harvests multi-page documentation sites locally in parallel and strips away navbars, footers, scri",
+  "version": "1.0.0",
+  "author": "MokuDev",
+  "homepage": "https://github.com/MokuDev/docurip",
+  "skills": []
+}
