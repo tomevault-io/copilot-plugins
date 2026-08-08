@@ -1,0 +1,9 @@
+{
+  "name": "mattdeeds--pokeemerald-rp2350",
+  "displayName": "pokeemerald-rp2350",
+  "description": "Pok\u00e9mon Emerald ported to the RP2350. No emulator, 60 fps HDMI output. Recompiled for Cortex-M33.",
+  "version": "1.0.0",
+  "author": "mattdeeds",
+  "homepage": "https://github.com/mattdeeds/pokeemerald-rp2350",
+  "skills": []
+}
