@@ -1,0 +1,9 @@
+{
+  "name": "maxdewald--vscode-universal-chat-provider",
+  "displayName": "vscode-universal-chat-provider",
+  "description": "Claude, Codex, Antigravity & more in GitHub Copilot Chat. No API key, just OAuth.",
+  "version": "1.0.0",
+  "author": "maxdewald",
+  "homepage": "https://github.com/maxdewald/vscode-universal-chat-provider",
+  "skills": []
+}
