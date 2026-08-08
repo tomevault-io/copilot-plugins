@@ -1,0 +1,44 @@
+{
+  "name": "gaia_allsky",
+  "owner": "grapeot",
+  "repo": "gaia_allsky",
+  "description": "Gaia DR3 18\u4ebf\u9897\u5b9e\u6d4b\u6052\u661f\u5168\u5929\u6e32\u67d3\uff1a\u4e00\u661f\u4e00\u50cf\u7d20\u4ece\u661f\u8868\u91cc\u903c\u51fa\u94f6\u6cb3\uff0c\u65e0\u8d34\u56fe\u65e0\u661f\u4e91\u6a21\u578b\uff0c\u6697\u661f\u758f\u5bc6\u81ea\u5e26\u4e73\u5149\u4e0e\u5c18\u57c3\u6697\u5e26",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/grapeot/gaia_allsky",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-08T00:55:01Z"
+}
