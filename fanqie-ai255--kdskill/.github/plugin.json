@@ -1,0 +1,9 @@
+{
+  "name": "fanqie-ai255--kdskill",
+  "displayName": "kdskill",
+  "description": "Knowledge creator distillation skill for SRT subtitles, structured notes, hooks, and reusable content assets.",
+  "version": "1.0.0",
+  "author": "fanqie-ai255",
+  "homepage": "https://github.com/fanqie-ai255/kdskill",
+  "skills": []
+}
