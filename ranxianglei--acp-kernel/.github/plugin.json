@@ -1,0 +1,9 @@
+{
+  "name": "ranxianglei--acp-kernel",
+  "displayName": "acp-kernel",
+  "description": "ACP compression & state management engine \u2014 standalone,  zero runtime dependencies",
+  "version": "1.0.0",
+  "author": "ranxianglei",
+  "homepage": "https://github.com/ranxianglei/acp-kernel",
+  "skills": []
+}
