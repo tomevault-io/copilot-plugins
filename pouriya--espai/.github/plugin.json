@@ -1,0 +1,9 @@
+{
+  "name": "pouriya--espai",
+  "displayName": "espai",
+  "description": "A browser eye and hands for local AI agents. Snapshot a page, click a ref, read the JSON behind it \u2014 all with curl.",
+  "version": "1.0.0",
+  "author": "pouriya",
+  "homepage": "https://github.com/pouriya/espai",
+  "skills": []
+}
