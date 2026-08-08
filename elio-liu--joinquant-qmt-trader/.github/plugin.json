@@ -1,0 +1,9 @@
+{
+  "name": "elio-liu--joinquant-qmt-trader",
+  "displayName": "JoinQuant-QMT-Trader",
+  "description": "JoinQuant-QMT-Trader\u4e00\u5957\u8f7b\u91cf\u7ea7\u7684\u91cf\u5316\u4ea4\u6613\u4e2d\u95f4\u4ef6\uff0c\u8fde\u63a5 JoinQuant\uff08\u805a\u5bbd\uff09\u7b56\u7565\u5e73\u53f0\u4e0e\u8fc5\u6295 MiniQMT   \u6781\u901f\u4ea4\u6613\u7ec8\u7aef\uff0c\u5b9e\u73b0 A \u80a1\u7b56\u7565\u4ece\u4fe1\u53f7\u751f\u6210\u5230\u8ba2\u5355\u6267\u884c\u7684\u5b8c\u6574\u95ed\u73af\u3002",
+  "version": "1.0.0",
+  "author": "Elio-Liu",
+  "homepage": "https://github.com/Elio-Liu/JoinQuant-QMT-Trader",
+  "skills": []
+}
