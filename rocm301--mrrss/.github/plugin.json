@@ -1,0 +1,9 @@
+{
+  "name": "rocm301--mrrss",
+  "displayName": "MrRSS",
+  "description": "Modified fork of MrRSS with custom local translation and AI reliability fixes",
+  "version": "1.0.0",
+  "author": "RocM301",
+  "homepage": "https://github.com/RocM301/MrRSS",
+  "skills": []
+}
