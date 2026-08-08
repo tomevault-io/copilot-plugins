@@ -7,11 +7,11 @@ Manage and Share AI Artifacts. Self-hostable. MCP first.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [derive-to/derive](https://github.com/derive-to/derive).
+Original source: `AGENTS.md` in [derive-to/derive](https://github.com/derive-to/derive).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
