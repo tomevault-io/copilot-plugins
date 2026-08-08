@@ -1,0 +1,44 @@
+{
+  "name": "zacp",
+  "owner": "helloxz",
+  "repo": "zacp",
+  "description": "\u57fa\u4e8e ACP \u534f\u8bae\u7684\u591a Agent Web \u7f51\u5173\uff0c\u8ba9 CLI Agent \u4e5f\u80fd\u5728\u6d4f\u89c8\u5668\u4e2d\u4f7f\u7528\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/helloxz/zacp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-08T10:30:52Z"
+}
