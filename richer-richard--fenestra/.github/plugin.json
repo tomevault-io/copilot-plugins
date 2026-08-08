@@ -1,0 +1,9 @@
+{
+  "name": "richer-richard--fenestra",
+  "displayName": "fenestra",
+  "description": "Pure-Rust native GUI framework with web-grade aesthetics and first-class headless PNG rendering \u2014 winit + wgpu + vello + parley + taffy",
+  "version": "1.0.0",
+  "author": "richer-richard",
+  "homepage": "https://github.com/richer-richard/fenestra",
+  "skills": []
+}
