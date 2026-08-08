@@ -4,7 +4,7 @@
   "repo": "SpatialRust",
   "description": "Rust-native spatial computing for point clouds, computer vision, and GPU compute -- no C++/FFI layer.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rsasaki0109/SpatialRust",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T00:37:42Z"
+  "distributed_at": "2026-08-08T01:10:45Z"
 }
