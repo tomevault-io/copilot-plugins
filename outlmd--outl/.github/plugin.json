@@ -1,0 +1,9 @@
+{
+  "name": "outlmd--outl",
+  "displayName": "outl",
+  "description": "Local-first outliner. Markdown is the source of truth. Sync that doesn't corrupt your tree when two devices edit offline",
+  "version": "1.0.0",
+  "author": "outlmd",
+  "homepage": "https://github.com/outlmd/outl",
+  "skills": []
+}
