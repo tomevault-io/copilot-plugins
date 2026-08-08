@@ -1,0 +1,9 @@
+{
+  "name": "simon-laux--hermes-deltachat-platform",
+  "displayName": "hermes-deltachat-platform",
+  "description": "hermes gateway platform for deltachat. With support for documents, voice messages, webxdc mini app generation and even voice calls.",
+  "version": "1.0.0",
+  "author": "Simon-Laux",
+  "homepage": "https://github.com/Simon-Laux/hermes-deltachat-platform",
+  "skills": []
+}
