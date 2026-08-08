@@ -4,7 +4,7 @@
   "repo": "gtm-grid",
   "description": "GTM Grid \u2014 local-first programmable GTM spreadsheet. Columns are functions. Source-available (FSL-1.1).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/badapplesdotdev/gtm-grid",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T00:33:56Z"
+  "distributed_at": "2026-08-08T00:37:15Z"
 }
