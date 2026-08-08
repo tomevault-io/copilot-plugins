@@ -1,0 +1,9 @@
+{
+  "name": "sergiiob--intel-arc-pro-b70-inference-cookbook",
+  "displayName": "intel-arc-pro-b70-inference-cookbook",
+  "description": "Open recipes, engine patches, and benchmark harnesses for LLM inference on Intel Arc Pro B60/B70 (Battlemage, Xe2). MoE 35B at 126 t/s decode / 7.5K t/s prefill single-stream \u2014 vLLM XPU MTP unlocked.",
+  "version": "1.0.0",
+  "author": "SergiioB",
+  "homepage": "https://github.com/SergiioB/intel-arc-pro-b70-inference-cookbook",
+  "skills": []
+}
