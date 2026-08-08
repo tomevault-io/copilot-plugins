@@ -1,0 +1,9 @@
+{
+  "name": "clabby--tracer",
+  "displayName": "tracer",
+  "description": "Aggregated trace viewer built on Grafana's Tempo.",
+  "version": "1.0.0",
+  "author": "clabby",
+  "homepage": "https://github.com/clabby/tracer",
+  "skills": []
+}
