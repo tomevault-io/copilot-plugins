@@ -1,0 +1,9 @@
+{
+  "name": "muglug--pzoom",
+  "displayName": "pzoom",
+  "description": "A fast experimental PHP static analyzer written in Rust, a port of Psalm",
+  "version": "1.0.0",
+  "author": "muglug",
+  "homepage": "https://github.com/muglug/pzoom",
+  "skills": []
+}
