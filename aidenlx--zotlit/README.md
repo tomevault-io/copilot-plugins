@@ -58,7 +58,7 @@ Original source: `AGENTS.md` in [aidenlx/zotlit](https://github.com/aidenlx/zotl
 - [zotlit](https://github.com/aidenlx/zotlit/tree/main/.agents/skills/grill-frontend-prototyping/SKILL.md)
 - [zotlit](https://github.com/aidenlx/zotlit/tree/main/.agents/skills/improve-codebase-architecture/SKILL.md)
 
-From [aidenlx/zotlit](https://github.com/aidenlx/zotlit) — a repo with 976+ stars on GitHub.
+From [aidenlx/zotlit](https://github.com/aidenlx/zotlit) — a repo with 0+ stars on GitHub.
 
 ---
 
