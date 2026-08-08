@@ -4,7 +4,7 @@
   "repo": "RunCue",
   "description": "RunCue is a WDA-powered iOS UI navigation MCP tool that lets coding agents drive, inspect, and verify app flows with natural-language tasks.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lihei12345/RunCue",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T01:14:41Z"
+  "distributed_at": "2026-08-08T01:21:53Z"
 }
