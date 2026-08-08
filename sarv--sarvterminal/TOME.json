@@ -4,7 +4,7 @@
   "repo": "SarvTerminal",
   "description": "Fast, open-source macOS terminal + SSH connection manager \u2014 saved-host vault, SFTP/SCP, SSH keys, tunnels, Docker/K8s attach, AI command assist, and zero-knowledge settings sync.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sarv/SarvTerminal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T00:40:18Z"
+  "distributed_at": "2026-08-08T00:40:55Z"
 }
