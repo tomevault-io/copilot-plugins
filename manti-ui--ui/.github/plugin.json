@@ -1,0 +1,9 @@
+{
+  "name": "manti-ui--ui",
+  "displayName": "ui",
+  "description": "Manti is a framework-agnostic design system & UI kit inspired by Turkish dumplings and based on Zag.js.",
+  "version": "1.0.0",
+  "author": "manti-ui",
+  "homepage": "https://github.com/manti-ui/ui",
+  "skills": []
+}
