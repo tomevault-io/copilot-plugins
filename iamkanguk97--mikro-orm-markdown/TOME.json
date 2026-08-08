@@ -4,7 +4,7 @@
   "repo": "mikro-orm-markdown",
   "description": "Generate Mermaid ERD diagrams and Markdown schema docs from MikroORM entities without a live database connection.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iamkanguk97/mikro-orm-markdown",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T02:46:24Z"
+  "distributed_at": "2026-08-08T02:51:56Z"
 }
