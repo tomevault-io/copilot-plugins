@@ -4,7 +4,7 @@
   "repo": "fenestra",
   "description": "Pure-Rust native GUI framework with web-grade aesthetics and first-class headless PNG rendering \u2014 winit + wgpu + vello + parley + taffy",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/richer-richard/fenestra",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T02:32:32Z"
+  "distributed_at": "2026-08-08T02:38:50Z"
 }
