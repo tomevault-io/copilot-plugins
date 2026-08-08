@@ -1,0 +1,9 @@
+{
+  "name": "xllm-ai--xllm-workflow",
+  "displayName": "xllm-workflow",
+  "description": "This is the ai coding workflow repository for xLLM.",
+  "version": "1.0.0",
+  "author": "xLLM-AI",
+  "homepage": "https://github.com/xLLM-AI/xllm-workflow",
+  "skills": []
+}
