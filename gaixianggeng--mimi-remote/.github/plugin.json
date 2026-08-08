@@ -1,0 +1,9 @@
+{
+  "name": "gaixianggeng--mimi-remote",
+  "displayName": "mimi-remote",
+  "description": "Open-source native iPhone/iPad client for OpenAI Codex CLI and Claude Code \u2014 review diffs, approve actions, steer sessions, and manage Git remotely.",
+  "version": "1.0.0",
+  "author": "gaixianggeng",
+  "homepage": "https://github.com/gaixianggeng/mimi-remote",
+  "skills": []
+}
