@@ -7,11 +7,11 @@ Generate Mermaid ERD diagrams and Markdown schema docs from MikroORM entities wi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [iamkanguk97/mikro-orm-markdown](https://github.com/iamkanguk97/mikro-orm-markdown).
+Original source: `AGENTS.md` in [iamkanguk97/mikro-orm-markdown](https://github.com/iamkanguk97/mikro-orm-markdown).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
