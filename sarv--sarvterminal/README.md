@@ -7,11 +7,11 @@ Fast, open-source macOS terminal + SSH connection manager — saved-host vault, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Sarv/SarvTerminal](https://github.com/Sarv/SarvTerminal).
+Original source: `CLAUDE.md` in [Sarv/SarvTerminal](https://github.com/Sarv/SarvTerminal).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
