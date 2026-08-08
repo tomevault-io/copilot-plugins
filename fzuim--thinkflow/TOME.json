@@ -4,7 +4,7 @@
   "repo": "ThinkFlow",
   "description": "\u57fa\u4e8eLLM\u9a71\u52a8\u7684\u667a\u80fd\u5f85\u529e\u4efb\u52a1\u5de5\u5177",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Fzuim/ThinkFlow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T01:19:03Z"
+  "distributed_at": "2026-08-08T01:25:13Z"
 }
