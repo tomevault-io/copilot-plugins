@@ -1,0 +1,9 @@
+{
+  "name": "fixed-width--glass",
+  "displayName": "glass",
+  "description": "MCP server: build \u2192 see \u2192 interact \u2192 debug loop over native GUI apps",
+  "version": "1.0.0",
+  "author": "fixed-width",
+  "homepage": "https://github.com/fixed-width/glass",
+  "skills": []
+}
