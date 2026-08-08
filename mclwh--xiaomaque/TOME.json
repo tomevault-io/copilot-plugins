@@ -1,0 +1,44 @@
+{
+  "name": "xiaomaque",
+  "owner": "mclwh",
+  "repo": "xiaomaque",
+  "description": "AI\u77ed\u5267\u6f2b\u5267\u751f\u6210\uff0c\u4eff\u5c0f\u4e91\u96c0\u5b9e\u73b0\u3002\u5267\u672c\u751f\u6210\u3001\u65e0\u9650\u753b\u5e03\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mclwh/xiaomaque",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-08T00:43:24Z"
+}
