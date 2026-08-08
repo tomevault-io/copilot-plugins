@@ -4,7 +4,7 @@
   "repo": "curb",
   "description": "SF street-parking rules on a map \u2014 street sweeping, meters & permit zones, with calendar reminders + Web Push move-your-car alerts. Vanilla JS PWA.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alevizio/curb",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T00:56:41Z"
+  "distributed_at": "2026-08-08T01:03:31Z"
 }
