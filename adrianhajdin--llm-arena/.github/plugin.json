@@ -1,0 +1,9 @@
+{
+  "name": "adrianhajdin--llm-arena",
+  "displayName": "llm-arena",
+  "description": "Send one prompt, watch up to three AI models answer it at the same time, vote for the best one.",
+  "version": "1.0.0",
+  "author": "adrianhajdin",
+  "homepage": "https://github.com/adrianhajdin/llm-arena",
+  "skills": []
+}
