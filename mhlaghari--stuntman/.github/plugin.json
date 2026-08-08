@@ -1,0 +1,9 @@
+{
+  "name": "mhlaghari--stuntman",
+  "displayName": "stuntman",
+  "description": "Claude doesn't do its own stunts. Plan with Claude, execute with a near-free model, review with Claude \u2014 a delegation harness for Claude Code.",
+  "version": "1.0.0",
+  "author": "mhlaghari",
+  "homepage": "https://github.com/mhlaghari/stuntman",
+  "skills": []
+}
