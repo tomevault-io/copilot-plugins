@@ -1,0 +1,9 @@
+{
+  "name": "kentbeck--smalltalkgenie",
+  "displayName": "SmalltalkGenie",
+  "description": "An MCP server for coding in a live Pharo image",
+  "version": "1.0.0",
+  "author": "KentBeck",
+  "homepage": "https://github.com/KentBeck/SmalltalkGenie",
+  "skills": []
+}
