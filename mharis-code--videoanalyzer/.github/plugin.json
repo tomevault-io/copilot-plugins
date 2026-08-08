@@ -1,0 +1,9 @@
+{
+  "name": "mharis-code--videoanalyzer",
+  "displayName": "videoanalyzer",
+  "description": "A Claude Code skill that watches and reverse-engineers any social media video into a structured content intelligence report. Paste a TikTok, Instagram, YouTube, Reddit, or X URL and get back hook anal",
+  "version": "1.0.0",
+  "author": "Mharis-code",
+  "homepage": "https://github.com/Mharis-code/videoanalyzer",
+  "skills": []
+}
