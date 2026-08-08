@@ -1,0 +1,9 @@
+{
+  "name": "ld-singh--ai-factory-ops-lab",
+  "displayName": "ai-factory-ops-lab",
+  "description": "Hands-on GPU/HPC infrastructure operations: K8s GPU scheduling, HAMi sharing, Slurm, observability & vLLM inference. Learn it free on a laptop; validate on one cheap GPU.",
+  "version": "1.0.0",
+  "author": "ld-singh",
+  "homepage": "https://github.com/ld-singh/ai-factory-ops-lab",
+  "skills": []
+}
