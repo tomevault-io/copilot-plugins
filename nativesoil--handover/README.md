@@ -7,11 +7,11 @@ An open JSON format and local toolchain for carrying an AI assisted project's wo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nativesoil/handover](https://github.com/nativesoil/handover).
+Original source: `AGENTS.md` in [nativesoil/handover](https://github.com/nativesoil/handover).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
