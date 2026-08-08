@@ -1,0 +1,9 @@
+{
+  "name": "deck6--akm",
+  "displayName": "akm",
+  "description": "AKM \u2014 universal Agent Knowledge Management. A tool-agnostic Markdown knowledge OS for AI agents: memory / brain / vault over seven layers, with a Learn Back loop. Works with Claude Code, Codex, OpenCl",
+  "version": "1.0.0",
+  "author": "DECK6",
+  "homepage": "https://github.com/DECK6/akm",
+  "skills": []
+}
