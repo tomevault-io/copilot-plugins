@@ -1,0 +1,44 @@
+{
+  "name": "kaoyan-assistant",
+  "owner": "k12335656565656565656",
+  "repo": "kaoyan-assistant",
+  "description": "\u8003\u7814\u6570\u5b66\u667a\u80fd\u95ee\u7b54\u7cfb\u7edf",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/k12335656565656565656/kaoyan-assistant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-08T00:31:33Z"
+}
