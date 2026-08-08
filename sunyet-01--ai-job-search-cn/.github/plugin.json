@@ -1,0 +1,9 @@
+{
+  "name": "sunyet-01--ai-job-search-cn",
+  "displayName": "ai-job-search-cn",
+  "description": "\u4e00\u4e2a\u9762\u5411\u4e2d\u56fd\u6c42\u804c\u8005\u7684\u5f00\u6e90\u6c42\u804c\u52a9\u624b:JD \u8bc4\u4f30\u3001\u5b9a\u5236\u7b80\u5386\u3001\u6295\u9012\u89c4\u5212,\u5185\u7f6e\u804c\u4f4d\u641c\u7d22\u4e0e\u8bc4\u4f30\u6846\u67b6,\u7eaf Python \u96f6\u4f9d\u8d56\u3002",
+  "version": "1.0.0",
+  "author": "sunyet-01",
+  "homepage": "https://github.com/sunyet-01/ai-job-search-cn",
+  "skills": []
+}
