@@ -1,0 +1,295 @@
+## cursor-trellis
+
+> These instructions are for AI assistants working in this project.
+
+<!-- CSTL:START -->
+# Cursor-Trellis (cstl) Instructions
+
+These instructions are for AI assistants working in this project.
+
+This project is managed by cursor-trellis. The working knowledge you need lives under `.cstl/`:
+
+- `.cstl/workflow.md` — development phases, when to create tasks, skill routing
+- `.cstl/spec/` — package- and layer-scoped coding guidelines (read before writing code in a given layer)
+- `.cstl/workspace/` — per-developer journals and session traces
+- `.cstl/tasks/` — active and archived tasks (PRDs, research, jsonl context)
+
+If a cstl command is available on Cursor (e.g. `cstl-finish-work`, `cstl-continue`), prefer it over manual steps.
+
+## Command surface (what is user-invocable vs internal)
+
+Only a handful of Trellis entry points are meant for **manual `/` invocation**. Everything else is an **internal auto-triggered skill** — the agent loads it via the skill matcher or workflow routing, not by being called directly. Do **not** manually invoke internal skills through the slash palette.
+
+- **User-invocable (manual)**: `cstl-continue`, `cstl-finish-work` (and `cstl-start` when needed).
+- **Internal auto-triggered (do NOT call manually)**: `cstl-brainstorm`, `cstl-before-dev`, `cstl-check`, `cstl-break-loop`, `cstl-update-spec`, `cstl-micro-grill`, `cstl-meta`, `cstl-spec-bootstrap`, `cstl-skill-creator`, `smart-search-cli`. These activate on their own when the workflow/skill matcher decides they fit.
+
+## Web research routing (smart-search first)
+
+For **any external / current / web fact**, run **`python ./.cstl/scripts/run_smart_search.py "<question>" --intent deep-research --json`** first. That script is the **only** Trellis web-research evidence entrypoint (it shells out to the `smart-search` CLI). Do not guess paths under package source trees or sibling repos. Platform built-in web tools (Cursor `WebSearch` / `WebFetch`, or native web tools elsewhere) are **downgrade-only fallbacks**, used solely when smart-search is unavailable (`doctor` not ok, status `not_configured` / `failed`, or search timeout). Do not reach for built-in web search while smart-search is healthy. On Cursor, `smart-search-cli` is an **internal workflow skill name** only (not shipped under `.cursor/skills/`); follow `.cstl/spec/guides/retrieval-daily-guide.md` and `.cursor/rules/retrieval-routing.mdc` for the executable contract.
+
+**External-knowledge gate:** If the answer would be wrong because the **world or a third-party API moved** and that matters → use smart-search (cheap `docs` / `broad-search` when enough; `deep-research` when multi-source). If truth lives only in this workspace → do not default to web. When unsure, prefer a cheap probe over guessing. See retrieval-daily-guide § External-knowledge gate.
+
+Managed by cursor-trellis. Edits outside this block are preserved; edits inside may be overwritten by a future `cstl update`.
+
+<!-- CSTL:END -->
+
+## Mindfold harness (maintainers)
+
+The Trellis CLI source repo often sits inside the **D:\MyHarness** harness: the harness root holds workspace-level `.cstl/` (tasks, spec, workflow) and is **not** a git repository. Run `git`, `pnpm`, and CLI validation from **this** directory (`Trellis/`). See `D:\MyHarness\AGENTS.md` for the three-repo layout (`Trellis/`, `smartsearch-private/`, `riverfjs-skills/`).
+
+**Git remotes (local policy):** This checkout uses **only** the `private` remote (`git@github.com:blxzer77/cursor-trellis.git`). Do **not** add or push to `origin` / `mindfold-ai/Trellis`. Use `git push` (default remote is `private`) or `git push private <branch>`. Do not run `git push origin`.
+
+**Branch policy (mandatory):** **`main` is integration/release only — never develop on `main`.** Before any durable edit, create or checkout a short-lived branch (`feat/…`, `fix/…`, `chore/…`). Do not commit feature work directly to `main`. Harness-wide rule: `D:\MyHarness\.cursor\rules\feature-branch-policy.mdc`.
+
+---
+
+# Trellis — AI Agent Codebase Guide (Cursor-only fork)
+
+> Operational guide for AI agents editing this repository.
+> This fork targets **Cursor** only (`--cursor`, optional `--cursor2plus`).
+
+## 1. What Trellis Is
+
+Trellis is a **team AI coding harness** — it turns monolithic `AGENTS.md` / `.cursorrules` into a progressive wiki of specs, tasks, workflows, and journals that agents load only when needed.
+
+Published as npm package `@blxzer/cursor-trellis` with core SDK `@blxzer/cursor-trellis-core`. **Init and public docs are Cursor-only**; generated output is `.cursor/` (commands, rules, agents, hooks) plus `.cstl/`.
+
+**Key concepts delivered to user projects**:
+- `.cstl/spec/` — Team coding standards
+- `.cstl/tasks/` — PRDs, context, status, acceptance criteria
+- `.cstl/workspace/` — Developer journals and session continuity
+- `.cstl/workflow.md` — Shared lifecycle: plan, build, check, finish, learn
+- Cursor adapter — Generated `.cursor/` tree
+
+---
+
+## 2. Monorepo Architecture
+
+```
+Trellis/
+  packages/
+    core/              # @blxzer/cursor-trellis-core - domain primitives
+    cli/               # @blxzer/cursor-trellis - CLI tool
+  drafts/
+  assets/
+  .cstl/            # Self-dogfooding Trellis workspace
+  .cursor/
+  package.json
+  pnpm-workspace.yaml
+```
+
+**Package manager**: pnpm 10.32.1 (monorepo workspaces)
+**Build order**: core MUST build before cli
+**Node.js**: >= 18.17.0
+**TypeScript**: ES2022 target, NodeNext module resolution, strict mode, ESM only
+**Python**: >= 3.9 for hook scripts; basedpyright for type checking
+
+### Root scripts
+
+| Command | What it does |
+|---------|-------------|
+| `pnpm build` | Build core then cli (ordered) |
+| `pnpm build:core` / `pnpm build:cli` | Build a single package |
+| `pnpm test` | Test core then cli (ordered) |
+| `pnpm test:core` / `pnpm test:cli` | Test a single package |
+| `pnpm lint` | ESLint both packages |
+| `pnpm typecheck` | Build core then tsc --noEmit on cli |
+| `pnpm release` | Patch release of cli |
+| `pnpm release:beta` / `release:rc` | Prerelease channels |
+| `pnpm release:promote` | Promote prerelease to stable |
+| `pnpm release:check` | Preflight version alignment checks |
+| `pnpm release:plan` | Compute publish plan |
+
+---
+
+## 3. Core Package — `packages/core/`
+
+**npm**: `@blxzer/cursor-trellis-core` — Zero runtime dependencies.
+
+### Subpath exports
+
+| Import path | Contents |
+|-------------|----------|
+| `@blxzer/cursor-trellis-core` | Root barrel (channel + task) |
+| `@blxzer/cursor-trellis-core/channel` | Channel event log, worker lifecycle, threads, inbox |
+| `@blxzer/cursor-trellis-core/task` | Task record schema, paths, phase inference |
+| `@blxzer/cursor-trellis-core/testing` | Test utilities (NOT in root barrel) |
+
+### Task API — `core/src/task/`
+
+| Module | Purpose |
+|--------|---------|
+| `schema.ts` | TrellisTaskRecord type, Zod schema, field order, emptyTaskRecord() |
+| `records.ts` | loadTaskRecord(), writeTaskRecord() |
+| `paths.ts` | validateTaskDirName(), isValidTaskDirName() |
+| `phase.ts` | inferTaskPhase() |
+
+**Task phases**: planning -> in_progress -> verify -> complete
+
+---
+
+## 4. CLI Package — `packages/cli/`
+
+**npm**: `@blxzer/cursor-trellis` — Bins: `cstl`, `smart-search`
+**Dependencies**: trellis-core (workspace), chalk, commander, figlet, giget, inquirer, undici, zod
+
+### Source layout (high level)
+
+```
+src/
+  cli/index.ts                   # Commander program + update check
+  commands/
+    init.ts, update.ts, rollout.ts, upgrade.ts, uninstall.ts, workflow.ts
+    channel/                     # Advanced multi-agent runtime (not public Cursor docs)
+  configurators/
+    cursor.ts, cursor2plus.ts, workflow.ts, shared.ts
+  templates/
+    trellis/ (scripts, workflow.md, config.yaml)
+    common/ (commands, skills)
+    cursor/
+    shared-hooks/
+    markdown/ (AGENTS.md, guides)
+  migrations/manifests/
+  types/ai-tools.ts              # Cursor + cursor2plus-local registry
+  utils/ (template-hash, file-writer, codebase-retrieval-router, …)
+```
+
+### CLI Commands (user-facing)
+
+| Command | Module | Key behavior |
+|---------|--------|-------------|
+| `cstl init` | commands/init.ts | Detect project, check Python, write Cursor templates |
+| `cstl update` | commands/update.ts | Diff templates, classify changes, apply migrations |
+| `cstl rollout` | commands/rollout.ts | Multi-project update with evidence |
+| `cstl upgrade` | commands/upgrade.ts | npm install -g with tag resolution |
+| `cstl uninstall` | commands/uninstall.ts | Scrub Trellis-managed files |
+| `cstl workflow` | commands/workflow.ts | List/switch workflow.md |
+
+**Init flags**: `--cursor`, `--cursor2plus` (with `--cursor`), `-u name`, `--capability id` (repeatable/all), `--workflow id`, `-t template`, `--monorepo/--no-monorepo`
+
+---
+
+## 5. Cursor Platform System
+
+### AI_TOOLS registry — `types/ai-tools.ts`
+
+Cursor-only fork: active platforms are **cursor** (first-class) and **cursor2plus-local** (BYOK bundle). Legacy platform IDs may remain in types for migration compatibility but are not init targets.
+
+### Configurators — `configurators/`
+
+- `configureCursor()` — `.cursor/` commands, rules, agents, hooks
+- `configureCursor2plus()` — `.cstl/local/cursor2plus/` BYOK maps
+- `configureWorkflow()` — `.cstl/` structure creation
+
+Key helpers: `replacePythonCommandLiterals()`, `resolvePlaceholders()`.
+
+### Template System
+
+Templates are **TypeScript string constants** in `src/templates/`, not disk files.
+
+**The Mirror Rule (critical)**: When modifying `.cstl/` or `.cursor/` in project root (dogfooding), MUST also update `src/templates/`. Project files are self-consumed; templates go to user projects.
+
+### Template hash tracking — `utils/template-hash.ts`
+
+SHA-256 in `.cstl/.template-hashes`: Unchanged (auto-update), Modified (conflict), New (safe write), Deleted (user removed).
+
+---
+
+## 6. Migration Engine — `migrations/`
+
+JSON manifests in `manifests/` (v0.1.9 -> v1.0.0). Types: rename, delete, safe-file-delete, config-section-added.
+
+API: `getMigrationsForVersion()`, `getAllMigrations()`, `hasPendingMigrations()`, `getMigrationSummary()`, `getMigrationMetadata()`, `getConfigSectionsAddedBetween()`, `clearManifestCache()`
+
+---
+
+## 7. Smart-Search npm Dependency
+
+Runtime: `@blxzer/smart-search` npm package (installed as a dependency of `@blxzer/cursor-trellis`).
+Bin: `smart-search` → `./bin/smart-search.js` forwards to `node_modules/@blxzer/smart-search`.
+Bundled skill template: `packages/cli/src/templates/common/bundled-skills/smart-search-cli/` (synced from the smart-search repo; written to `.agents/skills/` on non-Cursor platforms only — **not** `.cursor/skills/`).
+Cursor entrypoint: `./.cstl/scripts/run_smart_search.py` + `.cursor/rules/retrieval-routing.mdc` + `AGENTS.md`.
+
+---
+
+## 8. Build, Test & CI/CD
+
+**Build**: core (clean+tsc), cli (clean+tsc+copy-templates).
+
+**Test config**: core (Vitest 4.x, 10s timeout, threads), cli (Vitest 4.x, 30s timeout, forks pool, test/setup.ts, v8 coverage).
+
+**Test categories**: Unit, Integration, Regression (`regression.test.ts`), Template (`trellis.test.ts`), Dogfood fixtures.
+
+**CI / hooks:** No GitHub Actions or Husky hooks in this fork. Run `pnpm lint && pnpm typecheck && pnpm test && pnpm build` locally before push.
+
+**Publish:** Manual via `pnpm release*` scripts; pushes tags to the `private` remote.
+
+---
+
+## 9. Key Conventions & Gotchas
+
+### Windows compatibility (regression-tested)
+
+- Python hooks MUST call `configure_encoding()` from `common/__init__.py`
+- `sys.platform == "win32"` guards for stdout/stderr
+- `reconfigure()` check before `detach()` check (beta.16 root cause)
+- `python` in templates -> `python` on Windows via `replacePythonCommandLiterals()`
+
+### Path handling
+
+- POSIX paths in templates/hashes: `toPosix()`
+- `DIR_NAMES` / `PATHS` in `constants/paths.ts` — single source for names
+- Managed paths from `AI_TOOLS` via `getManagedPaths()` — never hardcode
+
+### Session records
+
+- 5 columns: | # | Date | Title | Commits | Branch |
+- `add_session.py` uses `--branch` (not `--base-branch`)
+
+### Sub-agent dispatch (workflow.md)
+
+- `cstl-implement` / `cstl-check` / `cstl-research` via Cursor Task tool
+- Sub-agents self-exempt from recursion
+- Dispatch prompt starts with `Selected task: <path>`
+
+### File writing
+
+Modes: force, skip, create-new. `startRecordingWrites()`/`stopRecordingWrites()` for tracking.
+
+---
+
+## 10. Dogfooding
+
+`.cstl/` in project root. Changes MUST mirror to `src/templates/`.
+
+---
+
+## 11. Quick Reference
+
+**New CLI command**: `src/commands/{name}.ts` -> register in `cli/index.ts` -> tests
+
+**New Python script**: `src/templates/trellis/scripts/` -> export from `trellis/index.ts` -> `getAllScripts()` -> regression test
+
+**New migration**: `src/migrations/manifests/{version}.json` -> regression test -> `check-manifest-continuity.js`
+
+**Modify workflow.md**: Edit `src/templates/trellis/workflow.md` -> mirror `.cstl/workflow.md` -> template tests
+
+**Modify AGENTS.md template**: Edit `src/templates/markdown/index.ts` (user projects) or root `AGENTS.md` (self). Never edit inside CSTL:START/END block.
+
+**Sync smart-search bundled skill**: Update `smart-search/skills/smart-search-cli/` → copy into `packages/cli/src/templates/common/bundled-skills/smart-search-cli/` (does not change Cursor `.cursor/skills/` policy).
+
+**Full quality check**: `pnpm lint && pnpm lint:py && pnpm typecheck && pnpm test && pnpm build`
+
+---
+
+## 12. Path Constants — `constants/paths.ts`
+
+```
+DIR_NAMES: .cstl, workspace, tasks, archive, spec, scripts
+FILE_NAMES: AGENTS.md, .developer, .current-task, task.json, prd.md, workflow.md, journal-
+Helpers: getWorkspaceDir(dev), getTaskDir(name), getArchiveDir()
+```
+
+---
+> Source: [blxzer77/cursor-trellis](https://github.com/blxzer77/cursor-trellis) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-07 -->
