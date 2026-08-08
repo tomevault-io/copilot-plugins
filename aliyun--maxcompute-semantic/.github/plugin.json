@@ -1,0 +1,9 @@
+{
+  "name": "aliyun--maxcompute-semantic",
+  "displayName": "maxcompute-semantic",
+  "description": "Agent-agnostic semantic skill for MaxCompute SQL \u2014 CLI + bare SKILL.md bundle",
+  "version": "1.0.0",
+  "author": "aliyun",
+  "homepage": "https://github.com/aliyun/maxcompute-semantic",
+  "skills": []
+}
