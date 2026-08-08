@@ -1,0 +1,9 @@
+{
+  "name": "vericle--heyclaw",
+  "displayName": "heyclaw",
+  "description": "\ud83e\udd9e Headless real-time Python voice assistant powered by ElevenLabs, Gemini, Mem0, MCP tools, and local wake-word detection.",
+  "version": "1.0.0",
+  "author": "vericle",
+  "homepage": "https://github.com/vericle/heyclaw",
+  "skills": []
+}
