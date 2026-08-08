@@ -1,0 +1,44 @@
+{
+  "name": "curb",
+  "owner": "alevizio",
+  "repo": "curb",
+  "description": "SF street-parking rules on a map \u2014 street sweeping, meters & permit zones, with calendar reminders + Web Push move-your-car alerts. Vanilla JS PWA.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/alevizio/curb",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-08T00:56:41Z"
+}
