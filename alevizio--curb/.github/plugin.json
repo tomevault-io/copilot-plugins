@@ -1,0 +1,9 @@
+{
+  "name": "alevizio--curb",
+  "displayName": "curb",
+  "description": "SF street-parking rules on a map \u2014 street sweeping, meters & permit zones, with calendar reminders + Web Push move-your-car alerts. Vanilla JS PWA.",
+  "version": "1.0.0",
+  "author": "alevizio",
+  "homepage": "https://github.com/alevizio/curb",
+  "skills": []
+}
