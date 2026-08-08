@@ -1,0 +1,9 @@
+{
+  "name": "sng-asyncfunc--prime-bun",
+  "displayName": "prime-bun",
+  "description": "An ultra-fast Prime Agent fork designed to orchestrate concurrent sub-agents and execute long-running coding tasks without the Python latency tax.",
+  "version": "1.0.0",
+  "author": "sng-asyncfunc",
+  "homepage": "https://github.com/sng-asyncfunc/prime-bun",
+  "skills": []
+}
