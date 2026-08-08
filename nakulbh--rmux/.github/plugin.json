@@ -1,0 +1,9 @@
+{
+  "name": "nakulbh--rmux",
+  "displayName": "rmux",
+  "description": "cmux but in rust gpui",
+  "version": "1.0.0",
+  "author": "nakulbh",
+  "homepage": "https://github.com/nakulbh/rmux",
+  "skills": []
+}
