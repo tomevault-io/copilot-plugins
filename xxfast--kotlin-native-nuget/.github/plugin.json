@@ -1,0 +1,9 @@
+{
+  "name": "xxfast--kotlin-native-nuget",
+  "displayName": "kotlin-native-nuget",
+  "description": "A plugin that packages a Kotlin/Native library as a NuGet package with generated C# bindings, and consumes C# NuGet packages from Kotlin",
+  "version": "1.0.0",
+  "author": "xxfast",
+  "homepage": "https://github.com/xxfast/kotlin-native-nuget",
+  "skills": []
+}
