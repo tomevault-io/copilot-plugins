@@ -1,0 +1,9 @@
+{
+  "name": "indecenti--nucleoos",
+  "displayName": "NucleoOs",
+  "description": "Web-native OS for the M5Stack Cardputer (ESP32-S3): native firmware + a desktop-class browser shell, offline AI assistant (ANIMA), bilingual voice, games, a security lab, OTA.",
+  "version": "1.0.0",
+  "author": "indecenti",
+  "homepage": "https://github.com/indecenti/NucleoOs",
+  "skills": []
+}
