@@ -1,0 +1,9 @@
+{
+  "name": "coc-plugin--coc-vscode-loader",
+  "displayName": "coc-vscode-loader",
+  "description": "Run VS Code extensions seamlessly in coc.nvim",
+  "version": "1.0.0",
+  "author": "coc-plugin",
+  "homepage": "https://github.com/coc-plugin/coc-vscode-loader",
+  "skills": []
+}
