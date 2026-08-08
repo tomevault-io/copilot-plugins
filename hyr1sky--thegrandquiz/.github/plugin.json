@@ -1,0 +1,9 @@
+{
+  "name": "hyr1sky--thegrandquiz",
+  "displayName": "TheGrandQuiz",
+  "description": "Local-first learning agent that turns your materials into grounded conversations, adaptive assessments, and durable memory\u2014with observable, replayable traces.",
+  "version": "1.0.0",
+  "author": "Hyr1sky",
+  "homepage": "https://github.com/Hyr1sky/TheGrandQuiz",
+  "skills": []
+}
