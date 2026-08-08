@@ -1,0 +1,44 @@
+{
+  "name": "news-cli",
+  "owner": "xw-meow",
+  "repo": "news-cli",
+  "description": "A minimal, blazing-fast command-line news reader. Browse, filter, and read the latest headlines directly in your terminal\u2014no browser, no GUI, no context switching.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xw-meow/news-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-08T02:48:50Z"
+}
