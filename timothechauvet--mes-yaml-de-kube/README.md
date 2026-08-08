@@ -7,14 +7,14 @@ C'est pour moi mais en public
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [timothechauvet/mes-yaml-de-kube](https://github.com/timothechauvet/mes-yaml-de-kube).
+Original source: `CLAUDE.md` in [timothechauvet/mes-yaml-de-kube](https://github.com/timothechauvet/mes-yaml-de-kube).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [timothechauvet/mes-yaml-de-kube](https://github.com/timothechauvet/mes-yaml-de-kube) — a repo with 0+ stars on GitHub.
