@@ -1,0 +1,9 @@
+{
+  "name": "stefan-jansen--coding-agent-toolkit",
+  "displayName": "coding-agent-toolkit",
+  "description": "Cross-agent workflow toolkit (Claude Code + Codex) \u2014 align/plan/ship/handoff verbs with shared .workspace/ as the host-swap primitive",
+  "version": "1.0.0",
+  "author": "stefan-jansen",
+  "homepage": "https://github.com/stefan-jansen/coding-agent-toolkit",
+  "skills": []
+}
