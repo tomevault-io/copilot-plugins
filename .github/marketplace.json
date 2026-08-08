@@ -395649,6 +395649,21 @@
       "description": "\u5c0f\u6234AI\u5de5\u4f5c\u53f0"
     },
     {
+      "name": "asimons81--nexusos",
+      "source": "./asimons81--nexusos",
+      "description": "Files you own. Memory your agents can trust. Also: your AI won't gaslight you about what's in your own notes anymore."
+    },
+    {
+      "name": "astrokjoseph--jarvis",
+      "source": "./astrokjoseph--jarvis",
+      "description": "Jarvis voice assistant"
+    },
+    {
+      "name": "pouriya--espai",
+      "source": "./pouriya--espai",
+      "description": "A browser eye and hands for local AI agents. Snapshot a page, click a ref, read the JSON behind it \u2014 all with curl."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -423557,6 +423572,11 @@
       "name": "cavalry-collective--visual-stack",
       "source": "./cavalry-collective--visual-stack",
       "description": "A visual interface for building software with Claude Code/Codex."
+    },
+    {
+      "name": "engasnm111--lnwdeck",
+      "source": "./engasnm111--lnwdeck",
+      "description": "Universal AI usage and quota tracker for Windows. Reads artifacts your local AI tools already write, records tokens and costs, shows remaining provider quota. Local-only: no account, no server, no syn"
     },
     {
       "name": "cheerhuan--save-your-token",
