@@ -1,0 +1,370 @@
+## flint
+
+> * Prioritize code correctness and clarity. Speed and efficiency are secondary priorities unless otherwise specified.
+
+# Rust coding guidelines
+
+* Prioritize code correctness and clarity. Speed and efficiency are secondary priorities unless otherwise specified.
+* Do not write organizational or comments that summarize the code. Comments should only be written in order to explain "why" the code is written in some way in the case there is a reason that is tricky / non-obvious.
+* Prefer implementing functionality in existing files unless it is a new logical component. Avoid creating many small files.
+* Avoid using functions that panic like `unwrap()`, instead use mechanisms like `?` to propagate errors.
+* Be careful with operations like indexing which may panic if the indexes are out of bounds.
+* Never silently discard errors with `let _ =` on fallible operations. Always handle errors appropriately:
+  - Propagate errors with `?` when the calling function should handle them
+  - Use `.log_err()` or similar when you need to ignore errors but want visibility
+  - Use explicit error handling with `match` or `if let Err(...)` when you need custom logic
+  - Example: avoid `let _ = client.request(...).await?;` - use `client.request(...).await?;` instead
+* When implementing async operations that may fail, ensure errors propagate to the UI layer so users get meaningful feedback.
+* Never create files with `mod.rs` paths - prefer `src/some_module.rs` instead of `src/some_module/mod.rs`.
+* When creating new crates, prefer specifying the library root path in `Cargo.toml` using `[lib] path = "...rs"` instead of the default `lib.rs`, to maintain consistent and descriptive naming (e.g., `gpui.rs` or `main.rs`).
+* Avoid creative additions unless explicitly requested
+* Use full words for variable names (no abbreviations like "q" for "queue")
+* Use variable shadowing to scope clones in async contexts for clarity, minimizing the lifetime of borrowed references.
+  Example:
+  ```rust
+  executor.spawn({
+      let task_ran = task_ran.clone();
+      async move {
+          *task_ran.borrow_mut() = true;
+      }
+  });
+  ```
+
+# Timers in tests
+
+* In GPUI tests, prefer GPUI executor timers over `smol::Timer::after(...)` when you need timeouts, delays, or to drive `run_until_parked()`:
+  - Use `cx.background_executor().timer(duration).await` (or `cx.background_executor.timer(duration).await` in `TestAppContext`) so the work is scheduled on GPUI's dispatcher.
+  - Avoid `smol::Timer::after(...)` for test timeouts when you rely on `run_until_parked()`, because it may not be tracked by GPUI's scheduler and can lead to "nothing left to run" when pumping.
+
+# GPUI
+
+GPUI is a UI framework which also provides primitives for state and concurrency management.
+
+## Context
+
+Context types allow interaction with global state, windows, entities, and system services. They are typically passed to functions as the argument named `cx`. When a function takes callbacks they come after the `cx` parameter.
+
+* `App` is the root context type, providing access to global state and read and update of entities.
+* `Context<T>` is provided when updating an `Entity<T>`. This context dereferences into `App`, so functions which take `&App` can also take `&Context<T>`.
+* `AsyncApp` and `AsyncWindowContext` are provided by `cx.spawn` and `cx.spawn_in`. These can be held across await points.
+
+## `Window`
+
+`Window` provides access to the state of an application window. It is passed to functions as an argument named `window` and comes before `cx` when present. It is used for managing focus, dispatching actions, directly drawing, getting user input state, etc.
+
+## Entities
+
+An `Entity<T>` is a handle to state of type `T`. With `thing: Entity<T>`:
+
+* `thing.entity_id()` returns `EntityId`
+* `thing.downgrade()` returns `WeakEntity<T>`
+* `thing.read(cx: &App)` returns `&T`.
+* `thing.read_with(cx, |thing: &T, cx: &App| ...)` returns the closure's return value.
+* `thing.update(cx, |thing: &mut T, cx: &mut Context<T>| ...)` allows the closure to mutate the state, and provides a `Context<T>` for interacting with the entity. It returns the closure's return value.
+* `thing.update_in(cx, |thing: &mut T, window: &mut Window, cx: &mut Context<T>| ...)` takes a `AsyncWindowContext` or `VisualTestContext`. It's the same as `update` while also providing the `Window`.
+
+Within the closures, the inner `cx` provided to the closure must be used instead of the outer `cx` to avoid issues with multiple borrows.
+
+Trying to update an entity while it's already being updated must be avoided as this will cause a panic.
+
+`WeakEntity<T>` is a weak handle. It has `read_with`, `update`, and `update_in` methods that work the same, but always return an `anyhow::Result` so that they can fail if the entity no longer exists. This can be useful to avoid memory leaks - if entities have mutually recursive handles to each other they will never be dropped.
+
+## Concurrency
+
+All use of entities and UI rendering occurs on a single foreground thread.
+
+`cx.spawn(async move |cx| ...)` runs an async closure on the foreground thread. Within the closure, `cx` is `&mut AsyncApp`.
+
+When the outer cx is a `Context<T>`, the use of `spawn` instead looks like `cx.spawn(async move |this, cx| ...)`, where `this: WeakEntity<T>` and `cx: &mut AsyncApp`.
+
+To do work on other threads, `cx.background_spawn(async move { ... })` is used. Often this background task is awaited on by a foreground task which uses the results to update state.
+
+Both `cx.spawn` and `cx.background_spawn` return a `Task<R>`, which is a future that can be awaited upon. If this task is dropped, then its work is cancelled. To prevent this one of the following must be done:
+
+* Awaiting the task in some other async context.
+* Detaching the task via `task.detach()` or `task.detach_and_log_err(cx)`, allowing it to run indefinitely.
+* Storing the task in a field, if the work should be halted when the struct is dropped.
+
+A task which doesn't do anything but provide a value can be created with `Task::ready(value)`.
+
+## Elements
+
+The `Render` trait is used to render some state into an element tree that is laid out using flexbox layout. An `Entity<T>` where `T` implements `Render` is sometimes called a "view".
+
+Example:
+
+```
+struct TextWithBorder(SharedString);
+
+impl Render for TextWithBorder {
+    fn render(&mut self, _window: &mut Window, _cx: &mut Context<Self>) -> impl IntoElement {
+        div().border_1().child(self.0.clone())
+    }
+}
+```
+
+Since `impl IntoElement for SharedString` exists, it can be used as an argument to `child`. `SharedString` is used to avoid copying strings, and is either an `&'static str` or `Arc<str>`.
+
+UI components that are constructed just to be turned into elements can instead implement the `RenderOnce` trait, which is similar to `Render`, but its `render` method takes ownership of `self` and receives `&mut App` instead of `&mut Context<Self>`. Types that implement this trait can use `#[derive(IntoElement)]` to use them directly as children.
+
+The style methods on elements are similar to those used by Tailwind CSS.
+
+If some attributes or children of an element tree are conditional, `.when(condition, |this| ...)` can be used to run the closure only when `condition` is true. Similarly, `.when_some(option, |this, value| ...)` runs the closure when the `Option` has a value.
+
+## Input events
+
+Input event handlers can be registered on an element via methods like `.on_click(|event, window, cx: &mut App| ...)`.
+
+Often event handlers will want to update the entity that's in the current `Context<T>`. The `cx.listener` method provides this - its use looks like `.on_click(cx.listener(|this: &mut T, event, window, cx: &mut Context<T>| ...)`.
+
+## Actions
+
+Actions are dispatched via user keyboard interaction or in code via `window.dispatch_action(SomeAction.boxed_clone(), cx)` or `focus_handle.dispatch_action(&SomeAction, window, cx)`.
+
+Actions with no data defined with the `actions!(some_namespace, [SomeAction, AnotherAction])` macro call. Otherwise the `Action` derive macro is used. Doc comments on actions are displayed to the user.
+
+Action handlers can be registered on an element via the event handler `.on_action(|action, window, cx| ...)`. Like other event handlers, this is often used with `cx.listener`.
+
+## Notify
+
+When a view's state has changed in a way that may affect its rendering, it should call `cx.notify()`. This will cause the view to be rerendered. It will also cause any observe callbacks registered for the entity with `cx.observe` to be called.
+
+## Entity events
+
+While updating an entity (`cx: Context<T>`), it can emit an event using `cx.emit(event)`. Entities register which events they can emit by declaring `impl EventEmitter<EventType> for EntityType {}`.
+
+Other entities can then register a callback to handle these events by doing `cx.subscribe(other_entity, |this, other_entity, event, cx| ...)`. This will return a `Subscription` which deregisters the callback when dropped.  Typically `cx.subscribe` happens when creating a new entity and the subscriptions are stored in a `_subscriptions: Vec<Subscription>` field.
+
+## Build guidelines
+
+- Build the local macOS app bundle at `/tmp/Flint-Local.app` with `./script/bundle-tmp-app`.
+- This script can exit non-zero even after successfully building the app: `script/bundle-mac -d` hardcodes `release/remote_server` in its final `sign_binary`/`gzip` step regardless of the `-d` (debug) flag, so that step fails whenever only a debug build exists. Because `bundle-tmp-app` runs under `set -e`, this failure happens before its own `cp -R` to `/tmp/Flint-Local.app`, so the target app is silently left stale — check the exit code, don't assume success from the tail of the output. If it fails this way, copy the fresh bundle manually: `cp -R target/<target-triple>/debug/bundle/osx/Flint.app /tmp/Flint-Local.app`.
+- Use `./script/clippy` instead of `cargo clippy`
+
+# Zed vs Flint boundary
+
+Flint is a single-user fork of Zed with no collab backend, no user accounts,
+and no cloud service of its own (see "Flint goals" — not collab-first).
+"Zed" still appears throughout the codebase, but not all of it is a leftover
+bug. Before renaming a "Zed" reference to "Flint" or vice versa, check which
+bucket it's in:
+
+**Keep referencing Zed (do not rename) — these are real upstream
+dependencies, not branding:**
+- The `zed_extension_api` crate name, and the `zed:api-version` /
+  `zed:extension/*` WIT namespace in `extension_host`'s wasm host. Existing
+  Zed extensions declare these exact identifiers; renaming breaks every
+  extension Flint can currently load.
+- `api.zed.dev` / `cloud.zed.dev` / `llm-staging.zed.dev` endpoints reached
+  via `build_flint_api_url` / `build_flint_cloud_url` / `build_flint_llm_url`
+  (`crates/http_client/src/http_client.rs`) and
+  `UPSTREAM_ZED_EXTENSION_SERVER_URL` (`crates/extension_host`). Flint runs no
+  extension registry or LLM proxy of its own, so these deliberately proxy to
+  Zed's public services. The function names are already Flint-branded
+  wrappers — that's the intended pattern for this kind of proxying.
+- `zed-industries` git dependencies in `Cargo.toml` (tree-sitter grammars,
+  the `alacritty`/`wgpu`/`reqwest`/`notify`/`lsp-types` forks, etc.). These
+  are genuinely maintained upstream and Flint tracks them.
+- `ZED_*` environment variables (`ZED_SERVER_URL`, `ZED_IMPERSONATE`,
+  `ZED_WORKTREE_ROOT`, task variables like `ZED_FILE`/`ZED_COLUMN`, and many
+  more). These are load-bearing external interfaces — scripts, task configs,
+  and CI already depend on the exact names. Don't rename these opportunistically.
+- GPUI's original-author attribution and any comment crediting Zed for code
+  Flint still vendors as-is.
+
+**Should be Flint, not Zed — rename on sight when you touch the surrounding
+code:**
+- Any user-visible string (UI labels, dialogs, tooltips, error messages,
+  onboarding copy, doc prose) describing Flint's *own* product or behavior.
+  Compare against `crates/release_channel`'s `display_name()`/
+  `app_identifier()` (returns "Flint"/"Flint Dev"/"Flint-Editor-Stable" etc.)
+  and `crates/onboarding`/`crates/title_bar` (already fully de-branded) as
+  the reference pattern.
+- Strings that correctly name Zed by way of comparison (migration guides,
+  "compatible with Zed's keymap", crediting upstream) are fine as-is — the
+  test is whether the sentence is about Flint or about Zed.
+- Known stale spots as of this writing, fix if you're already in the area:
+  `repository = "https://github.com/zed-industries/flint"` in
+  `crates/gpui`, `crates/extension_api`, `crates/html_to_markdown`
+  Cargo.toml (mismatched org/repo, not a real URL); "Zed Preview"/"Zed
+  Nightly"/"Zed Dev" comments in `assets/settings/default.json` (the actual
+  channel names are "Flint Preview" etc.); `docs/src/account/*` and
+  `docs/src/collaboration/overview.md` (describe the removed cloud-account
+  and collab features); install instructions in `docs/src/migrate/*.md`
+  that tell the reader to install "Zed" when the doc means Flint itself.
+
+# Adding Agent Threads coding agents
+
+- Audit a new agent end-to-end against existing agents: settings and defaults,
+  Settings Editor controls, panel visibility, actions, history and resume, and
+  remote behavior. Represent every intentional omission as an explicit,
+  tested capability.
+- Do not assume that adding a settings schema or default makes the setting
+  user-visible. Add and test every applicable per-agent Settings Editor
+  control and its exact JSON path, especially `hidden`.
+- Preserve the remote route boundary. Direct uses only the configured ambient
+  executable on the remote and exposes no Flint-managed launch or credential
+  controls. Tunneled uses only the pinned Flint-managed executable on the
+  remote and routes its traffic through local Flint. Test both routes for every
+  new agent.
+- Gate provider-specific UI, including credentials and plan usage, on explicit
+  capabilities rather than registry membership.
+
+# Branch and pull request hygiene
+
+- Never commit directly to `main`. Before making a repository change, create
+  or switch to a feature branch.
+- Deliver every repository change through a pull request, including
+  documentation, rules, and other non-functional changes.
+- After a feature branch's pull request merges into `main`, delete both the
+  local and remote copies of that branch
+  (`git branch -d <branch>` and `git push origin --delete <branch>`, or
+  `gh pr merge --delete-branch` at merge time) so stale branches don't
+  accumulate.
+
+# Push hygiene
+
+Before pushing Rust code changes, run `cargo fmt --all -- --check` and fix any
+formatting drift.
+
+# Pull request hygiene
+
+When an agent opens or updates a pull request, it must:
+
+- Use a clear, correctly capitalized, imperative PR title (for example, `Fix crash in project panel`).
+- Avoid conventional commit prefixes in PR titles (`fix:`, `feat:`, `docs:`, etc.).
+- Avoid trailing punctuation in PR titles.
+- Optionally prefix the title with a crate name when one crate is the clear scope (for example, `git_ui: Add history view`).
+- Include a `Release Notes:` section as the final section in the PR body.
+- Use one bullet under `Release Notes:`:
+  - `- Added ...`, `- Fixed ...`, or `- Improved ...` for user-facing changes, or
+  - `- N/A` for docs-only and other non-user-facing changes.
+- Format release notes exactly with a blank line after the heading, for example:
+
+```
+Release Notes:
+
+- N/A
+```
+
+# Releases
+
+Flint ships two channels, both built directly from `main` — there is no
+separate release branch and no preview channel anymore
+(`docs/superpowers/specs/2026-07-30-stable-nightly-release-model-design.md`
+records the design):
+
+- **Stable** — tagged releases. `crates/flint/RELEASE_CHANNEL` on `main` is
+  always `stable`; tags are plain `vX.Y.Z`. `script/determine-release-channel`
+  rejects any tag ending in `-pre` and fails the release job.
+- **Nightly** — a moving `nightly` tag and prerelease GitHub release, rebuilt
+  from the latest `main` commit daily by
+  `.github/workflows/release_nightly.yml`. Each nightly build job overwrites
+  `crates/flint/RELEASE_CHANNEL` to `nightly` in its own checkout before
+  compiling; that edit is never committed back to `main`.
+
+The old `stable` branch still exists on `origin` but is inactive and
+historical — do not merge into it or tag from it. `script/test-release-channel-model`
+verifies the channel-gating scripts (main builds `stable`, `-pre` tags are
+rejected, and the installer refuses `ZED_CHANNEL=preview`) and is worth
+running after touching any of these scripts.
+
+To cut a stable release, walk through these steps in order:
+
+1. Check the version already committed on `main`:
+   `grep '^version' crates/flint/Cargo.toml` and `git tag -l "vX.Y.*"`. A bump
+   sometimes rides along inside an unrelated merged PR (e.g. a `Cargo.toml`
+   edit bundled with an icon change), so `main` may already carry the version
+   you're about to release — don't assume a dedicated bump commit is still
+   needed if the working tree is already at the target version and untagged.
+2. If the version still needs bumping: edit `version` in
+   `crates/flint/Cargo.toml`, run `cargo check -p flint` (or `cargo build`) so
+   `Cargo.lock` picks up the change, commit on a feature branch, and open a PR
+   into `main`. Don't default to a separate bump-only PR whenever a fix/feature
+   PR is already in flight — ask the user whether to bundle the version bump
+   into that same branch/PR instead, since each additional PR restarts the
+   full CI run (including the ~45 min `tests` job) just to land a two-line
+   version change. This applies whether the bump is to retry a release
+   blocked by that fix, or the fix/feature simply happens to warrant a
+   release afterward — ask either way rather than assuming.
+3. Before tagging, confirm the local `main` matches its remote counterpart
+   (`git fetch && git status`) — the tag must point at the commit that's
+   actually merged upstream, not a stale local one.
+4. Tag and push: `git tag vX.Y.Z main && git push origin vX.Y.Z`.
+5. Do not run `gh release create` by hand after pushing the tag.
+   `.github/workflows/release.yml` triggers on any `v*` tag push, runs
+   tests/clippy, builds the macOS/Linux/Windows binaries, and creates the
+   GitHub release itself (`script/create-draft-release`) once assets are
+   ready. Manually creating the release first makes CI's own creation step
+   no-op, leaving a published, asset-less release live on GitHub for the
+   ~2-3h the builds take.
+6. Find the release run with `gh run list --workflow=release.yml`. After
+   pushing the tag, wait 5 minutes before the first status check, then monitor
+   it with `gh run watch <run-id> --interval 3600 --exit-status` so subsequent
+   checks happen every 60 minutes. Do not poll the release more frequently
+   unless the user explicitly asks for a different cadence.
+7. `auto_release_stable` publishes the release automatically
+   (`gh release edit vX.Y.Z --draft=false`) once `validate_release_assets`
+   passes — there is no manual publish step. This relies on Nightly already
+   having verified whatever's on `main`: don't tag a stable release from a
+   `main` commit that hasn't had at least one green Nightly build.
+8. Release notes come from `script/draft-release-notes`, which finds the
+   highest existing plain `vX.Y.Z` tag (via `git ls-remote --tags`) below the
+   version being released and pulls each intervening commit's
+   `Release notes:` bullet. If no earlier tag exists — e.g. the very first
+   stable tag cut after this switch — there's nothing to diff against and
+   `release.yml`'s `|| true` silently swallows the script's failure, leaving a
+   generic placeholder body instead of real notes. Check
+   `gh release view <tag> --json body` after `create_draft_release` finishes
+   rather than assuming it produced real notes; don't delete a tag that a
+   later release still needs as its diff base (deleting the GitHub *release*
+   is fine, deleting the *tag* is what breaks the lookup).
+9. Rapid successive merges to `main` show earlier `CI` workflow runs as
+   `cancelled` — expected, not a failure. Its concurrency group is keyed on
+   `github.ref` alone, so each new push to `main` cancels whatever previous
+   run on `main` is still in flight; only the latest run (covering the final
+   merged state) matters.
+
+Nightly builds are unattended: `release_nightly.yml` runs daily at 03:00
+Asia/Taipei (19:00 UTC the previous day) via cron, skips the rebuild if the
+`nightly` tag already points at the current `main` commit, and otherwise
+force-moves the `nightly` tag (`git tag -f nightly HEAD`) and replaces the
+assets on the existing `nightly` prerelease. Don't hand-manage the `nightly`
+tag or release; re-run the `release_nightly` workflow (`workflow_dispatch`) if
+a rebuild is needed out of cadence.
+
+# Crash Investigation
+
+## Sentry Integration
+- Crash investigation prompts: `.factory/prompts/crash/investigate.md`
+- Crash fix prompts: `.factory/prompts/crash/fix.md`
+- Fetch crash reports: `script/sentry-fetch <issue-id>`
+- Generate investigation prompt from crash: `script/crash-to-prompt <issue-id>`
+
+# Rules Hygiene
+
+These `.rules` files are read by every agent session. Keep them high-signal.
+
+## After any agentic session
+If you discover a non-obvious pattern that would help future sessions, include a **"Suggested .rules additions"** heading in your PR description with the proposed text. Do **not** edit `.rules` inline during normal feature/fix work. Reviewers decide what gets merged.
+
+## High bar for new rules
+Editing or clarifying existing rules is always welcome. New rules must meet **all three** criteria:
+1. **Non-obvious** — someone familiar with the codebase would still get it wrong without the rule.
+2. **Repeatedly encountered** — it came up more than once (multiple hits in one session counts).
+3. **Specific enough to act on** — a concrete instruction, not a vague principle.
+
+Rules that apply to a single crate belong in that crate's own `.rules` file, not the repo root.
+
+## What NOT to put in `.rules`
+Avoid architectural descriptions of a crate (module layout, data flow, key types). These go stale fast and the agent can gather them by reading the code. Rules should be **traps to avoid**, not **maps to follow**.
+
+## No drive-by additions
+Rules emerge from validated patterns, not one-off observations. The workflow is:
+1. Agent notes a pattern during a session.
+2. Team validates the pattern in code review.
+3. A dedicated commit adds the rule with context on *why* it exists.
+
+---
+> Source: [shenghsi/flint](https://github.com/shenghsi/flint) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-07 -->
