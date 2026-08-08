@@ -1,0 +1,44 @@
+{
+  "name": "xplane-g1000-nxi",
+  "owner": "andywmm9-pixel",
+  "repo": "xplane-g1000-nxi",
+  "description": "INACTIVE \u2014 not the current project. See https://cockpitvector.com",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/andywmm9-pixel/xplane-g1000-nxi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-08T00:39:50Z"
+}
