@@ -4,7 +4,7 @@
   "repo": "rocokingdom-ui",
   "description": "\u300a\u6d1b\u514b\u738b\u56fd\uff1a\u4e16\u754c\u300b\u98ce\u683c\u7684 React \u7ec4\u4ef6\u5e93\u3002RocoKingdom: World-style React UI component library.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rookie-orange/rocokingdom-ui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T01:07:32Z"
+  "distributed_at": "2026-08-08T01:13:11Z"
 }
