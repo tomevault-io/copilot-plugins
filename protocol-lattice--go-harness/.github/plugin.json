@@ -1,0 +1,9 @@
+{
+  "name": "protocol-lattice--go-harness",
+  "displayName": "go-harness",
+  "description": "go-harness",
+  "version": "1.0.0",
+  "author": "Protocol-Lattice",
+  "homepage": "https://github.com/Protocol-Lattice/go-harness",
+  "skills": []
+}
