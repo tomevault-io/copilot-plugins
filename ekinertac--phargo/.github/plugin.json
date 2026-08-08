@@ -1,0 +1,9 @@
+{
+  "name": "ekinertac--phargo",
+  "displayName": "Phargo",
+  "description": "A from-scratch, memory-safe PHP engine written in Rust \u2014 built the same way the Bun team rewrote Bun in Rust: drive an AI with the original project's own test suite as the oracle, and watch the pass-r",
+  "version": "1.0.0",
+  "author": "ekinertac",
+  "homepage": "https://github.com/ekinertac/Phargo",
+  "skills": []
+}
