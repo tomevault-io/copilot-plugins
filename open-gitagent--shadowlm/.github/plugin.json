@@ -1,0 +1,9 @@
+{
+  "name": "open-gitagent--shadowlm",
+  "displayName": "shadowLM",
+  "description": "A fine-tuning SDK \u2014 any open model, any harness, any method. 12 training methods behind one argument; pure-stdlib core.",
+  "version": "1.0.0",
+  "author": "open-gitagent",
+  "homepage": "https://github.com/open-gitagent/shadowLM",
+  "skills": []
+}
