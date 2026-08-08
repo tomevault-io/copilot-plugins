@@ -1,0 +1,9 @@
+{
+  "name": "harness--cli",
+  "displayName": "cli",
+  "description": "A unified CLI for Harness. Build for Humans and Agents. Manage pipelines, artifacts, platform resources, and more from the command line.",
+  "version": "1.0.0",
+  "author": "harness",
+  "homepage": "https://github.com/harness/cli",
+  "skills": []
+}
