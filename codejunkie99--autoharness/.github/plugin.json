@@ -1,0 +1,9 @@
+{
+  "name": "codejunkie99--autoharness",
+  "displayName": "autoharness",
+  "description": "macOS coding-agent control center: one objective, routed to direct execution, a bounded loop, a swarm, or a dynamic DAG. Local only, no external writes.",
+  "version": "1.0.0",
+  "author": "codejunkie99",
+  "homepage": "https://github.com/codejunkie99/autoharness",
+  "skills": []
+}
