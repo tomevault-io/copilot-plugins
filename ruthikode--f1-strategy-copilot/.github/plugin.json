@@ -1,0 +1,9 @@
+{
+  "name": "ruthikode--f1-strategy-copilot",
+  "displayName": "f1-strategy-copilot",
+  "description": "Tool-calling LLM agent over a fitted F1 tyre-degradation model, evaluated on real 2023 races for strategy regret, out-of-sample pace skill, and citation hallucination rate.",
+  "version": "1.0.0",
+  "author": "RuthiKode",
+  "homepage": "https://github.com/RuthiKode/f1-strategy-copilot",
+  "skills": []
+}
