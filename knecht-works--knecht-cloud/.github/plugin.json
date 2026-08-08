@@ -1,0 +1,9 @@
+{
+  "name": "knecht-works--knecht-cloud",
+  "displayName": "knecht-cloud",
+  "description": "The home for the Knecht. Let agents boot, reproduce and test changes. ",
+  "version": "1.0.0",
+  "author": "knecht-works",
+  "homepage": "https://github.com/knecht-works/knecht-cloud",
+  "skills": []
+}
