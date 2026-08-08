@@ -4,7 +4,7 @@
   "repo": "pocket-8",
   "description": "Pico-8 for the Analogue Pocket.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/katsaii/pocket-8",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T01:32:28Z"
+  "distributed_at": "2026-08-08T02:37:48Z"
 }
