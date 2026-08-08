@@ -4,7 +4,7 @@
   "repo": "mes-yaml-de-kube",
   "description": "C'est pour moi mais en public",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/timothechauvet/mes-yaml-de-kube",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T03:15:25Z"
+  "distributed_at": "2026-08-08T03:25:11Z"
 }
