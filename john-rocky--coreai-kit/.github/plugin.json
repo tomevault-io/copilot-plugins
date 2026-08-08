@@ -1,0 +1,9 @@
+{
+  "name": "john-rocky--coreai-kit",
+  "displayName": "coreai-kit",
+  "description": "Run LLMs, VLMs, ASR, TTS, diarization and more fully on-device with Apple's Core AI framework (iOS/macOS 27) \u2014 one line of Swift per model, 53 models pinned to immutable Hugging Face revisions, each g",
+  "version": "1.0.0",
+  "author": "john-rocky",
+  "homepage": "https://github.com/john-rocky/coreai-kit",
+  "skills": []
+}
