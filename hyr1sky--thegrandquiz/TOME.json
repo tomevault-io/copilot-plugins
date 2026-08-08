@@ -4,7 +4,7 @@
   "repo": "TheGrandQuiz",
   "description": "Local-first learning agent that turns your materials into grounded conversations, adaptive assessments, and durable memory\u2014with observable, replayable traces.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Hyr1sky/TheGrandQuiz",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T00:46:28Z"
+  "distributed_at": "2026-08-08T00:48:38Z"
 }
