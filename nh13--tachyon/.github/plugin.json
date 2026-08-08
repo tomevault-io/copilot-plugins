@@ -1,0 +1,9 @@
+{
+  "name": "nh13--tachyon",
+  "displayName": "tachyon",
+  "description": "Detect the cloaked: measure a host's memory access rate under current contention",
+  "version": "1.0.0",
+  "author": "nh13",
+  "homepage": "https://github.com/nh13/tachyon",
+  "skills": []
+}
