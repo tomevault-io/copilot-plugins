@@ -395669,6 +395669,16 @@
       "description": "A browser eye and hands for local AI agents. Snapshot a page, click a ref, read the JSON behind it \u2014 all with curl."
     },
     {
+      "name": "mushus--blender-addons",
+      "source": "./mushus--blender-addons",
+      "description": "blender-addons"
+    },
+    {
+      "name": "swaroop2004--proven-viral-content-system",
+      "source": "./swaroop2004--proven-viral-content-system",
+      "description": "Research, brainstorm, and generate viral video content for Instagram, YouTube, X, and TikTok"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -423582,6 +423592,11 @@
       "name": "engasnm111--lnwdeck",
       "source": "./engasnm111--lnwdeck",
       "description": "Universal AI usage and quota tracker for Windows. Reads artifacts your local AI tools already write, records tokens and costs, shows remaining provider quota. Local-only: no account, no server, no syn"
+    },
+    {
+      "name": "lanchuhuong--ai-ticket-assistant",
+      "source": "./lanchuhuong--ai-ticket-assistant",
+      "description": "ai-ticket-assistant"
     },
     {
       "name": "cheerhuan--save-your-token",
