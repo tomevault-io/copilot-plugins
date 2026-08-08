@@ -159099,6 +159099,11 @@
       "description": "Action-RPG: a Bevy 0.19 / Rust  game \u2014 town-building, night sieges, upgrades, bloodline succession"
     },
     {
+      "name": "town-center-co--towncenter",
+      "source": "./town-center-co--towncenter",
+      "description": "Neighbourhood-business prospecting, played as territory conquest. Draw a sector on a map, the French company register fills it with targets, each carrying a loot and a resistance backed by measured fa"
+    },
+    {
       "name": "tmdgusya--engineering-discipline",
       "source": "./tmdgusya--engineering-discipline",
       "description": "SKILL for engineering-discipline"
@@ -334142,6 +334147,11 @@
       "name": "0xbeycan--genesis",
       "source": "./0xbeycan--genesis",
       "description": "From Idea to First Commit"
+    },
+    {
+      "name": "ningk1ng--ephysguard",
+      "source": "./ningk1ng--ephysguard",
+      "description": "Pi-Based Coding Agent Harness Safety Framework for In Vivo Electrophysiology Analysis"
     },
     {
       "name": "lightninglabs--lnget",
