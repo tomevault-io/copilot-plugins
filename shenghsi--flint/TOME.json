@@ -4,7 +4,7 @@
   "repo": "flint",
   "description": "Flint is a terminal-first fork of Zed built for developers who use tools such as Codex, Claude Code, and Pi from the command line.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shenghsi/flint",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-08T00:33:24Z"
+  "distributed_at": "2026-08-08T00:51:06Z"
 }
