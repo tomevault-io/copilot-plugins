@@ -1,0 +1,9 @@
+{
+  "name": "cavalry-collective--visual-stack",
+  "displayName": "visual-stack",
+  "description": "A visual interface for building software with Claude Code/Codex.",
+  "version": "1.0.0",
+  "author": "Cavalry-Collective",
+  "homepage": "https://github.com/Cavalry-Collective/visual-stack",
+  "skills": []
+}
