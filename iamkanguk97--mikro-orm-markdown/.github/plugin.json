@@ -1,0 +1,9 @@
+{
+  "name": "iamkanguk97--mikro-orm-markdown",
+  "displayName": "mikro-orm-markdown",
+  "description": "Generate Mermaid ERD diagrams and Markdown schema docs from MikroORM entities without a live database connection.",
+  "version": "1.0.0",
+  "author": "iamkanguk97",
+  "homepage": "https://github.com/iamkanguk97/mikro-orm-markdown",
+  "skills": []
+}
