@@ -4,7 +4,7 @@
   "repo": "al-folio",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/alshedivat/al-folio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T23:53:37Z"
+  "distributed_at": "2026-08-08T06:29:41Z"
 }
