@@ -276874,6 +276874,11 @@
       "description": "A pi extension that lets your pi sessions find and message each other"
     },
     {
+      "name": "aashaexo--soundshuman",
+      "source": "./aashaexo--soundshuman",
+      "description": "soundshuman"
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
