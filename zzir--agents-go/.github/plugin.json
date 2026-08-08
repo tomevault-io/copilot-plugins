@@ -1,0 +1,9 @@
+{
+  "name": "zzir--agents-go",
+  "displayName": "agents-go",
+  "description": "Build production AI agents in Go \u2014 A lightweight, powerful framework for multi-agent workflows.",
+  "version": "1.0.0",
+  "author": "zzir",
+  "homepage": "https://github.com/zzir/agents-go",
+  "skills": []
+}
