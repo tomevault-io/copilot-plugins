@@ -1,0 +1,14 @@
+{
+  "name": "esengine--deepseek-reasonix",
+  "displayName": "DeepSeek-Reasonix",
+  "description": "DeepSeek-Reasonix",
+  "version": "1.0.0",
+  "author": "esengine",
+  "homepage": "https://github.com/esengine/DeepSeek-Reasonix",
+  "skills": [
+    {
+      "name": "DeepSeek-Reasonix",
+      "description": ""
+    }
+  ]
+}
