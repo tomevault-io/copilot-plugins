@@ -1,0 +1,9 @@
+{
+  "name": "newrelic--node-newrelic",
+  "displayName": "node-newrelic",
+  "description": "node-newrelic",
+  "version": "1.0.0",
+  "author": "newrelic",
+  "homepage": "https://github.com/newrelic/node-newrelic",
+  "skills": []
+}
