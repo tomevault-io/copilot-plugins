@@ -1,0 +1,9 @@
+{
+  "name": "epam--edp-install",
+  "displayName": "edp-install",
+  "description": "edp-install",
+  "version": "1.0.0",
+  "author": "epam",
+  "homepage": "https://github.com/epam/edp-install",
+  "skills": []
+}
