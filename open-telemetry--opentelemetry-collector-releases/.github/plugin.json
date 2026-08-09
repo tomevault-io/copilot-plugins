@@ -1,0 +1,9 @@
+{
+  "name": "open-telemetry--opentelemetry-collector-releases",
+  "displayName": "opentelemetry-collector-releases",
+  "description": "opentelemetry-collector-releases",
+  "version": "1.0.0",
+  "author": "open-telemetry",
+  "homepage": "https://github.com/open-telemetry/opentelemetry-collector-releases",
+  "skills": []
+}
