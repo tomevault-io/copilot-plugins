@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [maddada/Ghostex](https://github.com/maddada/Gho
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [maddada/Ghostex](https://github.com/maddada/Ghostex) — a repo with 573+ stars on GitHub.
+From [maddada/Ghostex](https://github.com/maddada/Ghostex) — a repo with 680+ stars on GitHub.
 
 ---
 
