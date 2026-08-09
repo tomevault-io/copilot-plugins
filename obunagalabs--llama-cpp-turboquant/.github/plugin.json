@@ -1,0 +1,9 @@
+{
+  "name": "obunagalabs--llama-cpp-turboquant",
+  "displayName": "llama-cpp-turboquant",
+  "description": "[AI/LLMs] - Optimized C++ inference engine for quantized language models",
+  "version": "1.0.0",
+  "author": "ObunagaLabs",
+  "homepage": "https://github.com/ObunagaLabs/llama-cpp-turboquant",
+  "skills": []
+}
