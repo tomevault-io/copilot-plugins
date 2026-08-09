@@ -5,17 +5,18 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [sushi-labs/sushiswap](https://github.com/sushi-labs/sushiswap).
+Original source: `` in [sushi-labs/sushiswap](https://github.com/sushi-labs/sushiswap).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [sushi-labs/sushiswap](https://github.com/sushi-labs/sushiswap) — a repo with 1944+ stars on GitHub.
+From [sushi-labs/sushiswap](https://github.com/sushi-labs/sushiswap) — a repo with 1941+ stars on GitHub.
 
 ---
 
