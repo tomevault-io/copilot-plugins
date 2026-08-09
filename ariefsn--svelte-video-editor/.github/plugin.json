@@ -1,0 +1,9 @@
+{
+  "name": "ariefsn--svelte-video-editor",
+  "displayName": "svelte-video-editor",
+  "description": "A host-agnostic Svelte 5 video timeline editor \u2014 clips, tracks, trimming, ripple/roll/slip edits, grouping, linked audio, markers, undo/redo and a real-time preview. Zero design-system dependency.",
+  "version": "1.0.0",
+  "author": "ariefsn",
+  "homepage": "https://github.com/ariefsn/svelte-video-editor",
+  "skills": []
+}
