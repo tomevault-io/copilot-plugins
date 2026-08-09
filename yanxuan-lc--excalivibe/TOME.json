@@ -4,7 +4,7 @@
   "repo": "excalivibe",
   "description": "ExcaliVibe is a Vibe Working capability suite. The idea grows out of Vibe Coding, but it isn't limited to coding \u2014 it targets a broader range of business scenarios, turning the Agent into a more capable all-rounder.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yanxuan-lc/excalivibe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T00:45:07Z"
+  "distributed_at": "2026-08-09T00:51:35Z"
 }
