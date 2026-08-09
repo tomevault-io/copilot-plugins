@@ -1,0 +1,9 @@
+{
+  "name": "idoforgod--cys-terminal",
+  "displayName": "cys-terminal",
+  "description": "AI agent fleet orchestration terminal \u2014 bidirectional socket IPC, resource governance, mission-control dashboard. macOS \u00b7 Windows. Built largely by AI agents under human direction.",
+  "version": "1.0.0",
+  "author": "idoforgod",
+  "homepage": "https://github.com/idoforgod/cys-terminal",
+  "skills": []
+}
