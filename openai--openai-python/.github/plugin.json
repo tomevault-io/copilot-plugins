@@ -1,0 +1,9 @@
+{
+  "name": "openai--openai-python",
+  "displayName": "openai-python",
+  "description": "openai-python",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/openai-python",
+  "skills": []
+}
