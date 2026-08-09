@@ -1,0 +1,9 @@
+{
+  "name": "ipfs--fs-repo-migrations",
+  "displayName": "fs-repo-migrations",
+  "description": "fs-repo-migrations",
+  "version": "1.0.0",
+  "author": "ipfs",
+  "homepage": "https://github.com/ipfs/fs-repo-migrations",
+  "skills": []
+}
