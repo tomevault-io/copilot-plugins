@@ -3,8 +3,8 @@
   "owner": "aws-powertools",
   "repo": "powertools-lambda-typescript",
   "description": "",
-  "type": "config",
-  "source_format": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "powertools-lambda-typescript",
+      "path": ".agents/skills/create-pr/SKILL.md",
+      "github_url": "https://github.com/aws-powertools/powertools-lambda-typescript/tree/main/.agents/skills/create-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "powertools-lambda-typescript",
+      "path": ".agents/skills/create-issue/SKILL.md",
+      "github_url": "https://github.com/aws-powertools/powertools-lambda-typescript/tree/main/.agents/skills/create-issue/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/aws-powertools/powertools-lambda-typescript",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-29T05:22:35Z"
+  "distributed_at": "2026-08-09T11:34:11Z"
 }
