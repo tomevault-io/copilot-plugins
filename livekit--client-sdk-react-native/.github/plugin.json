@@ -1,0 +1,9 @@
+{
+  "name": "livekit--client-sdk-react-native",
+  "displayName": "client-sdk-react-native",
+  "description": "client-sdk-react-native",
+  "version": "1.0.0",
+  "author": "livekit",
+  "homepage": "https://github.com/livekit/client-sdk-react-native",
+  "skills": []
+}
