@@ -1,0 +1,14 @@
+{
+  "name": "afishinlake--wordformat",
+  "displayName": "WordFormat",
+  "description": "WordFormat",
+  "version": "1.0.0",
+  "author": "AfishInLake",
+  "homepage": "https://github.com/AfishInLake/WordFormat",
+  "skills": [
+    {
+      "name": "WordFormat",
+      "description": ""
+    }
+  ]
+}
