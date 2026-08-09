@@ -1,0 +1,62 @@
+{
+  "name": "crafter-station--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "crafter-station",
+  "homepage": "https://github.com/crafter-station/skills",
+  "skills": [
+    {
+      "name": "intent-layer",
+      "description": ""
+    },
+    {
+      "name": "skill-gen",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    }
+  ]
+}
