@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [legions-developer/evilcharts](https://github.com/legions-developer/evilcharts).
+Original source: `CLAUDE.md` in [legions-developer/evilcharts](https://github.com/legions-developer/evilcharts).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (13)
+## Bundled Skills (26)
 
 - [evilcharts](https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/seo/SKILL.md)
 - [evilcharts](https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/bun/SKILL.md)
@@ -30,8 +30,21 @@ Original source: `AGENTS.md` in [legions-developer/evilcharts](https://github.co
 - [evilcharts](https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/composition-patterns/SKILL.md)
 - [evilcharts](https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/next-cache-components/SKILL.md)
 - [evilcharts](https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/tailwind-css-patterns/SKILL.md)
+- [evilcharts](https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/agent-browser/SKILL.md)
+- [evilcharts](https://github.com/legions-developer/evilcharts/tree/main/.claude/skills/agent-browser/SKILL.md)
+- [evilcharts](https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/emil-design-eng/SKILL.md)
+- [evilcharts](https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/commit-and-push/SKILL.md)
+- [evilcharts](https://github.com/legions-developer/evilcharts/tree/main/.claude/skills/commit-and-push/SKILL.md)
+- [evilcharts](https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/review-animations/SKILL.md)
+- [evilcharts](https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/animation-vocabulary/SKILL.md)
+- [evilcharts](https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/nodejs-best-practices/SKILL.md)
+- [evilcharts](https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/nodejs-backend-patterns/SKILL.md)
+- [evilcharts](https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/hallmark/SKILL.md)
+- [evilcharts](https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/seo-audit/SKILL.md)
+- [evilcharts](https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/copywriting/SKILL.md)
+- [evilcharts](https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/setup-matt-pocock-skills/SKILL.md)
 
-From [legions-developer/evilcharts](https://github.com/legions-developer/evilcharts) — a repo with 2654+ stars on GitHub.
+From [legions-developer/evilcharts](https://github.com/legions-developer/evilcharts) — a repo with 2773+ stars on GitHub.
 
 ---
 
