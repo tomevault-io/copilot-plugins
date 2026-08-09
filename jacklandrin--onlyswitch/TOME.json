@@ -1,0 +1,81 @@
+{
+  "name": "OnlySwitch",
+  "owner": "jacklandrin",
+  "repo": "OnlySwitch",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "OnlySwitch",
+      "path": "OpenClaw/skills/onlyswitch-deeplink/SKILL.md",
+      "github_url": "https://github.com/jacklandrin/OnlySwitch/tree/main/OpenClaw/skills/onlyswitch-deeplink/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OnlySwitch",
+      "path": "doc/skills/swiftui-pro/SKILL.md",
+      "github_url": "https://github.com/jacklandrin/OnlySwitch/tree/main/doc/skills/swiftui-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OnlySwitch",
+      "path": "doc/skills/writing-plans/SKILL.md",
+      "github_url": "https://github.com/jacklandrin/OnlySwitch/tree/main/doc/skills/writing-plans/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OnlySwitch",
+      "path": "doc/skills/app-store-review/SKILL.md",
+      "github_url": "https://github.com/jacklandrin/OnlySwitch/tree/main/doc/skills/app-store-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OnlySwitch",
+      "path": "doc/skills/swift-testing-pro/SKILL.md",
+      "github_url": "https://github.com/jacklandrin/OnlySwitch/tree/main/doc/skills/swift-testing-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OnlySwitch",
+      "path": "doc/skills/swift-concurrency-pro/SKILL.md",
+      "github_url": "https://github.com/jacklandrin/OnlySwitch/tree/main/doc/skills/swift-concurrency-pro/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jacklandrin/OnlySwitch",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T13:52:09Z"
+}
