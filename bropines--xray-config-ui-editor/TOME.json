@@ -3,8 +3,8 @@
   "owner": "bropines",
   "repo": "xray-config-ui-editor",
   "description": "",
-  "type": "config",
-  "source_format": "GEMINI.md",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "xray-config-ui-editor",
+      "path": ".gemini/skills/xray-ui-dev/SKILL.md",
+      "github_url": "https://github.com/bropines/xray-config-ui-editor/tree/main/.gemini/skills/xray-ui-dev/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/bropines/xray-config-ui-editor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-22T05:34:18Z"
+  "distributed_at": "2026-08-09T13:34:33Z"
 }
