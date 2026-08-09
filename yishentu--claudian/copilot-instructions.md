@@ -1,45 +1,57 @@
 ## claudian
 
-> `src/providers/grok/` adapts Grok Build through Agent Client Protocol over a `grok agent --no-leader stdio` subprocess.
+> `src/app/` owns application-scoped state services and adapters used by the composition root. Features and providers access these capabilities through stable host and core contracts rather than importing the concrete plugin class.
 
-# Grok Provider
+# Application Services
 
-`src/providers/grok/` adapts Grok Build through Agent Client Protocol over a `grok agent --no-leader stdio` subprocess.
+`src/app/` owns application-scoped state services and adapters used by the composition root. Features and providers access these capabilities through stable host and core contracts rather than importing the concrete plugin class.
+
+## Dependency Direction
+
+- `src/main.ts` is the concrete composition root. It constructs app services and wires core registries, providers, and features.
+- App repositories, storage, and settings services depend on core contracts. They must not import chat views, feature controllers, renderers, or provider-native protocol implementations.
+- `FeatureHost` is the feature-facing application boundary; user-facing features must not import `ClaudianPlugin` from `src/main.ts`.
+- `ProviderHost` is the provider-facing application boundary; provider runtime code must not reach through it to chat views or feature controllers.
+- Concrete provider imports are allowed only in composition and provider-default assembly. Do not introduce them into conversation, storage, or settings transaction logic.
+- Existing Claude compatibility imports of app settings or storage are migration seams. Do not use them as precedent; move a shared contract into `core/` before creating another provider-to-app dependency.
 
 ## Ownership
 
-- Grok process/session lifecycle, xAI protocol extensions, native-history hydration, model catalogs, tool normalization, settings reconciliation, UI, and auxiliary services live here.
-- Shared code consumes Grok only through provider-neutral runtime, capability, registry, and workspace-service contracts.
-- Provider-owned conversation data stays behind `GrokProviderState` helpers; feature code must not inspect it.
+| Component | Authority |
+| --- | --- |
+| `ConversationRepository` | The canonical in-memory Claudian conversation collection, hydration status, pin/archive and note-link metadata, deletion transactions, per-conversation persistence queues, input-ledger coordination, historical model recovery, selected-model availability reconciliation, and execution-snapshot binding |
+| `SharedStorageService` | Plugin-data and vault persistence I/O plus construction of shared persistence adapters |
+| `SettingsCoordinator` | Serialization of settings mutations, rollback before failed persistence, and post-commit publication ordering |
+| `ChatModelSelectionCoordinator` | Application-wide ordering and durable settings commits for explicit future-tab model-seed intents |
+| `PinnedLinkedNotePathCoordinator` | Pinned linked-note path mutation, folder-descendant rewrite, deduplication, and deletion cleanup through ordered settings transactions |
+| `ClaudianProviderHost` | Typed delegation to application capabilities; it owns no duplicate settings, storage, view, or execution state |
 
-## Protocol and Session Rules
+Storage adapters own I/O mechanics, not domain decisions. Callers decide what state is valid; adapters merge and persist it without inventing conversation, tab, provider, or settings semantics.
 
-- Account authentication is Grok-native. Never call ACP `authenticate` automatically or persist xAI credentials.
-- Preserve `Conversation.sessionId` and provider state across prompt, CLI-path, and environment changes. Recycle the process and load the same native session.
-- Use Grok's native history read-only. Never delete or mutate a Grok session when a Claudian conversation is deleted.
-- Send image attachments as ACP image content blocks and rehydrate their persisted native blocks. Use Grok's `x.ai/interject` and `x.ai/session/fork` extensions behind typed provider-owned boundaries for steering and forks.
-- Keep Grok/xAI tools enabled and preserve unknown tool data losslessly. Adapt Grok task-family lifecycle calls into the shared subagent renderer while retaining their raw names and payloads.
-- Expose Safe, Plan, and YOLO. Plan is a native ACP session mode layered over the remembered Safe or YOLO base; native mode updates remain authoritative.
+## State and Persistence Boundaries
 
-## Models and Settings
+- `ConversationRepository` is the source of truth for Claudian's current in-memory conversation projection. Feature code must request conversation mutations through `FeatureHost` instead of mutating cached conversations independently.
+- Claudian metadata and accepted-input ledgers are durable Claudian state.
+- Provider session IDs, resume checkpoints, and opaque `providerState` may be interpreted only by provider snapshots or typed provider history/state helpers. Generic app code may store those opaque values but must not infer or rewrite their fields.
+- `AppTabManagerState` is a separate current-tab snapshot. New writes retain only the active tab identity and conversation binding; legacy multi-tab snapshots are restored as the active entry only. It must not duplicate conversation messages, provider state, draft content, or runtime objects.
+- `Conversation.modelRecoverySource` is a read-only native locator used only to recover missing historical model metadata. It must never be treated as a resumable provider binding, and a successful recovery or fresh provider session retires it.
+- `Conversation.currentNote` is a vault-relative full path. Vault rename events must rewrite matching note paths, including descendants for folder renames, through `ConversationRepository` rather than presentation code.
+- `SharedStorageService.setTabManagerState()` must preserve unrelated plugin data when updating the tab-layout snapshot.
+- Settings changes must go through `SettingsCoordinator` or the application mutation APIs so persistence, rollback, provider reconciliation, and publication remain ordered.
+- Provider model-option changes reconcile affected durable conversation selections through `ConversationRepository` before views refresh. Providers and features may publish the change but must not rewrite cached conversations themselves.
+- Environment changes that can alter model options use the same provider model-option reconciliation boundary; direct model-selector refresh is not an allowed shortcut.
+- Deferred metadata with a stored model that needs fallback is withheld until `ConversationRepository` persists and adopts the replacement. Safe model-less shells may remain incrementally readable for environment-invalidation coordination; they must not expose a synthesized fallback before its write.
+- A model recovered from provider-native history is availability-reconciled before its single durable write and before callers may publish it as recovered.
 
-- Model selections are `grok/<raw-id>` in Claudian and raw ids on the ACP wire. The discovered catalog default is the provider default.
-- Catalog snapshots are current-device scoped and contain only normalized non-secret metadata.
-- Expose Low, Medium, and High as the initial fallback for enabled models. After a real ACP session, persist and prefer the chosen model's advertised reasoning metadata; never create a session solely for discovery, and prune reasoning state when a model is disabled.
-- Do not rewrite `~/.grok/config.toml`, own BYOK endpoints, or source shell startup files.
-- Do not add a generic ACP runtime superclass; share protocol primitives while keeping xAI behavior provider-owned.
+## Invariants
 
-## Repository Instructions vs Runtime Instructions
-
-- This `AGENTS.md` is a repository developer guide for contributors editing Claudian's Grok adapter.
-- Vault/runtime `AGENTS.md` files belong to the user and are discovered natively by Grok.
-- Claudian must never create, import, append, suppress, rewrite, or explicitly inject vault/runtime `AGENTS.md` files.
-
-## Evidence and Fixtures
-
-- Provider behavior that is not established by standard ACP must be backed by sanitized Grok protocol evidence.
-- Put raw captures and throwaway scripts in `.context/`. Never commit credentials, private prompts, absolute personal paths, or raw user configuration.
+- Failed settings persistence restores the pre-mutation in-memory settings snapshot.
+- A post-commit publication failure is reported as committed state; it must not roll back data that was already persisted.
+- Conversation persistence for one conversation remains ordered, and stale execution snapshots must not overwrite newer provider state.
+- Deletion, hydration, and execution-snapshot writes must preserve their existing generation and binding fences.
+- Archiving clears pin state, cannot be inferred from tab closure, and never mutates provider-native history.
+- Historical model recovery is best-effort, concurrency-bounded, provider-owned, and must not overwrite a model selected or recovered by a newer operation.
 
 ---
 > Source: [YishenTu/claudian](https://github.com/YishenTu/claudian) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
