@@ -1,6 +1,6 @@
 ## binance-connector-go
 
-> client "github.com/binance/binance-connector-go/clients/derivativestradingcoinfutures"
+> client "github.com/binance/binance-connector-go/clients/alpha"
 
 # Agent Configuration
 
@@ -10,39 +10,38 @@ package main
 import (
 	"encoding/json"
 	"log"
-	"net/http"
 	"time"
 
-	client "github.com/binance/binance-connector-go/clients/derivativestradingcoinfutures"
-	"github.com/binance/binance-connector-go/clients/derivativestradingcoinfutures/src/websocketstreams/models"
+	client "github.com/binance/binance-connector-go/clients/alpha"
+	"github.com/binance/binance-connector-go/clients/alpha/src/websocketstreams/models"
 	"github.com/binance/binance-connector-go/common/v2/common"
 )
 
 func main() {
-	AllBookTickersStream()
+	AggregateTradeStream()
 }
 
-func AllBookTickersStream() {
+func AggregateTradeStream() {
 	configuration := common.NewConfigurationWebsocketStreams(
-		common.WithWsStreamsBasePath(common.DerivativesTradingCoinFuturesWebsocketStreamsProdUrl),
+		common.WithWsStreamsBasePath(common.AlphaWebsocketStreamsProdUrl),
 		common.WithWsStreamsAgent("your-proxy-url"),
 	)
 
-	wsClient := client.NewBinanceDerivativesTradingCoinFuturesClient(
+	wsClient := client.NewBinanceAlphaClient(
 		client.WithWebsocketStreams(configuration),
 	)
 
-	err := wsClient.WebsocketStreams.Connect()
+	err := wsClient.WebsocketStreams.Connect([]string{})
 	if err != nil {
 		log.Fatalf("Error connecting to WebSocket: %v", err)
 	}
 
-	handler, err := wsClient.WebsocketStreams.WebsocketMarketStreamsAPI.AllBookTickersStream().Execute()
+	handler, err := wsClient.WebsocketStreams.DefaultAPI.AggregateTradeStream().Symbol("alpha_116usdt").Execute()
 	if err != nil {
 		log.Fatalf("Error subscribing to stream: %v", err)
 	}
 
-	handler.On("message", func(message models.AllBookTickersStreamResponse) {
+	handler.On("message", func(message models.AggregateTradeStreamResponse) {
 		b, _ := json.MarshalIndent(message, "", "  ")
 		log.Printf("Received message: %s\n", string(b))
 	})
@@ -63,4 +62,4 @@ func AllBookTickersStream() {
 
 ---
 > Source: [binance/binance-connector-go](https://github.com/binance/binance-connector-go) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
