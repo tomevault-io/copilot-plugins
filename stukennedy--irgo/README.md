@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [stukennedy/irgo](https://github.com/stukennedy/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [stukennedy/irgo](https://github.com/stukennedy/irgo) — a repo with 175+ stars on GitHub.
+From [stukennedy/irgo](https://github.com/stukennedy/irgo) — a repo with 179+ stars on GitHub.
 
 ---
 
