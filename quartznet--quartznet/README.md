@@ -15,11 +15,6 @@ Original source: `CLAUDE.md` in [quartznet/quartznet](https://github.com/quartzn
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
-
-- [quartznet](https://github.com/quartznet/quartznet/tree/main/.squad/skills/squad-conventions/SKILL.md)
-- [quartznet](https://github.com/quartznet/quartznet/tree/main/.squad/skills/quartz-unit-test-lock-recovery/SKILL.md)
-
 From [quartznet/quartznet](https://github.com/quartznet/quartznet) — a repo with 7066+ stars on GitHub.
 
 ---
