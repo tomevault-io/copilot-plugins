@@ -1,8 +1,6 @@
 # AI instruction files for opencode
 
-> Sourced from [anomalyco/opencode](https://github.com/anomalyco/opencode) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-The open source coding agent.
+> Sourced from [anomalyco/opencode](https://github.com/anomalyco/opencode), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,14 +15,10 @@ Original source: `AGENTS.md` in [anomalyco/opencode](https://github.com/anomalyc
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [agents-sdk](https://github.com/anomalyco/opencode/tree/main/packages/opencode/test/fixture/skills/agents-sdk)
-
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/anomalyco/opencode](https://github.com/anomalyco/opencode)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/anomalyco/opencode](https://github.com/anomalyco/opencode)
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-q -->
