@@ -1,224 +1,78 @@
 ## weblogic-deploy-tooling
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This guidance applies to the alias metadata in `category_modules`.
 
-# CLAUDE.md
+# Alias Metadata Editing Guidance
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This guidance applies to the alias metadata in `category_modules`.
 
-## Overview
+## Work From the Requested Report Scope
 
-Hugo Relearn Theme is a documentation theme for Hugo, forked from the Learn theme. It's designed for creating documentation sites with features like multilingual support, dark mode, search, print support, and extensive shortcodes.
+- Treat errors, warnings, and informational findings as separate scopes. Change only the finding classes the user requested.
+- Map each reported WLST/WDT location to the actual folder in the metadata. The root location `/` maps to `Domain.json`, but other report locations do not always map directly to a same-named JSON file.
+- Search by both location and attribute name. The same attribute can occur in several category modules; change every reported location and no unreported locations.
+- Treat the WLS value in a default-mismatch error as the expected value, but preserve its exact case and JSON type. In particular, the string `"None"` is different from JSON `null`, even though verifier output can make them look similar.
+- Ask the user when the correct MBean owner, mode, version, type, or value cannot be established from the report and authoritative local sources. Do not guess.
 
-Minimum Hugo version required can be found in `theme.toml`.
+## Preserve Version History
 
-## Development Commands
+- Preserve every older alias entry. Do not delete, merge, or consolidate historical entries unless the user explicitly requests it.
+- For a behavior change beginning with WLS 26.1.0.0.0, use the alias boundary `26.1`.
+- When the current entry is open-ended, change only its upper bound to `26.1`, then add a copied entry with version `[26.1,)` on the next physical line.
+- Keep every field other than `version` and the field being corrected unchanged. This includes `wlst_mode`, `wlst_name`, `wlst_path`, `wlst_type`, access settings, methods, and special metadata.
+- If an entry for `[26.1,)` already exists, update that entry instead of adding a duplicate.
+- Ensure ranges do not overlap for either offline or online mode. A range split must be contiguous at the boundary, with exactly one applicable entry for each affected mode and version.
 
-### Running the Theme
+For example, when offline changed from `null` to `disabled` at 26.1 while online remained `disabled`:
 
-Development uses the `docs` for manual testing and documenting new features.
-
-```bash
-# Run the dev server from exampleSite directory
-cd exampleSite
-hugo server -p 1414
+```json
+"Example": [
+    {"version": "[14.1.2,26.1)", "wlst_mode": "both", "wlst_name": "Example", "wlst_path": "WP001", "default_value": "${__NULL__:disabled}", "wlst_type": "string" },
+    {"version": "[26.1,)",       "wlst_mode": "both", "wlst_name": "Example", "wlst_path": "WP001", "default_value": "disabled",             "wlst_type": "string" }
+]
 ```
 
-Development uses the `exampleSite` for manual testing and providing a simple showcase. The goal is to keep configuration minimal and be a first starting point for new users.
+## Handle Offline and Online Values Deliberately
 
-```bash
-# Run the dev server from exampleSite directory
-cd exampleSite
-hugo server
+- Curly-brace values have the form `${offline_value:online_value}`.
+- Use `__NULL__` when one side must resolve to null; for example, `${__NULL__:disabled}` means offline `null` and online `disabled`.
+- Use JSON `null` when the value is null in every applicable mode. Do not use the string `"null"`.
+- An entry with `"wlst_mode": "both"` applies to both offline and online verification. Do not add a second online entry when the existing versioned entry already uses `both`.
+- Use separate `offline` and `online` entries when mode availability or version ranges differ. Do not use curly braces in `wlst_mode`.
+- Curly-brace substitutions may be used for small mode-specific differences in fields such as `default_value`, `wlst_name`, `wlst_type`, methods, and paths.
+
+## Add Missing Attributes Carefully
+
+- Confirm the owning MBean, introduction version, mode availability, WLST name, WLST path, type, and defaults before adding an attribute.
+- Prefer authoritative local WLS sources such as the MBean interface, BeanInfo, generated MBean implementation, and WLST behavior. Use adjacent alias entries only to establish formatting and structural conventions, not to invent metadata.
+- Add an attribute at the version where WLS introduced it. For an attribute introduced in 26.1.0.0.0, use `[26.1,)`.
+- Use `wlst_mode: "both"` only when the attribute exists in both modes. An offline-only folder or attribute must not acquire invented online metadata.
+- Match the surrounding attribute ordering, alignment, `wlst_path`, and object layout.
+- If offline and online reports both identify the same missing attribute and its metadata is identical in both modes, add one `both` entry rather than two overlapping entries.
+
+## Preserve File Style and Scope
+
+- Put every newly added version entry on its own physical line.
+- Preserve the surrounding indentation, spacing, alignment, ordering, commas, and line endings. Do not reformat the whole file.
+- Preserve the original copyright start year and update its ending year when editing a metadata file.
+- Do not perform broad search-and-replace operations for repeated attribute names.
+- Do not change warnings, informational findings, or adjacent metadata unless they are explicitly in scope.
+- Honor task-specific source-control restrictions. If Git operations are prohibited, do not use Git even for inspection.
+
+## Validate the Result
+
+- Parse every edited JSON file with `jq empty`.
+- Check edited files for tabs and trailing whitespace.
+- Audit the requested findings one by one. Confirm the number of corrected attributes equals the requested error count, each target resolves exactly once for the requested version and mode, and each split predecessor ends at the new boundary.
+- From the repository root, run the alias content and syntax tests without invoking the normal Maven lifecycle:
+
+```text
+mvn -B -pl core resources:resources
+mvn -B -pl core process-test-resources wlst-test:test@python-tests
 ```
 
-#### Configurations
-
-During development cycles, the server is started manually without an environment option.
-
-The following other environments are available:
-
-- **testing** - used to test the site during development using `test-hugo.bat`
-- **github** - used to release the site on GitHub Pages
-- **dev** - used to generate the site similar to GitHub Pages but usable locally
-- **performance** - disables all performance intensive features to make building as fast as possible
-- **versioning** - used to manually test the versioning feature
-
-### Building
-
-```bash
-# Build from docs
-cd docs
-hugo
-
-# Build with minification (production)
-hugo --minify
-```
-
-### Screenshots Tool
-
-```bash
-# Generate screenshots using Puppeteer
-cd tools
-npm install
-npm run screenshots
-```
-
-## Architecture
-
-### Directory Structure
-
-- **layouts/** - Hugo templates organized by type
-  - **_default/** - Base layouts (baseof.html, single.html, list.html, etc.)
-  - **partials/** - Reusable template partials
-    - **_relearn/** - Core theme helper functions (.gotmpl files)
-  - **shortcodes/** - Theme shortcodes (badge, button, card, tabs, mermaid, etc.)
-  - **chapter/**, **home/** - Specialized page layouts
-
-- **assets/** - Source files processed by Hugo Pipes
-  - **css/** - Stylesheets including theme variants and chroma syntax highlighting
-  - **js/** - JavaScript modules (theme.js, search, clipboard, etc.)
-
-- **i18n/** - Translation files (.toml) for 26+ languages
-
-- **archetypes/** - Content templates (default.md, chapter.md, home.md)
-
-- **exampleSite/** - Full demo site used for development
-  - **config/_default/** - Base configuration
-  - **config/testing/**, **config/github/**, etc. - Environment-specific configs
-
-- **docs/** - Documentation site source (separate from exampleSite)
-  - **config/_default/** - Base configuration
-  - **config/testing/**, **config/github/**, etc. - Environment-specific configs
-
-### Key Template Concepts
-
-**Partials in `layouts/partials/_relearn/`:**
-- `.gotmpl` extension indicates Hugo template functions
-- Core utilities: `boxStyle`, `decoratedLink`, `imageAttributes`, `linkAttributes`, `menuObject`, `dependencies`
-- These are helper functions, not rendered partials
-
-**Shortcodes:**
-- Highly modular - each shortcode in `layouts/shortcodes/`
-- Support both inline and block syntax
-- Examples: badge, button, card/cards, expand, icon, include, math, mermaid, notice, openapi, tab/tabs, tree
-
-**Dependencies System:**
-- Theme uses a dependency loading system defined in `hugo.toml` under `params.relearn.dependencies`
-- Dependencies: Math, Mermaid, OpenApi, Search, Theme
-- Loaded on-demand based on shortcode usage
-
-### Output Formats
-
-Theme supports custom output formats:
-- **print** - Printable versions of pages
-- **source** - Markdown source view
-- Define in `hugo.toml` under `[outputFormats]`
-
-### Theming System
-
-**Color Variants:**
-- Multiple built-in variants in `assets/css/theme-*.css`
-- Variants: relearn-light, relearn-dark, relearn-bright, learn, neon, blue, green, red, zen-light, zen-dark
-- Users can switch variants via the topbar
-- Base theme variables in `assets/css/variables.css`
-
-**Chroma Syntax Highlighting:**
-- Separate chroma stylesheets for each variant: `chroma-*.css`
-
-### Search Implementation
-
-- Two search engines supported: Lunr and Orama
-- Search files in `assets/js/search*.js`
-- Search index generated at build time via `_relearn_searchindex.js`
-
-### JavaScript Architecture
-
-- **theme.js** - Main theme JavaScript
-- Modular dependencies loaded from subdirectories:
-  - `auto-complete/` - Search autocomplete
-  - `clipboard/` - Copy-to-clipboard
-  - `lunr/`, `orama/` - Search engines
-  - `mathjax/`, `mermaid/`, `d3/` - Feature libraries
-  - `perfect-scrollbar/` - Scrollbar customization
-
-## Code Quality Standards
-
-### Commit Message Format
-
-Use [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) format.
-
-Common commit types:
-- **Common:** build, browser, chore, docs, shortcodes, theme
-- **Features:** a11y, archetypes, alias, generator, i18n, mobile, print, rss, variant
-- **Structure:** favicon, search, menu, history, scrollbar, nav, toc, clipboard, syntaxhighlight, boxes
-- **Shortcodes:** attachments, badge, button, children, expand, icon, include, math, mermaid, notice, openapi, piratify, siteparam, tabs
-
-Example: `search: improve Orama integration for multilingual sites`
-
-### Development Principles
-
-- **Convention over configuration** - Site should work with minimal configuration
-- **Stay close to Hugo** - Follow Hugo patterns and conventions
-- **No build tools** - Avoid npm/preprocessing for theme itself (contributors may not be front-end developers)
-- **Document features** - New features require documentation and release notes entries
-- **Backwards compatibility** - Don't break existing features unless necessary
-- **Clean output** - Remove console errors, check HTML whitespace and indentation
-
-### Git Hooks
-
-Python-based git hooks in `.githooks/`:
-- `post-commit.py` - Post-commit processing
-- `pre-push.py` - Pre-push validation
-
-## Important Files
-
-- **hugo.toml** - Theme configuration and module requirements
-- **theme.toml** - Theme metadata (name, features, Hugo version)
-- **go.mod** - Hugo module definition
-- **.prettierrc.json** / **.prettierignore** - Code formatting (Prettier)
-- **.editorconfig** - Editor configuration
-- **CHANGELOG.md** - Detailed version history
-
-## Content Development
-
-### Front Matter
-
-Standard front matter for content:
-````toml
-+++
-title = "Page Title"
-weight = 10  # Ordering in sidebar
-+++
-````
-
-### Page Types
-
-- **Home** - Site landing page (uses `layouts/home/`)
-- **Chapter** - Section pages (uses `layouts/chapter/`)
-- **Default** - Regular content pages
-
-### Multilingual Sites
-
-- Translation files in `i18n/*.toml`
-- Content organized by language code: `content/en/`, `content/de/`, etc.
-- Set `defaultContentLanguage` in hugo.toml
-
-## Testing
-
-Test against the exampleSite which demonstrates all theme features. Verify:
-- Search functionality (both Lunr and Orama)
-- Print output
-- Theme variant switching
-- Shortcodes rendering
-- Mobile responsiveness
-- Multilingual navigation
-- No console errors
-
-## Release Process
-
-Releases happen directly from the `main` branch without prior notice. Every commit to `main` must be production-ready and result in a releasable version.
+- When the required WLS and OCI artifacts are available, rerun the relevant offline or online integration verification as described in `integration-tests/alias-test/AGENTS.md`.
 
 ---
 > Source: [oracle/weblogic-deploy-tooling](https://github.com/oracle/weblogic-deploy-tooling) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
