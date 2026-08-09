@@ -1,23 +1,21 @@
 # payload-bites
 
-> Tome by [rilrom](https://github.com/rilrom/payload-bites) — distributed by [TomeVault](https://tomevault.io)
-
-Collection of various bite-sized Payload v3 plugins and tools
+> Tome by [rilrom](https://github.com/rilrom/payload-bites), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rilrom/payload-bites](https://github.com/rilrom/payload-bites).
+Original source: `AGENTS.md` in [rilrom/payload-bites](https://github.com/rilrom/payload-bites).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [rilrom/payload-bites](https://github.com/rilrom/payload-bites) — a repo with 109+ stars on GitHub.
+From [rilrom/payload-bites](https://github.com/rilrom/payload-bites) — a repo with 112+ stars on GitHub.
 
 ---
 
