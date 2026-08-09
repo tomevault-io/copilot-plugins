@@ -1,0 +1,9 @@
+{
+  "name": "dmellok--scope-clock",
+  "displayName": "scope-clock",
+  "description": "Thin vector-rendering client rewrite of the SCTV Scope Clock firmware (Teensy 3.6 + CRT) with an ESP32-S3 Wi-Fi bridge. GPL-2.0-or-later, derived from nixiebunny/SCTVcode.",
+  "version": "1.0.0",
+  "author": "dmellok",
+  "homepage": "https://github.com/dmellok/scope-clock",
+  "skills": []
+}
