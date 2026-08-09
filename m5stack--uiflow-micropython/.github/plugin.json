@@ -1,0 +1,14 @@
+{
+  "name": "m5stack--uiflow-micropython",
+  "displayName": "uiflow-micropython",
+  "description": "uiflow-micropython",
+  "version": "1.0.0",
+  "author": "m5stack",
+  "homepage": "https://github.com/m5stack/uiflow-micropython",
+  "skills": [
+    {
+      "name": "uiflow-micropython",
+      "description": ""
+    }
+  ]
+}
