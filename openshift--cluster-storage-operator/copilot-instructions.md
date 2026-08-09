@@ -1,230 +1,117 @@
 ## cluster-storage-operator
 
-> Generates comprehensive `.testsuite.yaml` integration test files for OpenShift API type definitions:
+> This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-This file provides guidance to AI agents when working with code in this repository.
+# Agent Guide for opentelemetry-go
 
-This is the OpenShift API repository - the canonical location of OpenShift API type definitions and serialization code. It contains:
+This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-- API type definitions for OpenShift-specific resources (Custom Resource Definitions)
-- FeatureGate management system for controlling API availability across cluster profiles
-- Generated CRD manifests and validation schemas
-- Integration test suite for API validation
+Before starting any task, read `.github/copilot-instructions.md`, `CONTRIBUTING.md`, and this file.
+Treat `.github/copilot-instructions.md` as global passive guidance for every task, including docs-only and review-only work.
 
-## Key Architecture Components
+## Core expectations
 
-### FeatureGate System
-The FeatureGate system (`features/features.go`) controls API availability across different cluster profiles (Hypershift, SelfManaged) and feature sets (Default, TechPreview, DevPreview). Each API feature is gated behind a FeatureGate that can be enabled/disabled per cluster profile and feature set.
+- Preserve OpenTelemetry specification compliance, API stability, and idiomatic Go.
+- Prefer minimal, surgical changes over broad refactors or speculative cleanup.
+- Read the package you are editing and match its existing naming, option types, error handling, comments, tests, and concurrency patterns.
+- Keep public APIs backward compatible unless the task explicitly requires a breaking change.
+- Keep telemetry resilient and loosely coupled. Do not introduce behavior that can unexpectedly interfere with host applications.
+- Inspect boundaries carefully: input validation, resource limits, cancellation, shutdown, error propagation, concurrency, and memory growth.
+- Prefer fail-safe behavior and explicit invariants over implicit assumptions.
+- Keep dependencies minimal and justified.
+- Preserve host-application safety: telemetry should not panic, block indefinitely, or amplify attacker-controlled input.
+- Be conservative on hot paths. Avoid unnecessary allocations, reflection, interface churn, blocking, global state, and high-cardinality telemetry.
+- Write comments only for intent, invariants, and non-obvious constraints. Do not add comments that restate the code.
 
-### API Structure
-APIs are organized by group and version (e.g., `route/v1`, `config/v1`). Each API group contains:
-- `types.go` - Go type definitions
-- `zz_generated.*` files - Generated code (deepcopy, CRDs, etc.)
-- `tests/` directories - Integration test definitions
-- CRD manifest files
+## Default workflow
 
-## Common Development Commands
+For new features and behavior changes, use this order unless the task explicitly says otherwise:
 
-### Building
-```bash
-make build              # Build render and write-available-featuresets binaries
-make clean              # Clean build artifacts
-```
+1. Read the relevant package, its tests, and any package docs or `README.md`.
+2. Add or update a failing unit test that captures the required behavior or regression.
+3. Implement the smallest change that makes the test pass.
+4. Refactor only after the behavior is locked in, and only if the refactor keeps the diff focused.
+5. If the changed code is on a hot path or performance-sensitive, inspect existing benchmarks and run them. Add a benchmark if coverage is missing.
+6. Update documentation artifacts as needed while the context is fresh. Follow the documentation and changelog conventions below for the specific updates required.
+7. Run `make precommit` each time before considering the work complete.
 
-### Code Generation
-```bash
-make update             # Alias for update-codegen-crds
-```
+For docs-only, test-only, or review-only tasks, still start with the required repository guidance above, then skip the workflow steps that do not apply while keeping the same discipline around scope, verification, and repository conventions.
 
-#### Targeted Code Generation
-When working on a specific API group/version, you can regenerate only the affected CRDs instead of all CRDs:
+## Verification
 
-```bash
-# Regenerate CRDs for a specific API group/version
-make update-codegen API_GROUP_VERSIONS=operator.openshift.io/v1alpha1
-make update-codegen API_GROUP_VERSIONS=config.openshift.io/v1
-make update-codegen API_GROUP_VERSIONS=route.openshift.io/v1
+- Use `make` as the canonical repository verification command. The default target is `precommit`.
+- `make precommit` is the expected final verification step for linting, generation, README checks, module checks, and tests.
+- During iteration, targeted commands are fine for fast feedback, but do not stop there if the task changes code.
+- If you touch performance-sensitive code, run focused benchmarks and compare the results using `benchstat` in addition to `make`.
 
-# Multiple API groups can be specified with comma separation
-make update-codegen API_GROUP_VERSIONS=operator.openshift.io/v1alpha1,config.openshift.io/v1
-```
+## Documentation and changelog
 
-**Important:** While using `API_GROUP_VERSIONS` is faster for iteration (e.g., when developing tests),
-it generates invalid OpenAPI data. This targeted generation is useful during development cycles, but you
-**must run `make update`** (without `API_GROUP_VERSIONS`) to regenerate all files correctly before
-committing changes. The full `make update` ensures all generated files, including OpenAPI schemas, are
-properly synchronized.
+- Non-internal, non-test packages should have Go doc comments, usually in `doc.go`.
+- Non-internal, non-test, non-documentation packages should also have a `README.md` with at least a title and a `pkg.go.dev` badge.
+- Prefer examples over long code snippets in GoDoc when practical.
+- Keep docs aligned with actual behavior. Do not leave stale comments, stale examples, or stale package documentation behind.
+- For user-visible changes, update `CHANGELOG.md` under the appropriate `Added`, `Changed`, `Deprecated`, `Fixed`, or `Removed` section within `## [Unreleased]`.
 
-**Workflow:**
-- During iteration: `make update-codegen API_GROUP_VERSIONS=your.group/v1` (fast feedback)
-- Before committing: `make update` (ensures correctness)
+## Repository habits
 
-### Testing
-```bash
-make test-unit          # Run unit tests
-make integration        # Run integration tests (in tests/ directory)
-go test -v ./...        # Run tests for specific packages
+- Prefer focused diffs. Avoid drive-by cleanup.
+- Follow existing option patterns and exported API conventions instead of inventing new abstractions.
+- Generated files are checked in. If your change affects generation, keep generated output up to date.
+- Prefer fast local search tools such as `rg` when exploring the repository.
+- When changing behavior, make the invariants explicit in tests.
 
-# Run integration tests for specific API groups
-make -C config/v1 test  # Run tests for config/v1 API group
-make -C route/v1 test   # Run tests for route/v1 API group
-make -C operator/v1 test # Run tests for operator/v1 API group
-```
+## Personas
 
-### Validation and Verification
-```bash
-make verify             # Run all verification checks
-make verify-scripts     # Verify generated code is up to date
-make verify-codegen-crds # Verify CRD generation is current
-make lint               # Run golangci-lint (only on changes from master)
-make lint-fix           # Auto-fix linting issues where possible
-```
+### Feature Agent
 
-## Adding New APIs
+Use this persona for new behavior, new API surface, or spec-driven feature work.
 
-All APIs should start as tech preview.
-New fields on stable APIs should be introduced behind a feature gate `+openshift:enable:FeatureGate=MyFeatureGate`.
+- Start with a failing unit test.
+- Confirm the expected behavior against the spec, existing package behavior, and public API compatibility.
+- Implement the smallest viable change.
+- Update GoDoc, examples, `README.md`, and `CHANGELOG.md` when the change is user-visible.
+- If the feature touches a hot path, check benchmarks and add one if the coverage is missing.
 
+### Refactoring Agent
 
-### For New Stable APIs (v1)
-1. Create the API type with proper kubebuilder annotations
-2. Include required markers like `+openshift:compatibility-gen:level=1`
-3. Add validation tests in `<group>/<version>/tests/<crd-name>/`
-4. Run `make update-codegen-crds` to generate CRDs
+Use this persona when improving structure without intentionally changing behavior.
 
-### For New TechPreview APIs (v1alpha1)
-1. First add a FeatureGate in `features/features.go`
-2. Create the API type with `+openshift:enable:FeatureGate=MyFeatureGate`
-3. Add corresponding test files
-4. Run generation commands
+- Treat behavior preservation as the default contract.
+- Add or tighten tests before moving code if current behavior is not already pinned down.
+- Avoid broad rewrites, clever abstractions, or package-wide cleanup unless explicitly requested.
+- If a refactor touches a hot path, benchmark before and after.
+- Keep API shape, semantics, concurrency guarantees, and failure modes unchanged unless the task says otherwise.
 
-### Adding FeatureGates
-Add to `features/features.go` using the builder pattern:
-```go
-FeatureGateMyFeatureName = newFeatureGate("MyFeatureName").
-    reportProblemsToJiraComponent("my-jira-component").
-    contactPerson("my-team-lead").
-    productScope(ocpSpecific).
-    enableIn(configv1.TechPreviewNoUpgrade).
-    mustRegister()
-```
+### Test Agent
 
-## Testing Framework
+Use this persona when adding missing coverage, reproducing bugs, or hardening regressions.
 
-The repository includes a comprehensive integration test suite in `tests/`. Test suites are defined in `*.testsuite.yaml` files alongside API definitions and support:
-- `onCreate` tests for validation during resource creation
-- `onUpdate` tests for update-specific validations and immutability
-- Status subresource testing
-- Validation ratcheting tests using `initialCRDPatches`
+- Reproduce the bug or missing behavior with the smallest failing test you can.
+- Prefer testing public behavior and externally visible invariants.
+- Add targeted regression tests before changing production code.
+- Only change production code when it is required to make the tested behavior correct or testable.
+- Keep tests deterministic, readable, and aligned with package patterns.
 
-Use `tests/hack/gen-minimal-test.sh $FOLDER $VERSION` to generate test suite templates.
+### Performance Agent
 
-## Container-based Development
-```bash
-make verify-with-container    # Run verification in container
-make generate-with-container  # Run code generation in container
-```
+Use this persona for hot-path work, allocation reduction, or throughput and latency improvements.
 
-Uses `podman` by default, set `RUNTIME=docker` or `USE_DOCKER=1` to use Docker instead.
+- Benchmark first to establish a baseline.
+- Prefer changes that reduce allocations, copying, interface churn, and unnecessary synchronization.
+- Do not trade away correctness, spec compliance, or API stability for micro-optimizations.
+- Add or update benchmarks when performance-sensitive coverage is missing.
+- If you materially change a hot path, capture before-and-after results, preferably with `benchstat`.
 
-## Custom Claude Code Commands
+### Review Agent
 
-### Generate Tests
-```
-/generate-tests <path-to-types-file-or-api-directory>
-```
-Generates comprehensive `.testsuite.yaml` integration test files for OpenShift API type definitions:
-- Reads Go types, validation markers, CRD manifests, and CEL rules
-- Generates test suites for each CRD variant in `zz_generated.featuregated-crd-manifests/`
+Use this persona when asked to review code, patches, or pull requests.
 
-Examples:
-```
-/generate-tests config/v1/types_infrastructure.go
-/generate-tests operator/v1
-```
-
-### API Review
-```
-/api-review <pr-url>
-```
-Runs comprehensive API review for OpenShift API changes in a GitHub PR:
-- Executes `make lint` to check for kube-api-linter issues
-- Validates that all API fields are properly documented
-- Ensures optional fields explain behavior when not present
-- Confirms validation rules and kubebuilder markers are documented in field comments
-
-#### Documentation Requirements
-All kubebuilder validation markers must be documented in the field's comment. For example:
-
-**Good:**
-```go
-// internalDNSRecords is an optional field that determines whether we deploy
-// with internal records enabled for api, api-int, and ingress.
-// Valid values are "Enabled" and "Disabled".
-// When set to Enabled, in cluster DNS resolution will be enabled for the api, api-int, and ingress endpoints.
-// When set to Disabled, in cluster DNS resolution will be disabled and an external DNS solution must be provided for these endpoints.
-// +optional
-// +kubebuilder:validation:Enum=Enabled;Disabled
-InternalDNSRecords InternalDNSRecordsType `json:"internalDNSRecords"`
-```
-
-**Bad:**
-```go
-// internalDNSRecords determines whether we deploy with internal records enabled for
-// api, api-int, and ingress.
-// +optional  // ❌ Optional nature not documented in comment
-// +kubebuilder:validation:Enum=Enabled;Disabled  // ❌ Valid values not documented
-InternalDNSRecords InternalDNSRecordsType `json:"internalDNSRecords"`
-```
-
-#### Systematic Validation Marker Documentation Checklist
-
-**MANDATORY**: For each field with validation markers, verify the comment documents ALL of the following that apply:
-
-**Field Optionality:**
-- [ ] `+optional` - explain behavior when field is omitted
-- [ ] `+required` - explain that the field is required
-
-**String/Array Length Constraints:**
-- [ ] `+kubebuilder:validation:MinLength` and `+kubebuilder:validation:MaxLength` - document character length constraints
-- [ ] `+kubebuilder:validation:MinItems` and `+kubebuilder:validation:MaxItems` - document item count ranges
-
-**Value Constraints:**
-- [ ] `+kubebuilder:validation:Enum` - list all valid enum values and their meanings
-- [ ] `+kubebuilder:validation:Pattern` - explain the pattern requirement in human-readable terms
-- [ ] `+kubebuilder:validation:Minimum` and `+kubebuilder:validation:Maximum` - document numeric ranges
-
-**Advanced Validation:**
-- [ ] `+kubebuilder:validation:XValidation` - explain cross-field validation rules in detail
-- [ ] Any custom validation logic - document the validation behavior
-
-#### API Review Process
-
-**CRITICAL PROCESS**: Follow this exact order to ensure comprehensive validation:
-
-1. **Linting Check**: Run `make lint` and fix all kubeapilinter errors first
-2. **Extract Validation Markers**: Use systematic search to find all markers
-3. **Systematic Documentation Review**: For each marker found, verify corresponding documentation exists
-4. **Optional Fields Review**: Ensure every `+optional` field explains omitted behavior
-5. **Cross-field Validation**: Verify any documented field relationships have corresponding `XValidation` rules
-
-**FAILURE CONDITIONS**: The review MUST fail if any of these are found:
-- Any validation marker without corresponding documentation
-- Any `+optional` field without omitted behavior explanation
-- Any documented field constraint without enforcement via validation rules
-- Any `make lint` failures
-
-The comment must explicitly state:
-- When a field is optional (for `+kubebuilder:validation:Optional` or `+optional`)
-- Valid enum values (for `+kubebuilder:validation:Enum`)
-- Validation constraints (for min/max, patterns, etc.)
-- Default behavior when field is omitted
-- Any interactions with other fields, commonly implemented with `+kubebuilder:validation:XValidation`
-
-**CRITICAL**: When API documentation states field relationships or constraints (e.g., "cannot be used together with field X", "mutually exclusive with field Y"), these relationships MUST be enforced with appropriate validation rules. Use `+kubebuilder:validation:XValidation` with CEL expressions for cross-field constraints. Documentation without enforcement is insufficient and will fail review.
-
-Example: `/api-review https://github.com/openshift/api/pull/1234`
+- Lead with findings, not summaries.
+- Order findings by severity and include precise file and line references when available.
+- Focus on correctness, spec compliance, API compatibility, concurrency safety, resilience, performance regressions, missing tests, missing benchmarks, documentation gaps, and changelog gaps.
+- Call out when a diff is broader than necessary.
+- If you find no issues, say that explicitly and note any residual risks or verification gaps.
 
 ---
 > Source: [openshift/cluster-storage-operator](https://github.com/openshift/cluster-storage-operator) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
