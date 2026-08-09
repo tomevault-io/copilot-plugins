@@ -1,35 +1,70 @@
 ## blog-home-nuxt
 
-> blog-home-nuxt pages 路由嵌套与 layout 约定
+> blog-home-nuxt Cyber 主题组件封装规范（FAB、抽屉、浮层）
 
 
-# Pages Layout & Routing
+# Cyber 组件封装规范
 
-全局路由过渡：`nuxt.config` → `pageTransition: { name: 'scale', mode: 'out-in' }`。
+完整页面规范见 `home-14-page-development.mdc` 与 `docs/page-development-guide.md` §8。
 
-## Layout
+## 原则
 
-全站仅保留 `layouts/default.vue`（Nav + Footer + `CyberBackground`）。新页面**无需**写 `definePageMeta({ layout })`，除非将来新增其他 Layout。
+- **新 UI 块优先 `components/cyber/`**，复用 `assets/css/main.css` 中 `--tech-*` 令牌与 `cyber-*` class
+- **禁止**裸 `btn btn-primary btn-circle` 做全站浮层入口；**禁止**写死 `#00f5ff` / `#050505` 等色值
+- 深浅主题（`cyber` / `cyber-light`）须目测一致；动画轻量（pulse / glow），避免多层 blur 叠加
 
-页面内容区统一 `<CyberPageContainer>` + `<CyberCard>`，见 `home-14-page-development.mdc`。
+## 已有 Cyber 组件
 
-## 嵌套路由父级壳
+| 组件 | 用途 |
+|------|------|
+| `CyberPageContainer` | 页面容器 |
+| `CyberCard` | 毛玻璃卡片（`cyber-glass-card`） |
+| `CyberButton` | 主/次按钮（`cyber-btn-primary\|secondary`） |
+| `CyberSectionHeader` | 区块标题 |
+| `CyberAlert` | 提示框 |
+| `CyberFab` | 悬浮操作按钮（霓虹 FAB） |
+| `CyberNavBar` / `CyberBackground` / … | 布局与背景 |
 
-`tool.vue` 等含共享 UI 的父级页面，用 `CyberPageContainer` + `<NuxtPage />` 包裹子路由，**保留**。
+## 浮层 / FAB 写法
 
-- `tool.vue` → 工具箱标题 + `ToolSubNav` + 子页 `<NuxtPage />`
-- 子工具页只写业务内容，不再重复包外层容器
+```vue
+<!-- ✅ 全站浮层入口 -->
+<CyberFab
+  aria-label="打开 xxx"
+  hint="可选提示"
+  placement="bottom-right"
+  @click="open"
+>
+  <xia-icon icon="blog-ai" width="24px" height="24px" />
+</CyberFab>
 
-## 保留：default 包装层
+<!-- ✅ 抽屉/面板 -->
+<div class="cyber-drawer-panel">
+  <div class="cyber-drawer-panel__accent" aria-hidden="true" />
+  <div class="cyber-section-label">SECTION</div>
+  ...
+</div>
 
-`index.vue`、`about.vue`、`msgboard.vue` 等仅用 `<div><NuxtPage /></div>` 包根元素，供过渡动画使用，**不要删除**。
+<!-- ❌ 避免 -->
+<button class="btn btn-circle btn-primary shadow-lg">...</button>
+```
 
-## 新增页面检查
+## 位置约定
 
-- 父级是否只是空 `<NuxtPage />` 透传？是则不要建父级
-- 跳出嵌套路由后整页空白？优先查 layout / 过渡冲突
-- 内容页是否已用 `CyberPageContainer`？
+| 场景 | FAB 位置 |
+|------|----------|
+| 普通页 | `bottom-right`（与 backtop 错开，默认 `cyber-fab` 已抬高） |
+| 文章详情 | `bottom-left`（右侧已有 `ArticleRpgFab`） |
+
+面板与 FAB 同侧对齐（`rag-assistant__panel--left\|right` 可参考）。
+
+## 扩展 checklist
+
+- [ ] 样式是否用 `var(--tech-*)` / 现有 `cyber-*` class？
+- [ ] 是否应放入 `components/cyber/` 而非页面 scoped？
+- [ ] 多页复用的 class 是否加到 `main.css` `@layer components`？
+- [ ] `cyber` + `cyber-light` 是否目测正常？
 
 ---
 > Source: [Jiang-Xia/blog-home-nuxt](https://github.com/Jiang-Xia/blog-home-nuxt) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
