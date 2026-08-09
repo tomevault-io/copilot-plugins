@@ -1,0 +1,44 @@
+{
+  "name": "Asistente_de_estudio",
+  "owner": "DedSecRisk",
+  "repo": "Asistente_de_estudio",
+  "description": "Asistente de estudio te permite crear examenes r\u00e1pidos y gu\u00edas, comparando tus resultados para mejorar tus notas. ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DedSecRisk/Asistente_de_estudio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T02:43:00Z"
+}
