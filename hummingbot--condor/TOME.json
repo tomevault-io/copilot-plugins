@@ -3,8 +3,8 @@
   "owner": "hummingbot",
   "repo": "condor",
   "description": "",
-  "type": "config",
-  "source_format": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hummingbot/condor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T09:34:37Z"
+  "distributed_at": "2026-08-09T15:46:17Z"
 }
