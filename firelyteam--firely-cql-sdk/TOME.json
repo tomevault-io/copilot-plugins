@@ -1,0 +1,93 @@
+{
+  "name": "firely-cql-sdk",
+  "owner": "FirelyTeam",
+  "repo": "firely-cql-sdk",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "firely-cql-sdk",
+      "path": ".claude/skills/file-github-issue/SKILL.md",
+      "github_url": "https://github.com/FirelyTeam/firely-cql-sdk/tree/main/.claude/skills/file-github-issue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "firely-cql-sdk",
+      "path": ".claude/skills/cut-release-notes/SKILL.md",
+      "github_url": "https://github.com/FirelyTeam/firely-cql-sdk/tree/main/.claude/skills/cut-release-notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "firely-cql-sdk",
+      "path": ".claude/skills/write-pr-description/SKILL.md",
+      "github_url": "https://github.com/FirelyTeam/firely-cql-sdk/tree/main/.claude/skills/write-pr-description/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "firely-cql-sdk",
+      "path": ".claude/skills/pickup-github-ticket/SKILL.md",
+      "github_url": "https://github.com/FirelyTeam/firely-cql-sdk/tree/main/.claude/skills/pickup-github-ticket/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "firely-cql-sdk",
+      "path": ".claude/skills/generate-elm-from-cql/SKILL.md",
+      "github_url": "https://github.com/FirelyTeam/firely-cql-sdk/tree/main/.claude/skills/generate-elm-from-cql/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "firely-cql-sdk",
+      "path": ".claude/skills/sync-acceptance-criteria/SKILL.md",
+      "github_url": "https://github.com/FirelyTeam/firely-cql-sdk/tree/main/.claude/skills/sync-acceptance-criteria/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "firely-cql-sdk",
+      "path": ".claude/skills/generate-svg-from-mermaid/SKILL.md",
+      "github_url": "https://github.com/FirelyTeam/firely-cql-sdk/tree/main/.claude/skills/generate-svg-from-mermaid/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "firely-cql-sdk",
+      "path": ".claude/skills/resolve-pr-review-comments/SKILL.md",
+      "github_url": "https://github.com/FirelyTeam/firely-cql-sdk/tree/main/.claude/skills/resolve-pr-review-comments/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/FirelyTeam/firely-cql-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T15:31:51Z"
+}
