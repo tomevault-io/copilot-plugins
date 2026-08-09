@@ -4,7 +4,7 @@
   "repo": "google-cloud-go",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/googleapis/google-cloud-go",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T16:18:29Z"
+  "distributed_at": "2026-08-09T18:51:43Z"
 }
