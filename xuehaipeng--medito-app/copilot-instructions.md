@@ -1,9 +1,8 @@
-## newscreen
+## runningapp
 
-> Use this rule if we are creating a new screen
+> If you need to launch the app, use the commands in [launch.json](mdc:.vscode/launch.json)
 
-New screens should put [single_back_action_bar.dart](mdc:lib/views/player/widgets/bottom_actions/single_back_action_bar.dart) in the bottom nav bar unless otherwise specfied. No action bar button at the top, just a title. New strings go in [string_constants.dart](mdc:lib/constants/strings/string_constants.dart) with a description of how they are used.
-Top bar titles should be [medito_app_bar_small.dart](mdc:lib/widgets/headers/medito_app_bar_small.dart)
+If you need to launch the app, use the commands in [launch.json](mdc:.vscode/launch.json) 
 
 ---
 > Source: [xuehaipeng/medito-app](https://github.com/xuehaipeng/medito-app) — distributed by [TomeVault](https://tomevault.io).
