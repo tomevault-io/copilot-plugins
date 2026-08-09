@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [sqlc-dev/sqlc](https://github.com/sqlc-dev/sqlc
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [sqlc-dev/sqlc](https://github.com/sqlc-dev/sqlc) — a repo with 18061+ stars on GitHub.
+From [sqlc-dev/sqlc](https://github.com/sqlc-dev/sqlc) — a repo with 18146+ stars on GitHub.
 
 ---
 
