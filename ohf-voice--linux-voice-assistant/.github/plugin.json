@@ -1,0 +1,14 @@
+{
+  "name": "ohf-voice--linux-voice-assistant",
+  "displayName": "linux-voice-assistant",
+  "description": "linux-voice-assistant",
+  "version": "1.0.0",
+  "author": "OHF-Voice",
+  "homepage": "https://github.com/OHF-Voice/linux-voice-assistant",
+  "skills": [
+    {
+      "name": "linux-voice-assistant",
+      "description": ""
+    }
+  ]
+}
