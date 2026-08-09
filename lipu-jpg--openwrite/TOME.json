@@ -1,0 +1,171 @@
+{
+  "name": "Openwrite",
+  "owner": "LiPu-jpg",
+  "repo": "Openwrite",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Openwrite",
+      "path": "SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "skills/world-query/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/skills/world-query/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "skills/style-system/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/skills/style-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "skills/goethe-agent/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/skills/goethe-agent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "skills/novel-manager/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/skills/novel-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "skills/novel-creator/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/skills/novel-creator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "skills/novel-reviewer/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/skills/novel-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "skills/dialoguequality/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/skills/dialoguequality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "skills/post-validation/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/skills/post-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "skills/text-processing/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/skills/text-processing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "skills/truth-validation/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/skills/truth-validation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "skills/workflow-manager/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/skills/workflow-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "skills/foreshadowing-system/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/skills/foreshadowing-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "tools/runtime_skills/oh-story-review/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/tools/runtime_skills/oh-story-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "tools/runtime_skills/oh-story-deslop/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/tools/runtime_skills/oh-story-deslop/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "tools/runtime_skills/oh-story-long-scan/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/tools/runtime_skills/oh-story-long-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "tools/runtime_skills/oh-story-short-scan/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/tools/runtime_skills/oh-story-short-scan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "tools/runtime_skills/oh-story-long-write/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/tools/runtime_skills/oh-story-long-write/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "tools/runtime_skills/oh-story-short-write/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/tools/runtime_skills/oh-story-short-write/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "tools/runtime_skills/oh-story-long-analyze/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/tools/runtime_skills/oh-story-long-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Openwrite",
+      "path": "tools/runtime_skills/oh-story-short-analyze/SKILL.md",
+      "github_url": "https://github.com/LiPu-jpg/Openwrite/tree/main/tools/runtime_skills/oh-story-short-analyze/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/LiPu-jpg/Openwrite",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T13:55:48Z"
+}
