@@ -1,0 +1,9 @@
+{
+  "name": "apache--calcite",
+  "displayName": "calcite",
+  "description": "calcite",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/calcite",
+  "skills": []
+}
