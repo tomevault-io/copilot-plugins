@@ -259889,6 +259889,11 @@
       "description": "Forkable aarch64 Linux microVMs with fast capture, resume, and local fan-out"
     },
     {
+      "name": "bluwwi--blu3",
+      "source": "./bluwwi--blu3",
+      "description": "Create music rooms and listen together with friends in real-time. Free, no ads, cross-platform."
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -395984,6 +395989,16 @@
       "description": "Self-hosted memory server for AI agents. Your brain is a git repo, served over MCP and REST."
     },
     {
+      "name": "wilgon456--paseobility",
+      "source": "./wilgon456--paseobility",
+      "description": "Paseobility"
+    },
+    {
+      "name": "sarthakbystander--devsnips",
+      "source": "./sarthakbystander--devsnips",
+      "description": "A curated collection of reusable HTML, CSS, and JavaScript code snippets to speed up frontend development. Perfect for students, hobbyists, and busy developers."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -423917,6 +423932,21 @@
       "name": "marekadvocate--claudme",
       "source": "./marekadvocate--claudme",
       "description": "\ud83e\udd80 Your AI coding agents are a crime family. One pixel crab per Claude Code session, crawling the edges of your screen."
+    },
+    {
+      "name": "alamops--rbymmomod",
+      "source": "./alamops--rbymmomod",
+      "description": "RBYMMOMod"
+    },
+    {
+      "name": "bronils--aotopsy",
+      "source": "./bronils--aotopsy",
+      "description": "Static analyzer for Flutter/Dart AOT snapshots \u2014 recovers function names, class hierarchies, call graphs, and behavioral signals from libapp.so without embedding or executing the Dart VM. Supports ARM"
+    },
+    {
+      "name": "agentthink--serial-helper",
+      "source": "./agentthink--serial-helper",
+      "description": "\u4e32\u53e3\u52a9\u624b"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -560127,6 +560157,186 @@
       "name": "sherifaq--mesakareen-app22",
       "source": "./sherifaq--mesakareen-app22",
       "description": "mesakareen-app22"
+    },
+    {
+      "name": "quishon22--cloner",
+      "source": "./quishon22--cloner",
+      "description": "CLONER"
+    },
+    {
+      "name": "thunderd9--mindflow",
+      "source": "./thunderd9--mindflow",
+      "description": "A sleek, offline-first personal diary and task manager desktop application featuring an autonomous AI Copilot and secure local data storage."
+    },
+    {
+      "name": "onemindos--constellation-overwatch",
+      "source": "./onemindos--constellation-overwatch",
+      "description": "Constellation Overwatch \u2014 Go NATS-native situational awareness service"
+    },
+    {
+      "name": "william189189--alamak",
+      "source": "./william189189--alamak",
+      "description": "ALAMAK"
+    },
+    {
+      "name": "obunagalabs--llama-cpp-turboquant",
+      "source": "./obunagalabs--llama-cpp-turboquant",
+      "description": "[AI/LLMs] - Optimized C++ inference engine for quantized language models"
+    },
+    {
+      "name": "gusthanks--athanor",
+      "source": "./gusthanks--athanor",
+      "description": "An open-source project operating system for safe organization, persistent context, agent teams, integrations, and governance."
+    },
+    {
+      "name": "youssefahmed2017--cssengine",
+      "source": "./youssefahmed2017--cssengine",
+      "description": "A quick, CSS Engine that doesn't know anything about CSS. It knows classes, properties, selectors, etc."
+    },
+    {
+      "name": "zaidsohail21--fitnees-mobile-app",
+      "source": "./zaidsohail21--fitnees-mobile-app",
+      "description": "Fitnees_mobile_App"
+    },
+    {
+      "name": "wangruofeng--mime-types",
+      "source": "./wangruofeng--mime-types",
+      "description": "MIME \u7c7b\u578b\u901f\u67e5\uff1a\u6269\u5c55\u540d \u2194 Content-Type \u53cc\u5411\u67e5\u8be2\uff0c592 \u6761\u4e2d\u6587\u5206\u7c7b\uff08\u5355\u6587\u4ef6\u7eaf\u524d\u7aef\uff09"
+    },
+    {
+      "name": "bernardblay12-hub--yenko",
+      "source": "./bernardblay12-hub--yenko",
+      "description": "Yenko"
+    },
+    {
+      "name": "onhelyai--recipe-page",
+      "source": "./onhelyai--recipe-page",
+      "description": "recipe_page"
+    },
+    {
+      "name": "m11-web--bite-buddy",
+      "source": "./m11-web--bite-buddy",
+      "description": "bite-buddy"
+    },
+    {
+      "name": "doupsdigital--projeto-personal",
+      "source": "./doupsdigital--projeto-personal",
+      "description": "projeto-personal"
+    },
+    {
+      "name": "manitriniaina2002--ades-talent-hub",
+      "source": "./manitriniaina2002--ades-talent-hub",
+      "description": "ades-talent-hub"
+    },
+    {
+      "name": "dedsecrisk--asistente-de-estudio",
+      "source": "./dedsecrisk--asistente-de-estudio",
+      "description": "Asistente de estudio te permite crear examenes r\u00e1pidos y gu\u00edas, comparando tus resultados para mejorar tus notas. "
+    },
+    {
+      "name": "obunagalabs--llama-cpp-turboquant",
+      "source": "./obunagalabs--llama-cpp-turboquant",
+      "description": "[AI/LLMs] - Optimized C++ inference engine for quantized language models"
+    },
+    {
+      "name": "brandon-yang-yu--proofspec",
+      "source": "./brandon-yang-yu--proofspec",
+      "description": "A thin layer that makes your test suite the living spec"
+    },
+    {
+      "name": "toure003--medo",
+      "source": "./toure003--medo",
+      "description": "application de m\u00e9decine"
+    },
+    {
+      "name": "liplnwza548--liplnwzaccitv",
+      "source": "./liplnwza548--liplnwzaccitv",
+      "description": "AI-interview-driven video production template \u2014 reverse-engineer reference videos into a JSON spec, adapt to any editor (not CapCut-locked)"
+    },
+    {
+      "name": "expellirmud-dot--lightroom-ai-workflow",
+      "source": "./expellirmud-dot--lightroom-ai-workflow",
+      "description": "Lightroom-AI-Workflow-"
+    },
+    {
+      "name": "ai-attack-og--portfoilo-sienna",
+      "source": "./ai-attack-og--portfoilo-sienna",
+      "description": "portfoilo_sienna"
+    },
+    {
+      "name": "nthonysarc--web---alison---imprenta",
+      "source": "./nthonysarc--web---alison---imprenta",
+      "description": "Landing page y App Web para la Imprenta Alison ubicado en Ica"
+    },
+    {
+      "name": "blacksansa--apito",
+      "source": "./blacksansa--apito",
+      "description": "apito"
+    },
+    {
+      "name": "onhelyai--recipe-page",
+      "source": "./onhelyai--recipe-page",
+      "description": "recipe_page"
+    },
+    {
+      "name": "laughingdragonsproductions--dragontools",
+      "source": "./laughingdragonsproductions--dragontools",
+      "description": "A whole list of tools you can use in browser."
+    },
+    {
+      "name": "wangxinbbb--123",
+      "source": "./wangxinbbb--123",
+      "description": "123"
+    },
+    {
+      "name": "dedsecrisk--asistente-de-estudio",
+      "source": "./dedsecrisk--asistente-de-estudio",
+      "description": "Asistente de estudio te permite crear examenes r\u00e1pidos y gu\u00edas, comparando tus resultados para mejorar tus notas. "
+    },
+    {
+      "name": "abhistaalenzz--tugas-from-bu-amal",
+      "source": "./abhistaalenzz--tugas-from-bu-amal",
+      "description": "tugas-from-bu-amal"
+    },
+    {
+      "name": "buybizfast--fuel-tracker",
+      "source": "./buybizfast--fuel-tracker",
+      "description": "fuel-tracker"
+    },
+    {
+      "name": "sun-0102--codex-use-token",
+      "source": "./sun-0102--codex-use-token",
+      "description": "codex\u5b9e\u65f6\u989d\u5ea6\u663e\u793a"
+    },
+    {
+      "name": "senthilsv1202--askneighbor-mobile",
+      "source": "./senthilsv1202--askneighbor-mobile",
+      "description": "AskNeighbor mobile app \u2014 React Native/Expo community recommendation directory"
+    },
+    {
+      "name": "quishon22--cloner",
+      "source": "./quishon22--cloner",
+      "description": "CLONER"
+    },
+    {
+      "name": "nicocirio--product-discovery-harness",
+      "source": "./nicocirio--product-discovery-harness",
+      "description": "A durable product-discovery harness: from brainstorming to execution without losing context."
+    },
+    {
+      "name": "liplnwza548--liplnwzaccitv",
+      "source": "./liplnwza548--liplnwzaccitv",
+      "description": "AI-interview-driven video production template \u2014 reverse-engineer reference videos into a JSON spec, adapt to any editor (not CapCut-locked)"
+    },
+    {
+      "name": "scriptedgeeduofficial-lab--scriptedge",
+      "source": "./scriptedgeeduofficial-lab--scriptedge",
+      "description": "scriptedge"
+    },
+    {
+      "name": "waytid-way--llm-sql-discover",
+      "source": "./waytid-way--llm-sql-discover",
+      "description": "SQL to MySQL / PostgreSQL"
     }
   ]
 }
