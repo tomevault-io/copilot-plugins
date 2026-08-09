@@ -2,9 +2,9 @@
   "name": "wasmrun",
   "owner": "anistark",
   "repo": "wasmrun",
-  "description": "Powerful WASM runtime with debug capabilities",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/anistark/wasmrun",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T19:12:17Z"
+  "distributed_at": "2026-08-09T17:40:30Z"
 }
