@@ -1,0 +1,9 @@
+{
+  "name": "uutils--coreutils",
+  "displayName": "coreutils",
+  "description": "coreutils",
+  "version": "1.0.0",
+  "author": "uutils",
+  "homepage": "https://github.com/uutils/coreutils",
+  "skills": []
+}
