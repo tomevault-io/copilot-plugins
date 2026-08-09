@@ -2,9 +2,9 @@
   "name": "QoreDB",
   "owner": "QoreDB",
   "repo": "QoreDB",
-  "description": "Next Generation Database Client",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/QoreDB/QoreDB",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T14:58:32Z"
+  "distributed_at": "2026-08-09T12:25:47Z"
 }
