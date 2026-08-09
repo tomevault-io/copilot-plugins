@@ -4,7 +4,7 @@
   "repo": "evilcharts",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -115,9 +115,87 @@
       "path": ".agents/skills/tailwind-css-patterns/SKILL.md",
       "github_url": "https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/tailwind-css-patterns/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "evilcharts",
+      "path": ".agents/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evilcharts",
+      "path": ".claude/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/legions-developer/evilcharts/tree/main/.claude/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evilcharts",
+      "path": ".agents/skills/emil-design-eng/SKILL.md",
+      "github_url": "https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/emil-design-eng/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evilcharts",
+      "path": ".agents/skills/commit-and-push/SKILL.md",
+      "github_url": "https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/commit-and-push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evilcharts",
+      "path": ".claude/skills/commit-and-push/SKILL.md",
+      "github_url": "https://github.com/legions-developer/evilcharts/tree/main/.claude/skills/commit-and-push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evilcharts",
+      "path": ".agents/skills/review-animations/SKILL.md",
+      "github_url": "https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/review-animations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evilcharts",
+      "path": ".agents/skills/animation-vocabulary/SKILL.md",
+      "github_url": "https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/animation-vocabulary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evilcharts",
+      "path": ".agents/skills/nodejs-best-practices/SKILL.md",
+      "github_url": "https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/nodejs-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evilcharts",
+      "path": ".agents/skills/nodejs-backend-patterns/SKILL.md",
+      "github_url": "https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/nodejs-backend-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evilcharts",
+      "path": ".agents/skills/hallmark/SKILL.md",
+      "github_url": "https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/hallmark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evilcharts",
+      "path": ".agents/skills/seo-audit/SKILL.md",
+      "github_url": "https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/seo-audit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evilcharts",
+      "path": ".agents/skills/copywriting/SKILL.md",
+      "github_url": "https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/copywriting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evilcharts",
+      "path": ".agents/skills/setup-matt-pocock-skills/SKILL.md",
+      "github_url": "https://github.com/legions-developer/evilcharts/tree/main/.agents/skills/setup-matt-pocock-skills/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/legions-developer/evilcharts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T12:35:56Z"
+  "distributed_at": "2026-08-09T13:35:17Z"
 }
