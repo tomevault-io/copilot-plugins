@@ -1,0 +1,14 @@
+{
+  "name": "openclaw--fs-safe",
+  "displayName": "fs-safe",
+  "description": "fs-safe",
+  "version": "1.0.0",
+  "author": "openclaw",
+  "homepage": "https://github.com/openclaw/fs-safe",
+  "skills": [
+    {
+      "name": "fs-safe",
+      "description": ""
+    }
+  ]
+}
