@@ -1,0 +1,9 @@
+{
+  "name": "psalm--psalm-plugin-laravel",
+  "displayName": "psalm-plugin-laravel",
+  "description": "psalm-plugin-laravel",
+  "version": "1.0.0",
+  "author": "psalm",
+  "homepage": "https://github.com/psalm/psalm-plugin-laravel",
+  "skills": []
+}
