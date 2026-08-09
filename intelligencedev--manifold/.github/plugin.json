@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "intelligencedev",
   "homepage": "https://github.com/intelligencedev/manifold",
-  "skills": []
+  "skills": [
+    {
+      "name": "manifold",
+      "description": ""
+    },
+    {
+      "name": "manifold",
+      "description": ""
+    }
+  ]
 }
