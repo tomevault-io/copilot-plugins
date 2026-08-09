@@ -78,4 +78,4 @@ Native SQL extensions for [GoldenMatch](https://github.com/benzsevern/goldenmatc
 
 ---
 > Source: [benseverndev-oss/goldenmatch](https://github.com/benseverndev-oss/goldenmatch) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
