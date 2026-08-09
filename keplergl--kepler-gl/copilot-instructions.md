@@ -1,0 +1,35 @@
+## kepler-gl
+
+> Never commit or push without explicit user approval
+
+
+# Git Safety: Ask Before Commit or Push
+
+Never run `git commit`, `git push`, or any command that creates or publishes
+commits (e.g. `git commit --amend`, `git push --force`, `gh pr merge`) unless
+the user has explicitly asked for that action in the current turn.
+
+## Rules
+
+- Do NOT commit or push proactively, even after finishing a task or fixing tests.
+- Making local file edits is fine. Staging (`git add`) for inspection is fine.
+- Before committing or pushing, ask the user to confirm and wait for approval.
+- Never use `--no-verify` or bypass pre-commit / pre-push hooks.
+- If the user says something ambiguous like "fix the tests", stop after the fix
+  and ask whether they want it committed/pushed — do not assume.
+
+## Example
+
+```
+// ❌ BAD: user asked to fix a failing test
+<fix the test>
+git commit -m "fix test" && git push   // committed without being asked
+
+// ✅ GOOD
+<fix the test>
+"The fix is ready. Want me to commit and push it to the PR branch?"
+```
+
+---
+> Source: [keplergl/kepler.gl](https://github.com/keplergl/kepler.gl) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
