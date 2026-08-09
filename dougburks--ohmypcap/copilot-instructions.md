@@ -69,34 +69,104 @@ When updating styles or frontend logic, edit the appropriate split file. Keep `s
 
 ### Theming Conventions
 
-SO-CRATES supports five themes via CSS custom properties:
-
-- **Midnight** (default dark theme)
-- **Matte Black** — dark theme with orange/yellow accents
-- **Hacker** — green-on-black terminal aesthetic with a subtle code-rain background
-- **Daylight** (light theme)
-- **Sguil** — light theme inspired by the classic Sguil NSM interface, with gray chrome and navy headers
+SO-CRATES supports themes via CSS custom properties. The full, current list (name, group, and a short description of each) is the `THEMES` registry in `static/socrates.js` and [Themes](docs/themes.md) — don't duplicate that list here, it goes stale the same way any full list does (see `docs/filtering.md`'s "Column Overlap" note for the same reasoning). As of this writing there are 32: 17 Dark, 5 Light, 10 Fun.
 
 - **Use CSS variables** (`var(--bg-primary)`, `var(--text-primary)`, `var(--accent)`, etc.) instead of hardcoded hex values for all structural/theme colors.
-- **Add theme overrides** in the appropriate `[data-theme="..."]` block (e.g., `light`, `sguil`, `hacker`, or `matte-black`) when a default dark color lacks contrast or does not match the theme's aesthetic.
+- **Add theme overrides** in the appropriate `[data-theme="<key>"]` block (the theme's registry key in `static/socrates.js`'s `THEMES` object) when a default dark color lacks contrast or does not match the theme's aesthetic.
 - **Preserve hardcoded colors** only for functional/data-driven elements (event type colors, severity colors, ASCII transcript direction colors) that must stay consistent across themes.
+- **Don't define a variable in every theme block "for completeness" without a real consumer.** `--accent-rgb` and `--filter-bar-bg` were defined identically in all 23 theme blocks but never referenced via `var(--name)` anywhere in CSS/JS/HTML — removed as dead CSS (`test_dead_theme_vars_removed` locks this in). If you add a new per-theme variable, grep for `var(--your-name` before considering it done.
+- **`--bg-hover` and `--border-color` are deliberately separate variables.** `--bg-hover` is for hover-state background *fills* (table row hover, button hover); `--border-color` is for border/outline *decorations* (panel borders, header/footer dividers, input borders). Most themes set both to the same value since a muted color works fine for both roles, but don't assume they must match — CGA sets `--border-color` to a bright cyan (`#55ffff`, the real CGA light-cyan RGBI value) while keeping `--bg-hover` a much more muted teal (`#008080`), since a hover *fill* that bright would hurt text contrast but a 1px *border* reads fine at full brightness. `test_border_color_split_from_bg_hover` enforces that every theme defines both and that border declarations reference `var(--border-color)`, not `var(--bg-hover)`.
+- **A theme can override structural colors per-selector, not just per-variable, when a single shared variable can't express the look.** CGA's header/footer use `background: #55ffff` (bright light cyan) directly on `[data-theme="cga"] .app-header, [data-theme="cga"] .footer`, rather than repointing `--bg-secondary` (which every other panel/card also uses and would go bright cyan too). When doing this, override `--text-bright`/`--text-muted` scoped to the same selector for legibility against the new background — but if any descendant element (like the gear dropdown menu, a child of `.app-header` but visually its own dark panel) uses those same variables against its *own* different background, reset them back to their normal value scoped to that descendant, or its text will inherit the parent override and become illegible. See `test_cga_header_footer_light_cyan`. Also note the CSS-file-ordering gotcha this ran into: place such overrides *after* the base rule for any selector another test extracts via naive string-splitting (e.g. `.split('.app-header-menu-dropdown {')[1].split('}')[0]`), or the override becomes a second matching substring earlier in the file and the test grabs the wrong block.
+- **`--interactive-highlight` is an optional per-theme override for hover/focus/active border feedback.** Every hover/focus/active border rule (`.stat-card:hover`, `.stat-card.tab-active`, `.pagination-page-input:focus`, `.settings-number-input:focus`, `.drop-zone-active`, `.view-tab.active`, `.search-input:focus`, `.sample-card:hover`) reads `var(--interactive-highlight, var(--accent))` — a CSS fallback, so themes that don't define `--interactive-highlight` get exactly the old behavior (`--accent`) with zero risk. A theme needs this when its `--accent` is intentionally identical to `--border-color`/`--text-primary` (a deliberate flat, monochrome look) — without a separate highlight color, hovering/focusing would produce no visible change at all. Breadbin Blue (the original case, formerly named C64), Luna Blue, and DOS Blue all define this for exactly that reason, each to a distinct color from their own palette rather than a jarring color swap. If you add a new theme where `--accent` intentionally matches `--border-color`, check whether it needs `--interactive-highlight` too.
 - **Use `currentColor`** for inline SVG icons so they inherit the surrounding text color and adapt automatically.
 - **Avoid emojis** for UI icons when possible — use inline SVGs instead, since emojis render as full-color system glyphs that ignore CSS `color` and may be invisible in one theme.
 
-Theme selection is in the gear icon menu in the upper right corner. The menu shows **Help** first, then a divider, then the **Dark Themes** section (Midnight, Matte Black, Hacker), followed by the **Light Themes** section (Daylight, Sguil). Hovering a theme name previews it temporarily; clicking commits it. The user's choice is persisted to `localStorage` as `socrates-theme` and restored on page load to prevent a flash of unstyled content.
+Theme selection is in the gear icon menu in the upper right corner. The menu shows **Help** first, then a divider, then the **Dark Themes** section (alphabetical: Catppuccin … Vantablack), followed by the **Light Themes** section (alphabetical: Catppuccin Latte … White), followed by the **Fun Themes** section (alphabetical: Amber CRT … Vaporwave) — this order is `THEME_GROUP_ORDER = ['dark', 'light', 'fun']` in `static/socrates.js`. The `toggleTheme()` hotkey cycle follows this same menu order. The currently applied theme is marked with a ✓ (accent-colored `::before` glyph): each theme button carries `data-theme-option="<key>"`, and `updateThemeMenu()` toggles the `theme-active` class to match `getCurrentTheme()`. It runs from `setTheme()`, `previewTheme()` (so the mark follows hover previews), `init()`, and after every `renderGearMenu()` re-render. Hovering a theme name previews it temporarily; clicking commits it. The user's choice is persisted to `localStorage` as `socrates-theme` and restored on page load to prevent a flash of unstyled content.
 
 To add a new theme:
 
-1. Add it to the `THEMES` registry and the `toggleTheme()` cycle order in `static/socrates.js`. `setTheme()` and `previewTheme()` work automatically for any theme in the registry.
+1. Add it to the `THEMES` registry in `static/socrates.js` with the correct `group` (`'dark'`, `'fun'`, or `'light'`). `setTheme()`, `previewTheme()`, the `toggleTheme()` hotkey cycle, and the `renderGearMenu()` menu buttons are all generated automatically from the registry (menu sections are alphabetical by label within each group).
 2. Add a `[data-theme="your-name"]` CSS override block in `static/socrates.css`.
-3. Add the corresponding menu button under the correct section in the static `socrates.html` menu and in the `renderGearMenu()` helper in `static/socrates.js`. The button should use `onmouseenter="previewTheme('your-name')"`, `onmouseleave="revertTheme()"`, and `onclick="commitTheme('your-name')"`.
-4. If the theme needs a custom favicon, add the SVG file and update `updateFavicon()` in `static/socrates.js`.
+3. Add the corresponding menu button under the correct section in the static `socrates.html` menu (the static menu is what renders before `renderGearMenu()` regenerates it from the registry — keep the two in sync). The button should use `onmouseenter="previewTheme('your-name')"`, `onmouseleave="revertTheme()"`, and `onclick="commitTheme('your-name')"`.
+4. If the theme needs a custom favicon, add `static/favicon-your-name.svg` — `updateFavicon()` resolves per-theme favicons by naming convention (the `dark` and `light` themes use the plain `static/favicon.svg`).
 5. Add any theme-specific runtime behavior (e.g. background effects) and gate it on `getCurrentTheme()`.
+6. Add it to the `THEMES` list in `scripts/capture_screenshots.py` (a separate hardcoded list, not derived from the registry) and re-run the script to generate its Themes-page screenshot - see the Release Checklist below.
+7. If it's a Fun-group theme, consider giving it a typed cheat code (see the `keyBuffer` easter eggs in the `keydown` listener in `static/socrates.js` - CGA/Hacker/Sguil all have one). Use `keyBuffer.endsWith('yourcode')` rather than `===` - the buffer holds the last 5 keys typed session-wide, so a code shorter than 5 characters checked with `===` would only ever match in the first few keystrokes after page load. Document the code in parentheses next to the theme on the Themes page (`docs/themes.md`).
 
-## README Maintenance
+## Docs Site Maintenance
 
-When adding, removing, or renaming sections in `README.md`, always update the **Table of Contents** at the top of the file. GitHub auto-generates anchor IDs from heading text (lowercased, spaces→hyphens, special chars stripped). Duplicate heading names get `-1`, `-2`, etc. suffixes.
+User-facing documentation lives on the MkDocs Material site built from `docs/*.md` (config in `mkdocs.yml`, deployed by `.github/workflows/docs.yml`). When adding, removing, or renaming a docs page, update `mkdocs.yml`'s `nav:` list to match — pages not listed there still build but won't appear in the site navigation. `README.md` itself stays a short landing page (tagline, screenshots, links out to the docs site) and should not grow a Table of Contents again; new content belongs in `docs/`, not README.
+
+Preview changes locally before pushing: `pip install -r requirements-docs.txt && mkdocs serve` (use `mkdocs serve -a 127.0.0.1:8001` if SO-CRATES' own server is already running on its default port 8000). Run `mkdocs build --strict` to catch broken internal links — this fails the build the same way the deploy workflow does.
+
+## Release Checklist
+
+Before cutting a release:
+
+1. **Regenerate screenshots.** Start the server (`python3 socrates.py`), then run
+   `pip install -r requirements-screenshots.txt && python3 scripts/capture_screenshots.py`.
+   This refreshes all 6 `docs/images/so-crates-*.png` (Home page) and all 25
+   `docs/images/themes/*.png` (Themes page) against the app's own built-in
+   sample pcap (`DEFAULT_SAMPLE_URL` in `static/socrates.js`) — no local
+   fixture or hardcoded MD5 needed, works on a clean checkout with an empty
+   `DATA_DIR`. Run this on every release, not just when the UI visibly
+   changes — stale screenshots (e.g. showing an old default value in the
+   Welcome modal) are easy to miss otherwise. If a new theme was added since
+   the last release, it's automatically included (the script reads the same
+   `THEMES` list convention from `static/socrates.js`).
+2. **Regenerate the demo video.** With the server still running, run
+   `python3 -m playwright install ffmpeg` (one-time; Playwright's video
+   muxing needs its own bundled ffmpeg, separate from any system ffmpeg)
+   then `python3 scripts/record_demo.py`. This re-records the workflow
+   end-to-end (sample pcap → each data type → All Events → Aggregation
+   Tables filtering → drill-down → ASCII Transcript → Hexdump) and
+   publishes `docs/videos/demo.mp4` (H.264/AAC, re-encoded via a system
+   `ffmpeg` binary from Playwright's raw WebM capture — MP4 is used rather
+   than WebM since it's universally browser-supported and is also the
+   format required to upload the same clip directly to
+   X/Instagram/LinkedIn/Facebook), embedded on the Home page just above
+   Screenshots. If `ffmpeg` isn't on PATH, it falls back to publishing the
+   raw `docs/videos/demo.webm` instead with a warning — see the script's
+   module docstring. Re-run whenever the recorded workflow's on-screen
+   text/labels change (e.g. a renamed button or tab) even if nothing else
+   about the release does — the captions are hardcoded to match specific
+   UI strings and will look wrong (or the script will fail to find an
+   element) if those drift.
+3. **Review the diff** of the regenerated PNGs (`git diff --stat docs/images/`)
+   before committing — a near-identical diff for every file usually means
+   nothing meaningful changed; a few files changing more than the rest is
+   worth a manual look to confirm it's an intended UI change, not a bug.
+4. Update `docs/release-notes.md` (the single source of truth — `README.md`
+   links directly to it, there's no separate root-level stub) and bump the
+   version shown in the app footer / `docs/api.md`'s `/api/version` example
+   if it changed.
+5. **Go through each page of the docs and make sure it is accurate.** Don't
+   just proofread — verify claims (endpoint shapes, config defaults, file
+   layouts, dependency lists, test counts) directly against the current
+   source (`socrates.py`, `db.py`, `validators.py`, `config.py`,
+   `Dockerfile`, `static/socrates.js`, `tests/*.py`), not against what the
+   docs already say or what a prior release looked like. Docs drift
+   silently as the app changes underneath them, and even a hardcoded
+   *count* standing in for a full list (event types, columns, tests) goes
+   stale the same way a full list would — see `docs/filtering.md`'s
+   "Per-type columns are not enumerated here" note. Re-run
+   `mkdocs build --strict` after each fix.
+6. **Review all source and docs** for spelling errors, grammar issues, logic
+   issues, security issues, orphaned code, and code that needs refactoring.
+   Cover the whole tree, not just what changed since the last release —
+   issues introduced several releases back are just as worth catching. Fix
+   what's clearly correct to fix; for anything that implies a design
+   decision (e.g. removing a function with no caller vs. wiring it up),
+   flag it and confirm before acting rather than guessing.
+7. Run the full test suite (`python3 -m unittest discover -v`) and
+   `mkdocs build --strict` before pushing.
+8. **Remove any stray `tmp*` directories or files** left in the project root
+   (e.g. `tmp-********` dirs, `tmp*.js` files) — both patterns are already
+   gitignored, so they won't show up in `git status`, but they're debris
+   from interrupted test runs or agent sandboxes (see `tests/jsdom_helper.py`'s
+   `run_jsdom()`, which writes then unlinks a temp `.js` file per JS test)
+   and are easy to miss with `find . -maxdepth 1 -iname 'tmp*'`.
 
 ---
 > Source: [dougburks/ohmypcap](https://github.com/dougburks/ohmypcap) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
