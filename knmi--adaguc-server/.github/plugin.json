@@ -1,0 +1,9 @@
+{
+  "name": "knmi--adaguc-server",
+  "displayName": "adaguc-server",
+  "description": "adaguc-server",
+  "version": "1.0.0",
+  "author": "KNMI",
+  "homepage": "https://github.com/KNMI/adaguc-server",
+  "skills": []
+}
