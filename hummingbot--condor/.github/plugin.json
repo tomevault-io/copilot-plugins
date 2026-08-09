@@ -5,38 +5,5 @@
   "version": "1.0.0",
   "author": "hummingbot",
   "homepage": "https://github.com/hummingbot/condor",
-  "skills": [
-    {
-      "name": "condor",
-      "description": ""
-    },
-    {
-      "name": "condor",
-      "description": ""
-    },
-    {
-      "name": "condor",
-      "description": ""
-    },
-    {
-      "name": "condor",
-      "description": ""
-    },
-    {
-      "name": "condor",
-      "description": ""
-    },
-    {
-      "name": "condor",
-      "description": ""
-    },
-    {
-      "name": "condor",
-      "description": ""
-    },
-    {
-      "name": "condor",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
