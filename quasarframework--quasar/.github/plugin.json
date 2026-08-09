@@ -1,0 +1,14 @@
+{
+  "name": "quasarframework--quasar",
+  "displayName": "quasar",
+  "description": "quasar",
+  "version": "1.0.0",
+  "author": "quasarframework",
+  "homepage": "https://github.com/quasarframework/quasar",
+  "skills": [
+    {
+      "name": "quasar",
+      "description": ""
+    }
+  ]
+}
