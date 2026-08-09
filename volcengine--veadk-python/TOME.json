@@ -4,7 +4,7 @@
   "repo": "veadk-python",
   "description": "",
   "type": "tome",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -49,9 +49,33 @@
       "path": "examples/piagent_with_mcp/skills/piagent-e2e-style/SKILL.md",
       "github_url": "https://github.com/volcengine/veadk-python/tree/main/examples/piagent_with_mcp/skills/piagent-e2e-style/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "veadk-python",
+      "path": "veadk/webui/coding-agent-skills/agentkit-cli/SKILL.md",
+      "github_url": "https://github.com/volcengine/veadk-python/tree/main/veadk/webui/coding-agent-skills/agentkit-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "veadk-python",
+      "path": "frontend/public/coding-agent-skills/agentkit-cli/SKILL.md",
+      "github_url": "https://github.com/volcengine/veadk-python/tree/main/frontend/public/coding-agent-skills/agentkit-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "veadk-python",
+      "path": "veadk/webui/coding-agent-skills/veadk-agent-development/SKILL.md",
+      "github_url": "https://github.com/volcengine/veadk-python/tree/main/veadk/webui/coding-agent-skills/veadk-agent-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "veadk-python",
+      "path": "frontend/public/coding-agent-skills/veadk-agent-development/SKILL.md",
+      "github_url": "https://github.com/volcengine/veadk-python/tree/main/frontend/public/coding-agent-skills/veadk-agent-development/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/volcengine/veadk-python",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T17:51:04Z"
+  "distributed_at": "2026-08-09T13:45:24Z"
 }
