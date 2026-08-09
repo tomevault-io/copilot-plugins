@@ -1,10 +1,10 @@
 ## pinme
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## Project Overview
 
@@ -14,8 +14,11 @@ PinMe is a zero-config CLI tool for deploying static sites to IPFS. Built with T
 
 ```bash
 npm run build          # Production build (esbuild → dist/index.js)
-npm run dev            # Dev build (NODE_ENV=development)
-node test/build-env.test.js  # Run tests (node:test, no framework)
+npm run dev            # Dev build
+npm run test           # Unit/integration tests (Vitest)
+npm run test:cli       # Real CLI black-box tests against dist/index.js
+npm run verify         # Full PR gate: lint, typecheck, tests, build, CLI, pack
+npm run test:mutation  # Slow mutation tests (manual/nightly)
 ```
 
 Build uses `build.js` (esbuild), NOT `rollup.config.js` (legacy, unused). esbuild reads `.env` via dotenv at build time and injects env vars as `process.env.*` defines.
@@ -35,7 +38,7 @@ The output is a single CJS file at `dist/index.js` with a shebang, used as the `
   - `domainValidator.ts` — Domain name validation and DNS vs subdomain detection
   - `cliError.ts` — Structured CLI error types
 - `bin/services/uploadService.ts` — Upload orchestration (hash encryption, URL generation)
-- `skills/` — Claude Code skill definitions for this project
+- `skills/` — Codex skill definitions for this project
 
 ## Key Patterns
 
@@ -53,4 +56,4 @@ The output is a single CJS file at `dist/index.js` with a shebang, used as the `
 
 ---
 > Source: [glitternetwork/pinme](https://github.com/glitternetwork/pinme) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
