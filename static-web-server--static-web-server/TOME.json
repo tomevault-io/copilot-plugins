@@ -1,0 +1,99 @@
+{
+  "name": "static-web-server",
+  "owner": "static-web-server",
+  "repo": "static-web-server",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "static-web-server",
+      "path": ".agents/skills/prose/SKILL.md",
+      "github_url": "https://github.com/static-web-server/static-web-server/tree/main/.agents/skills/prose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "static-web-server",
+      "path": ".agents/skills/design/SKILL.md",
+      "github_url": "https://github.com/static-web-server/static-web-server/tree/main/.agents/skills/design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "static-web-server",
+      "path": ".agents/skills/testing/SKILL.md",
+      "github_url": "https://github.com/static-web-server/static-web-server/tree/main/.agents/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "static-web-server",
+      "path": ".agents/skills/security/SKILL.md",
+      "github_url": "https://github.com/static-web-server/static-web-server/tree/main/.agents/skills/security/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "static-web-server",
+      "path": ".agents/skills/performance/SKILL.md",
+      "github_url": "https://github.com/static-web-server/static-web-server/tree/main/.agents/skills/performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "static-web-server",
+      "path": ".agents/skills/rust-backend/SKILL.md",
+      "github_url": "https://github.com/static-web-server/static-web-server/tree/main/.agents/skills/rust-backend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "static-web-server",
+      "path": ".agents/skills/code-quality/SKILL.md",
+      "github_url": "https://github.com/static-web-server/static-web-server/tree/main/.agents/skills/code-quality/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "static-web-server",
+      "path": ".agents/skills/issue-tracking/SKILL.md",
+      "github_url": "https://github.com/static-web-server/static-web-server/tree/main/.agents/skills/issue-tracking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "static-web-server",
+      "path": ".agents/skills/static-file-serving/SKILL.md",
+      "github_url": "https://github.com/static-web-server/static-web-server/tree/main/.agents/skills/static-file-serving/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/static-web-server/static-web-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T13:47:09Z"
+}
