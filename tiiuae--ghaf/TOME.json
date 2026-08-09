@@ -4,7 +4,7 @@
   "repo": "ghaf",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -89,5 +89,5 @@
   ],
   "source_url": "https://github.com/tiiuae/ghaf",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T13:39:35Z"
+  "distributed_at": "2026-08-09T15:44:36Z"
 }
