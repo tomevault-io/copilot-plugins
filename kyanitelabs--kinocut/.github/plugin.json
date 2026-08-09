@@ -1,0 +1,9 @@
+{
+  "name": "kyanitelabs--kinocut",
+  "displayName": "kinocut",
+  "description": "Guardrailed video editing MCP server for AI agents. FFmpeg, Hyperframes, repurposing tools, Python client, and CLI. Local, fast, free.",
+  "version": "1.0.0",
+  "author": "KyaniteLabs",
+  "homepage": "https://github.com/KyaniteLabs/kinocut",
+  "skills": []
+}
