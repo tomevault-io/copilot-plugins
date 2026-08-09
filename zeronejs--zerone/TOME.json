@@ -3,8 +3,8 @@
   "owner": "zeronejs",
   "repo": "zerone",
   "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,45 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "zerone",
+      "path": ".kiro/skills/github-release/SKILL.md",
+      "github_url": "https://github.com/zeronejs/zerone/tree/main/.kiro/skills/github-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zerone",
+      "path": ".agents/skills/github-release/SKILL.md",
+      "github_url": "https://github.com/zeronejs/zerone/tree/main/.agents/skills/github-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zerone",
+      "path": ".claude/skills/github-release/SKILL.md",
+      "github_url": "https://github.com/zeronejs/zerone/tree/main/.claude/skills/github-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zerone",
+      "path": ".kiro/skills/dk-front-git-auto-commit-push/SKILL.md",
+      "github_url": "https://github.com/zeronejs/zerone/tree/main/.kiro/skills/dk-front-git-auto-commit-push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zerone",
+      "path": ".agents/skills/dk-front-git-auto-commit-push/SKILL.md",
+      "github_url": "https://github.com/zeronejs/zerone/tree/main/.agents/skills/dk-front-git-auto-commit-push/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zerone",
+      "path": ".claude/skills/dk-front-git-auto-commit-push/SKILL.md",
+      "github_url": "https://github.com/zeronejs/zerone/tree/main/.claude/skills/dk-front-git-auto-commit-push/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/zeronejs/zerone",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T01:03:11Z"
+  "distributed_at": "2026-08-09T13:43:40Z"
 }
