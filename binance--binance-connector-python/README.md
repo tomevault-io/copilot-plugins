@@ -16,7 +16,7 @@ Original source: `` in [binance/binance-connector-python](https://github.com/bin
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [binance/binance-connector-python](https://github.com/binance/binance-connector-python) — a repo with 2889+ stars on GitHub.
+From [binance/binance-connector-python](https://github.com/binance/binance-connector-python) — a repo with 2903+ stars on GitHub.
 
 ---
 
