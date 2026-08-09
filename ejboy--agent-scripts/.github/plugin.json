@@ -1,0 +1,9 @@
+{
+  "name": "ejboy--agent-scripts",
+  "displayName": "agent-scripts",
+  "description": "Token-efficient, local-first scripts for coding agents - compact Maven output, predictable browser launch, and reusable development workflows.",
+  "version": "1.0.0",
+  "author": "ejboy",
+  "homepage": "https://github.com/ejboy/agent-scripts",
+  "skills": []
+}
