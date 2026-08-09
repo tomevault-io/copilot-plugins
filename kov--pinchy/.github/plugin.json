@@ -1,0 +1,9 @@
+{
+  "name": "kov--pinchy",
+  "displayName": "pinchy",
+  "description": "Low-overhead strace substitute using eBPF",
+  "version": "1.0.0",
+  "author": "kov",
+  "homepage": "https://github.com/kov/pinchy",
+  "skills": []
+}
