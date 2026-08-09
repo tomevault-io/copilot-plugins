@@ -5,14 +5,5 @@
   "version": "1.0.0",
   "author": "yvgude",
   "homepage": "https://github.com/yvgude/lean-ctx",
-  "skills": [
-    {
-      "name": "lean-ctx",
-      "description": ""
-    },
-    {
-      "name": "lean-ctx",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
