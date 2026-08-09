@@ -1,122 +1,62 @@
 ## gungraun
 
-> enables the full public API surface and build-time generated request
+> Tests for the `valgrind-requests` crate's architecture-specific client request
 
-# Gungraun Agent Guidelines
+# Valgrind Requests Tests
 
-This document provides instructions for AI agents working on the Gungraun
-repository. If present load the user-local AI agents file .opencode/AGENTS.md in
-addition to this file.
+Tests for the `valgrind-requests` crate's architecture-specific client request
+implementation. Not published; excluded from `just test-all`.
 
-## 1. Build, Lint, and Test Commands
+## Overview
 
-Gungraun uses `just` as a task runner. Always prefer `just` commands over direct
-`cargo` invocations when available to ensure consistency with CI/CD.
+These tests verify that `valgrind-requests` emits correct magic sequences and
+client requests for each supported architecture. We do not test Valgrind itself,
+only that our assembly and request encoding match what Valgrind expects.
 
-### formatting & Linting
+Native tests run the test binaries directly. Cross-target tests run inside QEMU
+system images via `cross`, using custom Docker images with Valgrind
+pre-installed.
 
-- **Format Code (Rust):** `just fmt` (Requires nightly toolchain)
-- **Format TOML:** `just fmt-toml`
-- **Format Prettier (JSON/YAML/MD):** `just fmt-prettier`
-    - **Important:** Always run `just fmt-prettier` after making changes to
-      `AGENTS.md`
-- **Lint (Clippy):** `just lint` (Uses stable toolchain)
-- **Check All Formatting:** `just check-fmt-all`
+## Structure
 
-### Testing
+| Path                            | Role                                                                               |
+| ------------------------------- | ---------------------------------------------------------------------------------- |
+| `src/bin/`                      | Test binaries (`*-reqs-test.rs`) plus `valgrind-wrapper.rs`                        |
+| `tests/common/mod.rs`           | Test harness: runner detection, fixture loading, matchers                          |
+| `tests/test_valgrind_requests/` | Per-tool test modules (valgrind, memcheck, callgrind, cachegrind, print_macros)    |
+| `tests/fixtures/`               | Target-specific stderr snapshots for cross-architecture comparison                 |
+| `build.rs`                      | Sets fixture path (`valgrind_requests_TESTS_FIXTURES`) for native vs `qemu-system` |
+| `./Cross.toml`                  | Cross target definitions with custom `ghcr.io/gungraun/...` images                 |
 
-- **Run All Tests:** `just test-all` (Excludes client-request-tests and
-  benchmarks)
-- **Run Package Tests:** `just test <package_name>`
-    - Example: `just test gungraun`
-- **Run UI Tests:** `just test-ui` (Fixed to MSRV compiler)
-    - **Overwrite UI Test Fixtures:** `just test-ui-overwrite`
-- **Run Doc Tests:** `just test-doc`
+## Conventions
 
-### Benchmarks (System Tests)
+- **Native path**: `cargo test -p valgrind-requests-tests --test tests` runs
+  binaries directly.
+- **Cross path**: `just reqs-test <target>` (e.g. `x86_64-unknown-linux-gnu`)
+  runs via `cross` + QEMU.
+- **Exit codes**: Test binaries exit `0` when not under Valgrind, `1` when under
+  Valgrind. Higher codes are not tested.
+- **Wrapper**: `valgrind-wrapper` invokes Valgrind, filters
+  architecture-specific output (addresses, backtraces, numbers), and emits
+  normalized stderr for fixture comparison.
+- **Fixtures**: Named `<test>.<target>.stderr` or
+  `<test>.since_<rust-version>.<target>.stderr` for per-target or per-version
+  variance.
+- **Features**: `_stubs` (default) and `_act` map to `valgrind-requests/stubs`
+  and `valgrind-requests/act`.
+- **Architecture guards**: Tests use `cfg!(target_arch)` and `cfg!(target_os)`
+  to select the correct fixture.
 
-- **Run Single Benchmark System Test:** `just full-bench-test <bench_name>`
-    - Example: `just full-bench-test test_lib_bench_tools`
-- **Run All Benchmark System Tests:** `just full-bench-test-all`
+## Anti-Patterns
 
-## 2. Code Style & Conventions
-
-### General
-
-- **Rust Edition:** 2024
-- **Line Length:** 100 characters for comments (enforced by rustfmt).
-- **Newlines:** Unix style (`\n`).
-
-### Formatting & Imports
-
-- **Rustfmt:** Strictly adhere to `rustfmt.toml`.
-    - `imports_granularity = "Module"`
-    - `group_imports = "StdExternalCrate"`
-- **Import Order:** std -> external crates -> crate modules.
-- **Sorting:** Imports and modules should be sorted alphabetically.
-
-### Naming Conventions
-
-- **Types/Traits:** `UpperCamelCase`
-- **Functions/Methods/Modules/Variables:** `snake_case`
-- **Constants/Statics:** `SCREAMING_SNAKE_CASE`
-- **Files:** `snake_case.rs`
-
-### Error Handling
-
-- **Library (`gungraun`):** Use specific, typed errors where possible.
-- **Runner (`gungraun-runner`):**
-    - Uses a central `Error` enum in `src/error.rs`.
-    - Variants include `BenchmarkError`, `ConfigurationError`, `JobError`
-      (wrapping `anyhow`), etc.
-    - `JobError` wraps `anyhow::Error` for internal task failures.
-    - Implement `Display` for user-facing error messages.
-    - Use `thiserror` (if available) or manual `std::error::Error`
-      implementation.
-
-### Code Structure
-
-- **Workspace:** Multi-crate workspace.
-    - `gungraun`: Main library crate.
-    - `gungraun-runner`: Binary runner.
-    - `gungraun-macros`: Proc-macros.
-    - `benchmark-tests`: System tests.
-    - `valgrind-requests`: Valgrind client requests support crate.
-
-### Testing Guidelines
-
-- **Unit Tests:** Co-located in the same file or `mod tests` within the file.
-- **Integration Tests:** Located in `tests/` directory of the package.
-- **gungraun-runner Integration Tests:** Integration-style tests for
-  gungraun-runner live in `benchmark-tests/tests/`.
-- **Benchmarks:** defined using `#[library_benchmark]` and `#[binary_benchmark]`
-  attributes.
-
-## 3. Workflow specific
-
-- **Dependencies:** Check `Cargo.toml` before adding new dependencies. Use
-  `cargo add` only if necessary and approved.
-- **Lockfile:** Do not manually edit `Cargo.lock`.
-- **Pre-commit:** Ensure `just fmt` and `just lint` pass before committing.
-
-### `valgrind-requests` Feature Semantics
-
-- **`stubs`** is the minimum supported feature for `valgrind-requests`. It
-  enables the full public API surface and build-time generated request
-  definitions, but implementations must compile to no-ops or default return
-  values. This supports production dependencies using
-  `default-features = false, features = ["stubs"]` while tests/benchmarks use
-  active requests through dev-dependencies.
-- **`act`** enables real Valgrind client request execution and implies `stubs`.
-  Do not treat `act` as a separate API surface from `stubs`.
-- **`alloc`** only enables allocation-backed convenience APIs, such as
-  formatting macros and owned C string helpers. Core client requests and
-  `core::ffi::CStr`-based APIs must work without `alloc`.
-- Do not make `act` imply `alloc`; active `no_std` without allocation is a
-  supported use case.
-- When changing `valgrind-requests`, verify with
-  `just build-hack-valgrind-requests`
+- Do not expect `just test-all` to cover this crate; cross-target runs require
+  `cross` and Docker.
+- Do not conflate these with `gungraun-tests`; they test different layers.
+- Do not add new test binaries without updating `tests/test_valgrind_requests/`
+  and fixtures.
+- Do not assume all targets share the same stderr output; always provide a
+  target-specific fixture when output differs.
 
 ---
 > Source: [gungraun/gungraun](https://github.com/gungraun/gungraun) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
