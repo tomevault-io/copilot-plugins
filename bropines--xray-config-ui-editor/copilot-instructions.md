@@ -30,4 +30,4 @@ This guide describes the project-specific conventions and technical stack for th
 
 ---
 > Source: [bropines/xray-config-ui-editor](https://github.com/bropines/xray-config-ui-editor) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
