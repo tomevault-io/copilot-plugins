@@ -1,0 +1,131 @@
+## excalivibe
+
+> 面向所有 Agent（Claude Code / Codex / Cursor / Gemini / Aider 等）的项目事实与协作规范。Claude Code 专属偏好见 [CLAUDE.md](./CLAUDE.md)。
+
+# AGENTS.md — ExcaliVibe
+
+面向所有 Agent（Claude Code / Codex / Cursor / Gemini / Aider 等）的项目事实与协作规范。Claude Code 专属偏好见 [CLAUDE.md](./CLAUDE.md)。
+
+## 项目简介
+
+**ExcaliVibe**（Excalibur + Vibe）是一套 **Vibe Working** 能力套件。概念源自 Vibe Coding，但不局限于 Coding，而是面向更广的业务场景，把 Agent 打造成更强大的综合体。项目**同时支持 Claude 与 Codex 两个智能体**，能力均以各自的 **marketplace + plugin** 机制承载。
+
+## 核心原则：求同存异（所有迭代必须遵循）
+
+> **架构与主流程保持一致；实现细节针对各 Agent 个性化优化与适配。**
+
+这是本项目**最高优先级的约束**，适用于后续每一个需求、每一次迭代改进：
+
+- **求同**：整体 workflow / pipeline / architecture 在 Claude 与 Codex 两侧**必须一致** —— 同一个能力在两侧解决同样的问题、走同样的主流程、对用户呈现一致的心智模型。
+- **存异**：具体实现细节、能力使用方式围绕各 Agent 的特点（command / tools / skills / hooks / MCP 等）**独立设计，不为兼容而折中**。
+
+示例（同一能力，主流程一致、实现各异）：
+
+| 场景 | Claude 侧 | Codex 侧 | 共同兜底 |
+|---|---|---|---|
+| 调研 | `deep-research` + dynamic workflow | 常规 subagent | — |
+| 浏览器 | `claude --chrome` | computer-use / `@Chrome` | chrome-devtools MCP / Playwright |
+
+**新增/修改能力的硬性要求**：任何改动要么同时落到 `claude/` 与 `codex/` 两侧并保持主流程一致，要么显式说明为何只动一侧；严禁因迁就某一 Agent 的能力短板而把两侧都拉平到折中方案。
+
+## 项目性质与技术栈
+
+这是一个**能力内容仓库**，而非传统应用：产物是 marketplace 清单（JSON）+ plugin（Markdown 形式的 skills / commands + JSON manifest），不包含可编译的应用代码，因此**没有 build / 启动脚本**。
+
+- 语言/格式：JSON（manifest）、Markdown（SKILL.md / command）、Shell（plugin 内脚本，如需要）
+- 规范方法：仓库内置 **OpenSpec**（`openspec/`）+ `opsx:*` 命令，承载较大需求的结构化流程
+
+## 目录结构
+
+```
+excalivibe/
+├── .claude-plugin/marketplace.json      # Claude marketplace 清单（仓库根，name: excalivibe）
+├── .agents/plugins/marketplace.json     # Codex marketplace 清单（仓库根，name: excalivibe）
+├── claude/                              # Claude 智能体能力
+│   └── plugins/<plugin>/
+│       ├── .claude-plugin/plugin.json
+│       ├── commands/  agents/  skills/  hooks/  .mcp.json   # Claude 可用 primitives
+│       └── ...
+├── codex/                               # Codex 智能体能力（marketplace v0.117.0+）
+│   └── plugins/<plugin>/
+│       ├── .codex-plugin/plugin.json
+│       └── skills/  .mcp.json  .app.json                     # Codex 可用 primitives
+├── docs/                                # 项目文档 MDX 树（tech = 事实标准 / research = 历史，用 plugin-infra:mdx-artifact 预览）
+├── openspec/                            # OpenSpec 规范流程产物（specs / changes）
+├── LICENSE                              # MIT（仓库根为准，每个 plugin 目录内有同文本副本）
+├── README.md
+└── AGENTS.md / CLAUDE.md
+```
+
+> 两侧 marketplace 名均为 `excalivibe`，清单置于**仓库根**（`.claude-plugin/marketplace.json` 与 `.agents/plugins/marketplace.json`，两条路径不冲突），使 `<owner>/<repo>` 可从 GitHub 直接安装。plugin 的 `source` 相对仓库根解析，分别指向 `./claude/plugins/<name>` 与 `./codex/plugins/<name>`。
+
+## 两侧 marketplace / plugin 结构规范
+
+| | **Claude** | **Codex**（CLI v0.117.0+） |
+|---|---|---|
+| Marketplace 清单 | `.claude-plugin/marketplace.json`（仓库根；`name`/`owner`/`plugins[].source` 为字符串路径，指向 `./claude/plugins/<name>`） | `.agents/plugins/marketplace.json`（仓库根；`name`/`interface`/`plugins[]` 含 `source.path`/`policy`/`category`，`path` 指向 `./codex/plugins/<name>`） |
+| Plugin 清单 | `<plugin>/.claude-plugin/plugin.json`（`name`/`version`/`description`/`author`/`keywords`） | `<plugin>/.codex-plugin/plugin.json`（**JSON**；必填 `name`/`version`(semver)/`description`/`author.name` + `interface`，`interface` 必含 `displayName`/`capabilities`/`defaultPrompt`） |
+| 承载单元 | `commands/` `agents/` `skills/` `hooks/` `.mcp.json` | `skills/` `.mcp.json` `.app.json` |
+
+**约定**：
+
+- plugin 名 **kebab-case**，外层文件夹名 = manifest `name`，两侧同名同概念。
+- `version` 用严格 semver（如 `0.1.0`）。
+- Codex 的 `plugin.json` **不要写 `hooks` 字段**（validator 拒绝）；Codex 运行时本身具备 hooks 能力（`config.toml` 途径），但非交互式 exec 下触发未经验证（trust-gated）；`mcpServers` / `apps` 仅在 `.mcp.json` / `.app.json` 实际存在时才声明；路径以 `./` 开头。
+- skill 的 `SKILL.md` frontmatter 必含 `name` + `description`。
+- **许可证**：全仓库 MIT。新增 plugin 时把仓库根 `LICENSE` 复制进 `<plugin>/LICENSE`（两侧都要），Codex `plugin.json` 写 `"license": "MIT"`，Claude `package.json` 写 `"license": "MIT"` 且 `files[]` 含 `"LICENSE"`（否则 npm 包不带许可证正文）。
+
+## 安装与调试
+
+清单在仓库根，故 GitHub 直装用 `<owner>/<repo>`、本地调试用 `.`（仓库根）。用户向文档见 [README.md](./README.md)。
+
+**Claude**
+```bash
+claude plugin marketplace add yanxuan-lc/excalivibe   # GitHub 直装
+claude plugin marketplace add .                       # 或本地调试（仓库根）
+claude plugin install <plugin>@excalivibe             # 安装
+claude plugin marketplace update excalivibe           # 迭代后刷新
+```
+
+**Codex（CLI v0.117.0+）**
+```bash
+codex plugin marketplace add yanxuan-lc/excalivibe    # GitHub 直装（或 . 本地调试）
+codex plugin add <plugin>@excalivibe                  # 安装；新开 thread 后 skills 生效
+cp codex/agents/*.toml ~/.codex/agents/               # subagent 独立安装（plugin 无法捆绑）
+# 迭代：update_plugin_cachebuster.py → codex plugin add <plugin>@excalivibe → 新开 thread
+```
+
+**外部工具依赖**：`plugin-infra:mdx-artifact` 只交付 `.mdx` 写法约定，渲染器是独立 npm 包
+[mdx-viewer](https://github.com/yanxuan-lc/mdx-viewer)——预览 `.mdx`（含 `docs/` 这棵树）需
+`npm install -g mdx-viewer` 提供 `mdxv` 命令（或 `npx -p mdx-viewer mdxv <path>` 免装）。
+
+## 校验
+
+- **Codex plugin**：`python3 ~/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py <plugin-path>`（依赖 `pyyaml`；建议在临时 venv 中运行）。
+- **JSON manifest**：保证为合法 JSON（任意 `jq . <file>` 可解析）。
+
+## 新增一个能力的标准流程
+
+1. 在两侧确定**一致的主流程**与用户心智模型（求同）。
+2. 分别在 `claude/plugins/<name>/` 与 `codex/plugins/<name>/` 实现，使用各 Agent 最契合的 primitives（存异）。
+3. 在两侧 marketplace 清单的 `plugins[]` 追加条目（追加，不随意重排）。
+4. 校验 manifest；本地安装冒烟。
+5. 涉及**可运行产品代码**的较大需求走 OpenSpec（`opsx:*`）流程；**改 skill / agent / command / prompt / 文档本身不算研发，不走 OpenSpec**——以 `skill-creator` 为权威轨道，配合上面的双端同步与校验步骤即可（文件数多或「双端都要动」不构成走流程的理由）。
+
+## Git 约定
+
+- 单一 git 仓库，`claude/` 与 `codex/` 为子目录（非 submodule）。
+- 由人工审阅后再提交，**Agent 不自动 commit**。
+- **版本 bump 时机**：plugin 的 `version` 跟随**发布**（合入受保护的 `main`），而非每次提交——`dev` 上的功能提交自然累积，**不逐次 bump**；发布时按累积变更一次性定 SemVer，并核对**全部版本同步点**，由 `release-coordinator` 决策与核验。dev 上可预置下次发布的版本号，合入 main 时即生效。
+  - **版本同步点（一处都不能漏）**：每个 plugin 的 ① 两侧 manifest（claude `.claude-plugin/plugin.json` + codex `.codex-plugin/plugin.json`）② claude 侧 `package.json`（codex 侧无 npm `package.json`）③ **plugin README 里写死版本号的行**（如两侧 `gen-ai-development/README.md` 的「当前版本 `x.y.z`」——它不是机器读的，但用户会读，漂移过一次）。必须同版本。bump 前用 `grep -rn "<旧版本>"` 兜底扫残留。
+  - **marketplace 清单不含版本字段**：`.claude-plugin/marketplace.json` / `.agents/plugins/marketplace.json` 的 `plugins[]` 只声明 `name`/`description`/`source`，版本权威来源是各 plugin 的 `plugin.json`，**无需也不要**在 marketplace 里写版本。
+
+## 术语表
+
+- **Vibe Working**：源自 Vibe Coding，泛化到非 Coding 业务场景的「凭感觉协作完成工作」的能力主张。
+- **求同存异**：本项目的双端设计原则，见上文。
+- **scaffold 根目录**：`claude/` 或 `codex/`，marketplace 路径解析的基准。
+
+---
+> Source: [yanxuan-lc/excalivibe](https://github.com/yanxuan-lc/excalivibe) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-08 -->
