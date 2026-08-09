@@ -4,7 +4,7 @@
   "repo": "Senbei",
   "description": "Static Crackproof-protected binaries unpacker",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Momoko-Ayase/Senbei",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T08:36:48Z"
+  "distributed_at": "2026-08-09T08:37:23Z"
 }
