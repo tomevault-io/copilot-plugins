@@ -8,46 +8,50 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Delphi MCP (Model Context Protocol) Server that communicates via StdIO. It implements a file system tool that can be exposed to AI clients through the JSON-RPC protocol.
+Demo 072 — **Federación de agentes con el protocolo A2A** (Agent-to-Agent, Linux Foundation, spec 1.0). Demuestra el stack A2A completo de MakerAI **sin LLM ni API keys** (los nodos son transformaciones de texto deterministas):
 
-## Build Commands
+1. **Servidor**: un grafo `TAIAgentManager` ("Agente Editor": Limpiar → Firmar) expuesto como agente A2A vía `TAiA2AServer` — Agent Card en `/.well-known/agent-card.json` y JSON-RPC `SendMessage`/`GetTask`/`CancelTask`.
+2. **Cliente**: `TAiA2AClient` descubre la Agent Card y envía un mensaje (`SendText` → task con artifacts).
+3. **Federación**: un grafo local ("Agente Redactor": Preparar → Editar → Publicar) delega el nodo `Editar` en el agente remoto usando `TAiA2ARemoteAgentTool` asignado como `Tool` del nodo.
 
-Build using RAD Studio/Delphi IDE or MSBuild:
+## Build & Run
+
+**IDE:** RAD Studio (Delphi 11 Alexandria a 13 Florence). Abrir `A2AFederationDemo.dproj`, build Win64.
+
 ```bash
-msbuild MCPServerFileSystem.dproj /p:Config=Debug /p:Platform=Win32
+# Demo completo en un solo proceso (servidor + cliente + federacion)
+A2AFederationDemo.exe
+
+# Solo el servidor A2A (para consumirlo desde otro proceso/maquina)
+A2AFederationDemo.exe --serve --port 8280
+
+# Solo el cliente contra un agente remoto
+A2AFederationDemo.exe --client --url http://localhost:8280 "texto a editar"
+
+# Con trazas OpenTelemetry (collector OTLP en localhost:4318)
+A2AFederationDemo.exe --otel
 ```
 
-Output directory: `C:\mcp\servers\`
+Verificar la Agent Card con curl:
 
-## Architecture
+```bash
+curl http://localhost:8280/.well-known/agent-card.json
+```
 
-**Main Components:**
+## Key Source
 
-- `MCPServerFileSystem.dpr` - Console application entry point. Creates the DataModule and starts the MCP StdIO server in an infinite loop.
+| Component | Unit |
+|-----------|------|
+| `TAiA2AServer` | `Source/Agents/uMakerAi.A2A.Server.pas` |
+| `TAiA2AClient` + `TAiA2ARemoteAgentTool` | `Source/Agents/uMakerAi.A2A.Client.pas` |
+| `TAIAgentManager` (grafos) | `Source/Agents/uMakerAi.Agents.pas` |
+| `TAiTelemetry` (--otel) | `Source/Core/uMakerAi.Telemetry.pas` |
 
-- `uMCPServerFileSystem_Tool.pas/.dfm` - TDataModule containing:
-  - `TAiMCPStdioServer` - MCP server component that handles JSON-RPC communication over StdIO
-  - `TAiFunctions` - Collection of AI-callable functions/tools
+## Notas
 
-**MakerAI Framework Dependencies:**
-- `uMakerAi.MCPServer.Core` - Core MCP server functionality
-- `uMakerAi.MCPServer.Bridge` - Bridge for MCP communication
-- `UMakerAi.MCPServer.Stdio` - StdIO transport implementation
-- `uMakerAi.Tools.Functions` - AI function/tool definitions
-- `uMakerAi.Core` / `uMakerAi.Chat.Messages` - Core AI types
-
-## Implementing New Tools
-
-1. Add a new function item to `AiFunctions1.Functions` collection in the DFM
-2. Set `FunctionName`, `Description`, and `Parameters`
-3. Create an `OnAction` event handler in the PAS file
-4. Access parameters via `TJSONObject.ParseJSONValue(ToolCall.Arguments)` (JSON canónico)
-5. Set response via `ToolCall.Response := 'result'`
-6. Set `Handled := True` to indicate completion
-
-## Current Tools
-
-- `fs_listar` - Lists files in a sandbox directory with optional filter parameter
+- Los estados del task siguen la spec 1.0 (`TASK_STATE_COMPLETED`, `TASK_STATE_INPUT_REQUIRED`...). Una suspensión del grafo (`Node.Suspend`, human-in-the-loop) se publica como `INPUT_REQUIRED`.
+- El servidor acepta también los aliases de método de la era 0.x (`message/send`, `tasks/get`, `tasks/cancel`).
+- Streaming/push notifications no soportados en el MVP (declarados `false` en la card; `SendStreamingMessage` responde `UnsupportedOperationError`).
 
 ## Navigation
 
@@ -55,4 +59,4 @@ Output directory: `C:\mcp\servers\`
 
 ---
 > Source: [gustavoeenriquez/MakerAi](https://github.com/gustavoeenriquez/MakerAi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
