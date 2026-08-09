@@ -1,14 +1,9 @@
 {
   "name": "anomalyco--opencode",
-  "displayName": "open",
-  "description": "The open source coding agent.",
+  "displayName": "opencode",
+  "description": "opencode",
   "version": "1.0.0",
   "author": "anomalyco",
   "homepage": "https://github.com/anomalyco/opencode",
-  "skills": [
-    {
-      "name": "agents-sdk",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
