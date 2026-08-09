@@ -2,9 +2,9 @@
   "name": "pinme",
   "owner": "glitternetwork",
   "repo": "pinme",
-  "description": "Deploy Your Frontend in a Single Command. Claude Code Skills supported.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/glitternetwork/pinme",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T21:44:02Z"
+  "distributed_at": "2026-08-09T18:36:23Z"
 }
