@@ -1,22 +1,26 @@
 # powertools-lambda-typescript
 
-> Source: [aws-powertools/powertools-lambda-typescript](https://github.com/aws-powertools/powertools-lambda-typescript). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [aws-powertools/powertools-lambda-typescript](https://github.com/aws-powertools/powertools-lambda-typescript). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [aws-powertools/powertools-lambda-typescript](https://github.com/aws-powertools/powertools-lambda-typescript).
+Original source: `AGENTS.md` in [aws-powertools/powertools-lambda-typescript](https://github.com/aws-powertools/powertools-lambda-typescript).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [aws-powertools/powertools-lambda-typescript](https://github.com/aws-powertools/powertools-lambda-typescript) — a repo with 1785+ stars on GitHub.
+## Bundled Skills (2)
+
+- [powertools-lambda-typescript](https://github.com/aws-powertools/powertools-lambda-typescript/tree/main/.agents/skills/create-pr/SKILL.md)
+- [powertools-lambda-typescript](https://github.com/aws-powertools/powertools-lambda-typescript/tree/main/.agents/skills/create-issue/SKILL.md)
+
+From [aws-powertools/powertools-lambda-typescript](https://github.com/aws-powertools/powertools-lambda-typescript) — a repo with 1789+ stars on GitHub.
 
 ---
 
