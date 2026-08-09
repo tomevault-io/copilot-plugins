@@ -1,0 +1,43 @@
+## glass-voice-orb-study
+
+> This project is a non-commercial WebGL study of a liquid-glass voice orb. A transparent glass sphere refracts the selected image, carries a horizontal glint, and hosts a spectral wave or six-dot thinking ring inside it.
+
+# Glass Voice Orb Project Map
+
+## Purpose
+
+This project is a non-commercial WebGL study of a liquid-glass voice orb. A transparent glass sphere refracts the selected image, carries a horizontal glint, and hosts a spectral wave or six-dot thinking ring inside it.
+
+## Tech Stack
+
+- Static HTML, CSS, and plain JavaScript (no build step, no framework).
+- WebGL2 multi-pass pipeline: effect FBO -> scene FBO -> glass on the default framebuffer.
+- Web Audio API for optional microphone-driven low/mid/high bands.
+- Six local GLSL passes in `src/shaders/`, adapted from a shader reference for study.
+- Background presets are registered in `src/backgrounds.js` and loaded from `assets/`.
+
+## Modules
+
+- `src/`: shader loading, GL plumbing, background presets, uniform dictionary, spring state, audio, render loop.
+- `assets/`: compressed background preset images consumed by `src/backgrounds.js`, including the WWDC26 second preset.
+- `src/shaders/`: the six verbatim GLSL passes (vertex + background/wave/dots/compose/glass).
+- `docs/`: bilingual public release documentation, attribution quality contract, and curated README preview media.
+- `eval/`: visual rendering contract, work contract, and local evidence.
+- `index.html`: root page shell and cache-busted script/style order for tuner, renderer, and app wiring.
+
+## Licensing
+
+- Public distribution is non-commercial study only.
+- Keep attribution and restrictions in `NOTICE.md` and `LICENSE`.
+- Root Git metadata keeps local-only scratch assets ignored and text files normalized to LF.
+- Public web deployment uses GitHub Pages from `main` branch `/`; `.nojekyll` disables Jekyll processing.
+
+## Quality Gates
+
+- Check `eval/visual-contract.md` before changing visible rendering behavior.
+- Update touched file headers and the relevant `CLAUDE.md` map when responsibilities change.
+- Evidence for visual changes lives under `eval/evidence/`.
+
+---
+> Source: [zq52xy/glass-voice-orb-study](https://github.com/zq52xy/glass-voice-orb-study) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-08 -->
