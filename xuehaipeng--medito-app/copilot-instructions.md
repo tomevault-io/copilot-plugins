@@ -1,24 +1,9 @@
-## meditoproj
+## newscreen
 
-> Knowing what the project is about
+> Use this rule if we are creating a new screen
 
-Cursor Rule for Medito Project
-	1.	Project Overview:
-Medito is a free meditation and mindfulness app developed by the Medito Foundation, a non-profit organisation. The app offers free access to meditations, courses, and mindfulness tools to help users improve their mental well-being.
-	2.	Core Goals:
-	•	Provide high-quality, accessible meditation content for free.
-	•	Encourage regular meditation through features like streak tracking and guided paths.
-	•	Promote community engagement and feedback.
-	•	Sustain operations through donations and ethical practices.
-	3.	Funding Model:
-	•	The app is funded through voluntary donations made via Stripe, PayPal, and bank transfers.
-	•	We encourage users to donate after they meditate, with prompts and nudges within the app.
-	•	Donor perks may be offered outside the app, such as access to special bots or communities.
-	•	Avoid referencing premium features in the app due to platform restrictions.
-	4.	Tone and Ethical Considerations:
-	•	Maintain a calm, supportive, and non-intrusive tone in UI and content.
-	•	Focus on inclusivity, ensuring accessibility and openness for all users.
-	•	Avoid aggressive upselling. Donations should feel like a supportive gesture, not an obligation.
+New screens should put [single_back_action_bar.dart](mdc:lib/views/player/widgets/bottom_actions/single_back_action_bar.dart) in the bottom nav bar unless otherwise specfied. No action bar button at the top, just a title. New strings go in [string_constants.dart](mdc:lib/constants/strings/string_constants.dart) with a description of how they are used.
+Top bar titles should be [medito_app_bar_small.dart](mdc:lib/widgets/headers/medito_app_bar_small.dart)
 
 ---
 > Source: [xuehaipeng/medito-app](https://github.com/xuehaipeng/medito-app) — distributed by [TomeVault](https://tomevault.io).
