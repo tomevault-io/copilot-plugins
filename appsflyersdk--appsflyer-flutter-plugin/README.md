@@ -1,25 +1,30 @@
 # appsflyer-flutter-plugin
 
-> Source: [AppsFlyerSDK/appsflyer-flutter-plugin](https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [AppsFlyerSDK/appsflyer-flutter-plugin](https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [AppsFlyerSDK/appsflyer-flutter-plugin](https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin).
+Original source: `CLAUDE.md` in [AppsFlyerSDK/appsflyer-flutter-plugin](https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
+## Bundled Skills (6)
 
 - [appsflyer-flutter-plugin](https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin/tree/main/.claude/skills/rc-release/SKILL.md)
+- [appsflyer-flutter-plugin](https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin/tree/main/.claude/skills/alice-pm/SKILL.md)
+- [appsflyer-flutter-plugin](https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin/tree/main/.claude/skills/af-ship-orch/SKILL.md)
+- [appsflyer-flutter-plugin](https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin/tree/main/.claude/skills/erin-flutter-analyst/SKILL.md)
+- [appsflyer-flutter-plugin](https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin/tree/main/.claude/skills/dave-flutter-engineer/SKILL.md)
+- [appsflyer-flutter-plugin](https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin/tree/main/.claude/skills/bob-flutter-researcher/SKILL.md)
 
-From [AppsFlyerSDK/appsflyer-flutter-plugin](https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin) — a repo with 188+ stars on GitHub.
+From [AppsFlyerSDK/appsflyer-flutter-plugin](https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin) — a repo with 187+ stars on GitHub.
 
 ---
 
