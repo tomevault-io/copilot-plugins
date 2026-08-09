@@ -4,7 +4,7 @@
   "repo": "nflalgorithm",
   "description": "NFL Algorithm started end of may",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mattleonard16/nflalgorithm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T06:35:05Z"
+  "distributed_at": "2026-08-09T06:39:19Z"
 }
