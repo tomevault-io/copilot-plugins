@@ -1,0 +1,9 @@
+{
+  "name": "epam--ai-dial-quickapps-backend",
+  "displayName": "ai-dial-quickapps-backend",
+  "description": "QuickApps is a composer for building DIAL applications from reusable tools",
+  "version": "1.0.0",
+  "author": "epam",
+  "homepage": "https://github.com/epam/ai-dial-quickapps-backend",
+  "skills": []
+}
