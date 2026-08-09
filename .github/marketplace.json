@@ -396429,6 +396429,11 @@
       "description": "NFL Algorithm started end of may"
     },
     {
+      "name": "nickknissen--aula",
+      "source": "./nickknissen--aula",
+      "description": "Python library for interacting with the Aula platform"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -424397,6 +424402,41 @@
       "name": "stevedylandev--cielago",
       "source": "./stevedylandev--cielago",
       "description": "Like Postman but it actually works. Terminal native HTTP request builder with OpenAPI support."
+    },
+    {
+      "name": "ewiger--hyper-markdown",
+      "source": "./ewiger--hyper-markdown",
+      "description": "Hyper-Markdown helps building your own local wiki knowledge base"
+    },
+    {
+      "name": "himanshu007-creator--sketchetc",
+      "source": "./himanshu007-creator--sketchetc",
+      "description": "Vice City themed SketchyBar setup: themes, widgets, clipboard history, aura points, tamper-proof journal. Free and open source."
+    },
+    {
+      "name": "omkshirsagar2914-pixel--trycompai-crm",
+      "source": "./omkshirsagar2914-pixel--trycompai-crm",
+      "description": "trycompai-crm"
+    },
+    {
+      "name": "ewiger--hyper-markdown",
+      "source": "./ewiger--hyper-markdown",
+      "description": "Hyper-Markdown helps building your own local wiki knowledge base"
+    },
+    {
+      "name": "momoko-ayase--senbei",
+      "source": "./momoko-ayase--senbei",
+      "description": "Static Crackproof-protected binaries unpacker"
+    },
+    {
+      "name": "momoko-ayase--senbei",
+      "source": "./momoko-ayase--senbei",
+      "description": "Static Crackproof-protected binaries unpacker"
+    },
+    {
+      "name": "wssfk12138--android-english-multiple-choice-practice-machine",
+      "source": "./wssfk12138--android-english-multiple-choice-practice-machine",
+      "description": "\u5185\u7f6e\u8003\u7814\u82f1\u8bed\u4e00/\u82f1\u8bed\u4e8c\u9898\u5e93\u7684\u672c\u5730\u5ba2\u89c2\u9898\u5237\u9898\u5e94\u7528\uff1a\u9519\u9898\u590d\u4e60\u3001\u5355\u8bcd\u8bb0\u5fc6\u3001AI \u5b66\u4e60\u8f85\u52a9\u4e0e GitHub/\u955c\u50cf\u81ea\u52a8\u66f4\u65b0"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -560817,6 +560857,56 @@
       "name": "stiglau--codex-umbra-mcp-integration-discovery",
       "source": "./stiglau--codex-umbra-mcp-integration-discovery",
       "description": "Codex Umbra is a PoC/scaffolding for using MCP-as-an-API discovery tool"
+    },
+    {
+      "name": "xuehaipeng--medito-app",
+      "source": "./xuehaipeng--medito-app",
+      "description": "medito-app"
+    },
+    {
+      "name": "xuehaipeng--medito-app",
+      "source": "./xuehaipeng--medito-app",
+      "description": "medito-app"
+    },
+    {
+      "name": "xuehaipeng--medito-app",
+      "source": "./xuehaipeng--medito-app",
+      "description": "medito-app"
+    },
+    {
+      "name": "xuehaipeng--medito-app",
+      "source": "./xuehaipeng--medito-app",
+      "description": "medito-app"
+    },
+    {
+      "name": "dfischer--awe",
+      "source": "./dfischer--awe",
+      "description": "unreal engine and ableton live "
+    },
+    {
+      "name": "samay58--floradex",
+      "source": "./samay58--floradex",
+      "description": "Pokedex for flora "
+    },
+    {
+      "name": "xuehaipeng--medito-app",
+      "source": "./xuehaipeng--medito-app",
+      "description": "medito-app"
+    },
+    {
+      "name": "xuehaipeng--medito-app",
+      "source": "./xuehaipeng--medito-app",
+      "description": "medito-app"
+    },
+    {
+      "name": "xuehaipeng--medito-app",
+      "source": "./xuehaipeng--medito-app",
+      "description": "medito-app"
+    },
+    {
+      "name": "xuehaipeng--medito-app",
+      "source": "./xuehaipeng--medito-app",
+      "description": "medito-app"
     }
   ]
 }
