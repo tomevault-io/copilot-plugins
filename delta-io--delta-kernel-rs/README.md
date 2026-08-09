@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [delta-io/delta-kernel-rs](https://github.com/de
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [delta-io/delta-kernel-rs](https://github.com/delta-io/delta-kernel-rs) — a repo with 350+ stars on GitHub.
+From [delta-io/delta-kernel-rs](https://github.com/delta-io/delta-kernel-rs) — a repo with 353+ stars on GitHub.
 
 ---
 
