@@ -1,54 +1,59 @@
-## skill-development
+## testing
 
-> Each skill lives in its own directory under `skills/`:
+> 1. Write test first (RED) -- test must fail
 
-# Skill Development Rules
+# Foundry Testing Standards
 
-## Skill Directory Structure
+## TDD Workflow
+1. Write test first (RED) -- test must fail
+2. Write minimal implementation (GREEN) -- test must pass
+3. Refactor and optimize (IMPROVE)
+4. Run `forge snapshot` to baseline gas
+5. Target 90%+ coverage on critical paths
 
-Each skill lives in its own directory under `skills/`:
-
+## Test File Structure
 ```
-skills/
-  gas-optimization/
-    SKILL.md      # Skill metadata + content
+test/
+  unit/           # Unit tests per contract
+  integration/    # Cross-contract interaction tests
+  invariant/      # Stateful invariant tests
+  fork/           # Fork tests against live protocols
+  poc/            # Proof-of-concept exploit tests
 ```
-
-## SKILL.md Format
-
-```yaml
----
-name: skill-name
-description: When and why to use this skill. Used for auto-discovery.
----
-```
-
-Followed by the skill content in Markdown.
 
 ## Naming Conventions
-- Directory name: `kebab-case` (e.g., `gas-optimization`)
-- SKILL.md name field: same as directory name
-- Description: explains WHEN to trigger in Ethereum context
+- Unit tests: `test_FunctionName_Condition_ExpectedResult`
+- Revert tests: `test_RevertWhen_Condition`
+- Fuzz tests: `testFuzz_FunctionName_PropertyDescription`
+- Invariant tests: `invariant_PropertyDescription`
+- Fork tests: `testFork_ScenarioDescription`
 
-## Quality Rules
-- Content must be Ethereum/Solidity specific
-- Include Solidity code examples where applicable
-- Include checklists for complex patterns
-- Reference specific EIPs, ERCs, and tools
-- Cross-reference related skills
-- Use "onchain" not "on-chain"
+## Test Quality Rules
+- Every public/external function must have at least one test
+- Test happy path AND failure cases
+- Test edge cases: 0, 1, type(uint256).max, empty arrays
+- Fuzz test ALL math operations (min 10,000 runs)
+- Fork-test ALL external protocol integrations
+- First depositor / last withdrawer scenarios for vaults
+- Invariant tests for core protocol properties
 
-## Skill Categories
-- Solidity Development: patterns, gas, storage, assembly
-- Security: vulnerability patterns, attack vectors, defenses
-- DeFi: protocol integration, AMMs, lending, oracles
-- Testing: Foundry testing, fuzzing, invariants, formal verification
-- Audit: pipeline phases (prep, recon, breadth, depth, verify, report)
-- Standards: ERC implementations, proxy patterns
-- Tooling: Foundry, Slither, Cast, Anvil
-- Infrastructure: subgraphs, frontends, L2, deployment
+## Cheatcode Usage
+- `vm.prank(addr)` for single-call impersonation
+- `vm.startPrank(addr)` / `vm.stopPrank()` for multi-call
+- `deal(token, addr, amount)` for token balances
+- `vm.warp(ts)` and `vm.roll(bn)` for time/block
+- `vm.expectRevert(Error.selector)` for revert tests
+- `vm.expectEmit()` for event verification
+- `vm.assume()` / `vm.bound()` for fuzz input constraints
+- `makeAddr("name")` for labeled test addresses
 
-Consider these rules if they affect your changes.
+## CI Integration
+```bash
+forge test --gas-report    # All tests + gas
+forge snapshot --check     # Gas regression check
+forge coverage             # Coverage report
+slither .                  # Static analysis
+```
 
 ---
 > Source: [ccashwell/evm-cortex](https://github.com/ccashwell/evm-cortex) — distributed by [TomeVault](https://tomevault.io).
