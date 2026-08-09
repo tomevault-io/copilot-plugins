@@ -1,17 +1,15 @@
 # AI instruction files for QoreDB
 
-> Sourced from [QoreDB/QoreDB](https://github.com/QoreDB/QoreDB) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-Next Generation Database Client
+> Sourced from [QoreDB/QoreDB](https://github.com/QoreDB/QoreDB), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [QoreDB/QoreDB](https://github.com/QoreDB/QoreDB).
+Original source: `AGENTS.md` in [QoreDB/QoreDB](https://github.com/QoreDB/QoreDB).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
