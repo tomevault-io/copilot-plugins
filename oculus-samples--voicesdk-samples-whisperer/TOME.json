@@ -4,7 +4,7 @@
   "repo": "voicesdk-samples-whisperer",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oculus-samples/voicesdk-samples-whisperer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-01T15:18:32Z"
+  "distributed_at": "2026-08-09T20:12:30Z"
 }
