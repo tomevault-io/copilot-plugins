@@ -1,92 +1,369 @@
 ## ai-craftsman-superpowers
 
-> Claude Code plugin that transforms Claude into a disciplined Senior Software Craftsman. DDD, Clean Architecture, TDD methodology enforced through hooks, commands, agents, and a rules engine.
+> The plugin provides **11 agents** organized in two categories:
 
-# AI Craftsman Superpowers — Project Instructions
+# Agents Reference
 
-## Project Overview
+The plugin provides **11 agents** organized in two categories:
+- **4 Reviewers** - read-only analysis and code review
+- **7 Craftsmen** - implementation specialists with domain expertise
 
-Claude Code plugin that transforms Claude into a disciplined Senior Software Craftsman. DDD, Clean Architecture, TDD methodology enforced through hooks, commands, agents, and a rules engine.
+## How to Use Agents
 
-**Current version:** 3.4.4
-**Stack:** Bash (hooks/CI), Markdown (commands/agents/templates), Python (metrics helpers), YAML (config)
-
-## Development Rules
-
-- All hook scripts MUST use `exit 0` (pass) or `exit 2` (block). NEVER `exit 1`.
-- Hook command output MUST be valid JSON (`jq -n` pattern).
-- Agent hook prompts use `$ARGUMENTS` for tool input injection.
-- The `metrics-query.py` helper MUST be used for all SQLite writes (parameterized queries). NEVER use string interpolation in SQL.
-- All writes to `session-state.json` MUST use atomic writes (`tempfile.mkstemp() + os.rename()`). Known TOCTOU window between read and rename when multiple async hooks fire simultaneously — acceptable at current hook frequencies but do not add file-locking without benchmarking first.
-- CI adapters follow the `adapter_detect/run/annotate/comment/exit` interface.
-- All commands MUST have `description`, `effort` (quick/medium/heavy) in frontmatter.
-- Templates MUST have: top-level heading, `## Mission` section, `## Context Files` section.
-
-## Testing
-
-```bash
-# Run full test suite
-bash tests/run-tests.sh
-
-# Run hook tests only
-bash tests/hooks/test-hooks.sh
-
-# Run template validation only
-bash tests/templates/test-templates.sh
-```
-
-## Key Differentiators (Marketing)
-
-These are the 6 genuine features that differentiate AI Craftsman Superpowers:
-
-### 1. Correction Learning System
-Records every violation fix users make and injects correction trends at next session start. SQLite-backed feedback loop that progressively teaches Claude the exact patterns your codebase rejects. Cross-file pattern detection suggests project-wide fixes when 3+ files share the same violation. Unique in the ecosystem — no other Claude Code plugin creates this behavioral feedback loop.
-
-### 2. Rules Engine with 3-Level Inheritance
-Enterprise-ready rule customization: Global → Project → Directory overrides. Short form (`PHP001: warn`) and long form (custom rules with regex, message, severity, languages, paths). Legacy code coexists with strict new code via directory-level relaxation. Python-backed YAML parser with bash 3.2 shell compatibility.
-
-### 3. Cognitive Bias Detector
-Real-time detection of acceleration bias, scope creep, and over-optimization in user prompts. Context-aware bilingual FR/EN pattern matching on UserPromptSubmit hook — requires imperative verb context to reduce false positives. Non-blocking warnings that encourage reflection before action.
-
-### 4. Real-Time Quality Gate
-3-level progressive validation on every Write/Edit:
-- Level 1: Regex (<50ms) — strict_types, final, any, setters. Always active.
-- Level 2: Static analysis (<2s) — PHPStan, ESLint. When tools installed.
-- Level 3: Architecture (<2s) — deptrac, dependency-cruiser. When tools installed.
-Graceful degradation: works with zero tools installed (Level 1 only).
-
-### 5. Multi-Provider CI Pipeline
-Same rules engine runs in hooks (real-time) AND CI (pipeline) with zero drift — CI sources the same pack validators as hooks. 4 providers: GitHub Actions, GitLab CI, Bitbucket Pipelines, Jenkins. Adapter pattern: detect → run → annotate → comment → exit.
-
-### 6. Metrics & Trend Analysis
-SQLite-backed tracking of violations, corrections, and sessions. 7-day and 30-day trend views. Data-driven quality improvement: identify most-violated rules and adjust strictness. Currently per-machine — team metrics sync planned for v3.
-
-## Architecture
+**Reviewers** are invoked for code review:
 
 ```
-hooks/              → Real-time validation (SessionStart → PostToolUse → Stop → SessionEnd)
-hooks/lib/          → Shared libraries (pack-loader, config, rules-engine, metrics, static-analysis)
-commands/           → Core user-invoked workflows (20 skills)
-agents/             → Core agents (11) + pack symlinks
-knowledge/          → Core methodology (DDD, Clean Architecture, Clean Code, Refactoring, Design Patterns)
-packs/              → Loadable language packs (5 packs)
-  symfony/          → PHP/Symfony pack (validators, agents, knowledge, templates)
-  react/            → React/TypeScript pack (validators, agents, knowledge, templates)
-  python/           → Python pack (validators, knowledge, anti-patterns)
-  bash/             → Bash/Shell pack (validators, knowledge, anti-patterns)
-  ai-ml/            → AI/ML pack (agents, knowledge, commands)
-ci/                 → CI pipeline integration (adapter pattern)
+> Review this PR with the architecture-reviewer agent
+
+> Run ai-engineer on the ML pipeline code
 ```
 
-## Version Sync Checklist
+**Craftsmen** are invoked for implementation tasks:
 
-When bumping version, update ALL of these:
-- `.claude-plugin/plugin.json` → `version`
-- `.claude-plugin/marketplace.json` → root `version` + plugin `version`
-- `ci/craftsman-ci.sh` → `VERSION=`
-- `CHANGELOG.md` → new entry
-- `README.md` → Version badge
+```
+> Use backend-craftsman to implement this use case
+
+> Ask the architect to validate this design
+```
+
+**Agent Teams** (experimental, v1.5.0): Enable `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` to create multi-agent teams. The `team-lead` agent orchestrates other agents as teammates.
+
+---
+
+## Craftsman Agents (v1.5.0)
+
+### team-lead
+
+**Model**: Sonnet | **Effort**: high | **Memory**: user | **Max Turns**: 50
+
+**Mission**: Orchestrator that delegates, challenges decisions, and validates deliverables. **Never codes directly.**
+
+**Skills**: plan, challenge, verify
+
+**Behavior**:
+- Decomposes complex tasks into subtasks for specialists
+- Challenges architectural decisions before implementation
+- Validates deliverables against specifications
+- Ensures conventional commits and test coverage
+
+---
+
+### backend-craftsman
+
+**Model**: Sonnet | **Effort**: high | **Memory**: project | **Max Turns**: 30
+
+**Mission**: PHP/Symfony implementation expert.
+
+**Skills**: entity, usecase, spec, test
+
+**Expertise**:
+- Symfony 7.4/8, API Platform 4, Doctrine ORM
+- DDD tactical patterns (Aggregates, Value Objects, Domain Events)
+- Messenger/Scheduler patterns
+- References: symfony.com/doc, api-platform.com/docs/symfony/
+
+**Mandatory Rules**: `strict_types`, `final` classes, private constructors, no setters, Clock abstraction.
+
+---
+
+### frontend-craftsman
+
+**Model**: Sonnet | **Effort**: high | **Memory**: project | **Max Turns**: 30
+
+**Mission**: React/TypeScript implementation expert.
+
+**Skills**: component, hook, spec, test
+
+**Expertise**:
+- React 19, TypeScript 5, Tailwind, shadcn/ui, TanStack Query
+- 65 Vercel React best practices (waterfalls, bundle, server, client, re-renders)
+- React 19 composition patterns (Server Components, Actions, use())
+
+**Mandatory Rules**: No `any`, `readonly` by default, branded types, named exports only.
+
+---
+
+### architect
+
+**Model**: Sonnet | **Effort**: high | **Memory**: project | **Max Turns**: 20
+
+**Mission**: DDD/Clean Architecture validation. **Read-only - cannot edit or write files.**
+
+**Skills**: design, challenge
+
+**Disallowed Tools**: Edit, Write
+
+**Validates**:
+- Strategic DDD (bounded contexts, context maps, ubiquitous language)
+- Tactical DDD (aggregates, entities, value objects, domain events)
+- Clean Architecture layer dependencies
+- CQRS and Event-Driven patterns
+
+---
+
+### ai-engineer
+
+**Model**: Sonnet | **Effort**: high | **Memory**: project | **Max Turns**: 30
+
+**Mission**: AI/ML implementation specialist.
+
+**Skills**: rag, agent-design, mlops
+
+**Expertise**:
+- RAG pipelines (chunking, embeddings, retrieval, generation)
+- LLM integration (Claude, OpenAI)
+- MCP server design and implementation
+- Agent patterns (3P: Perceive/Plan/Perform)
+
+---
+
+### api-craftsman
+
+**Model**: Sonnet | **Effort**: high | **Memory**: project | **Max Turns**: 30
+
+**Mission**: Senior API architect.
+
+**Expertise**:
+- API Platform 4, REST/HATEOAS standards
+- OpenAPI specification, JSON-LD/Hydra
+- API security (OAuth2, JWT)
+- API design reviews and RESTful architecture decisions
+
+---
+
+### ui-ux-director
+
+**Model**: Sonnet | **Effort**: high | **Memory**: project | **Max Turns**: 20
+
+**Mission**: UX quality and accessibility guardian.
+
+**Validates**:
+- WCAG 2.1 AA compliance (color contrast, keyboard nav, screen readers)
+- Design token systems (spacing, typography, colors)
+- Data visualization best practices
+- SaaS dashboard UX patterns
+
+---
+
+### doc-writer
+
+**Model**: Haiku (cost-optimized) | **Effort**: medium | **Memory**: project | **Max Turns**: 20
+
+**Mission**: Technical documentation specialist.
+
+**Produces**:
+- ADRs (Architecture Decision Records)
+- README and CHANGELOG entries
+- API documentation (OpenAPI)
+- Runbooks and operational guides
+
+**Verification**: Cross-references documentation against actual code to detect drift.
+
+---
+
+## Reviewer Agents
+
+### Core Pack
+
+### architecture-reviewer
+
+**Mission**: Review code against Clean Architecture principles.
+
+**Checks**:
+- Dependencies point inward (domain has no external imports)
+- Domain layer purity
+- Use case single responsibility
+- Controller thinness
+- Infrastructure isolation
+
+**Severity Levels**:
+
+| Level | Examples |
+|-------|----------|
+| BLOCKING | Domain imports infrastructure, business logic in controller |
+| MUST FIX | Anemic domain, primitive obsession |
+| IMPROVE | Missing value objects, unclear naming |
+
+**Report Format**:
+```markdown
+## Architecture Review
+
+### BLOCKING
+1. **src/Domain/User.php:15** - Imports Doctrine EntityManager
+   - Impact: Domain coupled to infrastructure
+   - Fix: Inject repository interface instead
+
+### VERDICT
+[ ] APPROVE
+[x] REQUEST_CHANGES
+[ ] BLOCK
+```
+
+---
+
+## Symfony Pack
+
+### symfony-reviewer
+
+**Mission**: Review PHP/Symfony code against DDD best practices.
+
+**Checks**:
+- Final classes (except Doctrine entities)
+- Private constructors with static factories
+- No public setters
+- Strict types declaration
+- Value objects for domain primitives
+- Domain events for state changes
+
+**Stack-Specific**:
+- Doctrine mapping correctness
+- Symfony service configuration
+- Messenger handler patterns
+
+---
+
+### security-pentester
+
+**Mission**: Security audit focused on web vulnerabilities.
+
+**Checks**:
+- OWASP Top 10
+- SQL injection
+- XSS vulnerabilities
+- CSRF protection
+- Authentication/authorization
+- Input validation
+- Sensitive data exposure
+
+---
+
+## React Pack
+
+### react-reviewer
+
+**Mission**: Review React/TypeScript code against best practices.
+
+**Checks**:
+- No `any` types
+- Proper hook dependencies
+- Component size and responsibility
+- State management patterns
+- Performance (memo, useCallback usage)
+- Accessibility
+
+---
+
+## AI Pack
+
+### ai-engineer
+
+**Mission**: Review AI/ML code for production best practices.
+
+**Domains**:
+
+#### RAG Pipelines
+- Chunking strategy and overlap
+- Embedding model consistency
+- Retrieval configuration
+- Prompt grounding
+
+#### MLOps
+- Data versioning
+- Experiment tracking
+- Model testing
+- Monitoring setup
+- Reproducibility (seeds)
+
+#### Agent Architecture
+- 3P separation (Perceive/Plan/Perform)
+- Tool definitions
+- Memory management
+- Safety boundaries
+
+**Critical Checks**:
+- [ ] No hardcoded API keys
+- [ ] Error handling on LLM calls
+- [ ] Bounded token usage
+- [ ] Input validation
+- [ ] Reproducibility
+
+**Report Format**:
+```markdown
+## AI/ML Code Review
+
+### BLOCKING
+1. **src/rag/config.py:23** - Hardcoded API key
+   - Risk: Security
+   - Fix: Use environment variable
+
+### METRICS AUDIT
+| Metric | Status |
+|--------|--------|
+| Reproducibility | ⚠ No seeds |
+| Observability | ✓ Logging OK |
+| Testability | ✗ No tests |
+| Security | ✗ Key exposed |
+
+### VERDICT
+[ ] APPROVE
+[ ] REQUEST_CHANGES
+[x] BLOCK
+```
+
+---
+
+## Agent Output Format
+
+All agents produce reports with:
+
+1. **Scope**: What was reviewed
+2. **Findings by severity**: BLOCKING > MUST FIX > IMPROVE
+3. **Positive patterns**: What was done well
+4. **Verdict**: APPROVE / REQUEST_CHANGES / BLOCK
+
+## Agent Configuration (Frontmatter)
+
+All agents are defined as `.md` files with YAML frontmatter. Supported fields:
+
+| Field | Description | Example |
+|-------|-------------|---------|
+| `name` | Agent identifier | `backend-craftsman` |
+| `description` | Purpose (used for selection) | `PHP/Symfony expert...` |
+| `model` | LLM model | `opus`, `sonnet`, `haiku` |
+| `effort` | Reasoning effort | `max`, `high`, `medium`, `low` |
+| `tools` | Allowed tools | `Read, Glob, Grep, Bash` |
+| `disallowedTools` | Blocked tools | `Edit, Write` |
+| `maxTurns` | Maximum conversation turns | `30` |
+| `skills` | Pre-loaded skills | `craftsman:scaffold, craftsman:spec` |
+| `memory` | Memory scope | `project`, `user` |
+
+## Creating Custom Agents
+
+See [Master Guide](../guides/master.md) for creating your own agents, or use `/craftsman:scaffold` to generate one.
+
+Template:
+```markdown
+---
+name: my-agent
+description: What this agent does
+model: sonnet
+effort: high
+tools: Read, Glob, Grep, Bash
+maxTurns: 20
+---
+
+# Agent: [Name]
+
+## Mission
+[One sentence purpose]
+
+## Checklist
+[What to verify]
+
+## Report Format
+[Output template]
+```
 
 ---
 > Source: [BULDEE/ai-craftsman-superpowers](https://github.com/BULDEE/ai-craftsman-superpowers) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
