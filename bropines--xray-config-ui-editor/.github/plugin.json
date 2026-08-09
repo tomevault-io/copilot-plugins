@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "bropines",
   "homepage": "https://github.com/bropines/xray-config-ui-editor",
-  "skills": []
+  "skills": [
+    {
+      "name": "xray-config-ui-editor",
+      "description": ""
+    }
+  ]
 }
