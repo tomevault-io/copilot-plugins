@@ -1,0 +1,9 @@
+{
+  "name": "rust-nostr--nostr",
+  "displayName": "nostr",
+  "description": "nostr",
+  "version": "1.0.0",
+  "author": "rust-nostr",
+  "homepage": "https://github.com/rust-nostr/nostr",
+  "skills": []
+}
