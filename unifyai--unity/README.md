@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [unifyai/unity](https://github.com/unifyai/unity).
+Original source: `CLAUDE.md` in [unifyai/unity](https://github.com/unifyai/unity).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [unifyai/unity](https://github.com/unifyai/unity) — a repo with 13+ stars on GitHub.
+From [unifyai/unity](https://github.com/unifyai/unity) — a repo with 90+ stars on GitHub.
 
 ---
 
