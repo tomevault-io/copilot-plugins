@@ -1,0 +1,63 @@
+{
+  "name": "dots",
+  "owner": "DakEnviy",
+  "repo": "dots",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dots",
+      "path": ".agents/skills/manage-chezmoi/SKILL.md",
+      "github_url": "https://github.com/DakEnviy/dots/tree/main/.agents/skills/manage-chezmoi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dots",
+      "path": ".agents/skills/update-config-docs/SKILL.md",
+      "github_url": "https://github.com/DakEnviy/dots/tree/main/.agents/skills/update-config-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dots",
+      "path": ".agents/skills/update-dots-template/SKILL.md",
+      "github_url": "https://github.com/DakEnviy/dots/tree/main/.agents/skills/update-dots-template/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/DakEnviy/dots",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T14:00:03Z"
+}
