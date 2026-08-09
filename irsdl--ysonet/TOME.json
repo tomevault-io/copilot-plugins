@@ -3,8 +3,8 @@
   "owner": "irsdl",
   "repo": "ysonet",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,51 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "ysonet",
+      "path": ".claude/skills/ysonet-dev-create-plan/SKILL.md",
+      "github_url": "https://github.com/irsdl/ysonet/tree/main/.claude/skills/ysonet-dev-create-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ysonet",
+      "path": ".claude/skills/ysonet-dev-create-gadget/SKILL.md",
+      "github_url": "https://github.com/irsdl/ysonet/tree/main/.claude/skills/ysonet-dev-create-gadget/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ysonet",
+      "path": ".claude/skills/ysonet-categorize-gadget/SKILL.md",
+      "github_url": "https://github.com/irsdl/ysonet/tree/main/.claude/skills/ysonet-categorize-gadget/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ysonet",
+      "path": ".claude/skills/ysonet-dev-implement-plan/SKILL.md",
+      "github_url": "https://github.com/irsdl/ysonet/tree/main/.claude/skills/ysonet-dev-implement-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ysonet",
+      "path": ".claude/skills/ysonet-dev-consistency-check/SKILL.md",
+      "github_url": "https://github.com/irsdl/ysonet/tree/main/.claude/skills/ysonet-dev-consistency-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ysonet",
+      "path": ".claude/skills/ysonet-audit-gadget-metadata/SKILL.md",
+      "github_url": "https://github.com/irsdl/ysonet/tree/main/.claude/skills/ysonet-audit-gadget-metadata/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ysonet",
+      "path": ".claude/skills/ysonet-dev-validate-and-refine/SKILL.md",
+      "github_url": "https://github.com/irsdl/ysonet/tree/main/.claude/skills/ysonet-dev-validate-and-refine/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/irsdl/ysonet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T11:52:17Z"
+  "distributed_at": "2026-08-09T15:48:31Z"
 }
