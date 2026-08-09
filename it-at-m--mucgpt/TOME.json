@@ -1,0 +1,147 @@
+{
+  "name": "mucgpt",
+  "owner": "it-at-m",
+  "repo": "mucgpt",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mucgpt",
+      "path": ".agents/skills/fastapi/SKILL.md",
+      "github_url": "https://github.com/it-at-m/mucgpt/tree/main/.agents/skills/fastapi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mucgpt",
+      "path": ".claude/skills/fastapi/SKILL.md",
+      "github_url": "https://github.com/it-at-m/mucgpt/tree/main/.claude/skills/fastapi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mucgpt",
+      "path": ".agents/skills/langfuse/SKILL.md",
+      "github_url": "https://github.com/it-at-m/mucgpt/tree/main/.agents/skills/langfuse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mucgpt",
+      "path": ".agents/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/it-at-m/mucgpt/tree/main/.agents/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mucgpt",
+      "path": ".claude/skills/find-skills/SKILL.md",
+      "github_url": "https://github.com/it-at-m/mucgpt/tree/main/.claude/skills/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mucgpt",
+      "path": ".agents/skills/langgraph-docs/SKILL.md",
+      "github_url": "https://github.com/it-at-m/mucgpt/tree/main/.agents/skills/langgraph-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mucgpt",
+      "path": ".claude/skills/langgraph-docs/SKILL.md",
+      "github_url": "https://github.com/it-at-m/mucgpt/tree/main/.claude/skills/langgraph-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mucgpt",
+      "path": ".agents/skills/transformers-js/SKILL.md",
+      "github_url": "https://github.com/it-at-m/mucgpt/tree/main/.agents/skills/transformers-js/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mucgpt",
+      "path": ".claude/skills/transformers-js/SKILL.md",
+      "github_url": "https://github.com/it-at-m/mucgpt/tree/main/.claude/skills/transformers-js/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mucgpt",
+      "path": ".agents/skills/framework-selection/SKILL.md",
+      "github_url": "https://github.com/it-at-m/mucgpt/tree/main/.agents/skills/framework-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mucgpt",
+      "path": ".claude/skills/framework-selection/SKILL.md",
+      "github_url": "https://github.com/it-at-m/mucgpt/tree/main/.claude/skills/framework-selection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mucgpt",
+      "path": ".agents/skills/langchain-middleware/SKILL.md",
+      "github_url": "https://github.com/it-at-m/mucgpt/tree/main/.agents/skills/langchain-middleware/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mucgpt",
+      "path": ".claude/skills/langchain-middleware/SKILL.md",
+      "github_url": "https://github.com/it-at-m/mucgpt/tree/main/.claude/skills/langchain-middleware/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mucgpt",
+      "path": ".agents/skills/langgraph-fundamentals/SKILL.md",
+      "github_url": "https://github.com/it-at-m/mucgpt/tree/main/.agents/skills/langgraph-fundamentals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mucgpt",
+      "path": ".claude/skills/langgraph-fundamentals/SKILL.md",
+      "github_url": "https://github.com/it-at-m/mucgpt/tree/main/.claude/skills/langgraph-fundamentals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mucgpt",
+      "path": ".agents/skills/langchain-fundamentals/SKILL.md",
+      "github_url": "https://github.com/it-at-m/mucgpt/tree/main/.agents/skills/langchain-fundamentals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mucgpt",
+      "path": ".claude/skills/langchain-fundamentals/SKILL.md",
+      "github_url": "https://github.com/it-at-m/mucgpt/tree/main/.claude/skills/langchain-fundamentals/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/it-at-m/mucgpt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T15:43:29Z"
+}
