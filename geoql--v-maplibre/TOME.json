@@ -3,7 +3,7 @@
   "owner": "geoql",
   "repo": "v-maplibre",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,39 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "v-maplibre",
-      "path": ".agents/skills/mapcn-vue-design/SKILL.md",
-      "github_url": "https://github.com/geoql/v-maplibre/tree/main/.agents/skills/mapcn-vue-design/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "v-maplibre",
-      "path": ".agents/skills/vue-best-practices/SKILL.md",
-      "github_url": "https://github.com/geoql/v-maplibre/tree/main/.agents/skills/vue-best-practices/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "v-maplibre",
-      "path": ".agents/skills/nuxt-best-practices/SKILL.md",
-      "github_url": "https://github.com/geoql/v-maplibre/tree/main/.agents/skills/nuxt-best-practices/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "v-maplibre",
-      "path": ".agents/skills/nuxt-geo-best-practices/SKILL.md",
-      "github_url": "https://github.com/geoql/v-maplibre/tree/main/.agents/skills/nuxt-geo-best-practices/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "v-maplibre",
-      "path": ".agents/skills/nuxt-seo-best-practices/SKILL.md",
-      "github_url": "https://github.com/geoql/v-maplibre/tree/main/.agents/skills/nuxt-seo-best-practices/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/geoql/v-maplibre",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T20:33:59Z"
+  "distributed_at": "2026-08-09T12:17:19Z"
 }
