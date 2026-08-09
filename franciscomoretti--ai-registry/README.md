@@ -1,8 +1,6 @@
 # ai-registry
 
-> Source: [FranciscoMoretti/ai-registry](https://github.com/FranciscoMoretti/ai-registry) — distributed by [TomeVault](https://tomevault.io)
-
-Explore models form Vercel AI Gateway. Filter and compare by provider, context window, and pricing.
+> Source: [FranciscoMoretti/ai-registry](https://github.com/FranciscoMoretti/ai-registry). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [FranciscoMoretti/ai-registry](https:/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [FranciscoMoretti/ai-registry](https://github.com/FranciscoMoretti/ai-registry) — a repo with 43+ stars on GitHub.
+From [FranciscoMoretti/ai-registry](https://github.com/FranciscoMoretti/ai-registry) — a repo with 45+ stars on GitHub.
 
 ---
 
