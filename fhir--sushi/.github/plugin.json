@@ -1,0 +1,9 @@
+{
+  "name": "fhir--sushi",
+  "displayName": "sushi",
+  "description": "sushi",
+  "version": "1.0.0",
+  "author": "FHIR",
+  "homepage": "https://github.com/FHIR/sushi",
+  "skills": []
+}
