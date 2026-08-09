@@ -3,8 +3,8 @@
   "owner": "dimetron",
   "repo": "pi-go",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,105 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
-  "claim_url": "https://tomevault.io/claim/dimetron",
+  "skills": [
+    {
+      "name": "pi-go",
+      "path": ".pi-go/skills/skill-pull/SKILL.md",
+      "github_url": "https://github.com/dimetron/pi-go/tree/main/.pi-go/skills/skill-pull/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-go",
+      "path": ".pi-go/skills/pi-rebuild/SKILL.md",
+      "github_url": "https://github.com/dimetron/pi-go/tree/main/.pi-go/skills/pi-rebuild/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-go",
+      "path": ".pi-go/skills/memory-mine/SKILL.md",
+      "github_url": "https://github.com/dimetron/pi-go/tree/main/.pi-go/skills/memory-mine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-go",
+      "path": ".pi-go/skills/skill-create/SKILL.md",
+      "github_url": "https://github.com/dimetron/pi-go/tree/main/.pi-go/skills/skill-create/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-go",
+      "path": ".pi-go/skills/design-review/SKILL.md",
+      "github_url": "https://github.com/dimetron/pi-go/tree/main/.pi-go/skills/design-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-go",
+      "path": ".pi-go/skills/memory-status/SKILL.md",
+      "github_url": "https://github.com/dimetron/pi-go/tree/main/.pi-go/skills/memory-status/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-go",
+      "path": ".pi-go/skills/code-review-pi/SKILL.md",
+      "github_url": "https://github.com/dimetron/pi-go/tree/main/.pi-go/skills/code-review-pi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-go",
+      "path": ".pi-go/skills/bubbletea-testing/SKILL.md",
+      "github_url": "https://github.com/dimetron/pi-go/tree/main/.pi-go/skills/bubbletea-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-go",
+      "path": ".pi-go/skills/code-review-codex/SKILL.md",
+      "github_url": "https://github.com/dimetron/pi-go/tree/main/.pi-go/skills/code-review-codex/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-go",
+      "path": ".pi-go/skills/code-guidelines-go/SKILL.md",
+      "github_url": "https://github.com/dimetron/pi-go/tree/main/.pi-go/skills/code-guidelines-go/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-go",
+      "path": ".pi-go/skills/demo-subagents-tui/SKILL.md",
+      "github_url": "https://github.com/dimetron/pi-go/tree/main/.pi-go/skills/demo-subagents-tui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-go",
+      "path": ".pi-go/skills/pi-check-session-logs/SKILL.md",
+      "github_url": "https://github.com/dimetron/pi-go/tree/main/.pi-go/skills/pi-check-session-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-go",
+      "path": ".pi-go/skills/check-linters-before-commit/SKILL.md",
+      "github_url": "https://github.com/dimetron/pi-go/tree/main/.pi-go/skills/check-linters-before-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-go",
+      "path": "internal/extension/bundled_skills/agents-md/SKILL.md",
+      "github_url": "https://github.com/dimetron/pi-go/tree/main/internal/extension/bundled_skills/agents-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-go",
+      "path": "internal/extension/bundled_skills/ponytail/SKILL.md",
+      "github_url": "https://github.com/dimetron/pi-go/tree/main/internal/extension/bundled_skills/ponytail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "pi-go",
+      "path": "internal/extension/bundled_skills/memory-index/SKILL.md",
+      "github_url": "https://github.com/dimetron/pi-go/tree/main/internal/extension/bundled_skills/memory-index/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dimetron/pi-go",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T03:59:28Z"
+  "distributed_at": "2026-08-09T15:32:47Z"
 }
