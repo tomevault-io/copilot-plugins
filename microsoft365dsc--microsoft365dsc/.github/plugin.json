@@ -5,5 +5,22 @@
   "version": "1.0.0",
   "author": "Microsoft365DSC",
   "homepage": "https://github.com/Microsoft365DSC/Microsoft365DSC",
-  "skills": []
+  "skills": [
+    {
+      "name": "Microsoft365DSC",
+      "description": ""
+    },
+    {
+      "name": "Microsoft365DSC",
+      "description": ""
+    },
+    {
+      "name": "Microsoft365DSC",
+      "description": ""
+    },
+    {
+      "name": "Microsoft365DSC",
+      "description": ""
+    }
+  ]
 }
