@@ -1,0 +1,30 @@
+{
+  "name": "ifer47--markeron",
+  "displayName": "markeron",
+  "description": "markeron",
+  "version": "1.0.0",
+  "author": "ifer47",
+  "homepage": "https://github.com/ifer47/markeron",
+  "skills": [
+    {
+      "name": "cross-platform-tauri-ui",
+      "description": ""
+    },
+    {
+      "name": "markeron",
+      "description": ""
+    },
+    {
+      "name": "markeron",
+      "description": ""
+    },
+    {
+      "name": "markeron",
+      "description": ""
+    },
+    {
+      "name": "markeron",
+      "description": ""
+    }
+  ]
+}
