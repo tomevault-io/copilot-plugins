@@ -1,0 +1,51 @@
+{
+  "name": "react-native-ai",
+  "owner": "dabit3",
+  "repo": "react-native-ai",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "react-native-ai",
+      "path": ".devin/skills/lightning/SKILL.md",
+      "github_url": "https://github.com/dabit3/react-native-ai/tree/main/.devin/skills/lightning/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dabit3/react-native-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T16:08:40Z"
+}
