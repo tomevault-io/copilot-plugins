@@ -5,20 +5,15 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ossrs/srs](https://github.com/ossrs/srs).
+Original source: `AGENTS.md` in [ossrs/srs](https://github.com/ossrs/srs).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
-
-## Bundled Skills (2)
-
-- [srs](https://github.com/ossrs/srs/tree/main/skills/srs-develop/SKILL.md)
-- [srs](https://github.com/ossrs/srs/tree/main/skills/srs-support/SKILL.md)
 
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/ossrs/srs](https://github.com/ossrs/srs)
 
