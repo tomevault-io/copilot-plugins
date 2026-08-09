@@ -1,0 +1,9 @@
+{
+  "name": "pypa--setuptools",
+  "displayName": "setuptools",
+  "description": "setuptools",
+  "version": "1.0.0",
+  "author": "pypa",
+  "homepage": "https://github.com/pypa/setuptools",
+  "skills": []
+}
