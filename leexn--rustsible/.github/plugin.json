@@ -1,0 +1,9 @@
+{
+  "name": "leexn--rustsible",
+  "displayName": "rustsible",
+  "description": "Ansible-Compatible, High-Performance IT Automation in Rust",
+  "version": "1.0.0",
+  "author": "LeeXN",
+  "homepage": "https://github.com/LeeXN/rustsible",
+  "skills": []
+}
