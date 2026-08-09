@@ -1,0 +1,9 @@
+{
+  "name": "broadinstitute--long-read-pipelines",
+  "displayName": "long-read-pipelines",
+  "description": "long-read-pipelines",
+  "version": "1.0.0",
+  "author": "broadinstitute",
+  "homepage": "https://github.com/broadinstitute/long-read-pipelines",
+  "skills": []
+}
