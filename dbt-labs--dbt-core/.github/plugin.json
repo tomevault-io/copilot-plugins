@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "dbt-labs",
   "homepage": "https://github.com/dbt-labs/dbt-core",
-  "skills": []
+  "skills": [
+    {
+      "name": "dbt-core",
+      "description": ""
+    },
+    {
+      "name": "dbt-core",
+      "description": ""
+    }
+  ]
 }
