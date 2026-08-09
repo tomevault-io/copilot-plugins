@@ -1,21 +1,13 @@
 ## chia-blockchain
 
-> This repo ships curated architectural context for coding agents.
+> Auto-attach repository tooling context for GUI submodule
 
-# Chia Context
 
-This repo ships curated architectural context for coding agents.
+# Repository Tooling Context Available
 
-Start with `.cursor/context/INDEX.md` for routing, critical invariants,
-cross-module coupling, architecture overview, and the module table.
+Consolidated repository tooling context exists at `.cursor/context/repo-tooling.md`.
 
-For focused work, read the matching context doc under `.cursor/context/` before
-broad source exploration. For review or audit work, also check
-`.cursor/context/global-invariants.md`.
-
-Cursor behavior is guided by `.cursor/rules/`, including context routing,
-test harness selection, and repository tooling guardrails. Bugbot review
-guidance lives in `.cursor/BUGBOT.md`.
+Read it before broad source exploration. If runtime behavior is involved, also read the affected source module context listed in `.cursor/context/INDEX.md`.
 
 ---
 > Source: [Chia-Network/chia-blockchain](https://github.com/Chia-Network/chia-blockchain) — distributed by [TomeVault](https://tomevault.io).
