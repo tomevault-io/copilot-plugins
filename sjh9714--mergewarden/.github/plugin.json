@@ -1,0 +1,9 @@
+{
+  "name": "sjh9714--mergewarden",
+  "displayName": "mergewarden",
+  "description": "Tells you when a pull request quietly edits the files that instruct your coding agents: AGENTS.md, CLAUDE.md, .mcp.json, .cursor. A GitHub Action, one option to install. It never closes anything.",
+  "version": "1.0.0",
+  "author": "sjh9714",
+  "homepage": "https://github.com/sjh9714/mergewarden",
+  "skills": []
+}
