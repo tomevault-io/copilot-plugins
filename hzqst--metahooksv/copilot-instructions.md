@@ -33,4 +33,4 @@ This file guides Agent Coding in this repository using a "progressive disclosure
 
 ---
 > Source: [hzqst/MetaHookSv](https://github.com/hzqst/MetaHookSv) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
