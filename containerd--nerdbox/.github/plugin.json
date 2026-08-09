@@ -1,0 +1,9 @@
+{
+  "name": "containerd--nerdbox",
+  "displayName": "nerdbox",
+  "description": "nerdbox",
+  "version": "1.0.0",
+  "author": "containerd",
+  "homepage": "https://github.com/containerd/nerdbox",
+  "skills": []
+}
