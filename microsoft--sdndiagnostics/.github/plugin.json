@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--sdndiagnostics",
+  "displayName": "SdnDiagnostics",
+  "description": "SdnDiagnostics",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/SdnDiagnostics",
+  "skills": []
+}
