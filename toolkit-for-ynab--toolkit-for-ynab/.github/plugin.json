@@ -1,0 +1,14 @@
+{
+  "name": "toolkit-for-ynab--toolkit-for-ynab",
+  "displayName": "toolkit-for-ynab",
+  "description": "toolkit-for-ynab",
+  "version": "1.0.0",
+  "author": "toolkit-for-ynab",
+  "homepage": "https://github.com/toolkit-for-ynab/toolkit-for-ynab",
+  "skills": [
+    {
+      "name": "toolkit-for-ynab",
+      "description": ""
+    }
+  ]
+}
