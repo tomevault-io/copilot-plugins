@@ -15,11 +15,6 @@ Original source: `AGENTS.md` in [aws-powertools/powertools-lambda-typescript](ht
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (2)
-
-- [powertools-lambda-typescript](https://github.com/aws-powertools/powertools-lambda-typescript/tree/main/.agents/skills/create-pr/SKILL.md)
-- [powertools-lambda-typescript](https://github.com/aws-powertools/powertools-lambda-typescript/tree/main/.agents/skills/create-issue/SKILL.md)
-
 From [aws-powertools/powertools-lambda-typescript](https://github.com/aws-powertools/powertools-lambda-typescript) — a repo with 1789+ stars on GitHub.
 
 ---
