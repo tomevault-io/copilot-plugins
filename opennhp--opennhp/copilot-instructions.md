@@ -1,10 +1,10 @@
 ## opennhp
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## Project Overview
 
@@ -226,9 +226,7 @@ run (triggered by the `deploy-demo-v2` workflow).
 | `nhp_relay_private_key` / `_public_key` | same | relay `config.toml`; peer table on server |
 | `nhp_agent_private_key` / `_public_key` | same | native nhp-agent clients; `agent.toml` on server |
 | `nhp_jsagent_private_key` / `_public_key` | same | cluster 1 `endpoints/js-agent/` demo identity (rendered into `config.json` `clusters[0]` at deploy time); trusted by server cluster 1 only |
-| `nhp_jsagent_sm2_public_key` | same (derived via `--both`) | SM2 peer entry in `server/agent.toml`; lets cluster 1 js-agent knock in gmsm mode |
 | `nhp_jsagent2_private_key` / `_public_key` | same | cluster 2 js-agent demo identity (rendered into `config.json` `clusters[1]`); trusted by server cluster 2 only, so the two clusters use independent agent keys |
-| `nhp_jsagent2_sm2_public_key` | same (derived via `--both`) | SM2 peer entry in `server2/agent.toml`; lets cluster 2 js-agent knock in gmsm mode |
 | `nhp_server2_private_key` / `_public_key` | same | cluster 2 server `config.toml`; peer tables on ac2/relay |
 | `nhp_ac2_private_key` / `_public_key` | same | cluster 2 ac `config.toml`; peer table on server2 |
 | `cloudflare_api_token` | manually provisioned once | Terraform + certbot DNS-01 (`Zone:DNS:Edit` + `Zone:Zone:Read`) |
@@ -263,4 +261,4 @@ peer tables are redeployed in lockstep, so use sparingly.
 
 ---
 > Source: [OpenNHP/opennhp](https://github.com/OpenNHP/opennhp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
