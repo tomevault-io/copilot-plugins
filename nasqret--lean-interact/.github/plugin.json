@@ -1,0 +1,9 @@
+{
+  "name": "nasqret--lean-interact",
+  "displayName": "lean-interact",
+  "description": "Interactive Lean 4 + Mathlib formalization from a Claude Code conversation",
+  "version": "1.0.0",
+  "author": "nasqret",
+  "homepage": "https://github.com/nasqret/lean-interact",
+  "skills": []
+}
