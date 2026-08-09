@@ -1,0 +1,41 @@
+## testcontainers-floci
+
+> Testcontainers module for [Floci](https://github.com/floci-io/floci) — a local AWS emulator (port 4566, 19+ services).
+
+# AGENT.md
+
+## Project
+
+Testcontainers module for [Floci](https://github.com/floci-io/floci) — a local AWS emulator (port 4566, 19+ services).
+
+## Structure
+
+- `testcontainers-floci/` — Core module: `FlociContainer` extending `GenericContainer`
+- `spring-boot-testcontainers-floci/` — Spring Boot 4 + Spring Cloud AWS 4 integration via `@ServiceConnection`
+
+## Build
+
+```
+mvn verify
+```
+
+Requires Docker running for integration tests.
+
+## Key Tech
+
+- Java 17, Maven multi-module
+- Testcontainers 2.x, Spring Boot 4.x, Spring Cloud AWS 4.x
+- Conventional commits → softprops/action-gh-release for versioning
+- Publishes to Maven Central (GPG signed)
+
+## Conventions
+
+- Use conventional commits (`feat:`, `fix:`, `chore:`, etc.)
+- Tests use a shared singleton `FlociContainer` via `AbstractFlociContainerServiceTest`
+- Spring Boot auto-config registered in `spring.factories` and `AutoConfiguration.imports`
+- CONTRIBUTING.md gives some details about contribution guidelines that should be followed when contributing 
+  to the project.
+
+---
+> Source: [floci-io/testcontainers-floci](https://github.com/floci-io/testcontainers-floci) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
