@@ -7,13 +7,13 @@ NFL Algorithm started end of may
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [mattleonard16/nflalgorithm](https://github.com/mattleonard16/nflalgorithm).
+Original source: `CLAUDE.md` in [mattleonard16/nflalgorithm](https://github.com/mattleonard16/nflalgorithm).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
