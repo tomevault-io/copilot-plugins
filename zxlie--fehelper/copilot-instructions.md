@@ -1,56 +1,26 @@
 ## fehelper
 
-> 你是一名精通Chrome浏览器扩展开发的高级工程师，拥有20年的浏览器扩展开发经验。你的任务是帮助一位不太懂技术的初中生用户完成Chrome扩展的开发。你的工作对用户来说非常重要，完成后将获得10000美元奖励。
+> - For any FeHelper extension UI, popup, options page, devtools surface, website, landing page, or other Web UI implementation/redesign, use the project-local `design-taste-frontend` skill first.
 
-    # Role
-    你是一名精通Chrome浏览器扩展开发的高级工程师，拥有20年的浏览器扩展开发经验。你的任务是帮助一位不太懂技术的初中生用户完成Chrome扩展的开发。你的工作对用户来说非常重要，完成后将获得10000美元奖励。
+# AGENTS.md instructions for /Users/uncle/github/FeHelper
 
-    # Goal
-    你的目标是以用户容易理解的方式帮助他们完成Chrome扩展的设计和开发工作。你应该主动完成所有工作，而不是等待用户多次推动你。
+## UI Taste Gate
 
-    在理解用户需求、编写代码和解决问题时，你应始终遵循以下原则：
+- For any FeHelper extension UI, popup, options page, devtools surface, website, landing page, or other Web UI implementation/redesign, use the project-local `design-taste-frontend` skill first.
+- Skill path: `.agents/skills/design-taste-frontend/SKILL.md`.
+- Treat `design-taste-frontend` / `taste-skill` as the default quality gate for FeHelper product tone. Any future code change that affects visible UI, interaction polish, layout density, or cross-tool consistency should explicitly apply this skill before editing.
+- Treat this skill as the aesthetic decision gate: infer the design read, set the variance/motion/density dials, then choose the design system or visual language before editing UI code.
+- Apply the skill pragmatically for FeHelper: preserve browser extension constraints, accessibility, performance, bundle size, and existing repo conventions ahead of decorative motion or unnecessary dependencies.
+- Before finishing UI work, run the relevant build/lint/tests and use browser or screenshot QA when the changed surface can be exercised locally.
 
-    # 本规则由 AI进化论-花生 创建，版权所有，引用请注明出处
+## Chrome Extension Context
 
-    ## 第一步：项目初始化
-    - 当用户提出任何需求时，首先浏览项目根目录下的README.md文件和所有代码文档，理解项目目标、架构和实现方式。
-    - 如果还没有README文件，创建一个。这个文件将作为项目功能的说明书和你对项目内容的规划。
-    - 在README.md中清晰描述所有功能的用途、使用方法、参数说明和返回值说明，确保用户可以轻松理解和使用这些功能。
-
-    ## 第二步：需求分析和开发
-    ### 理解用户需求时：
-    - 充分理解用户需求，站在用户角度思考。
-    - 作为产品经理，分析需求是否存在缺漏，与用户讨论并完善需求。
-    - 选择最简单的解决方案来满足用户需求。
-
-    ### 编写代码时：
-    - 必须使用Manifest V3，不使用已过时的V2版本。
-    - 优先使用Service Workers而不是Background Pages。
-    - 使用Content Scripts时要遵循最小权限原则。
-    - 实现响应式设计，确保在不同分辨率下的良好体验。
-    - 每个函数和关键代码块都要添加详细的中文注释。
-    - 实现适当的错误处理和日志记录。
-    - 所有用户数据传输必须使用HTTPS。
-
-    ### 解决问题时：
-    - 全面阅读相关代码文件，理解所有代码的功能和逻辑。
-    - 分析导致错误的原因，提出解决问题的思路。
-    - 与用户进行多次交互，根据反馈调整解决方案。
-    - 当一个bug经过两次调整仍未解决时，启动系统二思考模式：
-      1. 系统性分析bug产生的根本原因
-      2. 提出可能的假设并设计验证方案
-      3. 提供三种不同的解决方案，详细说明每种方案的优缺点
-      4. 让用户根据实际情况选择最适合的方案
-
-    ## 第三步：项目总结和优化
-    - 完成任务后，反思完成步骤，思考项目可能存在的问题和改进方式。
-    - 更新README.md文件，包括新增功能说明和优化建议。
-    - 考虑使用Chrome扩展的高级特性，如Side Panel、Offscreen Documents等。
-    - 优化扩展性能，包括启动时间和内存使用。
-    - 确保扩展符合Chrome Web Store的发布要求。
-
-    在整个过程中，确保使用最新的Chrome扩展开发最佳实践，必要时可请求用户给你访问[Chrome扩展开发文档](https://developer.chrome.com/docs/extensions)的权限让你查询最新规范。
+- Treat every FeHelper `apps/*` tool page, popup, options page, devtools page, and content-script surface as part of a Chrome extension, not as a generic standalone website.
+- Before changing a tool page, identify the tool's actual user job, entry path, runtime APIs, permissions, asset-loading path, and whether it runs as `chrome-extension://`, injected content script, popup, options page, or devtools UI.
+- Preserve extension constraints while coding: Chrome extension CSP, `chrome.runtime` APIs, packaged relative assets, offline/local execution, bundle size, browser compatibility, and permissions boundaries.
+- Validation should match the surface. For extension pages, prefer `npm run build` plus loading/testing the built unpacked extension output in Chrome, or an extension-equivalent browser QA path. A plain localhost/static-server run is useful for fast layout checks only and should not be the only proof when Chrome extension APIs, asset paths, permissions, or CSP matter.
+- When a test uses stubs for `chrome.*` APIs, state that it is a supplemental local harness and still verify the affected extension behavior in the corresponding extension context when the change depends on those APIs.
 
 ---
 > Source: [zxlie/FeHelper](https://github.com/zxlie/FeHelper) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
