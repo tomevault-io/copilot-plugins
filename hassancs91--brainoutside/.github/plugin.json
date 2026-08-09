@@ -1,0 +1,9 @@
+{
+  "name": "hassancs91--brainoutside",
+  "displayName": "brainoutside",
+  "description": "Self-hosted memory server for AI agents. Your brain is a git repo, served over MCP and REST.",
+  "version": "1.0.0",
+  "author": "hassancs91",
+  "homepage": "https://github.com/hassancs91/brainoutside",
+  "skills": []
+}
