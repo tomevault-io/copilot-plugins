@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "OpenSiFli",
   "homepage": "https://github.com/OpenSiFli/SiFli-SDK",
-  "skills": [
-    {
-      "name": "SiFli-SDK",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
