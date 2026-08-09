@@ -4,7 +4,7 @@
   "repo": "awinrm",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ridpath/awinrm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T20:17:34Z"
+  "distributed_at": "2026-08-09T23:50:51Z"
 }
