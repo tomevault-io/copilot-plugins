@@ -1,0 +1,9 @@
+{
+  "name": "tristanwqy--goofish-aimonitor",
+  "displayName": "GooFish-AIMonitor",
+  "description": "\ud83d\udc1f \u95f2\u9c7c/Goofish \u667a\u80fd\u76d1\u63a7\u63a7\u5236\u53f0\uff1aAI \u5927\u6a21\u578b\u9009\u54c1 + \u6536\u85cf\u964d\u4ef7\u00b7\u552e\u7f44\u5373\u65f6\u63d0\u9192\uff0c\u5168\u672c\u5730\u8fd0\u884c\u4e0d\u5916\u4f20\u3002Xianyu second-hand deal monitor \u2014 LLM-filtered picks, price-drop & sold-out alerts, dead-link detection. Playwright \u00b7 FastAPI \u00b7 React \u00b7 Docker.",
+  "version": "1.0.0",
+  "author": "tristanwqy",
+  "homepage": "https://github.com/tristanwqy/GooFish-AIMonitor",
+  "skills": []
+}
