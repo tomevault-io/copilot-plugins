@@ -4,7 +4,7 @@
   "repo": "synchrotron",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/evelant/synchrotron",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-27T00:06:03Z"
+  "distributed_at": "2026-08-09T20:01:16Z"
 }
