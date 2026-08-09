@@ -2,9 +2,9 @@
   "name": "lumis",
   "owner": "leandrocp",
   "repo": "lumis",
-  "description": "Syntax Highlighter powered by Tree-sitter and Neovim themes.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/leandrocp/lumis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T02:33:46Z"
+  "distributed_at": "2026-08-09T20:55:39Z"
 }
