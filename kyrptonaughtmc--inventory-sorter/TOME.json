@@ -4,7 +4,7 @@
   "repo": "Inventory-Sorter",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KyrptonaughtMC/Inventory-Sorter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T10:16:23Z"
+  "distributed_at": "2026-08-09T19:58:48Z"
 }
