@@ -1199,6 +1199,11 @@
       "description": "winutil"
     },
     {
+      "name": "christitustech--winutil",
+      "source": "./christitustech--winutil",
+      "description": "winutil"
+    },
+    {
       "name": "coollabsio--coolify",
       "source": "./coollabsio--coolify",
       "description": "coolify"
@@ -3094,6 +3099,11 @@
       "description": "nacos"
     },
     {
+      "name": "k-dense-ai--scientific-agent-skills",
+      "source": "./k-dense-ai--scientific-agent-skills",
+      "description": "scientific-agent-skills"
+    },
+    {
       "name": "binarywang--wxjava",
       "source": "./binarywang--wxjava",
       "description": "WxJava"
@@ -3482,6 +3492,11 @@
       "name": "78--xiaozhi-esp32",
       "source": "./78--xiaozhi-esp32",
       "description": "xiaozhi-esp32"
+    },
+    {
+      "name": "envoyproxy--envoy",
+      "source": "./envoyproxy--envoy",
+      "description": "envoy"
     },
     {
       "name": "reflex-dev--reflex",
@@ -5749,6 +5764,11 @@
       "description": "sqlc"
     },
     {
+      "name": "sqlc-dev--sqlc",
+      "source": "./sqlc-dev--sqlc",
+      "description": "sqlc"
+    },
+    {
       "name": "pranshuparmar--witr",
       "source": "./pranshuparmar--witr",
       "description": "witr"
@@ -6457,6 +6477,11 @@
       "name": "vercel--vercel",
       "source": "./vercel--vercel",
       "description": "vercel"
+    },
+    {
+      "name": "kanaries--pygwalker",
+      "source": "./kanaries--pygwalker",
+      "description": "pygwalker"
     },
     {
       "name": "kanaries--pygwalker",
@@ -7569,6 +7594,11 @@
       "description": "thunderbird-android"
     },
     {
+      "name": "tinacms--tinacms",
+      "source": "./tinacms--tinacms",
+      "description": "tinacms"
+    },
+    {
       "name": "nanmicoder--cc-haha",
       "source": "./nanmicoder--cc-haha",
       "description": "Claude Code \u6cc4\u9732\u6e90\u7801 - \u672c\u5730\u53ef\u8fd0\u884c\u7248\u672c\uff0c\u65b0\u589e\u8de8\u5e73\u53f0\u684c\u9762\u7aef\u8f6f\u4ef6\u8865\u9f50Computer Use\uff08\u9644\u5e26\u6838\u5fc3\u6a21\u5757\u89e3\u6790\uff09"
@@ -7922,6 +7952,36 @@
       "name": "blackboardsh--electrobun",
       "source": "./blackboardsh--electrobun",
       "description": "electrobun"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
     },
     {
       "name": "nearai--ironclaw",
@@ -9399,6 +9459,11 @@
       "description": "harper"
     },
     {
+      "name": "containers--skopeo",
+      "source": "./containers--skopeo",
+      "description": "skopeo"
+    },
+    {
       "name": "gui-cs--terminal-gui",
       "source": "./gui-cs--terminal-gui",
       "description": "Terminal.Gui"
@@ -10664,6 +10729,11 @@
       "description": "Agent Reinforcement Trainer: train multi-step agents for real-world tasks using GRPO. Give your agents on-the-job training. Reinforcement learning for Qwen3.6, GPT-OSS, Llama, and more!"
     },
     {
+      "name": "litedb-org--litedb",
+      "source": "./litedb-org--litedb",
+      "description": "LiteDB"
+    },
+    {
       "name": "replicate--cog",
       "source": "./replicate--cog",
       "description": "cog"
@@ -10752,6 +10822,11 @@
       "name": "bytedance--xgplayer",
       "source": "./bytedance--xgplayer",
       "description": "xgplayer"
+    },
+    {
+      "name": "nhost--nhost",
+      "source": "./nhost--nhost",
+      "description": "nhost"
     },
     {
       "name": "jetbrains--exposed",
@@ -12464,6 +12539,11 @@
       "description": "rest-assured"
     },
     {
+      "name": "rest-assured--rest-assured",
+      "source": "./rest-assured--rest-assured",
+      "description": "rest-assured"
+    },
+    {
       "name": "orchestra-research--ai-research-skills",
       "source": "./orchestra-research--ai-research-skills",
       "description": "Comprehensive open-source library of AI research and engineering skills for any AI model. Package the skills and your claude code/codex/gemini agent will be an AI research agent with full horsepower. "
@@ -12647,6 +12727,11 @@
       "name": "kyegomez--swarms",
       "source": "./kyegomez--swarms",
       "description": "swarms"
+    },
+    {
+      "name": "pimalaya--himalaya",
+      "source": "./pimalaya--himalaya",
+      "description": "himalaya"
     },
     {
       "name": "evcc-io--evcc",
@@ -14069,6 +14154,11 @@
       "description": "fontsource"
     },
     {
+      "name": "elk-zone--elk",
+      "source": "./elk-zone--elk",
+      "description": "elk"
+    },
+    {
       "name": "iflytek--astron-rpa",
       "source": "./iflytek--astron-rpa",
       "description": "astron-rpa"
@@ -15364,6 +15454,11 @@
       "description": "rocketride-server"
     },
     {
+      "name": "oshi--oshi",
+      "source": "./oshi--oshi",
+      "description": "oshi"
+    },
+    {
       "name": "apache--opendal",
       "source": "./apache--opendal",
       "description": "opendal"
@@ -15447,6 +15542,11 @@
       "name": "jiangtian616--jhentai",
       "source": "./jiangtian616--jhentai",
       "description": "JHenTai"
+    },
+    {
+      "name": "christitustech--linutil",
+      "source": "./christitustech--linutil",
+      "description": "linutil"
     },
     {
       "name": "mzying2001--cefflashbrowser",
@@ -15547,6 +15647,11 @@
       "name": "helmfile--helmfile",
       "source": "./helmfile--helmfile",
       "description": "helmfile"
+    },
+    {
+      "name": "apache--calcite",
+      "source": "./apache--calcite",
+      "description": "calcite"
     },
     {
       "name": "sindresorhus--eslint-plugin-unicorn",
@@ -16947,6 +17052,16 @@
       "name": "vrsen--agency-swarm",
       "source": "./vrsen--agency-swarm",
       "description": "agency-swarm"
+    },
+    {
+      "name": "googleapis--google-cloud-go",
+      "source": "./googleapis--google-cloud-go",
+      "description": "google-cloud-go"
+    },
+    {
+      "name": "googleapis--google-cloud-go",
+      "source": "./googleapis--google-cloud-go",
+      "description": "google-cloud-go"
     },
     {
       "name": "googleapis--google-cloud-go",
@@ -19979,6 +20094,11 @@
       "description": "unpkg"
     },
     {
+      "name": "openai--openai-go",
+      "source": "./openai--openai-go",
+      "description": "openai-go"
+    },
+    {
       "name": "remorses--playwriter",
       "source": "./remorses--playwriter",
       "description": "Chrome extension to let agents control your browser. Runs Playwright snippets in a stateful sandbox. Available as CLI or MCP"
@@ -21732,6 +21852,11 @@
       "name": "projen--projen",
       "source": "./projen--projen",
       "description": "projen"
+    },
+    {
+      "name": "userver-framework--userver",
+      "source": "./userver-framework--userver",
+      "description": "userver"
     },
     {
       "name": "code-yeongyu--lazycodex",
@@ -23964,6 +24089,41 @@
       "description": "\u4e00\u4e2a\u57fa\u4e8e AI \u7684 Hacker News \u4e2d\u6587\u64ad\u5ba2\u9879\u76ee\uff0c\u6bcf\u5929\u81ea\u52a8\u6293\u53d6 Hacker News \u70ed\u95e8\u6587\u7ae0\uff0c\u901a\u8fc7 AI \u751f\u6210\u4e2d\u6587\u603b\u7ed3\u5e76\u8f6c\u6362\u4e3a\u64ad\u5ba2\u5185\u5bb9\u3002"
     },
     {
+      "name": "nitrocloudofficial--nitrostack",
+      "source": "./nitrocloudofficial--nitrostack",
+      "description": "nitrostack"
+    },
+    {
+      "name": "nitrocloudofficial--nitrostack",
+      "source": "./nitrocloudofficial--nitrostack",
+      "description": "nitrostack"
+    },
+    {
+      "name": "nitrocloudofficial--nitrostack",
+      "source": "./nitrocloudofficial--nitrostack",
+      "description": "nitrostack"
+    },
+    {
+      "name": "nitrocloudofficial--nitrostack",
+      "source": "./nitrocloudofficial--nitrostack",
+      "description": "nitrostack"
+    },
+    {
+      "name": "nitrocloudofficial--nitrostack",
+      "source": "./nitrocloudofficial--nitrostack",
+      "description": "nitrostack"
+    },
+    {
+      "name": "nitrocloudofficial--nitrostack",
+      "source": "./nitrocloudofficial--nitrostack",
+      "description": "nitrostack"
+    },
+    {
+      "name": "nitrocloudofficial--nitrostack",
+      "source": "./nitrocloudofficial--nitrostack",
+      "description": "nitrostack"
+    },
+    {
       "name": "sztheory--exifcleaner",
       "source": "./sztheory--exifcleaner",
       "description": "exifcleaner"
@@ -24832,6 +24992,11 @@
       "name": "static-web-server--static-web-server",
       "source": "./static-web-server--static-web-server",
       "description": "static-web-server"
+    },
+    {
+      "name": "supabase--etl",
+      "source": "./supabase--etl",
+      "description": "etl"
     },
     {
       "name": "jay3-yy--bilipai",
@@ -31329,6 +31494,11 @@
       "description": "rulego"
     },
     {
+      "name": "ceph--ceph-csi",
+      "source": "./ceph--ceph-csi",
+      "description": "ceph-csi"
+    },
+    {
       "name": "vitorpamplona--amethyst",
       "source": "./vitorpamplona--amethyst",
       "description": "amethyst"
@@ -32952,6 +33122,11 @@
       "name": "robfiras--loco-mujoco",
       "source": "./robfiras--loco-mujoco",
       "description": "loco-mujoco"
+    },
+    {
+      "name": "martinus--unordered-dense",
+      "source": "./martinus--unordered-dense",
+      "description": "unordered_dense"
     },
     {
       "name": "nixopus--nixopus",
@@ -35032,6 +35207,21 @@
       "name": "slackapi--bolt-python",
       "source": "./slackapi--bolt-python",
       "description": "bolt-python"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
     },
     {
       "name": "bluebubblesapp--bluebubbles-app",
@@ -39567,6 +39757,21 @@
       "name": "genotrance--px",
       "source": "./genotrance--px",
       "description": "px"
+    },
+    {
+      "name": "ponder-sh--ponder",
+      "source": "./ponder-sh--ponder",
+      "description": "ponder"
+    },
+    {
+      "name": "ponder-sh--ponder",
+      "source": "./ponder-sh--ponder",
+      "description": "ponder"
+    },
+    {
+      "name": "ponder-sh--ponder",
+      "source": "./ponder-sh--ponder",
+      "description": "ponder"
     },
     {
       "name": "bring-shrubbery--svg-to-swiftui",
@@ -48339,6 +48544,11 @@
       "description": "honeclaw"
     },
     {
+      "name": "aadsm--jschardet",
+      "source": "./aadsm--jschardet",
+      "description": "jschardet"
+    },
+    {
       "name": "torlando-tech--columba",
       "source": "./torlando-tech--columba",
       "description": "Native Android messaging app using Bluetooth LE, TCP, or RNode (LoRa) over LXMF and Reticulum"
@@ -49557,6 +49767,11 @@
       "name": "erikdarlingdata--darlingdata",
       "source": "./erikdarlingdata--darlingdata",
       "description": "DarlingData"
+    },
+    {
+      "name": "symgraph--ghidrassistmcp",
+      "source": "./symgraph--ghidrassistmcp",
+      "description": "GhidrAssistMCP"
     },
     {
       "name": "caliber-ai-org--ai-setup",
@@ -54142,6 +54357,11 @@
       "name": "chichou--vscode-frida",
       "source": "./chichou--vscode-frida",
       "description": "vscode-frida"
+    },
+    {
+      "name": "leanprover--elan",
+      "source": "./leanprover--elan",
+      "description": "elan"
     },
     {
       "name": "gurgeous--tennis",
@@ -59139,6 +59359,11 @@
       "description": "rocketmq-clients"
     },
     {
+      "name": "jetbrains--godot-support",
+      "source": "./jetbrains--godot-support",
+      "description": "godot-support"
+    },
+    {
       "name": "thedecipherist--claude-code-mastery",
       "source": "./thedecipherist--claude-code-mastery",
       "description": "The complete guide to Claude Code: CLAUDE.md, hooks, skills, MCP servers, and commands"
@@ -59387,6 +59612,11 @@
       "name": "yudielcurbelo--react-qr-scanner",
       "source": "./yudielcurbelo--react-qr-scanner",
       "description": "react-qr-scanner"
+    },
+    {
+      "name": "open-telemetry--opentelemetry-collector-releases",
+      "source": "./open-telemetry--opentelemetry-collector-releases",
+      "description": "opentelemetry-collector-releases"
     },
     {
       "name": "elirantutia--vibeyard",
@@ -62274,6 +62504,11 @@
       "description": "QA harness built for Claude Code | E2E testing with screen recordings, console logs, network HARs, and Playwright traces"
     },
     {
+      "name": "edgestorejs--edgestore",
+      "source": "./edgestorejs--edgestore",
+      "description": "edgestore"
+    },
+    {
       "name": "0xsero--vllm-studio",
       "source": "./0xsero--vllm-studio",
       "description": "Control panel for VLLM, Sglang, llama.cpp, exllamav3"
@@ -64147,6 +64382,11 @@
       "name": "compiler-explorer--infra",
       "source": "./compiler-explorer--infra",
       "description": "infra"
+    },
+    {
+      "name": "phfaist--pylatexenc",
+      "source": "./phfaist--pylatexenc",
+      "description": "pylatexenc"
     },
     {
       "name": "dokhacgiakhoa--antigravity-ide",
@@ -68754,6 +68994,11 @@
       "description": "embodied-claude"
     },
     {
+      "name": "zarldev--goenums",
+      "source": "./zarldev--goenums",
+      "description": "goenums"
+    },
+    {
       "name": "onvoyage-ai--voyage-geo-agent",
       "source": "./onvoyage-ai--voyage-geo-agent",
       "description": "Agentic Generative Engine Optimizaiton"
@@ -70839,6 +71084,11 @@
       "description": "fabric-loom"
     },
     {
+      "name": "delta-io--delta-kernel-rs",
+      "source": "./delta-io--delta-kernel-rs",
+      "description": "delta-kernel-rs"
+    },
+    {
       "name": "makenotion--workers-template",
       "source": "./makenotion--workers-template",
       "description": "Template for new Workers"
@@ -71777,6 +72027,11 @@
       "name": "madviking--headless-pm",
       "source": "./madviking--headless-pm",
       "description": "headless-pm"
+    },
+    {
+      "name": "alan-turing-institute--airsenal",
+      "source": "./alan-turing-institute--airsenal",
+      "description": "AIrsenal"
     },
     {
       "name": "notque--claude-code-toolkit",
@@ -74479,6 +74734,11 @@
       "description": "jstime"
     },
     {
+      "name": "psalm--psalm-plugin-laravel",
+      "source": "./psalm--psalm-plugin-laravel",
+      "description": "psalm-plugin-laravel"
+    },
+    {
       "name": "serkanyersen--dotstate",
       "source": "./serkanyersen--dotstate",
       "description": "A modern, secure, and user-friendly dotfile manager built with Rust"
@@ -74787,6 +75047,11 @@
       "name": "comme2e--comm",
       "source": "./comme2e--comm",
       "description": "comm"
+    },
+    {
+      "name": "cosmoscontracts--juno",
+      "source": "./cosmoscontracts--juno",
+      "description": "juno"
     },
     {
       "name": "19-84--redd-archiver",
@@ -77214,6 +77479,11 @@
       "description": "armory"
     },
     {
+      "name": "ibm--prompt-declaration-language",
+      "source": "./ibm--prompt-declaration-language",
+      "description": "prompt-declaration-language"
+    },
+    {
       "name": "justineo--working-with-ai",
       "source": "./justineo--working-with-ai",
       "description": "Working with AI - presentation slides"
@@ -77882,6 +78152,31 @@
       "name": "kujirahand--nadesiko3",
       "source": "./kujirahand--nadesiko3",
       "description": "nadesiko3"
+    },
+    {
+      "name": "kroxylicious--kroxylicious",
+      "source": "./kroxylicious--kroxylicious",
+      "description": "kroxylicious"
+    },
+    {
+      "name": "kroxylicious--kroxylicious",
+      "source": "./kroxylicious--kroxylicious",
+      "description": "kroxylicious"
+    },
+    {
+      "name": "kroxylicious--kroxylicious",
+      "source": "./kroxylicious--kroxylicious",
+      "description": "kroxylicious"
+    },
+    {
+      "name": "kroxylicious--kroxylicious",
+      "source": "./kroxylicious--kroxylicious",
+      "description": "kroxylicious"
+    },
+    {
+      "name": "kroxylicious--kroxylicious",
+      "source": "./kroxylicious--kroxylicious",
+      "description": "kroxylicious"
     },
     {
       "name": "glommer--codemogger",
@@ -81667,6 +81962,11 @@
       "name": "ciscotestautomation--genieparser",
       "source": "./ciscotestautomation--genieparser",
       "description": "genieparser"
+    },
+    {
+      "name": "mbolli--nfsen-ng",
+      "source": "./mbolli--nfsen-ng",
+      "description": "nfsen-ng"
     },
     {
       "name": "lsm1103--cc",
@@ -87539,6 +87839,11 @@
       "description": "pytak"
     },
     {
+      "name": "hzqst--metahooksv",
+      "source": "./hzqst--metahooksv",
+      "description": "MetaHookSv"
+    },
+    {
       "name": "kubara-io--kubara",
       "source": "./kubara-io--kubara",
       "description": "Kubara is a single binary CLI tool written in Go providing a lightweight framework for bootstrapping Kubernetes platforms with production-proven best practices."
@@ -90004,6 +90309,11 @@
       "description": "wanda"
     },
     {
+      "name": "q9f--eth-rb",
+      "source": "./q9f--eth-rb",
+      "description": "eth.rb"
+    },
+    {
       "name": "veyliss--ai-localbase",
       "source": "./veyliss--ai-localbase",
       "description": "\u4e00\u4e2a\u672c\u5730\u4f18\u5148\u7684AI\u77e5\u8bc6\u5e93\u7cfb\u7edf\uff08RAG\uff09\uff0c\u7528\u4e8e\u628a\u672c\u5730\u6587\u6863\u63a5\u5165\u8f85\u5bfc\u641c\u7d22\u4e0e\u5927\u6a21\u578b\u5bf9\u8bdd\u6d41\u7a0b\u3002\u76ee\u524d\u652f\u6301md\u3001txt\u3001pdf\uff08\u6587\u672c\uff09\u3001xlsx\u3001cvs\u7c7b\u578b\u3002\u652f\u6301mcp\u670d\u52a1"
@@ -90152,6 +90462,16 @@
       "name": "oculus-samples--unity-mrmotifs",
       "source": "./oculus-samples--unity-mrmotifs",
       "description": "Unity-MRMotifs"
+    },
+    {
+      "name": "iceteasa--unifi-fan-control",
+      "source": "./iceteasa--unifi-fan-control",
+      "description": "unifi-fan-control"
+    },
+    {
+      "name": "rubiin--tsumiki",
+      "source": "./rubiin--tsumiki",
+      "description": "Tsumiki"
     },
     {
       "name": "zhanghandong--agent-spec",
@@ -92907,6 +93227,11 @@
       "name": "magnusoverli--opencode",
       "source": "./magnusoverli--opencode",
       "description": "opencode"
+    },
+    {
+      "name": "leandrocp--lumis",
+      "source": "./leandrocp--lumis",
+      "description": "lumis"
     },
     {
       "name": "dmmulroy--overseer",
@@ -101924,6 +102249,11 @@
       "description": "sushi"
     },
     {
+      "name": "learningequality--studio",
+      "source": "./learningequality--studio",
+      "description": "studio"
+    },
+    {
       "name": "peiiii--nextclaw",
       "source": "./peiiii--nextclaw",
       "description": "NextClaw: Your omnipotent personal assistant, residing above the digital realm. Basically Ultra-Lightweight OpenClaw Pro Max."
@@ -106547,6 +106877,11 @@
       "name": "nvidia-nemo--switchyard",
       "source": "./nvidia-nemo--switchyard",
       "description": "Switchyard"
+    },
+    {
+      "name": "dfinity--icp-js-core",
+      "source": "./dfinity--icp-js-core",
+      "description": "icp-js-core"
     },
     {
       "name": "atgreen--icl",
@@ -114334,6 +114669,11 @@
       "description": "ContextBench"
     },
     {
+      "name": "hassancs91--pyrunner",
+      "source": "./hassancs91--pyrunner",
+      "description": "PyRunner"
+    },
+    {
       "name": "hoangnb24--skills",
       "source": "./hoangnb24--skills",
       "description": "skills"
@@ -116992,6 +117332,11 @@
       "name": "nkuppan--expensemanager",
       "source": "./nkuppan--expensemanager",
       "description": "expensemanager"
+    },
+    {
+      "name": "shmsoft--freeeed",
+      "source": "./shmsoft--freeeed",
+      "description": "FreeEed"
     },
     {
       "name": "think41--extrasuite",
@@ -120294,6 +120639,11 @@
       "description": "dino"
     },
     {
+      "name": "llmrb--llm-rb",
+      "source": "./llmrb--llm-rb",
+      "description": "llm.rb"
+    },
+    {
       "name": "skywind3000--gamelib",
       "source": "./skywind3000--gamelib",
       "description": "Single-header C++ Game Library for Beginners \u2014 no SDL/DirectX/OpenGL, no setup, just include and play."
@@ -120637,6 +120987,11 @@
       "name": "saic-ismart-api--saic-python-mqtt-gateway",
       "source": "./saic-ismart-api--saic-python-mqtt-gateway",
       "description": "saic-python-mqtt-gateway"
+    },
+    {
+      "name": "apache--mynewt-mcumgr",
+      "source": "./apache--mynewt-mcumgr",
+      "description": "mynewt-mcumgr"
     },
     {
       "name": "conorluddy--xclaude-plugin",
@@ -127744,6 +128099,11 @@
       "description": "gradle-version-catalogs"
     },
     {
+      "name": "lean-dojo--torchlean",
+      "source": "./lean-dojo--torchlean",
+      "description": "TorchLean"
+    },
+    {
       "name": "lasect--pg-turret",
       "source": "./lasect--pg-turret",
       "description": "postgres extension for streaming logs"
@@ -129857,6 +130217,11 @@
       "name": "wutishummus--truedeck",
       "source": "./wutishummus--truedeck",
       "description": "Free multi-agent coding workbench: Grok/Codex/Claude/Cursor panes + TrueMemory (per-repo + global)"
+    },
+    {
+      "name": "kolmafia--kolmafia",
+      "source": "./kolmafia--kolmafia",
+      "description": "kolmafia"
     },
     {
       "name": "macrocosm-os--dataverse-cli",
@@ -132682,6 +133047,11 @@
       "name": "takeshy--obsidian-gemini-helper",
       "source": "./takeshy--obsidian-gemini-helper",
       "description": "obsidian-gemini-helper"
+    },
+    {
+      "name": "apache--maven-assembly-plugin",
+      "source": "./apache--maven-assembly-plugin",
+      "description": "maven-assembly-plugin"
     },
     {
       "name": "everettjf--liney",
@@ -143137,6 +143507,11 @@
       "name": "astrogilda--tsbootstrap",
       "source": "./astrogilda--tsbootstrap",
       "description": "tsbootstrap"
+    },
+    {
+      "name": "wkentaro--osam",
+      "source": "./wkentaro--osam",
+      "description": "osam"
     },
     {
       "name": "weaviate--agent-skills",
@@ -154794,6 +155169,11 @@
       "description": "ionclaw"
     },
     {
+      "name": "imengyu--vue-code-layout",
+      "source": "./imengyu--vue-code-layout",
+      "description": "vue-code-layout"
+    },
+    {
       "name": "keep-starknet-strange--starknet-agentic",
       "source": "./keep-starknet-strange--starknet-agentic",
       "description": "Smart contracts, tools, and skills for AI agents that transact on Starknet"
@@ -156462,6 +156842,11 @@
       "name": "gaixianggeng--mimi-remote",
       "source": "./gaixianggeng--mimi-remote",
       "description": "Open-source native iPhone/iPad client for OpenAI Codex CLI and Claude Code \u2014 review diffs, approve actions, steer sessions, and manage Git remotely."
+    },
+    {
+      "name": "alexhraber--flowhawk",
+      "source": "./alexhraber--flowhawk",
+      "description": "flowhawk"
     },
     {
       "name": "alexhraber--flowhawk",
@@ -162439,6 +162824,11 @@
       "description": "tibanna"
     },
     {
+      "name": "algorandfoundation--specs",
+      "source": "./algorandfoundation--specs",
+      "description": "specs"
+    },
+    {
       "name": "tmdgusya--engineering-discipline",
       "source": "./tmdgusya--engineering-discipline",
       "description": "SKILL for engineering-discipline"
@@ -163467,6 +163857,16 @@
       "name": "coveo--plasma",
       "source": "./coveo--plasma",
       "description": "plasma"
+    },
+    {
+      "name": "hyperion-ml--hyperion",
+      "source": "./hyperion-ml--hyperion",
+      "description": "hyperion"
+    },
+    {
+      "name": "hyperion-ml--hyperion",
+      "source": "./hyperion-ml--hyperion",
+      "description": "hyperion"
     },
     {
       "name": "motoya0118--pavlok-cli-agent",
@@ -165332,6 +165732,11 @@
       "name": "flatland-association--flatland-rl",
       "source": "./flatland-association--flatland-rl",
       "description": "flatland-rl"
+    },
+    {
+      "name": "sava-software--sava",
+      "source": "./sava-software--sava",
+      "description": "sava"
     },
     {
       "name": "sava-software--sava",
@@ -181459,6 +181864,11 @@
       "description": "vulnerability-scan-github-action-for-amazon-inspector"
     },
     {
+      "name": "ipfs--fs-repo-migrations",
+      "source": "./ipfs--fs-repo-migrations",
+      "description": "fs-repo-migrations"
+    },
+    {
       "name": "shinchven--nano-banana-skills",
       "source": "./shinchven--nano-banana-skills",
       "description": "Nano Banana Pro Skills"
@@ -182942,6 +183352,11 @@
       "name": "jolars--tomat",
       "source": "./jolars--tomat",
       "description": "tomat"
+    },
+    {
+      "name": "pardeike--zombieland",
+      "source": "./pardeike--zombieland",
+      "description": "Zombieland"
     },
     {
       "name": "rstackjs--agent-skills",
@@ -184732,6 +185147,11 @@
       "name": "rocm--hipdnn",
       "source": "./rocm--hipdnn",
       "description": "hipDNN"
+    },
+    {
+      "name": "quaffui--quaff",
+      "source": "./quaffui--quaff",
+      "description": "quaff"
     },
     {
       "name": "tencentcloud--cubesandbox",
@@ -201089,6 +201509,11 @@
       "description": "Web-native OS for the M5Stack Cardputer (ESP32-S3): native firmware + a desktop-class browser shell, offline AI assistant (ANIMA), bilingual voice, games, a security lab, OTA."
     },
     {
+      "name": "smarthomecompared--smart-home-planner",
+      "source": "./smarthomecompared--smart-home-planner",
+      "description": "smart-home-planner"
+    },
+    {
       "name": "rudrankriyam--foundation-models-framework-cli",
       "source": "./rudrankriyam--foundation-models-framework-cli",
       "description": "A powerful command-line interface for Foundation Models on Apple platforms."
@@ -203242,6 +203667,11 @@
       "name": "simontonsoftware--s-libs",
       "source": "./simontonsoftware--s-libs",
       "description": "s-libs"
+    },
+    {
+      "name": "openshift--cluster-storage-operator",
+      "source": "./openshift--cluster-storage-operator",
+      "description": "cluster-storage-operator"
     },
     {
       "name": "rust-works--succinctly",
@@ -206054,6 +206484,11 @@
       "description": "synchrotron"
     },
     {
+      "name": "kageetai--obsidian-plugin-journal-review",
+      "source": "./kageetai--obsidian-plugin-journal-review",
+      "description": "obsidian-plugin-journal-review"
+    },
+    {
       "name": "zhaono1--agent-playbook",
       "source": "./zhaono1--agent-playbook",
       "description": "agent-playbook"
@@ -208609,6 +209044,76 @@
       "description": "ai-registry"
     },
     {
+      "name": "sage-bionetworks--synapse-repository-services",
+      "source": "./sage-bionetworks--synapse-repository-services",
+      "description": "Synapse-Repository-Services"
+    },
+    {
+      "name": "sage-bionetworks--synapse-repository-services",
+      "source": "./sage-bionetworks--synapse-repository-services",
+      "description": "Synapse-Repository-Services"
+    },
+    {
+      "name": "sage-bionetworks--synapse-repository-services",
+      "source": "./sage-bionetworks--synapse-repository-services",
+      "description": "Synapse-Repository-Services"
+    },
+    {
+      "name": "sage-bionetworks--synapse-repository-services",
+      "source": "./sage-bionetworks--synapse-repository-services",
+      "description": "Synapse-Repository-Services"
+    },
+    {
+      "name": "sage-bionetworks--synapse-repository-services",
+      "source": "./sage-bionetworks--synapse-repository-services",
+      "description": "Synapse-Repository-Services"
+    },
+    {
+      "name": "sage-bionetworks--synapse-repository-services",
+      "source": "./sage-bionetworks--synapse-repository-services",
+      "description": "Synapse-Repository-Services"
+    },
+    {
+      "name": "sage-bionetworks--synapse-repository-services",
+      "source": "./sage-bionetworks--synapse-repository-services",
+      "description": "Synapse-Repository-Services"
+    },
+    {
+      "name": "sage-bionetworks--synapse-repository-services",
+      "source": "./sage-bionetworks--synapse-repository-services",
+      "description": "Synapse-Repository-Services"
+    },
+    {
+      "name": "sage-bionetworks--synapse-repository-services",
+      "source": "./sage-bionetworks--synapse-repository-services",
+      "description": "Synapse-Repository-Services"
+    },
+    {
+      "name": "sage-bionetworks--synapse-repository-services",
+      "source": "./sage-bionetworks--synapse-repository-services",
+      "description": "Synapse-Repository-Services"
+    },
+    {
+      "name": "sage-bionetworks--synapse-repository-services",
+      "source": "./sage-bionetworks--synapse-repository-services",
+      "description": "Synapse-Repository-Services"
+    },
+    {
+      "name": "sage-bionetworks--synapse-repository-services",
+      "source": "./sage-bionetworks--synapse-repository-services",
+      "description": "Synapse-Repository-Services"
+    },
+    {
+      "name": "sage-bionetworks--synapse-repository-services",
+      "source": "./sage-bionetworks--synapse-repository-services",
+      "description": "Synapse-Repository-Services"
+    },
+    {
+      "name": "sage-bionetworks--synapse-repository-services",
+      "source": "./sage-bionetworks--synapse-repository-services",
+      "description": "Synapse-Repository-Services"
+    },
+    {
       "name": "izittmarvin--memcoach",
       "source": "./izittmarvin--memcoach",
       "description": "\u4e00\u4e2aAI \u9762\u8bd5\u6559\u7ec3\u5e73\u53f0\uff1a\u7ad9\u5728\u5de8\u4eba\u80a9\u8180\u4e0a\uff0c\u878d\u5408\u7b80\u5386\u9762\u8bd5\u3001GitHub \u9879\u76ee\u5206\u6790\u4e0e\u6301\u4e45\u5316\u753b\u50cf\u8bb0\u5fc6\u4e09\u5927\u667a\u80fd\u95ed\u73af\uff0c\u63d0\u4f9b\u52a8\u6001\u8ffd\u95ee\u3001\u6e90\u7801\u8bc1\u636e\u9a71\u52a8\u7684\u95ee\u9898\u751f\u6210\u4e0e\u6301\u7eed   \u8fdb\u5316\u7684\u4e2a\u6027\u5316\u8bad\u7ec3\u8def\u5f84\u3002"
@@ -210962,6 +211467,11 @@
       "name": "freefallingsnow--snowdesktop",
       "source": "./freefallingsnow--snowdesktop",
       "description": "\u4e00\u6b3e\u5f00\u6e90\u7684\u684c\u9762\u6574\u7406\u8f6f\u4ef6\uff0c\u53d1\u884c\u7248\u4ed3\u5e93\u8bf7\u67e5\u770b\u9879\u76ee\u5173\u8054\u94fe\u63a5"
+    },
+    {
+      "name": "ixofoundation--ixo-blockchain",
+      "source": "./ixofoundation--ixo-blockchain",
+      "description": "ixo-blockchain"
     },
     {
       "name": "agents-squads--squads-cli",
@@ -224029,6 +224539,16 @@
       "description": "documentation"
     },
     {
+      "name": "ddiidev--tabua-mare-api",
+      "source": "./ddiidev--tabua-mare-api",
+      "description": "tabua_mare_api"
+    },
+    {
+      "name": "workos--workos-ruby",
+      "source": "./workos--workos-ruby",
+      "description": "workos-ruby"
+    },
+    {
       "name": "bobmatnyc--claude-mpm-skills",
       "source": "./bobmatnyc--claude-mpm-skills",
       "description": "Curated collection of Claude Code skills for intelligent project development with progressive loading and toolchain detection"
@@ -226667,6 +227187,16 @@
       "name": "openverse-orca--orcagym",
       "source": "./openverse-orca--orcagym",
       "description": "OrcaGym"
+    },
+    {
+      "name": "edopro98--simsipm",
+      "source": "./edopro98--simsipm",
+      "description": "SimSiPM"
+    },
+    {
+      "name": "verronpro--office-stamper",
+      "source": "./verronpro--office-stamper",
+      "description": "office-stamper"
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -232562,6 +233092,11 @@
       "name": "kungfuflex--metashrew",
       "source": "./kungfuflex--metashrew",
       "description": "metashrew"
+    },
+    {
+      "name": "chaichontat--samui",
+      "source": "./chaichontat--samui",
+      "description": "samui"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -238964,6 +239499,11 @@
       "description": "thunder-cli"
     },
     {
+      "name": "monkvision--monkjs",
+      "source": "./monkvision--monkjs",
+      "description": "monkjs"
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
@@ -244959,6 +245499,11 @@
       "description": "Capka AI \u2014 An open-source, self-hosted sandbox for AI agents. A community-driven alternative to Claude's Cowork"
     },
     {
+      "name": "project-tactics--project-tactics",
+      "source": "./project-tactics--project-tactics",
+      "description": "Project-Tactics"
+    },
+    {
       "name": "inureyes--gyeol",
       "source": "./inureyes--gyeol",
       "description": "gyeol"
@@ -248047,6 +248592,11 @@
       "name": "knmi--adaguc-server",
       "source": "./knmi--adaguc-server",
       "description": "adaguc-server"
+    },
+    {
+      "name": "crocswap--ambient-ts-app",
+      "source": "./crocswap--ambient-ts-app",
+      "description": "ambient-ts-app"
     },
     {
       "name": "compozy--kb",
@@ -253067,6 +253617,11 @@
       "name": "drenlia--agila",
       "source": "./drenlia--agila",
       "description": "Simple and easy Kanban web application built with React TS PostgreSQL"
+    },
+    {
+      "name": "btseee--mongolian-bank-exchange-rate",
+      "source": "./btseee--mongolian-bank-exchange-rate",
+      "description": "mongolian-bank-exchange-rate"
     },
     {
       "name": "mulhamna--jira-commands",
