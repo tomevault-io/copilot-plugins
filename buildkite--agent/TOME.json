@@ -4,7 +4,7 @@
   "repo": "agent",
   "description": "",
   "type": "tome",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -43,9 +43,15 @@
       "path": ".agents/skills/buildkite-agent-release/SKILL.md",
       "github_url": "https://github.com/buildkite/agent/tree/main/.agents/skills/buildkite-agent-release/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "agent",
+      "path": ".agents/skills/cherrypicking-pr-to-v3/SKILL.md",
+      "github_url": "https://github.com/buildkite/agent/tree/main/.agents/skills/cherrypicking-pr-to-v3/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/buildkite/agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T15:50:34Z"
+  "distributed_at": "2026-08-09T13:44:37Z"
 }
