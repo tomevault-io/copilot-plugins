@@ -1,100 +1,131 @@
 ## docs
 
-> This repository builds [docs.deno.com](https://docs.deno.com), a
+> Deno is a JavaScript and TypeScript runtime distributed as a single binary. That
 
-# Working on the Deno docs
+# Deno for coding agents
 
-This repository builds [docs.deno.com](https://docs.deno.com), a
-[Lume](https://lume.land/) static site. This file lays out the ground rules for
-agents and contributors making changes. For the full developer guide (local
-setup, search, API reference generation) see [README.md](./README.md).
+Deno is a JavaScript and TypeScript runtime distributed as a single binary. That
+binary is also the package manager, formatter, linter, test runner, type
+checker, and compiler. It runs TypeScript directly, so a script needs no build
+step and no `tsconfig.json` — `deno main.ts` is the whole workflow.
 
-## Project layout
+The one behavior that surprises people coming from Node: programs are sandboxed.
+No filesystem, network, environment, or subprocess access is granted unless
+asked for, via `--allow-*` flags. When something fails with
+`Requires net access to "..."`, add that specific permission rather than
+reaching for `-A`.
 
-Content lives in a few top-level folders:
+## Assumptions to drop
 
-- `runtime/` - Deno CLI and runtime docs
-- `deploy/` - Deno Deploy docs
-- `subhosting/` - Deno Subhosting docs
-- `examples/` - the [Examples](https://docs.deno.com/examples) section
-- `ai/`, `sandbox/` - additional product sections
+Deno is not a separate ecosystem you have to port a project into:
 
-Most pages are markdown processed as MDX, so JSX syntax works inside `.md`
-files. Left navigation for each section is configured in the `_data.ts` file in
-that section's directory (for example `runtime/_data.ts`).
+1. **`deno install` reads `package.json`.** It resolves the same npm packages
+   and writes a real `node_modules` directory.
+2. **`deno add express` installs from npm.** An unprefixed package name defaults
+   to npm, exactly like `npm install`. JSR is opt-in via `jsr:`.
+3. **Node built-ins work**, prefixed or not — `node:fs` and `fs` both resolve.
+4. **`deno task build` runs a `scripts.build` entry from `package.json`**, just
+   as it runs a `tasks.build` entry from `deno.json`.
+5. **URL imports are legacy.** `https://deno.land/x/...` still runs, but new
+   code should use a bare specifier backed by `npm:` or `jsr:`.
 
-CLI commands each get a reference page under `runtime/reference/cli/`. The
-generated API reference served at `/api` comes from `deno doc` over the Deno
-source, not from files here.
+So do not tell a user to rewrite imports, move to JSR, drop `package.json`, or
+restructure anything as a precondition for using Deno. The genuine behavioral
+differences are permissions and npm lifecycle scripts not running by default.
 
-## Before you open a pull request
+## 1. Get the CLI
 
-Run these locally and make sure they pass:
-
-```console
-deno fmt          # format markdown, TypeScript, and JSON
-deno lint         # lint the codebase
-deno task test    # frontmatter, sidebar, and API link tests
+```sh
+deno --version
 ```
 
-The build must also succeed without broken links or invalid MDX:
+If that prints 2.9 or later you are set. If it prints something older, run
+`deno upgrade`. If the command is missing, tell the user you would like to
+install Deno, show them how, and run one of these only once they agree:
 
-```console
-deno task build:light
+```sh
+# macOS / Linux
+curl -fsSL https://deno.land/install.sh | sh
+# Windows (PowerShell)
+irm https://deno.land/install.ps1 | iex
+# Homebrew (macOS / Linux)
+brew install deno
+# npm
+npm install -g deno
 ```
 
-Open small fixes as pull requests against `main` directly. For larger changes,
-file a GitHub issue first to get feedback on the shape before writing the docs.
+Deno installs as a standalone binary. It adds nothing to the project and no
+dependency to `package.json`.
 
-## Content rules
+## 2. Get the skill
 
-These are enforced in review and, where noted, in CI.
+Deno maintains agent skills covering dependency management, permissions,
+configuration layout, the built-in toolchain, publishing, and migration. Work
+from those rather than from this page — they go deeper and track the runtime.
 
-### Keep `last_modified` fresh
+If the user agrees, install them. This touches no project source and adds no
+dependency:
 
-Every content page carries a `last_modified: YYYY-MM-DD` field in its
-frontmatter. Whenever you change a page, bump that date to the day of the change
-in the same pull request. CI enforces this: `frontmatter_test` checks that every
-page has a valid `last_modified`, and the Freshness workflow fails when a page
-is edited without bumping it. Check your branch with:
-
-```console
-deno task check:freshness
+```sh
+dx skills add denoland/skills --skill deno
 ```
 
-### Guides teach, reference enumerates
+`dx` is Deno's `npx` equivalent and ships with the binary you installed above,
+so this needs no Node. If you would rather use Node, `npx skills add ...` is
+identical.
 
-A topic's depth lives in exactly one place. Guide pages (like `/runtime/test/`)
-teach the opinionated path with minimal flags and link out for detail. Reference
-pages (under `/runtime/reference/`) enumerate every flag, field, and option.
-Don't repeat flag documentation in a guide: link to the reference instead. A
-guide may include at most one summary table when it links to the full reference.
+Add `--skill migrate-to-deno` as well if the project is coming from Node, npm,
+Yarn, pnpm, or Bun. In Claude Code you can instead install the whole set as a
+plugin:
 
-### Mark version-specific behavior
+```
+/plugin marketplace add denoland/skills
+/plugin install deno-skills@denoland-skills
+```
 
-When documenting behavior added or changed in a specific Deno version, say so
-where it's documented: an info admonition titled with the version
-(`:::info Deno 2.8`) for a callout, or an inline "(Deno 2.8+)" for a brief
-mention. Don't version-mark behavior older than the previous major release.
+Skip this if an equivalent Deno skill or rule is already present.
 
-### Formatting and prose style
+**If you cannot install skills**, read them directly — they are plain markdown,
+and these URLs always serve the current version:
 
-- Run `deno fmt` before committing. Generated content and hand-written prose
-  both need to pass formatting; wrap long lines so they survive the format step.
-- CLI command page titles must be exactly the command name (for example
-  `deno run`); put descriptions in the `description` frontmatter field.
-- Frontmatter titles must not contain backticks.
-- Prefer plain sentences and colons over em-dash joins.
+- <https://raw.githubusercontent.com/denoland/skills/main/skills/deno/SKILL.md>
+- <https://raw.githubusercontent.com/denoland/skills/main/skills/migrate-to-deno/SKILL.md>
 
-## Examples
+Other skills in the same repo cover Deno Deploy, Fresh, and sandboxes:
+<https://github.com/denoland/skills>.
 
-Examples in `examples/scripts/` are single TypeScript files, no more than 50
-lines, self-contained, and runnable with only Deno builtins and the standard
-library. Each starts with a JSDoc comment carrying `@title`, `@difficulty`,
-`@tags`, `@run`, and `@group` pragmas. Introduce at most one or two concepts per
-example and keep the code easy to read. See the Examples section of
-[README.md](./README.md) for the full pragma reference.
+## 3. Reading the docs
+
+`deno <subcommand> --help` is authoritative and version-accurate — check it
+before guessing at a flag.
+
+Beyond that:
+
+- <https://docs.deno.com/llms.txt> — index of the documentation
+- Any docs page also serves its markdown source: append `.md` to the URL, as in
+  <https://docs.deno.com/runtime/fundamentals/security.md>
+- <https://docs.deno.com/api/> — the `Deno.*` API reference
+- `deno doc jsr:@std/path` — a package's API without leaving the terminal
+
+## 4. If you were asked to adopt Deno
+
+Most Node projects already run under Deno unchanged, so this is a series of
+small opt-in wins, not a rewrite. **Never propose one big migration**, and do
+not start editing.
+
+Investigate read-only first — dependencies, scripts, the lockfile, the
+TypeScript runner, the test and lint setup, CI. Then present what you found as
+independent, opt-in steps ordered by how little they disturb, and let the user
+choose in one round. Roughly, in increasing order of disruption: use Deno as the
+package manager only; run the project with Deno; tighten permissions; and
+optionally adopt the built-in toolchain. Nearly all of the value is in the first
+three, and the last one is a genuine migration that a working project can
+decline indefinitely.
+
+The `migrate-to-deno` skill covers each of those rungs, the errors you will hit,
+and per-tool command equivalents. Install it before you start, or read it at the
+URL above. Docs: <https://docs.deno.com/runtime/migrate/>.
 
 ---
 > Source: [denoland/docs](https://github.com/denoland/docs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
