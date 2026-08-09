@@ -8,7 +8,7 @@
 use tokio_tungstenite::Connector;
 use native_tls::{TlsConnector, Protocol};
 
-use binance_sdk::derivatives_trading_options;
+use binance_sdk::alpha;
 use binance_sdk::config;
 
 let native_tls = TlsConnector::builder()
@@ -22,12 +22,12 @@ let configuration = config::ConfigurationWebsocketStreams::builder()
     .agent(config::AgentConnector(ws_connector))
     .build()?;
 
-let client = derivatives_trading_options::DerivativesTradingOptionsWsStreams::production(configuration);
+let client = alpha::AlphaWsStreams::production(configuration);
 let connection = client.connect().await?;
-let params = derivatives_trading_options::websocket_streams::NewSymbolInfoParams::default();
-let stream = connection.new_symbol_info(params).await?;
+let params = alpha::websocket_streams::AllBookTickerStreamParams::default();
+let stream = connection.all_book_ticker_stream(params).await?;
 ```
 
 ---
 > Source: [binance/binance-connector-rust](https://github.com/binance/binance-connector-rust) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
