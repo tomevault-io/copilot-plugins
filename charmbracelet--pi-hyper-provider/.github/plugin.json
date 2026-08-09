@@ -1,0 +1,9 @@
+{
+  "name": "charmbracelet--pi-hyper-provider",
+  "displayName": "pi-hyper-provider",
+  "description": "Extension for Pi that integrates Charm's Hyper inference provider",
+  "version": "1.0.0",
+  "author": "charmbracelet",
+  "homepage": "https://github.com/charmbracelet/pi-hyper-provider",
+  "skills": []
+}
