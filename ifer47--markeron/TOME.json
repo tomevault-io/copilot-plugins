@@ -1,0 +1,75 @@
+{
+  "name": "markeron",
+  "owner": "ifer47",
+  "repo": "markeron",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cross-platform-tauri-ui",
+      "path": ".cursor/skills/cross-platform-tauri-ui",
+      "github_url": "https://github.com/ifer47/markeron/tree/main/.cursor/skills/cross-platform-tauri-ui",
+      "description": ""
+    },
+    {
+      "name": "markeron",
+      "path": ".cursor/skills/release/SKILL.md",
+      "github_url": "https://github.com/ifer47/markeron/tree/main/.cursor/skills/release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markeron",
+      "path": ".cursor/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/ifer47/markeron/tree/main/.cursor/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markeron",
+      "path": ".cursor/skills/tauri-config-ipc/SKILL.md",
+      "github_url": "https://github.com/ifer47/markeron/tree/main/.cursor/skills/tauri-config-ipc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "markeron",
+      "path": ".cursor/skills/cross-platform-tauri-ui/SKILL.md",
+      "github_url": "https://github.com/ifer47/markeron/tree/main/.cursor/skills/cross-platform-tauri-ui/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ifer47/markeron",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T13:57:04Z"
+}
