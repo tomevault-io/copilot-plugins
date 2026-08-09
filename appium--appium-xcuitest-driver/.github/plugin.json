@@ -1,0 +1,9 @@
+{
+  "name": "appium--appium-xcuitest-driver",
+  "displayName": "appium-xcuitest-driver",
+  "description": "appium-xcuitest-driver",
+  "version": "1.0.0",
+  "author": "appium",
+  "homepage": "https://github.com/appium/appium-xcuitest-driver",
+  "skills": []
+}
