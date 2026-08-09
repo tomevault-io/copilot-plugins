@@ -1,0 +1,9 @@
+{
+  "name": "rhobs--observability-operator",
+  "displayName": "observability-operator",
+  "description": "observability-operator",
+  "version": "1.0.0",
+  "author": "rhobs",
+  "homepage": "https://github.com/rhobs/observability-operator",
+  "skills": []
+}
