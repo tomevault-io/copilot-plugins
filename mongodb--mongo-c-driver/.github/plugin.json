@@ -1,0 +1,14 @@
+{
+  "name": "mongodb--mongo-c-driver",
+  "displayName": "mongo-c-driver",
+  "description": "mongo-c-driver",
+  "version": "1.0.0",
+  "author": "mongodb",
+  "homepage": "https://github.com/mongodb/mongo-c-driver",
+  "skills": [
+    {
+      "name": "mongo-c-driver",
+      "description": ""
+    }
+  ]
+}
