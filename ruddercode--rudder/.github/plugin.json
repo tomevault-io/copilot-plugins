@@ -1,0 +1,9 @@
+{
+  "name": "ruddercode--rudder",
+  "displayName": "Rudder",
+  "description": "Prompt based testing and coverage for high-velocity agentic coding. See how much your prompts are reflected in your agent's code using test coverage",
+  "version": "1.0.0",
+  "author": "RudderCode",
+  "homepage": "https://github.com/RudderCode/Rudder",
+  "skills": []
+}
