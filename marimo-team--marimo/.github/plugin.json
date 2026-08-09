@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "marimo-team",
   "homepage": "https://github.com/marimo-team/marimo",
-  "skills": [
-    {
-      "name": "marimo",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
