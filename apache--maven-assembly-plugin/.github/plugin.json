@@ -1,0 +1,9 @@
+{
+  "name": "apache--maven-assembly-plugin",
+  "displayName": "maven-assembly-plugin",
+  "description": "maven-assembly-plugin",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/maven-assembly-plugin",
+  "skills": []
+}
