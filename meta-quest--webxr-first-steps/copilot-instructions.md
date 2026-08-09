@@ -1,12 +1,11 @@
 ## webxr-first-steps
 
-> For this repository, prefer Meta Quest Agentic Tools, the Meta Horizon VS Code/Cursor extension, and the `hzdb` MCP server.
+> This is a Meta Quest / Horizon OS sample.
 
+This is a Meta Quest / Horizon OS sample.
 
-For this repository, prefer Meta Quest Agentic Tools, the Meta Horizon VS Code/Cursor extension, and the `hzdb` MCP server.
-
-This sample targets Meta Quest / Horizon OS using WebXR — prefer Quest/Horizon OS-specific tooling and terminology over generic WebXR advice.
+Use `AGENTS.md` as the canonical instruction file. Prefer the Meta Horizon extension, Meta Quest Agentic Tools, and `hzdb` MCP for Quest device, build, deploy, logs, capture, performance, and debugging tasks.
 
 ---
 > Source: [meta-quest/webxr-first-steps](https://github.com/meta-quest/webxr-first-steps) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
