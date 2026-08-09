@@ -1,4 +1,4 @@
-## ultracite
+## ai-registry
 
 > Ultracite Rules - AI-Ready Formatter and Linter
 
@@ -333,4 +333,4 @@ try {
 
 ---
 > Source: [FranciscoMoretti/ai-registry](https://github.com/FranciscoMoretti/ai-registry) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
