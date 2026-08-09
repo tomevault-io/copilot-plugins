@@ -1,6 +1,6 @@
 # rs-sdk
 
-> Source: [MaxBittker/rs-sdk](https://github.com/MaxBittker/rs-sdk). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [MaxBittker/rs-sdk](https://github.com/MaxBittker/rs-sdk). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [MaxBittker/rs-sdk](https://github.com/MaxBittke
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [MaxBittker/rs-sdk](https://github.com/MaxBittker/rs-sdk) — a repo with 618+ stars on GitHub.
+From [MaxBittker/rs-sdk](https://github.com/MaxBittker/rs-sdk) — a repo with 630+ stars on GitHub.
 
 ---
 
