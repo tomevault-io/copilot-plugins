@@ -1,0 +1,123 @@
+{
+  "name": "apiker",
+  "owner": "hodgef",
+  "repo": "apiker",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "apiker",
+      "path": ".agents/skills/apiker/SKILL.md",
+      "github_url": "https://github.com/hodgef/apiker/tree/main/.agents/skills/apiker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apiker",
+      "path": ".agents/skills/wrangler/SKILL.md",
+      "github_url": "https://github.com/hodgef/apiker/tree/main/.agents/skills/wrangler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apiker",
+      "path": ".agents/skills/web-perf/SKILL.md",
+      "github_url": "https://github.com/hodgef/apiker/tree/main/.agents/skills/web-perf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apiker",
+      "path": ".agents/skills/cloudflare/SKILL.md",
+      "github_url": "https://github.com/hodgef/apiker/tree/main/.agents/skills/cloudflare/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apiker",
+      "path": ".agents/skills/agents-sdk/SKILL.md",
+      "github_url": "https://github.com/hodgef/apiker/tree/main/.agents/skills/agents-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apiker",
+      "path": ".agents/skills/sandbox-sdk/SKILL.md",
+      "github_url": "https://github.com/hodgef/apiker/tree/main/.agents/skills/sandbox-sdk/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apiker",
+      "path": ".agents/skills/cloudflare-one/SKILL.md",
+      "github_url": "https://github.com/hodgef/apiker/tree/main/.agents/skills/cloudflare-one/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apiker",
+      "path": ".agents/skills/turnstile-spin/SKILL.md",
+      "github_url": "https://github.com/hodgef/apiker/tree/main/.agents/skills/turnstile-spin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apiker",
+      "path": ".agents/skills/durable-objects/SKILL.md",
+      "github_url": "https://github.com/hodgef/apiker/tree/main/.agents/skills/durable-objects/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apiker",
+      "path": ".agents/skills/apiker-self-improve/SKILL.md",
+      "github_url": "https://github.com/hodgef/apiker/tree/main/.agents/skills/apiker-self-improve/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apiker",
+      "path": ".agents/skills/workers-best-practices/SKILL.md",
+      "github_url": "https://github.com/hodgef/apiker/tree/main/.agents/skills/workers-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apiker",
+      "path": ".agents/skills/cloudflare-email-service/SKILL.md",
+      "github_url": "https://github.com/hodgef/apiker/tree/main/.agents/skills/cloudflare-email-service/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "apiker",
+      "path": ".agents/skills/cloudflare-one-migrations/SKILL.md",
+      "github_url": "https://github.com/hodgef/apiker/tree/main/.agents/skills/cloudflare-one-migrations/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hodgef/apiker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T15:55:39Z"
+}
