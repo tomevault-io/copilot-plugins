@@ -1,0 +1,14 @@
+{
+  "name": "bigbio--quantms",
+  "displayName": "quantms",
+  "description": "quantms",
+  "version": "1.0.0",
+  "author": "bigbio",
+  "homepage": "https://github.com/bigbio/quantms",
+  "skills": [
+    {
+      "name": "quantms",
+      "description": ""
+    }
+  ]
+}
