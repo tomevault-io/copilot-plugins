@@ -16,7 +16,7 @@ Original source: `` in [microsoft/PyRIT](https://github.com/microsoft/PyRIT).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [microsoft/PyRIT](https://github.com/microsoft/PyRIT) — a repo with 4185+ stars on GitHub.
+From [microsoft/PyRIT](https://github.com/microsoft/PyRIT) — a repo with 4264+ stars on GitHub.
 
 ---
 
