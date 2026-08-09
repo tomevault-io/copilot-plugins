@@ -4,7 +4,7 @@
   "repo": "likeshop",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/likeadmin-likeshop/likeshop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T11:41:14Z"
+  "distributed_at": "2026-08-09T14:40:52Z"
 }
