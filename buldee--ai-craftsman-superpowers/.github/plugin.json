@@ -1,7 +1,7 @@
 {
   "name": "buldee--ai-craftsman-superpowers",
   "displayName": "ai-craftsman-superpowers",
-  "description": "Claude Code plugin for senior craftsmen. Multi-pack architecture (core, symfony, react) with DDD patterns, Clean Architecture, TDD workflows, and intelligent scaffold system. Includes design/debug/spe",
+  "description": "ai-craftsman-superpowers",
   "version": "1.0.0",
   "author": "BULDEE",
   "homepage": "https://github.com/BULDEE/ai-craftsman-superpowers",
