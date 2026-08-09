@@ -7,11 +7,11 @@ A self-hosted context manager. @context organizes your work into a private CRM a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [agno-agi/context](https://github.com/agno-agi/context).
+Original source: `CLAUDE.md` in [agno-agi/context](https://github.com/agno-agi/context).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
