@@ -15,14 +15,6 @@ Original source: `AGENTS.md` in [geoql/v-maplibre](https://github.com/geoql/v-ma
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (5)
-
-- [v-maplibre](https://github.com/geoql/v-maplibre/tree/main/.agents/skills/mapcn-vue-design/SKILL.md)
-- [v-maplibre](https://github.com/geoql/v-maplibre/tree/main/.agents/skills/vue-best-practices/SKILL.md)
-- [v-maplibre](https://github.com/geoql/v-maplibre/tree/main/.agents/skills/nuxt-best-practices/SKILL.md)
-- [v-maplibre](https://github.com/geoql/v-maplibre/tree/main/.agents/skills/nuxt-geo-best-practices/SKILL.md)
-- [v-maplibre](https://github.com/geoql/v-maplibre/tree/main/.agents/skills/nuxt-seo-best-practices/SKILL.md)
-
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/geoql/v-maplibre](https://github.com/geoql/v-maplibre)
 
 ---
