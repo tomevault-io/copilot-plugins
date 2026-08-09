@@ -1,45 +1,48 @@
 ## dbt-core
 
-> This crate must stay generic and reusable. Do not add dbt event schemas, CLI
+> These instructions are for coding agents (Codex CLI, Claude Code, etc).
 
-# dbt-tracing Agent Guide
+# Project Instructions (AI Agents)
 
-## Scope
+These instructions are for coding agents (Codex CLI, Claude Code, etc).
 
-This crate must stay generic and reusable. Do not add dbt event schemas, CLI
-configuration, Fusion formatters, dbt fallback event types, or anonymous
-product-usage telemetry here.
+Paths in this file and in `.agents/` are relative to the directory containing this file.
 
-## Where Work Belongs
+## Hard Rules
 
-- Generic data layer, record envelopes, emit APIs, consumers, generic output
-  layers, Arrow serialization, registry-backed JSON deserialization, and OTLP
-  serialization belong in this crate.
-- dbt-specific config, layer assembly, formatters, middlewares, and fallback
-  event selection belong in `dbt-common::tracing`.
-- Public and private dbt/Fusion event schemas, helper constructors, Arrow
-  attribute shapes, and event registries belong in the telemetry schema crates.
-- Anonymous telemetry and Vortex work belongs in `.agents/vortex-anonymous-telemetry.md`
-  and the Vortex-related crates.
+### Code Style
 
-## Implementation Rules
+- Follow existing code style and patterns in the given crate/module.
+- Keep changes minimal and focused to the task at hand.
+- Prefer simple, readable code over clever or complex solutions.
 
-- Prefer callbacks or traits at the boundary instead of hardcoding downstream
-  event types.
-- Keep output layers generic. Downstream crates provide registries, concrete
-  Arrow schemas, JSON event payload deserializers, and optional log
-  preprocessors.
-- Keep examples and tests based on mock or generic event types.
-- Preserve the distinction between structured tracing/export and anonymous
-  product analytics.
+### Changelog
 
-## Validation
+- Never manually create or write changelog YAML files. Always use `changie new` to generate entries.
+- Run `changie new` from the repository root with flags: `changie new --kind "<kind>" --body "<description>" --custom "project=<project>" --custom "issue=<number>" --custom "author=<handle>" --interactive=false`
+- For optional empty fields (`issue`, `author`), prompt the user if running locally or pass a space (e.g., `--custom "issue= "`) then edit the generated file to replace `' '` with `""`.
 
-```bash
-cargo xtask check-llm -p dbt-tracing
-cargo xtask test --llm --no-external-deps -p dbt-tracing
-```
+### Running dev commands
+
+- Never run blanket `cargo` commands without `-p <crate>` unless explicitly asked.
+- Avoid context pollution: don’t paste long logs; prefer LLM-friendly JSONL output and short excerpts.
+- Avoid full builds and full test runs during iteration; keep commands scoped and fast.
+
+## Where To Look Next (Task-Specific)
+
+- Respect author preferences (optional/local): `AGENTS.local.md`
+- When working on Adapters: `.agents/adapters.md`. Adapters consist of the following crates:
+  - `dbt-adapter`
+  - `dbt-adapter-core`
+  - `dbt-adapter-sql`
+  - `dbt-auth`
+  - `dbt-sql-keywords`
+  - `dbt-adbc`
+- When working on telemetry/tracing: `.agents/telemetry-tracing.md`
+- When working on dbt-docs-server (REST API): `.agents/dbt-docs-server.md`
+- Always check for nested `AGENTS.md` files in subdirectories you modify
+- If context is not enough, try reading repo overview / architecture as last resort: `README.md`
 
 ---
 > Source: [dbt-labs/dbt-core](https://github.com/dbt-labs/dbt-core) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
