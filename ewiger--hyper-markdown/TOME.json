@@ -4,7 +4,7 @@
   "repo": "hyper-markdown",
   "description": "Hyper-Markdown helps building your own local wiki knowledge base",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ewiger/hyper-markdown",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T08:32:28Z"
+  "distributed_at": "2026-08-09T08:35:25Z"
 }
