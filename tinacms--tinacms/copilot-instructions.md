@@ -1,119 +1,160 @@
 ## tinacms
 
-> Next.js 14 Pages Router app that runs TinaCMS **without TinaCloud** — backend served from Next.js API routes, content stored in MongoDB (prod) or filesystem (dev), auth via `tinacms-authjs` + `next-auth`, optional GitHub-backed version control.
+> validates at the boundary — the cast lives in the constructor and nowhere
 
-# TinaCMS Self-Hosted Demo
+# TinaCMS v4
 
-Next.js 14 Pages Router app that runs TinaCMS **without TinaCloud** — backend served from Next.js API routes, content stored in MongoDB (prod) or filesystem (dev), auth via `tinacms-authjs` + `next-auth`, optional GitHub-backed version control.
+Instructions for agents working under `packages/v4/`.
 
-This app is a reference implementation for the self-hosted backend. It does not share content with the other kitchen-sink apps — it keeps its own `content/` directory so the auth + database wiring can be demonstrated end-to-end.
+## Read first
 
-## Architecture
+- [`README.md`](./README.md) — the package map: what v4 releases, publish
+  rules, and why the CLI stays out of the build pipeline.
+- The full v4 architecture spec lives in a separate repo:
+  [tinacms/tinacmsv4-docs](https://github.com/tinacms/tinacmsv4-docs)
+  (start at `CONTEXT.md`, then the ADR set).
+- The source of truth for the final shape of v4 live in `@tinacms/tinacms/_docs/`
+  (architecture, plugins, field plugins, per-field specs).
 
-- **Pages Router** — routes under `pages/`. The self-hosted GraphQL endpoint lives at `pages/api/tina/[...routes].ts` and is handled by `TinaNodeBackend`.
-- **Dual-mode auth** — at runtime, `TINA_PUBLIC_IS_LOCAL=true` switches to `LocalAuthProvider` (no credentials required — dev/demo only). When unset, `UsernamePasswordAuthJSProvider` from `tinacms-authjs` runs behind `next-auth`.
-- **Dual-mode database** — [tina/database.ts](tina/database.ts) returns `createLocalDatabase()` (filesystem level DB) in local mode, or `createDatabase()` backed by `MongodbLevel` (`MONGODB_URI`, db `tinacms`, collection `tinacms`) in prod. GitHub integration is wired in via `tinacms-gitprovider-github` when env vars are set.
-- **Admin UI** — built by `tinacms build` to `public/admin/`, rewritten to `/admin`.
+## Packages in this directory
 
-## Coding Standards
+| Package | Path | What it is |
+|---|---|---|
+| `@tinacms/tinacms` | `@tinacms/tinacms` | The v4 runtime + CLI in one package. `private: true`, `4.0.0-alpha.x`. Subpath exports for `/react`, `/client`, `/server`, `/local-data-layer`, and framework adapters (`/adapters/next`, `/express`, `/astro`, `/hono`). |
+| `@tinacms/rich-text` | `@tinacms/rich-text` | Plate rich-text editor. A value contract separates the editor from the storage format — keep that boundary (see `src/boundary.test.ts`). |
+| `@tinacms/ui` | `@tinacms/ui` | Shared UI components from shadcn/ui. |
 
-Repo-wide Biome + TypeScript apply (see root [AGENTS.md](../../../AGENTS.md)). Deltas:
+## Commands (run inside the package directory)
 
-- [next.config.js](next.config.js) ignores ESLint and TypeScript errors during build. Treat that as a **demo-only** setting — don't copy into production apps.
-- [pages/_app.tsx](pages/_app.tsx) uses a client-only render guard (component returns null until after mount) to avoid SSR/CSR hydration mismatches with the TinaCMS provider.
-
-## Common Commands
-
-- `pnpm dev` — `TINA_PUBLIC_IS_LOCAL=true`, starts local-auth dev mode.
-- `pnpm dev:prod` — dev against the production auth/DB setup (rebuilds backend).
-- `pnpm build` — `tinacms build && next build`.
-- `pnpm start` — `tinacms build && next start`.
-- `pnpm export` — static export.
-- `pnpm lint` / `pnpm format` — Biome.
-
-## Key Patterns
-
-### Backend API route
-
-[pages/api/tina/[...routes].ts](pages/api/tina/[...routes].ts) wires `TinaNodeBackend`:
-
-```ts
-const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === 'true';
-const handler = TinaNodeBackend({
-  authProvider: isLocal
-    ? LocalBackendAuthProvider()
-    : AuthJsBackendAuthProvider({ authOptions: TinaAuthJSOptions({ databaseClient, secret: process.env.NEXTAUTH_SECRET }) }),
-  databaseClient,
-});
+```
+pnpm dev        # @tinacms/tinacms only — vite playground (playground/)
+pnpm test       # vitest
+pnpm test:e2e   # @tinacms/tinacms only — playwright
+pnpm types      # tsc + tsconfig.test.json
+pnpm build      # tinacms-scripts build
+pnpm codegen    # @tinacms/tinacms only — regenerates playground tina-lock
 ```
 
-All GraphQL queries, mutations, and auth flows go through this single catch-all route.
+The playground (`@tinacms/tinacms/playground/`) is the manual test bed —
+use it to verify runtime/editor changes in a browser.
 
-### Database adapter selection
+## Hard rules
 
-[tina/database.ts](tina/database.ts):
+- **The `tinacms` bin only writes files a person commits** (`init`,
+  `codegen`). It must never wrap a process, open a port, or produce a build
+  artifact. No `dev` or `build` commands. (See "The CLI stays out of the
+  pipeline" in `README.md`.)
+- **`tina-lock.json` is committed, not built.** CI never runs the bin;
+  `codegen --check` is an opt-in drift guard.
+- **Don't touch v3 packages for v4 features.** v3 (`packages/tinacms`,
+  `packages/@tinacms/*`) is in support mode: bug and security fixes only.
+- **Don't move level adapters or external integrations into this repo** —
+  the README lists where they live.
+- **shadcn components:** add or update via
+  `pnpm dlx shadcn@latest add <component>` run in `@tinacms/ui/` — don't
+  hand-write new primitives that shadcn already provides.
 
-```ts
-export default isLocal
-  ? createLocalDatabase()
-  : createDatabase({
-      gitProvider: new GitHubProvider({ ... }),
-      databaseAdapter: new MongodbLevel({ mongoUri, collectionName: 'tinacms', dbName: 'tinacms' }),
-      namespace: process.env.GITHUB_BRANCH ?? 'main',
-    });
-```
+## Types
 
-### Auth data
+- **No `any`.** Not as an annotation, not as a cast. Use `unknown` and
+  narrow, or write the real type. `@tinacms/tinacms/src` has zero `any` —
+  keep it that way. (The `any`s in `rich-text/src/plate` are inherited Plate
+  code; do not add more, and remove them when you touch those files.)
+- **Identifiers get a concrete branded type, not a bare `string`.** Use
+  `Brand` from `core/brand.ts` and give each ID a `to*` constructor that
+  validates at the boundary — the cast lives in the constructor and nowhere
+  else:
 
-User records live in [content/users/index.json](content/users/index.json) — TinaCMS treats users as a managed collection (`TinaUserCollection` from `tinacms-authjs`). The seeded user `tinauser` / `tinarocks` has `passwordChangeRequired: true` so first login forces a rotation.
+  ```ts
+  // core/brand.ts
+  export type Brand<T, K extends string> = T & { readonly __brand: K };
 
-### Config
+  // core/field/address.ts
+  export type FieldAddress = Brand<string, 'FieldAddress'>;
 
-[tina/config.tsx](tina/config.tsx) sets `contentApiUrlOverride: '/api/tina/gql'` to point the admin UI at the local backend instead of TinaCloud. Collections declared: `post` (mdx), `author` (md), `page` (md, blocks-based), `global` (json). The demo does **not** include Blog, Tag, or the shared schema — content lives in `content/` alongside the code.
+  export const toFieldAddress = (path: string): FieldAddress => {
+    invariant(path.length > 0, 'field-address-empty', '...');
+    return path as FieldAddress;
+  };
+  ```
 
-### Media
+  Existing examples: `FormId` (`form/form-store.ts`), `FieldAddress`
+  (`core/field/address.ts`), `ResolvedConfig` (`config.ts`). A branded ID
+  cannot be swapped for another string by accident — a `FormId` does not
+  pass where a `FieldAddress` is expected.
 
-Local media driver uploads to `public/uploads/`. A commented Cloudinary `loadCustomStore` block in `tina/config.tsx` shows the alternative path — switch by uncommenting and setting the Cloudinary env vars.
+## Comments & prose (ASD-STE100)
 
-## Environment Variables
+All v4 prose — code comments, `_docs/`, READMEs — follows **Simplified
+Technical English (ASD-STE100)**. The `README.md` in this directory is the
+reference for the register.
 
-From [.env.example](.env.example):
+The STE rules that matter most here:
 
-| Var | Purpose |
-|-----|---------|
-| `MONGODB_URI` | MongoDB connection string (prod DB) |
-| `GITHUB_OWNER` / `GITHUB_REPO` / `GITHUB_BRANCH` / `GITHUB_PERSONAL_ACCESS_TOKEN` | GitHub version-control integration |
-| `TINA_PUBLIC_IS_LOCAL` | `true` → `LocalAuthProvider` + filesystem DB |
-| `NEXTAUTH_SECRET` | next-auth session signing secret |
-| `NEXT_PUBLIC_TINA_CLIENT_ID` / `TINA_TOKEN` | Referenced for parity but unused when self-hosted |
+- **Active voice, present tense.** "The bin writes files", not "files are
+  written by the bin".
+- **One instruction or one fact per sentence.** Keep sentences short
+  (about 20 words or fewer).
+- **One word, one meaning.** Use the same term for the same thing every
+  time — a document is a document, not a "page", "entry", or "record"
+  depending on the file.
+- **No filler.** No "simply", "just", "note that", "in order to".
 
-## Routes
+Comment policy (a prior cleanup pass established this):
 
-| Route | Purpose |
-|-------|---------|
-| `/` | Home (rewrites to `/home`) |
-| `/[filename]` | Dynamic page rendering (`home`, `about`) |
-| `/posts` | Post listing |
-| `/posts/[filename]` | Post detail |
-| `/api/tina/[...routes]` | TinaCMS GraphQL + auth backend |
-| `/admin` | Admin UI (static, rewrites to `/admin/index.html`) |
-| `/404` | Not-found page |
+- **Only comment traps, invariants, and ADR pointers.** Strip comments that
+  restate the code.
+- Reference ADRs by number when a decision explains the code:
 
-No explicit `/auth/*` signin pages — `next-auth` handles sessions implicitly via the `TinaNodeBackend` request handler.
+  ```ts
+  // TODO(ADR-008 §3): type `permissions` against codegen's Permission union once it lands.
 
-## Gotchas
+  // TODO: move this schema validation to defineConfig (ADR-024) so every
+  // content plugin gets it, not the local data layer alone.
+  ```
 
-- `next.config.js` silences build-time type and lint errors. Any real app should turn that off.
-- No E2E tests ship with this demo.
-- Content is **not shared** with the kitchen-sink apps — edits here don't affect `examples/shared/`.
-- No `vercel.json` / Dockerfile. Deployment is standard Node; for Vercel/Netlify the branch is read from `VERCEL_GIT_COMMIT_REF` / `HEAD` env vars in `tina/database.ts`.
-- Switching to production mode requires `MONGODB_URI` **and** re-running `tinacms build` (via `pnpm dev:prod`) so the admin bundle picks up the updated backend.
+## Error handling
 
-## Reference
+- **Caught values are `unknown` — never assume they're an `Error`.** Name the
+  caught variable `cause` (the codebase convention), narrow with
+  `instanceof Error`, and fall back to `String(cause)`:
 
-- TinaCMS self-hosted docs: [tina.io/docs/self-hosted/overview](https://tina.io/docs/self-hosted/overview)
-- `tinacms-authjs`: [github.com/tinacms/tinacms/tree/main/packages/tinacms-authjs](https://github.com/tinacms/tinacms/tree/main/packages/tinacms-authjs)
+  ```ts
+  try {
+    await save(document);
+  } catch (cause) {
+    if(cause instanceof Error){
+      logError(cause.message)
+    }else{
+      logError(String(cause))
+    }
+  }
+  ```
+
+- **Distinguish known failures with custom error classes**, not by matching
+  message strings. Extend `Error` and check with `instanceof` (see `RpcError`
+  in `src/rpc/proxy.ts`, `RequestBodyTooLargeError` in
+  `local-data-layer.vite.ts`):
+
+  ```ts
+  if (cause instanceof RequestBodyTooLargeError) {
+    res.statusCode = 413;
+  }
+  ```
+
+## React / JSX
+
+- **Don't use `&&` for conditional rendering.** Use a ternary with an explicit
+  `null` instead:
+
+  ```tsx
+  // ❌ Bad — renders "0" when items is empty, leaks falsy values into the DOM
+  {items.length && <List items={items} />}
+
+  // ✅ Good
+  {items.length > 0 ? <List items={items} /> : null}
+  ```
 
 ---
 > Source: [tinacms/tinacms](https://github.com/tinacms/tinacms) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
