@@ -2,9 +2,9 @@
   "name": "ai-craftsman-superpowers",
   "owner": "BULDEE",
   "repo": "ai-craftsman-superpowers",
-  "description": "Claude Code plugin for senior craftsmen. Multi-pack architecture (core, symfony, react) with DDD patterns, Clean Architecture, TDD workflows, and intelligent scaffold system. Includes design/debug/spec/plan skills, security pentester agent, and branded types for TypeScript.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BULDEE/ai-craftsman-superpowers",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T13:27:20Z"
+  "distributed_at": "2026-08-09T10:32:07Z"
 }
