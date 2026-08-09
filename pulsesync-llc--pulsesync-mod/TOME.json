@@ -2,9 +2,9 @@
   "name": "PulseSync-mod",
   "owner": "PulseSync-LLC",
   "repo": "PulseSync-mod",
-  "description": "\u041c\u043e\u0434\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u044f \u0434\u043b\u044f \u043d\u0430\u0441\u0442\u043e\u043b\u044c\u043d\u043e\u0433\u043e \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u044f \u042f\u043d\u0434\u0435\u043a\u0441 \u041c\u0443\u0437\u044b\u043a\u0438. Fork of: https://github.com/TheKing-OfTime/YandexMusicModClient",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PulseSync-LLC/PulseSync-mod",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T21:03:34Z"
+  "distributed_at": "2026-08-09T16:15:23Z"
 }
