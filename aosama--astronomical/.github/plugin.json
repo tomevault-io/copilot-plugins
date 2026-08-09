@@ -1,0 +1,9 @@
+{
+  "name": "aosama--astronomical",
+  "displayName": "astronomical",
+  "description": "Performance-first local AI for Apple Silicon. Run LLMs and vision-language models beyond RAM limits with adaptive RAM + SSD streaming.",
+  "version": "1.0.0",
+  "author": "aosama",
+  "homepage": "https://github.com/aosama/astronomical",
+  "skills": []
+}
