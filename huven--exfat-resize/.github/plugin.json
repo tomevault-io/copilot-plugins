@@ -1,0 +1,9 @@
+{
+  "name": "huven--exfat-resize",
+  "displayName": "exfat-resize",
+  "description": "Resize existing exFAT filesystem",
+  "version": "1.0.0",
+  "author": "huven",
+  "homepage": "https://github.com/huven/exfat-resize",
+  "skills": []
+}
