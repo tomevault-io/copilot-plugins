@@ -1,6 +1,6 @@
 # go-drive
 
-> Source: [devld/go-drive](https://github.com/devld/go-drive) — distributed by [TomeVault](https://tomevault.io)
+> Source: [devld/go-drive](https://github.com/devld/go-drive). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -19,6 +19,6 @@ Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Sou
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:d-e-p -->
