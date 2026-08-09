@@ -4,7 +4,7 @@
   "repo": "bts-sio",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/c4software/bts-sio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T16:19:44Z"
+  "distributed_at": "2026-08-09T19:53:11Z"
 }
