@@ -1,0 +1,9 @@
+{
+  "name": "dunky-dev--state-machine",
+  "displayName": "state-machine",
+  "description": "\ud83e\udde0 The UI's brain in a state machine. Write once, run it on any JS runtime.",
+  "version": "1.0.0",
+  "author": "dunky-dev",
+  "homepage": "https://github.com/dunky-dev/state-machine",
+  "skills": []
+}
