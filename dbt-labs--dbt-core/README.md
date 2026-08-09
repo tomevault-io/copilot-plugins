@@ -15,7 +15,12 @@ Original source: `AGENTS.md` in [dbt-labs/dbt-core](https://github.com/dbt-labs/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [dbt-labs/dbt-core](https://github.com/dbt-labs/dbt-core) — a repo with 13513+ stars on GitHub.
+## Bundled Skills (2)
+
+- [dbt-core](https://github.com/dbt-labs/dbt-core/tree/main/.agents/skills/adapters-critic/SKILL.md)
+- [dbt-core](https://github.com/dbt-labs/dbt-core/tree/main/.agents/skills/adapters-annotate-references/SKILL.md)
+
+From [dbt-labs/dbt-core](https://github.com/dbt-labs/dbt-core) — a repo with 13607+ stars on GitHub.
 
 ---
 
