@@ -1,0 +1,93 @@
+{
+  "name": "ghaf",
+  "owner": "tiiuae",
+  "repo": "ghaf",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ghaf",
+      "path": ".github/skills/ghaf-hw-test/SKILL.md",
+      "github_url": "https://github.com/tiiuae/ghaf/tree/main/.github/skills/ghaf-hw-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ghaf",
+      "path": ".claude/skills/ghaf-test/SKILL.md",
+      "github_url": "https://github.com/tiiuae/ghaf/tree/main/.claude/skills/ghaf-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ghaf",
+      "path": ".claude/skills/ghaf-logs/SKILL.md",
+      "github_url": "https://github.com/tiiuae/ghaf/tree/main/.claude/skills/ghaf-logs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ghaf",
+      "path": ".claude/skills/ghaf-build/SKILL.md",
+      "github_url": "https://github.com/tiiuae/ghaf/tree/main/.claude/skills/ghaf-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ghaf",
+      "path": ".claude/skills/ghaf-target/SKILL.md",
+      "github_url": "https://github.com/tiiuae/ghaf/tree/main/.claude/skills/ghaf-target/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ghaf",
+      "path": ".claude/skills/ghaf-deploy/SKILL.md",
+      "github_url": "https://github.com/tiiuae/ghaf/tree/main/.claude/skills/ghaf-deploy/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ghaf",
+      "path": ".claude/skills/ghaf-connect/SKILL.md",
+      "github_url": "https://github.com/tiiuae/ghaf/tree/main/.claude/skills/ghaf-connect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ghaf",
+      "path": ".claude/skills/ghaf-dev-loop/SKILL.md",
+      "github_url": "https://github.com/tiiuae/ghaf/tree/main/.claude/skills/ghaf-dev-loop/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tiiuae/ghaf",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T13:39:35Z"
+}
