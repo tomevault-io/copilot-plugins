@@ -4,7 +4,7 @@
   "repo": "Browser4",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -85,9 +85,75 @@
       "path": "browser4-agentic/src/main/resources/skills/data-validation/SKILL.md",
       "github_url": "https://github.com/platonai/Browser4/tree/main/browser4-agentic/src/main/resources/skills/data-validation/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "coworker/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/coworker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "skills/browser4-cli/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/skills/browser4-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "coworker/skills/task-token-usage/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/coworker/skills/task-token-usage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "coworker/skills/organize-task-files/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/coworker/skills/organize-task-files/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "skills/scent-miner/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/skills/scent-miner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "skills/browser4-plugin/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/skills/browser4-plugin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "coworker/skills/coworker/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/coworker/skills/coworker/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "coworker/skills/run-tests/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/coworker/skills/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "skills/browser4-experience/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/skills/browser4-experience/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "coworker/skills/maintenance/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/coworker/skills/maintenance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Browser4",
+      "path": "coworker/skills/test-production/SKILL.md",
+      "github_url": "https://github.com/platonai/Browser4/tree/main/coworker/skills/test-production/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/platonai/Browser4",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T09:02:07Z"
+  "distributed_at": "2026-08-09T15:41:42Z"
 }
