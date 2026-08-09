@@ -25239,6 +25239,11 @@
       "description": "google-cloud-java"
     },
     {
+      "name": "googlecloudplatform--cloud-foundation-fabric",
+      "source": "./googlecloudplatform--cloud-foundation-fabric",
+      "description": "cloud-foundation-fabric"
+    },
+    {
       "name": "shopify--hydrogen",
       "source": "./shopify--hydrogen",
       "description": "hydrogen"
@@ -232524,6 +232529,11 @@
       "description": "Built on the openJiuwen agent-core framework, JiuwenSymbiosis is a Physical AI assistant."
     },
     {
+      "name": "buldee--ai-craftsman-superpowers",
+      "source": "./buldee--ai-craftsman-superpowers",
+      "description": "ai-craftsman-superpowers"
+    },
+    {
       "name": "r44vc0rp--itui",
       "source": "./r44vc0rp--itui",
       "description": "itui"
@@ -249612,6 +249622,26 @@
       "name": "memorax-ai--memorax-code",
       "source": "./memorax-ai--memorax-code",
       "description": "A memory plugin for AI coding that turns engineering experience, repository knowledge, and your way of working into memory that remains useful in future tasks."
+    },
+    {
+      "name": "drenlia--agila",
+      "source": "./drenlia--agila",
+      "description": "Simple and easy Kanban web application built with React TS PostgreSQL"
+    },
+    {
+      "name": "drenlia--agila",
+      "source": "./drenlia--agila",
+      "description": "Simple and easy Kanban web application built with React TS PostgreSQL"
+    },
+    {
+      "name": "drenlia--agila",
+      "source": "./drenlia--agila",
+      "description": "Simple and easy Kanban web application built with React TS PostgreSQL"
+    },
+    {
+      "name": "drenlia--agila",
+      "source": "./drenlia--agila",
+      "description": "Simple and easy Kanban web application built with React TS PostgreSQL"
     },
     {
       "name": "mulhamna--jira-commands",
@@ -396534,6 +396564,16 @@
       "description": "Python library for interacting with the Aula platform"
     },
     {
+      "name": "dmellok--scope-clock",
+      "source": "./dmellok--scope-clock",
+      "description": "Thin vector-rendering client rewrite of the SCTV Scope Clock firmware (Teensy 3.6 + CRT) with an ESP32-S3 Wi-Fi bridge. GPL-2.0-or-later, derived from nixiebunny/SCTVcode."
+    },
+    {
+      "name": "leexn--rustsible",
+      "source": "./leexn--rustsible",
+      "description": "Ansible-Compatible, High-Performance IT Automation in Rust"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -424537,6 +424577,21 @@
       "name": "wssfk12138--android-english-multiple-choice-practice-machine",
       "source": "./wssfk12138--android-english-multiple-choice-practice-machine",
       "description": "\u5185\u7f6e\u8003\u7814\u82f1\u8bed\u4e00/\u82f1\u8bed\u4e8c\u9898\u5e93\u7684\u672c\u5730\u5ba2\u89c2\u9898\u5237\u9898\u5e94\u7528\uff1a\u9519\u9898\u590d\u4e60\u3001\u5355\u8bcd\u8bb0\u5fc6\u3001AI \u5b66\u4e60\u8f85\u52a9\u4e0e GitHub/\u955c\u50cf\u81ea\u52a8\u66f4\u65b0"
+    },
+    {
+      "name": "jbeda--mdreflow",
+      "source": "./jbeda--mdreflow",
+      "description": "Reflow Markdown prose: sentence-per-line (semantic line breaks), paragraph-per-line, and hard wrap. Go library + CLI."
+    },
+    {
+      "name": "jbeda--mdreflow",
+      "source": "./jbeda--mdreflow",
+      "description": "Reflow Markdown prose: sentence-per-line (semantic line breaks), paragraph-per-line, and hard wrap. Go library + CLI."
+    },
+    {
+      "name": "aosama--astronomical",
+      "source": "./aosama--astronomical",
+      "description": "Performance-first local AI for Apple Silicon. Run LLMs and vision-language models beyond RAM limits with adaptive RAM + SSD streaming."
     },
     {
       "name": "cheerhuan--save-your-token",
