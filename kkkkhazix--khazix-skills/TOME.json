@@ -1,9 +1,9 @@
 {
-  "name": "khazix-skills",
+  "name": "Khazix-Skills",
   "owner": "KKKKhazix",
-  "repo": "khazix-skills",
-  "description": "\u6570\u5b57\u751f\u547d\u5361\u5179\u514b\u5f00\u6e90\u7684 AI Skills \u5408\u96c6",
-  "type": "config",
+  "repo": "Khazix-Skills",
+  "description": "",
+  "type": "tome",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,8 +37,45 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
-  "source_url": "https://github.com/KKKKhazix/khazix-skills",
+  "skills": [
+    {
+      "name": "Khazix-Skills",
+      "path": "aihot/SKILL.md",
+      "github_url": "https://github.com/KKKKhazix/Khazix-Skills/tree/main/aihot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Khazix-Skills",
+      "path": "neat-freak/SKILL.md",
+      "github_url": "https://github.com/KKKKhazix/Khazix-Skills/tree/main/neat-freak/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Khazix-Skills",
+      "path": "hv-analysis/SKILL.md",
+      "github_url": "https://github.com/KKKKhazix/Khazix-Skills/tree/main/hv-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Khazix-Skills",
+      "path": "khazix-writer/SKILL.md",
+      "github_url": "https://github.com/KKKKhazix/Khazix-Skills/tree/main/khazix-writer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Khazix-Skills",
+      "path": "storage-analyzer/SKILL.md",
+      "github_url": "https://github.com/KKKKhazix/Khazix-Skills/tree/main/storage-analyzer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Khazix-Skills",
+      "path": "leader/SKILL.md",
+      "github_url": "https://github.com/KKKKhazix/Khazix-Skills/tree/main/leader/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/KKKKhazix/Khazix-Skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T00:02:25Z"
+  "distributed_at": "2026-08-09T13:36:21Z"
 }
