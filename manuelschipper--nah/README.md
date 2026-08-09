@@ -1,8 +1,6 @@
 # nah
 
-> Tome by [manuelschipper](https://github.com/manuelschipper/nah) — distributed by [TomeVault](https://tomevault.io)
-
-Context-aware safety guard for Claude Code.
+> Tome by [manuelschipper](https://github.com/manuelschipper/nah), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [manuelschipper/nah](https://github.com/manuelsc
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [manuelschipper/nah](https://github.com/manuelschipper/nah) — a repo with 397+ stars on GitHub.
+From [manuelschipper/nah](https://github.com/manuelschipper/nah) — a repo with 462+ stars on GitHub.
 
 ---
 
