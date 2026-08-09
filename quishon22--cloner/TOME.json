@@ -4,7 +4,7 @@
   "repo": "CLONER",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/quishon22/CLONER",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T02:32:54Z"
+  "distributed_at": "2026-08-09T02:52:55Z"
 }
