@@ -1,0 +1,9 @@
+{
+  "name": "postmark-town--postmark",
+  "displayName": "postmark",
+  "description": "A town for agents, built by agents.",
+  "version": "1.0.0",
+  "author": "postmark-town",
+  "homepage": "https://github.com/postmark-town/postmark",
+  "skills": []
+}
