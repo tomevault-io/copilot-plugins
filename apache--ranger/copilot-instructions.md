@@ -1,6 +1,6 @@
 ## ranger
 
-> Apache Ranger Python client and test conventions (apache-ranger on PyPI)
+> Apache Ranger code must pass Checkstyle on Maven verify
 
 
 <!--
@@ -21,71 +21,61 @@
   limitations under the License.
 -->
 
-# Ranger Python client (`apache-ranger`)
+# Ranger Checkstyle (mandatory on build)
 
-**Authoritative package root:** `intg/src/main/python/` — packaging via `setup.py` there only. Do not add duplicate `setup.py` scripts elsewhere.
+Ranger runs **maven-checkstyle-plugin** in the **`verify`** phase (`check` goal). Violations **fail the build** when `checkstyle.failOnViolation` is true. Main and **test** sources are checked (`includeTestSourceDirectory` is enabled).
 
-**Python version:** `apache-ranger` targets **Python 3.13+** (`python_requires` in `setup.py`).
+**Authoritative config** (read before large Java edits or refactors):
 
-## Style and structure
+- `dev-support/checkstyle.xml` — active rules
+- `dev-support/checkstyle-suppressions.xml` — per-file/line suppressions
 
-- Preserve the ASF license header on new files (match neighboring modules).
-- Match existing layout: `apache_ranger/client/` for HTTP clients, `apache_ranger/model/` for typed models, `utils.py` for coercion helpers.
-- Reuse `type_coerce` / `type_coerce_attrs()` — accept dict-like input and coerce to model types; do not duplicate parsing logic.
-- Keep changes minimal; follow naming, imports, and spacing of the file you edit.
+After substantive Java changes, run Checkstyle for the module, for example:
 
-## Vertical alignment
+`mvn -pl <module> -DskipTests verify`
 
-Within a **consecutive block** of related lines, align `=` (and dict values after `:` where keys share one dict):
+(Or a narrower goal if the project exposes one; `verify` is what CI uses.)
 
-```python
-self.status_code = status_code
-self.response    = response
-self.content     = content
+## Practical reminders (config has many more rules)
 
-from apache_ranger.exceptions           import RangerServiceException
-from apache_ranger.model.ranger_service import RangerService
+- Use **LF** line endings, **no tabs**; one **newline at end of file**; **no trailing whitespace**.
+- **No** multiple consecutive **blank** lines; **no** blank line immediately after `{` or before `}` in the patterns enforced by the config.
+- **Limit static imports**: e.g. avoid static imports of `Optional.*`, and avoid certain static `of` / `copyOf` / `valueOf` / `builder` patterns (see `RegexpSingleline` rules in `checkstyle.xml`).
 
-RangerAuthzRequest({
-    "requestId": "req-1",
-    "user":      RangerUserInfo({"name": "alice"}),
-    "access":    RangerAccessInfo({...}),
-    "context":   RangerAccessContext({...}),
-})
+When unsure, match the style of neighboring classes in the same module and re-run `verify` on the touched module.
+
+## Single return (Ranger convention)
+
+Reviewers expect **one `return` per method** in production code (guard clauses with early return are avoided). Assign into locals and return once at the end.
+
+```java
+// Prefer
+private String resolveAuthenticatedLoginId() {
+    String loginId = bizUtil.getCurrentUserLoginId();
+
+    if (loginId == null) {
+        Object authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication instanceof RangerAuthenticationToken) {
+            RangerAuthenticationToken token = (RangerAuthenticationToken) authentication;
+
+            if (token.getAuthType() == XXAuthSession.AUTH_TYPE_TRUSTED_PROXY) {
+                loginId = token.getName();
+            }
+        }
+    }
+
+    return loginId;
+}
+
+// Avoid multiple returns
+// if (loginId != null) { return loginId; }
+// ...
+// return null;
 ```
 
-Apply alignment only within the block; do not pad unrelated single assignments. Reference points: `exceptions.py`, `sample_pdp_client.py`, `test_ranger_client.py`.
-
-## Model and sample data
-
-Use **compact dict literals** — one line per top-level field when still readable (`sample_pdp_client.py`). Avoid verbose nesting when a flat line is clear.
-
-## Unit tests
-
-Primary test file: `intg/src/test/python/test_ranger_client.py`
-
-Run from `intg/`:
-
-```bash
-PYTHONPATH=src/main/python python -B src/test/python/test_ranger_client.py
-```
-
-Split tests **by client** — one `unittest.TestCase` per area (`TestRangerClient`, `TestGDSClient`, `TestPDPClient`).
-
-Fixtures: shared data as **class-level constants** (`URL`, `AUTH`, `AUTHZ_REQUEST`); single-use data inline in the test method.
-
-Assertions and mocking:
-
-- Prefer `assertRaises`, `assertIsNone`, `assertIsInstance` over bare `try/except`.
-- Assert **current** client behavior — not obsolete error text or exceptions.
-- Mock at the boundary: `Session` for Admin HTTP, `client_http.call_api` for GDS/PDP.
-- Only add tests for real coercion, exports, or API wiring.
-
-## References
-
-- `intg/src/main/python/README.md` — published API surface and quickstarts
-- `ranger-examples/sample-client/src/main/python/` — Admin, GDS, PDP, KMS usage examples
+Same idea applies to other return types: use a `result` variable (or reuse an existing one), set it in branches, then `return result` once.
 
 ---
 > Source: [apache/ranger](https://github.com/apache/ranger) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
