@@ -3,8 +3,8 @@
   "owner": "Microsoft365DSC",
   "repo": "Microsoft365DSC",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,33 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "Microsoft365DSC",
+      "path": ".claude/skills/debug-issue/skill.md",
+      "github_url": "https://github.com/Microsoft365DSC/Microsoft365DSC/tree/main/.claude/skills/debug-issue/skill.md",
+      "description": ""
+    },
+    {
+      "name": "Microsoft365DSC",
+      "path": ".claude/skills/review-changes/skill.md",
+      "github_url": "https://github.com/Microsoft365DSC/Microsoft365DSC/tree/main/.claude/skills/review-changes/skill.md",
+      "description": ""
+    },
+    {
+      "name": "Microsoft365DSC",
+      "path": ".claude/skills/refactor-safely/skill.md",
+      "github_url": "https://github.com/Microsoft365DSC/Microsoft365DSC/tree/main/.claude/skills/refactor-safely/skill.md",
+      "description": ""
+    },
+    {
+      "name": "Microsoft365DSC",
+      "path": ".claude/skills/explore-codebase/skill.md",
+      "github_url": "https://github.com/Microsoft365DSC/Microsoft365DSC/tree/main/.claude/skills/explore-codebase/skill.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/Microsoft365DSC/Microsoft365DSC",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-01T02:35:40Z"
+  "distributed_at": "2026-08-09T15:49:55Z"
 }
