@@ -1,6 +1,6 @@
 ## manifold
 
-> Source lives in `internal/` (e.g., `internal/agent`, `internal/orchestrator`); keep new packages focused on one concern and avoid import cycles. CLI/Server entrypoints sit under `cmd/` with binaries for the agent, HTTP server (`agentd`), and `embedctl` (if present). Docs reside in `docs/`, assets in `assets/`, and deployment scaffolding in `docker/`, `configs/`, and top-level `example.env`. Co-locate tests with their packages and share fakes through `internal/testhelpers`.
+> Source lives in `internal/` (e.g., `internal/agent`, `internal/orchestrator`); keep new packages focused on one concern and avoid import cycles. CLI/Server entrypoints sit under `cmd/` with binaries for the agent, HTTP server (`manifold`, implemented in `cmd/agentd`), and `embedctl` (if present). Docs reside in `docs/`, assets in `assets/`, and deployment scaffolding in `docker/`, `configs/`, and top-level `example.env`. Co-locate tests with their packages and share fakes through `internal/testhelpers`.
 
 # Go/manifold
 
@@ -8,7 +8,7 @@
 
 ## Project Structure & Module Organization
 
-Source lives in `internal/` (e.g., `internal/agent`, `internal/orchestrator`); keep new packages focused on one concern and avoid import cycles. CLI/Server entrypoints sit under `cmd/` with binaries for the agent, HTTP server (`agentd`), and `embedctl` (if present). Docs reside in `docs/`, assets in `assets/`, and deployment scaffolding in `docker/`, `configs/`, and top-level `example.env`. Co-locate tests with their packages and share fakes through `internal/testhelpers`.
+Source lives in `internal/` (e.g., `internal/agent`, `internal/orchestrator`); keep new packages focused on one concern and avoid import cycles. CLI/Server entrypoints sit under `cmd/` with binaries for the agent, HTTP server (`manifold`, implemented in `cmd/agentd`), and `embedctl` (if present). Docs reside in `docs/`, assets in `assets/`, and deployment scaffolding in `docker/`, `configs/`, and top-level `example.env`. Co-locate tests with their packages and share fakes through `internal/testhelpers`.
 
 ### Package Organization
 
@@ -47,7 +47,7 @@ The following Go command-line tools are essential for development, testing, and 
 > **Tip:** Refer to this table whenever you need to build, test, format, or analyze Go code in this project.
 
 ## Coding Style & Naming Conventions
-Target Go 1.24.5 and keep files `gofmt` clean with tabs. Maintain import order with `goimports` and keep `golangci-lint run` (via `make lint`) silent. Name packages after their capability, keep filenames lowercase, and export concise CamelCase APIs. Prefer constructor-style functions (e.g., `NewService`) for dependency injection.
+Target Go 1.26.3 and keep files `gofmt` clean with tabs. Maintain import order with `goimports` and keep `golangci-lint run` (via `make lint`) silent. Name packages after their capability, keep filenames lowercase, and export concise CamelCase APIs. Prefer constructor-style functions (e.g., `NewService`) for dependency injection.
 
 ### Naming Conventions
 
@@ -175,4 +175,4 @@ go test -run=^$ -bench=. -benchmem ./...
 
 ---
 > Source: [intelligencedev/manifold](https://github.com/intelligencedev/manifold) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
