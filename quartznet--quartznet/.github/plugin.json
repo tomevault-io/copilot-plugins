@@ -5,14 +5,5 @@
   "version": "1.0.0",
   "author": "quartznet",
   "homepage": "https://github.com/quartznet/quartznet",
-  "skills": [
-    {
-      "name": "quartznet",
-      "description": ""
-    },
-    {
-      "name": "quartznet",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
