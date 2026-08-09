@@ -1,0 +1,51 @@
+{
+  "name": "mongo-c-driver",
+  "owner": "mongodb",
+  "repo": "mongo-c-driver",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mongo-c-driver",
+      "path": ".agents/skills/running-test-libmongoc/SKILL.md",
+      "github_url": "https://github.com/mongodb/mongo-c-driver/tree/main/.agents/skills/running-test-libmongoc/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mongodb/mongo-c-driver",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T14:13:50Z"
+}
