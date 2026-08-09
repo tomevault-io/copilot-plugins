@@ -13584,6 +13584,51 @@
       "description": "nuclio"
     },
     {
+      "name": "tw93--kaku",
+      "source": "./tw93--kaku",
+      "description": "Kaku"
+    },
+    {
+      "name": "tw93--kaku",
+      "source": "./tw93--kaku",
+      "description": "Kaku"
+    },
+    {
+      "name": "tw93--kaku",
+      "source": "./tw93--kaku",
+      "description": "Kaku"
+    },
+    {
+      "name": "tw93--kaku",
+      "source": "./tw93--kaku",
+      "description": "Kaku"
+    },
+    {
+      "name": "tw93--kaku",
+      "source": "./tw93--kaku",
+      "description": "Kaku"
+    },
+    {
+      "name": "tw93--kaku",
+      "source": "./tw93--kaku",
+      "description": "Kaku"
+    },
+    {
+      "name": "tw93--kaku",
+      "source": "./tw93--kaku",
+      "description": "Kaku"
+    },
+    {
+      "name": "tw93--kaku",
+      "source": "./tw93--kaku",
+      "description": "Kaku"
+    },
+    {
+      "name": "tw93--kaku",
+      "source": "./tw93--kaku",
+      "description": "Kaku"
+    },
+    {
       "name": "pyspur-dev--pyspur",
       "source": "./pyspur-dev--pyspur",
       "description": "A visual playground for agentic workflows: Iterate over your agents 10x faster"
@@ -396344,6 +396389,36 @@
       "description": "Low-overhead strace substitute using eBPF"
     },
     {
+      "name": "mattleonard16--nflalgorithm",
+      "source": "./mattleonard16--nflalgorithm",
+      "description": "NFL Algorithm started end of may"
+    },
+    {
+      "name": "aiunlocked1412--jaitts-easy",
+      "source": "./aiunlocked1412--jaitts-easy",
+      "description": "\u0e42\u0e04\u0e25\u0e19\u0e40\u0e2a\u0e35\u0e22\u0e07\u0e1e\u0e39\u0e14\u0e20\u0e32\u0e29\u0e32\u0e44\u0e17\u0e22\u0e14\u0e49\u0e27\u0e22 JaiTTS (F5-TTS) \u2014 \u0e15\u0e34\u0e14\u0e15\u0e31\u0e49\u0e07\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27 \u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e1c\u0e48\u0e32\u0e19\u0e2b\u0e19\u0e49\u0e32\u0e40\u0e27\u0e47\u0e1a\u0e44\u0e14\u0e49\u0e17\u0e31\u0e19\u0e17\u0e35 \u00b7 Thai voice cloning made easy: one-command setup, local Gradio UI, CLI, and the full benchmark toolkit"
+    },
+    {
+      "name": "mattleonard16--nflalgorithm",
+      "source": "./mattleonard16--nflalgorithm",
+      "description": "NFL Algorithm started end of may"
+    },
+    {
+      "name": "davidahmann--fde-guide",
+      "source": "./davidahmann--fde-guide",
+      "description": "A field guide for FDEs and applied AI teams: value engineering and production architecture."
+    },
+    {
+      "name": "lunkibr--ship-it",
+      "source": "./lunkibr--ship-it",
+      "description": "A Claude Code skill that catches commonly-forgotten UX/product details before you ship a screen or feature."
+    },
+    {
+      "name": "mattleonard16--nflalgorithm",
+      "source": "./mattleonard16--nflalgorithm",
+      "description": "NFL Algorithm started end of may"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -424302,6 +424377,16 @@
       "name": "ejboy--agent-scripts",
       "source": "./ejboy--agent-scripts",
       "description": "Token-efficient, local-first scripts for coding agents - compact Maven output, predictable browser launch, and reusable development workflows."
+    },
+    {
+      "name": "vukrosic--open-discovery",
+      "source": "./vukrosic--open-discovery",
+      "description": "open-discovery"
+    },
+    {
+      "name": "stevedylandev--cielago",
+      "source": "./stevedylandev--cielago",
+      "description": "Like Postman but it actually works. Terminal native HTTP request builder with OpenAPI support."
     },
     {
       "name": "cheerhuan--save-your-token",
