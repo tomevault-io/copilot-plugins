@@ -1,6 +1,6 @@
 # agentkit-samples
 
-> Source: [bytedance/agentkit-samples](https://github.com/bytedance/agentkit-samples). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [bytedance/agentkit-samples](https://github.com/bytedance/agentkit-samples). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -16,7 +16,7 @@ Original source: `` in [bytedance/agentkit-samples](https://github.com/bytedance
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [bytedance/agentkit-samples](https://github.com/bytedance/agentkit-samples) — a repo with 378+ stars on GitHub.
+From [bytedance/agentkit-samples](https://github.com/bytedance/agentkit-samples) — a repo with 417+ stars on GitHub.
 
 ---
 
