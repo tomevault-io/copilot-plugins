@@ -1,0 +1,9 @@
+{
+  "name": "teutonet--teutonet-helm-charts",
+  "displayName": "teutonet-helm-charts",
+  "description": "teutonet-helm-charts",
+  "version": "1.0.0",
+  "author": "teutonet",
+  "homepage": "https://github.com/teutonet/teutonet-helm-charts",
+  "skills": []
+}
