@@ -1,0 +1,9 @@
+{
+  "name": "ibm--prompt-declaration-language",
+  "displayName": "prompt-declaration-language",
+  "description": "prompt-declaration-language",
+  "version": "1.0.0",
+  "author": "IBM",
+  "homepage": "https://github.com/IBM/prompt-declaration-language",
+  "skills": []
+}
