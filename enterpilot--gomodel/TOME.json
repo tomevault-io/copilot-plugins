@@ -2,9 +2,9 @@
   "name": "GoModel",
   "owner": "ENTERPILOT",
   "repo": "GoModel",
-  "description": "High-performance AI gateway written in Go - unified OpenAI-compatible API for OpenAI, Anthropic, Gemini, Groq, xAI & Ollama. LiteLLM alternative with observability, guardrails & streaming.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ENTERPILOT/GoModel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T07:38:23Z"
+  "distributed_at": "2026-08-09T18:49:06Z"
 }
