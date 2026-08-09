@@ -1,0 +1,44 @@
+{
+  "name": "agent-vision-mcp",
+  "owner": "kitlau86",
+  "repo": "agent-vision-mcp",
+  "description": "An MCP server that gives non-vision LLMs the ability to \"see\" images. Plug in any OpenAI-compatible vision API (Gemini, Qwen-VL, OpenAI, or self-hosted) and your text-only model \u2014 like DeepSeek in Claude Code \u2014 can analyze screenshots, OCR text, read charts, and more.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kitlau86/agent-vision-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T00:31:43Z"
+}
