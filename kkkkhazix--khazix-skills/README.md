@@ -15,15 +15,6 @@ Original source: `CLAUDE.md` in [KKKKhazix/Khazix-Skills](https://github.com/KKK
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (6)
-
-- [Khazix-Skills](https://github.com/KKKKhazix/Khazix-Skills/tree/main/aihot/SKILL.md)
-- [Khazix-Skills](https://github.com/KKKKhazix/Khazix-Skills/tree/main/neat-freak/SKILL.md)
-- [Khazix-Skills](https://github.com/KKKKhazix/Khazix-Skills/tree/main/hv-analysis/SKILL.md)
-- [Khazix-Skills](https://github.com/KKKKhazix/Khazix-Skills/tree/main/khazix-writer/SKILL.md)
-- [Khazix-Skills](https://github.com/KKKKhazix/Khazix-Skills/tree/main/storage-analyzer/SKILL.md)
-- [Khazix-Skills](https://github.com/KKKKhazix/Khazix-Skills/tree/main/leader/SKILL.md)
-
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/KKKKhazix/Khazix-Skills](https://github.com/KKKKhazix/Khazix-Skills)
 
 ---
