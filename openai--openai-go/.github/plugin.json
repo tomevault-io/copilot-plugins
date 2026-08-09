@@ -1,0 +1,9 @@
+{
+  "name": "openai--openai-go",
+  "displayName": "openai-go",
+  "description": "openai-go",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/openai-go",
+  "skills": []
+}
