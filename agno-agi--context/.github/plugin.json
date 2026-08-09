@@ -1,0 +1,9 @@
+{
+  "name": "agno-agi--context",
+  "displayName": "context",
+  "description": "A self-hosted context manager. @context organizes your work into a private CRM and knowledge base and helps you stay on top of things.",
+  "version": "1.0.0",
+  "author": "agno-agi",
+  "homepage": "https://github.com/agno-agi/context",
+  "skills": []
+}
