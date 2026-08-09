@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Mibayy/token-savior](https://github.com/Mibayy/token-savior).
+Original source: `AGENTS.md` in [Mibayy/token-savior](https://github.com/Mibayy/token-savior).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Mibayy/token-savior](https://github.com/Mibayy/token-savior) — a repo with 1082+ stars on GitHub.
+From [Mibayy/token-savior](https://github.com/Mibayy/token-savior) — a repo with 1109+ stars on GitHub.
 
 ---
 
