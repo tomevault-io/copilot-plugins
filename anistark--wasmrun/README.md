@@ -1,17 +1,16 @@
 # wasmrun
 
-> Source: [anistark/wasmrun](https://github.com/anistark/wasmrun) — distributed by [TomeVault](https://tomevault.io)
-
-Powerful WASM runtime with debug capabilities
+> Source: [anistark/wasmrun](https://github.com/anistark/wasmrun). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [anistark/wasmrun](https://github.com/anistark/wasmrun).
+Original source: `` in [anistark/wasmrun](https://github.com/anistark/wasmrun).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
