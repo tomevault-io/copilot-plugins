@@ -1,109 +1,45 @@
 ## ccg-gateway
 
-> 本文档适用于多人协作维护 CCG Gateway 项目，目标是约束边界、统一风格、避免无序堆逻辑。
+> 只保留会直接影响实现决策的核心规则。修改前先确认现有做法，精准变更，不顺手重构无关代码。
 
 # 开发规范
 
-本文档适用于多人协作维护 CCG Gateway 项目，目标是约束边界、统一风格、避免无序堆逻辑。
+只保留会直接影响实现决策的核心规则。修改前先确认现有做法，精准变更，不顺手重构无关代码。
 
----
+## 一、Agent 模板优先
 
-## 一、全局规范
+- 新增或适配 Agent 时，先判断是否能通过 `src-tauri/agent-definitions/{id}.json` 完成。Agent 名称、识别规则、已有协议、配置路径、配置写入和功能开关应优先由模板声明，不要硬编码 Agent ID 或配置路径。
+- 模板格式以 `src-tauri/agent-definitions/agent-definition.schema.json` 为准，字段含义与边界见 `agent-template-guide.md`。
+- 只修改现有模板内容时，不应改动通用 Rust 或前端代码。
+- 新增模板字段时，必须同步 schema、`db/models.rs`、`services/agent.rs` 的运行时校验、前端共享类型和模板指南。
+- 只有模板无法表达的新行为才修改代码，例如新增请求协议、会话解析器、插件生命周期或 MCP 适配器。
+- 模板修改后需要重启应用，并在 Agent 页面确认没有“定义加载错误”。
 
-- 包管理统一使用 `pnpm`，禁止混用 `npm` / `yarn` / `npx`。
-- 数据目录统一通过 `config.rs` 中的方法获取，禁止在业务代码里硬编码用户目录或额外拼接一套数据根目录。
-- 数据库结构变更统一维护在 `db/schema_definition.rs`，每次主库或日志库结构变更都必须同步递增对应 `version`。
-- 数据库迁移流程统一走 `db/mod.rs`，禁止绕过 `SchemaInspector / SchemaDiff / SchemaMigrator` 私自写分散迁移逻辑。
-- 所有实体、数据库行结构、主要 DTO 统一维护在 `db/models.rs`；数据库字段变更时必须同步更新对应模型与前端类型。
-- 后端接口参数、返回结构、字段命名发生变更时，必须同步更新：
-  - `frontend/src/api/*`
-  - `frontend/src/types/models.ts`
-  - 相关页面/Store 的使用代码
-- 前端与 Rust 后端通信统一走 Tauri IPC：
-  - 前端统一通过 `frontend/src/api/tauri-bridge.ts` 的 `invoke`
-  - 禁止组件内直接散写 `@tauri-apps/api/core` 调用
-- 前端禁止直接请求业务后端或本地管理接口；需要桌面能力、文件能力、数据库能力时，统一新增 Tauri command。第三方公开 HTTP 接口可按现有模式使用，但要有明确必要性。
-- 状态管理统一使用 Pinia；跨页面/跨组件共享状态禁止下沉到组件局部 `ref/reactive`。
+## 二、后端边界
 
----
+- 数据目录统一通过 `config.rs` 获取；Agent 配置目录和文件路径统一复用 `services/cli_config.rs`，禁止重复实现路径展开。
+- 新增 Tauri command 放入 `src-tauri/src/commands/` 对应领域文件。`commands.rs` 仍有存量编排逻辑，但不再继续扩张。
+- command 只负责参数接收和流程编排；可复用的业务、配置写入和文件处理逻辑放入 `services/`。
+- Agent 配置写入复用 `services/agent_config.rs`、`services/config_patch/` 和 `services/official_credential.rs`，不要为单个 Agent 复制一套写入逻辑。
+- 数据库结构统一维护在 `db/schema_definition.rs`，结构变更必须递增对应版本，并通过 `db/mod.rs` 的现有迁移流程执行。
+- 数据库模型和跨层共享 DTO 维护在 `db/models.rs`；模块私有类型留在所属模块。
+- 面向用户的错误信息必须可读。关键流程使用 `tracing`；需要展示在系统日志中的事件使用现有日志记录方法。
 
-## 二、模块职责
+## 三、前端边界
 
-| 文件/目录 | 职责 |
-| --- | --- |
-| `src-tauri/src/lib.rs` | Tauri 应用装配、状态注册、command 注册、托盘与服务启动 |
-| `src-tauri/src/commands.rs` | Tauri 命令入口与桌面侧编排；允许保留现有聚合逻辑，但新增复杂业务优先下沉 `services/` |
-| `src-tauri/src/services/` | 业务逻辑层，外部请求、文件操作、CLI/插件/Skill 处理放在这里 |
-| `src-tauri/src/services/provider.rs` | Provider 管理、配置同步 |
-| `src-tauri/src/services/proxy.rs` | 请求转发、模型映射 |
-| `src-tauri/src/services/routing.rs` | 路由规则、负载均衡 |
-| `src-tauri/src/services/skill.rs` | Skill 仓库、发现、安装、收藏管理 |
-| `src-tauri/src/services/plugin.rs` | Plugin 市场、安装、收藏管理 |
-| `src-tauri/src/services/stats.rs` | 统计记录、系统日志写入 |
-| `src-tauri/src/api/handlers.rs` | HTTP 代理处理，不直接承载桌面侧 command |
-| `src-tauri/src/db/models.rs` | 数据模型、响应结构、DTO |
-| `src-tauri/src/db/schema_definition.rs` | Schema 定义与版本号 |
-| `frontend/src/api/` | 前端 API 封装，禁止页面直接拼命令名和参数 |
-| `frontend/src/stores/` | Pinia 状态管理 |
-| `frontend/src/views/` | 页面级 UI 与交互组织 |
-| `frontend/src/types/models.ts` | 前端共享类型定义 |
+- 技术栈为 Vue 3、TypeScript、Pinia、Vue Router 和 Element Plus；新增组件使用 `<script setup lang="ts">`，保持 TypeScript strict，不用 `any` 逃避类型检查。
+- 前端通过 `frontend/src/api/tauri-bridge.ts` 调用 Tauri IPC。页面和组件不得直接写 `invoke`，请求统一封装在 `frontend/src/api/`。
+- 跨层类型优先复用 `frontend/src/types/models.ts`；共享状态放 Store，页面私有状态留在页面或页面级组件。
+- 页面沿用 `V2Layout.vue` 的布局、设计变量和 `.v2-*` 基础样式；已有组件能满足需求时直接复用，不新增平行设计体系。
 
----
+## 四、变更与验证
 
-## 三、Rust 侧约束
-
-- `commands.rs` 新增接口时，优先保持薄入口：
-  - 参数接收
-  - 少量组装/编排
-  - 调用 `services/` 或 `db` 能力
-  - 返回统一错误
-
-- 现有历史逻辑若仍在 `commands.rs`，修改时优先局部收敛，禁止继续扩大单函数职责。
-
-- 返回值统一使用 `Result<T, String>` 或项目内等价别名；错误信息要对最终用户可读，禁止直接抛原始技术栈长报错。
-
-- 如果是调用第三方工具的报错，可以原样返回给用户（例如：调用三方CLI命令）
-
-- 数据库写操作涉及唯一约束、状态切换、批量更新时，优先复用已有错误映射与日志记录模式。
-
-- 关键流程使用 `tracing` 记录；需要进入系统日志列表的事件，统一调用 `stats::record_system_log`。
-
-- 涉及配置文件、凭证、插件、Skill、CLI 配置目录的逻辑，优先复用 `config.rs` 与现有 service 方法，禁止重复实现路径解析与目录探测。
-
----
-
-## 四、前端约束
-
-- 技术栈以 Vue 3 + TypeScript + Pinia + Vue Router + Element Plus 为准，新增代码默认使用 `<script setup lang="ts">`。
-- TypeScript 处于 `strict` 模式，禁止主动引入 `any` 逃避类型检查；确有必要时，范围尽量收窄并说明原因。
-- 所有后端返回结构、表单模型、列表项类型，优先复用 `frontend/src/types/models.ts`，不要在页面内重复定义同构接口。
-- 页面不得直接写 `invoke('xxx')`，统一经过 `frontend/src/api/*` 封装后再给 Store 或 View 使用。
-- 可复用的状态放 Store，可复用的请求放 `api/`，可复用的展示块放 `components/`，不要把请求、状态、视图细节糊在单个页面文件里。
-- 项目已启用 `unplugin-auto-import`，新增 Vue / Pinia / Router 常用 API 时先遵循现有自动导入方式，不要重复引入无意义 import。
-
----
-
-## 五、样式规范
-
-- 全局字体、字号、字重变量定义于 `frontend/src/App.vue`，新增全局文字规范先补变量再使用，禁止到处硬编码。
-- 全局 `.mono`、`code`、`pre` 的等宽字体由 `App.vue` 统一定义：
-  - 禁止在组件 scoped 样式中重新定义 `.mono`
-  - 禁止把颜色、尺寸等语义塞进 `.mono`
-- 适合使用等宽字体的场景：
-  - 数字 / 字母
-  - 代码 / JSON
-  - 路径 / URL
-
----
-
-## 六、变更要求
-
-- 新增功能前先复用现有模块，只有职责明显不合适时才新增文件。
-
-- 任何跨层改动都要做全链路检查：Rust command、前端 API、类型、Store、View、日志/迁移是否同步。
-
-- 修 bug 时优先补“边界约束”而不是只补表面分支，避免同类问题重复出现。
+- 后端接口、数据库字段或共享 DTO 变更时，同步检查 Rust 模型、前端 API、前端类型、Store 和页面使用处。
+- Agent 模板或 schema 变更时，同步检查内置模板、`agent-template-guide.md`、`README.md` 和 `README-en.md`。
+- 只运行与改动相关的检查：前端使用 `pnpm`，禁止混用 `npm`、`yarn` 或 `npx`；Rust 使用 Cargo。
+- 前端代码至少执行 TypeScript 检查，Rust 或 schema 代码至少执行 `cargo check`；纯文档修改执行格式和链接检查即可。
+- 不修改与任务无关的格式、依赖、锁文件或生成文件。
 
 ---
 > Source: [mos1128/ccg-gateway](https://github.com/mos1128/ccg-gateway) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
