@@ -1,193 +1,198 @@
 ## optimalportfolios
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Guidance for AI coding agents working in the **OptimalPortfolios** repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for AI coding agents working in the **OptimalPortfolios** repository.
 
-## Project Overview
+## Project overview
 
-**OptimalPortfolios** (v4.1.1) is a Python library for constructing and backtesting multi-asset portfolios. It provides the full production pipeline: alpha signal computation → covariance estimation (EWMA or HCGL factor model) → portfolio optimisation (risk budgeting, max diversification, max Sharpe, alpha-over-tracking-error, etc.) → rolling backtest with NaN-aware data handling.
+`optimalportfolios` implements the production pipeline for multi-asset portfolio construction and backtesting: alpha signals -> covariance estimation (EWMA or the HCGL factor model from `factorlasso`) -> constrained optimisation (risk budgeting, maximum diversification, maximum Sharpe, alpha over tracking error, and others) -> rolling backtest and reporting through `qis`.
 
-The package is the reference implementation for the ROSAA framework published in *The Journal of Portfolio Management* (Sepp, Ossa, Kastenholz, 2026).
+It is the reference implementation of the ROSAA framework published in *The Journal of Portfolio Management* (Sepp, Ossa and Kastenholz, 2026). Distribution and import name `optimalportfolios`. Licensed MIT (`LICENSE.txt`).
+
+## Ecosystem position
+
+This package is one of eight open-source Python libraries maintained at [github.com/ArturSepp](https://github.com/ArturSepp). Before implementing anything non-trivial, check whether it already exists in one of these:
+
+| Package | Repository | Purpose |
+|---|---|---|
+| `qis` | QuantInvestStrats | Performance analytics, factsheets, visualisation |
+| `optimalportfolios` | OptimalPortfolios | Portfolio construction and backtesting |
+| `factorlasso` | factorlasso | Sparse factor models and factor covariance estimation |
+| `bbg-fetch` | BloombergFetch | Bloomberg data fetching |
+| `trendfollowing` | TrendFollowingSystems | Trend-following systems: closed-form theory and replication |
+| `goal-based-allocation` | GoalBasedAllocation | Dynamic MV allocation under regime-switching jump-diffusions |
+| `stochvolmodels` | StochVolModels | Stochastic volatility pricing analytics |
+| `vanilla-option-pricers` | VanillaOptionPricers | Vanilla option pricers and implied volatility fitters |
+
+Actual package dependencies within the stack: `optimalportfolios` depends on `qis` and `factorlasso`; `trendfollowing` depends on `qis`; `stochvolmodels` has an optional `research` extra that pulls in `qis`. The others are independent.
+
+Do not vendor or copy code between these packages. If functionality belongs in a sibling package, say so rather than reimplementing it here.
+
+### `rosaa` dependency floors
+
+`rosaa/` is gitignored and carries no `pyproject.toml`, so its floors have nowhere else to live and are recorded here. They are not advisory: each names a symbol or keyword `rosaa` calls that does not exist below the floor.
+
+| Package | Floor | What `rosaa` needs at it |
+|---|---|---|
+| `qis` | **>= 5.5.0** | `load_df_from_csv` / `load_df_dict_from_csv` take `float_precision`; the inputs store cannot round-trip a float exactly without it |
+| `factorlasso` | **>= 0.11.0** | `RollingFactorCovarData.get_alphas` forwards `asset_frequencies` / `default_freq`; below it a per-frequency `alpha_span` silently applies the `'ME'` entry to every quarterly asset |
+| `optimalportfolios` | **>= 6.8.0** | signal spans accept a per-cadence `Mapping[str, int]`; below it `product_config.SIGNALS` raises, since it passes dicts |
+
+`optimalportfolios 6.7.0` was tagged in `CITATION.cff` but never published — its `pyproject.toml` stayed at 6.6.0 — so a fresh `pip install optimalportfolios` before 6.8.0 gives a package `rosaa` cannot run on. Verified with `pip index versions optimalportfolios`, not from the changelog.
+
+## Repository layout
+
+```
+optimalportfolios/
+  alphas/            alpha signal construction
+  covar_estimation/  covariance estimators (EWMA, factor/HCGL via factorlasso)
+  optimization/      optimisers, constraints, solvers
+  universe/          instrument universes
+  reports/           reporting built on qis
+  tests/             cross-cutting tests (release metadata agreement)
+  utils/, examples/, docs/, config.py, local_path.py, settings.yaml
+papers/              code accompanying the published papers (excluded from ruff)
+```
+
+Tests live inside the package as `optimalportfolios/<subpackage>/tests/*_test.py`; there is no top-level `tests/` directory. Not every `*_test.py` is a pytest module: sixteen of them are `run_local_test` diagnostic scripts that print and plot, contribute no collected tests, and need the author's local price data. They are still imported during collection, so they must stay importable on a core install — put an optional import inside the function that needs it and raise `ImportError` naming the extra.
 
 ## Commands
 
-### Install (editable with dev dependencies)
 ```bash
-pip install -e ".[dev]"
-```
-
-### Run all tests
-```bash
-pytest optimalportfolios/
-```
-
-### Run a single test file
-```bash
-pytest optimalportfolios/alphas/tests/signals_test.py -v
+pip install -e ".[dev]"                                  # editable install with dev tools
+pytest                                                   # run the test suite (180 tests, ~9 s)
 pytest optimalportfolios/optimization/tests/constraints_test.py -v
+ruff check optimalportfolios/                            # lint (papers/ is excluded)
 ```
 
-### Formatting and linting
-```bash
-black optimalportfolios/       # Format (line-length=100)
-isort optimalportfolios/       # Sort imports (profile=black)
-flake8 optimalportfolios/      # Lint
-mypy optimalportfolios/        # Type-check
-```
+*Note: Terminal execution should be compatible with Windows PowerShell within PyCharm.*
 
-Test files follow `*_test.py` naming; pytest markers include `slow`, `integration`, `unit`, `optimization`, `backtesting`.
+Optional extras: `data`, `reports`, `visualization`, `jupyter`, `dev`, `all`. Supported Python is >= 3.10; CI runs 3.10 – 3.12 on a `[dev]` install and 3.12 again on a core install, which must be green: no test may need data, network or a Bloomberg terminal.
 
-## Architecture
+## Conventions
 
-### Package Structure
-```
-optimalportfolios/
-├── alphas/                    # Alpha signal computation (NEW in v4.1.1)
-│   ├── signals/
-│   │   ├── momentum.py        # compute_momentum_alpha()
-│   │   ├── low_beta.py        # compute_low_beta_alpha()
-│   │   └── managers_alpha.py  # compute_managers_alpha()
-│   ├── alpha_data.py          # AlphasData container
-│   ├── backtest_alphas.py     # Signal backtesting tool
-│   └── tests/
-├── covar_estimation/          # Covariance matrix estimation
-│   ├── covar_estimator.py     # CovarEstimator ABC
-│   ├── ewma_covar_estimator.py    # EwmaCovarEstimator
-│   ├── factor_covar_estimator.py  # FactorCovarEstimator (HCGL)
-│   ├── rolling_covar.py       # RollingFactorCovarData, CurrentFactorCovarData
-│   └── covar_reporting.py     # Rolling covariance diagnostics
-├── lasso/                     # HCGL factor model
-│   └── lasso_model_estimator.py
-├── optimization/              # Portfolio optimisation
-│   ├── constraints.py         # Constraints, GroupLowerUpperConstraints
-│   ├── wrapper_rolling_portfolios.py  # compute_rolling_optimal_weights()
-│   └── solvers/               # One module per solver, each with 3 layers
-├── utils/                     # Auxiliary analytics
-├── reports/                   # Performance reporting
-└── examples/                  # Worked examples and paper reproductions
-```
+- Test files are named `*_test.py` and live in a `tests/` directory inside the subpackage under test.
+- Line length 100 (`ruff`, rules `E`, `F`, `W`); `papers/` is excluded from linting on purpose. `I` is deliberately not selected anywhere in the stack: imports group the scientific stack before project packages, which isort's ordering contradicts.
+- **Three stack invariants are enforced by ruff rather than written down.** Unlike `E`/`F`/`W`, which report ~780 legacy findings, these are green on the whole package, so a violation is always something you just introduced:
+  - `TID251` fails an import of `trendfollowing`, `privateassets`, `stochvolmodels`, `goal_based_allocation` or `vanilla_option_pricers`. This package depends on `qis` and `factorlasso` and on nothing else in the stack; subject packages never import each other. `qis` and `factorlasso` are of course not banned — they are declared dependencies, and importing them is the point.
+  - `TID253` fails a **module-level** import of an optional extra (`yfinance`, `pandas_datareader`, `pybloqs`, `plotly`, `pyarrow`, `psycopg2`, `sqlalchemy`); the same import inside a function passes, which is the pattern the collection note above requires. `optimalportfolios/examples/**` and `reports/portfolio_result_pybloqs.py` are named in `per-file-ignores` — add to that list only for a module `optimalportfolios/__init__.py` cannot reach.
+  - `ICN` pins `import numpy as np` and `import pandas as pd`. Ruff's default alias map is replaced rather than extended, so `matplotlib` stays free to be both `mpl` and `plt`.
+- Optimisation problems are expressed with `cvxpy`; `quadprog` is used where a dedicated QP solver is faster. Do not introduce a third optimisation backend.
+- Enums and dataclasses carry configuration (optimiser type, constraint sets, estimation settings) — extend the existing enum rather than passing raw strings.
+- Time series are pandas objects with a `DatetimeIndex`; the backtest layer is NaN-aware by design, so preserve NaN handling when refactoring.
+- Reporting and plotting go through `qis`; do not add a parallel plotting layer here.
 
-### Module Dependency Order
-```
-alphas/  →  optimization/  →  covar_estimation/  →  lasso/  →  utils/  →  reports/
-```
-`alphas/` depends only on `qis` and standard libraries. `optimization/` depends on `covar_estimation/` only for type hints — covariance estimation is separated from optimisation (covar_dict is passed, not estimated internally).
+## Implementation Directives
 
-### Key Design Principle: Estimation/Optimisation Separation
+- **Preserve Core Logic:** Maintain the existing optimiser defaults, constraint semantics, and rebalancing conventions, as published results heavily depend on them.
+- **Respect Linting Exclusions:** Leave `papers/` exactly as-is; it is deliberately excluded from linting to preserve published code.
+- **Ensure Offline Execution:** Ensure all examples run on free data. Never add a hard dependency on Bloomberg data.
+- **Maintain Clean Commits:** Prevent backtest outputs, factsheets, or generated figures from being committed to version control.
 
-Covariance estimation is separated from portfolio optimisation. Estimate first, then pass `covar_dict` to any solver:
+<!-- ===== SHARED AGENT CORE (consumer variant) — begin =====
+     Generated from SHARED_AGENT_CORE.md in the maintainer's project knowledge. Do not hand-edit
+     between these markers — propose the change to the maintainer instead. Variants: builder
+     (qis) / consumer / standalone. Last synced 2026-08-08, agent core v1.1. -->
 
-```python
-# estimate once
-estimator = EwmaCovarEstimator(returns_freq='W-WED', span=52, rebalancing_freq='QE')
-covar_dict = estimator.fit_rolling_covars(prices=prices, time_period=time_period)
+## Domain invariants
 
-# reuse across multiple taa
-weights_rb = rolling_risk_budgeting(prices=prices, covar_dict=covar_dict, ...)
-weights_md = rolling_maximise_diversification(prices=prices, covar_dict=covar_dict, ...)
-```
+Not inferable from any single file, and the source of numerically wrong code that runs clean:
 
-Rolling solvers do NOT estimate covariance internally — `covar_dict` is a required parameter.
+- **No look-ahead, anywhere in a backtest path.** A weight decided at *t* is applied over
+  *[t, t+1]*. Estimation is point-in-time: `MeanAdjType.INSAMPLE` subtracts a full-sample mean
+  and is therefore forward-looking — correct for a descriptive exhibit, wrong inside a backtest.
+- **Return convention is stated, never implied** — `qis.to_returns(..., is_log_returns=...)`.
+  Annualisation follows from the frequency; never silently switch convention, frequency, or
+  annualisation factor.
+- **Sharpe has three explicitly labelled conventions** in `qis`; excess variants need
+  `PerfParams.rates_data`. State which one a number uses.
+- **`qis.BootstrapType.STATIONARY` wraps circularly from qis 5.1.0.** Any result resampled under
+  an earlier version does not reproduce.
+- One convention per concept across the stack. If two packages disagree, that is a bug to
+  report, not a difference to accommodate.
 
-### Three-Layer Solver Pattern
+## Use the stack before you write it
 
-Every portfolio solver is implemented in three layers. This pattern MUST be followed when adding new solvers:
+This package consumes `qis` (analytics, backtesting, reporting) and `factorlasso` (factor
+covariance). Reimplementing a capability they export is a defect, not a convenience.
+Triggers — stop and check the export list before writing: backtest, rebalance, turnover,
+drawdown, Sharpe, volatility target, bootstrap, resample, unsmooth, covariance, correlation,
+regime, hedge ratio, factsheet, tracking error, risk contribution.
 
-| Layer | Prefix | Input | Output |
-|-------|--------|-------|--------|
-| 1 – Math | `opt_*` / `cvx_*` | Clean `np.ndarray`, no NaNs | `np.ndarray` weights |
-| 2 – Wrapper | `wrapper_*` | `pd.DataFrame` (may have NaNs) | `pd.Series` weights |
-| 3 – Rolling | `rolling_*` / `backtest_*` | `pd.DataFrame` prices + `covar_dict` | `pd.DataFrame` weight time series |
+- **The hard stop:** a `for` loop over dates accumulating a position, a weight or a P&L is
+  `qis.backtest_model_portfolio`. The hand-rolled version gets drift adjustment wrong — `qis`
+  holds *units* between rebalancings, not weights.
+- **Never invent a symbol.** If a function, class, or keyword argument is not in the export
+  list, it does not exist. Check in one line —
+  `python -c "import qis; print([n for n in dir(qis) if 'unsmooth' in n.lower()])"`;
+  `qis.api.CORE_API` is the documented core and `help(qis.<symbol>)` gives the arguments. Say a
+  symbol is missing rather than producing code that calls it.
+- **If you genuinely must reimplement**, name the rejected stack symbol and why, in a comment on
+  the line above the definition — that turns a silent divergence into a reviewable decision.
+- Never introduce `quantstats`, `pyfolio`, `empyrical`, `ffn`, `bt`, or an ad-hoc statistics
+  layer.
 
-The wrapper layer filters NaN assets via `filter_covar_and_vectors_for_nans()`, calls `constraints.update_with_valid_tickers()`, then delegates to layer 1. The rolling layer iterates over rebalancing dates in `covar_dict` and calls the wrapper.
+## Verification loop
 
-### Alpha Signals Module (v4.1.1)
+- Plan → patch → verify. Name the verification command and its result when proposing a patch.
+- A second pass is mandatory where a plausible patch can be numerically wrong and still run
+  clean: estimation windows, weight normalisation, annualisation, constraint construction,
+  anything resampled. Verify against a reference computed a different way, and say which.
+- Prove a new test fails before trusting that it passes: reintroduce the defect, watch it fail,
+  restore.
 
-Three standalone signal functions with a consistent interface:
+## Escalation and scope
 
-```python
-def compute_*_alpha(
-    prices: pd.DataFrame,
-    returns_freq: Union[str, pd.Series],  # single or mixed frequency
-    group_data: Optional[pd.Series],      # for within-group scoring
-    **signal_params,
-) -> Tuple[pd.DataFrame, pd.DataFrame]:   # (score, raw_signal)
-```
+- Stop and propose before proceeding when a change would exceed roughly five files, alter a
+  public signature, or touch a numerical path.
+- Never change numerical results, random seeds, or computed values unless the change is the
+  request.
+- A public-signature change carries a `CHANGELOG.md` entry and a version bump in the same
+  change. Removing a keyword argument from a function taking `**kwargs` is a silent break — the
+  caller's keyword is swallowed and nothing raises. Treat it as breaking.
+- Do not refactor beyond the requested scope. Propose the wider change; do not perform it.
 
-Each function handles both single-frequency (`returns_freq='ME'`) and mixed-frequency (`returns_freq=pd.Series(...)`) internally. No separate `_different_freqs` variants.
+## Concurrent sessions
 
-Naming convention: raw signal → score → alpha.
+More than one agent or session may work on this checkout at the same time, so a file can change
+between your read of it and your write.
 
-`AlphasData` is the output container holding `alpha_scores` (portfolio-ready) plus all intermediate components for diagnostics.
+- Re-read a file from disk immediately before editing it. Never write a file from an earlier
+  read: a whole-file write from a stale copy silently reverts another session's work.
+- Prefer minimal anchored edits over whole-file replacement. If the on-disk content is not what
+  you expected, stop and reconcile your change onto the current content rather than overwrite.
 
-**Important**: The alpha aggregation logic (routing assets to signals, combination rules, CDF mapping) is NOT in this package. It belongs in the private `rosaa` package (`rosaa.alphas.AlphaAggregator`). This package provides only the individual signal building blocks.
+## Roadmap execution
 
-### Main Entry Points
+Feature roadmaps live at the repository root as `ROADMAP_<feature>.md`. An execution request
+names the file and the stage. A stage is complete when its stated verification command passes;
+its out-of-scope list is binding.
 
-- **`compute_rolling_optimal_weights()`** (`optimization/wrapper_rolling_portfolios.py`) — unified dispatcher for all solvers via `PortfolioObjective` enum.
-- **`EwmaCovarEstimator`** (`covar_estimation/ewma_covar_estimator.py`) — EWMA covariance. Use `.fit_rolling_covars(prices=...)` for backtesting, `.fit_current_covar(prices=...)` for live.
-- **`FactorCovarEstimator`** (`covar_estimation/factor_covar_estimator.py`) — HCGL factor model. Use `.fit_rolling_factor_covars(risk_factor_prices=..., asset_returns_dict=...)`. Takes `asset_returns_dict` (not `prices`) for mixed-frequency support.
-- **`compute_momentum_alpha()`, `compute_low_beta_alpha()`, `compute_managers_alpha()`** (`alphas/signals/`) — individual alpha signal functions.
+<!-- ===== SHARED AGENT CORE — end ===== -->
 
-### Key Classes
+## Replication contract
 
-**`Constraints`** (`optimization/constraints.py`) — Dataclass specifying all portfolio constraints (long-only, weight bounds, tracking error, turnover, group constraints). Backend-agnostic; convert with `.set_cvx_all_constraints()`, `.set_scipy_constraints()`, or `.set_pyrb_constraints()`. Use `.update_with_valid_tickers()` to subset to valid assets.
+`papers/` reproduces results from the published papers. If a change alters optimiser behaviour, covariance estimation, or backtest mechanics, re-run the relevant scripts in `papers/` and confirm the outputs still match the published tables before proposing the change.
 
-**`EwmaCovarEstimator`** (`covar_estimation/ewma_covar_estimator.py`) — EWMA covariance estimator inheriting from `CovarEstimator` ABC. Parameters: `returns_freq`, `span`, `rebalancing_freq`.
+## Release checklist
 
-**`FactorCovarEstimator`** (`covar_estimation/factor_covar_estimator.py`) — HCGL factor model covariance estimator inheriting from `CovarEstimator` ABC. Takes `LassoModel` for beta estimation, produces `RollingFactorCovarData` with `.get_y_covars()` and `.get_y_betas()` accessors.
+A release touches three version locations. All three must agree, and `optimalportfolios/tests/version_metadata_test.py` fails when they do not:
 
-**`AlphasData`** (`alphas/alpha_data.py`) — Container for alpha computation results. Primary output: `alpha_scores` (T × N DataFrame). Also holds intermediate components: `momentum_score`, `beta_score`, `managers_scores`, and raw signals.
+1. `version` in `pyproject.toml`
+2. `version` and `date-released` in `CITATION.cff`
+3. the `@software` BibTeX entry in `README.md`
 
-**`PortfolioObjective`** (`config.py`) — Enum selecting the solver: `MIN_VARIANCE`, `MAX_DIVERSIFICATION`, `EQUAL_RISK_CONTRIBUTION`, `QUADRATIC_UTILITY`, `MAXIMUM_SHARPE_RATIO`, `MAX_CARA_MIXTURE`.
+Then: commit, tag `v<version>`, build and publish to PyPI, and cut a GitHub Release with the same tag. Do not bump versions as part of an unrelated change, and do not publish without the maintainer explicitly asking for a release.
 
-### Conventions
+## Known issues
 
-- All DataFrames use DatetimeIndex for rows and ticker strings for columns/index. Prices, returns, covariance matrices, and weights all follow this convention (aligned with the `qis` library).
-- `span` and `roll_window` are in periods, not days. Adjust when changing `returns_freq` (e.g., `span=52` with `'W-WED'` ≈ 1 year; `span=12` with `'ME'` ≈ 1 year).
-- `ConstraintEnforcementType.FORCED_CONSTRAINTS` = hard constraint; `UTILITY_CONSTRAINTS` = soft penalty added to objective.
-- Solver fallback messages use `warnings.warn()`, not `print()`.
-- Solvers live in `optimization/solvers/`; each module implements all three layers.
-- Examples in `examples/` serve as integration tests and usage documentation.
-
-### Adding a New Solver
-
-1. Create `optimization/solvers/my_solver.py` implementing all three layers.
-2. Add enum entry to `PortfolioObjective` in `config.py`.
-3. Add dispatch branch in `wrapper_rolling_portfolios.py`.
-4. Export from `optimization/solvers/__init__.py`.
-5. Add tests in `optimization/solvers/tests/`.
-
-### Adding a New Alpha Signal
-
-1. Create `alphas/signals/new_signal.py` with `compute_new_signal_alpha()` following the standard `(prices, returns_freq, group_data, **params) → (score, raw)` interface.
-2. Handle both single-freq and mixed-freq via `isinstance(returns_freq, pd.Series)` check.
-3. Export from `alphas/signals/__init__.py` and `alphas/__init__.py`.
-4. Add tests in `alphas/tests/`.
-5. The signal is ready for use by any aggregator (the routing logic lives outside this package).
-
-### Deleted in v4.1.1
-
-- `utils/factor_alphas.py` — all functions migrated to `alphas/signals/`. Do NOT recreate.
-- `utils/manager_alphas.py` — `AlphasData` moved to `alphas/alpha_data.py`, `compute_joint_alphas()` moved to private `rosaa.alphas.AlphaAggregator`. Do NOT recreate.
-- `reports/backtest_alphas.py` — moved to `alphas/backtest_alphas.py`.
-
-### Key External Dependencies
-
-- **`qis`** (QuantInvestStrats) — data loading, `TimePeriod`, performance analytics, backtesting utilities. Most data structures align with `qis` conventions.
-- **`cvxpy`** — primary convex optimization backend (default solver: `CLARABEL`).
-- **`scipy`** — secondary optimization backend for some solvers (SLSQP).
-- **`pyrb`** — risk budgeting solver backend (forked within this repo). Uses Spinu (2013) convex reformulation via ADMM — preferred over scipy SLSQP for risk budgeting.
-
-### References
-
-- Sepp A., Ossa I., Kastenholz M. (2026), "Robust Optimization of Strategic and Tactical Asset Allocation for Multi-Asset Portfolios", *JPM* 52(4), 86-120.
-- Sepp A., Hansen E., Kastenholz M. (2026), "Capital Market Assumptions and Strategic Asset Allocation Using Multi-Asset Tradable Factors", *Working Paper*.
-- Sepp A. (2023), "Optimal Allocation to Cryptocurrencies in Diversified Portfolios", *Risk Magazine*, October 2023, 1-6.
+- The previous `CLAUDE.md` described version 4.1.1 and a black/isort/flake8/mypy toolchain; the project has since moved to `ruff` and this file supersedes it.
+- `ruff check optimalportfolios/` reports around 780 findings, almost all `E501` line-length in the older modules. CI does not gate on lint. Fix only the lines your specific change touches; a repository-wide reflow is not wanted.
+- **Offline Fixture Anomaly:** The 6.2.0 changelog mentions a 69-test suite and an offline fixture (`examples/data/multiasset_returns.csv` with `examples.data.multiasset.load_multiasset_data`). This fixture is committed but unused. Ignore it completely and do not attempt to integrate it into the current 180-test suite.
 
 ---
 > Source: [ArturSepp/OptimalPortfolios](https://github.com/ArturSepp/OptimalPortfolios) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
