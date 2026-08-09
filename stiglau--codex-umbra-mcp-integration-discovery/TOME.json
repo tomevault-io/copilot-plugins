@@ -1,0 +1,44 @@
+{
+  "name": "codex-umbra_mcp-integration-discovery",
+  "owner": "StigLau",
+  "repo": "codex-umbra_mcp-integration-discovery",
+  "description": "Codex Umbra is a PoC/scaffolding for using MCP-as-an-API discovery tool",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/StigLau/codex-umbra_mcp-integration-discovery",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T04:58:24Z"
+}
