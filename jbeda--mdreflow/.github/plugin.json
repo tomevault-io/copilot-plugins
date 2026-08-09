@@ -1,0 +1,9 @@
+{
+  "name": "jbeda--mdreflow",
+  "displayName": "mdreflow",
+  "description": "Reflow Markdown prose: sentence-per-line (semantic line breaks), paragraph-per-line, and hard wrap. Go library + CLI.",
+  "version": "1.0.0",
+  "author": "jbeda",
+  "homepage": "https://github.com/jbeda/mdreflow",
+  "skills": []
+}
