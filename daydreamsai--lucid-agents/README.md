@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [daydreamsai/lucid-agents](https://github.com/da
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [daydreamsai/lucid-agents](https://github.com/daydreamsai/lucid-agents) — a repo with 192+ stars on GitHub.
+From [daydreamsai/lucid-agents](https://github.com/daydreamsai/lucid-agents) — a repo with 193+ stars on GitHub.
 
 ---
 
