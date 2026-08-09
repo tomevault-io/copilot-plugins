@@ -1,0 +1,14 @@
+{
+  "name": "lobehub--lobe-ui",
+  "displayName": "lobe-ui",
+  "description": "lobe-ui",
+  "version": "1.0.0",
+  "author": "lobehub",
+  "homepage": "https://github.com/lobehub/lobe-ui",
+  "skills": [
+    {
+      "name": "lobe-ui",
+      "description": ""
+    }
+  ]
+}
