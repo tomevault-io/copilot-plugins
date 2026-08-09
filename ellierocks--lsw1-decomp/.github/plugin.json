@@ -1,0 +1,9 @@
+{
+  "name": "ellierocks--lsw1-decomp",
+  "displayName": "lsw1-decomp",
+  "description": "A work-in-progress decompilation of LEGO Star Wars: The Video Game for the Nintendo GameCube.",
+  "version": "1.0.0",
+  "author": "ellierocks",
+  "homepage": "https://github.com/ellierocks/lsw1-decomp",
+  "skills": []
+}
