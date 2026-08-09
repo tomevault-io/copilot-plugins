@@ -1,0 +1,14 @@
+{
+  "name": "toolsdk-ai--toolsdk-mcp-registry",
+  "displayName": "toolsdk-mcp-registry",
+  "description": "toolsdk-mcp-registry",
+  "version": "1.0.0",
+  "author": "toolsdk-ai",
+  "homepage": "https://github.com/toolsdk-ai/toolsdk-mcp-registry",
+  "skills": [
+    {
+      "name": "toolsdk-mcp-registry",
+      "description": ""
+    }
+  ]
+}
