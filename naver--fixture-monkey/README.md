@@ -15,6 +15,10 @@ Original source: `CLAUDE.md` in [naver/fixture-monkey](https://github.com/naver/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
+## Bundled Skills (1)
+
+- [fixture-monkey](https://github.com/naver/fixture-monkey/tree/main/claude-plugins/fixture-monkey/skills/write-fixture/SKILL.md)
+
 From [naver/fixture-monkey](https://github.com/naver/fixture-monkey) — a repo with 697+ stars on GitHub.
 
 ---
