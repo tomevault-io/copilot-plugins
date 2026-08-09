@@ -1,13 +1,11 @@
-# AI instruction files for khazix-skills
+# Khazix-Skills
 
-> Sourced from [KKKKhazix/khazix-skills](https://github.com/KKKKhazix/khazix-skills) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-数字生命卡兹克开源的 AI Skills 合集
+> Tome by [KKKKhazix](https://github.com/KKKKhazix/Khazix-Skills), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [KKKKhazix/khazix-skills](https://github.com/KKKKhazix/khazix-skills).
+Original source: `CLAUDE.md` in [KKKKhazix/Khazix-Skills](https://github.com/KKKKhazix/Khazix-Skills).
 
 ## Also available for
 
@@ -17,14 +15,19 @@ Original source: `CLAUDE.md` in [KKKKhazix/khazix-skills](https://github.com/KKK
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/KKKKhazix/khazix-skills](https://github.com/KKKKhazix/khazix-skills)
+## Bundled Skills (6)
+
+- [Khazix-Skills](https://github.com/KKKKhazix/Khazix-Skills/tree/main/aihot/SKILL.md)
+- [Khazix-Skills](https://github.com/KKKKhazix/Khazix-Skills/tree/main/neat-freak/SKILL.md)
+- [Khazix-Skills](https://github.com/KKKKhazix/Khazix-Skills/tree/main/hv-analysis/SKILL.md)
+- [Khazix-Skills](https://github.com/KKKKhazix/Khazix-Skills/tree/main/khazix-writer/SKILL.md)
+- [Khazix-Skills](https://github.com/KKKKhazix/Khazix-Skills/tree/main/storage-analyzer/SKILL.md)
+- [Khazix-Skills](https://github.com/KKKKhazix/Khazix-Skills/tree/main/leader/SKILL.md)
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/KKKKhazix/Khazix-Skills](https://github.com/KKKKhazix/Khazix-Skills)
 
 ---
 
-Install this config instantly:
-```
-npx tomevault install KKKKhazix/khazix-skills
-```
-Source: [github.com/KKKKhazix/khazix-skills](https://github.com/KKKKhazix/khazix-skills).
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
-<!-- genome:a-i-p -->
+<!-- genome:t-c-q -->
