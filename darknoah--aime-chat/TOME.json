@@ -61,9 +61,21 @@
       "path": "assets/market/skill/aime-chat-docs/SKILL.md",
       "github_url": "https://github.com/DarkNoah/aime-chat/tree/main/assets/market/skill/aime-chat-docs/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "aime-chat",
+      "path": "assets/market/skill/find-skills/SKILL.md",
+      "github_url": "https://github.com/DarkNoah/aime-chat/tree/main/assets/market/skill/find-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "aime-chat",
+      "path": "assets/market/skill/agent-browser/SKILL.md",
+      "github_url": "https://github.com/DarkNoah/aime-chat/tree/main/assets/market/skill/agent-browser/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/DarkNoah/aime-chat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T18:30:26Z"
+  "distributed_at": "2026-08-09T11:32:31Z"
 }
