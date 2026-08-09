@@ -3,7 +3,7 @@
   "owner": "marimo-team",
   "repo": "marimo",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "marimo",
-      "path": "packages/llm-info/skills/SKILL.md",
-      "github_url": "https://github.com/marimo-team/marimo/tree/main/packages/llm-info/skills/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/marimo-team/marimo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T06:35:22Z"
+  "distributed_at": "2026-08-09T11:48:09Z"
 }
