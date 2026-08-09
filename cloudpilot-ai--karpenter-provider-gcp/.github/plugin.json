@@ -1,0 +1,9 @@
+{
+  "name": "cloudpilot-ai--karpenter-provider-gcp",
+  "displayName": "karpenter-provider-gcp",
+  "description": "karpenter-provider-gcp",
+  "version": "1.0.0",
+  "author": "cloudpilot-ai",
+  "homepage": "https://github.com/cloudpilot-ai/karpenter-provider-gcp",
+  "skills": []
+}
