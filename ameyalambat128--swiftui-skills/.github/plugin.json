@@ -1,0 +1,22 @@
+{
+  "name": "ameyalambat128--swiftui-skills",
+  "displayName": "swiftui-skills",
+  "description": "swiftui-skills",
+  "version": "1.0.0",
+  "author": "ameyalambat128",
+  "homepage": "https://github.com/ameyalambat128/swiftui-skills",
+  "skills": [
+    {
+      "name": "skill",
+      "description": ""
+    },
+    {
+      "name": "swiftui-skills",
+      "description": ""
+    },
+    {
+      "name": "swiftui-skills",
+      "description": ""
+    }
+  ]
+}
