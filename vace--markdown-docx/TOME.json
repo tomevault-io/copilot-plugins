@@ -1,0 +1,57 @@
+{
+  "name": "markdown-docx",
+  "owner": "vace",
+  "repo": "markdown-docx",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "markdown-to-docx",
+      "path": "skills/markdown-to-docx",
+      "github_url": "https://github.com/vace/markdown-docx/tree/main/skills/markdown-to-docx",
+      "description": ""
+    },
+    {
+      "name": "markdown-docx",
+      "path": "skills/markdown-to-docx/SKILL.md",
+      "github_url": "https://github.com/vace/markdown-docx/tree/main/skills/markdown-to-docx/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vace/markdown-docx",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T13:33:43Z"
+}
