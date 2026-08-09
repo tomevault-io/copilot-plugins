@@ -1,229 +1,74 @@
 ## cloud-foundation-fabric
 
-> Cloud Foundation Fabric is a comprehensive suite of Terraform modules and end-to-end blueprints designed for Google Cloud Platform (GCP). It serves two primary purposes:
+> When generating Terraform code that consumes Cloud Foundation Fabric modules, you MUST adhere to the following conventions:
 
-# Cloud Foundation Fabric (CFF)
+# Cloud Foundation Fabric (CFF) Conventions for Module Consumers
 
-## Project Overview
+When generating Terraform code that consumes Cloud Foundation Fabric modules, you MUST adhere to the following conventions:
 
-Cloud Foundation Fabric is a comprehensive suite of Terraform modules and end-to-end blueprints designed for Google Cloud Platform (GCP). It serves two primary purposes:
+## 1. Module Preference
+- **Prefer Modules:** Always prefer CFF modules over raw `google_*` resources.
+- **Flat Structure:** Avoid creating wrapper modules or nested module calls (modules calling other modules). Consume CFF modules directly in your root module.
 
-1.  **Modules:** A library of composable, production-ready Terraform modules (e.g., `project`, `net-vpc`, `gke-cluster`).
-2.  **FAST (Fabric FAST):** An opinionated, stage-based landing zone toolkit for bootstrapping enterprise-grade GCP organizations.
+## 2. Naming Conventions
+- **Use `prefix`:** For modules that support it (e.g., `project`, `gcs`), using a `prefix` variable is recommended but not mandatory.
+- **Deterministic Naming:** Prefer using structured, deterministic tokens rather than random strings.
 
-## Key Components
+## 3. Dependency Management
+- **Output-to-Input:** Pass outputs from one module directly as inputs to another (e.g., `network = module.vpc.name`).
+- **Ordering:** CFF modules encapsulate dependencies (like API activation) in their outputs. Rely on these outputs to ensure correct creation order.
+- **Service Agents:** Use the `service_agents` output from the `project` module when granting IAM roles to Google-managed service accounts.
+- **Implicit Dependencies:** Avoid explicit `depends_on` unless absolutely necessary. Rely on implicit dependencies (passing outputs to inputs) for better readability and maintainability.
 
-### 1. Modules (`/modules`)
+## 4. Factories
+- **When to Use Factories:** Use factories when you need to manage a large number of similar resources (e.g., projects, VPCs, firewall rules) without duplicating module blocks. Factories separate configuration data (in YAML files) from Terraform logic.
+- **Main Modules with Factory Support:**
+  - `project-factory`: For bulk creation of projects, folders, and budgets.
+  - `net-vpc-factory`: For bulk creation of VPCs and associated resources.
+  - `net-vpc`: Supports loading subnets and internal ranges from folders via `subnets_folder` and `internal_ranges_folder` keys in `factories_config`.
+  - `net-vpc-firewall`: Supports loading firewall rules from a folder via `rules_folder`.
+  - `organization` and `folder`: Support loading organization policies and custom roles.
+  - `vpc-sc`: Supports loading access levels and service perimeters.
+- **Usage:** Pass the path to the directory containing YAML files to the `factories_config` variable of the respective module.
 
-*   **Philosophy:** Lean, composable, and close to the underlying provider resources.
-*   **Structure:**
-    *   Standardized interfaces: IAM, logging, organization policies, etc.
-    *   Self-contained: Dependency injection via context variables is preferred over complex remote state lookups within modules.
-    *   Flat: avoid using sub-modules to reduce complexity and minimize layer traversals.
-    *   **Naming:** Avoid random suffixes; use explicit `prefix` variables.
-*   **Factories:** Many modules implement a data-driven "factory" pattern (often via a `factories_config` variable) to manage resources at scale using YAML data files. See `FACTORIES.md` for a comprehensive list.
-    *   **Validation:** Factory YAML files must conform to JSON schemas (typically stored in a `schemas/` folder). Use a modeline (e.g., `# yaml-language-server: $schema=../schemas/project.schema.json`) to enable IDE validation.
-*   **Usage:** Modules are designed to be forked/owned or referenced via Git tags (e.g., `source = "github.com/...//modules/project?ref=v30.0.0"`).
+## 5. Style for Root Modules
+- **File Structure:** Make file structure dependent on size. For small configurations, use a single `main.tf`. For larger configurations, split into multiple files grouped by resource type (e.g., `main.tf` for general elements, `networking.tf`, `compute.tf`, etc.).
+- **Variables & Defaults:**
+  - Define all variables in `variables.tf`, sorted alphabetically.
+  - Set defaults directly in the `default` attribute if a reasonable default exists or if provided by the user.
+  - Avoid creating a `terraform.tfvars` file unless explicitly requested by the user.
+- **Value Handling & Providers:**
+  - **No Hardcoded Values:** Never use hardcoded values for project IDs, folder IDs, or other specific identifiers unless provided by the user. If a value is required, ask the user for it or create a variable.
+  - **Provider Parameters:** Do not set provider-level parameters like `project`, `zone`, or `region` at the resource level. Set them explicitly in the module calls.
+- **Formatting:** Adhere to standard Terraform formatting and keep line lengths readable. Wrap complex ternaries in parentheses.
+- **No Local Exec:** Never use `local-exec` or similar provisioners to run shell commands. Rely on native Terraform resources and data sources, preferably from official providers (i.e., no third-party providers).
 
-### 2. FAST (`/fast`)
+## 5a. Provider Version Alignment
+- **Align Constraints:** When invoking a specific release of a CFF module (e.g., `?ref=v56.2.0`), ensure the root `providers.tf` block contains matching version constraints for the `google` and `google-beta` providers.
+- **Check Module Requirements:** If `terraform init` fails with conflicting provider constraints, inspect the module's provider specifications on GitHub or local cache, and adjust the root module constraints to be fully compatible (e.g. `version = ">= 7.33.0, < 8.0.0"`).
 
-*   **Purpose:** Rapidly set up a secure, scalable GCP organization.
-*   **Architecture:** Divided into sequential "stages" (0-org-setup, 1-vpcsc, 2-security, 2-networking, etc.).
-*   **Factories:** Extensively uses YAML-based datasets and module factory patterns to drive configuration at scale, acting as a "translation machine" that expresses different architectural designs without changing the underlying stage code.
+## 6. Impersonation and Backend Management
+- **Impersonation:** If the user requires service account impersonation, add the `impersonate_service_account` attribute to the `provider "google"` and `provider "google-beta"` blocks in `providers.tf`.
+- **Remote Backend:** If the user wants to use a remote backend, prefer `gcs`. Put the backend configuration in the `terraform` block inside `providers.tf`. If impersonation is used, also set it for the backend.
 
-### 3. Tools (`/tools`)
-
-*   Python-based utility scripts for documentation, linting, and CI/CD tasks.
-*   **Key Scripts:**
-    *   `tfdoc.py`: Auto-generates input/output tables in `README.md` files.
-    *   `check_boilerplate.py`: Enforces license headers.
-    *   `check_documentation.py`: Verifies README consistency.
-    *   `changelog.py`: Generates CHANGELOG.md sections based on version diffs.
-
-## Development Workflow
-
-### Prerequisites
-
-*   **Terraform** (or OpenTofu)
-*   **Python 3.10+**
-*   **Dependencies:**
-    ```bash
-    pip install -r tests/requirements.txt
-    pip install -r tools/requirements.txt
-    ```
-
-### Common Tasks
-
-#### 1. Formatting & Linting
-
-Always format code and update documentation before committing.
-
-```bash
-# Format Terraform code (check then fix)
-terraform fmt -check -recursive modules/<module-name>
-terraform fmt -recursive modules/<module-name>
-
-# Check README consistency (variables table must match variables.tf)
-python3 tools/check_documentation.py modules/<module-name>
-
-# Regenerate README variables/outputs tables when check fails
-# Note: tfdoc uses special HTML comments (<!-- BEGIN TFDOC -->) in READMEs. Do not manually edit these sections.
-python3 tools/tfdoc.py --replace modules/<module-name>
-
-# YAML linting
-yamllint -c .yamllint --no-warnings <yaml-files>
-
-# License/boilerplate check
-python3 tools/check_boilerplate.py --scan-files <files>
-```
-
-**Common gotcha — unsorted variables (`[SV]` error):** `check_documentation.py` requires variables in `variables.tf` to be in strict alphabetical order. When adding a new variable, insert it at the correct alphabetical position, not at the top of the file.
-
-#### 2. Testing
-
-Our testing philosophy is simple: test to ensure the code works and does not break due to dependency changes. **Example-based testing via `README.md` is the preferred approach.** 
-
-Tests are triggered from HCL Markdown fenced code blocks using a special `# tftest` directive at the end of the block.
-
-```hcl
-module "my-module" {
-  source = "./modules/my-module"
-  # ...
-}
-# tftest modules=1 resources=2 inventory=my-inventory.yaml
-```
-
-*   **Inventory files (`YAML`):** Used to assert specific values, resource counts, or outputs from the terraform plan against an expected dataset.
-*   **Legacy Tests:** Python-based tests using `pytest` and `tftest` are supported but example-based tests should be used whenever possible.
-
-```bash
-# Run all tests
-pytest tests
-
-# Run specific module examples
-pytest -k 'modules and <module-name>:' tests/examples
-
-# Automatically generate an inventory file from a successful plan
-pytest -s 'tests/examples/test_plan.py::test_example[terraform:modules/<module-name>:Heading Name:Index]'
-```
-
-**Note:** `TF_PLUGIN_CACHE_DIR` is recommended to speed up tests.
-
-#### 3. Contributing
-
-*   **Branching:** Use `username/feature-name`.
-*   **Commits:** Atomic commits with clear messages.
-*   **Docs:** Do not manually edit the variables/outputs tables in READMEs; use `tfdoc.py`.
-
-## Adding Context Support to a Module
-
-Several modules support symbolic variable interpolation via a `context` variable. This allows callers to pass symbolic references like `"$project_ids:myprj"` instead of raw values, which get resolved at plan time.
-
-### Pattern
-
-**1. Add a `context` variable** in `variables.tf` at its alphabetical position. Use keys relevant to the module — standard keys are `locations`, `networks`, `project_ids`, `subnets`; module-specific keys may be added (e.g., `kms_keys`, `artifact_registries`, `secrets`):
-
-```hcl
-variable "context" {
-  description = "Context-specific interpolations."
-  type = object({
-    kms_keys    = optional(map(string), {})
-    locations   = optional(map(string), {})
-    networks    = optional(map(string), {})
-    project_ids = optional(map(string), {})
-  })
-  default  = {}
-  nullable = false
-}
-```
-
-**2. Build `ctx` and `ctx_p` locals** in `main.tf`. If the module has IAM condition support, exclude `condition_vars` from the flattening (it is passed directly to `templatestring()`):
-
-```hcl
-locals {
-  ctx = {
-    for k, v in var.context : k => {
-      for kk, vv in v : "${local.ctx_p}${k}:${kk}" => vv
-    } # add: if k != "condition_vars"  — only when condition_vars is a key
+**Template for `providers.tf`:**
+```terraform
+terraform {
+  backend "gcs" {
+    bucket                      = "${bucket}"
+    impersonate_service_account = "${service_account}"
   }
-  ctx_p      = "$"
-  project_id = lookup(local.ctx.project_ids, var.project_id, var.project_id)
-  region     = lookup(local.ctx.locations, var.region, var.region)
+}
+
+provider "google" {
+  impersonate_service_account = "${service_account}"
+}
+
+provider "google-beta" {
+  impersonate_service_account = "${service_account}"
 }
 ```
-
-**3. Apply lookups in resources.** Three patterns:
-
-```hcl
-# Simple field
-project = local.project_id
-
-# Nullable field (null must stay null, not looked up)
-encryption_key_name = (
-  var.encryption_key_name == null
-  ? null
-  : lookup(local.ctx.kms_keys, var.encryption_key_name, var.encryption_key_name)
-)
-
-# Deeply optional nested field
-private_network = (
-  try(var.network_config.psa_config.private_network, null) == null
-  ? null
-  : lookup(local.ctx.networks, var.network_config.psa_config.private_network,
-      var.network_config.psa_config.private_network)
-)
-
-# Per-element list
-nat_subnets = [for s in var.nat_subnets : lookup(local.ctx.subnets, s, s)]
-```
-
-**4. Long ternaries** are wrapped in parentheses with condition and branches on separate lines:
-
-```hcl
-ip_address = (
-  var.address == null
-  ? null
-  : lookup(local.ctx.addresses, var.address, var.address)
-)
-```
-
-### Tests
-
-Add a `context` test alongside existing module tests:
-
-- `tests/modules/<module_name>/tftest.yaml` — declare the module path and list `context:` under `tests:`
-- `tests/modules/<module_name>/context.tfvars` — provide all required module variables using symbolic references; include a `context` block with maps that resolve them
-- `tests/modules/<module_name>/context.yaml` — assert resolved (concrete) values in the plan output
-
-### README example
-
-Modify one existing README example (do not add a new one) to demonstrate context usage. The resolved values should match the existing inventory YAML so no inventory changes are needed.
-
-## Architecture & Conventions
-
-*   **Variables & Interfaces:** 
-    *   Prefer object variables (e.g., `iam = { ... }`) over many individual scalar variables.
-    *   Design compact variable spaces by leveraging Terraform's `optional()` function with defaults extensively.
-    *   Use maps instead of lists for multiple items to ensure stable keys in state and avoid `for_each` dynamic value issues.
-*   **Naming:** Never use random strings for resource naming. Rely on an optional `prefix` variable implemented consistently across modules.
-*   **IAM:** Implemented within resources (authoritative `_binding` or additive `_member`) via standard interfaces.
-*   **Outputs:** Explicitly depend on internal resources to ensure proper ordering (`depends_on`).
-*   **File Structure:**
-    *   Move away from `main.tf`, `variables.tf`, `outputs.tf`.
-    *   Use descriptive filenames: `iam.tf`, `gcs.tf`, `mounts.tf`.
-*   **Style & Formatting:**
-    *   **Line Length:** Enforce a 79-character line length limit for legibility (relaxed for long resource attributes and descriptions).
-    *   **Ternary Operators & Functions:** Wrap complex ternary operators in parentheses and break lines to align `?` and `:`. Split function calls with many arguments across multiple lines.
-    *   **Locals Separation:** Use module-level locals for values referenced directly by resources/outputs. Use block-level "private" locals prefixed with an underscore (`_`) for intermediate transformations.
-    *   **Complex Transformations:** Move complex data transformations in `for` or `for_each` loops to `locals` to keep resource blocks clean.
-
-## Preferred Workflow
-
-- Always break down complex requests into small, iterative tasks.
-- For each task, propose the necessary edits and explicitly wait for user confirmation or discussion before proceeding.
-- Always use the `replace` tool to both perform and cleanly display the proposed text modifications. Do not silently overwrite files or use shell commands for text edits.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/GoogleCloudPlatform)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/GoogleCloudPlatform)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [GoogleCloudPlatform/cloud-foundation-fabric](https://github.com/GoogleCloudPlatform/cloud-foundation-fabric) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
