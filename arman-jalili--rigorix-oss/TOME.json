@@ -4,7 +4,7 @@
   "repo": "rigorix-oss",
   "description": "A deterministic coding-agent runtime for repeatable, auditable AI software engineering.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/arman-jalili/rigorix-oss",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T00:37:11Z"
+  "distributed_at": "2026-08-09T00:40:24Z"
 }
