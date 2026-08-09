@@ -1,0 +1,18 @@
+{
+  "name": "zqhong--ryzentuner",
+  "displayName": "RyzenTuner",
+  "description": "RyzenTuner",
+  "version": "1.0.0",
+  "author": "zqhong",
+  "homepage": "https://github.com/zqhong/RyzenTuner",
+  "skills": [
+    {
+      "name": "code-review-skill",
+      "description": ""
+    },
+    {
+      "name": "RyzenTuner",
+      "description": ""
+    }
+  ]
+}
