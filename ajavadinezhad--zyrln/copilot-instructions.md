@@ -1,0 +1,21 @@
+## zyrln
+
+> Tests document behavior; never bend product logic to make tests pass
+
+
+# Testing discipline
+
+**Never change runtime behavior, APIs, or user-visible functionality because a test expects something different.**
+
+When a test fails:
+
+1. Decide whether the **code** or the **test** is wrong against the real requirement (docs, issues, invariants).
+2. If the test is wrong or outdated, **fix or delete the test** — do not add shims, lists, or branches in production code solely to satisfy assertions.
+3. Do not add “exclude” lists that undo “include” lists, or duplicate configuration, just to reconcile contradictory tests.
+4. Prefer fixing tests in the same change as a behavior fix; document intentional behavior in a short comment only when non-obvious.
+
+If requirements are unclear, ask or read project docs before changing production code.
+
+---
+> Source: [ajavadinezhad/zyrln](https://github.com/ajavadinezhad/zyrln) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
