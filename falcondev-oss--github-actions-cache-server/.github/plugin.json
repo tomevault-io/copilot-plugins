@@ -1,0 +1,9 @@
+{
+  "name": "falcondev-oss--github-actions-cache-server",
+  "displayName": "github-actions-cache-server",
+  "description": "github-actions-cache-server",
+  "version": "1.0.0",
+  "author": "falcondev-oss",
+  "homepage": "https://github.com/falcondev-oss/github-actions-cache-server",
+  "skills": []
+}
