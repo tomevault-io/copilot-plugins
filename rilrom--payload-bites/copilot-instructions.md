@@ -1,10 +1,10 @@
 ## payload-bites
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## Project Overview
 
@@ -263,8 +263,8 @@ The project pins Payload to a specific version via pnpm overrides in root `packa
 {
 	"pnpm": {
 		"overrides": {
-			"payload": "3.80.0",
-			"@payloadcms/db-postgres": "3.80.0",
+			"payload": "3.86.0",
+			"@payloadcms/db-postgres": "3.86.0",
 			// ... other Payload packages
 		}
 	}
@@ -279,4 +279,4 @@ All Next.js commands use `NODE_OPTIONS=--no-deprecation` to suppress deprecation
 
 ---
 > Source: [rilrom/payload-bites](https://github.com/rilrom/payload-bites) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
