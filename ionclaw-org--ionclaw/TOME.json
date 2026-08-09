@@ -4,7 +4,7 @@
   "repo": "ionclaw",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -137,5 +137,5 @@
   ],
   "source_url": "https://github.com/ionclaw-org/ionclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T22:42:18Z"
+  "distributed_at": "2026-08-09T15:42:42Z"
 }
