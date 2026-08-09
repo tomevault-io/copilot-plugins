@@ -1,0 +1,9 @@
+{
+  "name": "project-osrm--osrm-frontend",
+  "displayName": "osrm-frontend",
+  "description": "osrm-frontend",
+  "version": "1.0.0",
+  "author": "Project-OSRM",
+  "homepage": "https://github.com/Project-OSRM/osrm-frontend",
+  "skills": []
+}
