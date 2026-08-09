@@ -1,0 +1,81 @@
+{
+  "name": "ioredis",
+  "owner": "redis",
+  "repo": "ioredis",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ioredis",
+      "path": ".agents/skills/docs-sync/SKILL.md",
+      "github_url": "https://github.com/redis/ioredis/tree/main/.agents/skills/docs-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ioredis",
+      "path": ".agents/skills/pr-draft-summary/SKILL.md",
+      "github_url": "https://github.com/redis/ioredis/tree/main/.agents/skills/pr-draft-summary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ioredis",
+      "path": ".agents/skills/maintainer-review/SKILL.md",
+      "github_url": "https://github.com/redis/ioredis/tree/main/.agents/skills/maintainer-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ioredis",
+      "path": ".agents/skills/implement-command/SKILL.md",
+      "github_url": "https://github.com/redis/ioredis/tree/main/.agents/skills/implement-command/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ioredis",
+      "path": ".agents/skills/runtime-behavior-probe/SKILL.md",
+      "github_url": "https://github.com/redis/ioredis/tree/main/.agents/skills/runtime-behavior-probe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ioredis",
+      "path": ".agents/skills/code-change-verification/SKILL.md",
+      "github_url": "https://github.com/redis/ioredis/tree/main/.agents/skills/code-change-verification/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/redis/ioredis",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T13:53:59Z"
+}
