@@ -1,0 +1,9 @@
+{
+  "name": "onemindos--constellation-overwatch",
+  "displayName": "constellation-overwatch",
+  "description": "Constellation Overwatch \u2014 Go NATS-native situational awareness service",
+  "version": "1.0.0",
+  "author": "onemindos",
+  "homepage": "https://github.com/onemindos/constellation-overwatch",
+  "skills": []
+}
