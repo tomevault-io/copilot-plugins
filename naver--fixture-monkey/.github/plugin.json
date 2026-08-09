@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "naver",
   "homepage": "https://github.com/naver/fixture-monkey",
-  "skills": []
+  "skills": [
+    {
+      "name": "fixture-monkey",
+      "description": ""
+    }
+  ]
 }
