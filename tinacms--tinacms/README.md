@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [tinacms/tinacms](https://github.com/tinacms/tin
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [tinacms/tinacms](https://github.com/tinacms/tinacms) — a repo with 13666+ stars on GitHub.
+From [tinacms/tinacms](https://github.com/tinacms/tinacms) — a repo with 13715+ stars on GitHub.
 
 ---
 
