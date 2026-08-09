@@ -1,60 +1,54 @@
-## security
+## skill-development
 
-> Every state-changing function MUST follow this order:
+> Each skill lives in its own directory under `skills/`:
 
-# Smart Contract Security Rules
+# Skill Development Rules
 
-## Mandatory Patterns
+## Skill Directory Structure
 
-### Checks-Effects-Interactions
-Every state-changing function MUST follow this order:
-1. Validate inputs and permissions (checks)
-2. Update state variables (effects)
-3. Make external calls (interactions)
+Each skill lives in its own directory under `skills/`:
 
-### Reentrancy Protection
-- Use OpenZeppelin ReentrancyGuard on any function making external calls
-- Even with CEI pattern, add the guard as defense in depth
-- Watch for read-only reentrancy through view functions
+```
+skills/
+  gas-optimization/
+    SKILL.md      # Skill metadata + content
+```
 
-### Token Safety
-- ALWAYS use SafeERC20 for token transfers
-- Check token decimals -- USDC=6, WBTC=8, most=18
-- Handle fee-on-transfer tokens (received != sent)
-- Handle rebasing tokens (stETH balance changes)
-- Handle tokens with blocklists (USDC, USDT)
+## SKILL.md Format
 
-### Access Control
-- Every state-changing function needs explicit access control
-- Use Ownable2Step (prevents accidental ownership transfer)
-- Use AccessControl for multi-role systems
-- Add timelock for admin functions affecting user funds
-- Document all privileged roles
+```yaml
+---
+name: skill-name
+description: When and why to use this skill. Used for auto-discovery.
+---
+```
 
-### Input Validation
-- Validate ALL external inputs (zero address, zero amount, bounds)
-- Use custom errors with descriptive parameters
-- Validate array lengths match in batch operations
+Followed by the skill content in Markdown.
 
-## Vulnerability Checklist (Before Every PR)
-- [ ] No hardcoded secrets
-- [ ] Checks-effects-interactions followed
-- [ ] ReentrancyGuard on external call functions
-- [ ] SafeERC20 used for all transfers
-- [ ] Access control on all state-changing functions
-- [ ] Events emitted for all state changes
-- [ ] Edge cases handled (0, max, empty state)
-- [ ] No tx.origin usage
-- [ ] External call return values checked
-- [ ] No delegatecall to untrusted addresses
+## Naming Conventions
+- Directory name: `kebab-case` (e.g., `gas-optimization`)
+- SKILL.md name field: same as directory name
+- Description: explains WHEN to trigger in Ethereum context
 
-## When Security Issue Found
-1. STOP current work
-2. Classify severity (Critical/High/Medium/Low)
-3. Write PoC test demonstrating the issue
-4. Fix following the recommendation pattern
-5. Verify fix with the PoC test
-6. If secrets leaked: rotate immediately
+## Quality Rules
+- Content must be Ethereum/Solidity specific
+- Include Solidity code examples where applicable
+- Include checklists for complex patterns
+- Reference specific EIPs, ERCs, and tools
+- Cross-reference related skills
+- Use "onchain" not "on-chain"
+
+## Skill Categories
+- Solidity Development: patterns, gas, storage, assembly
+- Security: vulnerability patterns, attack vectors, defenses
+- DeFi: protocol integration, AMMs, lending, oracles
+- Testing: Foundry testing, fuzzing, invariants, formal verification
+- Audit: pipeline phases (prep, recon, breadth, depth, verify, report)
+- Standards: ERC implementations, proxy patterns
+- Tooling: Foundry, Slither, Cast, Anvil
+- Infrastructure: subgraphs, frontends, L2, deployment
+
+Consider these rules if they affect your changes.
 
 ---
 > Source: [ccashwell/evm-cortex](https://github.com/ccashwell/evm-cortex) — distributed by [TomeVault](https://tomevault.io).
