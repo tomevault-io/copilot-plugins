@@ -3,7 +3,7 @@
   "owner": "open-metadata",
   "repo": "OpenMetadata",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,141 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "scaffold-connector",
-      "path": "skills/connector-building",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/skills/connector-building",
-      "description": ""
-    },
-    {
-      "name": "tdd",
-      "path": "skills/tdd",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/skills/tdd",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": "skills/tdd/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/skills/tdd/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": ".claude/skills/playwright/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/.claude/skills/playwright/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": "skills/planning/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/skills/planning/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": ".claude/skills/ui-checkstyle/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/.claude/skills/ui-checkstyle/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": ".agents/skills/ui-checkstyle/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/.agents/skills/ui-checkstyle/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": ".claude/skills/java-checkstyle/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/.claude/skills/java-checkstyle/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": ".agents/skills/java-checkstyle/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/.agents/skills/java-checkstyle/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": "skills/code-review/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/skills/code-review/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": "skills/pr-checklist/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/skills/pr-checklist/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": "skills/test-locally/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/skills/test-locally/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": ".claude/skills/playwright-validation/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/.claude/skills/playwright-validation/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": "skills/verification/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/skills/verification/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": ".claude/skills/writing-playwright-tests/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/.claude/skills/writing-playwright-tests/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": "skills/connector-audit/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/skills/connector-audit/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": "skills/connector-review/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/skills/connector-review/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": "skills/test-enforcement/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/skills/test-enforcement/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": "skills/connector-building/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/skills/connector-building/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": "skills/connector-standards/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/skills/connector-standards/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": "skills/systematic-debugging/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/skills/systematic-debugging/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "OpenMetadata",
-      "path": "skills/openmetadata-workflow/SKILL.md",
-      "github_url": "https://github.com/open-metadata/OpenMetadata/tree/main/skills/openmetadata-workflow/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/open-metadata/OpenMetadata",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T04:53:09Z"
+  "distributed_at": "2026-08-09T07:32:54Z"
 }
