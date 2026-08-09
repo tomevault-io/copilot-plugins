@@ -4,7 +4,7 @@
   "repo": "opentelemetry-ebpf-instrumentation",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T19:12:23Z"
+  "distributed_at": "2026-08-09T23:47:20Z"
 }
