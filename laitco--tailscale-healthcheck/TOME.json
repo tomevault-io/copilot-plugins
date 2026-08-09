@@ -2,9 +2,9 @@
   "name": "tailscale-healthcheck",
   "owner": "laitco",
   "repo": "tailscale-healthcheck",
-  "description": "A Python-based Flask application to monitor the health of devices in a Tailscale network. The application provides endpoints to check the health status of all devices, specific devices, and lists of healthy or unhealthy devices.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/laitco/tailscale-healthcheck",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T02:00:19Z"
+  "distributed_at": "2026-08-09T21:32:09Z"
 }
