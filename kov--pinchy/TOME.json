@@ -4,7 +4,7 @@
   "repo": "pinchy",
   "description": "Low-overhead strace substitute using eBPF",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kov/pinchy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T04:55:15Z"
+  "distributed_at": "2026-08-09T05:08:40Z"
 }
