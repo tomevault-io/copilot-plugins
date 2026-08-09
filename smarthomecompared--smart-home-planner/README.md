@@ -1,17 +1,15 @@
 # smart-home-planner
 
-> Tome by [smarthomecompared](https://github.com/smarthomecompared/smart-home-planner) — distributed by [TomeVault](https://tomevault.io)
-
-Plan, document, and visualize your smart home ecosystem
+> Tome by [smarthomecompared](https://github.com/smarthomecompared/smart-home-planner), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [smarthomecompared/smart-home-planner](https://github.com/smarthomecompared/smart-home-planner).
+Original source: `CLAUDE.md` in [smarthomecompared/smart-home-planner](https://github.com/smarthomecompared/smart-home-planner).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
