@@ -1,0 +1,9 @@
+{
+  "name": "woblerr--pgbackrest-exporter",
+  "displayName": "pgbackrest_exporter",
+  "description": "pgbackrest_exporter",
+  "version": "1.0.0",
+  "author": "woblerr",
+  "homepage": "https://github.com/woblerr/pgbackrest_exporter",
+  "skills": []
+}
