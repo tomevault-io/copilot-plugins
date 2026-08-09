@@ -1,0 +1,9 @@
+{
+  "name": "bronils--aotopsy",
+  "displayName": "aotopsy",
+  "description": "Static analyzer for Flutter/Dart AOT snapshots \u2014 recovers function names, class hierarchies, call graphs, and behavioral signals from libapp.so without embedding or executing the Dart VM. Supports ARM",
+  "version": "1.0.0",
+  "author": "BroNils",
+  "homepage": "https://github.com/BroNils/aotopsy",
+  "skills": []
+}
