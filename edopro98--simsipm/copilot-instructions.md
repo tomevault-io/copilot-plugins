@@ -1,195 +1,79 @@
 ## simsipm
 
-> **Analysis Date:** 2026-04-01
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Coding Conventions
+# CLAUDE.md
 
-**Analysis Date:** 2026-04-01
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Naming Patterns
+## Project Overview
 
-**Namespaces:**
-- Single namespace `sipm` used throughout the codebase
-- Class names use PascalCase: `SiPMProperties`, `SiPMSensor`, `SiPMAnalogSignal`, `SiPMRandom`
-- Free functions use lowercase with descriptive names: `integral()`, `peak()`, `tot()`, `toa()`
+SimSiPM is a C++17 library for simulating Silicon Photomultiplier (SiPM) sensors. It has zero runtime external dependencies and is designed for integration into physics frameworks like Geant4 or DD4HEP.
 
-**Files:**
-- Source files: `<Name>.cpp` in `src/` directory
-- Header files: `<Name>.h` in `include/` directory
-- Test files: `<module>.cpp` in `tests/` directory
-- Python bindings: `<ClassName>Py.cpp` in `python/` directory
-- Benchmarks: `sensor.cpp`, `random.cpp` in `bench/` directory
+## Build Commands
 
-**Functions:**
-- Getter methods use `()` suffix: `size()`, `pitch()`, `nCells()`, `dcr()`
-- Setter methods use `set` prefix: `setSize()`, `setDcr()`, `setProperty()`
-- Const methods include `const` qualifier
-- Inline functions in header files for performance
+```bash
+# Standard build
+cmake -B build -S . && make -C build
 
-**Variables:**
-- Member variables use `m_` prefix: `m_Size`, `m_Pitch`, `m_Hits`
-- Local variables use descriptive names
-- Enum values use `k` prefix: `kUniform`, `kCircle`, `kGaussian`
+# Build with tests
+cmake -B build -S . -DSIPM_ENABLE_TEST=ON && make -C build
 
-**Types:**
-- Use `uint32_t` for counters and indices
-- Use `double` for time values in ns
-- Use `float` for signal waveform data
-- Use `std::vector` for collections
-- Prefer `std::pair` for hit position coordinates
+# Build with Python bindings (requires pybind11)
+cmake -B build -S . -DCOMPILE_PYTHON_BINDINGS=ON && make -C build
 
-## Code Style
+# Build with benchmarks (requires Google Benchmark)
+cmake -B build -S . -DSIPM_ENABLE_BENCH=ON && make -C build
 
-**Formatting:**
-- Tool: `.clang-format` configuration
-- Indentation: 2 spaces
-- Column limit: 120 characters
-- Brace style: K&R style (`{` attached to declaration)
-- Trailing commas: None
-- Include blocks: Preserved order
-- Tab width: 8 (in .clang-format, but source uses spaces)
+# Install
+make -C build install
+```
 
-**Key clang-format settings:**
-- `AccessModifierOffset: -2` (indent private/protected after opening brace)
-- `Cpp11BracedListStyle: true`
-- `AlwaysBreakTemplateDeclarations: true`
-- `BreakBeforeTernaryOperators: true`
-- `PointerAlignment: Left`
+CMake enforces `-ffast-math` globally. AVX512 SIMD in the RNG is optional.
 
-**Linting:**
-- No dedicated linting tool configured
-- Relies on clang-format for formatting consistency
-- GCC compiler warnings enabled via `-ffast-math` optimization flag
+## Test Commands
 
-## Import Organization
+```bash
+# Run all tests
+ctest --test-dir build --output-on-failure
 
-**Order:**
-1. Class/namespace headers (same project)
-2. Standard library headers
-3. Third-party headers (gtest, pybind11)
+# Run a single test suite
+ctest --test-dir build -R TestSiPMSensor -VV
 
-**Path Aliases:**
-- No path aliases used
-- Direct include paths with `<project/Header.h>` or `"project/Header.h"`
-- Standard library uses `<>` brackets
-- Project headers use `""` quotes
+# Run test executable directly
+build/bin/TestSiPMSensor
+```
 
-## Error Handling
+Test suites: `TestSiPMSensor`, `TestSiPMProperties`, `TestSiPMRandom`, `TestSiPMRng`. Uses Google Test (auto-fetched if not installed). Test fixtures follow the `sut` (System Under Test) naming pattern.
 
-**Patterns:**
-- Return-based error handling (no exceptions)
-- Use `-1` for invalid/error returns from signal feature methods
-- Check boolean flags for disabled features (e.g., `hasDcr()`, `hasXt()`)
-- Use `continue` in loops to skip invalid inputs
-- Error messages via `std::cerr` with descriptive text
+## Architecture
 
-**Validation:**
-- Range checks on input values
-- Early return for empty/invalid inputs
-- Bounds checking with `isInSensor()` helper
+### Event Simulation Data Flow
 
-## Logging
+```
+addPhoton(s) → runEvent() → signal() / debug()
+```
 
-**Framework:**
-- Console output only (no external logging library)
+`runEvent()` proceeds in order: electronic noise baseline → DCR (dark counts) → photoelectron hits (gated by PDE) → correlated noise chains (XT/AP) → cell recovery amplitude calculation → waveform generation.
 
-**Patterns:**
-- Use `std::cout` for debug output and class printing
-- Use `std::cerr` for error messages
-- Output includes memory address via `std::hex << std::addressof(obj)`
-- Fixed precision (2 decimal places) for floating-point output
+### Core Classes
 
-## Comments
+- **`SiPMSensor`** (`src/SiPMSensor.cpp`) — Main orchestrator. Owns a `SiPMProperties` and `SiPMRandom`. Call `addPhoton()` then `runEvent()` per event.
+- **`SiPMProperties`** (`src/SiPMProperties.cpp`) — All sensor parameters (geometry, timing constants, noise rates). Supports `PdeType` enum (`kNoPde`, `kSimplePde`, `kSpectrumPde`) and `HitDistribution` enum (`kUniform`, `kCircle`, `kGaussian`). Can be loaded from JSON.
+- **`SiPMAnalogSignal`** (`src/SiPMAnalogSignal.cpp`) — Wraps `std::vector<float>` for the output waveform. Feature extraction: `integral()`, `peak()`, `toa()`, `tot()`, `top()`.
+- **`SiPMRandom`** (`src/SiPMRandom.cpp`) — Xorshift256+ (xoshiro256+) PRNG with optional AVX512 path. Provides uniform, Gaussian, exponential, Poisson, binomial distributions. Marked `mutable` in `SiPMSensor` for const-correct event simulation.
+- **`SiPMHit`** (`include/SiPMHit.h`) — Represents a detection event with time, amplitude, cell index, and type (photoelectron/DCR/XT/AP). Supports parent-child chaining for correlated noise.
+- **`SiPMTypes`** (`include/SiPMTypes.h`) — Custom performance types: `SiPMSmallVector<T,N>` (small-buffer-optimized vector), custom `pair<T,U>`, and `sipmAlloc()`/`sipmFree()` with optional 64-byte alignment.
+- **`SiPMDebugInfo`** (`include/SiPMDebugInfo.h`) — MC-truth counters accessible via `sensor.debug()`.
 
-**When to Comment:**
-- Class documentation at top of header files with `@class`, `@brief`, `@author`, `@date`
-- Method documentation with `@brief` for complex functions
-- Parameter documentation with `@param`
-- Return documentation with `@return` (not commonly used)
-- TODO/FIXME comments not detected in codebase
+### Python Bindings
 
-**JSDoc/TSDoc:**
-- Uses doxygen-style comments with `/** @class ... */` and `@brief` tags
-- Not consistently applied to all functions
-- Example:
-  ```cpp
-  /**
-  * Integral of the signal defined as the sum of all samples in the integration
-  * window normalized for the sampling time.
-  * @param intstart   Starting time of integration in ns
-  * @param intgate    Length of the integration gate
-  * @param threshold  Process only if above the threshold
-  */
-  double SiPMAnalogSignal::integral(...) const;
-  ```
+Six `*Py.cpp` files in `python/` expose the C++ API via pybind11. Examples in `examples/` show typical usage patterns.
 
-**Header File Structure:**
-- Doxygen-style header at top with class description
-- Class declaration with inline member documentation
-- Free function implementations with documentation
-- Operator overloads with documentation
+### No Exceptions
 
-## Function Design
-
-**Size:**
-- Functions are typically concise (1-50 lines)
-- Long functions (like `addPhotoelectrons()`) are split by PDE type
-- Helper functions extracted for complex logic
-
-**Parameters:**
-- Prefer value parameters over pointers/references when const
-- Use `noexcept` for functions that cannot throw
-- Use `constexpr` for compile-time constants and simple getters
-
-**Return Values:**
-- Return by value for small objects
-- Return by const reference for vectors (`const std::vector<float>&`)
-- Return `void` for setters
-- Return error indicator (`-1`) for invalid results
-
-## Module Design
-
-**Exports:**
-- Single header per module in `include/`
-- Implementation in corresponding `.cpp` files in `src/`
-- `SiPM.h` includes all other headers as convenience
-
-**Barrel Files:**
-- No barrel files (`.hpp`) used
-- Direct include of specific headers preferred
-- `SiPM.h` acts as top-level convenience header
-
-## Output Streams
-
-**Pattern:**
-- All classes implement `operator<<` for easy printing
-- Output formatted with `std::setprecision(2)` and `std::fixed`
-- Memory addresses included for debugging
-- Example:
-  ```cpp
-  std::ostream& operator<<(std::ostream& out, const SiPMAnalogSignal& obj) {
-    out << std::setprecision(2) << std::fixed;
-    out << "===> SiPM Analog Signal <===\n";
-    out << "Signal length is: " << std::dec << obj.m_Waveform.size() / obj.m_Sampling << " ns\n";
-    return out;
-  }
-  ```
-
-## Memory Management
-
-**Smart Pointers:**
-- Not used in current codebase
-- Manual `new` and `delete` for `SiPMHit` objects
-- `resetState()` method handles cleanup by deleting hits
-
-**RAII:**
-- Not consistently used
-- Objects typically stack-allocated or stored in vectors
-
----
-
-*Convention analysis: 2026-04-01*
+The codebase avoids C++ exceptions for performance. Error conditions use sentinel return values (typically `-1`).
 
 ---
 > Source: [EdoPro98/SimSiPM](https://github.com/EdoPro98/SimSiPM) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
