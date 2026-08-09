@@ -56,4 +56,4 @@ npm run preview      # 打开提供编译产物安装链接的本地预览网页
 
 ---
 > Source: [andywang425/BLTH](https://github.com/andywang425/BLTH) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
