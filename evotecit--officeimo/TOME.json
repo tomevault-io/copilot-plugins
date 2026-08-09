@@ -1,0 +1,81 @@
+{
+  "name": "OfficeIMO",
+  "owner": "EvotecIT",
+  "repo": "OfficeIMO",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "OfficeIMO",
+      "path": ".agents/plugins/officeimo-document-tools/skills/pswritepdf-retirement/SKILL.md",
+      "github_url": "https://github.com/EvotecIT/OfficeIMO/tree/main/.agents/plugins/officeimo-document-tools/skills/pswritepdf-retirement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OfficeIMO",
+      "path": ".agents/plugins/officeimo-document-tools/skills/officeimo-website-wasm/SKILL.md",
+      "github_url": "https://github.com/EvotecIT/OfficeIMO/tree/main/.agents/plugins/officeimo-document-tools/skills/officeimo-website-wasm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OfficeIMO",
+      "path": ".agents/plugins/officeimo-document-tools/skills/officeimo-build-release/SKILL.md",
+      "github_url": "https://github.com/EvotecIT/OfficeIMO/tree/main/.agents/plugins/officeimo-document-tools/skills/officeimo-build-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OfficeIMO",
+      "path": ".agents/plugins/officeimo-document-tools/skills/officeimo-conversion-operator/SKILL.md",
+      "github_url": "https://github.com/EvotecIT/OfficeIMO/tree/main/.agents/plugins/officeimo-document-tools/skills/officeimo-conversion-operator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OfficeIMO",
+      "path": ".agents/plugins/officeimo-document-tools/skills/officeimo-mailbox-operator/SKILL.md",
+      "github_url": "https://github.com/EvotecIT/OfficeIMO/tree/main/.agents/plugins/officeimo-document-tools/skills/officeimo-mailbox-operator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "OfficeIMO",
+      "path": ".agents/plugins/officeimo-document-tools/skills/officeimo-document-operator/SKILL.md",
+      "github_url": "https://github.com/EvotecIT/OfficeIMO/tree/main/.agents/plugins/officeimo-document-tools/skills/officeimo-document-operator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/EvotecIT/OfficeIMO",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T13:42:44Z"
+}
