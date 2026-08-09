@@ -1,41 +1,64 @@
 ## zarf
 
-> Zarf is a Go CLI (`main.go`, `go.mod`). Application code under `src/`. Unit tests stay alongside code; E2E and integration suites live in `src/test/`. Production support packages in `packages/`, Examples in `examples/`; Astro docs are in `site/`. Do not edit `vendor/` by hand.
+> This file provides guidance for the Gemini AI assistant when working with the `modernc.org/libc` repository.
 
-# Repository Guidelines
+# GEMINI.md
 
-## Project Structure & Module Organization
+This file provides guidance for the Gemini AI assistant when working with the `modernc.org/libc` repository.
 
-Zarf is a Go CLI (`main.go`, `go.mod`). Application code under `src/`. Unit tests stay alongside code; E2E and integration suites live in `src/test/`. Production support packages in `packages/`, Examples in `examples/`; Astro docs are in `site/`. Do not edit `vendor/` by hand.
+## Overview
+`modernc.org/libc` is a partial reimplementation of C libc in pure Go. It acts as the runtime for C programs transpiled to Go by the `modernc.org/ccgo` transpiler (used notably by `modernc.org/sqlite`). It is not intended as a general-purpose standalone library.
 
-## Build, Test, and Development Commands
+**Key Rule:** The API tracks the needs of `ccgo`-generated code. Callers must use the libc version matching their generated code. Do not bump the libc version of downstream consumers without re-translating their C sources.
 
-- `make build` tidies, vendors, and builds the CLI.
-- `make test-unit` runs tests with race detection and atomic coverage; `make test-unit-quick` skips both.
-- `make lint-go` runs configured `golangci-lint` checks.
-- During development, run the focused journey for quick feedback: `go test ./src/test/e2e/ -v -run TestName -count=1 -failfast`. `make test-e2e` is permitted as a final check when reasonable.
-- Cluster-dependent E2E tests need a reachable `kubectl` context; validate it with `kubectl cluster-info`. For isolation, create `kind create cluster --name zarf-e2e-$(id -un)` and delete it after testing. Some tests also require a Zarf-initialized cluster.
-- `make docs-and-schema` regenerates CLI reference docs and `zarf.schema.json`. Run it after changing commands or schema types.
-- In `site/`, use `npm ci`, then `npm run dev`, `npm run check`, or `npm run build`.
+## Architecture
+The codebase is split into two completely separate code paths, selected by build constraints:
 
-## Coding Style & Naming Conventions
+1. **musl-derived (Linux)**
+   - Targeted via: `//go:build linux && (amd64 || arm64 || loong64 || ppc64le || s390x || riscv64 || 386 || arm)`
+   - Generated files: `ccgo_linux_*.go` (~4MB each), per-arch `musl_*.go`, and assembly stubs `abi0_linux_amd64.{go,s}`. **Do not hand-edit generated files**.
+   - Hand-written glue files: `libc_musl.go`, `etc_musl.go`, `mem_brk_musl.go`, `mem_musl.go`, `memgrind_musl.go`, `pthread_musl.go`, `syscall_musl.go`, `aliases.go`, `atomic.go`, `atomic{32,64}.go`, `builtin{32,64}.go`, `libc_linux_statfs.go`.
 
-Write idiomatic Go; `golangci-lint fmt` applies `gofmt` and `goimports`. Keep packages and files lowercase and descriptive; use `PascalCase` for exported identifiers and `camelCase` otherwise. New Go files need the SPDX header. Keep comments concise and focused on intent, not a restatement of code. Handle errors and justify every `//nolint:<linter>` comment.
+2. **Hand-written (non-Linux / mips64le)**
+   - Targeted via negated constraints.
+   - Main files: `libc.go`, `libc_unix.go`, `libc_<goos>.go`, `libc_windows*.go`, `pthread.go`, `mem.go`.
+   - These platforms use handwritten implementations combined with some older `ccgo/v3`-generated `musl_<goos>_<goarch>.go` pieces.
 
-Install hooks with `pre-commit install`; they enforce formatting, linting, credentials checks, and generated schema/docs consistency.
+**Important:** When making a change, you usually need to update *both* code paths (the musl path and the hand-written path).
 
-## Testing Guidelines
+## Common Commands
+- **Build/Lint**: 
+  - `go build ./...`
+  - `make editor` (fast iteration)
+  - `make build_all_targets` (full cross-compile, required before submitting)
+- **Tests**:
+  - `make short-test`
+  - `make test` (full test)
+  - `make libc-test` (musl libc-test suite)
+  - `go test -v -run <TestName>`
+- **Generate** (Linux only):
+  - `make generate` (downloads musl, translates via `ccgo`, rebuilds, and tests)
 
-Add package-local tests for behavior changes, with `TestThing` / `TestThing_condition` names and table cases where useful. Use `testify` assertions. Add or update a numbered `src/test/e2e/` journey for user-visible CLI behavior; avoid cluster requirements unless needed.
+## Build Tags
+- `libc.membrk`: Sbrk-style allocator for detecting use-after-free.
+- `libc.memgrind`: Allocator audit table for leak detection.
+- `libc.dmesg`: Per-pid logging to `/tmp/libc.log`.
+- `libc.strace`: Traces C function entries.
+- *Note: `libc.membrk` and `libc.memgrind` are mutually exclusive.*
 
-## Version Compatibility
+## Symbol Naming Conventions
+- `Xfoo`: Externally visible C function `foo`.
+- `Yfoo`: abi0-wrapped entry to `Xfoo` (linux/amd64).
+- `Tfoo_t`: Typedef'd C type `foo_t`.
+- `Sfoo` / `Ufoo`: Struct / Union tags.
+- `Ffield`: Struct field.
 
-Preserve package compatibility in both directions: packages created by older CLIs must deploy with newer CLIs, and packages created by newer CLIs should deploy with older CLIs. Exceptions require a `VersionRequirement` minimum version or a documented breaking change; include its impact and migration guidance in the handoff.
+If you add a new `Xfoo` symbol in hand-written files, ensure it is added to the relevant `capi_<goos>_<goarch>.go` files.
 
-## Human Handoff
-
-Humans own commits, issues, and pull requests. Agents may prepare changes and handoff material, but must not author or create them. Give the human author factual context on the change, user impact, tests, and follow-up; it informs their own response, not copy-and-paste submission text.
+## Thread Local State (TLS)
+- `*TLS` represents a C "thread". It is passed as the first argument to every `Xfoo` function.
+- `TLS` is **not safe for concurrent use**. Use one goroutine per TLS.
 
 ---
 > Source: [zarf-dev/zarf](https://github.com/zarf-dev/zarf) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
