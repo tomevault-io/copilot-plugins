@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [hassancs91/PyRunner](https://github.com/hassanc
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [hassancs91/PyRunner](https://github.com/hassancs91/PyRunner) — a repo with 146+ stars on GitHub.
+From [hassancs91/PyRunner](https://github.com/hassancs91/PyRunner) — a repo with 149+ stars on GitHub.
 
 ---
 
