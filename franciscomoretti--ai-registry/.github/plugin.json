@@ -1,7 +1,7 @@
 {
   "name": "franciscomoretti--ai-registry",
   "displayName": "ai-registry",
-  "description": "Explore models form Vercel AI Gateway. Filter and compare by provider, context window, and pricing.",
+  "description": "ai-registry",
   "version": "1.0.0",
   "author": "FranciscoMoretti",
   "homepage": "https://github.com/FranciscoMoretti/ai-registry",
