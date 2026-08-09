@@ -1,45 +1,53 @@
 ## ytmdesktop2
 
-> - Use the common format for commit messages: "type(scope): description"
-
-# Commit Messages Guidelines
-
-## Commit Messages
-
-- Use the common format for commit messages: "type(scope): description"
-  - Don't use scope if it's not necessary.
-- Only use lowercase letters in the entire body of the commit message.
-- The type can be one of the following:
-  - feat: A new feature
-  - fix: A bug fix
-  - chore: A chore (non-code change)
-  - refactor: A code refactor (optional; only use if it's a significant refactor)
-  - test: A test change (optional; only use if it's a significant test change or new test added)
-  - docs: Documentation changes
-  - style: Code style changes (optional; only use if it's a significant style change)
-  - perf: Performance improvements (optional; only use if it's a significant performance improvement)
-- Keep it short and to the point, max 50 characters
-  - Example: "feat: added new timer feature to the reports page"
-  - Example: "feat: updated layout in timer page"
-  - Example: "fix: fixed issue with login"
-  - Example: "chore: updated dependencies"
-  - Example: "refactor: refactored code in timer page - improved performance and readability, reduced code complexity, extended with new features"
-  - Example: "test: added new test for timer page"
-  - Example: "docs: updated documentation for timer page"
-  - Example: "style: updated code style in timer page"
-  - Example: "perf: improved performance of timer page"
+> Renderer render hygiene — useMemo only for expensive work, stable props
 
 
-## Commit Body
+# Render + memo
 
-- Add a detailed description of the commit, max 60 characters (if necessary, add more details in the body, not in the subject, only if a significant change is made)
+Goal: right state/props change → right render. No blanket memo.
 
+## useMemo — when
 
-## Commit Footer
+Use only for **expensive** derived work (loops over lists, sorting, formatting heavy structures, style objects rebuilt from many inputs) or when a **stable reference** is required by a child that depends on referential equality.
 
-- if the commit is signed off, add the Signed-off-by: <username>
-  - otherwise leave empty
+```tsx
+// ✅ expensive / referential
+const time = useMemo(() => formatTrackTime(progress, duration), [progress, duration]);
+const rootStyle = useMemo((): CSSProperties => ({ backgroundImage: accent }), [accent]);
+
+// ❌ cheap / noise
+const label = useMemo(() => title ?? "Unknown", [title]);
+const isPlaying = useMemo(() => !!state?.playing, [state?.playing]);
+```
+
+## useCallback — when
+
+Use when passing a function to a memoized child, or as a dependency of `useEffect` / another memo that would otherwise churn. Do **not** wrap every handler by default.
+
+## Prefer fixing data flow first
+
+1. Narrow state — don't put unrelated fields in one object that re-renders everything
+2. Derive cheap values inline during render
+3. Keep list keys stable; avoid inline `{}` / `[]` / lambdas in hot JSX props when the child is memoized
+4. Colocate state near the consumer; lift only when shared
+
+```tsx
+// ❌ new object every render into memoized child
+<Panel style={{ opacity }} onClick={() => doThing(id)} />
+
+// ✅ stable when it matters
+const style = useMemo(() => ({ opacity }), [opacity]);
+const onClick = useCallback(() => doThing(id), [id]);
+<Panel style={style} onClick={onClick} />
+```
+
+## Don't
+
+- Memo "just in case"
+- `useMemo` around tRPC hook results (hooks already own caching)
+- Duplicate server/cache state into local `useState` without a sync need
 
 ---
 > Source: [Venipa/ytmdesktop2](https://github.com/Venipa/ytmdesktop2) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
