@@ -1,6 +1,6 @@
 # cloudflared
 
-> Source: [cloudflare/cloudflared](https://github.com/cloudflare/cloudflared). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [cloudflare/cloudflared](https://github.com/cloudflare/cloudflared). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [cloudflare/cloudflared](https://github.com/clou
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [cloudflare/cloudflared](https://github.com/cloudflare/cloudflared) — a repo with 14914+ stars on GitHub.
+From [cloudflare/cloudflared](https://github.com/cloudflare/cloudflared) — a repo with 15139+ stars on GitHub.
 
 ---
 
