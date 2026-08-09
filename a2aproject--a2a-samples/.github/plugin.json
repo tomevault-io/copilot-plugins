@@ -1,0 +1,14 @@
+{
+  "name": "a2aproject--a2a-samples",
+  "displayName": "a2a-samples",
+  "description": "a2a-samples",
+  "version": "1.0.0",
+  "author": "a2aproject",
+  "homepage": "https://github.com/a2aproject/a2a-samples",
+  "skills": [
+    {
+      "name": "a2a-samples",
+      "description": ""
+    }
+  ]
+}
