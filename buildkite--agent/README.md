@@ -5,22 +5,22 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [buildkite/agent](https://github.com/buildkite/agent).
+Original source: `AGENTS.md` in [buildkite/agent](https://github.com/buildkite/agent).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
+## Bundled Skills (2)
 
 - [agent](https://github.com/buildkite/agent/tree/main/.agents/skills/buildkite-agent-release/SKILL.md)
+- [agent](https://github.com/buildkite/agent/tree/main/.agents/skills/cherrypicking-pr-to-v3/SKILL.md)
 
-From [buildkite/agent](https://github.com/buildkite/agent) — a repo with 1028+ stars on GitHub.
+From [buildkite/agent](https://github.com/buildkite/agent) — a repo with 1035+ stars on GitHub.
 
 ---
 
