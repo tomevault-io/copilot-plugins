@@ -4,7 +4,7 @@
   "repo": "winutil",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ChrisTitusTech/winutil",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T16:28:37Z"
+  "distributed_at": "2026-08-09T20:50:42Z"
 }
