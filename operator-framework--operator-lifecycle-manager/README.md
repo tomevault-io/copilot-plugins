@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [operator-framework/operator-lifecycle-manager](
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [operator-framework/operator-lifecycle-manager](https://github.com/operator-framework/operator-lifecycle-manager) — a repo with 1862+ stars on GitHub.
+From [operator-framework/operator-lifecycle-manager](https://github.com/operator-framework/operator-lifecycle-manager) — a repo with 1863+ stars on GitHub.
 
 ---
 
