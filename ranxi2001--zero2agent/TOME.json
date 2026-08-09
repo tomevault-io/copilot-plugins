@@ -1,0 +1,93 @@
+{
+  "name": "zero2Agent",
+  "owner": "ranxi2001",
+  "repo": "zero2Agent",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "zero2Agent",
+      "path": ".claude/skills/new-module/SKILL.md",
+      "github_url": "https://github.com/ranxi2001/zero2Agent/tree/main/.claude/skills/new-module/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zero2Agent",
+      "path": ".claude/skills/new-article/SKILL.md",
+      "github_url": "https://github.com/ranxi2001/zero2Agent/tree/main/.claude/skills/new-article/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zero2Agent",
+      "path": ".claude/skills/drawio-skill/SKILL.md",
+      "github_url": "https://github.com/ranxi2001/zero2Agent/tree/main/.claude/skills/drawio-skill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zero2Agent",
+      "path": ".claude/skills/mermaid-check/SKILL.md",
+      "github_url": "https://github.com/ranxi2001/zero2Agent/tree/main/.claude/skills/mermaid-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zero2Agent",
+      "path": ".claude/skills/content-review/SKILL.md",
+      "github_url": "https://github.com/ranxi2001/zero2Agent/tree/main/.claude/skills/content-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zero2Agent",
+      "path": ".claude/skills/scrape-nowcoder/SKILL.md",
+      "github_url": "https://github.com/ranxi2001/zero2Agent/tree/main/.claude/skills/scrape-nowcoder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zero2Agent",
+      "path": ".claude/skills/chinese-quotes-fix/SKILL.md",
+      "github_url": "https://github.com/ranxi2001/zero2Agent/tree/main/.claude/skills/chinese-quotes-fix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "zero2Agent",
+      "path": ".claude/skills/classify-interview-questions/SKILL.md",
+      "github_url": "https://github.com/ranxi2001/zero2Agent/tree/main/.claude/skills/classify-interview-questions/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ranxi2001/zero2Agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T15:45:22Z"
+}
