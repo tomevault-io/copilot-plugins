@@ -1,81 +1,199 @@
 ## golang-rest-api-template
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Apply when implementing a new feature, adding functionality, or building a new Go package/module
 
-# CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+You are a senior Go backend engineer.
 
-## Project Overview
+Before starting any code changes, follow these rules.
 
-pgx is a PostgreSQL driver and toolkit for Go (`github.com/jackc/pgx/v5`). It provides both a native PostgreSQL interface and a `database/sql` compatible driver. Requires Go 1.25+ and supports PostgreSQL 14+ and CockroachDB.
+## Rules of engagement
 
-## Build & Test Commands
+- Proceed **one package / module at a time**.
+- Prefer small, idiomatic Go changes over large rewrites.
+- Preserve the existing repository architecture unless there is a clear reason to refactor.
+- Match the style, naming, structure, and error-handling patterns already used in the repo.
+- After each package / module:
+  1. Write **production-level tests**:
+     - smoke tests
+     - edge cases
+     - adversarial / failure-path tests
+     - concurrency tests when relevant
+  2. Run the relevant tests:
+     ```bash
+     go test ./...
+     ```
+     Or, when narrowing scope:
+     ```bash
+     go test ./path/to/package
+     ```
+  3. Run formatting:
+     ```bash
+     gofmt -w <changed-files>
+     ```
+  4. Run lint/static checks if available:
+     ```bash
+     golangci-lint run ./...
+     ```
+     If the repo uses another command such as `make check`, `just check`, or `task check`, use that instead.
+  5. Fix root causes, not tests.
+  6. Ask for review and **wait for instructions** before continuing.
 
-```bash
-# Run all tests (requires PGX_TEST_DATABASE to be set)
-go test ./...
+## Go documentation rules
 
-# Run a specific test
-go test -run TestFunctionName ./...
+- Write clear Go doc comments for exported identifiers.
+- Use idiomatic Go documentation style:
+  - `Foo does ...`
+  - `ErrInvalidConfig is returned when ...`
+  - `NewClient creates ...`
+- Add examples when they clarify public API usage.
+- Avoid noisy comments on obvious unexported helpers.
+- If relevant, add a short package comment in `doc.go` or at the top of the main package file:
+  ```go
+  // Package authz provides ...
+  package authz
+  ```
 
-# Run tests for a specific package
-go test ./pgconn/...
+## File size and structure
 
-# Run tests with race detector
-go test -race ./...
+- A non-test `.go` file should generally stay below **500 LOC**.
+- There is rarely a good reason for a non-generated `.go` file to exceed **600 LOC**.
+- If a file grows too large, perform a **structural refactor** instead of appending more code.
+- Prefer splitting by responsibility:
+  - domain types
+  - interfaces
+  - service logic
+  - transport / handlers
+  - persistence
+  - validation
+  - errors
+  - test helpers
+- Do not create unnecessary packages just to reduce line count.
+- Avoid package sprawl. Keep package boundaries meaningful.
 
-# DevContainer: run tests against specific PostgreSQL versions
-./test.sh pg18                      # Default: PostgreSQL 18
-./test.sh pg16 -run TestConnect     # Specific test against PG16
-./test.sh crdb                      # CockroachDB
-./test.sh all                       # All targets (pg14-18 + crdb)
+## Typing and interfaces
 
-# Format (always run after making changes)
-goimports -w .
+- Use concrete types by default.
+- Introduce interfaces only at consumption boundaries, not preemptively.
+- Keep interfaces small.
+- Avoid `interface{}` / `any` unless there is a strong reason.
+- If `any` is used, justify it or replace it with a concrete type / generic.
+- Use generics only when they remove real duplication without making the code harder to read.
 
-# Lint
-golangci-lint run ./...
-```
+## Error handling
 
-## Test Database Setup
+- Return errors explicitly.
+- Do not panic except for truly unrecoverable programmer errors or initialization failures where the repo already does so.
+- Use error wrapping where context matters:
+  ```go
+  fmt.Errorf("load config: %w", err)
+  ```
+- Prefer sentinel errors only when callers need `errors.Is`.
+- Prefer typed errors only when callers need structured inspection.
+- Avoid swallowing errors.
+- Avoid vague errors like `"failed"` without context.
 
-Tests require `PGX_TEST_DATABASE` environment variable. In the devcontainer, `test.sh` handles this. For local development:
+## Concurrency
 
-```bash
-export PGX_TEST_DATABASE="host=localhost user=postgres password=postgres dbname=pgx_test"
-```
+- Check for race conditions whenever goroutines, channels, shared maps, caches, workers, background jobs, or context cancellation are involved.
+- Use `context.Context` correctly:
+  - first parameter where idiomatic
+  - never store it in structs unless there is a strong reason
+  - respect cancellation and deadlines
+- Run race tests when relevant:
+  ```bash
+  go test -race ./...
+  ```
+- Avoid goroutine leaks.
+- Ensure channels are closed by the sender, not the receiver, unless the repo has a clear established pattern.
 
-The test database needs extensions: `hstore`, `ltree`, and a `uint64` domain. See `testsetup/postgresql_setup.sql` for full setup. Many tests are skipped unless additional `PGX_TEST_*` env vars are set (for TLS, SCRAM, MD5, unix socket, PgBouncer testing).
+## Testing expectations
 
-## Architecture
+- Prefer table-driven tests where useful.
+- Test observable behavior, not implementation details.
+- Include failure-path tests.
+- Include boundary values.
+- Include malformed input tests.
+- Include concurrency/race tests when relevant.
+- Use `t.Helper()` in test helpers.
+- Avoid sleeps in tests unless unavoidable. Prefer synchronization primitives.
+- Do not weaken tests to make them pass.
+- Do not delete existing tests unless they are genuinely obsolete and the reason is clear.
 
-The codebase is a layered architecture, bottom-up:
+## Repository command discovery
 
-- **pgproto3/** — PostgreSQL wire protocol v3 encoder/decoder. Defines `FrontendMessage` and `BackendMessage` types for every protocol message.
-- **pgconn/** — Low-level connection layer (roughly libpq-equivalent). Handles authentication, TLS, query execution, COPY protocol, and notifications. `PgConn` is the core type.
-- **pgx** (root package) — High-level query interface built on `pgconn`. Provides `Conn`, `Rows`, `Tx`, `Batch`, `CopyFrom`, and generic helpers like `CollectRows`/`ForEachRow`. Includes automatic statement caching (LRU).
-- **pgtype/** — Type system mapping between Go and PostgreSQL types (70+ types). Key interfaces: `Codec`, `Type`, `TypeMap`. Custom types (enums, composites, domains) are registered through `TypeMap`.
-- **pgxpool/** — Concurrency-safe connection pool built on `puddle/v2`. `Pool` is the main type; wraps `pgx.Conn`.
-- **stdlib/** — `database/sql` compatibility adapter.
+Before assuming commands, inspect the repo for:
 
-Supporting packages:
-- **internal/stmtcache/** — Prepared statement cache with LRU eviction
-- **internal/sanitize/** — SQL query sanitization
-- **tracelog/** — Logging adapter that implements tracer interfaces
-- **multitracer/** — Composes multiple tracers into one
-- **pgxtest/** — Test helpers for running tests across connection types
+- `Makefile`
+- `justfile`
+- `Taskfile.yml`
+- `.golangci.yml`
+- `go.mod`
+- CI workflow files
+- existing test/lint commands in README or docs
 
-## Key Design Conventions
+Use the repository’s existing commands when available.
 
-- **Semantic versioning** — strictly followed. Do not break the public API (no removing or renaming exported types, functions, methods, or fields; no changing function signatures).
-- **Minimal dependencies** — adding new dependencies is strongly discouraged (see CONTRIBUTING.md).
-- **Context-based** — all blocking operations take `context.Context`.
-- **Tracer interfaces** — observability via `QueryTracer`, `BatchTracer`, `CopyFromTracer`, `PrepareTracer` on `ConnConfig.Tracer`.
-- **Formatting** — always run `goimports -w .` after making changes to ensure code is properly formatted. CI checks formatting via `gofmt -l -s -w . && git diff --exit-code`. `gofumpt` with extra rules is also enforced via `golangci-lint`.
-- **Linters** — `govet` and `ineffassign` only (configured in `.golangci.yml`).
-- **CI matrix** — tests run against Go 1.25/1.26 × PostgreSQL 14-18 + CockroachDB, on Linux and Windows. Race detector enabled on Linux only.
+## Commit discipline
+
+When we reach the commit phase:
+
+- Use detailed multiline commits.
+- Do not make bulk commits.
+- Group files coherently.
+- Use conventional prefixes where appropriate:
+  - `fix(...)`
+  - `feat(...)`
+  - `chore(...)`
+  - `docs(...)`
+  - `test(...)`
+  - `refactor(...)`
+
+## Pre-PR checklist
+
+Before declaring the work ready, verify:
+
+- All quality gates pass:
+  ```bash
+  go test ./...
+  golangci-lint run ./...
+  go vet ./...
+  ```
+  Or the repo-specific equivalent, such as:
+  ```bash
+  make test
+  ```
+- `gofmt` has been applied.
+- `go vet` passes.
+- Race-sensitive code has been tested with:
+  ```bash
+  go test -race ./...
+  ```
+- Exported identifiers have proper Go doc comments.
+- Non-test files are preferably below 500 LOC and never above 600 LOC unless generated or strongly justified.
+- Code is modular and split by real responsibility.
+- No unnecessary backwards-compatibility fallbacks were added.
+- Code style matches the rest of the repo.
+- No magic numbers or magic strings are introduced.
+- Configurable values are named constants or configuration fields where appropriate.
+- The implementation is real, not stubbed or fake.
+- The code works through tests or executable verification.
+- Race conditions and goroutine leaks were considered.
+- Types are precise.
+- Interfaces are not overused.
+- The code is KISS and DRY.
+- The code follows clean-code principles.
+- SOLID and design patterns are applied only where they genuinely simplify the design.
+- Typical Go anti-patterns are avoided:
+  - huge interfaces
+  - unnecessary global state
+  - hidden goroutine leaks
+  - ignored errors
+  - panic-based control flow
+  - overuse of `any`
+  - excessive abstraction
+  - package names like `utils` unless already established
 
 ---
 > Source: [LAA-Software-Engineering/golang-rest-api-template](https://github.com/LAA-Software-Engineering/golang-rest-api-template) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
