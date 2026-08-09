@@ -1,26 +1,25 @@
 ## srs
 
-> Keep the current working directory unchanged. For workspace instructions and workspace-owned files, look for files and folders under `.claude/`.
+> Keep the current working directory unchanged. For workspace instructions and workspace-owned files, look for files and folders under `.agents/`.
 
 # Workspace Instructions
 
-Keep the current working directory unchanged. For workspace instructions and workspace-owned files, look for files and folders under `.claude/`.
+Keep the current working directory unchanged. For workspace instructions and workspace-owned files, look for files and folders under `.agents/`.
 
-Before doing any work in this repository, read these files in full from `.claude/`:
+Before doing any work in this repository, read these files in full from `.agents/`:
 
-- `.claude/IDENTITY.md`
-- `.claude/MEMORY.md`
-- `.claude/SOUL.md`
-- `.claude/TOOLS.md`
-- `.claude/USER.md`
+- `.agents/IDENTITY.md`
+- `.agents/MEMORY.md`
+- `.agents/SOUL.md`
+- `.agents/TOOLS.md`
+- `.agents/USER.md`
 
 Use them as the workspace context for identity, user preferences, memory, local tools, and operating conventions.
 
-Additional `.claude/` workspace folders:
+Additional `.agents/` workspace folders:
 
-- `.claude/skills/` — skills available for tasks in this repository.
-- `.claude/memory/` — persisted notes and references for this workspace.
+- `.agents/skills/` — skills available for tasks in this repository.
 
 ---
 > Source: [ossrs/srs](https://github.com/ossrs/srs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
