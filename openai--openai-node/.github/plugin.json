@@ -1,0 +1,9 @@
+{
+  "name": "openai--openai-node",
+  "displayName": "openai-node",
+  "description": "openai-node",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/openai-node",
+  "skills": []
+}
