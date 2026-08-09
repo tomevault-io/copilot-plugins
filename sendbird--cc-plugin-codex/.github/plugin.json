@@ -1,0 +1,9 @@
+{
+  "name": "sendbird--cc-plugin-codex",
+  "displayName": "cc-plugin-codex",
+  "description": "cc-plugin-codex",
+  "version": "1.0.0",
+  "author": "sendbird",
+  "homepage": "https://github.com/sendbird/cc-plugin-codex",
+  "skills": []
+}
