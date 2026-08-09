@@ -1,0 +1,9 @@
+{
+  "name": "square--leakcanary",
+  "displayName": "leakcanary",
+  "description": "leakcanary",
+  "version": "1.0.0",
+  "author": "square",
+  "homepage": "https://github.com/square/leakcanary",
+  "skills": []
+}
