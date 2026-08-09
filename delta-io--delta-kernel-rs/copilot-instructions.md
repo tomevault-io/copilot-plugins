@@ -1,77 +1,34 @@
 ## delta-kernel-rs
 
-> Workflow-authoring rules for GitHub Actions.
+> `datafusion_executor` is a DataFusion-based `PlanExecutor` for delta_kernel declarative plans.
 
-# .github/CLAUDE.md
+# CLAUDE.md -- datafusion-executor
 
-Workflow-authoring rules for GitHub Actions.
+`datafusion_executor` is a DataFusion-based `PlanExecutor` for delta_kernel declarative plans.
+Kernel emits executor-independent logical `Plan`s; this crate executes them by lowering each
+plan to a DataFusion `LogicalPlan`, optimizing it, and running the resulting `ExecutionPlan`.
 
-## Triggers: restrict `push` to long-lived branches
+## Separate workspace
 
-The CI trigger events:
+This crate has its own `[workspace]`, so it is NOT a member of the root workspace and the root's
+`--workspace` commands do not touch it. The isolation exists to avoid an arrow version mismatch:
+DataFusion pins a specific arrow major, so kernel must be built against that same major here. The
+root workspace builds kernel against its own default arrow major, which need not match. As a root
+member, Cargo feature unification would compile kernel against a single arrow major shared with
+the rest of the workspace, so DataFusion's types would link against a kernel built on a different
+arrow major -- a mismatch that breaks the build. A separate workspace resolves kernel's arrow
+major in isolation, matched to DataFusion's.
 
-- `pull_request`: a commit is pushed to a branch with an open PR. Runs CI on the
-  PR.
-- `merge_group`: the merge queue builds a temporary `gh-readonly-queue/*` branch
-  and tests the change as it would land on `main`.
-- `push`: a branch ref is updated. We only want this for the long-lived branches
-  (`main` and `release/**`), i.e. the post-merge run once a PR lands.
+## Build & Test Commands
 
-We want CI on `pull_request`, on `merge_group`, and on `push` to a long-lived
-branch: one run per stage. A bare `push` trigger instead duplicates two of these:
+cd into the crate (the subshell keeps that from leaking out); cargo picks up the nested workspace
+automatically.
 
-- `push` + `pull_request`: a branch pushed directly to this repo (a maintainer
-  branch, not a fork) fires both. Fork PRs avoid this because the `push` lands on
-  the fork, not on this repo.
-- `push` + `merge_group`: the merge queue's push to the `gh-readonly-queue/*`
-  branch fires both.
-
-Restricting `push` to long-lived branches drops the redundant `push` in each
-case:
-
-```yaml
-on:
-  push:
-    branches: [main, "release/**"]
-  pull_request:
-  merge_group:
-```
-
-## Never `paths`/`paths-ignore` a workflow whose jobs are required checks
-
-Do NOT add `paths` or `paths-ignore` filters to a workflow whose jobs are required
-status checks (most of `build.yml`). When a path filter skips the whole workflow,
-the required checks never report, and the PR stays blocked on "Expected, waiting
-for status" indefinitely. A skipped workflow is not the same as a passing one.
-
-## Supply chain security: `--locked`
-
-Every `cargo` command in CI that resolves dependencies MUST use `--locked` to
-enforce the committed `Cargo.lock`. This prevents CI from silently picking up a
-newer (potentially compromised) transitive dependency. If `Cargo.lock` is out of
-sync with `Cargo.toml`, the build fails immediately, forcing dependency changes to
-be explicit and reviewable. See the top-level comment in `build.yml` for full
-rationale. Commands exempt from `--locked`: `cargo +nightly fmt` (no dep
-resolution), `cargo msrv verify/show` (wrapper tool), `cargo miri setup` (tooling
-setup).
-
-## Action safety
-
-When writing any github action, consider safety including mitigating common attack
-vectors such as expression injection and pull request target attacks.
-
-```yaml
-# The code below is vulnerable to expression injection
-run: |
-    echo "Comment: ${{ github.event.comment.body }}"
-
-# To mitigate instead use environment variables
-env:
-    COMMENT_BODY: ${{ github.event.comment.body }}
-run: |
-    echo "Comment: $COMMENT_BODY"
+```bash
+(cd datafusion-executor && cargo build)
+(cd datafusion-executor && cargo test)
 ```
 
 ---
 > Source: [delta-io/delta-kernel-rs](https://github.com/delta-io/delta-kernel-rs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
