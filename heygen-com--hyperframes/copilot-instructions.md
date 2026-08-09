@@ -1,101 +1,115 @@
 ## hyperframes
 
-> **Always invoke the relevant skill before writing or modifying compositions.** Skills encode framework-specific patterns (e.g., `window.__timelines` registration, `data-*` attribute semantics, shader-compatible CSS rules) that are NOT in generic web docs. Skipping them produces broken compositions.
+> Before changing a page, read its complete body and verify product behavior in
 
-# HyperFrames Composition Project
+# HyperFrames documentation rules
 
-## Skills — USE THESE FIRST
+Before changing a page, read its complete body and verify product behavior in
+the current source, tests, CLI help, or shipped skills.
 
-**Always invoke the relevant skill before writing or modifying compositions.** Skills encode framework-specific patterns (e.g., `window.__timelines` registration, `data-*` attribute semantics, shader-compatible CSS rules) that are NOT in generic web docs. Skipping them produces broken compositions.
+- Write for a smart general user first. Do not assume they are a developer.
+- Explain what a person can accomplish before explaining implementation details.
+- Prefer plain words, short examples, screenshots, and visible outcomes.
+- Keep agent instructions copyable and specific.
+- Put CLI, SDK, package, schema, deployment, and internals under **Developers**.
+- Never infer product behavior from page titles or old docs. Verify it in current code.
+- Do not preserve a page merely because it already exists. Merge, rewrite, redirect, or remove it when that improves the user journey.
+- Do not publish empty, duplicated, outdated, or aspirational content as fact.
+- A page should answer a real question or help complete a real task.
+- Preserve the approved Mintlify header, sidebar, right-side contents, and page-width behavior unless a task explicitly changes the site chrome.
 
-**Doing anything with HyperFrames?** Start at `/hyperframes` — it tells you what HyperFrames can do and which skill or workflow handles your intent (make a video, TTS / BGM, prep footage, author / animate, render, install blocks), confirms your brief up front (the intent layer), and routes every "make me a…" request (a video, a deck, a composition port) to the right workflow. Read it first, especially when there's no project context to orient you. The workflows it routes to:
+## Page standard
 
-- `/product-launch-video` — any **website** URL or brief / script → a product launch / SaaS / promo video, or a site tour / showcase featuring the site's own captured visuals.
-- `/faceless-explainer` — arbitrary text (topic / article / notes), **no URL, no website capture** → 60-90s faceless explainer.
-- `/embedded-captions` — an existing talking-head video (MP4) → the same footage with captions / subtitles added (rail + embed, or pure-cinematic embed); the footage itself is untouched.
-- `/talking-head-recut` — an existing talking-head / interview / podcast video (MP4) → the same footage **packaged with designed graphic overlays** (kinetic titles, lower-thirds, data callouts, pull-quotes, side panels, pip) synced to the transcript; the clip plays unchanged underneath. (Plain captions/subtitles → `/embedded-captions`.)
-- `/pr-to-video` — a GitHub PR (URL / `owner/repo#N` / "this PR") → 30-90s code-change explainer (changelog / feature reveal / fix / refactor).
-- `/motion-graphics` — a short (typically under 10s) design-led **motion graphic**, motion-is-the-message, no narration: kinetic type, a stat / number count-up, a chart, a logo sting, a lower-third / overlay, or an animated tweet / headline / captured-page highlight; rendered to MP4 or a transparent overlay. Longer / narrated / custom → `/general-video`.
-- `/music-to-video` — a **music track** (audio file, or video to pull audio from) → beat-synced video (lyric / slideshow / kinetic promo). Music drives pacing; user-supplied images / videos are cut onto the same beat grid.
-- `/slideshow` — a **presentation / pitch deck / interactive deck** — discrete slides, fragment reveals, branching, hotspot navigation, presenter mode. Output is a navigable deck, not a rendered video.
-- `/general-video` — fallback for any other video (title card, longer brand / sizzle reel, multi-scene montage, static loop, custom composition) and the home of **companion mode** — co-create with the full HyperFrames toolbox; the original hyperframes authoring flow, any length.
+Most human-facing pages should contain:
 
-**Porting an existing composition?** `/remotion-to-hyperframes` translates a Remotion (React) composition into HyperFrames HTML — a source migration, separate from the creation workflows above.
+1. What this lets you do
+2. When to use it
+3. A visual or concrete example
+4. The shortest successful path
+5. What should happen
+6. Common problems
+7. Useful next steps
 
-The domain skills (`/hyperframes-core`, `/hyperframes-animation`, `/hyperframes-keyframes`, `/hyperframes-creative`, `/hyperframes-cli`, `/media-use`, `/hyperframes-registry`, `/figma`) and the full capability map live inside `/hyperframes` — it is the single source of truth for which skill handles which intent.
+Do not force this structure where it makes a page worse. Reference pages may stay reference-shaped.
 
-> **Tailwind v4 projects** (`hyperframes init --tailwind`): see `/hyperframes-core` → `references/tailwind.md`.
+## Component doctrine
 
-> **Skill missing or stale?** Run `npx hyperframes skills update <name>` to install/refresh
-> the specific skill you need (the `/hyperframes` router does this automatically before
-> entering a workflow), or bare `npx hyperframes skills update` to refresh the core set plus
-> everything already installed — neither pulls the full set. Restart the agent session so
-> newly installed skills load.
+One component per job. If two components on a page render the same list, delete one.
 
-## Commands
+| The job | Use | Never use |
+| --- | --- | --- |
+| Choose between destinations | `CardGroup` + `Card`, max 2 columns, linking to the real page | An accordion, or cards pointing at anchors on the same page |
+| Ordered instructions | `Steps` | A flow diagram that repeats the same steps |
+| Parallel variants of one instruction (source type, OS, language) | `Tabs` | Repeating the whole block per variant |
+| Compare attributes across items | A table | Prose paragraphs per item |
+| Static image | `Frame` with a caption that says what it is | A bare `img` with no context |
+| Genuinely out-of-band aside | One `Note`, `Tip`, or `Warning` per page | Stacked callouts, or a callout for ordinary prose |
+
+**Do not use accordions for journeys, choices, instructions, or troubleshooting.** They hide the thing the reader needs, cost a click, and weaken `Cmd+F`, printing, and deep linking. A dense optional reference or example gallery may keep accordions when showing every item at once would make the page unusable. Two patterns in the Prompt Guide are the standing exceptions: its verified-example gallery, and the per-page `## Variants` blocks. Those hold long alternative prompts rather than parallel instructions, so the `Tabs` row above does not apply — a reader picks one to read in full, not one of several ways to do the same step. Long symptom or task lists become visible `##` sections instead — they get anchors the support team can link directly, and they appear in the page contents.
+
+**No diagram that restates adjacent prose.** A four-node flow beside a four-step list is the same content twice. Keep whichever is more useful and delete the other.
+
+**Cards link to pages, never to anchors on the current page.** A card that scrolls the reader a short distance to the same words is the worst pattern in these docs; it has been removed twice.
+
+**Two columns is the practical maximum** for anything containing text. Three columns in this content width hyphenates titles mid-word.
+
+**Full films and preview loops are different jobs.** Use `DocsVideo` for a
+narrated film a reader watches intentionally. A plain `<video>` is only for a
+small, muted, autoplaying preview loop inside a visual explanation or Catalog
+item. Do not mix native browser controls with the custom player.
+
+**End a page by pointing somewhere, and make the pointer visible content.**
+Mintlify does not render a `related:` frontmatter list, so a frontmatter key
+buys nothing. How the pointer looks depends on the page:
+
+- Task, guide, Studio, and Catalog pages end with a `## Related topics` section
+  naming the two or three destinations that genuinely help the reader continue.
+- Pages in a numbered sequence — the Prompt Guide — end with a single
+  `*Next: [page] — why*` line instead. A course has one useful destination, and
+  three competing links break the through-line.
+- Reference and concept pages (`/packages`, `/sdk`, `/reference`, `/concepts`)
+  may end without either. A reader arrives there from one specific question and
+  leaves the same way; inventing three related links is filler.
+
+### Custom React components
+
+Mintlify compiles `.jsx` / `.tsx` from `docs/snippets/`. Use one when a native component genuinely cannot express the idea — a scrubber, a comparison slider, a live player — not for styling.
+
+- Named exports only: `export const Thing = () => ...`. Default exports do not work.
+- `useState`, `useEffect`, `useRef`, `useCallback`, `useMemo`, `useContext`, `useReducer` are pre-injected; do not import React.
+- **Do not add a dependency or CDN script for presentation alone.** Prefer browser built-ins (`fetch`, `IntersectionObserver`, Canvas, `<video>`). A version-pinned official runtime is acceptable when that runtime is the subject of the demo and the component provides a useful loading or failure state; the live composition on Introduction is the model.
+- A snippet cannot import another snippet. Keep each self-contained.
+- **Declare everything inside the component.** Only the exported component survives
+  compilation; module-level `const`s above it are dropped, so a constant defined
+  outside arrives `undefined` at render. The component then throws inside React,
+  the error boundary swallows it, and the page renders nothing at that position —
+  with no console error to point at it. If a snippet renders blank, check this first.
+- Client-side only: guard anything touching `window` and give every component a sensible first paint.
+- Respect `prefers-reduced-motion`, give interactive elements a visible focus state, and never make a component the only route to information.
+
+## Verification
+
+After navigation or MDX changes:
 
 ```bash
-npm run dev          # start the preview server (long-running — keep it alive in background)
-npm run check        # lint + runtime + layout + motion + contrast (one command)
-npm run render       # render to MP4
-npm run publish      # publish and get a shareable link
-npx hyperframes lint --verbose  # include info-level findings
-npx hyperframes lint --json     # machine-readable output for CI
-npx hyperframes docs <topic> # reference docs in terminal
+PATH=/opt/homebrew/opt/node@20/bin:$PATH mint validate
+PATH=/opt/homebrew/opt/node@20/bin:$PATH mint broken-links
 ```
 
-> **`npm run dev` is a long-running server, not a one-shot command.** It blocks until stopped.
-> In Claude Code, always run it with `run_in_background: true`. Never run it as a foreground
-> command — it will time out and the server will die, breaking the browser preview.
+Use Bun for repository work. Do not create a `pnpm-lock.yaml`.
 
-> **Pinned CLI version.** These scripts pin an exact `hyperframes@X.Y.Z` so this project re-renders identically over time. Weeks later that pin lags fixes shipped since. To move up: `npx hyperframes@latest upgrade --project . --check` (shows the delta), then `npx hyperframes@latest upgrade --project .` to rewrite the pins. Always unpinned — the pinned script re-runs the old version against itself.
+## Freshness and ownership
 
-## Documentation
-
-**For quick reference**, use the local CLI docs command (no network required):
-
-```bash
-npx hyperframes docs <topic>
-```
-
-Topics: `data-attributes`, `gsap`, `compositions`, `rendering`, `examples`, `troubleshooting`
-
-**For full documentation**, discover pages via the machine-readable index — do NOT guess URLs:
-
-```
-https://hyperframes.heygen.com/llms.txt
-```
-
-## Project Structure
-
-- `index.html` — main composition (root timeline)
-- `compositions/` — sub-compositions referenced via `data-composition-src`
-- `meta.json` — project metadata (id, name)
-- `transcript.json` — whisper word-level transcript (if generated)
-
-## Linting — ALWAYS RUN AFTER CHANGES
-
-After creating or editing any `.html` composition, **always** run the full check before considering the task complete:
-
-```bash
-npm run check
-```
-
-Fix all errors before presenting the result. Warnings should be reviewed before rendering.
-
-## Key Rules
-
-1. Every timed element needs `data-start`, `data-duration`, and `data-track-index`
-2. Elements with timing **MUST** have `class="clip"` — the framework uses this for visibility control
-3. Timelines must be paused and registered on `window.__timelines`:
-   ```js
-   window.__timelines = window.__timelines || {};
-   window.__timelines["composition-id"] = gsap.timeline({ paused: true });
-   ```
-4. Videos use `muted` with a separate `<audio>` element for the audio track
-5. Sub-compositions use `data-composition-src="compositions/file.html"` to reference other HTML files
-6. Only deterministic logic — no `Date.now()`, no `Math.random()`, no network fetches
+- A product behavior page is owned by the team that owns the matching product surface.
+- A package or API reference is owned by the package maintainer.
+- Workflow pages are owned by the maintainer of the matching agent skill.
+- When a feature changes, update its task guide, related troubleshooting entry, and screenshot in the same pull request.
+- Treat screenshots as product claims. Replace them when labels, layout, or the demonstrated workflow changes materially.
+- Review **Start here**, **Studio**, **Export**, and **Troubleshooting** at least once per release cycle.
+- Review lower-traffic reference pages at least quarterly.
+- Remove an unowned update feed instead of letting it become stale.
+- Use search analytics and support questions to decide which missing task pages to add next.
 
 ---
 > Source: [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
