@@ -1,0 +1,44 @@
+{
+  "name": "JaiTTS-Easy",
+  "owner": "aiunlocked1412",
+  "repo": "JaiTTS-Easy",
+  "description": "\u0e42\u0e04\u0e25\u0e19\u0e40\u0e2a\u0e35\u0e22\u0e07\u0e1e\u0e39\u0e14\u0e20\u0e32\u0e29\u0e32\u0e44\u0e17\u0e22\u0e14\u0e49\u0e27\u0e22 JaiTTS (F5-TTS) \u2014 \u0e15\u0e34\u0e14\u0e15\u0e31\u0e49\u0e07\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27 \u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e1c\u0e48\u0e32\u0e19\u0e2b\u0e19\u0e49\u0e32\u0e40\u0e27\u0e47\u0e1a\u0e44\u0e14\u0e49\u0e17\u0e31\u0e19\u0e17\u0e35 \u00b7 Thai voice cloning made easy: one-command setup, local Gradio UI, CLI, and the full benchmark toolkit",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aiunlocked1412/JaiTTS-Easy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T06:34:17Z"
+}
