@@ -1,0 +1,9 @@
+{
+  "name": "drenlia--agila",
+  "displayName": "agila",
+  "description": "Simple and easy Kanban web application built with React TS PostgreSQL",
+  "version": "1.0.0",
+  "author": "drenlia",
+  "homepage": "https://github.com/drenlia/agila",
+  "skills": []
+}
