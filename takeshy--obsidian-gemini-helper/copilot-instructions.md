@@ -1,10 +1,10 @@
 ## obsidian-gemini-helper
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## Project Overview
 
@@ -59,6 +59,12 @@ This runs `version-bump.mjs` which updates `package.json`, `manifest.json`, and 
 - **history.ts** - Execution history tracking
 - **historyCanvas.ts** - Export execution history to Obsidian Canvas
 - **codeblockSync.ts** - Sync workflow changes back to markdown
+
+### Dashboard Hub Integration (`src/integrations/`)
+- Dashboard UI, `.dashboard` ownership, widgets, and storage are provided by the separate `obsidian-dashboard-hub` plugin.
+- **dashboardHubCapabilities.ts** - Exposes Gemini models, Chat handoff, headless Workflow execution, Base generation, text rewriting, and Workflow generation to Dashboard Hub.
+- Dashboard Hub contributes its `dashboard` agent skill dynamically through the runtime skill registry in `src/core/runtimeSkills.ts`.
+- `plugin.ts` retains a compatibility `create-dashboard` command that delegates creation to Dashboard Hub.
 
 ### UI Layer (`src/ui/`)
 - **ChatView.tsx** - Obsidian ItemView wrapper for React
@@ -164,4 +170,4 @@ When adding a new workflow node type, **ALL** of the following files must be upd
 
 ---
 > Source: [takeshy/obsidian-gemini-helper](https://github.com/takeshy/obsidian-gemini-helper) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
