@@ -4,7 +4,7 @@
   "repo": "appsflyer-flutter-plugin",
   "description": "",
   "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -43,9 +43,39 @@
       "path": ".claude/skills/rc-release/SKILL.md",
       "github_url": "https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin/tree/main/.claude/skills/rc-release/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "appsflyer-flutter-plugin",
+      "path": ".claude/skills/alice-pm/SKILL.md",
+      "github_url": "https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin/tree/main/.claude/skills/alice-pm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "appsflyer-flutter-plugin",
+      "path": ".claude/skills/af-ship-orch/SKILL.md",
+      "github_url": "https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin/tree/main/.claude/skills/af-ship-orch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "appsflyer-flutter-plugin",
+      "path": ".claude/skills/erin-flutter-analyst/SKILL.md",
+      "github_url": "https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin/tree/main/.claude/skills/erin-flutter-analyst/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "appsflyer-flutter-plugin",
+      "path": ".claude/skills/dave-flutter-engineer/SKILL.md",
+      "github_url": "https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin/tree/main/.claude/skills/dave-flutter-engineer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "appsflyer-flutter-plugin",
+      "path": ".claude/skills/bob-flutter-researcher/SKILL.md",
+      "github_url": "https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin/tree/main/.claude/skills/bob-flutter-researcher/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-26T23:31:31Z"
+  "distributed_at": "2026-08-09T13:46:14Z"
 }
