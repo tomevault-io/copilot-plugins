@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [dougburks/ohmypcap](https://github.com/dougburk
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [dougburks/ohmypcap](https://github.com/dougburks/ohmypcap) — a repo with 552+ stars on GitHub.
+From [dougburks/ohmypcap](https://github.com/dougburks/ohmypcap) — a repo with 570+ stars on GitHub.
 
 ---
 
