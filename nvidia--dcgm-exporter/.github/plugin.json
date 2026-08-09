@@ -1,0 +1,26 @@
+{
+  "name": "nvidia--dcgm-exporter",
+  "displayName": "dcgm-exporter",
+  "description": "dcgm-exporter",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/dcgm-exporter",
+  "skills": [
+    {
+      "name": "dcgm-exporter",
+      "description": ""
+    },
+    {
+      "name": "dcgm-exporter",
+      "description": ""
+    },
+    {
+      "name": "dcgm-exporter",
+      "description": ""
+    },
+    {
+      "name": "dcgm-exporter",
+      "description": ""
+    }
+  ]
+}
