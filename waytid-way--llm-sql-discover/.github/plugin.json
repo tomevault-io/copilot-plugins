@@ -1,0 +1,9 @@
+{
+  "name": "waytid-way--llm-sql-discover",
+  "displayName": "llm-sql-discover",
+  "description": "SQL to MySQL / PostgreSQL",
+  "version": "1.0.0",
+  "author": "Waytid-way",
+  "homepage": "https://github.com/Waytid-way/llm-sql-discover",
+  "skills": []
+}
