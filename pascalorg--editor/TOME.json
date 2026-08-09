@@ -2,9 +2,9 @@
   "name": "editor",
   "owner": "pascalorg",
   "repo": "editor",
-  "description": "Create and share 3D architectural projects.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pascalorg/editor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T15:20:34Z"
+  "distributed_at": "2026-08-09T11:47:17Z"
 }
