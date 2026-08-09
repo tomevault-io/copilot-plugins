@@ -4,7 +4,7 @@
   "repo": "flowhawk",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alexhraber/flowhawk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T14:49:45Z"
+  "distributed_at": "2026-08-09T16:26:12Z"
 }
