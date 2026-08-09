@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "aws-powertools",
   "homepage": "https://github.com/aws-powertools/powertools-lambda-typescript",
-  "skills": []
+  "skills": [
+    {
+      "name": "powertools-lambda-typescript",
+      "description": ""
+    },
+    {
+      "name": "powertools-lambda-typescript",
+      "description": ""
+    }
+  ]
 }
