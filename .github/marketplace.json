@@ -8054,6 +8054,116 @@
       "description": "ironclaw"
     },
     {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
+      "name": "nearai--ironclaw",
+      "source": "./nearai--ironclaw",
+      "description": "ironclaw"
+    },
+    {
       "name": "modelcontextprotocol--typescript-sdk",
       "source": "./modelcontextprotocol--typescript-sdk",
       "description": "The official TypeScript SDK for Model Context Protocol servers and clients"
@@ -8829,6 +8939,11 @@
       "description": "netboot.xyz"
     },
     {
+      "name": "keplergl--kepler-gl",
+      "source": "./keplergl--kepler-gl",
+      "description": "kepler.gl"
+    },
+    {
       "name": "dbcli--mycli",
       "source": "./dbcli--mycli",
       "description": "mycli"
@@ -9472,6 +9587,86 @@
       "name": "dotnet--orleans",
       "source": "./dotnet--orleans",
       "description": "orleans"
+    },
+    {
+      "name": "chia-network--chia-blockchain",
+      "source": "./chia-network--chia-blockchain",
+      "description": "chia-blockchain"
+    },
+    {
+      "name": "chia-network--chia-blockchain",
+      "source": "./chia-network--chia-blockchain",
+      "description": "chia-blockchain"
+    },
+    {
+      "name": "chia-network--chia-blockchain",
+      "source": "./chia-network--chia-blockchain",
+      "description": "chia-blockchain"
+    },
+    {
+      "name": "chia-network--chia-blockchain",
+      "source": "./chia-network--chia-blockchain",
+      "description": "chia-blockchain"
+    },
+    {
+      "name": "chia-network--chia-blockchain",
+      "source": "./chia-network--chia-blockchain",
+      "description": "chia-blockchain"
+    },
+    {
+      "name": "chia-network--chia-blockchain",
+      "source": "./chia-network--chia-blockchain",
+      "description": "chia-blockchain"
+    },
+    {
+      "name": "chia-network--chia-blockchain",
+      "source": "./chia-network--chia-blockchain",
+      "description": "chia-blockchain"
+    },
+    {
+      "name": "chia-network--chia-blockchain",
+      "source": "./chia-network--chia-blockchain",
+      "description": "chia-blockchain"
+    },
+    {
+      "name": "chia-network--chia-blockchain",
+      "source": "./chia-network--chia-blockchain",
+      "description": "chia-blockchain"
+    },
+    {
+      "name": "chia-network--chia-blockchain",
+      "source": "./chia-network--chia-blockchain",
+      "description": "chia-blockchain"
+    },
+    {
+      "name": "chia-network--chia-blockchain",
+      "source": "./chia-network--chia-blockchain",
+      "description": "chia-blockchain"
+    },
+    {
+      "name": "chia-network--chia-blockchain",
+      "source": "./chia-network--chia-blockchain",
+      "description": "chia-blockchain"
+    },
+    {
+      "name": "chia-network--chia-blockchain",
+      "source": "./chia-network--chia-blockchain",
+      "description": "chia-blockchain"
+    },
+    {
+      "name": "chia-network--chia-blockchain",
+      "source": "./chia-network--chia-blockchain",
+      "description": "chia-blockchain"
+    },
+    {
+      "name": "chia-network--chia-blockchain",
+      "source": "./chia-network--chia-blockchain",
+      "description": "chia-blockchain"
+    },
+    {
+      "name": "chia-network--chia-blockchain",
+      "source": "./chia-network--chia-blockchain",
+      "description": "chia-blockchain"
     },
     {
       "name": "chia-network--chia-blockchain",
@@ -11057,6 +11252,11 @@
       "name": "cerebroapp--cerebro",
       "source": "./cerebroapp--cerebro",
       "description": "cerebro"
+    },
+    {
+      "name": "librosa--librosa",
+      "source": "./librosa--librosa",
+      "description": "librosa"
     },
     {
       "name": "evilmartians--lefthook",
@@ -21519,6 +21719,11 @@
       "description": "elasticmq"
     },
     {
+      "name": "binance--binance-connector-python",
+      "source": "./binance--binance-connector-python",
+      "description": "binance-connector-python"
+    },
+    {
       "name": "open-gitagent--opengap",
       "source": "./open-gitagent--opengap",
       "description": "opengap"
@@ -22432,6 +22637,21 @@
       "name": "khazp--vibe-coding-prompt-template",
       "source": "./khazp--vibe-coding-prompt-template",
       "description": "vibe-coding-prompt-template"
+    },
+    {
+      "name": "openlit--openlit",
+      "source": "./openlit--openlit",
+      "description": "openlit"
+    },
+    {
+      "name": "openlit--openlit",
+      "source": "./openlit--openlit",
+      "description": "openlit"
+    },
+    {
+      "name": "openlit--openlit",
+      "source": "./openlit--openlit",
+      "description": "openlit"
     },
     {
       "name": "dineshkarthik--telegram-media-downloader",
@@ -34689,6 +34909,131 @@
       "description": "bluebubbles-app"
     },
     {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
+      "name": "bluebubblesapp--bluebubbles-app",
+      "source": "./bluebubblesapp--bluebubbles-app",
+      "description": "bluebubbles-app"
+    },
+    {
       "name": "dotnet--skills",
       "source": "./dotnet--skills",
       "description": "Repository for skills to assist AI coding agents with .NET and C#"
@@ -39609,6 +39954,11 @@
       "description": "betteralign"
     },
     {
+      "name": "apache--ranger",
+      "source": "./apache--ranger",
+      "description": "ranger"
+    },
+    {
       "name": "vm0-ai--vm0",
       "source": "./vm0-ai--vm0",
       "description": "the easiest way to run natural language-described workflows automatically"
@@ -40837,6 +41187,11 @@
       "name": "piglei--ai-vocabulary-builder",
       "source": "./piglei--ai-vocabulary-builder",
       "description": "ai-vocabulary-builder"
+    },
+    {
+      "name": "swimlane--ngx-graph",
+      "source": "./swimlane--ngx-graph",
+      "description": "ngx-graph"
     },
     {
       "name": "1st1--lat-md",
@@ -76664,6 +77019,106 @@
       "description": "gungraun"
     },
     {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
+      "name": "lamatic--agentkit",
+      "source": "./lamatic--agentkit",
+      "description": "AgentKit"
+    },
+    {
       "name": "homeassistant-ai--skills",
       "source": "./homeassistant-ai--skills",
       "description": "Home Assistant skills for agents"
@@ -90749,6 +91204,21 @@
       "description": "pi-claude-bridge"
     },
     {
+      "name": "laa-software-engineering--golang-rest-api-template",
+      "source": "./laa-software-engineering--golang-rest-api-template",
+      "description": "golang-rest-api-template"
+    },
+    {
+      "name": "laa-software-engineering--golang-rest-api-template",
+      "source": "./laa-software-engineering--golang-rest-api-template",
+      "description": "golang-rest-api-template"
+    },
+    {
+      "name": "laa-software-engineering--golang-rest-api-template",
+      "source": "./laa-software-engineering--golang-rest-api-template",
+      "description": "golang-rest-api-template"
+    },
+    {
       "name": "xorbitsai--xagent",
       "source": "./xorbitsai--xagent",
       "description": "A production-ready platform for dynamic AI agents \u2014 plan, use tools, and complete real work without hardcoded workflows."
@@ -91222,6 +91692,11 @@
       "name": "oopooa--opresume",
       "source": "./oopooa--opresume",
       "description": "opresume"
+    },
+    {
+      "name": "zebbern--claude-code-discord",
+      "source": "./zebbern--claude-code-discord",
+      "description": "claude-code-discord"
     },
     {
       "name": "ryanthedev--code-foundations",
@@ -100997,6 +101472,11 @@
       "name": "callstackincubator--react-native-node-api",
       "source": "./callstackincubator--react-native-node-api",
       "description": "react-native-node-api"
+    },
+    {
+      "name": "fengzhizi715--monica",
+      "source": "./fengzhizi715--monica",
+      "description": "Monica"
     },
     {
       "name": "cksac--turboquant-model",
@@ -126064,6 +126544,11 @@
       "description": "claude-research"
     },
     {
+      "name": "tabbyml--pochi",
+      "source": "./tabbyml--pochi",
+      "description": "pochi"
+    },
+    {
       "name": "interfacex-co-jp--genshijin",
       "source": "./interfacex-co-jp--genshijin",
       "description": "genshijin \u539f\u59cb\u4eba \ud83d\uddff| Claude Code / Codex\u7b49AI\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8 \u5411\u3051\u8d85\u5727\u7e2e\u30b3\u30df\u30e5\u30cb\u30b1\u30fc\u30b7\u30e7\u30f3\u30b9\u30ad\u30eb\u3002caveman \u306e\u65e5\u672c\u8a9e\u7248\u3092\u30d9\u30fc\u30b9\u306b\u3001\u65e5\u672c\u8a9e\u7279\u6709\u306e\u5197\u9577\u8868\u73fe\u306b\u6700\u9069\u5316\u3002"
@@ -134527,6 +135012,11 @@
       "name": "piusalfred--whatsapp",
       "source": "./piusalfred--whatsapp",
       "description": "whatsapp"
+    },
+    {
+      "name": "crafter-station--skills",
+      "source": "./crafter-station--skills",
+      "description": "skills"
     },
     {
       "name": "odradekai--bundles-forge",
@@ -179039,6 +179529,11 @@
       "description": "draftila"
     },
     {
+      "name": "aeen123--roextract",
+      "source": "./aeen123--roextract",
+      "description": "RoExtract"
+    },
+    {
       "name": "bioliminal--bioliminal-mobile-application",
       "source": "./bioliminal--bioliminal-mobile-application",
       "description": "Bioliminal mobile application (Flutter)"
@@ -204589,6 +205084,11 @@
       "description": "reseed"
     },
     {
+      "name": "anistark--wasmrun",
+      "source": "./anistark--wasmrun",
+      "description": "wasmrun"
+    },
+    {
       "name": "zhaono1--agent-playbook",
       "source": "./zhaono1--agent-playbook",
       "description": "agent-playbook"
@@ -217799,6 +218299,11 @@
       "description": "Finch"
     },
     {
+      "name": "etr--groundwork",
+      "source": "./etr--groundwork",
+      "description": "groundwork"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -225174,6 +225679,11 @@
       "description": "dots"
     },
     {
+      "name": "dswistowski--surge-sh-action",
+      "source": "./dswistowski--surge-sh-action",
+      "description": "surge-sh-action"
+    },
+    {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "source": "./nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore."
@@ -228437,6 +228947,11 @@
       "name": "chaosteil--dotfiles",
       "source": "./chaosteil--dotfiles",
       "description": "dotfiles"
+    },
+    {
+      "name": "neuraparse--tasknebula",
+      "source": "./neuraparse--tasknebula",
+      "description": "taskNebula"
     },
     {
       "name": "affitor--open-affiliate",
