@@ -3,8 +3,8 @@
   "owner": "mss-boot-io",
   "repo": "mss-boot-admin",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,69 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "mss-boot-admin",
+      "path": ".agents/skills/mss-release/SKILL.md",
+      "github_url": "https://github.com/mss-boot-io/mss-boot-admin/tree/main/.agents/skills/mss-release/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mss-boot-admin",
+      "path": ".agents/skills/mss-add-field/SKILL.md",
+      "github_url": "https://github.com/mss-boot-io/mss-boot-admin/tree/main/.agents/skills/mss-add-field/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mss-boot-admin",
+      "path": ".agents/skills/mss-add-module/SKILL.md",
+      "github_url": "https://github.com/mss-boot-io/mss-boot-admin/tree/main/.agents/skills/mss-add-module/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mss-boot-admin",
+      "path": ".agents/skills/mss-add-workflow/SKILL.md",
+      "github_url": "https://github.com/mss-boot-io/mss-boot-admin/tree/main/.agents/skills/mss-add-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mss-boot-admin",
+      "path": ".agents/skills/mss-review-change/SKILL.md",
+      "github_url": "https://github.com/mss-boot-io/mss-boot-admin/tree/main/.agents/skills/mss-review-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mss-boot-admin",
+      "path": ".agents/skills/mss-add-permission/SKILL.md",
+      "github_url": "https://github.com/mss-boot-io/mss-boot-admin/tree/main/.agents/skills/mss-add-permission/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mss-boot-admin",
+      "path": ".agents/skills/mss-new-application/SKILL.md",
+      "github_url": "https://github.com/mss-boot-io/mss-boot-admin/tree/main/.agents/skills/mss-new-application/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mss-boot-admin",
+      "path": ".agents/skills/mss-debug-fullstack/SKILL.md",
+      "github_url": "https://github.com/mss-boot-io/mss-boot-admin/tree/main/.agents/skills/mss-debug-fullstack/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mss-boot-admin",
+      "path": ".agents/skills/mss-project-onboarding/SKILL.md",
+      "github_url": "https://github.com/mss-boot-io/mss-boot-admin/tree/main/.agents/skills/mss-project-onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mss-boot-admin",
+      "path": ".agents/skills/mss-upgrade-foundation/SKILL.md",
+      "github_url": "https://github.com/mss-boot-io/mss-boot-admin/tree/main/.agents/skills/mss-upgrade-foundation/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/mss-boot-io/mss-boot-admin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-04T03:50:46Z"
+  "distributed_at": "2026-08-09T15:52:58Z"
 }
