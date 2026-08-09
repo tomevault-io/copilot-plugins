@@ -1,0 +1,9 @@
+{
+  "name": "sporevm--sporevm",
+  "displayName": "sporevm",
+  "description": "Forkable aarch64 Linux microVMs with fast capture, resume, and local fan-out",
+  "version": "1.0.0",
+  "author": "sporevm",
+  "homepage": "https://github.com/sporevm/sporevm",
+  "skills": []
+}
