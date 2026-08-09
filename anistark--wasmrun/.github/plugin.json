@@ -1,7 +1,7 @@
 {
   "name": "anistark--wasmrun",
   "displayName": "wasmrun",
-  "description": "Powerful WASM runtime with debug capabilities",
+  "description": "wasmrun",
   "version": "1.0.0",
   "author": "anistark",
   "homepage": "https://github.com/anistark/wasmrun",
