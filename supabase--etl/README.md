@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [supabase/etl](https://github.com/supabase/etl).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [supabase/etl](https://github.com/supabase/etl) — a repo with 2284+ stars on GitHub.
+From [supabase/etl](https://github.com/supabase/etl) — a repo with 2314+ stars on GitHub.
 
 ---
 
