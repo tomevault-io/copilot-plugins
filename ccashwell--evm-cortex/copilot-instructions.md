@@ -1,46 +1,67 @@
-## agent-development
+## general
 
-> Each agent is a Markdown file with YAML frontmatter:
+> You are part of EVM Cortex, an Ethereum protocol engineering squad with specialized agents, skills, hooks, and rules.
 
-# Agent Development Rules
+# EVM Cortex - Ethereum Protocol Engineering Standards
 
-## Agent File Format
+You are part of EVM Cortex, an Ethereum protocol engineering squad with specialized agents, skills, hooks, and rules.
 
-Each agent is a Markdown file with YAML frontmatter:
+## Solidity Standards
 
-```yaml
----
-name: agent-name
-description: One-line description of what the agent does
-model: opus or sonnet
-tools: [Read, Write, Bash, Grep, Glob]
----
+### Code Style
+- Custom errors over require strings (gas + clarity)
+- Named imports: `import {ERC20} from "@openzeppelin/..."`
+- NatSpec on ALL public/external functions
+- Constants: UPPER_SNAKE_CASE. Immutables: camelCase or UPPER_SNAKE_CASE
+- Events: PascalCase past tense (Deposited, Transferred)
+- Max 400 lines per contract file. Extract libraries for reuse.
+- Functions under 50 lines. No more than 4 levels of nesting.
+
+### Security
+- Checks-effects-interactions pattern on all state-changing functions
+- ReentrancyGuard on functions with external calls
+- SafeERC20 for ALL token transfers
+- Ownable2Step over Ownable
+- Input validation at all entry points
+- USDC has 6 decimals. USDT does not return bool. Use SafeERC20.
+- Never hardcode private keys or API keys
+- Never trust tx.origin for authorization
+
+### Gas Awareness
+- Storage packing: fit variables into 32-byte slots
+- Prefer calldata over memory for read-only parameters
+- Use immutable/constant for values set once
+- Cache storage reads in memory when accessed multiple times
+- Use unchecked only when overflow is mathematically impossible
+
+### Testing (Foundry)
+- TDD: write test first, implement, then optimize
+- Test naming: test_Function_Condition_Result, test_RevertWhen_Condition
+- Fuzz test all math operations
+- Fork-test all external protocol integrations
+- Gas snapshots: `forge snapshot` to track regressions
+- Target 90%+ coverage on security-critical paths
+
+### Conventions
+- Say "onchain" not "on-chain"
+- Never hallucinate contract addresses -- verify with `cast code`
+- Foundry is the default toolchain (not Hardhat)
+- OpenZeppelin Contracts v5 as the standard library
+
+## Git Conventions
+- Commit format: `<type>: <description>`
+- Types: feat, fix, refactor, docs, test, chore, perf, ci, audit
+- Keep commits atomic and focused
+
+## API Response Format (for offchain services)
+```typescript
+interface ApiResponse<T> {
+  success: boolean
+  data?: T
+  error?: string
+  meta?: { total: number; page: number; limit: number }
+}
 ```
-
-Followed by the agent's system prompt in Markdown.
-
-## Naming Conventions
-- Filename: `kebab-case.md` (e.g., `gas-optimizer.md`)
-- Name field: same as filename without extension
-- Description: starts with domain-specific role
-
-## Agent Categories
-- Core Dev: solidity-architect, solidity-engineer, gas-optimizer, contract-deployer
-- Security: audit-orchestrator, depth-state-trace, depth-token-flow, depth-edge-case, depth-external
-- Testing: foundry-tester, invariant-tester, formal-verifier, fuzzer, poc-writer
-- DeFi: defi-architect, amm-expert, lending-expert, oracle-expert
-- Tooling: foundry-expert, openzeppelin-expert, slither-analyst
-- Standards: eip-expert, erc-implementer, upgrade-planner, governance-designer
-
-## Quality Rules
-- Every agent must have deep Ethereum/Solidity expertise
-- Include specific tool references (Foundry, Slither, Cast)
-- Include actionable methodology, not just knowledge
-- Reference specific EIPs, ERCs, and standards
-- Cross-reference relevant skills
-- Use "onchain" not "on-chain"
-
-Consider these rules if they affect your changes.
 
 ---
 > Source: [ccashwell/evm-cortex](https://github.com/ccashwell/evm-cortex) — distributed by [TomeVault](https://tomevault.io).
