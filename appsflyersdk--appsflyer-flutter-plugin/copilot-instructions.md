@@ -1,117 +1,107 @@
 ## appsflyer-flutter-plugin
 
-> Flutter & Federated‑Plugin Development Guidelines
+> manages Dave through tech design, implementation, and feature documentation.
 
+# AppsFlyer Flutter Plugin
 
-## 1. Flutter Best Practices (App + Plugin)
+## Overview
+Flutter plugin providing mobile attribution and analytics for iOS and Android. Bridges native AppsFlyer SDKs (iOS v6.17.9, Android v6.17.6) via Dart MethodChannel/EventChannel. Supports Flutter 2+ with null safety.
 
-- Adapt to existing project architecture while maintaining clean‑code principles  
-- Use Flutter 3.x features and Material 3 design  
-- Implement clean architecture with the BLoC pattern  
-- Follow proper state‑management principles  
-- Use dependency injection where appropriate  
-- Implement robust error handling  
-- Follow platform‑specific design guidelines  
-- Apply proper localization techniques  
-- Provide a minimal, null‑safe Dart API surface that hides platform details  
-- Follow the federated‑plugin model (`platform_interface`, `+android`, `+ios` packages)  
-- Keep native code idiomatic for each platform (Kotlin/Swift/Obj‑C/Java/C·++)  
-- Expose asynchronous APIs via `Future`s/`Stream`s that map 1‑to‑1 with platform callbacks  
-- Use Pigeon or FFI when type safety or performance warrants it  
-- Guard platform‑specific calls with `Platform.isX` checks  
-- Publish clear documentation and an `example/` app that runs on all supported platforms  
+## Starting a feature
 
-## 2. Reference Project Structure
+To start the full feature delivery workflow, use the slash command:
 
-    packages/
-      my_plugin/                        # Public‑facing federated plugin
-        lib/
-          src/
-          my_plugin.dart
-        android/                        # Kotlin (preferred) or Java
-          src/main/kotlin/…/
-        ios/                            # Swift (preferred) or Obj‑C
-          Classes/…/
-        pigeon/                         # *.dart pigeon files (if used)
-        pubspec.yaml
-        CHANGELOG.md
-      my_plugin_platform_interface/     # Pure‑Dart platform interface
-      my_plugin_android/                # Android‑only implementation (if federated)
-      my_plugin_ios/                    # iOS‑only implementation (if federated)
-      example/                          # Runnable demo + integration tests
-        lib/
-        android/
-        ios/
-    tools/                              # Scripts: CI, code‑gen, coverage
+```
+/af-ship <short description>
+```
 
-## 3. Coding Guidelines
+This invokes Alice, who writes a PRD, coordinates Bob and Erin if needed, and
+manages Dave through tech design, implementation, and feature documentation.
+Nothing else triggers the full workflow — all other requests go directly to the
+relevant skill.
 
-1. Use null‑safety throughout Dart; match Kotlin/Swift nullability annotations.  
-2. Keep the **platform_interface** API minimal; annotate internal items with `@visibleForTesting`.  
-3. Convert platform exceptions to Dart errors using an `Either`/sealed‑result pattern.  
-4. Follow semantic versioning; bump **MAJOR** for breaking Dart *or* native API changes.  
-5. Name `MethodChannel` constants `<plugin>.methods` and `EventChannel` constants `<plugin>.events`.  
-6. Document every public method with a platform‑support table (✓ / ✗ for Android, iOS, Web, macOS, …).  
-7. Use Gradle Version Catalog (`libs.versions.toml`) and Swift Package Manager to pin native SDKs.  
-8. Keep Android `minSdk`/`compileSdk` and iOS deployment target in sync with Flutter stable.  
-9. Provide dart‑doc examples and link to the example app for each API.  
-10. Practise TDD on both Dart and native sides (unit + integration).  
+## Direct invocation
 
-## 4. Widget Guidelines (for the example app)
+For everything outside of feature delivery, invoke skills directly:
 
-- Keep widgets small and focused  
-- Use `const` constructors when possible  
-- Supply meaningful widget keys  
-- Follow sound layout principles  
-- Respect widget lifecycle methods  
-- Provide error boundaries  
-- Optimise with `const`/memoisation where feasible  
-- Meet accessibility requirements  
+| Task | Invoke |
+|------|--------|
+| Code question, architecture, implementation | `dave-flutter-engineer` |
+| Maintenance task (see list below) | `dave-flutter-engineer` |
+| Platform API research, version behavior | `bob-flutter-researcher` |
+| Payload analysis, field mapping, schema review | `erin-flutter-analyst` |
 
-## 5. Performance Guidelines
+## Architecture
+- `lib/src/appsflyer_sdk.dart` — Main SDK class (singleton, MethodChannel/EventChannel bridge)
+- `lib/src/callbacks.dart` — Attribution and event callback handlers
+- `lib/src/udl/deeplink.dart` — Unified Deep Linking (UDL) implementation
+- `lib/src/purchase_connector/` — In-app purchase validation models
+- `android/src/main/java/com/appsflyer/appsflyersdk/AppsflyerSdkPlugin.java` — Android entry point
+- `android/src/main/kotlin/` — Kotlin Purchase Connector for Android
+- `ios/Classes/AppsflyerSdkPlugin.m` — iOS entry point (Objective-C)
+- `ios/PurchaseConnector/` — iOS purchase validation module
+- `test/` — Dart unit tests (mockito)
+- `example/` — Full Flutter example app (iOS + Android)
+- `doc/` — Per-feature integration guides
 
-1. Cache images; move heavy work off the main isolate.  
-2. Optimise `ListView`/sliver usage with `itemExtent`, `addAutomaticKeepAlives`, `cacheExtent`.  
-3. Minimise rebuilds via selective BLoC updates or `ValueListenableBuilder`s.  
-4. Avoid `MethodChannel` calls inside `build()`; batch or cache native look‑ups.  
-5. Prefer FFI for high‑frequency calls; benchmark against `MethodChannel`.  
-6. Initialise native SDKs lazily on first API call.  
-7. Shrink Android dependencies (R8) and strip unused ABIs; enable dead‑code stripping on iOS.  
-8. Use compile‑time flags such as `-O3` and `--split-debug-info`.  
+## Commands
+```bash
+flutter pub get           # Install dependencies
+flutter test test         # Run Dart unit tests
+flutter pub run build_runner build   # Regenerate JSON serialization code
+```
 
-## 6. Testing Guidelines
+## Coding Conventions
+- **Linter**: `flutter_lints` with custom overrides in `analysis_options.yaml`.
+  - `public_member_api_docs` is disabled — no need to add dartdoc to every member.
+  - `constant_identifier_names` is disabled — follow existing naming in constants files.
+  - 80-char line limit is disabled — but keep lines readable.
+- **JSON serialization**: Uses `json_annotation` + `json_serializable`. After changing annotated model classes, run `build_runner` to regenerate `.g.dart` files. Commit the generated files.
+- **Testing**: `mockito` for mocking. Add tests in `test/` for new public API.
+- Dart null safety is required — all new code must be null-safe.
+- Keep `AppsflyerSdk` as a singleton; do not change the instantiation pattern.
 
-1. Write Dart unit tests for business logic (`platform_interface` + pure‑Dart code).  
-2. Provide widget tests for UI in the example app.  
-3. Add **integration_test** runs on Android emulator and iOS simulator in CI.  
-4. Generate `MethodChannel` mocks with Mockito or Pigeon test stubs.  
-5. On Android, add instrumentation tests to verify native SDK initialisation.  
-6. On iOS, add XCTests to confirm plugin registration through the registrar.  
-7. Maintain ≥ 80 % combined line coverage; block PRs that drop coverage.  
-8. Use test names like `<ClassUnderTest>_<behavior>_<expected>`.  
-9. Automate CI workflows for PR, release, and pub.dev/GitHub publishing.  
+## Key Patterns
+- New SDK method: add Dart method in `appsflyer_sdk.dart` (invoke via `_channel.invokeMethod`), implement in `AppsflyerSdkPlugin.java` (Android) and `AppsflyerSdkPlugin.m` (iOS). Keep method name strings consistent across all three files.
+- Callbacks from native → Dart flow through EventChannels defined in `callbacks.dart`.
+- Deep linking (UDL) logic is isolated in `lib/src/udl/` — do not mix with core SDK channel calls.
+- Purchase Connector is self-contained in `lib/src/purchase_connector/` (Dart models) and `ios/PurchaseConnector/` / `android/.../kotlin/` (native).
 
-## 7. Distribution & Maintenance
+## Testing
+- Run `flutter test test` for the Dart unit test suite.
+- Integration testing requires running the `example/` app on a device/emulator.
+- CI uses Travis CI (`.travis.yml`) on Linux with Flutter stable.
 
-- Run `dart pub publish --dry-run` in CI before tagging.  
-- Maintain a clear **CHANGELOG.md** grouped by *Added* / *Fixed* / *BREAKING*.  
-- Align Git tags (`vX.Y.Z`) with `pubspec.yaml` version.  
-- Show README badges: pub points, popularity, likes, CI status.  
-- Support both CocoaPods and Swift Package Manager (if applicable); document set‑up steps.  
-- If applicable, publish an AGP plugin to the Gradle Plugin Portal.  
-- Enforce `dart format`, `swiftformat`, `ktlint` in pre‑commit hooks.  
-- Audit licenses; include a `NOTICE` file when bundling third‑party code.  
+## Notes
+- SDK version is set in `pubspec.yaml` and native dependency specs (podspec / `build.gradle`).
+- Generated files (`*.g.dart`) must be committed — run `build_runner` after model changes.
+- `doc/` and `example/` should be kept in sync with API changes.
+- iOS native layer is Objective-C; Kotlin is used only for the Android Purchase Connector.
 
-## 8. Platform Channel Design
+## Maintenance bypass
 
-1. Prefer **Pigeon** for compile‑time safety; otherwise use `MethodChannel`/`EventChannel`.  
-2. Name channels uniquely in lower‑case: `com.company.plugin/methods`.  
-3. Do not pass large binary blobs through channels; use files or FFI.  
-4. Specify threading expectations—return results on the main/current isolate.  
-5. Map native error codes to dedicated Dart `Exception` subclasses.  
-6. When streaming via `EventChannel`, honour back‑pressure.  
-7. Keep DTOs JSON‑serialisable with explicit schema versioning.  
+The following do not require a PRD or Alice review — invoke Dave directly:
+
+- Version bumps in `pubspec.yaml` and native dependency specs (`ios/*.podspec`, `android/build.gradle`)
+- `CHANGELOG.md` updates
+- Dependency bumps (`json_annotation`, `mockito`, `flutter_lints`, `build_runner`, etc.)
+- Lint/formatting fixes
+- Regenerating `*.g.dart` files via `build_runner` after model changes with no public API change
+- Doc-only edits in `doc/` or `example/`
+- Renames, dead-code removal, comment cleanup with no public API change
+
+## Output contract
+
+Every `/af-ship` deliverable must include:
+
+- Alice PRD (`internal-docs/prds/`)
+- Bob findings (if invoked)
+- Erin payload impact (if invoked)
+- Dave tech design (`internal-docs/tech-designs/`)
+- Dave implementation + unit tests
+- Dave feature doc (`internal-docs/features/`)
+- Alice sign-off at each phase
 
 ---
 > Source: [AppsFlyerSDK/appsflyer-flutter-plugin](https://github.com/AppsFlyerSDK/appsflyer-flutter-plugin) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
