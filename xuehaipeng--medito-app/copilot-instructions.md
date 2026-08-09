@@ -1,8 +1,24 @@
-## comments
+## meditoproj
 
-> Only add comments if the code is doing something weird, it is a temporary fix, or if the code is not very readable.
+> Knowing what the project is about
 
-Only add comments if the code is doing something weird, it is a temporary fix, or if the code is not very readable.
+Cursor Rule for Medito Project
+	1.	Project Overview:
+Medito is a free meditation and mindfulness app developed by the Medito Foundation, a non-profit organisation. The app offers free access to meditations, courses, and mindfulness tools to help users improve their mental well-being.
+	2.	Core Goals:
+	•	Provide high-quality, accessible meditation content for free.
+	•	Encourage regular meditation through features like streak tracking and guided paths.
+	•	Promote community engagement and feedback.
+	•	Sustain operations through donations and ethical practices.
+	3.	Funding Model:
+	•	The app is funded through voluntary donations made via Stripe, PayPal, and bank transfers.
+	•	We encourage users to donate after they meditate, with prompts and nudges within the app.
+	•	Donor perks may be offered outside the app, such as access to special bots or communities.
+	•	Avoid referencing premium features in the app due to platform restrictions.
+	4.	Tone and Ethical Considerations:
+	•	Maintain a calm, supportive, and non-intrusive tone in UI and content.
+	•	Focus on inclusivity, ensuring accessibility and openness for all users.
+	•	Avoid aggressive upselling. Donations should feel like a supportive gesture, not an obligation.
 
 ---
 > Source: [xuehaipeng/medito-app](https://github.com/xuehaipeng/medito-app) — distributed by [TomeVault](https://tomevault.io).
