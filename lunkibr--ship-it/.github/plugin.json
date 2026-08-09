@@ -1,0 +1,9 @@
+{
+  "name": "lunkibr--ship-it",
+  "displayName": "ship-it",
+  "description": "A Claude Code skill that catches commonly-forgotten UX/product details before you ship a screen or feature.",
+  "version": "1.0.0",
+  "author": "LunkiBR",
+  "homepage": "https://github.com/LunkiBR/ship-it",
+  "skills": []
+}
