@@ -3,8 +3,8 @@
   "owner": "yvgude",
   "repo": "lean-ctx",
   "description": "",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "type": "config",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,21 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "lean-ctx",
-      "path": "skills/lean-ctx/SKILL.md",
-      "github_url": "https://github.com/yvgude/lean-ctx/tree/main/skills/lean-ctx/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "lean-ctx",
-      "path": "rust/src/templates/SKILL.md",
-      "github_url": "https://github.com/yvgude/lean-ctx/tree/main/rust/src/templates/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/yvgude/lean-ctx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T19:47:52Z"
+  "distributed_at": "2026-08-09T16:16:06Z"
 }
