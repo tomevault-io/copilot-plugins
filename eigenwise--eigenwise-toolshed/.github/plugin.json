@@ -1,0 +1,9 @@
+{
+  "name": "eigenwise--eigenwise-toolshed",
+  "displayName": "eigenwise-toolshed",
+  "description": "Eigenwise's toolshed of Claude Code plugins. Includes codebase-mapper: a self-maintaining, language-agnostic codebase map that auto-loads into every Claude session.",
+  "version": "1.0.0",
+  "author": "Eigenwise",
+  "homepage": "https://github.com/Eigenwise/eigenwise-toolshed",
+  "skills": []
+}
