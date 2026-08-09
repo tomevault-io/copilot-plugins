@@ -1,0 +1,14 @@
+{
+  "name": "bing-framework--bing-netcore",
+  "displayName": "Bing.NetCore",
+  "description": "Bing.NetCore",
+  "version": "1.0.0",
+  "author": "bing-framework",
+  "homepage": "https://github.com/bing-framework/Bing.NetCore",
+  "skills": [
+    {
+      "name": "Bing.NetCore",
+      "description": ""
+    }
+  ]
+}
