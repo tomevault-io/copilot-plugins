@@ -1,0 +1,14 @@
+{
+  "name": "hydro-project--hydro",
+  "displayName": "hydro",
+  "description": "hydro",
+  "version": "1.0.0",
+  "author": "hydro-project",
+  "homepage": "https://github.com/hydro-project/hydro",
+  "skills": [
+    {
+      "name": "hydro",
+      "description": ""
+    }
+  ]
+}
