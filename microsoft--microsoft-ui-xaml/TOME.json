@@ -1,0 +1,57 @@
+{
+  "name": "microsoft-ui-xaml",
+  "owner": "microsoft",
+  "repo": "microsoft-ui-xaml",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "microsoft-ui-xaml",
+      "path": "src/.github/skills/build/SKILL.md",
+      "github_url": "https://github.com/microsoft/microsoft-ui-xaml/tree/main/src/.github/skills/build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "microsoft-ui-xaml",
+      "path": "src/.github/skills/bt-build/SKILL.md",
+      "github_url": "https://github.com/microsoft/microsoft-ui-xaml/tree/main/src/.github/skills/bt-build/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/microsoft-ui-xaml",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T13:41:15Z"
+}
