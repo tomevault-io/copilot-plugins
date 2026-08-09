@@ -1,0 +1,9 @@
+{
+  "name": "serial-ata--lofty-rs",
+  "displayName": "lofty-rs",
+  "description": "lofty-rs",
+  "version": "1.0.0",
+  "author": "Serial-ATA",
+  "homepage": "https://github.com/Serial-ATA/lofty-rs",
+  "skills": []
+}
