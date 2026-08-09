@@ -1,0 +1,111 @@
+{
+  "name": "Vetro",
+  "owner": "Phnem",
+  "repo": "Vetro",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Vetro",
+      "path": ".agents/skills/handoff/SKILL.md",
+      "github_url": "https://github.com/Phnem/Vetro/tree/main/.agents/skills/handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vetro",
+      "path": ".agents/skills/grill-me/SKILL.md",
+      "github_url": "https://github.com/Phnem/Vetro/tree/main/.agents/skills/grill-me/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vetro",
+      "path": ".agents/skills/research/SKILL.md",
+      "github_url": "https://github.com/Phnem/Vetro/tree/main/.agents/skills/research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vetro",
+      "path": ".agents/skills/implement/SKILL.md",
+      "github_url": "https://github.com/Phnem/Vetro/tree/main/.agents/skills/implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vetro",
+      "path": ".agents/skills/code-review/SKILL.md",
+      "github_url": "https://github.com/Phnem/Vetro/tree/main/.agents/skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vetro",
+      "path": ".agents/skills/diagnosing-bugs/SKILL.md",
+      "github_url": "https://github.com/Phnem/Vetro/tree/main/.agents/skills/diagnosing-bugs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vetro",
+      "path": ".agents/skills/codebase-design/SKILL.md",
+      "github_url": "https://github.com/Phnem/Vetro/tree/main/.agents/skills/codebase-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vetro",
+      "path": ".agents/skills/grill-with-docs/SKILL.md",
+      "github_url": "https://github.com/Phnem/Vetro/tree/main/.agents/skills/grill-with-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vetro",
+      "path": ".agents/skills/ticket-autopilot/SKILL.md",
+      "github_url": "https://github.com/Phnem/Vetro/tree/main/.agents/skills/ticket-autopilot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vetro",
+      "path": ".claude/skills/ticket-autopilot/SKILL.md",
+      "github_url": "https://github.com/Phnem/Vetro/tree/main/.claude/skills/ticket-autopilot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Vetro",
+      "path": ".agents/skills/setup-matt-pocock-skills/SKILL.md",
+      "github_url": "https://github.com/Phnem/Vetro/tree/main/.agents/skills/setup-matt-pocock-skills/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Phnem/Vetro",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T15:51:28Z"
+}
