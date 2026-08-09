@@ -1,67 +1,45 @@
-## general
+## hook-development
 
-> You are part of EVM Cortex, an Ethereum protocol engineering squad with specialized agents, skills, hooks, and rules.
+> Hooks are TypeScript files compiled to ESM bundles (.mjs) via esbuild.
 
-# EVM Cortex - Ethereum Protocol Engineering Standards
+# Hook Development Rules
 
-You are part of EVM Cortex, an Ethereum protocol engineering squad with specialized agents, skills, hooks, and rules.
+## Hook Architecture
 
-## Solidity Standards
+Hooks are TypeScript files compiled to ESM bundles (.mjs) via esbuild.
 
-### Code Style
-- Custom errors over require strings (gas + clarity)
-- Named imports: `import {ERC20} from "@openzeppelin/..."`
-- NatSpec on ALL public/external functions
-- Constants: UPPER_SNAKE_CASE. Immutables: camelCase or UPPER_SNAKE_CASE
-- Events: PascalCase past tense (Deposited, Transferred)
-- Max 400 lines per contract file. Extract libraries for reuse.
-- Functions under 50 lines. No more than 4 levels of nesting.
+Source: `hooks/src/*.ts`
+Built: `hooks/dist/*.mjs`
+Shared: `hooks/src/shared/*.ts`
 
-### Security
-- Checks-effects-interactions pattern on all state-changing functions
-- ReentrancyGuard on functions with external calls
-- SafeERC20 for ALL token transfers
-- Ownable2Step over Ownable
-- Input validation at all entry points
-- USDC has 6 decimals. USDT does not return bool. Use SafeERC20.
-- Never hardcode private keys or API keys
-- Never trust tx.origin for authorization
+## When to Create Hooks
 
-### Gas Awareness
-- Storage packing: fit variables into 32-byte slots
-- Prefer calldata over memory for read-only parameters
-- Use immutable/constant for values set once
-- Cache storage reads in memory when accessed multiple times
-- Use unchecked only when overflow is mathematically impossible
+Hooks automate actions around agent events:
+- Pre/post edit actions (run forge build, slither)
+- Session lifecycle (start, end, compact)
+- Memory and learning operations
+- Security scanning (credential detection, SAST)
 
-### Testing (Foundry)
-- TDD: write test first, implement, then optimize
-- Test naming: test_Function_Condition_Result, test_RevertWhen_Condition
-- Fuzz test all math operations
-- Fork-test all external protocol integrations
-- Gas snapshots: `forge snapshot` to track regressions
-- Target 90%+ coverage on security-critical paths
+## EVM-Specific Hook Patterns
+- `forge-compile-check`: Run `forge build` after .sol file edits
+- `slither-on-save`: Run Slither after Solidity changes
+- `gas-snapshot-diff`: Compare forge snapshots after edits
+- `natspec-enforcer`: Check NatSpec on public/external functions
+- `storage-layout-check`: Validate storage layout for proxy contracts
 
-### Conventions
-- Say "onchain" not "on-chain"
-- Never hallucinate contract addresses -- verify with `cast code`
-- Foundry is the default toolchain (not Hardhat)
-- OpenZeppelin Contracts v5 as the standard library
+## Quality Rules
+- Hooks must be fast (< 5 second execution)
+- Never block on long-running operations
+- Handle errors gracefully (log and continue)
+- Keep hooks focused on one responsibility
+- Use shared utilities from `hooks/src/shared/`
 
-## Git Conventions
-- Commit format: `<type>: <description>`
-- Types: feat, fix, refactor, docs, test, chore, perf, ci, audit
-- Keep commits atomic and focused
-
-## API Response Format (for offchain services)
-```typescript
-interface ApiResponse<T> {
-  success: boolean
-  data?: T
-  error?: string
-  meta?: { total: number; page: number; limit: number }
-}
+## Build
+```bash
+cd hooks && npm run build
 ```
+
+Consider these rules if they affect your changes.
 
 ---
 > Source: [ccashwell/evm-cortex](https://github.com/ccashwell/evm-cortex) — distributed by [TomeVault](https://tomevault.io).
