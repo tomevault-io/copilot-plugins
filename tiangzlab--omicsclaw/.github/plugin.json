@@ -1,7 +1,7 @@
 {
   "name": "tiangzlab--omicsclaw",
   "displayName": "OmicsClaw",
-  "description": "Conversational & memory-enabled AI research partner for multi-omics analysis. From biological idea to full research paper.",
+  "description": "OmicsClaw",
   "version": "1.0.0",
   "author": "TianGzlab",
   "homepage": "https://github.com/TianGzlab/OmicsClaw",
