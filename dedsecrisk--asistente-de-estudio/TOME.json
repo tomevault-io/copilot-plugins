@@ -4,7 +4,7 @@
   "repo": "Asistente_de_estudio",
   "description": "Asistente de estudio te permite crear examenes r\u00e1pidos y gu\u00edas, comparando tus resultados para mejorar tus notas. ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DedSecRisk/Asistente_de_estudio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T02:43:00Z"
+  "distributed_at": "2026-08-09T02:49:59Z"
 }
