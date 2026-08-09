@@ -1,7 +1,7 @@
 {
   "name": "leandrocp--lumis",
   "displayName": "lumis",
-  "description": "Syntax Highlighter powered by Tree-sitter and Neovim themes.",
+  "description": "lumis",
   "version": "1.0.0",
   "author": "leandrocp",
   "homepage": "https://github.com/leandrocp/lumis",
