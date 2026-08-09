@@ -1,0 +1,9 @@
+{
+  "name": "saic-ismart-api--saic-python-mqtt-gateway",
+  "displayName": "saic-python-mqtt-gateway",
+  "description": "saic-python-mqtt-gateway",
+  "version": "1.0.0",
+  "author": "SAIC-iSmart-API",
+  "homepage": "https://github.com/SAIC-iSmart-API/saic-python-mqtt-gateway",
+  "skills": []
+}
