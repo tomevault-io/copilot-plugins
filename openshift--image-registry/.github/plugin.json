@@ -1,0 +1,9 @@
+{
+  "name": "openshift--image-registry",
+  "displayName": "image-registry",
+  "description": "image-registry",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/image-registry",
+  "skills": []
+}
