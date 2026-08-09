@@ -5,22 +5,5 @@
   "version": "1.0.0",
   "author": "NVIDIA",
   "homepage": "https://github.com/NVIDIA/dcgm-exporter",
-  "skills": [
-    {
-      "name": "dcgm-exporter",
-      "description": ""
-    },
-    {
-      "name": "dcgm-exporter",
-      "description": ""
-    },
-    {
-      "name": "dcgm-exporter",
-      "description": ""
-    },
-    {
-      "name": "dcgm-exporter",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
