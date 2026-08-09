@@ -1,0 +1,177 @@
+{
+  "name": "horse",
+  "owner": "HashLoad",
+  "repo": "horse",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "horse",
+      "path": "doc/skills/horse-ssl-tls/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/doc/skills/horse-ssl-tls/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": "doc/skills/horse-routing/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/doc/skills/horse-routing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": ".agents/skills/horse-grpc/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/.agents/skills/horse-grpc/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": "doc/skills/horse-websocket/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/doc/skills/horse-websocket/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": "doc/skills/horse-providers/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/doc/skills/horse-providers/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": "doc/skills/horse-middlewares/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/doc/skills/horse-middlewares/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": "doc/skills/horse-minimal-api/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/doc/skills/horse-minimal-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": ".agents/skills/horse-websocket/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/.agents/skills/horse-websocket/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": ".agents/skills/horse-streaming/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/.agents/skills/horse-streaming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": "doc/skills/horse-app-structure/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/doc/skills/horse-app-structure/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": "doc/skills/horse-multi-instance/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/doc/skills/horse-multi-instance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": "doc/skills/horse-zero-allocation/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/doc/skills/horse-zero-allocation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": "doc/skills/horse-mvc-architecture/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/doc/skills/horse-mvc-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": "doc/skills/horse-request-response/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/doc/skills/horse-request-response/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": "doc/skills/horse-database-pooling/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/doc/skills/horse-database-pooling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": "doc/skills/horse-integration-tests/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/doc/skills/horse-integration-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": "doc/skills/horse-performance-tuning/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/doc/skills/horse-performance-tuning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": "doc/skills/horse-writing-middleware/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/doc/skills/horse-writing-middleware/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": ".agents/skills/horse-advanced-routing/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/.agents/skills/horse-advanced-routing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": "doc/skills/horse-dependency-injection/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/doc/skills/horse-dependency-injection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": "doc/skills/horse-lazarus-compatibility/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/doc/skills/horse-lazarus-compatibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "horse",
+      "path": "doc/skills/horse-telemetry-observability/SKILL.md",
+      "github_url": "https://github.com/HashLoad/horse/tree/main/doc/skills/horse-telemetry-observability/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/HashLoad/horse",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T13:57:59Z"
+}
