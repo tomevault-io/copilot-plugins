@@ -1,230 +1,125 @@
 ## cowel
 
-> Use when debugging or fixing COWEL LSP server behavior, adding LSP integration tests, or working in bindings/lsp/ or bindings/test/lsp/. Covers Server_State architecture, include-chain revalidation, fixture file format, placeholder syntax, diagnostic codes, and test validation.
+> Use this when adding new token kinds, new lexer productions,
 
+# New Lexer Feature Instructions
 
-# COWEL LSP Server: Debugging, Fixing, and Testing
+Use this when adding new token kinds, new lexer productions,
+or modifying the tokenization behavior of COWEL source files.
 
-## LSP Server Architecture
+## Relevant Files and Directories
 
-The LSP server lives in a single file: `bindings/lsp/lsp.cpp`.
-It is compiled to WASM and consumed by `bindings/node/src/lsp-wasm-runner.ts`.
-It implements a subset of the LSP protocol over JSON-RPC.
+| Path | Purpose |
+|------|---------|
+| `engine/include/cowel/syntax/lex.hpp` | Token kind enum (`COWEL_TOKEN_KIND_ENUM_DATA` macro), `Token` struct, `lex()` declaration |
+| `engine/src/syntax/lex.cpp` | `Lexer` struct with all lexing methods |
+| `engine/test/src/test_lexing.cpp` | Test runner; also contains `token_kind_source()` and `token_kind_name()` which must be updated |
+| `engine/test/files/lex/` | File-based lex fixtures; see [engine/test/files/README.md](../../engine/test/files/README.md) for the full fixture format |
+| `docs/intro/grammar.ebnf` | Normative EBNF grammar — update the lexical grammar rules here when adding tokens |
 
-### Key types and state in `Server_State`
+Secondary files that reference token kinds and may need updating:
 
-| Field | Type | Purpose |
-|---|---|---|
-| `open_docs` | `String_Map<std::u8string>` | Maps URI → current text for all open documents |
-| `doc_includes` | `String_Map<std::vector<std::u8string>>` | Maps entry-point URI → transitive include closure (all URIs included during last validation) |
-| `client_capabilities` | `Client_Capabilities` | Negotiated at initialize |
+- `engine/src/syntax/parse.cpp` — switch statements on `Token_Kind`;
+  add cases or the compiler will warn (`-Wswitch`)
+- `engine/src/syntax/build_ast.cpp` — may reference specific token kinds
 
-### Key functions
+## Token Kind Enum Rules
 
-- `validate_document(uri, content, context, included_uris_out)` —
-  Runs COWEL compilation on `content`.
-  If `included_uris_out` is non-null,
-  it is populated with the URI of every file in `validation_context.includes`
-  (the full transitive closure).
+Entries in `COWEL_TOKEN_KIND_ENUM_DATA` in `lex.hpp` must be
+**alphabetically sorted by the string name** (second macro argument).
+The test infrastructure has a `static_assert` that enforces this.
 
-- `publish_diagnostics_for(doc_text, context)` —
-  Calls `validate_document`,
-  publishes `textDocument/publishDiagnostics`,
-  and stores the include closure into `doc_includes`.
+Each entry has the form:
+```cpp
+F(cpp_id, "ENUM-NAME", first_char)
+```
+- `cpp_id`
+  C++ enum enumerator name.
+- `"ENUM-NAME"`
+  string used in `.lextest` files and test output.
+- `first_char`
+  expected first byte of the token (used in debug assertions);
+  use `'\0'` when the first byte varies.
 
-- `revalidate_includers(changed_uri, context)` —
-  Scans `doc_includes` for all open entry-point URIs V
-  such that `doc_includes[V]` contains `changed_uri` and V ≠ `changed_uri`.
-  Re-validates each such V by calling `publish_diagnostics_for`.
-  Must collect the list before iterating to avoid iterator invalidation.
+## General Procedure
 
-### Config vs. no-config validation paths
+1. **Grammar first**:
+   Update `docs/intro/grammar.ebnf` to reflect the new token or production,
+   following the existing EBNF style.
+   It is also possible that the grammar was manually modified by the user
+   and your task is to implement it.
 
-- **Config case** (`.cowel_config.json` has an `"include"` key):
-  `find_config_entry_points(uri)` finds the same config for all files in the project.
-  Every `didChange` already re-validates all config entry points,
-  so includers are covered automatically.
+2. **Add the token kind**:
+   Insert a new `F(...)` line in `COWEL_TOKEN_KIND_ENUM_DATA` in `lex.hpp`,
+   preserving alphabetical order by string name.
 
-- **No-config / standalone case** (`.cowel_config.json` is `{}` or absent):
-  Only the changed file itself was re-validated before issue #370 fix.
-  `revalidate_includers` is called in `handle_did_open` and `handle_did_change`
-  to cover this path.
+3. **Update `token_kind_source`** in `engine/test/src/test_lexing.cpp`:
+   add a `case` for the new kind returning its fixed source text (`u8"..."sv`),
+   or returning `{}` if the text varies per token.
 
-## Debugging Include-Chain Update Bugs
+4. **Implement lexing** in `lex.cpp`:
+   Depends on the feature in question.
+   Follow the existing patterns, and keep the existing changes minimal.
+   Small changes in the grammar should also result in small changes to the code.
 
-When an includer document A shows stale diagnostics after included file B changes:
+5. **Write fixture tests**:
+   Create a single file or subdirectory under `engine/test/files/lex/`
+   containing source and expectation file pairs.
+   The test runner discovers all `.cow` files with matching `.cow.lextest`
+   files automatically; no registration is needed.
+   See [engine/test/files/README.md](../../engine/test/files/README.md)
+   for the complete fixture format.
 
-1. Confirm it is the **no-config** case
-   (`.cowel_config.json` has no `"include"` array).
-2. Check whether `revalidate_includers` is called after `publish_diagnostics_for`
-   in `handle_did_change` (and `handle_did_open`).
-3. Verify that `doc_includes` is populated in `publish_diagnostics_for`:
-   the `included_uris_out` parameter must be passed and stored with `insert_or_assign`.
-4. Verify `revalidate_includers` correctly looks up `doc_includes` and finds A's entry.
-5. Use the integration test fixture `bindings/test/lsp/include_update_clears_error/`
-   as a regression test for this bug pattern.
+7. **Regenerate the docs golden file**:
+   Any change to `docs/intro/grammar.ebnf`
+   (or any other file included by `docs/index.cow`) changes the HTML output.
+   Update the golden file before running `Document_Generation` tests:
+   ```bash
+   ./build/cowel-cli run docs/index.cow docs/index.html
+   ctest --test-dir build --output-on-failure -R Document_Generation
+   ```
 
-## LSP Integration Test Structure
+6. **Rebuild and run tests**:
+   ```bash
+   cmake --build build --config Debug -j8
+   ctest --test-dir build --output-on-failure -R Lex
+   ```
 
-Each test suite lives in its own subdirectory under `bindings/test/lsp/`.
+8. **Fix parser warnings**:
+   Adding a token kind triggers `-Wswitch` warnings
+   in `parse.cpp` and `build_ast.cpp`.
+   Add a `case` or `default` as appropriate.
 
-### Required files
+## Key Implementation Patterns
 
-| File | Purpose |
-|---|---|
-| `.cowel_config.json` | Project config; use `{}` for standalone (no-config) tests |
-| `input.json` | Ordered array of LSP request/notification messages to send |
-| `output.json` | Ordered array of expected LSP notification messages to receive |
-| ≥1 `.cow` file | COWEL source file(s) referenced by the messages |
+### Backslash-prefixed tokens
+Wire into `consume_backslash_prefixed()`:
+```cpp
+const bool non_escape_matched
+    = expect_line_comment()
+    || expect_block_comment()
+    || expect_expression_splice()
+    || expect_my_new_feature()   // new token added here
+    || expect_directive_splice();
+```
+Each `expect_*` function checks a unique prefix so ordering only
+affects readability, not correctness.
 
-### Trailing newline rule
+### Debug first-char assertion
+The `emit()` method in debug builds asserts that `token_kind_first_char(kind)`
+matches the current source byte.
+Set the `first_char` in `COWEL_TOKEN_KIND_ENUM_DATA` to `'\0'`
+to skip the check when the first byte varies.
 
-**Every `.cow` and JSON file in a fixture MUST end with a newline (`\n`).**
-This applies to:
-- All `.cow` source files (`main.cow`, `lib.cow`, etc.)
-- `.cowel_config.json`
-- `input.json`
-- `output.json`
+## Clang-Format Gate
 
-Create all fixture files with a final `\n`.
-Verify with:
+After any `.cpp`/`.hpp` change, ensure the formatting gate passes:
 ```bash
-find bindings/test/lsp/<suite> -type f | while read f; do
-  [ "$(tail -c1 "$f" | wc -l)" -eq 0 ] && echo "MISSING: $f" || echo "OK: $f"
-done
-```
-
-### Placeholder syntax (substituted at test load time)
-
-| Placeholder | Expands to |
-|---|---|
-| `{{ROOT_URI}}` | `file://` URI of the suite directory |
-| `{{ROOT_PATH}}` | Filesystem path of the suite directory |
-| `{{TEXT:filename}}` | Contents of `filename` in the suite directory |
-
-`{{TEXT:filename}}` is substituted **after** JSON parsing,
-so file contents with backslashes are safe inside JSON strings.
-
-### `input.json` format
-
-An array of JSON-RPC 2.0 notification/request objects.
-Common methods:
-
-```json
-{
-  "jsonrpc": "2.0",
-  "method": "textDocument/didOpen",
-  "params": {
-    "textDocument": {
-      "uri": "{{ROOT_URI}}/main.cow",
-      "languageId": "cowel",
-      "version": 1,
-      "text": "{{TEXT:main.cow}}"
-    }
-  }
-}
-```
-
-```json
-{
-  "jsonrpc": "2.0",
-  "method": "textDocument/didChange",
-  "params": {
-    "textDocument": {
-      "uri": "{{ROOT_URI}}/lib.cow",
-      "version": 2
-    },
-    "contentChanges": [
-      { "text": "\\cowel_macro(\"m\"){Hello}" }
-    ]
-  }
-}
-```
-
-Note: use `\\` in JSON string literals to embed a literal backslash.
-
-### `output.json` format
-
-An array of expected `textDocument/publishDiagnostics` notifications (in order):
-
-```json
-{
-  "jsonrpc": "2.0",
-  "method": "textDocument/publishDiagnostics",
-  "params": {
-    "uri": "{{ROOT_URI}}/main.cow",
-    "diagnostics": [
-      {
-        "range": {
-          "start": { "line": 1, "character": 0 },
-          "end":   { "line": 1, "character": 2 }
-        },
-        "severity": 1,
-        "code": "directive-lookup.unresolved",
-        "source": "cowel",
-        "message": "No directive with the name \"m\" exists."
-      }
-    ]
-  }
-}
-```
-
-Use `"diagnostics": []` to assert that a file has no errors.
-
-### Output message ordering
-
-- Within a single `publish_diagnostics_for` call,
-  messages are emitted in URI order (sorted).
-- `revalidate_includers` appends its messages after the primary validation messages.
-- The order in `output.json` must match the actual emission order exactly.
-
-## Diagnostic Format Reference
-
-For unresolved directive names:
-
-| Field | Value |
-|---|---|
-| `severity` | `1` (error) |
-| `code` | `"directive-lookup.unresolved"` |
-| `source` | `"cowel"` |
-| `message` | `"No directive with the name \"NAME\" exists."` |
-
-**Span rule:** The diagnostic span for a directive invocation
-**includes the leading backslash**.
-For `\m` at line 1, column 0:
-- `start`: `{ "line": 1, "character": 0 }`
-- `end`:   `{ "line": 1, "character": 2 }` (1 for `\` + 1 for `m`)
-
-For `\foo` at line 0, column 3:
-- `start`: `{ "line": 0, "character": 3 }`
-- `end`:   `{ "line": 0, "character": 7 }` (1 for `\` + 3 for `foo`)
-
-## Building and Validating
-
-### Build the LSP WASM target
-
-```bash
-cmake --build build --config Debug -j4 --target cowel-lsp-wasm
-```
-
-### Run all LSP integration tests (and other Node tests)
-
-```bash
-npm test --prefix bindings/node
-```
-
-Expected output: all suites pass, including:
-```
-✔ lsp: include_update_clears_error
-```
-
-### Full validation sequence after editing `bindings/lsp/lsp.cpp`
-
-```bash
-cmake --build build --config Debug -j4 --target cowel-lsp-wasm
-npm test --prefix bindings/node
+find engine/include engine/src bindings/native/src bindings/node/src/cpp \
+  \( -name '*.cpp' -o -name '*.c' -o -name '*.hpp' -o -name '*.h' \) |
+  xargs clang-format-20 --color=1 --dry-run --Werror
 ```
 
 ---
 > Source: [eisenwave/cowel](https://github.com/eisenwave/cowel) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
