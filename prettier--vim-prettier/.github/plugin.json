@@ -1,0 +1,9 @@
+{
+  "name": "prettier--vim-prettier",
+  "displayName": "vim-prettier",
+  "description": "vim-prettier",
+  "version": "1.0.0",
+  "author": "prettier",
+  "homepage": "https://github.com/prettier/vim-prettier",
+  "skills": []
+}
