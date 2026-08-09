@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [crestalnetwork/intentkit](https://github.com/cr
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [crestalnetwork/intentkit](https://github.com/crestalnetwork/intentkit) — a repo with 6504+ stars on GitHub.
+From [crestalnetwork/intentkit](https://github.com/crestalnetwork/intentkit) — a repo with 6507+ stars on GitHub.
 
 ---
 
