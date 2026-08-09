@@ -3,8 +3,8 @@
   "owner": "intelligencedev",
   "repo": "manifold",
   "description": "Manifold is an experimental platform for enabling long horizon workflow automation using teams of AI assistants.",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "manifold",
+      "path": "assets/skills/manifold-api/SKILL.md",
+      "github_url": "https://github.com/intelligencedev/manifold/tree/main/assets/skills/manifold-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "manifold",
+      "path": "assets/skills/warpp-workflow-authoring/SKILL.md",
+      "github_url": "https://github.com/intelligencedev/manifold/tree/main/assets/skills/warpp-workflow-authoring/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/intelligencedev/manifold",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T20:14:33Z"
+  "distributed_at": "2026-08-09T15:34:42Z"
 }
