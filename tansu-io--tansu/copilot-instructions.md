@@ -1,12 +1,12 @@
 ## tansu
 
-> `tansu-sans-io` is the Kafka wire protocol implementation at the heart of Tansu. As its name implies, it performs **no I/O** — it operates purely on bytes, converting between raw Kafka protocol frames and typed Rust structures. This makes it suitable for embedding in any async runtime or network stack (Tansu uses `rama`).
+> `nisshi-sans-io` is the Kafka wire protocol implementation at the heart of Nisshi. As its name implies, it performs **no I/O** — it operates purely on bytes, converting between raw Kafka protocol frames and typed Rust structures. This makes it suitable for embedding in any async runtime or network stack (Nisshi uses `rama`).
 
-# Research: tansu-sans-io Crate
+# Research: nisshi-sans-io Crate
 
 ## Overview
 
-`tansu-sans-io` is the Kafka wire protocol implementation at the heart of Tansu. As its name implies, it performs **no I/O** — it operates purely on bytes, converting between raw Kafka protocol frames and typed Rust structures. This makes it suitable for embedding in any async runtime or network stack (Tansu uses `rama`).
+`nisshi-sans-io` is the Kafka wire protocol implementation at the heart of Nisshi. As its name implies, it performs **no I/O** — it operates purely on bytes, converting between raw Kafka protocol frames and typed Rust structures. This makes it suitable for embedding in any async runtime or network stack (Nisshi uses `rama`).
 
 The crate's description from `Cargo.toml`: *"A Kafka protocol implementation using serde"*.
 
@@ -15,7 +15,7 @@ The key insight of the design is that the entire Kafka binary protocol — seria
 ## Source Layout
 
 ```
-tansu-sans-io/
+nisshi-sans-io/
 ├── build.rs                 # Code generator (1,276 lines)
 ├── Cargo.toml
 ├── message/                 # 185 official Kafka JSON descriptors
@@ -96,7 +96,7 @@ Key descriptor properties:
 The `build.rs` (1,276 lines) uses `proc_macro2`, `quote`, and `syn` to generate Rust source at compile time:
 
 1. **Read**: `read_value()` strips `//` comments from JSON files and parses them via `serde_json`
-2. **Parse**: Converts JSON values into `tansu_model::Message` structs (which model version ranges, field metadata, nested structures)
+2. **Parse**: Converts JSON values into `nisshi_model::Message` structs (which model version ranges, field metadata, nested structures)
 3. **Filter**: Only processes messages where `listeners` includes `"broker"` and an `apiKey` is defined
 4. **Generate**: For each message, produces:
 
@@ -499,7 +499,7 @@ Responses follow the same pattern but require explicit `api_key` and `api_versio
 - `flate2`, `lz4`, `snap`, `zstd` — Compression codecs
 - `crc-fast` — CRC32-C checksums for record batch integrity
 - `rama` — Async service framework (for network layer integration)
-- `tansu-model` — Kafka message metadata model (`MessageMeta`, `FieldMeta`, `Message`)
+- `nisshi-model` — Kafka message metadata model (`MessageMeta`, `FieldMeta`, `Message`)
 - `tracing` — Structured logging/instrumentation
 
 **Build-time:**
@@ -508,7 +508,7 @@ Responses follow the same pattern but require explicit `api_key` and `api_versio
 - `glob` — File pattern matching
 - `convert_case` — PascalCase ↔ snake_case conversion
 - `prettyplease` — Generated code formatting
-- `tansu-model` — Parses Kafka JSON descriptors into structured metadata
+- `nisshi-model` — Parses Kafka JSON descriptors into structured metadata
 
 ## Design Principles
 
@@ -530,4 +530,4 @@ Responses follow the same pattern but require explicit `api_key` and `api_versio
 
 ---
 > Source: [tansu-io/tansu](https://github.com/tansu-io/tansu) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
