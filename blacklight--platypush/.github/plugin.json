@@ -1,0 +1,9 @@
+{
+  "name": "blacklight--platypush",
+  "displayName": "platypush",
+  "description": "platypush",
+  "version": "1.0.0",
+  "author": "blacklight",
+  "homepage": "https://github.com/blacklight/platypush",
+  "skills": []
+}
