@@ -4,7 +4,7 @@
   "repo": "nadesiko3",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kujirahand/nadesiko3",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T22:15:18Z"
+  "distributed_at": "2026-08-09T23:48:07Z"
 }
