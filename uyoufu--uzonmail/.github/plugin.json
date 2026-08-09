@@ -1,0 +1,14 @@
+{
+  "name": "uyoufu--uzonmail",
+  "displayName": "UZonMail",
+  "description": "UZonMail",
+  "version": "1.0.0",
+  "author": "uyoufu",
+  "homepage": "https://github.com/uyoufu/UZonMail",
+  "skills": [
+    {
+      "name": "UZonMail",
+      "description": ""
+    }
+  ]
+}
