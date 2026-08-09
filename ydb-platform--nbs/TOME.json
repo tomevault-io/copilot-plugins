@@ -1,0 +1,51 @@
+{
+  "name": "nbs",
+  "owner": "ydb-platform",
+  "repo": "nbs",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nbs",
+      "path": "contrib/libs/silk/.claude/skills/check-ci/SKILL.md",
+      "github_url": "https://github.com/ydb-platform/nbs/tree/main/contrib/libs/silk/.claude/skills/check-ci/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ydb-platform/nbs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T16:06:29Z"
+}
