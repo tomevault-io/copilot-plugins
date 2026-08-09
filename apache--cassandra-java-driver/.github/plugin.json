@@ -1,0 +1,9 @@
+{
+  "name": "apache--cassandra-java-driver",
+  "displayName": "cassandra-java-driver",
+  "description": "cassandra-java-driver",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/cassandra-java-driver",
+  "skills": []
+}
