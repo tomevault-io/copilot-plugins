@@ -1,7 +1,7 @@
 {
   "name": "rilrom--payload-bites",
   "displayName": "payload-bites",
-  "description": "Collection of various bite-sized Payload v3 plugins and tools",
+  "description": "payload-bites",
   "version": "1.0.0",
   "author": "rilrom",
   "homepage": "https://github.com/rilrom/payload-bites",
