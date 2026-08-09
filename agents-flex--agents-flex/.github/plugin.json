@@ -1,0 +1,22 @@
+{
+  "name": "agents-flex--agents-flex",
+  "displayName": "agents-flex",
+  "description": "agents-flex",
+  "version": "1.0.0",
+  "author": "agents-flex",
+  "homepage": "https://github.com/agents-flex/agents-flex",
+  "skills": [
+    {
+      "name": "agents-flex",
+      "description": ""
+    },
+    {
+      "name": "agents-flex",
+      "description": ""
+    },
+    {
+      "name": "agents-flex",
+      "description": ""
+    }
+  ]
+}
