@@ -1,0 +1,9 @@
+{
+  "name": "fgribreau--n8n-nodes-signal-cli",
+  "displayName": "n8n-nodes-signal-cli",
+  "description": "n8n-nodes-signal-cli",
+  "version": "1.0.0",
+  "author": "FGRibreau",
+  "homepage": "https://github.com/FGRibreau/n8n-nodes-signal-cli",
+  "skills": []
+}
