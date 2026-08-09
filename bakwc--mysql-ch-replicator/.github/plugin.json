@@ -1,0 +1,9 @@
+{
+  "name": "bakwc--mysql-ch-replicator",
+  "displayName": "mysql_ch_replicator",
+  "description": "mysql_ch_replicator",
+  "version": "1.0.0",
+  "author": "bakwc",
+  "homepage": "https://github.com/bakwc/mysql_ch_replicator",
+  "skills": []
+}
