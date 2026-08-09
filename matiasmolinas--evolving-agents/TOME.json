@@ -1,0 +1,69 @@
+{
+  "name": "evolving-agents",
+  "owner": "matiasmolinas",
+  "repo": "evolving-agents",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "evolving-agents",
+      "path": "packages/agentvcs/.claude/skills/agentvcs/SKILL.md",
+      "github_url": "https://github.com/matiasmolinas/evolving-agents/tree/main/packages/agentvcs/.claude/skills/agentvcs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "demos/robot/robot_brain/skills/.claude/skills/night-rounds/SKILL.md",
+      "github_url": "https://github.com/matiasmolinas/evolving-agents/tree/main/demos/robot/robot_brain/skills/.claude/skills/night-rounds/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "demos/robot/robot_brain/skills/.claude/skills/nurse-handoff/SKILL.md",
+      "github_url": "https://github.com/matiasmolinas/evolving-agents/tree/main/demos/robot/robot_brain/skills/.claude/skills/nurse-handoff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "evolving-agents",
+      "path": "demos/robot/robot_brain/skills/.claude/skills/patient-check/SKILL.md",
+      "github_url": "https://github.com/matiasmolinas/evolving-agents/tree/main/demos/robot/robot_brain/skills/.claude/skills/patient-check/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/matiasmolinas/evolving-agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T13:53:05Z"
+}
