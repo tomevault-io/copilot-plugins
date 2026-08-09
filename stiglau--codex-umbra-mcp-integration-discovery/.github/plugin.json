@@ -1,0 +1,9 @@
+{
+  "name": "stiglau--codex-umbra-mcp-integration-discovery",
+  "displayName": "codex-umbra_mcp-integration-discovery",
+  "description": "Codex Umbra is a PoC/scaffolding for using MCP-as-an-API discovery tool",
+  "version": "1.0.0",
+  "author": "StigLau",
+  "homepage": "https://github.com/StigLau/codex-umbra_mcp-integration-discovery",
+  "skills": []
+}
