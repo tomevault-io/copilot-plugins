@@ -3,7 +3,7 @@
   "owner": "dbt-labs",
   "repo": "dbt-core",
   "description": "",
-  "type": "config",
+  "type": "tome",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "dbt-core",
+      "path": ".agents/skills/adapters-critic/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-core/tree/main/.agents/skills/adapters-critic/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dbt-core",
+      "path": ".agents/skills/adapters-annotate-references/SKILL.md",
+      "github_url": "https://github.com/dbt-labs/dbt-core/tree/main/.agents/skills/adapters-annotate-references/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/dbt-labs/dbt-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T03:25:18Z"
+  "distributed_at": "2026-08-09T13:59:15Z"
 }
