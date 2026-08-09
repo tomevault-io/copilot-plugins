@@ -1,0 +1,9 @@
+{
+  "name": "emiliaprotocol--emilia-protocol",
+  "displayName": "emilia-protocol",
+  "description": "Consequence firewall for machine actions. EMILIA Gate verifies exact authority before money, code, permissions, infrastructure, or regulated state changes; the open protocol makes the evidence indepen",
+  "version": "1.0.0",
+  "author": "emiliaprotocol",
+  "homepage": "https://github.com/emiliaprotocol/emilia-protocol",
+  "skills": []
+}
