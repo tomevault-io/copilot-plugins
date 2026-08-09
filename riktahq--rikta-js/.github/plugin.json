@@ -1,0 +1,14 @@
+{
+  "name": "riktahq--rikta-js",
+  "displayName": "rikta.js",
+  "description": "rikta.js",
+  "version": "1.0.0",
+  "author": "riktaHQ",
+  "homepage": "https://github.com/riktaHQ/rikta.js",
+  "skills": [
+    {
+      "name": "rikta.js",
+      "description": ""
+    }
+  ]
+}
