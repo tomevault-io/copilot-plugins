@@ -1,0 +1,28 @@
+# erd-editor
+
+> Tome by [dineug](https://github.com/dineug/erd-editor), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [dineug/erd-editor](https://github.com/dineug/erd-editor).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [dineug/erd-editor](https://github.com/dineug/erd-editor) — a repo with 1702+ stars on GitHub.
+
+---
+
+Install this config instantly:
+```
+npx tomevault install dineug/erd-editor
+```
+Source: [github.com/dineug/erd-editor](https://github.com/dineug/erd-editor).
+
+<!-- genome:t-i-s -->
