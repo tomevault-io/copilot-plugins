@@ -48599,6 +48599,16 @@
       "description": "popcorn"
     },
     {
+      "name": "maddada--ghostex",
+      "source": "./maddada--ghostex",
+      "description": "Ghostex"
+    },
+    {
+      "name": "maddada--ghostex",
+      "source": "./maddada--ghostex",
+      "description": "Ghostex"
+    },
+    {
       "name": "antdv-next--antdv-next",
       "source": "./antdv-next--antdv-next",
       "description": "Ant Design for Vue"
@@ -53439,6 +53449,36 @@
       "description": "next-yak"
     },
     {
+      "name": "maddada--ghostex",
+      "source": "./maddada--ghostex",
+      "description": "Ghostex"
+    },
+    {
+      "name": "maddada--ghostex",
+      "source": "./maddada--ghostex",
+      "description": "Ghostex"
+    },
+    {
+      "name": "maddada--ghostex",
+      "source": "./maddada--ghostex",
+      "description": "Ghostex"
+    },
+    {
+      "name": "maddada--ghostex",
+      "source": "./maddada--ghostex",
+      "description": "Ghostex"
+    },
+    {
+      "name": "maddada--ghostex",
+      "source": "./maddada--ghostex",
+      "description": "Ghostex"
+    },
+    {
+      "name": "maddada--ghostex",
+      "source": "./maddada--ghostex",
+      "description": "Ghostex"
+    },
+    {
       "name": "realkimbarrett--advertising-skills",
       "source": "./realkimbarrett--advertising-skills",
       "description": "Advertising Skills for Open Claw, Claude Code & AI agents. Direct response, paid ads, funnels, and copy systems."
@@ -53532,6 +53572,46 @@
       "name": "nixys--nxs-universal-chart",
       "source": "./nixys--nxs-universal-chart",
       "description": "nxs-universal-chart"
+    },
+    {
+      "name": "maddada--ghostex",
+      "source": "./maddada--ghostex",
+      "description": "Ghostex"
+    },
+    {
+      "name": "maddada--ghostex",
+      "source": "./maddada--ghostex",
+      "description": "Ghostex"
+    },
+    {
+      "name": "maddada--ghostex",
+      "source": "./maddada--ghostex",
+      "description": "Ghostex"
+    },
+    {
+      "name": "maddada--ghostex",
+      "source": "./maddada--ghostex",
+      "description": "Ghostex"
+    },
+    {
+      "name": "maddada--ghostex",
+      "source": "./maddada--ghostex",
+      "description": "Ghostex"
+    },
+    {
+      "name": "maddada--ghostex",
+      "source": "./maddada--ghostex",
+      "description": "Ghostex"
+    },
+    {
+      "name": "maddada--ghostex",
+      "source": "./maddada--ghostex",
+      "description": "Ghostex"
+    },
+    {
+      "name": "maddada--ghostex",
+      "source": "./maddada--ghostex",
+      "description": "Ghostex"
     },
     {
       "name": "shopex--ecshopx",
@@ -102939,6 +103019,11 @@
       "description": "Tinkerble"
     },
     {
+      "name": "opensifli--sifli-sdk",
+      "source": "./opensifli--sifli-sdk",
+      "description": "SiFli-SDK"
+    },
+    {
       "name": "vercel-labs--next-browser",
       "source": "./vercel-labs--next-browser",
       "description": "next-browser"
@@ -117047,6 +117132,16 @@
       "name": "techiebutler--freeframe",
       "source": "./techiebutler--freeframe",
       "description": "freeframe"
+    },
+    {
+      "name": "hummingbot--condor",
+      "source": "./hummingbot--condor",
+      "description": "condor"
+    },
+    {
+      "name": "hummingbot--condor",
+      "source": "./hummingbot--condor",
+      "description": "condor"
     },
     {
       "name": "modem-dev--baudbot",
@@ -324052,6 +324147,11 @@
       "name": "termio-sh--termio",
       "source": "./termio-sh--termio",
       "description": "termio"
+    },
+    {
+      "name": "otya128--mpeg2toh264",
+      "source": "./otya128--mpeg2toh264",
+      "description": "mpeg2toh264"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
