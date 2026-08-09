@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [gungraun/gungraun](https://github.com/gungraun/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [gungraun/gungraun](https://github.com/gungraun/gungraun) — a repo with 297+ stars on GitHub.
+From [gungraun/gungraun](https://github.com/gungraun/gungraun) — a repo with 306+ stars on GitHub.
 
 ---
 
