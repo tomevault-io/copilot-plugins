@@ -1,0 +1,14 @@
+{
+  "name": "primer--octicons",
+  "displayName": "octicons",
+  "description": "octicons",
+  "version": "1.0.0",
+  "author": "primer",
+  "homepage": "https://github.com/primer/octicons",
+  "skills": [
+    {
+      "name": "octicons",
+      "description": ""
+    }
+  ]
+}
