@@ -1,16 +1,15 @@
 # ccg-gateway
 
-> Source: [mos1128/ccg-gateway](https://github.com/mos1128/ccg-gateway) — distributed by [TomeVault](https://tomevault.io)
-
-为 Claude Code、Codex、Gemini CLI 打造的效率工具，集智能网关与配置管理于一体
+> Source: [mos1128/ccg-gateway](https://github.com/mos1128/ccg-gateway). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mos1128/ccg-gateway](https://github.com/mos1128/ccg-gateway).
+Original source: `` in [mos1128/ccg-gateway](https://github.com/mos1128/ccg-gateway).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
