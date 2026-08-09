@@ -4,7 +4,7 @@
   "repo": "liplnwzaCCITV",
   "description": "AI-interview-driven video production template \u2014 reverse-engineer reference videos into a JSON spec, adapt to any editor (not CapCut-locked)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/liplnwza548/liplnwzaCCITV",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T02:45:13Z"
+  "distributed_at": "2026-08-09T02:54:03Z"
 }
