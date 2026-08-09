@@ -1,60 +1,52 @@
-## b2b-lead-hunter
+## b2b-lead-hunter-skill
 
-> B2B Lead Hunter — evidence-backed foreign-trade lead research, DM discovery, outreach drafting, and controlled SMTP sending
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+# CLAUDE.md
 
-# B2B Lead Hunter — Cursor Agent Guide
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-You are operating as the **B2B Lead Hunter** agent: an export sales research assistant.
-
-## Architecture
-
-- **You (AI)** own: search strategy, fit scoring, language choice, ambiguous decisions, approval
-- **Python scripts** (`scripts/`) own: page reading, contact extraction, dedupe, validation, template rendering, draft evaluation, SMTP plumbing
-- **JSONL** is the universal data format — every stage reads/writes JSON Lines
-- **`scripts/contracts.py`** validates every artifact at runtime — the central dependency
-
-## Pipeline
-
-```
-brief.json → search-plan.md → raw-search.jsonl → candidates.jsonl → enriched.jsonl
-→ leads.jsonl → [DM discovery] → [customs verify] → outreach-candidates.jsonl
-→ outreach-templates.jsonl → outreach-drafts.jsonl → outreach-evaluations.jsonl
-→ approved-outreach.jsonl → sent-log.jsonl
-```
+This project also supports **Cursor** (see `.cursor/rules/b2b-lead-hunter.mdc`) and **Cline** (see `.clinerules` / `CLINE.md`).
 
 ## Commands
 
 ```bash
-pip install -r requirements.txt           # Install deps
-python -m py_compile scripts/*.py          # Syntax check
-python scripts/validate_artifact.py leads path/to/leads.jsonl  # Validate artifact
-python scripts/read_jina.py https://...    # Read a website
+pip3 install requests           # Install the only external dependency
+python -m py_compile scripts/*.py  # Syntax validation for all scripts
+python scripts/validate_artifact.py leads path/to/leads.jsonl  # Validate artifact by type
 ```
 
-## Key Rules
+Smoke test the outreach pipeline:
+```bash
+python scripts/prepare_outreach.py ... && \
+python scripts/generate_outreach_templates.py ... && \
+python scripts/generate_outreach_drafts.py ... && \
+python scripts/evaluate_outreach_drafts.py ... && \
+python scripts/send_smtp.py --dry-run ...
+```
 
-1. Use `@web()` for web search queries — do not open a browser
-2. Read `scripts/read_jina.py` output for every website (seller, candidate, contact page)
-3. Validate artifacts before handoff between stages
-4. Quality gates override target count — never relax them
-5. Never auto-send email — user must explicitly approve
+Valid artifact types: `lead`, `brief`, `decision-maker`, `customs-verification`, `outreach-candidate`, `outreach-template`, `outreach-draft`, `outreach-evaluation`, `sender-profile`, `sent-log`, `smtp-config`.
 
-## Reference Docs
+## Architecture
 
-All stage guidance is in `references/`:
-- `references/reference-router.md` — which reference to load per stage
-- `references/workflow.md` — full research workflow
-- `references/outreach-workflow.md` — outreach pipeline
-- `references/decisions.md` — design decisions
-- `references/compliance-boundaries.md` — compliance rules
+**Hermes/Judgment vs Scripts/Deterministic split** — Hermes (the AI) owns search strategy, fit scoring, language choice, and approval decisions. Python scripts own normalization, page reading, contact extraction, deduplication, validation, template rendering, draft evaluation, export, and SMTP plumbing.
 
-## Do NOT
+**Pipeline stages**: brief → search → read websites → score/split → export → decision-maker discovery → customs verification → outreach preparation → templates → drafts → evaluate → approve → send
 
-- Use browser tools for search or page reading (prefer `@web()` and `scripts/read_jina.py`)
-- Relax lead acceptance gates to hit target count
-- Send email without user approval + dry-run + hash-lock checks
-- Commit API keys, passwords, lead data, or sent logs
+**Artifact contracts** — Each stage reads/writes JSONL files validated against JSON schemas in `templates/`. The schemas are enforced at runtime by `scripts/contracts.py` (695 lines, imported by 8+ scripts). This is the central dependency — know it before modifying any script that touches artifacts.
+
+**Hard gates** — Quality overrides target count. Leads cannot enter strict CSV without company reality, buyer-role evidence, contactability, and source URLs. SMTP sending is blocked by multiple hash-locked gates (evaluation hash, approval hash, suppression check, duplicate check, dry-run success). Never auto-sends to inferred emails or free-mail addresses.
+
+**Key reference files**:
+- `SKILL.md` — Hermes skill entrypoint with state machines, hard gates, stage router
+- `references/reference-router.md` — maps each pipeline stage to its guidance reference
+- `references/output-schema.md` — JSONL artifact structure documentation
+- `references/decisions.md` — design decision log
+- `references/compliance-boundaries.md` — compliance rules for outreach
+
+**Script dependency graph**: `contracts.py` is imported by `validate_artifact.py`, `send_smtp.py`, `generate_outreach_drafts.py`, `generate_outreach_templates.py`, `evaluate_outreach_drafts.py`, `prepare_outreach.py`, `enrich_decision_makers.py`, `customs_verify.py`.
+
+**JSONL is the universal data format** — every stage reads/writes JSON Lines with schemas in `templates/`. External APIs needed: Jina Reader (`JINA_API_KEY`), Serper (`SERPER_API_KEY`), Tavily (`TAVILY_API_KEY`), SMTP (`SMTP_APP_PASSWORD`).
 
 ---
 > Source: [xiongQvQ/-b2b-lead-hunter-skill](https://github.com/xiongQvQ/-b2b-lead-hunter-skill) — distributed by [TomeVault](https://tomevault.io).
