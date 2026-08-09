@@ -1,0 +1,44 @@
+{
+  "name": "mime-types",
+  "owner": "wangruofeng",
+  "repo": "mime-types",
+  "description": "MIME \u7c7b\u578b\u901f\u67e5\uff1a\u6269\u5c55\u540d \u2194 Content-Type \u53cc\u5411\u67e5\u8be2\uff0c592 \u6761\u4e2d\u6587\u5206\u7c7b\uff08\u5355\u6587\u4ef6\u7eaf\u524d\u7aef\uff09",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wangruofeng/mime-types",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T02:39:22Z"
+}
