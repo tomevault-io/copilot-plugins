@@ -4,7 +4,7 @@
   "repo": "daScript",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GaijinEntertainment/daScript",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T12:21:23Z"
+  "distributed_at": "2026-08-09T23:58:44Z"
 }
