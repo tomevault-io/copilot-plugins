@@ -7,11 +7,11 @@ A deterministic coding-agent runtime for repeatable, auditable AI software engin
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [arman-jalili/rigorix-oss](https://github.com/arman-jalili/rigorix-oss).
+Original source: `CLAUDE.md` in [arman-jalili/rigorix-oss](https://github.com/arman-jalili/rigorix-oss).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
