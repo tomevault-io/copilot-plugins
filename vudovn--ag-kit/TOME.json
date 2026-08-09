@@ -1,0 +1,405 @@
+{
+  "name": "ag-kit",
+  "owner": "vudovn",
+  "repo": "ag-kit",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "documentation-templates",
+      "path": ".agent/skills/documentation-templates",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agent/skills/documentation-templates",
+      "description": ""
+    },
+    {
+      "name": "rust-pro",
+      "path": ".agent/skills/rust-pro",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agent/skills/rust-pro",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": ".agent/skills/nextjs-react-expert",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agent/skills/nextjs-react-expert",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/rust-pro/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/rust-pro/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/skillify/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/skillify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/bash-linux/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/bash-linux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/clean-code/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/clean-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/mcp-builder/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/mcp-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/app-builder/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/app-builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/tdd-workflow/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/tdd-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/plan-writing/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/plan-writing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/api-patterns/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/api-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/architecture/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/mobile-design/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/mobile-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/simplify-code/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/simplify-code/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/memory-system/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/memory-system/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/webapp-testing/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/webapp-testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/verify-changes/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/verify-changes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/python-patterns/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/python-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/parallel-agents/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/parallel-agents/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/database-design/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/database-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/testing-patterns/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/testing-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/coordinator-mode/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/coordinator-mode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/game-development/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/game-development/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/geo-fundamentals/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/geo-fundamentals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/behavioral-modes/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/behavioral-modes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/seo-fundamentals/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/seo-fundamentals/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/batch-operations/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/batch-operations/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/tailwind-patterns/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/tailwind-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/code-review-graph/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/code-review-graph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/server-management/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/server-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/i18n-localization/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/i18n-localization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/lint-and-validate/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/lint-and-validate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/powershell-windows/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/powershell-windows/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/intelligent-routing/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/intelligent-routing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/nextjs-react-expert/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/nextjs-react-expert/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/context-compression/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/context-compression/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/systematic-debugging/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/systematic-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/nodejs-best-practices/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/nodejs-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/vulnerability-scanner/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/vulnerability-scanner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/deployment-procedures/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/deployment-procedures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/performance-profiling/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/performance-profiling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/code-review-checklist/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/code-review-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/app-builder/templates/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/app-builder/templates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/game-development/vr-ar/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/game-development/vr-ar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/documentation-templates/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/documentation-templates/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/game-development/game-art/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/game-development/game-art/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/game-development/3d-games/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/game-development/3d-games/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/game-development/pc-games/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/game-development/pc-games/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/game-development/2d-games/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/game-development/2d-games/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/game-development/web-games/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/game-development/web-games/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/game-development/game-audio/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/game-development/game-audio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/game-development/game-design/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/game-development/game-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/game-development/multiplayer/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/game-development/multiplayer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/game-development/mobile-games/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/game-development/mobile-games/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/design-spec/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/design-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ag-kit",
+      "path": ".agents/skills/frontend-architecture/SKILL.md",
+      "github_url": "https://github.com/vudovn/ag-kit/tree/main/.agents/skills/frontend-architecture/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vudovn/ag-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T15:35:29Z"
+}
