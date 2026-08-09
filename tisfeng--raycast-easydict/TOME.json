@@ -1,0 +1,75 @@
+{
+  "name": "Raycast-Easydict",
+  "owner": "tisfeng",
+  "repo": "Raycast-Easydict",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Raycast-Easydict",
+      "path": ".agents/skills/review-pr/SKILL.md",
+      "github_url": "https://github.com/tisfeng/Raycast-Easydict/tree/main/.agents/skills/review-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Raycast-Easydict",
+      "path": ".agents/skills/git-commit/SKILL.md",
+      "github_url": "https://github.com/tisfeng/Raycast-Easydict/tree/main/.agents/skills/git-commit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Raycast-Easydict",
+      "path": ".agents/skills/code-simplifier/SKILL.md",
+      "github_url": "https://github.com/tisfeng/Raycast-Easydict/tree/main/.agents/skills/code-simplifier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Raycast-Easydict",
+      "path": ".agents/skills/fireworks-tech-graph/SKILL.md",
+      "github_url": "https://github.com/tisfeng/Raycast-Easydict/tree/main/.agents/skills/fireworks-tech-graph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Raycast-Easydict",
+      "path": ".agents/skills/worktree-rebase-merge/SKILL.md",
+      "github_url": "https://github.com/tisfeng/Raycast-Easydict/tree/main/.agents/skills/worktree-rebase-merge/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tisfeng/Raycast-Easydict",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T13:38:01Z"
+}
