@@ -4,7 +4,7 @@
   "repo": "rssh",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shihuili1218/rssh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-28T14:17:20Z"
+  "distributed_at": "2026-08-09T22:28:12Z"
 }
