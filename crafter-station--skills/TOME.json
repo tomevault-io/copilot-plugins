@@ -1,0 +1,123 @@
+{
+  "name": "skills",
+  "owner": "crafter-station",
+  "repo": "skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "intent-layer",
+      "path": "context-engineering/intent-layer",
+      "github_url": "https://github.com/crafter-station/skills/tree/main/context-engineering/intent-layer",
+      "description": ""
+    },
+    {
+      "name": "skill-gen",
+      "path": "meta/skill-gen",
+      "github_url": "https://github.com/crafter-station/skills/tree/main/meta/skill-gen",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "spoti-cli/SKILL.md",
+      "github_url": "https://github.com/crafter-station/skills/tree/main/spoti-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "meta/skillkit/SKILL.md",
+      "github_url": "https://github.com/crafter-station/skills/tree/main/meta/skillkit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "meta/skill-gen/SKILL.md",
+      "github_url": "https://github.com/crafter-station/skills/tree/main/meta/skill-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "context-engineering/intent-layer/SKILL.md",
+      "github_url": "https://github.com/crafter-station/skills/tree/main/context-engineering/intent-layer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "generate-brand-assets/SKILL.md",
+      "github_url": "https://github.com/crafter-station/skills/tree/main/generate-brand-assets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/skill-gen/SKILL.md",
+      "github_url": "https://github.com/crafter-station/skills/tree/main/skills/skill-gen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/cli-build/SKILL.md",
+      "github_url": "https://github.com/crafter-station/skills/tree/main/skills/cli-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/intent-layer/SKILL.md",
+      "github_url": "https://github.com/crafter-station/skills/tree/main/skills/intent-layer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/surface-recon/SKILL.md",
+      "github_url": "https://github.com/crafter-station/skills/tree/main/skills/surface-recon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/generate-brand-assets/SKILL.md",
+      "github_url": "https://github.com/crafter-station/skills/tree/main/skills/generate-brand-assets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/obsidian-plugin-release/SKILL.md",
+      "github_url": "https://github.com/crafter-station/skills/tree/main/skills/obsidian-plugin-release/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/crafter-station/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T17:31:32Z"
+}
