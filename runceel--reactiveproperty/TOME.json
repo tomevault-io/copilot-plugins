@@ -1,0 +1,189 @@
+{
+  "name": "ReactiveProperty",
+  "owner": "runceel",
+  "repo": "ReactiveProperty",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/run-tests/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/run-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/filter-syntax/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/filter-syntax/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/dotnet-aot-compat/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/dotnet-aot-compat/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/coverage-analysis/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/coverage-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/incremental-build/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/incremental-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/microbenchmarking/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/microbenchmarking/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/test-anti-patterns/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/test-anti-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/check-bin-obj-clash/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/check-bin-obj-clash/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/writing-mstest-tests/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/writing-mstest-tests/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/development-workflow/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/development-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/migrate-vstest-to-mtp/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/migrate-vstest-to-mtp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/msbuild-modernization/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/msbuild-modernization/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/dotnet-test-frameworks/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/dotnet-test-frameworks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/migrate-mstest-v3-to-v4/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/migrate-mstest-v3-to-v4/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/binlog-failure-analysis/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/binlog-failure-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": "skills/migrating-reactiveproperty-to-r3/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/skills/migrating-reactiveproperty-to-r3/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/nuget-trusted-publishing/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/nuget-trusted-publishing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/releasing-reactiveproperty/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/releasing-reactiveproperty/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/migrate-dotnet8-to-dotnet9/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/migrate-dotnet8-to-dotnet9/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/resolve-project-references/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/resolve-project-references/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/migrate-nullable-references/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/migrate-nullable-references/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/migrate-dotnet9-to-dotnet10/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/migrate-dotnet9-to-dotnet10/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".agents/skills/analyzing-dotnet-performance/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.agents/skills/analyzing-dotnet-performance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ReactiveProperty",
+      "path": ".github/skills/dotnet10-features/SKILL.md",
+      "github_url": "https://github.com/runceel/ReactiveProperty/tree/main/.github/skills/dotnet10-features/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/runceel/ReactiveProperty",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T13:49:04Z"
+}
