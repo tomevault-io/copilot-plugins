@@ -5,14 +5,5 @@
   "version": "1.0.0",
   "author": "ossrs",
   "homepage": "https://github.com/ossrs/srs",
-  "skills": [
-    {
-      "name": "srs",
-      "description": ""
-    },
-    {
-      "name": "srs",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
