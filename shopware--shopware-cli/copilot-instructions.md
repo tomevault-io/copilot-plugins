@@ -1,10 +1,10 @@
 ## shopware-cli
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to AI coding agents when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding agents when working with code in this repository.
 
 ## Development Commands
 
@@ -95,7 +95,7 @@ shopware-cli extension admin-watch
 shopware-cli extension validate
 
 # Create distribution package
-shopware-cli extension zip
+shopware-cli extension package
 ```
 
 ### Project Management
@@ -124,4 +124,4 @@ Tools are configurable via JSON schemas and run automatically during builds.
 
 ---
 > Source: [shopware/shopware-cli](https://github.com/shopware/shopware-cli) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
