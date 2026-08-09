@@ -4,7 +4,7 @@
   "repo": "context",
   "description": "A self-hosted context manager. @context organizes your work into a private CRM and knowledge base and helps you stay on top of things.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agno-agi/context",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T00:52:03Z"
+  "distributed_at": "2026-08-09T00:58:31Z"
 }
