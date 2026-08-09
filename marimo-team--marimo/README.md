@@ -15,10 +15,6 @@ Original source: `AGENTS.md` in [marimo-team/marimo](https://github.com/marimo-t
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [marimo](https://github.com/marimo-team/marimo/tree/main/packages/llm-info/skills/SKILL.md)
-
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/marimo-team/marimo](https://github.com/marimo-team/marimo)
 
 ---
