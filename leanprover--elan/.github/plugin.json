@@ -1,0 +1,9 @@
+{
+  "name": "leanprover--elan",
+  "displayName": "elan",
+  "description": "elan",
+  "version": "1.0.0",
+  "author": "leanprover",
+  "homepage": "https://github.com/leanprover/elan",
+  "skills": []
+}
