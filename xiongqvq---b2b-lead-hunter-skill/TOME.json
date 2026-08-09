@@ -1,0 +1,44 @@
+{
+  "name": "-b2b-lead-hunter-skill",
+  "owner": "xiongQvQ",
+  "repo": "-b2b-lead-hunter-skill",
+  "description": "AI Agent Skill for B2B lead research, decision-maker discovery, customs checks, outreach drafting & controlled sending. Works with Claude Code, Cursor, Cline & Hermes.\u5916\u8d38\u5ba2\u6237\u6316\u6398 AI \u6280\u80fd\u5305\uff1a\u627e\u6d77\u5916\u4e70\u5bb6\u3001\u6316\u51b3\u7b56\u4eba\u3001\u67e5\u6d77\u5173\u4fe1\u53f7\u3001\u5199\u5f00\u53d1\u4fe1\u3001\u53d7\u63a7\u53d1\u9001\u3002\u652f\u6301 Claude Code / Cursor / Cline / Hermes \u56db\u5e73\u53f0\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xiongQvQ/-b2b-lead-hunter-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T00:33:00Z"
+}
