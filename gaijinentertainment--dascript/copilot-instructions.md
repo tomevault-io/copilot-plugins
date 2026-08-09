@@ -1,128 +1,113 @@
 ## dascript
 
-> The Metal suites here are wall-time-expensive (model loads dominate; a full pass holds 40GB
+> dasImgui is the daslang binding + boost-v2 wrapper layer for [Dear ImGui](https://github.com/ocornut/imgui), **in-tree at `modules/dasImgui/`** and built by default (root CMake option `DAS_IMGUI_DISABLED`, default `OFF`; needs the in-tree dasGlfw + dasClipboard). It ships the C++ native binding (`bind/`, `src/`; also a `dasModuleImgui.shared_module` for DLL builds), the boost-v2 wrapper layer (`widgets/` — `[widget]` / `[container]` / `with_*` macros, telemetry, default-on lint), the `imguiApp` (windowed GLFW+GL) and `imguiAppHeadless` (no display, real ImGui ctx, CPU font atlas) harness backends, and examples under `examples/`.
 
-# modules/dasLLAMA/tests — testing discipline
+# dasImgui module instructions
 
-The Metal suites here are wall-time-expensive (model loads dominate; a full pass holds 40GB
-GGUFs). The rules below exist because one session spent 5.75 of 6 hours re-running full suites
-to verify one-arm fixes. They are enforcement, not advice.
+dasImgui is the daslang binding + boost-v2 wrapper layer for [Dear ImGui](https://github.com/ocornut/imgui), **in-tree at `modules/dasImgui/`** and built by default (root CMake option `DAS_IMGUI_DISABLED`, default `OFF`; needs the in-tree dasGlfw + dasClipboard). It ships the C++ native binding (`bind/`, `src/`; also a `dasModuleImgui.shared_module` for DLL builds), the boost-v2 wrapper layer (`widgets/` — `[widget]` / `[container]` / `with_*` macros, telemetry, default-on lint), the `imguiApp` (windowed GLFW+GL) and `imguiAppHeadless` (no display, real ImGui ctx, CPU font atlas) harness backends, and examples under `examples/`.
 
-## Run suites ONLY through the runner
+The old standalone repo (borisbat/dasImgui) is archived with full history. `daspkg` recognizes `require_package("dasImgui")` as in-tree and reports *part of this daslang tree — nothing to install*; in-repo example `.das_package` manifests do NOT declare it (`daspkg release` — native and wasm — discovers module archives from the compiled require chain via `daslang -exe --list-shared-modules`; the manifest `dependencies()` section drives only the install flow, which has nothing to install for an in-tree module).
 
+## Locations
+
+- Module source: `modules/dasImgui/` (`bind/`, `src/`, `widgets/`, `examples/`, `utils/`)
+- Tests: `modules/dasImgui/tests/` — nightly CI lane `.github/workflows/nightly_imgui.yml`; see `modules/dasImgui/tests/README.md`
+- Docs: stdlib section `doc/source/stdlib/sec_imgui.rst` (+ generated pages), tutorials `doc/source/reference/tutorials/imgui/*.rst` (see Documentation below)
+- Skills: **repo root** `skills/imgui_*.md` (see table below)
+- Recordings: intermediates in `doc/source/_static/tutorials/` (gitignored); MP4 deliverables on the rolling `docs-assets` GitHub release (see Recordings below)
+
+## Skill files (REQUIRED)
+
+| Skill file | Read BEFORE... |
+|---|---|
+| `skills/imgui_ui_debugging.md` | Diagnosing/fixing ANY UI or interaction bug (also mandated by the root CLAUDE.md) |
+| `skills/imgui_playwright.md` | Writing/editing any `modules/dasImgui/tests/test_*.das` or `record_*.das` driver — the **async rule** (gate on the effect, not a frame/sleep guess), the `wait_*` family, one-host-per-9090 |
+| `skills/imgui_recording.md` | Writing/editing any `record_*.das` driver — pacing constants, workflow, APNG→MP4 conversion |
+| `skills/imgui_migration.md` | Migrating v1 daslang+imgui code (`require imgui/imgui_boost`, raw `NewFrame()`/`Begin()`) to v2. Read when you hit IMGUI001 / IMGUI002 |
+| `skills/imgui_application.md` | Structuring a long-running dasImgui app (init/update/shutdown lifecycle, heap ownership) |
+
+## Build
+
+Builds with the normal daslang build (`cmake --build build --config Release`); targets `dasModuleImgui`, `imguiApp`, `imguiAppHeadless` exist for DLL/shared-module consumers (artifacts land in `modules/dasImgui/`, not the build dir). Stop any running `daslang-live` / `imguiApp` consumers before rebuilding — on Windows the OS holds locks on loaded DLLs.
+
+## Binding regen (`bind/bind_imgui.das`)
+
+The raw binding under `src/` is GENERATED. After changing the binding surface or bumping the imgui version, regenerate and commit:
+
+```bash
+./bin/daslang modules/dasImgui/bind/bind_imgui.das
+git diff -- modules/dasImgui/src/     # commit the changes
 ```
-./bin/daslang -jit modules/dasLLAMA/tests/run.das -- --arm <filter> [--suite decode|prefill|matrix|all] [--family llama]
+
+Needs the dasClangBind/libclang stack — read `skills/clang_bind_build.md` first. CI freshness gate: `build.yml`'s mingw nightly worker runs the self-binder and fails on a dirty `modules/dasImgui/src/`.
+
+**imgui version pin:** v1.92.6-docking, fetched via CMake FetchContent at build time. Bumping it means re-running the self-binder and committing the regenerated `src/`.
+
+## Module resolution
+
+- `require imgui/<name>` resolves via the module's `.das_module` `register_native_path` entries; the in-tree project-root scan picks them up. Run from the repo root; recipes pass `-project_root .` where needed (e.g. record drivers).
+- `require` only resolves **siblings** of the calling file's directory and the registered native paths. **No `..`/absolute-from-root forms.** Files that need both `imgui/*` and a sibling module must live in the sibling's directory.
+- If a sibling name collides with an `imgui::` builtin (`ShowAboutWindow`, `ShowStyleEditor`, …), qualify at the call site: `about::ShowAboutWindow()`.
+
+## Examples layout (`modules/dasImgui/examples/`)
+
+- `features/` — small focused demos, one wrapper per file (~20-80 LOC); drive `[test]` smokes in `modules/dasImgui/tests/test_<name>.das`. `harness_*` lifecycle.
+- `imgui_demo/` — daslang port of `imgui_demo.cpp`: per-scene modules consumed by `imgui_demo.das`; `main.das` is the live-reload entry; `harness_<scene>.das` for headless smokes + recordings.
+- `tutorial/` — annotated tutorials matching `doc/source/reference/tutorials/imgui/*.rst`; `live_*` lifecycle so the live-reload tutorial flow works.
+- `save_demo/` — one-shot save/load demo.
+
+## Lifecycle: `harness_*` vs `live_*`
+
+Two distinct frame-loop APIs. **`harness_*`** (in `imgui_harness`, used by `examples/features/*.das`): `harness_begin_frame()` / `harness_new_frame()` / `harness_end_frame()`. `harness_new_frame()` runs `imgui_synth_tick()` itself, so synthetic mouse/keyboard and `set_user_control` work on every harness app with no opt-in. **`live_*`** (in `live_host` + `imgui_live`, used by `examples/tutorial/`) is lowest-level and has no such fold — it MUST call `apply_synth_io_override()` explicitly between the backend `*_NewFrame()` and ImGui's `NewFrame()`.
+
+## Lint (`widgets/imgui_lint.das`)
+
+Default-on for every `.das` file requiring imgui. Forbids raw `imgui::Fn` where `Fn` isn't in `ALLOWED_IMGUI`:
+
+- **IMGUI001**: `imgui_boost::Fn` (legacy v1 surface) — dead, no per-file escape.
+- **IMGUI002**: `imgui::Fn` ∉ `ALLOWED_IMGUI`. Per-file escape: `options _allow_imgui_legacy = true` — **scaffolding-only**, target state is zero opt-outs.
+
+To add a raw call to the carve-out, edit `ALLOWED_IMGUI` in `widgets/imgui_lint.das`. Two intentional (not gap) opt-outs remain: `examples/tutorial/custom_widgets.das` (teaches building widgets from primitives) and `examples/features/widget_no_ident.das` (didactic STYLE001 counter-example).
+
+## Widget telemetry & path-prefix
+
+- Every `[widget]` / `[container]` registers under a slash-joined path `WINDOW_IDENT/CONTAINER_IDENT/WIDGET_IDENT`; `with_id("scope")` adds a literal segment.
+- **Indexed widget tables** (one widget per loop iteration) must be declared at module scope explicitly — `[widget]` macros do NOT auto-emit table globals for indexed forms: `var private STYLE_COLOR_NAME : table<int; NarrativeState>`.
+- `menu()` / `tab_item()` snapshot the header bbox right after `BeginMenu`/`BeginTabItem`, so the registered bbox is the clickable header rect; `main_menu_bar()` itself reports `bbox = (0,0,0,0)` — recording drivers that click the bar hardcode pixel coords.
+
+## Tests (`modules/dasImgui/tests/`)
+
+Run from the repo root (full recipe + curl smoke + recording workflow: `modules/dasImgui/tests/README.md`):
+
+```bash
+./bin/daslang dastest/dastest.das -- --test modules/dasImgui/tests --headless
 ```
 
-Never invoke `dastest/dastest.das --test modules/dasLLAMA/tests/...` directly for the metal suites.
-`--full` is REFUSED while the Metal build-out is in progress ("please narrow the scope...") —
-scope every gate with `--arm` to the arms the change can actually affect (a whole-zoo pass
-buys soak time, not coverage; e.g. a driver change gates on `--arm arm,batch --suite decode`).
-The runner refuses to run without exactly one of `--arm` / `--full`, tees the COMPLETE output
-to a log file (path printed on the DONE line), owns the dastest timeout (1200s), and repeats
-only when `--nreps` is passed explicitly (default 1, never best-of-N).
+- ~161 test files, one daslang-live subprocess each; add `--isolated-mode --isolated-mode-threads 4` to parallelize. **`--headless` is required** — without it the spawned subprocesses pop real GLFW windows and flake on focus/port-reuse.
+- Nightly-only in CI (`nightly_imgui.yml`, ubuntu + macos): the `tests/.das_test` gate skips this dir in `--test tests/` full sweeps unless `--imgui` is passed; targeting the folder directly bypasses the gate. CI excludes `glfw_synth`, `key_hud`, `embedded_terminal`. Windows CI is deliberately absent (runner fastfail 0xC0000409 + libhv's 16-POST-per-subprocess stall); local Windows runs still need the high-POST excludes (`inputs_drag`, `inputs_numeric`, `inputs_slider`, `indexed_dynamic`, `inputs_color`, `inputs_choice`, `inputs_text`).
+- **Process cleanup between runs:** a killed dastest leaves a daslang-live child holding port 9090; sweep `daslang`/`daslang-live`/`dastest`/`imguiApp`/`imguiAppHeadless` processes before re-running — **by PATH, never bare by name** (a bare name-kill also murders the dasHerd watcher and every other tree's daslang; observed 2026-07-29). Sweep command: `skills/imgui_playwright.md`.
+- Families: `test_<feature>.das` (`with_imgui_app` playwright tests), `failed_imgui_*.das` (lint negative smokes), `record_<scene>.das` (recording drivers — NOT in CI).
 
-## The iteration loop
+## Documentation
 
-1. Fixing/adding one arm → run exactly that arm: `--arm arm12 --suite decode` (~minutes).
-   Scratchpad probes that replicate one arm in isolation are encouraged for kernel/driver
-   fixes — cheaper still.
-2. Batch every pending fix. Do NOT re-run a full suite per fix.
-3. The pre-commit gate is the `--arm` set covering every arm the batched fixes can affect
-   (e.g. `--arm arm,batch --suite decode` + the touched suites' arms). `--full` is refused
-   while the Metal build-out is in progress.
-4. Before launching ANY suite, state what the change can affect; a default-off knob or a
-   comment edit does not need a rerun.
+Docs live in the main Sphinx tree, published at daslang.io/doc:
 
-## Arm filter mechanics
+- **Stdlib pages**: `doc/source/stdlib/sec_imgui*.rst` + generated pages from `modules/dasImgui/utils/imgui2rst.das` (writes `doc/source/stdlib/generated/`, gitignored). `doc.yml`/`pages.yml` run it before sphinx; locally run it first or `sphinx-build -W` fails on the missing generated toctree entries.
+- **Tutorials**: `doc/source/reference/tutorials/imgui/*.rst`, embedding MP4s from `doc/source/_static/tutorials/` via the `.. video::` directive. MP4s are NOT in git — staged from the `docs-assets` release by `utils/docs_assets/fetch.{sh,ps1}`; sphinx `-W` fails on a missing video, so **upload the MP4 to `docs-assets` before the RST cite lands**.
+- **Icon catalog**: `generated/imgui_icons.rst` is built by `generate_icon_catalog()` in `utils/imgui2rst.das`; its images are committed PNGs under `doc/source/_static/icons/`, rendered offline by `daslang -project_root . modules/dasImgui/utils/make_icon_doc.das` (drives a real ImGui frame — must run **windowed**, not in CI). Re-run after adding/changing a glyph in `widgets/imgui_icons.das` and commit the PNGs.
 
-`DASLLAMA_TEST_ARMS` (set by `--arm`) is a comma list of substrings matched against arm names
-by `arm_on(t, name)` in `_model_tier.das`. Filtered arms register a LOUD `t |> skip`, so a
-filtered run reports SKIPPED, never PASS — partial coverage cannot masquerade as full. A
-failed assert still FAILS the test (dastest: `failed` beats `skipped`), so filtering can
-never mask a red.
+## Recordings
 
-Arm names — decode parity: `arm1-basic arm2-hybrid arm3-step arm4-paged arm5-rewind
-arm6-churn arm7-q8kv arm7b-tq4kv arm8-s16 arm9-reload arm10-kq arm11-depth arm12-dim
-arm13-conc`,
-batch test: `batch` (whole test), `batchB7-partd`, `batchB8-kq`. Prefill parity: `base s16
-kq cont dim qkv`. Support matrix: `cells-q8 window cells-s16 mode kq dim8b dim70b` + the
-family matrix `fam-qwen3 fam-qwen2 fam-phi3 fam-gemma2 fam-gemma3 fam-gemma4 fam-qwen3moe
-fam-gemma4moe fam-gptoss fam-qwen35 fam-qwen35moe fam-qwen2moe` (needs-derivation pins +
-per-path cells; fam-gemma2 also carries the sliding-window masking parity row;
-fam-gemma4/fam-qwen3moe/fam-gemma4moe/fam-gptoss/fam-qwen35moe/fam-qwen2moe are
-DASLLAMA_PARITY_FULL-gated — 7.4/18.5/26.9/12.1/22/15GB; fam-gemma4moe and fam-gptoss are ENGAGE
-+ shallow logits TOLERANCE cells only — token parity is not a valid instrument for the 26B, whose double-router
-CPU differs from any float implementation by ~2.5 logits/step by construction;
-fam-qwen35/fam-qwen35moe are deltanet hybrids whose batch cell asserts the per-row FALLBACK
-shape — metal batch steps 0, both rows served on the single-decode path; fam-qwen2moe's
-batch cell asserts the `graph` DECLINE on the planar model — shexp has no batch arm, and a
-blob twin's CPU batch fallback would trip the blob-only panic). The
-`kernels` suite (test_metal_prefill_kernels — model-less kernel units, ~80s) has no arms;
-remember it exists — kernel uniform/binding changes MUST update its hand-bound dispatches.
-The `image` suite (test_model_image — the prepared-image .dlim rail): `mechanics` (synthetic
-carrier, model-free, runs in CI) `smol metal tower whisper voxtral`; the voxtral arm re-saves a
-5.4 GB image from cold every run by design (it IS the >2 GiB-plane IO coverage); the `metal`
-arm mints/maps the blob-only metal flavor (SmolLM2) incl. the CPU-tripwire and a
-teacher-forced logits-tolerance parity cell (greedy token equality is NOT a valid bar on a
-135M — genuine near-ties flip on ~0.02 gaps under ~0.75 cross-backend noise).
+Three hard requirements for any recording (see `skills/imgui_recording.md`): (1) **do what it teaches** — every stage performs the real interaction it narrates, never just points; (2) **self-verify every step** — clicks go through `hold_through_voice`, value changes through `force_set_verified`, and a no-op interaction aborts loudly at teardown; (3) **pace by the voice** — dwell is the voiceover wav length, not hand-tuned sleeps. Captions/voice must be **ASCII**.
 
-## Blob-only Metal fixtures (the two-model pattern)
+Soundtracked pipeline (`modules/dasImgui/utils/prepare_recording.das` / `convert_recording.das`): prepare → record (`daslang -project_root . modules/dasImgui/tests/record_X.das`) → eyeball the `.apng` → convert to `.mp4` → `gh release upload docs-assets X.mp4 --clobber`. Full mechanics: `modules/dasImgui/tests/README.md` + `skills/imgui_recording.md`.
 
-The Metal drivers serve ONLY blob-form models (`convert_model_to_metal_blob` /
-metal-flavor images), and CPU inference on a blob model PANICS. Every CPU-vs-GPU arm
-therefore runs a PLANAR model for CPU stages and its `blob_twin(t, path, seq_cap)` for
-override-selected stages — sessions are geometry-bound, so one session spans both models
-(CPU prefill on the planar model, GPU decode on the twin, etc.). Decline-reason cells keep
-the planar model: capability reasons (`feature`, `graph`, `shape`, ...) out-rank the
-`planar` decline in every gate, and the planar CPU fallback serves quietly. The prefill
-npos POLICY window is planar-only now (a blob model serves any npos — no CPU fallback
-exists); the legacy quantized-X prefill rail is dead (`set_metal_prefill_mulmm_legacy`
-forces a `planar` capability decline — the required-mode panic cell uses it).
+When debugging recordings or live-API behaviour: stop stale `daslang-live`/`imguiApp` processes first; probe ground truth via `mcp__daslang__live_command` (`screenshot`, `imgui_snapshot`, `imgui_mouse_status`, `help`); **always full-restart daslang-live between recording iterations** — interactive probes leave state that contaminates the next recording.
 
-## Family filter (profiling cadence)
+## Known deliberate gaps
 
-`--family <tokens>` (env `DASLLAMA_TEST_FAMILY`, comma list) composes with `--arm`: only
-model blocks tagged with a listed family run — `family_on(t, name)` in
-`_model_tier.das`, EXACT token match, loud `t |> skip` like the arm filter. Model-free blocks
-(the `kernels` suite, the image `mechanics` arm) carry no tag and always run. Family tokens
-today: `llama` (all four metal suites + the image smol arm), `qwen2`, `qwen3`, `phi3`,
-`gemma2`, `gemma3`, `gemma4`, `qwen3moe`, `gemma4moe`, `gptoss`, `qwen35`, `qwen35moe`, `qwen2moe` (the support-matrix family cells), `gemma`,
-`ultravox`, `whisper`, `voxtral` (image suite arms).
-When profiling one family across formats, gate each round with
-`--arm <arms> --family <fam>` instead of the whole zoo. Tag every NEW model-loading block
-with its family or it silently joins every family's gate.
-
-## Model tiers
-
-`model_available(t, path)` gates by size: models over 6GiB (the 8B, the 70B) run only under
-`DASLLAMA_PARITY_FULL=1` (set that env explicitly with an `--arm` run when a change genuinely
-needs the large tier — `--full`, which used to set it, is refused). A run reporting SKIPPED
-for those arms is correct, not a failure. The 70B is further restricted: no CPU-control
-batch parity against it (streaming 40GB on the CPU while the GPU has the same bytes wired
-OOM-kills a 64GB box) — 70B batch coverage is ENGAGE-only in the support matrix; the
-batched code paths get their parity on small models via pins (e.g.
-`set_metal_batch_addrms_unfused`).
-
-## Log discipline
-
-Always capture COMPLETE logs (the runner does this); grep afterwards, never at capture time —
-a capture-time filter once hid the exact proof line a verification run existed to produce.
-When a fixture claims a size/depth property ("2030 tokens", "crosses 2048"), assert the
-actual number in the test; a resize cap is not evidence.
-
-## Stale truth caches (`<model>.ref.<key>.tsv`)
-
-`cached_ids`/`cached_vals` pin a CPU trajectory into `<gguf>.ref.<key>.tsv` beside the model.
-FREEFORM-prompt caches sit on sub-noise near-ties, so any numerics-adjacent master merge can
-legitimately move the CURRENT CPU trajectory off the cached one — the parity assert then fails
-with the GPU side actually CORRECT (it matches today's CPU). Before declaring a fam-row red a
-regression: (1) stash + clean-tree rerun (same red ⇒ not your diff), (2) `mv` the cell's `.ref`
-tsv aside and rerun — a fresh-truth green means stale cache, keep the refreshed tsv. Counting
-caches are tie-proof by construction and should NOT move; a counting-cache mismatch is a real
-red. (2026-07-21: gemma4-12b/k4 `gen_free_n24` flipped at token 22 after the #3518/#3530 window
-while both counting caches held.)
+- **Section 24 Advanced's cpp Debug-details readout** in the `imgui_demo` tables port (`ImVector<ImDrawCmd>.Size` + scroll cur/max): no `Size` accessor exposed in the binding; checkbox + readout dropped, documented inline in `tables.das show_advanced()`. Re-add when an `ImVector` size binding lands.
 
 ---
 > Source: [GaijinEntertainment/daScript](https://github.com/GaijinEntertainment/daScript) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
