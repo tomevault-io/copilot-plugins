@@ -1,81 +1,31 @@
 ## lucid-agents
 
-> validates resolved context and wizard values against the schema before it
+> This package owns the provider-facing deployment executable. Runtime adapters
 
-# Generated Frontend Guide
+# Deployment package guide
 
-The CLI owns one shared React service UI under `adapters/ui`. Next copies the
-contents of `adapters/ui/src` into its project root. TanStack UI copies the
-TanStack headless base first and then overlays `adapters/ui` and its
-framework-specific UI shell.
+This package owns the provider-facing deployment executable. Runtime adapters
+remain responsible only for binding the canonical HTTP handlers.
 
-## Boundaries
+- Keep `src/cli.ts` private; v1 has no JavaScript API.
+- Define manifest validation in `src/manifest.ts`; generate the published JSON
+  Schema with `bun run generate:schema` instead of editing it by hand.
+- Treat provider processes and deployed HTTP origins as system boundaries.
+- Read only variables explicitly named by `lucid.deploy.json`.
+- Reject Worker variables and unsafe value bindings configured outside the
+  deployment manifest.
+- Send secret values through provider secret files, never command arguments.
+- Redact provider tokens and uploaded secrets from every failure path.
+- Preview must use `wrangler versions upload`, never a production deployment.
+- Generated Worker entries must remain separate from local Bun server entries.
 
-- Build presentation data with `buildServicePageModel()` from
-  `@lucid-agents/http`.
-- Load the Agent Card and health through public HTTP handler contracts.
-- Do not inspect `runtime.entrypoints`, `runtime.payments`, or
-  `runtime.agent.config` from generated pages.
-- Keep the shared endpoint-table component in `adapters/ui`.
-- Keep only routing, request adaptation, document metadata, and providers in
-  Next or TanStack overlays.
-- TanStack headless remains API-only and must not receive the shared UI layer.
-- `service-ui.config.ts` is the only generated user-editable visual config.
-  Keep preset resolution, token validation, and shared CSS in the browser-safe
-  `@lucid-agents/http/service-ui` subpath.
-- Hono and Express storefronts are static/read-only. Do not add browser scripts,
-  credential fields, or invoke controls to the portable renderer.
-- Every renderer is read-only and consumes the same `ServicePageModel`. Do not
-  add JSON editors, raw Agent Card dumps, wallet controls, or invoke clients to
-  the generated public page.
+`src/cli.ts` owns command orchestration. Keep manifest parsing, environment
+selection, provider execution, redaction, and HTTP verification in their named
+modules so each system boundary remains independently testable.
 
-## Testing
-
-When changing generated UI:
-
-```bash
-bun test packages/cli/tests/cli.test.ts
-bun run scripts/test-generated-project.ts next all
-bun run scripts/test-generated-project.ts tanstack-ui console
-```
-
-The generated-project script packs current workspace packages before install.
-Do not replace this with a test that resolves `latest` from npm.
-
-Avoid tests tied to component internals. Assert the generated public contract,
-user-visible states, accessible markup, and real generated application builds.
-
-## Deployment overlays
-
-Deployment assets are adapter/template overlays, not runtime-adapter behavior.
-The first overlay applies only to `blank` + `hono` unless `--no-deploy` is
-passed. It contributes `src/worker.ts`, `wrangler.jsonc`,
-`lucid.deploy.json`, package scripts/dependencies, and an appended README
-section while leaving `src/index.ts` unchanged.
-
-Keep provider execution, environment allowlisting, redaction, confirmation,
-and public-origin verification in `@lucid-agents/deploy`. Generated adapters
-must continue delegating requests to the canonical HTTP runtime and must not
-grow provider-specific paywalls or route registries.
-
-## Scaffold safety
-
-- Mark secret wizard inputs with `sensitive: true`; the interactive prompt
-  suppresses terminal echo and does not render secret defaults.
-- Keep generated `.env` files in the shared ignore policy for every adapter.
-- Keep `template.json` prompts and `template.schema.json` aligned. The CLI
-  validates resolved context and wizard values against the schema before it
-  creates a staging directory.
-- Preserve owner-only `0600` permissions on generated `.env` files.
-- Build and optionally install in the staging directory. Do not write directly
-  into the final target before validation succeeds.
-- Reject `.` and other paths that resolve to the current working directory;
-  atomic handoff requires a distinct target directory.
-- Treat installation failure as scaffold failure. Do not report a partially
-  installed project as successfully created.
-- Test failures through `runCli()` and the generated filesystem rather than
-  private copy or prompt helpers.
+Test with fake provider executables. No test may require or mutate a live cloud
+account.
 
 ---
 > Source: [daydreamsai/lucid-agents](https://github.com/daydreamsai/lucid-agents) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
