@@ -1,0 +1,9 @@
+{
+  "name": "sap--jenkins-library",
+  "displayName": "jenkins-library",
+  "description": "jenkins-library",
+  "version": "1.0.0",
+  "author": "SAP",
+  "homepage": "https://github.com/SAP/jenkins-library",
+  "skills": []
+}
