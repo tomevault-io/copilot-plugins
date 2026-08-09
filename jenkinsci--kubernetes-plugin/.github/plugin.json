@@ -1,0 +1,9 @@
+{
+  "name": "jenkinsci--kubernetes-plugin",
+  "displayName": "kubernetes-plugin",
+  "description": "kubernetes-plugin",
+  "version": "1.0.0",
+  "author": "jenkinsci",
+  "homepage": "https://github.com/jenkinsci/kubernetes-plugin",
+  "skills": []
+}
