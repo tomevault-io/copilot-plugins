@@ -2,9 +2,9 @@
   "name": "ccg-gateway",
   "owner": "mos1128",
   "repo": "ccg-gateway",
-  "description": "\u4e3a Claude Code\u3001Codex\u3001Gemini CLI \u6253\u9020\u7684\u6548\u7387\u5de5\u5177\uff0c\u96c6\u667a\u80fd\u7f51\u5173\u4e0e\u914d\u7f6e\u7ba1\u7406\u4e8e\u4e00\u4f53",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mos1128/ccg-gateway",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T01:54:59Z"
+  "distributed_at": "2026-08-09T18:39:18Z"
 }
