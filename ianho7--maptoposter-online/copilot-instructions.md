@@ -1,145 +1,40 @@
 ## maptoposter-online
 
-> 在线地图海报生成器，基于 OpenStreetMap / Protomaps 数据生成复古风格地图图片。
+> The React application lives in `src/`: feature components in `src/components/`, reusable hooks in `src/hooks/`, API and data access in `src/services/`, and shared types/utilities in `src/lib/`. `src/worker.ts` and `src/data-worker.ts` handle browser-worker work; `wasm/` contains the Rust renderer and `src/pkg/` is generated output. Localized source messages are in `messages/`; generated Paraglide output must not be edited. Static fonts and icons belong in `public/` or `src/assets/`.
 
-# MapPoster Online
+# Repository Guidelines
 
-在线地图海报生成器，基于 OpenStreetMap / Protomaps 数据生成复古风格地图图片。
+## Project Structure & Module Organization
 
-## Filetree
+The React application lives in `src/`: feature components in `src/components/`, reusable hooks in `src/hooks/`, API and data access in `src/services/`, and shared types/utilities in `src/lib/`. `src/worker.ts` and `src/data-worker.ts` handle browser-worker work; `wasm/` contains the Rust renderer and `src/pkg/` is generated output. Localized source messages are in `messages/`; generated Paraglide output must not be edited. Static fonts and icons belong in `public/` or `src/assets/`.
 
-- 开始动手前先查看 `FILETREE.md`，快速了解当前仓库的文件职责与目录结构
-- 当需要判断某个文件应该改哪里时，优先参考 `FILETREE.md`，再深入阅读目标文件
-- `FILETREE.md` 是自动维护文件；新增、重命名、删除或明显改变文件职责后，应同步更新
+Read `FILETREE.md` before deciding where a change belongs. Update it when adding, renaming, or materially repurposing files.
 
-## 技术栈
+## Build, Test, and Development Commands
 
-- **构建**: Vite 7 + Bun
-- **前端**: React 19 + TypeScript
-- **样式**: Tailwind CSS v4 (@tailwindcss/vite)
-- **UI**: Radix UI + lucide-react
-- **地图**: @mapbox/vector-tile + pbf + proj4
-- **WASM**: Rust (wasm-pack) 用于地图渲染
-- **i18n**: @inlang/paraglide-js
-- **缓存**: IndexedDB (idb)
+- `bun run dev` — start Vite locally.
+- `bun run build` — compile Paraglide, type-check, and create `dist/`.
+- `bun run build:wasm` — rebuild the Rust/WASM package after changes under `wasm/`.
+- `bun run lint` / `bun run format:check` — run Oxlint / Oxfmt checks.
+- `bun test src/services/location-resolution.test.ts` — run a focused Bun test; use the matching `*.test.ts` file for the area changed.
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\record-cold-start.ps1 -Runs 3 -Summary` — collect production cold-start metrics after starting `bun run preview`.
 
-## 目录结构
+## Coding Style & Naming Conventions
 
-```
-src/
-├── components/
-│   ├── ui/           # Radix UI 封装组件 (button, card, dialog...)
-│   └── *.tsx         # 业务组件
-├── lib/
-│   ├── utils.ts      # cn() 工具函数
-│   └── types.ts      # 共享类型
-├── services/         # 数据服务 (地图 API、POI)
-├── hooks/           # React hooks
-├── pkg/             # WASM 编译产物 (自动生成)
-├── paraglide/       # i18n 消息 (自动生成)
-├── worker.ts        # Web Worker 入口
-└── index.css        # Tailwind v4 配置 + CSS 变量主题
-```
+Use TypeScript, two-space indentation, double quotes, and the existing Oxfmt output. Name React components in `PascalCase`; hooks begin with `use`; services and utility files use `kebab-case`. Import application modules through `@/`. Compose Tailwind classes with `cn()` from `@/lib/utils`, and use the Radix wrappers in `src/components/ui/` before adding new primitives.
 
-## 常用命令
+## Testing Guidelines
 
-```bash
-bun dev            # 启动开发服务器
-bun build          # 构建生产版本
-bun build:wasm     # 构建 WASM (需先 cd wasm)
-bun lint           # 代码检查
-bun preview        # 预览构建产物
-```
+Keep tests beside the relevant domain as `*.test.ts`. Test public behavior, not implementation details. Mock WASM initialization, Worker APIs, and IndexedDB boundaries; avoid loading real WASM in unit tests. Run the focused test plus `bun run build` before handing off changes. Browser performance checks use a fresh Chrome profile; treat external map and geolocation traffic as non-hermetic.
 
-## React 组件规范
+## Commit & Pull Request Guidelines
 
-1. **样式**: 使用 `cn()` 组合类名
-   ```tsx
-   import { cn } from '@/lib/utils'
-   <div className={cn("base-class", condition && "conditional")} />
-   ```
+Use Conventional Commit-style subjects seen in history: `feat(poi): ...`, `fix(map): ...`, or `perf: ...`. Keep commits scoped and imperative. PRs should explain user-visible behavior, validation commands, linked issues, and screenshots for UI/map rendering changes. Call out data-source, WASM, worker-protocol, or i18n changes explicitly.
 
-2. **UI 组件**: 基于 Radix UI，在 `components/ui/` 中封装
+## Security & Configuration
 
-3. **组件导入路径**: 使用 `@/` 别名指向 `src/`
-
-## Tailwind CSS v4
-
-- 配置在 `src/index.css` 中，使用 CSS-first 方式
-- 自定义颜色通过 CSS 变量定义 (`--background`, `--primary` 等)
-- 暗色模式: `.dark` 类 + `@custom-variant dark`
-
-```css
-@theme inline {
-  --color-background: var(--background);
-  --color-primary: var(--primary);
-  /* ... */
-}
-```
-
-## WASM 初始化
-
-```tsx
-import init, { init_panic_hook } from './pkg/wasm'
-
-// App 入口处调用一次
-useEffect(() => {
-  init().then(() => init_panic_hook())
-}, [])
-```
-
-注意: 必须配合 `vite-plugin-wasm` 和 `vite-plugin-top-level-await`
-
-## 测试注意事项
-
-- **WASM 测试**: `init()` 必须在测试 setup 中 mock，避免真实加载 `.wasm` 文件
-- **Worker 测试**: 使用 `runInWorker()` 的模块需 mock Worker 环境
-- **IndexedDB**: idb 缓存层需在测试中用 fake-indexeddb 替代
-- **渲染输出**: WASM 最终产出为 canvas/图片，断言时用视觉快照（snapshot）而非 DOM
-
-## 特殊约定
-
-1. **并行数据获取**: `mapDataService` 内部有轮询机制，多请求可命中不同镜像站
-2. **Web Worker**: 使用 `runInWorker()` 辅助函数，协议 `{ id, type, data }`
-3. **Transferable**: 大数据用 `Transferable[]` 传递避免拷贝
-4. **渲染流程**: 主线程协调 → Worker 并行处理 → WASM 最终渲染
-5. **LOD 模式**: `simplified` / `detailed` 影响地图细节级别
-
-## i18n
-
-- 消息源: `messages/*.json`
-- 编译后: `src/paraglide/messages.js`
-- 使用: `import * as m from '@/paraglide/messages'`
-- 动态语言: `setLocale()` / `getLocale()` from `@/paraglide/runtime`
-
-## Skills
-
-Claude 在处理对应任务前，**必须先读取相关 SKILL.md**，再动手写代码。
-
-| 任务类型 | 读取的 Skill |
-|---|---|
-| UI 组件、页面布局、视觉设计 | `.claude/skills/frontend-design/SKILL.md` |
-| 编写测试、调试、验证功能 | `.claude/skills/webapp-testing/SKILL.md` |
-| 构建独立可运行的组件原型 | `.claude/skills/web-artifacts-builder/SKILL.md` |
-
-### 各 Skill 适用场景说明
-
-**frontend-design** — 适用于：
-- 新增或改造 `src/components/` 下的任何组件
-- 调整地图海报的视觉风格、排版、配色
-- 复古风格 UI 的实现（与本项目主题高度相关）
-
-**webapp-testing** — 适用于：
-- 测试 WASM 渲染流程（init → Worker → 输出）
-- 验证 `mapDataService` 的并行请求和镜像轮询逻辑
-- 测试 Web Worker 消息协议 `{ id, type, data }` 的正确性
-- 验证 Transferable 大数据传输不出现拷贝或内存泄漏
-
-**web-artifacts-builder** — 适用于：
-- 快速原型验证某个地图渲染参数的效果
-- 独立演示某个 UI 组件（不依赖完整构建链）
-- 调试 LOD 模式（simplified / detailed）的视觉差异
+Never commit API keys or `.env` contents. Keep custom POI provider keys user-supplied, and document any new external endpoint or required environment variable.
 
 ---
 > Source: [ianho7/maptoposter-online](https://github.com/ianho7/maptoposter-online) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
