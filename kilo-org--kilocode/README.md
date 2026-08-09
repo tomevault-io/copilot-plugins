@@ -1,8 +1,6 @@
 # kilocode
 
-> Tome by [Kilo-Org](https://github.com/Kilo-Org/kilocode) — distributed by [TomeVault](https://tomevault.io)
-
-Kilo is the all-in-one agentic engineering platform. Build, ship, and iterate faster with the most popular open source coding agent.
+> Tome by [Kilo-Org](https://github.com/Kilo-Org/kilocode), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
