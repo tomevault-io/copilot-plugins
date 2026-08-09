@@ -4,7 +4,7 @@
   "repo": "turborepo-remote-cache",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -77,5 +77,5 @@
   ],
   "source_url": "https://github.com/ducktors/turborepo-remote-cache",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T13:48:08Z"
+  "distributed_at": "2026-08-09T15:49:24Z"
 }
