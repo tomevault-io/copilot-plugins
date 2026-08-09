@@ -1,45 +1,60 @@
-## hook-development
+## security
 
-> Hooks are TypeScript files compiled to ESM bundles (.mjs) via esbuild.
+> Every state-changing function MUST follow this order:
 
-# Hook Development Rules
+# Smart Contract Security Rules
 
-## Hook Architecture
+## Mandatory Patterns
 
-Hooks are TypeScript files compiled to ESM bundles (.mjs) via esbuild.
+### Checks-Effects-Interactions
+Every state-changing function MUST follow this order:
+1. Validate inputs and permissions (checks)
+2. Update state variables (effects)
+3. Make external calls (interactions)
 
-Source: `hooks/src/*.ts`
-Built: `hooks/dist/*.mjs`
-Shared: `hooks/src/shared/*.ts`
+### Reentrancy Protection
+- Use OpenZeppelin ReentrancyGuard on any function making external calls
+- Even with CEI pattern, add the guard as defense in depth
+- Watch for read-only reentrancy through view functions
 
-## When to Create Hooks
+### Token Safety
+- ALWAYS use SafeERC20 for token transfers
+- Check token decimals -- USDC=6, WBTC=8, most=18
+- Handle fee-on-transfer tokens (received != sent)
+- Handle rebasing tokens (stETH balance changes)
+- Handle tokens with blocklists (USDC, USDT)
 
-Hooks automate actions around agent events:
-- Pre/post edit actions (run forge build, slither)
-- Session lifecycle (start, end, compact)
-- Memory and learning operations
-- Security scanning (credential detection, SAST)
+### Access Control
+- Every state-changing function needs explicit access control
+- Use Ownable2Step (prevents accidental ownership transfer)
+- Use AccessControl for multi-role systems
+- Add timelock for admin functions affecting user funds
+- Document all privileged roles
 
-## EVM-Specific Hook Patterns
-- `forge-compile-check`: Run `forge build` after .sol file edits
-- `slither-on-save`: Run Slither after Solidity changes
-- `gas-snapshot-diff`: Compare forge snapshots after edits
-- `natspec-enforcer`: Check NatSpec on public/external functions
-- `storage-layout-check`: Validate storage layout for proxy contracts
+### Input Validation
+- Validate ALL external inputs (zero address, zero amount, bounds)
+- Use custom errors with descriptive parameters
+- Validate array lengths match in batch operations
 
-## Quality Rules
-- Hooks must be fast (< 5 second execution)
-- Never block on long-running operations
-- Handle errors gracefully (log and continue)
-- Keep hooks focused on one responsibility
-- Use shared utilities from `hooks/src/shared/`
+## Vulnerability Checklist (Before Every PR)
+- [ ] No hardcoded secrets
+- [ ] Checks-effects-interactions followed
+- [ ] ReentrancyGuard on external call functions
+- [ ] SafeERC20 used for all transfers
+- [ ] Access control on all state-changing functions
+- [ ] Events emitted for all state changes
+- [ ] Edge cases handled (0, max, empty state)
+- [ ] No tx.origin usage
+- [ ] External call return values checked
+- [ ] No delegatecall to untrusted addresses
 
-## Build
-```bash
-cd hooks && npm run build
-```
-
-Consider these rules if they affect your changes.
+## When Security Issue Found
+1. STOP current work
+2. Classify severity (Critical/High/Medium/Low)
+3. Write PoC test demonstrating the issue
+4. Fix following the recommendation pattern
+5. Verify fix with the PoC test
+6. If secrets leaked: rotate immediately
 
 ---
 > Source: [ccashwell/evm-cortex](https://github.com/ccashwell/evm-cortex) — distributed by [TomeVault](https://tomevault.io).
