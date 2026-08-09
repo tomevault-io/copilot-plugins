@@ -1,0 +1,14 @@
+{
+  "name": "kampsy--ui",
+  "displayName": "ui",
+  "description": "ui",
+  "version": "1.0.0",
+  "author": "kampsy",
+  "homepage": "https://github.com/kampsy/ui",
+  "skills": [
+    {
+      "name": "ui",
+      "description": ""
+    }
+  ]
+}
