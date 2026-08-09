@@ -1,0 +1,54 @@
+## dr-syncer
+
+> - DR-Syncer uses Custom Resource Definitions (CRDs) to configure and control its behavior
+
+## Project Intelligence
+
+### Custom Resource Definitions (CRDs)
+- DR-Syncer uses Custom Resource Definitions (CRDs) to configure and control its behavior
+- The CRDs are defined in the `api/v1alpha1` package and generated using controller-gen
+- Main CRDs:
+  - RemoteCluster: Defines connection details for remote clusters
+  - NamespaceMapping (renamed from Replication): Defines synchronization configuration between namespaces
+  - Important Note: The "Replication" CRD was renamed to "NamespaceMapping" in 2025 to better reflect its purpose
+  - Documentation, examples, and code references have been updated to use NamespaceMapping instead of Replication
+
+### Go Code Styling Rules
+- main.go should be minimal, serving only as entrypoint
+- All packages under ./pkg/ directory
+- Keep files under 300 lines by splitting into multiple files
+- Group small utility functions in util.go within each package
+- Each exported function requires detailed documentation comments
+- Run go fmt ./... before committing code
+- Make frequent, small git commits while coding to create recovery points
+- Use git checkout [commit-hash] -- path/to/file.go to recover accidentally deleted code
+- Group imports in three blocks: standard library, external deps, internal packages
+- Break up large packages into multiple files with clear responsibilities
+
+### Command Line Tools
+- DR-Syncer provides two separate tools:
+  1. Controller: Kubernetes operator that runs in-cluster
+  2. CLI: Standalone command-line tool for direct operations
+
+### Operational Guidelines
+- CRD documentation in docs/docs/crd-reference.md 
+- Examples for both controller and CLI in docs/docs/examples.md
+- Always reference NamespaceMapping (not Replication) in documentation and examples
+- When viewing logs:
+  - Always use --tail flag to limit log output
+  - Never use -f/--follow in scripts as these commands never return
+  - Recommended: kubectl logs pod-name --tail=100
+
+### Deployment Process
+- Helm is the recommended installation method for the controller
+- The CLI can be used without installing the controller
+- Both tools can access the same clusters and namespaces
+
+### Documentation Standards
+- Always document both the controller and CLI options where applicable
+- Use kind: NamespaceMapping in all YAML examples
+- Maintain CLI usage documentation separately from controller documentation
+
+---
+> Source: [SupportTools/dr-syncer](https://github.com/SupportTools/dr-syncer) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
