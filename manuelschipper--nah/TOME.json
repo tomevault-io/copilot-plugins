@@ -2,7 +2,7 @@
   "name": "nah",
   "owner": "manuelschipper",
   "repo": "nah",
-  "description": "Context-aware safety guard for Claude Code.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/manuelschipper/nah",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T16:26:34Z"
+  "distributed_at": "2026-08-09T23:36:47Z"
 }
