@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [envoyproxy/envoy](https://github.com/envoyproxy
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [envoyproxy/envoy](https://github.com/envoyproxy/envoy) — a repo with 28630+ stars on GitHub.
+From [envoyproxy/envoy](https://github.com/envoyproxy/envoy) — a repo with 28742+ stars on GitHub.
 
 ---
 
