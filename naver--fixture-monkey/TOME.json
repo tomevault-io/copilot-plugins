@@ -3,7 +3,7 @@
   "owner": "naver",
   "repo": "fixture-monkey",
   "description": "",
-  "type": "config",
+  "type": "tome",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "fixture-monkey",
+      "path": "claude-plugins/fixture-monkey/skills/write-fixture/SKILL.md",
+      "github_url": "https://github.com/naver/fixture-monkey/tree/main/claude-plugins/fixture-monkey/skills/write-fixture/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/naver/fixture-monkey",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-02T03:45:33Z"
+  "distributed_at": "2026-08-09T15:50:43Z"
 }
