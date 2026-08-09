@@ -1,0 +1,9 @@
+{
+  "name": "dotnet--deployment-tools",
+  "displayName": "deployment-tools",
+  "description": "deployment-tools",
+  "version": "1.0.0",
+  "author": "dotnet",
+  "homepage": "https://github.com/dotnet/deployment-tools",
+  "skills": []
+}
