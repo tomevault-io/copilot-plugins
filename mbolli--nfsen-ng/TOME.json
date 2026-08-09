@@ -4,7 +4,7 @@
   "repo": "nfsen-ng",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mbolli/nfsen-ng",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T12:59:28Z"
+  "distributed_at": "2026-08-09T20:48:02Z"
 }
