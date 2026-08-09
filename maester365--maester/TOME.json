@@ -4,7 +4,7 @@
   "repo": "maester",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/maester365/maester",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-25T21:02:22Z"
+  "distributed_at": "2026-08-09T15:46:59Z"
 }
