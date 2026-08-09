@@ -1,236 +1,122 @@
 ## sqlc
 
-> The dolphin engine handles MySQL parsing and AST conversion using the Marino parser
+> This package rewrites sqlc's query syntax into native SQL **before** any engine
 
-# Dolphin Engine (MySQL) - Claude Code Guide
+# SQL Preprocess Package - Claude Code Guide
 
-The dolphin engine handles MySQL parsing and AST conversion using the Marino parser
-(a sqlc-maintained fork of the TiDB / pingcap parser).
+This package rewrites sqlc's query syntax into native SQL **before** any engine
+parser sees a query. After it runs, no sqlc syntax remains in the text, so
+parsers, converters and `astutils` traversals only ever deal with SQL.
 
-## Architecture
+## What it rewrites
 
-### Parser Flow
-```
-SQL String → Marino Parser → Marino AST → sqlc AST → Analysis/Codegen
-```
+| syntax | becomes |
+| --- | --- |
+| `sqlc.arg(name)` / `sqlc.narg(name)` | the dialect's native placeholder |
+| `sqlc.slice(name)` | the placeholder wrapped in `/*SLICE:name*/` |
+| `sqlc.embed(table)` | `table.*` |
+| `@name` | the native placeholder, on dialects where `@` is sqlc syntax |
 
-### Key Files
-- `convert.go` - Converts Marino AST nodes to sqlc AST nodes
-- `format.go` - MySQL-specific formatting (identifiers, types, parameters)
-- `parse.go` - Entry point for parsing MySQL SQL
+Native placeholders by dialect:
 
-## Marino Parser
+| engine | placeholder | `@name` |
+| --- | --- | --- |
+| postgresql | `$1` | sqlc syntax |
+| mysql | `?` | user variable, left alone |
+| sqlite | `?1` | sqlc syntax |
 
-The Marino parser (`github.com/sqlc-dev/marino`) is used for MySQL parsing. It is a
-hard fork of `github.com/pingcap/tidb/pkg/parser` with a flatter package layout
-(no `pkg/parser/...` prefix) and the former `test_driver` types merged into the
-`ast` package as `ValueExprBase` / `ParamMarkerExprBase`.
+GoogleSQL and ClickHouse are deliberately absent. They handle their own
+parameter syntax, so `File` returns their source unchanged and sqlc syntax is
+not available to them — `sqlc.arg()` reaches the parser as the function call it
+looks like.
 
-```go
-import (
-    pcast "github.com/sqlc-dev/marino/ast"
-    "github.com/sqlc-dev/marino/mysql"
-    "github.com/sqlc-dev/marino/types"
-)
-```
+## How it works
 
-### Common Marino Types
-- `pcast.SelectStmt`, `pcast.InsertStmt`, etc. - Statement types
-- `pcast.ColumnNameExpr` - Column reference
-- `pcast.FuncCallExpr` - Function call
-- `pcast.BinaryOperationExpr` - Binary expression
-- `pcast.VariableExpr` - MySQL user variable (@var)
-- `pcast.Join` - JOIN clause with Left, Right, On, Using
+`lexer` is a dialect-parameterized scanner. It does not parse SQL — it knows
+only enough to skip the regions where sqlc syntax must not be rewritten:
+comments (`--`, `/* */`, `#`), string literals, quoted identifiers, backticks
+and PostgreSQL dollar-quoted strings. `Dialect` (dialect.go) is the single
+place those lexical rules live.
 
-## Conversion Pattern
+`File(engine, src)` looks up the dialect; an engine with no entry gets its
+source back untouched. Otherwise it walks the whole file, splits it at
+top-level semicolons and, for each statement:
 
-Each TiDB node type has a corresponding converter method:
+1. `scan` collects every sqlc construct **and** every native placeholder, in
+   source order.
+2. `number` assigns placeholder numbers. Numbered dialects keep the numbers the
+   user wrote and fill in the gaps; `?` dialects renumber everything in source
+   order, because each `?` is its own argument.
+3. The statement is rewritten into the output buffer and a `Statement` records
+   what changed.
 
-```go
-func (c *cc) convertSelectStmt(n *pcast.SelectStmt) *ast.SelectStmt {
-    return &ast.SelectStmt{
-        FromClause:  c.convertTableRefsClause(n.From),
-        WhereClause: c.convert(n.Where),
-        // ...
-    }
-}
-```
+## The side table
 
-The main `convert()` method dispatches to specific converters:
-```go
-func (c *cc) convert(node pcast.Node) ast.Node {
-    switch n := node.(type) {
-    case *pcast.SelectStmt:
-        return c.convertSelectStmt(n)
-    case *pcast.InsertStmt:
-        return c.convertInsertStmt(n)
-    // ...
-    }
-}
-```
+`Result.Statement(offset)` returns the `Statement` covering an offset in the
+**rewritten** text:
 
-## Key Conversions
+- `Params` — the `named.ParamSet` for the statement
+- `Embeds` — each rewritten `table.*`, keyed by its location so the compiler can
+  tell it apart from a star reference the user wrote
+- `Slices` — the location of each `sqlc.slice()` placeholder
+- `Numbers` — location → parameter number, used by the compiler to override the
+  numbers an engine assigned in AST-conversion order
+- `Dollar` / `ParamErr` — the placeholder-style validation that used to live in
+  `validate.ParamRef`
+- `Err` — a sqlc syntax error (unknown `sqlc.*` function, wrong arity, an
+  argument that is not an identifier or string)
 
-### Column References
-```go
-func (c *cc) convertColumnNameExpr(n *pcast.ColumnNameExpr) *ast.ColumnRef {
-    var items []ast.Node
-    if schema := n.Name.Schema.String(); schema != "" {
-        items = append(items, NewIdentifier(schema))
-    }
-    if table := n.Name.Table.String(); table != "" {
-        items = append(items, NewIdentifier(table))
-    }
-    items = append(items, NewIdentifier(n.Name.Name.String()))
-    return &ast.ColumnRef{Fields: &ast.List{Items: items}}
-}
-```
+`Result.Origin(offset)` maps an offset in the rewritten text back to the
+original source, so errors point at what the user wrote.
 
-### JOINs
-```go
-func (c *cc) convertJoin(n *pcast.Join) *ast.List {
-    if n.Right != nil && n.Left != nil {
-        return &ast.List{
-            Items: []ast.Node{&ast.JoinExpr{
-                Jointype:    ast.JoinType(n.Tp),
-                Larg:        c.convert(n.Left),
-                Rarg:        c.convert(n.Right),
-                Quals:       c.convert(n.On),
-                UsingClause: convertUsing(n.Using),
-            }},
-        }
-    }
-    // No join - just return tables
-    // ...
-}
+## Invariants
+
+- **A rewrite never adds a line.** Replacements are single-line, so a line
+  number taken from the rewritten text is never past the end of the original. It
+  can *lose* lines, when the sqlc call itself spanned several — map offsets
+  through `Origin` rather than trusting line numbers.
+- **An invalid statement is copied through untouched.** The engine still parses
+  what the user wrote and the error is reported per statement, not per file.
+- **Nothing inside a comment or literal is rewritten.** Query annotations like
+  `-- name: GetAuthor :one` are comments, so they are always safe.
+
+## Tests
+
+`testdata/<engine>/<case>/` holds the input and the expected results:
+
+| file | contents |
+| --- | --- |
+| `input.sql` | the query file |
+| `output.sql` | the rewritten SQL |
+| `side_table.json` | everything the preprocessor recorded |
+| `stderr.txt` | reported errors, only when the input is invalid |
+
+`TestRewrite` runs one subtest per directory. `side_table.json` is rendered by
+reading the result back through the same API the compiler uses, so it covers
+parameter names and nullability, embed and slice spans, placeholder numbering
+and the offset map — a parameter's `location` is its offset in the rewritten
+text and its `origin` is where it came from.
+
+Regenerate every golden with:
+
+```bash
+go test ./internal/sql/preprocess -update
 ```
 
-### MySQL User Variables
-MySQL user variables (`@var`) are different from sqlc's `@param` syntax:
-```go
-func (c *cc) convertVariableExpr(n *pcast.VariableExpr) ast.Node {
-    // Use VariableExpr to preserve as-is (NOT A_Expr which would be treated as sqlc param)
-    return &ast.VariableExpr{
-        Name:     n.Name,
-        Location: n.OriginTextPosition(),
-    }
-}
-```
+The cases cover every shape of sqlc syntax that appears in
+`internal/endtoend`, per preprocessed engine — each function against a bare
+reference, a string constant and a quoted identifier, the placeholder styles,
+and the constructs that must be left alone (comments, literals, MySQL user
+variables and `$1`, PostgreSQL's `@>` and `?` operators). When you add a shape
+to the corpus, add it here too.
 
-### Type Casts (CAST AS)
-```go
-func (c *cc) convertFuncCastExpr(n *pcast.FuncCastExpr) ast.Node {
-    typeName := types.TypeStr(n.Tp.GetType())
-    // Handle UNSIGNED/SIGNED specially
-    if typeName == "bigint" {
-        if mysql.HasUnsignedFlag(n.Tp.GetFlag()) {
-            typeName = "bigint unsigned"
-        } else {
-            typeName = "bigint signed"
-        }
-    }
-    return &ast.TypeCast{
-        Arg:      c.convert(n.Expr),
-        TypeName: &ast.TypeName{Name: typeName},
-    }
-}
-```
+## Adding a dialect
 
-### Column Definitions
-```go
-func convertColumnDef(def *pcast.ColumnDef) *ast.ColumnDef {
-    typeName := &ast.TypeName{Name: types.TypeToStr(def.Tp.GetType(), def.Tp.GetCharset())}
-
-    // Only add Typmods for types where length is meaningful
-    tp := def.Tp.GetType()
-    flen := def.Tp.GetFlen()
-    switch tp {
-    case mysql.TypeVarchar, mysql.TypeString, mysql.TypeVarString:
-        if flen >= 0 {
-            typeName.Typmods = &ast.List{
-                Items: []ast.Node{&ast.Integer{Ival: int64(flen)}},
-            }
-        }
-    // Don't add for DATETIME, TIMESTAMP - internal flen is not user-specified
-    }
-    // ...
-}
-```
-
-### Multi-Table DELETE
-MySQL supports `DELETE t1, t2 FROM t1 JOIN t2 ...`:
-```go
-func (c *cc) convertDeleteStmt(n *pcast.DeleteStmt) *ast.DeleteStmt {
-    if n.IsMultiTable && n.Tables != nil {
-        // Convert targets (t1.*, t2.*)
-        targets := &ast.List{}
-        for _, table := range n.Tables.Tables {
-            // Build ColumnRef for each target
-        }
-        stmt.Targets = targets
-
-        // Preserve JOINs in FromClause
-        stmt.FromClause = c.convertTableRefsClause(n.TableRefs).Items[0]
-    } else {
-        // Single-table DELETE
-        stmt.Relations = c.convertTableRefsClause(n.TableRefs)
-    }
-}
-```
-
-## MySQL-Specific Formatting
-
-### format.go
-```go
-func (p *Parser) TypeName(ns, name string) string {
-    switch name {
-    case "bigint unsigned":
-        return "UNSIGNED"
-    case "bigint signed":
-        return "SIGNED"
-    }
-    return name
-}
-
-func (p *Parser) Param(n int) string {
-    return "?"  // MySQL uses ? for all parameters
-}
-```
-
-## Common Issues and Solutions
-
-### Issue: Panic in Walk/Apply
-**Cause**: New AST node type not handled in `astutils/walk.go` or `astutils/rewrite.go`
-**Solution**: Add case for the node type in both files
-
-### Issue: sqlc.arg() not converted in ON DUPLICATE KEY UPDATE
-**Cause**: `InsertStmt` case in `rewrite.go` didn't traverse `OnDuplicateKeyUpdate`
-**Solution**: Add `a.apply(n, "OnDuplicateKeyUpdate", nil, n.OnDuplicateKeyUpdate)`
-
-### Issue: MySQL @variable being treated as parameter
-**Cause**: Converting `VariableExpr` to `A_Expr` with `@` operator
-**Solution**: Use `ast.VariableExpr` instead, which is not detected by `named.IsParamSign()`
-
-### Issue: Type length appearing incorrectly (e.g., datetime(39))
-**Cause**: Using internal `flen` for all types
-**Solution**: Only populate `Typmods` for types where length is user-specified (varchar, char, etc.)
-
-## Testing
-
-### TestFormat
-Tests that SQL can be:
-1. Parsed
-2. Formatted back to SQL
-3. Re-parsed
-4. Re-formatted to match
-
-### TestReplay
-Tests the full sqlc pipeline:
-1. Parse schema and queries
-2. Analyze
-3. Generate code
-4. Compare with expected output
+Add an entry to `dialects` in dialect.go. Nothing else in the codebase needs to
+change for `sqlc.arg`/`narg`/`slice`/`embed` to work for a new engine — but only
+add one if the engine should support sqlc syntax at all. Leaving an engine out
+is a deliberate choice, not an oversight.
 
 ---
 > Source: [sqlc-dev/sqlc](https://github.com/sqlc-dev/sqlc) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
