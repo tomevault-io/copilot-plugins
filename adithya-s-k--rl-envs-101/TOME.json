@@ -1,0 +1,75 @@
+{
+  "name": "RL_Envs_101",
+  "owner": "adithya-s-k",
+  "repo": "RL_Envs_101",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "RL_Envs_101",
+      "path": ".claude/skills/generate-ors-env/SKILL.md",
+      "github_url": "https://github.com/adithya-s-k/RL_Envs_101/tree/main/.claude/skills/generate-ors-env/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "RL_Envs_101",
+      "path": ".claude/skills/generate-openenv-env/SKILL.md",
+      "github_url": "https://github.com/adithya-s-k/RL_Envs_101/tree/main/.claude/skills/generate-openenv-env/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "RL_Envs_101",
+      "path": ".claude/skills/generate-nemo-gym-env/SKILL.md",
+      "github_url": "https://github.com/adithya-s-k/RL_Envs_101/tree/main/.claude/skills/generate-nemo-gym-env/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "RL_Envs_101",
+      "path": ".claude/skills/generate-verifiers-env/SKILL.md",
+      "github_url": "https://github.com/adithya-s-k/RL_Envs_101/tree/main/.claude/skills/generate-verifiers-env/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "RL_Envs_101",
+      "path": ".claude/skills/rl-env-from-description/SKILL.md",
+      "github_url": "https://github.com/adithya-s-k/RL_Envs_101/tree/main/.claude/skills/rl-env-from-description/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/adithya-s-k/RL_Envs_101",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-09T15:37:33Z"
+}
