@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [userver-framework/userver](https://github.com/u
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [userver-framework/userver](https://github.com/userver-framework/userver) — a repo with 2933+ stars on GitHub.
+From [userver-framework/userver](https://github.com/userver-framework/userver) — a repo with 2940+ stars on GitHub.
 
 ---
 
