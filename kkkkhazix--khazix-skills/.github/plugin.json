@@ -5,30 +5,5 @@
   "version": "1.0.0",
   "author": "KKKKhazix",
   "homepage": "https://github.com/KKKKhazix/Khazix-Skills",
-  "skills": [
-    {
-      "name": "Khazix-Skills",
-      "description": ""
-    },
-    {
-      "name": "Khazix-Skills",
-      "description": ""
-    },
-    {
-      "name": "Khazix-Skills",
-      "description": ""
-    },
-    {
-      "name": "Khazix-Skills",
-      "description": ""
-    },
-    {
-      "name": "Khazix-Skills",
-      "description": ""
-    },
-    {
-      "name": "Khazix-Skills",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
