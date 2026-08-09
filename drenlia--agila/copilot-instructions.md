@@ -1,28 +1,33 @@
-## easy-kanban-dates
+## i18n-no-hardcoded-copy
 
-> Dates, PostgreSQL JSON, and HTML date inputs for Agila
+> Always use i18n keys for user-facing copy; never hardcode one language
 
 
-# Date handling (Agila)
+# Internationalization (no hardcoded copy)
 
-## PostgreSQL → browser (API / `sqlManager`)
+This project uses `react-i18next` / locale JSON under `src/i18n` (and related locale files).
 
-- **`node-pg` often returns JavaScript `Date` for `DATE` columns.** `res.json()` serializes them as ISO strings like `2026-03-02T00:00:00.000Z`.
-- **`<input type="date">` only accepts `YYYY-MM-DD`.** ISO datetimes are ignored, so forms look empty and saves appear to fail.
-- **Prefer casting in SQL** for fields sent to the client: `start_date::text AS start_date`, `end_date::text AS end_date` (see `server/utils/sqlManager/sprints.js` and the same pattern for any similar `DATE`/`TIMESTAMP` exposed to JSON).
-- Keep **snake_case** in JSON for tenant entities when the UI expects it (`start_date`, `end_date`, `is_active`), not camelCase aliases, unless the whole stack is migrated consistently.
+## Required
 
-## Frontend
+- **Never hardcode user-facing text in a single language** in UI code (labels, buttons, headings, helper text, empty states, errors shown to users, `aria-label` / `title` / `placeholder` / `alt`, `document.title`, toasts, confirms).
+- Prefer `t('namespace.key')` (or equivalent) for all of the above.
+- When adding or changing copy, **add/update keys in every locale file** the app ships.
+- If you encounter hardcoded UI strings while working nearby, **extract them to locale keys** unless there is a clear reason to keep them hardcoded.
 
-- **Normalize API strings before binding to `type="date"`:** take the first `YYYY-MM-DD` from the value (e.g. match `^(\d{4}-\d{2}-\d{2})`) so ISO datetimes still work. Example: `toDateInputValue` in `src/components/admin/AdminSprintSettingsTab.tsx`.
-- **Display calendar days without UTC shift:** parse `YYYY-MM-DD` as local components (`split('-')` then `new Date(year, month - 1, day)`), not `new Date(isoString)` alone, when showing “human” dates for task/sprint-style fields.
-- Reuse **`parseLocalDate` / helpers in `src/utils/dateUtils.ts`** where appropriate instead of ad-hoc parsing.
+## Acceptable hardcoding (rare)
 
-## Quick checklist for new date fields
+Only leave strings hardcoded when they are not language UI, for example:
 
-1. DB column type and migration (SQLite vs PostgreSQL) aligned?
-2. API JSON: plain date strings for forms, or explicit `::text` / `to_char` from Postgres?
-3. UI: `type="date"` gets `YYYY-MM-DD`; tables and tooltips use local-date parsing when needed?
+- Technical identifiers, API paths, env keys, CSS class names, analytics event names
+- Brand-invariant product names when intentionally shared via a single brand key
+- Developer-only logs / comments
+- Purely numeric or format tokens with no words
+
+## Checklist
+
+1. New UI string? → locale keys first (all languages)
+2. Component uses `t(...)` (or receives translated strings)
+3. Avoid English-only fallbacks like `t('key') || 'English fallback'` for primary UX copy
 
 ---
 > Source: [drenlia/agila](https://github.com/drenlia/agila) — distributed by [TomeVault](https://tomevault.io).
