@@ -1,9 +1,9 @@
 {
-  "name": "open",
+  "name": "opencode",
   "owner": "anomalyco",
   "repo": "opencode",
-  "description": "The open source coding agent.",
-  "type": "tome",
+  "description": "",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "agents-sdk",
-      "path": "packages/opencode/test/fixture/skills/agents-sdk",
-      "github_url": "https://github.com/anomalyco/opencode/tree/main/packages/opencode/test/fixture/skills/agents-sdk",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/anomalyco/opencode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T15:30:54Z"
+  "distributed_at": "2026-08-09T12:18:34Z"
 }
