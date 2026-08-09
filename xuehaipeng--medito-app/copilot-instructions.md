@@ -1,8 +1,9 @@
-## snackbar
+## strings
 
-> When a snackbar is to be shown, do this
+> When adding a new UI string, put it in [string_constants.dart](mdc:lib/constants/string_constants.dart) and add a comment describing the context in which this string is used.
 
-Snackbars should always be displayed using the method in [snackbar_widget.dart](mdc:lib/widgets/snackbar_widget.dart)
+
+When adding a new UI string, put it in [string_constants.dart](mdc:lib/constants/string_constants.dart) and add a comment describing the context in which this string is used.
 
 ---
 > Source: [xuehaipeng/medito-app](https://github.com/xuehaipeng/medito-app) — distributed by [TomeVault](https://tomevault.io).
