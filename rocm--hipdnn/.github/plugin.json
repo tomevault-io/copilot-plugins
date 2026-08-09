@@ -1,0 +1,9 @@
+{
+  "name": "rocm--hipdnn",
+  "displayName": "hipDNN",
+  "description": "hipDNN",
+  "version": "1.0.0",
+  "author": "ROCm",
+  "homepage": "https://github.com/ROCm/hipDNN",
+  "skills": []
+}
