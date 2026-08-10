@@ -1,0 +1,9 @@
+{
+  "name": "pzfreo--draftwright",
+  "displayName": "draftwright",
+  "description": "Automated technical-drawing generation for build123d and STEP files",
+  "version": "1.0.0",
+  "author": "pzfreo",
+  "homepage": "https://github.com/pzfreo/draftwright",
+  "skills": []
+}
