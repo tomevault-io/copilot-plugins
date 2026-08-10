@@ -1,0 +1,9 @@
+{
+  "name": "statindet--daybook",
+  "displayName": "daybook",
+  "description": "A minimalist, zero-framework static blog generator written in pure Go. No Hugo, no Astro, no Hexo\u2014just raw Go and native Obsidian compatibility. (\u4e00\u4e2a\u4f7f\u7528\u7eaf Go \u7f16\u5199\u7684\u6781\u7b80\u3001\u96f6\u6846\u67b6\u9759\u6001\u535a\u5ba2\u751f\u6210\u5668\u3002\u6ca1\u6709 Hugo\uff0c\u6ca1\u6709 Astro\uff0c\u6ca1\u6709 Hexo\u2014\u2014\u53ea\u6709",
+  "version": "1.0.0",
+  "author": "StatIndet",
+  "homepage": "https://github.com/StatIndet/daybook",
+  "skills": []
+}
