@@ -1,0 +1,9 @@
+{
+  "name": "petrikuittinen--ainiux",
+  "displayName": "ainiux",
+  "description": "Command line interface and interactive chat for OpenAI API compatible endpoints",
+  "version": "1.0.0",
+  "author": "petrikuittinen",
+  "homepage": "https://github.com/petrikuittinen/ainiux",
+  "skills": []
+}
