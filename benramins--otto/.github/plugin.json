@@ -1,0 +1,9 @@
+{
+  "name": "benramins--otto",
+  "displayName": "otto",
+  "description": "Route, don't fork: a thin orchestration layer that turns overlapping AI skill libraries into one recipe-driven dev workflow \u2014 capability registry, routing cards, lifecycle gates, and a hands-off condu",
+  "version": "1.0.0",
+  "author": "BenRamins",
+  "homepage": "https://github.com/BenRamins/otto",
+  "skills": []
+}
