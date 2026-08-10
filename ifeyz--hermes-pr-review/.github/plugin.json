@@ -1,0 +1,9 @@
+{
+  "name": "ifeyz--hermes-pr-review",
+  "displayName": "hermes-pr-review",
+  "description": "AI code review on your PRs. Hermes orchestrates, Claude Code executes. No CI runner, no server.",
+  "version": "1.0.0",
+  "author": "iFeyz",
+  "homepage": "https://github.com/iFeyz/hermes-pr-review",
+  "skills": []
+}
