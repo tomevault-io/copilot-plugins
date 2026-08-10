@@ -1,0 +1,9 @@
+{
+  "name": "fikrilal--burnly",
+  "displayName": "burnly",
+  "description": "Track your AI coding-agent token burn across Claude Code, Codex, OpenCode, Antigravity, and more.",
+  "version": "1.0.0",
+  "author": "fikrilal",
+  "homepage": "https://github.com/fikrilal/burnly",
+  "skills": []
+}
