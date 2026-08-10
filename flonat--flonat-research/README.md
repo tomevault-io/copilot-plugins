@@ -7,11 +7,11 @@ Shareable Claude Code + Codex infrastructure for PhD researchers — skills, age
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [flonat/flonat-research](https://github.com/flonat/flonat-research).
+Original source: `CLAUDE.md` in [flonat/flonat-research](https://github.com/flonat/flonat-research).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
