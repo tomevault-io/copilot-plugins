@@ -1,0 +1,9 @@
+{
+  "name": "nczz--pi-knowledge",
+  "displayName": "pi-knowledge",
+  "description": "Local-first RAG knowledge base for Pi agents with hybrid code/doc search, reranking, diagnostics, and large-project indexing.",
+  "version": "1.0.0",
+  "author": "nczz",
+  "homepage": "https://github.com/nczz/pi-knowledge",
+  "skills": []
+}
