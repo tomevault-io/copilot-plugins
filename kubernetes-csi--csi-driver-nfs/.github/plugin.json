@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-csi--csi-driver-nfs",
+  "displayName": "csi-driver-nfs",
+  "description": "csi-driver-nfs",
+  "version": "1.0.0",
+  "author": "kubernetes-csi",
+  "homepage": "https://github.com/kubernetes-csi/csi-driver-nfs",
+  "skills": []
+}
