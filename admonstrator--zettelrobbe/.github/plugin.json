@@ -1,0 +1,9 @@
+{
+  "name": "admonstrator--zettelrobbe",
+  "displayName": "zettelrobbe",
+  "description": "Next-generation fork of Paperless-AI for Paperless-ngx: reliable AI tagging plus an OCR rescue queue (Mistral or local vision models, multi-page PDFs), failed/ignored document queues, one-click rescan",
+  "version": "1.0.0",
+  "author": "admonstrator",
+  "homepage": "https://github.com/admonstrator/zettelrobbe",
+  "skills": []
+}
