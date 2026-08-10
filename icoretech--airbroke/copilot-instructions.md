@@ -1,50 +1,64 @@
 ## airbroke
 
-> Airbroke is a Next.js 16 + Prisma app that is developed and verified via
+> All Vitest tests live here and mirror runtime boundaries. Tests run serially in
 
-# Airbroke Agent Guide
+# TEST GUIDE
 
-Airbroke is a Next.js 16 + Prisma app that is developed and verified via
-Docker Compose.
+## OVERVIEW
 
-## Quick Reference
+All Vitest tests live here and mirror runtime boundaries. Tests run serially in
+the dedicated `test` service against `testdb`, never the development database.
 
-- Package manager: `yarn@4.13.0`
-- Start services: `docker compose up -d web test db testdb`
-- App commands: `docker compose exec web yarn <script>`
-- Test commands: `docker compose exec test yarn <script>`
+## STRUCTURE
 
-## Universal Rules
+```text
+api/         # Collector, completion, and MCP route contracts
+components/  # Maintained React component behavior
+lib/         # Auth, actions, queries, intake, routing, and SDK contracts
+pages/       # Page-level rendering and authentication behavior
+factories/   # Prisma-backed unique fixture builders
+helpers/     # Next navigation and HTTP capture boundaries
+proxy.test.ts
+```
 
-- Run repository commands and verification through Docker Compose containers by
-  default; use host commands only for Docker and host diagnostics
-- Run Node, Next, Yarn, Prisma, and Vitest commands only inside running
-  containers
-- Use `docker compose exec` for repository commands, not host execution and
-  not `docker exec`
-- Prefer `docker compose exec` against running services for normal work; use
-  `docker compose run --rm` only when you intentionally need an isolated
-  one-off container
-- Do not run `yarn`, `node`, `npx`, `next`, `prisma`, or `vitest` directly
-  on the host
-- Run production builds with `NODE_ENV=production` explicitly set
-- Do not revert or downgrade dependency upgrades made by the user in
-  `package.json` or lockfiles unless explicitly requested
+## WHERE TO LOOK
 
-## Common Scripts
+| Task | Location | Notes |
+| --- | --- | --- |
+| Configuration | `../vitest.config.mjs` | jsdom, serial execution |
+| Navigation | `helpers/nextNavigation.ts` | `next/navigation` alias |
+| DB fixtures | `factories/prismaFactories.ts` | Unique attributes |
+| Collectors | `api/` and `lib/` | Accepted/rejected flows |
 
-- `web`: `dev`, `build`, `start`, `typecheck`, `biome:lint`, `biome:check`,
-  `biome:ci`, `format`, `db:migrate`, `db:seed`, `db:pull`, `db:generate`
-- `test`: `test`
+## CONVENTIONS
 
-## Detailed Guidelines
+- Use `// @vitest-environment node` for server-only route, auth, or SDK tests;
+  the default environment is `jsdom`.
+- Run deterministic checks with
+  `docker compose -f docker-compose.yml --profile test run --rm test yarn test --run`;
+  the test service is one-shot and starts its dedicated database through the
+  profile.
+- Keep tests under this tree rather than beside Next application source.
+- Match the touched runtime boundary: route handlers under `api/`, domain logic
+  under `lib/`, components under `components/`, and pages under `pages/`.
+- Prefer real `NextRequest`, parser, generated client, or narrow collaborator
+  calls at drift-prone boundaries. Mock database or external services only
+  where the test's subject is the surrounding contract.
+- Factories must preserve uniqueness across the whole serial suite; continue
+  using UUID-backed values for unique columns.
 
-- [Project Structure](docs/agents/project-structure.md)
-- [Development Workflow](docs/agents/development-workflow.md)
-- [TypeScript and UI](docs/agents/typescript-and-ui.md)
-- [Next.js 16](docs/agents/nextjs-16.md)
-- [Testing, PRs, and Security](docs/agents/testing-pr-security.md)
+## ANTI-PATTERNS
+
+- Do not execute tests through `web`; its `DATABASE_URL` targets development.
+- Do not rely on file concurrency or test order; shared database state has no
+  global transaction/truncation harness.
+- Do not test only accepted input when changing auth, origin/CORS, collector,
+  MCP, payload-limit, or credential behavior.
+- Do not assert redirect behavior by replacing the repository navigation helper
+  with a one-off incompatible mock.
+- Do not treat coverage inclusion as proof of behavioral coverage; there is no
+  configured coverage threshold.
 
 ---
 > Source: [icoretech/airbroke](https://github.com/icoretech/airbroke) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
