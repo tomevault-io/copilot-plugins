@@ -1,0 +1,9 @@
+{
+  "name": "walkinglabs--self-improving-agent-notebook",
+  "displayName": "self-improving-agent-notebook",
+  "description": "Master self-improving LLM agents systematically with runnable Stanford CS329A notebooks.",
+  "version": "1.0.0",
+  "author": "walkinglabs",
+  "homepage": "https://github.com/walkinglabs/self-improving-agent-notebook",
+  "skills": []
+}
