@@ -1,41 +1,72 @@
-## xrk-core-code
+## xrk-dev-requirements
 
-> core 目录下业务代码（插件/HTTP/工作流）的编写约定；须遵守 Node 26 运行时（见 xrk-node-runtime）
+> XRK-AGT 开发需求与编码约定（constructor/全局对象/HttpResponse）
 
 
-# Core 业务代码约定
+# 开发需求与约定
 
-## 底层与基类（Core 开发者边界）
+> 完整写法与性能规范：**`docs/coding-style.md`** · skill **`xrk-coding-style`**
 
-- **Core 不改 Runtime**：在 `core/` 写业务时，**不得**修改 `src/infrastructure/`、`src/utils/`、`src/factory/` 等 Runtime 代码；缺能力应提 issue 或请框架开发者扩展基类/工具。
-- **框架开发者**：维护 `src/` 与 Loader/工厂/基类时**可以且应当**改 `src/`，并通过 `docs/` 与 commonconfig 暴露给 Core。
-- **充分利用底层**：继承基类并按文档实现接口；commonconfig 用足 ConfigBase；插件/HTTP/工作流用足各自基类能力，不重复造轮、不在 Core 内复制 `src/` 逻辑。
+## Constructor 内不要定义易变状态
 
-## 放码位置
+- **禁止**在 `constructor` 里定义会被反复创建、或作为“缓存/状态容器”的变量（如 `this.cache = new Map()`、`this.xxx = {}`）。
+- **原因**：热加载或多次实例化时 constructor 会重复执行，导致引用错乱或“无限刷新”感。
+- **正确做法**：需要实例级缓存/状态时，用**类字段**在声明处初始化（如 `cache = new Map()`），或放在只调用一次的 `init()` 里；constructor 内只做 `super()` 与固定配置（如 `name`、`event`）。
 
-- 插件：`core/*/plugin/*.js`；HTTP API：`core/*/http/*.js`；工作流：`core/*/workflow/*.js`。各自继承对应基类，行为符合 `docs/` 中对应文档。
-- 基类路径（无 package.json 时用 `#`）：插件 `#infrastructure/plugins/plugin-base.js`，HTTP `#infrastructure/http/http.js`，工作流 `#infrastructure/ai-workflow/ai-workflow.js`。有 package.json 时改为相对路径至 `src/`（如 `../../../src/infrastructure/...`）。
+## 全局标识符：裸名，勿写 `global.`
 
-## 导入约定
+运行时挂在 **`globalThis`**；Node ESM 下业务模块可直接写裸名（详见 `docs/runtime-surface.md`）。
 
-- **无** package.json 的 core：使用根包 `#` 别名（`#infrastructure/*`、`#utils/*`）。
-- **有** package.json 的 core：**禁止使用 `#`**（子包无法解析根包别名），须用**相对路径**引用项目根下 `src/`（如从 `core/X/commonconfig/` 用 `../../../src/infrastructure/...`）。写业务 core 时若该 core 目录下存在 package.json，一律不得使用 `#` 路径。
+| 对象 | 业务写法（`core/`） |
+|------|---------------------|
+| AgentRuntime | 裸名 `AgentRuntime`、`AgentRuntime.em()`、`AgentRuntime[self_id]`；**勿** `import AgentRuntime`、`new AgentRuntime()`、`global.AgentRuntime` |
+| msgSegment | 裸名 `msgSegment.image(url)`；**勿** `global.msgSegment` |
+| PluginBase | `import PluginBase from '#infrastructure/plugins/plugin-base.js'` |
+| runtimeConfig | `import runtimeConfig from '#infrastructure/config/config.js'`（与全局同一单例） |
+| HTTP | `req.agentRuntime` 或 handler 第三参 `AgentRuntime` |
 
-## 编码约定
+- **`src/` 挂载**统一用 `setRuntimeGlobal(name, value)`（`#utils/runtime-globals.js`），勿手写 `global.x` 与 `globalThis.x` 双份。
+- 配置在 `AgentRuntime.run` 完成 `CommonConfigRegistry.load()` 之前不可用。
 
-- constructor 内不定义缓存/状态容器，用类字段或 `init()` 初始化。
-- 插件/事件/Tasker：使用全局 `AgentRuntime`、`msgSegment`（不要 import AgentRuntime 或 msgSegment）。
-- HTTP handler：使用 `HttpResponse`（`#utils/http-utils.js`）与注入的 `req.agentRuntime`。详见 `xrk-dev-requirements.mdc`。
+## HttpResponse（src/utils/http-utils.js）
 
-## Node 26 运行时（Core 必守）
+- **导入**：`import { HttpResponse } from '#utils/http-utils.js'`（文件名是 http-utils，不是 http-response）。
+- **用途**：统一 HTTP 响应格式与错误处理；`core/*/http/*.js` 的 handler 应优先使用。
+- **`success` 响应形状（底层定义，前端必遵）**：
+  - `HttpResponse.success(res, data, message)` → 始终含 `success: true` 与 `message`。
+  - **普通对象**（非数组）：字段 **拍平到顶层**（`Object.assign`），**没有**统一的 `data` 包裹。  
+    例：`success(res, { assessments, webVersion })` → `{ success, message, assessments, webVersion }`。
+  - **数组 / 标量 / null**：放在 `data` 字段。  
+    例：`success(res, list)` → `{ success, message, data: list }`；`success(res, null, 'ok')` → 仅 `success`+`message`。
+  - 若业务就要一个叫 `data` 的字段：显式 `success(res, { data: payload })`，拍平后顶层仍有 `data`。
+  - **前端禁止**默认 `return json.data` 再读字段。有 `json.data` 用它，否则去掉 `success`/`message` 后的剩余字段，或读顶层。解包语义见 `unwrapSuccess`（`web-compat.js` / skill **`xrk-www-compat`**）；产品页内联同语义。
+- **常用静态方法**：
+  - `HttpResponse.success(res, data, message)`：成功（形状见上）；
+  - `HttpResponse.error(res, error, statusCode, context)`：统一错误与日志；
+  - `HttpResponse.validationError(res, message, code)`：400；
+  - `HttpResponse.notFound(res, message)`、`HttpResponse.unauthorized(res, message)`、`HttpResponse.forbidden(res, message)`；
+  - `HttpResponse.asyncHandler(handler, context)`：包装异步 handler，自动 try/catch 并调 `HttpResponse.error`；
+  - `HttpResponse.json(res, body)`：原样 JSON（兼容端点，不包 success 外壳）；
+  - 流式/SSE：`HttpResponse.streamResponse(res, streamHandler, context)`；MCP：`jsonRpcError` / `jsonRpcSuccess` / `validateJsonRpcRequest`。
+- **约定**：handler 内用 `return HttpResponse.xxx(...)` 提前返回，不要与裸 `res.json()` 混用；兼容端点（如 stdin 原样 JSON）用 `HttpResponse.json(res, body)`。
 
-> 完整清单：skill `xrk-node-runtime`、`docs/node-26-runtime.md`
+## Core www（浏览器兼容层）
 
-- **fetch**：全局 `fetch` + `AbortSignal.timeout`；LLM 代理用 `buildFetchOptionsWithProxy`。**禁止** `node-fetch`。
-- **exec**：`import { exec } from '#utils/exec-async.js'`（或相对路径至 `src/utils/exec-async.js`）。**禁止** `promisify(exec)`、`child_process/promises`。
-- **错误**：`Error.isError(err)`、`normalizeError(err)`（`#utils/normalize-error.js`）。**禁止** `instanceof Error` 判错。
-- **二进制**：`toBase64()` / `toHex()` / `Uint8Array.fromBase64()`。**禁止** `toString('base64'|'hex')`。
-- **勿写** polyfill、特性检测回退（`globalThis.URLPattern ? ... : 手写`）。
+> skill **`xrk-www-compat`** · `core/system-Core/www/xrk/modules/web-compat.js`
+
+- **勿**裸用 `crypto.randomUUID`、`AbortSignal.timeout`、无降级 `structuredClone`。
+- 控制台：`./web-compat.js`（经 `utils.js` 再导出）。产品 Core：**只内联**同语义（禁止依赖 `/shared` 或跨应用 `/xrk/...`）。
+- 根目录名 `shared` 为保留段（见 `RESERVED_ROOT_SEGMENTS`）；产品用自有名（如 `lsy-shared`）。
+- 新能力先扩 `web-compat.js`，再同步内联份。
+
+## Node 26 运行时（服务端全局）
+
+> skill `xrk-node-runtime` · `docs/node-26-runtime.md`
+
+- **fetch / 超时**（**仅 Node**）：`fetch(url, { signal: AbortSignal.timeout(ms) })`；禁止 `node-fetch`、`AbortController`+`setTimeout`。浏览器 Core www 用 `abortTimeout`（见上节）。
+- **exec**：仅通过 `#utils/exec-async.js`；禁止在 constructor/插件/HTTP 内 `util.promisify(exec)`。
+- **错误**：`Error.isError` + `normalizeError`；禁止基础设施式 `instanceof Error`。
+- **二进制**：`Buffer#toBase64()` / `Uint8Array.fromBase64`；禁止 `toString('base64')` 新代码。
 
 ---
 > Source: [xrkseek/XRK-AGT](https://github.com/xrkseek/XRK-AGT) — distributed by [TomeVault](https://tomevault.io).
