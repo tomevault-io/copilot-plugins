@@ -1,0 +1,9 @@
+{
+  "name": "antlobach--clorch",
+  "displayName": "clorch",
+  "description": "High-performance LibTorch bindings and deep learning tools for Clojure",
+  "version": "1.0.0",
+  "author": "antlobach",
+  "homepage": "https://github.com/antlobach/clorch",
+  "skills": []
+}
