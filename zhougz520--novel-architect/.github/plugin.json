@@ -1,0 +1,9 @@
+{
+  "name": "zhougz520--novel-architect",
+  "displayName": "novel-architect",
+  "description": "Agent skill for long-form Chinese serial web-novel workflows with review gates, state guards, and quality signals.",
+  "version": "1.0.0",
+  "author": "zhougz520",
+  "homepage": "https://github.com/zhougz520/novel-architect",
+  "skills": []
+}
