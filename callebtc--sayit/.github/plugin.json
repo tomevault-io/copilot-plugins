@@ -1,0 +1,9 @@
+{
+  "name": "callebtc--sayit",
+  "displayName": "sayit",
+  "description": "Private, local text-to-speech for Apple silicon Macs",
+  "version": "1.0.0",
+  "author": "callebtc",
+  "homepage": "https://github.com/callebtc/sayit",
+  "skills": []
+}
