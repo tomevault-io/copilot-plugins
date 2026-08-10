@@ -403574,6 +403574,11 @@
       "description": "Your team\u2019s email workspace. On your infrastructure."
     },
     {
+      "name": "klubinskak--skilldex",
+      "source": "./klubinskak--skilldex",
+      "description": "Skilldex is a local-first desktop dashboard for developers to discover, organize, and favourite their agent skills across global, project, and repo sources "
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -431857,6 +431862,16 @@
       "name": "chrisbanes--portico",
       "source": "./chrisbanes--portico",
       "description": "A private doorway to your local apps"
+    },
+    {
+      "name": "kelsorj--pybravo",
+      "source": "./kelsorj--pybravo",
+      "description": "collection of code to run the Agilent Bravo"
+    },
+    {
+      "name": "starknightt--brain-explorer",
+      "source": "./starknightt--brain-explorer",
+      "description": "An interactive 3D human brain explorer built with Next.js, React Three Fiber, and real OpenNeuro MRI data."
     },
     {
       "name": "cheerhuan--save-your-token",
