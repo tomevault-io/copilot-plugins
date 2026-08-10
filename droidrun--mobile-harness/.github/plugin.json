@@ -1,0 +1,9 @@
+{
+  "name": "droidrun--mobile-harness",
+  "displayName": "mobile-harness",
+  "description": "Skills for controlling Android, iOS and cloud phones",
+  "version": "1.0.0",
+  "author": "droidrun",
+  "homepage": "https://github.com/droidrun/mobile-harness",
+  "skills": []
+}
