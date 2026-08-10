@@ -1,0 +1,9 @@
+{
+  "name": "mac-monet--effect-domain",
+  "displayName": "effect-domain",
+  "description": "Effect-native single source of truth for your API",
+  "version": "1.0.0",
+  "author": "mac-monet",
+  "homepage": "https://github.com/mac-monet/effect-domain",
+  "skills": []
+}
