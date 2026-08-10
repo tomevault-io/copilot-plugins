@@ -1,0 +1,9 @@
+{
+  "name": "agentplugins--agent-plugins-site",
+  "displayName": "agent-plugins-site",
+  "description": "The official website for the Agent Plugins specification",
+  "version": "1.0.0",
+  "author": "agentplugins",
+  "homepage": "https://github.com/agentplugins/agent-plugins-site",
+  "skills": []
+}
