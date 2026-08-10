@@ -1,0 +1,9 @@
+{
+  "name": "sambanks--octabam",
+  "displayName": "octabam",
+  "description": "Custom DSP effects for the Elektron Octatrack MKII \u2014 original DSP56300 algorithms (ChonVerb reverb, BongDelay) on a cross-core send bus, delivered by patching the stock OS image",
+  "version": "1.0.0",
+  "author": "sambanks",
+  "homepage": "https://github.com/sambanks/octabam",
+  "skills": []
+}
