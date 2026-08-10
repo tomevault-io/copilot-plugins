@@ -1,19 +1,19 @@
-## backend-standards
+## frontend-standards
 
-> - Always use **async/await**; never mix callbacks & Promises.
+> When editing React components:
 
-Backend rules:
+When editing React components:
 
-- Always use **async/await**; never mix callbacks & Promises.  
-- For XML parsing, prefer `fast-xml-parser` v5 with `{ignoreAttributes: false,
-  allowBooleanAttributes: true}` — it is 2‑3× faster than `xmldom`  [oai_citation_attribution:6‡npm](mdc:https:/www.npmjs.com/package/fast-xml-parser?utm_source=chatgpt.com).  
-- Stream large (>10 MB) request bodies with `busboy` and pipe into the parser to
-  avoid buffering entire payloads.  
-- Centralise error handling in `errorMiddleware.ts` and return JSON of shape
-  `{error:{code,message}}`  [oai_citation_attribution:7‡Codez Up](mdc:https:/codezup.com/express-error-handling-best-practices-patterns/?utm_source=chatgpt.com).  
-- Wrap heavy XPath evaluation in a **worker_thread**; expose `/evaluate` endpoint
-  that streams `{xpath,index,line,col}` ND‑JSON chunks.  
-- Log with `pino` at `info` level; rotate daily.  
+- Use **function components** with hooks; no class components  [oai_citation_attribution:2‡Codez Up](mdc:https:/codezup.com/build-live-code-editor-react-monaco-editor/?utm_source=chatgpt.com).  
+- Keep each file under **300 lines**; break large views into child components.  
+- Styling: **Tailwind utility classes** plus shadcn/ui primitives; never inline CSS.  
+- Animate entry/exit with **Framer Motion** variants when element visibility changes.  
+- State: central store via **Zustand**; subscribe selectors to avoid over‑render  [oai_citation_attribution:3‡Rui Tao's Portfolio](mdc:https:/ruit.me/blog/mastering-zustand-state-management-in-react?utm_source=chatgpt.com).  
+- Editor integration: leverage `monaco.editor.deltaDecorations` for XPath match
+  highlighting; throttle updates with `requestAnimationFrame`.  
+- For Web Worker <‑> UI messaging, post structured JSON `{xpathResults: ...}`.  
+- Use **WASM‑compiled FontoxPath** in the worker and ensure it lazy‑loads to keep
+  main bundle ≤ 250 kB gz  [oai_citation_attribution:4‡Stack Overflow](mdc:https:/stackoverflow.com/questions/47083951/how-to-use-webassembly-wasm-code-in-a-web-worker?utm_source=chatgpt.com) [oai_citation_attribution:5‡Cursor](mdc:https:/docs.cursor.com/context/rules?utm_source=chatgpt.com).  
 
 ---
 > Source: [mnhlt/Xtracta](https://github.com/mnhlt/Xtracta) — distributed by [TomeVault](https://tomevault.io).
