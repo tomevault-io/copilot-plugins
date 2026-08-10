@@ -1,0 +1,9 @@
+{
+  "name": "kkcoms--nextjs-convex-clerk-stripe-boilerplate",
+  "displayName": "nextjs-convex-clerk-stripe-boilerplate",
+  "description": "Battle-tested boilerplate that helped me launch multiple web & mobile apps \u2014 now open source. Real-time Convex backend, Clerk SSO, Stripe payments, Next.js + shadcn.",
+  "version": "1.0.0",
+  "author": "kkcoms",
+  "homepage": "https://github.com/kkcoms/nextjs-convex-clerk-stripe-boilerplate",
+  "skills": []
+}
