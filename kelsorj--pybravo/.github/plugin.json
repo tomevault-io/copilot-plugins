@@ -1,0 +1,9 @@
+{
+  "name": "kelsorj--pybravo",
+  "displayName": "pyBravo",
+  "description": "collection of code to run the Agilent Bravo",
+  "version": "1.0.0",
+  "author": "kelsorj",
+  "homepage": "https://github.com/kelsorj/pyBravo",
+  "skills": []
+}
