@@ -1,0 +1,9 @@
+{
+  "name": "agentsorg--design-engineering",
+  "displayName": "design-engineering",
+  "description": "A skill graph for design engineering: animation, transitions, taste, typography, color, components, anti-patterns.",
+  "version": "1.0.0",
+  "author": "AgentsORG",
+  "homepage": "https://github.com/AgentsORG/design-engineering",
+  "skills": []
+}
