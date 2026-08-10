@@ -1,0 +1,9 @@
+{
+  "name": "iolanta-tech--sparqld",
+  "displayName": "sparqld",
+  "description": "A live, read-only SPARQL endpoint against a directory of RDF files",
+  "version": "1.0.0",
+  "author": "iolanta-tech",
+  "homepage": "https://github.com/iolanta-tech/sparqld",
+  "skills": []
+}
