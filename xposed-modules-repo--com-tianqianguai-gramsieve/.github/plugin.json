@@ -1,0 +1,9 @@
+{
+  "name": "xposed-modules-repo--com-tianqianguai-gramsieve",
+  "displayName": "com.tianqianguai.gramsieve",
+  "description": "GramSieve-Telegram \u8fc7\u6ee4;\u8df3\u8f6c;\u7f16\u8f91\u5386\u53f2\u67e5\u770b",
+  "version": "1.0.0",
+  "author": "Xposed-Modules-Repo",
+  "homepage": "https://github.com/Xposed-Modules-Repo/com.tianqianguai.gramsieve",
+  "skills": []
+}
