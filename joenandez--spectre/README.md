@@ -7,11 +7,11 @@ SPECTRE is an agentic Coding Workflow - /Scope, /Plan, /Execute, /Clean, /Test, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [joenandez/spectre](https://github.com/joenandez/spectre).
+Original source: `CLAUDE.md` in [joenandez/spectre](https://github.com/joenandez/spectre).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
