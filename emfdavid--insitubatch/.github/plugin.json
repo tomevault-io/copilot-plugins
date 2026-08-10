@@ -1,0 +1,9 @@
+{
+  "name": "emfdavid--insitubatch",
+  "displayName": "insitubatch",
+  "description": "Train in place on n-dimensional cloud tensors.",
+  "version": "1.0.0",
+  "author": "emfdavid",
+  "homepage": "https://github.com/emfdavid/insitubatch",
+  "skills": []
+}
