@@ -1,80 +1,86 @@
-## 07-best-practices
+## mkdirs
 
-> This document outlines best practices for working with the Mkdirs codebase.
+> This file provides guidance to Code Agents (Codex, Cursor, etc.) when working with code in this repository.
 
-# Best Practices
+# AGENTS.md
 
-This document outlines best practices for working with the Mkdirs codebase.
+This file provides guidance to Code Agents (Codex, Cursor, etc.) when working with code in this repository.
 
-## Code Organization
+## Project Overview
 
-Follow these guidelines for code organization:
+Mkdirs is a Next.js 14 directory website template with Sanity CMS, enabling AI-powered directory sites with listings, payments, authentication, blog, and newsletter features.
 
-- **Component Isolation**: Keep components focused on a single responsibility
-- **Server vs. Client**: Clearly separate server and client components
-- **Type Definitions**: Place shared types in the `src/types` directory
-- **Utility Functions**: Extract reusable logic to the `src/lib` directory
-- **Page Structure**: Maintain consistent page component structure
+## Commands
 
-## Performance Optimization
+- **Dev server**: `pnpm dev`
+- **Build**: `pnpm build`
+- **Start production**: `pnpm start`
+- **Lint**: `pnpm lint` (Biome - checks and auto-fixes)
+- **Lint with unsafe fixes**: `pnpm lint:fix`
+- **Format**: `pnpm format` (Biome)
+- **Generate Sanity types**: `pnpm typegen` (run after schema changes)
+- **Email preview**: `pnpm email` (starts email dev server on port 3333)
+- **Batch item operations**: `pnpm item:import`, `pnpm item:fetch`, `pnpm item:update`, `pnpm item:remove`
+- **Batch all**: `pnpm batch` (or `pnpm batch:import`, `pnpm batch:update`, `pnpm batch:remove`)
 
-Ensure optimal performance:
+## Architecture
 
-- **Server Components**: Use React Server Components for data-fetching operations
-- **Image Optimization**: Use Next.js Image component with proper sizing
-- **Bundle Size**: Monitor and optimize bundle size
-- **Lazy Loading**: Implement lazy loading for below-the-fold content
-- **Caching Strategy**: Leverage Next.js caching capabilities
+### Route Structure (Next.js App Router)
 
-## State Management
+The app uses two top-level route groups:
 
-Guidelines for state management:
+- `src/app/(website)/` - Main website with nested groups:
+  - `(public)/` - Public pages: home, search, item, category, tag, collection, blog, pricing
+  - `(protected)/` - Auth-required pages: dashboard, settings, submit, edit
+  - `(newsletter)/` - Newsletter unsubscribe
+  - `auth/` - Login, register, reset password, email verification
+- `src/app/(sanity)/` - Sanity Studio admin interface (accessible at `/studio`)
+- `src/app/api/` - API routes: auth, webhook (Stripe), og images, draft mode, send-email, upload-image
 
-- **Local State**: Use React's useState for component-specific state
-- **Form State**: Use React Hook Form for form state management
-- **Server State**: Prefer server components over client-side data fetching
-- **URL State**: Use URL parameters for shareable state
-- **Context API**: Use sparingly for deeply nested shared state
+### Route Protection
 
-## Error Handling
+`src/routes.ts` defines public routes, auth routes, and API auth prefix. `src/middleware.ts` enforces access control. Authenticated users on auth routes redirect to `/dashboard`.
 
-Implement robust error handling:
+### Data Layer
 
-- **Error Boundaries**: Use React Error Boundaries for client components
-- **Form Validation**: Implement Zod validation for all forms
-- **API Errors**: Handle API errors gracefully with fallbacks
-- **Logging**: Log errors for debugging and monitoring
-- **User Feedback**: Provide clear error messages to users
+- **Sanity CMS** is the primary content store. Schemas live in `src/sanity/schemas/documents/` organized by domain: `directory/` (item, category, tag, collection, group), `blog/` (post, author), `page/`, `order/`, `auth/`, and `settings.ts`.
+- **`src/data/`** contains data access functions (item.ts, blog.ts, collection.ts, user.ts, account.ts, order.ts, submission.ts, etc.) used by server components and actions.
+- **`src/sanity/lib/`** has Sanity client utilities and GROQ query helpers.
+- **`sanity.types.ts`** contains auto-generated TypeScript types from Sanity schemas (regenerate with `pnpm typegen`).
 
-## Accessibility
+### Server Actions
 
-Ensure accessibility compliance:
+`src/actions/` contains all server actions for mutations: authentication (login, register, reset), item operations (submit, edit, publish, unpublish), payment (checkout sessions, customer portal), settings, newsletter subscription, and admin operations.
 
-- **Semantic HTML**: Use appropriate HTML elements
-- **ARIA Attributes**: Add ARIA attributes where necessary
-- **Keyboard Navigation**: Ensure all interactions work with keyboard
-- **Color Contrast**: Maintain sufficient contrast ratios
-- **Screen Readers**: Test with screen readers
+### Key Integrations
 
-## Security Best Practices
+- **Auth**: NextAuth v5 (beta.18) configured in `src/auth.ts` and `src/auth.config.ts`. Supports credentials + OAuth providers.
+- **Payments**: Stripe via `src/lib/stripe.ts`, with checkout session creation in actions and webhook handling in `src/app/api/webhook/route.ts`.
+- **AI**: Vercel AI SDK with multiple providers (OpenAI, Google, DeepSeek, xAI, OpenRouter) for content generation assistance.
+- **Email**: React Email templates in `emails/` sent via Resend (`src/lib/mail.ts`).
+- **Analytics**: OpenPanel integration (`@openpanel/nextjs`).
+- **Image metadata**: Microlink (`@microlink/mql`) for fetching website screenshots/metadata.
 
-Follow these security guidelines:
+### Components Organization
 
-- **Input Validation**: Validate all user inputs server-side
-- **Authentication**: Use NextAuth for secure authentication
-- **Authorization**: Implement proper authorization checks
-- **CSRF Protection**: Use proper CSRF tokens
-- **XSS Prevention**: Sanitize user-generated content
+`src/components/` is organized by feature domain: `auth/`, `blog/`, `item/`, `category/`, `collection/`, `tag/`, `dashboard/`, `payment/`, `pricing/`, `search/`, `submit/`, `edit/`, `publish/`, `newsletter/`, `settings/`, `home/` (+ `home2/`, `home3/` variants), `layout/`, `shared/`, `icons/`, and `ui/` (shadcn/ui primitives).
 
-## Testing Strategy
+### Configuration
 
-Approach to testing:
+- `src/config/site.ts` - Site-wide settings (name, URL, description)
+- `src/config/price.ts` - Pricing plans configuration
+- `src/config/dashboard.ts` - Dashboard navigation
+- `src/config/hero.ts`, `footer.ts`, `faq.ts`, `marketing.ts` - Landing page sections
+- `src/lib/constants.ts` - Shared constants
+- `src/lib/schemas.ts` - Zod validation schemas used across forms and actions
 
-- **Component Testing**: Test UI components in isolation
-- **Integration Testing**: Test feature workflows
-- **Mocking**: Mock external services in tests
-- **Test Coverage**: Aim for good coverage of critical paths
-- **E2E Testing**: Implement end-to-end tests for critical flows
+### Styling
+
+Tailwind CSS with `tailwind.config.ts`. UI primitives are Radix UI-based shadcn/ui components in `src/components/ui/`. Biome ignores `src/components/ui/*.tsx` (generated code).
+
+### Environment
+
+Copy `.env.example` to `.env`. Key variables: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `SANITY_API_TOKEN`, `NEXTAUTH_SECRET`, `STRIPE_SECRET_KEY`, Resend API key, and AI provider keys.
 
 ---
 > Source: [MkThingsHQ/mkdirs](https://github.com/MkThingsHQ/mkdirs) — distributed by [TomeVault](https://tomevault.io).
