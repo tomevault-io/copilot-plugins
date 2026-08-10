@@ -1,22 +1,14 @@
 ## omni-rewriter
 
-> Omni-Rewriter prompt-expansion framework conventions
+> Maintainer and coding-agent conventions live in [`docs/AGENTS.md`](docs/AGENTS.md).
 
+# Agent notes
 
-# Omni-Rewriter conventions
-
-- This repo is an open, model-extensible prompt-expansion framework; H3 and image dialects are
-  profiles, not its architectural boundary.
-- Prefer schema + deterministic validation + bounded repair over ad-hoc prompt strings.
-- Video tasks require `duration_seconds`; image tasks must omit it.
-- Tighten H3 rules using `docs/references/jahnson-h3-skill-*.txt` and `docs/h3-pe-harness.md`.
-- Keep expand separate from generate. A PE profile does not prove runtime or adapter compatibility.
-- Cite public runtime/API evidence and label untested compatibility unverified; do not treat custom
-  vLLM forks, stock vLLM, and vLLM-Omni as interchangeable.
-- Do not claim to reproduce private MiniMax Context-IR, Seedream internals, or other private
-  vendor behavior.
-- Keep PRs small, tested (`pytest`, `ruff`, `mypy`), and free of full `.mp4` blobs.
-- Welcome community contributions listed in `docs/ROADMAP.md` (SFT/RL, adapters, dialects).
+Maintainer and coding-agent conventions live in [`docs/AGENTS.md`](docs/AGENTS.md).
+Also see [`.cursor/skills/omni-rewriter-h3-pe/SKILL.md`](.cursor/skills/omni-rewriter-h3-pe/SKILL.md),
+[`.cursor/skills/omni-rewriter-model-contribution/SKILL.md`](.cursor/skills/omni-rewriter-model-contribution/SKILL.md),
+and [`.cursor/skills/omni-rewriter-promo-pipeline/SKILL.md`](.cursor/skills/omni-rewriter-promo-pipeline/SKILL.md)
+for promo film assemble workflows.
 
 ---
 > Source: [WayneJin0918/Omni-Rewriter](https://github.com/WayneJin0918/Omni-Rewriter) — distributed by [TomeVault](https://tomevault.io).
