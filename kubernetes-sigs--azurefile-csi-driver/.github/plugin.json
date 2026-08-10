@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-sigs--azurefile-csi-driver",
+  "displayName": "azurefile-csi-driver",
+  "description": "azurefile-csi-driver",
+  "version": "1.0.0",
+  "author": "kubernetes-sigs",
+  "homepage": "https://github.com/kubernetes-sigs/azurefile-csi-driver",
+  "skills": []
+}
