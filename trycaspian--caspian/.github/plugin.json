@@ -1,0 +1,9 @@
+{
+  "name": "trycaspian--caspian",
+  "displayName": "Caspian",
+  "description": "Caspian is a control room for running multiple AI coding agents in parallel",
+  "version": "1.0.0",
+  "author": "TryCaspian",
+  "homepage": "https://github.com/TryCaspian/Caspian",
+  "skills": []
+}
