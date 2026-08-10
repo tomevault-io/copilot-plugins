@@ -1,0 +1,9 @@
+{
+  "name": "noelo-lab--decbench",
+  "displayName": "decbench",
+  "description": "DecBench: An experimental living benchmark to measure how close we are to perfect decompilation on binaries.",
+  "version": "1.0.0",
+  "author": "Noelo-Lab",
+  "homepage": "https://github.com/Noelo-Lab/decbench",
+  "skills": []
+}
