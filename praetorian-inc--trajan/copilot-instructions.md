@@ -53,4 +53,4 @@ Don't assume. Don't hide confusion. Surface tradeoffs.
 
 ---
 > Source: [praetorian-inc/trajan](https://github.com/praetorian-inc/trajan) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
