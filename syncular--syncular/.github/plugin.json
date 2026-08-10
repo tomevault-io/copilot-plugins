@@ -1,0 +1,9 @@
+{
+  "name": "syncular--syncular",
+  "displayName": "syncular",
+  "description": "Offline-first SQL sync with Typescript and Rust cores",
+  "version": "1.0.0",
+  "author": "syncular",
+  "homepage": "https://github.com/syncular/syncular",
+  "skills": []
+}
