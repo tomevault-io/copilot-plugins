@@ -1,0 +1,9 @@
+{
+  "name": "agentgateway--agentgateway",
+  "displayName": "agentgateway",
+  "description": "agentgateway",
+  "version": "1.0.0",
+  "author": "agentgateway",
+  "homepage": "https://github.com/agentgateway/agentgateway",
+  "skills": []
+}
