@@ -7,11 +7,11 @@ Shift Transmission to a higher gear. A fast, easy and free Bittorrent Client For
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [retransmission/retransmission](https://github.com/retransmission/retransmission).
+Original source: `AGENTS.md` in [retransmission/retransmission](https://github.com/retransmission/retransmission).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
