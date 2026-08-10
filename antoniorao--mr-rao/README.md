@@ -7,11 +7,11 @@ Strip the personal data out of a document before you paste it into an AI. Conver
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AntonioRao/mr-rao](https://github.com/AntonioRao/mr-rao).
+Original source: `CLAUDE.md` in [AntonioRao/mr-rao](https://github.com/AntonioRao/mr-rao).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
