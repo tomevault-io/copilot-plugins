@@ -1,0 +1,9 @@
+{
+  "name": "czottmann--pi-automode",
+  "displayName": "pi-automode",
+  "description": "Think Claude Code's auto mode but for pi. Selectable model, sensible defaults.",
+  "version": "1.0.0",
+  "author": "czottmann",
+  "homepage": "https://github.com/czottmann/pi-automode",
+  "skills": []
+}
