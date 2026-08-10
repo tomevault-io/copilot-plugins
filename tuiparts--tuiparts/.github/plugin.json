@@ -1,0 +1,9 @@
+{
+  "name": "tuiparts--tuiparts",
+  "displayName": "tuiparts",
+  "description": "UI component library for terminal applications built on @opentui/*",
+  "version": "1.0.0",
+  "author": "tuiparts",
+  "homepage": "https://github.com/tuiparts/tuiparts",
+  "skills": []
+}
