@@ -4,7 +4,7 @@
   "repo": "evm-cortex",
   "description": "Ethereum protocol engineering squad for AI coding assistants",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ccashwell/evm-cortex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T19:41:34Z"
+  "distributed_at": "2026-08-10T00:28:21Z"
 }
