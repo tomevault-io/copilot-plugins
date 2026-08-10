@@ -7,11 +7,11 @@ the runtime your coding agents live on
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [herdrdev/herdr](https://github.com/herdrdev/herdr).
+Original source: `AGENTS.md` in [herdrdev/herdr](https://github.com/herdrdev/herdr).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
