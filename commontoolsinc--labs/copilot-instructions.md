@@ -1,71 +1,57 @@
 ## labs
 
-> Converts TypeScript types to Common Fabric JSON Schemas (2020-12 dialect + repo
+> The package directory is `background-piece-service`; the package itself is named
 
-# @commonfabric/schema-generator — Agent Guide
+# Background piece service — Agent Guide
 
-Converts TypeScript types to Common Fabric JSON Schemas (2020-12 dialect + repo
-extensions). Consumed at compile time by `packages/ts-transformers`
-(SchemaGeneratorTransformer → `createSchemaTransformerV2`); also the repo's
-wrapper-type vocabulary oracle — ts-transformers imports `cell-brand`,
-`wrapper-names`, `type-traversal`, `property-name`, `property-optionality` via
-subpath exports. Entry point is `src/index.ts` (not `mod.ts`).
+The package directory is `background-piece-service`; the package itself is named
+`@commonfabric/background-piece`.
 
-## Where answers live
-
-| Question                                                                 | Read                                                                                                       |
-| ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
-| Full type→schema mapping rules                                           | `docs/specs/schema-generator/ts_to_json_schema_mapping.md` (sources-of-truth table first)                  |
-| The runtime schema dialect (asCell, ifc, additionalProperties tri-state) | `docs/specs/json_schema.md` + the `JSONSchema` type in `packages/api/index.ts` (the type is authoritative) |
-| Wrapper vocabulary (spelling vs resolved kind)                           | `src/typescript/wrapper-names.ts` (header comment) + `src/typescript/cell-brand.ts`                        |
-| Cross-package contract with ts-transformers                              | bare WeakMaps `typeRegistry` / `schemaHints` — see ts-transformers `src/core/cross-stage-state.ts` header  |
-| How the generator is structured                                          | `src/schema-generator.ts` (formatter chain) + `src/interface.ts` (GenerationContext)                       |
+Polls registered pieces and fires their `bgUpdater` handlers on the server, so a
+piece can do scheduled work with no browser open. Each poll sends `{}` to the
+piece's `bgUpdater` stream. The default interval is 60 seconds.
 
 ## Facts that will bite you
 
-- Formatter chain order is behavior: CommonFabric → NativeType → Union →
-  Intersection → Array → Primitive → Object (`src/schema-generator.ts`).
-  CommonFabricFormatter owns wrapper types AND CFC alias→`ifc.*` lowering.
-- Hoisting emits `$defs` / `#/$defs/...` (all named non-wrapper types; cycles
-  get `AnonymousType_N`). Anything that says `definitions` is out of date.
-- Wrapper markers are `asCell` ARRAY entries — `["cell"]`, `["stream"]`,
-  `["opaque"]`, nested `["cell","cell"]`. There is no `asStream` field anymore.
-- Semantic sentinels: `any` → `true`; `unknown` → `{ type: "unknown" }`; `never`
-  → `false`; `void` → `{ asCell: ["opaque"] }`; `undefined` survives in unions
-  (`{ type: "undefined" }`). The `unknown`/`undefined` type values are
-  deliberate non-standard extensions.
-- Fail-loud inventory: `Map`/`Set`/`WeakMap`, `Cell<Stream<T>>`,
-  `Default<undefined>`, unresolvable DeepDefault keys, and circular aliases
-  THROW rather than degrade. An unformattable type also throws (complete
-  formatter coverage is asserted).
-- CFC alias recognition is NAME-keyed with no source-file check (unlike
-  `Default`'s brand check) — a user type named e.g. `Integrity` will lower to
-  `ifc` metadata. Known foot-gun; don't "fix" silently, it's load-bearing for
-  api aliases.
-- JSDoc flows into schemas: first doc → `description`, `#hashtags` → `tags`,
-  conflicting docs → `$comment`. Declaration files are excluded.
-- Two analysis paths — type-based and node-based (synthetic TypeNodes from
-  ts-transformers, or `any`-widened types). They can encode literals differently
-  (`const:` vs `enum:`); when output looks inconsistent, check which path ran
-  (`shouldUseNodeBasedAnalysis`).
+- A piece receives no polling until it is registered. Registration is a
+  `POST /api/integrations/bg` carrying `pieceId`, `space`, and `integration`, or
+  the `<cf-updater $state={someCell} integration="name" />` element in the
+  piece's own UI.
+- The service deploys built binaries rather than running from source in the
+  usual local loop, so `deno task build-binaries` from the repository root has
+  to have run for the version you are testing.
+- Reaching the system space needs the admin piece, which is a one-time
+  `deno task add-admin-piece` in this package. Skipping it surfaces as
+  `AuthorizationError` rather than as anything mentioning the admin piece.
+- A space DID is derived, not looked up:
+  `Identity.fromPassphrase("common user").derive(spaceName).did()`.
+- `CompilerError: no exported member 'pattern'` means the binaries are stale
+  against the current source, not that the piece is wrong. Rebuild them.
 
-## Test workflow
+## Running it against local servers
 
-`deno task check` and `deno task test`. The check task excludes raw fixture
-inputs because the fixture runner supplies their synthetic wrapper prelude.
-Golden fixtures support `UPDATE_GOLDENS=1`, single-fixture `FIXTURE=<name>`, and
-`SKIP_INPUT_CHECK` (see `deno.jsonc` test task's env allowlist). End-to-end
-emission is also pinned by ts-transformers fixtures (`schema-transform/`,
-`schema-injection/` suites) — behavior changes here fail that package's goldens
-too; run both.
+Start the local servers first
+([`LOCAL_DEV_SERVERS.md`](../../docs/development/LOCAL_DEV_SERVERS.md)), build
+the binaries, then grant and run:
 
-## When you change behavior
+```bash
+# once per space, from this package
+OPERATOR_PASS="implicit trust" API_URL="http://localhost:8000" deno task add-admin-piece
 
-Update the mapping spec in the same change (it is descriptive: code wins, spec
-must follow). If you change wrapper vocabulary, `wrapper-names.ts`'s exhaustive
-classification tables make every consumer site a compile error until it
-classifies the new spelling — that's the intended workflow, not an obstacle.
+# from the repository root
+OPERATOR_PASS="implicit trust" API_URL="http://localhost:8000" ./dist/bg-piece-service
+```
+
+A poll that reached the piece prints
+`Successfully executed piece did:key:.../fid1:…`. Nothing printing at all means
+the piece is not registered.
+
+## Where answers live
+
+Coding style is [`DEVELOPMENT.md`](../../docs/development/DEVELOPMENT.md); the
+test and check commands are in `deno.jsonc` and
+[`TESTING.md`](../../docs/development/TESTING.md).
 
 ---
 > Source: [commontoolsinc/labs](https://github.com/commontoolsinc/labs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
