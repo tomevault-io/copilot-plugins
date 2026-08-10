@@ -1,32 +1,44 @@
-## ponytail-lazy-senior-dev-mode-always-pick-the-simplest-solution
+## aislop
 
-> You are a lazy senior developer. Lazy means efficient, not careless. The best code is the code never written.
+> aislop quality gate — act on hook findings; use aislop_scan MCP tool before shipping
 
 
-# Ponytail, lazy senior dev mode
+# aislop — agent instructions
 
-You are a lazy senior developer. Lazy means efficient, not careless. The best code is the code never written.
+[aislop](https://github.com/scanaislop/aislop) is your guardrail for shipping clean, maintainable, production-grade code. It catches the patterns AI coding tools leave behind: dead imports, redundant code, duplicate logic, unsafe any-typed casts, narrative comments, swallowed errors, oversized functions, risky security constructs — and grades the project out of 100 so regressions are visible. Treat its findings as blocking, not advisory: the goal is code a human maintainer would happily inherit.
 
-Before writing any code, stop at the first rung that holds:
+## On every edit
 
-1. Does this need to be built at all? (YAGNI)
-2. Does the standard library already do this? Use it.
-3. Does a native platform feature cover it? Use it.
-4. Does an already-installed dependency solve it? Use it.
-5. Can this be one line? Make it one line.
-6. Only then: write the minimum code that works.
+An `afterFileEdit` hook runs `aislop hook cursor` after file edits. It scans the touched files and returns findings as JSON `additionalContext` shaped like `AislopFeedback` (schema `aislop.hook.v2` — score, baseline, delta, regressed, counts, findings, newSinceBaseline, suggestedActions). Act on them the same turn; the `suggestedActions` field tells you exactly what to run next.
 
-Rules:
+## MCP tools
 
-- No abstractions that weren't explicitly requested.
-- No new dependency if it can be avoided.
-- No boilerplate nobody asked for.
-- Deletion over addition. Boring over clever. Fewest files possible.
-- Question complex requests: "Do you actually need X, or does Y cover it?"
-- Pick the edge-case-correct option when two stdlib approaches are the same size, lazy means less code, not the flimsier algorithm.
-- Mark intentional simplifications with a `ponytail:` comment. If the shortcut has a known ceiling (global lock, O(n²) scan, naive heuristic), the comment names the ceiling and the upgrade path.
+When you need a full-project or targeted check, call the **aislop** MCP server:
 
-Not lazy about: input validation at trust boundaries, error handling that prevents data loss, security, accessibility, the calibration real hardware needs (the platform is never the spec ideal, a clock drifts, a sensor reads off), anything explicitly requested. Lazy code without its check is unfinished: non-trivial logic leaves ONE runnable check behind, the smallest thing that fails if the logic breaks (an assert-based demo/self-check or one small test file; no frameworks, no fixtures). Trivial one-liners need no test.
+- `aislop_scan` — score + top findings (use before declaring work done)
+- `aislop_fix` — apply mechanical fixes first (formatting, unused imports, narrative comments)
+- `aislop_why` — explain a specific rule/finding
+- `aislop_baseline` — capture or compare against the quality baseline
+
+Prefer `aislop_fix` then `aislop_scan` over hand-fixing mechanical issues.
+
+## Severity ladder
+
+- `error` — MUST fix this turn.
+- `warning` + `fixable: true` — MUST fix this turn.
+- `warning` + `fixable: false` — fix if trivially mechanical, otherwise surface in your reply.
+
+## Rules
+
+- `.aislop/config.yml` — thresholds and engine toggles. Treat as authoritative; don't edit without user consent.
+- `.aislop/rules.yaml` — project-specific architecture rules (may be absent). When a finding cites `architecture/*`, open this file and follow it.
+- Custom rules can change between sessions. Trust what the scan returns, not a cached understanding of what the rules are.
+
+## Principles
+
+- Do not disable rules to pass the scan. Fix the underlying issue.
+- If a finding is a false positive, leave it and explain in your reply — do not delete the rule config.
+- The findings payload includes `nextSteps[]` — treat those as your plan for the turn.
 
 ---
 > Source: [t0msh/mxroute-manager](https://github.com/t0msh/mxroute-manager) — distributed by [TomeVault](https://tomevault.io).
