@@ -1,0 +1,9 @@
+{
+  "name": "marcusschiesser--agentpond",
+  "displayName": "agentpond",
+  "description": "Store agent traces remotely. Analyze them locally. Keep control of the data.",
+  "version": "1.0.0",
+  "author": "marcusschiesser",
+  "homepage": "https://github.com/marcusschiesser/agentpond",
+  "skills": []
+}
