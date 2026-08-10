@@ -4,7 +4,7 @@
   "repo": "emilia-protocol",
   "description": "Consequence firewall for machine actions. EMILIA Gate verifies exact authority before money, code, permissions, infrastructure, or regulated state changes; the open protocol makes the evidence independently verifiable.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/emiliaprotocol/emilia-protocol",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T01:42:48Z"
+  "distributed_at": "2026-08-10T03:31:30Z"
 }
