@@ -4,7 +4,7 @@
   "repo": "learn-ai",
   "description": "Hands-on, project-based course in AI, LLMs, RAG, and agents \u2014 24 modules in TypeScript + Python, provider-agnostic (OpenAI/Anthropic/Ollama/NVIDIA/LMStudio).",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/starkyru/learn-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T01:51:48Z"
+  "distributed_at": "2026-08-10T03:36:08Z"
 }
