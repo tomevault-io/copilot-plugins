@@ -2184,6 +2184,11 @@
       "description": "Run frontier AI locally."
     },
     {
+      "name": "sickn33--agentic-awesome-skills",
+      "source": "./sickn33--agentic-awesome-skills",
+      "description": "AAS Core is the local, agent-first control plane for complete catalog discovery, agent-owned selection, stack validation, and planning, backed by 2,005+ agentic skills. Includes CLI, local MCP, catalo"
+    },
+    {
       "name": "chenglou--pretext",
       "source": "./chenglou--pretext",
       "description": "Fast, accurate & comprehensive text measurement & layout"
@@ -9237,6 +9242,11 @@
       "name": "longbridge--gpui-component",
       "source": "./longbridge--gpui-component",
       "description": "Rust GUI components for building fantastic cross-platform desktop application by using GPUI."
+    },
+    {
+      "name": "quipnetwork--quip-miner",
+      "source": "./quipnetwork--quip-miner",
+      "description": "The quip network mining stack. This includes a coordinator and links all of the official quip network miners."
     },
     {
       "name": "twin--gatus",
@@ -48234,6 +48244,16 @@
       "description": "revoke.cash"
     },
     {
+      "name": "redwoodjs--local-ci",
+      "source": "./redwoodjs--local-ci",
+      "description": "Run GitHub Actions locally \u2014 pause on failure, retry in place, and keep caches on your machine."
+    },
+    {
+      "name": "redwoodjs--local-ci",
+      "source": "./redwoodjs--local-ci",
+      "description": "Run GitHub Actions locally \u2014 pause on failure, retry in place, and keep caches on your machine."
+    },
+    {
       "name": "makcre--kugoumusicapi",
       "source": "./makcre--kugoumusicapi",
       "description": "KuGouMusicApi"
@@ -59782,6 +59802,11 @@
       "name": "krrishnarraj--clpeak",
       "source": "./krrishnarraj--clpeak",
       "description": "clpeak"
+    },
+    {
+      "name": "dokhacgiakhoa--agent-skills-4-vibe-coding-cli",
+      "source": "./dokhacgiakhoa--agent-skills-4-vibe-coding-cli",
+      "description": "Agent-Skills-4-Vibe-Coding-CLI"
     },
     {
       "name": "snarktank--compound-product",
@@ -80454,6 +80479,11 @@
       "description": "redisio"
     },
     {
+      "name": "arkya-ai--claude-context-os",
+      "source": "./arkya-ai--claude-context-os",
+      "description": "A complete operating system for Claude that prevents context loss and makes multi-session work reliable"
+    },
+    {
       "name": "hazat--pi-config",
       "source": "./hazat--pi-config",
       "description": "My personal pi coding agent configuration - skills and extensions"
@@ -96257,6 +96287,11 @@
       "name": "mattjcoles--lgtmaybe",
       "source": "./mattjcoles--lgtmaybe",
       "description": "any model. no keys. maybe a merge."
+    },
+    {
+      "name": "qteasytier--qt-easy-tier",
+      "source": "./qteasytier--qt-easy-tier",
+      "description": "QtEasyTier \u662f\u4e00\u6b3e\u57fa\u4e8e EasyTier \u7684\u53bb\u4e2d\u5fc3\u5316\u5f02\u5730\u7ec4\u7f51\u5de5\u5177\uff0c\u7f8e\u89c2\u5b9e\u7528\uff0c\u5e2e\u52a9\u60a8\u5feb\u901f\u8054\u673a\u7ec4\u7f51\u3002(\u4e0b\u8f7d\u53d1\u884c\u7248\u8bf7\u524d\u5f80\u56fd\u5185\u4ed3\u5e93: https://gitee.com/qteasytier/qt-easy-tier)"
     },
     {
       "name": "lichas--maxclaw",
@@ -122649,6 +122684,16 @@
       "description": "verifier-api"
     },
     {
+      "name": "fiigii--ai-comp",
+      "source": "./fiigii--ai-comp",
+      "description": "Build a compiler to solve Anthropic's interview challenge."
+    },
+    {
+      "name": "fiigii--ai-comp",
+      "source": "./fiigii--ai-comp",
+      "description": "Build a compiler to solve Anthropic's interview challenge."
+    },
+    {
       "name": "trngtien--vfs",
       "source": "./trngtien--vfs",
       "description": "Reduce AI agent token usage by 98% via Virtual Function Signatures. MCP server for Cursor & Claude Desktop. Supports Go, TypeScript, Python, Rust, Java, Swift, Kotlin, C# and more."
@@ -135097,6 +135142,16 @@
       "name": "block--codecrucible",
       "source": "./block--codecrucible",
       "description": "A purpose-built Go CLI tool that analyses Git repositories for security vulnerabilities using LLM-based analysis"
+    },
+    {
+      "name": "noelo-lab--decbench",
+      "source": "./noelo-lab--decbench",
+      "description": "DecBench: An experimental living benchmark to measure how close we are to perfect decompilation on binaries."
+    },
+    {
+      "name": "noelo-lab--decbench",
+      "source": "./noelo-lab--decbench",
+      "description": "DecBench: An experimental living benchmark to measure how close we are to perfect decompilation on binaries."
     },
     {
       "name": "productdevbook--sumak",
@@ -313577,6 +313632,16 @@
       "name": "mihonarium--streamtospeaker",
       "source": "./mihonarium--streamtospeaker",
       "description": "Virtual audio output for Windows that streams your PC's sound to AirPlay, Sonos, and UPnP speakers."
+    },
+    {
+      "name": "ranteck--graph-engineer",
+      "source": "./ranteck--graph-engineer",
+      "description": "graph-engineer"
+    },
+    {
+      "name": "ranteck--graph-engineer",
+      "source": "./ranteck--graph-engineer",
+      "description": "graph-engineer"
     },
     {
       "name": "lucas-acc--sancho-skills",
