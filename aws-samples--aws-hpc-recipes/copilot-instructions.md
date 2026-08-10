@@ -1,66 +1,55 @@
 ## aws-hpc-recipes
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Conventions for authoring community **PCS node lifecycle action (NLA)** scripts in
 
-# CLAUDE.md
+# Agent guide: recipes/pcs-scripts
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Conventions for authoring community **PCS node lifecycle action (NLA)** scripts in
+this namespace. These supplement — they do not repeat — the checks that CI already
+enforces. Read `recipes/pcs-scripts/README.md` for the full contributor checklist and
+`docs/` for repository-wide rules.
 
-## Project Overview
+## What CI already enforces (do not re-explain, just satisfy)
 
-AWS HPC Recipes: 100+ infrastructure-as-code recipes for High Performance Computing on AWS. Recipes deploy HPC infrastructure using CloudFormation templates for AWS Parallel Computing Service (PCS), ParallelCluster, Research and Engineering Studio (RES), and AWS Batch.
+- **ShellCheck is blocking here.** Every `*.sh` under `recipes/pcs-scripts/` MUST pass
+  `shellcheck` cleanly at default severity (`scripts/validate_shellcheck.py`). Elsewhere
+  in the repo it is advisory only.
+- Structure, `metadata.yml` schema, partition safety, and (per recipe) `tests/validate.sh`
+  run in `make validate` / CI. Run `make lint && make test` in the recipe directory before
+  proposing changes.
 
-## Deep Documentation
+## NLA conventions CI does NOT check — get these right by hand
 
-Detailed rules and conventions live in `docs/`:
-- `docs/ARCHITECTURE.md` — Recipe structure, namespaces, metadata schema
-- `docs/CLOUDFORMATION.md` — Partition safety, parameter/output patterns
-- `docs/TESTING.md` — Validation pipeline, local testing
-- `docs/SECURITY.md` — Credential handling, IAM, scanning tools
-- `docs/STYLE.md` — YAML, Python, Markdown conventions
+- **Versioned filenames + checksums.** Name scripts `‹name›-v‹MAJOR.MINOR.PATCH›.sh` and
+  ship a companion `‹script›.sha256`. After editing any script, regenerate with
+  `make checksums` (a stale checksum fails `tests/validate.sh`, but only if you remember to
+  run it — regenerate as part of every script edit).
+- **Fail fast on instance metadata.** IMDS calls MUST use short timeouts
+  (`curl --connect-timeout 1 --max-time 2 …`). A lifecycle action runs during node
+  bootstrap; a hanging metadata call stalls the whole node. Never call IMDS without a bound.
+- **Decide best-effort vs. fail-loud, and document it.** For each script, choose deliberately:
+  a critical action (e.g. storage tuning) should fail loudly and pair with `onError: TERMINATE`;
+  a cosmetic or optional action (e.g. tagging, MOTD) should degrade to a warning + `exit 0` and
+  pair with `onError: CONTINUE`. State the intended `onError` and `executionPolicy` in the
+  script header and the recipe README.
+- **Do not manage log files.** The PCS agent captures stdout/stderr to
+  `/var/log/amazon/pcs/lifecycle/actions/‹stage›/‹script-name›.log`. Emit consistent,
+  prefixed messages to stdout/stderr; never open your own log file.
+- **No package installation.** Assume prerequisites are baked into the AMI. Detect a missing
+  prerequisite and either fail loudly or degrade (per the criticality decision above); document
+  required packages in the script header and recipe README.
+- **The public bucket is single-Region.** Assets are served from `aws-hpc-recipes` in
+  `us-east-1` only — the S3 URI is region-agnostic, but any HTTPS URL keeps the
+  `s3.us-east-1.amazonaws.com` host regardless of the cluster's Region. Do not rewrite that
+  host per Region (this is the opposite of AWS's per-Region `aws-pcs-repo-‹region›` buckets).
 
-## Development Commands
+## When adding a new recipe here
 
-```bash
-# Setup Python environment
-python -m venv .env && source .env/bin/activate
-pip install -r requirements.txt
-
-# Create new recipe (interactive)
-python -m scripts.new_recipe
-
-# Regenerate recipes/README.md from metadata
-make readme
-
-# Run all validation (structure, metadata, partitions, cfn-lint)
-make validate
-
-# Build/test all recipes
-make build
-make test
-
-# Deploy to S3 (personal testing)
-HPCDK_TAG=mybranch HPCDK_S3_BUCKET=mybucket HPCDK_PROFILE=myprofile make deploy
-```
-
-## CloudFormation Critical Rule
-
-All templates must support AWS GovCloud and China partitions:
-- Use `!Sub "arn:${AWS::Partition}:service:${AWS::Region}:..."` for ARNs (never hardcode `arn:aws:`)
-- Use `!Sub "https://console.${AWS::URLSuffix}/..."` for console URLs
-- See `docs/CLOUDFORMATION.md` for full details
-
-## Validation Tools
-
-- `scripts/validate_structure.py` — Checks recipe directory completeness
-- `scripts/validate_metadata.py` — Checks metadata.yml schema conformance
-- `scripts/validate_partitions.py` — Catches hardcoded `arn:aws:` patterns
-- `cfn-lint` — CloudFormation template linting
-
-## Pull Request Conventions
-
-Title format: `[namespace/recipe] Description`
+- Follow the standard skeleton (`README.md`, `metadata.yml`, `Makefile`, `assets/`, `docs/`,
+  `tests/`); `metadata.yml` uses `type: shell` and tags including `community`.
+- Copy `node_lifecycle_demo`'s `Makefile` and `tests/validate.sh` as the starting point — they
+  encode the lint/test/checksum loop this namespace expects.
 
 ---
 > Source: [aws-samples/aws-hpc-recipes](https://github.com/aws-samples/aws-hpc-recipes) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
