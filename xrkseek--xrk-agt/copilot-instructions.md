@@ -1,36 +1,51 @@
-## xrk-infrastructure
+## xrk-project
 
-> 基础设施层（src/）代码约定，仅修改底层时遵守
+> XRK-AGT 架构、放码与配置归属（克隆本仓写 Core 必遵）
 
 
-# 基础设施层约定
+# XRK-AGT 项目规则
 
-## 职责边界
+克隆本仓开发 Core / 扩展 Runtime 时遵守。开发入口：根 **`AGENTS.md`**；任务→Skill：`.cursor/skills/SKILL_INDEX.md`。
 
-- 本层只提供基类、加载器、工具、工厂；不包含业务逻辑（业务在 `core/*`）。
+## 上游与提交
 
-## 错误与日志
+- 官方仓库与文档链接默认 owner：**`xrkseek`**（例：`github.com/xrkseek/XRK-AGT`）。
+- 提交信息不得含 `Co-authored-by: Cursor` / `cursoragent@cursor.com`；Author 用提交者本人的 git identity。
 
-- 错误处理：使用 `#utils/error-handler.js` 的 `errorHandler.handle()` 与 `ErrorCodes`；HTTP 响应用 `HttpResponse.error()`。
-- 归一化：`#utils/normalize-error.js` 的 `normalizeError()`；判错用 `Error.isError()`，禁止 `instanceof Error`。
-- 日志：使用 `RuntimeUtil.makeLog`（或注入的 logger），不在业务逻辑处随意 `console.log`。
+## 边界
 
-## Node 26 工具（本层新增/统一出口）
+- **业务**：`core/<core名>/` → `plugin` · `http` · `workflow` · `tasker` · `events` · `commonconfig` · `www/<应用名>/`（`www` 必须子目录；根名勿用 `api|core|media|uploads|File|shared`）。
+- **Runtime**：`src/infrastructure/` · `src/utils/` · `src/factory/`；启动 `app.js` / `start.js` → `src/agent-runtime.js`。
+- **Core 开发者不得改 `src/`**；缺能力提 issue，或由框架扩基类后经文档 / commonconfig 暴露。框架维护者改 `src/` 并文档化。
+- 加载：Loader 扫描 `core/*/` 对应子目录；`www/` 由 `mountCoreWwwStatic` 挂到 `/<应用名>`。
 
-| 模块 | 用途 |
+## 配置归属
+
+| 位置 | 用途 |
 |------|------|
-| `normalize-error.js` | 非 Error → Error |
-| `exec-async.js` | 唯一 Promise 版 `exec`/`execFile` |
-| `db-connect-utils.js` | DB 连接辅助：`execCommandResult`、`maskConnectionUrl`、`detectArm64`、`connectWithRetry` |
-| `browser-renderer-base.js` | Puppeteer/Playwright 共用浏览器截图基类 |
-| `llm/proxy-utils.js` | `fetch` + Undici `ProxyAgent` |
-| `subserver-client.js` | `fetchSubserverToPath`：`fetch` + `Readable.fromWeb` |
+| `config/default_config/` | 仅 AGT 运行时 / LLM·ASR·TTS 工厂 / system-Core |
+| `core/<core>/default/` + `commonconfig/` | 独立产品模板与 schema；运行时数据在 `data/<产品>/` |
 
-禁止在本层以外重复实现上述能力；详见 skill `xrk-node-runtime`。
+产品业务配置 **禁止** 写入 `config/default_config/`。改字段须模板 + schema + 消费代码同步。
 
-## 接口稳定
+## 导入
 
-- 修改基类或加载器对外 API 时，须同步更新 `docs/`、skills、rules 与依赖该 API 的 Core；**勿**长期保留兼容别名。破坏性重命名应一次改净标识符与文档。
+- 无 `package.json`：`#infrastructure/*`、`#utils/*`
+- 有 `package.json`：相对路径引用根 `src/`（**禁止 `#`**）
+
+## 栈
+
+Node ≥ 26 · 仅 **pnpm**。服务端 API / 禁止旧写法：`xrk-dev-requirements.mdc` · skill `xrk-node-runtime`；Core www：skill `xrk-www-compat`。
+
+## 主仓入库
+
+主仓通常只白名单 `system-Core`；业务 Core、娱乐插件默认本地运行，**勿**为产品名改根 `.gitignore` 加 `!`。细则：`xrk-third-party-plugins.mdc`。
+
+独立 git 产品 Core 的精工写在**该 Core 仓** `.cursor/rules/`；主仓可用 `globs: core/<名>/**` 薄路由，不 alwaysApply 产品细则。
+
+## 语言
+
+规则与 Skills 用**简体中文**；「在哪改」给到文件 + 函数/字段；与代码冲突以代码为准。
 
 ---
 > Source: [xrkseek/XRK-AGT](https://github.com/xrkseek/XRK-AGT) — distributed by [TomeVault](https://tomevault.io).
