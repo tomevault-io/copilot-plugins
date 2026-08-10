@@ -1,0 +1,9 @@
+{
+  "name": "theogbob--webkitwasm",
+  "displayName": "WebkitWasm",
+  "description": "WebKit compiled to WebAssembly: a full browser engine running inside a browser tab, rendering to canvas, networking over Wisp.",
+  "version": "1.0.0",
+  "author": "theogbob",
+  "homepage": "https://github.com/theogbob/WebkitWasm",
+  "skills": []
+}
