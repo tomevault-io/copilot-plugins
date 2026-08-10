@@ -7,11 +7,11 @@ TextInput component that allows transforming text synchronously with a worklet.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [appandflow/react-native-transformer-text-input](https://github.com/appandflow/react-native-transformer-text-input).
+Original source: `AGENTS.md` in [appandflow/react-native-transformer-text-input](https://github.com/appandflow/react-native-transformer-text-input).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
