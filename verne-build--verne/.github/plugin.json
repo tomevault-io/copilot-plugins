@@ -1,0 +1,9 @@
+{
+  "name": "verne-build--verne",
+  "displayName": "verne",
+  "description": "The IDE for your coding agents. Use Claude Code, Codex, or any CLI agent in a real workspace; files, editor, browser, and git, all agent-aware. Multiple projects, optional worktrees, zero forced workf",
+  "version": "1.0.0",
+  "author": "verne-build",
+  "homepage": "https://github.com/verne-build/verne",
+  "skills": []
+}
