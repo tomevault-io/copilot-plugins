@@ -1,0 +1,30 @@
+## shadow-plugin
+
+> - Run `npm install shadow-plugin` (or your preferred package manager) to add the package to your workspace so Vite, ESLint, and TypeScript can see it
+
+# Shadow Agent Instructions
+
+## Dev environment tips
+
+- Run `npm install shadow-plugin` (or your preferred package manager) to add the package to your workspace so Vite, ESLint, and TypeScript can see it
+- In the CSS file, which includes `@import "tailwindcss";`, add the following line: `@import "shadow-plugin";`
+
+## CSS (tailwind) class instructions
+
+- Use `smooth-shadow`, or the size variants `smooth-shadow-xs` up to `smooth-shadow-2xl`
+- Color the shadow with tokens like `shadow-red-500`
+- For elevated surfaces (dialogs, popovers, cards, menus) use `smooth-shadow-ring` or the size variants `smooth-shadow-ring-xs` up to `smooth-shadow-ring-2xl`, the shadow with a 1px hairline ring baked in; never add a `border`/`ring` to the same element
+- Color the ring independently from the shadow with `smooth-ring-{color}`, e.g. `smooth-ring-black/10`
+- The hairline follows the project's `--default-ring-width` automatically (1px if unset); override `--smooth-ring-width` only when it must differ from the project ring width
+- The utilities carry no `!important` and follow the normal cascade. If one must win against CSS that outranks it (a component library's own `box-shadow`), use Tailwind's important modifier on that element — `smooth-shadow-md!` — rather than a global override
+- To replace Tailwind's own shadow scale instead of adding new class names, import `shadow-plugin/unprefixed` and use the native `shadow-{size}` utilities (this keeps `shadow-md/40` and `shadow-{color}` working; a `@theme { --shadow-md: var(--smooth-shadow-md); }` remap does not)
+
+## Avoid double borders
+
+- A `border-*` (or `ring-*`) next to a `shadow-*` on the same element draws two stacked edges: a hard line, then the shadow starting just outside it. That double border reads heavy and greyed
+- Whenever you would pair a border/ring with a shadow on an elevated surface, use `smooth-shadow-ring-{size}` instead. It bakes a 1px hairline ring into the shadow's final layer so the edge dissolves into one continuous stroke
+- The reusable skill lives at `.claude/skills/smooth-shadow-ring/SKILL.md`; the Cursor Bugbot rule lives at `BUGBOT.md`
+
+---
+> Source: [flornkm/shadow-plugin](https://github.com/flornkm/shadow-plugin) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-10 -->
