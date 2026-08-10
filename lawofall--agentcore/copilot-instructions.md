@@ -1,42 +1,47 @@
-## cursor-deploy
+## database
 
-> 全端部署（后端+官网+手机+管理后台+桌面）——用户说「部署/上线/发版」时读；凭据存 deploy/.env.deploy.local 不入仓。
+> 数据库、ORM 模型、Alembic 迁移编写规范
 
 
-# 部署规范
+# 数据库 & ORM 规范
 
-完整操作手册 → [`发布与门禁.md` · 本地发布操作手册](/docs/05-平台与运维/发布与门禁.md#本地发布操作手册)。入口壳 → [部署与运维](/docs/05-平台与运维/部署与运维.md)。
+> 本规则是**可执行约定**（怎么写）。约定背后的设计理由（为何不用 ForeignKey、软删除架构选型、JSONB 索引策略、ORM 为何是 schema 真相源）见 `docs/02-架构/核心接口定义.md` §6.2，勿在此重复展开。
 
-## 铁律
+## SQLAlchemy 模型
 
-- **凭据禁令**：`deploy/.env.deploy.local` 不入仓。禁止在 chat 索要/回显 token、SSH 私钥或其它部署凭据。
-- **不重新启用** deploy/release workflow 的 push/tag/schedule 自动触发。
-- **新增/改接口 → 后端必须先部署**。前端 deploy 脚本内置版本漂移门禁。
-- **桌面发版**：Win = 本地 `release:win`（`--publish never` + `gh upload` + 资产断言 + `sync:release-cdn`；对齐 Mac）；Mac = GHA `Release Desktop`（仅 mac）。为省额度：GHA 桌面发布仅 Mac；Win 本地；**勿用 GHA 打 Win**。官网首装 = GitHub Releases；updater feed = 品牌域 nginx（见 [发布与门禁 §7.6b](/docs/05-平台与运维/发布与门禁.md)；勿在 chat 回显主机名或凭据）。
-- 发布前本地一键门禁：`pnpm release:gate`（与 `ci.yml` 同构；触发保留，不关 CI）。含 **schema gate**（迁移 head ↔ ORM；`uv run python scripts/check_schema_gate.py`）。日常迭代可用 `pnpm release:gate:lite`（跳过 desktop shoot + smoke；**发布仍须全量**）。
-- **后端上线顺序**：`finish-server.sh` / `deploy-server.sh` = 停旧 api → `alembic upgrade` → schema gate `--live` → 起新 api。禁止旧容器接流量时跑破坏性迁移。
+- 使用 SQLAlchemy 2.0 `Mapped` + `mapped_column` 声明式
+- **所有表主键**：`PG_UUID(as_uuid=False)`，应用层 `str(uuid4())` 生成
+- **默认值必须用 `server_default`**（seed 脚本和裸 SQL 不触发 Python 级 default）
+- 枚举字段用 `CheckConstraint` 固化合法值
+- **不使用 ForeignKey**（应用层维护引用完整性），外键字段加 `index=True`
+- JSONB 字段同时设 `default=dict/list` 和 `server_default=text("'{}'::jsonb")`
+- JSONB 值与 UUID 列比较时用 `cast(..., PG_UUID(as_uuid=False))`
+- 软删除：设置 `deleted_at` 而非物理删除
+- **ORM 是 schema 单一真相源**：`alembic check` 必须零漂移
 
-## 全端发布顺序（速查）
+### 标准字段
 
-半自动清单（只打印步骤/探针，不替你 Publish）：`pnpm release:ship`（`--track api` = 仅热修轨；`--check` = 探桌面·Android draft 资产）。full 清单含 Android APK 步（`release:android` → 冒烟 → Publish `android-v*`）。
+| 字段 | 类型 | 要求 |
+|---|---|---|
+| `id` | `PG_UUID(as_uuid=False)` | 主键 |
+| `created_at` | `DateTime(timezone=True)` | `server_default=func.now()` |
+| `updated_at` | `DateTime(timezone=True)` | `server_default=func.now(), onupdate=func.now()` |
+| `deleted_at` | `DateTime(timezone=True), nullable` | 软删除标记 |
+| `status` | `String(20)` | 配 CheckConstraint |
 
-**公告两段式（定案 D · 工作流 A）**：人定「今天发 + 约时」后**立刻预告**（与 gate / 修拦阻并行）；门禁不过则改约时或归档预告。收口在验收完成后发。勿绑进 `deploy:backend` 自动发。**部署前**仍须 `release:gate` 全绿。
+## Repository 层
 
-```text
-pnpm release:notice -- --phase preview …   # 定案约时后立刻（可与下行并行）
-pnpm release:gate                          # Win 默认串行；红灯不得部署
-# bump → commit → push
-pnpm deploy:backend <sha>
-# full：Win release:win ∥ Mac GHA → 齐资产后 Publish
-# full：Android release:android → 真机冒烟 → Publish android-v*（CDN 由脚本末尾 sync；与桌面 v* 分轨）
-# full：mobile / admin / web →（桌面 Publish 后）website deploy:pages
-pnpm release:notice -- --phase done …      # 收口
-# tag prod-* / desktop-v*
-```
+- 只做数据访问，不含业务判断
+- 查询用 `select()` 构建式，不用 raw SQL
+- 分页返回 `tuple[list[Model], int]`（数据 + 总数）
+- 默认按 `created_at.desc()` 排序
+- `commit()` 和 `refresh()` 由 repository 负责
 
-手搓顺序仍等价：git push → 后端 `pnpm deploy:backend <sha>` →（若桌面已 bump：先 Publish 桌面 release）→ Android APK（见上）→ 官网 → 手机 → admin → web 客户端 → 验收 → tag。
+## Alembic 迁移
 
-公告 CLI 细节 → [`产品公告文案模板`](/docs/05-平台与运维/产品公告文案模板.md) · `pnpm release:notice --help`。
+- schema 与数据严格分离：结构走迁移，初始数据走 seed 脚本
+- `upgrade()` 和 `downgrade()` 必须成对实现
+- 复杂数据迁移用 `op.execute()`
 
 ---
 > Source: [Lawofall/AgentCore](https://github.com/Lawofall/AgentCore) — distributed by [TomeVault](https://tomevault.io).
