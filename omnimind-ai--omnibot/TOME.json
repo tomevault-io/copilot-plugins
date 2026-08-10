@@ -4,7 +4,7 @@
   "repo": "OmniBot",
   "description": "Your on-phone / mobile AI Agent / Claw, capable of operating terminals and performing a wide range of tasks in the Android world || \u4f60\u7684\u624b\u673a AI \u4ee3\u7406\uff0c\u5979\u53ef\u4ee5\u64cd\u4f5c\u7ec8\u7aef\uff0c\u4e5f\u53ef\u4ee5\u5b8c\u6210 Android \u4e16\u754c\u7684\u5e7f\u6cdb\u4efb\u52a1 ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/omnimind-ai/OmniBot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T00:13:17Z"
+  "distributed_at": "2026-08-10T03:10:37Z"
 }
