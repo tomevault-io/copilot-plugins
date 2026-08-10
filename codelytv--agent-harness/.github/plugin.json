@@ -1,0 +1,9 @@
+{
+  "name": "codelytv--agent-harness",
+  "displayName": "agent-harness",
+  "description": "Our agent harness: Skills, plugins, hooks, and utilities to improve the quality of your agent.",
+  "version": "1.0.0",
+  "author": "CodelyTV",
+  "homepage": "https://github.com/CodelyTV/agent-harness",
+  "skills": []
+}
