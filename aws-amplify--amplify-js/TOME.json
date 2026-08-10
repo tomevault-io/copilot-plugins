@@ -4,7 +4,7 @@
   "repo": "amplify-js",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aws-amplify/amplify-js",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-09T20:20:11Z"
+  "distributed_at": "2026-08-10T00:02:26Z"
 }
