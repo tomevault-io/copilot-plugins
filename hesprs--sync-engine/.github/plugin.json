@@ -1,0 +1,9 @@
+{
+  "name": "hesprs--sync-engine",
+  "displayName": "sync-engine",
+  "description": "\ud83d\udd04 The next-generation Obsidian syncing plugin. Fast \u00b7 Free \u00b7 Extend with Modules.",
+  "version": "1.0.0",
+  "author": "hesprs",
+  "homepage": "https://github.com/hesprs/sync-engine",
+  "skills": []
+}
