@@ -1,34 +1,21 @@
-## protocol-conformance
+## python-style
 
-> 协议漂移巡检纪律——改动 SSE 事件→state 折叠(fold)、run 树投影、resume/审批状态机，或后端改事件契约时必读：共享向量/golden、assertNever 穷尽、pnpm conformance 门禁
+> Python 编码风格强制约束——AI 写代码时必须遵守的格式指令
 
 
-# 协议漂移巡检
+# Python 编码风格
 
-桌面 / 手机各自实现协议 fold（`fold(events[]) → ProjectedTurn`）。两端实现可不同，但**行为必须对齐**——靠这套巡检让漂移「响」、可被 AI 自动发现。背景见 [`前端技术与架构.md` §十二](/docs/04-前端/前端技术与架构.md)。
+## 语法偏好
 
-**现状：两端均已接入**。手机 fold 即生产实现；桌面 [`conformanceFold`](/apps/desktop/src/renderer/protocol/conformanceFold.ts) 适配器**复用桌面真实的 `projectExecution`**（团队图），单聊 process 时间线复用 [`@/lib/processTimeline`](/apps/desktop/src/renderer/lib/processTimeline.ts)。
+- 使用 Python 3.12 语法：`type | None` 而非 `Optional[type]`，`list[X]` 而非 `List[X]`
+- 使用 `collections.abc` 中的抽象类型（`AsyncGenerator`, `Callable`, `Sequence`）
+- dataclass 用于内部数据结构，Pydantic 用于 API schema
 
-## 三支柱
+## 格式
 
-1. **后端权威向量 + golden oracle**——`packages/protocol-conformance` 存：后端导出的真实事件序列（**向量**）+ 后端投影的期望 `ProjectedTurn`（**golden**）。两端 fold 跑同向量、断言 `== golden`。**后端是输入与期望的单一源**；两端不一致时 golden 是裁判（指明谁错）。
-2. **共享类型 + 穷尽**——两端 import 同一套事件类型；fold 用判别联合 `switch` + `assertNever` 兜底。后端加事件类型 → 重生成 → 两端编译失败直到处理。
-3. **AI 可操作**——`pnpm conformance` = `pnpm -r run conformance`（手机 tsx）+ `pnpm -C apps/desktop run conformance`（桌面 vitest）+ 类型检查（`ci.yml` mobile job **在跑**；Frontend 早失败时后续可能 skipped → **发布前本地必跑** `pnpm conformance` / `release:gate`）；失败打 `ProjectedTurn` diff（golden vs actual）指到分叉字段。
-
-## 何时必跑 / 必更新
-
-- 动任一端协议 fold → **必跑** `pnpm conformance`。
-- 后端改事件契约 / 投影 → 重导向量 + golden（单一源），两端对齐到红转绿。
-- 发现协议 bug → **先加一条复现向量**（棘轮），再修。向量**两来源**：手写 builder（`agentcore/conformance/vectors/`）或从真实回合录制裁切（`agentcore/conformance/recording_cut.py`，产物 `recorded_*` 前缀）→ 见 [`前端技术 §12.2`](/docs/04-前端/前端技术与架构.md)。
-- 手写向量字段值**必须与生产实现逐字一致**（group/channel 等分类字段尤甚），禁 `null`/占位敷衍——2026-07 取证员向量 `group:null` 而生产发 `debate:investigators:*`，布局击穿在全绿 CI 下漏网。新增 run 类向量时对照产出该 run 的后端代码抄真值。
-
-## ProjectedTurn（规范化裁判态）
-
-平台无关、可序列化：`{ messages, runs(树), status, pendingInteraction, cost }`。每端实现 `fold → ProjectedTurn` 测试快照（内部 store 形状可不同）。
-
-## 边界
-
-只巡检**协议 / 状态 fold**（高危、静默、只能测试抓）；组件 / chrome 不进巡检（错了一眼看见、各端本就分叉）。
+- 行宽限制：100 字符
+- import 顺序：stdlib → 第三方 → 本地（由 ruff isort 管理）
+- ruff rules：E, F, I, N, W, UP, B, A, SIM（忽略 B008, A002, E402）
 
 ---
 > Source: [Lawofall/AgentCore](https://github.com/Lawofall/AgentCore) — distributed by [TomeVault](https://tomevault.io).
