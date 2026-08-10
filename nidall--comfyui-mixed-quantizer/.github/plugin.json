@@ -1,0 +1,9 @@
+{
+  "name": "nidall--comfyui-mixed-quantizer",
+  "displayName": "comfyui-mixed-quantizer",
+  "description": "Standalone mixed-precision checkpoint quantizer for ComfyUI: per-layer W4A4 / W4A8 / INT8 / BF16 selection with hard quality and compression gates, runtime certificates, and model-level BF16-relative ",
+  "version": "1.0.0",
+  "author": "NidAll",
+  "homepage": "https://github.com/NidAll/comfyui-mixed-quantizer",
+  "skills": []
+}
