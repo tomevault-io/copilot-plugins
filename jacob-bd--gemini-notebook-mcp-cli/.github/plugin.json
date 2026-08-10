@@ -1,0 +1,9 @@
+{
+  "name": "jacob-bd--gemini-notebook-mcp-cli",
+  "displayName": "gemini-notebook-mcp-cli",
+  "description": "Programmatic access to Gemini Notebook - via command-line interface (CLI), Model Context Protocol (MCP) server, and AI agent skills.",
+  "version": "1.0.0",
+  "author": "jacob-bd",
+  "homepage": "https://github.com/jacob-bd/gemini-notebook-mcp-cli",
+  "skills": []
+}
