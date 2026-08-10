@@ -1,0 +1,9 @@
+{
+  "name": "as-foss--mandible",
+  "displayName": "mandible",
+  "description": "A TUI manual viewer for every command-line tool you have.",
+  "version": "1.0.0",
+  "author": "AS-FOSS",
+  "homepage": "https://github.com/AS-FOSS/mandible",
+  "skills": []
+}
