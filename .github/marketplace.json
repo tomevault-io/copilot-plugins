@@ -22224,6 +22224,16 @@
       "description": "opengap"
     },
     {
+      "name": "off-grid-ai--ogam",
+      "source": "./off-grid-ai--ogam",
+      "description": "The Swiss Army Knife of Offline AI. Chat, see, speak, and generate images on your phone or Mac \u2014 GGUF LLMs, vision, Whisper speech-to-text, Stable Diffusion, tool calling, and local-network servers. R"
+    },
+    {
+      "name": "off-grid-ai--ogam",
+      "source": "./off-grid-ai--ogam",
+      "description": "The Swiss Army Knife of Offline AI. Chat, see, speak, and generate images on your phone or Mac \u2014 GGUF LLMs, vision, Whisper speech-to-text, Stable Diffusion, tool calling, and local-network servers. R"
+    },
+    {
       "name": "6kmfi6hp--edtunnel",
       "source": "./6kmfi6hp--edtunnel",
       "description": "EDtunnel \u662f\u4e00\u4e2a\u57fa\u4e8e Cloudflare Workers \u548c Pages \u7684\u4ee3\u7406\u5de5\u5177\uff0c\u652f\u6301\u591a\u79cd\u534f\u8bae\u548c\u914d\u7f6e\u9009\u9879\u3002  EDtunnel is a proxy tool based on Cloudflare Workers and Pages, supporting multiple protocols and configuration options."
@@ -42534,6 +42544,11 @@
       "description": "AgentSociety 2 is a modern, LLM-native agent simulation platform designed for social science research and experimental design. It provides a flexible framework for creating and managing intelligent ag"
     },
     {
+      "name": "rindig--interpretable-context-methodology",
+      "source": "./rindig--interpretable-context-methodology",
+      "description": "Folder structure as agent architecture.  ICM replaces framework-level orchestration with filesystem structure."
+    },
+    {
       "name": "openonion--connectonion",
       "source": "./openonion--connectonion",
       "description": "The Best AI Agent Framework for Agent Collaboration. "
@@ -53004,6 +53019,16 @@
       "description": "bevy_mod_scripting"
     },
     {
+      "name": "pegainfer-project--pegainfer",
+      "source": "./pegainfer-project--pegainfer",
+      "description": "Pure Rust + CUDA LLM inference engine \u2014 no PyTorch, OpenAI-compatible, serves Qwen3 to Kimi-K2"
+    },
+    {
+      "name": "pegainfer-project--pegainfer",
+      "source": "./pegainfer-project--pegainfer",
+      "description": "Pure Rust + CUDA LLM inference engine \u2014 no PyTorch, OpenAI-compatible, serves Qwen3 to Kimi-K2"
+    },
+    {
       "name": "joelhooks--swarm-tools",
       "source": "./joelhooks--swarm-tools",
       "description": "\ud83d\udc1d Multi-agent swarm coordination for OpenCode with learning capabilities, agent issue tracking, and management"
@@ -58112,6 +58137,11 @@
       "name": "osociety--vernet",
       "source": "./osociety--vernet",
       "description": "vernet"
+    },
+    {
+      "name": "liustack--modlens",
+      "source": "./liustack--modlens",
+      "description": "CLI toolkit for AI agents \u2014 converts images into structured JSON evidence (OCR, layout, semantics), bridging the vision gap for text-only LLMs."
     },
     {
       "name": "dannote--figma-use",
@@ -65299,6 +65329,11 @@
       "description": "modules"
     },
     {
+      "name": "erykkruk--appboard-backend",
+      "source": "./erykkruk--appboard-backend",
+      "description": "appboard_backend"
+    },
+    {
       "name": "ziggy42--epsilon",
       "source": "./ziggy42--epsilon",
       "description": "A WASM virtual machine written in Go with 0 dependencies"
@@ -65617,6 +65652,11 @@
       "name": "kkcoms--nextjs-convex-clerk-stripe-boilerplate",
       "source": "./kkcoms--nextjs-convex-clerk-stripe-boilerplate",
       "description": "Battle-tested boilerplate that helped me launch multiple web & mobile apps \u2014 now open source. Real-time Convex backend, Clerk SSO, Stripe payments, Next.js + shadcn."
+    },
+    {
+      "name": "erykkruk--appboard-web",
+      "source": "./erykkruk--appboard-web",
+      "description": "appboard_web"
     },
     {
       "name": "aidenybai--element-source",
@@ -72187,6 +72227,11 @@
       "name": "vladimirwrites--bltaxi",
       "source": "./vladimirwrites--bltaxi",
       "description": "BLTaxi"
+    },
+    {
+      "name": "powerbeef--vocello",
+      "source": "./powerbeef--vocello",
+      "description": "Vocello: a local, private voice studio for Apple Silicon. Write a script, pick or describe a voice, and generate speech on-device, faster than realtime on an 8 GB M2 Mac mini. Native Swift + MLX, no P"
     },
     {
       "name": "mikeyobrien--rho",
@@ -85374,6 +85419,11 @@
       "description": "studio"
     },
     {
+      "name": "modu-ai--moai-cowork",
+      "source": "./modu-ai--moai-cowork",
+      "description": "\ubaa8\ub450\uc758 \ucf54\uc6cc\ud06c(MoAI-Cowork) \u2014 \ud55c\uad6d \uc2e4\ubb34 Claude Code AI \uc9c1\uc6d0 \ud50c\ub7ec\uadf8\uc778 + 4\ud2b8\ub799 \ud55c\uad6d\uc5b4 \uac00\uc774\ub4dc (cowork.mo.ai.kr)"
+    },
+    {
       "name": "gsscsd--big-model-radar",
       "source": "./gsscsd--big-model-radar",
       "description": "big_model_radar"
@@ -93112,6 +93162,11 @@
       "name": "laa-software-engineering--golang-rest-api-template",
       "source": "./laa-software-engineering--golang-rest-api-template",
       "description": "golang-rest-api-template"
+    },
+    {
+      "name": "syncular--syncular",
+      "source": "./syncular--syncular",
+      "description": "Offline-first SQL sync with Typescript and Rust cores"
     },
     {
       "name": "xorbitsai--xagent",
@@ -125524,6 +125579,16 @@
       "description": "apiker"
     },
     {
+      "name": "flonat--flonat-research",
+      "source": "./flonat--flonat-research",
+      "description": "Shareable Claude Code + Codex infrastructure for PhD researchers \u2014 skills, agents, hooks, and rules for academic workflows"
+    },
+    {
+      "name": "flonat--flonat-research",
+      "source": "./flonat--flonat-research",
+      "description": "Shareable Claude Code + Codex infrastructure for PhD researchers \u2014 skills, agents, hooks, and rules for academic workflows"
+    },
+    {
       "name": "alfredolopez80--multi-agent-ralph-loop",
       "source": "./alfredolopez80--multi-agent-ralph-loop",
       "description": "Autonomous orchestration framework for Claude Code with MemPalace-inspired memory (4-layer stack, 818-token wake-up), parallel-first Agent Teams (6 teammates), Aristotle First Principles methodology, "
@@ -128939,6 +129004,11 @@
       "description": "Ethereum protocol engineering squad for AI coding assistants"
     },
     {
+      "name": "rubenmarcus--aeo-js",
+      "source": "./rubenmarcus--aeo-js",
+      "description": "Answer Engine Optimization for the modern web. Make your site discoverable by ChatGPT, Claude, Perplexity & AI search engines. Generates llms.txt, robots.txt, sitemap, JSON-LD & more."
+    },
+    {
       "name": "interfacex-co-jp--genshijin",
       "source": "./interfacex-co-jp--genshijin",
       "description": "genshijin \u539f\u59cb\u4eba \ud83d\uddff| Claude Code / Codex\u7b49AI\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8 \u5411\u3051\u8d85\u5727\u7e2e\u30b3\u30df\u30e5\u30cb\u30b1\u30fc\u30b7\u30e7\u30f3\u30b9\u30ad\u30eb\u3002caveman \u306e\u65e5\u672c\u8a9e\u7248\u3092\u30d9\u30fc\u30b9\u306b\u3001\u65e5\u672c\u8a9e\u7279\u6709\u306e\u5197\u9577\u8868\u73fe\u306b\u6700\u9069\u5316\u3002"
@@ -130457,6 +130527,11 @@
       "name": "vercel-labs--vercel-openclaw-archived",
       "source": "./vercel-labs--vercel-openclaw-archived",
       "description": "Deploy OpenClaw on Vercel"
+    },
+    {
+      "name": "agentplugins--agent-plugins-site",
+      "source": "./agentplugins--agent-plugins-site",
+      "description": "The official website for the Agent Plugins specification"
     },
     {
       "name": "iusztinpaul--designing-real-world-ai-agents-workshop",
@@ -136144,6 +136219,11 @@
       "description": "Extends the Hooks API, Directed Acyclic Graph Agent Execution Engine."
     },
     {
+      "name": "victoryangzhijie--stt-server",
+      "source": "./victoryangzhijie--stt-server",
+      "description": "Real-time speech-to-text WebSocket server with pluggable ASR backends, energy-based VAD, streaming partial results, and Prometheus   observability."
+    },
+    {
       "name": "lidr-academy--ai-specs",
       "source": "./lidr-academy--ai-specs",
       "description": "This repository contains a comprehensive set of development rules, standards, and AI agent configurations designed to work seamlessly with multiple AI coding copilots. The setup is portable and can be"
@@ -140057,6 +140137,11 @@
       "name": "archerthegoat--mars-research-assistant",
       "source": "./archerthegoat--mars-research-assistant",
       "description": "Trading research system: idea validation, planned trades, intraday scans, trade records, reviews and statistics."
+    },
+    {
+      "name": "chenxiachan--thoughtdag",
+      "source": "./chenxiachan--thoughtdag",
+      "description": "Your thinking deserves a map: an infinite canvas where LLM conversations grow into an editable thought graph. Wires are the context."
     },
     {
       "name": "mitchellh--go-libghostty",
@@ -330397,6 +330482,11 @@
       "name": "waynejin0918--omni-rewriter",
       "source": "./waynejin0918--omni-rewriter",
       "description": "Open agentic prompt-expansion harness for image and video generation, bridging polished demos, public APIs, and deployable workflows."
+    },
+    {
+      "name": "rafmacalaba--armada",
+      "source": "./rafmacalaba--armada",
+      "description": "Loop engineering for software development. Turn any repository into a self-organizing AI engineering team \u2014 8 specialists, contract-driven, evidence-gated, parallel feature voyages."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
