@@ -4,7 +4,7 @@
   "repo": "OpenCMO",
   "description": "OpenCMO: An open-source, multi-agent AI Chief Marketing Officer built with OpenAI Agents SDK & Crawl4AI. Your BYOK alternative to $99/mo AI marketing agencies.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Lling0000/OpenCMO",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T01:47:15Z"
+  "distributed_at": "2026-08-10T03:34:11Z"
 }
