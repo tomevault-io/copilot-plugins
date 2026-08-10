@@ -1,0 +1,9 @@
+{
+  "name": "ryu-tada--agent-operating-protocol",
+  "displayName": "agent-operating-protocol",
+  "description": "Fable 5-style AGENTS.md and CLAUDE.md templates for high-agency coding assistants.",
+  "version": "1.0.0",
+  "author": "ryu-tada",
+  "homepage": "https://github.com/ryu-tada/agent-operating-protocol",
+  "skills": []
+}
