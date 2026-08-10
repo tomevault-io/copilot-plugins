@@ -1,0 +1,9 @@
+{
+  "name": "andrewrabert--jellium-desktop",
+  "displayName": "jellium-desktop",
+  "description": "An unofficial desktop client for Jellyfin",
+  "version": "1.0.0",
+  "author": "andrewrabert",
+  "homepage": "https://github.com/andrewrabert/jellium-desktop",
+  "skills": []
+}
