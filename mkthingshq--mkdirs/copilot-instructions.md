@@ -1,57 +1,70 @@
-## 03-app-structure
+## 04-sanity-integration
 
-> This document outlines the structure of the Next.js application and key entry points.
+> This document outlines how Sanity CMS is integrated into the Mkdirs template.
 
-# Application Structure
+# Sanity CMS Integration
 
-This document outlines the structure of the Next.js application and key entry points.
+This document outlines how Sanity CMS is integrated into the Mkdirs template.
 
-## App Router Structure
+## Configuration Files
 
-The application uses Next.js App Router with a split between website and Sanity Studio routes:
+- **sanity.config.ts**: Main Sanity configuration file
+- **sanity.cli.ts**: CLI configuration for Sanity
+- **sanity-typegen.json**: Configuration for type generation
+- **schema.json**: Generated Sanity schemas in JSON format
+- **sanity.types.ts**: Generated TypeScript types for Sanity schemas
 
-- **src/app/(website)**: Public-facing website routes
-- **src/app/(sanity)**: Sanity Studio admin routes
-- **src/app/api**: API routes for various functionalities
+## Schema Structure
 
-## Key Routes
+The Sanity schema is organized in the `src/sanity` directory:
 
-- **/**: Main landing page
-- **/auth**: Authentication-related pages (sign-in, sign-up)
-- **/[item|category|tag|collection]**: Directory listings pages
-- **/blog**: Blog section
-- **/dashboard**: User dashboard
-- **/studio**: Sanity Studio CMS interface
+- **src/sanity/schemas**: Contains all content type definitions
+- **src/sanity/lib**: Utility functions for working with Sanity
+- **src/sanity/plugins**: Additional plugins for Sanity Studio
+- **src/sanity/components**: Custom components in Sanity Studio
 
-## Authentication
+## Content Types
 
-Authentication is handled through NextAuth with various providers and credentials authentication:
+Key content types defined in the schema include:
 
-- **src/auth.ts**: Main authentication configuration
-- **src/auth.config.ts**: Auth providers and callbacks
+- **Item**: Directory listing entries
+- **Category**: Listing categories
+- **Tag**: Listing tags
+- **Collection**: Listing collections
+- **Group**: Listing category groups
+- **Blog Posts**: Blog content
+- **Authors**: Content creators
+- **Pages**: Static page content
+- **Settings**: Global site settings
 
-## Components Organization
+## Data Fetching
 
-Components are organized into several categories:
+Sanity data is fetched using GROQ queries through the following methods:
 
-- **UI Components**: Basic reusable UI elements
-- **Layout Components**: Page layouts and structural components
-- **Feature Components**: Components specific to certain features
-- **Form Components**: Input and form-related components
+1. **Client API**: Using the Sanity client to fetch data
+2. **Next.js Data Fetching**: Server components that directly fetch Sanity data
+3. **API Routes**: API endpoints that serve Sanity data
 
-## Data Flow
+## Preview Functionality
 
-The application follows these data flow patterns:
+The template includes a preview mode for content editing:
 
-1. **Server Components**: Fetch data directly from the database/CMS
-2. **Server Actions**: Handle data mutations and form submissions
-3. **API Routes**: Provide data endpoints for client components
-4. **Client Components**: Use hooks for client-side data fetching and state management
+- **Draft Preview**: See draft content before publishing
 
-## Middleware
+## Studio Customization
 
-- **src/middleware.ts**: Handles authentication, redirects, and other middleware functionality
-- **src/routes.ts**: Defines route configurations and access control
+The Sanity Studio interface is customized for the Mkdirs use case:
+
+- **Custom Desk Structure**: Organized content editing interface
+- **Custom Input Components**: Specialized input fields for directories
+- **Sanity Plugins**: Additional functionality through Sanity plugins
+
+## Type Generation
+
+Types are automatically generated from Sanity schemas:
+
+- Run `pnpm typegen` to update TypeScript types after schema changes
+- Generated types ensure type safety when working with Sanity content
 
 ---
 > Source: [MkThingsHQ/mkdirs](https://github.com/MkThingsHQ/mkdirs) — distributed by [TomeVault](https://tomevault.io).
