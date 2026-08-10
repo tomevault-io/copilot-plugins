@@ -1,7 +1,7 @@
 {
   "name": "nf-core--scdownstream",
   "displayName": "scdownstream",
-  "description": "A single cell transcriptomics pipeline for QC, integration and making the data presentable",
+  "description": "scdownstream",
   "version": "1.0.0",
   "author": "nf-core",
   "homepage": "https://github.com/nf-core/scdownstream",
