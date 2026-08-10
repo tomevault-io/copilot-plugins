@@ -4,7 +4,7 @@
   "repo": "decbench",
   "description": "DecBench: An experimental living benchmark to measure how close we are to perfect decompilation on binaries.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Noelo-Lab/decbench",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T11:36:15Z"
+  "distributed_at": "2026-08-10T11:38:05Z"
 }
