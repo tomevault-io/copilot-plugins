@@ -1,0 +1,9 @@
+{
+  "name": "morluto--rea",
+  "displayName": "rea",
+  "description": "Reverse engineer anything with agents, from app behavior down to native binaries.",
+  "version": "1.0.0",
+  "author": "morluto",
+  "homepage": "https://github.com/morluto/rea",
+  "skills": []
+}
