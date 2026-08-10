@@ -4,7 +4,7 @@
   "repo": "kinocut",
   "description": "Guardrailed video editing MCP server for AI agents. FFmpeg, Hyperframes, repurposing tools, Python client, and CLI. Local, fast, free.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KyaniteLabs/kinocut",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T01:48:53Z"
+  "distributed_at": "2026-08-10T03:34:35Z"
 }
