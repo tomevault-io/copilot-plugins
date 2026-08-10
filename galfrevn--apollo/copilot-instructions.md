@@ -1,37 +1,52 @@
-## imports
+## naming
 
-> Import grouping and sorting for TypeScript modules.
+> Naming conventions for identifiers and filenames in this repository.
 
 
-# Import Grouping
+# Naming Conventions
 
-Separate imports into three groups with a blank line between each group. Do not mix groups.
+## Identifiers must be long and descriptive
 
-1. **Third-party** — Node builtins, npm packages (`nestjs`, `zod`, `pg`, `@prisma/*`, `redis`, …)
-2. **Workspace** — `@coderback/*` packages
-3. **Local** — in-package aliases (`@/`, `#/`) and relative paths (`./`, `../`)
-
-Within a group, keep a stable order: side-effect imports first, then value imports, then `import type` / `type` imports. Prefer alphabetical by module path within each subgroup when it does not hurt readability.
+Use full words that explain intent. Never abbreviate, never single-letter variables (except `i`/`j` in tight loops). The same rule applies to function names, parameters, type names, type parameters, and any user-facing string.
 
 ```ts
-// ❌ BAD — mixed groups, no blank lines
-import { Injectable } from '@nestjs/common';
-import { CacheService } from '@coderback/persistence';
-import { z } from 'zod';
-import { InvoiceBillingService } from '@/modules/invoices/services/billing';
-import { loadCoderbackEnvironment } from '@coderback/environment';
+// ❌ BAD
+const u = await db.q('select * from users');
+function fmt<T>(x: T) { /* ... */ }
 
 // ✅ GOOD
-import { Injectable } from '@nestjs/common';
-import { z } from 'zod';
-
-import { loadCoderbackEnvironment } from '@coderback/environment';
-import { CacheService } from '@coderback/persistence';
-
-import { InvoiceBillingService } from '@/modules/invoices/services/billing';
+const allRegisteredUserList = await database.query('select * from users');
+function formatPersistedRecordForDisplay<PersistedRecord>(
+  persistedRecord: PersistedRecord,
+) { /* ... */ }
 ```
 
-Omit empty groups. Never put workspace (`@coderback/*`) imports in the third-party or local group.
+Booleans start with `is`/`has`/`should`/`was`/`did`. Functions start with a verb (`build`, `resolve`, `inspect`, `execute`). Catalogs/collections end with `List`, `Map`, `Set`, or `Catalog`.
+
+## Filenames are a single lowercase word
+
+One concept per file, one lowercase word per filename. Compose meaning through folders, never through hyphenated or multi-word filenames.
+
+```
+// ❌ BAD
+src/services/workspace-cleanup-service.ts
+src/presentation/sticky-header.ts
+
+// ✅ GOOD
+src/services/cleanup.ts
+src/presentation/sticky.ts
+```
+
+If a name needs more than one word to be unambiguous, create a folder for the concern and put the single-word file inside:
+
+```
+src/runners/shell.ts
+src/runners/compose.ts
+src/configuration/services.ts
+src/configuration/tooling.ts
+```
+
+When renaming, update every import. Use the `@/` alias for in-package imports — never relative paths like `../../`.
 
 ---
 > Source: [galfrevn/apollo](https://github.com/galfrevn/apollo) — distributed by [TomeVault](https://tomevault.io).
