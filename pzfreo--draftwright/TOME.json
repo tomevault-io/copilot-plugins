@@ -4,7 +4,7 @@
   "repo": "draftwright",
   "description": "Automated technical-drawing generation for build123d and STEP files",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pzfreo/draftwright",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T01:56:03Z"
+  "distributed_at": "2026-08-10T04:37:47Z"
 }
