@@ -1,0 +1,9 @@
+{
+  "name": "juliagraphs--graphneuralnetworks-jl",
+  "displayName": "GraphNeuralNetworks.jl",
+  "description": "GraphNeuralNetworks.jl",
+  "version": "1.0.0",
+  "author": "JuliaGraphs",
+  "homepage": "https://github.com/JuliaGraphs/GraphNeuralNetworks.jl",
+  "skills": []
+}
