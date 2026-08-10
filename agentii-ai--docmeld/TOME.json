@@ -4,7 +4,7 @@
   "repo": "DocMeld",
   "description": "Lightweight Doc-to-agent-ready knowledge pipeline. Three-stage Bronze\u2192Silver\u2192Gold architecture extracts structured elements, page content, and   AI-enriched metadata from research papers and books. Generate PRDs, workflows, topic clusters, and Claude Code skills from PDFs. No OCR required.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agentii-ai/DocMeld",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T01:44:13Z"
+  "distributed_at": "2026-08-10T03:33:15Z"
 }
