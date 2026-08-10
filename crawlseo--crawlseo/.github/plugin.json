@@ -1,0 +1,9 @@
+{
+  "name": "crawlseo--crawlseo",
+  "displayName": "crawlseo",
+  "description": "Open-source SEO monitoring. GSC + Site Crawler + Core Web Vitals in one dashboard.",
+  "version": "1.0.0",
+  "author": "crawlseo",
+  "homepage": "https://github.com/crawlseo/crawlseo",
+  "skills": []
+}
