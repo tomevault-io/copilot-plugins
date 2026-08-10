@@ -5,18 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `` in [everettjf/WasmPatch](https://github.com/everettjf/WasmPatch).
+Original source: `AGENTS.md` in [everettjf/WasmPatch](https://github.com/everettjf/WasmPatch).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [everettjf/WasmPatch](https://github.com/everettjf/WasmPatch) — a repo with 104+ stars on GitHub.
+From [everettjf/WasmPatch](https://github.com/everettjf/WasmPatch) — a repo with 103+ stars on GitHub.
 
 ---
 
