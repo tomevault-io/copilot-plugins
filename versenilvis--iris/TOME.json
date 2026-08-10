@@ -4,7 +4,7 @@
   "repo": "IRIS",
   "description": "A shell auto-completion tool for your terminal",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/versenilvis/IRIS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T00:22:21Z"
+  "distributed_at": "2026-08-10T03:20:03Z"
 }
