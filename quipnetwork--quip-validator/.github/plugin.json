@@ -1,0 +1,9 @@
+{
+  "name": "quipnetwork--quip-validator",
+  "displayName": "quip-validator",
+  "description": "A rust implementation of the Quip Protocol forked from Substrate",
+  "version": "1.0.0",
+  "author": "QuipNetwork",
+  "homepage": "https://github.com/QuipNetwork/quip-validator",
+  "skills": []
+}
