@@ -1,0 +1,9 @@
+{
+  "name": "piotr-oles--pi-extensions",
+  "displayName": "pi-extensions",
+  "description": "Pi agent extension: semantic code tools via sem CLI",
+  "version": "1.0.0",
+  "author": "piotr-oles",
+  "homepage": "https://github.com/piotr-oles/pi-extensions",
+  "skills": []
+}
