@@ -1,0 +1,9 @@
+{
+  "name": "nucleusframework--composenativewebview",
+  "displayName": "ComposeNativeWebview",
+  "description": "ComposeNativeWebView is a lightweight Compose Multiplatform WebView using native OS web engines via Wry (Rust) + UniFFI. It provides a familiar API without bundling Chromium, resulting in  smaller bin",
+  "version": "1.0.0",
+  "author": "NucleusFramework",
+  "homepage": "https://github.com/NucleusFramework/ComposeNativeWebview",
+  "skills": []
+}
