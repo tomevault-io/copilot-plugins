@@ -27054,6 +27054,11 @@
       "description": "data-client"
     },
     {
+      "name": "sqliteai--warp",
+      "source": "./sqliteai--warp",
+      "description": "Run the full 2.78-trillion-parameter Kimi K3 model beyond available RAM by streaming activated weights directly from NVMe. A dependency-free, embeddable C inference engine."
+    },
+    {
       "name": "cloudflare--templates",
       "source": "./cloudflare--templates",
       "description": "templates"
@@ -403474,6 +403479,16 @@
       "description": "Xtracta \u2013 blazing\u2011fast web XPath tester for XML/HTML with live node highlighting, large\u2011file streaming & React\u00a0+\u00a0Node.js stack."
     },
     {
+      "name": "learn-mindustry-mod--learn-mindustry-mod-github-io",
+      "source": "./learn-mindustry-mod--learn-mindustry-mod-github-io",
+      "description": "learn-mindustry-mod.github.io"
+    },
+    {
+      "name": "exojosh--aynthorsecondscreen",
+      "source": "./exojosh--aynthorsecondscreen",
+      "description": "Second Screen Helper Mod for Minecraft that moves HUD content and various other features to the bottom screen of a dual screen android device."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -431722,6 +431737,16 @@
       "name": "antoniorao--mr-rao",
       "source": "./antoniorao--mr-rao",
       "description": "Strip the personal data out of a document before you paste it into an AI. Converts PDF, Office, scans and email to Markdown and removes names, addresses, phone numbers, IBANs, cards and API keys. Vali"
+    },
+    {
+      "name": "iolanta-tech--sparqld",
+      "source": "./iolanta-tech--sparqld",
+      "description": "A live, read-only SPARQL endpoint against a directory of RDF files"
+    },
+    {
+      "name": "iolanta-tech--sparqld",
+      "source": "./iolanta-tech--sparqld",
+      "description": "A live, read-only SPARQL endpoint against a directory of RDF files"
     },
     {
       "name": "cheerhuan--save-your-token",
