@@ -1,0 +1,9 @@
+{
+  "name": "dccif--keysteer",
+  "displayName": "KeySteer",
+  "description": "Native keyboard-driven mouse control",
+  "version": "1.0.0",
+  "author": "dccif",
+  "homepage": "https://github.com/dccif/KeySteer",
+  "skills": []
+}
