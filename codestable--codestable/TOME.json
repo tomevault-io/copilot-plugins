@@ -1,0 +1,44 @@
+{
+  "name": "CodeStable",
+  "owner": "codestable",
+  "repo": "CodeStable",
+  "description": "CodeStable \u662f\u4e00\u5957\u9762\u5411\u4e25\u8083\u8f6f\u4ef6\u5de5\u7a0b\u3001\u575a\u6301\u4eba\u5728\u73af\u7684 AI \u7f16\u7801\u5de5\u4f5c\u6d41\u3002\u5b83\u4e0d\u4ee5\u7f16\u6392 Agent \u4e3a\u4e2d\u5fc3\uff0c\u800c\u662f\u7ec4\u7ec7\u9700\u6c42\u3001\u67b6\u6784\u3001\u7279\u6027\u3001\u95ee\u9898\u4e0e\u5386\u53f2\u51b3\u7b56\uff0c\u8ba9 Codex \u548c Claude \u9a71\u52a8\u7684\u5f00\u53d1\u8fc7\u7a0b\u53ef\u63a7\u3001\u53ef\u8ffd\u6eaf\u3001\u53ef\u6301\u7eed\u6f14\u8fdb\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/codestable/CodeStable",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-10T00:23:37Z"
+}
