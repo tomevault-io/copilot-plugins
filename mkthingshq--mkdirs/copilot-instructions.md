@@ -1,60 +1,80 @@
-## 06-development-guide
+## 07-best-practices
 
-> This document provides guidelines for developing and contributing to the Mkdirs template.
+> This document outlines best practices for working with the Mkdirs codebase.
 
-# Development Guide
+# Best Practices
 
-This document provides guidelines for developing and contributing to the Mkdirs template.
+This document outlines best practices for working with the Mkdirs codebase.
 
-## Development Setup
+## Code Organization
 
-1. Clone the repository
-2. Install dependencies with `pnpm install`
-3. Set up environment variables (copy `.env.example` to `.env`)
-4. Run the development server with `pnpm dev`
+Follow these guidelines for code organization:
 
-## Environment Variables
+- **Component Isolation**: Keep components focused on a single responsibility
+- **Server vs. Client**: Clearly separate server and client components
+- **Type Definitions**: Place shared types in the `src/types` directory
+- **Utility Functions**: Extract reusable logic to the `src/lib` directory
+- **Page Structure**: Maintain consistent page component structure
 
-Key environment variables needed for development:
+## Performance Optimization
 
-- **NEXT_PUBLIC_SITE_URL**: Base URL of the site
-- **NEXT_PUBLIC_SANITY_PROJECT_ID**: Sanity project ID
-- **NEXT_PUBLIC_SANITY_DATASET**: Sanity dataset name
-- **SANITY_API_TOKEN**: Sanity API token
-- **NEXTAUTH_SECRET**: Secret for NextAuth
-- **STRIPE_SECRET_KEY**: Stripe API secret key
+Ensure optimal performance:
 
-## Code Style and Linting
+- **Server Components**: Use React Server Components for data-fetching operations
+- **Image Optimization**: Use Next.js Image component with proper sizing
+- **Bundle Size**: Monitor and optimize bundle size
+- **Lazy Loading**: Implement lazy loading for below-the-fold content
+- **Caching Strategy**: Leverage Next.js caching capabilities
 
-The project uses Biome for code formatting and linting:
+## State Management
 
-- **biome.json**: Biome configuration
-- Run `pnpm lint` to check for code style issues
-- Run `pnpm format` to format the codebase
+Guidelines for state management:
 
-## Scripts
+- **Local State**: Use React's useState for component-specific state
+- **Form State**: Use React Hook Form for form state management
+- **Server State**: Prefer server components over client-side data fetching
+- **URL State**: Use URL parameters for shareable state
+- **Context API**: Use sparingly for deeply nested shared state
 
-Utility scripts for common tasks:
+## Error Handling
 
-- **scripts**: Directory containing utility scripts
-- **Batch Operations**: Scripts for batch operations on items
-- **Email Export**: Tools for exporting user emails
-- **Microlink Integration**: Scripts for working with microlink
+Implement robust error handling:
 
-## Build and Deployment
+- **Error Boundaries**: Use React Error Boundaries for client components
+- **Form Validation**: Implement Zod validation for all forms
+- **API Errors**: Handle API errors gracefully with fallbacks
+- **Logging**: Log errors for debugging and monitoring
+- **User Feedback**: Provide clear error messages to users
 
-Steps for building and deploying the application:
+## Accessibility
 
-1. Run `pnpm build` to create a production build
-2. Verify the build with `pnpm start`
-3. Deploy to your hosting platform of choice
+Ensure accessibility compliance:
 
-### Docker Deployment
+- **Semantic HTML**: Use appropriate HTML elements
+- **ARIA Attributes**: Add ARIA attributes where necessary
+- **Keyboard Navigation**: Ensure all interactions work with keyboard
+- **Color Contrast**: Maintain sufficient contrast ratios
+- **Screen Readers**: Test with screen readers
 
-For Docker-based deployment:
+## Security Best Practices
 
-- **Dockerfile**: Docker configuration
-- **next.config.docker.mjs**: Next.js configuration for Docker
+Follow these security guidelines:
+
+- **Input Validation**: Validate all user inputs server-side
+- **Authentication**: Use NextAuth for secure authentication
+- **Authorization**: Implement proper authorization checks
+- **CSRF Protection**: Use proper CSRF tokens
+- **XSS Prevention**: Sanitize user-generated content
+
+## Testing Strategy
+
+Approach to testing:
+
+- **Component Testing**: Test UI components in isolation
+- **Integration Testing**: Test feature workflows
+- **Mocking**: Mock external services in tests
+- **Test Coverage**: Aim for good coverage of critical paths
+- **E2E Testing**: Implement end-to-end tests for critical flows
 
 ---
 > Source: [MkThingsHQ/mkdirs](https://github.com/MkThingsHQ/mkdirs) — distributed by [TomeVault](https://tomevault.io).
