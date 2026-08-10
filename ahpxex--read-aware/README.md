@@ -7,11 +7,11 @@ The only reader you need in the future, agent first, rich plugin, all with great
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ahpxex/read-aware](https://github.com/ahpxex/read-aware).
+Original source: `AGENTS.md` in [ahpxex/read-aware](https://github.com/ahpxex/read-aware).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
