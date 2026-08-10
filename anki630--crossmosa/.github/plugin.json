@@ -1,0 +1,9 @@
+{
+  "name": "anki630--crossmosa",
+  "displayName": "crossmosa",
+  "description": "CrossMosa \u2014 \u7e41\u9ad4\u4e2d\u6587 e-reader firmware for Xteink X3, based on CrossPoint (public release candidate)",
+  "version": "1.0.0",
+  "author": "anki630",
+  "homepage": "https://github.com/anki630/crossmosa",
+  "skills": []
+}
