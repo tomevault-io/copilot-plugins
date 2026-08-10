@@ -7,11 +7,11 @@ CodeStable 是一套面向严肃软件工程、坚持人在环的 AI 编码工�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [codestable/CodeStable](https://github.com/codestable/CodeStable).
+Original source: `AGENTS.md` in [codestable/CodeStable](https://github.com/codestable/CodeStable).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
