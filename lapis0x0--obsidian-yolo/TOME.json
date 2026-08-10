@@ -2,9 +2,9 @@
   "name": "obsidian-yolo",
   "owner": "Lapis0x0",
   "repo": "obsidian-yolo",
-  "description": "Smart, snappy, and multilingual AI assistant for your vault.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Lapis0x0/obsidian-yolo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T19:07:51Z"
+  "distributed_at": "2026-08-10T00:18:09Z"
 }
