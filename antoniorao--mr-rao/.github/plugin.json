@@ -1,0 +1,9 @@
+{
+  "name": "antoniorao--mr-rao",
+  "displayName": "mr-rao",
+  "description": "Strip the personal data out of a document before you paste it into an AI. Converts PDF, Office, scans and email to Markdown and removes names, addresses, phone numbers, IBANs, cards and API keys. Vali",
+  "version": "1.0.0",
+  "author": "AntonioRao",
+  "homepage": "https://github.com/AntonioRao/mr-rao",
+  "skills": []
+}
