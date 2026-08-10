@@ -1,61 +1,34 @@
-## multitask
+## protocol-conformance
 
-> Multitask 模式下主 Agent 与子代理的分工、委派规范、模型约束
+> 协议漂移巡检纪律——改动 SSE 事件→state 折叠(fold)、run 树投影、resume/审批状态机，或后端改事件契约时必读：共享向量/golden、assertNever 穷尽、pnpm conformance 门禁
 
 
-# Multitask 委派规范
+# 协议漂移巡检
 
-## 模型约束
+桌面 / 手机各自实现协议 fold（`fold(events[]) → ProjectedTurn`）。两端实现可不同，但**行为必须对齐**——靠这套巡检让漂移「响」、可被 AI 自动发现。背景见 [`前端技术与架构.md` §十二](/docs/04-前端/前端技术与架构.md)。
 
-子代理（Task tool）**必须**指定 `model: "cursor-grok-4.5-high"`，无例外；`resume` 续跑与同任务线再起新 Task 同样每次显式传，禁止漏写、禁止换模型。Task 工具自带参数说明（「resume 时勿传 model，会沿用原模型」「仅用户点名才显式传」）**与实测不符，以本规则为准**：实测 resume 不传 model 会静默回落到主对话模型，显式传才能保持；本规则即视为用户明确指定模型。违规/漏传调用由项目 `preToolUse` hook 自动补写兜底，但显式传仍是第一道防线。
+**现状：两端均已接入**。手机 fold 即生产实现；桌面 [`conformanceFold`](/apps/desktop/src/renderer/protocol/conformanceFold.ts) 适配器**复用桌面真实的 `projectExecution`**（团队图），单聊 process 时间线复用 [`@/lib/processTimeline`](/apps/desktop/src/renderer/lib/processTimeline.ts)。
 
-## 分工与 prompt 规范
+## 三支柱
 
-**主 Agent 做决策，子代理自主实施**（自行读代码、定位文件、决定改法；主 Agent 给目标与约束、审查结果）。
+1. **后端权威向量 + golden oracle**——`packages/protocol-conformance` 存：后端导出的真实事件序列（**向量**）+ 后端投影的期望 `ProjectedTurn`（**golden**）。两端 fold 跑同向量、断言 `== golden`。**后端是输入与期望的单一源**；两端不一致时 golden 是裁判（指明谁错）。
+2. **共享类型 + 穷尽**——两端 import 同一套事件类型；fold 用判别联合 `switch` + `assertNever` 兜底。后端加事件类型 → 重生成 → 两端编译失败直到处理。
+3. **AI 可操作**——`pnpm conformance` = `pnpm -r run conformance`（手机 tsx）+ `pnpm -C apps/desktop run conformance`（桌面 vitest）+ 类型检查（`ci.yml` mobile job **在跑**；Frontend 早失败时后续可能 skipped → **发布前本地必跑** `pnpm conformance` / `release:gate`）；失败打 `ProjectedTurn` diff（golden vs actual）指到分叉字段。
 
-prompt 只写决策层：目标一句话 + 决策/约束（如有）+ 验收（如有）。按复杂度控制篇幅：简单 <50 / 中等 <200 / 复杂 <500 token——复杂任务也只写「为什么这样做」和「不能动什么」，不写改法。
+## 何时必跑 / 必更新
 
-**禁止**：贴完整代码块、逐条 StrReplace 指令、逐文件改法。发现自己在写「Step 1/2/3」或粘贴代码 → 停下删掉，只留目标和约束。
+- 动任一端协议 fold → **必跑** `pnpm conformance`。
+- 后端改事件契约 / 投影 → 重导向量 + golden（单一源），两端对齐到红转绿。
+- 发现协议 bug → **先加一条复现向量**（棘轮），再修。向量**两来源**：手写 builder（`agentcore/conformance/vectors/`）或从真实回合录制裁切（`agentcore/conformance/recording_cut.py`，产物 `recorded_*` 前缀）→ 见 [`前端技术 §12.2`](/docs/04-前端/前端技术与架构.md)。
+- 手写向量字段值**必须与生产实现逐字一致**（group/channel 等分类字段尤甚），禁 `null`/占位敷衍——2026-07 取证员向量 `group:null` 而生产发 `debate:investigators:*`，布局击穿在全绿 CI 下漏网。新增 run 类向量时对照产出该 run 的后端代码抄真值。
 
-## 主 Agent 自做（不委派）
+## ProjectedTurn（规范化裁判态）
 
-单文件 ≤30 行改动；调查与修复强耦合（需边读边判断边改）；文档治理（规则文件、设计文档）；纯讨论/方案对齐。
+平台无关、可序列化：`{ messages, runs(树), status, pendingInteraction, cost }`。每端实现 `fold → ProjectedTurn` 测试快照（内部 store 形状可不同）。
 
-## 软禁：未定案 / 整锅大任务不委派
+## 边界
 
-满足任一即禁止委派实施：目标/范围/接口契约/关键取舍未定案；一次委派覆盖多模块端到端且写不清「单一目标 + 边界 + 验收」；把「帮我想清楚」交给子代理。
-
-**解禁**：主 Agent 写出书面定案摘要（目标、边界、关键取舍、验收；架构取舍须人确认）后，可对边界清晰的实施块委派。**窄例外**：只读窄探索、只答事实问题（不选方案、不改代码）可不定案。
-
-## 探索信任
-
-探索子代理回报后直接基于结论决策；**禁止**重探其已覆盖的文件，仅在明确报告未覆盖或结论存疑时补查。**探实合并**仅限「单块、窄范围、已定案」；大定案禁止同一子代理先探完再整锅实施。
-
-## 讨论 + 审计分相
-
-用户同时要「讨论/方案」和「查日志 / 找 Bug / 接缝审计」时：主只做对齐与方案；**事实审计必须派只读子代理**（不定案例外适用）。主在等待期间**禁止**重探同一证据面；探子回报后只复核存疑结论（接缝 GAP 按 `seam-audit.mdc` 短 Read 复核），**禁止**重跑整审计。调查与修复强耦合仍归「主 Agent 自做」，不套本条硬拆。
-
-## 探索与实施委派
-
-探索条数、是否先探后拆，由主 Agent 按任务自行判断（窄问题可单探；接缝/多专题/跨模块宜并行多探）。不写死固定主路径。
-
-**实施拆桶闸（防 A′）**：定案落地前自检——若可拆成 ≥2 个文件无交叉的实施块，**必须**并行多 Task，禁止收成 1 个大实施锅；仅当真实文件交叉或强耦合才允许单实施，并在该 Task prompt 写明「为何不能拆」。实施委派须标明「文件互不交叉」或「拆成 N 块」。
-
-仍可单 Task 的情形：单块窄改动；块间文件真实交叉；用户只要讨论/调查尚未定案实施。
-
-约束：同时在飞 ≤6；全部完成后主 Agent 统一审查；要立即消费报告的前台跑（并行 = 同一消息多 Task），后台仅 fire-and-forget 或 Multitask 模式强制时。
-
-## 子代理自主度
-
-执行层问题（路径/import/lint/测试修复）自行解决不回报；小范围调整方案自行决定、完成后说明；方案层问题（不可行/需改契约/架构决策）**立即停下回报**。
-
-## 禁止项
-
-- 禁子代理嵌套子代理：只允许 主 Agent → 子代理 一层
-- 禁子代理做架构/方案选择：遇岔路口回报
-- 禁主 Agent 代写实现：prompt 不贴代码、不写逐步改法
-- 禁未定案/整锅委派：见「软禁」；禁把可拆无交叉实施块捆成单 Task：见「实施拆桶闸」
-- **禁用 AwaitShell 等子代理**：完成通知只在回合干净结束后投递且可能成批滞后，中途崩溃则永不投递。启动后并行干活或直接结束回合；等不到通知或用户说已完成时，直接读 `agent-transcripts/{会话id}/subagents/*.jsonl` 收报告
+只巡检**协议 / 状态 fold**（高危、静默、只能测试抓）；组件 / chrome 不进巡检（错了一眼看见、各端本就分叉）。
 
 ---
 > Source: [Lawofall/AgentCore](https://github.com/Lawofall/AgentCore) — distributed by [TomeVault](https://tomevault.io).
