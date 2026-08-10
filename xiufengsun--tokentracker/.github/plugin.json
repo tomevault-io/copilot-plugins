@@ -1,0 +1,9 @@
+{
+  "name": "xiufengsun--tokentracker",
+  "displayName": "TokenTracker",
+  "description": "Local-first AI token usage & cost tracker for 28 coding tools incl. Claude Code, Codex, Cursor, Gemini & Qoder\u2014with native apps. Never reads prompts.",
+  "version": "1.0.0",
+  "author": "xiufengsun",
+  "homepage": "https://github.com/xiufengsun/TokenTracker",
+  "skills": []
+}
