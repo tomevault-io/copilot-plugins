@@ -4,7 +4,7 @@
   "repo": "com.tianqianguai.gramsieve",
   "description": "GramSieve-Telegram \u8fc7\u6ee4;\u8df3\u8f6c;\u7f16\u8f91\u5386\u53f2\u67e5\u770b",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Xposed-Modules-Repo/com.tianqianguai.gramsieve",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T02:02:37Z"
+  "distributed_at": "2026-08-10T04:46:57Z"
 }
