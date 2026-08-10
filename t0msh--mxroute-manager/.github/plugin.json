@@ -1,0 +1,9 @@
+{
+  "name": "t0msh--mxroute-manager",
+  "displayName": "mxroute-manager",
+  "description": "A selfhosted tool to use the mxRoute api to manage email addresses on domains you own.",
+  "version": "1.0.0",
+  "author": "t0msh",
+  "homepage": "https://github.com/t0msh/mxroute-manager",
+  "skills": []
+}
