@@ -1,0 +1,9 @@
+{
+  "name": "helweg--open-codebase-index",
+  "displayName": "open-codebase-index",
+  "description": "Semantic codebase indexing and search for OpenCode, Claude, Codex, Pi, Jcode, and MCP hosts. Powered by Rust and tree-sitter.",
+  "version": "1.0.0",
+  "author": "Helweg",
+  "homepage": "https://github.com/Helweg/open-codebase-index",
+  "skills": []
+}
