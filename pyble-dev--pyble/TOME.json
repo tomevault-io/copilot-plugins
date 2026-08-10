@@ -4,7 +4,7 @@
   "repo": "PyBLE",
   "description": "Open-source tablet-first MicroPython IDE over Bluetooth Low Energy, with the PBLE/1 protocol, portable firmware agent, and browser flasher.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PyBLE-dev/PyBLE",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T22:30:50Z"
+  "distributed_at": "2026-08-10T22:31:33Z"
 }
