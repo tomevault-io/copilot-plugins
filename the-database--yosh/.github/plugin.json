@@ -1,0 +1,9 @@
+{
+  "name": "the-database--yosh",
+  "displayName": "yosh",
+  "description": "A lean, high-throughput local manga/comic reader in Rust",
+  "version": "1.0.0",
+  "author": "the-database",
+  "homepage": "https://github.com/the-database/yosh",
+  "skills": []
+}
