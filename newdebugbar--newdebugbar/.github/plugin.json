@@ -1,0 +1,9 @@
+{
+  "name": "newdebugbar--newdebugbar",
+  "displayName": "newdebugbar",
+  "description": "A new modern, agent-friendly, powerful, free, and open source debug bar for Laravel developers.",
+  "version": "1.0.0",
+  "author": "newdebugbar",
+  "homepage": "https://github.com/newdebugbar/newdebugbar",
+  "skills": []
+}
