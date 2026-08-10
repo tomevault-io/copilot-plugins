@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-android-usagestatsmanager",
+  "displayName": "capacitor-android-usagestatsmanager",
+  "description": "Capacitor plugin to get Android app usage stats natively",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-android-usagestatsmanager",
+  "skills": []
+}
