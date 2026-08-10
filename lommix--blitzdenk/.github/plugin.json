@@ -1,0 +1,9 @@
+{
+  "name": "lommix--blitzdenk",
+  "displayName": "blitzdenk",
+  "description": "Coding and research harness in pure Zig. Programmable in Lua",
+  "version": "1.0.0",
+  "author": "Lommix",
+  "homepage": "https://github.com/Lommix/blitzdenk",
+  "skills": []
+}
