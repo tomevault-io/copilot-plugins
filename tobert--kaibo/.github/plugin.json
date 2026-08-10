@@ -1,0 +1,9 @@
+{
+  "name": "tobert--kaibo",
+  "displayName": "kaibo",
+  "description": "kaibo - agents for your agents with a read-only shell",
+  "version": "1.0.0",
+  "author": "tobert",
+  "homepage": "https://github.com/tobert/kaibo",
+  "skills": []
+}
