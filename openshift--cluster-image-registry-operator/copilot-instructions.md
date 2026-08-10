@@ -1,91 +1,117 @@
 ## cluster-image-registry-operator
 
-> Before making changes, check the `docs/` directory for additional context — it contains documentation on credentials flow, development builds, operator lifecycle, and metrics.
+> This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-# AI Agent Instructions for cluster-image-registry-operator
+# Agent Guide for opentelemetry-go
 
-Before making changes, check the `docs/` directory for additional context — it contains documentation on credentials flow, development builds, operator lifecycle, and metrics.
+This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-## What This Repo Is
+Before starting any task, read `.github/copilot-instructions.md`, `CONTRIBUTING.md`, and this file.
+Treat `.github/copilot-instructions.md` as global passive guidance for every task, including docs-only and review-only work.
 
-This is an OpenShift operator that manages the singleton internal container image registry. It handles registry deployment, storage provisioning across cloud providers (AWS S3, Azure Blob, GCS, IBM COS, OpenStack Swift, PVC, EmptyDir), routes, and image pruning.
+## Core expectations
 
-The operator runs in the `openshift-image-registry` namespace and is managed by the ClusterVersionOperator (CVO).
+- Preserve OpenTelemetry specification compliance, API stability, and idiomatic Go.
+- Prefer minimal, surgical changes over broad refactors or speculative cleanup.
+- Read the package you are editing and match its existing naming, option types, error handling, comments, tests, and concurrency patterns.
+- Keep public APIs backward compatible unless the task explicitly requires a breaking change.
+- Keep telemetry resilient and loosely coupled. Do not introduce behavior that can unexpectedly interfere with host applications.
+- Inspect boundaries carefully: input validation, resource limits, cancellation, shutdown, error propagation, concurrency, and memory growth.
+- Prefer fail-safe behavior and explicit invariants over implicit assumptions.
+- Keep dependencies minimal and justified.
+- Preserve host-application safety: telemetry should not panic, block indefinitely, or amplify attacker-controlled input.
+- Be conservative on hot paths. Avoid unnecessary allocations, reflection, interface churn, blocking, global state, and high-cardinality telemetry.
+- Write comments only for intent, invariants, and non-obvious constraints. Do not add comments that restate the code.
 
-## Critical Rules
+## Default workflow
 
-1. **Do not edit vendored files.** The `vendor/` directory is managed by `go mod tidy && go mod vendor`. Never hand-edit anything under `vendor/`.
-2. **Do not edit generated files.** Files matching `zz_generated.*` and CRD manifests under `vendor/github.com/openshift/api/` are generated in the `openshift/api` repo.
-3. **Use `make build`, not `go build`.** The Makefile injects version info via ldflags and places binaries in `tmp/_output/bin/`.
-4. **Run `make verify` before considering any change complete.** This runs gofmt, golangci-lint, and dependency checks.
+For new features and behavior changes, use this order unless the task explicitly says otherwise:
 
-## Repository Structure
+1. Read the relevant package, its tests, and any package docs or `README.md`.
+2. Add or update a failing unit test that captures the required behavior or regression.
+3. Implement the smallest change that makes the test pass.
+4. Refactor only after the behavior is locked in, and only if the refactor keeps the diff focused.
+5. If the changed code is on a hot path or performance-sensitive, inspect existing benchmarks and run them. Add a benchmark if coverage is missing.
+6. Update documentation artifacts as needed while the context is fresh. Follow the documentation and changelog conventions below for the specific updates required.
+7. Run `make precommit` each time before considering the work complete.
 
-```
-cmd/
-├── cluster-image-registry-operator/         # Main operator binary
-├── cluster-image-registry-operator-tests-ext/ # OTE e2e test harness
-└── move-blobs/                              # Azure blob migration utility
+For docs-only, test-only, or review-only tasks, still start with the required repository guidance above, then skip the workflow steps that do not apply while keeping the same discipline around scope, verification, and repository conventions.
 
-pkg/
-├── operator/           # Controllers (11+ running concurrently)
-│   ├── controller.go   # Main reconciliation controller
-│   ├── starter.go      # Wires and starts all controllers
-│   ├── bootstrap.go    # Creates default Config CR with platform defaults
-│   └── ...             # ClusterOperator status, pruner, certs, metrics, etc.
-├── resource/           # Kubernetes resource generators (Deployment, Service, Route, RBAC, etc.)
-├── storage/            # Cloud storage drivers (s3/, azure/, gcs/, ibmcos/, swift/, pvc/, emptydir/)
-├── client/             # Custom client/lister wrappers
-├── defaults/           # Constants (namespace names, resource names)
-└── metrics/            # Prometheus metrics
+## Verification
 
-test/
-├── e2e/                # End-to-end tests (require real OpenShift cluster)
-└── framework/          # Shared test helpers
-```
+- Use `make` as the canonical repository verification command. The default target is `precommit`.
+- `make precommit` is the expected final verification step for linting, generation, README checks, module checks, and tests.
+- During iteration, targeted commands are fine for fast feedback, but do not stop there if the task changes code.
+- If you touch performance-sensitive code, run focused benchmarks and compare the results using `benchstat` in addition to `make`.
 
-## Key Patterns to Follow
+## Documentation and changelog
 
-- **Storage Driver interface**: All cloud backends implement the `Driver` interface in `pkg/storage/`. New storage backends must implement the full interface — no partial implementations.
-- **Single workqueue**: All events coalesce to a single workqueue key (`"changes"`). The main controller's `sync()` handles all reconciliation in one pass.
-- **Config CR is source of truth**: All reconciliation state comes from the `configs.imageregistry.operator.openshift.io/cluster` CR. Do not derive state from Deployment status alone.
-- **Retry on conflict**: Use `retry.RetryOnConflict` when updating the Config CR status — multiple controllers may update it concurrently.
+- Non-internal, non-test packages should have Go doc comments, usually in `doc.go`.
+- Non-internal, non-test, non-documentation packages should also have a `README.md` with at least a title and a `pkg.go.dev` badge.
+- Prefer examples over long code snippets in GoDoc when practical.
+- Keep docs aligned with actual behavior. Do not leave stale comments, stale examples, or stale package documentation behind.
+- For user-visible changes, update `CHANGELOG.md` under the appropriate `Added`, `Changed`, `Deprecated`, `Fixed`, or `Removed` section within `## [Unreleased]`.
 
-## Important Constraints
+## Repository habits
 
-- **Storage config is immutable after bootstrap.** S3 bucket names, Azure container names, etc. are set once during initial Config CR creation and are not changed afterward. Changing storage type requires CR deletion and recreation.
-- **Config CR is read directly from the API server**, not from the informer cache, to avoid staleness issues during rapid updates.
-- **PVC storage forces `Recreate` deployment strategy** because `RollingUpdate` causes new pods to block waiting for exclusive volume access. Cloud storage backends use `RollingUpdate`.
-- **Platform detection** reads `config.openshift.io/infrastructures/cluster`. Unknown platforms default to EmptyDir (ephemeral) storage.
-- **Credential override**: Users can supply custom cloud credentials via the `image-registry-private-configuration-user` secret. The operator merges these into `image-registry-private-configuration` for the storage drivers.
+- Prefer focused diffs. Avoid drive-by cleanup.
+- Follow existing option patterns and exported API conventions instead of inventing new abstractions.
+- Generated files are checked in. If your change affects generation, keep generated output up to date.
+- Prefer fast local search tools such as `rg` when exploring the repository.
+- When changing behavior, make the invariants explicit in tests.
 
-## Build and Test
+## Personas
 
-```bash
-make build       # Compile operator + test binaries
-make test-unit   # Unit tests
-make test-e2e    # E2E tests (requires real OpenShift cluster)
-make verify      # Linters, gofmt, dependency checks
-```
+### Feature Agent
 
-### OTE (OpenShift Tests Extension)
+Use this persona for new behavior, new API surface, or spec-driven feature work.
 
-E2E tests run via the OTE framework. The test harness binary is at `cmd/cluster-image-registry-operator-tests-ext/` and registers two suites:
+- Start with a failing unit test.
+- Confirm the expected behavior against the spec, existing package behavior, and public API compatibility.
+- Implement the smallest viable change.
+- Update GoDoc, examples, `README.md`, and `CHANGELOG.md` when the change is user-visible.
+- If the feature touches a hot path, check benchmarks and add one if the coverage is missing.
 
-- **Serial suite** (`openshift/cluster-image-registry-operator/operator/serial`): Parallelism=1. Runs tests tagged `[Serial]` or `[Disruptive]` — these modify shared cluster state (e.g., ImageRegistry config, storage).
-- **Parallel suite** (`openshift/cluster-image-registry-operator/operator/parallel`): Parallelism=4. Runs all other tests concurrently.
+### Refactoring Agent
 
-Tests live in `test/e2e/` and use the shared `test/framework/` helpers. They require a real OpenShift cluster — do not run on Kind or Minikube. When adding new e2e tests, tag with `[Serial]` if the test modifies cluster-wide resources; otherwise it runs in the parallel suite by default.
+Use this persona when improving structure without intentionally changing behavior.
 
-## What NOT to Do
+- Treat behavior preservation as the default contract.
+- Add or tighten tests before moving code if current behavior is not already pinned down.
+- Avoid broad rewrites, clever abstractions, or package-wide cleanup unless explicitly requested.
+- If a refactor touches a hot path, benchmark before and after.
+- Keep API shape, semantics, concurrency guarantees, and failure modes unchanged unless the task says otherwise.
 
-- Do not modify CRD definitions here — they live in the `openshift/api` repo.
-- Do not modify OWNERS or OWNERS_ALIASES files.
-- Do not modify TLS certificate management code — this functionality is being removed from the operator.
-- Do not assume cloud credentials are available outside of secrets. The operator reads credentials from `image-registry-private-configuration` (and user overrides from `image-registry-private-configuration-user`) to configure storage drivers.
-- Do not add cloud provider SDK calls without ensuring the corresponding storage driver handles credential refresh and error retries.
-- Do not run e2e tests on Kind or Minikube — they require a full OpenShift cluster.
+### Test Agent
+
+Use this persona when adding missing coverage, reproducing bugs, or hardening regressions.
+
+- Reproduce the bug or missing behavior with the smallest failing test you can.
+- Prefer testing public behavior and externally visible invariants.
+- Add targeted regression tests before changing production code.
+- Only change production code when it is required to make the tested behavior correct or testable.
+- Keep tests deterministic, readable, and aligned with package patterns.
+
+### Performance Agent
+
+Use this persona for hot-path work, allocation reduction, or throughput and latency improvements.
+
+- Benchmark first to establish a baseline.
+- Prefer changes that reduce allocations, copying, interface churn, and unnecessary synchronization.
+- Do not trade away correctness, spec compliance, or API stability for micro-optimizations.
+- Add or update benchmarks when performance-sensitive coverage is missing.
+- If you materially change a hot path, capture before-and-after results, preferably with `benchstat`.
+
+### Review Agent
+
+Use this persona when asked to review code, patches, or pull requests.
+
+- Lead with findings, not summaries.
+- Order findings by severity and include precise file and line references when available.
+- Focus on correctness, spec compliance, API compatibility, concurrency safety, resilience, performance regressions, missing tests, missing benchmarks, documentation gaps, and changelog gaps.
+- Call out when a diff is broader than necessary.
+- If you find no issues, say that explicitly and note any residual risks or verification gaps.
 
 ---
 > Source: [openshift/cluster-image-registry-operator](https://github.com/openshift/cluster-image-registry-operator) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
