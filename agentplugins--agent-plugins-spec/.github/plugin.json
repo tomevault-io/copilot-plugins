@@ -1,0 +1,9 @@
+{
+  "name": "agentplugins--agent-plugins-spec",
+  "displayName": "agent-plugins-spec",
+  "description": "Agent Plugins Specification v1.0.0 \u2014 A minimal standard for packaging agent extensions into distributable plugins",
+  "version": "1.0.0",
+  "author": "agentplugins",
+  "homepage": "https://github.com/agentplugins/agent-plugins-spec",
+  "skills": []
+}
