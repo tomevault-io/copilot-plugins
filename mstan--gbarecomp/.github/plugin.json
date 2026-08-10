@@ -1,0 +1,9 @@
+{
+  "name": "mstan--gbarecomp",
+  "displayName": "gbarecomp",
+  "description": "Game Boy Advance game static recompiler ecosystem \u00b7 Part of the R.A.I.D. community",
+  "version": "1.0.0",
+  "author": "mstan",
+  "homepage": "https://github.com/mstan/gbarecomp",
+  "skills": []
+}
