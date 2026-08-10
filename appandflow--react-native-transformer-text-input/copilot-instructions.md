@@ -47,5 +47,5 @@ This repository contains a React Native Fabric view + worklet-based transformer 
 - Keep changes focused and minimal; update README when JS API changes.
 
 ---
-> Source: [AppAndFlow/react-native-transformer-text-input](https://github.com/AppAndFlow/react-native-transformer-text-input) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-25 -->
+> Source: [appandflow/react-native-transformer-text-input](https://github.com/appandflow/react-native-transformer-text-input) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-10 -->
