@@ -1,0 +1,9 @@
+{
+  "name": "jeresoftx--rust-projects",
+  "displayName": "rust-projects",
+  "description": "Curso-proyecto de Jeresoft Academy: construir sistemas reales en Rust, de grep a Kafka.",
+  "version": "1.0.0",
+  "author": "jeresoftx",
+  "homepage": "https://github.com/jeresoftx/rust-projects",
+  "skills": []
+}
