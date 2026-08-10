@@ -1,0 +1,9 @@
+{
+  "name": "mihonarium--streamtospeaker",
+  "displayName": "StreamToSpeaker",
+  "description": "Virtual audio output for Windows that streams your PC's sound to AirPlay, Sonos, and UPnP speakers.",
+  "version": "1.0.0",
+  "author": "Mihonarium",
+  "homepage": "https://github.com/Mihonarium/StreamToSpeaker",
+  "skills": []
+}
