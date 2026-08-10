@@ -7,11 +7,11 @@ kaibo - agents for your agents with a read-only shell
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tobert/kaibo](https://github.com/tobert/kaibo).
+Original source: `AGENTS.md` in [tobert/kaibo](https://github.com/tobert/kaibo).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
