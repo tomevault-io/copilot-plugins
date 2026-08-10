@@ -1,0 +1,9 @@
+{
+  "name": "elastic--elasticsearch-py",
+  "displayName": "elasticsearch-py",
+  "description": "elasticsearch-py",
+  "version": "1.0.0",
+  "author": "elastic",
+  "homepage": "https://github.com/elastic/elasticsearch-py",
+  "skills": []
+}
