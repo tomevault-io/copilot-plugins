@@ -1,0 +1,9 @@
+{
+  "name": "getpaseo--hub",
+  "displayName": "hub",
+  "description": "Self-hosted automation for Paseo daemons",
+  "version": "1.0.0",
+  "author": "getpaseo",
+  "homepage": "https://github.com/getpaseo/hub",
+  "skills": []
+}
