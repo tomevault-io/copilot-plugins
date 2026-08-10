@@ -1,0 +1,9 @@
+{
+  "name": "a2heng--purevox",
+  "displayName": "PureVox",
+  "description": "PureVox \u2013 Lightweight AI denoiser, voice extractor, and echo canceller. Input from web, Android, Linux, Windows mics. Output clean audio to PC.",
+  "version": "1.0.0",
+  "author": "a2heng",
+  "homepage": "https://github.com/a2heng/PureVox",
+  "skills": []
+}
