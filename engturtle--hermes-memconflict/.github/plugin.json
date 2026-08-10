@@ -1,0 +1,9 @@
+{
+  "name": "engturtle--hermes-memconflict",
+  "displayName": "hermes-memconflict",
+  "description": "Comparison of self-hostable memory providers for the Hermes agent on the MemConflict benchmark",
+  "version": "1.0.0",
+  "author": "EngTurtle",
+  "homepage": "https://github.com/EngTurtle/hermes-memconflict",
+  "skills": []
+}
