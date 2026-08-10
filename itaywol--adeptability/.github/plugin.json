@@ -1,0 +1,9 @@
+{
+  "name": "itaywol--adeptability",
+  "displayName": "adeptability",
+  "description": "Cross-harness AI skill portability CLI. Author an agent skill once, sync it into Claude Code, Cursor, Copilot, Codex, OpenCode & 45+ AI coding agents. Safety scanner, content-hash drift detection. A p",
+  "version": "1.0.0",
+  "author": "itaywol",
+  "homepage": "https://github.com/itaywol/adeptability",
+  "skills": []
+}
