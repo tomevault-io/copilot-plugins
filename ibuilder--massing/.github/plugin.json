@@ -1,0 +1,9 @@
+{
+  "name": "ibuilder--massing",
+  "displayName": "massing",
+  "description": "Open, self-hosted, IFC-native AEC platform: web BIM viewer + modeling, a ~100-module GC portal (RFIs, pay apps, CPM, construction accounting \u2014 double-entry GL/WIP \u2192 QuickBooks, e-sign), AI assist, IDS",
+  "version": "1.0.0",
+  "author": "ibuilder",
+  "homepage": "https://github.com/ibuilder/massing",
+  "skills": []
+}
