@@ -1,0 +1,9 @@
+{
+  "name": "starknightt--brain-explorer",
+  "displayName": "brain-explorer",
+  "description": "An interactive 3D human brain explorer built with Next.js, React Three Fiber, and real OpenNeuro MRI data.",
+  "version": "1.0.0",
+  "author": "StarKnightt",
+  "homepage": "https://github.com/StarKnightt/brain-explorer",
+  "skills": []
+}
