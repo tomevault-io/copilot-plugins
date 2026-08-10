@@ -1,0 +1,9 @@
+{
+  "name": "jeresoftx--rust-async",
+  "displayName": "rust-async",
+  "description": "Programaci\u00f3n as\u00edncrona en Rust: del protocolo Future a executors y Tokio.",
+  "version": "1.0.0",
+  "author": "jeresoftx",
+  "homepage": "https://github.com/jeresoftx/rust-async",
+  "skills": []
+}
