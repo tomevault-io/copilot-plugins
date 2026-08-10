@@ -431884,6 +431884,31 @@
       "description": "An interactive 3D human brain explorer built with Next.js, React Three Fiber, and real OpenNeuro MRI data."
     },
     {
+      "name": "pyble-dev--pyble",
+      "source": "./pyble-dev--pyble",
+      "description": "Open-source tablet-first MicroPython IDE over Bluetooth Low Energy, with the PBLE/1 protocol, portable firmware agent, and browser flasher."
+    },
+    {
+      "name": "pyble-dev--pyble",
+      "source": "./pyble-dev--pyble",
+      "description": "Open-source tablet-first MicroPython IDE over Bluetooth Low Energy, with the PBLE/1 protocol, portable firmware agent, and browser flasher."
+    },
+    {
+      "name": "appautomaton--mlx-h3",
+      "source": "./appautomaton--mlx-h3",
+      "description": "Pure MLX MiniMax-H3 text-to-video-and-audio inference for Apple Silicon."
+    },
+    {
+      "name": "ddudle--ctxdebug",
+      "source": "./ddudle--ctxdebug",
+      "description": "MCP-powered reverse engineering platform connecting WinDbg, IDA Pro & x64dbg with 160+ AI-accessible debugging and analysis tools."
+    },
+    {
+      "name": "skraft9--quarry-vrc",
+      "source": "./skraft9--quarry-vrc",
+      "description": "A central console for managing vulnerability research at scale."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
