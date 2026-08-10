@@ -1,0 +1,9 @@
+{
+  "name": "aurorascharff--next16-calendar",
+  "displayName": "next16-calendar",
+  "description": "A calendar and booking demo exploring Async React, Cache Components, View Transitions, and Partial Prefetching with Next.js 16.3, React 19, Tailwind CSS v4, and Prisma.",
+  "version": "1.0.0",
+  "author": "aurorascharff",
+  "homepage": "https://github.com/aurorascharff/next16-calendar",
+  "skills": []
+}
