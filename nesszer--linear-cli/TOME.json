@@ -4,7 +4,7 @@
   "repo": "linear-cli",
   "description": "A powerful CLI for Linear.app built with Rust",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nesszer/linear-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T15:39:36Z"
+  "distributed_at": "2026-08-10T15:40:16Z"
 }
