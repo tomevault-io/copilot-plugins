@@ -1,0 +1,9 @@
+{
+  "name": "formin--spec-kit-loop",
+  "displayName": "spec-kit-loop",
+  "description": "Loop Engineering for Spec Kit \u2014 engineer safe autonomous agent loops: maker/checker split, externalized state, stay-the-engineer guardrails. A community Spec Kit extension.",
+  "version": "1.0.0",
+  "author": "formin",
+  "homepage": "https://github.com/formin/spec-kit-loop",
+  "skills": []
+}
