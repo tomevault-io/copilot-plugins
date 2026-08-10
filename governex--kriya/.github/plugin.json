@@ -1,0 +1,9 @@
+{
+  "name": "governex--kriya",
+  "displayName": "kriya",
+  "description": "kriya \u2014 the on-device control plane for AI agents",
+  "version": "1.0.0",
+  "author": "governex",
+  "homepage": "https://github.com/governex/kriya",
+  "skills": []
+}
