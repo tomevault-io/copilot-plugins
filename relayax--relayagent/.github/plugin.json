@@ -1,0 +1,9 @@
+{
+  "name": "relayax--relayagent",
+  "displayName": "relayagent",
+  "description": "A personal substrate for agent packages that ship their own screens. One manifest declares the agent, its verbs, and its UI.",
+  "version": "1.0.0",
+  "author": "relayax",
+  "homepage": "https://github.com/relayax/relayagent",
+  "skills": []
+}
