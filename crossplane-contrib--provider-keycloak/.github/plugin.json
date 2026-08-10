@@ -1,0 +1,9 @@
+{
+  "name": "crossplane-contrib--provider-keycloak",
+  "displayName": "provider-keycloak",
+  "description": "provider-keycloak",
+  "version": "1.0.0",
+  "author": "crossplane-contrib",
+  "homepage": "https://github.com/crossplane-contrib/provider-keycloak",
+  "skills": []
+}
