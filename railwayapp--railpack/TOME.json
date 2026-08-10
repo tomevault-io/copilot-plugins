@@ -2,9 +2,9 @@
   "name": "railpack",
   "owner": "railwayapp",
   "repo": "railpack",
-  "description": "Zero-config application builder that automatically analyzes and turns your code into an image",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/railwayapp/railpack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T01:14:16Z"
+  "distributed_at": "2026-08-10T02:52:39Z"
 }
