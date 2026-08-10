@@ -1,0 +1,9 @@
+{
+  "name": "lexwdex--opencode-graphagent",
+  "displayName": "OpenCode-GraphAgent",
+  "description": "Extends the Hooks API, Directed Acyclic Graph Agent Execution Engine.",
+  "version": "1.0.0",
+  "author": "LeXwDeX",
+  "homepage": "https://github.com/LeXwDeX/OpenCode-GraphAgent",
+  "skills": []
+}
