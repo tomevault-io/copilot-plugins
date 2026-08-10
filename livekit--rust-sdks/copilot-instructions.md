@@ -1,38 +1,52 @@
 ## rust-sdks
 
-> - Holds foundational, broadly-shared items used across multiple LiveKit crates (e.g. [`livekit`](../livekit/), [`livekit-api`](../livekit-api/), [`livekit-data-stream`](../livekit-data-stream/))
+> - This crate encapsulates the business logic and public APIs for the data streams feature: [text streams](https://docs.livekit.io/transport/data/text-streams/) and [byte streams](https://docs.livekit.io/transport/data/byte-streams/)
 
 # AGENTS.md
 
 ## Architectural overview
 
-- Holds foundational, broadly-shared items used across multiple LiveKit crates (e.g. [`livekit`](../livekit/), [`livekit-api`](../livekit-api/), [`livekit-data-stream`](../livekit-data-stream/))
-- Internal crate — not for direct consumption by developers (public APIs live in the [`livekit`](../livekit/) crate)
-- Exists purely to avoid duplication and circular dependencies: an item needed by two or more downstream crates lives here instead of in any single one
-- Current contents set the bar for what fits: `ParticipantIdentity` (newtype), `EncryptionType` (enum + proto conversions), the `CLIENT_PROTOCOL_*` constants, and the `enum_dispatch!` macro
+- This crate encapsulates the business logic and public APIs for the data streams feature: [text streams](https://docs.livekit.io/transport/data/text-streams/) and [byte streams](https://docs.livekit.io/transport/data/byte-streams/)
+- Not for direct consumption by developers
+- Unlike most SDK features which live directly in the [`livekit`](../livekit/) crate, data streams are intentionally isolated here for several reasons:
+  - Enforces decoupling from other components (e.g., data channel, signaling client, etc.)
+  - Enables proper integration testing
+  - Enables shared implementation amongst multiple _consumers_:
+    - [`livekit`](../livekit/): Rust client SDK
+    - [`livekit-uniffi`](../livekit-uniffi/): will eventually power downstream client SDKs such as Swift and Kotlin
 
-## What belongs here
+## Incoming vs. outgoing split
 
-- Small, self-contained, foundational items shared by **two or more** downstream crates:
-  - Newtypes and plain data enums (plus their `From`/`TryFrom` conversions)
-  - Simple constants
-  - Trivial, stateless helper functions and declarative macros
-- Every addition must be dependency-light (see Dependencies) and free of feature/business logic
+- The crate is organized into two halves:
+  - `incoming/`: receiving streams from remote participants (produces readers)
+  - `outgoing/`: sending streams to remote participants (produces writers)
+- The two halves never communicate with each other or share state
+- Shared types live at the crate root rather than inside either side:
+  - wire/domain packet types (`Header`, `Chunk`, `Trailer`, `Packet`, `StreamId`, ...) in `types/`
+  - `ByteStreamInfo` / `TextStreamInfo` in `info.rs`
+  - `StreamError`, `StreamResult`, `StreamProgress`, `SendError` in `utils.rs`
+  - helpers such as UTF-8-aware chunking in `utf8_chunk.rs`
 
-## What does NOT belong here
+### The halves are deliberately *not* symmetric
 
-- Feature or business logic — keep it in the feature's own crate (e.g. `livekit-data-stream`) or in `livekit`
-- Items used by only **one** crate — leave them in that crate until a second consumer actually needs them; do not hoist here speculatively
-- Stateful components — managers, actors, services, or anything holding runtime state
-- Wire/protocol types — those belong in `livekit-protocol` (this crate depends on it, never the reverse)
-- Anything that would require a heavy or environment-specific dependency (see Dependencies)
+Unlike the mirror-image `local/`/`remote/` split in [`livekit-datatrack`](../livekit-datatrack/AGENTS.md), `incoming/` and `outgoing/` do **not** share a parallel shape. Each has a `manager`, but they are built differently on purpose:
 
-## Dependencies
+- The **incoming** manager (`incoming/manager.rs`) is an **actor**. It owns all receive-side state on a single task and is driven by `InputEvent`s fed over a channel, emitting `OutputEvent`s for the host to surface (see `incoming/events.rs`). This is required because inbound packets arrive from the engine's event loop in a context that cannot `.await` into the manager, inbound chunks must never be dropped (a dropped chunk is an unrecoverable `MissedChunk`), and processing must not head-of-line-block that loop. Owning its state directly also lets its handlers `.await` decompression on the run-loop task without holding a lock across the await point.
+- The **outgoing** manager (`outgoing/manager.rs`) is a plain struct with `async` methods that callers `.await` directly. It runs in an already-async context (publishing), so awaiting into it is fine and the actor machinery (events, channels, a run loop) would add substantial complexity for no benefit.
 
-- Keep the dependency list minimal — today it is only `livekit-protocol`
-- A dependency added here is forced onto **every** downstream crate; treat any new dependency as a red flag and justify it explicitly
-- Never pull in heavy or environment-specific deps (`libwebrtc`, an async runtime, networking, etc.) — a type that needs those belongs in a higher-level crate
+This asymmetry is a conscious choice, **not** an oversight or unfinished work. Do not "symmetrize" the outgoing side into an actor preemptively. When changing behavior on one side, there is often no mirror to update on the other — verify rather than assume.
+
+## Boundaries
+
+- Two public modules get exported from this crate (see `lib.rs`):
+  1. `api`: public APIs that get re-exported by _consumers_ and made available to developers (readers, writers, stream options, stream infos, `StreamError`, ...)
+  2. `backend`: managers and supporting wire types used internally by _consumers_ to power the feature (`backend::incoming`, `backend::outgoing`, and the domain packet types)
+- The incoming actor's events are decoupled from protocol messages for several reasons:
+  - Protobuf is a wire format and cannot express Rust-level invariants
+  - Events can carry in-process types proto cannot (e.g., the channel senders used to feed a reader)
+  - Allows the protocol to evolve independently
+- Wire <-> domain conversion lives in `types/packet.rs`, which owns the `From`/`TryFrom` impls between `livekit_protocol::data_stream` messages and this crate's own packet types. Consumers convert inbound proto into domain `Packet`s before feeding the incoming actor, so the incoming side only ever sees domain types.
 
 ---
 > Source: [livekit/rust-sdks](https://github.com/livekit/rust-sdks) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
