@@ -1,0 +1,9 @@
+{
+  "name": "appautomaton--mlx-h3",
+  "displayName": "mlx-h3",
+  "description": "Pure MLX MiniMax-H3 text-to-video-and-audio inference for Apple Silicon.",
+  "version": "1.0.0",
+  "author": "appautomaton",
+  "homepage": "https://github.com/appautomaton/mlx-h3",
+  "skills": []
+}
