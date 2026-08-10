@@ -1,48 +1,22 @@
-## api
+## color-tokens
 
-> FastAPI 路由、Schema、认证、错误处理开发规范
+> 配色 token 规范——写任何颜色（Tailwind 类或 CSS）时参考，只用语义 token、禁硬编码
 
 
-# API 开发规范
+# 配色 token 规范
 
-## 路由
+只用语义 token，颜色由主题统一定义。完整 token 表与规格 → [`UI-Pattern索引.md` §配色 token](/docs/04-前端/UI-Pattern索引.md)。
 
-- 所有路由注册在 `main.py`，统一 `prefix="/v1"`
-- Router 是薄层：参数解析 → 调用 service → 返回结果
-- 分页参数：`page: int = Query(1, ge=1)`，`page_size: int = Query(20, ge=1, le=100)`
-- 删除操作返回 `{"status": "ok"}`
-- RESTful 命名：`GET /list`、`POST /create`、`PUT /{id}` 全量、`PATCH /{id}` 部分、`DELETE /{id}`
+## 单一定义源
 
-## Schema 命名
+OKLCH 语义色单源：**`packages/design-tokens/`**（`tokens.css` 桌面 / `mobile-light.css` 手机）。需要新颜色 → 先加进 `packages/design-tokens/tokens.css`，再视需要映射 Tailwind 类。
 
-| 类型 | 命名模式 |
-|---|---|
-| 列表项 / 详情 | `{Resource}Summary` / `{Resource}Detail` |
-| 列表响应 | `{Resource}ListResponse`（`data` + `total`） |
-| 创建 / 更新 | `Create{Resource}Request` / `Update{Resource}Request` |
+## 禁止
 
-- 主键统一 `id`，外键 `{entity}_id`，更新请求所有字段可选
-- 列表响应包含 `data`、`total`、`page`、`page_size`
-- 时间字段序列化为 ISO 8601
-- **前端 TS 类型从 OpenAPI 生成，禁止手写**（单一真相源 = `schemas.py`）。改 schema 后两步刷新：① 后端 `uv run python scripts/dump_openapi.py` 更新 committed `apps/server/openapi.json` → ② 前端 `pnpm gen:api` 生成 `types/api.generated.ts`（生成产物，已 gitignore + `*.generated.ts` 免 lint；`postinstall` 会自动重生成）；service 文件用 `type X = components["schemas"]["X"]` 取别名引用。
-- ✅ 已迁移：所有 service 的 REST 类型均用生成类型别名（`type X = components["schemas"]["X"]`）；新增/改动一律走生成类型，**勿新增手写 REST 类型**。纯 SSE/事件载荷与客户端域模型（camelCase，经 `toX` 映射）不受此约束。例外：端点无 `response_model`（如 `/readyz`、`/version`）时生成类型为无类型字典，保留手写并加注。带默认值的字段在生成类型里是可选（`?`），读取处按需 `?? 兜底`。
-
-## 认证 & 权限
-
-- 注入：`AuthUser`（必须登录）/ `OptionalUser`（可选）→ 见 `agentcore.deps`
-- 权限在 **service 层**校验，不在 router 层
-
-## 错误处理
-
-- 使用 `agentcore.common.errors`：`not_found` / `forbidden` / `bad_request`
-- 统一响应：`{"error": {"code": N, "message": "...", "detail": "..."}}`
-
-## Service 层
-
-- ID 生成 `str(uuid4())`
-- ORM → Pydantic 转换放 service 私有方法
-- 写操作先查再改（验证存在性和权限）
-- 软删除检查：`if not entity or entity.deleted_at: raise not_found(...)`
+- **硬编码调色板与 hex**：`bg-blue-500`、`text-red-600`、`#3B82F6`、`bg-[#...]`。唯一彩色出口是语义 token。
+- **`hsl(var(--…))` 包裹**：token 已是 OKLCH，`hsl()` 会产出非法值。
+- **拿 `accent` 当成功色**：`accent` 是中性 hover 表面。成功一律 `success`。
+- **绕过 token 新建散色变量**：先评估能否复用，必须新增则进 `packages/design-tokens/tokens.css`。
 
 ---
 > Source: [Lawofall/AgentCore](https://github.com/Lawofall/AgentCore) — distributed by [TomeVault](https://tomevault.io).
