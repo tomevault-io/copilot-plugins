@@ -1,0 +1,9 @@
+{
+  "name": "block--codecrucible",
+  "displayName": "codecrucible",
+  "description": "A purpose-built Go CLI tool that analyses Git repositories for security vulnerabilities using LLM-based analysis",
+  "version": "1.0.0",
+  "author": "block",
+  "homepage": "https://github.com/block/codecrucible",
+  "skills": []
+}
