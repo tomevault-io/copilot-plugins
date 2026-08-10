@@ -1,155 +1,179 @@
 ## apimachinery
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> generates Go client/server/shape code from Smithy models.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Project overview
 
-## Project Overview
+smithy-go is the Go code generator and runtime for [Smithy](https://smithy.io/).
+It has two major components:
 
-Official Go client library for the NATS messaging system. Provides core pub/sub, request/reply, JetStream (streams, consumers, KV, object store), and a micro services framework. Module path: `github.com/nats-io/nats.go`.
+1. **Codegen** (`codegen/`) — A Smithy build plugin written in Java that
+   generates Go client/server/shape code from Smithy models.
+2. **Runtime** (`./`, top-level Go module) — The Go packages that generated
+   code depends on at runtime.
 
-## Build and Test Commands
+The primary downstream consumer is
+[aws-sdk-go-v2](https://github.com/aws/aws-sdk-go-v2).
 
-This project uses a **dual module** setup: `go.mod` for production (minimal deps) and `go_test.mod` for testing (includes nats-server, protobuf). Always use `-modfile=go_test.mod` when running tests or any command that needs test dependencies.
+## Repository layout
+
+```
+.                               # Root Go module (github.com/aws/smithy-go)
+├── auth/                       # Auth identity + scheme interfaces
+│   └── bearer/                 # Bearer token auth
+├── aws-http-auth/              # Separate module: AWS SigV4/SigV4A HTTP signing
+├── codegen/                    # Java/Gradle: Smithy code generator
+│   ├── smithy-go-codegen/      # Main codegen source (Java)
+│   └── smithy-go-codegen-test/ # Codegen integration tests
+├── container/                  # Generic container types
+├── context/                    # Context helpers
+├── document/                   # Smithy document type abstraction
+│   └── json/                   # JSON document codec
+├── encoding/                   # Wire format encoders/decoders
+│   ├── cbor/                   # CBOR (used by rpcv2Cbor)
+│   ├── httpbinding/            # HTTP binding serde helpers
+│   ├── json/                   # JSON encoder/decoder
+│   └── xml/                    # XML encoder/decoder
+├── endpoints/                  # Endpoint resolution types
+├── internal/                   # Internal utilities (singleflight, etc.)
+├── io/                         # I/O helpers
+├── logging/                    # Logging interfaces
+├── metrics/                    # Metrics interfaces
+│   └── smithyotelmetrics/      # Separate module: OpenTelemetry metrics adapter
+├── middleware/                 # Middleware stack (the core of the operation pipeline)
+├── ptr/                        # Pointer-to/from-value helpers
+├── testing/                    # Test assertion helpers for generated protocol tests
+│   └── xml/                    # XML comparison utilities
+├── time/                       # Smithy timestamp format helpers
+├── tracing/                    # Tracing interfaces
+│   └── smithyoteltracing/      # Separate module: OpenTelemetry tracing adapter
+└── transport/
+    └── http/                   # HTTP request/response types and middleware
+```
+
+## Building and testing
+
+### Runtime (Go)
 
 ```bash
-# Build
-go build ./...
-
-# Run all tests (race detector + internal_testing tag, sequential)
-go test -modfile=go_test.mod -race -v -p=1 ./... --failfast -vet=off -tags=internal_testing
-
-# Run NoRace tests (must be run separately, without -race flag)
-go test -modfile=go_test.mod -v -run=TestNoRace -p=1 ./... --failfast -vet=off
-
-# Run a specific test
-go test -modfile=go_test.mod -race -run TestName ./... -tags=internal_testing
-
-# Run tests for a specific package
-go test -modfile=go_test.mod -race ./jetstream/... --failfast
-go test -modfile=go_test.mod -race ./micro/... --failfast
-
-# Coverage
-./scripts/cov.sh
-
-# Formatting
-go fmt ./...
-
-# Vet
-go vet -modfile=go_test.mod ./...
-
-# Static analysis (as CI does it)
-staticcheck -modfile=go_test.mod ./...
-
-# Linting (golangci-lint runs only on jetstream/)
-golangci-lint run --timeout 5m0s ./jetstream/...
-
-# Spell check
-find . -type f -name "*.go" | xargs misspell -error -locale US
-
-# Update test dependencies (never change go.mod for test deps)
-go mod tidy -modfile=go_test.mod
+# Run unit tests
+make unit
 ```
 
-## Important Build Tags
+### Codegen (Java)
 
-- **`internal_testing`** -- Exposes internal test helpers (e.g., `AddMsgFilter`, `CloseTCPConn`) from `testing_internal.go`. Required for many tests in `./test/`.
-- **`skip_no_race_tests`** -- Skips the NoRace tests. Used by coverage scripts.
-- **`!race && !skip_no_race_tests`** -- NoRace tests in `test/norace_test.go` only run when the race detector is OFF.
-- **`compat`** -- Compatibility tests in `test/compat_test.go`.
+```bash
+# Build and test codegen
+cd codegen && ./gradlew build
 
-## CI Pipeline (ci.yaml)
-
-1. **lint** -- `go fmt`, `go vet`, `staticcheck`, `misspell` (all packages), `golangci-lint` (jetstream only).
-2. **test** -- Matrix of Go 1.24 and 1.25. Runs NoRace tests first (`-run=TestNoRace` without `-race`), then full race-enabled tests with `-tags=internal_testing`.
-
-## Project Structure
-
-```
-nats.go                 # Core connection, pub/sub, request/reply (~6500 lines)
-parser.go               # Client-side protocol parser
-ws.go                   # WebSocket transport support
-js.go                   # Legacy JetStream API (deprecated, see jetstream/)
-jsm.go                  # Legacy JetStream management
-kv.go                   # Legacy KeyValue API
-object.go               # Legacy Object Store API
-enc.go                  # EncodedConn (deprecated)
-netchan.go              # Go channel bindings
-timer.go                # Internal timer utilities
-context.go              # Context-aware request methods
-nats_iter.go            # Go 1.23+ iterator support (go:build go1.23)
-testing_internal.go     # Internal test hooks (go:build internal_testing)
-
-jetstream/              # New JetStream API (preferred over legacy)
-  jetstream.go          #   Top-level JetStream interface
-  stream.go             #   Stream management
-  stream_config.go      #   Stream configuration types
-  consumer.go           #   Consumer management
-  consumer_config.go    #   Consumer configuration types
-  pull.go               #   Pull consumer implementation
-  push.go               #   Push consumer (deprecated)
-  ordered.go            #   Ordered consumer
-  publish.go            #   JetStream publish methods
-  kv.go                 #   KeyValue store
-  object.go             #   Object store
-  message.go            #   JetStream message types
-  errors.go             #   JetStream error types
-  test/                 #   Integration tests (package test, uses nats-server)
-
-micro/                  # Micro services framework
-  service.go            #   Service interface and implementation
-  request.go            #   Request handling
-  test/                 #   Integration tests
-
-internal/
-  parser/               # NATS protocol parser (used by core client)
-  syncx/                # Concurrent map utility
-
-encoders/
-  builtin/              # Default encoders (JSON, GOB, string)
-  protobuf/             # Protocol Buffers encoder
-
-test/                   # Integration tests for core package (package test)
-  helper_test.go        #   Server setup helpers (RunDefaultServer, RunBasicJetStreamServer, etc.)
-  norace_test.go        #   Tests that cannot run with -race (build tag guarded)
-  js_internal_test.go   #   Tests requiring internal_testing tag
-  configs/              #   NATS server config files for tests
-
-bench/                  # Benchmarking utilities
-examples/               # Example command-line tools (nats-pub, nats-sub, etc.)
-scripts/cov.sh          # Coverage collection script
+# Publish to local Maven for downstream use
+cd codegen && ./gradlew publishToMavenLocal
 ```
 
-## Test Architecture
+The codegen artifact version is fixed at `0.1.0` and is not published to
+Maven Central — you **MUST** `publishToMavenLocal`.
 
-- **Root `nats_test.go`** (package `nats`) -- White-box unit tests with access to unexported internals.
-- **`test/`** (package `test`) -- Black-box integration tests. Tests start an embedded nats-server using helpers from `test/helper_test.go`. These require `-modfile=go_test.mod` since nats-server is a test-only dependency.
-- **`jetstream/test/`** (package `test`) -- Integration tests for the new JetStream API, also use embedded nats-server.
-- **`micro/test/`** (package `test`) -- Integration tests for the micro services framework.
-- **NoRace tests** -- Prefixed `TestNoRace*`, guarded by `//go:build !race && !skip_no_race_tests`. Must be run separately without `-race`.
-- Tests always run with `-p=1` (no parallel packages) because they start embedded servers on shared ports.
+## Runtime architecture
 
-## Code Conventions
+### Middleware stack
 
-- **License header** -- Every `.go` file starts with the Apache 2.0 license header (Copyright year range).
-- **Error variables** -- Exported errors defined as `var Err... = errors.New("nats: ...")` in `nats.go`. JetStream errors in `jetstream/errors.go` follow the same pattern.
-- **Options pattern** -- Connection options use functional options: `nats.Connect(url, nats.Name("myapp"), nats.MaxReconnects(5))`. JetStream and micro use similar patterns.
-- **No external dependencies in production** -- Only `klauspost/compress`, `nkeys`, `nuid` in `go.mod`. Test deps (nats-server, protobuf) are isolated in `go_test.mod`. PRs adding dependencies are scrutinized heavily.
-- **Commits require sign-off** -- Use `git commit -s` (DCO: `Signed-off-by`).
-- **US English spelling** -- Enforced by `misspell -locale US` in CI.
-- **Interface-driven design** -- JetStream and micro packages define interfaces (`JetStream`, `Stream`, `Consumer`, `Service`) with concrete unexported implementations.
+The operation pipeline is built on a middleware stack defined in `middleware/`.
+Steps execute in order: Initialize → Serialize → Build → Finalize →
+Deserialize. Each step is a `middleware.Step` that holds an ordered list of
+middleware. The codegen generates middleware registrations for each operation.
 
-## Key Types
+### Encoding packages
 
-- `nats.Conn` -- Core connection, handles all NATS protocol operations.
-- `nats.Msg` -- Message type for pub/sub and request/reply.
-- `nats.Subscription` -- Represents a subscription (sync, async, or channel-based).
-- `jetstream.JetStream` -- Entry point for new JetStream API (created via `jetstream.New(nc)`).
-- `jetstream.Stream`, `jetstream.Consumer` -- Stream and consumer management.
-- `micro.Service` -- Micro service instance (created via `micro.AddService(nc, config)`).
+Each wire format has its own encoder/decoder under `encoding/`. These are
+low-level — they produce/consume raw tokens or values, not full Smithy shapes.
+Generated serde code calls into these packages.
+
+## Codegen: GoWriter and template system
+
+GoWriter extends Smithy's `SymbolWriter` and is the primary mechanism for
+generating Go source. It has **two distinct writing styles** that must not be
+confused.
+
+### Style 1: Positional args (`writer.write` / `writer.openBlock`)
+
+Inherited from `SymbolWriter`. Arguments are positional and referenced with
+`$`-prefixed format characters. Each `$X` consumes the next argument in order.
+
+Format characters:
+- `$L` — Literal (toString). Strings, names, anything that should be inserted
+  verbatim.
+- `$S` — String, quoted. Wraps the value in Go double-quotes.
+- `$T` — Type (Symbol). Inserts the symbol name and auto-adds its import.
+- `$P` — Pointable type (Symbol). Like `$T` but prepends `*` if the symbol is
+  marked pointable.
+- `$W` — Writable. Evaluates a `Writable` (lambda/closure) inline.
+- `$D` — Dependency. Adds a `GoDependency` import, expands to empty string.
+
+Numbered variants (`$1L`, `$2T`, etc.) allow reusing the same argument
+multiple times. The number is 1-indexed and refers to the position in the
+argument list:
+
+```java
+// $1L is used twice, $2L once — only 2 args needed
+writer.write("type $1L struct{}\nvar _ $2L = (*$1L)(nil)",
+    DEFAULT_NAME, INTERFACE_NAME);
+```
+
+`openBlock`/`closeBlock` manage indentation for braced blocks. Arguments are
+positional:
+
+```java
+writer.openBlock("func (c $P) $T(ctx $T) ($P, error) {", "}",
+    serviceSymbol, operationSymbol, contextSymbol, outputSymbol,
+    () -> {
+        writer.write("return nil, nil");
+    });
+```
+
+### Style 2: Named template args (`goTemplate` / `writeGoTemplate`)
+
+Uses `$name:X` syntax where `name` is a key in a `Map<String, Object>` and `X`
+is the format character. Arguments are passed as one or more maps. This is the
+**preferred style for new code** — it is more readable and less error-prone
+than positional args.
+
+```java
+return goTemplate("""
+    func $name:L(v $cborValue:T) ($type:T, error) {
+        return $coercer:T(v)
+    }
+    """,
+    Map.of(
+        "name", getDeserializerName(shape),
+        "cborValue", SmithyGoTypes.Encoding.Cbor.Value,
+        "type", symbolProvider.toSymbol(shape),
+        "coercer", coercer
+    ));
+```
+
+Rules:
+- `goTemplate(String, Map...)` is a **static** method that returns a
+  `Writable` (a `Consumer<GoWriter>` lambda). It does NOT write immediately.
+- `writeGoTemplate(String, Map...)` is an **instance** method that writes
+  immediately to the writer.
+- Maps are merged into the writer's context scope for the duration of the
+  template. Multiple maps can be passed and are applied in order.
+- The writer pre-populates common symbols in context: `fmt.Sprintf`,
+  `fmt.Errorf`, `errors.As`, `context.Context`, `time.Now`.
+
+### Composing writables
+
+- `ChainWritable` — Collects multiple `Writable`s and composes them with
+  newlines between each. Use `.compose()` (with newlines) or
+  `.compose(false)` (without).
+
+### Symbol constants
+
+For symbols, use `SmithyGoDependency.*.valueSymbol("Name")` or
+`SmithyGoDependency.*.pointableSymbol("Name")`.
 
 ---
 > Source: [kubedb/apimachinery](https://github.com/kubedb/apimachinery) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
