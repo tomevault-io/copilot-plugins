@@ -1,0 +1,9 @@
+{
+  "name": "pawelkwaczynski--coffee-paladin",
+  "displayName": "coffee-paladin",
+  "description": "Thermal throttling protection for Apple Silicon by Pawe\u0142 Kwaczy\u0144ski: pause heavy processes before overheating, black-box crash evidence, AI-agent aware.",
+  "version": "1.0.0",
+  "author": "pawelkwaczynski",
+  "homepage": "https://github.com/pawelkwaczynski/coffee-paladin",
+  "skills": []
+}
