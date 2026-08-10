@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--franken-tts",
+  "displayName": "franken_tts",
+  "description": "Pure-Rust, CPU-hyper-optimized runtime for Qwen3-TTS zero-shot voice cloning \u2014 turns the model's hidden 15-step residual-code microdecoder from its largest CPU liability into its largest optimization ",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/franken_tts",
+  "skills": []
+}
