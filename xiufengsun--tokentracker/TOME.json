@@ -4,7 +4,7 @@
   "repo": "TokenTracker",
   "description": "Local-first AI token usage & cost tracker for 28 coding tools incl. Claude Code, Codex, Cursor, Gemini & Qoder\u2014with native apps. Never reads prompts.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xiufengsun/TokenTracker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T00:10:57Z"
+  "distributed_at": "2026-08-10T03:07:17Z"
 }
