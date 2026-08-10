@@ -1,0 +1,9 @@
+{
+  "name": "openshift--ingress-node-firewall",
+  "displayName": "ingress-node-firewall",
+  "description": "ingress-node-firewall",
+  "version": "1.0.0",
+  "author": "openshift",
+  "homepage": "https://github.com/openshift/ingress-node-firewall",
+  "skills": []
+}
