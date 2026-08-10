@@ -403229,6 +403229,26 @@
       "description": "A cartoon-style 3D home designer that runs entirely in your browser \u2014 seeded procedural layouts, cel-shaded toon rendering, Neo-Brutalism UI, 337 CC0 furniture models. No backend, no API keys."
     },
     {
+      "name": "floci-io--floci-oci",
+      "source": "./floci-io--floci-oci",
+      "description": "Light, fluffy, and always free - Local Oracle Cloud Emulator"
+    },
+    {
+      "name": "walkinglabs--self-improving-agent-notebook",
+      "source": "./walkinglabs--self-improving-agent-notebook",
+      "description": "Master self-improving LLM agents systematically with runnable Stanford CS329A notebooks."
+    },
+    {
+      "name": "ranxianglei--billion-context",
+      "source": "./ranxianglei--billion-context",
+      "description": "\u9884\u53d1\u5e03\uff0c\u6d4b\u8bd5\u4e2d Universal context-compression proxy for AI coding agents"
+    },
+    {
+      "name": "christ9038--ydisks-drive-assistant",
+      "source": "./christ9038--ydisks-drive-assistant",
+      "description": "Ydisks\u4e91\u76d8\u8f6c\u5b58\u52a9\u624b\uff0c\u652f\u6301\u767e\u5ea6\u4e91\u76d8\u3001\u5938\u514b\u4e91\u76d8\u3001\u8fc5\u96f7\u4e91\u76d8\u7684\u6279\u91cf\u8f6c\u5b58\u5de5\u5177\u3002"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -431412,6 +431432,21 @@
       "name": "guangyiding--easy-rev",
       "source": "./guangyiding--easy-rev",
       "description": "\u591a\u7aef\u9006\u5411\u5de5\u7a0b\u6846\u67b6\uff1aWeb / Desktop / Mobile"
+    },
+    {
+      "name": "a2heng--purevox",
+      "source": "./a2heng--purevox",
+      "description": "PureVox \u2013 Lightweight AI denoiser, voice extractor, and echo canceller. Input from web, Android, Linux, Windows mics. Output clean audio to PC."
+    },
+    {
+      "name": "yuri-nagasaki--serversentry",
+      "source": "./yuri-nagasaki--serversentry",
+      "description": "ServerStatus-Rust  Theme"
+    },
+    {
+      "name": "taevel02--sift",
+      "source": "./taevel02--sift",
+      "description": "10x Faster, Safety-First Local File Organizer & Automation Engine \u26a1"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -567917,6 +567952,21 @@
       "name": "artiiisoot--soosolog",
       "source": "./artiiisoot--soosolog",
       "description": "blog"
+    },
+    {
+      "name": "frontier3tech--centauri",
+      "source": "./frontier3tech--centauri",
+      "description": "Centauri, Cosmos TokenFactory GUI"
+    },
+    {
+      "name": "nexplayertv--florar-makeup",
+      "source": "./nexplayertv--florar-makeup",
+      "description": "FLORAR-MAKEUP"
+    },
+    {
+      "name": "zeallat--codex-environment-filter",
+      "source": "./zeallat--codex-environment-filter",
+      "description": "codex-environment-filter"
     }
   ]
 }
