@@ -1,0 +1,9 @@
+{
+  "name": "klubinskak--skilldex",
+  "displayName": "skilldex",
+  "description": "Skilldex is a local-first desktop dashboard for developers to discover, organize, and favourite their agent skills across global, project, and repo sources ",
+  "version": "1.0.0",
+  "author": "klubinskak",
+  "homepage": "https://github.com/klubinskak/skilldex",
+  "skills": []
+}
