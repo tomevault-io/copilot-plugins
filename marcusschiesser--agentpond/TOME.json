@@ -4,7 +4,7 @@
   "repo": "agentpond",
   "description": "Store agent traces remotely. Analyze them locally. Keep control of the data.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/marcusschiesser/agentpond",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T02:05:59Z"
+  "distributed_at": "2026-08-10T04:52:38Z"
 }
