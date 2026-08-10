@@ -1,0 +1,9 @@
+{
+  "name": "jeresoftx--rust-compiler-design",
+  "displayName": "rust-compiler-design",
+  "description": "Curso-proyecto de dise\u00f1o de compiladores en Rust para Jeresoft Academy: de lexer a m\u00e1quina virtual.",
+  "version": "1.0.0",
+  "author": "jeresoftx",
+  "homepage": "https://github.com/jeresoftx/rust-compiler-design",
+  "skills": []
+}
