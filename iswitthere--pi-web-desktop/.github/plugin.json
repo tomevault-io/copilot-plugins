@@ -1,0 +1,9 @@
+{
+  "name": "iswitthere--pi-web-desktop",
+  "displayName": "pi-web-desktop",
+  "description": "Electron desktop app for the pi coding agent with a richer UI",
+  "version": "1.0.0",
+  "author": "isWittHere",
+  "homepage": "https://github.com/isWittHere/pi-web-desktop",
+  "skills": []
+}
