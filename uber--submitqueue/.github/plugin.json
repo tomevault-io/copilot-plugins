@@ -1,0 +1,9 @@
+{
+  "name": "uber--submitqueue",
+  "displayName": "submitqueue",
+  "description": "SubmitQueue is a high-performance speculative merge queue that keeps your trunk consistently green at scale.",
+  "version": "1.0.0",
+  "author": "uber",
+  "homepage": "https://github.com/uber/submitqueue",
+  "skills": []
+}
