@@ -1,61 +1,65 @@
-## release-changelog
+## version-bump
 
-> Write a comprehensive GitHub release changelog for every version tag
+> Bump APP_VERSION and tag releases when merging to main, using semantic versioning
 
 
-# Release Changelogs
+# Version Bumps & Releases
 
-Every release needs **two copies of the same changelog**: `CHANGELOG.md` in the repo and GitHub release notes for the tag. Pair with the version bump in `app_meta.py` (see `version-bump.mdc`).
+Single source of truth: `app_meta.py` → `APP_VERSION`.
 
-## When
+**Release = merge to `main`.** Routine pushes to `dev` do **not** require a version bump or git tag.
 
-On each release, before merging the version bump to `main`.
+## When to bump
 
-## How to build
+Bump **once per release** (the merge batch landing on `main`), not per commit and not per `dev` push.
 
-1. Previous tag: `git tag -l 'v*' --sort=-v:refname | head -1`
-2. Review `git log vPREVIOUS..HEAD` and merged PRs.
-3. Group by user-visible area (DNS, mail, auth, UI, API, ops).
-4. Write for someone upgrading. Plain language; link issues/PRs where helpful.
+| Change type | Bump | Example |
+|-------------|------|---------|
+| New feature, new tab, new API surface, UX overhaul | **minor** | `0.2.0` → `0.3.0` |
+| Bug fix, small tweak, docs-only in code paths | **patch** | `0.2.0` → `0.2.1` |
+| Breaking change (config, permissions, API contract) | **minor** while `0.x` | `0.2.0` → `0.3.0` |
 
-## CHANGELOG.md format
+Skip a bump when the release contains only non-user-facing changes (e.g. README, comments, CI) with no functional delta.
 
-- Newest version **below** `[Unreleased]`, above older entries.
-- Heading: `## [0.18.1] - YYYY-MM-DD`
-- Subsections as needed: `### Added`, `### Changed`, `### Fixed`, `### Security`, `### Removed`
-- End with `### Upgrade` when deploy steps matter.
-- Move `[Unreleased]` bullets into the version section when you ship.
+When several features landed since the last release, use **one** minor bump for the batch.
 
-```markdown
-## [Unreleased]
+## Release workflow (`dev` → `main`)
 
-## [0.18.1] - 2026-06-26
+1. Review everything merging to `main` since the last tag and pick minor vs patch.
+2. Draft the changelog: add `## [X.Y.Z] - date` to `CHANGELOG.md` (see `release-changelog.mdc`). GitHub release notes use the same text.
+3. Update `APP_VERSION` in `app_meta.py` only — templates read it via `app_version`.
+4. Commit the version bump and `CHANGELOG.md` together (final `dev` commit before merge).
+5. Merge to `main`, then tag: `v{APP_VERSION}` (e.g. `v0.9.2`).
+6. Push `main` and the tag: `git push origin main && git push origin v0.9.2`.
+7. Publish the GitHub release: `gh release create v{APP_VERSION} --title "v{X.Y.Z}" --notes-file …`
+8. Clear `[Unreleased]` in `CHANGELOG.md` if anything was left there; do **not** add version strings elsewhere.
 
-Patch release: one-line summary.
+`deploy.sh` generates a local `build_info.py` (gitignored) when deploying to a server. The UI can show e.g. `v0.9.2 · dev@47d575a` without changing `APP_VERSION`. Do not commit `build_info.py`.
 
-### Fixed
+## What not to do
 
-- Symptom and what changed.
+- Do **not** bump or tag for routine `dev` pushes while iterating.
+- Do **not** tag every push — tags mark releases, not WIP commits.
+- Do **not** bump per file or per commit within the same release.
+- Do **not** ship a tag without matching `CHANGELOG.md` and GitHub release notes.
 
-### Upgrade
+## Examples
 
-\`\`\`bash
-git pull
-pip install -r requirements.txt
-\`\`\`
+```python
+# Batch on main: icons, light themes, login polish → one minor
+APP_VERSION = "0.9.0"
+
+# Release hotfix on main → patch
+APP_VERSION = "0.9.1"
 ```
-
-Commit `CHANGELOG.md` in the **same commit** as the `APP_VERSION` bump.
-
-## GitHub release
-
-Publish the **same content** as the new `CHANGELOG.md` section (not the whole file):
 
 ```bash
-gh release create v0.18.1 --title "v0.18.1" --notes-file /tmp/release-notes.md
+# After merging to main at APP_VERSION 0.9.2
+git tag v0.9.2
+git push origin main
+git push origin v0.9.2
+gh release create v0.9.2 --title "v0.9.2" --notes-file release-notes.md
 ```
-
-Draft `/tmp/release-notes.md` from the version section. No empty release bodies. No raw `git log`. Do not omit breaking or security items.
 
 ---
 > Source: [t0msh/mxroute-manager](https://github.com/t0msh/mxroute-manager) — distributed by [TomeVault](https://tomevault.io).
