@@ -14574,6 +14574,21 @@
       "description": "Comprehensive Claude Code project configuration example with hooks, skills, agents, commands, and GitHub Actions workflows"
     },
     {
+      "name": "jacob-bd--gemini-notebook-mcp-cli",
+      "source": "./jacob-bd--gemini-notebook-mcp-cli",
+      "description": "Programmatic access to Gemini Notebook - via command-line interface (CLI), Model Context Protocol (MCP) server, and AI agent skills."
+    },
+    {
+      "name": "jacob-bd--gemini-notebook-mcp-cli",
+      "source": "./jacob-bd--gemini-notebook-mcp-cli",
+      "description": "Programmatic access to Gemini Notebook - via command-line interface (CLI), Model Context Protocol (MCP) server, and AI agent skills."
+    },
+    {
+      "name": "jacob-bd--gemini-notebook-mcp-cli",
+      "source": "./jacob-bd--gemini-notebook-mcp-cli",
+      "description": "Programmatic access to Gemini Notebook - via command-line interface (CLI), Model Context Protocol (MCP) server, and AI agent skills."
+    },
+    {
       "name": "microsoft--typespec",
       "source": "./microsoft--typespec",
       "description": "typespec"
@@ -46084,6 +46099,11 @@
       "description": "keplr-wallet"
     },
     {
+      "name": "suleimanodetoro--skills",
+      "source": "./suleimanodetoro--skills",
+      "description": "Agent skills for interface design, React, React Native, and software security."
+    },
+    {
       "name": "zhizhuodemao--js-reverse-mcp",
       "source": "./zhizhuodemao--js-reverse-mcp",
       "description": "\u4e3a AI Agent \u8bbe\u8ba1\u7684 JS \u9006\u5411 MCP Server\uff0c\u5185\u7f6e\u53cd\u68c0\u6d4b\uff0c\u57fa\u4e8e chrome-devtools-mcp \u91cd\u6784 | JS reverse engineering MCP server with agent-first tool design and built-in anti-detection. Rebuilt from chrome-devtools-mcp."
@@ -67872,6 +67892,16 @@
       "name": "primer--primitives",
       "source": "./primer--primitives",
       "description": "primitives"
+    },
+    {
+      "name": "ziweiknows--ziwei-chart",
+      "source": "./ziweiknows--ziwei-chart",
+      "description": "\u5f00\u6e90\u7d2b\u5fae\u6597\u6570\u547d\u76d8\u5de5\u5177\uff1a\u7cbe\u51c6\u6392\u76d8\u3001\u771f\u592a\u9633\u65f6\u3001\u53ef\u89c6\u5316\u5206\u6790\u4e0e AI \u89e3\u8bfb\u3002 Open-source Zi Wei Dou Shu charting app."
+    },
+    {
+      "name": "ziweiknows--ziwei-chart",
+      "source": "./ziweiknows--ziwei-chart",
+      "description": "\u5f00\u6e90\u7d2b\u5fae\u6597\u6570\u547d\u76d8\u5de5\u5177\uff1a\u7cbe\u51c6\u6392\u76d8\u3001\u771f\u592a\u9633\u65f6\u3001\u53ef\u89c6\u5316\u5206\u6790\u4e0e AI \u89e3\u8bfb\u3002 Open-source Zi Wei Dou Shu charting app."
     },
     {
       "name": "nicebucket-org--nicebucket",
@@ -98839,6 +98869,16 @@
       "description": "scenes"
     },
     {
+      "name": "ahpxex--read-aware",
+      "source": "./ahpxex--read-aware",
+      "description": "The only reader you need in the future, agent first, rich plugin, all with great elegance."
+    },
+    {
+      "name": "ahpxex--read-aware",
+      "source": "./ahpxex--read-aware",
+      "description": "The only reader you need in the future, agent first, rich plugin, all with great elegance."
+    },
+    {
       "name": "joewinke--jat",
       "source": "./joewinke--jat",
       "description": "  The World's First Agentic IDE. Visual dashboard: live sessions, task management, code editor, terminal. Epic Swarm parallel workflows. Auto-proceed rules. Automation patterns. Beads + Agent Mail + 5"
@@ -115219,6 +115259,11 @@
       "description": "runtime-radar"
     },
     {
+      "name": "getarbor-dev--arbor",
+      "source": "./getarbor-dev--arbor",
+      "description": "Graph-native code intelligence that replaces embedding-based RAG with deterministic program understanding."
+    },
+    {
       "name": "endevco--aube",
       "source": "./endevco--aube",
       "description": "A fast Node.js package manager"
@@ -117502,6 +117547,16 @@
       "name": "lailai0916--lailai0916-github-io",
       "source": "./lailai0916--lailai0916-github-io",
       "description": "lailai0916.github.io"
+    },
+    {
+      "name": "joenandez--spectre",
+      "source": "./joenandez--spectre",
+      "description": "SPECTRE is an agentic Coding Workflow - /Scope, /Plan, /Execute, /Clean, /Test, /Rebase, /Evaluate - that uses simply step by step product development workflow to generate high quality results from yo"
+    },
+    {
+      "name": "joenandez--spectre",
+      "source": "./joenandez--spectre",
+      "description": "SPECTRE is an agentic Coding Workflow - /Scope, /Plan, /Execute, /Clean, /Test, /Rebase, /Evaluate - that uses simply step by step product development workflow to generate high quality results from yo"
     },
     {
       "name": "badlogic--pi-share-hf",
@@ -122014,6 +122069,16 @@
       "description": "llm.rb"
     },
     {
+      "name": "uber--submitqueue",
+      "source": "./uber--submitqueue",
+      "description": "SubmitQueue is a high-performance speculative merge queue that keeps your trunk consistently green at scale."
+    },
+    {
+      "name": "uber--submitqueue",
+      "source": "./uber--submitqueue",
+      "description": "SubmitQueue is a high-performance speculative merge queue that keeps your trunk consistently green at scale."
+    },
+    {
       "name": "skywind3000--gamelib",
       "source": "./skywind3000--gamelib",
       "description": "Single-header C++ Game Library for Beginners \u2014 no SDL/DirectX/OpenGL, no setup, just include and play."
@@ -124827,6 +124892,16 @@
       "name": "vercel-labs--marketing-team-eve-template",
       "source": "./vercel-labs--marketing-team-eve-template",
       "description": "Team of marketing agents built on eve."
+    },
+    {
+      "name": "nesszer--linear-cli",
+      "source": "./nesszer--linear-cli",
+      "description": "A powerful CLI for Linear.app built with Rust"
+    },
+    {
+      "name": "nesszer--linear-cli",
+      "source": "./nesszer--linear-cli",
+      "description": "A powerful CLI for Linear.app built with Rust"
     },
     {
       "name": "zhanghandong--mempal",
@@ -139627,6 +139702,11 @@
       "name": "rubenmarcus--ralph-starter",
       "source": "./rubenmarcus--ralph-starter",
       "description": "Bootstrap projects from Figma, Linear, Notion & GitHub specs. The only AI ralph with source integrations."
+    },
+    {
+      "name": "tajd--economist-style-guide-plugin",
+      "source": "./tajd--economist-style-guide-plugin",
+      "description": "Claude Code plugin that applies The Economist style guide - clarity, precision, brevity. Unofficial."
     },
     {
       "name": "0xsanei--darwinia",
@@ -330594,6 +330674,16 @@
       "description": "Loop engineering for software development. Turn any repository into a self-organizing AI engineering team \u2014 8 specialists, contract-driven, evidence-gated, parallel feature voyages."
     },
     {
+      "name": "ewiger--hypermarkdown",
+      "source": "./ewiger--hypermarkdown",
+      "description": "HyperMarkDown helps building your own local wiki knowledge base"
+    },
+    {
+      "name": "ewiger--hypermarkdown",
+      "source": "./ewiger--hypermarkdown",
+      "description": "HyperMarkDown helps building your own local wiki knowledge base"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -341412,6 +341502,11 @@
       "name": "tobert--kaibo",
       "source": "./tobert--kaibo",
       "description": "kaibo - agents for your agents with a read-only shell"
+    },
+    {
+      "name": "stordahl--cardd-cc",
+      "source": "./stordahl--cardd-cc",
+      "description": "\ud83c\udccf customizable badges for the web"
     },
     {
       "name": "lightninglabs--lnget",
