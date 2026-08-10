@@ -1,0 +1,9 @@
+{
+  "name": "ddudle--ctxdebug",
+  "displayName": "ctxdebug",
+  "description": "MCP-powered reverse engineering platform connecting WinDbg, IDA Pro & x64dbg with 160+ AI-accessible debugging and analysis tools.",
+  "version": "1.0.0",
+  "author": "DdUdle",
+  "homepage": "https://github.com/DdUdle/ctxdebug",
+  "skills": []
+}
