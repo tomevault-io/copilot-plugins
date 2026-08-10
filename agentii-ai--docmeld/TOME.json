@@ -1,0 +1,44 @@
+{
+  "name": "DocMeld",
+  "owner": "agentii-ai",
+  "repo": "DocMeld",
+  "description": "Lightweight Doc-to-agent-ready knowledge pipeline. Three-stage Bronze\u2192Silver\u2192Gold architecture extracts structured elements, page content, and   AI-enriched metadata from research papers and books. Generate PRDs, workflows, topic clusters, and Claude Code skills from PDFs. No OCR required.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/agentii-ai/DocMeld",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-10T01:44:13Z"
+}
