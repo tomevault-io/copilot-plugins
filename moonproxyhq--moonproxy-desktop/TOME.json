@@ -4,7 +4,7 @@
   "repo": "moonproxy-desktop",
   "description": "MoonProxy Desktop - Cross-platform FRP desktop client (frpc GUI) for macOS and Windows. NAT traversal / intranet penetration made simple. Open-source (MIT). Built with Tauri v2 + Vue 3 + Rust.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MoonProxyHQ/moonproxy-desktop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T01:54:26Z"
+  "distributed_at": "2026-08-10T04:35:27Z"
 }
