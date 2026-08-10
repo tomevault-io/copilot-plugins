@@ -1,0 +1,9 @@
+{
+  "name": "eason4real--releaseguard-ai",
+  "displayName": "releaseguard-ai",
+  "description": "Auditable AI release intelligence agent with deterministic public demo replay.",
+  "version": "1.0.0",
+  "author": "Eason4real",
+  "homepage": "https://github.com/Eason4real/releaseguard-ai",
+  "skills": []
+}
