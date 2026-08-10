@@ -1,0 +1,9 @@
+{
+  "name": "mkevenaar--chocolatey-packages",
+  "displayName": "chocolatey-packages",
+  "description": "chocolatey-packages",
+  "version": "1.0.0",
+  "author": "mkevenaar",
+  "homepage": "https://github.com/mkevenaar/chocolatey-packages",
+  "skills": []
+}
