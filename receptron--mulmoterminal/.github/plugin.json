@@ -1,0 +1,9 @@
+{
+  "name": "receptron--mulmoterminal",
+  "displayName": "mulmoterminal",
+  "description": "Run multiple Claude Code and Codex sessions in parallel \u2014 a browser terminal grid that shows which agent needs you. Local, tmux-backed, MIT.",
+  "version": "1.0.0",
+  "author": "receptron",
+  "homepage": "https://github.com/receptron/mulmoterminal",
+  "skills": []
+}
