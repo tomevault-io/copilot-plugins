@@ -1,0 +1,9 @@
+{
+  "name": "aaddrick--slushpile",
+  "displayName": "slushpile",
+  "description": "An adversarial job search that gets better as it goes: pool-anchored fit scoring, a resume and cover letter built against the job description, seven agents that try to reject you before a recruiter do",
+  "version": "1.0.0",
+  "author": "aaddrick",
+  "homepage": "https://github.com/aaddrick/slushpile",
+  "skills": []
+}
