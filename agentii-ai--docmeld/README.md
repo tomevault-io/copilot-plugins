@@ -7,11 +7,11 @@ Lightweight Doc-to-agent-ready knowledge pipeline. Three-stage Bronze→Silver�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [agentii-ai/DocMeld](https://github.com/agentii-ai/DocMeld).
+Original source: `AGENTS.md` in [agentii-ai/DocMeld](https://github.com/agentii-ai/DocMeld).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
