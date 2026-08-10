@@ -1,0 +1,44 @@
+{
+  "name": "bookforge",
+  "owner": "gongnyang",
+  "repo": "bookforge",
+  "description": "\uc8fc\uc81c \ud55c \uc904 \u2192 \uc0c1\uc5c5\ub3c4\uc11c\uae09 \ud55c\uad6d\uc5b4 \uc804\uc790\ucc45 PDF. Claude Code\u00b7Codex \uacb8\uc6a9 \uc5d0\uc774\uc804\ud2b8 \uc2a4\ud0ac \u2014 6 \uc2a4\ud0c0\uc77c \ud329, \uc2e4\uce21 \uae30\ubc18 \ubc30\uce58 \uaddc\uce59\uc11c, \ubc00\ub3c4 QC \uac8c\uc774\ud2b8",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gongnyang/bookforge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-10T05:04:49Z"
+}
