@@ -29459,6 +29459,11 @@
       "description": "ada"
     },
     {
+      "name": "andrewrabert--jellium-desktop",
+      "source": "./andrewrabert--jellium-desktop",
+      "description": "An unofficial desktop client for Jellyfin"
+    },
+    {
       "name": "vercel--chat",
       "source": "./vercel--chat",
       "description": "A unified TypeScript SDK for building chat bots across Slack, Microsoft Teams, Google Chat, Discord, and more."
@@ -57964,6 +57969,11 @@
       "description": "1Cat-vLLM"
     },
     {
+      "name": "geek-fun--sqlkit",
+      "source": "./geek-fun--sqlkit",
+      "description": "Agentic SQL database manager for 40+ databases \u2014 PostgreSQL, MySQL, SQL Server, SQLite, DuckDB, ClickHouse, Oracle and more. Lightweight, privacy-first, AI-powered, cross-platform. Built with Tauri (R"
+    },
+    {
       "name": "davidbeesley--claude-chill",
       "source": "./davidbeesley--claude-chill",
       "description": "claude-chill"
@@ -72757,6 +72767,11 @@
       "name": "mrpmohiburrahman--rnui-dev",
       "source": "./mrpmohiburrahman--rnui-dev",
       "description": "rnui.dev"
+    },
+    {
+      "name": "motherofallvpns--moav",
+      "source": "./motherofallvpns--moav",
+      "description": "Mother of all VPNs"
     },
     {
       "name": "ai-boost--awesome-harness-engineering",
@@ -91954,6 +91969,11 @@
       "description": "svsm"
     },
     {
+      "name": "whawkinsiv--solo-founder-skills",
+      "source": "./whawkinsiv--solo-founder-skills",
+      "description": "Skillset optimized for solo, bootstrapped, and non-technical founders building SaaS applications with AI tools (Lovable, Replit, Claude Code)."
+    },
+    {
       "name": "remoteoss--dexter",
       "source": "./remoteoss--dexter",
       "description": "A fast, full-featured Elixir LSP optimized for large codebases."
@@ -95457,6 +95477,11 @@
       "name": "dotnet--deployment-tools",
       "source": "./dotnet--deployment-tools",
       "description": "deployment-tools"
+    },
+    {
+      "name": "trycaspian--caspian",
+      "source": "./trycaspian--caspian",
+      "description": "Caspian is a control room for running multiple AI coding agents in parallel"
     },
     {
       "name": "scarletkc--vexor",
@@ -111617,6 +111642,11 @@
       "name": "sendbird--cc-plugin-codex",
       "source": "./sendbird--cc-plugin-codex",
       "description": "cc-plugin-codex"
+    },
+    {
+      "name": "helweg--open-codebase-index",
+      "source": "./helweg--open-codebase-index",
+      "description": "Semantic codebase indexing and search for OpenCode, Claude, Codex, Pi, Jcode, and MCP hosts. Powered by Rust and tree-sitter."
     },
     {
       "name": "vijayabaskar56--tanstack-start-faster",
@@ -139587,6 +139617,16 @@
       "name": "agentii-ai--docmeld",
       "source": "./agentii-ai--docmeld",
       "description": "Lightweight Doc-to-agent-ready knowledge pipeline. Three-stage Bronze\u2192Silver\u2192Gold architecture extracts structured elements, page content, and   AI-enriched metadata from research papers and books. Ge"
+    },
+    {
+      "name": "rubenmarcus--ralph-starter",
+      "source": "./rubenmarcus--ralph-starter",
+      "description": "Bootstrap projects from Figma, Linear, Notion & GitHub specs. The only AI ralph with source integrations."
+    },
+    {
+      "name": "rubenmarcus--ralph-starter",
+      "source": "./rubenmarcus--ralph-starter",
+      "description": "Bootstrap projects from Figma, Linear, Notion & GitHub specs. The only AI ralph with source integrations."
     },
     {
       "name": "0xsanei--darwinia",
