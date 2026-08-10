@@ -1,0 +1,9 @@
+{
+  "name": "galligan--bb-mate",
+  "displayName": "bb-mate",
+  "description": "Fixture-driven authoring companion for native bb plugins",
+  "version": "1.0.0",
+  "author": "galligan",
+  "homepage": "https://github.com/galligan/bb-mate",
+  "skills": []
+}
