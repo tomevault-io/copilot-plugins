@@ -4,7 +4,7 @@
   "repo": "slushpile",
   "description": "An adversarial job search that gets better as it goes: pool-anchored fit scoring, a resume and cover letter built against the job description, seven agents that try to reject you before a recruiter does, and a profile that keeps what they find.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aaddrick/slushpile",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T14:31:31Z"
+  "distributed_at": "2026-08-10T14:33:06Z"
 }
