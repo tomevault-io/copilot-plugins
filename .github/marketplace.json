@@ -46084,6 +46084,11 @@
       "description": "microshift"
     },
     {
+      "name": "oceanbase--powercontext",
+      "source": "./oceanbase--powercontext",
+      "description": "PowerContext: The Next Generation of PowerMem."
+    },
+    {
       "name": "danielmiessler--substrate",
       "source": "./danielmiessler--substrate",
       "description": "An Open-source Framework for Human Understanding, Meaning, and Progress."
@@ -118739,6 +118744,41 @@
       "description": "FreeEed"
     },
     {
+      "name": "xrkseek--xrk-agt",
+      "source": "./xrkseek--xrk-agt",
+      "description": "\u8fd9\u662f\u57fa\u4e8e\u591a\u8bed\u8a00\u6240\u642d\u5efa\u7684\u57fa\u4e8eweb\uff0c\u5de5\u4f5c\u6d41\uff0c\u65b0\u578b\u7b97\u6cd5\u7ec4\u4ef6\u7684\u667a\u80fd\u4f53"
+    },
+    {
+      "name": "xrkseek--xrk-agt",
+      "source": "./xrkseek--xrk-agt",
+      "description": "\u8fd9\u662f\u57fa\u4e8e\u591a\u8bed\u8a00\u6240\u642d\u5efa\u7684\u57fa\u4e8eweb\uff0c\u5de5\u4f5c\u6d41\uff0c\u65b0\u578b\u7b97\u6cd5\u7ec4\u4ef6\u7684\u667a\u80fd\u4f53"
+    },
+    {
+      "name": "xrkseek--xrk-agt",
+      "source": "./xrkseek--xrk-agt",
+      "description": "\u8fd9\u662f\u57fa\u4e8e\u591a\u8bed\u8a00\u6240\u642d\u5efa\u7684\u57fa\u4e8eweb\uff0c\u5de5\u4f5c\u6d41\uff0c\u65b0\u578b\u7b97\u6cd5\u7ec4\u4ef6\u7684\u667a\u80fd\u4f53"
+    },
+    {
+      "name": "xrkseek--xrk-agt",
+      "source": "./xrkseek--xrk-agt",
+      "description": "\u8fd9\u662f\u57fa\u4e8e\u591a\u8bed\u8a00\u6240\u642d\u5efa\u7684\u57fa\u4e8eweb\uff0c\u5de5\u4f5c\u6d41\uff0c\u65b0\u578b\u7b97\u6cd5\u7ec4\u4ef6\u7684\u667a\u80fd\u4f53"
+    },
+    {
+      "name": "xrkseek--xrk-agt",
+      "source": "./xrkseek--xrk-agt",
+      "description": "\u8fd9\u662f\u57fa\u4e8e\u591a\u8bed\u8a00\u6240\u642d\u5efa\u7684\u57fa\u4e8eweb\uff0c\u5de5\u4f5c\u6d41\uff0c\u65b0\u578b\u7b97\u6cd5\u7ec4\u4ef6\u7684\u667a\u80fd\u4f53"
+    },
+    {
+      "name": "xrkseek--xrk-agt",
+      "source": "./xrkseek--xrk-agt",
+      "description": "\u8fd9\u662f\u57fa\u4e8e\u591a\u8bed\u8a00\u6240\u642d\u5efa\u7684\u57fa\u4e8eweb\uff0c\u5de5\u4f5c\u6d41\uff0c\u65b0\u578b\u7b97\u6cd5\u7ec4\u4ef6\u7684\u667a\u80fd\u4f53"
+    },
+    {
+      "name": "xrkseek--xrk-agt",
+      "source": "./xrkseek--xrk-agt",
+      "description": "\u8fd9\u662f\u57fa\u4e8e\u591a\u8bed\u8a00\u6240\u642d\u5efa\u7684\u57fa\u4e8eweb\uff0c\u5de5\u4f5c\u6d41\uff0c\u65b0\u578b\u7b97\u6cd5\u7ec4\u4ef6\u7684\u667a\u80fd\u4f53"
+    },
+    {
       "name": "think41--extrasuite",
       "source": "./think41--extrasuite",
       "description": "Token-efficient pull/edit/push workflow for AI agents editing Google Workspace files (Sheets, Docs, Slides, Forms)"
@@ -144774,6 +144814,11 @@
       "description": "Hands-on, project-based course in AI, LLMs, RAG, and agents \u2014 24 modules in TypeScript + Python, provider-agnostic (OpenAI/Anthropic/Ollama/NVIDIA/LMStudio)."
     },
     {
+      "name": "unifyai--unify",
+      "source": "./unifyai--unify",
+      "description": "AI teammates for everyone else \ud83e\udd16"
+    },
+    {
       "name": "nickcirv--engram",
       "source": "./nickcirv--engram",
       "description": "The context spine for AI coding agents. 8 providers, 88% proven token savings, 5 IDE integrations (Claude Code, Continue.dev, Cursor, Zed, Aider). Hook-based Read interception, HTTP API, tree-sitter A"
@@ -157014,6 +157059,11 @@
       "description": "vue-code-layout"
     },
     {
+      "name": "chattymin--poketokenbar",
+      "source": "./chattymin--poketokenbar",
+      "description": "Use your tokens to raise, evolve, and collect Pok\u00e9mon! \ud83e\udd5a"
+    },
+    {
       "name": "keep-starknet-strange--starknet-agentic",
       "source": "./keep-starknet-strange--starknet-agentic",
       "description": "Smart contracts, tools, and skills for AI agents that transact on Starknet"
@@ -157737,6 +157787,11 @@
       "name": "mercari--pipeline",
       "source": "./mercari--pipeline",
       "description": "pipeline"
+    },
+    {
+      "name": "jakemismas--claude-code-nest",
+      "source": "./jakemismas--claude-code-nest",
+      "description": "VSCode extension that adds a virtual organization layer (folders, tags, links, and read-only smart groups) over Claude Code chat sessions, so 50+ chats stop overflowing the tab bar. Strictly read-only"
     },
     {
       "name": "alibaba--opc-starter",
@@ -188584,6 +188639,11 @@
       "description": "Generate a real PDF, not a screenshot."
     },
     {
+      "name": "hy4ri--hermes-mobile",
+      "source": "./hy4ri--hermes-mobile",
+      "description": "Hermes Agent mobile client \u2014 real-time chat, cron management, session resume and more"
+    },
+    {
       "name": "alonw0--llm-docs-optimizer",
       "source": "./alonw0--llm-docs-optimizer",
       "description": "A Claude Code plugin that optimizes documentation for AI coding assistants like Claude, GitHub Copilot, and other LLMs. Makes your docs more effective through c7score optimization, llms.txt generation"
@@ -193917,6 +193977,11 @@
       "name": "unicbm--demotracer",
       "source": "./unicbm--demotracer",
       "description": "Open-source CS2 demo-to-bot replay desktop app and matched playback stack."
+    },
+    {
+      "name": "xianyu-sheng--xenon",
+      "source": "./xianyu-sheng--xenon",
+      "description": "\u5f00\u6e90\u7ec8\u7aef AI \u7f16\u7a0b Agent\uff1a\u4ee5\u5728\u7ebf Evidence Runtime \u9a8c\u8bc1\u94fe\uff08LLM \u8f93\u51fa\u662f Claim\u3001\u5de5\u5177\u7ed3\u679c\u624d\u662f Evidence\uff09\u4e3a\u6838\u5fc3\uff0cSWE-bench_Lite \u5b98\u65b9\u8bc4\u6d4b 36.7% \u5b9e\u4f8b\u7ea7\u901a\u8fc7\u7387\uff08\u53ef\u590d\u73b0\u62a5\u544a\uff09\u3002\u652f\u6301 7 \u79cd\u63a8\u7406\u8303\u5f0f\u3001MCP \u5de5\u5177\u3001\u591a\u6a21\u578b\u3002Python\u3002"
     },
     {
       "name": "andrew-malitchuk--kite-aos",
@@ -301579,6 +301644,11 @@
       "description": "Local-first RAG knowledge base for Pi agents with hybrid code/doc search, reranking, diagnostics, and large-project indexing."
     },
     {
+      "name": "zinklu--orca-orchestration",
+      "source": "./zinklu--orca-orchestration",
+      "description": "Orca-Orchestration"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -321687,6 +321757,11 @@
       "name": "aurorascharff--next16-calendar",
       "source": "./aurorascharff--next16-calendar",
       "description": "A calendar and booking demo exploring Async React, Cache Components, View Transitions, and Partial Prefetching with Next.js 16.3, React 19, Tailwind CSS v4, and Prisma."
+    },
+    {
+      "name": "omarsenusi--sshbool",
+      "source": "./omarsenusi--sshbool",
+      "description": "A blazing-fast desktop workspace that unifies SSH, SFTP, terminal, Docker, databases, and remote server management in one application."
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -357637,6 +357712,26 @@
       "name": "oalanicolas--aiox-advanced-brain",
       "source": "./oalanicolas--aiox-advanced-brain",
       "description": "Curso e biblioteca educacional de skills e squads das turmas AIOX Advanced"
+    },
+    {
+      "name": "kaidenhuang--openpalantir",
+      "source": "./kaidenhuang--openpalantir",
+      "description": "OpenPalantir \u662f\u4e00\u4e2a\u57fa\u4e8e AI \u7684\u6570\u636e\u5206\u6790\u4e0e\u77e5\u8bc6\u56fe\u8c31\u6784\u5efa\u7cfb\u7edf\u3002\u652f\u6301\u6587\u6863\uff08PDF/Word/Markdown/\u56fe\u7247\uff09\u3001\u6570\u636e\u5e93\uff08MySQL/PostgreSQL/SQLite\uff09\u7b49\u591a\u79cd\u6570\u636e\u6e90\uff0c\u901a\u8fc7\u89c4\u5219\u5f15\u64ce\u548c LLM \u4e3a\u6570\u636e\u6e90\u6784\u5efa\u6458\u8981\uff0c\u5e76\u63d0\u53d6\u5b9e\u4f53\u4e0e\u5173\u7cfb\uff0c\u5b58\u5165 Neo4j \u56fe\u6570\u636e\u5e93\uff0c\u63d0\u4f9b\u56fe\u8c31\u5206\u6790\uff08\u8def\u5f84\u5206\u6790\u3001\u793e\u533a\u53d1\u73b0\u3001\u4e2d\u5fc3\u6027\u8ba1\u7b97\u3001\u8d8b\u52bf\u5206\u6790\uff09\u548c\u95ee\u7b54\u578b\u667a\u80fd\u51b3\u7b56\u80fd\u529b\u3002"
+    },
+    {
+      "name": "mudler--moss-tts-cpp",
+      "source": "./mudler--moss-tts-cpp",
+      "description": "moss-tts.cpp"
+    },
+    {
+      "name": "doge-liang--obsidian-drawio",
+      "source": "./doge-liang--obsidian-drawio",
+      "description": "Embed, preview and edit drawio diagrams in Obsidian \u2014 fully offline."
+    },
+    {
+      "name": "kaidenhuang--openpalantir",
+      "source": "./kaidenhuang--openpalantir",
+      "description": "OpenPalantir \u662f\u4e00\u4e2a\u57fa\u4e8e AI \u7684\u6570\u636e\u5206\u6790\u4e0e\u77e5\u8bc6\u56fe\u8c31\u6784\u5efa\u7cfb\u7edf\u3002\u652f\u6301\u6587\u6863\uff08PDF/Word/Markdown/\u56fe\u7247\uff09\u3001\u6570\u636e\u5e93\uff08MySQL/PostgreSQL/SQLite\uff09\u7b49\u591a\u79cd\u6570\u636e\u6e90\uff0c\u901a\u8fc7\u89c4\u5219\u5f15\u64ce\u548c LLM \u4e3a\u6570\u636e\u6e90\u6784\u5efa\u6458\u8981\uff0c\u5e76\u63d0\u53d6\u5b9e\u4f53\u4e0e\u5173\u7cfb\uff0c\u5b58\u5165 Neo4j \u56fe\u6570\u636e\u5e93\uff0c\u63d0\u4f9b\u56fe\u8c31\u5206\u6790\uff08\u8def\u5f84\u5206\u6790\u3001\u793e\u533a\u53d1\u73b0\u3001\u4e2d\u5fc3\u6027\u8ba1\u7b97\u3001\u8d8b\u52bf\u5206\u6790\uff09\u548c\u95ee\u7b54\u578b\u667a\u80fd\u51b3\u7b56\u80fd\u529b\u3002"
     },
     {
       "name": "yschimke--compose-ai-tools",
