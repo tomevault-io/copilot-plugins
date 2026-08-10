@@ -1,47 +1,35 @@
 ## flexmeasures
 
-> Feature branches must be kept synchronized with `origin/main` before implementing code changes.
+> The repo's cross-cutting conventions live in [`.github/instructions/`](.github/instructions/) as
 
-# Feature Branch Synchronization
+# FlexMeasures — conventions for coding agents
 
-Feature branches must be kept synchronized with `origin/main` before implementing code changes.
+The repo's cross-cutting conventions live in [`.github/instructions/`](.github/instructions/) as
+`*.instructions.md` files (their `applyTo:` frontmatter maps them to file globs). They are written
+for GitHub Copilot, but they are the source of truth for **any** agent working here — read the ones
+relevant to the files you touch, and follow them.
 
-## Check branch status
+Most-missed rules, called out so they are not forgotten:
 
-Before starting implementation work, verify the branch is up to date:
+- **Docstrings & comments break lines only after punctuation** — never wrap in the middle of a phrase.
+  Each physical line ends at a comma, semicolon, colon, or period. `E501` is ignored and
+  `max-line-length` is 160, so prefer a long clause on one line over a mid-phrase break. This keeps
+  review comments and text search stable. See [`docstrings.instructions.md`](.github/instructions/docstrings.instructions.md).
+- **Run the pre-commit hooks before committing** — they reformat (black), lint (flake8), type-check,
+  and regenerate the OpenAPI spec; a hook that rewrites a file aborts the commit, so re-stage and
+  commit again. See [`pre-commit-hooks.instructions.md`](.github/instructions/pre-commit-hooks.instructions.md).
+- **Add a changelog entry** for user-facing changes, in the right section, with a PR link. See
+  [`changelog.instructions.md`](.github/instructions/changelog.instructions.md).
+- **Prove a new test can fail** — break what it covers, confirm it goes red, restore. A test that passes
+  with the feature disabled asserts nothing. See
+  [`testing.instructions.md`](.github/instructions/testing.instructions.md).
+- **One logical change per commit** ([`atomic-commits.instructions.md`](.github/instructions/atomic-commits.instructions.md)),
+  **timezone-aware datetimes always** ([`timezone-awareness.instructions.md`](.github/instructions/timezone-awareness.instructions.md)),
+  **catch specific exceptions** ([`error-handling.instructions.md`](.github/instructions/error-handling.instructions.md)),
+  and **"organisation" not "account" in user-facing text** ([`ui-terminology.instructions.md`](.github/instructions/ui-terminology.instructions.md)).
 
-```bash
-git log --oneline origin/main...HEAD --left-right
-```
-
-If you see < markers, origin/main has commits the branch lacks — a fresh merge is needed.
-
-```bash
-# ❌ Don't just check git status (it only tells you about uncommitted changes)
-git status          # shows "nothing to commit" even if behind main
-
-# ✅ Do check the commit graph
-git log --left-right origin/main...HEAD
-```
-
-## Merge before implementation
-
-```bash
-git fetch origin
-git merge origin/main
-# Resolve any conflicts
-git add .
-git commit -m "Merge origin/main into feature branch"
-```
-
-This ensures your implementation starts from the latest state of the repository.
- 
-## Why this matters
-
-- Merging later causes merge conflicts to compound
-- Large late merges are harder to review
-- Feature work should build on current main, not diverge
+When you add a docstring or comment, re-read it against the line-break rule before moving on.
 
 ---
 > Source: [FlexMeasures/flexmeasures](https://github.com/FlexMeasures/flexmeasures) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
