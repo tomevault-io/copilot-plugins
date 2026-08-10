@@ -4,7 +4,7 @@
   "repo": "forge",
   "description": "Local-first maintainer console with built-in agent workspaces: triage PRs, issues, and CI across GitHub, GitLab, Forgejo, and Gitea, then turn any item into a worktree session running your coding agent. One binary, no inbox.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kenn-io/forge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T00:18:45Z"
+  "distributed_at": "2026-08-10T03:14:08Z"
 }
