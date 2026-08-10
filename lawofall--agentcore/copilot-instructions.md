@@ -1,31 +1,38 @@
-## logging
+## memory
 
-> 日志规范——写日志时阅读。Logger 获取、事件命名、禁止项。
+> AI 沉淀「操作记忆」时阅读——开发中发现的可复用脚本/排查配方/环境坑/非显然架构约束,何时写进文档、放 rules 还是 docs、怎么写、怎么防膨胀
 
 
-# 日志规范
+# AI 操作记忆沉淀
 
-How（格式 / 禁止项 / logger API）以本文为准；接缝（`trace_id` 落库、contextvars）→ [`后端架构.md` §六·日志](/docs/02-架构/后端架构.md#六日志)。
-分析工具与排查方法 → [对话日志分析指南](/docs/05-平台与运维/对话日志分析指南.md)。
+把开发中发现的、跨会话复现、对下一个 AI 有省时价值的**操作型知识**主动写进文档,免得下一个 AI 从零摸索。
 
-## Logger 获取
+## 何时沉淀
 
-```python
-from agentcore.core.logging import get_logger
-logger = get_logger(__name__)
-logger.info("component.action", key=value)
-```
+判据:**下一个 AI 不读这条,会不会重复踩坑 / 重复摸索很久?**
 
-## 事件命名
+- 会(高复现 + 高摸索成本)→ 沉淀。
+- 读代码顺手就有 → 不沉淀。
 
-格式 `组件.动作`（snake_case），如 `chat.turn_start`。**禁止裸名**（无组件前缀）。
-事件须登记于 `agentcore/observability/catalog.py`（`scripts/sync_log_event_registry.py`）；未注册：dev 告警 / prod 放行。
+正例:「环境必须先 X 再 Y,否则报 Z」「这类排查用这条命令/脚本」「某操作有隐藏前置依赖」。
+反例:某功能的实现步骤、函数签名、框架标准用法(读代码可得)。
 
-## 禁止
+## 沉淀到哪
 
-- 禁止 `logging.getLogger` / `structlog.get_logger`（脱离统一渲染）
-- 禁止记录敏感信息（BYOK key、密码、token）
-- 消息正文只记 preview，不落完整体
+- 可复用脚本/命令/排查配方/环境坑 → `.cursor/rules/{关注点}.mdc`(AI 直接消费);复杂细节落 `docs/`,rules 只短引用。
+- 架构/设计/为什么这么做 → `docs/` 对应文档的「决策记录」小节。
+- **优先追加进已有规则/文档**,主题相关就别新建文件。
+
+## 怎么写
+
+- 可直接照做:命令可复制、路径用项目根相对路径、坑点按「症状 → 原因 → 对策」。
+- 只写代码看不出来的(承接 `dev-process.mdc` 内容策略);行为规则 ≤50 行,实现细节下沉 docs。
+
+## 防膨胀(硬约束)
+
+- 沉淀前先搜同主题条目,有则合并,不新增文件。
+- 过时 / 被替代的记忆立即改或删,不留废弃条目。
+- 记忆是高价值精选,不是流水账;宁缺毋滥。
 
 ---
 > Source: [Lawofall/AgentCore](https://github.com/Lawofall/AgentCore) — distributed by [TomeVault](https://tomevault.io).
