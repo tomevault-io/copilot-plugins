@@ -4,7 +4,7 @@
   "repo": "keys-on-the-wire",
   "description": "Just-in-time API keys for AI agents - and any other process you route through it: the caller only ever sees a placeholder.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/inflightsec/keys-on-the-wire",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T06:34:02Z"
+  "distributed_at": "2026-08-10T06:36:05Z"
 }
