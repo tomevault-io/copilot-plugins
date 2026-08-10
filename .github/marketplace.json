@@ -403544,6 +403544,11 @@
       "description": "Second Screen Helper Mod for Minecraft that moves HUD content and various other features to the bottom screen of a dual screen android device."
     },
     {
+      "name": "hqbase--hqbase",
+      "source": "./hqbase--hqbase",
+      "description": "Your team\u2019s email workspace. On your infrastructure."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -431802,6 +431807,31 @@
       "name": "iolanta-tech--sparqld",
       "source": "./iolanta-tech--sparqld",
       "description": "A live, read-only SPARQL endpoint against a directory of RDF files"
+    },
+    {
+      "name": "jeresoftx--rust-async",
+      "source": "./jeresoftx--rust-async",
+      "description": "Programaci\u00f3n as\u00edncrona en Rust: del protocolo Future a executors y Tokio."
+    },
+    {
+      "name": "jeresoftx--linux-for-engineers",
+      "source": "./jeresoftx--linux-for-engineers",
+      "description": "Curso de Linux para Ingenieros de Jeresoft Academy: terminal, procesos, permisos, redes, servicios y automatizaci\u00f3n segura."
+    },
+    {
+      "name": "jeresoftx--rust-projects",
+      "source": "./jeresoftx--rust-projects",
+      "description": "Curso-proyecto de Jeresoft Academy: construir sistemas reales en Rust, de grep a Kafka."
+    },
+    {
+      "name": "jeresoftx--rust-compiler-design",
+      "source": "./jeresoftx--rust-compiler-design",
+      "description": "Curso-proyecto de dise\u00f1o de compiladores en Rust para Jeresoft Academy: de lexer a m\u00e1quina virtual."
+    },
+    {
+      "name": "chrisbanes--portico",
+      "source": "./chrisbanes--portico",
+      "description": "A private doorway to your local apps"
     },
     {
       "name": "cheerhuan--save-your-token",
