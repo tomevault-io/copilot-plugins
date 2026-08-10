@@ -1,0 +1,9 @@
+{
+  "name": "zesuy--plugin-deepseek-vision",
+  "displayName": "Plugin-Deepseek-Vision",
+  "description": "CLIProxyAPI v7 plugin for DeepSeek Responses vision preprocessing",
+  "version": "1.0.0",
+  "author": "Zesuy",
+  "homepage": "https://github.com/Zesuy/Plugin-Deepseek-Vision",
+  "skills": []
+}
