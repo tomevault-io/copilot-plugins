@@ -1,0 +1,9 @@
+{
+  "name": "goaltang--homestay-booking-platform",
+  "displayName": "homestay-booking-platform",
+  "description": "Full-stack homestay booking & operations platform \u2014 Spring Boot 3 + Vue 3 + MySQL + Redis + Elasticsearch + RabbitMQ. 25 business modules: JWT auth, Alipay payment, WebSocket chat, dynamic pricing, ES",
+  "version": "1.0.0",
+  "author": "goaltang",
+  "homepage": "https://github.com/goaltang/homestay-booking-platform",
+  "skills": []
+}
