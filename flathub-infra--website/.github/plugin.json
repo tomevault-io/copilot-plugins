@@ -1,0 +1,9 @@
+{
+  "name": "flathub-infra--website",
+  "displayName": "website",
+  "description": "website",
+  "version": "1.0.0",
+  "author": "flathub-infra",
+  "homepage": "https://github.com/flathub-infra/website",
+  "skills": []
+}
