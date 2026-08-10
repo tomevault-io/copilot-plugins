@@ -7,11 +7,11 @@ Local-first AI token usage & cost tracker for 28 coding tools incl. Claude Code,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [xiufengsun/TokenTracker](https://github.com/xiufengsun/TokenTracker).
+Original source: `AGENTS.md` in [xiufengsun/TokenTracker](https://github.com/xiufengsun/TokenTracker).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
