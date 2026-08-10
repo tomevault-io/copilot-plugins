@@ -1,0 +1,9 @@
+{
+  "name": "nesszer--linear-cli",
+  "displayName": "linear-cli",
+  "description": "A powerful CLI for Linear.app built with Rust",
+  "version": "1.0.0",
+  "author": "nesszer",
+  "homepage": "https://github.com/nesszer/linear-cli",
+  "skills": []
+}
