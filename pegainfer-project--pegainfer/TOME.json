@@ -4,7 +4,7 @@
   "repo": "pegainfer",
   "description": "Pure Rust + CUDA LLM inference engine \u2014 no PyTorch, OpenAI-compatible, serves Qwen3 to Kimi-K2",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pegainfer-project/pegainfer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T09:32:46Z"
+  "distributed_at": "2026-08-10T09:34:45Z"
 }
