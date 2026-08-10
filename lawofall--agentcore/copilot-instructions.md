@@ -1,38 +1,31 @@
-## intercept-discipline
+## logging
 
-> 硬/软拦截纪律——禁默认加闸；误伤优先；提拦截须走人确认
+> 日志规范——写日志时阅读。Logger 获取、事件命名、禁止项。
 
 
-# 拦截纪律（硬闸 · 软闸）
+# 日志规范
 
-产品 AI「不听话」时，**禁止默认提案**加硬拒 / 软警告 / 扫自由文。拦截极易误伤；软闸也不免费（累计只读软提醒曾 A/B 净负已撤）。
+How（格式 / 禁止项 / logger API）以本文为准；接缝（`trace_id` 落库、contextvars）→ [`后端架构.md` §六·日志](/docs/02-架构/后端架构.md#六日志)。
+分析工具与排查方法 → [对话日志分析指南](/docs/05-平台与运维/对话日志分析指南.md)。
 
-已定案清单与否决表 → [编排器 · 失败与否决](/docs/03-AI核心/编排器与CEO主Agent.md)；收口姿势 A → [执行引擎 · 可用性诚实性](/docs/03-AI核心/执行引擎架构设计.md)；熔断诚实边界 → [安全权限与治理](/docs/05-平台与运维/安全权限与治理.md)。本文只留 **How**（阶梯 / 白名单 / 提案格式）。
+## Logger 获取
 
-## 阶梯（必须按序；禁止跳级）
+```python
+from agentcore.core.logging import get_logger
+logger = get_logger(__name__)
+logger.info("component.action", key=value)
+```
 
-1. **提示词 / Skill / 结构字段**（playbook、`deliverable`；禁借机加已删 `completion_criteria` kind 的替代启发式 → [编排器 · S3](/docs/03-AI核心/编排器与CEO主Agent.md)）
-2. **观测 + 人审**（日志、审批卡、`escalate`）——先看见再谈拦
-3. **一次性软提示**（可忽略、不累计、不改成功路径、不扫用户长文猜意图）
-4. **硬拒**——仅同时满足：条件**结构化可证明**；误伤面可枚举且可接受；不拦会破契约 / 安全底线 / 明确能力缺失
+## 事件命名
 
-## 硬闸白名单（仅此类可提案，仍须人确认）
+格式 `组件.动作`（snake_case），如 `chat.turn_start`。**禁止裸名**（无组件前缀）。
+事件须登记于 `agentcore/observability/catalog.py`（`scripts/sync_log_event_registry.py`）；未注册：dev 告警 / prod 放行。
 
-- **结构契约**：schema / form / 写盘 scope、合同字段（禁替代启发式）
-- **能力缺失**：无执行环境却要外环验证 / 长驻就绪等（表述跟工具/契约）
-- **灾难安全**：熔断级毁灭性动作、敏感读；文案须诚实「启发式兜底，并非完整拦截」。fuse 已覆盖形 → breaker `DENY`（禁再提可批可跑 / 仅改文案当终案）→ [安全 · 熔断](/docs/05-平台与运维/安全权限与治理.md)
+## 禁止
 
-## 默认否决（提了也先当否决项写明）
-
-- 用硬/软闸「优化模型服从度」「防吹牛」「质量启发式」
-- **意图分类器**：扫用户原文 / task·角色自由文猜意图再分叉（短允许表点名刷新除外）
-- 累计计数软提醒、与硬闸同条件「先软再硬」叠床架屋（成篇审计等**已有意递进**除外）
-- 扩大收口/书目/完成话术正则面冒充「近零误报」；禁借「漏拦」再扩面 → [执行引擎](/docs/03-AI核心/执行引擎架构设计.md)
-- 边删 kind 边加新启发式完成硬闸；把「验码绿」等伪装成新 kind / 领域 kind 扩表
-
-## 提建议时的强制格式
-
-若仍要提拦截：单列 **误伤面**、**为何阶梯 1–2 不够**、**软是否可能净负**；标「需人确认」。未写这三项 = 无效提案。与 `dev-process.mdc` 补丁绊线对齐：拦截类补丁触绊线 → 停、提根因重设计，不直接落地。
+- 禁止 `logging.getLogger` / `structlog.get_logger`（脱离统一渲染）
+- 禁止记录敏感信息（BYOK key、密码、token）
+- 消息正文只记 preview，不落完整体
 
 ---
 > Source: [Lawofall/AgentCore](https://github.com/Lawofall/AgentCore) — distributed by [TomeVault](https://tomevault.io).
