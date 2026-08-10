@@ -1,44 +1,77 @@
-## aislop
+## api-concurrency
 
-> aislop quality gate — act on hook findings; use aislop_scan MCP tool before shipping
+> Limit concurrency when batching Cloudflare/MXroute (and other third-party) HTTP requests
 
 
-# aislop — agent instructions
+# Third-Party API Concurrency
 
-[aislop](https://github.com/scanaislop/aislop) is your guardrail for shipping clean, maintainable, production-grade code. It catches the patterns AI coding tools leave behind: dead imports, redundant code, duplicate logic, unsafe any-typed casts, narrative comments, swallowed errors, oversized functions, risky security constructs — and grades the project out of 100 so regressions are visible. Treat its findings as blocking, not advisory: the goal is code a human maintainer would happily inherit.
-
-## On every edit
-
-An `afterFileEdit` hook runs `aislop hook cursor` after file edits. It scans the touched files and returns findings as JSON `additionalContext` shaped like `AislopFeedback` (schema `aislop.hook.v2` — score, baseline, delta, regressed, counts, findings, newSinceBaseline, suggestedActions). Act on them the same turn; the `suggestedActions` field tells you exactly what to run next.
-
-## MCP tools
-
-When you need a full-project or targeted check, call the **aislop** MCP server:
-
-- `aislop_scan` — score + top findings (use before declaring work done)
-- `aislop_fix` — apply mechanical fixes first (formatting, unused imports, narrative comments)
-- `aislop_why` — explain a specific rule/finding
-- `aislop_baseline` — capture or compare against the quality baseline
-
-Prefer `aislop_fix` then `aislop_scan` over hand-fixing mechanical issues.
-
-## Severity ladder
-
-- `error` — MUST fix this turn.
-- `warning` + `fixable: true` — MUST fix this turn.
-- `warning` + `fixable: false` — fix if trivially mechanical, otherwise surface in your reply.
+When issuing **multiple HTTP requests** to external APIs (Cloudflare, MXroute, or similar), never fire them all at once. Use a **concurrency limiter** to respect rate limits and avoid connection overhead.
 
 ## Rules
 
-- `.aislop/config.yml` — thresholds and engine toggles. Treat as authoritative; don't edit without user consent.
-- `.aislop/rules.yaml` — project-specific architecture rules (may be absent). When a finding cites `architecture/*`, open this file and follow it.
-- Custom rules can change between sessions. Trust what the scan returns, not a cached understanding of what the rules are.
+- **Never** unbounded `Promise.all(domains.map(...))` or equivalent for third-party calls.
+- **Always** cap parallel requests (typical range: 3–10; pick conservatively for strict APIs).
+- Prefer **stdlib** on the backend; add a small helper only when reused in multiple places.
 
-## Principles
+## Python (services, routes)
 
-- Do not disable rules to pass the scan. Fix the underlying issue.
-- If a finding is a false positive, leave it and explain in your reply — do not delete the rule config.
-- The findings payload includes `nextSteps[]` — treat those as your plan for the turn.
+Use `concurrent.futures.ThreadPoolExecutor` with `max_workers`, or process in fixed-size chunks:
+
+```python
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+def fetch_dns_for_domains(domains, *, max_workers=5):
+  results = {}
+  with ThreadPoolExecutor(max_workers=max_workers) as pool:
+    futures = {pool.submit(get_mxroute_dns_data, d): d for d in domains}
+    for fut in as_completed(futures):
+      domain = futures[fut]
+      results[domain] = fut.result()
+  return results
+```
+
+Chunking alternative when a pool is overkill:
+
+```python
+def chunks(items, size):
+  for i in range(0, len(items), size):
+    yield items[i : i + size]
+
+for batch in chunks(domains, 5):
+  for domain in batch:
+    cf_request("GET", f"/zones?name={domain}")
+```
+
+## JavaScript (static/)
+
+This project has no bundler. Use a small inline limiter or sequential chunking:
+
+```javascript
+async function mapWithConcurrency(items, limit, fn) {
+  const results = [];
+  let i = 0;
+  async function worker() {
+    while (i < items.length) {
+      const idx = i++;
+      results[idx] = await fn(items[idx], idx);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
+  return results;
+}
+
+// ✅ GOOD — capped parallel refresh
+await mapWithConcurrency(domains, 5, (domain) =>
+  refreshDomainRowDetails(domain, { force: true })
+);
+```
+
+```javascript
+// ❌ BAD — unbounded parallel third-party calls
+await Promise.all(domains.map((d) => refreshDomainRowDetails(d, { force: true })));
+```
+
+If a frontend dependency is added later, `p-limit` is an acceptable equivalent.
 
 ---
 > Source: [t0msh/mxroute-manager](https://github.com/t0msh/mxroute-manager) — distributed by [TomeVault](https://tomevault.io).
