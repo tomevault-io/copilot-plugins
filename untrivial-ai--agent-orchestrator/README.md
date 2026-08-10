@@ -7,11 +7,11 @@ Agent IDE that enables you to manage fleets of coding agents. It comes with an a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Untrivial-ai/agent-orchestrator](https://github.com/Untrivial-ai/agent-orchestrator).
+Original source: `CLAUDE.md` in [Untrivial-ai/agent-orchestrator](https://github.com/Untrivial-ai/agent-orchestrator).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
