@@ -7,11 +7,11 @@ Self-hosted geospatial data catalog with semantic search (pgvector), OGC/STAC AP
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [geolens-io/geolens](https://github.com/geolens-io/geolens).
+Original source: `AGENTS.md` in [geolens-io/geolens](https://github.com/geolens-io/geolens).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
