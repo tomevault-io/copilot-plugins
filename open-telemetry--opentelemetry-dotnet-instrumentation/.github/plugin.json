@@ -1,0 +1,9 @@
+{
+  "name": "open-telemetry--opentelemetry-dotnet-instrumentation",
+  "displayName": "opentelemetry-dotnet-instrumentation",
+  "description": "opentelemetry-dotnet-instrumentation",
+  "version": "1.0.0",
+  "author": "open-telemetry",
+  "homepage": "https://github.com/open-telemetry/opentelemetry-dotnet-instrumentation",
+  "skills": []
+}
