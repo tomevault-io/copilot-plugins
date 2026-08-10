@@ -1,0 +1,9 @@
+{
+  "name": "sperictao--dashi-taskboard-launcher",
+  "displayName": "dashi-taskboard-launcher",
+  "description": "Tauri v2 based launcher for dashi-taskboard with Codex integration",
+  "version": "1.0.0",
+  "author": "sperictao",
+  "homepage": "https://github.com/sperictao/dashi-taskboard-launcher",
+  "skills": []
+}
