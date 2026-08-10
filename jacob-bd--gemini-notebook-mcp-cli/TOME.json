@@ -4,7 +4,7 @@
   "repo": "gemini-notebook-mcp-cli",
   "description": "Programmatic access to Gemini Notebook - via command-line interface (CLI), Model Context Protocol (MCP) server, and AI agent skills.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jacob-bd/gemini-notebook-mcp-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T15:31:57Z"
+  "distributed_at": "2026-08-10T15:33:09Z"
 }
