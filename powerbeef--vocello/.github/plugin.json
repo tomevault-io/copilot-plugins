@@ -1,0 +1,9 @@
+{
+  "name": "powerbeef--vocello",
+  "displayName": "Vocello",
+  "description": "Vocello: a local, private voice studio for Apple Silicon. Write a script, pick or describe a voice, and generate speech on-device, faster than realtime on an 8 GB M2 Mac mini. Native Swift + MLX, no P",
+  "version": "1.0.0",
+  "author": "PowerBeef",
+  "homepage": "https://github.com/PowerBeef/Vocello",
+  "skills": []
+}
