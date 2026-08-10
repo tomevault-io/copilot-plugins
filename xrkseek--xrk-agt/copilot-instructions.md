@@ -1,51 +1,45 @@
-## xrk-project
+## xrk-third-party-plugins
 
-> XRK-AGT 架构、放码与配置归属（克隆本仓写 Core 必遵）
+> 主仓入库边界（core / data / 子服插件）
 
 
-# XRK-AGT 项目规则
+# 主仓 gitignore 约定
 
-克隆本仓开发 Core / 扩展 Runtime 时遵守。开发入口：根 **`AGENTS.md`**；任务→Skill：`.cursor/skills/SKILL_INDEX.md`。
+根 `.gitignore` 只表达**什么进主仓库**：按目录 `*` 忽略 + **框架白名单**，勿为每个产品单独加 `!`。
 
-## 上游与提交
+## core/
 
-- 官方仓库与文档链接默认 owner：**`xrkseek`**（例：`github.com/xrkseek/XRK-AGT`）。
-- 提交信息不得含 `Co-authored-by: Cursor` / `cursoragent@cursor.com`；Author 用提交者本人的 git identity。
+```
+core/*
+!core/system-Core/
+!core/system-Core/**
+```
 
-## 边界
+- 主仓仅 `system-Core`；其余业务 Core 本地即可，**勿**写 `!core/<产品>/`。
+- 独立 git 产品 Core：规则随该 Core 仓；主仓不 alwaysApply 产品细则。
 
-- **业务**：`core/<core名>/` → `plugin` · `http` · `workflow` · `tasker` · `events` · `commonconfig` · `www/<应用名>/`（`www` 必须子目录；根名勿用 `api|core|media|uploads|File|shared`）。
-- **Runtime**：`src/infrastructure/` · `src/utils/` · `src/factory/`；启动 `app.js` / `start.js` → `src/agent-runtime.js`。
-- **Core 开发者不得改 `src/`**；缺能力提 issue，或由框架扩基类后经文档 / commonconfig 暴露。框架维护者改 `src/` 并文档化。
-- 加载：Loader 扫描 `core/*/` 对应子目录；`www/` 由 `mountCoreWwwStatic` 挂到 `/<应用名>`。
+## data/
 
-## 配置归属
+- 由 `data/.gitignore`（`*` + `!instruct.txt`）统一处理；根目录勿重复列 `data/<产品>/`。
 
-| 位置 | 用途 |
-|------|------|
-| `config/default_config/` | 仅 AGT 运行时 / LLM·ASR·TTS 工厂 / system-Core |
-| `core/<core>/default/` + `commonconfig/` | 独立产品模板与 schema；运行时数据在 `data/<产品>/` |
+## subserver/pyserver/apis/
 
-产品业务配置 **禁止** 写入 `config/default_config/`。改字段须模板 + schema + 消费代码同步。
+```
+subserver/pyserver/apis/*/
+!subserver/pyserver/apis/system/**
+!subserver/pyserver/apis/media-tools/**
+!subserver/pyserver/apis/doc-pipeline/**
+!subserver/pyserver/apis/web-fetch/**
+```
 
-## 导入
+- 框架示例外均为本地 clone；**勿**按插件名写排除行。
+- 第三方插件勿写进框架帮助、示例、`PyserverApi` 封装。
 
-- 无 `package.json`：`#infrastructure/*`、`#utils/*`
-- 有 `package.json`：相对路径引用根 `src/`（**禁止 `#`**）
+## 子服
 
-## 栈
-
-Node ≥ 26 · 仅 **pnpm**。服务端 API / 禁止旧写法：`xrk-dev-requirements.mdc` · skill `xrk-node-runtime`；Core www：skill `xrk-www-compat`。
-
-## 主仓入库
-
-主仓通常只白名单 `system-Core`；业务 Core、娱乐插件默认本地运行，**勿**为产品名改根 `.gitignore` 加 `!`。细则：`xrk-third-party-plugins.mdc`。
-
-独立 git 产品 Core 的精工写在**该 Core 仓** `.cursor/rules/`；主仓可用 `globs: core/<名>/**` 薄路由，不 alwaysApply 产品细则。
-
-## 语言
-
-规则与 Skills 用**简体中文**；「在哪改」给到文件 + 函数/字段；与代码冲突以代码为准。
+- 插件 `apis/<group>/core/` 结构与主仓 Core 同（`commonconfig/`、`plugin/`、`http/` 等）。
+- 配置仅主服编辑；子服只读 yaml。见 [docs/subserver-commonconfig.md](../docs/subserver-commonconfig.md)。
+- 运维命令在 **子服终端 `子服>`**，不经主服 stdin 转发。
 
 ---
 > Source: [xrkseek/XRK-AGT](https://github.com/xrkseek/XRK-AGT) — distributed by [TomeVault](https://tomevault.io).
