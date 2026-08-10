@@ -1,0 +1,9 @@
+{
+  "name": "pyble-dev--pyble",
+  "displayName": "PyBLE",
+  "description": "Open-source tablet-first MicroPython IDE over Bluetooth Low Energy, with the PBLE/1 protocol, portable firmware agent, and browser flasher.",
+  "version": "1.0.0",
+  "author": "PyBLE-dev",
+  "homepage": "https://github.com/PyBLE-dev/PyBLE",
+  "skills": []
+}
