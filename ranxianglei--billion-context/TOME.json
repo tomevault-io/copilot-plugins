@@ -1,0 +1,44 @@
+{
+  "name": "billion-context",
+  "owner": "ranxianglei",
+  "repo": "billion-context",
+  "description": "\u9884\u53d1\u5e03\uff0c\u6d4b\u8bd5\u4e2d Universal context-compression proxy for AI coding agents",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ranxianglei/billion-context",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-10T10:33:00Z"
+}
