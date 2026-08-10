@@ -1,70 +1,40 @@
-## 04-sanity-integration
+## 05-ai-integration
 
-> This document outlines how Sanity CMS is integrated into the Mkdirs template.
+> This document outlines the AI capabilities integrated into the Mkdirs template.
 
-# Sanity CMS Integration
+# AI Integration
 
-This document outlines how Sanity CMS is integrated into the Mkdirs template.
+This document outlines the AI capabilities integrated into the Mkdirs template.
 
-## Configuration Files
+## AI Providers
 
-- **sanity.config.ts**: Main Sanity configuration file
-- **sanity.cli.ts**: CLI configuration for Sanity
-- **sanity-typegen.json**: Configuration for type generation
-- **schema.json**: Generated Sanity schemas in JSON format
-- **sanity.types.ts**: Generated TypeScript types for Sanity schemas
+The template supports multiple AI providers through AI SDK:
 
-## Schema Structure
+- **OpenAI**: Via `@ai-sdk/openai`
+- **Google AI**: Via `@ai-sdk/google`
+- **DeepSeek**: Via `@ai-sdk/deepseek`
 
-The Sanity schema is organized in the `src/sanity` directory:
+## AI Features
 
-- **src/sanity/schemas**: Contains all content type definitions
-- **src/sanity/lib**: Utility functions for working with Sanity
-- **src/sanity/plugins**: Additional plugins for Sanity Studio
-- **src/sanity/components**: Custom components in Sanity Studio
+AI is integrated into various parts of the application:
 
-## Content Types
+- **Content Generation**: Assist in creating listings information
 
-Key content types defined in the schema include:
+## AI Configuration
 
-- **Item**: Directory listing entries
-- **Category**: Listing categories
-- **Tag**: Listing tags
-- **Collection**: Listing collections
-- **Group**: Listing category groups
-- **Blog Posts**: Blog content
-- **Authors**: Content creators
-- **Pages**: Static page content
-- **Settings**: Global site settings
+AI providers can be configured in the application settings:
 
-## Data Fetching
+- **API Keys**: Securely stored provider API keys
+- **Model Selection**: Choose which models to use
 
-Sanity data is fetched using GROQ queries through the following methods:
+## Privacy and Ethics
 
-1. **Client API**: Using the Sanity client to fetch data
-2. **Next.js Data Fetching**: Server components that directly fetch Sanity data
-3. **API Routes**: API endpoints that serve Sanity data
+The AI implementation follows best practices:
 
-## Preview Functionality
-
-The template includes a preview mode for content editing:
-
-- **Draft Preview**: See draft content before publishing
-
-## Studio Customization
-
-The Sanity Studio interface is customized for the Mkdirs use case:
-
-- **Custom Desk Structure**: Organized content editing interface
-- **Custom Input Components**: Specialized input fields for directories
-- **Sanity Plugins**: Additional functionality through Sanity plugins
-
-## Type Generation
-
-Types are automatically generated from Sanity schemas:
-
-- Run `pnpm typegen` to update TypeScript types after schema changes
-- Generated types ensure type safety when working with Sanity content
+- **User Consent**: Clear disclosure of AI usage
+- **Data Privacy**: No unnecessary data sharing with AI providers
+- **Human Review**: Critical AI-generated content requires human approval
+- **Transparency**: Clear indication of AI-generated content
 
 ---
 > Source: [MkThingsHQ/mkdirs](https://github.com/MkThingsHQ/mkdirs) — distributed by [TomeVault](https://tomevault.io).
