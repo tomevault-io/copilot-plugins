@@ -1,0 +1,9 @@
+{
+  "name": "jeomon--windows-use",
+  "displayName": "Windows-Use",
+  "description": "An AI Agent that interacts with Windows OS at GUI level.",
+  "version": "1.0.0",
+  "author": "Jeomon",
+  "homepage": "https://github.com/Jeomon/Windows-Use",
+  "skills": []
+}
