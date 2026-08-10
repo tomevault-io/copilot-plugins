@@ -1,0 +1,9 @@
+{
+  "name": "kenn-io--forge",
+  "displayName": "forge",
+  "description": "Local-first maintainer console with built-in agent workspaces: triage PRs, issues, and CI across GitHub, GitLab, Forgejo, and Gitea, then turn any item into a worktree session running your coding agen",
+  "version": "1.0.0",
+  "author": "kenn-io",
+  "homepage": "https://github.com/kenn-io/forge",
+  "skills": []
+}
