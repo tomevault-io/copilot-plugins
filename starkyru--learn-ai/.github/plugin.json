@@ -1,0 +1,9 @@
+{
+  "name": "starkyru--learn-ai",
+  "displayName": "learn-ai",
+  "description": "Hands-on, project-based course in AI, LLMs, RAG, and agents \u2014 24 modules in TypeScript + Python, provider-agnostic (OpenAI/Anthropic/Ollama/NVIDIA/LMStudio).",
+  "version": "1.0.0",
+  "author": "starkyru",
+  "homepage": "https://github.com/starkyru/learn-ai",
+  "skills": []
+}
