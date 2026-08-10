@@ -4,7 +4,7 @@
   "repo": "OGAM",
   "description": "The Swiss Army Knife of Offline AI. Chat, see, speak, and generate images on your phone or Mac \u2014 GGUF LLMs, vision, Whisper speech-to-text, Stable Diffusion, tool calling, and local-network servers. Runs on your CPU, GPU, or NPU. No account, no API key, zero data leaves your device.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/off-grid-ai/OGAM",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T09:31:31Z"
+  "distributed_at": "2026-08-10T09:32:17Z"
 }
