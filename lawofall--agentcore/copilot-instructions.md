@@ -1,41 +1,38 @@
-## frontend-preview
+## intercept-discipline
 
-> 改桌面前端组件/样式/布局后想自检渲染效果、或想离线查看某个 AI 态（辩论/派单/升级/审批/计划复核/工具/引用…）时读——#/preview 离线回放 conformance 向量、帧滑块逐帧看流式中间态、pnpm dev:web 纯浏览器跑渲染层、pnpm shoot 无头截图自检、协作图三入口视口探针 shoot:graph-probe、CI 渲染冒烟门禁。别再靠跑真实 AI 看前端效果。改 AI 小镇 3D（apps/town Unity）自检见文末——用 Offline Demo + pnpm town:shoot:webgl，别问用户能否跑 Unity。
+> 硬/软拦截纪律——禁默认加闸；误伤优先；提拦截须走人确认
 
 
-# 前端离线预览与截图自检
+# 拦截纪律（硬闸 · 软闸）
 
-桌面渲染层几乎就是个普通 Vite + React 网页：把仓库里那批 **conformance 向量**（`pnpm conformance` 同一份）经**真实** `dispatchSSEEvent` 回放进**真实**组件，即可离线复现每种 AI 态——零后端、零 LLM、零 token、永不 drift。**改完前端别再去跑真实 AI 看效果。**
+产品 AI「不听话」时，**禁止默认提案**加硬拒 / 软警告 / 扫自由文。拦截极易误伤；软闸也不免费（累计只读软提醒曾 A/B 净负已撤）。
 
-> 本页是 AI 自检渲染。**给人录产品演示**（真实运行 → 磁带 → 真实桌面壳按原节奏可控重放）是另一套 → [`demos/README.md`](/demos/README.md)。
+已定案清单与否决表 → [编排器 · 失败与否决](/docs/03-AI核心/编排器与CEO主Agent.md)；收口姿势 A → [执行引擎 · 可用性诚实性](/docs/03-AI核心/执行引擎架构设计.md)；熔断诚实边界 → [安全权限与治理](/docs/05-平台与运维/安全权限与治理.md)。本文只留 **How**（阶梯 / 白名单 / 提案格式）。
 
-## 三个入口
+## 阶梯（必须按序；禁止跳级）
 
-| 谁 | 怎么进 |
-|---|---|
-| 人·应用内 | 命令面板（`Ctrl/Cmd+K`）搜「前端预览」→ `#/preview`；深链单场景 `#/preview?s=<场景名>`；工具栏帧滑块拖动看流式中间态（深链 `?k=<n>`） |
-| 人·纯浏览器 | `pnpm -C apps/desktop dev:web` → 开 `http://localhost:5199/index.web.html#/preview` |
-| AI·截图自检 | `pnpm -C apps/desktop shoot [场景名过滤]` → 逐场景出图到 `shoot-out/<name>.png`，`SHOOT_FRAMES=N` 连中间帧，**读图核对**。同族独立预览：首启体验 `#/preview/onboarding` + `shoot:onboarding`（草稿空态两态 + composer 生成中插话态，平台代付无接入门；非 conformance 向量、纯 UI 场景）；产品手册 `shoot:manual`（四章代表场景，含机制真图与辩论室/拍板卡嵌入预览；改手册内容源 `pages/toolbox/manual/content/` 或手册渲染器后必跑） |
-| AI·协作图视口探针 | `pnpm -C apps/desktop shoot:graph-probe -- <场景名> [输出前缀]` → 对聊天内联/画布/全屏三入口量 emptyTopRatio · fullyInside · 裁切数并出截图/JSON 到 `shoot-out-graph-probe/`；**改图宿主/布局/fit/视口后必跑**（辩论场景 `multi_agent_debate`、`multi_agent_debate_multibeat`） |
+1. **提示词 / Skill / 结构字段**（playbook、`deliverable`；禁借机加已删 `completion_criteria` kind 的替代启发式 → [编排器 · S3](/docs/03-AI核心/编排器与CEO主Agent.md)）
+2. **观测 + 人审**（日志、审批卡、`escalate`）——先看见再谈拦
+3. **一次性软提示**（可忽略、不累计、不改成功路径、不扫用户长文猜意图）
+4. **硬拒**——仅同时满足：条件**结构化可证明**；误伤面可枚举且可接受；不拦会破契约 / 安全底线 / 明确能力缺失
 
-## 纪律
+## 硬闸白名单（仅此类可提案，仍须人确认）
 
-- 改桌面组件/样式/布局 → `pnpm shoot` → 读 `shoot-out/*.png` 自检，形成「改→截→看→迭代」紧回路。
-- 改交互相关代码（发消息 / 审批卡 / 开工·checkpoint resume / 协作图入口 / AuthGate·会话切换等用户操作链路）→ `pnpm -C apps/desktop e2e`（mock 后端 + webapp 壳 + Playwright；失败留 `e2e-results/` 截图与 trace）。与「改渲染 → `pnpm shoot`」并列，别靠跑真实 AI / 活后端验点击行为。
-- **`pnpm shoot` 是渲染冒烟门禁**（`ci.yml` frontend job **在跑**；近期风险是 CI 红如 Lint，早失败则 shoot 等后续 skipped）：任一场景渲染崩（未捕获报错 / `#/preview` 挂不上）即红。**发布前本地必跑** `pnpm shoot` / `release:gate`。
-- 新 AI 态补向量：后端 `conformance/vectors/` 加场景 → `cd apps/server && uv run python -m agentcore.conformance.export` 重导 fixture → `#/preview` 与 `pnpm conformance` 同步刷新。
+- **结构契约**：schema / form / 写盘 scope、合同字段（禁替代启发式）
+- **能力缺失**：无执行环境却要外环验证 / 长驻就绪等（表述跟工具/契约）
+- **灾难安全**：熔断级毁灭性动作、敏感读；文案须诚实「启发式兜底，并非完整拦截」。fuse 已覆盖形 → breaker `DENY`（禁再提可批可跑 / 仅改文案当终案）→ [安全 · 熔断](/docs/05-平台与运维/安全权限与治理.md)
 
-## AI 小镇 3D（`apps/town` Unity，不走 #/preview）
+## 默认否决（提了也先当否决项写明）
 
-小镇观测层是**独立 Unity 客户端**，有自己的离线自检链（无后端 / 无 LLM），**别用 #/preview**：
+- 用硬/软闸「优化模型服从度」「防吹牛」「质量启发式」
+- **意图分类器**：扫用户原文 / task·角色自由文猜意图再分叉（短允许表点名刷新除外）
+- 累计计数软提醒、与硬闸同条件「先软再硬」叠床架屋（成篇审计等**已有意递进**除外）
+- 扩大收口/书目/完成话术正则面冒充「近零误报」；禁借「漏拦」再扩面 → [执行引擎](/docs/03-AI核心/执行引擎架构设计.md)
+- 边删 kind 边加新启发式完成硬闸；把「验码绿」等伪装成新 kind / 领域 kind 扩表
 
-- Offline Demo：Play 点左侧「离线 Demo」/ `AgentTown.exe --demo` / WebGL `?demo=1`（本地合成帧）
-- 截图自检 `pnpm town:shoot:webgl` → `apps/town/shoot-out/*.png`（须先 `town:build:webgl`）；逻辑冒烟 `pnpm town:verify`
-- 无 DeepSeek 连后端走 scripted（`SIMULATION_SCRIPTED=true` 或建 run `scripted:true`）
+## 提建议时的强制格式
 
-**开发机已装 Unity 6，别再问用户能否跑 Unity**——按上面自检。命令/前置详见 [`apps/town/README.md`](/apps/town/README.md)。
-
-完整机制 / 浏览器打桩 / AuthGate 离线旁路 / 被否决方案（Storybook、手写 mock 态）→ [`前端技术与架构.md §12.3`](/docs/04-前端/前端技术与架构.md)。
+若仍要提拦截：单列 **误伤面**、**为何阶梯 1–2 不够**、**软是否可能净负**；标「需人确认」。未写这三项 = 无效提案。与 `dev-process.mdc` 补丁绊线对齐：拦截类补丁触绊线 → 停、提根因重设计，不直接落地。
 
 ---
 > Source: [Lawofall/AgentCore](https://github.com/Lawofall/AgentCore) — distributed by [TomeVault](https://tomevault.io).
