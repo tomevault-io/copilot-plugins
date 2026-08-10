@@ -4,7 +4,7 @@
   "repo": "nano-vllm-interactive-guide",
   "description": "\u9762\u5411\u5f00\u53d1\u8005\u4e0e\u521d\u5b66\u8005\u7684 nano-vLLM \u4ea4\u4e92\u5f0f\u6e90\u7801\u6559\u7a0b - \u901a\u8fc7 13 \u4e2a HTML \u4e92\u52a8\u5b9e\u9a8c + 13 \u7ae0\u4e2d\u6587\u6559\u7a0b\u7406\u89e3\u5927\u6a21\u578b\u63a8\u7406\u5f15\u64ce",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lora-sys/nano-vllm-interactive-guide",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T04:34:47Z"
+  "distributed_at": "2026-08-10T05:07:28Z"
 }
