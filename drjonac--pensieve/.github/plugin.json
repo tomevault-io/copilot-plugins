@@ -1,0 +1,9 @@
+{
+  "name": "drjonac--pensieve",
+  "displayName": "Pensieve",
+  "description": "Observe how memory shapes an answer.  Pensieve is an interactive system for visualizing, interpreting, and managing how Large Language Models (LLMs) \u201cremember\u201d a user. It bridges the gap between model",
+  "version": "1.0.0",
+  "author": "DrJonaC",
+  "homepage": "https://github.com/DrJonaC/Pensieve",
+  "skills": []
+}
