@@ -1,0 +1,9 @@
+{
+  "name": "tajd--economist-style-guide-plugin",
+  "displayName": "economist-style-guide-plugin",
+  "description": "Claude Code plugin that applies The Economist style guide - clarity, precision, brevity. Unofficial.",
+  "version": "1.0.0",
+  "author": "TAJD",
+  "homepage": "https://github.com/TAJD/economist-style-guide-plugin",
+  "skills": []
+}
