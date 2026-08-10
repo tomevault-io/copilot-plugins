@@ -1,0 +1,9 @@
+{
+  "name": "galfrevn--apollo",
+  "displayName": "apollo",
+  "description": "Personal desk agent for ESP32, powered by Cloudflare Workers",
+  "version": "1.0.0",
+  "author": "galfrevn",
+  "homepage": "https://github.com/galfrevn/apollo",
+  "skills": []
+}
