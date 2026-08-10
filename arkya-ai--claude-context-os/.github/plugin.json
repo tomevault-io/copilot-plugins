@@ -1,0 +1,9 @@
+{
+  "name": "arkya-ai--claude-context-os",
+  "displayName": "claude-context-os",
+  "description": "A complete operating system for Claude that prevents context loss and makes multi-session work reliable",
+  "version": "1.0.0",
+  "author": "Arkya-AI",
+  "homepage": "https://github.com/Arkya-AI/claude-context-os",
+  "skills": []
+}
