@@ -1,0 +1,9 @@
+{
+  "name": "wrg32786--aigent-os",
+  "displayName": "aigent-os",
+  "description": "aigent-OS gives Claude Code fully autonomous memory and context management. It remembers across sessions, checkpoints itself, and manages its own context window so you never re-brief it. A free, open-",
+  "version": "1.0.0",
+  "author": "wrg32786",
+  "homepage": "https://github.com/wrg32786/aigent-os",
+  "skills": []
+}
