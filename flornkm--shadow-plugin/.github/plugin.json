@@ -1,0 +1,9 @@
+{
+  "name": "flornkm--shadow-plugin",
+  "displayName": "shadow-plugin",
+  "description": "A Tailwind plugin to create beautiful shadows and elevated surfaces.",
+  "version": "1.0.0",
+  "author": "flornkm",
+  "homepage": "https://github.com/flornkm/shadow-plugin",
+  "skills": []
+}
