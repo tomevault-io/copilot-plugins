@@ -1,0 +1,9 @@
+{
+  "name": "openstack-experimental--keystone",
+  "displayName": "keystone",
+  "description": "keystone",
+  "version": "1.0.0",
+  "author": "openstack-experimental",
+  "homepage": "https://github.com/openstack-experimental/keystone",
+  "skills": []
+}
