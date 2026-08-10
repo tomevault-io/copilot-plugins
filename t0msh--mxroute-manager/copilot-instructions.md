@@ -1,77 +1,65 @@
-## api-concurrency
+## idempotent-init
 
-> Limit concurrency when batching Cloudflare/MXroute (and other third-party) HTTP requests
+> Make domain and account initialization idempotent — check before create
 
 
-# Third-Party API Concurrency
+# Idempotent Initialization
 
-When issuing **multiple HTTP requests** to external APIs (Cloudflare, MXroute, or similar), never fire them all at once. Use a **concurrency limiter** to respect rate limits and avoid connection overhead.
+Domain and account setup routines must be **safe to re-run**. Always fetch or check current state before issuing a creation payload.
 
 ## Rules
 
-- **Never** unbounded `Promise.all(domains.map(...))` or equivalent for third-party calls.
-- **Always** cap parallel requests (typical range: 3–10; pick conservatively for strict APIs).
-- Prefer **stdlib** on the backend; add a small helper only when reused in multiple places.
+- **Read before write** — list zones, DNS records, domains, or mailboxes before `POST`.
+- **Skip when correct** — if the resource already matches the desired state, return without mutating.
+- **Upsert when wrong** — update in place (or delete duplicates) instead of blind create.
+- **Report outcome** — return or log `skipped`, `added`, or `updated` so callers and UIs can show progress.
 
-## Python (services, routes)
+## Canonical patterns in this repo
 
-Use `concurrent.futures.ThreadPoolExecutor` with `max_workers`, or process in fixed-size chunks:
-
-```python
-from concurrent.futures import ThreadPoolExecutor, as_completed
-
-def fetch_dns_for_domains(domains, *, max_workers=5):
-  results = {}
-  with ThreadPoolExecutor(max_workers=max_workers) as pool:
-    futures = {pool.submit(get_mxroute_dns_data, d): d for d in domains}
-    for fut in as_completed(futures):
-      domain = futures[fut]
-      results[domain] = fut.result()
-  return results
-```
-
-Chunking alternative when a pool is overkill:
+**MXroute domain registration** — check membership, then create:
 
 ```python
-def chunks(items, size):
-  for i in range(0, len(items), size):
-    yield items[i : i + size]
-
-for batch in chunks(domains, 5):
-  for domain in batch:
-    cf_request("GET", f"/zones?name={domain}")
+def register_domain_on_mxroute(domain, steps=None):
+    if domain_on_mxroute(domain):
+        if steps is not None:
+            steps.append("Domain already registered on MXroute")
+        return "skipped"
+    mx_request_raw("POST", "/domains", {"domain": domain})
+    return "added"
 ```
 
-## JavaScript (static/)
+**Cloudflare DNS** — prefetch once, compare, then skip/upsert:
 
-This project has no bundler. Use a small inline limiter or sequential chunking:
-
-```javascript
-async function mapWithConcurrency(items, limit, fn) {
-  const results = [];
-  let i = 0;
-  async function worker() {
-    while (i < items.length) {
-      const idx = i++;
-      results[idx] = await fn(items[idx], idx);
-    }
-  }
-  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
-  return results;
-}
-
-// ✅ GOOD — capped parallel refresh
-await mapWithConcurrency(domains, 5, (domain) =>
-  refreshDomainRowDetails(domain, { force: true })
-);
+```python
+existing_mx, existing_txt, existing_records = fetch_cf_dns_sets(zone_id)
+cf_upsert_txt(zone_id, cf_name, fqdn, content, existing_records, existing_txt, steps, log_messages)
 ```
 
-```javascript
-// ❌ BAD — unbounded parallel third-party calls
-await Promise.all(domains.map((d) => refreshDomainRowDetails(d, { force: true })));
+**MX records** — check `existing_mx` set before each `POST`:
+
+```python
+has_mx = any(
+    rname == domain_lower and rcontent == mx_host
+    and int(rpriority or 0) == int(mx_priority or 0)
+    for rname, rcontent, rpriority in existing_mx
+)
+if not has_mx:
+    cf_request("POST", f"/zones/{zone_id}/dns_records", payload)
 ```
 
-If a frontend dependency is added later, `p-limit` is an acceptable equivalent.
+## Email accounts
+
+Before `POST /email-accounts`, confirm the mailbox does not already exist (e.g. `GET` the list and match `username`). Treat duplicate-create API errors as a last resort, not the primary guard.
+
+## Anti-patterns
+
+```python
+# ❌ BAD — assumes empty state; fails or duplicates on retry
+cf_request("POST", f"/zones/{zone_id}/dns_records", payload)
+mx_request_raw("POST", "/domains", {"domain": domain})
+```
+
+Setup wizards and repair flows may be triggered multiple times; idempotency prevents duplicate records, spurious errors, and partial-state drift.
 
 ---
 > Source: [t0msh/mxroute-manager](https://github.com/t0msh/mxroute-manager) — distributed by [TomeVault](https://tomevault.io).
