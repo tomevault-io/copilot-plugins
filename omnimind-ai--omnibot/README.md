@@ -7,11 +7,11 @@ Your on-phone / mobile AI Agent / Claw, capable of operating terminals and perfo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [omnimind-ai/OmniBot](https://github.com/omnimind-ai/OmniBot).
+Original source: `AGENTS.md` in [omnimind-ai/OmniBot](https://github.com/omnimind-ai/OmniBot).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
