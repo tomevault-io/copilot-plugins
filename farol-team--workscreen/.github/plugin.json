@@ -1,0 +1,9 @@
+{
+  "name": "farol-team--workscreen",
+  "displayName": "workscreen",
+  "description": "macOS desktop app that records user activity via accessibility APIs into a local SQLite database.",
+  "version": "1.0.0",
+  "author": "farol-team",
+  "homepage": "https://github.com/farol-team/workscreen",
+  "skills": []
+}
