@@ -1,0 +1,9 @@
+{
+  "name": "buckster123--cerebrocortex-rs",
+  "displayName": "CerebroCortex-RS",
+  "description": "Pure-Rust port of CerebroCortex \u2014 brain-analogous AI memory system with ACT-R/FSRS activation, associative networks, 8-phase dream engine, and MCP-over-stdio. Drop-in replacement for the Python versio",
+  "version": "1.0.0",
+  "author": "buckster123",
+  "homepage": "https://github.com/buckster123/CerebroCortex-RS",
+  "skills": []
+}
