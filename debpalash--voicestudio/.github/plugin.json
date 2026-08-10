@@ -1,0 +1,9 @@
+{
+  "name": "debpalash--voicestudio",
+  "displayName": "VoiceStudio",
+  "description": "The Open-Source Elevenlabs alternative AI Voice Clone, Dub, Dictate, Transcribe, Audiobook creator and Voice workflow studio.",
+  "version": "1.0.0",
+  "author": "debpalash",
+  "homepage": "https://github.com/debpalash/VoiceStudio",
+  "skills": []
+}
