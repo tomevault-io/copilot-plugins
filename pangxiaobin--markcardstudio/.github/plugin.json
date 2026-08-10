@@ -1,0 +1,9 @@
+{
+  "name": "pangxiaobin--markcardstudio",
+  "displayName": "MarkCardStudio",
+  "description": "MarkCard Studio \u662f\u4e00\u6b3e\u672c\u5730\u4f18\u5148\u7684 Markdown \u793e\u4ea4\u5a92\u4f53\u5361\u7247\u6392\u7248\u4e0e\u5bfc\u51fa\u5de5\u5177\u3002\u5c06 Markdown \u4e00\u952e\u751f\u6210\u7cbe\u81f4\u5361\u7247\u4e0e PDF\uff0c\u652f\u6301\u667a\u80fd\u5206\u9875\u3001\u5c0f\u7ea2\u4e66/\u6296\u97f3/\u5fae\u535a\u7b49\u5e73\u53f0\u5c3a\u5bf8\u300116 \u6b3e\u5185\u7f6e\u4e3b\u9898\u3001KaTeX \u516c\u5f0f\u4e0e Mermaid \u56fe\u8868\u3002Turn Markdown into polished social cards! (Vue 3 + Tauri 2)",
+  "version": "1.0.0",
+  "author": "pangxiaobin",
+  "homepage": "https://github.com/pangxiaobin/MarkCardStudio",
+  "skills": []
+}
