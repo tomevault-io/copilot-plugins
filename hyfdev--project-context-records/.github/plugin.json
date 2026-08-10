@@ -1,0 +1,9 @@
+{
+  "name": "hyfdev--project-context-records",
+  "displayName": "project-context-records",
+  "description": "Project Context Records (PCR) gives autonomous AI work durable, reviewable memory in the repository.",
+  "version": "1.0.0",
+  "author": "hyfdev",
+  "homepage": "https://github.com/hyfdev/project-context-records",
+  "skills": []
+}
