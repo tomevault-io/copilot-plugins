@@ -4,7 +4,7 @@
   "repo": "sparqld",
   "description": "A live, read-only SPARQL endpoint against a directory of RDF files",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iolanta-tech/sparqld",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T16:31:01Z"
+  "distributed_at": "2026-08-10T16:33:53Z"
 }
