@@ -1,0 +1,9 @@
+{
+  "name": "geolens-io--geolens",
+  "displayName": "geolens",
+  "description": "Self-hosted geospatial data catalog with semantic search (pgvector), OGC/STAC APIs, and map builder. Built on FastAPI, PostGIS, React, and MapLibre.",
+  "version": "1.0.0",
+  "author": "geolens-io",
+  "homepage": "https://github.com/geolens-io/geolens",
+  "skills": []
+}
