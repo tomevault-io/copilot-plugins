@@ -4,7 +4,7 @@
   "repo": "alliance",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/worldalliance/alliance",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T00:08:40Z"
+  "distributed_at": "2026-08-10T03:03:44Z"
 }
