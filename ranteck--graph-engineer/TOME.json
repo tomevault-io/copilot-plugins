@@ -4,7 +4,7 @@
   "repo": "graph-engineer",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ranteck/graph-engineer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T11:37:24Z"
+  "distributed_at": "2026-08-10T11:38:34Z"
 }
