@@ -1,0 +1,9 @@
+{
+  "name": "ilearn-agent--janus",
+  "displayName": "Janus",
+  "description": "Janus: Towards Evolving Agentic Laboratory",
+  "version": "1.0.0",
+  "author": "iLearn-Agent",
+  "homepage": "https://github.com/iLearn-Agent/Janus",
+  "skills": []
+}
