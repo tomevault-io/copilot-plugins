@@ -7,11 +7,11 @@ Local-first maintainer console with built-in agent workspaces: triage PRs, issue
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [kenn-io/forge](https://github.com/kenn-io/forge).
+Original source: `AGENTS.md` in [kenn-io/forge](https://github.com/kenn-io/forge).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
