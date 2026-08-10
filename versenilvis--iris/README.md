@@ -7,11 +7,11 @@ A shell auto-completion tool for your terminal
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [versenilvis/IRIS](https://github.com/versenilvis/IRIS).
+Original source: `AGENTS.md` in [versenilvis/IRIS](https://github.com/versenilvis/IRIS).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
