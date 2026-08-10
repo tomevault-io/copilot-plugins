@@ -1,0 +1,9 @@
+{
+  "name": "getarbor-dev--arbor",
+  "displayName": "arbor",
+  "description": "Graph-native code intelligence that replaces embedding-based RAG with deterministic program understanding.",
+  "version": "1.0.0",
+  "author": "getArbor-dev",
+  "homepage": "https://github.com/getArbor-dev/arbor",
+  "skills": []
+}
