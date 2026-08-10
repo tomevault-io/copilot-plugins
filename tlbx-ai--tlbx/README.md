@@ -7,11 +7,11 @@ Self-hosted terminal browser multiplexer for persistent shells and coding agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tlbx-ai/tlbx](https://github.com/tlbx-ai/tlbx).
+Original source: `AGENTS.md` in [tlbx-ai/tlbx](https://github.com/tlbx-ai/tlbx).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
