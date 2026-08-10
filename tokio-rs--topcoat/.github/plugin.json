@@ -1,0 +1,9 @@
+{
+  "name": "tokio-rs--topcoat",
+  "displayName": "topcoat",
+  "description": "A batteries-included framework for building web apps",
+  "version": "1.0.0",
+  "author": "tokio-rs",
+  "homepage": "https://github.com/tokio-rs/topcoat",
+  "skills": []
+}
