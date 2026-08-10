@@ -1,66 +1,41 @@
-## xrk-agt
+## xrk-core-code
 
-> 面向**克隆本仓、开发 / 维护 Core**（以及排查 Runtime）的开发者与 Coding Agent。
+> core 目录下业务代码（插件/HTTP/工作流）的编写约定；须遵守 Node 26 运行时（见 xrk-node-runtime）
 
-# AGENTS.md — XRK-AGT
 
-面向**克隆本仓、开发 / 维护 Core**（以及排查 Runtime）的开发者与 Coding Agent。
+# Core 业务代码约定
 
-## 角色边界
+## 底层与基类（Core 开发者边界）
 
-| 你是谁 | 改哪里 | 不要改 |
-|--------|--------|--------|
-| **Core 开发者**（默认） | `core/<你的Core>/` | `src/`；产品业务配置勿写入 `config/default_config/` |
-| **框架维护者** | `src/` · `config/default_config/` · `core/system-Core/` | 业务逻辑塞进 `src/` |
+- **Core 不改 Runtime**：在 `core/` 写业务时，**不得**修改 `src/infrastructure/`、`src/utils/`、`src/factory/` 等 Runtime 代码；缺能力应提 issue 或请框架开发者扩展基类/工具。
+- **框架开发者**：维护 `src/` 与 Loader/工厂/基类时**可以且应当**改 `src/`，并通过 `docs/` 与 commonconfig 暴露给 Core。
+- **充分利用底层**：继承基类并按文档实现接口；commonconfig 用足 ConfigBase；插件/HTTP/工作流用足各自基类能力，不重复造轮、不在 Core 内复制 `src/` 逻辑。
 
-主仓 git 通常只收录 `system-Core`；业务 Core 本地放在 `core/<名>/`（可独立 git）。入库边界见 `.cursor/rules/xrk-third-party-plugins.mdc`。
+## 放码位置
 
-## 栈与启动
+- 插件：`core/*/plugin/*.js`；HTTP API：`core/*/http/*.js`；工作流：`core/*/workflow/*.js`。各自继承对应基类，行为符合 `docs/` 中对应文档。
+- 基类路径（无 package.json 时用 `#`）：插件 `#infrastructure/plugins/plugin-base.js`，HTTP `#infrastructure/http/http.js`，工作流 `#infrastructure/ai-workflow/ai-workflow.js`。有 package.json 时改为相对路径至 `src/`（如 `../../../src/infrastructure/...`）。
 
-- Node ≥ 26 · 包管理仅 **pnpm**
-- `node app` → `start.js` → `src/agent-runtime.js`
-- 首读：[docs/runtime-surface.md](docs/runtime-surface.md) · [docs/coding-style.md](docs/coding-style.md) · [docs/base-classes.md](docs/base-classes.md) · 索引 [docs/README.md](docs/README.md)
+## 导入约定
 
-## 放码
+- **无** package.json 的 core：使用根包 `#` 别名（`#infrastructure/*`、`#utils/*`）。
+- **有** package.json 的 core：**禁止使用 `#`**（子包无法解析根包别名），须用**相对路径**引用项目根下 `src/`（如从 `core/X/commonconfig/` 用 `../../../src/infrastructure/...`）。写业务 core 时若该 core 目录下存在 package.json，一律不得使用 `#` 路径。
 
-```
-core/<core>/
-  plugin/  http/  workflow/  tasker/  events/  commonconfig/
-  default/           # 产品配置模板
-  www/<应用名>/      # 必须子目录；勿用 api|core|media|uploads|File|shared
-```
+## 编码约定
 
-| 约定 | 做法 |
-|------|------|
-| 导入 | 无 `package.json` 用 `#infrastructure/*`、`#utils/*`；有则相对路径引用根 `src/`（子包无 `#`） |
-| HTTP | `HttpResponse`（`#utils/http-utils.js`）；`success` 普通对象字段拍平到顶层 |
-| 全局 | `AgentRuntime`、`msgSegment` 裸名（勿 `import` / `global.`） |
-| 产品配置 | `core/<core>/default/` + `commonconfig/` + `data/<产品>/` |
-| 易变状态 | 类字段或 `init()`；勿在 `constructor` 建缓存 Map |
+- constructor 内不定义缓存/状态容器，用类字段或 `init()` 初始化。
+- 插件/事件/Tasker：使用全局 `AgentRuntime`、`msgSegment`（不要 import AgentRuntime 或 msgSegment）。
+- HTTP handler：使用 `HttpResponse`（`#utils/http-utils.js`）与注入的 `req.agentRuntime`。详见 `xrk-dev-requirements.mdc`。
 
-编码硬约束：`.cursor/rules/xrk-dev-requirements.mdc`。
+## Node 26 运行时（Core 必守）
 
-## 本仓规则
+> 完整清单：skill `xrk-node-runtime`、`docs/node-26-runtime.md`
 
-| 规则 | 作用 |
-|------|------|
-| `xrk-project.mdc` | 架构、配置归属、上游链接、提交署名 |
-| `xrk-dev-requirements.mdc` | 裸名全局、HttpResponse、www、Node 26 |
-| `xrk-third-party-plugins.mdc` | 主仓 gitignore / 子服 `apis/` |
-
-改 `core/` / `src/` 前：Grep 调用方 → 读对应 skill → 再动手。任务→Skill 表：[`.cursor/skills/SKILL_INDEX.md`](.cursor/skills/SKILL_INDEX.md)。
-
-文档 / skill 与实现冲突时以**代码**为准。
-
-## Core 内文档
-
-| 文件 | 读者 | 写什么 |
-|------|------|--------|
-| `README.md` | 开发者 | 部署、API、与 AGT 集成 |
-| `AGENTS.md` · `skills/`（若有） | 产品 Agent | 工作区与工具边界；**不写** LLM 工厂 / commonconfig / `src` 路径 |
-| 独立 Core 仓 `.cursor/rules/` | 该产品 | 精工约定；**勿**塞进主仓 alwaysApply |
-
-办事助手（产品模型，不是写框架）：[docs/agents.md](docs/agents.md) · `agents/`。
+- **fetch**：全局 `fetch` + `AbortSignal.timeout`；LLM 代理用 `buildFetchOptionsWithProxy`。**禁止** `node-fetch`。
+- **exec**：`import { exec } from '#utils/exec-async.js'`（或相对路径至 `src/utils/exec-async.js`）。**禁止** `promisify(exec)`、`child_process/promises`。
+- **错误**：`Error.isError(err)`、`normalizeError(err)`（`#utils/normalize-error.js`）。**禁止** `instanceof Error` 判错。
+- **二进制**：`toBase64()` / `toHex()` / `Uint8Array.fromBase64()`。**禁止** `toString('base64'|'hex')`。
+- **勿写** polyfill、特性检测回退（`globalThis.URLPattern ? ... : 手写`）。
 
 ---
 > Source: [xrkseek/XRK-AGT](https://github.com/xrkseek/XRK-AGT) — distributed by [TomeVault](https://tomevault.io).
