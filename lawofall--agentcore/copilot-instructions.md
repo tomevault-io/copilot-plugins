@@ -1,54 +1,34 @@
-## conversation-logs
+## cross-platform-frontend
 
-> 用户给出 32 位 hex ID / UUID、贴排查包、或说查产品 AI 日志时读——用 logs/dev.jsonl + DB，禁止在文件系统搜文件名。
+> 前端跨端架构规范——做桌面/手机前端、建 apps/mobile、或决定共享vs新建时参考：各端全新建实现、零共享业务逻辑、仅共享规范/类型/token、协议 fold 必过 conformance
 
 
-# 对话日志查询
+# 前端跨端架构（各端全新建 + 极小共享）
 
-## 两套日志，不要混
+桌面 + 手机是**同一产品**：手机端 = 桌面端 − 手机物理做不到的能力层。**实现策略 = 各端全新建，零共享业务逻辑。** 权威蓝图 → [`前端技术与架构.md` §七/§十二](/docs/04-前端/前端技术与架构.md)；原生壳 / 商店余项 → [产品路线图摘要](/docs/01-产品/产品路线图摘要.md)（详细提案不在公开仓 / 维护者本地）。
 
-| | 产品 AI 日志 | Cursor IDE Agent 会话 |
-|---|---|---|
-| **位置** | `logs/dev.jsonl` + Postgres | `agent-transcripts/`（UUID.jsonl） |
-| **ID** | 32 位 hex 无连字符 = **trace_id**；带连字符 UUID = **conversation_id** | 文件名 = UUID 带连字符 |
+## 结构（✅ 已落地）
 
-## 铁律
-
-- 用户给 trace_id / conversation_id → **`logs/dev.jsonl` + DB**，**禁止**在文件系统搜。
-- `agent-transcripts/` 是 Cursor 编码 Agent 转录，与产品 AI **无关**。
-- 日志**不含消息正文**，正文在 Postgres。
-
-## 查询入口（apps/server 下）
-
-```bash
-uv run python scripts/log_timeline.py --trace <trace_id>          # 默认 decision_spine
-uv run python scripts/log_timeline.py --pack <dir> --trace <tid>  # 排查包制品
-uv run python scripts/log_timeline.py --pack <dir> --full --trace <tid>
-uv run python scripts/log_timeline.py --raw --trace <trace_id>    # 全量仅需要时
-uv run python scripts/log_timeline.py <conversation_id>
-uv run python scripts/log_timeline.py --recent
-uv run python scripts/log_stats.py --json
+```
+apps/desktop/   渲染层 — 独立演进；conformanceFold + 共享 processTimeline
+apps/mobile/    全新实现：stores/services/协议 fold/组件 + Capacitor 壳
+packages/       protocol-conformance + contract-types + design-tokens + protocol-fold-kit (+ contract-rest-types)
 ```
 
-有 ID → 优先 **decision_spine** / **排查包**（`--pack`）；全量 `--raw` 仅深挖需要时。包内必有 `decision_spine.json` + `timeline.jsonl` + `meta.json`（`schema_version`）；另一会话只读包即可复盘。`spine_events` = **turn_spine**，勿与产品面混称。
+## 硬规则
 
-**Token 两口径**：spine 的 `llm.*_tokens` = 全 trace `llm.call` 合计；`tail`/`turn_metrics` = 收口折账。`kind=resume` 时后者通常不含 pause 前段——差值为预期，见 [对话日志分析指南 · Token 两口径](/docs/05-平台与运维/对话日志分析指南.md)。
+1. **各端全新建实现**——stores / services / 协议 fold / 组件，每端一套。**不共享业务逻辑实现**（连 headless hook 也各写）。
+2. **唯一共享面 = 规范 + 契约 + token + 协议常量**——`protocol-conformance`（向量 / golden / schema）、事件 / REST 类型、`design-tokens`、**可选** `@agentcore/protocol-fold-kit`（编排工具集 / marker 谓词 / finish→status 等纯常量；**仍否决共享 fold 实现**）。**可选**共享纯渲染叶子（Markdown / Diagram，无 drift）。**绝不共享业务逻辑 / fold 实现核。**
+3. **零跨平台分支**——禁 `if(platform)`；每端独立树，只实现自己有的能力（手机不建本地文件 / MCP）。
+4. **协议 fold 是唯一危险面**——SSE→state / run 树 / resume / 审批，各端实现**必须对齐 conformance 规范**、过 `pnpm conformance` 才算对（见 [`protocol-conformance.mdc`](/.cursor/rules/protocol-conformance.mdc)）。
 
-Dogfood 入槽（出包后）：仓库根 `python evals/dogfood/fill_from_pack.py --pack <dir>` → [`evals/dogfood/README.md`](/evals/dogfood/README.md)。
+## 决策启发式
 
-生产：本地无命中且像线上 → `pnpm sync:logs`（Node；读 `DEPLOY_SSH_*`；默认瘦身跳过 `turn_journal`，深挖加 `--full`）后 `--export-dir ../../logs/prod-export`（可再 `--pack`）。勿再用 `AGENTCORE_SSH` / `$AGENTCORE_HOME/logs`（已退役）。
+> **放手新建一切；唯一红线 = 协议 fold 必过 conformance；契约变更只走后端单一源。**
 
-**线上巡检**：父级拆桶 / 默认窗 / 审阅桶纪律 / **归因闸** / **状态两轴（代码态≠发布态）** / ④先纠发布态再归因再码核 → [`logs/reviews/README.md`](/logs/reviews/README.md)；开案/修码前先读 [`logs/reviews/STATUS.md`](/logs/reviews/STATUS.md)。
+## 为何不共享实现核
 
-→ 详解：[对话日志分析指南](/docs/05-平台与运维/对话日志分析指南.md)
-
-## 查询策略
-
-- **无连字符 32-hex** → 一律当 `trace_id`，用 `--trace`（勿先当 conversation_id）
-- **带连字符 UUID** → conversation_id；查全貌用位置参数，单轮细节再 `--trace`
-- **无 ID / 仅截图 /「查最新」** → `--recent` 后必须用文案/`preview` **确认匹配**再深挖，勿默认第一条
-- **本地空、ID 像线上** → 先 sync / `--export-dir`，勿在空库硬猜
-- **ID 已齐**（cid 或 trace）→ 主 Agent **直接**跑 `log_timeline --json` 或 `--pack`，勿为单次查询开后台探子干等
+共享 = 耦合 = 爆炸半径跨两 app，对有界上下文 AI 比 drift 更难控；且共享核是并行 agent 的序列化协调点。drift 由 conformance 巡检兜，**不靠零重复**。
 
 ---
 > Source: [Lawofall/AgentCore](https://github.com/Lawofall/AgentCore) — distributed by [TomeVault](https://tomevault.io).
