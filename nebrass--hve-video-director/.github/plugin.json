@@ -1,0 +1,9 @@
+{
+  "name": "nebrass--hve-video-director",
+  "displayName": "hve-video-director",
+  "description": "AI-powered video production pipeline for Claude Code, Github Copilot, Codex, Cursor, OpenCode and PI \u2014 6 automated phases from design thinking to final render",
+  "version": "1.0.0",
+  "author": "nebrass",
+  "homepage": "https://github.com/nebrass/hve-video-director",
+  "skills": []
+}
