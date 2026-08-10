@@ -1,0 +1,9 @@
+{
+  "name": "mariadb-operator--mariadb-operator",
+  "displayName": "mariadb-operator",
+  "description": "mariadb-operator",
+  "version": "1.0.0",
+  "author": "mariadb-operator",
+  "homepage": "https://github.com/mariadb-operator/mariadb-operator",
+  "skills": []
+}
