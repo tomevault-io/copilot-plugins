@@ -1,0 +1,9 @@
+{
+  "name": "unknowlei--minimax-h3-opencode-skills",
+  "displayName": "minimax-h3-opencode-skills",
+  "description": "OpenCode skill suite for MiniMax H3 directing, routing, multishot planning, prompt generation, and review.",
+  "version": "1.0.0",
+  "author": "unknowlei",
+  "homepage": "https://github.com/unknowlei/minimax-h3-opencode-skills",
+  "skills": []
+}
