@@ -1,40 +1,60 @@
-## 05-ai-integration
+## 06-development-guide
 
-> This document outlines the AI capabilities integrated into the Mkdirs template.
+> This document provides guidelines for developing and contributing to the Mkdirs template.
 
-# AI Integration
+# Development Guide
 
-This document outlines the AI capabilities integrated into the Mkdirs template.
+This document provides guidelines for developing and contributing to the Mkdirs template.
 
-## AI Providers
+## Development Setup
 
-The template supports multiple AI providers through AI SDK:
+1. Clone the repository
+2. Install dependencies with `pnpm install`
+3. Set up environment variables (copy `.env.example` to `.env`)
+4. Run the development server with `pnpm dev`
 
-- **OpenAI**: Via `@ai-sdk/openai`
-- **Google AI**: Via `@ai-sdk/google`
-- **DeepSeek**: Via `@ai-sdk/deepseek`
+## Environment Variables
 
-## AI Features
+Key environment variables needed for development:
 
-AI is integrated into various parts of the application:
+- **NEXT_PUBLIC_SITE_URL**: Base URL of the site
+- **NEXT_PUBLIC_SANITY_PROJECT_ID**: Sanity project ID
+- **NEXT_PUBLIC_SANITY_DATASET**: Sanity dataset name
+- **SANITY_API_TOKEN**: Sanity API token
+- **NEXTAUTH_SECRET**: Secret for NextAuth
+- **STRIPE_SECRET_KEY**: Stripe API secret key
 
-- **Content Generation**: Assist in creating listings information
+## Code Style and Linting
 
-## AI Configuration
+The project uses Biome for code formatting and linting:
 
-AI providers can be configured in the application settings:
+- **biome.json**: Biome configuration
+- Run `pnpm lint` to check for code style issues
+- Run `pnpm format` to format the codebase
 
-- **API Keys**: Securely stored provider API keys
-- **Model Selection**: Choose which models to use
+## Scripts
 
-## Privacy and Ethics
+Utility scripts for common tasks:
 
-The AI implementation follows best practices:
+- **scripts**: Directory containing utility scripts
+- **Batch Operations**: Scripts for batch operations on items
+- **Email Export**: Tools for exporting user emails
+- **Microlink Integration**: Scripts for working with microlink
 
-- **User Consent**: Clear disclosure of AI usage
-- **Data Privacy**: No unnecessary data sharing with AI providers
-- **Human Review**: Critical AI-generated content requires human approval
-- **Transparency**: Clear indication of AI-generated content
+## Build and Deployment
+
+Steps for building and deploying the application:
+
+1. Run `pnpm build` to create a production build
+2. Verify the build with `pnpm start`
+3. Deploy to your hosting platform of choice
+
+### Docker Deployment
+
+For Docker-based deployment:
+
+- **Dockerfile**: Docker configuration
+- **next.config.docker.mjs**: Next.js configuration for Docker
 
 ---
 > Source: [MkThingsHQ/mkdirs](https://github.com/MkThingsHQ/mkdirs) — distributed by [TomeVault](https://tomevault.io).
