@@ -1,0 +1,9 @@
+{
+  "name": "fiigii--ai-comp",
+  "displayName": "ai-comp",
+  "description": "Build a compiler to solve Anthropic's interview challenge.",
+  "version": "1.0.0",
+  "author": "fiigii",
+  "homepage": "https://github.com/fiigii/ai-comp",
+  "skills": []
+}
