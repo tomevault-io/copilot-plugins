@@ -7,11 +7,11 @@ GramSieve-Telegram 过滤;跳转;编辑历史查看
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Xposed-Modules-Repo/com.tianqianguai.gramsieve](https://github.com/Xposed-Modules-Repo/com.tianqianguai.gramsieve).
+Original source: `AGENTS.md` in [Xposed-Modules-Repo/com.tianqianguai.gramsieve](https://github.com/Xposed-Modules-Repo/com.tianqianguai.gramsieve).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
