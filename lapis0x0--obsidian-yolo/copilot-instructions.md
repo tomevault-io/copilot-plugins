@@ -1,174 +1,85 @@
 ## obsidian-yolo
 
-> YOLO (You Orchestrate, LLM Operates) is an Obsidian plugin for AI chat, RAG, writing assistance, and agent workflows. It integrates multiple LLM providers, vector search, and MCP (Model Context Protocol) servers.
+> YOLO is an Obsidian plugin for AI chat, agent workflows, RAG, writing assistance, and independently shipped product modules such as FSRS-based Learning.
 
 # Repository Guidelines
 
-## Project Overview
+YOLO is an Obsidian plugin for AI chat, agent workflows, RAG, writing assistance, and independently shipped product modules such as FSRS-based Learning.
 
-YOLO (You Orchestrate, LLM Operates) is an Obsidian plugin for AI chat, RAG, writing assistance, and agent workflows. It integrates multiple LLM providers, vector search, and MCP (Model Context Protocol) servers.
+## Commands
 
-## Development Commands
+- `npm run dev` - Build first-party modules, then watch the host app, host styles, and dev-vault artifacts
+- `npm run build` - Production build with host and module type checking
+- `npm run type:check` / `npm run module:typecheck` - Type-check the host or first-party modules
+- `npm run module:build` - Rebuild first-party module artifacts and the bundled module catalog
+- `npm run lint:check` / `npm run lint:fix` - Check or fix Prettier and ESLint
+- `npm test` - Run the full Jest suite; use `npx jest <test-file> --runInBand` for serial debugging
+- `npm run styles:build` - Regenerate the host `styles.css` from `src/styles/**`
+- `npx drizzle-kit generate --name <name>` then `npm run migrate:compile` - Generate and compile database migrations
 
-**Development & Build**
+## Architecture
 
-- `npm run dev` - Start app watch + styles watch in parallel
-- `npm run dev:app` - Start esbuild watch mode only
-- `npm run build` - Production build with type checking (`tsc -noEmit -skipLibCheck`)
-- `npm run styles:build` - Build `styles.css` from `src/styles/index.css`
-- `npm run styles:watch` - Watch `src/styles/**` and rebuild `styles.css`
-- `npm run type:check` - Type check without emitting files
-- `npm test` - Run Jest tests
+- `src/main.ts` owns the host plugin lifecycle. `src/ChatView.tsx` and `src/components/chat-view/` own the main chat surface.
+- `src/core/modules/` owns module discovery, installation, loading, activation, lifecycle, and the versioned Host API. `modules/host-sdk.d.ts` is the module-facing API contract.
+- `modules/<id>/` owns an independently built product module: its UI, domain logic, host adapters, styles, assets, workers, and tests. `modules/learning/` contains the complete Learning product implementation.
+- `src/core/agent/` owns the shared native agent runtime, tool gateway, conversation service, subagents, and background tasks. Quick Ask, Sidebar Chat, and Agent Chat run through `AgentService.run`; permissions come from `resolveChatModeRuntime`.
+- `src/core/ai/single-turn.ts` is the low-latency path for Smart Space and Write Assist. Do not route these features through the agent runtime or introduce another orchestration path.
+- `src/core/llm/`, `auth/`, `rag/`, `mcp/`, and `skills/` own shared model, provider, retrieval, and tool capabilities.
+- `src/features/` contains host-shipped cross-cutting features. `src/database/`, `src/settings/`, and `src/styles/` own host persistence, settings, and global styles.
 
-**Code Quality**
+## Module Boundaries
 
-- `npm run lint:check` - Run Prettier and ESLint checks
-- `npm run lint:fix` - Auto-fix Prettier and ESLint issues
+- Put a large, optional product capability in `modules/` when it can be installed, enabled, and released independently. Keep small or inherently host-integrated capabilities in `src/features/`.
+- A module may depend on the versioned Host API and its declared package dependencies. It must not import `src/core/`, `src/components/`, `YoloPlugin`, or `obsidian` directly.
+- First-party modules follow the same boundary as external modules. Repository co-location does not grant access to host implementation details.
+- Add a capability to the Host API only when it is broadly useful to modules. Keep module-specific policy and behavior inside the owning module.
+- Core must not import module source or bundle module implementation into the host artifact. Communicate only through registration, manifests, and Host API contracts.
+- Treat versioned `entry.js`, module `style.css`, generated manifest metadata (hashes, sizes, and URLs), and `modules/bundled.json` as build outputs. Change source or compatibility declarations, run `npm run module:build`, and commit the regenerated artifacts rather than editing generated metadata.
 
-**Database**
+## Critical Cross-Cutting Constraints
 
-- `npx drizzle-kit generate --name <migration-name>` - Generate migration after schema changes
-- `npm run migrate:compile` - Compile drizzle migrations to `src/database/migrations.json`
+### YOLO Managed Paths
 
-## Architecture (High Level)
+- Resolve host-managed Vault paths from current settings through `src/core/paths/`; never hardcode `YOLO`. Modules consume current path snapshots through the Host API instead of reproducing host path rules.
+- Long-lived services must read current settings or path snapshots through getters so base-directory changes take effect without restart.
 
-**Entry & UI**
+### Runtime Boundaries
 
-- `src/main.ts` - Plugin entry and lifecycle
-- `src/components/` - React UI (chat-view, apply-view, settings, modals, panels, common)
-- `src/contexts/` - React context providers
-- `src/hooks/` - Custom React hooks
-- `src/settings/` - Settings tab UI + schema and migrations
+- Never statically import desktop-only dependencies (`node:*`, `proxy-agent`, `shell-env`, local servers, child processes, stream adapters, etc.). Load them with `await import(...)` inside desktop-only branches so mobile can load the host or module.
+- PGlite cannot use its default `node:fs` path in Obsidian. `DatabaseManager.ts` lazily loads its data, WASM, and vector extension and supplies them during initialization; preserve the build shims for `process` and `import.meta.url`.
+- `src/utils/chat/responseGenerator.ts` was removed. Do not recreate a parallel chat or agent orchestration path.
 
-**Core**
+### Chat Runtime Invariants
 
-- `src/core/ai/` - Shared single-turn execution kernel (stream/non-stream, timeout fallback, tool-call aggregation)
-- `src/core/agent/` - Unified runtime entry with fast path + loop-worker orchestration, tool gateway, conversation service
-- `src/core/llm/` - LLM provider clients and adapters
-- `src/core/auth/` - OAuth flows for ChatGPT / Gemini / Qwen and other auth providers
-- `src/core/rag/` - Embedding + vector retrieval orchestration
-- `src/core/mcp/` - MCP (Model Context Protocol) server management and tool execution
-- `src/core/skills/` - Skills system
-- `src/core/memory/` - Memory / conversation management
-- `src/core/edits/` - Edit and diff operations
-- `src/core/search/` - In-vault search
-- `src/core/web-search/` - Web search integration
-- `src/core/background/` - Background activities and tasks
-- `src/core/notifications/` - Notification coordination
-- `src/core/paths/` - Path resolution helpers
-- `src/core/update/` - Update checking
+- Agent conversation state is structurally shared: a message object's reference changes if and only if its content changes. Never mutate messages or state arrays in place; dev builds deep-freeze published snapshots to catch this.
+- All scroll writes in chat surfaces go through the scroll controller in `src/components/chat-view/scroll/`. Never set `scrollTop` directly.
 
-**Features & Support**
+### Database Schema Changes
 
-- `src/features/` - Editor-facing behaviors. Includes: `inline-suggestion`, `tab-completion`, `smart-space`, `write-assist`, `quick-ask`, `selection-chat`, `selection-highlight`, `diff-review`
-- `src/database/` - PGlite + Drizzle schema/migrations/data access
-- `src/utils/` - Prompt/response/diff/edit and utility helpers
-- `src/i18n/` - Localization resources (en, it, zh)
-- `src/constants/` - Shared constants
+1. Edit `src/database/schema.ts`.
+2. Run `npx drizzle-kit generate --name <migration-name>`.
+3. Review the generated files in `drizzle/`.
+4. Run `npm run migrate:compile` to update `src/database/migrations.json`.
 
-**Runtime Profiles**
+## Obsidian and Style Constraints
 
-- Quick Ask / Sidebar Chat / Agent Chat: 三者共用同一个 agent runtime（`AgentService.run` → `loop-worker` + `AgentToolGateway`），并通过 `resolveChatModeRuntime`（`src/components/chat-view/chat-runtime-profiles.ts`）统一解析 `loopConfig` / `allowedToolNames` / `toolPreferences`。Chat 模式套用 `CHAT_BLOCKED_TOOL_NAMES` 黑名单（屏蔽 fs 改写类工具）且不传 `toolPreferences`；Agent 模式传完整工具集与偏好。`maxAutoIterations` 默认 100。Quick Ask 与侧边栏在 runtime 层面无差异，仅 UI 形态不同。
-- Smart Space / Write Assist: 低延迟编辑场景，直接复用 `src/core/ai/single-turn.ts`，不经过 agent runtime。
+- React event handlers that call async functions must use `void` wrappers.
+- Do not directly set `element.style.cursor` or `element.style.userSelect`; use `setCssProps`.
+- Every `eslint-disable` directive must include a reason.
+- All CSS classes must use the `yolo-` prefix. Host styles live in `src/styles/**`; module styles live with their module.
+- When styling native controls, assume Obsidian core and theme styles apply globally. Use component-scoped `element.yolo-*` selectors, explicitly reset affected properties, and use `!important` only for a confirmed host-style collision.
+- Organize host styles by responsibility as documented in `src/styles/README.md`. Before changing popovers or dropdowns, read the ownership rules in `src/styles/popover/surface.css`.
+- Never hardcode user-visible text; route it through i18n, and resolve the current locale at use time rather than caching a locale-bound translator.
+- Animate only `opacity` and `transform`, with durations and easings from `src/styles/tokens/motion.css` / `motion.ts` (paired files — keep both in sync). Animating layout properties requires an inline exemption comment.
+- CSS animations get reduced-motion handling for free from a global fallback; do not add per-component disable blocks. JS-driven animations (framer-motion / WAAPI) must degrade via `useReducedMotion`.
 
-**Legacy Removal**
+## Verification
 
-- `src/utils/chat/responseGenerator.ts` has been removed; avoid reintroducing duplicated orchestration logic.
-
-## Build & Style System
-
-- `esbuild.config.mjs` uses custom plugins (including PGlite asset copy and browser shims).
-- `src/styles/index.css` is the modular style source entry.
-- `styles.css` is generated artifact; do not edit directly.
-- For CSS changes: edit `src/styles/**`, then run `npm run styles:build`.
-
-## Critical Implementation Details
-
-**PGlite in Obsidian Browser Environment**
-
-- PGlite default `node:fs` path is unavailable in Obsidian.
-- `DatabaseManager.ts` manually loads Postgres data/WASM/vector extension and passes them at init time.
-- Build config injects `process = {}` and `import.meta.url` compatibility behavior.
-
-**Database Schema Changes**
-
-1. Edit `src/database/schema.ts`
-2. Run `npx drizzle-kit generate --name <migration-name>`
-3. Review generated files in `drizzle/`
-4. Run `npm run migrate:compile` to update `src/database/migrations.json`
-
-**Working Branch**
-
-- Main branch: `main`
-
-## Coding Conventions
-
-- TypeScript + React (`react-jsx`), 2-space indent, single quotes.
-- Prefer strict types; avoid `any` (use `unknown` / structured types).
-- Components: PascalCase; hooks: `use*` camelCase.
-- Before commit: at least run `npm run type:check` and relevant checks.
-
-## Obsidian-Specific Standards
-
-**Promise Handling in React**
-
-- Event handlers calling async functions must use `void` wrappers.
-
-```tsx
-onClick={() => void handleAsync()}
-onDragEnd={(event) => void handleDragEnd(event)}
-```
-
-**DOM Style Manipulation**
-
-- Do not directly set `element.style.cursor` / `element.style.userSelect`.
-- Use `setCssProps` instead.
-
-```tsx
-document.body.setCssProps({
-  '--my-cursor': 'grabbing',
-  '--my-user-select': 'none',
-})
-```
-
-**ESLint Directives**
-
-- Disallow bare `eslint-disable`; always include reason.
-
-```ts
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Legacy API requires any
-```
-
-**Error Handling**
-
-- Narrow `unknown` errors before stringify/rethrow.
-
-```ts
-if (error instanceof Error) throw error
-throw new Error(typeof error === 'string' ? error : JSON.stringify(error))
-```
-
-**Mobile Compatibility**
-
-- Desktop-only dependencies (`node:*`, `proxy-agent`, `shell-env`, local server, child process, stream adapter, etc.) must NOT be statically imported at the top level.
-- They must be lazy-loaded inside desktop-only branches via `await import(...)`.
-
-## Style Conventions
-
-- New CSS classes must use the `yolo-` prefix; existing `smtcmp-*` classes are not subject to mass renaming.
-- Styles are organized by **responsibility**, not "first caller". See [`src/styles/README.md`](src/styles/README.md).
-- Before writing/modifying popovers or dropdowns, read the header comments in [`src/styles/popover/surface.css`](src/styles/popover/surface.css) (variant ownership, visual/size separation, checklist for new popovers).
-
-## Testing
-
-- Jest + ts-jest (`src/**/*.test.ts(x)`, mocks in `__mocks__/`).
-- For normal code changes: run `npm run type:check`; for logic changes add/run tests.
-
-## Git & PR Notes
-
-- Preferred base branch for PRs: `main` (unless explicitly targeting another branch).
-- For style-related PRs, ensure `styles.css` is regenerated from `src/styles/**`.
+- Host code: run `npm run type:check` and relevant tests.
+- Module code: run `npm run module:typecheck`, relevant tests, `npm --prefix modules/<id> run test:boundary` when available, and `npm run module:build`.
+- Host CSS: run `npm run styles:build`. Module CSS is rebuilt by the module build.
+- Run `npm run build` for changes that affect production bundling, module boundaries, runtime loading, or cross-platform behavior.
 
 ---
 > Source: [Lapis0x0/obsidian-yolo](https://github.com/Lapis0x0/obsidian-yolo) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
