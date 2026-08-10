@@ -4,7 +4,7 @@
   "repo": "topcoat",
   "description": "A batteries-included framework for building web apps",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tokio-rs/topcoat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T00:09:56Z"
+  "distributed_at": "2026-08-10T03:06:47Z"
 }
