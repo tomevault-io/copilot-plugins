@@ -1,0 +1,9 @@
+{
+  "name": "cloudflare--cloudflare-os",
+  "displayName": "cloudflare-os",
+  "description": "Agent workspace built on Cloudflare Workers for creating documents, building apps, and running agents with your company\u2019s context and systems.",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/cloudflare-os",
+  "skills": []
+}
