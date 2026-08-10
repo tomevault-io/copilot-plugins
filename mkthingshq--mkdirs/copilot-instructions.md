@@ -1,40 +1,50 @@
-## 01-project-overview
+## 02-tech-stack
 
-> Mkdirs is a directory website template that allows users to launch AI-powered directory websites in minutes. It comes packed with features like AI integration, listings, payment processing, submission forms, CMS, blog, authentication, newsletter, SEO optimization, and theming support.
+> This document outlines the key technologies used in the Mkdirs template and how they work together.
 
-# Project Overview
+# Tech Stack and Architecture
 
-Mkdirs is a directory website template that allows users to launch AI-powered directory websites in minutes. It comes packed with features like AI integration, listings, payment processing, submission forms, CMS, blog, authentication, newsletter, SEO optimization, and theming support.
+This document outlines the key technologies used in the Mkdirs template and how they work together.
 
-## Key Information
+## Core Technologies
 
-- **Project Name**: Mkdirs Template
-- **Website**: https://mkdirs.com
-- **Documentation**: Available at https://docs.mkdirs.com
-- **Tech Stack**: Next.js, Sanity CMS, TypeScript, Tailwind CSS
+- **Next.js**: The React framework used for building the application with server-side rendering, API routes, and server components
+- **TypeScript**: Used for type-safe code across the entire codebase
+- **Sanity CMS**: Headless CMS for managing content
+- **Tailwind CSS**: Utility-first CSS framework for styling
+- **Radix UI**: Unstyled, accessible UI components
+- **NextAuth**: Authentication solution for Next.js applications
+- **Stripe**: Payment processing
+- **React Email**: For creating and sending emails
+- **React Hook Form**: Form handling
+- **Zod**: Data validation
 
-## Main Features
+## File Structure
 
-- AI-powered directory functionality
-- Listing management
-- Payment processing
-- User authentication
-- Content management system (Sanity)
-- Blog functionality
-- Newsletter integration
-- SEO optimization
-- Theming support
+- **package.json**: Contains all dependencies and scripts
+- **next.config.mjs**: Next.js configuration
+- **tailwind.config.ts**: Tailwind CSS configuration
+- **sanity.config.ts**: Sanity CMS configuration
+- **src/app**: Next.js app router pages and layouts
+- **src/components**: Reusable UI components
+- **src/lib**: Utility functions and shared code
+- **src/sanity**: Sanity schema definitions and utilities
 
-## Project Structure
+## Key Architectural Patterns
 
-The project follows a standard Next.js application structure with additional Sanity CMS integration:
+- **App Router**: Uses Next.js App Router for routing
+- **Server Components**: Leverages React Server Components for better performance
+- **Server Actions**: Uses Next.js Server Actions for server-side data mutations
+- **Content Management**: Sanity CMS for structured content
+- **Authentication**: Secure authentication with NextAuth
+- **API Routes**: Backend functionality exposed through API routes
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
 
-- `src/app`: Contains the application routes and pages
-- `src/components`: Reusable React components
-- `src/lib`: Utility functions and libraries
-- `src/sanity`: Sanity CMS related configuration and schemas
-- `src/actions`: Server actions (Next.js)
-- `scripts`: Utility scripts for various operations
+## Build and Deployment
+
+- **Development**: `pnpm dev` for local development
+- **Build**: `pnpm build` for production builds
+- **Docker Support**: Includes Dockerfile for containerization
 
 ---
 > Source: [MkThingsHQ/mkdirs](https://github.com/MkThingsHQ/mkdirs) — distributed by [TomeVault](https://tomevault.io).
