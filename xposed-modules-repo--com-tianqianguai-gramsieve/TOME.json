@@ -1,0 +1,44 @@
+{
+  "name": "com.tianqianguai.gramsieve",
+  "owner": "Xposed-Modules-Repo",
+  "repo": "com.tianqianguai.gramsieve",
+  "description": "GramSieve-Telegram \u8fc7\u6ee4;\u8df3\u8f6c;\u7f16\u8f91\u5386\u53f2\u67e5\u770b",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Xposed-Modules-Repo/com.tianqianguai.gramsieve",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-10T02:02:37Z"
+}
