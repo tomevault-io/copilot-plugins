@@ -2,9 +2,9 @@
   "name": "scdownstream",
   "owner": "nf-core",
   "repo": "scdownstream",
-  "description": "A single cell transcriptomics pipeline for QC, integration and making the data presentable",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nf-core/scdownstream",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-02T00:00:53Z"
+  "distributed_at": "2026-08-10T02:24:42Z"
 }
