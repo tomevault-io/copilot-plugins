@@ -1,0 +1,9 @@
+{
+  "name": "pegainfer-project--pegainfer",
+  "displayName": "pegainfer",
+  "description": "Pure Rust + CUDA LLM inference engine \u2014 no PyTorch, OpenAI-compatible, serves Qwen3 to Kimi-K2",
+  "version": "1.0.0",
+  "author": "pegainfer-project",
+  "homepage": "https://github.com/pegainfer-project/pegainfer",
+  "skills": []
+}
