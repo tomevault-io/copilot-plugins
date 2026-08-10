@@ -4,7 +4,7 @@
   "repo": "OpenPalantir",
   "description": "OpenPalantir \u662f\u4e00\u4e2a\u57fa\u4e8e AI \u7684\u6570\u636e\u5206\u6790\u4e0e\u77e5\u8bc6\u56fe\u8c31\u6784\u5efa\u7cfb\u7edf\u3002\u652f\u6301\u6587\u6863\uff08PDF/Word/Markdown/\u56fe\u7247\uff09\u3001\u6570\u636e\u5e93\uff08MySQL/PostgreSQL/SQLite\uff09\u7b49\u591a\u79cd\u6570\u636e\u6e90\uff0c\u901a\u8fc7\u89c4\u5219\u5f15\u64ce\u548c LLM \u4e3a\u6570\u636e\u6e90\u6784\u5efa\u6458\u8981\uff0c\u5e76\u63d0\u53d6\u5b9e\u4f53\u4e0e\u5173\u7cfb\uff0c\u5b58\u5165 Neo4j \u56fe\u6570\u636e\u5e93\uff0c\u63d0\u4f9b\u56fe\u8c31\u5206\u6790\uff08\u8def\u5f84\u5206\u6790\u3001\u793e\u533a\u53d1\u73b0\u3001\u4e2d\u5fc3\u6027\u8ba1\u7b97\u3001\u8d8b\u52bf\u5206\u6790\uff09\u548c\u95ee\u7b54\u578b\u667a\u80fd\u51b3\u7b56\u80fd\u529b\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KaidenHuang/OpenPalantir",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T23:38:41Z"
+  "distributed_at": "2026-08-10T23:41:27Z"
 }
