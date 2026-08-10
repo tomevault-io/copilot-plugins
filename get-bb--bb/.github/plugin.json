@@ -1,0 +1,9 @@
+{
+  "name": "get-bb--bb",
+  "displayName": "bb",
+  "description": "The agent IDE that builds itself",
+  "version": "1.0.0",
+  "author": "get-bb",
+  "homepage": "https://github.com/get-bb/bb",
+  "skills": []
+}
