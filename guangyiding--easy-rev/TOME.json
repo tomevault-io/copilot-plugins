@@ -1,0 +1,44 @@
+{
+  "name": "easy-rev",
+  "owner": "GuangYiDing",
+  "repo": "easy-rev",
+  "description": "\u591a\u7aef\u9006\u5411\u5de5\u7a0b\u6846\u67b6\uff1aWeb / Desktop / Mobile",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/GuangYiDing/easy-rev",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-10T08:32:45Z"
+}
