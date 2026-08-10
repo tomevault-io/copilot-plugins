@@ -1,0 +1,9 @@
+{
+  "name": "off-grid-ai--ogam",
+  "displayName": "OGAM",
+  "description": "The Swiss Army Knife of Offline AI. Chat, see, speak, and generate images on your phone or Mac \u2014 GGUF LLMs, vision, Whisper speech-to-text, Stable Diffusion, tool calling, and local-network servers. R",
+  "version": "1.0.0",
+  "author": "off-grid-ai",
+  "homepage": "https://github.com/off-grid-ai/OGAM",
+  "skills": []
+}
