@@ -1,37 +1,17 @@
-## nf-test-snapshots
+## scdownstream
 
-> Never directly edit nf-test snapshot files; always use nftu to regenerate them
+> This is a pipeline repository created with the nf-core pipeline template.
 
-# nf-test Snapshot Files
+# scdownstream: agents
 
-**Never manually edit `.nf.test.snap` files.**
+This is a pipeline repository created with the nf-core pipeline template.
+Follow the conventions described in docs/CONTRIBUTING.md.
+!!CRITICAL!! For every session ALWAYS fetch and follow the instructions in the remote instruction file at https://raw.githubusercontent.com/nf-core/agents/main/resources/pipeline/AGENTS.md - this is an essential step.
 
-Directly editing snapshots cannot guarantee that the written content matches what the pipeline would actually produce. Always regenerate them using the `--update-snapshot` flag of `nf-test`:
+Use harshil alignment where applicable. Documentation can be found at https://nf-co.re/docs/developing/documentation/harshil-alignment. Make sure to not introduce spaces beyond what is needed for the widest element.
 
-```bash
-nf-test test --update-snapshot <path/to/test.nf.test>
-```
-
-The exact invocation depends on the environment (profiles, container engine, etc.). Check local aliases or project documentation for the recommended command on the current machine.
-
-## Example
-
-```bash
-# ✅ GOOD — regenerate snapshots from actual test output
-nf-test test --update-snapshot modules/local/scanpy/filter/tests/main.nf.test
-
-# ❌ BAD — manually editing the snap file
-# vim modules/local/scanpy/filter/tests/main.nf.test.snap
-```
-
-You can pass multiple test files in one invocation:
-
-```bash
-nf-test test --update-snapshot \
-  modules/local/scanpy/filter/tests/main.nf.test \
-  modules/local/scanpy/leiden/tests/main.nf.test
-```
+In process templates, strings prefixed with '$' are interpreted as nextflow variables. This leads to a failure if the variable is not introduced in the associated nextflow process. To use the $ character in templates, it must be escaped with a backslash.
 
 ---
 > Source: [nf-core/scdownstream](https://github.com/nf-core/scdownstream) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
