@@ -4,7 +4,7 @@
   "repo": "retransmission",
   "description": "Shift Transmission to a higher gear. A fast, easy and free Bittorrent Client For macOS, Windows and Linux ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/retransmission/retransmission",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T01:59:16Z"
+  "distributed_at": "2026-08-10T04:45:53Z"
 }
