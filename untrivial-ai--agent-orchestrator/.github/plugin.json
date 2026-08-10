@@ -1,0 +1,9 @@
+{
+  "name": "untrivial-ai--agent-orchestrator",
+  "displayName": "agent-orchestrator",
+  "description": "Agent IDE that enables you to manage fleets of coding agents. It comes with an agentic orchestrator that plans tasks, spawns agents, and autonomously handles CI fixes, merge conflicts, and code review",
+  "version": "1.0.0",
+  "author": "Untrivial-ai",
+  "homepage": "https://github.com/Untrivial-ai/agent-orchestrator",
+  "skills": []
+}
