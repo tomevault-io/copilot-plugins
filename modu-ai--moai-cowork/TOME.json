@@ -1,0 +1,44 @@
+{
+  "name": "moai-cowork",
+  "owner": "modu-ai",
+  "repo": "moai-cowork",
+  "description": "\ubaa8\ub450\uc758 \ucf54\uc6cc\ud06c(MoAI-Cowork) \u2014 \ud55c\uad6d \uc2e4\ubb34 Claude Code AI \uc9c1\uc6d0 \ud50c\ub7ec\uadf8\uc778 + 4\ud2b8\ub799 \ud55c\uad6d\uc5b4 \uac00\uc774\ub4dc (cowork.mo.ai.kr)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/modu-ai/moai-cowork",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-10T09:40:02Z"
+}
