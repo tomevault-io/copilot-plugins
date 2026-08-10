@@ -4,7 +4,7 @@
   "repo": "mandible",
   "description": "A TUI manual viewer for every command-line tool you have.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AS-FOSS/mandible",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T02:21:43Z"
+  "distributed_at": "2026-08-10T05:00:48Z"
 }
