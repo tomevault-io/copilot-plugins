@@ -1,0 +1,9 @@
+{
+  "name": "liustack--modlens",
+  "displayName": "modlens",
+  "description": "CLI toolkit for AI agents \u2014 converts images into structured JSON evidence (OCR, layout, semantics), bridging the vision gap for text-only LLMs.",
+  "version": "1.0.0",
+  "author": "liustack",
+  "homepage": "https://github.com/liustack/modlens",
+  "skills": []
+}
