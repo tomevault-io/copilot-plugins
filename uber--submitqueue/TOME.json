@@ -4,7 +4,7 @@
   "repo": "submitqueue",
   "description": "SubmitQueue is a high-performance speculative merge queue that keeps your trunk consistently green at scale.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/uber/submitqueue",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T15:38:22Z"
+  "distributed_at": "2026-08-10T15:39:05Z"
 }
