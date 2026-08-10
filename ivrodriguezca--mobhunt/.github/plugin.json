@@ -1,0 +1,9 @@
+{
+  "name": "ivrodriguezca--mobhunt",
+  "displayName": "MobHunt",
+  "description": "An agentic mobile security research system built as a Claude Code project. An orchestrator spawns focused sub-agents, each with one narrow objective.",
+  "version": "1.0.0",
+  "author": "ivRodriguezCA",
+  "homepage": "https://github.com/ivRodriguezCA/MobHunt",
+  "skills": []
+}
