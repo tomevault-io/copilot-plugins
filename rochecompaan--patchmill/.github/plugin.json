@@ -1,0 +1,9 @@
+{
+  "name": "rochecompaan--patchmill",
+  "displayName": "patchmill",
+  "description": "Patchmill is an agent-driven software factory",
+  "version": "1.0.0",
+  "author": "rochecompaan",
+  "homepage": "https://github.com/rochecompaan/patchmill",
+  "skills": []
+}
