@@ -1,52 +1,50 @@
-## naming
+## quality
 
-> Naming conventions for identifiers and filenames in this repository.
+> Type safety, comments, and modularity rules for all code in this repository.
 
 
-# Naming Conventions
+# Code Quality
 
-## Identifiers must be long and descriptive
+## Full type safety, no escape hatches
 
-Use full words that explain intent. Never abbreviate, never single-letter variables (except `i`/`j` in tight loops). The same rule applies to function names, parameters, type names, type parameters, and any user-facing string.
+Every value must have a precise type. Forbidden: `any`, `as any`, `as unknown as X`, `// @ts-ignore`, `// @ts-expect-error`, non-null assertions (`!`) on untrusted data, implicit `any` parameters. Validate every external input with `zod`.
 
 ```ts
 // ❌ BAD
-const u = await db.q('select * from users');
-function fmt<T>(x: T) { /* ... */ }
+function handle(payload: any) {
+  return payload.user.id as string;
+}
 
 // ✅ GOOD
-const allRegisteredUserList = await database.query('select * from users');
-function formatPersistedRecordForDisplay<PersistedRecord>(
-  persistedRecord: PersistedRecord,
-) { /* ... */ }
+const incomingPayloadSchema = z.object({ user: z.object({ id: z.string() }) });
+function handleIncomingPayload(rawPayload: unknown): string {
+  return incomingPayloadSchema.parse(rawPayload).user.id;
+}
 ```
 
-Booleans start with `is`/`has`/`should`/`was`/`did`. Functions start with a verb (`build`, `resolve`, `inspect`, `execute`). Catalogs/collections end with `List`, `Map`, `Set`, or `Catalog`.
+Prefer `unknown` over `any` for boundaries. Use `readonly` on properties and arrays that should not mutate. Use discriminated unions instead of optional booleans.
 
-## Filenames are a single lowercase word
+## No comments unless strictly necessary
 
-One concept per file, one lowercase word per filename. Compose meaning through folders, never through hyphenated or multi-word filenames.
+The code itself documents what it does through descriptive names. Only write a comment when it explains a non-obvious *why* — a workaround, a trade-off, a constraint, an external spec — that the reader cannot infer from the code.
 
-```
-// ❌ BAD
-src/services/workspace-cleanup-service.ts
-src/presentation/sticky-header.ts
+```ts
+// ❌ BAD — narrating the obvious
+// Increment the counter
+attemptCount += 1;
 
-// ✅ GOOD
-src/services/cleanup.ts
-src/presentation/sticky.ts
-```
-
-If a name needs more than one word to be unambiguous, create a folder for the concern and put the single-word file inside:
-
-```
-src/runners/shell.ts
-src/runners/compose.ts
-src/configuration/services.ts
-src/configuration/tooling.ts
+// ✅ GOOD — explains intent the code cannot
+// Postgres rejects identifiers longer than 63 bytes; truncate before sending.
+const truncatedSchemaName = rawSchemaName.slice(0, 63);
 ```
 
-When renaming, update every import. Use the `@/` alias for in-package imports — never relative paths like `../../`.
+Never use comments to communicate with the user, log progress, or annotate diffs.
+
+## Modular, single-responsibility files
+
+Keep one cohesive concern per file. Group by layer (`commands/`, `services/`, `runners/`, `configuration/`, `core/`, `presentation/`). Files should not exceed ~300 lines; split when they do. Never reach across layers — commands call services, services call runners, runners talk to the OS. Catalogs (configuration) hold pure data only.
+
+Pure functions over classes when possible. Inject context as the last argument (`CommandExecutionContext`) instead of reading globals. Keep public exports explicit; do not re-export everything.
 
 ---
 > Source: [galfrevn/apollo](https://github.com/galfrevn/apollo) — distributed by [TomeVault](https://tomevault.io).
