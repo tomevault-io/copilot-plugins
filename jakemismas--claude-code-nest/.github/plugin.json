@@ -1,0 +1,9 @@
+{
+  "name": "jakemismas--claude-code-nest",
+  "displayName": "claude-code-nest",
+  "description": "VSCode extension that adds a virtual organization layer (folders, tags, links, and read-only smart groups) over Claude Code chat sessions, so 50+ chats stop overflowing the tab bar. Strictly read-only",
+  "version": "1.0.0",
+  "author": "jakemismas",
+  "homepage": "https://github.com/jakemismas/claude-code-nest",
+  "skills": []
+}
