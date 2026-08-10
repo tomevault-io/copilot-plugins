@@ -1,0 +1,9 @@
+{
+  "name": "quipnetwork--quip-miner",
+  "displayName": "quip-miner",
+  "description": "The quip network mining stack. This includes a coordinator and links all of the official quip network miners.",
+  "version": "1.0.0",
+  "author": "QuipNetwork",
+  "homepage": "https://github.com/QuipNetwork/quip-miner",
+  "skills": []
+}
