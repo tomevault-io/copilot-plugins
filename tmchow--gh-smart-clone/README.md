@@ -7,11 +7,11 @@ GitHub CLI extension for fork-aware owner/repo clone paths
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tmchow/gh-smart-clone](https://github.com/tmchow/gh-smart-clone).
+Original source: `AGENTS.md` in [tmchow/gh-smart-clone](https://github.com/tmchow/gh-smart-clone).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
