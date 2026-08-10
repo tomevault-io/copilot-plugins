@@ -108869,6 +108869,16 @@
       "description": "Reverse engineer anything with agents, from app behavior down to native binaries."
     },
     {
+      "name": "different-ai-studio--teamclu",
+      "source": "./different-ai-studio--teamclu",
+      "description": "TeamClaw, AI Agent Desktop Workspace"
+    },
+    {
+      "name": "different-ai-studio--teamclu",
+      "source": "./different-ai-studio--teamclu",
+      "description": "TeamClaw, AI Agent Desktop Workspace"
+    },
+    {
       "name": "standardagents--sip",
       "source": "./standardagents--sip",
       "description": "Small Image Processor - Ultra memory-efficient image processing for Cloudflare Workers \ud83d\udfe0"
@@ -199297,6 +199307,11 @@
       "name": "liatrio--engineering-bootcamp",
       "source": "./liatrio--engineering-bootcamp",
       "description": "engineering-bootcamp"
+    },
+    {
+      "name": "mbeher2200--darkhours",
+      "source": "./mbeher2200--darkhours",
+      "description": "Landscape Astrophotography and dark-sky planner \u2014 predicts weather, lunar cycles, Milky Way visibility, light pollution,  meteor showrs, and Auroras. It finds nearby dark-sky sites, and best nights."
     },
     {
       "name": "timoncool--ace-step-studio",
@@ -306644,6 +306659,11 @@
       "description": "aigent-OS gives Claude Code fully autonomous memory and context management. It remembers across sessions, checkpoints itself, and manages its own context window so you never re-brief it. A free, open-"
     },
     {
+      "name": "yovanoc--effect-cdp",
+      "source": "./yovanoc--effect-cdp",
+      "description": "effect-cdp"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -313387,6 +313407,11 @@
       "name": "buldezir--paperless-go",
       "source": "./buldezir--paperless-go",
       "description": "Document storage built with Go + PocketBase and a React + TanStack Router frontend. Upload documents, run OCR, extract metadata with an OpenAI-compatible AI provider, and review results in the UI."
+    },
+    {
+      "name": "aoci-spec--aoci-code",
+      "source": "./aoci-spec--aoci-code",
+      "description": "AOCI-CODE \u2014 AI Software System Cognition Infrastructure for AI Agents."
     },
     {
       "name": "lucas-acc--sancho-skills",
