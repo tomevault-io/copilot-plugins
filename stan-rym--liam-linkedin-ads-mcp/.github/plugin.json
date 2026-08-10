@@ -1,0 +1,9 @@
+{
+  "name": "stan-rym--liam-linkedin-ads-mcp",
+  "displayName": "liam-linkedin-ads-MCP",
+  "description": "Create LinkedIn ad campaigns by talking to Claude (MCP) or a CLI. ",
+  "version": "1.0.0",
+  "author": "stan-rym",
+  "homepage": "https://github.com/stan-rym/liam-linkedin-ads-MCP",
+  "skills": []
+}
