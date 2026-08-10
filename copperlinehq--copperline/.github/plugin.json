@@ -1,0 +1,9 @@
+{
+  "name": "copperlinehq--copperline",
+  "displayName": "Copperline",
+  "description": "An Amiga emulator written in Rust",
+  "version": "1.0.0",
+  "author": "CopperlineHQ",
+  "homepage": "https://github.com/CopperlineHQ/Copperline",
+  "skills": []
+}
