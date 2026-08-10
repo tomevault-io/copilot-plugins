@@ -1,0 +1,9 @@
+{
+  "name": "sqliteai--warp",
+  "displayName": "warp",
+  "description": "Run the full 2.78-trillion-parameter Kimi K3 model beyond available RAM by streaming activated weights directly from NVMe. A dependency-free, embeddable C inference engine.",
+  "version": "1.0.0",
+  "author": "sqliteai",
+  "homepage": "https://github.com/sqliteai/warp",
+  "skills": []
+}
