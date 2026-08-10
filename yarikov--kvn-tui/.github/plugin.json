@@ -1,0 +1,9 @@
+{
+  "name": "yarikov--kvn-tui",
+  "displayName": "kvn-tui",
+  "description": "\ud83d\udee1\ufe0f TUI VPN client for Arch Linux. Paste vless://, vmess://, trojan://, ss:// & more \u2014 manage sing-box, routing, kill switch & DNS without leaving the terminal",
+  "version": "1.0.0",
+  "author": "yarikov",
+  "homepage": "https://github.com/yarikov/kvn-tui",
+  "skills": []
+}
