@@ -1,0 +1,9 @@
+{
+  "name": "open-telemetry--opentelemetry-ruby",
+  "displayName": "opentelemetry-ruby",
+  "description": "opentelemetry-ruby",
+  "version": "1.0.0",
+  "author": "open-telemetry",
+  "homepage": "https://github.com/open-telemetry/opentelemetry-ruby",
+  "skills": []
+}
