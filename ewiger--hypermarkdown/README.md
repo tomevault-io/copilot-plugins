@@ -7,11 +7,11 @@ HyperMarkDown helps building your own local wiki knowledge base
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ewiger/hypermarkdown](https://github.com/ewiger/hypermarkdown).
+Original source: `CLAUDE.md` in [ewiger/hypermarkdown](https://github.com/ewiger/hypermarkdown).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
