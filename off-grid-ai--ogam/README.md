@@ -7,11 +7,11 @@ The Swiss Army Knife of Offline AI. Chat, see, speak, and generate images on you
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [off-grid-ai/OGAM](https://github.com/off-grid-ai/OGAM).
+Original source: `CLAUDE.md` in [off-grid-ai/OGAM](https://github.com/off-grid-ai/OGAM).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
