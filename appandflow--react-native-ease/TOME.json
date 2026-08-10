@@ -1,6 +1,6 @@
 {
   "name": "react-native-ease",
-  "owner": "AppAndFlow",
+  "owner": "appandflow",
   "repo": "react-native-ease",
   "description": "\ud83c\udf43 Lightweight declarative animations powered by platform APIs",
   "type": "config",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/AppAndFlow/react-native-ease",
+  "source_url": "https://github.com/appandflow/react-native-ease",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T15:37:12Z"
+  "distributed_at": "2026-08-10T01:41:11Z"
 }
