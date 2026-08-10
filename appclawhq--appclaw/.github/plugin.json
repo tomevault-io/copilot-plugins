@@ -1,0 +1,9 @@
+{
+  "name": "appclawhq--appclaw",
+  "displayName": "AppClaw",
+  "description": "AI-powered mobile automation agent \u2014 describe what you want in plain English, AppClaw reads the screen, reasons, and acts. LLM-agnostic, open-source, zero telemetry.",
+  "version": "1.0.0",
+  "author": "appclawhq",
+  "homepage": "https://github.com/appclawhq/AppClaw",
+  "skills": []
+}
