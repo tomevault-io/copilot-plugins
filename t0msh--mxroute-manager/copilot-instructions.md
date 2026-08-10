@@ -1,65 +1,61 @@
-## idempotent-init
+## release-changelog
 
-> Make domain and account initialization idempotent — check before create
+> Write a comprehensive GitHub release changelog for every version tag
 
 
-# Idempotent Initialization
+# Release Changelogs
 
-Domain and account setup routines must be **safe to re-run**. Always fetch or check current state before issuing a creation payload.
+Every release needs **two copies of the same changelog**: `CHANGELOG.md` in the repo and GitHub release notes for the tag. Pair with the version bump in `app_meta.py` (see `version-bump.mdc`).
 
-## Rules
+## When
 
-- **Read before write** — list zones, DNS records, domains, or mailboxes before `POST`.
-- **Skip when correct** — if the resource already matches the desired state, return without mutating.
-- **Upsert when wrong** — update in place (or delete duplicates) instead of blind create.
-- **Report outcome** — return or log `skipped`, `added`, or `updated` so callers and UIs can show progress.
+On each release, before merging the version bump to `main`.
 
-## Canonical patterns in this repo
+## How to build
 
-**MXroute domain registration** — check membership, then create:
+1. Previous tag: `git tag -l 'v*' --sort=-v:refname | head -1`
+2. Review `git log vPREVIOUS..HEAD` and merged PRs.
+3. Group by user-visible area (DNS, mail, auth, UI, API, ops).
+4. Write for someone upgrading. Plain language; link issues/PRs where helpful.
 
-```python
-def register_domain_on_mxroute(domain, steps=None):
-    if domain_on_mxroute(domain):
-        if steps is not None:
-            steps.append("Domain already registered on MXroute")
-        return "skipped"
-    mx_request_raw("POST", "/domains", {"domain": domain})
-    return "added"
+## CHANGELOG.md format
+
+- Newest version **below** `[Unreleased]`, above older entries.
+- Heading: `## [0.18.1] - YYYY-MM-DD`
+- Subsections as needed: `### Added`, `### Changed`, `### Fixed`, `### Security`, `### Removed`
+- End with `### Upgrade` when deploy steps matter.
+- Move `[Unreleased]` bullets into the version section when you ship.
+
+```markdown
+## [Unreleased]
+
+## [0.18.1] - 2026-06-26
+
+Patch release: one-line summary.
+
+### Fixed
+
+- Symptom and what changed.
+
+### Upgrade
+
+\`\`\`bash
+git pull
+pip install -r requirements.txt
+\`\`\`
 ```
 
-**Cloudflare DNS** — prefetch once, compare, then skip/upsert:
+Commit `CHANGELOG.md` in the **same commit** as the `APP_VERSION` bump.
 
-```python
-existing_mx, existing_txt, existing_records = fetch_cf_dns_sets(zone_id)
-cf_upsert_txt(zone_id, cf_name, fqdn, content, existing_records, existing_txt, steps, log_messages)
+## GitHub release
+
+Publish the **same content** as the new `CHANGELOG.md` section (not the whole file):
+
+```bash
+gh release create v0.18.1 --title "v0.18.1" --notes-file /tmp/release-notes.md
 ```
 
-**MX records** — check `existing_mx` set before each `POST`:
-
-```python
-has_mx = any(
-    rname == domain_lower and rcontent == mx_host
-    and int(rpriority or 0) == int(mx_priority or 0)
-    for rname, rcontent, rpriority in existing_mx
-)
-if not has_mx:
-    cf_request("POST", f"/zones/{zone_id}/dns_records", payload)
-```
-
-## Email accounts
-
-Before `POST /email-accounts`, confirm the mailbox does not already exist (e.g. `GET` the list and match `username`). Treat duplicate-create API errors as a last resort, not the primary guard.
-
-## Anti-patterns
-
-```python
-# ❌ BAD — assumes empty state; fails or duplicates on retry
-cf_request("POST", f"/zones/{zone_id}/dns_records", payload)
-mx_request_raw("POST", "/domains", {"domain": domain})
-```
-
-Setup wizards and repair flows may be triggered multiple times; idempotency prevents duplicate records, spurious errors, and partial-state drift.
+Draft `/tmp/release-notes.md` from the version section. No empty release bodies. No raw `git log`. Do not omit breaking or security items.
 
 ---
 > Source: [t0msh/mxroute-manager](https://github.com/t0msh/mxroute-manager) — distributed by [TomeVault](https://tomevault.io).
