@@ -1,0 +1,9 @@
+{
+  "name": "victoryangzhijie--stt-server",
+  "displayName": "stt-server",
+  "description": "Real-time speech-to-text WebSocket server with pluggable ASR backends, energy-based VAD, streaming partial results, and Prometheus   observability.",
+  "version": "1.0.0",
+  "author": "victoryangzhijie",
+  "homepage": "https://github.com/victoryangzhijie/stt-server",
+  "skills": []
+}
