@@ -10994,6 +10994,16 @@
       "description": "ng-zorro-antd"
     },
     {
+      "name": "untrivial-ai--agent-orchestrator",
+      "source": "./untrivial-ai--agent-orchestrator",
+      "description": "Agent IDE that enables you to manage fleets of coding agents. It comes with an agentic orchestrator that plans tasks, spawns agents, and autonomously handles CI fixes, merge conflicts, and code review"
+    },
+    {
+      "name": "untrivial-ai--agent-orchestrator",
+      "source": "./untrivial-ai--agent-orchestrator",
+      "description": "Agent IDE that enables you to manage fleets of coding agents. It comes with an agentic orchestrator that plans tasks, spawns agents, and autonomously handles CI fixes, merge conflicts, and code review"
+    },
+    {
       "name": "mikro-orm--mikro-orm",
       "source": "./mikro-orm--mikro-orm",
       "description": "mikro-orm"
@@ -24717,6 +24727,16 @@
       "name": "0pandadev--awesome-windows",
       "source": "./0pandadev--awesome-windows",
       "description": "An awesome & curated list of tools and apps for Windows 10/11."
+    },
+    {
+      "name": "0xsero--litter",
+      "source": "./0xsero--litter",
+      "description": "litter"
+    },
+    {
+      "name": "0xsero--litter",
+      "source": "./0xsero--litter",
+      "description": "litter"
     },
     {
       "name": "q00--ouroboros",
@@ -43992,6 +44012,11 @@
       "name": "yorkie-team--yorkie",
       "source": "./yorkie-team--yorkie",
       "description": "yorkie"
+    },
+    {
+      "name": "proxysoul--empryo",
+      "source": "./proxysoul--empryo",
+      "description": "Empryo issue tracker + SoulForge (v2) archive \u2014 Empryo is the graph-powered AI coding agent that edits symbols, not strings: AST surgery, full LSP, a live code genome. Get it at https://empryo.com"
     },
     {
       "name": "javedh-dev--tracktor",
@@ -65589,6 +65614,11 @@
       "description": "helm-charts"
     },
     {
+      "name": "kkcoms--nextjs-convex-clerk-stripe-boilerplate",
+      "source": "./kkcoms--nextjs-convex-clerk-stripe-boilerplate",
+      "description": "Battle-tested boilerplate that helped me launch multiple web & mobile apps \u2014 now open source. Real-time Convex backend, Clerk SSO, Stripe payments, Next.js + shadcn."
+    },
+    {
       "name": "aidenybai--element-source",
       "source": "./aidenybai--element-source",
       "description": "Get the source file location of any DOM element. Works with React, Vue, Svelte, Solid, Preact"
@@ -72409,6 +72439,11 @@
       "description": "SEAL-Python"
     },
     {
+      "name": "timschmidt--synaps-cad",
+      "source": "./timschmidt--synaps-cad",
+      "description": "The AI-powered 3D CAD IDE \u2014 edit code, visualize in 3D, and reshape your designs with natural language."
+    },
+    {
       "name": "millionco--isolet",
       "source": "./millionco--isolet",
       "description": "Package any component into a self-contained, isolated widget"
@@ -76517,6 +76552,11 @@
       "name": "rcarmo--pve-microvm",
       "source": "./rcarmo--pve-microvm",
       "description": "pve-microvm"
+    },
+    {
+      "name": "hesprs--sync-engine",
+      "source": "./hesprs--sync-engine",
+      "description": "\ud83d\udd04 The next-generation Obsidian syncing plugin. Fast \u00b7 Free \u00b7 Extend with Modules."
     },
     {
       "name": "haoruilee--awesome-agent-native-services",
@@ -99722,6 +99762,11 @@
       "name": "denoland--docs",
       "source": "./denoland--docs",
       "description": "docs"
+    },
+    {
+      "name": "admonstrator--zettelrobbe",
+      "source": "./admonstrator--zettelrobbe",
+      "description": "Next-generation fork of Paperless-AI for Paperless-ngx: reliable AI tagging plus an OCR rescue queue (Mistral or local vision models, multi-page PDFs), failed/ignored document queues, one-click rescan"
     },
     {
       "name": "onesuper--tui-use",
@@ -130402,6 +130447,16 @@
       "name": "john-guerra--navio",
       "source": "./john-guerra--navio",
       "description": "navio"
+    },
+    {
+      "name": "vercel-labs--vercel-openclaw-archived",
+      "source": "./vercel-labs--vercel-openclaw-archived",
+      "description": "Deploy OpenClaw on Vercel"
+    },
+    {
+      "name": "vercel-labs--vercel-openclaw-archived",
+      "source": "./vercel-labs--vercel-openclaw-archived",
+      "description": "Deploy OpenClaw on Vercel"
     },
     {
       "name": "iusztinpaul--designing-real-world-ai-agents-workshop",
@@ -330334,6 +330389,16 @@
       "description": "Janus: Towards Evolving Agentic Laboratory"
     },
     {
+      "name": "waynejin0918--omni-rewriter",
+      "source": "./waynejin0918--omni-rewriter",
+      "description": "Open agentic prompt-expansion harness for image and video generation, bridging polished demos, public APIs, and deployable workflows."
+    },
+    {
+      "name": "waynejin0918--omni-rewriter",
+      "source": "./waynejin0918--omni-rewriter",
+      "description": "Open agentic prompt-expansion harness for image and video generation, bridging polished demos, public APIs, and deployable workflows."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -357177,6 +357242,16 @@
       "name": "rochecompaan--patchmill",
       "source": "./rochecompaan--patchmill",
       "description": "Patchmill is an agent-driven software factory"
+    },
+    {
+      "name": "guangyiding--easy-reg",
+      "source": "./guangyiding--easy-reg",
+      "description": "Web bulk registration framework: Camoufox + shareable Site Packs + AI CLI"
+    },
+    {
+      "name": "relayax--relayagent",
+      "source": "./relayax--relayagent",
+      "description": "A personal substrate for agent packages that ship their own screens. One manifest declares the agent, its verbs, and its UI."
     },
     {
       "name": "yschimke--compose-ai-tools",
