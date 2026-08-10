@@ -1,0 +1,9 @@
+{
+  "name": "mystikolab--rustcast",
+  "displayName": "rustcast",
+  "description": "An open source alternative to raycast, in rust!!",
+  "version": "1.0.0",
+  "author": "MystikoLab",
+  "homepage": "https://github.com/MystikoLab/rustcast",
+  "skills": []
+}
