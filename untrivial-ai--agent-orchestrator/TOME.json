@@ -4,7 +4,7 @@
   "repo": "agent-orchestrator",
   "description": "Agent IDE that enables you to manage fleets of coding agents. It comes with an agentic orchestrator that plans tasks, spawns agents, and autonomously handles CI fixes, merge conflicts, and code reviews.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Untrivial-ai/agent-orchestrator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T07:30:52Z"
+  "distributed_at": "2026-08-10T07:31:34Z"
 }
