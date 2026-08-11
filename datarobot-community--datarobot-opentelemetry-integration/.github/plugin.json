@@ -1,0 +1,9 @@
+{
+  "name": "datarobot-community--datarobot-opentelemetry-integration",
+  "displayName": "datarobot-opentelemetry-integration",
+  "description": "DataRobot opentelemetry semantic conventions and helper tools",
+  "version": "1.0.0",
+  "author": "datarobot-community",
+  "homepage": "https://github.com/datarobot-community/datarobot-opentelemetry-integration",
+  "skills": []
+}
