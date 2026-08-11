@@ -205824,6 +205824,16 @@
       "description": "chocolatey-packages"
     },
     {
+      "name": "hangyu8123--mihacobench",
+      "source": "./hangyu8123--mihacobench",
+      "description": "A mini harness benchmark for coding"
+    },
+    {
+      "name": "hangyu8123--mihacobench",
+      "source": "./hangyu8123--mihacobench",
+      "description": "A mini harness benchmark for coding"
+    },
+    {
       "name": "rust-works--succinctly",
       "source": "./rust-works--succinctly",
       "description": "Succinct data structures"
@@ -224484,6 +224494,11 @@
       "description": "sdoog"
     },
     {
+      "name": "openknowledge-sh--openknowledge",
+      "source": "./openknowledge-sh--openknowledge",
+      "description": "CLI tool for managing Open Knowledge Format (OKF) bundles."
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
@@ -229492,6 +229507,11 @@
       "name": "tomerfi--aioswitcher",
       "source": "./tomerfi--aioswitcher",
       "description": "aioswitcher"
+    },
+    {
+      "name": "callstackincubator--sniffler",
+      "source": "./callstackincubator--sniffler",
+      "description": "Sniffler sniffs out the E2E tests your changes actually wake up."
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -247854,6 +247874,31 @@
       "description": "nuspace"
     },
     {
+      "name": "godot-fun--godot-framework",
+      "source": "./godot-fun--godot-framework",
+      "description": "A lightweight Godot framework + agent skills for building and shipping games"
+    },
+    {
+      "name": "godot-fun--godot-framework",
+      "source": "./godot-fun--godot-framework",
+      "description": "A lightweight Godot framework + agent skills for building and shipping games"
+    },
+    {
+      "name": "godot-fun--godot-framework",
+      "source": "./godot-fun--godot-framework",
+      "description": "A lightweight Godot framework + agent skills for building and shipping games"
+    },
+    {
+      "name": "godot-fun--godot-framework",
+      "source": "./godot-fun--godot-framework",
+      "description": "A lightweight Godot framework + agent skills for building and shipping games"
+    },
+    {
+      "name": "godot-fun--godot-framework",
+      "source": "./godot-fun--godot-framework",
+      "description": "A lightweight Godot framework + agent skills for building and shipping games"
+    },
+    {
       "name": "inureyes--gyeol",
       "source": "./inureyes--gyeol",
       "description": "gyeol"
@@ -263824,6 +263869,11 @@
       "description": "AI agent fleet orchestration terminal \u2014 bidirectional socket IPC, resource governance, mission-control dashboard. macOS \u00b7 Windows. Built largely by AI agents under human direction."
     },
     {
+      "name": "shrdgn--openfusion",
+      "source": "./shrdgn--openfusion",
+      "description": "Combine the results from a panel of models into an enhanced response "
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -272759,6 +272809,26 @@
       "description": "Extension for Pi that integrates Charm's Hyper inference provider"
     },
     {
+      "name": "nvidia--nemo-fabric",
+      "source": "./nvidia--nemo-fabric",
+      "description": "NVIDIA NeMo Fabric"
+    },
+    {
+      "name": "mahimailabs--shipvoice",
+      "source": "./mahimailabs--shipvoice",
+      "description": "Full-stack LiveKit voice agent starter: a Python voice worker, FastAPI token server, and React frontend. Run, deploy, and swap each piece on its own. Ask for ShipVoice pro"
+    },
+    {
+      "name": "nvidia--nemo-fabric",
+      "source": "./nvidia--nemo-fabric",
+      "description": "NVIDIA NeMo Fabric"
+    },
+    {
+      "name": "mahimailabs--shipvoice",
+      "source": "./mahimailabs--shipvoice",
+      "description": "Full-stack LiveKit voice agent starter: a Python voice worker, FastAPI token server, and React frontend. Run, deploy, and swap each piece on its own. Ask for ShipVoice pro"
+    },
+    {
       "name": "lucianaib0318--geomind",
       "source": "./lucianaib0318--geomind",
       "description": "\ud83c\udf0d GeoMind\uff1a\u57fa\u4e8e\u98de\u4e66 CLI + \u817e\u8baf\u4f4d\u7f6e\u7684\u79d1\u7814\u4e0e\u4ea7\u4e1a\u5730\u7406\u60c5\u62a5\u53ef\u89c6\u5316 Skill"
@@ -280072,6 +280142,11 @@
       "name": "fl-sean03--opensdl",
       "source": "./fl-sean03--opensdl",
       "description": "A modular Python foundation for reproducible computational and autonomous laboratories."
+    },
+    {
+      "name": "mycelium0--mycelium",
+      "source": "./mycelium0--mycelium",
+      "description": "connectivity in degrading networks"
     },
     {
       "name": "develite98--angular-best-practices",
@@ -287439,6 +287514,16 @@
       "description": "Hallucination-resistant Bible exegesis for Claude \u2014 Greek, Hebrew, English & Korean. 4-stage exegesis with real original-language data."
     },
     {
+      "name": "vercel-labs--phase",
+      "source": "./vercel-labs--phase",
+      "description": "Lifecycle-aware UI performance layer for the web"
+    },
+    {
+      "name": "vercel-labs--phase",
+      "source": "./vercel-labs--phase",
+      "description": "Lifecycle-aware UI performance layer for the web"
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -291677,6 +291762,11 @@
       "name": "tllovesxs--open-publisher",
       "source": "./tllovesxs--open-publisher",
       "description": "\u4e00\u4e2a\u53d1\u6587\u52a9\u624b(\u591aagent\u534f\u4f5c,\u5305\u542b\u590d\u523b-\u6a21\u7248-\u5199\u6587-\u914d\u56fe-\u53d1\u5e03\u5168\u6d41\u7a0b\u7684\u4e00\u4e2a\u667a\u80fd\u5de5\u4f5c\u53f0)"
+    },
+    {
+      "name": "pasqualinigui--fluksos",
+      "source": "./pasqualinigui--fluksos",
+      "description": "The Platform Engineering CLI. Generate production-ready modern JS/TS architectures in seconds (starting with Next.js). Features built-in AST Validation, OpenTelemetry, Turborepo, and strict governance"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -296432,6 +296522,36 @@
       "name": "statindet--daybook",
       "source": "./statindet--daybook",
       "description": "A minimalist, zero-framework static blog generator written in pure Go. No Hugo, no Astro, no Hexo\u2014just raw Go and native Obsidian compatibility. (\u4e00\u4e2a\u4f7f\u7528\u7eaf Go \u7f16\u5199\u7684\u6781\u7b80\u3001\u96f6\u6846\u67b6\u9759\u6001\u535a\u5ba2\u751f\u6210\u5668\u3002\u6ca1\u6709 Hugo\uff0c\u6ca1\u6709 Astro\uff0c\u6ca1\u6709 Hexo\u2014\u2014\u53ea\u6709"
+    },
+    {
+      "name": "ymm-oss--fsl",
+      "source": "./ymm-oss--fsl",
+      "description": "AI-Native Formal Specification Language \u2014 a bounded model checker (Lark + Z3) built for LLM write/verify/repair loops."
+    },
+    {
+      "name": "sinameraji--hotcell",
+      "source": "./sinameraji--hotcell",
+      "description": "Self-hostable sandbox SDK inspired by Cloudflare Sandbox SDK. works on any device"
+    },
+    {
+      "name": "kokxi--qa-test-skills",
+      "source": "./kokxi--qa-test-skills",
+      "description": "\u8f6f\u4ef6\u6d4b\u8bd5\u6280\u80fd\u96c6 - 48\u4e2a\u4e13\u5bb6\u7ea7\u6d4b\u8bd5\u6280\u80fd + 1\u4e2a\u5165\u53e3\u5de5\u4f5c\u6d41\uff0c\u8986\u76d6\u6d4b\u8bd5\u5168\u751f\u547d\u5468\u671f"
+    },
+    {
+      "name": "uphold--metrognome",
+      "source": "./uphold--metrognome",
+      "description": "The autonomous performance engineer for React Native - An AI Plugin that views the screen, reads Hermes, and applies effective RN fixes. Built to run locally or on CI, it can generate a 3D performance"
+    },
+    {
+      "name": "ymm-oss--fsl",
+      "source": "./ymm-oss--fsl",
+      "description": "AI-Native Formal Specification Language \u2014 a bounded model checker (Lark + Z3) built for LLM write/verify/repair loops."
+    },
+    {
+      "name": "uphold--metrognome",
+      "source": "./uphold--metrognome",
+      "description": "The autonomous performance engineer for React Native - An AI Plugin that views the screen, reads Hermes, and applies effective RN fixes. Built to run locally or on CI, it can generate a 3D performance"
     },
     {
       "name": "13point5--agent-canvas",
@@ -301647,6 +301767,11 @@
       "name": "zinklu--orca-orchestration",
       "source": "./zinklu--orca-orchestration",
       "description": "Orca-Orchestration"
+    },
+    {
+      "name": "redplanethq--town",
+      "source": "./redplanethq--town",
+      "description": "Discord, but you walk around a pixel town \u2014 where the NPCs have skills."
     },
     {
       "name": "vm--nila-code",
@@ -307142,6 +307267,21 @@
       "name": "yovanoc--effect-cdp",
       "source": "./yovanoc--effect-cdp",
       "description": "effect-cdp"
+    },
+    {
+      "name": "lac5q--beastmode",
+      "source": "./lac5q--beastmode",
+      "description": "Beastmode: MofA (Mixture of Agents) orchestration framework for Hermes/OpenClaw/Codex with MemroOS-style context continuity."
+    },
+    {
+      "name": "ayushjoshi-dehub--bulbul",
+      "source": "./ayushjoshi-dehub--bulbul",
+      "description": "A messaging app"
+    },
+    {
+      "name": "lac5q--beastmode",
+      "source": "./lac5q--beastmode",
+      "description": "Beastmode: MofA (Mixture of Agents) orchestration framework for Hermes/OpenClaw/Codex with MemroOS-style context continuity."
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -321764,6 +321904,16 @@
       "description": "A blazing-fast desktop workspace that unifies SSH, SFTP, terminal, Docker, databases, and remote server management in one application."
     },
     {
+      "name": "joseph-abdullaah--fx-currency-converter",
+      "source": "./joseph-abdullaah--fx-currency-converter",
+      "description": "A foreign exchange currency converter app that lets users convert currencies using live exchange rates, track historical trends, compare multiple currencies, and save favorite currency pairs in a resp"
+    },
+    {
+      "name": "joseph-abdullaah--fx-currency-converter",
+      "source": "./joseph-abdullaah--fx-currency-converter",
+      "description": "A foreign exchange currency converter app that lets users convert currencies using live exchange rates, track historical trends, compare multiple currencies, and save favorite currency pairs in a resp"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -330837,6 +330987,36 @@
       "name": "ewiger--hypermarkdown",
       "source": "./ewiger--hypermarkdown",
       "description": "HyperMarkDown helps building your own local wiki knowledge base"
+    },
+    {
+      "name": "rolohaun--flashforgeui-electron-creator5",
+      "source": "./rolohaun--flashforgeui-electron-creator5",
+      "description": "Unofficial FlashForgeUI-Electron compatibility fork for FlashForge Creator 5"
+    },
+    {
+      "name": "rolohaun--flashforgeui-electron-creator5",
+      "source": "./rolohaun--flashforgeui-electron-creator5",
+      "description": "Unofficial FlashForgeUI-Electron compatibility fork for FlashForge Creator 5"
+    },
+    {
+      "name": "akagr--finance-tools",
+      "source": "./akagr--finance-tools",
+      "description": "Go tools for Indian investors. itr-foreign turns Interactive Brokers holdings into the ITR's foreign schedules \u2014 Schedule FA, FSI, TR and a Form 67 worksheet \u2014 with SBI TTBR conversion and a per-figur"
+    },
+    {
+      "name": "rolohaun--flashforgeui-electron-creator5",
+      "source": "./rolohaun--flashforgeui-electron-creator5",
+      "description": "Unofficial FlashForgeUI-Electron compatibility fork for FlashForge Creator 5"
+    },
+    {
+      "name": "mana-am--claude-f-me",
+      "source": "./mana-am--claude-f-me",
+      "description": "Control wearable haptics by chatting in Claude Code \u2014 MCP plugin, live console, simulator, 750+ devices."
+    },
+    {
+      "name": "agent0ai--revolve",
+      "source": "./agent0ai--revolve",
+      "description": "Codeless AI self-improvement & research LOOP"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -341667,6 +341847,31 @@
       "name": "kielchang--dooping-design-book",
       "source": "./kielchang--dooping-design-book",
       "description": "dooping-design-book"
+    },
+    {
+      "name": "justdory--dragonfly-gguf-client",
+      "source": "./justdory--dragonfly-gguf-client",
+      "description": "Fork of dragonflyoss/client with native gguf:// backend for P2P GGUF model distribution"
+    },
+    {
+      "name": "kola-official--get-offers",
+      "source": "./kola-official--get-offers",
+      "description": "get-offers"
+    },
+    {
+      "name": "niyongsheng--moler",
+      "source": "./niyongsheng--moler",
+      "description": "NASA-Punk Style Mac Cleaner"
+    },
+    {
+      "name": "kola-official--get-offers",
+      "source": "./kola-official--get-offers",
+      "description": "get-offers"
+    },
+    {
+      "name": "samson910022--pixelify-google-photos-modern",
+      "source": "./samson910022--pixelify-google-photos-modern",
+      "description": "Pixelify Photos \u2014 Xposed module to enable Pixel-exclusive features in Google Photos (libxposed Modern API)"
     },
     {
       "name": "lightninglabs--lnget",
@@ -357732,6 +357937,46 @@
       "name": "kaidenhuang--openpalantir",
       "source": "./kaidenhuang--openpalantir",
       "description": "OpenPalantir \u662f\u4e00\u4e2a\u57fa\u4e8e AI \u7684\u6570\u636e\u5206\u6790\u4e0e\u77e5\u8bc6\u56fe\u8c31\u6784\u5efa\u7cfb\u7edf\u3002\u652f\u6301\u6587\u6863\uff08PDF/Word/Markdown/\u56fe\u7247\uff09\u3001\u6570\u636e\u5e93\uff08MySQL/PostgreSQL/SQLite\uff09\u7b49\u591a\u79cd\u6570\u636e\u6e90\uff0c\u901a\u8fc7\u89c4\u5219\u5f15\u64ce\u548c LLM \u4e3a\u6570\u636e\u6e90\u6784\u5efa\u6458\u8981\uff0c\u5e76\u63d0\u53d6\u5b9e\u4f53\u4e0e\u5173\u7cfb\uff0c\u5b58\u5165 Neo4j \u56fe\u6570\u636e\u5e93\uff0c\u63d0\u4f9b\u56fe\u8c31\u5206\u6790\uff08\u8def\u5f84\u5206\u6790\u3001\u793e\u533a\u53d1\u73b0\u3001\u4e2d\u5fc3\u6027\u8ba1\u7b97\u3001\u8d8b\u52bf\u5206\u6790\uff09\u548c\u95ee\u7b54\u578b\u667a\u80fd\u51b3\u7b56\u80fd\u529b\u3002"
+    },
+    {
+      "name": "a-tokyo--agent-skills-harness",
+      "source": "./a-tokyo--agent-skills-harness",
+      "description": "A factory for building production-grade agent skills \u2014 benchmarked against gold standards, autonomously improved via an autoresearch loop, and verified by independent multi-agent consensus."
+    },
+    {
+      "name": "a-tokyo--agent-skills-harness",
+      "source": "./a-tokyo--agent-skills-harness",
+      "description": "A factory for building production-grade agent skills \u2014 benchmarked against gold standards, autonomously improved via an autoresearch loop, and verified by independent multi-agent consensus."
+    },
+    {
+      "name": "a-tokyo--quantvec",
+      "source": "./a-tokyo--quantvec",
+      "description": "A clean-room implementation of Google Research's TurboQuant, with the RaBitQ unbiased-estimator correction. Runs anywhere JavaScript runs; Node, browsers, Bun, Cloudflare Workers, React Native."
+    },
+    {
+      "name": "xopoko--plug-n-skills",
+      "source": "./xopoko--plug-n-skills",
+      "description": "Ready-to-install skills and plugins for Codex, Claude Code, and AI coding agents: practical workflows for app delivery, architecture, research, design, and agent tooling."
+    },
+    {
+      "name": "openshift-online--agent-control-plane",
+      "source": "./openshift-online--agent-control-plane",
+      "description": "Agent control plane for managed OpenShift services"
+    },
+    {
+      "name": "ha-parcel-integrations--ha-dpd",
+      "source": "./ha-parcel-integrations--ha-dpd",
+      "description": "Track DPD parcels in Home Assistant"
+    },
+    {
+      "name": "openshift-online--agent-control-plane",
+      "source": "./openshift-online--agent-control-plane",
+      "description": "Agent control plane for managed OpenShift services"
+    },
+    {
+      "name": "rust-infra--tact",
+      "source": "./rust-infra--tact",
+      "description": "tact"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -403684,6 +403929,11 @@
       "description": "Skilldex is a local-first desktop dashboard for developers to discover, organize, and favourite their agent skills across global, project, and repo sources "
     },
     {
+      "name": "asv-soft--asv-avalonia",
+      "source": "./asv-soft--asv-avalonia",
+      "description": "A lightweight and versatile toolkit for building cross-platform applications with Avalonia UI. It provides ready-to-use controls, utilities, and theming options to simplify and speed up application de"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -432002,6 +432252,36 @@
       "name": "skraft9--quarry-vrc",
       "source": "./skraft9--quarry-vrc",
       "description": "A central console for managing vulnerability research at scale."
+    },
+    {
+      "name": "usetrmnl--trmnl-framework",
+      "source": "./usetrmnl--trmnl-framework",
+      "description": "TRMNL ePaper design system"
+    },
+    {
+      "name": "teejay-first--talentdrop",
+      "source": "./teejay-first--talentdrop",
+      "description": "TalentDrop \u2014 AI-powered deep talent matching (Career DNA / Company DNA, weekly Drop). English-market edition. Independent public repo."
+    },
+    {
+      "name": "usetrmnl--trmnl-framework",
+      "source": "./usetrmnl--trmnl-framework",
+      "description": "TRMNL ePaper design system"
+    },
+    {
+      "name": "ngothanhtung--flow-diagram",
+      "source": "./ngothanhtung--flow-diagram",
+      "description": "flow-diagram"
+    },
+    {
+      "name": "debrian07--ghostty-top",
+      "source": "./debrian07--ghostty-top",
+      "description": "A small, htop-style macOS monitor for CPU and resident memory used by each Ghostty terminal tab."
+    },
+    {
+      "name": "anup42--drivesense",
+      "source": "./anup42--drivesense",
+      "description": "Experimental on-device Android app for driver drowsiness and road-scene awareness."
     },
     {
       "name": "cheerhuan--save-your-token",
