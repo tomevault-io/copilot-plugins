@@ -4,7 +4,7 @@
   "repo": "Grimodex",
   "description": "A Novelcrafter follower reimagined as a \"Writing Fidget IDE\" \u2014 desktop novel-writing editor with AI chat, Codex knowledge extraction, and source attribution. Electron + React, local SQLite.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kazormia296/Grimodex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T19:36:58Z"
+  "distributed_at": "2026-08-11T19:38:57Z"
 }
