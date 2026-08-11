@@ -1,0 +1,9 @@
+{
+  "name": "superalways--gbt32960-server",
+  "displayName": "gbt32960-server",
+  "description": "Netty\u7684\u56fd\u6807GBT32960\u65b0\u80fd\u6e90\u6c7d\u8f66\u8fdc\u7a0b\u76d1\u63a7\u534f\u8bae\u670d\u52a1\u5668\u5b9e\u73b0\uff0c\u652f\u63012016\u548c2025\u7248\u672c\u534f\u8bae\uff0c\u63d0\u4f9b\u9ad8\u6027\u80fd\u7684TCP\u534f\u8bae\u5904\u7406\u548c\u5b8c\u6574\u7684Web   API\u63a5\u53e3",
+  "version": "1.0.0",
+  "author": "SuperAlways",
+  "homepage": "https://github.com/SuperAlways/gbt32960-server",
+  "skills": []
+}
