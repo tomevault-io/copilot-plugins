@@ -1,0 +1,9 @@
+{
+  "name": "keshrath--agent-knowledge",
+  "displayName": "agent-knowledge",
+  "description": "Cross-session memory and recall for AI agents \u2014 git-synced knowledge base, hybrid semantic+TF-IDF search, auto-distillation with secrets scrubbing",
+  "version": "1.0.0",
+  "author": "keshrath",
+  "homepage": "https://github.com/keshrath/agent-knowledge",
+  "skills": []
+}
