@@ -1,0 +1,9 @@
+{
+  "name": "mahimailabs--shipvoice",
+  "displayName": "shipvoice",
+  "description": "Full-stack LiveKit voice agent starter: a Python voice worker, FastAPI token server, and React frontend. Run, deploy, and swap each piece on its own. Ask for ShipVoice pro",
+  "version": "1.0.0",
+  "author": "mahimailabs",
+  "homepage": "https://github.com/mahimailabs/shipvoice",
+  "skills": []
+}
