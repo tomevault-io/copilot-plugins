@@ -1,0 +1,9 @@
+{
+  "name": "felixgeelhaar--govee-light-management",
+  "displayName": "govee-light-management",
+  "description": "Stream Deck plugin for managing Govee smart lights with advanced group functionality",
+  "version": "1.0.0",
+  "author": "felixgeelhaar",
+  "homepage": "https://github.com/felixgeelhaar/govee-light-management",
+  "skills": []
+}
