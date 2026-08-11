@@ -1,0 +1,9 @@
+{
+  "name": "builtbyproxy--jellyscribe",
+  "displayName": "Jellyscribe",
+  "description": "Jellyfin plugin that syncs watch history to Letterboxd diary in real-time",
+  "version": "1.0.0",
+  "author": "builtbyproxy",
+  "homepage": "https://github.com/builtbyproxy/Jellyscribe",
+  "skills": []
+}
