@@ -1,0 +1,9 @@
+{
+  "name": "santhreal--keyhog",
+  "displayName": "keyhog",
+  "description": "GPU-accelerated secret scanner for code, Git history, containers, cloud, browser assets, and CI. 923 detectors, live verification, CUDA, Metal, WGPU.",
+  "version": "1.0.0",
+  "author": "santhreal",
+  "homepage": "https://github.com/santhreal/keyhog",
+  "skills": []
+}
