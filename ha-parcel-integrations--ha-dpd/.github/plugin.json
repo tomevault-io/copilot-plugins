@@ -1,0 +1,9 @@
+{
+  "name": "ha-parcel-integrations--ha-dpd",
+  "displayName": "ha-dpd",
+  "description": "Track DPD parcels in Home Assistant",
+  "version": "1.0.0",
+  "author": "ha-parcel-integrations",
+  "homepage": "https://github.com/ha-parcel-integrations/ha-dpd",
+  "skills": []
+}
