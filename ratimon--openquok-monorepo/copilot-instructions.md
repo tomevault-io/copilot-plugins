@@ -1,99 +1,45 @@
-## web-seo-canonical
+## web-seo-cms-copy
 
-> Canonical URLs and query-parameter SEO — buildCanonicalUrl, withCanonicalMetaTags, UTM stripping, robots.txt, noindex
+> SSR CMS copy for SEO — landing_page and public_faq config on the server for crawlers and JSON-LD parity
 
 
-# Web SEO: Canonical URLs and query parameters
+# Web SEO: CMS copy on the server
 
-Multiple URLs that render the same content (UTM tags, `ref`, hub `sort`/`search`, blog `page`) must consolidate to **one canonical** so crawlers do not split authority across duplicates.
+Marketing copy that crawlers should index must not rely on client-only presenter state or in-component schema fallbacks alone. Visible text in the first HTML response should match what users see after hydration (see **web-seo-index** → JavaScript rendering mismatch).
 
-## Helpers (`$lib/seo/buildCanonicalUrl.ts`)
+## Load pattern (`+page.server.ts`)
 
-| Export | Use |
-| --- | --- |
-| `buildCanonicalUrl(url)` | Path-only canonical: `new URL(url.pathname, url.origin).href` — strips query and hash |
-| `withCanonicalMetaTags(metaTags, canonical, overrides?)` | Spread `metaTags` first, then set `canonical`, `openGraph.url`, and `twitter:url` |
+1. Call `configRepository.getPublicModuleConfig(...)` (stateless; safe on server).
+2. Start from defaults helpers; overlay API values when non-empty.
+3. Return VMs from the server load; pass through universal `+page.ts` into templates.
 
-Always use these helpers in `+page.server.ts` instead of inline `new URL(url.pathname, url.origin).href` or manual object spreads.
-
-```ts
-const canonical = buildCanonicalUrl(url);
-const pageMetaTags = withCanonicalMetaTags(metaTags, canonical);
-```
-
-Pass the **same** `canonical` string to JSON-LD (`canonicalUrl`, `pageUrl`, schema `url` fields).
-
-## Spread-order rule
-
-`createMetaData` returns a `canonical` field. If you build `pageMetaTags` manually:
-
-```ts
-// ❌ BAD — metaTags.canonical overwrites the line above
-const pageMetaTags = { canonical, ...metaTags };
-
-// ✅ GOOD — use withCanonicalMetaTags, or spread meta first then override
-const pageMetaTags = { ...metaTags, canonical, openGraph: { ...metaTags.openGraph, url: canonical } };
-```
-
-## Duplicate tracking parameters (UTM, gclid, fbclid)
-
-Parameterized marketing URLs (e.g. `/pricing?utm_source=email&utm_medium=email`) must consolidate to one indexable URL.
-
-| Layer | Mechanism |
-| --- | --- |
-| **SSR (primary)** | `<link rel="canonical">` via `buildCanonicalUrl` + `withCanonicalMetaTags` — path only, no query or hash, in the first HTML response |
-| **JSON-LD** | Same `buildCanonicalUrl(url)` string for `url`, `canonicalUrl`, and `pageUrl` fields |
-| **Browser** | `UtmAttribution.svelte` captures attribution, then `replaceUrlWithoutTrackingParams` strips tracking params from the address bar |
-| **Param list** | `TRACKING_PARAM_NAMES` in `$lib/product-analytics/utm.ts` (`utm_*`, `ref`, `gclid`, `fbclid`, `msclkid`, `mc_cid`, `mc_eid`) |
-
-**Do not** add `robots.txt` `Disallow: /*?utm_*` (or similar) for tracking params. Blocking crawl prevents Google from fetching the page and reading the canonical tag on parameterized URLs; it does not reliably consolidate ranking signals. Canonical tags are the correct fix. Optionally configure URL parameters in Google Search Console as “doesn't change page content.”
-
-## Parameter handling (by type)
-
-| Params | Browser URL | `<link rel="canonical">` |
+| Module | Defaults helper | Used for |
 | --- | --- | --- |
-| `utm_*`, `ref`, `gclid`, `fbclid`, … | Stripped after capture (`replaceUrlWithoutTrackingParams` in `UtmAttribution.svelte`) | Stripped |
-| Hub `sort`, `search`, `type` | Kept (shareable filter state) | Stripped — canonical is path only |
-| Hub `page`, `ipp` (playbooks, building blocks) | Kept | Stripped — paginated hub views canonicalize to path (category/tag in path when set) |
-| Blog `page`, `ipp`, `topic`, `author` | Kept | Stripped — paginated/filtered views canonicalize to hub path (e.g. `/blog`) |
-| OAuth / auth (`code`, `state`, `redirectURL`) | Kept (functional) | Stripped in canonical tag |
-| Skill builder `stack`, building-block query | Kept | Stripped — channel slug is in path when applicable |
+| `landing_page` | `getLandingPageConfigDefaults()` | Hero, demo, landing FAQ headers |
+| `public_faq` | `getPublicFaqConfigDefaults()` | FAQ section headers + Q&A items |
 
-Sitemap URLs are always path-only (backend `generateSitemap.ts`).
+Parse FAQ with `parsePublicFaqConfigModule()` → `publicFaqConfigPm` / `publicFaqItemsVm` for `PublicFaq` and `createPublicFaqSEOSchema`.
 
-## Root layout baseline
+## Landing vs pricing FAQ headers
 
-`+layout.server.ts` sets `baseMetaTags.canonical` via `buildCanonicalUrl(url)`. Child `pageMetaTags` from `deepMerge` override per route.
+- **Landing**: prefer `landing_page` `FAQ_*` fields in the UI; fall back to `public_faq`.
+- **Pricing**: `public_faq` only for FAQ headers.
 
-## Docs
+Q&A item copy lives in `public_faq.ITEMS` (admin FAQ editor). `publicFaqConfig.ts` supplies code defaults when config is empty.
 
-`DocsSeoHead.svelte` builds canonical from configured site URL + `page.url.pathname` (no query). Prerender-safe — avoid `page.url.href` at build time.
+Default `items` is `PUBLIC_FAQ_ITEMS`; override only when a route renders a different FAQ list.
 
-## Non-indexable routes
+## SEO parity
 
-App and auth surfaces should not compete in search:
+- FAQ JSON-LD (`createPublicFaqSEOSchema`) must use the **same** question/answer text as the visible accordion.
+- Landing hero title/description from config feed both `createMetaData` and JSON-LD (`WebSite`, `Organization`).
+- Demo section: `createLandingDemoSEOSchema` reads `DEMO_YOUTUBE_VIDEO_ID`, `DEMO_YOUTUBE_UPLOAD_DATE`, `DEMO_TITLE`, `DEMO_DESCRIPTION` from SSR `landing_page` config.
 
-- **`(auth)/+layout.server.ts`** and **`(protected)/+layout.server.ts`**: return `pageMetaTags: { robots: 'noindex, nofollow' }`.
-- **`robots.txt`**: `Disallow` for `/sign-in`, `/account`, `/editor`, `/admin`, `/secret-admin`, `/oauth`, etc. AI crawler `Allow` groups live in `$lib/seo/robotsTxt.ts` (served from `web/src/routes/robots.txt/+server.ts`).
+## Related rules
 
-## Cloudflare managed robots.txt (production)
-
-If the marketing zone has **“Set your preference to block training in robots.txt”** enabled, Cloudflare **prepends** `Disallow: /` for bots such as `ClaudeBot` and `Google-Extended` before the app’s rules. That blocks Claude and Gemini in directory “AI engine coverage” tools even when the repo allows those paths. **Turn that setting off** (AI Crawl Control **Allow** alone does not remove the prepend). Verify with `pnpm --filter ./web run verify:ai-robots`. Ops guide: `web/src/content/docs/configuration-web/ai-crawlers-and-robots.md`.
-
-Raw markdown doc routes use `X-Robots-Tag: noindex` via `markdown-route-headers.ts`.
-
-## Google Search Console (manual)
-
-Canonical tags are the primary code fix. Optionally mark UTM parameters as “doesn't change page content” in GSC → URL parameters.
-
-Full audit steps (rendering, indexation, mixed content, charset): **web-seo-index** → Audit playbook.
-
-## Checklist
-
-- [ ] Every public `+page.server.ts` uses `buildCanonicalUrl` + `withCanonicalMetaTags`
-- [ ] JSON-LD URLs match the canonical string
-- [ ] No `requestUrl.href` (with query) used as canonical
-- [ ] New marketing links with UTM still attribute correctly after URL cleanup
+- Meta tags from CMS strings: **web-seo-meta-tags**
+- JSON-LD builders: **web-seo-jsonld**
+- Universal load forwarding: **web-sveltekit-universal-page-load**
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
