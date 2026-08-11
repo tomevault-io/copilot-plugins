@@ -1,0 +1,9 @@
+{
+  "name": "kukushechkin--swift-jmap-client",
+  "displayName": "swift-jmap-client",
+  "description": "JMAP client implementation in Swift",
+  "version": "1.0.0",
+  "author": "kukushechkin",
+  "homepage": "https://github.com/kukushechkin/swift-jmap-client",
+  "skills": []
+}
