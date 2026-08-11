@@ -1,0 +1,9 @@
+{
+  "name": "openwatersio--seascape",
+  "displayName": "seascape",
+  "description": "A map of the seafloor built from global open bathymetry.",
+  "version": "1.0.0",
+  "author": "openwatersio",
+  "homepage": "https://github.com/openwatersio/seascape",
+  "skills": []
+}
