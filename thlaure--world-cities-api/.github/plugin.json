@@ -1,0 +1,9 @@
+{
+  "name": "thlaure--world-cities-api",
+  "displayName": "world-cities-api",
+  "description": "API exposing multi-country city data and address autocomplete",
+  "version": "1.0.0",
+  "author": "thlaure",
+  "homepage": "https://github.com/thlaure/world-cities-api",
+  "skills": []
+}
