@@ -358084,6 +358084,16 @@
       "description": "\u5b89\u5353\u539f\u751f bilibili \u5ba2\u6237\u7aef\uff0c\u63d0\u4f9b\u65e0\u63a8\u8350\u6d41\u7684\u8ba2\u9605\u5f0f\u8bbe\u8ba1\u3001\u4f18\u5316\u7684\u542c\u89c6\u9891\u529f\u80fd\u548c Agentic \u641c\u7d22\u63a8\u8350\u80fd\u529b\u3002"
     },
     {
+      "name": "chunkburst--carbon",
+      "source": "./chunkburst--carbon",
+      "description": "Agent \u9879\u76ee\u4efb\u52a1\u7ba1\u7406\u5668"
+    },
+    {
+      "name": "chunkburst--carbon",
+      "source": "./chunkburst--carbon",
+      "description": "Agent \u9879\u76ee\u4efb\u52a1\u7ba1\u7406\u5668"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
