@@ -1,0 +1,9 @@
+{
+  "name": "gkvoelkl--python-selma",
+  "displayName": "python-selma",
+  "description": "Agent Selma - A \"Toy\" Implementation of OpenClaw with Python and Ollama",
+  "version": "1.0.0",
+  "author": "gkvoelkl",
+  "homepage": "https://github.com/gkvoelkl/python-selma",
+  "skills": []
+}
