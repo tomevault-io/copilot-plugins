@@ -4,7 +4,7 @@
   "repo": "swift-bun",
   "description": "Bun-compatible JavaScript runtime for iOS/macOS via JavaScriptCore. Run Bun-built JS bundles natively on Apple platforms.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/1amageek/swift-bun",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T19:19:39Z"
+  "distributed_at": "2026-08-11T19:22:47Z"
 }
