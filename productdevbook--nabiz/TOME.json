@@ -1,0 +1,44 @@
+{
+  "name": "nabiz",
+  "owner": "productdevbook",
+  "repo": "nabiz",
+  "description": "A status page that keeps beating when your server does not \u2014 one Cloudflare Worker, D1 and a cron a minute. Astro on the edge, free tier friendly.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/productdevbook/nabiz",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T16:32:19Z"
+}
