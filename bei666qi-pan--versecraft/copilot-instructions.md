@@ -1,116 +1,95 @@
-## 002-zustand-hydration
+## 003-ethereal-ui
 
-> Zustand state management and hydration safety
+> Tailwind CSS v4 and Liquid Glass UI standards
 
 
-# Zustand Persist & Hydration Safety
+# Ethereal UI: Liquid Glass Design System
 
-When using Zustand's `persist` middleware, React 19 Server-Side Rendering (SSR) and hydration require explicit handling. Failure to configure `skipHydration` and manually rehydrate leads to **Hydration Mismatch** errors.
+All UI must be **Simplified Chinese (简体中文)**. Use the **Liquid Glass** aesthetic: translucent backgrounds, backdrop blur, and soft inner shadows. Avoid hard borders.
 
 ## Rules
 
-1. **persist middleware** — MUST set `skipHydration: true` in the persist config.
-2. **Rehydration** — Use `useEffect` to call `useStore.persist.rehydrate()` on the client.
-3. **isHydrated** — Track hydration state and avoid rendering persisted-dependent UI until hydrated.
+1. **Language** — All user-facing text MUST be Simplified Chinese.
+2. **Liquid Glass Style** — Use `bg-white/5` (or dark variants), `backdrop-blur-xl`, and `shadow-[inset_...]`.
+3. **No Hard Borders** — Prefer subtle shadows and translucent surfaces over `border` or `ring`.
+4. **Animation** — All animations MUST be defined in `globals.css` under `@theme` (Tailwind v4).
 
-## Correct Store Setup
-
-```ts
-// store/useExampleStore.ts
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-
-interface ExampleState {
-  count: number;
-  isHydrated: boolean;
-  setCount: (n: number) => void;
-  setHydrated: () => void;
-}
-
-export const useExampleStore = create<ExampleState>()(
-  persist(
-    (set) => ({
-      count: 0,
-      isHydrated: false,
-      setCount: (n) => set({ count: n }),
-      setHydrated: () => set({ isHydrated: true }),
-    }),
-    {
-      name: "example-storage",
-      skipHydration: true, // REQUIRED for React 19
-    }
-  )
-);
-```
-
-## Correct Component Usage
+## Liquid Glass Pattern
 
 ```tsx
-"use client";
+// ✅ CORRECT: Liquid Glass card
+<div className="bg-white/5 backdrop-blur-xl rounded-2xl shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
+  <p className="text-white/90">内容区域</p>
+</div>
+```
 
-import { useEffect, useState } from "react";
-import { useExampleStore } from "@/store/useExampleStore";
+```tsx
+// ✅ CORRECT: Dark mode glass panel
+<div className="bg-black/20 backdrop-blur-xl rounded-xl shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]">
+  <span>简体中文标签</span>
+</div>
+```
 
-export function HydratedCounter() {
-  const [mounted, setMounted] = useState(false);
-  const { count, isHydrated, setCount, persist } = useExampleStore();
+## Animation in globals.css
 
-  useEffect(() => {
-    persist.rehydrate().then(() => {
-      useExampleStore.getState().setHydrated(true);
-      setMounted(true);
-    });
-  }, [persist]);
+```css
+/* globals.css */
+@import "tailwindcss";
 
-  if (!mounted || !isHydrated) {
-    return <div>Loading...</div>;
+@theme {
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-slide-up: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
   }
-
-  return (
-    <div>
-      <span>{count}</span>
-      <button onClick={() => setCount(count + 1)}>+1</button>
-    </div>
-  );
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 ```
-
-## Alternative: Single useEffect Rehydration
 
 ```tsx
-"use client";
-
-import { useEffect } from "react";
-import { useExampleStore } from "@/store/useExampleStore";
-
-export function SafePersistedUI() {
-  const { count, persist } = useExampleStore();
-
-  useEffect(() => {
-    persist.rehydrate();
-  }, [persist]);
-
-  return <div>{count}</div>;
-}
+// ✅ CORRECT: Using theme animation
+<div className="animate-[var(--animate-fade-in)]">淡入内容</div>
 ```
 
-If the persisted value affects initial layout or text, use `isHydrated` guard to avoid mismatch. For layout-only effects, rehydration in `useEffect` may suffice.
+## Recommended Token Combinations
+
+| Purpose        | Classes                                                                 |
+|----------------|-------------------------------------------------------------------------|
+| Glass surface  | `bg-white/5 backdrop-blur-xl`                                           |
+| Inner highlight| `shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]`                       |
+| Dark glass     | `bg-black/20 backdrop-blur-xl`                                          |
+| Soft divider   | `border-white/5` (minimal; prefer shadow when possible)                 |
 
 ## Forbidden Patterns
 
-```ts
-// ❌ WRONG: missing skipHydration
-persist(
-  (set) => ({ ... }),
-  { name: "storage" } // Will cause hydration mismatch
-);
+```tsx
+// ❌ WRONG: hard border
+<div className="border border-gray-300 rounded-lg">内容</div>
 ```
 
 ```tsx
-// ❌ WRONG: reading persisted state before rehydration
-const count = useExampleStore((s) => s.count);
-return <div>{count}</div>; // May differ from server-rendered HTML
+// ❌ WRONG: English-only UI text
+<button>Submit</button>
 ```
+
+```tsx
+// ❌ WRONG: inline keyframes in component
+<div style={{ animation: "fadeIn 0.3s ease" }}>内容</div>
+```
+
+All animations belong in `globals.css` `@theme` or `@keyframes`.
 
 ---
 > Source: [bei666qi-pan/VerseCraft](https://github.com/bei666qi-pan/VerseCraft) — distributed by [TomeVault](https://tomevault.io).
