@@ -1,0 +1,9 @@
+{
+  "name": "theseraphim--scribe-forge-ai",
+  "displayName": "scribe-forge-ai",
+  "description": "\ud83c\udfb5 Complete offline audio transcription system with speaker diarization using OpenAI Whisper and PyAnnote. Features automatic audio cleaning, precise timestamps, multiple output formats (JSON/TXT/Markd",
+  "version": "1.0.0",
+  "author": "TheSeraphim",
+  "homepage": "https://github.com/TheSeraphim/scribe-forge-ai",
+  "skills": []
+}
