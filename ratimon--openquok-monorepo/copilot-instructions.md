@@ -1,43 +1,46 @@
-## sdk-maintenance
+## security-guidelines
 
-> Keep @openquok/node-sdk (sdk/) aligned with the public API, CLI, apis-* docs, overview docs, and runnable examples.
+> Security — no service client in client code, no SUPABASE_SECRET_KEY on client, RLS, correct Supabase client per context, rate limit config, SSR state rules (no authenticationRepository in server load, ssr = false for protected routes)
 
 
-# Node SDK (`@openquok/node-sdk`)
+# Security Guidelines
 
-Package root: `sdk/`. Published artifact is **`dist/` only** (gitignored; built via `pnpm run build` / `prepublishOnly`).
+Follow these rules in both backend and web code.
 
-## Public API changes
+## 1. Supabase clients
 
-When `backend/routes/publicApi/**` changes, follow **`public-api-surface-sync.mdc`** end-to-end (that rule is always applied). For SDK work specifically:
+- **NEVER** use the service client in client-side code (browser / SvelteKit client).
+- **NEVER** expose `SUPABASE_SECRET_KEY` (`sb_secret_…`) to the client (env vars, bundles, or API responses). It bypasses RLS. Legacy `service_role` / `anon` JWT keys are not used in this codebase — see [Supabase config docs](../../web/src/content/docs/configuration-backend/supabase.md) and [Upcoming changes to Supabase API Keys](https://github.com/orgs/supabase/discussions/29260).
+- Use RLS policies for data access control.
+- Always use the appropriate client for the context:
+  - **Browser Client:** Public data only
+  - **RLS Client:** Authenticated user data
+  - **Service Client:** Admin operations (backend only)
 
-1. Update `sdk/src/index.ts` and `sdk/src/dtos.ts` (method names, URLs, DTO fields).
-2. Run `pnpm --filter ./sdk run build`.
-3. Update `sdk/README.md` method table when the surface changes.
-4. Update `web/src/content/docs/getting-started-for-public-api/index.md` SDK quickstart when new methods are user-facing.
-5. Ensure matching `web/src/content/docs/apis-<domain>/*.md` pages exist (frontmatter `openapi:` must match Swagger paths).
+## 2. Rate limiting
 
-The SDK should stay in parity with `agent/src/api.ts` for shared routes, plus SDK-only methods when useful (`getPost`, `listNotifications`, etc.).
+- Configure rate limit at [backend/middlewares/rateLimit.ts](../../backend/middlewares/rateLimit.ts) and [backend/config/GlobalConfig.ts](../../backend/config/GlobalConfig.ts).
 
-## Types and build
+## 3. SSR state management (SvelteKit)
 
-- `tsconfig.json` must include `"types": ["node"]`.
-- When a public method uses `Buffer`, add `import type { Buffer } from "node:buffer"` in `src/index.ts` so `dist/index.d.ts` emits a valid import (consumers must use Node ≥18).
-- Do not commit `sdk/dist/` — match `agent/.gitignore` (`dist/`).
+- **NEVER** import or use `authenticationRepository` in any `+page.server.ts` or `+layout.server.ts` files.
+- **NEVER** mutate shared state (singletons with mutable state) in server load functions.
+- **ALWAYS** set `export const ssr = false;` for protected routes (user-specific data).
+- **ONLY** enable SSR (`export const ssr = true;`) for public routes that don't use shared mutable state.
+- If you need auth info in SSR routes, use cookies/request context instead of shared state:
 
-## Runnable examples (`sdk/examples/`)
+```typescript
+// ✅ SAFE: Use cookies for server-side auth
+export const ssr = true;
+export async function load({ cookies }) {
+    const accessToken = cookies.get('access_token');
+    // Use token to fetch user data per-request
+}
 
-- **`oauth2-express.mjs`** mirrors the Node.js section in `web/src/content/docs/oauth2-for-apps/nodejs-example.md`.
-- OAuth token exchange: `POST /api/v1/oauth/token` body is **`grant_type`, `code`, `client_id`, `client_secret` only** — redirect URL is configured on the app, not resent at exchange.
-- Public API calls use **`Authorization: Bearer opo_…`** (or construct `new Openquok(accessToken)`).
-- When editing the OAuth doc example or SDK OAuth example, update **both** in the same change.
-
-## Publishing
-
-- Bump `sdk/package.json` `version` before npm publish (see `sdk/PUBLISHING.md`).
-- Tag `sdk-vX.Y.Z` for `.github/workflows/release.yml`.
-- CI uses npm **trusted publishing** (OIDC): configure on npm for `@openquok/node-sdk` with workflow `release.yml`; do **not** set `NODE_AUTH_TOKEN` on the publish step (`EOTP` = token path + 2FA).
-- `repository.url` in `package.json` must be `git+https://github.com/Ratimon/openquok-monorepo.git` with `"directory": "sdk"`.
+// ❌ UNSAFE: Never do this in server code
+import { authenticationRepository } from '$lib/user-auth/index';
+await authenticationRepository.checkAuth(); // Shared state - security risk!
+```
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
