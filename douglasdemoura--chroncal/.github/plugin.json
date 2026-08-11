@@ -1,0 +1,9 @@
+{
+  "name": "douglasdemoura--chroncal",
+  "displayName": "chroncal",
+  "description": "Terminal-first calendar, todo, and journal manager with iCalendar (RFC 5545) support and CalDAV sync \u2014 CLI + TUI, local SQLite storage",
+  "version": "1.0.0",
+  "author": "DouglasdeMoura",
+  "homepage": "https://github.com/DouglasdeMoura/chroncal",
+  "skills": []
+}
