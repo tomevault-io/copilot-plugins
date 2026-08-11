@@ -1,0 +1,9 @@
+{
+  "name": "sirozha1337--fastdictlookup-koplugin",
+  "displayName": "fastdictlookup.koplugin",
+  "description": "KOReader plugin that mimicks Kindle default behaviour: typewriter cursor that lookups words instantly",
+  "version": "1.0.0",
+  "author": "Sirozha1337",
+  "homepage": "https://github.com/Sirozha1337/fastdictlookup.koplugin",
+  "skills": []
+}
