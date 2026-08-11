@@ -1,20 +1,32 @@
-## multi-ide
+## testing
 
-> Multi-IDE (Cursor + Claude Code) conventions
+> Testing conventions
 
 
-# Multi-IDE
+# Testing Rules
 
-This project is developed with **Cursor** and **Claude Code**. Changes must work for both.
+## Test Files
 
-## When Making Code Changes
+- Test files live next to the code they test: `internal/led/engine_test.go`
+- Use standard `testing` package — no external test frameworks
+- Table-driven tests preferred for multiple cases
 
-1. **Update docs** — Keep `docs/*_vi.md` in sync (see `docs-on-code-change` rule)
-2. **Comment in English** — Project standard
-3. **Single source of truth** — Code is truth; docs reflect it
-4. **Do not commit binary artifacts** — Version injected via ldflags
+## Running Tests
 
-See `docs/DEV-MULTI-IDE.md` for full conventions.
+```bash
+go test ./...                    # All tests
+go test ./internal/led/...       # Single package
+go test -run TestFunctionName    # Single test
+go test -v ./...                 # Verbose output
+go test -race ./...              # Race detector
+```
+
+## Conventions
+
+- Test function names: `TestMethodName_Scenario` (e.g. `TestEncodeColors_BufferLength`)
+- Use `t.Errorf` or `t.Fatalf` — not `panic` or `log.Fatal` in tests
+- Test exported behavior, not internal implementation details
+- Mock external dependencies (shell commands, hardware), not internal services
 
 ---
 > Source: [autonomous-ai/autonomous-lamp](https://github.com/autonomous-ai/autonomous-lamp) — distributed by [TomeVault](https://tomevault.io).
