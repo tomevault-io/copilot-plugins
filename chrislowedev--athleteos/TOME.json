@@ -4,7 +4,7 @@
   "repo": "AthleteOS",
   "description": "Claude code powered personal trainer to plan, and reflect on workouts for the week",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chrisLoweDev/AthleteOS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T23:00:08Z"
+  "distributed_at": "2026-08-11T23:20:00Z"
 }
