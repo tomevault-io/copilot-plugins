@@ -1,0 +1,9 @@
+{
+  "name": "ratty123--cdmw-full",
+  "displayName": "CDMW-Full",
+  "description": "Windows desktop workbench for Crimson Desert modding: browse and extract archives, preview and edit .pam/.pamlod/.pac meshes on a native D3D11 renderer, rebuild and author DDS textures, and build mate",
+  "version": "1.0.0",
+  "author": "Ratty123",
+  "homepage": "https://github.com/Ratty123/CDMW-Full",
+  "skills": []
+}
