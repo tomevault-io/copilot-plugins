@@ -1,0 +1,9 @@
+{
+  "name": "hiro-nyon--cesium-heatbox",
+  "displayName": "cesium-heatbox",
+  "description": "A voxel\u2011based heatmap renderer for CesiumJS that converts existing entities into volumetric density maps. Automatically computes bounds, optimizes voxel count, and applies dynamic color mapping for cl",
+  "version": "1.0.0",
+  "author": "hiro-nyon",
+  "homepage": "https://github.com/hiro-nyon/cesium-heatbox",
+  "skills": []
+}
