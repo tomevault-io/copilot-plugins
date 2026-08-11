@@ -1,0 +1,9 @@
+{
+  "name": "seldonframe--seldonframe",
+  "displayName": "seldonframe",
+  "description": "Open-source AI front office for local service businesses: AI receptionist (voice/SMS/chat) + website + CRM + booking. Self-hostable or $29/mo flat. The open-source GoHighLevel alternative.",
+  "version": "1.0.0",
+  "author": "seldonframe",
+  "homepage": "https://github.com/seldonframe/seldonframe",
+  "skills": []
+}
