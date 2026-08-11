@@ -1,0 +1,9 @@
+{
+  "name": "amenorira--lora-scripts-anima",
+  "displayName": "lora-scripts-anima",
+  "description": "LoRA training GUI with Anima model support, based on kohya-ss/sd-scripts",
+  "version": "1.0.0",
+  "author": "amenorira",
+  "homepage": "https://github.com/amenorira/lora-scripts-anima",
+  "skills": []
+}
