@@ -1,122 +1,147 @@
-## web-seo-index
+## web-seo-jsonld
 
-> Index — SSR SEO for public routes (meta tags, canonical URLs, JSON-LD, CMS copy, audits). See web-seo-*.mdc rules for detail.
+> JSON-LD structured data — schema-dts, jsonLdSchema helpers, domain builders, JsonLdHead SSR rendering
 
 
-# Web: SSR SEO (index)
+# Web SEO: JSON-LD structured data
 
-Public marketing and catalog routes under `web/src/routes/(public)/` plus the landing route (`web/src/routes/+page.*`) must ship **SSR metadata** in the initial HTML. Compute SEO in `+page.server.ts`; forward it through universal `+page.ts`; render in `+layout.svelte` (`MetaTags`) and `JsonLdHead`.
+Compute `schemaData` in `+page.server.ts` and render with **`JsonLdHead`** so crawlers receive real JSON in SSR HTML — **before** any client hydration. JSON-LD must not depend on JavaScript execution (see **web-seo-index** → JavaScript rendering mismatch).
 
-**Docs** use a separate head component: `DocsSeoHead.svelte` (same JSON-LD serialization helpers).
+```svelte
+<script lang="ts">
+  import JsonLdHead from '$lib/ui/components/seo/JsonLdHead.svelte';
+  let schemaData = $derived(data.schemaData);
+</script>
 
-Root layout (`+layout.server.ts` → `baseMetaTags`) merges with page data in `+layout.svelte` via `deepMerge(data.baseMetaTags, page.data.pageMetaTags)`.
+<JsonLdHead schemaData={schemaData} />
+```
 
-## Rule map
+Serialization: `$lib/seo/jsonLdScriptHtml.ts` (`serializeJsonLd`, `jsonLdScriptHtml`). Docs use the same helper in `DocsSeoHead.svelte`.
 
-| Topic | Rule file |
+## Avoid
+
+- `<script type="application/ld+json">{JSON.stringify(schemaData)}</script>` — Svelte does not interpolate inside script tags in SSR.
+- JSON-LD only in `onMount` or behind `if (browser)`.
+- Inline `schemaData={{ '@context': … }}` in `+page.svelte`.
+- Hardcoding `'@context': 'https://schema.org'` — use shared helpers below.
+
+## Typed JSON-LD (`schema-dts` + `jsonLdSchema`)
+
+All JSON-LD is typed with [`schema-dts`](https://www.npmjs.com/package/schema-dts) via **`$lib/seo/jsonLdSchema.ts`**:
+
+| Export | Use |
 | --- | --- |
-| Meta tags, `createMetaData`, OG/Twitter | **web-seo-meta-tags** |
-| Canonical URLs, query params, UTM, robots | **web-seo-canonical** |
-| JSON-LD (`schema-dts`, builders, `JsonLdHead`) | **web-seo-jsonld** |
-| Landing / FAQ CMS copy on the server | **web-seo-cms-copy** |
-| Universal `+page.ts` forwarding on client nav | **web-sveltekit-universal-page-load** |
-| Charset, rendering, pagination, mixed content, audits (this file) | **web-seo-index** |
+| `SCHEMA_ORG_CONTEXT` | Canonical `@context` (`https://schema.org`) |
+| `JsonLdGraphSchema` | Return type for `@graph` documents |
+| `JsonLdGraphNode` | Single node inside `@graph` |
+| `createJsonLdGraph(nodes)` | `{ '@context', '@graph': [...] }` |
+| `createJsonLdWithContext(node)` | Single top-level node with `@context` |
+| `filterNonEmptyJsonLdNodes(nodes)` | Drop `{}` from optional builders |
 
-## Common edge cases
+Annotate nodes with `satisfies` where it helps catch typos.
 
-| Mistake | Impact | Code fix (this repo) | Rule |
-| --- | --- | --- | --- |
-| Ignoring parameter handling | Crawl waste on filter/pagination variants | Path-only `buildCanonicalUrl`; param table by type | **web-seo-canonical** |
-| Tracking params (`utm_*`, `gclid`, …) | Duplicate URLs, authority dilution | Canonical strip + `UtmAttribution.svelte` bar cleanup | **web-seo-canonical** |
-| Content only after client JS | Thin or empty index | `export const ssr = true`; server `pageMetaTags` + `schemaData` | This file → Rendering |
-| Infinite scroll on indexable hubs | Products/posts never indexed | Server pagination + `Pagination.svelte` with crawlable links | This file → Pagination |
-| Mixed HTTP/HTTPS assets or URLs | Broken images, blocked subresources | HTTPS canonical/OG in `createMetaData`; `https://` for external assets | This file → Mixed content |
-| Charset mismatch | Garbled international copy | `app.html` charset first; `ensureUtf8CharsetResponse` | This file → Charset |
+### `@graph` (most pages)
 
-## Audit playbook (manual — GSC / DevTools)
+```ts
+import type { WebSite } from 'schema-dts';
 
-Run after shipping SEO changes or when Coverage/duplicate reports spike.
+import { createPublicFaqSEOSchema } from '$lib/content/utils/createPublicFaqSEOSchema';
+import { buildCanonicalUrl } from '$lib/seo/buildCanonicalUrl';
+import { createJsonLdGraph, filterNonEmptyJsonLdNodes } from '$lib/seo/jsonLdSchema';
 
-| Audit | Where | Pass criteria |
+const canonical = buildCanonicalUrl(url);
+
+const schemaData = createJsonLdGraph(
+  filterNonEmptyJsonLdNodes([
+    {
+      '@type': 'WebSite',
+      '@id': `${url.origin}/#website`,
+      name: companyName,
+      url: url.origin,
+      description: heroDescription
+    },
+    createPublicFaqSEOSchema({
+      pageUrl: `${canonical}#faq`,
+      name: faqTitle,
+      description: faqDescription,
+      items: faqItems
+    })
+  ])
+);
+```
+
+### Single-node (rare — e.g. `/tools/skill-builder` index)
+
+```ts
+import type { WebApplication } from 'schema-dts';
+
+import { createJsonLdWithContext } from '$lib/seo/jsonLdSchema';
+
+const schemaData = createJsonLdWithContext({
+  '@type': 'WebApplication',
+  name: metaTitle,
+  description: metaDescription,
+  applicationCategory: 'DeveloperApplication',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
+} satisfies WebApplication);
+```
+
+## Reusable schema builders
+
+Put non-trivial logic in `$lib/<domain>/utils/`; call from `+page.server.ts` only.
+
+| Helper | Path | Returns |
 | --- | --- | --- |
-| **Parameter handling** | GSC → Settings → URL parameters | UTM/`gclid`/`fbclid` marked “doesn't change page content” (optional); canonical on `?page=` variants points to path-only hub URL |
-| **Rendering** | GSC → URL Inspection → View crawled page / Live test | Raw HTML and rendered HTML both include `<title>`, `<link rel="canonical">`, and `<script type="application/ld+json">` with matching URLs |
-| **Indexation** | GSC → Pages / Coverage | Public hubs and detail URLs indexed; auth/app routes excluded (`noindex`, `robots.txt` Disallow) |
-| **Mixed content** | DevTools → Security (on HTTPS deploy) | No “active mixed content”; no `http://` subresources on indexable pages |
-| **Charset** | View page source + Network → document `Content-Type` | `<meta charset="utf-8">` is first in `<head>`; response header includes `charset=utf-8`; non-ASCII copy renders correctly |
+| `createPublicFaqSEOSchema` | `$lib/content/utils/createPublicFaqSEOSchema.ts` | `FAQPage` or `{}` |
+| `createLandingDemoSEOSchema` | `$lib/content/utils/createLandingDemoSEOSchema.ts` | `VideoObject` or `{}` |
+| `createOrganizationSEOSchema` | `$lib/content/utils/createOrganizationSEOSchema.ts` | `Organization` |
+| `createBlogPostSEOSchema` | `$lib/blogs/utils/createBlogPostSEOSchema.ts` | `JsonLdGraphSchema` |
+| Blog hub builders | `$lib/blogs/utils/createBlogHubSEOSchema.ts` | `Blog`, `CollectionPage`, `ItemList`, `ProfilePage`, `BreadcrumbList` for `/blog`, `/blog/topic`, `/blog/author` |
+| `createPostSEOSchema` | `$lib/posts/utils/createPostSEOSchema.ts` | `JsonLdGraphSchema` |
+| `createListingSEOSchema` | `$lib/listings/utils/listingSchema.ts` | `JsonLdGraphSchema` |
+| `mergeListingSchemaIntoGraph` | `$lib/listings/utils/listingSchema.ts` | `Thing[]` |
+| Playbooks hub builders | `$lib/listings/utils/createPlaybooksSeoSchema.ts` | `CollectionPage`, item lists, term sets |
+| Building blocks hub builders | `$lib/listings/utils/createBuildingBlocksSeoSchema.ts` | same pattern |
 
-Code-side rendering or canonical gaps → fix server loads per **web-seo-meta-tags**, **web-seo-canonical**, **web-seo-jsonld**, **web-seo-cms-copy**. Do **not** block parameterized URLs in `robots.txt` for consolidation (see **web-seo-canonical**).
+Hub loads (`loadPlaybooksHubPage.server.ts`, `loadBuildingBlocksHubPage.server.ts`) compose builders with `createJsonLdGraph` + `filterNonEmptyJsonLdNodes`. Paginate hub grids in the server load (`parseHubListPagination`, `paginateHubList` from `$lib/listings/utils/hubListPagination.ts`); pass `totalCount` and `listOffset` into item-list builders so `numberOfItems` and `ListItem.position` match the full filtered set, not only the current page slice.
 
-## Charset (UTF-8)
+## Reference graph shapes
 
-Crawlers and browsers must decode HTML as **UTF-8**. A `<meta charset="UTF-8">` that does not match the real byte encoding (or a missing HTTP charset) makes non-English copy unreadable and hurts international SEO.
-
-| Layer | Mechanism |
+| Route type | Typical `@graph` nodes |
 | --- | --- |
-| **HTML** | `web/src/app.html` — `<meta charset="utf-8" />` is the **first** child of `<head>` (within the first 1024 bytes). Do not move it below styles, scripts, or `%sveltekit.head%`. |
-| **HTTP** | `hooks.server.ts` — `ensureUtf8CharsetResponse` adds `charset=utf-8` when SvelteKit SSR returns `content-type: text/html` without a charset. |
-| **Text feeds** | `robots.txt`, `rss.xml`, `llms*.txt`, markdown doc routes, and sitemap XML declare `charset=utf-8` (or `encoding="UTF-8"` in XML prologs). |
-| **Source** | Keep repo source and CMS/API payloads UTF-8; avoid re-encoding user copy to Latin-1. |
+| **Landing** | `WebSite` + `Organization` + `FAQPage` + `VideoObject` |
+| **About** | `AboutPage` + `Organization` |
+| **Pricing** | `WebPage` (with `Offer` list) + `FAQPage` |
+| **Hub** | `CollectionPage` + `ItemList` (+ optional `FAQPage`) |
+| **Channel / agent detail** | `WebPage` + `SoftwareApplication` + `FAQPage` |
+| **Tool pages** | `WebApplication` (+ `WebSite` `isPartOf` on channel routes) |
+| **Blog / post preview** | `BlogPosting` or `SocialMediaPosting` + `BreadcrumbList` |
+| **Blog hubs** | `Blog` + `CollectionPage` + `ItemList` (index); `ProfilePage` + `Person` (author); topic `CollectionPage` + breadcrumbs |
+| **Creator profile** | `ProfilePage` + `Person` |
+| **Playbook / building block detail** | `WebPage` + `Person` + `HowTo` / `CreativeWork` / merged CMS schema |
+| **Compare** | `WebPage` + `ItemList` + `SoftwareApplication` × 2 + `FAQPage` |
 
-## JavaScript rendering mismatch
+## Builder notes
 
-Google separates **crawl**, **render**, and **index**. If meaningful content or SEO signals exist only after client JS runs, the indexer may store an empty or thin version even when users see the full page.
+### FAQPage (`createPublicFaqSEOSchema`)
 
-**This stack (SvelteKit SSR):** public routes use `export const ssr = true`, compute `pageMetaTags` and `schemaData` in `+page.server.ts`, and render them in the first HTML response (`MetaTags` in `+layout.svelte`, `JsonLdHead` in `+page.svelte`). Do not rely on `onMount`, `if (browser)`, or client-only presenter fetches for indexable copy or structured data.
+- `pageUrl: \`${canonical}#faq\`` — same section name/description as visible `PublicFaq`.
+- Plain-text `Answer.text` matching accordion copy.
+- Returns `{}` when empty — always `filterNonEmptyJsonLdNodes`.
 
-| Signal | Must appear in initial HTML |
-| --- | --- |
-| `<meta charset="utf-8">` | First child of `<head>` in `app.html` (see **Charset** above) |
-| `<title>`, meta description, OG/Twitter | `pageMetaTags` from server load |
-| `<link rel="canonical">` | `withCanonicalMetaTags` (see **web-seo-canonical**) — path-only; strips UTM/`gclid`/`fbclid` in SSR |
-| JSON-LD | `schemaData` + `JsonLdHead` (see **web-seo-jsonld**) |
-| Hero / FAQ / listing body copy | Server load VMs — see **web-seo-cms-copy** |
-| Paginated hub grids (playbooks, building blocks, blog) | Current page items in SSR HTML + crawlable `<a href="?page=N">` links — no client-only "Show more" or infinite scroll |
+### VideoObject (`createLandingDemoSEOSchema`)
 
-## Pagination (indexable catalog grids)
+- Landing demo from SSR `landing_page` config. Filter when `youtubeVideoId` or `uploadDate` is empty.
+- Include `uploadDate` (ISO 8601) — required by Google for VideoObject rich results (`DEMO_YOUTUBE_UPLOAD_DATE`).
+- `HeroDemo`: crawlable thumbnail, YouTube link, `id="landing-demo"`.
 
-Indexable listing hubs must expose **crawlable page URLs**, not client-only infinite scroll or “Show more” that appends DOM without new URLs.
+### Organization (`createOrganizationSEOSchema`)
 
-| Layer | Pattern |
-| --- | --- |
-| **Server load** | `parseHubListPagination` / `paginateHubList` (`$lib/listings/utils/hubListPagination.ts`) in `+page.server.ts`; return only the current page slice |
-| **UI** | `Pagination.svelte` with real `<a href>` links and `rel="prev"` / `rel="next"` on adjacent pages |
-| **JSON-LD** | `numberOfItems` and `ListItem.position` reflect the **full filtered set** (`totalCount`, `listOffset`) — see **web-seo-jsonld** |
-| **Canonical** | Path-only (hub path with category/tag in path when set); `?page=` stripped — see **web-seo-canonical** |
+- Landing and about only — not sitewide. Use `organizationSchemaId(origin)` for stable `@id`.
 
-**Allowed:** infinite scroll in **non-indexable** app surfaces (editor, admin tables, modals). **Not allowed:** infinite scroll as the only way to reach indexable catalog items on public hub routes.
+## Canonical alignment
 
-## Mixed content (HTTPS)
-
-Production pages are served over HTTPS. Subresources and SEO URLs loaded over plain HTTP may be blocked or downgrade the page.
-
-| Layer | Mechanism |
-| --- | --- |
-| **Canonical / OG base** | `createMetaData` upgrades `http://` company/site origins to `https://` for canonical and social URLs |
-| **Images and embeds** | Use `https://` (or same-origin relative paths) for `customImages`, hero media, and JSON-LD `image` / `thumbnailUrl` on public routes |
-| **CMS / API copy** | Sanitize or normalize user-supplied URLs that might ship `http://` in indexed body or schema |
-
-**Audit:** On a staging/production HTTPS URL, DevTools → Security → confirm no active mixed content. Fix any `http://` asset or iframe before launch.
-
-## Quick checklist (public route)
-
-- [ ] `export const ssr = true` in `+page.server.ts`
-- [ ] `app.html` keeps `<meta charset="utf-8">` as the first `<head>` child; document responses include `charset=utf-8` (see **Charset**)
-- [ ] `createMetaData(...)` → `withCanonicalMetaTags(metaTags, buildCanonicalUrl(url), …)` (see **web-seo-canonical**)
-- [ ] `pageMetaTags` and `schemaData` returned from server load
-- [ ] `+page.ts` forwards `pageMetaTags` + `schemaData` on `browser && data` (see **web-sveltekit-universal-page-load**)
-- [ ] `+page.svelte` renders `<JsonLdHead schemaData={…} />` only — no inline JSON-LD
-- [ ] JSON-LD `url` / `canonicalUrl` matches `<link rel="canonical">` (same `buildCanonicalUrl` value)
-- [ ] Indexable body copy and headings come from server load data, not client-only fetches
-- [ ] Paginated catalog hubs render the current page in SSR and expose crawlable pagination links (`Pagination.svelte` with `rel="prev"` / `rel="next"`); avoid client-only "Show more" or infinite scroll on indexable listing grids
-- [ ] External images/embeds and meta image URLs use HTTPS on production
-
-## Representative routes
-
-- **Landing / pricing / about**: `/`, `/pricing`, `/about`
-- **Content**: `/blog`, `/blog/[slug]`, `/blog/topic`, `/blog/author`, `/p/[postId]`
-- **Hubs**: `/channels`, `/agents`, `/tools`, `/creators`, `/compare`, `/playbooks`, `/building-blocks`, category/tag sub-hubs
-- **Detail pages**: channel, agent, tool, creator, listing detail routes
+JSON-LD `url` / `canonicalUrl` must match `<link rel="canonical">` — use the same `buildCanonicalUrl(url)` value (see **web-seo-canonical**). Do not duplicate title/description in `+page.svelte` when they already exist in the server load.
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
