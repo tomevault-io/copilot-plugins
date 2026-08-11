@@ -1,0 +1,44 @@
+{
+  "name": "amazon-omniscient",
+  "owner": "Umair706",
+  "repo": "amazon-omniscient",
+  "description": "Amazon FBA Product Research Engine \u2014 BSR tracker, competitor analysis, profit calculator, niche finder. Alternative to Helium 10 & Jungle Scout. Python/FastAPI + Next.js + AI-powered.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Umair706/amazon-omniscient",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T23:22:10Z"
+}
