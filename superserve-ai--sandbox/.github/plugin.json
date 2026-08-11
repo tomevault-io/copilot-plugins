@@ -1,0 +1,9 @@
+{
+  "name": "superserve-ai--sandbox",
+  "displayName": "sandbox",
+  "description": "Infrastructure powering Superserve sandboxes \u2014 fast, isolated VM environments for AI agents",
+  "version": "1.0.0",
+  "author": "superserve-ai",
+  "homepage": "https://github.com/superserve-ai/sandbox",
+  "skills": []
+}
