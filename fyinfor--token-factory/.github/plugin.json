@@ -1,0 +1,9 @@
+{
+  "name": "fyinfor--token-factory",
+  "displayName": "token-factory",
+  "description": "A unified AI model hub for aggregation & distribution. It supports cross-converting various LLMs into OpenAI-compatible, Claude-compatible, or Gemini-compatible formats. A centralized gateway for pers",
+  "version": "1.0.0",
+  "author": "fyinfor",
+  "homepage": "https://github.com/fyinfor/token-factory",
+  "skills": []
+}
