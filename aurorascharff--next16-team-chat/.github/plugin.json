@@ -1,0 +1,9 @@
+{
+  "name": "aurorascharff--next16-team-chat",
+  "displayName": "next16-team-chat",
+  "description": "A \"Slack\" team chat demo with TanStack Query (or SWR), built with Next.js 16.3 Cache Components, Partial Prefetching, React 19, Tailwind CSS v4, and Prisma.",
+  "version": "1.0.0",
+  "author": "aurorascharff",
+  "homepage": "https://github.com/aurorascharff/next16-team-chat",
+  "skills": []
+}
