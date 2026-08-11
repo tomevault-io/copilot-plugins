@@ -1,0 +1,9 @@
+{
+  "name": "shadcn-ui--chatbot-template",
+  "displayName": "chatbot-template",
+  "description": "A minimal chatbot template built with Next.js, AI SDK, shadcn/ui, shadcn/react, shadcn/typeset. It runs on the Vercel AI Gateway.",
+  "version": "1.0.0",
+  "author": "shadcn-ui",
+  "homepage": "https://github.com/shadcn-ui/chatbot-template",
+  "skills": []
+}
