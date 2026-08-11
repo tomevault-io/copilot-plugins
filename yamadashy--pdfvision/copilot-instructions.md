@@ -1,0 +1,167 @@
+## pdfvision
+
+> Core project guidelines for the pdfvision codebase. Apply these rules when working on any code, documentation, or configuration files within the pdfvision project.
+
+
+# pdfvision Project Structure and Overview
+
+## Project Overview
+
+pdfvision is a CLI tool for extracting text, metadata, and page images from PDF files. Designed primarily for AI agents to read PDF contents efficiently. Built in TypeScript/Node.js with pdfjs-dist for PDF processing and @napi-rs/canvas for page rendering. Features content-hash caching under `<os-tmpdir>/pdfvision/` so only the first run per file is slow.
+
+## Directory Structure
+
+```
+pdfvision/
+├── src/
+│   ├── bin/
+│   │   └── pdfvision.ts          # Thin CLI entry point (delegates to cli/cli.ts)
+│   ├── cli/
+│   │   ├── cli.ts            # Argument parsing and dispatch
+│   │   ├── help.ts           # Help text (CLI + `pdfvision mcp`)
+│   │   ├── mcpCommand.ts     # `pdfvision mcp` subcommand dispatch, resolved before parseArgs
+│   │   ├── clearCacheCommand.ts # `pdfvision clear-cache` dispatch and its ambiguity guard
+│   │   ├── docsCommand.ts    # `pdfvision docs` dispatch and topic index rendering
+│   │   ├── docs/             # Generated topic index + bodies (see scripts/build-cli-topics.mjs)
+│   │   ├── optionSpec.ts     # The parseArgs option spec, exported so tests can walk it
+│   │   ├── subcommandFlags.ts # --help / --version handling shared by every subcommand
+│   │   └── version.ts        # Reads version from package.json
+│   ├── mcp/
+│   │   ├── serve.ts          # stdio bootstrap behind `pdfvision mcp`
+│   │   ├── server.ts         # MCP tool registration (read_pdf / search_pdf / render_pdf)
+│   │   ├── tools/            # One module per tool
+│   │   ├── source.ts         # Path-or-URL dispatch and SSRF guard
+│   │   ├── limits.ts         # Response budgets
+│   │   ├── refs.ts           # Short region handles (`p47m1`) for follow-up renders
+│   │   ├── attachments.ts    # Embedded-file classification: inline text, image blocks, refuse the rest
+│   │   ├── truncate.ts       # Page-boundary clipping with recovery guidance
+│   │   └── result.ts         # Content blocks and the untrusted-data banner
+│   ├── core/
+│   │   ├── processor.ts      # Document-level processing entry point
+│   │   ├── annotations/      # PDF annotation normalization and geometry
+│   │   ├── document/         # Document-level metadata, outline, layers, attachments
+│   │   ├── formFields/       # Form field extraction, labels, and stacked controls
+│   │   ├── graphics/         # Image and vector operation analysis
+│   │   ├── io/               # OS tmpdir cache and remote input helpers
+│   │   ├── layout/           # Text layout reconstruction and repeated chrome
+│   │   ├── links/            # Link extraction and visible link text
+│   │   ├── ocr/              # OCR dispatch, worker, and word geometry
+│   │   ├── options/          # Option parsers such as page ranges
+│   │   ├── processor/        # Pipeline helpers used by processor.ts
+│   │   ├── quality/          # Page quality and extraction confidence signals
+│   │   ├── renderer/         # Per-page PNG rendering and crop handling
+│   │   ├── runtime/          # Shared runtime helpers such as bounded parallelism
+│   │   ├── search/           # Search query compilation and match geometry
+│   │   ├── text/             # Text joining, geometry, spacing, and direction helpers
+│   │   ├── visualRegions/    # Figure/table/form visual-region detection
+│   │   ├── warningTextOverlap/ # Text-overlap warning geometry
+│   │   ├── warnings/         # User-facing warning detection
+│   │   └── widgetAppearance/ # Widget appearance stream text extraction
+│   ├── output/
+│   │   ├── documentMap.ts    # Aggregated map of a document (no page bodies)
+│   │   ├── json.ts           # Structured JSON formatter
+│   │   ├── markdown.ts       # Agent-readable Markdown formatter
+│   │   ├── toon.ts           # TOON formatter
+│   │   └── xml.ts            # XML formatter
+│   ├── types/
+│   │   └── index.ts          # Shared types (DocumentResult, ProcessOptions, ...)
+│   └── index.ts              # Library API entry
+├── docs/
+│   └── cli-topics/           # Source of `pdfvision docs <topic>`; embedded at build time
+├── tests/
+│   ├── core/                 # Unit and integration tests
+│   └── fixtures/sample.pdf   # Hand-crafted minimal PDF
+├── .github/workflows/        # ci.yml, npm-publish.yml
+├── biome.json
+├── tsdown.config.ts
+├── vitest.config.ts
+└── package.json
+```
+
+## Architecture Principles
+
+- **bin/ stays thin**: only sets up error handlers and calls `cli/cli.ts`.
+- **cli/ does I/O**: argument parsing, help/version, calling `core/`.
+- **mcp/ is a thin agent-facing front over the same `core/` and `output/` the CLI uses.** The CLI is the primary surface; MCP exists to make it usable from a host with no shell. So anything an MCP tool needs that is not protocol-specific belongs in `core/` or `output/`, where the CLI can reach it too — page-range formatting, crop-region padding, the document map, native-text-quality classification, and local input resolution all live there for this reason. What legitimately stays under `mcp/` is protocol shape: tool registration, response budgets and truncation, the session ref registry, the SSRF guard, and the untrusted-content banner. If a new MCP behaviour would be useful from the command line, add it to `core/`/`output/` and call it from both.
+- **Three MCP tools** (`read_pdf` / `search_pdf` / `render_pdf`) — tool schemas are permanently resident in a host's context, so a CLI flag does **not** become an MCP parameter by default. Anything pdfvision can decide from the document itself is decided by the server. A new parameter needs to justify its permanent context cost; `tests/mcp/server.test.ts` guards the schema budget and the banned parameter names.
+- **core/ is pure-ish logic**: no `process.exit`, no `console.log`. Throws on real errors.
+- **core/ root stays small**: keep only document-level entry points at `src/core/` root; move supporting implementation into responsibility-oriented subdirectories such as `layout/`, `io/`, `renderer/`, and `processor/`.
+- **output/ formatters are pluggable**: each format takes a `DocumentResult` and returns a string.
+- **types/ is the shared shape**: anything cross-module lives here.
+- **cache is content-addressed**: SHA-256 prefix of the file under `<os-tmpdir>/pdfvision/<hash>/`.
+- **ESM only**: `"type": "module"` everywhere.
+
+## Build and Tooling
+
+- **Build**: `npm run build` (tsdown / rolldown). Outputs `dist/bin/pdfvision.mjs` (CLI) and `dist/index.mjs` (library).
+- **External deps**: `@napi-rs/canvas` and `pdfjs-dist` are kept external (native binding / worker concerns).
+- **Lint pipeline**: `npm run lint` runs Biome + oxlint + tsc (TypeScript) + secretlint in series. Each is also exposed individually as `lint-biome`, `lint-oxlint`, `lint-ts`, `lint-secretlint`.
+- **Test**: Vitest. `npm run test`.
+- **Dogfooding MCP**: `.mcp.json` exposes the local build as the `pdfvision-dev` MCP server, rebuilding on launch. Build output is redirected to stderr because stdout carries JSON-RPC. A running server does not pick up code changes — reconnect (`/mcp`) to relaunch it on the fresh build.
+- **Test fixtures**: `tests/fixtures/sample.pdf` is a hand-crafted minimal English PDF (~600 B). `tests/fixtures/sample-ja.pdf` is generated by `node --run build-fixtures` from `scripts/build-test-fixtures.mjs` using a Noto Sans JP TTF shipped via `@expo-google-fonts/noto-sans-jp` (devDep, no network call). Re-run that script when you intentionally update fixture content.
+
+## Coding Guidelines
+
+- Follow idiomatic TypeScript with `"strict": true`.
+- Keep dependencies minimal — every new runtime dep should justify itself.
+- Keep each file focused on a single responsibility.
+- Treat roughly 250 lines as a signal to review a file's cohesion, not a mandate to split: split when the file mixes multiple responsibilities, but leave it as-is when the length comes from one cohesive concern (for example, large data or configuration tables). Test files are exempt from this guideline.
+- Add comments in English only when the **why** is non-obvious. Skip comments that describe what the code already shows.
+- New features come with tests.
+- When changing pdfvision behavior, CLI flags, output fields, quality signals, or recommended agent workflows, update every documentation surface in the same change. They are separate files because they answer different questions, not because they may disagree:
+  - `src/cli/help.ts` — one line per flag, and the topic that carries the detail.
+  - `docs/cli-topics/*.md` — the `pdfvision docs <topic>` bodies. Re-run `node scripts/build-cli-topics.mjs` (the build does this too) and commit the regenerated modules under `src/cli/docs/`.
+  - `skills/pdfvision/` — see the write policy below.
+  - `docs/src/{en,ja,zh-cn,zh-tw}/` — the VitePress site, **all four locales**.
+  - `README.md` — the Usage block regenerates from `--help` via `node scripts/sync-readme-usage.mjs`; the prose around it is manual.
+  - `CHANGELOG.md` under `[Unreleased]`.
+
+  Know where the machine stops. Tests fail if a new `parseArgs` option appears in neither the short help nor the `options` topic, if a topic is added or deleted without updating the pinned list, or if a `pdfvision docs <topic>` cross-reference does not resolve; CI diffs the generated topic modules and the README Usage block. **Nothing checks the site, the skill, or whether any of this prose is true** — a wrong path or a stale field name survives every check we have.
+- Before declaring work done, run:
+  ```bash
+  npm run lint
+  npm run test
+  npm run build
+  ```
+
+## Release checklist
+
+- Run the manual [bare-agent regression protocol](tests/agent-regression/README.md) before every release.
+- A release, including v1.0, is blocked unless every task in the protocol passes (do not hardcode the count here; the protocol table is the source of truth).
+- Keep this protocol manual; do not add it to CI.
+
+## Skill documentation write policy
+
+The bundled agent skill lives under `skills/pdfvision/`: `SKILL.md` is the always-loaded decision surface, and `references/*.md` (`structured-output.md`, `ocr.md`, `warnings.md`, `flags.md`) are the on-demand detail files.
+
+- **New training-loop knowledge goes into `references/*`**, not `SKILL.md`. Warning-code interpretation and raw density-signal thresholds → `references/warnings.md`; per-flag caveats → `references/flags.md`; JSON/XML schema → `references/structured-output.md`; OCR specifics → `references/ocr.md`.
+- **`SKILL.md` changes only when the decision flow itself changes** — a new/removed flag in the compact table, a new `quality` status, or an update to the typical agent flow. Prose caveats and edge cases do not belong here.
+- **Do not write verification scaffolding into skill prose.** Current agent models re-check their own work unprompted; a line telling the reader to confirm something it can already see compounds that and spends tokens on both sides. Say what a signal means and what makes an answer conclusive — including when to stop — and leave the checking to the agent.
+- **`SKILL.md` has a 12 KB (12288-byte) ceiling, enforced by review.** It is a backstop against re-bloat, not a target: do not trim prose to sit under it, and do not treat remaining headroom as a reason to leave a real decision undocumented. What belongs in `SKILL.md` is settled by the two rules above; the size only catches the case where those rules were quietly ignored for long enough to matter. **Do not measure it while editing** — an editor who has just run `wc -c` starts compressing to fit, which is the behaviour this ceiling is meant to prevent, one wall further out. Check it when reviewing, not when writing.
+
+  When review finds the line crossed, there are exactly two right responses beyond ordinary tightening of the edit under review. If it caught real bloat, apply the first rule above — **move the detail into `references/*`** and link instead. If a legitimate decision-flow change needs the room, **raise the number in the same change and name the decision-flow change that required it**; that is the intended escape hatch, not a failure of the rule. Compressing unrelated prose to get back under the line is the one response that is always wrong.
+
+## Error Handling
+
+- Print clear messages to stderr for user-facing errors (file not found, invalid arguments).
+- Use `process.exit(1)` for fatal errors at the CLI boundary, not deep in `core/`.
+- Never throw unhandled exceptions in normal operation.
+
+## Commit Messages
+
+- Follow [Conventional Commits](https://www.conventionalcommits.org/).
+- Write commit messages in English.
+- Include a scope. Use modules names: `cli`, `processor`, `renderer`, `cache`, `output`, `types`, `release`, `deps`, etc.
+- Format: `type(scope): description`
+  ```
+  feat(renderer): add per-page PNG output
+  fix(processor): handle encrypted PDF gracefully
+  refactor(cli): split help text into its own module
+  docs(readme): add multimodal usage section
+  test(pageRange): cover comma + range mix
+  chore(deps): bump pdfjs-dist to v5.6
+  ```
+
+---
+> Source: [yamadashy/pdfvision](https://github.com/yamadashy/pdfvision) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
