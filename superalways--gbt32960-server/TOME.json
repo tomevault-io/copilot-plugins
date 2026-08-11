@@ -1,0 +1,44 @@
+{
+  "name": "gbt32960-server",
+  "owner": "SuperAlways",
+  "repo": "gbt32960-server",
+  "description": "Netty\u7684\u56fd\u6807GBT32960\u65b0\u80fd\u6e90\u6c7d\u8f66\u8fdc\u7a0b\u76d1\u63a7\u534f\u8bae\u670d\u52a1\u5668\u5b9e\u73b0\uff0c\u652f\u63012016\u548c2025\u7248\u672c\u534f\u8bae\uff0c\u63d0\u4f9b\u9ad8\u6027\u80fd\u7684TCP\u534f\u8bae\u5904\u7406\u548c\u5b8c\u6574\u7684Web   API\u63a5\u53e3",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SuperAlways/gbt32960-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T02:48:56Z"
+}
