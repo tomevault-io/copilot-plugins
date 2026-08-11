@@ -1,0 +1,44 @@
+{
+  "name": "reddb",
+  "owner": "reddb-io",
+  "repo": "reddb",
+  "description": "RedDB is a multi-structure database engine for applications that need structured rows, raw payloads, linked entities, semantic retrieval, graph analytics, operational metadata and exports without splitting data across multiple systems.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/reddb-io/reddb",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T19:28:03Z"
+}
