@@ -1,0 +1,9 @@
+{
+  "name": "peterdresslar--zotero-gemini-notebook",
+  "displayName": "zotero-gemini-notebook",
+  "description": "Zotero plugin + Chrome extension to import Zotero sources into Gemini Notebook (formerly NotebookLM)",
+  "version": "1.0.0",
+  "author": "peterdresslar",
+  "homepage": "https://github.com/peterdresslar/zotero-gemini-notebook",
+  "skills": []
+}
