@@ -1,0 +1,9 @@
+{
+  "name": "lisachenko--zdebug",
+  "displayName": "zdebug",
+  "description": "Userland implementation of Xdebug feature via Z-Engine ",
+  "version": "1.0.0",
+  "author": "lisachenko",
+  "homepage": "https://github.com/lisachenko/zdebug",
+  "skills": []
+}
