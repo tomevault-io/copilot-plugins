@@ -1,0 +1,9 @@
+{
+  "name": "handarbeit--fabrik",
+  "displayName": "fabrik",
+  "description": "Drive Claude Code through an SDLC pipeline on your GitHub Project board \u2014 Specify \u2192 Research \u2192 Plan \u2192 Implement \u2192 Review \u2192 Validate. Human in the loop, or on it. A Go CLI for automated, issue-driven d",
+  "version": "1.0.0",
+  "author": "handarbeit",
+  "homepage": "https://github.com/handarbeit/fabrik",
+  "skills": []
+}
