@@ -1,0 +1,9 @@
+{
+  "name": "anojndr--grok-to-openai",
+  "displayName": "grok-to-openai",
+  "description": "OpenAI-compatible bridge for authenticated grok.com web sessions with Responses API, Chat Completions, streaming, and file uploads",
+  "version": "1.0.0",
+  "author": "anojndr",
+  "homepage": "https://github.com/anojndr/grok-to-openai",
+  "skills": []
+}
