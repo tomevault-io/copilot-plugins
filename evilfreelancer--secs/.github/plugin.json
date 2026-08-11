@@ -1,0 +1,9 @@
+{
+  "name": "evilfreelancer--secs",
+  "displayName": "secs",
+  "description": "SECS (SECurity aSsistant) turns an AI coding agent (Claude Code, Cursor, Codex) into an authorized information-security assistant - 35 security Agent Skills, a Debian/Ubuntu/Kali toolchain installer, ",
+  "version": "1.0.0",
+  "author": "EvilFreelancer",
+  "homepage": "https://github.com/EvilFreelancer/secs",
+  "skills": []
+}
