@@ -1,0 +1,44 @@
+{
+  "name": "ATLAS-Career-Coach-Life-Strategist-Business-Consultant-Plugin",
+  "owner": "Ak47dev-biz",
+  "repo": "ATLAS-Career-Coach-Life-Strategist-Business-Consultant-Plugin",
+  "description": "ATLAS \u2014 Adaptive Total Life Advisory System. AI-powered career coach, life strategist, and business consultant. A Claude Code plugin.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ak47dev-biz/ATLAS-Career-Coach-Life-Strategist-Business-Consultant-Plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T21:17:18Z"
+}
