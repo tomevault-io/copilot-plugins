@@ -1,0 +1,9 @@
+{
+  "name": "thixpin--claude-config",
+  "displayName": "claude-config",
+  "description": "A reusable Claude Code configuration for agentic coding and software engineering workflows. It provides global engineering guidelines, debugging and bug-fixing workflows, code review, security auditin",
+  "version": "1.0.0",
+  "author": "thixpin",
+  "homepage": "https://github.com/thixpin/claude-config",
+  "skills": []
+}
