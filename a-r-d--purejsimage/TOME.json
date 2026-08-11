@@ -1,0 +1,44 @@
+{
+  "name": "PureJsImage",
+  "owner": "a-r-d",
+  "repo": "PureJsImage",
+  "description": "Low-memory, zero-dependency image codecs and processing in pure TypeScript for Node.js, browsers, and serverless runtimes. Bounded decode/resize pipelines plus deep TIFF, scientific raster, GeoTIFF, OME-TIFF, and whole-slide support.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/a-r-d/PureJsImage",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T05:34:24Z"
+}
