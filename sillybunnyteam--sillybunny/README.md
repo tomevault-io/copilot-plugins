@@ -7,11 +7,11 @@ A SillyTavern fork with Bun as the backend, along with UI/UX improvements
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [SillyBunnyTeam/SillyBunny](https://github.com/SillyBunnyTeam/SillyBunny).
+Original source: `AGENTS.md` in [SillyBunnyTeam/SillyBunny](https://github.com/SillyBunnyTeam/SillyBunny).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
