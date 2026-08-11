@@ -1,0 +1,9 @@
+{
+  "name": "miguelspizza--skills",
+  "displayName": "skills",
+  "description": "Opinionated agent skills for maintainable TypeScript",
+  "version": "1.0.0",
+  "author": "MiguelsPizza",
+  "homepage": "https://github.com/MiguelsPizza/skills",
+  "skills": []
+}
