@@ -7,11 +7,11 @@ Clean download links for any public GitHub repo so that you don't have to called
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [argval/yatko](https://github.com/argval/yatko).
+Original source: `CLAUDE.md` in [argval/yatko](https://github.com/argval/yatko).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
