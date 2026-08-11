@@ -1,0 +1,9 @@
+{
+  "name": "tweag--tricorder",
+  "displayName": "tricorder",
+  "description": "Tricorder provides simple, fast, focused feedback when hacking on Haskell (with or without LLM agents).",
+  "version": "1.0.0",
+  "author": "tweag",
+  "homepage": "https://github.com/tweag/tricorder",
+  "skills": []
+}
