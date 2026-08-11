@@ -1,46 +1,44 @@
-## report-and-wait-before-implement
+## 8iadt-tc-fase3-assistente-medico
 
-> Handoff — report what was done, next steps, and wait before implementing the plan
+> Monorepo de um assistente médico para apoio à decisão clínica (RAG + LangGraph + guardrails).
 
+# Assistente Médico IA
 
-# Report and wait (before implementing)
+Monorepo de um assistente médico para apoio à decisão clínica (RAG + LangGraph + guardrails).
 
-## When this applies
+## Estrutura
 
-Activate when the user **references this rule** (`@report-and-wait-before-implement` or the file under `.cursor/rules/`) **or** ends the message with one of these signals:
+- `backend/` — API FastAPI: chat clínico via LangGraph + RAG (Chroma), SSE, alertas clínicos, persistência SQLite (Alembic). Código em `backend/src/assistente_medico_api/`.
+- `frontend/` — SPA "Assistente Médico" (Vite + TypeScript), fachada `clinicalApi`.
+- `llm/` — pipeline RAG (download de PCDTs da Conitec, dataset COVID, chunking, ingestão Chroma) e fine-tuning (SFT em Llama 3.2 via Unsloth/MLX).
+- `docs/` — relatório de implementação, referências e dev log (`docs/dev-log/INDEX.md`).
+- `vectorstore/` — índice Chroma na raiz do repo.
 
-- `/report-and-wait`
-- `report and wait`
+Cada subprojeto Python (`backend/`, `llm/`) gerencia dependências via `pyproject.toml` (`pip install -e .`).
 
-If the signal appears **at the end of the message**, it overrides earlier parts of the same message that imply immediate implementation: **do not implement the plan in this turn**.
+## Configuração compartilhada Cursor + Claude Code
 
-## Required behavior
+Este repositório é editável tanto pelo **Cursor** quanto pelo **Claude Code**. As regras são mantidas em **`.cursor/rules/*.mdc`** como fonte única de verdade; este `CLAUDE.md` as importa abaixo para que os dois ambientes sigam exatamente as mesmas convenções. Ao ajustar uma regra, edite o `.mdc` correspondente — a mudança vale para ambos.
 
-1. **Do not** apply patches, create implementation files, or run “execute the plan” steps until the user sends another message.
-2. **Reply** in clear language with:
-   - **What was done** this turn (reads, conclusions, mental drafts — do not invent changes that did not happen).
-   - **Proposed next actions** (concrete, ordered steps).
-   - **An explicit question or invitation** to confirm, adjust priorities, or say “ok” for the next step.
-3. **Wait** for the user’s reply before implementing.
+Mapeamento entre as ferramentas:
 
-## Reading and research
+| Cursor | Claude Code |
+|--------|-------------|
+| `.cursor/rules/*.mdc` (alwaysApply) | importadas neste `CLAUDE.md` |
+| `.cursor/rules/langgraph-node-conventions.mdc` (glob `backend/src/**/graph/**`) | importada em `backend/CLAUDE.md` |
+| `.cursor/rules/report-and-wait-before-implement.mdc` (manual) | comando `/report-and-wait` (`.claude/commands/`) |
+| `.cursor/agents/brazilian-tone-fixer.md` | subagente `.claude/agents/brazilian-tone-fixer.md` |
+| `.agents/skills/` (caveman, caveman-help) | `.claude/skills/` (symlinks para a mesma fonte) |
 
-- Allowed: read files, search the repo, explain or refine the plan in prose.
-- Avoid: persistent changes to the project (unless the user explicitly asked for *only* documentation/rule work and that is this turn’s scope).
+## Regras sempre ativas
 
-## Example reply (structure)
+@.cursor/rules/language-conventions-en-code-pt-br-ui.mdc
 
-```markdown
-## What I did this turn
-- …
+@.cursor/rules/activate-venv-before-python.mdc
 
-## Suggested next steps
-1. …
-2. …
+@.cursor/rules/inline-comments-for-long-methods.mdc
 
-## Confirmation
-Should I proceed with step 1 in the next message, or do you want to adjust …?
-```
+@.cursor/rules/dev-log.mdc
 
 ---
 > Source: [leanseefeld/8iadt-tc-fase3-assistente-medico](https://github.com/leanseefeld/8iadt-tc-fase3-assistente-medico) — distributed by [TomeVault](https://tomevault.io).
