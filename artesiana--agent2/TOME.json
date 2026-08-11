@@ -4,7 +4,7 @@
   "repo": "agent2",
   "description": "Turn domain experts into production AI agents.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Artesiana/agent2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T23:18:53Z"
+  "distributed_at": "2026-08-11T23:33:22Z"
 }
