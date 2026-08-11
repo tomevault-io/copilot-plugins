@@ -1,0 +1,9 @@
+{
+  "name": "aimaginationlab--vulnerable-llms",
+  "displayName": "vulnerable-llms",
+  "description": "An interactive security testing platform that demonstrates real vulnerabilities in Large Language Models. ",
+  "version": "1.0.0",
+  "author": "AImaginationLab",
+  "homepage": "https://github.com/AImaginationLab/vulnerable-llms",
+  "skills": []
+}
