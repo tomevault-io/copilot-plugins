@@ -1,0 +1,44 @@
+{
+  "name": "Tassel",
+  "owner": "Ju-yzp",
+  "repo": "Tassel",
+  "description": "Tassel: \u4e00\u4e2a\u4f18\u5316\u6846\u67b6\u4e0b\u7684vio(\u4ecd\u5728\u5b8c\u5584\uff0c\u76ee\u6807\u662f\u6210\u4e3a\u957f\u671fVSLAM)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ju-yzp/Tassel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T21:20:14Z"
+}
