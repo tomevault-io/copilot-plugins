@@ -1,0 +1,101 @@
+## agento11y
+
+> This file is for agents working *on* this repo (the SDKs in `go/`, `python/`, `js/`, `java/`, `dotnet/` and the launchers in `plugins/`).
+
+# Working on agento11y
+
+This file is for agents working *on* this repo (the SDKs in `go/`, `python/`, `js/`, `java/`, `dotnet/` and the launchers in `plugins/`).
+
+For agents working in a *consumer* project (instrumenting their app, or installing one of our plugins), point them at [`llms.txt`](llms.txt) instead. That is the file we ship to users.
+
+Read the README and `mise tasks` for the obvious stuff: layout, package names, where languages live. This file only documents what you can't discover by looking.
+
+## Proto is the source of truth
+
+`proto/agento11y/v1/*.proto` is the source of truth. Generated stubs live under each language tree:
+
+- Go: `go/proto/agento11y/`
+- Python: `python/agento11y/internal/gen/agento11y/`
+- JS: `js/proto/agento11y/` (the runtime loads `.proto` files directly, no codegen)
+- Java, .NET: compiled on build via the gradle protobuf plugin and `Grpc.Tools`; no committed stubs.
+
+Never edit generated files. Edit the `.proto`, then:
+
+```sh
+mise run generate:proto
+```
+
+CI runs `mise run check:proto` and fails the build if the committed stubs drift from the proto. Tool versions are pinned in `mise.toml` so output is byte-identical across machines. See `docs/development.md` for the full table.
+
+## Secret patterns are the second source of truth
+
+`redaction/patterns.json` is the only editable secret-pattern table. Each engine gets its list generated from it, next to hand-written code: `go/agento11y/redaction_patterns_gen.go`, `python/agento11y/_redaction_patterns.py`, `js/src/redaction-patterns.generated.ts`, `dotnet/src/Grafana.Agento11y/RedactionPatterns.g.cs`, `plugins/agento11y/internal/redact/patterns_gen.go`.
+
+Never edit those five files. Edit `patterns.json`, then:
+
+```sh
+mise run generate:redaction
+```
+
+CI runs `mise run check:redaction` in the same job as the proto drift check. `redaction/README.md` covers the pattern fields and the shared fixtures.
+
+## Releases run off `.github/sdk-releases.json`
+
+That table holds each release line's id, tag prefix, changelog path, and the commit paths its changelog section is generated from. Seven lines are listed: the five SDKs plus `plugins/pi` and `plugins/opencode`.
+
+The commit paths live only there, and every release workflow reads them with `jq`. Tag prefixes and changelog paths are duplicated: the five SDK workflows still spell out their own `sdk-python/v*`-style prefix and `python/CHANGELOG.md`-style path inline, and `sdk-github-releases.yml` hand-copies all seven prefixes into `on.push.tags`, which GitHub cannot template from a file. So a new release line needs a row *and* a pass over those workflows; a row on its own gets the line tagged with no release page.
+
+Each SDK row carries `:(exclude)` pathspecs for tests and READMEs, because a conformance test under `go/` would otherwise put a JS-only commit in the Go changelog. The two plugin rows own their whole directory and need no excludes.
+
+Three steps run per release, and none of them creates a tag on the release PR:
+
+1. The release workflow generates a section with `changelog-for-release.sh` and opens a PR that changes `CHANGELOG.md`.
+2. `tag-releases-on-merge.yml` fires on the merge, reads the top version with `changelog-top-version.sh`, and tags the merge commit, so every tag stays reachable from `main`.
+3. `sdk-github-releases.yml` fires on the tag and publishes the section from `changelog-latest-section.sh` as the release body.
+
+`plugins/agento11y` sits outside the table. It keeps its own pair of workflows (`release-agento11y.yml`, `tag-agento11y-on-merge.yml`) because it also drives GoReleaser and Homebrew.
+
+## Workspace gotchas
+
+- The Go workspace (`go.work`) covers `go/`, `go-providers/*`, `go-frameworks/google-adk`, and `plugins/agento11y`. Adding a new Go module means updating `go.work` *and* `go.work.sum`. Lint tasks use `GOWORK=off` and iterate per-module via `find . -name go.mod`, so each module must also lint and build on its own.
+- The pnpm workspace covers `js/` and `plugins/*`. Use `pnpm --filter <name>` from the root; `mise.toml` does this via tasks like `lint:ts:sdk-js`.
+- When adding a JS workspace package, plugin, or private example, update `js/scripts/check-js-dependency-pinning.mjs` so dependency pinning enforcement covers the new manifest. Published packages should keep runtime `dependencies` and `peerDependencies` as compatible ranges, but pin `devDependencies`; private examples should pin external dependencies exactly.
+- Java uses a single gradle multi-project rooted at `java/`; modules are listed in `java/settings.gradle.kts`.
+- .NET uses a single solution at `dotnet/Agento11y.DotNet.slnx`; projects are listed there.
+
+## Plugins layout
+
+`plugins/` ships two flavors of launcher. They are not uniform; don't assume they are.
+
+| Plugin dir | What it actually is |
+|------------|---------------------|
+| `plugins/agento11y/` | The shared Go binary, installed as `agento11y` (`brew install grafana/grafana/agento11y`; the old `sigil` name still works but will be removed). Has subcommands `claude`, `codex`, `copilot`, `cursor`, `opencode`, `pi`, `vibe`, `login`, `doctor`, `local`. This is also what consumers use. |
+| `plugins/claude-code/`, `plugins/codex/`, `plugins/copilot/`, `plugins/cursor/` | Thin glue: hook scripts and READMEs that wire the host agent to the shared `agento11y` binary. No independent code paths. |
+| `plugins/opencode/` | Independent npm package `@grafana/agento11y-opencode`. Runs in-process inside opencode through its TypeScript plugin API; `agento11y opencode` installs and launches it. |
+| `plugins/pi/` | Independent npm package `@grafana/agento11y-pi`. Runs in-process inside pi; `agento11y pi` installs and launches it. |
+| `plugins/vibe/` | README only. `agento11y vibe` upserts three `[[hooks]]` entries into `hooks.toml` under `$VIBE_HOME` (default `~/.vibe`) and sets `VIBE_ENABLE_EXPERIMENTAL_HOOKS=true` on the child so vibe loads them. |
+
+If you change shared-binary behavior, the four glue plugins and vibe all see it. The OpenCode and pi plugins evolve independently, but the shared binary owns their install/launch flow.
+
+## Cross-language conventions
+
+- Use `cache_write_input_tokens`, not `cache_creation_input_tokens`. This was renamed in cbe0363; pretrained models tend to suggest the old name, so don't follow them.
+- Conformance suites cross-check the SDKs. `mise run test:sdk:conformance` runs seven of them. Core, provider-wrapper, framework-adapter, hook, and experiment cover Go/Python/JS/Java/.NET. Pi-session covers Go and JS. Redaction covers the four SDKs that have a redaction engine plus both plugins, and no Java. If you change behavior in one SDK, expect to update fixtures or matching code in the others.
+- Python has one package per framework (`agento11y-langgraph`, `agento11y-openai`, …). JS has one package with subpath exports (`@grafana/agento11y/langgraph`). Don't reflexively assume one layout for the other.
+- Python version bumps go through `mise run sdk:py:bump <VERSION>`. It updates all 13 `pyproject.toml` files and their internal `agento11y>=…` pins atomically. Hand-editing one file leaves the other twelve inconsistent.
+
+## Consumer prompt lives in two places
+
+[`llms.txt`](llms.txt) is what this repo ships. There is a second copy of the same prompt rendered by the Agent Observability onboarding wizard (a separate Grafana product). When you change user-facing semantics here (new SDK field, renamed env var, new framework adapter), the wizard copy needs the same change. If you're only fixing this repo's internals, the wizard copy doesn't move.
+
+## Hook and experiment wire fixtures are checked by hand
+
+`conformance/hooks/` pins the `POST /api/v1/hooks:evaluate` body and responses, and `conformance/experiments/` pins the experiment ingest bodies and responses. Neither endpoint group has generated stubs, so the fixtures are the contract, and the SDK suites check themselves against the fixtures rather than against the server. If you change a fixture, run the new shape through the server's decoder yourself first. Each directory's `README.md` documents the encodings, which the proto does not describe.
+
+## Running checks
+
+`mise run check` is the full local CI gate: lint + typecheck + proto-drift + redaction-drift + every SDK suite. For a focused change, run the matching narrow task (e.g. `mise run test:py:sdk-langgraph`); the full gate is slow.
+
+---
+> Source: [grafana/agento11y](https://github.com/grafana/agento11y) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
