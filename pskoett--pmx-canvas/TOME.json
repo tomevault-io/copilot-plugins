@@ -4,7 +4,7 @@
   "repo": "pmx-canvas",
   "description": "A live canvas for coding agents & human interaction. A visual workbench where nodes, edges, charts, diagrams, and interactive UIs all live together. Agents stream in data, you explore the graph, edit artifacts in place, and pin context to focus input and output.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pskoett/pmx-canvas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T17:57:24Z"
+  "distributed_at": "2026-08-11T18:00:52Z"
 }
