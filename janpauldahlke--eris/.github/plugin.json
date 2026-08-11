@@ -1,0 +1,9 @@
+{
+  "name": "janpauldahlke--eris",
+  "displayName": "eris",
+  "description": "Local-first vault agent in Rust, grammar-enforced tools, your notes as memory.",
+  "version": "1.0.0",
+  "author": "janpauldahlke",
+  "homepage": "https://github.com/janpauldahlke/eris",
+  "skills": []
+}
