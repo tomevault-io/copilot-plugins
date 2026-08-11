@@ -4,7 +4,7 @@
   "repo": "seldonframe",
   "description": "Open-source AI front office for local service businesses: AI receptionist (voice/SMS/chat) + website + CRM + booking. Self-hostable or $29/mo flat. The open-source GoHighLevel alternative.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/seldonframe/seldonframe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T17:52:24Z"
+  "distributed_at": "2026-08-11T17:55:41Z"
 }
