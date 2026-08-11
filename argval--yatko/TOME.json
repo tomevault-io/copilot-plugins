@@ -4,7 +4,7 @@
   "repo": "yatko",
   "description": "Clean download links for any public GitHub repo so that you don't have to called a \"Smelly Nerd\" anymore",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/argval/yatko",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T18:56:36Z"
+  "distributed_at": "2026-08-11T18:57:18Z"
 }
