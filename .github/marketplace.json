@@ -341969,6 +341969,11 @@
       "description": "LoRA training GUI with Anima model support, based on kohya-ss/sd-scripts"
     },
     {
+      "name": "turki-sh--foreman",
+      "source": "./turki-sh--foreman",
+      "description": "A build playbook that turns your coding agent into the foreman of a website build. It interviews you, forces the design and scope decisions, locks a visual system, writes the build brief, then verifie"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -358092,6 +358097,11 @@
       "name": "chunkburst--carbon",
       "source": "./chunkburst--carbon",
       "description": "Agent \u9879\u76ee\u4efb\u52a1\u7ba1\u7406\u5668"
+    },
+    {
+      "name": "nedonion--evalhub",
+      "source": "./nedonion--evalhub",
+      "description": "An LLM Benchmark evaluation platform for automated model testing and analysis. \u9762\u5411\u5927\u8bed\u8a00\u6a21\u578b\u7684 Benchmark \u81ea\u52a8\u5316\u8bc4\u6d4b\u5e73\u53f0\uff0c\u652f\u6301\u6a21\u578b\u6d4b\u8bd5\u4e0e\u7ed3\u679c\u5206\u6790"
     },
     {
       "name": "yschimke--compose-ai-tools",
