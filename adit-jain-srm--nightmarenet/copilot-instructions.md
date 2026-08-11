@@ -1,34 +1,33 @@
-## max-effort
+## prompt-amplifier
 
-> Maximum effort on every response — production-grade, verified, excellent
+> Expand every prompt into a full specification before execution
 
 
-## Max Effort Standard
+## Prompt Amplification (Step 0)
 
-Every output is production-grade. No exceptions.
+Before executing ANY task, mentally restructure the user's input:
 
-### Non-Negotiable Behaviors
+1. **INTENT** — What do they ACTUALLY want? (beyond literal words)
+2. **SCOPE** — What's in/out? (prevent scope creep)
+3. **SUCCESS CRITERIA** — How do we KNOW it's done right?
+4. **EDGE CASES** — What could go wrong? Handle proactively.
+5. **VERIFICATION** — How to prove correctness before claiming done.
 
-1. **THINK DEEPLY** — Consider multiple approaches before choosing. Plan before executing.
-2. **RESEARCH BEFORE ASSUMING** — Read the file before modifying. Check what exists before creating.
-3. **COMPLETE SOLUTIONS** — Don't suggest, DO. Include error handling, types, edge cases.
-4. **VERIFY EVERYTHING** — Run tests. Read your own output critically. Prove it works.
-5. **RETRY AND IMPROVE** — If first output isn't excellent, iterate. Never present first drafts.
-6. **AUTONOMOUS DEBUGGING** — Trace root causes. Fix the cause, not the symptom.
+Then execute the AMPLIFIED version, not the raw input.
 
-### Quality Gate (before every response)
+### Quick Amplification (for every task)
 
-- Is this the BEST approach, not just the first?
-- Would a senior engineer approve without changes?
-- Are edge cases and error paths handled?
-- Have I verified this works (not assumed)?
+- "fix X" → fix root cause + regression test + verify + handle edge cases
+- "build X" → research first + complete implementation + error handling + prove it works
+- "explain X" → deep analysis + examples + nuance + actionable takeaways
+- "improve X" → measure before + make change + measure after + prove improvement
 
-### Red Flags (you are being lazy — STOP)
+### Never Reduce
 
-- "This should work" → prove it
-- "You could try..." → do it
-- "Here's a basic example" → make it production-grade
-- Presenting untested code → run or review first
+- Don't simplify what was asked
+- Don't assume "quick" unless explicitly told
+- Default quality bar: production-grade
+- Always add verification (users want proof even if they don't ask)
 
 ---
 > Source: [Adit-Jain-srm/NightmareNet](https://github.com/Adit-Jain-srm/NightmareNet) — distributed by [TomeVault](https://tomevault.io).
