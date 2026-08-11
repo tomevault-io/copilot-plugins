@@ -1,0 +1,44 @@
+{
+  "name": "finance-tools",
+  "owner": "akagr",
+  "repo": "finance-tools",
+  "description": "Go tools for Indian investors. itr-foreign turns Interactive Brokers holdings into the ITR's foreign schedules \u2014 Schedule FA, FSI, TR and a Form 67 worksheet \u2014 with SBI TTBR conversion and a per-figure audit trail. Plus a strategy backtester, paper trading and correlation analysis. Go stdlib only.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/akagr/finance-tools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T00:53:56Z"
+}
