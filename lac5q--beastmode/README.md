@@ -7,11 +7,11 @@ Beastmode: MofA (Mixture of Agents) orchestration framework for Hermes/OpenClaw/
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [lac5q/beastmode](https://github.com/lac5q/beastmode).
+Original source: `AGENTS.md` in [lac5q/beastmode](https://github.com/lac5q/beastmode).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
