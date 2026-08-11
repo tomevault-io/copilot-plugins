@@ -1,100 +1,36 @@
-## web-seo-meta-tags
+## web-sveltekit-universal-page-load
 
-> SSR meta tags for public routes — createMetaData, pageMetaTags, OG/Twitter, keywords, landing/pricing titles
+> SvelteKit universal +page.ts load — parent auth, browser vs server branches, explicit client return, role flags
 
 
-# Web SEO: SSR meta tags
+# Universal `+page.ts` load (merge parent auth + server data)
 
-Meta tags are rendered sitewide via `svelte-meta-tags` (`<MetaTags {...metaTags} />` in `+layout.svelte`). Page loads supply `pageMetaTags`; the root layout supplies `baseMetaTags`.
+Use this pattern for `web/**/+page.ts` when the route has a `+page.server.ts` and must expose **accurate client-side auth** from the root layout (`currentUser`, `isLoggedIn`) while keeping SSR data from the server load. Reference: `web/src/routes/(public)/blog/+page.ts`, `web/src/routes/(public)/blog/[slug]/+page.ts`.
 
-## Server load pattern
+## Structure
 
-In `+page.server.ts`:
+1. **`await parent()` first** — Read layout chain data before branching.
+2. **Rename from parent** — `const { isLoggedIn: accurateIsLoggedIn, currentUser } = parentData;`
+3. **Role helpers** (for UI / authorization checks): derive `roles`, `isPlatformAdmin`, `isAdmin`, `isEditor` from `currentUser` the same way in both branches (e.g. `currentUser && 'roles' in currentUser ? currentUser.roles : []`, then `roles?.includes('admin')`, etc.).
+4. **Client branch** — `if (browser && data) { ... }`:
+   - Cast `data` to an object that lists **every field** returned by `+page.server.ts` for this route (plus merged layout fields if the page relies on them). Prefer concrete types from `$lib/...` for view models and arrays so `+page.svelte` and `svelte-check` do not see `unknown`.
+   - Return an **explicit object**: server fields from the cast + `isLoggedIn: accurateIsLoggedIn`, `currentUser`, `isPlatformAdmin`, `isAdmin`, `isEditor`. Do not rely on `...data` alone on the client if you need a stable, documented merge.
+5. **Server / fallback branch** — `return { ...data, isLoggedIn: accurateIsLoggedIn, currentUser, isPlatformAdmin, isAdmin, isEditor };`
 
-1. **Set** `export const ssr = true`.
-2. **Build base meta** with `createMetaData({ …, requestUrl: url }) satisfies MetaTagsProps`.
-3. **Apply request canonical** with `withCanonicalMetaTags` (see **web-seo-canonical** — do not hand-roll spread order).
-4. **Return** `pageMetaTags` for first-render HTML (no client JS required).
+## Imports and typing
 
-Crawlers read the initial response; meta tags added only after hydration may be missed at index time (see **web-seo-index** → JavaScript rendering mismatch).
+- `import { browser } from '$app/environment';`
+- `import type { PageLoad } from './$types';` — `export const load: PageLoad = async ({ parent, data }) => { ... }`
+- When the server returns SEO/meta: `import type { MetaTagsProps } from 'svelte-meta-tags'` and type `pageMetaTags` accordingly.
 
-```ts
-import { createMetaData } from '$lib/seo/createMetaData';
-import { buildCanonicalUrl, withCanonicalMetaTags } from '$lib/seo/buildCanonicalUrl';
+## Avoid
 
-const metaTags = await createMetaData({
-  companyInformation: companyInformationPm,
-  marketingInformation: marketingInformationPm,
-  customTitle: `${customTitle} | ${companyName}`,
-  customDescription,
-  customSlug: 'pricing',
-  requestUrl: url
-});
+- Only merging on the client (`if (browser)`) without a clear server branch that overlays parent auth — both branches should follow the pattern above.
+- Using `unknown` for fields that `+page.svelte` indexes or passes to typed props (e.g. `posts`, `topics`) — import the proper VM types from the owning `$lib` module.
 
-const canonical = buildCanonicalUrl(url);
-const pageMetaTags = withCanonicalMetaTags(metaTags, canonical, {
-  openGraph: { title: customTitle, description: customDescription },
-  twitter: { title: customTitle, description: customDescription }
-});
-```
+## Relation to layouts
 
-### Landing page (extends layout meta)
-
-Spread layout + page meta **first**, then override canonical and OG/Twitter:
-
-```ts
-const canonical = buildCanonicalUrl(url);
-const og = openGraphForPublicPage(customTitle, heroDescription, canonical);
-
-const pageMetaTags = Object.freeze({
-  ...baseMetaTags,
-  ...metaTags,
-  canonical,
-  titleTemplate: '%s',
-  openGraph: { ...metaTags.openGraph, ...og.openGraph },
-  twitter: { ...metaTags.twitter, ...og.twitter }
-}) satisfies MetaTagsProps;
-```
-
-### Avoid
-
-- Setting `canonical` **before** `...metaTags` in an object literal — `metaTags.canonical` will overwrite it.
-- Returning raw `pageMetaTags: metaTags` without `withCanonicalMetaTags` when the route needs a request-scoped canonical.
-
-## Landing / pricing titles
-
-- **Landing**: derive `customTitle` / `customDescription` from SSR `landing_page` config (`HERO_TITLE`, `HERO_SLOGAN`); collapse newlines in titles for `<title>`. Merge OG/Twitter with `openGraphForPublicPage(customTitle, heroDescription, canonical)`.
-- **Pricing**: fixed page title (e.g. `Pricing | {companyName}`), dedicated description, `customSlug: 'pricing'`.
-
-## Keywords (`customTags`)
-
-- Prefer a dedicated `keywords: string[]` before `createMetaData`.
-- Filter empties: `.filter((t) => typeof t === 'string' && t.trim().length > 0)`.
-
-## OG image + Twitter card
-
-Pass content images via `customImages`:
-
-- **Blog**: build from `heroImageFilename`; set `type` from mime guess helper.
-- **Post preview** (`/p/[postId]`): derive URL from first `media[].path`.
-
-When a content image is present, add explicit `twitter:card`:
-
-```ts
-customMetaTags: [{ name: 'twitter:card', content: 'summary_large_image' }, ...]
-```
-
-`createMetaData` already sets default OG images and `twitter.cardType`; explicit `twitter:card` avoids crawler quirks.
-
-## `createMetaData` contract
-
-- `customSlug` must be a **path segment**, not a full URL. Use `encodeURIComponent` for dynamic segments.
-- When `requestUrl` is set, canonical inside `createMetaData` uses **pathname only** (query stripped). Pages still override with `withCanonicalMetaTags` for request-origin correctness.
-- Legal pages without `createMetaData` may use `openGraphForPublicPage` + `buildCanonicalUrl` directly.
-
-## Client navigation
-
-Do **not** recompute meta in `+page.ts`. Forward `pageMetaTags` from the server load — see **web-sveltekit-universal-page-load**.
+Root `+layout.ts` may set client-only auth; this universal load **reconciles** that with `+page.server.ts` output. Keep server-only secrets and cookie logic in `+page.server.ts` / `+layout.server.ts`, not in `+page.ts`.
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
