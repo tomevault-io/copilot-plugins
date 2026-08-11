@@ -4,7 +4,7 @@
   "repo": "ephemeral-sandbox",
   "description": "Open-source agent sandbox infrastructure for parallel coding agents: isolated workspaces, MCP/CLI control, observability, and atomic publication.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ephemeral-AI-Lab/ephemeral-sandbox",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T17:42:50Z"
+  "distributed_at": "2026-08-11T17:46:48Z"
 }
