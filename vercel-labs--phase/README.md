@@ -7,11 +7,11 @@ Lifecycle-aware UI performance layer for the web
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [vercel-labs/phase](https://github.com/vercel-labs/phase).
+Original source: `AGENTS.md` in [vercel-labs/phase](https://github.com/vercel-labs/phase).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
