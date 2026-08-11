@@ -1,0 +1,9 @@
+{
+  "name": "ticpu--claude-conversation-search-mcp",
+  "displayName": "claude-conversation-search-mcp",
+  "description": "MCP server for searching Claude Code conversation history with advanced indexing",
+  "version": "1.0.0",
+  "author": "ticpu",
+  "homepage": "https://github.com/ticpu/claude-conversation-search-mcp",
+  "skills": []
+}
