@@ -1,0 +1,9 @@
+{
+  "name": "agents-io--chatbotlite",
+  "displayName": "chatbotlite",
+  "description": "Drop-in AI chatbot SDK + React widget. 3 lines to integrate. 11 LLM providers with auto-failover. 13 URL-only adapters (Stripe, Calendly, PayPal...). Markdown knowledge. Apache 2.0.",
+  "version": "1.0.0",
+  "author": "agents-io",
+  "homepage": "https://github.com/agents-io/chatbotlite",
+  "skills": []
+}
