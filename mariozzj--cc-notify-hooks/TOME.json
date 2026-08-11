@@ -4,7 +4,7 @@
   "repo": "cc-notify-hooks",
   "description": "CodeX / Claude Code \u5206\u7ea7\u901a\u77e5\u63d2\u4ef6 \u2014 11 \u4e2a\u6e20\u9053\uff0c\u77ed\u901a\u77e5\u5373\u65f6\u89e6\u8fbe\uff0c\u957f\u901a\u77e5\u5f02\u6b65\u515c\u5e95\u3002\u4eba\u53ef\u4ee5\u95f2\u7740\uff0cAgent \u4e0d\u53ef\u4ee5\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MarioZZJ/cc-notify-hooks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T23:09:59Z"
+  "distributed_at": "2026-08-11T23:23:15Z"
 }
