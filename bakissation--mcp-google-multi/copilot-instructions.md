@@ -1,0 +1,119 @@
+## mcp-google-multi
+
+> Conventions for AI assistants modifying this codebase. v5 is **local, stdio, user-OAuth only**. User-facing rationale for the big mechanisms (discover-first, fan-out, trimming, write-control, escape hatch) lives in `docs/features.md`; implementation rationale too long for a code comment (Windows rename retry, GET/HEAD body stripping, admin-scope gating) lives in `docs/internals.md`. Keep both in sync when behavior changes — comments stay one-line and point there.
+
+# Working on mcp-google-multi
+
+Conventions for AI assistants modifying this codebase. v5 is **local, stdio, user-OAuth only**. User-facing rationale for the big mechanisms (discover-first, fan-out, trimming, write-control, escape hatch) lives in `docs/features.md`; implementation rationale too long for a code comment (Windows rename retry, GET/HEAD body stripping, admin-scope gating) lives in `docs/internals.md`. Keep both in sync when behavior changes — comments stay one-line and point there.
+
+## Project shape
+
+- `src/index.ts` — entry. `buildRegistry()` registers every enabled service (the curated `SERVICES` table plus `GENERATED_SERVICES`, gates in `src/services.ts`, all filtered by `GOOGLE_TOOLSETS`), fails fast if `registry.services()` is empty (BEFORE meta tools register — escape tools would mask an empty service set), then `registerDiscoverTools()` + `registerEscapeTools()` + `registerAccountTools()`; `main()` installs the registry's custom `tools/list` handler and runs the stdio MCP server, or the `auth` / `migrate-tokens` / `config check` CLI commands.
+- `src/registry.ts` — `ToolRegistry` wraps the MCP server: records `{name, service, cud, description, inputShape, meta}` per tool, derives `cud` (read/create/update/delete) from the tool name via `inferCud`, **enforces write-control** by wrapping every CUD handler, injects computed annotations (`readOnlyHint`/`destructiveHint`), and owns **discover-first visibility**: all tools register eagerly (always callable — graceful dispatch), but the custom `tools/list` handler only advertises meta tools + `reveal()`ed services. `installListHandler()` must run after registration, before connect. Service files still call `server.registerTool(...)` — `server` is now a `ToolRegistry`.
+- `src/discover.ts` — `registerDiscoverTools()`: one eager `{service}_discover` meta-tool per service; returns the catalog (`registry.catalog`), reveals the service, triggers `tools/list_changed`. Never emit `tool_reference` content blocks or top-level `defer_loading` fields — strict SDK clients reject/strip them (verified against SDK 1.29).
+- `src/toolsets.ts` — `GOOGLE_TOOLSETS` parsing (`all` | CSV of service names).
+- `src/discovery-client.ts` — runtime Google API Discovery: `loadMethodIndex(api)` fetches `https://www.googleapis.com/discovery/v1/apis/{id}/{version}/rest` on demand, disk-caches 7 days (`DISCOVERY_CACHE_PATH`), stale-if-offline; `cudFromMethod` (HTTP verb → cud, POST read-verbs like batchGet → read), `expandPath` ({param} + {+param} templates), `searchMethods`. Deps injectable for tests — never hit the network in unit tests.
+- `src/tools/google-api.ts` — `registerEscapeTools()`: eager `google_api_search` + `google_api_call`. The call tool enforces write-control ITSELF (its registry cud is read, so the wrapper doesn't gate it) via `isAllowed` on the method's derived cud — keep that check when touching this file.
+- `src/fanout.ts` — cross-account fan-out: `parseAccountSelector` (`"*"` | CSV | single), `runFanout` (bounded 5, per-account isolation, merged `{results, partial}` envelope with parsed payloads — never embed raw JSON strings), `fanoutAccountField` (union schema: enum+`*` | CSV regex). Wired in `registry.ts`: read tools only, never meta (`google_api_call` infers cud=read but executes writes), never `FANOUT_EXCLUDE` (read tools that write local files). Fan-out wraps the raw handler INNERMOST so compaction runs once on the merged envelope.
+- `src/tools/accounts-tool.ts` — eager `account_list` meta tool + `deriveAccountHealth` (pure, deps-injectable). Reads the token store directly — NEVER `getClient` (would attach refresh listeners). `readToken` throws on decrypt failure (only returns null when missing) — keep the per-account try/catch. Never output token values.
+- `src/trim.ts` — response trimming: `compactResult` (registry re-serializes every JSON text output compactly; `GOOGLE_TRIM=off` opts out — compaction only, never the caps), `capText` (paging caps with truncated/totalChars), `sliceClean` (permanent caps — drops a trailing lone surrogate). Fat readers own their caps: `drive_read` `maxChars`/`offset`, gmail reads 50k body cap + `full` param, `calendar_list_events` AND `calendar_list_instances` list-mode `formatEvent(e, {full:false})`. New fat-payload tools should reuse these helpers.
+- `src/write-control.ts` — `resolvePolicy()` (env → policy) + `isAllowed()` (deny-by-default verdict) + `config check` rendering.
+- `src/token-store.ts` — encrypted token store (AES-256-GCM, key from `MASTER_KEY`); `readToken`/`writeToken`/`updateToken`. The `migrate-tokens` CLI lives in `src/migrate-tokens.ts`.
+- `src/auth.ts` — OAuth flow + scope tiers (`BASE_SCOPES` always, `OPTIONAL_SCOPE_BUNDLES` env-gated, `ADMIN_SCOPES` per-account).
+- `src/client.ts` — `getClient(account)`: fresh OAuth2Client per call from the encrypted token; its `tokens` listener re-encrypts on refresh (`updateToken`).
+- `src/accounts.ts` — parses `GOOGLE_ACCOUNTS`; token dir defaults to `~/.config/mcp-google-multi/tokens` (override `TOKEN_STORE_PATH`).
+- `src/tools/_errors.ts` — `mapGoogleError` typed taxonomy + `handleGoogleApiError` result wrapper; each service file defines its own `handle<Service>Error` shim over it (optionally with a service-specific 403 hint).
+- `src/tools/_coerce.ts` — `coerceArray`/`coerceJson`/`coerceBoolean` for string-encoded client args.
+
+## Adding a tool
+
+```ts
+import { <service> as <service>Client } from '@googleapis/<service>';
+
+server.registerTool(
+  'service_action_name',                 // snake_case, service-prefixed; cud inferred from the verb
+  {
+    description: '<one sentence; when to use it>',
+    inputSchema: {
+      account: accountEnum.describe('Google account alias'),   // always first
+      // wrap array/object/bool params with coerceArray / coerceJson / coerceBoolean
+    },
+  },
+  async ({ account, /* … */ }) => {
+    try {
+      const auth = await getClient(account as Account);
+      const svc = <service>Client({ version: '<v>', auth });
+      const res = await svc.<resource>.<method>({ /* … */ });
+      return { content: [{ type: 'text' as const, text: JSON.stringify(res.data, null, 2) }] };
+    } catch (error: any) {
+      return handle<Service>Error(error, account as Account);
+    }
+  },
+);
+```
+
+**Hard rules:**
+- Flat `zod` `inputSchema`; `account` first (sole exception: `drive_transfer` takes `fromAccount`/`toAccount`). Coerce array/object/bool inputs — clients send them string-encoded.
+- `cud` is inferred from the tool name (no manual flag). CUD tools are auto-gated by write-control; **never** add your own write gate. Fix a misclassified verb in `CUD_OVERRIDES` (`registry.ts`). Two sanctioned exceptions self-check via `isAllowed`: `google_api_call` (per-method cud) and `drive_transfer`'s `move` flag (delete inside a create-classified tool, checked against `registry.policy`).
+- Wrap handlers in try/catch → `handle<Service>Error` (→ `mapGoogleError`); errors return `{error, message, hint?, retriable, account}` with `isError: true`. **Never embed the raw error / `error.config` / `error.response`** — token-leak.
+- Return `{ content: [{ type: 'text', text: JSON.stringify(...) }] }`.
+
+## Adding a service
+
+1. `src/tools/<service>.ts` exporting `register<Service>Tools(server: ToolRegistry)`.
+2. Scopes in `auth.ts`: always-on → `BASE_SCOPES` (breaking — forces re-auth → `feat!:`); optional → `OPTIONAL_SCOPE_BUNDLES`; admin → `ADMIN_SCOPES`.
+3. Add a `ServiceEntry` to `SERVICES` (`src/services.ts`), with an `enabled()` gate for optional bundles — `buildRegistry()` picks it up.
+4. Run `npm run gen:coverage` to regenerate `COVERAGE.md` (never hand-edit it), and update the tool/service counts in `README.md` and `docs/features.md`.
+
+## Generated tools (Layer 2)
+
+- `src/tools/generated/*.ts` are EMITTED by `npm run gen:tools` from the `discovery/` snapshot (`npm run gen:discovery` refreshes it) — **never hand-edit**; change `scripts/gen-config.ts` (curated skip-list, NAME/CUD/DESCRIPTION overrides) and regenerate.
+- When a new curated tool covers a Discovery method, append the methodId to `CURATED_METHOD_IDS` and regenerate so the generated duplicate disappears; the generator fails the build on name collisions with curated tools.
+- Generated tools pass an explicit `cud` (derived from HTTP semantics) through the registry config — the only sanctioned use of `config.cud`; curated tools keep name-verb inference.
+- They dispatch through `executeApiMethod` (`src/executor.ts`) with method metadata baked at gen time; the escape hatch shares the same executor (no runtime discovery fetch for generated tools).
+- A new generated-only service needs: a `GEN_APIS` entry, an optional-scope bundle in `auth.ts` + `GENERATED_GATES` entry in `services.ts` (or ungated when it authorizes via already-granted resource scopes), and a `WORKSPACE_APIS` alias for escape-hatch/policy parity.
+- `npm run gen:coverage` regenerates COVERAGE.md from the registry — run it whenever the tool surface changes.
+
+## Auth / tokens
+
+- Tokens are **encrypted at rest** — never write plaintext. `MASTER_KEY` is required; it lives only in env (never in the store, never logged).
+- Always go through `getClient(account)` (handles refresh + re-encrypt). Token files are `0600`.
+- Secret-injection patterns (why `MASTER_KEY` shouldn't live in `.env` long-term): `docs/secrets.md`.
+
+## Write-control
+
+Reads are never gated. CUD is **deny-by-default**: `GOOGLE_PROFILE` (read-only / safe-writes / full-writes) + `GOOGLE_READ_ONLY` + `GOOGLE_WRITE_ALLOW`/`DENY` globs. Verdict + precedence in `write-control.ts`, tested in `tests/write-control.test.ts`. User-facing env reference: `docs/configuration.md`.
+
+## Drive specifics
+
+- Every `fileId` call: `supportsAllDrives: true`; lists: `includeItemsFromAllDrives: true`.
+- `drive_upload` `convertTo`: resource mimeType = target `application/vnd.google-apps.*`, media = source. `drive_export` is the reverse.
+- Comment text field is `content`. Comments/Replies API requires `fields` on every call (see `*_FIELDS` constants in `drive.ts`).
+
+## Sheets/Docs field masks
+
+`batchUpdate` Request types need explicit `fields` masks — compute from input keys, never wildcards. Helpers `buildCellFormat` / `buildParagraphStyle` / `buildDocumentStyle` are unit-tested in `tests/field-mask-helpers.test.ts`.
+
+## Versioning & releases (automated — CI controls it)
+
+- semantic-release on push to `dev` (alpha) / `staging` (beta) / `main` (stable). Never bump `package.json`, write a changelog, or tag by hand.
+- Conventional Commits: `fix:`=patch, `feat:`=minor, `feat!:`/`BREAKING CHANGE:`=major. A new `BASE_SCOPES` scope is breaking (`feat!:`).
+- **Merge commits only** (squash/rebase disabled) — each branch's commits land individually, so keep them clean Conventional Commits.
+- After a stable release, `.github/workflows/backmerge.yml` resyncs `main → staging → dev`.
+
+## Testing
+
+- `npm run typecheck && npm run lint && npm run test && npm run build` before any PR.
+- Unit-test pure logic (write-control verdict, coercion, error mapper, token-store crypto, `inferCud`, field-mask builders). Don't mock the `@googleapis/*` clients — smoke-test handlers against real accounts.
+
+## Don'ts
+
+- No `console.log` from handlers, and nothing may write to stdout at import time either — stdio is the MCP channel (the dotenv v17 banner corrupted it; `dotenv.config` must keep `quiet: true`, guarded by `tests/stdout-purity.test.ts`). `process.stderr.write` only.
+- Don't hardcode aliases — read `ACCOUNTS` / `ACCOUNT_CONFIG`.
+- Don't bypass `getClient`; don't write plaintext tokens or perms wider than `0o600`.
+- Don't re-implement error mapping or write gating — use the shared helpers.
+- Don't add narrative comments — non-obvious WHY only.
+
+---
+> Source: [bakissation/mcp-google-multi](https://github.com/bakissation/mcp-google-multi) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
