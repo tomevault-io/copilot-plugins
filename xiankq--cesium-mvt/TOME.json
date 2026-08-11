@@ -1,0 +1,44 @@
+{
+  "name": "cesium-mvt",
+  "owner": "xiankq",
+  "repo": "cesium-mvt",
+  "description": "Experimental high-performance MVT renderer for Cesium 1.140.0 (Buffer*Collection + MapLibre)  | \u57fa\u4e8e Cesium 1.140.0\uff08Buffer*Collection + MapLibre\uff09 \u7684\u5b9e\u9a8c\u6027\u9ad8\u6027\u80fd MVT \u6e32\u67d3\u5668",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xiankq/cesium-mvt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T20:57:53Z"
+}
