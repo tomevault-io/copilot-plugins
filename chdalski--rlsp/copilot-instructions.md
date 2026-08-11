@@ -1,0 +1,133 @@
+## rlsp
+
+> A collection of language server implementations written in Rust, built entirely by AI agents. No human-written application code — every line of source is authored, reviewed, and committed by AI. The purpose is to provide users with small, fast implementations with minimal memory footprint.
+
+# The Rust Language Server Project
+
+A collection of language server implementations written in Rust, built entirely by AI agents. No human-written application code — every line of source is authored, reviewed, and committed by AI. The purpose is to provide users with small, fast implementations with minimal memory footprint.
+
+## Build and Test
+
+### Rust
+
+```sh
+cargo fmt              # format
+cargo clippy --all-targets  # lint (zero warnings enforced)
+cargo build            # build
+cargo test             # run all tests
+cargo bench            # run benchmarks (Criterion)
+cargo clean            # clean stale build artifacts
+```
+
+> After a Rust toolchain change (e.g. a `rustup` update or bumping the
+> pinned `channel` in `rust-toolchain.toml`), run `cargo clean` before
+> trusting a clippy result — the incremental clippy cache does not re-lint
+> unchanged code, so it silently under-reports lints introduced/tightened
+> by the new toolchain. CI does clean builds, so an incremental local pass
+> is not equivalent.
+
+### VS Code Extension
+
+```sh
+cd rlsp-yaml/integrations/vscode
+pnpm install       # install dependencies
+pnpm run build     # bundle extension (esbuild)
+pnpm run test      # run unit tests (vitest)
+pnpm run test:integration  # run VS Code integration tests (requires display; use xvfb-run -a on Linux)
+pnpm run typecheck # typecheck without emitting (fast local gate; test:integration also runs tsc)
+pnpm run audit     # pnpm audit gate (low+ severity; pre-existing dev-only lows allowlisted via pnpm.auditConfig.ignoreCves)
+pnpm run lint      # lint TypeScript source
+pnpm run format    # check formatting (prettier)
+```
+
+### Zed Extension
+
+```sh
+cargo check --manifest-path rlsp-yaml/integrations/zed/Cargo.toml --target wasm32-wasip2
+cargo clippy --manifest-path rlsp-yaml/integrations/zed/Cargo.toml --all-targets --target wasm32-wasip2 -- -D warnings
+```
+
+### Claude Code Plugin
+
+```sh
+claude plugin validate --strict rlsp-yaml/integrations/claude-code  # validate plugin.json / .lsp.json
+claude plugin validate --strict .                                  # validate the repo-root marketplace.json
+cargo test -p rlsp-yaml --test claude_code_stdio_smoke              # LSP initialize/didOpen smoke test
+```
+
+## Components
+
+| Path | Purpose |
+|------|---------|
+| `rlsp-fmt/` | Generic Wadler-Lindig pretty-printing engine |
+| `rlsp-yaml/` | YAML language server |
+| `rlsp-yaml/integrations/claude-code/` | Claude Code plugin for rlsp-yaml |
+| `rlsp-yaml/integrations/vscode/` | VS Code extension for rlsp-yaml |
+| `rlsp-yaml/integrations/zed/` | Zed extension for rlsp-yaml |
+| `rlsp-yaml-parser/` | Spec-faithful streaming YAML 1.2 parser |
+
+## Conventions
+
+<!-- Agents: add non-obvious project conventions discovered during work — things a future agent would need to know to avoid mistakes. One line each. Remove when no longer true. -->
+
+- Workspace lint inheritance — root `Cargo.toml` defines `[workspace.lints]`, crates inherit via `lints.workspace = true`
+- Clippy pedantic + nursery at warn; selected lints at deny; `warnings = "deny"`
+- Maximum TypeScript strictness — `tsconfig.json` extends `@tsconfig/strictest`, ESLint uses `strictTypeChecked` + `stylisticTypeChecked`
+- Automated releases via release-plz; tag format: `<package>-v<version>`. VS Code extension uses CalVer tags: `vscode-v<YYYY.MM.NN>`; Zed extension uses semver tags: `zed-v<semver>`
+- Agents must not edit `version = "..."` fields in any `Cargo.toml` — release-plz owns version progression from conventional commits; milestone bumps (e.g., 0.x → 1.0) are user-directed and applied as a single deliberate commit
+- Conventional commits required — changelogs auto-generated via git-cliff
+- OIDC trusted publishing to crates.io — no `CARGO_REGISTRY_TOKEN` secret needed
+- pnpm as Node.js package manager
+- AI-written project — external contributions via GitHub issues only
+- Each `rlsp-<language>` crate must have `README.md`, `docs/configuration.md`, `docs/feature-log.md`
+- Root `README.md` is landing page; crate `README.md` is self-contained for users; `docs/configuration.md` is pure settings reference; `docs/feature-log.md` is user-facing feature decisions only — internal refactors and implementation rewrites do NOT go there (commit history + plan files carry that record)
+- Workspace path dependencies must include a `version` field — `cargo publish` rejects path-only deps
+- Use `#[expect(lint, reason = "...")]` instead of `#[allow(lint)]` — enforced by `allow_attributes = "deny"` and `allow_attributes_without_reason = "deny"` in workspace lints
+- `clippy.toml` at the workspace root configures test-specific lint allowances (`allow-unwrap-in-tests`, `allow-expect-in-tests`, `allow-panic-in-tests`, `allow-indexing-slicing-in-tests = true`) — `unwrap_used`, `expect_used`, `panic`, and `indexing_slicing` do not need `#[expect]` suppression in test code
+
+## Crate Boundaries
+
+<!-- Agents: keep this section current when crates are added, removed, or responsibilities change. During implementation, watch for boundary violations — flag to the requester and fix. -->
+
+The parser is the authority on valid YAML. The formatter must produce output the unmodified parser already handles. If formatted output doesn't round-trip, the formatter is wrong — not the parser.
+
+**One parser, one AST.** No code in `rlsp-yaml/` may re-parse YAML structure from raw text. Validators, code actions, hover providers, and any other LSP feature that reads YAML structure must consume the `rlsp-yaml-parser` AST. Settings that change *interpretation* (severity, enable/disable, allowed alphabets) are fine; settings that change *parsing* belong as `rlsp-yaml-parser` options. Text-handling carve-outs: byte-range arithmetic on parser-provided spans, pre-parse lexical concerns (modelines, BOM), whitespace-preserving edits that don't touch structure.
+
+`rlsp-yaml-parser` exposes two distinct APIs that must each be conformance-tested independently:
+
+| API | Function | What it produces | Conformance |
+|-----|----------|-----------------|-------------|
+| Event stream | `parse_events()` | Flat event sequence from YAML text | Tested against yaml-test-suite |
+| Loader | `load()` | AST (`Vec<Document>`) built from events | Must be tested with the same rigour as the event stream — a correct event stream does NOT guarantee a correct AST |
+
+| Crate | Responsibility | Change allowed when |
+|-------|---------------|---------------------|
+| `rlsp-yaml-parser` | Lex, parse, load YAML → AST | Parser bug (incorrect parse, loader data loss), or AST needs to surface info already in the event stream. Never to accommodate formatter output. |
+| `rlsp-yaml` | Language server + formatter (AST → text) | Formatter output doesn't round-trip — fix the output form, not the parser. |
+| `rlsp-fmt` | Generic pretty-printer (Doc IR → text) | Must remain YAML-agnostic. |
+
+### Settings Sync
+
+<!-- Agents: update this table when new integrations or settings consumers are added. -->
+
+Formatter settings flow through three locations that must stay in sync:
+
+| Source of truth | Consumers | Sync when |
+|----------------|-----------|-----------|
+| `YamlFormatOptions` in `src/editing/formatter/options.rs` | VS Code `package.json` + `config.ts`, fixture files in `tests/fixtures/formatter/` | Any setting added, renamed, or removed |
+
+## References
+
+<!-- Agents: add authoritative sources used to make implementation decisions. One line each. -->
+
+- [Language Server Protocol](https://microsoft.github.io/language-server-protocol/)
+- [release-plz](https://release-plz.ieni.dev/)
+- [YAML 1.2 Specification](https://yaml.org/spec/1.2.2/)
+- [YAML Test Suite](https://github.com/yaml/yaml-test-suite)
+- [YAML Test Matrix](https://matrix.yaml.info/)
+- [Kubernetes API Reference](https://kubernetes.io/docs/reference/)
+- [KubeSpec](https://kubespec.dev/)
+
+---
+> Source: [chdalski/rlsp](https://github.com/chdalski/rlsp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
