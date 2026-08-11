@@ -1,0 +1,9 @@
+{
+  "name": "yeongseon--azure-functions-langgraph-python",
+  "displayName": "azure-functions-langgraph-python",
+  "description": "LangGraph integration for Azure Functions Python v2 \u2014 deploy compiled graphs as HTTP endpoints",
+  "version": "1.0.0",
+  "author": "yeongseon",
+  "homepage": "https://github.com/yeongseon/azure-functions-langgraph-python",
+  "skills": []
+}
