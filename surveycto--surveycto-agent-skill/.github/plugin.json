@@ -1,0 +1,9 @@
+{
+  "name": "surveycto--surveycto-agent-skill",
+  "displayName": "surveycto-agent-skill",
+  "description": "Agent skill for SurveyCTO form design and more",
+  "version": "1.0.0",
+  "author": "surveycto",
+  "homepage": "https://github.com/surveycto/surveycto-agent-skill",
+  "skills": []
+}
