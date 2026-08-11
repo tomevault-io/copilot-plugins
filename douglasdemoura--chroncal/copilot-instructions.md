@@ -1,0 +1,253 @@
+## chroncal
+
+> Each domain has a service in `internal/{domain}/` following the same shape:
+
+# Agent Guide for chroncal
+
+## Service Layer Pattern
+
+Each domain has a service in `internal/{domain}/` following the same shape:
+
+```go
+type Service struct {
+    db *sql.DB
+    q  *storage.Queries
+}
+
+func NewService(db *sql.DB, q *storage.Queries) *Service {
+    return &Service{db: db, q: q}
+}
+```
+
+Core data services:
+- **event** - CRUD, search, export, recurrence-aware queries, soft-delete/restore/purge
+- **todo** - CRUD, search, completion, soft-delete/restore/purge
+- **journal** - CRUD, search, soft-delete/restore/purge
+- **calendar** - CRUD, color management, remote-link metadata
+- **alarm** - Check due alarms, fire, dismiss, snooze
+- **recurrence** - Expand recurring events/todos/journals, handle overrides
+- **trash** - Mixed soft-delete view across event/todo/journal (list, restore, purge)
+
+Integration / infrastructure packages (these do NOT follow the `NewService`
+shape above — constructors and wiring vary per package):
+- **sync** - CalDAV sync engine, conflict detection and resolution (`NewService` with extra dependencies)
+- **caldav** - Low-level CalDAV client (discovery, REPORT, PROPFIND, VFREEBUSY) — `NewClient`
+- **freebusy** - Local free/busy computation plus remote CalDAV query — plain functions (`Compute`)
+- **auth** - Credential storage (OS keyring, optional plaintext), OAuth2 PKCE — plain functions
+- **maintenance** - Background purge loop for soft-deleted rows — `NewPurger`
+- **notify** - Desktop notifications plus SMTP email for EMAIL alarms — plain functions (`Display`, `Audio`, `Email`)
+- **retry** - HTTP retry/backoff helpers shared by sync and caldav — plain functions
+
+Models live in `internal/{domain}/model.go` (e.g., `event.Event`) and shared models in `internal/model/` (e.g., `model.Alarm`, `model.Attendee`).
+
+CLI commands live in `cmd/chroncal/`, one file per resource group. Each exports a `Command()` function returning a `*cobra.Command`. Commands use `resolveEvent()` / `resolveTodo()` / `resolveJournal()` helpers to resolve references by ID, UID, or UID+recurrenceID.
+
+## Storage Layer
+
+- Hand-written files in `internal/storage/`: `connect.go` (DB setup), `nullable.go` (helpers), `query_builder.go` (dynamic WHERE construction), `scan_helpers.go` (row scanners), `events_dynamic.go` and `todos_dynamic.go` (filtered query methods), `xprop_helpers.go` (alarm X-property attach/replace shared by event and todo services). Everything else is sqlc-generated and will be overwritten by `make generate`.
+- The dynamic query files replace sqlc's `arg = '' OR column = arg` pattern with runtime WHERE clause construction so SQLite can use indexes. Queries use `SELECT *`, so if a migration adds columns to `events` or `todos`, only update the scan functions in `scan_helpers.go` to match.
+- **Never edit `*.sql.go` files or `db.go` or `models.go` directly.**
+- Add new queries to `db/queries/*.sql`, then run `make generate`.
+- After schema changes: add a migration to `db/migrations/`, update queries, then regenerate.
+- Transaction pattern: `q.WithTx(tx)` inside a transaction.
+
+## Gotchas
+
+### Database
+- Case-insensitive Unicode search goes through FTS5 (`unicode61 remove_diacritics 2` tokenizer); see the `*_fts` virtual tables in `db/migrations/`. There is no custom `lower_unicode` SQLite function — a stale registration that no query referenced was removed. Do not reintroduce `strings.ToLower`-backed folding: it is simple case folding only and would not match the FTS tokenizer's diacritic-insensitive behavior.
+- `backfillAlarmUIDs` in `connect.go` assigns UUIDs to alarms from the pre-UID schema. Runs on every startup, no-ops when all alarms have UIDs.
+- SQLite pragmas set in `connect.go:Open()`: WAL mode, foreign keys ON, 5s busy timeout, synchronous=NORMAL.
+
+### Recurrence
+- Recurring events are stored as a single row with `recurrence_rule`.
+- Overrides are separate rows with the same `uid` but a non-empty `recurrence_id`.
+- EXDATEs and RDATEs are comma-separated RFC 3339 strings.
+- Expansion happens at query time via `recurrence.ListExpandedEvents()`.
+- Half-open time ranges everywhere: `[start, end)`.
+
+### Alarms
+- Triggers are RFC 5545 duration strings (`-PT15M` = 15 minutes before).
+- Absolute triggers use RFC 3339.
+- State is tracked in `alarm_state` / `todo_alarm_state` tables (fired_at, acknowledged_at, snooze_until).
+- Alarms older than 24h are skipped (`alarm.StaleThreshold`).
+- Repeat logic: additional firings at `Duration` intervals up to `Repeat` count.
+
+### iCal Round-Trip
+- UID is required for round-trip fidelity.
+- `recurrence_id` distinguishes overridden instances.
+- Transient fields (Alarms, Attendees, etc.) are populated for export but not stored in the main event/todo tables.
+- Duration can be expressed as either DTEND or DURATION (RFC 5545).
+- Timezones are preserved via the `timezone` column and the `timezones` table.
+
+### Time Handling
+- All database times are RFC 3339 strings in UTC.
+- Go code uses `time.Time` with `time.UTC`.
+- All-day events have time component 00:00:00.
+
+### TUI Buttons
+- Exactly two variants: `Button` (neutral default) and `ButtonDanger`
+  (destructive). No Primary, no Secondary, no Ghost.
+- `ButtonDanger` at rest shares the same pill and background as
+  `Button`; only the *label* is bold red (`Theme.Error`). On focus
+  Danger inverts (red bg, contrasting fg) instead of using
+  `FormHighlight` — needed because some themes have a warm/red focus
+  highlight that makes red text on it unreadable. Putting the red on
+  the background and computing a contrasting label via
+  `oklch.ContrastingFg` guarantees legibility on every theme and
+  emphasizes the destructive signal exactly when the user is about to
+  commit.
+- Color carries one signal: destructive or not. Focus highlight carries
+  the other: which button Enter triggers. Do not conflate them.
+- `Form.SetSubmitVariant` defaults to `Button`; only destructive prompts
+  need to opt in via `ConfirmDialogModel.Destructive()`.
+- For hand-rolled buttons that bypass `Form`, render via
+  `ButtonStyles.Normal` (or `.Danger` for destructive). Don't reach for a
+  "more prominent" style — there isn't one, by design.
+- Confirm dialogs focus Cancel by default (`form.FocusCancel()`), so a
+  reflex Enter cancels rather than confirms. Keep that behavior when
+  building new destructive prompts.
+
+## Common Tasks
+
+### Find an event by ID or UID
+```go
+evt, err := svc.Get(ctx, id)                                        // numeric ID
+evt, err := svc.GetByUID(ctx, uid)                                  // string UID
+evt, err := svc.GetByUIDAndRecurrenceID(ctx, uid, recurrenceID)     // override instance
+```
+
+### Query events in date range
+```go
+from := time.Date(2026, 4, 1, 0, 0, 0, 0, time.UTC)
+to := time.Date(2026, 4, 30, 0, 0, 0, 0, time.UTC)
+events, err := svc.ListByDateRange(ctx, from, to)
+```
+
+### Handle recurring events
+```go
+recurSvc := recurrence.NewService(db, q)
+expanded, err := recurSvc.ListExpandedEvents(ctx, from, to)
+// Each ExpandedEvent has: Event, InstanceTime, IsOverride
+```
+
+### Create an alarm
+```go
+alarm := model.Alarm{
+    Action:       "DISPLAY",
+    TriggerValue: "-PT15M",
+    Description:  "Meeting reminder",
+    Related:      "START",
+}
+err := evtSvc.ReplaceAlarms(ctx, eventID, []model.Alarm{alarm})
+```
+
+### Check due alarms
+```go
+alarmSvc := alarm.NewService(db, q, eventSvc, todoSvc)
+dueEvents, dueTodos, err := alarmSvc.Check(ctx, time.Now())
+// Each DueAlarm has: Event, Alarm, TriggerAt, StateID
+```
+
+### Import/Export iCal
+```go
+result, err := ical.ImportFile(r) // r is io.Reader
+// result.Events, result.Todos, result.Timezones, result.Warnings
+
+params := event.ExportParams{CalendarID: 1, From: "2026-04-01T00:00:00Z", To: "2026-04-30T23:59:59Z"}
+events, err := svc.ExportFiltered(ctx, params)
+ics, err := ical.ExportEvents(events, "Work")
+ics, err := ical.ExportTodos(todos, "Work")
+```
+
+### Parse RFC 5545 duration
+```go
+err := duration.Validate("-PT15M")
+newTime := duration.Add(time.Now(), "-PT15M")
+durStr := duration.FromGo(15 * time.Minute)  // "PT15M"
+```
+
+### Soft-delete + restore + purge
+Events, todos, and journals share the same reversible-delete contract.
+`Delete` / `DeleteSeries` flip `deleted_at`; live reads gate on
+`deleted_at IS NULL`. Each domain service owns its own restore / purge:
+
+```go
+// Soft-delete: the Delete methods already do this.
+err := svc.Delete(ctx, id)        // sets deleted_at, keeps row
+err := svc.DeleteSeries(ctx, uid) // soft-deletes master + overrides
+
+// Restore:
+err := svc.RestoreByID(ctx, id)    // un-hides one row
+err := svc.RestoreByUID(ctx, uid)  // un-hides master + all overrides
+// Returns svc.ErrNotDeleted when the row is live or missing.
+
+// Purge (hard-delete soft-deleted rows):
+err := svc.PurgeByID(ctx, id)         // one row, refuses live rows
+n, err := svc.PurgeDeleted(ctx, cutoff) // all rows older than cutoff
+```
+
+Restoring a recurring override also clears the matching EXDATE on the
+master in the same transaction, so expansion sees the occurrence again.
+The EXDATE-provenance rule (only strip EXDATEs a delete recorded, never
+imported ones — issue #86) lives in `softdelete.ClearMasterEXDATE`; each
+domain's `clearMasterEXDATE` is a thin wrapper that binds its sqlc queries
+to that shared helper. Fix the contract there, not per-domain.
+
+### List or purge mixed trash
+The `internal/trash` package aggregates all three domains:
+
+```go
+trashSvc := trash.NewService(a.Events, a.Todos, a.Journals)
+entries, err := trashSvc.List(ctx, calendarID) // newest-first, all kinds
+err = trashSvc.Restore(ctx, entries[0])
+err = trashSvc.Purge(ctx, entries[0])
+counts, err := trashSvc.PurgeOld(ctx, time.Now().Add(-30*24*time.Hour))
+```
+
+`Entry.Kind` (KindEvent, KindEventInstance, KindEventSeriesTail,
+KindTodo, KindJournal) tells the caller which fields are populated.
+
+## AI-assisted contributions
+
+Follow the [Linux kernel AI coding assistant
+guidelines](https://docs.kernel.org/process/coding-assistants.html) for any
+AI-assisted commit in this repo.
+
+- The human contributor is the sole git author. AI tools are not authors and
+  must not appear in `Co-authored-by` trailers.
+- AI agents must **not** add `Signed-off-by` tags.
+- When AI assistance materially shaped a commit, add an `Assisted-by` trailer
+  to the commit message body (not the author field):
+
+  ```
+  Assisted-by: AGENT_NAME:MODEL_VERSION [TOOL1] [TOOL2]
+  ```
+
+  Use the actual agent framework and model version (e.g.
+  `Assisted-by: Cursor:gpt-5.3-codex`). List only specialized analysis tools
+  in brackets — not git, editors, gcc, or make.
+- Do not use `Co-developed-by` or `Co-authored-by` for AI attribution.
+- Use `git commit-tree` (or amend with a message file) when the environment
+  would otherwise inject `Co-authored-by: Cursor <cursoragent@cursor.com>`.
+
+## Skill routing
+
+When the user's request matches an available skill, ALWAYS invoke it using the Skill
+tool as your FIRST action. Do NOT answer directly, do NOT use other tools first.
+The skill has specialized workflows that produce better results than ad-hoc answers.
+
+Key routing rules:
+- Product ideas, "is this worth building", brainstorming → invoke office-hours
+- Bugs, errors, "why is this broken", 500 errors → invoke investigate
+- Ship, deploy, push, create PR → invoke ship
+- QA, test the site, find bugs → invoke qa
+- Code review, check my diff → invoke review
+- Update docs after shipping → invoke document-release
+- Weekly retro → invoke retro
+- Design system, brand → invoke design-consultation
+- Visual audit, design polish → invoke design-review
+- Architecture review → invoke plan-eng-review
+
+---
+> Source: [DouglasdeMoura/chroncal](https://github.com/DouglasdeMoura/chroncal) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
