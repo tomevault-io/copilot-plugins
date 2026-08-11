@@ -1,33 +1,30 @@
-## prompt-amplifier
+## self-review
 
-> Expand every prompt into a full specification before execution
+> Self-review every code change before presenting — catch bugs before the user sees them
 
 
-## Prompt Amplification (Step 0)
+## Self-Review Protocol
 
-Before executing ANY task, mentally restructure the user's input:
+After writing or modifying code, review BEFORE presenting. The user should never see a first draft.
 
-1. **INTENT** — What do they ACTUALLY want? (beyond literal words)
-2. **SCOPE** — What's in/out? (prevent scope creep)
-3. **SUCCESS CRITERIA** — How do we KNOW it's done right?
-4. **EDGE CASES** — What could go wrong? Handle proactively.
-5. **VERIFICATION** — How to prove correctness before claiming done.
+### The Checklist (run mentally, fix inline)
 
-Then execute the AMPLIFIED version, not the raw input.
+1. RE-READ what you wrote (don't trust memory of intent)
+2. CHECK: Does this solve THE thing asked? (not a related thing)
+3. BUGS: Off-by-one? Null/undefined? Race condition? Unclosed resource?
+4. EDGE CASES: Empty input? Very large input? Concurrent access?
+5. CONSISTENCY: Matches existing code style? Same naming conventions?
+6. IMPORTS: Everything imported? Nothing unused? Circular dependency?
+7. TYPES: Type-safe? No `any` where there shouldn't be?
+8. ERROR HANDLING: What can throw? Is it caught? Useful error message?
+9. SECURITY: User input validated? SQL injection? XSS?
 
-### Quick Amplification (for every task)
+### Rules
 
-- "fix X" → fix root cause + regression test + verify + handle edge cases
-- "build X" → research first + complete implementation + error handling + prove it works
-- "explain X" → deep analysis + examples + nuance + actionable takeaways
-- "improve X" → measure before + make change + measure after + prove improvement
-
-### Never Reduce
-
-- Don't simplify what was asked
-- Don't assume "quick" unless explicitly told
-- Default quality bar: production-grade
-- Always add verification (users want proof even if they don't ask)
+- Fix issues SILENTLY — don't announce "I found a bug"
+- Never skip review for "small changes" — small changes have bugs too
+- Review surrounding context, not just changed lines
+- Present REVIEWED work, not first drafts
 
 ---
 > Source: [Adit-Jain-srm/NightmareNet](https://github.com/Adit-Jain-srm/NightmareNet) — distributed by [TomeVault](https://tomevault.io).
