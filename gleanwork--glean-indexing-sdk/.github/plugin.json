@@ -1,0 +1,9 @@
+{
+  "name": "gleanwork--glean-indexing-sdk",
+  "displayName": "glean-indexing-sdk",
+  "description": "SDK for building custom Glean indexing integrations",
+  "version": "1.0.0",
+  "author": "gleanwork",
+  "homepage": "https://github.com/gleanwork/glean-indexing-sdk",
+  "skills": []
+}
