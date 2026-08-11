@@ -7,11 +7,11 @@ WanSync(顽爪爪同步) 一款轻量级 Flutter 应用，可自动从顽鹿（O
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Tyan66666/WanSync](https://github.com/Tyan66666/WanSync).
+Original source: `CLAUDE.md` in [Tyan66666/WanSync](https://github.com/Tyan66666/WanSync).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
