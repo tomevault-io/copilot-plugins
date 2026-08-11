@@ -1,0 +1,9 @@
+{
+  "name": "godot-fun--godot-framework",
+  "displayName": "godot-framework",
+  "description": "A lightweight Godot framework + agent skills for building and shipping games",
+  "version": "1.0.0",
+  "author": "godot-fun",
+  "homepage": "https://github.com/godot-fun/godot-framework",
+  "skills": []
+}
