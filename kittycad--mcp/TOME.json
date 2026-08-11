@@ -4,7 +4,7 @@
   "repo": "mcp",
   "description": "An MCP server housing various Zoo built utilities",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KittyCAD/mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T02:47:39Z"
+  "distributed_at": "2026-08-11T02:55:12Z"
 }
