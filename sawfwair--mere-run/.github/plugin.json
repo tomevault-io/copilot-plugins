@@ -1,0 +1,9 @@
+{
+  "name": "sawfwair--mere-run",
+  "displayName": "mere-run",
+  "description": "Run local image, text, speech, vision, music, and video workflows, plus model management and a loopback OpenAI-compatible API server. The repo ships the core libraries and the mere.run executable.",
+  "version": "1.0.0",
+  "author": "sawfwair",
+  "homepage": "https://github.com/sawfwair/mere-run",
+  "skills": []
+}
