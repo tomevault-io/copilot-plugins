@@ -1,0 +1,9 @@
+{
+  "name": "cardmagic--solid-objects",
+  "displayName": "solid_objects",
+  "description": "A Ruby on Rails port of CloudFlare's Durable Objects using Solid Queue principles with automatic ERB reactivity",
+  "version": "1.0.0",
+  "author": "cardmagic",
+  "homepage": "https://github.com/cardmagic/solid_objects",
+  "skills": []
+}
