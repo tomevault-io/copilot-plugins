@@ -1,0 +1,9 @@
+{
+  "name": "jacquelinedmcgraw--claude-a11y",
+  "displayName": "claude-a11y",
+  "description": "Screen reader formatting for AI chat responses. Chrome extension for claude.ai, VS Code extension, and CLI wrapper.",
+  "version": "1.0.0",
+  "author": "JacquelineDMcGraw",
+  "homepage": "https://github.com/JacquelineDMcGraw/claude-a11y",
+  "skills": []
+}
