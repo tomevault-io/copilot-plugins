@@ -1,0 +1,9 @@
+{
+  "name": "arikchakma--kumoh",
+  "displayName": "kumoh",
+  "description": "Opinionated framework for building APIs on Cloudflare Workers with a focus on simplicity and ease of use.",
+  "version": "1.0.0",
+  "author": "arikchakma",
+  "homepage": "https://github.com/arikchakma/kumoh",
+  "skills": []
+}
