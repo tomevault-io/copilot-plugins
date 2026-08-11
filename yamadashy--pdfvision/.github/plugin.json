@@ -1,0 +1,9 @@
+{
+  "name": "yamadashy--pdfvision",
+  "displayName": "pdfvision",
+  "description": "CLI, MCP server, and TypeScript library that extracts text, layout, and page images from PDFs for AI agents \u2014 when extraction goes wrong, it says so per page and says what to do next.",
+  "version": "1.0.0",
+  "author": "yamadashy",
+  "homepage": "https://github.com/yamadashy/pdfvision",
+  "skills": []
+}
