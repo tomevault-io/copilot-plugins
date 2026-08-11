@@ -1,0 +1,9 @@
+{
+  "name": "synseqack--aict",
+  "displayName": "aict",
+  "description": "A CLI tool that outputs XML/JSON, built for AI agents to consume directly.",
+  "version": "1.0.0",
+  "author": "synseqack",
+  "homepage": "https://github.com/synseqack/aict",
+  "skills": []
+}
