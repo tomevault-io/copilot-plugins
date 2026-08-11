@@ -1,0 +1,9 @@
+{
+  "name": "jeremylongshore--bobs-big-brain-registrar",
+  "displayName": "bobs-big-brain-registrar",
+  "description": "Bob's Big Brain Registrar \u2014 the team's memory keeper. Decides what gets in (by code, not by a model), stores what's admitted, and writes hash-chained, tamper-evident receipts. The govern engine of Bob",
+  "version": "1.0.0",
+  "author": "jeremylongshore",
+  "homepage": "https://github.com/jeremylongshore/bobs-big-brain-registrar",
+  "skills": []
+}
