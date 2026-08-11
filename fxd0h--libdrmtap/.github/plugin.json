@@ -1,0 +1,9 @@
+{
+  "name": "fxd0h--libdrmtap",
+  "displayName": "libdrmtap",
+  "description": "DRM/KMS screen capture library for Linux \u2014 embeddable, multi-GPU, privilege-managed",
+  "version": "1.0.0",
+  "author": "fxd0h",
+  "homepage": "https://github.com/fxd0h/libdrmtap",
+  "skills": []
+}
