@@ -4,7 +4,7 @@
   "repo": "fsl",
   "description": "AI-Native Formal Specification Language \u2014 a bounded model checker (Lark + Z3) built for LLM write/verify/repair loops.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ymm-oss/fsl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T00:45:05Z"
+  "distributed_at": "2026-08-11T00:52:35Z"
 }
