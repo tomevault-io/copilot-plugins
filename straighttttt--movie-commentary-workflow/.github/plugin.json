@@ -1,0 +1,9 @@
+{
+  "name": "straighttttt--movie-commentary-workflow",
+  "displayName": "movie-commentary-workflow",
+  "description": "Auditable Codex skills and data contracts for first-person movie commentary production",
+  "version": "1.0.0",
+  "author": "straighttttt",
+  "homepage": "https://github.com/straighttttt/movie-commentary-workflow",
+  "skills": []
+}
