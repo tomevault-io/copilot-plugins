@@ -1,0 +1,9 @@
+{
+  "name": "freenet--delta",
+  "displayName": "delta",
+  "description": "Decentralized website builder on Freenet",
+  "version": "1.0.0",
+  "author": "freenet",
+  "homepage": "https://github.com/freenet/delta",
+  "skills": []
+}
