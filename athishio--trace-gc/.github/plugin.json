@@ -1,0 +1,9 @@
+{
+  "name": "athishio--trace-gc",
+  "displayName": "trace-gc",
+  "description": "Deterministic, receipt-preserving context compaction library for AI agents.",
+  "version": "1.0.0",
+  "author": "athishio",
+  "homepage": "https://github.com/athishio/trace-gc",
+  "skills": []
+}
