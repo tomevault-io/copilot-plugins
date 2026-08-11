@@ -1,82 +1,17 @@
-## contribution-standards
+## diagrams
 
-> Quality standards that every contribution must meet before PR submission
+> Diagram and visualization preferences for documentation
 
 
-# Contribution Quality Standards
+## Documentation Diagram Standards
 
-## Pre-Submit Checklist (ALL must pass)
-
-1. **Guidelines Compliance**
-   - CONTRIBUTING.md read and all rules followed
-   - PR template filled completely (every section, no placeholders)
-   - Branch naming matches repo convention
-   - Commit messages match repo format exactly
-
-2. **Code Quality**
-   - Matches repo's exact code style (indentation, naming, imports)
-   - Uses repo's existing abstractions and utilities
-   - Proper error handling following repo patterns
-   - No hardcoded values that should be configurable
-   - No commented-out code unless repo does this
-
-3. **Testing**
-   - All existing tests pass
-   - New tests added for new/changed behavior
-   - Tests follow repo's testing patterns exactly
-   - Edge cases covered (especially ones competing PRs missed)
-
-4. **Tooling**
-   - Linter passes with zero errors (repo's config, not defaults)
-   - Formatter has been run (repo's formatter)
-   - Type checker passes (if typed language)
-   - Build succeeds
-
-5. **Security**
-   - No secrets, API keys, tokens in code
-   - No personal file paths or system-specific references
-   - No PII (personal identifiable information)
-   - Dependencies are from official sources only
-
-6. **Diff Quality**
-   - Minimal diff -- only changes necessary for the fix/feature
-   - No unrelated formatting changes
-   - No whitespace-only changes outside the fix area
-   - Clear and atomic -- one concern per commit
-
-## Competitive Advantage Requirements
-
-Before submitting, verify your PR is SUPERIOR to all competing PRs:
-- Addresses issues that competing PRs ignored
-- Includes tests that competing PRs skipped
-- Follows conventions that competing PRs violated
-- Has a more complete/detailed PR description
-- Handles edge cases others missed
-
-## PR Description Template (adapt to repo's template)
-
-If the repo has no template, use this minimum:
-
-```markdown
-## Summary
-{One paragraph explaining what this PR does and why}
-
-## Changes
-- {Bullet list of specific changes}
-
-## Testing
-- {How you tested this}
-- {New tests added}
-
-## Related Issues
-Fixes #{issue_number}
-
-## Checklist
-- [ ] Tests pass
-- [ ] Linting passes
-- [ ] Documentation updated (if applicable)
-- [ ] Breaking changes: None / {described}
-```
+- NEVER use ASCII art diagrams (box-drawing characters, pipes, dashes)
+- ALWAYS use Mermaid diagrams for architecture, flows, and sequences
+- Mermaid renders natively on GitHub, Notion, and most markdown viewers
+- For README files, use Mermaid `graph`, `sequenceDiagram`, or `flowchart` syntax
+- Keep diagrams high-level and professional — not cluttered with implementation details
+- Use subgraphs for logical grouping
+- Prefer `graph TD` (top-down) for architecture, `sequenceDiagram` for flows, `flowchart LR` for pipelines
 
 ---
 > Source: [Adit-Jain-srm/NightmareNet](https://github.com/Adit-Jain-srm/NightmareNet) — distributed by [TomeVault](https://tomevault.io).
