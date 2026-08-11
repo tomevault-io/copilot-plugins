@@ -1,0 +1,9 @@
+{
+  "name": "fsecada01--midi-drums",
+  "displayName": "midi-drums",
+  "description": "\ud83e\udd41 Comprehensive MIDI drum generation system with 4 genres (Metal, Rock, Jazz, Funk), 28 styles, and 7 authentic drummer personalities. Plugin-based architecture for professional EZDrummer-compatible o",
+  "version": "1.0.0",
+  "author": "fsecada01",
+  "homepage": "https://github.com/fsecada01/midi-drums",
+  "skills": []
+}
