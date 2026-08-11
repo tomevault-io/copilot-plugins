@@ -1,0 +1,9 @@
+{
+  "name": "iona-s--astrbot-plugin-imgexploration",
+  "displayName": "astrbot_plugin_imgexploration",
+  "description": "\u901a\u8fc7\u4e0a\u4f20\u56fe\u7247\u641c\u7d22\u5176\u6765\u6e90\uff0c\u652f\u6301 SauceNAO\u3001Google Lens\u3001Ascii2d \u7b49\u641c\u56fe\u5f15\u64ce\uff0c\u5e76\u7ed3\u5408LLM\u6539\u5584\u4f7f\u7528\u4f53\u9a8c\u3002",
+  "version": "1.0.0",
+  "author": "iona-s",
+  "homepage": "https://github.com/iona-s/astrbot_plugin_imgexploration",
+  "skills": []
+}
