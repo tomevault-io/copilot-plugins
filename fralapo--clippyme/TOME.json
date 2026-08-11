@@ -4,7 +4,7 @@
   "repo": "clippyme",
   "description": "\u2702\ufe0f Open-source, self-hosted Opus Clip alternative. Turn long YouTube videos or uploads into viral 9:16 vertical shorts: AI viral-moment detection (Gemini), auto transcription + subtitles, active-speaker reframing, in-browser editing, and one-click TikTok / Reels / Shorts scheduling.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fralapo/clippyme",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T19:34:08Z"
+  "distributed_at": "2026-08-11T19:37:47Z"
 }
