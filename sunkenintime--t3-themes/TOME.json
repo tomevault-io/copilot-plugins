@@ -4,7 +4,7 @@
   "repo": "t3-themes",
   "description": "Community theme gallery for T3Code \u2014 real app previews, themes as PR-submitted JSON",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SunkenInTime/t3-themes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T15:33:38Z"
+  "distributed_at": "2026-08-11T15:34:20Z"
 }
