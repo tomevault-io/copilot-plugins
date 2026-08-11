@@ -1,0 +1,9 @@
+{
+  "name": "sashabusinaro--yaml-compose-sorter",
+  "displayName": "yaml-compose-sorter",
+  "description": "A vscode extension that sorts and formats Docker Compose YAML files with consistent key ordering and improved readability.",
+  "version": "1.0.0",
+  "author": "SashaBusinaro",
+  "homepage": "https://github.com/SashaBusinaro/yaml-compose-sorter",
+  "skills": []
+}
