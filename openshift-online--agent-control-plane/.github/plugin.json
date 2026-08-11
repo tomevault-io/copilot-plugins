@@ -1,0 +1,9 @@
+{
+  "name": "openshift-online--agent-control-plane",
+  "displayName": "agent-control-plane",
+  "description": "Agent control plane for managed OpenShift services",
+  "version": "1.0.0",
+  "author": "openshift-online",
+  "homepage": "https://github.com/openshift-online/agent-control-plane",
+  "skills": []
+}
