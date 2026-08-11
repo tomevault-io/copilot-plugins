@@ -1,0 +1,9 @@
+{
+  "name": "shaftoe--pi-token-usage",
+  "displayName": "pi-token-usage",
+  "description": "Pi coding agent extension to help visualize token consumption",
+  "version": "1.0.0",
+  "author": "shaftoe",
+  "homepage": "https://github.com/shaftoe/pi-token-usage",
+  "skills": []
+}
