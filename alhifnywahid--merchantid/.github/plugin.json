@@ -1,0 +1,9 @@
+{
+  "name": "alhifnywahid--merchantid",
+  "displayName": "merchantid",
+  "description": "Unofficial zero-dependency TypeScript toolkit for Indonesian merchants: turns a static QRIS into unique per-order dynamic QRIS and reconciles settlement from GoPay (GoBiz) and ShopeePay merchant trans",
+  "version": "1.0.0",
+  "author": "alhifnywahid",
+  "homepage": "https://github.com/alhifnywahid/merchantid",
+  "skills": []
+}
