@@ -1,75 +1,115 @@
-## 001-next15-react19
+## 002-zustand-hydration
 
-> Next.js 15 and React 19 async/await API rules
+> Zustand state management and hydration safety
 
 
-# Next.js 15 Async API Rules
+# Zustand Persist & Hydration Safety
 
-In Next.js 15+, `cookies()`, `headers()`, `params`, and `searchParams` are **asynchronous**. They MUST be awaited before use. Synchronous destructuring is forbidden and will cause runtime errors.
+When using Zustand's `persist` middleware, React 19 Server-Side Rendering (SSR) and hydration require explicit handling. Failure to configure `skipHydration` and manually rehydrate leads to **Hydration Mismatch** errors.
 
 ## Rules
 
-1. **cookies()** — Always `await cookies()` before calling `.get()`, `.getAll()`, etc.
-2. **headers()** — Always `await headers()` before accessing headers.
-3. **params** — Page/Route `params` is a Promise; await it before destructuring.
-4. **searchParams** — Page `searchParams` is a Promise; await it before use.
+1. **persist middleware** — MUST set `skipHydration: true` in the persist config.
+2. **Rehydration** — Use `useEffect` to call `useStore.persist.rehydrate()` on the client.
+3. **isHydrated** — Track hydration state and avoid rendering persisted-dependent UI until hydrated.
 
-## Correct Examples
+## Correct Store Setup
 
-### Server Component / Route Handler
+```ts
+// store/useExampleStore.ts
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+
+interface ExampleState {
+  count: number;
+  isHydrated: boolean;
+  setCount: (n: number) => void;
+  setHydrated: () => void;
+}
+
+export const useExampleStore = create<ExampleState>()(
+  persist(
+    (set) => ({
+      count: 0,
+      isHydrated: false,
+      setCount: (n) => set({ count: n }),
+      setHydrated: () => set({ isHydrated: true }),
+    }),
+    {
+      name: "example-storage",
+      skipHydration: true, // REQUIRED for React 19
+    }
+  )
+);
+```
+
+## Correct Component Usage
 
 ```tsx
-// ✅ CORRECT: cookies
-import { cookies } from "next/headers";
+"use client";
 
-export default async function Page() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token");
-  return <div>{token?.value}</div>;
+import { useEffect, useState } from "react";
+import { useExampleStore } from "@/store/useExampleStore";
+
+export function HydratedCounter() {
+  const [mounted, setMounted] = useState(false);
+  const { count, isHydrated, setCount, persist } = useExampleStore();
+
+  useEffect(() => {
+    persist.rehydrate().then(() => {
+      useExampleStore.getState().setHydrated(true);
+      setMounted(true);
+    });
+  }, [persist]);
+
+  if (!mounted || !isHydrated) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div>
+      <span>{count}</span>
+      <button onClick={() => setCount(count + 1)}>+1</button>
+    </div>
+  );
 }
 ```
 
-```tsx
-// ✅ CORRECT: headers
-import { headers } from "next/headers";
+## Alternative: Single useEffect Rehydration
 
-export default async function Page() {
-  const headersList = await headers();
-  const userAgent = headersList.get("user-agent");
-  return <div>{userAgent}</div>;
+```tsx
+"use client";
+
+import { useEffect } from "react";
+import { useExampleStore } from "@/store/useExampleStore";
+
+export function SafePersistedUI() {
+  const { count, persist } = useExampleStore();
+
+  useEffect(() => {
+    persist.rehydrate();
+  }, [persist]);
+
+  return <div>{count}</div>;
 }
 ```
 
-```tsx
-// ✅ CORRECT: params (Page)
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  return <div>ID: {id}</div>;
-}
-```
-
-```tsx
-// ✅ CORRECT: searchParams (Page)
-export default async function Page({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
-  const { q } = await searchParams;
-  return <div>Query: {q}</div>;
-}
-```
+If the persisted value affects initial layout or text, use `isHydrated` guard to avoid mismatch. For layout-only effects, rehydration in `useEffect` may suffice.
 
 ## Forbidden Patterns
 
-```tsx
-// ❌ WRONG: synchronous destructuring
-export default async function Page({ params }: { params: { id: string } }) {
-  const { id } = params; // Will fail in Next.js 15+
-  return <div>{id}</div>;
-}
+```ts
+// ❌ WRONG: missing skipHydration
+persist(
+  (set) => ({ ... }),
+  { name: "storage" } // Will cause hydration mismatch
+);
 ```
 
 ```tsx
-// ❌ WRONG: cookies without await
-const cookieStore = cookies();
-const token = cookieStore.get("token");
+// ❌ WRONG: reading persisted state before rehydration
+const count = useExampleStore((s) => s.count);
+return <div>{count}</div>; // May differ from server-rendered HTML
 ```
 
 ---
