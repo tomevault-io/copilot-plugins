@@ -1,41 +1,20 @@
-## docs-on-code-change
+## multi-ide
 
-> Update docs (markdown) when code changes
+> Multi-IDE (Cursor + Claude Code) conventions
 
 
-# Docs on Code Change
+# Multi-IDE
 
-Whenever you write or change code that affects behavior, architecture, or APIs, you **must** update the relevant documentation in `docs/`.
+This project is developed with **Cursor** and **Claude Code**. Changes must work for both.
 
-## Scope
+## When Making Code Changes
 
-- New features, refactors, API changes, config changes, startup flow changes
-- Applies to: `internal/`, `server/`, `domain/`, `scripts/`, `web/`, `bootstrap/`
+1. **Update docs** — Keep `docs/*_vi.md` in sync (see `docs-on-code-change` rule)
+2. **Comment in English** — Project standard
+3. **Single source of truth** — Code is truth; docs reflect it
+4. **Do not commit binary artifacts** — Version injected via ldflags
 
-## Actions
-
-1. Identify which `docs/*_vi.md` files are impacted
-2. Update them to match the new code (numbers, flows, endpoints, states, etc.)
-3. Keep docs accurate — no drift between code and documentation
-
-## Doc Files
-
-| Code area | Docs to update |
-|-----------|----------------|
-| lamp-server, API, startup | `lamp-server_vi.md` |
-| LED, effects, states, animations | `led-control_vi.md` |
-| Setup flow, provisioning | `setup-flow_vi.md` |
-| Web UI, configuration pages | `web-ui_vi.md` |
-| Flow Monitor (pipeline SVG, flow logs) | `flow-monitor_vi.md` (and `docs/flow-monitor.md`) |
-| Overall structure | `overview_vi.md` |
-| MQTT, dispatch, publish | `mqtt_vi.md` |
-| bootstrap, OTA | `bootstrap-server_vi.md` |
-
-## Convention
-
-- Vietnamese docs: `*_vi.md` (e.g. `lamp-server_vi.md`)
-- English vision/design: keep as-is unless code explicitly changes behavior
-- 100% accurate: numbers, names, flows must match code
+See `docs/DEV-MULTI-IDE.md` for full conventions.
 
 ---
 > Source: [autonomous-ai/autonomous-lamp](https://github.com/autonomous-ai/autonomous-lamp) — distributed by [TomeVault](https://tomevault.io).
