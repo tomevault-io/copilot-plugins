@@ -1,0 +1,9 @@
+{
+  "name": "coldbricks--chloe-vibes",
+  "displayName": "Chloe-Vibes",
+  "description": "Converts sound into calibrated haptic force in real time. Deterministic, dual-client, parity-locked.",
+  "version": "1.0.0",
+  "author": "coldbricks",
+  "homepage": "https://github.com/coldbricks/Chloe-Vibes",
+  "skills": []
+}
