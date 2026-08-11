@@ -1,0 +1,9 @@
+{
+  "name": "nuyoah-ai-works--open-nuyoah-skill",
+  "displayName": "open-nuyoah-skill",
+  "description": "\u516c\u5f00\u3001\u53ef\u590d\u7528\u7684 Agent Skills\uff1a\u521b\u5efa\u4e13\u5c5e\u767d\u8272\u8f6f\u5757\u89d2\u8272\u5e76\u751f\u6210\u4e0a\u4e0b\u53cc\u683c\u8352\u8bde\u6f2b\u753b",
+  "version": "1.0.0",
+  "author": "nuyoah-ai-works",
+  "homepage": "https://github.com/nuyoah-ai-works/open-nuyoah-skill",
+  "skills": []
+}
