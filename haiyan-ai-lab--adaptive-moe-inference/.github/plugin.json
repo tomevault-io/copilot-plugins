@@ -1,0 +1,9 @@
+{
+  "name": "haiyan-ai-lab--adaptive-moe-inference",
+  "displayName": "adaptive-moe-inference",
+  "description": "Adaptive MoE inference for Kimi K3 \u2014 beyond-memory expert streaming, reversible runtime profiles, measured optimization results, and an open NVIDIA/GPU/NPU adaptation roadmap.",
+  "version": "1.0.0",
+  "author": "haiyan-ai-lab",
+  "homepage": "https://github.com/haiyan-ai-lab/adaptive-moe-inference",
+  "skills": []
+}
