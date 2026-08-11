@@ -7,11 +7,11 @@ LYCA:more LIKe A human agent system
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [scmmm/LYCA](https://github.com/scmmm/LYCA).
+Original source: `AGENTS.md` in [scmmm/LYCA](https://github.com/scmmm/LYCA).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
