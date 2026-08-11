@@ -1,0 +1,9 @@
+{
+  "name": "imateusdev--loom-router",
+  "displayName": "loom-router",
+  "description": "Weave any model into your coding agent's picker. A Tauri desktop app that runs a local proxy and puts external providers like OpenRouter, Kimi, DeepSeek and Anthropic directly into Codex model picker,",
+  "version": "1.0.0",
+  "author": "imateusdev",
+  "homepage": "https://github.com/imateusdev/loom-router",
+  "skills": []
+}
