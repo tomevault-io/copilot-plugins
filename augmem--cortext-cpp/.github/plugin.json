@@ -1,0 +1,9 @@
+{
+  "name": "augmem--cortext-cpp",
+  "displayName": "cortext.cpp",
+  "description": "Event-driven long-horizon memory for real-time wearable AI and LLM agents.",
+  "version": "1.0.0",
+  "author": "augmem",
+  "homepage": "https://github.com/augmem/cortext.cpp",
+  "skills": []
+}
