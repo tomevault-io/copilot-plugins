@@ -1,0 +1,9 @@
+{
+  "name": "ratimon--openquok-monorepo",
+  "displayName": "openquok-monorepo",
+  "description": "An agentic social media scheduling workspace engine/tool (CLI + Dashboard)",
+  "version": "1.0.0",
+  "author": "Ratimon",
+  "homepage": "https://github.com/Ratimon/openquok-monorepo",
+  "skills": []
+}
