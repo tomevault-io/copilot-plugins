@@ -1,0 +1,9 @@
+{
+  "name": "stblake--mathilda",
+  "displayName": "mathilda",
+  "description": "A small, highly efficient computer algebra system in written in C99.",
+  "version": "1.0.0",
+  "author": "stblake",
+  "homepage": "https://github.com/stblake/mathilda",
+  "skills": []
+}
