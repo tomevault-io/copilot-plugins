@@ -1,0 +1,9 @@
+{
+  "name": "a-tokyo--quantvec",
+  "displayName": "quantvec",
+  "description": "A clean-room implementation of Google Research's TurboQuant, with the RaBitQ unbiased-estimator correction. Runs anywhere JavaScript runs; Node, browsers, Bun, Cloudflare Workers, React Native.",
+  "version": "1.0.0",
+  "author": "a-tokyo",
+  "homepage": "https://github.com/a-tokyo/quantvec",
+  "skills": []
+}
