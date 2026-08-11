@@ -1,0 +1,9 @@
+{
+  "name": "civitass--civitas-desktop",
+  "displayName": "civitas-desktop",
+  "description": "Local-first work memory: rewind your timeline, understand your workflow, and predict useful next actions.",
+  "version": "1.0.0",
+  "author": "civitass",
+  "homepage": "https://github.com/civitass/civitas-desktop",
+  "skills": []
+}
