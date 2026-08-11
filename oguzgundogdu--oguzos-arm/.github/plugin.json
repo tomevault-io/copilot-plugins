@@ -1,0 +1,9 @@
+{
+  "name": "oguzgundogdu--oguzos-arm",
+  "displayName": "OguzOS-arm",
+  "description": "Minimal ARM64 (AArch64) operating system written in freestanding C++17 \u2014 QEMU virt / UTM on macOS",
+  "version": "1.0.0",
+  "author": "oguzgundogdu",
+  "homepage": "https://github.com/oguzgundogdu/OguzOS-arm",
+  "skills": []
+}
