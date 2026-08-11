@@ -1,22 +1,32 @@
-## activate-venv-before-python
+## dev-log
 
-> Activate venv before python/pip
+> Quando e como atualizar docs/dev-log/INDEX.md após mudanças relevantes
 
 
-# Python venv
+# Dev log do projeto
 
-Before any `python` or `pip` (or `pytest` etc.), activate the project venv. Folder: `.venv` or `ambiente_virtual`.
+## Antes de concluir um trabalho substancial ou fazer commit
 
-```bash
-source .venv/bin/activate && python scripts/script.py
-```
+Alvo: só alterações **substanciais** (não refactors cosméticos).
 
-Use `ambiente_virtual/bin/activate` if that's the folder name.
+1. Ler `docs/dev-log/INDEX.md` (é curto).
+2. Perguntar: houve **decisão de arquitetura**, **contrato de pipeline** (caminhos, CLI, formatos), **mudança de comportamento** visível, ou **preferência explícita do utilizador**? Se sim → atualizar o índice.
+3. Se não → não adicionar ruído (typos, um arquivo sem impacto).
 
-If neither exists: try to find a venv (e.g. other common names, or dirs containing `pyvenv.cfg`). If none or multiple are found, prompt the user.
+## O que registrar (uma entrada na lista por data em `INDEX.md`)
 
-This project handles dependencies in a `pyproject.toml` file instead of requirements.txt file.
-Install it with `pip install -e .` (from the `llm/` directory).
+- **ID:** `slug-curto-kebab` (ex.: `vectorstore-raiz-repo`).
+- **Autor (opcional):** humano se tiver explicitamente tomado a decisão → valor de `git config user.name` (ou iniciais); agente/assistente → `agent:cursor` (prefixo `agent:` para `rg`/filtros). Omitir se irrelevante.
+- **Resumo:** ≤ 140 caracteres se possível; mencionar ficheiro/pasta chave quando útil.
+- **Revisão-Anterior:** último commit git até o momento - hash e mensagem one-line
+
+## Onde não registar
+
+- Detalhe longo: opcionalmente `docs/dev-log/decisions/YYYYMMDD-id.md` e uma linha no índice com o caminho do arquivo.
+
+## Tom
+
+- Direto, factual, em pt-BR no índice.
 
 ---
 > Source: [leanseefeld/8iadt-tc-fase3-assistente-medico](https://github.com/leanseefeld/8iadt-tc-fase3-assistente-medico) — distributed by [TomeVault](https://tomevault.io).
