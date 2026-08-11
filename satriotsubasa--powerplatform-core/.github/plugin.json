@@ -1,0 +1,9 @@
+{
+  "name": "satriotsubasa--powerplatform-core",
+  "displayName": "PowerPlatform-Core",
+  "description": "AI Agent plugins for Microsoft Power Platform and Dataverse development. Covers ALM, plugins, flows, PCF controls, schema design, administration, and deployment. Extensible via overlay skills.",
+  "version": "1.0.0",
+  "author": "satriotsubasa",
+  "homepage": "https://github.com/satriotsubasa/PowerPlatform-Core",
+  "skills": []
+}
