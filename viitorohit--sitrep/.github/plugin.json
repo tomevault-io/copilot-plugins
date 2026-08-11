@@ -1,0 +1,9 @@
+{
+  "name": "viitorohit--sitrep",
+  "displayName": "sitrep",
+  "description": "The continuity, cost, and nudge layer for agentic AI coding \u2014 works with Claude Code, Codex, Cursor, or any tool that reads a repo. Zero dependencies, zero lock-in.",
+  "version": "1.0.0",
+  "author": "viitorohit",
+  "homepage": "https://github.com/viitorohit/sitrep",
+  "skills": []
+}
