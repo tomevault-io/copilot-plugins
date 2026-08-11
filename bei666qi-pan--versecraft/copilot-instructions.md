@@ -1,48 +1,38 @@
-## 004-workflow
+## registry-memory
 
-> Authorized Git and Deployment Workflow
+> VerseCraft Registry Structure - Map, Anomalies, NPCs, Items
 
 
-# Authorized Git and Deployment Workflow
+# Registry Structure (Phase 1)
 
-## 授权边界（MANDATORY）
+## Map / Floors
+- **B2**: 真实出口，第 8 诡异（深渊守门人）守门，战力 10
+- **B1**: 玩家初始复苏地
+- **1-7**: 地上层，每层固定 1 个诡异，战力 5-9
 
-Cursor Agent **不得**在任务完成后自动提交、推送或部署。只有用户明确要求提交或发布时，才可以执行相应操作。
+## Anomalies (8 total)
+- A-001 ~ A-007: 分布于 1-7 层，combatPower 5-9
+- A-008 深渊守门人: 固定 B2 层，combatPower 10，极高污染与攻击性
+  - 通关 A：道具抵挡 3 次攻击 或 凌晨 1 点潜行通过
+  - 通关 S：击杀全部 8 诡异
 
-涉及行为变化的任务必须先遵循 `.cursor/rules/000-openspec-workflow.mdc` 和根 `AGENTS.md` 的 OpenSpec 默认分流；完成 OpenSpec change 时，先完成相关验证和 spec 同步，再依据明确授权进行 Git 或发布操作。
+See: `src/lib/registry/anomalies.ts`
 
-## 执行指令
+## NPCs
+- `personality`: 性格（暴躁/贪婪/温和/怯懦等）
+- `specialty`: 特长（后勤补给/战斗辅助/情报提供）
+- `combatPower`: 战力 3-10
+- `floor`: 初始/刷新楼层，`"random"` 表示随机楼层刷新
+- 高战力（9-10）NPC：无面保安、半夜剁肉厨师、前调查员
 
-在用户明确要求发布时，可在集成终端中运行（**跨平台**：`deploy.sh` 实为 Node 脚本，Windows 请用 `node` 或 `pnpm run ship`，勿用 `bash ./deploy.sh`）：
+See: `src/lib/registry/npcs.ts`
 
-```bash
-node deploy.sh "feat: 更新说明"
-```
+## Items (81 total: S1/A3/B10/C17/D50)
+- `blockLethal`: 可抵挡致命攻击（如符纸护身符、防污染协议残页）
+- `ruleKill`: 规则类杀伤，可跨越战力鸿沟击杀（如建筑原稿、协议残页）
+- 部分 B 级道具含 `使用此物品可增加特定NPC的好感度`，供 DM 触发好感度引擎（陈婆婆的织针、林医生的处方笺、邮差的挂号信、保安的巡逻表、夜读老人的书）
 
-或：
-
-```bash
-pnpm run ship -- "feat: 更新说明"
-```
-
-将 `"更新说明"` 替换为本次改动的一句话描述（中文或英文均可）。
-
-## 脚本行为
-
-- `git add .` — 暂存所有变更
-- `git commit -m "..."` — 提交
-- `git push origin main` — 推送到 GitHub
-- 输出服务器部署提示（需在部署服务器上手动或通过 SSH 执行 Docker 重建）
-
-## 示例
-
-用户明确要求发布后的典型调用：
-
-```bash
-node deploy.sh "feat: 完成动态 BGM 与移动端 UI 适配"
-pnpm run ship -- "fix: 修复原石掉落概率计算"
-pnpm run ship -- "chore: 文案与规则更新"
-```
+See: `src/lib/registry/items.ts`, `src/lib/registry/types.ts`
 
 ---
 > Source: [bei666qi-pan/VerseCraft](https://github.com/bei666qi-pan/VerseCraft) — distributed by [TomeVault](https://tomevault.io).
