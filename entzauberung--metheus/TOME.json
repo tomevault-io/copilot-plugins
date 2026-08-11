@@ -1,0 +1,44 @@
+{
+  "name": "metheus",
+  "owner": "entzauberung",
+  "repo": "metheus",
+  "description": "A workflow command center for indie hackers. Split decision-making from code execution \u2014 so your AI team thinks before it builds. Saves tokens, reduces errors, works with any model. Built with Tauri + React + Rust + TypeScript + Claude Code. AGPL-3.0.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/entzauberung/metheus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T06:40:40Z"
+}
