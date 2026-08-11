@@ -1,0 +1,9 @@
+{
+  "name": "brainbytes-dev--everything-claude-trading",
+  "displayName": "everything-claude-trading",
+  "description": "The complete trading and quantitative finance system for Claude Code \u2014 18 agents, 82 skills, 20 commands",
+  "version": "1.0.0",
+  "author": "brainbytes-dev",
+  "homepage": "https://github.com/brainbytes-dev/everything-claude-trading",
+  "skills": []
+}
