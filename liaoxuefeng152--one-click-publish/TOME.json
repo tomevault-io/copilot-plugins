@@ -1,0 +1,44 @@
+{
+  "name": "one-click-publish",
+  "owner": "liaoxuefeng152",
+  "repo": "one-click-publish",
+  "description": "Link2Global\u8de8\u5883\u7535\u5546\u81ea\u52a8\u5316\u4e0a\u67b6\u7cfb\u7edf - \u4ece1688\u91c7\u96c6\u5546\u54c1\uff0c\u81ea\u52a8\u7ffb\u8bd1\u672c\u5730\u5316\uff0c\u667a\u80fd\u5b9a\u4ef7\uff0c\u4e00\u952e\u53d1\u5e03\u5230TikTok Shop/Shopee",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/liaoxuefeng152/one-click-publish",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T20:35:40Z"
+}
