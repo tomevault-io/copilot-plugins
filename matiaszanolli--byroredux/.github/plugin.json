@@ -1,0 +1,9 @@
+{
+  "name": "matiaszanolli--byroredux",
+  "displayName": "ByroRedux",
+  "description": "Clean rebuild of the Gamebryo/Creation engine lineage in Rust + C++ with Vulkan",
+  "version": "1.0.0",
+  "author": "matiaszanolli",
+  "homepage": "https://github.com/matiaszanolli/ByroRedux",
+  "skills": []
+}
