@@ -1,0 +1,9 @@
+{
+  "name": "armstrongl--code-docs",
+  "displayName": "code-docs",
+  "description": "An LLM and human friendly docs framework for code repositories",
+  "version": "1.0.0",
+  "author": "armstrongl",
+  "homepage": "https://github.com/armstrongl/code-docs",
+  "skills": []
+}
