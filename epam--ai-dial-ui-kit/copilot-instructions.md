@@ -1,0 +1,17 @@
+## agent-harness-base
+
+> Base agent behavior, safety, and verification for this repo
+
+
+# Agent harness — base
+
+- Read neighboring files before editing; match existing naming, imports (`@/`), and patterns.
+- Keep changes scoped to the request; do not remove unrelated comments or refactor untouched modules.
+- Do not expose or request secrets; never suggest committing `.env` or keys.
+- Verification: with Cursor **trusted workspace** hooks, **`postToolUse`** (matcher: **Edit/Write** on `*.ts` / `*.tsx` only) runs **`npm run verify:agent-hook`** (typecheck → `lint:check` → `test:run`). Set `CURSOR_SKIP_AGENT_VERIFY=1` to skip that hook when needed. Without hooks or for other files, run **`npm run typecheck`**, then **`npm run lint`** and **`npm run test`** when possible. ESLint does not catch all TS errors; do not skip `typecheck` after changing `.ts`/`.tsx` types, props, or exports.
+- For new or changed public components: update `src/index.ts`, add or adjust Storybook stories and Vitest specs.
+- Prefer delegating large work into clear steps (plan → code → stories → tests) and confirm ambiguous product decisions with the user.
+
+---
+> Source: [epam/ai-dial-ui-kit](https://github.com/epam/ai-dial-ui-kit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
