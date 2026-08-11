@@ -1,0 +1,9 @@
+{
+  "name": "d4l3k--swolectl",
+  "displayName": "swolectl",
+  "description": "An open source exercise machine controller compatible with Tonal 1 that allows for direct control of the motors, resistance and raw data.",
+  "version": "1.0.0",
+  "author": "d4l3k",
+  "homepage": "https://github.com/d4l3k/swolectl",
+  "skills": []
+}
