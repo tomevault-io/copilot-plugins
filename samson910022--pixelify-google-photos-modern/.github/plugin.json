@@ -1,0 +1,9 @@
+{
+  "name": "samson910022--pixelify-google-photos-modern",
+  "displayName": "pixelify-google-photos-modern",
+  "description": "Pixelify Photos \u2014 Xposed module to enable Pixel-exclusive features in Google Photos (libxposed Modern API)",
+  "version": "1.0.0",
+  "author": "samson910022",
+  "homepage": "https://github.com/samson910022/pixelify-google-photos-modern",
+  "skills": []
+}
