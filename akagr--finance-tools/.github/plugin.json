@@ -1,0 +1,9 @@
+{
+  "name": "akagr--finance-tools",
+  "displayName": "finance-tools",
+  "description": "Go tools for Indian investors. itr-foreign turns Interactive Brokers holdings into the ITR's foreign schedules \u2014 Schedule FA, FSI, TR and a Form 67 worksheet \u2014 with SBI TTBR conversion and a per-figur",
+  "version": "1.0.0",
+  "author": "akagr",
+  "homepage": "https://github.com/akagr/finance-tools",
+  "skills": []
+}
