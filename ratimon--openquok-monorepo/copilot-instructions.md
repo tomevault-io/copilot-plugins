@@ -1,33 +1,42 @@
-## backend-e2e-integration-test-naming
+## backend-error-handling
 
-> E2E and integration tests must be feature-, user-, or scenario-driven; avoid endpoint-style describe/it names
+> Express/backend error handling — pass errors to the global error handler via next(error)
 
 
-# E2E and integration test naming: feature / user / scenario driven
+# Backend error handling
 
-Write **describe** blocks and **it** titles from a **feature**, **user**, or **scenario** perspective. Do **not** name them after HTTP methods and paths or raw response codes.
+In Express request handlers (controllers, route handlers), pass errors to the global error handler by calling **`next(error)`**. Do not throw; in Express 4 async handlers, thrown errors are not caught and the request will hang.
 
-## Describe blocks
+## Pattern
 
-- **Avoid**: `describe("GET /users/me")`, `describe("PUT /users/me/password")`, `describe("GET /feedback")`
-- **Prefer**: `describe("Viewing own profile (current user)")`, `describe("Changing password")`, `describe("Submitting feedback and managing it with roles")`
+In async handlers, use a single top-level `try/catch` and pass the error to `next` in the catch:
 
-Group by **what the user is doing** or **what scenario** is being tested, not by route.
+```ts
+public someHandler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        // ... handler logic ...
+        res.status(200).json({ ... });
+    } catch (error) {
+        next(error);
+    }
+};
+```
 
-## It (test case) titles
+## Rules
 
-- **Avoid**: "returns 200 and profile when authenticated", "returns 401 when no Authorization header", "GET /feedback without auth returns 401"
-- **Prefer**: "authenticated user can fetch their profile with email and fullName", "unauthenticated request is rejected", "unauthenticated user cannot list feedback"
+- **Catch variable**: use `error` (not `e` or `err`) for consistency.
+- **In catch**: call `next(error)` so the global error handler runs. Do not throw.
+- **Pre-cleanup**: if the handler must do something before the error propagates (e.g. clear a cookie), do that in the catch block before `next(error)`.
+- Rely on the **ErrorController** to log and send the response; controllers should not duplicate that logic.
 
-Phrase as **user actions and outcomes** or **scenario outcomes**, not "returns status X and ..." or "GET /path returns 401".
+## Example with cleanup
 
-## Examples (aligned with this repo)
-
-- **Auth flows**: "User Signup Flow", "User Login Flow", "Token Refresh Flow", "Email verification after signup", "Resend verification email"
-- **Test titles**: "user can confirm email with valid token and then sign in", "unverified user can request a new verification email", "callback redirects to auth-error when code is missing"
-- **Integration**: "anonymous can submit feedback; after super admin assigns admin role, admin can list and mark it handled", "unauthenticated user cannot list feedback"
-
-When adding or refactoring E2E tests under `backend/tests/e2e/` or integration tests under `backend/tests/integration/`, follow this naming style so specs read as user/scenario stories rather than API endpoint lists.
+```ts
+} catch (error) {
+    if (req.cookies?.refreshToken) res.clearCookie("refreshToken");
+    next(error);
+}
+```
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
