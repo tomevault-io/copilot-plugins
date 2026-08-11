@@ -1,160 +1,17 @@
-## backend-test-suites
+## company-brand-icons
 
-> Test suite patterns — RBAC/user setup, Faker, anchor-before-failure, HTTP integration mocks (supertest), Flowcraft workflow unit tests, data cleanup
+> Keep branded icons in sync for public company, competitor, agent, and MCP entries
 
 
-# Backend test suites
+# Brand icon sync
 
-## 0. Logger noise under Jest
+When adding a new public company or product entry under competitors, agents, or MCP constants:
 
-`utils/Logger.ts` suppresses **info** and **debug** (including `trace`) when `NODE_ENV` is `test` (set in `jest.env-setup.cjs`) or `JEST_WORKER_ID` is set, so Jest runs stay readable. **error** and **warn** still print. The check runs on each log call so hoisted imports cannot miss it.
-
-To print verbose logs while debugging a suite: `BACKEND_TEST_VERBOSE_LOGS=true pnpm exec jest path/to.test.ts`.
-
-### Expected `logger.warn` / `logger.error` in unit tests
-
-Suites that **intentionally** trigger failure paths (mocked `reject`, invalid inputs, etc.) will execute real `logger.warn` / `logger.error` in production code. That is correct behavior; passing tests mean the service handled the failure as designed.
-
-To avoid Jest printing those lines as if something were wrong, **stub the logger in that test file** (e.g. `beforeEach`: `jest.spyOn(logger, "warn").mockImplementation(() => {});` and the same for `error` where needed; `afterEach`: `jest.restoreAllMocks()`). Keep asserting on **return values, metrics, and repository calls**—not on console output.
-
-## 1. Mocking roles (RBAC) in integration tests
-
-Use the **Listing-style** pattern so platform admin, editor, and other app roles are set before tests run:
-
-- **Create users** with `UserTestHelper.createVerifiedUserWithAuthAndDatabase(userData, options)`:
-  - `userData`: `{ id: uuidv4(), email: '…@test.com', password, fullName }`.
-  - `options`: `{ isPlatformAdmin?: boolean; isEmailVerified?: boolean }`.
-  - **Platform admin**: pass `{ isPlatformAdmin: true, isEmailVerified: true }`. Only one user per suite should have `isPlatformAdmin: true`.
-  - **Editor / normal user**: pass `{ isEmailVerified: true }` only (helper sets `is_super_admin: false` explicitly).
-- **App roles** (editor, admin): assign via the API after user creation, e.g. `POST /users/:publicId/roles/editor` with the platform admin token. Do not only set DB flags; use the same API path the app uses.
-- **Sign in** each user via `POST /auth/sign-in` and store the access token for `Authorization: Bearer <token>` in test requests.
-- Run this setup in `beforeEach` so each test gets fresh users (and track all via `trackUser` so cleanup can remove them), or in `beforeAll` if the suite does not mutate shared users.
-
-Reference: `backend/tests/integration/BlogRbac.integration.test.ts` (platform admin + editor + normal user, role assignment, then `afterAll` cleanup).
-
-## 2. How we clean data
-
-Cleanup lives in **UserTestHelper** (`backend/tests/helpers/userTestHelper.ts`). Respect FK order: delete child rows before parents (or rely on CASCADE where the schema defines it).
-
-- **cleanAllStoredUsers()** — Cleans users tracked in `createdUserIds` (auth ids). Resolves to `public.users.id` list, then:
-  1. Delete **blog_posts** for those user ids.
-  2. Delete **organizations** (via user_organizations).
-  3. Delete **organization_invites** by resolved emails.
-  4. Delete auth users and **public.users** for each tracked auth id.
-  5. Clear `createdUserIds`.
-- **cleanTestUsersByEmailPattern()** — Cleans by email pattern (`@test.com`, `@example.com`):
-  1. Delete **organization_invites** by pattern.
-  2. Get user ids from **public.users** by pattern.
-  3. Delete **blog_posts** for those ids, then **organizations** for those ids.
-  4. Delete auth users and **public.users** rows; then sweep **auth.users** for any remaining matching emails.
-- **cleanAll()** — Runs `cleanAllStoredUsers()` then `cleanTestUsersByEmailPattern()`. Use in suite **afterAll** when you want one full cleanup at the end (e.g. auth e2e).
-
-**When to use which:** Use `cleanAllStoredUsers()` in **afterAll** (not afterEach) for RBAC/integration suites that create users in beforeEach and track them — Jest runs afterAll even when tests fail, so data is cleared once. Use `cleanAll()` in **afterAll** for e2e suites that also want pattern-based cleanup. Use **afterEach** + `cleanAllStoredUsers()` only when each test must start with a completely clean DB.
-
-## 3. Clearing data for new tables
-
-When you add a **new table** (e.g. in `backend/supabase/db/**/103_*_tables.sql` or similar), tests that reset or clean data must account for that table so test runs start from a clean state and do not leave rows that affect later tests.
-
-- **Update the relevant test helper** (e.g. `backend/tests/helpers/userTestHelper.ts`) so that its cleanup paths also clear the new table where appropriate:
-  - If cleanup is **by user/org** (e.g. "delete everything for these users"): add logic to delete rows in the new table that belong to those users or to orgs being removed (respect FKs and order: delete child rows before or with parent, or rely on CASCADE).
-  - If cleanup is **by pattern** (e.g. "delete all test users by email pattern"): add a step to delete from the new table using the same pattern or the same list of identifiers (e.g. emails, org ids) before or after the existing cleanup.
-- **Preserve cleanup order**: respect foreign keys (e.g. delete `organization_invites` before or when deleting related `organizations`/users, or rely on CASCADE if the schema supports it). If the new table references others, prefer deleting from the new table explicitly in the helper so behavior is clear and CASCADE is not relied on for test cleanup unless intended.
-- **Keep helpers in sync with schema**: any table that can be written by tests or by app code under test should be considered for cleanup so that "clean" really means no leftover data from the new table.
-
-**Rule of thumb:** After adding a new table, search for cleanup/teardown logic in `backend/tests/helpers` (and any shared test setup that touches the DB) and add clearing of the new table's data in the same places where related entities (users, orgs, etc.) are already being cleared.
-
-## 4. Using Faker for test data (unit, integration, e2e)
-
-Use **@faker-js/faker** across unit, integration, and e2e tests so test data is varied and not tied to magic strings. Prefer Faker over hardcoded values for payloads, mock entities, IDs, and request bodies.
-
-- **Import**: `import { faker } from "@faker-js/faker";`
-- **IDs**: Use `faker.string.uuid()` for `id`, `user_id`, `topic_id`, and other UUIDs so tests don’t rely on fixed values.
-- **Text**: Use `faker.lorem.sentence()`, `faker.lorem.paragraph()`, `faker.lorem.paragraphs()` for title, description, content; use `faker.person.fullName()`, `faker.internet.email()` when you need names or emails (e.g. in integration/e2e user creation or API payloads).
-- **Dates**: Use `faker.date.past().toISOString()`, `faker.date.recent()`, etc. for `created_at`, `updated_at`, `published_at`.
-- **Slugs / derived values**: If the code under test derives values (e.g. slug from title), derive the expected value in the test too — e.g. `const slugFromTitle = stringToSlug(title)` — and use that in both the mock and assertions so tests stay valid for any Faker-generated title.
-- **Shared test data**: Define Faker-backed constants at the top of the describe/file (e.g. `topicId`, `postId`, `title`, `slugFromTitle`) and reuse them in payloads and mocks so IDs and slugs stay consistent within the suite.
-- **When to keep hardcoded values**: Keep a fixed value only when the test explicitly asserts on an invalid or edge-case input (e.g. `"not-a-uuid"` for a ValidationError). In integration/e2e, stable values (e.g. `@test.com` for cleanup patterns) may still be used where the cleanup or setup relies on them.
-
-Reference: `backend/services/BlogService.unit.test.ts` (Faker for payloads, mock post, IDs, dates, and slug derivation).
-
-## 5. Prefer API routes over direct DB in integration tests
-
-When an operation is exposed by an HTTP route, **use supertest to call that route** instead of direct Supabase/client DB access. This keeps tests aligned with real app behavior (auth, validation, cache invalidation, etc.).
-
-- **Mutations:** If the app has a route for the action (e.g. `PATCH /comments/:id/approve`, `PUT /posts/:id`), call it via `supertest(app).patch(...).set("Authorization", "Bearer " + token)` (or the appropriate method) rather than `adminSupabase.from("table").update(...)`.
-- **Reads:** When you need data that the API returns (e.g. post `slug`, `isAdminApproved`), use the corresponding GET route with an authenticated token and read from the response body (e.g. `getRes.body.data.slug`) instead of `adminSupabase.from("blog_posts").select("slug").eq("id", postId).single()`.
-- **When direct DB is still appropriate:** Use the service-role client (e.g. `adminSupabase`) for test helpers that track or clean data (e.g. `BlogTestHelper`), for teardown that has no API (e.g. deleting by pattern, resetting flags), or when the operation under test has no HTTP endpoint.
-
-**Rule of thumb:** Before using `adminSupabase.from(...).update/insert/select` in an integration test, check whether the app already exposes that behavior via a route; if so, use supertest to hit the route and assert on the response.
-
-Reference: `backend/tests/integration/BlogRbac.integration.test.ts` (comment approve via PATCH, post state/slug via GET `/posts/:id`, no direct blog_comments/blog_posts mutation or read where a route exists).
-
-## 6. Anchor (pivot) state before limit and failure assertions
-
-For integration tests that assert **rejection at a plan or policy boundary** (402 subscription errors, 403 forbidden, “at capacity” behavior), **establish and assert the precondition first**, then assert the failure. Without that anchor, a passing “blocked” assertion can hide a broken setup (empty table, wrong tier, seed insert failed).
-
-**Pattern (three beats):**
-
-1. **Anchor on the contract** — Assert the limit from the shared catalog or config the code under test uses (e.g. `planLimitsForTier("SOLO").channel_per_workspace` and `expect(channelCap).toBe(15)`). Tie magic numbers to `openquok-common` / `GlobalConfig`, not only to test-local constants.
-2. **Arrange to the boundary** — Seed or call APIs until the workspace is **at** the cap (e.g. insert `channelCap` integration rows, stub `permissionsService.getTierAndLimits` to SOLO, spy `billingEnabled()` when enforcement is gated on Stripe config).
-3. **Pivot (verify state)** — Read back through the **same path production uses** before the negative assertion (e.g. `integrationService.listByOrganization(orgId)` then `expect(connectedChannels).toHaveLength(channelCap)`). Only after that passes, assert the new action is rejected and, when relevant, that an allowed edge case still succeeds (e.g. reconnecting an existing `internal_id` does not count as a new channel).
-
-**Negative vs positive in one test:** After the pivot, assert **failure** for the over-limit case, then **success** for the in-bounds case (reconnect, same-seat user, etc.) so the policy is not “always deny.”
-
-**When direct DB seed is OK:** Seeding via service-role Supabase is fine for arrange when no HTTP route exists or setup would be huge; the pivot step should still use app services or routes when they mirror enforcement (see §5).
-
-Reference: `backend/tests/integration/Plan.solo.integration.test.ts` (SOLO channel cap: catalog anchor → `stubSoloPlanLimits` → `seedSocialIntegrations` → `listByOrganization` length → policy assertions).
-
-**Shared helpers** (`backend/tests/helpers/integrationTestHelper.ts`): `insertTestSocialIntegration`, `seedSocialIntegrations`, `seedSocialConnectOAuthState`, `stubInMemorySocialConnectCache` — use for connected-channel setup and OAuth `social-connect` tests. **SOLO workspace billing in HTTP tests** (`backend/tests/helpers/workspaceTestHelper.ts`): `prepareSoloWorkspace()` (spies `billingEnabled`, `getTierAndLimits`, `getSubscriptionByOrganizationId`) + `restoreSoloWorkspaceSpies` in `afterEach` — prefer over upserting `organization_subscriptions`. Plan cap suites: `stubSoloPlanLimits()` per test when limits differ from the default SOLO stub.
-
-## 7. Mocking externals for HTTP integration tests (supertest)
-
-Integration tests that hit **real routes** via `supertest(app)` still **mock outbound boundaries** the suite cannot or should not run (OAuth token exchange, shared Redis OAuth state, object storage, usage meters). This is **not** “mock HTTP”: the request goes through Express, auth middleware, validation, controllers, and services.
-
-### Do
-
-- **Call the real route** with `supertest(app)`, JWT / API key headers, and bodies the validators accept (see §5).
-- **Assert the client contract** on failures: e.g. `expect(res.status).toBe(402)`, `expect(res.body?.success).toBe(false)`, `expect(res.body?.error?.section).toBe("channel_per_workspace")` (same shape as `ErrorController` for `SubscriptionError`).
-- **Mock only what sits outside the policy under test**, for example:
-  - **OAuth / provider** — `jest.spyOn(integrationManager, "getSocialIntegration")` returning a minimal `SocialProvider` whose `authenticate` resolves to a chosen `id` (`internal_id`). Use separate mock implementations for “new account” (should hit cap) vs “reconnect” (existing `internal_id`, should succeed at cap).
-  - **Short-lived OAuth cache** — `stubInMemorySocialConnectCache()` from `integrationTestHelper` (spies `cacheServiceConnection` `get`/`set`/`del` into a per-test `Map`). Pair with `seedSocialConnectOAuthState(cache, orgId, state)` so `POST /integrations/social-connect/:integration` does not depend on Redis or leftover keys. Call `restore()` in a `finally` block after the HTTP calls.
-  - **Storage / usage** — e.g. `jest.spyOn(subscriptionService, "getWorkspaceDriveUsage")` and `jest.spyOn(storageR2Repository, "completeMultipartUpload")` so a cap test does not fill real buckets; assert the downstream call was **not** invoked when blocked.
-  - **Billing gate** — `jest.spyOn(subscriptionService, "billingEnabled").mockReturnValue(true)` when limits are enforced only with Stripe configured.
-- **Combine with §6** — anchor catalog limit, seed to the boundary, pivot (read back via app service or GET), then HTTP negative, then HTTP (or service) positive edge case when policy allows it (e.g. reconnect at channel cap returns **200** because the same `internal_id` is not a new slot; add a one-line comment when that surprises readers).
-- **Optional thin guard assertion** before HTTP when the edge case is easy to miss (e.g. `permissionsService.assertX(orgId, 0)` no-op, or reconnect allowed on `assertConnectSocialChannelAllowed`). Prefer **one test** with guard + HTTP rather than two tests that duplicate the same cap scenario.
-
-### Do not
-
-- **Do not** mock `supertest`, Express, or route handlers to fake a 402/403 — that would not prove wiring.
-- **Do not** `cacheServiceConnection.flush()` (or flush shared Redis) in suite `afterEach` — it affects other tests and processes. Rely on `stubInMemorySocialConnectCache().restore()` or TTL + unique `state` UUIDs when using the real cache.
-- **Do not** duplicate a full HTTP OAuth pipeline in every cap test when a **direct service call** to the guard is enough — use HTTP when the route adds value (status/body, auth, validation). Use service-only for a single guard with no meaningful HTTP shortcut; use HTTP + mocks when the route is the product path (e.g. `POST /posts` schedule, `POST …/complete-multipart-upload`, `POST …/social-connect/…`).
-
-### OAuth `social-connect` checklist
-
-1. `stubInMemorySocialConnectCache()` before seeding state.
-2. `seedSocialConnectOAuthState(cacheServiceConnection, orgId, state)` with a unique `state` per request.
-3. Spy `getSocialIntegration` for the provider slug (e.g. `threads`).
-4. Spy `refreshIntegrationService.startRefreshWorkflow` if the connect path would enqueue work.
-5. `POST` with `{ state, code, timezone }` and `Authorization: Bearer <accessToken>`.
-6. `restore()` all spies in `finally`.
-
-Reference: `backend/tests/integration/Plan.solo.integration.test.ts` (SOLO channel cap: guard reconnect edge case → `social-connect` 402 for new `internal_id` → `social-connect` 200 for reconnect; posts cap via `POST /posts`; media cap via `complete-multipart-upload` + usage/R2 spies).
-
-## 8. Flowcraft orchestrator workflows (unit)
-
-Long-running supervisors under `orchestrator/flows/` are tested with **Jest** by calling the exported runner (e.g. `runRefreshTokenOrchestration`) and **mocking** slow or external pieces—same spirit as other unit suites: no real Redis, no real sleep for hours.
-
-- **Entry point**: Prefer testing `runRefreshTokenOrchestration` (or the next flow’s public runner) so transport branching (`in_process` vs `bullmq`) and `FlowRuntime` wiring stay covered. Mock `../activities/…` and `../sleepChunked` (or equivalent) so ticks complete quickly.
-- **Faker**: Use `@faker-js/faker` for `organizationId` / `integrationId` and mock integration rows (see §4). HTTP integration suites use the same rule for user/org payloads; boundary mocks are spies/stubs, not Faker (see §7).
-- **Optional event bus**: `runRefreshTokenOrchestration(..., { eventBus })` accepts an `IEventBus` from `flowcraft`. In tests, pass `new InMemoryEventLogger()` from `flowcraft/testing` and assert on `workflow:start`, `workflow:finish`, `node:start`, etc.
-- **Framework helpers** (`flowcraft/testing`): `runWithTrace(runtime, blueprint, initialState, { functionRegistry })` for end-to-end graph runs with traces on failure; `createStepper(runtime, blueprint, functionRegistry, initialState)` to step the graph and assert intermediate status. Use the same `createRefreshTokenFlowBuilder()` (or sibling) as production for blueprint + `getFunctionRegistry()`.
-- **Jest resolution**: `flowcraft/testing` is mapped in `backend/jest.config.js` (`^flowcraft/testing$` → `node_modules/flowcraft/dist/testing/index.mjs`) alongside `flowcraft` → `dist/index.mjs`. Keep these in sync if the package layout changes.
-- **Service vs graph**: `RefreshIntegrationService.startRefreshWorkflow` is gated by `config.bullmq.integrationRefresh.enabled` (off under Jest via `JEST_WORKER_ID`). Tests that only exercise the **blueprint** should call `runRefreshTokenOrchestration` directly; tests for “OAuth starts the supervisor” mock `config` or the service as needed.
-- **Transport env (`in_process` | `bullmq`)**: Defaults live in `backend/config/orchestratorFlows.ts`; optional overrides are `ORCHESTRATOR_INTEGRATION_REFRESH_TRANSPORT` and `ORCHESTRATOR_NOTIFICATION_EMAIL_TRANSPORT` (merged in `GlobalConfig.ts`). Orchestrator’s default Jest setup runs `jest.orchestrator-default-transport.cjs` after `backend/jest.env-setup.cjs` to **clear** those vars so in-process Flow suites are stable even if `.env.development.local` sets `bullmq`.
-
-**Distributed (BullMQ) path**: `pnpm test:unit:refresh-token-workflow:bullmq` (orchestrator) uses `jest.bullmq.config.js` (no transport reset) plus `ORCHESTRATOR_INTEGRATION_REFRESH_TRANSPORT=bullmq`; see `orchestrator/flows/refreshTokenWorkflow.bullmq.unit.test.ts`. For worker/Redis smoke, use integration-style tests; keep queue names aligned with `orchestratorFlows`.
-
-Reference: `orchestrator/flows/refreshTokenWorkflow.unit.test.ts` (mocked activities + sleep, `InMemoryEventLogger`, `runWithTrace`, `createStepper`).
+- Add or reuse a branded icon in `web/src/data/icons/branded-icons.ts` first.
+- Reference icons through the registry with `icons.SomeBrand.name` rather than hardcoded strings.
+- Keep icon names aligned with the content constant so new entries render consistently in hubs, compare pages, and detail pages.
+- If the new entry appears in a public selector, card, or compare surface, make sure the view model carries the icon through instead of re-deriving it in page markup.
+- Prefer inline SVG paths in the icon registry for vector logos; use local image assets only when vector artwork is not practical.
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
