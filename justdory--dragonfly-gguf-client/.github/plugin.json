@@ -1,0 +1,9 @@
+{
+  "name": "justdory--dragonfly-gguf-client",
+  "displayName": "dragonfly-gguf-client",
+  "description": "Fork of dragonflyoss/client with native gguf:// backend for P2P GGUF model distribution",
+  "version": "1.0.0",
+  "author": "JustDory",
+  "homepage": "https://github.com/JustDory/dragonfly-gguf-client",
+  "skills": []
+}
