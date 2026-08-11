@@ -1,0 +1,9 @@
+{
+  "name": "xopoko--plug-n-skills",
+  "displayName": "plug-n-skills",
+  "description": "Ready-to-install skills and plugins for Codex, Claude Code, and AI coding agents: practical workflows for app delivery, architecture, research, design, and agent tooling.",
+  "version": "1.0.0",
+  "author": "Xopoko",
+  "homepage": "https://github.com/Xopoko/plug-n-skills",
+  "skills": []
+}
