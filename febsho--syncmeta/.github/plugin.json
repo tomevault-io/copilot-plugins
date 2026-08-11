@@ -1,0 +1,9 @@
+{
+  "name": "febsho--syncmeta",
+  "displayName": "SyncMeta",
+  "description": "SyncMeta keeps SIMKL, Trakt, MDBList, and optionally AniList watchlists and lists synced into PublicMetaDB lists. https://syncmeta.febsho.me",
+  "version": "1.0.0",
+  "author": "Febsho",
+  "homepage": "https://github.com/Febsho/SyncMeta",
+  "skills": []
+}
