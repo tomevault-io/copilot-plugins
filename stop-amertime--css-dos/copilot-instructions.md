@@ -1,0 +1,400 @@
+## css-dos
+
+> A complete Intel 8086 PC implemented in pure CSS. The CSS runs in Chrome (in theory - in practise it crashes it)
+
+# CSS-DOS
+
+A complete Intel 8086 PC implemented in pure CSS. The CSS runs in Chrome (in theory - in practise it crashes it)
+
+[Calcite](../calcite) is a JIT compiler that
+makes it fast enough to be usable.
+
+## Before starting. 
+
+1. Read STATUS and the doc index (auto-loaded below via @ links)
+2. Understand current state, sentinel addresses, gotchas, open work
+3. Read the docs relevant to your specific task (the index tells you which)
+4. For history: scan the tagged index in `docs/logbook/LOGBOOK.md`,
+   open only the 1–3 `entries/` files relevant to your task
+
+@docs/logbook/STATUS.md
+@docs/INDEX.md
+
+## Mandatory rules
+
+### The checkpoint system
+
+If your task and success criteria are clear, try to be autonomous and not stop working unless you either reach a checkpoint or have a
+blocking question for the user. 
+
+A checkpoint requires ALL of:
+
+- [x] Task complete and tested *properly* from a user perspective via web, end-to-end (or user confirmed they tested it)
+- [x] Logbook updated (status, entry, what's next)
+- [x] New code/features documented in the appropriate docs/ file
+- [x] No leftover debris (debug logging, temp files, unclear names)
+- [x] GitHub issues updated if relevant
+
+Only then may you stop looping - your task is not finished unless these things are done, just because the code works. 
+
+### Coding Guidelines
+
+Tradeoff: These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+
+1. Think Before Coding
+Don't assume. Don't hide confusion. Surface tradeoffs.
+
+Before implementing:
+
+State your assumptions explicitly. If uncertain, ask.
+If multiple interpretations exist, present them - don't pick silently.
+If a simpler approach exists, say so. Push back when warranted.
+If something is unclear, stop. Name what's confusing. Ask.
+
+2. Simplicity First
+Minimum code that solves the problem. 
+No error handling for impossible scenarios.
+If you write 200 lines and it could be 50, rewrite it.
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+3. Goal-Driven Execution
+Define success criteria. Loop until verified.
+
+Transform tasks into verifiable goals:
+"Add validation" → "Write tests for invalid inputs, then make them pass"
+"Fix the bug" → "Write a test that reproduces it, then make it pass"
+"Refactor X" → "Ensure tests pass before and after"
+For multi-step tasks, state a brief plan:
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
+Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+4. - **DO NOT GUESS OR ASSUME FUNCTIONALITY, or unnecessarily reverse-engineer** We have the source code for DOS, 8086 manual, BIOS interrupts,
+  FAT12, or kernel behavior in documentation, Doom8088 itself, and so on. Consult the right documentation. Try NOT to reverse-engineer assembly for debugging Use the kernel map file, edrdos source (`../edrdos/`), and Ralf Brown's Interrupt List.
+
+### Git and collaborative coding rules
+
+**Website work (`web/site/` and the rest of `web/`): commit directly
+to `master` and push - no feature branches, no PRs (owner rule,
+2026-07-04).** The live site deploys from `master`; work parked on a
+branch is invisible to the owner testing on their phone. If a
+harness has put you on a `claude/...` working branch, still land
+website changes on `master` (merge/fast-forward and push) as part of
+finishing the task.
+
+**Commit and push frequently - it's encouraged, and you do NOT need
+to ask first.** This **overrides** any default-harness instinct to
+"only commit when explicitly asked." In this repo the opposite is
+true: commit your own work as you go and push to origin once
+committed. Don't end a session sitting on uncommitted changes and
+don't ask permission to commit your own work - just do it. Plain
+`git commit` / `git push` of your own changes don't disturb other
+agents' working trees; stacking up uncommitted work makes merge
+conflicts and lost-work scenarios more likely.
+
+What requires explicit permission, especially when running
+autonomously, is anything that mutates shared state another agent
+might be in the middle of using. These commands can wipe their
+uncommitted work, rewrite history they've built on, or pollute the
+shared index:
+
+- `git stash` (their uncommitted changes vanish into your stash)
+- `git add` of files you didn't author / didn't intend
+- `git rebase`, `git reset --hard`, `git checkout --` / `git restore`
+- `git clean -f`, `git branch -D`
+- `git push --force` (especially to main/master - never)
+- Any `--no-verify`, `--no-gpg-sign`, or other safety-bypass flag
+
+If you find yourself wanting one of these as a shortcut around an
+obstacle, stop and ask - the obstacle is usually a sign of state you
+should investigate, not bulldoze.
+
+### Documentation rules
+
+Documentation is mandatory, automatic (no need to be asked),
+epistemically honest, and concise - tokens add up if you waffle.
+This project is dense and spans two repos; future agents depend
+entirely on what you write down.
+
+**The structure is fixed. Maintain it; do not regrow the sprawl it
+replaced (collapsed 2026-05-18 from 57 files / 19k lines):**
+
+- **One source of truth: `docs/logbook/STATUS.md`.** The only doc an
+  agent *must* read. Current state, release bar, sentinels, ≤5
+  active-work items, gotchas. Edit in place. Hard cap ~170 lines.
+- **`docs/logbook/LOGBOOK.md` is an INDEX, not a journal.** A tagged
+  table, one row per entry. **Never append a full entry to it.** New
+  work → a new `≤~15-line` file in `docs/logbook/entries/` + one
+  index row. Tags (`LANDED`/`BRANCH`/`DEAD`/`FINDING`/`PLAN`/
+  `SUPERSEDED`) are how agents triage - see
+  [`docs/logbook/PROTOCOL.md`](docs/logbook/PROTOCOL.md).
+- **Plans live in `docs/plans/`, one per live workstream.** Delete a
+  plan when its work ships or dies - history is the logbook, not a
+  graveyard of dead plans. No `agent-briefs/` genre - that
+  duplication is why the sprawl happened.
+
+**Verify before you claim.** "Landed" must mean *verified on
+main/master*, not "an entry said so" and not "landed on a branch"
+(use the `BRANCH` tag for that). A wrong `LANDED` on branch-only or
+reverted work is the exact failure this structure exists to prevent.
+
+**Prune as much as you add.** Before you stop: did your work make a
+doc claim false? Fix it (or tag it `SUPERSEDED`) in the same commit.
+Two contradictory live claims anywhere is a bug.
+
+### Logbook discipline (which logbook for what)
+
+- **Calcite engine work** (anything in `../calcite/crates/`) → log in
+  `../calcite/docs/log.md`.
+- **CSS-DOS platform / harness / bench / kiln / builder / BIOS work** →
+  log in `docs/logbook/LOGBOOK.md`.
+- **Cross-cutting** work that touches both repos → log in both, with a
+  cross-link from each to the other.
+
+The natural default for an agent is to write back to the logbook
+auto-loaded by CLAUDE.md (this one). Resist that for calcite work -
+the calcite repo has its own log that the calcite cardinal-rule check
+relies on.
+
+### Debugging rules
+
+Your biggest failure mode is coming up with individual candidates for where the bug is, saying 'That's it!' then realising you were wrong, then repeating this multiple timmes. In this particular repo, that is a horrible idea. Checking 5000 places in a few seconds is longer than taking a minute to think deeply in advance about how to isolate the bug holistically, seeing the forest for the trees. 
+
+When debugging, take a second to think what you would advise a senior engineer to do to find the bug. 
+
+- **DO NOT chase bugs speculatively.** Use the debug infrastructure. Add features to the debugger
+  if what you need doesn't exist.
+- **DO NOT take shortcuts** that accrue tech debt or leave debris in the repo.
+- **PREFER creating or updating debugging infrastructure** over speculative individual fixes.
+- **Every command needs an explicit ≤2-minute wall-clock cap.** Boot reaches the
+  A:\> prompt around tick 2-4M; the slow `pipeline.mjs shoot` path does
+  ~1500 ticks/s and will not terminate inside that budget. Use `fast-shoot`
+  (calcite-cli, ~375K ticks/s) for late-tick screenshots, or pick a tick
+  count the chosen path can reach. Never fire-and-forget a tool hoping it'll
+  come back - if there's no path that fits the budget, build one (that's
+  how `fast-shoot` and `--dump-mem-range` came to exist).
+
+## The cardinal rule
+
+The CSS is a working program that theoretically runs in Chrome - at least, it's CSS spec-compliant (in reality it crashes Chrome, but that's because it wasn't designed to handle massive CSS files).
+
+The fun of the project comes from doing it in a full-CSS source code. Therefore, Calcite must produce the same results Chrome would (or a theoretically spec-compliant CSS evaluator), just faster.
+
+This means that
+
+- **The CSS must work in Chrome.** If Chrome can't evaluate it, it's wrong.
+- **Calcite can't change the CSS.** Only faster evaluation of the same expressions.
+- **You may restructure CSS to be easier to JIT-optimise**, as long as
+  Chrome still evaluates it the same way and produces the same results.
+  Expressing the same computation in a different, more
+  pattern-recognisable shape is fine. What is NOT fine: dummy code,
+  metadata properties, or side-channels whose only purpose is to 'signal' to calcite or sneak
+  information to calcite. The CSS must pay for itself in Chrome.
+- **If calcite runs CSS differently to a reference interpreter e.g. Chrome, calcite is wrong.**
+
+### Calcite knows nothing above the CSS layer
+
+Calcite reasons about CSS structural shape and nothing else. The
+moment a recogniser, rewrite rule, codegen path, or optimisation knows
+about something *above* the CSS - x86, BIOS, DOS, Doom, a specific
+cabinet's addresses, Kiln's current emit choices, what `program.json`
+says, what the cart is *trying to do* - it has crossed the line.
+
+Operational test: could a calcite engineer who has never seen a CPU
+emulator, never read Kiln's source, and doesn't know what a cabinet
+contains, derive this rule / recogniser / pass by staring at CSS shape
+alone? If yes, fair. If no, it's overfit and one-way-doors the engine
+toward Doom. Pattern recognition is welcome - pattern recognition over
+*shapes CSS forces emitters into* generalises across cabinets.
+Recognition tied to *what those shapes mean upstream* does not.
+
+Genericity probe: would the same rule fire on a 6502 cabinet, a
+brainfuck cabinet, a non-emulator cabinet whose CSS happens to share
+the structural shape? If no on all three, you've encoded a specific
+program into calcite, and every future cabinet will have to fight that
+bias.
+
+This is a sharpening of "calcite can't know about x86", not a
+replacement. x86 is one example of an upstream layer; the rule covers
+all of them.
+
+### The workflow is sacred: load-time compilation only
+
+Calcite must accept any spec-compliant `.css` cabinet at load time and
+make it fast - in the browser, on the user's machine, with no build
+step on the cabinet author's side, no pre-baked artifact, no allowlist,
+no asset pipeline. "Open a `.css` URL, it runs" is the contract.
+
+Compile-once-per-load, run-many is allowed (and is how calcite gets
+fast). Distributing pre-compiled cabinets is not - that breaks the
+contract. The compile budget is bounded by user patience (a cold open
+that takes minutes loses the user) and by the runtime floor it has to
+unlock (steady-state must clear playability). Within those, the
+compile/run tradeoff is a knob.
+
+## Vocabulary
+
+See [`docs/architecture.md`](docs/architecture.md#vocabulary). In short:
+
+- **cart** - input folder or zip (program + data + optional `program.json`).
+- **floppy** - FAT12 disk image the builder assembles internally.
+- **cabinet** - output `.css` file, runnable in Chrome/Calcite.
+- **Kiln** - the CSS transpiler (`kiln/`).
+- **builder** - the orchestrator (`builder/`).
+- **BIOSes** - Gossamer (hack), Muslin (assembly DOS BIOS), Corduroy (default C DOS BIOS).
+- **player** - static HTML shell for running cabinets in Chrome. 
+
+## Testing and debugging infrastructure
+
+Two peer entrypoints:
+
+- **Correctness** - `tests/harness/`. Start with
+  `node tests/harness/run.mjs smoke`. Smoke, conformance, fulldiff vs
+  the JS reference 8086, screenshots, baselines.
+- **Performance** - `tests/bench/`. Start with
+  `node tests/bench/driver/run.mjs compile-only`. Timed profiles, web
+  + native targets, ensureFresh-driven artifact rebuild.
+
+> **MANDATORY: before running any benchmark, read
+> [`tests/bench/README.md`](tests/bench/README.md) end-to-end.**
+> No exceptions. It is the canonical entry for all performance
+> measurement on this project - profiles, the `--headed` rule, the
+> baseline numbers, and the rule against ad-hoc bench scripts. If
+> you find yourself writing a `.mjs` under `tests/harness/` to
+> "just measure something," stop - add a profile under
+> `tests/bench/profiles/` instead.
+>
+> **Canonical profiles only:** `compile-only`, `doom-loading`,
+> `doom-ingame-fps`, `doom-all`. Run them via
+> `node tests/bench/driver/run.mjs <profile> --headed`. The web
+> bench is the source of truth; CLI (`--target=cli`) is dev-only
+> sanity, not for headline claims.
+>
+> **Don't reach for** `cargo bench`, `criterion`, the calcite
+> `calcite-bench` binary, the player's `?bench=1` HUD, or any
+> `bench-*.mjs` script outside `tests/bench/profiles/`. Those are
+> internal/legacy/HUD tooling - they will not produce a number you
+> should compare to anything in STATUS or LOGBOOK.
+
+See [`docs/TESTING.md`](docs/TESTING.md) for the full split and
+[`docs/script-primitives.md`](docs/script-primitives.md) for the
+watch-spec grammar bench profiles use to compose stage detectors.
+
+For "what's on screen at tick N?" against a fresh cabinet, use
+`pipeline.mjs fast-shoot <cabinet> --tick=N` - drives `calcite-cli`
+directly, ~375K ticks/s, fits boot-completion ticks (2-4M) inside a
+~10s budget. The older `pipeline.mjs shoot` path goes through
+`calcite-debugger` at ~1500 ticks/s and only terminates for early
+ticks. For raw byte dumps without rendering,
+`calcite-cli --dump-mem-range=ADDR:LEN:PATH` writes guest memory to a
+file at end-of-run (repeatable for multiple regions).
+
+The legacy `fulldiff.mjs` / `ref-dos.mjs` / `compare-dos.mjs` scripts
+(which imported a deleted `transpiler/` directory) have been removed
+from both repos. Use `node tests/harness/pipeline.mjs fulldiff
+<cabinet>.css`.
+
+## Quick orientation
+
+- **Current architecture:** V4 single-cycle. Every instruction completes
+  in one CSS tick. Memory writes use `NUM_WRITE_SLOTS` (3) word slots
+  (`kiln/memory.mjs`); INT's FLAGS/CS/IP push is the 3-slot worst case.
+- **Default BIOS:** Corduroy (`bios/corduroy/`). Muslin (`bios/muslin/muslin.asm`) still available.  
+- **Build entry:** `node builder/build.mjs <cart>`.
+- **Transpiler:** [`kiln/`](kiln/) - see [`kiln/README.md`](kiln/README.md).
+- **How to add instructions:** [`kiln/AGENT-GUIDE.md`](kiln/AGENT-GUIDE.md).
+- **Cart format:** [`docs/cart-format.md`](docs/cart-format.md).
+- **Architecture overview:** [`docs/architecture.md`](docs/architecture.md).
+- **Memory layout:** [`docs/memory-layout.md`](docs/memory-layout.md).
+- **BIOS details:** [`docs/bios-flavors.md`](docs/bios-flavors.md).
+- **Debugging workflow:** [`docs/debugging/workflow.md`](docs/debugging/workflow.md).
+
+## Tools
+
+### Setup / prerequisites
+
+First-time setup on a fresh clone:
+
+- **Node ≥ 20** - all build/run JS (`builder/`, `web/scripts/`,
+  `tests/`) uses only Node builtins. `package.json` exists for scripts
+  + the one external dep (Playwright). Run `npm install` then
+  `npx playwright install chromium` (Playwright is only needed for the
+  bench `tests/bench/` and the e2e/keyboard harness
+  `web/tests/*.playwright.mjs` - the core cart→cabinet→Chrome path
+  doesn't use it). npm scripts: `npm run build|dev|smoke|test`.
+- **Rust (stable) + the calcite repo** - the fast path. From
+  `../calcite`: `cargo build --release -p calcite-cli` builds the
+  native runner; `wasm-pack build crates/calcite-wasm --target web
+  --out-dir ../../web/pkg --release` builds the in-browser WASM (needs
+  `rustup target add wasm32-unknown-unknown` and
+  `cargo install wasm-pack`). The dev server's `/_reset` runs the
+  wasm-pack step for you. `../calcite` ships its own
+  `Cargo.toml` / `rust-toolchain.toml`.
+- **NASM + OpenWatcom** - only to rebuild BIOS sources or assembly
+  conformance tests; prebuilt BIOS binaries ship in the repo, so most
+  work needs neither.
+
+**NASM** (assembler): not installed by default and not in PATH.
+Point at it via the `NASM=` env var (the corduroy/muslin build scripts
+read it). Only needed for BIOS/conformance asm rebuilds.
+
+**Calcite debugger:** See `../calcite/docs/debugger.md` and
+[`docs/debugging/calcite-debugger.md`](docs/debugging/calcite-debugger.md).
+
+**Conformance testing:** See [`conformance/README.md`](conformance/README.md)
+and `../calcite/docs/conformance-testing.md`.
+
+## Build quick start
+
+```sh
+# Build a cabinet from a cart
+node builder/build.mjs carts/rogue -o rogue.css
+
+# Play it in Chrome (start the dev server first: npm run dev)
+# then open: http://localhost:5173/player/calcite.html?cabinet=/rogue.css
+# Or drive it with Playwright.
+
+# Play it fast via Calcite
+cd ../calcite && target/release/calcite-cli.exe -i ../CSS-DOS/rogue.css
+
+# Debug it - use the Calcite MCP server
+```
+
+## Calcite
+
+Sibling repo at `../calcite`. Read `../calcite/CLAUDE.md` before making
+changes there. See [`docs/architecture.md`](docs/architecture.md#relationship-to-calcite)
+for the relationship.
+
+### Working in a git worktree
+
+When you check CSS-DOS out into a worktree (e.g.
+`.claude/worktrees/foo/`), the `../calcite` sibling-repo assumption no
+longer holds - relative path resolution from inside the worktree won't
+find calcite. Set the `CALCITE_REPO` environment variable to the calcite
+repo (or worktree) you want to use:
+
+```sh
+# From a CSS-DOS worktree, point at a matching calcite worktree
+export CALCITE_REPO=/abs/path/to/calcite/.claude/worktrees/foo
+```
+
+`CALCITE_REPO` is honoured by:
+
+- the Vite dev server (`npm run dev`; `web/site/vite.config.js` +
+  `scripts/runtime-assets.mjs` + `scripts/dev-extras.mjs`) - the
+  `/calcite/`, `/calcite/pkg/`, `/bench-assets/` aliases and the
+  `/_reset` endpoint that rebuilds the calcite WASM.
+- `tests/bench/lib/artifacts.mjs` - locating `calcite-cli` and the
+  WASM bundle for ensureFresh rebuilds.
+- `tests/harness/lib/fast-shoot.mjs`, `lib/debugger-client.mjs` -
+  locate the `calcite-cli` / `calcite-debugger` binaries.
+
+`CALCITE_CLI_BIN` and `CALCITE_DEBUGGER_BIN` still take precedence over
+`CALCITE_REPO` if you need to point at a specific binary directly
+(useful when the binary's been pre-built somewhere outside the worktree).
+
+---
+> Source: [stop-amertime/css-dos](https://github.com/stop-amertime/css-dos) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
