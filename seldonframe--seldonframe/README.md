@@ -7,13 +7,13 @@ Open-source AI front office for local service businesses: AI receptionist (voice
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [seldonframe/seldonframe](https://github.com/seldonframe/seldonframe).
+Original source: `AGENTS.md` in [seldonframe/seldonframe](https://github.com/seldonframe/seldonframe).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
