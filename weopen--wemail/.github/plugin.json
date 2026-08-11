@@ -1,0 +1,9 @@
+{
+  "name": "weopen--wemail",
+  "displayName": "WeMail",
+  "description": "Yet another cloudflare temp mail",
+  "version": "1.0.0",
+  "author": "WeOpen",
+  "homepage": "https://github.com/WeOpen/WeMail",
+  "skills": []
+}
