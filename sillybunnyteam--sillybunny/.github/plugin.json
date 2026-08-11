@@ -1,0 +1,9 @@
+{
+  "name": "sillybunnyteam--sillybunny",
+  "displayName": "SillyBunny",
+  "description": "A SillyTavern fork with Bun as the backend, along with UI/UX improvements",
+  "version": "1.0.0",
+  "author": "SillyBunnyTeam",
+  "homepage": "https://github.com/SillyBunnyTeam/SillyBunny",
+  "skills": []
+}
