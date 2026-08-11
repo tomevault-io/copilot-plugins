@@ -7,11 +7,11 @@ An unofficial tdesktop client with more features
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Revincx/Yurigram](https://github.com/Revincx/Yurigram).
+Original source: `CLAUDE.md` in [Revincx/Yurigram](https://github.com/Revincx/Yurigram).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
