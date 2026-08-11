@@ -4,7 +4,7 @@
   "repo": "my-toDesk",
   "description": "\u4efftoDesk\u8fdc\u7a0b\u8fde\u63a5\u8f6f\u4ef6\uff0c\u4f7f\u7528flutter\u5f00\u53d1\uff0c\u652f\u6301\u7aef macos ios/\u5b89\u5353 window\u7b49\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/huoguozhang/my-toDesk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T02:35:44Z"
+  "distributed_at": "2026-08-11T02:42:25Z"
 }
