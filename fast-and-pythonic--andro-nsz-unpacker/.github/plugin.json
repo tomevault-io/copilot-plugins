@@ -1,0 +1,9 @@
+{
+  "name": "fast-and-pythonic--andro-nsz-unpacker",
+  "displayName": "Andro-NSZ-unpacker",
+  "description": "Native unpacker for NSZ files. I'm trying to make it fully compatible with the nicoboss/nsz reference, but convenient and useful for android users.",
+  "version": "1.0.0",
+  "author": "Fast-and-Pythonic",
+  "homepage": "https://github.com/Fast-and-Pythonic/Andro-NSZ-unpacker",
+  "skills": []
+}
