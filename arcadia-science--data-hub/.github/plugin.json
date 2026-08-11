@@ -1,0 +1,9 @@
+{
+  "name": "arcadia-science--data-hub",
+  "displayName": "data-hub",
+  "description": "Data Hub makes lab instrument data instantly accessible to people, pipelines, and agents",
+  "version": "1.0.0",
+  "author": "Arcadia-Science",
+  "homepage": "https://github.com/Arcadia-Science/data-hub",
+  "skills": []
+}
