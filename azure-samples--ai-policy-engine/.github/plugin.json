@@ -1,0 +1,9 @@
+{
+  "name": "azure-samples--ai-policy-engine",
+  "displayName": "ai-policy-engine",
+  "description": "AI Gateway Policy Engine",
+  "version": "1.0.0",
+  "author": "Azure-Samples",
+  "homepage": "https://github.com/Azure-Samples/ai-policy-engine",
+  "skills": []
+}
