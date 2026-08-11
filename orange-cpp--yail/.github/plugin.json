@@ -1,0 +1,9 @@
+{
+  "name": "orange-cpp--yail",
+  "displayName": "yail",
+  "description": "Yet Another Injection Library \u2014 a Windows x64 manual-map DLL injection library written in modern C++23.",
+  "version": "1.0.0",
+  "author": "orange-cpp",
+  "homepage": "https://github.com/orange-cpp/yail",
+  "skills": []
+}
