@@ -1,0 +1,9 @@
+{
+  "name": "wpfleger96--ai-agent-rules",
+  "displayName": "ai-agent-rules",
+  "description": "Manage configs for Claude Code, Codex, Gemini CLI, Goose, and Amp from one repo \u2014 symlinks, merge pipeline, profile inheritance, cross-machine sync",
+  "version": "1.0.0",
+  "author": "wpfleger96",
+  "homepage": "https://github.com/wpfleger96/ai-agent-rules",
+  "skills": []
+}
