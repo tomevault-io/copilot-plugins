@@ -4,7 +4,7 @@
   "repo": "CDMW-Full",
   "description": "Windows desktop workbench for Crimson Desert modding: browse and extract archives, preview and edit .pam/.pamlod/.pac meshes on a native D3D11 renderer, rebuild and author DDS textures, and build material/mesh replacement packages. Includes reverse-engineered decoders for 77 shipped engine formats.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ratty123/CDMW-Full",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T21:32:52Z"
+  "distributed_at": "2026-08-11T22:45:40Z"
 }
