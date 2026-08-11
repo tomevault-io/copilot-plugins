@@ -1,0 +1,9 @@
+{
+  "name": "devdotbo--perplexity-web-mcp",
+  "displayName": "perplexity-web-mcp",
+  "description": "CLI, MCP server, and API-compatible interface for Perplexity AI",
+  "version": "1.0.0",
+  "author": "devdotbo",
+  "homepage": "https://github.com/devdotbo/perplexity-web-mcp",
+  "skills": []
+}
