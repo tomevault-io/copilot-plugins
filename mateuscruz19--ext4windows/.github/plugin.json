@@ -1,0 +1,9 @@
+{
+  "name": "mateuscruz19--ext4windows",
+  "displayName": "Ext4Windows",
+  "description": "A lightweight ext4 filesystem driver for Windows built with C++, WinFsp, and lwext4. Mount your Linux partitions as native Windows drive letters.",
+  "version": "1.0.0",
+  "author": "Mateuscruz19",
+  "homepage": "https://github.com/Mateuscruz19/Ext4Windows",
+  "skills": []
+}
