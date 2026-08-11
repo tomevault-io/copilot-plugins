@@ -1,0 +1,9 @@
+{
+  "name": "onixhdz--cartograph",
+  "displayName": "cartograph",
+  "description": "Cartograph: Map any codebase into a knowledge graph, trace dependencies, measure impact, and give AI agents deep code understanding. Even smaller models get full architectural context, making it perfe",
+  "version": "1.0.0",
+  "author": "onixhdz",
+  "homepage": "https://github.com/onixhdz/cartograph",
+  "skills": []
+}
