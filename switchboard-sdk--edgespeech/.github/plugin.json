@@ -1,0 +1,9 @@
+{
+  "name": "switchboard-sdk--edgespeech",
+  "displayName": "EdgeSpeech",
+  "description": "React Native hook for on device speech processing",
+  "version": "1.0.0",
+  "author": "switchboard-sdk",
+  "homepage": "https://github.com/switchboard-sdk/EdgeSpeech",
+  "skills": []
+}
