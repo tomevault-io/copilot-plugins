@@ -1,0 +1,9 @@
+{
+  "name": "technoir-lab--vulkan-kotlin",
+  "displayName": "vulkan-kotlin",
+  "description": "Kotlin/Native bindings for Vulkan API",
+  "version": "1.0.0",
+  "author": "technoir-lab",
+  "homepage": "https://github.com/technoir-lab/vulkan-kotlin",
+  "skills": []
+}
