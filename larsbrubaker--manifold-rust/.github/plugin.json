@@ -1,0 +1,9 @@
+{
+  "name": "larsbrubaker--manifold-rust",
+  "displayName": "manifold-rust",
+  "description": "Pure Rust port of the Manifold 3D geometry library",
+  "version": "1.0.0",
+  "author": "larsbrubaker",
+  "homepage": "https://github.com/larsbrubaker/manifold-rust",
+  "skills": []
+}
