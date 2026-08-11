@@ -1,58 +1,46 @@
-## language-conventions-en-code-pt-br-ui
+## report-and-wait-before-implement
 
-> Assistant replies match the user's message language first; code and URLs in English; UI, human-facing repo docs, and code comments in Português Brasileiro pt-BR.
+> Handoff — report what was done, next steps, and wait before implementing the plan
 
 
-Ensure you reason about this rule before generating any responses and documents so that this rule is always respected and the correct language for each output is determined.
+# Report and wait (before implementing)
 
-# Language conventions
+## When this applies
 
-## Priority (apply in this order)
+Activate when the user **references this rule** (`@report-and-wait-before-implement` or the file under `.cursor/rules/`) **or** ends the message with one of these signals:
 
-1. **Assistant reply language** — Match the language of the **current user message** for explanations, answers, and **plans** written for the conversation (including agent implementation plans). Exception: the user explicitly asks for another language. This takes precedence over any default bias toward pt-BR for “project work.”
-2. **Repository artifacts** — The sections **Project artifacts** below apply to **files and strings committed to the repo** (code, UI copy, README, comments). They do **not** redefine the language of chat replies.
+- `/report-and-wait`
+- `report and wait`
 
-**Separation:** Explanations, plans, and chat replies are **not** “README,” “UI copy,” or “human-facing documentation” in the sense of § Project artifacts. Only § Assistant replies governs their language.
+If the signal appears **at the end of the message**, it overrides earlier parts of the same message that imply immediate implementation: **do not implement the plan in this turn**.
 
-**Counter-example:** The user writes in English → the assistant explains and plans in **English** in chat; in the same turn, edits to `README.md` body, UI strings, and code **comments/docstrings** in the repo still follow **§ Project artifacts** (pt-BR for those artifacts; English for identifiers).
+## Required behavior
 
-**Ambiguous or mixed-language messages:** Default assistant replies to **English** unless the user has clearly been using **pt-BR** as the dominant language in the thread.
+1. **Do not** apply patches, create implementation files, or run “execute the plan” steps until the user sends another message.
+2. **Reply** in clear language with:
+   - **What was done** this turn (reads, conclusions, mental drafts — do not invent changes that did not happen).
+   - **Proposed next actions** (concrete, ordered steps).
+   - **An explicit question or invitation** to confirm, adjust priorities, or say “ok” for the next step.
+3. **Wait** for the user’s reply before implementing.
 
-## Assistant replies
+## Reading and research
 
-Detect the language the user writes in for their instructions and **reply in that same language**, unless they explicitly ask for another language. Plans should also respect the initial language of the conversation - even if they are going to be committed.
+- Allowed: read files, search the repo, explain or refine the plan in prose.
+- Avoid: persistent changes to the project (unless the user explicitly asked for *only* documentation/rule work and that is this turn’s scope).
 
-## Project artifacts (independent of chat language)
+## Example reply (structure)
 
-Rules below apply to **repository content**, not to the language of assistant chat messages.
+```markdown
+## What I did this turn
+- …
 
-### English
+## Suggested next steps
+1. …
+2. …
 
-- Code identifiers: variables, functions, classes, modules, file and folder names.
-- Routes and full URLs: paths, query parameters, slugs, and API segments.
-
-### Brazilian Portuguese (pt-BR)
-
-- User-facing UI copy: labels, buttons, validation and error messages shown to users, etc.
-- Human-facing documentation: README, guides, ADRs, and project documentation in PR descriptions.
-- Code comments and docstrings.
-
-## Example
-
-```python
-# Calcula o total com desconto aplicado ao carrinho.
-def calculate_cart_total(items: list[CartItem], discount_percent: float) -> Decimal:
-    ...
+## Confirmation
+Should I proceed with step 1 in the next message, or do you want to adjust …?
 ```
-
-```tsx
-// Exibe o resumo do pedido antes da confirmação.
-<button type="button">{t("order.confirm")}</button>
-```
-
-Identifiers and code symbols in English; translation values and UI strings in pt-BR. When editing or generating code, keep this split.
-
-Avoid European Portuguese ("secção", "ficheiro", "autocarro", "eléctrico").
 
 ---
 > Source: [leanseefeld/8iadt-tc-fase3-assistente-medico](https://github.com/leanseefeld/8iadt-tc-fase3-assistente-medico) — distributed by [TomeVault](https://tomevault.io).
