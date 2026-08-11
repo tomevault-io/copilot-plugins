@@ -1,0 +1,9 @@
+{
+  "name": "a-tokyo--agent-skills-harness",
+  "displayName": "agent-skills-harness",
+  "description": "A factory for building production-grade agent skills \u2014 benchmarked against gold standards, autonomously improved via an autoresearch loop, and verified by independent multi-agent consensus.",
+  "version": "1.0.0",
+  "author": "a-tokyo",
+  "homepage": "https://github.com/a-tokyo/agent-skills-harness",
+  "skills": []
+}
