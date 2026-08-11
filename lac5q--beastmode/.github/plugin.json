@@ -1,0 +1,9 @@
+{
+  "name": "lac5q--beastmode",
+  "displayName": "beastmode",
+  "description": "Beastmode: MofA (Mixture of Agents) orchestration framework for Hermes/OpenClaw/Codex with MemroOS-style context continuity.",
+  "version": "1.0.0",
+  "author": "lac5q",
+  "homepage": "https://github.com/lac5q/beastmode",
+  "skills": []
+}
