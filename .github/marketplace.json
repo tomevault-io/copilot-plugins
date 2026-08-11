@@ -269739,6 +269739,11 @@
       "description": "keys-DGX-Sparkticus Utimate Power Pack Unleashed (Dual DGX-Sparks Needed)"
     },
     {
+      "name": "siliconjungle--inkwell-webgpu-water",
+      "source": "./siliconjungle--inkwell-webgpu-water",
+      "description": "Standalone raw WebGPU Tethys ocean, shoreline, and underwater sand renderer"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -314114,6 +314119,11 @@
       "description": "ana-geo"
     },
     {
+      "name": "rylsherdamz-rgb--stellar-forge",
+      "source": "./rylsherdamz-rgb--stellar-forge",
+      "description": "Eval-driven agentic harness for building production Stellar dApps. 6 specialist agents, 5 eval definitions, full contract/frontend/backend templates, and npx CLI scaffolding with npx skill support."
+    },
+    {
       "name": "lucas-acc--sancho-skills",
       "source": "./lucas-acc--sancho-skills",
       "description": "Skills of my personal assistant, I call him Sancho."
@@ -331097,6 +331107,16 @@
       "name": "agent0ai--revolve",
       "source": "./agent0ai--revolve",
       "description": "Codeless AI self-improvement & research LOOP"
+    },
+    {
+      "name": "sunkenintime--t3-themes",
+      "source": "./sunkenintime--t3-themes",
+      "description": "Community theme gallery for T3Code \u2014 real app previews, themes as PR-submitted JSON"
+    },
+    {
+      "name": "sunkenintime--t3-themes",
+      "source": "./sunkenintime--t3-themes",
+      "description": "Community theme gallery for T3Code \u2014 real app previews, themes as PR-submitted JSON"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -358107,6 +358127,36 @@
       "name": "nedonion--evalhub",
       "source": "./nedonion--evalhub",
       "description": "An LLM Benchmark evaluation platform for automated model testing and analysis. \u9762\u5411\u5927\u8bed\u8a00\u6a21\u578b\u7684 Benchmark \u81ea\u52a8\u5316\u8bc4\u6d4b\u5e73\u53f0\uff0c\u652f\u6301\u6a21\u578b\u6d4b\u8bd5\u4e0e\u7ed3\u679c\u5206\u6790"
+    },
+    {
+      "name": "m4tinbeigi-official--antigravity-rtl",
+      "source": "./m4tinbeigi-official--antigravity-rtl",
+      "description": "Antigravity-RTL"
+    },
+    {
+      "name": "realchendahuang--ompchamber",
+      "source": "./realchendahuang--ompchamber",
+      "description": "OMPChamber"
+    },
+    {
+      "name": "realchendahuang--ompchamber",
+      "source": "./realchendahuang--ompchamber",
+      "description": "OMPChamber"
+    },
+    {
+      "name": "civitass--civitas-desktop",
+      "source": "./civitass--civitas-desktop",
+      "description": "Local-first work memory: rewind your timeline, understand your workflow, and predict useful next actions."
+    },
+    {
+      "name": "civitass--civitas-desktop",
+      "source": "./civitass--civitas-desktop",
+      "description": "Local-first work memory: rewind your timeline, understand your workflow, and predict useful next actions."
+    },
+    {
+      "name": "crhy--spaced",
+      "source": "./crhy--spaced",
+      "description": "Spaced Linux"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -404379,6 +404429,21 @@
       "description": "AI-powered coding assistant that provides intelligent, adaptive code assistance through comprehensive LLM support."
     },
     {
+      "name": "aurorascharff--next16-team-chat",
+      "source": "./aurorascharff--next16-team-chat",
+      "description": "A \"Slack\" team chat demo with TanStack Query (or SWR), built with Next.js 16.3 Cache Components, Partial Prefetching, React 19, Tailwind CSS v4, and Prisma."
+    },
+    {
+      "name": "sashabusinaro--yaml-compose-sorter",
+      "source": "./sashabusinaro--yaml-compose-sorter",
+      "description": "A vscode extension that sorts and formats Docker Compose YAML files with consistent key ordering and improved readability."
+    },
+    {
+      "name": "gleanwork--glean-indexing-sdk",
+      "source": "./gleanwork--glean-indexing-sdk",
+      "description": "SDK for building custom Glean indexing integrations"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -433007,6 +433072,36 @@
       "name": "vgmakeev--kanata",
       "source": "./vgmakeev--kanata",
       "description": "Source-free architecture maps and deterministic polyglot refactoring for AI coding agents"
+    },
+    {
+      "name": "productdevbook--nabiz",
+      "source": "./productdevbook--nabiz",
+      "description": "A status page that keeps beating when your server does not \u2014 one Cloudflare Worker, D1 and a cron a minute. Astro on the edge, free tier friendly."
+    },
+    {
+      "name": "bluesky-social--beyond",
+      "source": "./bluesky-social--beyond",
+      "description": "BeyondCorp-Inspired HTTPS Proxy"
+    },
+    {
+      "name": "productdevbook--nabiz",
+      "source": "./productdevbook--nabiz",
+      "description": "A status page that keeps beating when your server does not \u2014 one Cloudflare Worker, D1 and a cron a minute. Astro on the edge, free tier friendly."
+    },
+    {
+      "name": "aixlehq--flow",
+      "source": "./aixlehq--flow",
+      "description": "Aixle Flow \u2014 orchestrate coding agents through durable, inspectable workflows."
+    },
+    {
+      "name": "sinfin--controlled-czech",
+      "source": "./sinfin--controlled-czech",
+      "description": "controlled-czech"
+    },
+    {
+      "name": "athishio--trace-gc",
+      "source": "./athishio--trace-gc",
+      "description": "Deterministic, receipt-preserving context compaction library for AI agents."
     },
     {
       "name": "cheerhuan--save-your-token",
