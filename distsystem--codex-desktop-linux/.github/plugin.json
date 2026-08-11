@@ -1,0 +1,9 @@
+{
+  "name": "distsystem--codex-desktop-linux",
+  "displayName": "codex-desktop-linux",
+  "description": "Codex Desktop for Linux \u2014 distsystem soft-fork (versioned-zip pinned, tracks ilysenko upstream)",
+  "version": "1.0.0",
+  "author": "distsystem",
+  "homepage": "https://github.com/distsystem/codex-desktop-linux",
+  "skills": []
+}
