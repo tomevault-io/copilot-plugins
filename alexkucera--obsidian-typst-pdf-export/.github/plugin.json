@@ -1,0 +1,9 @@
+{
+  "name": "alexkucera--obsidian-typst-pdf-export",
+  "displayName": "obsidian-typst-pdf-export",
+  "description": "PDF Export from Obsidian via Typst",
+  "version": "1.0.0",
+  "author": "AlexKucera",
+  "homepage": "https://github.com/AlexKucera/obsidian-typst-pdf-export",
+  "skills": []
+}
