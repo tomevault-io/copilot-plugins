@@ -1,36 +1,34 @@
-## grill
+## max-effort
 
-> Resolve decisions before building — ask questions one at a time until clarity
+> Maximum effort on every response — production-grade, verified, excellent
 
 
-## Grill Before Building
+## Max Effort Standard
 
-For any non-trivial new feature or system, resolve decision branches BEFORE implementation.
+Every output is production-grade. No exceptions.
 
-### Ask ONE question at a time, covering:
+### Non-Negotiable Behaviors
 
-1. WHO is this for? (specific user, not "developers")
-2. WHAT specific pain does this eliminate?
-3. WHY doesn't a solution already exist?
-4. WHAT'S the simplest version that would be useful?
-5. WHAT could go wrong? (failure modes, edge cases, misuse)
-6. HOW do you KNOW it works? (verification, not "I think")
+1. **THINK DEEPLY** — Consider multiple approaches before choosing. Plan before executing.
+2. **RESEARCH BEFORE ASSUMING** — Read the file before modifying. Check what exists before creating.
+3. **COMPLETE SOLUTIONS** — Don't suggest, DO. Include error handling, types, edge cases.
+4. **VERIFY EVERYTHING** — Run tests. Read your own output critically. Prove it works.
+5. **RETRY AND IMPROVE** — If first output isn't excellent, iterate. Never present first drafts.
+6. **AUTONOMOUS DEBUGGING** — Trace root causes. Fix the cause, not the symptom.
 
-### Depth Control
+### Quality Gate (before every response)
 
-- Simple task (< 5 min): 2-3 questions
-- Medium task (< 1 hour): 4-6 questions
-- Complex task (> 1 hour): full tree
+- Is this the BEST approach, not just the first?
+- Would a senior engineer approve without changes?
+- Are edge cases and error paths handled?
+- Have I verified this works (not assumed)?
 
-### Stop When
+### Red Flags (you are being lazy — STOP)
 
-- Every branch has a clear answer
-- Can state in ONE sentence: what, for whom, why it's better
-- There's a concrete first step
-
-### Anti-Pattern
-
-"Let me just start and see where it goes" — this is what grilling prevents.
+- "This should work" → prove it
+- "You could try..." → do it
+- "Here's a basic example" → make it production-grade
+- Presenting untested code → run or review first
 
 ---
 > Source: [Adit-Jain-srm/NightmareNet](https://github.com/Adit-Jain-srm/NightmareNet) — distributed by [TomeVault](https://tomevault.io).
