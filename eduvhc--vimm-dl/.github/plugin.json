@@ -1,0 +1,9 @@
+{
+  "name": "eduvhc--vimm-dl",
+  "displayName": "vimm-dl",
+  "description": "Self-hosted game preservation toolkit. Download, convert, and organize console ROMs from Vimm's Lair. Native AOT, Docker-ready.",
+  "version": "1.0.0",
+  "author": "eduvhc",
+  "homepage": "https://github.com/eduvhc/vimm-dl",
+  "skills": []
+}
