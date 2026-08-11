@@ -1,148 +1,99 @@
-## web-repository-presenter-architecture
+## web-seo-canonical
 
-> Web repository / presenter layering — DTO/PM, Get* mappers, gateways; points to page-presenter rule for routes
+> Canonical URLs and query-parameter SEO — buildCanonicalUrl, withCanonicalMetaTags, UTM stripping, robots.txt, noindex
 
 
-# Web repository / presenter architecture (short)
+# Web SEO: Canonical URLs and query parameters
 
-## Layering (non‑negotiable)
+Multiple URLs that render the same content (UTM tags, `ref`, hub `sort`/`search`, blog `page`) must consolidate to **one canonical** so crawlers do not split authority across duplicates.
 
-- **Route / component (`.svelte`)**: UI only — **no** `httpGateway` or repository calls from routes. See **web-page-presenter-conventions** for how routes import **page presenters** and wire toasts.
-- **Page presenter (`$lib/area-*/...Page.presenter.svelte.ts`)**: orchestrates a screen; owns `$state` where needed; accepts **feature presenters** (and repos) via constructor injection. **Route/toast/parent-child / feature injection** → **web-page-presenter-conventions**.
-- **Feature presenter (`$lib/<feature>/*.presenter.svelte.ts`)**: stateful presenter for a vertical slice (scheduler, composer, …); calls **repositories**; may expose **`$state`** view models; **no** `$app/*` / `goto`. Instantiated in **`area-*`** **`index.ts`** and injected into **page presenters**. Imports resolve as **`$lib/<feature>/<Name>.presenter.svelte`** (on-disk **`*.presenter.svelte.ts`**). Not the same as **`Get*`** (those are stateless PM→VM mappers).
-- **Repository (`*.repository.svelte.ts`)**: I/O via `HttpGateway`, **DTO → PM**, returns **PM** only.
-- **Get presenter (`Get*.presenter.svelte.ts`)**: stateless **PM → VM** mapping for reads/lists.
+## Helpers (`$lib/seo/buildCanonicalUrl.ts`)
 
-## Type placement (default)
+| Export | Use |
+| --- | --- |
+| `buildCanonicalUrl(url)` | Path-only canonical: `new URL(url.pathname, url.origin).href` — strips query and hash |
+| `withCanonicalMetaTags(metaTags, canonical, overrides?)` | Spread `metaTags` first, then set `canonical`, `openGraph.url`, and `twitter:url` |
 
-- **DTOs / `*ResponseDto`**: next to the **repository** that consumes them.
-- **PM (`*ProgrammerModel`)**: same file as the **repository** class (unless shared across repos).
-- **VM for `Get*` outputs** (reads/lists): same file as **`Get*.presenter.svelte.ts`** (e.g. **`BlogPostCommentViewModel`** next to **`loadPublishedBlogPostComments`**).
-- **Mutation result `*ViewModel`** (discriminated `{ ok: … }` exposed to routes/UI): **not** in the repository file. Prefer **page presenter** when screen-specific (**`PublicBlogMutationResultViewModel`**), or **feature presenter** when shared orchestration wraps the repo (**`PlugMutationResultViewModel`** on **`UpsertGlobalPlugPresenter`**). Map from **`BlogUpsertProgrammerModel`**, **`PlugUpsertProgrammerModel`**, etc. inside that presenter.
-- **Feature `*.types.ts`**: Zod / form types and other **non-repository-only** shared UI types.
+Always use these helpers in `+page.server.ts` instead of inline `new URL(url.pathname, url.origin).href` or manual object spreads.
 
-## Naming (quick rules)
+```ts
+const canonical = buildCanonicalUrl(url);
+const pageMetaTags = withCanonicalMetaTags(metaTags, canonical);
+```
 
-- Repository results: **`*Pm`** (`resultPm`, `listPm`).
-- **Exported type / interface names** (rows, mutation results, screen VMs): **`*ViewModel`** only — e.g. **`AccountListingCollectionItemViewModel`**, **`ExtensionCardViewModel`**. **Do not** use **`*Vm`** as a type suffix (avoid **`FooRowVm`**, **`AccountListingCollectionItemVm`**).
-- **Presenter fields, locals, and getters** holding those types: **`*Vm`** suffix — e.g. **`exploreExtensionCardsVm`**, **`bookmarkedExtensionsVm`**, **`resultVm`**. Avoid bare names like **`exploreExtensionCards`** when the value is presenter-owned VM state.
-- DTOs: **`*Dto`**, **`*ResponseDto`**.
+Pass the **same** `canonical` string to JSON-LD (`canonicalUrl`, `pageUrl`, schema `url` fields).
 
-### `Get*Presenter` method naming (project convention)
+## Spread-order rule
 
-- **PM → VM mappers**: prefer **`toXxxVm(pm)`** (or `toXxxListVm(listPm)` when helpful). Pure **`map*` / `merge*` / `format*`** helpers may live in the same file as **`Get*`** when they support one read path and tests
-- **Read/load methods that return UI shapes**: prefer **`loadXxxVm(...)`** / **`loadXxx*Vm(...)`**. For **aggregate reads** (parallel repository calls, merged result), use a **`loadXxxVmStateless`** name when the method **does not** mutate any presenter **`$state`**; a discriminated **`{ ok: true; … } | { ok: false; error: string }`** return is acceptable when the caller must treat **partial HTTP failure** as one screen-level error
-- **Avoid** `mapXxxPmToVm` / `getXxxVm` / `listXxx` on `Get*Presenter` **method names** unless there is a very specific reason (standalone **`map*`** **functions** next to **`Get*`** are fine).
+`createMetaData` returns a `canonical` field. If you build `pageMetaTags` manually:
 
-## Rule of thumb (enforced)
+```ts
+// ❌ BAD — metaTags.canonical overwrites the line above
+const pageMetaTags = { canonical, ...metaTags };
 
-- **Repositories return PM** (including discriminated **`{ ok: … }`** unions), not arbitrary screen **`…ViewModel`** types — except documented **DTO == PM** aliases.
-- **`Get*Presenter`** is the **read/list VM boundary** (map PM → VM); **`load…Vm`** methods return **`Vm`**, **`Vm[]`**, or **`Vm | null`** — not PM arrays to **`$lib/ui`** or routes.
-- **Page / feature presenters** are the usual **mutation VM boundary**: convert **`resultPm`** from **`await repo…`** into a **`*MutationResultViewModel`** (or delegate to a feature presenter that already returns one). Do not thread **`BlogUpsertProgrammerModel`** / **`PlugUpsertProgrammerModel`** through callback props typed for UI consumers.
-- **DTO == PM** is allowed only when the wire shape is identical; still treat the return as PM at the boundary.
-- **Prefer clean returns in presenters:** for public **read** flows, prefer returning `null` / `[]` over `{ ok: true } | { ok: false }` unions. Keep unions for **repository I/O**, **aggregate multi-fetch** **`Get*`** loads, or when the caller truly needs multiple failure modes.
+// ✅ GOOD — use withCanonicalMetaTags, or spread meta first then override
+const pageMetaTags = { ...metaTags, canonical, openGraph: { ...metaTags.openGraph, url: canonical } };
+```
 
----
+## Duplicate tracking parameters (UTM, gclid, fbclid)
 
-# Repository / presenter architecture (web)
+Parameterized marketing URLs (e.g. `/pricing?utm_source=email&utm_medium=email`) must consolidate to one indexable URL.
 
-We use a **concept-first, layered architecture** so logic lives outside the framework and we can test **view models (presenter state) instead of the DOM**.
+| Layer | Mechanism |
+| --- | --- |
+| **SSR (primary)** | `<link rel="canonical">` via `buildCanonicalUrl` + `withCanonicalMetaTags` — path only, no query or hash, in the first HTML response |
+| **JSON-LD** | Same `buildCanonicalUrl(url)` string for `url`, `canonicalUrl`, and `pageUrl` fields |
+| **Browser** | `UtmAttribution.svelte` captures attribution, then `replaceUrlWithoutTrackingParams` strips tracking params from the address bar |
+| **Param list** | `TRACKING_PARAM_NAMES` in `$lib/product-analytics/utm.ts` (`utm_*`, `ref`, `gclid`, `fbclid`, `msclkid`, `mc_cid`, `mc_eid`) |
 
-**Page-level details** (parent/child, toast pattern A vs B, area `index.ts` type exports, mutation flow A/B, admin list VMs on the page presenter) are in **web-page-presenter-conventions** — keep this file focused on **data boundaries** and **`Get*`**.
+**Do not** add `robots.txt` `Disallow: /*?utm_*` (or similar) for tracking params. Blocking crawl prevents Google from fetching the page and reading the canonical tag on parameterized URLs; it does not reliably consolidate ranking signals. Canonical tags are the correct fix. Optionally configure URL parameters in Google Search Console as “doesn't change page content.”
 
-## Five layers (responsibility)
+## Parameter handling (by type)
 
-1. **Svelte components** — visualization; **parents** own area page presenters per **web-page-presenter-conventions**; **children** do not import repositories (with the documented modal exception).
-2. **Page presenters (`$lib/area-*/*Page.presenter.svelte.ts`)** — orchestrate one screen; expose injected **feature presenters** to routes when needed.
-3. **Feature presenters (`$lib/<feature>/*.presenter.svelte.ts`)** — reusable stateful orchestration for a domain slice; **repository** in constructor; injected into **page presenters** from **`area-*`** **`index.ts`** (composition root). Not **`Get*`** (stateless).
-4. **Repositories** — PM + gateway; **no** raw DTOs to UI consumers.
-5. **Gateways** — DTOs at the wire.
+| Params | Browser URL | `<link rel="canonical">` |
+| --- | --- | --- |
+| `utm_*`, `ref`, `gclid`, `fbclid`, … | Stripped after capture (`replaceUrlWithoutTrackingParams` in `UtmAttribution.svelte`) | Stripped |
+| Hub `sort`, `search`, `type` | Kept (shareable filter state) | Stripped — canonical is path only |
+| Hub `page`, `ipp` (playbooks, building blocks) | Kept | Stripped — paginated hub views canonicalize to path (category/tag in path when set) |
+| Blog `page`, `ipp`, `topic`, `author` | Kept | Stripped — paginated/filtered views canonicalize to hub path (e.g. `/blog`) |
+| OAuth / auth (`code`, `state`, `redirectURL`) | Kept (functional) | Stripped in canonical tag |
+| Skill builder `stack`, building-block query | Kept | Stripped — channel slug is in path when applicable |
 
-## File roles
+Sitemap URLs are always path-only (backend `generateSitemap.ts`).
 
-| Layer | Pattern | Role |
-|-------|---------|------|
-| Gateways | `$lib/core/*.ts` | HTTP; DTOs |
-| Repositories | `*.repository.svelte.ts` | DTO → PM; export PM types from same file |
-| `Get*` | `Get*.presenter.svelte.ts` | Stateless PM → VM |
-| Feature presenters | `$lib/<feature>/*.presenter.svelte.ts` | Stateful slice; repos + optional VM **`$state`**; wired in **`area-*`** **index**, injected into **page presenters** |
-| Page presenters | `$lib/area-*/*Page.presenter.svelte.ts` | Screen orchestration; owns screen **`$state`**; receives **feature presenters** + repos |
-| Models | `*.model.svelte.ts` | Shared reactive state (e.g. auth) |
+## Root layout baseline
 
-Reference: `web/src/lib/user-auth/` (repository + signin/signup presenters).
+`+layout.server.ts` sets `baseMetaTags.canonical` via `buildCanonicalUrl(url)`. Child `pageMetaTags` from `deepMerge` override per route.
 
-## Data flow
+## Docs
 
-**DTO** (gateway) → **PM** (repository) → **VM** (`Get*`, feature presenter state, or page presenter state) → components.
+`DocsSeoHead.svelte` builds canonical from configured site URL + `page.url.pathname` (no query). Prerender-safe — avoid `page.url.href` at build time.
 
-Typical paths:
+## Non-indexable routes
 
-- **Component → page presenter → feature presenter → repository → gateway** (account calendar, scheduler, composer).
-- **Component → page presenter → repository → gateway** when the page presenter does not delegate to a feature presenter for that action.
-- Reads with **`Get*`:** **page presenter → `Get*` → repository → gateway**.
+App and auth surfaces should not compete in search:
 
-No gateway/repository imports from **routes**.
+- **`(auth)/+layout.server.ts`** and **`(protected)/+layout.server.ts`**: return `pageMetaTags: { robots: 'noindex, nofollow' }`.
+- **`robots.txt`**: `Disallow` for `/sign-in`, `/account`, `/editor`, `/admin`, `/secret-admin`, `/oauth`, etc. AI crawler `Allow` groups live in `$lib/seo/robotsTxt.ts` (served from `web/src/routes/robots.txt/+server.ts`).
 
-## Naming conventions (required)
+## Cloudflare managed robots.txt (production)
 
-### Suffixes
+If the marketing zone has **“Set your preference to block training in robots.txt”** enabled, Cloudflare **prepends** `Disallow: /` for bots such as `ClaudeBot` and `Google-Extended` before the app’s rules. That blocks Claude and Gemini in directory “AI engine coverage” tools even when the repo allows those paths. **Turn that setting off** (AI Crawl Control **Allow** alone does not remove the prepend). Verify with `pnpm --filter ./web run verify:ai-robots`. Ops guide: `web/src/content/docs/configuration-web/ai-crawlers-and-robots.md`.
 
-- **DTO** / **`*ResponseDto`** — API boundary only.
-- **`*ProgrammerModel`** — repository domain shape.
-- **`*ViewModel`** — exported UI row / screen / mutation-result **types** (props, return types, `$state` element type).
-- **`*Vm`** — **field / variable / getter names** on presenters that hold **`*ViewModel`** values (not a type suffix).
+Raw markdown doc routes use `X-Robots-Tag: noindex` via `markdown-route-headers.ts`.
 
-### Variables
+## Google Search Console (manual)
 
-- After **`await someRepository.someMethod(...)`**: bind to **`resultPm`** when holding a single repository outcome (discriminated union or PM payload). For **arrays** straight from the repo before mapping, **`listPm`** is fine — **avoid bare `r`**, **`res`**, **`data`** for that binding.
-- After mapping PM → VM for the caller: **`resultVm`**, **`commentsVm`**, **`groupVm`**, etc.
-- **`Get*Presenter`** PM→VM methods: assign **`resultPm`** / **`listPm`** first (see **`GetFeedbackPresenter`**: list PM → mapped **`FeedbackViewModel`**), then **`.map(toXxxVm)`** or **`toXxxVm(pm)`** and return **`Vm`** / **`Vm[]`** — e.g. **`resultPm`** → **`previewPostVm`** via **`toPreviewPostVm`**.
-- Presenter fields for the UI: **`workspacesVm`**, etc.
-- Internal VM mutation helpers on presenters: **`_*`** prefix when not public API (full pattern: **web-page-presenter-conventions**).
+Canonical tags are the primary code fix. Optionally mark UTM parameters as “doesn't change page content” in GSC → URL parameters.
 
-When a presenter returns clean values (`null` / `[]`) instead of unions, prefer variable names like:
+Full audit steps (rendering, indexation, mixed content, charset): **web-seo-index** → Audit playbook.
 
-- `postVm` (nullable) instead of `postResult`
-- `commentsVm` (array) instead of `commentsResult`
+## Checklist
 
-### List reads: DTO vs PM vs Vm
-
-- Repositories **map DTO → PM** before returning; no raw DTO arrays to presenters.
-- **`Get*Presenter`**: `await repo.get…` → **`listPm`** → map to **`Vm`** in `Get*` methods (e.g. `loadAdminCommentsVm`).
-- **Routes / `$lib/ui`**: props and callbacks are typed with **`*ViewModel`**; values come from presenter fields named **`*Vm`**. **Which presenter holds the array** (page vs feature) → **web-page-presenter-conventions**.
-
-### Reference: Approved Apps (repository PM → feature presenter ViewModel)
-
-- **Repository** (`web/src/lib/settings/ApprovedApps.repository.svelte.ts`): HTTP **`ListApprovedAppsResponseDto`** / wire rows stay **non-exported** `interface` types; map to **`ApprovedAuthorizationProgrammerModel`** / **`ApprovedOauthAppProgrammerModel`** (camelCase). **`list()`** returns **`ListApprovedAppsProgrammerModel`** (`{ ok: true; items: … } | { ok: false; message }`). **`revoke()`** returns **`RevokeApprovedAppMutationProgrammerModel`** (`{ ok: true } | { ok: false; message }`) — still a PM-layer discriminant at the repository boundary even when the success branch carries no payload.
-- **Feature presenter** (`web/src/lib/settings/ApprovedAppsSettings.presenter.svelte.ts`): bind **`await repo.list()`** to **`listPm`**, **`await repo.revoke(…)`** to **`revokePm`**; map each **`ApprovedAuthorizationProgrammerModel`** to **`ApprovedAppRowViewModel`** via **`toApprovedAppRowViewModel`**. Expose **`itemsVm: ApprovedAppRowViewModel[]`** to **`EditorApprovedAppsSettings.svelte`**.
-
-### Reference: Account extensions (page presenter ViewModel + `*Vm` fields)
-
-- **Page presenter** (`web/src/lib/area-protected/ProtectedAccountExtensionsPage.presenter.svelte.ts`): define screen row type **`AccountListingCollectionItemViewModel`** (not **`AccountListingCollectionItemVm`**). Catalog source arrays: **`exploreExtensionCardsVm: ExtensionCardViewModel[]`**, **`exploreStackCardsVm: StackCardViewModel[]`**. Collection tabs: **`bookmarkedExtensionsVm`**, **`ownStacksVm`**, etc. — each typed as **`AccountListingCollectionItemViewModel[]`**. Filtered getters: **`filteredExploreExtensionsVm`**, **`filteredExploreStacksVm`**. **`$lib/ui`** children import the **`*ViewModel`** type from the page presenter file; parents pass **`pagePresenter.filteredExploreExtensionsVm`**, not raw catalog fields, unless the child needs unfiltered data.
-
-## Presenter split: `Get*` vs feature presenters vs page presenters
-
-- **`Get*.presenter.svelte.ts`**: **no** `$state`; constructor-injected repos; methods return **`*Vm`** or a **discriminated aggregate result** (never raw PM to components). Instantiate in **feature `index.ts`**, inject into **page presenters**; routes do not construct `Get*` directly.
-- **Feature presenters** (`SchedulerPresenter`, `CreateSocialPostPresenter`, …): **stateful**; constructor-injected **repositories** (and sometimes other presenters such as **`GenerateMediaModalPresenter`**); own domain **`$state`** / methods. **Compose in `area-*` `index.ts`**, **inject into `Protected*PagePresenter`** — see **web-page-presenter-conventions**.
-- **Workspace / editor-style feature presenters** (`WorkspaceSettings`, `Editor*`, etc.): `$state` for status/VM; may call repos and `Get*`; still **feature**-scoped, not area page files.
-- **Page presenter `*Stateless` helpers** (e.g. `loadPreviewPostStateless`): must not mutate page **`$state`**; map PM→VM via injected **`Get*`** (`mapPreviewPostPmToVm`). Paired non-**Stateless** methods assign **`$state`** (e.g. **`loadPreviewPost`**). Optional async **`loadPreviewPostByIdStateless`** / **`loadPreviewPostById`** when fetch-by-id is needed — details in **web-page-presenter-conventions** (**Public area page presenters**).
-
-### Return-shape guidance (pragmatic)
-
-- **Repositories**: may return unions (`{ ok: true; … } | { ok: false; error: string }`) for transport errors; they are the I/O boundary.
-- **`Get*` presenters (reads)**: prefer **clean values** (`Vm | null`, `Vm[]`) and handle repository unions internally with `try/catch` or **`if (!resultPm.ok)`** before mapping — callers receive **VMs only**.
-- **Feature / page presenters (mutations)**: prefer exposing **`Promise<*MutationResultViewModel>`** (discriminated **`ok`**) to routes/UI after mapping **`resultPm`**; alternatively **pattern A** toast flags (**web-page-presenter-conventions**) when the screen never inspects return values from children.
-
-## Testing
-
-- Assert on **presenter state** and **repository** behavior with gateway stubs — not DOM.
-- Example: `web/src/lib/user-auth/Authentication.test.ts`; stubs under `web/src/tests/utils/`.
-
-## Rules (summary)
-
-- New behavior: **repository (PM)** + **feature presenter** (if the flow is a reusable slice) + **page presenter**; wire **feature + page** presenters in **`area-*`** **`index.ts`**; parent route gets the **page** presenter singleton.
-- **Routes:** no repo/gateway; **children:** no repo (see **web-page-presenter-conventions** for exceptions).
-- **`+page.svelte` edits:** presenter-only from area index; use **injected feature presenters** via the page presenter when applicable; mutation/toast/checklist details → **web-page-presenter-conventions**.
+- [ ] Every public `+page.server.ts` uses `buildCanonicalUrl` + `withCanonicalMetaTags`
+- [ ] JSON-LD URLs match the canonical string
+- [ ] No `requestUrl.href` (with query) used as canonical
+- [ ] New marketing links with UTM still attribute correctly after URL cleanup
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
