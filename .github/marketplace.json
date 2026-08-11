@@ -12989,6 +12989,11 @@
       "description": "react-native-gesture-handler"
     },
     {
+      "name": "lijigang--ljg-skills",
+      "source": "./lijigang--ljg-skills",
+      "description": "ljg-skills"
+    },
+    {
       "name": "grab--cursor-talk-to-figma-mcp",
       "source": "./grab--cursor-talk-to-figma-mcp",
       "description": "TalkToFigma: MCP integration between AI Agent (Cursor, Claude Code) and Figma, allowing Agentic AI to communicate with Figma for reading designs and modifying them programmatically."
@@ -20327,11 +20332,6 @@
       "name": "remorses--playwriter",
       "source": "./remorses--playwriter",
       "description": "Chrome extension to let agents control your browser. Runs Playwright snippets in a stateful sandbox. Available as CLI or MCP"
-    },
-    {
-      "name": "lijigang--ljg-skills",
-      "source": "./lijigang--ljg-skills",
-      "description": "ljg-skills"
     },
     {
       "name": "haimgel--display-switch",
@@ -33517,6 +33517,11 @@
       "name": "astronomer--dag-factory",
       "source": "./astronomer--dag-factory",
       "description": "dag-factory"
+    },
+    {
+      "name": "getopenscreen--openscreen",
+      "source": "./getopenscreen--openscreen",
+      "description": "Record your screen, ship a demo. Free and open-source, GPU-accelerated, no watermarks, no subscriptions. Windows, macOS, Linux. Actively maintained."
     },
     {
       "name": "kaiban-ai--kaibanjs",
@@ -192234,6 +192239,16 @@
       "description": "MoonProxy Desktop - Cross-platform FRP desktop client (frpc GUI) for macOS and Windows. NAT traversal / intranet penetration made simple. Open-source (MIT). Built with Tauri v2 + Vue 3 + Rust."
     },
     {
+      "name": "leo-liu--zhmakeindex",
+      "source": "./leo-liu--zhmakeindex",
+      "description": "zhmakeindex"
+    },
+    {
+      "name": "leo-liu--zhmakeindex",
+      "source": "./leo-liu--zhmakeindex",
+      "description": "zhmakeindex"
+    },
+    {
       "name": "anhtester--antigravity-testing-kit",
       "source": "./anhtester--antigravity-testing-kit",
       "description": "\u0110\u00e2y l\u00e0 b\u1ed9 SKILL, WORKFLOW, RULE do Anh Tester x\u00e2y d\u1ef1ng d\u00e0nh ri\u00eang cho c\u1ed9ng \u0111\u1ed3ng Tester \u0111\u1ec3 thi\u1ebft l\u1eadp AI Agent tr\u00ean Antigravity h\u1ed7 tr\u1ee3 ki\u1ec3m th\u1eed ph\u1ea7n m\u1ec1m."
@@ -211307,6 +211322,16 @@
       "name": "lfdt-nightstream--starstream",
       "source": "./lfdt-nightstream--starstream",
       "description": "Starstream"
+    },
+    {
+      "name": "a-r-d--purejsimage",
+      "source": "./a-r-d--purejsimage",
+      "description": "Low-memory, zero-dependency image codecs and processing in pure TypeScript for Node.js, browsers, and serverless runtimes. Bounded decode/resize pipelines plus deep TIFF, scientific raster, GeoTIFF, O"
+    },
+    {
+      "name": "a-r-d--purejsimage",
+      "source": "./a-r-d--purejsimage",
+      "description": "Low-memory, zero-dependency image codecs and processing in pure TypeScript for Node.js, browsers, and serverless runtimes. Bounded decode/resize pipelines plus deep TIFF, scientific raster, GeoTIFF, O"
     },
     {
       "name": "izittmarvin--memcoach",
@@ -307299,6 +307324,11 @@
       "description": "Beastmode: MofA (Mixture of Agents) orchestration framework for Hermes/OpenClaw/Codex with MemroOS-style context continuity."
     },
     {
+      "name": "fsecada01--midi-drums",
+      "source": "./fsecada01--midi-drums",
+      "description": "\ud83e\udd41 Comprehensive MIDI drum generation system with 4 genres (Metal, Rock, Jazz, Funk), 28 styles, and 7 authentic drummer personalities. Plugin-based architecture for professional EZDrummer-compatible o"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -314062,6 +314092,11 @@
       "name": "ranteck--graph-engineer",
       "source": "./ranteck--graph-engineer",
       "description": "graph-engineer"
+    },
+    {
+      "name": "tykimos--ana-geo",
+      "source": "./tykimos--ana-geo",
+      "description": "ana-geo"
     },
     {
       "name": "lucas-acc--sancho-skills",
@@ -341897,6 +341932,16 @@
       "name": "rkana-org--gfty",
       "source": "./rkana-org--gfty",
       "description": "A CLI tool to manage gridfinity configurations for baseplates, bins, detachable labels and rims. Includes a multi-color label generator with SVG support, and automatic exports from onshape"
+    },
+    {
+      "name": "haiyan-ai-lab--adaptive-moe-inference",
+      "source": "./haiyan-ai-lab--adaptive-moe-inference",
+      "description": "Adaptive MoE inference for Kimi K3 \u2014 beyond-memory expert streaming, reversible runtime profiles, measured optimization results, and an open NVIDIA/GPU/NPU adaptation roadmap."
+    },
+    {
+      "name": "wsdx233--apkmesh",
+      "source": "./wsdx233--apkmesh",
+      "description": "explore and download apk form any source"
     },
     {
       "name": "lightninglabs--lnget",
