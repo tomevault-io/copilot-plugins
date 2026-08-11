@@ -1,0 +1,9 @@
+{
+  "name": "block--schemabot",
+  "displayName": "schemabot",
+  "description": "GitOps for database schemas",
+  "version": "1.0.0",
+  "author": "block",
+  "homepage": "https://github.com/block/schemabot",
+  "skills": []
+}
