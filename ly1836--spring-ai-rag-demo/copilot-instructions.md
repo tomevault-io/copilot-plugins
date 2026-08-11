@@ -1,35 +1,17 @@
-## ai-coding
+## openspec-docs
 
-> AI 协作通用约定，适用于所有文件
+> OpenSpec 文档编写语言与结构约束
 
 
-# AI 协作规则
+# OpenSpec 文档规则
 
-## 语言
-
-- 所有对话、注释说明、提交信息优先使用中文
-- 注释规则覆盖所有源码：Java / SQL / JavaScript / CSS / HTML（前端用 JSDoc 中文注释）
-
-## Commit 格式
-
-```
-<type>: <中文描述>
-
-AI-Generated: true
-AI-Tool: Cursor
-Reviewed-by: <git config user.name>
-```
-
-type: `feat` / `fix` / `refactor` / `docs` / `style` / `test` / `chore`
-
-## AI 行为约束
-
-1. 优先小提交（<500 行变更）
-2. 安全敏感代码必须经过人工审核
-3. 不确定的技术决策主动询问，不擅自决定
-4. 修改代码前先阅读相关上下文，理解现有设计意图
-5. 后端 API 改动时主动评估对前端的连带影响（请求/响应结构、错误码、SSE 协议），同步更新 `static/` 下相关文件
-6. 修改 `static/app.js` / `static/style.css` / `static/vendor/*` 后，必须更新 `static/index.html` 中对应资源的 `?v=N` 版本号，避免浏览器缓存导致前端不刷新
+- `openspec/` 下的 `proposal.md`、`design.md`、`tasks.md`、`spec.md` 正文默认使用中文。
+- OpenSpec 工具可能依赖固定结构关键字；如模板或同步工具要求保留 `## ADDED Requirements`、`### Requirement:`、`#### Scenario:`、`## Purpose`、`## Requirements` 等结构标记时，可以保留这些英文结构词，但其后的标题、说明、场景内容应使用中文。
+- 若主 `spec` 由 change 下的 delta spec 同步而来，源 delta spec 也应优先写成中文，否则同步结果会延续源文档语言。
+- 编写 `spec.md` 时优先保证结构兼容性，其次保证语言一致性；不要为了翻译把 OpenSpec 所需层级或关键标记改坏。
+- 主 `spec` 的标题也应优先使用中文，例如 `# <capability> 规格`，不要保留 CLI 自动生成的 `# <capability> Specification` 英文标题。
+- `## Purpose` 段落必须写成正式中文说明，禁止保留 `TBD - created by archiving change ...`、`Update Purpose after archive.` 等英文占位文案。
+- 当归档或同步主 spec 时，如果工具自动生成了英文外壳，必须在归档流程结束前立即改写为中文，再视为完成。
 
 ---
 > Source: [ly1836/spring-ai-rag-demo](https://github.com/ly1836/spring-ai-rag-demo) — distributed by [TomeVault](https://tomevault.io).
