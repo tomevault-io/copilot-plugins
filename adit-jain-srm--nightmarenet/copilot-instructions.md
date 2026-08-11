@@ -1,38 +1,28 @@
-## skill-forge
+## skill-orchestration
 
-> Validate against best-in-class, self-check quality, search for improvements
+> Mandatory skill orchestration — check which skills apply and USE them
 
 
-## Skill-Forge Quality Loop
+## Skill Orchestration
 
-### Self-Check After Every Major Action
+Before responding to ANY non-trivial task, check which installed skills apply and USE them.
 
-After completing any significant implementation:
+| Situation | Action |
+|-----------|--------|
+| About to write/modify code | Run self-review after |
+| About to build something new | Grill first (resolve decisions) |
+| Bug or unexpected behavior | Reproduce → hypothesise → fix |
+| About to claim "done" | Prove it with evidence |
+| Complex task (3+ steps) | Plan first |
+| UI/frontend changes | Precision over ambition |
+| External API calls | Retry, circuit breakers, error handling |
 
-1. Did I deliver QUALITY? Not "does it work" — is it EXCELLENT?
-2. What could be better? (There is ALWAYS something)
-3. If I compare this to the BEST version that exists — am I close?
-4. What would someone critique? Fix it BEFORE shipping.
+### Red Flags (you're skipping skills)
 
-### Validate Against Best
-
-Before shipping anything:
-- Find the BEST existing solution in that domain
-- Identify what makes it the best
-- Ask: "Is my version CLEARLY BETTER?"
-- If not → find what's missing, add it, re-compare
-
-### Search Broader
-
-- Don't just search GitHub — search for PAIN POINTS
-- "developers frustrated with X" > "X solution"
-- Latest FIRST — what's trending this week
-- If you find a better pattern anywhere → ADOPT it immediately
-
-### Never Ship "Good Enough"
-
-- "Good enough" = lazy = quality damage
-- Only ship what would make someone switch from their current approach
+- Writing code without self-review → STOP, review before presenting
+- Claiming "done" without running verification → prove it
+- Fixing a bug by guessing → follow the diagnose loop
+- Starting to build without asking questions → grill first
 
 ---
 > Source: [Adit-Jain-srm/NightmareNet](https://github.com/Adit-Jain-srm/NightmareNet) — distributed by [TomeVault](https://tomevault.io).
