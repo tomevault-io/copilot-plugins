@@ -7,13 +7,13 @@ A curated list of CyberDrain products, projects, and related community resources
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [rvdwegen/awesome-cyberdrain](https://github.com/rvdwegen/awesome-cyberdrain).
+Original source: `AGENTS.md` in [rvdwegen/awesome-cyberdrain](https://github.com/rvdwegen/awesome-cyberdrain).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
