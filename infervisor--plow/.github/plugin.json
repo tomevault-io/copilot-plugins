@@ -1,0 +1,9 @@
+{
+  "name": "infervisor--plow",
+  "displayName": "plow",
+  "description": "Packet Language for On-device Warps \u2014 a GPU inference compiler and runtime",
+  "version": "1.0.0",
+  "author": "infervisor",
+  "homepage": "https://github.com/infervisor/plow",
+  "skills": []
+}
