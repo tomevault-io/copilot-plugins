@@ -1,0 +1,9 @@
+{
+  "name": "pskoett--pmx-canvas",
+  "displayName": "pmx-canvas",
+  "description": "A live canvas for coding agents & human interaction. A visual workbench where nodes, edges, charts, diagrams, and interactive UIs all live together. Agents stream in data, you explore the graph, edit ",
+  "version": "1.0.0",
+  "author": "pskoett",
+  "homepage": "https://github.com/pskoett/pmx-canvas",
+  "skills": []
+}
