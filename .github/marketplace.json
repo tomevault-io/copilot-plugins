@@ -404124,6 +404124,46 @@
       "description": "glow-web"
     },
     {
+      "name": "50kg--image-to-slice",
+      "source": "./50kg--image-to-slice",
+      "description": "AI \u62c6\u56fe\u3001\u88ab\u906e\u6321\u80cc\u666f\u8865\u9f50\u3001\u4eba\u5de5\u6821\u51c6\u3001\u5bfc\u5165\u53ef\u7f16\u8f91 Figma \u56fe\u5c42\u3001\u5bfc\u51fa HTML/CSS"
+    },
+    {
+      "name": "abhishektuteja01--applyourself",
+      "source": "./abhishektuteja01--applyourself",
+      "description": "Human-gated, sponsorship-aware job-search pipeline: scrapes postings, scores them against a profile, and drafts tailored application material. Never submits anything."
+    },
+    {
+      "name": "yappologistic--ava",
+      "source": "./yappologistic--ava",
+      "description": "A native Qt 6/QML live-activity island and Dwindle tiling workspace for Windows 11."
+    },
+    {
+      "name": "agents-io--chatbotlite",
+      "source": "./agents-io--chatbotlite",
+      "description": "Drop-in AI chatbot SDK + React widget. 3 lines to integrate. 11 LLM providers with auto-failover. 13 URL-only adapters (Stripe, Calendly, PayPal...). Markdown knowledge. Apache 2.0."
+    },
+    {
+      "name": "betahope--cofounder-team",
+      "source": "./betahope--cofounder-team",
+      "description": "Portable Agent Skills. Essential AI co-founders plus coaches for specific needs."
+    },
+    {
+      "name": "distsystem--codex-desktop-linux",
+      "source": "./distsystem--codex-desktop-linux",
+      "description": "Codex Desktop for Linux \u2014 distsystem soft-fork (versioned-zip pinned, tracks ilysenko upstream)"
+    },
+    {
+      "name": "entzauberung--metheus",
+      "source": "./entzauberung--metheus",
+      "description": "A workflow command center for indie hackers. Split decision-making from code execution \u2014 so your AI team thinks before it builds. Saves tokens, reduces errors, works with any model. Built with Tauri +"
+    },
+    {
+      "name": "xzcawl--auto-quant",
+      "source": "./xzcawl--auto-quant",
+      "description": "\u7b56\u7565\u7814\u7a76\u6d41\u6c34\u7ebf\uff1a\u7528\u6237\u7ed9\u51fa\u601d\u60f3 \u2192 \u5b9e\u73b0\u5e76\u8bb0\u5f55 \u2192 \u56de\u6d4b\u9a8c\u8bc1 \u2192 \u751f\u6210\u62a5\u544a \u2192 \u4eba\u5de5\u5728 Cursor \u4e2d\u8c03\u7528 AI \u5206\u6790\u3002"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -432652,6 +432692,26 @@
       "name": "hiro-nyon--cesium-heatbox",
       "source": "./hiro-nyon--cesium-heatbox",
       "description": "A voxel\u2011based heatmap renderer for CesiumJS that converts existing entities into volumetric density maps. Automatically computes bounds, optimizes voxel count, and applies dynamic color mapping for cl"
+    },
+    {
+      "name": "rehatrobot--omnipost",
+      "source": "./rehatrobot--omnipost",
+      "description": "\u591a\u5e73\u53f0\u81ea\u5a92\u4f53\u81ea\u52a8\u53d1\u5e03\u5de5\u5177\uff0c\u652f\u6301\u6296\u97f3/B\u7ad9/\u5c0f\u7ea2\u4e66/\u5feb\u624b/\u89c6\u9891\u53f7/\u767e\u5bb6\u53f7/\u5934\u6761/\u641c\u72d0/\u77e5\u4e4e/TikTok\uff0c\u63d0\u4f9b Web\u3001CLI \u4e0e\u793a\u4f8b\u811a\u672c"
+    },
+    {
+      "name": "panther114--weport",
+      "source": "./panther114--weport",
+      "description": "Weport \u2014 \u8f7b\u91cf\u672c\u5730\u5fae\u4fe1\u804a\u5929\u8bb0\u5f55\u5bfc\u51fa\u5de5\u5177 (Windows) \u00b7 Electron + React \u00b7 10 \u79cd\u5bfc\u51fa\u683c\u5f0f \u00b7 \u901a\u77e5\u5f39\u7a97 \u00b7 \u9632\u64a4\u56de"
+    },
+    {
+      "name": "d4l3k--swolectl",
+      "source": "./d4l3k--swolectl",
+      "description": "An open source exercise machine controller compatible with Tonal 1 that allows for direct control of the motors, resistance and raw data."
+    },
+    {
+      "name": "maria-rcks--zerobrew",
+      "source": "./maria-rcks--zerobrew",
+      "description": "A 5-20x faster experimental Homebrew alternative"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -569202,6 +569262,26 @@
       "name": "pdovhomilja--hermesai",
       "source": "./pdovhomilja--hermesai",
       "description": "hermesai"
+    },
+    {
+      "name": "oungo--claude-usage",
+      "source": "./oungo--claude-usage",
+      "description": "claude-usage"
+    },
+    {
+      "name": "xmh1011--agentic-prd-workflow",
+      "source": "./xmh1011--agentic-prd-workflow",
+      "description": "Lightweight PRD-driven agent workflow framework for Codex, Claude Code, GitHub Actions, reusable skills, hooks, and team handoff."
+    },
+    {
+      "name": "xmh1011--agentic-prd-workflow",
+      "source": "./xmh1011--agentic-prd-workflow",
+      "description": "Lightweight PRD-driven agent workflow framework for Codex, Claude Code, GitHub Actions, reusable skills, hooks, and team handoff."
+    },
+    {
+      "name": "weiqinzhou3--upmio-clickhouse-hackathon",
+      "source": "./weiqinzhou3--upmio-clickhouse-hackathon",
+      "description": "UPMIO ClickHouse hackathon evidence, specs, and phase artifacts"
     }
   ]
 }
