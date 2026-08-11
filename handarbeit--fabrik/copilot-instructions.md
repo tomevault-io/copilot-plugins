@@ -1,0 +1,292 @@
+## fabrik
+
+> Fabrik is a Go CLI that orchestrates Claude Code through an SDLC pipeline defined on a GitHub Project board. Issues are the unit of work. The pipeline stages (Specify → Research → Plan → Implement → Review → Validate) are configured via YAML files.
+
+# Fabrik — Development Guide for Claude
+
+## Project Overview
+
+Fabrik is a Go CLI that orchestrates Claude Code through an SDLC pipeline defined on a GitHub Project board. Issues are the unit of work. The pipeline stages (Specify → Research → Plan → Implement → Review → Validate) are configured via YAML files.
+
+## Build & Test
+
+```bash
+go build -o fabrik .     # Build
+go test ./...            # Run all tests
+go test -race ./...      # Run with race detector
+go vet ./...             # Lint
+```
+
+## Documentation bundle (docs/llms-full.txt)
+
+When you modify any of the canonical doc pages — `docs/USER_GUIDE.md`, `docs/state-machine.md`, `docs/stage-lifecycle.md`, or `docs/positioning.md` — you MUST regenerate `docs/llms-full.txt` in the same commit:
+
+```bash
+bash scripts/generate-llms-full.sh
+git add docs/llms-full.txt
+```
+
+CI's `docs-drift` workflow (`.github/workflows/docs-drift.yml`) runs the regen and fails the PR if the committed bundle differs from the regen output. Forgetting the regen costs an extra round-trip; doing it consistently keeps PRs green on first push. This requirement applies to **every** stage (Specify, Research, Plan, Implement, Review, Validate) — wherever a doc edit happens, the bundle must follow.
+
+## Architecture
+
+- `cmd/root.go` — CLI entry point, flag parsing, .env loading
+- `engine/engine.go` — Engine struct, Config, construction, Run() entry point
+- `engine/poll.go` — Main poll loop, idle-upgrade, concurrent worker dispatch
+- `engine/item.go` — Per-issue processing: stage runs, comment processing, blocking/pausing
+- `engine/pr.go` — Output posting: issue comments, PR comments, summary extraction
+- `engine/comments.go` — Comment detection and filtering logic
+- `engine/context.go` — Context files (.fabrik-context/) and stage comment lookup
+- `engine/repo.go` — Per-repo identity helpers (parseOwnerRepo, repoName, issueKey)
+- `engine/claude.go` — Claude Code invocation, prompt building, marker extraction
+- `engine/worktree.go` — Git worktree lifecycle (create, update, push, cleanup)
+- `engine/merge_train.go` — Merge-train worker: trial branch assembly, inline conflict resolution, integration PR creation and CI polling (ADR-059 D3)
+- `engine/ci_settle.go` — `settleAwaitingCIScan`: the per-poll settle scan that owns `fabrik:awaiting-ci` items, sourced directly from `board.Items` so it is independent of `itemMayNeedWork`/`selectDeepFetchCandidates` admission (the fifth instance of the "dedicated settle scan" pattern — ADR-1270). Runs the shared `catchUpPhase1Handlers` chain, primes the store with a live check-run read (`RefreshCheckRunsLive`) so a stale cached PENDING classification cannot wedge the item, and applies an **unconditional `CIWaitTimeout` backstop** ahead of the handler chain so an item escalates even when some gate claims it before `checkCIGate` is ever reached. The main poll loop deliberately no longer processes these items (`poll.go` admits `hasComplete`-only); see ADR-1270 and #1303/#1325.
+- `engine/queued_review_settle.go` — `settleQueuedReviewFindings`: the per-poll settle scan that detects unresolved review-thread feedback arriving on a Queued merge-train member's linked PR — a window the `HoldingStage` exclusion otherwise blacks out entirely (the sixth instance of the "dedicated settle scan" pattern — ADR-1270). Ejects a flagged member off `Queued` via `ejectMember`/`ejectQueuedMemberForReviewFindings` (`engine/merge_train.go`) so the ordinary review-reinvoke path can address the finding, either directly (no merge-train worker in flight for the repo) or via a mutex-guarded pending-eject signal the worker itself consumes at its own checkpoints (`applyPendingReviewEjects`, mirroring the runaway guard's "poll writes a signal, worker checks it at a checkpoint" shape) when one is. See ADR-1208, `docs/state-machine.md` §6.16, and #1208.
+- `engine/interfaces.go` — GitHubClient and ClaudeInvoker interfaces (for testing)
+- `github/project.go` — GraphQL board fetching (single query for all items + comments + linked PRs)
+- `github/client.go` — HTTP client construction and shared request helpers
+- `github/labels.go` — Label mutations (add, remove, ensure)
+- `github/comments.go` — Comment mutations (add, update, reactions)
+- `github/prs.go` — PR mutations (create draft, mark ready)
+- `github/status.go` — Project board status updates
+- `github/rest.go` — Low-level HTTP helpers
+- `github/types.go` — Shared data types (ProjectItem, Comment, ReactionGroup)
+- `stages/stages.go` — YAML stage config loading
+- `stages/examples/` — Default stage YAML sources, embedded in binary via `//go:embed`
+- `stages/embed.go` — Exposes embedded default stages as `stages.DefaultStages`
+- `plugin/embed.go` — `FabrikPlugin` embed.FS; source of truth for all built-in skills
+- `plugin/refresh.go` — `RefreshPlugin()` overwrites `.fabrik/plugin/` from the embedded source
+- `cmd/init.go` — `fabrik init` subcommand; extracts embedded YAMLs to `.fabrik/stages/`
+- `.fabrik/stages/` — Live stage configs for this project (tracked in git)
+- `boardcache/boardcache.go` — `ReadClient` interface (9-method read-only subset of `GitHubClient`), `GitHubAdapter` (pass-through), `CacheImpl` (in-memory cache with delta, reconcile, pause/resume)
+- `boardcache/delta.go` — Typed webhook delta functions: apply `issue_comment`, `issues`, `pull_request`, `pull_request_review`, `pull_request_review_comment`, `check_run`, and `projects_v2_item` payloads as state mutations
+- `internal/selfupgrade/` — Generic binary self-management (version comparison, release-asset download, dev-build rebuild, re-exec — no checksum/signature verification of downloaded assets, only an HTTP status check and, on darwin, an ad-hoc re-sign), shared by both `engine` and (in a follow-up) Pruefer without either importing the other. Callers supply their own identity (binary name, owner/repo, version, log function) and optional hooks (`PostBuildHook`, `StatusFn`/`StatusClearFn`); nothing here hardcodes `fabrik`. See ADR-1196.
+- `internal/claudeerr/` — The four Claude invocation failure-classification error types (`UsageLimitError`, `TurnLimitError`, `APIErrorExit`, `ResumeFailureError`), extracted from `engine/claude.go` as a leaf package importable from both `engine` (via unexported type aliases — a pure move, zero existing test edits) and `tests/sim/simclaude` (to construct these shapes from an external test package). Mirrors `tests/sim/simgh/ghfault`'s precedent from #1457. See ADR-1449.
+- `tests/sim/` — Deterministic sim-bed harness: wires `tests/sim/simgh` (#1457) into a real `Engine` via `NewWithDeps`, alongside `tests/sim/simclaude` (a scripted `ClaudeInvoker` that acts on the real worktree it's handed) and poll-advancement/assertion vocabulary modeled on `tests/e2e/harness.go`. Uses two engine test seams: `Engine.PollOnce(ctx) error` (`engine/poll.go`, a thin delegation to the existing unexported `poll`) and `Engine.Clock`/`SetClock`/`now()` (`engine/clock.go`, covering `itemstate.CooldownAt` and the `recordLabelAppliedAtNow` write-through cache — every other timing gate is `FetchLabelAppliedAt`-anchored and already controllable from `simgh`). See `tests/sim/README.md` and ADR-1449.
+
+> **Editing built-in skills**: modify `plugin/fabrik-workflows/skills/<name>/SKILL.md` — the embedded source baked into the binary. `.fabrik/plugin/` is the local deployed copy written by `fabrik init` and refreshed by `fabrik upgrade`; it is not tracked in git and edits there will be silently overwritten on the next refresh.
+
+## Key Patterns
+
+### Reaction Flow
+- 👀 (eyes) = comment acknowledged, processing started
+- 🚀 (rocket) = comment processed successfully
+- The rocket reaction is checked on restart to avoid reprocessing — it's durable state
+
+### Markers in Claude Output
+- `FABRIK_STAGE_COMPLETE` — Claude signals stage completion (must be on its own line)
+- `FABRIK_BLOCKED_ON_INPUT` — Claude signals it needs user input before the stage can continue; mutually exclusive with `FABRIK_STAGE_COMPLETE`
+- `FABRIK_ISSUE_UPDATE_BEGIN` / `FABRIK_ISSUE_UPDATE_END` — Updated issue body from comment processing
+- `FABRIK_SUMMARY_BEGIN` / `FABRIK_SUMMARY_END` — Brief summary for issue when detailed output goes to PR
+
+### Context Files
+
+Before each stage invocation, the engine writes context documents to `.fabrik-context/` in the worktree:
+- `.fabrik-context/issue.md` — the issue body (spec)
+- `.fabrik-context/stage-<Name>.md` — output from prior stages
+- `.fabrik-context/pr-description.md` — linked PR description (for `post_to_pr` stages)
+- `.fabrik-context/codebase-changes.md` — files changed on `origin/<baseBranch>` since the last stage ran (generated by `context.go`; omitted when no prior stage or when SHAs match)
+
+### Concurrency
+- Workers dispatch via semaphore (`MaxConcurrent`, default 5)
+- `processedSet` protected by `sync.Mutex`
+- Worktree creation serialized by mutex (git config isn't concurrent-safe)
+- In-flight issues tracked via `sync.Map` to prevent duplicate dispatch
+
+### Worktrees
+- Each managed repo is always bare-cloned to `.fabrik/repos/<owner>-<repo>.git` on first access
+- Each issue gets `.fabrik/worktrees/<owner>-<repo>/issue-N/` on branch `fabrik/issue-N`
+- `fabrikDir` (where `.fabrik/` config, stages, and plugin live) is always `os.Getwd()`
+- NEVER destroy worktrees with existing content — they may have partial work
+- `updateWorktreeFromMain` fetches and merges origin/main; leaves conflicts for Claude
+- Dirty worktrees (uncommitted changes) skip the update
+
+### PR Lifecycle
+- Implement creates draft PR with `Closes #N` in body (links PR to issue)
+- `closedByPullRequestsReferences` in GraphQL traverses issue → linked PRs → PR comments
+- `post_to_pr` stages post detailed output on PR, summary on issue
+- PR marked ready after Implement completes (triggers external review bots)
+
+### Claude Subprocess Environment
+- Every Claude worker invocation's environment is scrubbed of the Anthropic/Claude-Code auth namespace by default (`ANTHROPIC_*` wildcard plus an enumerated `CLAUDE_CODE_*` auth-selector list) so no ambient credential can silently redirect a stage from subscription billing to metered API billing
+- `FABRIK_ANTHROPIC_API_KEY` is the only supported opt-in for API billing (translated to `ANTHROPIC_API_KEY`); `FABRIK_ANTHROPIC_ENV_PASSTHROUGH` is a narrow, explicitly-named allow-list escape hatch for the long tail (Bedrock/Vertex selectors, etc.) — neither is itself forwarded to the worker
+- `apiKeyHelper` (a `settings.json` key, not an env var) is refused outright: hard-fail at startup if present anywhere in the resolved settings chain, and per-invocation if present in a worktree's own `.claude/settings.json` or `settings.local.json`
+- `GH_HOST` is emitted alongside `GH_TOKEN`/`GITHUB_TOKEN` when a GHES host is configured (`ghes_host` / `FABRIK_GHES_HOST`), so a stage worker's ambient `gh` invocations (e.g. `fabrik-validate`'s Pre-Completion Gate) target the same GitHub instance as the engine; omitted entirely when no GHES host is configured. It is a Fabrik-computed override, not part of the Anthropic auth namespace, so it is never subject to the scrub/passthrough machinery above. See ADR-1391.
+- See `docs/USER_GUIDE.md`'s "Anthropic Auth Namespace Scrub & `apiKeyHelper` Refusal" and `docs/stage-lifecycle.md`'s "Worker Environment: Anthropic Auth Namespace Scrub" for full detail, and ADR-1346
+
+### Stage Config Options
+```yaml
+name: Research
+order: 1
+prompt: |
+  ...
+skill: fabrik-research          # Optional: plugin skill name to load for this stage
+model: sonnet
+max_turns: 50
+comment_prompt: |               # Optional: prompt for processing user comments
+  ...
+comment_skill: fabrik-research-comment  # Optional: plugin skill for comment processing
+comment_max_turns: 15           # Optional: max turns for comment review (default: min(max_turns, 15))
+allowed_tools:                  # Optional: REPLACES the default tool set (not additive). When set,
+  - Read                        # only the listed tools are allowed. When absent, Fabrik uses a
+  - Grep                        # comprehensive default: Read, Edit, Write, Glob, Grep, TodoWrite, Skill, Task,
+                                # Bash(git:*), Bash(gh:*), Bash(go:*), Bash(npm:*), Bash(npx:*), Bash(yarn:*),
+                                # Bash(pnpm:*), Bash(make:*), Bash(cargo:*), Bash(python:*), Bash(pip:*),
+                                # Bash(uv:*), Bash(pytest:*), Bash(ls:*), Bash(cat:*), Bash(rm:*), Bash(cp:*),
+                                # Bash(mv:*), Bash(mkdir:*), Bash(find:*).
+                                # IMPORTANT: allowed_tools is a call-time PERMISSION filter, not an
+                                # AVAILABILITY filter — a tool absent from this list is still offered to
+                                # the model and, under --permission-mode dontAsk, may still be invoked
+                                # (see #1372). It cannot make a harness tool disappear. The only mechanism
+                                # that does is `--disallowedTools`, which Fabrik emits unconditionally
+                                # (both invocation paths) for `ScheduleWakeup` and `Workflow` — harness
+                                # tools whose contract is cross-turn resumption that a headless stage
+                                # cannot deliver. See ADR-1365.
+post_to_pr: true                # Post output to linked PR instead of issue
+create_draft_pr: true           # Create draft PR before stage runs
+mark_pr_ready_on_complete: true # Mark PR ready when stage completes
+auto_advance: false             # Override global yolo setting
+read_only: false                # Stash/restore worktree changes (for Specify/Research stages that don't write code)
+cleanup_worktree: false         # Remove worktree when stage completes (for Done/cleanup stages)
+holding_stage: false            # Engine-managed batch holding pen (e.g. Queued for merge-train); no prompt/skill
+                                # needed; items are never dispatched individually — batch-handled by the engine.
+unmanaged: false                # Declares a recognized "parking column" (e.g. Backlog) Fabrik runs no workflow
+                                # for. No prompt/skill needed; items are never dispatched and never auto-advanced —
+                                # they sit until a human moves them to a real stage. See stages/examples/backlog.yaml.
+max_wall_time: "45m"            # Optional: wall-clock deadline for a single Claude invocation (e.g. "30m", "1h").
+                                # When exceeded, SIGTERM → 10s → SIGKILL sent to the process group. Output
+                                # collected before the kill is scanned for FABRIK_STAGE_COMPLETE so completed
+                                # stages are not re-run. Absent or zero = no cap. A hardcoded 15-minute
+                                # inactivity timeout (no output received) applies to every invocation regardless.
+disable_adaptive_thinking: true # Disable Claude Code's adaptive (auto-reduced) thinking budget. Default: true.
+effort_level: max               # Claude Code thinking effort: low, medium, high, max. Default: high.
+review_authority: authoritative # Optional: advisory (default) | authoritative. Only meaningful alongside
+                                # wait_for_reviews: true. advisory (unset) clears the review gate once
+                                # reviewers have responded, whatever they said. authoritative additionally
+                                # requires no outstanding CHANGES_REQUESTED and required approvals satisfied
+                                # — preferring GitHub's reviewDecision where branch protection defines a
+                                # review requirement, falling back to Fabrik's own no-CHANGES_REQUESTED
+                                # computation otherwise. Governs MERGING, never WORKING: an unresolved
+                                # CHANGES_REQUESTED does not make Fabrik sit idle — it reinvokes the stage
+                                # to address the reviewer's feedback (both inline thread comments and the
+                                # body of any review whose state is not DISMISSED or PENDING — as of #1045,
+                                # CHANGES_REQUESTED, COMMENTED, and APPROVED bodies are all treated as
+                                # potentially actionable, since a bot reviewer that submits its entire
+                                # finding set as COMMENTED (e.g. Pruefer) would otherwise be silently
+                                # dropped; the accepted trade-off is that a generic bot summary (e.g.
+                                # Copilot/Gemini's COMMENTED overview) can also trigger a reinvoke, whose
+                                # cost is capped by the no-op cycle exemption — a reinvoke landing no
+                                # commit reverses the cycle-counter increment (ReviewCycleDecremented)), bounded by
+                                # MaxReviewCycles, with pauseForReviewCycleLimit as the terminal fallback
+                                # only if the loop never converges — never as the first response to a
+                                # change request. yolo/cruise never bypass an authoritative gate's MERGE
+                                # decision — they still control
+                                # auto-advance/auto-merge timing, only once the gate itself is satisfied.
+                                # See ADR-1250, ADR-1375.
+expected_reviewers:             # Optional: declares unrequested reviewers (self-submitting review bots
+  - handarbeit-pruefer          # like Pruefer, Gemini, CodeRabbit) expected on PRs from this stage
+                                # without ever appearing in GitHub's requested-reviewer list. Only
+                                # meaningful alongside wait_for_reviews: true. Bare, mention-resolvable
+                                # handles only — no leading "@", no trailing "[bot]" (validated at load,
+                                # fails startup on a malformed entry). Absent (default) = undeclared,
+                                # unchanged behavior — wait the full timeout for a self-submitting bot,
+                                # exactly as before this key existed (fail-safe default). Declared list =
+                                # the bot re-prompt ladder (fabrik:bot-reprompted below) engages for these
+                                # names while none has responded. The gate's own clearing check is
+                                # unchanged (any non-DISMISSED review from any author, once nothing is
+                                # outstanding) — declaring names does not restrict clearing to only them,
+                                # it only governs the re-prompt ladder and timeout messaging.
+                                # expected_reviewers: [] = declares explicitly that none are expected — the
+                                # gate advances immediately when nothing is requested either, instead of
+                                # waiting out the timeout (still honors any reviewer actually requested on
+                                # the PR). See ADR-1283.
+```
+
+## Important Conventions
+
+- **Don't commit directly to main from worktrees** — always work on the issue branch
+- **Every PR must include `Closes #N`** in the body so Fabrik can discover PR comments
+- **Commit frequently** during implementation — preserves progress if session is interrupted
+- **Rebase onto the latest base branch** (default branch, or the branch specified by `base:<branch>` label) in Review and Validate stages before signaling completion
+- **Check `git status` first** in any stage — there may be uncommitted work from a previous session
+- **Labels are state**: `fabrik:locked:<user>`, `fabrik:editing`, `fabrik:paused`, `fabrik:awaiting-input`, `fabrik:awaiting-review`, `fabrik:awaiting-ci`, `fabrik:awaiting-done`, `fabrik:awaiting-member-close`, `fabrik:awaiting-close`, `fabrik:awaiting-advance`, `fabrik:awaiting-placement`, `fabrik:blocked`, `fabrik:rebase-needed`, `fabrik:bot-reprompted`, `fabrik:children-spawned`, `fabrik:sub-issue`, `fabrik:claude-limit`, `fabrik:clear-claude-limit`, `fabrik:api-key-helper-detected`, `stage:<name>:in_progress`, `stage:<name>:complete`, `stage:<name>:failed`, `model:<name>`, `effort:<level>`, `review-authority:<mode>`, `expected-reviewers:<mode>`, `fabrik:yolo`, `fabrik:cruise`, `fabrik:unrestricted`, `fabrik:extend-turns`, `base:<branch>`, `fabrik:revalidate`
+  - `model:<name>` — set by user to select a specific model for this issue (e.g. `model:opus`)
+  - `effort:<level>` — set by user to override the stage's configured thinking effort for this issue only; valid values: `low`, `medium`, `high`, `max`; if multiple `effort:` labels are present, precedence is `max > high > medium > low`
+  - `review-authority:<mode>` — set by user to override the stage's configured `review_authority` (ADR-1250) for this issue only; valid values: `advisory`, `authoritative`; only meaningful alongside `wait_for_reviews: true` — it does not change whether the review gate applies, only the verdict-strictness once the gate is active. No `review-authority:` label → stage YAML `review_authority` governs (unchanged default). Exactly one recognized label → it overrides the stage config for this issue only. Both `review-authority:advisory` and `review-authority:authoritative` present → resolves to `authoritative` (the more restrictive value), logging a warning — mirroring `effort:<level>`'s "pick deterministically, don't arbitrate" convention rather than `model:<name>`'s "first wins" convention. Any `review-authority:` label whose suffix is not exactly `advisory` or `authoritative` (typo, casing, unknown value) → ignored with a logged warning, falls back to stage config — never a hard failure, never a silent escalation to authoritative. Resolved by the shared `effectiveReviewAuthority` helper, which `checkReviewGate` (the advance gate) and `reviewGateBlocksLanding` (the landing gate) both consult identically, so the two gates can never disagree on the same issue. `yolo`/`cruise` never bypass whatever authority resolves to — they control merge/advance timing once the resolved gate is satisfied, never the gate's clearing condition. See ADR-1250, ADR-1261.
+  - `expected-reviewers:<mode>` — set by user to override the stage's configured `expected_reviewers` (ADR-1283) for this issue only; valid values: `none`, `declared`; only meaningful alongside `wait_for_reviews: true` — it does not change whether the review gate applies, only which reviewers are expected once the gate is active. No `expected-reviewers:` label → stage YAML `expected_reviewers` governs (unchanged default, nil stays nil). Exactly one recognized label → it overrides the stage config for this issue only. `expected-reviewers:none` resolves to `&[]string{}` (enables the FR-2 fast-advance path). `expected-reviewers:declared` resolves to a fixed synthetic reviewer identity (`e2e-synthetic-declared-reviewer`) intended for testing/e2e use — it never posts a real review, so applying it to a production issue runs out the full re-prompt ladder before pausing. Both labels present → resolves to `declared` (the more restrictive value — it imposes waiting, unlike `none`'s immediate advance), logging a warning — same "pick deterministically, don't arbitrate" convention as `review-authority:<mode>`. Any `expected-reviewers:` label whose suffix is not exactly `none` or `declared` (typo, casing, unknown value) → ignored with a logged warning, falls back to stage config — never a hard failure, never a silent escalation to `declared`. Resolved by the shared `effectiveExpectedReviewers` helper, which `checkReviewGate`, `reviewGateBlocksLanding`, and `pauseForReviewTimeout`'s FR-4 status message all consult identically, so the two gates and the pause message can never disagree on the same issue. See ADR-1283, #1304.
+  - `fabrik:yolo` — set by user to force auto-advance even when `auto_advance: false` in stage YAML; also triggers auto-merge of the linked PR when Validate completes
+  - `fabrik:cruise` — set by user to auto-advance through all stages without auto-merging the PR or advancing to Done at Validate completion; if both cruise and yolo are present, **cruise takes precedence** — the PR is not auto-merged and the issue does not advance to Done, exactly as with cruise alone. Both end-of-Validate guards (`engine/stages.go`) test the raw cruise label rather than `cruiseActive`, so yolo cannot override either decision. Cruise is the conservative label: adding yolo to a cruise issue never widens automation.
+  - `fabrik:awaiting-review` — set by engine when a stage with `wait_for_reviews: true` completes and outstanding PR reviewer requests remain; cleared when all reviewers submit or `FABRIK_REVIEW_WAIT_TIMEOUT` elapses. Applied from three idempotent, non-conflicting sites: `handleStageComplete` (optimistic seeding, only when `wait_for_ci: false`), `checkReviewGate` (catch-up loop Phase 1 — owns the bot re-prompt ladder and the timeout), and `reviewGateBlocksLanding` via `attemptMergeOnValidate` (the landing-decision gate — blocks and labels only, never escalates). The landing gate exists because Phase 1's `handleReviewGate` skips itself on the frozen `hasComplete` in the very poll pass that clears CI, and Phase 2 reaches the landing decision in that same iteration; it re-reads review state live (`FetchPRReviews`/`FetchPRReviewRequests`) rather than trusting the item snapshot, sits ahead of the `merge_train` fork so both modes are gated identically, and blocks conservatively when a review fetch errors. See ADR-1216 and `docs/state-machine.md` §6.6.6.
+  - `fabrik:bot-reprompted` — single fixed label (22 chars); set by engine after Phase 1 of the bot-reviewer escalation ladder fires (1× `ReviewWaitTimeout` when `reviewGateAllBots` is true — either every outstanding *requested* reviewer is a bot, or nothing was requested and a stage-declared `expected_reviewers` identity (ADR-1283) has not yet responded); serves as idempotency guard for Phase 1 and timing anchor for Phase 2; cleared when the gate cycle ends (bot responds, Phase 2 fires, or gate clears naturally). Never persists beyond the gate cycle. **Historical note:** before `expected_reviewers` (ADR-1283), `reviewGateAllBots` was unconditionally `false` whenever nothing was formally requested — which every real self-submitting bot (Pruefer, Gemini, CodeRabbit, Copilot) satisfies, since none of them are ever formally requested. This label had therefore never fired in production. Declaring `expected_reviewers` on a stage is what makes it reachable.
+  - `fabrik:awaiting-ci` — set by engine when a stage with `wait_for_ci: true` emits `FABRIK_STAGE_COMPLETE`; **`stage:<name>:complete` is NOT added at that point** — it is deferred until CI passes (conjunctive gate). While this label is present, the dispatcher will not re-invoke the stage (only the catch-up loop evaluates CI). Cleared by the engine when all CI checks pass; also applied on confirmed CI failure to signal the CI-fix reinvocation path.
+  - `fabrik:awaiting-done` — set by engine as the very first mutation in `handleNoWorkNeeded`, the instant a stage emits `FABRIK_STAGE_COMPLETE` + `FABRIK_NO_WORK_NEEDED`, so the decision survives even if the subsequent board move to Done or issue close fails (e.g. rate-limit exhaustion) or the engine restarts. While present, dispatch is suppressed for every non-cleanup stage regardless of board column. Retried every poll by an unconditional settle scan until the Done move and issue close both succeed, at which point the label is cleared; after `MaxRetries` failed settle passes the issue is escalated instead (`fabrik:paused` added, `fabrik:awaiting-done` removed, explanatory comment posted) — see ADR-060.
+  - `fabrik:awaiting-member-close` — set by `landSingleton` (the merge-train one-at-a-time landing path) when its member-issue `CloseIssue` call fails, after the PR merge, Done-move, and member-PR close have already happened. Retried every poll by an unconditional settle scan (`settleMergeTrainMemberCloses`, independent of `merge_train: on/off` and of `itemMayNeedWork`/`itemNeedsWork` dispatch — the item has already reached Done by the time this label matters) until the issue is confirmed closed (by us or by GitHub's own `Closes #N` auto-close), at which point the label is cleared; after `MaxRetries` failed attempts the issue is escalated instead (`fabrik:paused` added, `fabrik:awaiting-member-close` removed, explanatory comment posted) — see ADR-061. Scoped to `landSingleton` only; the analogous call in `landMergeTrainBatch` is a separate, deliberately out-of-scope follow-up.
+  - `fabrik:awaiting-close` — set by `closeIssueIfNonDefaultBase` (ADR-1096's engine-initiated explicit close for a PR merged onto a non-default `base:<branch>`) when its `CloseIssue` call fails, after the caller's Done-advance has already happened. Retried every poll by an unconditional settle scan (`settleNonDefaultBaseCloses`, independent of `itemMayNeedWork`/`itemNeedsWork` dispatch — the item has already reached Done by the time this label matters) until the issue is confirmed closed (by us or by any other actor), at which point the label is cleared; after `MaxRetries` failed attempts the issue is escalated instead (`fabrik:paused` added, `fabrik:awaiting-close` removed, explanatory comment naming the merged PR posted) — see ADR-1097. Structurally identical to `fabrik:awaiting-member-close`/ADR-061.
+  - `fabrik:awaiting-advance` — set by `recordAdvanceOutcome` when a terminal advance (`advanceToNextStage`, called from `advanceValidateTerminalItem`'s merged-PR path or `advanceConvergedPRToDone`) fails to move the project-board Status forward — most commonly a missing target Status option — after every other side effect of the caller has already run. A one-time explanatory comment naming the failing stage and the underlying error is posted on the absent→present transition only. Retried every poll by an unconditional settle scan (`settleAwaitingAdvanceScan`, independent of `itemMayNeedWork`/`itemNeedsWork` dispatch — the item's own stage is already gate-complete by the time this label matters) until the advance succeeds (e.g. the missing Status option is added — no engine restart needed), at which point the label is cleared; after `MaxRetries` failed attempts the issue is escalated instead (`fabrik:paused` added, `fabrik:awaiting-advance` removed, explanatory comment posted) — see ADR-1422. Structurally identical to `fabrik:awaiting-close`/ADR-1097.
+  - `fabrik:unrestricted` — passes `--dangerously-skip-permissions` instead of `--permission-mode dontAsk`; bypasses the default tool allowlist entirely. Use only when a stage needs tools outside the default set (e.g. non-standard toolchains). **Caution:** removes all tool restrictions.
+  - `fabrik:extend-turns` — set by user as a manual override to pre-grant 2× the stage's `max_turns` budget for every invocation while the label is present; persists across all stages until the Done stage's cleanup runs (it is removed there, not on each individual stage completion); no-op when `max_turns == 0` (unlimited); subsequent extensions beyond 2× still require automatic progress detection; use as a safety valve when progress detection misfires — apply once and it covers all remaining stages
+  - `base:<branch>` — set by user to override the worktree base branch for this issue; Fabrik will fork from, rebase onto, and target PRs at `<branch>` instead of the repository default; must be set before Research; multiple `base:` labels use the first and logs a warning; if the branch does not exist on the remote, Fabrik falls back to the default and posts a comment
+  - `fabrik:blocked` — set by engine in `checkDependencies` when the issue has unresolved blocking dependencies (issues referenced via GraphQL `blockedBy`); cleared idempotently when all dependencies are resolved; processing is suspended while the label is present. On resume (the item already carries this label), `checkDependencies` re-reads `BlockedBy` live rather than trusting the cached snapshot — unconditionally on `alreadyBlocked`, not only when the cached list happens to be non-empty (ADR-1419) — so a stale-*empty* cache (the shape a bypassed engine spawn produces: a stage agent calling `gh issue create` directly, never creating a `blockedBy` edge) cannot cause an incorrect unblock.
+  - `fabrik:rebase-needed` — set by engine at Validate when `attemptMergeOnValidate` returns `ErrNotMergeable` (the linked PR no longer cleanly merges onto its base branch); engine dispatches `dispatchRebaseReinvoke` to retry; cleared on successful rebase; at `MaxRebaseCycles` Fabrik falls through to `pauseForRebaseCycleLimit` and the issue is paused for human intervention
+  - `fabrik:children-spawned` — set by the shared `spawnChildren` (`engine/spawn.go`) after all `FABRIK_SPAWN_CHILD_*` children in one batch are successfully created, board-servability-checked, assigned, added to the project board, and linked as `blockedBy` of the parent — regardless of whether Plan (via `preImplement`), Review, or Validate declared the spawn (ADR-1419, see below). For Plan-declared spawns this also serves as `preImplement`'s idempotency guard — while present, `preImplement` is a no-op; remove manually (and close any orphaned children) to trigger a fresh spawn. A mid-flight Review/Validate spawn needs no equivalent guard (each dispatch's output is parsed exactly once, never replayed) but still applies this label on success.
+  - `fabrik:sub-issue` — applied by `spawnChildren` to each spawned child issue, regardless of origin stage; informational only (human-visible filtering); carries no engine-gate semantics
+  - **Cross-repo spawn board-servability (ADR-1419):** for any spawn (Plan, Review, or Validate), `spawnChildren` first checks whether *this instance's own* `repo:`/`project:` config actually covers each target repo — a multi-repo instance (`repo:` unset) already serves any repo its board carries; a `repo:`-scoped instance whose repo doesn't match the target has no board to register the child on. Rather than silently registering the child onto this instance's own (wrong) board and leaving it unassigned — the original failure mode — the spawn now fails loud: `fabrik:paused` is added to the parent with an explanatory comment naming the unservable target, and no children are created for that batch. Every spawned child is unconditionally assigned to `cfg.User` (folded into the same `CreateIssue` call, so a bad `user:` value fails loud through that one already-fail-loud path). `FABRIK_SPAWN_CHILD_BEGIN/END` recognition is not exclusive to Plan: Review and Validate parse it directly from their own stage output (mirroring the `FABRIK_PR_CREATE` marker precedent) as a sanctioned route for a stage that discovers a blocker mid-flight, instead of calling `gh issue create` directly — which the engine would never observe (no board registration, no assignee, no `blocked_by` edge). See `docs/state-machine.md` §6.7/§6.7.2 and [ADR-1419](adrs/1419-cross-repo-spawn-servability-and-midflight-recognition.md).
+  - `fabrik:awaiting-placement` — set on a spawned **child** issue by `spawnChildren` when its initial project-board Status placement fails (call error, missing status-field metadata, or no suitable column found) — the child, board item, and `blockedBy` link already exist by this point, so this is recoverable in place rather than a spawn-abort condition. Retried every poll by a settle scan sourced directly from `board.Items` (not `deepFetchCandidates`, which a stranded child — sitting in a column with no configured stage — never reaches). Cleared on successful placement, or when the settle scan observes the child has been closed (no further placement is needed). After `MaxRetries` failed settle passes the child is escalated instead (`fabrik:paused` added, `fabrik:awaiting-placement` removed, explanatory comment posted on the child, plus a best-effort comment on the parent) — see ADR-062.
+  - `fabrik:revalidate` — set by operator to force re-entry of the Validate stage; engine removes `stage:Validate:complete`, `stage:Validate:failed`, `fabrik:paused`, `fabrik:awaiting-input`, `fabrik:awaiting-ci`, `fabrik:auto-merge-enabled`, and the trigger label itself; Validate then dispatches on the next poll cycle; applied to non-Validate issues: only the trigger label is removed with a warning; safe to apply while Validate is in-flight (held until worker exits)
+  - `fabrik:claude-limit` — set by engine when a Claude invocation exits because the account's usage limit was hit, detected structurally from the CLI's own `terminal_reason == "blocking_limit"` field on the parsed result object — never from output prose a stage may have written (distinct from GitHub's own "rate limit" terminology used elsewhere in this doc for the GraphQL budget — see `engine/backoff.go`/`engine/terminal.go`); the stage never ran, so `StageAttempted` is recorded (the normal dispatch cooldown applies) but `StageRetryIncremented` is not — the hit does not count against `max_retries`, and neither `stage:<name>:failed` nor `fabrik:paused` is applied. An explanatory comment is posted once per detection episode, gated on the label's own absence, mirroring `fabrik:awaiting-ci`'s non-spamming behavior. Cleared per-issue on that issue's next invocation that is not itself classified as a usage-limit exit, and account-wide by `settleClaudeLimitLabelSweep` (`engine/claude_limit_settle.go`), a per-poll settle scan that best-effort-removes the label from every open item once `claudeSuspendedUntilTime` reports the account-wide suspension has lifted — so an issue that is paused, blocked, or simply not redispatched no longer keeps the label indefinitely after the suspension has already ended (the same durable-state leak as #1135's orphaned `stage:*:in_progress` labels). See ADR-1119, ADR-1183.
+  - `fabrik:clear-claude-limit` — operator-applied to any open board item to clear an active account-wide Claude usage-limit suspension without restarting the engine. Read each poll by `settleClaudeLimitClearRequests` (`engine/claude_limit_settle.go`), which calls `clearClaudeSuspension` and removes the label from every item carrying it — a one-shot command with no retry counter, mirroring the `fabrik:revalidate` idiom. Not scoped to items also carrying `fabrik:claude-limit`: the suspension it clears is account-wide, not per-issue. See ADR-1183.
+  - `fabrik:api-key-helper-detected` — set by engine when a stage invocation is skipped because the worktree's own `.claude/settings.json` or `settings.local.json` sets `apiKeyHelper` (a repo-resident setting Fabrik cannot see until the worktree exists — the startup-time preflight covers only the managed-policy/user/`fabrikDir`-project layers). Mirrors `fabrik:claude-limit`'s "stage never ran" shape exactly: `StageAttempted` is recorded (the normal dispatch cooldown applies) but `StageRetryIncremented` is not — the detection does not count against `max_retries`, and neither `stage:<name>:failed` nor `fabrik:paused` is applied. An explanatory comment naming the offending file is posted once per detection episode, gated on the label's own absence. Cleared on the next invocation that is not itself classified as a usage-limit exit or an `apiKeyHelper` detection — a human removing `apiKeyHelper` from the worktree file is enough to self-resolve; unlike `fabrik:claude-limit` there is no account-wide settle sweep, since the condition is inherently per-worktree. See ADR-1346, R13.
+
+## Canonical Documentation
+
+These files are the authoritative as-built specifications for Fabrik's engine behavior. They must be kept in sync with the code — any PR that changes behavior in the areas they cover must update the corresponding doc in the same change set.
+
+- **`docs/state-machine.md`** — As-built specification for: engine state transitions, label semantics, `FABRIK_*` marker handling, comment processing lifecycle, review gate and review reinvoke, PR lifecycle coupling, progress-based turn extension, and guard/filter behavior in `itemMayNeedWork` / `itemNeedsWork`.
+- **`docs/stage-lifecycle.md`** — As-built specification for the per-invocation lifecycle: what happens before, during, and after a single Claude invocation (context files, worktree setup, Claude invocation, progress baseline snapshot, extension loop, output handling).
+
+These are **as-built docs** — they describe what the engine currently does. They are distinct from `adrs/*.md`, which record architectural decisions and design rationale, not current state. Do not put state-machine content into ADRs or vice versa.
+
+### ADR numbering
+
+**New ADRs are numbered after the issue they come from**, not sequentially: an ADR for issue #1089 is `adrs/1089-kebab-title.md` with the heading `# ADR 1089: Title`. This matches `specs/` (`specs/895-conjunctive-ci-review-gate/`).
+
+Do **not** pick "the next free number." Several issues are normally in flight at once and whichever merges first takes the number, so a sequential choice collides with a sibling branch — and git merges it cleanly, because the filenames differ. Nothing catches it. The number can also go stale while the PR waits in Review or Validate, after it was verified as free. Four such collisions occurred in a single day on 2026-07-26 before this convention was adopted.
+
+`001`–`073` are legacy sequential numbers: leave them as they are, and never reuse or renumber them. Issue numbers are far above that range, so new ADRs cannot collide with legacy ones. If a single issue needs two ADRs, suffix them (`1089-a-...`, `1089-b-...`).
+
+PRs introducing new as-built behavioral docs should also add an entry here.
+
+## Handling Community Bug Reports
+
+**Never run a community- or human-filed bug report through the Fabrik pipeline directly.** The Specify stage rewrites the issue body (`FABRIK_ISSUE_UPDATE_BEGIN` / `FABRIK_ISSUE_UPDATE_END`), so pipelining a report would overwrite the reporter's repro and diagnosis with a bot-authored spec — and the pipeline machinery (👀/🚀 reactions, per-stage comments, label churn) would spam the reporter's thread. Report and work are different artifacts: the report is human-owned triage/discussion; the work is bot-driven engineering.
+
+Instead:
+
+- **Keep the report as the canonical thread** — human-owned. Confirm the repro there, then comment linking to the work issue; keep it open until the fix lands.
+- **Create a separate spec-kit WORK issue** (authored as the bot identity, on the engine project board) that restates the report as Problem / Requirements / Scope / Acceptance and references it. **One report maps to 1..N work issues.**
+- **Linkage:** the work issue's PR carries `Closes #<work-issue>` (Fabrik's own discovery relies on it) **and** `Fixes #<report>` (so GitHub auto-closes the report and the reporter sees the resolution land).
+- **Multi-part fixes:** create a **chain of self-contained spec-kit work issues** (`blockedBy`-linked, **no epic/tracking issue**), all referencing the report. Do **not** rely on the in-pipeline child-spawn (`FABRIK_SPAWN_CHILD`) for a *known* decomposition — that path is for decomposition Plan *discovers* mid-flight; pre-decompose into chained issues when you already know the shape.
+- **Exception:** only pipeline the issue itself when it is your own internal issue, already spec-kit-shaped, a single fix, and reshaping it is acceptable. Community-filed reports are always handled as a separate work issue.
+
+**Board separation:** community reports belong on a separate, **public** triage/roadmap board with coarse columns — **Triage → Accepted → In Progress → Merged → Shipped → Declined** — giving the community a clean "reported → shipping" view. The engine work board stays private — it is thick with operational machinery (`fabrik:locked`, `stage:<name>:in_progress`, bot churn) that is noisy in public. A GitHub issue can belong to both boards at once (coarse on the public board, fine-grained on the engine board); keep the public board coarse to avoid status-sync overhead.
+
+**`Merged` is not `Shipped`.** Fabrik reaches users through **releases** (`go install` / release download), not merged `main`. A merged fix is therefore **Merged** (in `main`, not yet available — build from source to get it early), and only moves to **Shipped** when a **release is actually cut** that includes it (note the release version). Never mark a report Shipped on merge — that implies an availability the community can't get yet.
+
+## Startup Board Validation
+
+On every startup, Fabrik fetches the project board and compares stage names to board columns. If any non-cleanup stage is missing from the board, Fabrik exits with a detailed error message listing the mismatched names. Extra board columns (without a matching stage) produce a warning but don't block startup. This catches mismatches between stage YAML config and the GitHub Project board configuration early.
+
+## Common Issues
+
+- **Startup board validation failure**: Stage names in `.fabrik/stages/*.yaml` must match the column names on your GitHub Project board exactly. Check both for typos.
+- **Max turns exceeded**: Increase `max_turns` in stage YAML or split the issue
+- **Merge conflicts**: Left as conflict markers for Claude to resolve — check `git status`
+- **Stale worktree**: `updateWorktreeFromMain` runs on each stage invocation; skip if dirty
+- **SSH key expired**: `ssh-add ~/.ssh/<key>` — git operations fail silently with warning
+- **processedSet is in-memory**: Rocket reactions provide durable "already processed" state across restarts
+- **Stage drift warning at startup**: `[startup] warning: .fabrik/stages/<file>.yaml is missing fields present in v<version> defaults: <keys>` means your stage YAML predates fields added in a newer binary. The check is value-aware: a missing key is only reported when adding it would actually change the stage's effective behavior — a key whose embedded-default value is behaviorally identical to omission (e.g. `kill_grace: {sigint: 10s, sigterm: 10s}`, `completion: {type: claude}`) is never flagged. Run `fabrik refresh-stages` to preview what would be added, then `fabrik refresh-stages --apply` to add the missing keys (it uses the same value-aware comparison, so it never offers a key drift considers a no-op). Review with `git diff`, then commit. The warning is informational — the engine will still run with your existing config, but you may be missing new behavioral options (e.g. `wait_for_ci`, `wait_for_reviews`).
+
+---
+> Source: [handarbeit/fabrik](https://github.com/handarbeit/fabrik) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
