@@ -4,7 +4,7 @@
   "repo": "scribe-forge-ai",
   "description": "\ud83c\udfb5 Complete offline audio transcription system with speaker diarization using OpenAI Whisper and PyAnnote. Features automatic audio cleaning, precise timestamps, multiple output formats (JSON/TXT/Markdown), and support for 20+ audio formats. No external APIs required - works entirely offline.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TheSeraphim/scribe-forge-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T22:35:21Z"
+  "distributed_at": "2026-08-11T22:59:41Z"
 }
