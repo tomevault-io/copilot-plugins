@@ -1,0 +1,9 @@
+{
+  "name": "kucherenko--petropowers",
+  "displayName": "petropowers",
+  "description": "AI skills framework for petroleum engineering workflows, built on Superpowers foundation. Specialized domain expertise for oil & gas operations.",
+  "version": "1.0.0",
+  "author": "kucherenko",
+  "homepage": "https://github.com/kucherenko/petropowers",
+  "skills": []
+}
