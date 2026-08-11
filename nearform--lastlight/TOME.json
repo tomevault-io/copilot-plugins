@@ -4,7 +4,7 @@
   "repo": "lastlight",
   "description": "Self-hostable, MIT Licensed, Enterprise AI Software Factory",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nearform/lastlight",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T20:58:34Z"
+  "distributed_at": "2026-08-11T21:09:40Z"
 }
