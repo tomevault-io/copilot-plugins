@@ -1,0 +1,9 @@
+{
+  "name": "jnhflow21--social-media-toolkit",
+  "displayName": "social-media-toolkit",
+  "description": "Public Python SDK, CLI, and MCP server for extracting metadata, text, timed transcripts, media, and supported comments from Douyin, RedNote, Bilibili, and YouTube.",
+  "version": "1.0.0",
+  "author": "JNHFlow21",
+  "homepage": "https://github.com/JNHFlow21/social-media-toolkit",
+  "skills": []
+}
