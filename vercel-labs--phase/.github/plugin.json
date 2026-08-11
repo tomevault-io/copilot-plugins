@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--phase",
+  "displayName": "phase",
+  "description": "Lifecycle-aware UI performance layer for the web",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/phase",
+  "skills": []
+}
