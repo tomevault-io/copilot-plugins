@@ -1,0 +1,9 @@
+{
+  "name": "kahtaf--opencandle",
+  "displayName": "OpenCandle",
+  "description": "AI-powered financial analysis agent: real-time market data, multi-analyst workflows, and portfolio tools in your terminal.",
+  "version": "1.0.0",
+  "author": "Kahtaf",
+  "homepage": "https://github.com/Kahtaf/OpenCandle",
+  "skills": []
+}
