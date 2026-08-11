@@ -7,11 +7,11 @@ Superintelligence for your health, in the groupchat.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cobuildwithus/murph](https://github.com/cobuildwithus/murph).
+Original source: `CLAUDE.md` in [cobuildwithus/murph](https://github.com/cobuildwithus/murph).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
