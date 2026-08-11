@@ -1,0 +1,44 @@
+{
+  "name": "cesium-heatbox",
+  "owner": "hiro-nyon",
+  "repo": "cesium-heatbox",
+  "description": "A voxel\u2011based heatmap renderer for CesiumJS that converts existing entities into volumetric density maps. Automatically computes bounds, optimizes voxel count, and applies dynamic color mapping for clear spatial insight. Ships ESM/UMD builds and TypeScript types.  / CesiumJS\u306e\u30a8\u30f3\u30c6\u30a3\u30c6\u30a3\u304b\u3089\u30dc\u30af\u30bb\u30eb\u578b\u306e3D\u30d2\u30fc\u30c8\u30de\u30c3\u30d7\u3092\u751f\u6210\u3002\u81ea\u52d5\u7bc4\u56f2\u8a2d\u5b9a\u3068\u6700\u5c0f\u30dc\u30af\u30bb\u30eb\u3067\u9ad8\u901f\u63cf\u753b\u3057\u3001\u5bc6\u5ea6\u5206\u5e03\u3092\u76f4\u611f\u7684\u306b\u53ef\u8996\u5316\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hiro-nyon/cesium-heatbox",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T04:38:49Z"
+}
