@@ -1,0 +1,9 @@
+{
+  "name": "geekfamilycorp--tricorderkit",
+  "displayName": "TricorderKit",
+  "description": "The local-first Agentic Knowledge OS - CLI-first, self-improving, measured. Turn intentions into traceable, auditable, reusable workflows. Runs on your machine (Ollama, Neo4j, Qdrant).",
+  "version": "1.0.0",
+  "author": "GeekFamilyCorp",
+  "homepage": "https://github.com/GeekFamilyCorp/TricorderKit",
+  "skills": []
+}
