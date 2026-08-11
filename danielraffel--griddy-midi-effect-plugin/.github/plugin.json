@@ -1,0 +1,9 @@
+{
+  "name": "danielraffel--griddy-midi-effect-plugin",
+  "displayName": "Griddy-MIDI-Effect-Plugin",
+  "description": "Griddy is a topographic drum sequencer based on Mutable Instruments Grids",
+  "version": "1.0.0",
+  "author": "danielraffel",
+  "homepage": "https://github.com/danielraffel/Griddy-MIDI-Effect-Plugin",
+  "skills": []
+}
