@@ -1,0 +1,9 @@
+{
+  "name": "aaryan-kapoor--surface",
+  "displayName": "Surface",
+  "description": "A two-way interaction primitive for AI agents. Your agent renders live UI onto any screen you own - and every tap, stroke, and answer lands back in its context, the moment it happens, even if its sess",
+  "version": "1.0.0",
+  "author": "Aaryan-Kapoor",
+  "homepage": "https://github.com/Aaryan-Kapoor/Surface",
+  "skills": []
+}
