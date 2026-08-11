@@ -1,0 +1,9 @@
+{
+  "name": "0x1abin--nanortc",
+  "displayName": "nanortc",
+  "description": "A Sans I/O, pure C WebRTC implementation for RTOS and embedded systems.",
+  "version": "1.0.0",
+  "author": "0x1abin",
+  "homepage": "https://github.com/0x1abin/nanortc",
+  "skills": []
+}
