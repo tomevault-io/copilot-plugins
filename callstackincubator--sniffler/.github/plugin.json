@@ -1,0 +1,9 @@
+{
+  "name": "callstackincubator--sniffler",
+  "displayName": "sniffler",
+  "description": "Sniffler sniffs out the E2E tests your changes actually wake up.",
+  "version": "1.0.0",
+  "author": "callstackincubator",
+  "homepage": "https://github.com/callstackincubator/sniffler",
+  "skills": []
+}
