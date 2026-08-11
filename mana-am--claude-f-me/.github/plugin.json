@@ -1,0 +1,9 @@
+{
+  "name": "mana-am--claude-f-me",
+  "displayName": "claude-f-me",
+  "description": "Control wearable haptics by chatting in Claude Code \u2014 MCP plugin, live console, simulator, 750+ devices.",
+  "version": "1.0.0",
+  "author": "mana-am",
+  "homepage": "https://github.com/mana-am/claude-f-me",
+  "skills": []
+}
