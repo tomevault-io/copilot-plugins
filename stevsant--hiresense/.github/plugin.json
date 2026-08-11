@@ -1,0 +1,9 @@
+{
+  "name": "stevsant--hiresense",
+  "displayName": "HireSense",
+  "description": "Turn the job-board firehose into a ranked shortlist and land interviews faster \u2014 self-hosted AI that ingests, ranks, and runs your whole application pipeline (tracking, CVs, interview prep, analytics)",
+  "version": "1.0.0",
+  "author": "StevSant",
+  "homepage": "https://github.com/StevSant/HireSense",
+  "skills": []
+}
