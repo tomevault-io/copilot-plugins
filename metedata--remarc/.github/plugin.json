@@ -1,0 +1,9 @@
+{
+  "name": "metedata--remarc",
+  "displayName": "Remarc",
+  "description": "Your feedback layer for AI collaboration. Point at anything on your Mac - text, screenshots, web elements, or voice - and your agent reads and resolves your comments over MCP.",
+  "version": "1.0.0",
+  "author": "metedata",
+  "homepage": "https://github.com/metedata/Remarc",
+  "skills": []
+}
