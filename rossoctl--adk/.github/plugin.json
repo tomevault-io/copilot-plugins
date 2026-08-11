@@ -1,0 +1,9 @@
+{
+  "name": "rossoctl--adk",
+  "displayName": "adk",
+  "description": "Kagenti Agent Development Kit",
+  "version": "1.0.0",
+  "author": "rossoctl",
+  "homepage": "https://github.com/rossoctl/adk",
+  "skills": []
+}
