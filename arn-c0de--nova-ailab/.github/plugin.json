@@ -1,0 +1,9 @@
+{
+  "name": "arn-c0de--nova-ailab",
+  "displayName": "Nova.AiLab",
+  "description": "Deterministic AI simulation and diagnostics lab for Project Nova / HASHKRIEG \u2014 branch-independent matches, replays, metrics, movement tests, combat analysis and comparisons.",
+  "version": "1.0.0",
+  "author": "arn-c0de",
+  "homepage": "https://github.com/arn-c0de/Nova.AiLab",
+  "skills": []
+}
