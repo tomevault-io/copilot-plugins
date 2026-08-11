@@ -1,0 +1,9 @@
+{
+  "name": "warmatrixai--warmatrix",
+  "displayName": "WarMatrix",
+  "description": "WarMatrix is a tactical simulation and command console application featuring a 3D tactical map interface, a scalable backend simulation engine, and an AI integration layer for an immersive operational",
+  "version": "1.0.0",
+  "author": "WarMatrixAI",
+  "homepage": "https://github.com/WarMatrixAI/WarMatrix",
+  "skills": []
+}
