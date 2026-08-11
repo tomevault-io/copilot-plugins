@@ -1,0 +1,9 @@
+{
+  "name": "jakubsuplicki--codument",
+  "displayName": "codument",
+  "description": "Docs-based guardrails for AI coding workflows: coverage scoring, doc-drift checks, and diff safety review.",
+  "version": "1.0.0",
+  "author": "jakubsuplicki",
+  "homepage": "https://github.com/jakubsuplicki/codument",
+  "skills": []
+}
