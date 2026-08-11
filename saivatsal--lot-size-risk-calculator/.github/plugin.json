@@ -1,0 +1,9 @@
+{
+  "name": "saivatsal--lot-size-risk-calculator",
+  "displayName": "Lot-Size-Risk-Calculator",
+  "description": "A Lot Size Risk Calculator is a trading tool designed to help investors and traders manage risk by calculating the appropriate position size for a trade based on their account balance, risk tolerance,",
+  "version": "1.0.0",
+  "author": "SaiVatsal",
+  "homepage": "https://github.com/SaiVatsal/Lot-Size-Risk-Calculator",
+  "skills": []
+}
