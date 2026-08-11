@@ -1,0 +1,44 @@
+{
+  "name": "astrbot_plugin_imgexploration",
+  "owner": "iona-s",
+  "repo": "astrbot_plugin_imgexploration",
+  "description": "\u901a\u8fc7\u4e0a\u4f20\u56fe\u7247\u641c\u7d22\u5176\u6765\u6e90\uff0c\u652f\u6301 SauceNAO\u3001Google Lens\u3001Ascii2d \u7b49\u641c\u56fe\u5f15\u64ce\uff0c\u5e76\u7ed3\u5408LLM\u6539\u5584\u4f7f\u7528\u4f53\u9a8c\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/iona-s/astrbot_plugin_imgexploration",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T19:09:51Z"
+}
