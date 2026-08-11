@@ -1,0 +1,9 @@
+{
+  "name": "neftedollar--fslangmcp",
+  "displayName": "FsLangMCP",
+  "description": "Semantic F# for AI coding agents (Claude Code \u00b7 Cursor \u00b7 Copilot \u00b7 Codex) \u2014 an MCP server that gives LLMs real FCS/FSAC compiler intelligence (find, check, types, rename) instead of grepping F#.",
+  "version": "1.0.0",
+  "author": "Neftedollar",
+  "homepage": "https://github.com/Neftedollar/FsLangMCP",
+  "skills": []
+}
