@@ -1,0 +1,9 @@
+{
+  "name": "fockus--claude-skill-find-skill",
+  "displayName": "claude-skill-find-skill",
+  "description": "Discover and install Claude Code skills from 12 community and official sources",
+  "version": "1.0.0",
+  "author": "fockus",
+  "homepage": "https://github.com/fockus/claude-skill-find-skill",
+  "skills": []
+}
