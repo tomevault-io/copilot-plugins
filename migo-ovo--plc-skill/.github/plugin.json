@@ -1,0 +1,9 @@
+{
+  "name": "migo-ovo--plc-skill",
+  "displayName": "plc-skill",
+  "description": "A PLC-focused skill repository that streamlines industrial control workflows, troubleshooting, and automation-related tasks.",
+  "version": "1.0.0",
+  "author": "MIGO-OvO",
+  "homepage": "https://github.com/MIGO-OvO/plc-skill",
+  "skills": []
+}
