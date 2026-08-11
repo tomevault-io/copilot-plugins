@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--nemo-fabric",
+  "displayName": "NeMo-Fabric",
+  "description": "NVIDIA NeMo Fabric",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/NeMo-Fabric",
+  "skills": []
+}
