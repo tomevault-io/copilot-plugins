@@ -1,0 +1,9 @@
+{
+  "name": "telemetry-tracker--telemetry-tracker",
+  "displayName": "telemetry-tracker",
+  "description": "Lightweight self-hosted telemetry: errors, events, sessions, and a dashboard. Fastify API, Next.js UI, PostgreSQL, @tacko SDKs.",
+  "version": "1.0.0",
+  "author": "Telemetry-Tracker",
+  "homepage": "https://github.com/Telemetry-Tracker/telemetry-tracker",
+  "skills": []
+}
