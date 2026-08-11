@@ -4,7 +4,7 @@
   "repo": "neural-spectral-modeling-template",
   "description": "Neural spectral modeling template based on extended Lightning-Hydra-Template",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/josmithiii/neural-spectral-modeling-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T02:45:11Z"
+  "distributed_at": "2026-08-11T02:54:19Z"
 }
