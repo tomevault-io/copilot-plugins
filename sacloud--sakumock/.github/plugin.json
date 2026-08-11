@@ -1,0 +1,9 @@
+{
+  "name": "sacloud--sakumock",
+  "displayName": "sakumock",
+  "description": "Mock suite for Sakura Cloud APIs",
+  "version": "1.0.0",
+  "author": "sacloud",
+  "homepage": "https://github.com/sacloud/sakumock",
+  "skills": []
+}
