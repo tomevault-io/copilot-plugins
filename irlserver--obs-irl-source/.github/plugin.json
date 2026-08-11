@@ -1,0 +1,9 @@
+{
+  "name": "irlserver--obs-irl-source",
+  "displayName": "obs-irl-source",
+  "description": "OBS plugin for receiving live IRL streams over SRT, RTMP, or any FFmpeg-supported protocol.",
+  "version": "1.0.0",
+  "author": "irlserver",
+  "homepage": "https://github.com/irlserver/obs-irl-source",
+  "skills": []
+}
