@@ -1,54 +1,41 @@
-## architecture
+## docs-on-code-change
 
-> Architecture and coding conventions for AI Lamp OpenClaw
+> Update docs (markdown) when code changes
 
 
-# Architecture Rules
+# Docs on Code Change
 
-## Package Structure
+Whenever you write or change code that affects behavior, architecture, or APIs, you **must** update the relevant documentation in `docs/`.
 
-- **Handlers** go in `server/<domain>/delivery/http/handler.go`
-- **Services** go in `internal/<domain>/service.go`
-- **Domain types** go in `domain/<type>.go`
-- **Wire providers** go in `server/wire.go` and `bootstrap/wire.go`
-- **Shared libraries** go in `lib/`
+## Scope
 
-## Dependency Injection
+- New features, refactors, API changes, config changes, startup flow changes
+- Applies to: `internal/`, `server/`, `domain/`, `scripts/`, `web/`, `bootstrap/`
 
-- Use **Google Wire** for compile-time DI — no runtime reflection
-- After changing any provider signature: run `make generate`
-- Never manually edit `wire_gen.go` files
+## Actions
 
-## API Conventions
+1. Identify which `docs/*_vi.md` files are impacted
+2. Update them to match the new code (numbers, flows, endpoints, states, etc.)
+3. Keep docs accurate — no drift between code and documentation
 
-- All responses use `serializers.ResponseSuccess(data)` or `serializers.ResponseError(err)`
-- Response format: `{"status": 1|0, "data": <payload>|null, "message": null|"error"}`
-- Validate requests with `go-playground/validator` at handler level
-- Return early on validation failure with `http.StatusBadRequest`
+## Doc Files
 
-## Error Handling
+| Code area | Docs to update |
+|-----------|----------------|
+| lamp-server, API, startup | `lamp-server_vi.md` |
+| LED, effects, states, animations | `led-control_vi.md` |
+| Setup flow, provisioning | `setup-flow_vi.md` |
+| Web UI, configuration pages | `web-ui_vi.md` |
+| Flow Monitor (pipeline SVG, flow logs) | `flow-monitor_vi.md` (and `docs/flow-monitor.md`) |
+| Overall structure | `overview_vi.md` |
+| MQTT, dispatch, publish | `mqtt_vi.md` |
+| bootstrap, OTA | `bootstrap-server_vi.md` |
 
-- Always wrap errors with context: `fmt.Errorf("operation: %w", err)`
-- Log with component prefix: `log.Println("[led] starting engine")`
-- Never swallow errors silently
+## Convention
 
-## Goroutines & Concurrency
-
-- Always pass `context.Context` for cancellation
-- Background goroutines must select on `ctx.Done()`
-- Use `sync.Mutex` for shared state, not channels (unless fan-out pattern)
-
-## Configuration
-
-- Config in `config/config.json` managed by `server/config/config.go`
-- Use notification channel for propagating config changes to services
-- Never hardcode secrets — load from config file
-
-## Build
-
-- Cross-compile target: `GOOS=linux GOARCH=arm64`
-- Version injected via ldflags — never commit binaries
-- Lint with `golangci-lint run` before committing
+- Vietnamese docs: `*_vi.md` (e.g. `lamp-server_vi.md`)
+- English vision/design: keep as-is unless code explicitly changes behavior
+- 100% accurate: numbers, names, flows must match code
 
 ---
 > Source: [autonomous-ai/autonomous-lamp](https://github.com/autonomous-ai/autonomous-lamp) — distributed by [TomeVault](https://tomevault.io).
