@@ -404024,6 +404024,61 @@
       "description": "PDF Export from Obsidian via Typst"
     },
     {
+      "name": "weiweigogo--openfrence",
+      "source": "./weiweigogo--openfrence",
+      "description": "\u4e00\u4e2a\u8f7b\u91cf\u7ea7\u7684 Windows \u684c\u9762\u56fe\u6807\u5206\u7ec4\u7ba1\u7406\u5de5\u5177\uff0cStardock Fences \u7684\u5f00\u6e90\u66ff\u4ee3"
+    },
+    {
+      "name": "kraken-plugins--kraken-api",
+      "source": "./kraken-plugins--kraken-api",
+      "description": "API for creating RuneLite plugins supporting client interactions!"
+    },
+    {
+      "name": "kraken-plugins--kraken-api",
+      "source": "./kraken-plugins--kraken-api",
+      "description": "API for creating RuneLite plugins supporting client interactions!"
+    },
+    {
+      "name": "danielraffel--griddy-midi-effect-plugin",
+      "source": "./danielraffel--griddy-midi-effect-plugin",
+      "description": "Griddy is a topographic drum sequencer based on Mutable Instruments Grids"
+    },
+    {
+      "name": "arthurlee116--english-listening-trainer",
+      "source": "./arthurlee116--english-listening-trainer",
+      "description": "\u57fa\u4e8e Next.js 15 \u7684\u82f1\u8bed\u542c\u529b\u8bad\u7ec3\u5e94\u7528\uff0c\u96c6\u6210 AI \u751f\u6210\u5185\u5bb9\u548c\u672c\u5730 Kokoro TTS"
+    },
+    {
+      "name": "ticpu--claude-conversation-search-mcp",
+      "source": "./ticpu--claude-conversation-search-mcp",
+      "description": "MCP server for searching Claude Code conversation history with advanced indexing"
+    },
+    {
+      "name": "wpfleger96--ai-agent-rules",
+      "source": "./wpfleger96--ai-agent-rules",
+      "description": "Manage configs for Claude Code, Codex, Gemini CLI, Goose, and Amp from one repo \u2014 symlinks, merge pipeline, profile inheritance, cross-machine sync"
+    },
+    {
+      "name": "arthurlee116--english-listening-trainer",
+      "source": "./arthurlee116--english-listening-trainer",
+      "description": "\u57fa\u4e8e Next.js 15 \u7684\u82f1\u8bed\u542c\u529b\u8bad\u7ec3\u5e94\u7528\uff0c\u96c6\u6210 AI \u751f\u6210\u5185\u5bb9\u548c\u672c\u5730 Kokoro TTS"
+    },
+    {
+      "name": "fundingthecommons--project-ideas",
+      "source": "./fundingthecommons--project-ideas",
+      "description": "This repository contains a number of projects that we would love to see realized in our ecosystem."
+    },
+    {
+      "name": "chrisbyboston--jarkdown",
+      "source": "./chrisbyboston--jarkdown",
+      "description": "Export Jira Cloud issues to Markdown with attachments"
+    },
+    {
+      "name": "breez--glow-web",
+      "source": "./breez--glow-web",
+      "description": "glow-web"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -432527,6 +432582,31 @@
       "name": "zannagames--zanna",
       "source": "./zannagames--zanna",
       "description": "Zanna is a self-contained development platform for building native games and applications on Linux, macOS, and Windows. It brings back the coherence and immediacy of classic developer tools, while pro"
+    },
+    {
+      "name": "ohmymeme--ohmymeme-android",
+      "source": "./ohmymeme--ohmymeme-android",
+      "description": "\u8f7b\u91cf\u5316\u8de8\u5e73\u53f0\u8868\u60c5\u5305\u7ba1\u7406\u7cfb\u7edf"
+    },
+    {
+      "name": "nedonion--lobster0",
+      "source": "./nedonion--lobster0",
+      "description": "Lobster0 \u2014 a self-hosted OpenClaw-inspired AI agent with persistent memory, governed autonomy, and self-evolution. \u53d7 OpenClaw \u542f\u53d1\u7684\u81ea\u6258\u7ba1 AI Agent\u300cLobster0\u300d\uff0c\u5177\u5907\u6301\u4e45\u8bb0\u5fc6\u3001\u53d7\u63a7\u81ea\u6cbb\u4e0e\u81ea\u6211\u8fdb\u5316\u80fd\u529b"
+    },
+    {
+      "name": "kaibuildsai--kindle-for-whoop",
+      "source": "./kaibuildsai--kindle-for-whoop",
+      "description": "Turn a spare Kindle into a low-power WHOOP dashboard."
+    },
+    {
+      "name": "vvvvvilk--ds2api",
+      "source": "./vvvvvilk--ds2api",
+      "description": "DS2API \u4ee3\u7406\u6865\u4e00\u53f7\u4e00 IP \u5206\u6d41"
+    },
+    {
+      "name": "hiro-nyon--cesium-heatbox",
+      "source": "./hiro-nyon--cesium-heatbox",
+      "description": "A voxel\u2011based heatmap renderer for CesiumJS that converts existing entities into volumetric density maps. Automatically computes bounds, optimizes voxel count, and applies dynamic color mapping for cl"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -569072,6 +569152,11 @@
       "name": "naeemtahiriub-svg--docs",
       "source": "./naeemtahiriub-svg--docs",
       "description": "docs"
+    },
+    {
+      "name": "pdovhomilja--hermesai",
+      "source": "./pdovhomilja--hermesai",
+      "description": "hermesai"
     }
   ]
 }
