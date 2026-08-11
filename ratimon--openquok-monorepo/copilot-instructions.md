@@ -1,71 +1,115 @@
-## agent-cli
+## agent-skill
 
-> How to add or change the openquok CLI (yargs, agent/src/api.ts, JSON output, docs). Apply when editing agent/ or CLI-related docs.
+> Meta-guidance for OpenQuok agent skills under agent/skills/. Authoritative instructions live in each skill’s SKILL.md — apply when editing those skills or this rule.
 
 
-# Agent CLI (`openquok`)
+**Sources of truth:** each installable skill’s `SKILL.md` under `agent/skills/<slug>/`. Edit that file when changing what agents should do; keep this rule for Cursor-only best practices and cross-skill layout.
 
-The programmatic CLI lives in `agent/`, published as `@openquok/auto-cli`. It targets automation and agents: **stdout is JSON** for machine parsing; errors go through the shared JSON error printer.
+## Skill families
 
-## Layout
+| Kind | Example | Layout | Role |
+|------|---------|--------|------|
+| **Core CLI skill** | `openquok-core` | `SKILL.md` + `resources/` | Auth, media Rule 2, channel recipes, `openquok` workflows |
+| **Sibling pipeline skill** | `openquok-tiktok-slideshow` | `SKILL.md` + `scripts/` + `references/` | Domain pipeline (research → generate → post); **requires** `openquok-core` / `openquok` on PATH; never replaces core |
 
-- **Entry** — `agent/src/index.ts`: `scriptName("openquok")`, `.strict()`, `.fail` → `printErrorJson`, `stripNpmRunArgvPassthrough` so `pnpm … cli -- <args>` works (leading `--` would otherwise confuse yargs). Global `--help` text uses `.help("help", "…")` (second argument is the description yargs prints in the Options table).
-- **HTTP client** — `agent/src/api.ts` (`OpenquokApi`): JSON helpers and multipart where needed. Only add methods for routes the CLI actually calls (see `public-api-surface-sync`).
-- **Commands** — `agent/src/commands/*.ts`: each file exports `registerXCommands: RegisterCommands` chaining `.command(...)` onto the shared `Argv`.
-- **Registration** — `agent/src/commands/index.ts` calls each `register*` in a stable order; new domains get a new module plus one line here.
-- **Shared types** — `agent/src/commands/types.ts` (`CommandContext`, `RegisterCommands`).
-- **Helpers** — `agent/src/commands/utils.ts` (`runCommand`, `requireArg`, `parseJsonMaybe`, `toArrayFromCsv`, …). Wrap handlers in `runCommand("<name>", async () => { … })` so failures carry the command name.
-- **Pure logic** — When a command grows non-trivial (flag normalization, JSON shaping, provider merge rules), move deterministic helpers into a colocated `*.logic.ts` module and cover them with Vitest (`*.test.ts`).
+Sibling skills may depend on core recipes (upload → `{id,path}`, TikTok photo-carousel, `SELF_ONLY` drafts) by instructing the agent to follow `openquok-core` — do not duplicate long CLI matrices into the sibling `SKILL.md`.
 
-## Unit tests (Vitest)
+Publish each slug separately to ClawHub (`agent/CLAWHUB.md`). Skills with `scripts/` must document **Copy / `--copy`** install so scripts land as real files.
 
-- **Location** — `agent/src/**/*.test.ts` (e.g. `posts.logic.test.ts` exercises `posts.logic.ts`).
-- **Scope** — Prefer testing **pure functions** (payload builders, parsers, merge rules). Keep handlers thin and push deterministic shaping into `*.logic.ts` so unit tests stay fast.
+## Skill layout — openquok-core
 
-## End-to-end CLI tests (Vitest)
+- **`SKILL.md`** — Hard rules, auth, core workflow, pitfalls, quick reference. Keep it focused; link out instead of duplicating long examples. The **Channels (Meta)** table indexes per-platform files and summarizes user intents — do not paste feature matrices or long bash into `SKILL.md`.
+- **`resources/*.md`** — Deeper material agents load on demand:
+  - `command-reference.md` — CLI commands, flags, env vars (not `agent/README.md`; skill install path has no sibling README).
+  - `provider-settings.md` — shared publish-time mechanics: `--settings` vs `--providerSettingsByIntegrationId`, merge order, flat vs nested API buckets, multi-`-c` behavior.
+  - `patterns.md` — extended workflows (campaign JSON, batching, retries).
+  - `{identifier}-examples.md` — per-channel agent docs (see **Per-channel example file** below). Today: `threads`, `facebook`, `instagram-standalone`, `instagram-business`.
+  - `threads-publish.md` — server publish behavior summarized in markdown (never link to `.ts` / backend paths from the skill).
+- **`SKILL.md` tone** — imperative, short tables and bullets; no tutorial prose; shell-safety rules for untrusted input; defer command lists and long bash to `resources/`.
 
-- **Location** — `agent/tests/e2e/**/*.e2e.test.ts` (included from `agent/vitest.config.mjs`).
-- **Style** — Scenario-based: build an `argv` string list the same order a user would pass after `openquok`, set `HOME` to a temp dir when touching credentials paths, point `OPENQUOK_API_URL` at a local stub server, then assert HTTP bodies + JSON stdout. Prefer filenames that reflect surface + command (e.g. `threads.schedule.post.e2e.test.ts`, `instagram.upload.e2e.test.ts`). Use `@faker-js/faker` for UUIDs and sample strings when values only need to be stable within the test.
-- **Runner** — Same as unit tests: `agent/run-vitest.mjs` spawns **`node web/node_modules/vitest/vitest.mjs`** from the repo root with `--config agent/vitest.config.mjs` (Vitest stays a `web` devDependency; no extra lockfile entry in `agent/`). It intentionally does **not** run `pnpm --filter ./web exec vitest`, because `pnpm agent:test` is already under pnpm and a second `pnpm exec` can **deadlock** on the store lock. **Do not** spawn nested `pnpm --filter ./agent exec …` from inside a test either. The e2e harness runs the **bundled** CLI (`node agent/dist/index.js`) via **async `spawn`** with **`stdio: ['ignore','pipe','pipe']`** — `spawnSync` inside Vitest workers has been observed to hang; default stdin pipes can also block CLIs that read stdin. If `dist/` is absent, the harness runs **`node agent/node_modules/tsup/dist/cli-default.js`** once (stdio ignored) instead of `pnpm exec tsup`.
-- **Commands** — `pnpm agent:test` (unit + e2e), `pnpm agent:test:unit`, `pnpm agent:test:e2e`; watch: `pnpm --filter ./agent test:watch`.
+## Skill layout — sibling skills (`scripts/` + `references/`)
 
-## Yargs conventions
+Use this pattern for pipeline skills that ship runnable helpers (e.g. `openquok-tiktok-slideshow`):
 
-- **Command names** — Use `group:verb` (e.g. `posts:create`, `integrations:list`). Match what users type; keep names stable once shipped.
-- **Examples** — Use `$0` in `.example()` strings so help text shows the correct binary name.
-- **Validation** — Prefer `.check((argv) => { … })` when rules involve multiple flags (e.g. “`--json` path OR (`--scheduledAt` + integrations + body)”). Avoid impossible combinations of `demandOption` on mutually exclusive paths.
-- **Aliases** — Offer short flags (`-c`, `-s`, `-i`, …) **and** long names that align with the public API / SDK where it helps scripts and docs stay consistent.
-- **Types** — Use explicit `choices` for enums that map to the API (e.g. `draft` | `scheduled`). If the CLI accepts a synonym (e.g. `schedule` → `scheduled`), normalize in the handler, not in the API request.
-- **Arrays** — For “repeat this flag” behavior, use `type: "string", array: true` (or equivalent) and normalize to `string[]` in code; document pairing order in `describe` / examples.
-- **Kebab-case options** — When matching common CLI spelling (e.g. `--release-id`), expose alongside camelCase if yargs normalizes; read both in the handler if needed.
+- **`SKILL.md`** — Phases, prerequisites, install (Copy required), config shape pointers, and how to invoke scripts. Keep lean; link into `references/` for deep playbooks.
+- **`scripts/`** — Node (or shell) helpers the agent runs with `node scripts/<name>.js`. Prefer CommonJS or whatever the skill’s local `package.json` declares. Do not assume npm deps beyond `engines` unless the skill documents a real install step on its homepage.
+- **`references/`** — On-demand docs and scaffolds agents load when needed (slide structure, research notes, character-lock templates, JSON templates). Prefer neutral first-party templates — no personal asset paths or third-party persona dumps in-repo.
+- **Compatibility** — State clearly: does not replace `openquok-core`; requires `openquok` (+ `node`) on PATH; media and post create go through the CLI.
+- **Workspace config** — Onboarding may scaffold files **outside** the skill install (user workspace). Document paths in `SKILL.md`; do not write secrets into the skill bundle.
 
-## Behavior and UX
+When adding a new sibling skill, also update ClawHub scripts in `agent/package.json`, `agent/CLAWHUB.md`, and the Extensions Hub listing / docs page as applicable.
 
-- **Output** — Success paths should `printJson(…)` only; do not mix prose and JSON on stdout.
-- **Side effects** — Auth and uploads are the main exceptions; still end with JSON when possible.
-- **Config** — Respect `getConfig()`, credentials precedence (`readCredentialsFile` vs `OPENQUOK_API_KEY`), and `OPENQUOK_API_URL` as implemented in `agent/src/config.ts` and `index.ts`.
+## Per-channel example file (`resources/{identifier}-examples.md`)
 
-## Docs that mention the CLI
+Each live Meta (or future) channel the CLI can post to should have one example file matching `provider.identifier`. Structure every file the same way so agents can map **user intent → recipe**:
 
-- **Paths** — `web/src/content/docs/cli-usages/`, `cli-examples/`, `getting-started-for-cli/`, and `agent/README.md` / `agent/skills/*/SKILL.md`.
-- **MDX** — Follow `docs-conventions`. Inside HTML tables and `<Badge text="…">`, avoid **curly/smart quotes** and avoid **nested `"` inside attributes** that confuse the Svelte/MDX compiler. Prefer splitting labels (`<Badge text="-m" />` + `<Badge text="--media" />`) or describe JSON shapes in prose with separate `<code>` spans instead of a single `[{"id","path"}]`-style literal in one cell.
-- **Neutrality** — Follow `source-project-neutrality`: do not name or link other products as the “source” of the CLI design; describe flags and behavior in first-party terms.
+1. **Resolve integration** — `integrations:list` + `integrations:settings` one-liner at the top.
+2. **Supported features** — table: Feature | Supported | Notes — **only shipped behavior** (same bar as `publicChannelConfig` FAQ/bento, but agent-actionable, not marketing copy).
+3. **Agent tasks** — table: “User wants to…” | “Do this” — link to anchored sections below (e.g. link preview, Reel, reply chain).
+4. **Provider settings** — table of publish keys (`--settings` / `providerSettingsByIntegrationId`), with precedence rules (e.g. Facebook `url` ignored when media attached).
+5. **Recipes** — short `bash` blocks per task; use `<integration-id>` placeholders; link to `provider-settings.md` once at the top.
 
-## Checklist when adding a command
+When adding or changing publish behavior for a channel, update **backend resolver + this file** together. Do not lift `publicChannelConfig.ts` hero/feature prose into the skill — distill facts into the tables above.
 
-1. Implement handler in the right `agent/src/commands/<domain>.ts` (or new file + `index.ts` import).
-2. Add or extend `OpenquokApi` only if this command calls a new HTTP surface.
-3. Add `.example()` lines for the common cases.
-4. Update `agent/README.md` (and smoke-test lists in `development-environment.md` if they enumerate commands).
-5. Update on-site CLI docs under `web/src/content/docs/cli-*/` when user-facing flags or workflows change — add or extend `cli-usages/<topic>.md` and the `cli-usages/index.md` `CardGrid` (e.g. `plugs.md` for `plugs:*` commands).
-6. When the command wraps a **new public API route**, complete the full **`public-api-surface-sync.mdc`** checklist (Swagger JSDoc, `apis-*` page, SDK if applicable) in the same PR — do not defer docs.
+## CLI-only scope
 
-## Publishing
+Skill content is for agents using `openquok` and the public API.
 
-- Bump `agent/package.json` `version` before npm publish (see `agent/PUBLISHING.md`).
-- Tag `cli-vX.Y.Z` for `.github/workflows/release.yml`.
-- CI uses npm **trusted publishing** (OIDC): configure on npm for `@openquok/auto-cli` with workflow `release.yml`; do **not** set `NODE_AUTH_TOKEN` on the publish step (`EOTP` = token path + 2FA).
-- `repository.url` in `package.json` must be `git+https://github.com/Ratimon/openquok-monorepo.git` with `"directory": "agent"`.
+- **Do** document flat API keys the backend accepts on create (`post_type`, `url`, `is_trial_reel`, …) and nested **orchestrator buckets** in `providerSettingsByIntegrationId` (`threads.replies`, `threads.internalEngagementPlug`, `instagram.replies`, `facebook.url` when nested).
+- **Do** run `integrations:settings` for `rules`, `maxLength`, and `tools`; note that typed publish schemas may live in channel example files until `settingsSchema()` exists on the provider.
+- **Do not** document web UI, composer panels, preview components, Payload Wizard UX, or web-only camelCase composer fields (e.g. `postType`, `trialReel`). Summarize server behavior in `resources/*.md` instead of linking monorepo source.
+
+## Links
+
+Only reference markdown under **this skill’s** directory (or stable external URLs in the front matter). Sibling skills may name `openquok-core` as a required dependency and point agents at core recipes by skill name — do not link to monorepo source files (TypeScript, tests, etc.) from skill content; summarize behavior in a new or existing `resources/` / `references/` file instead.
+
+## Registry security scans
+
+Hermes (`hermes skills install <url>`) and ClawHub run automated scans on `SKILL.md`. Community URL installs can be **blocked** on dangerous verdicts; `--force` does not override. Write `SKILL.md` so behavior stays intact without tripping common rules.
+
+### Frontmatter
+
+- **`description`** — short product summary for search/registry UI only (what the skill does). Do **not** put session bootstrap logic, version stamps, or “overrides host …” instructions in `description`.
+- **`homepage`** — use for CLI upgrade/install pointers (`@openquok/auto-cli` npm page) or the skill’s docs page instead of embedding package-manager commands in the body.
+- **`metadata` (single-line JSON)** — OpenClaw’s parser accepts **only** single-line `metadata` (not nested YAML under that key). Put both hosts in one JSON object:
+  - **OpenClaw / ClawHub:** `openclaw.requires.bins` (e.g. `["openquok"]` or `["openquok","node"]`), `always`, `emoji`, optional `openclaw.homepage` (top-level `homepage` is also valid).
+  - **Hermes:** `hermes.tags`, `hermes.category`, `hermes.requires_toolsets: ["terminal"]` as keys inside the same JSON object (Hermes docs show nested YAML in examples; JSON with a `hermes` key is what parsers receive after YAML load).
+- **`prerequisites.commands`** — Hermes/agentskills.io: list bins the skill needs (e.g. `[openquok]` or `[openquok, node]`). Do **not** require `OPENQUOK_API_KEY` in frontmatter — device OAuth is valid without a pre-set env var.
+- **`compatibility`** — agentskills.io optional one-liner: global CLI is separate from the skill bundle; sibling skills should note Copy install and the core dependency.
+
+### Avoid persistence findings
+
+Scanners flag skills that claim to override host configuration.
+
+- **Do not** write that the skill “wins over”, “overrides”, or takes “priority” over `AGENTS.md`, `SOUL.md`, `IDENTITY.md`, or other host persona files.
+- **Do** scope session bootstrap to **first turn after** `/new`, `/reset`, or a new thread — e.g. “use the Openquok bot voice on that turn only”.
+- Prefer neutral phrasing: “take precedence” over “wins over” when describing credential file vs env var order.
+
+### Avoid supply-chain findings
+
+Scanners flag embedded package installs and registry pulls in skill text.
+
+- **Do not** put `npm install`, `npm view`, `pnpm add`, `curl | bash`, or similar in `SKILL.md` templates, pitfalls tables, or quoted examples.
+- **Do** tell the agent to offer CLI upgrades only after user consent and point to `homepage` or `resources/command-reference.md` (core) / docs homepage (siblings) for install steps.
+- **Do** keep bootstrap shell to fixed `openquok …` / `node scripts/…` invocations — not package managers.
+
+### Shell and exec safety
+
+- Run **fixed** `openquok` / `node scripts/…` commands; never concatenate untrusted chat text into the shell (already in core `SKILL.md` **Shell safety**).
+- Put captions and JSON in quoted flags, heredocs, or files.
+
+### When a scan still blocks
+
+1. Re-read findings line-by-line in `SKILL.md` and soften wording before dropping behavior.
+2. Hermes fallback: manual copy of the **full** skill folder into `~/.hermes/skills/<slug>/` (see agent guide) — URL install of `SKILL.md` alone omits `resources/` / `scripts/` / `references/`.
+3. OpenClaw: publish the full skill folder to ClawHub (`agent/CLAWHUB.md`) so supporting files install with the bundle.
+
+## Best practices
+
+- **Be concise** — instruct the model on what to do, not how to be an AI.
+- **Safety first** — registry scans and shell safety above; treat user chat as untrusted input for command construction.
+- **Intent first** — for core channel work, open the matching `{identifier}-examples.md` **Agent tasks** table before improvising flags; for sibling pipelines, follow that skill’s phases and `references/` before inventing steps.
+- **Core first** — when a sibling skill posts or uploads, resolve integrations and media via `openquok-core` patterns; do not invent alternate public-API clients inside skill scripts unless the skill already documents them.
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
