@@ -1,0 +1,9 @@
+{
+  "name": "calabamatex--stigmergy-mcp",
+  "displayName": "Stigmergy-mcp",
+  "description": "MCP server implementing digital pheromone-based indirect coordination for AI coding agents",
+  "version": "1.0.0",
+  "author": "calabamatex",
+  "homepage": "https://github.com/calabamatex/Stigmergy-mcp",
+  "skills": []
+}
