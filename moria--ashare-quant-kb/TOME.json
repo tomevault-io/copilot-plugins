@@ -1,0 +1,44 @@
+{
+  "name": "ashare-quant-kb",
+  "owner": "moria",
+  "repo": "ashare-quant-kb",
+  "description": "A\u80a1\u91cf\u5316\u4ea4\u6613\u77e5\u8bc6\u5e93 \u2014 53\u7bc7\u6df1\u5ea6\u8c03\u7814 + \u4e2d\u8bc1500\u6307\u589e/ETF\u8f6e\u52a8\u56de\u6d4b\u6846\u67b6",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/moria/ashare-quant-kb",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T18:03:36Z"
+}
