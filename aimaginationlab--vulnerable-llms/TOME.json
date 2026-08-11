@@ -4,7 +4,7 @@
   "repo": "vulnerable-llms",
   "description": "An interactive security testing platform that demonstrates real vulnerabilities in Large Language Models. ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AImaginationLab/vulnerable-llms",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T22:31:50Z"
+  "distributed_at": "2026-08-11T22:57:34Z"
 }
