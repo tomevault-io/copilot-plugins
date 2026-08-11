@@ -1,0 +1,9 @@
+{
+  "name": "lichuang--docq",
+  "displayName": "docq",
+  "description": "Local document Q&A in your terminal \u2014 powered by on-device LLMs.",
+  "version": "1.0.0",
+  "author": "lichuang",
+  "homepage": "https://github.com/lichuang/docq",
+  "skills": []
+}
