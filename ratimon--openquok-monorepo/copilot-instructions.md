@@ -1,42 +1,17 @@
-## backend-error-handling
+## backend-global-config
 
-> Express/backend error handling — pass errors to the global error handler via next(error)
+> Read environment through GlobalConfig, not getEnv in app code
 
 
-# Backend error handling
+# Backend configuration access
 
-In Express request handlers (controllers, route handlers), pass errors to the global error handler by calling **`next(error)`**. Do not throw; in Express 4 async handlers, thrown errors are not caught and the request will hang.
+- **Single source of truth**: Runtime settings for the API come from `config` in `backend/config/GlobalConfig.ts`, populated via `getEnv` / `getEnvNumber` / `getEnvBoolean` from `backend/config/envHelper.ts` only inside that file (and any bootstrap that must run before `config` exists).
 
-## Pattern
+- **Do not** call `getEnv`, `process.env[...]`, or import `envHelper` directly in `connections/`, `services/`, `controllers/`, `repositories/`, `integrations/providers/`, `middlewares/`, or routes. Add new keys to `GlobalConfig` and read `config.<section>.<field>` instead.
 
-In async handlers, use a single top-level `try/catch` and pass the error to `next` in the catch:
+- **Exceptions**: `envHelper.ts` itself; `GlobalConfig.ts`; tests that intentionally stub env.
 
-```ts
-public someHandler = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        // ... handler logic ...
-        res.status(200).json({ ... });
-    } catch (error) {
-        next(error);
-    }
-};
-```
-
-## Rules
-
-- **Catch variable**: use `error` (not `e` or `err`) for consistency.
-- **In catch**: call `next(error)` so the global error handler runs. Do not throw.
-- **Pre-cleanup**: if the handler must do something before the error propagates (e.g. clear a cookie), do that in the catch block before `next(error)`.
-- Rely on the **ErrorController** to log and send the response; controllers should not duplicate that logic.
-
-## Example with cleanup
-
-```ts
-} catch (error) {
-    if (req.cookies?.refreshToken) res.clearCookie("refreshToken");
-    next(error);
-}
-```
+The assistant should follow this when adding or editing backend code.
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
