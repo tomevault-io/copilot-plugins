@@ -1,0 +1,9 @@
+{
+  "name": "palabraai--forced-aligners-bench",
+  "displayName": "forced-aligners-bench",
+  "description": "Benchmark forced alignment models (Qwen3-FA, WhisperX, Seamless UnitY2) on FLEURS via implicit WER on cropped audio.",
+  "version": "1.0.0",
+  "author": "PalabraAI",
+  "homepage": "https://github.com/PalabraAI/forced-aligners-bench",
+  "skills": []
+}
