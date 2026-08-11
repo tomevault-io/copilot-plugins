@@ -1,0 +1,26 @@
+# ghost
+
+> Source: [0x006a6d/ghost](https://github.com/0x006a6d/ghost). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
+
+Brain-inspired memory system for LLM — there are only words, no subject needed
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `GEMINI.md` in [0x006a6d/ghost](https://github.com/0x006a6d/ghost).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/0x006a6d/ghost](https://github.com/0x006a6d/ghost)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
+
+<!-- genome:d-e-p -->
