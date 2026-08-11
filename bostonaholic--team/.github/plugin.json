@@ -1,0 +1,14 @@
+{
+  "name": "bostonaholic--team",
+  "displayName": "team",
+  "description": "Orchestrates specialized agents to autonomously implement entire features end-to-end",
+  "version": "1.0.0",
+  "author": "bostonaholic",
+  "homepage": "https://github.com/bostonaholic/team",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    }
+  ]
+}
