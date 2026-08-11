@@ -88494,6 +88494,16 @@
       "description": "django-swappable-models"
     },
     {
+      "name": "joewinke--jat",
+      "source": "./joewinke--jat",
+      "description": "jat"
+    },
+    {
+      "name": "joewinke--jat",
+      "source": "./joewinke--jat",
+      "description": "jat"
+    },
+    {
       "name": "educlopez--thegridcn-ui",
       "source": "./educlopez--thegridcn-ui",
       "description": "An authentic Tron: Ares inspired theme system for shadcn/ui"
@@ -403944,6 +403954,61 @@
       "description": "A lightweight and versatile toolkit for building cross-platform applications with Avalonia UI. It provides ready-to-use controls, utilities, and theming options to simplify and speed up application de"
     },
     {
+      "name": "woeter69--algo",
+      "source": "./woeter69--algo",
+      "description": "algo"
+    },
+    {
+      "name": "josmithiii--neural-spectral-modeling-template",
+      "source": "./josmithiii--neural-spectral-modeling-template",
+      "description": "Neural spectral modeling template based on extended Lightning-Hydra-Template"
+    },
+    {
+      "name": "kavinunethsara--tiledlauncher",
+      "source": "./kavinunethsara--tiledlauncher",
+      "description": "A flexible tile based plasmoid for KDE Plasma 6"
+    },
+    {
+      "name": "kittycad--mcp",
+      "source": "./kittycad--mcp",
+      "description": "An MCP server housing various Zoo built utilities"
+    },
+    {
+      "name": "superalways--gbt32960-server",
+      "source": "./superalways--gbt32960-server",
+      "description": "Netty\u7684\u56fd\u6807GBT32960\u65b0\u80fd\u6e90\u6c7d\u8f66\u8fdc\u7a0b\u76d1\u63a7\u534f\u8bae\u670d\u52a1\u5668\u5b9e\u73b0\uff0c\u652f\u63012016\u548c2025\u7248\u672c\u534f\u8bae\uff0c\u63d0\u4f9b\u9ad8\u6027\u80fd\u7684TCP\u534f\u8bae\u5904\u7406\u548c\u5b8c\u6574\u7684Web   API\u63a5\u53e3"
+    },
+    {
+      "name": "kukushechkin--swift-jmap-client",
+      "source": "./kukushechkin--swift-jmap-client",
+      "description": "JMAP client implementation in Swift"
+    },
+    {
+      "name": "vicgarcia--pinboard-mcp",
+      "source": "./vicgarcia--pinboard-mcp",
+      "description": "mcp server for pinboard.in bookmark service"
+    },
+    {
+      "name": "tangmantan--afilmory-my",
+      "source": "./tangmantan--afilmory-my",
+      "description": "\u4e00\u4e2a\u4e2a\u4eba\u6444\u5f71\u7f51\u7ad9\uff0c\u4ee5\u6000\u65e7\u3001\u590d\u53e4\u7684\u6c1b\u56f4\u5e86\u795d\u6355\u6349\u77ac\u95f4\u7684\u827a\u672f"
+    },
+    {
+      "name": "josmithiii--neural-spectral-modeling-template",
+      "source": "./josmithiii--neural-spectral-modeling-template",
+      "description": "Neural spectral modeling template based on extended Lightning-Hydra-Template"
+    },
+    {
+      "name": "kittycad--mcp",
+      "source": "./kittycad--mcp",
+      "description": "An MCP server housing various Zoo built utilities"
+    },
+    {
+      "name": "alexkucera--obsidian-typst-pdf-export",
+      "source": "./alexkucera--obsidian-typst-pdf-export",
+      "description": "PDF Export from Obsidian via Typst"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -432292,6 +432357,161 @@
       "name": "anup42--drivesense",
       "source": "./anup42--drivesense",
       "description": "Experimental on-device Android app for driver drowsiness and road-scene awareness."
+    },
+    {
+      "name": "cardmagic--solid-objects",
+      "source": "./cardmagic--solid-objects",
+      "description": "A Ruby on Rails port of CloudFlare's Durable Objects using Solid Queue principles with automatic ERB reactivity"
+    },
+    {
+      "name": "thixpin--claude-config",
+      "source": "./thixpin--claude-config",
+      "description": "A reusable Claude Code configuration for agentic coding and software engineering workflows. It provides global engineering guidelines, debugging and bug-fixing workflows, code review, security auditin"
+    },
+    {
+      "name": "rvdwegen--awesome-cyberdrain",
+      "source": "./rvdwegen--awesome-cyberdrain",
+      "description": "A curated list of CyberDrain products, projects, and related community resources for MSPs."
+    },
+    {
+      "name": "jeresoftx--rust-security",
+      "source": "./jeresoftx--rust-security",
+      "description": "Curso de Jeresoft Academy sobre seguridad defensiva en Rust: amenazas, hardening, an\u00e1lisis y laboratorios \u00e9ticos."
+    },
+    {
+      "name": "huoguozhang--my-todesk",
+      "source": "./huoguozhang--my-todesk",
+      "description": "\u4efftoDesk\u8fdc\u7a0b\u8fde\u63a5\u8f6f\u4ef6\uff0c\u4f7f\u7528flutter\u5f00\u53d1\uff0c\u652f\u6301\u7aef macos ios/\u5b89\u5353 window\u7b49\u3002"
+    },
+    {
+      "name": "cfogelklou--midi-mcp",
+      "source": "./cfogelklou--midi-mcp",
+      "description": "Gives your AI agents the capability to play MIDI music."
+    },
+    {
+      "name": "lisachenko--zdebug",
+      "source": "./lisachenko--zdebug",
+      "description": "Userland implementation of Xdebug feature via Z-Engine "
+    },
+    {
+      "name": "alex-so-3--petkit-local",
+      "source": "./alex-so-3--petkit-local",
+      "description": "A local stand-in for PetKit's cloud (litter box, feeder, fountain)"
+    },
+    {
+      "name": "rvdwegen--awesome-cyberdrain",
+      "source": "./rvdwegen--awesome-cyberdrain",
+      "description": "A curated list of CyberDrain products, projects, and related community resources for MSPs."
+    },
+    {
+      "name": "peteroettl--cadence",
+      "source": "./peteroettl--cadence",
+      "description": "Actor-based request pacing for Swift concurrency: rate limiting, debouncing, and request coalescing. Zero dependencies."
+    },
+    {
+      "name": "lililib--ai-session-search",
+      "source": "./lililib--ai-session-search",
+      "description": "Local-first full-text search and reusable context library for AI coding sessions across Claude Code, Codex, Cursor, OpenCode, Copilot CLI, and more. Source sessions stay read-only."
+    },
+    {
+      "name": "aixlehq--insights",
+      "source": "./aixlehq--insights",
+      "description": "AI tool analytics platform for tracking and managing coding assistant usage across organizations."
+    },
+    {
+      "name": "huoguozhang--my-todesk",
+      "source": "./huoguozhang--my-todesk",
+      "description": "\u4efftoDesk\u8fdc\u7a0b\u8fde\u63a5\u8f6f\u4ef6\uff0c\u4f7f\u7528flutter\u5f00\u53d1\uff0c\u652f\u6301\u7aef macos ios/\u5b89\u5353 window\u7b49\u3002"
+    },
+    {
+      "name": "scmmm--lyca",
+      "source": "./scmmm--lyca",
+      "description": "LYCA:more LIKe A human agent system"
+    },
+    {
+      "name": "alex-so-3--petkit-local",
+      "source": "./alex-so-3--petkit-local",
+      "description": "A local stand-in for PetKit's cloud (litter box, feeder, fountain)"
+    },
+    {
+      "name": "ns-rocks--nullspace",
+      "source": "./ns-rocks--nullspace",
+      "description": "The open execution runtime for production AI agents"
+    },
+    {
+      "name": "arn-c0de--nova-ailab",
+      "source": "./arn-c0de--nova-ailab",
+      "description": "Deterministic AI simulation and diagnostics lab for Project Nova / HASHKRIEG \u2014 branch-independent matches, replays, metrics, movement tests, combat analysis and comparisons."
+    },
+    {
+      "name": "aixlehq--insights",
+      "source": "./aixlehq--insights",
+      "description": "AI tool analytics platform for tracking and managing coding assistant usage across organizations."
+    },
+    {
+      "name": "jeresoftx--rust-performance",
+      "source": "./jeresoftx--rust-performance",
+      "description": "Curso t\u00e9cnico de ingenier\u00eda de rendimiento en Rust para Jeresoft Academy."
+    },
+    {
+      "name": "hafizmmoaz--zobi",
+      "source": "./hafizmmoaz--zobi",
+      "description": "A modern, enterprise-ready business intelligence web application."
+    },
+    {
+      "name": "nuyoah-ai-works--open-nuyoah-skill",
+      "source": "./nuyoah-ai-works--open-nuyoah-skill",
+      "description": "\u516c\u5f00\u3001\u53ef\u590d\u7528\u7684 Agent Skills\uff1a\u521b\u5efa\u4e13\u5c5e\u767d\u8272\u8f6f\u5757\u89d2\u8272\u5e76\u751f\u6210\u4e0a\u4e0b\u53cc\u683c\u8352\u8bde\u6f2b\u753b"
+    },
+    {
+      "name": "yangheng95--opencorvus",
+      "source": "./yangheng95--opencorvus",
+      "description": "opencorvus"
+    },
+    {
+      "name": "scmmm--lyca",
+      "source": "./scmmm--lyca",
+      "description": "LYCA:more LIKe A human agent system"
+    },
+    {
+      "name": "ns-rocks--nullspace",
+      "source": "./ns-rocks--nullspace",
+      "description": "The open execution runtime for production AI agents"
+    },
+    {
+      "name": "okhsunrog--km003c-protocol-research",
+      "source": "./okhsunrog--km003c-protocol-research",
+      "description": "km003c-protocol-research"
+    },
+    {
+      "name": "cfogelklou--midi-mcp",
+      "source": "./cfogelklou--midi-mcp",
+      "description": "Gives your AI agents the capability to play MIDI music."
+    },
+    {
+      "name": "opsmill--infrahub-solution-ai-dc",
+      "source": "./opsmill--infrahub-solution-ai-dc",
+      "description": "Infrahub Solution: Automation for AI Data Centers"
+    },
+    {
+      "name": "zannagames--zanna",
+      "source": "./zannagames--zanna",
+      "description": "Zanna is a self-contained development platform for building native games and applications on Linux, macOS, and Windows. It brings back the coherence and immediacy of classic developer tools, while pro"
+    },
+    {
+      "name": "ait-detectmate--detectmatelibrary",
+      "source": "./ait-detectmate--detectmatelibrary",
+      "description": "Collection of algorithms for log data anomaly detection"
+    },
+    {
+      "name": "opsmill--infrahub-solution-ai-dc",
+      "source": "./opsmill--infrahub-solution-ai-dc",
+      "description": "Infrahub Solution: Automation for AI Data Centers"
+    },
+    {
+      "name": "zannagames--zanna",
+      "source": "./zannagames--zanna",
+      "description": "Zanna is a self-contained development platform for building native games and applications on Linux, macOS, and Windows. It brings back the coherence and immediacy of classic developer tools, while pro"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -568812,6 +569032,31 @@
       "name": "zeallat--codex-environment-filter",
       "source": "./zeallat--codex-environment-filter",
       "description": "codex-environment-filter"
+    },
+    {
+      "name": "janhelwich--voice-support-agent",
+      "source": "./janhelwich--voice-support-agent",
+      "description": "voice-support-agent"
+    },
+    {
+      "name": "dreamcatcher-tech--architecture-atlas-lab",
+      "source": "./dreamcatcher-tech--architecture-atlas-lab",
+      "description": "Interactive laboratory for exact architecture-space maps, convergence DAGs, and 3D survivor landscapes."
+    },
+    {
+      "name": "oviya003--coordcamp-android-copy",
+      "source": "./oviya003--coordcamp-android-copy",
+      "description": "coordcamp-android-copy"
+    },
+    {
+      "name": "venkat23bcon0248--chrocetcraft",
+      "source": "./venkat23bcon0248--chrocetcraft",
+      "description": "chrocetcraft"
+    },
+    {
+      "name": "naeemtahiriub-svg--docs",
+      "source": "./naeemtahiriub-svg--docs",
+      "description": "docs"
     }
   ]
 }
