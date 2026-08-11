@@ -1,0 +1,9 @@
+{
+  "name": "mckruz--microsoft-agentic-harness",
+  "displayName": "microsoft-agentic-harness",
+  "description": "POC template for Microsoft Agent Framework agentic harness \u2014 skills, MCP, tools system modeled after Claude Code architecture",
+  "version": "1.0.0",
+  "author": "MCKRUZ",
+  "homepage": "https://github.com/MCKRUZ/microsoft-agentic-harness",
+  "skills": []
+}
