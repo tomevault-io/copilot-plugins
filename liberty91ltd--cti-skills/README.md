@@ -7,11 +7,11 @@ Cyber Threat Intelligence Skills for each stage of the CTI Lifecycle.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Liberty91LTD/cti-skills](https://github.com/Liberty91LTD/cti-skills).
+Original source: `AGENTS.md` in [Liberty91LTD/cti-skills](https://github.com/Liberty91LTD/cti-skills).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
