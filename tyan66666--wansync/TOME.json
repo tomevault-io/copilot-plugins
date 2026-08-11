@@ -1,0 +1,44 @@
+{
+  "name": "WanSync",
+  "owner": "Tyan66666",
+  "repo": "WanSync",
+  "description": "WanSync(\u987d\u722a\u722a\u540c\u6b65) \u4e00\u6b3e\u8f7b\u91cf\u7ea7 Flutter \u5e94\u7528\uff0c\u53ef\u81ea\u52a8\u4ece\u987d\u9e7f\uff08OneLap\uff09\u4e0b\u8f7d FIT \u8fd0\u52a8\u6587\u4ef6\u5e76\u6279\u91cf\u540c\u6b65\u5230 Strava\u3001\u884c\u8005\u3001Intervals.icu \u548c Outbase\u3002\u652f\u6301\u901a\u8fc7\u7cfb\u7edf\u5206\u4eab\u76f4\u63a5\u5bfc\u5165 FIT \u6587\u4ef6\u4e0a\u4f20\uff0c\u63d0\u4f9b API / \u7f51\u9875\u53cc\u6a21\u5f0f\u4e0a\u4f20\uff0cGCJ-02 \u8f68\u8ff9\u5750\u6807\u8f6c\u6362\uff0c\u5404\u5e73\u53f0\u72ec\u7acb\u53bb\u91cd\uff0c\u540c\u6b65\u5386\u53f2\u8bb0\u5f55\u67e5\u770b\uff0c\u51ed\u8bc1\u4ec5\u4fdd\u5b58\u5728\u8bbe\u5907\u672c\u5730\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Tyan66666/WanSync",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T18:01:25Z"
+}
