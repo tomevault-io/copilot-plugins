@@ -404324,6 +404324,41 @@
       "description": "xidl"
     },
     {
+      "name": "siliconjungle--inkwell-webgpu-sand",
+      "source": "./siliconjungle--inkwell-webgpu-sand",
+      "description": "A standalone raw WebGPU procedural sand and snow surface renderer for Inkwell."
+    },
+    {
+      "name": "epam--ai-dial-ui-kit",
+      "source": "./epam--ai-dial-ui-kit",
+      "description": "A modern UI kit for building AI DIAL interfaces with React"
+    },
+    {
+      "name": "nicknisi--pi-extensions",
+      "source": "./nicknisi--pi-extensions",
+      "description": "Nick Nisi's pi extensions \u2014 a pnpm monorepo of independently installable pi packages (@nicknisi/pi-*). TUI polish, side-channel LLM tools, Claude Code compat, and session plumbing for the pi coding ag"
+    },
+    {
+      "name": "epam--ai-dial-ui-kit",
+      "source": "./epam--ai-dial-ui-kit",
+      "description": "A modern UI kit for building AI DIAL interfaces with React"
+    },
+    {
+      "name": "lichuang--docq",
+      "source": "./lichuang--docq",
+      "description": "Local document Q&A in your terminal \u2014 powered by on-device LLMs."
+    },
+    {
+      "name": "epam--ai-dial-ui-kit",
+      "source": "./epam--ai-dial-ui-kit",
+      "description": "A modern UI kit for building AI DIAL interfaces with React"
+    },
+    {
+      "name": "luckylittle--zero-footprint-qbittorrent-seedbox",
+      "source": "./luckylittle--zero-footprint-qbittorrent-seedbox",
+      "description": "Ansible role - luckylittle.zero_footprint_qbittorrent_seedbox"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -432917,6 +432952,11 @@
       "name": "benzo42069--rigwarden",
       "source": "./benzo42069--rigwarden",
       "description": "rigwarden"
+    },
+    {
+      "name": "ohmyangboy--paperrss",
+      "source": "./ohmyangboy--paperrss",
+      "description": "Reading First, Ai Second"
     },
     {
       "name": "cheerhuan--save-your-token",
