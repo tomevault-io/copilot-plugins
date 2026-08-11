@@ -4,7 +4,7 @@
   "repo": "keyhog",
   "description": "GPU-accelerated secret scanner for code, Git history, containers, cloud, browser assets, and CI. 923 detectors, live verification, CUDA, Metal, WGPU.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/santhreal/keyhog",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T22:49:07Z"
+  "distributed_at": "2026-08-11T23:05:39Z"
 }
