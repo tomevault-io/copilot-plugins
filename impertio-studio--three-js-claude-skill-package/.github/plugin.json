@@ -1,0 +1,14 @@
+{
+  "name": "impertio-studio--three-js-claude-skill-package",
+  "displayName": "Three.js-Claude-Skill-Package",
+  "description": "24 deterministic skills for Three.js 3D web development with Claude Code. Covers WebGL, WebGPU, React Three Fiber, Drei, physics, IFC, and more.",
+  "version": "1.0.0",
+  "author": "Impertio-Studio",
+  "homepage": "https://github.com/Impertio-Studio/Three.js-Claude-Skill-Package",
+  "skills": [
+    {
+      "name": "threejs-impl-webgpu",
+      "description": ""
+    }
+  ]
+}
