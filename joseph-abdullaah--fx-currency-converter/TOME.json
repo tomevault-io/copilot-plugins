@@ -4,7 +4,7 @@
   "repo": "FX-currency-converter",
   "description": "A foreign exchange currency converter app that lets users convert currencies using live exchange rates, track historical trends, compare multiple currencies, and save favorite currency pairs in a responsive interface.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Joseph-Abdullaah/FX-currency-converter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T00:51:56Z"
+  "distributed_at": "2026-08-11T00:57:55Z"
 }
