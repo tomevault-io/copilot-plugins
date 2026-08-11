@@ -4,7 +4,7 @@
   "repo": "english-listening-trainer",
   "description": "\u57fa\u4e8e Next.js 15 \u7684\u82f1\u8bed\u542c\u529b\u8bad\u7ec3\u5e94\u7528\uff0c\u96c6\u6210 AI \u751f\u6210\u5185\u5bb9\u548c\u672c\u5730 Kokoro TTS",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/arthurlee116/english-listening-trainer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T04:36:35Z"
+  "distributed_at": "2026-08-11T04:38:21Z"
 }
