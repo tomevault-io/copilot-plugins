@@ -1,77 +1,78 @@
-## backend-migrations-seed
+## backend-orchestrator-layout
 
-> Seed migration conventions for Supabase modules (listings, tags, catalog data)
+> Layout and conventions for orchestrator package (Flowcraft graphs, BullMQ workers, testing)
 
 
-# Seed migrations
+# Orchestrator package layout (`orchestrator/`)
 
-Extends **backend-migrations-naming** for data seeds under `backend/supabase/db/**`.
+Long-lived **worker processes** run Flowcraft graphs via the BullMQ adapter. When `config/orchestratorFlows.ts` uses `transport: "bullmq"`, the API **enqueues**; workers **execute**. See `orchestrator/README.md` for scripts and deployment.
 
-## Filename pattern
+Official Flowcraft guides (terminology and patterns): [Core concepts](https://flowcraft.js.org/guide/core-concepts), [Loops](https://flowcraft.js.org/guide/loops), [Testing](https://flowcraft.js.org/guide/testing), [BullMQ adapter](https://flowcraft.js.org/guide/adapters/bullmq).
 
-- **Default scope**: `501_<YYYYMMDD>_seed.sql`, `502_<YYYYMMDD>_seed.sql`, …
-- **Named catalog seeds** (one listing or cohesive dataset per file): `502_<YYYYMMDD>_seed_<subject>.sql`
-  - Examples: `502_20260629_seed_openquok_core.sql`, `503_20260629_seed_bloom.sql`, `504_20260629_seed_revenuecat.sql`
-- Keep the numeric prefix stable within the module tier; bump the prefix when order matters (e.g. tag associations before listing rows that reference tags).
-- Update the `MODULE DATE` and `MODULE SCOPE` header comments when renaming.
+## Directory roles
 
-## Extensions Hub listing seeds (`listings/`)
+| Area | Responsibility |
+|------|----------------|
+| **`worker/`** | Process entrypoints (`run*BullMqWorker.ts`): build adapters, `adapter.start()`, [Flowcraft BullMQ reconciler](https://flowcraft.js.org/guide/adapters/bullmq#reconciliation) (`flowcraftBullMqReconciliationTimer.ts`), shutdown, timers that enqueue repeatable work (e.g. digest flush, missing-post rescan for scheduled social). Wire domain **services** into adapter `dependencies`; avoid putting Redis key logic here—delegate to **`flows/*Execution`** or **`stores/`**. |
+| **`flows/`** | **Public orchestration surface** for the rest of the backend: `run*Orchestration` (enqueue + logging), re-exports of blueprint builders/IDs/types. Optional **`*Execution.ts`** for worker-only glue that must not create import cycles with `*Workflow.ts` (e.g. flush: Redis drain + call service). |
+| **`blueprints/`** | Flow graph definitions and **flow-scoped TypeScript types** (`*FlowTypes.ts`): context shape, `*WorkflowDependencies` (what nodes receive from the adapter). |
+| **`nodes/`** | Flowcraft node implementations; read/write **context** and call **`dependencies`** only—no direct env reads (use `GlobalConfig` in factories/workers/adapters). |
+| **`adapters/flowcraft-bullmq/<domain>/`** | Domain folders, e.g. `notification/`, `integration-refresh/`, `scheduled-social-post/`: `create*BullMqAdapter`, **enqueue** helpers, **seed** context. Uses `config` from `GlobalConfig`. |
+| **`stores/`** | Redis (or similar) **key names and low-level commands** shared by API-side writers and worker-side readers. Keeps list/set logic out of **`services/`** where possible. |
+| **`activities/`** | Non–Flowcraft-shaped helpers used by flows/workers when needed. |
+| **`index.ts`** | Re-export the **stable API** other packages import (`runRefreshTokenOrchestration`, notification helpers, types). Do not re-export worker entrypoints. |
 
-### MCP-only (`extension_type = 'mcp'`)
+## Adding a new BullMQ-backed workflow
 
-The hub **expanded card** (`ExtensionCardExpanded.svelte`) shows an **MCP tools** table — not raw `mcp_server_config` JSON. Full JSON config belongs on the detail page (`McpExtensionDetail.svelte`).
+1. **`blueprints/<name>FlowTypes.ts`** — blueprint ids/versions, context + `WorkflowDependencies`.
+2. **`blueprints/<name>Blueprint.ts`** — builders for distributed (and any in-process) graphs.
+3. **`nodes/<name>Nodes.ts`** — node functions registered via **`get<Name>NodeRegistry()`**.
+4. **`adapters/flowcraft-bullmq/<domain>/create<Name>BullMqAdapter.ts`** + enqueue/seed files in that domain folder.
+5. **`flows/<name>Workflow.ts`** — `run*Orchestration` wrappers and re-exports; register exports in **`orchestrator/index.ts`**.
+6. **`worker/run<Name>BullMqWorker.ts`** — thin bootstrap: repositories/services, `create*BullMqAdapter`, `adapter.start()`.
 
-| Column | Rule |
-| --- | --- |
-| `mcp_tools` | **Required** — non-empty JSON array of `{ "name", "description" }` objects. Drives the hub card tools table. |
-| `mcp_server_config` | Set for the detail-page copy config; **not** shown on the hub card. |
-| `install_command_mcp` | Leave `NULL` unless there is a real shell install command. Do not use JSON config as a stand-in. |
-| `mcp_transport` | `http`, `stdio`, or `sse` as appropriate. |
-| `click_url_mcp` | **Required** — official setup guide URL. Powers the **MCP Setup Doc** button on the expanded card. |
-| `click_url` | Mirror `click_url_mcp` when no separate landing URL exists. |
-| `click_url_skills` | `NULL` for MCP-only listings. |
-| `description_mcp` / `content_mcp` | Populate; `description_skills` / `content_skills` stay `NULL`. |
-| `is_official` | `FALSE` for third-party MCP servers; `TRUE` only for first-party OpenQuok entries. |
-| `listing_tag_slugs` | Use existing catalog tags (client + content-type tags). Do not add a tag row per third-party product unless it is a social channel (see **social-provider-integration**). |
+If the worker needs **shared Redis staging** (lists/sets) used from both API and worker, put commands in **`stores/<name>RedisStore.ts`** and call them from **`flows/<name>Execution.ts`** (worker) and from the service **only** via the store (short-lived client on the API path is acceptable).
 
-### Skills-only (`extension_type = 'skills'`)
+## Imports
 
-| Column | Rule |
-| --- | --- |
-| `install_command_skills` | Shell command shown on the hub card. |
-| `click_url_skills` | Powers the **Skill Setup Doc** button on the expanded card. |
-| `mcp_tools` / `mcp_server_config` | `NULL` or empty. |
+- **`backend/services/`** may import the **`openquok-orchestrator`** workspace package (enqueue and shared staging helpers).
+- Avoid **`services/`** importing **`adapters/flowcraft-bullmq/*`** directly when a **`flows/*Workflow`** wrapper exists.
+- Prevent **circular imports**: heavy worker flush logic that needs **`TransactionalNotificationEmailService`** belongs in **`flows/*Execution.ts`**, not in the same file as **`runNotificationSendPlainOrchestration`** if that file is imported by the service.
 
-### Both (`extension_type = 'both'`)
+## Configuration
 
-| Column | Rule |
-| --- | --- |
-| `install_command_skills` | Skills install command (Skills tab). |
-| `mcp_tools` | Non-empty array (MCP tab on hub card). |
-| `click_url_skills` / `click_url_mcp` | Separate doc URLs for **Skill Setup Doc** and **MCP Setup Doc** buttons. |
-| `click_url` | General landing doc when no tab-specific URL applies (e.g. OpenQuok Core → `/docs/getting-started-for-cli`). |
-| `mcp_server_config` | Detail page only. |
+Queue names and `in_process` vs `bullmq` live in **`backend/config/orchestratorFlows.ts`** and **`GlobalConfig`** (`config.bullmq`). Do not read `process.env` in nodes/services for orchestrator wiring.
 
-**OpenQuok Core** (`openquok-core`, `both`):
+## Flowcraft concepts (how we use them)
 
-| Column | URL |
-| --- | --- |
-| `click_url` | `https://www.openquok.com/docs/getting-started-for-cli` |
-| `click_url_skills` | `https://www.openquok.com/docs/agent-setup-guides` |
-| `click_url_mcp` | `https://www.openquok.com/docs/mcp-setup-guides` |
+- **Blueprint** — JSON-serializable graph: `id`, `nodes`, `edges`, optional **`metadata.version`** (required for distributed runs that validate or seed context). Keep blueprint ids stable; bump **`metadata.version`** when the graph or context contract changes.
+- **Context** — Typed in **`*FlowTypes.ts`**. Distributed runs persist context in Redis (per run); **seed** initial fields in **`adapters/flowcraft-bullmq/<domain>/seed*`** before enqueueing jobs. Nodes read fields with **`context.get`** / write as the runtime expects for your adapter.
+- **Nodes** — Prefer small **function nodes** that take **`NodeContext`** and call **`dependencies`** only (see **`nodes/`**). Class-based nodes are fine when you need structured lifecycles; keep side effects and I/O behind injected deps.
+- **Runtime** — **`FlowRuntime`** carries **`dependencies`** and optional **`eventBus`** (tests). Workers use the BullMQ adapter’s runtime options (blueprints + registry), not ad-hoc `process.env` in nodes.
 
-Doc URLs in `502_*_seed_openquok_core.sql` re-sync these on deploy.
+## Loops and cycles
 
-### Tag associations
+- Prefer the fluent **`.loop()`** construct for iteration instead of hand-wired cyclic edges ([Loops guide](https://flowcraft.js.org/guide/loops)).
+- Loop **conditions** that use comparisons / `===` may require an **`UnsafeEvaluator`** on the runtime—only for **trusted**, first-party blueprints; otherwise use simple conditions or a custom safe evaluator ([Loops guide](https://flowcraft.js.org/guide/loops)).
+- Avoid arbitrary non-DAG cycles; use **`strict: true`** when you need the runtime to reject unintended cycles ([Loops guide](https://flowcraft.js.org/guide/loops)).
+- Long-running loop bodies (e.g. sleeps until token expiry) must stay within BullMQ **stall / lock** expectations—document or tune worker settings (see **`orchestrator/README.md`**).
 
-After inserting a listing, wire `listings_listing_tags_association` and `listing_tag_slugs` to existing `listing_tags` rows. For **openquok-core**, a `CROSS JOIN` on all catalog tags is acceptable when the listing should expose every tag.
+## Testing (`flowcraft/testing`)
 
-## PR checklist (listing seeds)
+- **`InMemoryEventLogger`** — Attach with **`new FlowRuntime({ dependencies, eventBus: eventLogger })`**; then **`flow.run(runtime, initialState)`** so **`workflow:start` / `workflow:finish`** are captured. Do not pass **`eventBus`** inside **`runWithTrace`**’s options (not supported); use **`runWithTrace`** for trace-on-failure integration-style runs ([Testing guide](https://flowcraft.js.org/guide/testing)).
+- **Unit tests** — Mock **enqueue** helpers and heavy deps; keep **`*Workflow.unit.test.ts`** next to **`*Workflow.ts`** (see **`refreshTokenWorkflow.unit.test.ts`**, **`notificationEmailWorkflow.unit.test.ts`**).
 
-- [ ] One subject per named seed file when the listing is large or independently maintained.
-- [ ] MCP listings: `mcp_tools` populated; `click_url_mcp` set; hub card does not rely on `mcp_server_config`.
-- [ ] Doc buttons: `click_url_skills` and/or `click_url_mcp` match shipped setup guides.
-- [ ] Re-aggregate migrations (`backend/scripts/aggregate_migrations_all.mjs`) after adding or renaming seed files.
+## BullMQ distributed enqueue (client side)
+
+Align new enqueue code with the adapter’s expectations ([BullMQ adapter](https://flowcraft.js.org/guide/adapters/bullmq)) and existing **`enqueue*DistributedRun.ts`** files:
+
+1. Build blueprint; ensure **`metadata.version`** is set.
+2. **`analyzeBlueprint(blueprint)`** → **`startNodeIds`**.
+3. **`runId`** = new UUID; **seed** workflow context in Redis for that **`runId`** (same key pattern as **`seed*WorkflowContext`**).
+4. **`Queue.addBulk`** jobs named **`executeNode`** with **`{ runId, blueprintId, nodeId }`**.
+5. Close queue (and Redis when the client owns it—do not **`quit`** a connection shared with the worker).
+
+Workers: shared **Redis** connection, **`RedisCoordinationStore`**, **`BullMQAdapter.start()`**. Consider **reconciliation** / stalled-run tooling from the adapter for production if you rely on long or fragile runs ([BullMQ adapter](https://flowcraft.js.org/guide/adapters/bullmq)).
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
