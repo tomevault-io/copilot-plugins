@@ -1,0 +1,9 @@
+{
+  "name": "jamesaphoenix--diff-core",
+  "displayName": "diff-core",
+  "description": "Semantic diff layer for code review",
+  "version": "1.0.0",
+  "author": "jamesaphoenix",
+  "homepage": "https://github.com/jamesaphoenix/diff-core",
+  "skills": []
+}
