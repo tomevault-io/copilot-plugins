@@ -1,32 +1,9 @@
-## dev-log
+## inline-comments-for-long-methods
 
-> Quando e como atualizar docs/dev-log/INDEX.md após mudanças relevantes
+> Where code is generated or changed, review long methods (50+ lines) and make it more intuitive to read, either by adding inline comments to break sections, or using existing helper methods and standard APIs.
 
 
-# Dev log do projeto
-
-## Antes de concluir um trabalho substancial ou fazer commit
-
-Alvo: só alterações **substanciais** (não refactors cosméticos).
-
-1. Ler `docs/dev-log/INDEX.md` (é curto).
-2. Perguntar: houve **decisão de arquitetura**, **contrato de pipeline** (caminhos, CLI, formatos), **mudança de comportamento** visível, ou **preferência explícita do utilizador**? Se sim → atualizar o índice.
-3. Se não → não adicionar ruído (typos, um arquivo sem impacto).
-
-## O que registrar (uma entrada na lista por data em `INDEX.md`)
-
-- **ID:** `slug-curto-kebab` (ex.: `vectorstore-raiz-repo`).
-- **Autor (opcional):** humano se tiver explicitamente tomado a decisão → valor de `git config user.name` (ou iniciais); agente/assistente → `agent:cursor` (prefixo `agent:` para `rg`/filtros). Omitir se irrelevante.
-- **Resumo:** ≤ 140 caracteres se possível; mencionar ficheiro/pasta chave quando útil.
-- **Revisão-Anterior:** último commit git até o momento - hash e mensagem one-line
-
-## Onde não registar
-
-- Detalhe longo: opcionalmente `docs/dev-log/decisions/YYYYMMDD-id.md` e uma linha no índice com o caminho do arquivo.
-
-## Tom
-
-- Direto, factual, em pt-BR no índice.
+Where code is generated or changed, review long methods (50+ lines) and make it more intuitive to read, either by adding inline comments to break sections, or using existing helper methods and standard APIs.
 
 ---
 > Source: [leanseefeld/8iadt-tc-fase3-assistente-medico](https://github.com/leanseefeld/8iadt-tc-fase3-assistente-medico) — distributed by [TomeVault](https://tomevault.io).
