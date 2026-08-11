@@ -1,0 +1,9 @@
+{
+  "name": "aixlehq--insights",
+  "displayName": "insights",
+  "description": "AI tool analytics platform for tracking and managing coding assistant usage across organizations.",
+  "version": "1.0.0",
+  "author": "AixleHQ",
+  "homepage": "https://github.com/AixleHQ/insights",
+  "skills": []
+}
