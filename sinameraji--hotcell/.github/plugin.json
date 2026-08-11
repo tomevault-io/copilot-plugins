@@ -1,0 +1,9 @@
+{
+  "name": "sinameraji--hotcell",
+  "displayName": "hotcell",
+  "description": "Self-hostable sandbox SDK inspired by Cloudflare Sandbox SDK. works on any device",
+  "version": "1.0.0",
+  "author": "sinameraji",
+  "homepage": "https://github.com/sinameraji/hotcell",
+  "skills": []
+}
