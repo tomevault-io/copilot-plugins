@@ -1,0 +1,9 @@
+{
+  "name": "grafana--agento11y",
+  "displayName": "agento11y",
+  "description": "Actually Useful Agent Observability",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/agento11y",
+  "skills": []
+}
