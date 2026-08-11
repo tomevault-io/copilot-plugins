@@ -1,0 +1,9 @@
+{
+  "name": "kaibuildsai--kindle-for-whoop",
+  "displayName": "kindle-for-whoop",
+  "description": "Turn a spare Kindle into a low-power WHOOP dashboard.",
+  "version": "1.0.0",
+  "author": "kaibuildsai",
+  "homepage": "https://github.com/kaibuildsai/kindle-for-whoop",
+  "skills": []
+}
