@@ -1,27 +1,12 @@
-## source-project-neutrality
+## web-code-comments
 
-> Do not name external codebases or cite other projects' files in this repo
+> Code comment rules — avoid cross-repo references
 
+# Code comments
 
-# Source-project neutrality in the codebase
-
-When implementing behavior that was informed by or ported from another product, library, or external codebase, **do not name that source** in repository content.
-
-**Also forbidden in this repo’s source and docs:**
-
-- File paths, module names, or directory layouts that point at **another** project or machine (e.g. a personal clone, a different app’s `apps/…/file.tsx`, or any path outside this monorepo).
-- JSDoc/TSDoc `@see` (or similar) that reference **other** codebases, repositories, or their files.
-
-Applies to:
-
-- SQL (`COMMENT ON`, migration headers, inline notes)
-- Code comments and docstrings
-- User-facing strings and public docs in-repo
-- Cursor rules and other `.cursor` guidance
-
-Describe intent, schema, and behavior in **neutral, first-party** terms (what this project does and why). If attribution or comparison is needed, keep it outside the repo (e.g. internal notes, PR discussion).
-
-The assistant should follow this when adding or editing files.
+- Do **not** include comments that reference other repositories/codebases as the reason for an approach
+  - Avoid: “copied from …”, “similar to …”
+  - Prefer: document intent/constraints in project terms, or omit the comment if it adds no local value.
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
