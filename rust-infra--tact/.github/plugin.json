@@ -1,0 +1,9 @@
+{
+  "name": "rust-infra--tact",
+  "displayName": "tact",
+  "description": "tact",
+  "version": "1.0.0",
+  "author": "rust-infra",
+  "homepage": "https://github.com/rust-infra/tact",
+  "skills": []
+}
