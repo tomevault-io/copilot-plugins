@@ -4,7 +4,7 @@
   "repo": "agentic-prd-workflow",
   "description": "Lightweight PRD-driven agent workflow framework for Codex, Claude Code, GitHub Actions, reusable skills, hooks, and team handoff.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xmh1011/agentic-prd-workflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T06:41:17Z"
+  "distributed_at": "2026-08-11T06:43:18Z"
 }
