@@ -1,0 +1,9 @@
+{
+  "name": "lotus0614--comfyui-prompt-gallery",
+  "displayName": "ComfyUI-Prompt-Gallery",
+  "description": "A ComfyUI plugin to help manage artists and prompts",
+  "version": "1.0.0",
+  "author": "Lotus0614",
+  "homepage": "https://github.com/Lotus0614/ComfyUI-Prompt-Gallery",
+  "skills": []
+}
