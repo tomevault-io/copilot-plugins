@@ -7,13 +7,13 @@ Biologically-grounded adversarial training platform: cyclic Wake/Dream/Nightmare
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Adit-Jain-srm/NightmareNet](https://github.com/Adit-Jain-srm/NightmareNet).
+Original source: `CLAUDE.md` in [Adit-Jain-srm/NightmareNet](https://github.com/Adit-Jain-srm/NightmareNet).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
