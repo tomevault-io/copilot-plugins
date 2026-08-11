@@ -1,8 +1,6 @@
 # jat
 
-> Tome by [joewinke](https://github.com/joewinke/jat) — distributed by [TomeVault](https://tomevault.io)
-
-  The World's First Agentic IDE. Visual dashboard: live sessions, task management, code editor, terminal. Epic Swarm parallel workflows. Auto-proceed rules. Automation patterns. Beads + Agent Mail + 50 bash tools. Supervise 20+ agents from one UI.
+> Tome by [joewinke](https://github.com/joewinke/jat), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,16 +15,43 @@ Original source: `CLAUDE.md` in [joewinke/jat](https://github.com/joewinke/jat).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (3)
+## Bundled Skills (30)
 
 - [jat-complete](https://github.com/joewinke/jat/tree/main/skills/jat-complete)
 - [jat-start](https://github.com/joewinke/jat/tree/main/skills/jat-start)
 - [jat-verify](https://github.com/joewinke/jat/tree/main/skills/jat-verify)
+- [jat](https://github.com/joewinke/jat/tree/main/skills/jat-start/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/skills/jat-verify/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/skills/jat-onboard/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/skills/jat-complete/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/adapt/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/audit/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/polish/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/bolder/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/harden/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/onboard/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/delight/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/animate/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/clarify/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/distill/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/arrange/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/quieter/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/typeset/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/extract/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/critique/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/colorize/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/optimize/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/overdrive/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/normalize/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/route-makeover/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/frontend-design/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/teach-impeccable/SKILL.md)
+- [jat](https://github.com/joewinke/jat/tree/main/.agents/skills/impeccable/SKILL.md)
 
-From [joewinke/jat](https://github.com/joewinke/jat) — a repo with 203+ stars on GitHub.
+From [joewinke/jat](https://github.com/joewinke/jat) — a repo with 0+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:t-e-s -->
