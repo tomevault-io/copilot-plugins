@@ -4,7 +4,7 @@
   "repo": "skills",
   "description": "Opinionated Laravel engineering skills for AI coding agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Foysal50x/skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T14:30:50Z"
+  "distributed_at": "2026-08-11T14:31:37Z"
 }
