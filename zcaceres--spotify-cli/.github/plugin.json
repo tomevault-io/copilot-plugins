@@ -1,0 +1,9 @@
+{
+  "name": "zcaceres--spotify-cli",
+  "displayName": "spotify-cli",
+  "description": "Control Spotify from your AI Agent, easily and securely",
+  "version": "1.0.0",
+  "author": "zcaceres",
+  "homepage": "https://github.com/zcaceres/spotify-cli",
+  "skills": []
+}
