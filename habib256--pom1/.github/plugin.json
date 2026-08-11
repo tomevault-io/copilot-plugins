@@ -1,9 +1,9 @@
 {
   "name": "habib256--pom1",
-  "displayName": "POM1",
-  "description": "\ud83c\udf4e POM1 \u2014 Apple 1 Emulator",
+  "displayName": "pom1",
+  "description": "\ud83c\udf4e POM1 \u2014 Apple 1 Emulator + SDK",
   "version": "1.0.0",
   "author": "habib256",
-  "homepage": "https://github.com/habib256/POM1",
+  "homepage": "https://github.com/habib256/pom1",
   "skills": []
 }
