@@ -4,7 +4,7 @@
   "repo": "codument",
   "description": "Docs-based guardrails for AI coding workflows: coverage scoring, doc-drift checks, and diff safety review.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jakubsuplicki/codument",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T17:48:33Z"
+  "distributed_at": "2026-08-11T17:51:57Z"
 }
