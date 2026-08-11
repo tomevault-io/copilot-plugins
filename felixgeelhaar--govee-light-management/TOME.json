@@ -4,7 +4,7 @@
   "repo": "govee-light-management",
   "description": "Stream Deck plugin for managing Govee smart lights with advanced group functionality",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/felixgeelhaar/govee-light-management",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T08:37:41Z"
+  "distributed_at": "2026-08-11T08:38:23Z"
 }
