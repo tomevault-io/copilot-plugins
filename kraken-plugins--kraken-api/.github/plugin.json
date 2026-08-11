@@ -1,0 +1,9 @@
+{
+  "name": "kraken-plugins--kraken-api",
+  "displayName": "kraken-api",
+  "description": "API for creating RuneLite plugins supporting client interactions!",
+  "version": "1.0.0",
+  "author": "Kraken-Plugins",
+  "homepage": "https://github.com/Kraken-Plugins/kraken-api",
+  "skills": []
+}
