@@ -1,75 +1,30 @@
-## infra-docker-compose
+## orchestrator-env-files
 
-> infra/ Compose stacks, self-host env, Docker image builds (Node 24, monorepo root context), and how they relate to contributor dev deps
+> Orchestrator env files must stay in sync with backend GlobalConfig; run env-file check script; prefer --env-file for orchestrator scripts
 
 
-# Infrastructure (`infra/`)
+# Orchestrator env files (avoid drift)
 
-OpenQuok keeps **Docker Compose** and **self-host env templates** under `infra/`. App images are built from **Dockerfiles** at package roots (`backend/`, `web/`, `orchestrator/`, `agent/server/`) with **repository root** as build context.
+The orchestrator imports backend modules (notably `backend/config/GlobalConfig.ts`), so it can silently gain new environment-variable dependencies when backend config changes. To prevent production drift:
 
-Follow **source-project-neutrality**: no third-party product names in Compose service names, filenames, or comments.
+## Keep env templates complete
 
-## Two Compose files (do not merge roles)
+- When you add a new env var in backend config that the orchestrator can depend on (Redis, BullMQ, Supabase, storage, email, etc.), ensure `orchestrator/.env.production.example` includes it (even if blank).
+- Prefer adding keys to the **orchestrator** example template rather than relying on backend dotenv loading.
 
-| Path | Audience | Purpose |
-| --- | --- | --- |
-| `infra/docker-compose.yml` | **Contributors** developing the hosted OpenQuok product (openquok.com) | **Dev dependencies only** — Redis and optional CLI-auth Postgres. API, web, and workers still run via `pnpm` + Supabase. |
-| `infra/self-host/docker-compose.yml` | **Operators** running OpenQuok on their own machine / private network | **Full app stack** — Redis, API, web, three BullMQ workers, uploads volume; optional `cli` profile (Postgres + agent server). Not a hardened public multi-tenant SaaS deploy. |
+## Validate any orchestrator env file with the checker
 
-### Self-host security defaults
+Use the orchestrator checker script to confirm a dotenv file contains all env keys referenced by backend/orchestrator code (scoped to orchestrator-relevant namespaces).
 
-- Aimed at localhost / trusted networks: `NOT_SECURED=true`, open registration, Redis without password (unpublished), default CLI Postgres credentials when `cli` is enabled.
-- **`web` must not `env_file` the full `.env`** — only explicit runtime env; `VITE_*` go through `build.args`. API/workers may load `.env`.
-- Document exposure limits in `web/src/content/docs/installation/docker-compose.md` when changing ports or env wiring.
+```bash
+pnpm --filter openquok-orchestrator script:check-env:file
+pnpm --filter openquok-orchestrator script:check-env:file -- --env-file .env.production.local
+```
 
-User-facing steps live in `web/src/content/docs/installation/` (`system-requirements`, `docker-compose`, `development-environment`, `configuration-backend/docker`). Update those when bring-up commands, ports, or env contracts change.
+## Orchestrator scripts should not import backend dotenv loader
 
-## Self-host env
-
-- Template: `infra/self-host/.env.example` — operators copy to `infra/self-host/.env` (gitignored).
-- Compose uses `env_file: .env` relative to `infra/self-host/`.
-- Keep **variable names** aligned with `backend/config/GlobalConfig.ts` and web `VITE_*` keys used in `infra/self-host/docker-compose.yml` `build.args` for the web service.
-- **Self-host defaults** in the example: `EMAIL_ENABLED=false`, empty Stripe keys, `NOT_SECURED=true` for plain HTTP localhost, `STORAGE_PROVIDER=local`, Redis host `redis`.
-- **Supabase is operator-provided** (hosted or local CLI on the host). Compose does not bundle Supabase in v1.
-- Changing **`VITE_*`** requires **rebuilding** the `web` image; other vars typically need container recreate.
-
-## Docker builds
-
-### Context and ignore
-
-- **Always build from monorepo root**: `docker build -f <path>/Dockerfile .` or Compose `build.context: ../..` from `infra/self-host/`.
-- Respect root **`.dockerignore`** — do not copy `node_modules`, local `.env`, tests, or deploy artifacts into images.
-
-### Node and pnpm
-
-- **Runtime and build images use Node 24** on Debian Bookworm slim: `ARG NODE_VERSION=24-bookworm-slim` then `FROM node:${NODE_VERSION}`.
-- Keep **pnpm** in sync with root `package.json` `packageManager` via Corepack in the Dockerfile `base` stage (`corepack prepare pnpm@… --activate`).
-- When bumping Node for Docker, update **all** app Dockerfiles (`backend/`, `web/`, `orchestrator/`, `agent/server/`) together.
-
-### Dockerfile conventions
-
-- **Multi-stage**: `base` → `deps` (frozen lockfile install) → `build` → `runtime`.
-- **Production**: `NODE_ENV=production`, run as `USER node` after `chown -R node:node /app`.
-- **Web**: set `OPENQUOK_ADAPTER=node` / `DOCKER=1` at build; pass `VITE_*` as `ARG`/`ENV` in the build stage; runtime serves SvelteKit Node output (`CMD` under `web/`).
-- **Backend**: bundle `dist/`, production `node_modules`, routes manifest; API disables in-process integration refresh when workers own BullMQ (`ENABLE_INTEGRATION_REFRESH_ORCHESTRATOR=false` in Compose).
-- **Orchestrator**: one image; Compose overrides `command` per worker (`runIntegrationRefreshBullMqWorker.js`, etc.).
-- **Agent server**: optional `cli` profile; `DATABASE_URL` points at Compose `postgres` service DNS.
-- Use **`NODE_OPTIONS=--max-old-space-size=…`** on heavy TypeScript build stages where OOMs occur (web/backend/orchestrator differ by package size).
-
-### Compose wiring (self-host)
-
-- Single bridge network (e.g. `openquok`).
-- Named volumes: `redis-data`, `uploads-data` (API + workers share uploads; `uploads-init` may `chown` for uid 1000).
-- `depends_on` with Redis healthcheck; workers and API after Redis healthy.
-- Host ports via env overrides (`OPENQUOK_WEB_HOST_PORT`, `OPENQUOK_API_HOST_PORT`, etc.) documented in `.env.example`.
-
-## Out of scope for `infra/` v1
-
-- Publishing images to a registry / CI push
-- Bundling Supabase containers inside Compose
-- Checked-in reverse proxy configs (document “put a proxy in front” in docs only)
-
-The assistant should follow this layout when adding or editing Compose services, self-host env keys, or Dockerfiles.
+- Orchestrator admin/ops scripts should **not** import `backend/config/loadBackendDotenv.cjs`.
+- They should accept `--env-file <path>` and load it locally (same convention as `railwaySetupWorkerEnv.ts`) so the orchestrator stays self-contained and predictable in CI/production.
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
