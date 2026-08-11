@@ -1,17 +1,213 @@
-## company-brand-icons
+## docs-conventions
 
-> Keep branded icons in sync for public company, competitor, agent, and MCP entries
+> Authoring docs under web/src/content/docs — DocsExternalLink, Badges, Callouts (HTML not Markdown in children), Steps, fenced code (bash for shell commands), agent chat blockquotes, CardGrid/LinkCard
 
 
-# Brand icon sync
+# Docs (MD / MDX) authoring
 
-When adding a new public company or product entry under competitors, agents, or MCP constants:
+Applies to Markdown and MDsvex files under `web/src/content/docs/`.
 
-- Add or reuse a branded icon in `web/src/data/icons/branded-icons.ts` first.
-- Reference icons through the registry with `icons.SomeBrand.name` rather than hardcoded strings.
-- Keep icon names aligned with the content constant so new entries render consistently in hubs, compare pages, and detail pages.
-- If the new entry appears in a public selector, card, or compare surface, make sure the view model carries the icon through instead of re-deriving it in page markup.
-- Prefer inline SVG paths in the icon registry for vector logos; use local image assets only when vector artwork is not practical.
+## External links (docs pages)
+
+- **In `web/src/content/docs/**`**, use **`DocsExternalLink`** from `$lib/ui/components/docs/mdx/index.js` for **third-party** URLs (Vercel, Supabase, GitHub, npm docs, etc.). It wraps `ExternalLink` with **`not-prose`** and **`text-primary`** + underline so links stay readable inside docs prose (avoids low-contrast inherited `prose-a` styles).
+- **Pattern**: `<DocsExternalLink href="https://...">Label</DocsExternalLink>`. Optional props match the base component: `trusted`, `follow`, `ariaLabel`, or `class` to extend styles — see `web/src/lib/ui/components/ExternalLink.svelte` and `web/src/lib/ui/components/docs/mdx/DocsExternalLink.svelte`.
+- **`ExternalLink`** remains the low-level primitive (used inside `DocsExternalLink`). Do not use raw `<ExternalLink>` in new docs content unless you have a rare case that must not use docs styling.
+- **Do not** rely on raw Markdown **inside** custom MDX component children (e.g. `<Callout>`): see **Markdown inside custom components** below.
+- For external URLs in **plain prose** (including **“References”** sections), prefer **`DocsExternalLink`** over raw `<a href="...">` so outbound attributes and contrast stay consistent.
+
+## Links to files in this repository
+
+- Prefer **stable GitHub URLs** to the **default branch** (`main`):  
+  `https://github.com/Ratimon/openquok-monorepo/blob/main/<path>`  
+  Wrap with `<DocsExternalLink href="...">` when the link leaves the docs site (GitHub is external).
+- **Short labels** can use `<code>path/to/file</code>` inside the link, or **`Badge`** with **`variant="path"`** for scan-friendly chips:  
+  `<DocsExternalLink href="https://github.com/.../blob/main/backend/vercel.json"><Badge text="backend/vercel.json" variant="path" /></DocsExternalLink>`.
+- Keep `docsSite.social.github` in `web/src/data/docs.ts` aligned with the org/repo used in URLs.
+
+## Badges for env vars, paths, and examples (`Badge`)
+
+- Import **`Badge`** from `$lib/ui/components/docs/mdx/index.js` (see `DocsBadge.svelte` for the full variant map).
+- Prefer **`<Badge text="BACKEND_DOMAIN_URL" variant="envBackend" />`** (and related variants) over inline **`<code>`** for **environment variable names** in docs: the label is a **string prop**, so underscores and `*` do not trigger MDsveX emphasis bugs, and color coding helps readers distinguish **backend** vs **web (Vite)** vs **runtime** vars.
+- **Semantic variants** (use consistently on a page):
+  - **`envBackend`** — backend package env (typically no `VITE_` prefix): blue.
+  - **`envWeb`** — web / `VITE_*` env: purple. In prose, prefer **`<Badge text="VITE_*" variant="envWeb" />`** (or a specific key) instead of backticks around `VITE_*` / `VITE_` so the label stays visible and MDsveX does not treat `_` as emphasis.
+  - **`envRuntime`** — platform flags such as `VERCEL`, `NODE_ENV`, and deployment selectors like `RAILPACK_CONFIG_FILE`: gray.
+  - **`path`** — repo-relative paths, folder names, and **HTTP route literals** shown as one chip (e.g. `GET /public/posts/list`, `POST /public/posts`, `DELETE /public/integrations/{id}`): outline/muted. Prefer **`path`** over **`default`** when the label is clearly a URL path or REST line, including in **`web/src/content/docs/cli-usages/`** when tying the CLI to the public API.
+  - **`param`** — **CLI flags and long options** (`-c`, `--integrationIds`, `--days`, `-d`), **camelCase JSON / query field names** when shown as chips (e.g. `providerSettingsByIntegrationId`), and **small discrete CLI tokens** in usage lists (e.g. allowed **`--days`** values `7` / `30` / `90`, or top-level verbs like **`upload`** / **`upload-from-url`** on the media CLI page). Use **`param`** so “things you type after the binary” stay visually distinct from command names.
+- **Examples**: **`new`** (green) vs **`deprecated`** (red) for **preferred vs discouraged URL shapes** (e.g. with vs without a trailing slash). **`experimental`** (yellow) works well for **npm package names** (e.g. `@sveltejs/adapter-vercel`) when linked to upstream docs.
+- **`default`** — generic keys (e.g. `buildCommand`, `installCommand`) when they are not env vars, and **namespaced CLI command names** (`posts:create`, `posts:list`, `analytics:post`, `integrations:list`). Use **`default`** for those; use **`param`** for their **flags** in the same table or sentence.
+- **UI labels** (dashboard buttons, provider names, wizard steps): prefer **`Badge`** with **`default`**, **`new`** (positive actions like Save / Enable), **`path`** (navigation crumbs, REST lines, repo paths), **`param`** (CLI flags / field chips in technical docs), or **`experimental`** (third-party package names per above)—keeps emphasis visible without fragile `**bold**` in MDX.
+
+## Underscores and `*` in environment variable names (MDsveX)
+
+- Inline Markdown **backticks** around names like `` `NODE_ENV` `` or `` `BACKEND_DOMAIN_URL` `` can be parsed as **emphasis** (`_…_` / `*…*`), which breaks the Svelte compile (`element_invalid_closing_tag`).
+- **Prefer `Badge`** with the **`text`** prop for env-style identifiers (see **Badges** above). If you cannot use `Badge`, use **HTML**: `<code>NODE&#95;ENV</code>`, `<code>BACKEND&#95;DOMAIN&#95;URL</code>`, or `&#42;` for a literal `*` (e.g. <code>REDIS&#95;&#42;</code> for “REDIS_*”).
+- Inside **`<Callout>`** (and other custom components whose children are not Markdown-parsed), use **`Badge`**, HTML `<code>…</code>`, or **`<strong>`** / **`<em>`** — not Markdown backticks or `**emphasis**` (see **Markdown inside custom components**).
+
+## Curly-brace placeholders (MDsveX / Svelte parsing)
+
+- Do **not** render placeholders like `{SERVER_URL}` inline using patterns that can be re-parsed as Svelte expressions and break builds or runtime, such as:
+  - `<code>&lbrace;SERVER_URL&rbrace;/device/callback</code>`
+  - `<code>{`{SERVER_URL}/device/callback`}</code>`
+  - `<code>{"{SERVER_URL}/device/callback"}</code>`
+  - Any inline `<code>{...}</code>` intended to show literal `{...}` placeholders
+- Prefer one of these safe options:
+  - Use a fenced **`text`** block for the literal placeholder string (best for URLs / redirect URIs).
+  - Or restructure the sentence to avoid curly braces entirely (e.g. use `<Badge text="SERVER_URL" variant="envBackend" />` plus the literal suffix `/device/callback`).
+
+## Markdown inside custom components (`<Callout>`, etc.)
+
+Children passed to custom MDX components (especially **`<Callout>`**) are **not** run through the Markdown parser. Syntax such as `**bold**`, `_italic_`, `` `code` ``, and `[label](https://…)` is emitted **literally** on the page — readers see the asterisks or brackets, not formatted text or links.
+
+- **Use HTML** (or docs components) inside component bodies:
+  - emphasis → `<strong>…</strong>`, `<em>…</em>`
+  - inline literals → `<code>…</code>` or **`Badge`**
+  - external links → **`<DocsExternalLink href="…">…</DocsExternalLink>`** (or `<a href="…">` for rare in-site cases; see `DocsCallout`)
+  - lists / multi-sentence blocks → wrap in **`<p>…</p>`**, **`<ul><li>…</li></ul>`**, etc.
+- **Plain Markdown prose** (including `**bold**` and `` `backticks` ``) remains fine **outside** component tags — e.g. in `##` sections, `<Steps>` step bodies, and normal paragraphs.
+
+**Bad** (literal `**same**` on the rendered page):
+
+```html
+<Callout type="note" title="One Meta app">
+Instagram (Business) and Facebook can use the **same** developer app.
+</Callout>
+```
+
+**Good**:
+
+```html
+<Callout type="note" title="One Meta app">
+Instagram (Business) and Facebook can use the <strong>same</strong> developer app.
+</Callout>
+```
+
+## Callouts vs GitHub alerts
+
+- Do **not** paste GitHub `> [!WARNING]` / `> [!IMPORTANT]` blocks into MDX; they are not rendered as UI components here.
+- Use **`<Callout type="note|tip|warning|danger" title="Optional">`** with **HTML** (or **`Badge`** / **`DocsExternalLink`**) for body content — not Markdown emphasis, links, or backticks (see **Markdown inside custom components** above).
+- Prefer **`<a href="...">`** for in-site links inside callouts when **`DocsExternalLink`** styling is not needed (see `DocsCallout`).
+
+## Next steps and related pages (`LinkCard` / `CardGrid`)
+
+- For **“Next steps”**, **`## Related`**, **`## Related configuration`**, and similar sections with **multiple in-site destinations**, use **`CardGrid`** + **`LinkCard`** from `$lib/ui/components/docs/mdx/index.js` — **not** Markdown bullet lists, `[label](/docs/…)` links, or raw `<a href="…">` rows. This matches pages such as **quick-start**, **development-environment**, **installation/vercel**, and **social-integration/x**.
+- **Pattern** (add the components to the page `<script>` import):
+
+```html
+<script>
+import { CardGrid, LinkCard } from '$lib/ui/components/docs/mdx/index.js';
+</script>
+
+## Related
+
+<CardGrid>
+<LinkCard title="CLI examples" description="Copy-paste X recipes for openquok posts:create" href="/docs/cli-examples/x" />
+<LinkCard title="Adding a provider" description="Contributor checklist for new social integrations" href="/docs/developer-guidelines/add-provider" />
+</CardGrid>
+```
+
+- **`href`** values are **in-site paths only** (same origin as the docs app): docs pages under **`/docs/<slug>`** (e.g. `/docs/configuration-backend`, `/docs/getting-started-for-dev/quick-start`; slugs follow `web/src/content/docs/**` paths with the same casing as on disk), public marketing routes such as **`/channels/<slug>`**, and same-page anchors (e.g. `/docs/configuration-agent#environment-variables`). Do **not** use **`DocsExternalLink`** or raw external URLs in **`LinkCard`**.
+- Reuse **titles and descriptions** that already appear on other pages (e.g. quick-start’s configuration cards) so the UX stays consistent.
+
+### Main section index pages: “Related Section(s)”
+
+- For **top-level section index pages** (the `index.md` at a section root such as `getting-started-for-dev/`, `installation/`, `configuration-backend/`, `configuration-web/`), add a bottom section named **`## Related Section(s)`**.
+- Use **`CardGrid`** + **`LinkCard`** to point readers to the **next** or **related** top-level areas (for example linking `Getting Started` → `/docs/installation`, config hubs → `/docs/installation` and `/docs/developer-guidelines`).
+- **Subpages** (e.g. provider setup guides, CLI example pages) may end with **`## Related`** (or **`## Related configuration`**) using the same **`CardGrid`** pattern when cross-linking sibling docs, CLI examples, or public channel landing pages.
+
+## Inline components and “missing words” (MDsveX)
+
+- **Adjacent custom components** (`<DocsExternalLink/>`, `<Badge/>`, etc.) on one line can cause **plain text between them to disappear** in the rendered page. Fix by:
+  - Wrapping the sentence in an explicit **`<p>...</p>`**, and
+  - Inserting explicit spaces with **`{' '}`** between text and components (or between two components), **or**
+  - Moving the content to a **bullet list** / **Callout** with fewer inline chips.
+- Prefer **`<code>…</code>`** for short literals (JSON keys, package names in prose, shell snippets) when **badges would make the sentence hard to scan**; reserve **`Badge`** for env vars, **`path`** / **`param`** / **`default`** per the **Badges** section (GitHub-linked paths, REST lines, CLI flags, `group:verb` commands), and semantic chips (`new` / `deprecated` / `envWeb`, etc.).
+
+## Numbered procedures (`Steps`)
+
+- For **ordered multi-step instructions** (deploy guides, setup flows), prefer **`Steps`** from `$lib/ui/components/docs/mdx/index.js` over Markdown `1.` / `2.` lists so the UI shows **circled step numbers** and consistent vertical rhythm.
+- **Pattern**: wrap the section in `<Steps>…</Steps>`. Each step is **`###` or `####`** (Markdown heading) plus body content (paragraphs, tables, `<Callout>`, etc.). Do **not** put numbers in the heading text — the component numbers steps automatically.
+- **Example** (see `web/src/content/docs/documentation-contribution/components.md` and `web/src/content/docs/installation/vercel.md`):
+
+```html
+<script>
+import { Steps } from '$lib/ui/components/docs/mdx/index.js';
+</script>
+
+<Steps>
+
+### Create a new project
+
+Clone the template repository and install dependencies.
+
+### Configure your site
+
+Edit `web/src/data/docs.ts` and `web/src/lib/docs/constants/config.ts` with your site details.
+
+</Steps>
+```
+
+- **Long or sensitive notes** inside a step (e.g. “do not run this build locally”) can sit in **`<Callout type="warning">`** (or `danger` / `note` as appropriate) **immediately under** that step’s `###` heading, before the next step heading. Use **plain text** in the `title` attribute (no HTML tags inside `title="..."`).
+
+## Configuration docs: env before steps
+
+- For **configuration pages** that include both an **environment variable reference** and a **setup procedure**, put the env section **before** the `<Steps>` block. This matches pages like `web/src/content/docs/social-integration/threads.md` and keeps readers from jumping away mid-flow to find required keys.
+- Recommended order:
+  - `## Overview`
+  - `## Environment variables` (or `## Backend environment` / `## Web environment`)
+  - `## Common setup steps` (wrapped in `<Steps>…</Steps>`)
+
+## Fenced code blocks: shell commands vs everything else
+
+- **Terminal / shell commands** (anything the reader would paste into a shell: `pnpm`, `npm`, `yarn`, `docker`, `railway`, `vercel`, `git`, `cp`, `npx`, multi-line with `\`, etc.): always use a **` ```bash `** fenced block—not a bare **` ``` `**, not **` ```sh `** (standardize on **`bash`** for consistency and Shiki highlighting).
+- **`.env` / env-style key=value examples** in docs: use **` ```bash `** (same as elsewhere in this repo) so assignment lines highlight consistently.
+- **Interactive CLI transcripts** (questions, `?` prompts, pasted tool output): use **` ```text `** (see **`web/src/content/docs/installation/vercel.md`** example prompts).
+- **Directory trees and ASCII layout** (not executable commands): use **` ```text `**, not **` ```bash `** and not a bare **` ``` `**.
+- **URLs, redirect URIs, or label-only examples** where shell highlighting is wrong: **` ```txt `** or **` ```text `** as fits.
+- **Other languages** (`typescript`, `svelte`, `json`, `yaml`, `html`, …): keep the correct language tag.
+
+## Agent chat prompts (MCP / AI assistant examples)
+
+When docs show what a user would **type or say to an AI agent** (MCP clients, Cursor, ChatGPT, etc.) — not shell commands or `openquok` CLI invocations — use **Markdown blockquotes**, not fenced `bash` or `text` blocks.
+
+- **Lead-in**: One short sentence that frames the example as something the reader asks their agent — e.g. `All of this can happen when you ask your agent something like:`, `After configuring your client, ask your agent:`, or `ask:`.
+- **Prompt**: Blank line, then a single **`>` blockquote** with natural-language text — plain instructions the user would paste or speak, not API field names or CLI syntax.
+- **Shape**: Prefer one imperative sentence. For scheduling posts, follow **`{action} to {channel} {when}: {body}`** (canonical reference: **`web/src/content/docs/getting-started-for-mcp/index.md`**).
+
+```markdown
+All of this can happen when you ask your agent something like:
+
+> Schedule a post to X for tomorrow at 10am: Excited to announce our new feature!
+```
+
+- **Do not** wrap agent prompts in **` ```text `** or **` ```bash `** — those are for terminal/CLI transcripts (see **Fenced code blocks** above).
+- Multi-step workflow examples may add brief context inside the blockquote (e.g. “use integrationList first…”) — see **`web/src/content/docs/mcp-examples/`** — but keep the same lead-in + blockquote format.
+
+## CLI commands in prose
+
+- Do **not** document runnable commands only in a **Markdown table** (`| Command | Description |`). Use the same pattern as **`web/src/content/docs/installation/development-environment.md`** (Deployment section): a **bold lead-in** with an em dash and short explanation, then a **` ```bash `** fenced block with the command.
+- Example (see **`web/src/content/docs/installation/vercel.md`**): write `**Deploy backend to Vercel (preview)** — invokes the Vercel CLI with backend/ as the working directory.`, a blank line, then a fenced **`bash`** block containing `pnpm vercel:deploy:backend` (no table of command vs description).
+- When **`web/src/content/docs/cli-usages/`** pages use **`Badge`** in flag tables or inline next to **` ```bash `** blocks, follow the **Badges** section: **`param`** for flags/options, **`path`** for `METHOD /public/...` route lines, **`default`** for `group:verb` command names (see **`web/src/content/docs/cli-usages/managing-posts.md`**).
+- In **` ```bash `** blocks under **`web/src/content/docs/cli-usages/`** and **`web/src/content/docs/cli-examples/`**, prefer **defined short flags** over long **`--camelCase`** in copy-paste examples (e.g. **`posts:create`**: `-s`, `-c`, `-i`, `-m`, `-t schedule` / `-t draft`, `-j`; **`posts:list`**: **`--start`** / **`--end`** and `-i`; **`posts:status`**: `-s`; **`posts:connect`**: `-r`; **`analytics:*`**: `-d`; **`integrations:trigger`**: `-d` for payload). Flag tables may still pair shorthands with long API-aligned names (`--integrationIds`, `--scheduledAt`, …).
+
+## Sample IDs in CLI command and JSON examples
+
+- In **`web/src/content/docs/cli-usages/`** and **`web/src/content/docs/cli-examples/`** pages, use **kebab-case angle-bracket placeholders** wherever the reader must substitute a value (positional args, `-i` / `--integrationIds` quotes, JSON file keys / values, shell variable assignments, in-prose code spans). Do **not** paste a literal-looking UUID into those positions — even a clearly fake string like `4f7a1b2c-3d4e-5f60-7a8b-9c0d1e2f3a4b` invites copy-paste mistakes.
+- **Canonical placeholders** (use exactly these names so cross-page examples stay consistent):
+  - **`<integration-id>`** — channel UUID from `openquok integrations:list` (positional for `integrations:settings`, `integrations:trigger`, `analytics:platform`; CSV value for `-i` / `--integrationIds`).
+  - **`<post-id>`** — post row UUID from `openquok posts:list` (positional for `posts:status`, `posts:delete`, `posts:missing`, `posts:connect`, `analytics:post`).
+  - **`<post-group-id>`** — post group UUID returned by `posts:create` and surfaced as `postGroup` on list responses (for correlating API responses; full group CRUD is workspace/session only, not CLI).
+  - **`<media-id>`** — media UUID returned by `openquok upload` / `upload-from-url`.
+  - **`<customer-group-id>`** — channel-group UUID for `--customer` / `--customerGroupId`.
+- **Multiple ids of the same kind** in one example (e.g. a comma-separated `integrationIds` value, or a `bodiesByIntegrationId` JSON object with several keys) should use **numeric suffixes** — **`<integration-id-1>`**, **`<integration-id-2>`** — or a **descriptive variant** like **`<threads-integration-id>`** / **`<instagram-integration-id>`** when the channel identity is what the example is teaching.
+- For **flag tables** that document positionals, prefer the specific placeholder (`<code>&lt;integration-id&gt;</code>`, `<code>&lt;post-id&gt;</code>`) over the generic `<code>&lt;id&gt;</code>` so the table row and the fenced example use the same token.
+- **Keep illustrative literal UUIDs only in server response samples** — the body of a JSON `data` / `items` / nested list block that shows what the API returns. These document response shape and never ask the reader to retype a value (examples: `data.id` in `openquok upload`'s response, or rows returned by `posts:list` / `analytics:platform` in HTTP API samples).
+- The **conventions block** on **`web/src/content/docs/cli-usages/index.md`** should reference these placeholders by name rather than concrete UUIDs.
+
+## Front matter
+
+- Keep `title`, `description`, `order`, and `lastUpdated` on index and substantive pages when the rest of the docs do.
+- For SEO, include **“OpenQuok”** and a short product keyword such as **“social scheduler”** in the `description` where it fits naturally (especially on top-level section pages and major guides). Avoid keyword stuffing — keep it readable.
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
