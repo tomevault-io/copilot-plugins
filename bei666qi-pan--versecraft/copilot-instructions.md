@@ -1,16 +1,76 @@
-## 000-openspec-workflow
+## 001-next15-react19
 
-> OpenSpec default task dispatch
+> Next.js 15 and React 19 async/await API rules
 
 
-# OpenSpec 默认任务分流
+# Next.js 15 Async API Rules
 
-VerseCraft 默认使用 OpenSpec。开始任何实现任务前，必须先读取根 `AGENTS.md` 的“OpenSpec 默认自动分流”并决定：直接执行、OpenSpec 轻量变更或 OpenSpec 强制变更。
+In Next.js 15+, `cookies()`, `headers()`, `params`, and `searchParams` are **asynchronous**. They MUST be awaited before use. Synchronous destructuring is forbidden and will cause runtime errors.
 
-- 不要要求用户显式输入 `/opsx:*` 才启用 OpenSpec。
-- 有匹配的未归档 change 时先复用并更新；没有时使用 `.cursor/commands/opsx-*.md`、`.cursor/skills/openspec-*` 或 `openspec` CLI 创建并完成 artifacts。
-- 代码实施完成后，按 tasks 更新、运行相关验证，并在需要时同步 delta specs；归档只在用户请求、PR 收口或明确完成流程时执行。
-- 根 `AGENTS.md` 是完整的跨工具规则事实源。本文件只提供 Cursor 的触发入口，不复制或覆盖项目架构、验证和安全约束。
+## Rules
+
+1. **cookies()** — Always `await cookies()` before calling `.get()`, `.getAll()`, etc.
+2. **headers()** — Always `await headers()` before accessing headers.
+3. **params** — Page/Route `params` is a Promise; await it before destructuring.
+4. **searchParams** — Page `searchParams` is a Promise; await it before use.
+
+## Correct Examples
+
+### Server Component / Route Handler
+
+```tsx
+// ✅ CORRECT: cookies
+import { cookies } from "next/headers";
+
+export default async function Page() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token");
+  return <div>{token?.value}</div>;
+}
+```
+
+```tsx
+// ✅ CORRECT: headers
+import { headers } from "next/headers";
+
+export default async function Page() {
+  const headersList = await headers();
+  const userAgent = headersList.get("user-agent");
+  return <div>{userAgent}</div>;
+}
+```
+
+```tsx
+// ✅ CORRECT: params (Page)
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  return <div>ID: {id}</div>;
+}
+```
+
+```tsx
+// ✅ CORRECT: searchParams (Page)
+export default async function Page({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
+  const { q } = await searchParams;
+  return <div>Query: {q}</div>;
+}
+```
+
+## Forbidden Patterns
+
+```tsx
+// ❌ WRONG: synchronous destructuring
+export default async function Page({ params }: { params: { id: string } }) {
+  const { id } = params; // Will fail in Next.js 15+
+  return <div>{id}</div>;
+}
+```
+
+```tsx
+// ❌ WRONG: cookies without await
+const cookieStore = cookies();
+const token = cookieStore.get("token");
+```
 
 ---
 > Source: [bei666qi-pan/VerseCraft](https://github.com/bei666qi-pan/VerseCraft) — distributed by [TomeVault](https://tomevault.io).
