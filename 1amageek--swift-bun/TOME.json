@@ -1,0 +1,44 @@
+{
+  "name": "swift-bun",
+  "owner": "1amageek",
+  "repo": "swift-bun",
+  "description": "Bun-compatible JavaScript runtime for iOS/macOS via JavaScriptCore. Run Bun-built JS bundles natively on Apple platforms.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/1amageek/swift-bun",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T19:19:39Z"
+}
