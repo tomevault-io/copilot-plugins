@@ -1,0 +1,9 @@
+{
+  "name": "1amageek--swift-bun",
+  "displayName": "swift-bun",
+  "description": "Bun-compatible JavaScript runtime for iOS/macOS via JavaScriptCore. Run Bun-built JS bundles natively on Apple platforms.",
+  "version": "1.0.0",
+  "author": "1amageek",
+  "homepage": "https://github.com/1amageek/swift-bun",
+  "skills": []
+}
