@@ -1,0 +1,44 @@
+{
+  "name": "Nova.AiLab",
+  "owner": "arn-c0de",
+  "repo": "Nova.AiLab",
+  "description": "Deterministic AI simulation and diagnostics lab for Project Nova / HASHKRIEG \u2014 branch-independent matches, replays, metrics, movement tests, combat analysis and comparisons.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/arn-c0de/Nova.AiLab",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T02:44:33Z"
+}
