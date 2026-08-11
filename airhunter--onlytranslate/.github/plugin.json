@@ -1,0 +1,9 @@
+{
+  "name": "airhunter--onlytranslate",
+  "displayName": "OnlyTranslate",
+  "description": "Open-source bilingual reading extension for webpages, video subtitles, and local EPUB ebooks.",
+  "version": "1.0.0",
+  "author": "airhunter",
+  "homepage": "https://github.com/airhunter/OnlyTranslate",
+  "skills": []
+}
