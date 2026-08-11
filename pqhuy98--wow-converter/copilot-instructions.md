@@ -1,0 +1,31 @@
+## development
+
+> AI agent development rules for wow-converter
+
+- Avoid using `any` or `as` casting in TypeScript unless absolutely necessary. Avoid unncessary `instanceof` when developing in TypeScript, trust TypeScript static type.
+- Follow code best practices like DRY, YAGNI, SOLID, Clean Code. Avoid unnecessary complexity and overengineering.
+- Do not export functions, types, or constants that are not used outside their module/directory. Only export what is needed by external consumers.
+- Code organization: In files, export exported functions/types first, then unexported/internal functions. For classes, order methods as: public/no modifier → protected → private.
+- Refactoring patterns:
+  - Consolidate multiple related properties into unified data structures (e.g., single `Asset[]` array instead of separate `usedImportPaths`, `unusedTextures`, etc.).
+  - If a method doesn't use `this`, make it a standalone function below the class, not a class method.
+  - Remove duplication by consolidating similar loops/operations into single iterations with shared logic.
+  - Organize complex methods into clear phases with comments (e.g., "1) Discover X", "2) Process Y", "3) Compute Z").
+  - Prefer local helper functions over repeated inline logic; extract when logic appears 2+ times.
+  - Only store shared state as class properties; move method-local data into local variables.
+- Run the app with `npm run dev` as background daemon emitting logs to `log.txt`. Tail the log file, when the message `Serving UI web interface at http://127.0.0.1:3001/` appears means server started successfully. Always kill the old server on port 3000 and 3001 before starting a new one. Server `npm run dev` has hot-reload, so no need to kill every code change.
+- Only when running as background agent mode on Cursor's cloud Docker container, wow.export is included only for code reference, never try to run it locally and do not modify its code from this repository. When not in background agent mode, e.g. in IDE mode, wow.export code can be modified.
+- Commit hygiene: squash commits before merging to `main`.
+  ```bash
+  git fetch origin
+  git rebase -i origin/main   # squash
+  git push -f <your-branch>
+  ```
+- Screenshots are mandatory in PR to provide proof of change correctness. Use Playwright MCP to make screenshot under `.playwright-mcp/`; copy into `docs/` before commit. Every change in PR must have a corresponding screenshot.
+- When using playwright MCP to export model, fill in the fields, click Export Character and wait for text `Export Successful` 10s then 20s then 40s. If taking more than 40s then check browser error message.
+- When taking screenshot of the exported model, click `⛶` to expand, `setViewport(1440, 900)`.
+- Documentation updates: before raising PR, always incorporate maintainer feedback into this file promptly. Keep it extremely compact and high-signal (short bullets over long prose).
+
+---
+> Source: [pqhuy98/wow-converter](https://github.com/pqhuy98/wow-converter) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
