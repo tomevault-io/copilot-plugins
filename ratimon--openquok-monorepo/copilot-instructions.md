@@ -1,20 +1,24 @@
-## add-agent
+## add-competitors
 
-> Checklist for adding an agent host (OpenClaw, Hermes, …) or an MCP client (ChatGPT, Cursor, …) — landing pages, developer Access snippets, docs, mocks, and hub wiring
+> Checklist for adding a social scheduler competitor to compare and alternatives surfaces — constants, icons, registry wiring, and UI icon styles
 
 
-# Adding an agent host or MCP client
+# Adding a compare / alternatives competitor
 
-Ship **constants + developer config + docs + public landing/hub wiring** in the same change. Do not defer docs or Access-panel snippets.
+Ship **one new competitor constant** plus **registry and UI wiring** in the same change. Reference implementations: **`hootsuite.ts`**, **`buffer.ts`**. OpenQuok’s own entry is **`openquok.ts`** (special — see below).
 
-Two product surfaces share the `/agents` hub but use **different** content trees:
+Competitor data powers:
 
-| Kind | Examples | Landing seed | Docs section | Developer Access |
-| --- | --- | --- | --- | --- |
-| **Agent host** | OpenClaw, Hermes | `web/src/lib/content/constants/agents/{slug}.ts` | `web/src/content/docs/agent-setup-guides/` | openquok-core / CLI skill (not `MCP_CLIENTS`) |
-| **MCP client** | Cursor, ChatGPT, Warp | `web/src/lib/content/constants/mcps/{slug}.ts` | `web/src/content/docs/mcp-setup-guides/` | `getMcpClientConfig` + `MCP_CLIENTS` |
+| Surface | Route | Behavior |
+| --- | --- | --- |
+| Compare hub | `/compare` | Dropdown + cards for every product in `PUBLIC_COMPARE_PRODUCTS` (default base: OpenQuok) |
+| Compare detail | `/compare/{productA}/{productB}` | Head-to-head page for any **distinct** pair (auto from `getComparePair`) |
+| Alternatives hub | `/alternatives` | Directory card per **non-OpenQuok** competitor (`ALTERNATIVES_TARGET_SLUGS`) |
+| Alternatives detail | `/alternatives/{slug}` | “Best {name} alternatives” SEO page; OpenQuok ranked first among listings |
 
-Follow **source-project-neutrality** and **company-brand-icons**. Reference MCP client: **`chatgpt.ts`**, **`claude-cowork.ts`**, **`warp.ts`**. Reference agent host: **`openclaw.ts`**, **`hermes.ts`**.
+**No new route files** are required for compare or alternatives when adding a competitor — only data + the manual steps below.
+
+Follow **source-project-neutrality**: describe products and positioning in first-party terms; trademark notes belong only in `branded-icons.ts` where needed.
 
 ---
 
@@ -22,122 +26,148 @@ Follow **source-project-neutrality** and **company-brand-icons**. Reference MCP 
 
 Use one **lowercase kebab-case** slug everywhere:
 
-- Seed `slug` / `agentId`
-- Filename under `mcps/` or `agents/`
-- Docs page: `mcp-setup-guides/{slug}.md` or `agent-setup-guides/{slug}.md`
-- `MCP_CLIENT_DOCS_SLUG` value (MCP clients only)
-- Public URL: `/agents/{slug}` (and `/agents/{slug}/{channelSlug}` when channel SEO applies)
+- `CompareProduct.slug` and `CompareProductSlug` union member
+- Filename: `web/src/lib/content/constants/competitors/{slug}.ts`
+- Export name: `{slug}CompareProduct` (e.g. `hootsuiteCompareProduct`)
+- URLs: `/compare/openquok/{slug}`, `/alternatives/{slug}`
+- `COMPARE_PRODUCT_WEBSITE_URLS` key
+- Branded icon registry key (PascalCase, e.g. `Hootsuite` → `icons.Hootsuite.name`)
 
-`mcpClient` label (MCP clients) must be a member of `MCP_CLIENTS` in `getMcpClientConfig.ts` — exact string match.
+Do **not** add OpenQuok as an alternatives **target** — `COMPARE_HUB_BASE_SLUG` (`openquok`) is excluded from `ALTERNATIVES_TARGET_SLUGS` by design.
 
 ---
 
-## A. Adding an MCP client (e.g. ChatGPT)
+## Required files (manual)
 
 ### 1. Branded icon
 
-**`web/src/data/icons/branded-icons.ts`** — add or reuse `icons.{Brand}.name` (see **company-brand-icons**).
+**`web/src/data/icons/branded-icons.ts`**
 
-### 2. Client config generator (Developers → Access)
+- Add `IconName` union entry and `icons.{Brand}` object (inline SVG preferred).
+- See **company-brand-icons** rule.
 
-**`web/src/lib/developers/utils/getMcpClientConfig.ts`**
+### 2. Slug type
 
-- Append the display name to `MCP_CLIENTS`.
-- Add `MCP_CLIENT_DOCS_SLUG[client] = '{slug}'`.
-- Implement **both** `path` and `header` branches in `getMcpClientConfig` (URL-with-key and Bearer header / native file format).
-- Prefer the auth pattern the product actually supports (e.g. ChatGPT custom connectors → pasteable MCP URL with token in path).
+**`web/src/lib/content/constants/competitors/types.ts`**
 
-**`web/src/lib/developers/utils/getMcpClientConfig.test.ts`** — cover at least path (and header when non-trivial).
+- Extend `CompareProductSlug` with the new slug literal.
 
-`McpClientConfiguration.svelte` iterates `MCP_CLIENTS` automatically; update the blurb only if you want the new name called out. `UpdateDeveloperAccess.svelte` does not list clients — no change required unless Access UX changes.
+### 3. Competitor constant (new file)
 
-### 3. Landing seed
+**`web/src/lib/content/constants/competitors/{slug}.ts`**
 
-**`web/src/lib/content/constants/mcps/{slug}.ts`** — export `{name}McpSeed` satisfying `McpLandingSeed` (`slug`, `label`, `mcpClient`, `icon`, `hubDescription`, `heroDescription`, `metaDescription`, `workflowPhrase`, four `setupSteps`).
+Export a `CompareProduct` with:
 
-**`web/src/lib/content/constants/mcps/index.ts`** — import, re-export, append to `MCP_LANDING_SEEDS`.
-
-This auto-wires `/agents/{slug}`, the agents hub MCP grid, and `PublicAgentsNavDropdown`.
-
-### 4. Device-mock themes / content ids
-
-Keep union types in sync with `MCP_CLIENT_DOCS_SLUG` (TypeScript will fail if `Record<McpClient, …>` is incomplete):
-
-| File | Add |
+| Field | Notes |
 | --- | --- |
-| `mcpClientVerifyMockConfig.ts` | `mcp-verify-{slug}`, `mcp-install-{slug}` unions + `THEMES[client]` |
-| `mcpWorkflowScheduleMockConfig.ts` | `mcp-workflow-{slug}` union |
-| `mcpWorkflowAnalyticsMockConfig.ts` | `mcp-analytics-{slug}` union |
+| `slug`, `name`, `icon` | `icon: icons.{Brand}.name` |
+| `tagline` | Short subtitle under the name on compare pages |
+| `overview` | 2–3 sentences for platform overview and alternatives listings |
+| `pricingPlans` | `ComparePricingPlan[]` — public list prices in USD; `monthlyPrice: null` for custom/enterprise |
+| `channels` | Human labels aligned with `listAvailablePublicChannelCompareLabels()` in `channels/index.ts` so channel compare icons resolve |
+| `featureSupport` | `Partial<Record<PublicPricingCompareRowId, CompareFeatureCell>>` — one cell per row in `PUBLIC_PRICING_COMPARE_ROWS` (`included` / `excluded` / `text`) |
+| `comparison` | `headline`, `notAnother`, `builtFor`, `positioningWhenLeft`, optional `withoutTitle`, and `talkingPoints` |
 
-Pick `layout`: `ide` | `terminal` | `cowork` to match the product UI (ChatGPT / Cowork → `cowork`).
+**Talking points** (`CompareTalkingPointId` keys in `shared.ts` → `COMPARE_TALKING_POINT_ORDER`):
 
-### 5. Docs
+- For a pair row to appear in the with/without section, the **left** product needs `strength` and the **right** product needs `weakness` for the **same** topic id.
+- When OpenQuok is on the left, competitor `weakness` copy drives the “without” column.
+- When a competitor is on the left vs another competitor, both need matching topic keys.
 
-| File | Action |
+### 4. Registry
+
+**`web/src/lib/content/constants/competitors/index.ts`**
+
+- Import and re-export `{slug}CompareProduct`.
+- Append to `PUBLIC_COMPARE_PRODUCTS` (keep **OpenQuok first**, then competitors alphabetically or by priority).
+
+`ALTERNATIVES_TARGET_SLUGS`, `getCompareProduct`, `getComparePair`, `listComparePairsForHub`, and `listAlternativeProductsFor` derive from this array — no separate list to maintain.
+
+### 5. Official website URL
+
+**`web/src/lib/content/constants/competitors/shared.ts`**
+
+- Add the slug to `COMPARE_PRODUCT_WEBSITE_URLS` (used for “Go to website” on alternatives detail).
+
+### 6. Product icon styles (UI)
+
+Add a `PRODUCT_ICON_STYLES` entry for the new slug in **all four** route components (gradient ring colors for cards/hero):
+
+| File |
+| --- |
+| `web/src/routes/(public)/compare/+page.svelte` |
+| `web/src/routes/(public)/compare/[productA]/[productB]/+page.svelte` |
+| `web/src/routes/(public)/alternatives/+page.svelte` |
+| `web/src/routes/(public)/alternatives/[slug]/+page.svelte` |
+
+Each file defines `Record<CompareProductSlug, { containerClass / heroContainerClass / cardContainerClass; iconClass? }>`. Match the visual language of existing competitors (distinct gradient, readable icon contrast).
+
+---
+
+## Auto-wired (verify, do not duplicate)
+
+After `PUBLIC_COMPARE_PRODUCTS` and `COMPARE_PRODUCT_WEBSITE_URLS` are updated:
+
+| Area | What happens |
 | --- | --- |
-| `web/src/content/docs/mcp-setup-guides/{slug}.md` | Full setup (prereqs, Steps, both auth tabs when relevant, verify prompt, Related `CardGrid`) |
-| `web/src/content/docs/mcp-setup-guides/index.md` | `LinkCard` — reuse the same `hubDescription` as the seed |
-| `web/src/content/docs/getting-started-for-mcp/setup.md` | Row in the per-client table (+ description frontmatter if it lists clients) |
+| `PublicComparePagePresenter` | Hub pairs, detail VMs, related comparisons, SEO copy |
+| `PublicAlternativesPagePresenter` | Hub directory entries, detail listings, search filter |
+| `buildComparePair.ts` | Meta titles, keywords, with/without sections for new pairs |
+| Compare/alternatives `+page.server.ts` | JSON-LD `ItemList` / `SoftwareApplication` nodes |
+| Footer | `PUBLIC_FOOTER_LINKS` → Alternatives hub already points at `/alternatives` |
 
-Docs sidebar autogenerates from `mcp-setup-guides/` — no `config.ts` edit for a new page inside that folder.
+Smoke-test URLs:
 
-Do **not** add MCP clients under `agent-setup-guides/` (that section is for CLI / openquok-core agent hosts).
+- `/compare` — new product in hub dropdown and cards
+- `/compare/openquok/{slug}` and `/compare/{slug}/openquok`
+- `/alternatives` — new “{Name} alternatives” card
+- `/alternatives/{slug}` — OpenQuok #1, other competitors listed, compare + website links work
 
-### 6. Optional
+---
+
+## OpenQuok entry (`openquok.ts`) — special case
+
+Only update when **OpenQuok product facts** change (pricing tiers, limits, channels):
+
+- Pull plan limits from `openquok-common` (`planLimitsForTier`, etc.) — do not hand-copy prices.
+- Channels from `listAvailablePublicChannelCompareLabels()`.
+- `featureSupport` built dynamically in `buildOpenQuokFeatureSupport()`.
+- OpenQuok is `COMPARE_HUB_BASE_SLUG`; it is **not** an alternatives target slug.
+
+---
+
+## Optional copy updates
+
+Update when the new competitor should appear in marketing prose (not required for pages to work):
 
 | File | When |
 | --- | --- |
-| `web/src/lib/ui/components/onboarding/mcp/onboardingMcpClients.ts` | Only if the client should appear in onboarding’s short list (Cursor / Claude Code / Codex / VS Code today) |
-| `getting-started-for-mcp/index.md` | When intro copy should name the new client |
-
-### MCP client PR checklist
-
-- [ ] Icon + `MCP_CLIENTS` + `MCP_CLIENT_DOCS_SLUG` + both auth branches + unit test
-- [ ] `{slug}.ts` seed registered in `mcps/index.ts`
-- [ ] Mock verify/install/workflow/analytics unions + theme
-- [ ] `mcp-setup-guides/{slug}.md` + index `LinkCard` + `getting-started-for-mcp/setup.md` table
-- [ ] Smoke `/agents/{slug}`, Developers → Access client chip, `/docs/mcp-setup-guides/{slug}`
+| `web/src/lib/config/constants/config.ts` | `PUBLIC_HUB_DOCS_BANNERS.alternatives.description` or pricing banner copy that names competitors |
+| `web/src/lib/content/constants/publicFaqConfig.ts` | FAQ answers that mention specific schedulers by name |
 
 ---
 
-## B. Adding an agent host (e.g. OpenClaw)
+## PR checklist
 
-### 1. Branded icon
-
-Same as MCP clients — `branded-icons.ts`.
-
-### 2. Agent landing seed
-
-**`web/src/lib/content/constants/agents/{slug}.ts`** + register in **`agents/index.ts`** (and hub copy in `hub.ts` / shared FAQs when needed).
-
-### 3. Docs
-
-**`web/src/content/docs/agent-setup-guides/{slug}.md`** + **`agent-setup-guides/index.md`** `LinkCard`. Cross-link CLI auth / openquok-core as appropriate.
-
-### 4. Channel SEO (when shipping per-channel agent pages)
-
-Follow patterns under `web/src/lib/content/constants/agents/channels/` and **add-social-provider-integration** for `/agents/{agentSlug}/{channelSlug}`.
-
-### 5. Skills / CLI
-
-Update `agent/skills/openquok-core/` (and related docs under `getting-started-for-cli` / `cli-usages`) only when the host’s install path or skill discovery changes.
-
-### Agent host PR checklist
-
-- [ ] Icon + agent seed registered; hub lists the host
-- [ ] `agent-setup-guides/{slug}.md` + index card
-- [ ] Channel SEO seeds if `/agents/{slug}/{channel}` is in scope
-- [ ] Smoke `/agents/{slug}` and docs page
+- [ ] `CompareProductSlug`, `{slug}.ts`, `PUBLIC_COMPARE_PRODUCTS`, and `COMPARE_PRODUCT_WEBSITE_URLS` updated together.
+- [ ] Branded icon added; `icons.{Brand}.name` used in the constant (no string literals).
+- [ ] `featureSupport` covers every `PublicPricingCompareRowId` you intend to show (missing rows default to `excluded` on compare detail).
+- [ ] `talkingPoints` pairs with OpenQuok (and peers) so with/without sections are not empty.
+- [ ] `PRODUCT_ICON_STYLES` updated in all **four** compare/alternatives route Svelte files.
+- [ ] Channel labels match public channel compare labels.
+- [ ] `/compare`, `/compare/openquok/{slug}`, `/alternatives`, and `/alternatives/{slug}` manually smoke-tested.
+- [ ] No third-party repo paths or attribution in SQL, comments, or user-facing strings (see **source-project-neutrality**).
 
 ---
 
-## Do not
+## Adding a new pricing compare row (rare)
 
-- Add a public `/agents/{slug}` landing without a seed in `mcps/` or `agents/` and a matching docs guide.
-- Add an MCP client to `MCP_CLIENTS` without docs + mock theme unions (landing builders call `getMcpClientConfig` and mock helpers).
-- Put MCP-client setup under `agent-setup-guides/` or agent-host skill install under `mcp-setup-guides/`.
-- Hardcode icon name strings — use `icons.{Brand}.name`.
-- Name third-party source projects or external repo paths in seeds, docs, or comments (see **source-project-neutrality**).
+If the feature matrix needs a **new row** for all products:
+
+1. Add the row to `PUBLIC_PRICING_COMPARE_ROWS` in `web/src/lib/billing/constants/publicPricingCatalog.ts`.
+2. Add `featureSupport` cells for **every** product in `competitors/` (including `openquok.ts`).
+
+That is a catalog change, not a single-competitor add.
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
