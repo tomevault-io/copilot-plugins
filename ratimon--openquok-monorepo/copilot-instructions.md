@@ -1,147 +1,100 @@
-## web-seo-jsonld
+## web-seo-meta-tags
 
-> JSON-LD structured data — schema-dts, jsonLdSchema helpers, domain builders, JsonLdHead SSR rendering
+> SSR meta tags for public routes — createMetaData, pageMetaTags, OG/Twitter, keywords, landing/pricing titles
 
 
-# Web SEO: JSON-LD structured data
+# Web SEO: SSR meta tags
 
-Compute `schemaData` in `+page.server.ts` and render with **`JsonLdHead`** so crawlers receive real JSON in SSR HTML — **before** any client hydration. JSON-LD must not depend on JavaScript execution (see **web-seo-index** → JavaScript rendering mismatch).
+Meta tags are rendered sitewide via `svelte-meta-tags` (`<MetaTags {...metaTags} />` in `+layout.svelte`). Page loads supply `pageMetaTags`; the root layout supplies `baseMetaTags`.
 
-```svelte
-<script lang="ts">
-  import JsonLdHead from '$lib/ui/components/seo/JsonLdHead.svelte';
-  let schemaData = $derived(data.schemaData);
-</script>
+## Server load pattern
 
-<JsonLdHead schemaData={schemaData} />
-```
+In `+page.server.ts`:
 
-Serialization: `$lib/seo/jsonLdScriptHtml.ts` (`serializeJsonLd`, `jsonLdScriptHtml`). Docs use the same helper in `DocsSeoHead.svelte`.
+1. **Set** `export const ssr = true`.
+2. **Build base meta** with `createMetaData({ …, requestUrl: url }) satisfies MetaTagsProps`.
+3. **Apply request canonical** with `withCanonicalMetaTags` (see **web-seo-canonical** — do not hand-roll spread order).
+4. **Return** `pageMetaTags` for first-render HTML (no client JS required).
 
-## Avoid
-
-- `<script type="application/ld+json">{JSON.stringify(schemaData)}</script>` — Svelte does not interpolate inside script tags in SSR.
-- JSON-LD only in `onMount` or behind `if (browser)`.
-- Inline `schemaData={{ '@context': … }}` in `+page.svelte`.
-- Hardcoding `'@context': 'https://schema.org'` — use shared helpers below.
-
-## Typed JSON-LD (`schema-dts` + `jsonLdSchema`)
-
-All JSON-LD is typed with [`schema-dts`](https://www.npmjs.com/package/schema-dts) via **`$lib/seo/jsonLdSchema.ts`**:
-
-| Export | Use |
-| --- | --- |
-| `SCHEMA_ORG_CONTEXT` | Canonical `@context` (`https://schema.org`) |
-| `JsonLdGraphSchema` | Return type for `@graph` documents |
-| `JsonLdGraphNode` | Single node inside `@graph` |
-| `createJsonLdGraph(nodes)` | `{ '@context', '@graph': [...] }` |
-| `createJsonLdWithContext(node)` | Single top-level node with `@context` |
-| `filterNonEmptyJsonLdNodes(nodes)` | Drop `{}` from optional builders |
-
-Annotate nodes with `satisfies` where it helps catch typos.
-
-### `@graph` (most pages)
+Crawlers read the initial response; meta tags added only after hydration may be missed at index time (see **web-seo-index** → JavaScript rendering mismatch).
 
 ```ts
-import type { WebSite } from 'schema-dts';
+import { createMetaData } from '$lib/seo/createMetaData';
+import { buildCanonicalUrl, withCanonicalMetaTags } from '$lib/seo/buildCanonicalUrl';
 
-import { createPublicFaqSEOSchema } from '$lib/content/utils/createPublicFaqSEOSchema';
-import { buildCanonicalUrl } from '$lib/seo/buildCanonicalUrl';
-import { createJsonLdGraph, filterNonEmptyJsonLdNodes } from '$lib/seo/jsonLdSchema';
+const metaTags = await createMetaData({
+  companyInformation: companyInformationPm,
+  marketingInformation: marketingInformationPm,
+  customTitle: `${customTitle} | ${companyName}`,
+  customDescription,
+  customSlug: 'pricing',
+  requestUrl: url
+});
 
 const canonical = buildCanonicalUrl(url);
-
-const schemaData = createJsonLdGraph(
-  filterNonEmptyJsonLdNodes([
-    {
-      '@type': 'WebSite',
-      '@id': `${url.origin}/#website`,
-      name: companyName,
-      url: url.origin,
-      description: heroDescription
-    },
-    createPublicFaqSEOSchema({
-      pageUrl: `${canonical}#faq`,
-      name: faqTitle,
-      description: faqDescription,
-      items: faqItems
-    })
-  ])
-);
+const pageMetaTags = withCanonicalMetaTags(metaTags, canonical, {
+  openGraph: { title: customTitle, description: customDescription },
+  twitter: { title: customTitle, description: customDescription }
+});
 ```
 
-### Single-node (rare — e.g. `/tools/skill-builder` index)
+### Landing page (extends layout meta)
+
+Spread layout + page meta **first**, then override canonical and OG/Twitter:
 
 ```ts
-import type { WebApplication } from 'schema-dts';
+const canonical = buildCanonicalUrl(url);
+const og = openGraphForPublicPage(customTitle, heroDescription, canonical);
 
-import { createJsonLdWithContext } from '$lib/seo/jsonLdSchema';
-
-const schemaData = createJsonLdWithContext({
-  '@type': 'WebApplication',
-  name: metaTitle,
-  description: metaDescription,
-  applicationCategory: 'DeveloperApplication',
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
-} satisfies WebApplication);
+const pageMetaTags = Object.freeze({
+  ...baseMetaTags,
+  ...metaTags,
+  canonical,
+  titleTemplate: '%s',
+  openGraph: { ...metaTags.openGraph, ...og.openGraph },
+  twitter: { ...metaTags.twitter, ...og.twitter }
+}) satisfies MetaTagsProps;
 ```
 
-## Reusable schema builders
+### Avoid
 
-Put non-trivial logic in `$lib/<domain>/utils/`; call from `+page.server.ts` only.
+- Setting `canonical` **before** `...metaTags` in an object literal — `metaTags.canonical` will overwrite it.
+- Returning raw `pageMetaTags: metaTags` without `withCanonicalMetaTags` when the route needs a request-scoped canonical.
 
-| Helper | Path | Returns |
-| --- | --- | --- |
-| `createPublicFaqSEOSchema` | `$lib/content/utils/createPublicFaqSEOSchema.ts` | `FAQPage` or `{}` |
-| `createLandingDemoSEOSchema` | `$lib/content/utils/createLandingDemoSEOSchema.ts` | `VideoObject` or `{}` |
-| `createOrganizationSEOSchema` | `$lib/content/utils/createOrganizationSEOSchema.ts` | `Organization` |
-| `createBlogPostSEOSchema` | `$lib/blogs/utils/createBlogPostSEOSchema.ts` | `JsonLdGraphSchema` |
-| Blog hub builders | `$lib/blogs/utils/createBlogHubSEOSchema.ts` | `Blog`, `CollectionPage`, `ItemList`, `ProfilePage`, `BreadcrumbList` for `/blog`, `/blog/topic`, `/blog/author` |
-| `createPostSEOSchema` | `$lib/posts/utils/createPostSEOSchema.ts` | `JsonLdGraphSchema` |
-| `createListingSEOSchema` | `$lib/listings/utils/listingSchema.ts` | `JsonLdGraphSchema` |
-| `mergeListingSchemaIntoGraph` | `$lib/listings/utils/listingSchema.ts` | `Thing[]` |
-| Playbooks hub builders | `$lib/listings/utils/createPlaybooksSeoSchema.ts` | `CollectionPage`, item lists, term sets |
-| Building blocks hub builders | `$lib/listings/utils/createBuildingBlocksSeoSchema.ts` | same pattern |
+## Landing / pricing titles
 
-Hub loads (`loadPlaybooksHubPage.server.ts`, `loadBuildingBlocksHubPage.server.ts`) compose builders with `createJsonLdGraph` + `filterNonEmptyJsonLdNodes`. Paginate hub grids in the server load (`parseHubListPagination`, `paginateHubList` from `$lib/listings/utils/hubListPagination.ts`); pass `totalCount` and `listOffset` into item-list builders so `numberOfItems` and `ListItem.position` match the full filtered set, not only the current page slice.
+- **Landing**: derive `customTitle` / `customDescription` from SSR `landing_page` config (`HERO_TITLE`, `HERO_SLOGAN`); collapse newlines in titles for `<title>`. Merge OG/Twitter with `openGraphForPublicPage(customTitle, heroDescription, canonical)`.
+- **Pricing**: fixed page title (e.g. `Pricing | {companyName}`), dedicated description, `customSlug: 'pricing'`.
 
-## Reference graph shapes
+## Keywords (`customTags`)
 
-| Route type | Typical `@graph` nodes |
-| --- | --- |
-| **Landing** | `WebSite` + `Organization` + `FAQPage` + `VideoObject` |
-| **About** | `AboutPage` + `Organization` |
-| **Pricing** | `WebPage` (with `Offer` list) + `FAQPage` |
-| **Hub** | `CollectionPage` + `ItemList` (+ optional `FAQPage`) |
-| **Channel / agent detail** | `WebPage` + `SoftwareApplication` + `FAQPage` |
-| **Tool pages** | `WebApplication` (+ `WebSite` `isPartOf` on channel routes) |
-| **Blog / post preview** | `BlogPosting` or `SocialMediaPosting` + `BreadcrumbList` |
-| **Blog hubs** | `Blog` + `CollectionPage` + `ItemList` (index); `ProfilePage` + `Person` (author); topic `CollectionPage` + breadcrumbs |
-| **Creator profile** | `ProfilePage` + `Person` |
-| **Playbook / building block detail** | `WebPage` + `Person` + `HowTo` / `CreativeWork` / merged CMS schema |
-| **Compare** | `WebPage` + `ItemList` + `SoftwareApplication` × 2 + `FAQPage` |
+- Prefer a dedicated `keywords: string[]` before `createMetaData`.
+- Filter empties: `.filter((t) => typeof t === 'string' && t.trim().length > 0)`.
 
-## Builder notes
+## OG image + Twitter card
 
-### FAQPage (`createPublicFaqSEOSchema`)
+Pass content images via `customImages`:
 
-- `pageUrl: \`${canonical}#faq\`` — same section name/description as visible `PublicFaq`.
-- Plain-text `Answer.text` matching accordion copy.
-- Returns `{}` when empty — always `filterNonEmptyJsonLdNodes`.
+- **Blog**: build from `heroImageFilename`; set `type` from mime guess helper.
+- **Post preview** (`/p/[postId]`): derive URL from first `media[].path`.
 
-### VideoObject (`createLandingDemoSEOSchema`)
+When a content image is present, add explicit `twitter:card`:
 
-- Landing demo from SSR `landing_page` config. Filter when `youtubeVideoId` or `uploadDate` is empty.
-- Include `uploadDate` (ISO 8601) — required by Google for VideoObject rich results (`DEMO_YOUTUBE_UPLOAD_DATE`).
-- `HeroDemo`: crawlable thumbnail, YouTube link, `id="landing-demo"`.
+```ts
+customMetaTags: [{ name: 'twitter:card', content: 'summary_large_image' }, ...]
+```
 
-### Organization (`createOrganizationSEOSchema`)
+`createMetaData` already sets default OG images and `twitter.cardType`; explicit `twitter:card` avoids crawler quirks.
 
-- Landing and about only — not sitewide. Use `organizationSchemaId(origin)` for stable `@id`.
+## `createMetaData` contract
 
-## Canonical alignment
+- `customSlug` must be a **path segment**, not a full URL. Use `encodeURIComponent` for dynamic segments.
+- When `requestUrl` is set, canonical inside `createMetaData` uses **pathname only** (query stripped). Pages still override with `withCanonicalMetaTags` for request-origin correctness.
+- Legal pages without `createMetaData` may use `openGraphForPublicPage` + `buildCanonicalUrl` directly.
 
-JSON-LD `url` / `canonicalUrl` must match `<link rel="canonical">` — use the same `buildCanonicalUrl(url)` value (see **web-seo-canonical**). Do not duplicate title/description in `+page.svelte` when they already exist in the server load.
+## Client navigation
+
+Do **not** recompute meta in `+page.ts`. Forward `pageMetaTags` from the server load — see **web-sveltekit-universal-page-load**.
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
