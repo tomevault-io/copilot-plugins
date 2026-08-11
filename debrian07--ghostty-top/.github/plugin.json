@@ -1,0 +1,9 @@
+{
+  "name": "debrian07--ghostty-top",
+  "displayName": "ghostty-top",
+  "description": "A small, htop-style macOS monitor for CPU and resident memory used by each Ghostty terminal tab.",
+  "version": "1.0.0",
+  "author": "deBrian07",
+  "homepage": "https://github.com/deBrian07/ghostty-top",
+  "skills": []
+}
