@@ -1,0 +1,9 @@
+{
+  "name": "ternarycore--ternarycore",
+  "displayName": "ternarycore",
+  "description": "Open-source FPGA accelerator for ternary (BitNet b1.58) neural network inference \u2014 native {-1, 0, +1} arithmetic, no multipliers",
+  "version": "1.0.0",
+  "author": "Ternarycore",
+  "homepage": "https://github.com/Ternarycore/ternarycore",
+  "skills": []
+}
