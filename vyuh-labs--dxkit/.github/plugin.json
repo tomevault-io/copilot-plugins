@@ -1,0 +1,9 @@
+{
+  "name": "vyuh-labs--dxkit",
+  "displayName": "dxkit",
+  "description": "Deterministic Stop-gate and code-graph context for AI coding agents: blocks only net-new findings and gives the loop a structural map of the codebase, locally, with no model in the gate.",
+  "version": "1.0.0",
+  "author": "vyuh-labs",
+  "homepage": "https://github.com/vyuh-labs/dxkit",
+  "skills": []
+}
