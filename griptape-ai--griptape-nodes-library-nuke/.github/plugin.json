@@ -1,0 +1,9 @@
+{
+  "name": "griptape-ai--griptape-nodes-library-nuke",
+  "displayName": "griptape-nodes-library-nuke",
+  "description": "A library for publishing working with Foundry Nuke from Griptape Nodes.",
+  "version": "1.0.0",
+  "author": "griptape-ai",
+  "homepage": "https://github.com/griptape-ai/griptape-nodes-library-nuke",
+  "skills": []
+}
