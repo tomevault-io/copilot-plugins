@@ -1,0 +1,44 @@
+{
+  "name": "solid_objects",
+  "owner": "cardmagic",
+  "repo": "solid_objects",
+  "description": "A Ruby on Rails port of CloudFlare's Durable Objects using Solid Queue principles with automatic ERB reactivity",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cardmagic/solid_objects",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T02:31:58Z"
+}
