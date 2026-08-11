@@ -1,0 +1,9 @@
+{
+  "name": "siliconjungle--inkwell-webgpu-water",
+  "displayName": "inkwell-webgpu-water",
+  "description": "Standalone raw WebGPU Tethys ocean, shoreline, and underwater sand renderer",
+  "version": "1.0.0",
+  "author": "siliconjungle",
+  "homepage": "https://github.com/siliconjungle/inkwell-webgpu-water",
+  "skills": []
+}
