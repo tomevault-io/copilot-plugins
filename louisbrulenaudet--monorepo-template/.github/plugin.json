@@ -1,0 +1,9 @@
+{
+  "name": "louisbrulenaudet--monorepo-template",
+  "displayName": "monorepo-template",
+  "description": "A concise, AI native and production-grade starter template for full-stack applications using pnpm, Turborepo and Cloudflare Workers for edge-native execution \ud83d\ude9a\u26c5",
+  "version": "1.0.0",
+  "author": "louisbrulenaudet",
+  "homepage": "https://github.com/louisbrulenaudet/monorepo-template",
+  "skills": []
+}
