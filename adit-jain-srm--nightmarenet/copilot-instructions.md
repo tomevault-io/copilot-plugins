@@ -1,17 +1,36 @@
-## diagrams
+## grill
 
-> Diagram and visualization preferences for documentation
+> Resolve decisions before building — ask questions one at a time until clarity
 
 
-## Documentation Diagram Standards
+## Grill Before Building
 
-- NEVER use ASCII art diagrams (box-drawing characters, pipes, dashes)
-- ALWAYS use Mermaid diagrams for architecture, flows, and sequences
-- Mermaid renders natively on GitHub, Notion, and most markdown viewers
-- For README files, use Mermaid `graph`, `sequenceDiagram`, or `flowchart` syntax
-- Keep diagrams high-level and professional — not cluttered with implementation details
-- Use subgraphs for logical grouping
-- Prefer `graph TD` (top-down) for architecture, `sequenceDiagram` for flows, `flowchart LR` for pipelines
+For any non-trivial new feature or system, resolve decision branches BEFORE implementation.
+
+### Ask ONE question at a time, covering:
+
+1. WHO is this for? (specific user, not "developers")
+2. WHAT specific pain does this eliminate?
+3. WHY doesn't a solution already exist?
+4. WHAT'S the simplest version that would be useful?
+5. WHAT could go wrong? (failure modes, edge cases, misuse)
+6. HOW do you KNOW it works? (verification, not "I think")
+
+### Depth Control
+
+- Simple task (< 5 min): 2-3 questions
+- Medium task (< 1 hour): 4-6 questions
+- Complex task (> 1 hour): full tree
+
+### Stop When
+
+- Every branch has a clear answer
+- Can state in ONE sentence: what, for whom, why it's better
+- There's a concrete first step
+
+### Anti-Pattern
+
+"Let me just start and see where it goes" — this is what grilling prevents.
 
 ---
 > Source: [Adit-Jain-srm/NightmareNet](https://github.com/Adit-Jain-srm/NightmareNet) — distributed by [TomeVault](https://tomevault.io).
