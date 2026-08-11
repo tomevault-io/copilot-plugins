@@ -1,16 +1,22 @@
-## pom1-aci-cassette-program-output
+## pom1-gen2-soft-switch-init
 
-> ACI TAPE OUT ($C030) requires empty cassette deck — WOZ_talk blocks program output
+> GEN2 soft switches survive RESET — always call gen2_hgr_init before HGR draw
 
 
-# ACI program output vs cassette deck mode
+# GEN2 soft-switch init (Bernie Q8)
 
-Programs that drive the **ACI TAPE OUT flip-flop** (any read/write of `$C0xx`, e.g. `$C030` speaker in GEN2 *A-1-CrazyCycle*) need the deck in **program / pulse** mode, not **audio-stream** mode.
+The `$C250-$C257` latch is **indeterminate at power-on** and **not cleared by Apple-1 RESET**. A prior sketch, DevBench Run, or POM1 cold latch can leave TEXT, MIXED, PAGE2, or LORES active — HGR demos then draw off-screen or crash.
 
-- Bundled `cassettes/WOZ_talk.mp3` preloads only on the **POM1 Multiplexing Fantasy (2026)** preset (last index). While inserted, `toggleOutput()` pulses are not mixed — chiptunes are silent.
-- **DevBench Run** on presets with ACI and no Integer-BASIC tape (GEN2 dev bench = preset 2, …): `ejectTapeForAciProgramOutput()` in `Pom1BenchHost.cpp`.
+**Before any GEN2 graphics:**
 
-Manual test: if a GEN2 demo has graphics but no ACI sound, eject the cassette in the Cassette Deck window.
+- **Asm:** `.include "gen2_init.asm"` then `JSR gen2_hgr_init` (or `gen2_lores_init`) at `main` entry.
+- **C:** `gen2_hgr_init()` / `gen2_lores_init()` from `gen2.h` (implemented in `gen2_init.asm` via `gen2_blit.s`).
+
+Touches all four switch pairs: graphics (TEXT off), RES, PAGE1, MIXED off. Read-only toggles — use `LDA`/`BIT`, never `STA`.
+
+*A-1-CrazyCycle* uses a custom sequence (TEXT first, then HGR) — do not replace with a blind `gen2_hgr_init` at entry.
+
+Reference: `dev/lib/gen2/gen2.inc`, `dev/lib/gen2/gen2_init.asm`, `doc/GEN2_RELEASE.md`.
 
 ---
 > Source: [habib256/pom1](https://github.com/habib256/pom1) — distributed by [TomeVault](https://tomevault.io).
