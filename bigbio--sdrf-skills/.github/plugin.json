@@ -1,0 +1,9 @@
+{
+  "name": "bigbio--sdrf-skills",
+  "displayName": "sdrf-skills",
+  "description": "Agentic plugins to annotate SDRF using Claude; Codex; Cursor; Gemini",
+  "version": "1.0.0",
+  "author": "bigbio",
+  "homepage": "https://github.com/bigbio/sdrf-skills",
+  "skills": []
+}
