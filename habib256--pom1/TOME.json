@@ -1,10 +1,10 @@
 {
-  "name": "POM1",
+  "name": "pom1",
   "owner": "habib256",
-  "repo": "POM1",
-  "description": "\ud83c\udf4e POM1 \u2014 Apple 1 Emulator",
+  "repo": "pom1",
+  "description": "\ud83c\udf4e POM1 \u2014 Apple 1 Emulator + SDK",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/habib256/POM1",
+  "source_url": "https://github.com/habib256/pom1",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-18T11:21:13Z"
+  "distributed_at": "2026-08-11T23:06:59Z"
 }
