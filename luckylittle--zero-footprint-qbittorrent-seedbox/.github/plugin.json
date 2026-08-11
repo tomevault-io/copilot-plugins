@@ -1,0 +1,9 @@
+{
+  "name": "luckylittle--zero-footprint-qbittorrent-seedbox",
+  "displayName": "zero_footprint_qbittorrent_seedbox",
+  "description": "Ansible role - luckylittle.zero_footprint_qbittorrent_seedbox",
+  "version": "1.0.0",
+  "author": "luckylittle",
+  "homepage": "https://github.com/luckylittle/zero_footprint_qbittorrent_seedbox",
+  "skills": []
+}
