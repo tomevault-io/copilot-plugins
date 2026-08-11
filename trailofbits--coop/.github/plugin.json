@@ -1,0 +1,9 @@
+{
+  "name": "trailofbits--coop",
+  "displayName": "coop",
+  "description": "Isolated VM environment for running Claude Code and Codex",
+  "version": "1.0.0",
+  "author": "trailofbits",
+  "homepage": "https://github.com/trailofbits/coop",
+  "skills": []
+}
