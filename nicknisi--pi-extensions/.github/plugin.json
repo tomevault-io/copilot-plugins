@@ -1,0 +1,9 @@
+{
+  "name": "nicknisi--pi-extensions",
+  "displayName": "pi-extensions",
+  "description": "Nick Nisi's pi extensions \u2014 a pnpm monorepo of independently installable pi packages (@nicknisi/pi-*). TUI polish, side-channel LLM tools, Claude Code compat, and session plumbing for the pi coding ag",
+  "version": "1.0.0",
+  "author": "nicknisi",
+  "homepage": "https://github.com/nicknisi/pi-extensions",
+  "skills": []
+}
