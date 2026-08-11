@@ -1,0 +1,9 @@
+{
+  "name": "openknowledge-sh--openknowledge",
+  "displayName": "openknowledge",
+  "description": "CLI tool for managing Open Knowledge Format (OKF) bundles.",
+  "version": "1.0.0",
+  "author": "openknowledge-sh",
+  "homepage": "https://github.com/openknowledge-sh/openknowledge",
+  "skills": []
+}
