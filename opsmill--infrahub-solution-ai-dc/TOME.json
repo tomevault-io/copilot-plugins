@@ -4,7 +4,7 @@
   "repo": "infrahub-solution-ai-dc",
   "description": "Infrahub Solution: Automation for AI Data Centers",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/opsmill/infrahub-solution-ai-dc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T02:55:38Z"
+  "distributed_at": "2026-08-11T02:58:49Z"
 }
