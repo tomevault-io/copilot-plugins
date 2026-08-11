@@ -1,0 +1,9 @@
+{
+  "name": "fpytloun--cognis",
+  "displayName": "cognis",
+  "description": "Agentic OS done right \u2014 create agents, chat, delegate work, stay safe. Self-hosted control plane with pluggable memory, guardrails, and execution.",
+  "version": "1.0.0",
+  "author": "fpytloun",
+  "homepage": "https://github.com/fpytloun/cognis",
+  "skills": []
+}
