@@ -1,0 +1,9 @@
+{
+  "name": "ly1836--spring-ai-rag-demo",
+  "displayName": "spring-ai-rag-demo",
+  "description": "\u57fa\u4e8e Spring AI 2.0 \u7684\u751f\u4ea7\u7ea7 ERP \u667a\u80fd\u52a9\u624b\uff5cProduction-ready ERP AI assistant with RAG, Tool Calling, chat memory, dynamic SQL tools, multi-tenancy and ECharts.",
+  "version": "1.0.0",
+  "author": "ly1836",
+  "homepage": "https://github.com/ly1836/spring-ai-rag-demo",
+  "skills": []
+}
