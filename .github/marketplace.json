@@ -296599,6 +296599,11 @@
       "description": "The autonomous performance engineer for React Native - An AI Plugin that views the screen, reads Hermes, and applies effective RN fixes. Built to run locally or on CI, it can generate a 3D performance"
     },
     {
+      "name": "florianspk--t9s",
+      "source": "./florianspk--t9s",
+      "description": "t9s"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -404184,6 +404189,66 @@
       "description": "\u7b56\u7565\u7814\u7a76\u6d41\u6c34\u7ebf\uff1a\u7528\u6237\u7ed9\u51fa\u601d\u60f3 \u2192 \u5b9e\u73b0\u5e76\u8bb0\u5f55 \u2192 \u56de\u6d4b\u9a8c\u8bc1 \u2192 \u751f\u6210\u62a5\u544a \u2192 \u4eba\u5de5\u5728 Cursor \u4e2d\u8c03\u7528 AI \u5206\u6790\u3002"
     },
     {
+      "name": "corysia--pong",
+      "source": "./corysia--pong",
+      "description": "A 3D Pong game written in BabylonJS"
+    },
+    {
+      "name": "sksat--pico-boot",
+      "source": "./sksat--pico-boot",
+      "description": "WiFi/USB firmware-upload bootloader for the RP2040 (Raspberry Pi Pico / Pico W): signed uploads, A/B slots, anti-rollback, hang-detection watchdog. TDD + formal verification."
+    },
+    {
+      "name": "pmetzger--zimh",
+      "source": "./pmetzger--zimh",
+      "description": "The ZIMH simulators package"
+    },
+    {
+      "name": "leolilley--mailcow-mcp",
+      "source": "./leolilley--mailcow-mcp",
+      "description": "mailcow_mcp"
+    },
+    {
+      "name": "rowdaboat--vecs",
+      "source": "./rowdaboat--vecs",
+      "description": "Vexel's ECS, free as in freedom."
+    },
+    {
+      "name": "felixgeelhaar--govee-light-management",
+      "source": "./felixgeelhaar--govee-light-management",
+      "description": "Stream Deck plugin for managing Govee smart lights with advanced group functionality"
+    },
+    {
+      "name": "felixgeelhaar--govee-light-management",
+      "source": "./felixgeelhaar--govee-light-management",
+      "description": "Stream Deck plugin for managing Govee smart lights with advanced group functionality"
+    },
+    {
+      "name": "nickelwenzel--cargo-tools",
+      "source": "./nickelwenzel--cargo-tools",
+      "description": "VSCode/OpenVSX extension for easy configuration of Rust projects"
+    },
+    {
+      "name": "nickelwenzel--cargo-tools",
+      "source": "./nickelwenzel--cargo-tools",
+      "description": "VSCode/OpenVSX extension for easy configuration of Rust projects"
+    },
+    {
+      "name": "rreusser--rreusser-github-io",
+      "source": "./rreusser--rreusser-github-io",
+      "description": "rreusser.github.io"
+    },
+    {
+      "name": "rreusser--rreusser-github-io",
+      "source": "./rreusser--rreusser-github-io",
+      "description": "rreusser.github.io"
+    },
+    {
+      "name": "conallob--homeassistant-snapmaker",
+      "source": "./conallob--homeassistant-snapmaker",
+      "description": "A home-assistant.io integration for interacting with a Snapmaker 3D printer"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -432732,6 +432797,11 @@
       "name": "maria-rcks--zerobrew",
       "source": "./maria-rcks--zerobrew",
       "description": "A 5-20x faster experimental Homebrew alternative"
+    },
+    {
+      "name": "anaygarodia--sketchling",
+      "source": "./anaygarodia--sketchling",
+      "description": "A hand-drawn illustration and animation language for LLMs"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -569302,6 +569372,11 @@
       "name": "weiqinzhou3--upmio-clickhouse-hackathon",
       "source": "./weiqinzhou3--upmio-clickhouse-hackathon",
       "description": "UPMIO ClickHouse hackathon evidence, specs, and phase artifacts"
+    },
+    {
+      "name": "rshirochenko--mcp-tg-client",
+      "source": "./rshirochenko--mcp-tg-client",
+      "description": "mcp-tg-client"
     }
   ]
 }
