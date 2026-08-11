@@ -1,0 +1,9 @@
+{
+  "name": "rylsherdamz-rgb--stellar-forge",
+  "displayName": "stellar-forge",
+  "description": "Eval-driven agentic harness for building production Stellar dApps. 6 specialist agents, 5 eval definitions, full contract/frontend/backend templates, and npx CLI scaffolding with npx skill support.",
+  "version": "1.0.0",
+  "author": "rylsherdamz-rgb",
+  "homepage": "https://github.com/rylsherdamz-rgb/stellar-forge",
+  "skills": []
+}
