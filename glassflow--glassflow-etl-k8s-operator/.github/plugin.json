@@ -1,0 +1,9 @@
+{
+  "name": "glassflow--glassflow-etl-k8s-operator",
+  "displayName": "glassflow-etl-k8s-operator",
+  "description": "K8s operator for ETL components orchestration",
+  "version": "1.0.0",
+  "author": "glassflow",
+  "homepage": "https://github.com/glassflow/glassflow-etl-k8s-operator",
+  "skills": []
+}
