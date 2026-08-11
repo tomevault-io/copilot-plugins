@@ -1,0 +1,9 @@
+{
+  "name": "ephemeral-ai-lab--ephemeral-sandbox",
+  "displayName": "ephemeral-sandbox",
+  "description": "Open-source agent sandbox infrastructure for parallel coding agents: isolated workspaces, MCP/CLI control, observability, and atomic publication.",
+  "version": "1.0.0",
+  "author": "Ephemeral-AI-Lab",
+  "homepage": "https://github.com/Ephemeral-AI-Lab/ephemeral-sandbox",
+  "skills": []
+}
