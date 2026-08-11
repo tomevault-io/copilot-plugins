@@ -1,0 +1,9 @@
+{
+  "name": "nova-reward--nova-rewards",
+  "displayName": "Nova-Rewards",
+  "description": "A tokenized loyalty rewards platform built on the Stellar blockchain that enables businesses to issue blockchain-based reward tokens to customers.",
+  "version": "1.0.0",
+  "author": "Nova-reward",
+  "homepage": "https://github.com/Nova-reward/Nova-Rewards",
+  "skills": []
+}
