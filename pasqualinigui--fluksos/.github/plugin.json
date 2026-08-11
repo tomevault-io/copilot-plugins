@@ -1,0 +1,9 @@
+{
+  "name": "pasqualinigui--fluksos",
+  "displayName": "fluksos",
+  "description": "The Platform Engineering CLI. Generate production-ready modern JS/TS architectures in seconds (starting with Next.js). Features built-in AST Validation, OpenTelemetry, Turborepo, and strict governance",
+  "version": "1.0.0",
+  "author": "pasqualinigui",
+  "homepage": "https://github.com/pasqualinigui/fluksos",
+  "skills": []
+}
