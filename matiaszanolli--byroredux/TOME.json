@@ -4,7 +4,7 @@
   "repo": "ByroRedux",
   "description": "Clean rebuild of the Gamebryo/Creation engine lineage in Rust + C++ with Vulkan",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/matiaszanolli/ByroRedux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T19:01:11Z"
+  "distributed_at": "2026-08-11T19:06:12Z"
 }
