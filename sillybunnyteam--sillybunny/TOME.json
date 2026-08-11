@@ -4,7 +4,7 @@
   "repo": "SillyBunny",
   "description": "A SillyTavern fork with Bun as the backend, along with UI/UX improvements",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SillyBunnyTeam/SillyBunny",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T17:31:36Z"
+  "distributed_at": "2026-08-11T17:38:03Z"
 }
