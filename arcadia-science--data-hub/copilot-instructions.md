@@ -1,35 +1,9 @@
-## code-comments
+## run-checks
 
-> Code comment style and when to comment
+> Ensure that all code changes are checked for formatting, lint, and type errors by running `make check-all` after every update.
 
 
-# Code comments
-
-## Style
-
-- Explain **why**, not **what**. The code already shows what; comments justify a decision, flag a constraint, or warn about a non-obvious interaction.
-- Plain prose, sentence case, periods. No banner art or decorative dashes.
-- Reference symbols and paths in backticks (`` `useChat` ``, `lib/db/...`).
-- Active voice ("Returns null on..." not "Null is returned on...").
-- Reference constants by name; don't restate their value.
-
-## Comment when
-
-A future reader would otherwise have to spelunk to answer "why does it do this?":
-
-- Architectural choices and invariants the type system can't express.
-- Workarounds for bugs / browser quirks / library limits — link the issue and note when it can be removed.
-- Non-obvious tradeoffs ("we re-render on every keystroke because the sidebar live-mirrors the value").
-
-## Don't comment
-
-- Restating the line below (`// increment the counter`).
-- Standard library / framework behavior (`autoFocus = true` doesn't need a paragraph explaining what `autoFocus` does).
-- TODOs without an owner or ticket — open an issue instead.
-
-## Length
-
-Inline comments should be **3 lines or fewer**. File headers cap at **4–5 lines**. Go longer only when a reader would genuinely be lost without it; otherwise trim. If a long comment only restates what the code does, delete it.
+Run formatting, lint, and type checks using `make check-all` after ALL changes have been made.
 
 ---
 > Source: [Arcadia-Science/data-hub](https://github.com/Arcadia-Science/data-hub) — distributed by [TomeVault](https://tomevault.io).
