@@ -1,0 +1,9 @@
+{
+  "name": "redplanethq--town",
+  "displayName": "town",
+  "description": "Discord, but you walk around a pixel town \u2014 where the NPCs have skills.",
+  "version": "1.0.0",
+  "author": "RedPlanetHQ",
+  "homepage": "https://github.com/RedPlanetHQ/town",
+  "skills": []
+}
