@@ -1,0 +1,9 @@
+{
+  "name": "uphold--metrognome",
+  "displayName": "metrognome",
+  "description": "The autonomous performance engineer for React Native - An AI Plugin that views the screen, reads Hermes, and applies effective RN fixes. Built to run locally or on CI, it can generate a 3D performance",
+  "version": "1.0.0",
+  "author": "uphold",
+  "homepage": "https://github.com/uphold/metrognome",
+  "skills": []
+}
