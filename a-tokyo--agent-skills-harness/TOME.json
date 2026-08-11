@@ -4,7 +4,7 @@
   "repo": "agent-skills-harness",
   "description": "A factory for building production-grade agent skills \u2014 benchmarked against gold standards, autonomously improved via an autoresearch loop, and verified by independent multi-agent consensus.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/a-tokyo/agent-skills-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T00:31:02Z"
+  "distributed_at": "2026-08-11T00:31:43Z"
 }
