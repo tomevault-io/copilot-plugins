@@ -1,62 +1,58 @@
-## langgraph-node-conventions
+## language-conventions-en-code-pt-br-ui
 
-> Convenções para adicionar nós ao grafo LangGraph do backend. Aplicar sempre que tocar em backend/src/**/graph/.
+> Assistant replies match the user's message language first; code and URLs in English; UI, human-facing repo docs, and code comments in Português Brasileiro pt-BR.
 
 
-# Convenções de nós LangGraph
+Ensure you reason about this rule before generating any responses and documents so that this rule is always respected and the correct language for each output is determined.
 
-## Contrato async/sync
+# Language conventions
 
-| Nó faz | Como escrever |
-|--------|--------------|
-| Gera resposta final (texto ao cliente) | `async def` + `llm.astream` — emite `on_chat_model_stream` → tokens SSE |
-| Chama LLM internamente (refinamento, roteamento, grading) | `async def` + `llm.ainvoke` — async sem emitir tokens para o cliente |
-| I/O bloqueante (Chroma, DB, rede) | `def` síncrono — LangGraph roda em thread automaticamente |
-| Lógica pura | Sync ou async, indiferente |
+## Priority (apply in this order)
 
-**Nunca** usar `llm.invoke` dentro de `async def` — bloqueia o event loop.  
-**Nunca** usar `llm.astream` em nó intermediário — seus tokens vazam para o cliente via `on_chat_model_stream`.
+1. **Assistant reply language** — Match the language of the **current user message** for explanations, answers, and **plans** written for the conversation (including agent implementation plans). Exception: the user explicitly asks for another language. This takes precedence over any default bias toward pt-BR for “project work.”
+2. **Repository artifacts** — The sections **Project artifacts** below apply to **files and strings committed to the repo** (code, UI copy, README, comments). They do **not** redefine the language of chat replies.
 
-### Exemplo: nó intermediário com LLM (refinamento de query)
+**Separation:** Explanations, plans, and chat replies are **not** “README,” “UI copy,” or “human-facing documentation” in the sense of § Project artifacts. Only § Assistant replies governs their language.
+
+**Counter-example:** The user writes in English → the assistant explains and plans in **English** in chat; in the same turn, edits to `README.md` body, UI strings, and code **comments/docstrings** in the repo still follow **§ Project artifacts** (pt-BR for those artifacts; English for identifiers).
+
+**Ambiguous or mixed-language messages:** Default assistant replies to **English** unless the user has clearly been using **pt-BR** as the dominant language in the thread.
+
+## Assistant replies
+
+Detect the language the user writes in for their instructions and **reply in that same language**, unless they explicitly ask for another language. Plans should also respect the initial language of the conversation - even if they are going to be committed.
+
+## Project artifacts (independent of chat language)
+
+Rules below apply to **repository content**, not to the language of assistant chat messages.
+
+### English
+
+- Code identifiers: variables, functions, classes, modules, file and folder names.
+- Routes and full URLs: paths, query parameters, slugs, and API segments.
+
+### Brazilian Portuguese (pt-BR)
+
+- User-facing UI copy: labels, buttons, validation and error messages shown to users, etc.
+- Human-facing documentation: README, guides, ADRs, and project documentation in PR descriptions.
+- Code comments and docstrings.
+
+## Example
 
 ```python
-async def refine_query_node(state: ChatRAGState, settings: Settings) -> dict:
-    llm = _build_llm(settings)
-    result = await llm.ainvoke([SystemMessage(...), HumanMessage(state["query"])])
-    steps = list(state.get("reasoning_steps") or [])
-    steps.append(f"Query refinada: {result.content}")
-    return {"refined_query": result.content, "reasoning_steps": steps}
+# Calcula o total com desconto aplicado ao carrinho.
+def calculate_cart_total(items: list[CartItem], discount_percent: float) -> Decimal:
+    ...
 ```
 
-Resultado aparece no painel de raciocínio da UI. Nenhum token é emitido ao cliente durante este nó.
-
-## Metadados via campos de estado
-
-Nós escrevem metadados nos campos de estado (`sources`, `reasoning_steps`).  
-`chat.py` decide **o quê** e **quando** emitir para o cliente — nós não conhecem o protocolo SSE.
-
-```python
-# Correto: nó só atualiza estado
-def my_node(state: ChatRAGState) -> dict:
-    steps = list(state.get("reasoning_steps") or [])
-    steps.append("Etapa X concluída.")
-    return {"reasoning_steps": steps, "sources": [...]}
-
-# Errado: nó não deve emitir SSE nem conhecer o formato de resposta
+```tsx
+// Exibe o resumo do pedido antes da confirmação.
+<button type="button">{t("order.confirm")}</button>
 ```
 
-## Não hardcodar nomes de nós em chat.py
+Identifiers and code symbols in English; translation values and UI strings in pt-BR. When editing or generating code, keep this split.
 
-`chat.py` usa `on_chain_end` com o nome do nó para disparar metadados antes dos tokens.  
-Ao adicionar nós, atualizar o mapeamento em `chat.py` se necessário — ou mover metadados para campos emitidos no `on_chain_end` do nó correto.
-
-## Checklist para novo nó
-
-1. Escolher sync vs async conforme tabela acima.
-2. Escrever no(s) campo(s) de estado correto(s) (`retrieved_docs`, `sources`, `reasoning_steps`, `answer`).
-3. Adicionar em `chat_rag.py`: `workflow.add_node(...)` + `workflow.add_edge(...)`.
-4. Se o nó deve disparar metadados SSE antes dos tokens: adicionar case em `chat.py` para `on_chain_end` + `name="<nome_do_nó>"`.
-5. LLM node: usar `llm.astream` e acumular em `answer`; não usar `llm.invoke`.
+Avoid European Portuguese ("secção", "ficheiro", "autocarro", "eléctrico").
 
 ---
 > Source: [leanseefeld/8iadt-tc-fase3-assistente-medico](https://github.com/leanseefeld/8iadt-tc-fase3-assistente-medico) — distributed by [TomeVault](https://tomevault.io).
