@@ -1,0 +1,9 @@
+{
+  "name": "vicgarcia--pinboard-mcp",
+  "displayName": "pinboard-mcp",
+  "description": "mcp server for pinboard.in bookmark service",
+  "version": "1.0.0",
+  "author": "vicgarcia",
+  "homepage": "https://github.com/vicgarcia/pinboard-mcp",
+  "skills": []
+}
