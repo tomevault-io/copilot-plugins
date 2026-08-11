@@ -1,0 +1,9 @@
+{
+  "name": "cubrid-lab--cubrid-cookbook-python",
+  "displayName": "cubrid-cookbook-python",
+  "description": "Production-ready Python examples for CUBRID \u2014 quickstarts, migration guides, templates, performance patterns",
+  "version": "1.0.0",
+  "author": "cubrid-lab",
+  "homepage": "https://github.com/cubrid-lab/cubrid-cookbook-python",
+  "skills": []
+}
