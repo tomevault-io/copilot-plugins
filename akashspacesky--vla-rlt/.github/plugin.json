@@ -1,0 +1,9 @@
+{
+  "name": "akashspacesky--vla-rlt",
+  "displayName": "vla-rlt",
+  "description": "RL Tokens for open-source VLAs \u2014 Online reinforcement learning adaptation of SmolVLA for precise robot manipulation on the SO-101, inspired by Physical Intelligence's RLT paper.",
+  "version": "1.0.0",
+  "author": "akashspacesky",
+  "homepage": "https://github.com/akashspacesky/vla-rlt",
+  "skills": []
+}
