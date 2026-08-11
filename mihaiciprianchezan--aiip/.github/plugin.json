@@ -1,0 +1,9 @@
+{
+  "name": "mihaiciprianchezan--aiip",
+  "displayName": "AIIP",
+  "description": "Agent Identity and Integrity Protocol - defines a lightweight, composable protocol for generating, managing, and verifying cryptographic identities for autonomous AI agents. ",
+  "version": "1.0.0",
+  "author": "MihaiCiprianChezan",
+  "homepage": "https://github.com/MihaiCiprianChezan/AIIP",
+  "skills": []
+}
