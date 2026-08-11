@@ -1,46 +1,27 @@
-## security-guidelines
+## source-project-neutrality
 
-> Security — no service client in client code, no SUPABASE_SECRET_KEY on client, RLS, correct Supabase client per context, rate limit config, SSR state rules (no authenticationRepository in server load, ssr = false for protected routes)
+> Do not name external codebases or cite other projects' files in this repo
 
 
-# Security Guidelines
+# Source-project neutrality in the codebase
 
-Follow these rules in both backend and web code.
+When implementing behavior that was informed by or ported from another product, library, or external codebase, **do not name that source** in repository content.
 
-## 1. Supabase clients
+**Also forbidden in this repo’s source and docs:**
 
-- **NEVER** use the service client in client-side code (browser / SvelteKit client).
-- **NEVER** expose `SUPABASE_SECRET_KEY` (`sb_secret_…`) to the client (env vars, bundles, or API responses). It bypasses RLS. Legacy `service_role` / `anon` JWT keys are not used in this codebase — see [Supabase config docs](../../web/src/content/docs/configuration-backend/supabase.md) and [Upcoming changes to Supabase API Keys](https://github.com/orgs/supabase/discussions/29260).
-- Use RLS policies for data access control.
-- Always use the appropriate client for the context:
-  - **Browser Client:** Public data only
-  - **RLS Client:** Authenticated user data
-  - **Service Client:** Admin operations (backend only)
+- File paths, module names, or directory layouts that point at **another** project or machine (e.g. a personal clone, a different app’s `apps/…/file.tsx`, or any path outside this monorepo).
+- JSDoc/TSDoc `@see` (or similar) that reference **other** codebases, repositories, or their files.
 
-## 2. Rate limiting
+Applies to:
 
-- Configure rate limit at [backend/middlewares/rateLimit.ts](../../backend/middlewares/rateLimit.ts) and [backend/config/GlobalConfig.ts](../../backend/config/GlobalConfig.ts).
+- SQL (`COMMENT ON`, migration headers, inline notes)
+- Code comments and docstrings
+- User-facing strings and public docs in-repo
+- Cursor rules and other `.cursor` guidance
 
-## 3. SSR state management (SvelteKit)
+Describe intent, schema, and behavior in **neutral, first-party** terms (what this project does and why). If attribution or comparison is needed, keep it outside the repo (e.g. internal notes, PR discussion).
 
-- **NEVER** import or use `authenticationRepository` in any `+page.server.ts` or `+layout.server.ts` files.
-- **NEVER** mutate shared state (singletons with mutable state) in server load functions.
-- **ALWAYS** set `export const ssr = false;` for protected routes (user-specific data).
-- **ONLY** enable SSR (`export const ssr = true;`) for public routes that don't use shared mutable state.
-- If you need auth info in SSR routes, use cookies/request context instead of shared state:
-
-```typescript
-// ✅ SAFE: Use cookies for server-side auth
-export const ssr = true;
-export async function load({ cookies }) {
-    const accessToken = cookies.get('access_token');
-    // Use token to fetch user data per-request
-}
-
-// ❌ UNSAFE: Never do this in server code
-import { authenticationRepository } from '$lib/user-auth/index';
-await authenticationRepository.checkAuth(); // Shared state - security risk!
-```
+The assistant should follow this when adding or editing files.
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
