@@ -1,0 +1,9 @@
+{
+  "name": "planetaryescape--mxr",
+  "displayName": "mxr",
+  "description": "Local-first, keyboard-native terminal email client",
+  "version": "1.0.0",
+  "author": "planetaryescape",
+  "homepage": "https://github.com/planetaryescape/mxr",
+  "skills": []
+}
