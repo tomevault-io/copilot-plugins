@@ -1,0 +1,9 @@
+{
+  "name": "xmh1011--agentic-prd-workflow",
+  "displayName": "agentic-prd-workflow",
+  "description": "Lightweight PRD-driven agent workflow framework for Codex, Claude Code, GitHub Actions, reusable skills, hooks, and team handoff.",
+  "version": "1.0.0",
+  "author": "xmh1011",
+  "homepage": "https://github.com/xmh1011/agentic-prd-workflow",
+  "skills": []
+}
