@@ -1,0 +1,9 @@
+{
+  "name": "paradigmxyz--iron-proxy",
+  "displayName": "iron-proxy",
+  "description": "An egress firewall for untrusted workloads.",
+  "version": "1.0.0",
+  "author": "paradigmxyz",
+  "homepage": "https://github.com/paradigmxyz/iron-proxy",
+  "skills": []
+}
