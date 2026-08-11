@@ -1,0 +1,9 @@
+{
+  "name": "kazormia296--grimodex",
+  "displayName": "Grimodex",
+  "description": "A Novelcrafter follower reimagined as a \"Writing Fidget IDE\" \u2014 desktop novel-writing editor with AI chat, Codex knowledge extraction, and source attribution. Electron + React, local SQLite.",
+  "version": "1.0.0",
+  "author": "kazormia296",
+  "homepage": "https://github.com/kazormia296/Grimodex",
+  "skills": []
+}
