@@ -1,0 +1,9 @@
+{
+  "name": "cetus-tech--openkb",
+  "displayName": "openkb",
+  "description": "Versioned durable project knowledge for AI agents via MCP.",
+  "version": "1.0.0",
+  "author": "cetus-tech",
+  "homepage": "https://github.com/cetus-tech/openkb",
+  "skills": []
+}
