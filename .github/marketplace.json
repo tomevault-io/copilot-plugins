@@ -404364,6 +404364,21 @@
       "description": "Ansible role - luckylittle.zero_footprint_qbittorrent_seedbox"
     },
     {
+      "name": "chloemlla--happy-tts",
+      "source": "./chloemlla--happy-tts",
+      "description": "\u4e00\u4e2a\u529f\u80fd\u4e30\u5bcc\u7684\u5168\u6808 Web \u5e94\u7528\u5e73\u53f0\uff0c\u4ee5\u6587\u672c\u8f6c\u8bed\u97f3\uff08TTS\uff09\u4e3a\u6838\u5fc3\uff0c\u96c6\u6210\u7528\u6237\u8ba4\u8bc1\u3001\u5b89\u5168\u9632\u62a4\u3001\u8d44\u6e90\u5546\u5e97\u3001\u6570\u636e\u5206\u6790\u3001\u5b9e\u7528\u5de5\u5177\u3001\u5a31\u4e50\u6e38\u620f\u3001\u7ba1\u7406\u540e\u53f0\u7b49\u6570\u5341\u4e2a\u529f\u80fd\u6a21\u5757\u3002\u540e\u7aef\u57fa\u4e8e Node.js + Express 5 + MongoDB\uff0c\u524d\u7aef\u57fa\u4e8e React 19 + Vite 7 + Tailwind CSS\uff0c\u652f\u6301 Docker \u4e00\u952e\u90e8\u7f72\u3002"
+    },
+    {
+      "name": "chloemlla--happy-tts",
+      "source": "./chloemlla--happy-tts",
+      "description": "\u4e00\u4e2a\u529f\u80fd\u4e30\u5bcc\u7684\u5168\u6808 Web \u5e94\u7528\u5e73\u53f0\uff0c\u4ee5\u6587\u672c\u8f6c\u8bed\u97f3\uff08TTS\uff09\u4e3a\u6838\u5fc3\uff0c\u96c6\u6210\u7528\u6237\u8ba4\u8bc1\u3001\u5b89\u5168\u9632\u62a4\u3001\u8d44\u6e90\u5546\u5e97\u3001\u6570\u636e\u5206\u6790\u3001\u5b9e\u7528\u5de5\u5177\u3001\u5a31\u4e50\u6e38\u620f\u3001\u7ba1\u7406\u540e\u53f0\u7b49\u6570\u5341\u4e2a\u529f\u80fd\u6a21\u5757\u3002\u540e\u7aef\u57fa\u4e8e Node.js + Express 5 + MongoDB\uff0c\u524d\u7aef\u57fa\u4e8e React 19 + Vite 7 + Tailwind CSS\uff0c\u652f\u6301 Docker \u4e00\u952e\u90e8\u7f72\u3002"
+    },
+    {
+      "name": "eas4ai--codeforge",
+      "source": "./eas4ai--codeforge",
+      "description": "AI-powered coding assistant that provides intelligent, adaptive code assistance through comprehensive LLM support."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -432962,6 +432977,36 @@
       "name": "ohmyangboy--paperrss",
       "source": "./ohmyangboy--paperrss",
       "description": "Reading First, Ai Second"
+    },
+    {
+      "name": "foysal50x--skills",
+      "source": "./foysal50x--skills",
+      "description": "Opinionated Laravel engineering skills for AI coding agents."
+    },
+    {
+      "name": "foysal50x--skills",
+      "source": "./foysal50x--skills",
+      "description": "Opinionated Laravel engineering skills for AI coding agents."
+    },
+    {
+      "name": "alhifnywahid--merchantid",
+      "source": "./alhifnywahid--merchantid",
+      "description": "Unofficial zero-dependency TypeScript toolkit for Indonesian merchants: turns a static QRIS into unique per-order dynamic QRIS and reconciles settlement from GoPay (GoBiz) and ShopeePay merchant trans"
+    },
+    {
+      "name": "isamu--ever-better",
+      "source": "./isamu--ever-better",
+      "description": "ever-better"
+    },
+    {
+      "name": "imateusdev--loom-router",
+      "source": "./imateusdev--loom-router",
+      "description": "Weave any model into your coding agent's picker. A Tauri desktop app that runs a local proxy and puts external providers like OpenRouter, Kimi, DeepSeek and Anthropic directly into Codex model picker,"
+    },
+    {
+      "name": "vgmakeev--kanata",
+      "source": "./vgmakeev--kanata",
+      "description": "Source-free architecture maps and deterministic polyglot refactoring for AI coding agents"
     },
     {
       "name": "cheerhuan--save-your-token",
