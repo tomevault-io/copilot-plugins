@@ -1,0 +1,9 @@
+{
+  "name": "geckse--tesseract-md-app",
+  "displayName": "tesseract-md-app",
+  "description": "Tesseract.md \u2013 Featurerich Markdown Editor and Graph Vizsualization with Obsidian-like and Notion-like Experience. Powered by mdvdb CLI for Agentic needs.",
+  "version": "1.0.0",
+  "author": "geckse",
+  "homepage": "https://github.com/geckse/tesseract-md-app",
+  "skills": []
+}
