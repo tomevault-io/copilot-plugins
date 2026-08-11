@@ -1,30 +1,122 @@
-## orchestrator-env-files
+## public-api-surface-sync
 
-> Orchestrator env files must stay in sync with backend GlobalConfig; run env-file check script; prefer --env-file for orchestrator scripts
+> When public API routes change, keep Swagger JSDoc, SDK, apis-* docs, getting-started overview, and agent CLI (when exposed) in sync in the same change.
 
 
-# Orchestrator env files (avoid drift)
+# Public API surface: keep Swagger, SDK, docs, and CLI in sync
 
-The orchestrator imports backend modules (notably `backend/config/GlobalConfig.ts`), so it can silently gain new environment-variable dependencies when backend config changes. To prevent production drift:
+`backend/routes/publicApi/` (mounted at `/api/v1/public/*`) is the **source of truth** for everything an API-key user can call. Any change to a public route — new endpoint, removed endpoint, renamed path, new/changed query/body/response shape — must be reflected in **Swagger, the Node SDK, the docs site, and (when exposed) the agent CLI** in the **same PR**. Do not wait for a follow-up request to add docs.
 
-## Keep env templates complete
+| Layer | Path | What it provides |
+|---|---|---|
+| OpenAPI spec | `backend/swagger/jsdoc/*.doc.ts` (+ `openApiSpec.ts` tags) | `/api/v1/openapi.json` + interactive playground |
+| Node SDK | `sdk/src/index.ts`, `sdk/src/dtos.ts`, `sdk/README.md` | `@openquok/node-sdk` programmatic client |
+| Agent / CLI | `agent/src/api.ts` (+ `commands/`) | Subset of routes exposed as `openquok` commands |
+| API reference | `web/src/content/docs/apis-<domain>/*.md` | `/docs/apis-*` pages (body rendered from OpenAPI) |
+| Overview | `web/src/content/docs/getting-started-for-public-api/` | Auth, concepts (groups, plugs), SDK quickstart |
+| CLI usage | `web/src/content/docs/cli-usages/` | Command recipes when the CLI wraps the route |
 
-- When you add a new env var in backend config that the orchestrator can depend on (Redis, BullMQ, Supabase, storage, email, etc.), ensure `orchestrator/.env.production.example` includes it (even if blank).
-- Prefer adding keys to the **orchestrator** example template rather than relying on backend dotenv loading.
+**Do not confuse layers:** `backend/swagger/jsdoc/*.doc.ts` files are **OpenAPI JSDoc sources only** (merged into `/api/v1/openapi.json`). They are **not** Vitest specs. Agent tests live under `agent/src/**/*.test.ts` (unit) and `agent/tests/e2e/**/*.e2e.test.ts` (e2e), with e2e filenames like `threads.schedule.post.e2e.test.ts` — see `agent-cli.mdc`.
 
-## Validate any orchestrator env file with the checker
+## 1. Swagger JSDoc (`backend/swagger/`)
 
-Use the orchestrator checker script to confirm a dotenv file contains all env keys referenced by backend/orchestrator code (scoped to orchestrator-relevant namespaces).
+For every public route handler, one `@openapi` block must exist in `backend/swagger/jsdoc/`. The frontend renders examples and field tables from this spec, so missing/empty schemas show up as `{"_note": "No JSON example in OpenAPI for this response."}` and empty `ParamField` / `ResponseField` rows.
 
-```bash
-pnpm --filter openquok-orchestrator script:check-env:file
-pnpm --filter openquok-orchestrator script:check-env:file -- --env-file .env.production.local
+- **One file per operation**, named `<domain>.<topic>.doc.ts` (e.g. `integrations.public-list.doc.ts`, `integrations.public-plug-catalog.doc.ts`, `posts.public-post-flip-status.doc.ts`). End the file with `export {};` so it stays a module.
+- The block must declare:
+  - `operationId` (camelCase, stable — SDKs / search rely on it).
+  - `tags: [<Tag>]` matching one of the tags registered in `backend/swagger/openApiSpec.ts` (`Integrations`, `Posts`, `Uploads`, …). **Add the tag there first** if you introduce a new section.
+  - `security: []` for routes that are **public/unauthenticated**, otherwise omit (the global `ApiKeyAuth` default applies).
+  - At least one `responses.<status>.content.application/json.example` (and `requestBody…example` for POST/PUT). The docs UI uses these for the rendered "Response" / "Body" panels.
+  - Full `schema` (or `$ref` to a `components.schemas.*` entry) for each request body / response so `flattenSchemaToResponseFields` can produce a complete field table.
+- **YAML pitfall**: never start a plain YAML value with a backtick. Quote descriptions that contain code spans: `description: '\`draft\` persists without enqueuing'`.
+
+Reference: `backend/swagger/jsdoc/integrations.public-list.doc.ts`, `backend/swagger/jsdoc/integrations.public-plug-catalog.doc.ts`, `backend/swagger/jsdoc/posts.public-create.doc.ts`.
+
+## 2. SDK (`sdk/`)
+
+`sdk/src/index.ts` is a thin `fetch` wrapper. Each public endpoint should be reachable from a method on the default-exported `Openquok` class.
+
+- Add/rename/remove the method to match the route (same HTTP method, same URL after `${this.apiRoot}`, same header set — `Authorization: <apiKey>` and `Content-Type: application/json` for JSON bodies).
+- Put request/response shapes in `sdk/src/dtos.ts` (e.g. `PublicCreatePostDto`, `PublicPlugUpsertBodyDto`). Keep field names identical to the OpenAPI schema so downstream consumers can cast safely.
+- Update `sdk/README.md` method table when the surface changes.
+- Run `pnpm --filter ./sdk run build`. Bump `sdk/package.json` `version` when publishing.
+
+See also `sdk-maintenance.mdc`.
+
+## 3. Agent CLI (`agent/`)
+
+`agent/src/api.ts` defines `OpenquokApi`, the HTTP client used by the `openquok` CLI. **It is not required to mirror every method on the Node SDK** — only add or change `OpenquokApi` methods for routes that existing or new CLI commands actually call. The SDK (`sdk/src/index.ts`) is the full programmatic client; the CLI is an intentional subset.
+
+- Use the existing `requestJson` helper for JSON endpoints and `form-data` + `node-fetch` for multipart (see `uploadFile`).
+- When you add a user-facing CLI verb, add the matching `OpenquokApi` method (reuse the same URL, method, and naming as the SDK method for that operation when one exists) and wire it under `agent/src/commands/`.
+- Add or update `web/src/content/docs/cli-usages/<topic>.md` and the `cli-usages/index.md` `CardGrid` when new commands ship.
+
+See also `agent-cli.mdc`.
+
+## 4. Docs (`web/src/content/docs/apis-*/`)
+
+Public API reference pages live under `web/src/content/docs/apis-<domain>/` (e.g. `apis-integrations`, `apis-posts`, `apis-uploads`). Each page is a thin Markdown file whose body is auto-rendered from the OpenAPI spec by `OpenApiDocSplit.svelte`.
+
+- **One markdown file per operation**, named after the action (`list.md`, `groups.md`, `plug-catalog.md`, `integration-plugs-upsert.md`, …).
+- Frontmatter must include:
+
+```yaml
+---
+title: 'List Integrations'
+description: 'Return every connected social channel for the organization the API key belongs to.'
+openapi: 'GET /public/integrations'
+order: 1
+lastUpdated: 2026-07-19
+---
 ```
 
-## Orchestrator scripts should not import backend dotenv loader
+  - `openapi: '<METHOD> /<path>'` — must match the JSDoc path exactly (sans the `/api/v1` prefix, which is on the OpenAPI `servers` entry). This is how the page locates the operation in `openapi.json`.
+  - `order` controls sidebar position within the section.
+- Keep the **section overview** (`apis-<domain>/index.md`) up to date with a `CardGrid` of `LinkCard`s for every operation (see `apis-integrations/index.md`).
+- Follow `docs-conventions` for callouts, badges, and external links.
 
-- Orchestrator admin/ops scripts should **not** import `backend/config/loadBackendDotenv.cjs`.
-- They should accept `--env-file <path>` and load it locally (same convention as `railwaySetupWorkerEnv.ts`) so the orchestrator stays self-contained and predictable in CI/production.
+## 5. Overview docs (`getting-started-for-public-api/`)
+
+When new endpoints introduce **concepts** users need before reading `apis-*` pages (channel groups, global vs internal plugs, new SDK methods), update `web/src/content/docs/getting-started-for-public-api/index.md` (and sibling pages such as `supported-social-channels.md` when provider-specific).
+
+- Add curl + SDK examples that match the OpenAPI `example` payloads.
+- Link to the matching `apis-*` operation pages — do not duplicate full request/response tables (those come from OpenAPI).
+
+## 6. Sidebar config (`web/src/lib/docs/constants/config.ts`)
+
+The "Public API" tab is built from `docsSidebarPublicApi`. When you add a **new section** (new top-level `apis-<domain>/` folder), append a `DocsSidebarSection` entry:
+
+```ts
+{
+    label: 'Posts',
+    icon: icons.Send.name,
+    autogenerate: { directory: 'apis-posts' }
+}
+```
+
+- Pages within the directory are auto-listed; you do not edit the sidebar when adding a new endpoint inside an existing section.
+- If you introduce a brand-new `apis-*` directory **with no prefix the navigation already recognises**, double-check `web/src/lib/docs/navigation.ts` — `getDocsTabIdFromPathname` / `getDocsTabIdFromSlug` already match anything starting with `apis-`, so a new folder named `apis-<x>` routes to the Public API tab automatically.
+
+## Checklist for a public-API change
+
+When you touch `backend/routes/publicApi/**`:
+
+1. **Swagger JSDoc** — add/update `backend/swagger/jsdoc/<domain>.<topic>.doc.ts` with `operationId`, `tags`, schemas, and `example`s. Register a new tag in `backend/swagger/openApiSpec.ts` if needed.
+2. **SDK** — add/update the method on `Openquok` (`sdk/src/index.ts`), DTOs (`sdk/src/dtos.ts`), and `sdk/README.md`. Run `pnpm --filter ./sdk run build`.
+3. **Agent** — only if the CLI exposes this operation: add/update `OpenquokApi` (`agent/src/api.ts`), yargs command under `agent/src/commands/`, and `web/src/content/docs/cli-usages/`. Cover new deterministic helpers with `agent/src/**/*.test.ts`; add or extend `agent/tests/e2e/**/*.e2e.test.ts` when you need a full CLI subprocess assertion (see `agent-cli.mdc`).
+4. **API reference** — add/update `web/src/content/docs/apis-<domain>/<endpoint>.md` with `openapi: '<METHOD> /path'` frontmatter, and the section `index.md` `CardGrid`.
+5. **Overview** — update `getting-started-for-public-api/` when the change affects SDK quickstart, auth examples, or cross-cutting concepts (groups, plugs, rate limits).
+6. **Sidebar** — only when introducing a new `apis-<domain>/` directory: add a section to `docsSidebarPublicApi` in `web/src/lib/docs/constants/config.ts`.
+7. **Verify** — hit `GET /api/v1/openapi.json` (backend dev) and load the docs page locally; confirm the rendered example, headers, query/body params, and response fields all match the route.
+
+## Do not
+
+- Add a public route without a matching OpenAPI JSDoc module under `backend/swagger/jsdoc/` (typically `*.doc.ts`) — the docs page will render with empty schema rows and no JSON example.
+- Ship SDK methods without updating `sdk/README.md` and the getting-started SDK section when the method is user-facing.
+- Change a path or rename a parameter without updating the SDK method and the `openapi: '<METHOD> /path'` frontmatter — slugs are how the docs page finds the operation. Also update `OpenquokApi` / CLI commands **when** this route is wrapped by the agent.
+- Hand-roll a markdown body for an `apis-*` page. The Svelte renderer drives the entire body from the OpenAPI spec; extra content gets overridden / ignored.
+- Defer docs to a follow-up PR — include Swagger, `apis-*`, overview, SDK, and CLI docs in the same change as the route.
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
