@@ -1,0 +1,9 @@
+{
+  "name": "adit-jain-srm--nightmarenet",
+  "displayName": "NightmareNet",
+  "description": "Biologically-grounded adversarial training platform: cyclic Wake/Dream/Nightmare/Compress phases that accumulate model robustness without catastrophic forgetting. Dockerized, EU AI Act compliance repo",
+  "version": "1.0.0",
+  "author": "Adit-Jain-srm",
+  "homepage": "https://github.com/Adit-Jain-srm/NightmareNet",
+  "skills": []
+}
