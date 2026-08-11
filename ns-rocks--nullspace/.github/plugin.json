@@ -1,0 +1,9 @@
+{
+  "name": "ns-rocks--nullspace",
+  "displayName": "nullspace",
+  "description": "The open execution runtime for production AI agents",
+  "version": "1.0.0",
+  "author": "ns-rocks",
+  "homepage": "https://github.com/ns-rocks/nullspace",
+  "skills": []
+}
