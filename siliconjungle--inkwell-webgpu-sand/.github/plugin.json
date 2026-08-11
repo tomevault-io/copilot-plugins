@@ -1,0 +1,9 @@
+{
+  "name": "siliconjungle--inkwell-webgpu-sand",
+  "displayName": "inkwell-webgpu-sand",
+  "description": "A standalone raw WebGPU procedural sand and snow surface renderer for Inkwell.",
+  "version": "1.0.0",
+  "author": "siliconjungle",
+  "homepage": "https://github.com/siliconjungle/inkwell-webgpu-sand",
+  "skills": []
+}
