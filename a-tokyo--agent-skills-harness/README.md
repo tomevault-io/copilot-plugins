@@ -7,11 +7,11 @@ A factory for building production-grade agent skills — benchmarked against gol
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [a-tokyo/agent-skills-harness](https://github.com/a-tokyo/agent-skills-harness).
+Original source: `CLAUDE.md` in [a-tokyo/agent-skills-harness](https://github.com/a-tokyo/agent-skills-harness).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
