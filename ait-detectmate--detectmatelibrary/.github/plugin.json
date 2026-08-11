@@ -1,0 +1,9 @@
+{
+  "name": "ait-detectmate--detectmatelibrary",
+  "displayName": "DetectMateLibrary",
+  "description": "Collection of algorithms for log data anomaly detection",
+  "version": "1.0.0",
+  "author": "ait-detectmate",
+  "homepage": "https://github.com/ait-detectmate/DetectMateLibrary",
+  "skills": []
+}
