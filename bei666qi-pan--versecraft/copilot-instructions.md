@@ -1,95 +1,48 @@
-## 003-ethereal-ui
+## 004-workflow
 
-> Tailwind CSS v4 and Liquid Glass UI standards
+> Authorized Git and Deployment Workflow
 
 
-# Ethereal UI: Liquid Glass Design System
+# Authorized Git and Deployment Workflow
 
-All UI must be **Simplified Chinese (简体中文)**. Use the **Liquid Glass** aesthetic: translucent backgrounds, backdrop blur, and soft inner shadows. Avoid hard borders.
+## 授权边界（MANDATORY）
 
-## Rules
+Cursor Agent **不得**在任务完成后自动提交、推送或部署。只有用户明确要求提交或发布时，才可以执行相应操作。
 
-1. **Language** — All user-facing text MUST be Simplified Chinese.
-2. **Liquid Glass Style** — Use `bg-white/5` (or dark variants), `backdrop-blur-xl`, and `shadow-[inset_...]`.
-3. **No Hard Borders** — Prefer subtle shadows and translucent surfaces over `border` or `ring`.
-4. **Animation** — All animations MUST be defined in `globals.css` under `@theme` (Tailwind v4).
+涉及行为变化的任务必须先遵循 `.cursor/rules/000-openspec-workflow.mdc` 和根 `AGENTS.md` 的 OpenSpec 默认分流；完成 OpenSpec change 时，先完成相关验证和 spec 同步，再依据明确授权进行 Git 或发布操作。
 
-## Liquid Glass Pattern
+## 执行指令
 
-```tsx
-// ✅ CORRECT: Liquid Glass card
-<div className="bg-white/5 backdrop-blur-xl rounded-2xl shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
-  <p className="text-white/90">内容区域</p>
-</div>
+在用户明确要求发布时，可在集成终端中运行（**跨平台**：`deploy.sh` 实为 Node 脚本，Windows 请用 `node` 或 `pnpm run ship`，勿用 `bash ./deploy.sh`）：
+
+```bash
+node deploy.sh "feat: 更新说明"
 ```
 
-```tsx
-// ✅ CORRECT: Dark mode glass panel
-<div className="bg-black/20 backdrop-blur-xl rounded-xl shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]">
-  <span>简体中文标签</span>
-</div>
+或：
+
+```bash
+pnpm run ship -- "feat: 更新说明"
 ```
 
-## Animation in globals.css
+将 `"更新说明"` 替换为本次改动的一句话描述（中文或英文均可）。
 
-```css
-/* globals.css */
-@import "tailwindcss";
+## 脚本行为
 
-@theme {
-  --animate-fade-in: fade-in 0.3s ease-out;
-  --animate-slide-up: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
+- `git add .` — 暂存所有变更
+- `git commit -m "..."` — 提交
+- `git push origin main` — 推送到 GitHub
+- 输出服务器部署提示（需在部署服务器上手动或通过 SSH 执行 Docker 重建）
 
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+## 示例
 
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+用户明确要求发布后的典型调用：
+
+```bash
+node deploy.sh "feat: 完成动态 BGM 与移动端 UI 适配"
+pnpm run ship -- "fix: 修复原石掉落概率计算"
+pnpm run ship -- "chore: 文案与规则更新"
 ```
-
-```tsx
-// ✅ CORRECT: Using theme animation
-<div className="animate-[var(--animate-fade-in)]">淡入内容</div>
-```
-
-## Recommended Token Combinations
-
-| Purpose        | Classes                                                                 |
-|----------------|-------------------------------------------------------------------------|
-| Glass surface  | `bg-white/5 backdrop-blur-xl`                                           |
-| Inner highlight| `shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]`                       |
-| Dark glass     | `bg-black/20 backdrop-blur-xl`                                          |
-| Soft divider   | `border-white/5` (minimal; prefer shadow when possible)                 |
-
-## Forbidden Patterns
-
-```tsx
-// ❌ WRONG: hard border
-<div className="border border-gray-300 rounded-lg">内容</div>
-```
-
-```tsx
-// ❌ WRONG: English-only UI text
-<button>Submit</button>
-```
-
-```tsx
-// ❌ WRONG: inline keyframes in component
-<div style={{ animation: "fadeIn 0.3s ease" }}>内容</div>
-```
-
-All animations belong in `globals.css` `@theme` or `@keyframes`.
 
 ---
 > Source: [bei666qi-pan/VerseCraft](https://github.com/bei666qi-pan/VerseCraft) — distributed by [TomeVault](https://tomevault.io).
