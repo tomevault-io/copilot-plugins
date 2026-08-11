@@ -1,0 +1,9 @@
+{
+  "name": "nedonion--evalhub",
+  "displayName": "evalhub",
+  "description": "An LLM Benchmark evaluation platform for automated model testing and analysis. \u9762\u5411\u5927\u8bed\u8a00\u6a21\u578b\u7684 Benchmark \u81ea\u52a8\u5316\u8bc4\u6d4b\u5e73\u53f0\uff0c\u652f\u6301\u6a21\u578b\u6d4b\u8bd5\u4e0e\u7ed3\u679c\u5206\u6790",
+  "version": "1.0.0",
+  "author": "NEDONION",
+  "homepage": "https://github.com/NEDONION/evalhub",
+  "skills": []
+}
