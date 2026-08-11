@@ -4,7 +4,7 @@
   "repo": "mathilda",
   "description": "A small, highly efficient computer algebra system in written in C99.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stblake/mathilda",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T20:32:24Z"
+  "distributed_at": "2026-08-11T20:50:17Z"
 }
