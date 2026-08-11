@@ -1,0 +1,9 @@
+{
+  "name": "keshrath--agent-tasks",
+  "displayName": "agent-tasks",
+  "description": "Pipeline-driven task management for AI coding agents \u2014 stages, dependencies, artifacts, and multi-agent collaboration",
+  "version": "1.0.0",
+  "author": "keshrath",
+  "homepage": "https://github.com/keshrath/agent-tasks",
+  "skills": []
+}
