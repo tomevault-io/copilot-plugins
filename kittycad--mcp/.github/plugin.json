@@ -1,0 +1,9 @@
+{
+  "name": "kittycad--mcp",
+  "displayName": "mcp",
+  "description": "An MCP server housing various Zoo built utilities",
+  "version": "1.0.0",
+  "author": "KittyCAD",
+  "homepage": "https://github.com/KittyCAD/mcp",
+  "skills": []
+}
