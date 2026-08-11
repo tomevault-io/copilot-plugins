@@ -4,7 +4,7 @@
   "repo": "LYCA",
   "description": "LYCA:more LIKe A human agent system",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/scmmm/LYCA",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T02:42:50Z"
+  "distributed_at": "2026-08-11T02:52:17Z"
 }
