@@ -1,0 +1,44 @@
+{
+  "name": "AgentFlow",
+  "owner": "714307168",
+  "repo": "AgentFlow",
+  "description": "\u901a\u8fc7\u5b89\u5353 App \u8fdc\u7a0b\u63a7\u5236\u672c\u5730 CLI\uff0c\u516c\u7f51 Relay Server \u505a\u6700\u5c0f\u5316\u6d88\u606f\u4e2d\u8f6c\uff0c\u652f\u6301\u7aef\u5230\u7aef\u52a0\u5bc6\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/714307168/AgentFlow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T23:35:08Z"
+}
