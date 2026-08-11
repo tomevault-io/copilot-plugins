@@ -1,0 +1,9 @@
+{
+  "name": "conallob--homeassistant-snapmaker",
+  "displayName": "homeassistant-snapmaker",
+  "description": "A home-assistant.io integration for interacting with a Snapmaker 3D printer",
+  "version": "1.0.0",
+  "author": "conallob",
+  "homepage": "https://github.com/conallob/homeassistant-snapmaker",
+  "skills": []
+}
