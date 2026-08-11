@@ -1,0 +1,9 @@
+{
+  "name": "corysia--pong",
+  "displayName": "pong",
+  "description": "A 3D Pong game written in BabylonJS",
+  "version": "1.0.0",
+  "author": "Corysia",
+  "homepage": "https://github.com/Corysia/pong",
+  "skills": []
+}
