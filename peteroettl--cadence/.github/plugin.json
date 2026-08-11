@@ -1,0 +1,9 @@
+{
+  "name": "peteroettl--cadence",
+  "displayName": "Cadence",
+  "description": "Actor-based request pacing for Swift concurrency: rate limiting, debouncing, and request coalescing. Zero dependencies.",
+  "version": "1.0.0",
+  "author": "peteroettl",
+  "homepage": "https://github.com/peteroettl/Cadence",
+  "skills": []
+}
