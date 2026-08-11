@@ -1,17 +1,24 @@
-## backend-global-config
+## backend-migrations-naming
 
-> Read environment through GlobalConfig, not getEnv in app code
+> Migration file naming conventions for Supabase modules
 
 
-# Backend configuration access
+# Migration naming
 
-- **Single source of truth**: Runtime settings for the API come from `config` in `backend/config/GlobalConfig.ts`, populated via `getEnv` / `getEnvNumber` / `getEnvBoolean` from `backend/config/envHelper.ts` only inside that file (and any bootstrap that must run before `config` exists).
+- **Pattern**: `<modulePrefix>_<YYYYMMDD>_<scope>.sql` (e.g. `101_20260311_tables.sql`).
+- **Date**: Use the real calendar date of creation (year must be current for new files; avoid reusing past years like 2024 or 2025 for new migrations).
+- **Location**: Apply this pattern for all files under `backend/supabase/db/**` (modules such as user-auth, user-management, organization, integration, customer, rbac, feedback, config, blog, etc.).
+- **Scopes**:
+  - `tables`, `indexes`, `rlsgrants`, `functions`, `seed`, `cron`.
+- **Renames**:
+  - When renaming existing migration files, keep the numeric prefix but update the date segment and the `MODULE DATE` comment to match the new filename.
+- **Ordering**:
+  - Aggregator sorts by **scope tier** (`floor(prefix / 100)`: 1xx tables, 2xx indexes, …), then by `MODULE_ORDER` in `scripts/aggregate_migrations_all.mjs`, then by numeric prefix for stable ties. Within a tier, use small per-folder prefixes; cross-module sequence comes from `MODULE_ORDER`.
+  - **user-management** uses 100, 200, 300, 400, 500 so `public.users` and `public.is_super_admin()` run first within each tier.
+  - Modules that depend on `is_super_admin` or `user_roles` still use **302** (or a higher second digit in the same tier) when you need RLS to run after peer modules in that tier; prefer `MODULE_ORDER` and tier boundaries over ad-hoc prefix jumps when possible.
+  - When adding a new module, add it to `MODULE_ORDER` in `backend/scripts/aggregate_migrations_all.mjs` so order is deterministic (e.g. **integration** after **organization** when `integrations.organization_id` references `organizations`; **customer** before **integration** when `integrations.customer_id` references `integration_customers`).
 
-- **Do not** call `getEnv`, `process.env[...]`, or import `envHelper` directly in `connections/`, `services/`, `controllers/`, `repositories/`, `integrations/providers/`, `middlewares/`, or routes. Add new keys to `GlobalConfig` and read `config.<section>.<field>` instead.
-
-- **Exceptions**: `envHelper.ts` itself; `GlobalConfig.ts`; tests that intentionally stub env.
-
-The assistant should follow this when adding or editing backend code.
+The assistant should follow and enforce this pattern whenever adding or renaming Supabase migration files.
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
