@@ -1,0 +1,9 @@
+{
+  "name": "gotoplanb--hermit",
+  "displayName": "Hermit",
+  "description": "iOS SSH client for tmux + Claude Code workflows",
+  "version": "1.0.0",
+  "author": "gotoplanb",
+  "homepage": "https://github.com/gotoplanb/Hermit",
+  "skills": []
+}
