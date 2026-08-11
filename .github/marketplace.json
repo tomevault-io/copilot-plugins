@@ -404259,6 +404259,61 @@
       "description": "A home-assistant.io integration for interacting with a Snapmaker 3D printer"
     },
     {
+      "name": "nicedayzhu--swiftparticlemenudemo",
+      "source": "./nicedayzhu--swiftparticlemenudemo",
+      "description": "SwiftParticleMenuDemo"
+    },
+    {
+      "name": "chr1shaefn3r--grow-up",
+      "source": "./chr1shaefn3r--grow-up",
+      "description": "build an eye-aligned face timelapse from photos of one person in an Immich library"
+    },
+    {
+      "name": "pqhuy98--wow-converter",
+      "source": "./pqhuy98--wow-converter",
+      "description": "wow-converter"
+    },
+    {
+      "name": "stupidoodle--hinge-client",
+      "source": "./stupidoodle--hinge-client",
+      "description": "(Un)Hinge(d) - An Unofficial API Client for Hinge \ud83d\udd13\ud83d\udc80"
+    },
+    {
+      "name": "glassflow--glassflow-etl-k8s-operator",
+      "source": "./glassflow--glassflow-etl-k8s-operator",
+      "description": "K8s operator for ETL components orchestration"
+    },
+    {
+      "name": "alitayin--quicksend",
+      "source": "./alitayin--quicksend",
+      "description": "quicksend"
+    },
+    {
+      "name": "whitejadehang--power-market-sim",
+      "source": "./whitejadehang--power-market-sim",
+      "description": "\u7535\u529b\u5e02\u573a\u4eff\u771f\u7cfb\u7edf - \u57fa\u4e8ePython\u7684\u7535\u529b\u5e02\u573a\u4f18\u5316\u548c\u4eff\u771f\u5de5\u5177"
+    },
+    {
+      "name": "mgaitan--python-package-copier-template",
+      "source": "./mgaitan--python-package-copier-template",
+      "description": "Copier template for Python projects managed by uv."
+    },
+    {
+      "name": "technoir-lab--vulkan-kotlin",
+      "source": "./technoir-lab--vulkan-kotlin",
+      "description": "Kotlin/Native bindings for Vulkan API"
+    },
+    {
+      "name": "the-running-dev--docs-template",
+      "source": "./the-running-dev--docs-template",
+      "description": "Docs-Template"
+    },
+    {
+      "name": "xidl--xidl",
+      "source": "./xidl--xidl",
+      "description": "xidl"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -432812,6 +432867,46 @@
       "name": "anaygarodia--sketchling",
       "source": "./anaygarodia--sketchling",
       "description": "A hand-drawn illustration and animation language for LLMs"
+    },
+    {
+      "name": "cs-lx--cpuracer",
+      "source": "./cs-lx--cpuracer",
+      "description": "Race on Windows Task Manager CPU graph \u2014 like copy-dialog-lunar-lander"
+    },
+    {
+      "name": "athishio--context-gc",
+      "source": "./athishio--context-gc",
+      "description": "Deterministic, receipt-preserving context compaction library for AI agents."
+    },
+    {
+      "name": "evilfreelancer--secs",
+      "source": "./evilfreelancer--secs",
+      "description": "SECS (SECurity aSsistant) turns an AI coding agent (Claude Code, Cursor, Codex) into an authorized information-security assistant - 35 security Agent Skills, a Debian/Ubuntu/Kali toolchain installer, "
+    },
+    {
+      "name": "api2business--api2business",
+      "source": "./api2business--api2business",
+      "description": "api2business"
+    },
+    {
+      "name": "makio64--threejs-cinematic-world-zoom",
+      "source": "./makio64--threejs-cinematic-world-zoom",
+      "description": "A cinematic zoom on places in the world"
+    },
+    {
+      "name": "yapsancode--devops-coach",
+      "source": "./yapsancode--devops-coach",
+      "description": "devops-coach"
+    },
+    {
+      "name": "makio64--threejs-cinematic-world-zoom",
+      "source": "./makio64--threejs-cinematic-world-zoom",
+      "description": "A cinematic zoom on places in the world"
+    },
+    {
+      "name": "benzo42069--rigwarden",
+      "source": "./benzo42069--rigwarden",
+      "description": "rigwarden"
     },
     {
       "name": "cheerhuan--save-your-token",
