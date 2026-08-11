@@ -1,0 +1,9 @@
+{
+  "name": "codeformers-it--ksefnik",
+  "displayName": "ksefnik",
+  "description": "KSeF SDK for TypeScript/Node.js \u2014 invoice reconciliation with bank statements (MT940, mBank, ING, PKO, Santander), production KSeF 2.0 HTTP client, MCP server for Claude and Cursor. Open-source, MIT.",
+  "version": "1.0.0",
+  "author": "CodeFormers-it",
+  "homepage": "https://github.com/CodeFormers-it/ksefnik",
+  "skills": []
+}
