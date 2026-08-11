@@ -1,0 +1,9 @@
+{
+  "name": "artcc--openclient-llm",
+  "displayName": "openclient-llm",
+  "description": "Native Apple client for LiteLLM, a self-hosted LLM proxy server. Connect to any LLM provider (Ollama, OpenAI, Anthropic, Groq, and more) through a single unified endpoint with a beautiful, native iOS,",
+  "version": "1.0.0",
+  "author": "artcc",
+  "homepage": "https://github.com/artcc/openclient-llm",
+  "skills": []
+}
