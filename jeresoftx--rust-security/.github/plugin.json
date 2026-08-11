@@ -1,0 +1,9 @@
+{
+  "name": "jeresoftx--rust-security",
+  "displayName": "rust-security",
+  "description": "Curso de Jeresoft Academy sobre seguridad defensiva en Rust: amenazas, hardening, an\u00e1lisis y laboratorios \u00e9ticos.",
+  "version": "1.0.0",
+  "author": "jeresoftx",
+  "homepage": "https://github.com/jeresoftx/rust-security",
+  "skills": []
+}
