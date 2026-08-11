@@ -1,0 +1,9 @@
+{
+  "name": "chdalski--rlsp",
+  "displayName": "rlsp",
+  "description": "The Rust Language Server Project",
+  "version": "1.0.0",
+  "author": "chdalski",
+  "homepage": "https://github.com/chdalski/rlsp",
+  "skills": []
+}
