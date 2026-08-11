@@ -7,11 +7,11 @@ AI tool analytics platform for tracking and managing coding assistant usage acro
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [AixleHQ/insights](https://github.com/AixleHQ/insights).
+Original source: `AGENTS.md` in [AixleHQ/insights](https://github.com/AixleHQ/insights).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
