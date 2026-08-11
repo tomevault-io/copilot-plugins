@@ -1,0 +1,9 @@
+{
+  "name": "brokkai--bifrost",
+  "displayName": "bifrost",
+  "description": "Multi-language static analysis for agents, editors, and large repositories.",
+  "version": "1.0.0",
+  "author": "BrokkAi",
+  "homepage": "https://github.com/BrokkAi/bifrost",
+  "skills": []
+}
