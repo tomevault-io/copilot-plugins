@@ -4,7 +4,7 @@
   "repo": "sdrf-skills",
   "description": "Agentic plugins to annotate SDRF using Claude; Codex; Cursor; Gemini",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bigbio/sdrf-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T20:38:55Z"
+  "distributed_at": "2026-08-11T20:52:09Z"
 }
