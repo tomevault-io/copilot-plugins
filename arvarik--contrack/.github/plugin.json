@@ -1,0 +1,9 @@
+{
+  "name": "arvarik--contrack",
+  "displayName": "contrack",
+  "description": "Contrack: An AI-powered, blazing-fast personal CRM built with Express 5, React 19, and Vite 8. Features intelligent deduplication, networking analytics, and automated context gathering.",
+  "version": "1.0.0",
+  "author": "arvarik",
+  "homepage": "https://github.com/arvarik/contrack",
+  "skills": []
+}
