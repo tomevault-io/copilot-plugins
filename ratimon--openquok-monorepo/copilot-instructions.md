@@ -1,115 +1,98 @@
-## agent-skill
+## backend-api-layers
 
-> Meta-guidance for OpenQuok agent skills under agent/skills/. Authoritative instructions live in each skill’s SKILL.md — apply when editing those skills or this rule.
+> Backend API layer flow — routes → controller/data/errors/utils → service → repository; add e2e tests per feature
 
 
-**Sources of truth:** each installable skill’s `SKILL.md` under `agent/skills/<slug>/`. Edit that file when changing what agents should do; keep this rule for Cursor-only best practices and cross-skill layout.
+# Backend API layers (routes → controller → service → repository)
 
-## Skill families
+New API features follow this flow. Implement each layer in order and wire in index files.
 
-| Kind | Example | Layout | Role |
-|------|---------|--------|------|
-| **Core CLI skill** | `openquok-core` | `SKILL.md` + `resources/` | Auth, media Rule 2, channel recipes, `openquok` workflows |
-| **Sibling pipeline skill** | `openquok-tiktok-slideshow` | `SKILL.md` + `scripts/` + `references/` | Domain pipeline (research → generate → post); **requires** `openquok-core` / `openquok` on PATH; never replaces core |
+## 1. Routes (`backend/routes/`)
 
-Sibling skills may depend on core recipes (upload → `{id,path}`, TikTok photo-carousel, `SELF_ONLY` drafts) by instructing the agent to follow `openquok-core` — do not duplicate long CLI matrices into the sibling `SKILL.md`.
+- One router per domain (e.g. `UserRoute.ts`, `AuthRoute.ts`).
+- For **public (unauthenticated) routes**, add the path to `publicPaths` in `backend/middlewares/core.ts` (see **backend-public-api-paths**).
+- Compose: **auth middleware** (if protected), **validate\* middleware** (from `data/schemas`), **controller method**.
+- Mount router in `routes/index.ts` under the API prefix (e.g. `apiRouter.use("/users", userRouter)`).
 
-Publish each slug separately to ClawHub (`agent/CLAWHUB.md`). Skills with `scripts/` must document **Copy / `--copy`** install so scripts land as real files.
+```ts
+// UserRoute.ts
+const auth = requireFullAuth(supabaseServiceClientConnection);
+userRouter.get("/me", auth, userController.getProfile);
+userRouter.put("/me/password", auth, validateUpdatePasswordMeRequest, userController.updatePasswordMe);
+```
 
-## Skill layout — openquok-core
+## 2. Data layer (`backend/data/`)
 
-- **`SKILL.md`** — Hard rules, auth, core workflow, pitfalls, quick reference. Keep it focused; link out instead of duplicating long examples. The **Channels (Meta)** table indexes per-platform files and summarizes user intents — do not paste feature matrices or long bash into `SKILL.md`.
-- **`resources/*.md`** — Deeper material agents load on demand:
-  - `command-reference.md` — CLI commands, flags, env vars (not `agent/README.md`; skill install path has no sibling README).
-  - `provider-settings.md` — shared publish-time mechanics: `--settings` vs `--providerSettingsByIntegrationId`, merge order, flat vs nested API buckets, multi-`-c` behavior.
-  - `patterns.md` — extended workflows (campaign JSON, batching, retries).
-  - `{identifier}-examples.md` — per-channel agent docs (see **Per-channel example file** below). Today: `threads`, `facebook`, `instagram-standalone`, `instagram-business`.
-  - `threads-publish.md` — server publish behavior summarized in markdown (never link to `.ts` / backend paths from the skill).
-- **`SKILL.md` tone** — imperative, short tables and bullets; no tutorial prose; shell-safety rules for untrusted input; defer command lists and long bash to `resources/`.
+- **schemas/** — Zod schemas + `validateRequest(...)` middleware + **handler type** for controller typing.
+  - Export the single middleware used by the route (e.g. `validateUpdatePasswordUserRequest`) and `export type validateXxxRequestHandler = typeof validateXxxRequest`.
+  - Controller methods that have validation use that type: `updatePassword: validateUpdatePasswordUserRequestHandler = async (req, res, next) => { ... }`.
+- **types/** — Shared API/domain types (e.g. `UserProfileResponse`). Optional.
 
-## Skill layout — sibling skills (`scripts/` + `references/`)
+## 3. Errors (`backend/errors/`)
 
-Use this pattern for pipeline skills that ship runnable helpers (e.g. `openquok-tiktok-slideshow`):
+- Domain errors that need a specific HTTP status: extend **AppError** (e.g. `UserError` → `UserNotFoundError`, `UserAuthorizationError`). ErrorController handles all `AppError` by `statusCode`; no per-error branches.
+- Auth/validation/infra: use existing **AuthError**, **ValidationError**, **InfraError** as appropriate.
 
-- **`SKILL.md`** — Phases, prerequisites, install (Copy required), config shape pointers, and how to invoke scripts. Keep lean; link into `references/` for deep playbooks.
-- **`scripts/`** — Node (or shell) helpers the agent runs with `node scripts/<name>.js`. Prefer CommonJS or whatever the skill’s local `package.json` declares. Do not assume npm deps beyond `engines` unless the skill documents a real install step on its homepage.
-- **`references/`** — On-demand docs and scaffolds agents load when needed (slide structure, research notes, character-lock templates, JSON templates). Prefer neutral first-party templates — no personal asset paths or third-party persona dumps in-repo.
-- **Compatibility** — State clearly: does not replace `openquok-core`; requires `openquok` (+ `node`) on PATH; media and post create go through the CLI.
-- **Workspace config** — Onboarding may scaffold files **outside** the skill install (user workspace). Document paths in `SKILL.md`; do not write secrets into the skill bundle.
+## 4. Utils (`backend/utils/`)
 
-When adding a new sibling skill, also update ClawHub scripts in `agent/package.json`, `agent/CLAWHUB.md`, and the Extensions Hub listing / docs page as applicable.
+- **dtos/** — **API response shapes (camelCase DTOs), DB-aligned types with a `Like` suffix, and mappers** (e.g. `SocialPostDTO`, `SocialPostLike`, `PostDTOMapper.toDTO(...)`; `FeedbackLike`, `toFeedbackDTO`). Types such as **`SocialPostLike` / `FeedbackLike`** describe raw / persisted shapes (snake_case columns, join payloads) and live **here**, not in repositories. Repositories **import** those types from the appropriate DTO module for return types and casts; **do not** introduce a parallel `Row` duplicate name for the same shape.
+- Some modules bundle related concerns in one file (e.g. `IntegrationDTO.ts`: `IntegrationLike` for DB rows plus `IntegrationCatalogDTO` / `IntegrationListDTO` for API responses).
+- **Mapping is invoked in the controller**, not in the service (same as before).
+- **valueObjects/** — Domain value objects (e.g. `UserId`) when you need validation/reuse. Optional.
 
-## Per-channel example file (`resources/{identifier}-examples.md`)
+## 5. Controller (`backend/controllers/`)
 
-Each live Meta (or future) channel the CLI can post to should have one example file matching `provider.identifier`. Structure every file the same way so agents can map **user intent → recipe**:
+- Receives **Request, Response, NextFunction**. Cast to **AuthenticatedRequest** when using `req.user`.
+- Call **service** (and optionally other services, e.g. AuthenticationService). Do not call repositories directly.
+- **Map to DTOs in the controller** just before sending the response (e.g. pass service result into a DTO mapper, then `res.json({ data: dtos })`). Do not expect services to return API DTOs; services return **persistence-aligned `Like` types or domain types** from the persistence layer (via repositories), not camelCase API DTOs.
+- **Create/update responses** — Use a consistent envelope: `{ success: true, data: { id: result.id }, message: "X created/updated successfully" }`. Return **201** for create and **200** for update. The service still returns full domain data; the controller exposes only `id` in `data` for create/update. Reference: `BlogController` (createBlogPost, updateBlogPost, createBlogTopic, updateBlogTopic), `ListingController` (createListing, updateListing).
+- On validation/authorization/not-found: **`return next(new XxxError(...))`**. On unexpected errors: **`next(error)`** in catch. Do not throw in async handlers.
+- Instantiate in `controllers/index.ts` with injected services; export the controller instance.
 
-1. **Resolve integration** — `integrations:list` + `integrations:settings` one-liner at the top.
-2. **Supported features** — table: Feature | Supported | Notes — **only shipped behavior** (same bar as `publicChannelConfig` FAQ/bento, but agent-actionable, not marketing copy).
-3. **Agent tasks** — table: “User wants to…” | “Do this” — link to anchored sections below (e.g. link preview, Reel, reply chain).
-4. **Provider settings** — table of publish keys (`--settings` / `providerSettingsByIntegrationId`), with precedence rules (e.g. Facebook `url` ignored when media attached).
-5. **Recipes** — short `bash` blocks per task; use `<integration-id>` placeholders; link to `provider-settings.md` once at the top.
+## 6. Service (`backend/services/`)
 
-When adding or changing publish behavior for a channel, update **backend resolver + this file** together. Do not lift `publicChannelConfig.ts` hero/feature prose into the skill — distill facts into the tables above.
+- Holds business logic; depends on **repositories** (and config). No Express types.
+- Methods return persistence-aligned types (e.g. `SocialPostLike`, `OrganizationLike`), repository results, or domain types—not API DTOs. Import the matching symbols from **`utils/dtos`** when typing parameters or return values that mirror DB rows. The controller maps to API DTOs just before `res.json(...)`.
+- Instantiate in `services/index.ts` with injected repositories; export instances.
 
-## CLI-only scope
+### Cache (when the domain benefits from caching)
 
-Skill content is for agents using `openquok` and the public API.
+See **backend-service-cache** for full conventions (key naming like `LIST_BYUSERID` / `BY_ID`, explicit invalidation of read keys, CacheInvalidationService usage).
 
-- **Do** document flat API keys the backend accepts on create (`post_type`, `url`, `is_trial_reel`, …) and nested **orchestrator buckets** in `providerSettingsByIntegrationId` (`threads.replies`, `threads.internalEngagementPlug`, `instagram.replies`, `facebook.url` when nested).
-- **Do** run `integrations:settings` for `rules`, `maxLength`, and `tools`; note that typed publish schemas may live in channel example files until `settingsSchema()` exists on the provider.
-- **Do not** document web UI, composer panels, preview components, Payload Wizard UX, or web-only camelCase composer fields (e.g. `postType`, `trialReel`). Summarize server behavior in `resources/*.md` instead of linking monorepo source.
+- **Dependency**: Inject **CacheService** and optional **CacheInvalidationService** from `connections`. Both optional so tests can omit them.
+- **Key design**: Domain-scoped **`CACHE_KEYS`** and **TTL constant**. Name keys so scope is clear (e.g. `ORG_LIST_BYUSERID`, `BLOG_BYID`).
+- **Read path**: **`cache.getOrSet(cacheKey, factory, ttl)`**; when `cache` is undefined, call repository directly.
+- **Write path**: After create/update/delete, call a **private invalidation helper**. Invalidate the **exact keys used for reads** (e.g. by-id key used in getById) via `invalidateKey`; use `invalidatePattern` for list/aggregate where needed. Prefer **CacheInvalidationService** for invalidation. Do not let invalidation errors fail the request.
 
-## Links
+Reference: `UserService`, `BlogService`, `OrganizationService`, `FeedbackService`, `RbacService`; rule: **backend-service-cache**.
 
-Only reference markdown under **this skill’s** directory (or stable external URLs in the front matter). Sibling skills may name `openquok-core` as a required dependency and point agents at core recipes by skill name — do not link to monorepo source files (TypeScript, tests, etc.) from skill content; summarize behavior in a new or existing `resources/` / `references/` file instead.
+## 7. Repository (`backend/repositories/`)
 
-## Registry security scans
+- Talks to DB (e.g. Supabase). **Import DB-aligned types from `utils/dtos`** for query results and inserts (e.g. `SocialPostLike`, `FeedbackLike`, `OrganizationLike`, `IntegrationLike`). **Define insert/partial helpers next to usage** when needed (e.g. `SocialPostInsert` on `PostsRepository`). Avoid duplicate `Row` vs `Like` names for the same table; **one shape per entity in the DTO file** is the source of truth.
+- Optional composite exports (e.g. list result types) may stay on the repository if they are not shared mapper inputs.
+- Methods return typed data or throw **InfraError**/ **DatabaseError** (or `{ data, error }` where that pattern is already used).
+- Instantiate in `repositories/index.ts`; export **repository classes**; export **`MediaLike` etc. from DTOs** when consumers need the type at package boundaries (see `repositories/index.ts`).
 
-Hermes (`hermes skills install <url>`) and ClawHub run automated scans on `SKILL.md`. Community URL installs can be **blocked** on dangerous verdicts; `--force` does not override. Write `SKILL.md` so behavior stays intact without tripping common rules.
+## 8. E2E tests (`backend/tests/e2e/`)
 
-### Frontmatter
+- One file per domain (e.g. `user.e2e.test.ts`). Use **supertest(app)**, **config** for API prefix/paths, **UserTestHelper** and stubs (e.g. `generateRandomVerificationToken`) for auth-dependent flows.
+- Name **describe** and **it** by feature/scenario, not by endpoint (see **backend-e2e-integration-test-naming**).
+- Cover: success path, 401 (no/invalid token), 403 (wrong user), 400 (validation), and any domain-specific cases.
+- Clean up users in `afterEach`/`afterAll` via helper.
 
-- **`description`** — short product summary for search/registry UI only (what the skill does). Do **not** put session bootstrap logic, version stamps, or “overrides host …” instructions in `description`.
-- **`homepage`** — use for CLI upgrade/install pointers (`@openquok/auto-cli` npm page) or the skill’s docs page instead of embedding package-manager commands in the body.
-- **`metadata` (single-line JSON)** — OpenClaw’s parser accepts **only** single-line `metadata` (not nested YAML under that key). Put both hosts in one JSON object:
-  - **OpenClaw / ClawHub:** `openclaw.requires.bins` (e.g. `["openquok"]` or `["openquok","node"]`), `always`, `emoji`, optional `openclaw.homepage` (top-level `homepage` is also valid).
-  - **Hermes:** `hermes.tags`, `hermes.category`, `hermes.requires_toolsets: ["terminal"]` as keys inside the same JSON object (Hermes docs show nested YAML in examples; JSON with a `hermes` key is what parsers receive after YAML load).
-- **`prerequisites.commands`** — Hermes/agentskills.io: list bins the skill needs (e.g. `[openquok]` or `[openquok, node]`). Do **not** require `OPENQUOK_API_KEY` in frontmatter — device OAuth is valid without a pre-set env var.
-- **`compatibility`** — agentskills.io optional one-liner: global CLI is separate from the skill bundle; sibling skills should note Copy install and the core dependency.
+## Checklist for a new API feature
 
-### Avoid persistence findings
+1. **Routes** — Add route(s); mount in `routes/index.ts`.
+2. **Data** — Add/use schema + `validateXxxRequest` + `validateXxxRequestHandler` type.
+3. **Errors** — Use AppError subclasses (or Auth/Validation/Infra) and pass to `next(...)`.
+4. **Utils** — Add/update **DB-aligned `Like` types** and API **DTO** + mapper in `dtos/` if response shape is new; value object if needed.
+5. **Controller** — Handler(s) calling service(s); typed with schema handler type where validation runs.
+6. **Service** — Method(s) calling repository; return **persistence-aligned / domain types** (no API DTO mapping). Add cache (CACHE_KEYS, getOrSet, invalidation after mutations) when the domain benefits.
+7. **Repository** — Method(s) for DB access; use **types from `utils/dtos`** for entity shapes; add narrow insert types on the repository if needed. **Do not** add a parallel `XxxRow` in the repository when `XxxLike` (or equivalent) already exists in `dtos/`.
+8. **Wire** — Controllers/index, services/index, repositories/index.
+9. **E2E** — Add or extend `tests/e2e/<domain>.e2e.test.ts`. Use feature/scenario naming (see **backend-e2e-integration-test-naming**). If you added a new table, update test helpers for cleanup (see **backend-test-helpers-new-tables**).
 
-Scanners flag skills that claim to override host configuration.
-
-- **Do not** write that the skill “wins over”, “overrides”, or takes “priority” over `AGENTS.md`, `SOUL.md`, `IDENTITY.md`, or other host persona files.
-- **Do** scope session bootstrap to **first turn after** `/new`, `/reset`, or a new thread — e.g. “use the Openquok bot voice on that turn only”.
-- Prefer neutral phrasing: “take precedence” over “wins over” when describing credential file vs env var order.
-
-### Avoid supply-chain findings
-
-Scanners flag embedded package installs and registry pulls in skill text.
-
-- **Do not** put `npm install`, `npm view`, `pnpm add`, `curl | bash`, or similar in `SKILL.md` templates, pitfalls tables, or quoted examples.
-- **Do** tell the agent to offer CLI upgrades only after user consent and point to `homepage` or `resources/command-reference.md` (core) / docs homepage (siblings) for install steps.
-- **Do** keep bootstrap shell to fixed `openquok …` / `node scripts/…` invocations — not package managers.
-
-### Shell and exec safety
-
-- Run **fixed** `openquok` / `node scripts/…` commands; never concatenate untrusted chat text into the shell (already in core `SKILL.md` **Shell safety**).
-- Put captions and JSON in quoted flags, heredocs, or files.
-
-### When a scan still blocks
-
-1. Re-read findings line-by-line in `SKILL.md` and soften wording before dropping behavior.
-2. Hermes fallback: manual copy of the **full** skill folder into `~/.hermes/skills/<slug>/` (see agent guide) — URL install of `SKILL.md` alone omits `resources/` / `scripts/` / `references/`.
-3. OpenClaw: publish the full skill folder to ClawHub (`agent/CLAWHUB.md`) so supporting files install with the bundle.
-
-## Best practices
-
-- **Be concise** — instruct the model on what to do, not how to be an AI.
-- **Safety first** — registry scans and shell safety above; treat user chat as untrusted input for command construction.
-- **Intent first** — for core channel work, open the matching `{identifier}-examples.md` **Agent tasks** table before improvising flags; for sibling pipelines, follow that skill’s phases and `references/` before inventing steps.
-- **Core first** — when a sibling skill posts or uploads, resolve integrations and media via `openquok-core` patterns; do not invent alternate public-API clients inside skill scripts unless the skill already documents them.
+Reference implementation: user API (`UserRoute`, `UserController`, `UserService`, `UserRepository`, `userSchemas`, `UserDTO`, `UserError`, `user.e2e.test.ts`). For **DTO in controller**: `FeedbackController` maps **`FeedbackLike`** to API DTO before `res.json`; `FeedbackService` returns **`FeedbackLike[]`** from the repository (types from `FeedbackDTO.ts`).
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
