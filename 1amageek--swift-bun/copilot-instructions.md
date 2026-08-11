@@ -1,0 +1,280 @@
+## swift-bun
+
+> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+
+# AGENTS.md
+
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+
+## Build & Test
+
+```bash
+# Build
+swift build
+
+# Run all tests (with timeout)
+swift test
+
+# Run a bounded test and kill stale helpers on timeout
+scripts/swift-test-timeout.sh 30 --filter "BunProcess"
+
+# Repeat a suite under hang guard
+scripts/swift-test-hang-guard.sh --repeats 3 --timeout 30 --build-timeout 120 -- \
+  --filter "BunProcessAsyncTests"
+
+# Run the 0.1.0 release verification lane
+scripts/release-check-0.1.0.sh
+
+# Check for sync shutdown in deinit before broad runs
+scripts/check-sync-shutdown-in-deinit.sh Sources Tests
+
+# Run a specific test suite
+swift test --filter "BunProcess"
+
+# Run a single test by name
+swift test --filter "setTimeout"
+```
+
+Network roundtrip tests (`FetchRoundtripTests`) hit `httpbin.org` and require internet access.
+
+### Hang-resistant runtime tests
+
+`BunProcess`-backed tests are not safe to parallelize purely with `.serialized`, because Swift Testing only serializes within a suite. Cross-suite runtime tests must go through `TestProcessSupport` helpers so they share the same `RuntimeTestGate`.
+
+- Use `TestProcessSupport.withLoadedProcess(...)` for library-mode tests.
+- Use `TestProcessSupport.run(...)` for `BunProcess.run()` in tests.
+- Wrap local HTTP/WebSocket server helpers in `TestProcessSupport.withExclusiveRuntimeAccess(...)` when they participate in the same test flow as `BunProcess`.
+WebSocket tests use a local NIO-based server and do not require internet access.
+
+### Test bundle regeneration
+
+The test bundle `Tests/BunRuntimeTests/Codex.bundle.js` is a resource copied into the test target via `Package.swift`. To regenerate it from `Fixtures/Codex-test/`:
+
+```bash
+cd Fixtures/Codex-test && npm install
+npx esbuild index.js --bundle --platform=node --target=es2020 --format=cjs \
+  --external:node:* --outfile=Codex.bundle.js
+cp Codex.bundle.js ../../Tests/BunRuntimeTests/
+```
+
+The ESM transformer bundle `Sources/BunRuntime/Resources/esm-transformer.bundle.js` is regenerated from `Fixtures/esm-transformer/`:
+
+```bash
+cd Fixtures/esm-transformer && npm install
+npx esbuild index.js --bundle --platform=node --target=es2020 --format=cjs \
+  --outfile=esm-transformer.bundle.js
+cp esm-transformer.bundle.js ../../Sources/BunRuntime/Resources/
+cp esm-transformer.bundle.js ../../Tests/BunRuntimeTests/
+```
+
+The Web API polyfills bundle `Sources/BunRuntime/Resources/polyfills.bundle.js` is regenerated from `Fixtures/polyfills/`:
+
+```bash
+cd Fixtures/polyfills && npm install
+npx esbuild index.js --bundle --platform=node --target=es2020 --format=cjs \
+  --outfile=polyfills.bundle.js
+cp polyfills.bundle.js ../../Sources/BunRuntime/Resources/
+cp polyfills.bundle.js ../../Tests/BunRuntimeTests/
+```
+
+## Architecture
+
+Primary architecture spec: `Docs/RuntimeArchitecture.md`
+
+JavaScript placement rules are also defined in `Docs/RuntimeArchitecture.md` under `JavaScript source placement`.
+JavaScript loading and resource layout are defined in `Docs/JavaScriptLoading.md`.
+
+swift-bun provides a Bun-compatible JavaScript runtime for iOS/macOS by wrapping JavaScriptCore with Node.js/Bun polyfills. It uses SwiftNIO for the event loop (NIOCore + NIOPosix).
+
+### Execution model: BunProcess
+
+`BunProcess` is the sole execution model. Configuration is provided at `init`, execution via `load()` or `run()`.
+
+```swift
+BunProcess(bundle: URL?, arguments: [String], cwd: String?, environment: [String: String])
+
+.load()  // Library mode — then evaluate(js:) / call(), and must be paired with shutdown()
+.run()   // Process mode — blocks until exit and shuts down before returning
+.shutdown() // Explicit cleanup for library mode
+```
+
+All JSContext access is serialized on a dedicated NIO EventLoop thread, guaranteeing thread safety.
+
+```
+BunProcess (final class, Sendable)
+├── Configuration (immutable): bundle, arguments, cwd, environment
+├── EventLoop thread (NIO MultiThreadedEventLoopGroup, 1 thread)
+│   ├── JSContext (all access pinned to this thread)
+│   ├── Web API polyfills (polyfills.bundle.js)
+│   ├── ModuleBootstrap polyfills (require, Node.js modules, Bun APIs)
+│   └── Host-backed bridges:
+│       ├── setTimeout/setInterval → eventLoop.scheduleTask
+│       ├── fetch (__nativeFetchStream) → URLSession streaming bridge + eventLoop.execute
+│       ├── globalThis.WebSocket → URLSessionWebSocketTask bridge
+│       ├── process.stdout.write → stdout AsyncStream
+│       ├── process.stdin → sendInput() from Swift
+│       ├── process.exit → resolveExit()
+│       ├── console.log → output AsyncStream
+│       ├── node:net / node:http server → NIO bridges
+│       └── Web Crypto / dns / zlib → native bridges
+├── Lifecycle (state machine + boot barriers + explicit shutdown)
+└── ESM transformer (es-module-lexer WASM, temporary JSContext)
+```
+
+### Polyfill layers
+
+JSCore's `evaluateScript()` provides only ECMAScript language features (Promise, Symbol, BigInt, etc.). All platform APIs are polyfilled in three layers:
+
+```
+Layer 0: polyfills.bundle.js + runtime scripts ← Web APIs (JS-owned semantics)
+Layer 1: ModuleBootstrap                        ← Node.js globals + modules (Swift strings)
+Layer 2: host bridges                           ← EventLoop-backed overrides (Swift closures)
+```
+
+**Layer 0** is loaded first and provides Web APIs that both Layer 1 and the user's bundle may depend on.
+
+### Context setup order
+
+1. **Web API polyfills** (`polyfills.bundle.js`) — ReadableStream, Event, Blob, crypto, etc.
+2. **Node.js globals** (ModuleBootstrap.installGlobals) — global, self, performance, process, console, TextEncoder, URL, atob, AbortController, DOMException
+3. **Node.js modules** (ModuleBootstrap.installModules) — path, buffer, url, util, os, fs, crypto, http, stream, timers, stubs
+4. **Bun APIs** — Bun.file, Bun.env, Bun.write, etc.
+5. **Host bridges and runtime scripts** — Timer override, Fetch override, WebSocket bridge, process.exit, stdin, stdout/stderr, console → output stream
+6. **Timer module patch** — Update `__nodeModules.timers` references to NIO-backed versions
+7. **require()** — Installed last, resolves built-ins first and then plain `node_modules` CommonJS packages
+8. **Configuration** — process.argv, process.cwd, process.env
+9. **Bundle evaluation**
+   - `load()` / library mode: evaluate the bundle directly into the global context
+   - `run()` / process mode: execute the entry script as the CommonJS main module
+
+## Polyfill coverage status
+
+### Web APIs (polyfills.bundle.js + runtime scripts)
+
+| API | Status | Implementation |
+|-----|--------|---------------|
+| ReadableStream | ✅ Full | web-streams-polyfill (npm) |
+| WritableStream | ✅ Full | web-streams-polyfill (npm) |
+| TransformStream | ✅ Full | web-streams-polyfill (npm) |
+| Event | ✅ Full | Custom (in bundle) |
+| EventTarget | ✅ Full | Custom (in bundle) |
+| CustomEvent | ✅ Full | Custom (in bundle) |
+| Blob | ✅ Basic | Custom (text/arrayBuffer/stream/slice) |
+| File | ✅ Basic | Extends Blob with name/lastModified |
+| FormData | ✅ Full | Custom |
+| WebSocket | ✅ Basic | Runtime-installed client backed by `URLSessionWebSocketTask`, including `run()`-mode E2E coverage |
+| Worker | ⚠️ Stub | Throws on instantiation |
+| MessageChannel / MessagePort | ✅ Basic | Functional postMessage |
+| XMLHttpRequest | ✅ Basic | Async-only adapter over fetch |
+| fetch / Headers / Request / Response | ✅ Streaming | URLSession-backed stream bridge |
+| TextDecoderStream / TextEncoderStream | ✅ Full | UTF-8 streaming codecs |
+| crypto.getRandomValues | ✅ Basic | Math.random (not cryptographically secure) |
+| crypto.randomUUID | ✅ Full | UUID v4 |
+| crypto.subtle | ⚠️ Partial | `digest`, `importKey`, `exportKey`, `generateKey`, `sign`, `verify`, `encrypt`, `decrypt`, `deriveBits`, `deriveKey`, `wrapKey`, `unwrapKey` |
+| structuredClone | ✅ Basic | @ungap/structured-clone with Blob/File wrapper |
+| navigator | ✅ Stub | userAgent, platform |
+| Symbol.dispose / asyncDispose | ✅ Full | Symbol.for polyfill |
+
+### Node.js globals (ModuleBootstrap)
+
+| Global | Status |
+|--------|--------|
+| global / self | ✅ Alias for globalThis |
+| performance | ✅ now(), timeOrigin |
+| URL / URLSearchParams | ✅ Full parser + setters |
+| TextEncoder / TextDecoder | ✅ UTF-8 + utf-16le/be + windows-1252 |
+| atob / btoa | ✅ Base64 |
+| AbortController / AbortSignal | ✅ Full + `AbortSignal.any()` |
+| DOMException | ✅ Basic |
+| console | ✅ Full (→ output stream) |
+| process | ✅ Extended (argv, env, cwd, exit, stdin, stdout, stderr, on/emit, execArgv, hrtime, etc.) |
+| queueMicrotask | ✅ Promise-based |
+| setTimeout / setInterval / setImmediate | ✅ NIO EventLoop-backed |
+| fetch / Headers / Request / Response | ✅ URLSession-backed streaming |
+| Buffer | ✅ Uint8Array-based |
+| require() | ✅ Built-ins + plain `node_modules` CommonJS loader |
+
+### Node.js modules (require)
+
+| Module | Status | Notes |
+|--------|--------|-------|
+| node:path | ✅ Implemented | Full POSIX path API |
+| node:buffer | ✅ Implemented | Uint8Array-based Buffer |
+| node:url | ✅ Implemented | URL/URLSearchParams |
+| node:util | ✅ Implemented | format, promisify, debuglog, types, `isDeepStrictEqual` |
+| node:os | ✅ Implemented | ProcessInfo-backed (homedir, platform, tmpdir, version) |
+| node:fs | ✅ Implemented | FileManager-backed (sync: readFile, writeFile, exists, stat, lstat, mkdir, readdir, unlink, rename, realpath, access, chmod, copyFile; promises: readFile, writeFile, stat, lstat, access, mkdir, readdir, unlink, rename, realpath, chmod, rm, copyFile, open) |
+| node:crypto | ✅ Implemented | Hash/HMAC/random APIs plus `createPrivateKey` |
+| node:http / node:https | ✅ Implemented | URLSession-backed client APIs plus minimal `createServer` |
+| node:stream | ✅ Implemented | Readable, Writable, Transform, Duplex, EventEmitter |
+| node:events | ✅ Implemented | EventEmitter (constructor, supports extends) |
+| node:timers | ✅ Implemented | NIO EventLoop-backed |
+| node:timers/promises | ✅ Implemented | Promise-wrapped timers |
+| node:module | ✅ Basic | createRequire + builtinModules + _resolveFilename for CommonJS packages |
+| node:process | ✅ Implemented | Full process object |
+| node:async_hooks | ⚠️ Partial | AsyncLocalStorage plus minimal `AsyncResource` |
+| node:readline | ✅ Basic | createInterface, question, line events, async iterator |
+| node:tty | ✅ Basic | non-TTY ReadStream/WriteStream shape |
+| node:assert | ✅ Basic | ok/equality/deepEqual/throws/rejects/ifError |
+| node:child_process | ⚠️ Limited | No general subprocess execution. Native bridges may emulate specific commands. |
+| node:net | ✅ Basic | plain TCP `createServer`, `connect`, `createConnection` |
+| node:tls | ⚠️ Stub | Throws |
+| node:zlib | ⚠️ Partial | gzip/deflate/inflate/raw/unzip/brotli sync + callback + promise + transform APIs |
+| node:dns | ⚠️ Basic | `lookup` |
+| node:http2 | ⚠️ Stub | Throws |
+| node:v8 | ⚠️ Basic | `getHeapSpaceStatistics` shape |
+| node:inspector | ⚠️ Stub | No-op |
+| node:worker_threads | ⚠️ Stub | Throws |
+| node:diagnostics_channel | ✅ Basic | channel subscribe/publish/unsubscribe |
+| node:perf_hooks | ✅ Basic | performance export + PerformanceObserver shape |
+| node:stream/consumers | ✅ Implemented | buffer/text/json/arrayBuffer |
+| node:stream/promises | ✅ Implemented | pipeline, finished |
+| path/posix | ✅ Implemented | Alias of path POSIX implementation |
+| path/win32 | ⚠️ Stub | Not applicable on iOS/macOS |
+
+### Known limitations
+
+- `process.exit()` throws a frozen sentinel object to unwind the JS stack. If JS code catches this, the exit may be suppressed.
+- `node:child_process` does not provide general subprocess execution. Add a native bridge for any required host capability.
+- `node:net` is implemented for plain TCP. `node:tls` remains unsupported.
+- `crypto.getRandomValues` uses `Math.random()`, not cryptographically secure. CryptoKit-backed `node:crypto` provides secure alternatives via `require('crypto')`.
+- `Bun.serve()` is not supported.
+- `WebSocket` is client-only. Text/binary messaging, headers, subprotocol negotiation, close events, ping/pong, and process-mode keep-alive are supported, but `proxy` and custom `tls` options are currently accepted and ignored, and there is no server-side WebSocket API.
+- `crypto.subtle` currently implements `digest`, `importKey`, `exportKey`, `generateKey`, `sign`, `verify`, `encrypt`, `decrypt`, `deriveBits`, `deriveKey`, `wrapKey`, and `unwrapKey` for HMAC, AES-GCM, PBKDF2, HKDF, and imported asymmetric signing keys. It is still a subset of the Web Crypto surface.
+- `node:zlib` currently covers gzip/deflate/inflate/raw/unzip/brotli sync APIs, callback APIs, promise APIs, and transform constructors. It remains a compatibility subset rather than full Node parity.
+- `node:dns` currently exposes `lookup` only.
+- `http.createServer` is intentionally minimal and targeted at local callback/server workflows.
+
+### Streams: stdout vs output
+
+Two separate `AsyncStream<String>` channels:
+
+- **`stdout`** — `process.stdout.write()` output. Application data channel (e.g. NDJSON protocol messages).
+- **`output`** — `console.log/error/warn` output. Diagnostic channel with level prefixes (`[log] ...`, `[error] ...`).
+
+### Timer bridge (NIO-backed)
+
+`BunProcess` replaces JSCore's built-in `setTimeout`/`setInterval` with NIO `scheduleTask`:
+
+```
+JS: setTimeout(fn, 100) → ref() → eventLoop.scheduleTask → callback → unref()
+```
+
+Each pending timer/fetch/stdin listener holds a ref. When refCount drops to 0, the process exits naturally (like Node.js).
+
+### Fetch bridge (thread-safe)
+
+`__nativeFetchStream` uses a streaming `URLSession` bridge. Header, chunk, completion, and error events marshal back to the EventLoop thread via `eventLoop.execute {}` before touching any JSValue.
+
+### Native bridges pattern
+
+Modules needing system APIs use `@convention(block)` closures registered on JSContext:
+
+- **NodeFS**: `__fsReadFileSync` etc. → `FileManager`
+- **NodeCrypto**: `__cryptoSHA256` etc. → `CryptoKit`
+- **NodeHTTP**: `__nativeFetchStream` + `__http*` bridges → `URLSession` / NIO (EventLoop-safe)
+- **NodeOS**: `__osHostname` etc. → `ProcessInfo`
+
+---
+> Source: [1amageek/swift-bun](https://github.com/1amageek/swift-bun) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
