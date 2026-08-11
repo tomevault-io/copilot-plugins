@@ -1,0 +1,9 @@
+{
+  "name": "rkana-org--gfty",
+  "displayName": "gfty",
+  "description": "A CLI tool to manage gridfinity configurations for baseplates, bins, detachable labels and rims. Includes a multi-color label generator with SVG support, and automatic exports from onshape",
+  "version": "1.0.0",
+  "author": "rkana-org",
+  "homepage": "https://github.com/rkana-org/gfty",
+  "skills": []
+}
