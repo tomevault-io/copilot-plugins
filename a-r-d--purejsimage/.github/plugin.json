@@ -1,0 +1,9 @@
+{
+  "name": "a-r-d--purejsimage",
+  "displayName": "PureJsImage",
+  "description": "Low-memory, zero-dependency image codecs and processing in pure TypeScript for Node.js, browsers, and serverless runtimes. Bounded decode/resize pipelines plus deep TIFF, scientific raster, GeoTIFF, O",
+  "version": "1.0.0",
+  "author": "a-r-d",
+  "homepage": "https://github.com/a-r-d/PureJsImage",
+  "skills": []
+}
