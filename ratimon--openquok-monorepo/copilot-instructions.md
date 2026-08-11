@@ -1,379 +1,71 @@
-## add-social-provider-integration
+## agent-cli
 
-> Checklist for adding a social channel — backend provider + web composer/OAuth + docs + self-host env + public SEO landing page + agent channel SEO routes + public Photo Editor channel routes + public Best Time to Post channel routes + feature bento showcases + Extensions Hub listing tags
+> How to add or change the openquok CLI (yargs, agent/src/api.ts, JSON output, docs). Apply when editing agent/ or CLI-related docs.
 
 
-# Adding a social provider
+# Agent CLI (`openquok`)
 
-Ship **backend + web + docs + self-host env + public channel landing page + agent channel SEO routes + public Photo Editor channel routes + public Best Time to Post channel routes + feature bento showcases + Extensions Hub listing tag** in one change. Reference implementations: **Threads** (single-step OAuth), **Instagram (Business)** (Page picker + compose settings), **Facebook Page** (Meta OAuth + link-preview settings). Public landing + bento references: **facebook**, **threads** in `publicChannelConfig.ts` and `web/src/lib/ui/templates/bento/minor-templates/`. Agent channel SEO references: **facebook** at `/agents/openclaw/facebook`. Photo Editor channel references: **facebook**, **instagram** at `/tools/photo-editor/{slug}`. Best Time to Post references: **tiktok**, **linkedin** at `/tools/best-time-to-post/{slug}`; benchmark tables in `web/src/lib/best-time-to-post/constants/benchmarkSlots.ts`. Listing tag + group reference: `backend/supabase/db/listing-tags/502_20260629_seed.sql`. Full guide: `web/src/content/docs/developer-guidelines/add-provider.md`.
+The programmatic CLI lives in `agent/`, published as `@openquok/auto-cli`. It targets automation and agents: **stdout is JSON** for machine parsing; errors go through the shared JSON error printer.
 
-## Identifier contract
+## Layout
 
-Use one kebab-case slug everywhere: `provider.identifier`, DB `provider_identifier`, OAuth callback `/integration/oauth/{identifier}`, `getLaunchProviderConfig`, CLI filters, docs filenames, **`publicChannelConfig` `slug` / `platformId`**, **`listing_tags.slug`**, `/channels/{slug}`, **`/tools/best-time-to-post/{slug}`**, **`/tools/photo-editor/{slug}`**, and **`/agents/{agentSlug}/{slug}`** (agent channel SEO). Do not fork slugs between layers. When `platformId` differs from the marketing slug (rare), still key **`benchmarkSlots.ts` `PLATFORM_WINDOWS`** by every identifier the calculator can pass (`platformSlug` from channel config / platform select).
+- **Entry** — `agent/src/index.ts`: `scriptName("openquok")`, `.strict()`, `.fail` → `printErrorJson`, `stripNpmRunArgvPassthrough` so `pnpm … cli -- <args>` works (leading `--` would otherwise confuse yargs). Global `--help` text uses `.help("help", "…")` (second argument is the description yargs prints in the Options table).
+- **HTTP client** — `agent/src/api.ts` (`OpenquokApi`): JSON helpers and multipart where needed. Only add methods for routes the CLI actually calls (see `public-api-surface-sync`).
+- **Commands** — `agent/src/commands/*.ts`: each file exports `registerXCommands: RegisterCommands` chaining `.command(...)` onto the shared `Argv`.
+- **Registration** — `agent/src/commands/index.ts` calls each `register*` in a stable order; new domains get a new module plus one line here.
+- **Shared types** — `agent/src/commands/types.ts` (`CommandContext`, `RegisterCommands`).
+- **Helpers** — `agent/src/commands/utils.ts` (`runCommand`, `requireArg`, `parseJsonMaybe`, `toArrayFromCsv`, …). Wrap handlers in `runCommand("<name>", async () => { … })` so failures carry the command name.
+- **Pure logic** — When a command grows non-trivial (flag normalization, JSON shaping, provider merge rules), move deterministic helpers into a colocated `*.logic.ts` module and cover them with Vitest (`*.test.ts`).
 
-## Backend (required)
+## Unit tests (Vitest)
 
-1. **`SocialProvider` class** — `backend/integrations/providers/{id}/` implementing `social.integrations.interface.ts`: OAuth (`generateAuthUrl`, `authenticate`), `post`, `maxLength`, scopes. Split publish logic into helpers (e.g. `*GraphPublish.ts`) when non-trivial.
-2. **Register** — add `new YourProvider()` in `backend/integrations/integrationManager.ts` (no new REST routes).
-3. **Config** — secrets only via `config.integrations.*` in `GlobalConfig.ts` + `.env.development.example`. Also add the same empty keys to **`infra/self-host/.env.example`** (Social provider apps section) so self-host operators get the vars. Redirect URI: `oauthFrontendOrigin()` + `oauthFrontendSocialCallbackPath(identifier)`.
-4. **Between-steps OAuth** — when `isBetweenSteps: true`: implement `pages()` + `fetchPageInformation()`; extend `IntegrationConnectionService.saveProviderPageForOrganization` / `preservesUserTokenForRefresh` if user token must stay in `refresh_token` (Meta Page pattern).
-5. **Provider settings at publish** — read from `postDetails.settings.providerSettings`. Accept **flat CLI keys** and **nested web buckets** (e.g. `providerSettings.url` and `providerSettings.facebook.url`). Export a resolver + unit tests beside publish helpers.
-6. **Tests** — unit tests for OAuth edge cases, publish payload shaping, and connection save when behavior differs.
+- **Location** — `agent/src/**/*.test.ts` (e.g. `posts.logic.test.ts` exercises `posts.logic.ts`).
+- **Scope** — Prefer testing **pure functions** (payload builders, parsers, merge rules). Keep handlers thin and push deterministic shaping into `*.logic.ts` so unit tests stay fast.
 
-## Extensions Hub listing tags (required for social channels)
+## End-to-end CLI tests (Vitest)
 
-The public **Extensions Hub** (`/extensions`) filters skills and MCP listings by **tag** and **tag group**. Each social channel needs a matching `listing_tags` row and group associations so hub filters stay aligned with shipped providers.
+- **Location** — `agent/tests/e2e/**/*.e2e.test.ts` (included from `agent/vitest.config.mjs`).
+- **Style** — Scenario-based: build an `argv` string list the same order a user would pass after `openquok`, set `HOME` to a temp dir when touching credentials paths, point `OPENQUOK_API_URL` at a local stub server, then assert HTTP bodies + JSON stdout. Prefer filenames that reflect surface + command (e.g. `threads.schedule.post.e2e.test.ts`, `instagram.upload.e2e.test.ts`). Use `@faker-js/faker` for UUIDs and sample strings when values only need to be stable within the test.
+- **Runner** — Same as unit tests: `agent/run-vitest.mjs` spawns **`node web/node_modules/vitest/vitest.mjs`** from the repo root with `--config agent/vitest.config.mjs` (Vitest stays a `web` devDependency; no extra lockfile entry in `agent/`). It intentionally does **not** run `pnpm --filter ./web exec vitest`, because `pnpm agent:test` is already under pnpm and a second `pnpm exec` can **deadlock** on the store lock. **Do not** spawn nested `pnpm --filter ./agent exec …` from inside a test either. The e2e harness runs the **bundled** CLI (`node agent/dist/index.js`) via **async `spawn`** with **`stdio: ['ignore','pipe','pipe']`** — `spawnSync` inside Vitest workers has been observed to hang; default stdin pipes can also block CLIs that read stdin. If `dist/` is absent, the harness runs **`node agent/node_modules/tsup/dist/cli-default.js`** once (stdio ignored) instead of `pnpm exec tsup`.
+- **Commands** — `pnpm agent:test` (unit + e2e), `pnpm agent:test:unit`, `pnpm agent:test:e2e`; watch: `pnpm --filter ./agent test:watch`.
 
-Follow **backend-migrations-naming** (`listing-tags_<YYYYMMDD>_seed.sql` under `backend/supabase/db/listing-tags/`). Re-aggregate migrations after seed changes.
+## Yargs conventions
 
-| Artifact | Path / action |
-| --- | --- |
-| Channel tag row | New `INSERT` in `backend/supabase/db/listing-tags/501_*.sql` (or a later `501`-tier seed if `501` already shipped) |
-| Group associations | `backend/supabase/db/listing-tags/502_*.sql` — append rows to `listing_tag_groups_listing_tags_association` with slug comments (see existing file) |
-| Slug + name | `slug` = `provider.identifier`; `name` = human label (e.g. `Facebook`, `X`) |
-| Description | One neutral sentence on what the channel integration covers (no third-party attribution) |
-| Stable UUID | New `d5f7c000-0000-4000-a000-…` id; never reuse or reassign ids |
+- **Command names** — Use `group:verb` (e.g. `posts:create`, `integrations:list`). Match what users type; keep names stable once shipped.
+- **Examples** — Use `$0` in `.example()` strings so help text shows the correct binary name.
+- **Validation** — Prefer `.check((argv) => { … })` when rules involve multiple flags (e.g. “`--json` path OR (`--scheduledAt` + integrations + body)”). Avoid impossible combinations of `demandOption` on mutually exclusive paths.
+- **Aliases** — Offer short flags (`-c`, `-s`, `-i`, …) **and** long names that align with the public API / SDK where it helps scripts and docs stay consistent.
+- **Types** — Use explicit `choices` for enums that map to the API (e.g. `draft` | `scheduled`). If the CLI accepts a synonym (e.g. `schedule` → `scheduled`), normalize in the handler, not in the API request.
+- **Arrays** — For “repeat this flag” behavior, use `type: "string", array: true` (or equivalent) and normalize to `string[]` in code; document pairing order in `describe` / examples.
+- **Kebab-case options** — When matching common CLI spelling (e.g. `--release-id`), expose alongside camelCase if yargs normalizes; read both in the handler if needed.
 
-### Tag groups (social channels only)
+## Behavior and UX
 
-A channel tag usually belongs to **Social platforms** plus one or more **content-type** groups. Tags may belong to multiple groups. Group ids and membership rules live in `502_*.sql` — keep the overview comment block there up to date.
+- **Output** — Success paths should `printJson(…)` only; do not mix prose and JSON on stdout.
+- **Side effects** — Auth and uploads are the main exceptions; still end with JSON when possible.
+- **Config** — Respect `getConfig()`, credentials precedence (`readCredentialsFile` vs `OPENQUOK_API_KEY`), and `OPENQUOK_API_URL` as implemented in `agent/src/config.ts` and `index.ts`.
 
-| Group | When to add the channel tag |
-| --- | --- |
-| **Social platforms** | **Always** — every social channel tag |
-| **Videos** | Video-first publish (e.g. YouTube, TikTok) |
-| **Photos** | Image-first feed workflows (e.g. Instagram, Facebook Page photos) |
-| **Text** | Text and microblog channels (e.g. Threads, LinkedIn, X) |
+## Docs that mention the CLI
 
-Agent / MCP tags (OpenClaw, Cursor, Codex, …) are **not** part of this checklist — only add those when shipping agent or MCP catalog entries, not when adding a social provider.
+- **Paths** — `web/src/content/docs/cli-usages/`, `cli-examples/`, `getting-started-for-cli/`, and `agent/README.md` / `agent/skills/*/SKILL.md`.
+- **MDX** — Follow `docs-conventions`. Inside HTML tables and `<Badge text="…">`, avoid **curly/smart quotes** and avoid **nested `"` inside attributes** that confuse the Svelte/MDX compiler. Prefer splitting labels (`<Badge text="-m" />` + `<Badge text="--media" />`) or describe JSON shapes in prose with separate `<code>` spans instead of a single `[{"id","path"}]`-style literal in one cell.
+- **Neutrality** — Follow `source-project-neutrality`: do not name or link other products as the “source” of the CLI design; describe flags and behavior in first-party terms.
 
-### Listing associations
+## Checklist when adding a command
 
-When **openquok-core** (or another seed listing) should expose every catalog tag, `backend/supabase/db/listings/502_*.sql` uses a `CROSS JOIN` on `listing_tags` — new channel tags are picked up automatically after migrations run. For other listings, update `listing_tag_slugs` and `listings_listing_tags_association` explicitly.
+1. Implement handler in the right `agent/src/commands/<domain>.ts` (or new file + `index.ts` import).
+2. Add or extend `OpenquokApi` only if this command calls a new HTTP surface.
+3. Add `.example()` lines for the common cases.
+4. Update `agent/README.md` (and smoke-test lists in `development-environment.md` if they enumerate commands).
+5. Update on-site CLI docs under `web/src/content/docs/cli-*/` when user-facing flags or workflows change — add or extend `cli-usages/<topic>.md` and the `cli-usages/index.md` `CardGrid` (e.g. `plugs.md` for `plugs:*` commands).
+6. When the command wraps a **new public API route**, complete the full **`public-api-surface-sync.mdc`** checklist (Swagger JSDoc, `apis-*` page, SDK if applicable) in the same PR — do not defer docs.
 
-### Seed edit checklist
+## Publishing
 
-1. Insert `listing_tags` row (`ON CONFLICT (id) DO NOTHING`).
-2. Add association to **Social platforms** (`listing_tag_group_id` …`000002`).
-3. Add **Videos** / **Photos** / **Text** associations when the provider fits (see table above).
-4. Comment each association line with `-- {slug}` and update the group header comment listing member slugs.
-5. If the provider is live (`available: true` on the channel landing), ship the tag in the **same PR** as the integration — do not leave hub filters missing a channel users can connect.
-
-Hub UI: `web/src/routes/(public)/extensions/+page.svelte` + `ExtensionsTagFilter.svelte` (no per-provider page changes when only seed data changes).
-
-## Web (composer + connect)
-
-Connect catalog is backend-driven; composer wiring is **opt-in per provider**.
-
-1. **Launch config** — `web/src/lib/ui/components/posts/providers/{id}/{id}.provider.ts` (`LaunchProviderConfig`: limits, `postComment`, optional `checkValidity` / `checkValidityAsync`). Register in `providers/index.ts` → `getLaunchProviderConfig`.
-2. **Preview** — `{id}Preview.svelte` + branch in `ShowAllProviders.svelte`.
-3. **OAuth Page picker** (when `isBetweenSteps`) — config in `web/src/lib/integrations/continue-provider/{id}.ts`, register in `continue-provider/index.ts`; reuse `IntegrationContinue.svelte` + `ContinueIntegration.presenter.svelte.ts` + `ContinueProviderPicker.svelte`.
-4. **Compose settings** (optional) — `{id}Settings.svelte`; wire provider branch in `SettingsAccordion.svelte`; emit **only that provider’s bucket** (do not write unrelated `threads` / `instagram` defaults). Add types/helpers in `provider.types.ts` and `{id}.provider.ts`.
-5. **Labels** — `web/src/data/social-providers.ts` when the slug is new.
-
-Keep composer validation aligned with backend publish rules (`checkValidity` ↔ `validateCreatePost` / publish helper constraints).
-
-## Public channel landing page (SEO marketing)
-
-Routes and UI are **generic** — adding a channel is a **catalog entry only** (no new `+page` files per slug).
-
-| Artifact | Path / URL |
-| --- | --- |
-| Content catalog | `web/src/lib/content/constants/publicChannelConfig.ts` |
-| Route helpers | `web/src/lib/area-public/constants/getRootPathPublicChannels.ts` (`channels`, `channels/{slug}`) |
-| Hub route | `/channels` — `web/src/routes/(public)/channels/+page.server.ts` lists `listPublicChannelsForHub()` |
-| Detail route | `/channels/{slug}` — `web/src/routes/(public)/channels/[slug]/+page.server.ts` resolves `getPublicChannelBySlug(slug)` (404 when missing); `available: false` renders a coming-soon hero plus the full landing sections below |
-| Page route | `web/src/routes/(public)/channels/[slug]/+page.svelte` — live hero (`PublicChannelHero`) or coming-soon hero (`PublicComingSoonIntegrationPage` with `heroOnly`) |
-| Hub grid | `web/src/lib/ui/templates/landing-page/PublicChannelsHubGrid.svelte` |
-| Hero (live) | `web/src/lib/ui/templates/landing-page/PublicChannelHero.svelte` |
-| Hero (coming soon) | `web/src/lib/ui/templates/landing-page/PublicComingSoonIntegrationPage.svelte` |
-
-Navbar/footer link to `/channels` is already in `web/src/lib/config/constants/config.ts`; **do not add per-channel nav entries**.
-
-### Catalog entry (`PublicChannelLandingPageViewModel`)
-
-Add a constant in `publicChannelConfig.ts` and append it to `PUBLIC_CHANNEL_LANDING_PAGES` (before or instead of a coming-soon stub).
-
-| Field | Rule |
-| --- | --- |
-| `slug`, `platformId` | Same kebab-case slug as `provider.identifier` |
-| `platformLabel` | Human-readable name (e.g. `Facebook`, `X`) |
-| `icon` | `icons.{Provider}.name` from `$data/icons` |
-| `heroTitle`, `heroDescription` | Platform-specific H1 and lead copy |
-| `metaTitle`, `metaDescription`, `keywords` | SEO; title becomes `{metaTitle} \| {companyName}` on the page |
-| `featureSections` | **3 sections** typical: subtitle, title, description, `bentoId` (preferred), `mediaOnRight` (alternate left/right). See **Feature bento showcases** below — do **not** ship go-live pages with generic `/landing/*.mp4` placeholders when the provider has a bento set. |
-| `faqSubtitle`, `faqTitle`, `faqDescription`, `faqItems` | Channel-specific FAQ; JSON-LD `FAQPage` is generated in `+page.server.ts` |
-| `docsPath` | Setup guide path, e.g. `/docs/social-integration/{id}` — must match the doc you ship |
-| `available` | `true` when Skill Builder / Photo Editor channel routes and live hero CTAs should ship; `false` for **Soon** badges on hub/nav and a coming-soon hero on `/channels/{slug}` and `/agents/{agentSlug}/{slug}` (full landing sections still render) |
-
-**Coming soon (provider not ready):** add a full catalog entry in `web/src/lib/content/constants/channels/{slug}.ts` with `available: false` (or append a minimal stub to `COMING_SOON_CHANNELS` in `channels/index.ts` before the full file exists). Hub and header show a **Soon** badge; `/channels/{slug}` and agent channel pages use `PublicComingSoonIntegrationPage` (`heroOnly`) for the hero and omit listings preview — all other sections still render from the catalog copy.
-
-**Go live:** flip `available: true` (and ensure backend integration is registered). Ship **provider-specific bento showcases** for all three feature sections (see below). Copy must describe **only features already implemented** — do not oversell.
-
-### Landing copy voice (problem-first)
-
-Write `heroTitle`, `heroDescription`, `featureSections`, `audienceCards`, and FAQ answers for **the person scheduling posts** — lead with the pain or outcome, not a settings checklist.
-
-| Prefer | Avoid |
-| --- | --- |
-| What the user struggles with or wants (reach, consistency, time saved, approval control) | Feature inventories (`privacy_level`, `providerSettings`, toggle names, API paths) |
-| Plain outcomes (“queue to your inbox, pick trending audio in the app”) |
-| Second person (“you”, “your posts”, “your workspace”) | Passive product specs (“supports X, Y, Z settings”) |
-
-**`featureSections` pattern:**
-
-- **`subtitle`** — user problem or job-to-be-done (e.g. `Trending audio`, `Bulk scheduling`), not an internal label (`Compose settings`).
-- **`title`** — outcome in **three comma-separated phrases**; `HeroWithLeftMedia` / `HeroWithRightMedia` split on `,` into separate lines. Each phrase must read cleanly on its own line — do not break mid-thought (e.g. `…TikTok, add the sound…` renders as `,add` on the next line).
-- **`description`** — problem → how OpenQuok helps → result; mention shipped workflow steps the bento shows.
-
-**Reference:** TikTok `featureSections[1]` in `publicChannelConfig.ts` — inbox drafts + manual trending audio for algorithm reach; bento still shows composer settings, but copy sells the user problem.
-
-**Audience cards** — who they are + what pain is solved (e.g. founders shipping product while TikTok runs), not role labels with feature lists.
-
-Agent skill files and setup docs stay **feature-accurate and terse** — do not paste landing marketing prose into `resources/{id}-examples.md` (see below).
-
-### Feature bento showcases (required at go-live)
-
-Each live `/channels/{slug}` page renders three feature rows via `HeroWithLeftMedia` / `HeroWithRightMedia`. When `featureSections[].bentoId` is set, the route renders `BentoPublicChannelFeature` instead of a static video (`web/src/routes/(public)/channels/[slug]/+page.svelte`).
-
-**When adding or go-live-ing a provider, implement bento for all three feature sections** — same bar as composer preview and analytics wiring. Reference **facebook** and **threads**.
-
-| Layer | Path / action |
-| --- | --- |
-| Bento ID union | Add `{slug}-…` literals to `web/src/lib/content/constants/publicChannelFeatureBentoConfig.ts` |
-| Router component | Branch in `web/src/lib/ui/templates/bento/minor-templates/BentoPublicChannelFeature.svelte` |
-| Catalog wiring | Set `bentoId` (not `imageSrc`) on each of the three `featureSections` in `publicChannelConfig.ts` |
-| Mock data | `web/src/lib/ui/templates/bento/minor-templates/{slug}/{slug}LandingMock.ts` (+ optional `{slug}LandingKanbanMock.ts`, `{slug}LandingAnalyticsMock.ts`) |
-| Preview panels | Reuse **real** product UI read-only: kanban (`KanbanBoardFilters` + `KanbanColumn`), composer (`PicksSocialsComponent`, `ShowAllProviders`, `SettingsAccordion` with `embedded`, provider settings), analytics (`RenderAnalyticsGrid` + metric seeds matching backend `analytics()`) |
-| Wrappers | `Bento{Provider}{Feature}.svelte` → `BentoCard` + `BentoGridOneCol` (mirror `BentoFacebookBulkScheduling.svelte`, `BentoThreadsMediaReplies.svelte`) |
-
-**Typical three-section themes** (pick what the provider actually ships):
-
-1. **Bulk scheduling** — kanban / calendar batching (`*-bulk-scheduling`).
-2. **Compose differentiator** — provider-specific composer or settings (`*-video-links`, `*-media-replies`, `{id}Settings` in `SettingsAccordion`, etc.).
-3. **Insights** — platform analytics dashboard (`*-insights`) when `SocialProvider.analytics()` is implemented; otherwise choose another shipped capability and still use a bento (do not fall back to generic MP4s at go-live).
-
-**Mock preview conventions:**
-
-- Outer wrapper: `pointer-events-none select-none`; pass `disabled={true}` / `noop` handlers so panels are visual-only.
-- Prefer `SettingsAccordion` with `embedded` and `open={true}` for settings previews (see `BentoFacebookSettingsPreview.svelte`, `BentoThreadsComposerPreview.svelte`).
-- Keep landing mocks **short**: `ThreadRepliesEditor` → `hideProviderHelp={true}`; nested editors → `compactEditor` / `SettingsAccordion` → `compactEditors`; limit mock reply rows to one when showing follow-ups.
-- Mock channel view models live beside previews (`CreateSocialPostChannelViewModel` with `identifier` matching the provider slug).
-- Feature copy (title, description, FAQ) must match what the bento demonstrates.
-
-**Do not** use competitor landing pages as a feature checklist; document only OpenQuok behavior.
-
-### CTA (detail pages)
-
-Use **one CTA label everywhere**, matching `web/src/lib/ui/templates/LandingPage.svelte`:
-
-- **Text:** `Get Started For Free`
-- **Href:** `/pricing`
-
-Wire through `web/src/routes/(public)/channels/[slug]/+page.svelte` (`publicChannelByPagePresenter.secondaryCtaText` / `secondaryCtaHref`) into the live hero and every feature section. **Do not** add login-dependent CTAs (`Start for $0`, `Open workspace`), a secondary “Setup guide” button, or a bottom CTA block.
-
-### Load / page conventions
-
-- `+page.server.ts` files own SSR, meta tags (`createMetaData`), and JSON-LD schema.
-- `+page.ts` follows the universal load pattern (`await parent()`, merge `isLoggedIn` / roles on the client branch). See **web-sveltekit-universal-page-load**.
-- `+page.svelte` exposes load fields via `$derived(data.*)` and owns the page markup (no separate `*Page.svelte` wrapper).
-
-## Docs and agent resources (user-facing providers)
-
-| Artifact | Path |
-| --- | --- |
-| Setup guide | `web/src/content/docs/social-integration/{id}.md` + `index.md` LinkCard |
-| CLI examples (human docs) | `web/src/content/docs/cli-examples/{id}.md` |
-| Self-host env template | `infra/self-host/.env.example` — add `{PROVIDER}_*` / `{PROVIDER}_*_SECRET` (or the keys `GlobalConfig` expects) under **Social provider apps** |
-| Self-host install docs | `web/src/content/docs/installation/docker-compose.md` — add the new ID/secret pair to **Optional: Social provider apps** (and keep Related / in-section LinkCard to `/docs/social-integration`) |
-| Agent skill index | `agent/skills/openquok-core/SKILL.md` — add row under **Channels** with user-intent summary + link to `{id}-examples.md` |
-| Agent per-channel file | `agent/skills/openquok-core/resources/{id}-examples.md` (slug = `provider.identifier`; e.g. `facebook`, `threads`, `instagram-business`) |
-| Agent settings hub | `agent/skills/openquok-core/resources/provider-settings.md` — update when merge semantics or cross-channel setting patterns change |
-| Agent workflows | `agent/skills/openquok-core/resources/patterns.md`, `command-reference.md` |
-
-### Agent skill file (`resources/{id}-examples.md`)
-
-Required sections (see **agent-skill** rule): **Supported features**, **Agent tasks** (user intent → section), **Provider settings**, then **Recipes**. Document only shipped capabilities — align with backend publish helpers and composer settings the API persists (`providerSettingsByIntegrationId`), not marketing-only claims from the landing catalog.
-
-- **Flat CLI keys** where the backend resolver accepts them (e.g. Facebook `url`, Instagram `post_type`).
-- **Nested API buckets** the worker reads at publish time (e.g. `threads.replies`, `instagram.replies`) in `--providerSettingsByIntegrationId` examples.
-- **Do not** paste `publicChannelConfig` hero/feature marketing prose into agent files; reuse the same facts in terse tables.
-- Optional: `{id}-publish.md` under `resources/` when agents need server-side publish/debug detail (pattern: `threads-publish.md`).
-
-Follow **docs-conventions**, **agent-skill**, and **source-project-neutrality** (no third-party repo names in code or docs).
-
-## Programmatic Skill Builder SEO (channel routes)
-
-Ship channel-specific Skill Builder pages alongside the generic tool when a social provider is live (`available: true` on `publicChannelConfig`).
-
-| Artifact | Path / URL |
-| --- | --- |
-| Generic builder (all channels) | `/tools/skill-builder` — no channel slug; default starter workflow |
-| Channel builder | `/tools/skill-builder/{channelSlug}` — `{channelSlug}` matches `publicChannelConfig.slug` / `provider.identifier` where they align (e.g. `facebook`, `threads`) |
-| Channel catalog | `web/src/lib/skill-builder/constants/publicSkillBuilderChannelConfig.ts` — recipes, SEO meta, CLI example payloads (aligned with `agent/skills/openquok-core/resources/examples/*.json`) |
-| Example payloads | `web/src/lib/skill-builder/constants/skillBuilderChannelExamplePayloads.ts` |
-| Workflow builder | `web/src/lib/skill-builder/utils/buildChannelSkillBuilderWorkflowSteps.ts` |
-| Shared page UI | `web/src/lib/ui/templates/skill-builder/SkillBuilderToolPage.svelte` |
-| Channel hub grid | `web/src/lib/ui/components/skill-builder/SkillBuilderChannelHubGrid.svelte` — grid on generic and channel builder pages |
-| Route helper | `getRootPathPublicSkillBuilderChannel(slug)` in `getRootPathPublicTools.ts` |
-| Tools hub entry | `SkillBuilderHubToolCard.svelte` on `/tools` — `ShiftingTabDropdown` with **For all** vs **By channel** tabs |
-
-### Catalog entry (`publicSkillBuilderChannelConfig`)
-
-When adding or go-live-ing a provider that already has CLI examples:
-
-1. Add `CHANNEL_PROVIDER_IDENTIFIERS` jq filter ids (match `integrations:list` identifiers).
-2. Add `CHANNEL_RECIPES` rows with `posts:create` example payloads copied from agent JSON examples (or inline when no JSON file exists).
-3. Hub links are derived from `listAvailablePublicChannels()` — new live channels appear automatically after recipes exist.
-4. Set `cliExamplesPath` to `/docs/cli-examples/{slug}` (must match shipped human docs).
-
-Channel pages 404 when the slug is missing from `publicChannelConfig` or `available: false`.
-
-## Programmatic Photo Editor SEO (channel routes)
-
-Ship channel-specific Photo Editor pages alongside the generic tool when a social provider is live (`available: true` on `publicChannelConfig`). Routes are **generic** — channel pages are **auto-derived** from the live channel catalog (no new `+page` files per slug).
-
-| Artifact | Path / URL |
-| --- | --- |
-| Generic editor (all channels) | `/tools/photo-editor` — neutral default aspect (`DEFAULT_ASPECT_RATIO_ID`, General tab) |
-| Channel editor | `/tools/photo-editor/{channelSlug}` — `{channelSlug}` matches `publicChannelConfig.slug` / `provider.identifier` (e.g. `facebook`, `threads`) |
-| Channel catalog | `web/src/lib/canvas/constants/publicCanvasChannelConfig.ts` — built from `listAvailablePublicChannels()` + aspect helpers |
-| Page presenter | `web/src/lib/area-public/PublicPhotoEditorPage.presenter.svelte.ts` — generic vs channel view model |
-| Shared page UI | `web/src/lib/ui/templates/photo-editor/PhotoEditorToolPage.svelte` |
-| Channel hub grid | `web/src/lib/ui/components/photo-editor/PhotoEditorChannelHubGrid.svelte` — grid on generic and channel editor pages |
-| Route helpers | `getRootPathPublicPhotoEditor()` and `getRootPathPublicPhotoEditorChannel(slug)` in `getRootPathPublicTools.ts` |
-| Tools hub entry | `ChannelHubToolCard` on `/tools` — `ShiftingTabDropdown` with **For all** vs **By channel** tabs (`listCanvasChannelsForHub()`) |
-
-### Auto-derived (no per-provider route files)
-
-- Channel pages at `/tools/photo-editor/{channelSlug}` via generic route + `publicCanvasChannelConfig.ts` (built from `listAvailablePublicChannels()`).
-- Tools hub channel picker via `listCanvasChannelsForHub()`.
-- SEO meta defaults from channel `platformLabel` + merged `keywords` from `publicChannelConfig`.
-
-Channel pages 404 when the slug is missing from `publicChannelConfig` or `available: false`.
-
-### Manual updates when shipping a new provider
-
-When go-live-ing a provider, update aspect-ratio presets **before or with** the integration so channel pages open on platform-specific formats (not General fallbacks).
-
-| Artifact | Path / action |
-| --- | --- |
-| Platform presets | `web/src/lib/ui/canvas-editor/utils/aspectRatioPresets.ts` — add `{platform}-*` preset rows with `exportWidth` / `exportHeight` / hints |
-| Platform group tab | `ASPECT_RATIO_PLATFORM_GROUPS` — add or extend a group with ordered `presetIds` for the picker tab |
-| Provider → group map | `aspectPlatformGroupIdForProviderIdentifier(...)` — map `provider.identifier` (and aliases like `instagram-business` → `instagram`) to the group id |
-| Channel catalog | `publicChannelConfig.ts` — `available: true` (already required); slug must match `provider.identifier` |
-
-**Note:** If a provider has no dedicated aspect group yet, the channel page still appears but falls back to General presets — ship platform-specific presets before or with go-live for a good UX. Channel pages default to the platform’s **first preset** in the group (via `defaultAspectRatioIdForComposer`), not General.
-
-## Programmatic Best Time to Post SEO (channel routes)
-
-Ship channel-specific **Best Time to Post** calculator pages alongside the generic tool when a social provider is live (`available: true` on `publicChannelConfig`). Routes are **generic** — channel pages are **mostly auto-derived** from the live channel catalog (no new `+page` files per slug). Slot **math** is **not** account analytics; it comes from static benchmark tables for controlled timing tests.
-
-| Artifact | Path / URL |
-| --- | --- |
-| Generic calculator (all channels) | `/tools/best-time-to-post` — platform picker from live channels; default platform in `DEFAULT_PLATFORM_SLUG` (`best-time-to-post.types.ts`) |
-| Channel calculator | `/tools/best-time-to-post/{channelSlug}` — `{channelSlug}` matches `publicChannelConfig.slug` (e.g. `tiktok`, `linkedin`) |
-| Benchmark windows (required for go-live quality) | `web/src/lib/best-time-to-post/constants/benchmarkSlots.ts` — `PLATFORM_WINDOWS` per slug; `DEFAULT_WINDOWS` fallback when a key is missing |
-| Last-reviewed date (public FAQ) | `BENCHMARK_SLOTS_LAST_REVIEWED` in `benchmarkSlots.ts` — bump when you add or refresh a platform table (`publicBestTimeToPostFaqConfig.ts` imports it) |
-| Channel SEO + hub cards | `web/src/lib/best-time-to-post/constants/publicBestTimeToPostChannelConfig.ts` — built from `listAvailablePublicChannels()` |
-| FAQ (generic + tailored channel copy) | `web/src/lib/best-time-to-post/constants/publicBestTimeToPostFaqConfig.ts` — channel pages get platform-specific answers via `buildBestTimeToPostFaqSection` |
-| Plan + calendar preview | `buildTimingTestPlan.ts`, `buildBestTimeCalendarPreview.ts` — audience timezone vs shown timezone; cadence rules documented in `benchmarkSlots.ts` module comment |
-| Shared page UI | `web/src/lib/ui/templates/best-time-to-post/BestTimeToPostToolPage.svelte`, `BestTimeToPostCalculatorPanel.svelte` |
-| Channel hub grid | `web/src/lib/ui/components/best-time-to-post/BestTimeToPostChannelHubGrid.svelte` — **By channel** on generic and channel pages |
-| Route helpers | `getRootPathPublicBestTimeToPost()` and `getRootPathPublicBestTimeToPostChannel(slug)` in `getRootPathPublicTools.ts` |
-
-### Auto-derived (no per-provider route files)
-
-- Channel pages at `/tools/best-time-to-post/{channelSlug}` via generic route + `publicBestTimeToPostChannelConfig.ts` (from `listAvailablePublicChannels()`).
-- Platform select options on the calculator use the same hub link list (`listBestTimeChannelsForHub()`).
-- SEO meta defaults from `platformLabel` + merged `keywords` from `publicChannelConfig`.
-- Channel FAQ tailors the first two items (benchmark vs analytics, where clock times come from) from `platformLabel`.
-
-Channel pages **404** when the slug is missing from `publicChannelConfig` or `available: false`.
-
-### Manual updates when shipping a new provider
-
-When go-live-ing a provider, add **platform-specific benchmark windows** in the **same PR** as `available: true`. Do not rely on `DEFAULT_WINDOWS` for a shipped channel unless you intentionally accept generic midweek afternoons until a dedicated table lands.
-
-| Artifact | Path / action |
-| --- | --- |
-| Platform window table | `benchmarkSlots.ts` — add `PLATFORM_WINDOWS['{slug}']` with seven `weekday` rows (1 = Mon … 7 = Sun), each with ordered `times` (first = primary for `3_per_week` Tue/Wed/Thu). Hours are **audience-local** clock times, not UTC. |
-| Identifier aliases | When composer / `platformId` uses a different key than the channel slug (e.g. `instagram-business`), duplicate or share the same `DayWindow[]` under both keys so the calculator never silently falls back. |
-| Research refresh | Update module comment themes as needed; set `BENCHMARK_SLOTS_LAST_REVIEWED` to the calendar date of the review. |
-| Hub card blurb (optional) | `publicBestTimeToPostChannelConfig.ts` — `CHANNEL_HUB_DESCRIPTIONS['{slug}']` for a sharper **By channel** card; otherwise a generic `${platformLabel} benchmark windows…` string is used. |
-
-**Cadence behavior** (do not reimplement in the provider PR — document slots accordingly):
-
-- `3_per_week` → Tuesday, Wednesday, Thursday only, **first** time in each day’s `times` array.
-- `daily` → all seven days, one slot per day (first time).
-- `2_per_day` / `3_per_day` → first two or three times per selected day.
-- Content type applies a small minute offset within the same local hour band (`CONTENT_TYPE_MINUTE_OFFSET`).
-
-The tool does **not** call integration APIs or read workspace analytics. Copy on the page and FAQ must stay aligned with that (benchmark timing **test plan**, not “your best hour”).
-
-## Programmatic Agent channel SEO (agent host routes)
-
-Ship platform-specific agent landing pages alongside the generic agent host page when a social provider is live (`available: true` on `publicChannelConfig`). Routes are **generic** — adding a channel is a **catalog + bento + CLI recipe update** (no new `+page` files per slug).
-
-| Artifact | Path / URL |
-| --- | --- |
-| Generic agent host (all platforms) | `/agents/openclaw`, `/agents/hermes` — multi-platform kanban bento (`agent-multi-platform-bulk-scheduling`) |
-| Agent channel page | `/agents/{agentSlug}/{channelSlug}` — e.g. `/agents/openclaw/facebook`; `{channelSlug}` matches `publicChannelConfig.slug` |
-| Supported agent slugs | Agent hosts (`openclaw`, `hermes`) and **all live MCP clients** (`claude-cowork`, `cursor`, `codex`, …) from `publicMcpConfig.ts` |
-| Channel catalog | `web/src/lib/content/constants/publicAgentChannelConfig.ts` — bento IDs, listing tag, SEO meta, CLI command reference |
-| Landing VM builder | `buildAgentChannelLandingVm.ts` (agent hosts) and `buildMcpChannelLandingVm.ts` (MCP clients) — merge base VM with platform copy and showcases |
-| Feature section overrides | `buildAgentsChannelFeatureSections.ts` — shared kanban/analytics bento + CLI or MCP prompt snippets |
-| CLI command reference | `web/src/lib/content/utils/buildAgentChannelCliCommandReference.ts` — per-platform commands aligned with `agent/skills/openquok-core/resources/{id}-examples.md` and `examples/*.json` |
-| Listings preview filter | `loadAgentListingsPreviewStateless({ listingTagSlug })` — playbooks + building blocks filtered by `listing_tags.slug` |
-| Presenter | `PublicAgentByPagePresenter.loadAgentChannelStateless(agentSlug, channelSlug)` |
-| Shared page UI | `web/src/lib/ui/templates/landing-page/PublicAgentLandingPage.svelte` and `PublicMcpLandingPage.svelte` — coming-soon channels pass `isChannelComingSoon` (hero swap + skip listings preview) |
-| Route helper | `getRootPathPublicAgentChannel(agentSlug, channelSlug)` in `getRootPathPublicAgents.ts` |
-| Route files | `web/src/routes/(public)/agents/[slug]/[channelSlug]/+page.server.ts` (+ `+page.ts`, `+page.svelte`) |
-
-MCP channel pages use **example prompts** (not CLI commands) in kanban/analytics feature rows. Generic MCP pages (`/agents/{mcpSlug}`) use the **multi-platform** kanban bento (`agent-multi-platform-bulk-scheduling`), same as generic agent host pages.
-
-Agent channel pages 404 only when the agent/MCP slug or channel slug is missing from the catalogs. `available: false` on the channel still resolves the route (coming-soon hero, no listings preview; MCP clients derive per-channel config via `getPublicAgentChannelBySlug`).
-
-Derived from the base agent host VM (`publicAgentConfig.ts`) plus `buildAgentChannelLandingVm` / `buildMcpChannelLandingVm`:
-
-| Section | Channel-specific behavior |
-| --- | --- |
-| Hero | `Schedule {Platform} from {AgentLabel} then you approve` |
-| Kanban feature row | Copy + bento from `publicChannelConfig.featureSections[1]` (compose/settings — same as `/channels/{slug}` section 2, e.g. Facebook **Video & links**) |
-| Analytics feature row | Copy + bento from `publicChannelConfig.featureSections[2]` (insights — same as `/channels/{slug}` section 3) |
-| Playbooks & Building Blocks | Filtered by `listingTagSlug` (= channel slug); see-all links → `/playbooks/tags/{slug}` and `/building-blocks/tags/{slug}` |
-| Command reference | Platform CLI table (agent hosts only) from `buildAgentChannelCliCommandReference` |
-| WhoIsFor | `audienceSubtitle`, `audienceTitle`, and `audienceCards` from `publicChannelConfig` (same as `/channels/{slug}`); subtitle/title include `{agentLabel}`; each card keeps platform copy and adds an agent/MCP hook via `buildAgentsChannelAudienceSection.ts` |
-| FAQ | Platform-focused titles and answers |
-
-Generic `/agents/openclaw` and generic MCP pages (e.g. `/agents/claude-cowork`) keep **social media** hero copy and the **multi-platform** kanban mock (`agentMultiPlatformKanbanMock.ts`). When go-live-ing a new provider, add a representative card there so generic agent and MCP pages reflect the expanded catalog.
-
-### Catalog entry (`publicAgentChannelConfig`)
-
-Configs for agent hosts are built from `listPublicChannelsForHub()` in `openclaw.ts` / `hermes.ts`; MCP clients resolve per-channel config at runtime in `agents/channels/index.ts`. A new live channel appears on agent channel routes automatically **after** bento showcases and CLI examples exist. When adding or go-live-ing a provider, also update:
-
-1. **`CHANNEL_PROVIDER_IDENTIFIERS`** in `publicAgentChannelConfig.ts` — jq filter ids (match `integrations:list` identifiers; mirror Skill Builder).
-2. **`KANBAN_BENTO_BY_CHANNEL`** and **`ANALYTICS_BENTO_BY_CHANNEL`** — map slug → `{slug}-bulk-scheduling` and `{slug}-insights` (requires bento IDs in `publicChannelFeatureBentoConfig.ts` and branches in `BentoPublicChannelFeature.svelte`; same bar as `/channels/{slug}`).
-3. **`CHANNEL_CLI_RECIPES`**, **`KANBAN_EXAMPLE_BY_CHANNEL`**, and **`kanbanMcpPrompts` / `analyticsMcpPrompts`** in `publicAgentChannelConfig.ts` / `buildAgentChannelCliCommandReference.ts` — CLI commands (agent hosts) and example prompts (MCP clients), aligned with `resources/{id}-examples.md` and `examples/*.json`.
-4. **`agentMultiPlatformKanbanMock.ts`** (optional but recommended) — one mock kanban card for the new platform on generic agent host pages.
-
-## PR self-check
-
-- Provider registered in `integrationManager.ts` and `getLaunchProviderConfig` (if composer support).
-- Redirect URI in platform console matches `/integration/oauth/{identifier}` exactly.
-- `providerSettings` shape documented for CLI (`providerSettingsByIntegrationId`) and resolved in backend publish code.
-- Unit tests added/updated for non-trivial paths.
-- **`publicChannelConfig`:** `slug` / `platformId` match `provider.identifier`; `docsPath` matches setup guide; `available` reflects ship state; **three `featureSections` use `bentoId`**, not generic `/landing/*.mp4`, at go-live.
-- **Feature bento:** IDs in `publicChannelFeatureBentoConfig.ts`; branches in `BentoPublicChannelFeature.svelte`; mock + preview Svelte under `bento/minor-templates/`; showcases match shipped features only.
-- **Landing page:** hero + 3 feature sections + FAQ filled; **copy is problem-first and user-facing** (not feature/spec lists); feature `title` uses three comma-separated phrases; CTAs are only `Get Started For Free` → `/pricing`.
-- **Hub:** new channel appears on `/channels` (coming-soon badge or live link).
-- **Agent skill:** `resources/{identifier}-examples.md` with Supported features + Agent tasks + Provider settings + recipes; `SKILL.md` **Channels** row updated; `web/src/content/docs/cli-examples/{id}.md` shipped or updated for human docs.
-- **Self-host:** new OAuth env keys in `infra/self-host/.env.example` (Social provider apps); matching row in `web/src/content/docs/installation/docker-compose.md` **Optional: Social provider apps**; do not add secrets to the `web` Compose service (API/workers only via `.env`).
-- **Skill Builder SEO:** `CHANNEL_PROVIDER_IDENTIFIERS` + `CHANNEL_RECIPES` in `publicSkillBuilderChannelConfig.ts`; example payloads in `skillBuilderChannelExamplePayloads.ts`; `/tools/skill-builder/{slug}` resolves for live channels; Tools hub card exposes channel picker.
-- **Photo Editor SEO:** aspect presets + platform group + `aspectPlatformGroupIdForProviderIdentifier` mapping for the new identifier; `/tools/photo-editor/{slug}` resolves when channel is live; channel page defaults to the platform’s first preset (not General); Tools hub Photo Editor card shows the new channel in the **By channel** dropdown.
-- **Best Time to Post:** `PLATFORM_WINDOWS['{identifier}']` in `benchmarkSlots.ts` (no silent `DEFAULT_WINDOWS` for a live channel); `BENCHMARK_SLOTS_LAST_REVIEWED` updated when windows change; optional `CHANNEL_HUB_DESCRIPTIONS` entry; `/tools/best-time-to-post/{slug}` resolves when channel is live; calculator platform picker and **By channel** hub include the new channel automatically.
-- **Agent channel SEO:** `CHANNEL_PROVIDER_IDENTIFIERS`, `KANBAN_BENTO_BY_CHANNEL`, and `ANALYTICS_BENTO_BY_CHANNEL` in `publicAgentChannelConfig.ts`; `CHANNEL_CLI_RECIPES` + `KANBAN_EXAMPLE_BY_CHANNEL` in `buildAgentChannelCliCommandReference.ts`; `/agents/{agentSlug}/{slug}` resolves for all catalog channels on **agent hosts and MCP clients** (coming-soon when `available: false`); generic agent/MCP kanban mock updated when the catalog gains a platform.
-- **Listing tags:** `listing_tags.slug` matches `provider.identifier`; row in `listing-tags/501_*.sql`; **Social platforms** association (+ **Videos** / **Photos** / **Text** as appropriate) in `listing-tags/502_*.sql` with slug comments; migrations re-aggregated.
+- Bump `agent/package.json` `version` before npm publish (see `agent/PUBLISHING.md`).
+- Tag `cli-vX.Y.Z` for `.github/workflows/release.yml`.
+- CI uses npm **trusted publishing** (OIDC): configure on npm for `@openquok/auto-cli` with workflow `release.yml`; do **not** set `NODE_AUTH_TOKEN` on the publish step (`EOTP` = token path + 2FA).
+- `repository.url` in `package.json` must be `git+https://github.com/Ratimon/openquok-monorepo.git` with `"directory": "agent"`.
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
