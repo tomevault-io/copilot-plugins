@@ -1,0 +1,9 @@
+{
+  "name": "mgaitan--python-package-copier-template",
+  "displayName": "python-package-copier-template",
+  "description": "Copier template for Python projects managed by uv.",
+  "version": "1.0.0",
+  "author": "mgaitan",
+  "homepage": "https://github.com/mgaitan/python-package-copier-template",
+  "skills": []
+}
