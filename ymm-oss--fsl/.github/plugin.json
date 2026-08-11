@@ -1,0 +1,9 @@
+{
+  "name": "ymm-oss--fsl",
+  "displayName": "fsl",
+  "description": "AI-Native Formal Specification Language \u2014 a bounded model checker (Lark + Z3) built for LLM write/verify/repair loops.",
+  "version": "1.0.0",
+  "author": "ymm-oss",
+  "homepage": "https://github.com/ymm-oss/fsl",
+  "skills": []
+}
