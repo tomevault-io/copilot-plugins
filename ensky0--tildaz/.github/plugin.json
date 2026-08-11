@@ -1,0 +1,9 @@
+{
+  "name": "ensky0--tildaz",
+  "displayName": "tildaz",
+  "description": "Native Quake-style drop-down terminal for Linux, macOS, and Windows. One hotkey, real Wayland desktop coverage, no Electron.",
+  "version": "1.0.0",
+  "author": "ensky0",
+  "homepage": "https://github.com/ensky0/tildaz",
+  "skills": []
+}
