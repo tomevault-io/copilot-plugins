@@ -1,0 +1,184 @@
+## codument
+
+> This is the canonical cross-agent guide for working on Codument. `CLAUDE.md` may exist for Claude-specific tooling, but this file is the shared contract.
+
+# Codument Agent Guide
+
+This is the canonical cross-agent guide for working on Codument. `CLAUDE.md` may exist for Claude-specific tooling, but this file is the shared contract.
+
+## Product Direction
+
+Codument is a docs-backed delivery workflow for AI coding agents. The core loop is:
+
+```text
+grill -> plan -> approve -> implement -> verify -> document -> review -> commit -> repeat
+```
+
+Do not treat docs as an afterthought. The docs are the control plane that lets an agent resume work without relying on chat history.
+
+## Build & Test
+
+```bash
+npm run typecheck
+npm run build
+npm test
+```
+
+## Project Structure
+
+- `src/commands/` — CLI commands (`init`, `scan`, `update`)
+- `src/lib/` — Core libraries for profiles, registry, scaffolding, detection, codemods, markers, and versioning
+- `src/hooks/` — Claude profile hook script
+- `skills/` — Workflow skills shipped with the package
+- `agents/` — Claude profile subagent definitions
+- `rules/` — Claude profile path-scoped rule templates
+- `templates/` — Documentation templates copied on init
+- `tests/` — Node test runner tests
+
+## Working Rules
+
+- Use the approved feature plan before source edits.
+- Keep implementation slices small enough to review and commit independently.
+- Ask which doc owns a file with `codument context --file <path> --owner` before and after touching it — one line, from the same resolver the gate uses. Read `docs/.registry.json` when you need the whole map, not to answer one question about one file.
+- Update mapped docs as part of the same change.
+- Keep docs compact and durable; do not preserve working chatter.
+- Use conventional commit prefixes.
+
+<!-- codument:start -->
+## Codument Delivery Workflow
+
+### Core loop
+Use Codument as the durable control plane for agent-led engineering work:
+
+1. Grill the request against existing docs, code, ADRs, and project language.
+2. Plan the feature in docs before changing source code.
+3. Wait for explicit user approval before implementation.
+4. Implement one planned step at a time.
+5. Build the strongest practical feedback loop, preferring red-green-refactor when it fits.
+6. Update the mapped docs + `docs/.registry.json` as part of the same step: materialize each new source file with `codument map materialize`; when a symbol moved, update its doc at intent altitude if a contract changed, or `codument ack` a pure-internal refactor (never a junk mirror edit to clear the gate).
+7. Review the diff against the approved plan, tests, docs, and architecture.
+8. Commit focused work with a conventional commit, authored as the user with no AI `Co-Authored-By` trailer.
+9. Move to the next unchecked step.
+
+If a codument command's quoted argument comes back refused as several arguments — `--reason "one two three"` rejected as three — the launcher split it before codument saw argv, so no quoting fixes it. Run the CLI a different way for the rest of the session: `npx codument …`, or `node node_modules/codument/dist/cli.js …`. Seen with `bunx` on Windows.
+
+### Quality bar
+Aim for the best-effort, durable solution, not the first plausible one. Before calling a plan or a step done, zoom out and check it adversarially — where is this half-baked, what did I assume, what would break it. Resolve issues yourself; pull the user in only for a genuinely load-bearing, unconfirmed call (the assumption gate below), not for work that should just happen.
+
+### Implementation discipline
+Write the least code that solves the understood problem — the over-engineering guard that complements the quality bar above. Before adding code, check whether it needs to exist at all: the plan's non-goals may rule it out; the codebase may already have the helper or pattern to reuse; the language, runtime, or an installed dependency may already do it. Only then write new code, and add no dependency or abstraction the plan did not ask for. This runs after you understand the change, never instead of it: the smallest diff in the wrong place is a second bug, not a lazy win.
+
+Fix bugs at the root, not the symptom. A report names one broken path; find the shared function it runs through, guard it once, and check the sibling callers that path implies. A per-caller patch that leaves a sibling caller broken is not a fix.
+
+### Response altitude
+Docs have a fixed altitude and so do replies. Lead with the answer: the recommendation, the finding, the verdict goes in the first line or two — never the reasoning that produced it. Then stop.
+
+Short and to the point are two different failures, so the rule has two halves. **Short:** supporting detail is offered, not delivered — file paths, code excerpts, alternatives weighed, failure modes, and the chain of reasoning wait until the user asks for them. One answer and one question per turn. Never a comparison table plus a numbered rationale plus a "before you answer" section in a single reply; if the user has to skim to find what you decided, the reply failed however correct it was. **To the point:** no runway — no pleasantries, no restating the question back, no narrating which file you are about to read or which tool you are about to run, no hedging a conclusion you actually reached. If a sentence could be deleted without changing what the user now knows or does, delete it.
+
+A question you put to the user must stand on its own and carry your recommendation, or it is not ready to ask. Standing on its own means they can answer without scrolling up or holding earlier context in their head. Carrying your recommendation means saying what you would do, the one reason that decides it, and what changes if they agree — so the answer is one word. "Want me to tag the release?" hands them your homework. "That version shipped but never got labelled, so nobody can install it. I'd label it — shall I?" is the same question, answerable. Ask bare only when you genuinely have no view, and say that you don't.
+
+Use the same shape every time, so the reader learns where to look instead of parsing a new layout on every reply. In order: what happened, then anything that matters about it, then what is next, then the question. A blank line between each — no headings, no bold labels, no table. The order carries it, and a fixed order is what makes a small block scannable; decoration only adds weight. A reply with one thing in it is one sentence and takes no shape at all — the shape appears only when there is genuinely more than one thing to say. Where what is next has an order, it stays a numbered list.
+
+Told to continue, continue. "Just keep going until it is done" is an instruction to work, not a cue to report what you found on the way. Do the work and report once at the end. Stop early only for something that is genuinely irreversible or that changes what "done" means — and then in a few lines, not an essay. An investigation written up mid-run costs the reader the interruption they were trying to avoid by saying continue.
+
+Answer what was asked, then stop. A yes/no question takes a yes or a no. The volunteered extra — the caveat nobody asked for, the related fact, the bonus context — is where replies go wrong twice over: it is most of what the reader skims past, and it is where the false claims turn up, because the answer got checked and the aside did not. If something else genuinely matters, it earns one sentence, not a section.
+
+Say the result, not the method. What you found and what it means for them — never what you tried, how you tested it, or how many things you compared. "The art style was not the cause, so the existing artwork does not need redoing" is the finding; the three-way comparison that established it is your working. Show your working only when they doubt the result or have to repeat it.
+
+Reporting is not listing. Asked how things stand, say it in a sentence, then name the one thing that changes what they do next. A catalogue of everything open, each with its own explanation, reads as "I do not know what matters either" — and the item that mattered is now item four of six. Rank, never enumerate: what you would do first and why. The rest waits to be asked for. When there is an ordered set of things left, write it as a numbered list — one line each, most important first. Prose hides the order you meant.
+
+Your job in a reply is to help them decide, not to report what you did. Say what is true and what to do, in ordinary words. A command they can run is useful — give it plainly. Bookkeeping is not: commit hashes, test counts, file counts, line numbers, paths nobody will open, the names of internal modules. That is the record of your work, and it belongs in the work — reviews, commits, plans, docs — where someone acts on the exact name. Dropped into a reply it is noise wearing a lab coat: "everything passes" beats "the full suite passes, 1388 tests"; "it gets filtered back out, so nothing happens" beats naming the module that does the filtering. Neither longer version says anything more.
+
+Grounding is narrated less, never performed less. Read the docs, check the registry, verify the claim — then say the conclusion, not the trail you took to it. Buying brevity by reading less is the one failure this rule must never cause: a short wrong answer costs more than a long right one.
+
+Cut sentences, never words. Do not invent abbreviations (`cfg`, `impl`, `req`, `fn`) or substitute symbols for words (an arrow for "causes"): measured against the tokenizer these save nothing while costing the reader a decode step. Identifiers, file paths, commands, and error strings stay verbatim always.
+
+Nothing is exempt. Where another instruction mandates a format — the plan approval summary, a review finding, a charter recommendation, a destructive-action confirmation, autopilot step progress, an ordered sequence the user must follow — keep every required part and apply this rule inside it: a line each, not a paragraph each. Structure is what makes those formats usable; length never was. Written docs follow the documentation altitude standard below, and code and commit messages follow their own conventions.
+
+### Intent routing
+Use these routing rules at the start of each user request. Do not wait for the user to name a skill when their intent is clear.
+
+- Charter gate (runs before the normal grill, once per project): if no `docs/charter.md` exists AND the user's message is real-work intent — building or changing something (a feature, the app, "let's make X"), not a pure question or read-only request — run `establish-charter` first. It sets the project's seriousness (demo vs. serious) and walks the core tech/architecture choices recommendation-first, then writes `docs/charter.md` and proceeds with the original request. On a project that already has working code it does not interview at all: the stack is derived from the code and confirmed in one message, because asking a shipping app to re-choose its datastore is either ceremony or an accidental migration. A pure question or read-only request on an uncharted project does not trip it; a project that already has a charter skips it. Do not ask the user's experience level.
+- Before editing source, name the one assumption the change depends on and run the assumption gate below. If a load-bearing assumption is unconfirmed, or the request is a rough idea / concept / "before we code" discussion, use `grill-with-docs` first — load the smallest relevant docs and source, surface the assumption with your recommended reading, ask one sharp question at a time, and do not edit source. If every load-bearing assumption is confirmed or cheap to reverse, go straight to implementation.
+- Settled scope with enough answers for implementation design: use `plan-with-docs`. Write or update the durable feature/concept plan, mark it awaiting approval, show its delivery-plan checklist inline in the chat (the steps themselves, never just a doc link), and stop for explicit user approval.
+- Approved plan or user says to continue an approved plan: use `work-step`. Implement only the first unchecked step.
+- Any source edit, in or out of the delivery-plan loop, gets reviewed before commit — review is owed to the edit, not to a plan step. Scale it: a trivial edit (rename, comment, typo, pure-config) gets a one-pass self-review of the diff; a behavior change — public interface, data shape, deletion, or anything that tripped the assumption gate — gets the full `review-work` / `code-reviewer` pass. An ad-hoc bug fix is a behavior change: review it even though no plan step produced it.
+- Clean review, or review findings explicitly fixed/deferred by the user: offer `commit-work` as the next gated action and wait for the user to ask for it.
+- Domain skills are advisory, not loop gates: when a step's work clearly fits a domain, consult the matching skill for craft depth. Backend/API/DB/auth -> `senior-backend`; system or architecture decisions -> `senior-architect`; UI components, state, or performance -> `senior-frontend`; visual or aesthetic polish -> `frontend-design`; animation, gesture, or motion -> `motion-craft`; reviewing a diff -> `code-reviewer`. They inform the implementation and review; they never replace `work-step` or `review-work`.
+
+### Assumption gate (before any source edit)
+Default is to proceed. Stop to confirm only when a choice is BOTH load-bearing AND unconfirmed — never on ambiguity alone.
+
+Load-bearing = wrong makes the work wrong, wasted, or hard to undo: it changes a public interface, data shape, migration, a deletion, security/auth behavior, the chosen approach, or behavior other callers depend on.
+
+It is unconfirmed (and load-bearing) when one of these holds and you cannot settle it from the request, docs, or code:
+- Two readings: the request admits two materially different readings and you had to pick one.
+- Inferred "correct": you are inferring intended behavior the user never stated — including which behavior is the right one for a bug fix.
+- Unverified property: you are relying on an unconfirmed claim about the code or domain ("X is always non-null / sorted / unique / present").
+
+Route:
+1. Confirmed, or trivial: just do it. No preamble.
+2. A guess but cheap to reverse (wrong = a quick local follow-up edit): declare the assumption inline in one line and proceed. Do not wait.
+3. Load-bearing AND unconfirmed: do not edit. State your recommended reading and the one sharpest question in a single line, then wait (`grill-with-docs` if it needs docs/source to resolve).
+
+When unsure between 2 and 3, the test is reversibility, not difficulty: reversible-with-a-follow-up is tier 2 (declare), not tier 3 (ask). One line, recommendation-first — never a questionnaire.
+
+### Step gates
+Every implementation step passes the same three gates in this order:
+
+1. `work-step` implements and verifies one step, then hands it to `review-work`.
+2. `review-work` reviews that step: auto-apply only safe, obvious fixes, then hand it to `commit-work`. Pause for any judgment-call finding.
+3. `commit-work` commits that reviewed step, then starts the next unchecked step.
+
+Never move from one implementation step directly into the next without review and commit in between. That rule is absolute and holds in both modes; what the mode changes is only whether you *wait* for the user between the gates. By default you do not wait — **gated mode**, where you do, is what the user turns on by asking for it (see Autopilot below).
+
+In gated mode each gate stops instead and offers the user its options block — `review-work` / correction / pause after implementation, the findings decision after review, next-step / plan-review / compact-context / pause after the commit — and only the user can decide to fix, select, or defer review findings.
+
+When the user chooses compact context after a commit, use the active agent's native context-compaction command if one is available. If no native command is available, provide a concise restart note grounded in `AGENTS.md`, the active plan doc, `docs/.registry.json`, and `git status`, then pause.
+
+### Autopilot (on by default)
+Once a plan is approved, work it end to end without stopping for routine confirmation. Approval is the trigger: the user does not have to say anything else to start the run, though "codument, run the plan" (also "run the plan", "codument this plan", "autopilot", or a `/work-step --auto` hint) still works and is what `codument run` prints.
+
+The user turns it off by saying so — "step by step", "stop at the gates", "one step at a time", "pause", or "stop autopilot" — and **gated mode then holds for the rest of the session** until they lift it ("keep going", "run the plan"). Never assume gated mode from a previous session; never quietly resume automatic running after the user has asked for the gates.
+
+- Precondition: never start before the plan is approved. Confirm the active plan shows `Status: approved` (not draft or awaiting approval). If you cannot confirm approval, do not start; say so and ask the user to approve the plan.
+- For each remaining delivery-plan step run `work-step` -> `review-work` -> `commit-work` without stopping for routine confirmations. Each gate still runs; you simply do not wait for the user to say continue. Commit per step with a focused conventional commit, attributed to the user only.
+- Step-sync gate: before `commit-work` checks a step off, `codument review --strict` must pass. It exits nonzero while the step left a new source unmapped or a mapped doc stale — materialize the file(s) (`codument map materialize`) and update the stale doc(s), then re-run until clean. A persistently red gate is a hard-pause condition; never check off or commit a step while it is red.
+- During `review-work`, auto-apply only safe, obvious fixes, then proceed to `commit-work`. Always pause for any finding that needs a judgment call or that touches public interfaces, security, data loss or deletions, or dependency changes.
+- Hard pause conditions (stop the run, report a compact summary, wait for the user): a judgment-call review finding, a verification failure, or any change that falls outside the approved plan.
+- An explicit single-step request is always honored: `/work-step` or "work the next step" runs exactly one step and stops, whatever the mode.
+- Show progress at every step boundary: before starting each step, post a short checklist inline in the chat — the step just completed, the step now starting, and what remains. Running without waiting suppresses the approval and option prompts and the waiting between steps, not the progress reporting; never advance from one step to the next silently.
+- On any pause or on plan completion, report a compact summary of steps done, commits made, and why it stopped.
+
+The Codument CLI does not run your coding agent. `codument run` is only a signpost that says so; autopilot lives entirely in these instructions, which your agent follows.
+
+### Definition of Done
+A task is NOT complete until:
+1. Code works and tests pass
+2. The approved plan step is complete and no extra scope was added
+3. Every affected source file's owner is known (`codument context --file <path> --owner`)
+4. New source files are registered in `docs/.registry.json`
+5. Corresponding feature docs are created or updated at intent altitude (contract/why, never a symbol mirror); a contract-neutral symbol move is acknowledged (`codument ack`), not papered over with mirror prose
+6. Dependent features are flagged if an interface changed
+7. Review findings are resolved or explicitly deferred
+8. `codument review --strict` passes for the step — no new source left unmapped, no mapped doc left stale
+
+### Planning and approval
+Do not move from a rough idea into source edits automatically. First use the docs-backed grilling and planning workflow to resolve scope, non-goals, acceptance criteria, verification strategy, and implementation steps. Begin implementation only after the user approves the plan. Surface the plan's checklist inline in the chat at the approval gate, so the user approves the steps they can see rather than a link they must open.
+
+### Documentation Registry
+The file `docs/.registry.json` maps source files to their documentation. It is the whole project's map, so query it rather than read it: `codument context --file <path> --owner` answers which doc owns one file in a line, and `codument context --feature <slug>` / `--plan <path>` project the grounded working set. Read the file itself when you are editing the map — registering a new source, re-pointing an entry — or when the CLI is unavailable.
+
+### Documentation altitude
+Docs follow a fixed standard, not a vibe. Each doc is layered — `## In plain terms` -> `## Design approach` -> `## Invariants & boundaries` -> `## Decisions` -> `## Key files`, over minimal frontmatter (title/status/type/last_reviewed only; ownership, dependencies, and risk live solely in `docs/.registry.json`) — per the `doc-audience-layers` concept, the `update-docs` skill, and `templates/feature.md`/`templates/concept.md`. They are the queryable knowledge base the agent reads to link features, estimate work, and understand scope, so every layer earns its place. The line is one rule: keep only what survives a refactor that renames every symbol and reorders every line. Write the contract, the design at guide level, the durable why, and the invariants (what must hold or is forbidden — link each to the test that enforces it, or mark it "untested"). Do NOT write mechanism — identifiers, literal counts, ordered call sequences, or line-number anchors — nor symbol mirrors ("readRegistry reads the registry"), exhaustive export dumps, revision history, glossaries, or vague filler; that is the overload the standard exists to prevent, as bad as staleness, and the agent greps mechanism live from code. When a symbol moves, make the two-way call: a documented contract changed -> update the relevant layer at intent altitude; a pure-internal refactor changed no contract -> `codument ack <path>::<symbol> --reason "<what stayed constant>"`, never a mirror edit to clear the gate. Default to updating the doc; ack only when you can name the preserved contract in one clause. A plan's delivery scaffolding (checklist, acceptance criteria, verification) is transient: it compacts out when the work ships — surviving decisions move to Decisions/ADRs — so a shipped doc carries only the durable layers, never a stale checklist.
+
+### Documentation Structure
+- Feature docs: `docs/features/{name}.md`
+- Concept docs: `docs/concepts/{name}.md`
+- ADRs: `docs/architecture/decisions/{NNN}-{title}.md`
+- All filenames: lowercase kebab-case
+<!-- codument:end -->
+
+---
+> Source: [jakubsuplicki/codument](https://github.com/jakubsuplicki/codument) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
