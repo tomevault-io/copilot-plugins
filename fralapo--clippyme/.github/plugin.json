@@ -1,0 +1,9 @@
+{
+  "name": "fralapo--clippyme",
+  "displayName": "clippyme",
+  "description": "\u2702\ufe0f Open-source, self-hosted Opus Clip alternative. Turn long YouTube videos or uploads into viral 9:16 vertical shorts: AI viral-moment detection (Gemini), auto transcription + subtitles, active-speak",
+  "version": "1.0.0",
+  "author": "fralapo",
+  "homepage": "https://github.com/fralapo/clippyme",
+  "skills": []
+}
