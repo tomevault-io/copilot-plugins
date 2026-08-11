@@ -1,0 +1,9 @@
+{
+  "name": "zoolutions--pgbus",
+  "displayName": "pgbus",
+  "description": "PostgreSQL-native job processing and event bus for Rails, built on PGMQ",
+  "version": "1.0.0",
+  "author": "zoolutions",
+  "homepage": "https://github.com/zoolutions/pgbus",
+  "skills": []
+}
