@@ -1,24 +1,77 @@
-## backend-migrations-naming
+## backend-migrations-seed
 
-> Migration file naming conventions for Supabase modules
+> Seed migration conventions for Supabase modules (listings, tags, catalog data)
 
 
-# Migration naming
+# Seed migrations
 
-- **Pattern**: `<modulePrefix>_<YYYYMMDD>_<scope>.sql` (e.g. `101_20260311_tables.sql`).
-- **Date**: Use the real calendar date of creation (year must be current for new files; avoid reusing past years like 2024 or 2025 for new migrations).
-- **Location**: Apply this pattern for all files under `backend/supabase/db/**` (modules such as user-auth, user-management, organization, integration, customer, rbac, feedback, config, blog, etc.).
-- **Scopes**:
-  - `tables`, `indexes`, `rlsgrants`, `functions`, `seed`, `cron`.
-- **Renames**:
-  - When renaming existing migration files, keep the numeric prefix but update the date segment and the `MODULE DATE` comment to match the new filename.
-- **Ordering**:
-  - Aggregator sorts by **scope tier** (`floor(prefix / 100)`: 1xx tables, 2xx indexes, …), then by `MODULE_ORDER` in `scripts/aggregate_migrations_all.mjs`, then by numeric prefix for stable ties. Within a tier, use small per-folder prefixes; cross-module sequence comes from `MODULE_ORDER`.
-  - **user-management** uses 100, 200, 300, 400, 500 so `public.users` and `public.is_super_admin()` run first within each tier.
-  - Modules that depend on `is_super_admin` or `user_roles` still use **302** (or a higher second digit in the same tier) when you need RLS to run after peer modules in that tier; prefer `MODULE_ORDER` and tier boundaries over ad-hoc prefix jumps when possible.
-  - When adding a new module, add it to `MODULE_ORDER` in `backend/scripts/aggregate_migrations_all.mjs` so order is deterministic (e.g. **integration** after **organization** when `integrations.organization_id` references `organizations`; **customer** before **integration** when `integrations.customer_id` references `integration_customers`).
+Extends **backend-migrations-naming** for data seeds under `backend/supabase/db/**`.
 
-The assistant should follow and enforce this pattern whenever adding or renaming Supabase migration files.
+## Filename pattern
+
+- **Default scope**: `501_<YYYYMMDD>_seed.sql`, `502_<YYYYMMDD>_seed.sql`, …
+- **Named catalog seeds** (one listing or cohesive dataset per file): `502_<YYYYMMDD>_seed_<subject>.sql`
+  - Examples: `502_20260629_seed_openquok_core.sql`, `503_20260629_seed_bloom.sql`, `504_20260629_seed_revenuecat.sql`
+- Keep the numeric prefix stable within the module tier; bump the prefix when order matters (e.g. tag associations before listing rows that reference tags).
+- Update the `MODULE DATE` and `MODULE SCOPE` header comments when renaming.
+
+## Extensions Hub listing seeds (`listings/`)
+
+### MCP-only (`extension_type = 'mcp'`)
+
+The hub **expanded card** (`ExtensionCardExpanded.svelte`) shows an **MCP tools** table — not raw `mcp_server_config` JSON. Full JSON config belongs on the detail page (`McpExtensionDetail.svelte`).
+
+| Column | Rule |
+| --- | --- |
+| `mcp_tools` | **Required** — non-empty JSON array of `{ "name", "description" }` objects. Drives the hub card tools table. |
+| `mcp_server_config` | Set for the detail-page copy config; **not** shown on the hub card. |
+| `install_command_mcp` | Leave `NULL` unless there is a real shell install command. Do not use JSON config as a stand-in. |
+| `mcp_transport` | `http`, `stdio`, or `sse` as appropriate. |
+| `click_url_mcp` | **Required** — official setup guide URL. Powers the **MCP Setup Doc** button on the expanded card. |
+| `click_url` | Mirror `click_url_mcp` when no separate landing URL exists. |
+| `click_url_skills` | `NULL` for MCP-only listings. |
+| `description_mcp` / `content_mcp` | Populate; `description_skills` / `content_skills` stay `NULL`. |
+| `is_official` | `FALSE` for third-party MCP servers; `TRUE` only for first-party OpenQuok entries. |
+| `listing_tag_slugs` | Use existing catalog tags (client + content-type tags). Do not add a tag row per third-party product unless it is a social channel (see **social-provider-integration**). |
+
+### Skills-only (`extension_type = 'skills'`)
+
+| Column | Rule |
+| --- | --- |
+| `install_command_skills` | Shell command shown on the hub card. |
+| `click_url_skills` | Powers the **Skill Setup Doc** button on the expanded card. |
+| `mcp_tools` / `mcp_server_config` | `NULL` or empty. |
+
+### Both (`extension_type = 'both'`)
+
+| Column | Rule |
+| --- | --- |
+| `install_command_skills` | Skills install command (Skills tab). |
+| `mcp_tools` | Non-empty array (MCP tab on hub card). |
+| `click_url_skills` / `click_url_mcp` | Separate doc URLs for **Skill Setup Doc** and **MCP Setup Doc** buttons. |
+| `click_url` | General landing doc when no tab-specific URL applies (e.g. OpenQuok Core → `/docs/getting-started-for-cli`). |
+| `mcp_server_config` | Detail page only. |
+
+**OpenQuok Core** (`openquok-core`, `both`):
+
+| Column | URL |
+| --- | --- |
+| `click_url` | `https://www.openquok.com/docs/getting-started-for-cli` |
+| `click_url_skills` | `https://www.openquok.com/docs/agent-setup-guides` |
+| `click_url_mcp` | `https://www.openquok.com/docs/mcp-setup-guides` |
+
+Doc URLs in `502_*_seed_openquok_core.sql` re-sync these on deploy.
+
+### Tag associations
+
+After inserting a listing, wire `listings_listing_tags_association` and `listing_tag_slugs` to existing `listing_tags` rows. For **openquok-core**, a `CROSS JOIN` on all catalog tags is acceptable when the listing should expose every tag.
+
+## PR checklist (listing seeds)
+
+- [ ] One subject per named seed file when the listing is large or independently maintained.
+- [ ] MCP listings: `mcp_tools` populated; `click_url_mcp` set; hub card does not rely on `mcp_server_config`.
+- [ ] Doc buttons: `click_url_skills` and/or `click_url_mcp` match shipped setup guides.
+- [ ] Re-aggregate migrations (`backend/scripts/aggregate_migrations_all.mjs`) after adding or renaming seed files.
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
