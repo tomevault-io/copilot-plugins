@@ -1,0 +1,9 @@
+{
+  "name": "entzauberung--metheus",
+  "displayName": "metheus",
+  "description": "A workflow command center for indie hackers. Split decision-making from code execution \u2014 so your AI team thinks before it builds. Saves tokens, reduces errors, works with any model. Built with Tauri +",
+  "version": "1.0.0",
+  "author": "entzauberung",
+  "homepage": "https://github.com/entzauberung/metheus",
+  "skills": []
+}
