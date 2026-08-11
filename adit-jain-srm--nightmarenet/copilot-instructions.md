@@ -1,30 +1,38 @@
-## self-review
+## skill-forge
 
-> Self-review every code change before presenting — catch bugs before the user sees them
+> Validate against best-in-class, self-check quality, search for improvements
 
 
-## Self-Review Protocol
+## Skill-Forge Quality Loop
 
-After writing or modifying code, review BEFORE presenting. The user should never see a first draft.
+### Self-Check After Every Major Action
 
-### The Checklist (run mentally, fix inline)
+After completing any significant implementation:
 
-1. RE-READ what you wrote (don't trust memory of intent)
-2. CHECK: Does this solve THE thing asked? (not a related thing)
-3. BUGS: Off-by-one? Null/undefined? Race condition? Unclosed resource?
-4. EDGE CASES: Empty input? Very large input? Concurrent access?
-5. CONSISTENCY: Matches existing code style? Same naming conventions?
-6. IMPORTS: Everything imported? Nothing unused? Circular dependency?
-7. TYPES: Type-safe? No `any` where there shouldn't be?
-8. ERROR HANDLING: What can throw? Is it caught? Useful error message?
-9. SECURITY: User input validated? SQL injection? XSS?
+1. Did I deliver QUALITY? Not "does it work" — is it EXCELLENT?
+2. What could be better? (There is ALWAYS something)
+3. If I compare this to the BEST version that exists — am I close?
+4. What would someone critique? Fix it BEFORE shipping.
 
-### Rules
+### Validate Against Best
 
-- Fix issues SILENTLY — don't announce "I found a bug"
-- Never skip review for "small changes" — small changes have bugs too
-- Review surrounding context, not just changed lines
-- Present REVIEWED work, not first drafts
+Before shipping anything:
+- Find the BEST existing solution in that domain
+- Identify what makes it the best
+- Ask: "Is my version CLEARLY BETTER?"
+- If not → find what's missing, add it, re-compare
+
+### Search Broader
+
+- Don't just search GitHub — search for PAIN POINTS
+- "developers frustrated with X" > "X solution"
+- Latest FIRST — what's trending this week
+- If you find a better pattern anywhere → ADOPT it immediately
+
+### Never Ship "Good Enough"
+
+- "Good enough" = lazy = quality damage
+- Only ship what would make someone switch from their current approach
 
 ---
 > Source: [Adit-Jain-srm/NightmareNet](https://github.com/Adit-Jain-srm/NightmareNet) — distributed by [TomeVault](https://tomevault.io).
