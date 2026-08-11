@@ -1,0 +1,9 @@
+{
+  "name": "argval--yatko",
+  "displayName": "yatko",
+  "description": "Clean download links for any public GitHub repo so that you don't have to called a \"Smelly Nerd\" anymore",
+  "version": "1.0.0",
+  "author": "argval",
+  "homepage": "https://github.com/argval/yatko",
+  "skills": []
+}
