@@ -1,39 +1,141 @@
-## backend-public-api-paths
+## backend-service-cache
 
-> When adding API routes that allow anonymous access, add the path to publicPaths in core middleware; route-level auth still applies per method
+> Cache usage in backend service layer — CacheService, CacheInvalidationService, keys, getOrSet, invalidation
 
 
-# Backend: public API paths and global auth
+# Cache in service layer
 
-Global auth in `backend/middlewares/core.ts` runs for every request under the API prefix (`/api/v1`) **unless** the path is in `publicPaths`. Route-level middlewares (e.g. `requireFullAuthWithRoles`, `requireEditor`) run **after** the request reaches the router.
+Use **CacheService** and **CacheInvalidationService** (from `../connections/cache`) to cache reads and invalidate on mutations. Both are optional constructor args so tests or callers can omit them.
 
-## Rule: new public routes
+## Dependencies
 
-When you add a **route that must be callable without authentication** (e.g. anonymous feedback submit, public form):
+- Inject **CacheService** for reads (`getOrSet`) and optional direct `del`/`delPattern`.
+- Inject **CacheInvalidationService** for mutation-driven invalidation (preferred over calling `cache.del` directly so invalidation is centralized and consistent).
 
-1. **Add the path prefix to `publicPaths`** in `backend/middlewares/core.ts`.
-   - Use the path **after** the API prefix (e.g. `/feedback`, not `/api/v1/feedback`).
-   - Matching is `routePath === p || routePath.startsWith(p + "/")`, so `/feedback` covers `/feedback` and `/feedback/...`.
+```ts
+constructor(
+    private readonly someRepository: SomeRepository,
+    private readonly cache?: CacheService,
+    private readonly cacheInvalidator?: CacheInvalidationService
+) {}
+```
 
-2. **Keep route-level auth on methods that must be protected.**  
-   For the same path prefix, some methods can be public and others protected:
-   - **Public:** do not attach auth middleware (e.g. `POST /feedback` for anonymous submit).
-   - **Protected:** attach `authWithRoles` (or `requireFullAuth`) and any role/permission middleware (e.g. `GET /feedback`, `PATCH /feedback/:id` with `requireEditor`).
+## Key design
 
-## Example (feedback)
+- Define a **domain-scoped `CACHE_KEYS`** object and a **TTL constant** (or env-based TTLs) in the service.
+- Use consistent prefixes and patterns so invalidation can target keys or patterns.
+- **Name keys so the scope is clear**: use suffixes like `BYUSERID`, `BY_ID`, `LIST_ALL` (e.g. `org:list:byUserId`, `blog:byBlogId`, `feedback:list:all`). This makes it obvious what each key is for and keeps naming consistent across services (e.g. `LIST_BYUSERID` / `listing:list:byUserId` style).
+- **Parameterized lists** (one cache entry per parent id, e.g. per organization): store a **string prefix** on `CACHE_KEYS` and build the full key in a **small helper** next to the constants so read and invalidate always agree (e.g. `` `${CACHE_KEYS.INTEGRATION_CUSTOMERS_LIST}:${organizationId}` ``).
 
-- **core.ts:** `publicPaths = ["/auth", "/company", "/feedback"]`  
-  → All requests to `/api/v1/feedback` and `/api/v1/feedback/*` skip global auth.
+```ts
+const CACHE_KEYS = {
+    FEEDBACK: "feedback",
+    FEEDBACK_LIST_ALL: "feedback:list:all",
+    ORG_LIST_BYUSERID: "org:list:byUserId",
+    ORG_BY_IDS: "org:byIds",
+    BLOG_BYID: "blog:byBlogId",
+    INTEGRATION: "integration",
+    /** Full key = `${INTEGRATION_CUSTOMERS_LIST}:${organizationId}` */
+    INTEGRATION_CUSTOMERS_LIST: "integration:customers:list",
+};
+const FEEDBACK_CACHE_TTL_SEC = 300;
+```
 
-- **FeedbackRoute.ts:**
-  - `POST "/"` — no auth middleware → anonymous can submit (201).
-  - `GET "/"` — `authWithRoles`, `requireEditor` → 401 if no token, 403 if not editor/admin/super_admin.
-  - `PATCH "/:feedbackId"` — same as GET → only editor+ can mark handled.
+## Read path
 
-## Do not
+Use **`cache.getOrSet(cacheKey, factory, ttl)`** for data that can be cached. When `cache` is optional, call the repository when cache is undefined.
 
-- Put a path in `publicPaths` and then forget to protect sensitive methods with route-level auth.
-- Use `publicPaths` for paths that must **always** require auth; leave them out so global auth applies.
+- Use a **named `cacheKey`** (fixed or from a helper) so invalidation can reuse the same expression.
+- The **factory** may log debug/info around the repository call (see `FeedbackService`, `IntegrationService`).
+
+**Fixed key (global list):**
+
+```ts
+async getAllFeedbacks(): Promise<FeedbackRow[]> {
+    const cacheKey = CACHE_KEYS.FEEDBACK_LIST_ALL;
+    const factory = async () => await this.feedbackRepository.findAll();
+    if (this.cache) {
+        return this.cache.getOrSet(cacheKey, factory, FEEDBACK_CACHE_TTL_SEC);
+    }
+    return factory();
+}
+```
+
+**Per-parent key (helper + logging):**
+
+```ts
+function customersListCacheKey(organizationId: string): string {
+    return `${CACHE_KEYS.INTEGRATION_CUSTOMERS_LIST}:${organizationId}`;
+}
+
+async customers(organizationId: string): Promise<CustomerListItem[]> {
+    const cacheKey = customersListCacheKey(organizationId);
+    const factory = async (): Promise<CustomerListItem[]> => {
+        logger.debug({ msg: "Getting customers from repository", organizationId });
+        const list = await this.someRepository.customers(organizationId);
+        logger.info({ msg: "Customers retrieved", organizationId, count: list.length });
+        return list;
+    };
+    if (this.cache) {
+        return this.cache.getOrSet(cacheKey, factory, CUSTOMERS_LIST_TTL_SEC);
+    }
+    return factory();
+}
+```
+
+## Write / mutation path
+
+After any **create/update/delete** that affects cached data, call a **private invalidation helper**. Invalidation must not fail the request: log errors and do not throw.
+
+- **Invalidate the same keys used for reads.** For any key used in a get* method (e.g. `getBlogPostById` uses `blog:byBlogId:${id}`), ensure the invalidation helper explicitly invalidates that key on mutation (e.g. `invalidateKey(\`${CACHE_KEYS.BLOG_BYID}:${blogId}\`)`). This keeps read and invalidate in sync and survives changes to `CacheInvalidationService.invalidateEntity` conventions.
+- Invalidate **specific keys** and any **cross-referenced keys** (e.g. profile by id and by email).
+- Invalidate **list/aggregate** caches with `cacheInvalidator.invalidateKey(key)` or `invalidatePattern(pattern)`.
+- You can still use `invalidateEntity(entityType, entityId)` and `invalidatePattern(...)` for broader cleanup; prefer also calling `invalidateKey` with the exact read key for by-id and list keys.
+- **Optional `cache.del` fallback:** if `cacheInvalidator` is omitted but `cache` is present (e.g. some tests), you may `await this.cache.del(exactReadKey)` so read-through caches still drop after mutation. Prefer production wiring with **both** `cache` and `cacheInvalidator` from `services/index.ts`.
+
+### Invalidation helper signature (readability)
+
+Use a **single `params` object** with named properties when the helper depends on one or more identifiers. This keeps call sites and signatures consistent and self-documenting.
+
+- **With identifiers:** `params: { postId: string }`, `params: { authUserId: string; userEmail?: string | null }`, `params: { authUserId?: string; organizationId?: string }`, `params: { organizationId: string }` for per-org list caches.
+- **No identifiers (fixed keys only):** no parameters is fine (e.g. topic-related or list-all invalidators).
+
+```ts
+// With identifiers — single params object
+private async _invalidateUserRelatedCaches(params: {
+    authUserId: string;
+    userEmail?: string | null;
+}): Promise<void> {
+    const { authUserId, userEmail } = params;
+    // ...
+}
+
+private async _invalidatePostCacheForComment(params: { postId: string }): Promise<void> {
+    const { postId } = params;
+    // ...
+}
+
+// No identifiers — no params
+private async _invalidateFeedbackRelatedCaches(): Promise<void> {
+    if (!this.cacheInvalidator) return;
+    try {
+        await this.cacheInvalidator.invalidateKey(CACHE_KEYS.FEEDBACK_LIST_ALL);
+        await this.cacheInvalidator.invalidatePattern(`${CACHE_KEYS.FEEDBACK}:list:*`);
+    } catch (error) {
+        logger.error({ msg: "Error invalidating feedback related caches", error: String(error) });
+    }
+}
+```
+
+## Wiring
+
+In **`services/index.ts`**, pass `cacheServiceConnection` and `cacheInvalidationServiceConnection` from `../connections` when instantiating services that use cache.
+
+## Reference implementations
+
+- `UserService`, `FeedbackService`, `MarketingService`, `OrganizationService`, `RbacService`, `CompanyService`, `BlogService`, `IntegrationService`.
+- For by-id + list invalidation pattern: `BlogService` (BLOG_BYID + explicit invalidateKey), `OrganizationService` (ORG_LIST_BYUSERID, ORG_BY_IDS + explicit keys and pattern).
+- For **per-org `getOrSet` list** + **invalidate same key** + optional **`cache.del` fallback**: `IntegrationService` (`customers`, `createIntegrationCustomer` / `updateOnCustomerName` invalidation). For **pattern** invalidation alongside keys (e.g. per-provider segments under `integration:${orgId}:${provider}:*`): same file.
 
 ---
 > Source: [Ratimon/openquok-monorepo](https://github.com/Ratimon/openquok-monorepo) — distributed by [TomeVault](https://tomevault.io).
