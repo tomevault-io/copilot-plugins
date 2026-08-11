@@ -1,0 +1,9 @@
+{
+  "name": "metamusicx--zissa-wiki",
+  "displayName": "zissa-wiki",
+  "description": "Zissa Wiki \u2014 an LLM-maintained research knowledge base in plain markdown, operated via Claude Code. Implements Karpathy's LLM Wiki pattern; ships a deterministic wiki-lint tool.",
+  "version": "1.0.0",
+  "author": "MetamusicX",
+  "homepage": "https://github.com/MetamusicX/zissa-wiki",
+  "skills": []
+}
