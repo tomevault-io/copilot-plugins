@@ -1,0 +1,9 @@
+{
+  "name": "lililib--ai-session-search",
+  "displayName": "ai-session-search",
+  "description": "Local-first full-text search and reusable context library for AI coding sessions across Claude Code, Codex, Cursor, OpenCode, Copilot CLI, and more. Source sessions stay read-only.",
+  "version": "1.0.0",
+  "author": "lililib",
+  "homepage": "https://github.com/lililib/ai-session-search",
+  "skills": []
+}
