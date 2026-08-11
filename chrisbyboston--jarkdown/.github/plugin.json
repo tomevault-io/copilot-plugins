@@ -1,0 +1,9 @@
+{
+  "name": "chrisbyboston--jarkdown",
+  "displayName": "jarkdown",
+  "description": "Export Jira Cloud issues to Markdown with attachments",
+  "version": "1.0.0",
+  "author": "chrisbyboston",
+  "homepage": "https://github.com/chrisbyboston/jarkdown",
+  "skills": []
+}
