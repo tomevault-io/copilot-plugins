@@ -1,0 +1,44 @@
+{
+  "name": "auto_quant",
+  "owner": "xzcawl",
+  "repo": "auto_quant",
+  "description": "\u7b56\u7565\u7814\u7a76\u6d41\u6c34\u7ebf\uff1a\u7528\u6237\u7ed9\u51fa\u601d\u60f3 \u2192 \u5b9e\u73b0\u5e76\u8bb0\u5f55 \u2192 \u56de\u6d4b\u9a8c\u8bc1 \u2192 \u751f\u6210\u62a5\u544a \u2192 \u4eba\u5de5\u5728 Cursor \u4e2d\u8c03\u7528 AI \u5206\u6790\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xzcawl/auto_quant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-11T06:41:58Z"
+}
