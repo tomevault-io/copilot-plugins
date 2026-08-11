@@ -1,0 +1,9 @@
+{
+  "name": "rnz01--palworld-server-dashboard",
+  "displayName": "palworld-server-dashboard",
+  "description": "Browser-based admin dashboard for managing and monitoring Palworld dedicated servers through the REST API.",
+  "version": "1.0.0",
+  "author": "RNZ01",
+  "homepage": "https://github.com/RNZ01/palworld-server-dashboard",
+  "skills": []
+}
