@@ -1,0 +1,9 @@
+{
+  "name": "paiml--databricks-data-engineering",
+  "displayName": "databricks-data-engineering",
+  "description": "Learn data engineering with Databricks course with examples and labs",
+  "version": "1.0.0",
+  "author": "paiml",
+  "homepage": "https://github.com/paiml/databricks-data-engineering",
+  "skills": []
+}
