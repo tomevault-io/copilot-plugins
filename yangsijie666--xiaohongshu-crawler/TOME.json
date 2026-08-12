@@ -1,0 +1,44 @@
+{
+  "name": "xiaohongshu-crawler",
+  "owner": "yangsijie666",
+  "repo": "xiaohongshu-crawler",
+  "description": "\u5c0f\u7ea2\u4e66\u6570\u636e\u91c7\u96c6\u5de5\u5177 \u2014 \u57fa\u4e8e Playwright \u7684\u9690\u533f\u722c\u866b\uff0c\u652f\u6301\u641c\u7d22\u3001\u7b14\u8bb0\u8be6\u60c5\u3001\u8bc4\u8bba\u91c7\u96c6\uff0c\u53cc\u5c42\u53cd\u68c0\u6d4b\uff0c\u5bfc\u51fa JSON/Excel\uff0c\u5185\u7f6e MCP \u534f\u8bae\u670d\u52a1 | Xiaohongshu (RedNote) stealth crawler with anti-detection",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yangsijie666/xiaohongshu-crawler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T04:50:07Z"
+}
