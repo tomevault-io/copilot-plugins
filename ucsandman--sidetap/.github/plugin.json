@@ -1,9 +1,9 @@
 {
   "name": "ucsandman--sidetap",
-  "displayName": "sidetap",
+  "displayName": "SideTap",
   "description": "Your iPhone, driven from Windows: LLM agents tap, type, and read the screen over USB",
   "version": "1.0.0",
   "author": "ucsandman",
-  "homepage": "https://github.com/ucsandman/sidetap",
+  "homepage": "https://github.com/ucsandman/SideTap",
   "skills": []
 }
