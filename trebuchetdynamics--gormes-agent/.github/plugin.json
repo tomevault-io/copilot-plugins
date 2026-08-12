@@ -1,0 +1,9 @@
+{
+  "name": "trebuchetdynamics--gormes-agent",
+  "displayName": "gormes-agent",
+  "description": "The agent that GOes with you",
+  "version": "1.0.0",
+  "author": "TrebuchetDynamics",
+  "homepage": "https://github.com/TrebuchetDynamics/gormes-agent",
+  "skills": []
+}
