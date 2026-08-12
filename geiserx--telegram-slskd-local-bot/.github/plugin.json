@@ -1,0 +1,9 @@
+{
+  "name": "geiserx--telegram-slskd-local-bot",
+  "displayName": "telegram-slskd-local-bot",
+  "description": "Automated music discovery and download via Telegram bot. Resolves metadata from Spotify, searches and downloads FLAC from Soulseek (slskd), and organizes your library. Docker-ready.",
+  "version": "1.0.0",
+  "author": "GeiserX",
+  "homepage": "https://github.com/GeiserX/telegram-slskd-local-bot",
+  "skills": []
+}
