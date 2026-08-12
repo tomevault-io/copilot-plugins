@@ -1,0 +1,9 @@
+{
+  "name": "beforerr--repld",
+  "displayName": "repld",
+  "description": "CLI/agent-first Persistent REPL kernel.",
+  "version": "1.0.0",
+  "author": "Beforerr",
+  "homepage": "https://github.com/Beforerr/repld",
+  "skills": []
+}
