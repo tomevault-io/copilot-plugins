@@ -1,0 +1,44 @@
+{
+  "name": "dsv4-flash-2x-rtxpro6000s",
+  "owner": "Infatoshi",
+  "repo": "dsv4-flash-2x-rtxpro6000s",
+  "description": "Serving DeepSeek-V4-Flash-0731-NVFP4 on 2x RTX PRO 6000 Blackwell (sm_120): vLLM patches, tuned configs, serve scripts, benchmarks",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Infatoshi/dsv4-flash-2x-rtxpro6000s",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T14:46:29Z"
+}
