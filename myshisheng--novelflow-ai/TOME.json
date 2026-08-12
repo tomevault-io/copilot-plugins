@@ -4,7 +4,7 @@
   "repo": "NovelFlow-AI",
   "description": "AI\u7f51\u6587\u4e00\u6761\u9f99\u521b\u4f5c\u7cfb\u7edf\uff1a\u652f\u6301\u9898\u6750\u7b56\u5212\u3001\u4eba\u7269\u8bbe\u5b9a\u3001\u4e16\u754c\u89c2\u3001\u5927\u7eb2\u3001\u591aAgent\u5199\u4f5c\u3001\u957f\u671f\u8bb0\u5fc6\u3001\u4f0f\u7b14\u7ba1\u7406\u3001\u5c01\u9762\u751f\u6210\u3001\u81ea\u52a8\u5ba1\u7a3f\u3001\u8fde\u7eed\u521b\u4f5c\u4e0e\u5b8c\u672c\u5bfc\u51fa\u3002",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/myshisheng/NovelFlow-AI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T12:36:57Z"
+  "distributed_at": "2026-08-12T12:37:31Z"
 }
