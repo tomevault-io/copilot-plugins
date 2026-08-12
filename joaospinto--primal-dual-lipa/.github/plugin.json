@@ -1,0 +1,9 @@
+{
+  "name": "joaospinto--primal-dual-lipa",
+  "displayName": "primal-dual-lipa",
+  "description": "Interior Point Optimal Control in JAX",
+  "version": "1.0.0",
+  "author": "joaospinto",
+  "homepage": "https://github.com/joaospinto/primal-dual-lipa",
+  "skills": []
+}
