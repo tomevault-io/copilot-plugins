@@ -1,72 +1,69 @@
-## jarvis-recipes-server
+## jarvis-settings-client
 
-> Rules for jarvis-recipes-server - recipe CRUD and meal planning
+> Rules for jarvis-settings-client - multi-tenant settings library
 
 
-# jarvis-recipes-server
+# jarvis-settings-client
 
-Recipe CRUD and meal planning service.
+Shared settings library with multi-tenant support, caching, and environment variable fallback.
 
-## Running (Port 7030)
+## Setup & Run
 
 ```bash
-./run.sh --docker              # Start in Docker (includes PostgreSQL)
-./run.sh --docker --rebuild    # Rebuild after dependency changes
-./run-prod.sh                  # Production (pulls from GHCR, requires shared network)
+pip install -e .
+pytest
+pytest --cov=jarvis_settings_client --cov-report=term-missing
 ```
 
-**Production requires:**
-- Shared Docker network: `docker network create microservices`
-- Shared PostgreSQL instance (see POSTGRES_SETUP.md)
+## Usage
 
-## Architecture
+```python
+from jarvis_settings_client import SettingDefinition, SettingsService
 
+# Define settings
+SETTINGS = [
+    SettingDefinition(key="model.name", category="model", value_type="string", default="default-model"),
+]
+
+# Create service
+service = SettingsService(definitions=SETTINGS, get_db_session=get_db, setting_model=Setting)
+
+# Use
+model = service.get("model.name")
+context_window = service.get_int("model.context_window")
+service.set("model.name", "new-model", household_id="h123")
 ```
-app/
-├── main.py
-├── models/                    # SQLAlchemy models
-├── routes/                    # FastAPI routes
-├── url_parsing/               # URL recipe parser (refactored from monolith)
-│   ├── __init__.py            # Main entry point (285 lines)
-│   ├── extractors/            # Site-specific extractors
-│   └── utils/                 # Parsing utilities
-└── services/                  # Business logic
-```
 
-## Key Features
+## Multi-Tenant Cascade Lookup
 
-- Recipe CRUD (create, read, update, delete)
-- URL recipe import (paste a URL, extracts recipe automatically)
-- Meal planning
-- `url_parsing/` package handles recipe extraction from websites
+Settings resolved in order (first match wins):
+1. User-specific: household_id + node_id + user_id
+2. Node-level: household_id + node_id
+3. Household-level: household_id
+4. System default: all scope fields NULL
 
-## API Endpoints
+## API Routes
 
-- `GET /recipes` - List recipes
-- `POST /recipes` - Create recipe
-- `POST /recipes/import-url` - Import recipe from URL
-- `GET /recipes/{id}` - Get recipe
-- `PUT /recipes/{id}` - Update recipe
-- `DELETE /recipes/{id}` - Delete recipe
+Include via `create_settings_router(service, auth_dependency)`:
+- `GET /settings` - List all
+- `GET /settings/categories` - List categories
+- `GET /settings/{key}` - Get single
+- `PUT /settings/{key}` - Update
+- `POST /settings/sync-from-env` - Migrate env vars to DB
+- `POST /settings/invalidate-cache` - Clear cache
 
 ## Service Dependencies
 
-**Must be running:**
-- `jarvis-auth` (7701) - App-to-app auth
-- `jarvis-logs` (7702) - Centralized logging
-- `jarvis-ocr-service` (7031) - Image-based recipe OCR (photo/screenshot → text)
-- `jarvis-llm-proxy-api` (7704) - Validates OCR output and parses URL-based recipes
+- `jarvis-auth` (7701) - JWT validation and app credential validation (GET /auth/me, GET /internal/app-ping)
+- Optionally uses `jarvis-config-client` to discover auth URL
 
-**Should use but not yet confirmed/implemented:**
-- `jarvis-config-service` (7700) - Service discovery (may still use hardcoded URLs)
-- `jarvis-settings-client` - Runtime configuration (future)
+## Features
 
-**Data services (from ~/jarvis-data-services):**
-- PostgreSQL - Recipe storage, meal plans
-
-## Dependencies
-
-FastAPI, SQLAlchemy, Alembic, psycopg2, httpx, beautifulsoup4, jarvis-log-client
+- Thread-safe caching (60s TTL)
+- Environment fallback
+- Type coercion (string/int/float/bool/json)
+- Secret masking in API
+- Multi-tenant cascade
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
