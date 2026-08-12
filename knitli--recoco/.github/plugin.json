@@ -1,0 +1,9 @@
+{
+  "name": "knitli--recoco",
+  "displayName": "recoco",
+  "description": "CocoIndex, but usable from Rust. Modular, feature-gated, edge-deployable. 220 crates instead of 820. \ud83e\udd80 ",
+  "version": "1.0.0",
+  "author": "knitli",
+  "homepage": "https://github.com/knitli/recoco",
+  "skills": []
+}
