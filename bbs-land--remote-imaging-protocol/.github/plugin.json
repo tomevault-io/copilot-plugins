@@ -1,0 +1,9 @@
+{
+  "name": "bbs-land--remote-imaging-protocol",
+  "displayName": "remote-imaging-protocol",
+  "description": "Documentation and extended information around RIPScrip/RIPTerm/RIPtel specifications.",
+  "version": "1.0.0",
+  "author": "bbs-land",
+  "homepage": "https://github.com/bbs-land/remote-imaging-protocol",
+  "skills": []
+}
