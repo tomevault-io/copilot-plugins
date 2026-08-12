@@ -4,7 +4,7 @@
   "repo": "agentic-os",
   "description": "A minimal, opinionated template for turning any AI agent CLI into a persistent operating system \u2014 memory, skills, automations, and dashboard.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aporb/agentic-os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T13:07:13Z"
+  "distributed_at": "2026-08-12T13:22:56Z"
 }
