@@ -1,0 +1,44 @@
+{
+  "name": "base-angular-monorepo",
+  "owner": "myvictorlife",
+  "repo": "base-angular-monorepo",
+  "description": "Angular 22 + Nx monorepo template \u2014 zoneless, NgRx SignalStore, enforced module boundaries, Storybook, i18n (8 languages, RTL), Tailwind 4, Vitest + Playwright, Firebase CI/CD. AI-agent-ready (AGENTS.md + skills).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/myvictorlife/base-angular-monorepo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T03:38:08Z"
+}
