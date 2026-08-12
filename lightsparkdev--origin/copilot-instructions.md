@@ -1,132 +1,104 @@
-## custom-components
+## figma-analysis
 
-> Rules for building custom components (Path C)
+> Deep Figma analysis before implementing components
 
 
-# Custom Components (Path C)
+# Figma Analysis
 
-Use when Base UI doesn't have the component.
+Before implementing any component from Figma, complete ALL of these steps. Do not skip any.
 
-## Before Building
+## 1. Understand the structure
 
-1. Deep Figma analysis — follow `figma-analysis.mdc`
-2. Check Base UI docs: https://base-ui.com/llms.txt (confirm no match)
-3. Study WAI-ARIA APG for the pattern
-4. **Write tests first** — define expected behavior before implementation
-
-## Component Structure
-
-```tsx
-'use client';
-
-import * as React from 'react';
-import clsx from 'clsx';
-import styles from './Component.module.scss';
-
-export interface ComponentProps extends React.ComponentPropsWithoutRef<'div'> {
-  children?: React.ReactNode;
-}
-
-export const Component = React.forwardRef<HTMLDivElement, ComponentProps>(
-  function Component(props, forwardedRef) {
-    const { className, children, ...elementProps } = props;
-
-    return (
-      <div
-        ref={forwardedRef}
-        className={clsx(styles.root, className)}
-        {...elementProps}
-      >
-        {children}
-      </div>
-    );
-  }
-);
-
-if (process.env.NODE_ENV !== 'production') {
-  Component.displayName = 'Component';
-}
+```
+mcp_Figma_get_metadata(nodeId, fileKey)
 ```
 
-## Compound Components
+From the XML output, extract:
+- Layer hierarchy (what wraps what)
+- Variant property names and values
+- Sub-component instance names
+- Auto-layout direction and spacing
 
-Use context for state sharing:
+## 2. Get tokens
 
-```tsx
-const ComponentContext = React.createContext<State | undefined>(undefined);
-
-function useComponentContext() {
-  const context = React.useContext(ComponentContext);
-  if (context === undefined) {
-    throw new Error('Component parts must be placed within <Component.Root>.');
-  }
-  return context;
-}
+```
+mcp_Figma_get_variable_defs(nodeId, fileKey)
 ```
 
-## Data Attributes (not classes)
+**Mirror Figma exactly:**
+- If Figma uses a token → use that token in code
+- If Figma uses a raw value → use that raw value in code
 
-```tsx
-// State → data attributes
-<div data-checked={checked || undefined} data-disabled={disabled || undefined} />
+Do not invent tokens. Do not force token usage where the design uses a custom value.
+
+## 3. Extract CSS for EACH variant
+
+Run `get_design_context` on each variant node, not just the parent:
+- Default state
+- Each size variant (sm, md, lg)
+- Each color/type variant
+- Disabled state
+- Hover/active states (if designed)
+
+## 4. Identify component composition
+
+For compound components (combobox, select, dialog, etc.), identify:
+
+- **Which design system components appear inside?** (e.g., Chip inside Combobox)
+- **How do they connect?** (e.g., Chip displays selected values)
+- **Are they the same component or a variant?** (e.g., Combobox chip may be smaller than standalone Chip)
+
+If a component uses another design system component:
+1. Note which component it uses
+2. Note any size/variant differences
+3. Plan to use the existing component via `render` prop or composition
+
+## 5. Document before coding
+
+Before writing any code, output a summary:
+
+```
+## {Component} Analysis
+
+**Variants**: {list all property:value pairs}
+**Sizes**: {dimensions per size}
+**Tokens used**:
+  - Spacing: {list}
+  - Colors: {list per state}
+  - Radius: {value}
+  - Typography: {mixin name}
+
+**Sub-components**: {list any nested components}
+**Composed components**: {list design system components used inside}
+**States**: {list interactive states}
 ```
 
-```scss
-// Style with attribute selectors
-.root {
-  &[data-checked] { /* checked styles */ }
-  &[data-disabled] { /* disabled styles */ }
-}
-```
+Only proceed to implementation after this summary is complete.
 
-## Base UI Utilities (Optional)
+## When to go deeper
 
-Even without wrapping Base UI, you can use their utilities:
+If the component has:
+- **Nested components** → Get metadata of each sub-component
+- **Multiple variants** → Get design context for each variant separately
+- **Interactive states** → Confirm all states are designed, ask if any are missing
+- **Design system components inside** → Analyze if they're the same or a size variant
 
-### mergeProps
+## Red flags to catch
 
-Useful for custom components with render props or prop forwarding:
+- Code using a raw value where Figma uses a token
+- Code using a token where Figma uses a raw value
+- Inconsistent values between variants that aren't in the design
+- Missing states in design (disabled, focus) — ask before implementing
+- Sub-components with their own variant logic (need separate analysis)
+- Recreating a design system component instead of composing it
+- Not understanding how child parts interact in compound components
 
-```tsx
-import { mergeProps } from '@base-ui/react/merge-props';
+## Figma vs Code translations
 
-// In a custom component with render prop
-function CustomTrigger({ render, ...internalProps }) {
-  const element = render 
-    ? React.cloneElement(render, mergeProps(internalProps, render.props))
-    : <button {...internalProps} />;
-  return element;
-}
-```
+Some Figma structures are UX accommodations for designers, not design requirements. Translate these appropriately:
 
-**Benefits over manual spreading:**
-- Event handlers chain (both execute) instead of override
-- className concatenates instead of replaces
-- style merges instead of replaces
-
-## Testing (TDD)
-
-Write tests before implementation. Playwright CT is sufficient for most custom components.
-
-**Test patterns:**
-- Use `page.getByRole()` or `page.getByText()` — not `component.locator('element')`
-
-Add unit tests (Vitest) only when there's complex logic:
-- State machines
-- Date/time calculations
-- Filtering/sorting algorithms
-
-## Checklist
-
-- [ ] Figma analysis complete
-- [ ] WAI-ARIA pattern followed
-- [ ] Tests written first
-- [ ] Implementation makes tests pass
-- [ ] forwardRef with named function
-- [ ] Props spread last
-- [ ] data-* attributes for state
-- [ ] Context throws helpful error
-- [ ] displayName in dev only
+- **Wrapper frames around text** → Figma can't apply padding to text; in code, apply padding directly to the element
+- **Styled frames instead of component instances** (e.g., Input styling inlined in Field) → nested instance props are harder to access in Figma; in code, slot in the actual component (`<Input />`)
 
 ---
 > Source: [lightsparkdev/origin](https://github.com/lightsparkdev/origin) — distributed by [TomeVault](https://tomevault.io).
