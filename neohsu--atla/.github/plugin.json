@@ -1,0 +1,9 @@
+{
+  "name": "neohsu--atla",
+  "displayName": "atla",
+  "description": "Jira and Confluence, one agent-ready CLI.",
+  "version": "1.0.0",
+  "author": "NeoHsu",
+  "homepage": "https://github.com/NeoHsu/atla",
+  "skills": []
+}
