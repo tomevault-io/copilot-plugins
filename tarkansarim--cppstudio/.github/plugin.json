@@ -1,0 +1,9 @@
+{
+  "name": "tarkansarim--cppstudio",
+  "displayName": "CppStudio",
+  "description": "ChatGPT Codex skill package for Vulkan-first C++ GPU, CUDA, and donor-reference workflows",
+  "version": "1.0.0",
+  "author": "tarkansarim",
+  "homepage": "https://github.com/tarkansarim/CppStudio",
+  "skills": []
+}
