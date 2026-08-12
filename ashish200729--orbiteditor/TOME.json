@@ -4,7 +4,7 @@
   "repo": "orbiteditor",
   "description": "Open-source AI code editor and Cursor alternative with multi-agent workflows, BYOK, local models, and self-hosted agents for macOS and Windows.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ashish200729/orbiteditor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T11:17:05Z"
+  "distributed_at": "2026-08-12T17:06:08Z"
 }
