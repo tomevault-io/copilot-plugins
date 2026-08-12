@@ -1,0 +1,9 @@
+{
+  "name": "colin4k1024--hermesx",
+  "displayName": "hermesx",
+  "description": "A production-grade platform for deploying, isolating, and governing AI agents at enterprise scale. Built in Go for single-binary deployment, native concurrency, and zero-dependency distribution.",
+  "version": "1.0.0",
+  "author": "Colin4k1024",
+  "homepage": "https://github.com/Colin4k1024/hermesx",
+  "skills": []
+}
