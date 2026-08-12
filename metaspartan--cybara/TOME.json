@@ -4,7 +4,7 @@
   "repo": "cybara",
   "description": "Cybara - Your agents. Your tools. Your runtime. Harness the power of AI",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/metaspartan/cybara",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T17:02:22Z"
+  "distributed_at": "2026-08-12T17:14:08Z"
 }
