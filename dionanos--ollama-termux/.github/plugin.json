@@ -1,0 +1,9 @@
+{
+  "name": "dionanos--ollama-termux",
+  "displayName": "ollama-termux",
+  "description": "Optimized Ollama fork for Termux on Android ARM64, with prebuilt release assets, mobile runtime tuning, and coding-agent launcher integration.",
+  "version": "1.0.0",
+  "author": "DioNanos",
+  "homepage": "https://github.com/DioNanos/ollama-termux",
+  "skills": []
+}
