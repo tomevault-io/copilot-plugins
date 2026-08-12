@@ -7,11 +7,11 @@ Open-source AI co-author for novelists & world-builders. ✍️ Canon-safe writi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [letuhao/lore-weave](https://github.com/letuhao/lore-weave).
+Original source: `CLAUDE.md` in [letuhao/lore-weave](https://github.com/letuhao/lore-weave).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
