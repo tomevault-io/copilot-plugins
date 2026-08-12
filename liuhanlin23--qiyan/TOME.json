@@ -1,0 +1,44 @@
+{
+  "name": "qiyan",
+  "owner": "Liuhanlin23",
+  "repo": "qiyan",
+  "description": "\u542f\u8a00\uff08QiYan\uff09\u2014\u2014 \u628a\u751f\u8bcd\u8bfb\u8fdb\u957f\u671f\u8bb0\u5fc6\u3002\u5f00\u6e90\u7684\u82f1\u8bed\u5b66\u4e60\u684c\u9762\u5e94\u7528\uff1aFSRS \u5355\u8bcd\u5361\u590d\u4e60\u3001\u539f\u6587\u9605\u8bfb\u5212\u8bcd\u3001\u8bcd\u5178\u67e5\u8be2\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Liuhanlin23/qiyan",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T04:42:44Z"
+}
