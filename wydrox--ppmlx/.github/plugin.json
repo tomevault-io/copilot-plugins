@@ -1,0 +1,9 @@
+{
+  "name": "wydrox--ppmlx",
+  "displayName": "ppmlx",
+  "description": "Run local LLMs on Apple Silicon with an OpenAI-compatible API powered by MLX.",
+  "version": "1.0.0",
+  "author": "wydrox",
+  "homepage": "https://github.com/wydrox/ppmlx",
+  "skills": []
+}
