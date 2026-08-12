@@ -4,7 +4,7 @@
   "repo": "open-proxy-mcp",
   "description": "MCP server for Korean DART filings \u2014 financials, valuation, ownership, business analysis, and AGM proxy-voting for AI agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MarcoYou/open-proxy-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T01:23:26Z"
+  "distributed_at": "2026-08-12T01:28:37Z"
 }
