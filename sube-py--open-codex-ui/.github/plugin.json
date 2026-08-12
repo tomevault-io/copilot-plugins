@@ -1,0 +1,9 @@
+{
+  "name": "sube-py--open-codex-ui",
+  "displayName": "open-codex-ui",
+  "description": "Remote-friendly Codex web workspace for continuing sessions from desktop and mobile browsers.",
+  "version": "1.0.0",
+  "author": "Sube-py",
+  "homepage": "https://github.com/Sube-py/open-codex-ui",
+  "skills": []
+}
