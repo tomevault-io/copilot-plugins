@@ -1,0 +1,259 @@
+## wirekit
+
+> WireKit component library conventions for AI tooling
+
+
+# WireKit — AI Authoring Rules
+
+WireKit is a Laravel Livewire component library. When generating Blade
+templates, CSS, or PHP that uses WireKit, follow these rules.
+
+## Component invocation
+
+WireKit components use Laravel's anonymous-component namespace syntax
+with a double colon:
+
+```blade
+<x-wirekit::button intent="primary">Save</x-wirekit::button>
+<x-wirekit::input name="email" wire:model="email" />
+<x-wirekit::card>
+    {{-- Card is a FRAME (radius/border/bg, NO padding). Content goes in card.body. --}}
+    <x-wirekit::card.body>
+        <x-wirekit::heading>Title</x-wirekit::heading>
+        <x-wirekit::text>Body copy</x-wirekit::text>
+    </x-wirekit::card.body>
+</x-wirekit::card>
+```
+
+NEVER use a single colon (`<x-wirekit:button>`) — that syntax does not
+resolve to the package's anonymous-component path.
+
+## Variant system
+
+Most interactive components support a unified Intent × Surface variant
+system. Acceptable values:
+
+- **Intent:** `primary`, `neutral`, `success`, `warning`, `danger`, `info`
+  (the shared set, from `VariantResolver::INTENTS`). `secondary` is NOT an
+  intent — it is a legacy `variant` value that maps to `intent="neutral"
+  surface="filled"`. `badge` additionally accepts `intent="accent"`.
+- **Surface:** `filled` (default), `soft`, `outline`, `ghost`, `link`
+  (from `VariantResolver::SURFACES`). `badge` uses a different surface set:
+  `soft` (default), `solid`, `outline` — `solid` is badge-only, not a button
+  surface.
+
+The color-role prop is `intent` (button / badge / progress); `surface` selects the
+visual treatment. When in doubt, prefer `intent="primary"` over hand-coding colors.
+
+NEVER apply Tailwind color utilities to recolor a component:
+
+```blade
+{{-- ❌ WRONG --}}
+<x-wirekit::button class="bg-blue-500 text-white">…</x-wirekit::button>
+
+{{-- ✅ RIGHT --}}
+<x-wirekit::button intent="primary">…</x-wirekit::button>
+```
+
+## Design tokens
+
+WireKit ships its design tokens under the `--*-wk-*` namespace. They
+auto-switch in dark mode via the `.dark` class. NEVER hand-write color
+values; reach for the token. NEVER use Tailwind palette classes
+(`zinc-*`, `gray-*`, `slate-*`) inside WireKit components or their
+overrides.
+
+Common tokens:
+
+- `--color-wk-bg`, `--color-wk-bg-muted`, `--color-wk-bg-input`
+- `--color-wk-text`, `--color-wk-text-muted`, `--color-wk-text-subtle`
+- `--color-wk-border`, `--color-wk-border-subtle`, `--color-wk-border-hover`, `--color-wk-border-strong`, `--color-wk-border-strong-hover` (form controls MUST use the `strong` pair — the communicating border, WCAG 1.4.11, ≥3:1), `--color-wk-border-error`, `--color-wk-border-success`
+- `--color-wk-accent` (fill), `--color-wk-accent-text` (accent-toned text on bg — alias of `--color-wk-accent-content`), `--color-wk-accent-fg` (text on an accent fill)
+- `--space-wk-xs|sm|md|lg|xl|2xl` (+ `--space-wk-section-sm|md|lg`)
+- `--gap-wk-xs|sm|md|lg|xl|2xl` (the full `xs`…`2xl` internal layout-gap ladder). Note: the `<x-wirekit::stack|row|grid>` `gap` prop maps to `--space-wk-*`, not these — the `--gap-wk-*` tokens are used internally by composed components (`brand`, `header`, `cta`, `hero`, `navbar`, …).
+- `--padding-wk-x-xs|sm|md|lg|xl` and `--padding-wk-y-xs|sm|md|lg|xl` (axis-split — no axis-less shorthand)
+- `--radius-wk-sm|md|lg|xl|full`
+- `--shadow-wk-sm|md|lg`
+- `--text-wk-2xs|xs|sm|md|lg|xl|2xl|3xl|4xl|5xl`
+- `--transition-wk-duration`, `--transition-wk-easing`
+
+NEVER use the `dark:` Tailwind prefix on a WireKit component or its
+content — tokens auto-switch via the parent `.dark` class.
+
+## Icon usage
+
+```blade
+<x-wirekit::icon name="check" size="sm" />
+<x-wirekit::icon name="x-mark" size="md" aria-label="Close" />
+```
+
+Acceptable `size` values: `xs` (12px), `sm` (16px), `md` (20px),
+`lg` (24px), `xl` (32px). NEVER use `class="h-N w-N"` on
+`<x-wirekit::icon>` — the `size` prop is the canonical way.
+
+To place an icon inside a `<x-wirekit::button>` (or `link`), use the
+`iconLeft` / `iconRight` slots — they position and space the icon
+correctly and shrink-proof it:
+
+```blade
+<x-wirekit::button intent="primary">
+    <x-slot:iconLeft><x-wirekit::icon name="plus" size="sm" /></x-slot:iconLeft>
+    New item
+</x-wirekit::button>
+```
+
+Stackable presets — base preset (`heroicons`) plus optional
+`heroicons-app` and `heroicons-marketing` extensions add app- and
+marketing-specific aliases. Configure in `config/wirekit.php`:
+
+```php
+'icons' => ['presets' => ['heroicons', 'heroicons-marketing']],
+```
+
+## Layout primitives
+
+Reach for these instead of hand-rolled flex/grid:
+
+- `<x-wirekit::container>` — max-width wrapper with responsive padding
+- `<x-wirekit::stack gap="md">` — vertical flex column (the prop is `gap`, NOT `space`)
+- `<x-wirekit::row gap="sm">` — horizontal flex row (the prop is `gap`, NOT `space`)
+- `<x-wirekit::grid cols="3" gap="md">` — responsive CSS grid
+- `<x-wirekit::section>` — semantic page section with vertical padding
+- `<x-wirekit::center>` — centers a single child both axes
+- `<x-wirekit::aspect-ratio ratio="16/9">` — locked aspect ratio
+- `<x-wirekit::divider>`, `<x-wirekit::spacer>` (the spacer is a flex-grow gap — it has no `size` prop)
+
+Components carry NO outer margins — compose rhythm with `stack`/`row`/`grid`/
+`section` + their `gap` prop. Do NOT hand-roll `space-y-*` / `mb-*` utilities.
+
+## Application shell (signed-in app layout)
+
+For a full dashboard chrome (sidebar + header + content) compose the **app-shell**
+system — NOT a hand-rolled top bar. `app-shell` owns the mobile sidebar state; the
+`header` and `sidebar` go in its named slots, the page content is the default slot
+(wrap it in `main`, which already centers + width-caps via `max="2xl"` — don't add
+another container). `navbar` is a SEPARATE, ALTERNATIVE top-nav shell with its OWN
+mobile hamburger — never nest `navbar` inside the app-shell header (you get two
+hamburgers).
+
+```blade
+<x-wirekit::app-shell>
+    <x-slot:sidebar>
+        <x-wirekit::sidebar>
+            <x-wirekit::sidebar.item href="/dashboard" icon="home">Dashboard</x-wirekit::sidebar.item>
+        </x-wirekit::sidebar>
+    </x-slot:sidebar>
+    <x-slot:header>
+        <x-wirekit::header>
+            <x-wirekit::sidebar.toggle class="lg:hidden" />
+            <x-wirekit::brand name="App" />
+            <x-wirekit::spacer />
+            <x-wirekit::dropdown>
+                <x-slot:trigger>
+                    <x-wirekit::profile name="User" interactive />
+                </x-slot:trigger>
+                <x-wirekit::dropdown.item href="/settings">Settings</x-wirekit::dropdown.item>
+            </x-wirekit::dropdown>
+        </x-wirekit::header>
+    </x-slot:header>
+
+    <x-wirekit::main>
+        {{-- main already centers + width-caps — pass page content directly --}}
+        Page content
+    </x-wirekit::main>
+</x-wirekit::app-shell>
+```
+
+## Typography primitives
+
+```blade
+<x-wirekit::heading level="2">Section title</x-wirekit::heading>
+<x-wirekit::text size="sm" variant="muted">Help copy</x-wirekit::text>
+<x-wirekit::link href="/docs">Read docs</x-wirekit::link>
+<x-wirekit::code>$variable</x-wirekit::code>
+<x-wirekit::code-block language="php">{{ $snippet }}</x-wirekit::code-block>
+<x-wirekit::kbd>Cmd</x-wirekit::kbd> + <x-wirekit::kbd>K</x-wirekit::kbd>
+```
+
+## Modal / Drawer / Dropdown trigger pattern
+
+NEVER place a `<x-wirekit::modal.trigger>` (or drawer/dropdown
+equivalents) outside its parent overlay component. The trigger reads
+its target via the named slot context — orphaned triggers do nothing
+and create silent bugs.
+
+```blade
+{{-- ✅ RIGHT --}}
+<x-wirekit::modal>
+    <x-slot:trigger>
+        <x-wirekit::button>Open</x-wirekit::button>
+    </x-slot:trigger>
+    {{-- Body is the DEFAULT slot — modal has no `body` slot. A named
+         <x-slot:body> is silently dropped and the modal opens empty. --}}
+    <x-wirekit::modal.header>Title</x-wirekit::modal.header>
+    <x-wirekit::modal.body>…</x-wirekit::modal.body>
+</x-wirekit::modal>
+```
+
+## Accessibility defaults
+
+- Icons: `aria-hidden="true"` by default (decorative use). If the icon
+  carries meaning (icon-only button), set `aria-label` on the
+  surrounding `<button>`.
+- `target="_blank"` links: WireKit auto-injects
+  `rel="noopener noreferrer"` plus a screen-reader hint. NEVER add
+  `rel="noopener"` manually — the auto-inject overrides caller `rel`
+  values intentionally for security.
+- Forms: pair every `<x-wirekit::input>` with a
+  `<x-wirekit::label for="...">`. The `field` wrapper is preferred:
+  `<x-wirekit::field label="Email" name="email" />`.
+
+## Livewire integration
+
+- `wire:model.live` on every keystroke is anti-pattern for prose
+  inputs and large option lists. Default to `wire:model.blur`.
+- `wire:click` MUST NOT be added directly to overlay triggers
+  (`<x-wirekit::modal.trigger>`, etc.) — the Alpine handler dispatches
+  the open event; competing `wire:click` will race.
+- `<x-wirekit::chart>` re-creates its underlying chart instance
+  (Chart.js or ApexCharts, per `charts.library`) on every data
+  change — bind via `$wire.set()` and refresh on a debounced trigger.
+
+## Browser support
+
+Tailwind CSS v4 baseline: Chrome 111+, Edge 111+, Safari 16.4+,
+Firefox 128+. Use any CSS feature in this baseline freely
+(`color-mix()`, `@property`, `@starting-style`, `field-sizing`,
+native CSS nesting, `min()/max()/round()`). NEVER add polyfills for
+older browsers.
+
+## CLI commands
+
+```bash
+php artisan wirekit:install              # one-command bootstrap
+php artisan wirekit:verify               # diagnose integration health
+php artisan wirekit:doctor               # alias for wirekit:verify
+php artisan wirekit:list                 # every component
+php artisan wirekit:show button          # props + slots + docs URL
+php artisan wirekit:theme cupertino      # inject theme preset CSS
+php artisan wirekit:make page:dashboard  # scaffold Livewire page
+php artisan wirekit:component my-button --base=button  # fork a component
+php artisan wirekit:publish-icons heroicons --force    # publish icons
+php artisan wirekit:glass install        # publish Liquid Glass extension
+php artisan wirekit:export-json          # machine-readable component manifest
+php artisan wirekit:export-api-map       # AI-friendly hierarchical sitemap
+php artisan wirekit:export-blocks        # layout + blueprint manifest
+php artisan wirekit:cursor-rules         # publish this file
+```
+
+## Reference
+
+- Components catalogue: <https://docs.wirekit.app>
+- JSON manifest: <https://docs.wirekit.app/components.json>
+- LLM-friendly index: <https://docs.wirekit.app/llms.txt>
+- API sitemap: <https://docs.wirekit.app/api-map.json>
+- GitHub: <https://github.com/pushery/wirekit>
+
+---
+> Source: [pushery/wirekit](https://github.com/pushery/wirekit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
