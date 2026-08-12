@@ -1,0 +1,44 @@
+{
+  "name": "HikariServerLauncher2",
+  "owner": "Hikari16665",
+  "repo": "HikariServerLauncher2",
+  "description": "Minecraft server hosting platform with a Python Flask backend, Tauri v2 (Rust) desktop shell, and React TypeScript frontend. Manage multiple Minecraft server instances across various server types through a unified desktop application.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Hikari16665/HikariServerLauncher2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T10:49:54Z"
+}
