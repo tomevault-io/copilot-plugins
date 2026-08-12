@@ -4,7 +4,7 @@
   "repo": "mcpscore",
   "description": "Lighthouse for MCP \u2014 score any MCP server 0\u2013100.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mcp-box/mcpscore",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T17:35:30Z"
+  "distributed_at": "2026-08-12T18:52:32Z"
 }
