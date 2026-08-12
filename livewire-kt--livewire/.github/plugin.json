@@ -1,0 +1,9 @@
+{
+  "name": "livewire-kt--livewire",
+  "displayName": "livewire",
+  "description": "A app-driven remote compose framework for building a side-car / companion desktop app for your Android application",
+  "version": "1.0.0",
+  "author": "livewire-kt",
+  "homepage": "https://github.com/livewire-kt/livewire",
+  "skills": []
+}
