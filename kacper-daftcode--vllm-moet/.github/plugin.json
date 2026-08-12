@@ -1,0 +1,9 @@
+{
+  "name": "kacper-daftcode--vllm-moet",
+  "displayName": "vLLM-Moet",
+  "description": "A vLLM patch + hand\u2011written SM120 SASS kernels: 2\u2011bit MoE experts + an FP4 \"delta\" cache that recovers precision \u2014 matching the official (NV)FP4 checkpoint's quality on consumer Blackwell cards",
+  "version": "1.0.0",
+  "author": "kacper-daftcode",
+  "homepage": "https://github.com/kacper-daftcode/vLLM-Moet",
+  "skills": []
+}
