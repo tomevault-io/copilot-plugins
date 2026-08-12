@@ -1,0 +1,9 @@
+{
+  "name": "bogdanpricop--docker-dash",
+  "displayName": "docker-dash",
+  "description": "Self-hosted Docker management dashboard \u2014 runs standalone (zero deps) or in HA mode (Redis). In-app observability wizard (Prometheus+Grafana). Multi-host SSH/TCP, Trivy+Grype+Scout vuln scan, GitOps+W",
+  "version": "1.0.0",
+  "author": "bogdanpricop",
+  "homepage": "https://github.com/bogdanpricop/docker-dash",
+  "skills": []
+}
