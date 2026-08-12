@@ -1,0 +1,9 @@
+{
+  "name": "arturmarc--overflow-guard",
+  "displayName": "overflow-guard",
+  "description": "Tools for detecting html content overflowing and building better responsive layouts",
+  "version": "1.0.0",
+  "author": "arturmarc",
+  "homepage": "https://github.com/arturmarc/overflow-guard",
+  "skills": []
+}
