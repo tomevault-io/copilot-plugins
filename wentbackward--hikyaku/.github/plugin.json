@@ -1,0 +1,9 @@
+{
+  "name": "wentbackward--hikyaku",
+  "displayName": "hikyaku",
+  "description": "A superfast proxy and smart load-balancer for AI Inference \u2014 virtualize models, share local and provider back-ends, optimal caching, lock-in sampling parameters, debug message flow and obtain OTel met",
+  "version": "1.0.0",
+  "author": "wentbackward",
+  "homepage": "https://github.com/wentbackward/hikyaku",
+  "skills": []
+}
