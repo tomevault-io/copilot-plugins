@@ -1,0 +1,9 @@
+{
+  "name": "michael-a-kuykendall--airframe",
+  "displayName": "airframe",
+  "description": "Pure-Rust WebGPU inference engine for GGUF models. No C++, no Python, no llama.cpp. Runs on NVIDIA, AMD, Intel, and Apple Silicon.",
+  "version": "1.0.0",
+  "author": "Michael-A-Kuykendall",
+  "homepage": "https://github.com/Michael-A-Kuykendall/airframe",
+  "skills": []
+}
