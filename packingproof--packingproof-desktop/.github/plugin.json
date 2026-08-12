@@ -1,0 +1,9 @@
+{
+  "name": "packingproof--packingproof-desktop",
+  "displayName": "PackingProof-Desktop",
+  "description": "\u7535\u5546\u6253\u5305\u626b\u7801\u5f55\u50cf\u4e0e\u53d1\u8d27\u98ce\u63a7\u5de5\u5177\uff5c\u5feb\u9012\u52a9\u624b\u8054\u52a8\u64ad\u62a5\u5907\u6ce8\u7559\u8a00\uff5c\u6253\u5370\u540e\u9000\u6b3e\u62a5\u8b66\u62e6\u622a\uff5c\u5355\u53f7\u68c0\u7d22\u4e0e\u5c40\u57df\u7f51\u56de\u653e",
+  "version": "1.0.0",
+  "author": "PackingProof",
+  "homepage": "https://github.com/PackingProof/PackingProof-Desktop",
+  "skills": []
+}
