@@ -1,0 +1,9 @@
+{
+  "name": "n30dyn4m1c--gold-pro-scalper",
+  "displayName": "gold-pro-scalper",
+  "description": "MetaTrader 5 gold (XAUUSD) M1 mean-reversion scalpers \u2014 Z-Score entries, cost-aware TickRobust variant, and dual MR + breakout EA",
+  "version": "1.0.0",
+  "author": "n30dyn4m1c",
+  "homepage": "https://github.com/n30dyn4m1c/gold-pro-scalper",
+  "skills": []
+}
