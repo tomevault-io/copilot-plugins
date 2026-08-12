@@ -1,14 +1,20 @@
-## spark901-domain
+## spark901-memphis-hub
 
-> Spark901 canonical domain and public URLs
+> Memphis nonprofit hub statistics for copy and UI (single source)
 
 
-# Spark901 — domain
+# Memphis nonprofit sector — canonical figures
 
-- **Canonical public domain**: `spark901.com` (not `.org`).
-- **Site origin**: `https://spark901.com` — use for `NEXT_PUBLIC_SITE_URL`, SEO canonicals, Stripe success/cancel/return URLs, webhooks (`https://spark901.com/api/webhooks/stripe`), sitemap, and Open Graph.
-- **Email**: prefer `@spark901.com` (e.g. `hello@spark901.com`, `support@spark901.com`). Do not introduce new `@spark901.org` addresses.
-- When editing brand constants, env examples, Stripe public details, or agent docs, keep URLs on **`.com`**.
+Use **`lib/brand.ts`** → `memphisNonprofitHub` for numeric values in UI and tests. Do not drift duplicates across files.
+
+| Fact | Value |
+|------|--------|
+| Nonprofits per 10k residents (vs. major U.S. metros) | **69.9** — Memphis **leads** |
+| Tax-exempt nonprofits (Memphis area) | **6,500+** |
+| People employed | **96,000+** |
+| Assets | **$46B+** |
+
+When translating, keep numbers consistent with `brand.memphisNonprofitHub`. Prefer the shared **`MemphisNonprofitHubStats`** component for new sections.
 
 ---
 > Source: [Spark-901/website](https://github.com/Spark-901/website) — distributed by [TomeVault](https://tomevault.io).
