@@ -1,0 +1,9 @@
+{
+  "name": "block--coplan",
+  "displayName": "coplan",
+  "description": "Planning With Agents",
+  "version": "1.0.0",
+  "author": "block",
+  "homepage": "https://github.com/block/coplan",
+  "skills": []
+}
