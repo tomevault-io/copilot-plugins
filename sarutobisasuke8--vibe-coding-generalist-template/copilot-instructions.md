@@ -1,0 +1,31 @@
+## vibe-coding-core
+
+> Core vibe coding agent contract for Cursor.
+
+
+# Vibe Coding Core Rule
+
+Canonical source: `AGENTS.md`
+
+Follow `AGENTS.md`. This rule holds Cursor-specific guidance only; the canonical principles live in `AGENTS.md`.
+
+## Alignment Markers
+
+- **Think Before Coding** — inspect context, surface assumptions, ask when ambiguity changes implementation.
+- **Simplicity First** — prefer the smallest verifiable solution; avoid speculative abstractions and dependencies.
+- **Surgical Changes** — keep edits scoped, preserve existing style, avoid drive-by refactors.
+- **Goal-Driven Execution** — define success criteria and verify changed behavior.
+- **Vibe Coding Quality Bar** — protect the product feeling, responsive UI, core workflows, and polish.
+
+## Cursor Behavior
+
+- Inline edits should stay small (target under ~50 lines per accepted edit) unless the user asked for a larger rewrite.
+- Ground edits in the current file and nearby project conventions.
+- Preserve user-authored comments and docs.
+- For UI changes, account for loading, empty, error, hover/focus, and responsive states where relevant.
+- Mention unrelated issues separately instead of silently editing them.
+- For multi-file, architecture, debugging, or handoff-heavy work, append a session log in `Session Logs/` using `Templates/SESSION_LOG_TEMPLATE.md`.
+
+---
+> Source: [SarutobiSasuke8/vibe-coding-generalist-template](https://github.com/SarutobiSasuke8/vibe-coding-generalist-template) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
