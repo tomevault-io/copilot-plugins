@@ -1,0 +1,9 @@
+{
+  "name": "langchain-samples--sre-agent",
+  "displayName": "sre-agent",
+  "description": "sre-agent",
+  "version": "1.0.0",
+  "author": "langchain-samples",
+  "homepage": "https://github.com/langchain-samples/sre-agent",
+  "skills": []
+}
