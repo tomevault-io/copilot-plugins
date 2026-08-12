@@ -1,0 +1,9 @@
+{
+  "name": "omar-os--omar",
+  "displayName": "omar",
+  "description": "LLM agents are unpredictable. Their coordination doesn't have to be. OMAR delivers deterministic, formally specified orchestration for multi-agent systems.",
+  "version": "1.0.0",
+  "author": "omar-os",
+  "homepage": "https://github.com/omar-os/omar",
+  "skills": []
+}
