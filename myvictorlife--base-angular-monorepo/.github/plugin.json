@@ -1,0 +1,9 @@
+{
+  "name": "myvictorlife--base-angular-monorepo",
+  "displayName": "base-angular-monorepo",
+  "description": "Angular 22 + Nx monorepo template \u2014 zoneless, NgRx SignalStore, enforced module boundaries, Storybook, i18n (8 languages, RTL), Tailwind 4, Vitest + Playwright, Firebase CI/CD. AI-agent-ready (AGENTS.",
+  "version": "1.0.0",
+  "author": "myvictorlife",
+  "homepage": "https://github.com/myvictorlife/base-angular-monorepo",
+  "skills": []
+}
