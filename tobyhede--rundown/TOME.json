@@ -1,0 +1,57 @@
+{
+  "name": "rundown",
+  "owner": "tobyhede",
+  "repo": "rundown",
+  "description": "Rundown is a tool for defining executable workflows using markdown.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "verifying-by-consensus",
+      "path": "packages/claude-code-plugin/skills/verifying-by-consensus",
+      "github_url": "https://github.com/tobyhede/rundown/tree/main/packages/claude-code-plugin/skills/verifying-by-consensus",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "path": "packages/claude-code-plugin/skills/writing-plans",
+      "github_url": "https://github.com/tobyhede/rundown/tree/main/packages/claude-code-plugin/skills/writing-plans",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tobyhede/rundown",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T22:30:51Z"
+}
