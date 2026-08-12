@@ -4,7 +4,7 @@
   "repo": "pi-plugins",
   "description": "High-quality, single-purpose plugins for the pi-agent harness, built on Effect-TS primitives.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/k3dom/pi-plugins",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T09:19:52Z"
+  "distributed_at": "2026-08-12T09:37:46Z"
 }
