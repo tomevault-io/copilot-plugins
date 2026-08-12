@@ -4,7 +4,7 @@
   "repo": "remix-of-wonder-forge",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/igabhix001/remix-of-wonder-forge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T14:41:20Z"
+  "distributed_at": "2026-08-12T14:55:27Z"
 }
