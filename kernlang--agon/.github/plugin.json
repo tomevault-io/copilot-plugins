@@ -1,0 +1,9 @@
+{
+  "name": "kernlang--agon",
+  "displayName": "agon",
+  "description": "A coliseum for AI coding models. They race on the same task in isolated git worktrees, the best solution wins and auto-applies, and Glicko-2 ratings continuously track who's actually best, then route ",
+  "version": "1.0.0",
+  "author": "KERNlang",
+  "homepage": "https://github.com/KERNlang/agon",
+  "skills": []
+}
