@@ -4,7 +4,7 @@
   "repo": "devops-ai-skill",
   "description": "\u26a1 Cross-platform DevOps AI Skill Pack \u2014 Horus (IaC) + Zeus (GitOps) agents, ingress\u2192Gateway migration & architecture-diagram painter for Claude Code, Codex CLI, Gemini CLI & Antigravity",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/qwedsazxc78/devops-ai-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T05:29:41Z"
+  "distributed_at": "2026-08-12T06:46:05Z"
 }
