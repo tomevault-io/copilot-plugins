@@ -1,0 +1,9 @@
+{
+  "name": "zircote-plugins--claude-team-orchestration",
+  "displayName": "claude-team-orchestration",
+  "description": "Multi-agent orchestration plugin for Claude Code. Coordinate agent teams with shared tasks, messaging, and 7 patterns including RLM (arXiv:2512.24601) for large-file analysis beyond context limits.",
+  "version": "1.0.0",
+  "author": "zircote-plugins",
+  "homepage": "https://github.com/zircote-plugins/claude-team-orchestration",
+  "skills": []
+}
