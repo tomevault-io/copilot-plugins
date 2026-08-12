@@ -1,0 +1,9 @@
+{
+  "name": "q652983601--agent-policy-broadcast",
+  "displayName": "agent-policy-broadcast",
+  "description": "Safely broadcast one canonical policy to many AI agent workspaces with managed blocks, verification, backups and rollback",
+  "version": "1.0.0",
+  "author": "q652983601",
+  "homepage": "https://github.com/q652983601/agent-policy-broadcast",
+  "skills": []
+}
