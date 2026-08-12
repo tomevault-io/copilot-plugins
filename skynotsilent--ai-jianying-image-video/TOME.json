@@ -1,0 +1,44 @@
+{
+  "name": "ai-jianying-image-video",
+  "owner": "SkyNotSilent",
+  "repo": "ai-jianying-image-video",
+  "description": "AI \u56fe\u7247\u89c6\u9891\u751f\u6210\u5de5\u4f5c\u53f0\uff1a\u6587\u7a3f/\u4e3b\u9898\u8f6c\u89c6\u9891\uff0c\u6279\u91cf\u751f\u6210\u8ba4\u77e5\u89c6\u9891\uff0c\u5206\u955c\u53ef\u7f16\u8f91\uff0c\u751f\u6210\u6548\u679c\u8fdc\u80dc\u526a\u6620\u4e00\u952e\u6210\u7247\uff0c\u652f\u6301 MP4 \u4e0e\u526a\u6620\u8349\u7a3f/CapCut draft \u5bfc\u51fa\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SkyNotSilent/ai-jianying-image-video",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T14:47:10Z"
+}
