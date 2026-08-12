@@ -1,0 +1,9 @@
+{
+  "name": "shawnzhong--verus-explorer",
+  "displayName": "verus-explorer",
+  "description": "Every stage of Verus, from source to solver, running live as wasm in your browser.",
+  "version": "1.0.0",
+  "author": "ShawnZhong",
+  "homepage": "https://github.com/ShawnZhong/verus-explorer",
+  "skills": []
+}
