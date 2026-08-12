@@ -1,0 +1,9 @@
+{
+  "name": "merit-systems--agentcash-router",
+  "displayName": "agentcash-router",
+  "description": "Opinionated server framework for building x402/MPP-compatible APIs",
+  "version": "1.0.0",
+  "author": "Merit-Systems",
+  "homepage": "https://github.com/Merit-Systems/agentcash-router",
+  "skills": []
+}
