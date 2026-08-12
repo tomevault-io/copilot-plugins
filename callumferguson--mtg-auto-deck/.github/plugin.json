@@ -1,0 +1,9 @@
+{
+  "name": "callumferguson--mtg-auto-deck",
+  "displayName": "mtg-auto-deck",
+  "description": "A tool to automatically goldfish your MTG commander deck using an LLM",
+  "version": "1.0.0",
+  "author": "CallumFerguson",
+  "homepage": "https://github.com/CallumFerguson/mtg-auto-deck",
+  "skills": []
+}
