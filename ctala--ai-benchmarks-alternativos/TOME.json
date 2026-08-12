@@ -1,0 +1,44 @@
+{
+  "name": "ai-benchmarks-alternativos",
+  "owner": "ctala",
+  "repo": "ai-benchmarks-alternativos",
+  "description": "Benchmark abierto en espa\u00f1ol de 170 modelos de IA (118 con 20+ runs, 69 rankeados, juez Phi-4 independiente). Calidad, costo, velocidad, long-context y fuga de credenciales como dimensiones separadas. Alternativas a Claude, GPT y Gemini para agentes n8n/Hermes. Calculadora interactiva con tus propios pesos.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ctala/ai-benchmarks-alternativos",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T14:39:09Z"
+}
