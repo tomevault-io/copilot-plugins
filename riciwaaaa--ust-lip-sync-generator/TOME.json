@@ -4,7 +4,7 @@
   "repo": "UST-lip-sync-generator",
   "description": "A Web-based tool that generates lip-sync animation videos from .ust, .ustx, .vsqx files.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Riciwaaaa/UST-lip-sync-generator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T00:52:11Z"
+  "distributed_at": "2026-08-12T00:52:49Z"
 }
