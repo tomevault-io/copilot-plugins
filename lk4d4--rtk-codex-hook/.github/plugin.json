@@ -1,0 +1,9 @@
+{
+  "name": "lk4d4--rtk-codex-hook",
+  "displayName": "rtk-codex-hook",
+  "description": "Rust Codex PreToolUse hook for RTK command suggestions",
+  "version": "1.0.0",
+  "author": "LK4D4",
+  "homepage": "https://github.com/LK4D4/rtk-codex-hook",
+  "skills": []
+}
