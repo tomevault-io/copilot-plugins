@@ -4,7 +4,7 @@
   "repo": "aioson",
   "description": "AI operating framework for hyper-personalized software.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jaimevalasek/aioson",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T03:36:50Z"
+  "distributed_at": "2026-08-12T04:44:01Z"
 }
