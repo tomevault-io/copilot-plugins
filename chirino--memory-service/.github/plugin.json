@@ -1,0 +1,34 @@
+{
+  "name": "chirino--memory-service",
+  "displayName": "memory-service",
+  "description": "A persistent memory service for AI agents that stores and manages conversation history, enabling agents to maintain context across sessions, replay conversations, fork conversations at any point, and ",
+  "version": "1.0.0",
+  "author": "chirino",
+  "homepage": "https://github.com/chirino/memory-service",
+  "skills": [
+    {
+      "name": "build-test",
+      "description": ""
+    },
+    {
+      "name": "chat-frontend",
+      "description": ""
+    },
+    {
+      "name": "cucumber-features",
+      "description": ""
+    },
+    {
+      "name": "openapi-workflow",
+      "description": ""
+    },
+    {
+      "name": "site-tests",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    }
+  ]
+}
