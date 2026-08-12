@@ -1,0 +1,51 @@
+{
+  "name": "swift-patterns-skill",
+  "owner": "efremidze",
+  "repo": "swift-patterns-skill",
+  "description": "Modern Swift/SwiftUI Best Practices (Agent Skills)",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "swift-patterns",
+      "path": "swift-patterns",
+      "github_url": "https://github.com/efremidze/swift-patterns-skill/tree/main/swift-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/efremidze/swift-patterns-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T20:32:33Z"
+}
