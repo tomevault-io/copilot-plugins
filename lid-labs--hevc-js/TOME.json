@@ -1,0 +1,44 @@
+{
+  "name": "hevc.js",
+  "owner": "lid-labs",
+  "repo": "hevc.js",
+  "description": "HEVC/H.265 decoder for any browser via WebAssembly. Drop-in dash.js plugin transcodes HEVC \u2192 H.264 client-side. Works on Chrome, Firefox, browsers without native HEVC.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lid-labs/hevc.js",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T01:07:58Z"
+}
