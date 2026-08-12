@@ -1,0 +1,9 @@
+{
+  "name": "intelligent-iterations--ii-content-engine",
+  "displayName": "ii-content-engine",
+  "description": "AI-powered content generation and auto-posting engine built for Claude Code and Codex. Generate viral videos, carousels, and reels for TikTok, Instagram, and X using Grok. No API keys needed \u2014 uses br",
+  "version": "1.0.0",
+  "author": "intelligent-iterations",
+  "homepage": "https://github.com/intelligent-iterations/ii-content-engine",
+  "skills": []
+}
