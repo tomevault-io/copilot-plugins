@@ -4,7 +4,7 @@
   "repo": "kunnus-scanner",
   "description": "SBOM generator written in Go. Create EU-CRA compliant SBOMs for every ecosystem",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/think-ahead-technologies/kunnus-scanner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T08:34:11Z"
+  "distributed_at": "2026-08-12T09:02:41Z"
 }
