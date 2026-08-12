@@ -1,0 +1,9 @@
+{
+  "name": "lebsral--dspy-programming-not-prompting-lms-skills",
+  "displayName": "DSPy-Programming-not-prompting-LMs-skills",
+  "description": "AI skills for Claude Code, Cursor, and other coding agents. Build reliable AI features with DSPy \u2014 classification, RAG, parsing, agents, and more. Just type /ai-do.",
+  "version": "1.0.0",
+  "author": "lebsral",
+  "homepage": "https://github.com/lebsral/DSPy-Programming-not-prompting-LMs-skills",
+  "skills": []
+}
