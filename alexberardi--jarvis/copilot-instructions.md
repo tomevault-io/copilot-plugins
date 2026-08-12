@@ -1,60 +1,68 @@
-## jarvis-tts
+## jarvis-whisper-api
 
-> Rules for jarvis-tts - text-to-speech service
+> Rules for jarvis-whisper-api - speech-to-text service
 
 
-# jarvis-tts
+# jarvis-whisper-api
 
-Text-to-speech service using Piper TTS with ONNX runtime.
+REST API wrapper for whisper.cpp with optional speaker recognition.
 
-## Running (Port 7707)
+## Running (Port 7706)
 
 ```bash
 ./run.sh --docker              # Start in Docker (standard)
 ./run.sh --docker --rebuild    # Rebuild after dependency changes
+
+# First-time setup (if running locally)
+./setup-python.sh && ./setup-whisper-cpp.sh
 ```
 
 ## Architecture
 
 ```
 app/
-├── main.py      # FastAPI routes: /ping, /speak, /generate-wake-response
-├── deps.py      # Node authentication via jarvis-auth
-└── models/      # Piper ONNX voice models
+├── main.py          # FastAPI routes: /ping, /transcribe
+├── deps.py          # Node authentication via jarvis-auth
+├── utils.py         # run_whisper(), recognize_speaker()
+└── exceptions.py
 ```
 
-- **TTS Engine**: Piper TTS with ONNX runtime
-- **Voice**: en_GB-alan-low (British English)
-- **Output**: 16-bit PCM WAV
+- **Transcription**: Shells out to `whisper-cli` from whisper.cpp
+- **Speaker recognition**: Uses resemblyzer (optional, via USE_VOICE_RECOGNITION)
+- **Authentication**: Nodes authenticate via jarvis-auth service
 
 ## Environment Variables
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `TTS_PORT` | 7707 | API port |
-| `JARVIS_LLM_PROXY_API_URL` | - | LLM proxy for wake responses |
+| `PORT` | 7706 | API port |
+| `WHISPER_MODEL` | `~/whisper.cpp/models/ggml-base.en.bin` | GGML model path |
+| `WHISPER_CLI` | auto-detected | Path to whisper-cli binary |
+| `USE_VOICE_RECOGNITION` | false | Enable speaker identification |
 | `JARVIS_AUTH_BASE_URL` | http://localhost:7701 | Auth service URL |
-| `JARVIS_APP_ID` | jarvis-tts | App ID for auth |
+| `JARVIS_APP_ID` | jarvis-whisper | App ID for auth |
 | `JARVIS_APP_KEY` | - | App key (required for auth) |
 
 ## API Endpoints
 
 - `GET /ping` - Health check (no auth)
-- `POST /speak` - Generate WAV audio (auth required, returns `audio/wav`)
-- `POST /generate-wake-response` - Random wake greeting via LLM (auth required)
+- `POST /transcribe` - Transcribe WAV audio (auth required, `X-API-Key: node_id:node_key`)
+
+## Speaker Recognition
+
+Set `USE_VOICE_RECOGNITION=true`, add WAV files to `voice_profiles/` (filename = speaker name). Threshold: 0.75 cosine similarity.
 
 ## Service Dependencies
 
 **Must be running:**
 - `jarvis-auth` (7701) - App-to-app auth validation
-- `jarvis-config-service` (7700) - Service discovery (finds auth + llm-proxy URLs)
+- `jarvis-config-service` (7700) - Service discovery
 - `jarvis-logs` (7702) - Centralized logging
-- `jarvis-llm-proxy-api` (7704) - LLM calls for `/generate-wake-response` endpoint
 - `jarvis-settings-client` - Runtime configuration
 
 ## Dependencies
 
-Python 3.12, FastAPI, uvicorn, piper-tts, onnxruntime, httpx, jarvis-log-client, jarvis-config-client, jarvis-auth-client, jarvis-settings-client
+Python 3.12, FastAPI, uvicorn, resemblyzer, httpx, whisper.cpp (external), jarvis-log-client, jarvis-config-client, jarvis-auth-client, jarvis-settings-client
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
