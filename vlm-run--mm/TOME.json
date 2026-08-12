@@ -4,7 +4,7 @@
   "repo": "mm",
   "description": "Fast, multi-modal context for agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vlm-run/mm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T03:20:54Z"
+  "distributed_at": "2026-08-12T03:25:05Z"
 }
