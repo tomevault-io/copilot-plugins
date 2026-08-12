@@ -1,20 +1,26 @@
-## player-glass-sheet-dialog
+## player-video-orientation
 
-> Player responsive single-choice dialogs — bottom portrait chrome and landscape settings-panel chrome
+> 播放器视频横竖屏进入逻辑 — 禁止先横后竖闪屏；MediaStore 显示尺寸与 Policy 唯一决策链
 
 
-# 播放器响应式单列选择弹窗
+# 播放器横竖屏（强制规则）
 
-完整约定见：**[docs/player-glass-sheet-dialog.md](docs/player-glass-sheet-dialog.md)**。
+**完整契约：** [design/rules/player-video-orientation.md](design/rules/player-video-orientation.md)
 
-编写或修改播放器内长宽比、倍速、音轨、字幕等单列选择弹窗时遵守：
+编辑播放器方向、MediaStore 扫描宽高、或 `PlayerActivity` Manifest 时**必须**遵守：
 
-1. **统一入口**：使用 `PlayerGlassSheetDialog.showSingleChoice(...)`，不要回退 `MaterialAlertDialog.setItems`、系统 `RadioButton` 或 Activity 内私有 inflate helper。
-2. **Chrome 分流**：播放页快捷项传 `chrome = quickChoiceChrome()` 和 `playerPrefs = playerPrefs`；竖屏应为 `PLAYER_BOTTOM`，横屏应为 `PLAYER_SETTINGS_PANEL`。
-3. **横屏样式**：`PLAYER_SETTINGS_PANEL` 必须复用 `PlayerSettingsSheetChrome.applyWindowLayout`、`applyBackdrop`、`applyPanelOpacity`，不要单独硬编码宽高或透明度。
-4. **竖屏样式**：`PLAYER_BOTTOM` 使用 `dialog_player_quick_bottom_sheet.xml` + `item_player_quick_bottom_sheet_row.xml`，从底部滑出，行为与选集样式一致。
-5. **控制层**：快捷弹窗打开前隐藏播放器 controls；弹窗可见时不要露出播放/暂停/进度条等底部控制。
-6. **方向策略**：`quickChoiceChrome()` 走 `PlayerConfigurationOrientationPolicy.isLandscape(...)`，不要在 Activity 里直接比较 `Configuration.ORIENTATION_LANDSCAPE`。
+## 不可破坏的行为
+
+1. 竖屏视频进入即竖屏、横屏视频进入即横屏；**禁止**先横屏再由 `onVideoSizeChanged` 转竖屏的闪屏回归。
+2. 方向阈值（≥1.2 横、≤0.8 竖）**只**在 `PlayerVideoLayoutPolicy.orientationForVideo()` 实现；`PlayerOrientationPolicy` 只委托，不得复制 ratio 逻辑。
+3. `VideoScanner` 写入 `VideoItem` 前必须用 `MediaStoreVideoDimensionsPolicy` 处理 `ORIENTATION`；禁止用 MediaStore 原始 WIDTH/HEIGHT 判 UI 方向。
+4. `autoOrientationByVideo=true` 且尺寸未知 → `SCREEN_ORIENTATION_UNSPECIFIED`，**禁止** fallback 横屏。
+5. `PlayerActivity`：`applyInitialVideoOrientation()` 在 `setContentView` 前；`onVideoSizeChanged` 仅当 target ≠ 当前方向才改 `requestedOrientation`；尊重 `userOverrodeOrientation`；切歌时 `preApplyOrientationForItem` + 复位用户覆盖。
+6. Manifest：`PlayerActivity` 保持 `android:screenOrientation="unspecified"`，勿改回 `sensor` 或默认横屏。
+
+## 改后必跑
+
+`MediaStoreVideoDimensionsPolicyTest`、`PlayerOrientationPolicyTest`、`PlayerVideoLayoutPolicyTest`、`PlayerVideoOrientationApplyPolicyTest`
 
 ---
 > Source: [Xunzi229/openvideo](https://github.com/Xunzi229/openvideo) — distributed by [TomeVault](https://tomevault.io).
