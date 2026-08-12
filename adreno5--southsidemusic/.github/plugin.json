@@ -1,0 +1,9 @@
+{
+  "name": "adreno5--southsidemusic",
+  "displayName": "SouthsideMusic",
+  "description": "A refined NetEase CloudMusic desktop client \u2014 high-fidelity streaming, word-by-word lyrics, spectrum visualization, loudness normalization, and cloud-local sync.",
+  "version": "1.0.0",
+  "author": "Adreno5",
+  "homepage": "https://github.com/Adreno5/SouthsideMusic",
+  "skills": []
+}
