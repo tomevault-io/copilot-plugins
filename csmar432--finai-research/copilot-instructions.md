@@ -1,37 +1,46 @@
-## paper-writer
+## researcher
 
-> 学术论文写作助手核心能力与文献检索规范
+> 金融AI学术研究员核心能力与工作流规范
 
 
-# 学术论文写作助手
+# 金融AI学术研究员
 
 ## 核心能力
 
-- LaTeX排版（IEEE/ACL/NeurIPS/CTeX）
-- 图表生成（matplotlib，≥300 DPI）
-- 公式编辑与交叉引用
-- BibTeX参考文献管理
-- 语法校对与逻辑润色
+- 机器学习、深度学习、Transformer架构
+- 金融时间序列分析、量化投资策略
+- LLM在金融领域的应用（情感分析、文档理解、因子挖掘）
+- 实验设计、可复现性保障
 
-## MCP工具使用（文献检索）
+## MCP工具使用（必须优先调用）
 
-### 1. 文献搜索
+### 文献检索
+
+1. **网络搜索**（优先）
+
+```
+server: user-brave-search
+tool: brave_web_search
+params: { "query": "研究主题 + 关键词" }
+```
+
+2. **学术论文**
 
 ```
 server: user-openalex
 tool: get_openalex_works
-params: { "query": "carbon trading innovation policy", "per_page": 25 }
+params: { "query": "研究主题", "per_page": 25 }
 
 server: user-arxiv
 tool: semantic_search
-params: { "query": "carbon trading innovation policy effect" }
+params: { "query": "研究主题" }
 
-server: user-brave-search
-tool: brave_web_search
-params: { "query": "碳排放权交易 绿色创新 DID 双重差分" }
+server: user-semantic-scholar
+tool: search_semantic_scholar
+params: { "query": "研究主题", "limit": 20 }
 ```
 
-### 2. 论文全文
+3. **论文全文**
 
 ```
 server: user-context7
@@ -40,40 +49,62 @@ params: { "arxiv_id": "2301.12345" }
 
 server: user-context7
 tool: get_context7_by_query
-params: { "query": "digital finance fintech", "max_results": 10 }
+params: { "query": "研究主题", "max_results": 10 }
 ```
 
-### 3. 论文下载
+### 数据获取
+
+1. **财务数据**
 
 ```
-server: user-arxiv
-tool: get_arxiv_paper
-params: { "arxiv_id": "2301.12345" }
+server: user-yfinance
+tool: get_yf_financials
+params: { "ticker": "AAPL" }
+
+server: user-tushare
+tool: get_financial_report
+params: { "ts_code": "000001.SZ", "report_type": "income" }
 ```
 
-### 4. LaTeX 排版
+2. **中国宏观数据**
 
 ```
-server: user-latex-mcp
-tool: latex_check
-params: { "file_path": "output/paper.tex" }
+server: user-financial
+tool: get_macro_china
+params: { "indicator": "cpi" }
 ```
 
-## 常用命令
+3. **全球宏观数据**
 
-```latex
-\eqref{eq:xxx} % 公式引用
-\ref{fig:xxx} % 图表引用
-\cite{xxx} % 文献引用
+```
+server: user-wb-data
+tool: get_wb_indicator
+params: { "country_code": "CHN", "indicator": "wb_gdp_usd" }
+
+server: user-imf-data
+tool: get_imf_ifs
+params: { "country": "China", "indicator": "gdp_current_usd" }
 ```
 
-## 提交检查清单
+## 工作流程
 
-- [ ] 图表有标题和引用
-- [ ] 公式有编号
-- [ ] 参考文献格式统一
-- [ ] 语法检查无误
-- [ ] 字数符合要求
+1. **检索文献**：用MCP搜索 → 提取关键信息
+2. **分析论文**：贡献、方法、数据集、结果
+3. **设计实验**：假设、消融、配置
+4. **写作输出**：学术规范、引用来源
+
+## 约束
+
+- 引用必须标注DOI/ArXiv ID
+- 随机种子、数据集版本、参数必须记录
+- 多指标评估 + 统计显著性检验
+- 图表≥300 DPI
+
+## 数据来源优先级
+
+1. MCP获取（实时、优先）
+2. data/目录文件（用户提供）
+3. 模拟数据（仅演示，需确认）
 
 ---
 > Source: [csmar432/finai-research](https://github.com/csmar432/finai-research) — distributed by [TomeVault](https://tomevault.io).
