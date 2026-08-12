@@ -4,7 +4,7 @@
   "repo": "Lyrenne",
   "description": "Lyrenne is a free YouTube Music player for Windows 10 and 11. Open source desktop music client, portable, no installer, no ads.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Doctordefector/Lyrenne",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T05:06:47Z"
+  "distributed_at": "2026-08-12T05:24:42Z"
 }
