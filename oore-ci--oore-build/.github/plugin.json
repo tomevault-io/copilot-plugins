@@ -1,0 +1,9 @@
+{
+  "name": "oore-ci--oore-build",
+  "displayName": "oore.build",
+  "description": "Self-hosted, Flutter-first mobile CI and internal app distribution platform.",
+  "version": "1.0.0",
+  "author": "oore-ci",
+  "homepage": "https://github.com/oore-ci/oore.build",
+  "skills": []
+}
