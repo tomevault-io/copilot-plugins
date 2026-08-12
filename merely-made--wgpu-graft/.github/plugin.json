@@ -1,0 +1,9 @@
+{
+  "name": "merely-made--wgpu-graft",
+  "displayName": "wgpu-graft",
+  "description": "Library for embedding native GPU textures (GL FBO, Vulkan image, Metal IOSurface) into wgpu textures.",
+  "version": "1.0.0",
+  "author": "merely-made",
+  "homepage": "https://github.com/merely-made/wgpu-graft",
+  "skills": []
+}
