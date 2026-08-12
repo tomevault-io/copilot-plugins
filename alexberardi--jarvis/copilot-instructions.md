@@ -1,89 +1,63 @@
-## jarvis-llm-proxy-api
+## jarvis-log-client
 
-> Rules for jarvis-llm-proxy-api - LLM proxy with local model support
+> Rules for jarvis-log-client - structured logging library
 
 
-# jarvis-llm-proxy-api
+# jarvis-log-client
 
-LLM proxy service with local model inference, LoRA adapter training, and queue workers.
+Python library for sending structured logs to jarvis-logs server. Async batching with automatic console fallback.
 
-## Running (Port 7704 API, Port 7705 Queue Worker)
+## Setup & Run
 
-**On macOS:** Run natively (required for Metal acceleration):
 ```bash
-./run.sh                       # Starts API + queue worker natively
-./run.sh --rebuild             # Rebuild venv after dependency changes
+pip install -e .
+poetry run pytest
 ```
 
-**On Linux:** Docker is fine:
-```bash
-./run.sh --docker              # Start in Docker
-./run.sh --docker --rebuild    # Rebuild after dependency changes
+## Usage
+
+```python
+from jarvis_log_client import init, JarvisLogger
+
+# Initialize once at startup
+init(app_id="my-service", app_key=os.getenv("JARVIS_APP_KEY"), logs_url="http://localhost:7702")
+
+# Create logger and use
+logger = JarvisLogger(service="my-service", console_level="WARNING", remote_level="DEBUG")
+logger.info("User logged in", user_id="123", request_id="abc")
+
+# Shutdown (flushes remaining logs)
+from jarvis_log_client import shutdown
+shutdown()
 ```
-
-**Production:**
-```bash
-./run-prod.sh                  # Uses prod.env, no hot reload
-```
-
-**Why native on macOS:** Uses llama-cpp-python with Metal acceleration and sets `OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES` for macOS compatibility. Docker cannot access Metal GPU.
-
-## Two API Modes
-
-### 1. Synchronous - OpenAI-Compatible Passthrough (Port 7704)
-
-Accepts OpenAI-style requests and forwards them to the local model, returning OpenAI-style responses. Extra sugar added for enhanced capabilities, but the interface is standard OpenAI.
-
-This is what command-center and other services call for real-time inference.
-
-### 2. Async Queue - Long-Running Jobs (Port 7705)
-
-Queue worker for tasks that take minutes/hours:
-
-- **Base model training**: Takes a base model and adds date/time context awareness using a key system. Keys like `today`, `tomorrow`, `yesterday` are embedded during training - the caller resolves these to actual dates at inference time.
-- **Adapter training**: Trains LoRA adapters for specific jarvis nodes. Uses the `IJarvisCommand` examples from a node's command set to teach the model that node's available commands.
-
-Jobs are queued via Redis and processed by the background worker.
 
 ## Architecture
 
 ```
-jarvis-llm-proxy-api/
-├── main.py                    # Entry point (87 lines, imports from modules)
-├── app/
-│   ├── api_server.py          # FastAPI routes (OpenAI-compatible)
-│   ├── model_service.py       # Model loading, inference
-│   └── queue_worker.py        # Background job processing (port 7705)
-├── scripts/
-│   └── common.sh              # Shared bash functions
-├── .models/                   # Local model storage
-└── run.sh                     # Dev startup (handles venv, CUDA/Metal detection)
+jarvis_log_client/
+├── __init__.py    # Public API: init, JarvisLogger, JarvisLogHandler
+├── client.py      # Core batching and HTTP sending
+└── auth.py        # App-to-app authentication
 ```
 
-## Environment Variables
+## Service Discovery
 
-Env vars should only hold sensitive values. All non-sensitive config (model name, context window, etc.) should be in the database via jarvis-settings-client.
-
-| Variable | Description |
-|----------|-------------|
-| `JARVIS_CONFIG_URL` | Config service URL for bootstrap discovery |
-| `JARVIS_AUTH_APP_ID` | App ID for inter-service auth |
-| `JARVIS_AUTH_APP_KEY` | App key (sensitive) |
+If `jarvis-config-client` is installed and initialized, logs URL auto-fetched from config-service. Otherwise falls back to `JARVIS_LOGS_URL` env var (default: `http://localhost:7702`).
 
 ## Service Dependencies
 
-**Must be running:**
-- `jarvis-auth` (7701) - App-to-app auth
-- `jarvis-config-service` (7700) - Service discovery
-- `jarvis-logs` (7702) - Centralized logging
-- `jarvis-settings-client` - Runtime configuration (model name, context window, etc.)
+Talks to its respective service only:
+- `jarvis-logs` (7702) - Log ingestion (POST /api/v0/logs/batch)
+- Optionally uses `jarvis-config-client` to discover logs URL (if initialized by host service)
 
-**Data services (from jarvis-data-stores/):**
-- Redis - Job queue for async training tasks
+## Features
 
-## Dependencies
-
-FastAPI, uvicorn, llama-cpp-python, vllm (optional), jarvis-log-client, jarvis-settings-client, jarvis-config-client, jarvis-auth-client
+- Async batching of logs
+- Console fallback if server unavailable
+- Structured context (arbitrary key-value pairs)
+- Thread-safe
+- Graceful shutdown (flushes remaining)
+- stdlib logging integration via `JarvisLogHandler`
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
