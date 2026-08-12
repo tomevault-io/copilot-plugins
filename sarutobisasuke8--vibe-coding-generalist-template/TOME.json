@@ -4,7 +4,7 @@
   "repo": "vibe-coding-generalist-template",
   "description": "Reusable AI-assisted vibe coding project template with agent instructions, persona council orchestration, session logs, and drift checks.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SarutobiSasuke8/vibe-coding-generalist-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T11:27:39Z"
+  "distributed_at": "2026-08-12T11:33:04Z"
 }
