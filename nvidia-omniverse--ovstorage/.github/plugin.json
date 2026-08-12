@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-omniverse--ovstorage",
+  "displayName": "ovstorage",
+  "description": "Agent-first, plugin-based storage client for local files, cloud object stores, and Omniverse Storage services.",
+  "version": "1.0.0",
+  "author": "NVIDIA-Omniverse",
+  "homepage": "https://github.com/NVIDIA-Omniverse/ovstorage",
+  "skills": []
+}
