@@ -1,0 +1,9 @@
+{
+  "name": "utexo-protocol--rgb-sdk-rn",
+  "displayName": "rgb-sdk-rn",
+  "description": "React-native library for the RGB protocol on Bitcoin & Lightning",
+  "version": "1.0.0",
+  "author": "UTEXO-Protocol",
+  "homepage": "https://github.com/UTEXO-Protocol/rgb-sdk-rn",
+  "skills": []
+}
