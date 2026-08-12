@@ -1,0 +1,9 @@
+{
+  "name": "tripplyons--pokeemerald-3d",
+  "displayName": "pokeemerald-3d",
+  "description": "Pokemon Emerald in 3D (in WebAssembly)",
+  "version": "1.0.0",
+  "author": "tripplyons",
+  "homepage": "https://github.com/tripplyons/pokeemerald-3d",
+  "skills": []
+}
