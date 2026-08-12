@@ -1,0 +1,9 @@
+{
+  "name": "dqmyth--js-reverse-ops",
+  "displayName": "js-reverse-ops",
+  "description": "A high-leverage JavaScript reverse engineering skill for deobfuscation, runtime tracing, browser-side workflow reconstruction, anti-bot/signer/cookie analysis, and   evidence-driven replay. Designed t",
+  "version": "1.0.0",
+  "author": "DQmyth",
+  "homepage": "https://github.com/DQmyth/js-reverse-ops",
+  "skills": []
+}
