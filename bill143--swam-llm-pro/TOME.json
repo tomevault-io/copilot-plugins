@@ -4,7 +4,7 @@
   "repo": "Swam_LLM_Pro",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bill143/Swam_LLM_Pro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T22:52:27Z"
+  "distributed_at": "2026-08-12T23:05:00Z"
 }
