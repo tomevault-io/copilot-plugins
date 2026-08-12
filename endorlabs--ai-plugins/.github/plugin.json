@@ -1,0 +1,9 @@
+{
+  "name": "endorlabs--ai-plugins",
+  "displayName": "ai-plugins",
+  "description": "Endor Labs Agent Kit plugins for Claude Code, Codex, Gemini CLI, Antigravity CLI, Cursor, and Cursor SDK: packaged AppSec workflows for SCA remediation, AI SAST triage, CI/CD posture, malware response",
+  "version": "1.0.0",
+  "author": "endorlabs",
+  "homepage": "https://github.com/endorlabs/ai-plugins",
+  "skills": []
+}
