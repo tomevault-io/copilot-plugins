@@ -1,0 +1,9 @@
+{
+  "name": "suppierk--cmdshape",
+  "displayName": "cmdshape",
+  "description": "Command-output safety net for coding agents: keep known CLI noise out with deterministic filters, conservative passthrough, and --raw.",
+  "version": "1.0.0",
+  "author": "SuppieRK",
+  "homepage": "https://github.com/SuppieRK/cmdshape",
+  "skills": []
+}
