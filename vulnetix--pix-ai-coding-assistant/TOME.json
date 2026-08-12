@@ -1,0 +1,51 @@
+{
+  "name": "pix-ai-coding-assistant",
+  "owner": "Vulnetix",
+  "repo": "pix-ai-coding-assistant",
+  "description": "Vulnerability intelligence for Claude Code \u2014 scans dependencies on commit, searches packages, analyzes exploits, and proposes fixes",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review-security",
+      "path": "vulnetix/skills/code-review-security",
+      "github_url": "https://github.com/Vulnetix/pix-ai-coding-assistant/tree/main/vulnetix/skills/code-review-security",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Vulnetix/pix-ai-coding-assistant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T12:32:44Z"
+}
