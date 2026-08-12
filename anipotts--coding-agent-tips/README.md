@@ -7,11 +7,11 @@ evidence-backed guidance for coding agents in production software, from individu
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [anipotts/coding-agent-tips](https://github.com/anipotts/coding-agent-tips).
+Original source: `CLAUDE.md` in [anipotts/coding-agent-tips](https://github.com/anipotts/coding-agent-tips).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
