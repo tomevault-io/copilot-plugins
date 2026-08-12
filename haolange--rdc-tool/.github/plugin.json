@@ -1,0 +1,9 @@
+{
+  "name": "haolange--rdc-tool",
+  "displayName": "RDC-Tool",
+  "description": "Renderdoc capability export to agentic system by mcp or cli",
+  "version": "1.0.0",
+  "author": "haolange",
+  "homepage": "https://github.com/haolange/RDC-Tool",
+  "skills": []
+}
