@@ -4,7 +4,7 @@
   "repo": "blit",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/indent-com/blit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T09:03:12Z"
+  "distributed_at": "2026-08-12T09:24:40Z"
 }
