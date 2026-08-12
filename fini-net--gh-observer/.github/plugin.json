@@ -1,0 +1,9 @@
+{
+  "name": "fini-net--gh-observer",
+  "displayName": "gh-observer",
+  "description": "\ud83d\udd0e Terminal UI for watching GitHub Actions CI/CD workflows with runtime metrics, queue times, and check status - alternative to gh pr checks --watch",
+  "version": "1.0.0",
+  "author": "fini-net",
+  "homepage": "https://github.com/fini-net/gh-observer",
+  "skills": []
+}
