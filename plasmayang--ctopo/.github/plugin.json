@@ -1,0 +1,9 @@
+{
+  "name": "plasmayang--ctopo",
+  "displayName": "ctopo",
+  "description": "\u57fa\u4e8eC++20\uff0c\u501f\u9274SOTA\u7684Persistent Homology\u8ba1\u7b97\u4e0eTDA\u9879\u76ee\uff0c\u7740\u773c\u4e8e\u652f\u6491\u4e0b\u4e00\u4ee3CAx\u51e0\u4f55\u5185\u6838\u4ea7\u54c1\uff0c\u6253\u9020Persistent Homology\u4e0eTDA\u9879\u76ee\u6807\u6746\u3002",
+  "version": "1.0.0",
+  "author": "plasmayang",
+  "homepage": "https://github.com/plasmayang/ctopo",
+  "skills": []
+}
