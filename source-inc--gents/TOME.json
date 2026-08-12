@@ -4,7 +4,7 @@
   "repo": "gents",
   "description": "DefraDB-backed agent runtime with Lean proofs and DB-visible lifecycle semantics",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/source-inc/gents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T19:30:24Z"
+  "distributed_at": "2026-08-12T19:36:48Z"
 }
