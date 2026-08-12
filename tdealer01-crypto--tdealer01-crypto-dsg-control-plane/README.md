@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tdealer01-crypto/tdealer01-crypto-dsg-control-plane](https://github.com/tdealer01-crypto/tdealer01-crypto-dsg-control-plane).
+Original source: `CLAUDE.md` in [tdealer01-crypto/tdealer01-crypto-dsg-control-plane](https://github.com/tdealer01-crypto/tdealer01-crypto-dsg-control-plane).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
