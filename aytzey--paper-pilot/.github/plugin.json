@@ -1,0 +1,9 @@
+{
+  "name": "aytzey--paper-pilot",
+  "displayName": "paper-pilot",
+  "description": "Your AI's research copilot. Searches 6 academic databases, downloads real PDFs, reads them cover to cover, extracts evidence, renders figures. MCP server for Claude, Codex & any AI agent. Free & open ",
+  "version": "1.0.0",
+  "author": "aytzey",
+  "homepage": "https://github.com/aytzey/paper-pilot",
+  "skills": []
+}
