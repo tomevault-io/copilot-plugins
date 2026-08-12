@@ -1,0 +1,9 @@
+{
+  "name": "lvyizhuo--myproject-sdagent",
+  "displayName": "MyProject-SDAgent",
+  "description": "2026\u5e74AI\u5f00\u53d1\u5b9e\u6218\u9879\u76ee\uff0c\u57fa\u4e8eSpring Boot 3 + Java 21 + Spring AI \u6784\u5efa\u7684 AI\u653f\u7b56\u901a \u5e94\u7528\u548c ReAct \u6a21\u5f0f\u81ea\u4e3b\u89c4\u5212\u667a\u80fd\u4f53LvManus\uff0c\u8986\u76d6\u4e3b\u6d41\u5382\u5546AI\u5927\u6a21\u578b\u63a5\u5165\u3001Spring AI\u589e\u5f3a\u7279\u6027\u3001Prompt\u5de5\u7a0b\u548c\u4f18\u5316\u3001RAG\u68c0\u7d22\u589e\u5f3a\u3001\u5411\u91cf\u6570\u636e\u5e93\u3001Tool Calling\u5de5\u5177\u8c03\u7528\u3001MCP \u6a21\u578b\u4e0a\u4e0b\u6587\u534f\u8bae\u63a5\u5165\u3001AI Agent\u601d\u7ef4\u94fe\u3001Redis \u4f1a\u8bdd/\u4e8b\u5b9e\u7f13\u5b58\u3001",
+  "version": "1.0.0",
+  "author": "Lvyizhuo",
+  "homepage": "https://github.com/Lvyizhuo/MyProject-SDAgent",
+  "skills": []
+}
