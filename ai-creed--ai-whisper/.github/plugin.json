@@ -1,0 +1,9 @@
+{
+  "name": "ai-creed--ai-whisper",
+  "displayName": "ai-whisper",
+  "description": "Terminal-first relay for paired AI coding agents (Claude + Codex), driven by structured workflows.",
+  "version": "1.0.0",
+  "author": "ai-creed",
+  "homepage": "https://github.com/ai-creed/ai-whisper",
+  "skills": []
+}
