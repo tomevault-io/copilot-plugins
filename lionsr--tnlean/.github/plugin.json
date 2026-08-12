@@ -1,0 +1,9 @@
+{
+  "name": "lionsr--tnlean",
+  "displayName": "TNLean",
+  "description": "Lean 4 formalization of the Fundamental Theorem of Matrix Product States (arXiv:2011.12127)",
+  "version": "1.0.0",
+  "author": "LionSR",
+  "homepage": "https://github.com/LionSR/TNLean",
+  "skills": []
+}
