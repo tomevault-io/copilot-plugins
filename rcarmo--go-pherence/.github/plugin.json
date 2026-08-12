@@ -1,0 +1,9 @@
+{
+  "name": "rcarmo--go-pherence",
+  "displayName": "go-pherence",
+  "description": "Minimal tensor computation framework in pure Go with SIMD assembly, inspired by tinygrad",
+  "version": "1.0.0",
+  "author": "rcarmo",
+  "homepage": "https://github.com/rcarmo/go-pherence",
+  "skills": []
+}
