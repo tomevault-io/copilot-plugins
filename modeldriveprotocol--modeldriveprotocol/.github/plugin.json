@@ -1,0 +1,9 @@
+{
+  "name": "modeldriveprotocol--modeldriveprotocol",
+  "displayName": "modeldriveprotocol",
+  "description": "Model Drive Protocol (MDP): MDP turns runtime-local capabilities into MCP-reachable capabilities.",
+  "version": "1.0.0",
+  "author": "modeldriveprotocol",
+  "homepage": "https://github.com/modeldriveprotocol/modeldriveprotocol",
+  "skills": []
+}
