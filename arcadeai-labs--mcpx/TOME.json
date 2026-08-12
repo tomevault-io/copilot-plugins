@@ -4,7 +4,7 @@
   "repo": "mcpx",
   "description": "A command-line interface for MCP servers. curl for MCP.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/arcadeai-labs/mcpx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T23:19:28Z"
+  "distributed_at": "2026-08-12T04:41:32Z"
 }
