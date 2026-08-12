@@ -1,0 +1,44 @@
+{
+  "name": "docker-dash",
+  "owner": "bogdanpricop",
+  "repo": "docker-dash",
+  "description": "Self-hosted Docker management dashboard \u2014 runs standalone (zero deps) or in HA mode (Redis). In-app observability wizard (Prometheus+Grafana). Multi-host SSH/TCP, Trivy+Grype+Scout vuln scan, GitOps+Webhooks, RBAC+MFA+LDAP, Docker Swarm, CIS Benchmark, audit log, 11 languages. ~50MB RAM.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bogdanpricop/docker-dash",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T21:20:56Z"
+}
