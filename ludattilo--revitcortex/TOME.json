@@ -1,0 +1,44 @@
+{
+  "name": "RevitCortex",
+  "owner": "LuDattilo",
+  "repo": "RevitCortex",
+  "description": "MCP (Model Context Protocol) server for Autodesk Revit 2023\u20132027 \u2014 173 tools, typed errors, session state, dynamic tool discovery, IFC reconstruction, Power BI live integration. Works with Claude, Codex, Opencode, Cursor, Gemini, and any MCP-compatible LLM.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LuDattilo/RevitCortex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T13:38:56Z"
+}
