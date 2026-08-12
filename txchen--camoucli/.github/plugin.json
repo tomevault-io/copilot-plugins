@@ -1,0 +1,9 @@
+{
+  "name": "txchen--camoucli",
+  "displayName": "camoucli",
+  "description": "nodejs powered camoufox client",
+  "version": "1.0.0",
+  "author": "txchen",
+  "homepage": "https://github.com/txchen/camoucli",
+  "skills": []
+}
