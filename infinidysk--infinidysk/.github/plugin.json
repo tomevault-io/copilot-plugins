@@ -1,0 +1,9 @@
+{
+  "name": "infinidysk--infinidysk",
+  "displayName": "infinidysk",
+  "description": "InfiniDysk - The NzbDAV SuperFork. Usenet streaming with a WebDAV server and a SABnzbd-compatible API. 1000+ commits ahead.",
+  "version": "1.0.0",
+  "author": "infinidysk",
+  "homepage": "https://github.com/infinidysk/infinidysk",
+  "skills": []
+}
