@@ -1,0 +1,9 @@
+{
+  "name": "tamibot--kommo-crm-audit",
+  "displayName": "kommo-crm-audit",
+  "description": "Framework de auditoria para Kommo CRM - Documentacio, validacion de bots y soporte continuo",
+  "version": "1.0.0",
+  "author": "tamibot",
+  "homepage": "https://github.com/tamibot/kommo-crm-audit",
+  "skills": []
+}
