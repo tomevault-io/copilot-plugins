@@ -1,0 +1,9 @@
+{
+  "name": "bdfinst--laser-layout",
+  "displayName": "laser-layout",
+  "description": "Automatically layout shapes for laser cutting.",
+  "version": "1.0.0",
+  "author": "bdfinst",
+  "homepage": "https://github.com/bdfinst/laser-layout",
+  "skills": []
+}
