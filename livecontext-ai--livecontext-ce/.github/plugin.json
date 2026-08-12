@@ -1,0 +1,9 @@
+{
+  "name": "livecontext-ai--livecontext-ce",
+  "displayName": "livecontext-ce",
+  "description": "The AI automation platform, self-hosted. Describe the job in chat and LiveContext builds it: readable workflows, scoped AI agents, and small apps your team uses. Chat, Workflow, Agent and App on one c",
+  "version": "1.0.0",
+  "author": "livecontext-ai",
+  "homepage": "https://github.com/livecontext-ai/livecontext-ce",
+  "skills": []
+}
