@@ -7,13 +7,13 @@ Open-Source TALL stack UI components for Laravel Livewire, built with Tailwind C
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [pushery/wirekit](https://github.com/pushery/wirekit).
+Original source: `AGENTS.md` in [pushery/wirekit](https://github.com/pushery/wirekit).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
