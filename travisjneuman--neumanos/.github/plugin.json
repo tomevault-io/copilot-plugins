@@ -1,0 +1,9 @@
+{
+  "name": "travisjneuman--neumanos",
+  "displayName": "neumanos",
+  "description": "Privacy-first, local-only personal OS \u2014 calendar, notes, kanban, spreadsheets, AI terminal, and 30+ widgets. All data stays on your device. React 19 + TypeScript + IndexedDB.",
+  "version": "1.0.0",
+  "author": "travisjneuman",
+  "homepage": "https://github.com/travisjneuman/neumanos",
+  "skills": []
+}
