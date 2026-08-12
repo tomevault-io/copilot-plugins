@@ -1,0 +1,9 @@
+{
+  "name": "yeongseon--azure-functions-db-python",
+  "displayName": "azure-functions-db-python",
+  "description": "Database trigger and input/output bindings for Azure Functions Python v2, powered by SQLAlchemy",
+  "version": "1.0.0",
+  "author": "yeongseon",
+  "homepage": "https://github.com/yeongseon/azure-functions-db-python",
+  "skills": []
+}
