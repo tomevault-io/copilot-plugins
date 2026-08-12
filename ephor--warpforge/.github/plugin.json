@@ -1,0 +1,9 @@
+{
+  "name": "ephor--warpforge",
+  "displayName": "warpforge",
+  "description": "Local-first desktop command center for Claude Code, Codex, OpenCode, and other coding agents\u2014parallel tasks, worktrees, dev services, port forwards, diffs, and review.",
+  "version": "1.0.0",
+  "author": "ephor",
+  "homepage": "https://github.com/ephor/warpforge",
+  "skills": []
+}
