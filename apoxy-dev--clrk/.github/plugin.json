@@ -1,0 +1,9 @@
+{
+  "name": "apoxy-dev--clrk",
+  "displayName": "clrk",
+  "description": "Cognitive Loop Runtime for Kubernetes",
+  "version": "1.0.0",
+  "author": "apoxy-dev",
+  "homepage": "https://github.com/apoxy-dev/clrk",
+  "skills": []
+}
