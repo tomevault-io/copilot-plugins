@@ -1,0 +1,9 @@
+{
+  "name": "openquatt--openquatt",
+  "displayName": "OpenQuatt",
+  "description": "Alternative, open-source, Quatt controller",
+  "version": "1.0.0",
+  "author": "OpenQuatt",
+  "homepage": "https://github.com/OpenQuatt/OpenQuatt",
+  "skills": []
+}
