@@ -1,0 +1,9 @@
+{
+  "name": "cordn-msg--cordn",
+  "displayName": "cordn",
+  "description": "Private group messaging you can own.",
+  "version": "1.0.0",
+  "author": "Cordn-msg",
+  "homepage": "https://github.com/Cordn-msg/cordn",
+  "skills": []
+}
