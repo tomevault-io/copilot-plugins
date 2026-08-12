@@ -1,0 +1,44 @@
+{
+  "name": "vLLM-Moet",
+  "owner": "kacper-daftcode",
+  "repo": "vLLM-Moet",
+  "description": "A vLLM patch + hand\u2011written SM120 SASS kernels: 2\u2011bit MoE experts + an FP4 \"delta\" cache that recovers precision \u2014 matching the official (NV)FP4 checkpoint's quality on consumer Blackwell cards",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kacper-daftcode/vLLM-Moet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T06:35:56Z"
+}
