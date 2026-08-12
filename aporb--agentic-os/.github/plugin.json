@@ -1,0 +1,9 @@
+{
+  "name": "aporb--agentic-os",
+  "displayName": "agentic-os",
+  "description": "A minimal, opinionated template for turning any AI agent CLI into a persistent operating system \u2014 memory, skills, automations, and dashboard.",
+  "version": "1.0.0",
+  "author": "aporb",
+  "homepage": "https://github.com/aporb/agentic-os",
+  "skills": []
+}
