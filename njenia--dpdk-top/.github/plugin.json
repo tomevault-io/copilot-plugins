@@ -1,0 +1,9 @@
+{
+  "name": "njenia--dpdk-top",
+  "displayName": "dpdk-top",
+  "description": "Easily monitor your DPDK apps",
+  "version": "1.0.0",
+  "author": "njenia",
+  "homepage": "https://github.com/njenia/dpdk-top",
+  "skills": []
+}
