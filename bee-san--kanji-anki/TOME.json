@@ -4,7 +4,7 @@
   "repo": "kanji_anki",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bee-san/kanji_anki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T11:33:31Z"
+  "distributed_at": "2026-08-12T12:49:22Z"
 }
