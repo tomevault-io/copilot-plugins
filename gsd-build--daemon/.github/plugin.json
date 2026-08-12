@@ -1,0 +1,9 @@
+{
+  "name": "gsd-build--daemon",
+  "displayName": "daemon",
+  "description": "GSD Cloud daemon \u2014 runs on user machines, talks to the GSD Cloud relay",
+  "version": "1.0.0",
+  "author": "gsd-build",
+  "homepage": "https://github.com/gsd-build/daemon",
+  "skills": []
+}
