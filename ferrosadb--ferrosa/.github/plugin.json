@@ -1,0 +1,9 @@
+{
+  "name": "ferrosadb--ferrosa",
+  "displayName": "ferrosa",
+  "description": "Cassandra-compatible distributed database in Rust with S3-backed storage. Developer preview.",
+  "version": "1.0.0",
+  "author": "ferrosadb",
+  "homepage": "https://github.com/ferrosadb/ferrosa",
+  "skills": []
+}
