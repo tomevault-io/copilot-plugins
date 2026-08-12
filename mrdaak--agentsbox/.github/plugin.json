@@ -1,0 +1,9 @@
+{
+  "name": "mrdaak--agentsbox",
+  "displayName": "agentsbox",
+  "description": "Secure Podman sandbox for AI coding agents. One command, reproducible, isolated from your host.",
+  "version": "1.0.0",
+  "author": "mrdaak",
+  "homepage": "https://github.com/mrdaak/agentsbox",
+  "skills": []
+}
