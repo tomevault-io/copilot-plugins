@@ -1,0 +1,9 @@
+{
+  "name": "plenix-ai--ecommerce-recommendator",
+  "displayName": "ecommerce_recommendator",
+  "description": "AI-powered product recommendation system using MercadoLibre and eBay APIs",
+  "version": "1.0.0",
+  "author": "Plenix-AI",
+  "homepage": "https://github.com/Plenix-AI/ecommerce_recommendator",
+  "skills": []
+}
