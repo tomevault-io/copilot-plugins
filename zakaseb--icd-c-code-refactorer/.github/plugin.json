@@ -1,0 +1,9 @@
+{
+  "name": "zakaseb--icd-c-code-refactorer",
+  "displayName": "icd-c-code-refactorer",
+  "description": "Transform C source code between Interface Control Document (ICD) versions using AI-powered local LLM inference",
+  "version": "1.0.0",
+  "author": "zakaseb",
+  "homepage": "https://github.com/zakaseb/icd-c-code-refactorer",
+  "skills": []
+}
