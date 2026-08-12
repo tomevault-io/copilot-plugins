@@ -7,11 +7,11 @@ DefraDB-backed agent runtime with Lean proofs and DB-visible lifecycle semantics
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [source-inc/gents](https://github.com/source-inc/gents).
+Original source: `AGENTS.md` in [source-inc/gents](https://github.com/source-inc/gents).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
