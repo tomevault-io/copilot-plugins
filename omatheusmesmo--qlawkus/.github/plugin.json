@@ -1,0 +1,9 @@
+{
+  "name": "omatheusmesmo--qlawkus",
+  "displayName": "Qlawkus",
+  "description": "Autonomous Personal Engineering Agent built with Quarkus LangChain4j",
+  "version": "1.0.0",
+  "author": "omatheusmesmo",
+  "homepage": "https://github.com/omatheusmesmo/Qlawkus",
+  "skills": []
+}
