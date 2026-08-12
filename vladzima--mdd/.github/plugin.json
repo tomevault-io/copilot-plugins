@@ -1,0 +1,9 @@
+{
+  "name": "vladzima--mdd",
+  "displayName": "mdd",
+  "description": "Markdown editor that runs in your browser and writes straight to your own files \u2014 a local folder, or any server you can SSH into.",
+  "version": "1.0.0",
+  "author": "vladzima",
+  "homepage": "https://github.com/vladzima/mdd",
+  "skills": []
+}
