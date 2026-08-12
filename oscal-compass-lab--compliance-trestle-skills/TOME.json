@@ -4,7 +4,7 @@
   "repo": "compliance-trestle-skills",
   "description": "Agent-portable Compliance Trestle and OSCAL engineering toolkit: convert legacy SSPs to OSCAL, validate with Trestle and oscal-cli, FedRAMP Rev 5 and 20x KSI workflows. Claude Code plugin plus portable skills for Cursor, Codex, Gemini, and more.",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oscal-compass-lab/compliance-trestle-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T00:40:04Z"
+  "distributed_at": "2026-08-12T01:12:17Z"
 }
