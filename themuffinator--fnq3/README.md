@@ -7,11 +7,11 @@ FnQ3 • Fappin' Quake 3 • Modernized sourceport for QUAKE III: ARENA
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [themuffinator/FnQ3](https://github.com/themuffinator/FnQ3).
+Original source: `AGENTS.md` in [themuffinator/FnQ3](https://github.com/themuffinator/FnQ3).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
