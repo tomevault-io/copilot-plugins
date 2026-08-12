@@ -1,0 +1,44 @@
+{
+  "name": "MeloongCore",
+  "owner": "Meloong-Git",
+  "repo": "MeloongCore",
+  "description": "\u7528\u4e8e PCL \u542f\u52a8\u5668\u4ee5\u53ca\u90e8\u5206\u5176\u4ed6\u5de5\u7a0b\u7684 .NET \u901a\u7528\u5e93\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Meloong-Git/MeloongCore",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T15:31:29Z"
+}
