@@ -4,7 +4,7 @@
   "repo": "laughing-man",
   "description": "Turn your Markdown into a self-hosted newsletter",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vinta/laughing-man",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T21:25:29Z"
+  "distributed_at": "2026-08-12T21:28:41Z"
 }
