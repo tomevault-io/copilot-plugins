@@ -1,0 +1,9 @@
+{
+  "name": "hurttlocker--o8",
+  "displayName": "o8",
+  "description": "The operating system for AI engineering.  Coordinate models, agents, tools, repositories, and long-running work from one place.",
+  "version": "1.0.0",
+  "author": "hurttlocker",
+  "homepage": "https://github.com/hurttlocker/o8",
+  "skills": []
+}
