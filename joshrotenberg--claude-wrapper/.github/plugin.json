@@ -1,0 +1,9 @@
+{
+  "name": "joshrotenberg--claude-wrapper",
+  "displayName": "claude-wrapper",
+  "description": "A type-safe Claude Code CLI wrapper for Rust",
+  "version": "1.0.0",
+  "author": "joshrotenberg",
+  "homepage": "https://github.com/joshrotenberg/claude-wrapper",
+  "skills": []
+}
