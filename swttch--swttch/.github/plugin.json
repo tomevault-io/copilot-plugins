@@ -1,0 +1,9 @@
+{
+  "name": "swttch--swttch",
+  "displayName": "swttch",
+  "description": "Claude Code GUI plugin for JetBrains IDEs. (ex - Claude Code with GUI)",
+  "version": "1.0.0",
+  "author": "Swttch",
+  "homepage": "https://github.com/Swttch/swttch",
+  "skills": []
+}
