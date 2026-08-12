@@ -1,0 +1,9 @@
+{
+  "name": "yikerman--tamron-lens-control",
+  "displayName": "tamron-lens-control",
+  "description": "Linux-only CLI for viewing and changing settings on compatible Tamron lenses.",
+  "version": "1.0.0",
+  "author": "yikerman",
+  "homepage": "https://github.com/yikerman/tamron-lens-control",
+  "skills": []
+}
