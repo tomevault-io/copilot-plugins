@@ -1,0 +1,9 @@
+{
+  "name": "mdbergmann--cl-amiga",
+  "displayName": "cl-amiga",
+  "description": "Amiga specific Common Lisp implementation",
+  "version": "1.0.0",
+  "author": "mdbergmann",
+  "homepage": "https://github.com/mdbergmann/cl-amiga",
+  "skills": []
+}
