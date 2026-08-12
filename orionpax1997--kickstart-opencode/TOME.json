@@ -1,0 +1,44 @@
+{
+  "name": "kickstart.opencode",
+  "owner": "orionpax1997",
+  "repo": "kickstart.opencode",
+  "description": "A well-commented, ready-to-use OpenCode configuration starter that helps you actually understand what's happening.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/orionpax1997/kickstart.opencode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T05:09:13Z"
+}
