@@ -2,9 +2,9 @@
   "name": "personal-finance-skill",
   "owner": "6missedcalls",
   "repo": "personal-finance-skill",
-  "description": "",
+  "description": "AI-powered personal finance skill \u2014 75 tools across 7 extensions for banking (Plaid), trading (Alpaca), portfolio monitoring (IBKR), tax optimization, market intelligence, and social sentiment. Built for the Agent Skills Protocol, works with 40+ AI agents.",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/6missedcalls/personal-finance-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T13:25:58Z"
+  "distributed_at": "2026-08-12T08:59:50Z"
 }
