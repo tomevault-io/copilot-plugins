@@ -1,0 +1,127 @@
+## packingproof-desktop
+
+> - `ExpressPackingMonitoring.sln` is the main solution.
+
+# Repository Guidelines
+
+## Project Structure & Module Organization
+
+- `ExpressPackingMonitoring.sln` is the main solution.
+- `ExpressPackingMonitoring/` contains the WPF application, including XAML views, view models, services, SQLite access, recording logic, and `Web/index.html`.
+- `ExpressPackingMonitoring.Launcher/` contains the small launcher executable used by the clean package layout.
+- `Tools/Publish-CleanPackage.ps1` creates the per-user Setup, distributable directory, LZMA2 solid 7z, compatibility zip, update manifest, launcher manifest, optional AppPatch, and a separate LauncherPatch.
+- `Scripts/快递助手订单推送.user.js` is the browser userscript for order push integration.
+- `Image/` stores README and project screenshots. `Test/HTML/` contains captured sample pages for script/debug reference, not an automated test suite.
+
+## Build, Test, and Development Commands
+
+```powershell
+dotnet restore ExpressPackingMonitoring.sln
+dotnet build ExpressPackingMonitoring.sln -c Debug
+dotnet run --project ExpressPackingMonitoring
+pwsh -NoProfile -File Tools\Publish-CleanPackage.ps1
+pwsh -NoProfile -File Tools\Test-Release-Automated.ps1
+```
+
+- `restore` downloads NuGet dependencies.
+- `build` verifies the WPF app and launcher compile.
+- `run` starts the main app locally.
+- `Tools\Publish-CleanPackage.ps1` produces the clean release layout with the root launcher and `app\` payload.
+- `Tools\Test-Release-Automated.ps1` runs the isolated WPF smoke test, userscript concurrency/routing tests, and headless Web UI acceptance suite.
+
+## Runtime and Distribution Notes
+
+- The publish script generates a directory package and a matching `.zip`.
+- The clean package root should mainly contain `ExpressPackingMonitoring.exe` and `app\`; the real app payload, dependencies, Web files, LibVLC files, and `tools\ffmpeg.exe` live under `app\`.
+- Release packages must not include `config.json`, `videos.db`, cache files, logs, recordings, or other local runtime data.
+- Runtime data is stored under `%LOCALAPPDATA%\ExpressPackingMonitoring\`, so normal upgrades keep user configuration and database records.
+- `ffmpeg.exe` may be resolved from `app\tools\ffmpeg.exe`, the application runtime directory, or the system `PATH`.
+- 正式发布基线固定为 FFmpeg 4.4.1 Essentials（兼容 Win7 老显卡 NVENC API 11.1）。AV1 硬件编码不作为产品能力，选择 AV1 时会自动回退 H.265；双 FFmpeg 基线方案（8.0.1 + 4.4.1）已评估但暂不实施。高级用户可在 Win8+ 自行替换 `app\tools\ffmpeg.exe` 获取新能力，官方不保证支持。
+- FFmpeg CLI 选项存在版本差异，禁止假设某个选项在所有版本可用：FFmpeg 8.x 已移除 RTSP 的 `-stimeout`，4.4.x 的 `-timeout` 在 RTSP 上会挂起，因此网络摄像头解码参数不传 socket 超时选项，由应用层 15 秒连接超时与断流看门狗兜底；`-fps_mode` 仅 5.1+ 可用，旧版本必须回退 `-vsync passthrough`。参数兼容策略集中在 `NetworkCameraSource.BuildArguments` 一处维护。
+- 修改任何 ffmpeg 调用（录制编码、网络摄像头解码、编码器探测、音频/TTS 探测）前，必须用发布基线 ffmpeg（`Tools/ffmpeg-baseline.json` 锁定的 4.4.1）和至少一个其他受支持主版本（如 8.0.1）实际验证；只在本机某个 ffmpeg 上通过不算验证完成。
+- AppPatch 不携带 `ffmpeg.exe`，用户机器可能长期保留旧完整包的不同 ffmpeg 版本；应用层逻辑必须对版本差异保持兼容，不能依赖 AppPatch 更新 ffmpeg。
+- LibVLC 随包收录全部播放相关插件（解码/解封装/字幕/滤镜/输出），仅排除与本地录像回放无关的目录（access_output/mux/services_discovery/stream_out/visualization/lua）；发布时移除设计时程序集（ReachFramework、WinForms Design）。收录与排除规则集中在 `ExpressPackingMonitoring.csproj`，新增播放能力需要插件时按同目录模式追加。
+- `Scripts/快递助手订单推送.user.js` is the browser userscript used for order push integration.
+- Edge TTS is the default online voice path. Kokoro local TTS models and runtime dependencies are optional and should not be bundled unless explicitly intended.
+- Full packages include the generated default Edge TTS cache. AppPatch packages must exclude TTS cache files.
+
+## Update & Release Workflow
+
+- Users should start the root launcher. The launcher starts the app immediately, checks updates in the background, downloads verified AppPatch packages into `%LOCALAPPDATA%\ExpressPackingMonitoring\cache\updates`, and installs pending patches on the next launcher run.
+- The main app may update the root launcher through the optional, separately verified `launcher_package` descriptor. It must wait for the old launcher process to exit, use the shared update mutex, replace only the standard root launcher, verify the result, and restore the previous launcher on failure.
+- AppPatch packages are fixed-baseline cumulative patches. The AppPatch baseline is specified by `-PatchBaselineVersion` and defaults to `0.0.18`, but scripts may allow overriding it when a new formal baseline is chosen. It is independent from the launcher baseline.
+- Keep update URLs configurable through environment variables or `.env`. The default update check URL is GitHub releases latest API; `.env` may point to another release provider.
+- 主程序默认版本号维护在 `ExpressPackingMonitoring/ExpressPackingMonitoring.csproj` 的 `<Version>`：每次发布前手动更新为本次版本，并与 `vX.Y.Z` 标签一致；`Publish-CleanPackage.ps1` 仍通过 `-p:InformationalVersion` 注入发布版本，本地与 CI 普通构建显示该默认版本。
+- 发布打包命令（每次发布按此执行）：
+  - `pwsh -NoProfile -File Tools\Publish-CleanPackage.ps1 -Version <X.Y.Z> -BaselineAppDir "package\PackingProof+v<上一正式版>\PackingProof+v<上一正式版>\app"`
+  - `-BaselineAppDir` 必须指向上一个完整包的 `app` 子目录（内含 `tools\ffmpeg.exe`）；指到包根目录会导致 AppPatch 不生成
+  - `-ReuseExistingLauncherBaseline` 仅当本次发布标签与锁定启动器基线标签相同（同版本重发）时使用；普通新版本不要传该参数，脚本会自动复用锁定基线启动器且不生成 LauncherPatch
+- 正式发布流程顺序：先在本地完成 Release 构建、全量测试与发布包生成并确认成功，再推送最新 `main` 提交到 GitHub、Gitee（PackingProof/PackingProof-Desktop）与旧 Gitee（chenjjian/ExpressPackingMonitoring）三个远端，最后创建 `vX.Y.Z` 标签并同步推送各远端；标签必须指向编译验证通过的最终提交，禁止先推标签再编译。三个远端缺一不可，旧 Gitee 仓库同样必须创建 Release 并上传资产，禁止遗漏或等用户提醒。
+- 发布笔记必须使用仓库根目录的 `RELEASE_NOTES_TEMPLATE.md` 模板：编写前先执行 `git log --oneline <上一正式版标签>..HEAD` 逐条核对全部提交，笔记必须覆盖所有用户可见变更（功能、设置、界面、启动器、发布流程等），禁止凭印象编写或遗漏提交。更新内容按“功能与体验 / 问题修复 / 兼容与工程”三类填写，并包含下载与更新说明、未验证事项；禁止自创格式。Release 标题固定为“`v<X.Y.Z> <一句话内容>`”（版本号开头，不加产品名或“发布”等前缀）。预览版本必须在 GitHub 与 Gitee 标记 prerelease 并在正文注明。更新日志范围：预览版只写本预览版增量内容，正式版必须汇总上一个正式版以来（含中间所有预览版）的全部更新内容。`update_vX.Y.Z.json` 的 `title` 必须与 Release 标题一致，`notes` 只保留简洁更新摘要（分类要点加一句下载提示即可），完整发布笔记以 Release 页面为准，不要重复粘贴完整说明。
+- Do not generate AppFull or ManualUpdate packages. GitHub Release uploads normally include the Setup, full 7z, compatibility zip, `update_vX.Y.Z.json`, optional `PackingProof_AppPatch_vX.Y.Z.zip` (the transition period also ships the byte-identical legacy `ExpressPackingMonitoring_AppPatch_vX.Y.Z.zip`), and a LauncherPatch only when that release establishes a new launcher baseline.
+- The launcher baseline is immutable and recorded in `Tools/launcher-baseline.json`; it locks the launcher source fingerprint and the launcher bytes used in clean packages and `launcher_package`. Ordinary app releases must reuse the locked launcher bytes and must not rebuild or re-upload LauncherPatch. When launcher logical inputs change, run `Tools/Publish-LauncherBaseline.ps1`, commit the new lock, and create a plain `launcher-vX.Y.Z` Git tag without creating a GitHub or Gitee Release for that component tag. A launcher change does not force a full reinstall: the release ships a LauncherPatch that the updated app applies automatically through `launcher_package`.
+- AppPatch and LauncherPatch are separate ZIP files. Each includes its own double-click manual installer and instructions; AppPatch must never contain the launcher executable. The old launcher updates the app first, then the updated app applies the independently verified launcher bridge.
+- Keep the release title in `update_vX.Y.Z.json` identical to the final release title; its `notes` must be a concise summary only, and the full release notes live on the GitHub/Gitee release pages.
+- Keep `launcher_manifest_vX.Y.Z.json` and `release_info_vX.Y.Z.txt` as local verification and handoff files; do not upload them to GitHub or Gitee by default.
+- Gitee releases receive the update JSON, optional AppPatch, and a LauncherPatch only for a new launcher baseline, but not the Setup, full package 7z, or full package zip. This applies to both the new Gitee repository and the legacy Gitee repository (chenjjian/ExpressPackingMonitoring).
+- Gitee 发布改用 `gitee` 命令行完成（不再手动打开页面）：发布前先 `gitee auth status` 确认已登录；`gitee release create --tag vX.Y.Z --name "..." --notes "..."` 创建 Release，再用 `gitee release upload vX.Y.Z <文件>...` 上传 update JSON、AppPatch，以及仅在本版本建立新启动器基线时上传 LauncherPatch；Setup、完整 7z、完整 ZIP 不上传 Gitee。新老两个 Gitee 仓库（PackingProof/PackingProof-Desktop 与 chenjjian/ExpressPackingMonitoring）都必须创建并上传；旧 Gitee 仓库沿用双别名惯例，额外上传字节一致的 `ExpressPackingMonitoring_AppPatch_vX.Y.Z.zip` 兼容附件。
+- Update the launcher only when necessary; once its logic changes, publish a new launcher baseline and LauncherPatch instead of modifying the locked bytes.
+
+## Storage, Cache, and Web Video
+
+- Storage settings are expressed as reserved free space for the system and other apps, not as a recording quota. Keep `StorageSpacePolicy` as the single source of truth for minimum reserve rules.
+- Cache-like Web artifacts, including transcode cache, clip previews, and clipped downloads, live under `%LOCALAPPDATA%\ExpressPackingMonitoring\cache` and are cleaned by the Web cache limit.
+- 持久化运行时状态（设备凭据、根密钥、订单接收方注册、电脑昵称、备份上传状态等）不得放在 `cache` 目录，统一存放于 `%LOCALAPPDATA%\ExpressPackingMonitoring\mobile-backup-state\`；`cache` 只存放可重建、可清理的临时产物。
+- Web clipping is named “剪辑” / “剪辑并下载”. Do not call it “导出视频”, which can be confused with original video download.
+
+## Destructive File Operation Safety
+
+- Treat deletion of recordings, databases, configuration, update payloads, and generated outputs as concurrency-sensitive. Before deleting, verify the exact file owner, lifecycle state, and current source/target relationship under the same synchronization used to create or replace it.
+- A failed task must not delete a shared output merely because that output exists. Another task may have completed successfully and removed or replaced the source before the failed task observes it.
+- Keep incomplete-output cleanup inside the owning operation and lock. Only remove an output when the original source is still preserved and the current operation can prove that it created the incomplete file.
+- Add a regression test for destructive or replacement logic that exercises the competing-task ordering: task A completes and publishes the target, then task B reaches failure cleanup. The test must verify that task B preserves task A's valid target.
+- Prefer recoverable cleanup or explicit database deletion records where practical. Log the reason and exact target for every automatic deletion of material data.
+
+## Coding Style & Naming Conventions
+
+Use C# with nullable references and implicit usings enabled. Follow the existing WPF/MVVM style: `PascalCase` for public types, properties, and commands; `camelCase` for locals; `_camelCase` for private fields. Keep XAML names descriptive and aligned with their backing view or view model. Preserve UTF-8 text and avoid broad line-ending or encoding churn, especially in Chinese strings, XAML, HTML, and userscript files.
+
+## Testing Guidelines
+
+`ExpressPackingMonitoring.Tests/` contains the automated regression suite. At minimum, run `dotnet test ExpressPackingMonitoring.Tests/ExpressPackingMonitoring.Tests.csproj -c Debug` and `dotnet build ExpressPackingMonitoring.sln -c Debug` before committing. For recording, Web playback, TTS, packaging, or FFmpeg changes, also run the affected workflow manually and note what was verified. Use `Test/HTML/` pages when validating userscript parsing behavior.
+
+FFmpeg 相关改动必须同时满足：全量单元测试通过；`NetworkCameraSourceTests` 中的参数兼容断言与“随包 ffmpeg 能识别所有使用参数”的回归测试通过；用基线 4.4.1 与 8.0.1 各验证一次受影响的 ffmpeg 工作流（至少参数级或本地流验证）。新增或删除 ffmpeg 参数时同步更新这些断言，禁止只改实现不改测试。
+
+Before every release, run `pwsh -NoProfile -File Tools/Test-Release-Automated.ps1`; packaging remains blocked unless the automated checks pass. The real-device scenarios in `RELEASE_CHECKLIST.md` are recommended but non-blocking, and any unverified scenarios must be reported with the release. Do not pass `-ConfirmManualCoreChecks` unless those real-device checks were actually performed.
+
+Before declaring a release ready, perform an explicit release-readiness audit in addition to running the automated checks. Review the complete change set since the previous release and trace the affected critical paths for omitted requirements, unresolved defects or TODOs, newly introduced technical debt, performance or resource-lifetime regressions, and concurrency or race hazards, especially around recording, updates, enrollment, backup, deletion, and file replacement. Investigate every failing or flaky test instead of dismissing it as unrelated, and treat any credible correctness, data-safety, compatibility, performance, or race issue as a release blocker until it is fixed or the user explicitly accepts a documented exception. A successful build or test run alone is not sufficient to declare the release ready.
+
+## Cross-Device Backup Compatibility
+
+- Treat every change to device enrollment, backup authentication, upload, or verified-receipt behavior as a two-sided protocol change. Hosts and clients must exchange explicit protocol, enrollment, authentication, application-version, and build capabilities instead of inferring compatibility from a display version alone.
+- Reject an incompatible client before showing the host approval prompt or issuing, rotating, or persisting a device token. Return a structured upgrade response that identifies which side must update, the minimum compatible version, and a trusted download location.
+- An incompatible host must be rejected before a phone or RecordingWorkstation requests a token. Compatibility failure may block connection and backup, but must never delete or reset local recordings, databases, upload queues, stable device IDs, or the last-host hint.
+- Keep concrete minimum versions and protocol numbers in the centralized compatibility policy code, not in this document. Update desktop and mobile regression tests together whenever that policy or the wire contract changes.
+- Release a compatible client package before publishing a host version that raises the client minimum. Verify both upgrade directions and a newer-but-compatible peer before release.
+
+## Commit & Pull Request Guidelines
+
+Recent history uses conventional prefixes with Chinese subjects, for example `fix: 优化 Web 搜索和转码确认` and `docs: 优化 README 表述`. Keep commits scoped and include a short body explaining what changed and why. Do not include secrets, local paths, account IDs, signing files, or machine-specific details.
+
+Pull requests should include a concise summary, validation steps, linked issue if applicable, and screenshots or recordings for UI, playback, or packaging changes.
+
+## Security & Configuration Tips
+
+Do not commit generated configs, databases, logs, caches, recordings, `.env` files, certificates, or signing material. Runtime data belongs under `%LOCALAPPDATA%\ExpressPackingMonitoring\`; release packages should not include local user state.
+
+## UI 字体规范
+
+- 默认禁止使用与现有 UI 不同的字体（`FontFamily`），新界面一律复用项目默认字体（`Microsoft YaHei UI, Segoe UI`）和现有字号/字重风格；确需使用其他字体时必须显式设置并说明原因。
+
+## UI 文案规范
+
+- 所有用户可见文本的最后一句话不允许以句号（。）结尾；多句文案只移除末尾句号，中间句号可保留。
+
+---
+> Source: [PackingProof/PackingProof-Desktop](https://github.com/PackingProof/PackingProof-Desktop) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
