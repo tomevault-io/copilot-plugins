@@ -4,7 +4,7 @@
   "repo": "pdfvision",
   "description": "CLI, MCP server, and TypeScript library that extracts text, layout, and page images from PDFs for AI agents \u2014 when extraction goes wrong, it says so per page and says what to do next.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yamadashy/pdfvision",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T23:25:24Z"
+  "distributed_at": "2026-08-12T00:40:34Z"
 }
