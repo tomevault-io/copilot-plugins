@@ -1,0 +1,9 @@
+{
+  "name": "lockevod--karoo-ksafe",
+  "displayName": "Karoo-KSafe",
+  "description": " KSafe: free open-source Karoo safety + ride wellness extension. Reactive layer alerts your contacts on crash, missed check-in, speed drop, HR flatline or   sustained high HR. Preventive layer tracks ",
+  "version": "1.0.0",
+  "author": "lockevod",
+  "homepage": "https://github.com/lockevod/Karoo-KSafe",
+  "skills": []
+}
