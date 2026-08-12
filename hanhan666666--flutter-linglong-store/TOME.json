@@ -4,7 +4,7 @@
   "repo": "flutter-linglong-store",
   "description": "\u73b2\u73d1\u5e94\u7528\u5546\u5e97\u793e\u533a\u7248",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HanHan666666/flutter-linglong-store",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T01:21:03Z"
+  "distributed_at": "2026-08-12T01:25:10Z"
 }
