@@ -1,0 +1,9 @@
+{
+  "name": "clavia-inc--agent-pw",
+  "displayName": "agent.pw",
+  "description": "Share APIs with agents, without sharing secrets.",
+  "version": "1.0.0",
+  "author": "clavia-inc",
+  "homepage": "https://github.com/clavia-inc/agent.pw",
+  "skills": []
+}
