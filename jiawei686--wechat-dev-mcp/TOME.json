@@ -4,7 +4,7 @@
   "repo": "wechat-dev-mcp",
   "description": "\u8ba9\u4efb\u610f AI \u5ba2\u6237\u7aef\u81ea\u52a8\u8c03\u8bd5\u5fae\u4fe1\u5c0f\u7a0b\u5e8f/\u5c0f\u6e38\u620f\uff1a\u622a\u56fe\u3001\u6a21\u62df\u89e6\u63a7\u3001\u8bfb\u65e5\u5fd7\u3001\u4e00\u952e\u91cd\u5f00\uff1b\u914d\u5408 wechat-dev-skill \u81ea\u52a8\u5de1\u68c0\u56db\u6765\u6e90\u62a5\u9519\u3002",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jiawei686/wechat-dev-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T10:35:05Z"
+  "distributed_at": "2026-08-12T17:20:32Z"
 }
