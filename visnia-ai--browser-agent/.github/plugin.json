@@ -1,0 +1,9 @@
+{
+  "name": "visnia-ai--browser-agent",
+  "displayName": "browser-agent",
+  "description": "A powerful & efficient browser agent that automates any task on the web",
+  "version": "1.0.0",
+  "author": "visnia-ai",
+  "homepage": "https://github.com/visnia-ai/browser-agent",
+  "skills": []
+}
