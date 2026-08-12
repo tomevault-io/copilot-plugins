@@ -4,7 +4,7 @@
   "repo": "attune-ai",
   "description": "Attune-AI is a spec-driven meta-orchestration framework designed to establish a deterministic alignment layer between autonomous LLM agents and a production codebase.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Smart-AI-Memory/attune-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T17:14:35Z"
+  "distributed_at": "2026-08-12T17:25:54Z"
 }
