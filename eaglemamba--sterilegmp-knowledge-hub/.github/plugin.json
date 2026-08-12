@@ -1,0 +1,9 @@
+{
+  "name": "eaglemamba--sterilegmp-knowledge-hub",
+  "displayName": "SterileGMP-Knowledge-Hub",
+  "description": "Multi-source GMP knowledge base for sterile pharmaceutical manufacturing \u2014 PDA Technical Reports, ISPE Guidelines, FDA, PIC/S Annex 1, ISO standards. HTML dashboards + AI-queryable Markdown.",
+  "version": "1.0.0",
+  "author": "Eaglemamba",
+  "homepage": "https://github.com/Eaglemamba/SterileGMP-Knowledge-Hub",
+  "skills": []
+}
