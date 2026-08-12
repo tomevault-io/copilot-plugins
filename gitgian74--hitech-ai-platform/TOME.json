@@ -1,0 +1,44 @@
+{
+  "name": "hitech-ai-platform",
+  "owner": "gitgian74",
+  "repo": "hitech-ai-platform",
+  "description": "AI platform \u2014 make human life better with high-tech AI. Built with Next.js 16, Appwrite, VIAM, Vercel.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gitgian74/hitech-ai-platform",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T23:02:19Z"
+}
