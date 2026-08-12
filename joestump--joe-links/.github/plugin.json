@@ -1,0 +1,9 @@
+{
+  "name": "joestump--joe-links",
+  "displayName": "joe-links",
+  "description": "Self-hosted go-links service \u2014 short memorable slugs that redirect to long URLs. Go + HTMX + DaisyUI/Tailwind. Single binary.",
+  "version": "1.0.0",
+  "author": "joestump",
+  "homepage": "https://github.com/joestump/joe-links",
+  "skills": []
+}
