@@ -4,7 +4,7 @@
   "repo": "Paddock",
   "description": "AI software factory control plane for GitHub issue-driven autonomous workflows, isolated agent sandboxes, governance, artifacts, and human review.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/racecraft-lab/Paddock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T08:57:56Z"
+  "distributed_at": "2026-08-12T09:20:46Z"
 }
