@@ -1,0 +1,9 @@
+{
+  "name": "kiyeonjeon21--querypad",
+  "displayName": "querypad",
+  "description": "Cursor for Data \u2014 a local-first AI workspace that understands your datasets: discovers relationships, builds semantic models, and answers questions with DuckDB. CLI + browser app.",
+  "version": "1.0.0",
+  "author": "kiyeonjeon21",
+  "homepage": "https://github.com/kiyeonjeon21/querypad",
+  "skills": []
+}
