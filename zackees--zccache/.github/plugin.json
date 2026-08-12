@@ -1,0 +1,9 @@
+{
+  "name": "zackees--zccache",
+  "displayName": "zccache",
+  "description": "Blazing Fast cpp / rust / emscripten drop in replacement for sccache and ccache",
+  "version": "1.0.0",
+  "author": "zackees",
+  "homepage": "https://github.com/zackees/zccache",
+  "skills": []
+}
