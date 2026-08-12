@@ -1,0 +1,9 @@
+{
+  "name": "codacy--codacy-skills",
+  "displayName": "codacy-skills",
+  "description": "codacy-skills",
+  "version": "1.0.0",
+  "author": "codacy",
+  "homepage": "https://github.com/codacy/codacy-skills",
+  "skills": []
+}
