@@ -4,7 +4,7 @@
   "repo": "agent-skills",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/teableio/agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T04:40:56Z"
+  "distributed_at": "2026-08-12T05:08:45Z"
 }
