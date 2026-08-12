@@ -1,0 +1,44 @@
+{
+  "name": "sema",
+  "owner": "emergent-wisdom",
+  "repo": "sema",
+  "description": "Sema is a content-addressed vocabulary for AI agents. Precise thinking, reliable references, safe multi-agent coordination. Hash the meaning, get the word.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/emergent-wisdom/sema",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T02:48:30Z"
+}
