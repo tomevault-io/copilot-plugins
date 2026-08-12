@@ -7,11 +7,11 @@ Fast, multi-modal context for agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vlm-run/mm](https://github.com/vlm-run/mm).
+Original source: `CLAUDE.md` in [vlm-run/mm](https://github.com/vlm-run/mm).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
