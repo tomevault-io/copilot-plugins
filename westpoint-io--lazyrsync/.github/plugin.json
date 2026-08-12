@@ -1,0 +1,9 @@
+{
+  "name": "westpoint-io--lazyrsync",
+  "displayName": "lazyrsync",
+  "description": "\ud83e\udd80 A friendly terminal UI for rsync, written in Rust. Reusable profiles, an honest dry-run diff, and live progress, even over SSH.",
+  "version": "1.0.0",
+  "author": "westpoint-io",
+  "homepage": "https://github.com/westpoint-io/lazyrsync",
+  "skills": []
+}
