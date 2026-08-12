@@ -1,0 +1,44 @@
+{
+  "name": "agentic-os",
+  "owner": "aporb",
+  "repo": "agentic-os",
+  "description": "A minimal, opinionated template for turning any AI agent CLI into a persistent operating system \u2014 memory, skills, automations, and dashboard.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aporb/agentic-os",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T06:34:55Z"
+}
