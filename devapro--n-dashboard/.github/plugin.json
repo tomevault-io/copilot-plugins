@@ -1,0 +1,9 @@
+{
+  "name": "devapro--n-dashboard",
+  "displayName": "n-dashboard",
+  "description": "A self-hosted dashboard where every widget is a TypeScript function on disk \u2014 the server runs it on a clock, an MQTT message or a webhook, validates what it returns, and pushes the result to every ope",
+  "version": "1.0.0",
+  "author": "devapro",
+  "homepage": "https://github.com/devapro/n-dashboard",
+  "skills": []
+}
