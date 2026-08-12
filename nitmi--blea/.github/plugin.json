@@ -1,0 +1,9 @@
+{
+  "name": "nitmi--blea",
+  "displayName": "blea",
+  "description": "Universal Agent Plugin for safe BLE diagnostics and automation, with Agent Plugins 1.0.0 metadata, a portable Skill, deterministic CLI, local MCP, and evidence capture/diff/replay.",
+  "version": "1.0.0",
+  "author": "Nitmi",
+  "homepage": "https://github.com/Nitmi/blea",
+  "skills": []
+}
