@@ -1,0 +1,9 @@
+{
+  "name": "anguriatech--envy",
+  "displayName": "envy",
+  "description": "Zero-trust, encrypted secret management CLI built in Rust. No SaaS, no internet, no plaintext. The secure alternative to .env files.",
+  "version": "1.0.0",
+  "author": "anguriatech",
+  "homepage": "https://github.com/anguriatech/envy",
+  "skills": []
+}
