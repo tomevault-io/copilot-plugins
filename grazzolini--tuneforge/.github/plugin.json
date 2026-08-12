@@ -1,0 +1,9 @@
+{
+  "name": "grazzolini--tuneforge",
+  "displayName": "tuneforge",
+  "description": "Local-first desktop app for musicians learning songs: stem separation, chord/key/tempo and lyrics transcription, pitch shift, retune, transpose/capo, export, tuner, metronome. No cloud, no account.",
+  "version": "1.0.0",
+  "author": "grazzolini",
+  "homepage": "https://github.com/grazzolini/tuneforge",
+  "skills": []
+}
