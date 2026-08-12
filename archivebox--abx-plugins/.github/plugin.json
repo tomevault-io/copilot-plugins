@@ -1,0 +1,9 @@
+{
+  "name": "archivebox--abx-plugins",
+  "displayName": "abx-plugins",
+  "description": "\ud83e\udde9 Plugins and extractors that ArchiveBox + abx-dl use: chrome, ytdlp, wget, singlefile, readability, forum-dl, gallery-dl, papers-dl, and more...",
+  "version": "1.0.0",
+  "author": "ArchiveBox",
+  "homepage": "https://github.com/ArchiveBox/abx-plugins",
+  "skills": []
+}
