@@ -1,0 +1,9 @@
+{
+  "name": "chefjefff--mckinsey-problem-solving",
+  "displayName": "mckinsey-problem-solving",
+  "description": "The McKinsey 7-step problem solving framework (from Conn & McLean's Bulletproof Problem Solving) as a portable Claude Code skill. Drop-in analytical rigor for AI agents.",
+  "version": "1.0.0",
+  "author": "chefjefff",
+  "homepage": "https://github.com/chefjefff/mckinsey-problem-solving",
+  "skills": []
+}
