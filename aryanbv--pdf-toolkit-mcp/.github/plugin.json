@@ -1,0 +1,9 @@
+{
+  "name": "aryanbv--pdf-toolkit-mcp",
+  "displayName": "pdf-toolkit-mcp",
+  "description": "Write-capable PDF toolkit for any MCP client: 22 tools to read, create, render, encrypt, and transform PDFs. Vision rendering for scans, form-preserving merge and split, AES-256, zero native dependenc",
+  "version": "1.0.0",
+  "author": "AryanBV",
+  "homepage": "https://github.com/AryanBV/pdf-toolkit-mcp",
+  "skills": []
+}
