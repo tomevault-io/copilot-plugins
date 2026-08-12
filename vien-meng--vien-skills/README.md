@@ -7,13 +7,13 @@ AI全自动一键开发完整项目并交付的skills，目前测试过6个项�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [vien-meng/vien-skills](https://github.com/vien-meng/vien-skills).
+Original source: `AGENTS.md` in [vien-meng/vien-skills](https://github.com/vien-meng/vien-skills).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
