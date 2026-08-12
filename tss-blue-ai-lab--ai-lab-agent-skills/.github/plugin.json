@@ -1,0 +1,9 @@
+{
+  "name": "tss-blue-ai-lab--ai-lab-agent-skills",
+  "displayName": "ai-lab-agent-skills",
+  "description": "A curated set of practical skills and cheat-sheet commands designed to help participants quickly understand, use, and experiment with AI agents during the AI Lab workshop.",
+  "version": "1.0.0",
+  "author": "TSS-Blue-AI-Lab",
+  "homepage": "https://github.com/TSS-Blue-AI-Lab/ai-lab-agent-skills",
+  "skills": []
+}
