@@ -1,0 +1,9 @@
+{
+  "name": "opendrone-hw--openfc",
+  "displayName": "OpenFC",
+  "description": "20x20 Flight Controller for Betaflight with integrated break-away ELRS receiver.",
+  "version": "1.0.0",
+  "author": "OpenDrone-hw",
+  "homepage": "https://github.com/OpenDrone-hw/OpenFC",
+  "skills": []
+}
