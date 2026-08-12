@@ -1,0 +1,9 @@
+{
+  "name": "pyjarrett--anteforth",
+  "displayName": "anteforth",
+  "description": "A Forth VM in Ada/SPARK",
+  "version": "1.0.0",
+  "author": "pyjarrett",
+  "homepage": "https://github.com/pyjarrett/anteforth",
+  "skills": []
+}
