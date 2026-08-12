@@ -1,0 +1,9 @@
+{
+  "name": "jaein4722--nvbeacon",
+  "displayName": "NVBeacon",
+  "description": "Native macOS menu bar app for monitoring remote NVIDIA GPU servers over SSH with nvidia-smi",
+  "version": "1.0.0",
+  "author": "jaein4722",
+  "homepage": "https://github.com/jaein4722/NVBeacon",
+  "skills": []
+}
