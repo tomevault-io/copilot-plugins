@@ -4,7 +4,7 @@
   "repo": "superpowers-extended",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/transparent-pegasus/superpowers-extended",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T03:34:25Z"
+  "distributed_at": "2026-08-12T04:40:27Z"
 }
