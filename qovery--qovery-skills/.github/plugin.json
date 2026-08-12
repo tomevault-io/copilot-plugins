@@ -1,0 +1,9 @@
+{
+  "name": "qovery--qovery-skills",
+  "displayName": "qovery-skills",
+  "description": "AI agent skills for deploying applications to Kubernetes with Qovery. Works with OpenCode, Claude Code, and any agent supporting SKILL.md.",
+  "version": "1.0.0",
+  "author": "Qovery",
+  "homepage": "https://github.com/Qovery/qovery-skills",
+  "skills": []
+}
