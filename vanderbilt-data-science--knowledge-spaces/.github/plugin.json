@@ -1,0 +1,34 @@
+{
+  "name": "vanderbilt-data-science--knowledge-spaces",
+  "displayName": "knowledge-spaces",
+  "description": "AI-powered Knowledge Space Theory for adaptive education. 10 Claude Code skills implementing the full KST pipeline \u2014 from course materials to knowledge graphs, adaptive assessment, personalized materi",
+  "version": "1.0.0",
+  "author": "vanderbilt-data-science",
+  "homepage": "https://github.com/vanderbilt-data-science/knowledge-spaces",
+  "skills": [
+    {
+      "name": "assessing-knowledge-state",
+      "description": ""
+    },
+    {
+      "name": "building-surmise-relations",
+      "description": ""
+    },
+    {
+      "name": "decomposing-learning-objectives",
+      "description": ""
+    },
+    {
+      "name": "extracting-knowledge-items",
+      "description": ""
+    },
+    {
+      "name": "generating-learning-materials",
+      "description": ""
+    },
+    {
+      "name": "mapping-concepts-and-competences",
+      "description": ""
+    }
+  ]
+}
