@@ -4,7 +4,7 @@
   "repo": "lore-weave",
   "description": "Open-source AI co-author for novelists & world-builders. \u270d\ufe0f Canon-safe writing \u00b7 RAG lore glossary \u00b7 polyglot translation \u00b7 BYOK multi-LLM. \ud83c\udfae Living-world MMO RPG extension \u2014 step inside the worlds you write, where LLM-driven NPCs bring your canon to life. Go \u00b7 Python \u00b7 NestJS \u00b7 React. \ud83c\udf0d\u2728",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/letuhao/lore-weave",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T02:43:26Z"
+  "distributed_at": "2026-08-12T02:48:01Z"
 }
