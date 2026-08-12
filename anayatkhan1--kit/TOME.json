@@ -4,7 +4,7 @@
   "repo": "kit",
   "description": "Add an agent with one CLI command. Source lands in your repo as real TypeScript \u2014 prompts, tools, and runtime you can edit and own.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/anayatkhan1/kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T09:41:54Z"
+  "distributed_at": "2026-08-12T10:40:32Z"
 }
