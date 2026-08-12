@@ -4,7 +4,7 @@
   "repo": "ppmlx",
   "description": "Run local LLMs on Apple Silicon with an OpenAI-compatible API powered by MLX.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wydrox/ppmlx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T02:57:43Z"
+  "distributed_at": "2026-08-12T02:58:24Z"
 }
