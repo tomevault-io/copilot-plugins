@@ -1,0 +1,9 @@
+{
+  "name": "elixir-vibe--llm-proxy",
+  "displayName": "llm_proxy",
+  "description": "Self-hosted, Elixir-native alternative to LiteLLM: one API for multi-provider routing, fallbacks, budgets, keys, and observability.",
+  "version": "1.0.0",
+  "author": "elixir-vibe",
+  "homepage": "https://github.com/elixir-vibe/llm_proxy",
+  "skills": []
+}
