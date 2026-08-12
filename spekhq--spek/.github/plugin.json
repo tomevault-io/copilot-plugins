@@ -1,0 +1,9 @@
+{
+  "name": "spekhq--spek",
+  "displayName": "spek",
+  "description": "A lightweight, read-only viewer for OpenSpec content",
+  "version": "1.0.0",
+  "author": "spekhq",
+  "homepage": "https://github.com/spekhq/spek",
+  "skills": []
+}
