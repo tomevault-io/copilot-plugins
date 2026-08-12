@@ -7,11 +7,11 @@ Attune-AI is a spec-driven meta-orchestration framework designed to establish a 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Smart-AI-Memory/attune-ai](https://github.com/Smart-AI-Memory/attune-ai).
+Original source: `AGENTS.md` in [Smart-AI-Memory/attune-ai](https://github.com/Smart-AI-Memory/attune-ai).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
