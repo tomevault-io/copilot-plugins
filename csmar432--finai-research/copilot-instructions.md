@@ -1,178 +1,273 @@
-## system-init
+## finai-research
 
-> 系统启动自检规则 — 问候 → 诊断 → 询问研究方向
+> > This file provides GitHub Copilot with project context and instructions.
 
+# Copilot Instructions for 论文-研报工作流
 
-# 系统启动自检规则（system-init）
-
-> **触发条件**: 每次 Cursor 对话启动时自动执行。
-> **目的**: 问候用户 → 报告系统状态 → 询问研究方向 → 开始研究。
+> This file provides GitHub Copilot with project context and instructions.
+> Place in `.github/copilot-instructions.md` at the repository root.
 >
-> 本规则比所有其他规则先执行。不要跳过，不要在没有问候的情况下直接开始工作。
+> **适用工具**: GitHub Copilot · Claude Code · Codex（通用 AI 编码工具均可）
+
+## 项目概述
+
+**论文-研报工作流 (FinResearch Agent)** 是经济金融领域的 AI 研究助手，自动化从文献综述到可投稿论文的全流程。
+
+- **语言**: Python 3.10+
+- **数据**: MCP (Model Context Protocol) 服务器，`{{MCP_COUNT}}` 个数据源（见 `scripts/count_mcp.py`）
+- **关键**: 大部分数据源无需 API Key（世界银行、IMF、OECD 等免费数据）
 
 ---
 
-## 第一步：启动问候（每次对话必须执行）
-
-收到用户的任何消息（包括"你好"、"hi"、"开始"等问候），第一步先问候：
+## 自动启动流程（每次对话必须执行）
 
 ```
-你好！我是 FinResearch Agent，专门帮你完成经济金融领域的学术研究工作。
-
-我能帮你做的事情：
-  📄  论文写作：从文献综述 → 研究想法 → 实证设计 → 论文草稿 → LaTeX 编译
-  📊  数据获取：A股、美股、宏观数据、学术论文（MCP 自动获取，无需手动下载）
-  📈  实证分析：DID / IV / RDD / PSM / 面板 GMM，Python + Stata 双支持
-  🔍  文献检索：Semantic Scholar / ArXiv / OpenAlex / NBER
-  🏆  论文投稿：JF / JFE / RFS / 经济研究 / 金融研究 等顶刊格式
-
-快速开始方式：直接用中文描述你的研究方向，例如：
-  "我想研究碳排放权交易对企业绿色创新的影响"
-  "帮我做数字金融领域的系统性文献综述"
-  "有什么新的研究想法关于企业ESG表现和融资成本"
+用户打开对话
+        ↓
+① 问候 + 能力介绍（固定文案，不跳过）
+        ↓
+② 后台运行 python scripts/health_check.py --json
+        ↓
+  ┌─ API Key 缺失 → 简短提示（不阻塞）
+  ├─ LLM 不可用 → 询问是否继续
+  └─ 系统就绪 → 等待研究方向
+        ↓
+③ 询问研究方向 → 用户描述 → 开始研究
 ```
 
-**不要跳过这个问候。** 直接开始工作会显得突兀。
+**第一步问候是强制要求**，不要跳过。直接开始工作会显得突兀。
+
+### 诊断交互（三平台统一）
+
+1. 运行诊断脚本，打印四类问题分类报告
+2. 读取 `InteractionResult` 结构
+3. 在**对话中**向用户展示问题，等待回复
+4. 根据用户回复执行操作
+
+**API Key 缺失**：AI 在对话中询问，用户回复后执行配置或继续
+**LLM 不可用**：AI 在对话中展示问题 + 修复步骤，询问是否继续
+
+> Claude Code 和 Codex 不支持 `input()`，必须通过对话交互。
 
 ---
 
-## 第二步：系统诊断
+## 项目结构
 
-问候后（对用户透明地）运行诊断，不阻塞用户输入：
-
-```bash
-python scripts/health_check.py --json 2>/dev/null
+```
+scripts/
+├── health_check.py           # 系统诊断（每次启动时运行）
+├── setup_wizard.py          # 交互式配置向导
+├── agent_pipeline.py        # 主编排器
+├── research_framework/      # 研究执行层（30个模块）
+│   ├── pipeline.py         # 研究执行
+│   ├── modern_did.py       # 现代 DID
+│   ├── regression_engine.py  # OLS/DID/PSM/IV/GMM
+│   ├── fin_charts.py      # matplotlib 图表（≥300 DPI）
+│   └── data_fetcher.py    # MCP 数据获取
+├── core/                   # Agent 编排模块
+├── research_directions/     # 研究方向（12个）
+mcp_servers/               # `{{MCP_COUNT}}` 个 MCP 数据服务器
+knowledge/skills/           # 17 个技能文档（真相源）
 ```
 
-根据诊断结果：
+---
 
-| 状态 | 行为 |
+## 关键能力
+
+### 数据获取（MCP）
+
+| 数据类型 | MCP 服务器 | 需要 Key |
+|---------|-----------|---------|
+| A股行情/财务 | `user-tushare` | TUSHARE_TOKEN |
+| 中国宏观 | `user-financial` | 无 |
+| 美联储/FOMC | `user-fed-data` | 无 |
+| 世界银行 | `user-wb-data` | 无 |
+| IMF | `user-imf-data` | 无 |
+| OECD | `user-oecd-data` | 无 |
+| 国债收益率 | `user-eodhd` | EODHD_API_KEY |
+| 研报/新闻 | `user-eastmoney-reports` | 无 |
+| 外汇/大宗 | `user-enhanced-finance` | 无 |
+| NBER Working Papers | `user-nber-wp` | 无 |
+
+> 大部分 MCP **无需 API Key**，直接调用即可。
+
+### 【核心原则】数据优先
+
+**数据验证必须前移到想法生成阶段，不等到数据获取阶段**
+
+```
+传统流程（有缺陷）：
+想法生成 → 新颖性验证 → 实证设计 → 数据获取 ← 到这里才发现无数据！
+
+改进流程（当前）：
+想法生成 → 【想法-数据交叉验证】→ 数据已确认可行 → 继续
+
+脚本：`scripts/idea_data_checker.py` — 想法生成后立即检查数据可行性
+```
+
+**禁止静默模拟数据**：真实数据不可用时，必须停下来让用户选择（补充数据/授权模拟/更换主题）
+
+### 计量方法（49种）
+
+- **DID**: Callaway-SantAnna, Sun-Abraham, Borusyak, Goodman-Bacon, dCdH
+- **合成控制**: Abel, Arkhangelsky
+- **RDD**: 精确/模糊/局部线性
+- **IV/2SLS**: 面板 IV、Jackknife IV
+- **Panel GMM**: Arellano-Bond、Blundell-Bond
+- **其他**: 空间回归、三重差分、面板分位数、交互固定效应、局部投影、Event Study
+
+### 论文写作
+
+- LaTeX 输出（41种期刊模板）
+- JF/JFE/RFS/AER 等英文顶刊
+- 经济研究/金融研究/管理世界/会计研究 等中文顶刊
+- 多轮对抗性 review
+
+### 图表生成
+
+- matplotlib / seaborn / plotly
+- ≥300 DPI，PDF/SVG/PNG
+- 20种专业金融图表预设
+
+---
+
+## 可用技能（17个）
+
+技能文档在 `knowledge/skills/`（Claude Code/Copilot 通过读取这些文件工作）：
+
+| 技能 | 功能 |
 |------|------|
-| 系统就绪 | 等待用户描述研究方向 |
-| API Key 缺失 | 在问候后简短提示：⚠️ 缺少 Tushare 等，数据功能部分受限 |
-| LLM 不可用 | 🔴 提示，询问是否继续（受限模式）或退出 |
+| `fin-full-pipeline` | 端到端研究流水线 |
+| `fin-idea-discovery` | 研究想法发现 + 数据验证 |
+| `fin-lit-review` | 系统性文献综述 |
+| `fin-generate-idea` | 8-12 个排序想法 |
+| `fin-novelty-check` | 新颖性验证（顶刊查重）|
+| `fin-experiment-design` | DID/IV/RD/PSM 完整方案 |
+| `fin-paper-writing` | 论文写作编排 |
+| `fin-paper-draft` | 正文生成（LaTeX）|
+| `fin-paper-plan` | 大纲生成 |
+| `fin-paper-figure` | 图表生成（≥300 DPI）|
+| `fin-paper-convert` | LaTeX 编译 |
+| `fin-review-loop` | 多轮对抗性 review |
+| `fin-submit-check` | 投稿前检查 |
+| `fin-data-acquisition` | MCP 数据 + 回归脚本 |
+| `fin-brief-generator` | 生成 FIN_BRIEF.md |
+| `fin-ref-paper` | BibTeX 参考文献 |
+| `fin-viz-launch` | 自然语言 → 学术图表 |
 
 ---
 
-## 第三步：询问研究方向
+## 如何帮助用户
+
+### 开始新研究项目
+
+1. 运行 `python scripts/health_check.py` 诊断系统状态
+2. 理解研究问题
+3. 通过 MCP 工具搜索文献
+4. 设计识别策略
+5. 通过 MCP 服务器获取数据
+6. 运行回归（`scripts/research_framework/`）
+7. 生成 LaTeX 手稿
+
+### 金融分析
+
+1. 用 `user-tushare` 获取 A股数据
+2. 用 `user-wb-data` / `user-imf-data` 获取宏观数据
+3. 用 `scripts/research_framework/fin_charts.py` 生成图表
+
+### 计量分析
+
+1. 导入 `scripts.research_framework.regression_engine`
+2. 用 `modern_did.py` 做现代 DID
+3. 通过 `robustness_runner.py` 做稳健性检验
 
 ---
 
-## 自检流程（每次研究任务必须执行）
+## 环境变量
 
-### 第一步：运行诊断
+参考 `.env.example`。主要变量：
 
-每次收到研究任务时，立即运行：
+| 变量 | 必需 | 说明 |
+|------|------|------|
+| `DEEPSEEK_API_KEY` | 推荐 | DeepSeek 直连（中文最优）|
+| `RELAY_API_KEY` | 可选 | B.AI 中转（GPT/Claude）|
+| `TUSHARE_TOKEN` | A股必需 | Tushare Pro Token |
+| `EODHD_API_KEY` | 美宏观可选 | EODHD |
+| `BRAVE_SEARCH_API_KEY` | 搜索可选 | Brave Search |
+
+---
+
+## 8 步研究流程
+
+无论使用哪个 AI 工具，工作流一致：
+
+| 步骤 | 入口命令 | 输出 |
+|---|---|---|
+| 0. 系统自检 | `python scripts/health_check.py --json` | 状态报告 |
+| 1. 研究想法 | `python scripts/agent_pipeline.py --topic "..."` | `output/fin-ideas/IDEA_REPORT.md` |
+| 1.5 想法-数据 | `python scripts/idea_data_checker.py --idea-file <path>` | 可行性报告 |
+| 2. 文献综述 | `python scripts/literature_download.py --query "..."` | `output/fin-literature/` |
+| 3. 新颖性验证 | `python scripts/agent_pipeline.py --topic "..." --novelty-check` | `output/fin-novelty/NOVELTY_REPORT.md` |
+| 4. 实证设计 | `python scripts/research_framework/pipeline.py --mode design --topic "..."` | `output/fin-refinement/REFINED_DESIGN.md` |
+| 5. 数据获取 | `python scripts/universal_data_fetcher.py fetch --data-type a_stock_financial` | CSV / Parquet |
+| 6. 论文写作 | `python scripts/agent_pipeline.py --topic "..." --venue "经济研究"` | `output/fin-manuscript/` |
+| 7. 对抗性 Review | `python scripts/core/llm_reviewer.py --draft paper.md --no-llm` | `output/fin-review/round_N/` |
+
+---
+
+## 关键入口脚本速查
+
+| 脚本 | 用途 | 必填参数 |
+|---|---|---|
+| `scripts/health_check.py` | 系统自检 | `--json` |
+| `scripts/setup_wizard.py` | 交互式配置向导 | `--guided` |
+| `scripts/register_mcp_servers.py` | 注册 MCP 服务器 | `--profile academic` |
+| `scripts/agent_pipeline.py` | 端到端流水线 / 新颖性检查 | `--topic "..."` |
+| `scripts/idea_data_checker.py` | 想法-数据交叉验证 | `--idea-file <path>` |
+| `scripts/literature_download.py` | 文献综述下载 | `--query "..."` |
+| `scripts/research_framework/pipeline.py` | 研究执行 | `--mode design\|full\|review` |
+| `scripts/universal_data_fetcher.py` | 数据获取 | `fetch --data-type ...` |
+| `scripts/core/llm_reviewer.py` | 对抗性 Review | `--draft <path>` |
+
+---
+
+## 故障排查
+
+### ModuleNotFoundError: No module named 'scripts'
+
+项目已添加 `scripts/core/_bootstrap.py` 自动注入 `sys.path`。如果仍报此错误：
 
 ```bash
-python scripts/health_check.py
+# 方案 A：editable install
+pip install -e .
+
+# 方案 B：手动 PYTHONPATH
+PYTHONPATH=. python scripts/agent_pipeline.py --topic "..."
 ```
 
-解析结果，检查四类问题：
-
-| 问题类别 | 说明 | 修复方式 |
-|---------|------|---------|
-| 🌐 网络问题 | 无法访问外部 API | 检查网络/代理 |
-| 🔑 API Key 问题 | Key 缺失/无效 | 按提示配置 Key |
-| 📦 依赖问题 | Python 包缺失 | pip install |
-| 🖥️ MCP 配置 | 服务器未启用 | Cursor 设置中启用 |
-
-### 第二步：报告状态并交互
-
-将诊断结果完整展示，然后根据平台和用户选择决定后续行为。
-
-**三层交互架构：**
-
-```
-InteractionResult {
-  needs_input: bool,
-  action_needed: "proceed" | "ask_api_key" | "ask_llm_confirm",
-  questions: list[str],    ← AI agent 在对话中展示给用户
-  limitations: list[str],   ← 记录受限功能
-  fix_steps: list[str],    ← 修复步骤
-}
-```
-
-**情形 A - 系统完全就绪：**
-> ✅ 所有工具正常工作。可以开始研究。
-
-**情形 B - 有 API Key 缺失（LLM 可用）：**
-> ⚠️ 检测到 N 个 API Key 缺失，受限功能：xxx
->
-> **交互方式：**
-> - **Cursor 终端**：打印诊断 → `input("是否现在补充配置? [y/N]: ")` → 打开编辑器 / 继续
-> - **Claude Code / Codex**：打印诊断 → AI agent **在对话中询问用户** → 用户回复 → 执行对应操作
->
-> 用户回复选项：
-> - `1` / `是` / `好` → 打开 `.env.local` 供编辑 → 继续
-> - `2` / `否` / `跳过` → 记录受限功能 → 立即开始研究
-
-**情形 C - LLM 不可用：**
-> 🔴 LLM 不可用，无法进行论文写作和分析。
->
-> **交互方式：**
-> - **Cursor 终端**：`input("按回车继续，或 Ctrl+C 退出: ")` → 继续 / 退出
-> - **Claude Code / Codex**：AI agent 在对话中展示问题 + 修复步骤 → 询问用户选择 → 执行
-
-### 第三步：记录受限功能
-
-将受限功能清单记录到上下文（如：`"受限功能：Tushare A股、CSMAR 国泰安"`），后续数据获取阶段使用替代方案。
-
----
-
-## 平台适配
-
-| 平台 | 诊断 | 交互方式 | 备注 |
-|------|------|---------|------|
-| Cursor 终端 | ✅ | `input()` 终端询问 | 有 TTY 的 shell 环境 |
-| Cursor AI 上下文 | ✅ | `InteractionResult` → AI 在对话中询问 | Agent 模式下无 TTY |
-| Claude Code | ✅ | `InteractionResult` → AI 在对话中询问 | 对话交互，非终端 |
-| Codex/VS Code | ✅ | `InteractionResult` → AI 在对话中询问 | Copilot 对话 |
-
-> **关键**：所有平台都执行相同诊断。差异在于：
-> - **有 TTY 的终端**（Cursor 终端）：脚本内 `input()` 交互
-> - **AI agent 上下文**（Claude Code / Cursor Agent / Codex）：`InteractionResult` 返回结构化问题 → AI 在对话中向用户展示 → 用户回复 → AI 执行
-
----
-
-## 工具可用性降级策略
-
-当某类工具不可用时，使用替代方案：
-
-| 不可用 | 替代方案 |
-|--------|---------|
-| Tushare | `user-wb-data`, `user-imf-data`, `user-oecd-data` |
-| Semantic Scholar / ArXiv | NBER Working Papers, WebSearch |
-| Brave Search | `user-nber-wp` |
-| 某 MCP 服务器 | 直接用 Python requests 调用对应 API |
-| LLM API | 生成结构化大纲和思路（不含实际调用） |
-
----
-
-## 辅助命令
+### 平台检测不到
 
 ```bash
-# 快速诊断（紧凑摘要）
-python scripts/health_check.py --compact
+python -c "from scripts.core.ide_platform import PLATFORM; print(PLATFORM)"
+```
 
-# JSON 输出（供脚本解析）
-python scripts/health_check.py --json
+应输出 `cursor` / `claude_code` / `vscode` / `generic` 之一。
 
-# 配置向导
-python scripts/setup_wizard.py --guided
+### MCP 服务器没注册
 
-# 查看当前配置状态
-python scripts/setup_wizard.py --status
+```bash
+python scripts/register_mcp_servers.py --list
+python scripts/register_mcp_servers.py --profile academic
 ```
 
 ---
 
-## 依赖项
+## 约束
 
-- `scripts/health_check.py` — 必须存在且可执行
-- `scripts/setup_wizard.py` — 用于引导用户修复问题
-- `scripts/core/platform.py` — 平台检测（自动识别 Cursor/Claude Code/Codex）
-- `scripts/agent_pipeline.py` — 提供 `InteractionResult` dataclass
+- **禁止编造数据** — 始终使用 MCP 工具或用户提供的数据文件
+- **引用必须标注来源和日期**
+- 中文顶刊遵循各自的 LaTeX 模板
+- 运行 `pytest tests/` 验证改动
 
 ---
 > Source: [csmar432/finai-research](https://github.com/csmar432/finai-research) — distributed by [TomeVault](https://tomevault.io).
