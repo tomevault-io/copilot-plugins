@@ -1,0 +1,9 @@
+{
+  "name": "byenzyme--enzyme-skill",
+  "displayName": "enzyme-skill",
+  "description": "Agent Skill for exploring Obsidian vaults with Enzyme \u2014 self-contained, cross-agent compatible",
+  "version": "1.0.0",
+  "author": "byenzyme",
+  "homepage": "https://github.com/byenzyme/enzyme-skill",
+  "skills": []
+}
