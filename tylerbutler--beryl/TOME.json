@@ -4,7 +4,7 @@
   "repo": "beryl",
   "description": "Type-safe real-time channels and presence for Gleam (BEAM)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tylerbutler/beryl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T03:30:51Z"
+  "distributed_at": "2026-08-12T04:34:57Z"
 }
