@@ -1,0 +1,9 @@
+{
+  "name": "riciwaaaa--ust-lip-sync-generator",
+  "displayName": "UST-lip-sync-generator",
+  "description": "A Web-based tool that generates lip-sync animation videos from .ust, .ustx, .vsqx files.",
+  "version": "1.0.0",
+  "author": "Riciwaaaa",
+  "homepage": "https://github.com/Riciwaaaa/UST-lip-sync-generator",
+  "skills": []
+}
