@@ -1,0 +1,9 @@
+{
+  "name": "dwarvesf--dwarves-kit",
+  "displayName": "dwarves-kit",
+  "description": "The control plane for proof-based Claude Code SDLC, built for production teams. Agent loops that self-correct, not self-report.",
+  "version": "1.0.0",
+  "author": "dwarvesf",
+  "homepage": "https://github.com/dwarvesf/dwarves-kit",
+  "skills": []
+}
