@@ -7,11 +7,11 @@ Offline, single-executable Windows security posture auditor. 50+ CIS-mapped chec
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hexorcist404/apotrope](https://github.com/hexorcist404/apotrope).
+Original source: `CLAUDE.md` in [hexorcist404/apotrope](https://github.com/hexorcist404/apotrope).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
