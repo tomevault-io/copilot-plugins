@@ -4,7 +4,7 @@
   "repo": "browser-harness-rust",
   "description": "Self-healing browser harness that enables LLMs to complete any task. This is the Rust version. ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yangchuansheng/browser-harness-rust",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T11:31:05Z"
+  "distributed_at": "2026-08-12T11:38:01Z"
 }
