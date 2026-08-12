@@ -4,7 +4,7 @@
   "repo": "gp4_ws",
   "description": "My gp4_ws for review and fix (Student Prj)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Hieu-RMX18/gp4_ws",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T19:39:06Z"
+  "distributed_at": "2026-08-12T20:44:45Z"
 }
