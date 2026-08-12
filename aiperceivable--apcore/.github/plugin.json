@@ -1,0 +1,9 @@
+{
+  "name": "aiperceivable--apcore",
+  "displayName": "apcore",
+  "description": "A schema-enforced module framework where every interface is inherently perceivable by AI.",
+  "version": "1.0.0",
+  "author": "aiperceivable",
+  "homepage": "https://github.com/aiperceivable/apcore",
+  "skills": []
+}
