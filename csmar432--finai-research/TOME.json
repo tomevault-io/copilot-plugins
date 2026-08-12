@@ -4,7 +4,7 @@
   "repo": "finai-research",
   "description": "Evidence-first AI workflow for economic and financial research: literature \u2192 identification \u2192 data \u2192 econometrics \u2192 verifiable LaTeX. 43 data sources, 58 method modules, 18 AI skills, 30 journal templates.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/csmar432/finai-research",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T06:48:18Z"
+  "distributed_at": "2026-08-12T06:55:54Z"
 }
