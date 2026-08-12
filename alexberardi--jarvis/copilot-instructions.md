@@ -1,52 +1,64 @@
-## jarvis-config-service
+## jarvis-data-stores
 
-> Rules for jarvis-config-service - service discovery and configuration
+> Rules for jarvis-data-stores - shared infrastructure (PostgreSQL, Redis, MinIO, Mosquitto)
 
 
-# jarvis-config-service
+# jarvis-data-stores
 
-Service discovery and configuration management. The bootstrap service - all other services find each other through this one.
+Shared infrastructure containers for all Jarvis services. Single docker-compose for PostgreSQL, Redis, MinIO, and Mosquitto.
 
-## Running (Port 7700)
+## Running
 
 ```bash
-./run.sh --docker              # Start in Docker (standard)
-./run.sh --docker --rebuild    # Rebuild after dependency changes
+cd jarvis-data-stores
+docker compose up -d               # Start all infrastructure
+docker compose down                # Stop all
+docker compose ps                  # Check status
 ```
 
-## How It Works
+## Services
 
-Simple FastAPI service that stores and exposes URLs for all jarvis services. Acts as the central registry for service discovery.
+| Service | Container | Port | Purpose |
+|---------|-----------|------|---------|
+| PostgreSQL 16 | dev-postgres | 5432 | Shared DB server (each service has own database) |
+| Redis 7 | dev-redis | 6379 | Job queues (OCR, LLM training) |
+| MinIO | jarvis-data-stores-minio-1 | 9000/9001 | S3-compatible object storage (recipe images, adapters) |
+| Mosquitto | dev-mosquitto | 1884 | MQTT broker (node ↔ command-center TTS) |
+| PgAdmin | dev-pgadmin | 5050 | PostgreSQL web UI |
+| RedisInsight | dev-redisinsight | 5052 | Redis web UI |
 
-- Services use `jarvis-config-client` library to query this service for other service URLs
-- `jarvis-admin` dashboard provides UI to register/update service URLs
-- Every other service only needs `JARVIS_CONFIG_URL` env var to bootstrap - it discovers everything else from here
+## Database Management
 
-## Key Endpoints
+```bash
+./create-db.sh <database_name>     # Create a new database
+./drop-db.sh <database_name>       # Drop a database (terminates active connections first)
+```
 
-- `GET /services` - List all registered services and their URLs
-- `GET /services/{name}` - Get specific service URL
-- `GET /info` - Service identity info (returns `{"service": "jarvis-config-service"}`, used by network auto-discovery)
-- `GET /health` - Health check
+Known databases:
+- `jarvis_auth` - User accounts, tokens, app clients
+- `jarvis_command_center_db` - Nodes, conversations
+- `jarvis_config` - Service registry, settings
+- `jarvis_recipes` - Recipes, meal plans
+- `jarvis_llm_proxy` - LLM settings, job tracking
 
-## Settings API
+## Used By
 
-Also serves settings CRUD at `/v1/settings` (used by jarvis-admin dashboard for managing runtime settings across services).
+| Infrastructure | Services |
+|----------------|----------|
+| PostgreSQL | jarvis-auth, jarvis-command-center, jarvis-config-service, jarvis-recipes-server, jarvis-llm-proxy-api |
+| Redis | jarvis-ocr-service (job queue), jarvis-recipes-server (RQ worker), jarvis-llm-proxy-api (training queue) |
+| MinIO | jarvis-recipes-server (recipe images), jarvis-llm-proxy-api (adapter storage) |
+| Mosquitto | jarvis-command-center (publishes TTS to nodes) |
 
-## Service Dependencies
+## Configuration
 
-**Must be running:**
-- `jarvis-auth` (7701) - Auth for admin endpoints
-- `jarvis-logs` (7702) - Centralized logging
+All config in `.env` (not committed - contains credentials). Ports are configurable via env vars.
 
-**Data services (from jarvis-data-stores/):**
-- PostgreSQL - Service registry storage
+## Important
 
-**Note:** This is the bootstrap service - it cannot depend on config-service or settings-client since it IS the config/settings provider.
-
-## Dependencies
-
-FastAPI, uvicorn, SQLAlchemy, jarvis-log-client
+- **Start this BEFORE any backend services** - they depend on PostgreSQL/Redis being available
+- Data directories (`data/`, `redis-data/`, `minio_data/`, etc.) are gitignored - they contain persistent data
+- `.env` is gitignored - contains credentials
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
