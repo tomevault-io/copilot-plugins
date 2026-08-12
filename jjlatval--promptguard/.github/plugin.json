@@ -1,0 +1,9 @@
+{
+  "name": "jjlatval--promptguard",
+  "displayName": "promptguard",
+  "description": "PromptGuard is an OSS-first prompt-injection-resistant control plane for agentic workflows (starting with n8n).",
+  "version": "1.0.0",
+  "author": "jjlatval",
+  "homepage": "https://github.com/jjlatval/promptguard",
+  "skills": []
+}
