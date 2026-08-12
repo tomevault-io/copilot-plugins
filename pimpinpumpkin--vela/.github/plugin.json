@@ -1,0 +1,9 @@
+{
+  "name": "pimpinpumpkin--vela",
+  "displayName": "Vela",
+  "description": "Degoogled maps & turn-by-turn navigation for Android - MapLibre + Jetpack Compose, no Google Play Services",
+  "version": "1.0.0",
+  "author": "PimpinPumpkin",
+  "homepage": "https://github.com/PimpinPumpkin/Vela",
+  "skills": []
+}
