@@ -4,7 +4,7 @@
   "repo": "datarobot-opentelemetry-integration",
   "description": "DataRobot opentelemetry semantic conventions and helper tools",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/datarobot-community/datarobot-opentelemetry-integration",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T20:49:48Z"
+  "distributed_at": "2026-08-12T01:02:34Z"
 }
