@@ -1,0 +1,9 @@
+{
+  "name": "usepennington--pennington",
+  "displayName": "pennington",
+  "description": "A content engine for .NET that turns Markdown into static sites, documentation portals, and blogs.",
+  "version": "1.0.0",
+  "author": "usepennington",
+  "homepage": "https://github.com/usepennington/pennington",
+  "skills": []
+}
