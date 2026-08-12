@@ -1,0 +1,9 @@
+{
+  "name": "atc-net--atc-claude-kanban",
+  "displayName": "atc-claude-kanban",
+  "description": "Real-time Kanban dashboard for monitoring Claude Code agent tasks, sessions, and subagents through a browser-based board",
+  "version": "1.0.0",
+  "author": "atc-net",
+  "homepage": "https://github.com/atc-net/atc-claude-kanban",
+  "skills": []
+}
