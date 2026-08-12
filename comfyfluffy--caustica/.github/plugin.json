@@ -1,0 +1,9 @@
+{
+  "name": "comfyfluffy--caustica",
+  "displayName": "Caustica",
+  "description": "Ray-traced renderer for Minecraft 26.2's Vulkan backend.",
+  "version": "1.0.0",
+  "author": "ComfyFluffy",
+  "homepage": "https://github.com/ComfyFluffy/Caustica",
+  "skills": []
+}
