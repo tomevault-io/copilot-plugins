@@ -1,207 +1,132 @@
-## components
+## custom-components
 
-> Component implementation rules
+> Rules for building custom components (Path C)
 
 
-# Component Implementation
+# Custom Components (Path C)
 
-## Decision Tree
+Use when Base UI doesn't have the component.
 
-1. **Does Base UI have it?** → Wrap it (Path A/B)
-2. **No Base UI equivalent?** → Build custom (Path C)
+## Before Building
 
-## Base UI Research
+1. Deep Figma analysis — follow `figma-analysis.mdc`
+2. Check Base UI docs: https://base-ui.com/llms.txt (confirm no match)
+3. Study WAI-ARIA APG for the pattern
+4. **Write tests first** — define expected behavior before implementation
 
-1. **Discovery**: `https://base-ui.com/llms.txt` — what components exist
-2. **Read docs for your component**: `https://base-ui.com/react/components/{name}`
-   - The examples show the simplest wrapper — trust that Base UI authors have already optimized this
-   - Note all `data-` attributes provided (e.g., `data-disabled`, `data-invalid`, `data-focused`)
-   - Understand Field integration for form controls
-3. **Then** apply project styling conventions (tokens, size variants)
+## Component Structure
 
-## Base UI Utilities
+```tsx
+'use client';
 
-Base UI provides utilities beyond components. Reference: `https://base-ui.com/react/utils/{name}`
+import * as React from 'react';
+import clsx from 'clsx';
+import styles from './Component.module.scss';
+
+export interface ComponentProps extends React.ComponentPropsWithoutRef<'div'> {
+  children?: React.ReactNode;
+}
+
+export const Component = React.forwardRef<HTMLDivElement, ComponentProps>(
+  function Component(props, forwardedRef) {
+    const { className, children, ...elementProps } = props;
+
+    return (
+      <div
+        ref={forwardedRef}
+        className={clsx(styles.root, className)}
+        {...elementProps}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+
+if (process.env.NODE_ENV !== 'production') {
+  Component.displayName = 'Component';
+}
+```
+
+## Compound Components
+
+Use context for state sharing:
+
+```tsx
+const ComponentContext = React.createContext<State | undefined>(undefined);
+
+function useComponentContext() {
+  const context = React.useContext(ComponentContext);
+  if (context === undefined) {
+    throw new Error('Component parts must be placed within <Component.Root>.');
+  }
+  return context;
+}
+```
+
+## Data Attributes (not classes)
+
+```tsx
+// State → data attributes
+<div data-checked={checked || undefined} data-disabled={disabled || undefined} />
+```
+
+```scss
+// Style with attribute selectors
+.root {
+  &[data-checked] { /* checked styles */ }
+  &[data-disabled] { /* disabled styles */ }
+}
+```
+
+## Base UI Utilities (Optional)
+
+Even without wrapping Base UI, you can use their utilities:
 
 ### mergeProps
 
-Use when building custom render prop patterns or combining internal + external props:
+Useful for custom components with render props or prop forwarding:
 
 ```tsx
 import { mergeProps } from '@base-ui/react/merge-props';
 
-// Combines props intelligently:
-// - className: concatenated
-// - style: merged (rightmost wins)
-// - event handlers: all execute (rightmost first)
-// - other props: rightmost wins
-const finalProps = mergeProps(internalProps, externalProps);
+// In a custom component with render prop
+function CustomTrigger({ render, ...internalProps }) {
+  const element = render 
+    ? React.cloneElement(render, mergeProps(internalProps, render.props))
+    : <button {...internalProps} />;
+  return element;
+}
 ```
 
-**When to use:**
-- Custom components with render props
-- Intercepting Base UI event handlers (call `event.preventBaseUIHandler()` to stop internal logic)
-
-### CSP Provider
-
-Use when deploying to environments with strict Content Security Policy:
-
-```tsx
-import { CSPProvider } from '@base-ui/react/csp-provider';
-
-<CSPProvider nonce={serverGeneratedNonce}>
-  <App />
-</CSPProvider>
-```
-
-**When to use:**
-- Deployment requires CSP headers blocking inline scripts/styles
-- Components like `ScrollArea.Viewport`, `Select.Popup` render inline `<style>` tags
-
-**Alternative:** Use `disableStyleElements` prop and add the CSS manually:
-```css
-.base-ui-disable-scrollbar { scrollbar-width: none; }
-.base-ui-disable-scrollbar::-webkit-scrollbar { display: none; }
-```
-
-## Wrapper Simplicity Principle
-
-Before adding ANY custom prop or data attribute:
-
-1. **Check if Base UI already provides it** — Most states are handled:
-   - `data-disabled`, `data-invalid`, `data-focused`, `data-filled`, `data-dirty`, `data-touched`
-   
-2. **Start minimal** — The first version should ONLY:
-   - Forward ref
-   - Merge className (with size variant if needed)
-   - Spread props
-   
-3. **Add custom props only when Base UI lacks the feature**
-
-**Red flag**: Adding a custom `data-` attribute or prop for something Base UI already handles
-
-## Before Writing Code
-
-1. Deep Figma analysis — follow `figma-analysis.mdc`
-2. Read Base UI docs for the component — examples are the canonical simplest wrapper
-3. **For compound components**: Understand how child parts interact (see below)
-4. For custom: check WAI-ARIA APG for accessibility requirements
-5. **Write tests first** — define expected behavior before implementation
-
-## Compound Components (Path A/B)
-
-When wrapping Base UI compound components (Combobox, Select, Dialog, Menu, etc.):
-
-1. **Read the Base UI docs** for each sub-part you'll expose
-2. **Understand data flow**: Which part provides data? Which renders it?
-   - Example: `Combobox.Value` provides selected values, `Combobox.Chips` is just a container
-3. **Check render function patterns**: Does the part accept `children` as a function?
-   - Example: `Combobox.List` → `{(item) => <Item />}` ✓
-   - Example: `Combobox.Chips` → does NOT accept render function ✗
-4. **Document in JSDoc**: Show correct usage, not assumed patterns
-
-**Red flag**: Documenting a render function pattern without verifying the Base UI API supports it
-
-## Base UI Wrapper Type Safety
-
-When wrapping Base UI components, **check the actual types** before defining your interface:
-
-```bash
-# Check the Base UI component's type definition
-cat node_modules/@base-ui/react/{component}/{part}/{Part}.d.ts
-```
-
-**Key questions:**
-1. **Does it render an element?** Check if it's `ForwardRefExoticComponent` and what element type
-2. **Can it forward refs?** Some Base UI parts are context providers (no ref support)
-3. **What element type?** Match your `HTMLAttributes<T>` to the actual rendered element
-
-**Common patterns:**
-```tsx
-// Renders <span>, forwards ref - ✓ wrap normally
-export const ComboboxItemIndicator: ForwardRefExoticComponent<... & RefAttributes<HTMLSpanElement>>
-
-// Context provider, no element - ✗ cannot forward ref/className
-export function ComboboxValue(props: ComboboxValueProps): ReactElement
-```
-
-**If Base UI component is a context provider:**
-- Wrap it in your own element (`<span>`) to enable ref/className
-- Only pass props it actually accepts
-
-## Rules
-
-- Zero hardcoded values — use tokens from `_variables.scss`
-- Use `@include` mixins from `_text-styles.scss` for typography
-- Use `clsx` for className merging
-- Use `forwardRef` with named function (not arrow)
-- Use slots (`React.ReactNode` props) for nested elements
-- Props spread last (consumer wins)
-
-## Analytics
-
-Interactive components accept an optional `analyticsName?: string` prop and use shared hooks from `src/components/Analytics/`:
-
-- **Actions** (Button, Form) — `useTrackedCallback` with `'click'` or `'submit'`
-- **Overlays** (Dialog, Menu, Popover, etc.) — `useTrackedOpenChange` for open/close with duration
-- **Value controls** (Select, Switch, Tabs, etc.) — `useTrackedCallback` with `'change'` and `(value) => ({ value })` metadata
-- **Item selection** (Menu.Item, Command.Item) — `useTrackedCallback` with `'select'`
-
-If no `AnalyticsProvider` exists in the tree or `analyticsName` is omitted, the hooks are no-ops.
+**Benefits over manual spreading:**
+- Event handlers chain (both execute) instead of override
+- className concatenates instead of replaces
+- style merges instead of replaces
 
 ## Testing (TDD)
 
-Write tests before implementation:
-
-| Path | Tests |
-|------|-------|
-| A/B (wrapper) | Playwright CT only |
-| C (custom) | Playwright CT (unit tests only if complex logic) |
+Write tests before implementation. Playwright CT is sufficient for most custom components.
 
 **Test patterns:**
-- Use `page.getByPlaceholder()` or `page.getByRole()` — not `component.locator('element')`
-- Base UI provides data attributes — test for those, don't invent custom ones
+- Use `page.getByRole()` or `page.getByText()` — not `component.locator('element')`
 
-Run: `npm run test`
-
-## File Structure (creation order)
-
-```
-src/components/{Name}/
-├── {Name}.test-stories.tsx  # 1. Test fixtures first
-├── {Name}.test.tsx          # 2. Tests second
-├── {Name}.tsx or parts.tsx  # 3. Implementation (make tests pass)
-├── {Name}.module.scss       # 4. Styles
-├── {Name}.stories.tsx       # 5. Storybook
-└── index.ts                 # 6. Exports
-```
-
-## Pre-Commit Verification
-
-**Always run production build before committing:**
-
-```bash
-npm run build
-```
-
-Dev mode TypeScript is lenient. Production build catches:
-- Props passed to components that don't accept them
-- Element type mismatches in interfaces
-- Import resolution issues
+Add unit tests (Vitest) only when there's complex logic:
+- State machines
+- Date/time calculations
+- Filtering/sorting algorithms
 
 ## Checklist
 
 - [ ] Figma analysis complete
-- [ ] Base UI docs read — using their example as the simplest wrapper
+- [ ] WAI-ARIA pattern followed
 - [ ] Tests written first
 - [ ] Implementation makes tests pass
-- [ ] Figma values mirrored exactly
-- [ ] forwardRef + clsx
-- [ ] **No custom data attributes for states Base UI handles**
-- [ ] **Analytics wired** (if interactive) — `analyticsName` prop + tracking hook
-- [ ] **Production build passes** (`npm run build`)
-- [ ] Reduced motion: `@media (prefers-reduced-motion: reduce)`
-- [ ] Storybook story added
+- [ ] forwardRef with named function
+- [ ] Props spread last
+- [ ] data-* attributes for state
+- [ ] Context throws helpful error
+- [ ] displayName in dev only
 
 ---
 > Source: [lightsparkdev/origin](https://github.com/lightsparkdev/origin) — distributed by [TomeVault](https://tomevault.io).
