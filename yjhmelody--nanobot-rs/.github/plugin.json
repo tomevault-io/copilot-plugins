@@ -1,0 +1,9 @@
+{
+  "name": "yjhmelody--nanobot-rs",
+  "displayName": "nanobot-rs",
+  "description": "The minimal openclaw-like ai agent",
+  "version": "1.0.0",
+  "author": "yjhmelody",
+  "homepage": "https://github.com/yjhmelody/nanobot-rs",
+  "skills": []
+}
