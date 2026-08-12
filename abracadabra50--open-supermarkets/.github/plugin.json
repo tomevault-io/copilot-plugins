@@ -1,0 +1,9 @@
+{
+  "name": "abracadabra50--open-supermarkets",
+  "displayName": "open-supermarkets",
+  "description": "CLI, MCP and Skills for the world's supermarkets. Search, compare, basket and checkout across 9 providers in 6 countries \u2014 UK, Netherlands, Belgium, Spain, US, Canada. Built for AI agents.",
+  "version": "1.0.0",
+  "author": "abracadabra50",
+  "homepage": "https://github.com/abracadabra50/open-supermarkets",
+  "skills": []
+}
