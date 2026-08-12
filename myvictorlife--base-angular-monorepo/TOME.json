@@ -4,7 +4,7 @@
   "repo": "base-angular-monorepo",
   "description": "Angular 22 + Nx monorepo template \u2014 zoneless, NgRx SignalStore, enforced module boundaries, Storybook, i18n (8 languages, RTL), Tailwind 4, Vitest + Playwright, Firebase CI/CD. AI-agent-ready (AGENTS.md + skills).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/myvictorlife/base-angular-monorepo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T03:38:08Z"
+  "distributed_at": "2026-08-12T04:46:27Z"
 }
