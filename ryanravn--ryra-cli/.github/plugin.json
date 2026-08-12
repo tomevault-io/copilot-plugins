@@ -1,0 +1,9 @@
+{
+  "name": "ryanravn--ryra-cli",
+  "displayName": "ryra-cli",
+  "description": "A CLI-tool to test and deploy self-hosted services on a Linux server using rootless Podman and systemd. Built-in VM testing gives AI agents fast feedback loops for building infrastructure and deployin",
+  "version": "1.0.0",
+  "author": "ryanravn",
+  "homepage": "https://github.com/ryanravn/ryra-cli",
+  "skills": []
+}
