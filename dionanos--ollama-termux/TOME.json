@@ -4,7 +4,7 @@
   "repo": "ollama-termux",
   "description": "Optimized Ollama fork for Termux on Android ARM64, with prebuilt release assets, mobile runtime tuning, and coding-agent launcher integration.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DioNanos/ollama-termux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T15:32:12Z"
+  "distributed_at": "2026-08-12T16:30:48Z"
 }
