@@ -7,11 +7,11 @@ Claude Code Multiplexer - Persistent Claude Code sessions for all your projects.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [pereljon/claude-mux](https://github.com/pereljon/claude-mux).
+Original source: `AGENTS.md` in [pereljon/claude-mux](https://github.com/pereljon/claude-mux).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
