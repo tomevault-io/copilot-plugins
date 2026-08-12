@@ -1,0 +1,9 @@
+{
+  "name": "aiperceivable--apcore-typescript",
+  "displayName": "apcore-typescript",
+  "description": "A schema-driven module development framework for TypeScript.",
+  "version": "1.0.0",
+  "author": "aiperceivable",
+  "homepage": "https://github.com/aiperceivable/apcore-typescript",
+  "skills": []
+}
