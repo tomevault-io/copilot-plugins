@@ -1,0 +1,9 @@
+{
+  "name": "cruxible-ai--cruxible",
+  "displayName": "cruxible",
+  "description": "Governed state engine for AI agents: typed, executable knowledge artifacts with a code-like lifecycle",
+  "version": "1.0.0",
+  "author": "cruxible-ai",
+  "homepage": "https://github.com/cruxible-ai/cruxible",
+  "skills": []
+}
