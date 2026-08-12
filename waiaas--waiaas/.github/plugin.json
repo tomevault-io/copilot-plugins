@@ -1,0 +1,9 @@
+{
+  "name": "waiaas--waiaas",
+  "displayName": "WAIaaS",
+  "description": "Wallet-as-a-Service for all AI agents in the world",
+  "version": "1.0.0",
+  "author": "waiaas",
+  "homepage": "https://github.com/waiaas/WAIaaS",
+  "skills": []
+}
