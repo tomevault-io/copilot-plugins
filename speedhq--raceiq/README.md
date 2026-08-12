@@ -7,11 +7,11 @@ Free open-source sim racing telemetry & lap analysis for Forza Motorsport, F1 25
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [SpeedHQ/RaceIQ](https://github.com/SpeedHQ/RaceIQ).
+Original source: `CLAUDE.md` in [SpeedHQ/RaceIQ](https://github.com/SpeedHQ/RaceIQ).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
