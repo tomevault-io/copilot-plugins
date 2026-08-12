@@ -1,0 +1,9 @@
+{
+  "name": "yangchuansheng--browser-harness-rust",
+  "displayName": "browser-harness-rust",
+  "description": "Self-healing browser harness that enables LLMs to complete any task. This is the Rust version. ",
+  "version": "1.0.0",
+  "author": "yangchuansheng",
+  "homepage": "https://github.com/yangchuansheng/browser-harness-rust",
+  "skills": []
+}
