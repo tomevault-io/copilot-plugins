@@ -1,0 +1,44 @@
+{
+  "name": "fosfora",
+  "owner": "kevinraymond",
+  "repo": "fosfora",
+  "description": "Free, open-source real-time audio & music visualizer / VJ engine, with audio-reactive GPU shaders, particles, and layer compositing, driven by WGSL and controlled with MIDI, OSC, or your phone. Cross-platform (Vulkan/Metal), with NDI, Spout, Syphon, and virtual-camera output.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kevinraymond/fosfora",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T03:37:28Z"
+}
