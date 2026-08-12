@@ -1,0 +1,9 @@
+{
+  "name": "keiver--tvos-assets",
+  "displayName": "tvos-assets",
+  "description": "CLI tool that generates a complete `Images.xcassets` bundle for tvOS and iOS from an icon and a background image. Expo plugin included.",
+  "version": "1.0.0",
+  "author": "keiver",
+  "homepage": "https://github.com/keiver/tvos-assets",
+  "skills": []
+}
