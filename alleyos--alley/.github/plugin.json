@@ -1,0 +1,9 @@
+{
+  "name": "alleyos--alley",
+  "displayName": "alley",
+  "description": "The monorepo for Alley OS and JAR Chain",
+  "version": "1.0.0",
+  "author": "alleyos",
+  "homepage": "https://github.com/alleyos/alley",
+  "skills": []
+}
