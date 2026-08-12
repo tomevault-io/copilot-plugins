@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--herdr-vercel-sandbox-plugin",
+  "displayName": "herdr-vercel-sandbox-plugin",
+  "description": "Run terminal-based coding agents in isolated Vercel Sandboxes from Herdr.",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/herdr-vercel-sandbox-plugin",
+  "skills": []
+}
