@@ -4,7 +4,7 @@
   "repo": "ovo",
   "description": "Open-source proactive AI desktop assistant for macOS. Watches your screen, suggests next steps, and runs actions for you \u2014 even on a schedule \u2014 100% on your machine.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dushaobindoudou/ovo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T15:30:45Z"
+  "distributed_at": "2026-08-12T15:46:32Z"
 }
