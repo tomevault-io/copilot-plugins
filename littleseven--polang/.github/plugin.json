@@ -1,0 +1,9 @@
+{
+  "name": "littleseven--polang",
+  "displayName": "polang",
+  "description": "PoLang is an on-device AI agent smart photo gallery that treats the LLM as the central nervous system of the app. It serves as a living experiment for next-generation AI-first client architectures.",
+  "version": "1.0.0",
+  "author": "littleseven",
+  "homepage": "https://github.com/littleseven/polang",
+  "skills": []
+}
