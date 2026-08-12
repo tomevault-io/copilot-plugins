@@ -4,7 +4,7 @@
   "repo": "opencode-SillyTavern",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yhhccl/opencode-SillyTavern",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T12:46:14Z"
+  "distributed_at": "2026-08-12T13:01:42Z"
 }
