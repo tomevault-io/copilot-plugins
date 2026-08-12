@@ -1,0 +1,80 @@
+## vadivam
+
+> Vadivam is a Bun monorepo for a 24px outline icon set.
+
+# AGENTS.md
+
+## Project Overview
+
+Vadivam is a Bun monorepo for a 24px outline icon set.
+
+- `icons/` is the canonical source exported from Figma.
+- `packages/vadivam` publishes optimized raw SVGs and metadata.
+- `packages/vadivam-react` publishes generated React components.
+- `packages/vadivam-react-native` publishes generated React Native components.
+- `packages/vadivam-{vue,svelte,solid,angular,astro,preact}` publish generated native framework components.
+- Generated package/web assets come from `bun run icons:build`; do not edit generated output by hand.
+
+## Setup Commands
+
+- Install dependencies: `bun install`
+- Start the website locally: `bun run dev`
+- Build packages and website: `bun run build`
+- Run all checks: `bun run test`
+- Test the raw SVG package: `bun run test:vadivam`
+- Test the React package: `bun run test:vadivam-react`
+- Test the React Native package: `bun run test:vadivam-react-native`
+- Run the React render/SSR/exports unit suite only: `bun run test:react:unit`
+- Build and browser-test all framework integration apps: `bun run test:integration`
+- React Native compatibility is verified by the minimal Expo integration app for Android and iOS.
+- Deploy the static Workers site: `bun run deploy`
+
+## Icon Workflow
+
+- Add or replace SVGs only in the root `icons/` folder.
+- Normalize SVGs in place with `bun run icons:optimize`.
+- Validate without writing files with `bun run icons:check`.
+- Keep every icon `24x24` with `viewBox="0 0 24 24"`, `fill="none"`, `stroke="currentColor"`, `stroke-width="2"`, and round caps/joins.
+- Keep icons outline-only. Do not add fills, gradients, masks, scripts, inline styles, external references, or unsafe SVG features.
+
+## Code Style
+
+- Prefer small, direct modules over abstraction layers.
+- Keep one canonical implementation path; remove dead or duplicate code when replacing behavior.
+- Keep the website minimal: compact type, simple ruled sections, no nested card layouts.
+- Keep package APIs ESM-only and generated from the canonical icon source.
+
+## Testing Instructions
+
+- Run `bun run test` before committing.
+- Package tests live in `tests/` and use `bun test`.
+- React render tests (`tests/vadivam-react/*.client.test.mjs`) run against happy-dom via the `tests/setup/happydom.ts` preload; SSR and export-coverage tests run with no DOM. Keep these two groups separate so SSR tests stay in a true server environment.
+- Framework compatibility is verified with real apps under `tests/integration/`. Each consumes a freshly generated local package through a `file:` dependency, uses a committed lockfile, produces a production build, and—where browser rendering applies—is served and asserted in Chromium.
+- For icon-only changes, run `bun run icons:optimize` and `bun run icons:check` first.
+- For website UI changes, verify the rendered page in a browser at desktop and mobile widths.
+- If GitHub Actions fails, inspect logs with `gh run view --log-failed` before changing workflow files.
+
+## Release Instructions
+
+- Keep the root package and every entry in `scripts/packages.mjs` on one synchronized version.
+- Release by committing the version bump and pushing a matching tag such as `v0.0.3`.
+- The `Release` workflow tests, packs, publishes, and verifies all nine npm packages through npm Trusted Publishing, then creates the matching GitHub Release.
+- Do not publish manually unless the user explicitly asks.
+
+## Security Notes
+
+- Do not commit secrets, npm tokens, Cloudflare tokens, `.env` files, or local auth output.
+- Use GitHub Actions OIDC/npm Trusted Publishing for releases.
+- Treat SVG input as untrusted; keep validation strict before publishing or deploying.
+
+## Cursor Cloud specific instructions
+
+- **Bun 1.3.14** is required (`packageManager` in root `package.json`). If `bun` is missing, install with `curl -fsSL https://bun.sh/install | bash -s "bun-v1.3.14"` and ensure `~/.bun/bin` is on `PATH`.
+- **Playwright Chromium** is required for `bun run test:integration` (one-time): `bunx playwright install --with-deps chromium`.
+- The docs dev server (`bun run dev`) listens on **port 4321**. Stop it before `bun run test` — `apps/docs check` (Blume) fails if a dev server is already bound to that port.
+- **Angular integration** needs Node **≥ 22.22.3** (or 24.x). Cloud VMs may expose Node 22.14.0 at `/exec-daemon/node` ahead of `nvm`; run `nvm install 24.15.0` and prepend `$HOME/.nvm/versions/node/v24.15.0/bin` to `PATH` when running `bun run test:integration` or full `bun run test`.
+- No Docker, database, or external API is needed for local development.
+
+---
+> Source: [praveenjuge/vadivam](https://github.com/praveenjuge/vadivam) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
