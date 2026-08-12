@@ -1,0 +1,9 @@
+{
+  "name": "samber--tiktoken-cli",
+  "displayName": "tiktoken-cli",
+  "description": "\ud83e\uddee CLI for counting tokens in files and directories using tiktoken",
+  "version": "1.0.0",
+  "author": "samber",
+  "homepage": "https://github.com/samber/tiktoken-cli",
+  "skills": []
+}
