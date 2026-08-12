@@ -1,0 +1,9 @@
+{
+  "name": "csmar432--finai-research",
+  "displayName": "finai-research",
+  "description": "Evidence-first AI workflow for economic and financial research: literature \u2192 identification \u2192 data \u2192 econometrics \u2192 verifiable LaTeX. 43 data sources, 58 method modules, 18 AI skills, 30 journal templ",
+  "version": "1.0.0",
+  "author": "csmar432",
+  "homepage": "https://github.com/csmar432/finai-research",
+  "skills": []
+}
