@@ -7,11 +7,11 @@ The profiling CLI for agents who can code but can’t read flame graphs
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jerrinot/ap-query](https://github.com/jerrinot/ap-query).
+Original source: `CLAUDE.md` in [jerrinot/ap-query](https://github.com/jerrinot/ap-query).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
