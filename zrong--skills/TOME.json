@@ -4,7 +4,7 @@
   "repo": "skills",
   "description": "AI Agent Skills collection",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zrong/skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T04:39:59Z"
+  "distributed_at": "2026-08-12T05:07:26Z"
 }
