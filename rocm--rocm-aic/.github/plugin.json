@@ -1,0 +1,9 @@
+{
+  "name": "rocm--rocm-aic",
+  "displayName": "rocm-aic",
+  "description": "ROCm AMD Infinity Context - a distributed, shared, low-latency KV Cache tier for AI Infernence.",
+  "version": "1.0.0",
+  "author": "ROCm",
+  "homepage": "https://github.com/ROCm/rocm-aic",
+  "skills": []
+}
