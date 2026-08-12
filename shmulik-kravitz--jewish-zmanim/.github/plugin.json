@@ -1,0 +1,9 @@
+{
+  "name": "shmulik-kravitz--jewish-zmanim",
+  "displayName": "jewish-zmanim",
+  "description": "TypeScript library for calculating Jewish halachic times (zmanim) \u2014 sunrise, Shema, Mincha, Shabbat entry/exit and more.",
+  "version": "1.0.0",
+  "author": "Shmulik-Kravitz",
+  "homepage": "https://github.com/Shmulik-Kravitz/jewish-zmanim",
+  "skills": []
+}
