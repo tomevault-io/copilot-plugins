@@ -1,0 +1,9 @@
+{
+  "name": "mattackerman808--swift-hakchi2",
+  "displayName": "swift-hakchi2",
+  "description": "Native macOS Swift/SwiftUI rewrite of Hakchi2 CE for NES/SNES Classic Mini",
+  "version": "1.0.0",
+  "author": "mattackerman808",
+  "homepage": "https://github.com/mattackerman808/swift-hakchi2",
+  "skills": []
+}
