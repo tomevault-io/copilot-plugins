@@ -1,8 +1,8 @@
-## novelflow-ai
+## novelflow
 
-> Read `AGENTS.md` for repository-wide instructions. Prefer NovelFlow APIs/CLI for workflow state. Add tests for workflow changes and never commit credentials.
+> Read `AGENTS.md` first. Use NovelFlow CLI/MCP. Canon JSON is authoritative; chapter approval requires chapter text and summary.
 
-Read `AGENTS.md` for repository-wide instructions. Prefer NovelFlow APIs/CLI for workflow state. Add tests for workflow changes and never commit credentials.
+Read `AGENTS.md` first. Use NovelFlow CLI/MCP. Canon JSON is authoritative; chapter approval requires chapter text and summary.
 
 ---
 > Source: [myshisheng/NovelFlow-AI](https://github.com/myshisheng/NovelFlow-AI) — distributed by [TomeVault](https://tomevault.io).
