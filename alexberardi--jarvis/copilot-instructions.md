@@ -1,0 +1,70 @@
+## jarvis-admin
+
+> Rules for jarvis-admin - web admin dashboard
+
+
+# jarvis-admin
+
+Web admin dashboard for managing Jarvis service settings. React 19 + TypeScript. Superuser-only access.
+
+## Running (Port 7710)
+
+```bash
+npm install            # Install dependencies
+npm run dev            # Dev server at http://localhost:7710
+npx tsc -b             # Type check
+npm run build          # Production build
+```
+
+## Architecture
+
+```
+src/
+├── api/               # Axios clients (auth, settings)
+├── auth/              # AuthContext (login, token refresh, superuser gate)
+├── discovery/         # Network discovery (find config-service, resolve URLs)
+├── hooks/             # useAuth, useSettings (TanStack Query)
+├── components/
+│   ├── layout/        # AppShell, Sidebar, Header
+│   └── settings/      # ServiceCard, CategoryGroup, SettingRow, SettingEditor
+├── pages/             # LoginPage, SettingsPage, NotFoundPage
+├── theme/             # ThemeProvider (dark/light), color tokens
+├── types/             # TypeScript interfaces
+└── lib/               # Utility functions
+```
+
+## Auth Flow
+
+1. Login via `POST /auth/login` to jarvis-auth (7701)
+2. Non-superuser accounts rejected at frontend
+3. Tokens in localStorage, attached via axios interceptor
+4. Auto-refresh on 401; redirect to login on failure
+
+## Network Discovery
+
+Auto-discovers jarvis-config-service:
+1. Check localStorage cache
+2. Scan localhost ports 7700-7711
+3. If needed, discover local IP via WebRTC, scan /24 subnet
+4. Match `{"service": "jarvis-config-service"}`
+5. Resolve auth URL from config service
+
+## Adding New Pages
+
+1. Create `src/pages/MyPage.tsx`
+2. Add route in `src/App.tsx` inside `<AppShell>`
+3. Add nav item in `src/components/layout/Sidebar.tsx`
+
+## Service Dependencies
+
+- `jarvis-config-service` (7700) - Auto-discovered via network scan, provides all other URLs
+- `jarvis-auth` (7701) - User login, superuser validation
+- Settings API on config-service (`/v1/settings`) - Settings CRUD
+
+## Dependencies
+
+React 19, React Router, TanStack Query, Axios, Tailwind CSS v4, Lucide icons, Sonner
+
+---
+> Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
