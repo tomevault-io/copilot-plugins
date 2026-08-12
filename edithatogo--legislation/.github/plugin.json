@@ -1,0 +1,9 @@
+{
+  "name": "edithatogo--legislation",
+  "displayName": "legislation",
+  "description": "CLI tool for searching and retrieving New Zealand legislation data",
+  "version": "1.0.0",
+  "author": "edithatogo",
+  "homepage": "https://github.com/edithatogo/legislation",
+  "skills": []
+}
