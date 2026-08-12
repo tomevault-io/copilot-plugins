@@ -1,0 +1,9 @@
+{
+  "name": "jrs1986--codingscaffold",
+  "displayName": "CodingScaffold",
+  "description": "A lightweight scaffold for safer, more structured agentic coding \u2014 helping developers give coding agents the right project context, guardrails, and workflows without locking into one tool.",
+  "version": "1.0.0",
+  "author": "JRS1986",
+  "homepage": "https://github.com/JRS1986/CodingScaffold",
+  "skills": []
+}
