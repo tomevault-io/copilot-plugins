@@ -1,0 +1,9 @@
+{
+  "name": "block--model-ledger",
+  "displayName": "model-ledger",
+  "description": "Open-source model inventory & governance. Discovers every model, rule, and pipeline across all your platforms as one immutable, agent-queryable graph \u2014 git for models.",
+  "version": "1.0.0",
+  "author": "block",
+  "homepage": "https://github.com/block/model-ledger",
+  "skills": []
+}
