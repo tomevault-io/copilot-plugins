@@ -1,0 +1,9 @@
+{
+  "name": "hyperlight-dev--hyperagent",
+  "displayName": "hyperagent",
+  "description": "An AI agent with sandboxed JavaScript execution, powered by Hyperlight micro-VMs and the GitHub Copilot SDK. Ask it to compute things \u2014 it writes and runs JS in hardware-isolated VMs with no filesyste",
+  "version": "1.0.0",
+  "author": "hyperlight-dev",
+  "homepage": "https://github.com/hyperlight-dev/hyperagent",
+  "skills": []
+}
