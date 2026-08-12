@@ -1,0 +1,9 @@
+{
+  "name": "upellift99--gatecha",
+  "displayName": "GateCHA",
+  "description": "Self-hosted ALTCHA CAPTCHA management server with API keys, multi-site support, and statistics dashboard. Open-source alternative to ALTCHA Sentinel.",
+  "version": "1.0.0",
+  "author": "Upellift99",
+  "homepage": "https://github.com/Upellift99/GateCHA",
+  "skills": []
+}
