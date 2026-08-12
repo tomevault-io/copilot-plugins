@@ -1,104 +1,72 @@
-## figma-analysis
+## figma-exceptions
 
-> Deep Figma analysis before implementing components
+> Intentional deviations from Figma-to-code parity. **Do not add exceptions without explicit discussion and agreement.**
 
+# Figma-Code Exceptions
 
-# Figma Analysis
+Intentional deviations from Figma-to-code parity. **Do not add exceptions without explicit discussion and agreement.**
 
-Before implementing any component from Figma, complete ALL of these steps. Do not skip any.
+## How to use
 
-## 1. Understand the structure
+Before "fixing" a Figma/code mismatch, check if it's listed here. If listed, the deviation is intentional.
 
-```
-mcp_Figma_get_metadata(nodeId, fileKey)
-```
+## Exceptions
 
-From the XML output, extract:
-- Layer hierarchy (what wraps what)
-- Variant property names and values
-- Sub-component instance names
-- Auto-layout direction and spacing
+### Form inputs: Transparent background
 
-## 2. Get tokens
+**Applies to**: Input, Textarea, TextareaGroup, Autocomplete, Combobox, Select
 
-```
-mcp_Figma_get_variable_defs(nodeId, fileKey)
-```
+| Figma | Code |
+|-------|------|
+| `--surface-primary` fill | No background (transparent) |
 
-**Mirror Figma exactly:**
-- If Figma uses a token → use that token in code
-- If Figma uses a raw value → use that raw value in code
+**Reason**: Form inputs must blend with any surface color. Figma requires a fill for focus ring effects to render — this is a tooling limitation, not a design decision.
 
-Do not invent tokens. Do not force token usage where the design uses a custom value.
+### Textarea: Auto-grow with 66px min-height
 
-## 3. Extract CSS for EACH variant
+**Applies to**: Textarea
 
-Run `get_design_context` on each variant node, not just the parent:
-- Default state
-- Each size variant (sm, md, lg)
-- Each color/type variant
-- Disabled state
-- Hover/active states (if designed)
+| Figma | Code |
+|-------|------|
+| Fixed height, `min-height: 64px` | `field-sizing: content`, `min-height: 66px` |
 
-## 4. Identify component composition
+**Reason**: `field-sizing: content` auto-grows the textarea with content, keeping bottom padding always visible. 66px (vs Figma's 64px) aligns to the 20px line grid for a clean 2-line empty state.
 
-For compound components (combobox, select, dialog, etc.), identify:
+### Textarea: Custom resize handle
 
-- **Which design system components appear inside?** (e.g., Chip inside Combobox)
-- **How do they connect?** (e.g., Chip displays selected values)
-- **Are they the same component or a variant?** (e.g., Combobox chip may be smaller than standalone Chip)
+**Applies to**: Textarea (resize grip)
 
-If a component uses another design system component:
-1. Note which component it uses
-2. Note any size/variant differences
-3. Plan to use the existing component via `render` prop or composition
+| Figma | Code |
+|-------|------|
+| `IconTextareaDrag` at bottom-right | Custom SVG + pointer-event drag handle |
 
-## 5. Document before coding
+**Reason**: Figma's icon represents the native browser resize handle. Code uses a custom implementation with pointer events for pixel-perfect control over icon appearance (icon/tertiary), positioning (4px gap), and keyboard accessibility (role="separator" + arrow keys).
 
-Before writing any code, output a summary:
+### InputGroup.Button: 3px border-radius
 
-```
-## {Component} Analysis
+**Applies to**: InputGroup.Button
 
-**Variants**: {list all property:value pairs}
-**Sizes**: {dimensions per size}
-**Tokens used**:
-  - Spacing: {list}
-  - Colors: {list per state}
-  - Radius: {value}
-  - Typography: {mixin name}
+| Figma | Code |
+|-------|------|
+| 3px radius (intentional) | `border-radius: 3px` (raw value) |
 
-**Sub-components**: {list any nested components}
-**Composed components**: {list design system components used inside}
-**States**: {list interactive states}
-```
+**Reason**: Intentional non-token value per design. The inline button uses a radius between `--corner-radius-2xs` (2px) and `--corner-radius-xs` (4px) to optically balance with the container's `--corner-radius-sm` (6px).
 
-Only proceed to implementation after this summary is complete.
+### InputGroup: 5px edge padding for button/trigger
 
-## When to go deeper
+**Applies to**: InputGroup (Root) when a Button or SelectTrigger sits at an edge
 
-If the component has:
-- **Nested components** → Get metadata of each sub-component
-- **Multiple variants** → Get design context for each variant separately
-- **Interactive states** → Confirm all states are designed, ask if any are missing
-- **Design system components inside** → Analyze if they're the same or a size variant
+| Figma | Code |
+|-------|------|
+| `--spacing-2xs` (6px) edge padding | `5px` (raw value) |
 
-## Red flags to catch
+**Reason**: The container's 1px border reduces the available inner height from 36px to 34px, so vertical centering of the 24px button yields a 5px gap top and bottom. Edge padding is set to 5px to match, giving equal visual spacing on all sides.
 
-- Code using a raw value where Figma uses a token
-- Code using a token where Figma uses a raw value
-- Inconsistent values between variants that aren't in the design
-- Missing states in design (disabled, focus) — ask before implementing
-- Sub-components with their own variant logic (need separate analysis)
-- Recreating a design system component instead of composing it
-- Not understanding how child parts interact in compound components
+### InputGroup: Transparent background
 
-## Figma vs Code translations
+**Applies to**: InputGroup (Root)
 
-Some Figma structures are UX accommodations for designers, not design requirements. Translate these appropriately:
-
-- **Wrapper frames around text** → Figma can't apply padding to text; in code, apply padding directly to the element
-- **Styled frames instead of component instances** (e.g., Input styling inlined in Field) → nested instance props are harder to access in Figma; in code, slot in the actual component (`<Input />`)
+Same as form inputs above — uses transparent background despite Figma showing `--surface-primary`.
 
 ---
 > Source: [lightsparkdev/origin](https://github.com/lightsparkdev/origin) — distributed by [TomeVault](https://tomevault.io).
