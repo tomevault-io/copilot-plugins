@@ -1,0 +1,9 @@
+{
+  "name": "tianbing1230--cfps-panel-data-cleaning-pipeline",
+  "displayName": "CFPS-Panel-Data-Cleaning-Pipeline",
+  "description": "CFPS panel data cleaning workflow, with extensive cross-wave harmonization and imputation logic.",
+  "version": "1.0.0",
+  "author": "tianbing1230",
+  "homepage": "https://github.com/tianbing1230/CFPS-Panel-Data-Cleaning-Pipeline",
+  "skills": []
+}
