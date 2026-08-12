@@ -1,0 +1,9 @@
+{
+  "name": "anyproto--anytype-agent-runtime",
+  "displayName": "anytype-agent-runtime",
+  "description": "anytype-agent-runtime",
+  "version": "1.0.0",
+  "author": "anyproto",
+  "homepage": "https://github.com/anyproto/anytype-agent-runtime",
+  "skills": []
+}
