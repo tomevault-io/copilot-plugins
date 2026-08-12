@@ -1,0 +1,9 @@
+{
+  "name": "burakgon--mt7925-wifi-patches",
+  "displayName": "mt7925-wifi-patches",
+  "description": "MT7925 WiFi fix for Linux - tested on ASUS ROG Flow Z13 2025. Fixes WiFi disconnects, slow speeds & instability on MediaTek Filogic 360 WiFi 7 chip",
+  "version": "1.0.0",
+  "author": "burakgon",
+  "homepage": "https://github.com/burakgon/mt7925-wifi-patches",
+  "skills": []
+}
