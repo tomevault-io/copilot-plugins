@@ -1,0 +1,9 @@
+{
+  "name": "dkmaker--hass-pi-agent",
+  "displayName": "hass-pi-agent",
+  "description": "Pi Agent for Home Assistant \u2014 AI coding agent add-on with full HA access",
+  "version": "1.0.0",
+  "author": "dkmaker",
+  "homepage": "https://github.com/dkmaker/hass-pi-agent",
+  "skills": []
+}
