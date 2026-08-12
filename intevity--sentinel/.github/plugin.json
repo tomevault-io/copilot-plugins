@@ -1,0 +1,9 @@
+{
+  "name": "intevity--sentinel",
+  "displayName": "sentinel",
+  "description": "An open-source Claude Code companion: a tray app and bundled local daemon for in-flight security scanning, permission rules, and sandbox isolation; multi-account routing; token-cost optimization; usag",
+  "version": "1.0.0",
+  "author": "Intevity",
+  "homepage": "https://github.com/Intevity/sentinel",
+  "skills": []
+}
