@@ -1,0 +1,9 @@
+{
+  "name": "clawdlinux--agentic-operator-core",
+  "displayName": "agentic-operator-core",
+  "description": "Runtime-agnostic Kubernetes governance for AI agents: gVisor isolation, egress policy, cost controls, and offline audit verification primitives.",
+  "version": "1.0.0",
+  "author": "Clawdlinux",
+  "homepage": "https://github.com/Clawdlinux/agentic-operator-core",
+  "skills": []
+}
