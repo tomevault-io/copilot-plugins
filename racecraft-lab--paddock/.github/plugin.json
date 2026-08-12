@@ -1,0 +1,9 @@
+{
+  "name": "racecraft-lab--paddock",
+  "displayName": "Paddock",
+  "description": "AI software factory control plane for GitHub issue-driven autonomous workflows, isolated agent sandboxes, governance, artifacts, and human review.",
+  "version": "1.0.0",
+  "author": "racecraft-lab",
+  "homepage": "https://github.com/racecraft-lab/Paddock",
+  "skills": []
+}
