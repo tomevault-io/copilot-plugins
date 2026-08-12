@@ -7,11 +7,11 @@ IAP：A New Development Platform for the AI Era—An Integrated Agent Platform
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Xircth/VibeX](https://github.com/Xircth/VibeX).
+Original source: `CLAUDE.md` in [Xircth/VibeX](https://github.com/Xircth/VibeX).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
