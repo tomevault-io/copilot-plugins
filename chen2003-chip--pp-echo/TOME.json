@@ -1,0 +1,44 @@
+{
+  "name": "pp-Echo",
+  "owner": "CHEN2003-CHIP",
+  "repo": "pp-Echo",
+  "description": "\ud83e\udd16Agent: 5 \u5206\u949f\u8dd1\u901a\uff0c7 \u5929\u8bfb\u61c2\uff0c\u4ece 0 \u5b9e\u73b0\u4e00\u4e2a\u80fd\u89c4\u5212\u3001\u80fd\u8c03\u7528\u5de5\u5177\u3001\u80fd\u5ba1\u6279\u3001\u80fd\u56de\u9000\u3001\u80fd\u8bb0\u5fc6\u7684 Claude Code / Cursor \u5f0f\u672c\u5730 Agent\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CHEN2003-CHIP/pp-Echo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T19:24:15Z"
+}
