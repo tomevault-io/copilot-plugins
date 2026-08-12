@@ -1,0 +1,9 @@
+{
+  "name": "javierbq--raymol",
+  "displayName": "RayMol",
+  "description": "Fork of open-source PyMOL molecular visualization system refactored to run in MacOS/iOS using Metal.",
+  "version": "1.0.0",
+  "author": "javierbq",
+  "homepage": "https://github.com/javierbq/RayMol",
+  "skills": []
+}
