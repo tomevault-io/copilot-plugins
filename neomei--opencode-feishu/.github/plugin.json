@@ -1,0 +1,9 @@
+{
+  "name": "neomei--opencode-feishu",
+  "displayName": "opencode-feishu",
+  "description": "OpenCode Feishu/Lark integration plugin \u2014 AI assistant bridge with streaming output, tool status, and multi-profile support",
+  "version": "1.0.0",
+  "author": "NeoMei",
+  "homepage": "https://github.com/NeoMei/opencode-feishu",
+  "skills": []
+}
