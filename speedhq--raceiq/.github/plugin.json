@@ -1,0 +1,9 @@
+{
+  "name": "speedhq--raceiq",
+  "displayName": "RaceIQ",
+  "description": "Free open-source sim racing telemetry & lap analysis for Forza Motorsport, F1 25, Assetto Corsa Competizione & Evo \u2014 live dashboard, AI coaching, lap comparison, tune catalog.",
+  "version": "1.0.0",
+  "author": "SpeedHQ",
+  "homepage": "https://github.com/SpeedHQ/RaceIQ",
+  "skills": []
+}
