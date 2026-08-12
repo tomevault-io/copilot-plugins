@@ -1,0 +1,9 @@
+{
+  "name": "emergent-wisdom--sema",
+  "displayName": "sema",
+  "description": "Sema is a content-addressed vocabulary for AI agents. Precise thinking, reliable references, safe multi-agent coordination. Hash the meaning, get the word.",
+  "version": "1.0.0",
+  "author": "emergent-wisdom",
+  "homepage": "https://github.com/emergent-wisdom/sema",
+  "skills": []
+}
