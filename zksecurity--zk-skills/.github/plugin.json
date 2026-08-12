@@ -1,0 +1,9 @@
+{
+  "name": "zksecurity--zk-skills",
+  "displayName": "zk-skills",
+  "description": "ZKSecurity's open-source AI-skills for pre-auditing ZK circuits",
+  "version": "1.0.0",
+  "author": "zksecurity",
+  "homepage": "https://github.com/zksecurity/zk-skills",
+  "skills": []
+}
