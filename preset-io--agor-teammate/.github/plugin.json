@@ -1,0 +1,9 @@
+{
+  "name": "preset-io--agor-teammate",
+  "displayName": "agor-teammate",
+  "description": "Agent operating framework for Agor - inspired by OpenClaw",
+  "version": "1.0.0",
+  "author": "preset-io",
+  "homepage": "https://github.com/preset-io/agor-teammate",
+  "skills": []
+}
