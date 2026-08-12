@@ -1,0 +1,9 @@
+{
+  "name": "easyeda--extension-dev-skill",
+  "displayName": "extension-dev-skill",
+  "description": "\u7528\u4e8eAgent\u5f00\u53d1easyeda\u6269\u5c55\u7684\u6280\u80fd\u5305\u3002AI Agent development skill for easyeda extension",
+  "version": "1.0.0",
+  "author": "easyeda",
+  "homepage": "https://github.com/easyeda/extension-dev-skill",
+  "skills": []
+}
