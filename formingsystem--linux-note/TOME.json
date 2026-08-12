@@ -1,0 +1,44 @@
+{
+  "name": "linux_note",
+  "owner": "FormingSystem",
+  "repo": "linux_note",
+  "description": "\u4f5c\u4e3a\u6211\u7684linux\u5185\u6838\u548c\u9a71\u52a8\u5f00\u53d1\u7684\u7b14\u8bb0\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/FormingSystem/linux_note",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T05:01:48Z"
+}
