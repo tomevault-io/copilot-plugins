@@ -1,0 +1,9 @@
+{
+  "name": "chadingtv--codex-discord",
+  "displayName": "codex-discord",
+  "description": "Control Codex from your phone \u2014 a multi-machine agent hub via Discord. No API key needed, runs on your Codex subscription. Start new sessions from mobile, manage multiple machines from one place.",
+  "version": "1.0.0",
+  "author": "chadingTV",
+  "homepage": "https://github.com/chadingTV/codex-discord",
+  "skills": []
+}
