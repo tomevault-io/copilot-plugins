@@ -1,0 +1,9 @@
+{
+  "name": "hamr0--barebrowse",
+  "displayName": "barebrowse",
+  "description": "Gives agents a real browser. URL in, pruned snapshot out. Replaces Playwright, Selenium, Puppeteer. Zero deps, zero wasted tokens.",
+  "version": "1.0.0",
+  "author": "hamr0",
+  "homepage": "https://github.com/hamr0/barebrowse",
+  "skills": []
+}
