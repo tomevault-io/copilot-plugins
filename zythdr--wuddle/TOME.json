@@ -1,0 +1,44 @@
+{
+  "name": "Wuddle",
+  "owner": "ZythDr",
+  "repo": "Wuddle",
+  "description": "Wuddle started as a DLL Mods Updater and have now transitioned into being a full-fledged launcher app, primarily for Vanilla WoW. It's entirely vibe-coded but I've tried to make it not suck. Expect a few bugs and rough edges as it's my first attempt at making an app.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ZythDr/Wuddle",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T19:12:53Z"
+}
