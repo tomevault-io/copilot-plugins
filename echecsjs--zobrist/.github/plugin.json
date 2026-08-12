@@ -1,0 +1,9 @@
+{
+  "name": "echecsjs--zobrist",
+  "displayName": "zobrist",
+  "description": "The 781 Polyglot standard Zobrist hash keys for chess positions. Zero dependencies, strict TypeScript.",
+  "version": "1.0.0",
+  "author": "echecsjs",
+  "homepage": "https://github.com/echecsjs/zobrist",
+  "skills": []
+}
