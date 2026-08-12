@@ -1,0 +1,9 @@
+{
+  "name": "ai-guard-dev--eslint-plugin-ai-guard",
+  "displayName": "eslint-plugin-ai-guard",
+  "description": "ESLint plugin with 17 rules that catch AI-generated code patterns \u2014 empty catch, floating promises, missing auth, and more",
+  "version": "1.0.0",
+  "author": "ai-guard-dev",
+  "homepage": "https://github.com/ai-guard-dev/eslint-plugin-ai-guard",
+  "skills": []
+}
