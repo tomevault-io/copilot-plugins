@@ -4,7 +4,7 @@
   "repo": "openbase-coder",
   "description": "The new way to work: Drive a team of AI Agents through screenless voice",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/openbase-community/openbase-coder",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T06:56:23Z"
+  "distributed_at": "2026-08-12T07:05:46Z"
 }
