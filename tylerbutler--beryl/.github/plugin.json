@@ -1,0 +1,9 @@
+{
+  "name": "tylerbutler--beryl",
+  "displayName": "beryl",
+  "description": "Type-safe real-time channels and presence for Gleam (BEAM)",
+  "version": "1.0.0",
+  "author": "tylerbutler",
+  "homepage": "https://github.com/tylerbutler/beryl",
+  "skills": []
+}
