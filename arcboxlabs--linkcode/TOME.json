@@ -1,0 +1,44 @@
+{
+  "name": "linkcode",
+  "owner": "arcboxlabs",
+  "repo": "linkcode",
+  "description": "Open-source alternative to Codex App / Workbuddy, supporting Codex, Claude Code, OpenCode, Pi, and Grok Build. Codex App / WorkBuddy \u7684\u5f00\u6e90\u5e73\u66ff\uff0c\u652f\u6301 Codex\u3001Claude Code\u3001OpenCode\u3001Pi \u548c Grok Build\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/arcboxlabs/linkcode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T06:45:27Z"
+}
