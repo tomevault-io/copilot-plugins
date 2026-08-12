@@ -1,0 +1,9 @@
+{
+  "name": "edruder--ponko",
+  "displayName": "ponko",
+  "description": "A self-hosted AI agent that lives in Slack. Single Go binary + Postgres, under $15/month.",
+  "version": "1.0.0",
+  "author": "edruder",
+  "homepage": "https://github.com/edruder/ponko",
+  "skills": []
+}
