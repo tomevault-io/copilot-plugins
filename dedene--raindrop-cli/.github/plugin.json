@@ -1,0 +1,14 @@
+{
+  "name": "dedene--raindrop-cli",
+  "displayName": "raindrop-cli",
+  "description": "A command-line interface for Raindrop.io bookmark management.",
+  "version": "1.0.0",
+  "author": "dedene",
+  "homepage": "https://github.com/dedene/raindrop-cli",
+  "skills": [
+    {
+      "name": "raindrop",
+      "description": ""
+    }
+  ]
+}
