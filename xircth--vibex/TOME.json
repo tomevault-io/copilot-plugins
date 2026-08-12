@@ -4,7 +4,7 @@
   "repo": "VibeX",
   "description": "IAP\uff1aA New Development Platform for the AI Era\u2014An Integrated Agent Platform",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Xircth/VibeX",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T05:30:50Z"
+  "distributed_at": "2026-08-12T06:47:51Z"
 }
