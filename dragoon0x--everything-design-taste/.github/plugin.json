@@ -1,0 +1,9 @@
+{
+  "name": "dragoon0x--everything-design-taste",
+  "displayName": "everything-design-taste",
+  "description": "A taste system for AI agents. 288 skills, 80 agents, 12 rules, and 8 hooks that turn generic AI output into work with genuine design quality. Anti-slop detection, typography craft, color systems, bran",
+  "version": "1.0.0",
+  "author": "Dragoon0x",
+  "homepage": "https://github.com/Dragoon0x/everything-design-taste",
+  "skills": []
+}
