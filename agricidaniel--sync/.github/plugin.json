@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--sync",
+  "displayName": "sync",
+  "description": "Evidence-gated Claude and Codex council orchestration.",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/sync",
+  "skills": []
+}
