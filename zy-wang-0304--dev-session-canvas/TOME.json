@@ -4,7 +4,7 @@
   "repo": "dev-session-canvas",
   "description": "A VS Code extension for managing multiple development sessions on a shared canvas.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ZY-WANG-0304/dev-session-canvas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T13:28:18Z"
+  "distributed_at": "2026-08-12T14:55:58Z"
 }
