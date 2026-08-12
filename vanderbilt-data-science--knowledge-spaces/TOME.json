@@ -1,0 +1,81 @@
+{
+  "name": "knowledge-spaces",
+  "owner": "vanderbilt-data-science",
+  "repo": "knowledge-spaces",
+  "description": "AI-powered Knowledge Space Theory for adaptive education. 10 Claude Code skills implementing the full KST pipeline \u2014 from course materials to knowledge graphs, adaptive assessment, personalized materials, and JIT instruction planning.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "assessing-knowledge-state",
+      "path": ".claude/skills/assessing-knowledge-state",
+      "github_url": "https://github.com/vanderbilt-data-science/knowledge-spaces/tree/main/.claude/skills/assessing-knowledge-state",
+      "description": ""
+    },
+    {
+      "name": "building-surmise-relations",
+      "path": ".claude/skills/building-surmise-relations",
+      "github_url": "https://github.com/vanderbilt-data-science/knowledge-spaces/tree/main/.claude/skills/building-surmise-relations",
+      "description": ""
+    },
+    {
+      "name": "decomposing-learning-objectives",
+      "path": ".claude/skills/decomposing-learning-objectives",
+      "github_url": "https://github.com/vanderbilt-data-science/knowledge-spaces/tree/main/.claude/skills/decomposing-learning-objectives",
+      "description": ""
+    },
+    {
+      "name": "extracting-knowledge-items",
+      "path": ".claude/skills/extracting-knowledge-items",
+      "github_url": "https://github.com/vanderbilt-data-science/knowledge-spaces/tree/main/.claude/skills/extracting-knowledge-items",
+      "description": ""
+    },
+    {
+      "name": "generating-learning-materials",
+      "path": ".claude/skills/generating-learning-materials",
+      "github_url": "https://github.com/vanderbilt-data-science/knowledge-spaces/tree/main/.claude/skills/generating-learning-materials",
+      "description": ""
+    },
+    {
+      "name": "mapping-concepts-and-competences",
+      "path": ".claude/skills/mapping-concepts-and-competences",
+      "github_url": "https://github.com/vanderbilt-data-science/knowledge-spaces/tree/main/.claude/skills/mapping-concepts-and-competences",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vanderbilt-data-science/knowledge-spaces",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T00:31:06Z"
+}
