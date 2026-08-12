@@ -1,72 +1,79 @@
-## figma-exceptions
+## global
 
-> Intentional deviations from Figma-to-code parity. **Do not add exceptions without explicit discussion and agreement.**
+> Origin design system conventions and workflow
 
-# Figma-Code Exceptions
 
-Intentional deviations from Figma-to-code parity. **Do not add exceptions without explicit discussion and agreement.**
+# Origin Design System
 
-## How to use
+> Quick reference for AI agents working on this project.
 
-Before "fixing" a Figma/code mismatch, check if it's listed here. If listed, the deviation is intentional.
+## Quick Setup
 
-## Exceptions
+```bash
+npm install --legacy-peer-deps   # Install dependencies
+npm run dev                       # Start dev server
+npm run figma:styles              # Sync text styles + effects from Figma
+npm run tokens:build              # Build color/spacing tokens
+```
 
-### Form inputs: Transparent background
+## Project Overview
 
-**Applies to**: Input, Textarea, TextareaGroup, Autocomplete, Combobox, Select
+**Origin** is a design system using:
+- **Base UI** for component behavior/accessibility
+- **Figma API** for styles (text, effects) and CSS extraction
+- **Central Icons** for iconography
 
-| Figma | Code |
-|-------|------|
-| `--surface-primary` fill | No background (transparent) |
+## Key Directories
 
-**Reason**: Form inputs must blend with any surface color. Figma requires a fill for focus ring effects to render — this is a tooling limitation, not a design decision.
+| Path | Purpose |
+|------|---------|
+| `src/components/` | React components |
+| `src/components/Icon/icons/` | Vendored icon files (generated) |
+| `src/tokens/_variables.scss` | Color, spacing, sizing tokens |
+| `src/tokens/_text-styles.scss` | Typography mixins (generated) |
+| `src/tokens/_effects.scss` | Shadow variables (generated) |
+| `src/tokens/_typography.scss` | Global text classes + reset |
+| `scripts/extract-icons.mjs` | Icon vendoring + registry generation |
+| `tools/figma-styles/` | Figma REST API style fetcher |
 
-### Textarea: Auto-grow with 66px min-height
+## Commands
 
-**Applies to**: Textarea
+```bash
+npm run dev              # Next.js dev server
+npm run storybook        # Storybook
+npm run build            # Production build
+npm run figma:styles     # Sync text styles + effects from Figma
+npm run figma:node       # Fetch CSS from any Figma node (fallback for MCP)
+npm run tokens:build     # Build color/spacing tokens
+npm run icons:extract    # Vendor icons + regenerate registry
+npm run test             # Playwright component tests
+npm run test:unit        # Vitest unit tests (fast)
+npm run test:all         # Run both test suites
+npm run lint             # ESLint
+```
 
-| Figma | Code |
-|-------|------|
-| Fixed height, `min-height: 64px` | `field-sizing: content`, `min-height: 66px` |
+## Token Sources
 
-**Reason**: `field-sizing: content` auto-grows the textarea with content, keeping bottom padding always visible. 66px (vs Figma's 64px) aligns to the 20px line grid for a clean 2-line empty state.
+| Token Type | Source | File |
+|------------|--------|------|
+| Colors, spacing | Figma Variables export | `_variables.scss` |
+| Typography | Figma Text Styles (API) | `_text-styles.scss` |
+| Shadows | Figma Effect Styles (API) | `_effects.scss` |
 
-### Textarea: Custom resize handle
+## Do / Do Not
 
-**Applies to**: Textarea (resize grip)
+- **Do** use Base UI for interactive elements
+- **Do** use `@include` mixins for typography
+- **Do** use `var(--token)` for all values
+- **Do** run `npm run figma:styles` after Figma style changes
+- **Do not** hardcode colors, spacing, shadows, z-index
+- **Do not** edit generated files (`_text-styles.scss`, `_effects.scss`, `icon-registry.ts`, `Icon/icons/`)
+- **Do not** use emojis in code or console output
+- **Do not** add decorative comment dividers
 
-| Figma | Code |
-|-------|------|
-| `IconTextareaDrag` at bottom-right | Custom SVG + pointer-event drag handle |
+## Full Context
 
-**Reason**: Figma's icon represents the native browser resize handle. Code uses a custom implementation with pointer events for pixel-perfect control over icon appearance (icon/tertiary), positioning (4px gap), and keyboard accessibility (role="separator" + arrow keys).
-
-### InputGroup.Button: 3px border-radius
-
-**Applies to**: InputGroup.Button
-
-| Figma | Code |
-|-------|------|
-| 3px radius (intentional) | `border-radius: 3px` (raw value) |
-
-**Reason**: Intentional non-token value per design. The inline button uses a radius between `--corner-radius-2xs` (2px) and `--corner-radius-xs` (4px) to optically balance with the container's `--corner-radius-sm` (6px).
-
-### InputGroup: 5px edge padding for button/trigger
-
-**Applies to**: InputGroup (Root) when a Button or SelectTrigger sits at an edge
-
-| Figma | Code |
-|-------|------|
-| `--spacing-2xs` (6px) edge padding | `5px` (raw value) |
-
-**Reason**: The container's 1px border reduces the available inner height from 36px to 34px, so vertical centering of the 24px button yields a 5px gap top and bottom. Edge padding is set to 5px to match, giving equal visual spacing on all sides.
-
-### InputGroup: Transparent background
-
-**Applies to**: InputGroup (Root)
-
-Same as form inputs above — uses transparent background despite Figma showing `--surface-primary`.
+See `CONTEXT.md` for complete project history.
 
 ---
 > Source: [lightsparkdev/origin](https://github.com/lightsparkdev/origin) — distributed by [TomeVault](https://tomevault.io).
