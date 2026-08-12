@@ -4,7 +4,7 @@
   "repo": "nimblebrain",
   "description": "Self-hosted platform for MCP Apps and agent automations \u2014 tools, interactive UIs, scheduled runs, multi-agent delegation.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NimbleBrainInc/nimblebrain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T03:08:33Z"
+  "distributed_at": "2026-08-12T03:10:31Z"
 }
