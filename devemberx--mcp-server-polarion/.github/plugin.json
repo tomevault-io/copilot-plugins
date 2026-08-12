@@ -1,0 +1,9 @@
+{
+  "name": "devemberx--mcp-server-polarion",
+  "displayName": "mcp-server-polarion",
+  "description": "MCP server for Polarion ALM \u2014 read and write documents, work items, test runs, traceability links, and comments from any MCP-compatible AI assistant",
+  "version": "1.0.0",
+  "author": "devemberx",
+  "homepage": "https://github.com/devemberx/mcp-server-polarion",
+  "skills": []
+}
