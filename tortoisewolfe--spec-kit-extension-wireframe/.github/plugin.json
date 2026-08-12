@@ -1,0 +1,9 @@
+{
+  "name": "tortoisewolfe--spec-kit-extension-wireframe",
+  "displayName": "spec-kit-extension-wireframe",
+  "description": "Visual feedback loop for Spec-Driven Development: SVG wireframe generation, review, and sign-off that become spec constraints honored by /plan, /tasks, and /implement.",
+  "version": "1.0.0",
+  "author": "TortoiseWolfe",
+  "homepage": "https://github.com/TortoiseWolfe/spec-kit-extension-wireframe",
+  "skills": []
+}
