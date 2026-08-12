@@ -1,0 +1,9 @@
+{
+  "name": "tilladam--slint-node-editor",
+  "displayName": "slint-node-editor",
+  "description": "A node editor component for the Slint UI toolkit",
+  "version": "1.0.0",
+  "author": "tilladam",
+  "homepage": "https://github.com/tilladam/slint-node-editor",
+  "skills": []
+}
