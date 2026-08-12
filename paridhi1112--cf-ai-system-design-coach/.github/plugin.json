@@ -1,0 +1,9 @@
+{
+  "name": "paridhi1112--cf-ai-system-design-coach",
+  "displayName": "cf_ai_system_design_coach",
+  "description": "A full-stack System Design Interview Coach built with Cloudflare Workers, Durable Objects, and Llama 3 AI.",
+  "version": "1.0.0",
+  "author": "Paridhi1112",
+  "homepage": "https://github.com/Paridhi1112/cf_ai_system_design_coach",
+  "skills": []
+}
