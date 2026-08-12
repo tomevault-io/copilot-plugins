@@ -1,0 +1,9 @@
+{
+  "name": "drogers0--aistat",
+  "displayName": "aistat",
+  "description": "Check Claude and Codex API usage limits from the terminal",
+  "version": "1.0.0",
+  "author": "drogers0",
+  "homepage": "https://github.com/drogers0/aistat",
+  "skills": []
+}
