@@ -1,0 +1,9 @@
+{
+  "name": "enricobattocchi--myhondaplus-homeassistant",
+  "displayName": "myhondaplus-homeassistant",
+  "description": "Unofficial Home Assistant custom component for My Honda+ ",
+  "version": "1.0.0",
+  "author": "enricobattocchi",
+  "homepage": "https://github.com/enricobattocchi/myhondaplus-homeassistant",
+  "skills": []
+}
