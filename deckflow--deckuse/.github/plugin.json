@@ -1,0 +1,9 @@
+{
+  "name": "deckflow--deckuse",
+  "displayName": "deckuse",
+  "description": "\ud83d\udcbb A local-first structural editing engine for PPTX files.",
+  "version": "1.0.0",
+  "author": "deckflow",
+  "homepage": "https://github.com/deckflow/deckuse",
+  "skills": []
+}
