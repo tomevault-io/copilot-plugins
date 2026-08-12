@@ -1,0 +1,9 @@
+{
+  "name": "bayazidsustami--mobie-studio",
+  "displayName": "mobie-studio",
+  "description": "AI-powered desktop application for automated mobile testing, built with Rust and GPUI.",
+  "version": "1.0.0",
+  "author": "bayazidsustami",
+  "homepage": "https://github.com/bayazidsustami/mobie-studio",
+  "skills": []
+}
