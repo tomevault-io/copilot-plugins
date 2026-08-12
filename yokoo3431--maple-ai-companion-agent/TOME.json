@@ -1,0 +1,44 @@
+{
+  "name": "Maple-AI-Companion-Agent",
+  "owner": "Yokoo3431",
+  "repo": "Maple-AI-Companion-Agent",
+  "description": "Maple AI Companion Agent - Phase 0 (\u5192\u9669\u5c9b\u6000\u65e7\u670d AI Companion Agent \u57fa\u7840\u67b6\u6784)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Yokoo3431/Maple-AI-Companion-Agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T14:42:49Z"
+}
