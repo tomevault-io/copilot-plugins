@@ -4,7 +4,7 @@
   "repo": "pantheon-legacy",
   "description": "14 specialized AI agents for TDD-driven developmen",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ils15/pantheon-legacy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T18:41:50Z"
+  "distributed_at": "2026-08-12T18:44:23Z"
 }
