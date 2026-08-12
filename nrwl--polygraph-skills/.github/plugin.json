@@ -1,0 +1,9 @@
+{
+  "name": "nrwl--polygraph-skills",
+  "displayName": "polygraph-skills",
+  "description": "skills, subagents and the claude plugin for polygraph",
+  "version": "1.0.0",
+  "author": "nrwl",
+  "homepage": "https://github.com/nrwl/polygraph-skills",
+  "skills": []
+}
