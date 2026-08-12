@@ -1,0 +1,9 @@
+{
+  "name": "gsa-tts--agentic-coding-quickstart",
+  "displayName": "agentic-coding-quickstart",
+  "description": "This quickstart gets you from zero to running an AI coding agent with USAi in under 5 minutes",
+  "version": "1.0.0",
+  "author": "GSA-TTS",
+  "homepage": "https://github.com/GSA-TTS/agentic-coding-quickstart",
+  "skills": []
+}
