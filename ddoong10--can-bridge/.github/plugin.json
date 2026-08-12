@@ -1,0 +1,9 @@
+{
+  "name": "ddoong10--can-bridge",
+  "displayName": "can-bridge",
+  "description": "Move your conversation between Claude Code and Codex CLI without losing context.   Bidirectional adapter with tool-call schema translation.",
+  "version": "1.0.0",
+  "author": "ddoong10",
+  "homepage": "https://github.com/ddoong10/can-bridge",
+  "skills": []
+}
