@@ -1,0 +1,9 @@
+{
+  "name": "writbase--writbase",
+  "displayName": "writbase",
+  "description": "MCP-native task management for AI agent fleets",
+  "version": "1.0.0",
+  "author": "Writbase",
+  "homepage": "https://github.com/Writbase/writbase",
+  "skills": []
+}
