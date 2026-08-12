@@ -1,0 +1,9 @@
+{
+  "name": "nikuscs--continentes",
+  "displayName": "continentes",
+  "description": "Fast CLI for browsing Continente online supermarket products \u2014 LLM-ready, works with Claude Code, Codex, OpenClaw, and AI agents. Search, prices, nutrition, categories, stores. Product ordering planne",
+  "version": "1.0.0",
+  "author": "nikuscs",
+  "homepage": "https://github.com/nikuscs/continentes",
+  "skills": []
+}
