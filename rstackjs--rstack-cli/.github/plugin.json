@@ -1,0 +1,9 @@
+{
+  "name": "rstackjs--rstack-cli",
+  "displayName": "rstack-cli",
+  "description": "One CLI for JavaScript development, powered by Rstack",
+  "version": "1.0.0",
+  "author": "rstackjs",
+  "homepage": "https://github.com/rstackjs/rstack-cli",
+  "skills": []
+}
