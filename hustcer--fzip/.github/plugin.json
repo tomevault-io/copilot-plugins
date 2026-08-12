@@ -1,0 +1,9 @@
+{
+  "name": "hustcer--fzip",
+  "displayName": "fzip",
+  "description": "\ud83d\ude80 High-performance compression library for MoonBit, ported from fflate. Supports DEFLATE, GZIP, Zlib, and ZIP formats. \ud83d\ude80",
+  "version": "1.0.0",
+  "author": "hustcer",
+  "homepage": "https://github.com/hustcer/fzip",
+  "skills": []
+}
