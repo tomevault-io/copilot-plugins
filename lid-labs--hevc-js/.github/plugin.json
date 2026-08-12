@@ -1,0 +1,9 @@
+{
+  "name": "lid-labs--hevc-js",
+  "displayName": "hevc.js",
+  "description": "HEVC/H.265 decoder for any browser via WebAssembly. Drop-in dash.js plugin transcodes HEVC \u2192 H.264 client-side. Works on Chrome, Firefox, browsers without native HEVC.",
+  "version": "1.0.0",
+  "author": "lid-labs",
+  "homepage": "https://github.com/lid-labs/hevc.js",
+  "skills": []
+}
