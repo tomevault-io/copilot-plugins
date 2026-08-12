@@ -1,0 +1,9 @@
+{
+  "name": "kyle-chalmers--dbt-agentic-development",
+  "displayName": "dbt-agentic-development",
+  "description": "Give Claude Code a dbt brain \u2014 dbt Agent Skills + dbt MCP Server demo",
+  "version": "1.0.0",
+  "author": "kyle-chalmers",
+  "homepage": "https://github.com/kyle-chalmers/dbt-agentic-development",
+  "skills": []
+}
