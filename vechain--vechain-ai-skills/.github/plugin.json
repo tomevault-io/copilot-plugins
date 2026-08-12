@@ -1,0 +1,14 @@
+{
+  "name": "vechain--vechain-ai-skills",
+  "displayName": "vechain-ai-skills",
+  "description": "AI skills for building on VeChain \u2014 skills, plugins, and agents for any coding agent.",
+  "version": "1.0.0",
+  "author": "vechain",
+  "homepage": "https://github.com/vechain/vechain-ai-skills",
+  "skills": [
+    {
+      "name": "translate",
+      "description": ""
+    }
+  ]
+}
