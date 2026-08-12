@@ -1,0 +1,9 @@
+{
+  "name": "shalayiding--poemcp",
+  "displayName": "POEMCP",
+  "description": "An MCP server that gives any LLM access to Path of Exile game data \u2014 gems, unique items, passive tree nodes, item modifiers, maps, scarabs, live pricing, and Path of Building build parsing.",
+  "version": "1.0.0",
+  "author": "shalayiding",
+  "homepage": "https://github.com/shalayiding/POEMCP",
+  "skills": []
+}
