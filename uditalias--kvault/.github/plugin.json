@@ -1,0 +1,9 @@
+{
+  "name": "uditalias--kvault",
+  "displayName": "kvault",
+  "description": "Cloudflare KV Desktop Client \u2014 browse and manage your Workers KV data. https://uditalias.github.io/kvault",
+  "version": "1.0.0",
+  "author": "uditalias",
+  "homepage": "https://github.com/uditalias/kvault",
+  "skills": []
+}
