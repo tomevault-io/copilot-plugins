@@ -1,95 +1,45 @@
-## jarvis-ocr-service
+## jarvis-recipes-mobile
 
-> Rules for jarvis-ocr-service - OCR with pluggable backends
+> Rules for jarvis-recipes-mobile - recipes mobile app
 
 
-# jarvis-ocr-service
+# jarvis-recipes-mobile
 
-OCR service with opt-in pluggable backends. You enable the OCR technologies you want, and the service runs the image through each enabled backend and returns all results.
+Mobile recipes app. React Native + TypeScript + Expo. More mature than jarvis-node-mobile.
 
-## Running (Port 7031)
+## Running
 
-**On macOS:** Run natively (required for Apple Vision backend):
 ```bash
-./run.sh                       # Start natively with poetry + uvicorn
-./run.sh --enable-redis-queue  # With Redis queue for async jobs
+npm install                    # Install dependencies
+npx expo start                 # Start Expo dev client
+npm run ios                    # iOS
+npm run android                # Android
+npm run web                    # Web version
+npm run dev:ios                # Open simulator + iOS (iPhone 15)
+npm run dev-full:ios           # Full prebuild + iOS
 ```
 
-**On Linux:** Docker is fine:
+## Testing
+
 ```bash
-./run.sh --docker              # Start in Docker
-./run.sh --docker --rebuild    # Rebuild after dependency changes
+npm test                       # Jest
 ```
 
-**Worker (async OCR jobs, requires Redis):**
-```bash
-./run-worker.sh
-```
+## Purpose
 
-**Production:**
-```bash
-./run-prod.sh                  # Docker with docker-compose.prod.yaml
-```
+Browse recipes, meal planning, and interact with the recipe system. Can send images (recipe photos, screenshots) for OCR-based recipe import.
 
-**Why native on macOS:** Apple Vision is the best OCR backend on macOS and requires native PyObjC access. Docker cannot access Apple Vision APIs.
+## Tech Stack
 
-## How It Works
-
-1. OCR backends are **opt-in** via env vars or settings table (should be migrated to settings if not already)
-2. When an OCR request comes in, it's **queued in Redis** for the worker to pick up
-3. Worker runs the image through **each enabled backend** and collects results from all of them
-4. Worker hits the **callback URL** provided in the original message with the combined results
-
-This is fully async - the API just queues the job and returns immediately.
-
-## Architecture
-
-```
-app/
-├── main.py                    # FastAPI app
-├── ocr/
-│   ├── tesseract_backend.py   # Tesseract OCR
-│   ├── easyocr_backend.py     # EasyOCR
-│   └── apple_vision_backend.py # Apple Vision (macOS only)
-├── queue/                     # Redis-based async processing
-└── auth.py                    # App-to-app auth
-```
-
-## Environment Variables
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `OCR_PORT` | 7031 | API port |
-| `JARVIS_AUTH_BASE_URL` | http://localhost:7701 | Auth service URL |
-| `REDIS_URL` | - | Redis URL (from shared jarvis-data-services) |
-
-OCR backend opt-in configuration should live in settings table (via jarvis-settings-client), not env vars.
-
-## API Endpoints
-
-- `POST /ocr` - Queue an OCR job (accepts image + callback URL, returns immediately)
-- `GET /health` - Health check
+- React Native + Expo + TypeScript
+- Jest for testing
 
 ## Service Dependencies
 
-**Must be running:**
-- `jarvis-auth` (7701) - App-to-app auth
-- `jarvis-logs` (7702) - Centralized logging
+- `jarvis-auth` (7701) - User authentication
+- `jarvis-recipes-server` (7030) - Recipe CRUD, URL import, meal planning (primary server)
 
-**Should use but not yet confirmed/implemented:**
-- `jarvis-config-service` (7700) - Service discovery (should use if not already)
-- `jarvis-settings-client` - Runtime configuration, including OCR backend opt-in (should replace env vars)
-
-**Data services (from jarvis-data-stores/):**
-- Redis - Async job queue
-
-## Used By
-
-- `jarvis-recipes-server` - Sends recipe images/screenshots for OCR extraction
-
-## Dependencies
-
-FastAPI, uvicorn, pytesseract, easyocr, pyobjc (macOS), httpx, jarvis-log-client, redis
+**Design goal:** Clients should talk only to their respective server, which acts as passthrough to auth and other services.
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
