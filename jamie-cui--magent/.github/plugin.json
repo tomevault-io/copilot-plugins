@@ -1,0 +1,9 @@
+{
+  "name": "jamie-cui--magent",
+  "displayName": "magent",
+  "description": "An Emacs Lisp AI coding agent with multi-agent architecture, permission-based tool access, and LLM integration via gptel.",
+  "version": "1.0.0",
+  "author": "Jamie-Cui",
+  "homepage": "https://github.com/Jamie-Cui/magent",
+  "skills": []
+}
