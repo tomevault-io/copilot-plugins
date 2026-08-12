@@ -4,7 +4,7 @@
   "repo": "alley",
   "description": "The monorepo for Alley OS and JAR Chain",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alleyos/alley",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T05:07:54Z"
+  "distributed_at": "2026-08-12T05:25:47Z"
 }
