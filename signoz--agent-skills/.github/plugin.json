@@ -1,0 +1,14 @@
+{
+  "name": "signoz--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Agent skills for SigNoz",
+  "version": "1.0.0",
+  "author": "SigNoz",
+  "homepage": "https://github.com/SigNoz/agent-skills",
+  "skills": [
+    {
+      "name": "signoz-mcp-setup",
+      "description": ""
+    }
+  ]
+}
