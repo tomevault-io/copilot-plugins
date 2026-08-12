@@ -1,0 +1,9 @@
+{
+  "name": "rekal-dev--rekal-cli",
+  "displayName": "rekal-cli",
+  "description": "Your coding agent starts every session blank. Rekal is the memory your team is missing",
+  "version": "1.0.0",
+  "author": "rekal-dev",
+  "homepage": "https://github.com/rekal-dev/rekal-cli",
+  "skills": []
+}
