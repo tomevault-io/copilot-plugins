@@ -1,0 +1,40 @@
+## barebrowse
+
+> **POC first.** Always validate logic with a ~15min proof-of-concept before building. Cover happy path + common edges. POC works → design properly → build with tests. Never ship the POC.
+
+## Dev Rules
+
+**POC first.** Always validate logic with a ~15min proof-of-concept before building. Cover happy path + common edges. POC works → design properly → build with tests. Never ship the POC.
+
+**Build incrementally.** Break work into small independent modules. One piece at a time, each must work on its own before integrating.
+
+**Dependency hierarchy — follow strictly:** vanilla language → standard library → external (only when stdlib can't do it in <100 lines). External deps must be maintained, lightweight, and widely adopted. Exception: always use vetted libraries for security-critical code (crypto, auth, sanitization).
+
+**Lightweight over complex.** Fewer moving parts, fewer deps, less config. Simple > clever. Readable > elegant.
+
+**Open-source only.** No vendor lock-in. Every line of code must have a purpose — no speculative code, no premature abstractions.
+
+## Project Specifics
+
+- **What:** Vanilla JS library — CDP-direct browsing for autonomous agents. URL in, pruned ARIA snapshot out.
+- **Language:** Vanilla JavaScript, ES modules, no runtime build step (JSDoc→`.d.ts` types generated at publish only)
+- **Runtime:** Node.js >= 22 (built-in `node:sqlite` for reading cookie DBs)
+- **Protocol:** CDP (Chrome DevTools Protocol) direct — no Playwright
+- **Browser:** Any installed Chromium-based browser (chromium, chrome, brave, edge)
+- **Modules:** ~16 files in `src/`. Two runtime deps: `ws` (CDP transport — Node's built-in WebSocket caps messages ~3MB and tears down the socket) and `@mozilla/readability` (`readable()` article extraction). Both vetted/lightweight per the dependency rule.
+- **Tests:** 160+ passing — run with `node --test test/unit/*.test.js test/integration/*.test.js`
+- **Docs:** `docs/README.md` (navigation guide to all documentation)
+
+<!-- MEMORY:START -->
+@.claude/remember/MEMORY.md
+<!-- MEMORY:END -->
+
+<!-- AGENT_RULES:START -->
+Consult when building something new or adding a feature — a standards guide, not hot
+context like MEMORY.md above:
+@.claude/remember/AGENT_RULES.md
+<!-- AGENT_RULES:END -->
+
+---
+> Source: [hamr0/barebrowse](https://github.com/hamr0/barebrowse) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
