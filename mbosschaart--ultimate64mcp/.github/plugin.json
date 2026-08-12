@@ -1,0 +1,9 @@
+{
+  "name": "mbosschaart--ultimate64mcp",
+  "displayName": "Ultimate64MCP",
+  "description": "MCP server for the Ultimate 64 series mainboards and cartridges",
+  "version": "1.0.0",
+  "author": "mbosschaart",
+  "homepage": "https://github.com/mbosschaart/Ultimate64MCP",
+  "skills": []
+}
