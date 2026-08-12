@@ -1,0 +1,9 @@
+{
+  "name": "andersonaguiar--haiflow",
+  "displayName": "haiflow",
+  "description": "Run Claude Code as a headless AI agent over HTTP \u2014 hooks + ai + flow. Automate code generation, refactoring, bug triage via REST API using your existing Claude Code subscription.",
+  "version": "1.0.0",
+  "author": "andersonaguiar",
+  "homepage": "https://github.com/andersonaguiar/haiflow",
+  "skills": []
+}
