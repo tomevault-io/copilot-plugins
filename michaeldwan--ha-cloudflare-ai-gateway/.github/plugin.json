@@ -1,0 +1,9 @@
+{
+  "name": "michaeldwan--ha-cloudflare-ai-gateway",
+  "displayName": "ha-cloudflare-ai-gateway",
+  "description": "Home Assistant custom integration for Cloudflare AI Gateway",
+  "version": "1.0.0",
+  "author": "michaeldwan",
+  "homepage": "https://github.com/michaeldwan/ha-cloudflare-ai-gateway",
+  "skills": []
+}
