@@ -1,0 +1,9 @@
+{
+  "name": "pereljon--claude-mux",
+  "displayName": "claude-mux",
+  "description": "Claude Code Multiplexer - Persistent Claude Code sessions for all your projects.",
+  "version": "1.0.0",
+  "author": "pereljon",
+  "homepage": "https://github.com/pereljon/claude-mux",
+  "skills": []
+}
