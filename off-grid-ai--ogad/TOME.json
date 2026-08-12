@@ -4,7 +4,7 @@
   "repo": "OGAD",
   "description": "Off Grid AI \u2014 private, on-device AI. Run open models (text, vision, image, voice) locally through one OpenAI-compatible gateway. No cloud, no accounts, no API keys.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/off-grid-ai/OGAD",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T23:06:50Z"
+  "distributed_at": "2026-08-12T23:18:49Z"
 }
