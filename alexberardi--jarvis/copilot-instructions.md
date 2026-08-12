@@ -1,64 +1,48 @@
-## jarvis-data-stores
+## jarvis-installer
 
-> Rules for jarvis-data-stores - shared infrastructure (PostgreSQL, Redis, MinIO, Mosquitto)
+> Rules for jarvis-installer - install configuration SPA
 
 
-# jarvis-data-stores
+# jarvis-installer
 
-Shared infrastructure containers for all Jarvis services. Single docker-compose for PostgreSQL, Redis, MinIO, and Mosquitto.
+Static React SPA (GitHub Pages) that generates install configurations for the Jarvis voice assistant stack.
 
 ## Running
 
 ```bash
-cd jarvis-data-stores
-docker compose up -d               # Start all infrastructure
-docker compose down                # Stop all
-docker compose ps                  # Check status
+npm install              # Install dependencies
+npm run dev              # Dev server
+npm test                 # Tests
+npm run test:watch       # Watch mode
+npm run test:coverage    # With coverage
+npm run build            # Production build
 ```
 
-## Services
+## Tech Stack
 
-| Service | Container | Port | Purpose |
-|---------|-----------|------|---------|
-| PostgreSQL 16 | dev-postgres | 5432 | Shared DB server (each service has own database) |
-| Redis 7 | dev-redis | 6379 | Job queues (OCR, LLM training) |
-| MinIO | jarvis-data-stores-minio-1 | 9000/9001 | S3-compatible object storage (recipe images, adapters) |
-| Mosquitto | dev-mosquitto | 1884 | MQTT broker (node ↔ command-center TTS) |
-| PgAdmin | dev-pgadmin | 5050 | PostgreSQL web UI |
-| RedisInsight | dev-redisinsight | 5052 | Redis web UI |
+- React 19 + TypeScript, Vite, Vitest + React Testing Library + jsdom
+- Tailwind CSS v4 (via `@tailwindcss/vite` plugin - no config file)
+- JSZip for client-side zip generation
+- React Router for landing page / configurator routing
 
-## Database Management
+## Project Structure
 
-```bash
-./create-db.sh <database_name>     # Create a new database
-./drop-db.sh <database_name>       # Drop a database (terminates active connections first)
-```
+- `public/service-registry.json` - Source of truth for all Jarvis modules
+- `src/types/` - TypeScript type definitions
+- `src/data/` - Static data (GPU database, model recommendations)
+- `src/lib/` - Pure logic (registry, detection, generators)
+- `src/context/` - React context providers
+- `src/components/` - UI components
+- `tests/` - Test files mirroring src/ structure
+- `install.sh` - Shell script for generated curl command
 
-Known databases:
-- `jarvis_auth` - User accounts, tokens, app clients
-- `jarvis_command_center_db` - Nodes, conversations
-- `jarvis_config` - Service registry, settings
-- `jarvis_recipes` - Recipes, meal plans
-- `jarvis_llm_proxy` - LLM settings, job tracking
+## Service Dependencies
 
-## Used By
+None - fully static SPA. May be merged into jarvis-admin in the future.
 
-| Infrastructure | Services |
-|----------------|----------|
-| PostgreSQL | jarvis-auth, jarvis-command-center, jarvis-config-service, jarvis-recipes-server, jarvis-llm-proxy-api |
-| Redis | jarvis-ocr-service (job queue), jarvis-recipes-server (RQ worker), jarvis-llm-proxy-api (training queue) |
-| MinIO | jarvis-recipes-server (recipe images), jarvis-llm-proxy-api (adapter storage) |
-| Mosquitto | jarvis-command-center (publishes TTS to nodes) |
+## Testing
 
-## Configuration
-
-All config in `.env` (not committed - contains credentials). Ports are configurable via env vars.
-
-## Important
-
-- **Start this BEFORE any backend services** - they depend on PostgreSQL/Redis being available
-- Data directories (`data/`, `redis-data/`, `minio_data/`, etc.) are gitignored - they contain persistent data
-- `.env` is gitignored - contains credentials
+TDD required: RED → GREEN → IMPROVE. Target 80%+ coverage.
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
