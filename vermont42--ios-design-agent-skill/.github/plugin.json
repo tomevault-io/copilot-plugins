@@ -1,0 +1,9 @@
+{
+  "name": "vermont42--ios-design-agent-skill",
+  "displayName": "iOS-Design-Agent-Skill",
+  "description": "This is a design-critique skill and plugin that allows coding agents to apply rigorous aesthetic standards to iOS/SwiftUI apps.",
+  "version": "1.0.0",
+  "author": "vermont42",
+  "homepage": "https://github.com/vermont42/iOS-Design-Agent-Skill",
+  "skills": []
+}
