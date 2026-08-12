@@ -4,7 +4,7 @@
   "repo": "ebi-agent-chat-relay",
   "description": "Multi-frontend agent relay: run Claude Code, Codex, local, and AG-UI agents from Discord or Microsoft Teams",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ebibibi/ebi-agent-chat-relay",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T07:18:36Z"
+  "distributed_at": "2026-08-12T07:28:18Z"
 }
