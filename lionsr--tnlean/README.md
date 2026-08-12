@@ -7,11 +7,11 @@ Lean 4 formalization of the Fundamental Theorem of Matrix Product States (arXiv:
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [LionSR/TNLean](https://github.com/LionSR/TNLean).
+Original source: `AGENTS.md` in [LionSR/TNLean](https://github.com/LionSR/TNLean).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
