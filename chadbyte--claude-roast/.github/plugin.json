@@ -1,0 +1,9 @@
+{
+  "name": "chadbyte--claude-roast",
+  "displayName": "claude-roast",
+  "description": "\ud83d\udd25 Don't let AI rot your brain. Prompt quality feedback for Claude Code.",
+  "version": "1.0.0",
+  "author": "chadbyte",
+  "homepage": "https://github.com/chadbyte/claude-roast",
+  "skills": []
+}
