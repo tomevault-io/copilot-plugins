@@ -1,0 +1,9 @@
+{
+  "name": "cardano-foundation--cardano-dev-skills",
+  "displayName": "cardano-dev-skills",
+  "description": "Agentic development skills for Cardano devs",
+  "version": "1.0.0",
+  "author": "cardano-foundation",
+  "homepage": "https://github.com/cardano-foundation/cardano-dev-skills",
+  "skills": []
+}
