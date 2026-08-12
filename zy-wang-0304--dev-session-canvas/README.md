@@ -7,11 +7,11 @@ A VS Code extension for managing multiple development sessions on a shared canva
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ZY-WANG-0304/dev-session-canvas](https://github.com/ZY-WANG-0304/dev-session-canvas).
+Original source: `AGENTS.md` in [ZY-WANG-0304/dev-session-canvas](https://github.com/ZY-WANG-0304/dev-session-canvas).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
