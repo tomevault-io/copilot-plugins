@@ -1,0 +1,9 @@
+{
+  "name": "shcherbak-ai--tethered",
+  "displayName": "tethered",
+  "description": "tethered \u2014 Runtime network egress control for Python. One function call to restrict which hosts your code can connect to.",
+  "version": "1.0.0",
+  "author": "shcherbak-ai",
+  "homepage": "https://github.com/shcherbak-ai/tethered",
+  "skills": []
+}
