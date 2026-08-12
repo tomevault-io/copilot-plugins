@@ -1,0 +1,44 @@
+{
+  "name": "moka",
+  "owner": "vima-tech",
+  "repo": "moka",
+  "description": "\ud83c\udfa8 \u5728\u7ebfAI\u9a71\u52a8\u7684\u7206\u6b3e\u6587\u6848\u6392\u7248\u795e\u5668| \u514d\u8d39 | 29\u79cd\u7cbe\u7f8e\u6a21\u677f \u00b7 \u5c0f\u7ea2\u4e66&\u516c\u4f17\u53f7\u53cc\u5e73\u53f0\u652f\u6301 \u00b7 \u4e00\u952e\u751f\u6210\u9ad8\u989c\u503c\u56fe\u6587",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vima-tech/moka",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T01:05:43Z"
+}
