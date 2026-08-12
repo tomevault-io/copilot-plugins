@@ -1,0 +1,9 @@
+{
+  "name": "coringawc--filament-acl",
+  "displayName": "filament-acl",
+  "description": "A Filament plugin that solves the ACL per resource permissions.",
+  "version": "1.0.0",
+  "author": "CoringaWc",
+  "homepage": "https://github.com/CoringaWc/filament-acl",
+  "skills": []
+}
