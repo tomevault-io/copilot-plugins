@@ -1,0 +1,9 @@
+{
+  "name": "vlm-run--mm",
+  "displayName": "mm",
+  "description": "Fast, multi-modal context for agents",
+  "version": "1.0.0",
+  "author": "vlm-run",
+  "homepage": "https://github.com/vlm-run/mm",
+  "skills": []
+}
