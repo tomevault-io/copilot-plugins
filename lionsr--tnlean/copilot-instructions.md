@@ -1,0 +1,324 @@
+## tnlean
+
+> This file provides guidance to AI coding assistants working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to AI coding assistants working with code in this repository.
+
+## Project Overview
+
+TNLean is a Lean 4 formalization of the **Fundamental Theorem of Matrix Product States**, **Quantum Wielandt theory**, and finite-dimensional **quantum-channel theory** (following Wolf's *Quantum Channels & Operations*). Built on Mathlib v4.32.0.
+
+## Build Commands and Mathlib Cache Policy
+
+**Canonical cache rule:** never rebuild Mathlib from source in a fresh, cloned,
+or cache-cleared worktree. After adding or updating a Mathlib dependency, fetch
+its prebuilt artifacts **before** any `lake build` or local Lean check:
+
+```bash
+# Fetch pre-built Mathlib artifacts after a Mathlib/toolchain/dependency update.
+# Do this before `lake build` or `lake env lean`; otherwise Mathlib can rebuild
+# from source and take hours.
+lake exe cache get
+
+# Only after the cache fetch succeeds:
+lake build
+lake env lean TNLean/Path/To/File.lean
+```
+# Check for sorrys/axioms in changed files
+rg -n "sorry|axiom" TNLean/Path/To/File.lean || true
+
+# Blueprint validation (requires leanblueprint; run after lake build succeeds)
+cd blueprint && leanblueprint checkdecls
+
+# Blueprint web/PDF generation
+cd blueprint && leanblueprint web
+cd blueprint && leanblueprint pdf
+```
+
+## Lean Toolchain & Dependencies
+
+- **Lean**: v4.32.0 (pinned in `lean-toolchain`)
+- **Mathlib**: v4.32.0
+- **checkdecls**: Blueprint declaration checker (PatrickMassot/checkdecls)
+- **Gametheory**: Custom Brouwer fixed-point theorem library (LionSR/Brouwer)
+
+### Lean Options (lakefile.toml)
+
+- `relaxedAutoImplicit = false` — strict implicit arguments, no auto-implicit
+- `pp.unicode.fun = true` — pretty-prints `fun a ↦ b`
+- `maxSynthPendingDepth = 3` — typeclass synthesis depth limit
+
+## Architecture
+
+The source lives in `TNLean/` and is organized into **layers 0-6 with sublayers**.
+See `docs/import_structure.md`; `TNLean.lean` is generated.
+
+| Layer | Modules | Content |
+|-------|---------|---------|
+| **0** | `Algebra/`, `Analysis/`, `Topology/`, `Axioms/` | Matrix lemmas, trace pairings, Gram matrices, Frobenius norms, Skolem-Noether, cocycle cohomology, Brouwer FPT |
+| **1-2** | `Channel/` (Basic, Choi, Kraus, Stinespring, Transfer) | Quantum channel representations (Wolf Ch. 2) |
+| **2b-2c** | `Channel/Schwarz/`, `Channel/FixedPoint/`, `Channel/Irreducible/`, `Channel/Peripheral/`, `Channel/Semigroup/`, `Channel/KoashiImoto/`, `QPF/`, `Spectral/` | Kadison-Schwarz, Perron-Frobenius, spectral theory, peripheral spectrum, GKSL semigroups (Wolf Ch. 5-7); common invariant algebra of jointly invariant states (HJPW appendix) |
+| **3** | `MPS/Defs`, `MPS/Chain/`, `MPS/Core/`, `MPS/Overlap/` | MPSTensor definition, word evaluation, blocking, transfer matrices, overlap matrices |
+| **4** | `MPS/FundamentalTheorem/`, `MPS/Symmetry/` | Single-block FT, gauge equivalence, on-site/virtual symmetries, cocycle coboundary |
+| **5** | `MPS/BNT/`, `MPS/CanonicalForm/`, `MPS/Structure/`, `MPS/Irreducible/`, `MPS/Periodic/`, `MPS/FundamentalTheorem/Multi/` | Multi-block assembly, BNT canonical forms, permutation rigidity, periodic tensors |
+| **5b** | `MPS/RFP/` | Renormalization fixed-point scaffolding |
+| **6** | `Wielandt/` | Span-growth, rank-one extraction, rectangular span, Wielandt bound, primitivity equivalences |
+
+**Other modules**: `PiAlgebra/` (pi-algebra FT variants), `PEPS/` (two-dimensional fundamental-theorem development for torus, cycle, and normal-tensor routes), `MPS/MPDO/` (density operator foundations), and `Archive/` (legacy, excluded from root imports).
+
+### Key Types and Definitions
+
+- `MPSTensor d D` — a `Fin d`-indexed family of `D*D` complex matrices
+- `evalWord A w` — product of matrices along word `w : List (Fin d)`
+- `IsInjective A` — matrices of `A` span the full matrix algebra
+- `SameMPV A B` / `SameMPV₂` — same matrix product vector family
+- `GaugeEquiv A B` — conjugation by invertible matrix (`B i = X * A i * X⁻¹`)
+- `IsBNTCanonicalForm` — paper-faithful basis-of-normal-tensors canonical form predicate
+- `cumulativeSpan A n` — span of all products of length <= n
+- `IsNormal A` — the project's normality notion for Wielandt theory
+- `transferMap A` — the CP map `rho -> sum_i A_i * rho * (A_i)^H`
+
+## Conventions & Style Guides
+
+Detailed conventions live in `docs/`. Read the relevant file before working in that area:
+
+| File | Covers |
+|------|--------|
+| [`docs/MATHLIB_style.md`](docs/MATHLIB_style.md) | Code formatting, line length (100 chars), declarations, tactic style, whitespace, transparency, deprecation |
+| [`docs/MATHLIB_naming.md`](docs/MATHLIB_naming.md) | Capitalization rules, symbol-to-name dictionary, variable conventions |
+| [`docs/MATHLIB_doc.md`](docs/MATHLIB_doc.md) | Module docstrings, definition docstrings, sectioning comments, BibTeX citations |
+| [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md) | PR title format (`type(scope): description`), issue conventions, label taxonomy, review checklist, mathematical-language renames |
+| [`docs/glossary.md`](docs/glossary.md) | Canonical public predicates, mathematical meanings, source anchors, sanctioned bridges, and caveats |
+| [`docs/MATHLIB_pr-review.md`](docs/MATHLIB_pr-review.md) | Review criteria: style, documentation, location, improvements, library integration |
+| [`docs/pr_review_management.md`](docs/pr_review_management.md) | PR triage process, comment API mapping, merge decisions |
+| [`docs/PROOF_INTEGRITY.md`](docs/PROOF_INTEGRITY.md) | Blockers (`sorry`, `axiom`, kernel bypasses, circular reasoning) and warnings (`maxHeartbeats`, debug artifacts) |
+| [`docs/blueprint_style_guide.md`](docs/blueprint_style_guide.md) | LaTeX conventions, `\lean{}`/`\leanok` tags, notation table, `\uses` rules, blueprint build commands |
+| [`docs/prose_style.md`](docs/prose_style.md) | Prose conventions: no Lean jargon in the leanblueprint, banned software-engineering terms, banned LLM writing patterns (applies to `.tex` AND Lean docstrings/comments) |
+| [`docs/ci-automation.md`](docs/ci-automation.md) | CI workflows, auto-fix loops, iteration caps, commit message conventions |
+| [`docs/lake_build_cache.md`](docs/lake_build_cache.md) | Local Lake cache reuse and changed-module compilation-time limits |
+| [`docs/tactic_development.md`](docs/tactic_development.md) | Tactic self-improvement loop: detecting repeated proof patterns, promotion criteria, design rules for custom tactics/simp sets |
+| [`docs/tactic_patterns.md`](docs/tactic_patterns.md) | Living pattern ledger: promoted tactics, candidate patterns awaiting abstraction |
+
+### Quick Reference (from the docs above)
+
+- **PR titles**: `type(scope): description` -- types: `feat`, `fix`, `refactor`,
+  `doc`, `style`, `ci`, `chore`; scope is shortened module path without
+  `TNLean/` prefix
+- **Issue titles**: plain mathematical titles, not `type(scope): ...`; use
+  `Tracking: <area>` for trackers and keep titles bracket-free
+- **Naming**: Definitions `camelCase`, predicates `IsPrefix`, theorems `snake_case`, files `CamelCase.lean`
+- **Proof integrity blockers**: `sorry`, `admit`, `native_decide`, `unsafeCast`, `axiom`, circular reasoning
+- **Blueprint prose**: Pure mathematics only — no Lean identifiers in text, no software jargon (see banned terms list in blueprint style guide)
+- **Paper references**: Cite theorem numbers in docstrings (e.g., "Wolf Thm 6.3", "arXiv:1606.00608 Appendix A")
+- **Mathematical renames**: When renaming a declaration whose old name encodes misleading terminology (banned vocabulary in `docs/prose_style.md` §2), skip the `@[deprecated] alias` and state the reason in the PR body (see `docs/CONTRIBUTING.md` §Mathematical-language renames).
+
+## Workflow
+
+### Mathlib Scouting
+
+When writing new proofs or closing sorrys, scout Mathlib first:
+- Use `exact?`, `apply?`, `rw?`, `simp?` tactics
+- Grep Mathlib source: `.lake/packages/mathlib/Mathlib/` for related definitions/theorems
+- Reuse Mathlib lemmas rather than reproving from scratch
+- Not needed for cosmetic fixes, docstrings, imports, or renaming
+
+### Tactic Self-Improvement Loop
+
+Proof text must grow sublinearly with mathematical content: a tactic pattern
+paid for three times gets abstracted, not copied a fourth time. The full
+process is in `docs/tactic_development.md`; the pattern ledger is
+`docs/tactic_patterns.md`. In every proof-writing session:
+
+1. **Consult** the ledger's promoted section first and use existing custom
+   tactics/simp sets (`mpv_ext`, `transfer_simp` in
+   `TNLean/MPS/Tactic/Basic.lean`) where they apply — hand-writing a pattern
+   that has a promoted tactic is a review-blocking style issue.
+2. **Detect** repetition while writing, and in proof-heavy PRs run:
+
+   ```bash
+   python3 scripts/tactic_pattern_scan.py
+   ```
+
+3. **Record** noticed repetition as a candidate entry in the ledger — in the
+   same PR; recording is cheap and needs no design decision.
+4. **Promote** when a pattern hits ≥ 3 occurrences across ≥ 2 files (rule of
+   three): prefer a lemma, then a simp set, then `@[grind]` annotations +
+   `grind` for goal-closing patterns, then a macro, then an elab tactic
+   (weakest mechanism that removes the duplication). Refactor the known call
+   sites and update the ledger entry.
+
+### Blueprint Updates
+
+When adding or completing (removing sorry from) theorems/lemmas:
+1. Update the corresponding entry in `blueprint/src/chapter/*.tex`
+2. Add `\lean{DeclarationName}` and `\leanok` tags for new results
+3. Add `\leanok` to `\begin{proof}` for newly proven results
+4. Validate with `lake build` then `leanblueprint checkdecls`
+
+### General Rules
+
+- Prefer minimal diffs
+- Do not leave unrelated new sorrys
+- Before changing theorem statements, first try to complete the proof using existing lemmas
+- If a mathematical result looks wrong or suspiciously general, check the LaTeX sources in `Papers/` and `Notes/` for the original theorems
+
+### Faithfulness rule
+
+**A theorem is "formalized" only when its Lean signature has no hypothesis
+absent from the cited source's statement.** Adding hypotheses — even
+mathematically natural ones — produces a *different* theorem and must
+not be marked `\leanok` against the source's blueprint label.
+
+This applies to every formalized result, not only those undergoing active
+paper-realignment. The check is on hypotheses, not just conclusions:
+
+- A Lean theorem whose conclusion matches the source but whose hypotheses
+  are stricter than the source's is **not** the formalization of the source
+  theorem. It is a different theorem (a corollary or specialization).
+- The blueprint label citing the source must point to a Lean statement
+  with the source's hypothesis set, not to a stronger-hypothesis variant.
+- If the only available Lean theorem has extra hypotheses, the blueprint
+  must either: (a) drop the `\leanok` and `\lean{...}` tags from the
+  source-labelled entry, or (b) state the source's theorem as a
+  separate blueprint entry with `\leanok` only after a faithful Lean
+  version exists.
+
+Scope-restricted theorems may be marked `\leanok` only against a blueprint
+statement that explicitly states the restriction. Such an entry must not be
+presented as the source theorem itself. The unrestricted source theorem remains
+unformalized until a Lean statement with the source's hypothesis set exists.
+
+A paper-gap note in `docs/paper-gaps/` is required whenever a
+stricter-hypothesis Lean version is the *only* available formalization of
+a source theorem. The note must identify the missing hypothesis and the
+elimination plan (formalize the source-faithful version, derive the
+stricter version inside a particular argument, etc.).
+
+This rule was retroactively codified after the equalMPS audit
+(`docs/paper-gaps/cpsv16_equalMPS_gauge_phase_gap.tex`) found that the
+proportionality-conditional Lean theorem was being treated as the
+formalization of the proportionality-free source lemma.
+
+### Paper-realignment mode
+
+When the formalization has drifted from the cited source and the work is
+**realigning the Lean development to the paper** (replacing wrong hypotheses,
+removing divergent structures, restating theorems to match the source), the
+default `sorry`/`axiom` blockers from `docs/PROOF_INTEGRITY.md` are temporarily
+relaxed. The priority is **getting the statements right**; proofs are
+restored after.
+
+#### Source-citation requirement
+
+In paper-realignment mode every restated definition, hypothesis field, or
+theorem **must carry a docstring referencing the source by paper label or line
+range**. The minimum acceptable forms:
+
+- `arXiv:1606.00608, eq:II_CF1` — equation/theorem label
+- `arXiv:1606.00608, lines 1170–1192` — line range in the local source PDF/tex
+- `CPSV16, Lemma Lem1` — paper short name plus internal label
+- `Wolf §6.2` — published section reference
+
+For Lean fields and theorems whose mathematical content is being aligned to a
+specific paper passage, the docstring must say *which* passage. Inline
+identifiers without a source reference are unreviewable in this mode: a
+reviewer cannot tell whether the field/theorem is faithful or invented.
+
+This rule applies whether or not the proof is `sorry` — the *statement* is
+the load-bearing artifact during realignment.
+
+#### Marking unfaithful theorems
+
+A theorem or lemma is **unfaithful** when its proof relies on a hypothesis or
+intermediate lemma that is known to deviate from the cited source — typically
+because the hypothesis was smuggled into the formalization, the proof
+shortcuts a load-bearing source step, or the result is restated more weakly
+than the paper would prove. Unfaithful theorems must carry a docstring
+marker so a future reader (or a follow-up PR) can locate them.
+
+The marker is a docstring section starting with `**Unfaithful:**` that names
+the load-bearing deviation, cites the paper-gap note documenting it, and
+sketches the elimination plan. Minimum form:
+
+```
+**Unfaithful:** This proof currently relies on `<hypothesis or lemma>`,
+which deviates from `<paper, label or line range>`. Documented in
+`docs/paper-gaps/<note>.tex`. Elimination: replace by `<faithful
+substitute>`; tracked in `<issue or PR>`.
+```
+
+The marker propagates to dependent theorems: any theorem whose proof
+transitively calls an unfaithful one is itself unfaithful and must carry its
+own marker. The marker is removed only when every transitively-cited
+dependency is faithful.
+
+Reviewers should not approve a paper-realignment PR that introduces an
+unfaithful theorem without the marker. The marker makes the deviation
+auditable and keeps the elimination plan visible.
+
+#### Locally-fixable deviations
+
+Not every paper deviation rises to **Unfaithful**. When the cited source
+contains a small typo, a locally-fixable gap (a missing or off-by-one
+constant, a clarification needed at one step), or a scope restriction that
+the paper proves more generally but the local result handles only a
+sub-case, the formalization may proceed without the full **Unfaithful**
+ceremony. These cases must still:
+
+- Cite a paper-gap document (under `docs/paper-gaps/`) that records the
+  deviation in mathematical terms; if no note exists, write a short one
+  before merging.
+- Use a lighter-weight in-source marker. The recommended forms are
+  `**Scope restriction (...):**` for sub-case proofs, or
+  `**Local fix (...):**` for typo/constant adjustments. Both forms must
+  reference the paper-gap document by file path.
+- Be inline-readable: the marker should let a reader recognize the
+  deviation without leaving the file.
+
+The **Unfaithful** marker is reserved for deviations that would be
+mathematically wrong without follow-up work (the proof is unprovable, or
+the statement smuggles an unwarranted hypothesis). The lighter markers
+are for deviations that are mathematically correct as stated, just
+narrower or differently phrased than the source.
+
+A paper-realignment PR may:
+
+- Delete fields, hypotheses, or whole theorems that are documented as
+  divergent from the cited source (with the divergence recorded in
+  `docs/paper-gaps/`).
+- Leave `sorry` in proof bodies whose old proof depended on the deleted
+  data, when the paper-faithful replacement is the next step.
+- Cascade signature changes through downstream consumers, also using
+  `sorry` if necessary, rather than reverting to keep the build proof-clean.
+
+A paper-realignment PR must:
+
+- Cite the relevant `docs/paper-gaps/*.tex` note documenting the divergence
+  in the PR description.
+- Identify, in the PR description, every `sorry` introduced and the
+  paper-faithful theorem that will discharge it.
+- Be scoped tightly — no unrelated refactors or feature additions.
+- Be followed by tracked implementation issues for the missing
+  paper-faithful proofs.
+
+In paper-realignment mode the standard "do not add sorry" rule is the
+*wrong* heuristic: keeping a divergent proof intact to avoid `sorry`
+preserves a result the source does not assert. Reviewers should evaluate
+paper-realignment PRs against the paper-gap note and the planned
+follow-up, not against the temporary `sorry` count.
+
+## Lean proof automation ledger
+
+| Name | Kind | Use when | Defined in |
+|---|---|---|---|
+| `verticalAssembledTensor_apply_copy_same` | helper theorem | Evaluating an assembled vertical tensor at two coordinates in the same retained multiplicity copy | `TNLean/MPS/MPDO/VerticalSectorCoordinates.lean` |
+| `exists_blockDiagonal_boundary_chainGroundSpace_of_global_cut_of_openBoundary` | helper theorem | Closing block-diagonal boundaries from an open-boundary representation and a simultaneous span across the complementary global cut | `TNLean/MPS/ParentHamiltonian/BNTBlockDiagonalBoundaryClosing.lean` |
+| `BlockSumGroundSpace.exists_blockDiagonal_boundary_of_mem_iSup_groundSpace` | helper theorem | Assembling membership in the sum of open-boundary block spaces into one weighted block-diagonal boundary matrix | `TNLean/MPS/ParentHamiltonian/BlockSumGroundSpace.lean` |
+| `Kraus.map_compressed_fixedPoint` | helper theorem | Preserving a supported fixed point under finite-Kraus compression along an isometry | `TNLean/Channel/KrausCornerCompression.lean` |
+| `MPSTensor.eq_zero_of_forall_trace_mul_right_eq_zero` | helper theorem | Concluding that a matrix is zero from vanishing trace pairings against every one-site matrix of an injective tensor | `TNLean/Algebra/TracePairing.lean` |
+
+---
+> Source: [LionSR/TNLean](https://github.com/LionSR/TNLean) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
