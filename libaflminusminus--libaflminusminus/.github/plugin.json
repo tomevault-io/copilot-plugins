@@ -1,0 +1,9 @@
+{
+  "name": "libaflminusminus--libaflminusminus",
+  "displayName": "LibAFLminusminus",
+  "description": "LibAFLminusminus, the unbloated version of LibAFL",
+  "version": "1.0.0",
+  "author": "LibAFLminusminus",
+  "homepage": "https://github.com/LibAFLminusminus/LibAFLminusminus",
+  "skills": []
+}
