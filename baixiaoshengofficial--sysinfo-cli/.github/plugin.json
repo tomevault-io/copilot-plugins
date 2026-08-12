@@ -1,0 +1,9 @@
+{
+  "name": "baixiaoshengofficial--sysinfo-cli",
+  "displayName": "sysinfo-cli",
+  "description": "Lightweight system monitor for debian/ubuntu base system",
+  "version": "1.0.0",
+  "author": "baixiaoshengofficial",
+  "homepage": "https://github.com/baixiaoshengofficial/sysinfo-cli",
+  "skills": []
+}
