@@ -4,7 +4,7 @@
   "repo": "lerim",
   "description": "Compiles AI agent traces and truns them into reusable context.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nablo-io/lerim",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T06:49:19Z"
+  "distributed_at": "2026-08-12T07:01:04Z"
 }
