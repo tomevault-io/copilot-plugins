@@ -1,0 +1,9 @@
+{
+  "name": "cobble-project--cobble",
+  "displayName": "cobble",
+  "description": "A flexible embedded key-value store designed for use in distributed systems and standalone applications",
+  "version": "1.0.0",
+  "author": "cobble-project",
+  "homepage": "https://github.com/cobble-project/cobble",
+  "skills": []
+}
