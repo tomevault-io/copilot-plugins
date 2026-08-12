@@ -4,7 +4,7 @@
   "repo": "graph-tool-call",
   "description": "Graph-based tool retrieval for LLM agents \u2014 248 tools \u2192 82% accuracy, 79% fewer tokens. Zero dependencies. OpenAPI / MCP / LangChain.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SonAIengine/graph-tool-call",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T23:13:18Z"
+  "distributed_at": "2026-08-12T23:23:26Z"
 }
