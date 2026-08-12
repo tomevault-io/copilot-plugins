@@ -1,0 +1,9 @@
+{
+  "name": "dcherrera--bootai",
+  "displayName": "bootai",
+  "description": "Boot straight into AI. UEFI application \u2014 no OS required.",
+  "version": "1.0.0",
+  "author": "dcherrera",
+  "homepage": "https://github.com/dcherrera/bootai",
+  "skills": []
+}
