@@ -1,0 +1,9 @@
+{
+  "name": "omalloc--probecube-agent",
+  "displayName": "probecube-agent",
+  "description": "probecube-agent",
+  "version": "1.0.0",
+  "author": "omalloc",
+  "homepage": "https://github.com/omalloc/probecube-agent",
+  "skills": []
+}
