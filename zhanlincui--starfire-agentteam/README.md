@@ -7,11 +7,11 @@ Govern AI agent teams with org-native hierarchy, memory, and operations. A contr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ZhanlinCui/Starfire-AgentTeam](https://github.com/ZhanlinCui/Starfire-AgentTeam).
+Original source: `CLAUDE.md` in [ZhanlinCui/Starfire-AgentTeam](https://github.com/ZhanlinCui/Starfire-AgentTeam).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
