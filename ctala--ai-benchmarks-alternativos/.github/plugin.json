@@ -1,0 +1,9 @@
+{
+  "name": "ctala--ai-benchmarks-alternativos",
+  "displayName": "ai-benchmarks-alternativos",
+  "description": "Benchmark abierto en espa\u00f1ol de 170 modelos de IA (118 con 20+ runs, 69 rankeados, juez Phi-4 independiente). Calidad, costo, velocidad, long-context y fuga de credenciales como dimensiones separadas.",
+  "version": "1.0.0",
+  "author": "ctala",
+  "homepage": "https://github.com/ctala/ai-benchmarks-alternativos",
+  "skills": []
+}
