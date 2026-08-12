@@ -1,0 +1,9 @@
+{
+  "name": "yeongseon--azure-functions-logging-python",
+  "displayName": "azure-functions-logging-python",
+  "description": "Developer-friendly structured logging helpers for Azure Functions Python",
+  "version": "1.0.0",
+  "author": "yeongseon",
+  "homepage": "https://github.com/yeongseon/azure-functions-logging-python",
+  "skills": []
+}
