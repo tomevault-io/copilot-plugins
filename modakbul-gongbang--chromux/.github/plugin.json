@@ -1,0 +1,9 @@
+{
+  "name": "modakbul-gongbang--chromux",
+  "displayName": "chromux",
+  "description": "The only browser tool your agent needs. Real Chrome, in your agent's hands - its own private browsers, a headless crawl fleet, or the tab you're looking at right now. Every action verified. Every site",
+  "version": "1.0.0",
+  "author": "modakbul-gongbang",
+  "homepage": "https://github.com/modakbul-gongbang/chromux",
+  "skills": []
+}
