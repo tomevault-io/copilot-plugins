@@ -1,0 +1,9 @@
+{
+  "name": "kalki-kgp--paperknife",
+  "displayName": "PaperKnife",
+  "description": "Privacy-first PDF utility \u2014 merge, split, compress, sign, encrypt, convert. Runs 100% in your browser. No uploads, no servers, works fully offline.",
+  "version": "1.0.0",
+  "author": "kalki-kgp",
+  "homepage": "https://github.com/kalki-kgp/PaperKnife",
+  "skills": []
+}
