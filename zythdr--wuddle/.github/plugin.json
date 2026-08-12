@@ -1,0 +1,9 @@
+{
+  "name": "zythdr--wuddle",
+  "displayName": "Wuddle",
+  "description": "Wuddle started as a DLL Mods Updater and have now transitioned into being a full-fledged launcher app, primarily for Vanilla WoW. It's entirely vibe-coded but I've tried to make it not suck. Expect a ",
+  "version": "1.0.0",
+  "author": "ZythDr",
+  "homepage": "https://github.com/ZythDr/Wuddle",
+  "skills": []
+}
