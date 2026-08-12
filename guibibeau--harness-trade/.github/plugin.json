@@ -1,0 +1,9 @@
+{
+  "name": "guibibeau--harness-trade",
+  "displayName": "harness-trade",
+  "description": "Open-source Solana trading terminal \u2014 Phoenix perps + Jupiter spot from one USDC account. Chart-native trading, honest data, AI features landing daily.",
+  "version": "1.0.0",
+  "author": "GuiBibeau",
+  "homepage": "https://github.com/GuiBibeau/harness-trade",
+  "skills": []
+}
