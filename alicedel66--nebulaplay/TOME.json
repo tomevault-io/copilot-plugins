@@ -1,0 +1,44 @@
+{
+  "name": "NebulaPlay",
+  "owner": "AliceDel66",
+  "repo": "NebulaPlay",
+  "description": "\u60f3\u770b\u4e00\u90e8\u5267\uff0c\u5374\u8981\u5148\u8bb0\u4f4f\u5b83\u85cf\u5728\u54ea\u4e2a\u7ad9\u70b9\uff1b\u60f3\u5b89\u9759\u770b\u7247\uff0c\u5374\u8981\u5148\u71ac\u8fc7\u5e7f\u544a\u3001\u5f39\u7a97\u548c\u8bf1\u5bfc\u4e0b\u8f7d\u3002 NebulaPlay \u60f3\u6539\u53d8\u7684\uff0c\u6b63\u662f\u8fd9\u4ef6\u6bcf\u4e2a\u4eba\u90fd\u4e60\u4ee5\u4e3a\u5e38\u3001\u5374\u4e0d\u8be5\u5fcd\u53d7\u7684\u4e8b\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AliceDel66/NebulaPlay",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T09:12:05Z"
+}
