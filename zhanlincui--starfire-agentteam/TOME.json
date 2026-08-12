@@ -4,7 +4,7 @@
   "repo": "Starfire-AgentTeam",
   "description": "Govern AI agent teams with org-native hierarchy, memory, and operations. A control plane for building, running, and governing production AI agent teams.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ZhanlinCui/Starfire-AgentTeam",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T21:08:33Z"
+  "distributed_at": "2026-08-12T21:09:13Z"
 }
