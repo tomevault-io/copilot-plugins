@@ -4,7 +4,7 @@
   "repo": "tileserver-rs",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -137,5 +137,5 @@
   ],
   "source_url": "https://github.com/vinayakkulkarni/tileserver-rs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-24T08:00:34Z"
+  "distributed_at": "2026-08-12T02:01:49Z"
 }
