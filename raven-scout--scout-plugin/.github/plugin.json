@@ -1,0 +1,9 @@
+{
+  "name": "raven-scout--scout-plugin",
+  "displayName": "scout-plugin",
+  "description": "Autonomous daily briefing for Claude Code that cross-checks Slack, Gmail, Calendar, Linear & GitHub \u2014 so nothing falls through the cracks, and you can trust what it surfaces.",
+  "version": "1.0.0",
+  "author": "Raven-Scout",
+  "homepage": "https://github.com/Raven-Scout/scout-plugin",
+  "skills": []
+}
