@@ -1,0 +1,9 @@
+{
+  "name": "geoparquet-io--tylertoo",
+  "displayName": "tylertoo",
+  "description": "GeoParquet to PMTiles in Rust.",
+  "version": "1.0.0",
+  "author": "geoparquet-io",
+  "homepage": "https://github.com/geoparquet-io/tylertoo",
+  "skills": []
+}
