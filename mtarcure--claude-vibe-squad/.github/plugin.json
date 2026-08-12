@@ -1,0 +1,9 @@
+{
+  "name": "mtarcure--claude-vibe-squad",
+  "displayName": "claude-vibe-squad",
+  "description": "Markdown-first multi-model AI orchestration in one tmux session. A single coordinator (Chrono) routes scoped markdown task packets across 4 frontier model lanes (GPT-5.6 Sol / Claude Opus 5 + Fable 5 ",
+  "version": "1.0.0",
+  "author": "mtarcure",
+  "homepage": "https://github.com/mtarcure/claude-vibe-squad",
+  "skills": []
+}
