@@ -4,7 +4,7 @@
   "repo": "engram",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/clickety-clacks/engram",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T07:39:18Z"
+  "distributed_at": "2026-08-12T08:57:24Z"
 }
