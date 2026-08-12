@@ -1,0 +1,38 @@
+## memex
+
+> memex knowledge base bootstrap — index digest + command reference
+
+
+## 🧠 Memex Knowledge Base
+
+This project is connected to a persistent knowledge base (LLM Wiki) managed by the `memex` CLI.
+
+- **Vault**: `C:/Users/Administrator/.llmwiki`
+- **Pages**: 25 (team: 25)
+- **Updated**: 2026-04-25
+- **Agent**: cursor
+
+### Index digest
+
+**team** — 25 pages
+- [[agent-native-iteration-plan-2026-04-24]] — ai-memex-cli 从 CLI-first 转向 agent-native wiki 工作流的迭代计划文档
+- [[agent-first-memex-workflow]] — agent skill 是主界面，CLI 是工具箱的产品与架构原则
+- [[agent-native-architecture]] — ai-memex-cli 三层架构设计：Agent Interface、Workflow Protocol、CLI Toolbox
+- [[cli-toolbox-boundary]] — CLI 不负责语义写作、不调 LLM API、只做机械原语的架构边界定义
+- [[multi-agent-installation]] — agent profiles、slash prompts、skills、context files、user/project scope
+- …20 more (run `memex status --scene team`)
+
+### How to use memex from this session
+
+- `memex search "<topic>"` — keyword + full-text search across the wiki
+- `memex inject --task "<current goal>"` — pull the most relevant pages for your task
+- `memex fetch <url|query>` — fetch web docs / search results into `raw/`
+- `memex distill` / `memex ingest` — convert sessions/raw into structured wiki
+- `memex watch` — auto ingest → lint → ingest loop when `raw/` changes
+- `memex --help` — full command list
+
+> 💡 **Before answering domain questions or starting non-trivial work, consult `memex inject --task "<what you are trying to do>"` to load relevant wiki pages.**
+
+---
+> Source: [zelixag/ai-memex-cli](https://github.com/zelixag/ai-memex-cli) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
