@@ -4,7 +4,7 @@
   "repo": "coding-agent-tips",
   "description": "evidence-backed guidance for coding agents in production software, from individual projects to startups and big tech.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/anipotts/coding-agent-tips",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T03:23:21Z"
+  "distributed_at": "2026-08-12T03:36:21Z"
 }
