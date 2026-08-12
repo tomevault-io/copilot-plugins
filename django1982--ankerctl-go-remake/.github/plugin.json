@@ -1,0 +1,9 @@
+{
+  "name": "django1982--ankerctl-go-remake",
+  "displayName": "ankerctl_go_remake",
+  "description": "This is a remake of the ankermake m5 protocol in Go - because of security",
+  "version": "1.0.0",
+  "author": "Django1982",
+  "homepage": "https://github.com/Django1982/ankerctl_go_remake",
+  "skills": []
+}
