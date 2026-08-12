@@ -1,0 +1,9 @@
+{
+  "name": "firn-labs--unkai-mail",
+  "displayName": "unkai-mail",
+  "description": "Modern mail client written in Rust",
+  "version": "1.0.0",
+  "author": "firn-labs",
+  "homepage": "https://github.com/firn-labs/unkai-mail",
+  "skills": []
+}
