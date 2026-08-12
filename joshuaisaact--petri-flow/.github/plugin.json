@@ -1,0 +1,9 @@
+{
+  "name": "joshuaisaact--petri-flow",
+  "displayName": "petri-flow",
+  "description": " Petri net safety layer for AI agents. Compile declarative rules into formally verified tool gates. Any framework.",
+  "version": "1.0.0",
+  "author": "joshuaisaact",
+  "homepage": "https://github.com/joshuaisaact/petri-flow",
+  "skills": []
+}
