@@ -1,0 +1,9 @@
+{
+  "name": "k3dom--pi-plugins",
+  "displayName": "pi-plugins",
+  "description": "High-quality, single-purpose plugins for the pi-agent harness, built on Effect-TS primitives.",
+  "version": "1.0.0",
+  "author": "k3dom",
+  "homepage": "https://github.com/k3dom/pi-plugins",
+  "skills": []
+}
