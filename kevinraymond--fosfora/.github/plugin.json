@@ -1,0 +1,9 @@
+{
+  "name": "kevinraymond--fosfora",
+  "displayName": "fosfora",
+  "description": "Free, open-source real-time audio & music visualizer / VJ engine, with audio-reactive GPU shaders, particles, and layer compositing, driven by WGSL and controlled with MIDI, OSC, or your phone. Cross-",
+  "version": "1.0.0",
+  "author": "kevinraymond",
+  "homepage": "https://github.com/kevinraymond/fosfora",
+  "skills": []
+}
