@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-medtech--medical-ai-skills",
+  "displayName": "medical-AI-skills",
+  "description": "agent-workbench",
+  "version": "1.0.0",
+  "author": "NVIDIA-Medtech",
+  "homepage": "https://github.com/NVIDIA-Medtech/medical-AI-skills",
+  "skills": []
+}
