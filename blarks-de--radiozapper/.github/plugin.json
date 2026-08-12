@@ -1,0 +1,9 @@
+{
+  "name": "blarks-de--radiozapper",
+  "displayName": "radiozapper",
+  "description": "Spielt Radiosender via Internet Stream und zappt sobald gesabbelt wird.",
+  "version": "1.0.0",
+  "author": "Blarks-de",
+  "homepage": "https://github.com/Blarks-de/radiozapper",
+  "skills": []
+}
