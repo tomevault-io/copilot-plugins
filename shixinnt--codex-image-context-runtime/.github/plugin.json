@@ -1,0 +1,9 @@
+{
+  "name": "shixinnt--codex-image-context-runtime",
+  "displayName": "codex-image-context-runtime",
+  "description": "A Codex plugin and local MCP runtime for context-bounded image generation and inspection.",
+  "version": "1.0.0",
+  "author": "shixinnt",
+  "homepage": "https://github.com/shixinnt/codex-image-context-runtime",
+  "skills": []
+}
