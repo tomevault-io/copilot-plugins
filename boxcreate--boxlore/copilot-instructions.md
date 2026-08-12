@@ -1,22 +1,82 @@
-## p1-workflow
+## pr-impact-labels
 
-> Slim P1 / large-refactor hard-stop — propose, wait for OK, then code
+> PR labels for user-impact level (required), optional backend-change, and merge gate
 
 
-# P1 / large refactor hard-stop
+# PR impact labels (required + optional)
 
-For large refactors, multi-file architecture moves, or batched P1 Critical issue cleanup:
+Every `boxlore` PR must have **exactly one** user-impact label. `backend-change` is optional and **pairable** with any level.
 
-## Phase 1 — proposal only
+**Changelog / README upcoming workflows read these labels** — do not open a PR without the user-impact level. See also [`.github/PULL_REQUEST_TEMPLATE.md`](../../.github/PULL_REQUEST_TEMPLATE.md).
 
-1. List the issues / scope in plain English.
-2. Describe the proposed fix and helper splits.
-3. Call out risk and blast radius (affected files).
-4. **Hard stop.** Do not create branches or edit product code until the user explicitly approves (e.g. “OK”).
+## User impact (pick one)
 
-## After approval
+| Label | Meaning | README / notification |
+|:--|:--|:--|
+| `user-impact-high` | Listeners clearly notice | Always prioritize |
+| `user-impact-medium` | Noticeable, not headline | Include |
+| `user-impact-low` | Minor user-facing | CHANGELOG; README if space |
+| `no-user-impact` | No listener-facing change | CHANGELOG only |
 
-Follow the normal agent loop: isolated branch if needed, update dependents, compile, module README + unit tests, `installDebug` for UI, commit/push/PR **only when asked**. PR labels and merge queue: [`.cursor/rules/pr-impact-labels.mdc`](pr-impact-labels.mdc).
+## Backend (optional, pairable)
+
+| Label | Meaning |
+|:--|:--|
+| `backend-change` | Server / proxy / infra involved — add alongside any user-impact level |
+
+Examples:
+
+- `--label user-impact-high --label backend-change`
+- `--label no-user-impact --label backend-change`
+- `--label user-impact-medium`
+
+## Merge gate — required before merge
+
+There is **no `merge-ci` label flow** and **no merge queue**. Unit CI (detekt / ktlint / Kover) runs on **every PR push**, plus optional `workflow_dispatch`. A new commit cancels any in-progress unit run for that PR.
+
+Master is protected by a branch ruleset. Required checks:
+
+| Check | Meaning |
+|:--|:--|
+| `testDebugUnitTest` | Full unit / static / Kover gate (PR; cancels prior run on new commit) |
+| `coderabbit-threads-resolved` | Every non-outdated CodeRabbit review thread is Resolved |
+
+Still run on PRs (not ruleset-required): SonarCloud App, CodeRabbit App status, Gitleaks.
+
+Agent / maintainer flow:
+
+1. Open and iterate the PR (unit suite cancels prior runs; Sonar/CodeRabbit/Gitleaks also run).
+2. Wait for **`testDebugUnitTest`** and **`coderabbit-threads-resolved`** green.
+3. Address **every** CodeRabbit finding and mark each CodeRabbit thread **Resolved**. After resolving without a push, re-run **CodeRabbit Threads Resolved** (`workflow_dispatch` with `pr_number`).
+4. If review decision is **`CHANGES_REQUESTED`**: **stop** — do not dismiss, do not merge. Ask the user to merge (or dismiss) manually.
+5. Otherwise squash-merge the PR when required checks are green.
+6. Optional: Actions → Run workflow (`Unit Tests`) for a manual full gate.
+
+**Title skips (when appropriate only):**
+
+- `[skip unit]` in the PR title — no-ops the unit suite on PR (still reports green). **Only** for safe docs/chore with no logic risk.
+- `[skip changelog]` — skips changelog-on-merge (e.g. `release: vX.Y.Z [skip changelog]`).
+
+**Bot bypass:** **boxlore-master-pusher** (GitHub App 4340323) and organization admins bypass the ruleset so scheduled workflows can push chore commits to `master` directly. Never remove that Integration bypass.
+
+Do **not** hand-edit `CHANGELOG.md` or README Upcoming / What's New marker regions before merge — changelog-on-merge owns those (labels help prioritize README / notifications).
+
+## PR title (required)
+
+Use Conventional Commits only:
+
+- `feat(scope): …` / `fix(scope): …` / `chore: …` / `docs: …` / `release: vX.Y.Z [skip changelog]`
+- Never open or leave a PR with a sentence-case title (e.g. `Polish the announcement dialog`).
+
+## Agent checklist
+
+1. Before `gh pr create`, set a Conventional Commit title and choose exactly one of `user-impact-high|medium|low` or `no-user-impact`.
+2. Add `backend-change` when the PR also touches backend/proxy/infra.
+3. Do not open a PR without a user-impact level label.
+4. Never apply two user-impact level labels on the same PR.
+5. If the label is `user-impact-high` or `user-impact-medium`, the PR body **must** include **Listener impact → What changes in the user’s life** in plain listener language (not just engineering bullets). Skip that section only for `user-impact-low` or `no-user-impact`.
+6. If a PR title violates Conventional Commits, rename it with `gh pr edit <n> --title "type(scope): …"` before merge.
+7. Before merging: confirm **`testDebugUnitTest`** + **`coderabbit-threads-resolved`** are green, every CodeRabbit thread is Resolved, and review decision is **not** `CHANGES_REQUESTED`. If it is `CHANGES_REQUESTED`, stop and ask the user to merge manually.
 
 ---
 > Source: [boxcreate/boxlore](https://github.com/boxcreate/boxlore) — distributed by [TomeVault](https://tomevault.io).
