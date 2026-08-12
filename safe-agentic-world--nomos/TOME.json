@@ -4,7 +4,7 @@
   "repo": "nomos",
   "description": "Secure every action your AI agents take (Claude Code, Codex, MCP). Blocks secret access, gates risky commands, and enforces allow/deny/approval before actions run.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/safe-agentic-world/nomos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T03:26:52Z"
+  "distributed_at": "2026-08-12T03:38:46Z"
 }
