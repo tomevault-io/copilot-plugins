@@ -1,0 +1,9 @@
+{
+  "name": "starter-series--electron-app-starter",
+  "displayName": "electron-app-starter",
+  "description": "Electron app starter with cross-platform CI/CD, code signing, and auto-update",
+  "version": "1.0.0",
+  "author": "starter-series",
+  "homepage": "https://github.com/starter-series/electron-app-starter",
+  "skills": []
+}
