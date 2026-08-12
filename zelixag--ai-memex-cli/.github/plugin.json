@@ -1,0 +1,9 @@
+{
+  "name": "zelixag--ai-memex-cli",
+  "displayName": "ai-memex-cli",
+  "description": "Your AI agents, finally with a memory that compounds.  AI Memex turns chats, documents, research, and project decisions into a living Markdown knowledge base, maintained by agents and versioned in Git",
+  "version": "1.0.0",
+  "author": "zelixag",
+  "homepage": "https://github.com/zelixag/ai-memex-cli",
+  "skills": []
+}
