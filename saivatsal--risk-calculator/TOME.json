@@ -1,8 +1,8 @@
 {
-  "name": "Risk-Calculator-",
+  "name": "Risk-Calculator",
   "owner": "SaiVatsal",
-  "repo": "Risk-Calculator-",
-  "description": "A trading risk calculator is essentially a tool that helps you quantify how much capital you\u2019re putting at risk per trade and whether it aligns with your overall risk management strategy. Since you\u2019re actively researching volatility and chart patterns, building one tailored to your workflow could be very useful.",
+  "repo": "Risk-Calculator",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/SaiVatsal/Risk-Calculator-",
+  "source_url": "https://github.com/SaiVatsal/Risk-Calculator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T18:11:25Z"
+  "distributed_at": "2026-08-12T02:54:28Z"
 }
