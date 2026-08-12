@@ -1,45 +1,72 @@
-## jarvis-recipes-mobile
+## jarvis-recipes-server
 
-> Rules for jarvis-recipes-mobile - recipes mobile app
+> Rules for jarvis-recipes-server - recipe CRUD and meal planning
 
 
-# jarvis-recipes-mobile
+# jarvis-recipes-server
 
-Mobile recipes app. React Native + TypeScript + Expo. More mature than jarvis-node-mobile.
+Recipe CRUD and meal planning service.
 
-## Running
-
-```bash
-npm install                    # Install dependencies
-npx expo start                 # Start Expo dev client
-npm run ios                    # iOS
-npm run android                # Android
-npm run web                    # Web version
-npm run dev:ios                # Open simulator + iOS (iPhone 15)
-npm run dev-full:ios           # Full prebuild + iOS
-```
-
-## Testing
+## Running (Port 7030)
 
 ```bash
-npm test                       # Jest
+./run.sh --docker              # Start in Docker (includes PostgreSQL)
+./run.sh --docker --rebuild    # Rebuild after dependency changes
+./run-prod.sh                  # Production (pulls from GHCR, requires shared network)
 ```
 
-## Purpose
+**Production requires:**
+- Shared Docker network: `docker network create microservices`
+- Shared PostgreSQL instance (see POSTGRES_SETUP.md)
 
-Browse recipes, meal planning, and interact with the recipe system. Can send images (recipe photos, screenshots) for OCR-based recipe import.
+## Architecture
 
-## Tech Stack
+```
+app/
+├── main.py
+├── models/                    # SQLAlchemy models
+├── routes/                    # FastAPI routes
+├── url_parsing/               # URL recipe parser (refactored from monolith)
+│   ├── __init__.py            # Main entry point (285 lines)
+│   ├── extractors/            # Site-specific extractors
+│   └── utils/                 # Parsing utilities
+└── services/                  # Business logic
+```
 
-- React Native + Expo + TypeScript
-- Jest for testing
+## Key Features
+
+- Recipe CRUD (create, read, update, delete)
+- URL recipe import (paste a URL, extracts recipe automatically)
+- Meal planning
+- `url_parsing/` package handles recipe extraction from websites
+
+## API Endpoints
+
+- `GET /recipes` - List recipes
+- `POST /recipes` - Create recipe
+- `POST /recipes/import-url` - Import recipe from URL
+- `GET /recipes/{id}` - Get recipe
+- `PUT /recipes/{id}` - Update recipe
+- `DELETE /recipes/{id}` - Delete recipe
 
 ## Service Dependencies
 
-- `jarvis-auth` (7701) - User authentication
-- `jarvis-recipes-server` (7030) - Recipe CRUD, URL import, meal planning (primary server)
+**Must be running:**
+- `jarvis-auth` (7701) - App-to-app auth
+- `jarvis-logs` (7702) - Centralized logging
+- `jarvis-ocr-service` (7031) - Image-based recipe OCR (photo/screenshot → text)
+- `jarvis-llm-proxy-api` (7704) - Validates OCR output and parses URL-based recipes
 
-**Design goal:** Clients should talk only to their respective server, which acts as passthrough to auth and other services.
+**Should use but not yet confirmed/implemented:**
+- `jarvis-config-service` (7700) - Service discovery (may still use hardcoded URLs)
+- `jarvis-settings-client` - Runtime configuration (future)
+
+**Data services (from ~/jarvis-data-services):**
+- PostgreSQL - Recipe storage, meal plans
+
+## Dependencies
+
+FastAPI, SQLAlchemy, Alembic, psycopg2, httpx, beautifulsoup4, jarvis-log-client
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
