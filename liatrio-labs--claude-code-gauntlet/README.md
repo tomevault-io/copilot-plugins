@@ -7,11 +7,11 @@ Adversarial multi-agent code review for Claude Code — your PR/MR runs a gauntl
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [liatrio-labs/claude-code-gauntlet](https://github.com/liatrio-labs/claude-code-gauntlet).
+Original source: `CLAUDE.md` in [liatrio-labs/claude-code-gauntlet](https://github.com/liatrio-labs/claude-code-gauntlet).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
