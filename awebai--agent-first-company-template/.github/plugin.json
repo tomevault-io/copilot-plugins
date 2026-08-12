@@ -1,0 +1,9 @@
+{
+  "name": "awebai--agent-first-company-template",
+  "displayName": "agent-first-company-template",
+  "description": "Forkable scaffolding for setting up an agent-first company",
+  "version": "1.0.0",
+  "author": "awebai",
+  "homepage": "https://github.com/awebai/agent-first-company-template",
+  "skills": []
+}
