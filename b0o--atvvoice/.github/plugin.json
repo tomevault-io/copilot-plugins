@@ -1,0 +1,9 @@
+{
+  "name": "b0o--atvvoice",
+  "displayName": "ATVVoice",
+  "description": "PipeWire Microphone Input for Android TV Voice-Enabled Bluetooth Remotes on Linux",
+  "version": "1.0.0",
+  "author": "b0o",
+  "homepage": "https://github.com/b0o/ATVVoice",
+  "skills": []
+}
