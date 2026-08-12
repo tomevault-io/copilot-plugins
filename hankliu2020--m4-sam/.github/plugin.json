@@ -1,0 +1,9 @@
+{
+  "name": "hankliu2020--m4-sam",
+  "displayName": "M4-SAM",
+  "description": "[CVPR 2026\ud83c\udf89Accepted] Official code repository for \"M\u2074-SAM: Multi-modal Mixture-of-Experts with Memory-Augmented SAM for RGB-D Video Salient Object Detection\"",
+  "version": "1.0.0",
+  "author": "HankLiu2020",
+  "homepage": "https://github.com/HankLiu2020/M4-SAM",
+  "skills": []
+}
