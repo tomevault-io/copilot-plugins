@@ -1,0 +1,9 @@
+{
+  "name": "openprx--prx-waf",
+  "displayName": "prx-waf",
+  "description": "High-performance Web Application Firewall built on Pingora. OWASP CRS, GeoIP (ip2region), bot detection, API security, and 644+ built-in rules.",
+  "version": "1.0.0",
+  "author": "openprx",
+  "homepage": "https://github.com/openprx/prx-waf",
+  "skills": []
+}
