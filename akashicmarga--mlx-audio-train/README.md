@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [akashicMarga/mlx-audio-train](https://github.com/akashicMarga/mlx-audio-train).
+Original source: `AGENTS.md` in [akashicMarga/mlx-audio-train](https://github.com/akashicMarga/mlx-audio-train).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
