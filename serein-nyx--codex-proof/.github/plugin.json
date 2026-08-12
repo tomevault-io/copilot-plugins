@@ -1,0 +1,9 @@
+{
+  "name": "serein-nyx--codex-proof",
+  "displayName": "codex-proof",
+  "description": "Evidence-backed task contracts, verification, and handoffs for Codex.",
+  "version": "1.0.0",
+  "author": "serein-nyx",
+  "homepage": "https://github.com/serein-nyx/codex-proof",
+  "skills": []
+}
