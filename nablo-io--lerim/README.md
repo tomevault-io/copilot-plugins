@@ -7,11 +7,11 @@ Compiles AI agent traces and truns them into reusable context.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nablo-io/lerim](https://github.com/nablo-io/lerim).
+Original source: `CLAUDE.md` in [nablo-io/lerim](https://github.com/nablo-io/lerim).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
