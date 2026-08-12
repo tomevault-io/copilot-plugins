@@ -1,0 +1,9 @@
+{
+  "name": "onda-lang--onda",
+  "displayName": "onda",
+  "description": "Expressive and performant JIT-compiled audio programming language",
+  "version": "1.0.0",
+  "author": "onda-lang",
+  "homepage": "https://github.com/onda-lang/onda",
+  "skills": []
+}
