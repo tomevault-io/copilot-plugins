@@ -4,7 +4,7 @@
   "repo": "TNLean",
   "description": "Lean 4 formalization of the Fundamental Theorem of Matrix Product States (arXiv:2011.12127)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LionSR/TNLean",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T17:21:03Z"
+  "distributed_at": "2026-08-12T17:43:22Z"
 }
