@@ -4,7 +4,7 @@
   "repo": "security-compliance-academy",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Prateek-Pulastya/security-compliance-academy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T09:22:54Z"
+  "distributed_at": "2026-08-12T09:38:56Z"
 }
