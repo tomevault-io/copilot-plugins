@@ -1,0 +1,643 @@
+## ghost
+
+> > This file defines conventions, architecture rules, and workflows for AI-assisted development of Ghost.
+
+# Ghost — Agent Development Instructions
+
+> This file defines conventions, architecture rules, and workflows for AI-assisted development of Ghost.
+> All agents (Claude, Copilot, or any AI assistant) MUST follow these instructions.
+
+---
+
+## Project Overview
+
+**Ghost** is a private, local-first **Agent OS** for desktop (Windows → macOS → Linux) and mobile (Android → iOS). It indexes local files, provides hybrid semantic + keyword search, connects to thousands of tools via open protocols (MCP, A2A, AG-UI, A2UI, WebMCP), and evolves into a full agent that takes actions on your behalf — all without sending data to the cloud.
+
+- **Current phase**: Phase 1.7 — Multiplatform (backend ✅, frontend ✅, Android APK ✅, iOS needs macOS)
+- **Stack**: Tauri v2 (Rust backend) + React/TypeScript (frontend) + SQLite/sqlite-vec + Candle (native AI) + rmcp (MCP SDK)
+- **Repo**: `ghostapp-ai/ghost` (public, MIT)
+- **Priority**: MCP Apps, Skills.md, then A2A/WebMCP protocols.
+- **Protocol stack**: MCP (tools) → AG-UI (agent↔user streaming) → A2UI (generative UI) → A2A (multi-agent) → WebMCP (web agents)
+- **Platforms**: Desktop (Windows, macOS, Linux) + Mobile (Android, iOS) via Tauri v2 conditional compilation
+
+---
+
+## Critical Rules
+
+### 1. Never Break Privacy
+- NEVER add telemetry, analytics, or any external network calls (except to localhost Ollama)
+- NEVER include tracking pixels, error reporting services, or crash analytics
+- All data processing MUST happen locally
+- If a feature requires cloud access, it MUST be opt-in and clearly documented
+
+### 2. Performance is Non-Negotiable
+- App cold start: <500ms
+- FTS5 keyword search: <5ms
+- Semantic vector search: <500ms
+- Idle RAM: <40MB
+- Background indexing CPU: <10%
+- Always benchmark before and after changes that touch search or indexing
+
+### 3. Always Update the 3 Core Documents
+After every significant change, update these files to reflect current state:
+- **README.md** — Project description, features, architecture, getting started
+- **ROADMAP.md** — Check off completed items, add new tasks discovered during implementation
+- **CLAUDE.md** — Update conventions, add new patterns, document decisions
+
+### 4. Research Before Implementing
+- Before using a new crate or npm package, verify it exists and check its latest version
+- Validate compatibility with our stack (Tauri v2, Rust 2021 edition, React 18)
+- Check for security advisories
+- Prefer well-maintained crates with >100 GitHub stars
+
+### 5. Commits Must Be Professional
+- Use conventional commits: `feat:`, `fix:`, `refactor:`, `docs:`, `test:`, `chore:`
+- Each commit should be atomic — one logical change per commit
+- Always include what changed and why in the commit message
+- Never commit secrets, API keys, or sensitive data
+
+---
+
+## Architecture Rules
+
+### Rust Backend (`src-tauri/`)
+
+```
+src-tauri/src/
+├── lib.rs              # Tauri app builder, plugin registration, command handlers
+├── main.rs             # Entry point (DO NOT modify beyond run())
+├── indexer/
+│   ├── mod.rs          # Public API for indexing module
+│   ├── watcher.rs      # File system watcher (notify crate)
+│   ├── extractor.rs    # Text extraction (PDF, DOCX, XLSX, TXT)
+│   └── chunker.rs      # Text chunking strategy (512 tokens, 64 overlap)
+├── db/
+│   ├── mod.rs          # Database initialization, migrations, and CRUD operations
+│   └── schema.rs       # Table definitions and migrations
+├── embeddings/
+│   ├── mod.rs          # EmbeddingEngine (fallback chain: Native → Ollama → None)
+│   ├── native.rs       # Candle-based in-process BERT inference (all-MiniLM-L6-v2)
+│   ├── ollama.rs       # OllamaEngine HTTP client (fallback engine)
+│   └── hardware.rs     # Hardware detection (CPU cores, SIMD, GPU backend, RAM)
+├── chat/
+│   ├── mod.rs          # ChatEngine orchestration, model lifecycle, Ollama fallback
+│   ├── native.rs       # llama-cpp-2 GGUF inference (Qwen2.5/3-Instruct, desktop-only)
+│   ├── models.rs       # Model registry, auto-selection, HF Hub cache detection
+│   └── inference.rs    # Hardware-adaptive inference profiles (GPU layers, threads, batch size)
+├── search/
+│   ├── mod.rs          # Search engine combining FTS5 + vector
+│   └── ranking.rs      # RRF (Reciprocal Rank Fusion) implementation
+├── protocols/          # (Phase 1.5+) Protocol Hub — all agent protocols
+│   ├── mod.rs          # Protocol registry, initialization
+│   ├── mcp_server.rs   # Ghost as MCP server (rmcp ServerHandler)
+│   ├── mcp_client.rs   # Ghost connects to external MCP servers (rmcp ClientHandler)
+│   ├── mcp_catalog.rs  # Curated MCP catalog (30+ servers) + one-click install + runtime detection
+│   ├── runtime_bootstrap.rs # Zero-config runtime installer (Node.js, uv/Python, Docker detection)
+│   ├── agui.rs         # AG-UI event system (30+ event types, broadcast bus, SSE endpoint)
+│   ├── a2ui.rs         # A2UI v0.9 generative UI types + component builders (Google spec)
+│   └── a2a.rs          # A2A v0.3.0 types (AgentCard, Task, JSON-RPC) + stub dispatcher
+├── agent/              # (Phase 1.5+) Agent Engine — ReAct loop + tool calling
+│   ├── mod.rs          # Shared types (ToolCall, OllamaTool, AgentRunResult, ExecutedToolCall)
+│   ├── config.rs       # AgentConfig, hardware-adaptive model tiers (Qwen2.5 0.5B-7B + Qwen3 0.6B-8B)
+│   ├── executor.rs     # ReAct loop: native llama-cpp-2 with GBNF grammar + AG-UI streaming
+│   ├── tools.rs        # Tool registry (6 built-in + MCP external), execution engine
+│   ├── safety.rs       # 3-tier risk classification (Safe/Moderate/Dangerous)
+│   ├── memory.rs       # Conversation persistence (SQLite + FTS5 search)
+│   └── skills.rs       # SKILL.md parser (YAML frontmatter), SkillRegistry, trigger matching
+└── automation/         # (Phase 2+, NOT YET CREATED) OS UI automation
+    ├── mod.rs          # (planned)
+    ├── windows.rs      # (planned) uiautomation crate wrapper
+    └── macos.rs        # (planned) AXUIElement wrapper
+```
+
+#### Rust Conventions
+- Use `thiserror` for library errors, `anyhow` for application errors
+- All async operations use `tokio` runtime (Tauri's default)
+- Database access through a connection pool — never hold connections across await points
+- Expose functionality to frontend via `#[tauri::command]` functions in `lib.rs`
+- Use `tracing` for structured logging (not `println!` or `log`)
+- All public functions must have doc comments
+- Use `Result<T, E>` return types — never `unwrap()` in production code (only in tests)
+
+#### Multiplatform Conventions
+- **Use Tauri's `#[cfg(desktop)]` / `#[cfg(mobile)]`** for platform-specific code (set by target triple, NOT by Cargo features)
+- **Desktop-only crates** go in `[target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]` in Cargo.toml
+- **Desktop-only features**: file watcher (notify), system tray, global shortcuts, MCP stdio transport
+- **Mobile stubs**: functions that don't apply on mobile return `Ok(())` or a clear error message
+- **Capabilities split**: `default.json` (all platforms), `desktop.json` (desktop-only permissions), `mobile.json` (mobile-only)
+- **Frontend platform detection**: `usePlatform()` hook calls `get_platform_info` Tauri command
+- **Safe area padding**: use `pt-safe` / `pb-safe` CSS classes on mobile for notch/home indicator
+- **Touch targets**: minimum 44px on mobile (`@media (pointer: coarse)`)
+- **Never `h-screen`**: use `h-dvh` for dynamic viewport height (mobile browser chrome)
+
+#### Key Rust Crates
+```toml
+# Core
+tauri = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+
+# Database
+rusqlite = { version = "0.32", features = ["bundled", "vtab"] }
+# sqlite-vec loaded as extension at runtime
+
+# File watching
+notify = "7"
+
+# Text extraction
+lopdf = "0.34"           # PDF
+zip = "2"                # DOCX
+calamine = "0.26"        # XLSX
+
+# Native AI inference (in-process, no external deps)
+candle-core = "0.9"      # Tensor operations
+candle-nn = "0.9"        # Neural network layers
+candle-transformers = "0.9" # BERT, GPT, etc.
+hf-hub = "0.4"           # Model download from HuggingFace
+tokenizers = "0.22"      # Fast text tokenization
+
+# HTTP (for Ollama fallback + protocol servers)
+reqwest = { version = "0.12", features = ["json"] }
+axum = "0.8"             # HTTP transport for MCP, A2A, AG-UI
+
+# Protocol SDKs (Phase 1.5+)
+rmcp = { version = "0.16", features = ["server", "client", "transport-io", "transport-child-process", "transport-streamable-http-server", "transport-streamable-http-client-reqwest"] }
+# AG-UI — custom Rust implementation (event types + SSE streaming via async-stream)
+async-stream = "0.3"    # SSE streaming for AG-UI endpoint
+# A2UI — JSON schema only, custom React renderer on frontend
+# A2A — custom Rust implementation (JSON-RPC 2.0 + Agent Cards)
+# WebMCP — browser extension bridge (Phase 2.5)
+
+# Error handling
+thiserror = "2"
+anyhow = "1"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+# Encryption (Phase 2+, Pro only)
+# age = "0.10"           # ChaCha20-Poly1305
+```
+
+### Frontend (`src/`)
+
+```
+src/
+├── App.tsx              # Root component: onboarding → main UI routing, search+chat state
+├── main.tsx             # React entry point
+├── components/
+│   ├── Onboarding.tsx   # First-launch wizard: welcome → hardware → download → ready
+│   ├── GhostInput.tsx   # Unified Omnibox: auto-resize textarea, mode indicator, toggle
+│   ├── ChatMessages.tsx # Chat message list, download progress, empty states, A2UI surfaces
+│   ├── A2UIRenderer.tsx # A2UI v0.9 generative UI renderer — JSON → React/Tailwind components
+│   ├── DownloadProgress.tsx # Model download progress bar with shimmer animation
+│   ├── ResultsList.tsx  # Virtualized search results
+│   ├── ResultItem.tsx   # Single search result row
+│   ├── DebugPanel.tsx   # Collapsible log viewer with pause/resume
+│   ├── StatusBar.tsx    # Status pills: DB stats, AI, Vec, Chat model
+│   ├── Settings.tsx     # Settings panel with 3 tabs (General, AI Models, Directories)
+│   ├── McpAppStore.tsx  # MCP catalog browser — searchable/filterable with one-click install
+│   └── VaultBrowser.tsx # (Future) File browser for indexed vault
+├── hooks/
+│   ├── useSearch.ts     # Search query + results state
+│   ├── useHotkey.ts     # Global shortcut handling
+│   ├── useAgui.ts       # AG-UI event stream consumer + streaming chat state
+│   └── usePlatform.ts   # Platform detection hook (desktop/mobile/iOS/Android)
+├── lib/
+│   ├── tauri.ts        # Tauri invoke wrappers with types
+│   ├── types.ts        # Shared TypeScript types
+│   └── detectMode.ts   # Smart search/chat auto-detection heuristics
+└── styles/
+    └── globals.css     # Global styles (Tailwind CSS v4)
+```
+
+#### Frontend Conventions
+- React 18 with functional components only — no class components
+- TypeScript strict mode — no `any` types
+- State management: start with React context, migrate to Zustand if needed
+- Styling: Tailwind CSS preferred. If not installed, use CSS modules
+- All Tauri commands wrapped in typed async functions in `lib/tauri.ts`
+- Use `react-virtual` for any list that could exceed 100 items
+- Keyboard navigation must work everywhere — Ghost is a keyboard-first app
+- Accessibility: all interactive elements need proper ARIA labels
+
+#### Frontend Rules
+- The frontend is "thin" — all heavy logic lives in Rust
+- Never process files or run AI in the frontend
+- Communication with Rust only via Tauri IPC (`invoke()`)
+- No external API calls from frontend (privacy rule)
+- Bundle size budget: <500KB JS (excluding Tauri runtime)
+
+---
+
+## Database Schema
+
+### Core Tables
+
+```sql
+-- Documents table: one row per indexed file
+CREATE TABLE documents (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    path TEXT NOT NULL UNIQUE,
+    filename TEXT NOT NULL,
+    extension TEXT,
+    size_bytes INTEGER,
+    hash TEXT NOT NULL,              -- SHA-256 for change detection
+    indexed_at TEXT NOT NULL,        -- ISO 8601
+    modified_at TEXT NOT NULL,       -- File's mtime
+    metadata TEXT                    -- JSON blob for extra info
+);
+
+-- Chunks table: document split into embeddable pieces
+CREATE TABLE chunks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    document_id INTEGER NOT NULL REFERENCES documents(id) ON DELETE CASCADE,
+    chunk_index INTEGER NOT NULL,    -- Order within document
+    content TEXT NOT NULL,           -- Raw text content
+    token_count INTEGER,
+    UNIQUE(document_id, chunk_index)
+);
+
+-- FTS5 virtual table for keyword search
+CREATE VIRTUAL TABLE chunks_fts USING fts5(
+    content,
+    content=chunks,
+    content_rowid=id,
+    tokenize='porter unicode61'
+);
+
+-- Vector table via sqlite-vec for semantic search
+CREATE VIRTUAL TABLE chunks_vec USING vec0(
+    chunk_id INTEGER PRIMARY KEY,
+    embedding FLOAT[384]             -- all-MiniLM-L6-v2 (native) or FLOAT[768] (Ollama)
+);
+```
+
+### Search Query Pattern (Hybrid RRF)
+
+```sql
+-- 1. FTS5 keyword search (fast, <5ms)
+SELECT rowid, rank FROM chunks_fts WHERE chunks_fts MATCH ?;
+
+-- 2. KNN vector search (semantic, <500ms)
+SELECT chunk_id, distance FROM chunks_vec
+WHERE embedding MATCH ? ORDER BY distance LIMIT 20;
+
+-- 3. Combine with RRF in Rust (not SQL)
+-- RRF score = sum(1 / (k + rank_i)) for each ranking system
+-- k = 60 (standard RRF constant)
+```
+
+---
+
+## Development Workflow
+
+### Before Starting Any Task
+1. Read `ROADMAP.md` to understand current phase and priorities
+2. Check if the task aligns with current phase goals
+3. If the task requires a new dependency, research it first
+
+### While Working
+1. Write tests for new Rust modules (`#[cfg(test)]` inline or `tests/` dir)
+2. Run `cargo fmt --all` before committing Rust code
+3. Run `cargo clippy -- -D warnings` before committing Rust code
+4. Run `cargo test` to verify all tests pass
+5. Run `bun run build` to verify frontend compiles
+6. Test on Windows first (primary target)
+7. **NEVER use `--all-features`** — `metal`/`accelerate` features are macOS-only and will break Linux CI
+
+### After Completing a Task
+1. Update the three core documents (README.md, ROADMAP.md, CLAUDE.md)
+2. Create a professional commit with conventional commit format
+3. Verify the app still builds: `bun run tauri build`
+
+### Testing
+```bash
+# Full local CI check (run before every push)
+cd src-tauri && cargo fmt --all -- --check && cargo test && cargo clippy -- -D warnings
+
+# Frontend type checking
+bun run build
+
+# Full app dev mode
+bun run tauri dev
+
+# IMPORTANT: Never use --all-features on Linux
+# metal/accelerate features require macOS (objc2 crate)
+# cuda feature requires NVIDIA drivers
+# Default features (no flags) is the correct CI configuration
+```
+
+---
+
+## Tauri v2 IPC Pattern
+
+All communication between frontend and backend uses Tauri commands:
+
+### Rust Side (defining a command)
+```rust
+#[tauri::command]
+async fn search(query: String, limit: Option<usize>) -> Result<Vec<SearchResult>, String> {
+    let limit = limit.unwrap_or(20);
+    let results = search::hybrid_search(&query, limit)
+        .await
+        .map_err(|e| e.to_string())?;
+    Ok(results)
+}
+
+// Register in lib.rs:
+.invoke_handler(tauri::generate_handler![search])
+```
+
+### Frontend Side (calling a command)
+```typescript
+// lib/tauri.ts
+import { invoke } from "@tauri-apps/api/core";
+
+export interface SearchResult {
+  id: number;
+  path: string;
+  filename: string;
+  snippet: string;
+  score: number;
+}
+
+export async function search(query: string, limit?: number): Promise<SearchResult[]> {
+  return invoke<SearchResult[]>("search", { query, limit });
+}
+```
+
+---
+
+## Embedding Engine Architecture
+
+Ghost uses a fallback chain for embeddings: **Native → Ollama → FTS5-only**
+
+### Native Engine (Primary — Zero Dependencies)
+```rust
+// embeddings/native.rs — runs in-process via Candle
+// Model: all-MiniLM-L6-v2 (384 dimensions, ~23MB safetensors)
+// Downloads once from HuggingFace Hub, cached locally
+// Works on any CPU — no GPU, Ollama, or internet required after first run
+let engine = NativeEngine::load().await?;
+let embedding: Vec<f32> = engine.embed("search query")?; // 384-dim
+```
+
+### Ollama Engine (Fallback — Optional)
+```rust
+// embeddings/ollama.rs — HTTP client to localhost Ollama
+const OLLAMA_BASE: &str = "http://localhost:11434";
+const EMBEDDING_MODEL: &str = "nomic-embed-text"; // 768 dimensions
+```
+
+### Unified Engine (mod.rs)
+```rust
+// embeddings/mod.rs — tries Native first, falls back to Ollama
+let engine = EmbeddingEngine::initialize().await;
+// engine.backend() returns AiBackend::Native, ::Ollama, or ::None
+let embedding = engine.embed("query").await?;
+```
+
+### Important AI Engine Notes
+- Ghost works WITHOUT Ollama — native Candle engine is the primary backend
+- Ollama is a fallback for users who want larger/better models (nomic-embed-text 768D)
+- First app launch downloads the native model (~23MB) from HuggingFace Hub (requires internet once)
+- Subsequent launches load the cached model in <200ms
+- Embedding calls in NativeEngine are synchronous (no HTTP overhead)
+- If both Native and Ollama fail, Ghost falls back to FTS5 keyword-only search
+- Model availability checked at startup and reported in StatusBar
+- For Phase 3 (agent): use Qwen2.5-7B with tool calling via Ollama `/api/chat`
+
+---
+
+## File Naming Conventions
+
+| Type | Convention | Example |
+| ---- | ---------- | ------- |
+| Rust modules | snake_case | `file_watcher.rs` |
+| Rust types | PascalCase | `SearchResult` |
+| Rust functions | snake_case | `hybrid_search()` |
+| React components | PascalCase | `SearchBar.tsx` |
+| React hooks | camelCase with `use` prefix | `useSearch.ts` |
+| TypeScript utils | camelCase | `formatBytes.ts` |
+| CSS files | kebab-case or component name | `search-bar.css` |
+| Config files | kebab-case | `tauri.conf.json` |
+
+---
+
+## Git Conventions
+
+### Branch Naming
+```
+feature/search-bar
+feature/file-watcher
+fix/fts5-unicode-tokenizer
+refactor/db-connection-pool
+docs/update-roadmap
+```
+
+### Commit Message Format
+```
+<type>(<scope>): <description>
+
+[optional body with more details]
+
+[optional footer with references]
+```
+
+#### Types
+- `feat` — New feature
+- `fix` — Bug fix
+- `refactor` — Code change that neither fixes a bug nor adds a feature
+- `docs` — Documentation only
+- `test` — Adding or updating tests
+- `chore` — Build process, tooling, or dependency updates
+- `perf` — Performance improvement
+
+#### Examples
+```
+feat(search): implement hybrid FTS5 + vector search with RRF ranking
+
+Combines SQLite FTS5 keyword results with sqlite-vec KNN results
+using Reciprocal Rank Fusion (k=60). Returns top 20 results
+sorted by combined score.
+
+Refs: ROADMAP.md Phase 1
+```
+
+```
+fix(indexer): handle PDF files with encrypted content gracefully
+
+Previously crashed on password-protected PDFs. Now skips them
+and logs a warning with the file path.
+```
+
+---
+
+## Environment Setup
+
+### Required Tools
+- **Rust**: latest stable via `rustup`
+- **Node.js/Bun**: Bun >= 1.0 preferred (used in tauri.conf.json)
+- **Ollama**: installed and running on localhost:11434
+- **Tauri v2 CLI**: `bun add -D @tauri-apps/cli`
+- **Platform dependencies**: see https://v2.tauri.app/start/prerequisites/
+
+### Environment Variables
+Ghost does NOT use environment variables for configuration. All settings are stored locally in:
+- **Windows**: `%APPDATA%/com.ghost.app/config.json`
+- **macOS**: `~/Library/Application Support/com.ghost.app/config.json`
+- **Linux**: `~/.config/com.ghost.app/config.json`
+
+### Ollama Models (Optional)
+```bash
+# Optional: for higher-quality 768D embeddings
+ollama pull nomic-embed-text    # Embeddings (fallback)
+ollama pull qwen2.5:7b          # Reasoning + tool calling (Phase 3)
+```
+
+---
+
+## Decision Log
+
+| Date | Decision | Rationale |
+| ---- | -------- | --------- |
+| 2026-02-18 | Tauri v2 over Electron | 70% less RAM, <10MB installer, Rust backend, mobile future |
+| 2026-02-18 | SQLite + sqlite-vec over dedicated vector DB | Single file, zero infra, FTS5 + vectors in one query |
+| 2026-02-18 | nomic-embed-text over OpenAI ada-002 | Free, local, 768 dims, surpasses ada-002 on benchmarks |
+| 2026-02-18 | MCP over custom tool protocol | Open standard, 10,000+ servers, Linux Foundation backed |
+| 2026-02-18 | Windows-first over Mac-first | 73% of PCs, Raycast/Alfred are Mac-only, market gap |
+| 2026-02-18 | Bun over npm | Faster installs, native TypeScript, used in tauri.conf.json |
+| 2026-02-18 | Candle over Burn/ONNX for embeddings | Same org as HF Hub/tokenizers, mature BERT support, pure Rust |
+| 2026-02-18 | all-MiniLM-L6-v2 over nomic-embed-text for native | 384D vs 768D, 23MB vs 274MB, faster, no external deps |
+| 2026-02-18 | Fallback chain over hard Ollama dep | Ghost works offline/without Ollama, graceful degradation |
+| 2026-02-18 | GitHub Actions + tauri-action for CI/CD | Cross-platform builds (Win/Mac/Linux), automated releases on tag push |
+| 2026-02-18 | softprops/action-gh-release for releases | Mature, supports draft/prerelease, auto-attaches artifacts |
+| 2026-02-18 | Dependabot for dependency updates | Automated weekly PRs for Cargo, npm, and GitHub Actions |
+| 2026-02-18 | cargo audit in CI pipeline | Security scanning for Rust dependencies on every push/PR |
+| 2026-02-18 | Custom Ghost branding over default Tauri icons | Distinctive identity, professional look for store listings |
+| 2026-02-18 | Phase 1.5 MCP Bridge before Phase 2 | Market research: 5,800+ MCP servers, instant ecosystem access, competitive differentiator |
+| 2026-02-18 | Open Core monetization model | GitLab/Grafana validate open core for dev tools. Free core + paid Pro tier |
+| 2026-02-18 | Competitive Pro tier pricing | Priced accessibly below major competitors to maximize adoption |
+| 2026-02-18 | No screen recording (differentiate from Screenpipe) | Ghost focuses on search, not surveillance. Different value prop, avoids privacy backlash |
+| 2026-02-18 | Qwen2.5-Instruct GGUF for native chat | Apache 2.0, ChatML format, 4 size tiers (0.5B–7B), Q4_K_M quantization, great quality/size ratio |
+| 2026-02-18 | Per-request model reload over KV cache clear | quantized_qwen2 KV cache is private with no public clear method; OS page cache makes reload ~0.5-3s |
+| 2026-02-18 | Auto model selection over manual config | Zero-config UX: detect RAM → pick largest fitting model → background download; still configurable |
+| 2026-02-18 | Deferred model loading over blocking startup | App starts instantly, chat model downloads/loads in background `tokio::spawn` during `.setup()` |
+| 2026-02-18 | Feature flags for GPU backends | `cuda`/`metal`/`accelerate` Cargo features propagate to candle-core — no GPU overhead on CPU-only builds |
+| 2026-02-18 | Filesystem monitoring for download progress | hf_hub sync API has no progress callbacks; monitoring `.incomplete` files in blobs/ every 500ms works reliably |
+| 2026-02-18 | Unified Omnibox over tab system | Single intelligent input reduces cognitive load; auto-detection via regex heuristics + sticky chat mode |
+| 2026-02-18 | detectMode() heuristics over LLM classification | Zero latency, regex-based: file patterns → search, conversational starters → chat, sticky mode for active chats |
+| 2026-02-19 | Zero-config auto-indexing over manual setup | Like Spotlight/Alfred: auto-detect ~/Documents, ~/Desktop, ~/Downloads, ~/Pictures on first launch. No user action required |
+| 2026-02-19 | `dirs` crate for XDG directory detection | Cross-platform (Linux XDG, macOS standard, Windows Known Folders), with locale fallbacks (Documentos, Escritorio, etc.) |
+| 2026-02-19 | Programmatic `startDragging()` over data-tauri-drag-region only | Tauri v2 has known Linux/Wayland issues with CSS drag regions; JS fallback via `window.start_dragging()` ensures reliable drag |
+| 2026-02-19 | 50+ source code extensions in extractor | Developers need to search code too — rs, py, js, ts, go, etc. matches what Everything/Spotlight index |
+| 2026-02-19 | Never `--all-features` in CI on Linux | `metal`/`accelerate` Cargo features pull `objc2` (Apple-only); `cuda` needs NVIDIA. Default features only in CI |
+| 2026-02-19 | semantic-release over Release Please | 100% automatic: no PRs to merge, no manual steps. Push conventional commits → CI → semantic-release bumps version + CHANGELOG + tag + GitHub Release + cross-platform builds |
+| 2026-02-19 | `@semantic-release/exec` + custom script for version sync | `scripts/update-versions.sh` updates `package.json`, `Cargo.toml`, `tauri.conf.json` — avoids npm plugin dependency issues with bun |
+| 2026-02-19 | Repository best practices via GitHub API | Auto-delete branches, auto-merge, squash merge defaults, vulnerability alerts, security fixes, topic tags |
+| 2026-02-19 | Open Core via extensions trait (Grafana pattern) | Public repo has zero proprietary code. `extensions.rs` defines `PlatformExtensions` trait with community defaults. Pro overlay lives in separate private repo |
+| 2026-02-19 | Extensions trait over git submodule | Zero trace of proprietary code in public repo. No broken submodules, no stubs, no feature flags. Pro is a build-time overlay |
+| 2026-02-19 | Dynamic GitHub badges over static | shields.io endpoints auto-update: version from releases, CI status from workflow, license from repo metadata |
+| 2026-02-19 | GitHub org `ghostapp-ai` over personal `AngelAlexQC` | Professional identity, team scalability, separate billing, org-level security policies |
+| 2026-02-19 | Multi-step onboarding wizard over silent setup | Users need to see hardware detection + model download progress; builds trust by showing what Ghost does locally |
+| 2026-02-19 | `setup_complete` flag in Settings over separate state file | Single source of truth, survives upgrades via `#[serde(default)]`, no extra file management |
+| 2026-02-19 | DMG custom positioning over default macOS layout | Professional look: app on left, Applications on right, 660×400 window — matches premium Mac apps |
+| 2026-02-19 | WebView2 silent bootstrap (downloadBootstrapper) | Windows users with old Edge get WebView2 auto-installed silently — no manual steps, no error dialogs |
+| 2026-02-19 | RPM support alongside DEB + AppImage | Covers Fedora/RHEL users (~15% of Linux market), low effort since Tauri v2 supports it natively |
+| 2026-02-19 | System tray with TrayIconBuilder over manual tray API | Tauri v2's builder pattern is cleaner, handles menu events and tray clicks in one setup block |
+| 2026-02-19 | OneDrive cloud placeholder detection over blind indexing | `FILE_ATTRIBUTE_RECALL_ON_DATA_ACCESS` flag prevents downloading cloud-only files; metadata-only indexing is instant |
+| 2026-02-19 | Filesystem browser in Settings over file dialog only | Visual navigation lets users see cloud status, file sizes, and folder structure before adding watch dirs |
+| 2026-02-20 | "Agent OS" vision over simple MCP Bridge | Protocols converging (MCP+A2A+AG-UI+A2UI+WebMCP) = unique opportunity for universal local agent. $3.35B→$24.53B TAM |
+| 2026-02-20 | rmcp over rust-mcp-sdk or custom implementation | Official Rust SDK from modelcontextprotocol/rust-sdk. 34 versions, `#[tool]` macro, Server+Client, stdio+HTTP transports |
+| 2026-02-20 | AG-UI for agent↔user interaction | CopilotKit's open standard (12K+ stars, MIT). ~16 event types, bidirectional streaming. Better UX than polling. Custom Rust impl |
+| 2026-02-20 | A2UI for generative UI over custom component protocol | Google-backed JSON declarative spec. Security-first, standard components (forms, tables, charts). React renderer on frontend |
+| 2026-02-20 | A2A for multi-agent coordination | Google + Linux Foundation. Agent Cards at /.well-known/agent.json, JSON-RPC 2.0, SSE. Standard for agent discovery + delegation |
+| 2026-02-20 | WebMCP for web agent capabilities (Phase 2.5) | W3C incubation (Google+Microsoft). navigator.modelContext browser API. Structured web interactions without scraping |
+| 2026-02-20 | Skills.md format (OpenClaw-inspired) over custom plugin system | 100K+ stars ecosystem, plain Markdown, model-agnostic. Low friction for contributors. Ghost-specific extensions for tool schemas |
+| 2026-02-20 | Protocol Hub architecture over monolithic agent | Each protocol in separate module under `protocols/`. Independent development, testing. Fallback: each layer works without upper layers |
+| 2026-02-20 | 6-layer stack over 4-layer | Added AG-UI Runtime layer + Protocol Hub layer. AG-UI between frontend and IPC for streaming. Protocol Hub between Core and AI |
+| 2026-02-20 | Free tier with 3 MCP servers limit | Generous free tier drives adoption; Pro unlocks unlimited MCP + A2A + WebMCP. Matches Raycast/Alfred freemium model |
+| 2026-02-20 | $8/mo Pro over $15/mo | Below Raycast Pro ($8), Notion AI ($8), GitHub Copilot ($10). Maximize adoption in $24.53B market growing at 22% CAGR |
+| 2026-02-20 | rmcp v0.16 `#[tool]` macro over manual JSON schema | Zero-boilerplate tool definitions: derive JsonSchema + `#[tool(name, description)]` generates MCP-compliant schemas automatically |
+| 2026-02-20 | `any_service()` axum routing for MCP transport | StreamableHttpService implements tower::Service — `any_service()` handles all HTTP methods (GET/POST/DELETE) on `/mcp` endpoint |
+| 2026-02-20 | Concrete `RunningService<RoleClient, ()>` over DynService | MCP client doesn't need dynamic dispatch; `()` handler is the standard client pattern in rmcp |
+| 2026-02-20 | Port 6774 default for MCP server | Memorable (GHOST on phone keypad ≈ 4-4-6-7-8), unlikely to conflict with common services |
+| 2026-02-20 | MCP Settings tab in existing Settings panel | Consistent UX — users manage MCP alongside directories and models. No separate config files needed |
+| 2026-02-20 | AG-UI via Tauri events over WebSocket/SSE for desktop frontend | Tauri IPC (`app.emit()`) is zero-overhead, type-safe, already available. SSE endpoint added for external clients only |
+| 2026-02-20 | `tokio::sync::broadcast` for AG-UI event bus over mpsc | Fan-out to multiple consumers (Tauri events + SSE + logging). Fire-and-forget semantics with backpressure via lagged detection |
+| 2026-02-20 | `async-stream` crate for SSE endpoint over manual Stream impl | Clean `yield`-based syntax for axum SSE, well-maintained (tokio-rs org), 0.3.6 stable |
+| 2026-02-20 | Word-chunking simulation over blocking on real streaming | Ship streaming UX now (word-group deltas), upgrade to true token-streaming from llama.cpp later. Incremental delivery |
+| 2026-02-20 | `useAgui` hook over global state management | Self-contained AG-UI state per component tree, no external deps (Zustand), follows React patterns |
+| 2026-02-19 | Parallel CI jobs over single sequential job | Split CI into 3 parallel jobs (checks, audit, test+clippy). Reduces CI gate from ~10min to ~6min (longest parallel job) |
+| 2026-02-19 | sccache over Swatinem/rust-cache for CI | sccache caches at compilation-unit level (not whole target/), shared across jobs via GHA cache. 40-60% faster repeat builds |
+| 2026-02-19 | cargo-nextest over default test runner | 40-60% faster test execution via parallel test scheduling. Pre-built binary via taiki-e/install-action (no cargo install) |
+| 2026-02-19 | taiki-e/install-action over cargo install | Pre-built binaries for cargo-audit and cargo-nextest — installs in <5s vs 30-60s for cargo install |
+| 2026-02-19 | sccache in build matrix jobs | Cross-platform build caching for release artifacts. Heavy crates (llama-cpp-2, candle) cached between runs |
+| 2026-02-20 | `#[cfg(desktop)]`/`#[cfg(mobile)]` over Cargo feature flags | Tauri sets these macros automatically from target triple. Cargo features don't work because build.rs always knows the real target |
+| 2026-02-20 | Target-specific deps over optional deps for mobile | `[target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]` cleanly excludes desktop crates from mobile builds |
+| 2026-02-20 | Capabilities split (default/desktop/mobile) | Each platform gets only the permissions it needs. Prevents build errors from missing plugins on mobile |
+| 2026-02-20 | `usePlatform()` hook over compile-time detection | Runtime platform detection allows single frontend bundle. Tauri command provides authoritative platform info with UA fallback |
+| 2026-02-20 | `h-dvh` over `h-screen` | 100dvh accounts for mobile browser chrome (address bar, navigation). h-screen (100vh) causes content to overflow |
+| 2026-02-20 | Safe area CSS classes over hardcoded padding | `env(safe-area-inset-*)` adapts to any device notch/home indicator automatically |
+| 2026-02-20 | Full-screen Settings on mobile over modal | Mobile apps don't use floating modals — full-screen with back navigation is the native pattern |
+| 2026-02-20 | TV platforms rejected as not viable | Closed ecosystems (tvOS, Android TV), no file system access, incompatible interaction model, tiny market for productivity apps |
+| 2026-02-20 | rustls everywhere over native-tls/OpenSSL | OpenSSL cross-compilation fails on Android NDK. reqwest 0.13 `rustls` + hf-hub `rustls-tls` eliminates openssl-sys entirely |
+| 2026-02-20 | `std::ffi::c_char`/`c_int` over `i8`/`i32` for FFI | Android C `char` is unsigned (`u8`), Linux/macOS is signed (`i8`). `c_char` adapts per target automatically |
+| 2026-02-20 | llama-cpp-2 desktop-only over cross-compiling for mobile | C++ cross-compilation for Android NDK is complex and fragile. Mobile chat uses Ollama fallback or future on-device ONNX |
+| 2026-02-20 | `ChatEngine.native` field gated `#[cfg(desktop)]` | Entire native chat inference path (llama-cpp-2) excluded from mobile builds. Clean separation in struct + methods |
+| 2026-02-20 | hf-hub `ureq` feature for sync API | `hf_hub::api::sync::Api` (used in embeddings/native.rs and chat/native.rs) requires the `ureq` feature explicitly when defaults disabled |
+| 2026-02-20 | Dead code removal (ChatPanel, SearchBar) | Both superseded by unified GhostInput Omnibox. No imports found anywhere. Reduces bundle size and maintenance surface |
+| 2026-02-20 | Ad-hoc macOS signing (`-`) as CI default over no signing | aarch64 binaries MUST be signed or macOS shows "app is damaged". Ad-hoc (`codesign -s "-"`) satisfies Apple Silicon without an Apple Developer account. Real certificate used only when `APPLE_CERTIFICATE` secret is configured |
+| 2026-02-20 | iOS unsigned xcarchive over signed-only build | iOS has no ad-hoc equivalent (unlike macOS). xcodebuild `CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO` produces a distributable unsigned .xcarchive without any Apple Developer account. Users can sideload via AltStore/Sideloadly. Signed .ipa added on top when `APPLE_CERTIFICATE` secret is configured. Refs: tauri#14940 |
+| 2026-02-20 | `CMAKE_MSVC_RUNTIME_LIBRARY=MultiThreadedDLL` + `CXXFLAGS=/MD` for Windows CI | llama-cpp-sys-2 builds llama.cpp via CMake; CMake Release defaults to `/MT` (libcpmt.lib) while Rust uses `/MD` (msvcprt.lib) → LNK2005. Env vars `CMAKE_MSVC_RUNTIME_LIBRARY=MultiThreadedDLL` (forwarded automatically by llama-cpp-sys-2 build script) and `CFLAGS/CXXFLAGS=/MD` (for cc::Build) force consistent dynamic CRT across all compiled code |
+| 2026-02-21 | A2UI v0.9 (Google) over custom generative UI | Open standard (Apache 2.0, 11K+ stars), 17+ component types, data binding via JSON Pointers, transport-agnostic. Ghost is among the first React implementors — only Lit/Angular/Flutter existed before |
+| 2026-02-21 | A2UI via AG-UI CUSTOM events over dedicated transport | A2UI is transport-agnostic by design. AG-UI CUSTOM events already support arbitrary JSON payloads via Tauri IPC — zero new infrastructure needed |
+| 2026-02-21 | Adjacency list → tree resolution on frontend | A2UI uses flat component lists with ID references. Frontend `computeRootIds()` resolves trees — more flexible than server-side tree building, supports incremental component updates |
+| 2026-02-21 | Two-way data binding via JSON Pointers (RFC 6901) | A2UI v0.9 spec uses JSON Pointers for data model paths. `resolvePointer()` in renderer + `onDataChange` callbacks enable reactive input components without external state management |
+| 2026-02-21 | Qwen2.5-Instruct for agent + chat (shared GGUF) | Same 4-tier family (0.5B/1.5B/3B/7B) for both chat and agent. Zero double download. Hermes 2 Pro tool calling format built into llama.cpp chat templates. Apache 2.0, Q4_K_M quantization |
+| 2026-02-21 | ReAct loop over single-shot tool calling | Multi-iteration Reason+Act loop: LLM reasons → calls tools → gets results → reasons again. Max 10 iterations. Allows complex multi-step tasks vs one-shot tool selection |
+| 2026-02-21 | Native llama-cpp-2 grammar-constrained tool calling over Ollama HTTP | Zero external deps. `apply_chat_template_with_tools_oaicompat()` + GBNF grammar ensures valid JSON tool calls. `parse_response_oaicompat()` handles Hermes 2 Pro/Llama 3.x/Functionary formats natively. No HTTP, no server, no network after first model download |
+| 2026-02-21 | 3-tier safety over binary safe/unsafe | Safe (auto-approve reads), Moderate (log, sensitive paths), Dangerous (require approval, write/exec). Granular control without blocking basic operations |
+| 2026-02-21 | serde_yaml 0.9 for SKILL.md frontmatter | Standard YAML parsing for `---` delimited frontmatter in skill files. Well-maintained, 0.9 API stable, small dependency |
+| 2026-02-21 | AgentConfig in Settings over separate config file | Single source of truth, `#[serde(default)]` for all fields, backward compatible. "auto" model selection as default |
+| 2026-02-21 | 4 Qwen2.5 agent tiers over 6 Qwen3 tiers | Qwen2.5-Instruct (0.5B/1.5B/3B/7B) already in chat model registry — shares HF Hub cache. Qwen3 tiers were Ollama-specific tags, not applicable to native GGUF |
+| 2026-02-21 | Conversation memory in SQLite over file-based | Reuse existing SQLite infrastructure. FTS5 search across conversations. Transactional integrity. CASCADE deletes. Proper indexing |
+| 2026-02-21 | Lazy grammar sampling over strict grammar | `ChatTemplateResult.grammar_lazy` + trigger words/tokens activates grammar only when model starts a tool call. Free text generation until trigger → then constrained JSON. Better for mixed text + tool responses |
+| 2026-02-21 | Per-run model load over shared model instance | Agent may use different model than chat. Blocking task isolation avoids cross-thread model sharing complexity. OS page cache makes reload ~0.5-3s. Future optimization: cache model in AgentExecutor |
+| 2026-02-21 | `parse_response_oaicompat()` over manual regex parsing | llama.cpp's C++ parser handles Hermes 2 Pro, Llama 3.x, Functionary, and other tool formats natively. Zero-maintenance, format-agnostic. Returns OpenAI-compatible JSON |
+| 2026-02-20 | tauri-plugin-updater over manual update check | Official Tauri v2 plugin, Ed25519 signed artifacts, `latest.json` via GitHub Releases endpoint — zero infrastructure cost. Desktop-only (mobile uses app stores) |
+| 2026-02-20 | GitHub Releases endpoint over CrabNebula Cloud | Free, self-hosted, no vendor lock-in. `tauri-action` auto-generates `latest.json` and uploads to release. URL: `releases/latest/download/latest.json` |
+| 2026-02-20 | Silent auto-check on launch over modal-first | Background check respects privacy-first UX. Non-intrusive notification banner only when update exists. Manual check in Settings for user control |
+| 2026-02-20 | Chunked batch prefill over single-batch prefill | `LlamaBatch::new(512,1)` has capacity 512. Prompts >512 tokens (common w/ agent system prompt + tools) caused "Insufficient Space" crash. Now prefill loops in BATCH_SIZE chunks, decoding each before continuing. Last chunk kept for valid `sample()` call |
+| 2026-02-20 | Built-in MCP catalog over external registry | 30+ curated MCP servers embedded in binary — zero network required for browsing. Runtime detection (npx/node/uv/uvx/python3), one-click install (auto-config + save + connect). Inspired by Claude Desktop Extensions + Smithery.ai |
+| 2026-02-21 | Official MCP Registry integration (registry.modelcontextprotocol.io) | 6,000+ servers available without hardcoding. Paginated background sync → local JSON cache → client-side search. `server.json` auto-converted to `CatalogEntry` (npm→npx, pypi→uvx, oci→docker, remotes→http). Opt-in sync respects privacy — only fetches when user explicitly browses. 24h cache TTL with manual refresh. Deduplicates against curated catalog |
+| 2026-02-21 | Local cache + client-side search over server-side search | Official MCP Registry API has no search endpoint — only paginated listing. Cache all 6,000+ servers locally (~3MB JSON), search instantly against name/title/description. `updated_since` parameter available for future incremental sync |
+| 2026-02-21 | `install_mcp_entry` command over modifying existing install flow | Curated catalog uses ID-based lookup (`install_mcp_from_catalog`). Registry entries need full `CatalogEntry` passed directly since they're dynamic. Separate command avoids breaking existing flow while supporting both sources |
+| 2026-02-21 | Ghost-managed runtimes over system-wide installation | Runtimes in `<app_data>/runtimes/` — no sudo, no PATH pollution, no system modification. Ghost injects managed runtimes into PATH when spawning MCP servers via `build_env_path()`. Portable, reversible, privacy-first |
+| 2026-02-21 | uv as keystone Python runtime over system Python/pip | Single static binary → installs self + manages Python versions via `uv python install` + provides `uvx` for running tools. No system Python dependency. GitHub releases provide cross-platform binaries |
+| 2026-02-21 | Direct Node.js binary download over nvm/nvm-windows | Node.js provides prebuilt binaries for all platforms at `nodejs.org/dist/`. Ghost downloads and extracts to `runtimes/node/` — no nvm dependency, no shell profile modification, works in sandboxed environments |
+| 2026-02-21 | RuntimeBootstrapper struct over global functions | Encapsulates `runtimes_dir` path, provides `detect_all()`, `install_runtime()`, `build_env_path()`, `resolve_binary()`. Testable, mockable, no global state. Used by both lib.rs commands and mcp_client.rs |
+| 2026-02-21 | Fuzzy text matching for tool discovery over LLM-powered search | Zero-latency fuzzy matching (name/description/tags/category + popularity boost) for instant recommendations. LLM-powered discovery deferred to Phase 2 when agent is more capable |
+| 2026-02-21 | Runtime install progress via Tauri events over polling | `runtime-install-progress` events emitted during download/extract/configure. Frontend listens via `@tauri-apps/api/event`. Real-time progress bar with stage + percentage |
+| 2026-02-21 | AG-UI expanded from ~16 to 30+ event types | CopilotKit spec defines 30+ types. Added TextMessageChunk, ToolCallResult, ToolCallChunk, MessagesSnapshot, ActivitySnapshot, ActivityDelta, ReasoningStart/MessageStart/Content/End/EncryptedValue. agui.rs EventType enum + EventPayload variants + builder methods. useAgui.ts handles all new cases with `reasoningContent` + `activities` state |
+| 2026-02-21 | A2A module as type foundation + stub dispatcher | `protocols/a2a.rs` implements full A2A v0.3.0 type system: AgentCard, AgentSkill, AgentCapabilities, Task, TaskState, A2aMessage, Part, Artifact, JsonRpcRequest/Response. `ghost_agent_card()` serves /.well-known/agent.json immediately. `dispatch_request()` stub returns "Phase 2 planned" errors. Endpoints wired to axum router in mcp_server.rs |
+| 2026-02-21 | TabsComponent extracted from RenderComponent switch | React hooks (useState) can't be inside switch cases conditionally. Extracted `TabsComponent` function above `RenderComponent` — own useState(0) for active tab, tab header row with Ghost accent underline, shows only active child panel. Falls back to index-based labels ("Tab 1", "Tab 2") when `comp.tabs[i].title` not provided |
+| 2026-02-21 | Remove `"at "` from safety dangerous_patterns | `"at "` was intended to catch the Unix `at` scheduler. But substring matching hit `"cat file.txt".contains("at ")` → false positive on basic read operations. Fixed by removing the pattern. `at` command rare enough that the type-based check (`is_at_schedule` rule) is sufficient |
+| 2026-02-20 | SQLite turbo PRAGMAs over minimal defaults | Added `synchronous=NORMAL`, `cache_size=-16000` (16MB), `mmap_size=256MB`, `temp_store=MEMORY`, `busy_timeout=5000`. WAL-safe, 2-5x faster reads/writes. `page_size=4096` matches OS page size for optimal IO |
+| 2026-02-20 | `[profile.dist]` over modifying `[profile.release]` | CI needs fast compilation (`thin` LTO, codegen-units 16). Distribution binaries need maximum perf (`fat` LTO, codegen-units 1, opt-level 3, panic=abort). Separate profiles avoid conflict |
+| 2026-02-20 | `[profile.dev.package."*"].opt-level = 2` for dev deps | Candle/llama-cpp/tokenizers are unusably slow at opt-level 0. Dev deps compile at opt-level 2, app code stays at 0 for fast iteration |
+| 2026-02-20 | Real tensor batching over sequential embed | `embed_batch()` now stacks tokenized inputs into batch dimension for single forward pass. 2-5x faster indexing. Sub-batches of 16 control memory. Small batches (≤2) still use sequential path |
+| 2026-02-20 | GPU device selection for embeddings | `select_device()` tries Metal (macOS), CUDA (NVIDIA) via Candle, falls back to CPU. Feature-gated `#[cfg(feature = "metal")]` / `#[cfg(feature = "cuda")]` |
+| 2026-02-20 | Transaction batching for chunk + embedding inserts | Indexer wraps chunk inserts and embedding stores in `BEGIN IMMEDIATE/COMMIT` via `db.with_transaction()`. 10-50x faster bulk inserts vs individual auto-commit |
+| 2026-02-20 | Adaptive chat status polling over fixed 2s interval | Frontend polls every 2s during loading, 10s when no model, 30s when available. Eliminates constant IPC overhead when idle. Immediate refresh on user actions |
+| 2026-02-20 | React.memo on heavy components over default rendering | `ResultsList`, `ChatMessages`, `StatusBar`, `DebugPanel` wrapped in memo(). Prevents re-renders when unrelated parent state changes (e.g., debugOpen toggle doesn't re-render ChatMessages) |
+| 2026-02-20 | Vite esnext + code splitting over wide compat bundle | `build.target: 'esnext'` (Tauri WebView is modern), `manualChunks` splits React + Tauri SDK into cacheable chunks. `esbuild.drop: ['console', 'debugger']` strips debug code. Faster builds with `reportCompressedSize: false` |
+| 2026-02-20 | Periodic re-index every 60min over 5min | File watcher covers real-time changes. 5-minute full rescan was redundant, wasting CPU. 60-minute safety net catches edge cases (network drives, files added while offline). 120s initial delay (was 60s) lets startup indexing complete |
+| 2026-02-20 | `__APP_VERSION__` over hardcoded version string | Fixed v0.1.0 hardcoded in App.tsx — now uses Vite `define` injection from package.json. Single source of truth for version display |
+
+---
+> Source: [elias489/ghost](https://github.com/elias489/ghost) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
