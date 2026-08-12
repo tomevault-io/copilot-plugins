@@ -1,0 +1,9 @@
+{
+  "name": "devopen-io--dondurma-rss-reader",
+  "displayName": "dondurma-rss-reader",
+  "description": "\ud83c\udf66 A premium, open-source RSS/Atom feed reader built with Flutter and Material 3. Cross-platform, private, and algorithm-free.",
+  "version": "1.0.0",
+  "author": "DevOpen-io",
+  "homepage": "https://github.com/DevOpen-io/dondurma-rss-reader",
+  "skills": []
+}
