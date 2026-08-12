@@ -7,11 +7,11 @@ AI operating framework for hyper-personalized software.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jaimevalasek/aioson](https://github.com/jaimevalasek/aioson).
+Original source: `CLAUDE.md` in [jaimevalasek/aioson](https://github.com/jaimevalasek/aioson).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
