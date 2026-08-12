@@ -1,0 +1,9 @@
+{
+  "name": "seekr-technologies--seekr-hatchery",
+  "displayName": "seekr-hatchery",
+  "description": "Task orchestration CLI for AI coding agents. ",
+  "version": "1.0.0",
+  "author": "Seekr-Technologies",
+  "homepage": "https://github.com/Seekr-Technologies/seekr-hatchery",
+  "skills": []
+}
