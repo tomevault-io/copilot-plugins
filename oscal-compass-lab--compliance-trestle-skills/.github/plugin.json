@@ -1,0 +1,9 @@
+{
+  "name": "oscal-compass-lab--compliance-trestle-skills",
+  "displayName": "compliance-trestle-skills",
+  "description": "Agent-portable Compliance Trestle and OSCAL engineering toolkit: convert legacy SSPs to OSCAL, validate with Trestle and oscal-cli, FedRAMP Rev 5 and 20x KSI workflows. Claude Code plugin plus portabl",
+  "version": "1.0.0",
+  "author": "oscal-compass-lab",
+  "homepage": "https://github.com/oscal-compass-lab/compliance-trestle-skills",
+  "skills": []
+}
