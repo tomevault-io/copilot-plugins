@@ -1,0 +1,14 @@
+{
+  "name": "zircote--lsp-tools",
+  "displayName": "lsp-tools",
+  "description": "LSP-first code intelligence for Claude Code with strong enforcement patterns. Part of the zircote-lsp marketplace.",
+  "version": "1.0.0",
+  "author": "zircote",
+  "homepage": "https://github.com/zircote/lsp-tools",
+  "skills": [
+    {
+      "name": "lsp-enable",
+      "description": ""
+    }
+  ]
+}
