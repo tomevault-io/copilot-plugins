@@ -1,0 +1,9 @@
+{
+  "name": "lavs9--quantwave",
+  "displayName": "quantwave",
+  "description": "High-performance, Polars-native technical analysis in Python and Rust with 221 Native Indicators \u00b7 Full Ehlers DSP suite \u00b7 Regime Detection \u00b7 Backtest engine \u00b7 Bit-identical streaming & batch \u00b7  Optio",
+  "version": "1.0.0",
+  "author": "lavs9",
+  "homepage": "https://github.com/lavs9/quantwave",
+  "skills": []
+}
