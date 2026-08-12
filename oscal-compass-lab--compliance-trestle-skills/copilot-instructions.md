@@ -1,21 +1,19 @@
-## oscal-json-edit
+## oscal-workspace-guardrails
 
-> Prefer Trestle markdown roundtrip over direct OSCAL JSON edits
+> OSCAL import workspace guardrails
 
 
-Direct edits to OSCAL JSON or YAML in catalogs, profiles, component definitions, or SSP directories bypass the Trestle markdown authoring roundtrip.
-They can cause validation or assembly issues.
+When you work in an OSCAL import workspace:
 
-Prefer:
+- Keep original source files in `input/` unchanged.
+- Maintain `source-map.csv` source traceability for every mapped OSCAL field.
+- Mark uncertain mappings as `needs_review`.
+- Do not invent system boundaries, control implementations, or authorization conclusions.
+- Do not commit real customer SSPs, credentials, diagrams, or sensitive evidence.
+- Make import summary, validation report, and unmapped or review-queue artifacts before you claim success.
+- Schema-valid OSCAL is structural validation only. It is not an audit opinion.
 
-1. `trestle author *-generate` to make markdown
-2. Edit markdown with source references
-3. `trestle author *-assemble` to regenerate OSCAL
-4. `trestle validate -a` or `/workspace-validate`
-
-If a direct JSON or YAML edit is intentional, continue with care and validate afterward.
-Assessment plans, assessment results, and POA&M models use the JSON split and merge workflow.
-See `commands/workflow/assessment-roundtrip.md` and `commands/workflow/poam-roundtrip.md`.
+Use `/import-legacy-ssp` or `agent-skills/oscal-document-engineering/SKILL.md` for the full workflow.
 
 ---
 > Source: [oscal-compass-lab/compliance-trestle-skills](https://github.com/oscal-compass-lab/compliance-trestle-skills) — distributed by [TomeVault](https://tomevault.io).
