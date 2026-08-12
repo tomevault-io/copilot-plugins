@@ -1,0 +1,9 @@
+{
+  "name": "anentropic--duckdb-semantic-views",
+  "displayName": "duckdb-semantic-views",
+  "description": "Semantic Views for DuckDB.",
+  "version": "1.0.0",
+  "author": "anentropic",
+  "homepage": "https://github.com/anentropic/duckdb-semantic-views",
+  "skills": []
+}
