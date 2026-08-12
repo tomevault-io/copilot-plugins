@@ -1,0 +1,30 @@
+{
+  "name": "codeready-toolchain--tarsy",
+  "displayName": "tarsy",
+  "description": "Intelligent Site Reliability Engineering agent for automatic alert processing",
+  "version": "1.0.0",
+  "author": "codeready-toolchain",
+  "homepage": "https://github.com/codeready-toolchain/tarsy",
+  "skills": [
+    {
+      "name": "golang-context-patterns",
+      "description": ""
+    },
+    {
+      "name": "golang-error-handling",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-basics",
+      "description": ""
+    },
+    {
+      "name": "golang-type-safety",
+      "description": ""
+    },
+    {
+      "name": "golang-testing-patterns",
+      "description": ""
+    }
+  ]
+}
