@@ -1,0 +1,9 @@
+{
+  "name": "getsynkora--synkora-ai",
+  "displayName": "synkora-ai",
+  "description": "Open-source AI agent platform for building, deploying, and managing AI teammates. Role-based agents (PM, Engineer, Support, Marketing) with custom tools, knowledge bases, and 50+ integrations. Self-ho",
+  "version": "1.0.0",
+  "author": "getsynkora",
+  "homepage": "https://github.com/getsynkora/synkora-ai",
+  "skills": []
+}
