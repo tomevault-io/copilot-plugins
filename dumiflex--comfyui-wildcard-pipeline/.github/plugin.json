@@ -1,0 +1,9 @@
+{
+  "name": "dumiflex--comfyui-wildcard-pipeline",
+  "displayName": "ComfyUI-Wildcard-Pipeline",
+  "description": "Modular procedural prompt generation for ComfyUI \u2014 wildcards, fixed values, combiners, derivations, and constraints chained through a Context pipeline, resolved into a prompt by the Assembler. Loops +",
+  "version": "1.0.0",
+  "author": "DumiFlex",
+  "homepage": "https://github.com/DumiFlex/ComfyUI-Wildcard-Pipeline",
+  "skills": []
+}
