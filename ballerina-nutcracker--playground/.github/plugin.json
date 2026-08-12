@@ -1,0 +1,9 @@
+{
+  "name": "ballerina-nutcracker--playground",
+  "displayName": "playground",
+  "description": "Ballerina playground is a web based tool which allows trying out language features.",
+  "version": "1.0.0",
+  "author": "ballerina-nutcracker",
+  "homepage": "https://github.com/ballerina-nutcracker/playground",
+  "skills": []
+}
