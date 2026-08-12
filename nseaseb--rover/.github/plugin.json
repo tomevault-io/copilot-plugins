@@ -1,0 +1,9 @@
+{
+  "name": "nseaseb--rover",
+  "displayName": "rover",
+  "description": "Interactive maps for Phoenix LiveView, powered by OpenLayers. Assign a list of markers, get a live map.",
+  "version": "1.0.0",
+  "author": "nseaSeb",
+  "homepage": "https://github.com/nseaSeb/rover",
+  "skills": []
+}
