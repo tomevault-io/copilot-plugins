@@ -1,0 +1,9 @@
+{
+  "name": "binhpdev--awesome-algorithm-auto-tools",
+  "displayName": "awesome-algorithm-auto-tools",
+  "description": "A curated collection of tools and frameworks for AI-driven automated model training \u2014 AutoResearch, HuggingFace Skills, AutoML, Self-Play, and more.",
+  "version": "1.0.0",
+  "author": "BinHPdev",
+  "homepage": "https://github.com/BinHPdev/awesome-algorithm-auto-tools",
+  "skills": []
+}
