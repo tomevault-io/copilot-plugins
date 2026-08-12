@@ -1,0 +1,9 @@
+{
+  "name": "capazme--mcp-legal-it",
+  "displayName": "mcp-legal-it",
+  "description": "MCP server + Claude plugin for Italian law \u2014 200+ tools: verified statutes, case law search, legal calculations, GDPR compliance",
+  "version": "1.0.0",
+  "author": "capazme",
+  "homepage": "https://github.com/capazme/mcp-legal-it",
+  "skills": []
+}
