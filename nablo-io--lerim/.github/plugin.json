@@ -1,0 +1,9 @@
+{
+  "name": "nablo-io--lerim",
+  "displayName": "lerim",
+  "description": "Compiles AI agent traces and truns them into reusable context.",
+  "version": "1.0.0",
+  "author": "nablo-io",
+  "homepage": "https://github.com/nablo-io/lerim",
+  "skills": []
+}
