@@ -1,0 +1,9 @@
+{
+  "name": "apimeister--gguf-runner",
+  "displayName": "gguf-runner",
+  "description": "a gguf model runner",
+  "version": "1.0.0",
+  "author": "apimeister",
+  "homepage": "https://github.com/apimeister/gguf-runner",
+  "skills": []
+}
