@@ -7,11 +7,11 @@ Cybara - Your agents. Your tools. Your runtime. Harness the power of AI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [metaspartan/cybara](https://github.com/metaspartan/cybara).
+Original source: `AGENTS.md` in [metaspartan/cybara](https://github.com/metaspartan/cybara).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
