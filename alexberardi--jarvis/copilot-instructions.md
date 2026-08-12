@@ -1,80 +1,85 @@
-## jarvis-auth-client
+## jarvis-auth
 
-> Rules for jarvis-auth-client - shared authentication library
+> Rules for jarvis-auth - JWT authentication microservice
 
 
-# jarvis-auth-client
+# jarvis-auth
 
-Shared Python library for authentication across Jarvis microservices. Two auth mechanisms: Superuser JWT and App-to-App.
+FastAPI authentication microservice with JWT tokens, user management, and app-to-app credentials.
 
-## Setup & Run
+## Running (Port 7701)
 
 ```bash
-pip install -e ".[dev]"
-pytest
+./run.sh --docker              # Start in Docker (standard)
+./run.sh --docker --rebuild    # Rebuild after dependency changes
+./run-prod.sh                  # Production
+pytest                         # Tests
 ```
 
-## Superuser JWT
+## Architecture
 
-```python
-from jarvis_auth_client import init, require_superuser, SuperuserUser
-
-init(secret_key=os.getenv("JARVIS_AUTH_SECRET_KEY"))
-
-@app.get("/admin/something")
-def admin_endpoint(user: SuperuserUser = Depends(require_superuser)):
-    print(user.user_id, user.email)
 ```
-
-## App-to-App Authentication
-
-```python
-from jarvis_auth_client import init, require_app_auth, AppAuthResult
-from jarvis_auth_client.headers import get_app_headers, build_context_headers
-
-init(auth_base_url=os.getenv("JARVIS_AUTH_BASE_URL"))
-_app_auth = require_app_auth()
-
-@app.post("/transcribe")
-async def transcribe(auth: AppAuthResult = Depends(_app_auth)):
-    print(auth.app.app_id, auth.context.household_id)
-```
-
-## Header Utilities
-
-```python
-from jarvis_auth_client.headers import get_app_headers, build_context_headers
-
-headers = {
-    **get_app_headers(),  # X-Jarvis-App-Id, X-Jarvis-App-Key from env
-    **build_context_headers(household_id="hh123", node_id="node456", user_id=789),
-}
+jarvis_auth/app/
+├── main.py                    # FastAPI app, middleware
+├── api/
+│   ├── auth.py                # Register, login, refresh, logout
+│   ├── admin_app_clients.py   # App credential management
+│   ├── admin_nodes.py         # Node management
+│   └── internal.py            # Internal endpoints
+├── db/
+│   ├── models.py              # User, RefreshToken, AppClient, Node
+│   └── session.py             # Database connection
+└── core/
+    └── security.py            # JWT, password hashing
 ```
 
 ## Environment Variables
 
-| Variable | Used By | Description |
+| Variable | Default | Description |
 |----------|---------|-------------|
-| `JARVIS_AUTH_SECRET_KEY` | require_superuser | JWT signing key |
-| `JARVIS_AUTH_BASE_URL` | require_app_auth | jarvis-auth service URL |
-| `JARVIS_AUTH_APP_ID` | get_app_headers | App ID for outgoing requests |
-| `JARVIS_AUTH_APP_KEY` | get_app_headers | App key for outgoing requests |
+| `DATABASE_URL` | - | PostgreSQL connection string |
+| `SECRET_KEY` | - | JWT signing key (required) |
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | 30 | Access token lifetime |
+| `REFRESH_TOKEN_EXPIRE_DAYS` | 7 | Refresh token lifetime |
 
-## Error Responses
+## API Endpoints
 
-- **401**: Missing/invalid token or credentials
-- **403**: Valid token but not superuser
-- **503**: jarvis-auth service unavailable
+**User Auth:**
+- `POST /auth/register` - Create user
+- `POST /auth/login` - Get access + refresh tokens
+- `GET /auth/me` - Current user (requires Bearer token)
+- `POST /auth/refresh` - Refresh access token
+- `POST /auth/logout` - Revoke refresh token
+
+**App-to-App (Admin):**
+- `POST /admin/app-clients` - Create app credentials
+- `GET /admin/app-clients` - List app clients
+
+**Internal:**
+- `POST /internal/validate-app` - Validate app credentials
+
+## App-to-App Authentication
+
+Other services authenticate via headers:
+```
+X-Jarvis-App-Id: ocr-service
+X-Jarvis-App-Key: <app-key>
+```
+Validate by calling `/internal/validate-app`.
 
 ## Service Dependencies
 
-Talks to its respective service only:
-- `jarvis-auth` (7701) - Validates app credentials (GET /internal/app-ping)
-- Optionally uses `jarvis-config-client` to discover auth URL
+**Leaf node** - jarvis-auth is at the bottom of the dependency chain. Other services depend on it, not the other way around.
 
-## Used By
+- `jarvis-settings-client` - Runtime configuration (only jarvis library dependency)
+- No log-client or config-client
 
-jarvis-settings-server, jarvis-command-center, jarvis-whisper-api, jarvis-tts
+**Data services (from jarvis-data-stores/):**
+- PostgreSQL - User accounts, refresh tokens, app clients, node registry
+
+## Dependencies
+
+FastAPI, SQLAlchemy, Alembic, python-jose (JWT), passlib (bcrypt), httpx, jarvis-settings-client
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
