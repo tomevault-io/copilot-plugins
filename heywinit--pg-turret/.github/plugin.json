@@ -1,0 +1,9 @@
+{
+  "name": "heywinit--pg-turret",
+  "displayName": "pg_turret",
+  "description": "postgres extension for streaming logs",
+  "version": "1.0.0",
+  "author": "heywinit",
+  "homepage": "https://github.com/heywinit/pg_turret",
+  "skills": []
+}
