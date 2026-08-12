@@ -1,54 +1,42 @@
-## code-quality
+## git-workflow
 
-> Code quality standards for ecommerce_recommendator
+> Git workflow and CI/CD rules for ecommerce_recommendator
 
 
-# Code Quality Standards
+# Git Workflow Rules
 
-## Linting Rules
+## CI Requirements
 
-- **NEVER use inline `noqa` comments** to suppress linter warnings
-- Fix the underlying issue instead of ignoring it
-- For project-wide patterns (like Django settings), configure exceptions in `pyproject.toml` under `[tool.ruff.lint.per-file-ignores]`
+- **NEVER merge or push to main if CI is failing**
+- Always wait for CI checks to pass before merging PRs
+- If CI fails, fix the issues first - no exceptions
 
-## Examples
+## Before Pushing
 
-```python
-# ❌ BAD - Inline suppression
-def health_check(request: object) -> JsonResponse:  # noqa: ARG001
-    pass
+1. Run locally first:
+   ```bash
+   ruff check . && ruff format --check . && mypy . && pytest
+   ```
+2. Only push if all checks pass locally
 
-# ✅ GOOD - Use underscore prefix for intentionally unused args
-def health_check(_request: object) -> JsonResponse:
-    pass
-```
+## Branch Protection (Configured)
 
-```python
-# ❌ BAD - Inline noqa
-from .base import *  # noqa: F403
+Branch protection is enabled on `main` with required status checks:
+- Lint (Ruff)
+- Type Check (mypy)
+- Test (pytest)
+- Security Scan
+- All Checks Passed
 
-# ✅ GOOD - Configure in pyproject.toml per-file-ignores for Django patterns
-# In pyproject.toml:
-# [tool.ruff.lint.per-file-ignores]
-# "core/settings/*.py" = ["F403", "F405"]
-```
+GitHub will block merges if any check fails.
 
-## Type Checking
+## PR Workflow
 
-- Use strict mypy configuration
-- Avoid `# type: ignore` comments - fix the typing issue instead
-- **Exception**: Known bugs in external libraries (e.g., django-stubs issues) may use `type: ignore[specific-code]` WITH a comment linking to the issue
-- Prefer proper typing over ignoring errors
-
-```python
-# ❌ BAD - Unexplained type ignore
-class UserAdmin(BaseUserAdmin):  # type: ignore
-
-# ✅ GOOD - Documented known issue with link
-# UserAdmin is generic in django-stubs but not subscriptable at runtime
-# See: https://github.com/typeddjango/django-stubs/issues/1097
-class UserAdmin(BaseUserAdmin):  # type: ignore[type-arg]
-```
+1. Create feature branch: `git checkout -b feat/feature-name`
+2. Make changes with semantic commits
+3. Push and create PR
+4. Wait for CI to pass (lint, type-check, test, security)
+5. Only merge after ALL checks are green
 
 ---
 > Source: [Plenix-AI/ecommerce_recommendator](https://github.com/Plenix-AI/ecommerce_recommendator) — distributed by [TomeVault](https://tomevault.io).
