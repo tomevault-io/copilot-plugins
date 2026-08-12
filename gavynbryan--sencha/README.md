@@ -7,11 +7,11 @@ Repository for the Sencha Game Engine.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [GavynBryan/Sencha](https://github.com/GavynBryan/Sencha).
+Original source: `AGENTS.md` in [GavynBryan/Sencha](https://github.com/GavynBryan/Sencha).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
