@@ -1,0 +1,9 @@
+{
+  "name": "sonaiengine--graph-tool-call",
+  "displayName": "graph-tool-call",
+  "description": "Graph-based tool retrieval for LLM agents \u2014 248 tools \u2192 82% accuracy, 79% fewer tokens. Zero dependencies. OpenAPI / MCP / LangChain.",
+  "version": "1.0.0",
+  "author": "SonAIengine",
+  "homepage": "https://github.com/SonAIengine/graph-tool-call",
+  "skills": []
+}
