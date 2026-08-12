@@ -1,0 +1,9 @@
+{
+  "name": "johnsabath--touchdesigner-mcp",
+  "displayName": "touchdesigner-mcp",
+  "description": "General-purpose MCP server for TouchDesigner \u2014 gives AI agents full control over any TD project",
+  "version": "1.0.0",
+  "author": "johnsabath",
+  "homepage": "https://github.com/johnsabath/touchdesigner-mcp",
+  "skills": []
+}
