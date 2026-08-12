@@ -7,11 +7,11 @@ skills, subagents and the claude plugin for polygraph
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nrwl/polygraph-skills](https://github.com/nrwl/polygraph-skills).
+Original source: `AGENTS.md` in [nrwl/polygraph-skills](https://github.com/nrwl/polygraph-skills).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
