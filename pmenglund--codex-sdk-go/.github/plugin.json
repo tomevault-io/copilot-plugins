@@ -1,0 +1,9 @@
+{
+  "name": "pmenglund--codex-sdk-go",
+  "displayName": "codex-sdk-go",
+  "description": "Go SDK for Codex app-server: spawn codex app-server, run threads/turns with streaming, approvals, structured output, and typed JSON-RPC access.",
+  "version": "1.0.0",
+  "author": "pmenglund",
+  "homepage": "https://github.com/pmenglund/codex-sdk-go",
+  "skills": []
+}
