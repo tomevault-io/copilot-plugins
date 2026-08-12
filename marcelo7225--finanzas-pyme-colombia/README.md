@@ -7,11 +7,11 @@ Sistema multiagente contable, tributario y financiero para mipymes de servicios 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Marcelo7225/finanzas-pyme-colombia](https://github.com/Marcelo7225/finanzas-pyme-colombia).
+Original source: `CLAUDE.md` in [Marcelo7225/finanzas-pyme-colombia](https://github.com/Marcelo7225/finanzas-pyme-colombia).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
