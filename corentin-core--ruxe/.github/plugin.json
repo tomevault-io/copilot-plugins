@@ -1,0 +1,9 @@
+{
+  "name": "corentin-core--ruxe",
+  "displayName": "ruxe",
+  "description": "Redux-inspired state management for Rust \u2014 compile-time safe parallel reducers on isolated state slices",
+  "version": "1.0.0",
+  "author": "corentin-core",
+  "homepage": "https://github.com/corentin-core/ruxe",
+  "skills": []
+}
