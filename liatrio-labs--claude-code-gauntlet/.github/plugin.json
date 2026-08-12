@@ -1,0 +1,9 @@
+{
+  "name": "liatrio-labs--claude-code-gauntlet",
+  "displayName": "claude-code-gauntlet",
+  "description": "Adversarial multi-agent code review for Claude Code \u2014 your PR/MR runs a gauntlet of concern-specialized agents, deterministic verification, and a blind challenge. GitHub & GitLab. Formerly deep-review",
+  "version": "1.0.0",
+  "author": "liatrio-labs",
+  "homepage": "https://github.com/liatrio-labs/claude-code-gauntlet",
+  "skills": []
+}
