@@ -1,0 +1,9 @@
+{
+  "name": "redhatproductsecurity--ai-guardian",
+  "displayName": "ai-guardian",
+  "description": "AI IDE security hook: blocks directories, scans secrets, and protects AI interactions",
+  "version": "1.0.0",
+  "author": "RedHatProductSecurity",
+  "homepage": "https://github.com/RedHatProductSecurity/ai-guardian",
+  "skills": []
+}
