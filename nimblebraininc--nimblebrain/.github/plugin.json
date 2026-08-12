@@ -1,0 +1,9 @@
+{
+  "name": "nimblebraininc--nimblebrain",
+  "displayName": "nimblebrain",
+  "description": "Self-hosted platform for MCP Apps and agent automations \u2014 tools, interactive UIs, scheduled runs, multi-agent delegation.",
+  "version": "1.0.0",
+  "author": "NimbleBrainInc",
+  "homepage": "https://github.com/NimbleBrainInc/nimblebrain",
+  "skills": []
+}
