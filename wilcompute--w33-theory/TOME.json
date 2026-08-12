@@ -4,7 +4,7 @@
   "repo": "W33-Theory",
   "description": "Deriving the Standard Model from a single finite geometry with zero free parameters",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wilcompute/W33-Theory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T20:43:33Z"
+  "distributed_at": "2026-08-12T20:54:58Z"
 }
