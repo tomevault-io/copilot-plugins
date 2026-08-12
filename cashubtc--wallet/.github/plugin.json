@@ -1,0 +1,9 @@
+{
+  "name": "cashubtc--wallet",
+  "displayName": "wallet",
+  "description": "Cashu Wallet for iOS and Android",
+  "version": "1.0.0",
+  "author": "cashubtc",
+  "homepage": "https://github.com/cashubtc/wallet",
+  "skills": []
+}
