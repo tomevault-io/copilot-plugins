@@ -1,0 +1,9 @@
+{
+  "name": "blugart-dev--kickback",
+  "displayName": "kickback",
+  "description": "Physics-based reactive characters for Godot 4.6+ (Euphoria-like hit reactions)",
+  "version": "1.0.0",
+  "author": "blugart-dev",
+  "homepage": "https://github.com/blugart-dev/kickback",
+  "skills": []
+}
