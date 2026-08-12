@@ -1,48 +1,89 @@
-## jarvis-installer
+## jarvis-llm-proxy-api
 
-> Rules for jarvis-installer - install configuration SPA
+> Rules for jarvis-llm-proxy-api - LLM proxy with local model support
 
 
-# jarvis-installer
+# jarvis-llm-proxy-api
 
-Static React SPA (GitHub Pages) that generates install configurations for the Jarvis voice assistant stack.
+LLM proxy service with local model inference, LoRA adapter training, and queue workers.
 
-## Running
+## Running (Port 7704 API, Port 7705 Queue Worker)
 
+**On macOS:** Run natively (required for Metal acceleration):
 ```bash
-npm install              # Install dependencies
-npm run dev              # Dev server
-npm test                 # Tests
-npm run test:watch       # Watch mode
-npm run test:coverage    # With coverage
-npm run build            # Production build
+./run.sh                       # Starts API + queue worker natively
+./run.sh --rebuild             # Rebuild venv after dependency changes
 ```
 
-## Tech Stack
+**On Linux:** Docker is fine:
+```bash
+./run.sh --docker              # Start in Docker
+./run.sh --docker --rebuild    # Rebuild after dependency changes
+```
 
-- React 19 + TypeScript, Vite, Vitest + React Testing Library + jsdom
-- Tailwind CSS v4 (via `@tailwindcss/vite` plugin - no config file)
-- JSZip for client-side zip generation
-- React Router for landing page / configurator routing
+**Production:**
+```bash
+./run-prod.sh                  # Uses prod.env, no hot reload
+```
 
-## Project Structure
+**Why native on macOS:** Uses llama-cpp-python with Metal acceleration and sets `OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES` for macOS compatibility. Docker cannot access Metal GPU.
 
-- `public/service-registry.json` - Source of truth for all Jarvis modules
-- `src/types/` - TypeScript type definitions
-- `src/data/` - Static data (GPU database, model recommendations)
-- `src/lib/` - Pure logic (registry, detection, generators)
-- `src/context/` - React context providers
-- `src/components/` - UI components
-- `tests/` - Test files mirroring src/ structure
-- `install.sh` - Shell script for generated curl command
+## Two API Modes
+
+### 1. Synchronous - OpenAI-Compatible Passthrough (Port 7704)
+
+Accepts OpenAI-style requests and forwards them to the local model, returning OpenAI-style responses. Extra sugar added for enhanced capabilities, but the interface is standard OpenAI.
+
+This is what command-center and other services call for real-time inference.
+
+### 2. Async Queue - Long-Running Jobs (Port 7705)
+
+Queue worker for tasks that take minutes/hours:
+
+- **Base model training**: Takes a base model and adds date/time context awareness using a key system. Keys like `today`, `tomorrow`, `yesterday` are embedded during training - the caller resolves these to actual dates at inference time.
+- **Adapter training**: Trains LoRA adapters for specific jarvis nodes. Uses the `IJarvisCommand` examples from a node's command set to teach the model that node's available commands.
+
+Jobs are queued via Redis and processed by the background worker.
+
+## Architecture
+
+```
+jarvis-llm-proxy-api/
+├── main.py                    # Entry point (87 lines, imports from modules)
+├── app/
+│   ├── api_server.py          # FastAPI routes (OpenAI-compatible)
+│   ├── model_service.py       # Model loading, inference
+│   └── queue_worker.py        # Background job processing (port 7705)
+├── scripts/
+│   └── common.sh              # Shared bash functions
+├── .models/                   # Local model storage
+└── run.sh                     # Dev startup (handles venv, CUDA/Metal detection)
+```
+
+## Environment Variables
+
+Env vars should only hold sensitive values. All non-sensitive config (model name, context window, etc.) should be in the database via jarvis-settings-client.
+
+| Variable | Description |
+|----------|-------------|
+| `JARVIS_CONFIG_URL` | Config service URL for bootstrap discovery |
+| `JARVIS_AUTH_APP_ID` | App ID for inter-service auth |
+| `JARVIS_AUTH_APP_KEY` | App key (sensitive) |
 
 ## Service Dependencies
 
-None - fully static SPA. May be merged into jarvis-admin in the future.
+**Must be running:**
+- `jarvis-auth` (7701) - App-to-app auth
+- `jarvis-config-service` (7700) - Service discovery
+- `jarvis-logs` (7702) - Centralized logging
+- `jarvis-settings-client` - Runtime configuration (model name, context window, etc.)
 
-## Testing
+**Data services (from jarvis-data-stores/):**
+- Redis - Job queue for async training tasks
 
-TDD required: RED → GREEN → IMPROVE. Target 80%+ coverage.
+## Dependencies
+
+FastAPI, uvicorn, llama-cpp-python, vllm (optional), jarvis-log-client, jarvis-settings-client, jarvis-config-client, jarvis-auth-client
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
