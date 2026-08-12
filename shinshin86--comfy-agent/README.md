@@ -7,11 +7,11 @@ Comfy Agent is a tool to use ComfyUI from the CLI. It is suitable for both direc
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [shinshin86/comfy-agent](https://github.com/shinshin86/comfy-agent).
+Original source: `AGENTS.md` in [shinshin86/comfy-agent](https://github.com/shinshin86/comfy-agent).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
