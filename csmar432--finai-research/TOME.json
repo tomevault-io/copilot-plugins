@@ -1,0 +1,44 @@
+{
+  "name": "finai-research",
+  "owner": "csmar432",
+  "repo": "finai-research",
+  "description": "Evidence-first AI workflow for economic and financial research: literature \u2192 identification \u2192 data \u2192 econometrics \u2192 verifiable LaTeX. 43 data sources, 58 method modules, 18 AI skills, 30 journal templates.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/csmar432/finai-research",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T00:38:50Z"
+}
