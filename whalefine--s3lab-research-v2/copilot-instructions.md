@@ -1,116 +1,128 @@
-## research-narrative-thesis
+## thesis-rule
 
-> 本研究整體歷程、改動方向、軟硬體流程與論文敘事主軸（SGLATrack → softmax-free CARE → Q8.8 → Python golden → ROM → Verilog → APR）
+> Thesis writing rules for structure, chapter scope, references, and title consistency
 
 
-# 研究敘事與技術路線（論文／協作參考）
+# 論文撰寫規則（僅在你提到要寫論文時啟用）
 
-本檔記錄本研究**從模型改動到晶片收尾**的主線、設計取捨與產物意義，供撰寫論文方法與系統章節、以及與 Agent 協作時對齊語境使用。若使用者未提到「研究流程／論文敘事／本專案階段」，可不強制套用全文，但**討論 SGLATrack、CARE、fixed-point、Verilog 或 APR 時**應優先對照本檔以免敘事矛盾。
+## 啟用條件
+- 只有在使用者明確提到「要寫論文 / 正在寫論文 / 論文章節 / 摘要 / 引言 / related work / 方法 / 實驗 / 結論」等論文撰寫語境時，才套用本規則。
+- 若對話內容不是論文撰寫任務，忽略本規則。
 
-正式論文標題與章節語氣仍以 `.cursor/rules/thesis_rule.mdc` 為準。
+## 論文標題（固定）
+- 中文標題：`應用於 UAV 視覺追蹤之 16 奈米 Softmax-Free Vision Transformer 硬體加速器`
+- 英文標題：`A 16 nm Softmax-Free Vision Transformer Hardware Accelerator for UAV Visual Tracking`
 
----
+## 標題使用規範
+- 涉及封面、摘要首頁、題目欄、投稿資訊時，必須使用上述完整標題，不可自行改寫。
+- 需要縮寫時，僅可在內文首次出現後以「本文」或「本研究」指代，不可更動正式題名。
+- 中英文標題需一一對應，不可混用其他版本。
 
-## 研究目標（一句話）
+## 總原則
+- 清楚區分「別人的工作」與「自己的工作」：前者放背景與文獻脈絡，後者放方法、實作與結果。
+- 用詞一致：以「章／節」「圖」「式」「reference」為主要術語。
+- 章節安排遵守常見骨架：先背景與相關工作，再方法，最後結果與結論。
 
-以 **Softmax-Free Vision Transformer** 為核心的視覺追蹤模型，經 **定點（Q8.8）化** 與 **Python 硬體對齊檢查**，完成 **RTL → APR**，並以 **DRC／LVS clean** 作為研究收尾條件。
+## 常見整體骨架
+- 建議順序：摘要 -> Abstract -> Content -> List of Figures -> List of Tables -> Chapter 1 Introduction -> Chapter 2 Software Implementation -> Chapter 3 Hardware Implementation -> Chapter 4 Conclusion and Future Works -> Reference。
+- 目錄頁標題固定為「Content」，不用「Table of Contents」或「目錄」。
+- Chapter 1：鋪背景、補基礎、整理 related work、導向 motivation。
+- Chapter 2：完整解釋自己的方法、流程、模型、架構或系統設計。
+- Chapter 3：呈現自己的實驗、硬體實作、資源消耗、效能與比較表。
+- Chapter 4：收斂成結論與未來工作。
 
----
+## 段落推進公式
+- 通用段落：定義主題 -> 說明重要性 -> 引用代表方法 -> 分析限制 -> 導向本研究。
+- 文獻回顧段落：方法做了什麼 -> 優點是什麼 -> 限制是什麼 -> 為何仍不足以解決本文問題。
+- 自己方法段落：模組功能 -> 設計原因 -> 關鍵細節 -> 這個設計帶來的效果。
+- 結果段落：先交代設定 -> 再報告數字 -> 再解釋原因 -> 最後點出與目標的關聯。
 
-## 階段一：在 SGLATrack 上探索 Softmax-Free Attention
+## Chapter 1（緒論／背景與動機）
+- 將他人研究、相關背景與被引用文獻脈絡寫在本章，先把脈絡說清楚。
+- 撰寫 introduction 與 motivation，並列出三點最重要的 contribution（可驗證且可對應後文章節）。
+- 對關鍵文獻需同時說明優點與限制，並交代與本研究關聯。
+- 文獻核對卷期頁、DOI、版本與重複引用，引用樣式以指導老師規定為準。
+- 建議順序：應用背景 -> 基礎技術 A -> 基礎技術 B -> related work/特定議題 -> motivation -> thesis organization。
+- Chapter 1 不要過早展開自己的實作細節；細節放在後續章節。
+- related work 不可只列文獻名稱，必須交代方法、優點、限制與本文關聯。
 
-### 1-A 問題起點
+### Chapter 1 節次結構（從 5 篇實際論文歸納）
+- Chapter 1 通常包含 7～9 個小節。
+- **第一節**固定為應用情境介紹（如「Introduction to UAV and Their Applications」）。
+- **倒數第二節**固定為 Motivation（明確列出前人方法不足之處與本研究貢獻）。
+- **最後一節**固定為 Thesis Organization（逐章說明各章內容，一段式，每章一句）。
+- Thesis Organization 是每篇論文的標準結尾，不可省略。
+- Related work 通常以獨立小節呈現，或附在對應技術介紹節內（如「1.3 Introduction to AIDER dataset and its related work」），不另開 Chapter 2 放 related work。
 
-標準 softmax attention 公式為 `softmax(QKᵀ/√d)V`，其中 `exp()` 與 `row-wise division` 在硬體中代價高昂（需要 LUT 或 CORDIC 實作 exp，面積與延遲均大），是 ViT 加速器的主要瓶頸。本研究目標為在保住 SGLATrack 追蹤精度的前提下，找到一個可直接對應 RTL 的 attention 替代方案。
+## Motivation 與 Contribution 模板
+- Motivation：前人方法有效，但仍有 A/B/C 限制 -> 實際應用需要 X/Y/Z -> 因此本文提出...。
+- Contribution 固定整理成 3 點，且每點都需能對應到後文章節與實驗結果。
+- 三點常見分工：方法/模型/演算法新意、系統/架構/硬體實作新意、效能/部署/應用價值新意。
 
----
+## Chapter 2（Software Implementation：只做自己的）
+- 只寫自己的研究如何實作（方法、架構、流程、細節）。
+- 基礎通用背景可精簡，與本研究直接相關細節可詳述。
+- 建議順序：overall architecture/workflow -> 模組拆解 -> 設計理由 -> 中間分析或消融結果。
+- 先給整體架構圖或流程圖，再逐節拆解。
+- 每個模組需交代：做什麼、為什麼這樣設計、怎麼做、帶來什麼好處。
 
-### 1-B 嘗試過的四條路線（依序）
+### Chapter 2 節次結構（從 5 篇實際論文歸納）
+- **2.1 Architecture Overview**：固定為第一節，給出整體架構圖或流程圖，不可省略。
+- 中間各節拆解各模組（Dataset Preprocessing、模型實作、量化方法等）。
+- **最後一節**固定為 Software Result（呈現軟體實作的準確率、混淆矩陣等），不可放在中間。
+- Confusion matrix table 必須在 Chapter 2 的 Software Result 中呈現。
 
-#### ① Squaremax（reference [61]）
-- **機制**：`Attn = normalize(ReLU(QKᵀ)²) V`，以 ReLU² 取代 exp，normalization 改為 shift + 小 decoder（不需要 divider）。
-- **複雜度**：仍為 **O(N²)**（必須計算完整 N×N attention 矩陣）。
-- **硬體友善度**：高——無 exp，無 LUT。
-- **為何未採用**：O(N²) 的 memory bandwidth 成本在 token 數多時仍難以接受；無 per-head gating，attention 表達力較弱，追蹤指標有下降。
+## Chapter 3（Hardware Implementation）
+- 只呈現自己的硬體實驗與數據，不寫成他人方法調查章。
+- 比較表需以可查證來源為依據（論文、官方實作、作者數字），不可臆造數據。
+- 建議順序：Fixed-point/量化處理 -> 硬體加速器架構 -> Power Gating -> 硬體實作分析與比較 -> [Summary]。
+- 表後說明不可只寫「本文最好」，需補充他法強項、限制與本文適用條件。
+- 多組表格時，每張表優先只回答一個問題（如準確率、資源、延遲、功耗或面積）。
 
-#### ② SimA（Simple Softmax-free Attention，reference/sima）
-- **機制**：對 Q、K 做 **L1 normalization**，再做 `q @ (kᵀ @ v)`（linear attention，**O(N)**）。
-- **複雜度**：O(N)——先算 kᵀv（d×d 矩陣），再乘 q，token 數不影響主要計算量。
-- **硬體友善度**：中——L1 norm 需要絕對值累加，相較可接受，但 normalization 邊界在 fixed-point 下需額外處理。
-- **為何未採用**：移植到 SGLATrack 後追蹤性能下降明顯；L1 norm 的語意與 SGLATrack 訓練假設不吻合。
+### Chapter 3 節次結構（從 5 篇實際論文歸納）
+- **倒數第二節（或倒數第一節）**固定為「Hardware Implementation Analysis and Comparison」，內含：
+  - 硬體實作結果總表（頻率、功耗、面積、準確率）
+  - **「Comparison with prior methods」**比較表（此表名稱在 5 篇中完全一致，必須使用）
+- **最後一節**（較新論文，111 年起）固定為「Summary」，一段式總結本章重點。
+- 110 年論文尚未有 Summary 節，111 年後均有，建議加入。
 
-#### ③ MALA（Magnitude-Aware Linear Attention，reference/MALA）
-- **機制**：`q = ELU(q)+1`，`k = ELU(k)+1`，線性注意力 + additive correction + **RoPE** 位置編碼。
-- **複雜度**：O(N)。
-- **硬體友善度**：低——ELU 內含 exp（與 softmax 同樣問題）；RoPE 需要 sin/cos 計算，硬體成本大。
-- **為何未採用**：兩個難實作的非線性（ELU+RoPE）同時存在，等同放棄硬體友善的目標。
+## Chapter 4（結論）
+- 結論需總結研究目標、方法、代表性結果與實際價值。
+- Future Work 應由目前限制延伸，不可過度空泛。
+- 常見拆法：4.1 Conclusion、4.2 Future Work(s)。
 
-#### ④ CARE-Transformer（原版，reference/CARE-Transformer）
-- **機制**：`q = ELU(q)+1`，`k = ELU(k)+1`，線性注意力 `kv = kᵀv/N`，`x = q @ kv * z`，其中 `z = 1/(q @ k_mean ᵀ)`。
-- **複雜度**：**O(N)**——先算 kv（d×d），再乘 q，具有 per-head gating（z）保持 attention 銳利度。
-- **硬體友善度**：中——架構設計優秀，但 kernel function **ELU+1 仍含 exp**。
-- **為何未採用原版**：ELU 的 exp 是唯一硬體障礙；若能替換 kernel function，CARE 架構本身非常適合 RTL 實作。
+## 摘要寫法模板（從 5 篇實際論文歸納）
+- 摘要固定四段式，每段對應一個主題：
+  - 第一段：應用情境背景（邊緣運算/UAV/問題陳述）
+  - 第二段：本文提出的方法（本論文/本研究 使用 X 方法，並說明設計動機）
+  - 第三段：硬體實作（在哪個製程實作、使用什麼技術如 Power Gating）
+  - 第四段：關鍵量化結果（頻率 MHz、功耗 mW、準確率 %，三者必須出現）
+- **關鍵字格式**：`**關鍵字：** 詞1、詞2、詞3、詞4、詞5`（黑體，頓號分隔，5～6個）
+- Abstract 為摘要的逐段英文對應，段落數與重點必須一致，不可中英文重點分離。
+- **Keywords 格式**：`**Keywords**: term1, term2, term3`（黑體，逗號分隔）
 
----
+## Reference 與交付
+- Reference 清單僅列正文實際引用文獻，避免重複條目。
+- 若需交付引用全文 PDF，依指導老師要求整理與上傳。
+- 檔名可用引用編號前綴（如 [60]、[61]）對齊正文編號。
+- 引用學位論文時，格式須符合老師或系上範本；不建議以學長姐論文作為主要比較對象。
 
-### 1-C 最終選型：CARE + ReLU6 + Q8.8
+## 標號、圖片與公式（從 5 篇實際論文歸納）
+- 小節與圖號固定使用二層（如 1.1、1.2），嚴禁三層（如 1.1.1）。
+- **圖號格式**：`Figure X.Y Description [ref].`（例：`Figure 1.3 Flowchart of fire detection algorithm [3].`）
+- **表號格式**：`Table X.Y Description.`（例：`Table 3.10 Comparison with prior methods.`）
+- 圖號與表號均按章節重新計數（Figure 1.x 在 Ch1，Figure 2.x 在 Ch2，依此類推）。
+- 使用他人圖片時需在圖說末標 `[ref]`；預設優先自製圖。
+- 數學公式需用可編輯方程式（LaTeX 或 Word 方程式），不可用截圖代替。
+- List of Figures 與 List of Tables 為獨立頁面，緊接在 Content 之後，格式與圖號一致。
 
-- **改動邏輯**：在 CARE 架構上，將 `ELU()+1` kernel function 替換為 **ReLU6**。
-  - **ReLU → ReLU6 的理由**：純 ReLU 輸出無上界，在 Q8.8 定點格式下可能 overflow；ReLU6 將輸出截在 [0, 6]，與 Q8.8 的整數部分（8 bit 表示最大 127）配合更佳，數值穩定。
-  - **結果**：O(N) 線性注意力、無 exp、輸出有界、per-head gating 保留 → 四個硬體友善條件全部滿足。
-- **模型檔**：`python/lib/models/sglatrack/vit_CARE_relu6_fixed.py`（ViT-B/16，depth=12，embed=768，Q8.8 截斷插入每一個中間結果）。
-- **論文可寫重點**：
-  - 為何 softmax-free（exp 硬體成本）
-  - 四種方案的比較表（O(N²) vs O(N)、kernel function、硬體成本、追蹤精度）
-  - 為何最終選 CARE + ReLU6（O(N) + 無 exp + bounded + gating）
-  - ReLU vs ReLU6 的差異及對 Q8.8 的影響
-  - 數字比較引用 benchmark-results.mdc
-
----
-
-## 階段二：固定點插入主架構（FP32 → Q8.8）
-
-- **工作內容**：在已定案的 CARE 類架構上，將運算流程改為 **fixed-point** 語意一致之模擬／訓練後流程。
-- **量化格式**：固定為 **Q8.8**（與專案中 fixed-point／硬體友善設計 skill 對齊）。
-- **論文可寫重點**：哪一層／哪條路徑插入定點、截斷與尺度約定、與 FP32 的誤差傳播界線。
-
----
-
-## 階段三：Python Check（硬體語意一致性與 Golden）
-
-- **目的**：在撰寫／驗證 Verilog 前，用 Python **模擬「硬體會怎麼算」**，確認數值流程正確。
-- **輸出產物**：
-  - **Weight**：以 **binary 格式** 輸出並以 **txt** 儲存；**權重來源使用 NPY 而非 PTH**。
-    - **理由**：後續撰寫 Verilog 時需知道 **在各段落／模組邊界要餵入哪一段 weight**；NPY 便於與記憶體映射、位址區段、ROM 初值對齊，勝過直接依賴 PyTorch `.pth` 的抽象封裝。
-  - **Activation**：同樣以適合對照的格式輸出（binary／txt），作為 **golden reference**。
-    - **理由**：撰寫 Verilog 時 **逐步對答案**，確認每一級 pipeline／每個 function 區塊輸出與 Python golden 一致。
-- **論文可寫重點**：軟硬體協同驗證方法、golden 生成流程、與 RTL 對位的介面（word width、endianness、區塊邊界）。
-
----
-
-## 階段四：ROM 先行與 Verilog 整合現況
-
-- **順序**：需 **先把權重寫入 ROM（或等價之常數表／初始化映像）**，才能進行 **完整頂層／系統級** Verilog 整合與時序完整的驗證。
-- **限制**：在 ROM／完整記憶體映像尚未就緒前，**完整 testbench／端到端仿真** 不易撰寫或意義不完整。
-- **現況**：**各功能模組（function-level）的 Verilog 已分別完成**；待 ROM 與介面對齊後，再接成可仿真的完整 datapath／control。
-- **論文可寫重點**：硬體模組化策略、memory hierarchy、為何採 ROM 先行與驗證分層。
-
----
-
-## 階段五：APR 與結案條件
-
-- **後續流程**：RTL 與驗證收斂後進行 **APR（自動佈局繞線）**。
-- **研究收尾條件**：**DRC、LVS 皆 clean**（必要時於論文註明製程／PDK／signoff 工具鏈版本與約束）。
-- **論文可寫重點**：實體設計結果、面積／時脈／功耗若可得則放入結果章。
-
----
-
-## 給 Agent 的協作提示
-
-1. **模型／量化**：修改 PyTorch 時優先對齊 **CARE + Q8.8** 與既有 skill（如 `sglatrack-fixedpoint-q8-8`、`sglatrack-qat`）的目錄與慣例。
-2. **產物格式**：輸出給硬體的 weight／activation，維持 **binary + txt** 與 **NPY 權重管線** 的敘事一致。
-3. **Verilog**：區分 **已完成之 function block** 與 **待 ROM／頂層串接後才完成的 TB**；避免假設端到端仿真已可跑。
-4. **論文引用**：方法與貢獻敘述應可對應到上述五階段；數字比較以 `benchmark-results.mdc` 與實際實驗為準。
+## 與 Agent 協作建議流程
+1. 先確認要修改哪一章，再套用該章規則（Chapter 1 他人脈絡、Chapter 2 自己方法、Chapter 3 自己結果）。
+2. 規劃整篇時，優先套用共同骨架：應用背景 -> 基礎技術 -> related work -> motivation -> 自己方法 -> 自己結果 -> conclusion。
+3. 撰寫單節時，先判斷其屬性（背景、文獻、方法、結果、結論），再套用對應段落公式。
+4. 產出 Motivation 或 Contribution 時，優先壓成 3 點且避免空泛詞。
+5. 產出或修改比較表前，先確認文獻來源、連結與欄位定義，僅填入已核對數字。
+6. 修改引用或 reference 時，提醒核對 DOI、卷期頁與重複條目。
 
 ---
 > Source: [whalefine/s3lab_research_v2](https://github.com/whalefine/s3lab_research_v2) — distributed by [TomeVault](https://tomevault.io).
