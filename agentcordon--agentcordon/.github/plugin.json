@@ -1,0 +1,9 @@
+{
+  "name": "agentcordon--agentcordon",
+  "displayName": "agentcordon",
+  "description": "An Agentic IDP and Credential Vault",
+  "version": "1.0.0",
+  "author": "agentcordon",
+  "homepage": "https://github.com/agentcordon/agentcordon",
+  "skills": []
+}
