@@ -1,0 +1,44 @@
+{
+  "name": "swift-hakchi2",
+  "owner": "mattackerman808",
+  "repo": "swift-hakchi2",
+  "description": "Native macOS Swift/SwiftUI rewrite of Hakchi2 CE for NES/SNES Classic Mini",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mattackerman808/swift-hakchi2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T05:01:12Z"
+}
