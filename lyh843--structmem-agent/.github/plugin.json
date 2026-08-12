@@ -1,0 +1,9 @@
+{
+  "name": "lyh843--structmem-agent",
+  "displayName": "StructMem-Agent",
+  "description": "\u9762\u5411 ALFWorld \u957f\u7a0b\u4efb\u52a1\u89c4\u5212\u4e0e\u63a2\u7d22\u7684\u7ed3\u6784\u5316\u8bb0\u5fc6 LLM \u667a\u80fd\u4f53\u3002",
+  "version": "1.0.0",
+  "author": "lyh843",
+  "homepage": "https://github.com/lyh843/StructMem-Agent",
+  "skills": []
+}
