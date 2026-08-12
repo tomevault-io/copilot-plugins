@@ -1,0 +1,9 @@
+{
+  "name": "yorrick--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Claude Code plugins for automated development workflows \u2014 dev-loop, review automation, and more",
+  "version": "1.0.0",
+  "author": "yorrick",
+  "homepage": "https://github.com/yorrick/agent-skills",
+  "skills": []
+}
