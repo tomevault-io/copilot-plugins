@@ -1,0 +1,30 @@
+# ai-plugins
+
+> Tome by [endorlabs](https://github.com/endorlabs/ai-plugins), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
+
+Endor Labs Agent Kit plugins for Claude Code, Codex, Gemini CLI, Antigravity CLI, Cursor, and Cursor SDK: packaged AppSec workflows for SCA remediation, AI SAST triage, CI/CD posture, malware response, findings review, Endor Labs setup, and more.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `GEMINI.md` in [endorlabs/ai-plugins](https://github.com/endorlabs/ai-plugins).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
+
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/endorlabs/ai-plugins](https://github.com/endorlabs/ai-plugins)
+
+---
+
+Install this config instantly:
+```
+npx tomevault install endorlabs/ai-plugins
+```
+Source: [github.com/endorlabs/ai-plugins](https://github.com/endorlabs/ai-plugins).
+
+<!-- genome:t-i-q -->
