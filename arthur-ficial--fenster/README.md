@@ -7,11 +7,11 @@ Chrome's on-device Gemini Nano, served as if it were OpenAI. Cross-platform sist
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Arthur-Ficial/fenster](https://github.com/Arthur-Ficial/fenster).
+Original source: `AGENTS.md` in [Arthur-Ficial/fenster](https://github.com/Arthur-Ficial/fenster).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
