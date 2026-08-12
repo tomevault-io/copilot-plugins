@@ -1,142 +1,34 @@
-## slots
+## typography
 
-> All components must work as render targets for Base UI's `render` prop.
+> globs: src/tokens/_fonts.scss
 
-# Slot-Compatible Components
+# Suisse Font Metrics
 
-All components must work as render targets for Base UI's `render` prop.
+---
+globs: src/tokens/_fonts.scss
+---
 
-## Requirements
+## Font Metric Overrides
 
-Every component must:
+Suisse Intl has non-standard vertical metrics that cause an oversized caret in input fields. This is corrected with `@font-face` descriptor overrides:
 
-1. **Use `forwardRef`** — refs must reach the DOM element
-2. **Extend HTML props** — use `React.ComponentPropsWithoutRef<'element'>`
-3. **Spread rest props** — `{...props}` on root element
-4. **Merge classNames** — combine internal + external with `clsx`
+| Descriptor | Value |
+|------------|-------|
+| `ascent-override` | 85% |
+| `descent-override` | 15% |
+| `line-gap-override` | 0% |
 
-## Pattern
+Applied to all weights: Regular (400), Book (450), Medium (500).
 
-```tsx
-import * as React from 'react';
-import clsx from 'clsx';
-import styles from './Component.module.scss';
+## Do
 
-export interface ComponentProps extends React.ComponentPropsWithoutRef<'div'> {
-  variant?: 'primary' | 'secondary';
-}
+- Import `_fonts.scss` in consuming apps
+- Keep overrides on all `@font-face` declarations
 
-export const Component = React.forwardRef<HTMLDivElement, ComponentProps>(
-  function Component({ variant = 'primary', className, children, ...props }, ref) {
-    return (
-      <div
-        ref={ref}
-        className={clsx(styles.root, styles[variant], className)}
-        {...props}
-      >
-        {children}
-      </div>
-    );
-  }
-);
-```
+## Do Not
 
-## Base UI Wrappers
-
-Components wrapping Base UI primitives inherit `render` prop support automatically:
-
-```tsx
-export interface TriggerProps extends BaseComponent.Trigger.Props {}
-
-export const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(
-  function Trigger(props, ref) {
-    return <BaseComponent.Trigger ref={ref} {...props} />;
-  }
-);
-```
-
-## Context Provider Components
-
-Some Base UI parts are **context providers** that don't render their own element:
-
-```bash
-# Check the type definition
-cat node_modules/@base-ui/react/combobox/value/ComboboxValue.d.ts
-
-# Context provider - no ForwardRefExoticComponent, no RefAttributes
-export declare function ComboboxValue(props: Props): ReactElement
-```
-
-These **cannot** forward refs or accept className. Wrap them in your own element:
-
-```tsx
-// ✗ WRONG - Value doesn't accept ref or className
-export const Value = React.forwardRef<HTMLSpanElement, ValueProps>(
-  function Value({ className, ...props }, ref) {
-    return <BaseCombobox.Value ref={ref} className={className} {...props} />;
-  }
-);
-
-// ✓ CORRECT - Wrap in span to provide ref/className support
-export const Value = React.forwardRef<HTMLSpanElement, ValueProps>(
-  function Value({ className, children, ...props }, ref) {
-    return (
-      <span ref={ref} className={className} {...props}>
-        <BaseCombobox.Value>{children}</BaseCombobox.Value>
-      </span>
-    );
-  }
-);
-```
-
-## When to use `useRender`
-
-Only use `useRender` from Base UI when building custom compound components that need to provide their own `render` prop. Most design system components don't need this — they just need to BE render targets.
-
-```tsx
-// Only if your component needs to PROVIDE a render prop
-import { useRender } from '@base-ui-components/react/use-render';
-```
-
-## Verification
-
-Use conformance tests to verify slot compatibility. Add to component tests:
-
-```tsx
-import { createConformanceTests } from '@/test-utils';
-
-const conformance = createConformanceTests({
-  Component: MyComponent,
-  requiredProps: { /* minimum props to render */ },
-  expectedTag: 'div',
-});
-
-test.describe('MyComponent conformance', () => {
-  test('forwards props', async ({ mount, page }) => {
-    await mount(<conformance.PropForwarding />);
-    await expect(page.getByTestId(conformance.testId)).toHaveAttribute('data-custom', 'custom-value');
-  });
-
-  test('forwards ref', async ({ mount, page }) => {
-    await mount(<conformance.RefForwarding />);
-    await expect(page.getByTestId(conformance.testId)).toBeVisible();
-  });
-
-  test('merges className', async ({ mount, page }) => {
-    await mount(<conformance.ClassNameString />);
-    await expect(page.getByTestId(conformance.testId)).toHaveClass(/custom-class-name/);
-  });
-});
-```
-
-## Checklist
-
-- [ ] Uses `forwardRef`
-- [ ] Extends `React.ComponentPropsWithoutRef<'element'>`
-- [ ] Spreads `{...props}` on root element
-- [ ] Merges `className` with `clsx`
-- [ ] **Base UI wrapper**: Checked if context provider (wrap in element if so)
-- [ ] Conformance tests pass
+- Remove the override values
+- Add new Suisse weights without these overrides
 
 ---
 > Source: [lightsparkdev/origin](https://github.com/lightsparkdev/origin) — distributed by [TomeVault](https://tomevault.io).
