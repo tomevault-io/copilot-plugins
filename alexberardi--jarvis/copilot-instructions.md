@@ -1,76 +1,81 @@
-## jarvis-logs
+## jarvis-mcp
 
-> Rules for jarvis-logs - centralized logging service
+> Rules for jarvis-mcp - MCP server for Claude Code integration
 
 
-# jarvis-logs
+# jarvis-mcp
 
-Centralized logging service. Receives logs from microservices, stores in Loki, visualizes in Grafana.
+MCP (Model Context Protocol) server exposing jarvis services as tools for Claude Code.
 
-## Running (Port 7702)
+## Running (Port 7709)
 
 ```bash
-./run.sh --docker              # Start in Docker (Loki + Grafana + API)
+./run.sh --docker              # Start in Docker (standard)
 ./run.sh --docker --rebuild    # Rebuild after dependency changes
-./run-tests.sh                 # Tests
-# Grafana: http://localhost:7033 (admin/jarvis)
+poetry run pytest              # Tests
 ```
 
 ## Architecture
 
 ```
-app/
-├── main.py               # FastAPI app
-├── routes/
-│   ├── logs.py           # Log ingestion and querying
-│   └── node_logs.py      # Node-specific logs
-├── loki_client.py        # Loki push/query
-└── auth.py               # App-to-app auth
-
-docker-compose.yaml       # Loki (7032), Grafana (3000), API (7702)
+jarvis_mcp/
+├── __main__.py    # Entry point
+├── server.py      # SSE server, MCP protocol
+├── config.py      # Environment configuration
+└── tools/
+    ├── logs.py    # logs_query, logs_tail, logs_errors, logs_services
+    └── debug.py   # debug_health, debug_service_info
 ```
 
 ## Environment Variables
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `LOKI_URL` | http://loki:7032 | Loki server URL |
-| `LOG_SERVER_PORT` | 7702 | API port |
-| `LOG_API_KEY` | - | API key for log ingestion |
-| `ADMIN_API_KEY` | - | Admin endpoint protection |
+| `JARVIS_MCP_HOST` | localhost | Server host |
+| `JARVIS_MCP_PORT` | 7709 | Server port |
+| `JARVIS_MCP_TOOLS` | logs,debug | Enabled tool groups (add `tests`/`db`) |
+| `JARVIS_CONFIG_URL` | - | Config service URL (preferred) |
+| `JARVIS_CONFIG_URL_STYLE` | - | Set to `dockerized` in Docker |
+| `JARVIS_LOGS_URL` | http://localhost:7702 | Fallback logs URL |
+| `JARVIS_AUTH_URL` | http://localhost:7701 | Fallback auth URL |
+| `POSTGRES_HOST` | localhost | Postgres host for db tools |
+| `POSTGRES_PORT` | 5432 | Postgres port for db tools |
+| `POSTGRES_USER` | devuser | Postgres user for db tools |
+| `POSTGRES_PASSWORD` | devpassword | Postgres password for db tools |
+| `POSTGRES_DB` | postgres | Default database for db tools |
+
+## Service Discovery
+
+URLs fetched from `jarvis-config-service` at startup with background refresh every 5 minutes. Falls back to `JARVIS_*_URL` env vars.
+
+## Available Tools
+
+**Logs:** logs_query, logs_tail, logs_errors, logs_services
+**Debug:** debug_health, debug_service_info
+**Tests:** run_tests
+**DB (read-only):** db_list_databases, db_list_schemas, db_list_tables, db_describe_table, db_query
 
 ## API Endpoints
 
-**Ingestion:**
-- `POST /api/v0/logs` - Single log
-- `POST /api/v0/logs/batch` - Batch logs
-
-**Querying:**
-- `GET /api/v0/logs` - Query with filters (`?service=auth&level=ERROR&since_minutes=60`)
-- `GET /api/v0/logs/stream` - Real-time stream (SSE)
-- `GET /api/v0/services` - List services with logs
-
-**Health:**
 - `GET /health` - Health check
+- `GET /sse` - SSE connection for MCP clients
+- `POST /messages` - MCP message endpoint
 
 ## Service Dependencies
 
 **Must be running:**
-- `jarvis-auth` (7701) - App-to-app and node auth validation
-- `jarvis-config-service` (7700) - Service discovery (finds auth URL)
+- `jarvis-config-service` (7700) - Service discovery (optional, falls back to env vars)
+- `jarvis-logs` (7702) - Queried by log tools (logs_query, logs_tail, logs_errors)
 - `jarvis-settings-client` - Runtime configuration
 
-**External (bundled in docker-compose):**
-- Loki (7032) - Log storage/indexing
-- Grafana (7033) - Dashboards
+**Queried for health/debug tools (all optional):**
+- `jarvis-auth` (7701), `jarvis-command-center` (7703), `jarvis-recipes-server` (7030), `jarvis-whisper-api` (7706), `jarvis-ocr-service` (7031), `jarvis-llm-proxy-api` (7704), `jarvis-tts` (7707)
 
-## Authentication
-
-Clients authenticate via `X-Jarvis-App-Id` + `X-Jarvis-App-Key` headers, validated against jarvis-auth. Nodes authenticate via `X-API-Key` header.
+**Note:** Does NOT use jarvis-log-client for its own logging. Uses app-to-app auth headers directly for logs access.
 
 ## Dependencies
 
-FastAPI, httpx, jarvis-config-client, jarvis-settings-client, Loki, Grafana
+mcp, starlette, sse-starlette, httpx, jarvis-settings-client
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
