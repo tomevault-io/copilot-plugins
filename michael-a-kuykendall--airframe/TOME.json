@@ -1,0 +1,44 @@
+{
+  "name": "airframe",
+  "owner": "Michael-A-Kuykendall",
+  "repo": "airframe",
+  "description": "Pure-Rust WebGPU inference engine for GGUF models. No C++, no Python, no llama.cpp. Runs on NVIDIA, AMD, Intel, and Apple Silicon.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Michael-A-Kuykendall/airframe",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T05:02:56Z"
+}
