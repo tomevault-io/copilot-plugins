@@ -1,0 +1,9 @@
+{
+  "name": "abhiunix--agentharbor",
+  "displayName": "AgentHarbor",
+  "description": "\ud83d\udea2 One native tray app for all your AI coding agents \u2014 live rate limits, session usage & monthly spend for Claude Code, Cursor, Codex, Gemini CLI & Windsurf, plus one-click MCP/rules/skills/sub-agent d",
+  "version": "1.0.0",
+  "author": "abhiunix",
+  "homepage": "https://github.com/abhiunix/AgentHarbor",
+  "skills": []
+}
