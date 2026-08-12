@@ -1,0 +1,9 @@
+{
+  "name": "notkhoa03--jarvis-secure",
+  "displayName": "jarvis-secure",
+  "description": "Security-hardened fork of ethanplusai/jarvis \u2014 voice-first AI assistant with auth, restricted CORS, localhost-only binding, and no dangerously-skip-permissions",
+  "version": "1.0.0",
+  "author": "NotKhoa03",
+  "homepage": "https://github.com/NotKhoa03/jarvis-secure",
+  "skills": []
+}
