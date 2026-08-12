@@ -4,7 +4,7 @@
   "repo": "bobs-big-brain-registrar",
   "description": "Bob's Big Brain Registrar \u2014 the team's memory keeper. Decides what gets in (by code, not by a model), stores what's admitted, and writes hash-chained, tamper-evident receipts. The govern engine of Bob's Big Brain.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jeremylongshore/bobs-big-brain-registrar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T01:15:55Z"
+  "distributed_at": "2026-08-12T01:17:30Z"
 }
