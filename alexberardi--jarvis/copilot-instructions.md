@@ -1,85 +1,93 @@
-## jarvis-auth
+## jarvis-command-center
 
-> Rules for jarvis-auth - JWT authentication microservice
+> Rules for jarvis-command-center - central voice command API
 
 
-# jarvis-auth
+# jarvis-command-center
 
-FastAPI authentication microservice with JWT tokens, user management, and app-to-app credentials.
+Central voice command API. Routes voice from Pi Zero nodes through speech-to-text, LLM processing, and tool execution.
 
-## Running (Port 7701)
+## Running (Port 7703)
 
 ```bash
-./run.sh --docker              # Start in Docker (standard)
+./run.sh --docker              # Start in Docker (includes PostgreSQL)
 ./run.sh --docker --rebuild    # Rebuild after dependency changes
-./run-prod.sh                  # Production
-pytest                         # Tests
+curl http://localhost:7703/health  # Health check
+python run_database_tests.py --type docker  # Tests
 ```
 
 ## Architecture
 
 ```
-jarvis_auth/app/
-├── main.py                    # FastAPI app, middleware
-├── api/
-│   ├── auth.py                # Register, login, refresh, logout
-│   ├── admin_app_clients.py   # App credential management
-│   ├── admin_nodes.py         # Node management
-│   └── internal.py            # Internal endpoints
-├── db/
-│   ├── models.py              # User, RefreshToken, AppClient, Node
-│   └── session.py             # Database connection
-└── core/
-    └── security.py            # JWT, password hashing
+app/
+├── main.py                        # FastAPI app, startup/shutdown
+├── chat.py                        # Voice command processing
+├── admin.py                       # Node CRUD
+├── core/
+│   ├── model_service.py           # LLM integration, tool processing
+│   ├── prompt_engine.py           # Prompt construction
+│   ├── tool_parser.py             # Tool call parsing
+│   ├── tool_executor.py           # Tool execution
+│   └── conversation_cache.py      # Conversation state
+├── context_providers/
+│   └── node_context_provider.py   # Node auth
+├── models.py                      # SQLAlchemy models
+└── request_models/                # Pydantic schemas
 ```
 
 ## Environment Variables
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `DATABASE_URL` | - | PostgreSQL connection string |
-| `SECRET_KEY` | - | JWT signing key (required) |
-| `ACCESS_TOKEN_EXPIRE_MINUTES` | 30 | Access token lifetime |
-| `REFRESH_TOKEN_EXPIRE_DAYS` | 7 | Refresh token lifetime |
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `DATABASE_URL` | Yes | PostgreSQL connection string |
+| `ADMIN_API_KEY` | Yes | Admin endpoint protection |
+| `JARVIS_LLM_PROXY_API_URL` | Yes | LLM proxy service URL |
+| `JARVIS_LOG_CONSOLE_LEVEL` | No | Logging level (default: INFO) |
 
 ## API Endpoints
 
-**User Auth:**
-- `POST /auth/register` - Create user
-- `POST /auth/login` - Get access + refresh tokens
-- `GET /auth/me` - Current user (requires Bearer token)
-- `POST /auth/refresh` - Refresh access token
-- `POST /auth/logout` - Revoke refresh token
+**Voice:**
+- `POST /api/v0/conversation/start` - Start conversation
+- `POST /api/v0/voice/command` - Process voice command
+- `POST /api/v0/voice/command/continue` - Continue with tool results
 
-**App-to-App (Admin):**
-- `POST /admin/app-clients` - Create app credentials
-- `GET /admin/app-clients` - List app clients
+**Admin (requires X-Admin-Api-Key):**
+- `GET /api/v0/admin/nodes` - List nodes
+- `POST /api/v0/admin/nodes` - Create node
+- `DELETE /api/v0/admin/nodes/{id}` - Delete node
 
-**Internal:**
-- `POST /internal/validate-app` - Validate app credentials
+**Training:**
+- `POST /api/v0/tool-router/train` - Train tool router (fastText)
+- `POST /api/v0/adapters/train` - Queue adapter training
 
-## App-to-App Authentication
-
-Other services authenticate via headers:
-```
-X-Jarvis-App-Id: ocr-service
-X-Jarvis-App-Key: <app-key>
-```
-Validate by calling `/internal/validate-app`.
+**Health:**
+- `GET /health` - Health check
 
 ## Service Dependencies
 
-**Leaf node** - jarvis-auth is at the bottom of the dependency chain. Other services depend on it, not the other way around.
-
-- `jarvis-settings-client` - Runtime configuration (only jarvis library dependency)
-- No log-client or config-client
+**Must be running:**
+- `jarvis-auth` (7701) - App-to-app auth, node credential validation
+- `jarvis-config-service` (7700) - Discovers URLs for all services below
+- `jarvis-logs` (7702) - Centralized logging
+- `jarvis-llm-proxy-api` (7704) - LLM inference for command parsing and responses
+- `jarvis-whisper-api` (7706) - Speech-to-text (transcribes audio from nodes)
+- `jarvis-tts` (7707) - Text-to-speech (generates audio responses for nodes)
+- `jarvis-settings-client` - Runtime configuration (via library, talks to config-service)
 
 **Data services (from jarvis-data-stores/):**
-- PostgreSQL - User accounts, refresh tokens, app clients, node registry
+- PostgreSQL - Node registry, conversation state
+
+## Node Authentication
+
+Nodes authenticate via `X-API-Key` header. Keys stored in the nodes table.
+
+## Database
+
+PostgreSQL required (shared server, own database). docker-compose.dev.yaml includes a PostgreSQL container for standalone dev.
 
 ## Dependencies
 
-FastAPI, SQLAlchemy, Alembic, python-jose (JWT), passlib (bcrypt), httpx, jarvis-settings-client
+FastAPI, SQLAlchemy, Alembic, psycopg2, httpx, fasttext, jarvis-log-client, jarvis-config-client, jarvis-auth-client, jarvis-settings-client
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
