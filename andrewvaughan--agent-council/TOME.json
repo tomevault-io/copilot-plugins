@@ -1,0 +1,44 @@
+{
+  "name": "agent-council",
+  "owner": "andrewvaughan",
+  "repo": "agent-council",
+  "description": "Multi-perspective AI development workflows using councils of specialized agents. Plan, build, review, and ship \u2014 with 13 agent personas across 6 councils.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/andrewvaughan/agent-council",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T19:05:26Z"
+}
