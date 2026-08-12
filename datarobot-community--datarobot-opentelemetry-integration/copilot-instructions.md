@@ -1,35 +1,51 @@
-## bugbot-python-review
+## datarobot-opentelemetry-integration
 
-> Bugbot review checklist for risky Python changes in this repository
+> - These guidelines apply to the whole repository.
 
+# Project Guidelines
 
-# Bugbot Python Review Rule
+## Scope
+- These guidelines apply to the whole repository.
+- The primary code package is in `python/datarobot-opentelemetry`.
 
-When reviewing or generating changes in this repository, prioritize finding behavior regressions and safety issues before style concerns.
+## Architecture
+- This repository contains a Python package that provides:
+  - semantic conventions in `src/datarobot_opentelemetry/semconv`
+  - DataRobot-platform OTel setup (`configure()`) in `src/datarobot_opentelemetry/integrations`
+  - third-party framework instrumentation (FastAPI, uvicorn) built on top of `configure()`
+    in `src/datarobot_opentelemetry/instrumentations`
+- Keep public APIs stable and prefer additive changes.
 
-## Review Priorities
+## Build And Test
+- Use `uv` for dependency and command execution.
+- Run commands from `python/datarobot-opentelemetry` unless a task explicitly targets repo root.
+- Core local validation commands:
+  - `make lint`
+  - `make test`
+  - `make ci`
+- Preferred fast unit-test command:
+  - `uv run pytest -v tests/unit`
 
-1. Confirm telemetry integration behavior remains backward compatible unless explicitly changed.
-2. Verify environment-variable precedence and configuration fallback logic are preserved.
-3. Ensure semantic convention constants remain stable and typo-free.
-4. Require unit tests for behavior changes, especially around `integrations/configuration.py` and `semconv` modules.
-5. Flag silent exception handling, overly broad `except Exception`, and dropped error context.
+## Coding Conventions
+- Python version target is 3.10+ (see `pyproject.toml`).
+- Lint/format/type tools are authoritative:
+  - `ruff` for linting and formatting
+  - `mypy --strict` for typing
+- Add or update unit tests for behavior changes in `tests/unit`.
+- Keep changes focused; avoid unrelated refactors.
 
-## Required Checks Before Approving
+## Release And Versioning
+- Package version is defined in `python/datarobot-opentelemetry/pyproject.toml`.
+- User-visible changes should include a changelog update in `python/datarobot-opentelemetry/CHANGELOG.md`.
 
-1. Run unit tests in package directory:
-   - `uv run pytest -v tests/unit`
-2. Run quality checks:
-   - `make lint`
-3. If headers or new files changed, run:
-   - `make license-check`
+## Licensing
+- Source headers are validated via SkyWalking Eyes (`make license-check`).
+- Preserve existing header format and year pattern conventions in this repo.
 
-## High-Risk Change Signals
-
-- Changes to public constants in `semconv`.
-- Changes to default exporter endpoints, headers, or auth behavior.
-- Changes to package versioning or release workflow files.
-- Added dependencies without justification in `pyproject.toml`.
+## References
+- See `README.md` for repo-level workflow and release process.
+- See `CONTRIBUTING.md` for contribution expectations.
+- See `python/datarobot-opentelemetry/Makefile` for canonical developer commands.
 
 ---
 > Source: [datarobot-community/datarobot-opentelemetry-integration](https://github.com/datarobot-community/datarobot-opentelemetry-integration) — distributed by [TomeVault](https://tomevault.io).
