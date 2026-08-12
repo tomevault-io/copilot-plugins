@@ -4,7 +4,7 @@
   "repo": "centra-llm-agents",
   "description": "A stateful AI operating system for serious, long-horizon work.",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sidiora-Labs/centra-llm-agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T00:36:29Z"
+  "distributed_at": "2026-08-12T06:41:43Z"
 }
