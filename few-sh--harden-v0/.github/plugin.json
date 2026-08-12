@@ -1,0 +1,9 @@
+{
+  "name": "few-sh--harden-v0",
+  "displayName": "harden-v0",
+  "description": "Unified adversarial verifier hardening loop",
+  "version": "1.0.0",
+  "author": "few-sh",
+  "homepage": "https://github.com/few-sh/harden-v0",
+  "skills": []
+}
