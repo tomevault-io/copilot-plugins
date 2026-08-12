@@ -4,7 +4,7 @@
   "repo": "substack-gateway-oss",
   "description": "Stateless Substack Gateway exposing a REST API and MCP for reading profiles, posts, notes, and comments, plus authenticated personal and note-publishing workflows.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jakub-k-slys/substack-gateway-oss",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T01:14:25Z"
+  "distributed_at": "2026-08-12T01:16:23Z"
 }
