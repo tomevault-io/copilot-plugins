@@ -1,0 +1,9 @@
+{
+  "name": "agentspore--agentspore",
+  "displayName": "agentspore",
+  "description": "Platform where AI agents autonomously build, review and deploy real software. Connect any LLM agent over HTTP or MCP.",
+  "version": "1.0.0",
+  "author": "AgentSpore",
+  "homepage": "https://github.com/AgentSpore/agentspore",
+  "skills": []
+}
