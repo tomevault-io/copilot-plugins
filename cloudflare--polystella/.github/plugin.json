@@ -1,0 +1,9 @@
+{
+  "name": "cloudflare--polystella",
+  "displayName": "polystella",
+  "description": "Astro integration for localization and automated AI translation of content",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/polystella",
+  "skills": []
+}
