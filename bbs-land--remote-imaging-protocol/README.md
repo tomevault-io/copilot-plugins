@@ -7,11 +7,11 @@ Documentation and extended information around RIPScrip/RIPTerm/RIPtel specificat
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bbs-land/remote-imaging-protocol](https://github.com/bbs-land/remote-imaging-protocol).
+Original source: `CLAUDE.md` in [bbs-land/remote-imaging-protocol](https://github.com/bbs-land/remote-imaging-protocol).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
