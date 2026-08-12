@@ -1,40 +1,22 @@
-## flair-globo-infinite-scroll
+## shopify-client
 
-> Flair badges on collection infinite scroll (Globo Filter)
+> Brand Corner — Shopify client identity
 
 
-# Flair + Globo infinite scroll
+# Brand Corner
 
-## Problem
+- **Path:** `/Users/andrewdouglas/Shopify/brand-corner`
+- **Git:** https://github.com/nexgen-developer/brand-corner
+- **Store:** `NEEDS_CONFIGURATION.myshopify.com` (needs store)
+- **Themes:** brand-corner/main
 
-Collection pages with infinite scroll show Flair badges on early products but not on products loaded later. Globo renders empty placeholders (`[data-flair-product-badge][data-product-id]`). `FlairApp.refreshProductBadges()` on `globoFilterRenderCompleted` alone misses appended nodes and Flair's ~250 product refresh limit.
+## Deploy rules
 
-## Required files (Brand Corner theme)
-
-1. **`snippets/flair-collection-scroll.liquid`** — batch-fetches `flair-product-badges` via Section API, MutationObserver on product grids, retries `FlairApp.refreshProductBadges()`, exposes `window.refreshFlairCollectionBadges(scope)`.
-
-2. **`layout/theme.liquid`** — render the snippet (do not use a bare `globoFilterRenderCompleted` listener only):
-   ```liquid
-   {% render 'flair-collection-scroll' %}
-   ```
-
-3. **`assets/main-*.js`** — in `fetchAndRenderNextPage`, append to `#js:results` or `#gf-products`, then call `window.refreshFlairCollectionBadges(resultsContainer)`.
-
-## Do not edit
-
-Flair-generated files: `sections/flair-product-badges.liquid`, `snippets/flair-product-badges.liquid`, `sections/flair-banners.liquid`, `snippets/flair-banners.liquid`.
-
-## Port to another store (same theme)
-
-Copy the three files/changes from `nexgen-developer/brand-corner` `main`. Grid IDs are `#gf-products` (Globo) and `#js:results` (native pagination).
-
-## Test
-
-Long collection → scroll to bottom → badges on first, middle, and last products.
-
-## Commits
-
-Use human-style messages only; no agent/cursor references.
+- NEVER deploy to nupoora-784.myshopify.com (Teak)
+- NEVER deploy Money/boi-money content here
+- Only deploy from THIS project path
+- Use theme-push-safe with --path pointing here
+- Git branch names are NOT Shopify theme names
 
 ---
 > Source: [nexgen-developer/brand-corner](https://github.com/nexgen-developer/brand-corner) — distributed by [TomeVault](https://tomevault.io).
