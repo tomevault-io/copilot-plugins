@@ -7,11 +7,11 @@ Local-first AI agent bootstrap: Playwright Browser MCP + ContextDB for Codex CLI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rexleimo/aios](https://github.com/rexleimo/aios).
+Original source: `CLAUDE.md` in [rexleimo/aios](https://github.com/rexleimo/aios).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
