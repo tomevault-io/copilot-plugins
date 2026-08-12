@@ -7,11 +7,11 @@ A Tauri plugin for accessing the device's AI and Machine Learning APIs
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hypothesi/tauri-plugin-device-ai-apis](https://github.com/hypothesi/tauri-plugin-device-ai-apis).
+Original source: `CLAUDE.md` in [hypothesi/tauri-plugin-device-ai-apis](https://github.com/hypothesi/tauri-plugin-device-ai-apis).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
