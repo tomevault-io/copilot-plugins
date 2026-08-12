@@ -1,0 +1,9 @@
+{
+  "name": "jonashertner--opencaselaw",
+  "displayName": "opencaselaw",
+  "description": "Open Swiss legal corpus + MCP server: 1M+ court decisions (1875\u2013today), 21k laws, 10M-edge citation graph, 42 MCP tools. CC0 data, MIT code. Live at mcp.opencaselaw.ch",
+  "version": "1.0.0",
+  "author": "jonashertner",
+  "homepage": "https://github.com/jonashertner/opencaselaw",
+  "skills": []
+}
