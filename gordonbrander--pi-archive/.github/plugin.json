@@ -1,0 +1,9 @@
+{
+  "name": "gordonbrander--pi-archive",
+  "displayName": "pi-archive",
+  "description": "Creates a searchable SQLite archive of every Pi session ever",
+  "version": "1.0.0",
+  "author": "gordonbrander",
+  "homepage": "https://github.com/gordonbrander/pi-archive",
+  "skills": []
+}
