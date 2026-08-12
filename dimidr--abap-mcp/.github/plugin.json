@@ -1,0 +1,9 @@
+{
+  "name": "dimidr--abap-mcp",
+  "displayName": "ABAP-MCP",
+  "description": "Use SAP ADT to agentic change ABAP code live within the system",
+  "version": "1.0.0",
+  "author": "DimiDR",
+  "homepage": "https://github.com/DimiDR/ABAP-MCP",
+  "skills": []
+}
