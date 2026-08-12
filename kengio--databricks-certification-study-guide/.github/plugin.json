@@ -1,0 +1,9 @@
+{
+  "name": "kengio--databricks-certification-study-guide",
+  "displayName": "databricks-certification-study-guide",
+  "description": "Open-source community study guide for all six Databricks certifications (Data Engineer Associate / Professional, Data Analyst Associate, ML Associate / Professional, GenAI Engineer Associate). Aligned",
+  "version": "1.0.0",
+  "author": "kengio",
+  "homepage": "https://github.com/kengio/databricks-certification-study-guide",
+  "skills": []
+}
