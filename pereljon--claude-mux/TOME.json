@@ -4,7 +4,7 @@
   "repo": "claude-mux",
   "description": "Claude Code Multiplexer - Persistent Claude Code sessions for all your projects.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pereljon/claude-mux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T19:15:58Z"
+  "distributed_at": "2026-08-12T19:22:37Z"
 }
