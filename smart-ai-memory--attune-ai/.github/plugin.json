@@ -1,0 +1,9 @@
+{
+  "name": "smart-ai-memory--attune-ai",
+  "displayName": "attune-ai",
+  "description": "Attune-AI is a spec-driven meta-orchestration framework designed to establish a deterministic alignment layer between autonomous LLM agents and a production codebase.",
+  "version": "1.0.0",
+  "author": "Smart-AI-Memory",
+  "homepage": "https://github.com/Smart-AI-Memory/attune-ai",
+  "skills": []
+}
