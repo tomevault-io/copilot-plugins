@@ -4,7 +4,7 @@
   "repo": "crackTCaptcha",
   "description": "\u817e\u8baf T-Sec \u5929\u5fa1\u9a8c\u8bc1\u7801\uff08TCaptcha\uff09\u81ea\u52a8\u5316\u6c42\u89e3\u5668 \u2014\u2014 \u652f\u6301\u6ed1\u5757\u3001\u56fe\u6807\u70b9\u51fb\u3001\u6587\u5b57\u70b9\u9009\u3001\u56fe\u50cf\u9009\u62e9\u3002 \u7eaf HTTP \u534f\u8bae\u5b9e\u73b0\uff0c\u65e0\u9700 Selenium / Playwright \u7b49\u6d4f\u89c8\u5668\u81ea\u52a8\u5316\uff0c\u4f9d\u8d56 Node.js + jsdom \u6865\u63a5 TDC.js",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hailan09/crackTCaptcha",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T11:23:36Z"
+  "distributed_at": "2026-08-12T11:29:29Z"
 }
