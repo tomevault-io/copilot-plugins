@@ -1,0 +1,9 @@
+{
+  "name": "mpecan--rable",
+  "displayName": "rable",
+  "description": "A complete GNU Bash 5.3-compatible parser written in Rust \u2014 100% compatible reimplementation of Parable with Python bindings via PyO3, ~10x faster",
+  "version": "1.0.0",
+  "author": "mpecan",
+  "homepage": "https://github.com/mpecan/rable",
+  "skills": []
+}
