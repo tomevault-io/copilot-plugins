@@ -1,0 +1,9 @@
+{
+  "name": "jerrinot--ap-query",
+  "displayName": "ap-query",
+  "description": "The profiling CLI for agents who can code but can\u2019t read flame graphs",
+  "version": "1.0.0",
+  "author": "jerrinot",
+  "homepage": "https://github.com/jerrinot/ap-query",
+  "skills": []
+}
