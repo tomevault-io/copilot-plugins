@@ -1,0 +1,9 @@
+{
+  "name": "prem-research--mlx-tinker",
+  "displayName": "mlx-tinker",
+  "description": "Tinker-compatible Backend on Apple Silicon",
+  "version": "1.0.0",
+  "author": "prem-research",
+  "homepage": "https://github.com/prem-research/mlx-tinker",
+  "skills": []
+}
