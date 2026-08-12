@@ -1,0 +1,9 @@
+{
+  "name": "ligerthetextrovert--nexus",
+  "displayName": "nexus",
+  "description": "An API gateway written in Golang",
+  "version": "1.0.0",
+  "author": "LigerTheTextRovert",
+  "homepage": "https://github.com/LigerTheTextRovert/nexus",
+  "skills": []
+}
