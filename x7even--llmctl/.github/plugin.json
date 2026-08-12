@@ -1,0 +1,9 @@
+{
+  "name": "x7even--llmctl",
+  "displayName": "llmctl",
+  "description": "Container driven LLM control for VLLM & llama models",
+  "version": "1.0.0",
+  "author": "x7even",
+  "homepage": "https://github.com/x7even/llmctl",
+  "skills": []
+}
