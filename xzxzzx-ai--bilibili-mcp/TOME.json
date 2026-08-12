@@ -1,0 +1,44 @@
+{
+  "name": "bilibili-mcp",
+  "owner": "XZXZZX-Ai",
+  "repo": "bilibili-mcp",
+  "description": "Bilibili MCP\u5de5\u5177(\u83b7\u53d6\u89c6\u9891\u5b57\u5e55\u548c\u8bc4\u8bba)                  A Bilibili MCP server for retrieving video subtitles and comments.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/XZXZZX-Ai/bilibili-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T17:19:50Z"
+}
