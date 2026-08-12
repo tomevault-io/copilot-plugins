@@ -1,0 +1,44 @@
+{
+  "name": "k8s-in-action-2e",
+  "owner": "hezhengdong",
+  "repo": "k8s-in-action-2e",
+  "description": "Kubernetes in Action, Second Edition\uff08Kubernetes \u5b9e\u6218\u7b2c\u4e8c\u7248\uff09\u4e2d\u6587\u7ffb\u8bd1",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hezhengdong/k8s-in-action-2e",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T11:36:10Z"
+}
