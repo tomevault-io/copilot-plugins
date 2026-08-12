@@ -1,0 +1,44 @@
+{
+  "name": "opencode-agent-context-pruning",
+  "owner": "tuanhung303",
+  "repo": "opencode-agent-context-pruning",
+  "description": "Agent Context Pruning (ACP) - Intelligent context management for AI coding agents",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tuanhung303/opencode-agent-context-pruning",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T17:27:05Z"
+}
