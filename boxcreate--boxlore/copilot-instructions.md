@@ -1,24 +1,32 @@
-## gradle-no-sandbox
+## module-docs-and-tests
 
-> Always run Gradle outside the Cursor sandbox using the real ~/.gradle home
+> Module README updates and JVM unit-test expectations for touched code
 
 
-# Gradle / Android builds — no sandbox
+# Module docs and tests
 
-When running Gradle, `adb`, or any Android build/install command:
+## README
 
-1. **Do not use the Cursor sandbox.** Always run with full permissions (`required_permissions: ["all"]` / outside sandbox) so the agent does not inject a temp `GRADLE_USER_HOME`.
-2. **Always use the real Gradle user home:**
-   - Path: `/Users/aswinc/.gradle`
-   - Before every Gradle command, force it explicitly:
-     ```bash
-     unset GRADLE_USER_HOME
-     export GRADLE_USER_HOME="/Users/aswinc/.gradle"
-     export JAVA_HOME="${JAVA_HOME:-/Applications/Android Studio.app/Contents/jbr/Contents/Home}"
-     ```
-3. **Never** rely on Cursor’s sandbox cache under `/var/folders/*/T/cursor-sandbox-cache/` for builds. That path re-downloads Gradle distributions and wastes disk.
-4. Prefer the project wrapper from the repo root: `./gradlew …` (not a system `gradle` binary).
-5. For device installs after UI/app changes, continue the default workflow: `./gradlew installDebug` on a connected device when available.
+Any behavioral, API, or ownership change under `app/`, `core/*/`, or `feature/*/` **updates that folder’s `README.md` in the same PR**.
+
+Shape: [`docs/MODULE_README_TEMPLATE.md`](../../docs/MODULE_README_TEMPLATE.md). Konsist fails if an included module lacks `README.md`.
+
+## Unit tests
+
+- Touched logic gets or extends hermetic JVM tests under `src/test` (prefer `logic/` packages + fakes from `:core:testing`).
+- **Bug fix ⇒ regression test** for that failure mode; if the bug is a shared pattern, cover it app-wide where practical.
+- Nudge Kover upward for gated modules when you add testable surface — see [`docs/TESTING.md`](../../docs/TESTING.md).
+- **Do not** add Compose `androidTest`, emulator suites, or instrumented CI.
+
+## End-of-task checklist
+
+Before claiming done:
+
+- [ ] Architecture boundaries intact (`ARCHITECTURE.md` + Konsist expectations)
+- [ ] Module README updated if ownership / API / behavior changed
+- [ ] Unit tests added or extended (regression if bugfix)
+- [ ] `./gradlew installDebug` if UI/behavior changed and a device is connected
+- [ ] No secrets or scratch files staged
 
 ---
 > Source: [boxcreate/boxlore](https://github.com/boxcreate/boxlore) — distributed by [TomeVault](https://tomevault.io).
