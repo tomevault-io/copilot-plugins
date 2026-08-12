@@ -7,11 +7,11 @@ CLI, MCP server, and TypeScript library that extracts text, layout, and page ima
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [yamadashy/pdfvision](https://github.com/yamadashy/pdfvision).
+Original source: `AGENTS.md` in [yamadashy/pdfvision](https://github.com/yamadashy/pdfvision).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
