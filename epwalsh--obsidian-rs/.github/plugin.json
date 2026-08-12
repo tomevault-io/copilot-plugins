@@ -1,0 +1,9 @@
+{
+  "name": "epwalsh--obsidian-rs",
+  "displayName": "obsidian.rs",
+  "description": "A collection of tools for working with Obsidian vaults, written in Rust.",
+  "version": "1.0.0",
+  "author": "epwalsh",
+  "homepage": "https://github.com/epwalsh/obsidian.rs",
+  "skills": []
+}
