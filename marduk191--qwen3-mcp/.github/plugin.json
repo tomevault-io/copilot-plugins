@@ -1,0 +1,22 @@
+{
+  "name": "marduk191--qwen3-mcp",
+  "displayName": "qwen3_mcp",
+  "description": "MCP server for LM Studio with 80+ tools - file ops, git, web search, skills system",
+  "version": "1.0.0",
+  "author": "marduk191",
+  "homepage": "https://github.com/marduk191/qwen3_mcp",
+  "skills": [
+    {
+      "name": "chrome-extension",
+      "description": ""
+    },
+    {
+      "name": "comfyui-nodes",
+      "description": ""
+    },
+    {
+      "name": "comfyui-workflow",
+      "description": ""
+    }
+  ]
+}
