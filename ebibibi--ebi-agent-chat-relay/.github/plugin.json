@@ -1,0 +1,9 @@
+{
+  "name": "ebibibi--ebi-agent-chat-relay",
+  "displayName": "ebi-agent-chat-relay",
+  "description": "Multi-frontend agent relay: run Claude Code, Codex, local, and AG-UI agents from Discord or Microsoft Teams",
+  "version": "1.0.0",
+  "author": "ebibibi",
+  "homepage": "https://github.com/ebibibi/ebi-agent-chat-relay",
+  "skills": []
+}
