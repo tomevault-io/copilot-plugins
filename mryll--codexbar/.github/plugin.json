@@ -1,0 +1,9 @@
+{
+  "name": "mryll--codexbar",
+  "displayName": "codexbar",
+  "description": "Waybar widget for OpenAI Codex CLI usage limits: session, weekly, code-review quotas, model meters, and credits. Progress bars, countdowns, pacing indicators; Omarchy theming. Pure Bash; AUR package.",
+  "version": "1.0.0",
+  "author": "mryll",
+  "homepage": "https://github.com/mryll/codexbar",
+  "skills": []
+}
