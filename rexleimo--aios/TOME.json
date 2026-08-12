@@ -4,7 +4,7 @@
   "repo": "aios",
   "description": "Local-first AI agent bootstrap: Playwright Browser MCP + ContextDB for Codex CLI, Claude     Code, Gemini CLI, and OpenCode.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rexleimo/aios",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T03:22:12Z"
+  "distributed_at": "2026-08-12T03:31:19Z"
 }
