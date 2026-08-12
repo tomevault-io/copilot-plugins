@@ -1,0 +1,9 @@
+{
+  "name": "tykodev--supremeteam",
+  "displayName": "SupremeTeam",
+  "description": "AI skill system that drives design, build, adversarial review, and Azure deployment lifecycle through a single orchestrated pipeline.",
+  "version": "1.0.0",
+  "author": "TykoDev",
+  "homepage": "https://github.com/TykoDev/SupremeTeam",
+  "skills": []
+}
