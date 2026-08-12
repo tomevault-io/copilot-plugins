@@ -1,0 +1,9 @@
+{
+  "name": "hyeokjaelee--opencode-auto-fallback",
+  "displayName": "opencode-auto-fallback",
+  "description": "\u2699\ufe0f Advanced fallback plugin for OpenCode agents \u2014 model switching, retry with backoff, and context overflow handling",
+  "version": "1.0.0",
+  "author": "HyeokjaeLee",
+  "homepage": "https://github.com/HyeokjaeLee/opencode-auto-fallback",
+  "skills": []
+}
