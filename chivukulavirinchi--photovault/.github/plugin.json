@@ -1,0 +1,9 @@
+{
+  "name": "chivukulavirinchi--photovault",
+  "displayName": "photovault",
+  "description": "Rust application to view photos locally",
+  "version": "1.0.0",
+  "author": "ChivukulaVirinchi",
+  "homepage": "https://github.com/ChivukulaVirinchi/photovault",
+  "skills": []
+}
