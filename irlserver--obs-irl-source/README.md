@@ -7,14 +7,14 @@ OBS plugin for receiving live IRL streams over SRT, RTMP, or any FFmpeg-supporte
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [irlserver/obs-irl-source](https://github.com/irlserver/obs-irl-source).
+Original source: `AGENTS.md` in [irlserver/obs-irl-source](https://github.com/irlserver/obs-irl-source).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [irlserver/obs-irl-source](https://github.com/irlserver/obs-irl-source) — a repo with 18+ stars on GitHub.
