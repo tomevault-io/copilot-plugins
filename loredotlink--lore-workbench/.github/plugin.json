@@ -1,0 +1,9 @@
+{
+  "name": "loredotlink--lore-workbench",
+  "displayName": "lore-workbench",
+  "description": "Lightweight terminal dock for macOS - manage multiple Claude Code sessions",
+  "version": "1.0.0",
+  "author": "loredotlink",
+  "homepage": "https://github.com/loredotlink/lore-workbench",
+  "skills": []
+}
