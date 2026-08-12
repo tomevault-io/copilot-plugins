@@ -1,0 +1,9 @@
+{
+  "name": "compose-miuix-ui--miuix-mingw",
+  "displayName": "miuix-mingw",
+  "description": "miuix UI library for mingwX64",
+  "version": "1.0.0",
+  "author": "compose-miuix-ui",
+  "homepage": "https://github.com/compose-miuix-ui/miuix-mingw",
+  "skills": []
+}
