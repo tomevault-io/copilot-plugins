@@ -1,0 +1,9 @@
+{
+  "name": "hexorcist404--apotrope",
+  "displayName": "apotrope",
+  "description": "Offline, single-executable Windows security posture auditor. 50+ CIS-mapped checks, a 0\u2013100 score, and a self-contained HTML report. No cloud, no agent. MIT.",
+  "version": "1.0.0",
+  "author": "hexorcist404",
+  "homepage": "https://github.com/hexorcist404/apotrope",
+  "skills": []
+}
