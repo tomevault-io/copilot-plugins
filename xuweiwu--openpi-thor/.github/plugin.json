@@ -1,0 +1,9 @@
+{
+  "name": "xuweiwu--openpi-thor",
+  "displayName": "openpi-thor",
+  "description": "Jetson AGX Thor deployment companion for OpenPI pi05 models: JAX-to-PyTorch conversion, ONNX export, TensorRT engine build, validation, and websocket serving.",
+  "version": "1.0.0",
+  "author": "xuweiwu",
+  "homepage": "https://github.com/xuweiwu/openpi-thor",
+  "skills": []
+}
