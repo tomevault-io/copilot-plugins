@@ -1,0 +1,9 @@
+{
+  "name": "l22-io--orchard-mcp",
+  "displayName": "orchard-mcp",
+  "description": "MCP server for Apple Calendar, Mail, and Reminders on macOS using native EventKit and ScriptingBridge",
+  "version": "1.0.0",
+  "author": "l22-io",
+  "homepage": "https://github.com/l22-io/orchard-mcp",
+  "skills": []
+}
