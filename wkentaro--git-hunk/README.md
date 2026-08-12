@@ -7,11 +7,11 @@ Non-interactive git hunk staging for AI agents.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [wkentaro/git-hunk](https://github.com/wkentaro/git-hunk).
+Original source: `AGENTS.md` in [wkentaro/git-hunk](https://github.com/wkentaro/git-hunk).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
