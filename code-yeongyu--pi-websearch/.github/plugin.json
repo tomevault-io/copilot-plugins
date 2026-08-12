@@ -1,0 +1,9 @@
+{
+  "name": "code-yeongyu--pi-websearch",
+  "displayName": "pi-websearch",
+  "description": "Provider-backed web search tool for pi-coding-agent with config-gated activation, TUI status, and source-aware results.",
+  "version": "1.0.0",
+  "author": "code-yeongyu",
+  "homepage": "https://github.com/code-yeongyu/pi-websearch",
+  "skills": []
+}
