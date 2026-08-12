@@ -1,0 +1,9 @@
+{
+  "name": "lulaide--fofa-mcp",
+  "displayName": "fofa-mcp",
+  "description": "FOFA \u641c\u7d22\u5f15\u64ce\u7684 MCP (Model Context Protocol) \u5de5\u5177\u670d\u52a1\u5668\uff0c\u8ba9 AI \u52a9\u624b\u80fd\u591f\u76f4\u63a5\u8c03\u7528 FOFA API \u8fdb\u884c\u7f51\u7edc\u8d44\u4ea7\u641c\u7d22\u3002",
+  "version": "1.0.0",
+  "author": "lulaide",
+  "homepage": "https://github.com/lulaide/fofa-mcp",
+  "skills": []
+}
