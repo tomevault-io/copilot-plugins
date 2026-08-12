@@ -1,0 +1,9 @@
+{
+  "name": "temporalio--temporal-proxy",
+  "displayName": "temporal-proxy",
+  "description": "Home of the Temporal proxy",
+  "version": "1.0.0",
+  "author": "temporalio",
+  "homepage": "https://github.com/temporalio/temporal-proxy",
+  "skills": []
+}
