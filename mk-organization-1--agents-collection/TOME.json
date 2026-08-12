@@ -4,7 +4,7 @@
   "repo": "AGENTS-COLLECTION",
   "description": "784 AGENT DEFINITIONS \u00b7 748 SKILLS \u00b7 141 PROMPTS \u2014 COLLECTED ACROSS 11 AI PLATFORMS: CLAUDE CODE, CURSOR, ANTIGRAVITY, OPENCODE, GITHUB COPILOT, NANOBOT, NANOCLAW, OPENCLAW, PICOCLAW, ZEROCLAW, AND MORE.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MK-ORGANIZATION-1/AGENTS-COLLECTION",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T03:18:33Z"
+  "distributed_at": "2026-08-12T03:23:58Z"
 }
