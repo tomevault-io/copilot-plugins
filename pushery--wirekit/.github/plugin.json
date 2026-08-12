@@ -1,0 +1,9 @@
+{
+  "name": "pushery--wirekit",
+  "displayName": "wirekit",
+  "description": "Open-Source TALL stack UI components for Laravel Livewire, built with Tailwind CSS v4 and Alpine.js",
+  "version": "1.0.0",
+  "author": "pushery",
+  "homepage": "https://github.com/pushery/wirekit",
+  "skills": []
+}
