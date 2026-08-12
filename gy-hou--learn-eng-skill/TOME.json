@@ -4,7 +4,7 @@
   "repo": "learn-eng-skill",
   "description": "for Codex, Claude Code, and general agents, \u539fPrompt-85stars+",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gy-hou/learn-eng-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T15:24:40Z"
+  "distributed_at": "2026-08-12T15:41:06Z"
 }
