@@ -1,0 +1,9 @@
+{
+  "name": "wcgomes--agents-workspace",
+  "displayName": "agents-workspace",
+  "description": "A lightweight AI Agent harness to handle any kind of task! Designed to create a professional workflow with dynamic team assembly of specialized agents tailored to each task, parallel execution, optimi",
+  "version": "1.0.0",
+  "author": "wcgomes",
+  "homepage": "https://github.com/wcgomes/agents-workspace",
+  "skills": []
+}
