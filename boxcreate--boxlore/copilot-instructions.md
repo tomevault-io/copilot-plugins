@@ -1,34 +1,39 @@
-## agent-guardrails
+## architecture
 
-> Verification constraints, credentials safety, and scratch-file cleanup for BoxLore agents
+> Hard architecture boundaries — AppContainer, modules, identity; point to ARCHITECTURE.md
 
 
-# Agent Guardrails
+# Architecture (always)
 
-## Verification Constraints
+Full reference: [`ARCHITECTURE.md`](../../ARCHITECTURE.md). **ARCHITECTURE wins** over guesses.
 
-Never perform automated testing, layout tree dumps (e.g. Android layout), gesture simulations (e.g. `adb shell input tap/swipe`), screen captures, or other device/emulator verifications unless the user explicitly requests it.
+## Composition root
 
-Only build and/or deploy the application, and let the user verify behavior manually.
+- No Hilt, Koin, or Dagger. Single `AppContainer` in `:app` (created only in `BoxLoreApplication`).
+- Features and workers take deps from `application.container` / assemblers / ports — do not build a second object graph.
+- Prefer narrow ports under `core.domain.ports` (and catalog ports) so tests can use fakes from `:core:testing`.
 
-**After code changes:** Always run `./gradlew installDebug` on the connected device when one is available. Do not wait for the user to ask — install is part of the default workflow for UI and app-behavior changes.
+## Module boundaries
 
-## Credentials and Secrets Safety
+- `:feature:*` → `:core:*` only. **No feature→feature** Gradle deps or package imports (Konsist).
+- Features never talk to PostHog directly — use `:core:analytics`.
+- `:core:playback` may depend on `:core:catalog`; catalog must not depend on playback.
+- Catalog must not depend on `:core:designsystem`.
+- Do not add MockK (or Hilt/Koin) to production or test Gradle deps (Konsist).
 
-**Secret locations:**
-- Proxy header authorization key: `local.properties` (boxlore root) as `BOXCAST_PUBLIC_KEY` (sent as `X-App-Key`)
-- Most other credentials: `local.properties` (boxlore) or `.env` (proxy)
+## Identity / storage (do not break upgrades)
 
-**Absolute non-commitment:** Under no circumstances commit `local.properties`, `.env`, or any plaintext secrets/credentials to Git.
+Before renaming prefs files, Room DBs, media IDs, deep links, WorkManager FQCNs, or `applicationId`, read the **Identity and storage** table in `ARCHITECTURE.md`.
 
-## Test and Scratch File Purge
+Hard product rules agents forget:
 
-Delete all test scripts, mock JSONs, scratch files, and intermediate logs once the feature PR is completed.
+- One UI-scoped `PlaybackRepository` — routes/workers must not construct a second one.
+- Smart Queue refill is owned by `BoxLorePlaybackService` only.
+- Object graph order: DB → `PodcastRepository` → `QueueRepository` → `PlaybackRepository` → `QueueManager` → `SmartDownloadManager`.
 
-## CodeRabbit / merge
+## Guards
 
-- Address every CodeRabbit finding and mark **every** CodeRabbit review thread **Resolved** before merge. Hard gate: required check `coderabbit-threads-resolved`.
-- If the PR review decision is **`CHANGES_REQUESTED`**: **stop**. Do not dismiss the review. Do not enqueue or force merge. Ask the user to merge (or dismiss) manually.
+Architecture-as-code lives in `:core:testing` (Konsist + filesystem guards). Fix violations; do not weaken allowlists without an explicit reason and README note.
 
 ---
 > Source: [boxcreate/boxlore](https://github.com/boxcreate/boxlore) — distributed by [TomeVault](https://tomevault.io).
