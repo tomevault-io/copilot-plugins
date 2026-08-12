@@ -1,0 +1,9 @@
+{
+  "name": "theholtz--errex",
+  "displayName": "errex",
+  "description": "Lightweight, self-hosted Sentry alternative. Rust + SQLite, ~10 MB RAM. Sentry-SDK compatible ingest, fast SvelteKit dashboard, MCP-ready for AI agents.",
+  "version": "1.0.0",
+  "author": "TheHoltz",
+  "homepage": "https://github.com/TheHoltz/errex",
+  "skills": []
+}
