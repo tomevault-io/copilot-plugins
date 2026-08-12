@@ -1,0 +1,44 @@
+{
+  "name": "guwenguanzhi",
+  "owner": "niuniu-869",
+  "repo": "guwenguanzhi",
+  "description": "\u53e4\u6587\u89c2\u6b62 \u00b7 222\u7bc7\u7ecf\u5178\u53e4\u6587 \u00b7 \u9010\u53e5\u7ffb\u8bd1 \u00b7 \u9010\u8bcd\u6ce8\u91ca \u00b7 \u62fc\u97f3\u6807\u6ce8",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/niuniu-869/guwenguanzhi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T15:10:01Z"
+}
