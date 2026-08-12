@@ -1,0 +1,14 @@
+{
+  "name": "quattro--jax-numerics-agent",
+  "displayName": "jax-numerics-agent",
+  "description": "SKILLS.md definitions for JAX/Equinox based software development",
+  "version": "1.0.0",
+  "author": "quattro",
+  "homepage": "https://github.com/quattro/jax-numerics-agent",
+  "skills": [
+    {
+      "name": "project_engineering",
+      "description": ""
+    }
+  ]
+}
