@@ -1,0 +1,9 @@
+{
+  "name": "geserdugarov--agent-orchestrator",
+  "displayName": "agent-orchestrator",
+  "description": "Orchestrator for automated GitHub issue monitoring and agentic development across multiple repositories.",
+  "version": "1.0.0",
+  "author": "geserdugarov",
+  "homepage": "https://github.com/geserdugarov/agent-orchestrator",
+  "skills": []
+}
