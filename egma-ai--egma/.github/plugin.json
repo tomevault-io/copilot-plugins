@@ -1,0 +1,9 @@
+{
+  "name": "egma-ai--egma",
+  "displayName": "egma",
+  "description": "the first open-source platform for testing, monitoring and self-improving voice agents",
+  "version": "1.0.0",
+  "author": "egma-ai",
+  "homepage": "https://github.com/egma-ai/egma",
+  "skills": []
+}
