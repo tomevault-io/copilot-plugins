@@ -1,0 +1,14 @@
+{
+  "name": "ai-agents-for-humans--slow-ai",
+  "displayName": "slow-ai",
+  "description": "Running Agent swarms reliably using distributed system thinking",
+  "version": "1.0.0",
+  "author": "ai-agents-for-humans",
+  "homepage": "https://github.com/ai-agents-for-humans/slow-ai",
+  "skills": [
+    {
+      "name": "claude-code-agent",
+      "description": ""
+    }
+  ]
+}
