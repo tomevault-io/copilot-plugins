@@ -1,0 +1,30 @@
+## yandex-direct-mcp-plugin
+
+> Core code lives in `server/`. Use `server/main.py` as the MCP entrypoint, `server/tools/` for tool handlers (`campaigns.py`, `ads.py`, `keywords.py`, `reports.py`, `auth_tools.py`), and `server/cli/` for `direct` execution (installed via the `direct-cli` package). Authentication is delegated to direct auth profiles rather than a plugin-local auth module. Tests live in `tests/`, with cassette fixtures under `tests/recordings/` and shared setup in `tests/conftest.py` and `tests/cli_recorder.py`. Documentation is in `docs/`, and skill definitions are in `skills/`.
+
+# Repository Guidelines
+
+## Project Structure & Module Organization
+Core code lives in `server/`. Use `server/main.py` as the MCP entrypoint, `server/tools/` for tool handlers (`campaigns.py`, `ads.py`, `keywords.py`, `reports.py`, `auth_tools.py`), and `server/cli/` for `direct` execution (installed via the `direct-cli` package). Authentication is delegated to direct auth profiles rather than a plugin-local auth module. Tests live in `tests/`, with cassette fixtures under `tests/recordings/` and shared setup in `tests/conftest.py` and `tests/cli_recorder.py`. Documentation is in `docs/`, and skill definitions are in `skills/`.
+
+## Build, Test, and Development Commands
+Install dev dependencies with `pip install -e '.[dev]'`. Run the server locally with `python -m server.main`. Use `pytest` for the default cassette-replay suite, `pytest --record` to refresh cassettes from the live CLI, `pytest -m mocks` for subprocess edge cases, and `pytest -m integration` for live-token checks. Run `ruff check .`, `ruff format .`, and `mypy .` before opening a PR. For docs, use `make -C docs html`.
+
+## Coding Style & Naming Conventions
+Target Python 3.11+, 4-space indentation, and type annotations on public functions. Follow the current module naming style: lowercase snake_case files, descriptive test names like `test_auth.py`, and tool functions grouped by Yandex.Direct resource. Keep transport and auth concerns separated from tool logic. Use `ruff` for linting/formatting and `mypy` for type checks; prefer fixing root causes over adding ignores.
+
+## Testing Guidelines
+The default test flow replays JSON cassettes instead of calling the API. Record only when behavior changes: `pytest --record`. After recording, sanitize sensitive values with `python -m tests.sanitize`; audit recordings with `python -m tests.audit`. Mark pure mock tests with `@pytest.mark.mocks` and live-token tests with `@pytest.mark.integration`. Do not commit raw tokens, secrets, or unsanitized cassette output.
+
+## Commit & Pull Request Guidelines
+Recent history follows Conventional Commit style, for example `fix: ...`, `refactor(auth): ...`, and issue-linked subjects such as `(#40)`. Keep commits focused and imperative. PRs should describe user-visible behavior, note auth or cassette changes, link the issue when applicable, and include command results for `pytest`, `ruff`, and `mypy`. Add screenshots only when updating docs or plugin UX text that benefits from visual context.
+
+## Security & Configuration Tips
+Keep local secrets in `.env`, and never commit them. OAuth tokens are stored as direct auth profiles, normally in `~/.direct-cli/auth.json`; tests should isolate `HOME` or the auth store path via `tmp_path` when they inspect profile state.
+
+## Publishing to the Marketplace
+Run `./scripts/update-version.sh VERSION` to update all plugin version fields (`pyproject.toml`, `.claude-plugin/plugin.json`, `.agents/plugins/marketplace.json`, and the bundled Codex plugin manifest), then propagate that version into `~/Projects/plugin-marketplace/.claude-plugin/marketplace.json`, commit, and push the marketplace repo. The version argument is required.
+
+---
+> Source: [axisrow/yandex-direct-mcp-plugin](https://github.com/axisrow/yandex-direct-mcp-plugin) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
