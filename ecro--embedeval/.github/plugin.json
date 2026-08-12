@@ -1,0 +1,9 @@
+{
+  "name": "ecro--embedeval",
+  "displayName": "embedeval",
+  "description": "LLM benchmark for embedded firmware development",
+  "version": "1.0.0",
+  "author": "Ecro",
+  "homepage": "https://github.com/Ecro/embedeval",
+  "skills": []
+}
