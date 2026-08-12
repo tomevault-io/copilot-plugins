@@ -1,0 +1,9 @@
+{
+  "name": "memi-design--memi",
+  "displayName": "memi",
+  "description": "The design layer for agentic AI \u2014 design context, interface checks, and verification for coding agents.",
+  "version": "1.0.0",
+  "author": "memi-design",
+  "homepage": "https://github.com/memi-design/memi",
+  "skills": []
+}
