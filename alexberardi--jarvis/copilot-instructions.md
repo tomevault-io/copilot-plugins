@@ -1,58 +1,101 @@
-## jarvis-node-mobile
+## jarvis-node-setup
 
-> Rules for jarvis-node-mobile - mobile companion app for node provisioning
+> Rules for jarvis-node-setup - Pi Zero voice node client software
 
 
-# jarvis-node-mobile
+# jarvis-node-setup
 
-Mobile companion app for provisioning and managing Jarvis Pi Zero nodes. React Native + TypeScript + Expo.
+Client software for Pi Zero voice nodes. Captures audio, detects wake word, sends commands to command-center.
 
-**Status: Immature** - Still working on WiFi provisioning flow for nodes.
-
-## Running
+## Setup & Run
 
 ```bash
-npm install                    # Install dependencies
-npx expo start                 # Start Expo dev client
-npm run ios                    # iOS device (iPhone 17 Pro Max)
-npm run ios:pick               # iOS device picker
-npm run android                # Android
-npm run web                    # Web version
+python scripts/main.py    # Run on Pi Zero
+pytest                     # Tests
 ```
 
-## Building
+## Architecture
+
+```
+jarvis-node-setup/
+├── scripts/main.py                    # Entry point
+├── core/
+│   ├── ijarvis_command.py             # Command interface (extend this)
+│   ├── ijarvis_parameter.py           # Parameter definition
+│   ├── command_response.py            # Response structure
+│   └── platform_abstraction.py        # Hardware abstraction
+├── services/
+│   ├── secret_service.py              # Secret management
+│   └── mqtt_tts_listener.py           # MQTT TTS listener
+├── commands/                          # Built-in commands (20+)
+│   ├── weather_command.py
+│   ├── calculator_command.py
+│   └── ...
+├── provisioning/                      # Headless Pi Zero provisioning
+│   ├── api.py                         # FastAPI provisioning server
+│   ├── state_machine.py               # State management
+│   ├── wifi_manager.py                # WiFi operations
+│   └── registration.py               # Command center registration
+└── utils/config_service.py            # Configuration
+```
+
+## Extending Commands
+
+Implement `IJarvisCommand`:
+
+```python
+from core.ijarvis_command import IJarvisCommand
+from core.command_response import CommandResponse
+
+class MyCommand(IJarvisCommand):
+    @property
+    def name(self) -> str:
+        return "my_command"
+
+    @property
+    def description(self) -> str:
+        return "Does something useful"
+
+    def execute(self, params: dict) -> CommandResponse:
+        return CommandResponse(success=True, message="Done!", data={"result": "value"})
+```
+
+## Threading Model
+
+- **Main thread**: Voice listener (MQTT voice capture)
+- **Background thread**: MQTT listener (TTS commands)
+
+## Provisioning
+
+Auto-enters provisioning mode when node is not provisioned:
+1. Starts AP mode (`jarvis-XXXX` WiFi)
+2. Runs provisioning API on port 8080
+3. Waits for mobile app
+4. Auto-restarts in normal mode after provisioning
+
+States: `AP_MODE` → `CONNECTING` → `REGISTERING` → `PROVISIONED` (or `ERROR`)
+
+## E2E Testing
 
 ```bash
-npm run build:dev:ios          # EAS build for iOS (development)
-npm run build:dev:android      # EAS build for Android (development)
-npm run build:dev:local        # Local iOS build
+python test_command_parsing.py              # Command parsing tests
+python test_command_parsing.py -l           # List tests
+python test_command_parsing.py -t 5 7 11    # Specific tests
+python test_multi_turn_conversation.py      # Multi-turn tests (fast mode)
+python test_multi_turn_conversation.py --full  # Full mode (TTS + Whisper)
 ```
 
-## Testing
-
-```bash
-npm test                       # Jest
-npm run test:watch             # Watch mode
-npm run test:coverage          # Coverage report
-```
-
-## Purpose
-
-Primary function is **provisioning Pi Zero nodes**:
-1. Connect to node's AP mode WiFi (`jarvis-XXXX`)
-2. Send home WiFi credentials to the node
-3. Register node with command-center
-4. Manage node settings
-
-## Tech Stack
-
-- React Native + Expo + TypeScript
-- Jest for testing
+**Required services:** jarvis-command-center (7703), jarvis-llm-proxy-api (7704). Full mode also needs jarvis-tts (7707) + jarvis-whisper-api (7706).
 
 ## Service Dependencies
 
-- `jarvis-command-center` (7703) - Primary server (goal: single external dependency)
-- `jarvis-node-setup` provisioning API (port 8080 on the node, direct connection during provisioning)
+- `jarvis-command-center` (7703) - Primary server (single external dependency for voice commands)
+
+**Design goal:** Node talks only to command-center, which handles all routing to other services.
+
+## Dependencies
+
+PyAudio, SoundDevice, paho-mqtt, pvporcupine, httpx, SQLAlchemy, pysqlcipher3, jarvis-log-client
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
