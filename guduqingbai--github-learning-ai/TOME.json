@@ -1,0 +1,44 @@
+{
+  "name": "github-learning-ai",
+  "owner": "guduqingbai",
+  "repo": "github-learning-ai",
+  "description": "\u8d3e\u7ef4\u65af\u5f0f\u4e3b\u52a8\u6c9f\u901aAI\u5b66\u4e60\u7cfb\u7edf (GPLv3)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/guduqingbai/github-learning-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T11:34:50Z"
+}
