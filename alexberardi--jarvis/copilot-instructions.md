@@ -1,69 +1,60 @@
-## jarvis-settings-client
+## jarvis-tts
 
-> Rules for jarvis-settings-client - multi-tenant settings library
+> Rules for jarvis-tts - text-to-speech service
 
 
-# jarvis-settings-client
+# jarvis-tts
 
-Shared settings library with multi-tenant support, caching, and environment variable fallback.
+Text-to-speech service using Piper TTS with ONNX runtime.
 
-## Setup & Run
+## Running (Port 7707)
 
 ```bash
-pip install -e .
-pytest
-pytest --cov=jarvis_settings_client --cov-report=term-missing
+./run.sh --docker              # Start in Docker (standard)
+./run.sh --docker --rebuild    # Rebuild after dependency changes
 ```
 
-## Usage
+## Architecture
 
-```python
-from jarvis_settings_client import SettingDefinition, SettingsService
-
-# Define settings
-SETTINGS = [
-    SettingDefinition(key="model.name", category="model", value_type="string", default="default-model"),
-]
-
-# Create service
-service = SettingsService(definitions=SETTINGS, get_db_session=get_db, setting_model=Setting)
-
-# Use
-model = service.get("model.name")
-context_window = service.get_int("model.context_window")
-service.set("model.name", "new-model", household_id="h123")
+```
+app/
+├── main.py      # FastAPI routes: /ping, /speak, /generate-wake-response
+├── deps.py      # Node authentication via jarvis-auth
+└── models/      # Piper ONNX voice models
 ```
 
-## Multi-Tenant Cascade Lookup
+- **TTS Engine**: Piper TTS with ONNX runtime
+- **Voice**: en_GB-alan-low (British English)
+- **Output**: 16-bit PCM WAV
 
-Settings resolved in order (first match wins):
-1. User-specific: household_id + node_id + user_id
-2. Node-level: household_id + node_id
-3. Household-level: household_id
-4. System default: all scope fields NULL
+## Environment Variables
 
-## API Routes
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `TTS_PORT` | 7707 | API port |
+| `JARVIS_LLM_PROXY_API_URL` | - | LLM proxy for wake responses |
+| `JARVIS_AUTH_BASE_URL` | http://localhost:7701 | Auth service URL |
+| `JARVIS_APP_ID` | jarvis-tts | App ID for auth |
+| `JARVIS_APP_KEY` | - | App key (required for auth) |
 
-Include via `create_settings_router(service, auth_dependency)`:
-- `GET /settings` - List all
-- `GET /settings/categories` - List categories
-- `GET /settings/{key}` - Get single
-- `PUT /settings/{key}` - Update
-- `POST /settings/sync-from-env` - Migrate env vars to DB
-- `POST /settings/invalidate-cache` - Clear cache
+## API Endpoints
+
+- `GET /ping` - Health check (no auth)
+- `POST /speak` - Generate WAV audio (auth required, returns `audio/wav`)
+- `POST /generate-wake-response` - Random wake greeting via LLM (auth required)
 
 ## Service Dependencies
 
-- `jarvis-auth` (7701) - JWT validation and app credential validation (GET /auth/me, GET /internal/app-ping)
-- Optionally uses `jarvis-config-client` to discover auth URL
+**Must be running:**
+- `jarvis-auth` (7701) - App-to-app auth validation
+- `jarvis-config-service` (7700) - Service discovery (finds auth + llm-proxy URLs)
+- `jarvis-logs` (7702) - Centralized logging
+- `jarvis-llm-proxy-api` (7704) - LLM calls for `/generate-wake-response` endpoint
+- `jarvis-settings-client` - Runtime configuration
 
-## Features
+## Dependencies
 
-- Thread-safe caching (60s TTL)
-- Environment fallback
-- Type coercion (string/int/float/bool/json)
-- Secret masking in API
-- Multi-tenant cascade
+Python 3.12, FastAPI, uvicorn, piper-tts, onnxruntime, httpx, jarvis-log-client, jarvis-config-client, jarvis-auth-client, jarvis-settings-client
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
