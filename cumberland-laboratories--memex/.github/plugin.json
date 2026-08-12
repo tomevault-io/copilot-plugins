@@ -1,0 +1,9 @@
+{
+  "name": "cumberland-laboratories--memex",
+  "displayName": "memex",
+  "description": "Governance architecture for LLM memory. A markdown wiki with an executable constitution, cross-vendor enforcement, and courtroom-derived session controls. Vendor-agnostic, transparent, model-portable.",
+  "version": "1.0.0",
+  "author": "cumberland-laboratories",
+  "homepage": "https://github.com/cumberland-laboratories/memex",
+  "skills": []
+}
