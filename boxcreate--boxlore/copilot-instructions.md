@@ -1,39 +1,24 @@
-## architecture
+## gradle-no-sandbox
 
-> Hard architecture boundaries — AppContainer, modules, identity; point to ARCHITECTURE.md
+> Always run Gradle outside the Cursor sandbox using the real ~/.gradle home
 
 
-# Architecture (always)
+# Gradle / Android builds — no sandbox
 
-Full reference: [`ARCHITECTURE.md`](../../ARCHITECTURE.md). **ARCHITECTURE wins** over guesses.
+When running Gradle, `adb`, or any Android build/install command:
 
-## Composition root
-
-- No Hilt, Koin, or Dagger. Single `AppContainer` in `:app` (created only in `BoxLoreApplication`).
-- Features and workers take deps from `application.container` / assemblers / ports — do not build a second object graph.
-- Prefer narrow ports under `core.domain.ports` (and catalog ports) so tests can use fakes from `:core:testing`.
-
-## Module boundaries
-
-- `:feature:*` → `:core:*` only. **No feature→feature** Gradle deps or package imports (Konsist).
-- Features never talk to PostHog directly — use `:core:analytics`.
-- `:core:playback` may depend on `:core:catalog`; catalog must not depend on playback.
-- Catalog must not depend on `:core:designsystem`.
-- Do not add MockK (or Hilt/Koin) to production or test Gradle deps (Konsist).
-
-## Identity / storage (do not break upgrades)
-
-Before renaming prefs files, Room DBs, media IDs, deep links, WorkManager FQCNs, or `applicationId`, read the **Identity and storage** table in `ARCHITECTURE.md`.
-
-Hard product rules agents forget:
-
-- One UI-scoped `PlaybackRepository` — routes/workers must not construct a second one.
-- Smart Queue refill is owned by `BoxLorePlaybackService` only.
-- Object graph order: DB → `PodcastRepository` → `QueueRepository` → `PlaybackRepository` → `QueueManager` → `SmartDownloadManager`.
-
-## Guards
-
-Architecture-as-code lives in `:core:testing` (Konsist + filesystem guards). Fix violations; do not weaken allowlists without an explicit reason and README note.
+1. **Do not use the Cursor sandbox.** Always run with full permissions (`required_permissions: ["all"]` / outside sandbox) so the agent does not inject a temp `GRADLE_USER_HOME`.
+2. **Always use the real Gradle user home:**
+   - Path: `/Users/aswinc/.gradle`
+   - Before every Gradle command, force it explicitly:
+     ```bash
+     unset GRADLE_USER_HOME
+     export GRADLE_USER_HOME="/Users/aswinc/.gradle"
+     export JAVA_HOME="${JAVA_HOME:-/Applications/Android Studio.app/Contents/jbr/Contents/Home}"
+     ```
+3. **Never** rely on Cursor’s sandbox cache under `/var/folders/*/T/cursor-sandbox-cache/` for builds. That path re-downloads Gradle distributions and wastes disk.
+4. Prefer the project wrapper from the repo root: `./gradlew …` (not a system `gradle` binary).
+5. For device installs after UI/app changes, continue the default workflow: `./gradlew installDebug` on a connected device when available.
 
 ---
 > Source: [boxcreate/boxlore](https://github.com/boxcreate/boxlore) — distributed by [TomeVault](https://tomevault.io).
