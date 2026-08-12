@@ -1,0 +1,9 @@
+{
+  "name": "posematic--website",
+  "displayName": "Website",
+  "description": "Website for presentation. Potentially can be expanded as an official landing page.",
+  "version": "1.0.0",
+  "author": "Posematic",
+  "homepage": "https://github.com/Posematic/Website",
+  "skills": []
+}
