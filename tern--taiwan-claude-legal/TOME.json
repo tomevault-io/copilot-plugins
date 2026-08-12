@@ -1,0 +1,44 @@
+{
+  "name": "taiwan-claude-legal",
+  "owner": "tern",
+  "repo": "taiwan-claude-legal",
+  "description": "\u53f0\u7063\u7248 Claude for Legal\uff1a\u652f\u63f4\u53f0\u7063\u6c11\u6cd5\u81ea\u52d5\u66f4\u65b0\u3001\u5408\u7d04\u5be9\u67e5\u8207\u6cd5\u5f8b\u5be6\u52d9 Playbook\u3002\u57fa\u65bc anthropics/claude-for-legal \u64f4\u5145\u3002",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tern/taiwan-claude-legal",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T04:35:32Z"
+}
