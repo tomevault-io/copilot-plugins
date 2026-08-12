@@ -1,0 +1,9 @@
+{
+  "name": "ibrews--spatial-deck",
+  "displayName": "spatial-deck",
+  "description": "A self-contained, single-file HTML presentation framework with annotation/move modes for AI-collaborative editing. No build, no framework \u2014 just one file.",
+  "version": "1.0.0",
+  "author": "ibrews",
+  "homepage": "https://github.com/ibrews/spatial-deck",
+  "skills": []
+}
