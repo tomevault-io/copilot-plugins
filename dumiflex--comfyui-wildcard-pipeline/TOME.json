@@ -1,0 +1,44 @@
+{
+  "name": "ComfyUI-Wildcard-Pipeline",
+  "owner": "DumiFlex",
+  "repo": "ComfyUI-Wildcard-Pipeline",
+  "description": "Modular procedural prompt generation for ComfyUI \u2014 wildcards, fixed values, combiners, derivations, and constraints chained through a Context pipeline, resolved into a prompt by the Assembler. Loops + WP_SeedList drive per-iteration variation. Includes a persistent Vue library SPA with bundles, a test runner, and in-app docs.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DumiFlex/ComfyUI-Wildcard-Pipeline",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T21:19:35Z"
+}
