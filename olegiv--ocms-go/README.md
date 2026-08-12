@@ -7,11 +7,11 @@ Lightweight CMS built with Go and SQLite. Features HTMX/Alpine.js admin, REST AP
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [olegiv/ocms-go](https://github.com/olegiv/ocms-go).
+Original source: `AGENTS.md` in [olegiv/ocms-go](https://github.com/olegiv/ocms-go).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
