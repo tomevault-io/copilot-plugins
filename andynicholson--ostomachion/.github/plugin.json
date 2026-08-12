@@ -1,0 +1,9 @@
+{
+  "name": "andynicholson--ostomachion",
+  "displayName": "Ostomachion",
+  "description": "NEORV32 RISC-V SoC running Zephyr RTOS on FPGA bare metal - with an extensible accelerator pipeline architecture, including an DMA-enabled programmable spectral filter pipeline - wrapped in C++20 HAL ",
+  "version": "1.0.0",
+  "author": "andynicholson",
+  "homepage": "https://github.com/andynicholson/Ostomachion",
+  "skills": []
+}
