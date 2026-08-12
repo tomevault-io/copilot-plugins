@@ -1,0 +1,9 @@
+{
+  "name": "himanshudongre--propops",
+  "displayName": "propops",
+  "description": "AI-powered property transparency tool built on Claude Code. Scrapes government registries (IGRS, RERA, eCourts), scores properties, flags risks, and alerts buyers.",
+  "version": "1.0.0",
+  "author": "himanshudongre",
+  "homepage": "https://github.com/himanshudongre/propops",
+  "skills": []
+}
