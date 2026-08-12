@@ -1,0 +1,9 @@
+{
+  "name": "opspresso--vibemon-app",
+  "displayName": "vibemon-app",
+  "description": "AI Agent Monitoring Dashboard",
+  "version": "1.0.0",
+  "author": "opspresso",
+  "homepage": "https://github.com/opspresso/vibemon-app",
+  "skills": []
+}
