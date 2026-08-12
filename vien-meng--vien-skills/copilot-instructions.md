@@ -1,9 +1,10 @@
-## generic-dev-sop
+## vien-skills
 
-> 把项目从零到交付作为可追踪闭环：搭建底座 → 规划任务 → 单功能闭环 × N → 完整交付。每项功能把「计划、契约、UI、实现、测试、证据」同步交付，禁止只做底层逻辑、接口或 UI Mock 后宣称完成。纯文案/无行为变化的单行修改可跳过步骤；无 UI 的后端功能可跳过设计稿，但必须说明原因。
-
+> > 本文件是 vien-skills 的通用适配器：Codex、OpenCode、Gemini、Kimi 等读 AGENTS.md 的平台均可使用。完整模板见 `skills/generic-dev-sop/references/`，skill 主文件为 `skills/generic-dev-sop/SKILL.md`。
 
 # 通用项目开发 SOP（generic-dev-sop）
+
+> 本文件是 vien-skills 的通用适配器：Codex、OpenCode、Gemini、Kimi 等读 AGENTS.md 的平台均可使用。完整模板见 `skills/generic-dev-sop/references/`，skill 主文件为 `skills/generic-dev-sop/SKILL.md`。
 
 把项目从零到交付作为可追踪闭环：搭建底座 → 规划任务 → 单功能闭环 × N → 完整交付。每项功能把「计划、契约、UI、实现、测试、证据」同步交付，禁止只做底层逻辑、接口或 UI Mock 后宣称完成。纯文案/无行为变化的单行修改可跳过步骤；无 UI 的后端功能可跳过设计稿，但必须说明原因。
 
