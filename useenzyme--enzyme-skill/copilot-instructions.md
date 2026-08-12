@@ -1,0 +1,27 @@
+## enzyme-skill
+
+> Most files in this repo are synced from [enzyme-rust](https://github.com/useenzyme/enzyme-rust) on every release. Edits made here will be overwritten.
+
+# enzyme-skill
+
+## Do not edit files here directly
+
+Most files in this repo are synced from [enzyme-rust](https://github.com/useenzyme/enzyme-rust) on every release. Edits made here will be overwritten.
+
+**To make changes, edit the source in enzyme-rust:**
+
+| This repo | Source (enzyme-rust) |
+|---|---|
+| `SKILL.md` | `plugin/agent/SKILL.md` |
+| `plugin.yaml` | `plugin/agent/plugin.yaml` |
+| `*.py` | `plugin/agent/*.py` |
+| `install.sh` | `plugin/agent/install.sh` |
+| `README.md` | `plugin/agent/README.md` |
+
+**Files managed by CI only (not from plugin/agent/):**
+- `bin/*` — platform binaries, extracted from build artifacts
+- `.gitattributes` — Git LFS tracking rules, repo-level
+
+---
+> Source: [useenzyme/enzyme-skill](https://github.com/useenzyme/enzyme-skill) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
