@@ -1,0 +1,9 @@
+{
+  "name": "jeonghwanko--onesub",
+  "displayName": "onesub",
+  "description": "Server-side receipt validation for react-native-iap. Apple StoreKit 2 + Google Play Billing. One line: app.use(createOneSubMiddleware(config))",
+  "version": "1.0.0",
+  "author": "jeonghwanko",
+  "homepage": "https://github.com/jeonghwanko/onesub",
+  "skills": []
+}
