@@ -1,0 +1,9 @@
+{
+  "name": "vercel--bridge",
+  "displayName": "bridge",
+  "description": "Develop services locally in the context of a K8s cluster",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/bridge",
+  "skills": []
+}
