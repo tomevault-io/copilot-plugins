@@ -1,0 +1,9 @@
+{
+  "name": "mimecast--sbom-graph",
+  "displayName": "sbom-graph",
+  "description": "A tool to analyse your SBOM data at the organization level, graphing your entire ecosystem, not just by project",
+  "version": "1.0.0",
+  "author": "mimecast",
+  "homepage": "https://github.com/mimecast/sbom-graph",
+  "skills": []
+}
