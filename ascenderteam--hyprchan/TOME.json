@@ -4,7 +4,7 @@
   "repo": "Hyprchan",
   "description": "A homeostatic AI agent, the character and mascot of Hyprland that lives in your Hyprland. Project is unaffilated with official Hyprland and is a hobby project.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AscenderTeam/Hyprchan",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T04:31:43Z"
+  "distributed_at": "2026-08-12T04:57:30Z"
 }
