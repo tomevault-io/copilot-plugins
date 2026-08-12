@@ -1,0 +1,9 @@
+{
+  "name": "appdevforall--plugin-examples",
+  "displayName": "plugin-examples",
+  "description": "Plugins for Code On The Go",
+  "version": "1.0.0",
+  "author": "appdevforall",
+  "homepage": "https://github.com/appdevforall/plugin-examples",
+  "skills": []
+}
