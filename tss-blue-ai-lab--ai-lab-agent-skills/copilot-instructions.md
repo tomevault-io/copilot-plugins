@@ -1,0 +1,29 @@
+## ai-lab-agent-skills
+
+> This is a skill library for AI-powered development workshops. It contains 28 skills (10 beginner, 18 advanced) designed for use with Claude Code and Codex.
+
+# CLAUDE.md
+
+## Project Overview
+
+This is a skill library for AI-powered development workshops. It contains 28 skills (10 beginner, 18 advanced) designed for use with Claude Code and Codex.
+
+## Structure
+
+- `skills/` — Each subdirectory contains a `SKILL.md` file
+- `CHEATSHEET.md` — Quick reference for Claude Code & Codex commands
+- Skill format: Markdown with YAML frontmatter (name, description, version, level, category)
+
+## Skill Levels
+
+- **Beginner**: Self-contained, complete examples, linear workflows
+- **Advanced**: Decision trees, edge cases, multi-step orchestration
+
+## File Naming
+
+- Lowercase with hyphens: `frontend-dev`, `api-builder`
+- Each skill is a directory with a `SKILL.md` inside it
+
+---
+> Source: [TSS-Blue-AI-Lab/ai-lab-agent-skills](https://github.com/TSS-Blue-AI-Lab/ai-lab-agent-skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
