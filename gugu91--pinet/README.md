@@ -7,11 +7,11 @@ local-first coordination layer for pi coding agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [gugu91/pinet](https://github.com/gugu91/pinet).
+Original source: `CLAUDE.md` in [gugu91/pinet](https://github.com/gugu91/pinet).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
