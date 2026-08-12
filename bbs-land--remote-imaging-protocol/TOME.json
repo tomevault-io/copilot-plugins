@@ -4,7 +4,7 @@
   "repo": "remote-imaging-protocol",
   "description": "Documentation and extended information around RIPScrip/RIPTerm/RIPtel specifications.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bbs-land/remote-imaging-protocol",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T09:08:26Z"
+  "distributed_at": "2026-08-12T09:27:13Z"
 }
