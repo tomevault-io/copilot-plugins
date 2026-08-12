@@ -1,0 +1,9 @@
+{
+  "name": "alex-chenc--aegis",
+  "displayName": "aegis",
+  "description": "Open-source AI-native host security platform with vulnerability management, compliance auditing, eBPF runtime detection, attack investigation and automated remediation.",
+  "version": "1.0.0",
+  "author": "alex-chenc",
+  "homepage": "https://github.com/alex-chenc/aegis",
+  "skills": []
+}
