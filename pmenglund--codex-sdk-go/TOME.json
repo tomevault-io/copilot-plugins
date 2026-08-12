@@ -1,0 +1,44 @@
+{
+  "name": "codex-sdk-go",
+  "owner": "pmenglund",
+  "repo": "codex-sdk-go",
+  "description": "Go SDK for Codex app-server: spawn codex app-server, run threads/turns with streaming, approvals, structured output, and typed JSON-RPC access.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pmenglund/codex-sdk-go",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T18:45:58Z"
+}
