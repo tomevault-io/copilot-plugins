@@ -1,0 +1,14 @@
+{
+  "name": "greendesertsnow--pocketbase-skills",
+  "displayName": "pocketbase-skills",
+  "description": "Pocketbase Skills for Claude Code",
+  "version": "1.0.0",
+  "author": "greendesertsnow",
+  "homepage": "https://github.com/greendesertsnow/pocketbase-skills",
+  "skills": [
+    {
+      "name": "pocketbase-best-practices",
+      "description": ""
+    }
+  ]
+}
