@@ -4,7 +4,7 @@
   "repo": "alp",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alp-gpg/alp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T20:52:57Z"
+  "distributed_at": "2026-08-12T21:03:32Z"
 }
