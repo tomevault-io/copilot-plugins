@@ -1,56 +1,52 @@
-## jarvis-config-client
+## jarvis-config-service
 
-> Rules for jarvis-config-client - service discovery library
+> Rules for jarvis-config-service - service discovery and configuration
 
 
-# jarvis-config-client
+# jarvis-config-service
 
-Python library for service discovery. Fetches service URLs from jarvis-config-service.
+Service discovery and configuration management. The bootstrap service - all other services find each other through this one.
 
-## Setup & Run
+## Running (Port 7700)
 
 ```bash
-pip install -e .
-pytest
+./run.sh --docker              # Start in Docker (standard)
+./run.sh --docker --rebuild    # Rebuild after dependency changes
 ```
 
-## Usage
+## How It Works
 
-```python
-from jarvis_config_client import init, get_service_url
+Simple FastAPI service that stores and exposes URLs for all jarvis services. Acts as the central registry for service discovery.
 
-init(config_url="http://localhost:7700")
-auth_url = get_service_url("jarvis-auth")
-logs_url = get_service_url("jarvis-logs")
-```
+- Services use `jarvis-config-client` library to query this service for other service URLs
+- `jarvis-admin` dashboard provides UI to register/update service URLs
+- Every other service only needs `JARVIS_CONFIG_URL` env var to bootstrap - it discovers everything else from here
 
-With database persistence:
-```python
-from sqlalchemy import create_engine
-engine = create_engine("postgresql://...")
-init(config_url="http://localhost:7700", db_engine=engine)
-```
+## Key Endpoints
 
-## Architecture
+- `GET /services` - List all registered services and their URLs
+- `GET /services/{name}` - Get specific service URL
+- `GET /info` - Service identity info (returns `{"service": "jarvis-config-service"}`, used by network auto-discovery)
+- `GET /health` - Health check
 
-```
-jarvis_config_client/
-├── __init__.py    # Public API
-└── client.py      # Core client with caching and refresh
-```
+## Settings API
+
+Also serves settings CRUD at `/v1/settings` (used by jarvis-admin dashboard for managing runtime settings across services).
 
 ## Service Dependencies
 
-Talks to its respective service only:
-- `jarvis-config-service` (7700) - Fetches service URLs (GET /services)
+**Must be running:**
+- `jarvis-auth` (7701) - Auth for admin endpoints
+- `jarvis-logs` (7702) - Centralized logging
 
-## Features
+**Data services (from jarvis-data-stores/):**
+- PostgreSQL - Service registry storage
 
-- In-memory caching of service URLs
-- Optional PostgreSQL/SQLite persistence
-- Background refresh every 5 minutes
-- Fallback to cached values on failure
-- Thread-safe
+**Note:** This is the bootstrap service - it cannot depend on config-service or settings-client since it IS the config/settings provider.
+
+## Dependencies
+
+FastAPI, uvicorn, SQLAlchemy, jarvis-log-client
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
