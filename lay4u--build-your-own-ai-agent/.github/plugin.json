@@ -1,0 +1,9 @@
+{
+  "name": "lay4u--build-your-own-ai-agent",
+  "displayName": "build-your-own-ai-agent",
+  "description": "12 practical projects to master AI agents from scratch. No frameworks, no magic \u2014 just Python and an LLM.",
+  "version": "1.0.0",
+  "author": "Lay4U",
+  "homepage": "https://github.com/Lay4U/build-your-own-ai-agent",
+  "skills": []
+}
