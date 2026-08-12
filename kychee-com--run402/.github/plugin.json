@@ -1,0 +1,9 @@
+{
+  "name": "kychee-com--run402",
+  "displayName": "run402",
+  "description": "MCP server for Run402 \u2014 AI-native Postgres + REST + auth + storage + static sites. Pay with x402 USDC on Base. No signups.",
+  "version": "1.0.0",
+  "author": "kychee-com",
+  "homepage": "https://github.com/kychee-com/run402",
+  "skills": []
+}
