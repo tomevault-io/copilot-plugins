@@ -1,0 +1,44 @@
+{
+  "name": "hass-pi-agent",
+  "owner": "dkmaker",
+  "repo": "hass-pi-agent",
+  "description": "Pi Agent for Home Assistant \u2014 AI coding agent add-on with full HA access",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dkmaker/hass-pi-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T05:17:03Z"
+}
