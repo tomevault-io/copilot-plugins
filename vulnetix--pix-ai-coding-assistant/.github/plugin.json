@@ -1,0 +1,14 @@
+{
+  "name": "vulnetix--pix-ai-coding-assistant",
+  "displayName": "pix-ai-coding-assistant",
+  "description": "Vulnerability intelligence for Claude Code \u2014 scans dependencies on commit, searches packages, analyzes exploits, and proposes fixes",
+  "version": "1.0.0",
+  "author": "Vulnetix",
+  "homepage": "https://github.com/Vulnetix/pix-ai-coding-assistant",
+  "skills": [
+    {
+      "name": "code-review-security",
+      "description": ""
+    }
+  ]
+}
