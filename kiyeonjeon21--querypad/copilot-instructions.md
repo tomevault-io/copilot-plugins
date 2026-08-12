@@ -1,0 +1,96 @@
+## querypad
+
+> QueryPad is **Cursor for Data** - a local-first, terminal-first AI CLI that
+
+# Agent guide
+
+## Product direction
+
+QueryPad is **Cursor for Data** - a local-first, terminal-first AI CLI that
+understands datasets (discovers relationships, builds semantic models) before
+generating SQL.
+The web app was retired (tag `web-final`); the surfaces are the CLI and the MCP server.
+The planned flagship surface is a native macOS desktop app (Swift + libghostty) that runs Claude Code / Codex against the MCP server - the CLI and MCP stay first-class as its foundation, and the web only ever returns as an intro/landing page after the rename.
+See `ROADMAP.md` for the layered plan.
+
+## Layout: core / engine / adapters
+
+- `src/core/` - pure logic with **zero npm dependencies** (discovery, agent loop, sql utils, formatters, types).
+  Keep it that way: no Node built-ins beyond types, no fetch, no fs.
+- `src/engine/` - `QueryRunner` implementations. `engine/duckdb` binds native `@duckdb/node-api` for files; `engine/attach` attaches external Postgres/MySQL/SQLite read-only and exposes their tables as pushdown views.
+  Anything that reaches an external database must stay `READ_ONLY` and must never let a credential into a log line or an artifact (`redactConnectionString`).
+- `src/ai/` - provider-agnostic LLM completion (Anthropic / OpenAI, BYOK). Credentials come from env via `adapters/cli/ai-env.ts`.
+- `src/embed/` - embedding interface; `@huggingface/transformers` is an **optionalDependency**, loaded only via dynamic import.
+- `src/adapters/` - thin, replaceable surfaces: `adapters/cli` and `adapters/mcp` (stdio MCP server).
+  Surfaces depend on core/engine, never the reverse.
+  `adapters/cli/source.ts` resolves a folder or a `--db` connection into one `Source`, so commands never branch on where the tables came from.
+  `core/agent/toolkit.ts` is the **single** definition of the read-only agent tools; the `ask` loop and the MCP server both consume it. Add a tool there, not in a surface.
+  `core/agent/loop.ts` runs a self-critique **verification pass** before finalizing (projection/ranking/safety); it is on by default for `ask` (`--no-verify` off) and lives in our loop, not the toolkit, so MCP clients drive their own. `eval:agent --no-verify` measures the pre-verification baseline - keep it as the control when tuning the checklist.
+  The MCP SDK is a devDependency on purpose - tsup bundles it (`noExternal`) so the shipped CLI carries none of its HTTP-transport deps. Keep `dependencies` at one entry.
+
+The tsconfig has `lib: ["ES2022"]` with **no DOM** on purpose - browser APIs in
+core/engine are a type error, not a code-review catch.
+
+## Artifacts contract
+
+- `inspect` writes `.datactx/` (schema.json, relationships.json,
+  semantic-model.yaml/.json, inspect-summary.md; optionally term-embeddings.json).
+- There are **two curation layers**, both inputs that every surface must honor and re-runs must preserve:
+  - `.datactx/verdicts.json` - which joins are real (reject/override inferred joins).
+  - `.datactx/glossary.json` - what things mean (descriptions + synonyms from `enrich`).
+    `prepareDataset` re-applies it over the freshly derived model, the same way verdicts are
+    re-applied over freshly inferred relationships. A glossary entry may name a column that
+    became a **measure** rather than a dimension (numeric columns always do), and measure/dimension
+    synonyms are indexed by `buildTermCatalog` - that chain is the only route from a business word
+    like "revenue" to an opaque column like `amt_c`, so do not break a link in it.
+
+## Evals
+
+- `evals/dataset/` is a committed trap dataset; `evals/cases/*.json` are the graded cases.
+  Both are inputs - never regenerate them to make a run pass.
+- `npm run eval:engine` is deterministic and gates CI. `npm run eval:agent` costs tokens and is manual.
+- A failing case is either a real defect or a wrong case. **Do not tune the engine to turn a case green** -
+  fix the defect or fix the case, and say which.
+- Agent grading is value-based (`src/evals/grade.ts`): column names and row order are ignored unless
+  the case sets `orderSensitive`. Add behavioral expectations (`mustUseTool`, `maxSteps`) when the
+  *route* to the answer matters, not just the number.
+- Tool **subsetting** belongs in `createDataToolkit` (`only`), not in a surface - same rule as adding
+  a tool. A surface that built its own tool list would be a second place that knows tool names.
+
+### The grounding A/B (`eval agent --ab`, `src/evals/arms.ts`)
+
+`grounded` vs `raw-sql` measures the product's central claim, so its integrity rules are strict:
+
+- **`grounded` is the zero-override arm** - no `tools`, no `systemPrompt`, so it runs the shipped
+  path. A test asserts it is identical to a plain `runAgentSuite()`; keep it that way or "we measured
+  what ships" stops being true.
+- **The control's prompt is a mechanical translation of `AGENT_SYSTEM_PROMPT`.** Licensed edits: name
+  the read-only statements it inspects with (it has no `describe_table`), and drop the "ground your
+  SQL in the relationships below" line. No dataset knowledge, no added strategy hints, and keep
+  "All tools are read-only" - that is mechanics parity, and dropping it would break the safety case
+  for a reason unrelated to the hypothesis.
+- **A/B grading is accuracy-only for both arms** (`behavioral: false`). Leaving the case file's
+  assertions on would grade the grounded arm on correctness *and* efficiency while grading the
+  control on correctness alone - a strictly harder rubric for the arm under test. Behavioral
+  assertions stay live in the single-arm `eval:agent` regression run, which is where they belong.
+- **Identical `maxSteps`, `verify`, model and temperature in both arms.** A run is invalid - not a
+  result - if either arm hit the turn budget (`budgetExhausted`) or if the control failed a
+  `baseline` control case. Read those validity checks before reading the score.
+- **Never quote an A/B number without its `config` block.** Reports carry the arm, repeat, verify,
+  behavioral, maxSteps, tools and the exact system prompt for exactly this reason.
+- `--repeat` with the strict all-runs-must-pass rule estimates p^N, not p, so the A/B headline is the
+  **run-level** pass rate (`runsPassed`/`runsTotal`). With 12 cases the paired per-case table is the
+  real evidence; an aggregate delta under roughly 15 points is underpowered, and saying so is the
+  honest report.
+
+## Release and verification
+
+- Keep `package.json`, `package-lock.json`, and the latest `CHANGELOG.md` release version in sync.
+- Run `npm run check` after code/config changes (version metadata + lint + typecheck + build).
+- Run `npm run test:cli` when discovery/CLI logic changes (unit + spawn-based e2e).
+- Do not commit demo video artifacts or `.datactx/` inspection output.
+- `npm publish` is deferred until the product rename is settled; `private: true` stays.
+
+---
+> Source: [kiyeonjeon21/querypad](https://github.com/kiyeonjeon21/querypad) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
