@@ -1,0 +1,9 @@
+{
+  "name": "cartodb--duckdb-raquet",
+  "displayName": "duckdb-raquet",
+  "description": "DuckDB extension for reading Raquet format (raster data in Parquet with QUADBIN spatial indexing)",
+  "version": "1.0.0",
+  "author": "CartoDB",
+  "homepage": "https://github.com/CartoDB/duckdb-raquet",
+  "skills": []
+}
