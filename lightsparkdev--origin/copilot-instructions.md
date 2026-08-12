@@ -1,79 +1,44 @@
-## global
+## publishing
 
-> Origin design system conventions and workflow
+> Origin publishes to GitHub Packages on release.
 
+# Publishing
 
-# Origin Design System
+Origin publishes to GitHub Packages on release.
 
-> Quick reference for AI agents working on this project.
+## When to Publish
 
-## Quick Setup
+- After component additions/changes ready for consumption
+- After token updates
+- After bug fixes affecting consumers
 
-```bash
-npm install --legacy-peer-deps   # Install dependencies
-npm run dev                       # Start dev server
-npm run figma:styles              # Sync text styles + effects from Figma
-npm run tokens:build              # Build color/spacing tokens
-```
-
-## Project Overview
-
-**Origin** is a design system using:
-- **Base UI** for component behavior/accessibility
-- **Figma API** for styles (text, effects) and CSS extraction
-- **Central Icons** for iconography
-
-## Key Directories
-
-| Path | Purpose |
-|------|---------|
-| `src/components/` | React components |
-| `src/components/Icon/icons/` | Vendored icon files (generated) |
-| `src/tokens/_variables.scss` | Color, spacing, sizing tokens |
-| `src/tokens/_text-styles.scss` | Typography mixins (generated) |
-| `src/tokens/_effects.scss` | Shadow variables (generated) |
-| `src/tokens/_typography.scss` | Global text classes + reset |
-| `scripts/extract-icons.mjs` | Icon vendoring + registry generation |
-| `tools/figma-styles/` | Figma REST API style fetcher |
-
-## Commands
+## How to Publish
 
 ```bash
-npm run dev              # Next.js dev server
-npm run storybook        # Storybook
-npm run build            # Production build
-npm run figma:styles     # Sync text styles + effects from Figma
-npm run figma:node       # Fetch CSS from any Figma node (fallback for MCP)
-npm run tokens:build     # Build color/spacing tokens
-npm run icons:extract    # Vendor icons + regenerate registry
-npm run test             # Playwright component tests
-npm run test:unit        # Vitest unit tests (fast)
-npm run test:all         # Run both test suites
-npm run lint             # ESLint
+npm version patch  # or minor/major
+git push && git push --tags
+gh release create vX.Y.Z --title "vX.Y.Z" --generate-notes
 ```
 
-## Token Sources
+## Before Publishing
 
-| Token Type | Source | File |
-|------------|--------|------|
-| Colors, spacing | Figma Variables export | `_variables.scss` |
-| Typography | Figma Text Styles (API) | `_text-styles.scss` |
-| Shadows | Figma Effect Styles (API) | `_effects.scss` |
+- Verify build passes: `npm run build`
+- Verify tests pass: `npm run test:unit`
+- Update the consuming product's dependency version after publishing
 
-## Do / Do Not
+## Version Guidelines
 
-- **Do** use Base UI for interactive elements
-- **Do** use `@include` mixins for typography
-- **Do** use `var(--token)` for all values
-- **Do** run `npm run figma:styles` after Figma style changes
-- **Do not** hardcode colors, spacing, shadows, z-index
-- **Do not** edit generated files (`_text-styles.scss`, `_effects.scss`, `icon-registry.ts`, `Icon/icons/`)
-- **Do not** use emojis in code or console output
-- **Do not** add decorative comment dividers
+- **patch** (0.0.X): Bug fixes, minor style tweaks
+- **minor** (0.X.0): New components, new features, non-breaking changes
+- **major** (X.0.0): Breaking API changes, major refactors
 
-## Full Context
+## After Publishing
 
-See `CONTEXT.md` for complete project history.
+In the consuming product, update to the new version:
+
+```bash
+npm install @lightsparkdev/origin@latest
+```
 
 ---
 > Source: [lightsparkdev/origin](https://github.com/lightsparkdev/origin) — distributed by [TomeVault](https://tomevault.io).
