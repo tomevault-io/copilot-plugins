@@ -1,0 +1,9 @@
+{
+  "name": "zas--mcp-musicbrainz",
+  "displayName": "mcp-musicbrainz",
+  "description": "An MCP (Model Context Protocol) server that provides tools for querying the MusicBrainz music database. Search for artists, albums, recordings, labels, and more \u2014 directly from your AI assistant.",
+  "version": "1.0.0",
+  "author": "zas",
+  "homepage": "https://github.com/zas/mcp-musicbrainz",
+  "skills": []
+}
