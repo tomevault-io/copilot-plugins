@@ -1,0 +1,9 @@
+{
+  "name": "oinsio--clear-progress",
+  "displayName": "clear-progress",
+  "description": "Clear Progress is a personal task, goal, and idea manager. Built for GTD and Jedi Empty Inbox techniques. Client-first PWA that works offline. Your data stays on your device, with optional sync via yo",
+  "version": "1.0.0",
+  "author": "oinsio",
+  "homepage": "https://github.com/oinsio/clear-progress",
+  "skills": []
+}
