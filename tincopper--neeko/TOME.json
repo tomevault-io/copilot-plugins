@@ -1,0 +1,44 @@
+{
+  "name": "neeko",
+  "owner": "tincopper",
+  "repo": "neeko",
+  "description": "A cross-platform desktop multi-project agent manager for the AI coding era, with integrated Agent sessions, Git management, and IDE launch.   \u4e3a AI \u7f16\u7a0b\u65f6\u4ee3\u6253\u9020\u7684\u8de8\u5e73\u53f0\u684c\u9762\u591a\u9879\u76eeAgent\u7ba1\u7406\u5668\uff0c\u96c6\u6210 Agent \u4f1a\u8bdd\u3001Git \u7ba1\u7406\u4e0e IDE \u542f\u52a8\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tincopper/neeko",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T02:47:24Z"
+}
