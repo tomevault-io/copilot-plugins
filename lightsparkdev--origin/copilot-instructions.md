@@ -1,136 +1,207 @@
-## charts
+## components
 
-> Chart component color and usage conventions
+> Component implementation rules
 
-# Chart Color Conventions
 
-## Available Components
+# Component Implementation
 
-| Component | Use case |
-|---|---|
-| `Chart.Line` | Line chart, area chart (via `fill` prop), sparkline-like |
-| `Chart.Sparkline` | Compact inline chart — no axes, no interaction |
-| `Chart.StackedArea` | Stacked cumulative area bands |
-| `Chart.Bar` | Grouped, stacked, or horizontal bar chart |
-| `Chart.Pie` | Donut chart with legend sidebar |
-| `Chart.Composed` | Mixed bar + line with dual Y-axes |
-| `Chart.Gauge` | Arc gauge with thresholds and marker |
-| `Chart.BarList` | Horizontal bars with labels — supports rank numbers, change indicators, secondary values |
-| `Chart.Uptime` | Binary status timeline (up/down) |
-| `Chart.Live` | Canvas streaming chart with `requestAnimationFrame` |
-| `Chart.Scatter` | XY scatter plot — multi-series, nearest-point tooltip |
-| `Chart.Split` | Segmented distribution bar — parts of a whole |
-| `Chart.Sankey` | Flow diagram — multi-path node/link with contextual hover filtering |
-| `Chart.Funnel` | Conversion funnel with tapered stages and drop-off rates |
-| `Chart.Waterfall` | Waterfall chart — running total with increases, decreases, totals |
+## Decision Tree
 
-## Color Strategy
+1. **Does Base UI have it?** → Wrap it (Path A/B)
+2. **No Base UI equivalent?** → Build custom (Path C)
 
-### Single series
+## Base UI Research
 
-Use `color` prop or `dataKey` — the component defaults to `var(--stroke-primary)`.
+1. **Discovery**: `https://base-ui.com/llms.txt` — what components exist
+2. **Read docs for your component**: `https://base-ui.com/react/components/{name}`
+   - The examples show the simplest wrapper — trust that Base UI authors have already optimized this
+   - Note all `data-` attributes provided (e.g., `data-disabled`, `data-invalid`, `data-focused`)
+   - Understand Field integration for form controls
+3. **Then** apply project styling conventions (tokens, size variants)
+
+## Base UI Utilities
+
+Base UI provides utilities beyond components. Reference: `https://base-ui.com/react/utils/{name}`
+
+### mergeProps
+
+Use when building custom render prop patterns or combining internal + external props:
 
 ```tsx
-<Chart.Line data={data} dataKey="value" color="var(--color-blue-600)" />
+import { mergeProps } from '@base-ui/react/merge-props';
+
+// Combines props intelligently:
+// - className: concatenated
+// - style: merged (rightmost wins)
+// - event handlers: all execute (rightmost first)
+// - other props: rightmost wins
+const finalProps = mergeProps(internalProps, externalProps);
 ```
 
-### Multi-series: shade ramps (preferred)
+**When to use:**
+- Custom components with render props
+- Intercepting Base UI event handlers (call `event.preventBaseUIHandler()` to stop internal logic)
 
-For stacked or grouped data where the series represent parts of a whole, use shades of one hue from the primitive color scale. This creates visual cohesion — the bands read as layers, not competing categories.
+### CSP Provider
+
+Use when deploying to environments with strict Content Security Policy:
 
 ```tsx
-// 3-series shade ramp
-series={[
-  { key: 'a', label: 'Primary', color: 'var(--color-blue-700)' },
-  { key: 'b', label: 'Secondary', color: 'var(--color-blue-400)' },
-  { key: 'c', label: 'Tertiary', color: 'var(--color-blue-200)' },
-]}
+import { CSPProvider } from '@base-ui/react/csp-provider';
+
+<CSPProvider nonce={serverGeneratedNonce}>
+  <App />
+</CSPProvider>
 ```
 
-Recommended shade stops by series count:
+**When to use:**
+- Deployment requires CSP headers blocking inline scripts/styles
+- Components like `ScrollArea.Viewport`, `Select.Popup` render inline `<style>` tags
 
-- **2 series**: 700, 300
-- **3 series**: 700, 400, 200
-- **4 series**: 700, 500, 300, 100
-- **5 series**: 800, 600, 400, 200, 050
+**Alternative:** Use `disableStyleElements` prop and add the CSS manually:
+```css
+.base-ui-disable-scrollbar { scrollbar-width: none; }
+.base-ui-disable-scrollbar::-webkit-scrollbar { display: none; }
+```
 
-### Multi-series: distinct hues
+## Wrapper Simplicity Principle
 
-When the series represent fundamentally different categories (e.g., incoming vs outgoing), use distinct semantic colors:
+Before adding ANY custom prop or data attribute:
 
+1. **Check if Base UI already provides it** — Most states are handled:
+   - `data-disabled`, `data-invalid`, `data-focused`, `data-filled`, `data-dirty`, `data-touched`
+   
+2. **Start minimal** — The first version should ONLY:
+   - Forward ref
+   - Merge className (with size variant if needed)
+   - Spread props
+   
+3. **Add custom props only when Base UI lacks the feature**
+
+**Red flag**: Adding a custom `data-` attribute or prop for something Base UI already handles
+
+## Before Writing Code
+
+1. Deep Figma analysis — follow `figma-analysis.mdc`
+2. Read Base UI docs for the component — examples are the canonical simplest wrapper
+3. **For compound components**: Understand how child parts interact (see below)
+4. For custom: check WAI-ARIA APG for accessibility requirements
+5. **Write tests first** — define expected behavior before implementation
+
+## Compound Components (Path A/B)
+
+When wrapping Base UI compound components (Combobox, Select, Dialog, Menu, etc.):
+
+1. **Read the Base UI docs** for each sub-part you'll expose
+2. **Understand data flow**: Which part provides data? Which renders it?
+   - Example: `Combobox.Value` provides selected values, `Combobox.Chips` is just a container
+3. **Check render function patterns**: Does the part accept `children` as a function?
+   - Example: `Combobox.List` → `{(item) => <Item />}` ✓
+   - Example: `Combobox.Chips` → does NOT accept render function ✗
+4. **Document in JSDoc**: Show correct usage, not assumed patterns
+
+**Red flag**: Documenting a render function pattern without verifying the Base UI API supports it
+
+## Base UI Wrapper Type Safety
+
+When wrapping Base UI components, **check the actual types** before defining your interface:
+
+```bash
+# Check the Base UI component's type definition
+cat node_modules/@base-ui/react/{component}/{part}/{Part}.d.ts
+```
+
+**Key questions:**
+1. **Does it render an element?** Check if it's `ForwardRefExoticComponent` and what element type
+2. **Can it forward refs?** Some Base UI parts are context providers (no ref support)
+3. **What element type?** Match your `HTMLAttributes<T>` to the actual rendered element
+
+**Common patterns:**
 ```tsx
-series={[
-  { key: 'incoming', label: 'Incoming', color: 'var(--surface-blue-strong)' },
-  { key: 'outgoing', label: 'Outgoing', color: 'var(--surface-purple-strong)' },
-]}
+// Renders <span>, forwards ref - ✓ wrap normally
+export const ComboboxItemIndicator: ForwardRefExoticComponent<... & RefAttributes<HTMLSpanElement>>
+
+// Context provider, no element - ✗ cannot forward ref/className
+export function ComboboxValue(props: ComboboxValueProps): ReactElement
 ```
 
-### Composed charts (bar + line)
+**If Base UI component is a context provider:**
+- Wrap it in your own element (`<span>`) to enable ref/className
+- Only pass props it actually accepts
 
-Use a lighter shade for bars (they have large surface area) and full-strength or `--text-primary` for lines (thin, needs contrast):
+## Rules
 
-```tsx
-series={[
-  { key: 'revenue', type: 'bar', color: 'var(--color-blue-300)' },
-  { key: 'rate', type: 'line', axis: 'right', color: 'var(--text-primary)' },
-]}
+- Zero hardcoded values — use tokens from `_variables.scss`
+- Use `@include` mixins from `_text-styles.scss` for typography
+- Use `clsx` for className merging
+- Use `forwardRef` with named function (not arrow)
+- Use slots (`React.ReactNode` props) for nested elements
+- Props spread last (consumer wins)
+
+## Analytics
+
+Interactive components accept an optional `analyticsName?: string` prop and use shared hooks from `src/components/Analytics/`:
+
+- **Actions** (Button, Form) — `useTrackedCallback` with `'click'` or `'submit'`
+- **Overlays** (Dialog, Menu, Popover, etc.) — `useTrackedOpenChange` for open/close with duration
+- **Value controls** (Select, Switch, Tabs, etc.) — `useTrackedCallback` with `'change'` and `(value) => ({ value })` metadata
+- **Item selection** (Menu.Item, Command.Item) — `useTrackedCallback` with `'select'`
+
+If no `AnalyticsProvider` exists in the tree or `analyticsName` is omitted, the hooks are no-ops.
+
+## Testing (TDD)
+
+Write tests before implementation:
+
+| Path | Tests |
+|------|-------|
+| A/B (wrapper) | Playwright CT only |
+| C (custom) | Playwright CT (unit tests only if complex logic) |
+
+**Test patterns:**
+- Use `page.getByPlaceholder()` or `page.getByRole()` — not `component.locator('element')`
+- Base UI provides data attributes — test for those, don't invent custom ones
+
+Run: `npm run test`
+
+## File Structure (creation order)
+
+```
+src/components/{Name}/
+├── {Name}.test-stories.tsx  # 1. Test fixtures first
+├── {Name}.test.tsx          # 2. Tests second
+├── {Name}.tsx or parts.tsx  # 3. Implementation (make tests pass)
+├── {Name}.module.scss       # 4. Styles
+├── {Name}.stories.tsx       # 5. Storybook
+└── index.ts                 # 6. Exports
 ```
 
-## Color Scale Reference
+## Pre-Commit Verification
 
-Every hue has 12 stops: `050, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950`.
+**Always run production build before committing:**
 
-Available hues: `blue`, `purple`, `green`, `pink`, `red`, `yellow`.
+```bash
+npm run build
+```
 
-Pattern: `var(--color-{hue}-{stop})`
+Dev mode TypeScript is lenient. Production build catches:
+- Props passed to components that don't accept them
+- Element type mismatches in interfaces
+- Import resolution issues
 
-## Fallback Palette
+## Checklist
 
-When no `color` is set on a series, the component auto-assigns from `SERIES_COLORS`:
-
-1. `var(--stroke-primary)` (near-black)
-2. `var(--text-secondary)` (gray)
-3. `var(--surface-blue-strong)`
-4. `var(--surface-purple-strong)`
-5. `var(--surface-green-strong)`
-6. `var(--surface-pink-strong)`
-
-This palette is designed for distinct-hue multi-series. For stacked/grouped charts, always set explicit shade ramp colors.
-
-## Do / Do Not
-
-- **Do** use shade ramps for stacked and grouped charts
-- **Do** use `var(--color-*)` primitive tokens for chart series colors
-- **Do** use lighter shades for large-area fills (bars, area bands) and stronger shades for thin elements (lines, dots)
-- **Do not** hardcode hex colors — use tokens
-- **Do not** rely on the fallback palette for stacked charts — the distinct hues look incohesive when stacked
-- **Do not** use semantic surface tokens (`--surface-blue-strong`) when you need shade control — use the primitive scale instead
-
-## Sankey vs Funnel
-
-Use **Funnel** when the flow is strictly sequential — every user passes through every stage in order and you care about drop-off rates between stages.
-
-Use **Sankey** when the flow branches — users take different paths to different outcomes, and you need to show how volume splits and merges across multiple routes.
-
-| | Funnel | Sankey |
-|---|---|---|
-| Data shape | Linear sequence (A → B → C) | Directed graph (A → B, A → C, B → D) |
-| Key metric | Conversion rate between stages | Volume per path |
-| Best for | Single-path conversion funnels | Multi-path routing, budget allocation, attribution |
-
-## Interaction Contract
-
-Each chart type exposes a click handler matching its data model:
-
-| Component | Handler |
-|---|---|
-| `Chart.Line`, `Chart.Bar`, `Chart.Composed`, `Chart.StackedArea`, `Chart.Pie` | `onClickDatum(index: number, datum: Record<string, unknown>) => void` |
-| `Chart.Split` | `onClickDatum(segment: SplitSegment, index: number) => void` |
-| `Chart.Scatter` | `onClickDatum(seriesKey: string, point: ScatterPoint, index: number) => void` |
-| `Chart.BarList` | `onClickDatum(item: BarListItem, index: number) => void` |
-| `Chart.Funnel` | `onClickDatum(index: number, stage: FunnelStage) => void` |
-| `Chart.Waterfall` | `onClickDatum(index: number, segment: WaterfallSegment) => void` |
-| `Chart.Sankey` | `onClickNode(node: LayoutNode) => void` / `onClickLink(link: LayoutLink) => void` |
+- [ ] Figma analysis complete
+- [ ] Base UI docs read — using their example as the simplest wrapper
+- [ ] Tests written first
+- [ ] Implementation makes tests pass
+- [ ] Figma values mirrored exactly
+- [ ] forwardRef + clsx
+- [ ] **No custom data attributes for states Base UI handles**
+- [ ] **Analytics wired** (if interactive) — `analyticsName` prop + tracking hook
+- [ ] **Production build passes** (`npm run build`)
+- [ ] Reduced motion: `@media (prefers-reduced-motion: reduce)`
+- [ ] Storybook story added
 
 ---
 > Source: [lightsparkdev/origin](https://github.com/lightsparkdev/origin) — distributed by [TomeVault](https://tomevault.io).
