@@ -1,0 +1,9 @@
+{
+  "name": "infatoshi--dsv4-flash-2x-rtxpro6000s",
+  "displayName": "dsv4-flash-2x-rtxpro6000s",
+  "description": "Serving DeepSeek-V4-Flash-0731-NVFP4 on 2x RTX PRO 6000 Blackwell (sm_120): vLLM patches, tuned configs, serve scripts, benchmarks",
+  "version": "1.0.0",
+  "author": "Infatoshi",
+  "homepage": "https://github.com/Infatoshi/dsv4-flash-2x-rtxpro6000s",
+  "skills": []
+}
