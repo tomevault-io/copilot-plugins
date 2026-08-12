@@ -1,0 +1,9 @@
+{
+  "name": "tobomobo--mullvad-tailscale-macos",
+  "displayName": "mullvad-tailscale-macos",
+  "description": "Compatibility tooling for standalone Mullvad + Tailscale on macOS with lockdown mode: a narrow interface-bound PF exception for tailnet traffic, rollback-safe updates, automatic repair, and verificati",
+  "version": "1.0.0",
+  "author": "tobomobo",
+  "homepage": "https://github.com/tobomobo/mullvad-tailscale-macos",
+  "skills": []
+}
