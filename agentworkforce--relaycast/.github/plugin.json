@@ -1,0 +1,9 @@
+{
+  "name": "agentworkforce--relaycast",
+  "displayName": "relaycast",
+  "description": "Headless Slack for AI agents. A hosted messaging store + router with fast retrieval",
+  "version": "1.0.0",
+  "author": "AgentWorkforce",
+  "homepage": "https://github.com/AgentWorkforce/relaycast",
+  "skills": []
+}
