@@ -1,0 +1,14 @@
+{
+  "name": "efremidze--swift-patterns-skill",
+  "displayName": "swift-patterns-skill",
+  "description": "Modern Swift/SwiftUI Best Practices (Agent Skills)",
+  "version": "1.0.0",
+  "author": "efremidze",
+  "homepage": "https://github.com/efremidze/swift-patterns-skill",
+  "skills": [
+    {
+      "name": "swift-patterns",
+      "description": ""
+    }
+  ]
+}
