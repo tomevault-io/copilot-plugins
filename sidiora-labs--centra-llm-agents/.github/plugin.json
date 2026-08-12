@@ -1,0 +1,9 @@
+{
+  "name": "sidiora-labs--centra-llm-agents",
+  "displayName": "centra-llm-agents",
+  "description": "A stateful AI operating system for serious, long-horizon work.",
+  "version": "1.0.0",
+  "author": "Sidiora-Labs",
+  "homepage": "https://github.com/Sidiora-Labs/centra-llm-agents",
+  "skills": []
+}
