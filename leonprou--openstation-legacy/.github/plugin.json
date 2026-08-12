@@ -1,0 +1,9 @@
+{
+  "name": "leonprou--openstation-legacy",
+  "displayName": "openstation-legacy",
+  "description": "Task management system for coding AI agents. Pure convention \u2014 markdown specs + skills, zero runtime dependencies.",
+  "version": "1.0.0",
+  "author": "leonprou",
+  "homepage": "https://github.com/leonprou/openstation-legacy",
+  "skills": []
+}
