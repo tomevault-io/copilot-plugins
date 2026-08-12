@@ -4,7 +4,7 @@
   "repo": "can-bridge",
   "description": "Move your conversation between Claude Code and Codex CLI without losing context.   Bidirectional adapter with tool-call schema translation.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ddoong10/can-bridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T13:20:57Z"
+  "distributed_at": "2026-08-12T13:32:55Z"
 }
