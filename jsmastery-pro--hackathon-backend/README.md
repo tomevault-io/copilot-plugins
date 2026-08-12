@@ -7,11 +7,11 @@ A scalable backend API built with NestJS for managing hackathons. It seamlessly 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jsmastery-pro/Hackathon-backend](https://github.com/jsmastery-pro/Hackathon-backend).
+Original source: `AGENTS.md` in [jsmastery-pro/Hackathon-backend](https://github.com/jsmastery-pro/Hackathon-backend).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
