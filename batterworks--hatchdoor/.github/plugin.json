@@ -1,0 +1,9 @@
+{
+  "name": "batterworks--hatchdoor",
+  "displayName": "Hatchdoor",
+  "description": "Self-hosted, agent-native web app and MCP server for your Obsidian-style Markdown vault. Browse, search, and edit notes from a fast UI or from AI agents.",
+  "version": "1.0.0",
+  "author": "BatterWorks",
+  "homepage": "https://github.com/BatterWorks/Hatchdoor",
+  "skills": []
+}
