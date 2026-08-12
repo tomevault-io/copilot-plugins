@@ -4,7 +4,7 @@
   "repo": "capy",
   "description": "\ud83e\uddab Privacy-first virtualization layer for LLM context with MCP protocol for tool access.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/serpro69/capy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T01:19:58Z"
+  "distributed_at": "2026-08-12T01:24:04Z"
 }
