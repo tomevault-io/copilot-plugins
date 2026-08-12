@@ -1,0 +1,9 @@
+{
+  "name": "elixir-ai-tools--pyex",
+  "displayName": "pyex",
+  "description": "A Python interpreter written in Elixir designed as an execution substrate for agents",
+  "version": "1.0.0",
+  "author": "elixir-ai-tools",
+  "homepage": "https://github.com/elixir-ai-tools/pyex",
+  "skills": []
+}
