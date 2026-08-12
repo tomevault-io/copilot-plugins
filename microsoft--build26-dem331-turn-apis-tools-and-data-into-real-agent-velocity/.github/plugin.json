@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--build26-dem331-turn-apis-tools-and-data-into-real-agent-velocity",
+  "displayName": "Build26-DEM331-turn-apis-tools-and-data-into-real-agent-velocity",
+  "description": "Demo of a Fiber Cut Response Agent using Azure Content Understanding to process multi-modal field documents (PDFs, photos, diagrams, audio) and reason with Foundry models for incident triage. From Mic",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/Build26-DEM331-turn-apis-tools-and-data-into-real-agent-velocity",
+  "skills": []
+}
