@@ -1,32 +1,22 @@
-## module-docs-and-tests
+## p1-workflow
 
-> Module README updates and JVM unit-test expectations for touched code
+> Slim P1 / large-refactor hard-stop — propose, wait for OK, then code
 
 
-# Module docs and tests
+# P1 / large refactor hard-stop
 
-## README
+For large refactors, multi-file architecture moves, or batched P1 Critical issue cleanup:
 
-Any behavioral, API, or ownership change under `app/`, `core/*/`, or `feature/*/` **updates that folder’s `README.md` in the same PR**.
+## Phase 1 — proposal only
 
-Shape: [`docs/MODULE_README_TEMPLATE.md`](../../docs/MODULE_README_TEMPLATE.md). Konsist fails if an included module lacks `README.md`.
+1. List the issues / scope in plain English.
+2. Describe the proposed fix and helper splits.
+3. Call out risk and blast radius (affected files).
+4. **Hard stop.** Do not create branches or edit product code until the user explicitly approves (e.g. “OK”).
 
-## Unit tests
+## After approval
 
-- Touched logic gets or extends hermetic JVM tests under `src/test` (prefer `logic/` packages + fakes from `:core:testing`).
-- **Bug fix ⇒ regression test** for that failure mode; if the bug is a shared pattern, cover it app-wide where practical.
-- Nudge Kover upward for gated modules when you add testable surface — see [`docs/TESTING.md`](../../docs/TESTING.md).
-- **Do not** add Compose `androidTest`, emulator suites, or instrumented CI.
-
-## End-of-task checklist
-
-Before claiming done:
-
-- [ ] Architecture boundaries intact (`ARCHITECTURE.md` + Konsist expectations)
-- [ ] Module README updated if ownership / API / behavior changed
-- [ ] Unit tests added or extended (regression if bugfix)
-- [ ] `./gradlew installDebug` if UI/behavior changed and a device is connected
-- [ ] No secrets or scratch files staged
+Follow the normal agent loop: isolated branch if needed, update dependents, compile, module README + unit tests, `installDebug` for UI, commit/push/PR **only when asked**. PR labels and merge queue: [`.cursor/rules/pr-impact-labels.mdc`](pr-impact-labels.mdc).
 
 ---
 > Source: [boxcreate/boxlore](https://github.com/boxcreate/boxlore) — distributed by [TomeVault](https://tomevault.io).
