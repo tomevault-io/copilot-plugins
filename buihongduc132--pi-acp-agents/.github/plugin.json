@@ -1,0 +1,9 @@
+{
+  "name": "buihongduc132--pi-acp-agents",
+  "displayName": "pi-acp-agents",
+  "description": "Pi extension: ACP agent client \u2014 spawn and control ACP-compatible agents (Gemini CLI, etc.) from within pi",
+  "version": "1.0.0",
+  "author": "buihongduc132",
+  "homepage": "https://github.com/buihongduc132/pi-acp-agents",
+  "skills": []
+}
