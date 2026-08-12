@@ -4,7 +4,7 @@
   "repo": "VerseCraft",
   "description": "AI-powered interactive fiction engine: players write actions, and a living story world resolves the consequences.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bei666qi-pan/VerseCraft",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T23:29:12Z"
+  "distributed_at": "2026-08-12T04:46:53Z"
 }
