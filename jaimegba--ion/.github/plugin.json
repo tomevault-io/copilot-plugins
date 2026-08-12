@@ -1,0 +1,9 @@
+{
+  "name": "jaimegba--ion",
+  "displayName": "Ion",
+  "description": "A persistent AI keeper of knowledge for whatever matters to you. Built on Claude Code, distributed under MIT.",
+  "version": "1.0.0",
+  "author": "JaimeGBA",
+  "homepage": "https://github.com/JaimeGBA/Ion",
+  "skills": []
+}
