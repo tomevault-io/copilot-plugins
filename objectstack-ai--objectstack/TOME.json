@@ -4,7 +4,7 @@
   "repo": "objectstack",
   "description": "A complex business system in 170k tokens. ObjectStack compresses an entire app \u2014 data model, UI, workflows, permissions \u2014 into typed metadata, an AI agent can hold in context, reason about, and refactor whole.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/objectstack-ai/objectstack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T23:23:54Z"
+  "distributed_at": "2026-08-12T23:29:18Z"
 }
