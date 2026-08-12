@@ -1,81 +1,58 @@
-## jarvis-mcp
+## jarvis-node-mobile
 
-> Rules for jarvis-mcp - MCP server for Claude Code integration
+> Rules for jarvis-node-mobile - mobile companion app for node provisioning
 
 
-# jarvis-mcp
+# jarvis-node-mobile
 
-MCP (Model Context Protocol) server exposing jarvis services as tools for Claude Code.
+Mobile companion app for provisioning and managing Jarvis Pi Zero nodes. React Native + TypeScript + Expo.
 
-## Running (Port 7709)
+**Status: Immature** - Still working on WiFi provisioning flow for nodes.
+
+## Running
 
 ```bash
-./run.sh --docker              # Start in Docker (standard)
-./run.sh --docker --rebuild    # Rebuild after dependency changes
-poetry run pytest              # Tests
+npm install                    # Install dependencies
+npx expo start                 # Start Expo dev client
+npm run ios                    # iOS device (iPhone 17 Pro Max)
+npm run ios:pick               # iOS device picker
+npm run android                # Android
+npm run web                    # Web version
 ```
 
-## Architecture
+## Building
 
-```
-jarvis_mcp/
-├── __main__.py    # Entry point
-├── server.py      # SSE server, MCP protocol
-├── config.py      # Environment configuration
-└── tools/
-    ├── logs.py    # logs_query, logs_tail, logs_errors, logs_services
-    └── debug.py   # debug_health, debug_service_info
+```bash
+npm run build:dev:ios          # EAS build for iOS (development)
+npm run build:dev:android      # EAS build for Android (development)
+npm run build:dev:local        # Local iOS build
 ```
 
-## Environment Variables
+## Testing
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `JARVIS_MCP_HOST` | localhost | Server host |
-| `JARVIS_MCP_PORT` | 7709 | Server port |
-| `JARVIS_MCP_TOOLS` | logs,debug | Enabled tool groups (add `tests`/`db`) |
-| `JARVIS_CONFIG_URL` | - | Config service URL (preferred) |
-| `JARVIS_CONFIG_URL_STYLE` | - | Set to `dockerized` in Docker |
-| `JARVIS_LOGS_URL` | http://localhost:7702 | Fallback logs URL |
-| `JARVIS_AUTH_URL` | http://localhost:7701 | Fallback auth URL |
-| `POSTGRES_HOST` | localhost | Postgres host for db tools |
-| `POSTGRES_PORT` | 5432 | Postgres port for db tools |
-| `POSTGRES_USER` | devuser | Postgres user for db tools |
-| `POSTGRES_PASSWORD` | devpassword | Postgres password for db tools |
-| `POSTGRES_DB` | postgres | Default database for db tools |
+```bash
+npm test                       # Jest
+npm run test:watch             # Watch mode
+npm run test:coverage          # Coverage report
+```
 
-## Service Discovery
+## Purpose
 
-URLs fetched from `jarvis-config-service` at startup with background refresh every 5 minutes. Falls back to `JARVIS_*_URL` env vars.
+Primary function is **provisioning Pi Zero nodes**:
+1. Connect to node's AP mode WiFi (`jarvis-XXXX`)
+2. Send home WiFi credentials to the node
+3. Register node with command-center
+4. Manage node settings
 
-## Available Tools
+## Tech Stack
 
-**Logs:** logs_query, logs_tail, logs_errors, logs_services
-**Debug:** debug_health, debug_service_info
-**Tests:** run_tests
-**DB (read-only):** db_list_databases, db_list_schemas, db_list_tables, db_describe_table, db_query
-
-## API Endpoints
-
-- `GET /health` - Health check
-- `GET /sse` - SSE connection for MCP clients
-- `POST /messages` - MCP message endpoint
+- React Native + Expo + TypeScript
+- Jest for testing
 
 ## Service Dependencies
 
-**Must be running:**
-- `jarvis-config-service` (7700) - Service discovery (optional, falls back to env vars)
-- `jarvis-logs` (7702) - Queried by log tools (logs_query, logs_tail, logs_errors)
-- `jarvis-settings-client` - Runtime configuration
-
-**Queried for health/debug tools (all optional):**
-- `jarvis-auth` (7701), `jarvis-command-center` (7703), `jarvis-recipes-server` (7030), `jarvis-whisper-api` (7706), `jarvis-ocr-service` (7031), `jarvis-llm-proxy-api` (7704), `jarvis-tts` (7707)
-
-**Note:** Does NOT use jarvis-log-client for its own logging. Uses app-to-app auth headers directly for logs access.
-
-## Dependencies
-
-mcp, starlette, sse-starlette, httpx, jarvis-settings-client
+- `jarvis-command-center` (7703) - Primary server (goal: single external dependency)
+- `jarvis-node-setup` provisioning API (port 8080 on the node, direct connection during provisioning)
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
