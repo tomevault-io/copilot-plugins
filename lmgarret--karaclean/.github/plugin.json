@@ -1,0 +1,9 @@
+{
+  "name": "lmgarret--karaclean",
+  "displayName": "karaclean",
+  "description": "A Docker sidecar that automatically cleans up Karakeep bookmarks based on declarative YAML rules.",
+  "version": "1.0.0",
+  "author": "lmgarret",
+  "homepage": "https://github.com/lmgarret/karaclean",
+  "skills": []
+}
