@@ -1,0 +1,9 @@
+{
+  "name": "ludattilo--revitcortex",
+  "displayName": "RevitCortex",
+  "description": "MCP (Model Context Protocol) server for Autodesk Revit 2023\u20132027 \u2014 173 tools, typed errors, session state, dynamic tool discovery, IFC reconstruction, Power BI live integration. Works with Claude, Cod",
+  "version": "1.0.0",
+  "author": "LuDattilo",
+  "homepage": "https://github.com/LuDattilo/RevitCortex",
+  "skills": []
+}
