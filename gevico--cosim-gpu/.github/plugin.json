@@ -1,0 +1,9 @@
+{
+  "name": "gevico--cosim-gpu",
+  "displayName": "cosim-gpu",
+  "description": " a QEMU + gem5 co-simulation framework for AMD MI300X GPU research.",
+  "version": "1.0.0",
+  "author": "gevico",
+  "homepage": "https://github.com/gevico/cosim-gpu",
+  "skills": []
+}
