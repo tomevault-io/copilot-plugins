@@ -1,0 +1,9 @@
+{
+  "name": "byte-v-forge--sms",
+  "displayName": "sms",
+  "description": "SMS provider integration service for Byte V Forge",
+  "version": "1.0.0",
+  "author": "byte-v-forge",
+  "homepage": "https://github.com/byte-v-forge/sms",
+  "skills": []
+}
