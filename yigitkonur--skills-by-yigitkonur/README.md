@@ -7,11 +7,11 @@ All my AI agent skills in one place — design extraction, code review config, M
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yigitkonur/skills-by-yigitkonur](https://github.com/yigitkonur/skills-by-yigitkonur).
+Original source: `CLAUDE.md` in [yigitkonur/skills-by-yigitkonur](https://github.com/yigitkonur/skills-by-yigitkonur).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
