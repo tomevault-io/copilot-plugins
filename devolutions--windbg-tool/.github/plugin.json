@@ -1,0 +1,9 @@
+{
+  "name": "devolutions--windbg-tool",
+  "displayName": "windbg-tool",
+  "description": "WinDBG tool for AI agents",
+  "version": "1.0.0",
+  "author": "Devolutions",
+  "homepage": "https://github.com/Devolutions/windbg-tool",
+  "skills": []
+}
