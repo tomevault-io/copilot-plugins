@@ -1,0 +1,9 @@
+{
+  "name": "se-uhd--ai-slop-skill",
+  "displayName": "ai-slop-skill",
+  "description": "Catch and fix AI slop in any prose; specific focus on empirical software engineering papers.",
+  "version": "1.0.0",
+  "author": "se-uhd",
+  "homepage": "https://github.com/se-uhd/ai-slop-skill",
+  "skills": []
+}
