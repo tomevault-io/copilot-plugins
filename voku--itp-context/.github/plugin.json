@@ -1,0 +1,9 @@
+{
+  "name": "voku--itp-context",
+  "displayName": "itp-context",
+  "description": "\ud83c\udfaf A small PHP library for attaching architecture rules to code via PHP attributes and resolving those rules from a matching catalog.",
+  "version": "1.0.0",
+  "author": "voku",
+  "homepage": "https://github.com/voku/itp-context",
+  "skills": []
+}
