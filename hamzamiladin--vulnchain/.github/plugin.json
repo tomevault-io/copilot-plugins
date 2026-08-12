@@ -1,0 +1,9 @@
+{
+  "name": "hamzamiladin--vulnchain",
+  "displayName": "Vulnchain",
+  "description": "AI-powered multi-language security scanner: 154 Semgrep rules, 13 Joern CPG scripts, AI code detection, and attack-chain correlation",
+  "version": "1.0.0",
+  "author": "hamzamiladin",
+  "homepage": "https://github.com/hamzamiladin/Vulnchain",
+  "skills": []
+}
