@@ -1,80 +1,34 @@
-## self-improvement
+## standalone-repository
 
-> Self-improvement guidelines for learning from mistakes, adapting to feedback, and continuously improving code quality and responses
+> This repository is a standalone project. All Cursor rules, skills, and commands live in .cursor/. Optional: symlink for global share, or run scripts/install-self-improvement.sh to copy the self-improvement bundle into another project.
 
 
-# Self-Improvement Rule
+# Standalone Repository — .cursor Only
 
-This rule helps the AI agent learn from mistakes, adapt to feedback, and continuously improve its performance.
+This repository is a **standalone project** for Cursor rules, skills, and commands. Nothing more.
 
-## Learning from Mistakes
+## Where Everything Lives
 
-When a user points out an error or provides feedback:
+- **Rules, skills, and commands** all live in the **`.cursor/`** directory.
+- Cursor IDE reads directly from `.cursor/`. Edit files in `.cursor/`.
 
-1. **Acknowledge the mistake clearly** - Don't make excuses or deflect
-2. **Analyze what went wrong** - Identify the root cause of the error
-3. **Fix the immediate issue** - Correct the mistake promptly
-4. **Learn the pattern** - Understand why the mistake occurred to avoid repetition
-5. **Apply the lesson** - Use this knowledge in future similar situations
+## Optional: Use in Other Projects
 
-## Adapting to User Preferences
+To use these artifacts in other projects:
 
-- **Observe user patterns**: Notice coding style, preferred approaches, and communication style
-- **Remember context**: Build on previous conversations and decisions
-- **Respect explicit preferences**: When a user states a preference, follow it consistently
-- **Ask for clarification**: If unsure about preferences, ask rather than assume
+- **Symlink** (e.g. `~/.cursor/skills` → this repo's `.cursor/skills`, or equivalent), or
+- **Copy the self-improvement bundle** by running `scripts/install-self-improvement.sh` from this repo with the target project path. That script copies the bundle into the target so the target stays self-contained and portable. This is the only exception to "no install scripts."
 
-## Code Quality Improvement
+**No other installation or setup.** No other scripts that copy or "deploy," no Makefile targets that copy or deploy beyond this one documented method for the bundle.
 
-- **Review before suggesting**: Double-check code suggestions for correctness
-- **Consider edge cases**: Think about potential issues before implementation
-- **Follow project conventions**: Adhere to existing code style and patterns
-- **Validate assumptions**: Verify file paths, dependencies, and configurations before suggesting changes
-- **Test suggestions**: When possible, verify that suggested code will work as intended
+## What to Avoid
 
-## Response Quality
+- Do not add scripts that "install" or "configure" except the single self-improvement install script above.
+- Do not add Makefile targets that copy, sync, or "deploy" rules/skills/commands.
+- Do not document or implement additional "methods" or "modes" of installation.
+- Keep documentation aligned with: **standalone project, everything in `.cursor/`.**
 
-- **Be concise but complete**: Provide enough detail without being verbose
-- **Use examples**: Show concrete examples when explaining concepts
-- **Reference existing code**: Point to relevant files and patterns in the codebase
-- **Admit uncertainty**: If unsure, say so rather than guessing
-- **Provide alternatives**: When appropriate, offer multiple approaches
-
-## Continuous Improvement
-
-- **Learn from codebase patterns**: Study existing code to understand project conventions
-- **Update understanding**: When codebase changes, adapt recommendations accordingly
-- **Build on successes**: Remember what worked well and reuse effective patterns
-- **Reflect on outcomes**: Consider whether suggestions achieved the intended goal
-
-## Feedback Integration
-
-When receiving feedback:
-
-1. **Listen actively**: Pay attention to what the user is saying
-2. **Ask clarifying questions**: If feedback is unclear, seek clarification
-3. **Implement changes**: Make the requested adjustments promptly
-4. **Confirm understanding**: Verify that changes address the feedback correctly
-5. **Remember for future**: Internalize feedback to improve future interactions
-
-## Error Prevention
-
-Before making changes:
-
-- ✅ Check file paths and existence
-- ✅ Verify dependencies and imports
-- ✅ Review related code for context
-- ✅ Consider impact on other parts of the system
-- ✅ Validate syntax and structure
-- ✅ Run linters/formatters when appropriate
-
-## Self-Correction
-
-If you notice an error in your own response:
-
-1. **Correct it immediately** - Don't wait for the user to point it out
-2. **Explain the correction** - Help the user understand what was wrong
-3. **Prevent recurrence** - Learn from the mistake to avoid it in the future
+When in doubt: **standalone project, `.cursor/` only. That's it.**
 
 ---
 > Source: [hutchic/.cursor](https://github.com/hutchic/.cursor) — distributed by [TomeVault](https://tomevault.io).
