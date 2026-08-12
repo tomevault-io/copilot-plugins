@@ -1,0 +1,9 @@
+{
+  "name": "aws-samples--sample-claude-code-multi-model",
+  "displayName": "sample-claude-code-multi-model",
+  "description": "Run Claude Code with any foundation model on Amazon Bedrock (43 models) or a self-hosted model on EC2. Includes a HumanEval benchmark.",
+  "version": "1.0.0",
+  "author": "aws-samples",
+  "homepage": "https://github.com/aws-samples/sample-claude-code-multi-model",
+  "skills": []
+}
