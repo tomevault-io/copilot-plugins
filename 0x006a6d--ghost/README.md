@@ -7,14 +7,14 @@ Brain-inspired memory system for LLM — there are only words, no subject needed
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [0x006a6d/ghost](https://github.com/0x006a6d/ghost).
+Original source: `AGENTS.md` in [0x006a6d/ghost](https://github.com/0x006a6d/ghost).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/0x006a6d/ghost](https://github.com/0x006a6d/ghost)
