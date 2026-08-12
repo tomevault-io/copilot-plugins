@@ -4,7 +4,7 @@
   "repo": "claude-themes",
   "description": "A marketplace of UI themes for Claude",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/matcra587/claude-themes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T11:29:56Z"
+  "distributed_at": "2026-08-12T11:36:52Z"
 }
