@@ -1,0 +1,9 @@
+{
+  "name": "newptcai--repy",
+  "displayName": "repy",
+  "description": "repy is a terminal epub format ebook reader inspired by epy",
+  "version": "1.0.0",
+  "author": "newptcai",
+  "homepage": "https://github.com/newptcai/repy",
+  "skills": []
+}
