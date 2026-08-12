@@ -1,0 +1,9 @@
+{
+  "name": "andrewspearson--tenable-mcp-mssp",
+  "displayName": "tenable-mcp-mssp",
+  "description": "An MCP server for orchestrating Tenable MSSP child container workflows. Make bulk queries. Take bulk actions.",
+  "version": "1.0.0",
+  "author": "andrewspearson",
+  "homepage": "https://github.com/andrewspearson/tenable-mcp-mssp",
+  "skills": []
+}
