@@ -1,0 +1,9 @@
+{
+  "name": "bifravst--video-thingy-rocks",
+  "displayName": "video.thingy.rocks",
+  "description": "Ingest video streams from UDP connected devices",
+  "version": "1.0.0",
+  "author": "bifravst",
+  "homepage": "https://github.com/bifravst/video.thingy.rocks",
+  "skills": []
+}
