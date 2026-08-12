@@ -4,7 +4,7 @@
   "repo": "codaph",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mubit-ai/codaph",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T00:42:49Z"
+  "distributed_at": "2026-08-12T07:31:15Z"
 }
