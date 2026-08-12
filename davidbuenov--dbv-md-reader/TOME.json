@@ -4,7 +4,7 @@
   "repo": "dbv-md-reader",
   "description": "Lector nativo de Markdown (.md) para Windows, ultra-ligero y de solo lectura, construido con Rust + Tauri v2. Sanitizaci\u00f3n XSS, auto-recarga en vivo, documentos remotos por URL, archivos recientes, temas Claro/Oscuro/Sepia, diagramas Mermaid y resaltado de c\u00f3digo. Sin Electron.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/davidbuenov/dbv-md-reader",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T00:35:55Z"
+  "distributed_at": "2026-08-12T06:58:22Z"
 }
