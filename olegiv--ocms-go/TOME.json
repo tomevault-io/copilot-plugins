@@ -1,0 +1,44 @@
+{
+  "name": "ocms-go",
+  "owner": "olegiv",
+  "repo": "ocms-go",
+  "description": "Lightweight CMS built with Go and SQLite. Features HTMX/Alpine.js admin, REST API, theme & module systems, multi-language support, webhooks, media library, form builder and SEO tools. Single binary, zero config database.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/olegiv/ocms-go",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T17:07:57Z"
+}
