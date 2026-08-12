@@ -1,0 +1,9 @@
+{
+  "name": "cboxdk--laravel-queue-autoscale",
+  "displayName": "laravel-queue-autoscale",
+  "description": "Intelligent, predictive autoscaling for Laravel queues with SLA/SLO-based optimization",
+  "version": "1.0.0",
+  "author": "cboxdk",
+  "homepage": "https://github.com/cboxdk/laravel-queue-autoscale",
+  "skills": []
+}
