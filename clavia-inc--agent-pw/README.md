@@ -7,11 +7,11 @@ Share APIs with agents, without sharing secrets.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [clavia-inc/agent.pw](https://github.com/clavia-inc/agent.pw).
+Original source: `CLAUDE.md` in [clavia-inc/agent.pw](https://github.com/clavia-inc/agent.pw).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
