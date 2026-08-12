@@ -1,69 +1,80 @@
-## jarvis-admin
+## jarvis-auth-client
 
-> Rules for jarvis-admin - web admin dashboard
+> Rules for jarvis-auth-client - shared authentication library
 
 
-# jarvis-admin
+# jarvis-auth-client
 
-Web admin dashboard for managing Jarvis service settings. React 19 + TypeScript. Superuser-only access.
+Shared Python library for authentication across Jarvis microservices. Two auth mechanisms: Superuser JWT and App-to-App.
 
-## Running (Port 7710)
+## Setup & Run
 
 ```bash
-npm install            # Install dependencies
-npm run dev            # Dev server at http://localhost:7710
-npx tsc -b             # Type check
-npm run build          # Production build
+pip install -e ".[dev]"
+pytest
 ```
 
-## Architecture
+## Superuser JWT
 
-```
-src/
-├── api/               # Axios clients (auth, settings)
-├── auth/              # AuthContext (login, token refresh, superuser gate)
-├── discovery/         # Network discovery (find config-service, resolve URLs)
-├── hooks/             # useAuth, useSettings (TanStack Query)
-├── components/
-│   ├── layout/        # AppShell, Sidebar, Header
-│   └── settings/      # ServiceCard, CategoryGroup, SettingRow, SettingEditor
-├── pages/             # LoginPage, SettingsPage, NotFoundPage
-├── theme/             # ThemeProvider (dark/light), color tokens
-├── types/             # TypeScript interfaces
-└── lib/               # Utility functions
+```python
+from jarvis_auth_client import init, require_superuser, SuperuserUser
+
+init(secret_key=os.getenv("JARVIS_AUTH_SECRET_KEY"))
+
+@app.get("/admin/something")
+def admin_endpoint(user: SuperuserUser = Depends(require_superuser)):
+    print(user.user_id, user.email)
 ```
 
-## Auth Flow
+## App-to-App Authentication
 
-1. Login via `POST /auth/login` to jarvis-auth (7701)
-2. Non-superuser accounts rejected at frontend
-3. Tokens in localStorage, attached via axios interceptor
-4. Auto-refresh on 401; redirect to login on failure
+```python
+from jarvis_auth_client import init, require_app_auth, AppAuthResult
+from jarvis_auth_client.headers import get_app_headers, build_context_headers
 
-## Network Discovery
+init(auth_base_url=os.getenv("JARVIS_AUTH_BASE_URL"))
+_app_auth = require_app_auth()
 
-Auto-discovers jarvis-config-service:
-1. Check localStorage cache
-2. Scan localhost ports 7700-7711
-3. If needed, discover local IP via WebRTC, scan /24 subnet
-4. Match `{"service": "jarvis-config-service"}`
-5. Resolve auth URL from config service
+@app.post("/transcribe")
+async def transcribe(auth: AppAuthResult = Depends(_app_auth)):
+    print(auth.app.app_id, auth.context.household_id)
+```
 
-## Adding New Pages
+## Header Utilities
 
-1. Create `src/pages/MyPage.tsx`
-2. Add route in `src/App.tsx` inside `<AppShell>`
-3. Add nav item in `src/components/layout/Sidebar.tsx`
+```python
+from jarvis_auth_client.headers import get_app_headers, build_context_headers
+
+headers = {
+    **get_app_headers(),  # X-Jarvis-App-Id, X-Jarvis-App-Key from env
+    **build_context_headers(household_id="hh123", node_id="node456", user_id=789),
+}
+```
+
+## Environment Variables
+
+| Variable | Used By | Description |
+|----------|---------|-------------|
+| `JARVIS_AUTH_SECRET_KEY` | require_superuser | JWT signing key |
+| `JARVIS_AUTH_BASE_URL` | require_app_auth | jarvis-auth service URL |
+| `JARVIS_AUTH_APP_ID` | get_app_headers | App ID for outgoing requests |
+| `JARVIS_AUTH_APP_KEY` | get_app_headers | App key for outgoing requests |
+
+## Error Responses
+
+- **401**: Missing/invalid token or credentials
+- **403**: Valid token but not superuser
+- **503**: jarvis-auth service unavailable
 
 ## Service Dependencies
 
-- `jarvis-config-service` (7700) - Auto-discovered via network scan, provides all other URLs
-- `jarvis-auth` (7701) - User login, superuser validation
-- Settings API on config-service (`/v1/settings`) - Settings CRUD
+Talks to its respective service only:
+- `jarvis-auth` (7701) - Validates app credentials (GET /internal/app-ping)
+- Optionally uses `jarvis-config-client` to discover auth URL
 
-## Dependencies
+## Used By
 
-React 19, React Router, TanStack Query, Axios, Tailwind CSS v4, Lucide icons, Sonner
+jarvis-settings-server, jarvis-command-center, jarvis-whisper-api, jarvis-tts
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
