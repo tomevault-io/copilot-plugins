@@ -7,11 +7,11 @@ GEO-optimized landing page template for startups. Astro 5, Schema.org JSON-LD, a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [fritzhand/geo-landing-page](https://github.com/fritzhand/geo-landing-page).
+Original source: `CLAUDE.md` in [fritzhand/geo-landing-page](https://github.com/fritzhand/geo-landing-page).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
