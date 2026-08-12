@@ -7,13 +7,13 @@ An AI board game design studio for Cursor. Turn a one-line idea into BGG referen
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [kongsol-83/boardgame-studio](https://github.com/kongsol-83/boardgame-studio).
+Original source: `AGENTS.md` in [kongsol-83/boardgame-studio](https://github.com/kongsol-83/boardgame-studio).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
