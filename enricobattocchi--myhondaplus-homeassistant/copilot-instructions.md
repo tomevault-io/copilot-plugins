@@ -1,0 +1,116 @@
+## myhondaplus-homeassistant
+
+> Fast orientation for AI agents working on this repo. Humans should start with [`CONTRIBUTING.md`](CONTRIBUTING.md), which documents the architecture, conventions, test layout, and release process in full. This file complements that with quick-navigation pointers for agents starting cold; defer to CONTRIBUTING.md when in doubt.
+
+# AGENTS.md
+
+Fast orientation for AI agents working on this repo. Humans should start with [`CONTRIBUTING.md`](CONTRIBUTING.md), which documents the architecture, conventions, test layout, and release process in full. This file complements that with quick-navigation pointers for agents starting cold; defer to CONTRIBUTING.md when in doubt.
+
+Sections 2, 3, and 5 mirror the canonical text in [`pymyhondaplus/AGENTS.md`](https://github.com/enricobattocchi/pymyhondaplus/blob/main/AGENTS.md) — update there first, then propagate.
+
+## 1. What this repo is
+
+The Home Assistant custom integration for My Honda+ / Honda Connect Europe vehicles, distributed via HACS. It consumes the [`pymyhondaplus`](https://github.com/enricobattocchi/pymyhondaplus) library for all upstream API work and surfaces vehicle data and remote controls as Home Assistant entities and services.
+
+## 2. Naming
+
+*Mirrored from `pymyhondaplus/AGENTS.md` — update there first.*
+
+Refer to the upstream service as "the My Honda+ API" or "the Honda Connect Europe API" in code, comments, commit messages, PR descriptions, log strings, and test names — matching the framing used in the public READMEs. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full style guide.
+
+## 3. The three-repo ecosystem
+
+*Mirrored from `pymyhondaplus/AGENTS.md` — update there first.*
+
+[`pymyhondaplus`](https://github.com/enricobattocchi/pymyhondaplus) (Python library + CLI) is consumed by:
+
+- [`myhondaplus-homeassistant`](https://github.com/enricobattocchi/myhondaplus-homeassistant) — Home Assistant integration, pinned `==X.Y.Z` (HA convention).
+- [`myhondaplus-desktop`](https://github.com/enricobattocchi/myhondaplus-desktop) — PyQt6 desktop app, pinned `>=X.Y.Z`.
+
+**Ownership boundaries** — each concern lives in exactly one repo:
+
+- **Library owns**: API request/response shapes, auth flow, `EVStatus` parsing, enum normalization (`charge_status`, `home_away`, `climate_temp`, geofence states), `VehicleCapabilities` resolution, capability raw-API-key labels, geofence state labels, geofence error messages, library-side translations (CLI strings + the `t_lib()` keys consumers bridge to).
+- **HA integration owns**: entity descriptors, coordinators, config flow, services, `strings.json` + `translations/*.json`, error-handling conventions for HA.
+- **Desktop owns**: view layer (MainWindow / widgets), controller, workers, dashboard / trip / geofence / vehicle UI, desktop `translations/*.json`, PyInstaller bundling.
+
+If a task feels like it crosses boundaries, default to "the library owns the API/parsing/canonical enums; consumers are presentation" and confirm with the maintainer before editing across repos.
+
+**Triage rule.** When investigating an issue or fix in a consumer repo (HA or desktop), use the ownership boundaries above. If the symptom is in library-owned territory (API request/response shape, parsing, enum normalization, capability resolution, library-owned translation strings), the issue or PR should be opened in `pymyhondaplus` — even if it was first surfaced through a consumer. When in doubt, a short Python repro against the library is the fastest way to confirm.
+
+**Editing this file.** Sections `## 2. Naming`, `## 3. The three-repo ecosystem`, and `## 5. Cross-repo workflows` are mirrored verbatim from `pymyhondaplus/AGENTS.md` into the two consumer repos. When changing any of those sections, use **identical wording** across the three repos (no per-repo customization — keep it generic enough to apply everywhere) and run `python scripts/check_agents_mirror.py` from the HA or desktop repo before pushing. The same check enforces parity in CI and will block consumer PRs if the wording drifts.
+
+## 4. Where to touch code
+
+| Task | Files |
+|---|---|
+| Add a new entity / sensor / button | platform module under `custom_components/myhondaplus/` (`binary_sensor.py` / `button.py` / `device_tracker.py` / `lock.py` / `number.py` / `select.py` / `sensor.py` / `switch.py`); shared helpers in `entity.py`; user-visible labels in `strings.json`; translations in `custom_components/myhondaplus/translations/<lang>.json` for all 13 locales; tests in `tests/` (95% coverage gate) |
+| Add a new service | register in `custom_components/myhondaplus/__init__.py`; schema in `services.yaml`; descriptions under `services` in `strings.json`; translations; tests |
+| Config-flow change | `custom_components/myhondaplus/config_flow.py`; labels under `config.step` in `strings.json`; translations |
+| New translated string paired with a library string | `strings.json` + `translations/<lang>.json`; if it pairs with a `pymyhondaplus.translations.TRANSLATIONS` key, run `tests/test_translation_drift.py` and move the pair into `ENFORCED_OVERLAPS` (or out of `_KNOWN_DRIFT`) when wording converges |
+| Bump library dep | `custom_components/myhondaplus/manifest.json` `requirements` — exact pin `pymyhondaplus==X.Y.Z`; manifest `version` for the integration release |
+| New enum sensor value | `options` list on the platform descriptor; the library normalizes — don't re-normalize here |
+| Coordinator change | `coordinator.py` (`HondaDataUpdateCoordinator`, `HondaTripCoordinator`); follow the error-handling conventions in [`CONTRIBUTING.md`](CONTRIBUTING.md) |
+
+## 5. Cross-repo workflows
+
+*Mirrored from `pymyhondaplus/AGENTS.md` — update there first.*
+
+### Cross-product thinking when multiple repos are open
+
+If the user's session has more than one of `pymyhondaplus`, `myhondaplus-homeassistant`, or `myhondaplus-desktop` loaded as a working directory, treat that as a signal that they're managing parallel work and rely on you for cross-product memory. **Don't wait to be asked.** When making any non-trivial change in one repo:
+
+- Search the other loaded repo(s) for the same code path. A bug fix in HA's `sensor.py` may have a sibling in `myhondaplus-desktop/widgets/dashboard.py`. A library API change has at least two consumers.
+- Treat design contracts as cross-cutting: capability gating (read vs command), error-handling shape, naming, polling cadences, defaults, fuel-type semantics. When one repo settles a contract, the others should align unless the divergence is intentional and stated.
+- For bug fixes, audit the bug *class*, not just the specific symptom. If you fixed "X disappears when capability=False" in one repo, ask whether the equivalent code in the other repos has the same gate.
+- For library changes, surface the consumer impact inline. Don't say "library updated, what next" — say "library changed Y; HA needs Z, desktop needs W; here are the patches."
+
+Surface findings as part of your response, in a compact format:
+
+- *"Same pattern in `<repo>` at `<file:line>` — proposing same fix here."*
+- *"`<repo>` diverges intentionally because `<reason>` — keeping divergent."*
+- *"`<repo>` doesn't have this code path — N/A."*
+
+The CLI in `pymyhondaplus` is often N/A for UI-gating questions (it's a thin pass-through that defers to Honda's API), but check before assuming.
+
+### Smoothing legacy-user flows on API/behavior changes
+
+Whenever you change behavior, contract, or storage shape that already-installed users rely on, **first** map what existing entries / cached state / config files look like (read past migrations, config-flow code, storage handlers) and decide whether they will break, degrade, or stay fine under the new code.
+
+If they break or degrade, look for a silent self-heal path before writing release notes that ask users to delete and re-add or reauth. Examples: re-run discovery against API metadata on next startup; backfill missing fields from data the integration already has access to; drop stale flags that no longer reflect reality; reconcile via existing migration / `_fetch_*_metadata` paths.
+
+Only escalate to "user must take action" when the code genuinely cannot fix the entry from data already available. Each forced manual step is a chance for users to drop off and an entry in the issue tracker; each silent self-heal is invisible. Bias toward fixing things automatically.
+
+### Release & change mechanics
+
+- **Docs before tag.** Audit narrative docs (`README.md`, plus `USAGE.md` / `CHANGELOG.md` where present) against the diff *before* bumping the version. A new feature / service / option / flag needs documenting; a removed or renamed one must not still be described. Updating code-adjacent files (`services.yaml`, `strings.json`, locale JSON, `manifest.json`) is necessary but not sufficient — the README is a separate surface, and fixing it in a follow-up after the release has shipped is not OK.
+- **Release-notes format.** Every release uses the same shape: header `## X.Y.Z (YYYY-MM-DD)`, then only the sections that apply, in order: `### Breaking`, `### Added`, `### Fixed`, `### Changed`, `### Dependencies` (the last for pin changes, e.g. "Requires pymyhondaplus >= X.Y.Z"). Bullets are one line each, no em or en dashes, no mea-culpa or "should have shipped earlier" framing, no paragraph-length context. `pymyhondaplus` keeps these entries in `CHANGELOG.md` and the GitHub release body is that section copied verbatim; HA and desktop have no changelog, so write the GitHub release body directly in the same format.
+- **Release order is library first, then consumers.** Bump `pymyhondaplus`, tag, GitHub-release; then update HA `manifest.json` `requirements` (`==X.Y.Z`) and/or desktop `pyproject.toml` + `README.md` (`>=X.Y.Z`), then release each consumer.
+- **Pin update rule**: HA pins exact (Home Assistant convention); desktop pins minimum.
+- **Translation-drift PRs** may span library + HA. When a string converges in wording, move the pair from `_KNOWN_DRIFT` to `ENFORCED_OVERLAPS` in the same PR (HA test: `tests/test_translation_drift.py`).
+- **Cross-repo change checklist**: land library-owned API/parsing/auth/translation behavior in `pymyhondaplus` first; update HA's exact pin and desktop's minimum pin only after a library release; keep consumer enum options, entity descriptors, and UI copy aligned with canonical library behavior.
+
+## 6. Common pitfalls
+
+- Hassfest rejects timeout/notification strings under the `notifications` key. They go under `exceptions` in `strings.json`.
+- `VehicleCapabilities` access is raw-backed: `getattr(vehicle.capabilities, desc.capability, True)` is the correct gating pattern. Unknown names raise `AttributeError` and `getattr` falls through to the default — no integration code change is needed when the library adds capability flags.
+- The library returns coordinates as floats — no conversion in the integration.
+- `_log_unavailable_once` / `_log_recovered_once` exist for a reason; don't add ad-hoc logging that re-spams.
+- Optimistic updates mutate `coordinator.data` before the API confirms; revert on failure.
+- All 13 locale files must stay current — auditing them is a blocking pre-tag step.
+
+## 7. Gates and local commands
+
+- Setup: `pip install -e ".[dev]"`
+- Tests: `python -m pytest tests/ -x -q`
+- Lint: `ruff check custom_components/ tests/`
+- CI coverage gate: `pytest tests/ -v --cov=custom_components/myhondaplus --cov-report=term-missing --cov-fail-under=95`
+
+`Lint` (ruff), `Test` (pytest with 95% coverage), `Hassfest`, `HACS Validation` — all four required before merge. Tag is the bare version (e.g. `5.2.0`, not `v5.2.0`); `manifest.json` integration `version` must match the tag.
+
+## 8. Full reference
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full architecture, library-coupling details, translation-drift test conventions, error-handling rules, entity conventions, CI workflows, and release process. The same guidance that applies to human contributors applies to agents.
+
+---
+> Source: [enricobattocchi/myhondaplus-homeassistant](https://github.com/enricobattocchi/myhondaplus-homeassistant) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
