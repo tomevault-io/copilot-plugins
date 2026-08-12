@@ -1,0 +1,44 @@
+{
+  "name": "taiwan-translate-skill",
+  "owner": "Moksa1123",
+  "repo": "taiwan-translate-skill",
+  "description": "Taiwan Translate Skill - \u53f0\u7063\u6b63\u9ad4\u4e2d\u6587\u7ffb\u8b6f\u6280\u80fd\u5305\uff1a2,300+ WordPress \u5b98\u65b9\u8a5e\u5f59\u3001\u96d9\u4f86\u6e90\u5728\u5730\u5316\u7b56\u7565\u3001\u652f\u63f4 Claude Code \u7b49 14 \u500b AI \u5e73\u53f0\uff0cnpm \u5b89\u88dd\u5373\u7528",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Moksa1123/taiwan-translate-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T17:22:15Z"
+}
