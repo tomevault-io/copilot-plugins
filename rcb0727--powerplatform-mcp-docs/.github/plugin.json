@@ -1,0 +1,9 @@
+{
+  "name": "rcb0727--powerplatform-mcp-docs",
+  "displayName": "powerplatform-mcp-docs",
+  "description": "Power Platform MCP server \u2014 228 tools for AI-assisted flow and app authoring, debugging, data, and administration. Docs, changelog, and Claude Code plugin.",
+  "version": "1.0.0",
+  "author": "rcb0727",
+  "homepage": "https://github.com/rcb0727/powerplatform-mcp-docs",
+  "skills": []
+}
