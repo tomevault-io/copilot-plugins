@@ -1,0 +1,9 @@
+{
+  "name": "keeperhub--keeperhub",
+  "displayName": "keeperhub",
+  "description": "Automate on-chain events and actions reliably and securely. Build Workflows in minutes without the need for infrastructure, code or wallet management. Get instant alerts and never miss what matters.",
+  "version": "1.0.0",
+  "author": "KeeperHub",
+  "homepage": "https://github.com/KeeperHub/keeperhub",
+  "skills": []
+}
