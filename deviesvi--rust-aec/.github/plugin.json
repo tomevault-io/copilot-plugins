@@ -1,0 +1,9 @@
+{
+  "name": "deviesvi--rust-aec",
+  "displayName": "rust-aec",
+  "description": "A lightweight, real-time Acoustic Echo Cancellation (AEC) system tray app for Windows. Removes speaker echo and outputs clean audio to a virtual mic.",
+  "version": "1.0.0",
+  "author": "DeviesVi",
+  "homepage": "https://github.com/DeviesVi/rust-aec",
+  "skills": []
+}
