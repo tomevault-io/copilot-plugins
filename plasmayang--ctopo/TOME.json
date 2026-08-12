@@ -1,0 +1,44 @@
+{
+  "name": "ctopo",
+  "owner": "plasmayang",
+  "repo": "ctopo",
+  "description": "\u57fa\u4e8eC++20\uff0c\u501f\u9274SOTA\u7684Persistent Homology\u8ba1\u7b97\u4e0eTDA\u9879\u76ee\uff0c\u7740\u773c\u4e8e\u652f\u6491\u4e0b\u4e00\u4ee3CAx\u51e0\u4f55\u5185\u6838\u4ea7\u54c1\uff0c\u6253\u9020Persistent Homology\u4e0eTDA\u9879\u76ee\u6807\u6746\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/plasmayang/ctopo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T16:35:20Z"
+}
