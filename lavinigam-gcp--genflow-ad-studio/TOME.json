@@ -4,7 +4,7 @@
   "repo": "genflow-ad-studio",
   "description": "genflow-ad-studio",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lavinigam-gcp/genflow-ad-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T07:03:58Z"
+  "distributed_at": "2026-08-12T07:07:02Z"
 }
