@@ -1,0 +1,9 @@
+{
+  "name": "renjfk--opencode-notify",
+  "displayName": "opencode-notify",
+  "description": "Attention notifications plugin for OpenCode",
+  "version": "1.0.0",
+  "author": "renjfk",
+  "homepage": "https://github.com/renjfk/opencode-notify",
+  "skills": []
+}
