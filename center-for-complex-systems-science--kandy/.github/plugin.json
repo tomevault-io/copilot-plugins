@@ -1,0 +1,9 @@
+{
+  "name": "center-for-complex-systems-science--kandy",
+  "displayName": "kandy",
+  "description": "Kolmogorov-Arnold Networks for Dynamics (KANDy) to learn governing equations from dynamical systems.",
+  "version": "1.0.0",
+  "author": "Center-For-Complex-Systems-Science",
+  "homepage": "https://github.com/Center-For-Complex-Systems-Science/kandy",
+  "skills": []
+}
