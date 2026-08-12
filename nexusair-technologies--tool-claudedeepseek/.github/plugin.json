@@ -1,0 +1,9 @@
+{
+  "name": "nexusair-technologies--tool-claudedeepseek",
+  "displayName": "tool_ClaudeDeepSeek",
+  "description": "DeepSeek Claude CLI with isolated configuration directory",
+  "version": "1.0.0",
+  "author": "NexusAir-Technologies",
+  "homepage": "https://github.com/NexusAir-Technologies/tool_ClaudeDeepSeek",
+  "skills": []
+}
