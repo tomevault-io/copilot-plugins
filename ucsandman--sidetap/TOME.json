@@ -1,7 +1,7 @@
 {
-  "name": "sidetap",
+  "name": "SideTap",
   "owner": "ucsandman",
-  "repo": "sidetap",
+  "repo": "SideTap",
   "description": "Your iPhone, driven from Windows: LLM agents tap, type, and read the screen over USB",
   "type": "config",
   "source_format": "CLAUDE.md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/ucsandman/sidetap",
+  "source_url": "https://github.com/ucsandman/SideTap",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T02:17:24Z"
+  "distributed_at": "2026-08-12T06:57:03Z"
 }
