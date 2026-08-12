@@ -4,7 +4,7 @@
   "repo": "paper-signal",
   "description": "Subject-aware minimal-zine image production for Agent Skills: art direction, generation, series, evidence, and real-bitmap QA.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jiahuiqu17/paper-signal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T10:32:45Z"
+  "distributed_at": "2026-08-12T10:43:13Z"
 }
