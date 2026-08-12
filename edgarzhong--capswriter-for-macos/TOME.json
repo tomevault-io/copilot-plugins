@@ -1,0 +1,44 @@
+{
+  "name": "CapsWriter-for-macOS",
+  "owner": "EdgarZhong",
+  "repo": "CapsWriter-for-macOS",
+  "description": "CapsWriter-Offline\u9879\u76ee\u7684macOS\u9002\u914d\u3002\u5229\u7528MLX\u6846\u67b6\u8fd0\u884cQwen3-ASR\u6a21\u578b\u7684\u5b8c\u5168\u79bb\u7ebf\u7684\u8bed\u97f3\u8f93\u5165\u5de5\u5177\uff0c\u5df2\u5b9e\u73b0\u539f\u9879\u76ee\u957f\u6309CapsLock\u952e\u8bf4\u8bdd\u677e\u5f00\u4e0a\u5c4f\u7684\u4f53\u9a8c\u548c\u5ba2\u6237\u7aef\u70ed\u8bcd\u673a\u5236\uff0c\u6253\u9020macOS\u7aef\u79bb\u7ebf\u8bed\u97f3\u8f93\u5165\u4ea7\u54c1\u5316\u4f53\u9a8c\u4e2d\u3002macOS adaptation of the CapsWriter-Offline project. A fully offline voice input tool that runs the Qwen3-ASR model with the MLX framework. It has implemented the original project\u2019s press-and-hold Caps Lock to speak, release-to-input",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/EdgarZhong/CapsWriter-for-macOS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T05:34:48Z"
+}
