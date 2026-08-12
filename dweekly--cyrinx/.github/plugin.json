@@ -1,0 +1,9 @@
+{
+  "name": "dweekly--cyrinx",
+  "displayName": "cyrinx",
+  "description": "Data over sound, measured: 36.6 kbps laptop\u2194phone acoustic modem \u2014 portable C library, adaptive OFDM + graceful degradation to a never-zero floor, whitepaper + full measurement record",
+  "version": "1.0.0",
+  "author": "dweekly",
+  "homepage": "https://github.com/dweekly/cyrinx",
+  "skills": []
+}
