@@ -1,0 +1,9 @@
+{
+  "name": "think-ahead-technologies--kunnus-scanner",
+  "displayName": "kunnus-scanner",
+  "description": "SBOM generator written in Go. Create EU-CRA compliant SBOMs for every ecosystem",
+  "version": "1.0.0",
+  "author": "think-ahead-technologies",
+  "homepage": "https://github.com/think-ahead-technologies/kunnus-scanner",
+  "skills": []
+}
