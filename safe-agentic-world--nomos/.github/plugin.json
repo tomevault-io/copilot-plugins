@@ -1,0 +1,9 @@
+{
+  "name": "safe-agentic-world--nomos",
+  "displayName": "nomos",
+  "description": "Secure every action your AI agents take (Claude Code, Codex, MCP). Blocks secret access, gates risky commands, and enforces allow/deny/approval before actions run.",
+  "version": "1.0.0",
+  "author": "safe-agentic-world",
+  "homepage": "https://github.com/safe-agentic-world/nomos",
+  "skills": []
+}
