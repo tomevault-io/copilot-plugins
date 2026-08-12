@@ -1,0 +1,9 @@
+{
+  "name": "haolange--rdc-agentcaps",
+  "displayName": "RDC-AgentCaps",
+  "description": "A frameworks using skill, md, and system prompts to construct renderdoc agent tools guide the agent system to better perform debugging, reverse, optimization, and more.",
+  "version": "1.0.0",
+  "author": "haolange",
+  "homepage": "https://github.com/haolange/RDC-AgentCaps",
+  "skills": []
+}
