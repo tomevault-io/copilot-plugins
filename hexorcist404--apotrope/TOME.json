@@ -4,7 +4,7 @@
   "repo": "apotrope",
   "description": "Offline, single-executable Windows security posture auditor. 50+ CIS-mapped checks, a 0\u2013100 score, and a self-contained HTML report. No cloud, no agent. MIT.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hexorcist404/apotrope",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T01:00:51Z"
+  "distributed_at": "2026-08-12T01:04:49Z"
 }
