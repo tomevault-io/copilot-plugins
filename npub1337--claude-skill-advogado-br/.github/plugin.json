@@ -1,0 +1,9 @@
+{
+  "name": "npub1337--claude-skill-advogado-br",
+  "displayName": "claude-skill-advogado-br",
+  "description": "Agent Skill para Claude AI voltada \u00e0 advocacia brasileira. Auxilia na reda\u00e7\u00e3o de peti\u00e7\u00f5es iniciais, contesta\u00e7\u00f5es, recursos, contratos, notifica\u00e7\u00f5es extrajudiciais e pareceres, seguindo as normas do CP",
+  "version": "1.0.0",
+  "author": "npub1337",
+  "homepage": "https://github.com/npub1337/claude-skill-advogado-br",
+  "skills": []
+}
