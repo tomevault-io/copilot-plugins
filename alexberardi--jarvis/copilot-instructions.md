@@ -1,101 +1,95 @@
-## jarvis-node-setup
+## jarvis-ocr-service
 
-> Rules for jarvis-node-setup - Pi Zero voice node client software
+> Rules for jarvis-ocr-service - OCR with pluggable backends
 
 
-# jarvis-node-setup
+# jarvis-ocr-service
 
-Client software for Pi Zero voice nodes. Captures audio, detects wake word, sends commands to command-center.
+OCR service with opt-in pluggable backends. You enable the OCR technologies you want, and the service runs the image through each enabled backend and returns all results.
 
-## Setup & Run
+## Running (Port 7031)
 
+**On macOS:** Run natively (required for Apple Vision backend):
 ```bash
-python scripts/main.py    # Run on Pi Zero
-pytest                     # Tests
+./run.sh                       # Start natively with poetry + uvicorn
+./run.sh --enable-redis-queue  # With Redis queue for async jobs
 ```
+
+**On Linux:** Docker is fine:
+```bash
+./run.sh --docker              # Start in Docker
+./run.sh --docker --rebuild    # Rebuild after dependency changes
+```
+
+**Worker (async OCR jobs, requires Redis):**
+```bash
+./run-worker.sh
+```
+
+**Production:**
+```bash
+./run-prod.sh                  # Docker with docker-compose.prod.yaml
+```
+
+**Why native on macOS:** Apple Vision is the best OCR backend on macOS and requires native PyObjC access. Docker cannot access Apple Vision APIs.
+
+## How It Works
+
+1. OCR backends are **opt-in** via env vars or settings table (should be migrated to settings if not already)
+2. When an OCR request comes in, it's **queued in Redis** for the worker to pick up
+3. Worker runs the image through **each enabled backend** and collects results from all of them
+4. Worker hits the **callback URL** provided in the original message with the combined results
+
+This is fully async - the API just queues the job and returns immediately.
 
 ## Architecture
 
 ```
-jarvis-node-setup/
-├── scripts/main.py                    # Entry point
-├── core/
-│   ├── ijarvis_command.py             # Command interface (extend this)
-│   ├── ijarvis_parameter.py           # Parameter definition
-│   ├── command_response.py            # Response structure
-│   └── platform_abstraction.py        # Hardware abstraction
-├── services/
-│   ├── secret_service.py              # Secret management
-│   └── mqtt_tts_listener.py           # MQTT TTS listener
-├── commands/                          # Built-in commands (20+)
-│   ├── weather_command.py
-│   ├── calculator_command.py
-│   └── ...
-├── provisioning/                      # Headless Pi Zero provisioning
-│   ├── api.py                         # FastAPI provisioning server
-│   ├── state_machine.py               # State management
-│   ├── wifi_manager.py                # WiFi operations
-│   └── registration.py               # Command center registration
-└── utils/config_service.py            # Configuration
+app/
+├── main.py                    # FastAPI app
+├── ocr/
+│   ├── tesseract_backend.py   # Tesseract OCR
+│   ├── easyocr_backend.py     # EasyOCR
+│   └── apple_vision_backend.py # Apple Vision (macOS only)
+├── queue/                     # Redis-based async processing
+└── auth.py                    # App-to-app auth
 ```
 
-## Extending Commands
+## Environment Variables
 
-Implement `IJarvisCommand`:
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `OCR_PORT` | 7031 | API port |
+| `JARVIS_AUTH_BASE_URL` | http://localhost:7701 | Auth service URL |
+| `REDIS_URL` | - | Redis URL (from shared jarvis-data-services) |
 
-```python
-from core.ijarvis_command import IJarvisCommand
-from core.command_response import CommandResponse
+OCR backend opt-in configuration should live in settings table (via jarvis-settings-client), not env vars.
 
-class MyCommand(IJarvisCommand):
-    @property
-    def name(self) -> str:
-        return "my_command"
+## API Endpoints
 
-    @property
-    def description(self) -> str:
-        return "Does something useful"
-
-    def execute(self, params: dict) -> CommandResponse:
-        return CommandResponse(success=True, message="Done!", data={"result": "value"})
-```
-
-## Threading Model
-
-- **Main thread**: Voice listener (MQTT voice capture)
-- **Background thread**: MQTT listener (TTS commands)
-
-## Provisioning
-
-Auto-enters provisioning mode when node is not provisioned:
-1. Starts AP mode (`jarvis-XXXX` WiFi)
-2. Runs provisioning API on port 8080
-3. Waits for mobile app
-4. Auto-restarts in normal mode after provisioning
-
-States: `AP_MODE` → `CONNECTING` → `REGISTERING` → `PROVISIONED` (or `ERROR`)
-
-## E2E Testing
-
-```bash
-python test_command_parsing.py              # Command parsing tests
-python test_command_parsing.py -l           # List tests
-python test_command_parsing.py -t 5 7 11    # Specific tests
-python test_multi_turn_conversation.py      # Multi-turn tests (fast mode)
-python test_multi_turn_conversation.py --full  # Full mode (TTS + Whisper)
-```
-
-**Required services:** jarvis-command-center (7703), jarvis-llm-proxy-api (7704). Full mode also needs jarvis-tts (7707) + jarvis-whisper-api (7706).
+- `POST /ocr` - Queue an OCR job (accepts image + callback URL, returns immediately)
+- `GET /health` - Health check
 
 ## Service Dependencies
 
-- `jarvis-command-center` (7703) - Primary server (single external dependency for voice commands)
+**Must be running:**
+- `jarvis-auth` (7701) - App-to-app auth
+- `jarvis-logs` (7702) - Centralized logging
 
-**Design goal:** Node talks only to command-center, which handles all routing to other services.
+**Should use but not yet confirmed/implemented:**
+- `jarvis-config-service` (7700) - Service discovery (should use if not already)
+- `jarvis-settings-client` - Runtime configuration, including OCR backend opt-in (should replace env vars)
+
+**Data services (from jarvis-data-stores/):**
+- Redis - Async job queue
+
+## Used By
+
+- `jarvis-recipes-server` - Sends recipe images/screenshots for OCR extraction
 
 ## Dependencies
 
-PyAudio, SoundDevice, paho-mqtt, pvporcupine, httpx, SQLAlchemy, pysqlcipher3, jarvis-log-client
+FastAPI, uvicorn, pytesseract, easyocr, pyobjc (macOS), httpx, jarvis-log-client, redis
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
