@@ -4,7 +4,7 @@
   "repo": "FnQ3",
   "description": "FnQ3 \u2022 Fappin' Quake 3 \u2022 Modernized sourceport for QUAKE III: ARENA",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/themuffinator/FnQ3",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T19:11:08Z"
+  "distributed_at": "2026-08-12T19:18:59Z"
 }
