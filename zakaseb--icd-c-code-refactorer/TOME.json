@@ -1,0 +1,44 @@
+{
+  "name": "icd-c-code-refactorer",
+  "owner": "zakaseb",
+  "repo": "icd-c-code-refactorer",
+  "description": "Transform C source code between Interface Control Document (ICD) versions using AI-powered local LLM inference",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zakaseb/icd-c-code-refactorer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T13:29:11Z"
+}
