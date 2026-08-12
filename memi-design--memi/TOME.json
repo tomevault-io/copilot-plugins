@@ -4,7 +4,7 @@
   "repo": "memi",
   "description": "The design layer for agentic AI \u2014 design context, interface checks, and verification for coding agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/memi-design/memi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T02:31:35Z"
+  "distributed_at": "2026-08-12T02:37:10Z"
 }
