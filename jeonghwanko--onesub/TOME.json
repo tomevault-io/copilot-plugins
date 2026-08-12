@@ -4,7 +4,7 @@
   "repo": "onesub",
   "description": "Server-side receipt validation for react-native-iap. Apple StoreKit 2 + Google Play Billing. One line: app.use(createOneSubMiddleware(config))",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jeonghwanko/onesub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T21:24:22Z"
+  "distributed_at": "2026-08-12T21:27:32Z"
 }
