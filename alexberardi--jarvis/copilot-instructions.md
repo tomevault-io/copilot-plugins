@@ -1,63 +1,76 @@
-## jarvis-log-client
+## jarvis-logs
 
-> Rules for jarvis-log-client - structured logging library
+> Rules for jarvis-logs - centralized logging service
 
 
-# jarvis-log-client
+# jarvis-logs
 
-Python library for sending structured logs to jarvis-logs server. Async batching with automatic console fallback.
+Centralized logging service. Receives logs from microservices, stores in Loki, visualizes in Grafana.
 
-## Setup & Run
+## Running (Port 7702)
 
 ```bash
-pip install -e .
-poetry run pytest
-```
-
-## Usage
-
-```python
-from jarvis_log_client import init, JarvisLogger
-
-# Initialize once at startup
-init(app_id="my-service", app_key=os.getenv("JARVIS_APP_KEY"), logs_url="http://localhost:7702")
-
-# Create logger and use
-logger = JarvisLogger(service="my-service", console_level="WARNING", remote_level="DEBUG")
-logger.info("User logged in", user_id="123", request_id="abc")
-
-# Shutdown (flushes remaining logs)
-from jarvis_log_client import shutdown
-shutdown()
+./run.sh --docker              # Start in Docker (Loki + Grafana + API)
+./run.sh --docker --rebuild    # Rebuild after dependency changes
+./run-tests.sh                 # Tests
+# Grafana: http://localhost:7033 (admin/jarvis)
 ```
 
 ## Architecture
 
 ```
-jarvis_log_client/
-├── __init__.py    # Public API: init, JarvisLogger, JarvisLogHandler
-├── client.py      # Core batching and HTTP sending
-└── auth.py        # App-to-app authentication
+app/
+├── main.py               # FastAPI app
+├── routes/
+│   ├── logs.py           # Log ingestion and querying
+│   └── node_logs.py      # Node-specific logs
+├── loki_client.py        # Loki push/query
+└── auth.py               # App-to-app auth
+
+docker-compose.yaml       # Loki (7032), Grafana (3000), API (7702)
 ```
 
-## Service Discovery
+## Environment Variables
 
-If `jarvis-config-client` is installed and initialized, logs URL auto-fetched from config-service. Otherwise falls back to `JARVIS_LOGS_URL` env var (default: `http://localhost:7702`).
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `LOKI_URL` | http://loki:7032 | Loki server URL |
+| `LOG_SERVER_PORT` | 7702 | API port |
+| `LOG_API_KEY` | - | API key for log ingestion |
+| `ADMIN_API_KEY` | - | Admin endpoint protection |
+
+## API Endpoints
+
+**Ingestion:**
+- `POST /api/v0/logs` - Single log
+- `POST /api/v0/logs/batch` - Batch logs
+
+**Querying:**
+- `GET /api/v0/logs` - Query with filters (`?service=auth&level=ERROR&since_minutes=60`)
+- `GET /api/v0/logs/stream` - Real-time stream (SSE)
+- `GET /api/v0/services` - List services with logs
+
+**Health:**
+- `GET /health` - Health check
 
 ## Service Dependencies
 
-Talks to its respective service only:
-- `jarvis-logs` (7702) - Log ingestion (POST /api/v0/logs/batch)
-- Optionally uses `jarvis-config-client` to discover logs URL (if initialized by host service)
+**Must be running:**
+- `jarvis-auth` (7701) - App-to-app and node auth validation
+- `jarvis-config-service` (7700) - Service discovery (finds auth URL)
+- `jarvis-settings-client` - Runtime configuration
 
-## Features
+**External (bundled in docker-compose):**
+- Loki (7032) - Log storage/indexing
+- Grafana (7033) - Dashboards
 
-- Async batching of logs
-- Console fallback if server unavailable
-- Structured context (arbitrary key-value pairs)
-- Thread-safe
-- Graceful shutdown (flushes remaining)
-- stdlib logging integration via `JarvisLogHandler`
+## Authentication
+
+Clients authenticate via `X-Jarvis-App-Id` + `X-Jarvis-App-Key` headers, validated against jarvis-auth. Nodes authenticate via `X-API-Key` header.
+
+## Dependencies
+
+FastAPI, httpx, jarvis-config-client, jarvis-settings-client, Loki, Grafana
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
