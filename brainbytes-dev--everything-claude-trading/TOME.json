@@ -4,7 +4,7 @@
   "repo": "everything-claude-trading",
   "description": "The complete trading and quantitative finance system for Claude Code \u2014 18 agents, 82 skills, 20 commands",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/brainbytes-dev/everything-claude-trading",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T23:31:24Z"
+  "distributed_at": "2026-08-12T00:43:32Z"
 }
