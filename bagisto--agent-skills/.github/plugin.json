@@ -1,0 +1,9 @@
+{
+  "name": "bagisto--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Bagisto's official collection of agent skills.",
+  "version": "1.0.0",
+  "author": "bagisto",
+  "homepage": "https://github.com/bagisto/agent-skills",
+  "skills": []
+}
