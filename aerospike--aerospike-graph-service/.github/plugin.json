@@ -1,0 +1,9 @@
+{
+  "name": "aerospike--aerospike-graph-service",
+  "displayName": "aerospike-graph-service",
+  "description": "The fastest and most scalable Graph database. Apache TinkerPop compliant.",
+  "version": "1.0.0",
+  "author": "aerospike",
+  "homepage": "https://github.com/aerospike/aerospike-graph-service",
+  "skills": []
+}
