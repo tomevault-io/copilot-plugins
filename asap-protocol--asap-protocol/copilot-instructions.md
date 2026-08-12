@@ -1,105 +1,26 @@
-## agent-clean-code
+## architecture-principles
 
-> Language-agnostic agent-oriented clean code: SOLID, file size limits, grep-friendly names, provenance comments, test policy, and error context. Apply when writing or reviewing code in any stack.
+> ASAP Protocol product architecture: Core Python, Web app, and Lite Registry layout. Apply when designing features or choosing where code belongs.
 
 
-# Agent Clean Code
+# Product Architecture (v2.0.0+)
 
-The primary reader of this code is an AI agent. Optimize for grep navigation, single tool-call comprehension, and headless test loops.
+The ASAP Protocol uses a **Lean Marketplace** polyglot architecture:
 
-## SOLID principles
+1. **Core Protocol (`src/asap/`)**: Strict Python. Uses Pydantic for validation and `uv` for dependency management. No backend APIs.
+2. **Web App (`apps/web/`)**: Next.js 16 (React 19) + TypeScript + Tailwind v4. Static consumer (SSG/ISR) of the Lite Registry.
+3. **Lite Registry**: A single `registry.json` hosted on GitHub Pages acts as the database. Registration and updates happen via GitHub PRs (IssueOps), *not* via a write API.
 
-1. **Single Responsibility**: Each class/module should have one reason to change.
-2. **Open/Closed**: Open for extension, closed for modification.
-3. **Liskov Substitution**: Subtypes must be substitutable for their base types.
-4. **Interface Segregation**: Prefer focused interfaces over one general-purpose interface.
-5. **Dependency Inversion**: Depend on abstractions, not concretions.
+## Where code belongs
 
-## Size and structure
+| Concern | Location |
+|---------|----------|
+| Protocol models, transport, auth | `src/asap/` |
+| Marketing / registry UI | `apps/web/` |
+| Shared UI primitives | `packages/ui/` |
+| ADRs and stack decisions | `engineering/architecture/`, `product/decision-records/` |
 
-- Functions: **5–40 lines**; split if longer.
-- Files: under 500 lines; ideal 200–300. Split by responsibility.
-- One responsibility per module (SRP).
-- Follow framework conventions (Rails, Django, Next.js, etc.) so paths are predictable.
-- Prefer small focused modules over god files.
-- If logic is used more than twice, extract a reusable component.
-
-## Grep-friendly names
-
-- Names must reveal intent and be distinct in the codebase.
-- Avoid generic names: `data`, `process`, `handler`, `Manager`, `Service`, `util`, `helper`.
-- Prefer specific names: `UserRegistrationValidator`, `InvoiceLineItemTotal`.
-- Target: `rg "<symbol>"` returns fewer than 5 hits; if not, rename or namespace.
-
-## Types
-
-- Explicit types everywhere the language supports them.
-- No untyped public APIs (`any`, bare `Dict`, untyped function signatures).
-- Typed code gives the agent immediate contracts and reduces inference errors.
-
-## DRY and control flow
-
-- No duplicated logic across files — extract shared functions or modules.
-- Named constants instead of magic numbers.
-- Early returns and guard clauses; max 2 indentation levels.
-- Prefer pattern matching / guard clauses over deep nesting.
-
-## Comments (provenance, not narration)
-
-- Write **WHY** and **provenance**, not WHAT the syntax does.
-- Keep agent-written comments on refactor — do not strip them.
-- Document non-obvious constraints: upstream bugs, business rules, protocol quirks.
-- Reference issue numbers when logic exists because of a specific bug or decision.
-- Docstrings on public APIs: intent + one usage example.
-- Skip obvious comments (`// increment counter` above `count++`).
-
-## Errors
-
-- Error and exception messages must include the offending value and expected shape.
-- Bad: `raise ValueError("invalid input")`
-- Good: `raise ValueError(f"invalid input: received {x!r}, expected non-empty string of digits")`
-
-## Test policy
-
-| Situation | Test required? |
-|-----------|----------------|
-| Bug reported | **Yes** — write a failing regression test first (TDD) |
-| New public function in `src/asap/` | **Yes** |
-| Refactor without behavior change | No — existing tests must still pass |
-| Docs, typos, comments only | No |
-| Trivial private helper with coverage via caller | Optional — prefer testing through the public API |
-
-For pytest structure, fixtures, and CI commands, see `testing-standards.mdc` and `.cursor/README.md`.
-
-## Testability
-
-- Inject dependencies through constructor, parameter, or context — not hidden globals.
-- Wrap third-party libraries behind a thin project-owned interface when they may be swapped.
-- Mock external I/O (API, DB, filesystem) with named fakes, not scattered inline stubs.
-
-## Tests (agent loop)
-
-- Single documented command to run tests (`.cursor/README.md` or `AGENTS.md`).
-- Tests must run headless: no manual setup, no secrets, no interactive prompts.
-- F.I.R.S.T: fast, independent, repeatable, self-validating, timely.
-
-## Formatting
-
-- Use the project formatter/linter (`prettier`, `black`, `ruff`, `gofmt`, `cargo fmt`, etc.).
-- Do not debate brace style or column width — the formatter decides.
-
-## Logging (when applicable)
-
-- Structured JSON for debugging and observability.
-- Plain text only for user-facing CLI output.
-
-## Code modification format
-
-When proposing changes:
-
-- Include a `# file: path/to/file.py` (or equivalent) before each code block.
-- Provide enough surrounding context for the change to be unambiguous.
-- Stick to architecture choices in `pyproject.toml` unless a change is explicitly discussed.
+For clean code standards (SOLID, naming, tests), use `agent-clean-code.mdc`.
 
 ---
 > Source: [asap-protocol/asap-protocol](https://github.com/asap-protocol/asap-protocol) — distributed by [TomeVault](https://tomevault.io).
