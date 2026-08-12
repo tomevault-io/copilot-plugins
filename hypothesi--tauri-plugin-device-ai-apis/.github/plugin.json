@@ -1,0 +1,9 @@
+{
+  "name": "hypothesi--tauri-plugin-device-ai-apis",
+  "displayName": "tauri-plugin-device-ai-apis",
+  "description": "A Tauri plugin for accessing the device's AI and Machine Learning APIs",
+  "version": "1.0.0",
+  "author": "hypothesi",
+  "homepage": "https://github.com/hypothesi/tauri-plugin-device-ai-apis",
+  "skills": []
+}
