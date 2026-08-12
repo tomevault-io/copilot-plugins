@@ -4,7 +4,7 @@
   "repo": "agent-first-company-template",
   "description": "Forkable scaffolding for setting up an agent-first company",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/awebai/agent-first-company-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T11:00:58Z"
+  "distributed_at": "2026-08-12T11:07:22Z"
 }
