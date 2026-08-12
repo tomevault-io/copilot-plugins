@@ -1,0 +1,9 @@
+{
+  "name": "zhanlincui--starfire-agentteam",
+  "displayName": "Starfire-AgentTeam",
+  "description": "Govern AI agent teams with org-native hierarchy, memory, and operations. A control plane for building, running, and governing production AI agent teams.",
+  "version": "1.0.0",
+  "author": "ZhanlinCui",
+  "homepage": "https://github.com/ZhanlinCui/Starfire-AgentTeam",
+  "skills": []
+}
