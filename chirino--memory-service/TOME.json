@@ -1,0 +1,81 @@
+{
+  "name": "memory-service",
+  "owner": "chirino",
+  "repo": "memory-service",
+  "description": "A persistent memory service for AI agents that stores and manages conversation history, enabling agents to maintain context across sessions, replay conversations, fork conversations at any point, and perform semantic search across all conversations.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "build-test",
+      "path": ".skills/build-test",
+      "github_url": "https://github.com/chirino/memory-service/tree/main/.skills/build-test",
+      "description": ""
+    },
+    {
+      "name": "chat-frontend",
+      "path": ".skills/chat-frontend",
+      "github_url": "https://github.com/chirino/memory-service/tree/main/.skills/chat-frontend",
+      "description": ""
+    },
+    {
+      "name": "cucumber-features",
+      "path": ".skills/cucumber-features",
+      "github_url": "https://github.com/chirino/memory-service/tree/main/.skills/cucumber-features",
+      "description": ""
+    },
+    {
+      "name": "openapi-workflow",
+      "path": ".skills/openapi-workflow",
+      "github_url": "https://github.com/chirino/memory-service/tree/main/.skills/openapi-workflow",
+      "description": ""
+    },
+    {
+      "name": "site-tests",
+      "path": ".skills/site-tests",
+      "github_url": "https://github.com/chirino/memory-service/tree/main/.skills/site-tests",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": ".skills/testing",
+      "github_url": "https://github.com/chirino/memory-service/tree/main/.skills/testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/chirino/memory-service",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T14:31:03Z"
+}
