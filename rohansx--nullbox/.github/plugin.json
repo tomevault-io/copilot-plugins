@@ -1,0 +1,9 @@
+{
+  "name": "rohansx--nullbox",
+  "displayName": "nullbox",
+  "description": "immutable, minimal Linux OS purpose-built for AI agents. No SSH, no shell, no systemd - just microVMs, default-deny networking, and shared agent memory",
+  "version": "1.0.0",
+  "author": "rohansx",
+  "homepage": "https://github.com/rohansx/nullbox",
+  "skills": []
+}
