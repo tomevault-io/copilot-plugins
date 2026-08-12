@@ -1,0 +1,9 @@
+{
+  "name": "kirklandsig--outlookai",
+  "displayName": "OutlookAI",
+  "description": "AI-powered email writing assistant for Microsoft Outlook (VSTO add-in)",
+  "version": "1.0.0",
+  "author": "kirklandsig",
+  "homepage": "https://github.com/kirklandsig/OutlookAI",
+  "skills": []
+}
