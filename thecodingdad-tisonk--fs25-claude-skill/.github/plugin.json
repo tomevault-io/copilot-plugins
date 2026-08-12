@@ -1,0 +1,9 @@
+{
+  "name": "thecodingdad-tisonk--fs25-claude-skill",
+  "displayName": "fs25-claude-skill",
+  "description": "Claude skill for FS25 mod development \u2014 answers verified against the game's own decompiled engine source (1,842 files). 1,413 classes, 119 MessageTypes, the mod sandbox, 30+ patterns, 20+ pitfalls. Wo",
+  "version": "1.0.0",
+  "author": "TheCodingDad-TisonK",
+  "homepage": "https://github.com/TheCodingDad-TisonK/fs25-claude-skill",
+  "skills": []
+}
