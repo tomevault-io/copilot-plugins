@@ -1,0 +1,44 @@
+{
+  "name": "ai-agent-engineer-handbook",
+  "owner": "harrisliangsu",
+  "repo": "ai-agent-engineer-handbook",
+  "description": "AI Agent / LLM \u5e94\u7528\u5de5\u7a0b\u5e08\u9762\u8bd5\u4e0e\u5b66\u4e60\u624b\u518c\uff1a\u56db\u5c42\u5de5\u7a0b\u6df1\u5ea6\u957f\u6587\uff08Prompt \u2192 Context \u2192 Agent \u2192 Harness\uff09+ \u6c42\u804c\u5b9e\u6218\uff08\u4e2d\u5916\u5927\u5382\u771f\u5b9e JD \u62c6\u89e3 + 86 \u9053\u9ad8\u8d28\u91cf\u9762\u8bd5\u9898\u4e0e\u7b54\u6848\uff09",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/harrisliangsu/ai-agent-engineer-handbook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T13:04:57Z"
+}
