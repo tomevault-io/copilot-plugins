@@ -1,0 +1,9 @@
+{
+  "name": "grame-cncm--faust-rs",
+  "displayName": "faust-rs",
+  "description": "Functional programming language for signal processing and sound synthesis",
+  "version": "1.0.0",
+  "author": "grame-cncm",
+  "homepage": "https://github.com/grame-cncm/faust-rs",
+  "skills": []
+}
