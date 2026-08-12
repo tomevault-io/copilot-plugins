@@ -1,0 +1,9 @@
+{
+  "name": "userfrm--tauri-plugin-macos-fps",
+  "displayName": "tauri-plugin-macos-fps",
+  "description": "Tauri v2 plugin that unlocks >60fps on macOS by disabling WKWebView's frame rate cap",
+  "version": "1.0.0",
+  "author": "userFRM",
+  "homepage": "https://github.com/userFRM/tauri-plugin-macos-fps",
+  "skills": []
+}
