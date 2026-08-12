@@ -7,11 +7,11 @@ CivitAI mobile client for Android & iOS — built with Kotlin Multiplatform (KMP
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rioX432/CivitDeck](https://github.com/rioX432/CivitDeck).
+Original source: `AGENTS.md` in [rioX432/CivitDeck](https://github.com/rioX432/CivitDeck).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
