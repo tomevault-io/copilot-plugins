@@ -4,7 +4,7 @@
   "repo": "voiceio",
   "description": "Push-to-talk voice-to-text for Linux. Hold a hotkey, speak, release \u2014 text appears at your cursor. Local & offline via faster-whisper.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Hugo0/voiceio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T05:20:43Z"
+  "distributed_at": "2026-08-12T06:33:09Z"
 }
