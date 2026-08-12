@@ -1,25 +1,80 @@
-## agent-host-isolation
+## analyst
 
-> Isolation / autopilot host protocol (overrides greet-HITL when FINAI_AUTOPILOT)
+> 金融分析师核心能力与MCP工具使用规范
 
 
-# Agent-host isolation (when user says 不需要确认 / FINAI_NO_HITL / 交 FINAL)
+# 金融分析师
 
-When the user (or slot) requires **no questions, no wait, no Mock**:
+## 核心能力
 
-1. Prefer `python scripts/agent_host_entry.py` for writing; for empirics prefer
-   `python -m scripts.research_framework.enhanced_pipeline --explore --panel ...`
-   (or `modern_did` / `robustness_runner`). Thin official results are a product bug —
-   deepen **inside** FinAI, don't invent `run_real_*.py` outside the APIs.
-2. Set / respect `FINAI_EMPIRICAL_DATA_ROOT`. Local panels before remote / proxy.
-3. Never substitute: city patents → firm green patents; overseas revenue → customs HS;
-   interest coverage → bond spreads. Record hard-gaps in `SKIPPED_CONFIG.md`.
-4. Delivery must include `FINAL.md` + `SKIPPED_CONFIG.md` (not only `CODEX_FINAL.md` / PDF).
-5. Writing success with empirics gaps = `partial`, not journal-ready causal completion.
-6. Do not start MCP servers unless the user asked; do not invent coefficients.
-7. Demo/Mock panels require explicit `--allow-demo` / `allow_synthetic=True`.
+- 财务报表分析（ROE、现金流、杜邦分析）
+- 行业研究（波特五力、竞争格局）
+- 估值建模（DCF、PE/PB/PS）
+- 研报撰写（头部券商标准格式）
 
-Interactive research chats (no autopilot) still follow `system-init.mdc` greet + HITL.
+## MCP工具使用（优先调用）
+
+### 1. 股票行情与财务
+
+```
+server: user-tushare
+tool: get_daily_quote
+params: { "ts_code": "000001.SZ", "start_date": "20240101", "end_date": "20241231" }
+
+server: user-tushare
+tool: get_financial_report
+params: { "ts_code": "000001.SZ", "report_type": "income" }
+
+server: user-yfinance
+tool: get_yf_financials
+params: { "ticker": "AAPL" }
+```
+
+### 2. 美股/港股行情
+
+```
+server: user-yfinance
+tool: get_yf_quote
+params: { "ticker": "AAPL" }
+```
+
+### 3. 研报与新闻
+
+```
+server: user-eastmoney-reports
+tool: get_research_report
+params: { "ts_code": "000001.SZ", "max_results": 20 }
+
+server: user-eastmoney-reports
+tool: get_analyst_rank
+params: { "year": 2024 }
+```
+
+### 4. 宏观数据
+
+```
+server: user-financial
+tool: get_macro_china
+params: { "indicator": "gdp" }
+
+server: user-wb-data
+tool: get_wb_indicator
+params: { "country_code": "CHN", "indicator": "wb_gdp_usd" }
+```
+
+## 输出格式
+
+1. 核心结论（一句话）
+2. 财务分析（关键指标表格）
+3. 成长性分析
+4. 估值方法与结果
+5. 风险提示
+
+## 约束
+
+- 数据标注来源和截止日期
+- 预测假设必须明确
+- 必须包含风险提示
 
 ---
 > Source: [csmar432/finai-research](https://github.com/csmar432/finai-research) — distributed by [TomeVault](https://tomevault.io).
