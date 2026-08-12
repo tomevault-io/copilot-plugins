@@ -1,0 +1,394 @@
+## skills-by-yigitkonur
+
+> This repository is a curated skills pack for AI coding agents — skills sharing one naming system, one tone, one structure. Your job is to maintain that consistency when adding or editing skills.
+
+# AGENTS.md — skills-by-yigitkonur
+
+This repository is a curated skills pack for AI coding agents — skills sharing one naming system, one tone, one structure. Your job is to maintain that consistency when adding or editing skills.
+
+## What this repo is
+
+A single combined skills pack — not a loose collection. Every skill must feel like it belongs to the same family. Consistency, clarity, and install-path stability are more important than clever naming or one-off structure.
+
+This repo is a `skills` CLI pack, a Claude Code plugin marketplace, and a Codex plugin marketplace. Codex consumes the complete `skills/` folder; Claude Code receives explicit allowlists that exclude entries in `CODEX_ONLY_SKILLS`. The `-secondary` b-side repo was merged in and archived; never point anything back at it.
+
+**Distribution model:**
+- Claude Code plugin marketplace: `/plugin marketplace add yigitkonur/skills-by-yigitkonur`, then `/plugin install <skill>@yigitkonur`, a bundle `yk-*@yigitkonur`, or `yk-everything@yigitkonur`. Codex-only skills are absent from all four Claude surfaces.
+- Codex plugin marketplace: `codex plugin marketplace add yigitkonur/skills-by-yigitkonur`, then install `<skill>@yigitkonur` or the all-pack `skills-by-yigitkonur@yigitkonur` from `/plugins`.
+- `skills` CLI full pack: `npx -y skills add -y -g yigitkonur/skills-by-yigitkonur`
+- `skills` CLI single skill: `npx -y skills add -y -g yigitkonur/skills-by-yigitkonur/skills/<skill-name>`
+
+The plugin metadata is **generated** from `skills/` by `scripts/gen-marketplace.py`:
+- `.claude-plugin/marketplace.json`: Claude-compatible per-skill plugins + themed `yk-*` bundles + `yk-everything` + `yk-researchers`, all `source: "./"` + `strict: false` + explicit `skills` allowlists so Codex-only skills cannot leak through a broad directory reference.
+- `.codex-plugin/plugin.json`: the root Codex plugin manifest for the all-pack plugin.
+- `plugins/<skill>/`: one generated, self-contained Codex plugin package per canonical skill.
+- `.agents/plugins/marketplace.json`: the Codex repo marketplace entries for the all-pack and every individual skill.
+
+Regenerate plugin metadata whenever you add, remove, or rename a skill. Place a Claude-compatible skill in exactly one `GROUPS` bundle; place a runtime-specific Codex skill in `CODEX_ONLY_SKILLS` and no Claude bundle.
+
+**Agents:** subagent suites live in `subagents/` — deliberately NOT the conventional `agents/` name, because every plugin uses `source: "./"` and Claude Code auto-discovers an `agents/` folder at the plugin root, which would attach the agents to *every* installed skill. Marketplace entries reference explicit agent-file lists (`RESEARCHER_AGENTS` / `BROWSER_AGENTS` in `gen-marketplace.py`, never a bare folder): the internet-researcher suite ships with `yk-researchers`, `yk-research`, and `yk-everything`; the agent-browser tester/extractor suite ships with `yk-automation`, the `run-agent-browser` per-skill plugin, and `yk-everything`. A new agent file must be added to the matching list (or a new one) in `gen-marketplace.py` or it ships nowhere. Never rename `subagents/` back to `agents/`.
+
+**Versioning:** `VERSION` is the single source of truth; `gen-marketplace.py` stamps it onto every plugin entry, and `.github/workflows/version-bump.yml` patch-bumps it only after an explicit confirmed manual dispatch; routine pushes do nothing.
+
+## Repository layout
+
+```
+.
+├── skills/                         # All skills live here
+│   └── <verb>-<object>/            # Each skill directory
+│       ├── SKILL.md                # Required — the skill definition (hand-written)
+│       ├── README.md              # Required — per-skill install instructions
+│       ├── references/             # Optional — deep-dive docs routed from SKILL.md
+│       ├── scripts/                # Optional — helper scripts paired with docs
+│       └── assets/                 # Optional — templates or fixtures
+├── scripts/
+│   ├── validate-skills.py          # Validates all skills (references, frontmatter, junk)
+│   ├── gen-marketplace.py          # Generates .claude-plugin/marketplace.json from skills/
+│   └── bump-version.py             # Bumps VERSION patch + regenerates marketplace (CI)
+├── VERSION                         # Single source of truth for plugin versions (CI-bumped)
+├── subagents/                      # Subagent suites (NOT auto-discovered)
+│   ├── claude/                     # Claude Code variants — researcher + agent-browser suites, shipped via explicit agents lists
+│   └── codex/                      # Codex variants (researchers only) — for ~/.codex/agents, not the marketplace
+├── .agents/plugins/
+│   └── marketplace.json            # Generated — Codex plugin marketplace catalog (do not hand-edit)
+├── .claude-plugin/
+│   └── marketplace.json            # Generated — plugin marketplace catalog (do not hand-edit)
+├── .codex-plugin/
+│   └── plugin.json                 # Generated — Codex all-pack plugin manifest (do not hand-edit)
+├── plugins/
+│   └── <skill>/                    # Generated — self-contained Codex plugin packages (do not hand-edit)
+├── .github/workflows/
+│   └── version-bump.yml            # Manual confirmed patch bump + commit-back
+├── .githooks/
+│   └── pre-push                    # Blocks push on validation failure
+├── NAMING.md                       # Intent-verb naming principle, rules, and canonical names
+├── CONTRIBUTING.md                 # Skill structure, quality checklist, contribution guide
+└── README.md                       # Skill table, install commands, notes
+```
+
+## Commands
+
+```bash
+# Validate all skills (run before every push)
+python3 scripts/validate-skills.py
+
+# Regenerate plugin metadata after adding/removing/renaming a skill
+python3 scripts/gen-marketplace.py
+python3 scripts/gen-marketplace.py --check   # CI: fail if stale
+
+# Enable pre-push hook (one-time setup)
+git config core.hooksPath .githooks
+```
+
+---
+
+## Naming
+
+Every skill name follows **`verb-object`** in `kebab-case`, except an approved compatibility name explicitly listed in `NAMING.md`. The verb is the most important word — users scan by what they want to *do*.
+
+### Intent verb test
+
+The verb in a skill name must be the verb you'd say out loud when reaching for it. Test by completing: *"I want to ___ ___"*. If the natural verb isn't in the name, rename.
+
+Memory beats taxonomy. The right verb is the one that pops into your head when you need the skill — not the one a maintainer files it under.
+
+Anchor on this set of plain-English verbs:
+
+| Verb | Use when | Example |
+|---|---|---|
+| `build` | Write app code with a framework or SDK | `build-chrome-extension`, `build-macos-app`, `build-mcp-server-sdk-v1` |
+| `do` | Generic "let me do this" entry-point skill | _(retired — see migration history)_ |
+| `apply` | Apply a methodology or standard to a codebase | `apply-clean-mcp-architecture` |
+| `ask` | Hand off / request something | _(retired — see `run-review` Mode B)_ |
+| `run` | Drive a CLI, tool, or workflow | `run-agent-browser`, `run-research` |
+| `convert` | Transform A to B | `convert-url-to-nextjs` |
+| `check` | Audit for completeness | `check-completion` |
+| `evaluate` | Triage existing feedback or input | _(retired — see `run-review` Mode C)_ |
+| `create` | Produce documentation or structured data from source evidence | `create-design-md` |
+| `init` | Generate config or instruction files | `init-agent-config` |
+| `enhance` | Improve a prompt, skill, or instruction | `enhance-skill-by-derailment` |
+| `optimize` | Tune for a constraint (e.g. agentic) | `optimize-agentic-cli` |
+| `develop` | Apply language-level patterns and standards | _(reserved — no current skill uses this verb)_ |
+| `publish` | Release to a registry | `publish-npm-package` |
+| `test` | Verify with pass/fail | `test-by-mcpc-cli` |
+| `use` | _(retired verb — was used for ongoing CLI utilities, all migrated to `run-`)_ | — |
+
+### Object rules
+
+1. **Name the thing acted on** — not the technique. `build-chrome-extension`, not `build-with-manifest-v3`.
+2. **Preserve distinctive methodology names** in the object (e.g. `-by-derailment`, `-by-mcpc-cli`, `-to-nextjs`, `-for-agents`, `-sdk-v1`) — strip only the generic verb category, never the named technique.
+3. **Use the ecosystem's own name** — `mcpc`, `liquid-glass`, `daisyui`.
+4. **Keep it short** — 2-3 words max after the verb.
+5. **No generic suffixes** — no `-guide`, `-helper`, `-util`.
+6. **No version suffixes** unless the version is the point — `-sdk-v1` is OK because v1 and v2 are genuinely different SDKs.
+
+### When two skills overlap, use distinct verbs to disambiguate
+
+- `run-review` Modes A and B replaced what used to be `do-review` (do a PR review) and `ask-review` (ask for a review on your branch).
+- `audit-agentic-cli` and `audit-agentic-mcp` live here (merged from the retired b-side pack) — they earn their context cost inside CLI/MCP projects, so prefer installing them per-project (`/plugin install audit-agentic-mcp@yigitkonur`).
+
+### Anti-patterns
+
+| Anti-pattern | Fix |
+|---|---|
+| No verb prefix (`agent-browser`) | Add the natural intent verb (`run-agent-browser`) |
+| Awkward verb (`do-X` when a better verb fits) | Use the better verb (`create-design-md`, not `do-extract-design`) |
+| Stripping a distinctive method (`skill-derailment` instead of `audit-skill-by-derailment`) | Keep the method, normalize the verb only |
+| Generic noun-only object (`build-app`) | Specific noun (`build-chrome-extension`) |
+| Mismatched names | Directory = frontmatter `name` = README label, all identical |
+
+---
+
+## Skill structure
+
+Every skill lives at `skills/<skill-name>/` with this layout:
+
+```
+skills/<verb>-<object>/
+├── SKILL.md                    # Required — the skill definition
+├── README.md                  # Required — per-skill install instructions
+├── references/                 # Optional — deep-dive docs
+│   ├── topic-one.md
+│   ├── topic-two.md
+│   └── nested-domain/          # Nested folders are valid for large skills
+│       └── detail.md
+├── scripts/                    # Optional — executable helpers
+└── assets/                     # Optional — templates or fixtures
+```
+
+Rules:
+- `SKILL.md` is the main skill definition file
+- `README.md` at the skill root has the skill name, description, category, and install command
+- Every file in `references/` **must** be explicitly referenced from `SKILL.md` — unreferenced files are dead weight
+- No junk files (`.DS_Store`, `.swp`, LICENSE files inside skill directories)
+- No eval-related files or eval instructions
+
+---
+
+## Frontmatter requirements
+
+```yaml
+---
+name: verb-object
+description: Use skill if you are [concrete trigger in 30 words or fewer].
+---
+```
+
+### Rules
+
+| Rule | Detail |
+|---|---|
+| `name` | Must exactly match the directory name |
+| `description` starts with | `Use skill if you are` |
+| `description` word limit | 30 words or fewer |
+| `description` purpose | Describe **when** the skill should trigger — not what the body contains |
+| `description` content | Include concrete user intent, tools, file patterns, or workflows |
+| `description` specificity | Specific enough to avoid accidental overlap with neighboring skills |
+| `description` YAML safety | Wrap in double quotes if it contains colons |
+| No `<` or `>` | Forbidden in frontmatter values |
+| No "claude" or "anthropic" | Forbidden in skill names |
+
+### Good descriptions
+
+```
+Use skill if you are reviewing a GitHub pull request with a systematic, evidence-based
+workflow that clusters files, correlates existing comments, validates goals, and produces
+actionable findings.
+```
+
+```
+Use skill if you are building or extending a Convex + Clerk SwiftUI app and need
+project-grounded patterns for reactive queries, auth, schema, or iOS/macOS integration.
+```
+
+```
+Use skill if you are converting saved HTML snapshots into buildable Next.js pages with
+self-hosted assets and extracted styles.
+```
+
+### Bad descriptions
+
+| Example | Problem |
+|---|---|
+| `Best MCP skill ever.` | Hype, no trigger signal |
+| `Research guide.` | No verb, no trigger, too vague |
+| `Mandatory for all work.` | Overreaching, not actionable |
+| `Guide for X that includes references, examples, and many workflows.` | Describes the body, not when to trigger |
+
+---
+
+## SKILL.md body requirements
+
+Write for an AI agent, not a human tutorial reader. Keep under 500 lines — move deep detail into `references/`.
+
+**Do:**
+- Be directive and operational — "Do X", "Check Y", "Never Z"
+- Structure as a workflow or routing guide
+- Route clearly to reference docs by relative path (`references/topic.md`)
+- Stay focused and scannable
+- Move deep detail into `references/` when the top-level file gets heavy
+
+**Don't:**
+- Use stale external doc links when repo-local references exist
+- Use inconsistent naming (the canonical name appears everywhere)
+- Use vague hype language
+- Duplicate instruction blocks
+
+---
+
+## README.md for each skill
+
+Every skill needs an `README.md` at its root (`skills/<skill-name>/README.md`) with this format:
+
+```markdown
+# <skill-name>
+
+<Description derived from SKILL.md frontmatter, with "Use skill if you are" prefix stripped>.
+
+**Category:** <category>
+
+## Install
+
+**As a plugin (easy install / uninstall via `/plugin`):**
+
+​```
+/plugin marketplace add yigitkonur/skills-by-yigitkonur
+/plugin install <skill-name>@yigitkonur
+​```
+
+**Or with the `skills` CLI — this skill only:**
+
+​```bash
+npx -y skills add -y -g yigitkonur/skills-by-yigitkonur/skills/<skill-name>
+​```
+
+**Or the full pack:**
+
+​```bash
+npx -y skills add -y -g yigitkonur/skills-by-yigitkonur
+​```
+```
+
+### Category map
+
+| Category | When to use |
+|---|---|
+| `development` | Skills that write or review code, build apps, or apply language standards |
+| `productivity` | Skills for planning, research, code review setup, skill creation |
+| `configuration` | Skills that generate agent instruction files (CLAUDE.md, AGENTS.md) |
+| `design` | Skills that extract or convert visual designs |
+| `testing` | Skills that automate browser testing or verification |
+| `orchestration` | Skills for multi-agent coordination |
+| `platform` | Skills for a specific platform ecosystem (e.g., Railway) |
+| `workflow` | Skills that author Makefile targets / multi-step scaffolding workflows for deployment, CI, or local dev |
+
+---
+
+## Root README integration
+
+When adding or renaming a skill, add a row to the single alphabetical table in `README.md`:
+
+```markdown
+| [verb-object](skills/verb-object/) | category | Short description |
+```
+
+Keep descriptions short (under 80 chars). Match the terse style of existing rows. Place the row in alphabetical order.
+
+---
+
+## Current canonical skill names
+
+To check for naming collisions, list the live skill directories:
+
+```bash
+ls skills/
+```
+
+The canonical name is the directory name; do not maintain a hard-coded list here.
+
+---
+
+## Creating a new skill
+
+1. **Choose the canonical name** using the intent verb test and the verb table above
+2. **Verify no naming collision** with the existing skills in this pack
+3. **Research before writing** — for non-trivial skills, use `skill-dl` to search and download existing skills as evidence:
+   ```bash
+   skill-dl search typescript mcp server sdk patterns --top 20
+   skill-dl https://playbooks.com/skills/owner/repo/skill-name -o ./corpus
+   ```
+   Build a comparison table before synthesizing. Never copy a source skill wholesale.
+4. **Create the skill directory:**
+   ```bash
+   mkdir -p skills/<skill-name>/references
+   ```
+5. **Write `SKILL.md`** at `skills/<skill-name>/SKILL.md` with correct frontmatter
+6. **Add `references/`** docs only if the skill needs them — reference every file from `SKILL.md`
+7. **Create `README.md`** at the skill root with install instructions (see format above)
+8. **Update root `README.md`** — add the skill to its category section
+9. **Regenerate the marketplace** — add a Claude-compatible skill to one bundle in `GROUPS`, or add a Codex-only skill to `CODEX_ONLY_SKILLS` and no bundle; then run `python3 scripts/gen-marketplace.py`
+10. **Validate:**
+   ```bash
+   python3 scripts/validate-skills.py
+   python3 scripts/gen-marketplace.py --check
+   ```
+11. **Commit and push**
+
+## Editing an existing skill
+
+1. **Read** the full existing SKILL.md and its references before changing anything
+2. **Normalize** frontmatter `name`, `description`, and README label to current standards
+3. **Remove** stale internal references and old names everywhere
+4. If you **add** a reference file, route to it from `SKILL.md`
+5. If you **remove** a reference file, remove all references to it from `SKILL.md`
+6. If you **rename**, update directory + frontmatter + README + NAMING.md + the `GROUPS` map in `scripts/gen-marketplace.py` + all cross-skill references together, then regenerate the marketplace
+7. **Validate** before pushing: `python3 scripts/validate-skills.py`
+
+## Testing a skill's quality
+
+Use the `enhance-skill-by-derailment` workflow: launch a Sonnet subagent with a real task using the skill, read the execution trace for friction points (`[STUCK]`, `[GUESSED]`, `[BROKE]`), and fix the skill's instructions directly. The fixed files are the deliverable — no reports.
+
+---
+
+## Quality checklist
+
+Before finishing any skill work, verify **all** of the following:
+
+- [ ] Directory name is canonical `kebab-case`, starts with an intent verb, or is an approved compatibility exception in `NAMING.md`
+- [ ] SKILL.md is at `skills/<name>/SKILL.md` (required for Claude Code activation)
+- [ ] Frontmatter `name` exactly matches the directory name
+- [ ] Frontmatter `description` starts with `Use skill if you are`
+- [ ] Frontmatter `description` is 30 words or fewer
+- [ ] Frontmatter `description` describes when to trigger, not body contents
+- [ ] Frontmatter `description` is wrapped in quotes if it contains colons
+- [ ] No `<` or `>` in frontmatter, no "claude" or "anthropic" in name
+- [ ] Every file in `references/` is explicitly referenced by `SKILL.md`
+- [ ] No unreferenced files, dead content, or stale sibling-skill names remain
+- [ ] Cross-skill references use canonical repo-local names only
+- [ ] No junk files (`.DS_Store`, `.swp`, LICENSE files)
+- [ ] No eval-related files or eval instructions
+- [ ] SKILL.md under 500 lines
+- [ ] Trigger phrasing does not accidentally collide with nearby skills
+- [ ] `README.md` exists at skill root with install command
+- [ ] Root README row added in alphabetical order with short description
+- [ ] `python3 scripts/validate-skills.py` passes
+- [ ] The skill reads like it belongs in the same repo family as the other skills in this pack
+
+---
+
+## Key design principles
+
+- **Workspace first.** Always inspect the repo before searching remotely or drafting.
+- **Evidence over instinct.** New skills require research (skill-dl search, comparison tables) before synthesis.
+- **Progressive disclosure.** Trigger logic in frontmatter, workflow in SKILL.md, bulk detail in `references/`.
+- **Original, repo-fit output.** Distill patterns from sources — never rename-clone another skill.
+- **Lean is better.** If SKILL.md is growing because of examples or templates, move them to references or cut them.
+- **Test before shipping.** Trigger tests + functional test + validation script.
+
+## Manual automation
+
+Local validator: `python3 scripts/validate-skills.py`. Routine git activity runs no Actions. Authorized version bump: `gh workflow run version-bump.yml -f ref=main -f confirm=bump-version`; it validates, regenerates metadata, and commits back to `main`.
+
+---
+> Source: [yigitkonur/skills-by-yigitkonur](https://github.com/yigitkonur/skills-by-yigitkonur) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
