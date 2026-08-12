@@ -1,93 +1,56 @@
-## jarvis-command-center
+## jarvis-config-client
 
-> Rules for jarvis-command-center - central voice command API
+> Rules for jarvis-config-client - service discovery library
 
 
-# jarvis-command-center
+# jarvis-config-client
 
-Central voice command API. Routes voice from Pi Zero nodes through speech-to-text, LLM processing, and tool execution.
+Python library for service discovery. Fetches service URLs from jarvis-config-service.
 
-## Running (Port 7703)
+## Setup & Run
 
 ```bash
-./run.sh --docker              # Start in Docker (includes PostgreSQL)
-./run.sh --docker --rebuild    # Rebuild after dependency changes
-curl http://localhost:7703/health  # Health check
-python run_database_tests.py --type docker  # Tests
+pip install -e .
+pytest
+```
+
+## Usage
+
+```python
+from jarvis_config_client import init, get_service_url
+
+init(config_url="http://localhost:7700")
+auth_url = get_service_url("jarvis-auth")
+logs_url = get_service_url("jarvis-logs")
+```
+
+With database persistence:
+```python
+from sqlalchemy import create_engine
+engine = create_engine("postgresql://...")
+init(config_url="http://localhost:7700", db_engine=engine)
 ```
 
 ## Architecture
 
 ```
-app/
-├── main.py                        # FastAPI app, startup/shutdown
-├── chat.py                        # Voice command processing
-├── admin.py                       # Node CRUD
-├── core/
-│   ├── model_service.py           # LLM integration, tool processing
-│   ├── prompt_engine.py           # Prompt construction
-│   ├── tool_parser.py             # Tool call parsing
-│   ├── tool_executor.py           # Tool execution
-│   └── conversation_cache.py      # Conversation state
-├── context_providers/
-│   └── node_context_provider.py   # Node auth
-├── models.py                      # SQLAlchemy models
-└── request_models/                # Pydantic schemas
+jarvis_config_client/
+├── __init__.py    # Public API
+└── client.py      # Core client with caching and refresh
 ```
-
-## Environment Variables
-
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `DATABASE_URL` | Yes | PostgreSQL connection string |
-| `ADMIN_API_KEY` | Yes | Admin endpoint protection |
-| `JARVIS_LLM_PROXY_API_URL` | Yes | LLM proxy service URL |
-| `JARVIS_LOG_CONSOLE_LEVEL` | No | Logging level (default: INFO) |
-
-## API Endpoints
-
-**Voice:**
-- `POST /api/v0/conversation/start` - Start conversation
-- `POST /api/v0/voice/command` - Process voice command
-- `POST /api/v0/voice/command/continue` - Continue with tool results
-
-**Admin (requires X-Admin-Api-Key):**
-- `GET /api/v0/admin/nodes` - List nodes
-- `POST /api/v0/admin/nodes` - Create node
-- `DELETE /api/v0/admin/nodes/{id}` - Delete node
-
-**Training:**
-- `POST /api/v0/tool-router/train` - Train tool router (fastText)
-- `POST /api/v0/adapters/train` - Queue adapter training
-
-**Health:**
-- `GET /health` - Health check
 
 ## Service Dependencies
 
-**Must be running:**
-- `jarvis-auth` (7701) - App-to-app auth, node credential validation
-- `jarvis-config-service` (7700) - Discovers URLs for all services below
-- `jarvis-logs` (7702) - Centralized logging
-- `jarvis-llm-proxy-api` (7704) - LLM inference for command parsing and responses
-- `jarvis-whisper-api` (7706) - Speech-to-text (transcribes audio from nodes)
-- `jarvis-tts` (7707) - Text-to-speech (generates audio responses for nodes)
-- `jarvis-settings-client` - Runtime configuration (via library, talks to config-service)
+Talks to its respective service only:
+- `jarvis-config-service` (7700) - Fetches service URLs (GET /services)
 
-**Data services (from jarvis-data-stores/):**
-- PostgreSQL - Node registry, conversation state
+## Features
 
-## Node Authentication
-
-Nodes authenticate via `X-API-Key` header. Keys stored in the nodes table.
-
-## Database
-
-PostgreSQL required (shared server, own database). docker-compose.dev.yaml includes a PostgreSQL container for standalone dev.
-
-## Dependencies
-
-FastAPI, SQLAlchemy, Alembic, psycopg2, httpx, fasttext, jarvis-log-client, jarvis-config-client, jarvis-auth-client, jarvis-settings-client
+- In-memory caching of service URLs
+- Optional PostgreSQL/SQLite persistence
+- Background refresh every 5 minutes
+- Fallback to cached values on failure
+- Thread-safe
 
 ---
 > Source: [alexberardi/jarvis](https://github.com/alexberardi/jarvis) — distributed by [TomeVault](https://tomevault.io).
