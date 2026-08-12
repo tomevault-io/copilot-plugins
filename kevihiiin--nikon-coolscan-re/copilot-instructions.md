@@ -1,0 +1,310 @@
+## nikon-coolscan-re
+
+> Reverse engineering Nikon Coolscan film scanner firmware and Windows drivers to document
+
+# Coolscan RE -- Project Context for Claude
+
+## What This Project Is
+
+Reverse engineering Nikon Coolscan film scanner firmware and Windows drivers to document
+the complete SCSI communication protocol. **Two deliverables**: (1) Protocol documentation (docs/kb/),
+(2) H8/3003 CPU emulator running the actual firmware binary for HIL-free development.
+
+**Primary target**: Coolscan V (LS-50, uses LS5000.md3 module). Later: LS-5000, LS-4000, LS-8000, LS-9000.
+
+## Session Bootstrap (READ THESE IN ORDER)
+
+Every new session, follow this chain:
+
+1. **You are here** -- `CLAUDE.md` (this file) gives you project context
+2. **If doing RE work**: Read `docs/log/general.md` → current phase doc → phase log → component log → KB
+3. **If doing emulator work**: Read `emulator/docs/log/general.md` → current emulator phase log → component log
+4. **Read `docs/phases/phase-NN-<name>.md`** for the current phase (RE) or relevant emulator phase log
+5. **Read relevant `docs/log/components/NAME-attempts.md`** or `emulator/docs/log/components/`
+6. **Read relevant `docs/kb/` docs** -- existing findings to build upon
+
+Only then begin work.
+
+## Work-Log-Verify Workflow (CRITICAL)
+
+For EVERY unit of work (analyzing a function, tracing a code path, identifying a command), follow this cycle:
+
+### 1. WORK -- Perform the analysis
+Do the actual RE work: decompile, trace, pattern match, cross-reference.
+
+### 2. LOG -- Record what you did and found (even failures!)
+- **Append** to the relevant component log (`docs/log/components/NAME-attempts.md`)
+- Include: date, tool used, target (function/address), what you tried, what you found, confidence level
+- **Failed attempts are equally important** -- log what didn't work and why, so we don't repeat it
+- Update the phase log (`docs/log/phases/`) with progress
+
+### 3. VERIFY -- Cross-check the finding
+- Can this be confirmed from another source? (host-side vs device-side, string xref, etc.)
+- Set confidence level (see RE Approach below)
+
+### 4. KB -- Write it up
+- **ALL new knowledge MUST go to `docs/kb/`** -- the KB is our final deliverable
+- KB docs must be comprehensive enough that a **junior developer** could understand them
+- Explain the "why" not just the "what" -- why does this SCSI command exist? What problem does it solve?
+- Include hex dumps, decompiled code snippets, diagrams where they help understanding
+- Cross-reference related KB docs with links
+
+If a finding is too uncertain (Low confidence), still add it to KB but mark it clearly and list what would be needed to verify it.
+
+## Project Layout
+
+- `CLAUDE.md` -- THIS FILE. Bootstrap for every Claude session
+- `ARCHITECTURE.md` -- Call-chain overview, links to detailed KB docs
+- `docs/` -- **All model-written documentation**
+  - `docs/phases/` -- Phase instruction docs (completion criteria + methodology)
+  - `docs/kb/` -- **Knowledge base (ALL findings go here)** -- this is our final output
+  - `docs/log/` -- Progress and attempt logs (**APPEND ONLY** - see rules below)
+  - `docs/re-backlog.md` -- **RE backlog (Tracks A-E, 6 outstanding tasks as of 2026-07-01)** -- pick targets here
+- `binaries/` -- Original firmware + NikonScan 4.03 files (**READ ONLY, never modify**)
+- `ghidra/projects/` -- Ghidra project dirs (NikonScan_Drivers, _Modules, _TWAIN, _ICE, CoolscanFirmware)
+- `ghidra/scripts/` -- Ghidra Python/Java analysis scripts
+- `ghidra/exports/` -- Exported function lists, decompiled code snapshots
+- `r2/scripts/` -- radare2 analysis scripts (firmware_init.r2 etc.)
+- `scripts/python/` -- PE analysis, RTTI extraction, SCSI pattern matching scripts
+- `scripts/shell/` -- bootstrap_ghidra.sh and other shell scripts
+- `.claude/skills/` -- RE-specific slash command skills
+- `tools/` -- Third-party tools (Ghidra H8/300H SLEIGH module etc.)
+- `emulator/` -- H8/3003 CPU emulator (Rust workspace, clean-room implementation)
+
+## Key Binaries (by RE priority)
+
+Full path prefix: `binaries/software/NikonScan403_installed/`
+
+1. `Drivers/NKDUSCAN.dll` (88KB) -- USB transport layer (LS-40, LS-50, LS-5000)
+   - Exports: `NkDriverEntry` (1 export, 9 function codes). 14 RTTI classes.
+   - Key classes: CUSB2Command, CUSBSession, CUSBDeviceTable, CUSBDevInfo, CSBP2CommandManager
+   - Uses DeviceIoControl -> usbscan.sys, WriteFile/ReadFile on bulk pipes
+   - **Ghidra project**: NikonScan_Drivers
+
+2. `Module_E/LS5000.md3` (1MB) -- Scanner model module (shared by LS-50 + LS-5000)
+   - Exports: MAIDEntryPoint, NkCtrlEntry, NkMDCtrlEntry
+   - Loads transport DLL at runtime (LoadLibraryA/GetProcAddress, NOT static import)
+   - Constructs SCSI CDBs, calls NkDriverEntry to send them
+   - **Ghidra project**: NikonScan_Modules
+   - **Note**: No LS50.md3 exists. LS-50 and LS-5000 share this module.
+
+3. `Twain_Source/NikonScan4.ds` (2.2MB) -- TWAIN data source
+   - 59 exports (DS_Entry + scanner-specific API: StartScan, GetSource, etc.)
+   - 321 RTTI classes (MFC 7.0 based). Full scan workflow orchestration.
+   - Model-agnostic: delegates all hardware specifics to .md3 modules
+   - **Ghidra project**: NikonScan_TWAIN
+
+4. **Firmware**: `binaries/firmware/Nikon LS-50 MBM29F400B TSOP48.bin` (512KB)
+   - CPU: Hitachi H8/3003 (H8/300H, 24-bit, big-endian)
+   - Contains INQUIRY strings for both "LS-50 ED" and "LS-5000" (shared lineage)
+   - Handles SCSI commands device-side, controls motors/lamp/CCD
+   - **Ghidra project**: CoolscanFirmware (H8/300H processor)
+   - **r2 script**: r2/scripts/firmware_init.r2
+
+5. `Drivers/NKDSBP2.dll` (84KB) -- IEEE1394/SBP2 transport (LS-4000, LS-8000, LS-9000)
+   - Same NkDriverEntry interface as NKDUSCAN but for FireWire (SBP-2 over 1394)
+   - 13 RTTI classes: CSBP2CommandManager, CSBP2Command, CSBP2Session, CSBP2Device, etc.
+   - **Ghidra project**: NikonScan_Drivers
+
+## Architecture (call chain)
+
+```
+NikonScan4.ds (TWAIN) -> LS5000.md3 (MAID) -> NKDUSCAN.dll (USB) -> usbscan.sys -> USB bulk -> scanner firmware (H8/3003)
+```
+
+USB wraps SCSI: CDB via bulk-out, phase query opcode 0xD0, sense retrieval opcode 0x06.
+(Verified from NKDUSCAN.dll disassembly @ 0x10002b50. NOT USB Mass Storage — custom vendor protocol.)
+
+## Phases
+
+Each phase has a dedicated instruction doc at `docs/phases/phase-NN-<name>.md` containing
+completion criteria, methodology, key targets, and what to look for.
+
+| Phase | Name | Phase Doc | Primary Target |
+|-------|------|-----------|----------------|
+| 0 | Bootstrap & Tooling | `docs/phases/phase-00-bootstrap.md` | Project setup |
+| 1 | USB Transport | `docs/phases/phase-01-nkduscan.md` | NKDUSCAN.dll |
+| 2 | SCSI Commands | `docs/phases/phase-02-ls5000.md` | LS5000.md3 |
+| 3 | Scan Workflows | `docs/phases/phase-03-nikonscan4.md` | NikonScan4.ds |
+| 4 | Firmware | `docs/phases/phase-04-firmware.md` | LS-50 firmware |
+| 5 | Protocol Spec | `docs/phases/phase-05-protocol-spec.md` | Cross-validation |
+| 6 | DRAG/ICE | `docs/phases/phase-06-drag-ice.md` | Image processing DLLs |
+| 7 | Cross-Model | `docs/phases/phase-07-cross-model.md` | Other scanner models |
+
+**Read the current phase doc before starting work.**
+
+## RE Approach
+
+### Two-sided convergence
+We RE from both host (Windows DLLs, Phases 1-3) and device (firmware, Phase 4) simultaneously.
+A finding is only **"Verified"** when confirmed from both sides.
+
+### Analysis order within any binary
+1. Exports/imports -> 2. RTTI/class names -> 3. String xrefs -> 4. Known entry points -> 5. Pattern matching -> 6. Full reversal of key functions
+
+### Confidence levels
+- **Verified**: Cross-referenced from 2+ sources (host CDB matches firmware handler)
+- **High**: Strong evidence from single source (clear decompilation, unambiguous strings)
+- **Medium**: Reasonable inference, not fully confirmed
+- **Low**: Speculation -- needs verification. Still log and KB it, but mark clearly
+
+### When stuck
+Log the failure, mark KB as Low confidence, add REVISIT to phase log, and move on. Use `/unstuck` for suggestions.
+
+## Emulator -- Clean-Room Rules (CRITICAL -- NO EXCEPTIONS)
+
+The emulator (`emulator/`) is a clean-room H8/3003 CPU implementation.
+
+### Allowed sources for CPU behavior:
+- Hitachi H8/300H Programming Manual (emulator/reference/)
+- ISP1581 datasheet (emulator/reference/)
+- Our own RE docs (docs/kb/) -- we wrote them
+
+### Forbidden sources (DO NOT REFERENCE):
+- SLEIGH files in this repo (tools/ghidra-h8/) -- no license
+- MAME source code (any file)
+- libh8300h, QEMU H8, GDB simulator, or any other emulator source
+- Any code implementing H8 instruction decode/execute from external projects
+
+### Emulator Project Structure
+
+```
+emulator/
+├── Cargo.toml              # Rust workspace
+├── reference/              # Hitachi manual, ISP1581 datasheet (clean-room sources)
+├── coolscan-emu/           # Binary crate: CLI + orchestration
+├── h8300h-core/            # Library: CPU core (decoder, executor, interrupts, memory)
+├── peripherals/            # Library: ISP1581, ASIC, GPIO, timers, DMA, ADC, SCI, WDT
+├── bridge/                 # Library: TCP + USB gadget bridges
+├── tests/                  # Integration tests
+└── docs/log/               # Emulator attempt logs (APPEND ONLY, same rules as RE logs)
+```
+
+### Emulator Phases
+
+| Phase | Name | Milestone |
+|-------|------|-----------|
+| 0 | Setup | Manual review, Rust workspace, enum skeleton | COMPLETE |
+| 1 | CPU Core | Firmware boots to 0x020334 | COMPLETE (insn 8) |
+| 2 | Interrupts | Context switch works | COMPLETE (insn 356K) |
+| 3 | USB | TUR response via TCP + USB gadget | COMPLETE |
+| 4 | SCSI | Full init sequence passes | COMPLETE |
+| 5 | Scan | Full scan returns image data | COMPLETE |
+| 6 | Polish | End-to-end validation | COMPLETE (193 tests) |
+| 7 | ISP1581 DMA + FW Handlers | Firmware sends SCSI responses through USB path | COMPLETE (202 tests) |
+| 8 | Motor & Position | Motor moves, encoder feedback, VPD pages | COMPLETE (215 tests) |
+| 9 | CCD & Scan Pipeline | CCD injection, ASIC DMA, H8 DMA controller | COMPLETE (224 tests) |
+| 10 | Calibration | Dark frame, white ref, CCD characterization | COMPLETE (230 tests) |
+| 11 | Real USB & Integration | Zero patches, NikonScan compatible | COMPLETE (240 tests) |
+| M12 | Firmware-Path Correctness | ASIC sync, SCI routing, ITU timers | COMPLETE (279 tests) |
+| M13 | TCP Bridge Hardening | Partial reads, fail-fast bind, DoS cap | COMPLETE (288 tests) |
+| M14 | USB Gadget Ready | byte-write fix, underrun flag, STALL, SIGINT | COMPLETE (295 tests) |
+| M14.5 | Userspace USB/IP HIL | jiegec/usbip + tokio, no root, smoke test | COMPLETE (310 tests) |
+| M15.0 | Wire-protocol clean | NikonScan recognizes device — no "no active devices" dialog | COMPLETE (323 tests) |
+| M15.1 | Scanner-ready | NikonScan COOLSCAN V ED interface open + operational state | COMPLETE (324 tests) |
+| M15.2-A | Preview wire-protocol | SET WINDOW / SCAN / READ DTC=0x00 routed through Rust under FW dispatch | COMPLETE (326 tests) |
+| M15.2-B | Preview wire validation | Replay-test parity vs real-LS-50 002-preview capture | COMPLETE (141/144 byte-perfect = 97.9%); live HIL render host-side blocked (NikonScan4.ds queue-runner — not emulator-reachable) |
+| M15.3 | Full-scan wire validation | Replay-test parity vs real-LS-50 003/004/005 captures | COMPLETE (003: 795/801 = 99.3%; 004: 777/786 = 98.9%; **005 ICE: 978/983 = 99.5%**) |
+
+**Roadmap**: See `emulator/docs/roadmap.md` for phase history + forward milestones.
+**Backlog**: See `emulator/docs/backlog.md` for open issues with fix directions and file:line pointers.
+**HIL setup**: See `emulator/hil/README.md` — `cargo run -- --usbip-server` brings up a USB/IP server, `usbip-win2` on Windows attaches it, NikonScan sees a Nikon LS-50.
+**Validation**: `inquiry_smoke` and `preview_scan` recipes both green — NikonScan recognizes the LS-50 and reaches the operational COOLSCAN UI. Every SCSI command in the init handshake is answered correctly. **M15.2-B and M15.3 are wire-validated via replay** — `cargo test replay_capture` runs the emulator against real LS-50 captures (001/002/003/004) at 97-99% byte-perfect parity. Live HIL Preview/Scan render is host-side blocked inside NikonScan4.ds (verified by 3-round RE confirming the gap is in NikonScan's TWAIN queue-runner, NOT in any emulator-reachable wire behavior — see `docs/kb/components/nikonscan4-ds/cap-availability-map.md` round-18 conclusions).
+
+### Emulator Key Constants
+
+- Context A stack: 0x410000 | Context B stack: 0x40D000
+- Stack guards (planned): A < 0x40F000 warn | B < 0x408000 warn
+- SP save watchpoint: 0x400766-0x40076D
+
+### Emulator Logging
+
+Same APPEND ONLY rules as RE logs. Locations:
+- `emulator/docs/log/general.md` -- session journal
+- `emulator/docs/log/phases/phase-NN-*.md` -- per-phase
+- `emulator/docs/log/components/*.md` -- per-component
+- `emulator/docs/decisions/*.md` -- design decisions
+
+## Tools
+
+- **uv** for Python -- Use `uv run` to execute Python scripts (deps in `pyproject.toml`)
+- **Ghidra** at `/opt/ghidra` -- PE32 DLLs (x86:LE:32) and firmware (H8/300H via SLEIGH module)
+  - Headless: `/opt/ghidra/support/analyzeHeadless`
+  - Projects: `ghidra/projects/`
+  - Scripts: `ghidra/scripts/`
+- **radare2** -- Firmware analysis (`r2 -e asm.arch=h8300`)
+- **Python scripts** in `scripts/python/` -- PE parsing, RTTI extraction, pattern matching
+- **binwalk, strings, xxd, objdump, file** -- Standard binary analysis
+- **Rust** (`cargo build/test/run`) for emulator at `emulator/`
+- **Reference manuals** at `emulator/reference/` (Hitachi H8/300H, ISP1581)
+
+## Logging Rules (CRITICAL)
+
+**All log files are APPEND ONLY.** Never delete or edit past entries.
+
+The ONLY editable part is the status header at the top (above the `---` separator).
+Everything below the separator is an immutable chronological record.
+
+**Log EVERY attempt, including failures.** A failed attempt is valuable -- it prevents
+repeating the same dead end and may provide clues for a different approach.
+
+Log locations:
+- `docs/log/general.md` -- Session journal (date, goals, accomplished, blockers, next steps)
+- `docs/log/strategy.md` -- Evolving RE tactics (what works, tool tips, reusable patterns)
+- `docs/log/phases/phase-NN-name.md` -- Per-phase attempt log
+- `docs/log/components/NAME-attempts.md` -- Per-binary analysis history
+
+## KB Rules (THIS IS OUR FINAL OUTPUT)
+
+The `docs/kb/` directory is the entire point of this project. It must be **comprehensive enough
+that a junior developer can understand the Coolscan SCSI protocol** and write a driver from it.
+
+Rules:
+- **ALL new knowledge MUST go to `docs/kb/`** -- findings only in logs or conversation are lost
+- Every KB doc has: Status, Last Updated, Phase, Confidence level
+- Explain "why" not just "what". Cite source: `BINARY:0xADDRESS`. Cross-reference with relative links.
+- When in doubt, write MORE detail, not less. Use `/update-kb` skill for proper format.
+
+KB structure:
+- `docs/kb/architecture/` -- System overview, software layers, USB protocol, MAID interface
+- `docs/kb/scsi-commands/` -- Per-command docs (the crown jewel for driver writers)
+- `docs/kb/components/` -- Modular per-binary analysis (nkduscan/, ls5000-md3/, firmware/, etc.)
+- `docs/kb/deep-dive/` -- Comprehensive developer references (C pseudocode, full protocol sequences, data table decodes)
+- `docs/kb/driver-guide/` -- Practical implementation guides and Q&A for driver developers
+- `docs/kb/scanners/` -- Per-model notes (coolscan-v-ls50, super-coolscan-5000, etc.)
+- `docs/kb/reference/` -- CPU reference, chip datasheets, spec summaries
+
+## Skills & Subagents
+
+RE-specific slash commands in `.claude/skills/`. Skills run in main context; subagents fork to keep main context lean.
+
+| Command | Type | Purpose |
+|---------|------|---------|
+| `/log-finding [component]` | skill | Append finding to component + phase log |
+| `/update-kb [path]` | skill | Create/update KB doc with proper format |
+| `/unstuck` | subagent | Suggest next steps from logs + KB gaps |
+| `/xref [pattern]` | subagent | Search pattern across all binaries |
+| `/phase-check [N]` | subagent | Check phase completion |
+| `/verify [kb-doc]` | subagent | Cross-validate host vs device side |
+| `/ghidra-run [proj] [script]` | background | Run Ghidra headless |
+| `/prefetch-refs [N]` | background | Gather reference material |
+
+Auto-launch subagents when: analyzing an opcode (xref other binaries), documenting a CDB (verify against firmware), or running Ghidra scripts.
+
+## Scanner Models (from INF files — ground truth)
+
+USB only (NKDUSCAN.dll): LS-40 (PID 4000), LS-50 (PID 4001), LS-5000 (PID 4002)
+FireWire only (NKDSBP2.dll): LS-4000, LS-8000, LS-9000
+**No model supports both USB and FireWire.**
+
+Module mapping: LS4000.md3 (LS-40 + LS-4000), LS5000.md3 (LS-50 + LS-5000), LS8000.md3, LS9000.md3
+
+## Quick Hardware Reference
+
+See `docs/kb/reference/memory-map.md` and `docs/kb/reference/` for full details.
+- CPU: H8/3003 (H8/300H), 24-bit, big-endian | USB: VID 04B0, PID 4001 (LS-50)
+- Main firmware at flash 0x20000 | ISP1581 USB at 0x600000 | RAM at 0x400000
+
+---
+> Source: [kevihiiin/Nikon-Coolscan-RE](https://github.com/kevihiiin/Nikon-Coolscan-RE) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
