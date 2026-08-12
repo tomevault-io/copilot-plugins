@@ -1,0 +1,44 @@
+{
+  "name": "extension-dev-skill",
+  "owner": "easyeda",
+  "repo": "extension-dev-skill",
+  "description": "\u7528\u4e8eAgent\u5f00\u53d1easyeda\u6269\u5c55\u7684\u6280\u80fd\u5305\u3002AI Agent development skill for easyeda extension",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/easyeda/extension-dev-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T03:03:17Z"
+}
