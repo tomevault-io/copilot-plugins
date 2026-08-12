@@ -1,0 +1,9 @@
+{
+  "name": "acg-box--elf",
+  "displayName": "ELF",
+  "description": "Evidence-linked fact memory for agents.",
+  "version": "1.0.0",
+  "author": "acg-box",
+  "homepage": "https://github.com/acg-box/ELF",
+  "skills": []
+}
