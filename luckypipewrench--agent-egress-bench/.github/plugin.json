@@ -1,0 +1,9 @@
+{
+  "name": "luckypipewrench--agent-egress-bench",
+  "displayName": "agent-egress-bench",
+  "description": "Tool-neutral attack corpus for AI agent egress security",
+  "version": "1.0.0",
+  "author": "luckyPipewrench",
+  "homepage": "https://github.com/luckyPipewrench/agent-egress-bench",
+  "skills": []
+}
