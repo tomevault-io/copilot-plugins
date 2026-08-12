@@ -1,0 +1,9 @@
+{
+  "name": "xemantic--xemantic-typescript-compiler",
+  "displayName": "xemantic-typescript-compiler",
+  "description": "A TypeScript to JavaScript compiler written in multiplatform Kotlin (experiment)",
+  "version": "1.0.0",
+  "author": "xemantic",
+  "homepage": "https://github.com/xemantic/xemantic-typescript-compiler",
+  "skills": []
+}
