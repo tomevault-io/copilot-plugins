@@ -1,0 +1,9 @@
+{
+  "name": "vuki656--review-nvim",
+  "displayName": "review.nvim",
+  "description": "Review git diffs inside Neovim, comment on specific lines, and export the comments as markdown straight to your AI agent",
+  "version": "1.0.0",
+  "author": "vuki656",
+  "homepage": "https://github.com/vuki656/review.nvim",
+  "skills": []
+}
