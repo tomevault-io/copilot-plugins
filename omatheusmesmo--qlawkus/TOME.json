@@ -4,7 +4,7 @@
   "repo": "Qlawkus",
   "description": "Autonomous Personal Engineering Agent built with Quarkus LangChain4j",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/omatheusmesmo/Qlawkus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T15:22:49Z"
+  "distributed_at": "2026-08-12T15:39:50Z"
 }
