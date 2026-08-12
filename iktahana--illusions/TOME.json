@@ -1,0 +1,44 @@
+{
+  "name": "illusions",
+  "owner": "Iktahana",
+  "repo": "illusions",
+  "description": "\u65e5\u672c\u8a9e\u5c0f\u8aac\u5411\u3051\u30a8\u30c7\u30a3\u30bf\u30fc",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Iktahana/illusions",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-12T12:36:21Z"
+}
