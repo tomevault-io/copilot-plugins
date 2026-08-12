@@ -9,5 +9,5 @@ This version has breaking changes — APIs, conventions, and file structure may 
 <!-- END:nextjs-agent-rules -->
 
 ---
-> Source: [SaiVatsal/Risk-Calculator-](https://github.com/SaiVatsal/Risk-Calculator-) — distributed by [TomeVault](https://tomevault.io).
+> Source: [SaiVatsal/Risk-Calculator](https://github.com/SaiVatsal/Risk-Calculator) — distributed by [TomeVault](https://tomevault.io).
 <!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
