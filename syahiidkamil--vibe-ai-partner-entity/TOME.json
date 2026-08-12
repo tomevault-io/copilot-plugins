@@ -4,7 +4,7 @@
   "repo": "vibe-ai-partner-entity",
   "description": "An AI partner with true active memory. She keeps a diary in her own voice, digests her days in nightly dreams, knows what today is, and comes back tomorrow remembering the life you share. Voice, desktop avatar (Live2D / VRM / three.js / html vanilla), a multi-layered self. Companionship is one use case; the memory is the point. Runs on Claude Code.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/syahiidkamil/vibe-ai-partner-entity",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-11T23:20:27Z"
+  "distributed_at": "2026-08-12T00:32:59Z"
 }
