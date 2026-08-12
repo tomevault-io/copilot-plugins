@@ -1,0 +1,9 @@
+{
+  "name": "andrewvaughan--agent-council",
+  "displayName": "agent-council",
+  "description": "Multi-perspective AI development workflows using councils of specialized agents. Plan, build, review, and ship \u2014 with 13 agent personas across 6 councils.",
+  "version": "1.0.0",
+  "author": "andrewvaughan",
+  "homepage": "https://github.com/andrewvaughan/agent-council",
+  "skills": []
+}
