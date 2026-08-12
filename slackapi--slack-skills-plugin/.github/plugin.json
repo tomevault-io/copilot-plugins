@@ -1,0 +1,9 @@
+{
+  "name": "slackapi--slack-skills-plugin",
+  "displayName": "slack-skills-plugin",
+  "description": "Claude Code and Cursor plugin that enables your AI tools with a Slack MCP Server and Slack Developer Skills.",
+  "version": "1.0.0",
+  "author": "slackapi",
+  "homepage": "https://github.com/slackapi/slack-skills-plugin",
+  "skills": []
+}
