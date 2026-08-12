@@ -1,0 +1,9 @@
+{
+  "name": "mcp-box--mcpscore",
+  "displayName": "mcpscore",
+  "description": "Lighthouse for MCP \u2014 score any MCP server 0\u2013100.",
+  "version": "1.0.0",
+  "author": "mcp-box",
+  "homepage": "https://github.com/mcp-box/mcpscore",
+  "skills": []
+}
