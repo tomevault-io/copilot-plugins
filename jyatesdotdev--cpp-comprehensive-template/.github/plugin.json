@@ -1,0 +1,9 @@
+{
+  "name": "jyatesdotdev--cpp-comprehensive-template",
+  "displayName": "cpp-comprehensive-template",
+  "description": "Comprehensive C++ project template with CMake, vcpkg, testing, security scanning, CLI examples, and Docker support",
+  "version": "1.0.0",
+  "author": "jyatesdotdev",
+  "homepage": "https://github.com/jyatesdotdev/cpp-comprehensive-template",
+  "skills": []
+}
