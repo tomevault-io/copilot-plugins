@@ -1,0 +1,9 @@
+{
+  "name": "fschubi--shutter-pilot",
+  "displayName": "shutter_pilot",
+  "description": "Automatic shutter and blind control for Home Assistant \u2013 time, brightness or sun position, with window sensors, lock protection and sun shading. Configured entirely from a sidebar panel, no YAML.",
+  "version": "1.0.0",
+  "author": "fschubi",
+  "homepage": "https://github.com/fschubi/shutter_pilot",
+  "skills": []
+}
