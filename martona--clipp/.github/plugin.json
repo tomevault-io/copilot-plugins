@@ -1,0 +1,9 @@
+{
+  "name": "martona--clipp",
+  "displayName": "clipp",
+  "description": "Free, open source, peer-to-peer clipboard sync for Windows, macOS, and iOS, with a terminal-only client for Linux.",
+  "version": "1.0.0",
+  "author": "martona",
+  "homepage": "https://github.com/martona/clipp",
+  "skills": []
+}
