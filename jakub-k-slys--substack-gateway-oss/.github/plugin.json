@@ -1,0 +1,9 @@
+{
+  "name": "jakub-k-slys--substack-gateway-oss",
+  "displayName": "substack-gateway-oss",
+  "description": "Stateless Substack Gateway exposing a REST API and MCP for reading profiles, posts, notes, and comments, plus authenticated personal and note-publishing workflows.",
+  "version": "1.0.0",
+  "author": "jakub-k-slys",
+  "homepage": "https://github.com/jakub-k-slys/substack-gateway-oss",
+  "skills": []
+}
