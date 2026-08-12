@@ -1,0 +1,9 @@
+{
+  "name": "galligan--bb-plugin-studio",
+  "displayName": "bb-plugin-studio",
+  "description": "bb Plugin Studio \u2014 Build, inspect, and preview bb plugins.",
+  "version": "1.0.0",
+  "author": "galligan",
+  "homepage": "https://github.com/galligan/bb-plugin-studio",
+  "skills": []
+}
