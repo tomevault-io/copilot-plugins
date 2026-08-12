@@ -4,7 +4,7 @@
   "repo": "tethered",
   "description": "tethered \u2014 Runtime network egress control for Python. One function call to restrict which hosts your code can connect to.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shcherbak-ai/tethered",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T08:38:46Z"
+  "distributed_at": "2026-08-12T09:03:52Z"
 }
