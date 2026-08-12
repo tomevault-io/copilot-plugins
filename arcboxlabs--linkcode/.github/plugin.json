@@ -1,0 +1,9 @@
+{
+  "name": "arcboxlabs--linkcode",
+  "displayName": "linkcode",
+  "description": "Open-source alternative to Codex App / Workbuddy, supporting Codex, Claude Code, OpenCode, Pi, and Grok Build. Codex App / WorkBuddy \u7684\u5f00\u6e90\u5e73\u66ff\uff0c\u652f\u6301 Codex\u3001Claude Code\u3001OpenCode\u3001Pi \u548c Grok Build\u3002",
+  "version": "1.0.0",
+  "author": "arcboxlabs",
+  "homepage": "https://github.com/arcboxlabs/linkcode",
+  "skills": []
+}
