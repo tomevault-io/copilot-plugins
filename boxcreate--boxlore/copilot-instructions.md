@@ -1,82 +1,126 @@
-## pr-impact-labels
+## boxlore
 
-> PR labels for user-impact level (required), optional backend-change, and merge gate
+> Short entrypoint for Cursor / Codex / cloud agents. Prefer this over long essays.
 
+# AGENTS.md — Boxlore agent contract
 
-# PR impact labels (required + optional)
+Short entrypoint for Cursor / Codex / cloud agents. Prefer this over long essays.
 
-Every `boxlore` PR must have **exactly one** user-impact label. `backend-change` is optional and **pairable** with any level.
+## Non-negotiables
 
-**Changelog / README upcoming workflows read these labels** — do not open a PR without the user-impact level. See also [`.github/PULL_REQUEST_TEMPLATE.md`](../../.github/PULL_REQUEST_TEMPLATE.md).
+- Read [`ARCHITECTURE.md`](ARCHITECTURE.md) + the touched module `README.md` before editing; **ARCHITECTURE wins** on conflicts.
+- Before editing `scripts/sync/` (catalog pipeline): read [`scripts/README.md`](scripts/README.md) **and** the **Catalog sync** section below. Sync **does not** run on GitHub Actions — only on the Netcup VPS. A `git push` alone does **not** update the live runner.
+- No feature→feature deps/imports; no PostHog in features (use `:core:analytics`); no Hilt/Koin/MockK.
+- Never break identity/storage contracts (`applicationId`, DataStore `user_preferences`, Room names, `rss:` IDs, single `PlaybackRepository`, smart-queue refill ownership). See ARCHITECTURE identity table.
+- Update the touched module README in the same change (template: [`docs/MODULE_README_TEMPLATE.md`](docs/MODULE_README_TEMPLATE.md)).
+- Extend JVM `src/test` for touched logic; **bug fix ⇒ regression test** (same failure mode app-wide when shared). No Compose `androidTest` / emulator CI.
+- Commit / push / open a PR **only when the user asks**. Conventional Commits titles.
+- Every PR needs **exactly one** user-impact label (`user-impact-high|medium|low` or `no-user-impact`); optional `backend-change`. Changelog / README upcoming workflows depend on these — see [`.cursor/rules/pr-impact-labels.mdc`](.cursor/rules/pr-impact-labels.mdc).
+- Merge when required checks are green (squash). Required checks: **`testDebugUnitTest`** + **`coderabbit-threads-resolved`**. SonarCloud / Gitleaks / CodeRabbit apps still run on PRs (fix Sonar issues). Unit suite cancels prior in-progress runs on new commits; `[skip unit]` / `[skip changelog]` only when appropriate. No merge queue / `merge-ci`.
+- CodeRabbit (mandatory for agents):
+  - Address every CodeRabbit finding and mark **every** CodeRabbit review thread **Resolved** before merge. Do not rely on the bare `CodeRabbit` status (that only means the review job finished). The hard gate is **`coderabbit-threads-resolved`**.
+  - If the PR review decision is **`CHANGES_REQUESTED`** (CodeRabbit or anyone with write access): **stop**. Do **not** dismiss the review, do **not** force-merge / queue merge. Tell the user the PR is blocked on requested changes and ask them to merge (or dismiss) manually.
+- SonarCloud: **0 new-code issues** on the PR (App quality gate). Fix Sonar findings; do not treat a missing Sonar ruleset requirement as permission to ignore them.
+- Never commit secrets (`local.properties`, `.env`, keystores, `google-services.json`).
+- Do **not** hand-edit `CHANGELOG.md` or README Upcoming / What's New regions (`<!-- release-upcoming:* -->` / `<!-- release-whats-new:* -->`) — `changelog-on-merge` owns those. Hand-edits are OK only for intentional release-note rewrites with matching script contracts.
+- **boxlore-only:** do not change other `boxcreate` repos or org-wide bot settings unless asked. Keep proxy/backend internals out of public Android PR text.
+- Product name in user-facing copy is **boxlore** (all lowercase), not “Boxlore” / “BoxLore”.
+- Cards / panels: solid Material 3 surfaces only — no glassmorphism / translucent card backgrounds.
 
-## User impact (pick one)
+## Source of truth (priority order)
 
-| Label | Meaning | README / notification |
-|:--|:--|:--|
-| `user-impact-high` | Listeners clearly notice | Always prioritize |
-| `user-impact-medium` | Noticeable, not headline | Include |
-| `user-impact-low` | Minor user-facing | CHANGELOG; README if space |
-| `no-user-impact` | No listener-facing change | CHANGELOG only |
+1. Latest user message (explicit overrides win)
+2. This file + [`.cursor/rules/*.mdc`](.cursor/rules/)
+3. [`ARCHITECTURE.md`](ARCHITECTURE.md)
+4. Touched module `README.md`
+5. [`docs/TESTING.md`](docs/TESTING.md) and [`.github/PULL_REQUEST_TEMPLATE.md`](.github/PULL_REQUEST_TEMPLATE.md)
 
-## Backend (optional, pairable)
+## Where to look
 
-| Label | Meaning |
-|:--|:--|
-| `backend-change` | Server / proxy / infra involved — add alongside any user-impact level |
+| Topic | Doc |
+| :--- | :--- |
+| Module graph, DI, identity | [`ARCHITECTURE.md`](ARCHITECTURE.md) |
+| Unit / Kover / Konsist / CI | [`docs/TESTING.md`](docs/TESTING.md) |
+| Catalog sync pipeline (VPS, not GHA) | [`scripts/README.md`](scripts/README.md) |
+| Always-on agent rules | [`.cursor/rules/`](.cursor/rules/) |
+| PR body / merge checklist | [`.github/PULL_REQUEST_TEMPLATE.md`](.github/PULL_REQUEST_TEMPLATE.md) |
+| Impact labels + merge gate | [`.cursor/rules/pr-impact-labels.mdc`](.cursor/rules/pr-impact-labels.mdc) |
 
-Examples:
+## Catalog sync (VPS — not GitHub Actions)
 
-- `--label user-impact-high --label backend-change`
-- `--label no-user-impact --label backend-change`
-- `--label user-impact-medium`
+**Hard stop before editing `scripts/sync/`.** Full detail: [`scripts/README.md`](scripts/README.md).
 
-## Merge gate — required before merge
+### Sync does not run on GitHub
 
-There is **no `merge-ci` label flow** and **no merge queue**. Unit CI (detekt / ktlint / Kover) runs on **every PR push**, plus optional `workflow_dispatch`. A new commit cancels any in-progress unit run for that PR.
+- The old GHA workflow **`sync-pi-data` is sunset / removed**.
+- There is **no** GitHub cron for charts, PI import, episode sync, or vectorization.
+- Do **not** re-add a GitHub sync workflow unless the user explicitly asks.
+- Do **not** assume `git push` to `master` updates the live pipeline by itself.
 
-Master is protected by a branch ruleset. Required checks:
+### Sync runs on the Netcup VPS
 
-| Check | Meaning |
-|:--|:--|
-| `testDebugUnitTest` | Full unit / static / Kover gate (PR; cancels prior run on new commit) |
-| `coderabbit-threads-resolved` | Every non-outdated CodeRabbit review thread is Resolved |
+| What | Where |
+| :--- | :--- |
+| Live runner root | `/opt/boxlore-sync/` |
+| **Code the cron executes** | `/opt/boxlore-sync/repo/scripts/sync/` (`run-sync.sh` → `cd $REPO`) |
+| Orchestrator | `/opt/boxlore-sync/run-sync.sh` (systemd timers; panel install from `netcup-panel`) |
+| Secrets / budgets | `/opt/boxlore-sync/.env` (never commit) |
+| Run logs | `/opt/boxlore-sync/logs/runs/` |
+| Local Turso / Qdrant | `/opt/boxlore-stack` |
 
-Still run on PRs (not ruleset-required): SonarCloud App, CodeRabbit App status, Gitleaks.
+**Deploy rule:** after changing `scripts/sync/` or `scripts/package.json`, **redeploy into `/opt/boxlore-sync/repo`** (rsync/pull) or the live job keeps old code. GitHub is deploy source of truth; **`repo` is the runner**. Ignore `/opt/boxlore-sync/boxlore-src` for cron — only `repo` matters.
 
-Agent / maintainer flow:
+### Tagged files
 
-1. Open and iterate the PR (unit suite cancels prior runs; Sonar/CodeRabbit/Gitleaks also run).
-2. Wait for **`testDebugUnitTest`** and **`coderabbit-threads-resolved`** green.
-3. Address **every** CodeRabbit finding and mark each CodeRabbit thread **Resolved**. After resolving without a push, re-run **CodeRabbit Threads Resolved** (`workflow_dispatch` with `pr_number`).
-4. If review decision is **`CHANGES_REQUESTED`**: **stop** — do not dismiss, do not merge. Ask the user to merge (or dismiss) manually.
-5. Otherwise squash-merge the PR when required checks are green.
-6. Optional: Actions → Run workflow (`Unit Tests`) for a manual full gate.
+| Path | Role |
+| :--- | :--- |
+| `scripts/sync/lib/config.js` | Countries, tiers, check cadence, embed provider, budgets |
+| `scripts/sync/01-…` … `07-…` | Staged pipeline |
+| `scripts/sync/lib/turso.js` + `turso-page.js` | Page large SELECTs (`RESPONSE_TOO_LARGE`) |
+| `scripts/sync/lib/staleness.js` / `episode-caps.js` | Core vs relaxed checks; per-storefront caps |
+| `scripts/sync/lib/embedder.js` / `scalars.js` / `podcast-index.js` | `bge` vs `qwen`; scrub non-scalars; PI rate-limit failsafes |
+| `scripts/package.json` | Sync Node deps + `npm run test:sync` |
 
-**Title skips (when appropriate only):**
+### Checklist
 
-- `[skip unit]` in the PR title — no-ops the unit suite on PR (still reports green). **Only** for safe docs/chore with no logic risk.
-- `[skip changelog]` — skips changelog-on-merge (e.g. `release: vX.Y.Z [skip changelog]`).
+1. Read [`scripts/README.md`](scripts/README.md) + current `config.js` country list.
+2. Run `npm run test:sync` from `scripts/` when touching sync lib logic.
+3. Keep large Turso reads on `fetchAllPaged` / country×category pages.
+4. When asked to ship: commit/push **and** deploy to `/opt/boxlore-sync/repo`, then verify on the VPS.
+5. Never commit sync `.env` / PI / Turso / Telegram secrets.
 
-**Bot bypass:** **boxlore-master-pusher** (GitHub App 4340323) and organization admins bypass the ruleset so scheduled workflows can push chore commits to `master` directly. Never remove that Integration bypass.
+## Large refactors / P1 batches (hard stop)
 
-Do **not** hand-edit `CHANGELOG.md` or README Upcoming / What's New marker regions before merge — changelog-on-merge owns those (labels help prioritize README / notifications).
+For large refactors or multi-issue P1 batches: **propose in plain English → wait for explicit user OK → then branch and code**. Do not start implementation on approval-shaped silence. Details: [`.cursor/rules/p1-workflow.mdc`](.cursor/rules/p1-workflow.mdc).
 
-## PR title (required)
+## Default local loop
 
-Use Conventional Commits only:
+After UI / app-behavior changes: `./gradlew installDebug` on a connected device when available. Do not run device automation (taps, screenshots, layout dumps) unless the user asks. Gradle must use the real `GRADLE_USER_HOME` — see [`.cursor/rules/gradle-no-sandbox.mdc`](.cursor/rules/gradle-no-sandbox.mdc).
 
-- `feat(scope): …` / `fix(scope): …` / `chore: …` / `docs: …` / `release: vX.Y.Z [skip changelog]`
-- Never open or leave a PR with a sentence-case title (e.g. `Polish the announcement dialog`).
+## Cursor Cloud specific instructions
 
-## Agent checklist
+boxlore is a single-product **Android app** (Kotlin, multi-module Gradle: `:app`, `:core:*`, `:feature:*`). There is no server to run — "running" the product means building the debug APK and launching it on an Android emulator. The "smart" backend (search/recommendations/briefing) is a private external service and is not in this repo; without it the app still works as a standard podcast client (offline library, RSS, OPML).
 
-1. Before `gh pr create`, set a Conventional Commit title and choose exactly one of `user-impact-high|medium|low` or `no-user-impact`.
-2. Add `backend-change` when the PR also touches backend/proxy/infra.
-3. Do not open a PR without a user-impact level label.
-4. Never apply two user-impact level labels on the same PR.
-5. If the label is `user-impact-high` or `user-impact-medium`, the PR body **must** include **Listener impact → What changes in the user’s life** in plain listener language (not just engineering bullets). Skip that section only for `user-impact-low` or `no-user-impact`.
-6. If a PR title violates Conventional Commits, rename it with `gh pr edit <n> --title "type(scope): …"` before merge.
-7. Before merging: confirm **`testDebugUnitTest`** + **`coderabbit-threads-resolved`** are green, every CodeRabbit thread is Resolved, and review decision is **not** `CHANGES_REQUESTED`. If it is `CHANGES_REQUESTED`, stop and ask the user to merge manually.
+### Environment (already provisioned in the snapshot)
+- JDK 17 at `/usr/lib/jvm/java-17-openjdk-amd64` (the repo requires 17; the base image also ships JDK 21 — do not let Gradle pick 21).
+- Android SDK at `~/Android/Sdk` with `platform-tools`, `build-tools;36.0.0`, `platforms;android-36`, `emulator`, and system images `android-34;google_apis;x86_64` and `android-34;default;x86_64`.
+- `~/.bashrc` exports `JAVA_HOME`, `ANDROID_HOME`, `ANDROID_SDK_ROOT`, and `PATH`. New non-login shells may not source it — if `java -version` shows 21 or `sdkmanager` is missing, `source ~/.bashrc` first.
+- The update script runs `scripts/ci/write-cloud-agent-local-config.sh`, which writes `local.properties` (`sdk.dir`) and a non-secret stub `app/google-services.json`. Both are gitignored and are NOT secrets.
+
+### Build / test / lint (no device needed)
+Standard commands, all via the Gradle wrapper (see also `.github/workflows/unit-tests.yml`):
+- Build debug APK: `./gradlew assembleDebug` (first run downloads Gradle 9.6.1 + deps, ~4–5 min).
+- Unit tests: `./gradlew testDebugUnitTest --continue`
+- Lint: `./gradlew detekt ktlintCheck lintDebug`
+- Coverage floor / dep guard: `./gradlew :koverVerifyMerged :app:dependencyGuard`
+- Optional local screenshot goldens (not CI-gated): `./gradlew :feature:home:recordRoborazziDebug` → PNGs under `screenshots/baselines/`.
+
+### Running the app on the emulator (non-obvious gotchas)
+- There is **no `/dev/kvm`** here, so the emulator runs with software CPU emulation (`-no-accel -gpu swiftshader_indirect -no-window`). It is usable but very slow: boot takes several minutes and the starved CPU triggers frequent system-wide "System UI / Process system isn't responding" ANR dialogs. These are environment slowness, not app bugs — dismiss with "Wait" and give screens 60–90s to settle.
+- Prefer the lighter **AOSP image** (`system-images;android-34;default;x86_64`, AVD `boxlore_aosp`) over `google_apis`: Play Services background work on the google_apis image makes ANRs much worse.
+- After install, run `adb shell cmd package compile -m speed -f cx.aswin.boxlore` to AOT-compile — this removes the runtime class-verification overhead that otherwise causes a playback-service ANR on the slow CPU.
+- The launcher activity is `cx.aswin.boxlore/.MainActivity`.
+- **The app requires a syntactically valid `BOXLORE_API_BASE_URL` to launch.** `PodcastRepository` eagerly builds a Retrofit client from it, so an empty value (the default in the stub config) crashes at startup with `IllegalArgumentException: Expected URL scheme 'http' or 'https'`. To launch the UI offline, add to `local.properties`: `BOXLORE_API_BASE_URL=https://api.boxlore.example` (and optionally `BOXLORE_PUBLIC_KEY=demo-placeholder-key`), then rebuild. With a placeholder URL, backend-dependent screens (Explore search, Lore/curiosity, briefing) show graceful "failed to load" states; offline features (onboarding, Library/Downloads, RSS/OPML) work normally. For real backend functionality, set the private `BOXLORE_API_BASE_URL`/`BOXLORE_PUBLIC_KEY` as secrets.
 
 ---
 > Source: [boxcreate/boxlore](https://github.com/boxcreate/boxlore) — distributed by [TomeVault](https://tomevault.io).
