@@ -7,11 +7,11 @@ Benchmark abierto en español de 170 modelos de IA (118 con 20+ runs, 69 rankead
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ctala/ai-benchmarks-alternativos](https://github.com/ctala/ai-benchmarks-alternativos).
+Original source: `AGENTS.md` in [ctala/ai-benchmarks-alternativos](https://github.com/ctala/ai-benchmarks-alternativos).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
