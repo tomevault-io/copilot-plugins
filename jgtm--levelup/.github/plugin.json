@@ -1,0 +1,9 @@
+{
+  "name": "jgtm--levelup",
+  "displayName": "LevelUp",
+  "description": "Halo 5 & Halo Infinite stats dashboard: match history, rends, medals & commendations, medias, sessions & teammates. Powered by Go, DuckDB, React, and ECharts. Supports friends groups, multi-language (",
+  "version": "1.0.0",
+  "author": "JGtm",
+  "homepage": "https://github.com/JGtm/LevelUp",
+  "skills": []
+}
