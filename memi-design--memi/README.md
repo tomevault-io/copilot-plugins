@@ -7,11 +7,11 @@ The design layer for agentic AI — design context, interface checks, and verifi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [memi-design/memi](https://github.com/memi-design/memi).
+Original source: `CLAUDE.md` in [memi-design/memi](https://github.com/memi-design/memi).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
