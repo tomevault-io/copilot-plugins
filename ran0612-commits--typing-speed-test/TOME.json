@@ -4,7 +4,7 @@
   "repo": "typing-speed-test",
   "description": "typing speed test website",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ran0612-commits/typing-speed-test",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T09:31:53Z"
+  "distributed_at": "2026-08-12T09:41:25Z"
 }
