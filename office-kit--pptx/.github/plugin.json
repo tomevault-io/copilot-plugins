@@ -1,0 +1,9 @@
+{
+  "name": "office-kit--pptx",
+  "displayName": "pptx",
+  "description": "A JavaScript library for PowerPoint (PPTX) files",
+  "version": "1.0.0",
+  "author": "office-kit",
+  "homepage": "https://github.com/office-kit/pptx",
+  "skills": []
+}
