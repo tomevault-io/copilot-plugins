@@ -1,0 +1,9 @@
+{
+  "name": "xzxzzx-ai--bilibili-mcp",
+  "displayName": "bilibili-mcp",
+  "description": "Bilibili MCP\u5de5\u5177(\u83b7\u53d6\u89c6\u9891\u5b57\u5e55\u548c\u8bc4\u8bba)                  A Bilibili MCP server for retrieving video subtitles and comments.",
+  "version": "1.0.0",
+  "author": "XZXZZX-Ai",
+  "homepage": "https://github.com/XZXZZX-Ai/bilibili-mcp",
+  "skills": []
+}
