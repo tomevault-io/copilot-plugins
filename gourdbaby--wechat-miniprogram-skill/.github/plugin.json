@@ -1,0 +1,9 @@
+{
+  "name": "gourdbaby--wechat-miniprogram-skill",
+  "displayName": "wechat-miniprogram-skill",
+  "description": "Agent Skill: WeChat Mini Program Expert (Native JS)",
+  "version": "1.0.0",
+  "author": "Gourdbaby",
+  "homepage": "https://github.com/Gourdbaby/wechat-miniprogram-skill",
+  "skills": []
+}
