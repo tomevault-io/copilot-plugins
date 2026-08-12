@@ -1,0 +1,9 @@
+{
+  "name": "eltmon--overdeck",
+  "displayName": "overdeck",
+  "description": "Multi-agent orchestration for AI coding assistants",
+  "version": "1.0.0",
+  "author": "eltmon",
+  "homepage": "https://github.com/eltmon/overdeck",
+  "skills": []
+}
