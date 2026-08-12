@@ -7,11 +7,11 @@ Check Claude and Codex API usage limits from the terminal
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [drogers0/aistat](https://github.com/drogers0/aistat).
+Original source: `CLAUDE.md` in [drogers0/aistat](https://github.com/drogers0/aistat).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
