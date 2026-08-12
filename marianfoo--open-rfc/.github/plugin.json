@@ -1,0 +1,9 @@
+{
+  "name": "marianfoo--open-rfc",
+  "displayName": "open-rfc",
+  "description": "open-rfc is an SDK-free TypeScript and JavaScript client for SAP classic synchronous RFC on Node.js.",
+  "version": "1.0.0",
+  "author": "marianfoo",
+  "homepage": "https://github.com/marianfoo/open-rfc",
+  "skills": []
+}
