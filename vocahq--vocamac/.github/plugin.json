@@ -1,0 +1,9 @@
+{
+  "name": "vocahq--vocamac",
+  "displayName": "vocamac",
+  "description": "Open-source, offline voice-to-text for macOS. Hold a hotkey, speak, text appears. 100% private, powered by WhisperKit",
+  "version": "1.0.0",
+  "author": "VocaHQ",
+  "homepage": "https://github.com/VocaHQ/vocamac",
+  "skills": []
+}
