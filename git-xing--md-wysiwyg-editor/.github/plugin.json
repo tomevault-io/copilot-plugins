@@ -1,0 +1,9 @@
+{
+  "name": "git-xing--md-wysiwyg-editor",
+  "displayName": "md-wysiwyg-editor",
+  "description": "WYSIWYG Markdown editor for VS Code, powered by Milkdown (ProseMirror). Edit .md files as rich text, save as standard Markdown.",
+  "version": "1.0.0",
+  "author": "git-xing",
+  "homepage": "https://github.com/git-xing/md-wysiwyg-editor",
+  "skills": []
+}
