@@ -4,7 +4,7 @@
   "repo": "claude-vibe-squad",
   "description": "Markdown-first multi-model AI orchestration in one tmux session. A single coordinator (Chrono) routes scoped markdown task packets across 4 frontier model lanes (GPT-5.6 Sol / Claude Opus 5 + Fable 5 / Gemini 3.5 / Kimi K3) and 73 role-based specialists \u2014 with cross-family review gates, git-snapshot safety rails, and no server. Dogfooded.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mtarcure/claude-vibe-squad",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T06:38:22Z"
+  "distributed_at": "2026-08-12T13:02:07Z"
 }
