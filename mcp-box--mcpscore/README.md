@@ -7,11 +7,11 @@ Lighthouse for MCP — score any MCP server 0–100.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mcp-box/mcpscore](https://github.com/mcp-box/mcpscore).
+Original source: `AGENTS.md` in [mcp-box/mcpscore](https://github.com/mcp-box/mcpscore).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
