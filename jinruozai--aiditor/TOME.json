@@ -4,7 +4,7 @@
   "repo": "aiditor",
   "description": "A pure frontend UI framework for building editors, with built-in AI Agent capabilities.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jinruozai/aiditor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T11:18:20Z"
+  "distributed_at": "2026-08-12T11:21:47Z"
 }
