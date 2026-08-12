@@ -1,0 +1,9 @@
+{
+  "name": "plotjuggler--plotjuggler-sdk",
+  "displayName": "plotjuggler_sdk",
+  "description": "SDK to create PlotJuggler 4 plugins",
+  "version": "1.0.0",
+  "author": "PlotJuggler",
+  "homepage": "https://github.com/PlotJuggler/plotjuggler_sdk",
+  "skills": []
+}
