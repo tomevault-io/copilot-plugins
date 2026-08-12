@@ -1,0 +1,9 @@
+{
+  "name": "decodo--cli",
+  "displayName": "cli",
+  "description": "The official Decodo web scraper CLI for terminal web scraping and AI agent workflows.",
+  "version": "1.0.0",
+  "author": "Decodo",
+  "homepage": "https://github.com/Decodo/cli",
+  "skills": []
+}
