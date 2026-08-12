@@ -7,11 +7,11 @@ A pure frontend UI framework for building editors, with built-in AI Agent capabi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jinruozai/aiditor](https://github.com/jinruozai/aiditor).
+Original source: `AGENTS.md` in [jinruozai/aiditor](https://github.com/jinruozai/aiditor).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
