@@ -1,44 +1,142 @@
-## publishing
+## slots
 
-> Origin publishes to GitHub Packages on release.
+> All components must work as render targets for Base UI's `render` prop.
 
-# Publishing
+# Slot-Compatible Components
 
-Origin publishes to GitHub Packages on release.
+All components must work as render targets for Base UI's `render` prop.
 
-## When to Publish
+## Requirements
 
-- After component additions/changes ready for consumption
-- After token updates
-- After bug fixes affecting consumers
+Every component must:
 
-## How to Publish
+1. **Use `forwardRef`** — refs must reach the DOM element
+2. **Extend HTML props** — use `React.ComponentPropsWithoutRef<'element'>`
+3. **Spread rest props** — `{...props}` on root element
+4. **Merge classNames** — combine internal + external with `clsx`
 
-```bash
-npm version patch  # or minor/major
-git push && git push --tags
-gh release create vX.Y.Z --title "vX.Y.Z" --generate-notes
+## Pattern
+
+```tsx
+import * as React from 'react';
+import clsx from 'clsx';
+import styles from './Component.module.scss';
+
+export interface ComponentProps extends React.ComponentPropsWithoutRef<'div'> {
+  variant?: 'primary' | 'secondary';
+}
+
+export const Component = React.forwardRef<HTMLDivElement, ComponentProps>(
+  function Component({ variant = 'primary', className, children, ...props }, ref) {
+    return (
+      <div
+        ref={ref}
+        className={clsx(styles.root, styles[variant], className)}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
+);
 ```
 
-## Before Publishing
+## Base UI Wrappers
 
-- Verify build passes: `npm run build`
-- Verify tests pass: `npm run test:unit`
-- Update the consuming product's dependency version after publishing
+Components wrapping Base UI primitives inherit `render` prop support automatically:
 
-## Version Guidelines
+```tsx
+export interface TriggerProps extends BaseComponent.Trigger.Props {}
 
-- **patch** (0.0.X): Bug fixes, minor style tweaks
-- **minor** (0.X.0): New components, new features, non-breaking changes
-- **major** (X.0.0): Breaking API changes, major refactors
+export const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(
+  function Trigger(props, ref) {
+    return <BaseComponent.Trigger ref={ref} {...props} />;
+  }
+);
+```
 
-## After Publishing
+## Context Provider Components
 
-In the consuming product, update to the new version:
+Some Base UI parts are **context providers** that don't render their own element:
 
 ```bash
-npm install @lightsparkdev/origin@latest
+# Check the type definition
+cat node_modules/@base-ui/react/combobox/value/ComboboxValue.d.ts
+
+# Context provider - no ForwardRefExoticComponent, no RefAttributes
+export declare function ComboboxValue(props: Props): ReactElement
 ```
+
+These **cannot** forward refs or accept className. Wrap them in your own element:
+
+```tsx
+// ✗ WRONG - Value doesn't accept ref or className
+export const Value = React.forwardRef<HTMLSpanElement, ValueProps>(
+  function Value({ className, ...props }, ref) {
+    return <BaseCombobox.Value ref={ref} className={className} {...props} />;
+  }
+);
+
+// ✓ CORRECT - Wrap in span to provide ref/className support
+export const Value = React.forwardRef<HTMLSpanElement, ValueProps>(
+  function Value({ className, children, ...props }, ref) {
+    return (
+      <span ref={ref} className={className} {...props}>
+        <BaseCombobox.Value>{children}</BaseCombobox.Value>
+      </span>
+    );
+  }
+);
+```
+
+## When to use `useRender`
+
+Only use `useRender` from Base UI when building custom compound components that need to provide their own `render` prop. Most design system components don't need this — they just need to BE render targets.
+
+```tsx
+// Only if your component needs to PROVIDE a render prop
+import { useRender } from '@base-ui-components/react/use-render';
+```
+
+## Verification
+
+Use conformance tests to verify slot compatibility. Add to component tests:
+
+```tsx
+import { createConformanceTests } from '@/test-utils';
+
+const conformance = createConformanceTests({
+  Component: MyComponent,
+  requiredProps: { /* minimum props to render */ },
+  expectedTag: 'div',
+});
+
+test.describe('MyComponent conformance', () => {
+  test('forwards props', async ({ mount, page }) => {
+    await mount(<conformance.PropForwarding />);
+    await expect(page.getByTestId(conformance.testId)).toHaveAttribute('data-custom', 'custom-value');
+  });
+
+  test('forwards ref', async ({ mount, page }) => {
+    await mount(<conformance.RefForwarding />);
+    await expect(page.getByTestId(conformance.testId)).toBeVisible();
+  });
+
+  test('merges className', async ({ mount, page }) => {
+    await mount(<conformance.ClassNameString />);
+    await expect(page.getByTestId(conformance.testId)).toHaveClass(/custom-class-name/);
+  });
+});
+```
+
+## Checklist
+
+- [ ] Uses `forwardRef`
+- [ ] Extends `React.ComponentPropsWithoutRef<'element'>`
+- [ ] Spreads `{...props}` on root element
+- [ ] Merges `className` with `clsx`
+- [ ] **Base UI wrapper**: Checked if context provider (wrap in element if so)
+- [ ] Conformance tests pass
 
 ---
 > Source: [lightsparkdev/origin](https://github.com/lightsparkdev/origin) — distributed by [TomeVault](https://tomevault.io).
