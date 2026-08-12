@@ -1,0 +1,9 @@
+{
+  "name": "fritzhand--geo-landing-page",
+  "displayName": "geo-landing-page",
+  "description": "GEO-optimized landing page template for startups. Astro 5, Schema.org JSON-LD, auto-generated llms.txt, FAQ microdata, AI crawler support. Fork, customize with any AI coding tool, deploy to Vercel.",
+  "version": "1.0.0",
+  "author": "fritzhand",
+  "homepage": "https://github.com/fritzhand/geo-landing-page",
+  "skills": []
+}
