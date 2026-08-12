@@ -1,0 +1,9 @@
+{
+  "name": "denysdovhan--agents",
+  "displayName": "agents",
+  "description": "A collection of custom skills for my workflows with AI-agents",
+  "version": "1.0.0",
+  "author": "denysdovhan",
+  "homepage": "https://github.com/denysdovhan/agents",
+  "skills": []
+}
