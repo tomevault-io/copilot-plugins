@@ -1,0 +1,9 @@
+{
+  "name": "piotrtrzpil--markdown-diff-viewer",
+  "displayName": "markdown-diff-viewer",
+  "description": "Side-by-side rich diff viewer for Markdown files. Compare documents with intelligent block-level and character-level diffing, rendered in an interactive browser UI.",
+  "version": "1.0.0",
+  "author": "PiotrTrzpil",
+  "homepage": "https://github.com/PiotrTrzpil/markdown-diff-viewer",
+  "skills": []
+}
