@@ -1,0 +1,9 @@
+{
+  "name": "xpiatio--hearthwave",
+  "displayName": "Hearthwave",
+  "description": "GMRS family hub for home server. Any household member connects   from their phone or tablet \u2014 no install. Whisper STT transcribes incoming   transmissions; Piper TTS synthesizes outgoing messages with",
+  "version": "1.0.0",
+  "author": "Xpiatio",
+  "homepage": "https://github.com/Xpiatio/Hearthwave",
+  "skills": []
+}
