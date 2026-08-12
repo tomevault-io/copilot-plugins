@@ -1,0 +1,9 @@
+{
+  "name": "beeblastco--broods",
+  "displayName": "broods",
+  "description": "Serverless agent orchestrator",
+  "version": "1.0.0",
+  "author": "beeblastco",
+  "homepage": "https://github.com/beeblastco/broods",
+  "skills": []
+}
