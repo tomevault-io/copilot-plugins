@@ -1,0 +1,88 @@
+## fzip
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+fzip is a high-performance compression library for MoonBit, ported from the JavaScript [fflate](https://github.com/101arrowz/fflate) library. It implements DEFLATE, GZIP, Zlib, and ZIP formats in a single flat package (`hustcer/fzip`).
+
+## Build & Test Commands
+
+```bash
+moon check              # Type check (fast, run after every edit)
+moon build              # Full build
+moon test               # Run all tests (130+ tests)
+moon test -v            # Verbose with test names
+moon test deflate_wbtest.mbt --filter "deflate*"  # Run specific tests
+moon fmt                # Format all code
+moon info               # Regenerate pkg.generated.mbti (public API summary)
+```
+
+Validation loop: `moon check` → `moon test` → `moon fmt` → `moon info`
+
+## Directory Structure
+
+Source code lives under `src/` (configured via `"source": "src"` in `moon.mod.json`). Single-package design — all `.mbt` files in `src/` share the same scope. No imports needed.
+
+## Architecture
+
+### Data Flow (compression)
+
+```
+raw data → dflt() [LZ77 + Huffman] → raw DEFLATE bits
+         → deflate_sync()           (DEFLATE wrapper)
+         → gzip_sync()              (+ GZIP header/CRC-32 footer)
+         → zlib_sync()              (+ Zlib header/Adler-32 footer)
+         → zip_sync()               (+ ZIP local headers/central directory/EOCD)
+```
+
+### Data Flow (decompression)
+
+```
+compressed → inflt() [block decoder] → raw data
+           → inflate_sync()           (DEFLATE wrapper)
+           → gunzip_sync()            (validates GZIP header/footer)
+           → unzlib_sync()            (validates Zlib header/footer)
+           → unzip_sync()             (parses ZIP structure)
+           → decompress_sync()        (auto-detects format: GZIP/Zlib/raw)
+```
+
+### File Responsibilities
+
+| File               | Role                                                                                                                                          |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/bits.mbt`     | Bit-level I/O (`bits`, `bits16`, `wbits`, `wbits16`), byte readers (`b2`/`b4`/`b8`), buffer helpers (`slc`, `fa_set`)                         |
+| `src/tables.mbt`   | DEFLATE constant lookup tables (`fleb`, `fdeb`, `clim`, `rev`, `flt`, `fdt`, `deo`)                                                           |
+| `src/huffman.mbt`  | Huffman tree construction (`h_map`, `h_tree`, `freb`, `lc_gen`, `clen`); derived tables (`fl`, `fd`, `flm`, `fdm` and their reverse variants) |
+| `src/deflate.mbt`  | Core compressor: `dflt()` (LZ77 hash chain + Huffman), `wblk()`/`wfblk()` block writers, `dopt()`, public `deflate_sync()`                    |
+| `src/inflate.mbt`  | Core decompressor: `inflt()` (~280 lines, handles stored/fixed/dynamic blocks), `ensure_buf()`, public `inflate_sync()`                       |
+| `src/gzip.mbt`     | GZIP format: header write/parse (`gzh`/`gzs`), `gzip_sync()`, `gunzip_sync()`                                                                 |
+| `src/zlib.mbt`     | Zlib format: header write/parse (`zlh`/`zls`), `zlib_sync()`, `unzlib_sync()`                                                                 |
+| `src/zip.mbt`      | ZIP format: local/central headers (`wzh`/`wzf`/`zh`/`slzh`), ZIP64 (`z64e`), `zip_sync()`, `unzip_sync()`, `unzip_list()`                     |
+| `src/checksum.mbt` | CRC-32 and Adler-32 (both one-shot and incremental state)                                                                                     |
+| `src/string.mbt`   | UTF-8 ↔ String conversion (`str_to_u8`, `str_from_u8`) with latin1 mode                                                                       |
+| `src/stream.mbt`   | Streaming wrappers: `DeflateStream`, `InflateStream`, `GzipStream`, `GunzipStream`, `ZlibStream`, `UnzlibStream`, `DecompressStream`          |
+| `src/fzip.mbt`     | Convenience API: `compress_sync()` (= gzip), `decompress_sync()` (auto-detect)                                                                |
+| `src/error.mbt`    | `FzipErrorCode` enum (16 codes), `FzipError` suberror, `fzip_err()` helper                                                                    |
+| `src/types.mbt`    | Option structs with `::default()` methods; includes `verify_checksum` for optional checksum verification                                      |
+
+### Key Internal Patterns
+
+- **Buffer type**: `FixedArray[Byte]` everywhere (MoonBit equivalent of JS `Uint8Array`). Fixed size — use `ensure_buf()` or allocate new + `blit_to()` to grow.
+- **`slc()` copies**: Unlike JS `subarray` (zero-copy view), `slc()` always allocates a new array.
+- **Unsigned operations**: CRC-32/Adler-32 use `UInt` with `reinterpret_as_uint()`/`reinterpret_as_int()` for unsigned semantics.
+- **Symbol encoding in `dflt()`**: Match length+distance packed as `268435456 | (revfl[l] << 18) | revfd[d]`.
+- **Error pattern**: Internal code uses `raise fzip_err(ErrorCode)` to throw; decompression functions declare `raise FzipError`.
+
+### Test Organization
+
+- `*_wbtest.mbt` — White-box tests (can access private functions like `bits`, `inflt`, `slc`)
+- `roundtrip_test.mbt` — Black-box roundtrip tests across all formats
+
+---
+> Source: [hustcer/fzip](https://github.com/hustcer/fzip) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-11 -->
