@@ -1,0 +1,9 @@
+{
+  "name": "nzrsky--zig-skills",
+  "displayName": "zig-skills",
+  "description": "Zig SKILLS for AI agents",
+  "version": "1.0.0",
+  "author": "nzrsky",
+  "homepage": "https://github.com/nzrsky/zig-skills",
+  "skills": []
+}
