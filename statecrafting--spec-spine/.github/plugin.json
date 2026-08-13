@@ -1,0 +1,9 @@
+{
+  "name": "statecrafting--spec-spine",
+  "displayName": "spec-spine",
+  "description": "A typed, hash-verifiable ledger of who-owns-what, sitting underneath a codebase so that many agents (or people) can work in parallel without trampling each other.",
+  "version": "1.0.0",
+  "author": "statecrafting",
+  "homepage": "https://github.com/statecrafting/spec-spine",
+  "skills": []
+}
