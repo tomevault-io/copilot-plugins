@@ -1,0 +1,9 @@
+{
+  "name": "pigontech--inkvoice",
+  "displayName": "inkvoice",
+  "description": "Self-hostable open-source invoicing for freelancers & small teams \u2014 invoices, online payments, expenses, multi-currency & reports. Bun + Hono + React.",
+  "version": "1.0.0",
+  "author": "pigontech",
+  "homepage": "https://github.com/pigontech/inkvoice",
+  "skills": []
+}
