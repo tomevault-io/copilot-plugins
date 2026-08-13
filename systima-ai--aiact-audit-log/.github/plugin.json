@@ -1,0 +1,9 @@
+{
+  "name": "systima-ai--aiact-audit-log",
+  "displayName": "aiact-audit-log",
+  "description": "Structured, tamper-evident audit logging for AI systems \u2014 Article 12 EU AI Act compliance infrastructure",
+  "version": "1.0.0",
+  "author": "systima-ai",
+  "homepage": "https://github.com/systima-ai/aiact-audit-log",
+  "skills": []
+}
