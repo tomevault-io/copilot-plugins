@@ -1,0 +1,9 @@
+{
+  "name": "abhishekbarali--speakoflow",
+  "displayName": "SpeakoFlow",
+  "description": "Free, open-source offline voice dictation for Windows, macOS, and Linux. A Wispr Flow alternative with an AI assistant that can read your screen on request and answer questions.",
+  "version": "1.0.0",
+  "author": "AbhishekBarali",
+  "homepage": "https://github.com/AbhishekBarali/SpeakoFlow",
+  "skills": []
+}
