@@ -1,0 +1,9 @@
+{
+  "name": "nishantdesai--codex-history",
+  "displayName": "codex-history",
+  "description": "Read-only CLI for searching, inspecting, and exporting entire local Codex session history.",
+  "version": "1.0.0",
+  "author": "nishantdesai",
+  "homepage": "https://github.com/nishantdesai/codex-history",
+  "skills": []
+}
