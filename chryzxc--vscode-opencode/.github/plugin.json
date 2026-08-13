@@ -1,0 +1,9 @@
+{
+  "name": "chryzxc--vscode-opencode",
+  "displayName": "vscode-opencode",
+  "description": "OpenCode VS Code extension with AI chat, interactive implementation plans and questions, coding agents, subagent tracking, session history, and quota monitoring.",
+  "version": "1.0.0",
+  "author": "chryzxc",
+  "homepage": "https://github.com/chryzxc/vscode-opencode",
+  "skills": []
+}
