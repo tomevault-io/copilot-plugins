@@ -1,0 +1,9 @@
+{
+  "name": "dappcore--php-admin",
+  "displayName": "php-admin",
+  "description": "Core ecosystem \u2014 php-admin",
+  "version": "1.0.0",
+  "author": "dAppCore",
+  "homepage": "https://github.com/dAppCore/php-admin",
+  "skills": []
+}
