@@ -1,0 +1,9 @@
+{
+  "name": "jianzhnie--mini-vllm",
+  "displayName": "mini-vllm",
+  "description": "A compact implementation of vLLM, designed to demystify the complexities of modern LLM serving systems.",
+  "version": "1.0.0",
+  "author": "jianzhnie",
+  "homepage": "https://github.com/jianzhnie/mini-vllm",
+  "skills": []
+}
