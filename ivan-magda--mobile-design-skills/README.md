@@ -7,11 +7,11 @@ Mobile design skills for iOS (Liquid Glass) and Android (M3 Expressive) that hel
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ivan-magda/mobile-design-skills](https://github.com/ivan-magda/mobile-design-skills).
+Original source: `CLAUDE.md` in [ivan-magda/mobile-design-skills](https://github.com/ivan-magda/mobile-design-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
