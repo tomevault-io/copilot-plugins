@@ -1,0 +1,9 @@
+{
+  "name": "kkokosa--repl-mcp",
+  "displayName": "repl-mcp",
+  "description": "Interactive REPL for testing Model Context Protocol (MCP) servers",
+  "version": "1.0.0",
+  "author": "kkokosa",
+  "homepage": "https://github.com/kkokosa/repl-mcp",
+  "skills": []
+}
