@@ -1,0 +1,9 @@
+{
+  "name": "tigregotico--tugamorph",
+  "displayName": "tugamorph",
+  "description": "A rule-based morphological analyzer for Portuguese. Segments words into prefixes, roots, suffixes, verbal inflections, and clitics, and produces structured analyses suitable for NLP pipelines, linguis",
+  "version": "1.0.0",
+  "author": "TigreGotico",
+  "homepage": "https://github.com/TigreGotico/tugamorph",
+  "skills": []
+}
