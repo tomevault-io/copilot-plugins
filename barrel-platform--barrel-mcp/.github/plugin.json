@@ -1,0 +1,9 @@
+{
+  "name": "barrel-platform--barrel-mcp",
+  "displayName": "barrel_mcp",
+  "description": "MCP (Model Context Protocol) server library for Erlang",
+  "version": "1.0.0",
+  "author": "barrel-platform",
+  "homepage": "https://github.com/barrel-platform/barrel_mcp",
+  "skills": []
+}
