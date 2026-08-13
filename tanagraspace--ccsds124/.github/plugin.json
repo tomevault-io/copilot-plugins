@@ -1,0 +1,9 @@
+{
+  "name": "tanagraspace--ccsds124",
+  "displayName": "ccsds124",
+  "description": "Multi-language implementations of CCSDS 124.0-B-1 in C, C++, Python, Go, Rust, and Java. The lossless compression standard for fixed-length spacecraft housekeeping telemetry, based on ESA's patented P",
+  "version": "1.0.0",
+  "author": "tanagraspace",
+  "homepage": "https://github.com/tanagraspace/ccsds124",
+  "skills": []
+}
