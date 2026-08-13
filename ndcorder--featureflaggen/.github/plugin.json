@@ -1,0 +1,9 @@
+{
+  "name": "ndcorder--featureflaggen",
+  "displayName": "FeatureFlagGen",
+  "description": "Source generator for strongly-typed feature flags from appsettings.json \u2014 no more magic strings",
+  "version": "1.0.0",
+  "author": "ndcorder",
+  "homepage": "https://github.com/ndcorder/FeatureFlagGen",
+  "skills": []
+}
