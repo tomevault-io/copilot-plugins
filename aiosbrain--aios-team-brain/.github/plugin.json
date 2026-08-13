@@ -1,0 +1,9 @@
+{
+  "name": "aiosbrain--aios-team-brain",
+  "displayName": "aios-team-brain",
+  "description": "The shared Team Brain: receives tier-tagged sync from AIOS workspaces and surfaces tasks, decisions, deliverables, and a grounded natural-language query over the team's shared memory. Next.js + Postgr",
+  "version": "1.0.0",
+  "author": "aiosbrain",
+  "homepage": "https://github.com/aiosbrain/aios-team-brain",
+  "skills": []
+}
