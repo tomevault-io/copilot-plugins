@@ -1,0 +1,9 @@
+{
+  "name": "jkowall--livephish-downloader",
+  "displayName": "LivePhish-Downloader",
+  "description": "A browser-automation tool for downloading your LivePhish playlists and Stash content.",
+  "version": "1.0.0",
+  "author": "jkowall",
+  "homepage": "https://github.com/jkowall/LivePhish-Downloader",
+  "skills": []
+}
