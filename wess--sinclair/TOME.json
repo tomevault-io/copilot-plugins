@@ -1,0 +1,44 @@
+{
+  "name": "sinclair",
+  "owner": "wess",
+  "repo": "sinclair",
+  "description": "The terminal your agent team lives in \u2014 run coding agents in panes on a shared bus, on a fast GPU-rendered terminal for macOS and Linux.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wess/sinclair",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T19:05:08Z"
+}
