@@ -1,0 +1,9 @@
+{
+  "name": "crunchtools--mcp-trentina",
+  "displayName": "mcp-trentina",
+  "description": "Secure MCP server for quarantined web content extraction \u2014 two-layer defense against prompt injection",
+  "version": "1.0.0",
+  "author": "crunchtools",
+  "homepage": "https://github.com/crunchtools/mcp-trentina",
+  "skills": []
+}
