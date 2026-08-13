@@ -1,0 +1,9 @@
+{
+  "name": "aryancodes-tech--my-memos",
+  "displayName": "my-memos",
+  "description": "A local-first, Notion-inspired Browser New Tab extension for notes, knowledge management, and study tracking, powered by IndexedDB, rich-text editing, markdown, and full-text search.",
+  "version": "1.0.0",
+  "author": "aryancodes-tech",
+  "homepage": "https://github.com/aryancodes-tech/my-memos",
+  "skills": []
+}
