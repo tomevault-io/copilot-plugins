@@ -1,0 +1,9 @@
+{
+  "name": "kodjunkie--nestjs-crud",
+  "displayName": "nestjs-crud",
+  "description": "Build RESTful APIs for NestJS from a single Crud() decorator",
+  "version": "1.0.0",
+  "author": "kodjunkie",
+  "homepage": "https://github.com/kodjunkie/nestjs-crud",
+  "skills": []
+}
