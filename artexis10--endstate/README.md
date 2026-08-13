@@ -7,11 +7,11 @@ Open-source engine behind Endstate: reinstall your apps and restore your setting
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Artexis10/endstate](https://github.com/Artexis10/endstate).
+Original source: `CLAUDE.md` in [Artexis10/endstate](https://github.com/Artexis10/endstate).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
