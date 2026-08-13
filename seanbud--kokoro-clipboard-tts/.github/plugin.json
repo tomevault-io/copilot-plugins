@@ -1,0 +1,9 @@
+{
+  "name": "seanbud--kokoro-clipboard-tts",
+  "displayName": "Kokoro-Clipboard-TTS",
+  "description": "A locally run, open-source TTS desktop app. Uses Kokoro-82M AI text-to-speech.",
+  "version": "1.0.0",
+  "author": "seanbud",
+  "homepage": "https://github.com/seanbud/Kokoro-Clipboard-TTS",
+  "skills": []
+}
