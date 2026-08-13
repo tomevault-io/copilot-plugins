@@ -1,17 +1,30 @@
-## favorite-eats-amount-kit
+## favorite-eats-recipe-ingredient-amount-model
 
-> Canonical name for the unified ingredient amount parse + format module
+> Canonical recipe ingredient amount semantics
 
 
-# `favoriteEatsAmountKit` (locked)
+# Recipe Ingredient Amount Model
 
-**Name:** The single “brain” for recipe ingredient amounts—**parsing** messy input into numbers when possible and **formatting** numbers for display—must be called **`favoriteEatsAmountKit`**.
+Recipe ingredient amount semantics live in
+`window.favoriteEatsRecipeIngredientAmountModel` (`js/recipeIngredientAmountModel.js`).
 
-**Exposure:** `window.favoriteEatsAmountKit` — `js/favoriteEatsAmountKit.js`.
+Use this model for:
 
-**Integration:** Load after `js/utils.js` (and ideally `js/unitQuantityFormat.js` for grid glyphs). Load before `js/quantityDisplayPolicy.js` if you want `formatGlyphForAmount` to delegate at first paint; otherwise delegation applies once the kit script has run.
+- recipe editor prefill/display
+- recipe save payload construction
+- Items recipe-derived quantities
+- Shopping List plan-row quantities
 
-**Do not** introduce parallel global names for the same responsibility (e.g. a second “amount brain”). Extend this kit and its tests instead.
+Do **not** add new `quantity_max -> quantity_min -> quantity` precedence logic.
+
+Canonical invariant:
+
+- Scalar quantity wins over stale min/max endpoints.
+- Explicit ranges use endpoint data and shop by max.
+- Plain text amounts clear endpoints and do not produce shopping quantities.
+
+The server boundary must preserve the same invariant via
+`catalog.canonicalize_recipe_amount_columns()` on recipe ingredient tables.
 
 ---
 > Source: [spoonfloor/favorite-eats](https://github.com/spoonfloor/favorite-eats) — distributed by [TomeVault](https://tomevault.io).
