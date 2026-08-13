@@ -1,0 +1,9 @@
+{
+  "name": "nightsailer--wechat-clawbot",
+  "displayName": "wechat-clawbot",
+  "description": "Python SDK for the WeChat ClawBot ilink API, with a built-in multi-user gateway for AI backends (Claude Code, Codex, custom bots).",
+  "version": "1.0.0",
+  "author": "nightsailer",
+  "homepage": "https://github.com/nightsailer/wechat-clawbot",
+  "skills": []
+}
