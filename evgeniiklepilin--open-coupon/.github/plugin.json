@@ -1,9 +1,9 @@
 {
   "name": "evgeniiklepilin--open-coupon",
   "displayName": "open-coupon",
-  "description": "open-coupon",
+  "description": "OpenCoupon - Open-Source Framework for Building Coupon Browser Extensions",
   "version": "1.0.0",
   "author": "EvgeniiKlepilin",
-  "homepage": "https://tomevault.io/claim/EvgeniiKlepilin",
+  "homepage": "https://github.com/EvgeniiKlepilin/open-coupon",
   "skills": []
 }
