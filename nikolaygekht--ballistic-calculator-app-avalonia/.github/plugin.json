@@ -1,0 +1,9 @@
+{
+  "name": "nikolaygekht--ballistic-calculator-app-avalonia",
+  "displayName": "ballistic.calculator.app.avalonia",
+  "description": "Free, open-source ballistic calculator for Windows, Linux and macOS, built on Avalonia UI. 3DOF trajectories with spin drift, aerodynamic jump and Coriolis; standard, measured .drg and approximated dr",
+  "version": "1.0.0",
+  "author": "nikolaygekht",
+  "homepage": "https://github.com/nikolaygekht/ballistic.calculator.app.avalonia",
+  "skills": []
+}
