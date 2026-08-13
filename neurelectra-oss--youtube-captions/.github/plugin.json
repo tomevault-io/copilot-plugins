@@ -1,0 +1,9 @@
+{
+  "name": "neurelectra-oss--youtube-captions",
+  "displayName": "youtube-captions",
+  "description": "YouTube transcript extraction via InnerTube API and channel listing via Data API v3. No API key required for transcripts.",
+  "version": "1.0.0",
+  "author": "neurelectra-oss",
+  "homepage": "https://github.com/neurelectra-oss/youtube-captions",
+  "skills": []
+}
