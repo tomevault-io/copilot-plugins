@@ -1,0 +1,9 @@
+{
+  "name": "ytspar--hetzner-cli",
+  "displayName": "hetzner-cli",
+  "description": "Feature-complete CLI and Node.js library for the Hetzner Robot API (dedicated servers)",
+  "version": "1.0.0",
+  "author": "ytspar",
+  "homepage": "https://github.com/ytspar/hetzner-cli",
+  "skills": []
+}
