@@ -1,13 +1,16 @@
-## api-security
+## backend
 
-> 编辑前后端 API 鉴权/加密时参考——签名顺序、头、加解密
+> 编辑后端代码/脚本时参考——日志、加解密、运行方式
 
 
-# API 安全（按需参考）
+# Backend（按需参考）
 
-- **鉴权**：前后端用租户密钥签名。签名字符串顺序：`{METHOD}{PATH}{timestamp}{nonce}{tenantName}{body}`；头：`X-Tenant-Name`, `X-Timestamp`, `X-Nonce`, `X-Signature`, `X-User-ID`。时间戳 Unix 秒，GET body 空串。实现见 `@/lib/key-loader`、`@/lib/signature` 的 `generateBackendSignature`。
-- **加解密**：敏感凭据加解密存储与传输（`encrypt_data`/`decrypt_data`）；使用前解密，日志不记敏感数据。
-- **ID**：见 api-id-hashid.mdc；返回用 `id_hashid`，不暴露数字主键。
+- **技术栈**：Python 3.11+ / FastAPI / SQLAlchemy 2.0 异步 / PostgreSQL + Redis / Pydantic。
+- **日志**：`get_logger(__name__)`；关键步骤与异常打日志，异常时记录堆栈；不记敏感数据与主键。参考 `app.core.logging`。
+- **加解密**：凭据用 `decrypt_data`/`encrypt_data`（`app.core.security`）；接收加密数据后解密再使用；测试连接时可 try 解密、失败则当明文。
+- **ID**：见 api-id-hashid.mdc；`encode_id` 返回、`decode_id` 接收，不返回数字主键。
+- **运行 Python/脚本**：先 `cd backend` 并 `source .venv/bin/activate`，再执行；命令形式：`cd backend && source .venv/bin/activate && python ...`。
+- 常见 HTTP 错误：404 路由、405 方法、400 参数、401 鉴权、500 看异常与日志。
 
 ---
 > Source: [supplynexus/fulfillment-service](https://github.com/supplynexus/fulfillment-service) — distributed by [TomeVault](https://tomevault.io).
