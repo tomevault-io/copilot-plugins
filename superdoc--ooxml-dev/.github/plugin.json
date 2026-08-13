@@ -1,0 +1,9 @@
+{
+  "name": "superdoc--ooxml-dev",
+  "displayName": "ooxml-dev",
+  "description": "Interactive OOXML (ECMA-376) reference explained by people who actually implemented it",
+  "version": "1.0.0",
+  "author": "superdoc",
+  "homepage": "https://github.com/superdoc/ooxml-dev",
+  "skills": []
+}
