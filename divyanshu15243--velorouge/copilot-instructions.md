@@ -1,7 +1,6 @@
-## agent
+## velorouge
 
 > > Finance features: **Enabled**
-
 
 # Jetro Agent Context
 
