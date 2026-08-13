@@ -4,7 +4,7 @@
   "repo": "errors.utils",
   "description": "Typed error classes, error codes, and serializeError for logging and RPC (Node and Edge).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SkinnnyJay/errors.utils",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T11:00:19Z"
+  "distributed_at": "2026-08-13T13:22:31Z"
 }
