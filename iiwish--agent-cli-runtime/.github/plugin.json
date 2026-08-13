@@ -1,0 +1,9 @@
+{
+  "name": "iiwish--agent-cli-runtime",
+  "displayName": "agent-cli-runtime",
+  "description": "Unified TypeScript runtime for Codex CLI, Claude Code, and OpenCode with typed events, lifecycle control, permissions, and task graphs.",
+  "version": "1.0.0",
+  "author": "iiwish",
+  "homepage": "https://github.com/iiwish/agent-cli-runtime",
+  "skills": []
+}
