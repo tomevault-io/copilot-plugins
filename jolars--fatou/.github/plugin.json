@@ -1,0 +1,9 @@
+{
+  "name": "jolars--fatou",
+  "displayName": "fatou",
+  "description": "Julia language server, formatter, and linter built in Rust",
+  "version": "1.0.0",
+  "author": "jolars",
+  "homepage": "https://github.com/jolars/fatou",
+  "skills": []
+}
