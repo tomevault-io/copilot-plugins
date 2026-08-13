@@ -1,0 +1,9 @@
+{
+  "name": "martinopedal--alz-graph-queries",
+  "displayName": "alz-graph-queries",
+  "description": "Azure Resource Graph queries for ALZ checklist items missing automated validation",
+  "version": "1.0.0",
+  "author": "martinopedal",
+  "homepage": "https://github.com/martinopedal/alz-graph-queries",
+  "skills": []
+}
