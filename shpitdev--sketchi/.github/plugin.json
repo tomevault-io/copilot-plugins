@@ -1,0 +1,9 @@
+{
+  "name": "shpitdev--sketchi",
+  "displayName": "sketchi",
+  "description": "Excalidraw AI + 'Rough' Icon theming + OpenCode Plugin/Tools: supports creating 4 types of digrams (more soon), modifying existing diagrams, png extract, visual grading",
+  "version": "1.0.0",
+  "author": "shpitdev",
+  "homepage": "https://github.com/shpitdev/sketchi",
+  "skills": []
+}
