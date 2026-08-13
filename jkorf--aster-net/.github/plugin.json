@@ -1,0 +1,9 @@
+{
+  "name": "jkorf--aster-net",
+  "displayName": "Aster.Net",
+  "description": "A C# .netstandard client library for the Aster DEX REST and Websocket Spot and Futures API focusing on clear usage and models",
+  "version": "1.0.0",
+  "author": "JKorf",
+  "homepage": "https://github.com/JKorf/Aster.Net",
+  "skills": []
+}
