@@ -7,11 +7,11 @@ AI Governance Layer for Human-AI Collaboration. Artifact-first execution, author
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [servatusprime/ai_ops](https://github.com/servatusprime/ai_ops).
+Original source: `CLAUDE.md` in [servatusprime/ai_ops](https://github.com/servatusprime/ai_ops).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
