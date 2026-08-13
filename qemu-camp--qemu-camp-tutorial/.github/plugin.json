@@ -1,0 +1,9 @@
+{
+  "name": "qemu-camp--qemu-camp-tutorial",
+  "displayName": "qemu-camp-tutorial",
+  "description": "QEMU Camp Tutorial",
+  "version": "1.0.0",
+  "author": "qemu-camp",
+  "homepage": "https://github.com/qemu-camp/qemu-camp-tutorial",
+  "skills": []
+}
