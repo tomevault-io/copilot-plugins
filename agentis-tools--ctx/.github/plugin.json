@@ -1,0 +1,9 @@
+{
+  "name": "agentis-tools--ctx",
+  "displayName": "ctx",
+  "description": "\ud83e\udde0 ctx is a queryable world model of a codebase, built to ground and govern the language models that modify it",
+  "version": "1.0.0",
+  "author": "agentis-tools",
+  "homepage": "https://github.com/agentis-tools/ctx",
+  "skills": []
+}
