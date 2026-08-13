@@ -1,0 +1,9 @@
+{
+  "name": "altairinglorious--brainusage",
+  "displayName": "brainusage",
+  "description": "GNOME Shell extension that tracks Claude and Codex AI usage limits in the top panel",
+  "version": "1.0.0",
+  "author": "AltairInglorious",
+  "homepage": "https://github.com/AltairInglorious/brainusage",
+  "skills": []
+}
