@@ -1,0 +1,9 @@
+{
+  "name": "natrontech--argoplane",
+  "displayName": "argoplane",
+  "description": "ArgoPlane is a collection of ArgoCD UI extensions.",
+  "version": "1.0.0",
+  "author": "natrontech",
+  "homepage": "https://github.com/natrontech/argoplane",
+  "skills": []
+}
