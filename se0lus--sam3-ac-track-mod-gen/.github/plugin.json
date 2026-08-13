@@ -1,0 +1,9 @@
+{
+  "name": "se0lus--sam3-ac-track-mod-gen",
+  "displayName": "sam3_ac_track_mod_gen",
+  "description": "Generate assetto corsa track mod base on done images and 3d model fully automatically",
+  "version": "1.0.0",
+  "author": "se0lus",
+  "homepage": "https://github.com/se0lus/sam3_ac_track_mod_gen",
+  "skills": []
+}
