@@ -1,0 +1,9 @@
+{
+  "name": "circlesac--aws-sts-login",
+  "displayName": "aws-sts-login",
+  "description": "AWS Console auto-login CLI \u2014 captures STS temporary credentials via browser automation",
+  "version": "1.0.0",
+  "author": "circlesac",
+  "homepage": "https://github.com/circlesac/aws-sts-login",
+  "skills": []
+}
