@@ -1,0 +1,9 @@
+{
+  "name": "hanzozt--console",
+  "displayName": "console",
+  "description": "Hanzo ZT Console - web management UI for Hanzo Zero Trust",
+  "version": "1.0.0",
+  "author": "hanzozt",
+  "homepage": "https://github.com/hanzozt/console",
+  "skills": []
+}
