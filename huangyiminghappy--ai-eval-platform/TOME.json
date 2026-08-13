@@ -4,7 +4,7 @@
   "repo": "ai-eval-platform",
   "description": "\u5f00\u6e90 AI \u5e94\u7528\u8bc4\u6d4b\u5e73\u53f0\uff0c\u652f\u6301 RAG\u3001AI Agent\u3001\u591a\u8f6e\u5bf9\u8bdd\u3001LLM-as-Judge\u3001\u63a5\u53e3\u8bc4\u6d4b\u3001\u8bc4\u6d4b\u62a5\u544a\u548c\u4eba\u5de5\u76f2\u6d4b\u3002Open-source AI evaluation platform for RAG, AI Agents, multi-turn conversations, LLM-as-Judge, endpoint evaluation",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/huangyiminghappy/ai-eval-platform",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T17:32:32Z"
+  "distributed_at": "2026-08-13T22:55:59Z"
 }
