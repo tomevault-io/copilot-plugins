@@ -1,0 +1,9 @@
+{
+  "name": "miguelcovarrubiasdaiz--nest-structure",
+  "displayName": "nest-structure",
+  "description": "Hexagonal NestJS boilerplate, local/S3 storage, React Email and module scaffolding.",
+  "version": "1.0.0",
+  "author": "MiguelCovarrubiasdaiz",
+  "homepage": "https://github.com/MiguelCovarrubiasdaiz/nest-structure",
+  "skills": []
+}
