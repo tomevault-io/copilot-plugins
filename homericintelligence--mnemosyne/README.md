@@ -7,11 +7,11 @@ ProjectMnemosyne is a skills marketplace for the HomericIntelligence agentic eco
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [HomericIntelligence/Mnemosyne](https://github.com/HomericIntelligence/Mnemosyne).
+Original source: `CLAUDE.md` in [HomericIntelligence/Mnemosyne](https://github.com/HomericIntelligence/Mnemosyne).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
