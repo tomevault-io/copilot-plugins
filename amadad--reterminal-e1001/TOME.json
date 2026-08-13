@@ -4,7 +4,7 @@
   "repo": "reterminal-e1001",
   "description": "HTTP API firmware for Seeed reTerminal E1001 ePaper display",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/amadad/reterminal-e1001",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T17:10:19Z"
+  "distributed_at": "2026-08-13T21:16:41Z"
 }
