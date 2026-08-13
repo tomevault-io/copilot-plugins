@@ -1,0 +1,9 @@
+{
+  "name": "powabase-ai--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Agent Skills that help AI coding assistants build on Powabase \u2014 the AI Backend-as-a-Service (RAG, agents, orchestration, workflows) plus a Supabase-style BaaS layer.",
+  "version": "1.0.0",
+  "author": "powabase-ai",
+  "homepage": "https://github.com/powabase-ai/agent-skills",
+  "skills": []
+}
