@@ -1,0 +1,9 @@
+{
+  "name": "stratif-io--stratif-io",
+  "displayName": "stratif.io",
+  "description": "Open-source warehouse-native product analytics for DuckDB, Snowflake, ClickHouse, Databricks, and Postgres. Funnels, retention, paths \u2014 directly on your warehouse, no ingestion pipeline, no per-event ",
+  "version": "1.0.0",
+  "author": "stratif-io",
+  "homepage": "https://github.com/stratif-io/stratif.io",
+  "skills": []
+}
