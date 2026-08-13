@@ -1,0 +1,9 @@
+{
+  "name": "rcrsr--snoop",
+  "displayName": "snoop",
+  "description": "Captures, processes, and summarizes Claude Code run transcripts for debugging and review.",
+  "version": "1.0.0",
+  "author": "rcrsr",
+  "homepage": "https://github.com/rcrsr/snoop",
+  "skills": []
+}
