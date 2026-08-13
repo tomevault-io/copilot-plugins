@@ -1,0 +1,23 @@
+## mgstudio
+
+> The role of this file is to describe common mistakes and confusion points that agents might encounter as they work in this project. If you ever encounter something in the project that surprises you, please alert the developer working with you and indicate that this is the case in the AGENTS.md file to help prevent future agents from having the same issue.
+
+# AGENTS.md
+
+The role of this file is to describe common mistakes and confusion points that agents might encounter as they work in this project. If you ever encounter something in the project that surprises you, please alert the developer working with you and indicate that this is the case in the AGENTS.md file to help prevent future agents from having the same issue.
+
+- `Milky2018/wgpu_mbt` and `Milky2018/window` provide the macOS `NSView*` renderer integration path; check `mgstudio-engine/moon.mod` for the pinned versions rather than trusting a version written here (as of 2026-08-02 they are `wgpu_mbt@0.15.0` and `window@0.6.0`, having been `0.14.2`/`0.5.1` when this note was first written). Use `Instance::create_surface_macos_ns_view_u64` with `Window::content_view_handle()` data instead of reintroducing project-local `CAMetalLayer` attach stubs or unsafe casts. Use `RenderPassDescBuilder::set_color_attachment_resolve_target` for MSAA color resolve attachments instead of project-local render-pass descriptor native stubs.
+- When `moon test` fails with a tcc framework lookup error, rerun the same test with `--release`.
+- Long `moon run` commands, especially native release builds and examples that compile large generated C files, may spend several minutes in clang/link/executable generation. Do not treat the long wait as a failure or switch debugging strategy just to avoid waiting; keep polling until the command naturally completes or produces a real error.
+- On current MoonBit toolchains, `moon test -f` is the short form of `--filter`, not a test filename selector. Pass one test file as a positional path (for example, `moon test ecs/foo_test.mbt -f 'test name'`) and use only one filter flag.
+- On newer MoonBit toolchains, a repository-wide `moon fmt` can migrate legacy `options("is-main": true)` entries to `pkgtype(kind: "executable")` and regenerate hundreds of package/interface files. For surgical changes, inspect `git status` immediately afterward and exclude unrelated migration churn from the task.
+- Use this fixed native screenshot command shape for visual parity captures, for example:
+  `MGSTUDIO_PARITY_CAPTURE_DELAY_FRAMES=90 MGSTUDIO_PARITY_RUN_TIMEOUT_SECONDS=240 mgstudio-engine/scripts/p0_visual_capture_native.sh examples/2d/bloom_2d /tmp/mgstudio_iss025_camera_render_graph_bloom_2d.png`.
+- A fixed-frame capture represents simulated time, not the wall-clock age of a checked-in reference. For physics-heavy examples such as `examples/3d/despawn3`, frame 90 at the default 16,667 microseconds is only about 1.5 seconds and should not be compared with a later settled-pile reference. If an exact delayed frame is required, set `MGSTUDIO_PARITY_CAPTURE_DISABLE_RETRY=1` and inspect `capture_delay_frames_used` in the generated metadata; otherwise a timeout retry can replace the requested output with a fresh-process frame-1 capture. A larger `MGSTUDIO_PARITY_FIXED_FRAME_TIME_US` can validate later fixed-update state with fewer expensive render frames.
+- When an example runs correctly for the first time, save a reference screenshot in that example's source directory. Future agents should compare against that checked-in local reference before deciding that the example still renders correctly.
+- Do not infer Bevy parity from a visually plausible example alone. The `examples/3d/motion_blur` audit showed that a scene can render and respond to input while still diverging from Bevy in ECS shape and data flow: Bevy used a `Text` root with `TextSpan` children and `TextUiWriter`, while mgstudio had been replacing one whole `Text` value every frame. For render/PBR/mesh/text/UI work, verify source-owner structure, component/resource ownership, schedule placement, dirty/change tracking, example behavior, and visual/performance gates before raising completion scores.
+- If a bug appears in one feature area, check adjacent Bevy boundaries before assigning ownership. Input symptoms in `motion_blur` crossed window/AppKit event-loop timing, ECS schedule entry, UI text updates, and PBR postprocess state; treating the first visible subsystem as the root cause is usually wrong.
+
+---
+> Source: [moonbit-community/mgstudio](https://github.com/moonbit-community/mgstudio) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
