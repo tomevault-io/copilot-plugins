@@ -1,0 +1,44 @@
+{
+  "name": "CodexElves",
+  "owner": "junxin367",
+  "repo": "CodexElves",
+  "description": "\u4e00\u4e2a\u7528\u4e8eCodex/ChatGptApp\u7684\u589e\u5f3a\u5de5\u5177\uff0c\u652f\u6301\u672c\u5730\u4ee3\u7406\u534f\u8bae\u8f6c\u6362\uff0c\u652f\u6301GPT\u601d\u8003\u7eed\u63a5\uff08\u89e3\u51b3516\u964d\u667a\u95ee\u9898\uff09\u3002fork BigPizzaV3/CodexPlusPlus \u589e\u5f3a\u6539\u9020\u9879\u76ee",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/junxin367/CodexElves",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T19:03:44Z"
+}
