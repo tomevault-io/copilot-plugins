@@ -1,0 +1,9 @@
+{
+  "name": "davep--blogmore",
+  "displayName": "blogmore",
+  "description": "A blog-oriented Markdown-based static site generation tool",
+  "version": "1.0.0",
+  "author": "davep",
+  "homepage": "https://github.com/davep/blogmore",
+  "skills": []
+}
