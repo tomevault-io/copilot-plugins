@@ -4,7 +4,7 @@
   "repo": "tuicraft",
   "description": "Chat in WoW 3.3.5a from your terminal",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tvararu/tuicraft",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T10:40:02Z"
+  "distributed_at": "2026-08-13T12:57:20Z"
 }
