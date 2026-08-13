@@ -1,0 +1,9 @@
+{
+  "name": "alignbase--sunpeak",
+  "displayName": "sunpeak",
+  "description": "Server-agnostic MCP testing framework and full-stack MCP App framework for ChatGPT Apps, Claude Connectors, and more.",
+  "version": "1.0.0",
+  "author": "Alignbase",
+  "homepage": "https://github.com/Alignbase/sunpeak",
+  "skills": []
+}
