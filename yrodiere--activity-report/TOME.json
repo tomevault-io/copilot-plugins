@@ -4,7 +4,7 @@
   "repo": "activity-report",
   "description": "Activity Report CLI Tool",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yrodiere/activity-report",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T11:01:49Z"
+  "distributed_at": "2026-08-13T13:25:04Z"
 }
