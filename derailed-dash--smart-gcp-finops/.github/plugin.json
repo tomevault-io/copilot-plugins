@@ -1,0 +1,9 @@
+{
+  "name": "derailed-dash--smart-gcp-finops",
+  "displayName": "smart-gcp-finops",
+  "description": "An agentic FinOps solution for Google Cloud Platform (GCP) FinOps Practitioners to manage, understand, and optimise cloud spend across their entire organisation.",
+  "version": "1.0.0",
+  "author": "derailed-dash",
+  "homepage": "https://github.com/derailed-dash/smart-gcp-finops",
+  "skills": []
+}
