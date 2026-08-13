@@ -4,7 +4,7 @@
   "repo": "agentic-detection-engineering-framework",
   "description": "Detection engineering with durable memory, a five-stage lifecycle, and an agentic surface \u2014 the sibling of ATHF.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Nebulock-Inc/agentic-detection-engineering-framework",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T19:02:33Z"
+  "distributed_at": "2026-08-13T23:28:06Z"
 }
