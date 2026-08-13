@@ -1,0 +1,9 @@
+{
+  "name": "ajthom90--toparr",
+  "displayName": "toparr",
+  "description": "Real-time Intel GPU monitoring dashboard for Docker \u2014 powered by intel_gpu_top with per-process client tracking",
+  "version": "1.0.0",
+  "author": "ajthom90",
+  "homepage": "https://github.com/ajthom90/toparr",
+  "skills": []
+}
