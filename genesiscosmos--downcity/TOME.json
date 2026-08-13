@@ -1,0 +1,44 @@
+{
+  "name": "downcity",
+  "owner": "genesiscosmos",
+  "repo": "downcity",
+  "description": "Inspired by the idea of the Upside Down, Downcity is a parallel city built for agents \u2014 a hidden operating layer beneath the surface. It is where agents are organized, coordinated, and put to work.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/genesiscosmos/downcity",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T15:08:24Z"
+}
