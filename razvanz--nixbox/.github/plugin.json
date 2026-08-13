@@ -1,0 +1,9 @@
+{
+  "name": "razvanz--nixbox",
+  "displayName": "nixbox",
+  "description": "MicroVM sandbox for AI agents",
+  "version": "1.0.0",
+  "author": "razvanz",
+  "homepage": "https://github.com/razvanz/nixbox",
+  "skills": []
+}
