@@ -1,0 +1,9 @@
+{
+  "name": "casperkristiansson--codex-usage-tracker",
+  "displayName": "codex-usage-tracker",
+  "description": "Historically track codex cli usage (tokens) - `codex-track web`",
+  "version": "1.0.0",
+  "author": "CasperKristiansson",
+  "homepage": "https://github.com/CasperKristiansson/codex-usage-tracker",
+  "skills": []
+}
