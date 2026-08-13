@@ -1,0 +1,9 @@
+{
+  "name": "pablozaiden--devbox",
+  "displayName": "devbox",
+  "description": "Create an SSH-accessible devcontainer-based devbox from the CLI",
+  "version": "1.0.0",
+  "author": "PabloZaiden",
+  "homepage": "https://github.com/PabloZaiden/devbox",
+  "skills": []
+}
