@@ -4,7 +4,7 @@
   "repo": "browser-mcp",
   "description": "Token-efficient browser automation MCP for AI agents, with semantic page snapshots and stable element IDs.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/drisplabs/browser-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T16:49:35Z"
+  "distributed_at": "2026-08-13T20:40:07Z"
 }
