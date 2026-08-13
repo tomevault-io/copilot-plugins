@@ -1,0 +1,9 @@
+{
+  "name": "maxkuminov--obsidian-mcp",
+  "displayName": "obsidian-mcp",
+  "description": "Self-hosted MCP server for Obsidian: semantic + full-text search, wikilink graph, note CRUD, OAuth, and a self-describing vault guide.",
+  "version": "1.0.0",
+  "author": "maxkuminov",
+  "homepage": "https://github.com/maxkuminov/obsidian-mcp",
+  "skills": []
+}
