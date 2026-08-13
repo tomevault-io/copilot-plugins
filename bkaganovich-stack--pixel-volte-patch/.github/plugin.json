@@ -1,0 +1,9 @@
+{
+  "name": "bkaganovich-stack--pixel-volte-patch",
+  "displayName": "pixel-volte-patch",
+  "description": "Pixel IMS fork: auto-apply carrier config on reboot + export/import settings (no root, Shizuku/Wireless ADB)",
+  "version": "1.0.0",
+  "author": "bkaganovich-stack",
+  "homepage": "https://github.com/bkaganovich-stack/pixel-volte-patch",
+  "skills": []
+}
