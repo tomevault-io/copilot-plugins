@@ -1,0 +1,94 @@
+## cli
+
+> This is a command-line application. Source code is written in Rust and lives under `rust/`. Run `cargo` commands from that directory.
+
+# GoDaddy CLI — Agent Notes
+
+This is a command-line application. Source code is written in Rust and lives under `rust/`. Run `cargo` commands from that directory.
+
+## Commands
+
+- **Build**: `cargo build`
+- **Run**: `cargo run -- <command>`
+- **Test**: `cargo test`
+- **Lint**: `cargo clippy -- -D warnings`
+- **Format**: `cargo fmt`
+- **Check**: `cargo check`
+- **Regenerate API catalog**: `cargo run -p generate-api-catalog`
+  — clones upstream OpenAPI specs and writes `rust/schemas/api/*.json`. Set
+  `GITHUB_TOKEN` for full repo discovery; falls back to a hardcoded bootstrap
+  list otherwise.
+- **Regenerate Node.js Hosting spec**: `./rust/scripts/regenerate-hosting-spec.sh`
+
+## Verification Checklist (required before finishing work)
+
+- `cargo check` — must pass
+- `cargo clippy -- -D warnings` — must pass with zero warnings
+- `cargo test` — must pass
+- `cargo fmt --check` — must be clean
+- `./rust/scripts/check-module-size.sh` — must pass
+
+## Architecture
+
+GoDaddy CLI is a Rust binary (edition 2024) built using:
+
+- **cli-engine**: Command registration, auth (PKCE OAuth), credential storage, streaming
+- **clap**: Argument parsing (via cli-engine's `CommandSpec`/`GroupSpec`)
+- **reqwest**: HTTP client with rustls-tls
+- **serde_json**: JSON serialization and API payloads
+- **tokio**: Async runtime
+
+## Code Style
+
+- **Rust edition 2024**. Follow existing patterns in the codebase.
+- Lints are enforced via `Cargo.toml` (`[lints.rust]` and `[lints.clippy]`):
+  - `unsafe_code = "deny"`, `unwrap_used = "deny"`, `exit = "deny"`
+  - Use `.expect("reason")` instead of `.unwrap()`
+  - No `println!`/`eprintln!` — use `tracing` or `cli-engine` event streams
+- Keep functions focused; avoid premature abstractions.
+
+## Command Patterns (Required)
+
+- Commands are `RuntimeCommandSpec` (or `RuntimeGroupSpec` for groups).
+- Register commands via `Module::new(...)` and wire them in `main.rs`.
+- Use `clap::Arg` for arguments; retrieve via `ctx.args.get("key")`.
+- Return `Ok(CommandResult::new(json!({...})))` for success.
+- Prefer `crate::error::GddyError::{not_found,validation,auth,config,security,network,…}` (and `GddyError::from` for module client errors) so agents get stable `error.code` + top-level `fix`. Use `Err(cli_engine::CliCoreError::message("..."))` only for one-off cases that do not yet have a shared mapping.
+- Streaming commands use `RuntimeCommandSpec::new_streaming` and emit events via `StreamSender`.
+
+## Code File Structure (Required)
+
+- Rust source files should mirror the CLI command tree structure. See 
+[Code file structure](./docs/code-structure.md) for specifics.
+- CI fails any `.rs` file over 1000 lines. Split file exceeding this limit.
+
+## Key Concepts
+
+### Authentication
+
+- Handled entirely by `cli-engine` (PKCE OAuth flow, secure credential storage).
+- The `ctx.credential` field on `CommandContext` provides the current token.
+
+### Configuration
+
+- Application settings in TOML format (`godaddy.toml`, `godaddy.<env>.toml`).
+- Read/write via `crate::config::{read_config, write_config, config_path}`.
+
+### Extension security scanner
+
+- Post-bundle regex scanner in `extension/security/mod.rs` (rule data in
+  `extension/security/rules.rs`).
+- Rules SEC101–SEC110 ported from the TS scanner; SEC111–SEC115 added in the
+  Rust port with no TS baseline (SEC111/SEC112/SEC115 block, SEC113/SEC114
+  warn). Uses `fancy-regex` for lookahead support.
+- `scan_bundle(content, path) -> Vec<Finding>`, `is_blocked(findings) -> bool`.
+
+### esbuild dependency
+
+- The `bundle_extension` function spawns `esbuild` as a subprocess.
+- It searches `node_modules/.bin/esbuild` walking up from CWD, then falls back to PATH.
+- Users need esbuild available (via `npm`/`pnpm` install or globally).
+
+---
+> Source: [godaddy/cli](https://github.com/godaddy/cli) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
