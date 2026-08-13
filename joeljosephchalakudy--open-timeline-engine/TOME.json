@@ -4,7 +4,7 @@
   "repo": "open-timeline-engine",
   "description": "Local-first context engine that gives AI agents persistent, shared memory. Captures your real workflow, mines repeatable patterns, and serves past decisions back to agents like Claude, Codex, and Cursor \u2014 with citations, safety gates, and your learned working style enforced.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JOELJOSEPHCHALAKUDY/open-timeline-engine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T09:38:51Z"
+  "distributed_at": "2026-08-13T12:51:03Z"
 }
