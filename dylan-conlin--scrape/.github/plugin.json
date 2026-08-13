@@ -1,0 +1,9 @@
+{
+  "name": "dylan-conlin--scrape",
+  "displayName": "scrape",
+  "description": "Intelligent URL-to-content CLI \u2014 picks best extraction strategy per URL type (API, Playwright, screenshot+vision).",
+  "version": "1.0.0",
+  "author": "dylan-conlin",
+  "homepage": "https://github.com/dylan-conlin/scrape",
+  "skills": []
+}
