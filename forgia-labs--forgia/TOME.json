@@ -4,7 +4,7 @@
   "repo": "forgia",
   "description": "Spec-driven development framework \u2014 from Feature Design to agent-ready execution specs. FD \u2192 SDD \u2192 Code.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Forgia-Labs/forgia",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T02:31:54Z"
+  "distributed_at": "2026-08-13T02:32:31Z"
 }
