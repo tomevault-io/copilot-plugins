@@ -1,0 +1,9 @@
+{
+  "name": "mistakeknot--interknow",
+  "displayName": "interknow",
+  "description": "Knowledge compounding \u2014 durable pattern repository with provenance tracking, temporal decay, and semantic retrieval via qmd MCP server.",
+  "version": "1.0.0",
+  "author": "mistakeknot",
+  "homepage": "https://github.com/mistakeknot/interknow",
+  "skills": []
+}
