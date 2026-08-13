@@ -1,0 +1,9 @@
+{
+  "name": "rebekz--stockai",
+  "displayName": "stockai",
+  "description": "AI-powered Indonesian stock analysis CLI with multi-agent trading system, hedge fund-style scoring, and risk management. Designed for passive investors with 15 min/day.",
+  "version": "1.0.0",
+  "author": "rebekz",
+  "homepage": "https://github.com/rebekz/stockai",
+  "skills": []
+}
