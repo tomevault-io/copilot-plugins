@@ -1,0 +1,9 @@
+{
+  "name": "plainbook-ai--plainbook",
+  "displayName": "plainbook",
+  "description": "Notebooks, in natural language.  A replacement for Jupyter notebooks in plain English. ",
+  "version": "1.0.0",
+  "author": "plainbook-ai",
+  "homepage": "https://github.com/plainbook-ai/plainbook",
+  "skills": []
+}
