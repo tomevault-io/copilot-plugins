@@ -1,0 +1,9 @@
+{
+  "name": "itallstartedwithaidea--miniagent",
+  "displayName": "MiniAgent",
+  "description": "The Cowork Agent for Everything \u2014 trainable advertising AI + 14 platform MCP servers + agent skills. Based on minimind (42k stars). Train from zero in 2 hours.",
+  "version": "1.0.0",
+  "author": "itallstartedwithaidea",
+  "homepage": "https://github.com/itallstartedwithaidea/MiniAgent",
+  "skills": []
+}
