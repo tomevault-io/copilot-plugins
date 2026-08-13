@@ -1,0 +1,9 @@
+{
+  "name": "abelhow--esmc-sdk",
+  "displayName": "esmc-sdk",
+  "description": "AI-powered development framework for Claude Code",
+  "version": "1.0.0",
+  "author": "abelhow",
+  "homepage": "https://github.com/abelhow/esmc-sdk",
+  "skills": []
+}
