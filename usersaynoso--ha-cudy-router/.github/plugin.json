@@ -1,0 +1,9 @@
+{
+  "name": "usersaynoso--ha-cudy-router",
+  "displayName": "ha-cudy-router",
+  "description": "Home Assistant integration for Cudy routers with local sensors, controls, mesh/client devices, SMS, VPN, WAN, and HACS support.",
+  "version": "1.0.0",
+  "author": "usersaynoso",
+  "homepage": "https://github.com/usersaynoso/ha-cudy-router",
+  "skills": []
+}
