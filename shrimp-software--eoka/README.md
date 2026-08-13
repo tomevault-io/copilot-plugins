@@ -7,11 +7,11 @@ Stealth browser automation for Rust
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [shrimp-software/eoka](https://github.com/shrimp-software/eoka).
+Original source: `AGENTS.md` in [shrimp-software/eoka](https://github.com/shrimp-software/eoka).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
