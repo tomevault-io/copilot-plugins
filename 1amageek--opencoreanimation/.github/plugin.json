@@ -1,0 +1,9 @@
+{
+  "name": "1amageek--opencoreanimation",
+  "displayName": "OpenCoreAnimation",
+  "description": "A Swift library providing CoreAnimation (QuartzCore) API compatibility for WebAssembly, powered by   WebGPU",
+  "version": "1.0.0",
+  "author": "1amageek",
+  "homepage": "https://github.com/1amageek/OpenCoreAnimation",
+  "skills": []
+}
