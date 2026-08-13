@@ -7,11 +7,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Francis-Xavier-code/tiktok-douyin-dl](https://github.com/Francis-Xavier-code/tiktok-douyin-dl).
+Original source: `CLAUDE.md` in [Francis-Xavier-code/tiktok-douyin-dl](https://github.com/Francis-Xavier-code/tiktok-douyin-dl).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
