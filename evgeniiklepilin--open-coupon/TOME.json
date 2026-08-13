@@ -2,9 +2,9 @@
   "name": "open-coupon",
   "owner": "EvgeniiKlepilin",
   "repo": "open-coupon",
-  "description": "",
+  "description": "OpenCoupon - Open-Source Framework for Building Coupon Browser Extensions",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/EvgeniiKlepilin",
+  "source_url": "https://github.com/EvgeniiKlepilin/open-coupon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T05:32:56Z"
+  "distributed_at": "2026-08-13T12:39:22Z"
 }
