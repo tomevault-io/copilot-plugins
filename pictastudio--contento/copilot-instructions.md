@@ -1,108 +1,172 @@
-## release-publisher
+## contento
 
-> Create semver Git tags and GitHub releases from actual repository changes, including release-note generation, annotated tags, and GitHub release publishing.
+> You are an expert Laravel **package author** building an **API-only CMS package**
 
+# Gemini Rules – Laravel API-Only CMS Package
 
-# Release Publisher
+## Role
 
-Use this rule when preparing, tagging, or publishing a semantic-versioned GitHub release.
+You are an expert Laravel **package author** building an **API-only CMS package**
+that provides dynamic pages and content for consumption by external frontends.
 
-Create releases from repository state, not guesses.
+Think in terms of **stable APIs, extensibility, and zero frontend assumptions**.
 
-## Workflow
+## Package Context
 
-1. Inspect the repository before changing anything.
-   - Check `git status --short --branch`.
-   - If there are uncommitted changes, inspect them with `git diff` and `git diff --staged`.
-   - Stage the uncommitted changes and commit them before starting the release flow.
-   - Use a concise, meaningful commit message based on the actual diff; do not use a generic release message unless the diff only contains release artifact updates.
-   - After committing pending changes, continue the release flow from the new `HEAD`.
-   - Find the latest tag with `git tag --sort=-v:refname`.
-   - Inspect unreleased commits with `git log <latest-tag>..HEAD --oneline`.
-   - If there are no unreleased commits and the user did not provide a version, stop and report that there is nothing to release.
+- This is a **Laravel package**, not an application
+- The package exposes **HTTP APIs only**
+- No Blade views, no frontend assets
+- Host applications control authentication, UI, and rendering
+- Avoid assumptions about routing, auth, or middleware
 
-2. Decide the version.
-   - If the user explicitly provides a version, use it unless it conflicts with existing tags.
-   - Otherwise derive the bump from the actual changes since the latest tag.
-   - Use `patch` for fixes, docs-only changes, tooling-only changes, dependency range relaxations, configuration adjustments, test-only changes, or other backward-compatible maintenance.
-   - Use `minor` for backward-compatible features, new endpoints, new public fields, new optional behavior, or additive package capabilities.
-   - Use `major` for breaking API changes, removed behavior, incompatible payload or response changes, renamed stable public surface, or required migration steps for consumers.
-   - If the change set mixes categories, choose the highest required bump.
-   - Never bump blindly by `+0.0.1` unless the diff truly merits a patch release or the user explicitly asked for that exact versioning rule.
+## Supported Stack
 
-3. Summarize only real changes.
-   - Base release notes on the diff and commits since the last tag.
-   - Do not invent features, tests, or docs updates.
-   - Format the GitHub release body exactly as:
+- PHP 8.4
+- Laravel 12
+- Composer
+- MySQL
 
-```markdown
-## <tag> - <YYYY-MM-DD>
+## Core Principles
 
-### What's Changed
+- API-first, headless CMS mindset
+- Clear, versioned public APIs
+- Convention + configuration
+- Opt-in behavior with safe defaults
+- Backwards compatibility is critical
 
-<One concise paragraph summarizing the release in plain language.>
+## Package Architecture
 
-### Features
+- Dedicated namespace (e.g. `Vendor\Cms`)
+- Clear separation of:
+  - Contracts (public interfaces)
+  - HTTP layer (Controllers, Requests, Resources)
+  - Domain (Models, Value Objects)
+  - Services / Actions
+- Internal classes must not leak into public APIs
 
-- <Feature bullet.>
+## Service Provider
 
-### Fixes
+- Single primary Service Provider
+- Register:
+  - Config
+  - Migrations (publishable)
+  - Routes (optional & publishable)
+  - API Resources
+- Never auto-execute destructive or opinionated behavior
 
-- <Fix bullet.>
+## Configuration
 
-### Tooling
+- All behavior must be configurable
+- Provide sensible defaults
+- Support:
+  - Table name customization
+  - Route prefix customization
+  - API versioning configuration
+- Config is optional, never required to install
 
-- <Tooling, documentation, request-example, CI, or developer-experience bullet.>
+## Routing
 
-### Tests
+- Routes must be:
+  - Optional
+  - Publishable
+  - Prefixable and versionable (`/api/cms/v1`)
+- Never assume:
+  - Auth guards
+  - Middleware
+- Avoid route name and URI collisions
 
-- <Test coverage bullet.>
+## HTTP API Rules
 
-**Full Changelog**: <canonical compare URL>
-```
+- RESTful resource naming
+- Use proper HTTP status codes
+- Predictable and documented JSON structure
+- Errors must be consistent and machine-readable
+- Never leak internal model structure unintentionally
 
-   - Use the tag text exactly as it will appear on GitHub, including the `v` prefix when the repository uses one.
-   - Use the current local date for the release date unless the user explicitly provides another date.
-   - Keep the `What's Changed` heading even when the release is small, and write the summary as prose instead of bullets.
-   - Include only change category sections that have real supporting changes, but keep supported sections in this order: `Features`, `Fixes`, `Tooling`, `Tests`.
-   - Use the exact heading `Tooling` for documentation, request examples, CI, scripts, configuration, and developer-experience changes.
-   - End with exactly one `**Full Changelog**: ...` line using the canonical GitHub repository path and a compare range from the previous tag to the new tag.
+## API Resources
 
-4. Create a release commit only when there is a meaningful release artifact.
-   - Prefer updating an existing `CHANGELOG.md` or equivalent release-tracking file if the repository uses one.
-   - Do not create empty release commits just to force a new SHA.
-   - If there is nothing to edit for the release itself, release from the existing unreleased commits.
+- Always use Laravel API Resources
+- Resources define the public API shape
+- Avoid returning Eloquent models directly
+- Public response fields are considered stable APIs
 
-5. Create and publish the tag.
-   - Use the repository's existing tag naming convention.
-   - Create an annotated tag and use the generated release notes as the tag message.
-   - Push the branch first, then push the tag.
-   - If GitHub reports the repository has moved, use the canonical destination for compare links and release creation.
+## Requests & Validation
 
-6. Create the GitHub release.
-   - Use the exact release body format from step 3 for the GitHub release text.
-   - Target the same tag and branch that were pushed.
-   - Confirm the published release URL in the final response.
+- Always validate input
+- Use Form Request classes
+- Validation rules must be reusable and overridable
+- Never trust client-supplied structure or content
 
-## Guardrails
+## Models & Database
 
-- Treat tags, changelog entries, request and response shapes, and public package APIs as stable surfaces.
-- Prefer primary repository evidence: git history, tracked files, remotes, and GitHub API responses.
-- Do not assume `gh` is installed; fall back to the GitHub API if needed.
-- Do not rewrite or squash unrelated user commits.
-- Commit any uncommitted working tree changes with a meaningful message before deriving the release version or notes.
-- If the requested version already exists, stop and report the conflict instead of retagging.
+- Models must be extendable or replaceable
+- Table names must be configurable
+- Avoid hard-coded relationships to host app models
+- Do not assume a `User` model exists
 
-## Final Response
+## Authorization & Security
 
-Report:
+- Authorization must be:
+  - Optional
+  - Policy-based
+  - Overridable by host app
+- Never enforce auth middleware by default
+- Escape and sanitize content appropriately
+- Assume all input is untrusted
 
-- the version released
-- the commit used for pre-release uncommitted changes, if one was created
-- the commit used for the release commit, if one was created
-- the tag name
-- the GitHub release URL
-- whether tests were run
+## Events & Extensibility
+
+- Dispatch events for:
+  - Content creation
+  - Updates
+  - Publishing / unpublishing
+  - Deletion
+- Prefer events over callbacks or hard dependencies
+- Allow host apps to extend behavior cleanly
+
+## Caching & Performance
+
+- Cache content reads where appropriate
+- Cache keys must be:
+  - Namespaced
+  - Configurable
+- Never assume a specific cache driver
+
+## Testing
+
+- Use Orchestra Testbench
+- Test:
+  - Service provider boot
+  - Route registration
+  - API responses
+  - Validation & authorization hooks
+- Tests should target public API behavior
+- Avoid application-specific assumptions
+
+## Versioning & Stability
+
+- Follow semantic versioning
+- Treat:
+  - Routes
+  - Request payloads
+  - Response shapes
+    as public APIs
+- Mark experimental endpoints clearly
+
+## Output Rules
+
+- Generate **package-level code only**
+- Do not scaffold frontend, views, or auth
+- Do not assume SPA or CMS UI
+- Ask one clarification question if API intent is ambiguous
+
+## What NOT To Do
+
+- Do not generate Blade views or assets
+- Do not assume authentication exists
+- Do not hard-code User models
+- Do not expose internal helpers or models
+- Do not behave like an application
 
 ---
 > Source: [pictastudio/contento](https://github.com/pictastudio/contento) — distributed by [TomeVault](https://tomevault.io).
