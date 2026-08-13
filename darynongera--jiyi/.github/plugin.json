@@ -1,0 +1,9 @@
+{
+  "name": "darynongera--jiyi",
+  "displayName": "jiyi",
+  "description": "Jiyi is an Elixir service that provides durable, vector-backed memory for autonomous agents. It stores episodic events, semantic facts, and per-session working memory, and exposes HTTP and MCP interfa",
+  "version": "1.0.0",
+  "author": "DarynOngera",
+  "homepage": "https://github.com/DarynOngera/jiyi",
+  "skills": []
+}
