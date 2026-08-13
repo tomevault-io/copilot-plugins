@@ -1,0 +1,9 @@
+{
+  "name": "legioncodeinc--rflectr",
+  "displayName": "rflectr",
+  "description": "rflectr is an interactive CLI that launches AI coding tools and runs local API gateways on your machine \u2014 so you can point any coding agent at any model provider.",
+  "version": "1.0.0",
+  "author": "legioncodeinc",
+  "homepage": "https://github.com/legioncodeinc/rflectr",
+  "skills": []
+}
