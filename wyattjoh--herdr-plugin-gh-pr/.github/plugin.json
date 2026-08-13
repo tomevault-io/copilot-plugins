@@ -1,0 +1,9 @@
+{
+  "name": "wyattjoh--herdr-plugin-gh-pr",
+  "displayName": "herdr-plugin-gh-pr",
+  "description": "herdr plugin that shows the focused agent pane's branch GitHub PR status in the sidebar",
+  "version": "1.0.0",
+  "author": "wyattjoh",
+  "homepage": "https://github.com/wyattjoh/herdr-plugin-gh-pr",
+  "skills": []
+}
