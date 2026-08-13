@@ -4,7 +4,7 @@
   "repo": "hexagon-hypervisor",
   "description": "Hexagon Hypervisor (AKA h2) is a light weight OS / Hypervisor for the Qualcomm Hexagon processor family",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/qualcomm/hexagon-hypervisor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T01:05:05Z"
+  "distributed_at": "2026-08-13T01:06:08Z"
 }
