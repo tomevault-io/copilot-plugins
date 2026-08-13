@@ -4,7 +4,7 @@
   "repo": "contabo_storage_manager",
   "description": "Central storage & webhook bridge for Contabo VPS. Handles audio, shaders, notes, and media for multiple web apps with Google Cloud sync.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ford442/contabo_storage_manager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T04:55:20Z"
+  "distributed_at": "2026-08-13T05:33:21Z"
 }
