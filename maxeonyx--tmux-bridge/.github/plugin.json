@@ -1,0 +1,9 @@
+{
+  "name": "maxeonyx--tmux-bridge",
+  "displayName": "tmux-bridge",
+  "description": "CLI for agents to run commands in interactive terminal sessions",
+  "version": "1.0.0",
+  "author": "maxeonyx",
+  "homepage": "https://github.com/maxeonyx/tmux-bridge",
+  "skills": []
+}
