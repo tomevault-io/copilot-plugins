@@ -1,13 +1,14 @@
-## dimension-mapping-design
+## environment-config
 
-> 编辑维度/变体映射相关代码时参考——settings.dimension_name_map
+> 编辑环境/部署配置时参考——ENV_FILE、变量、prod 不提交
 
 
-# 维度映射设计（按需参考）
+# 环境配置（按需参考）
 
-- **目的**：Core / Shopify / Printify 维度名不一致（如 Size vs type），匹配按语义、可配置，不写死。存 `external_systems.settings["dimension_name_map"]`：`core_dimension_name → external_dimension_name`，不新增表。
-- **使用**：校验 Core↔外部维度一致、变体按维度自动匹配时，用该 map 解析两侧名称；前端优先用接口下发的 map，无则回退单复数/大小写等。Shopify 同法用该连接的 `settings.dimension_name_map`。
-- **扩展**：可预留 `dimension_name_map_by_product_type`（按类目）；当前可仅默认 map，落库与保存方式待实现时定。
+- **位置**：`deployment/environments/env.{example|local|dev|stg|prod}`；prod 不提交 Git。
+- **加载**：Backend 用 `ENV_FILE` 指定；默认查找 `.env.local` → `../deployment/environments/env.local` → `.env`。例：`ENV_FILE=../deployment/environments/env.local python -m uvicorn app.main:app --reload`。
+- **常用变量**：`DATABASE_URL` / `DATABASE_URL_SYNC`、`REDIS_URL`、`CELERY_BROKER_URL`、`SECRET_KEY`、`HASHIDS_SALT`、`ENVIRONMENT`、`ALLOWED_ORIGINS`。Local：PostgreSQL 5433、Redis 6379；Dev 用 Docker 脚本。
+- **安全**：env.prod、frontend/env.prod、docker-compose.prod.yml 不提交；`chmod 600` 敏感文件；`git check-ignore -v deployment/environments/env.prod` 校验。
 
 ---
 > Source: [supplynexus/fulfillment-service](https://github.com/supplynexus/fulfillment-service) — distributed by [TomeVault](https://tomevault.io).
