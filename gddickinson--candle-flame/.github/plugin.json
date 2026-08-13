@@ -1,0 +1,9 @@
+{
+  "name": "gddickinson--candle-flame",
+  "displayName": "candle_flame",
+  "description": "A real-time particle-based candle flame simulation built with Python, OpenGL, and Qt.",
+  "version": "1.0.0",
+  "author": "gddickinson",
+  "homepage": "https://github.com/gddickinson/candle_flame",
+  "skills": []
+}
