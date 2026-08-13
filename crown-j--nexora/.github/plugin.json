@@ -1,0 +1,9 @@
+{
+  "name": "crown-j--nexora",
+  "displayName": "nexora",
+  "description": "NEXORA ERP Monorepo (Next.js 15 + NestJS 11 + Prisma + PostgreSQL) Modular enterprise-grade ERP architecture.",
+  "version": "1.0.0",
+  "author": "Crown-J",
+  "homepage": "https://github.com/Crown-J/nexora",
+  "skills": []
+}
