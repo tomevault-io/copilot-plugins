@@ -1,0 +1,9 @@
+{
+  "name": "alisunstar--opensunstar",
+  "displayName": "OpenSunstar",
+  "description": "OpenSunstar is a cross-platform native desktop app (Tauri 2 + React) \u2014 a local-first, all-in-one platform for AI coding workflow engineering configuration",
+  "version": "1.0.0",
+  "author": "alisunstar",
+  "homepage": "https://github.com/alisunstar/OpenSunstar",
+  "skills": []
+}
