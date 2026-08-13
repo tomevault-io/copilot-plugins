@@ -4,7 +4,7 @@
   "repo": "o8",
   "description": "The operating system for AI engineering.  Coordinate models, agents, tools, repositories, and long-running work from one place.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hurttlocker/o8",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T14:49:18Z"
+  "distributed_at": "2026-08-13T07:01:58Z"
 }
