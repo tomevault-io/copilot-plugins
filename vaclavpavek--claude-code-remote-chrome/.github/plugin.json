@@ -1,0 +1,9 @@
+{
+  "name": "vaclavpavek--claude-code-remote-chrome",
+  "displayName": "claude-code-remote-chrome",
+  "description": "TCP bridge to use Claude Code's \"Claude in Chrome\" feature from Docker containers. Forwards Chrome Native Messaging over TCP between host   and container.",
+  "version": "1.0.0",
+  "author": "vaclavpavek",
+  "homepage": "https://github.com/vaclavpavek/claude-code-remote-chrome",
+  "skills": []
+}
