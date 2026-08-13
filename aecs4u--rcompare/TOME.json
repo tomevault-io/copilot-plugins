@@ -1,0 +1,44 @@
+{
+  "name": "rcompare",
+  "owner": "aecs4u",
+  "repo": "rcompare",
+  "description": "A high-performance, open-source file and directory comparison utility written in Rust. Compare folders, text files, images, and archives with blazing speed.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aecs4u/rcompare",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T00:41:25Z"
+}
