@@ -4,7 +4,7 @@
   "repo": "zttp",
   "description": "Native Zig TypeScript runtime that started as port of mquickjs to Zig... and... grew up to something bigger",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/srdjan/zttp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T08:58:54Z"
+  "distributed_at": "2026-08-13T11:17:28Z"
 }
