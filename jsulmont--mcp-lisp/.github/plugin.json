@@ -1,0 +1,9 @@
+{
+  "name": "jsulmont--mcp-lisp",
+  "displayName": "mcp-lisp",
+  "description": "Common Lisp SDK for Model Context Protocol (MCP) and Agent-to-Agent Protocol (A2A)",
+  "version": "1.0.0",
+  "author": "jsulmont",
+  "homepage": "https://github.com/jsulmont/mcp-lisp",
+  "skills": []
+}
