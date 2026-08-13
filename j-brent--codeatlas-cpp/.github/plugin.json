@@ -1,0 +1,9 @@
+{
+  "name": "j-brent--codeatlas-cpp",
+  "displayName": "codeatlas-cpp",
+  "description": "VS Code extension for C++ codebase visualization",
+  "version": "1.0.0",
+  "author": "j-brent",
+  "homepage": "https://github.com/j-brent/codeatlas-cpp",
+  "skills": []
+}
