@@ -1,0 +1,44 @@
+{
+  "name": "qr-generator",
+  "owner": "pyaethu-aung",
+  "repo": "qr-generator",
+  "description": "Fast, client-side QR code generator. Zero-backend, high-fidelity exports, dark mode, and seamless mobile sharing. Built with React, TypeScript, and Tailwind CSS.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pyaethu-aung/qr-generator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T19:18:11Z"
+}
