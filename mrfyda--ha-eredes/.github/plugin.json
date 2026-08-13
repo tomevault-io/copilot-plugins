@@ -1,0 +1,9 @@
+{
+  "name": "mrfyda--ha-eredes",
+  "displayName": "ha-eredes",
+  "description": "Home Assistant custom integration for E-Redes energy consumption data.",
+  "version": "1.0.0",
+  "author": "mrfyda",
+  "homepage": "https://github.com/mrfyda/ha-eredes",
+  "skills": []
+}
