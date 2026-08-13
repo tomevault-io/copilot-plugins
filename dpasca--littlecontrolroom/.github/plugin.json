@@ -1,0 +1,9 @@
+{
+  "name": "dpasca--littlecontrolroom",
+  "displayName": "LittleControlRoom",
+  "description": "Terminal dashboard for tracking AI work across multiple local projects",
+  "version": "1.0.0",
+  "author": "dpasca",
+  "homepage": "https://github.com/dpasca/LittleControlRoom",
+  "skills": []
+}
