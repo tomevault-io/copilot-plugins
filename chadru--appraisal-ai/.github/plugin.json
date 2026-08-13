@@ -1,0 +1,9 @@
+{
+  "name": "chadru--appraisal-ai",
+  "displayName": "appraisal_ai",
+  "description": "Appraisal drafting engine \u2014 Word tracked changes + Excel grids from master templates",
+  "version": "1.0.0",
+  "author": "chadru",
+  "homepage": "https://github.com/chadru/appraisal_ai",
+  "skills": []
+}
