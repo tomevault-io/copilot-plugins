@@ -1,0 +1,9 @@
+{
+  "name": "jlave-dev--record",
+  "displayName": "record",
+  "description": "Local-first macOS screen recording and transcription CLI for people and AI agents.",
+  "version": "1.0.0",
+  "author": "jlave-dev",
+  "homepage": "https://github.com/jlave-dev/record",
+  "skills": []
+}
