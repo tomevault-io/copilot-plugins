@@ -1,0 +1,9 @@
+{
+  "name": "irozedev--my-portfolio",
+  "displayName": "my-portfolio",
+  "description": "Multilingual portfolio of Stepan Roze \u2014 Front-End / JavaScript Developer. React \u00b7 TypeScript \u00b7 Vite \u00b7 Tailwind \u00b7 Motion. Client/company modes, 5 languages, live GitHub feed.",
+  "version": "1.0.0",
+  "author": "irozedev",
+  "homepage": "https://github.com/irozedev/my-portfolio",
+  "skills": []
+}
