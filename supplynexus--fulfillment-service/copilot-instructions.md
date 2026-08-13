@@ -1,12 +1,15 @@
-## celery-async-database
+## database-management
 
-> 编辑 Celery/order_automation 任务时参考——签名与调用方一致；async+DB 用线程内 engine
+> 编辑 models/迁移/DB 脚本时参考——Alembic 流程、本地 vs 服务器命令
 
 
-# Celery / 自动化任务（按需参考）
+# 数据库管理（按需参考）
 
-- **order_automation 任务签名**：与调用方传入的 kwargs 一致。写前看 `automation_scheduler_service.py`、`api/v1/endpoints/automation.py` 的 task_kwargs，至少含 `tenant_id`、`ignore_flags`，否则首次运行易报 unexpected keyword argument。
-- **任务内 async + DB**：用独立线程 + 线程内 engine + ThreadAsyncSessionLocal；若用 `asyncio.run()` + 全局 `AsyncSessionLocal` 会报 Future attached to a different loop。可抄 `sync_printify_orders_to_local` 或 `sync_shopify_orders_1min_task` 结构。
+- **改表**：禁止直接执行 DDL。改 `backend/app/models/` → `alembic.sh local autogen "描述"` 或 `db-docker.sh dev autogen "描述"` → `upgrade`。迁移文件在 `backend/migrations/versions/`，提交后不得改，只可新增迁移。
+- **本地**：有 venv，用 `./scripts/db/alembic.sh local current|history|upgrade|downgrade|autogen "描述"`；先 `cd backend && source .venv/bin/activate`。
+- **服务器 (dev/stg/prod)**：无 Python，用 Docker：`./deployment/scripts/db-docker.sh {dev|stg|prod} current|upgrade|autogen "描述"`。环境文件 `deployment/environments/env.{local|dev|stg|prod}`。
+- **查库**：本地调试优先用 MCP postgres-supplynexus-local（只读）；写操作与迁移用 Alembic/脚本。
+- **安全**：生产迁移前备份；先在 staging 测；可回滚。不同环境用不同 DB 与配置。
 
 ---
 > Source: [supplynexus/fulfillment-service](https://github.com/supplynexus/fulfillment-service) — distributed by [TomeVault](https://tomevault.io).
