@@ -4,7 +4,7 @@
   "repo": "marimohub",
   "description": "Self-hostable marimo notebooks",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/marimo-team/marimohub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T18:47:24Z"
+  "distributed_at": "2026-08-13T23:16:34Z"
 }
