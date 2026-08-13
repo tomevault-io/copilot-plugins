@@ -4,7 +4,7 @@
   "repo": "chat-app-devops",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Griffith-0-0/chat-app-devops",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T15:27:23Z"
+  "distributed_at": "2026-08-13T08:40:56Z"
 }
