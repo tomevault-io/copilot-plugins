@@ -1,0 +1,9 @@
+{
+  "name": "outcomeeng--gh-actions",
+  "displayName": "gh-actions",
+  "description": "Reusable GitHub Actions workflows for Claude Code integration",
+  "version": "1.0.0",
+  "author": "outcomeeng",
+  "homepage": "https://github.com/outcomeeng/gh-actions",
+  "skills": []
+}
