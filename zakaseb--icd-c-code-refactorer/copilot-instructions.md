@@ -1,35 +1,16 @@
-## openwiki-docs-follow-features
+## icd-c-code-refactorer
 
-> Keep OpenWiki docs (docs/) accurate to this branch whenever features change
+> <!-- OPENWIKI:START -->
 
+<!-- OPENWIKI:START -->
 
-# OpenWiki docs follow features
+## OpenWiki
 
-When you add, change, or remove product behaviour in this repo, update OpenWiki documentation in the **same change**.
+This repository uses OpenWiki for recurring code documentation. Start with `openwiki/quickstart.md` (same files as `docs/`; `openwiki` is a symlink to `docs/`), then follow its links to architecture, pipeline stages, API surface, web UI, sandbox debugging, deployment, configuration, testing, and operations runbooks.
 
-## Where docs live
+The scheduled OpenWiki GitHub Actions workflow refreshes the repository wiki. Do not hand-edit generated OpenWiki pages unless explicitly asked; prefer updating source code/docs and letting OpenWiki regenerate. Preserve hand-authored deep dives such as `docs/agentic-debug-pipeline.md`.
 
-- Pages: `docs/**/*.md` (also reachable as `openwiki/` via symlink to `docs/`)
-- Brief / checklist: `docs/INSTRUCTIONS.md`
-- Agent pointers: `AGENTS.md`, `CLAUDE.md`
-
-## Rules
-
-1. **Branch accuracy** — Document only what exists on the current branch/tree. Do not copy claims from other feature branches (e.g. multi-agent `AGENTIC_PIPELINE` default if this tree has no such product path).
-2. **Same change** — Feature code + matching doc updates land together (do not leave docs for a follow-up unless the user explicitly defers).
-3. **Map updates** — Touch the right page(s); add a new `docs/` page and link it from `docs/quickstart.md` when a feature needs a deep dive.
-4. **Verify** — After edits, ensure relative links resolve and remove stale sections that describe deleted behaviour.
-
-## Quick map
-
-| Code area | Doc page |
-|-----------|----------|
-| Routes / SSE in `api/app.py` | `docs/api/surface.md` |
-| `api/static/` | `docs/webui/integration.md` |
-| Sandbox / `orchestrator.py` / `agentic_debug.py` | `docs/sandbox/debugging.md`, `docs/agentic-debug-pipeline.md` |
-| Env / Docker / serve scripts | `docs/building/configuration.md`, `docs/building/docker-deployment.md` |
-| `tests/development/` | `docs/testing/overview.md` |
-| Failure modes / ops | `docs/operations/runbooks.md` |
+<!-- OPENWIKI:END -->
 
 ---
 > Source: [zakaseb/icd-c-code-refactorer](https://github.com/zakaseb/icd-c-code-refactorer) — distributed by [TomeVault](https://tomevault.io).
