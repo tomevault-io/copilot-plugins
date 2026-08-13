@@ -1,0 +1,9 @@
+{
+  "name": "teemuteemu--caddy-language-server",
+  "displayName": "caddy-language-server",
+  "description": "Caddy language server",
+  "version": "1.0.0",
+  "author": "teemuteemu",
+  "homepage": "https://github.com/teemuteemu/caddy-language-server",
+  "skills": []
+}
