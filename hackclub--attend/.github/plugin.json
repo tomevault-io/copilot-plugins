@@ -1,0 +1,9 @@
+{
+  "name": "hackclub--attend",
+  "displayName": "attend",
+  "description": "Onboarding, travel, and safeguarding for under-18 participants at in-person Hack Club events",
+  "version": "1.0.0",
+  "author": "hackclub",
+  "homepage": "https://github.com/hackclub/attend",
+  "skills": []
+}
