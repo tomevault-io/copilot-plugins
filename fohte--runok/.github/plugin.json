@@ -1,0 +1,9 @@
+{
+  "name": "fohte--runok",
+  "displayName": "runok",
+  "description": "Command execution permission framework for LLM agents",
+  "version": "1.0.0",
+  "author": "fohte",
+  "homepage": "https://github.com/fohte/runok",
+  "skills": []
+}
