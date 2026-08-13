@@ -1,0 +1,44 @@
+{
+  "name": "claude-code-statusline",
+  "owner": "ohugonnot",
+  "repo": "claude-code-statusline",
+  "description": "Real-time /usage rate limit tracking for Claude Code \u2014 see session & weekly quota, reset countdown, context window, model and git branch in your status line",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ohugonnot/claude-code-statusline",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T13:01:17Z"
+}
