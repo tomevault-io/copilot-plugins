@@ -1,0 +1,9 @@
+{
+  "name": "codegraphtheory--chainforge",
+  "displayName": "chainforge",
+  "description": "Installable Hermes Agent profile for a security-first blockchain architect specializing in smart contracts, Solidity, Solana, DeFi, audits, governance, and tokenomics.",
+  "version": "1.0.0",
+  "author": "codegraphtheory",
+  "homepage": "https://github.com/codegraphtheory/chainforge",
+  "skills": []
+}
