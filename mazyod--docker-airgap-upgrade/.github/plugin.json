@@ -1,0 +1,9 @@
+{
+  "name": "mazyod--docker-airgap-upgrade",
+  "displayName": "docker-airgap-upgrade",
+  "description": "Docker Engine 28.5.1 \u2192 29.1.5 upgrade scripts for air-gapped RHEL 8/9 servers",
+  "version": "1.0.0",
+  "author": "Mazyod",
+  "homepage": "https://github.com/Mazyod/docker-airgap-upgrade",
+  "skills": []
+}
