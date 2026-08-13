@@ -4,7 +4,7 @@
   "repo": "lorekeep",
   "description": "Lorekeep \u2014 temporal knowledge graph for AI agents via MCP",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/manhhailua/lorekeep",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T19:15:08Z"
+  "distributed_at": "2026-08-13T23:35:00Z"
 }
