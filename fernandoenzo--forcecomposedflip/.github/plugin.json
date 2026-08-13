@@ -1,0 +1,9 @@
+{
+  "name": "fernandoenzo--forcecomposedflip",
+  "displayName": "ForceComposedFlip",
+  "description": "Forces DWM Composed Flip to capture DLSS Frame Generation frames with Sunshine/Moonlight",
+  "version": "1.0.0",
+  "author": "fernandoenzo",
+  "homepage": "https://github.com/fernandoenzo/ForceComposedFlip",
+  "skills": []
+}
