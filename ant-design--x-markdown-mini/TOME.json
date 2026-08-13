@@ -1,0 +1,44 @@
+{
+  "name": "x-markdown-mini",
+  "owner": "ant-design",
+  "repo": "x-markdown-mini",
+  "description": "\u9762\u5411\u5c0f\u7a0b\u5e8f\u7684\u6d41\u5f0f\u53cb\u597d\u3001\u8f7b\u91cf\u3001\u8de8\u7aef Markdown \u6e32\u67d3\u5668",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ant-design/x-markdown-mini",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T00:44:55Z"
+}
