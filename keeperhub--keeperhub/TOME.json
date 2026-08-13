@@ -4,7 +4,7 @@
   "repo": "keeperhub",
   "description": "Automate on-chain events and actions reliably and securely. Build Workflows in minutes without the need for infrastructure, code or wallet management. Get instant alerts and never miss what matters.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KeeperHub/keeperhub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T20:54:24Z"
+  "distributed_at": "2026-08-13T14:45:23Z"
 }
