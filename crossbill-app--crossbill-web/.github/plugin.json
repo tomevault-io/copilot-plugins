@@ -1,0 +1,9 @@
+{
+  "name": "crossbill-app--crossbill-web",
+  "displayName": "crossbill-web",
+  "description": "A self-hosted reading companion for highlights, flashcards and other reading tools",
+  "version": "1.0.0",
+  "author": "Crossbill-App",
+  "homepage": "https://github.com/Crossbill-App/crossbill-web",
+  "skills": []
+}
