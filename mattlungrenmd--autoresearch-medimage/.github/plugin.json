@@ -1,0 +1,9 @@
+{
+  "name": "mattlungrenmd--autoresearch-medimage",
+  "displayName": "autoresearch-medimage",
+  "description": "Autonomous medical imaging AI research \u2014 bring any dataset, the agent runs experiments automatically. Built on karpathy/autoresearch.",
+  "version": "1.0.0",
+  "author": "mattlungrenmd",
+  "homepage": "https://github.com/mattlungrenmd/autoresearch-medimage",
+  "skills": []
+}
