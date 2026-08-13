@@ -1,0 +1,9 @@
+{
+  "name": "blueraincoatli--comfyui-model-cleaner",
+  "displayName": "ComfyUI-Model-Cleaner",
+  "description": "Try to locate the \"orphan models\" and clean them",
+  "version": "1.0.0",
+  "author": "blueraincoatli",
+  "homepage": "https://github.com/blueraincoatli/ComfyUI-Model-Cleaner",
+  "skills": []
+}
