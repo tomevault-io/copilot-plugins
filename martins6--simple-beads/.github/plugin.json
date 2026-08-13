@@ -1,0 +1,9 @@
+{
+  "name": "martins6--simple-beads",
+  "displayName": "simple-beads",
+  "description": "A lightweight, local-only task management CLI with SQLite storage",
+  "version": "1.0.0",
+  "author": "Martins6",
+  "homepage": "https://github.com/Martins6/simple-beads",
+  "skills": []
+}
