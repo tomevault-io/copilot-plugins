@@ -1,0 +1,44 @@
+{
+  "name": "ecommerce-customer-service-skill-mcp",
+  "owner": "jlm191701",
+  "repo": "ecommerce-customer-service-skill-mcp",
+  "description": "\u7535\u5546\u667a\u80fd\u5ba2\u670d\u2014Skill MCP\uff1a\u57fa\u4e8e Skill\u3001MCP \u4e0e\u57fa\u7840 Agent Runtime \u7684\u9ad8\u89e3\u8026\u667a\u80fd\u5ba2\u670d\u7cfb\u7edf",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jlm191701/ecommerce-customer-service-skill-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T22:58:38Z"
+}
