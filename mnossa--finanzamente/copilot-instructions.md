@@ -1,38 +1,45 @@
-## finanzamente
+## agent-workflow
 
-> > **Token-optimized layout.** Always-on rules: `.cursor/rules/core.mdc` + `agent-workflow.mdc`.
+> Agent workflow — planning, verification gates, tasks, lessons
 
-# Finanzamente — Cursor rules index
 
-> **Token-optimized layout.** Always-on rules: `.cursor/rules/core.mdc` + `agent-workflow.mdc`.
-> File-scoped rules load by glob (PHP, React, Blade, E2E, GDPR).
-> Long reference: `docs/agent/`. Cloud VMs: `AGENTS.md`.
+# Agent Workflow
 
-## Output (always)
-Default: **caveman full**. Off: `stop caveman` | `normal mode`. `/caveman lite|full|ultra`. Critical security: clear text first.
+## Planning
+Non-trivial (3+ steps or architecture): plan first; replan on failure. Verifiable checklist in `tasks/todo.md` before implementation.
 
-## Quick reference
-| Topic | Where |
-|-------|--------|
-| Stack, naming, locale | `.cursor/rules/core.mdc` |
-| Gates: test → pint → playwright | `.cursor/rules/agent-workflow.mdc` |
-| Laravel / PHP | `.cursor/rules/php-laravel.mdc` |
-| React / Inertia | `.cursor/rules/react-inertia.mdc` |
-| Blade public | `.cursor/rules/blade-public.mdc` |
-| Playwright | `.cursor/rules/e2e-playwright.mdc` |
-| Privacy / GDPR | `.cursor/rules/gdpr-privacy.mdc` |
-| Make commands | `docs/agent/makefile.md` |
-| E2E detail | `docs/agent/e2e-conventions.md` |
-| PWA, ops, extensibility | `docs/agent/architecture.md` |
+## Subagents
+Use for exploration and parallel research. One focused task per subagent.
 
-## Non-negotiables
-- Docker + `make *` only for dev commands.
-- UI Italian; code/DB English.
-- MIT open source, self-host — no SaaS billing / plan tiers.
-- New feature → tests; runtime change → `make test`, `make pint-check`, `make playwright` (see workflow rule).
-- Privacy policy change → version in `config/legal.php` + consent alignment + tests.
+## Verification (runtime code changes)
+Run in order until green:
+1. `make test` — full PHPUnit (`tests/Unit`, `tests/Feature`; SQLite in container)
+2. `make pint-check` — on fail: `make pint-fix`, recheck diff
+3. `make playwright` — E2E on port **8081** (Docker up: `make up`)
 
-Update `.cursor/rules/*.mdc` when conventions change; keep this file as a short index.
+**Omit playwright**: `.md`-only or no PHP/TS/JS/navigable markup impact.
+**PHP touched**: always steps 1–2 even if playwright omitted.
+
+Never close without proof. Fix CI failures without hand-holding. Bug reports: diagnose logs/tests and fix.
+
+## Tests required
+Every new feature (macros, helpers, observers, services, renderers) needs ≥1 Unit or Feature test. Missing test = bug.
+
+Third-party wrappers: assert delegate implements library interfaces (e.g. `ConfigurationAwareInterface`).
+
+## Task hygiene
+Plan → verify plan → track in `tasks/todo.md` → summarize → review section in todo. User correction → `tasks/lessons.md`.
+
+## Code principles
+Minimal diff, root cause, no drive-by changes. Non-trivial: prefer elegant solution; skip for obvious one-liners.
+
+## PR
+Relevant changes via PR. Merge: tests green, no duplication, acceptable perf, docs/security OK.
+
+## Deploy / backfill dati
+- **Entrypoint** (`docker/entrypoint.sh`): solo step idempotenti (migrate, optimize, sitemap, …).
+- **One-shot** dopo cambio logica: **migration** Laravel (una volta per ambiente), mai artisan di backfill ripetuto a ogni deploy.
+- Dettaglio: `docs/agent/architecture.md` · `docs/DEPLOY.md`.
 
 ---
 > Source: [mnossa/finanzamente](https://github.com/mnossa/finanzamente) — distributed by [TomeVault](https://tomevault.io).
