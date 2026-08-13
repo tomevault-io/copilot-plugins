@@ -1,0 +1,9 @@
+{
+  "name": "nlrisacher-cmyk--claude-config",
+  "displayName": "claude-config",
+  "description": "Claude Code config: settings, hooks, scripts",
+  "version": "1.0.0",
+  "author": "nlrisacher-cmyk",
+  "homepage": "https://github.com/nlrisacher-cmyk/claude-config",
+  "skills": []
+}
