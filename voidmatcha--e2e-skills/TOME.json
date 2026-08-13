@@ -1,0 +1,44 @@
+{
+  "name": "e2e-skills",
+  "owner": "voidmatcha",
+  "repo": "e2e-skills",
+  "description": "AI agent testing toolkit for Playwright and Cypress: generate E2E tests from scratch, review existing specs against 24 anti-patterns (P0/P1/P2 silent-always-pass smells), and debug flaky failures from playwright-report/ or cypress/reports/. Agent Skills for Claude Code and Codex.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/voidmatcha/e2e-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T06:48:04Z"
+}
