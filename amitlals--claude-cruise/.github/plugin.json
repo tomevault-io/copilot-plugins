@@ -1,0 +1,9 @@
+{
+  "name": "amitlals--claude-cruise",
+  "displayName": "claude-cruise",
+  "description": "Never hit a rate limit again.",
+  "version": "1.0.0",
+  "author": "amitlals",
+  "homepage": "https://github.com/amitlals/claude-cruise",
+  "skills": []
+}
