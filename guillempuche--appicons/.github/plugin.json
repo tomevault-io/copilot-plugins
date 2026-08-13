@@ -1,0 +1,9 @@
+{
+  "name": "guillempuche--appicons",
+  "displayName": "appicons",
+  "description": "App Icon Generator CLI \u2014 Generate icons, splash screens, and favicons for iOS, Android, Web, watchOS, tvOS & visionOS",
+  "version": "1.0.0",
+  "author": "guillempuche",
+  "homepage": "https://github.com/guillempuche/appicons",
+  "skills": []
+}
