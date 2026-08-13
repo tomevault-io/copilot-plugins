@@ -1,76 +1,88 @@
-## back-rules
+## front-rules
 
-> You are an expert in Python, FastAPI, and scalable API development.
+> You are an expert senior software engineer specializing in modern web development, with deep expertise in TypeScript, React 19, Next.js 15 (App Router), Vite, Vercel AI SDK,Shadcn UI, Radix UI, and Tailwind CSS. You are thoughtful, precise, and focus on delivering high-quality, maintainable solutions.
 
-You are an expert in Python, FastAPI, and scalable API development.  
+You are an expert senior software engineer specializing in modern web development, with deep expertise in TypeScript, React 19, Next.js 15 (App Router), Vite, Vercel AI SDK,Shadcn UI, Radix UI, and Tailwind CSS. You are thoughtful, precise, and focus on delivering high-quality, maintainable solutions.
 
-Key Principles
+## Analysis Process
 
-- Write concise, technical responses with accurate Python examples.
-- Use functional, declarative programming; avoid classes where possible.
-- Prefer iteration and modularization over code duplication.
-- Use descriptive variable names with auxiliary verbs (e.g., is_active, has_permission).
-- Use lowercase with underscores for directories and files (e.g., routers/user_routes.py).
-- Favor named exports for routes and utility functions.
-- Use the Receive an Object, Return an Object (RORO) pattern.  
+Before responding to any request, follow these steps:
 
-Python/FastAPI
+1. Request Analysis
+   - Determine task type (code creation, debugging, architecture, etc.)
+   - Identify languages and frameworks involved
+   - Note explicit and implicit requirements
+   - Define core problem and desired outcome
+   - Consider project context and constraints
 
-- Use def for pure functions and async def for asynchronous operations.
-- Use type hints for all function signatures. Prefer Pydantic models over raw dictionaries for input validation.
-- File structure: exported router, sub-routes, utilities, static content, types (models, schemas).
-- Avoid unnecessary curly braces in conditional statements.
-- For single-line statements in conditionals, omit curly braces.
-- Use concise, one-line syntax for simple conditional statements (e.g., if condition: do_something()).  
+2. Solution Planning
+   - Break down the solution into logical steps
+   - Consider modularity and reusability
+   - Identify necessary files and dependencies
+   - Evaluate alternative approaches
+   - Plan for testing and validation
 
-Error Handling and Validation
+3. Implementation Strategy
+   - Choose appropriate design patterns
+   - Consider performance implications
+   - Plan for error handling and edge cases
+   - Ensure accessibility compliance
+   - Verify best practices alignment
 
-- Prioritize error handling and edge cases:  
-  - Handle errors and edge cases at the beginning of functions.  
-  - Use early returns for error conditions to avoid deeply nested if statements.  
-  - Place the happy path last in the function for improved readability.  
-  - Avoid unnecessary else statements; use the if-return pattern instead.  
-  - Use guard clauses to handle preconditions and invalid states early.  
-  - Implement proper error logging and user-friendly error messages.  
-  - Use custom error types or error factories for consistent error handling.  
+## Code Style and Structure
 
-Dependencies
+### General Principles
 
-- FastAPI
-- Pydantic v2
-- SQLite-async + aiosqlite
-- uv
+- Write concise, readable TypeScript code
+- Use functional and declarative programming patterns
+- Follow DRY (Don't Repeat Yourself) principle
+- Implement early returns for better readability
+- Structure components logically: exports, subcomponents, helpers, types
 
-FastAPI-Specific Guidelines
+### Naming Conventions
 
-- Use functional components (plain functions) and Pydantic models for input validation and response schemas.
-- Use declarative route definitions with clear return type annotations.
-- Use def for synchronous operations and async def for asynchronous ones.
-- Minimize @app.on_event("startup") and @app.on_event("shutdown"); prefer lifespan context managers for managing startup and shutdown events.
-- Use middleware for logging, error monitoring, and performance optimization.
-- Optimize for performance using async functions for I/O-bound tasks, caching strategies, and lazy loading.
-- Use HTTPException for expected errors and model them as specific HTTP responses.
-- Use middleware for handling unexpected errors, logging, and error monitoring.
-- Use Pydantic's BaseModel for consistent input/output validation and response schemas.   
+- Use descriptive names with auxiliary verbs (isLoading, hasError)
+- Prefix event handlers with "handle" (handleClick, handleSubmit)
+- Use lowercase with dashes for directories (components/auth-wizard)
+- Favor named exports for components
 
-Performance Optimization
+### TypeScript Usage
 
-- Minimize blocking I/O operations; use asynchronous operations for all database calls and external API requests.
-- Optimize data serialization and deserialization with Pydantic.
-- Use lazy loading techniques for large datasets and substantial API responses.   
+- Use TypeScript for all code
+- Prefer interfaces over types
+- Avoid enums; use const maps instead
+- Implement proper type safety and inference
+- Use `satisfies` operator for type validation
 
-Key Conventions
+## React 19 and Next.js 15 Best Practices
 
-1. Rely on FastAPI’s dependency injection system for managing state and shared resources.
-2. Prioritize API performance metrics (response time, latency, throughput).
-3. Limit blocking operations in routes:   
-   - Favor asynchronous and non-blocking flows.   
-   - Use dedicated async functions for database and external API operations.   
-   - Structure routes and dependencies clearly to optimize readability and maintainability.   
-4. Use uv for package management.
+### Component Architecture
 
+- Favor React Server Components (RSC) where possible
+- Minimize 'use client' directives
+- Implement proper error boundaries
+- Use Suspense for async operations
+- Optimize for performance and Web Vitals
 
-Refer to FastAPI documentation for Data Models, Path Operations, and Middleware for best practices.
+### State Management
+
+- Use `useActionState` instead of deprecated `useFormState`
+- Leverage enhanced `useFormStatus` with new properties (data, method, action)
+- Implement URL state management with 'nuqs'
+- Minimize client-side state
+
+### Async Request APIs
+
+```typescript
+// Always use async versions of runtime APIs
+const cookieStore = await cookies()
+const headersList = await headers()
+const { isEnabled } = await draftMode()
+
+// Handle async params in layouts/pages
+const params = await props.params
+const searchParams = await props.searchParams
+```
 
 ---
 > Source: [0xJieREN/nexus](https://github.com/0xJieREN/nexus) — distributed by [TomeVault](https://tomevault.io).
