@@ -1,11 +1,9 @@
-## boffin
+## boffin-pack-routing
 
-> ParselFire Core gives AI coding agents a small routed set of architectural guardrails
+> ParselFire Core pack activation and stage pipeline
 
-# ParselFire Core Portable Routing Contract
 
-ParselFire Core gives AI coding agents a small routed set of architectural guardrails
-instead of one large always-on rules dump.
+# ParselFire Core Pack Activation
 
 ## Default Workflow
 
@@ -79,115 +77,33 @@ search.
 - S05 boundaries: make subsystem boundaries explicit, thread semantics end to end
 - S06 convergence: converge broadly, remove displaced layers
 
-When a task touches code:
+## Loading
 
-1. Load `packs/universal/pack.urf.md`.
-2. Detect the active source family from the file being changed:
-   - Python: also load `packs/python-architecture/pack.urf.md`
-   - C++: also load `packs/cpp-architecture/pack.urf.md`
-   - Plain C: stay on universal only
-   - Ambiguous `.h`: use the C++ family only when the file contains C++
-     constructs
-   - Any other language: stay on the universal index only
-3. Treat each loaded `pack.urf.md` as a routing index, not as the dense
-   guidance body.
-4. Human-oriented `packs/**/README.md` guides are not part of the runtime
-   guidance surface. Load only pack indexes and the leaf files resolved from
-   those indexes.
-5. From each loaded `## ROUTING`, match `signals=` against the active code
-   context to select your primary leaf per family. If several routes match,
-   pick the route matching the change's dominant mechanic and let the stage
-   walk pull in any remaining leaves; if no route matches, skip signal routing
-   and select leaves directly from `## LEAVES` `stages=` for the stages your
-   change touches.
-6. If your primary signal match is a late-stage refactoring leaf (one whose
-   `stages=` lie entirely in S04-S06), you MUST ALSO load at least one
-   early-stage correctness leaf (S01-S03) to serve as your rejection filter;
-   pick it from `## LEAVES` by choosing a leaf whose `stages=` includes the
-   early stage your code's mechanics touch.
-7. To cover a stage whose `refs=` ids are not in your loaded leaves, read
-   `## LEAVES` and load every leaf whose `stages=` includes that stage; resolve
-   coverage from the index, not by searching the `packs/` directory.
-8. Consult X entries first at the current stage, then K entries, before
-   proceeding to later stages.
-9. When delegating code work to a subagent, pass the pack index paths and this
-   contract, and require the subagent to run its own routing and stage walk
-   from those indexes. Do not pre-select leaves in the delegation prompt;
-   pre-selection bypasses routing and narrows the dose before the code is read.
-10. Apply the guidance semantically: translate each kernel into what the code
-    concretely does. Never paste kernel prose, pack vocabulary, or kernel ids
-    verbatim into code or comments -- the one sanctioned in-code trace is a
-    `boffin:` mark whose clause is the code's own words (see "After any code
-    edit" for when to leave one).
+Before reading, editing, reviewing, or refactoring code:
 
-## Pre-Flight Review
+- Identify the implementation language and execution domain from the source itself.
+- Load `packs/universal/pack.urf.md`.
+- If the source is Python, also load `packs/python-architecture/pack.urf.md`.
+- If the source is C++, also load `packs/cpp-architecture/pack.urf.md`.
+- If the source is plain C, stay on the universal index only (no C pack exists yet).
+- For `.h` files: inspect content; load cpp-architecture only if C++ constructs are present.
+- Otherwise stay on the universal index only.
+- Use loaded pack indexes as the routing surface for leaf selection.
+- Human-oriented `packs/**/README.md` guides are not part of the runtime guidance surface. Load only pack indexes and the leaf files resolved from those indexes.
+- From `## ROUTING`, match `signals` against the active code context to select your primary leaf per family. If several routes match, pick the route matching the change's dominant mechanic and let the stage walk pull in any remaining leaves; if no route matches, skip signal routing and select leaves directly from `## LEAVES` `stages=` for the stages your change touches.
+- STAGE-WALK REQUIREMENT: You cannot safely perform late-stage refactoring (S04-S06) without an early-stage rejection filter. If your primary signal match is a late-stage leaf (one whose `stages=` lie entirely in S04-S06, for example `shared-abstractions.urf.md`), you MUST ALSO load at least one early-stage correctness leaf (S01-S03); pick it from `## LEAVES` by choosing a leaf whose `stages=` includes the early stage your code's mechanics touch.
+- To cover a stage whose `refs=` ids are not in your loaded leaves, read `## LEAVES` and load every leaf whose `stages=` includes that stage; resolve coverage from the index, not by searching the `packs/` directory.
+- When delegating code work to a subagent, pass the pack index paths and this contract, and require the subagent to run its own routing and stage walk from those indexes. Do not pre-select leaves in the delegation prompt; pre-selection bypasses routing and narrows the dose before the code is read.
+- Coding vs review dose: for a focused coding change, load the primary seam leaf, the mandatory early-stage filter, and any additional leaves whose `stages=` are needed to complete the stages the change's mechanics actually touch; clear an untouched stage on the universal index `focus=` line instead of loading its leaves. For a pure review, audit, or compliance task with no single edit seam, load one leaf per stage-family the file's mechanics actually touch across S00-S06 because review needs width across stages, not a single dose.
 
-- Re-read the loaded pack index and all loaded leaf packs; do not rely on
-  memory.
-- For a focused change, confirm you stayed within the requested scope and proved
-  the change with a check; the ledger checks below apply to refactor/review tasks.
-- For a refactor/review task, confirm the Pass 1 ledger lists a row for every
-  in-scope stage; a stage with no row is an incomplete audit, not a clean file.
-- Confirm every ledger row is `done` or `skip`, that each `skip` carries a
-  reason, and that no row recorded as `todo` was downgraded to `skip:clean`.
-- Confirm every fix named in Pass 1 reasoning has its own ledger row; a fix
-  discussed but left unrecorded is an incomplete audit.
-- If a change touches ownership, lifecycle, completion semantics,
-  state-machine transitions, concurrent access, or logic encoded through flags
-  or sentinels, name the exact invariant from stages S01-S03 it must preserve
-  before editing.
-- On user request, render the ledger and the blocking earlier-stage invariants
-  as concise ordered bullets in the user's language.
+After loading leaves:
 
-After any code edit:
-
-- Verify the edit with an external check (the narrowest test or lint that proves
-  it), not by re-reading your own reasoning or the diff alone.
-- Review the change as if a different author wrote it: read the final file
-  region, not only the diff, and ask what a fresh reviewer would flag.
-- Re-read the relevant leaf pack(s); confirm no `## EXCLUDES` pattern was
-  introduced and no earlier-stage (S00-S03) invariant was weakened to satisfy a
-  later-stage (S04-S06) cleanup goal.
-- A ledger finding may not be silently dropped: it ends as `done` (with its
-  check) or `skip:<reason>`; a `todo` is never relabeled `skip:clean`.
-- Present the filled ledger as the result; do not add rows for kernels that
-  found nothing, and never cite a kernel a row does not actually rest on.
-- When a loaded kernel actually changed a code decision -- and the change was
-  not a purely stylistic rewrite of already-correct code -- leave one short
-  host-language comment at that site. Start the comment with the `boffin:`
-  prefix and state, in the code's own words, what the code now does or refuses
-  (not what the kernel says). The natural judgment verb is encouraged
-  (`kept .../refused .../cut ...`); the `boffin:` prefix is the
-  machine-readable key; never add a kernel id or any pack vocabulary.
-  Readability bar (the one mandatory
-  wording check): if you mentally drop the `boffin:` prefix, the remaining
-  sentence must still read as a comment a senior engineer would write --
-  otherwise rewrite the clause or drop the whole mark. This is only a mental
-  check: always keep the `boffin:` prefix in the emitted comment. Budget: at
-  most one mark per hunk, roughly three per changeset. Emit nothing when a
-  `.boffin-trace-off` file exists at the repository root; only in venues that
-  forbid tool marks, omit the `boffin:` prefix and keep the clause alone.
-
-Keep runtime reads focused:
-
-- default read set = `packs/universal/pack.urf.md` + one primary universal leaf
-  + any additional universal leaves whose `stages=` are required by the stages
-  your change's mechanics actually touch + zero or one language-family index +
-  zero or more language leaves whose `stages=` are required by the same touched
-  stages
-- walk every stage S00-S06, but load leaves only for the stages the change's
-  mechanics touch; clear an untouched stage on the universal index `focus=`
-  line instead of loading its leaves
-- for a focused coding change, the 3-5 entry budget is the dose you materially
-  apply after walking every loaded stage; it is not a cap on the stage-walk
-- use `## LEAVES` `stages=` as the authoritative stage-to-leaf map; do not rely
-  on filesystem search to discover which leaf covers a stage
-- for a pure review, audit, or compliance task with no single edit seam, widen
-  the read surface to one leaf per stage-family the file's mechanics actually
-  touch across S00-S06
-
-This file is the canonical portable instruction surface. Thin host adapters
-should mirror it without adding host-specific routing semantics.
+- Walk the loaded stages S00 upward, inspecting X first and K second at each stage, before deciding what to apply.
+- The 3-5 entry budget is the dose you materially apply in a focused coding change; it is not a cap on the stage-walk. Always walk every loaded stage first, then settle on the 3-5 entries you act on. In review mode, cite every stage where a real finding exists rather than truncating to 3-5.
+- Use stage order, not signal strength, to decide which loaded entries get checked first.
+- Reference guidance by `pack/scope`; use namespaced ids only when compact pairing helps.
+- Apply guidance semantically; never paste kernel prose, pack vocabulary, or kernel ids verbatim into code or comments.
+- When a loaded kernel actually changed a code decision (not a stylistic rewrite of already-correct code), leave one `boffin:` comment-trace mark at that site as described in the post-change audit rule: keep the `boffin:` prefix (the machine-readable key), write the clause in the code's own words with no kernel id, favor the judgment verb (kept/refused/cut), and emit nothing when `.boffin-trace-off` exists at the repo root.
 
 ---
 > Source: [MicSm/boffin](https://github.com/MicSm/boffin) — distributed by [TomeVault](https://tomevault.io).
