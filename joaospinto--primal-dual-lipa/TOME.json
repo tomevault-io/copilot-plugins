@@ -4,7 +4,7 @@
   "repo": "primal-dual-lipa",
   "description": "Interior Point Optimal Control in JAX",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/joaospinto/primal-dual-lipa",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T14:55:01Z"
+  "distributed_at": "2026-08-13T18:46:51Z"
 }
