@@ -4,7 +4,7 @@
   "repo": "ccsds124",
   "description": "Multi-language implementations of CCSDS 124.0-B-1 in C, C++, Python, Go, Rust, and Java. The lossless compression standard for fixed-length spacecraft housekeeping telemetry, based on ESA's patented POCKET+ algorithm and built from low-level OR/XOR/AND operations to run on low-power spacecraft processors under tight real-time constraints.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tanagraspace/ccsds124",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T14:42:06Z"
+  "distributed_at": "2026-08-13T18:36:12Z"
 }
