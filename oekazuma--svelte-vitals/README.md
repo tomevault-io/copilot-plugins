@@ -7,11 +7,11 @@ A static code-health checker for SvelteKit — SEO, Performance, Correctness, Se
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [oekazuma/svelte-vitals](https://github.com/oekazuma/svelte-vitals).
+Original source: `CLAUDE.md` in [oekazuma/svelte-vitals](https://github.com/oekazuma/svelte-vitals).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
