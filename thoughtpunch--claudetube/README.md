@@ -7,11 +7,11 @@ Let Claude Code watch Youtube videos
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [thoughtpunch/claudetube](https://github.com/thoughtpunch/claudetube).
+Original source: `AGENTS.md` in [thoughtpunch/claudetube](https://github.com/thoughtpunch/claudetube).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
