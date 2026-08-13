@@ -1,0 +1,9 @@
+{
+  "name": "lim0513--joplin-explorer",
+  "displayName": "joplin-explorer",
+  "description": "A unified sidebar Joplin plugin that displays notebooks and notes together in a single tree view",
+  "version": "1.0.0",
+  "author": "lim0513",
+  "homepage": "https://github.com/lim0513/joplin-explorer",
+  "skills": []
+}
