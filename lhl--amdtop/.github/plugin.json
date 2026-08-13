@@ -1,0 +1,9 @@
+{
+  "name": "lhl--amdtop",
+  "displayName": "amdtop",
+  "description": "nvitop-style TUI frontend for amdgpu_top (AMDGPU + Strix Halo XDNA NPU)",
+  "version": "1.0.0",
+  "author": "lhl",
+  "homepage": "https://github.com/lhl/amdtop",
+  "skills": []
+}
