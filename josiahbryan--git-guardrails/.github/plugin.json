@@ -1,0 +1,9 @@
+{
+  "name": "josiahbryan--git-guardrails",
+  "displayName": "git-guardrails",
+  "description": "A compiled git wrapper that blocks dangerous git commands \u2014 especially from AI coding agents",
+  "version": "1.0.0",
+  "author": "josiahbryan",
+  "homepage": "https://github.com/josiahbryan/git-guardrails",
+  "skills": []
+}
