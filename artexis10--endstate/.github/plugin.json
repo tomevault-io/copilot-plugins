@@ -1,0 +1,9 @@
+{
+  "name": "artexis10--endstate",
+  "displayName": "endstate",
+  "description": "Open-source engine behind Endstate: reinstall your apps and restore your settings on a fresh machine from one file. Windows via winget (Linux/macOS in progress). Go, Apache 2.0.",
+  "version": "1.0.0",
+  "author": "Artexis10",
+  "homepage": "https://github.com/Artexis10/endstate",
+  "skills": []
+}
