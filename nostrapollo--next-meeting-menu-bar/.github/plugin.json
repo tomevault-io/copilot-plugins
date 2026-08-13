@@ -1,0 +1,9 @@
+{
+  "name": "nostrapollo--next-meeting-menu-bar",
+  "displayName": "next-meeting-menu-bar",
+  "description": "A simple macOS menu bar app that shows your next calendar meeting with a countdown timer",
+  "version": "1.0.0",
+  "author": "nostrapollo",
+  "homepage": "https://github.com/nostrapollo/next-meeting-menu-bar",
+  "skills": []
+}
