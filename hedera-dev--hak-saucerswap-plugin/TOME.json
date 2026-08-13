@@ -1,0 +1,44 @@
+{
+  "name": "hak-saucerswap-plugin",
+  "owner": "hedera-dev",
+  "repo": "hak-saucerswap-plugin",
+  "description": "A Hedera Agent Kit plugin that integrates SaucerSwap\u2019s DEX API and router contracts to let AI agents quote swaps, execute trades, manage liquidity, and explore farming opportunities on Hedera.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hedera-dev/hak-saucerswap-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T17:25:29Z"
+}
