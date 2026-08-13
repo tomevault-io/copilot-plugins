@@ -1,0 +1,9 @@
+{
+  "name": "supplynexus--fulfillment-service",
+  "displayName": "fulfillment-service",
+  "description": "Full-stack Shopify-Printify fulfillment service (Python FastAPI + NextJS)",
+  "version": "1.0.0",
+  "author": "supplynexus",
+  "homepage": "https://github.com/supplynexus/fulfillment-service",
+  "skills": []
+}
