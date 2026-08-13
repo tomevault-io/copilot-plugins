@@ -1,0 +1,9 @@
+{
+  "name": "projectopensea--opensea-cli",
+  "displayName": "opensea-cli",
+  "description": "Query the OpenSea API from the command line or programmatically",
+  "version": "1.0.0",
+  "author": "ProjectOpenSea",
+  "homepage": "https://github.com/ProjectOpenSea/opensea-cli",
+  "skills": []
+}
