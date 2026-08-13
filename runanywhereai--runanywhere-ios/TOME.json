@@ -4,7 +4,7 @@
   "repo": "runanywhere-ios",
   "description": "Swift (iOS, macOS.. more) starter example app to get started with RunAnywhere SDK!",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RunanywhereAI/runanywhere-ios",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T05:29:00Z"
+  "distributed_at": "2026-08-13T07:07:26Z"
 }
