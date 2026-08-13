@@ -1,25 +1,52 @@
-## shopping-list-no-adhoc-lines
+## shopping-state-known-fragility
 
-> Shopping List has no UX to add free-text checklist rows; do not imply otherwise in docs, tests, or migration QA
+> Triage checklist and named silent-failure traps for shopping plan + Supabase round-trip bugs
 
 
-# Shopping List — no “add a line” flow
+# Shopping state — read this before guessing
 
-**Product fact:** The **Shopping List** screen (`shoppingList.html`, `loadShoppingListPage` in `js/main.js`) does **not** let the user type and add a brand-new free-text row. Rows come from **Catalog + Plan → generation**, plus **edits, checks, removals, and overrides** on those rows.
+**Most bugs in this surface look like timing problems but are silent-write problems.** Get one piece of real evidence before changing code.
 
-**Schema vs UI:**
+## Triage checklist (do this first)
 
-- **`list.manual_rows`** is a **Postgres table** for server-side list session data (and RPCs like `append_manual_shopping_list_row`). It is **not** documentation that end users compose ad-hoc lines on the Shopping List UI.
-- **Durable “extra” shopping intent** belongs in **`plan.selected_items`** (Items / planner flows), not in imaginary Shopping List free-text entry.
+1. **Browser console** — paste the user's stack trace verbatim, don't paraphrase. Today's `recipeId is not defined` crash fell in 30 seconds from a stack trace.
+2. **Network tab** — what's the body of the `save_shopping_state` request and response? "No request" is itself evidence.
+3. **Supabase tables** — query `plan.selected_recipes` / `plan.selected_items` directly. "Server has X" vs "server has nothing" halves the suspect list.
 
-**Agents must not:**
+If none of those three exist, ask for them. Do not speculate further.
 
-- Suggest manual QA, migration chunks, or user-facing copy that assumes “add another line,” “typed-only row,” or “manual line” **on the Shopping List page**.
-- Describe multi-device success as requiring users to **add** manual checklist lines unless that UI is explicitly implemented and linked.
+## Named silent-failure modes (grep these first)
 
-**Allowed:** References to `list.manual_rows`, merge logic, and narrow RPCs as **implementation / migration / server** concerns.
+Each one can swallow a write or hand back stale data **with no toast and no rejection**:
 
-Canonical detail: `docs/catalog-plan-list-supabase.md` (list schema + UX note). Related rule: `.cursor/rules/shopping-variant-editor-known-issue.mdc` (different surface).
+- `skipDuplicateRemotePlanSave` — `JSON.stringify` compare in `persistShoppingPlan`; skips the RPC entirely when the next normalized plan stringifies identical to the previous. A real user change that the normalizer flattens looks like a duplicate.
+- `shoppingStateRemoteWriteSuppressed` — `queueSaveShoppingStateToDataService` early-returns at the top. Set true during hydrate apply; if user input fires inside that window, the save never queues.
+- `shoppingPlanRemoteSaveInFlight` — gates hydrate apply. Useful, but a stuck counter would silently block hydrates.
+- `shoppingStateRemoteApplyGeneration` — supersedes in-flight applies. Same risk.
+- `recipeDetailResolvedCache` / `recipeDetailInflight` — in-memory cache in `supabaseAdapter.js`. Read-back after a write returns the **pre-write** entry unless explicitly invalidated. `saveRecipe` invalidates; other writes that affect a cached recipe may not.
+
+## Anti-patterns from past failed attempts
+
+- "Must be a timing/ordering issue" — often the data was never sent at all. Check the network tab before touching hydrate logic.
+- "Add a toast on the catch path" — toasts only fire on rejection. They do not catch silent skips, suppressed queues, hung fetches, or succeed-with-wrong-body.
+- "Mirror servings to roots instead of merged" — assumes the persist + RPC pipeline is intact. Fix the pipeline first; the root/merged distinction is downstream.
+
+## Codebase landmarks
+
+- `js/main.js` is ~26k lines. Use `rg` / `grep` aggressively. Two near-identical closures with different variable names exist in the same file family — scope errors like the May 2026 `recipeId` typo are easy.
+- `walkRecipe` exists **twice** in `supabaseAdapter.js` with different parameter conventions (`recipeId` vs `normalizedRecipeId`). If you edit one, look at the other.
+- `loadRecipeDetail` cache must be invalidated on every write that changes its return value. `saveRecipe` does this via `invalidateRecipeDetailCache`. Pattern-match if you add a new write.
+
+## Recent fix landmarks
+
+- `19387c9` — await-hydrate on Recipes boot, in-flight save guard
+- `b3414aa` — `loadRecipeDetail` cache invalidation after `save_recipe`; `walkRecipe` scope fix
+
+## The one-sentence moral
+
+**Get one piece of real evidence — stack trace, network body, or DB row — before changing code.**
+
+Companion narrative: `docs/agent-handoff-shopping-state.md`.
 
 ---
 > Source: [spoonfloor/favorite-eats](https://github.com/spoonfloor/favorite-eats) — distributed by [TomeVault](https://tomevault.io).
