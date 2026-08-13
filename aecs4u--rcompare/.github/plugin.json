@@ -1,0 +1,9 @@
+{
+  "name": "aecs4u--rcompare",
+  "displayName": "rcompare",
+  "description": "A high-performance, open-source file and directory comparison utility written in Rust. Compare folders, text files, images, and archives with blazing speed.",
+  "version": "1.0.0",
+  "author": "aecs4u",
+  "homepage": "https://github.com/aecs4u/rcompare",
+  "skills": []
+}
