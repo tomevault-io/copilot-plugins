@@ -1,0 +1,9 @@
+{
+  "name": "emlama--gex-backtesting",
+  "displayName": "gex-backtesting",
+  "description": "SPX 0DTE Gamma Exposure (GEX) analysis toolkit with 305 days of enriched options trade data",
+  "version": "1.0.0",
+  "author": "emlama",
+  "homepage": "https://github.com/emlama/gex-backtesting",
+  "skills": []
+}
