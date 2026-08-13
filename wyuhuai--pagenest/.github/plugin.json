@@ -1,0 +1,9 @@
+{
+  "name": "wyuhuai--pagenest",
+  "displayName": "PageNest",
+  "description": "Save self-contained offline webpages and reopen them in Obsidian with a dedicated web-style Viewer.",
+  "version": "1.0.0",
+  "author": "WYuHuai",
+  "homepage": "https://github.com/WYuHuai/PageNest",
+  "skills": []
+}
