@@ -1,0 +1,9 @@
+{
+  "name": "nemori-ai--cc-master",
+  "displayName": "cc-master",
+  "description": "Turn any Code Harness session into a long-horizon master orchestrator \u2014 pick the right dynamic-workflow paradigm and keep the main thread productively advancing across compaction and sessions.",
+  "version": "1.0.0",
+  "author": "nemori-ai",
+  "homepage": "https://github.com/nemori-ai/cc-master",
+  "skills": []
+}
