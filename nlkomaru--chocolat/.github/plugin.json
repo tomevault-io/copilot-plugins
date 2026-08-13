@@ -1,0 +1,9 @@
+{
+  "name": "nlkomaru--chocolat",
+  "displayName": "Chocolat",
+  "description": "Web application for managing chocolate and confectionery recipes, deployed on Cloudflare Workers.",
+  "version": "1.0.0",
+  "author": "Nlkomaru",
+  "homepage": "https://github.com/Nlkomaru/Chocolat",
+  "skills": []
+}
