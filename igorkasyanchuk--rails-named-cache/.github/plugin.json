@@ -1,0 +1,9 @@
+{
+  "name": "igorkasyanchuk--rails-named-cache",
+  "displayName": "rails_named_cache",
+  "description": "Multiple named cache stores for Rails, through Rails.cache(:name)",
+  "version": "1.0.0",
+  "author": "igorkasyanchuk",
+  "homepage": "https://github.com/igorkasyanchuk/rails_named_cache",
+  "skills": []
+}
