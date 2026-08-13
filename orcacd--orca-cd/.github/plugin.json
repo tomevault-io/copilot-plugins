@@ -1,0 +1,9 @@
+{
+  "name": "orcacd--orca-cd",
+  "displayName": "orca-cd",
+  "description": "GitOps for Docker",
+  "version": "1.0.0",
+  "author": "OrcaCD",
+  "homepage": "https://github.com/OrcaCD/orca-cd",
+  "skills": []
+}
