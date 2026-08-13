@@ -1,0 +1,9 @@
+{
+  "name": "lip5201--mercury-digital",
+  "displayName": "Mercury-Digital",
+  "description": "\u5f00\u6e90\u6570\u5b57\u5546\u54c1\u4ea4\u6613\u5e73\u53f0\u540e\u7aef\u670d\u52a1\uff0c\u652f\u6301\u6587\u4ef6\u4e0b\u8f7d\u3001\u5361\u5bc6\u9500\u552e\u3001Wiki\u8ba2\u9605\u7b49\u591a\u6001\u5546\u54c1\u7c7b\u578b\uff0c\u5185\u7f6e\u57fa\u4e8ego-plugin\u7684\u63d2\u4ef6\u7cfb\u7edf\u548cJWT\u53cc\u4ee4\u724c\u8ba4\u8bc1",
+  "version": "1.0.0",
+  "author": "lip5201",
+  "homepage": "https://github.com/lip5201/Mercury-Digital",
+  "skills": []
+}
