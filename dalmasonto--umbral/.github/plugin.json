@@ -1,0 +1,9 @@
+{
+  "name": "dalmasonto--umbral",
+  "displayName": "umbral",
+  "description": "Umbral is a Rust Web-framework in which every capability is a plugin",
+  "version": "1.0.0",
+  "author": "dalmasonto",
+  "homepage": "https://github.com/dalmasonto/umbral",
+  "skills": []
+}
