@@ -1,0 +1,9 @@
+{
+  "name": "backnotprop--orchestrator",
+  "displayName": "orchestrator",
+  "description": "Agents orchestrating other agents",
+  "version": "1.0.0",
+  "author": "backnotprop",
+  "homepage": "https://github.com/backnotprop/orchestrator",
+  "skills": []
+}
