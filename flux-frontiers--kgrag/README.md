@@ -7,11 +7,11 @@ KGRAG - KnowledgeGraph RAG
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Flux-Frontiers/KGRAG](https://github.com/Flux-Frontiers/KGRAG).
+Original source: `CLAUDE.md` in [Flux-Frontiers/KGRAG](https://github.com/Flux-Frontiers/KGRAG).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
