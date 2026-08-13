@@ -1,0 +1,9 @@
+{
+  "name": "skyliulu--llm-infra-explorer",
+  "displayName": "LLM-Infra-Explorer",
+  "description": "Interactive visualization and exploration of large language model (LLM) systems, infrastructure, and inference workflows",
+  "version": "1.0.0",
+  "author": "skyliulu",
+  "homepage": "https://github.com/skyliulu/LLM-Infra-Explorer",
+  "skills": []
+}
