@@ -1,0 +1,9 @@
+{
+  "name": "nduc99911--repo-context-mcp",
+  "displayName": "repo-context-mcp",
+  "description": "MCP server: repo map, code search, and token-aware context packs for AI coding agents",
+  "version": "1.0.0",
+  "author": "nduc99911",
+  "homepage": "https://github.com/nduc99911/repo-context-mcp",
+  "skills": []
+}
