@@ -1,0 +1,9 @@
+{
+  "name": "helicalinsight--open-data-pipeline",
+  "displayName": "open-data-pipeline",
+  "description": "Open Data Pipeline is an AI powered data migration and data transformation tool",
+  "version": "1.0.0",
+  "author": "helicalinsight",
+  "homepage": "https://github.com/helicalinsight/open-data-pipeline",
+  "skills": []
+}
