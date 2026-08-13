@@ -1,0 +1,9 @@
+{
+  "name": "nathan-gage--tmux-agentline",
+  "displayName": "tmux-agentline",
+  "description": "tmux + claude code status line",
+  "version": "1.0.0",
+  "author": "nathan-gage",
+  "homepage": "https://github.com/nathan-gage/tmux-agentline",
+  "skills": []
+}
