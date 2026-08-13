@@ -1,0 +1,9 @@
+{
+  "name": "osc2405--pbi-context",
+  "displayName": "pbi-context",
+  "description": "AI context engine for Power BI models \u2014 turns .pbit/.pbip (TMDL) into indexed, queryable context for LLM agents (MCP server, CLI, docs). Zero dependencies.",
+  "version": "1.0.0",
+  "author": "Osc2405",
+  "homepage": "https://github.com/Osc2405/pbi-context",
+  "skills": []
+}
