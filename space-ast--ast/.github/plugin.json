@@ -1,0 +1,9 @@
+{
+  "name": "space-ast--ast",
+  "displayName": "ast",
+  "description": "\ud83d\udef0\ufe0fan aerospace simulation algorithm library written in C++, providing computational foundations for space mission analysis and design.",
+  "version": "1.0.0",
+  "author": "space-ast",
+  "homepage": "https://github.com/space-ast/ast",
+  "skills": []
+}
