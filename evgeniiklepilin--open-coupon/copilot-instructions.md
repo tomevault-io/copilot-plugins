@@ -401,5 +401,5 @@ NODE_ENV=development
 - **Scripts from Root:** Use `npm run <script> -w <workspace>` or `--workspace=<name>`
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/EvgeniiKlepilin) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [EvgeniiKlepilin/open-coupon](https://github.com/EvgeniiKlepilin/open-coupon) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
