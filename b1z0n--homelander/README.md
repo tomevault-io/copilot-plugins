@@ -7,11 +7,11 @@ Desktop app that automates apartment applications on ImmobilienScout24 — polls
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [B1Z0N/homelander](https://github.com/B1Z0N/homelander).
+Original source: `CLAUDE.md` in [B1Z0N/homelander](https://github.com/B1Z0N/homelander).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
