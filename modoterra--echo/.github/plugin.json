@@ -1,0 +1,9 @@
+{
+  "name": "modoterra--echo",
+  "displayName": "echo",
+  "description": "Echo is a compiled language implemented in Rust. It uses a single LLVM backend and a Rust-owned runtime for both AOT native binaries and in-process JIT execution.",
+  "version": "1.0.0",
+  "author": "modoterra",
+  "homepage": "https://github.com/modoterra/echo",
+  "skills": []
+}
