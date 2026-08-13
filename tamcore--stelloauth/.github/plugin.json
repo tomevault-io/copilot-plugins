@@ -1,0 +1,9 @@
+{
+  "name": "tamcore--stelloauth",
+  "displayName": "stelloauth",
+  "description": "Web-based OAuth helper for Stellantis vehicles (MyPeugeot, MyCitro\u00ebn, MyDS, MyOpel, MyVauxhall)",
+  "version": "1.0.0",
+  "author": "tamcore",
+  "homepage": "https://github.com/tamcore/stelloauth",
+  "skills": []
+}
