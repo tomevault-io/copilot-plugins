@@ -7,11 +7,11 @@ A DSL and tooling for source-to-target mappings that works for humans AND AIs.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [EqualExperts/satsuma-lang](https://github.com/EqualExperts/satsuma-lang).
+Original source: `CLAUDE.md` in [EqualExperts/satsuma-lang](https://github.com/EqualExperts/satsuma-lang).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
