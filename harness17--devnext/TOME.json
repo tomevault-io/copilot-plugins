@@ -1,0 +1,44 @@
+{
+  "name": "DevNext",
+  "owner": "harness17",
+  "repo": "DevNext",
+  "description": "ASP.NET Core 10 \u88fd\u306e Web \u30a2\u30d7\u30ea\u30b1\u30fc\u30b7\u30e7\u30f3\u30c6\u30f3\u30d7\u30ec\u30fc\u30c8\u3002\u65e7 .NET Framework \u7248\uff08DevNet\uff09\u304b\u3089\u306e\u79fb\u884c\u30fb\u30ea\u30cb\u30e5\u30fc\u30a2\u30eb\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/harness17/DevNext",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T04:56:25Z"
+}
