@@ -4,7 +4,7 @@
   "repo": "mobile-design-skills",
   "description": "Mobile design skills for iOS (Liquid Glass) and Android (M3 Expressive) that help AI agents generate platform-native UIs",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ivan-magda/mobile-design-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T06:44:19Z"
+  "distributed_at": "2026-08-13T07:29:18Z"
 }
