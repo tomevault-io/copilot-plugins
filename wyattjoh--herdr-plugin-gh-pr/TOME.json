@@ -4,7 +4,7 @@
   "repo": "herdr-plugin-gh-pr",
   "description": "herdr plugin that shows the focused agent pane's branch GitHub PR status in the sidebar",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wyattjoh/herdr-plugin-gh-pr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T19:12:29Z"
+  "distributed_at": "2026-08-13T23:31:16Z"
 }
