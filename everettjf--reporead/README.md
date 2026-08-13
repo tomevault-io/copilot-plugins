@@ -1,30 +1,30 @@
-# RepoRead
+# reporead
 
-> Source: [everettjf/RepoRead](https://github.com/everettjf/RepoRead) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [everettjf](https://github.com/everettjf/reporead), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 A lightweight desktop app to browse GitHub repositories without cloning. Features syntax highlighting, file tree navigation, trending repos, favorites, and AI-powered code interpretation. Built with Tauri + React.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [everettjf/RepoRead](https://github.com/everettjf/RepoRead).
+Original source: `CLAUDE.md` in [everettjf/reporead](https://github.com/everettjf/reporead).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/everettjf/RepoRead](https://github.com/everettjf/RepoRead)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/everettjf/reporead](https://github.com/everettjf/reporead)
 
 ---
 
 Install this config instantly:
 ```
-npx tomevault install everettjf/RepoRead
+npx tomevault install everettjf/reporead
 ```
-Source: [github.com/everettjf/RepoRead](https://github.com/everettjf/RepoRead).
+Source: [github.com/everettjf/reporead](https://github.com/everettjf/reporead).
 
-<!-- genome:d-i-p -->
+<!-- genome:t-i-p -->
