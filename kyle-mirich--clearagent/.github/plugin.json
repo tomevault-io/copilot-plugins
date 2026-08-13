@@ -1,0 +1,9 @@
+{
+  "name": "kyle-mirich--clearagent",
+  "displayName": "clearagent",
+  "description": "An eval-first Python agent framework with local traces, replay, and YAML evals.",
+  "version": "1.0.0",
+  "author": "kyle-mirich",
+  "homepage": "https://github.com/kyle-mirich/clearagent",
+  "skills": []
+}
