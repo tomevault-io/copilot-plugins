@@ -7,11 +7,11 @@ Chat in WoW 3.3.5a from your terminal
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tvararu/tuicraft](https://github.com/tvararu/tuicraft).
+Original source: `CLAUDE.md` in [tvararu/tuicraft](https://github.com/tvararu/tuicraft).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
