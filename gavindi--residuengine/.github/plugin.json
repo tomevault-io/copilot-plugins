@@ -1,0 +1,9 @@
+{
+  "name": "gavindi--residuengine",
+  "displayName": "reSIDuEngine",
+  "description": "A C64 SID chip emulation implementation",
+  "version": "1.0.0",
+  "author": "gavindi",
+  "homepage": "https://github.com/gavindi/reSIDuEngine",
+  "skills": []
+}
