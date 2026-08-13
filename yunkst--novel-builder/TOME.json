@@ -1,0 +1,44 @@
+{
+  "name": "novel_builder",
+  "owner": "yunkst",
+  "repo": "novel_builder",
+  "description": "\u4e0d\u53d7\u5e73\u53f0\u7ea6\u675f\u7684\u5f00\u6e90\u5c0f\u8bf4\u9605\u8bfb\u5668/\u7f16\u8f91\u5668\uff1a\u4efb\u610f\u7ad9\u70b9\u52a0\u4e66\u3001\u79bb\u7ebf\u7f13\u5b58\u3001AI \u6539\u4e66\u7eed\u4e66\u3001\u6570\u636e\u5b8c\u5168\u672c\u5730",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yunkst/novel_builder",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T15:15:53Z"
+}
