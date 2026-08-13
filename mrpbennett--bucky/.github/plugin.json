@@ -1,0 +1,9 @@
+{
+  "name": "mrpbennett--bucky",
+  "displayName": "bucky",
+  "description": "A beautiful TUI file manager for cloud and remote storage, written in Go.",
+  "version": "1.0.0",
+  "author": "mrpbennett",
+  "homepage": "https://github.com/mrpbennett/bucky",
+  "skills": []
+}
