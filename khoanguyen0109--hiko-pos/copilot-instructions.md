@@ -1,107 +1,168 @@
-## hiko-pos
+## frontend-typescript
 
-> - Frontend: React 18 + Vite 6, Tailwind CSS, Redux Toolkit, React Query, React Router
+> TypeScript standards for pos-frontend migration and ongoing development
 
-# Project Rules for Cursor (Restaurant POS System)
 
-## Overview
-- Stack: MERN
-  - Frontend: React 18 + Vite 6, Tailwind CSS, Redux Toolkit, React Query, React Router
-  - Backend: Node.js + Express, Mongoose, JWT, Razorpay
-- Monorepo structure:
-  - `pos-frontend/` (Vite app)
-  - `pos-backend/` (Express API, **TypeScript** — source `*.ts`, compile output `dist/`)
+# TypeScript Standards — `pos-frontend`
 
-## Run & Dev Commands
-- Frontend
-  - Install: `cd pos-frontend && npm install`
-  - Dev: `cd pos-frontend && npm run dev` (serves at `http://localhost:5173`)
-  - Build: `cd pos-frontend && npm run build`
-  - Preview: `cd pos-frontend && npm run preview`
-- Backend
-  - Install: `cd pos-backend && npm install`
-  - Dev: `cd pos-backend && npm run dev` (`tsx watch app.ts`, Express on `http://localhost:3000` by default)
-  - Build: `cd pos-backend && npm run build` (`tsc` → `dist/`)
-  - Start (production): `cd pos-backend && npm run build && npm start` (`node dist/app.js`)
+## No `any`
 
-## Environment
-- Backend env (see `pos-backend/config/config.ts`):
-  - `PORT` (default 3000)
-  - `MONGODB_URI`
-  - `NODE_ENV`
-  - `JWT_SECRET`
-  - `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `RAZORPAY_WEBHOOK_SECRET`
-- Frontend dev server: `http://localhost:5173`
-- CORS: backend allows origin `http://localhost:5173`
+Never use `any`. The ESLint rule `@typescript-eslint/no-explicit-any` must pass.
 
-## API Base URLs
-- Local dev: `http://localhost:3000/api`
-- Routes:
-  - `/api/user`
-  - `/api/order`
-  - `/api/table`
-  - `/api/payment`
+- Use `unknown` for values that cannot be determined at author time (e.g. `catch (e: unknown)`, parsed `JSON.parse`). Narrow with type guards before use.
+- Use `never` to mark branches that must be unreachable.
+- For third-party library gaps, prefer `as SomeConcreteType` with a comment explaining why, or extend the library's types via module augmentation.
 
-## Coding Conventions
-- General
-  - Use meaningful, descriptive names; avoid abbreviations
-  - Prefer early returns, minimal nesting, and explicit error handling
-  - Keep functions small and cohesive
-- Frontend
-  - React functional components, hooks
-  - State: use Redux Toolkit slices in `pos-frontend/src/redux/slices/`
-  - Data fetching/caching: RTK Query 
-  - Routing: `react-router-dom@7`
-  - Styling: Tailwind CSS; avoid inline styles unless necessary
-- Backend
-  - Route -> Controller -> Model pattern
-  - Centralized error handling via `middlewares/globalErrorHandler.ts`
-  - JWT auth middleware in `middlewares/tokenVerification.ts`
-  - Mongoose models in `models/`
+## Component Props
 
-## File/Folder Guidelines
-- Frontend
-  - Components live under `src/components/*`
-  - Pages under `src/pages/*`
-  - Shared UI in `src/components/shared/*`
-  - Keep constants in `src/constants/index.js`
-  - HTTP helpers in `src/https/*`
-  - Utilities in `src/utils/index.js`
-- Backend
-  - Endpoints registered in `app.ts` (compiled to `dist/app.js`)
-  - Add new routes under `routes/`, controllers under `controllers/`, models under `models/`
+Every React component must have an explicit props interface or type alias.
 
-## Testing & Quality
-- Lint frontend: `cd pos-frontend && npm run lint`
-- Prefer unit tests for pure utilities; integration tests for API endpoints (if/when added)
+```tsx
+// correct
+interface ButtonProps {
+  label: string;
+  onClick: () => void;
+  variant?: "primary" | "secondary";
+  disabled?: boolean;
+}
 
-## Assistant Behavior (Cursor)
-- Respect existing indentation and formatting; do not mass-reformat unrelated code
-- When editing, touch only what is necessary; keep edits minimal and focused
-- Add missing imports explicitly; avoid unused imports
-- Keep secrets out of code; use environment variables
-- For API integration in frontend, centralize base URL and interceptors in `src/https/`
-- After edits involving build or runtime, run the appropriate dev/build command
+const Button = ({ label, onClick, variant = "primary", disabled = false }: ButtonProps) => { … };
 
-## Common Tasks
-- Add a new API endpoint
-  1. Create model (if needed) in `pos-backend/models/`
-  2. Create controller in `pos-backend/controllers/`
-  3. Register route in `pos-backend/routes/` and mount in `app.ts`
-  4. Update frontend service calls in `src/https/*`
-- Add a new page in frontend
-  1. Create page under `src/pages/`
-  2. Add route in `src/pages/index.js` or router configuration
-  3. Compose with components from `src/components/*`
+// wrong — implicit props, missing types
+const Button = ({ label, onClick }) => { … };
+```
 
-## Ports and Networking
-- Frontend: 5173
-- Backend: 3000 (configurable via `PORT`)
-- Ensure CORS `origin` matches frontend dev URL
+- Prefer `interface` for public, extendable shapes; `type` for unions or mapped types.
+- Never use `React.FC` — it hides the return type and complicates generics. Annotate the return type explicitly when it is not obvious.
+- Remove all `prop-types` imports once a file is converted; they are redundant with TypeScript.
 
-## Notes
-- Use absolute imports only if configured in Vite; otherwise prefer relative module paths
-- Keep README updated for any changes to setup or commands 
+## Domain Model Types
+
+All domain models live in `src/types/`. Import from there; do not inline ad-hoc object shapes in components.
+
+```ts
+// src/types/order.ts
+export interface OrderItem {
+  dish: string;         // Mongoose ObjectId ref
+  quantity: number;
+  price: number;
+  toppings?: string[];
+}
+
+export interface Order {
+  _id: string;
+  orderNumber: number;
+  items: OrderItem[];
+  orderStatus: "pending" | "preparing" | "ready" | "completed" | "cancelled";
+  totalAmount: number;
+  paymentMethod?: "cash" | "card" | "online";
+  createdAt: string;
+  updatedAt: string;
+}
+```
+
+Required model files in `src/types/`:
+
+| File | Models |
+|------|--------|
+| `user.ts` | `User`, `UserRole` |
+| `store.ts` | `Store`, `StoreMember` |
+| `order.ts` | `Order`, `OrderItem`, `OrderStatus`, `PaymentMethod` |
+| `table.ts` | `Table`, `TableStatus` |
+| `category.ts` | `Category` |
+| `dish.ts` | `Dish` |
+| `topping.ts` | `Topping` |
+| `customer.ts` | `Customer` |
+| `member.ts` | `Member` |
+| `promotion.ts` | `Promotion`, `DiscountType` |
+| `spending.ts` | `SpendingCategory`, `SpendingVendor`, `Spending` |
+| `storage.ts` | `StorageItem`, `StorageImport`, `StorageExport`, `Supplier` |
+| `schedule.ts` | `Schedule`, `ShiftTemplate`, `ExtraWork`, `Salary` |
+| `api.ts` | `ApiResponse<T>`, `PaginatedResponse<T>`, `ApiError` |
+| `index.ts` | Re-export all of the above |
+
+## Redux Slices
+
+- Export `RootState` and `AppDispatch` from `store.ts`.
+- Type `initialState` explicitly; derive the slice state type from it with `typeof initialState`.
+- Use `PayloadAction<T>` for all reducers.
+- Typed hooks (`useAppDispatch`, `useAppSelector`) must be used everywhere — never raw `useDispatch`/`useSelector`.
+
+```ts
+// src/redux/hooks.ts
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from "./store";
+
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppSelector = <T>(selector: (state: RootState) => T) => useSelector(selector);
+```
+
+## HTTP Layer (`src/https/`)
+
+- Every API function must have typed parameters and a typed return `Promise<AxiosResponse<ApiResponse<T>>>`.
+- Import response models from `src/types/`.
+
+```ts
+// correct
+export const getOrders = (params: GetOrdersParams): Promise<AxiosResponse<ApiResponse<Order[]>>> =>
+  axiosWrapper.get("/api/order", { params });
+
+// wrong — untyped parameters and implicit return
+export const getOrders = (params) => axiosWrapper.get("/api/order", { params });
+```
+
+## Async Thunks
+
+Provide explicit generic types to `createAsyncThunk`:
+
+```ts
+export const fetchOrders = createAsyncThunk<Order[], GetOrdersParams, { rejectValue: string }>(
+  "orders/fetchAll",
+  async (params, { rejectWithValue }) => { … }
+);
+```
+
+## Event Handlers
+
+Always type DOM and React synthetic events concretely:
+
+```tsx
+// correct
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => { … };
+
+// wrong
+const handleChange = (e) => { … };
+```
+
+## Utility Functions
+
+- All parameters and return types must be annotated.
+- Avoid implicit `any` from untyped third-party libraries; add `@types/…` or create a local `*.d.ts` declaration.
+
+## File Naming & Extensions
+
+| Source type | Extension |
+|-------------|-----------|
+| React component | `.tsx` |
+| Non-component TypeScript | `.ts` |
+| Type-only declaration file | `.d.ts` |
+
+Do not mix `.js` / `.jsx` with `.ts` / `.tsx` in the same logical module once migration starts on that module.
+
+## ESLint
+
+The frontend ESLint config must include:
+
+```json
+{
+  "@typescript-eslint/no-explicit-any": "error",
+  "@typescript-eslint/no-unsafe-assignment": "warn",
+  "@typescript-eslint/no-unsafe-member-access": "warn",
+  "@typescript-eslint/explicit-function-return-type": ["warn", { "allowExpressions": true }]
+}
+```
+
+Run `npm run lint` from `pos-frontend/` before committing.
 
 ---
 > Source: [Khoanguyen0109/Hiko-POS](https://github.com/Khoanguyen0109/Hiko-POS) — distributed by [TomeVault](https://tomevault.io).
