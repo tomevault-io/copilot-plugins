@@ -1,37 +1,22 @@
-## e2e-playwright
+## gdpr-privacy
 
-> Playwright E2E — structure, selectors, seeder
+> GDPR — privacy policy version, consent, IP hashing
 
 
-# Playwright E2E
+# GDPR & Privacy Policy
 
-## Run
-```bash
-make up && make e2e-seed && make playwright
-```
-Port **8081**. User: `e2e@finanzamente.test` / `password` (`E2ESeeder`). CI: `.github/workflows/playwright.yml`.
+## IP & logs
+Security/rate-limit logs: IP as SHA256 + `ADV_THROTTLE_SALT` only. No plaintext personal data in logs.
 
-## Projects
-| Project | Role |
-|---------|------|
-| `setup` | `auth.setup.ts` → `e2e/.auth/user.json` |
-| `pubblico` | No session (public + auth flows) |
-| `autenticato-desktop` | Session, Chrome |
-| `autenticato-mobile` | Session, Pixel 5 |
+## Substantial change to `resources/views/legal/privacy.blade.php`
+Complete in **same** PR/session:
+1. Update visible version/date (e.g. `updated-at` on `<x-legal-page-shell>`).
+2. Bump `privacy_policy_version` in `config/legal.php` (unique string, e.g. `YYYY-MM-DD-v2`).
+3. Consent controllers use **only** `config('legal.privacy_policy_version')` — no duplicated version strings.
+4. Update UI/tests that cite policy version or binding text.
+5. `make test` before done.
 
-## Rules (must)
-1. New visible page → ≥1 E2E smoke test.
-2. UI text/nav/field changes → update matching specs.
-3. New area → `e2e/<area>/<area>.spec.ts`.
-4. Selectors: `getByRole` / `getByLabel` / `getByText` > CSS; `#id` only if explicit in markup.
-5. Unique data: `` `Name E2E ${Date.now()}` ``.
-6. Authenticated specs: use `storageState` from setup — no manual login (except `e2e/auth/`, `e2e/public/`).
-7. Specs independent — no order assumptions.
-8. Assertions match **Italian** UI copy.
-9. New seed data → extend `database/seeders/E2ESeeder.php`.
-10. E2E env: `FEATURE_GUIDED_CREATE_FORMS=false` on `app_e2e`; after env change run `make e2e-seed`.
-
-Full tree and conventions: `docs/agent/e2e-conventions.md`.
+Version feeds `consents` / `consent_events`. Legal-only edits without version bump are **incomplete**.
 
 ---
 > Source: [mnossa/finanzamente](https://github.com/mnossa/finanzamente) — distributed by [TomeVault](https://tomevault.io).
