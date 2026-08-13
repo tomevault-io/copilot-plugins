@@ -4,7 +4,7 @@
   "repo": "repy",
   "description": "repy is a terminal epub format ebook reader inspired by epy",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/newptcai/repy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T09:12:39Z"
+  "distributed_at": "2026-08-13T11:26:13Z"
 }
