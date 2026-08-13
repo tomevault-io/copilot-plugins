@@ -1,0 +1,9 @@
+{
+  "name": "emcdanie--ctrl-alt-design",
+  "displayName": "ctrl-alt-design",
+  "description": "Portfolio as a working design system. Next.js + BELLA tokens, shipped through a 13-audit CI gate, governed by CLAUDE.md and specs.",
+  "version": "1.0.0",
+  "author": "emcdanie",
+  "homepage": "https://github.com/emcdanie/ctrl-alt-design",
+  "skills": []
+}
