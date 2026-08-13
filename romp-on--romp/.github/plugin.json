@@ -1,0 +1,9 @@
+{
+  "name": "romp-on--romp",
+  "displayName": "romp",
+  "description": "Manages parallel Claude Code sessions, so you don't have to.",
+  "version": "1.0.0",
+  "author": "romp-on",
+  "homepage": "https://github.com/romp-on/romp",
+  "skills": []
+}
