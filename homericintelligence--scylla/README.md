@@ -7,11 +7,11 @@ ProjectScylla is a testing and optimization framework inspired by Odysseus’ tr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [HomericIntelligence/Scylla](https://github.com/HomericIntelligence/Scylla).
+Original source: `CLAUDE.md` in [HomericIntelligence/Scylla](https://github.com/HomericIntelligence/Scylla).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
