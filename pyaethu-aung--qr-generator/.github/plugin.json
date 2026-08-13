@@ -1,0 +1,9 @@
+{
+  "name": "pyaethu-aung--qr-generator",
+  "displayName": "qr-generator",
+  "description": "Fast, client-side QR code generator. Zero-backend, high-fidelity exports, dark mode, and seamless mobile sharing. Built with React, TypeScript, and Tailwind CSS.",
+  "version": "1.0.0",
+  "author": "pyaethu-aung",
+  "homepage": "https://github.com/pyaethu-aung/qr-generator",
+  "skills": []
+}
