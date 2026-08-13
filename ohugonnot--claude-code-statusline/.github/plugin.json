@@ -1,0 +1,9 @@
+{
+  "name": "ohugonnot--claude-code-statusline",
+  "displayName": "claude-code-statusline",
+  "description": "Real-time /usage rate limit tracking for Claude Code \u2014 see session & weekly quota, reset countdown, context window, model and git branch in your status line",
+  "version": "1.0.0",
+  "author": "ohugonnot",
+  "homepage": "https://github.com/ohugonnot/claude-code-statusline",
+  "skills": []
+}
