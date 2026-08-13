@@ -1,0 +1,44 @@
+{
+  "name": "aios-team-brain",
+  "owner": "aiosbrain",
+  "repo": "aios-team-brain",
+  "description": "The shared Team Brain: receives tier-tagged sync from AIOS workspaces and surfaces tasks, decisions, deliverables, and a grounded natural-language query over the team's shared memory. Next.js + Postgres.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aiosbrain/aios-team-brain",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T00:36:50Z"
+}
