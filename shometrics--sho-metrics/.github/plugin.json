@@ -1,0 +1,9 @@
+{
+  "name": "shometrics--sho-metrics",
+  "displayName": "sho_metrics",
+  "description": " ShoMetrics - A Stream Deck system metrics monitoring plugin ",
+  "version": "1.0.0",
+  "author": "ShoMetrics",
+  "homepage": "https://github.com/ShoMetrics/sho_metrics",
+  "skills": []
+}
