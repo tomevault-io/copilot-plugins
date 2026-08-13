@@ -1,0 +1,9 @@
+{
+  "name": "runanywhereai--runanywhere-ios",
+  "displayName": "runanywhere-ios",
+  "description": "Swift (iOS, macOS.. more) starter example app to get started with RunAnywhere SDK!",
+  "version": "1.0.0",
+  "author": "RunanywhereAI",
+  "homepage": "https://github.com/RunanywhereAI/runanywhere-ios",
+  "skills": []
+}
