@@ -1,0 +1,44 @@
+{
+  "name": "llm-gateway",
+  "owner": "croit",
+  "repo": "llm-gateway",
+  "description": "Self-hosted, OpenAI-compatible LLM gateway that turns any backend into an agent. Point an OpenAI SDK at it and the model runs tools mid-completion. From web search, code sandbox, document rendering, RAG, MCP connectors all behind a built-in chat UI. Multi-backend routing with health checks + failover, OIDC + RBAC, per-user tokens.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/croit/llm-gateway",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T19:17:31Z"
+}
