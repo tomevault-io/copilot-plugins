@@ -1,0 +1,9 @@
+{
+  "name": "juntaochi--social-media-manager",
+  "displayName": "social-media-manager",
+  "description": "Multi-agent pipeline that turns real GitHub activity into reviewed Build-in-Public posts \u2014 OpenCode + MCP, Notion approval, Typefully publishing.",
+  "version": "1.0.0",
+  "author": "juntaochi",
+  "homepage": "https://github.com/juntaochi/social-media-manager",
+  "skills": []
+}
