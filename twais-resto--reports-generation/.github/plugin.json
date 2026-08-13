@@ -1,0 +1,9 @@
+{
+  "name": "twais-resto--reports-generation",
+  "displayName": "reports-generation",
+  "description": "Automatic PPTX generator for monthly reports",
+  "version": "1.0.0",
+  "author": "twais-resto",
+  "homepage": "https://github.com/twais-resto/reports-generation",
+  "skills": []
+}
