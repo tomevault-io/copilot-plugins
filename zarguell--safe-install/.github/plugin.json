@@ -1,0 +1,9 @@
+{
+  "name": "zarguell--safe-install",
+  "displayName": "safe-install",
+  "description": "A unified, cross-platform CLI wrapper that enforces security policies (like internal registries and lockfiles) across multiple package managers (pip, npm, etc.).",
+  "version": "1.0.0",
+  "author": "zarguell",
+  "homepage": "https://github.com/zarguell/safe-install",
+  "skills": []
+}
