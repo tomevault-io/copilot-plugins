@@ -4,7 +4,7 @@
   "repo": "CC-Flight",
   "description": "Flight recorder for Claude Code, Codex & OpenCode",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TheAceTeam/CC-Flight",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T17:37:58Z"
+  "distributed_at": "2026-08-13T23:01:07Z"
 }
