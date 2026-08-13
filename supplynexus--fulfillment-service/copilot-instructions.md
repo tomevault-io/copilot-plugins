@@ -1,13 +1,13 @@
-## handoff-state
+## list-pages-layout
 
-> 用户说状态/继续/接手时读 STATE.md；说保存状态时更新 STATE.md
+> 编辑列表页时参考——上筛选下列表、行内操作、多选批量
 
 
-# 工作状态（STATE.md）
+# 列表类页面（按需参考）
 
-- **`.cursor/STATE.md`**：项目当前状态主记录（分支、PR、已完成、部署、建议下一步等）。
-- **查看**：用户说「当前状态」「继续」「接手」等 → 以读 `.cursor/STATE.md` 为主，结合项目或对话回复/执行。
-- **保存**：用户说「保存状态」「更新状态」等 → 更新 STATE.md（分支、近期工作、未完成任务、日期）；重要步骤后也可主动提议更新。
+- 右侧主区：**上**筛选区（条件、重置/检索），**下**列表区（表格+操作）；分区清晰。
+- 每行行内 action（查看/编辑/删除等）放「操作」列；多选时表格上方批量操作 +「已选 N 个」。
+- 参考：`frontend/src/components/orders/OrdersList.tsx`。
 
 ---
 > Source: [supplynexus/fulfillment-service](https://github.com/supplynexus/fulfillment-service) — distributed by [TomeVault](https://tomevault.io).
