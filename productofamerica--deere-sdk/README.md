@@ -7,11 +7,11 @@ Unofficial TypeScript SDK for John Deere Operations Center API
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ProductOfAmerica/deere-sdk](https://github.com/ProductOfAmerica/deere-sdk).
+Original source: `CLAUDE.md` in [ProductOfAmerica/deere-sdk](https://github.com/ProductOfAmerica/deere-sdk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
