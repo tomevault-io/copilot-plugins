@@ -7,11 +7,11 @@ At long last
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [MDMAtk/TormentNexus](https://github.com/MDMAtk/TormentNexus).
+Original source: `CLAUDE.md` in [MDMAtk/TormentNexus](https://github.com/MDMAtk/TormentNexus).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
