@@ -1,0 +1,9 @@
+{
+  "name": "felipeelias--hook-lab",
+  "displayName": "hook-lab",
+  "description": "A web dashboard for watching Claude Code hook events in real time.",
+  "version": "1.0.0",
+  "author": "felipeelias",
+  "homepage": "https://github.com/felipeelias/hook-lab",
+  "skills": []
+}
