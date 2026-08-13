@@ -4,7 +4,7 @@
   "repo": "YesPlayMusic",
   "description": "YesPlayMusic \u7684 Tauri 2 \u91cd\u6784\u7248\uff1aTypeScript \u4e25\u683c\u6a21\u5f0f + Pinia\uff0c\u8ff7\u4f60\u64ad\u653e\u5668\u3001\u83dc\u5355\u680f\u6b4c\u8bcd\u3002Apple Silicon macOS \u6b63\u5f0f\u652f\u6301\uff0cWindows / Ubuntu \u5b9e\u9a8c\u6784\u5efa\u3002\u57fa\u4e8e qier222/YesPlayMusic\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nagi-studio/YesPlayMusic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T05:32:43Z"
+  "distributed_at": "2026-08-13T07:11:00Z"
 }
