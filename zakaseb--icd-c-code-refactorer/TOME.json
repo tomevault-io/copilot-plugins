@@ -4,7 +4,7 @@
   "repo": "icd-c-code-refactorer",
   "description": "Transform C source code between Interface Control Document (ICD) versions using AI-powered local LLM inference",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zakaseb/icd-c-code-refactorer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T04:45:23Z"
+  "distributed_at": "2026-08-13T05:26:10Z"
 }
