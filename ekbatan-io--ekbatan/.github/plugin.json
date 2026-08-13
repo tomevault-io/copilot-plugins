@@ -1,0 +1,9 @@
+{
+  "name": "ekbatan-io--ekbatan",
+  "displayName": "ekbatan",
+  "description": "Event-driven Java persistence framework. Built-in outbox pattern. Atomic transactions with domain events. Spring. Quarkus. Micronaut.",
+  "version": "1.0.0",
+  "author": "ekbatan-io",
+  "homepage": "https://github.com/ekbatan-io/ekbatan",
+  "skills": []
+}
