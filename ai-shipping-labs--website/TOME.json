@@ -4,7 +4,7 @@
   "repo": "website",
   "description": "AI Shipping Labs website",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AI-Shipping-Labs/website",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T10:30:45Z"
+  "distributed_at": "2026-08-13T12:55:02Z"
 }
