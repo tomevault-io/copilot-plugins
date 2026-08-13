@@ -7,11 +7,11 @@ A desktop companion app for AI coding tools. Browse Claude Code chat history, ma
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lovstudio/Ataru](https://github.com/lovstudio/Ataru).
+Original source: `CLAUDE.md` in [lovstudio/Ataru](https://github.com/lovstudio/Ataru).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
