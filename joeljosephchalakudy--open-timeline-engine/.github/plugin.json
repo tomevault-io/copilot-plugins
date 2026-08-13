@@ -1,0 +1,9 @@
+{
+  "name": "joeljosephchalakudy--open-timeline-engine",
+  "displayName": "open-timeline-engine",
+  "description": "Local-first context engine that gives AI agents persistent, shared memory. Captures your real workflow, mines repeatable patterns, and serves past decisions back to agents like Claude, Codex, and Curs",
+  "version": "1.0.0",
+  "author": "JOELJOSEPHCHALAKUDY",
+  "homepage": "https://github.com/JOELJOSEPHCHALAKUDY/open-timeline-engine",
+  "skills": []
+}
