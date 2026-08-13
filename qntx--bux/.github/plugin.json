@@ -1,0 +1,9 @@
+{
+  "name": "qntx--bux",
+  "displayName": "bux",
+  "description": "Embedded micro-VM sandbox for running AI agents",
+  "version": "1.0.0",
+  "author": "qntx",
+  "homepage": "https://github.com/qntx/bux",
+  "skills": []
+}
