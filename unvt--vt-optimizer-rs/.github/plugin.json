@@ -1,0 +1,9 @@
+{
+  "name": "unvt--vt-optimizer-rs",
+  "displayName": "vt-optimizer-rs",
+  "description": "A fast CLI to inspect and optimize MBTiles/PMTiles vector tiles",
+  "version": "1.0.0",
+  "author": "unvt",
+  "homepage": "https://github.com/unvt/vt-optimizer-rs",
+  "skills": []
+}
