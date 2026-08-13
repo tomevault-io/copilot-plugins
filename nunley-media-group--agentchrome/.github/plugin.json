@@ -1,0 +1,9 @@
+{
+  "name": "nunley-media-group--agentchrome",
+  "displayName": "AgentChrome",
+  "description": "A CLI alternative for Chrome Devtools MCP",
+  "version": "1.0.0",
+  "author": "Nunley-Media-Group",
+  "homepage": "https://github.com/Nunley-Media-Group/AgentChrome",
+  "skills": []
+}
