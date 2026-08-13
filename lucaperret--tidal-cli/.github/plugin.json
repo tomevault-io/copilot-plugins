@@ -1,0 +1,9 @@
+{
+  "name": "lucaperret--tidal-cli",
+  "displayName": "tidal-cli",
+  "description": "Control Tidal from your terminal \u2014 search, playlists, playback, library, and recommendations via the Tidal API v2. Ships as a CLI, a remote MCP server for Claude Desktop/Smithery, and an OpenClaw skil",
+  "version": "1.0.0",
+  "author": "lucaperret",
+  "homepage": "https://github.com/lucaperret/tidal-cli",
+  "skills": []
+}
