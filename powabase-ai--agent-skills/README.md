@@ -7,14 +7,14 @@ Agent Skills that help AI coding assistants build on Powabase — the AI Backend
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [powabase-ai/agent-skills](https://github.com/powabase-ai/agent-skills).
+Original source: `AGENTS.md` in [powabase-ai/agent-skills](https://github.com/powabase-ai/agent-skills).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [powabase-ai/agent-skills](https://github.com/powabase-ai/agent-skills) — a repo with 9+ stars on GitHub.
