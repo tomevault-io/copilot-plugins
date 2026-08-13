@@ -1,0 +1,9 @@
+{
+  "name": "rawvoid--jaxb-plugins",
+  "displayName": "jaxb-plugins",
+  "description": "\ud83d\ude80 Modern JAXB plugins collection for Java XML binding - XJC plugins with JSR-310 date/time support, annotation processing, and code generation tools",
+  "version": "1.0.0",
+  "author": "rawvoid",
+  "homepage": "https://github.com/rawvoid/jaxb-plugins",
+  "skills": []
+}
