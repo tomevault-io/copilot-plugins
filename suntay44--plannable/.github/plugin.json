@@ -1,0 +1,9 @@
+{
+  "name": "suntay44--plannable",
+  "displayName": "plannable",
+  "description": "Plannable is a Spec-Driven Development planning CLI for AI coding agents. It creates a MASTER_PLAN.md plus compressed Sub-Plans phase files, so Codex, Claude Code, Cursor, and terminal agents can buil",
+  "version": "1.0.0",
+  "author": "suntay44",
+  "homepage": "https://github.com/suntay44/plannable",
+  "skills": []
+}
