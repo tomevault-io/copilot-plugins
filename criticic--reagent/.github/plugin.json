@@ -1,0 +1,9 @@
+{
+  "name": "criticic--reagent",
+  "displayName": "reagent",
+  "description": "REagent \u2014 Autonomous AI Agent for Binary Analysis. Multi-agent system powered by Claude for automated reverse engineering: triage, decompilation, debugging, and verified findings.",
+  "version": "1.0.0",
+  "author": "criticic",
+  "homepage": "https://github.com/criticic/reagent",
+  "skills": []
+}
