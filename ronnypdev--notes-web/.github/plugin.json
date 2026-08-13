@@ -1,0 +1,9 @@
+{
+  "name": "ronnypdev--notes-web",
+  "displayName": "Notes-Web",
+  "description": "A full stack App build end to end using Next.js 15+, TypeScript, Drizzle ORM, PostgreSQL, Shadcn UI, TailwindCSS V4+",
+  "version": "1.0.0",
+  "author": "ronnypdev",
+  "homepage": "https://github.com/ronnypdev/Notes-Web",
+  "skills": []
+}
