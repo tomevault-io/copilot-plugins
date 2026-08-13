@@ -1,0 +1,9 @@
+{
+  "name": "vastblast--authenticator-2fa",
+  "displayName": "authenticator-2fa",
+  "description": "Google Authenticator-like browser extension for generating and managing two-factor authentication codes.",
+  "version": "1.0.0",
+  "author": "VastBlast",
+  "homepage": "https://github.com/VastBlast/authenticator-2fa",
+  "skills": []
+}
