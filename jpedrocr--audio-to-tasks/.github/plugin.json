@@ -1,0 +1,9 @@
+{
+  "name": "jpedrocr--audio-to-tasks",
+  "displayName": "audio-to-tasks",
+  "description": "Convert audio recordings to actionable task lists",
+  "version": "1.0.0",
+  "author": "jpedrocr",
+  "homepage": "https://github.com/jpedrocr/audio-to-tasks",
+  "skills": []
+}
