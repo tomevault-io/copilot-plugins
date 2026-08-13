@@ -1,0 +1,9 @@
+{
+  "name": "sjvrensburg--whetstone",
+  "displayName": "whetstone",
+  "description": "A friction-first Quarto/Markdown editor for the terminal, written in Rust. It keeps the writing yours.",
+  "version": "1.0.0",
+  "author": "sjvrensburg",
+  "homepage": "https://github.com/sjvrensburg/whetstone",
+  "skills": []
+}
