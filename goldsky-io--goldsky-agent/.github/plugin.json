@@ -1,0 +1,9 @@
+{
+  "name": "goldsky-io--goldsky-agent",
+  "displayName": "goldsky-agent",
+  "description": "AI agent plugin for Goldsky \u2014 skills, agents, commands, and hooks for building blockchain data pipelines",
+  "version": "1.0.0",
+  "author": "goldsky-io",
+  "homepage": "https://github.com/goldsky-io/goldsky-agent",
+  "skills": []
+}
