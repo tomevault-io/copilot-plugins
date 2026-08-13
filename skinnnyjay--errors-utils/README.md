@@ -7,11 +7,11 @@ Typed error classes, error codes, and serializeError for logging and RPC (Node a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [SkinnnyJay/errors.utils](https://github.com/SkinnnyJay/errors.utils).
+Original source: `CLAUDE.md` in [SkinnnyJay/errors.utils](https://github.com/SkinnnyJay/errors.utils).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
