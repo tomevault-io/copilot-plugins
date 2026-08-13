@@ -1,0 +1,9 @@
+{
+  "name": "data-desk-eco--firedamp",
+  "displayName": "firedamp",
+  "description": "Map aggregating methane plumes from major providers",
+  "version": "1.0.0",
+  "author": "data-desk-eco",
+  "homepage": "https://github.com/data-desk-eco/firedamp",
+  "skills": []
+}
