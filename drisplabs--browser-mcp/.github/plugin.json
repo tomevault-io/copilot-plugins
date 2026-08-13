@@ -1,0 +1,9 @@
+{
+  "name": "drisplabs--browser-mcp",
+  "displayName": "browser-mcp",
+  "description": "Token-efficient browser automation MCP for AI agents, with semantic page snapshots and stable element IDs.",
+  "version": "1.0.0",
+  "author": "drisplabs",
+  "homepage": "https://github.com/drisplabs/browser-mcp",
+  "skills": []
+}
