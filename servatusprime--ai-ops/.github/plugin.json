@@ -1,0 +1,9 @@
+{
+  "name": "servatusprime--ai-ops",
+  "displayName": "ai_ops",
+  "description": "AI Governance Layer for Human-AI Collaboration. Artifact-first execution, authority gates, cross-platform agent support.",
+  "version": "1.0.0",
+  "author": "servatusprime",
+  "homepage": "https://github.com/servatusprime/ai_ops",
+  "skills": []
+}
