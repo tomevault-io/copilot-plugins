@@ -1,0 +1,9 @@
+{
+  "name": "yeongseon--azure-functions-validation-python",
+  "displayName": "azure-functions-validation-python",
+  "description": "Validation and serialization layer for the Azure Functions Python v2 programming model",
+  "version": "1.0.0",
+  "author": "yeongseon",
+  "homepage": "https://github.com/yeongseon/azure-functions-validation-python",
+  "skills": []
+}
