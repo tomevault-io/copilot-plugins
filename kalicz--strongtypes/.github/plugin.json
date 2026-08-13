@@ -1,0 +1,9 @@
+{
+  "name": "kalicz--strongtypes",
+  "displayName": "StrongTypes",
+  "description": "Enable no-code validations enforced by the compiler",
+  "version": "1.0.0",
+  "author": "KaliCZ",
+  "homepage": "https://github.com/KaliCZ/StrongTypes",
+  "skills": []
+}
