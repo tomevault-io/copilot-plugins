@@ -1,0 +1,9 @@
+{
+  "name": "luciosmic--aefi-acquisition",
+  "displayName": "AEFI_Acquisition",
+  "description": "Acquisition software for AEFI experimental test bench",
+  "version": "1.0.0",
+  "author": "Luciosmic",
+  "homepage": "https://github.com/Luciosmic/AEFI_Acquisition",
+  "skills": []
+}
