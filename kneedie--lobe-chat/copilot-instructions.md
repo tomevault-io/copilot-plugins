@@ -1,49 +1,70 @@
-## project-introduce
+## react-component
 
-> You are developing an open-source, modern-design AI chat framework: lobe chat.
+> - 如果要写复杂样式的话用 antd-style ，简单的话可以用 style 属性直接写内联样式
 
-## Project Description
+# react component 编写指南
 
-You are developing an open-source, modern-design AI chat framework: lobe chat. 
+- 如果要写复杂样式的话用 antd-style ，简单的话可以用 style 属性直接写内联样式
+- 如果需要 flex 布局或者居中布局应该使用 react-layout-kit
+- 选择组件库中的组件时优先使用 [lobe-ui.mdc](mdc:.cursor/rules/package-usage/lobe-ui.mdc) 有的，然后才是 antd 的，不知道 @lobehub/ui 的组件怎么用，有哪些属性，就自己搜下这个项目其它地方怎么用的，不要瞎猜
 
-Emoji logo: 🤯 
+## 访问 theme 的两种方式
 
+### 使用 antd-style 的 useTheme hook
 
-## Project Technologies Stack
+```tsx
+import { useTheme } from 'antd-style';
 
-read [package.json](mdc:package.json) to know all npm packages you can use.
-read [folder-structure.mdx](mdc:docs/development/basic/folder-structure.mdx) to learn project structure.
+const MyComponent = () => {
+  const theme = useTheme();
+  
+  return (
+    <div style={{ 
+      color: theme.colorPrimary,
+      backgroundColor: theme.colorBgContainer,
+      padding: theme.padding,
+      borderRadius: theme.borderRadius
+    }}>
+      使用主题 token 的组件
+    </div>
+  );
+}
+```
 
-The project uses the following technologies:
+### 使用 antd-style 的 createStyles
 
-- pnpm as package manager
-- Next.js 15 for frontend and backend, using app router instead of pages router
-- react 19, using hooks, functional components, react server components
-- TypeScript programming language
-- antd, @lobehub/ui for component framework
-- antd-style for css-in-js framework
-- react-layout-kit for flex layout
-- react-i18next for i18n
-- lucide-react, @ant-design/icons for icons
-- @lobehub/icons for AI provider/model logo icon
-- @formkit/auto-animate for react list animation
-- zustand for global state management
-- nuqs for type-safe search params state manager
-- SWR for react data fetch
-- aHooks for react hooks library
-- dayjs for date and time library
-- lodash-es for utility library
-- fast-deep-equal for deep comparison of JavaScript objects
-- zod for data validation
-- TRPC for type safe backend
-- PGLite for client DB and PostgreSQL for backend DB
-- Drizzle ORM
-- Vitest for testing, testing-library for react component test
-- Prettier for code formatting
-- ESLint for code linting
-- Cursor AI for code editing and AI coding assistance
+```tsx
+const useStyles = createStyles(({ css, token }) => {
+  return {
+    container: css`
+      background-color: ${token.colorBgContainer};
+      border-radius: ${token.borderRadius}px;
+      padding: ${token.padding}px;
+      color: ${token.colorText};
+    `,
+    title: css`
+      font-size: ${token.fontSizeLG}px;
+      font-weight: ${token.fontWeightStrong};
+      margin-bottom: ${token.marginSM}px;
+    `,
+    content: css`
+      font-size: ${token.fontSize}px;
+      line-height: ${token.lineHeight};
+    `
+  };
+});
 
-Note: All tools and libraries used are the latest versions. The application only needs to be compatible with the latest browsers;
+const Card: FC<CardProps> = ({ title, content }) => {
+  const { styles } = useStyles();
+  
+  return (
+    <Flexbox className={styles.container}>
+      <div className={styles.title}>{title}</div>
+      <div className={styles.content}>{content}</div>
+    </Flexbox>
+  );
+};
+```
 
 ---
 > Source: [KneeDie/lobe-chat](https://github.com/KneeDie/lobe-chat) — distributed by [TomeVault](https://tomevault.io).
