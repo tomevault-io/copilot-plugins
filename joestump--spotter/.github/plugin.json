@@ -1,0 +1,9 @@
+{
+  "name": "joestump--spotter",
+  "displayName": "spotter",
+  "description": "Spotter is an AI playlist generator for Navidrome",
+  "version": "1.0.0",
+  "author": "joestump",
+  "homepage": "https://github.com/joestump/spotter",
+  "skills": []
+}
