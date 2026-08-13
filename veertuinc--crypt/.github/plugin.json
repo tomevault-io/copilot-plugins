@@ -1,0 +1,9 @@
+{
+  "name": "veertuinc--crypt",
+  "displayName": "crypt",
+  "description": "Run your coding agents (Grok Build, Claude, Codex, ...) inside isolated, disposable Anka macOS VMs.",
+  "version": "1.0.0",
+  "author": "veertuinc",
+  "homepage": "https://github.com/veertuinc/crypt",
+  "skills": []
+}
