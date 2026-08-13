@@ -1,0 +1,9 @@
+{
+  "name": "anantgarg--tinyhands",
+  "displayName": "tinyhands",
+  "description": "Slack-native AI agent platform powered by Claude. Create autonomous agents that live in your channels, connect to your tools and data, and get work done.",
+  "version": "1.0.0",
+  "author": "anantgarg",
+  "homepage": "https://github.com/anantgarg/tinyhands",
+  "skills": []
+}
