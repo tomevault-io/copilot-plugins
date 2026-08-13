@@ -1,0 +1,9 @@
+{
+  "name": "aspix2k--affected",
+  "displayName": "affected",
+  "description": "JetBrains IDE plugin that runs tests only for affected parts of your project.",
+  "version": "1.0.0",
+  "author": "aspix2k",
+  "homepage": "https://github.com/aspix2k/affected",
+  "skills": []
+}
