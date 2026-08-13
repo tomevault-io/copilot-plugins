@@ -2,9 +2,9 @@
   "name": "nitrite-rust",
   "owner": "nitrite",
   "repo": "nitrite-rust",
-  "description": "",
+  "description": "NoSQL embedded document store for Rust",
   "type": "config",
-  "source_format": "",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nitrite/nitrite-rust",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-19T02:37:56Z"
+  "distributed_at": "2026-08-13T15:23:16Z"
 }
