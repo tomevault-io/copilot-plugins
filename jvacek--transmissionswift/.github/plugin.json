@@ -1,0 +1,9 @@
+{
+  "name": "jvacek--transmissionswift",
+  "displayName": "TransmissionSwift",
+  "description": "Transmission remote client written in SwiftUI",
+  "version": "1.0.0",
+  "author": "jvacek",
+  "homepage": "https://github.com/jvacek/TransmissionSwift",
+  "skills": []
+}
