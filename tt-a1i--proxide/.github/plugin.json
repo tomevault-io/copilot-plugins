@@ -1,0 +1,9 @@
+{
+  "name": "tt-a1i--proxide",
+  "displayName": "proxide",
+  "description": "Any-agent GPT Pro workspace bridge: Rust MCP connector and browser fallback for local repositories.",
+  "version": "1.0.0",
+  "author": "tt-a1i",
+  "homepage": "https://github.com/tt-a1i/proxide",
+  "skills": []
+}
