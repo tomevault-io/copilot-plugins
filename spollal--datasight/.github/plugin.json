@@ -1,0 +1,9 @@
+{
+  "name": "spollal--datasight",
+  "displayName": "datasight",
+  "description": "Fast terminal viewer (TUI) for CSV, TSV, Parquet, JSON, and NDJSON files. Vim-style keybindings, instant filtering, multi-column sort, group-by aggregations, multi-series plots, and automatic date det",
+  "version": "1.0.0",
+  "author": "SpollaL",
+  "homepage": "https://github.com/SpollaL/datasight",
+  "skills": []
+}
