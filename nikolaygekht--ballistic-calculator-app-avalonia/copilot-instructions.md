@@ -1,0 +1,363 @@
+## ballistic-calculator-app-avalonia
+
+> A cross-platform ballistic calculator built on **Avalonia UI**. It began as a rewrite of an older
+
+# BallisticCalculator2 - Project Guide for Claude
+
+## Project Goal
+
+A cross-platform ballistic calculator built on **Avalonia UI**. It began as a rewrite of an older
+WinForms application; that application is archived and is **not** a reference for this work any more.
+
+## Development Workflow
+
+**Trunk-based development.** Commit directly to `main`; do **not** create feature branches unless explicitly requested. Only commit/push when asked.
+
+## Key References
+
+### Libraries
+- **Gehtsoft.Measurements**: Measurement units library located at `/mnt/d/develop/components/BusinessSpecificComponents/Gehtsoft.Measurements/Gehtsoft.Measurements/`
+  - Provides generic `Measurement<T>` struct where T is a unit enum (DistanceUnit, VelocityUnit, WeightUnit, etc.)
+  - Static method: `Measurement<T>.GetUnitNames()` returns `Tuple<T, string>[]` for populating unit lists
+
+- **BallisticCalculator** (NuGet **1.1.13**; the `PackageReference`s pin exact versions, they are not ranges):
+  Core ballistic calculation library.
+  Source at `/mnt/d/develop/components/BusinessSpecificComponents/BallisticCalculator.Net/`.
+  - Provides `BallisticCoefficient` struct, `DragTableId` enum, and the calculation engine.
+  - **`.drg` metadata (1.1.11.2):** the header carries name, weight, diameter, **bullet length** and
+    **source**; `DrgDragTable.Save`/`Open` round-trip all of them, and
+    `RadarDragTableFactory.Create` takes optional `bulletLength`/`source`. Files written earlier store
+    those two slots as `0` — treat non-positive as absent.
+  - **Multi-BC scale (1.1.11.3):** `DrgDragTableFactory.Build` now returns the projectile's own Cd
+    (`Cd_base(M)/BC(M) * SD`), the same scale a `.drg` stores, so a built table survives Save/Open and runs
+    with the **form factor of 1** the factory stamps into the entry. Bullet **weight and diameter are
+    required** (they set the scale) and the supplied BC is overwritten. Before this, a built table needed a
+    BC *value* of 1.0 and was 1/SD (≈2.8×) too draggy once saved.
+  - **Zeroing API (1.1.11):** `SightAngle` was removed — compute the zero with
+    `TrajectoryCalculator.CalculateZeroParameters(...)` then `ShotParameters.Apply(zero)`. `ShotParameters`
+    also has `ShotDropAdjustment`/`ShotWindageAdjustment` (dialed clicks), `BarrelAzimuth`, `Latitude`.
+  - **`BallisticCalculator.Tools`** namespace: `PointBlankRange`, `MovingTargetLead`, `HitProbability`,
+    `RadarDragTableFactory`, `BallisticCoefficientConverter` (see the `ballistic-calculator` skill).
+  - **Atmosphere (1.1.12):** `Density` is now computed from the resolved station `Pressure` rather than the
+    constructor's `pressure` argument — it was up to 21% high at 5000 ft with `pressureAtSeaLevel: true`. **No
+    trajectory, zero or drag result changes** (the engine always read the resolved pressure); only the public
+    property. `CreateICAOAtmosphere` no longer feeds `humidity` into the base-altitude slot (~0.008% of
+    pressure, and only for calls that passed a humidity). New `Atmosphere.DensityAltitude` — the
+    standard-atmosphere altitude matching this air's density; note its baseline is the ICAO sea-level density,
+    **not** `Atmosphere.StandardDensity` (they differ ~0.005%, about 1.9 ft, and are not interchangeable).
+  - **Named failures (1.1.13):** the engine now raises its own exception types instead of a bare
+    `InvalidOperationException`, so the UI can tell a bad input from a bug:
+    `ZeroRangeCantBeReachedException` (the load cannot reach the zero distance) and
+    `TrajectoryCannotBeCalculatedException` (the numbers do not integrate — a zero BC, weight or muzzle
+    velocity). Both derive from `InvalidOperationException`, so catch them **before** any broader handler.
+    Mapped to user-facing sentences in `ShotCalculator.Explain`; everything else keeps its stack trace.
+  - **`MilDotReticle`** is built in **milliradians** (12 mrad across, zero at 6 mrad, marks on whole mrad) —
+    note `AngularUnit.Mil` is the military mil, 1/6400 of a circle, and ~1.9 % off a milliradian.
+  - Consult the `ballistic-calculator` skill before using this API; it describes the **1.1.13+** surface,
+    including both named exceptions and `MilDotReticle` in milliradians.
+
+## Project Structure
+
+```
+BallisticCalculator2/
+├── Common/
+│   ├── BallisticCalculator.Types/            # Shared models + domain helpers (no UI)
+│   │   ├── ShotData, ZeroingData             # data models
+│   │   ├── ZeroingCalculator                 # ShotData -> library zeroing inputs / zero
+│   │   └── ShotTrajectoryCalculator          # single source of truth: ShotData -> trajectory
+│   ├── BallisticCalculator.Controls/         # Shared UI controls
+│   │   ├── Controls/                         # MeasurementControl, ReticleCanvasControl, AzimuthDirectionControl, ...
+│   │   ├── Controllers/                      # Pure logic (MeasurementController, SummaryController, ReticleOverlayController, ...)
+│   │   ├── Canvas/                           # SkiaReticleCanvas
+│   │   └── Models/                           # UnitItem, DragTableInfo, WindArrow
+│   ├── BallisticCalculator.Panels/           # Input/output panels (RiflePanel, ParametersPanel, SummaryPanel, ...)
+│   └── *.Tests/                              # xUnit + Avalonia.Headless
+├── Desktop/
+│   ├── BallisticCalculator/                  # Main app (MDI, TrajectoryView, dialogs)
+│   ├── DebugApp/, DebugApp1/                 # Controls / panels test harnesses
+│   └── ReticleEditor/                        # Reticle editor
+├── Tools/
+│   └── DependencyUpdater/                     # `depupdate` CLI (bumps deps within version bounds)
+└── Mobile/                                    # (Future) Mobile-specific apps
+```
+
+### Core domain helpers (`Common/BallisticCalculator.Types/`)
+
+- **`ShotTrajectoryCalculator`** — the ONLY place that turns a `ShotData` into a trajectory. `Calculate`
+  (display, uses configured step/max) and `CalculateFine` (2.5 m step, ≥3000 m). Table/chart use the
+  coarse trajectory; reticle + summary share one fine trajectory. Add new consumers here, don't
+  re-implement the calc.
+- **`ZeroingData`** owns all zeroing inputs (distance, zero ammo/atmosphere, V/H offsets, wind, shot
+  angle); `ZeroingCalculator.BuildInputs` converts it to the library `Rifle`/`ZeroingParameters`.
+
+## Development Approach
+
+### 1. Separate Desktop and Mobile Applications
+
+**Philosophy**: Don't compromise desktop capabilities for mobile compatibility.
+
+- **Desktop applications** should use all available desktop UI capabilities:
+  - Complex layouts and multi-window support
+  - Keyboard shortcuts and mouse interactions
+  - High information density
+  - Advanced controls (e.g., data grids, complex input controls)
+
+- **Mobile applications** will be separate projects:
+  - Touch-optimized interfaces
+  - Simplified workflows
+  - Larger touch targets
+  - Different navigation patterns
+
+#### What's Shared vs Platform-Specific
+
+**Shared across ALL platforms** (in `Common/`):
+- **Business logic types**: `Ammunition`, `Atmosphere`, `Rifle`, `Wind`, `ShotParameters`, `TrajectoryPoint`, etc.
+- **Pure logic controllers**: `MeasurementSystemController`, `ChartController`, etc.
+- **Service interfaces**: `IFileDialogService` and similar abstractions
+- **Data models**: `AmmunitionLibraryEntry`, `ChartTrajectory`, etc.
+
+**Platform-specific** (Desktop panels are NOT reused for mobile):
+- **Input Panels**: `AmmoPanel`, `AtmospherePanel`, `RiflePanel`, etc. are desktop-only
+- **Complex Controls**: `TrajectoryTableControl`, `TrajectoryChartControl` are desktop-optimized
+- **Layouts**: Desktop uses dense layouts with labels beside controls; mobile needs stacked/vertical layouts
+
+**Why panels are platform-specific**:
+- Desktop panels are optimized for mouse/keyboard with dense information display
+- Mobile needs completely different UI: larger touch targets, screen-by-screen navigation, stacked layouts
+- Trying to make one panel work for both results in compromised UX on both platforms
+- Mobile apps will create their own UI that uses the shared business logic types directly
+
+**For future mobile development**:
+- Create `Mobile/` projects with platform-native UI
+- Import shared types from `Common/BallisticCalculator.Types/`
+- Reuse controllers and service interfaces
+- Build mobile-optimized views from scratch (not adapted desktop panels)
+
+### 2. KISS - Keep It Simple, Stupid
+
+**Key Principle**: Don't over-engineer. Create only what we actually need.
+
+#### What We Learned About Controls
+
+After struggling with Avalonia's reactive property system causing circular notification loops, we adopted a simpler approach:
+
+**❌ AVOID: Reactive/MVVM Patterns (for our use case)**
+- We don't need reactive properties that auto-update from background data changes
+- Our app is **action-driven**: everything happens by explicit user interaction
+- Reactive frameworks add complexity we don't need
+
+**✅ USE: Direct UI Access Pattern**
+```csharp
+// Value property reads directly from UI on-demand (no stored state)
+public object? Value
+{
+    get
+    {
+        // Always read from UI controls
+        return _controller.Value(NumericPart?.Text ?? "", unit, DecimalPoints, Culture);
+    }
+    set
+    {
+        // Write directly to UI controls
+        NumericPart.Text = text;
+        SelectUnit(unit);
+    }
+}
+
+// Events just notify - don't update properties
+NumericPart.TextChanged += (s, e) => Changed?.Invoke(this, EventArgs.Empty);
+```
+
+**Benefits**:
+- No circular notification loops
+- No recursion guards needed
+- Simple, predictable behavior
+- Easy to debug
+
+#### Control Design Principles
+
+1. **No validation in controls** - Validate at application level where you have full context
+2. **Min/Max for UI only** - Use Minimum/Maximum properties only for increment/decrement behavior, NOT for rejecting user input
+3. **Precision transparency** - Store original values to preserve precision when display rounds (e.g., 0.45678 displays as 0.457 but returns exact value if unchanged)
+4. **Direct UI access** - Value getters read from UI controls directly, no intermediate storage
+5. **Simple events** - Controls raise `Changed` events, application decides what to do
+
+#### Value Formatting: Two Paths
+
+MeasurementControl has two distinct formatting paths depending on how data enters the control:
+
+**Programmatic set (`SetValue<T>`)** — loading saved data, setting from library:
+- Uses `ParseValuePreservePrecision` in the controller
+- Preserves the value's own meaningful precision (up to 5 decimal digits)
+- Does NOT pad with trailing zeros: 40gr → "40", not "40.00"
+- Does NOT truncate higher precision: 0.308in on a 2dp control → "0.308", not "0.31"
+- Does NOT convert to the panel's current measurement system unit — shows original unit as-is
+
+**User-driven set (`Value` property / `ChangeUnit`)** — unit conversion, user typing:
+- Uses `ParseValue` in the controller
+- Strictly applies `DecimalPoints` — formats to exactly the configured precision
+- Prevents floating-point noise from accumulating through convert round-trips (e.g., gr→g→gr stays clean)
+
+**Why two paths**: Without this separation, switching metric↔imperial repeatedly would accumulate floating-point noise (168gr → 10.886g → 168.000005gr). Loaded data should never lose precision, but converted data must be clamped to prevent noise.
+
+#### When NOT to Create Abstractions
+
+- **Don't create interfaces** unless you have multiple implementations
+- **Don't create ViewModels** unless you need testable presentation logic separate from views
+- **Don't use data binding** for simple value display/entry (direct property access is simpler)
+- **Don't use dependency injection** unless you need different implementations at runtime
+
+### 3. Controller Pattern (for complex controls)
+
+For controls with complex logic, separate pure logic from UI:
+
+**Controller** (Controllers/MeasurementController.cs):
+- Pure C# logic
+- No Avalonia dependencies
+- Easy to unit test
+- Methods like `Value()`, `ParseValue()`, `IncrementValue()`, `AllowKeyInEditor()`
+
+**Control** (Controls/MeasurementControl.axaml.cs):
+- Thin UI layer
+- Calls controller methods via reflection (for generic types)
+- Direct UI manipulation
+
+### 4. Avoid Avalonia Pitfalls We Encountered
+
+**Issue**: Circular notification loops when using StyledProperty with TwoWay binding
+```csharp
+// ❌ This caused endless loops:
+private void RaiseChanged()
+{
+    var newValue = GetValueInternal();
+    SetCurrentValue(ValueProperty, newValue);  // Triggers SelectionChanged → RaiseChanged → infinite loop
+    Changed?.Invoke(this, EventArgs.Empty);
+}
+```
+
+**Solution**: Don't update property values in event handlers, just notify
+```csharp
+// ✅ Simple and works:
+NumericPart.TextChanged += (s, e) => Changed?.Invoke(this, EventArgs.Empty);
+```
+
+**Issue**: Generic controls aren't supported in XAML
+```csharp
+// ❌ Can't do this:
+public class MeasurementControl<T> : UserControl where T : Enum
+```
+
+**Solution**: Use non-generic control with Type property + reflection
+```csharp
+// ✅ Works:
+public class MeasurementControl : UserControl
+{
+    public Type? UnitType { get; set; }  // Set to typeof(DistanceUnit)
+    // Use reflection to create MeasurementController<T>
+}
+```
+
+## Development Guidelines
+
+### For New Features
+
+1. **Start simple** - Implement the minimal working version first
+2. **Write tests first (TDD)** - Unit tests are your primary verification tool
+3. **Avoid premature abstraction** - Don't create interfaces/patterns until you need them
+4. **Follow the existing panels and controls** - When in doubt, copy the pattern of the closest
+   existing control, panel or dialog in this repository
+
+### For Controls
+
+1. **UI in XAML** - Keep XAML simple (layout only, no complex bindings)
+2. **Logic in Controller** - Complex logic goes in controller classes
+3. **No validation** - Controls accept any parseable input
+4. **Events over properties** - Raise Changed events, let application handle updates
+
+### Spacing and Layout (Desktop)
+
+**Goal**: Keep a dense, desktop-grade information layout. Avalonia controls carry a lot of built-in padding, so we use tighter spacing values to compensate.
+
+- **StackPanel Spacing**: Use `Spacing="4"` for form field rows (labels + controls)
+- **Section padding**: Use `Padding="5"` on Border sections, not 10
+- **Section headers**: Use `Margin="0,0,0,2"` below header TextBlocks, not 5
+- **No extra margins** on button rows within form layouts — let StackPanel spacing handle gaps
+- **Horizontal button bars** (OK/Cancel): Keep `Spacing="10"` — buttons need more breathing room than form rows
+- **Separator controls**: Use as-is between logical groups (they add their own minimal spacing)
+
+### For Testing (TDD Approach)
+
+**We use Test-Driven Development** - This is a core principle of the project.
+
+1. **Write tests FIRST** - Tests define expected behavior before implementation
+2. **Do the heavy lifting in unit tests** - Comprehensive test coverage catches bugs early
+3. **xUnit + Avalonia Headless** - For automated UI tests
+4. **Test actual behavior** - Don't test implementation details
+5. **Use DebugApp for exploratory testing** - After tests pass, verify visually
+6. **Test on real data** - Use realistic values from ballistics domain
+
+**Why TDD matters here:**
+- One reason we rejected the reactive approach was that it made tests almost useless
+- With reactive properties, we had to debug everything manually despite having tests
+- Our simplified direct-UI-access pattern makes tests reliable and meaningful
+- When tests pass, the code actually works (unlike with reactive complexity)
+
+## Common Patterns
+
+### Creating a New Control
+
+1. Create controller in `Controllers/` (pure logic, no UI)
+2. Create control in `Controls/` (XAML + code-behind)
+3. Wire up controller in control constructor
+4. Add test page to DebugApp
+5. Test manually, then add automated tests
+
+### Using Measurement Library
+
+```csharp
+// Create measurement
+var distance = new Measurement<DistanceUnit>(100, DistanceUnit.Meter);
+
+// Get unit names for dropdown
+var unitNames = Measurement<DistanceUnit>.GetUnitNames();
+// Returns Tuple<DistanceUnit, string>[] like (DistanceUnit.Meter, "m")
+
+// Convert units
+var feet = distance.To(DistanceUnit.Foot);
+```
+
+### Reading/Writing Control Values
+
+```csharp
+// Generic controls
+var value = control.GetValue<DistanceUnit>();
+control.SetValue(new Measurement<DistanceUnit>(100, DistanceUnit.Meter));
+
+// BallisticCoefficient control
+var bc = control.Value;
+control.Value = new BallisticCoefficient(0.450, DragTableId.G1);
+```
+
+## What to Avoid
+
+1. **Over-engineering** - Don't build frameworks, build features
+2. **Reactive complexity** - Our app doesn't need background data updates
+3. **Deep inheritance** - Prefer composition over inheritance
+4. **Premature optimization** - Make it work, then make it fast if needed
+5. **Complex data binding** - Direct property access is often simpler
+
+## Questions to Ask
+
+Before adding complexity, ask:
+- Do we actually need this abstraction?
+- Will this feature be used in multiple places?
+- Is there a simpler way?
+- Does an existing control, panel or controller in this repository already solve this?
+
+## Summary
+
+**Core Philosophy**: Build a functional, maintainable application using the simplest approach that works. Avoid framework complexity that doesn't serve our action-driven, desktop-focused use case. When uncertain, follow the patterns already established in this repository.
+
+---
+> Source: [nikolaygekht/ballistic.calculator.app.avalonia](https://github.com/nikolaygekht/ballistic.calculator.app.avalonia) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
