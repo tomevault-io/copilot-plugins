@@ -1,0 +1,9 @@
+{
+  "name": "pedrocid--symphonymac",
+  "displayName": "SymphonyMac",
+  "description": "macOS agent orchestrator inspired by OpenAI Symphony - Tauri v2 + React + Rust",
+  "version": "1.0.0",
+  "author": "pedrocid",
+  "homepage": "https://github.com/pedrocid/SymphonyMac",
+  "skills": []
+}
