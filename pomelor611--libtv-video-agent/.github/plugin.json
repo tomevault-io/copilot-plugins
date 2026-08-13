@@ -1,0 +1,9 @@
+{
+  "name": "pomelor611--libtv-video-agent",
+  "displayName": "libtv-video-agent",
+  "description": "LibTV \u89c6\u9891\u5236\u4f5c Agent\uff1a\u7528 LibTV CLI(Seedance 2.0) \u628a\u5206\u955c\u505a\u6210\u77ed\u7247\u7684\u8de8\u5de5\u5177\u901a\u7528 Agent \u2014 \u4e5d\u5bab\u683c\u2192clean\u2192image2video\u2192ffmpeg \u7ec8\u526a\u5168\u6d41\u7a0b + prompt \u94c1\u5f8b\u5e93 + \u8e29\u5751\u901f\u67e5\u3002\u652f\u6301 Claude Code/Codex/CodeBuddy\u3002",
+  "version": "1.0.0",
+  "author": "PomeloR611",
+  "homepage": "https://github.com/PomeloR611/libtv-video-agent",
+  "skills": []
+}
