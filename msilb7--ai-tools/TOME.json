@@ -4,7 +4,7 @@
   "repo": "ai-tools",
   "description": "Personal Codex, Claude, etc tools and skills to use in projects",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MSilb7/ai-tools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T17:16:24Z"
+  "distributed_at": "2026-08-13T21:29:52Z"
 }
