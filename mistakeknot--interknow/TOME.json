@@ -4,7 +4,7 @@
   "repo": "interknow",
   "description": "Knowledge compounding \u2014 durable pattern repository with provenance tracking, temporal decay, and semantic retrieval via qmd MCP server.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mistakeknot/interknow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T07:16:49Z"
+  "distributed_at": "2026-08-13T09:06:37Z"
 }
