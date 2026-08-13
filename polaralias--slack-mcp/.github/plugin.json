@@ -1,0 +1,9 @@
+{
+  "name": "polaralias--slack-mcp",
+  "displayName": "slack-mcp",
+  "description": "Standalone FastMCP Python server for Slack with direct native Slack session support.",
+  "version": "1.0.0",
+  "author": "polaralias",
+  "homepage": "https://github.com/polaralias/slack-mcp",
+  "skills": []
+}
