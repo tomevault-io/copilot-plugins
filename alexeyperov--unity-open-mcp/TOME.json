@@ -1,0 +1,44 @@
+{
+  "name": "Unity-Open-MCP",
+  "owner": "AlexeyPerov",
+  "repo": "Unity-Open-MCP",
+  "description": "Unity-Open-MCP is a complete set of tools to use AI with Unity. It acts as a bridge between AI agents (like Claude Code, Cursor, ZCode) and Unity providing various tools and senses to control gameObjects, scenes, scripts etc",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AlexeyPerov/Unity-Open-MCP",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T21:02:19Z"
+}
