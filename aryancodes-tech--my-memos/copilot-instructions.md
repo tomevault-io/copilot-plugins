@@ -1,65 +1,82 @@
-## 00-project-core
+## ai-operating-model
 
-> Core MyMemos invariants - surfaces, artifacts, constants, and scope discipline
+> How AI agents should operate on this repo - analysis, verification, and communication standards
 
 
-# MyMemos Core Rules
+# AI Operating Model
 
-## Product identity
+## Before any modification
 
-- **Product name:** MyMemos (`mymemos` in package.json)
-- **CSS prefix** `ko-` is legacy but still canonical for extension UI
+1. **Classify** the task (extension / landing / storage / editor / CI / landing-seo)
+2. **Read** nearest existing implementation - same directory, same layer
+3. **Trace data flow** - where state is read, written, persisted
+4. **State invariants** you must preserve (see `storage-invariants.mdc`)
+5. **Constants** - any new copy, label, error message, or tunable → `shared/constants.ts` only (see `constants-policy.mdc`)
+6. **Capabilities** - do not document or market schema-only / unwired APIs as features (`AGENTS.md` §2.5)
 
-## Three surfaces - never conflate
+## Analysis output (for non-trivial tasks)
 
-| Surface | Path | React | Constants |
-|---------|------|-------|-----------|
-| Landing | `src/` | 19 | `@/lib/constants` → `shared/constants.ts` |
-| Extension | `extension/src/` | 19 | `@/lib/constants` → `shared/constants.ts` |
-| Web demo | `extension/src/` (web build) | 19 | same as extension |
+Summarize before coding:
 
-`@/` alias points to different roots per package. Check `tsconfig.json` before importing. Product constants live in `shared/constants.ts` (`@shared/*`).
+- Which surface(s) affected
+- Files likely to change
+- Whether `shared/constants.ts` will gain/reuse exports
+- Storage/settings impact
+- Tests to add or run
 
-## Generated artifacts - do not edit
+## Verification is mandatory
 
-- `public/demo/**`
-- `public/mymemos-extension.zip`
-- `public/robots.txt`, `public/sitemap.xml`, `public/llms.txt`
-- `src/routeTree.gen.ts`
-- `extension/dist/**` (dev build output)
+- **Run commands** - do not only suggest them
+- **Report results** - pass/fail with relevant output
+- UI changes → `npm run dev` or `npm run dev:web` when feasible
+- Logic changes → `npm run test` for affected modules
+- Landing SEO → `npm run test -- tests/landing/lib/seo.test.ts` + `npm run generate:seo` + curl `/llms.txt`
+- Pre-PR → `npm run ci`
 
-Regenerate via `npm run build:web`, `npm run package:extension`, `npm run generate:seo`, or `npm run dev:web`.
+## Code quality bar
 
-## Constants & literals
+```typescript
+// ✅ Extension empty check
+import { len } from "@/lib/text";
+if (len(page.parent_id ?? "") === 0) { ... }
 
-**Policy:** `.cursor/rules/constants-policy.mdc` (always apply). Read it before any copy/UI/tunable change.
+// ❌ Avoid for strings
+if (!page.parent_id) { ... }
+```
 
-- **Source of truth:** `shared/constants.ts`
-- Package files `src/lib/constants.ts` and `extension/src/lib/constants.ts` are re-exports only
-- Hardcoded user-facing strings, error messages, and magic numbers → named export in `shared/constants.ts` with JSDoc, then import via `@/lib/constants`
-- Never add parallel copy modules (`strings.ts`, `messages.ts`, etc.)
-- Extension empty-string checks → `len(value) === 0` from `@/lib/text`
-- FAQ/AI crawler prose → `src/lib/ai-content.json`; SEO builders → `src/lib/seo.ts`
+```typescript
+// ✅ New tunable / copy - define in constants.ts, then import
+/** Debounce for editor saves, in milliseconds. */
+export const EDITOR_SAVE_DEBOUNCE_MS = 250;
+// in component:
+setTimeout(save, EDITOR_SAVE_DEBOUNCE_MS);
 
-## Change discipline
+// ❌ Magic number or hardcoded user string in component
+setTimeout(save, 250);
+<button>Show more</button>
+```
 
-- Smallest correct diff; no drive-by refactors
-- Match sibling file patterns (imports, error handling, naming)
-- **Filenames:** PascalCase components, camelCase modules, kebab-case scripts - see `.cursor/rules/file-naming.mdc`
-- Run `npm run ci` before declaring PR-ready
-- Do not commit unless user explicitly asks
+## Communication
 
-## Dev server selection
+- Use code citations: ```startLine:endLine:filepath
+- Proportional responses - simple fix ≠ architecture essay
+- State blockers explicitly with evidence (logs, test output)
+- Do not claim fixed without verification
 
-- Extension UI → `npm run dev` (never `build:extension` during active dev)
-- Landing + demo → `npm run dev:web`
-- Demo only → `npm run dev:app`
+## FDE-relevant practices demonstrated in this repo
 
-## When stuck
+- Multi-surface delivery from one extension codebase
+- Platform abstraction without duplicating product logic
+- Local-first storage with explicit invariants and tests
+- AI-maintained agent docs (`AGENTS.md`, `SKILLS.md`, scoped rules)
+- CI parity between local (`npm run ci`) and GitHub Actions
 
-1. Read `AGENTS.md` decision trees (§4)
-2. Route via `.cursor/SKILLS.md`
-3. Grep for an existing pattern before inventing one
+## Escalate to user
+
+- Data-destructive migrations
+- New backend / auth / cloud sync scope
+- Repeated CI failure after two distinct fix attempts
+- Ambiguous UX for landing scroll or major architecture rewrites
 
 ---
 > Source: [aryancodes-tech/my-memos](https://github.com/aryancodes-tech/my-memos) — distributed by [TomeVault](https://tomevault.io).
