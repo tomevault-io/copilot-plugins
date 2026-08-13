@@ -1,0 +1,9 @@
+{
+  "name": "querygraph--typesec",
+  "displayName": "typesec",
+  "description": "An Agentic AI security platform based on Rust types, where insecure agents do not compile.",
+  "version": "1.0.0",
+  "author": "querygraph",
+  "homepage": "https://github.com/querygraph/typesec",
+  "skills": []
+}
