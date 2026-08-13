@@ -1,0 +1,9 @@
+{
+  "name": "shrimp-software--eoka",
+  "displayName": "eoka",
+  "description": "Stealth browser automation for Rust",
+  "version": "1.0.0",
+  "author": "shrimp-software",
+  "homepage": "https://github.com/shrimp-software/eoka",
+  "skills": []
+}
