@@ -1,0 +1,9 @@
+{
+  "name": "croit--llm-gateway",
+  "displayName": "llm-gateway",
+  "description": "Self-hosted, OpenAI-compatible LLM gateway that turns any backend into an agent. Point an OpenAI SDK at it and the model runs tools mid-completion. From web search, code sandbox, document rendering, R",
+  "version": "1.0.0",
+  "author": "croit",
+  "homepage": "https://github.com/croit/llm-gateway",
+  "skills": []
+}
