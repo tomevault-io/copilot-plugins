@@ -1,0 +1,9 @@
+{
+  "name": "j-gierend--gamepocgen",
+  "displayName": "gamePocGen",
+  "description": "Agentic game prototype generator - overnight generation of browser-playable incremental games",
+  "version": "1.0.0",
+  "author": "J-Gierend",
+  "homepage": "https://github.com/J-Gierend/gamePocGen",
+  "skills": []
+}
