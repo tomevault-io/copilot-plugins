@@ -1,0 +1,44 @@
+{
+  "name": "PlanTick",
+  "owner": "Lane0218",
+  "repo": "PlanTick",
+  "description": "\u5f85\u529e\u4e0e\u65e5\u5386 Web / PWA \u5e94\u7528\uff0c\u652f\u6301\u591a\u72b6\u6001\u4efb\u52a1\u7ba1\u7406\u3001\u591a\u7aef\u4f7f\u7528\u4e0e\u81ea\u52a8\u540c\u6b65",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Lane0218/PlanTick",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T06:59:21Z"
+}
