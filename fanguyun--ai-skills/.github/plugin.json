@@ -1,0 +1,9 @@
+{
+  "name": "fanguyun--ai-skills",
+  "displayName": "ai-skills",
+  "description": "\u4e00\u4e2a\u7528\u4e8e\u96c6\u4e2d\u7ef4\u62a4\u53ef\u590d\u7528 AI skills \u7684\u4ed3\u5e93\uff0c\u9002\u7528\u4e8e Codex\u3001Claude Code \u4ee5\u53ca\u5176\u4ed6\u57fa\u4e8e\u672c\u5730 skill \u76ee\u5f55\u7684 agent \u5de5\u4f5c\u6d41\u3002",
+  "version": "1.0.0",
+  "author": "fanguyun",
+  "homepage": "https://github.com/fanguyun/ai-skills",
+  "skills": []
+}
