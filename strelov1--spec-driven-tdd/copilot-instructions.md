@@ -1,0 +1,19 @@
+## spec-driven-tdd
+
+> This repo is a skill-pack. When implementing an OpenSpec change, invoke the
+
+# spec-driven-tdd
+
+This repo is a skill-pack. When implementing an OpenSpec change, invoke the
+`spec-driven-tdd` skill and follow its lifecycle: plan in OpenSpec, isolate in a
+worktree, implement each task via TDD → simplify → review, then finish + archive.
+
+See `skills/spec-driven-tdd/SKILL.md` for the full workflow and
+`docs/dependencies.md` for what must be installed.
+
+Keep responses focused, brief, and concise. Spend most of the response on the
+outcome, not on narrating steps already taken.
+
+---
+> Source: [strelov1/spec-driven-tdd](https://github.com/strelov1/spec-driven-tdd) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
