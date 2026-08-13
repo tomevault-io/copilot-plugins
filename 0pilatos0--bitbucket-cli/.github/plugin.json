@@ -1,0 +1,9 @@
+{
+  "name": "0pilatos0--bitbucket-cli",
+  "displayName": "bitbucket-cli",
+  "description": "A command-line interface for Bitbucket Cloud",
+  "version": "1.0.0",
+  "author": "0pilatos0",
+  "homepage": "https://github.com/0pilatos0/bitbucket-cli",
+  "skills": []
+}
