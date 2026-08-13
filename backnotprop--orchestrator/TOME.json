@@ -4,7 +4,7 @@
   "repo": "orchestrator",
   "description": "Agents orchestrating other agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/backnotprop/orchestrator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T17:36:35Z"
+  "distributed_at": "2026-08-13T22:59:17Z"
 }
