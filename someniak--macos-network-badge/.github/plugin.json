@@ -1,0 +1,9 @@
+{
+  "name": "someniak--macos-network-badge",
+  "displayName": "macos-network-badge",
+  "description": "Very simple tool to see live network connectivity status in the topbar.",
+  "version": "1.0.0",
+  "author": "Someniak",
+  "homepage": "https://github.com/Someniak/macos-network-badge",
+  "skills": []
+}
