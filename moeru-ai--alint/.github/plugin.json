@@ -1,0 +1,9 @@
+{
+  "name": "moeru-ai--alint",
+  "displayName": "alint",
+  "description": "\ud83e\udd16\ud83e\udd2e Hate the yuck codes that agents generated? Try `alint`, a ESLint like toolchain for intent driven code check, freeze your skills, AGENTS.md to lint rules",
+  "version": "1.0.0",
+  "author": "moeru-ai",
+  "homepage": "https://github.com/moeru-ai/alint",
+  "skills": []
+}
