@@ -1,0 +1,9 @@
+{
+  "name": "unity-technologies--memorysnapshotdatatools",
+  "displayName": "MemorySnapshotDataTools",
+  "description": "A command line tool, developed by the CSE Consulting team, offering tools to export Unity Memory Snapshot files to database files and generate HTML reports.",
+  "version": "1.0.0",
+  "author": "Unity-Technologies",
+  "homepage": "https://github.com/Unity-Technologies/MemorySnapshotDataTools",
+  "skills": []
+}
