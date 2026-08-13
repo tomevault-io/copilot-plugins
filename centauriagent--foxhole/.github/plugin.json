@@ -1,0 +1,9 @@
+{
+  "name": "centauriagent--foxhole",
+  "displayName": "foxhole",
+  "description": "\ud83e\udd8a Foxhole \u2014 A community forum on Nostr. Join Dens, discuss what matters, own your content.",
+  "version": "1.0.0",
+  "author": "CentauriAgent",
+  "homepage": "https://github.com/CentauriAgent/foxhole",
+  "skills": []
+}
