@@ -1,0 +1,9 @@
+{
+  "name": "idempot-dev--idempot-js",
+  "displayName": "idempot-js",
+  "description": "Idempotency middleware for Express, Fastify and Hono",
+  "version": "1.0.0",
+  "author": "idempot-dev",
+  "homepage": "https://github.com/idempot-dev/idempot-js",
+  "skills": []
+}
