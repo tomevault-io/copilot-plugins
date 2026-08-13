@@ -4,7 +4,7 @@
   "repo": "Duets",
   "description": "Embeddable TypeScript console for .NET applications",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/takeshik/Duets",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T07:29:49Z"
+  "distributed_at": "2026-08-13T09:31:35Z"
 }
