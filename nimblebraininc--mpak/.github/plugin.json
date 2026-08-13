@@ -1,0 +1,9 @@
+{
+  "name": "nimblebraininc--mpak",
+  "displayName": "mpak",
+  "description": "Open-source package registry for MCP (Model Context Protocol) servers with built-in security scanning, trust scoring (L1-L4), and CLI. Every bundle verified across 25 supply-chain controls.",
+  "version": "1.0.0",
+  "author": "NimbleBrainInc",
+  "homepage": "https://github.com/NimbleBrainInc/mpak",
+  "skills": []
+}
