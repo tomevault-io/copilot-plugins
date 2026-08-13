@@ -1,0 +1,9 @@
+{
+  "name": "nayfusaurus--classifry",
+  "displayName": "classifry",
+  "description": "A neural network-based email spam classifier built with PyTorch. This project includes both an educational Jupyter notebook for learning ML concepts and a practical command-line tool.",
+  "version": "1.0.0",
+  "author": "nayfusaurus",
+  "homepage": "https://github.com/nayfusaurus/classifry",
+  "skills": []
+}
