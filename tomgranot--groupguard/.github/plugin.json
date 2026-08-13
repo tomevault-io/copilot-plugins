@@ -1,0 +1,9 @@
+{
+  "name": "tomgranot--groupguard",
+  "displayName": "groupguard",
+  "description": "AI-powered moderation for WhatsApp groups. Built on NanoClaw.",
+  "version": "1.0.0",
+  "author": "TomGranot",
+  "homepage": "https://github.com/TomGranot/groupguard",
+  "skills": []
+}
