@@ -1,14 +1,13 @@
-## frontend
+## git-workflow
 
-> 编辑前端代码时参考——技术栈、风格、结构
+> 用户说 PR/部署 dev 时参考——从 develop 建分支、PR 到 develop；不自动建 develop→main
 
 
-# Frontend（按需参考）
+# Git 工作流（按需参考）
 
-- **技术栈**：Next.js 15 / React 19 / TypeScript 5；MUI 7、Zustand、TanStack React Query、React Hook Form、Zod、Axios。
-- **风格**：2 空格、单引号、分号；PascalCase 组件/类型，camelCase 变量/Hooks，kebab-case 目录/文件；handle/ is/ has/ use 前缀。
-- **结构**：`frontend/src/app`（App Router）、`components`、`hooks`、`lib`、`types`、`utils`。组件用 interface + 可选 onEdit；状态用 Zustand + React Query；日志见 `@/lib/logger`、`frontendLogger`。
-- **性能**：useCallback/useMemo/React.memo/动态导入按需。安全：校验、JWT、RSA 签名。启动：`cd frontend && npm run dev`；需 npm install、.env.local、后端 8000。
+- **PR/提PR**：从 develop 拉分支（feature/xxx 或 fix/xxx）→ 提交 → push → `gh pr create --base develop`。禁止直接提交 develop/main；PR 目标为 develop；**不要**自动创建 develop→main 的 PR，由用户手动操作。
+- **部署 dev**：SSH 后执行 `./scripts/dev/deploy-from-git.sh`。**部署 prod**：见 production-deployment.mdc。
+- **分支**：develop → Dev 环境（admin.dev.supplynexus.store）；main → Prod。提交前确认不在 develop/main 上直接改。
 
 ---
 > Source: [supplynexus/fulfillment-service](https://github.com/supplynexus/fulfillment-service) — distributed by [TomeVault](https://tomevault.io).
