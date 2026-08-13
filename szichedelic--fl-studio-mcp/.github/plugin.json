@@ -1,0 +1,9 @@
+{
+  "name": "szichedelic--fl-studio-mcp",
+  "displayName": "fl-studio-mcp",
+  "description": "Control FL Studio with natural language via Claude AI and MCP",
+  "version": "1.0.0",
+  "author": "szichedelic",
+  "homepage": "https://github.com/szichedelic/fl-studio-mcp",
+  "skills": []
+}
