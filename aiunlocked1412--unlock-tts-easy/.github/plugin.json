@@ -1,0 +1,9 @@
+{
+  "name": "aiunlocked1412--unlock-tts-easy",
+  "displayName": "Unlock-TTS-Easy",
+  "description": "Thai voice cloning (JaiTTS F5-TTS) with a local FastAPI + custom web UI",
+  "version": "1.0.0",
+  "author": "aiunlocked1412",
+  "homepage": "https://github.com/aiunlocked1412/Unlock-TTS-Easy",
+  "skills": []
+}
