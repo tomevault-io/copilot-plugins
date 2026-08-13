@@ -1,0 +1,9 @@
+{
+  "name": "modernc-tree-sitter--ccgo-tree-sitter",
+  "displayName": "ccgo-tree-sitter",
+  "description": "Tree sitter in Go using a patched modernc.org ccgo",
+  "version": "1.0.0",
+  "author": "modernc-tree-sitter",
+  "homepage": "https://github.com/modernc-tree-sitter/ccgo-tree-sitter",
+  "skills": []
+}
