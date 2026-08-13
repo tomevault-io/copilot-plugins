@@ -1,0 +1,9 @@
+{
+  "name": "grisuno--freedom",
+  "displayName": "FreeDom",
+  "description": "A free and open-source minimal web browser written in C, focused on Zero Trust and Zero Knowledge principles.",
+  "version": "1.0.0",
+  "author": "grisuno",
+  "homepage": "https://github.com/grisuno/FreeDom",
+  "skills": []
+}
