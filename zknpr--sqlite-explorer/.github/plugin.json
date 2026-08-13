@@ -1,0 +1,9 @@
+{
+  "name": "zknpr--sqlite-explorer",
+  "displayName": "SQLite-Explorer",
+  "description": "A powerful, open-source SQLite database viewer and editor for Visual Studio Code.",
+  "version": "1.0.0",
+  "author": "zknpr",
+  "homepage": "https://github.com/zknpr/SQLite-Explorer",
+  "skills": []
+}
