@@ -1,0 +1,9 @@
+{
+  "name": "datenoio--internacia-db",
+  "displayName": "internacia-db",
+  "description": "Public registry of the intergovernmental organizations, country groups and countries. Available as JSONl, Parquet, YAML and DuckDB database datasets",
+  "version": "1.0.0",
+  "author": "datenoio",
+  "homepage": "https://github.com/datenoio/internacia-db",
+  "skills": []
+}
