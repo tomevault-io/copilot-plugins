@@ -1,28 +1,85 @@
-## cursor-ux-optimize
+## debug-usage
 
-> This is about how you should format your responses.
+> 包含添加 debug 日志请求时
 
-## Formatting Response
+# Debug 包使用指南
 
-This is about how you should format your responses.
+本项目使用 [debug](mdc:https:/github.com/debug-js/debug) 包进行调试日志记录。使用此规则来确保团队成员统一调试日志格式。
 
-### Render Markdown Table
+## 基本用法
 
-- Be aware that the cursor chat you are in can't render markdown table correctly.
-- IMPORTANT: Tables need to be rendered in plain text and not markdown
+1. 导入 debug 包：
 
-When rendering tables, do not use markdown table syntax or plain text alone. Instead, place the entire table inside a code/text block (using triple backticks). This ensures the table formatting is preserved and readable in the chat interface.
+```typescript
+import debug from 'debug';
+```
 
-Example:
+2. 创建一个命名空间的日志记录器：
 
-```plaintext
-+----+---------+-----------+
-| ID |  Name   |   Role    |
-+----+---------+-----------+
-| 1  | Alice   | Admin     |
-| 2  | Bob     | User      |
-| 3  | Charlie | Moderator |
-+----+---------+-----------+
+```typescript
+// 格式: lobe:[模块]:[子模块]
+const log = debug('lobe-[模块名]:[子模块名]');
+```
+
+3. 使用日志记录器：
+
+```typescript
+log('简单消息');
+log('带变量的消息: %O', object);
+log('格式化数字: %d', number);
+```
+
+## 命名空间约定
+
+- 桌面应用相关: `lobe-desktop:[模块]`
+- 服务端相关: `lobe-server:[模块]`
+- 客户端相关: `lobe-client:[模块]`
+- 路由相关: `lobe-[类型]-router:[模块]`
+
+## 格式说明符
+
+- `%O` - 对象展开（推荐用于复杂对象）
+- `%o` - 对象
+- `%s` - 字符串
+- `%d` - 数字
+
+## 示例
+
+查看 [market/index.ts](mdc:src/server/routers/edge/market/index.ts) 中的使用示例：
+
+```typescript
+import debug from 'debug';
+
+const log = debug('lobe-edge-router:market');
+
+log('getAgent input: %O', input);
+```
+
+## 启用调试
+
+要在开发时启用调试输出，需设置环境变量：
+
+### 在浏览器中
+
+在控制台执行：
+```javascript
+localStorage.debug = 'lobe-*'
+```
+
+### 在 Node.js 环境中
+
+```bash
+DEBUG=lobe-* npm run dev
+# 或者
+DEBUG=lobe-* pnpm dev
+```
+
+### 在 Electron 应用中
+
+可以在主进程和渲染进程启动前设置环境变量：
+
+```typescript
+process.env.DEBUG = 'lobe-*';
 ```
 
 ---
