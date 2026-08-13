@@ -1,0 +1,44 @@
+{
+  "name": "Medlife-epharm",
+  "owner": "justin-Muriungi",
+  "repo": "Medlife-epharm",
+  "description": "E-Pharm is a React Native mobile application that connects users with pharmacies, enabling them to browse medications, place orders, and manage prescriptions securely from their smartphones using Firebase and Expo.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/justin-Muriungi/Medlife-epharm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T23:25:02Z"
+}
