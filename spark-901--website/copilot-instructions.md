@@ -1,38 +1,41 @@
-## spark901-turnstile
+## website
 
-> Require Cloudflare Turnstile on Spark901 public forms and lead-capture APIs
+> Monorepo for **Spark901** public web presence (`apps/web`, Next.js). Spark901 builds **open-source software** so nonprofits and mission-driven organizations can do more with less. **Donations and sponsorships** fund engineering and infrastructure; the product intent is **lasting quality** (maintainable code, honest messaging, tools that scale across many orgs).
 
+# Spark901 website — Claude Code context
 
-# Spark901 — Cloudflare Turnstile (public forms)
+## What this repository is
 
-Protect **unauthenticated, publicly writable** surfaces with Cloudflare Turnstile. Do not ship new public lead/contact/signup/feedback forms without it.
+Monorepo for **Spark901** public web presence (`apps/web`, Next.js). Spark901 builds **open-source software** so nonprofits and mission-driven organizations can do more with less. **Donations and sponsorships** fund engineering and infrastructure; the product intent is **lasting quality** (maintainable code, honest messaging, tools that scale across many orgs).
 
-## When it applies
+## Mission and positioning
 
-- Public HTML forms that POST to our APIs (volunteer, feedback, suggest-a-tool, beta signup, gift-a-tool, contact, waitlists, etc.)
-- Any new `apps/web/app/api/**` route that accepts untrusted user content and notifies Slack, email, CRM, or stores submissions
+- **Geography**: **Memphis, Tennessee** (area code **901**). Local to the Mid-South; audience is global but roots are Memphis.
+- **Nonprofit ecosystem**: Memphis is a **nonprofit hub**. The team is part of the **Digital Delta**—a frame for regional tech talent **supporting** nonprofits, not competing with them.
+- **Legal**: Spark901 operates as an **LLC**, **not** a **501(c)(3)** at this time. **Contributions are generally not tax-deductible.** Any copy about taxes or “nonprofit status” must stay accurate (see `transparency` strings and legal pages).
+- **Ethos**: Social good through **public goods** (open source), transparency, and **rigorous** engineering—not through misleading donors about tax treatment.
 
-## When it does **not** apply
+## Memphis nonprofit hub statistics (for copy/UI)
 
-- Stripe Checkout / Customer Portal redirects (Stripe owns abuse controls)
-- Signed webhooks (`/api/webhooks/*`) — verify signatures, not Turnstile
-- Authenticated admin/internal-only endpoints (if introduced later)
+Single source of truth: `apps/web/lib/brand.ts` → `memphisNonprofitHub`.
 
-## Required pattern
+1. Memphis **leads major U.S. metros** in nonprofits **relative to population**: **69.9 per 10,000** residents.
+2. **Over 6,500** tax-exempt nonprofits in the Memphis area, **employing over 96,000 people**, with **over $46 billion** in assets.
 
-1. **Client**: render `TurnstileField` from `apps/web/components/turnstile-field.tsx`; send `turnstileToken` in the JSON body; disable submit until a token exists; remount/reset the widget after failed submits (tokens are single-use).
-2. **Server**: call `verifyTurnstileToken(token, request)` from `apps/web/lib/turnstile.ts` **before** side effects (Slack, email, DB). Fail closed on missing/invalid tokens.
-3. **Env** (do not invent alternate names):
-   - `NEXT_PUBLIC_TURNSTILE_SITE_KEY` — public site key
-   - `SPARK901_TURNSTILE_SECRET_KEY` — server-only secret (never expose to client)
+UI: use the `MemphisNonprofitHubStats` component and `messages/*.json` under `memphisNonprofitHub` so EN/ES stay aligned.
 
-Honeypot fields may remain as defense-in-depth; they do **not** replace Turnstile.
+## Domain
 
-## Do not
+- Canonical site: **`https://spark901.com`** (not `.org`).
+- Contact email pattern: `@spark901.com` (e.g. `hello@spark901.com`).
+- Stripe webhook / Checkout return URLs use `spark901.com`.
 
-- Skip Siteverify and trust the client widget alone
-- Add reCAPTCHA/hCaptcha instead of Turnstile for this site
-- Commit secret keys or paste them into docs/rules
+## Conventions for agents
+
+- Match existing patterns: `next-intl`, `components/ui/*`, `lib/brand.ts` for brand constants.
+- Do not add tax-deduction promises or “we are a nonprofit” claims without explicit legal verification.
+- When adding fundraising or impact copy, tie it to **open infrastructure** and **verified** legal disclosures.
+- **Public forms / lead APIs**: protect with Cloudflare Turnstile (`TurnstileField` + `verifyTurnstileToken` in `apps/web`). Env: `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `SPARK901_TURNSTILE_SECRET_KEY`. See `.cursor/rules/spark901-turnstile.mdc`. Skip for Stripe Checkout/portal and signed webhooks only.
 
 ---
 > Source: [Spark-901/website](https://github.com/Spark-901/website) — distributed by [TomeVault](https://tomevault.io).
