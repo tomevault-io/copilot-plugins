@@ -1,38 +1,118 @@
-## file-naming
+## landing-site
 
-> File naming conventions for new and renamed source files
+> TanStack Start landing site - routing, marketing, scroll video, download flow
 
 
-# File naming
+# Landing Site Rules
 
-Use one convention per file kind. Do not mix kebab-case and camelCase for the same kind of module.
+## Stack
 
-| Kind | Convention | Examples |
-|------|------------|----------|
-| React component modules | **PascalCase** | `Sidebar.tsx`, `LandingHero.tsx`, `AttachmentImageNodeView.tsx` |
-| Hooks | **camelCase**, `use` prefix | `useStore.ts`, `useAttachmentImage.ts` |
-| Non-component TS/TSX modules | **camelCase** | `attachmentManager.ts`, `workspaceTree.ts`, `errorCapture.ts`, `themeTypes.ts` |
-| Tests | Match source basename + `.test.ts` | `workspaceTree.test.ts` under `tests/<surface>/…` |
-| CLI / Node scripts | **kebab-case** | `generate-sitemap.mjs`, `guard-production-build.mjs` |
-| CSS / static assets | Existing patterns | `index.css`; prefer kebab for new asset files |
-| CSS class names / HTML ids | **kebab-case** (unchanged) | `ko-workspace-tree`, `landing-faq` - not the same as TS filenames |
+- **TanStack Start** + **React 19** + **Tailwind 4**
+- **Vite 7** + Nitro for SSR
+- **shadcn/ui** primitives in `src/components/ui/`
 
-## Exceptions (do not rename to force the rule)
+## Routing
 
-- Framework / generated: `__root.tsx`, `routeTree.gen.ts`, TanStack route files like `llms[.]txt.ts`
-- Ambient typings that mirror package ids: `markdown-it-mark.d.ts`, `file-system-access.d.ts`
-- Entry stubs: `main.tsx`, `index.tsx`, `App.tsx` (PascalCase `App` is intentional)
+- File-based routes in `src/routes/`
+- `routeTree.gen.ts` is **generated** - never hand-edit
+- See `src/routes/README.md` for TanStack conventions (not Next.js)
 
-## When adding a file
+## Constants
 
-1. Component that renders UI → PascalCase `.tsx`
-2. Hook → `useSomething.ts`
-3. Anything else in `src/`, `extension/src/`, `shared/` → camelCase
-4. Anything in `scripts/` or `extension/scripts/` → kebab-case `.mjs`
+**Canonical source:** `shared/constants.ts` (see `.cursor/rules/constants-policy.mdc`).
 
-## Imports
+`src/lib/constants.ts` re-exports `@shared/constants`. Marketing copy and tunables live in `shared/constants.ts`:
 
-Update import paths when renaming. Prefer `@/` / `@shared/` aliases; do not leave stale kebab paths.
+| Category | Examples |
+|----------|----------|
+| Hero copy | `LANDING_HERO_*` |
+| Features | `LANDING_FEATURES_*` |
+| Scroll video | `LANDING_VIDEO_*`, `LANDING_MAIN_OVERLAP_VH` |
+| Paths | `DEMO_PATH`, `EXTENSION_ZIP_FILENAME` |
+| Favicon | `SITE_FAVICON_PATH`, `SITE_FAVICON_TYPE` |
+
+Do not hardcode strings in components - import via `@/lib/constants`. FAQ/llms body → `ai-content.json`; SEO builders → `seo.ts`. Per-feature bento clips are off when `LANDING_FEATURE_CLIPS_ENABLED` is `false`.
+
+## Key components
+
+| Component | Role |
+|-----------|------|
+| `LandingHero.tsx` | Headline, CTAs |
+| `ScrollVideoShowcase.tsx` | Sticky scroll launch video |
+| `FeatureBentoGrid.tsx` | Feature cards |
+| `LandingGetStarted.tsx` | Install steps |
+| `LandingNav.tsx` | Nav + GitHub link |
+
+## Scroll video architecture
+
+- Runway height: `LANDING_VIDEO_SCROLL_RUNWAY_VH`
+- Phases: expand → hold → shrink (see `getVideoFrameStyle`)
+- Features overlap: `LANDING_MAIN_OVERLAP_VH` negative margin on `.landing-main`
+- Tunables are sensitive - small constant changes have large UX impact
+
+## Download flow
+
+```typescript
+// Fetches EXTENSION_ZIP_FILENAME from public root
+fetch(`/${EXTENSION_ZIP_FILENAME}`)
+```
+
+ZIP must exist - generate with `npm run package:extension`.
+Show inline error if 404 (do not `alert()`).
+
+## Demo embed
+
+- Dev: `webAppDevPlugin.ts` proxies `/demo/` to extension Vite
+- Prod: static files in `public/demo/` from `npm run build:web`
+- Do not edit `public/demo/` directly
+
+## SSR errors
+
+- `src/server.ts` - custom handler
+- `errorCapture.ts` - swallowed error recovery
+- `__root.tsx` - `ErrorComponent`, favicon links, global CSS
+
+## SEO & AI discoverability
+
+| Artifact | How it is served | Source |
+|----------|------------------|--------|
+| Meta + JSON-LD | SSR `<head>` on `/` | `src/lib/seo.ts`, `src/routes/index.tsx` |
+| `/robots.txt`, `/sitemap.xml` | Static files in `public/` (gitignored) | `scripts/generate-sitemap.mjs` |
+| `/llms.txt` | TanStack Start server route + static copy | `src/routes/llms[.]txt.ts`, generate script |
+| FAQ UI + schema | Landing page + FAQPage JSON-LD | `src/lib/ai-content.json`, `LandingFaq.tsx` |
+
+**Environment:** `VITE_SITE_URL` (no trailing slash, prefer `https://www…`) - canonical origin for SEO. Set as an environment variable on your hosting provider for production. Apex/HTTP must permanently redirect to that origin (see root `vercel.json` or equivalent host config).
+
+**Content split:**
+
+- Marketing copy → `shared/constants.ts`
+- FAQ / llms summary → `src/lib/ai-content.json`
+- FAQ link paths → `"path": "/demo/"` in JSON; resolved in `landingFaqContent.ts`
+
+**Generate & test:**
+
+```bash
+npm run generate:seo                    # writes public/robots.txt, sitemap.xml, llms.txt
+npm run test -- tests/landing/lib/seo.test.ts
+npm run dev:web
+curl http://localhost:8080/llms.txt
+```
+
+Also runs automatically via `predev:web` and `prebuild:web`. Do **not** commit generated `public/*.txt` / `public/*.xml`.
+
+## Styling
+
+- Landing-specific CSS: `src/landing.css`
+- Design tokens: `src/lib/designTokens.ts`
+- Extension uses separate `ko-` theme - landing does not share CSS
+
+## Verify
+
+```bash
+npm run dev:web
+# /, /demo/, download, mobile breakpoint
+# SEO: curl /robots.txt /sitemap.xml /llms.txt
+```
 
 ---
 > Source: [aryancodes-tech/my-memos](https://github.com/aryancodes-tech/my-memos) — distributed by [TomeVault](https://tomevault.io).
