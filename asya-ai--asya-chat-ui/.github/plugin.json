@@ -1,0 +1,9 @@
+{
+  "name": "asya-ai--asya-chat-ui",
+  "displayName": "asya-chat-ui",
+  "description": "Better, open-source, LLM wrapper (user management, text processing, file processing, image generation, web search, local models)",
+  "version": "1.0.0",
+  "author": "asya-ai",
+  "homepage": "https://github.com/asya-ai/asya-chat-ui",
+  "skills": []
+}
