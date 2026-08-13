@@ -1,23 +1,23 @@
-## doc-driven-dev
+## doc-sync
 
-> 文档驱动的代码修改流程，强制修改前按文档分析规划
+> 修改后确认文档一致性并更新文档信息
 
 
-# 文档驱动开发
+# 文档同步与更新
 
-每次进行代码修改前，必须执行以下流程：
+代码修改完成后，必须：
 
-1. 使用 Read 工具阅读 docs/ 及 core/prompt/ 下相关文档（prompt-architecture.md、code-design-plan.md、product-plan.md）。
-2. 分析变更是否符合文档设计（如 core/prompt 固定/动态分层、ReAct 主编排、A2UI 协议）。
-3. 制定修改方案，列出受影响文件与文档更新点。
+1. 比对实际代码与 docs/ 描述是否一致（例如 prompt 固定区文件、GenerationMode、实体模型）。
+2. 更新文档：修改日期、版本、对应章节内容。
+3. 若新增功能，补充到 product-plan.md 或 code-design-plan.md。
 
-**BAD 示例**：直接编辑 core/agents/xxx.py，未阅读 docs/。
+**BAD 示例**：修改了 `core/llm/master_react.py` 的 ReAct 逻辑，未更新 prompt-architecture.md 中的动态槽位表。
 
 **GOOD 示例**：
-- 先 Read docs/superpowers/reference/prompt-architecture.md 确认 fixed/actions.md 结构。
-- 规划：新增 action 需同步更新 agents/*/fixed/actions.md 及 registry.py。
+- 修改后立即编辑 docs/superpowers/reference/prompt-architecture.md，更新“4. 动态槽位”表格与日期。
+- 提交前运行 grep 确认 docs/ 提及新 action。
 
-若修改涉及 prompt 层或编排逻辑，必须引用文档中的“两条 LLM 调用链”。
+所有 PR/变更必须包含文档更新。
 
 ---
 > Source: [GodyuFF/SuperVideoGenerator](https://github.com/GodyuFF/SuperVideoGenerator) — distributed by [TomeVault](https://tomevault.io).
