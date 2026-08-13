@@ -1,0 +1,9 @@
+{
+  "name": "sumpalabs--petrodb",
+  "displayName": "petrodb",
+  "description": "Repository of public Oil & Gas datasets in parquet format",
+  "version": "1.0.0",
+  "author": "sumpalabs",
+  "homepage": "https://github.com/sumpalabs/petrodb",
+  "skills": []
+}
