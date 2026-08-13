@@ -1,0 +1,9 @@
+{
+  "name": "ujjwalredd--dopamine",
+  "displayName": "Dopamine",
+  "description": "A human-dopamine-inspired AI agent skill that adapts effort, learns from feedback, and delivers the smallest verified solution.",
+  "version": "1.0.0",
+  "author": "ujjwalredd",
+  "homepage": "https://github.com/ujjwalredd/Dopamine",
+  "skills": []
+}
