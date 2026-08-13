@@ -1,0 +1,9 @@
+{
+  "name": "php-oss-for-azure--azure-php",
+  "displayName": "azure-php",
+  "description": "Community Azure PHP SDKs",
+  "version": "1.0.0",
+  "author": "php-oss-for-azure",
+  "homepage": "https://github.com/php-oss-for-azure/azure-php",
+  "skills": []
+}
