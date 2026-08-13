@@ -1,0 +1,9 @@
+{
+  "name": "forgia-labs--forgia",
+  "displayName": "forgia",
+  "description": "Spec-driven development framework \u2014 from Feature Design to agent-ready execution specs. FD \u2192 SDD \u2192 Code.",
+  "version": "1.0.0",
+  "author": "Forgia-Labs",
+  "homepage": "https://github.com/Forgia-Labs/forgia",
+  "skills": []
+}
