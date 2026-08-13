@@ -1,0 +1,9 @@
+{
+  "name": "cc22n--soc-assistan",
+  "displayName": "SOC-Assistan",
+  "description": "SOC Assistan a web-based threat intelligence platform designed for Security Operations Center (SOC) analysts",
+  "version": "1.0.0",
+  "author": "cc22n",
+  "homepage": "https://github.com/cc22n/SOC-Assistan",
+  "skills": []
+}
