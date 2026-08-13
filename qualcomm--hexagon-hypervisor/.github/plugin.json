@@ -1,0 +1,9 @@
+{
+  "name": "qualcomm--hexagon-hypervisor",
+  "displayName": "hexagon-hypervisor",
+  "description": "Hexagon Hypervisor (AKA h2) is a light weight OS / Hypervisor for the Qualcomm Hexagon processor family",
+  "version": "1.0.0",
+  "author": "qualcomm",
+  "homepage": "https://github.com/qualcomm/hexagon-hypervisor",
+  "skills": []
+}
