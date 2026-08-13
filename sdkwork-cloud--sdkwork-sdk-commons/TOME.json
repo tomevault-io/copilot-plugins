@@ -4,7 +4,7 @@
   "repo": "sdkwork-sdk-commons",
   "description": "sdkwork-sdk-commons",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sdkwork-Cloud/sdkwork-sdk-commons",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T14:58:25Z"
+  "distributed_at": "2026-08-13T08:47:46Z"
 }
