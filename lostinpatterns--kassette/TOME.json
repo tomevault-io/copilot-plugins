@@ -4,7 +4,7 @@
   "repo": "kassette",
   "description": "Make your agentic workflows durable with embeddable primitives that compose with your existing infra. No server, no dedicated runtime, no new infra.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lostinpatterns/kassette",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T18:36:49Z"
+  "distributed_at": "2026-08-13T23:08:51Z"
 }
