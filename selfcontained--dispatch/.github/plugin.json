@@ -1,0 +1,9 @@
+{
+  "name": "selfcontained--dispatch",
+  "displayName": "dispatch",
+  "description": "local agent manager",
+  "version": "1.0.0",
+  "author": "selfcontained",
+  "homepage": "https://github.com/selfcontained/dispatch",
+  "skills": []
+}
