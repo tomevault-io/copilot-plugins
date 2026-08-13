@@ -1,0 +1,9 @@
+{
+  "name": "zakelfassi--hfpaper",
+  "displayName": "hfpaper",
+  "description": "CLI for Hugging Face Papers API \u2014 search, read, and explore AI research papers from the terminal",
+  "version": "1.0.0",
+  "author": "zakelfassi",
+  "homepage": "https://github.com/zakelfassi/hfpaper",
+  "skills": []
+}
