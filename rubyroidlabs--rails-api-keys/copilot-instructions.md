@@ -1,0 +1,100 @@
+## context
+
+> rails_api_keys engine architecture and current state
+
+
+# rails_api_keys Context
+
+**Single source of truth for engine state and architecture**
+
+## Overview
+
+Reusable Rails engine that issues and authenticates personal API keys. Intentionally thin: keys + auth helpers only. Public MIT-licensed gem.
+
+## Naming
+
+- Gem / require / repo: `rails_api_keys`
+- Module: `RailsApiKeys`
+- Table: `rails_api_keys_api_keys`
+- Generator: `rails_api_keys:install`
+
+## Technology
+
+- Rails engine (`>= 7.0`), isolated namespace `RailsApiKeys`
+- Active Record for `rails_api_keys_api_keys`
+- No frontend, mailers, jobs, or mounted business routes
+
+## Public surface
+
+### `has_api_keys` (on owner models)
+
+- Declares polymorphic `has_many :api_keys` and registers the model as an allowed owner
+- Adds `create_api_key!(name:, permission:)` → `[record, raw_token]` (wraps `ApiKey.generate_for!`)
+- Multiple models may opt in (e.g. `User`, `Company`)
+- Models without the macro cannot own keys
+
+### Configuration (`RailsApiKeys.configure`) — all optional
+
+| Option | Default | Purpose |
+|--------|---------|---------|
+| `token_prefix` | `nil` → `"#{AppName.downcase}_ak_"` | Prefix for generated raw tokens |
+| `owner_active` | uses `active_for_authentication?` when present | Gate authenticate on owner liveness |
+
+Host initializers should only set overrides; do not restate defaults.
+
+### `RailsApiKeys::ApiKey`
+
+- Polymorphic `belongs_to :owner`
+- Permissions: `read`, `read_write` (immutable after create)
+- `generate_for!(owner:, name:, permission:)` → `[record, raw_token]`
+- `authenticate(raw_token)` → active key if digest matches and owner active; touches `last_used_at`
+- `revoke!` sets `revoked_at`
+- Stores `token_digest` (SHA-256), `token_display_prefix`; never plaintext
+
+### `RailsApiKeys::Authentication`
+
+- `authenticate_api_key!` — Bearer token → `current_api_key` / `current_api_owner`; 401 on auth failure; GET/HEAD require read, other methods require write (403 if lacking)
+
+### Install
+
+```bash
+bin/rails generate rails_api_keys:install
+bin/rails db:migrate
+```
+
+## Layout
+
+```
+app/models/rails_api_keys/   # ApplicationRecord, ApiKey
+db/migrate/
+lib/rails_api_keys.rb
+lib/rails_api_keys/          # version, configuration, authentication, owner, engine
+lib/generators/rails_api_keys/install/
+config/routes.rb             # Empty — host owns routes
+```
+
+## Host integration
+
+```ruby
+gem "rails_api_keys", path: "../rails_api_keys" # or git:
+```
+
+1. Install generator + migrate
+2. `has_api_keys` on each owner model
+3. Host UI for create (show raw once) / list / revoke
+4. API controllers include `RailsApiKeys::Authentication`
+
+## Testing
+
+- RSpec + `spec/dummy` (sqlite)
+- Run: `bundle exec rspec`
+
+## When changing this engine
+
+1. Keep the boundary thin
+2. Update this file and `AGENTS.md` when public API changes
+3. Cover changes with RSpec
+
+---
+> Source: [rubyroidlabs/rails_api_keys](https://github.com/rubyroidlabs/rails_api_keys) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-13 -->
