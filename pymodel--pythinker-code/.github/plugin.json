@@ -1,0 +1,9 @@
+{
+  "name": "pymodel--pythinker-code",
+  "displayName": "pythinker-code",
+  "description": "Next-generation AI coding agent for your terminal \u2014 reads code, edits files, runs tools, and integrates with editors via ACP.",
+  "version": "1.0.0",
+  "author": "PyModel",
+  "homepage": "https://github.com/PyModel/pythinker-code",
+  "skills": []
+}
