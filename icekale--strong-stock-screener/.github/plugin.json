@@ -1,0 +1,9 @@
+{
+  "name": "icekale--strong-stock-screener",
+  "displayName": "strong-stock-screener",
+  "description": "A \u80a1\u77ed\u7ebf\u5f3a\u52bf\u80a1\u9009\u80a1\u5de5\u4f5c\u53f0\uff1a\u6574\u5408 TickFlow \u884c\u60c5\u3001\u7ade\u4ef7\u96f7\u8fbe\u3001\u677f\u5757\u8d44\u91d1\u6d41\u3001\u77ed\u7ebf\u60c5\u7eea\u3001\u81ea\u9009\u80a1\u89c2\u5bdf\u6c60\u548c GSGF \u590d\u76d8\u6a21\u578b\uff0c\u652f\u6301 Docker/Unraid \u5feb\u901f\u90e8\u7f72\u3002",
+  "version": "1.0.0",
+  "author": "icekale",
+  "homepage": "https://github.com/icekale/strong-stock-screener",
+  "skills": []
+}
