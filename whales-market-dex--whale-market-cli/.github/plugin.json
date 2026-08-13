@@ -1,0 +1,9 @@
+{
+  "name": "whales-market-dex--whale-market-cli",
+  "displayName": "whale-market-cli",
+  "description": "A command-line interface for the Whales Market trading platform",
+  "version": "1.0.0",
+  "author": "Whales-Market-Dex",
+  "homepage": "https://github.com/Whales-Market-Dex/whale-market-cli",
+  "skills": []
+}
