@@ -4,7 +4,7 @@
   "repo": "tiktok-douyin-dl",
   "description": "\u8de8\u5e73\u53f0\u6296\u97f3 / TikTok \u65e0\u6c34\u5370\u4e0b\u8f7d\u5668\uff1aWindows GUI\u3001macOS/iOS \u539f\u751f App\u3001Android \u5ba2\u6237\u7aef\u3001Linux/macOS CLI \u4e0e WebUI\uff1b\u5185\u7f6e\u65e0\u5934\u6d4f\u89c8\u5668\u3001\u6309\u7aef\u8fc7\u6ee4\u66f4\u65b0\u65e5\u5fd7\u3001\u8fdc\u7a0b\u7b56\u7565\u63a7\u5236\u3002Cross-platform TikTok & Douyin no-watermark downloader: Windows/macOS/iOS/Android apps plus Linux/macOS CLI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Francis-Xavier-code/tiktok-douyin-dl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T17:41:26Z"
+  "distributed_at": "2026-08-13T23:05:04Z"
 }
