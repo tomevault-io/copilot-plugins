@@ -1,22 +1,31 @@
-## gdpr-privacy
+## php-laravel
 
-> GDPR — privacy policy version, consent, IP hashing
+> Laravel backend — routes, Eloquent, tests, security
 
 
-# GDPR & Privacy Policy
+# Laravel Backend
 
-## IP & logs
-Security/rate-limit logs: IP as SHA256 + `ADV_THROTTLE_SALT` only. No plaintext personal data in logs.
+## Architecture
+- Web routes + controllers for app features; session authentication.
+- Authorization: policies + middleware. Validation: Form Requests.
+- Business logic in services; keep controllers thin. Efficient Eloquent; avoid N+1.
+- Migrations for all schema changes. Tables/columns: English `snake_case`.
 
-## Substantial change to `resources/views/legal/privacy.blade.php`
-Complete in **same** PR/session:
-1. Update visible version/date (e.g. `updated-at` on `<x-legal-page-shell>`).
-2. Bump `privacy_policy_version` in `config/legal.php` (unique string, e.g. `YYYY-MM-DD-v2`).
-3. Consent controllers use **only** `config('legal.privacy_policy_version')` — no duplicated version strings.
-4. Update UI/tests that cite policy version or binding text.
-5. `make test` before done.
+## Tests
+| Dir | Use |
+|-----|-----|
+| `tests/Feature/` | Routes, controllers, user flows |
+| `tests/Unit/` | Models, services, helpers |
 
-Version feeds `consents` / `consent_events`. Legal-only edits without version bump are **incomplete**.
+Class names: `PascalCase` + `Test` suffix. Run: `make test`.
+
+## Security & GDPR
+- Rate limit sensitive routes (`throttle` / project middleware).
+- Log IP as SHA256 + salt `ADV_THROTTLE_SALT` only — no plaintext PII in logs.
+- Privacy policy changes: see rule `gdpr-privacy` when editing legal views/config.
+
+## Before new code
+Search models, services, controllers. Example: balance logic → `Household::isDebtBalancingMode()`, `isSharedWalletMode()`.
 
 ---
 > Source: [mnossa/finanzamente](https://github.com/mnossa/finanzamente) — distributed by [TomeVault](https://tomevault.io).
