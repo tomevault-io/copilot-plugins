@@ -1,0 +1,9 @@
+{
+  "name": "imoonkey--openweb",
+  "displayName": "openweb",
+  "description": "Agent-native way to access any website. Bridging agent CLI and web GUI through API.",
+  "version": "1.0.0",
+  "author": "imoonkey",
+  "homepage": "https://github.com/imoonkey/openweb",
+  "skills": []
+}
