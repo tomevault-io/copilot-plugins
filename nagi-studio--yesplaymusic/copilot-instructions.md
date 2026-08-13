@@ -1,0 +1,123 @@
+## yesplaymusic
+
+> 高颜值的第三方网易云播放器，本仓库是从 [qier222/YesPlayMusic](https://github.com/qier222/YesPlayMusic)
+
+# YesPlayMusic（个人 fork）
+
+高颜值的第三方网易云播放器，本仓库是从 [qier222/YesPlayMusic](https://github.com/qier222/YesPlayMusic)
+分出来独立维护的私有版本。Apple Silicon macOS 是正式支持平台；Windows x64 和
+Ubuntu x64 由 CI 提供 Tauri 实验构建。
+
+## 命令
+
+| 用途                            | 命令                          |
+| ------------------------------- | ----------------------------- |
+| Tauri 开发                      | `bun run dev:tauri`           |
+| 按当前系统出 Tauri 安装包       | `bun run build:tauri`         |
+| Windows x64 NSIS 安装包         | `bun run build:tauri:windows` |
+| Ubuntu x64 AppImage + deb       | `bun run build:tauri:linux`   |
+| 只构建渲染进程（浏览器里调 UI） | `bun run build:renderer`      |
+
+Tauri 产物在 `src-tauri/target/<target-triple>/release/bundle/`。macOS 正式发布仍通过
+`bun run package:tauri:dmg` 收集到 `dist_tauri/`。
+
+## 提交前的验证
+
+`.githooks/pre-commit` 会跑 `bun test`、`bun run typecheck` 和
+`bun run build:tauri:renderer`。
+`bun install` 时的 `prepare` 会把 `core.hooksPath` 指过去，新 clone 也自动生效。
+
+三步缺一不可：测试不 import `.vue`，所以"import 了一个不存在的模块"只有类型检查或渲染构建能发现——
+2026-08-04 就是这么把临时探针的残留 import 提交进去的，HEAD 里 import 了一个仓库里
+根本不存在的文件。
+
+CI（`.github/workflows/build.yaml`）只验证每次 push 的**最后一个 commit**，一次推 21 个
+中间那 20 个不会被碰，所以这道关必须在本地。
+
+## 发版
+
+版本号要同时改四处：`package.json`、`src-tauri/tauri.conf.json`、`src-tauri/Cargo.toml`、
+`src-tauri/sidecar/Cargo.toml`（Cargo.lock 里的两个 workspace package 跟着更新）。
+`bun run verify:tauri:version` 会校验所有位置与 tag 一致，CI 里也会跑。
+
+推 `v*` tag 触发 `.github/workflows/build.yaml`：三平台构建（配置 Apple 签名时包含公证）→
+建**草稿** release。正式版草稿用 `gh release edit vX.Y.Z --draft=false --latest` 发布；
+canary 等预发布版本必须用
+`gh release edit vX.Y.Z-canary.N --draft=false --prerelease --latest=false`，不能设为 latest。
+canary 发布后的 `release.published` 会触发 `.github/workflows/publish-canary-updater-feed.yaml`：
+它只在最终 artifact 与 `TAURI_UPDATER_PUBKEY` 验签通过后推进独立 canary feed；不要手工改
+`updater-feed` 分支，也不要让草稿提前进入 feed。stable 继续使用 GitHub latest，不会收到 canary。
+
+当前 macOS 发布政策固定使用 adhoc Hardened Runtime DMG，`APPLE_SIGNING_ENABLED` 保持非
+`true`；Developer ID 与公证不是验收门禁。CI 中的 Apple 签名分支只保留为未来可选能力。
+Tauri updater 的 Minisign 密钥是另一套完整性门禁，不能因为不做 Developer ID 而关闭。
+
+**发布前必须手写 release 正文**，不能只留自动生成的 Full Changelog 链接。
+仓库没有 CHANGELOG 文件，变更记录只存在于 release 正文里。格式照 v0.6.2 / v0.6.3：
+一段 `## 修复`，用户视角的中文条目（说"能拖动窗口了"，不说"补了 drag-region 属性"），
+末尾保留自动追加的 Full Changelog 那一行、不要自己再写一遍（v0.6.2 就重了）。
+
+## 技术栈
+
+Vue 3.5 + Pinia 4 + Vue Router 4 + TypeScript 6.0 + Vite 7 + Tauri 2，包管理用 bun。
+Vue 组件保留选项式 API，统一使用
+`<script lang="ts">` + `defineComponent`。
+
+TypeScript 开启严格模式、`exactOptionalPropertyTypes` 和
+`noUncheckedIndexedAccess`；外部数据先以 `unknown` 接收并缩窄，纯类型依赖使用
+`import type`，复杂 props 使用 `PropType`。禁止用新增 `any`、`@ts-ignore` 或
+`@ts-expect-error` 绕过类型检查。
+
+渲染构建统一使用 `vite.config.mjs`。桌面主进程是 Rust，不存在第二套 JavaScript
+桌面运行时或构建配置。
+
+## 架构要点
+
+Tauri 主进程入口是 `src-tauri/src/main.rs`，负责窗口、托盘、快捷键、单实例和 Sidecar
+生命周期。`src-tauri/sidecar/` 会编译成各平台独立的 Rust 可执行文件，负责网易云 API、
+托管渲染产物、同源 `/api` 代理和 UNM。正式版页面来自 `http://127.0.0.1:28232`；
+`12754` API 端口在 dev 和 release 都会监听。
+
+**生产模式不走 `app://` 协议**，而是加载 Sidecar 的 loopback HTTP 页面。
+dev 的 Vite server 也配了 `/api` 同源代理指向 12754 —— 这个不能省，否则跨端口属于跨站，登录 cookie 会被
+Chromium 的 SameSite 策略丢掉，表现为头像不刷新、library 空。
+
+迷你播放器做在 `src/views/lyrics.vue` 里：窗口高 < 340（`isBarWindowSize`）才切成
+紧凑播放条；宽 < 620 或高 < 340（`isMiniWindowSize`）时 `src/App.vue` 自动切到歌词页，
+窄而高的窗口保持完整播放器视图。两个判定都在 `src/utils/miniWindow.ts`，语义不能合并。窗口、菜单栏封面/歌词、全局快捷键和
+Discord Rich Presence 都由 `src-tauri/src/` 的 Rust 实现。
+
+## 数据目录（容易搞错）
+
+WebView 按 origin 隔离存储，而 dev 和正式版端口不同：
+
+- **共用**：cookie（只认域名不认端口，dev 登录了正式版也是登录的）
+- **不共用**：IndexedDB 歌曲缓存、localStorage 设置。dev 使用 `127.0.0.1:1420`，
+  正式版使用 `127.0.0.1:28232`，各存各的
+
+不要为了清 dev 数据删除整个应用数据目录，那会同时清掉正式版数据。
+
+## 已知的坑
+
+1. `src/ncmModDef.cjs` 是刻意保留的 Bun 参考实现 CommonJS 边界，必须静态 `import`，
+   让 differential oracle 能收集网易云 API 路由；正式安装包只运行 Rust Sidecar。
+2. `vite-plugin-svg-icons` 只在 dev server 启动时扫一遍 `src/assets/icons`，
+   新加的 svg 要重启 dev 才会进 sprite，否则图标位置是空白。
+3. `.player` 上有 `backdrop-filter`，超出它上边界的子元素会被裁掉 —— 进度条上的角色
+   容易缺一块头。
+4. 单实例锁：`/Applications` 里的正式版开着时，新起的实例会把焦点交给已有窗口后退出，
+   看起来像打包失败。测试前先退掉。
+5. 卸载 brew cask 时**不要加 `--zap`**，会连数据目录一起删。
+
+## 约定
+
+- 代码注释使用精简英文，只解释必要的“为什么”
+- 提交信息标题是 `<emoji> <类型>: <中文描述>`，例如 `🐛 fix: 迷你播放条双击不再最大化`。
+  类型与 emoji 一一对应，白名单和规则在 `scripts/verify-commit-message.mjs`，
+  `.githooks/commit-msg` 会拦下不合规的标题（rebase / merge 进行中自动放行）。
+  正文用中文说清动机和影响
+- 上游仓库是 `upstream` remote，同步用 `git fetch upstream`
+
+---
+> Source: [nagi-studio/YesPlayMusic](https://github.com/nagi-studio/YesPlayMusic) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
