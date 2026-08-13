@@ -1,0 +1,9 @@
+{
+  "name": "allwavemedia--resolve-ai-toolkit",
+  "displayName": "resolve-ai-toolkit",
+  "description": "AI-powered MCP toolkit for DaVinci Resolve \u2014 21 tools across Fusion/VFX, editing, audio, color grading, and organization",
+  "version": "1.0.0",
+  "author": "allwavemedia",
+  "homepage": "https://github.com/allwavemedia/resolve-ai-toolkit",
+  "skills": []
+}
