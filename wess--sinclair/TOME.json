@@ -4,7 +4,7 @@
   "repo": "sinclair",
   "description": "The terminal your agent team lives in \u2014 run coding agents in panes on a shared bus, on a fast GPU-rendered terminal for macOS and Linux.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wess/sinclair",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T19:05:08Z"
+  "distributed_at": "2026-08-13T23:29:14Z"
 }
