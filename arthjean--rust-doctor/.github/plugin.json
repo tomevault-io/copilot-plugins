@@ -1,0 +1,9 @@
+{
+  "name": "arthjean--rust-doctor",
+  "displayName": "rust-doctor",
+  "description": "Your agent writes bad Rust. This catches it.",
+  "version": "1.0.0",
+  "author": "arthjean",
+  "homepage": "https://github.com/arthjean/rust-doctor",
+  "skills": []
+}
