@@ -7,11 +7,11 @@ Headless Slack for AI agents. A hosted messaging store + router with fast retrie
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AgentWorkforce/relaycast](https://github.com/AgentWorkforce/relaycast).
+Original source: `CLAUDE.md` in [AgentWorkforce/relaycast](https://github.com/AgentWorkforce/relaycast).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
