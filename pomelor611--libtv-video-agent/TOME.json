@@ -1,0 +1,44 @@
+{
+  "name": "libtv-video-agent",
+  "owner": "PomeloR611",
+  "repo": "libtv-video-agent",
+  "description": "LibTV \u89c6\u9891\u5236\u4f5c Agent\uff1a\u7528 LibTV CLI(Seedance 2.0) \u628a\u5206\u955c\u505a\u6210\u77ed\u7247\u7684\u8de8\u5de5\u5177\u901a\u7528 Agent \u2014 \u4e5d\u5bab\u683c\u2192clean\u2192image2video\u2192ffmpeg \u7ec8\u526a\u5168\u6d41\u7a0b + prompt \u94c1\u5f8b\u5e93 + \u8e29\u5751\u901f\u67e5\u3002\u652f\u6301 Claude Code/Codex/CodeBuddy\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/PomeloR611/libtv-video-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T18:56:58Z"
+}
