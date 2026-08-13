@@ -4,7 +4,7 @@
   "repo": "homelander",
   "description": "Desktop app that automates apartment applications on ImmobilienScout24 \u2014 polls listings and auto-fills contact forms via a bundled Chromium browser.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/B1Z0N/homelander",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T17:40:11Z"
+  "distributed_at": "2026-08-13T23:03:57Z"
 }
