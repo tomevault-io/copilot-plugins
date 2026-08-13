@@ -1,0 +1,9 @@
+{
+  "name": "pablocaeg--sloptotal",
+  "displayName": "sloptotal",
+  "description": "Open-source AI text detector \u2014 VirusTotal for AI slop. 23 engines, self-hosted, runs on CPU. Scan text or URLs locally.",
+  "version": "1.0.0",
+  "author": "pablocaeg",
+  "homepage": "https://github.com/pablocaeg/sloptotal",
+  "skills": []
+}
