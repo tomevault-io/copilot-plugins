@@ -4,7 +4,7 @@
   "repo": "xb-homebrew-vault",
   "description": "Desktop manager for Xbox Dev Mode homebrew \u2014 browse, install & manage emulators and apps from Emulation Revival",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/marcelofrau/xb-homebrew-vault",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T18:59:33Z"
+  "distributed_at": "2026-08-13T23:26:59Z"
 }
