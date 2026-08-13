@@ -4,7 +4,7 @@
   "repo": "x-markdown-mini",
   "description": "\u9762\u5411\u5c0f\u7a0b\u5e8f\u7684\u6d41\u5f0f\u53cb\u597d\u3001\u8f7b\u91cf\u3001\u8de8\u7aef Markdown \u6e32\u67d3\u5668",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ant-design/x-markdown-mini",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T00:44:55Z"
+  "distributed_at": "2026-08-13T00:53:03Z"
 }
