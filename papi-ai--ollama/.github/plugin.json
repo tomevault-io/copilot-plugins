@@ -1,0 +1,9 @@
+{
+  "name": "papi-ai--ollama",
+  "displayName": "ollama",
+  "description": "Ollama (local) provider for PapiAI",
+  "version": "1.0.0",
+  "author": "papi-ai",
+  "homepage": "https://github.com/papi-ai/ollama",
+  "skills": []
+}
