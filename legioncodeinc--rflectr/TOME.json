@@ -4,7 +4,7 @@
   "repo": "rflectr",
   "description": "rflectr is an interactive CLI that launches AI coding tools and runs local API gateways on your machine \u2014 so you can point any coding agent at any model provider.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/legioncodeinc/rflectr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T19:09:39Z"
+  "distributed_at": "2026-08-13T23:30:08Z"
 }
