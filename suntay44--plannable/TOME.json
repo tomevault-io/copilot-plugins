@@ -4,7 +4,7 @@
   "repo": "plannable",
   "description": "Plannable is a Spec-Driven Development planning CLI for AI coding agents. It creates a MASTER_PLAN.md plus compressed Sub-Plans phase files, so Codex, Claude Code, Cursor, and terminal agents can build software progressively with scenario hints, validation, and evidence-based completion.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/suntay44/plannable",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T00:51:52Z"
+  "distributed_at": "2026-08-13T21:26:50Z"
 }
