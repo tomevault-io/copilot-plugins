@@ -7,11 +7,11 @@ This is a remake of the ankermake m5 protocol in Go - because of security
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Django1982/ankerctl_go_remake](https://github.com/Django1982/ankerctl_go_remake).
+Original source: `CLAUDE.md` in [Django1982/ankerctl_go_remake](https://github.com/Django1982/ankerctl_go_remake).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
