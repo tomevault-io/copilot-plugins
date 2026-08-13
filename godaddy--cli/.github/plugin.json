@@ -1,0 +1,9 @@
+{
+  "name": "godaddy--cli",
+  "displayName": "cli",
+  "description": "Build apps and integrate with GoDaddy.",
+  "version": "1.0.0",
+  "author": "godaddy",
+  "homepage": "https://github.com/godaddy/cli",
+  "skills": []
+}
