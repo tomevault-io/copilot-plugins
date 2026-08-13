@@ -4,7 +4,7 @@
   "repo": "endstate-gui",
   "description": "Endstate desktop app: reinstall your apps and restore your settings on a fresh Windows PC, from one portable file. Free, open source. Built with Tauri (React + Rust).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Artexis10/endstate-gui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T08:55:06Z"
+  "distributed_at": "2026-08-13T11:11:39Z"
 }
