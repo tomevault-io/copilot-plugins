@@ -1,0 +1,9 @@
+{
+  "name": "ravinperera--ai-token-efficiency-playbook",
+  "displayName": "ai-token-efficiency-playbook",
+  "description": "Drop-in instructions, prompts, and workflows to reduce token usage across Codex, Claude Code, GitHub Copilot, Cursor, and other AI coding agents",
+  "version": "1.0.0",
+  "author": "ravinperera",
+  "homepage": "https://github.com/ravinperera/ai-token-efficiency-playbook",
+  "skills": []
+}
