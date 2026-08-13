@@ -1,0 +1,9 @@
+{
+  "name": "bofai--openclaw-extension",
+  "displayName": "openclaw-extension",
+  "description": "openclaw extension",
+  "version": "1.0.0",
+  "author": "BofAI",
+  "homepage": "https://github.com/BofAI/openclaw-extension",
+  "skills": []
+}
