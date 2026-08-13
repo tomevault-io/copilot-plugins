@@ -1,0 +1,9 @@
+{
+  "name": "thoughtpunch--claudetube",
+  "displayName": "claudetube",
+  "description": "Let Claude Code watch Youtube videos",
+  "version": "1.0.0",
+  "author": "thoughtpunch",
+  "homepage": "https://github.com/thoughtpunch/claudetube",
+  "skills": []
+}
