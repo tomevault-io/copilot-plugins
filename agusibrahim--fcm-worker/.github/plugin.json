@@ -1,0 +1,9 @@
+{
+  "name": "agusibrahim--fcm-worker",
+  "displayName": "fcm_worker",
+  "description": "This server acts as a bridge that receives push notifications from FCM for multiple Firebase projects/credentials and forwards them to configured webhooks.",
+  "version": "1.0.0",
+  "author": "agusibrahim",
+  "homepage": "https://github.com/agusibrahim/fcm_worker",
+  "skills": []
+}
