@@ -1,0 +1,9 @@
+{
+  "name": "vsevolod-oparin--ct-transcriber-macos",
+  "displayName": "ct-transcriber-macos",
+  "description": "A simple demo transcription project to utilize CTranslate2 metal backend for Apple Silicon",
+  "version": "1.0.0",
+  "author": "vsevolod-oparin",
+  "homepage": "https://github.com/vsevolod-oparin/ct-transcriber-macos",
+  "skills": []
+}
