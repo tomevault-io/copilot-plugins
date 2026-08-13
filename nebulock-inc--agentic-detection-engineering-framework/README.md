@@ -7,11 +7,11 @@ Detection engineering with durable memory, a five-stage lifecycle, and an agenti
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Nebulock-Inc/agentic-detection-engineering-framework](https://github.com/Nebulock-Inc/agentic-detection-engineering-framework).
+Original source: `CLAUDE.md` in [Nebulock-Inc/agentic-detection-engineering-framework](https://github.com/Nebulock-Inc/agentic-detection-engineering-framework).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
