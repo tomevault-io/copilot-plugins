@@ -1,0 +1,139 @@
+## argoplane
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+**ArgoPlane** is a collection of ArgoCD UI extensions. It surfaces operational data — metrics, logs, network flows, vulnerabilities, events — inside ArgoCD's UI as resource tabs, app views, and status panels. Each extension is independent and can be deployed on its own.
+
+## Core Idea
+
+Developers deploying through ArgoCD can see if their app is synced. What they can't see: logs, alerts, network flows, or policy violations. ArgoPlane extensions surface that operational visibility directly in ArgoCD.
+
+Extensions fall into two categories:
+
+- **Observe**: workload visibility (metrics, logs, traces, alerts, networking, events)
+- **Secure**: security and compliance (policies, certificates)
+
+## Architecture
+
+### Extension Pattern
+
+Every ArgoPlane extension follows the same pattern:
+
+1. **React/TypeScript UI extension** registered via `window.extensionsAPI` (resource tabs, status panels, system-level pages, app views, top bar actions)
+2. **Go backend service** that queries the underlying system (Prometheus, Cilium, Loki, etc.)
+3. **ArgoCD proxy extension** that routes `/extensions/<name>/*` requests from the UI to the Go backend
+
+### Key Components
+
+- **ArgoCD v3.3.3**: GitOps engine, UI host, RBAC, proxy extension routing
+- **Prometheus**: Metrics and alerts (metrics + alerts extensions)
+- **Loki**: Log aggregation (logs extension)
+- **Cilium/Hubble**: Network visibility (networking extension)
+- **Trivy Operator**: Image vulnerability scanning, config audit, exposed secrets, SBOM (vulnerabilities extension)
+- **Kyverno**: Policy enforcement (policies extension, planned)
+- **Tempo/Jaeger**: Distributed tracing (traces extension, future)
+- **cert-manager**: Certificate lifecycle (certificates extension, future)
+
+### Multi-Tenancy
+
+Extensions rely on ArgoCD's native RBAC and AppProjects for tenant isolation. Identity headers (`Argocd-Username`, `Argocd-User-Id`, `Argocd-User-Groups`) are passed to backend services by ArgoCD's proxy.
+
+### State
+
+No database. All state comes from Kubernetes (ArgoCD Applications, CRDs, operator resources) and upstream systems (Prometheus, Loki, Hubble, etc.).
+
+## Monorepo Structure
+
+```
+design-system/       # Cross-platform CSS design tokens and component library
+  tokens.css         # CSS custom properties (single source of truth)
+  base.css           # Reset, typography, element defaults
+  components.css     # .ap-* component classes
+  utilities.css      # Layout, spacing, typography helpers
+  argoplane.css      # All-in-one import
+extensions/
+  shared/            # @argoplane/shared: React components + TS token re-exports
+  metrics/
+    ui/              # React/TypeScript extension bundle
+    backend/         # Go service querying Prometheus
+  networking/
+    ui/
+    backend/         # Go service querying Cilium/Hubble
+  logs/
+    ui/
+    backend/         # Go service querying Loki
+  vulnerabilities/
+    ui/
+    backend/         # Go service querying Trivy Operator CRDs via K8s API
+  events/
+    ui/
+    backend/         # Go service querying Kubernetes Events API
+  argoplane/
+    ui/              # System-level UI extension (no backend)
+services/
+  docs/              # Documentation site (SvelteKit + mdsvex)
+deploy/
+  helm/argoplane/    # Helm chart for production deployment
+  docker/            # Dockerfiles (UI extensions init container)
+  argocd/            # ArgoCD configuration (styles, proxy config, branding)
+  extensions/        # Per-extension deployment manifests (dev)
+hack/                # Kind cluster, ArgoCD setup, dev scripts
+tests/               # Integration tests (Go, against kind cluster)
+docs/
+  styleguide/        # Multi-page visual reference (open index.html in browser)
+  extension-roadmap.md
+```
+
+## Current Scope
+
+**Done:** Metrics (Prometheus), Networking (Cilium/Hubble), Logs (Loki), Vulnerabilities (Trivy Operator), Events (Kubernetes Events API)
+
+**Removed:** Backups (Velero) — deprecated and removed in v1.5.0; the extension saw no real usage.
+
+**Next:** Alerts (Prometheus Rules / Alertmanager), Policies (Kyverno)
+
+**Future:** Traces (Tempo/Jaeger), Certificates (cert-manager), Scaling (HPA/KEDA)
+
+See [`docs/extension-roadmap.md`](docs/extension-roadmap.md) for details.
+
+## Development
+
+```sh
+make dev-infra       # Create kind cluster + install ArgoCD (idempotent)
+make argocd-password # Print admin password
+make argocd-portforward  # Port-forward UI to localhost:8080
+make test-integration    # Run integration tests
+make clean-all           # Destroy everything
+```
+
+## Commands
+
+- `make help` shows all available targets
+- `make cluster` creates the kind cluster (idempotent)
+- `make argocd` installs ArgoCD in the cluster (idempotent)
+- `make dev-infra` sets up the full local stack
+- `make build-extensions` builds all UI extension bundles
+- `make build-backends` builds all backend Docker images
+- `make build-ui-extensions-image` builds the UI extensions init container image
+- `make load-extensions` loads backend + UI extensions images into kind
+- `make setup-argocd` configures ArgoCD + deploys extensions + loads UI bundles (all-in-one)
+- `make reload-extensions` rebuilds + redeploys all extensions
+- `make test-integration` runs integration tests against the kind cluster
+
+## Deployment
+
+For production, use the Helm chart at `deploy/helm/argoplane/`. It deploys extension backends, proxy config, RBAC, styles, and branding ConfigMaps. UI bundles are loaded via an init container image (`deploy/docker/Dockerfile.ui-extensions`). See `services/docs/` for full deployment and ArgoCD configuration docs.
+
+## License
+
+Apache-2.0
+
+---
+> Source: [natrontech/argoplane](https://github.com/natrontech/argoplane) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
