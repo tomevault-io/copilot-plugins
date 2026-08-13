@@ -1,0 +1,9 @@
+{
+  "name": "paulhellweg--studiobase",
+  "displayName": "studiobase",
+  "description": "Multi-tenant SaaS booking platform for class-based businesses. tRPC + Keycloak + PostgreSQL + Stripe. Built with Dark Factory Studio.",
+  "version": "1.0.0",
+  "author": "PaulHellweg",
+  "homepage": "https://github.com/PaulHellweg/studiobase",
+  "skills": []
+}
