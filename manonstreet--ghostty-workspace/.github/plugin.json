@@ -1,0 +1,9 @@
+{
+  "name": "manonstreet--ghostty-workspace",
+  "displayName": "ghostty-workspace",
+  "description": "YAML-driven tab layout manager for Ghostty terminal (macOS). Save and restore multi-tab workspaces with splits, titles, and startup commands.",
+  "version": "1.0.0",
+  "author": "manonstreet",
+  "homepage": "https://github.com/manonstreet/ghostty-workspace",
+  "skills": []
+}
