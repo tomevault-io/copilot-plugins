@@ -1,0 +1,9 @@
+{
+  "name": "terrormixer3000--imageblur",
+  "displayName": "ImageBlur",
+  "description": "Native macOS app for selectively pixelating image regions without changing dimensions or file format.",
+  "version": "1.0.0",
+  "author": "Terrormixer3000",
+  "homepage": "https://github.com/Terrormixer3000/ImageBlur",
+  "skills": []
+}
