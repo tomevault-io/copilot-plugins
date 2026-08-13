@@ -4,7 +4,7 @@
   "repo": "endstate",
   "description": "Open-source engine behind Endstate: reinstall your apps and restore your settings on a fresh machine from one file. Windows via winget (Linux/macOS in progress). Go, Apache 2.0.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Artexis10/endstate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T08:56:27Z"
+  "distributed_at": "2026-08-13T11:12:38Z"
 }
