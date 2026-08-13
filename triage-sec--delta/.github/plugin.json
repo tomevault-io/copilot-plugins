@@ -1,0 +1,9 @@
+{
+  "name": "triage-sec--delta",
+  "displayName": "delta",
+  "description": "Lossless Token Sequence Compression for Large Language Models",
+  "version": "1.0.0",
+  "author": "Triage-Sec",
+  "homepage": "https://github.com/Triage-Sec/delta",
+  "skills": []
+}
