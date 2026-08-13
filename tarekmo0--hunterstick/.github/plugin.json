@@ -1,0 +1,9 @@
+{
+  "name": "tarekmo0--hunterstick",
+  "displayName": "HunterStick",
+  "description": "A persistent context and fieldcraft system for AI-assisted bug bounty hunting.",
+  "version": "1.0.0",
+  "author": "tarekmo0",
+  "homepage": "https://github.com/tarekmo0/HunterStick",
+  "skills": []
+}
