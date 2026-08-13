@@ -4,7 +4,7 @@
   "repo": "MultiChat-desk",
   "description": "\u4e00\u7ad9\u5f0f\u591a AI \u805a\u5408\u684c\u9762\u5de5\u4f5c\u53f0",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/max-doo/MultiChat-desk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T05:02:35Z"
+  "distributed_at": "2026-08-13T06:44:57Z"
 }
