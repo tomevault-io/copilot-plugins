@@ -1,0 +1,9 @@
+{
+  "name": "kaltinril--kernsmith",
+  "displayName": "Kernsmith",
+  "description": "Cross-platform .NET library + CLI tool for generating bitmap fonts for games from TTF/OTF/BMFC font files.",
+  "version": "1.0.0",
+  "author": "kaltinril",
+  "homepage": "https://github.com/kaltinril/Kernsmith",
+  "skills": []
+}
