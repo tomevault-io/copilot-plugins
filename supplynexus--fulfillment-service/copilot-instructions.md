@@ -1,13 +1,13 @@
-## git-workflow
+## handoff-state
 
-> 用户说 PR/部署 dev 时参考——从 develop 建分支、PR 到 develop；不自动建 develop→main
+> 用户说状态/继续/接手时读 STATE.md；说保存状态时更新 STATE.md
 
 
-# Git 工作流（按需参考）
+# 工作状态（STATE.md）
 
-- **PR/提PR**：从 develop 拉分支（feature/xxx 或 fix/xxx）→ 提交 → push → `gh pr create --base develop`。禁止直接提交 develop/main；PR 目标为 develop；**不要**自动创建 develop→main 的 PR，由用户手动操作。
-- **部署 dev**：SSH 后执行 `./scripts/dev/deploy-from-git.sh`。**部署 prod**：见 production-deployment.mdc。
-- **分支**：develop → Dev 环境（admin.dev.supplynexus.store）；main → Prod。提交前确认不在 develop/main 上直接改。
+- **`.cursor/STATE.md`**：项目当前状态主记录（分支、PR、已完成、部署、建议下一步等）。
+- **查看**：用户说「当前状态」「继续」「接手」等 → 以读 `.cursor/STATE.md` 为主，结合项目或对话回复/执行。
+- **保存**：用户说「保存状态」「更新状态」等 → 更新 STATE.md（分支、近期工作、未完成任务、日期）；重要步骤后也可主动提议更新。
 
 ---
 > Source: [supplynexus/fulfillment-service](https://github.com/supplynexus/fulfillment-service) — distributed by [TomeVault](https://tomevault.io).
