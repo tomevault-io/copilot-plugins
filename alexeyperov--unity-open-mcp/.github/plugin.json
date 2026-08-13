@@ -1,0 +1,9 @@
+{
+  "name": "alexeyperov--unity-open-mcp",
+  "displayName": "Unity-Open-MCP",
+  "description": "Unity-Open-MCP is a complete set of tools to use AI with Unity. It acts as a bridge between AI agents (like Claude Code, Cursor, ZCode) and Unity providing various tools and senses to control gameObje",
+  "version": "1.0.0",
+  "author": "AlexeyPerov",
+  "homepage": "https://github.com/AlexeyPerov/Unity-Open-MCP",
+  "skills": []
+}
