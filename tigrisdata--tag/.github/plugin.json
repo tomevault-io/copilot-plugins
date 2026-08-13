@@ -1,0 +1,9 @@
+{
+  "name": "tigrisdata--tag",
+  "displayName": "tag",
+  "description": "Tigris Acceleration Gateway",
+  "version": "1.0.0",
+  "author": "tigrisdata",
+  "homepage": "https://github.com/tigrisdata/tag",
+  "skills": []
+}
