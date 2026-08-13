@@ -1,0 +1,9 @@
+{
+  "name": "nexusbluedev--nexusblue-application-templates",
+  "displayName": "nexusblue-application-templates",
+  "description": "Reusable templates for building and publishing NexusBlue Junior Jarvis apps",
+  "version": "1.0.0",
+  "author": "NexusBlueDev",
+  "homepage": "https://github.com/NexusBlueDev/nexusblue-application-templates",
+  "skills": []
+}
