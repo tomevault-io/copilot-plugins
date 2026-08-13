@@ -1,0 +1,9 @@
+{
+  "name": "joshrotenberg--tower-mcp",
+  "displayName": "tower-mcp",
+  "description": "Tower-native Model Context Protocol (MCP) implementation",
+  "version": "1.0.0",
+  "author": "joshrotenberg",
+  "homepage": "https://github.com/joshrotenberg/tower-mcp",
+  "skills": []
+}
