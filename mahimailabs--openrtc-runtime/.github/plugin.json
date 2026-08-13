@@ -1,0 +1,9 @@
+{
+  "name": "mahimailabs--openrtc-runtime",
+  "displayName": "openrtc-runtime",
+  "description": "OpenRTC lets developers run multiple LiveKit voice agents in one Python worker, sharing heavy models instead of duplicating them per process.",
+  "version": "1.0.0",
+  "author": "mahimailabs",
+  "homepage": "https://github.com/mahimailabs/openrtc-runtime",
+  "skills": []
+}
