@@ -1,0 +1,9 @@
+{
+  "name": "blwfish--kicad-mcp",
+  "displayName": "kicad-mcp",
+  "description": "MCP server for KiCad \u2014 71 tools for AI-assisted electronics design",
+  "version": "1.0.0",
+  "author": "blwfish",
+  "homepage": "https://github.com/blwfish/kicad-mcp",
+  "skills": []
+}
