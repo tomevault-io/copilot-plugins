@@ -4,7 +4,7 @@
   "repo": "lagune",
   "description": "\ud83c\udf0a Lagune is your security copilot as you build, your Blue Team when you audit, whether you're a developer or not (no API key needed).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wellwelwel/lagune",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T17:39:19Z"
+  "distributed_at": "2026-08-13T23:02:52Z"
 }
