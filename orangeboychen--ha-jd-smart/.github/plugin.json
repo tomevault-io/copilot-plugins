@@ -1,0 +1,9 @@
+{
+  "name": "orangeboychen--ha-jd-smart",
+  "displayName": "ha-jd-smart",
+  "description": "Home Assistant custom integration for JD Smart air conditioners",
+  "version": "1.0.0",
+  "author": "orangeboyChen",
+  "homepage": "https://github.com/orangeboyChen/ha-jd-smart",
+  "skills": []
+}
