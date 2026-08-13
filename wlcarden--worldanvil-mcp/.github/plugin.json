@@ -1,0 +1,9 @@
+{
+  "name": "wlcarden--worldanvil-mcp",
+  "displayName": "worldanvil-mcp",
+  "description": "Claude Code plugin for WorldAnvil worldbuilding platform - manage articles, maps, timelines, and more",
+  "version": "1.0.0",
+  "author": "wlcarden",
+  "homepage": "https://github.com/wlcarden/worldanvil-mcp",
+  "skills": []
+}
