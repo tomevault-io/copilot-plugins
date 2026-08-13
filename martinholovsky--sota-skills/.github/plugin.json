@@ -1,0 +1,9 @@
+{
+  "name": "martinholovsky--sota-skills",
+  "displayName": "SOTA-skills",
+  "description": "Engineering best practices that AI coding agents actually apply \u2014 40+ skills, from secure coding and cloud to compliance and UX writing. BUILD + AUDIT modes. Measured: best-practice coverage 59% \u2192 98%",
+  "version": "1.0.0",
+  "author": "martinholovsky",
+  "homepage": "https://github.com/martinholovsky/SOTA-skills",
+  "skills": []
+}
