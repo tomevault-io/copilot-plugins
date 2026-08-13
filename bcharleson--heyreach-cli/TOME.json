@@ -4,7 +4,7 @@
   "repo": "heyreach-cli",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bcharleson/heyreach-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T06:42:15Z"
+  "distributed_at": "2026-08-13T07:26:59Z"
 }
