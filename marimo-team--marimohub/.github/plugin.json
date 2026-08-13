@@ -1,0 +1,9 @@
+{
+  "name": "marimo-team--marimohub",
+  "displayName": "marimohub",
+  "description": "Self-hostable marimo notebooks",
+  "version": "1.0.0",
+  "author": "marimo-team",
+  "homepage": "https://github.com/marimo-team/marimohub",
+  "skills": []
+}
