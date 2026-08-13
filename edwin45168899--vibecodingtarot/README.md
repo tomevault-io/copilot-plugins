@@ -7,11 +7,11 @@ Vibe Coding Tarot 一個基於Python Flask的塔羅牌占卜網站，提供單�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [edwin45168899/VibeCodingTarot](https://github.com/edwin45168899/VibeCodingTarot).
+Original source: `CLAUDE.md` in [edwin45168899/VibeCodingTarot](https://github.com/edwin45168899/VibeCodingTarot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
