@@ -1,0 +1,9 @@
+{
+  "name": "amadad--reterminal-e1001",
+  "displayName": "reterminal-e1001",
+  "description": "HTTP API firmware for Seeed reTerminal E1001 ePaper display",
+  "version": "1.0.0",
+  "author": "amadad",
+  "homepage": "https://github.com/amadad/reterminal-e1001",
+  "skills": []
+}
