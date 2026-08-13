@@ -1,0 +1,9 @@
+{
+  "name": "tsirysndr--bsdkrun",
+  "displayName": "bsdkrun",
+  "description": "Instant MicroVMs/Unikernels for macOS and Linux",
+  "version": "1.0.0",
+  "author": "tsirysndr",
+  "homepage": "https://github.com/tsirysndr/bsdkrun",
+  "skills": []
+}
