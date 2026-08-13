@@ -1,0 +1,9 @@
+{
+  "name": "newton5555--llrpclient",
+  "displayName": "LLRPClient",
+  "description": "\u6807\u51c6LLRP(1.0.1) \u53c2\u8003OctaneSdk \u5c01\u88c5\u7684Reader Client SDK\uff0c\u5e76\u5b9e\u73b0\u4e00\u4e2aUI\u901a\u8fc7\u8be5SDK \u64cd\u4f5cReader",
+  "version": "1.0.0",
+  "author": "newton5555",
+  "homepage": "https://github.com/newton5555/LLRPClient",
+  "skills": []
+}
