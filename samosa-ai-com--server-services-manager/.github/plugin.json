@@ -1,0 +1,9 @@
+{
+  "name": "samosa-ai-com--server-services-manager",
+  "displayName": "server-services-manager",
+  "description": "A robust, web-based dashboard for managing server services and accessing terminals in real-time. Features a modern dark-themed UI, multi-tab terminal support, and live log monitoring via WebSockets.",
+  "version": "1.0.0",
+  "author": "samosa-ai-com",
+  "homepage": "https://github.com/samosa-ai-com/server-services-manager",
+  "skills": []
+}
