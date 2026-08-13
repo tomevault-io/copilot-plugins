@@ -1,0 +1,44 @@
+{
+  "name": "hocus-pocus-c-2025-term2",
+  "owner": "supporterz-inc-admin",
+  "repo": "hocus-pocus-c-2025-term2",
+  "description": "3 Days \u30b5\u30de\u30fc\u30a4\u30f3\u30bf\u30fc\u30f3\u30b7\u30c3\u30d7 (08.09 - 11) | \u30c1\u30fc\u30e0 C",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/supporterz-inc-admin/hocus-pocus-c-2025-term2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T14:33:59Z"
+}
