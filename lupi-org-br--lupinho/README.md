@@ -7,11 +7,11 @@ The simulator for LUPI Console
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lupi-org-br/lupinho](https://github.com/lupi-org-br/lupinho).
+Original source: `CLAUDE.md` in [lupi-org-br/lupinho](https://github.com/lupi-org-br/lupinho).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
