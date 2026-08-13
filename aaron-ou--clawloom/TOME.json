@@ -1,0 +1,44 @@
+{
+  "name": "clawloom",
+  "owner": "Aaron-ou",
+  "repo": "clawloom",
+  "description": "ClawLoom\uff08\u722a\u7ec7\uff09\u662f\u4e00\u4e2aAI\u9a71\u52a8\u7684\u4e16\u754c\u63a8\u6f14\u4e0e\u53d9\u4e8b\u751f\u6210\u5e73\u53f0\u3002\u4eba\u7c7b\u4f5c\u4e3a\u521b\u4e16\u8005\u8bbe\u5b9a\u89c4\u5219\u3001\u64ad\u79cd\u89d2\u8272\uff0cAI\u89d2\u8272\uff08Claw\uff09\u4f5c\u4e3a\u4e16\u754c\u5c45\u6c11\u81ea\u4e3b\u51b3\u7b56\u3001\u4e92\u52a8\u6f14\u5316\uff0c\u6700\u7ec8\u5f62\u6210\u53ef\u5bfc\u51fa\u4e3a\u5c0f\u8bf4\u3001\u5267\u672c\u3001\u6f2b\u753b\u6216\u77ed\u5267\u7684\u6545\u4e8b\u4e16\u754c\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Aaron-ou/clawloom",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T06:31:21Z"
+}
