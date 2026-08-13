@@ -1,0 +1,9 @@
+{
+  "name": "tier4--maintenance-state-store",
+  "displayName": "maintenance-state-store",
+  "description": "Atomic, crash-safe persistent storage library for vehicle maintenance state.",
+  "version": "1.0.0",
+  "author": "tier4",
+  "homepage": "https://github.com/tier4/maintenance-state-store",
+  "skills": []
+}
