@@ -1,0 +1,9 @@
+{
+  "name": "gamezxz--whisperapp",
+  "displayName": "WhisperApp",
+  "description": "macOS menu-bar speech-to-text dictation \u2014 multi-provider STT (ElevenLabs/OpenAI/Groq/whisper.cpp) + AI text correction, auto-paste, configurable hotkey.",
+  "version": "1.0.0",
+  "author": "Gamezxz",
+  "homepage": "https://github.com/Gamezxz/WhisperApp",
+  "skills": []
+}
