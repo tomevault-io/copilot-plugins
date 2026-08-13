@@ -1,0 +1,9 @@
+{
+  "name": "openshift-fleet--rehor",
+  "displayName": "rehor",
+  "description": "Rehor",
+  "version": "1.0.0",
+  "author": "OpenShift-Fleet",
+  "homepage": "https://github.com/OpenShift-Fleet/rehor",
+  "skills": []
+}
