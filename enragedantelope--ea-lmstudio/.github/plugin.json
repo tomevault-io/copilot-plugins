@@ -1,0 +1,9 @@
+{
+  "name": "enragedantelope--ea-lmstudio",
+  "displayName": "EA_LMStudio",
+  "description": "LMStudio ComfyUI integration with easy model selection and many optimizations!",
+  "version": "1.0.0",
+  "author": "EnragedAntelope",
+  "homepage": "https://github.com/EnragedAntelope/EA_LMStudio",
+  "skills": []
+}
