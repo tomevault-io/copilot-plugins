@@ -7,14 +7,14 @@ repy is a terminal epub format ebook reader inspired by epy
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [newptcai/repy](https://github.com/newptcai/repy).
+Original source: `AGENTS.md` in [newptcai/repy](https://github.com/newptcai/repy).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [newptcai/repy](https://github.com/newptcai/repy) — a repo with 10+ stars on GitHub.
