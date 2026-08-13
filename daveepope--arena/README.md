@@ -7,11 +7,11 @@ A cross platform sandboxing framework with built in profiling workflows.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [daveepope/arena](https://github.com/daveepope/arena).
+Original source: `CLAUDE.md` in [daveepope/arena](https://github.com/daveepope/arena).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
