@@ -1,0 +1,9 @@
+{
+  "name": "tui-cs--tuirec",
+  "displayName": "tuirec",
+  "description": "Cross-platform CLI that records any terminal app and produces an animated GIF.",
+  "version": "1.0.0",
+  "author": "tui-cs",
+  "homepage": "https://github.com/tui-cs/tuirec",
+  "skills": []
+}
