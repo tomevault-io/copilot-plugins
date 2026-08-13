@@ -1,0 +1,9 @@
+{
+  "name": "munsunty--bundis",
+  "displayName": "bundis",
+  "description": "Redis-compatible server backed by SQLite, built for Bun (and only Bun) \u2014 works with the stock Bun.RedisClient.",
+  "version": "1.0.0",
+  "author": "Munsunty",
+  "homepage": "https://github.com/Munsunty/bundis",
+  "skills": []
+}
