@@ -1,0 +1,9 @@
+{
+  "name": "thekoma--rpodder",
+  "displayName": "rpodder",
+  "description": "A modern, self-hostable gpodder.net replacement written in Rust. Sync podcast subscriptions and episode progress across all your devices.",
+  "version": "1.0.0",
+  "author": "thekoma",
+  "homepage": "https://github.com/thekoma/rpodder",
+  "skills": []
+}
