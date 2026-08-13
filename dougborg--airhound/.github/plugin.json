@@ -1,0 +1,9 @@
+{
+  "name": "dougborg--airhound",
+  "displayName": "AirHound",
+  "description": "RF surveillance device detection toolkit \u2014 WiFi & BLE scanning with real-time alerting",
+  "version": "1.0.0",
+  "author": "dougborg",
+  "homepage": "https://github.com/dougborg/AirHound",
+  "skills": []
+}
