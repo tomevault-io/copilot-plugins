@@ -1,0 +1,9 @@
+{
+  "name": "ai-runway--airunway",
+  "displayName": "airunway",
+  "description": "\u2708\ufe0f Kubernetes-native platform for deploying and managing AI inference across multiple providers",
+  "version": "1.0.0",
+  "author": "ai-runway",
+  "homepage": "https://github.com/ai-runway/airunway",
+  "skills": []
+}
