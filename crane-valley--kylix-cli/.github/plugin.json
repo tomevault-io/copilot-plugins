@@ -1,0 +1,9 @@
+{
+  "name": "crane-valley--kylix-cli",
+  "displayName": "kylix-cli",
+  "description": "A command-line interface for Kylix, a post-quantum cryptography library implementing NIST FIPS standards in Rust.",
+  "version": "1.0.0",
+  "author": "crane-valley",
+  "homepage": "https://github.com/crane-valley/kylix-cli",
+  "skills": []
+}
