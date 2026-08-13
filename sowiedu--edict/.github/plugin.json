@@ -1,0 +1,9 @@
+{
+  "name": "sowiedu--edict",
+  "displayName": "Edict",
+  "description": "A programming language designed for AI agents. No parser, no syntax \u2014 agents produce AST directly as JSON. Statically typed, effect-tracked, contract-verified, compiled to WASM via MCP.",
+  "version": "1.0.0",
+  "author": "Sowiedu",
+  "homepage": "https://github.com/Sowiedu/Edict",
+  "skills": []
+}
