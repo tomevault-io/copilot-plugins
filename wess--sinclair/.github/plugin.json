@@ -1,0 +1,9 @@
+{
+  "name": "wess--sinclair",
+  "displayName": "sinclair",
+  "description": "The terminal your agent team lives in \u2014 run coding agents in panes on a shared bus, on a fast GPU-rendered terminal for macOS and Linux.",
+  "version": "1.0.0",
+  "author": "wess",
+  "homepage": "https://github.com/wess/sinclair",
+  "skills": []
+}
