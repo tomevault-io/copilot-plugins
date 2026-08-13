@@ -4,7 +4,7 @@
   "repo": "omg.dev",
   "description": "omg.dev \u2014 run AI coding agents on your own machine (formerly BennyKok/lfg)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BennyKok/omg.dev",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T17:31:08Z"
+  "distributed_at": "2026-08-13T22:52:14Z"
 }
