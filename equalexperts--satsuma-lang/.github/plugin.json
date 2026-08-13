@@ -1,0 +1,9 @@
+{
+  "name": "equalexperts--satsuma-lang",
+  "displayName": "satsuma-lang",
+  "description": "A DSL and tooling for source-to-target mappings that works for humans AND AIs. ",
+  "version": "1.0.0",
+  "author": "EqualExperts",
+  "homepage": "https://github.com/EqualExperts/satsuma-lang",
+  "skills": []
+}
