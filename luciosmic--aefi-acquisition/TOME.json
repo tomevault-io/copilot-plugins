@@ -4,7 +4,7 @@
   "repo": "AEFI_Acquisition",
   "description": "Acquisition software for AEFI experimental test bench",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Luciosmic/AEFI_Acquisition",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T17:17:51Z"
+  "distributed_at": "2026-08-13T21:31:00Z"
 }
