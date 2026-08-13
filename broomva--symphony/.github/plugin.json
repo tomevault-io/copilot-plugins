@@ -1,0 +1,9 @@
+{
+  "name": "broomva--symphony",
+  "displayName": "symphony",
+  "description": "Rust orchestration daemon for coding agents \u2014 polls Linear/GitHub/Markdown, creates isolated workspaces, dispatches agent sessions with EGRI self-improvement.",
+  "version": "1.0.0",
+  "author": "broomva",
+  "homepage": "https://github.com/broomva/symphony",
+  "skills": []
+}
