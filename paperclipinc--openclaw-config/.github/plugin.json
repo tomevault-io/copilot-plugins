@@ -1,0 +1,9 @@
+{
+  "name": "paperclipinc--openclaw-config",
+  "displayName": "openclaw-config",
+  "description": "Optimized OpenClaw workspace template. Clone, add your Fuel VK, run.",
+  "version": "1.0.0",
+  "author": "paperclipinc",
+  "homepage": "https://github.com/paperclipinc/openclaw-config",
+  "skills": []
+}
