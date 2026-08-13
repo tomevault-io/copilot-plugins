@@ -1,0 +1,9 @@
+{
+  "name": "ruvnet--ruvn",
+  "displayName": "ruvn",
+  "description": "ruvn \u2014 AI research harness that turns a question into a graded, cited evidence dossier (gamma-entrainment / 40 Hz protocol research). 9 hosts, OpenRouter-validated.",
+  "version": "1.0.0",
+  "author": "ruvnet",
+  "homepage": "https://github.com/ruvnet/ruvn",
+  "skills": []
+}
