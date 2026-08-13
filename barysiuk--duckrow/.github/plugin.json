@@ -1,0 +1,9 @@
+{
+  "name": "barysiuk--duckrow",
+  "displayName": "duckrow",
+  "description": "Get your ducks in a row \u2014 a TUI for managing AI agent skills/mcps across projects",
+  "version": "1.0.0",
+  "author": "barysiuk",
+  "homepage": "https://github.com/barysiuk/duckrow",
+  "skills": []
+}
