@@ -4,7 +4,7 @@
   "repo": "WinCraft",
   "description": " \u2728 Craft Windows your way",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/YeahOSS/WinCraft",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T18:45:03Z"
+  "distributed_at": "2026-08-13T23:11:16Z"
 }
