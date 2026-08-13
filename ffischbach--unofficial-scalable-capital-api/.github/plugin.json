@@ -1,0 +1,9 @@
+{
+  "name": "ffischbach--unofficial-scalable-capital-api",
+  "displayName": "unofficial-scalable-capital-api",
+  "description": "Unofficial local API proxy for Scalable Capital \u2014 exposes your portfolio data (valuations, quotes,  transactions) via REST and SSE for use in custom dashboards and scripts.",
+  "version": "1.0.0",
+  "author": "ffischbach",
+  "homepage": "https://github.com/ffischbach/unofficial-scalable-capital-api",
+  "skills": []
+}
