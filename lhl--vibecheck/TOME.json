@@ -4,7 +4,7 @@
   "repo": "vibecheck",
   "description": "Mobile bridge for Mistral Vibe",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lhl/vibecheck",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T06:46:45Z"
+  "distributed_at": "2026-08-13T07:30:28Z"
 }
