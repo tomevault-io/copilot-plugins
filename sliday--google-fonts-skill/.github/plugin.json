@@ -1,0 +1,9 @@
+{
+  "name": "sliday--google-fonts-skill",
+  "displayName": "google-fonts-skill",
+  "description": "Claude Code skill: Google Fonts typography system generator",
+  "version": "1.0.0",
+  "author": "sliday",
+  "homepage": "https://github.com/sliday/google-fonts-skill",
+  "skills": []
+}
