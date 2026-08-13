@@ -7,11 +7,11 @@ Rust orchestration daemon for coding agents — polls Linear/GitHub/Markdown, cr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [broomva/symphony](https://github.com/broomva/symphony).
+Original source: `CLAUDE.md` in [broomva/symphony](https://github.com/broomva/symphony).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
