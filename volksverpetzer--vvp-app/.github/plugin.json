@@ -1,0 +1,9 @@
+{
+  "name": "volksverpetzer--vvp-app",
+  "displayName": "vvp_app",
+  "description": "Read Volksverpetzer fact checks, analysis and articles on your mobile phone.",
+  "version": "1.0.0",
+  "author": "Volksverpetzer",
+  "homepage": "https://github.com/Volksverpetzer/vvp_app",
+  "skills": []
+}
