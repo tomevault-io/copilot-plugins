@@ -1,13 +1,13 @@
-## product-order-flow
+## production-deployment
 
-> 编辑商品/订单/变体/SKU 相关时参考——数据模型、外部→核心、SKU 展示
+> 部署/SSH/服务器时参考——目录、Dev vs Prod、敏感文件
 
 
-# 商品与订单流程（按需参考）
+# 服务器部署（按需参考）
 
-- **模型**：`products` = 核心商品；`product_variants` = SKU（sku、price、attributes、external_variant_id）。SKU 列表与商品展开变体同源，变体在同步/导入时已写入。
-- **外部→核心**：外部商品进 `external_products` → 导入建 `products`+`product_variants`+`product_mappings`；订单同步时 SKU 匹配查 core_variant_id/core_product_id 写 order_items。Printify 用 product_mappings 做履约。
-- **SKU 列表**：后端 `GET /api/v1/product-variants/` 带 product_title、attributes；前端展示商品名、规格（attributes 拼）、SKU、价格等。
+- Git：走 PR，见 git-workflow.mdc。SSH：ubuntu@133.242.179.110。仓库：/home/ubuntu/project/fulfillment-service；部署目录：/opt/supplynexus（rsync 后 docker-compose，无 .git）。
+- **Dev**：`./scripts/dev/deploy-from-git.sh`；postgres_dev/backend_dev/frontend_dev，Backend 8001、Frontend 3001。**Prod**：`./scripts/prod/deploy-from-git.sh`；端口 8000/3000 仅 127.0.0.1。脚本含拉分支、rsync、up、alembic upgrade head。
+- 敏感文件不提交：env.prod、docker-compose.prod.yml；scp + chmod 600。容器异常：按环境 `docker rm -f` 对应 supplynexus 容器后 `docker-compose -f docker-compose.{dev|prod}.yml up -d --remove-orphans`。详见 scripts/dev/DEPLOYMENT.md、scripts/prod/DEPLOYMENT_STEPS.md。
 
 ---
 > Source: [supplynexus/fulfillment-service](https://github.com/supplynexus/fulfillment-service) — distributed by [TomeVault](https://tomevault.io).
