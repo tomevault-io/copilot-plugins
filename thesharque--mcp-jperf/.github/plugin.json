@@ -1,0 +1,9 @@
+{
+  "name": "thesharque--mcp-jperf",
+  "displayName": "mcp-jperf",
+  "description": "Java profiler and perfomance tool MCP",
+  "version": "1.0.0",
+  "author": "theSharque",
+  "homepage": "https://github.com/theSharque/mcp-jperf",
+  "skills": []
+}
