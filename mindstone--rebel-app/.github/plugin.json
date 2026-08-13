@@ -1,0 +1,9 @@
+{
+  "name": "mindstone--rebel-app",
+  "displayName": "rebel-app",
+  "description": "Rebel: open-source agentic AI desktop app. Public mirror \u2014 source of truth is internal; published one-way via CI.",
+  "version": "1.0.0",
+  "author": "mindstone",
+  "homepage": "https://github.com/mindstone/rebel-app",
+  "skills": []
+}
