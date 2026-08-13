@@ -1,0 +1,9 @@
+{
+  "name": "questdb--java-questdb-client",
+  "displayName": "java-questdb-client",
+  "description": "The official Java client for QuestDB",
+  "version": "1.0.0",
+  "author": "questdb",
+  "homepage": "https://github.com/questdb/java-questdb-client",
+  "skills": []
+}
