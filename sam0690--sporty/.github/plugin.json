@@ -1,0 +1,9 @@
+{
+  "name": "sam0690--sporty",
+  "displayName": "Sporty",
+  "description": "Multi-sport fantasy platform \u2014 mixed football, NBA and cricket leagues scoring one budgeted squad from live match data. FastAPI, PostgreSQL, Redis, Celery, Next.js.",
+  "version": "1.0.0",
+  "author": "sam0690",
+  "homepage": "https://github.com/sam0690/Sporty",
+  "skills": []
+}
