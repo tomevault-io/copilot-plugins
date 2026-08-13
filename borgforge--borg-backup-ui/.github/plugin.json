@@ -1,0 +1,9 @@
+{
+  "name": "borgforge--borg-backup-ui",
+  "displayName": "borg-backup-ui",
+  "description": "Borg-Backup-UI Unraid Plugin",
+  "version": "1.0.0",
+  "author": "borgforge",
+  "homepage": "https://github.com/borgforge/borg-backup-ui",
+  "skills": []
+}
