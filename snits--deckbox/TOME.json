@@ -4,7 +4,7 @@
   "repo": "deckbox",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/snits/deckbox",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T03:22:55Z"
+  "distributed_at": "2026-08-13T05:00:48Z"
 }
