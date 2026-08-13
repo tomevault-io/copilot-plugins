@@ -1,0 +1,9 @@
+{
+  "name": "agent0ai--a0-connector",
+  "displayName": "a0-connector",
+  "description": "Agent Zero Connector",
+  "version": "1.0.0",
+  "author": "agent0ai",
+  "homepage": "https://github.com/agent0ai/a0-connector",
+  "skills": []
+}
