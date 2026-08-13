@@ -1,0 +1,9 @@
+{
+  "name": "l3aro--filament-turnstile",
+  "displayName": "filament-turnstile",
+  "description": "Filament Turnstile is an essential plugin designed to seamlessly integrate Cloudflare's turnstile into your applications.",
+  "version": "1.0.0",
+  "author": "l3aro",
+  "homepage": "https://github.com/l3aro/filament-turnstile",
+  "skills": []
+}
