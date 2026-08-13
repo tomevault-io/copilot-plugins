@@ -1,0 +1,9 @@
+{
+  "name": "enisbu--amicro-sv",
+  "displayName": "amicro-sv",
+  "description": "Unofficial SvelteKit port of Amicro (React).",
+  "version": "1.0.0",
+  "author": "enisbu",
+  "homepage": "https://github.com/enisbu/amicro-sv",
+  "skills": []
+}
