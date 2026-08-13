@@ -1,7 +1,6 @@
-## arena-agent
+## arena
 
-> Arena — agent instructions (generated from AGENTS.md; do not edit by hand)
-
+> - Arena is a monpo repo. Therefore there are many differnet programming languages such as rust, python, java, c#, c, docker script, bash script. Unless stated otherwise always use idiomatic langauge features.
 
 # Arena — agent instructions
 
