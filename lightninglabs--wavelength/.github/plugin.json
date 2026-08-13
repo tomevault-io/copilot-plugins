@@ -1,0 +1,9 @@
+{
+  "name": "lightninglabs--wavelength",
+  "displayName": "wavelength",
+  "description": "a toolkit for adding self-custodial bitcoin payments to applications and agents",
+  "version": "1.0.0",
+  "author": "lightninglabs",
+  "homepage": "https://github.com/lightninglabs/wavelength",
+  "skills": []
+}
