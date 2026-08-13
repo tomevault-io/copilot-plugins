@@ -1,0 +1,9 @@
+{
+  "name": "agigante80--actual-sync",
+  "displayName": "Actual-sync",
+  "description": "Automated bank sync service for Actual Budget - scheduled synchronization, real-time monitoring, and multi-budget management with Telegram notifications",
+  "version": "1.0.0",
+  "author": "agigante80",
+  "homepage": "https://github.com/agigante80/Actual-sync",
+  "skills": []
+}
