@@ -1,0 +1,9 @@
+{
+  "name": "tensorlabresearch--page-the-ripper",
+  "displayName": "page_the_ripper",
+  "description": "Scan, OCR, and build searchable PDFs from Epson network scanners",
+  "version": "1.0.0",
+  "author": "tensorlabresearch",
+  "homepage": "https://github.com/tensorlabresearch/page_the_ripper",
+  "skills": []
+}
