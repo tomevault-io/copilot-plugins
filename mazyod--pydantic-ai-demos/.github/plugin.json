@@ -1,0 +1,9 @@
+{
+  "name": "mazyod--pydantic-ai-demos",
+  "displayName": "pydantic-ai-demos",
+  "description": "Minimal, focused demos for learning Pydantic AI",
+  "version": "1.0.0",
+  "author": "Mazyod",
+  "homepage": "https://github.com/Mazyod/pydantic-ai-demos",
+  "skills": []
+}
