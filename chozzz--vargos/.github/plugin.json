@@ -1,0 +1,9 @@
+{
+  "name": "chozzz--vargos",
+  "displayName": "vargos",
+  "description": "Self-hosted agent OS. Persistent memory, multi-channel presence, tools, scheduling, and sub-agent orchestration \u2014 any LLM, your hardware.",
+  "version": "1.0.0",
+  "author": "chozzz",
+  "homepage": "https://github.com/chozzz/vargos",
+  "skills": []
+}
