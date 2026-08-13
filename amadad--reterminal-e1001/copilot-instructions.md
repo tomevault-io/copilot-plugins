@@ -1,0 +1,144 @@
+## reterminal-e1001
+
+> Instructions for AI agents working in this repository.
+
+# AGENTS.md
+
+Instructions for AI agents working in this repository.
+
+## Source of truth
+
+Before making architecture claims, use these files:
+
+- `docs/device-profile.md`
+- `docs/hardware-verification.md`
+- `docs/refactor-plan.md`
+- `artifacts/probe-report.json` (historical pre-pull-firmware evidence)
+
+The hardware is verified as a **4-slot** device, not a 7-slot carousel. The
+current tracked pull firmware still requires a fresh physical probe after flash.
+
+## Mental model
+
+Treat this repo as a small publishing system for a monochrome ePaper target.
+
+- **Firmware**: bitmap storage, display, buttons, HTTP pull client, diagnostic API
+- **Host SDK**: capability discovery, safe slot operations
+- **Scene pipeline**: providers -> scenes -> scheduler -> renderer -> device
+
+Do not reintroduce the removed legacy fixed-page system unless explicitly asked.
+
+## Verified constraints
+
+- Resolution: `800x480`
+- Format: `1-bit`
+- Raw image bytes: `48000`
+- Physical slots: `0..3`
+- Tracked firmware is a deep-sleep HTTP client: timer wakes poll the host's `/content-hash` and `/content/slot-N`, persist changed slots, refresh, then sleep
+- A 3-second right-button hold opens a 10-minute diagnostic window with `/status`, `/eventlog`, `/snapshot`, `/imageraw`, `/page`, and `/sleep`
+- Slot names are neutral: `slot-0..slot-3`
+- `snapshot` can return the exact stored raw bitmap for a loaded slot during diagnostic mode
+- loaded slots persist to LittleFS across normal reboot/power cycle; host republish is still the recovery path after reflash, empty storage, or filesystem failure
+- the host pull server is plain unauthenticated HTTP; keep it on a trusted LAN and enforce isolation outside the process
+- on some macOS hosts, curl-based transport can be more reliable than Python `requests` for live device mutations
+- all `ImageDraw.Draw` instances in render/provider code must set `draw.fontmode = "1"` immediately after construction — without it Pillow antialiases text into gray pixels that threshold to noise on 1-bit output
+
+The checked-in `artifacts/probe-report.json` verifies the 4-slot hardware and the
+older always-on firmware. It predates the tracked deep-sleep/pull refactor and
+must not be cited as proof of the current diagnostic contract.
+
+## Active Python modules
+
+```text
+python/reterminal/
+├── app/            # publish scenes to previews/device slots
+├── cli/            # active CLI
+├── device/         # device SDK + capabilities
+├── family/         # pure parsers + dataclasses for the kitchen markdown sources — calendar, missions, events, activities, camps (PIL-free)
+├── payloads.py     # shared device/JSON payload types
+├── protocols.py    # shared structural interfaces
+├── providers/      # scene adapters; established parsers come from family/, display-safe feature projections live in features.py
+├── render/         # monochrome layouts, bitmap generators, art handling, viz primitives + the kitchen design tokens in kitchen.py (see docs/design.md, docs/visualizations.md)
+├── scheduler/      # logical scenes -> 4 slots
+├── scenes/         # scene schema
+└── probe.py        # verification tooling
+```
+
+## Agent access quickstart
+
+See `docs/access.md` before debugging connectivity or Python-path issues.
+The Python project root is `python/`; from repo root, use
+`env -u VIRTUAL_ENV uv --directory python run reterminal ...`.
+USB serial is for logs/flashing only; status/snapshot/upload/page control is
+HTTP over Wi-Fi after discovery.
+
+## Core commands
+
+```bash
+cd python
+
+uv run reterminal discover
+uv run reterminal doctor
+uv run reterminal status
+uv run reterminal capabilities
+uv run reterminal snapshot --png ./current.png
+uv run reterminal probe
+uv run reterminal publish --feed examples/agent-feed.json --preview ./previews
+uv run reterminal publish --feed examples/agent-feed.json --preview ./previews --push --live
+uv run reterminal publish --feed examples/kitchen-display.json --watch --live
+```
+
+## Decommissioned legacy commands
+
+The old fixed-page `refresh` / `watch` CLI commands and `reterminal/pages/*` modules are gone. Use `reterminal publish` with provider manifests instead. `refresh.sh` is retained only as a decommissioning pointer.
+
+## Design direction
+
+Prefer these extension points:
+
+- **providers** for Paperclip, local feeds, generated media, etc.
+- **renderers/templates** for strong typography and layout
+- **scheduler strategies** for slot rotation
+- **device capabilities** for hardware-aware behavior
+
+Avoid baking external integrations directly into firmware or into slot-specific host code.
+
+## Safety rule
+
+Preview first. Live device mutations should require explicit `--live` approval and should refuse `--non-interactive` mutation attempts. `publish --push` stages changed slots without changing the visible page unless `--show-slot` is explicit.
+
+## When adding features
+
+1. keep the device SDK small and truthful
+2. put external system logic behind providers/adapters
+3. keep scene data structured, not pre-rendered
+4. make renderers responsible for visual composition
+5. never assume more than 4 physical slots unless firmware changes and is re-probed
+
+## Verification
+
+For code changes, run targeted tests from `python/`:
+
+```bash
+uv run --extra dev pytest -q
+uv run --extra dev ruff check reterminal tests
+uv run --with pip-audit pip-audit --skip-editable
+```
+
+Run all three checks locally before pushing. The dependency audit must report no
+known vulnerabilities.
+
+For live-device work, probe first:
+
+```bash
+uv run reterminal discover
+uv run reterminal doctor
+uv run reterminal capabilities
+uv run reterminal probe
+```
+
+DHCP leases are not stable identity. Do not hardcode addresses from older sessions.
+
+---
+> Source: [amadad/reterminal-e1001](https://github.com/amadad/reterminal-e1001) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
