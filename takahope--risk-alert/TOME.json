@@ -4,7 +4,7 @@
   "repo": "risk-alert",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/takahope/risk-alert",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T03:35:00Z"
+  "distributed_at": "2026-08-13T05:14:39Z"
 }
