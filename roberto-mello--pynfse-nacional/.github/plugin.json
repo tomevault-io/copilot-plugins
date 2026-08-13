@@ -1,0 +1,9 @@
+{
+  "name": "roberto-mello--pynfse-nacional",
+  "displayName": "pynfse-nacional",
+  "description": "Python library for Brazilian NFSe Nacional (Padrao Nacional) API integration",
+  "version": "1.0.0",
+  "author": "roberto-mello",
+  "homepage": "https://github.com/roberto-mello/pynfse-nacional",
+  "skills": []
+}
