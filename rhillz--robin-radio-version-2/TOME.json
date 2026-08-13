@@ -4,7 +4,7 @@
   "repo": "robin-radio-version-2",
   "description": "Robin Radio 2.0 - Personal Music Player for Mom",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RHILLZ/robin-radio-version-2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T15:33:25Z"
+  "distributed_at": "2026-08-13T19:22:31Z"
 }
