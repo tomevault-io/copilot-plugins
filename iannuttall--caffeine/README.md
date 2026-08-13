@@ -7,11 +7,11 @@ Keep your Mac awake while you work, then let it sleep when your coding agent wai
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [iannuttall/caffeine](https://github.com/iannuttall/caffeine).
+Original source: `CLAUDE.md` in [iannuttall/caffeine](https://github.com/iannuttall/caffeine).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
