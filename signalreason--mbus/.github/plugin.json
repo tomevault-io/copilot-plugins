@@ -1,0 +1,9 @@
+{
+  "name": "signalreason--mbus",
+  "displayName": "mbus",
+  "description": "Rust browser + LLM agent for deterministic, single-step web automation.",
+  "version": "1.0.0",
+  "author": "signalreason",
+  "homepage": "https://github.com/signalreason/mbus",
+  "skills": []
+}
