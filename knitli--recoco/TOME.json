@@ -4,7 +4,7 @@
   "repo": "recoco",
   "description": "CocoIndex, but usable from Rust. Modular, feature-gated, edge-deployable. 220 crates instead of 820. \ud83e\udd80 ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/knitli/recoco",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T14:56:35Z"
+  "distributed_at": "2026-08-13T18:48:04Z"
 }
