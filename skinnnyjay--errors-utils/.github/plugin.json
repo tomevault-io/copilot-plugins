@@ -1,0 +1,9 @@
+{
+  "name": "skinnnyjay--errors-utils",
+  "displayName": "errors.utils",
+  "description": "Typed error classes, error codes, and serializeError for logging and RPC (Node and Edge).",
+  "version": "1.0.0",
+  "author": "SkinnnyJay",
+  "homepage": "https://github.com/SkinnnyJay/errors.utils",
+  "skills": []
+}
