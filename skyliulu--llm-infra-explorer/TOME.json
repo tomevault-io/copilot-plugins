@@ -4,7 +4,7 @@
   "repo": "LLM-Infra-Explorer",
   "description": "Interactive visualization and exploration of large language model (LLM) systems, infrastructure, and inference workflows",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/skyliulu/LLM-Infra-Explorer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T09:21:15Z"
+  "distributed_at": "2026-08-13T11:38:32Z"
 }
