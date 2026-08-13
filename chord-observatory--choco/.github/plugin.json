@@ -1,0 +1,9 @@
+{
+  "name": "chord-observatory--choco",
+  "displayName": "choco",
+  "description": "CHORD Config Controller",
+  "version": "1.0.0",
+  "author": "chord-observatory",
+  "homepage": "https://github.com/chord-observatory/choco",
+  "skills": []
+}
