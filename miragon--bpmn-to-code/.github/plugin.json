@@ -1,0 +1,9 @@
+{
+  "name": "miragon--bpmn-to-code",
+  "displayName": "bpmn-to-code",
+  "description": "Gradle and Maven plugin that bridges gaps between BPMN and code - fostering the creation of clean process-automation solutions \ud83e\udeb4",
+  "version": "1.0.0",
+  "author": "Miragon",
+  "homepage": "https://github.com/Miragon/bpmn-to-code",
+  "skills": []
+}
