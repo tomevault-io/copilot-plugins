@@ -1,120 +1,38 @@
-## extension-architecture
+## file-naming
 
-> Browser extension and web demo - Zustand, views, platform, components
+> File naming conventions for new and renamed source files
 
 
-# Extension Architecture
+# File naming
 
-## Entry points
+Use one convention per file kind. Do not mix kebab-case and camelCase for the same kind of module.
 
-| Mode | HTML | Vite config | Output |
-|------|------|-------------|--------|
-| Browser MV3 | `newtab.html` | `vite.config.ts` | `extension/dist/` |
-| Web demo | `index.html` | `vite.web.config.ts` | `public/demo/` |
+| Kind | Convention | Examples |
+|------|------------|----------|
+| React component modules | **PascalCase** | `Sidebar.tsx`, `LandingHero.tsx`, `AttachmentImageNodeView.tsx` |
+| Hooks | **camelCase**, `use` prefix | `useStore.ts`, `useAttachmentImage.ts` |
+| Non-component TS/TSX modules | **camelCase** | `attachmentManager.ts`, `workspaceTree.ts`, `errorCapture.ts`, `themeTypes.ts` |
+| Tests | Match source basename + `.test.ts` | `workspaceTree.test.ts` under `tests/<surface>/…` |
+| CLI / Node scripts | **kebab-case** | `generate-sitemap.mjs`, `guard-production-build.mjs` |
+| CSS / static assets | Existing patterns | `index.css`; prefer kebab for new asset files |
+| CSS class names / HTML ids | **kebab-case** (unchanged) | `ko-workspace-tree`, `landing-faq` - not the same as TS filenames |
 
-Manifest source of truth: `extension/manifest.config.ts` (CRXJS).
+## Exceptions (do not rename to force the rule)
 
-## Platform branching
+- Framework / generated: `__root.tsx`, `routeTree.gen.ts`, TanStack route files like `llms[.]txt.ts`
+- Ambient typings that mirror package ids: `markdown-it-mark.d.ts`, `file-system-access.d.ts`
+- Entry stubs: `main.tsx`, `index.tsx`, `App.tsx` (PascalCase `App` is intentional)
 
-```typescript
-// extension/src/lib/platform.ts
-isExtensionContext()  // chrome.runtime?.id
-isWebAppContext()     // standalone /demo SPA
-```
+## When adding a file
 
-- **Extension:** `chrome.storage.local` for settings
-- **Web:** `localStorage` for settings
-- **Both:** IndexedDB for pages (separate origins → separate data)
+1. Component that renders UI → PascalCase `.tsx`
+2. Hook → `useSomething.ts`
+3. Anything else in `src/`, `extension/src/`, `shared/` → camelCase
+4. Anything in `scripts/` or `extension/scripts/` → kebab-case `.mjs`
 
-Web-only components: `WebInstallBanner`, `MobileExperienceNotice` (viewport < 768px).
+## Imports
 
-## Zustand store (`useStore.ts` facade + slices)
-
-Call sites keep importing `useStore` from `store/useStore.ts`. Internally it composes slices:
-
-| Slice | Owns |
-|-------|------|
-| `slices/pagesWorkspace.ts` | pages CRUD, view, workspace move/delete + OPFS GC |
-| `slices/themeUi.ts` | theme, custom themes, `applyThemeToDocument` |
-| `slices/dialogs.ts` | delete / link / attachment-delete flags (serializable payloads only) |
-| `slices/editorBridge.ts` | `pageEditor` + `applyLink` / `removeLink` / confirm attachment delete |
-
-Do **not** put TipTap `Editor` types or `onConfirm` closures in the pages/dialogs slices. Prefer exported **selectors** for derived lists.
-
-## Views
-
-- `Dashboard` - recent pages, quick create
-- `PageView` - title + editor, debounced save
-
-View type: `{ kind: "dashboard" }` | `{ kind: "page"; id: string }`
-
-## Components conventions
-
-- `Sidebar.tsx` - workspace tree UI; DnD helpers live in `lib/workspaceDrag.ts`
-- `SearchPalette.tsx` - ⌘K, FlexSearch (ephemeral index)
-- `ThemeDropdown.tsx` - built-in + custom themes
-- Dialogs - delete confirm, etc.
-
-CSS: `ko-` classes, theme via `data-theme` + `--ko-*` variables from `extension/src/styles/`.
-**Dark / multi-theme:** never hardcode light-only colors (`white`, `#fff`, mixes with literal white). Use `--ko-bg` / `--ko-surface` / `--ko-surface-2` / `--ko-text` / `--ko-text-muted` / `--ko-border` / `--ko-accent`. Verify new UI in both a light and a dark theme (see `AGENTS.md` §3.7).
-
-## Keyboard shortcuts
-
-Defined in `App.tsx` - check existing bindings before adding new global listeners.
-
-## Build guards
-
-- `guard-production-build.mjs` - blocks prod build during dev
-- `clean-dev-artifacts.mjs` - clears stale `dist/`
-- Use `npm run dev:reset --prefix extension` if HMR breaks
-
-## Tests
-
-Mirrored under `tests/extension/` (see `tests/README.md`).  
-`extension/src/<path>/<file>.ts` → `tests/extension/<path>/<file>.test.ts`.
-
-```bash
-npm run test -- tests/extension/store/
-npm run test -- tests/extension/lib/attachments/
-```
-
-## Attachments vs editor commands (dependency rule)
-
-**`lib/attachments/`** = OPFS I/O + policy only (no TipTap types):
-
-```
-lib/attachments/
-├── attachmentManager.ts   ← save/read/delete, object URL cache
-├── fileSystemManager.ts   ← OPFS root + subdirs (images/, audio/)
-├── sanitizeBlockDoc.ts    ← persist sanitizer + ref-count GC helpers
-├── voiceRecorder.ts       ← MediaRecorder wrapper + live levels
-├── waveform.ts            ← decode peaks for playback UI
-├── imageClipboard.ts      ← paste/drop DataTransfer → image Files
-└── imageFiles.ts          ← pure image File checks
-```
-
-**`editor/commands/`** = TipTap insert/paste adapters that call attachment services:
-
-```
-editor/commands/
-├── insertImage.ts
-├── insertAudioFromFile.ts
-├── insertVoiceRecording.ts
-└── insertSelection.ts
-```
-
-Node views use hooks under `editor/hooks/` (`useVoiceNoteRecording`, `useVoiceNotePlayback`, `useAttachmentImage*`).
-Editor paste/drop: `imagePasteDrop.ts` (priority above markdown paste).
-Dialogs: `AttachmentDeleteDialog` confirms via store `pendingAttachmentDelete` (path only).
-
-## Constants
-
-**Canonical source:** `shared/constants.ts` (see `.cursor/rules/constants-policy.mdc` and `AGENTS.md` §3.8).
-
-- `extension/src/lib/constants.ts` is a re-export only - edit `shared/constants.ts`
-- UI labels, error messages, attachment/OPFS paths, MIME types, debounce/limits → named exports there
-- Import via `@/lib/constants` - do not hardcode copy in components or attachment helpers
-- Do not add parallel string modules
+Update import paths when renaming. Prefer `@/` / `@shared/` aliases; do not leave stale kebab paths.
 
 ---
 > Source: [aryancodes-tech/my-memos](https://github.com/aryancodes-tech/my-memos) — distributed by [TomeVault](https://tomevault.io).
