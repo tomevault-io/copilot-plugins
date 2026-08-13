@@ -1,0 +1,9 @@
+{
+  "name": "id--skitter",
+  "displayName": "skitter",
+  "description": "AI agent orchestrator using A2A-over-MQTT",
+  "version": "1.0.0",
+  "author": "id",
+  "homepage": "https://github.com/id/skitter",
+  "skills": []
+}
