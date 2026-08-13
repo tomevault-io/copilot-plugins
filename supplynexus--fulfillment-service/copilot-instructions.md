@@ -1,12 +1,12 @@
-## rules-maintenance
+## tenant-config
 
-> rules 按 glob 匹配当前文件带入；新约定可建议写入 .cursor/rules
+> 编辑 tenants/租户/凭据相关时参考——目录结构、安全忽略
 
 
-# Rules 维护
+# Tenant 配置（按需参考）
 
-- 各 rule 按 **globs** 与当前打开/编辑路径匹配后带入；无 glob 或 alwaysApply: true 则始终生效。
-- 对话中新确立项目级约定（布局、命名、API 风格、安全等）时，可建议加入 `.cursor/rules` 并通知用户，或拟好内容供确认。
+- **目录**：`tenants/{tenant_name}/{service_name}/`，下可放 api_token.token、login_info.json、credentials.json（均敏感、不提交）。Git 忽略 *.token、login_info.json、credentials.json、*.key、*.pem；权限 600。
+- **读取**：Path("tenants")/tenant_name/service，按需读 token 文件与 login_info.json。脚本可 `--tenant {name}`。凭据不提交、不硬编码；token 到期前轮换。
 
 ---
 > Source: [supplynexus/fulfillment-service](https://github.com/supplynexus/fulfillment-service) — distributed by [TomeVault](https://tomevault.io).
