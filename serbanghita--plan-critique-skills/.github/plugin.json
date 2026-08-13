@@ -1,0 +1,9 @@
+{
+  "name": "serbanghita--plan-critique-skills",
+  "displayName": "plan-critique-skills",
+  "description": "Planning skills for Claude Code, Copilot, Agy, etc.",
+  "version": "1.0.0",
+  "author": "serbanghita",
+  "homepage": "https://github.com/serbanghita/plan-critique-skills",
+  "skills": []
+}
