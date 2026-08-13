@@ -4,7 +4,7 @@
   "repo": "web-cursor",
   "description": "\u6d4f\u89c8\u5668\u5185 AI React \u7f16\u7801\u6c99\u7bb1\uff08\u7c7b Web \u7248 Cursor\uff09\uff0c\u652f\u6301 AI \u81ea\u6211\u4fee\u590d",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/siuming-qiu/web-cursor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T18:32:40Z"
+  "distributed_at": "2026-08-13T23:07:43Z"
 }
