@@ -1,0 +1,9 @@
+{
+  "name": "skill-bench--skill-eval-action",
+  "displayName": "skill-eval-action",
+  "description": "GitHub Action to evaluate Claude Code skills against YAML test cases with automated grading and PR reporting",
+  "version": "1.0.0",
+  "author": "skill-bench",
+  "homepage": "https://github.com/skill-bench/skill-eval-action",
+  "skills": []
+}
