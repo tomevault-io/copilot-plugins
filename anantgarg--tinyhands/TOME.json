@@ -1,0 +1,44 @@
+{
+  "name": "tinyhands",
+  "owner": "anantgarg",
+  "repo": "tinyhands",
+  "description": "Slack-native AI agent platform powered by Claude. Create autonomous agents that live in your channels, connect to your tools and data, and get work done.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/anantgarg/tinyhands",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T07:13:28Z"
+}
