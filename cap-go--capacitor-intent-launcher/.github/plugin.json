@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-intent-launcher",
+  "displayName": "capacitor-intent-launcher",
+  "description": "Launch Android intents and open system settings screens from your Capacitor app",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-intent-launcher",
+  "skills": []
+}
