@@ -1,0 +1,9 @@
+{
+  "name": "jmcgrath207--conproxy",
+  "displayName": "conproxy",
+  "description": "Retrieval cache for agentic RAG \u2014 lower cost, faster search (not an LLM answer cache)",
+  "version": "1.0.0",
+  "author": "jmcgrath207",
+  "homepage": "https://github.com/jmcgrath207/conproxy",
+  "skills": []
+}
