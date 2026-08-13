@@ -1,0 +1,9 @@
+{
+  "name": "dilawarshafiq--unworldly",
+  "displayName": "unworldly",
+  "description": "The flight recorder for AI agents. Tamper-proof, ISO 42001 + HIPAA-compliant audit trails for everything AI agents do on your system. File changes + shell commands + PHI detection + agent identity.",
+  "version": "1.0.0",
+  "author": "DilawarShafiq",
+  "homepage": "https://github.com/DilawarShafiq/unworldly",
+  "skills": []
+}
