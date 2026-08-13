@@ -1,0 +1,9 @@
+{
+  "name": "coinlobster--coinlobster-gemini-extension",
+  "displayName": "coinlobster-gemini-extension",
+  "description": "Gemini CLI extension for live crypto whale trades, Smart Money Radar and liquidations. One-line install, no API key required.",
+  "version": "1.0.0",
+  "author": "CoinLobster",
+  "homepage": "https://github.com/CoinLobster/coinlobster-gemini-extension",
+  "skills": []
+}
