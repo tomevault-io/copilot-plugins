@@ -7,13 +7,13 @@ Plannable is a Spec-Driven Development planning CLI for AI coding agents. It cre
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [suntay44/plannable](https://github.com/suntay44/plannable).
+Original source: `AGENTS.md` in [suntay44/plannable](https://github.com/suntay44/plannable).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
