@@ -1,0 +1,9 @@
+{
+  "name": "neeraip--hydra",
+  "displayName": "hydra",
+  "description": "A Rust platform for water infrastructure simulation: physically rigorous hydraulics, hydrology and water quality across water distribution and urban drainage, defined by conservation laws rather than ",
+  "version": "1.0.0",
+  "author": "neeraip",
+  "homepage": "https://github.com/neeraip/hydra",
+  "skills": []
+}
