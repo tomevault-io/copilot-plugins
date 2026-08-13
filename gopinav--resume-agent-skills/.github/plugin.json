@@ -1,0 +1,9 @@
+{
+  "name": "gopinav--resume-agent-skills",
+  "displayName": "resume-agent-skills",
+  "description": "Resume Agent skills and sample resume",
+  "version": "1.0.0",
+  "author": "gopinav",
+  "homepage": "https://github.com/gopinav/resume-agent-skills",
+  "skills": []
+}
