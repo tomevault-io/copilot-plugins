@@ -1,0 +1,9 @@
+{
+  "name": "brendan-appstart--bead-me-up-scotty",
+  "displayName": "bead-me-up-scotty",
+  "description": "A local web UI for the beads (bd) issue tracker \u2014 board, epics, dependency graph, drag-and-drop.",
+  "version": "1.0.0",
+  "author": "brendan-appstart",
+  "homepage": "https://github.com/brendan-appstart/bead-me-up-scotty",
+  "skills": []
+}
