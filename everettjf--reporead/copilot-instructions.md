@@ -34,5 +34,5 @@
 - Data is cached per-repo under the Tauri data directory (see `src-tauri/src/repo.rs` for paths and metadata files).
 
 ---
-> Source: [everettjf/RepoRead](https://github.com/everettjf/RepoRead) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-24 -->
+> Source: [everettjf/reporead](https://github.com/everettjf/reporead) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
