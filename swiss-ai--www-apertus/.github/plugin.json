@@ -1,0 +1,9 @@
+{
+  "name": "swiss-ai--www-apertus",
+  "displayName": "www-apertus",
+  "description": "The website & public documentation area of the Apertus LLM",
+  "version": "1.0.0",
+  "author": "swiss-ai",
+  "homepage": "https://github.com/swiss-ai/www-apertus",
+  "skills": []
+}
