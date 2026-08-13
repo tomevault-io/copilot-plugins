@@ -1,0 +1,9 @@
+{
+  "name": "josephoibrahim--synapse",
+  "displayName": "Synapse",
+  "description": "Talk to Houdini in plain English. SYNAPSE lives inside Houdini's own Python and turns your words into real, undoable nodes - one Ctrl+Z reverses a whole operation, and a human approves anything risky.",
+  "version": "1.0.0",
+  "author": "JosephOIbrahim",
+  "homepage": "https://github.com/JosephOIbrahim/Synapse",
+  "skills": []
+}
