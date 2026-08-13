@@ -1,0 +1,9 @@
+{
+  "name": "luncosim--space-engineering-skills",
+  "displayName": "space-engineering-skills",
+  "description": "Space engineering skills for AI. Design satellite & on-surface missions from concept to orbit.",
+  "version": "1.0.0",
+  "author": "LunCoSim",
+  "homepage": "https://github.com/LunCoSim/space-engineering-skills",
+  "skills": []
+}
