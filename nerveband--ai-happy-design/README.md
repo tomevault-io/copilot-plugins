@@ -7,11 +7,11 @@ Figma CLI/MCP but fast — design with AI agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nerveband/ai-happy-design](https://github.com/nerveband/ai-happy-design).
+Original source: `CLAUDE.md` in [nerveband/ai-happy-design](https://github.com/nerveband/ai-happy-design).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
