@@ -1,0 +1,9 @@
+{
+  "name": "nodenestor--raftimedb",
+  "displayName": "RaftimeDB",
+  "description": "A raft proxy for SpacetimeDB",
+  "version": "1.0.0",
+  "author": "NodeNestor",
+  "homepage": "https://github.com/NodeNestor/RaftimeDB",
+  "skills": []
+}
