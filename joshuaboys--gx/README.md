@@ -7,11 +7,11 @@ A fast git projects manager. Clone, jump, and organise repos from the terminal.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [joshuaboys/gx](https://github.com/joshuaboys/gx).
+Original source: `CLAUDE.md` in [joshuaboys/gx](https://github.com/joshuaboys/gx).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
