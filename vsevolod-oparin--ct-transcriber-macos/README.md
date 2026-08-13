@@ -7,11 +7,11 @@ A simple demo transcription project to utilize CTranslate2 metal backend for App
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vsevolod-oparin/ct-transcriber-macos](https://github.com/vsevolod-oparin/ct-transcriber-macos).
+Original source: `CLAUDE.md` in [vsevolod-oparin/ct-transcriber-macos](https://github.com/vsevolod-oparin/ct-transcriber-macos).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
