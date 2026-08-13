@@ -4,7 +4,7 @@
   "repo": "internacia-db",
   "description": "Public registry of the intergovernmental organizations, country groups and countries. Available as JSONl, Parquet, YAML and DuckDB database datasets",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/datenoio/internacia-db",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T14:47:38Z"
+  "distributed_at": "2026-08-13T18:45:43Z"
 }
