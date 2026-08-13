@@ -1,0 +1,9 @@
+{
+  "name": "sid-technologies--scuta",
+  "displayName": "Scuta",
+  "description": "Security-first CLI tool installer || fail-closed checksum, signature, and cosign/SLSA provenance verification, policy enforcement, tamper detection, and air-gapped bundles",
+  "version": "1.0.0",
+  "author": "SID-Technologies",
+  "homepage": "https://github.com/SID-Technologies/Scuta",
+  "skills": []
+}
