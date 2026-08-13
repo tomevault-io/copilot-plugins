@@ -1,0 +1,9 @@
+{
+  "name": "fpv-jp--vtx",
+  "displayName": "vtx",
+  "description": "Using GStreamer to transmit video and telemetry",
+  "version": "1.0.0",
+  "author": "fpv-jp",
+  "homepage": "https://github.com/fpv-jp/vtx",
+  "skills": []
+}
