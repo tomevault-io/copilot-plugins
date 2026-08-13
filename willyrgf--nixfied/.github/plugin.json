@@ -1,0 +1,9 @@
+{
+  "name": "willyrgf--nixfied",
+  "displayName": "nixfied",
+  "description": "A framework to specify projects and a runtime to orchestrate environments",
+  "version": "1.0.0",
+  "author": "willyrgf",
+  "homepage": "https://github.com/willyrgf/nixfied",
+  "skills": []
+}
