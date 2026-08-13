@@ -1,0 +1,9 @@
+{
+  "name": "dora-rs--adora",
+  "displayName": "adora",
+  "description": "Agentic Dataflow-Oriented Robotic Architecture -- a 100% Rust framework for real-time robotics and AI applications",
+  "version": "1.0.0",
+  "author": "dora-rs",
+  "homepage": "https://github.com/dora-rs/adora",
+  "skills": []
+}
