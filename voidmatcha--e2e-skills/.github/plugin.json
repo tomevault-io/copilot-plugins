@@ -1,0 +1,9 @@
+{
+  "name": "voidmatcha--e2e-skills",
+  "displayName": "e2e-skills",
+  "description": "AI agent testing toolkit for Playwright and Cypress: generate E2E tests from scratch, review existing specs against 24 anti-patterns (P0/P1/P2 silent-always-pass smells), and debug flaky failures from",
+  "version": "1.0.0",
+  "author": "voidmatcha",
+  "homepage": "https://github.com/voidmatcha/e2e-skills",
+  "skills": []
+}
