@@ -4,7 +4,7 @@
   "repo": "tuirec",
   "description": "Cross-platform CLI that records any terminal app and produces an animated GIF.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tui-cs/tuirec",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T01:21:32Z"
+  "distributed_at": "2026-08-13T01:22:11Z"
 }
