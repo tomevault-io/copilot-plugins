@@ -1,0 +1,9 @@
+{
+  "name": "alexandergg-0520--minecartainer",
+  "displayName": "minecartainer",
+  "description": "Predictable Minecraft Java server container image for Kubernetes, GitOps, persistent volumes, and S3-compatible assets.",
+  "version": "1.0.0",
+  "author": "AlexanderGG-0520",
+  "homepage": "https://github.com/AlexanderGG-0520/minecartainer",
+  "skills": []
+}
