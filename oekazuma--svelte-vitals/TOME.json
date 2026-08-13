@@ -4,7 +4,7 @@
   "repo": "svelte-vitals",
   "description": "A static code-health checker for SvelteKit \u2014 SEO, Performance, Correctness, Security, and Architecture, from source. Not a runtime Web Vitals reporter.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oekazuma/svelte-vitals",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T19:16:18Z"
+  "distributed_at": "2026-08-13T23:37:23Z"
 }
