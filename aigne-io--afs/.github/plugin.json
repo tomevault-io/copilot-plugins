@@ -1,0 +1,9 @@
+{
+  "name": "aigne-io--afs",
+  "displayName": "afs",
+  "description": "AFS (Agentic File System) \u2014 A virtual filesystem abstraction that gives AI agents a unified, path-based interface to any data source.",
+  "version": "1.0.0",
+  "author": "AIGNE-io",
+  "homepage": "https://github.com/AIGNE-io/afs",
+  "skills": []
+}
