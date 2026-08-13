@@ -1,0 +1,9 @@
+{
+  "name": "lexfrei--ccc",
+  "displayName": "ccc",
+  "description": "Claude Code Companions \u2014 external marketplace for Claude Code plugins: agents, skills, and MCP servers",
+  "version": "1.0.0",
+  "author": "lexfrei",
+  "homepage": "https://github.com/lexfrei/ccc",
+  "skills": []
+}
