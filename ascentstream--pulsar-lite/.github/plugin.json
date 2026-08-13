@@ -1,0 +1,9 @@
+{
+  "name": "ascentstream--pulsar-lite",
+  "displayName": "pulsar-lite",
+  "description": "Local Pulsar broker for dev & test. Implements the core binary protocol; connect with the official Pulsar Python client.",
+  "version": "1.0.0",
+  "author": "ascentstream",
+  "homepage": "https://github.com/ascentstream/pulsar-lite",
+  "skills": []
+}
