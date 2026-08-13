@@ -1,0 +1,9 @@
+{
+  "name": "yuji-hatakeyama--claude-code-perlnavigator",
+  "displayName": "claude-code-perlnavigator",
+  "description": "Claude Code plugin for Perl language support via PerlNavigator LSP",
+  "version": "1.0.0",
+  "author": "yuji-hatakeyama",
+  "homepage": "https://github.com/yuji-hatakeyama/claude-code-perlnavigator",
+  "skills": []
+}
