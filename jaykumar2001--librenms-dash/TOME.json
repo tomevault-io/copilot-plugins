@@ -1,0 +1,44 @@
+{
+  "name": "Librenms-dash",
+  "owner": "jaykumar2001",
+  "repo": "Librenms-dash",
+  "description": "LibreNMS-Dash is a LibreNMS-backed network dashboard. It aggregates devices, sites, overlays, alerts, and graphs into a single topology view with live hover details and SVG-based layout controls.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jaykumar2001/Librenms-dash",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T21:05:29Z"
+}
