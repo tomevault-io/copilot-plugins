@@ -1,0 +1,9 @@
+{
+  "name": "micsm--boffin",
+  "displayName": "boffin",
+  "description": "Staff-engineer layer for AI coding agents: routes per-edit architectural constraints and requires verification. Not another AGENTS.md.",
+  "version": "1.0.0",
+  "author": "MicSm",
+  "homepage": "https://github.com/MicSm/boffin",
+  "skills": []
+}
