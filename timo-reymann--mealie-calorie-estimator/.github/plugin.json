@@ -1,0 +1,9 @@
+{
+  "name": "timo-reymann--mealie-calorie-estimator",
+  "displayName": "mealie-calorie-estimator",
+  "description": "Automatic nutrition estimation for recipes hosted on a Mealie instance",
+  "version": "1.0.0",
+  "author": "timo-reymann",
+  "homepage": "https://github.com/timo-reymann/mealie-calorie-estimator",
+  "skills": []
+}
