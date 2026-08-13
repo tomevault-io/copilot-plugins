@@ -1,0 +1,9 @@
+{
+  "name": "imazen--archmage",
+  "displayName": "archmage",
+  "description": "Safely invoke your intrinsic power, using the tokens granted to you by the CPU. Cast primitive magics faster than any mage alive.",
+  "version": "1.0.0",
+  "author": "imazen",
+  "homepage": "https://github.com/imazen/archmage",
+  "skills": []
+}
