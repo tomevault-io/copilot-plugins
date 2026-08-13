@@ -1,0 +1,9 @@
+{
+  "name": "owenpkent--alpha-osk",
+  "displayName": "alpha-osk",
+  "description": "The smartest keyboard you'll never touch. AI-powered on-screen keyboard for Windows and Linux, built for motor-impaired users. No LLM, no GPU, no data leaves your machine.",
+  "version": "1.0.0",
+  "author": "owenpkent",
+  "homepage": "https://github.com/owenpkent/alpha-osk",
+  "skills": []
+}
