@@ -4,7 +4,7 @@
   "repo": "JRAS",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/myaokai/JRAS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T17:24:05Z"
+  "distributed_at": "2026-08-13T21:37:01Z"
 }
