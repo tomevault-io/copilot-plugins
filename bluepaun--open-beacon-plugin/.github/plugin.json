@@ -1,0 +1,9 @@
+{
+  "name": "bluepaun--open-beacon-plugin",
+  "displayName": "open-beacon-plugin",
+  "description": "OpenCode migration of sagarmk/beacon-plugin for semantic code search",
+  "version": "1.0.0",
+  "author": "bluepaun",
+  "homepage": "https://github.com/bluepaun/open-beacon-plugin",
+  "skills": []
+}
