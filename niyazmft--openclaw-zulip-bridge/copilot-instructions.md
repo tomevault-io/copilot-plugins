@@ -1,0 +1,148 @@
+## openclaw-zulip-bridge
+
+> npm run check              # Full validation: bootstrap → typecheck → build → smoke → test → package
+
+# AGENTS.md — OpenClaw Zulip Bridge
+
+## Essential Commands
+
+```bash
+npm run check              # Full validation: bootstrap → typecheck → build → smoke → test → package
+npm run typecheck          # tsc -p tsconfig.json (noEmit, type-checking only)
+npm run build              # tsc -p tsconfig.build.json (emits to dist/)
+npm run test               # node --test --experimental-strip-types --loader ./test-loader.js test/*.test.ts
+npm run check:bootstrap    # Verifies tsc is installed (skips devDeps if NODE_ENV=production)
+npm run check:smoke        # Validates built dist/ artifacts with a loader that does NOT remap .js→.ts
+npm run check:package      # Validates version sync, required fields, and npm pack integrity
+```
+
+**Command order matters**: `npm run check` runs steps sequentially. Building must precede smoke tests and package checks.
+
+## Architecture
+
+- **Entry points**: `index.ts` (plugin) and `setup-entry.ts` (onboarding wizard). Both emit to `dist/`.
+- **Core wiring**: `src/channel.ts` — the single file that glues config, accounts, messaging, security, and monitoring together via `createChatChannelPlugin`.
+- **Host dependency**: `openclaw/plugin-sdk` subpaths are **not npm packages**. They are provided at runtime by the OpenClaw host. Type shims live in `types/openclaw-plugin-sdk.d.ts`; runtime test shims in `test/openclaw-plugin-sdk-shim.js`.
+  - Channel plugins should import from `openclaw/plugin-sdk/channel-core` (not the legacy `openclaw/plugin-sdk/core` umbrella).
+- **Monitor lifecycle**: The monitor must be started via `gateway.startAccount` inside the `base` parameter of `createChatChannelPlugin`. Putting `gateway` at the top level of the returned object causes `createChatChannelPlugin` to strip it during destructuring, resulting in the host throwing "Channel zulip does not support runtime start".
+  - `gateway.startAccount(ctx)` receives `ctx.setStatus`, `ctx.abortSignal`, `ctx.account`, `ctx.accountId`, `ctx.cfg`, `ctx.runtime`, `ctx.log`.
+- **Bot workspace**: `src/zulip/workspace.ts` provides sandboxed file storage under `data/zulip-workspace/{accountId}/` with path-traversal rejection, automatic cleanup, and optional Zulip upload integration.
+- **Session recovery**: `src/zulip/recovery.ts` recovers interrupted messages after gateway restart. Opt-in via `enableSessionRecovery: true` (default: `false`).
+- **Audit logging**: `src/zulip/audit-logger.ts` writes persistent JSON-line audit events to `{dataDir}/audit/{accountId}.audit.log` with 1MB rotation.
+- **Rate limiting**: Configurable per-sender rate limit via `maxMessagesPerMinute` (default: `60`, `0` disables). Sliding 60-second window.
+- **Security docs**: See `SECURITY.md` for full security policy covering credential handling, data access, and network communication.
+
+## TypeScript Conventions
+
+- **ESM only**: `"type": "module"` in package.json. All imports use `.js` extensions (NodeNext resolution) even though source files are `.ts`.
+- **Lenient config**: `strict: false`, `noImplicitAny: false` — don't add strictness flags without asking.
+- **Two tsconfigs**: `tsconfig.json` for typechecking (noEmit, includes `test/`); `tsconfig.build.json` extends it, enables emit, disables `allowImportingTsExtensions`, excludes `test/`.
+
+## Testing
+
+- Uses Node.js built-in test runner (`--test` flag), not Jest/Vitest.
+- Custom loader (`test-loader.js`) remaps `openclaw/plugin-sdk` imports to the shim and resolves `.ts` from `.js` imports.
+- Run a single test: `node --test --experimental-strip-types --loader ./test-loader.js test/policy.test.ts`
+- No test fixtures or external services required.
+
+## CI
+
+CI runs on Node 22, uses `npm ci`, runs `npm run check:bootstrap` followed by `npm run check`, then enforces a clean working directory (`git diff --exit-code`). If check modifies any generated files, CI will fail.
+
+## Build Artifacts
+
+`dist/` is gitignored and must be built locally. The smoke test imports from `dist/`, so `npm run build` must succeed before `check:smoke` or `check:package` can pass.
+
+- The **smoke test** (`scripts/smoke-test-dist.js`) is executed via `test/smoke-loader.js`, which **only** shims `openclaw/plugin-sdk` and deliberately does **not** redirect `.js` imports to `.ts`. This ensures the test exercises actual built artifacts in `dist/`, not source files.
+- The **package check** (`scripts/check-package.js`) verifies version sync between `package.json` and `openclaw.plugin.json`, confirms every file in `package.json` `"files"` exists, and validates that critical artifacts and metadata are included in `npm pack --dry-run` output.
+
+## Plugin Manifest
+
+`openclaw.plugin.json` version must stay in sync with `package.json` version. `npm run check:package` validates this.
+
+## Environment
+
+Dev dependencies must be installed. `.npmrc` sets `include=dev` to prevent npm from skipping devDeps. If bootstrap fails, check that `NODE_ENV` is not set to `production`.
+
+## Deployment
+
+This plugin targets **any OpenClaw host** running `>=2026.6.0`. It is not limited to a specific device or platform.
+
+### Install via ClawHub (recommended)
+
+```bash
+openclaw plugins install clawhub:@niyazmft/openclaw-zulip
+```
+
+Then restart the gateway and run `openclaw channels add` to configure.
+
+### Manual deployment
+
+1. Build: `npm run build`
+2. Copy `dist/` and `openclaw.plugin.json` into the host's extensions directory (default: `~/.openclaw/extensions/zulip/`).
+3. Restart the OpenClaw gateway.
+
+Example — local host:
+```bash
+npm run build
+rsync -avh --delete dist/ ~/.openclaw/extensions/zulip/
+rsync -avh openclaw.plugin.json ~/.openclaw/extensions/zulip/
+# Restart the gateway
+```
+
+Example — remote host:
+```bash
+npm run build
+ssh remote "mkdir -p ~/.openclaw/extensions/zulip/"
+rsync -avh --delete dist/ remote:.openclaw/extensions/zulip/
+rsync -avh openclaw.plugin.json remote:.openclaw/extensions/zulip/
+# Restart the gateway on the remote host
+```
+
+The plugin requires no external runtime dependencies; the host provides the `openclaw/plugin-sdk/*` modules.
+
+## SDK Migration Notes
+
+### 2026.4.29 → 2026.5.x
+Migration complete as of v2026.5.1:
+- `openclaw/plugin-sdk/irc` → `channel-inbound` + `command-auth` subpaths
+- `channel-runtime` → `channel-reply-options-runtime`
+- Manifest uses `channelConfigs` (cold-path config schema) + `channelEnvVars` (env var mapping)
+
+### 2026.5.x → 2026.6.x / 2026.7.x
+Migration complete as of v2026.7.0:
+- `openclaw/plugin-sdk/core` → `openclaw/plugin-sdk/channel-core` for all channel plugin imports **except**:
+  - `normalizeAccountId` must remain on `openclaw/plugin-sdk/core` (not exported from `channel-core` in host 2026.6.x)
+- `openclaw/plugin-sdk/zod` → do **not** migrate; host 2026.6.x does not bundle `zod` as an npm dependency. Keep importing from `openclaw/plugin-sdk/zod`
+- Keep both root `configSchema` and `channelConfigs` in the manifest. OpenClaw 2026.6.x still validates the root schema at load time
+- Manifest `uiHints` synced with runtime schema for full cold-path label coverage
+- `minGatewayVersion` / `minHostVersion` bumped to `>=2026.6.0`
+
+## Troubleshooting
+
+- **Health-monitor restarts every ~5 min** with `reason: stopped`: Fixed in v2026.8.4+. `gateway.startAccount` must be placed inside the `base` parameter of `createChatChannelPlugin`, not at the top level. The host checks `snapshot.running` to decide if channel is alive.
+- **Monitor never starts after hot reload / wizard config**: If `startZulipMonitor` creates an `AbortController` before validating credentials, and credentials are missing at startup, the controller blocks all future starts. Only create the controller **after** credential validation, right before launching the actual monitor loop.
+- **Host calls `registerFull` twice**: Fixed in v2026.8.3+ with a module-level `registerFullCalled` guard. This is normal host behavior.
+- **"Invalid config: must not have additional properties: streaming"**: The host's `openclaw channels add` wizard writes `"streaming": true` to the config. If your manifest JSON Schema has `"additionalProperties": false` and `streaming` isn't in `properties`, config validation fails. Add `streaming` to BOTH `configSchema` and `channelConfigs.schema` in `openclaw.plugin.json`.
+- **`readAllowFromStore(channelName)` throws** "invalid pairing channel: expected non-empty string; got undefined": SDK bug in host `2026.7.1`. Workaround: read `credentials/zulip-{accountId}-allowFrom.json` directly from the data directory.
+- **Dedupe store blocks re-processing across restarts**: The dedupe file at `/tmp/openclaw-zulip/zulip_dedupe_default.json` survives container restarts. Clear it when testing fresh message flows.
+- **Env vars override config**: The host resolves credentials from env vars first, then config. If `ZULIP_EMAIL` or `ZULIP_API_KEY` are set in the host environment, they override `openclaw.json` values.
+- **Missing channelConfigs warning**: Ensure openclaw.plugin.json has `channelConfigs` section with `schema` and `uiHints`.
+- **Deprecated providerAuthEnvVars**: Migrate to `channelEnvVars` in manifest and package.json.
+- **No startup logs** for your channel? Verify host calls `startAccount` and `listAccountIds` returns expected account IDs.
+- **Telegram fetch timeouts**: Separate network issue on the test device, not related to your plugin.
+- **Bot presence not showing online**: Zulip API rejects `POST /users/me/presence` for bot accounts. This is a platform limitation, not a bug.
+- **Zulip responses are slower than Telegram**: Zulip API round-trips from the container take ~600ms each. To reduce latency, keep `showThinkingPlaceholder: false` (default) so the bot only shows a typing indicator instead of posting and editing a "Thinking..." placeholder message. Enable the placeholder only when users need the extra visual feedback.
+- **`message` tool removed by host `coding` profile**: The host's `tools.profile: "coding"` strips the `message` tool from the agent, so replies fall back to reading the session trajectory after the run ends. For the cleanest chat UX, use a profile that keeps `message` (e.g., `"chat"`) or add `message` to the profile's allowlist. This affects all chat channels, not just Zulip.
+- **`typingCallbacks.onIdle()` returns `undefined`** (host 2026.7.1-2): The SDK's `createTypingCallbacks` may return `undefined` from `onIdle()`. Calling `.catch()` on `undefined` throws a `TypeError` that is silently swallowed by the dispatcher's `onError` handler, crashing the deliver callback before `sendMessageZulip` is called. Fixed in v2026.8.4+ with a type guard and try-catch around the deliver callback body.
+- **`describeMessageTool` fails** with "expected chat channel metadata: zulip to be defined": `getChatChannelMeta("zulip")` always returns `undefined` because Zulip is a third-party plugin. Fixed in v2026.8.4+ by returning the plugin's own `zulipChannelMeta` directly.
+- **Fallback reader misses replies**: The mtime-based file filter was unreliable because session files are reused and buffered writes don't always update `mtime` synchronously. Fixed in v2026.8.4+ by removing the mtime filter entirely and using event-time filtering (`event.ts >= dispatchStartTime`) instead.
+- **`humanDelay` adds ~16s delay**: The SDK's `resolveHumanDelayConfig` has a built-in default of ~14-16 seconds. Fixed in v2026.8.4+ by setting `humanDelay: 0` in `reply-handler.ts`.
+- **`core.log` is a no-op**: The `core.log` function provided by the host does not write to any log file. The working logger is `core.logging?.getChildLogger({ module: "zulip" })?.info` / `.error`. All debug logging in the message flow now uses the proper logger.
+- **Node 24 / CJS Gateway hosts `ERR_REQUIRE_ESM_RACE_CONDITION`**: The plugin ships a CommonJS build (`dist-cjs/index.cjs`) via `openclaw.runtimeExtensions`. This lets CJS Gateway hosts load the plugin entry via `require()` without a runtime ESM translator, which avoids the jiti fallback crash seen on some Node 24 hosts. It does **not** fully bypass the Node.js ESM/CJS loader race on Termux because the host-provided OpenClaw SDK modules remain ESM. The proper fix is upstream in OpenClaw (openclaw/openclaw#83035). Until then, Node 22 is the recommended host runtime; Termux users are blocked because Termux only ships Node 24 LTS.
+
+**Note**: This file is maintained as project documentation and is safe to commit.
+
+---
+> Source: [niyazmft/openclaw-zulip-bridge](https://github.com/niyazmft/openclaw-zulip-bridge) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
