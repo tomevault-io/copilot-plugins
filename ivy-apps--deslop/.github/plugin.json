@@ -1,0 +1,9 @@
+{
+  "name": "ivy-apps--deslop",
+  "displayName": "deslop",
+  "description": "Static import-graph analyzer for TypeScript. You write architecture rules in YAML, Deslop checks them on every run. No AI and no heuristics \u2014 it walks the import graph, so the same code always produce",
+  "version": "1.0.0",
+  "author": "Ivy-Apps",
+  "homepage": "https://github.com/Ivy-Apps/deslop",
+  "skills": []
+}
