@@ -1,0 +1,9 @@
+{
+  "name": "kengotoda--inspequte",
+  "displayName": "inspequte",
+  "description": "Fast, CLI-first static analysis tool for JVM class and JAR files. Designed for coding agents.",
+  "version": "1.0.0",
+  "author": "KengoTODA",
+  "homepage": "https://github.com/KengoTODA/inspequte",
+  "skills": []
+}
