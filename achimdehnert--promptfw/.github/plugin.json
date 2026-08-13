@@ -1,0 +1,9 @@
+{
+  "name": "achimdehnert--promptfw",
+  "displayName": "promptfw",
+  "description": "Prompt Template Framework \u2014 4-layer Jinja2 template engine for LLM applications",
+  "version": "1.0.0",
+  "author": "achimdehnert",
+  "homepage": "https://github.com/achimdehnert/promptfw",
+  "skills": []
+}
