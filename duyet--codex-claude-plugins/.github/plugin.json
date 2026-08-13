@@ -1,0 +1,9 @@
+{
+  "name": "duyet--codex-claude-plugins",
+  "displayName": "codex-claude-plugins",
+  "description": "Codex and Claude Code plugins",
+  "version": "1.0.0",
+  "author": "duyet",
+  "homepage": "https://github.com/duyet/codex-claude-plugins",
+  "skills": []
+}
