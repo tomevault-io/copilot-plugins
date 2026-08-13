@@ -1,66 +1,74 @@
-## constants-policy
+## editor-markdown
 
-> Constants-only policy - all copy, labels, tunables, and error messages live in shared/constants.ts
+> Tiptap editor, slash menu, markdown paste, and task list behavior
 
 
-# Constants policy (mandatory before any UI/copy/tunable change)
+# Editor & Markdown Rules
 
-## Read this first
+## Stack
 
-Before adding or changing any user-facing string, label, error message, timeout, path segment, MIME type, or other magic value:
+- **Tiptap 2** + ProseMirror
+- **lowlight** for code blocks
+- **tiptap-markdown** for paste serialization (v0.8.x - peer compatibility)
+- Custom extensions in `extension/src/editor/`
 
-1. Open **`shared/constants.ts`** (the single source of truth for the whole repo).
-2. Reuse an existing export, or add a new named export with JSDoc.
-3. Import via `@shared/constants` **or** the package re-export `@/lib/constants` (landing and extension both re-export the shared module).
-4. Never leave a new literal in call sites.
+## Save path
 
-## Canonical home
-
-| Role | Path |
-|------|------|
-| **Source of truth** | `shared/constants.ts` |
-| Theme type helpers | `shared/themeTypes.ts` |
-| Landing re-export | `src/lib/constants.ts` → `export * from "@shared/constants"` |
-| Extension re-export | `extension/src/lib/constants.ts` → `export * from "@shared/constants"` |
-
-Do not create `copy.ts`, `strings.ts`, `messages.ts`, or a second constants module. Do not put product constants only in `src/lib/` or `extension/src/lib/` - always edit `shared/constants.ts`.
-
-## Allowed exceptions (not `shared/constants.ts`)
-
-| Content | Home |
-|---------|------|
-| FAQ / llms.txt body copy | `src/lib/ai-content.json` |
-| SEO builders (robots, sitemap, JSON-LD helpers) | `src/lib/seo.ts` (+ `scripts/generate-sitemap.mjs` for static emit) |
-| Build-only Vite / manifest knobs | Colocate in the config file with a short comment |
-| CSS layout tokens | CSS variables in stylesheets (not TS constants) |
-
-## Must go in `shared/constants.ts`
-
-- UI labels, placeholders, button/CTA text, empty states, dialog titles
-- Error / permission / unsupported-browser messages shown to users
-- Debounce intervals, limits, widths, playback speeds, bar counts
-- Storage key names, OPFS directory names, MIME types, file prefixes
-- Theme picker labels/defaults, marketing paths/URLs
-
-## Forbidden
-
-```typescript
-// ❌ Hardcoded in a component
-<button>Show more</button>
-throw new Error("Microphone access was denied…");
-setTimeout(save, 250);
-
-// ✅ From shared constants (via package re-export)
-import { SIDEBAR_RECENT_SHOW_MORE_LABEL, EDITOR_SAVE_DEBOUNCE_MS, MICROPHONE_DENIED_MESSAGE } from "@/lib/constants";
-// or: import { … } from "@shared/constants";
+```
+Editor onUpdate → debounce (EDITOR_SAVE_DEBOUNCE_MS)
+  → store updatePage → encode doc → IndexedDB
 ```
 
-## Agent checklist (every change)
+Never bypass store to write IDB directly from editor components.
 
-- [ ] Grepped `shared/constants.ts` for an existing name before adding a duplicate
-- [ ] New exports have JSDoc describing purpose/units
-- [ ] Call sites import constants - no new user-facing string literals in TSX/TS (except test fixtures)
-- [ ] Did not edit only the thin re-export files in `src/lib/constants.ts` / `extension/src/lib/constants.ts`
+## Markdown paste
+
+Key modules:
+
+- `markdownPaste.ts` - detection + conversion
+- `taskListMarkdown.ts` - `- [x]` input rules
+- `HighlightWithMarkdown.ts` - highlight syntax
+- `tests/extension/editor/markdownPaste.test.ts` - regression tests
+
+### Task list vs bullet list
+
+`- [ ]` and `- [x]` must become **task items**, not bullet lists.
+
+- Bullet input rule must **skip** lines matching `- [`
+- Task item rule handles `- [x] ` explicitly
+- Order of input rules matters - task before bullet
+
+### Supported paste features
+
+Headings, GFM task lists, tables, links, images, highlights, code fences.
+
+## List Backspace
+
+- `listBackspace.ts` - at the start of a bullet / ordered / task item, Backspace **lifts** to a normal paragraph (does not merge into the previous item)
+- Registered in `editorExtensions.ts` via `ListBackspace`
+- Tests: `tests/extension/editor/listBackspace.test.ts`
+
+## Slash menu
+
+- `SlashMenu.tsx` - command palette inside editor
+- Add commands via existing extension patterns
+- Keyboard-first UX - preserve ⌘/Ctrl bindings
+
+## Toolbar
+
+- `EditorToolbar.tsx` - inline formatting + attachment insert controls
+- Color presets from `@/lib/constants` → `shared/constants.ts` (`EDITOR_TEXT_COLORS`, etc.) - never hardcode hex/labels in toolbar components
+
+## Adding editor features
+
+1. Check if Tiptap extension already exists in `package.json`
+2. Register in editor setup file alongside peers
+3. Add markdown paste handling if feature has text syntax
+4. Add test case in `tests/extension/editor/markdownPaste.test.ts` for paste scenarios
+
+## Manual verification
+
+Paste from external sources (Notion export, GitHub markdown, VS Code) after changes.
 
 ---
 > Source: [aryancodes-tech/my-memos](https://github.com/aryancodes-tech/my-memos) — distributed by [TomeVault](https://tomevault.io).
