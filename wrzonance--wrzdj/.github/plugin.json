@@ -1,0 +1,9 @@
+{
+  "name": "wrzonance--wrzdj",
+  "displayName": "WrzDJ",
+  "description": "A song requester app with web dashboard, guest-facing kiosk, and automatic track detection (Linux/Mac/Windows) from DJ controllers/software ",
+  "version": "1.0.0",
+  "author": "wrzonance",
+  "homepage": "https://github.com/wrzonance/WrzDJ",
+  "skills": []
+}
