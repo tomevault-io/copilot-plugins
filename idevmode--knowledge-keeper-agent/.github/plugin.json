@@ -1,0 +1,9 @@
+{
+  "name": "idevmode--knowledge-keeper-agent",
+  "displayName": "knowledge_keeper_agent",
+  "description": "knowledge_keeper_agent",
+  "version": "1.0.0",
+  "author": "iDevMode",
+  "homepage": "https://github.com/iDevMode/knowledge_keeper_agent",
+  "skills": []
+}
