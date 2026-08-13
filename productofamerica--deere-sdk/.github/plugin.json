@@ -1,0 +1,9 @@
+{
+  "name": "productofamerica--deere-sdk",
+  "displayName": "deere-sdk",
+  "description": "Unofficial TypeScript SDK for John Deere Operations Center API",
+  "version": "1.0.0",
+  "author": "ProductOfAmerica",
+  "homepage": "https://github.com/ProductOfAmerica/deere-sdk",
+  "skills": []
+}
