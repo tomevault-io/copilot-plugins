@@ -1,0 +1,9 @@
+{
+  "name": "niyazmft--openclaw-zulip-bridge",
+  "displayName": "openclaw-zulip-bridge",
+  "description": "\ud83d\udcac High-performance Zulip channel plugin for OpenClaw AI Gateway. Enables seamless bridge between Zulip streams/DMs and agentic AI runtimes with durable deduplication and rich feedback.",
+  "version": "1.0.0",
+  "author": "niyazmft",
+  "homepage": "https://github.com/niyazmft/openclaw-zulip-bridge",
+  "skills": []
+}
