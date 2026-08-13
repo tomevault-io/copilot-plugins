@@ -1,0 +1,9 @@
+{
+  "name": "pelta-ai--feline-skin-disease-detection",
+  "displayName": "feline-skin-disease-detection",
+  "description": "AI-powered detection of feline skin diseases using computer vision and deep learning.",
+  "version": "1.0.0",
+  "author": "pelta-ai",
+  "homepage": "https://github.com/pelta-ai/feline-skin-disease-detection",
+  "skills": []
+}
