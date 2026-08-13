@@ -1,0 +1,9 @@
+{
+  "name": "mhattingpete--outlook-cli",
+  "displayName": "outlook-cli",
+  "description": "CLI tool for Microsoft Outlook",
+  "version": "1.0.0",
+  "author": "mhattingpete",
+  "homepage": "https://github.com/mhattingpete/outlook-cli",
+  "skills": []
+}
