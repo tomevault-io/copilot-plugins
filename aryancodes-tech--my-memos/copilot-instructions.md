@@ -1,82 +1,66 @@
-## ai-operating-model
+## constants-policy
 
-> How AI agents should operate on this repo - analysis, verification, and communication standards
+> Constants-only policy - all copy, labels, tunables, and error messages live in shared/constants.ts
 
 
-# AI Operating Model
+# Constants policy (mandatory before any UI/copy/tunable change)
 
-## Before any modification
+## Read this first
 
-1. **Classify** the task (extension / landing / storage / editor / CI / landing-seo)
-2. **Read** nearest existing implementation - same directory, same layer
-3. **Trace data flow** - where state is read, written, persisted
-4. **State invariants** you must preserve (see `storage-invariants.mdc`)
-5. **Constants** - any new copy, label, error message, or tunable → `shared/constants.ts` only (see `constants-policy.mdc`)
-6. **Capabilities** - do not document or market schema-only / unwired APIs as features (`AGENTS.md` §2.5)
+Before adding or changing any user-facing string, label, error message, timeout, path segment, MIME type, or other magic value:
 
-## Analysis output (for non-trivial tasks)
+1. Open **`shared/constants.ts`** (the single source of truth for the whole repo).
+2. Reuse an existing export, or add a new named export with JSDoc.
+3. Import via `@shared/constants` **or** the package re-export `@/lib/constants` (landing and extension both re-export the shared module).
+4. Never leave a new literal in call sites.
 
-Summarize before coding:
+## Canonical home
 
-- Which surface(s) affected
-- Files likely to change
-- Whether `shared/constants.ts` will gain/reuse exports
-- Storage/settings impact
-- Tests to add or run
+| Role | Path |
+|------|------|
+| **Source of truth** | `shared/constants.ts` |
+| Theme type helpers | `shared/themeTypes.ts` |
+| Landing re-export | `src/lib/constants.ts` → `export * from "@shared/constants"` |
+| Extension re-export | `extension/src/lib/constants.ts` → `export * from "@shared/constants"` |
 
-## Verification is mandatory
+Do not create `copy.ts`, `strings.ts`, `messages.ts`, or a second constants module. Do not put product constants only in `src/lib/` or `extension/src/lib/` - always edit `shared/constants.ts`.
 
-- **Run commands** - do not only suggest them
-- **Report results** - pass/fail with relevant output
-- UI changes → `npm run dev` or `npm run dev:web` when feasible
-- Logic changes → `npm run test` for affected modules
-- Landing SEO → `npm run test -- tests/landing/lib/seo.test.ts` + `npm run generate:seo` + curl `/llms.txt`
-- Pre-PR → `npm run ci`
+## Allowed exceptions (not `shared/constants.ts`)
 
-## Code quality bar
+| Content | Home |
+|---------|------|
+| FAQ / llms.txt body copy | `src/lib/ai-content.json` |
+| SEO builders (robots, sitemap, JSON-LD helpers) | `src/lib/seo.ts` (+ `scripts/generate-sitemap.mjs` for static emit) |
+| Build-only Vite / manifest knobs | Colocate in the config file with a short comment |
+| CSS layout tokens | CSS variables in stylesheets (not TS constants) |
+
+## Must go in `shared/constants.ts`
+
+- UI labels, placeholders, button/CTA text, empty states, dialog titles
+- Error / permission / unsupported-browser messages shown to users
+- Debounce intervals, limits, widths, playback speeds, bar counts
+- Storage key names, OPFS directory names, MIME types, file prefixes
+- Theme picker labels/defaults, marketing paths/URLs
+
+## Forbidden
 
 ```typescript
-// ✅ Extension empty check
-import { len } from "@/lib/text";
-if (len(page.parent_id ?? "") === 0) { ... }
-
-// ❌ Avoid for strings
-if (!page.parent_id) { ... }
-```
-
-```typescript
-// ✅ New tunable / copy - define in constants.ts, then import
-/** Debounce for editor saves, in milliseconds. */
-export const EDITOR_SAVE_DEBOUNCE_MS = 250;
-// in component:
-setTimeout(save, EDITOR_SAVE_DEBOUNCE_MS);
-
-// ❌ Magic number or hardcoded user string in component
-setTimeout(save, 250);
+// ❌ Hardcoded in a component
 <button>Show more</button>
+throw new Error("Microphone access was denied…");
+setTimeout(save, 250);
+
+// ✅ From shared constants (via package re-export)
+import { SIDEBAR_RECENT_SHOW_MORE_LABEL, EDITOR_SAVE_DEBOUNCE_MS, MICROPHONE_DENIED_MESSAGE } from "@/lib/constants";
+// or: import { … } from "@shared/constants";
 ```
 
-## Communication
+## Agent checklist (every change)
 
-- Use code citations: ```startLine:endLine:filepath
-- Proportional responses - simple fix ≠ architecture essay
-- State blockers explicitly with evidence (logs, test output)
-- Do not claim fixed without verification
-
-## FDE-relevant practices demonstrated in this repo
-
-- Multi-surface delivery from one extension codebase
-- Platform abstraction without duplicating product logic
-- Local-first storage with explicit invariants and tests
-- AI-maintained agent docs (`AGENTS.md`, `SKILLS.md`, scoped rules)
-- CI parity between local (`npm run ci`) and GitHub Actions
-
-## Escalate to user
-
-- Data-destructive migrations
-- New backend / auth / cloud sync scope
-- Repeated CI failure after two distinct fix attempts
-- Ambiguous UX for landing scroll or major architecture rewrites
+- [ ] Grepped `shared/constants.ts` for an existing name before adding a duplicate
+- [ ] New exports have JSDoc describing purpose/units
+- [ ] Call sites import constants - no new user-facing string literals in TSX/TS (except test fixtures)
+- [ ] Did not edit only the thin re-export files in `src/lib/constants.ts` / `extension/src/lib/constants.ts`
 
 ---
 > Source: [aryancodes-tech/my-memos](https://github.com/aryancodes-tech/my-memos) — distributed by [TomeVault](https://tomevault.io).
