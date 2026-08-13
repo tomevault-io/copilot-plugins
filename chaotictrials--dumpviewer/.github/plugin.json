@@ -1,0 +1,9 @@
+{
+  "name": "chaotictrials--dumpviewer",
+  "displayName": "DumpViewer",
+  "description": "A web viewer for dump files from the Minecraft mod Skyblock Builder by ChaoticTrials.",
+  "version": "1.0.0",
+  "author": "ChaoticTrials",
+  "homepage": "https://github.com/ChaoticTrials/DumpViewer",
+  "skills": []
+}
