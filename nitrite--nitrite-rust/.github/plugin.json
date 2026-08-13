@@ -1,7 +1,7 @@
 {
   "name": "nitrite--nitrite-rust",
   "displayName": "nitrite-rust",
-  "description": "nitrite-rust",
+  "description": "NoSQL embedded document store for Rust",
   "version": "1.0.0",
   "author": "nitrite",
   "homepage": "https://github.com/nitrite/nitrite-rust",
