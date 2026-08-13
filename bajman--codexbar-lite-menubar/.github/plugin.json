@@ -1,0 +1,9 @@
+{
+  "name": "bajman--codexbar-lite-menubar",
+  "displayName": "codexbar-lite-menubar",
+  "description": "CodexBar Lite: CodexBar UI with lightweight direct OAuth/API fetch for Codex + Claude",
+  "version": "1.0.0",
+  "author": "bajman",
+  "homepage": "https://github.com/bajman/codexbar-lite-menubar",
+  "skills": []
+}
