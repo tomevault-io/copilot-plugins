@@ -4,7 +4,7 @@
   "repo": "caffeine",
   "description": "Keep your Mac awake while you work, then let it sleep when your coding agent waits for you.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iannuttall/caffeine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T05:30:19Z"
+  "distributed_at": "2026-08-13T07:08:33Z"
 }
