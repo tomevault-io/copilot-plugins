@@ -7,11 +7,11 @@ YesPlayMusic 的 Tauri 2 重构版：TypeScript 严格模式 + Pinia，迷你播
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nagi-studio/YesPlayMusic](https://github.com/nagi-studio/YesPlayMusic).
+Original source: `CLAUDE.md` in [nagi-studio/YesPlayMusic](https://github.com/nagi-studio/YesPlayMusic).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
