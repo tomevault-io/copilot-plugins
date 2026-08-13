@@ -1,0 +1,9 @@
+{
+  "name": "decode-orc--decode-orc",
+  "displayName": "decode-orc",
+  "description": "The -decode orchestration and processing engine",
+  "version": "1.0.0",
+  "author": "decode-orc",
+  "homepage": "https://github.com/decode-orc/decode-orc",
+  "skills": []
+}
