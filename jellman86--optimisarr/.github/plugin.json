@@ -1,0 +1,9 @@
+{
+  "name": "jellman86--optimisarr",
+  "displayName": "optimisarr",
+  "description": "Safety-first self-hosted FFmpeg media-library optimiser for Plex, Jellyfin, and Emby, with verified CPU/GPU transcoding and rollback.",
+  "version": "1.0.0",
+  "author": "Jellman86",
+  "homepage": "https://github.com/Jellman86/optimisarr",
+  "skills": []
+}
