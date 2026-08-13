@@ -1,0 +1,9 @@
+{
+  "name": "ptarmiganlabs--help-button-qs",
+  "displayName": "help-button.qs",
+  "description": "Context aware, in-app help button for both Qlik Sense Cloud and client-managed Qlik Sense",
+  "version": "1.0.0",
+  "author": "ptarmiganlabs",
+  "homepage": "https://github.com/ptarmiganlabs/help-button.qs",
+  "skills": []
+}
