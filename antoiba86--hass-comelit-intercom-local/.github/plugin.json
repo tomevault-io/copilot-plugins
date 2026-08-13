@@ -1,0 +1,9 @@
+{
+  "name": "antoiba86--hass-comelit-intercom-local",
+  "displayName": "hass-comelit-intercom-local",
+  "description": "Custom component for HA that allows to use the comelit intercom in the local network",
+  "version": "1.0.0",
+  "author": "antoiba86",
+  "homepage": "https://github.com/antoiba86/hass-comelit-intercom-local",
+  "skills": []
+}
