@@ -1,20 +1,193 @@
-## boffin-cpp-routing
+## boffin
 
-> Activate ParselFire Core C++ pack index
+> ParselFire Core gives AI coding agents a small routed set of architectural guardrails
 
+# ParselFire Core Portable Routing Contract
 
-# C++ Pack Activation
+ParselFire Core gives AI coding agents a small routed set of architectural guardrails
+instead of one large always-on rules dump.
 
-For C++ source files:
+## Default Workflow
 
-- Load `packs/cpp-architecture/pack.urf.md`.
-- Use its `## ROUTING` and `## LEAVES` records for leaf selection.
-- Use its `## STAGE-REFS` records to gather the family K ids (and their mirrored X ids) at each stage of the walk.
+First match scope to the task, then pick the path:
 
-For ambiguous `.h` or `.c` files that reach this rule via the always-on router:
+- Focused change (the operator asked for a specific function, fix, or feature):
+  stay inside that scope. Make only the change requested, apply the stage
+  guidance to what you touch, and prove it with a check. Do not scan the whole
+  file or build a file-wide ledger; turning a scoped coding task into a
+  file-wide refactor breaks the task boundary and gets rejected.
+- Open-ended refactor, cleanup, or review of existing code: run the two-pass
+  audit below, scoped to what the task covers.
 
-- Apply cpp-architecture only if the file contains C++ constructs (class, template, namespace, references, std::, noexcept, overloads).
-- If the file is plain C, stay on universal only.
+Two-pass audit (refactor / review / cleanup). Never fix while you are still
+searching; the first strong improvement you find is not the finish line.
+
+Pass 1, Audit (read-only). Read the target across the task's scope. Walk stages
+S00 upward and emit a findings ledger that covers every in-scope stage,
+including stages with nothing to change. Do not edit anything in this pass. Use
+one row per finding:
+
+`path | stage | status | id | kernel | anchor | check`
+
+Columns: `path` the file touched; `stage` the S00-S06 stage; `status` `todo`,
+`done`, or `skip`; `id` the kernel id; `kernel` what it requires in one phrase;
+`anchor` the concrete code location the finding rests on; `check` the test or
+lint that proves it.
+
+- `status` is one of `todo`, `done`, `skip`, and every `skip` carries a reason.
+- Record every fix you name while auditing as its own row with all fields
+  filled, and resolve it as `done` or `skip:<reason>`; never leave a fix you
+  mentioned in reasoning off the ledger.
+- `skip:clean` means Pass 1 found nothing on that stage; every in-scope stage
+  still gets a row, never an omitted one.
+- A finding you deliberately will not act on is `skip:<reason>` whose reason
+  names the blocking kernel (for example, keeping a genuine special case instead
+  of flattening it), never `skip:clean`.
+- A row recorded as `todo` resolves only to `done` (with its check) or
+  `skip:<reason>`; never downgrade a `todo` to `skip:clean`.
+
+Pass 2, Apply. Drain the ledger one row at a time: make the single edit, run the
+narrowest check that proves it (a test or a lint), then mark the row `done` with
+how it was checked. Do not batch unrelated findings into one sweep.
+
+The task is complete only when every ledger row is `done` or `skip` and the
+checks are green, not when the first improvement lands.
+
+Minimalism still governs what you ADD (no speculative abstractions, no
+unrequested files, prefer the simplest correct change), but it never licenses
+dropping a stage, a trust-boundary validation, data-loss prevention, security,
+or accessibility. Non-trivial logic leaves one minimal runnable check behind.
+
+## Stage Pipeline
+
+Walk stages from S00 upward when reasoning about code changes. Earlier stages
+override later ones on conflict. At each stage, inspect matching EXCLUDES first
+as a rejection filter, then matching KERNELS as positive guidance. Use the
+universal stage `refs=` and the loaded language-family `## STAGE-REFS` to know
+which K ids belong to the current stage. Each K id has a mirrored X id with
+the same numeric suffix in the same leaf, so the same refs also locate the
+EXCLUDES to consult first. Each `## LEAVES` record declares the `stages=` it
+carries; to cover the current stage, load every leaf whose `stages=` includes
+it. Stage-to-leaf resolution is a direct index lookup, never a filesystem
+search.
+
+- S00 scope: stay within requested scope and keep blast radius low
+- S01 invariants: prove exact invariants, preserve true special cases, obey contracts
+- S02 state modeling: make meaningful states explicit, keep distinct outcomes distinct
+- S03 lifecycle: centralize mutable state, clarify ownership, rebuild atomically
+- S04 shared abstractions: extract shared invariants only after semantics are clear
+- S05 boundaries: make subsystem boundaries explicit, thread semantics end to end
+- S06 convergence: converge broadly, remove displaced layers
+
+When a task touches code:
+
+1. Load `packs/universal/pack.urf.md`.
+2. Detect the active source family from the file being changed:
+   - Python: also load `packs/python-architecture/pack.urf.md`
+   - C++: also load `packs/cpp-architecture/pack.urf.md`
+   - Plain C: stay on universal only
+   - Ambiguous `.h`: use the C++ family only when the file contains C++
+     constructs
+   - Any other language: stay on the universal index only
+3. Treat each loaded `pack.urf.md` as a routing index, not as the dense
+   guidance body.
+4. Human-oriented `packs/**/README.md` guides are not part of the runtime
+   guidance surface. Load only pack indexes and the leaf files resolved from
+   those indexes.
+5. From each loaded `## ROUTING`, match `signals=` against the active code
+   context to select your primary leaf per family. If several routes match,
+   pick the route matching the change's dominant mechanic and let the stage
+   walk pull in any remaining leaves; if no route matches, skip signal routing
+   and select leaves directly from `## LEAVES` `stages=` for the stages your
+   change touches.
+6. If your primary signal match is a late-stage refactoring leaf (one whose
+   `stages=` lie entirely in S04-S06), you MUST ALSO load at least one
+   early-stage correctness leaf (S01-S03) to serve as your rejection filter;
+   pick it from `## LEAVES` by choosing a leaf whose `stages=` includes the
+   early stage your code's mechanics touch.
+7. To cover a stage whose `refs=` ids are not in your loaded leaves, read
+   `## LEAVES` and load every leaf whose `stages=` includes that stage; resolve
+   coverage from the index, not by searching the `packs/` directory.
+8. Consult X entries first at the current stage, then K entries, before
+   proceeding to later stages.
+9. When delegating code work to a subagent, pass the pack index paths and this
+   contract, and require the subagent to run its own routing and stage walk
+   from those indexes. Do not pre-select leaves in the delegation prompt;
+   pre-selection bypasses routing and narrows the dose before the code is read.
+10. Apply the guidance semantically: translate each kernel into what the code
+    concretely does. Never paste kernel prose, pack vocabulary, or kernel ids
+    verbatim into code or comments -- the one sanctioned in-code trace is a
+    `boffin:` mark whose clause is the code's own words (see "After any code
+    edit" for when to leave one).
+
+## Pre-Flight Review
+
+- Re-read the loaded pack index and all loaded leaf packs; do not rely on
+  memory.
+- For a focused change, confirm you stayed within the requested scope and proved
+  the change with a check; the ledger checks below apply to refactor/review tasks.
+- For a refactor/review task, confirm the Pass 1 ledger lists a row for every
+  in-scope stage; a stage with no row is an incomplete audit, not a clean file.
+- Confirm every ledger row is `done` or `skip`, that each `skip` carries a
+  reason, and that no row recorded as `todo` was downgraded to `skip:clean`.
+- Confirm every fix named in Pass 1 reasoning has its own ledger row; a fix
+  discussed but left unrecorded is an incomplete audit.
+- If a change touches ownership, lifecycle, completion semantics,
+  state-machine transitions, concurrent access, or logic encoded through flags
+  or sentinels, name the exact invariant from stages S01-S03 it must preserve
+  before editing.
+- On user request, render the ledger and the blocking earlier-stage invariants
+  as concise ordered bullets in the user's language.
+
+After any code edit:
+
+- Verify the edit with an external check (the narrowest test or lint that proves
+  it), not by re-reading your own reasoning or the diff alone.
+- Review the change as if a different author wrote it: read the final file
+  region, not only the diff, and ask what a fresh reviewer would flag.
+- Re-read the relevant leaf pack(s); confirm no `## EXCLUDES` pattern was
+  introduced and no earlier-stage (S00-S03) invariant was weakened to satisfy a
+  later-stage (S04-S06) cleanup goal.
+- A ledger finding may not be silently dropped: it ends as `done` (with its
+  check) or `skip:<reason>`; a `todo` is never relabeled `skip:clean`.
+- Present the filled ledger as the result; do not add rows for kernels that
+  found nothing, and never cite a kernel a row does not actually rest on.
+- When a loaded kernel actually changed a code decision -- and the change was
+  not a purely stylistic rewrite of already-correct code -- leave one short
+  host-language comment at that site. Start the comment with the `boffin:`
+  prefix and state, in the code's own words, what the code now does or refuses
+  (not what the kernel says). The natural judgment verb is encouraged
+  (`kept .../refused .../cut ...`); the `boffin:` prefix is the
+  machine-readable key; never add a kernel id or any pack vocabulary.
+  Readability bar (the one mandatory
+  wording check): if you mentally drop the `boffin:` prefix, the remaining
+  sentence must still read as a comment a senior engineer would write --
+  otherwise rewrite the clause or drop the whole mark. This is only a mental
+  check: always keep the `boffin:` prefix in the emitted comment. Budget: at
+  most one mark per hunk, roughly three per changeset. Emit nothing when a
+  `.boffin-trace-off` file exists at the repository root; only in venues that
+  forbid tool marks, omit the `boffin:` prefix and keep the clause alone.
+
+Keep runtime reads focused:
+
+- default read set = `packs/universal/pack.urf.md` + one primary universal leaf
+  + any additional universal leaves whose `stages=` are required by the stages
+  your change's mechanics actually touch + zero or one language-family index +
+  zero or more language leaves whose `stages=` are required by the same touched
+  stages
+- walk every stage S00-S06, but load leaves only for the stages the change's
+  mechanics touch; clear an untouched stage on the universal index `focus=`
+  line instead of loading its leaves
+- for a focused coding change, the 3-5 entry budget is the dose you materially
+  apply after walking every loaded stage; it is not a cap on the stage-walk
+- use `## LEAVES` `stages=` as the authoritative stage-to-leaf map; do not rely
+  on filesystem search to discover which leaf covers a stage
+- for a pure review, audit, or compliance task with no single edit seam, widen
+  the read surface to one leaf per stage-family the file's mechanics actually
+  touch across S00-S06
+
+This file is the canonical portable instruction surface. Thin host adapters
+should mirror it without adding host-specific routing semantics.
 
 ---
 > Source: [MicSm/boffin](https://github.com/MicSm/boffin) — distributed by [TomeVault](https://tomevault.io).
