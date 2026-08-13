@@ -1,0 +1,9 @@
+{
+  "name": "jmill--deslop",
+  "displayName": "deslop",
+  "description": "A Vale style package that flags AI-slop in prose. Drop into any repo via .vale.ini and the Vale GitHub Action.",
+  "version": "1.0.0",
+  "author": "JMill",
+  "homepage": "https://github.com/JMill/deslop",
+  "skills": []
+}
