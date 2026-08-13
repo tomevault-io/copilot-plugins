@@ -1,0 +1,9 @@
+{
+  "name": "mikez98--ml-prediction-pipeline",
+  "displayName": "ml-prediction-pipeline",
+  "description": "End-to-end ML time-series regression: CNN + GRU training, artifacts, and inference (GUI + notebooks).",
+  "version": "1.0.0",
+  "author": "mikeZ98",
+  "homepage": "https://github.com/mikeZ98/ml-prediction-pipeline",
+  "skills": []
+}
