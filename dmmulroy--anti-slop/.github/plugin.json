@@ -1,0 +1,9 @@
+{
+  "name": "dmmulroy--anti-slop",
+  "displayName": "anti-slop",
+  "description": "Opinionated Oxlint rules for rejecting low-evidence TypeScript and JavaScript patterns",
+  "version": "1.0.0",
+  "author": "dmmulroy",
+  "homepage": "https://github.com/dmmulroy/anti-slop",
+  "skills": []
+}
