@@ -4,7 +4,7 @@
   "repo": "1ai-skills",
   "description": "1282 production-ready AI agent skills with self-evolving meta-skills \u2014 783 cybersecurity, SEO, trading, marketing, automation, devops, content, financial. Auto-evolve, auto-learn, auto-improve. Install: npx skills add oyi77/1ai-skills",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oyi77/1ai-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T16:33:25Z"
+  "distributed_at": "2026-08-13T09:16:06Z"
 }
