@@ -4,7 +4,7 @@
   "repo": "mobie-studio",
   "description": "AI-powered desktop application for automated mobile testing, built with Rust and GPUI.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bayazidsustami/mobie-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-12T12:51:34Z"
+  "distributed_at": "2026-08-13T01:33:34Z"
 }
