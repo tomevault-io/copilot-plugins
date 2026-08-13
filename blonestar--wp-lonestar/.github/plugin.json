@@ -1,0 +1,9 @@
+{
+  "name": "blonestar--wp-lonestar",
+  "displayName": "wp-lonestar",
+  "description": "Base Wordpress modern block theme, a mini framework with Vite runner",
+  "version": "1.0.0",
+  "author": "blonestar",
+  "homepage": "https://github.com/blonestar/wp-lonestar",
+  "skills": []
+}
