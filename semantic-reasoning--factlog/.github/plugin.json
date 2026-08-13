@@ -1,0 +1,9 @@
+{
+  "name": "semantic-reasoning--factlog",
+  "displayName": "factlog",
+  "description": "Logic Augmented LLMWiki for Claude",
+  "version": "1.0.0",
+  "author": "semantic-reasoning",
+  "homepage": "https://github.com/semantic-reasoning/factlog",
+  "skills": []
+}
