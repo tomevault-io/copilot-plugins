@@ -1,0 +1,9 @@
+{
+  "name": "runanywhereai--runanywhere-web",
+  "displayName": "runanywhere-web",
+  "description": "Starter App created using web-sdk",
+  "version": "1.0.0",
+  "author": "RunanywhereAI",
+  "homepage": "https://github.com/RunanywhereAI/runanywhere-web",
+  "skills": []
+}
