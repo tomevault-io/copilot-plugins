@@ -1,77 +1,130 @@
-## storage-invariants
+## testing-ci
 
-> IndexedDB, codec, BlockDoc persistence, and settings tier rules
+> Vitest, CI pipeline, lint, and release packaging expectations
 
 
-# Storage Invariants
+# Testing & CI Rules
 
-## Two-tier model
+## CI pipeline (`.github/workflows/ci.yml`)
 
-| Tier | Technology | Contents |
-|------|------------|----------|
-| Heavy | IndexedDB `mymemos` | Pages (`doc_c` compressed), images |
-| Light | chrome.storage / localStorage | theme, lastView, customThemes, collapsedDirs, productTour, demoWorkspaceSeeded |
+Mirrored locally by:
 
-## Block JSON only
-
-- Persist Tiptap/ProseMirror `BlockDoc` - never HTML or markdown duplicates
-- Field: `doc_c` (LZString compressed) in IndexedDB
-- Decode failure → return `EMPTY_BLOCK_DOC`, `console.warn`, no UI throw
-
-## Key files
-
-| File | Role |
-|------|------|
-| `db.ts` | IDB schema, CRUD, `DB_VERSION` migrations |
-| `codec.ts` | compress/decompress round-trip |
-| `types.ts` | `Page`, `BlockDoc`, `BlockNode` |
-
-## Schema changes
-
-1. Increment `DB_VERSION` in `db.ts`
-2. Add non-destructive `upgrade` handler
-3. Add tests in `tests/extension/storage/db.test.ts` / `codec.test.ts`
-4. Document migration in PR - user data must survive
-
-## Page model essentials
-
-```typescript
-// parent_id empty string = root - check with len()
-len(page.parent_id ?? "") === 0
-
-// kind
-"page" | "directory"
-
-// section - workspace uses WORKSPACE_SECTION ("Pages")
+```bash
+npm run ci
 ```
 
-## Images & attachments
+Steps in order:
 
-- **Legacy images** may still use base64 `src` in block attrs.
-- **New images and all audio** use OPFS via `extension/src/lib/attachments/`:
-  - Paths like `images/img_*.png`, `audio/voice_*.webm` in block attrs
-  - Files under OPFS root `mymemos-attachments/` (see `ATTACHMENT_OPFS_ROOT_DIR`)
-- **Never** embed attachment binaries in `doc_c`.
-- **Recording blocks** (`voiceNote` with `status: "recording"`) are ephemeral - `sanitizeBlockDocForPersistence()` removes them before IndexedDB write.
-- **Page delete** must call `collectOrphanedAttachmentPaths()` and delete unreferenced OPFS files.
-- **IndexedDB `images` store** and **`fs_handles` store** are legacy; new attachment flow uses OPFS only.
+1. `npm ci` (root + extension)
+2. `npm run lint`
+3. `npm run format:check`
+4. `npm run typecheck`
+5. `npm run test`
+6. `npm run build:extension`
+7. `npm run build:web`
 
-## Search
+**All must pass** before merge.
 
-- **FlexSearch is never persisted**
-- Rebuilt from pages in memory when palette opens
-- Indexes `title`, body `text`, and `tags` - but there is **no UI** to edit tags today, so user-facing search is effectively title + body
-- If adding indexed fields, update search builder only
+## Test stack
 
-## Schema vs product UI
+- **Vitest 3** + **happy-dom**
+- Config: `vitest.config.ts` (root)
+- All tests live under `tests/` (see `tests/README.md`)
+- Extension: `tests/extension/**/*.test.ts`
+- Landing: `tests/landing/**/*.test.ts`
 
-- `exportWorkspace` / `importWorkspace` exist in `db.ts` and are tested - **not wired to any UI**
-- `Page.archived` is filtered in selectors - **no archive action in UI**
-- Do not document these as user features until exposed (see `AGENTS.md` §2.5)
+## Source ↔ test mapping (mandatory)
 
-## Platform note
+| Source | Test |
+|--------|------|
+| `extension/src/<path>/<file>.ts` | `tests/extension/<path>/<file>.test.ts` |
+| `src/<path>/<file>.ts` | `tests/landing/<path>/<file>.test.ts` |
 
-IndexedDB is per-origin. Extension `chrome-extension://` ≠ `https://` demo - data is isolated by design.
+Same basename. Import SUT via `@/` - do not co-locate `*.test.ts` under `src/`.
+
+| Change | Test path |
+|--------|-----------|
+| `extension/src/storage/codec.ts` | `tests/extension/storage/codec.test.ts` |
+| `extension/src/storage/db.ts` | `tests/extension/storage/db.test.ts` |
+| `extension/src/lib/workspaceTree.ts` | `tests/extension/lib/workspaceTree.test.ts` |
+| `extension/src/store/useStore.ts` | `tests/extension/store/useStore.test.ts` (+ `moveWorkspaceItem.test.ts` for moves) |
+| `extension/src/editor/markdownPaste.ts` | `tests/extension/editor/markdownPaste.test.ts` |
+| `extension/src/lib/attachments/*` | `tests/extension/lib/attachments/*.test.ts` |
+| `extension/src/lib/text.ts` | `tests/extension/lib/text.test.ts` |
+| `src/lib/seo.ts` | `tests/landing/lib/seo.test.ts` |
+
+## Running tests
+
+```bash
+npm run test                                          # all
+npm run test:watch                                    # watch mode
+npm run test -- tests/extension/editor/               # scoped
+npm run test -- tests/landing/lib/seo.test.ts         # landing SEO
+```
+
+## Landing SEO verification
+
+After touching `src/lib/seo.ts`, `ai-content.json`, `generate-sitemap.mjs`, or `llms[.]txt.ts`:
+
+```bash
+npm run test -- tests/landing/lib/seo.test.ts
+npm run generate:seo
+npm run dev:web
+curl -s http://localhost:8080/robots.txt
+curl -s http://localhost:8080/sitemap.xml
+curl -s http://localhost:8080/llms.txt | head
+```
+
+Production check (after deploy): `curl https://<VITE_SITE_URL>/llms.txt`
+
+Set `VITE_SITE_URL` on your hosting provider so generated files and JSON-LD use the canonical domain.
+
+## Lint & format
+
+```bash
+npm run lint
+npm run format        # write
+npm run format:check  # CI
+```
+
+ESLint 9 flat config. Unused vars → prefix `_`.
+
+## Typecheck
+
+```bash
+npm run typecheck
+# root tsconfig + extension tsconfig
+```
+
+## Extension packaging
+
+```bash
+npm run package:extension
+# → public/mymemos-extension.zip
+```
+
+Required for landing download button. Warn in UI if missing. Run manually when shipping extension changes that should refresh the download ZIP (not hooked on every commit).
+
+## Local quality gates
+
+| Gate | Command |
+|------|---------|
+| Pre-push | `npm run check` |
+| Full / CI | `npm run ci` (`check` + builds) |
+
+Skip pre-push with `SKIP_PRE_PUSH_CI=1` only when necessary.
+
+## Build guards
+
+- Do not run `build:extension` during `npm run dev` - kills HMR
+- `npm run build:web` builds demo + landing - required for deploy
+
+## PR expectations
+
+- Summary of why (not just what)
+- Test plan checklist
+- Screenshots for UI changes
+- Note storage/schema impact if applicable
 
 ---
 > Source: [aryancodes-tech/my-memos](https://github.com/aryancodes-tech/my-memos) — distributed by [TomeVault](https://tomevault.io).
