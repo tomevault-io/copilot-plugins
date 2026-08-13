@@ -1,0 +1,9 @@
+{
+  "name": "studio-design--gesso",
+  "displayName": "gesso",
+  "description": "Gesso \u2014 OpenAPI 3.0/3.1/3.2 contract testing for PHP. Framework-independent core with Laravel, Symfony, Pest, and PSR-7 adapters. PHPUnit coverage, request/response validation, fuzzing, and drift dete",
+  "version": "1.0.0",
+  "author": "studio-design",
+  "homepage": "https://github.com/studio-design/gesso",
+  "skills": []
+}
