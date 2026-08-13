@@ -1,0 +1,9 @@
+{
+  "name": "vichhka-git--renef-skills",
+  "displayName": "renef-skills",
+  "description": "Agent Skill (Claude Code + OpenCode) for operating renef.io \u2014 Android ARM64 dynamic instrumentation: hook native/Java, patch memory, trace syscalls, bypass SSL pinning/root detection; port Frida & Gam",
+  "version": "1.0.0",
+  "author": "vichhka-git",
+  "homepage": "https://github.com/vichhka-git/renef-skills",
+  "skills": []
+}
