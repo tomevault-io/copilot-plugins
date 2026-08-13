@@ -1,0 +1,9 @@
+{
+  "name": "srdjan--zttp",
+  "displayName": "zttp",
+  "description": "Native Zig TypeScript runtime that started as port of mquickjs to Zig... and... grew up to something bigger",
+  "version": "1.0.0",
+  "author": "srdjan",
+  "homepage": "https://github.com/srdjan/zttp",
+  "skills": []
+}
