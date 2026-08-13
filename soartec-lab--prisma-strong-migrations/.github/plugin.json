@@ -1,0 +1,9 @@
+{
+  "name": "soartec-lab--prisma-strong-migrations",
+  "displayName": "prisma-strong-migrations",
+  "description": "Catch unsafe Prisma migrations before they run. Detects dangerous operations like dropping columns, adding indexes without CONCURRENTLY, and more. Inspired by strong_migrations for Rails.",
+  "version": "1.0.0",
+  "author": "soartec-lab",
+  "homepage": "https://github.com/soartec-lab/prisma-strong-migrations",
+  "skills": []
+}
