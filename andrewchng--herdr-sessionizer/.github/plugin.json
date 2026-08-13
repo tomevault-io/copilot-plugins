@@ -1,0 +1,9 @@
+{
+  "name": "andrewchng--herdr-sessionizer",
+  "displayName": "herdr-sessionizer",
+  "description": "Fuzzy-open projects and worktrees, then bootstrap workspaces from declarative TOML layouts \u2014 tabs, pane splits, commands, and per-repo overrides.",
+  "version": "1.0.0",
+  "author": "andrewchng",
+  "homepage": "https://github.com/andrewchng/herdr-sessionizer",
+  "skills": []
+}
