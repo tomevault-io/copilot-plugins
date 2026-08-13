@@ -1,0 +1,9 @@
+{
+  "name": "braedonsaunders--openstudio",
+  "displayName": "openstudio",
+  "description": "Real-time collaborative music studio with sub-30ms latency. Jam with anyone, anywhere in your browser. 35+ DSP effects, AI stem separation, MIDI loops, and optional Rust native bridge for ASIO/CoreAud",
+  "version": "1.0.0",
+  "author": "braedonsaunders",
+  "homepage": "https://github.com/braedonsaunders/openstudio",
+  "skills": []
+}
