@@ -1,0 +1,9 @@
+{
+  "name": "ukbodypilot--radio-gateway",
+  "displayName": "radio-gateway",
+  "description": "Multi-radio, multi-machine Linux gateway: ham/GMRS radios \u2192 Mumble, Broadcastify, Winlink, APRS, Telegram, live web UI. Visual drag-and-drop audio routing, plugin radios (TH-9800, D75 BT, KV4P, FTM-15",
+  "version": "1.0.0",
+  "author": "ukbodypilot",
+  "homepage": "https://github.com/ukbodypilot/radio-gateway",
+  "skills": []
+}
