@@ -4,7 +4,7 @@
   "repo": "bitbucket-cli",
   "description": "A command-line interface for Bitbucket Cloud",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/0pilatos0/bitbucket-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T09:11:20Z"
+  "distributed_at": "2026-08-13T11:25:06Z"
 }
