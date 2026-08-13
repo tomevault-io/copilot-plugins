@@ -1,0 +1,9 @@
+{
+  "name": "spoo-me--docs",
+  "displayName": "docs",
+  "description": "Official documentation of spoo.me powered by mintlify",
+  "version": "1.0.0",
+  "author": "spoo-me",
+  "homepage": "https://github.com/spoo-me/docs",
+  "skills": []
+}
