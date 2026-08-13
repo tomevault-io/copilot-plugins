@@ -1,0 +1,9 @@
+{
+  "name": "dvalfrid--rigstats",
+  "displayName": "rigstats",
+  "description": "Hardware monitor for Windows gaming PCs \u2014 CPU & GPU temperatures on a portrait or landscape secondary display",
+  "version": "1.0.0",
+  "author": "dvalfrid",
+  "homepage": "https://github.com/dvalfrid/rigstats",
+  "skills": []
+}
