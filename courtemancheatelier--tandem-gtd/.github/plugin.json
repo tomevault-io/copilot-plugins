@@ -1,0 +1,9 @@
+{
+  "name": "courtemancheatelier--tandem-gtd",
+  "displayName": "tandem-gtd",
+  "description": "A self-hosted GTD app that actually does GTD. Cascade engine, context views, horizons, weekly review, AI assistant, wiki, teams.",
+  "version": "1.0.0",
+  "author": "courtemancheatelier",
+  "homepage": "https://github.com/courtemancheatelier/tandem-gtd",
+  "skills": []
+}
