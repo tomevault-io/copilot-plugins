@@ -1,0 +1,9 @@
+{
+  "name": "orneryd--git-to-graph",
+  "displayName": "git-to-graph",
+  "description": "golang git temporal file indexer, reconstruct knowledge graphs of your code at any given point in time. Uses NornicDB.",
+  "version": "1.0.0",
+  "author": "orneryd",
+  "homepage": "https://github.com/orneryd/git-to-graph",
+  "skills": []
+}
