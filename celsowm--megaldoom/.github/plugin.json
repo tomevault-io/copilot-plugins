@@ -1,0 +1,9 @@
+{
+  "name": "celsowm--megaldoom",
+  "displayName": "megaldoom",
+  "description": "A port of DOOM to Sega Genesis/Mega Drive",
+  "version": "1.0.0",
+  "author": "celsowm",
+  "homepage": "https://github.com/celsowm/megaldoom",
+  "skills": []
+}
