@@ -1,0 +1,9 @@
+{
+  "name": "clickagent--hermes-whatsapp-mixed",
+  "displayName": "hermes-whatsapp-mixed",
+  "description": "Hermes Agent - Modo Misto H\u00edbrido (Dual-Mode) para WhatsApp e Portainer",
+  "version": "1.0.0",
+  "author": "clickagent",
+  "homepage": "https://github.com/clickagent/hermes-whatsapp-mixed",
+  "skills": []
+}
