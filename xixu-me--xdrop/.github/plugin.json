@@ -1,0 +1,9 @@
+{
+  "name": "xixu-me--xdrop",
+  "displayName": "xdrop",
+  "description": "Open source end-to-end encrypted file transfer app for humans and agents, keeping plaintext file names, contents, and keys off the server",
+  "version": "1.0.0",
+  "author": "xixu-me",
+  "homepage": "https://github.com/xixu-me/xdrop",
+  "skills": []
+}
