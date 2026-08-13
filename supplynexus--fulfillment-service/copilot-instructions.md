@@ -1,16 +1,12 @@
-## backend
+## celery-async-database
 
-> 编辑后端代码/脚本时参考——日志、加解密、运行方式
+> 编辑 Celery/order_automation 任务时参考——签名与调用方一致；async+DB 用线程内 engine
 
 
-# Backend（按需参考）
+# Celery / 自动化任务（按需参考）
 
-- **技术栈**：Python 3.11+ / FastAPI / SQLAlchemy 2.0 异步 / PostgreSQL + Redis / Pydantic。
-- **日志**：`get_logger(__name__)`；关键步骤与异常打日志，异常时记录堆栈；不记敏感数据与主键。参考 `app.core.logging`。
-- **加解密**：凭据用 `decrypt_data`/`encrypt_data`（`app.core.security`）；接收加密数据后解密再使用；测试连接时可 try 解密、失败则当明文。
-- **ID**：见 api-id-hashid.mdc；`encode_id` 返回、`decode_id` 接收，不返回数字主键。
-- **运行 Python/脚本**：先 `cd backend` 并 `source .venv/bin/activate`，再执行；命令形式：`cd backend && source .venv/bin/activate && python ...`。
-- 常见 HTTP 错误：404 路由、405 方法、400 参数、401 鉴权、500 看异常与日志。
+- **order_automation 任务签名**：与调用方传入的 kwargs 一致。写前看 `automation_scheduler_service.py`、`api/v1/endpoints/automation.py` 的 task_kwargs，至少含 `tenant_id`、`ignore_flags`，否则首次运行易报 unexpected keyword argument。
+- **任务内 async + DB**：用独立线程 + 线程内 engine + ThreadAsyncSessionLocal；若用 `asyncio.run()` + 全局 `AsyncSessionLocal` 会报 Future attached to a different loop。可抄 `sync_printify_orders_to_local` 或 `sync_shopify_orders_1min_task` 结构。
 
 ---
 > Source: [supplynexus/fulfillment-service](https://github.com/supplynexus/fulfillment-service) — distributed by [TomeVault](https://tomevault.io).
