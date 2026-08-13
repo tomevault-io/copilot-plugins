@@ -1,0 +1,9 @@
+{
+  "name": "1amageek--swift-lm",
+  "displayName": "swift-lm",
+  "description": "Hugging Face native LLM inference on Apple Silicon via direct Metal",
+  "version": "1.0.0",
+  "author": "1amageek",
+  "homepage": "https://github.com/1amageek/swift-lm",
+  "skills": []
+}
