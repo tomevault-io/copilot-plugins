@@ -1,0 +1,9 @@
+{
+  "name": "valentindutra--pr-map",
+  "displayName": "pr-map",
+  "description": "Turn a GitHub pull request into an interactive map and review it from your browser. A Claude Code plugin.",
+  "version": "1.0.0",
+  "author": "ValentinDutra",
+  "homepage": "https://github.com/ValentinDutra/pr-map",
+  "skills": []
+}
