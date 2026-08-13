@@ -1,0 +1,9 @@
+{
+  "name": "pautown--llizard",
+  "displayName": "llizard",
+  "description": "The main GUI for llizardOS (a spotify carthing designed OS) that loads the salamanders (plugins)",
+  "version": "1.0.0",
+  "author": "pautown",
+  "homepage": "https://github.com/pautown/llizard",
+  "skills": []
+}
