@@ -4,7 +4,7 @@
   "repo": "lkj-aapp",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Aimee-1118/lkj-aapp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T11:12:06Z"
+  "distributed_at": "2026-08-13T13:44:03Z"
 }
