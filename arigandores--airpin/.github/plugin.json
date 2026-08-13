@@ -1,0 +1,9 @@
+{
+  "name": "arigandores--airpin",
+  "displayName": "AirPin",
+  "description": "Spatial display app for RayNeo Air AR glasses \u2014 pin your screen in 3D space with head tracking, add virtual monitors, create a multi-screen workspace through AR glasses",
+  "version": "1.0.0",
+  "author": "arigandores",
+  "homepage": "https://github.com/arigandores/AirPin",
+  "skills": []
+}
