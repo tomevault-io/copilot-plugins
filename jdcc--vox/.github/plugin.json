@@ -1,0 +1,9 @@
+{
+  "name": "jdcc--vox",
+  "displayName": "vox",
+  "description": "Speech-to-text with global hotkey and optional LLM post-processing",
+  "version": "1.0.0",
+  "author": "jdcc",
+  "homepage": "https://github.com/jdcc/vox",
+  "skills": []
+}
