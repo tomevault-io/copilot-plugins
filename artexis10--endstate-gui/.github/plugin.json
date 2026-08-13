@@ -1,0 +1,9 @@
+{
+  "name": "artexis10--endstate-gui",
+  "displayName": "endstate-gui",
+  "description": "Endstate desktop app: reinstall your apps and restore your settings on a fresh Windows PC, from one portable file. Free, open source. Built with Tauri (React + Rust).",
+  "version": "1.0.0",
+  "author": "Artexis10",
+  "homepage": "https://github.com/Artexis10/endstate-gui",
+  "skills": []
+}
