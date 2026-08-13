@@ -7,14 +7,14 @@ Your open source AI coach and unified fitness dashboard.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [watt-mind/coach](https://github.com/watt-mind/coach).
+Original source: `AGENTS.md` in [watt-mind/coach](https://github.com/watt-mind/coach).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/watt-mind/coach](https://github.com/watt-mind/coach)
