@@ -1,0 +1,9 @@
+{
+  "name": "fernandez-hjm--agent-general-staff",
+  "displayName": "Agent-General-Staff",
+  "description": "A portable multi-agent engineering kit for Codex, Cursor, and Claude Code development workflows.",
+  "version": "1.0.0",
+  "author": "FernandeZ-hjm",
+  "homepage": "https://github.com/FernandeZ-hjm/Agent-General-Staff",
+  "skills": []
+}
