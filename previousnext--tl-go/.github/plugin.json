@@ -1,0 +1,9 @@
+{
+  "name": "previousnext--tl-go",
+  "displayName": "tl-go",
+  "description": "Command line time logger",
+  "version": "1.0.0",
+  "author": "previousnext",
+  "homepage": "https://github.com/previousnext/tl-go",
+  "skills": []
+}
