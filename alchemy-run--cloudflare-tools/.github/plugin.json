@@ -1,0 +1,9 @@
+{
+  "name": "alchemy-run--cloudflare-tools",
+  "displayName": "cloudflare-tools",
+  "description": "Developer tooling for Cloudflare Workers, powered by Effect and Rolldown.",
+  "version": "1.0.0",
+  "author": "alchemy-run",
+  "homepage": "https://github.com/alchemy-run/cloudflare-tools",
+  "skills": []
+}
