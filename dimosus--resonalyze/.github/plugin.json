@@ -1,0 +1,9 @@
+{
+  "name": "dimosus--resonalyze",
+  "displayName": "Resonalyze",
+  "description": "Car audio measurement and tuning for Windows: automatic time alignment, virtual DSP crossover, honest acoustic analysis",
+  "version": "1.0.0",
+  "author": "DIMOSUS",
+  "homepage": "https://github.com/DIMOSUS/Resonalyze",
+  "skills": []
+}
