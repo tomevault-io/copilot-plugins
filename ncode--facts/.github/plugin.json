@@ -1,0 +1,9 @@
+{
+  "name": "ncode--facts",
+  "displayName": "facts",
+  "description": "Collect, consume and/or display system facts",
+  "version": "1.0.0",
+  "author": "ncode",
+  "homepage": "https://github.com/ncode/facts",
+  "skills": []
+}
