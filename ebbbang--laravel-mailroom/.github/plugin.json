@@ -1,0 +1,9 @@
+{
+  "name": "ebbbang--laravel-mailroom",
+  "displayName": "laravel-mailroom",
+  "description": "A Laravel mail driver that stores outgoing mail in your database, plus a mailbox to read it.",
+  "version": "1.0.0",
+  "author": "ebbbang",
+  "homepage": "https://github.com/ebbbang/laravel-mailroom",
+  "skills": []
+}
