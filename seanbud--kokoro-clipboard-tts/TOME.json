@@ -1,0 +1,44 @@
+{
+  "name": "Kokoro-Clipboard-TTS",
+  "owner": "seanbud",
+  "repo": "Kokoro-Clipboard-TTS",
+  "description": "A locally run, open-source TTS desktop app. Uses Kokoro-82M AI text-to-speech.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/seanbud/Kokoro-Clipboard-TTS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-13T01:16:23Z"
+}
