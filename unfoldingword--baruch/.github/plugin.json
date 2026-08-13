@@ -1,0 +1,9 @@
+{
+  "name": "unfoldingword--baruch",
+  "displayName": "baruch",
+  "description": "Repo for the Baruch ai assistant who guides users through their BT Servant configuration setup.",
+  "version": "1.0.0",
+  "author": "unfoldingWord",
+  "homepage": "https://github.com/unfoldingWord/baruch",
+  "skills": []
+}
