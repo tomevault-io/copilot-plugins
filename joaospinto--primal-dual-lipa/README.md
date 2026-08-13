@@ -7,11 +7,11 @@ Interior Point Optimal Control in JAX
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [joaospinto/primal-dual-lipa](https://github.com/joaospinto/primal-dual-lipa).
+Original source: `CLAUDE.md` in [joaospinto/primal-dual-lipa](https://github.com/joaospinto/primal-dual-lipa).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
