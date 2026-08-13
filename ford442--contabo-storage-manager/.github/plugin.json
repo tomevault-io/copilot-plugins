@@ -1,0 +1,9 @@
+{
+  "name": "ford442--contabo-storage-manager",
+  "displayName": "contabo_storage_manager",
+  "description": "Central storage & webhook bridge for Contabo VPS. Handles audio, shaders, notes, and media for multiple web apps with Google Cloud sync.",
+  "version": "1.0.0",
+  "author": "ford442",
+  "homepage": "https://github.com/ford442/contabo_storage_manager",
+  "skills": []
+}
