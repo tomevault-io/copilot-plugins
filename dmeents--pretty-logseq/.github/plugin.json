@@ -1,0 +1,9 @@
+{
+  "name": "dmeents--pretty-logseq",
+  "displayName": "pretty-logseq",
+  "description": "A Logseq plugin to improve the UI and experience",
+  "version": "1.0.0",
+  "author": "dmeents",
+  "homepage": "https://github.com/dmeents/pretty-logseq",
+  "skills": []
+}
