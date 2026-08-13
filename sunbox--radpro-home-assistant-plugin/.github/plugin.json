@@ -1,0 +1,9 @@
+{
+  "name": "sunbox--radpro-home-assistant-plugin",
+  "displayName": "radpro-home-assistant-plugin",
+  "description": "Home Assistant integration for reading Rad Pro devices over USB serial",
+  "version": "1.0.0",
+  "author": "SunboX",
+  "homepage": "https://github.com/SunboX/radpro-home-assistant-plugin",
+  "skills": []
+}
