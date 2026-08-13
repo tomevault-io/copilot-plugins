@@ -1,0 +1,9 @@
+{
+  "name": "baker-scripts--qui-workflows",
+  "displayName": "qui_workflows",
+  "description": "qui automation workflows for qBittorrent torrent lifecycle management",
+  "version": "1.0.0",
+  "author": "baker-scripts",
+  "homepage": "https://github.com/baker-scripts/qui_workflows",
+  "skills": []
+}
