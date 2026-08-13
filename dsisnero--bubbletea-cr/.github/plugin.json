@@ -1,0 +1,9 @@
+{
+  "name": "dsisnero--bubbletea-cr",
+  "displayName": "bubbletea.cr",
+  "description": "Terminal library - port of golang bubbletea",
+  "version": "1.0.0",
+  "author": "dsisnero",
+  "homepage": "https://github.com/dsisnero/bubbletea.cr",
+  "skills": []
+}
