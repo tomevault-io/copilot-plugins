@@ -1,74 +1,120 @@
-## editor-markdown
+## extension-architecture
 
-> Tiptap editor, slash menu, markdown paste, and task list behavior
+> Browser extension and web demo - Zustand, views, platform, components
 
 
-# Editor & Markdown Rules
+# Extension Architecture
 
-## Stack
+## Entry points
 
-- **Tiptap 2** + ProseMirror
-- **lowlight** for code blocks
-- **tiptap-markdown** for paste serialization (v0.8.x - peer compatibility)
-- Custom extensions in `extension/src/editor/`
+| Mode | HTML | Vite config | Output |
+|------|------|-------------|--------|
+| Browser MV3 | `newtab.html` | `vite.config.ts` | `extension/dist/` |
+| Web demo | `index.html` | `vite.web.config.ts` | `public/demo/` |
 
-## Save path
+Manifest source of truth: `extension/manifest.config.ts` (CRXJS).
+
+## Platform branching
+
+```typescript
+// extension/src/lib/platform.ts
+isExtensionContext()  // chrome.runtime?.id
+isWebAppContext()     // standalone /demo SPA
+```
+
+- **Extension:** `chrome.storage.local` for settings
+- **Web:** `localStorage` for settings
+- **Both:** IndexedDB for pages (separate origins → separate data)
+
+Web-only components: `WebInstallBanner`, `MobileExperienceNotice` (viewport < 768px).
+
+## Zustand store (`useStore.ts` facade + slices)
+
+Call sites keep importing `useStore` from `store/useStore.ts`. Internally it composes slices:
+
+| Slice | Owns |
+|-------|------|
+| `slices/pagesWorkspace.ts` | pages CRUD, view, workspace move/delete + OPFS GC |
+| `slices/themeUi.ts` | theme, custom themes, `applyThemeToDocument` |
+| `slices/dialogs.ts` | delete / link / attachment-delete flags (serializable payloads only) |
+| `slices/editorBridge.ts` | `pageEditor` + `applyLink` / `removeLink` / confirm attachment delete |
+
+Do **not** put TipTap `Editor` types or `onConfirm` closures in the pages/dialogs slices. Prefer exported **selectors** for derived lists.
+
+## Views
+
+- `Dashboard` - recent pages, quick create
+- `PageView` - title + editor, debounced save
+
+View type: `{ kind: "dashboard" }` | `{ kind: "page"; id: string }`
+
+## Components conventions
+
+- `Sidebar.tsx` - workspace tree UI; DnD helpers live in `lib/workspaceDrag.ts`
+- `SearchPalette.tsx` - ⌘K, FlexSearch (ephemeral index)
+- `ThemeDropdown.tsx` - built-in + custom themes
+- Dialogs - delete confirm, etc.
+
+CSS: `ko-` classes, theme via `data-theme` + `--ko-*` variables from `extension/src/styles/`.
+**Dark / multi-theme:** never hardcode light-only colors (`white`, `#fff`, mixes with literal white). Use `--ko-bg` / `--ko-surface` / `--ko-surface-2` / `--ko-text` / `--ko-text-muted` / `--ko-border` / `--ko-accent`. Verify new UI in both a light and a dark theme (see `AGENTS.md` §3.7).
+
+## Keyboard shortcuts
+
+Defined in `App.tsx` - check existing bindings before adding new global listeners.
+
+## Build guards
+
+- `guard-production-build.mjs` - blocks prod build during dev
+- `clean-dev-artifacts.mjs` - clears stale `dist/`
+- Use `npm run dev:reset --prefix extension` if HMR breaks
+
+## Tests
+
+Mirrored under `tests/extension/` (see `tests/README.md`).  
+`extension/src/<path>/<file>.ts` → `tests/extension/<path>/<file>.test.ts`.
+
+```bash
+npm run test -- tests/extension/store/
+npm run test -- tests/extension/lib/attachments/
+```
+
+## Attachments vs editor commands (dependency rule)
+
+**`lib/attachments/`** = OPFS I/O + policy only (no TipTap types):
 
 ```
-Editor onUpdate → debounce (EDITOR_SAVE_DEBOUNCE_MS)
-  → store updatePage → encode doc → IndexedDB
+lib/attachments/
+├── attachmentManager.ts   ← save/read/delete, object URL cache
+├── fileSystemManager.ts   ← OPFS root + subdirs (images/, audio/)
+├── sanitizeBlockDoc.ts    ← persist sanitizer + ref-count GC helpers
+├── voiceRecorder.ts       ← MediaRecorder wrapper + live levels
+├── waveform.ts            ← decode peaks for playback UI
+├── imageClipboard.ts      ← paste/drop DataTransfer → image Files
+└── imageFiles.ts          ← pure image File checks
 ```
 
-Never bypass store to write IDB directly from editor components.
+**`editor/commands/`** = TipTap insert/paste adapters that call attachment services:
 
-## Markdown paste
+```
+editor/commands/
+├── insertImage.ts
+├── insertAudioFromFile.ts
+├── insertVoiceRecording.ts
+└── insertSelection.ts
+```
 
-Key modules:
+Node views use hooks under `editor/hooks/` (`useVoiceNoteRecording`, `useVoiceNotePlayback`, `useAttachmentImage*`).
+Editor paste/drop: `imagePasteDrop.ts` (priority above markdown paste).
+Dialogs: `AttachmentDeleteDialog` confirms via store `pendingAttachmentDelete` (path only).
 
-- `markdownPaste.ts` - detection + conversion
-- `taskListMarkdown.ts` - `- [x]` input rules
-- `HighlightWithMarkdown.ts` - highlight syntax
-- `tests/extension/editor/markdownPaste.test.ts` - regression tests
+## Constants
 
-### Task list vs bullet list
+**Canonical source:** `shared/constants.ts` (see `.cursor/rules/constants-policy.mdc` and `AGENTS.md` §3.8).
 
-`- [ ]` and `- [x]` must become **task items**, not bullet lists.
-
-- Bullet input rule must **skip** lines matching `- [`
-- Task item rule handles `- [x] ` explicitly
-- Order of input rules matters - task before bullet
-
-### Supported paste features
-
-Headings, GFM task lists, tables, links, images, highlights, code fences.
-
-## List Backspace
-
-- `listBackspace.ts` - at the start of a bullet / ordered / task item, Backspace **lifts** to a normal paragraph (does not merge into the previous item)
-- Registered in `editorExtensions.ts` via `ListBackspace`
-- Tests: `tests/extension/editor/listBackspace.test.ts`
-
-## Slash menu
-
-- `SlashMenu.tsx` - command palette inside editor
-- Add commands via existing extension patterns
-- Keyboard-first UX - preserve ⌘/Ctrl bindings
-
-## Toolbar
-
-- `EditorToolbar.tsx` - inline formatting + attachment insert controls
-- Color presets from `@/lib/constants` → `shared/constants.ts` (`EDITOR_TEXT_COLORS`, etc.) - never hardcode hex/labels in toolbar components
-
-## Adding editor features
-
-1. Check if Tiptap extension already exists in `package.json`
-2. Register in editor setup file alongside peers
-3. Add markdown paste handling if feature has text syntax
-4. Add test case in `tests/extension/editor/markdownPaste.test.ts` for paste scenarios
-
-## Manual verification
-
-Paste from external sources (Notion export, GitHub markdown, VS Code) after changes.
+- `extension/src/lib/constants.ts` is a re-export only - edit `shared/constants.ts`
+- UI labels, error messages, attachment/OPFS paths, MIME types, debounce/limits → named exports there
+- Import via `@/lib/constants` - do not hardcode copy in components or attachment helpers
+- Do not add parallel string modules
 
 ---
 > Source: [aryancodes-tech/my-memos](https://github.com/aryancodes-tech/my-memos) — distributed by [TomeVault](https://tomevault.io).
