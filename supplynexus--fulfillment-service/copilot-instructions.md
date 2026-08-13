@@ -1,13 +1,12 @@
-## list-pages-layout
+## printify-integration
 
-> 编辑列表页时参考——上筛选下列表、行内操作、多选批量
+> 编辑 Printify 相关代码时参考——凭据、limit 50、店铺
 
+# Printify 集成（按需参考）
 
-# 列表类页面（按需参考）
-
-- 右侧主区：**上**筛选区（条件、重置/检索），**下**列表区（表格+操作）；分区清晰。
-- 每行行内 action（查看/编辑/删除等）放「操作」列；多选时表格上方批量操作 +「已选 N 个」。
-- 参考：`frontend/src/components/orders/OrdersList.tsx`。
+- 凭据：`external_systems` + `get_decrypted_credentials`；历史脚本或见 `tenants/{tenant}/printify/`。
+- API limit：商品/订单列表 limit 最大 50（否则 400/8150）；PrintifyService 内 `min(limit, 50)`。
+- 店铺：已连接即 sales_channel ≠ "disconnected"；列表 GET shops.json，Header Bearer token。Token 过期在外部系统/tenant 下更新。
 
 ---
 > Source: [supplynexus/fulfillment-service](https://github.com/supplynexus/fulfillment-service) — distributed by [TomeVault](https://tomevault.io).
