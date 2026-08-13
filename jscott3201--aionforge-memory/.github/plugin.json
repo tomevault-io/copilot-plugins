@@ -1,0 +1,9 @@
+{
+  "name": "jscott3201--aionforge-memory",
+  "displayName": "aionforge-memory",
+  "description": "A Rust-native agentic memory substrate built on the selene-db graph engine: a bi-temporal knowledge graph, hybrid retrieval, and an optional MCP server.",
+  "version": "1.0.0",
+  "author": "jscott3201",
+  "homepage": "https://github.com/jscott3201/aionforge-memory",
+  "skills": []
+}
