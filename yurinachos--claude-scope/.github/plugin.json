@@ -1,0 +1,9 @@
+{
+  "name": "yurinachos--claude-scope",
+  "displayName": "claude-scope",
+  "description": "Beautiful, customizable statusline for Claude Code CLI. Multiple widgets, themes, AI-friendly configuration. Zero runtime dependencies.",
+  "version": "1.0.0",
+  "author": "YuriNachos",
+  "homepage": "https://github.com/YuriNachos/claude-scope",
+  "skills": []
+}
