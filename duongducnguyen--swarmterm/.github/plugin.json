@@ -1,0 +1,9 @@
+{
+  "name": "duongducnguyen--swarmterm",
+  "displayName": "swarmterm",
+  "description": "One window for a whole swarm of AI coding agents \u2014 split terminals, per-agent git worktrees, live web previews, and a War Room where agents collaborate",
+  "version": "1.0.0",
+  "author": "duongducnguyen",
+  "homepage": "https://github.com/duongducnguyen/swarmterm",
+  "skills": []
+}
