@@ -1,0 +1,9 @@
+{
+  "name": "tbcrawford--opm",
+  "displayName": "opm",
+  "description": "Switch between isolated OpenCode environments \u2014 MCPs, models, agents, and AGENTS.md \u2014 with a single command.",
+  "version": "1.0.0",
+  "author": "tbcrawford",
+  "homepage": "https://github.com/tbcrawford/opm",
+  "skills": []
+}
