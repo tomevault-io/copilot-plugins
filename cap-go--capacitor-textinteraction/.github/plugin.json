@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-textinteraction",
+  "displayName": "capacitor-textinteraction",
+  "description": "Capacitor plugin to toggle text interaction in iOS apps",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-textinteraction",
+  "skills": []
+}
