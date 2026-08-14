@@ -1,0 +1,14 @@
+{
+  "name": "ojiudezue--productmind-skills",
+  "displayName": "productmind-skills",
+  "description": "Open-source Claude Code skills that blend product thinking with engineering rigor. Built for multi-skilled builders.",
+  "version": "1.0.0",
+  "author": "ojiudezue",
+  "homepage": "https://github.com/ojiudezue/productmind-skills",
+  "skills": [
+    {
+      "name": "project-scaffold",
+      "description": ""
+    }
+  ]
+}
