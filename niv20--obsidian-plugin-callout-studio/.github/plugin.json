@@ -1,0 +1,9 @@
+{
+  "name": "niv20--obsidian-plugin-callout-studio",
+  "displayName": "obsidian-plugin-callout-studio",
+  "description": "Callout Studio is the only callout plugin you'll ever need to download. It offers regular callouts, inline callouts, and callout headings. Plus, you can easily design your own custom styles!",
+  "version": "1.0.0",
+  "author": "Niv20",
+  "homepage": "https://github.com/Niv20/obsidian-plugin-callout-studio",
+  "skills": []
+}
