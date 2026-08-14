@@ -1,0 +1,44 @@
+{
+  "name": "codex-flight-control",
+  "owner": "showjiangnan",
+  "repo": "codex-flight-control",
+  "description": "\u9762\u5411 Codex \u7684\u751f\u4ea7\u7ea7\u81ea\u4e3b\u7f16\u7a0b\u98de\u63a7\uff1a\u5148\u628a\u9700\u6c42\u53d8\u6210\u53ef\u6301\u7eed\u6587\u6863\uff0c\u518d\u628a\u5927\u76ee\u6807\u62c6\u6210\u53ef\u9a8c\u8bc1\u7684 Wave\uff0c\u4ee5\u673a\u68b0\u95e8\u7981\u3001\u6301\u4e45\u72b6\u6001\u3001\u4e00\u5c42\u5b50\u4ee3\u7406\u548c\u52a8\u6001\u6218\u672f\u6307\u5bfc\u7ea6\u675f\u957f\u671f\u5f00\u53d1\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/showjiangnan/codex-flight-control",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T16:51:02Z"
+}
