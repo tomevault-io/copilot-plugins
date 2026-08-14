@@ -1,0 +1,9 @@
+{
+  "name": "app-vitals--shipwright",
+  "displayName": "shipwright",
+  "description": "The open-source autonomous delivery agent for Claude Code.",
+  "version": "1.0.0",
+  "author": "app-vitals",
+  "homepage": "https://github.com/app-vitals/shipwright",
+  "skills": []
+}
