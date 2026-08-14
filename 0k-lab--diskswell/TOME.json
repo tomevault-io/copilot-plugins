@@ -1,0 +1,44 @@
+{
+  "name": "DiskSwell",
+  "owner": "0k-lab",
+  "repo": "DiskSwell",
+  "description": "Native macOS menu bar monitor for runaway disk growth, large Safari/WebKit WAL files, and low free space. Local, bounded, and detection-only.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/0k-lab/DiskSwell",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T10:40:06Z"
+}
