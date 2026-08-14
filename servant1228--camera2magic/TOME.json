@@ -1,0 +1,44 @@
+{
+  "name": "Camera2Magic",
+  "owner": "servant1228",
+  "repo": "Camera2Magic",
+  "description": "Android \u865a\u62df\u6444\u50cf\u5934 Xposed \u6a21\u5757\uff08LSPosed / libxposed API 102\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/servant1228/Camera2Magic",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T08:43:52Z"
+}
