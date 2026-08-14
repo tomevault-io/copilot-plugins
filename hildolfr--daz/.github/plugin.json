@@ -1,0 +1,9 @@
+{
+  "name": "hildolfr--daz",
+  "displayName": "daz",
+  "description": "A modular chat bot in Go.",
+  "version": "1.0.0",
+  "author": "hildolfr",
+  "homepage": "https://github.com/hildolfr/daz",
+  "skills": []
+}
