@@ -1,0 +1,9 @@
+{
+  "name": "tjamjam--noaa-radar-pipeline",
+  "displayName": "noaa-radar-pipeline",
+  "description": "Self-hosted NOAA MRMS + HRRR radar tile pipeline. Replaces $1K/mo commercial radar APIs with a $5/mo EC2 instance.",
+  "version": "1.0.0",
+  "author": "tjamjam",
+  "homepage": "https://github.com/tjamjam/noaa-radar-pipeline",
+  "skills": []
+}
