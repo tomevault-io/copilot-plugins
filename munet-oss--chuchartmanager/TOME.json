@@ -1,0 +1,44 @@
+{
+  "name": "ChuChartManager",
+  "owner": "MuNET-OSS",
+  "repo": "ChuChartManager",
+  "description": "\u67d0\u4e2a\u89e6\u6478\u62ac\u624b\u6e38\u620f\u8c31\u9762/Mod\u7ba1\u7406\u5668",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MuNET-OSS/ChuChartManager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T14:38:21Z"
+}
