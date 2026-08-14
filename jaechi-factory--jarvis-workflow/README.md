@@ -7,11 +7,11 @@ JARVIS-WORKFLOW v2.0 — 자비스 1명+5직군 무중단 재설계 (jarvis-os �
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [jaechi-factory/jarvis-workflow](https://github.com/jaechi-factory/jarvis-workflow).
+Original source: `AGENTS.md` in [jaechi-factory/jarvis-workflow](https://github.com/jaechi-factory/jarvis-workflow).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
