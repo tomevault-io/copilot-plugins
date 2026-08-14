@@ -1,0 +1,9 @@
+{
+  "name": "svnscha--dap-dbgeng",
+  "displayName": "dap-dbgeng",
+  "description": "Debug native Windows code - C and C++ programs, services, and even the Windows kernel - straight from Visual Studio Code, using the same engine that powers WinDbg.",
+  "version": "1.0.0",
+  "author": "svnscha",
+  "homepage": "https://github.com/svnscha/dap-dbgeng",
+  "skills": []
+}
