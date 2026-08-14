@@ -7,11 +7,11 @@ Local-first, open-source AI watermark removal for Gemini, Doubao, Qwen, Jimeng, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [NanmiCoder/OpenNoMark](https://github.com/NanmiCoder/OpenNoMark).
+Original source: `CLAUDE.md` in [NanmiCoder/OpenNoMark](https://github.com/NanmiCoder/OpenNoMark).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
