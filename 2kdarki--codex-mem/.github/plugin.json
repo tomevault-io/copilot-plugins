@@ -1,0 +1,9 @@
+{
+  "name": "2kdarki--codex-mem",
+  "displayName": "codex-mem",
+  "description": "A Codex plugin that automatically captures everything Codex does during your coding sessions, compresses it with AI (using Codex's agent-sdk), and injects relevant context back into future sessions.",
+  "version": "1.0.0",
+  "author": "2kDarki",
+  "homepage": "https://github.com/2kDarki/codex-mem",
+  "skills": []
+}
