@@ -1,0 +1,9 @@
+{
+  "name": "argentaios--dgx-spark-cluster",
+  "displayName": "dgx-spark-cluster",
+  "description": "Complete setup guide for a 2-node NVIDIA DGX Spark cluster \u2014 distributed training, CUDA inference with EXO, NCCL tuning for Grace Blackwell, NVMe-TCP shared storage, and 200 Gb/s direct fabric network",
+  "version": "1.0.0",
+  "author": "ArgentAIOS",
+  "homepage": "https://github.com/ArgentAIOS/dgx-spark-cluster",
+  "skills": []
+}
