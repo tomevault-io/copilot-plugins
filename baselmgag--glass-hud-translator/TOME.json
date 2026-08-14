@@ -1,0 +1,44 @@
+{
+  "name": "glass_hud_translator",
+  "owner": "BaselMGAG",
+  "repo": "glass_hud_translator",
+  "description": "Games Arabic AI translation \u2014 real-time Arabic subtitles for games without Arabic support. Screen capture + OCR + LLM, drawn over the game in a transparent HUD. Never touches the game process. Tested against Final Fantasy XIV.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BaselMGAG/glass_hud_translator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T12:57:54Z"
+}
