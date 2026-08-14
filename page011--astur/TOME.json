@@ -4,7 +4,7 @@
   "repo": "Astur",
   "description": "Tiling window manager for Windows with Hyprland-style Alt-drag, master-stack tiling, and 9 workspaces. Single Rust EXE. komorebi/GlazeWM alternative. Silky Smooth Animations.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Page011/Astur",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T11:17:20Z"
+  "distributed_at": "2026-08-14T12:46:42Z"
 }
