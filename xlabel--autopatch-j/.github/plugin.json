@@ -1,0 +1,9 @@
+{
+  "name": "xlabel--autopatch-j",
+  "displayName": "AutoPatch-J",
+  "description": "Evidence-grounded AI agent for Java code repair with LLM-guided patches and human-in-the-loop review.",
+  "version": "1.0.0",
+  "author": "xLabel",
+  "homepage": "https://github.com/xLabel/AutoPatch-J",
+  "skills": []
+}
