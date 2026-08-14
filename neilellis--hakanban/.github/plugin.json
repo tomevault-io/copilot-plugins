@@ -1,0 +1,9 @@
+{
+  "name": "neilellis--hakanban",
+  "displayName": "hakanban",
+  "description": "A Trello-style Kanban board native to Home Assistant \u2014 boards are devices, columns are todo entities, cards are todo items. Drag & drop, HACS-installable.",
+  "version": "1.0.0",
+  "author": "neilellis",
+  "homepage": "https://github.com/neilellis/hakanban",
+  "skills": []
+}
