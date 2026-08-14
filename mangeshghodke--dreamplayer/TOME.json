@@ -1,0 +1,44 @@
+{
+  "name": "DreamPlayer",
+  "owner": "mangeshghodke",
+  "repo": "DreamPlayer",
+  "description": "Open-source cross-platform video player for Android & iPad: Dolby Vision P8, DTS/DTS-HD/TrueHD/E-AC3 audio, SMB/NAS streaming, embedded + sideloaded subtitles. GPLv3, Flutter + ExoPlayer/Media3 + AetherEngine.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mangeshghodke/DreamPlayer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T06:41:13Z"
+}
