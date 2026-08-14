@@ -1,0 +1,9 @@
+{
+  "name": "qlitre--japan-tariff-mcp",
+  "displayName": "japan-tariff-mcp",
+  "description": "\u65e5\u672c\u306e\u95a2\u7a0e\u7387\u3092\u30ad\u30fc\u30ef\u30fc\u30c9\u304b\u3089\u691c\u7d22\u3067\u304d\u308bMCP (Model Context Protocol) \u30b5\u30fc\u30d0\u30fc\u3067\u3059\u3002",
+  "version": "1.0.0",
+  "author": "qlitre",
+  "homepage": "https://github.com/qlitre/japan-tariff-mcp",
+  "skills": []
+}
