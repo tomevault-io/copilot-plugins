@@ -4,7 +4,7 @@
   "repo": "capubridge",
   "description": "Capubridge is a Tauri 2 desktop application built for  Capacitor / Ionic / React Native / NativePHP developers who spend their days debugging apps running inside Android WebViews , it's even useful for full native app devs , you should check it :3",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aybinv7/capubridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T04:48:05Z"
+  "distributed_at": "2026-08-14T06:58:01Z"
 }
