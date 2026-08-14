@@ -1,0 +1,9 @@
+{
+  "name": "vlln--plugin-registry",
+  "displayName": "plugin-registry",
+  "description": "DSH \u63d2\u4ef6\u751f\u6001\u57fa\u5efa\uff1a\u8584\u63a7\u5236\u53f0\uff08\u6d4f\u89c8\u5668\u9762\u677f\u7ba1\u7406\u5b98\u65b9 repository \u63d2\u4ef6\uff0c0 patch\uff09+ make-dsh-plugin skill \u5b98\u65b9\u63d2\u4ef6\u5f00\u53d1\u5f15\u5bfc",
+  "version": "1.0.0",
+  "author": "vlln",
+  "homepage": "https://github.com/vlln/plugin-registry",
+  "skills": []
+}
