@@ -4,7 +4,7 @@
   "repo": "hydra",
   "description": "A Rust platform for water infrastructure simulation: physically rigorous hydraulics, hydrology and water quality across water distribution and urban drainage, defined by conservation laws rather than by a reference implementation.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/neeraip/hydra",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T22:37:49Z"
+  "distributed_at": "2026-08-14T02:54:55Z"
 }
