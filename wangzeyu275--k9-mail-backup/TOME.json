@@ -1,0 +1,44 @@
+{
+  "name": "k9-mail-backup",
+  "owner": "wangzeyu275",
+  "repo": "k9-mail-backup",
+  "description": "Thunderbird for Android (K-9 Mail) + \u90ae\u7bb1\u4fbf\u643a\u5907\u4efd\u6062\u590d\u6a21\u5757 V2.2.4",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wangzeyu275/k9-mail-backup",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T17:25:19Z"
+}
