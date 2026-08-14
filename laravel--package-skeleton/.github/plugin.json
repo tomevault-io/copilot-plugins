@@ -1,0 +1,9 @@
+{
+  "name": "laravel--package-skeleton",
+  "displayName": "package-skeleton",
+  "description": "Skeleton for Laravel packages",
+  "version": "1.0.0",
+  "author": "laravel",
+  "homepage": "https://github.com/laravel/package-skeleton",
+  "skills": []
+}
