@@ -1,0 +1,9 @@
+{
+  "name": "jin-bo--guanlan",
+  "displayName": "guanlan",
+  "description": "\u89c2\u6f9c\uff08Gu\u0101nL\u00e1n\uff09\u662f\u4e00\u4e2a\u57fa\u4e8e Karpathy LLM Wiki \u6a21\u5f0f\u7684\u672c\u5730\u77e5\u8bc6\u5e93\u9879\u76ee\uff1a\u5b83\u8ba9 LLM Agent \u628a\u539f\u59cb\u8d44\u6599\u589e\u91cf\u201c\u7f16\u8bd1\u201d\u4e3a\u7ed3\u6784\u5316\u3001\u4e92\u76f8\u94fe\u63a5\u3001\u53ef\u6301\u7eed\u7ef4\u62a4\u7684 Markdown Wiki\u3002",
+  "version": "1.0.0",
+  "author": "jin-bo",
+  "homepage": "https://github.com/jin-bo/guanlan",
+  "skills": []
+}
