@@ -1,0 +1,44 @@
+{
+  "name": "AIC-EDA",
+  "owner": "CloverIris",
+  "repo": "AIC-EDA",
+  "description": "AIC-EDA \u2014\u300a\u660e\u65e5\u65b9\u821f\uff1a\u7ec8\u672b\u5730\u300b\u96c6\u6210\u5de5\u4e1a\u7cfb\u7edf\u81ea\u52a8\u5e03\u5c40\u5de5\u5177  \u5c06\u590d\u6742\u7684 3D \u5de5\u5382\u5e03\u5c40\u95ee\u9898\u8f6c\u5316\u4e3a\"\u82af\u7247\u7269\u7406\u8bbe\u8ba1\"\u95ee\u9898\uff1a RTL Synthesis\uff08\u914d\u65b9\u7f16\u8bd1\uff09\u2192 FloorPlan\uff08\u7f51\u683c\u5e03\u5c40\uff09\u2192 Route-Fabric\uff08\u4f20\u9001\u5e26\u8def\u7531\uff09\u2192 Tape-Deploy\uff08\u84dd\u56fe\u5bfc\u51fa\uff09  80+ \u914d\u65b9 \u00b7 70+ \u7269\u54c1 \u00b7 30+ \u8bbe\u5907\u7c7b\u578b  40\u00d740 / 70\u00d770 \u7f51\u683c\u5316 Placement\uff0c\u4fc4\u7f57\u65af\u65b9\u5757\u5f0f\u8bbe\u5907\u6446\u653e  L \u5f62\u66fc\u54c8\u987f\u4f20\u9001\u5e26\u8def\u7531\uff0cA* \u7ed5\u969c\u5bfb\u8def \u7ec8\u672b\u5730\u67e0\u6aac\u9ec4\u6697\u8272\u4e3b\u9898 \u00b7 WinUI 3 \u539f\u751f\u5e94\u7528  \u975e\u5b98\u65b9\u793e\u533a\u5de5\u5177\uff0c\u4e0e GRYPHLINE / \u9e70\u89d2\u7f51\u7edc\u65e0\u4efb\u4f55\u5173\u8054\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CloverIris/AIC-EDA",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T15:31:00Z"
+}
