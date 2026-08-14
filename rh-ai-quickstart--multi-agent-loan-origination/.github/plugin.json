@@ -1,0 +1,9 @@
+{
+  "name": "rh-ai-quickstart--multi-agent-loan-origination",
+  "displayName": "multi-agent-loan-origination",
+  "description": "Demonstrating agentic AI orchestration across the mortgage lending lifecycle, from prospect inquiry to underwriting approval.",
+  "version": "1.0.0",
+  "author": "rh-ai-quickstart",
+  "homepage": "https://github.com/rh-ai-quickstart/multi-agent-loan-origination",
+  "skills": []
+}
