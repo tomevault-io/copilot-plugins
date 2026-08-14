@@ -1,0 +1,9 @@
+{
+  "name": "sublang-ai--slc",
+  "displayName": "slc",
+  "description": "SubLang Compiler: natural language => finite state machine",
+  "version": "1.0.0",
+  "author": "sublang-ai",
+  "homepage": "https://github.com/sublang-ai/slc",
+  "skills": []
+}
