@@ -1,0 +1,57 @@
+{
+  "name": "vant",
+  "owner": "dhaupin",
+  "repo": "vant",
+  "description": "Vant: Durable AI memory + cold storage + runtime for agents, with generational evolution, stored passively via GitHub. Built for long-running autonomous sessions, using file based persistence.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "graphql",
+      "path": "models/public/skills/vant-skill-graphql",
+      "github_url": "https://github.com/dhaupin/vant/tree/main/models/public/skills/vant-skill-graphql",
+      "description": ""
+    },
+    {
+      "name": "kubernetes",
+      "path": "models/public/skills/vant-skill-kubernetes",
+      "github_url": "https://github.com/dhaupin/vant/tree/main/models/public/skills/vant-skill-kubernetes",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dhaupin/vant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T00:31:47Z"
+}
