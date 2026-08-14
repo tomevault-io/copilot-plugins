@@ -4,7 +4,7 @@
   "repo": "todo",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thiengthb/todo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T01:35:00Z"
+  "distributed_at": "2026-08-14T05:04:31Z"
 }
