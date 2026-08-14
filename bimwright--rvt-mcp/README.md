@@ -7,11 +7,11 @@ BIMwright — AI-native Revit MCP server (Revit 2022–2027)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bimwright/rvt-mcp](https://github.com/bimwright/rvt-mcp).
+Original source: `CLAUDE.md` in [bimwright/rvt-mcp](https://github.com/bimwright/rvt-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
