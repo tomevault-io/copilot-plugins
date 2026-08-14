@@ -1,0 +1,9 @@
+{
+  "name": "lifeos-plus--lifeos-cli",
+  "displayName": "lifeos-cli",
+  "description": "Terminal-native LifeOS with an optional local Web UI for tasks, notes, habits, schedules, timelogs, relationships, and human-agent collaboration.",
+  "version": "1.0.0",
+  "author": "lifeos-plus",
+  "homepage": "https://github.com/lifeos-plus/lifeos-cli",
+  "skills": []
+}
