@@ -1,0 +1,9 @@
+{
+  "name": "cyborg-garden--hermes-agent-mt",
+  "displayName": "hermes-agent-mt",
+  "description": "Multiplayer fork of hermes-agent",
+  "version": "1.0.0",
+  "author": "cyborg-garden",
+  "homepage": "https://github.com/cyborg-garden/hermes-agent-mt",
+  "skills": []
+}
