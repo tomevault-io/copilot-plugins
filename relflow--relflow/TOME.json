@@ -4,7 +4,7 @@
   "repo": "relflow",
   "description": "RelFlow turns nested, ragged data into neural representations. It lets users define typed schemas: numbers, categories, sets, dates, entities, text, etc., then trains models for prediction and embeddings. The library supports MLM-based pretraining workflows, mutations, and serving. It is built for data that does not fit cleanly into flat tables.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/relflow/relflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T15:19:28Z"
+  "distributed_at": "2026-08-14T15:40:02Z"
 }
