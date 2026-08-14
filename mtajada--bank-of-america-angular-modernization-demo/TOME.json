@@ -1,0 +1,44 @@
+{
+  "name": "bank-of-america-angular-modernization-demo",
+  "owner": "mtajada",
+  "repo": "bank-of-america-angular-modernization-demo",
+  "description": "Synthetic Angular 14 to 18 digital banking modernization lab for a Bank of America interview simulation.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mtajada/bank-of-america-angular-modernization-demo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T17:23:56Z"
+}
