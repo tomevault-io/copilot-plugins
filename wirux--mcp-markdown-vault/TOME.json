@@ -1,0 +1,44 @@
+{
+  "name": "mcp-markdown-vault",
+  "owner": "wirux",
+  "repo": "mcp-markdown-vault",
+  "description": "Headless semantic MCP server for Obsidian, Logseq, Dendron & any markdown vault. AST-based surgical editing, hybrid vector + TF-IDF search, zero-setup local embeddings \u2014 no app or plugins required. Stdio & SSE transport, Docker-ready.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wirux/mcp-markdown-vault",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T14:46:01Z"
+}
