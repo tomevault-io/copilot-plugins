@@ -1,0 +1,9 @@
+{
+  "name": "aveproject--ave",
+  "displayName": "ave",
+  "description": "AVE - Agentic Vulnerability Enumeration. The behavioral classification standard for agentic AI components.",
+  "version": "1.0.0",
+  "author": "aveproject",
+  "homepage": "https://github.com/aveproject/ave",
+  "skills": []
+}
