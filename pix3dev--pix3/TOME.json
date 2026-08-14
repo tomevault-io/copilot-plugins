@@ -4,7 +4,7 @@
   "repo": "pix3",
   "description": "PlayableAds and web games AI Agents first editor",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pix3dev/pix3",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T05:30:43Z"
+  "distributed_at": "2026-08-14T07:34:24Z"
 }
