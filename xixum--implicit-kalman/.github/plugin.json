@@ -1,0 +1,9 @@
+{
+  "name": "xixum--implicit-kalman",
+  "displayName": "implicit-kalman",
+  "description": "Featureless Tracking Algorithm",
+  "version": "1.0.0",
+  "author": "XIXUM",
+  "homepage": "https://github.com/XIXUM/implicit-kalman",
+  "skills": []
+}
