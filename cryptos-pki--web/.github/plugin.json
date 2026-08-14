@@ -1,0 +1,9 @@
+{
+  "name": "cryptos-pki--web",
+  "displayName": "web",
+  "description": "Fleet Manager web frontend for CryptOS-PKI. React + TypeScript, built with Vite, served by manager.",
+  "version": "1.0.0",
+  "author": "CryptOS-PKI",
+  "homepage": "https://github.com/CryptOS-PKI/web",
+  "skills": []
+}
