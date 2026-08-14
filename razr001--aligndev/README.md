@@ -7,11 +7,11 @@ AlignDev helps AI-assisted frontend teams generate shared coding standards and S
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [razr001/aligndev](https://github.com/razr001/aligndev).
+Original source: `AGENTS.md` in [razr001/aligndev](https://github.com/razr001/aligndev).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
