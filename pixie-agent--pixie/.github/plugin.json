@@ -1,0 +1,9 @@
+{
+  "name": "pixie-agent--pixie",
+  "displayName": "pixie",
+  "description": "A native desktop workspace for pluggable AI agents \u2014 a general-purpose agent that handles programming, office documents, data analysis, news, writing, and more. Run autonomous agents against any folde",
+  "version": "1.0.0",
+  "author": "pixie-agent",
+  "homepage": "https://github.com/pixie-agent/pixie",
+  "skills": []
+}
