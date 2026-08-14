@@ -1,0 +1,9 @@
+{
+  "name": "nanmicoder--opennomark",
+  "displayName": "OpenNoMark",
+  "description": "Local-first, open-source AI watermark removal for Gemini, Doubao, Qwen, Jimeng, Kling, Tencent Yuanbao, Baidu, and more. Smart localization, Gemini reverse-alpha recovery, and LaMa inpainting. Include",
+  "version": "1.0.0",
+  "author": "NanmiCoder",
+  "homepage": "https://github.com/NanmiCoder/OpenNoMark",
+  "skills": []
+}
