@@ -1,4 +1,4 @@
-## use-bun-instead-of-node-vite-npm-pnpm
+## bundis
 
 > > SQLite를 저장 엔진으로 쓰는 RESP 호환 서버.
 
