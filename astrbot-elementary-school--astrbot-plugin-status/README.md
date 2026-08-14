@@ -7,11 +7,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [AstrBot-Elementary-School/astrbot_plugin_status](https://github.com/AstrBot-Elementary-School/astrbot_plugin_status).
+Original source: `AGENTS.md` in [AstrBot-Elementary-School/astrbot_plugin_status](https://github.com/AstrBot-Elementary-School/astrbot_plugin_status).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
