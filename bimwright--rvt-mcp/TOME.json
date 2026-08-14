@@ -4,7 +4,7 @@
   "repo": "rvt-mcp",
   "description": "BIMwright \u2014 AI-native Revit MCP server (Revit 2022\u20132027)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bimwright/rvt-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T15:00:15Z"
+  "distributed_at": "2026-08-14T15:21:24Z"
 }
