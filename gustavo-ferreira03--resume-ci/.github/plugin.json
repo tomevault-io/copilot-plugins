@@ -1,0 +1,9 @@
+{
+  "name": "gustavo-ferreira03--resume-ci",
+  "displayName": "resume-ci",
+  "description": "Simple resume generator built for developers. Content in YAML, layout in Typst.",
+  "version": "1.0.0",
+  "author": "gustavo-ferreira03",
+  "homepage": "https://github.com/gustavo-ferreira03/resume-ci",
+  "skills": []
+}
