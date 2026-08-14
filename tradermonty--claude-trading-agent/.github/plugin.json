@@ -1,0 +1,9 @@
+{
+  "name": "tradermonty--claude-trading-agent",
+  "displayName": "claude-trading-agent",
+  "description": "Sample AI agent built on Claude Managed Agents \u2014 Streamlit chat UI with 10 trading analysis skills",
+  "version": "1.0.0",
+  "author": "tradermonty",
+  "homepage": "https://github.com/tradermonty/claude-trading-agent",
+  "skills": []
+}
