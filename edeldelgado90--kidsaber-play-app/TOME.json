@@ -1,0 +1,44 @@
+{
+  "name": "kidsaber-play-app",
+  "owner": "edeldelgado90",
+  "repo": "kidsaber-play-app",
+  "description": "KidSaber Play App es una app educativa multiplataforma (Android + Web) para ni\u00f1os de 6\u201310 a\u00f1os que practican asignaturas de primaria mediante minijuegos.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/edeldelgado90/kidsaber-play-app",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T18:56:03Z"
+}
