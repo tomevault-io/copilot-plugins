@@ -1,0 +1,9 @@
+{
+  "name": "powerfooi--herdr-gui",
+  "displayName": "herdr-gui",
+  "description": "A self-hosted, mobile-first web GUI for Herdr with browser terminals, workspace and worktree management, file and diff viewers, and AI agent session inspection.",
+  "version": "1.0.0",
+  "author": "powerfooI",
+  "homepage": "https://github.com/powerfooI/herdr-gui",
+  "skills": []
+}
