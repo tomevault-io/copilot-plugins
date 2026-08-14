@@ -4,7 +4,7 @@
   "repo": "Fushi",
   "description": "A full-featured immersion language learning suite for mobile.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hajisensai/Fushi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T12:44:51Z"
+  "distributed_at": "2026-08-14T13:13:51Z"
 }
