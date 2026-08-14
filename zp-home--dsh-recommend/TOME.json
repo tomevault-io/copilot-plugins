@@ -1,0 +1,44 @@
+{
+  "name": "dsh-recommend",
+  "owner": "zp-home",
+  "repo": "dsh-recommend",
+  "description": "DSH \u63d2\u4ef6\u751f\u6001\u900f\u660e\u6392\u884c\u4e0e\u63a8\u8350\uff1a\u6bcf\u65e5\u81ea\u52a8\u6293\u53d6 dsh-plugin \u8bdd\u9898 + \u516c\u5f00\u8bc4\u5206\u6a21\u578b + \u6392\u884c/\u63a8\u8350\u63d2\u4ef6\u4e0e\u9759\u6001\u7ad9",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zp-home/dsh-recommend",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T21:29:01Z"
+}
