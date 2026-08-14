@@ -1,0 +1,9 @@
+{
+  "name": "newrelic-experimental--preflight",
+  "displayName": "preflight",
+  "description": "preflight",
+  "version": "1.0.0",
+  "author": "newrelic-experimental",
+  "homepage": "https://github.com/newrelic-experimental/preflight",
+  "skills": []
+}
