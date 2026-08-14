@@ -1,0 +1,9 @@
+{
+  "name": "jinhr5744--perf-eval-agent",
+  "displayName": "perf-eval-agent",
+  "description": "\uc8fc\uac04 \ud68c\uc758\uc790\ub8cc(hwpx)\uc5d0\uc11c \ucd94\uc9c4\uc2e4\uc801\uc744 \ubf51\uc544 \uc131\uacfc\uc2e4\uc801\uae30\uc220\uc11c\u00b7\uadfc\ubb34\uc131\uc801\ud3c9\uac00\uc11c\uc758 \uc11c\uc2dd\uc744 \uadf8\ub300\ub85c \ub450\uace0 \ub0b4\uc6a9\ub9cc \ucc44\uc6b0\ub294 Claude Code \uc5d0\uc774\uc804\ud2b8",
+  "version": "1.0.0",
+  "author": "jinhr5744",
+  "homepage": "https://github.com/jinhr5744/perf-eval-agent",
+  "skills": []
+}
