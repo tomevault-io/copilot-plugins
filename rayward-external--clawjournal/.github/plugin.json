@@ -1,0 +1,9 @@
+{
+  "name": "rayward-external--clawjournal",
+  "displayName": "clawjournal",
+  "description": "ClawJournal reviews, curates, and shares coding agent conversation traces.",
+  "version": "1.0.0",
+  "author": "rayward-external",
+  "homepage": "https://github.com/rayward-external/clawjournal",
+  "skills": []
+}
