@@ -1,0 +1,9 @@
+{
+  "name": "spereless--pocket",
+  "displayName": "pocket",
+  "description": "Pocketable voice companion for OpenClaw \u2014 ESP32-S3 AMOLED + Mac bridge + xAI Realtime",
+  "version": "1.0.0",
+  "author": "spereless",
+  "homepage": "https://github.com/spereless/pocket",
+  "skills": []
+}
