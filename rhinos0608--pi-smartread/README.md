@@ -1,6 +1,6 @@
 # Pi-SmartRead
 
-> Tome by [rhinos0608](https://github.com/rhinos0608/Pi-SmartRead) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [rhinos0608](https://github.com/rhinos0608/Pi-SmartRead), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
