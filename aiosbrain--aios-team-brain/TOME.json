@@ -4,7 +4,7 @@
   "repo": "aios-team-brain",
   "description": "The shared Team Brain: receives tier-tagged sync from AIOS workspaces and surfaces tasks, decisions, deliverables, and a grounded natural-language query over the team's shared memory. Next.js + Postgres.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aiosbrain/aios-team-brain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T21:09:29Z"
+  "distributed_at": "2026-08-14T01:30:51Z"
 }
