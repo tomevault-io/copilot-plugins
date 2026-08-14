@@ -7,11 +7,11 @@ Know what your agents are doing
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Dipen-Dedania/agent-pulse](https://github.com/Dipen-Dedania/agent-pulse).
+Original source: `CLAUDE.md` in [Dipen-Dedania/agent-pulse](https://github.com/Dipen-Dedania/agent-pulse).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
