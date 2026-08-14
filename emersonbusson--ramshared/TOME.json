@@ -4,7 +4,7 @@
   "repo": "ramshared",
   "description": "Use idle GPU VRAM as high-speed swap space on Linux/WSL2. Implements a cascading tier (zram > VRAM > NVMe) with reliability and crash-safety methods.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/emersonbusson/ramshared",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T20:51:47Z"
+  "distributed_at": "2026-08-14T01:23:37Z"
 }
