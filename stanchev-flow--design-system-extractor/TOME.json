@@ -1,0 +1,44 @@
+{
+  "name": "design-system-extractor",
+  "owner": "stanchev-flow",
+  "repo": "design-system-extractor",
+  "description": "Design system / brand extraction pipeline: screenshots and live sites to tokens, sections, and framework scaffolds",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/stanchev-flow/design-system-extractor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T02:39:24Z"
+}
