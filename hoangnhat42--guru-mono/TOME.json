@@ -4,7 +4,7 @@
   "repo": "guru-mono",
   "description": "Self-hosted AI workspace for building containerized React and Go applications from natural-language specifications.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hoangnhat42/guru-mono",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T04:46:58Z"
+  "distributed_at": "2026-08-14T06:55:29Z"
 }
