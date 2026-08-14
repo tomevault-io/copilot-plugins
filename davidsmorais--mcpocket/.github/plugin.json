@@ -1,0 +1,9 @@
+{
+  "name": "davidsmorais--mcpocket",
+  "displayName": "mcpocket",
+  "description": "Your AI setup. Everywhere you work. Syncs Claude Code agents, skills, plugins, and MCPs across machines.",
+  "version": "1.0.0",
+  "author": "davidsmorais",
+  "homepage": "https://github.com/davidsmorais/mcpocket",
+  "skills": []
+}
