@@ -1,0 +1,18 @@
+{
+  "name": "dhaupin--vant",
+  "displayName": "vant",
+  "description": "Vant: Durable AI memory + cold storage + runtime for agents, with generational evolution, stored passively via GitHub. Built for long-running autonomous sessions, using file based persistence.",
+  "version": "1.0.0",
+  "author": "dhaupin",
+  "homepage": "https://github.com/dhaupin/vant",
+  "skills": [
+    {
+      "name": "graphql",
+      "description": ""
+    },
+    {
+      "name": "kubernetes",
+      "description": ""
+    }
+  ]
+}
