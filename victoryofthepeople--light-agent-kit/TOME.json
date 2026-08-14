@@ -4,7 +4,7 @@
   "repo": "light-agent-kit",
   "description": "A guided context kit for learning and onboarding into the AI agentic world around a personal OS workspace.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/victoryofthepeople/light-agent-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T17:13:14Z"
+  "distributed_at": "2026-08-14T17:45:04Z"
 }
