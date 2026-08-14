@@ -1,0 +1,9 @@
+{
+  "name": "anionex--dsh-turn-rewind",
+  "displayName": "dsh-turn-rewind",
+  "description": "deepseek harness\u5bf9\u8bdd\u56de\u9000\u63d2\u4ef6 | DSH \u2014 rewind conversation and workspace state, powered by a persistent Change Ledger",
+  "version": "1.0.0",
+  "author": "Anionex",
+  "homepage": "https://github.com/Anionex/dsh-turn-rewind",
+  "skills": []
+}
