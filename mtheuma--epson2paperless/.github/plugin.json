@@ -1,0 +1,9 @@
+{
+  "name": "mtheuma--epson2paperless",
+  "displayName": "epson2paperless",
+  "description": "Send scans direct from compatible Epson printers to a folder or Paperless-ngx (Scan to Computer)",
+  "version": "1.0.0",
+  "author": "mtheuma",
+  "homepage": "https://github.com/mtheuma/epson2paperless",
+  "skills": []
+}
