@@ -4,7 +4,7 @@
   "repo": "hds-core",
   "description": "Documentation for NASA's Horizon Design System (HDS), with a Sass/CSS theme layer for the U.S. Web Design System (USWDS).",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nasa/hds-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T08:33:21Z"
+  "distributed_at": "2026-08-14T06:43:50Z"
 }
