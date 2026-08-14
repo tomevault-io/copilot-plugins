@@ -1,0 +1,9 @@
+{
+  "name": "smthdagg--wificalling-location-gateway",
+  "displayName": "wificalling-location-gateway",
+  "description": "Fail-open OpenWrt WLOC location gateway PoC with auditable multi-agent development workflow",
+  "version": "1.0.0",
+  "author": "smthdagg",
+  "homepage": "https://github.com/smthdagg/wificalling-location-gateway",
+  "skills": []
+}
