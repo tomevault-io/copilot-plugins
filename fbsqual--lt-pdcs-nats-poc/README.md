@@ -7,11 +7,11 @@ Langtian NATS EDA Platform - Event-driven architecture with NATS JetStream, sql-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [fbsqual/LT-pdcs-nats-poc](https://github.com/fbsqual/LT-pdcs-nats-poc).
+Original source: `CLAUDE.md` in [fbsqual/LT-pdcs-nats-poc](https://github.com/fbsqual/LT-pdcs-nats-poc).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
