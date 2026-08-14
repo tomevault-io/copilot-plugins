@@ -7,11 +7,11 @@ JavaScript (ECMAScript) to WebAssembly ahead-of-time compiler
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [loopdive/js2wasm](https://github.com/loopdive/js2wasm).
+Original source: `CLAUDE.md` in [loopdive/js2wasm](https://github.com/loopdive/js2wasm).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
