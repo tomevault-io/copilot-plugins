@@ -1,0 +1,9 @@
+{
+  "name": "aerdor1998--medsafe",
+  "displayName": "MedSafe",
+  "description": "An\u00e1lise de contraindica\u00e7\u00f5es medicamentosas com multi-agent system (LangGraph): 6 agentes, RAG + pgvector, 191k+ intera\u00e7\u00f5es, LLM local (Ollama), guardrails e human-in-the-loop",
+  "version": "1.0.0",
+  "author": "Aerdor1998",
+  "homepage": "https://github.com/Aerdor1998/MedSafe",
+  "skills": []
+}
