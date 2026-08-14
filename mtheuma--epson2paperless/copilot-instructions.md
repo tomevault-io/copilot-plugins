@@ -1,0 +1,103 @@
+## epson2paperless
+
+> Guidance for Claude Code (claude.ai/code) when working in this repository.
+
+# CLAUDE.md
+
+Guidance for Claude Code (claude.ai/code) when working in this repository.
+
+A gitignored `CLAUDE.local.md` may also be present — it holds machine-specific paths, private reverse-engineering artifact conventions, and harness quirks that don't belong in a public repo. Both files are loaded and merged when Claude Code runs locally; CI / GitHub Actions only see this one.
+
+## What this project is
+
+A Node.js/TypeScript service that emulates the Windows-side of Epson's "Scan to Computer" flow: multicast discovery + per-printer scan session + JPEG/PDF output landing in a folder that can be pointed at Paperless-ngx's consume directory. Three transport variants supported, all on port 1865: **ESC/I-2 over TLS** (ET-4950 / ET-3950 / ET-4956 / ET-2950), **ESC/I-2 over plain TCP** (ET-2750, XP-7100, ET-4800, ET-15000, FF-680W, DS-575W — same command vocabulary, no TLS), and **legacy ESC/I over plain TCP** (WF-3620 and XP-620, plus structurally similar models). Auto-detected at session start by a two-arm probe; `PRINTER_PROTOCOL` forces a specific one.
+
+See:
+
+- `README.md` — user-facing install / run / configure.
+- `docs/HOW-IT-WORKS.md` — front-door architecture overview.
+- `docs/PROTOCOL-REFERENCE.md` — protocol layers, wire details, scanner state machines, and printer-family differences.
+- `docs/REVERSE-ENGINEERING.md` — capture workflow, fixture methodology, and reverse-engineering notes.
+
+## Commands
+
+- `npm test` — full Vitest suite. Two replay harnesses anchor the regression shield. `src/esci2/scanner.test.ts` asserts byte-for-byte equivalence of the ESC/I-2 path against Frida-captured ET-4950 (TLS) traces, plus pcap-derived replay for the plain-TCP dialects (ET-2750, XP-7100, ET-4800, ET-7700, FF-680W, DS-575W) with a PARA byte-equivalence shield. `src/esci/scanner.test.ts` does the same for the WF-3620 / XP-620 ESC/I path against pcap-extracted fixtures. Protocol edits that change wire bytes must be mirrored in fixtures.
+- `npm test -- <name>` — filter by file name (e.g. `npm test -- pushscan`).
+- `npx vitest run <path> --reporter=verbose` — single file, verbose output.
+- `npm run dev` — start the long-running service via `tsx` (no build step).
+- `npm run scan` — one-shot CLI mode (`src/one-shot.ts`). Same wire behaviour as the daemon, but exits after the first scan completes — useful for ad-hoc captures and integration tests.
+- `npm run printer-fingerprint` — print the printer's TLS certificate sha256 fingerprint, in the colon-hex form expected by `PRINTER_CERT_FINGERPRINT`. ESC/I-2 path only; WF-3620 has no TLS layer.
+- `npm run pcap:extract` / `npm run pcap:render` — convert a Wireshark pcap of an ESC/I scan session into a JSONL replay fixture, or render a captured/extracted JSONL fixture to JPEG/PDF for eyeball validation. See `tools/pcap-extract/README.md` for invocation.
+- `npm run test-page:generate` — regenerate the committed compatibility test PDF under `tools/test-page/`. Used by external compatibility reporters; rarely needed in dev.
+- `npm run build` — TypeScript compile to `dist/`. Usually not needed in dev.
+- `npm run lint` / `npm run lint:fix` — ESLint with typescript-eslint type-checked rules (`eslint.config.mjs`). Test files and `tools/` relax `no-unsafe-*` around fixture-heavy code.
+- `npm run format` / `npm run format:check` — Prettier (`.prettierrc.json`).
+
+## Configuration
+
+Env-var driven, Zod-validated in `src/config.ts`. Required: `PRINTER_IP`. Full table in `README.md`.
+
+Noteworthy for dev:
+
+- `LOG_LEVEL=debug` — scanner state transitions + per-request detail only show at `debug`.
+- `LOG_FORMAT` (`text` / `json`) — `json` emits structured one-line records; useful when running under a log shipper.
+- `PREVIEW_ACTION` (`reject` / `jpg` / `pdf`) — what happens when the panel's Action is **Preview on Computer** (`PushScanIDIn[1]=4`). Default silently ignores the scan; `jpg` / `pdf` override to let it proceed as that format.
+- `TEMP_DIR` — per-session JPEG spill dir. Empty → `os.tmpdir()`. Override in Docker if `/tmp` is tmpfs-backed.
+- `PAPERLESS_URL` + `PAPERLESS_TOKEN` (or `PAPERLESS_TOKEN_FILE`) — when both are set, completed scans are POSTed to Paperless-ngx's `/api/documents/post_document/` endpoint. `PAPERLESS_DELETE_AFTER_UPLOAD` (default `true`) controls whether the local file is removed after a successful upload.
+- `PRINTER_CERT_FINGERPRINT` — optional sha256 pin (32 colon-separated hex bytes) for the printer's TLS cert. When set, the scan session rejects any cert whose fingerprint doesn't match. Capture with `npm run printer-fingerprint`. ESC/I-2-over-TLS path only — Zod-rejected with `esci2-plain` and `esci` (no TLS to verify); also rejected with `auto`, since a probe failure could downgrade silently to a non-TLS path and bypass the pin.
+- `PRINTER_PROTOCOL` (`auto` / `esci2` / `esci2-plain` / `esci`, default `auto`) — transport-variant selector. `auto` runs a two-arm probe: TLS handshake → plain-TCP IS-`0x8000` welcome, classified by its payload-byte-1 family discriminator (`0x02` → `esci`, else `esci2-plain`). The three explicit values skip the probe and select the matching scanner directly.
+- `ESCI_FORCE_SOURCE` (`adf-simplex` / `adf-duplex` / `flatbed`) — legacy ESC/I path only. Overrides the FS W source byte when probe-based detection isn't enough. Zod-rejected when paired with `PRINTER_PROTOCOL=esci2` or `esci2-plain`.
+- `DIAGNOSE_PROTOCOL=true` — compatibility-report aid. When the legacy `ESC @` init returns a non-ACK, sends one extra `FS Y` probe (the ET-4950 ESC/I-2 path's first command) and aborts with `[diagnose]` log lines tagged with the IS packet type and payload. Off by default; only useful when triaging an unknown printer that gets past welcome+lock.
+- `SCAN_COLOR_MODE` (`color` / `grayscale` / `auto`, default `color`) — `grayscale` guarantees greyscale output on every model: greyscale-capable dialects (currently the DS-575W) request it on the wire; other models scan in colour and convert every page to single-channel greyscale at finalize (info log notes the fallback). `auto` scans in colour on any model and converts colourless pages to greyscale at finalize; per-page chroma measurements show at `LOG_LEVEL=debug` for threshold triage. Both conversions preserve DPI.
+- `NETSCAN_VERSION` (`auto` / `2.0` / `3.0`, default `auto`) — compatibility-triage aid. Forces the NetScanMonitor keepalive wire format instead of selecting it from the announced PID (`3.0` for the FF-680W and DS-575W, `2.0` otherwise). Forcing `3.0` also switches the burst to an ephemeral source port, matching the v3 reference driver. Lets reporters with other unrecognised button-only DS-family scanners test v3 registration without a code change.
+- `SHUTDOWN_TIMEOUT_MS` — how long graceful shutdown waits for in-flight scans before forcing exit (default 30000).
+
+## Architecture (brief — full protocol detail in `docs/PROTOCOL-REFERENCE.md`)
+
+Each protocol layer lives in its own module and can be reasoned about independently:
+
+- **Discovery / multicast** (`src/keepalive.ts`, `src/network.ts`) — UDP `239.255.255.253:2968`. Echoes the printer's beacon seq byte back in a 3-burst keepalive to register as destination `Paperless`. `network.ts` resolves which local interface IP to advertise. Identical for both protocol generations.
+- **Push-scan trigger** (`src/pushscan.ts`) — TCP port 2968, raw `net.createServer` because Epson uses non-standard header spacing (`Header : value`, whitespace before the colon). The `x-uid` response header **must** echo the request — mismatch shows "Scanning Error" on the panel even though data transfer completes. `PushScanIDIn` bytes carry the panel's Sides (byte 0: `0`=1-Sided, `1`=2-Sided) and Action bitmask (byte 1: `1`=jpg, `2`=pdf, `4`=preview). Source-agnostic; flatbed and ADF look identical here. Identical for both protocol generations.
+- **Protocol probe + dispatch** (`src/protocol-probe.ts`, `dispatchScanSession` in `src/startup.ts`) — two-arm probe: TLS handshake → plain-TCP IS-`0x8000` welcome, classified from payload byte 1 (`0x02` → `esci` for WF-3620 / XP-620, else `esci2-plain`). Both generations send a welcome on plain TCP, so the discriminator — not the welcome's presence — is what separates them; there is no bare-`ESC @` arm, because real hardware only accepts IS-framed commands after a lock. The `detectVariant` entry point returns a `Variant` string (`"esci2" | "esci2-plain" | "esci"`); `PRINTER_PROTOCOL` is the `Override` (`"auto" | Variant`). Only the TLS arm caches its positive result; the plain-TCP arm re-probes each session because plain-TCP responses (or ECONNRESET) can be transient. `dispatchScanSession` routes into `runEsci2Scan` (TLS), `runEsci2ScanOverPlain` (ET-2750 / XP-7100 / ET-4800 / ET-15000 / FF-680W / DS-575W), or `runEsciScan` (legacy), threading `ESCI_FORCE_SOURCE` for the legacy path.
+- **Shared scan-session engine** (`src/scan-session.ts`) — `runScanSession<Ctx>` drives a generic `Graph<Ctx>` state machine over a `SessionTransport` interface (`write` / `end(data?)` / `destroy` plus `data`/`error`/`close` events). All three scanner shells build a graph and a transport-factory and hand them to this engine. Cross-cutting concerns live here: IS framing parse, `globalIgnoreFilter` with per-state `bypassIgnoreFilter` opt-out, `maxPayloadBytes` sanity-cap (32 MB default; framing-desync error instead of a delayed timeout), settlement lifecycle (always `transport.destroy()`; barrier `settled` re-checks; listener-replay tolerance), DONE-state finalize. Transport adapters under `src/esci2/transport.ts` (`withTlsErrorLabels` + `withEsci2UnlockOnDestroy` + `socketAsTransport`) compose around the raw socket; the plain-TCP factory composes only the unlock adapter.
+- **ESC/I-2 scan sessions** (`src/esci2/scanner.ts` + `src/esci2/graph.ts` + `src/esci2/commands.ts` + `src/esci2/dialects/registry.ts` + `src/esci2/dialects/dispatch.ts` + `src/esci2/para-composer.ts` + `src/esci2/data/` + `src/protocol.ts` + `src/commands-fs.ts` + `src/graph-helpers.ts`) — `runEsci2Scan` (TLS port 1865; cert verification off by default, sha256 pin via `PRINTER_CERT_FINGERPRINT`) and `runEsci2ScanOverPlain` (plain TCP on the same port; no SNI, no fingerprint) share a single `esci2Graph` singleton with no transport branching — the scanner shell picks the socket factory (`tls.connect` vs `net.connect`) and the transport-adapter composition before handing off to the graph. `ctx.transport: "tls" | "plain"` rides along on the context only so the unknown-fingerprint diagnostic can report which transport was in use. `ctx.entry` (the `RegistryEntry` resolved at INIT1 from a sha256 over the printer's canonicalised CAPA#1 reply) carries the source-detection policy and init-poll iteration count and feeds `composePara` for the PARA body — see `docs/PROTOCOL-REFERENCE.md` "How printer-model differences are handled". Inside the transport, Epson's "IS" framing wraps ESC/I-2 commands; pages are pulled host-side via the `@IMG` loop and spill to a session temp dir.
+- **ESC/I scan session** (`src/esci/scanner.ts` + `src/esci/graph.ts` + `src/esci/commands.ts` + `src/esci/luts.ts` + `src/esci/raw-to-jpeg.ts` + `src/esci/dialects/` + `src/commands-fs.ts` + `src/graph-helpers.ts`) — plain TCP on port 1865, no TLS. Same outer IS framing wraps the legacy ESC/I command set (`ESC @`, `ESC e`, `ESC z` × 3 with 256-byte gamma LUT per channel, `FS W` 64-byte binary parameter block, `FS G`, `FS F`). Pixels stream **unsolicited** as raw 24-bit RGB chunks in IS-0xa200 packets; `raw-to-jpeg.ts` (sharp) encodes each completed page. ADF pages terminate with a single `0x0c` eject byte; flatbed never sends one. Built on the same `runScanSession` engine as the ESC/I-2 path (v0.4.0 unification); shares `expectIsType`/`expectLength`/`awaitReply`/`ackByte` helpers from `src/graph-helpers.ts` and `buildFsY/X/Z` from `src/commands-fs.ts`. Per-model differences (WF-3620 vs. the flatbed-only XP-620) are resolved via a `LegacyDialectEntry` registry in `src/esci/dialects/`: `resolveLegacyEntry` picks the entry by push-scan PID (the SOAP `ProductNameIn` field, threaded through `dispatchScanSession` as `productName`), matching XP-620's literal `"PID 08C8"` and falling back to WF-3620 otherwise — including for `scan:now`, which has no panel to read a PID from. The entry drives three graph branch points (setup at `LOCKING`, pre-start at `WINDOW_DATA`, teardown at `makeFlushTransition`'s flatbed branch) plus per-entry fixed raster/gamma/`FS W`/stream-config data; XP-620 additionally uses a two-phase `ESC I`/`ESC i` identity read and an ACK-or-NAK-tolerant `ESC 0xe2` setup step with no WF-3620 equivalent, and a teardown with no unlock packet.
+- **Output finalize** (`src/output.ts`, `src/output-tail.ts`, `src/exif.ts`, `src/pdf.ts`) — at end-of-scan both scanners hand temp-dir JPEGs to `finalizeSession` in `output-tail.ts`. `action='jpg'` → promote to `scan_<ts>{,_NN}.jpg`; `action='pdf'` → compose `scan_<ts>.pdf` via pdf-lib (JPG-promote fallback on compose failure). Duplex back pages on reversing-ADF dialects get either an EXIF APP1 `Orientation=3` (JPG path, `exif.ts`) or pdf-lib `/Rotate=180` (PDF path, `pdf.ts`) — no pixel re-encode; single-pass dual-sensor scanners (DS-575W) deliver backs upright and opt out via the registry's `duplexBackRotated: false`.
+- **Paperless upload** (`src/paperless-upload.ts`) — when `PAPERLESS_URL` + `PAPERLESS_TOKEN` are configured, finished scans are POSTed multipart to Paperless-ngx's `post_document` endpoint. Optional cleanup of the local file after a successful upload.
+- **Process layer** (`src/index.ts`, `src/one-shot.ts`, `src/startup.ts`, `src/lifecycle.ts`, `src/logger.ts`) — `index.ts` is the long-running daemon; `one-shot.ts` is the `npm run scan` CLI variant. Both share startup boilerplate (banner, discovery, crash handlers, Paperless option assembly, the dispatcher) from `startup.ts`. `lifecycle.ts` provides an in-flight scan tracker and graceful shutdown driver bounded by `SHUTDOWN_TIMEOUT_MS`. `logger.ts` is a tiny structured logger with a `LOG_FORMAT=json` mode.
+- **Health check** (`src/health.ts`) — plain HTTP on port 3000 (configurable). Note: binds to all interfaces, so it's LAN-reachable — see README.
+
+The ESC/I-2 `PARA` payload is composed per-dialect: at INIT1 the graph hashes the printer's CAPA reply (sha256 over canonicalised segments, `src/esci2/capa-fingerprint.ts`) and looks up a `RegistryEntry` in `src/esci2/dialects/registry.ts`. `composePara` (`src/esci2/para-composer.ts`) then assembles the body from that entry's pinned data — named gamma / CMX classes in `src/esci2/data/{gamma,cmx}-classes.ts` (byte-transcribed verbatim from each model's capture), a `gmm` constant, scan extents, and optional-segment flags — plus the runtime source / action / colour-mode axes (grayscale swaps in the entry's `monoGammaClass` LUT and `#COLM008`, and reaches the wire only when that field is present — currently the DS-575W; elsewhere the scan runs in colour and every page converts to greyscale host-side at finalize). Actual `composePara` sizes: ET-4950 family 928 flatbed / 936 ADF simplex / 940 ADF duplex; ET-2750 936 flatbed; XP-7100 944 / 952 / 956; ET-4800 936 flatbed / 944 ADF simplex; DS-575W 996 ADF simplex / 1000 duplex colour, 460 / 464 greyscale. The legacy `FS W` 64-byte block plays the equivalent role for WF-3620. Adding a printer is a data-only change (a new registry entry plus any novel gamma / CMX class, and a `monoGammaClass` if it should honour `SCAN_COLOR_MODE=grayscale`); don't hand-edit the class bytes without re-capturing — the replay tests pin them byte-for-byte. Unrecognised CAPA fingerprints fail fast with a copy-pasteable diagnostic block (no synthesis fallback).
+
+## Testing philosophy
+
+- `src/esci2/scanner.test.ts` (ESC/I-2 — Frida ET-4950 fixtures + pcap-extracted ET-2750 / XP-7100 / ET-4800 / ET-7700 / FF-680W / DS-575W fixtures) and `src/esci/scanner.test.ts` (ESC/I — pcap-extracted WF-3620 / XP-620 fixtures) are the regression shields. `src/scan-session.test.ts` adds engine-level unit coverage (settlement lifecycle, listener-replay tolerance, payload sanity-cap, per-state `bypassIgnoreFilter`). All other tests are per-module unit coverage: keepalive parse/respond, SOAP shapes, IS-framing encode/decode, ESC/I-2 + ESC/I builders, protocol probe routing (two arms + welcome discriminator + `Override` → `Variant`), startup dispatcher routing, raw-RGB → JPEG encoding, output file naming, PDF composition, config validation, health endpoint, transport adapter composition.
+- Frida captures (ESC/I-2 over TLS, ET-4950) live under `tools/frida-capture/captures/`. See `tools/frida-capture/README.md` for the re-capture workflow.
+- ESC/I-2 over plain TCP (ET-2750, XP-7100, ET-4800, ET-7700, FF-680W, DS-575W) and legacy ESC/I (WF-3620, XP-620) fixtures live under `tools/pcap-extract/captures/{et-2750,xp-7100,et-4800,et-7700,ff-680w,ds-575w}/` and `tools/pcap-extract/captures/{wf-3620,xp-620}/` respectively, generated from real-hardware Wireshark captures via `npm run pcap:extract`. Source pcaps stay local under `.reference/wireshark-captures/{et-2750,xp-7100,et-4800,et-7700,ff-680w,ds-575w,wf-3620,xp-620}/` (gitignored). Most plain-TCP ESC/I-2 captures hold a throwaway stream ahead of the real session — an aborted SYN/RST for ET-2750, a rejected TLS probe for XP-7100 / ET-4800 / FF-680W / DS-575W — so extract with `--stream` to isolate the real one (the ET-7700 captures are single-stream and need no isolation).
+
+## Development workflow
+
+- `main` is deployable and protected. There is no long-lived integration branch.
+- Branch off `main`, push, open a PR with `gh pr create --base main --head <branch>`. Merge once CI is green.
+- Never @-mention an issue reporter or contributor with a request for action (test a branch, re-run a scan, provide captures or logs) without the maintainer's explicit approval — asks to community members are the maintainer's to make. Mentioning them to reference an issue, a comment, or something they contributed is fine.
+- CI (`.github/workflows/test.yml`) runs `npm install` and then lint + format:check + test, on every push to `main` and every PR targeting `main`. Uses `npm install` (not `npm ci`) because the lockfile is generated on Windows and lacks Linux-only optional native deps — don't swap to `npm ci` without regenerating the lockfile on Linux.
+- A separate `.github/workflows/docker.yml` builds and publishes a multi-arch image to GHCR on pushes to `main` and on `v*` tags. `Dockerfile` + `compose.yaml` at the repo root are the deploy artifacts.
+- Server-side branch protection on `main`: PR required, CI status check required, linear history required.
+
+### Local pre-push hook
+
+`.githooks/pre-push` runs `npm run lint` and `npm run format:check` before every push, aborting on failure. Tests are intentionally skipped locally (too slow for every push) — CI runs the full `npm test` on every push and PR. **Activate once per clone:**
+
+```
+git config core.hooksPath .githooks
+```
+
+`.gitattributes` pins `.githooks/*` to LF so Git Bash on Windows can execute the shebang. One-off bypass: `git push --no-verify`.
+
+## Frida on Windows
+
+Windows' Frida doesn't support `device.enable_spawn_gating`. `tools/frida-capture/host.py` works around it by gating through `EEventManager.exe` child processes. See `tools/frida-capture/README.md` for the full capture workflow.
+
+---
+> Source: [mtheuma/epson2paperless](https://github.com/mtheuma/epson2paperless) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-14 -->
