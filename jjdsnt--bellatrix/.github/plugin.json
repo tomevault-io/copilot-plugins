@@ -1,0 +1,9 @@
+{
+  "name": "jjdsnt--bellatrix",
+  "displayName": "bellatrix",
+  "description": "A bare metal generic Amiga machine emulation for raspberry pi 3B",
+  "version": "1.0.0",
+  "author": "JJDSNT",
+  "homepage": "https://github.com/JJDSNT/bellatrix",
+  "skills": []
+}
