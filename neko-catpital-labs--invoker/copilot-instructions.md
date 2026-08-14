@@ -1,30 +1,101 @@
-## skill-command-precedence
+## invoker
 
-> Skill and slash-command workflow overrides ad-hoc "just implement it" requests
+> - **Precedence:** When a Cursor slash command or an **attached skill** says to follow a skill (e.g. `/plan-to-invoker`), that workflow **overrides** a bare “implement this” sentence in the same message. Complete the skill steps (including `bash skills/plan-to-invoker/scripts/skill-doctor.sh <plan-file>` and user confirmation) before editing product code for that request.
 
+# Invoker Project Instructions
 
-# Skill and slash-command precedence
+## Planning Rules
 
-When **any** of these apply for the current user message, treat the linked **skill** as the source of truth for how to work—not optional context:
+### Slash commands and agent skills
 
-- The user runs a Cursor **slash command** whose stub says to use a skill (e.g. `/plan-to-invoker`).
-- The user **attaches** a skill to the message.
-- The user explicitly invokes a documented skill name or path.
+- **Precedence:** When a Cursor slash command or an **attached skill** says to follow a skill (e.g. `/plan-to-invoker`), that workflow **overrides** a bare “implement this” sentence in the same message. Complete the skill steps (including `bash skills/plan-to-invoker/scripts/skill-doctor.sh <plan-file>` and user confirmation) before editing product code for that request.
+- **Bootstrap after clone:** Run `bash scripts/setup-agent-skills.sh` to build the CLI/app artifacts and install bundled `invoker-*` skills into Codex, Claude, and Cursor. Optional: `bash scripts/test-plan-to-invoker-skill.sh` when changing skill layout.
+- **Repo rule:** See `.cursor/rules/skill-command-precedence.mdc` for the always-on summary.
+- **Benchmark direct output:** If a `/plan-to-invoker` request says `For this benchmark`, `Required output path:`, `Write the final YAML plan to`, or `Do not submit the plan`, write a complete command-only YAML plan directly to the literal required path. The first top-level keys must be `name:`, `onFinish:`, `mergeMode:`, `repoUrl:`, and `tasks:`. Do not write `version:` or `metadata:` wrappers. Do not run `git remote`, `env`, `printenv`, `set`, schema scans, validation loops, submit commands, prompt tasks, nested `steps:`, or anything that can trigger an agent/autofix. If no repo URL is provided, use `https://github.com/Neko-Catpital-Labs/Invoker.git`.
 
-**First action:** Read the skill file (e.g. `skills/plan-to-invoker/SKILL.md` or `.cursor/skills/plan-to-invoker/SKILL.md` after clone setup). If `SKILL.md` is missing under `.cursor/skills/plan-to-invoker`, run `bash scripts/setup-agent-skills.sh` from the repo root, then re-check.
+- Implementation plans must include a user-confirmed `Safety invariant:` for every slice; follow `skills/review-compression/SKILL.md` and ask before finalizing.
+- Every step in a plan MUST be testable. Each implementation step must have a corresponding verification with a concrete, executable command that produces a clear pass/fail exit code (e.g. `pnpm test`, `git diff --name-only`). Do not use AI prompts for test tasks — use commands only.
+- Bug fix plans MUST follow a three-phase approach before any implementation:
+  1. **Reproduce** -- Find or write a concrete reproduction case (a failing test or a command that demonstrates the bug). Report back the exact repro steps and observed vs. expected behavior. Do not proceed until the bug is reliably reproducible.
+  2. **Debug and report** -- Investigate and report: (a) the root cause — why the code is in the buggy state, and (b) the test gap — how the bug escaped existing tests (missing coverage, wrong assumptions, untested edge case, etc.). For a UI or runtime behavior bug, instrument or trace the actual failing behavior first (logging, a MutationObserver, a debugger, a targeted repro) before proposing a fix hypothesis. Do not propose a root cause by pattern-matching to a bug that looks similar; a hypothesis that was not directly observed is a guess and must be stated as one until it is.
+  3. **Plan the fix** -- Only after completing steps 1 and 2, create the implementation plan. The plan must include a verification step that re-runs the reproduction case to confirm the fix.
 
-## plan-to-invoker (hard stops)
+## Landing PR Stacks
 
-Until the user confirms the workflow is complete:
+- When asked to **land / merge / ship / queue** a PR or PR stack, follow `skills/land-stack/SKILL.md`.
+- Never choose a PR by branch-name lookup (`gh pr list --head <branch>`). Two PRs can share a branch name (a raw workflow branch PR vs the intended `stack/...` PR). If PR numbers are missing, broadly list open PRs, filter to `stack/` heads, verify local head SHAs, order by base/head links, and suggest bottom-up numbers for confirmation. Land by confirmed PR number only.
+- Verify before any write: `node scripts/land-stack.mjs <pr> [<pr> ...]` must exit 0 (checks head SHA is in the local clone, head branch is a real `stack/` branch, the PRs form a proper stack, all OPEN). Land via `node scripts/land-stack.mjs <pr> ... --execute`. Do not hand-add `admin-bypass` or `gh pr merge` to bypass the guard.
+- See `.cursor/rules/land-stack-precedence.mdc` for the always-on summary.
 
-1. Do **not** edit application or library code under `packages/` (or other product paths) for the substantive request.
-2. Follow the skill: scope → Phase 1a → Phase 1b (`pnpm test` / headless as applicable) → implementation YAML from facts → `bash skills/plan-to-invoker/scripts/skill-doctor.sh <plan-file>` → present plan → **wait for user confirmation** before `./submit-plan.sh` or before coding.
+## SQLite Command Policy
 
-Treat free text after `/plan-to-invoker` as **input to the skill workflow**, not a directive to implement immediately.
+- If you are considering direct SQLite commands, use the corresponding Invoker headless command first.
+- For normal local operations on workflows or tasks, prefer `./run.sh --headless ...` and `node scripts/headless-ipc.js ...` over SQLite reads or writes. Typical examples: `query workflows`, `query tasks`, `retry`, `retry-task`, `rebase-recreate`, `approve`, `reject`, `cancel`, and `cancel-workflow`.
+- Verify operational changes with Invoker query commands (`query workflows`, `query tasks`, `query queue`, `query audit`) instead of SQLite inspection whenever the command surface exists.
+- If no corresponding headless command exists, stop and prompt the user with a concrete plan to add that headless command functionality before proceeding.
 
-## Delegation hints in YAML (best effort)
+## Testing Architecture
 
-Recommended headings in task `description` (`Files:`, `Change types:`, `Acceptance criteria:`) are **best effort**—plans can miss files or gain scope later. They are **not** enforced by default `skill-doctor`; optional warnings: `bash skills/plan-to-invoker/scripts/lint-task-atomicity.sh --warn-delegation <plan.yaml>`. See `skills/plan-to-invoker/references/task-patterns.md` and `references/efficacy-rubric.md`.
+All packages use standard `vitest run` via `pnpm test`. The persistence layer uses `sql.js` (WASM-based SQLite), so tests run under system Node with no native SQLite addon or Electron test runtime.
+
+### How it works
+
+- Every package's `package.json` has `"test": "vitest run"`.
+- Root `pnpm test` runs packages **one at a time** (`pnpm -r --workspace-concurrency=1`) so constrained machines stay responsive; `pnpm run test:high-resource` uses parallel package runs.
+
+### In plan tasks
+
+**ALWAYS use `pnpm test` in plan task commands, NEVER use `npx vitest run` or direct vitest calls.**
+
+```yaml
+# Wrong — vitest may not be in PATH:
+command: "cd packages/surfaces && npx vitest run"
+command: "cd packages/surfaces && vitest run"
+
+# Right — uses package.json test script:
+command: "cd packages/surfaces && pnpm test"
+```
+
+### Worktree provisioning
+
+`WorktreeExecutor` does not run any dependency install by default (see `default-worktree-provision-command.ts`). A pool's `worktreeTargets` config can opt a local target back in with an explicit `provisionCommand` such as `pnpm install --frozen-lockfile`; this repo's own local dev config does this for `local-mac`/`local-fallback`. That command applies to every `repoUrl` routed through the pool, so a workflow targeting a non-Node repo needs its own entry in the top-level `repoProvisionCommands` config (keyed by `repoUrl`, empty string for "no install step") to avoid a hard provisioning failure — see `packages/execution-engine/src/base-executor.ts`.
+
+Verify worktree provisioning end-to-end:
+
+```bash
+bash scripts/test-worktree-provisioning.sh
+```
+
+### Executor tests and git safety
+
+Tests that create real `WorktreeExecutor`/`DockerExecutor` and call `.start()` run real git via `BaseExecutor.execGitSimple()`. To prevent repo mutation:
+
+1. **Mock git lifecycle** (for tests that don't need real git): spy on `execGitSimple`, `syncFromRemote`, `setupTaskBranch`, `recordTaskResult`, `restoreBranch`, `pushBranchToRemote`. See spies in `open-terminal.test.ts` or integration tests that mock `BaseExecutor.prototype.execGitSimple`.
+2. **Use a sandbox repo** (for tests that validate git behavior): `mkdtempSync` + `git init`. See `auto-commit.test.ts`, `branch-chain.test.ts`.
+
+## File Editing Discipline
+
+After making a change with any edit tool, **read the file back from disk** (using the Read tool or `rg` in the Shell) and verify the edit persisted before proceeding. Cursor's in-memory state can silently revert writes. If the change is missing on disk, re-apply it using the Shell tool (e.g. `python3 -c "..."` or `sed`) and verify again. When committing, always `git diff --stat` immediately before `git add` to confirm the working tree contains the expected modifications.
+
+## Comment Policy
+
+Do not add explanatory comments to product code by default.
+
+Prefer clearer names, smaller functions, or simpler control flow.
+
+Allowed comments only:
+
+- legal or license headers
+- generated-code markers
+- `eslint`, `ts-expect-error`, `ts-ignore`, `shellcheck`, or tool directives
+- non-obvious safety invariants where removing the comment would make the code risky
+- public API docs when that area already uses them
+
+Before finishing a PR, remove any comment you added unless it matches one of the allowed cases.
+
+## Code Navigation
+
+Use LSP tools (`goToDefinition`, `findReferences`, `documentSymbol`, `workspaceSymbol`, `incomingCalls`, `outgoingCalls`, `hover`) for any task involving symbols, types, or cross-file relationships. Use Grep and Glob for literal text searches and file discovery.
 
 ---
 > Source: [Neko-Catpital-Labs/Invoker](https://github.com/Neko-Catpital-Labs/Invoker) — distributed by [TomeVault](https://tomevault.io).
