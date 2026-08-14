@@ -7,14 +7,14 @@ Best practice 2026 Rust GitHub repository template with AGENTS.md, .agents/skill
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [d-oit/rust-2026-template](https://github.com/d-oit/rust-2026-template).
+Original source: `AGENTS.md` in [d-oit/rust-2026-template](https://github.com/d-oit/rust-2026-template).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [d-oit/rust-2026-template](https://github.com/d-oit/rust-2026-template) — a repo with 10+ stars on GitHub.
