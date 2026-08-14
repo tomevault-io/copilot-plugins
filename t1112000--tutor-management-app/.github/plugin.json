@@ -1,0 +1,9 @@
+{
+  "name": "t1112000--tutor-management-app",
+  "displayName": "tutor-management-app",
+  "description": "MyClass \u2014 open-source private tutoring management (students, schedules, bills, VN timezone). Next.js 15 + Postgres. Self-hosted.",
+  "version": "1.0.0",
+  "author": "t1112000",
+  "homepage": "https://github.com/t1112000/tutor-management-app",
+  "skills": []
+}
