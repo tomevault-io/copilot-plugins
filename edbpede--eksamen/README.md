@@ -7,11 +7,11 @@ eksamensarkiv
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [edbpede/eksamen](https://github.com/edbpede/eksamen).
+Original source: `AGENTS.md` in [edbpede/eksamen](https://github.com/edbpede/eksamen).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
