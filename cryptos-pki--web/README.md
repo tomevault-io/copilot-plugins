@@ -7,11 +7,11 @@ Fleet Manager web frontend for CryptOS-PKI. React + TypeScript, built with Vite,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [CryptOS-PKI/web](https://github.com/CryptOS-PKI/web).
+Original source: `AGENTS.md` in [CryptOS-PKI/web](https://github.com/CryptOS-PKI/web).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
