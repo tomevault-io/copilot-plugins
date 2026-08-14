@@ -1,0 +1,9 @@
+{
+  "name": "sperictao--codex-pro-max",
+  "displayName": "codex-pro-max",
+  "description": "Tauri v2 based launcher for dashi-taskboard with Codex integration",
+  "version": "1.0.0",
+  "author": "sperictao",
+  "homepage": "https://github.com/sperictao/codex-pro-max",
+  "skills": []
+}
