@@ -7,14 +7,14 @@ An adversarial job search that gets better as it goes: pool-anchored fit scoring
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [VonTerraProject501c3/slushpile](https://github.com/VonTerraProject501c3/slushpile).
+Original source: `AGENTS.md` in [VonTerraProject501c3/slushpile](https://github.com/VonTerraProject501c3/slushpile).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [VonTerraProject501c3/slushpile](https://github.com/VonTerraProject501c3/slushpile) — a repo with 14+ stars on GitHub.
