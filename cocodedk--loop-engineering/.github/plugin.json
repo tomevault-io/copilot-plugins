@@ -1,0 +1,9 @@
+{
+  "name": "cocodedk--loop-engineering",
+  "displayName": "loop-engineering",
+  "description": "A fact-checked knowledge base on Boris Cherny's 'loop' methodology for running Claude Code.",
+  "version": "1.0.0",
+  "author": "cocodedk",
+  "homepage": "https://github.com/cocodedk/loop-engineering",
+  "skills": []
+}
