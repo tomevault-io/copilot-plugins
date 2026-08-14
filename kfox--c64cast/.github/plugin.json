@@ -1,0 +1,9 @@
+{
+  "name": "kfox--c64cast",
+  "displayName": "c64cast",
+  "description": "Turn a real Commodore 64 into a programmable display + audio device via Ultimate 64 or TeensyROM+ \u2014 video, SID-music scopes, webcam, MIDI/ASID synth, WLED, generative visuals, overlays, playlists.",
+  "version": "1.0.0",
+  "author": "kfox",
+  "homepage": "https://github.com/kfox/c64cast",
+  "skills": []
+}
