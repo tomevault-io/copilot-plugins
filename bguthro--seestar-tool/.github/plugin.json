@@ -1,0 +1,9 @@
+{
+  "name": "bguthro--seestar-tool",
+  "displayName": "seestar-tool",
+  "description": "A native desktop application for managing firmware on ZWO Seestar smart telescopes.",
+  "version": "1.0.0",
+  "author": "bguthro",
+  "homepage": "https://github.com/bguthro/seestar-tool",
+  "skills": []
+}
