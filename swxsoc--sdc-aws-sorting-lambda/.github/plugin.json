@@ -1,0 +1,9 @@
+{
+  "name": "swxsoc--sdc-aws-sorting-lambda",
+  "displayName": "sdc_aws_sorting_lambda",
+  "description": "This repository is to define the code and Docker Container to be used for the SWSOC file sorting Lambda function.",
+  "version": "1.0.0",
+  "author": "swxsoc",
+  "homepage": "https://github.com/swxsoc/sdc_aws_sorting_lambda",
+  "skills": []
+}
