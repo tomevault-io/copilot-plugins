@@ -1,0 +1,9 @@
+{
+  "name": "eulerjt--claudex",
+  "displayName": "claudex",
+  "description": " Run GPT Responses inside the Claude Code harness with protocol-correct tools, agents, streaming,  and compaction.",
+  "version": "1.0.0",
+  "author": "EulerJT",
+  "homepage": "https://github.com/EulerJT/claudex",
+  "skills": []
+}
