@@ -1,0 +1,9 @@
+{
+  "name": "paritytech--polkadot-desktop-community",
+  "displayName": "polkadot-desktop-community",
+  "description": "Polkadot Desktop prototype",
+  "version": "1.0.0",
+  "author": "paritytech",
+  "homepage": "https://github.com/paritytech/polkadot-desktop-community",
+  "skills": []
+}
