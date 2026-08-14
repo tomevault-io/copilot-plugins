@@ -1,0 +1,9 @@
+{
+  "name": "appleweiping--weiping-wiki",
+  "displayName": "WEIPING_WIKI",
+  "description": "knowledge base managed with an LLM workflow",
+  "version": "1.0.0",
+  "author": "appleweiping",
+  "homepage": "https://github.com/appleweiping/WEIPING_WIKI",
+  "skills": []
+}
