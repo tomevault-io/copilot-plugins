@@ -1,0 +1,9 @@
+{
+  "name": "pi-dal--books",
+  "displayName": "books",
+  "description": "WeRead book management system - processes and organizes book notes and reading data",
+  "version": "1.0.0",
+  "author": "pi-dal",
+  "homepage": "https://github.com/pi-dal/books",
+  "skills": []
+}
