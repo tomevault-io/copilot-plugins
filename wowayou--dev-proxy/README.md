@@ -7,11 +7,11 @@ Configure the network exit point for AI applications (Claude Code, Claude Deskto
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wowayou/dev-proxy](https://github.com/wowayou/dev-proxy).
+Original source: `CLAUDE.md` in [wowayou/dev-proxy](https://github.com/wowayou/dev-proxy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
