@@ -1,0 +1,9 @@
+{
+  "name": "omdsh-dev--dsh-at-file",
+  "displayName": "dsh-at-file",
+  "description": "Codex-style @file mentions for DeepSeek Harness: search workspace files in the composer and attach their contents to prompts.",
+  "version": "1.0.0",
+  "author": "omdsh-dev",
+  "homepage": "https://github.com/omdsh-dev/dsh-at-file",
+  "skills": []
+}
