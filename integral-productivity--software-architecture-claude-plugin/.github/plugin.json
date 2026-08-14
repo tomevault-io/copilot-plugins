@@ -1,0 +1,9 @@
+{
+  "name": "integral-productivity--software-architecture-claude-plugin",
+  "displayName": "software-architecture-claude-plugin",
+  "description": "Adaptive and evolutionary software architecture practice. Skills, commands, agents, and hooks for ADR capture, fitness functions, tech radar, multi-level governance, and Hard Parts trade-off analysis.",
+  "version": "1.0.0",
+  "author": "Integral-Productivity",
+  "homepage": "https://github.com/Integral-Productivity/software-architecture-claude-plugin",
+  "skills": []
+}
