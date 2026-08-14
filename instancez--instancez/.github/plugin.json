@@ -1,0 +1,9 @@
+{
+  "name": "instancez--instancez",
+  "displayName": "instancez",
+  "description": "An LLM-friendly, single-binary, drop-in replacement to Supabase",
+  "version": "1.0.0",
+  "author": "instancez",
+  "homepage": "https://github.com/instancez/instancez",
+  "skills": []
+}
