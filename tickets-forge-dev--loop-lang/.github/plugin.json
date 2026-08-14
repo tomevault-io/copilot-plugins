@@ -1,0 +1,9 @@
+{
+  "name": "tickets-forge-dev--loop-lang",
+  "displayName": "loop-lang",
+  "description": "An open, natural-language DSL for self-correcting AI coding loops \u2014 say what an AI coding agent should build and how to verify it in plain English, and it loops until the check passes. Runs in Claude ",
+  "version": "1.0.0",
+  "author": "tickets-forge-dev",
+  "homepage": "https://github.com/tickets-forge-dev/loop-lang",
+  "skills": []
+}
