@@ -1,0 +1,9 @@
+{
+  "name": "uncover-it--bot-client",
+  "displayName": "bot-client",
+  "description": "Interact with Discord Bots online!",
+  "version": "1.0.0",
+  "author": "Uncover-it",
+  "homepage": "https://github.com/Uncover-it/bot-client",
+  "skills": []
+}
