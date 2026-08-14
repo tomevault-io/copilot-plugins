@@ -1,0 +1,9 @@
+{
+  "name": "omdsh-dev--dsh-lark",
+  "displayName": "dsh-lark",
+  "description": "Lark/Feishu IM bot channel for DeepSeek Harness: chats drive agents, replies and approvals return as messages and cards | \u98de\u4e66 DeepSeek Harness \u63d2\u4ef6",
+  "version": "1.0.0",
+  "author": "omdsh-dev",
+  "homepage": "https://github.com/omdsh-dev/dsh-lark",
+  "skills": []
+}
