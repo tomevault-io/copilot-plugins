@@ -1,0 +1,44 @@
+{
+  "name": "ios-system-design",
+  "owner": "therahulgoel",
+  "repo": "ios-system-design",
+  "description": "\ud83d\udcf1 The most comprehensive iOS mobile system design prep for Staff & EM interviews. 30 production-grade specs with real benchmarks, Swift code, Mermaid diagrams & mock Q&A. Built for top product companies at scale.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/therahulgoel/ios-system-design",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T13:30:39Z"
+}
