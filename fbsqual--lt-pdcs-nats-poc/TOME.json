@@ -4,7 +4,7 @@
   "repo": "LT-pdcs-nats-poc",
   "description": "Langtian NATS EDA Platform - Event-driven architecture with NATS JetStream, sql-flow, DuckDB Duck Lake, and React frontend",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fbsqual/LT-pdcs-nats-poc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T07:40:09Z"
+  "distributed_at": "2026-08-14T10:40:43Z"
 }
