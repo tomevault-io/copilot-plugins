@@ -1,0 +1,9 @@
+{
+  "name": "tuxevil--tuxevil-rotator",
+  "displayName": "tuxevil-rotator",
+  "description": "Multi-provider, multi-account AI proxy rotator with per-model routing, quota tracking, and provider compatibility.",
+  "version": "1.0.0",
+  "author": "tuxevil",
+  "homepage": "https://github.com/tuxevil/tuxevil-rotator",
+  "skills": []
+}
