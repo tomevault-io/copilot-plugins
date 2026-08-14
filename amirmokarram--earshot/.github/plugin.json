@@ -1,0 +1,9 @@
+{
+  "name": "amirmokarram--earshot",
+  "displayName": "Earshot",
+  "description": "Earshot \u2014 read a live translation of whatever you're listening to, in any language. Cross-platform desktop app for real-time system-audio translation, with meeting recording, review and an LLM assist ",
+  "version": "1.0.0",
+  "author": "amirmokarram",
+  "homepage": "https://github.com/amirmokarram/Earshot",
+  "skills": []
+}
