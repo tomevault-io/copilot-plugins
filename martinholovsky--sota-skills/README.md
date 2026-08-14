@@ -7,11 +7,11 @@ Engineering best practices that AI coding agents actually apply — 40+ skills, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [martinholovsky/SOTA-skills](https://github.com/martinholovsky/SOTA-skills).
+Original source: `CLAUDE.md` in [martinholovsky/SOTA-skills](https://github.com/martinholovsky/SOTA-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
