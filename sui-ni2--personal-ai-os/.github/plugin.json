@@ -1,0 +1,9 @@
+{
+  "name": "sui-ni2--personal-ai-os",
+  "displayName": "personal-ai-os",
+  "description": "A privacy-first, provider-neutral personal AI workbench with chat, memory, auditable tools, MCP, and isolated project plugins.",
+  "version": "1.0.0",
+  "author": "sui-ni2",
+  "homepage": "https://github.com/sui-ni2/personal-ai-os",
+  "skills": []
+}
