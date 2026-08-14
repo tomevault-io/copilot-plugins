@@ -4,7 +4,7 @@
   "repo": "ha-home-keeper",
   "description": "Home Keeper is a Home Assistant plugin for tracking home maintenance and chores with deep HA integration ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/prestomation/ha-home-keeper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T21:24:01Z"
+  "distributed_at": "2026-08-14T01:40:37Z"
 }
