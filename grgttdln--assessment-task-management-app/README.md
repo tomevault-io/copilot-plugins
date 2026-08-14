@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [grgttdln/Assessment-Task-Management-App](https://github.com/grgttdln/Assessment-Task-Management-App).
+Original source: `AGENTS.md` in [grgttdln/Assessment-Task-Management-App](https://github.com/grgttdln/Assessment-Task-Management-App).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
