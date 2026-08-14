@@ -1,0 +1,9 @@
+{
+  "name": "naveenrajm7--slurm-plugin",
+  "displayName": "slurm-plugin",
+  "description": "Jenkins plugin to run dynamic agents in a Slurm environment",
+  "version": "1.0.0",
+  "author": "naveenrajm7",
+  "homepage": "https://github.com/naveenrajm7/slurm-plugin",
+  "skills": []
+}
