@@ -1,0 +1,9 @@
+{
+  "name": "haomingz--kimi-skills",
+  "displayName": "kimi-skills",
+  "description": "Local mirror of all official [Kimi](https://www.kimi.com/) AI skills.",
+  "version": "1.0.0",
+  "author": "haomingz",
+  "homepage": "https://github.com/haomingz/kimi-skills",
+  "skills": []
+}
