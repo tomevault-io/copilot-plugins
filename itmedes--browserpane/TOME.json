@@ -4,7 +4,7 @@
   "repo": "browserpane",
   "description": "A web-native remote desktop protocol built on WebTransport, WebCodecs, and WebGL 2 \u2014 crisp tiles for UI, H.264 for video, all in the browser.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ITmedes/browserpane",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T21:37:49Z"
+  "distributed_at": "2026-08-14T23:15:11Z"
 }
