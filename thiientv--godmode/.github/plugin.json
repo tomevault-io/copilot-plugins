@@ -1,0 +1,9 @@
+{
+  "name": "thiientv--godmode",
+  "displayName": "godmode",
+  "description": "Production-grade Agent Skills for AI coding agents\u2014composable workflows for planning, TDD, debugging, review, UI/UX, releases, incidents, and evals.",
+  "version": "1.0.0",
+  "author": "thiientv",
+  "homepage": "https://github.com/thiientv/godmode",
+  "skills": []
+}
