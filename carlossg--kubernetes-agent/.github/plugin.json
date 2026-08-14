@@ -1,0 +1,9 @@
+{
+  "name": "carlossg--kubernetes-agent",
+  "displayName": "kubernetes-agent",
+  "description": "An autonomous AI agent for Kubernetes debugging and remediation, powered by Google's Agent Development Kit (ADK) and Gemini AI.",
+  "version": "1.0.0",
+  "author": "carlossg",
+  "homepage": "https://github.com/carlossg/kubernetes-agent",
+  "skills": []
+}
