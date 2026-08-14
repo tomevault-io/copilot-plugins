@@ -1,0 +1,9 @@
+{
+  "name": "jaak0b--kalico-eddy-offset-calibration",
+  "displayName": "kalico-eddy-offset-calibration",
+  "description": "Non-contact XYZ nozzle offset calibration for Kalico/Klipper toolchangers.",
+  "version": "1.0.0",
+  "author": "jaak0b",
+  "homepage": "https://github.com/jaak0b/kalico-eddy-offset-calibration",
+  "skills": []
+}
