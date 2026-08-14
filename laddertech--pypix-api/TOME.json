@@ -1,0 +1,44 @@
+{
+  "name": "pypix-api",
+  "owner": "laddertech",
+  "repo": "pypix-api",
+  "description": "Biblioteca em Python para comunica\u00e7\u00e3o com APIs banc\u00e1rias focada na integra\u00e7\u00e3o com o PIX",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/laddertech/pypix-api",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T11:34:49Z"
+}
