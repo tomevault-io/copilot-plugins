@@ -1,0 +1,9 @@
+{
+  "name": "nauxie--nau-engine",
+  "displayName": "nau-engine",
+  "description": "The NAU Engine: a Mac-first Rust/Bevy flight traversal sandbox",
+  "version": "1.0.0",
+  "author": "Nauxie",
+  "homepage": "https://github.com/Nauxie/nau-engine",
+  "skills": []
+}
