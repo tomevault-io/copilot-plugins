@@ -1,0 +1,9 @@
+{
+  "name": "oleksandrchekhovskyi--hax",
+  "displayName": "hax",
+  "description": "A minimalist, terminal-native coding agent written in C.",
+  "version": "1.0.0",
+  "author": "OleksandrChekhovskyi",
+  "homepage": "https://github.com/OleksandrChekhovskyi/hax",
+  "skills": []
+}
