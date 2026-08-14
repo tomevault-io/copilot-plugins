@@ -1,0 +1,9 @@
+{
+  "name": "stephancill--rpc-racer",
+  "displayName": "rpc-racer",
+  "description": "A fast and reliable public EVM RPC that races providers.",
+  "version": "1.0.0",
+  "author": "stephancill",
+  "homepage": "https://github.com/stephancill/rpc-racer",
+  "skills": []
+}
