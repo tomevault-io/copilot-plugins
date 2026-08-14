@@ -1,0 +1,9 @@
+{
+  "name": "kenhuangus--agent-memory-harness",
+  "displayName": "agent-memory-harness",
+  "description": "Persistent memory harness for long-running coding agents \u2014 project plan, architecture, benchmarks & results (GitHub Pages site).",
+  "version": "1.0.0",
+  "author": "kenhuangus",
+  "homepage": "https://github.com/kenhuangus/agent-memory-harness",
+  "skills": []
+}
