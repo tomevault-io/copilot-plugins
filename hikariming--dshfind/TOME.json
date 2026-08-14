@@ -1,0 +1,44 @@
+{
+  "name": "dshfind",
+  "owner": "hikariming",
+  "repo": "dshfind",
+  "description": "DSH (DeepSeek Harness) \u539f\u7406\u5b66\u4e60\u3001\u63d2\u4ef6\u5e02\u573a\u4e0e\u6700\u4f73\u5b9e\u8df5 \u00b7 Learn DSH principles, plugin marketplace & best practices",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hikariming/dshfind",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T21:07:55Z"
+}
