@@ -7,11 +7,11 @@ Ruvyxa is a production-minded web framework built around clarity, speed, and con
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [thirawat27/Ruvyxa](https://github.com/thirawat27/Ruvyxa).
+Original source: `CLAUDE.md` in [thirawat27/Ruvyxa](https://github.com/thirawat27/Ruvyxa).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
