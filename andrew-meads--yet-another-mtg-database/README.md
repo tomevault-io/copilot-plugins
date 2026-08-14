@@ -7,11 +7,11 @@ Yet another MTG database. Building with Next.js, TailwindCSS, TypeScript, MongoD
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [andrew-meads/yet-another-mtg-database](https://github.com/andrew-meads/yet-another-mtg-database).
+Original source: `CLAUDE.md` in [andrew-meads/yet-another-mtg-database](https://github.com/andrew-meads/yet-another-mtg-database).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
