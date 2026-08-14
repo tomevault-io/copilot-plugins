@@ -4,7 +4,7 @@
   "repo": "pokemon-cry-stats-predictor",
   "description": "Machine learning project to predict Pok\u00e9mon stats from their cries",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shiyow5/pokemon-cry-stats-predictor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T04:41:48Z"
+  "distributed_at": "2026-08-14T06:53:09Z"
 }
