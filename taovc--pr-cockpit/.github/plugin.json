@@ -1,0 +1,9 @@
+{
+  "name": "taovc--pr-cockpit",
+  "displayName": "pr-cockpit",
+  "description": "Local AI PR workbench \u2014 Claude/Codex review in isolated git worktrees, human-gated GitHub comments",
+  "version": "1.0.0",
+  "author": "taovc",
+  "homepage": "https://github.com/taovc/pr-cockpit",
+  "skills": []
+}
