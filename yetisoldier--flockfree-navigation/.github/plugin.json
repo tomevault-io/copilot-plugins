@@ -1,0 +1,9 @@
+{
+  "name": "yetisoldier--flockfree-navigation",
+  "displayName": "FlockFree-Navigation",
+  "description": "FlockFree Navigation \u2014 OsmAnd fork with ALPR camera awareness, avoidance routing, and surveillance reporting. Powered by OpenStreetMap data.",
+  "version": "1.0.0",
+  "author": "yetisoldier",
+  "homepage": "https://github.com/yetisoldier/FlockFree-Navigation",
+  "skills": []
+}
