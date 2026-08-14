@@ -1,0 +1,44 @@
+{
+  "name": "vwx-mcp",
+  "owner": "vicquick",
+  "repo": "vwx-mcp",
+  "description": "Vectorworks 2026 MCP server \u2014 248 tools + vs.* knowledge index (3071 signatures). True background writes via native C++ palette (no focus, crash-proof, auto-dismissing error dialogs). Criteria-driven reports, IFC bulk classification, GIS coordinate engine. FastMCP + file-IPC.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vicquick/vwx-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T14:45:20Z"
+}
