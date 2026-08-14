@@ -1,0 +1,9 @@
+{
+  "name": "shenshan123--r2g-skills",
+  "displayName": "r2g-skills",
+  "description": "Agent skill R2G. Initial version for leveraging OpenRoad.",
+  "version": "1.0.0",
+  "author": "ShenShan123",
+  "homepage": "https://github.com/ShenShan123/r2g-skills",
+  "skills": []
+}
