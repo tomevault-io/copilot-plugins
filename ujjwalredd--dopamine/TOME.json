@@ -4,7 +4,7 @@
   "repo": "Dopamine",
   "description": "A human-dopamine-inspired AI agent skill that adapts effort, learns from feedback, and delivers the smallest verified solution.",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ujjwalredd/Dopamine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T20:34:06Z"
+  "distributed_at": "2026-08-14T10:41:09Z"
 }
