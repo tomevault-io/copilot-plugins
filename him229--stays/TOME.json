@@ -4,7 +4,7 @@
   "repo": "stays",
   "description": "Google Hotels MCP server and Python library \u2014 reverse-engineered batchexecute client with FastMCP tools",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/him229/stays",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T16:34:40Z"
+  "distributed_at": "2026-08-14T16:49:02Z"
 }
