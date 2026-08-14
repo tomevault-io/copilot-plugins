@@ -7,11 +7,11 @@ ai-camp-7th-main-project-2teams created by GitHub Classroom
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [KernelAcademy-AICamp/ai-camp-7th-main-project-2teams](https://github.com/KernelAcademy-AICamp/ai-camp-7th-main-project-2teams).
+Original source: `CLAUDE.md` in [KernelAcademy-AICamp/ai-camp-7th-main-project-2teams](https://github.com/KernelAcademy-AICamp/ai-camp-7th-main-project-2teams).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
