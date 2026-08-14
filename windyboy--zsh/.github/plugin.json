@@ -1,0 +1,9 @@
+{
+  "name": "windyboy--zsh",
+  "displayName": "zsh",
+  "description": "oh my posh zsh config",
+  "version": "1.0.0",
+  "author": "windyboy",
+  "homepage": "https://github.com/windyboy/zsh",
+  "skills": []
+}
