@@ -1,0 +1,44 @@
+{
+  "name": "gitmon-cards",
+  "owner": "mcsscalabrin",
+  "repo": "gitmon-cards",
+  "description": "Gerador de cartas estilo TCG a partir de dados reais do GitHub. Uma URL de imagem estatica, sem login, embutivel em qualquer README.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mcsscalabrin/gitmon-cards",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T08:46:34Z"
+}
