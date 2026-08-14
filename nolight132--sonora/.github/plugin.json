@@ -1,0 +1,9 @@
+{
+  "name": "nolight132--sonora",
+  "displayName": "sonora",
+  "description": "A native music streaming client, built with Rust and GPUI.",
+  "version": "1.0.0",
+  "author": "nolight132",
+  "homepage": "https://github.com/nolight132/sonora",
+  "skills": []
+}
