@@ -1,0 +1,44 @@
+{
+  "name": "rails_api_keys-ui",
+  "owner": "rubyroidlabs",
+  "repo": "rails_api_keys-ui",
+  "description": "Mountable Rails UI for rails_api_keys \u2014 create, reveal once, list, and revoke API keys (HTML + JSON)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rubyroidlabs/rails_api_keys-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T07:10:53Z"
+}
