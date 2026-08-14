@@ -1,0 +1,9 @@
+{
+  "name": "cheroma--gbrain-link-chat",
+  "displayName": "gbrain-link-chat",
+  "description": "Contribution branch for garrytan/gbrain#2066: link_chat cycle phase + test-suite brain-wipe guard.",
+  "version": "1.0.0",
+  "author": "cheRoma",
+  "homepage": "https://github.com/cheRoma/gbrain-link-chat",
+  "skills": []
+}
