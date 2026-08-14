@@ -1,0 +1,9 @@
+{
+  "name": "sdebruyn--fabric-dw-mcp-cli",
+  "displayName": "fabric-dw-mcp-cli",
+  "description": "Python CLI and MCP server for Microsoft Fabric Data Warehouses and SQL Analytics Endpoints: administer, query, optimize, and secure them from your terminal or your AI agent.",
+  "version": "1.0.0",
+  "author": "sdebruyn",
+  "homepage": "https://github.com/sdebruyn/fabric-dw-mcp-cli",
+  "skills": []
+}
