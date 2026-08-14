@@ -4,7 +4,7 @@
   "repo": "NavSlidesEditor",
   "description": "NavSlidesEditor",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xuan2261/NavSlidesEditor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T12:51:04Z"
+  "distributed_at": "2026-08-14T13:20:06Z"
 }
