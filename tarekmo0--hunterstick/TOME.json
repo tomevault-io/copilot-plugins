@@ -4,7 +4,7 @@
   "repo": "HunterStick",
   "description": "A persistent context and fieldcraft system for AI-assisted bug bounty hunting.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tarekmo0/HunterStick",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T20:30:44Z"
+  "distributed_at": "2026-08-14T01:09:11Z"
 }
