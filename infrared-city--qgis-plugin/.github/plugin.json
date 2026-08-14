@@ -1,0 +1,9 @@
+{
+  "name": "infrared-city--qgis-plugin",
+  "displayName": "qgis-plugin",
+  "description": "qgis-plugin",
+  "version": "1.0.0",
+  "author": "Infrared-city",
+  "homepage": "https://github.com/Infrared-city/qgis-plugin",
+  "skills": []
+}
