@@ -1,0 +1,9 @@
+{
+  "name": "qi-mouren--vibecoding-orchestration",
+  "displayName": "vibecoding-orchestration",
+  "description": "Vibecoding workflow to ship real software: gates G0-G5, contract freeze, multi-agent orchestration. Codex skill + opencode adapter.",
+  "version": "1.0.0",
+  "author": "qi-mouren",
+  "homepage": "https://github.com/qi-mouren/vibecoding-orchestration",
+  "skills": []
+}
