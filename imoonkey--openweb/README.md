@@ -7,11 +7,11 @@ Agent-native way to access any website. Bridging agent CLI and web GUI through A
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [imoonkey/openweb](https://github.com/imoonkey/openweb).
+Original source: `CLAUDE.md` in [imoonkey/openweb](https://github.com/imoonkey/openweb).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
