@@ -1,0 +1,9 @@
+{
+  "name": "iobewi--embewi-core",
+  "displayName": "embewi-core",
+  "description": " Kubernetes runtime for embedded agents - OTA, heartbeat, service discovery",
+  "version": "1.0.0",
+  "author": "iobewi",
+  "homepage": "https://github.com/iobewi/embewi-core",
+  "skills": []
+}
