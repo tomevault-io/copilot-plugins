@@ -1,0 +1,9 @@
+{
+  "name": "verifywise-ai--ai-governance-skills",
+  "displayName": "ai-governance-skills",
+  "description": "Claude Code skills for AI Governance \u2014 EU AI Act, NIST AI RMF, ISO 42001, ISO 23894, OECD AI Principles, and NYC Local Law 144.",
+  "version": "1.0.0",
+  "author": "verifywise-ai",
+  "homepage": "https://github.com/verifywise-ai/ai-governance-skills",
+  "skills": []
+}
