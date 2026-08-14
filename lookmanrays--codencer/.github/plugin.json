@@ -1,0 +1,9 @@
+{
+  "name": "lookmanrays--codencer",
+  "displayName": "codencer",
+  "description": "Codencer is a persistent orchestration daemon designed to securely manage, execute, validate, and audit coding tasks performed by external agents",
+  "version": "1.0.0",
+  "author": "lookmanrays",
+  "homepage": "https://github.com/lookmanrays/codencer",
+  "skills": []
+}
