@@ -1,0 +1,9 @@
+{
+  "name": "0p9b--tldr",
+  "displayName": "TLDR",
+  "description": "Verdict-first output for AI coding agents. Tiny prompt + installer for Claude Code, Codex, Gemini, Cursor, opencode, and 30+ agents.",
+  "version": "1.0.0",
+  "author": "0p9b",
+  "homepage": "https://github.com/0p9b/TLDR",
+  "skills": []
+}
