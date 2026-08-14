@@ -4,7 +4,7 @@
   "repo": "bundis",
   "description": "Redis-compatible server backed by SQLite, built for Bun (and only Bun) \u2014 works with the stock Bun.RedisClient.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Munsunty/bundis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T00:54:55Z"
+  "distributed_at": "2026-08-14T03:05:03Z"
 }
