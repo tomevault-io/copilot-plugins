@@ -1,0 +1,9 @@
+{
+  "name": "astrbot-elementary-school--astrbot-plugin-status",
+  "displayName": "astrbot_plugin_status",
+  "description": "\u7b80\u6613\u53c8\u53ef\u7231\u7684\u7cfb\u7edf\u72b6\u6001\u5c55\u793a\u63d2\u4ef6\uff0c\u652f\u6301LLM\u63a5\u5165",
+  "version": "1.0.0",
+  "author": "AstrBot-Elementary-School",
+  "homepage": "https://github.com/AstrBot-Elementary-School/astrbot_plugin_status",
+  "skills": []
+}
