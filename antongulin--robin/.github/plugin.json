@@ -1,0 +1,9 @@
+{
+  "name": "antongulin--robin",
+  "displayName": "robin",
+  "description": "Free AI code reviews on every pull request. Bring your own key (OpenRouter free tier works), runs in your repo as a GitHub Action - no quotas, no per-seat fees.",
+  "version": "1.0.0",
+  "author": "antongulin",
+  "homepage": "https://github.com/antongulin/robin",
+  "skills": []
+}
