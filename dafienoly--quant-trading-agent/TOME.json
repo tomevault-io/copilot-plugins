@@ -1,0 +1,44 @@
+{
+  "name": "quant-trading-agent",
+  "owner": "dafienoly",
+  "repo": "quant-trading-agent",
+  "description": "A\u80a1+\u6e2f\u80a1\u901a\u91cf\u5316\u4ea4\u6613Agent\u7cfb\u7edf",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dafienoly/quant-trading-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T02:51:47Z"
+}
