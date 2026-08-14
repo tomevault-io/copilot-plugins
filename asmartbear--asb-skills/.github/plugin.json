@@ -1,0 +1,9 @@
+{
+  "name": "asmartbear--asb-skills",
+  "displayName": "asb-skills",
+  "description": "Skills for AI for frameworks and workflows from A Smart Bear articles and the book Hidden Multipliers",
+  "version": "1.0.0",
+  "author": "asmartbear",
+  "homepage": "https://github.com/asmartbear/asb-skills",
+  "skills": []
+}
