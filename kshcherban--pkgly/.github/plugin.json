@@ -1,0 +1,9 @@
+{
+  "name": "kshcherban--pkgly",
+  "displayName": "pkgly",
+  "description": "Pkgly is the open-source repository manager for public and private packages. Run npm, Docker, Helm, Maven, Python, Cargo and more from one fast, self-hosted control plane.",
+  "version": "1.0.0",
+  "author": "kshcherban",
+  "homepage": "https://github.com/kshcherban/pkgly",
+  "skills": []
+}
