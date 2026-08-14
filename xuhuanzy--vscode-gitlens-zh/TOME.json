@@ -1,0 +1,44 @@
+{
+  "name": "vscode-gitlens-zh",
+  "owner": "xuhuanzy",
+  "repo": "vscode-gitlens-zh",
+  "description": "GitLens \u4e2d\u6587\u5206\u652f",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xuhuanzy/vscode-gitlens-zh",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T15:15:44Z"
+}
