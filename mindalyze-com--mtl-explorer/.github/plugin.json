@@ -1,0 +1,9 @@
+{
+  "name": "mindalyze-com--mtl-explorer",
+  "displayName": "mtl-explorer",
+  "description": "MTL Explorer: a self-hosted GPS track explorer for maps, stats, filtering, route planning, and photo-linked trail history.",
+  "version": "1.0.0",
+  "author": "mindalyze-com",
+  "homepage": "https://github.com/mindalyze-com/mtl-explorer",
+  "skills": []
+}
