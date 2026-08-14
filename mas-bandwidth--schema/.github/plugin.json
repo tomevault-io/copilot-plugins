@@ -1,0 +1,9 @@
+{
+  "name": "mas-bandwidth--schema",
+  "displayName": "schema",
+  "description": "The schema language: bitpacked serialization schemas compiled to C++, C#, Go and Rust",
+  "version": "1.0.0",
+  "author": "mas-bandwidth",
+  "homepage": "https://github.com/mas-bandwidth/schema",
+  "skills": []
+}
