@@ -4,7 +4,7 @@
   "repo": "aisa-web",
   "description": "AI Safety Asia (AISA) is a global non-profit dedicated to building Asia as a globally-leading safe and responsible AI innovator",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AI-Safety-Asia/aisa-web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T09:19:47Z"
+  "distributed_at": "2026-08-14T11:08:58Z"
 }
