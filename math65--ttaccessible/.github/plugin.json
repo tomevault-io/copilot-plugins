@@ -1,0 +1,9 @@
+{
+  "name": "math65--ttaccessible",
+  "displayName": "ttaccessible",
+  "description": "A native, fully accessible TeamTalk client for macOS, built with VoiceOver as a first-class citizen.",
+  "version": "1.0.0",
+  "author": "math65",
+  "homepage": "https://github.com/math65/ttaccessible",
+  "skills": []
+}
