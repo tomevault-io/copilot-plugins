@@ -1,0 +1,9 @@
+{
+  "name": "vlln--whale-girl",
+  "displayName": "whale-girl",
+  "description": "DSH Web GUI \u684c\u9762\u5ba0\u7269\u63d2\u4ef6\uff08QQ \u5ba0\u7269\u5f62\u6001\uff09\uff1a\u53f3\u4e0b\u89d2\u60ac\u6d6e\u3001\u53ef\u62d6\u62fd/\u6295\u5582/\u73a9\u800d\u7684\u79ef\u7d2f\u578b\u4f19\u4f34\u3002\u5b98\u65b9 repository-plugin\uff08.dsh-plugin \u683c\u5f0f\uff09\uff0cconfig.yaml \u5b89\u88c5\uff1agithub:dsh-external/whale-girl#<ref>&path:/.dsh-plugin",
+  "version": "1.0.0",
+  "author": "vlln",
+  "homepage": "https://github.com/vlln/whale-girl",
+  "skills": []
+}
