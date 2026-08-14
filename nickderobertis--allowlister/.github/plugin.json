@@ -1,0 +1,9 @@
+{
+  "name": "nickderobertis--allowlister",
+  "displayName": "allowlister",
+  "description": "Structural allow/deny/defer engine for AI coding-agent shell commands. Parses bash into role-tagged fragments and gates each with glob/regex/argv rules. Claude Code hook.",
+  "version": "1.0.0",
+  "author": "nickderobertis",
+  "homepage": "https://github.com/nickderobertis/allowlister",
+  "skills": []
+}
