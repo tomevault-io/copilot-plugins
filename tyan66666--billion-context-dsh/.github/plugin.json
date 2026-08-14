@@ -1,0 +1,9 @@
+{
+  "name": "tyan66666--billion-context-dsh",
+  "displayName": "billion-context-dsh",
+  "description": "Model-driven context management (Active Context Pruning / ACP) for the DeepSeek Harness \u2014 the model decides when and what to compress. Ported from billion-context-pi (ranxianglei); acp-kernel reused v",
+  "version": "1.0.0",
+  "author": "Tyan66666",
+  "homepage": "https://github.com/Tyan66666/billion-context-dsh",
+  "skills": []
+}
