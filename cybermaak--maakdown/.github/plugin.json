@@ -1,0 +1,9 @@
+{
+  "name": "cybermaak--maakdown",
+  "displayName": "maakdown",
+  "description": "Fast, local-first desktop Markdown viewer for technical docs and notes \u2014 clean typography, code highlighting, KaTeX math, Mermaid diagrams, wikilinks, tabs. macOS (signed & notarized), Windows, Linux.",
+  "version": "1.0.0",
+  "author": "cybermaak",
+  "homepage": "https://github.com/cybermaak/maakdown",
+  "skills": []
+}
