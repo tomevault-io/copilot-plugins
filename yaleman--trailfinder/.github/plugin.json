@@ -1,0 +1,9 @@
+{
+  "name": "yaleman--trailfinder",
+  "displayName": "trailfinder",
+  "description": "Pulling and tracing routes through network devices.",
+  "version": "1.0.0",
+  "author": "yaleman",
+  "homepage": "https://github.com/yaleman/trailfinder",
+  "skills": []
+}
