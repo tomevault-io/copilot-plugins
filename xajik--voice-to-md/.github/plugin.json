@@ -1,0 +1,9 @@
+{
+  "name": "xajik--voice-to-md",
+  "displayName": "voice-to-md",
+  "description": "Voice to structured markdown with local TTS and Claude, Gemini, Codex or Opencode.",
+  "version": "1.0.0",
+  "author": "xajik",
+  "homepage": "https://github.com/xajik/voice-to-md",
+  "skills": []
+}
