@@ -1,0 +1,9 @@
+{
+  "name": "hamr0--beeperbox",
+  "displayName": "beeperbox",
+  "description": "Plug your AI agent into 50+ messengers (WhatsApp, iMessage, Signal, Telegram, Slack\u2026) through one MCP endpoint. Two modes: a self-contained Docker container (headless Beeper bundled) or a lite npx MCP",
+  "version": "1.0.0",
+  "author": "hamr0",
+  "homepage": "https://github.com/hamr0/beeperbox",
+  "skills": []
+}
