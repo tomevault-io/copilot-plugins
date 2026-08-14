@@ -7,11 +7,11 @@ An open, natural-language DSL for self-correcting AI coding loops — say what a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tickets-forge-dev/loop-lang](https://github.com/tickets-forge-dev/loop-lang).
+Original source: `CLAUDE.md` in [tickets-forge-dev/loop-lang](https://github.com/tickets-forge-dev/loop-lang).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
