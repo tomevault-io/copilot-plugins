@@ -1,0 +1,9 @@
+{
+  "name": "stephenbrown2--ynab-export",
+  "displayName": "ynab-export",
+  "description": "A simple tool to export YNAB budget json",
+  "version": "1.0.0",
+  "author": "StephenBrown2",
+  "homepage": "https://github.com/StephenBrown2/ynab-export",
+  "skills": []
+}
