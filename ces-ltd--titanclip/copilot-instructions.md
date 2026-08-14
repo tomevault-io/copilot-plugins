@@ -1,13 +1,13 @@
-## titanclip-packages
+## titanclip-security
 
-> Shared packages — db, shared, adapters, plugin SDK
+> Security-sensitive areas — secrets, auth, adapters, IPC
 
 
-# Packages (`packages/`)
+# Security
 
-- **Shared types/utilities**: `@titanclip/shared`. **Schema/migrations**: `@titanclip/db`. **Adapter glue**: `@titanclip/adapter-utils` and `packages/adapters/*`.
-- **Plugins**: follow `docs/plugin-authoring-guide.md` and `packages/plugins/sdk`. Example plugins under `packages/plugins/examples/*` are **reference only**, not the production app.
-- When changing a package API consumed by `server` or `ui`, run **`pnpm run typecheck`** from the repo root to catch cross-package breaks.
+- **Never** log, echo, or paste raw secrets, API keys, JWTs, or vault payloads. Follow existing redaction and encryption patterns for credential vault and agent auth.
+- Treat **LLM adapters**, **Express routes**, and **Electron IPC** as trust boundaries: minimal surface area, clear error handling, no “temporary” bypasses.
+- **Context files** shipped to agents (`AGENTS.md`, `.paperclip.md`) may be scanned for injection; keep onboarding copies in `server/src/onboarding-assets/` consistent with product expectations when editing those assets intentionally.
 
 ---
 > Source: [CES-Ltd/TitanClip](https://github.com/CES-Ltd/TitanClip) — distributed by [TomeVault](https://tomevault.io).
