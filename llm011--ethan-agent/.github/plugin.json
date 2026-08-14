@@ -1,0 +1,9 @@
+{
+  "name": "llm011--ethan-agent",
+  "displayName": "ethan-agent",
+  "description": "A lightweight, high-performance personal AI agent. Fast async core, pluggable tools, and open integration with external agent ecosystems (Claude Code, Codex, MCP). Simple to configure, easy to extend.",
+  "version": "1.0.0",
+  "author": "llm011",
+  "homepage": "https://github.com/llm011/ethan-agent",
+  "skills": []
+}
