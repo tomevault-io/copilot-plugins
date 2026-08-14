@@ -1,0 +1,44 @@
+{
+  "name": "tradepilot",
+  "owner": "feifei9126",
+  "repo": "tradepilot",
+  "description": "\u5f00\u6e90 AI \u5916\u8d38 CRM \u4e0e\u8ba2\u5355\u5c65\u7ea6\u5de5\u4f5c\u53f0\uff1a\u5ba2\u6237\u3001\u8be2\u76d8\u3001\u62a5\u4ef7\u3001\u51fa\u8d27\u3001Firecrawl \u91c7\u96c6\u3001Ollama/\u591a\u6a21\u578b\u63a5\u5165\u548c\u4ea7\u54c1\u89c6\u9891\u751f\u6210\uff0c\u652f\u6301 Docker \u4e00\u952e\u90e8\u7f72\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/feifei9126/tradepilot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T11:11:58Z"
+}
