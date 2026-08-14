@@ -1,0 +1,9 @@
+{
+  "name": "ya-luotao--microsandbox-rb",
+  "displayName": "microsandbox-rb",
+  "description": "Community-maintained Ruby bindings for microsandbox \u2014 hardware-isolated microVM sandboxes for AI agents and untrusted code.",
+  "version": "1.0.0",
+  "author": "ya-luotao",
+  "homepage": "https://github.com/ya-luotao/microsandbox-rb",
+  "skills": []
+}
