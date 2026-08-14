@@ -4,7 +4,7 @@
   "repo": "vibepulse",
   "description": "A shelf-top AMOLED screen showing your Claude Code & Codex usage, live agent activity, and a NEEDS YOU alert when an agent waits for your input. ESP32-S3 + a pure-stdlib Mac service. Nothing leaves your LAN.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/niclasvestlund-YT/vibepulse",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T19:26:05Z"
+  "distributed_at": "2026-08-14T19:45:46Z"
 }
