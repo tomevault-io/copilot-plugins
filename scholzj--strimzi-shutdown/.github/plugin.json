@@ -1,0 +1,9 @@
+{
+  "name": "scholzj--strimzi-shutdown",
+  "displayName": "strimzi-shutdown",
+  "description": "Stop your Strimzi-based Apache Kafka clusters with a single command",
+  "version": "1.0.0",
+  "author": "scholzj",
+  "homepage": "https://github.com/scholzj/strimzi-shutdown",
+  "skills": []
+}
