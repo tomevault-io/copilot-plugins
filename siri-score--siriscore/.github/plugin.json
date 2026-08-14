@@ -1,0 +1,9 @@
+{
+  "name": "siri-score--siriscore",
+  "displayName": "siriscore",
+  "description": "Pre-broadcast Bitcoin transaction privacy analysis.",
+  "version": "1.0.0",
+  "author": "siri-score",
+  "homepage": "https://github.com/siri-score/siriscore",
+  "skills": []
+}
