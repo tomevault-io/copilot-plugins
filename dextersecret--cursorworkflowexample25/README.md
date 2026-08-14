@@ -1,6 +1,6 @@
 # cursorWorkflowExample25
 
-> Source: [dextersecret/cursorWorkflowExample25](https://github.com/dextersecret/cursorWorkflowExample25) — distributed by [TomeVault](https://tomevault.io)
+> Source: [dextersecret/cursorWorkflowExample25](https://github.com/dextersecret/cursorWorkflowExample25). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [dextersecret/cursorWorkflowExample25]
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/dextersecret/cursorWorkflowExample25](https://github.com/dextersecret/cursorWorkflowExample25)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/dextersecret/cursorWorkflowExample25](https://github.com/dextersecret/cursorWorkflowExample25)
 
 ---
 
