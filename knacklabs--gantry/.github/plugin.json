@@ -1,0 +1,9 @@
+{
+  "name": "knacklabs--gantry",
+  "displayName": "gantry",
+  "description": "Self-hosted, provider-neutral agent runtime for teams: governed tools and permissions, Slack/Telegram/Teams channels, scheduled jobs, memory, Node SDK and APIs, audit-first on Postgres.",
+  "version": "1.0.0",
+  "author": "knacklabs",
+  "homepage": "https://github.com/knacklabs/gantry",
+  "skills": []
+}
