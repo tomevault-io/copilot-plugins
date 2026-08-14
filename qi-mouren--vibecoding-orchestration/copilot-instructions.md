@@ -1,0 +1,15 @@
+## vibecoding-orchestration
+
+> - 本仓库是 vibecoding-orchestration skill 的源（skill 源仓库，本身不做业务开发）。
+
+# 项目：Vibecoding Orchestration（流程库）
+
+- 本仓库是 vibecoding-orchestration skill 的源（skill 源仓库，本身不做业务开发）。
+- 标准开发流程规则见 skill: vibecoding-orchestration；流程细节一律以该 skill 为准，禁止在本仓库复制整套流程。
+- 修改流程 = 改 vibecoding-orchestration/ 源 → 重新安装到全局 skills。
+- 本仓库同时维护并列 skill（analyze-idea / pil-diagram / ui-design-intelligence）；新增/修改 skill 同此流程：改源 → 重新安装到全局 skills。
+- 当前无业务史诗；本仓库不维护 docs/process/STATE.md（无业务进度）。
+
+---
+> Source: [qi-mouren/vibecoding-orchestration](https://github.com/qi-mouren/vibecoding-orchestration) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-14 -->
