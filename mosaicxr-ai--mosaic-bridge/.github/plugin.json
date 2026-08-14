@@ -1,0 +1,9 @@
+{
+  "name": "mosaicxr-ai--mosaic-bridge",
+  "displayName": "mosaic-bridge",
+  "description": "Unity Editor MCP plugin \u2014 AI agents drive Unity via Model Context Protocol. Apache 2.0, ~290 domain-specialized tools including procedural generation, simulation, physics, rendering, and AI behavior f",
+  "version": "1.0.0",
+  "author": "MosaicXR-AI",
+  "homepage": "https://github.com/MosaicXR-AI/mosaic-bridge",
+  "skills": []
+}
