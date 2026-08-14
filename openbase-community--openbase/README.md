@@ -7,11 +7,11 @@ The new way to work: Drive a team of AI Agents through screenless voice
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [openbase-community/openbase](https://github.com/openbase-community/openbase).
+Original source: `CLAUDE.md` in [openbase-community/openbase](https://github.com/openbase-community/openbase).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
