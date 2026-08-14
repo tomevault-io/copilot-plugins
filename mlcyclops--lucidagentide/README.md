@@ -7,11 +7,11 @@ Security-First Agentic IDE Coding Harness
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mlcyclops/lucidagentide](https://github.com/mlcyclops/lucidagentide).
+Original source: `CLAUDE.md` in [mlcyclops/lucidagentide](https://github.com/mlcyclops/lucidagentide).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
