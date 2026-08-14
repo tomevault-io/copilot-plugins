@@ -4,7 +4,7 @@
   "repo": "OmniRift",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jessefreitas/OmniRift",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T11:10:38Z"
+  "distributed_at": "2026-08-14T12:45:33Z"
 }
