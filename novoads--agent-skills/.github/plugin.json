@@ -1,0 +1,9 @@
+{
+  "name": "novoads--agent-skills",
+  "displayName": "agent-skills",
+  "description": "AI video and image ads for marketers, built in Claude Code or Cursor and priced by a live estimate first.",
+  "version": "1.0.0",
+  "author": "novoads",
+  "homepage": "https://github.com/novoads/agent-skills",
+  "skills": []
+}
