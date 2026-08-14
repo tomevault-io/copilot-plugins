@@ -1,0 +1,529 @@
+## atomic-spec
+
+> **Atomic Spec** is a governance framework for AI-driven development — a customized fork of [GitHub Spec Kit](https://github.com/github/spec-kit) that enforces the Atomic Traceability Model (gated, atomic, context-pinned phases). See [`atomic-traceability-model.md`](./atomic-traceability-model.md) for the governance model.
+
+# AGENTS.md — Adding a New AI Agent to Atomic Spec
+
+## About Atomic Spec and the `atomicspec` CLI
+
+**Atomic Spec** is a governance framework for AI-driven development — a customized fork of [GitHub Spec Kit](https://github.com/github/spec-kit) that enforces the Atomic Traceability Model (gated, atomic, context-pinned phases). See [`atomic-traceability-model.md`](./atomic-traceability-model.md) for the governance model.
+
+The **`atomicspec` CLI** (PyPI package: `atomic-spec`) bootstraps projects with the framework. It sets up the necessary directory structures, templates, and AI-agent integrations to support the four-phase Specify → Plan → Tasks → Implement workflow.
+
+The framework supports 17+ AI coding assistants across two tiers:
+
+- **Supported tier** (wired end-to-end, exercised on every release): `claude`, `gemini`, `copilot`, `cursor-agent`, `windsurf`
+- **Experimental tier** (template-enforced governance, best-effort triage): `qwen`, `opencode`, `codex`, `kilocode`, `auggie`, `codebuddy`, `qoder`, `roo`, `q`, `amp`, `shai`, `bob`
+
+Agent matching for subagents is **dynamic**: keyword overlap between feature descriptions and YAML frontmatter `description` fields — no hard-coded agent lists in command templates.
+
+This guide explains how to add a new agent to the supported or experimental tier.
+
+---
+
+## General practices
+
+- Any changes to `src/specify_cli/__init__.py` require a version rev in `pyproject.toml` and an entry in `CHANGELOG.md`.
+- Agent metadata (`AGENT_CONFIG` and `ATOMIC_SPEC_COMMANDS`) lives in `src/specify_cli/_config.py` — a stdlib-only module that the release workflow imports via `importlib.util` without installing CLI dependencies.
+
+## Adding New Agent Support
+
+This section explains how to add support for new AI agents/assistants to the Specify CLI. Use this guide as a reference when integrating new AI tools into the Spec-Driven Development workflow.
+
+### Overview
+
+Specify supports multiple AI agents by generating agent-specific command files and directory structures when initializing projects. Each agent has its own conventions for:
+
+- **Command file formats** (Markdown, TOML, etc.)
+- **Directory structures** (`.claude/commands/`, `.windsurf/workflows/`, etc.)
+- **Command invocation patterns** (slash commands, CLI tools, etc.)
+- **Argument passing conventions** (`$ARGUMENTS`, `{{args}}`, etc.)
+
+### Current Supported Agents
+
+The CLI accepts **17 agent keys**, but they are **NOT all equally validated**. Per README "AI coding agents supported," `Supported` = wired end-to-end and exercised on every release; `Experimental` = templates install correctly and the agent key is accepted, but agent-specific wiring is not exhaustively tested.
+
+| Agent                      | Tier             | Directory              | Format   | CLI Tool        | Description                 |
+| -------------------------- | ---------------- | ---------------------- | -------- | --------------- | --------------------------- |
+| **Claude Code**            | **Supported**    | `.claude/commands/`    | Markdown | `claude`        | Anthropic's Claude Code CLI |
+| **Gemini CLI**             | **Supported**    | `.gemini/commands/`    | TOML     | `gemini`        | Google's Gemini CLI         |
+| **GitHub Copilot**         | **Supported**    | `.github/agents/`      | Markdown | N/A (IDE-based) | GitHub Copilot in VS Code   |
+| **Cursor**                 | **Supported**    | `.cursor/commands/`    | Markdown | `cursor-agent`  | Cursor CLI                  |
+| **Windsurf**               | **Supported**    | `.windsurf/workflows/` | Markdown | N/A (IDE-based) | Windsurf IDE workflows      |
+| **Qwen Code**              | *Experimental*   | `.qwen/commands/`      | TOML     | `qwen`          | Alibaba's Qwen Code CLI     |
+| **opencode**               | *Experimental*   | `.opencode/command/`   | Markdown | `opencode`      | opencode CLI                |
+| **Codex CLI**              | *Experimental*   | `.codex/commands/`     | Markdown | `codex`         | Codex CLI                   |
+| **Kilo Code**              | *Experimental*   | `.kilocode/rules/`     | Markdown | N/A (IDE-based) | Kilo Code IDE               |
+| **Auggie CLI**             | *Experimental*   | `.augment/rules/`      | Markdown | `auggie`        | Auggie CLI                  |
+| **Roo Code**               | *Experimental*   | `.roo/rules/`          | Markdown | N/A (IDE-based) | Roo Code IDE                |
+| **CodeBuddy CLI**          | *Experimental*   | `.codebuddy/commands/` | Markdown | `codebuddy`     | CodeBuddy CLI               |
+| **Qoder CLI**              | *Experimental*   | `.qoder/commands/`     | Markdown | `qoder`         | Qoder CLI                   |
+| **Amazon Q Developer CLI** | *Experimental*   | `.amazonq/prompts/`    | Markdown | `q`             | Amazon Q Developer CLI      |
+| **Amp**                    | *Experimental*   | `.agents/commands/`    | Markdown | `amp`           | Amp CLI                     |
+| **SHAI**                   | *Experimental*   | `.shai/commands/`      | Markdown | `shai`          | SHAI CLI                    |
+| **IBM Bob**                | *Experimental*   | `.bob/commands/`       | Markdown | N/A (IDE-based) | IBM Bob IDE                 |
+
+Experimental-tier issues are labeled `experimental` and triaged best-effort. PRs that promote an agent to Supported tier are welcome — see `SUPPORT.md` for triage policy and promotion criteria.
+
+### Step-by-Step Integration Guide
+
+Follow these steps to add a new agent (using a hypothetical new agent as an example):
+
+#### 1. Add to AGENT_CONFIG
+
+**IMPORTANT**: Use the actual CLI tool name as the key, not a shortened version.
+
+Add the new agent to the `AGENT_CONFIG` dictionary in `src/specify_cli/_config.py`. This is the **single source of truth** for all agent metadata — both the `atomicspec` CLI (via re-export from `__init__.py`) and the release workflow (via `importlib.util`) read it from here:
+
+```python
+AGENT_CONFIG = {
+    # ... existing agents ...
+    "new-agent-cli": {  # Use the ACTUAL CLI tool name (what users type in terminal)
+        "name": "New Agent Display Name",
+        "folder": ".newagent/",  # Directory for agent files
+        "install_url": "https://example.com/install",  # URL for installation docs (or None if IDE-based)
+        "requires_cli": True,  # True if CLI tool required, False for IDE-based agents
+        "tier": "experimental",  # "supported" or "experimental" — see README tier policy
+    },
+}
+```
+
+**Key Design Principle**: The dictionary key should match the actual executable name that users install. For example:
+
+- ✅ Use `"cursor-agent"` because the CLI tool is literally called `cursor-agent`
+- ❌ Don't use `"cursor"` as a shortcut if the tool is `cursor-agent`
+
+This eliminates the need for special-case mappings throughout the codebase.
+
+**Field Explanations**:
+
+- `name`: Human-readable display name shown to users
+- `folder`: Directory where agent-specific files are stored (relative to project root)
+- `install_url`: Installation documentation URL (set to `None` for IDE-based agents)
+- `requires_cli`: Whether the agent requires a CLI tool check during initialization
+- `tier`: Support level — `"supported"` (wired end-to-end in `init-project.{sh,ps1}`, exercised on every release, bugs triaged as standard issues) or `"experimental"` (template-enforced governance applies, but agent-specific wiring is not validated; issues are labeled `experimental` and triaged best-effort). New agents start as `experimental` until a PR validates the end-to-end flow. See `SUPPORT.md` for the full tier policy.
+
+#### 2. Update CLI Help Text
+
+Update the `--ai` parameter help text in the `init()` command to include the new agent:
+
+```python
+ai_assistant: str = typer.Option(None, "--ai", help="AI assistant to use: claude, gemini, copilot, cursor-agent, qwen, opencode, codex, windsurf, kilocode, auggie, codebuddy, new-agent-cli, or q"),
+```
+
+Also update any function docstrings, examples, and error messages that list available agents.
+
+#### 3. Update README Documentation
+
+Update the **Supported AI Agents** section in `README.md` to include the new agent:
+
+- Add the new agent to the table with appropriate support level (Full/Partial)
+- Include the agent's official website link
+- Add any relevant notes about the agent's implementation
+- Ensure the table formatting remains aligned and consistent
+
+#### 4. Update Release Package Script
+
+Modify `.github/workflows/scripts/create-release-packages.sh`:
+
+##### Add to ALL_AGENTS array
+
+```bash
+ALL_AGENTS=(claude gemini copilot cursor-agent qwen opencode windsurf q)
+```
+
+##### Add case statement for directory structure
+
+```bash
+case $agent in
+  # ... existing cases ...
+  windsurf)
+    mkdir -p "$base_dir/.windsurf/workflows"
+    generate_commands windsurf md "\$ARGUMENTS" "$base_dir/.windsurf/workflows" "$script" ;;
+esac
+```
+
+#### 4. Update GitHub Release Script
+
+Modify `.github/workflows/scripts/create-github-release.sh` to include the new agent's packages:
+
+```bash
+gh release create "$VERSION" \
+  # ... existing packages ...
+  .genreleases/spec-kit-template-windsurf-sh-"$VERSION".zip \
+  .genreleases/spec-kit-template-windsurf-ps-"$VERSION".zip \
+  # Add new agent packages here
+```
+
+#### 5. Update Agent Context Scripts
+
+##### Bash script (`scripts/bash/update-agent-context.sh`)
+
+Add file variable:
+
+```bash
+WINDSURF_FILE="$REPO_ROOT/.windsurf/rules/specify-rules.md"
+```
+
+Add to case statement:
+
+```bash
+case "$AGENT_TYPE" in
+  # ... existing cases ...
+  windsurf) update_agent_file "$WINDSURF_FILE" "Windsurf" ;;
+  "")
+    # ... existing checks ...
+    [ -f "$WINDSURF_FILE" ] && update_agent_file "$WINDSURF_FILE" "Windsurf";
+    # Update default creation condition
+    ;;
+esac
+```
+
+##### PowerShell script (`scripts/powershell/update-agent-context.ps1`)
+
+Add file variable:
+
+```powershell
+$windsurfFile = Join-Path $repoRoot '.windsurf/rules/specify-rules.md'
+```
+
+Add to switch statement:
+
+```powershell
+switch ($AgentType) {
+    # ... existing cases ...
+    'windsurf' { Update-AgentFile $windsurfFile 'Windsurf' }
+    '' {
+        foreach ($pair in @(
+            # ... existing pairs ...
+            @{file=$windsurfFile; name='Windsurf'}
+        )) {
+            if (Test-Path $pair.file) { Update-AgentFile $pair.file $pair.name }
+        }
+        # Update default creation condition
+    }
+}
+```
+
+#### 6. Update CLI Tool Checks (Optional)
+
+For agents that require CLI tools, add checks in the `check()` command and agent validation:
+
+```python
+# In check() command
+tracker.add("windsurf", "Windsurf IDE (optional)")
+windsurf_ok = check_tool_for_tracker("windsurf", "https://windsurf.com/", tracker)
+
+# In init validation (only if CLI tool required)
+elif selected_ai == "windsurf":
+    if not check_tool("windsurf", "Install from: https://windsurf.com/"):
+        console.print("[red]Error:[/red] Windsurf CLI is required for Windsurf projects")
+        agent_tool_missing = True
+```
+
+**Note**: CLI tool checks are now handled automatically based on the `requires_cli` field in AGENT_CONFIG. No additional code changes needed in the `check()` or `init()` commands - they automatically loop through AGENT_CONFIG and check tools as needed.
+
+## Important Design Decisions
+
+### Using Actual CLI Tool Names as Keys
+
+**CRITICAL**: When adding a new agent to AGENT_CONFIG, always use the **actual executable name** as the dictionary key, not a shortened or convenient version.
+
+**Why this matters:**
+
+- The `check_tool()` function uses `shutil.which(tool)` to find executables in the system PATH
+- If the key doesn't match the actual CLI tool name, you'll need special-case mappings throughout the codebase
+- This creates unnecessary complexity and maintenance burden
+
+**Example - The Cursor Lesson:**
+
+❌ **Wrong approach** (requires special-case mapping):
+
+```python
+AGENT_CONFIG = {
+    "cursor": {  # Shorthand that doesn't match the actual tool
+        "name": "Cursor",
+        # ...
+    }
+}
+
+# Then you need special cases everywhere:
+cli_tool = agent_key
+if agent_key == "cursor":
+    cli_tool = "cursor-agent"  # Map to the real tool name
+```
+
+✅ **Correct approach** (no mapping needed):
+
+```python
+AGENT_CONFIG = {
+    "cursor-agent": {  # Matches the actual executable name
+        "name": "Cursor",
+        # ...
+    }
+}
+
+# No special cases needed - just use agent_key directly!
+```
+
+**Benefits of this approach:**
+
+- Eliminates special-case logic scattered throughout the codebase
+- Makes the code more maintainable and easier to understand
+- Reduces the chance of bugs when adding new agents
+- Tool checking "just works" without additional mappings
+
+#### 7. Update Devcontainer files (Optional)
+
+For agents that have VS Code extensions or require CLI installation, update the devcontainer configuration files:
+
+##### VS Code Extension-based Agents
+
+For agents available as VS Code extensions, add them to `.devcontainer/devcontainer.json`:
+
+```json
+{
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // ... existing extensions ...
+        // [New Agent Name]
+        "[New Agent Extension ID]"
+      ]
+    }
+  }
+}
+```
+
+##### CLI-based Agents
+
+For agents that require CLI tools, add installation commands to `.devcontainer/post-create.sh`:
+
+```bash
+#!/bin/bash
+
+# Existing installations...
+
+echo -e "\n🤖 Installing [New Agent Name] CLI..."
+# run_command "npm install -g [agent-cli-package]@latest" # Example for node-based CLI
+# or other installation instructions (must be non-interactive and compatible with Linux Debian "Trixie" or later)...
+echo "✅ Done"
+
+```
+
+**Quick Tips:**
+
+- **Extension-based agents**: Add to the `extensions` array in `devcontainer.json`
+- **CLI-based agents**: Add installation scripts to `post-create.sh`
+- **Hybrid agents**: May require both extension and CLI installation
+- **Test thoroughly**: Ensure installations work in the devcontainer environment
+
+## Agent Categories
+
+### CLI-Based Agents
+
+Require a command-line tool to be installed:
+
+- **Claude Code**: `claude` CLI
+- **Gemini CLI**: `gemini` CLI
+- **Cursor**: `cursor-agent` CLI
+- **Qwen Code**: `qwen` CLI
+- **opencode**: `opencode` CLI
+- **Amazon Q Developer CLI**: `q` CLI
+- **CodeBuddy CLI**: `codebuddy` CLI
+- **Qoder CLI**: `qoder` CLI
+- **Amp**: `amp` CLI
+- **SHAI**: `shai` CLI
+
+### IDE-Based Agents
+
+Work within integrated development environments:
+
+- **GitHub Copilot**: Built into VS Code/compatible editors
+- **Windsurf**: Built into Windsurf IDE
+- **IBM Bob**: Built into IBM Bob IDE
+
+## Command File Formats
+
+### Markdown Format
+
+Used by: Claude, Cursor, opencode, Windsurf, Amazon Q Developer, Amp, SHAI, IBM Bob
+
+**Standard format:**
+
+```markdown
+---
+description: "Command description"
+---
+
+Command content with {SCRIPT} and $ARGUMENTS placeholders.
+```
+
+**GitHub Copilot Chat Mode format:**
+
+```markdown
+---
+description: "Command description"
+mode: atomicspec.command-name
+---
+
+Command content with {SCRIPT} and $ARGUMENTS placeholders.
+```
+
+### TOML Format
+
+Used by: Gemini, Qwen
+
+```toml
+description = "Command description"
+
+prompt = """
+Command content with {SCRIPT} and {{args}} placeholders.
+"""
+```
+
+## Directory Conventions
+
+- **CLI agents**: Usually `.<agent-name>/commands/`
+- **IDE agents**: Follow IDE-specific patterns:
+  - Copilot: `.github/agents/`
+  - Cursor: `.cursor/commands/`
+  - Windsurf: `.windsurf/workflows/`
+
+## Argument Patterns
+
+Different agents use different argument placeholders:
+
+- **Markdown/prompt-based**: `$ARGUMENTS`
+- **TOML-based**: `{{args}}`
+- **Script placeholders**: `{SCRIPT}` (replaced with actual script path)
+- **Agent placeholders**: `__AGENT__` (replaced with agent name)
+
+## Testing New Agent Integration
+
+1. **Build test**: Run package creation script locally
+2. **CLI test**: Test `specify init --ai <agent>` command
+3. **File generation**: Verify correct directory structure and files
+4. **Command validation**: Ensure generated commands work with the agent
+5. **Context update**: Test agent context update scripts
+
+## Common Pitfalls
+
+1. **Using shorthand keys instead of actual CLI tool names**: Always use the actual executable name as the AGENT_CONFIG key (e.g., `"cursor-agent"` not `"cursor"`). This prevents the need for special-case mappings throughout the codebase.
+2. **Forgetting update scripts**: Both bash and PowerShell scripts must be updated when adding new agents.
+3. **Incorrect `requires_cli` value**: Set to `True` only for agents that actually have CLI tools to check; set to `False` for IDE-based agents.
+4. **Wrong argument format**: Use correct placeholder format for each agent type (`$ARGUMENTS` for Markdown, `{{args}}` for TOML).
+5. **Directory naming**: Follow agent-specific conventions exactly (check existing agents for patterns).
+6. **Help text inconsistency**: Update all user-facing text consistently (help strings, docstrings, README, error messages).
+
+## Future Considerations
+
+When adding new agents:
+
+- Consider the agent's native command/workflow patterns
+- Ensure compatibility with the Spec-Driven Development process
+- Document any special requirements or limitations
+- Update this guide with lessons learned
+- Verify the actual CLI tool name before adding to AGENT_CONFIG
+
+---
+
+*This documentation should be updated whenever new agents are added to maintain accuracy and completeness.*
+
+<!-- ATOMIC-SPEC-ORIENTATION:v2:START -->
+## Atomic Spec Orientation
+
+This project is governed by **Atomic Spec** (Atomic Traceability Model). Any AI
+agent -- regardless of provider (Claude / Codex / Gemini / Cursor / Copilot /
+Windsurf / etc.) -- MUST follow the orientation procedure below before writing
+code, generating tests, or modifying specs. Skipping it causes drift, duplicate
+work, and silent governance violations.
+
+### Mandatory reading on every session start
+
+1. `memory/constitution.md` -- Article IX defines the 9 Prime Directives. They
+   are non-negotiable.
+2. `specs/_defaults/registry.yaml` -- project-wide technical defaults. Treat
+   as reference, not as something to re-discover.
+3. `.specify/knowledge/stations/00-station-map.md` (if present) -- where to
+   look when a decision is unfamiliar.
+
+### Cross-provider handoff -- orientation procedure (Directive 9)
+
+Run this on every session start, BEFORE picking up any task:
+
+1. Read the current git branch (`git rev-parse --abbrev-ref HEAD`). Feature
+   branches are `NNN-feature-name`.
+2. If on a feature branch, the active feature folder is `specs/<branch>/`.
+3. For every artifact in that folder (`spec.md`, `clarify-log.md`, `plan.md`,
+   `index.md`, `traceability.md`, `tasks/T-*.md`), run:
+   ```
+   scripts/bash/stamp-lifecycle.sh status --artifact <path> --json
+   ```
+   or on Windows:
+   ```
+   scripts/powershell/stamp-lifecycle.ps1 -Command status -Artifact <path> -Json
+   ```
+4. Categorize each result by `state`: `closed | done | legacy_closed | authored`
+   = OK; `authoring_in_progress | implementing` = open, needs attention.
+5. Apply the three outcomes (Directive 9):
+   - **Clean**: every artifact closed. Print one-line summary; proceed.
+   - **Stale**: an open block whose `start` timestamp is older than the
+     registry's `lifecycle.stale_threshold_days` (default 7 days). Surface as
+     informational; let the user confirm resume-or-discard.
+   - **Conflict**: an open block newer than the stale threshold. STOP,
+     present options (resume / redo / skip / abort), await the user.
+6. Write the orientation evidence (the JSON outputs + outcome + decision) as a
+   **per-run file** in `specs/<branch>/orientation-runs/<ISO-UTC>-<provider>.md`
+   (race-free under concurrent providers — no two timestamps collide at second
+   precision). This evidence is **required by policy in v0.3.0**; a runtime gate
+   (`check-prerequisites --check-orientation`) that BLOCKS Phase 1 on missing
+   evidence ships in v0.3.1.
+
+### Lifecycle Markers -- hard rules
+
+- **NEVER write a Lifecycle Markers stamp by hand.** Always invoke
+  `scripts/bash/stamp-lifecycle.sh` or `scripts/powershell/stamp-lifecycle.ps1`.
+  The script guarantees format, ISO 8601 UTC timestamp, sanitized provider
+  name, and atomic write. Hand-edited stamps will mis-parse or be rejected
+  by the orientation procedure.
+- Subcommands: `init` (initialize a block on a fresh artifact),
+  `start` (begin a lifecycle event), `end` (close one), `status` (read it).
+- Lifecycles: `authoring` (every artifact carries this) +
+  `implementation` (only `tasks/T-*.md` and `traceability.md` carry this).
+- Provider names must be in the allowlist: claude / gpt / gemini / cursor /
+  copilot / codex / windsurf / qwen / opencode / kilocode / auggie / shai /
+  q / bob / qoder / roo / amp.
+
+### Phase pipeline reminder
+
+`/atomicspec.specify -> /atomicspec.plan -> /atomicspec.tasks -> /atomicspec.implement`
+
+Each phase has gate criteria enforced by
+`scripts/{bash,powershell}/check-prerequisites.{sh,ps1}`. Do not jump phases.
+If a gate fails, fix the failure -- do not work around it.
+
+### When in doubt
+
+1. Re-read `memory/constitution.md` Article IX.
+2. Consult the Station Map for the relevant procedure.
+3. Ask the user. Do NOT improvise governance.
+
+### Forbidden actions
+
+- Creating a single `tasks.md` (Directive 2 -- tasks live in `tasks/T-XXX-*.md`).
+- Reading `plan.md` or `spec.md` body content during `/atomicspec.implement`
+  (Directive 3).
+- Reading body content of any artifact during Phase 0 Orientation other than
+  `index.md` and `traceability.md` -- use `stamp-lifecycle status` for the
+  rest (Directive 9).
+- Skipping HITL checkpoints in `/atomicspec.plan` (Directive 6).
+- Modifying the registry without an entry in `specs/_defaults/changelog.md`
+  (Directive 7).
+- Hand-writing lifecycle stamps. ALWAYS via `stamp-lifecycle` script.
+
+<!-- ATOMIC-SPEC-ORIENTATION:v2:END -->
+
+---
+> Source: [Chappygo-OS/Atomic-Spec](https://github.com/Chappygo-OS/Atomic-Spec) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-14 -->
