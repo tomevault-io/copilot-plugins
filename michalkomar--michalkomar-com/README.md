@@ -7,11 +7,11 @@ Personal site of Michal Komar — AI consultant in Prague (agentic AI, enterpris
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [michalkomar/michalkomar.com](https://github.com/michalkomar/michalkomar.com).
+Original source: `CLAUDE.md` in [michalkomar/michalkomar.com](https://github.com/michalkomar/michalkomar.com).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
