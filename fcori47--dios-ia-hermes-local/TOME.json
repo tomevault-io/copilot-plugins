@@ -4,7 +4,7 @@
   "repo": "dios-ia-hermes-local",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fcori47/dios-ia-hermes-local",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T23:03:21Z"
+  "distributed_at": "2026-08-14T03:11:36Z"
 }
