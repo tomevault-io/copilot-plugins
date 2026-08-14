@@ -1,0 +1,9 @@
+{
+  "name": "pymodel--pythinker-cli",
+  "displayName": "pythinker-cli",
+  "description": "Think first, then code. Where Claude Code and Codex jump straight to writing, this stays review-first: a code reviewer, security scanner, root-cause debugger, and code generator, all in one shell-nati",
+  "version": "1.0.0",
+  "author": "PyModel",
+  "homepage": "https://github.com/PyModel/pythinker-cli",
+  "skills": []
+}
