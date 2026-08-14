@@ -1,0 +1,9 @@
+{
+  "name": "slickamogus--silent-hill-decomp",
+  "displayName": "silent-hill-decomp",
+  "description": "PC Port WIP based on existing decompilation of Silent Hill 1 made with Claude and Psycross",
+  "version": "1.0.0",
+  "author": "SlickAmogus",
+  "homepage": "https://github.com/SlickAmogus/silent-hill-decomp",
+  "skills": []
+}
