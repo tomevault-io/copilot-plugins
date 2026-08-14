@@ -4,7 +4,7 @@
   "repo": "telegrambot-aestheticlab",
   "description": "telegrambot-aestheticlab",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lieranderl/telegrambot-aestheticlab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T05:35:48Z"
+  "distributed_at": "2026-08-14T08:31:33Z"
 }
