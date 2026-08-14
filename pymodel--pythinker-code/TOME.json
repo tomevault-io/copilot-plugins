@@ -4,7 +4,7 @@
   "repo": "pythinker-code",
   "description": "Next-generation AI coding agent for your terminal \u2014 reads code, edits files, runs tools, and integrates with editors via ACP.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PyModel/pythinker-code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T22:51:05Z"
+  "distributed_at": "2026-08-14T11:30:07Z"
 }
