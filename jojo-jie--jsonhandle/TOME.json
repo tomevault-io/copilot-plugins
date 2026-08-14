@@ -4,7 +4,7 @@
   "repo": "jsonHandle",
   "description": "safari jsonHandle",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jojo-jie/jsonHandle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T19:40:29Z"
+  "distributed_at": "2026-08-14T20:50:47Z"
 }
