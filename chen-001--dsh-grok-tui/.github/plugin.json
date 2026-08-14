@@ -1,0 +1,9 @@
+{
+  "name": "chen-001--dsh-grok-tui",
+  "displayName": "dsh-grok-tui",
+  "description": "Use dsh via grok-build's TUI.",
+  "version": "1.0.0",
+  "author": "chen-001",
+  "homepage": "https://github.com/chen-001/dsh-grok-tui",
+  "skills": []
+}
