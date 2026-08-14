@@ -4,7 +4,7 @@
   "repo": "boffin",
   "description": "Staff-engineer layer for AI coding agents: routes per-edit architectural constraints and requires verification. Not another AGENTS.md.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MicSm/boffin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T22:42:05Z"
+  "distributed_at": "2026-08-14T11:07:04Z"
 }
