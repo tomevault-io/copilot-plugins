@@ -1,0 +1,87 @@
+## guanlan
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this is
+
+观澜 (GuānLán) is an implementation of the [Karpathy LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): an Agent incrementally builds and maintains a structured, cross-linked markdown knowledge wiki instead of doing fresh RAG retrieval on every query. The full design (in Chinese) is the authoritative spec — read [`docs/DESIGN.md`](docs/DESIGN.md) before any non-trivial change.
+
+**Current status:** released through v0.1.21; the roadmap is fully implemented — P2 minimal closed loop, P3 health/graph family, P4 optional host layer (Web + MCP, through P4.17's Streamable HTTP transport, P4.18's move to MCP SDK v2 / protocol `2026-07-28`, P4.19's read-only Web panel for the *opposite* direction — the external MCP servers agentao already injects into this KB — and P4.20's in-browser rendering of ` ```flint ` chart-spec blocks into data charts), P5 retrieval + multi-format ingest, and every half-phase P2.1–P5.4. No roadmap spec remains unimplemented; per-phase flags, behavior, and red lines live in the `docs/P*.md` file for that phase, not here.
+
+CLAUDE.md does **not** restate phase history or per-decision detail — authoritative sources:
+- Per-version change detail → [`CHANGELOG.md`](CHANGELOG.md)
+- Milestone table → [`docs/DESIGN.md`](docs/DESIGN.md) §7
+- Single-phase design/decisions → `docs/P*.md` (one file per phase)
+
+When adding features, match the phase boundaries in DESIGN §4.4 / §7 and preserve the Invariants below.
+
+## Commands
+
+```bash
+uv run guanlan init /tmp/demo            # scaffold a knowledge base (deterministic, zero-LLM)
+uv run guanlan -C /tmp/demo check        # deterministic validation (frontmatter / broken links / sources)
+uv run guanlan -C /tmp/demo health       # P3: stub pages + index↔disk sync (advisory; --strict → exit 6)
+uv run guanlan -C /tmp/demo lint         # P3: orphans / broken links / missing entities (advisory)
+uv run guanlan -C /tmp/demo graph        # P3: write graph/graph.json + graph.html (--json-only skips html)
+uv run guanlan -C /tmp/demo reindex      # P3.4: register disk pages missing from index.md (zero-LLM; --dry-run / --prune)
+uv run guanlan -C /tmp/demo search 关键词 # P5.0: BM25 + CJK 2-gram whole-page recall, top-N (zero-LLM; --limit / --json)
+uv run guanlan -C /tmp/demo remove <slug> # P3.9: retract a source → .trash/ + strip refs + fix index (zero-LLM; previews by default, --yes to write)
+uv run guanlan -C /tmp/demo heal --dry-run   # P3.2: materialize high-frequency missing entities (LLM via the P2 write gate; --dry-run = zero-LLM worklist)
+uv run guanlan -C /tmp/demo audit --dry-run  # P3.7: semantic audit of drifted sources (LLM via the P2 write gate; --dry-run = zero-LLM)
+uv run guanlan -C /tmp/demo convert 报告.pdf  # P5.2: multi-format → raw/<slug>.md via pdf-to-markdown skill (zero-LLM host write; --dry-run / --overwrite / --ingest / --backend)
+uv run guanlan -C /tmp/demo web --no-browser   # P4: optional local Web host (needs guanlan-wiki[web]; 127.0.0.1 only)
+uv run guanlan -C /tmp/demo mcp          # P4.10/P4.17: optional read-only MCP server (stdio; --transport http for Streamable HTTP) (needs guanlan-wiki[mcp])
+uv run guanlan install-skill             # copy the bundled skills (guanlan-wiki + the pdf-to-markdown / flint-chart-author aux pair) into ~/.agentao/skills/ (external-base mode)
+uv run pytest                            # run all tests
+uv run pytest tests/test_web.py          # P4 Web host tests (skipped if guanlan-wiki[web] absent)
+uv run pytest tests/test_mcp.py          # P4.10 MCP host tests (skipped if guanlan-wiki[mcp] absent)
+uv run pytest tests/test_web_mcpdiag.py  # P4.19 Web MCP diagnostics (the reverse direction: external servers injected *into* this KB)
+uv run --extra web python scripts/smoke_p420.py  # P4.20 flint chart rendering — real-browser smoke (Playwright; not in pytest)
+uv run pytest tests/test_convert.py      # P5.2 convert tests (mock skill backend; zero-LLM)
+uv run pytest tests/test_init.py::test_init_is_idempotent_and_non_destructive  # single test
+```
+
+(`ingest` / `query` / `heal` / `audit` and the Web host's chat drive Agentao + the skill and need a configured model; `init` / `check` / `health` / `lint` / `graph` / `reindex` / `search` / `remove` are the zero-LLM ones runnable offline (`convert` is also zero-LLM from guanlan's side, but shells out to the `pdf-to-markdown` skill's external backends — MinerU/marker/pypdf — so a real conversion needs at least one installed). `guanlan web` needs the optional `web` extra: `pip install 'guanlan-wiki[web]'` (dev: `uv pip install -e '.[web]'`) — don't hand-pick the packages: the extra also carries `python-multipart`/`anyio`, without which the P4.6 upload endpoint makes FastAPI fail at startup. `guanlan mcp` needs the optional `mcp` extra: `pip install 'guanlan-wiki[mcp]'` — a read-only MCP **server** over stdio (default) or Streamable HTTP (`--transport http`, P4.17), distinct from DESIGN's reverse-direction "Tool 注入" where Agentao is the MCP *client*. Since P4.18 the extra requires the official SDK **v2** (`mcp>=2,<3`, i.e. `MCPServer`, protocol `2026-07-28`); an env still holding `mcp` 1.x fails the import and the CLI says so — v1.x is upstream-maintenance-only. Old clients keep working: v2 still serves the handshake-era revisions on both transports.)
+
+Python 3.10+ (`pyproject.toml`: `requires-python = ">=3.10"`), dependencies managed by `uv` (see `uv.lock`). The package depends on `agentao` (the governed Agent runtime executing the LLM-driven commands via subprocess, and — in P4 — embedded read-only for Web chat). The `web` extra (fastapi/uvicorn/markdown/python-multipart/anyio) and `mcp` extra are optional and not part of the core install.
+
+## Architecture
+
+The project deliberately separates three concerns. Internalize this split before editing — most design decisions follow from it.
+
+1. **`guanlan/` — the thin CLI wrapper (this package).** It carries *no wiki-maintenance intelligence* — judgment about content lives in the skill and runs under Agentao. The wrapper owns exactly three kinds of code: deterministic zero-LLM operations (`init`/`check`/`health`/`lint`/`graph`/`reindex`/`search`/`remove`/`convert` — roughly one module per subcommand), orchestration of Agentao + the skill for the LLM operations (`ingest`/`query`/`heal`/`audit`) with the deterministic write gate (`gate.py`) wrapped around every write run, and the optional hosts (`web/`, `mcp/`). `cli.py` is argparse-only.
+
+2. **`skills/guanlan-wiki/` — the maintenance engine.** This is where the actual wiki-maintenance workflows live (`SKILL.md` = workflows, `references/conventions.md` = default page/frontmatter/naming conventions — the deterministic checks live in the `guanlan/` package, not in skill scripts). The engine is shipped/installed *once* and is **not** copied into each knowledge base. It is intended to run under Agentao's skill discovery. Alongside it `skills/` also carries two **auxiliary** skills that are deliberately *not* part of the maintenance engine, because their subject matter is orthogonal to wiki conventions: `pdf-to-markdown` (P4.6, parse uploads into `workspace/parsed/`) and `flint-chart-author` (P4.20, turn structured data into a renderable ` ```flint ` chart-spec block). All three are enumerated in `guanlan/skill.py`'s `BUNDLED_SKILL_NAMES`; adding one costs a `force-include` line plus a tuple entry, and `tests/test_skill.py` covers it automatically.
+
+3. **User knowledge base (generated by `guanlan init`).** Holds only data + per-base config: `AGENTAO.md` (Agent behavior hard-constraints + pointers), `SCHEMA.md` (this base's domain/page-types/custom rules), `raw/` (read-only sources), `wiki/` (Agent-owned generated layer: `index.md`, `log.md`, `overview.md`, plus `sources/ entities/ concepts/ syntheses/`).
+
+### Two run modes (do not mix them)
+
+- **Development = repo root *is* a sample wiki.** Set Agentao's `working_directory` to this repo root; `skills/guanlan-wiki/` then hits Agentao's repo-root discovery path (`<wd>/skills/`), so the engine is found with no install. Sample wiki data (`raw/`, `wiki/`, `graph/`, `kbs/`, `workspace/`, `.trash/`) and the dev-copied `AGENTAO.md`/`SCHEMA.md` are `.gitignore`d — they may contain machine-local paths and never get committed.
+- **External real wiki = global install.** The skill is installed to `~/.agentao/skills/guanlan-wiki/` (cwd-independent), with the user's base as `working_directory`. There is intentionally no "discover repo skills/ from an external wiki" path.
+
+### init template duality (`guanlan/init.py`)
+
+`init` copies a template tree. `_templates_dir()` resolves two locations by priority: bundled `guanlan/_templates/` (installed wheel) → repo-root `examples/` (development). The wheel's `force-include` in `pyproject.toml` copies `examples/{AGENTAO.md,SCHEMA.md,wiki}` into `guanlan/_templates/` at build time — so **`examples/` is the single source of truth for init templates**; edit templates there, not in `_templates/`. `init` never overwrites existing files (idempotent) and substitutes a `__DATE__` token in `wiki/` seed files.
+
+## Invariants that drive the design
+
+These come up repeatedly in DESIGN and the skill; preserve them in any change:
+
+- **Markdown is the only source of truth.** Any index / graph / cache is a derivative that must be idempotently rebuildable from markdown — it never becomes authoritative.
+- **`raw/` is read-only and immutable.** In P2 this is enforced *deterministically by the wrapper* via a before/after snapshot (filename + size + mtime, SHA256 if needed) around the Agentao call — not by permission config, since a snapshot also catches shell `mv`/`rm`/`python` writes that bypass `write_file`.
+- **Zero-LLM scripts vs. LLM-only workflows.** Deterministic work (frontmatter/wikilink/structure checks, graph building) is plain Python scripts with no LLM. LLM is used *only* for `ingest` and `query`, and always via the Agentao runtime — scripts must never carry their own LLM client or API keys.
+- **`SCHEMA.md` / `AGENTAO.md` / `index.md` / `log.md` / `overview.md` are config, not content** — exclude them from index/graph/lint scans.
+- **Data conventions** (frontmatter fields, kebab-case vs TitleCase naming, `[[wikilink]]` resolution, `index.md`/`log.md` formats, the `## ⚠️ 矛盾与存疑` contradiction-marking format) are specified in `skills/guanlan-wiki/references/conventions.md` and DESIGN §4.5. A base's `SCHEMA.md` may override defaults.
+
+## Conventions
+
+The codebase (code comments, docstrings, design docs, user-facing CLI output) is written in **Chinese**. Match that when editing existing files.
+
+---
+> Source: [jin-bo/guanlan](https://github.com/jin-bo/guanlan) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-12 -->
