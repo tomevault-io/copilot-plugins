@@ -1,0 +1,9 @@
+{
+  "name": "eas4ai--hermes-context-manager",
+  "displayName": "hermes-context-manager",
+  "description": "Hermes Agent port of pi-dynamic-context-pruning plugin with additions",
+  "version": "1.0.0",
+  "author": "eas4ai",
+  "homepage": "https://github.com/eas4ai/hermes-context-manager",
+  "skills": []
+}
