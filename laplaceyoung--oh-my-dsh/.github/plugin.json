@@ -1,0 +1,9 @@
+{
+  "name": "laplaceyoung--oh-my-dsh",
+  "displayName": "oh-my-dsh",
+  "description": "oh-my-dsh\uff1a\u9762\u5411 DSH (DeepSeek Harness) \u7684\u63d2\u4ef6\u751f\u6001\u2014\u2014700+ \u63d2\u4ef6\uff0c\u53ea\u901a\u8fc7\u6269\u5c55\u63a5\u7f1d\u6ce8\u518c\uff0c\u4e0d\u4fee\u6539 agent-loop \u9aa8\u67b6",
+  "version": "1.0.0",
+  "author": "LaplaceYoung",
+  "homepage": "https://github.com/LaplaceYoung/oh-my-dsh",
+  "skills": []
+}
