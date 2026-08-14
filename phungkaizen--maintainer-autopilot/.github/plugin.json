@@ -1,0 +1,9 @@
+{
+  "name": "phungkaizen--maintainer-autopilot",
+  "displayName": "maintainer-autopilot",
+  "description": "Local-first, resumable AI maintenance pipelines with single-writer safety and deterministic verification.",
+  "version": "1.0.0",
+  "author": "phungkaizen",
+  "homepage": "https://github.com/phungkaizen/maintainer-autopilot",
+  "skills": []
+}
