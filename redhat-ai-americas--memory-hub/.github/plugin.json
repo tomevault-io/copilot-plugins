@@ -1,0 +1,9 @@
+{
+  "name": "redhat-ai-americas--memory-hub",
+  "displayName": "memory-hub",
+  "description": "MemoryHub: Kubernetes-native agent memory component for OpenShift AI",
+  "version": "1.0.0",
+  "author": "redhat-ai-americas",
+  "homepage": "https://github.com/redhat-ai-americas/memory-hub",
+  "skills": []
+}
