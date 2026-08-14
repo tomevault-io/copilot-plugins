@@ -1,0 +1,9 @@
+{
+  "name": "chobbledotcom--chobble-client",
+  "displayName": "chobble-client",
+  "description": "The template for web development customers of Chobble.com",
+  "version": "1.0.0",
+  "author": "chobbledotcom",
+  "homepage": "https://github.com/chobbledotcom/chobble-client",
+  "skills": []
+}
