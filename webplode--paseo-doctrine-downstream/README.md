@@ -7,11 +7,11 @@ Private upstream-tracking mirror for Paseo doctrine and role-tool projection cha
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [webplode/paseo-doctrine-downstream](https://github.com/webplode/paseo-doctrine-downstream).
+Original source: `AGENTS.md` in [webplode/paseo-doctrine-downstream](https://github.com/webplode/paseo-doctrine-downstream).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
