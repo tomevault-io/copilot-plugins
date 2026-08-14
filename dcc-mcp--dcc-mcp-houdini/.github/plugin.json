@@ -1,0 +1,9 @@
+{
+  "name": "dcc-mcp--dcc-mcp-houdini",
+  "displayName": "dcc-mcp-houdini",
+  "description": "SideFX Houdini adapter for the DCC Model Context Protocol",
+  "version": "1.0.0",
+  "author": "dcc-mcp",
+  "homepage": "https://github.com/dcc-mcp/dcc-mcp-houdini",
+  "skills": []
+}
