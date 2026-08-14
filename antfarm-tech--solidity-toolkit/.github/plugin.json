@@ -1,0 +1,9 @@
+{
+  "name": "antfarm-tech--solidity-toolkit",
+  "displayName": "solidity-toolkit",
+  "description": "Solidity compiler tooling and smart-contract analysis workspace for Web3 infrastructure.",
+  "version": "1.0.0",
+  "author": "antfarm-tech",
+  "homepage": "https://github.com/antfarm-tech/solidity-toolkit",
+  "skills": []
+}
