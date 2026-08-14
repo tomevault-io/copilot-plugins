@@ -1,0 +1,9 @@
+{
+  "name": "fffold--astrbot-plugin-suwayomi-server",
+  "displayName": "astrbot_plugin_suwayomi_server",
+  "description": "\u57fa\u4e8e\u5f3a\u5927\u7684 Suwayomi-Server \u540e\u7aef\uff0c\u4e3a\u804a\u5929\u5e73\u53f0\uff08QQ / Telegram / Discord \u7b49\uff09\u63d0\u4f9b\u6f2b\u753b\u641c\u7d22\u3001\u5728\u7ebf\u9605\u8bfb\u3001\u6279\u91cf\u4e0b\u8f7d\u548c\u8ba2\u9605\u66f4\u65b0\u63a8\u9001\u670d\u52a1\u3002",
+  "version": "1.0.0",
+  "author": "FFFold",
+  "homepage": "https://github.com/FFFold/astrbot_plugin_suwayomi_server",
+  "skills": []
+}
