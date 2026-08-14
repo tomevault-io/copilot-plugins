@@ -1,0 +1,9 @@
+{
+  "name": "gabomsambo--nlp-learning-workflow",
+  "displayName": "nlp-learning-workflow",
+  "description": "An end-to-end system for processing and learning from NLP research papers",
+  "version": "1.0.0",
+  "author": "gabomsambo",
+  "homepage": "https://github.com/gabomsambo/nlp-learning-workflow",
+  "skills": []
+}
