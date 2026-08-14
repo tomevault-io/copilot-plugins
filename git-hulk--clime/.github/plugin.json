@@ -1,0 +1,9 @@
+{
+  "name": "git-hulk--clime",
+  "displayName": "clime",
+  "description": "Unified CLI manager that lets you install, discover, and update CLI plugins from one place.",
+  "version": "1.0.0",
+  "author": "git-hulk",
+  "homepage": "https://github.com/git-hulk/clime",
+  "skills": []
+}
