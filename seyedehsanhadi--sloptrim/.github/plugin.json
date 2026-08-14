@@ -1,0 +1,9 @@
+{
+  "name": "seyedehsanhadi--sloptrim",
+  "displayName": "sloptrim",
+  "description": "A local detector for AI-writing patterns. Scores every prose file your agent saves. Python standard library only, no network, no model.",
+  "version": "1.0.0",
+  "author": "seyedehsanhadi",
+  "homepage": "https://github.com/seyedehsanhadi/sloptrim",
+  "skills": []
+}
