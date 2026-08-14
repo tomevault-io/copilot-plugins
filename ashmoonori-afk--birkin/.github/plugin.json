@@ -1,0 +1,9 @@
+{
+  "name": "ashmoonori-afk--birkin",
+  "displayName": "birkin",
+  "description": "A minimal-core Python agent that treats memory, execution, and self-improvement as inspectable local state.",
+  "version": "1.0.0",
+  "author": "ashmoonori-afk",
+  "homepage": "https://github.com/ashmoonori-afk/birkin",
+  "skills": []
+}
