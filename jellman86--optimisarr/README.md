@@ -7,11 +7,11 @@ Safety-first self-hosted FFmpeg media-library optimiser for Plex, Jellyfin, and 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Jellman86/optimisarr](https://github.com/Jellman86/optimisarr).
+Original source: `CLAUDE.md` in [Jellman86/optimisarr](https://github.com/Jellman86/optimisarr).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
