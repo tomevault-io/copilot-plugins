@@ -4,7 +4,7 @@
   "repo": "jarvis-workflow",
   "description": "JARVIS-WORKFLOW v2.0 \u2014 \uc790\ube44\uc2a4 1\uba85+5\uc9c1\uad70 \ubb34\uc911\ub2e8 \uc7ac\uc124\uacc4 (jarvis-os \ud6c4\uc18d)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jaechi-factory/jarvis-workflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T18:40:13Z"
+  "distributed_at": "2026-08-14T18:56:52Z"
 }
