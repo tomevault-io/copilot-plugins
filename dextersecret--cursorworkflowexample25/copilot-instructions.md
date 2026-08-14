@@ -1,17 +1,14 @@
-## auth
+## env
 
-> Follow these rules when working on auth.
+> Follow these rules when working with environment variables.
 
-# Auth Rules
+# Env Rules
 
-Follow these rules when working on auth.
-
-It uses Clerk for authentication.
-
-## General Rules
-
-- Import the auth helper with `import { auth } from "@clerk/nextjs/server"` in server components
-- await the auth helper in server action
+- If you update environment variables, update the `.env.example` file
+- All environment variables should go in `.env.local`
+- Do not expose environment variables to the frontend
+- Use `NEXT_PUBLIC_` prefix for environment variables that need to be accessed from the frontend
+- You may import environment variables in server actions and components by using `process.env.VARIABLE_NAME`
 
 ---
 > Source: [dextersecret/cursorWorkflowExample25](https://github.com/dextersecret/cursorWorkflowExample25) — distributed by [TomeVault](https://tomevault.io).
