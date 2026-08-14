@@ -1,0 +1,44 @@
+{
+  "name": "rsleigh",
+  "owner": "ShaneBreazeale",
+  "repo": "rsleigh",
+  "description": "pure-Rust SLEIGH-driven multi-arch decoder/lifter with an experimental decompiler and malware-analysis heuristics",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ShaneBreazeale/rsleigh",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T22:31:36Z"
+}
