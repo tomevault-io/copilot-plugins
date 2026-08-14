@@ -4,7 +4,7 @@
   "repo": "ga4-gtm-config-mcp",
   "description": "Custom MCP server for safe GA4 and Google Tag Manager configuration automation.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Juce-me/ga4-gtm-config-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T04:34:06Z"
+  "distributed_at": "2026-08-14T17:30:20Z"
 }
