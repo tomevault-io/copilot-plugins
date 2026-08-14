@@ -1,0 +1,9 @@
+{
+  "name": "0x4d44--picoem",
+  "displayName": "picoem",
+  "description": "Cycle-accurate Rust emulators for the Raspberry Pi RP2350/RP2354 and RP2040 (dual Cortex-M33 / Cortex-M0+ + PIO).",
+  "version": "1.0.0",
+  "author": "0x4D44",
+  "homepage": "https://github.com/0x4D44/picoem",
+  "skills": []
+}
