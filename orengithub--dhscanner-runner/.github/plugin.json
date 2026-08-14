@@ -1,0 +1,9 @@
+{
+  "name": "orengithub--dhscanner-runner",
+  "displayName": "dhscanner.runner",
+  "description": "optimized backend for dhscanner",
+  "version": "1.0.0",
+  "author": "OrenGitHub",
+  "homepage": "https://github.com/OrenGitHub/dhscanner.runner",
+  "skills": []
+}
