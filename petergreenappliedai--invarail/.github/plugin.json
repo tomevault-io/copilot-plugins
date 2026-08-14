@@ -1,0 +1,9 @@
+{
+  "name": "petergreenappliedai--invarail",
+  "displayName": "Invarail",
+  "description": "Local-model-first AI agent framework \u2014 Router + Specialist architecture for Ollama",
+  "version": "1.0.0",
+  "author": "PeterGreenAppliedAI",
+  "homepage": "https://github.com/PeterGreenAppliedAI/Invarail",
+  "skills": []
+}
