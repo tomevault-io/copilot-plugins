@@ -1,0 +1,9 @@
+{
+  "name": "oracle--vecdb-python-sdk",
+  "displayName": "vecdb-python-sdk",
+  "description": "Python SDK for vector search, RAG, and AI agents on Oracle AI Database, including Autonomous AI Vector Database deployments.",
+  "version": "1.0.0",
+  "author": "oracle",
+  "homepage": "https://github.com/oracle/vecdb-python-sdk",
+  "skills": []
+}
