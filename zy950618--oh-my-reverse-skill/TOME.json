@@ -1,0 +1,44 @@
+{
+  "name": "oh_my_reverse_skill",
+  "owner": "zy950618",
+  "repo": "oh_my_reverse_skill",
+  "description": "\u4e2a\u4eba\u722c\u866bSKILLS\uff0c\u6574\u5408\u591a\u5904SKILLS\uff0c\u6b32\u5b9e\u73b0\u722c\u866bSKILLS\u81ea\u6211\u8fdb\u5316\uff0c\u8bc4\u5206\uff0c\u5bf9\u5916\u63d0\u4f9b\u63a5\u53e3\u7b49",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zy950618/oh_my_reverse_skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T22:46:03Z"
+}
