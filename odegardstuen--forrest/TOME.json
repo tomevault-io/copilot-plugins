@@ -4,7 +4,7 @@
   "repo": "forrest",
   "description": "Bakken to Basics \u2014 an AI running coach (Claude Code) for the Norwegian sub-threshold method, built on your intervals.icu data.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/odegardstuen/forrest",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T02:46:08Z"
+  "distributed_at": "2026-08-14T05:16:47Z"
 }
