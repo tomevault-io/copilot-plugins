@@ -1,0 +1,9 @@
+{
+  "name": "medarc-ai--amfv",
+  "displayName": "amfv",
+  "description": "Agentic Medical Fact Verifier",
+  "version": "1.0.0",
+  "author": "MedARC-AI",
+  "homepage": "https://github.com/MedARC-AI/amfv",
+  "skills": []
+}
