@@ -1,0 +1,44 @@
+{
+  "name": "CONTINUUM",
+  "owner": "Cyrax321",
+  "repo": "CONTINUUM",
+  "description": "CONTINUUM: Verifiable semantic recovery for long-running AI agents. Semantic checkpoints (not conversation dumps), an idempotent action ledger that refuses duplicate side effects, and a hash-chained tamper-evident event log, all exposed as a deny-by-default MCP server. Framework-agnostic, Python 3.11+.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Cyrax321/CONTINUUM",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T09:14:46Z"
+}
