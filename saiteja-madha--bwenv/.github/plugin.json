@@ -1,0 +1,9 @@
+{
+  "name": "saiteja-madha--bwenv",
+  "displayName": "bwenv",
+  "description": "Manage per-app environment variables in Bitwarden Secrets Manager using prefix namespacing.",
+  "version": "1.0.0",
+  "author": "saiteja-madha",
+  "homepage": "https://github.com/saiteja-madha/bwenv",
+  "skills": []
+}
