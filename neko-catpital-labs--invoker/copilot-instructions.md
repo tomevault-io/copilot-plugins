@@ -1,30 +1,18 @@
-## land-stack-precedence
+## plan-safety-invariant
 
-> Landing or merging a PR stack must go through the land-stack guard; never choose a PR by branch-name lookup
+> Confirm a Safety invariant before finalizing implementation plans
 
 
-# Landing a PR stack safely
+# Plan safety-invariant confirmation
 
-When the user asks to **land / merge / ship / queue** a PR or PR stack, treat
-`skills/land-stack/SKILL.md` as the source of truth. Before queueing, labeling
-(`admin-bypass`), resolving review threads, or merging **any** PR:
+When planning an implementation change, using Plan mode, invoking
+`/plan-to-invoker`, or drafting implementation slices or PRs, follow the
+Safety Invariant Confirmation protocol in `skills/review-compression/SKILL.md`
+before finalizing.
 
-- **Use confirmed PR numbers** (bottom of stack first). If the user does not
-  provide them, make a best-effort read-only discovery pass by broadly listing
-  open PRs, filtering to `stack/` heads, checking local head SHAs, ordering by
-  base/head links, and suggesting the bottom-up numbers for confirmation. Never
-  discover the PR to land by branch name — do not use `gh pr list --head <branch>`.
-  Two different PRs can share a branch name.
-- **Run the guard, which must exit 0:**
-  `node scripts/land-stack.mjs <pr> [<pr> ...]`
-  It verifies each PR's head SHA exists locally, the head branch is a real
-  `stack/` branch, the PRs form a proper stack, and all are OPEN.
-- **Land only via** `node scripts/land-stack.mjs <pr> ... --execute`. Do not
-  hand-add `admin-bypass` or run `gh pr merge` to bypass the guard.
-
-Incident this prevents: a raw workflow-branch PR (#505) shared a branch name
-with the intended stack (#2174 / #2175); landing by branch name queued the
-wrong PR.
+Propose a `Safety invariant:` for every slice and ask the user to confirm or
+correct it. The skill is the source of truth; this rule is only a discovery
+pointer.
 
 ---
 > Source: [Neko-Catpital-Labs/Invoker](https://github.com/Neko-Catpital-Labs/Invoker) — distributed by [TomeVault](https://tomevault.io).
