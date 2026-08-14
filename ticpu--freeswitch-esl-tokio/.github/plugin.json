@@ -1,0 +1,9 @@
+{
+  "name": "ticpu--freeswitch-esl-tokio",
+  "displayName": "freeswitch-esl-tokio",
+  "description": "Rust implementation of FreeSWITCH's ESL",
+  "version": "1.0.0",
+  "author": "ticpu",
+  "homepage": "https://github.com/ticpu/freeswitch-esl-tokio",
+  "skills": []
+}
