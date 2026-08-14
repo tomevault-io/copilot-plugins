@@ -4,7 +4,7 @@
   "repo": "slashbooks",
   "description": "Replace QuickBooks and your outsourced bookkeeper with an AI agent you control.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/giltotherescue/slashbooks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T11:09:29Z"
+  "distributed_at": "2026-08-14T12:44:21Z"
 }
