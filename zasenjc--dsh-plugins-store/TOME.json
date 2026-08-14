@@ -1,0 +1,44 @@
+{
+  "name": "dsh-plugins-store",
+  "owner": "ZASENJC",
+  "repo": "dsh-plugins-store",
+  "description": "\u81ea\u52a8\u6536\u5f55\u548c\u5206\u7c7b GitHub dsh-plugin Topic \u9879\u76ee\u7684\u9759\u6001\u76ee\u5f55\u7f51\u7ad9",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ZASENJC/dsh-plugins-store",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T21:39:59Z"
+}
