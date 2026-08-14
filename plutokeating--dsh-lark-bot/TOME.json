@@ -1,0 +1,44 @@
+{
+  "name": "dsh-lark-bot",
+  "owner": "PlutoKeating",
+  "repo": "dsh-lark-bot",
+  "description": "dsh-lark-bot\uff1a\u628a DeepSeek Harness (dsh) \u6865\u63a5\u8fdb\u98de\u4e66/Lark \u7684 bot\uff0c\u542b\u5b8c\u6574\u9879\u76ee\u5de5\u4f5c\u533a\u7ba1\u7406\u3002A bridge bot connecting DeepSeek Harness (dsh) into Feishu/Lark with full workspace management. deepseek \u00b7 deepseek harness \u00b7 feishu \u00b7 lark \u00b7 bridge \u00b7 bot",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/PlutoKeating/dsh-lark-bot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T23:08:22Z"
+}
