@@ -4,7 +4,7 @@
   "repo": "optimisarr",
   "description": "Safety-first self-hosted FFmpeg media-library optimiser for Plex, Jellyfin, and Emby, with verified CPU/GPU transcoding and rollback.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Jellman86/optimisarr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T21:25:23Z"
+  "distributed_at": "2026-08-14T02:32:06Z"
 }
