@@ -7,11 +7,11 @@ Honest, local-first, CLI-agnostic AI job-fit scoring — built for the Indian ma
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [harshgarg95/job-finder-india](https://github.com/harshgarg95/job-finder-india).
+Original source: `CLAUDE.md` in [harshgarg95/job-finder-india](https://github.com/harshgarg95/job-finder-india).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
