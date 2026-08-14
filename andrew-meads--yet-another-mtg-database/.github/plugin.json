@@ -1,0 +1,9 @@
+{
+  "name": "andrew-meads--yet-another-mtg-database",
+  "displayName": "yet-another-mtg-database",
+  "description": "Yet another MTG database. Building with Next.js, TailwindCSS, TypeScript, MongoDB.",
+  "version": "1.0.0",
+  "author": "andrew-meads",
+  "homepage": "https://github.com/andrew-meads/yet-another-mtg-database",
+  "skills": []
+}
