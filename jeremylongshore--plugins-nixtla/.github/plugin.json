@@ -1,0 +1,9 @@
+{
+  "name": "jeremylongshore--plugins-nixtla",
+  "displayName": "plugins-nixtla",
+  "description": "Nixtla time series forecasting plugins for Claude Code. StatsForecast, MLForecast, and NeuralForecast integrations with agent skills.",
+  "version": "1.0.0",
+  "author": "jeremylongshore",
+  "homepage": "https://github.com/jeremylongshore/plugins-nixtla",
+  "skills": []
+}
