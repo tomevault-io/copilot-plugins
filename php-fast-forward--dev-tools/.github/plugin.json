@@ -1,0 +1,9 @@
+{
+  "name": "php-fast-forward--dev-tools",
+  "displayName": "dev-tools",
+  "description": "Fast Forward Development Tools for PHP projects",
+  "version": "1.0.0",
+  "author": "php-fast-forward",
+  "homepage": "https://github.com/php-fast-forward/dev-tools",
+  "skills": []
+}
