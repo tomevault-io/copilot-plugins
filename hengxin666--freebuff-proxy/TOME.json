@@ -1,0 +1,44 @@
+{
+  "name": "freebuff-proxy",
+  "owner": "HengXin666",
+  "repo": "freebuff-proxy",
+  "description": "freebuff \u53cd\u4ee3, \u53ef\u4f7f\u7528 deepseek-v4-flash-0731, \u53ef\u7528 GPT 5.6 Luna, docker \u4e00\u952e\u90e8\u7f72, \u652f\u6301\u914d\u7f6e\u4ee3\u7406",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/HengXin666/freebuff-proxy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T20:56:21Z"
+}
