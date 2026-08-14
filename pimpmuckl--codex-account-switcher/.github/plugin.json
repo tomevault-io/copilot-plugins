@@ -1,0 +1,9 @@
+{
+  "name": "pimpmuckl--codex-account-switcher",
+  "displayName": "codex-account-switcher",
+  "description": "Simple TUI/Tray app to switch codex accounts",
+  "version": "1.0.0",
+  "author": "Pimpmuckl",
+  "homepage": "https://github.com/Pimpmuckl/codex-account-switcher",
+  "skills": []
+}
