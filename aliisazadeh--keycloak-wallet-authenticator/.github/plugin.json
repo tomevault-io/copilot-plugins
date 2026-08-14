@@ -1,0 +1,9 @@
+{
+  "name": "aliisazadeh--keycloak-wallet-authenticator",
+  "displayName": "keycloak-wallet-authenticator",
+  "description": "Wallet login for Keycloak \u2014 Sign-In with Ethereum (SIWE) & Solana (SIWS), EOA + smart-contract wallets (EIP-1271/6492), as a native Authenticator plugin",
+  "version": "1.0.0",
+  "author": "aliIsazadeh",
+  "homepage": "https://github.com/aliIsazadeh/keycloak-wallet-authenticator",
+  "skills": []
+}
