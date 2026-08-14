@@ -1,0 +1,35 @@
+## no-co-author-trailers
+
+> Never add Co-authored-by or other AI/tool trailers to git commits or PRs
+
+
+# No co-author or AI trailers on commits
+
+**Never** add `Co-authored-by`, `Signed-off-by` for an AI tool, or any Cursor/Claude/Copilot
+footer to commit messages or PR descriptions.
+
+This matches `AGENTS.md`: commits use Conventional Commits subject (+ optional body) only.
+
+## When creating commits
+
+- Pass the message via HEREDoc or `-m` with **only** the intended subject/body.
+- Do **not** append `Co-authored-by: Cursor <cursoragent@cursor.com>` or similar.
+- If a hook or tool adds a co-author trailer, **amend it out** before pushing (only when amend rules allow).
+
+## Examples
+
+```text
+feat(soul): emit TodoListUpdated wire event
+```
+
+Not:
+
+```text
+feat(soul): emit TodoListUpdated wire event
+
+Co-authored-by: Cursor <cursoragent@cursor.com>
+```
+
+---
+> Source: [PyModel/pythinker-cli](https://github.com/PyModel/pythinker-cli) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-14 -->
