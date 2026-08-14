@@ -4,7 +4,7 @@
   "repo": "canon-ai",
   "description": "Can you eval an art form? Canon is a continuity linter for serialized TV, YouTube and micro-drama fiction. Canon plays the role of whats currently the scriptwriting coordinator, verifies your story's logic and cites the scene. No GenAI writing here. That's left to the humans.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WillLewis/canon-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T23:18:29Z"
+  "distributed_at": "2026-08-14T03:24:00Z"
 }
