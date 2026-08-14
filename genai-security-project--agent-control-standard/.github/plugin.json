@@ -1,0 +1,9 @@
+{
+  "name": "genai-security-project--agent-control-standard",
+  "displayName": "agent-control-standard",
+  "description": "The open standard for runtime agent control \u2014 declarative hooks, policy enforcement, and observability across AI agent frameworks.",
+  "version": "1.0.0",
+  "author": "GenAI-Security-Project",
+  "homepage": "https://github.com/GenAI-Security-Project/agent-control-standard",
+  "skills": []
+}
