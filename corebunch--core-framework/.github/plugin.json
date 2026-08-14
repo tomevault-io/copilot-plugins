@@ -1,0 +1,9 @@
+{
+  "name": "corebunch--core-framework",
+  "displayName": "Core-Framework",
+  "description": "A visual CSS framework and design-token builder for the web, WordPress, and Figma.",
+  "version": "1.0.0",
+  "author": "CoreBunch",
+  "homepage": "https://github.com/CoreBunch/Core-Framework",
+  "skills": []
+}
