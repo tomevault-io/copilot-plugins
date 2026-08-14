@@ -4,7 +4,7 @@
   "repo": "js2wasm",
   "description": "JavaScript (ECMAScript) to WebAssembly ahead-of-time compiler",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/loopdive/js2wasm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T14:49:31Z"
+  "distributed_at": "2026-08-14T15:15:13Z"
 }
