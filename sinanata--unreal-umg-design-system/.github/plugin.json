@@ -1,0 +1,9 @@
+{
+  "name": "sinanata--unreal-umg-design-system",
+  "displayName": "unreal-umg-design-system",
+  "description": "A drop-in design system for Unreal Engine UMG: design tokens, themed C++ widgets, 120 vector icons, and live dark/light theming \u2014 with zero content assets required.",
+  "version": "1.0.0",
+  "author": "sinanata",
+  "homepage": "https://github.com/sinanata/unreal-umg-design-system",
+  "skills": []
+}
