@@ -1,0 +1,9 @@
+{
+  "name": "mcsscalabrin--gitmon-cards",
+  "displayName": "gitmon-cards",
+  "description": "Gerador de cartas estilo TCG a partir de dados reais do GitHub. Uma URL de imagem estatica, sem login, embutivel em qualquer README.",
+  "version": "1.0.0",
+  "author": "mcsscalabrin",
+  "homepage": "https://github.com/mcsscalabrin/gitmon-cards",
+  "skills": []
+}
