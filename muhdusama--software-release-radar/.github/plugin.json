@@ -1,0 +1,9 @@
+{
+  "name": "muhdusama--software-release-radar",
+  "displayName": "Software-Release-Radar",
+  "description": "Self-hosted release and deployment intelligence for tracking upstream software, deployed versions and update decisions.",
+  "version": "1.0.0",
+  "author": "muhdusama",
+  "homepage": "https://github.com/muhdusama/Software-Release-Radar",
+  "skills": []
+}
