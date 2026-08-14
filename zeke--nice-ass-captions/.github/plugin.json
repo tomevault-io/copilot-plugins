@@ -1,0 +1,9 @@
+{
+  "name": "zeke--nice-ass-captions",
+  "displayName": "nice-ass-captions",
+  "description": "Burn stylish captions into videos using whisper and ffmpeg. Runs locally. Powered by ASS\u2122",
+  "version": "1.0.0",
+  "author": "zeke",
+  "homepage": "https://github.com/zeke/nice-ass-captions",
+  "skills": []
+}
