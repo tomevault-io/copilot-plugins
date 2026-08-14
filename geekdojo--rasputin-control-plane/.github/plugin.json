@@ -1,0 +1,9 @@
+{
+  "name": "geekdojo--rasputin-control-plane",
+  "displayName": "rasputin-control-plane",
+  "description": "The brain of Rasputin, the open-source homelab cluster system: single-binary Go API + web UI + node agent. Passkey auth, atomic A/B updates, Compose apps",
+  "version": "1.0.0",
+  "author": "geekdojo",
+  "homepage": "https://github.com/geekdojo/rasputin-control-plane",
+  "skills": []
+}
