@@ -1,0 +1,9 @@
+{
+  "name": "rishichalla--db-playground",
+  "displayName": "db-playground",
+  "description": "Attempting to write some Database related Rust code from scratch (B+ Trees for indexing, record management, etc)",
+  "version": "1.0.0",
+  "author": "RishiChalla",
+  "homepage": "https://github.com/RishiChalla/db-playground",
+  "skills": []
+}
