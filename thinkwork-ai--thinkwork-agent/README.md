@@ -7,11 +7,11 @@ ThinkWork AI Open Source Enterprise Agent Harness
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [thinkwork-ai/thinkwork-agent](https://github.com/thinkwork-ai/thinkwork-agent).
+Original source: `CLAUDE.md` in [thinkwork-ai/thinkwork-agent](https://github.com/thinkwork-ai/thinkwork-agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
