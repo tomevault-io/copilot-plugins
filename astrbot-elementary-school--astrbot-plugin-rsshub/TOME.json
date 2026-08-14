@@ -1,0 +1,44 @@
+{
+  "name": "astrbot_plugin_rsshub",
+  "owner": "AstrBot-Elementary-School",
+  "repo": "astrbot_plugin_rsshub",
+  "description": "\u591a\u5e73\u53f0RSS\u8ba2\u9605\u63a8\u9001\u63d2\u4ef6\uff0c\u652f\u6301\u5931\u8d25\u961f\u5217\u91cd\u8bd5\u3001\u591aBOT\u53bb\u91cd\u3001\u5e73\u53f0\u6570\u636e\u5171\u4eab\u3001\u667a\u80fd\u53d1\u9001\u7b56\u7565\uff0cLLM\u5de5\u5177\u8c03\u7528\uff0c\u8ba9\u4f60\u7684BOT\u6210\u4e3a\u4fe1\u606f\u805a\u5408\u4e2d\u5fc3\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AstrBot-Elementary-School/astrbot_plugin_rsshub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T21:20:44Z"
+}
