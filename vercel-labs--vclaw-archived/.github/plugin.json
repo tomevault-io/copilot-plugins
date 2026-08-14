@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--vclaw-archived",
+  "displayName": "vclaw-archived",
+  "description": "CLI to set up and deploy vercel-openclaw with one command",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/vclaw-archived",
+  "skills": []
+}
