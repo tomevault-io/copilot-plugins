@@ -1,0 +1,9 @@
+{
+  "name": "kukai--pebble-wrist-agent",
+  "displayName": "pebble-wrist-agent",
+  "description": "pebble-wrist-agent",
+  "version": "1.0.0",
+  "author": "kukai",
+  "homepage": "https://github.com/kukai/pebble-wrist-agent",
+  "skills": []
+}
