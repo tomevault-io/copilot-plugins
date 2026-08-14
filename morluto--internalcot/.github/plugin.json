@@ -1,0 +1,9 @@
+{
+  "name": "morluto--internalcot",
+  "displayName": "internalcot",
+  "description": "Make agents show their full chain of thought.",
+  "version": "1.0.0",
+  "author": "morluto",
+  "homepage": "https://github.com/morluto/internalcot",
+  "skills": []
+}
