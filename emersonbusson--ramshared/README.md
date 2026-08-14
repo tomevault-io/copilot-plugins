@@ -7,11 +7,11 @@ Use idle GPU VRAM as high-speed swap space on Linux/WSL2. Implements a cascading
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [emersonbusson/ramshared](https://github.com/emersonbusson/ramshared).
+Original source: `CLAUDE.md` in [emersonbusson/ramshared](https://github.com/emersonbusson/ramshared).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
