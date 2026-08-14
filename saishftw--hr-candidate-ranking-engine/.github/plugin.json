@@ -1,0 +1,9 @@
+{
+  "name": "saishftw--hr-candidate-ranking-engine",
+  "displayName": "hr-candidate-ranking-engine",
+  "description": "This project implements a candidate ranking system that matches job descriptions (JDs) with a dataset of candidate profiles. It uses a combination of fuzzy logic, structured parsing, and semantic sear",
+  "version": "1.0.0",
+  "author": "saishftw",
+  "homepage": "https://github.com/saishftw/hr-candidate-ranking-engine",
+  "skills": []
+}
