@@ -4,7 +4,7 @@
   "repo": "OpenNoMark",
   "description": "Local-first, open-source AI watermark removal for Gemini, Doubao, Qwen, Jimeng, Kling, Tencent Yuanbao, Baidu, and more. Smart localization, Gemini reverse-alpha recovery, and LaMa inpainting. Includes a Web UI, CLI, and Python API; supports CUDA, Apple Silicon, and CPU.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NanmiCoder/OpenNoMark",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T12:56:04Z"
+  "distributed_at": "2026-08-14T13:23:37Z"
 }
