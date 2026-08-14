@@ -4,7 +4,7 @@
   "repo": "clawjournal",
   "description": "ClawJournal reviews, curates, and shares coding agent conversation traces.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rayward-external/clawjournal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T13:38:22Z"
+  "distributed_at": "2026-08-14T15:06:31Z"
 }
