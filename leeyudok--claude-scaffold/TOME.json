@@ -1,0 +1,44 @@
+{
+  "name": "claude-scaffold",
+  "owner": "LeeYudok",
+  "repo": "claude-scaffold",
+  "description": "Fork-and-fill \ubbf8\ub2c8\uba40 \ubd80\ud2b8\uc2a4\ud2b8\ub7a9 \u2014 Claude Code\uc6a9 .claude/ \uad6c\uc131 + \uac15\uc81c \uaddc\uce59 \ud2f0\uc5b4(P0/P1/P2) + \uc2a4\ud0dd \ud504\ub9ac\uc14b pre-commit \uac8c\uc774\ud2b8",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LeeYudok/claude-scaffold",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T12:32:18Z"
+}
