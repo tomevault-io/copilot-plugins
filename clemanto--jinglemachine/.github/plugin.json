@@ -1,0 +1,9 @@
+{
+  "name": "clemanto--jinglemachine",
+  "displayName": "JingleMachine",
+  "description": "Webapp Angular per tagliare jingle ed estrarli da YouTube. Libreria condivisa. Firebase Auth + Firestore, Cloudinary, helper locale.",
+  "version": "1.0.0",
+  "author": "ClemAnto",
+  "homepage": "https://github.com/ClemAnto/JingleMachine",
+  "skills": []
+}
