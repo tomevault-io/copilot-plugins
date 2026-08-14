@@ -1,0 +1,44 @@
+{
+  "name": "aicoder-session-viewer",
+  "owner": "seastart",
+  "repo": "aicoder-session-viewer",
+  "description": "A unified desktop application for browsing session history / resume session/ export session / new conversation session for multiple AI coding assistants \u2014 **Claude Code**, **Codex**, **Gemini CLI**,  **Antigravity CLI**, and **OpenCode** \u2014 all in one place. \u4e00\u4e2a\u7edf\u4e00\u7684\u684c\u9762\u5e94\u7528\uff0c\u7528\u4e8e\u591a\u79cd AI \u7f16\u7801\u52a9\u624b\u7684session\u5bf9\u8bdd\u5386\u53f2 \u6d4f\u89c8 / \u6062\u590d / \u5bfc\u51fa / \u65b0\u5efa",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/seastart/aicoder-session-viewer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T23:01:01Z"
+}
