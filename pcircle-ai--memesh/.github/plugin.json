@@ -1,0 +1,9 @@
+{
+  "name": "pcircle-ai--memesh",
+  "displayName": "memesh",
+  "description": "Agentic memory for coding agents \u2014 captured from the agent's real work, injected when it acts, kept honest when it contradicts itself. One SQLite file. MCP + CLI + hooks + dashboard. No cloud.",
+  "version": "1.0.0",
+  "author": "PCIRCLE-AI",
+  "homepage": "https://github.com/PCIRCLE-AI/memesh",
+  "skills": []
+}
