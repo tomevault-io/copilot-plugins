@@ -1,0 +1,44 @@
+{
+  "name": "phishing-email-detector",
+  "owner": "hifsaiftikhar",
+  "repo": "phishing-email-detector",
+  "description": "Chrome extension that detects phishing emails in Gmail using Llama 3.3 70B via Groq API and VirusTotal URL scanning. Flask backend. 99% accuracy on Nazario + Enron datasets.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hifsaiftikhar/phishing-email-detector",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T02:36:03Z"
+}
