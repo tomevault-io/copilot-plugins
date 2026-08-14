@@ -1,0 +1,9 @@
+{
+  "name": "page011--astur",
+  "displayName": "Astur",
+  "description": "Tiling window manager for Windows with Hyprland-style Alt-drag, master-stack tiling, and 9 workspaces. Single Rust EXE. komorebi/GlazeWM alternative. Silky Smooth Animations.",
+  "version": "1.0.0",
+  "author": "Page011",
+  "homepage": "https://github.com/Page011/Astur",
+  "skills": []
+}
