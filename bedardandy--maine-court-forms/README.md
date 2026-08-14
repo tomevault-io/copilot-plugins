@@ -7,11 +7,11 @@ Experimental Maine court form automation for first drafts and review workflows; 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bedardandy/maine-court-forms](https://github.com/bedardandy/maine-court-forms).
+Original source: `CLAUDE.md` in [bedardandy/maine-court-forms](https://github.com/bedardandy/maine-court-forms).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
