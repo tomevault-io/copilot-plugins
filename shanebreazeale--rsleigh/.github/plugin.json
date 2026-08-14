@@ -1,0 +1,9 @@
+{
+  "name": "shanebreazeale--rsleigh",
+  "displayName": "rsleigh",
+  "description": "pure-Rust SLEIGH-driven multi-arch decoder/lifter with an experimental decompiler and malware-analysis heuristics",
+  "version": "1.0.0",
+  "author": "ShaneBreazeale",
+  "homepage": "https://github.com/ShaneBreazeale/rsleigh",
+  "skills": []
+}
