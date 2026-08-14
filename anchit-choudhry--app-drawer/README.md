@@ -7,14 +7,14 @@ Monorepo for Node based apps
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [anchit-choudhry/app-drawer](https://github.com/anchit-choudhry/app-drawer).
+Original source: `CLAUDE.md` in [anchit-choudhry/app-drawer](https://github.com/anchit-choudhry/app-drawer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [anchit-choudhry/app-drawer](https://github.com/anchit-choudhry/app-drawer) — a repo with 0+ stars on GitHub.
