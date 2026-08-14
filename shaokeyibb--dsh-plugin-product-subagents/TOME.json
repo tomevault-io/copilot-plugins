@@ -4,7 +4,7 @@
   "repo": "dsh-plugin-product-subagents",
   "description": "Role-based Codex / Claude Code / ACP subagent providers for the DeepSeek Harness \u2014 continuable children, durable session recovery, per-role product permissions, and delegation with a permission ceiling.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shaokeyibb/dsh-plugin-product-subagents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T20:57:47Z"
+  "distributed_at": "2026-08-14T22:43:20Z"
 }
