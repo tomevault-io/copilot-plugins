@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--rust-scriptbots",
+  "displayName": "rust_scriptbots",
+  "description": "Deterministic artificial-life simulator in Rust: agent-based evolution with pluggable brain implementations, GPU-accelerated UI, DuckDB analytics, and LLM-in-the-loop experimentation",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/rust_scriptbots",
+  "skills": []
+}
