@@ -1,0 +1,9 @@
+{
+  "name": "pfblockerng--pfblockerng",
+  "displayName": "pfBlockerNG",
+  "description": "pfBlockerNG - IP and DNS blocking for pfSense",
+  "version": "1.0.0",
+  "author": "pfBlockerNG",
+  "homepage": "https://github.com/pfBlockerNG/pfBlockerNG",
+  "skills": []
+}
