@@ -1,0 +1,9 @@
+{
+  "name": "charlescnorton--touchstone",
+  "displayName": "touchstone",
+  "description": "An SMT-based verifier and type inferencer for Python: proves contracts, equivalence, and trap-freedom (with counterexamples) over a Rocq trust base.",
+  "version": "1.0.0",
+  "author": "CharlesCNorton",
+  "homepage": "https://github.com/CharlesCNorton/touchstone",
+  "skills": []
+}
