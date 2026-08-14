@@ -1,0 +1,9 @@
+{
+  "name": "netdevops--hier-config-cli",
+  "displayName": "hier-config-cli",
+  "description": "Hierarchical Configuration CLI",
+  "version": "1.0.0",
+  "author": "netdevops",
+  "homepage": "https://github.com/netdevops/hier-config-cli",
+  "skills": []
+}
