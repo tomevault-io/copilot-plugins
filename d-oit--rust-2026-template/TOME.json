@@ -4,7 +4,7 @@
   "repo": "rust-2026-template",
   "description": "Best practice 2026 Rust GitHub repository template with AGENTS.md, .agents/skills/, CI/CD, quality gates, and all modern Rust tooling",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/d-oit/rust-2026-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T07:05:49Z"
+  "distributed_at": "2026-08-14T09:16:47Z"
 }
