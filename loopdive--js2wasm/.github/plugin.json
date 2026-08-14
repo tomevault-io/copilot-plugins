@@ -1,0 +1,9 @@
+{
+  "name": "loopdive--js2wasm",
+  "displayName": "js2wasm",
+  "description": "JavaScript (ECMAScript) to WebAssembly ahead-of-time compiler",
+  "version": "1.0.0",
+  "author": "loopdive",
+  "homepage": "https://github.com/loopdive/js2wasm",
+  "skills": []
+}
