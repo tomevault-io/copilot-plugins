@@ -1,0 +1,9 @@
+{
+  "name": "flakiness--playwright",
+  "displayName": "playwright",
+  "description": "Official Flakiness.io reporter for Playwright Test",
+  "version": "1.0.0",
+  "author": "flakiness",
+  "homepage": "https://github.com/flakiness/playwright",
+  "skills": []
+}
