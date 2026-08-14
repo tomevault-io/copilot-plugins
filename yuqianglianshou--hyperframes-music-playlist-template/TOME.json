@@ -1,0 +1,44 @@
+{
+  "name": "hyperframes-music-playlist-template",
+  "owner": "yuqianglianshou",
+  "repo": "hyperframes-music-playlist-template",
+  "description": "HyperFrames \u97f3\u4e50\u5408\u96c6\u89c6\u9891\u6a21\u677f \uff1a \u4e00\u4e2a\u7528\u4e8e\u751f\u6210 B \u7ad9 / YouTube \u6a2a\u5c4f\u97f3\u4e50\u5408\u96c6\u89c6\u9891\u7684 HyperFrames \u6a21\u677f\uff0c\u652f\u6301\u6b4c\u5355\u5c55\u793a\u3001\u5f53\u524d\u6b4c\u66f2\u9ad8\u4eae\u3001LRC \u6b4c\u8bcd\u6eda\u52a8\u3001\u6b4c\u66f2\u80cc\u666f\u4fe1\u606f\u3001\u5408\u96c6\u8fdb\u5ea6\u6761\u548c\u672c\u5730 MP4 \u6e32\u67d3\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yuqianglianshou/hyperframes-music-playlist-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T01:17:55Z"
+}
