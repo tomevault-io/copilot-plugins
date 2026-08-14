@@ -1,0 +1,9 @@
+{
+  "name": "ecliptik--geomys",
+  "displayName": "geomys",
+  "description": "A Gopher browser for classic Macintosh 68k systems",
+  "version": "1.0.0",
+  "author": "ecliptik",
+  "homepage": "https://github.com/ecliptik/geomys",
+  "skills": []
+}
