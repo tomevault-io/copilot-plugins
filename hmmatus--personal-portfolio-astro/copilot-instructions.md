@@ -1,74 +1,123 @@
-## project-structure
+## react-astro-components
 
-> ├── components/           # React & Astro components (atomic design)
+> Follow atomic design principles with this hierarchy:
 
-# Project Structure & Configuration
+# React & Astro Component Creation Rules
 
-## Directory Architecture
+## Component Architecture & Organization
 
-### Core Structure
-```
-src/
-├── components/           # React & Astro components (atomic design)
-│   ├── buttons/         # Atom: Button components
-│   ├── cards/           # Molecule: Card components  
-│   ├── form/            # Molecule: Form-related components
-│   ├── sections/        # Organism: Page sections
-│   └── ...
-├── layouts/             # Astro layout components
-├── pages/               # Astro pages (routing)
-├── assets/              # Static assets (icons, images)
-├── styles/              # Global styles and theme
-├── types/               # TypeScript type definitions
-├── utils/               # Utility functions
-├── data/                # Static data files
-├── consts/              # Application constants
-└── i18n/                # Internationalization
-```
+### Atomic Design Structure
+Follow atomic design principles with this hierarchy:
+- **Atoms**: Basic components like buttons, inputs, icons (`src/components/buttons/`, `src/components/form/inputs/`)
+- **Molecules**: Simple groups of atoms like cards, form fields (`src/components/cards/`, `src/components/form/`)
+- **Organisms**: Complex components like sections (`src/components/sections/`)
 
-### Component Organization
-Follow atomic design principles:
-- **Atoms** (`buttons/`, `form/inputs/`): Basic building blocks
-- **Molecules** (`cards/`, `form/`): Simple component groups
-- **Organisms** (`sections/`): Complex component compositions
-
-Reference: [ContactButton.tsx](mdc:src/components/buttons/contact/ContactButton.tsx), [ContactSection.tsx](mdc:src/components/sections/contact/ContactSection.tsx)
-
-## Styling Architecture
-
-### Theme System
-Centralized theme variables in `src/styles/theme/`:
-```scss
-// _colors.scss
-$primary-background: #000000;
-$secondary-background: #1A1A1A;
-$primary-text: #FFFFFF;
-$secondary: #D3E97A;
-$border: #484848;
-```
-
-Reference: [_colors.scss](mdc:src/styles/theme/_colors.scss)
-
-### SCSS Module Pattern
-Each component has its own style module:
+### Directory Structure
+Each component should have its own directory containing:
 ```
 ComponentName/
-├── ComponentName.tsx
+├── ComponentName.tsx (React) or ComponentName.astro (Astro)
 ├── ComponentName.module.scss
+├── index.ts (for re-exports)
 ```
 
-Import theme variables:
+Reference: [ContactButton.tsx](mdc:src/components/buttons/contact/ContactButton.tsx), [ExperienceCard.astro](mdc:src/components/cards/experience/ExperienceCard.astro)
+
+## React Components in Astro
+
+### Component File Structure
+```typescript
+import type { ComponentProps } from "react";
+import styles from "./ComponentName.module.scss";
+import Icon from "../../../assets/icons/icon.svg?react";
+
+interface ComponentNameProps extends ComponentProps<"element"> {
+  // Specific props here
+  label: string;
+  variant?: "primary" | "secondary";
+}
+
+export const ComponentName = ({ 
+  label, 
+  variant = "primary", 
+  className,
+  ...rest 
+}: ComponentNameProps) => {
+  return (
+    <element 
+      className={`${styles.component} ${styles[variant]} ${className}`} 
+      {...rest}
+    >
+      {/* Component content */}
+    </element>
+  );
+};
+```
+
+### TypeScript Interface Patterns
+- Extend appropriate HTML element props: `ButtonHTMLAttributes<HTMLButtonElement>`
+- Use meaningful prop names with clear types
+- Include optional `className?: string` for style composition
+- Use union types for variants: `variant?: "primary" | "secondary"`
+
+Reference: [ContactButton.tsx](mdc:src/components/buttons/contact/ContactButton.tsx)
+
+### SVG Icon Integration
+Import SVG icons as React components:
+```typescript
+import IconName from "../../../assets/icons/icon-name.svg?react";
+
+// Usage
+<IconName className={styles["icon-class"]} />
+```
+
+## Astro Components
+
+### Component File Structure
+```astro
+---
+import type { TypeDefinition } from "../../../types/type-name";
+import styles from "./ComponentName.module.scss";
+
+export interface Props {
+  item: TypeDefinition;
+  className?: string;
+  variant?: "default" | "compact";
+}
+
+const { item, className, variant = "default" } = Astro.props;
+---
+
+<div class={`${styles["component-name"]} ${styles[variant]} ${className}`}>
+  <!-- Component content -->
+</div>
+```
+
+Reference: [ExperienceCard.astro](mdc:src/components/cards/experience/ExperienceCard.astro)
+
+## Styling Guidelines
+
+### SCSS Modules
+- Use CSS modules with `.module.scss` extension
+- Use kebab-case for class names: `contact-button`, `experience-card`
+- Utilize SCSS variables from theme files
+
+Reference theme variables: [_colors.scss](mdc:src/styles/theme/_colors.scss)
+
+### Theme Integration
+Import and use theme variables:
 ```scss
-@use "../../../styles/theme/main.scss" as main;
+@import "../../styles/theme/colors";
 
 .component {
-  background-color: main.$primary-background;
-  color: main.$secondary;
+  background-color: $primary-background;
+  color: $primary-text;
+  border: 1px solid $border;
 }
 ```
 
 ### Responsive Design
-Use consistent mixins for breakpoints:
+Use mixins for consistent responsive behavior:
 ```scss
 @import "../../styles/theme/mixins";
 
@@ -76,172 +125,124 @@ Use consistent mixins for breakpoints:
   @include mobile {
     // Mobile styles
   }
+  
+  @include tablet {
+    // Tablet styles
+  }
 }
 ```
 
-Reference: [_mixins.scss](mdc:src/styles/theme/_mixins.scss)
+## Component Types & Data
 
-## TypeScript Configuration
-
-### Type Organization
-- **Component Types**: `src/types/` directory
-- **Interface Naming**: Use `I` suffix for data interfaces (e.g., `ExperienceI`)
-- **Props Interfaces**: Extend HTML element types when appropriate
-
-Example:
+### Type Definitions
+Create types in `src/types/` directory:
 ```typescript
-export interface ExperienceI {
+export interface ComponentDataI {
   title: string;
-  company: string;
-  startDate: string;
-  endDate: string;
   description: string;
+  optional?: boolean;
 }
 ```
 
 Reference: [experience.ts](mdc:src/types/experience.ts)
 
-### Import Patterns
-Use path aliases and barrel exports:
+### Constants
+Store component constants in `src/consts/`:
 ```typescript
-// Path alias imports
-import { Component } from "@components/category";
-import { CONSTANT } from "src/consts/constants";
+export const COMPONENT_VARIANTS = {
+  PRIMARY: "primary",
+  SECONDARY: "secondary",
+} as const;
+```
 
-// Barrel exports in index.ts files
+## Component Composition
+
+### Index Files
+Create index files for clean imports:
+```typescript
+// src/components/buttons/index.ts
 export { ContactButton } from "./contact/ContactButton";
 export { ContactIconButton } from "./custom/ContactIconButton";
 ```
 
-## Asset Management
-
-### SVG Icons
-Import SVG files as React components:
+### Import Patterns
+Use path aliases for cleaner imports:
 ```typescript
-import IconName from "../../../assets/icons/icon-name.svg?react";
-
-// Usage in JSX
-<IconName className={styles["icon-class"]} />
+import { ComponentName } from "@components/category";
+import { CONSTANT } from "src/consts/constants";
 ```
 
-### Image Organization
-Organize images by purpose:
+Reference: [ContactSection.tsx](mdc:src/components/sections/contact/ContactSection.tsx)
+
+## Accessibility Guidelines
+
+### Semantic HTML
+- Use appropriate semantic elements
+- Include `aria-label` for interactive elements
+- Ensure keyboard navigation support
+
+### ARIA Attributes
+```tsx
+<button 
+  aria-label="Descriptive label"
+  aria-pressed={isPressed}
+  role="button"
+>
+  Content
+</button>
 ```
-public/images/
-├── profile/      # Profile/hero images
-├── projects/     # Project screenshots
-└── ...
+
+## Component Lifecycle
+
+### React Hooks
+For complex logic, use custom hooks in appropriate directories:
 ```
+src/components/sections/form/hooks/
+```
+
+### Event Handling
+Use descriptive handler names:
+```typescript
+const handleButtonClick = () => {
+  // Handler logic
+};
+
+const onContactPressed = () => {
+  // Contact specific logic
+};
+```
+
+## Performance Considerations
+
+### Component Optimization
+- Use React.memo for expensive renders
+- Implement proper key props for lists
+- Lazy load heavy components
+
+### Bundle Optimization
+- Import only needed utilities
+- Use dynamic imports for large dependencies
+- Optimize SVG imports
 
 ## Internationalization (i18n)
 
-### Language Structure
-Support multiple languages with structured translation files:
+### Text Content
+Reference i18n patterns for multilingual support:
 ```typescript
-// src/i18n/ui.ts
-export const languages = {
-  en: 'English',
-  es: 'Español'
-};
-```
-
-### Component i18n Integration
-Handle language switching in components:
-```typescript
-const handleLanguageChange = (newLang: string) => {
-  let path = currentPath;
-  if (path.startsWith("/es") || path.startsWith("/en")) {
-    path = path.substring(3) || "/";
-  }
-  const newPath = newLang === "en" ? path : `/${newLang}${path}`;
-  window.location.href = newPath;
-};
+import { languages } from "../../i18n/ui";
 ```
 
 Reference: [LanguagePicker.tsx](mdc:src/components/language-picker/LanguagePicker.tsx)
 
-## Constants & Configuration
+## Best Practices Summary
 
-### Application Constants
-Centralize configuration values:
-```typescript
-// src/consts/social-media-links.ts
-export const GITHUB = "https://github.com/username";
-export const LINKEDIN = "https://linkedin.com/in/username";
-
-// src/consts/toast-messages.ts
-export const TOAST_MESSAGES = {
-  SUCCESS: "Message sent successfully!",
-  ERROR: "Failed to send message"
-};
-```
-
-### Theme Constants
-For JavaScript/TypeScript usage:
-```typescript
-export const COLORS = {
-  PRIMARY_BACKGROUND: "#000000",
-  SECONDARY: "#D3E97A",
-  PRIMARY_TEXT: "#FFFFFF"
-} as const;
-```
-
-## Build & Configuration
-
-### Astro Configuration
-Key configuration patterns in `astro.config.mjs`:
-- React integration for interactive components
-- Path aliases for clean imports
-- Build optimizations
-
-### Package Management
-Dependencies organization:
-- **Core**: Astro, React, TypeScript
-- **Styling**: SCSS, CSS modules
-- **Utils**: Type-safe utilities
-- **Dev Tools**: Linting, formatting
-
-## Performance Considerations
-
-### Component Loading
-Use Astro's client directives strategically:
-```astro
-<!-- Load immediately for critical interactivity -->
-<Component client:load />
-
-<!-- Load when visible for performance -->
-<Component client:visible />
-
-<!-- Load only on specific breakpoints -->
-<Component client:media="(max-width: 768px)" />
-```
-
-### Code Splitting
-Organize components to enable effective code splitting:
-- Lazy load heavy components
-- Separate by feature/page
-- Use dynamic imports for large dependencies
-
-## Development Workflow
-
-### File Creation Checklist
-When creating new components:
-1. ✅ Create component directory
-2. ✅ Add TypeScript component file
-3. ✅ Add SCSS module file
-4. ✅ Define proper TypeScript interfaces
-5. ✅ Add to barrel exports (index.ts)
-6. ✅ Import theme variables in styles
-7. ✅ Include accessibility attributes
-8. ✅ Test responsive behavior
-
-### Naming Conventions
-- **Files**: PascalCase for components (`ContactButton.tsx`)
-- **Directories**: kebab-case for feature groups (`contact/`)
-- **CSS Classes**: kebab-case (`contact-button`)
-- **Variables**: camelCase for JavaScript, kebab-case for CSS
-
-This structure ensures maintainable, scalable, and performant component development within the Astro ecosystem.
+1. **SOLID Principles**: Single responsibility, clear interfaces
+2. **DRY Principle**: Reusable components and styles
+3. **Atomic Design**: Proper component hierarchy
+4. **TypeScript**: Strong typing for all props and data
+5. **Accessibility**: Semantic HTML and ARIA attributes
+6. **Performance**: Optimized imports and rendering
+7. **Maintainability**: Clear naming and documentation
 
 ---
 > Source: [hmmatus/personal-portfolio-astro](https://github.com/hmmatus/personal-portfolio-astro) — distributed by [TomeVault](https://tomevault.io).
