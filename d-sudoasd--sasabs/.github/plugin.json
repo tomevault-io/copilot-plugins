@@ -1,0 +1,9 @@
+{
+  "name": "d-sudoasd--sasabs",
+  "displayName": "SASAbs",
+  "description": "A Python toolkit for robust SAXS absolute intensity calibration and batch processing with metadata parsing and reproducible reports.",
+  "version": "1.0.0",
+  "author": "D-sudoasd",
+  "homepage": "https://github.com/D-sudoasd/SASAbs",
+  "skills": []
+}
