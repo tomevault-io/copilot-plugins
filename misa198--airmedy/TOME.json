@@ -4,7 +4,7 @@
   "repo": "airmedy",
   "description": "\ud83c\udfa7 A modern local music player with an Apple Music-inspired UI. (macOS, Windows, Linux) - NO ELECTRON",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/misa198/airmedy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T15:37:59Z"
+  "distributed_at": "2026-08-14T16:38:13Z"
 }
