@@ -1,0 +1,9 @@
+{
+  "name": "npgamedev--godot-mcp-toolkit",
+  "displayName": "godot-mcp-toolkit",
+  "description": "A Godot 4.2+ editor plugin that lets AI coding assistants work inside the editor over the Model Context Protocol. Consolidated tools cover 150+ operations across scenes, scripts, nodes, and playtests,",
+  "version": "1.0.0",
+  "author": "NPGameDev",
+  "homepage": "https://github.com/NPGameDev/godot-mcp-toolkit",
+  "skills": []
+}
