@@ -1,0 +1,9 @@
+{
+  "name": "apexcheng--yingdao-xbot-ai-agent",
+  "displayName": "yingdao-xbot-ai-agent",
+  "description": "\u5f71\u5200 xbot AI Agent \u5f00\u53d1\u77e5\u8bc6\u5e93\uff5c\u5f71\u5200\u7f16\u7801\u7248 API\u3001RPA \u81ea\u52a8\u5316\u3001\u6d4f\u89c8\u5668\u3001Excel/WPS\u3001\u5e02\u573a\u6307\u4ee4\u3001Claude Code \u4e0e Codex",
+  "version": "1.0.0",
+  "author": "apexcheng",
+  "homepage": "https://github.com/apexcheng/yingdao-xbot-ai-agent",
+  "skills": []
+}
