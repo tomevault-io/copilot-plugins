@@ -1,0 +1,9 @@
+{
+  "name": "hung2124--codex-multi-profile",
+  "displayName": "codex-multi-profile",
+  "description": "Windows Codex Desktop multi-account via AuthSwap. Shared workspace, separate ChatGPT logins.",
+  "version": "1.0.0",
+  "author": "Hung2124",
+  "homepage": "https://github.com/Hung2124/codex-multi-profile",
+  "skills": []
+}
