@@ -1,0 +1,9 @@
+{
+  "name": "layla7120--code-test-reminder-server",
+  "displayName": "code_test_reminder_server",
+  "description": "BOJ commit ranking service (\ucf54\ud14c\ub3c5\ucd09\uae30) \u2014 Flask\u2192Kotlin/Spring Boot rewrite, Testcontainers + CI",
+  "version": "1.0.0",
+  "author": "Layla7120",
+  "homepage": "https://github.com/Layla7120/code_test_reminder_server",
+  "skills": []
+}
