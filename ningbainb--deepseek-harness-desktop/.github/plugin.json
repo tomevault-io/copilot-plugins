@@ -1,0 +1,9 @@
+{
+  "name": "ningbainb--deepseek-harness-desktop",
+  "displayName": "deepseek-harness-desktop",
+  "description": "Lossless Windows desktop app for DeepSeek Harness with the complete DSH Web UI, plugins, skins, and skill dock",
+  "version": "1.0.0",
+  "author": "ningbainb",
+  "homepage": "https://github.com/ningbainb/deepseek-harness-desktop",
+  "skills": []
+}
