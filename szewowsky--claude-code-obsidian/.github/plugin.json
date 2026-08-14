@@ -1,0 +1,9 @@
+{
+  "name": "szewowsky--claude-code-obsidian",
+  "displayName": "claude-code-obsidian",
+  "description": "Szablon CLAUDE.md do pracy z Obsidian vaultem przez Claude Code \u2014 Second Brain setup",
+  "version": "1.0.0",
+  "author": "Szewowsky",
+  "homepage": "https://github.com/Szewowsky/claude-code-obsidian",
+  "skills": []
+}
