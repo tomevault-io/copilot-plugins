@@ -1,0 +1,9 @@
+{
+  "name": "tsonglew--adhd-md",
+  "displayName": "adhd-md",
+  "description": "\u628a Markdown \u6539\u9020\u6210 ADHD \u53cb\u597d\u3001\u53ef\u626b\u8bfb\u7684\u7248\u672c\u3002\u4e00\u4efd skill \u901a\u7528\u4e8e Claude Code / Codex / Grok Build / Gemini CLI / Cursor / opencode\u3002\u53ea\u91cd\u6392\u4fe1\u606f\uff0c\u7edd\u4e0d\u5220\u4fe1\u606f\u3002",
+  "version": "1.0.0",
+  "author": "tsonglew",
+  "homepage": "https://github.com/tsonglew/adhd-md",
+  "skills": []
+}
