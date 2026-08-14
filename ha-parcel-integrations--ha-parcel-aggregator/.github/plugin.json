@@ -1,0 +1,9 @@
+{
+  "name": "ha-parcel-integrations--ha-parcel-aggregator",
+  "displayName": "ha-parcel-aggregator",
+  "description": "Roll up every ha-parcel-integrations carrier into one set of Home Assistant sensors and events",
+  "version": "1.0.0",
+  "author": "ha-parcel-integrations",
+  "homepage": "https://github.com/ha-parcel-integrations/ha-parcel-aggregator",
+  "skills": []
+}
