@@ -1,0 +1,9 @@
+{
+  "name": "mattybellx--guardmarly",
+  "displayName": "Guardmarly",
+  "description": "Find authorization bugs before attackers do. Free SAST \u2014 IDOR detection, 100% CVE recall, 0% false positives. 5 languages. Fully offline.",
+  "version": "1.0.0",
+  "author": "mattybellx",
+  "homepage": "https://github.com/mattybellx/Guardmarly",
+  "skills": []
+}
