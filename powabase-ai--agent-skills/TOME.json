@@ -4,7 +4,7 @@
   "repo": "agent-skills",
   "description": "Agent Skills that help AI coding assistants build on Powabase \u2014 the AI Backend-as-a-Service (RAG, agents, orchestration, workflows) plus a Supabase-style BaaS layer.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/powabase-ai/agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T20:41:39Z"
+  "distributed_at": "2026-08-14T01:13:25Z"
 }
