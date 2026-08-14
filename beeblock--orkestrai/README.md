@@ -7,11 +7,11 @@ Visual orchestration for teams of AI coding agents.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [beeblock/orkestrai](https://github.com/beeblock/orkestrai).
+Original source: `CLAUDE.md` in [beeblock/orkestrai](https://github.com/beeblock/orkestrai).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
