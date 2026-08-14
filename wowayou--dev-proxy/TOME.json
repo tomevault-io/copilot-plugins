@@ -4,7 +4,7 @@
   "repo": "dev-proxy",
   "description": "Configure the network exit point for AI applications (Claude Code, Claude Desktop, Codex CLI, Codex Desktop) on WSL and the Windows host machine to use the host machine's system proxy.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wowayou/dev-proxy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T02:44:05Z"
+  "distributed_at": "2026-08-14T05:15:42Z"
 }
