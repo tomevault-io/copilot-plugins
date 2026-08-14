@@ -1,0 +1,9 @@
+{
+  "name": "ahundt--ai-session-search",
+  "displayName": "ai-session-search",
+  "description": "Ultra-fast rust-powered AI agent session search and analysis. Search millions of messages in under a second. Claude Code, Claude Desktop, Codex, Cursor, Antigravity, Pi, Google AI Studio, and Gemini C",
+  "version": "1.0.0",
+  "author": "ahundt",
+  "homepage": "https://github.com/ahundt/ai-session-search",
+  "skills": []
+}
