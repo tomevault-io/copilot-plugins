@@ -1,0 +1,118 @@
+## chorus
+
+> Native macOS app: a WKWebView multi-service browser (a Rambox/Franz alternative),
+
+# Chorus — project instructions
+
+Native macOS app: a WKWebView multi-service browser (a Rambox/Franz alternative),
+SwiftUI + SwiftData. Distributed directly — Developer ID-signed, notarized DMG
+with Sparkle auto-updates. Not sandboxed, not on the App Store.
+
+## Public-facing writing
+
+Everything a user or the public reads — `README.md`, GitHub release notes, the
+appcast and any website copy, in-app strings and error messages,
+`release/DISTRIBUTION.md`, and every other doc in this public repo — must meet
+two standards:
+
+1. **Pass the mcp-humanizer check.** Draft the text, run `humanizer_check_text`
+   on it, fix every finding, and re-run until `prohibitions_clear` is true. Then
+   self-attest the manual-review items. Reading the rules alone leaves about half
+   the problems in place — the check-then-fix loop is what does the work.
+
+2. **Follow George Orwell's six rules** (from *Politics and the English
+   Language*):
+   1. Never use a metaphor, simile, or other figure of speech you are used to
+      seeing in print.
+   2. Never use a long word where a short one will do.
+   3. If it is possible to cut a word out, always cut it out.
+   4. Never use the passive where you can use the active.
+   5. Never use a foreign phrase, a scientific word, or a jargon word if you can
+      think of an everyday English equivalent.
+   6. Break any of these rules sooner than say anything outright barbarous.
+
+Write plain, direct, active, concrete prose. No marketing gloss, no AI tells.
+
+## Build & test
+
+- Test: `xcodebuild test -project Chorus.xcodeproj -scheme Chorus -destination 'platform=macOS'`
+- The project is generated from `project.yml` via XcodeGen. When you change build
+  settings (for example a version bump), edit both `project.yml` and the
+  `.pbxproj` so a later `xcodegen generate` stays consistent.
+- **Never add `-configuration Release` to that test command.** `ChorusTests` is
+  app-hosted, and `ChorusApp.init` builds an `AppState`, so every test run
+  executes the launch path, including `StoreRepair.applyPendingRestore`, which
+  writes files. Under Debug that is harmless — the store resolves to
+  `Application Support/Chorus-debug` and the defaults domain to
+  `com.nicojan.Chorus.debug`. Under Release it would aim that write at the real
+  store and the release defaults domain, and this repo has already lost a real
+  user's data to a careless run against live data.
+
+## The store path (never go back to the default)
+
+Release builds open `Application Support/Chorus/default.store`, which
+`StoreRelocation` moves them to. Never open a store through
+`ModelConfiguration(isStoredInMemoryOnly: false)` or any other implicit default.
+For an app that is not sandboxed that resolves to
+`Application Support/default.store`, a path with no bundle id in it, so every
+other non-sandboxed SwiftData app that takes the default opens the very same
+file. Whichever app opens it second migrates it to its own model, and Core Data
+drops the entities that model does not declare. Chorus shared that file with
+Bartender 6 and both apps lost everything, at every launch, until 1.5.18 moved
+out. Debug builds sit in `Chorus-debug` for the same reason.
+
+## SwiftData schema changes (read before editing any `@Model`)
+
+The store opens through an explicit `VersionedSchema` + `SchemaMigrationPlan`
+(`Chorus/Models/Schema/ChorusSchema.swift`), not inferred migration. Any change
+to a **stored** property on `ServiceInstance`, `Space`, `SpaceServiceLink`, or
+`AppPreferences` (add, remove, rename, retype) is a new schema version. Before
+editing the live model:
+
+1. Freeze the current shape as a new `ChorusSchemaV…` (copy `ChorusSchemaVCurrent`
+   into a namespaced enum with the stored properties as they are now).
+2. Make the model change, then bump `ChorusSchemaVCurrent.versionIdentifier`.
+3. Add a `MigrationStage` for the step — `.lightweight` for additive-optional
+   changes, `.custom` for a reshape/rename.
+4. Add a migration test (see `testMigratesFrom1_5_11…`) and update the pinned
+   sets in `testCurrentStoredShapeIsPinned`. Changing `AppPreferences` also needs
+   its frozen copy updated — `testFrozenAppPreferencesMatchesLiveModel` will go
+   red until you do.
+
+That last test fails if you skip these steps — treat it as the reminder, not a
+nuisance. A lossless-looking test does not prove the migration race is gone; the
+auto-restore safety net (`StoreRepair` + `loadContainer`) stays as defense, and
+`macOS 14.0` (the deployment target) needs a real-device migration pass before
+shipping a schema change — this repo's dev machine is newer.
+
+## Releasing
+
+See `release/DISTRIBUTION.md`. In short: the notarized, stapled `Chorus.app` is placed at
+the repo root; package a DMG with `hdiutil`, cut a `gh release`, then sign and
+regenerate `docs/appcast.xml`.
+
+Every release also needs the Homebrew cask bumped (step 9 there): put the new
+version and the stapled DMG's sha256 into `release/homebrew/chorus.rb`, copy it to
+`Casks/chorus.rb` in the `nicojan/homebrew-tap` repo, and check it with
+`brew style` / `brew livecheck` / `brew audit --cask --online` before pushing both.
+Skipping it leaves `brew` users on the old version; Sparkle still updates them, so
+it's cosmetic, not a break.
+
+## Ending a session
+
+When I say I am starting a new session, or ask to wrap up, update the docs first:
+
+1. `docs/internal/OPEN-ITEMS.md`: move anything that shipped or got closed out of
+   the open list, and fix any status that has gone stale.
+2. `CHANGELOG.md`: add or amend the entry for the work done this session.
+3. `.remember/remember.md`: the handoff note. Where things stand, what to pick up
+   next, and any gotcha worth carrying over.
+4. `CLAUDE.md` and `release/DISTRIBUTION.md`: only when a rule or a release step
+   actually changed.
+
+Skip a file when nothing about it changed, and say which ones you skipped.
+Public-facing text still goes through the humanizer loop above.
+
+---
+> Source: [nicojan/Chorus](https://github.com/nicojan/Chorus) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-13 -->
