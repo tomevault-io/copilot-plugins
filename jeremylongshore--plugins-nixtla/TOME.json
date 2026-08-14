@@ -4,7 +4,7 @@
   "repo": "plugins-nixtla",
   "description": "Nixtla time series forecasting plugins for Claude Code. StatsForecast, MLForecast, and NeuralForecast integrations with agent skills.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jeremylongshore/plugins-nixtla",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T03:09:51Z"
+  "distributed_at": "2026-08-14T05:34:00Z"
 }
