@@ -4,7 +4,7 @@
   "repo": "astrbot_plugin_setu",
   "description": "\u8272\u56fe\u63d2\u4ef6\uff0c\u652f\u6301\u63a5\u5165\u4e0d\u540c\u7684API\u4e2d (lolicon, sexyan\u7b49\uff09\uff0c\u4e5f\u53ef\u4ee5\u6307\u5b9a\u81ea\u5df1\u7684\u81ea\u5b9a\u4e49API",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AstrBot-Elementary-School/astrbot_plugin_setu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T21:13:00Z"
+  "distributed_at": "2026-08-14T22:54:03Z"
 }
