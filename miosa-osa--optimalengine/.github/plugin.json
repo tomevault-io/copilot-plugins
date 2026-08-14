@@ -1,0 +1,9 @@
+{
+  "name": "miosa-osa--optimalengine",
+  "displayName": "OptimalEngine",
+  "description": "Self-hosted second brain and operating engine for human and AI workspaces: topology, source evidence, memory, retrieval, agents, tools, workflows, and projections.",
+  "version": "1.0.0",
+  "author": "Miosa-osa",
+  "homepage": "https://github.com/Miosa-osa/OptimalEngine",
+  "skills": []
+}
