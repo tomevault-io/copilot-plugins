@@ -1,0 +1,9 @@
+{
+  "name": "patrykjamroz--budgeting-app",
+  "displayName": "budgeting-app",
+  "description": "React and Django app for tracking expenses and budgeting",
+  "version": "1.0.0",
+  "author": "PatrykJamroz",
+  "homepage": "https://github.com/PatrykJamroz/budgeting-app",
+  "skills": []
+}
