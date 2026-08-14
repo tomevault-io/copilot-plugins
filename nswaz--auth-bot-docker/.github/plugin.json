@@ -1,0 +1,9 @@
+{
+  "name": "nswaz--auth-bot-docker",
+  "displayName": "auth-bot-docker",
+  "description": "auth-bot-docker",
+  "version": "1.0.0",
+  "author": "NSWAZ",
+  "homepage": "https://github.com/NSWAZ/auth-bot-docker",
+  "skills": []
+}
