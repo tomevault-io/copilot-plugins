@@ -1,0 +1,9 @@
+{
+  "name": "tomeraberbach--profiler-md",
+  "displayName": "profiler-md",
+  "description": "\ud83d\udd25 Converts performance profiles to human and LLM friendly Markdown.",
+  "version": "1.0.0",
+  "author": "TomerAberbach",
+  "homepage": "https://github.com/TomerAberbach/profiler-md",
+  "skills": []
+}
