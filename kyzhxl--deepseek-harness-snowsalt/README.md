@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [KYZHXL/deepseek-harness-snowsalt](https://github.com/KYZHXL/deepseek-harness-snowsalt).
+Original source: `AGENTS.md` in [KYZHXL/deepseek-harness-snowsalt](https://github.com/KYZHXL/deepseek-harness-snowsalt).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
