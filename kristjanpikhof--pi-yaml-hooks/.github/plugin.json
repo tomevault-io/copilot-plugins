@@ -1,0 +1,9 @@
+{
+  "name": "kristjanpikhof--pi-yaml-hooks",
+  "displayName": "Pi-YAML-Hooks",
+  "description": "  YAML hook automation for the PI coding agent: tool guards, session hooks, prompts, notifications, and bash actions.",
+  "version": "1.0.0",
+  "author": "KristjanPikhof",
+  "homepage": "https://github.com/KristjanPikhof/Pi-YAML-Hooks",
+  "skills": []
+}
