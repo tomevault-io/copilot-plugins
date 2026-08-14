@@ -1,0 +1,9 @@
+{
+  "name": "kqnade--nix-dotfiles",
+  "displayName": "nix-dotfiles",
+  "description": "my nixos configuration",
+  "version": "1.0.0",
+  "author": "kqnade",
+  "homepage": "https://github.com/kqnade/nix-dotfiles",
+  "skills": []
+}
