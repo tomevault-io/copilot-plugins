@@ -4,7 +4,7 @@
   "repo": "donat",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/donatlabs/donat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T22:42:28Z"
+  "distributed_at": "2026-08-14T02:56:07Z"
 }
