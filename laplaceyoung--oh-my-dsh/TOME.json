@@ -1,0 +1,44 @@
+{
+  "name": "oh-my-dsh",
+  "owner": "LaplaceYoung",
+  "repo": "oh-my-dsh",
+  "description": "oh-my-dsh\uff1a\u9762\u5411 DSH (DeepSeek Harness) \u7684\u63d2\u4ef6\u751f\u6001\u2014\u2014700+ \u63d2\u4ef6\uff0c\u53ea\u901a\u8fc7\u6269\u5c55\u63a5\u7f1d\u6ce8\u518c\uff0c\u4e0d\u4fee\u6539 agent-loop \u9aa8\u67b6",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LaplaceYoung/oh-my-dsh",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T09:10:54Z"
+}
