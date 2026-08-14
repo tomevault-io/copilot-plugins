@@ -1,18 +1,24 @@
 ## aster-net
 
-> Conventions for using Aster.Net library when working with Aster DEX in C#/.NET. Apply when generating code that interacts with the Aster API.
+> This repository is **Aster.Net**, a strongly typed C#/.NET client library for the Aster DEX REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem.
 
+# Copilot Instructions for Aster.Net
 
-# Aster.Net Conventions
+This repository is **Aster.Net**, a strongly typed C#/.NET client library for the Aster DEX REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem.
 
-This codebase uses **Aster.Net** for Aster DEX exchange access. Do not write raw `HttpClient` calls to Aster endpoints.
+When generating code that consumes Aster.Net, follow these conventions:
 
-## Client setup pattern
+## Use Aster.Net, not raw HTTP
+
+Never generate `HttpClient` calls to Aster API URLs. Always use `AsterRestClient` or `AsterSocketClient`. This ensures correct request signing, rate limiting, and error handling.
+
+## Client setup
+
+For V3 private endpoints use V3 credentials:
 
 ```csharp
 using Aster.Net;
 using Aster.Net.Clients;
-using Aster.Net.Objects;
 
 var restClient = new AsterRestClient(options =>
 {
@@ -21,86 +27,54 @@ var restClient = new AsterRestClient(options =>
 });
 ```
 
-For public market data only, no credentials are needed: `new AsterRestClient()`.
+For public market data, credentials are not required.
 
-## Result pattern
+## Result handling
 
-All methods return `WebCallResult<T>` (REST) or `CallResult<T>` (WebSocket). Always check `.Success` before reading `.Data`:
+Methods return `WebCallResult<T>` (REST) or `CallResult<T>` (WebSocket). Always check `.Success` before reading `.Data`. The error is on `.Error`.
 
-```csharp
-var ticker = await restClient.SpotV3Api.ExchangeData.GetTickerAsync("BTCUSDT");
-if (!ticker.Success) { /* ticker.Error */ return; }
-var price = ticker.Data.LastPrice;
-```
+## API structure
 
-## API surface
+Prefer V3 APIs for new code:
 
-Prefer the V3 API branches for new code:
+- `restClient.SpotV3Api.ExchangeData` - public spot market data
+- `restClient.SpotV3Api.Account` - spot balances, transfers, commission rates
+- `restClient.SpotV3Api.Trading` - spot orders
+- `restClient.FuturesV3Api.ExchangeData` - public futures market data
+- `restClient.FuturesV3Api.Account` - futures balances, position mode, leverage, margin, transfers
+- `restClient.FuturesV3Api.Trading` - futures orders and positions
+- `socketClient.SpotV3Api` - Spot WebSocket streams
+- `socketClient.FuturesV3Api` - Futures WebSocket streams
 
-- `restClient.SpotV3Api.{ExchangeData|Account|Trading}`
-- `restClient.FuturesV3Api.{ExchangeData|Account|Trading}`
-- `socketClient.SpotV3Api` for Spot WebSocket subscriptions
-- `socketClient.FuturesV3Api` for Futures WebSocket subscriptions
-
-V1 branches (`SpotApi`, `FuturesApi`) exist for compatibility, but AI-generated examples should use V3 unless the user explicitly asks otherwise.
+`SpotApi` and `FuturesApi` are V1 compatibility branches. Do not use them unless the user specifically asks for V1.
 
 ## Order placement
 
-Let the library auto-generate `clientOrderId`. Do not pass a custom one unless required for an existing operational flow:
-
-```csharp
-var order = await restClient.SpotV3Api.Trading.PlaceOrderAsync(
-    "BTCUSDT", OrderSide.Buy, OrderType.Limit,
-    quantity: 0.001m, price: 50000m, timeInForce: TimeInForce.GoodTillCanceled);
-```
+Let the library auto-generate `clientOrderId`. Do not pass a custom value unless required for an existing operational flow.
 
 ## WebSocket pattern
 
-```csharp
-var socketClient = new AsterSocketClient();
-var sub = await socketClient.SpotV3Api.SubscribeToTickerUpdatesAsync(
-    "BTCUSDT",
-    update => { /* update.Data.LastPrice */ });
-if (!sub.Success) { /* sub.Error */ return; }
+Store the returned `UpdateSubscription` and unsubscribe on shutdown via `socketClient.UnsubscribeAsync(sub.Data)`.
 
-// On shutdown:
-await socketClient.UnsubscribeAsync(sub.Data);
-```
+## Cross-exchange
 
-## Multi-exchange code
+For code that needs to work across multiple exchanges, use `CryptoExchange.Net.SharedApis` interfaces (`ISpotTickerRestClient`, `ISpotOrderRestClient`, etc.) accessed via `.SharedClient` properties. Prefer `SpotV3Api.SharedClient` and `FuturesV3Api.SharedClient`.
 
-For exchange-agnostic code, use `CryptoExchange.Net.SharedApis`:
+Shared V3 symbol queries support `GetSymbolsRequest` asset-type filters and populate display/asset metadata. `SpotSymbolCatalog` and `FuturesSymbolCatalog` are available only after the corresponding `GetSpotSymbolsAsync(...)` or `GetFuturesSymbolsAsync(...)` call succeeds.
 
-```csharp
-using CryptoExchange.Net.SharedApis;
+## Avoid
 
-var shared = new AsterRestClient().SpotV3Api.SharedClient;
-var ticker = await shared.GetSpotTickerAsync(
-    new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", "USDT")));
-```
-
-Same pattern works against `BinanceRestClient().SpotApi.SharedClient`, `OKXRestClient().UnifiedApi.SharedClient`, `BybitRestClient().V5Api.SharedClient`, and other CryptoExchange.Net libraries.
-
-For shared V3 symbol discovery, use `ISpotSymbolRestClient.GetSpotSymbolsAsync(...)` or `IFuturesSymbolRestClient.GetFuturesSymbolsAsync(...)`. These methods honor `GetSymbolsRequest` asset-type filters and populate display/asset metadata. Only read `SpotSymbolCatalog` or `FuturesSymbolCatalog` after the corresponding symbol query has succeeded.
-
-## Hard rules
-
-- Never write raw `HttpClient` to Aster endpoints.
-- Never use `.Result` or `.Wait()`; use async all the way.
-- Never instantiate clients per request; reuse them or use DI.
-- Never skip checking `WebCallResult.Success`.
-- Prefer `AsterRestClient` and `AsterSocketClient`.
-- Prefer V3 API roots: `SpotV3Api` and `FuturesV3Api`.
-- Never pass a custom `clientOrderId` to `PlaceOrderAsync` unless required.
-- Always use `AsterCredentials().WithV3("userPrivateKey", "signerPrivateKey")` or `new AsterCredentials(new AsterV3Credential(...))` for V3, not generic `ApiCredentials`.
-- Always store WebSocket subscriptions and unsubscribe on shutdown.
-- Always use `.SharedClient` from V3 branches for cross-exchange code.
+- Raw `HttpClient` calls to Aster endpoints
+- Generic `ApiCredentials` for Aster credentials
+- V1 roots (`SpotApi`, `FuturesApi`) in new code
+- Synchronous `.Result` / `.Wait()`
+- Instantiating clients per request
+- Manual ticker polling when a WebSocket subscription fits
+- Manual `clientOrderId` values unless required
 
 ## Reference
 
-- Skill: `AGENTS.md` in repo root has fuller examples
-- `llms.txt` in repo root for AI context
-- Examples: `Examples/ai-friendly/`
+For detailed patterns and pitfalls see `AGENTS.md`, `llms.txt`, `docs/ai-api-map.md`, and `Examples/ai-friendly/`.
 
 ---
 > Source: [JKorf/Aster.Net](https://github.com/JKorf/Aster.Net) — distributed by [TomeVault](https://tomevault.io).
