@@ -1,0 +1,44 @@
+{
+  "name": "tianshu",
+  "owner": "MJ-CJM",
+  "repo": "tianshu",
+  "description": "\u5929\u67a2 \u00b7 \u53ef\u6cbb\u7406\u3001\u53ef\u9a8c\u8bc1\u3001\u6301\u7eed\u6210\u957f\u7684\u81ea\u8fdb\u5316 Agent OS \u2014\u2014 A governable, verifiable, self-evolving Agent OS with built-in audit trails and evidence chains",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MJ-CJM/tianshu",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T21:11:32Z"
+}
