@@ -1,0 +1,9 @@
+{
+  "name": "geledek--enterprise-ai-transformation-skills",
+  "displayName": "enterprise-ai-transformation-skills",
+  "description": "Agent skills for navigating AI transformations in enterprises.",
+  "version": "1.0.0",
+  "author": "geledek",
+  "homepage": "https://github.com/geledek/enterprise-ai-transformation-skills",
+  "skills": []
+}
