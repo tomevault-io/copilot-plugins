@@ -1,0 +1,9 @@
+{
+  "name": "renart-data--renart",
+  "displayName": "renart",
+  "description": "The IDE for git-native data pipelines",
+  "version": "1.0.0",
+  "author": "renart-data",
+  "homepage": "https://github.com/renart-data/renart",
+  "skills": []
+}
