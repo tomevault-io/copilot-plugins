@@ -7,11 +7,11 @@ QUIC / H3 based VPN Protocol
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [zerox80/mavi-vpn](https://github.com/zerox80/mavi-vpn).
+Original source: `CLAUDE.md` in [zerox80/mavi-vpn](https://github.com/zerox80/mavi-vpn).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
