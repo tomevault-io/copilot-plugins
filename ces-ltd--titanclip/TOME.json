@@ -4,7 +4,7 @@
   "repo": "TitanClip",
   "description": "AI Company Orchestration Platform \u2014 Deploy governed teams of autonomous AI agents with Runtime Agentic IAM, credential vaults, heartbeat orchestration, and enterprise security. Built on Paperclip.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CES-Ltd/TitanClip",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T20:42:21Z"
+  "distributed_at": "2026-08-14T23:15:38Z"
 }
