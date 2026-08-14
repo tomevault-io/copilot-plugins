@@ -1,0 +1,9 @@
+{
+  "name": "meer-cha--lg-input-switch",
+  "displayName": "lg-input-switch",
+  "description": "Switch inputs on the LG 45GX950A-B from the command line on Windows, bypassing the DDC/CI source address limitation via NVAPI raw I2C.",
+  "version": "1.0.0",
+  "author": "meer-cha",
+  "homepage": "https://github.com/meer-cha/lg-input-switch",
+  "skills": []
+}
