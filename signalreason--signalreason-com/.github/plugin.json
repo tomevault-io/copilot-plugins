@@ -1,0 +1,9 @@
+{
+  "name": "signalreason--signalreason-com",
+  "displayName": "signalreason.com",
+  "description": "Signal & Reason designs, builds, and deploys LLM workflows, RAG pipelines, and multi-agent systems. ",
+  "version": "1.0.0",
+  "author": "signalreason",
+  "homepage": "https://github.com/signalreason/signalreason.com",
+  "skills": []
+}
