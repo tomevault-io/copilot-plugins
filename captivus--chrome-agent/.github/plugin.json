@@ -1,0 +1,9 @@
+{
+  "name": "captivus--chrome-agent",
+  "displayName": "chrome-agent",
+  "description": "chrome-agent",
+  "version": "1.0.0",
+  "author": "captivus",
+  "homepage": "https://github.com/captivus/chrome-agent",
+  "skills": []
+}
