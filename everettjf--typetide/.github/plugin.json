@@ -1,0 +1,9 @@
+{
+  "name": "everettjf--typetide",
+  "displayName": "typetide",
+  "description": "TypeTide \u2014 system-wide AI translation & inline rewrite for macOS. Select text to translate, or rewrite your own writing in place, in any app. Local (Ollama) or OpenAI-compatible backends.",
+  "version": "1.0.0",
+  "author": "everettjf",
+  "homepage": "https://github.com/everettjf/typetide",
+  "skills": []
+}
