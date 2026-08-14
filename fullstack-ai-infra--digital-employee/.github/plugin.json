@@ -1,0 +1,9 @@
+{
+  "name": "fullstack-ai-infra--digital-employee",
+  "displayName": "digital-employee",
+  "description": "Agent-native CLI, package contracts, and seller-owned local Runner framework for portable digital employees.",
+  "version": "1.0.0",
+  "author": "fullstack-ai-infra",
+  "homepage": "https://github.com/fullstack-ai-infra/digital-employee",
+  "skills": []
+}
