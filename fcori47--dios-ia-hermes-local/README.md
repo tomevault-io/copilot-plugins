@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [fcori47/dios-ia-hermes-local](https://github.com/fcori47/dios-ia-hermes-local).
+Original source: `CLAUDE.md` in [fcori47/dios-ia-hermes-local](https://github.com/fcori47/dios-ia-hermes-local).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
