@@ -1,0 +1,9 @@
+{
+  "name": "yupcha--memxt",
+  "displayName": "memXT",
+  "description": "MemXT is a Local long-term memory for Claude Code & coding agents. 100% local",
+  "version": "1.0.0",
+  "author": "Yupcha",
+  "homepage": "https://github.com/Yupcha/memXT",
+  "skills": []
+}
