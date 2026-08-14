@@ -4,7 +4,7 @@
   "repo": "job-finder-india",
   "description": "Honest, local-first, CLI-agnostic AI job-fit scoring \u2014 built for the Indian market. Tells you the truth about fit instead of talking you into applying.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/harshgarg95/job-finder-india",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T23:29:39Z"
+  "distributed_at": "2026-08-14T03:29:56Z"
 }
