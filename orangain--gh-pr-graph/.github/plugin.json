@@ -1,0 +1,9 @@
+{
+  "name": "orangain--gh-pr-graph",
+  "displayName": "gh-pr-graph",
+  "description": "A GitHub CLI extension for visualizing pull requests and stacked branches as a graph.",
+  "version": "1.0.0",
+  "author": "orangain",
+  "homepage": "https://github.com/orangain/gh-pr-graph",
+  "skills": []
+}
