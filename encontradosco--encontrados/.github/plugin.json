@@ -1,0 +1,9 @@
+{
+  "name": "encontradosco--encontrados",
+  "displayName": "encontrados",
+  "description": "Conecta a quien rescata a una persona con quien la busca. Reconocimiento facial, sin frameworks, pensado para tel\u00e9fonos viejos y conexiones d\u00e9biles.",
+  "version": "1.0.0",
+  "author": "encontradosco",
+  "homepage": "https://github.com/encontradosco/encontrados",
+  "skills": []
+}
