@@ -1,0 +1,9 @@
+{
+  "name": "danielcopper--romm-tender",
+  "displayName": "romm-tender",
+  "description": "Decky Loader plugin integrating RomM (self-hosted ROM Manager) with Steam Gaming Mode and BPM",
+  "version": "1.0.0",
+  "author": "danielcopper",
+  "homepage": "https://github.com/danielcopper/romm-tender",
+  "skills": []
+}
