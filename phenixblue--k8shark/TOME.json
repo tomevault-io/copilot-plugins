@@ -1,0 +1,44 @@
+{
+  "name": "k8shark",
+  "owner": "phenixblue",
+  "repo": "k8shark",
+  "description": "Capture Kubernetes cluster state to a portable archive and replay it through a mock API server \u2014 use kubectl against a customer's environment without live cluster access.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/phenixblue/k8shark",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T06:59:07Z"
+}
