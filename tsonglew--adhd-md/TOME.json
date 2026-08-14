@@ -1,0 +1,44 @@
+{
+  "name": "adhd-md",
+  "owner": "tsonglew",
+  "repo": "adhd-md",
+  "description": "\u628a Markdown \u6539\u9020\u6210 ADHD \u53cb\u597d\u3001\u53ef\u626b\u8bfb\u7684\u7248\u672c\u3002\u4e00\u4efd skill \u901a\u7528\u4e8e Claude Code / Codex / Grok Build / Gemini CLI / Cursor / opencode\u3002\u53ea\u91cd\u6392\u4fe1\u606f\uff0c\u7edd\u4e0d\u5220\u4fe1\u606f\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tsonglew/adhd-md",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T05:22:15Z"
+}
