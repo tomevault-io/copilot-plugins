@@ -4,7 +4,7 @@
   "repo": "bpmn-to-code",
   "description": "Gradle and Maven plugin that bridges gaps between BPMN and code - fostering the creation of clean process-automation solutions \ud83e\udeb4",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Miragon/bpmn-to-code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T19:29:39Z"
+  "distributed_at": "2026-08-14T00:53:57Z"
 }
