@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tobi-techy/RAIL-BACKEND-SERVICE](https://github.com/tobi-techy/RAIL-BACKEND-SERVICE).
+Original source: `CLAUDE.md` in [tobi-techy/RAIL-BACKEND-SERVICE](https://github.com/tobi-techy/RAIL-BACKEND-SERVICE).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
