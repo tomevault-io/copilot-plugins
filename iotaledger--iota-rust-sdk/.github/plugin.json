@@ -1,0 +1,9 @@
+{
+  "name": "iotaledger--iota-rust-sdk",
+  "displayName": "iota-rust-sdk",
+  "description": "iota-rust-sdk",
+  "version": "1.0.0",
+  "author": "iotaledger",
+  "homepage": "https://github.com/iotaledger/iota-rust-sdk",
+  "skills": []
+}
