@@ -1,0 +1,9 @@
+{
+  "name": "get-tmonier--argot",
+  "displayName": "argot",
+  "description": "A statistical code analyzer built from your repository's history.",
+  "version": "1.0.0",
+  "author": "get-tmonier",
+  "homepage": "https://github.com/get-tmonier/argot",
+  "skills": []
+}
