@@ -1,13 +1,13 @@
-## titanclip-security
+## titanclip-server
 
-> Security-sensitive areas — secrets, auth, adapters, IPC
+> TitanClip server — Express ESM, routes, heartbeat, adapters
 
 
-# Security
+# Server (`@titanclip/server`)
 
-- **Never** log, echo, or paste raw secrets, API keys, JWTs, or vault payloads. Follow existing redaction and encryption patterns for credential vault and agent auth.
-- Treat **LLM adapters**, **Express routes**, and **Electron IPC** as trust boundaries: minimal surface area, clear error handling, no “temporary” bypasses.
-- **Context files** shipped to agents (`AGENTS.md`, `.paperclip.md`) may be scanned for injection; keep onboarding copies in `server/src/onboarding-assets/` consistent with product expectations when editing those assets intentionally.
+- Package is **ESM** (`"type": "module"` in `server/package.json`). Prefer **NodeNext** resolution and existing patterns for routes, services, heartbeat, and adapter registration.
+- After substantive changes: `pnpm --filter @titanclip/server typecheck`.
+- Tests: use Vitest via the `server` project in root `vitest.config.ts` or the server’s local Vitest config as appropriate.
 
 ---
 > Source: [CES-Ltd/TitanClip](https://github.com/CES-Ltd/TitanClip) — distributed by [TomeVault](https://tomevault.io).
