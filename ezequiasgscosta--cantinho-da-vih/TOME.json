@@ -1,0 +1,44 @@
+{
+  "name": "cantinho-da-vih",
+  "owner": "ezequiasgscosta",
+  "repo": "cantinho-da-vih",
+  "description": "loja virtual para minha esposa feita em react,node,java,sql",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ezequiasgscosta/cantinho-da-vih",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T19:29:53Z"
+}
