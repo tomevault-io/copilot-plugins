@@ -1,0 +1,9 @@
+{
+  "name": "finleyge--ezmock",
+  "displayName": "ezmock",
+  "description": "A Mock tool written in Bun",
+  "version": "1.0.0",
+  "author": "FinleyGe",
+  "homepage": "https://github.com/FinleyGe/ezmock",
+  "skills": []
+}
