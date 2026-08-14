@@ -7,11 +7,11 @@ NavSlidesEditor
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [xuan2261/NavSlidesEditor](https://github.com/xuan2261/NavSlidesEditor).
+Original source: `CLAUDE.md` in [xuan2261/NavSlidesEditor](https://github.com/xuan2261/NavSlidesEditor).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
