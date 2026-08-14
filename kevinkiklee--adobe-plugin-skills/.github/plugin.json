@@ -1,7 +1,7 @@
 {
   "name": "kevinkiklee--adobe-plugin-skills",
   "displayName": "adobe-plugin-skills",
-  "description": "adobe-plugin-skills",
+  "description": "AI coding agent skill for building Adobe Photoshop UXP and Lightroom Classic plugins",
   "version": "1.0.0",
   "author": "kevinkiklee",
   "homepage": "https://github.com/kevinkiklee/adobe-plugin-skills",
