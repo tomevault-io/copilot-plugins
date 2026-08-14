@@ -1,0 +1,9 @@
+{
+  "name": "ksfraser--ksf-fa-dataintegrity",
+  "displayName": "ksf_FA_DataIntegrity",
+  "description": "FrontAccounting module: cross-references purchase and sales chains to surface orphaned records, quantity counter drift, and allocation mismatches",
+  "version": "1.0.0",
+  "author": "ksfraser",
+  "homepage": "https://github.com/ksfraser/ksf_FA_DataIntegrity",
+  "skills": []
+}
