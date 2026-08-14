@@ -1,0 +1,44 @@
+{
+  "name": "noaa-radar-pipeline",
+  "owner": "tjamjam",
+  "repo": "noaa-radar-pipeline",
+  "description": "Self-hosted NOAA MRMS + HRRR radar tile pipeline. Replaces $1K/mo commercial radar APIs with a $5/mo EC2 instance.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tjamjam/noaa-radar-pipeline",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T21:41:56Z"
+}
