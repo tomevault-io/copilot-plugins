@@ -1,0 +1,44 @@
+{
+  "name": "dsh-turn-rewind",
+  "owner": "Anionex",
+  "repo": "dsh-turn-rewind",
+  "description": "deepseek harness\u5bf9\u8bdd\u56de\u9000\u63d2\u4ef6 | DSH \u2014 rewind conversation and workspace state, powered by a persistent Change Ledger",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Anionex/dsh-turn-rewind",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T08:49:17Z"
+}
