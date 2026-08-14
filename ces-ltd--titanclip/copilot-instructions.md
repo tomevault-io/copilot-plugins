@@ -1,16 +1,13 @@
-## titanclip-monorepo
+## titanclip-packages
 
-> TitanClip pnpm monorepo layout, scripts, and scoping
+> Shared packages — db, shared, adapters, plugin SDK
 
 
-# Monorepo and tooling
+# Packages (`packages/`)
 
-- Use **pnpm** only (`packageManager` in root `package.json`). Node **>= 20**.
-- Internal packages use **`workspace:*`** for `@titanclip/*` dependencies.
-- Common commands from repo root: `pnpm install`, `pnpm run typecheck`, `pnpm run build:all`, `pnpm run dev` (Electron).
-- Scope work with **`pnpm --filter <package-name> <script>`** (e.g. `@titanclip/server`, `@titanclip/ui`).
-- **Own the package you touch**: `server/`, `ui/`, or a path under `packages/`. Do not edit `dist/`, `release/`, or other generated artifacts unless the task explicitly requires it.
-- Vitest is configured via root `vitest.config.ts` as a multi-project workspace. If a listed project is missing locally, run tests from the package that defines them (`pnpm --filter <pkg> exec vitest run` or the package’s script).
+- **Shared types/utilities**: `@titanclip/shared`. **Schema/migrations**: `@titanclip/db`. **Adapter glue**: `@titanclip/adapter-utils` and `packages/adapters/*`.
+- **Plugins**: follow `docs/plugin-authoring-guide.md` and `packages/plugins/sdk`. Example plugins under `packages/plugins/examples/*` are **reference only**, not the production app.
+- When changing a package API consumed by `server` or `ui`, run **`pnpm run typecheck`** from the repo root to catch cross-package breaks.
 
 ---
 > Source: [CES-Ltd/TitanClip](https://github.com/CES-Ltd/TitanClip) — distributed by [TomeVault](https://tomevault.io).
