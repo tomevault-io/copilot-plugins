@@ -1,0 +1,9 @@
+{
+  "name": "odegardstuen--forrest",
+  "displayName": "forrest",
+  "description": "Bakken to Basics \u2014 an AI running coach (Claude Code) for the Norwegian sub-threshold method, built on your intervals.icu data.",
+  "version": "1.0.0",
+  "author": "odegardstuen",
+  "homepage": "https://github.com/odegardstuen/forrest",
+  "skills": []
+}
