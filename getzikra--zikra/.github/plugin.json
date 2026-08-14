@@ -1,0 +1,9 @@
+{
+  "name": "getzikra--zikra",
+  "displayName": "Zikra",
+  "description": "Persistent memory MCP server for Claude Code \u2014 self-hosted, n8n + PostgreSQL + pgvector. No cloud required.",
+  "version": "1.0.0",
+  "author": "getzikra",
+  "homepage": "https://github.com/getzikra/Zikra",
+  "skills": []
+}
