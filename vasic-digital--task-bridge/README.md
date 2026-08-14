@@ -7,11 +7,11 @@ Generic, decoupled bidirectional task/board sync engine (SQLite workable-items S
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vasic-digital/task_bridge](https://github.com/vasic-digital/task_bridge).
+Original source: `CLAUDE.md` in [vasic-digital/task_bridge](https://github.com/vasic-digital/task_bridge).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
