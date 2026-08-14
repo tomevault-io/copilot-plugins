@@ -1,0 +1,9 @@
+{
+  "name": "plutokeating--dsh-lark-bot",
+  "displayName": "dsh-lark-bot",
+  "description": "dsh-lark-bot\uff1a\u628a DeepSeek Harness (dsh) \u6865\u63a5\u8fdb\u98de\u4e66/Lark \u7684 bot\uff0c\u542b\u5b8c\u6574\u9879\u76ee\u5de5\u4f5c\u533a\u7ba1\u7406\u3002A bridge bot connecting DeepSeek Harness (dsh) into Feishu/Lark with full workspace management. deepseek \u00b7 deepseek harness \u00b7 feishu \u00b7",
+  "version": "1.0.0",
+  "author": "PlutoKeating",
+  "homepage": "https://github.com/PlutoKeating/dsh-lark-bot",
+  "skills": []
+}
