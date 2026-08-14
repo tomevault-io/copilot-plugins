@@ -7,11 +7,11 @@ A  browser-based track designer tool for FPV race directors
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dutchdronesquad/trackdraw](https://github.com/dutchdronesquad/trackdraw).
+Original source: `CLAUDE.md` in [dutchdronesquad/trackdraw](https://github.com/dutchdronesquad/trackdraw).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
