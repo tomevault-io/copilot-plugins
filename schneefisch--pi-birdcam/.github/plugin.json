@@ -1,0 +1,9 @@
+{
+  "name": "schneefisch--pi-birdcam",
+  "displayName": "pi-birdcam",
+  "description": "A raspberry-pi based bird cam",
+  "version": "1.0.0",
+  "author": "schneefisch",
+  "homepage": "https://github.com/schneefisch/pi-birdcam",
+  "skills": []
+}
