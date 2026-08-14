@@ -1,0 +1,9 @@
+{
+  "name": "wowayou--dev-proxy",
+  "displayName": "dev-proxy",
+  "description": "Configure the network exit point for AI applications (Claude Code, Claude Desktop, Codex CLI, Codex Desktop) on WSL and the Windows host machine to use the host machine's system proxy.",
+  "version": "1.0.0",
+  "author": "wowayou",
+  "homepage": "https://github.com/wowayou/dev-proxy",
+  "skills": []
+}
