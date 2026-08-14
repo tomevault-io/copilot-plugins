@@ -1,0 +1,9 @@
+{
+  "name": "lets-mica--mica-ai",
+  "displayName": "mica-ai",
+  "description": "\u57fa\u4e8e Java 17 \u7684 AI \u57fa\u7840\u7ec4\u4ef6\u5e93\uff0c\u4e13\u6ce8\u4e8e\u7b80\u5316 OCR\u3001\u8bed\u97f3\u5408\u6210\u4e0e\u8bc6\u522b\u7b49 AI \u80fd\u529b\u7684\u96c6\u6210\u4e0e\u8c03\u7528\u3002",
+  "version": "1.0.0",
+  "author": "lets-mica",
+  "homepage": "https://github.com/lets-mica/mica-ai",
+  "skills": []
+}
