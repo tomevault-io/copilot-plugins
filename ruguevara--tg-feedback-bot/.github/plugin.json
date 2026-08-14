@@ -1,0 +1,9 @@
+{
+  "name": "ruguevara--tg-feedback-bot",
+  "displayName": "tg-feedback-bot",
+  "description": "Deploy your own Telegram support bot on Cloudflare Workers and D1 for free in 10\u201315 minutes",
+  "version": "1.0.0",
+  "author": "ruguevara",
+  "homepage": "https://github.com/ruguevara/tg-feedback-bot",
+  "skills": []
+}
