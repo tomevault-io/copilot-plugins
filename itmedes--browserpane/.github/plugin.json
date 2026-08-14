@@ -1,0 +1,9 @@
+{
+  "name": "itmedes--browserpane",
+  "displayName": "browserpane",
+  "description": "A web-native remote desktop protocol built on WebTransport, WebCodecs, and WebGL 2 \u2014 crisp tiles for UI, H.264 for video, all in the browser.",
+  "version": "1.0.0",
+  "author": "ITmedes",
+  "homepage": "https://github.com/ITmedes/browserpane",
+  "skills": []
+}
