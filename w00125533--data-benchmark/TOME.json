@@ -1,0 +1,44 @@
+{
+  "name": "data-benchmark",
+  "owner": "w00125533",
+  "repo": "data-benchmark",
+  "description": "\u9a8c\u8bc1\u5927\u6570\u636e\u6027\u80fd\u57fa\u7ebf",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/w00125533/data-benchmark",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T19:12:19Z"
+}
