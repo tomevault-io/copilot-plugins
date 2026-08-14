@@ -1,0 +1,9 @@
+{
+  "name": "agustafson--prince-of-space",
+  "displayName": "prince-of-space",
+  "description": "A simple, configurable Java code formatter which produces well-arranged code. Prince of Space takes its philosophy from Prettier and ktlint: strong, readable defaults with just enough configuration to",
+  "version": "1.0.0",
+  "author": "agustafson",
+  "homepage": "https://github.com/agustafson/prince-of-space",
+  "skills": []
+}
