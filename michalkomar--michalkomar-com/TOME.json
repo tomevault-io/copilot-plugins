@@ -4,7 +4,7 @@
   "repo": "michalkomar.com",
   "description": "Personal site of Michal Komar \u2014 AI consultant in Prague (agentic AI, enterprise AI integration, intelligent automation). One hand-written HTML file rendered as a terminal. No framework, no tracking.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/michalkomar/michalkomar.com",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T06:34:25Z"
+  "distributed_at": "2026-08-14T08:43:22Z"
 }
