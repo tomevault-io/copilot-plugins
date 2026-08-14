@@ -1,0 +1,9 @@
+{
+  "name": "vogon1--bar-card",
+  "displayName": "bar-card",
+  "description": "Customizable Animated Bar card for Home Assistant Lovelace",
+  "version": "1.0.0",
+  "author": "vogon1",
+  "homepage": "https://github.com/vogon1/bar-card",
+  "skills": []
+}
