@@ -1,0 +1,9 @@
+{
+  "name": "jredrupp--bison",
+  "displayName": "bison",
+  "description": "A Mojo DataFrame library with a pandas-compatible API",
+  "version": "1.0.0",
+  "author": "JRedrupp",
+  "homepage": "https://github.com/JRedrupp/bison",
+  "skills": []
+}
