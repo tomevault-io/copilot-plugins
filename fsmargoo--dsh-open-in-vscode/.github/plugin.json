@@ -1,0 +1,9 @@
+{
+  "name": "fsmargoo--dsh-open-in-vscode",
+  "displayName": "dsh-open-in-vscode",
+  "description": "Open DeepSeek Harness workspace directories in VS Code directly from the web GUI.",
+  "version": "1.0.0",
+  "author": "FSMargoo",
+  "homepage": "https://github.com/FSMargoo/dsh-open-in-vscode",
+  "skills": []
+}
