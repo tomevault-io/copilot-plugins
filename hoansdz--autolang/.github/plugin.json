@@ -1,0 +1,9 @@
+{
+  "name": "hoansdz--autolang",
+  "displayName": "Autolang",
+  "description": "A statically-typed scripting language and bytecode VM for sandboxed execution of AI-generated code, built in C++ with no GC or JIT.",
+  "version": "1.0.0",
+  "author": "hoansdz",
+  "homepage": "https://github.com/hoansdz/Autolang",
+  "skills": []
+}
