@@ -1,0 +1,9 @@
+{
+  "name": "zulwatha--vardiya",
+  "displayName": "vardiya",
+  "description": "SQLite-backed job queue for Node.js. Durable background jobs, retries, priorities and cron scheduling with zero infrastructure. No Redis. No drama.",
+  "version": "1.0.0",
+  "author": "Zulwatha",
+  "homepage": "https://github.com/Zulwatha/vardiya",
+  "skills": []
+}
