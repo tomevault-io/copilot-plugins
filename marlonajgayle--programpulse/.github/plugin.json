@@ -1,0 +1,9 @@
+{
+  "name": "marlonajgayle--programpulse",
+  "displayName": "programpulse",
+  "description": "ProgramPulse \u2014 a micro-SaaS for tracking goals and milestones across ongoing programs, with automatic on-track / at-risk / off-track status. ASP.NET Core (.NET 10) + Azure.",
+  "version": "1.0.0",
+  "author": "marlonajgayle",
+  "homepage": "https://github.com/marlonajgayle/programpulse",
+  "skills": []
+}
