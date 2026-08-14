@@ -4,7 +4,7 @@
   "repo": "mavi-vpn",
   "description": "QUIC / H3 based VPN Protocol",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zerox80/mavi-vpn",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T08:41:33Z"
+  "distributed_at": "2026-08-14T10:42:53Z"
 }
