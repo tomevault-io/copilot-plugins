@@ -1,0 +1,9 @@
+{
+  "name": "sjarmak--agent-workflows",
+  "displayName": "agent-workflows",
+  "description": "Superseded by coding-agent-workflows. Twenty-one experimental multi-agent workflow skills for Claude Code: parallel research, brainstorming, debate, planning, execution, and review, with Beads for cro",
+  "version": "1.0.0",
+  "author": "sjarmak",
+  "homepage": "https://github.com/sjarmak/agent-workflows",
+  "skills": []
+}
