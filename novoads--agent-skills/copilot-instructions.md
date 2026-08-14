@@ -1,0 +1,19 @@
+## project-context
+
+> Load project memory from MASTER_CONTEXT.md and keep it updated after substantive work.
+
+
+# Project context
+
+- If `.env` or `MASTER_CONTEXT.md` do not exist, tell the user to run `./scripts/setup.sh`.
+- At the **start** of substantive work in this repo, read **MASTER_CONTEXT.md** at the repository root for brand voice, default product, and API learnings. It carries **no prices** — that is deliberate.
+- The first time the user asks to generate something and `MASTER_CONTEXT.md` is missing a field that request needs (default product, brand voice), ask for it then — once — and write the answer back so no future session asks again. A setup-only session asks for nothing and reports almost nothing: close with the setup-close template in `AGENTS.md` ("First-time setup" — a status line, "What you can ask for now", the product-photos line) and keep git mechanics and sync details out unless they block an ask. Never write a credit number into it.
+- After **significant** changes (new workflows, verified Novoads behaviors, brand updates), append a short **dated** entry to the Changelog section in **MASTER_CONTEXT.md**.
+- For Novoads HTTP usage, prompts, and polling, follow **`.cursor/skills/novoads-api/SKILL.md`** and linked **reference.md**.
+- **Session work-product goes in a gitignored home** — `generated/` (renders), `outputs/<job>/` (video downloads + edit workfiles), `prompts/` (composed prompts), `iterations/` (clone rounds), `logs/`. Never invent a new top-level directory; leave `git status` as clean as you found it. Stated in full in `AGENTS.md` ("Every session").
+- **Never quote a credit cost from memory.** Prices come from a live `POST /v1/estimates` in the current session, shown and approved before anything is generated. For a video where the model speaks, the spoken line is approved separately, first.
+- Log every generation call to `logs/novoads-api.jsonl` — observability only, never a pricing source.
+
+---
+> Source: [novoads/agent-skills](https://github.com/novoads/agent-skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-14 -->
