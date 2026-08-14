@@ -1,0 +1,9 @@
+{
+  "name": "0k-lab--diskswell",
+  "displayName": "DiskSwell",
+  "description": "Native macOS menu bar monitor for runaway disk growth, large Safari/WebKit WAL files, and low free space. Local, bounded, and detection-only.",
+  "version": "1.0.0",
+  "author": "0k-lab",
+  "homepage": "https://github.com/0k-lab/DiskSwell",
+  "skills": []
+}
