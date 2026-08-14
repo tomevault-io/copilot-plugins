@@ -1,0 +1,9 @@
+{
+  "name": "helgesverre--fedit",
+  "displayName": "fedit",
+  "description": "A small terminal text editor written in F# \u2014 multi-buffer, undo/redo, find, command palette, system clipboard, and seven themes.",
+  "version": "1.0.0",
+  "author": "HelgeSverre",
+  "homepage": "https://github.com/HelgeSverre/fedit",
+  "skills": []
+}
