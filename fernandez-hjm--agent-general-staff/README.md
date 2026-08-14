@@ -7,11 +7,11 @@ A portable multi-agent engineering kit for Codex, Cursor, and Claude Code develo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [FernandeZ-hjm/Agent-General-Staff](https://github.com/FernandeZ-hjm/Agent-General-Staff).
+Original source: `CLAUDE.md` in [FernandeZ-hjm/Agent-General-Staff](https://github.com/FernandeZ-hjm/Agent-General-Staff).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
