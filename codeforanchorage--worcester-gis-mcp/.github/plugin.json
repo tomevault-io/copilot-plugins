@@ -1,0 +1,9 @@
+{
+  "name": "codeforanchorage--worcester-gis-mcp",
+  "displayName": "worcester-gis-mcp",
+  "description": "Worcester GIS MCP server \u2014 OpenContext fork serving ArcGIS Hub data for the City of Worcester, MA",
+  "version": "1.0.0",
+  "author": "codeforanchorage",
+  "homepage": "https://github.com/codeforanchorage/worcester-gis-mcp",
+  "skills": []
+}
