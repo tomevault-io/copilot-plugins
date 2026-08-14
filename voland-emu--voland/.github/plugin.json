@@ -1,0 +1,9 @@
+{
+  "name": "voland-emu--voland",
+  "displayName": "Voland",
+  "description": "Nintendo Switch emulator for the web, and everywhere else.",
+  "version": "1.0.0",
+  "author": "voland-emu",
+  "homepage": "https://github.com/voland-emu/Voland",
+  "skills": []
+}
