@@ -4,7 +4,7 @@
   "repo": "flow_ui",
   "description": "Flutter UI library for AI Chat Interfaces",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/StacDev/flow_ui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T22:50:57Z"
+  "distributed_at": "2026-08-14T23:26:20Z"
 }
