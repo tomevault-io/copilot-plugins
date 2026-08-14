@@ -1,0 +1,9 @@
+{
+  "name": "windseeker5--dotfiles",
+  "displayName": "dotfiles",
+  "description": "Arch Linux dotfiles with Sway, Waybar, and Catppuccin Mocha theme",
+  "version": "1.0.0",
+  "author": "windseeker5",
+  "homepage": "https://github.com/windseeker5/dotfiles",
+  "skills": []
+}
