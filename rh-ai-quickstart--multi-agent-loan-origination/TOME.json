@@ -4,7 +4,7 @@
   "repo": "multi-agent-loan-origination",
   "description": "Demonstrating agentic AI orchestration across the mortgage lending lifecycle, from prospect inquiry to underwriting approval.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rh-ai-quickstart/multi-agent-loan-origination",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T07:08:17Z"
+  "distributed_at": "2026-08-14T09:17:57Z"
 }
