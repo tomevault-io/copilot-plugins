@@ -1,0 +1,9 @@
+{
+  "name": "juce-me--ga4-gtm-config-mcp",
+  "displayName": "ga4-gtm-config-mcp",
+  "description": "Custom MCP server for safe GA4 and Google Tag Manager configuration automation.",
+  "version": "1.0.0",
+  "author": "Juce-me",
+  "homepage": "https://github.com/Juce-me/ga4-gtm-config-mcp",
+  "skills": []
+}
