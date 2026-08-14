@@ -1,0 +1,44 @@
+{
+  "name": "humanasllm",
+  "owner": "leenkcool",
+  "repo": "humanasllm",
+  "description": "Human as Agent\uff08\u4eba\u5373\u667a\u80fd\u4f53\uff09\u00b7 Human-as-LLM \u4eba\u5de5\u4ee3\u7406\u7f51\u5173\uff1a\u628a\u5de5\u7a0b\u5e08\u53d8\u6210\u6a21\u578b\uff0cOpenAI \u517c\u5bb9 /v1 \u63a5\u5165 Agent \u8c03\u5ea6\u6c60\uff0c\u6d89\u5bc6/\u9700\u4eba\u5de5\u4efb\u52a1\u8def\u7531\u7ed9\u771f\u5b9e\u5de5\u7a0b\u5e08\u3002\u4e3a AI Agent   \u63d0\u6548\u3001\u4e3a\u5e73\u53f0/\u8fd0\u7ef4\u6536\u96c6\u5de5\u5355\u3002Human-as-LLM Gateway, human-in-the-loop, OpenAI compatible /v1, human-llm model.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/leenkcool/humanasllm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T08:54:56Z"
+}
