@@ -1,0 +1,44 @@
+{
+  "name": "Sparo-OS",
+  "owner": "GCWing",
+  "repo": "Sparo-OS",
+  "description": "Sparo OS is an agentic OS born for the AI \u200b\u200bera. It explores \"AI as a system,\" making software no longer a fixed tool, but something that is continuously generated, organized, connected, and evolved around user intent.(Sparo OS \u662f\u4e00\u6b3e\u4e3a AI \u65f6\u4ee3\u800c\u751f\u7684 Agentic OS\u3002\u5b83\u63a2\u7d22\u201cAI \u5373\u7cfb\u7edf\u201d\uff0c\u8ba9\u8f6f\u4ef6\u4e0d\u518d\u662f\u56fa\u5b9a\u5de5\u5177\uff0c\u800c\u662f\u56f4\u7ed5\u7528\u6237\u610f\u56fe\u6301\u7eed\u751f\u6210\u3001\u7ec4\u7ec7\u3001\u8fde\u63a5\u4e0e\u6f14\u5316)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/GCWing/Sparo-OS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T15:36:34Z"
+}
