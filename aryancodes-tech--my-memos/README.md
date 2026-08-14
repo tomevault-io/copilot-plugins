@@ -7,13 +7,13 @@ A local-first, Notion-inspired Browser New Tab extension for notes, knowledge ma
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [aryancodes-tech/my-memos](https://github.com/aryancodes-tech/my-memos).
+Original source: `AGENTS.md` in [aryancodes-tech/my-memos](https://github.com/aryancodes-tech/my-memos).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
