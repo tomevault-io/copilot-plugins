@@ -1,0 +1,44 @@
+{
+  "name": "Dottorato",
+  "owner": "ntilau",
+  "repo": "Dottorato",
+  "description": "PhD dissertation on finite element analysis in electromagnetics \u2014 LaTeX manuscript, Beamer defense slides, published work, and notes (Univ. of Florence, 2011\u20132013)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ntilau/Dottorato",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T03:38:12Z"
+}
