@@ -1,0 +1,9 @@
+{
+  "name": "criztiano--marktab",
+  "displayName": "marktab",
+  "description": "A minimal, searchable bookmark new tab page for Chrome (WXT + React + TS), with an optional configurable Pins row.",
+  "version": "1.0.0",
+  "author": "criztiano",
+  "homepage": "https://github.com/criztiano/marktab",
+  "skills": []
+}
