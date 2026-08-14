@@ -4,7 +4,7 @@
   "repo": "slurm-plugin",
   "description": "Jenkins plugin to run dynamic agents in a Slurm environment",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/naveenrajm7/slurm-plugin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T06:48:55Z"
+  "distributed_at": "2026-08-14T09:02:56Z"
 }
