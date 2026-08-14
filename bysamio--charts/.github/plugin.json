@@ -1,0 +1,9 @@
+{
+  "name": "bysamio--charts",
+  "displayName": "charts",
+  "description": "A collection of production-ready Helm charts using official Docker images",
+  "version": "1.0.0",
+  "author": "bysamio",
+  "homepage": "https://github.com/bysamio/charts",
+  "skills": []
+}
