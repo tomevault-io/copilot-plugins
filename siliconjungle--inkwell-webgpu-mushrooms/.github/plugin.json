@@ -1,0 +1,9 @@
+{
+  "name": "siliconjungle--inkwell-webgpu-mushrooms",
+  "displayName": "inkwell-webgpu-mushrooms",
+  "description": "Raw WebGPU procedural mushroom field and profiling lab from Inkwell",
+  "version": "1.0.0",
+  "author": "siliconjungle",
+  "homepage": "https://github.com/siliconjungle/inkwell-webgpu-mushrooms",
+  "skills": []
+}
