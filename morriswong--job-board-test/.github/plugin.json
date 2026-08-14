@@ -1,0 +1,9 @@
+{
+  "name": "morriswong--job-board-test",
+  "displayName": "job-board-test",
+  "description": "Hugo-based job board with Hacker News style design and sponsored listings",
+  "version": "1.0.0",
+  "author": "morriswong",
+  "homepage": "https://github.com/morriswong/job-board-test",
+  "skills": []
+}
