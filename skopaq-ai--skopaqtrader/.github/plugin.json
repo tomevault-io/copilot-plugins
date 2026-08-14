@@ -1,0 +1,9 @@
+{
+  "name": "skopaq-ai--skopaqtrader",
+  "displayName": "skopaqtrader",
+  "description": "Open-source AI algorithmic trading platform for Indian equities. Multi-agent LLM pipeline with autonomous daemon, INDstocks broker integration, and AI-powered position management. Built on TradingAgen",
+  "version": "1.0.0",
+  "author": "Skopaq-AI",
+  "homepage": "https://github.com/Skopaq-AI/skopaqtrader",
+  "skills": []
+}
