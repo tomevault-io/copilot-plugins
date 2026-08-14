@@ -1,0 +1,9 @@
+{
+  "name": "thinkwork-ai--thinkwork-agent",
+  "displayName": "thinkwork-agent",
+  "description": "ThinkWork AI Open Source Enterprise Agent Harness",
+  "version": "1.0.0",
+  "author": "thinkwork-ai",
+  "homepage": "https://github.com/thinkwork-ai/thinkwork-agent",
+  "skills": []
+}
