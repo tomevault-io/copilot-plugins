@@ -1,0 +1,44 @@
+{
+  "name": "ApexTunes",
+  "owner": "mohsinapex",
+  "repo": "ApexTunes",
+  "description": "ApexTunes is a modern, lightweight Android music player that lets you stream millions of songs online and play your local music in one clean, ad-free experience. Built with Material You, it offers fast performance, background playback, playlist management, offline library support, and a privacy-friendly design with no subscriptions or hidden fees.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mohsinapex/ApexTunes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T23:12:19Z"
+}
