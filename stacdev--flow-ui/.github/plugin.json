@@ -1,0 +1,9 @@
+{
+  "name": "stacdev--flow-ui",
+  "displayName": "flow_ui",
+  "description": "Flutter UI library for AI Chat Interfaces",
+  "version": "1.0.0",
+  "author": "StacDev",
+  "homepage": "https://github.com/StacDev/flow_ui",
+  "skills": []
+}
