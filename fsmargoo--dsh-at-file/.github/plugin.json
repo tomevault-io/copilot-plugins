@@ -1,0 +1,9 @@
+{
+  "name": "fsmargoo--dsh-at-file",
+  "displayName": "dsh-at-file",
+  "description": "Codex-style @file mentions for DeepSeek Harness: search workspace files in the composer and attach their contents to prompts.",
+  "version": "1.0.0",
+  "author": "FSMargoo",
+  "homepage": "https://github.com/FSMargoo/dsh-at-file",
+  "skills": []
+}
