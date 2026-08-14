@@ -1,0 +1,9 @@
+{
+  "name": "madq--roslynmcp",
+  "displayName": "RoslynMcp",
+  "description": "Roslyn-powered MCP server for C# code intelligence",
+  "version": "1.0.0",
+  "author": "MadQ",
+  "homepage": "https://github.com/MadQ/RoslynMcp",
+  "skills": []
+}
