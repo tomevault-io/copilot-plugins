@@ -4,7 +4,7 @@
   "repo": "aviemore-pet-services",
   "description": "A business page for a local company",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WhiskyToad/aviemore-pet-services",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T19:43:29Z"
+  "distributed_at": "2026-08-14T20:51:57Z"
 }
