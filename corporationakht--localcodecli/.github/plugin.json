@@ -1,0 +1,9 @@
+{
+  "name": "corporationakht--localcodecli",
+  "displayName": "LocalCodeCli",
+  "description": "A powerful local proxy for Claude Code CLI and Codex CLI supporting NVIDIA NIM, Google,Gemini, DeepSeek, and local Ollama models. Use claude code and codex for free in the terminal, VSCode extension, ",
+  "version": "1.0.0",
+  "author": "Corporationakht",
+  "homepage": "https://github.com/Corporationakht/LocalCodeCli",
+  "skills": []
+}
