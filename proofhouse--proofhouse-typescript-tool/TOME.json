@@ -4,7 +4,7 @@
   "repo": "proofhouse-typescript-tool",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/proofhouse/proofhouse-typescript-tool",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T17:01:36Z"
+  "distributed_at": "2026-08-14T17:13:59Z"
 }
