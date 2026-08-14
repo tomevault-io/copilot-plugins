@@ -1,0 +1,44 @@
+{
+  "name": "web",
+  "owner": "AgenticLab-team",
+  "repo": "web",
+  "description": "\u4e00\u4e2a\u5fae\u4fe1\u7fa4\u793e\u533a\u7684\u7ad9\u5185\u95e8\u6237\uff1a\u7fa4\u804a\u5b58\u6863\u4e0e\u5168\u6587\u68c0\u7d22\uff0c\u52a0\u4e0a\u8bba\u575b\u3001\u79ef\u5206\u3001\u79f0\u53f7\u3001\u5f00\u653e API \u4e0e GitHub \u751f\u6001\u3002\u53ea\u6709\u7fa4\u6210\u5458\u80fd\u767b\u5f55\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AgenticLab-team/web",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T21:10:50Z"
+}
