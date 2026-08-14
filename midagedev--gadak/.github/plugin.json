@@ -1,0 +1,9 @@
+{
+  "name": "midagedev--gadak",
+  "displayName": "gadak",
+  "description": "Your Jira and Confluence, mirrored into one local SQLite file \u2014 web UI, TUI, desktop app, and agent SQL. Instant search, offline, one binary.",
+  "version": "1.0.0",
+  "author": "midagedev",
+  "homepage": "https://github.com/midagedev/gadak",
+  "skills": []
+}
