@@ -1,0 +1,9 @@
+{
+  "name": "lumosframework--lumos-for-astro",
+  "displayName": "lumos-for-astro",
+  "description": "A component and styling framework for building Astro sites, designed around efficiency, scalability and accessibility.",
+  "version": "1.0.0",
+  "author": "lumosframework",
+  "homepage": "https://github.com/lumosframework/lumos-for-astro",
+  "skills": []
+}
