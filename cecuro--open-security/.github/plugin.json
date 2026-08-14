@@ -1,0 +1,9 @@
+{
+  "name": "cecuro--open-security",
+  "displayName": "open-security",
+  "description": "Local AI security reviews with evidence, severity, and a review UI.",
+  "version": "1.0.0",
+  "author": "Cecuro",
+  "homepage": "https://github.com/Cecuro/open-security",
+  "skills": []
+}
