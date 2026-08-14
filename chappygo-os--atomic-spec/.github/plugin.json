@@ -1,0 +1,9 @@
+{
+  "name": "chappygo-os--atomic-spec",
+  "displayName": "Atomic-Spec",
+  "description": "Stop your AI from vibe-coding. Governance layer that forces Claude, Cursor, Copilot, Gemini & 13 more through gated phases, atomic task files, and pinned context.",
+  "version": "1.0.0",
+  "author": "Chappygo-OS",
+  "homepage": "https://github.com/Chappygo-OS/Atomic-Spec",
+  "skills": []
+}
