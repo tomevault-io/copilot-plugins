@@ -1,0 +1,9 @@
+{
+  "name": "pedronauck--devstack",
+  "displayName": "devstack",
+  "description": "Project generator",
+  "version": "1.0.0",
+  "author": "pedronauck",
+  "homepage": "https://github.com/pedronauck/devstack",
+  "skills": []
+}
