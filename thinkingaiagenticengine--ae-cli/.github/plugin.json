@@ -1,0 +1,9 @@
+{
+  "name": "thinkingaiagenticengine--ae-cli",
+  "displayName": "ae-cli",
+  "description": "CLI tool for ThinkingAI AgenticEngine (AE) platform. Designed for both AI Agent and human use.",
+  "version": "1.0.0",
+  "author": "ThinkingAIAgenticEngine",
+  "homepage": "https://github.com/ThinkingAIAgenticEngine/ae-cli",
+  "skills": []
+}
