@@ -1,0 +1,9 @@
+{
+  "name": "webplode--paseo-doctrine-downstream",
+  "displayName": "paseo-doctrine-downstream",
+  "description": "Private upstream-tracking mirror for Paseo doctrine and role-tool projection changes",
+  "version": "1.0.0",
+  "author": "webplode",
+  "homepage": "https://github.com/webplode/paseo-doctrine-downstream",
+  "skills": []
+}
