@@ -1,0 +1,9 @@
+{
+  "name": "zevenue--headless-gtm",
+  "displayName": "headless-gtm",
+  "description": "Headless GTM: the full outbound chain as Claude Code and Codex skills on raw vendor APIs.",
+  "version": "1.0.0",
+  "author": "Zevenue",
+  "homepage": "https://github.com/Zevenue/headless-gtm",
+  "skills": []
+}
