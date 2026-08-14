@@ -1,0 +1,44 @@
+{
+  "name": "beeperbox",
+  "owner": "hamr0",
+  "repo": "beeperbox",
+  "description": "Plug your AI agent into 50+ messengers (WhatsApp, iMessage, Signal, Telegram, Slack\u2026) through one MCP endpoint. Two modes: a self-contained Docker container (headless Beeper bundled) or a lite npx MCP layer pointed at the Beeper you already run.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hamr0/beeperbox",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T14:51:24Z"
+}
