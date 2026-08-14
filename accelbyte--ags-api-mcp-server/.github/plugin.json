@@ -1,0 +1,9 @@
+{
+  "name": "accelbyte--ags-api-mcp-server",
+  "displayName": "ags-api-mcp-server",
+  "description": "A Model Context Protocol (MCP) server that issues AccelByte Gaming Services (AGS) API requests on behalf of the authenticated user",
+  "version": "1.0.0",
+  "author": "AccelByte",
+  "homepage": "https://github.com/AccelByte/ags-api-mcp-server",
+  "skills": []
+}
