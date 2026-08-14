@@ -1,0 +1,9 @@
+{
+  "name": "vitaecontext--vitaecontext",
+  "displayName": "vitaecontext",
+  "description": "Give your AI agents grounded, reusable career context.",
+  "version": "1.0.0",
+  "author": "vitaecontext",
+  "homepage": "https://github.com/vitaecontext/vitaecontext",
+  "skills": []
+}
