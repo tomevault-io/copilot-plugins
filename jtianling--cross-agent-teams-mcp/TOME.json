@@ -4,7 +4,7 @@
   "repo": "cross-agent-teams-mcp",
   "description": "MCP daemon for cross-agent collaboration",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jtianling/cross-agent-teams-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T15:23:21Z"
+  "distributed_at": "2026-08-14T15:43:44Z"
 }
