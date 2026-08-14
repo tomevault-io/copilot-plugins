@@ -4,7 +4,7 @@
   "repo": "lumos-for-astro",
   "description": "A component and styling framework for building Astro sites, designed around efficiency, scalability and accessibility.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lumosframework/lumos-for-astro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T19:46:14Z"
+  "distributed_at": "2026-08-14T21:02:42Z"
 }
