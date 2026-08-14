@@ -1,0 +1,44 @@
+{
+  "name": "astrbot_plugin_setu",
+  "owner": "AstrBot-Elementary-School",
+  "repo": "astrbot_plugin_setu",
+  "description": "\u8272\u56fe\u63d2\u4ef6\uff0c\u652f\u6301\u63a5\u5165\u4e0d\u540c\u7684API\u4e2d (lolicon, sexyan\u7b49\uff09\uff0c\u4e5f\u53ef\u4ee5\u6307\u5b9a\u81ea\u5df1\u7684\u81ea\u5b9a\u4e49API",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AstrBot-Elementary-School/astrbot_plugin_setu",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T21:13:00Z"
+}
