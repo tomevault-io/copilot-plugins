@@ -7,11 +7,11 @@ Car audio measurement and tuning for Windows: automatic time alignment, virtual 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [DIMOSUS/Resonalyze](https://github.com/DIMOSUS/Resonalyze).
+Original source: `CLAUDE.md` in [DIMOSUS/Resonalyze](https://github.com/DIMOSUS/Resonalyze).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
