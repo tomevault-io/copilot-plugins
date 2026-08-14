@@ -7,11 +7,11 @@ Google Hotels MCP server and Python library — reverse-engineered batchexecute 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [him229/stays](https://github.com/him229/stays).
+Original source: `CLAUDE.md` in [him229/stays](https://github.com/him229/stays).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
