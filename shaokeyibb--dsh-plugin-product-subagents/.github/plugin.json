@@ -1,0 +1,9 @@
+{
+  "name": "shaokeyibb--dsh-plugin-product-subagents",
+  "displayName": "dsh-plugin-product-subagents",
+  "description": "Role-based Codex / Claude Code / ACP subagent providers for the DeepSeek Harness \u2014 continuable children, durable session recovery, per-role product permissions, and delegation with a permission ceilin",
+  "version": "1.0.0",
+  "author": "shaokeyibb",
+  "homepage": "https://github.com/shaokeyibb/dsh-plugin-product-subagents",
+  "skills": []
+}
