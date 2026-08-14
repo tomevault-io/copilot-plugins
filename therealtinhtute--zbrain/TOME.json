@@ -4,7 +4,7 @@
   "repo": "zbrain",
   "description": "a Go-native CLI for local-first trusted memory and workspace-isolated agent context.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/therealtinhtute/zbrain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T03:00:40Z"
+  "distributed_at": "2026-08-14T05:25:28Z"
 }
