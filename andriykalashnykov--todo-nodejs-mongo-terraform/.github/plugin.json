@@ -1,0 +1,9 @@
+{
+  "name": "andriykalashnykov--todo-nodejs-mongo-terraform",
+  "displayName": "todo-nodejs-mongo-terraform",
+  "description": "React web app with a Node.js API and a MongoDB database on Azure. The blueprint includes sample application code (a ToDo web app) which can be removed and replaced with your own application code. Add ",
+  "version": "1.0.0",
+  "author": "AndriyKalashnykov",
+  "homepage": "https://github.com/AndriyKalashnykov/todo-nodejs-mongo-terraform",
+  "skills": []
+}
