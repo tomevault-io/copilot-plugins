@@ -1,0 +1,44 @@
+{
+  "name": "agent-control-standard",
+  "owner": "GenAI-Security-Project",
+  "repo": "agent-control-standard",
+  "description": "The open standard for runtime agent control \u2014 declarative hooks, policy enforcement, and observability across AI agent frameworks.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/GenAI-Security-Project/agent-control-standard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T13:29:56Z"
+}
