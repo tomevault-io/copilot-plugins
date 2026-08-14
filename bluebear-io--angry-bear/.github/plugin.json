@@ -1,0 +1,9 @@
+{
+  "name": "bluebear-io--angry-bear",
+  "displayName": "angry-bear",
+  "description": "Enforce skill-loading requirements for AI coding agents",
+  "version": "1.0.0",
+  "author": "bluebear-io",
+  "homepage": "https://github.com/bluebear-io/angry-bear",
+  "skills": []
+}
