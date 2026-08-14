@@ -7,11 +7,11 @@ A Rust platform for water infrastructure simulation: physically rigorous hydraul
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [neeraip/hydra](https://github.com/neeraip/hydra).
+Original source: `CLAUDE.md` in [neeraip/hydra](https://github.com/neeraip/hydra).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
