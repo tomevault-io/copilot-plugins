@@ -1,0 +1,9 @@
+{
+  "name": "lambda-feedback--chat-function-boilerplate",
+  "displayName": "chat-function-boilerplate",
+  "description": "Boilerplate repository for chat functions written in Python",
+  "version": "1.0.0",
+  "author": "lambda-feedback",
+  "homepage": "https://github.com/lambda-feedback/chat-function-boilerplate",
+  "skills": []
+}
