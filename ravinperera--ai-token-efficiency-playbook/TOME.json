@@ -4,7 +4,7 @@
   "repo": "ai-token-efficiency-playbook",
   "description": "Drop-in instructions, prompts, and workflows to reduce token usage across Codex, Claude Code, GitHub Copilot, Cursor, and other AI coding agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ravinperera/ai-token-efficiency-playbook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T21:17:09Z"
+  "distributed_at": "2026-08-14T01:35:37Z"
 }
