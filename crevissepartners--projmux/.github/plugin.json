@@ -1,0 +1,9 @@
+{
+  "name": "crevissepartners--projmux",
+  "displayName": "projmux",
+  "description": "A tmux-native workspace for multi-agent AI development across Claude Code, Codex, and   Antigravity.",
+  "version": "1.0.0",
+  "author": "crevissepartners",
+  "homepage": "https://github.com/crevissepartners/projmux",
+  "skills": []
+}
