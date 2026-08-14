@@ -7,11 +7,11 @@ Model-agnostic NPU+GPU+CPU inference engine for AMD Strix Halo. FastFlowLM rever
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [1bit-systems/1bit-systems](https://github.com/1bit-systems/1bit-systems).
+Original source: `CLAUDE.md` in [1bit-systems/1bit-systems](https://github.com/1bit-systems/1bit-systems).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
