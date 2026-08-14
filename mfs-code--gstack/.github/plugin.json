@@ -1,7 +1,7 @@
 {
   "name": "mfs-code--gstack",
   "displayName": "gstack",
-  "description": "gstack",
+  "description": "Fork of garrytan/gstack with first-class Cursor Agent support",
   "version": "1.0.0",
   "author": "MFS-code",
   "homepage": "https://github.com/MFS-code/gstack",
