@@ -1,0 +1,9 @@
+{
+  "name": "noah-gigler--hft-chip",
+  "displayName": "hft-chip",
+  "description": "A full-custom ASIC that trades: four hardware order books and three trading strategies in 130nm silicon",
+  "version": "1.0.0",
+  "author": "noah-gigler",
+  "homepage": "https://github.com/noah-gigler/hft-chip",
+  "skills": []
+}
