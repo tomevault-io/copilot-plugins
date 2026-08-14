@@ -1,0 +1,44 @@
+{
+  "name": "1bit-MONSTER",
+  "owner": "1bit-MONSTER",
+  "repo": "1bit-MONSTER",
+  "description": "Model-agnostic NPU+GPU+CPU inference engine for AMD Strix Halo. FastFlowLM reverse-engineered \u2014 19 architectures, 46+ 1BP models, 5 backends. GGUF/ONNX/Q4NX/1BP. Zero Python. MIT.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/1bit-MONSTER/1bit-MONSTER",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T22:42:39Z"
+}
