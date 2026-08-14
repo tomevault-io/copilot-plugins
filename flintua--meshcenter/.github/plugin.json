@@ -1,0 +1,9 @@
+{
+  "name": "flintua--meshcenter",
+  "displayName": "MeshCenter",
+  "description": "Browser-based control center for Meshtastic nodes with messaging, telemetry and camera support on Raspberry Pi",
+  "version": "1.0.0",
+  "author": "FlintUA",
+  "homepage": "https://github.com/FlintUA/MeshCenter",
+  "skills": []
+}
