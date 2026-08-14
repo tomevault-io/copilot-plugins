@@ -1,0 +1,9 @@
+{
+  "name": "nowork-studio--notfair-plugin",
+  "displayName": "notfair-plugin",
+  "description": "Open-source SEO, GEO, and marketing skills for AI agents.",
+  "version": "1.0.0",
+  "author": "nowork-studio",
+  "homepage": "https://github.com/nowork-studio/notfair-plugin",
+  "skills": []
+}
