@@ -1,0 +1,9 @@
+{
+  "name": "jtianling--cross-agent-teams-mcp",
+  "displayName": "cross-agent-teams-mcp",
+  "description": "MCP daemon for cross-agent collaboration",
+  "version": "1.0.0",
+  "author": "jtianling",
+  "homepage": "https://github.com/jtianling/cross-agent-teams-mcp",
+  "skills": []
+}
