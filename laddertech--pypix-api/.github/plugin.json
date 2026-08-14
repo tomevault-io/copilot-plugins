@@ -1,0 +1,9 @@
+{
+  "name": "laddertech--pypix-api",
+  "displayName": "pypix-api",
+  "description": "Biblioteca em Python para comunica\u00e7\u00e3o com APIs banc\u00e1rias focada na integra\u00e7\u00e3o com o PIX",
+  "version": "1.0.0",
+  "author": "laddertech",
+  "homepage": "https://github.com/laddertech/pypix-api",
+  "skills": []
+}
