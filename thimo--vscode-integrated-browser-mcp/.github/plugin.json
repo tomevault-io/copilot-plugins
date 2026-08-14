@@ -1,0 +1,9 @@
+{
+  "name": "thimo--vscode-integrated-browser-mcp",
+  "displayName": "vscode-integrated-browser-mcp",
+  "description": "VS Code's integrated browser, exposed to Claude Code and other agents via MCP and HTTP.",
+  "version": "1.0.0",
+  "author": "thimo",
+  "homepage": "https://github.com/thimo/vscode-integrated-browser-mcp",
+  "skills": []
+}
