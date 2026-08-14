@@ -1,0 +1,9 @@
+{
+  "name": "ryanlewis--things-cli",
+  "displayName": "things-cli",
+  "description": "Command-line interface for Things3 on macOS.",
+  "version": "1.0.0",
+  "author": "ryanlewis",
+  "homepage": "https://github.com/ryanlewis/things-cli",
+  "skills": []
+}
