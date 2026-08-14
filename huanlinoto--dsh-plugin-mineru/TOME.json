@@ -1,0 +1,44 @@
+{
+  "name": "dsh-plugin-mineru",
+  "owner": "HuanLinOTO",
+  "repo": "dsh-plugin-mineru",
+  "description": "\u5411\u6a21\u578b\u66b4\u9732 MinerU \u6587\u6863\u89e3\u6790\u5de5\u5177\uff0c\u5c06 PDF/\u56fe\u7247/DOCX/PPTX/XLSX \u8f6c\u4e3a\u7ed3\u6784\u5316 Markdown/JSON | Exposes MinerU document-parsing tools to the model, converting PDF/images/DOCX/PPTX/XLSX into structured Markdown/JSON",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/HuanLinOTO/dsh-plugin-mineru",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T22:36:16Z"
+}
