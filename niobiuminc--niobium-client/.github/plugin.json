@@ -1,0 +1,9 @@
+{
+  "name": "niobiuminc--niobium-client",
+  "displayName": "niobium-client",
+  "description": "Open-source FHE client and toolchain. Build fully homomorphic encryption applications with the nb DSL, instrumented OpenFHE, FHETCH API or a CUDA-style library API, record one Polynomial IR trace, and",
+  "version": "1.0.0",
+  "author": "NiobiumInc",
+  "homepage": "https://github.com/NiobiumInc/niobium-client",
+  "skills": []
+}
