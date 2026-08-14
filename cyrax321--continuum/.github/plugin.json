@@ -1,0 +1,9 @@
+{
+  "name": "cyrax321--continuum",
+  "displayName": "CONTINUUM",
+  "description": "CONTINUUM: Verifiable semantic recovery for long-running AI agents. Semantic checkpoints (not conversation dumps), an idempotent action ledger that refuses duplicate side effects, and a hash-chained t",
+  "version": "1.0.0",
+  "author": "Cyrax321",
+  "homepage": "https://github.com/Cyrax321/CONTINUUM",
+  "skills": []
+}
