@@ -1,0 +1,9 @@
+{
+  "name": "cloudposse-terraform-components--aws-aurora-mysql",
+  "displayName": "aws-aurora-mysql",
+  "description": "This component is responsible for provisioning Aurora MySQL RDS clusters",
+  "version": "1.0.0",
+  "author": "cloudposse-terraform-components",
+  "homepage": "https://github.com/cloudposse-terraform-components/aws-aurora-mysql",
+  "skills": []
+}
