@@ -1,0 +1,9 @@
+{
+  "name": "stanchev-flow--design-system-extractor",
+  "displayName": "design-system-extractor",
+  "description": "Design system / brand extraction pipeline: screenshots and live sites to tokens, sections, and framework scaffolds",
+  "version": "1.0.0",
+  "author": "stanchev-flow",
+  "homepage": "https://github.com/stanchev-flow/design-system-extractor",
+  "skills": []
+}
