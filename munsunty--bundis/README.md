@@ -7,13 +7,13 @@ Redis-compatible server backed by SQLite, built for Bun (and only Bun) — works
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Munsunty/bundis](https://github.com/Munsunty/bundis).
+Original source: `CLAUDE.md` in [Munsunty/bundis](https://github.com/Munsunty/bundis).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
