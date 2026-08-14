@@ -1,0 +1,9 @@
+{
+  "name": "artback--museumscraper",
+  "displayName": "museumscraper",
+  "description": "Museum Scraper to S3 (MinIO)",
+  "version": "1.0.0",
+  "author": "artback",
+  "homepage": "https://github.com/artback/museumscraper",
+  "skills": []
+}
