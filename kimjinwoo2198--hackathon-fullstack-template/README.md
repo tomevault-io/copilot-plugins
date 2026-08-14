@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [KimJinwoo2198/Hackathon-Fullstack-Template](https://github.com/KimJinwoo2198/Hackathon-Fullstack-Template).
+Original source: `CLAUDE.md` in [KimJinwoo2198/Hackathon-Fullstack-Template](https://github.com/KimJinwoo2198/Hackathon-Fullstack-Template).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
