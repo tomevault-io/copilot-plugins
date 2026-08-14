@@ -1,0 +1,9 @@
+{
+  "name": "dave-hillier-co--spiceport",
+  "displayName": "spiceport",
+  "description": "SpiceDB (Google Zanzibar) ported to .NET 10 and Microsoft Orleans \u2014 recursive permission dispatch on virtual actors, in-memory + Postgres backends, authzed.api.v1 compatible (works with the zed CLI).",
+  "version": "1.0.0",
+  "author": "dave-hillier-co",
+  "homepage": "https://github.com/dave-hillier-co/spiceport",
+  "skills": []
+}
