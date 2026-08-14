@@ -1,0 +1,9 @@
+{
+  "name": "edamame-x--pentect",
+  "displayName": "pentect",
+  "description": "Local security proxy that keeps secrets and sensitive data out of AI requests. Supports Codex, Claude Code and more.",
+  "version": "1.0.0",
+  "author": "EdamAme-x",
+  "homepage": "https://github.com/EdamAme-x/pentect",
+  "skills": []
+}
