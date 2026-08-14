@@ -4,7 +4,7 @@
   "repo": "LocalCodeCli",
   "description": "A powerful local proxy for Claude Code CLI and Codex CLI supporting NVIDIA NIM, Google,Gemini, DeepSeek, and local Ollama models. Use claude code and codex for free in the terminal, VSCode extension, and discord like OpenClaw (voice supported)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Corporationakht/LocalCodeCli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T11:23:40Z"
+  "distributed_at": "2026-08-14T12:53:10Z"
 }
