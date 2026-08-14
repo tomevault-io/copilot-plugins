@@ -7,11 +7,11 @@ Umbral is a Rust Web-framework in which every capability is a plugin
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dalmasonto/umbral](https://github.com/dalmasonto/umbral).
+Original source: `CLAUDE.md` in [dalmasonto/umbral](https://github.com/dalmasonto/umbral).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
