@@ -4,7 +4,7 @@
   "repo": "bugshot-2",
   "description": "Catch a bug and file a complete report from Chrome's side panel. Captures, console/network logs, and environment attach automatically. Or tweak the CSS live and send the before/after side by side. AI drafts it for you. Free, no account, straight to your tracker.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SinhyeokKang/bugshot-2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T15:27:17Z"
+  "distributed_at": "2026-08-14T16:34:10Z"
 }
