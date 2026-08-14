@@ -1,0 +1,9 @@
+{
+  "name": "armanibanks--proovra",
+  "displayName": "proovra",
+  "description": "Payment only after proof. Agent settlement infrastructure on Arc with escrow, proof verification, Circle x402 payments, and verifiable receipts.",
+  "version": "1.0.0",
+  "author": "ArmaniBanks",
+  "homepage": "https://github.com/ArmaniBanks/proovra",
+  "skills": []
+}
