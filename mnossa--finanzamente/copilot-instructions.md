@@ -1,20 +1,38 @@
-## react-inertia
+## finanzamente
 
-> Authenticated dashboard — React, Inertia, TypeScript, Tailwind
+> > **Token-optimized layout.** Always-on rules: `.cursor/rules/core.mdc` + `agent-workflow.mdc`.
 
+# Finanzamente — Cursor rules index
 
-# React / Inertia Dashboard
+> **Token-optimized layout.** Always-on rules: `.cursor/rules/core.mdc` + `agent-workflow.mdc`.
+> File-scoped rules load by glob (PHP, React, Blade, E2E, GDPR).
+> Long reference: `docs/agent/`. Cloud VMs: `AGENTS.md`.
 
-- **Scope**: Authenticated app only. No Blade in dashboard pages.
-- **Stack**: React + Inertia.js + TypeScript.
-- **Styling**: Tailwind only. Conditional classes: `clsx`. Every component accepts `className`.
-- **Structure**: Reusable UI (tables, buttons, forms, modals). Logic in hooks/services; global state via Context or Zustand (Redux only if justified).
-- **A11y & perf**: WCAG 2.1; avoid unnecessary re-renders.
-- **Tests**: Add/maintain tests for main components when behavior changes.
-- **UI copy**: Italian labels, messages, placeholders.
-- **No ops jargon in UI**: mai banner, tooltip o CTA con comandi da terminale (`artisan`, shell). Manutenzione dati (sync, realign, migrate extra) → `docker/entrypoint.sh` al deploy o observer/servizi in background, invisibile all’utente.
+## Output (always)
+Default: **caveman full**. Off: `stop caveman` | `normal mode`. `/caveman lite|full|ultra`. Critical security: clear text first.
 
-After TS/JS changes: `make test` (if PHP tests cover), `make pint-check` (if PHP touched), `make playwright` per `agent-workflow`.
+## Quick reference
+| Topic | Where |
+|-------|--------|
+| Stack, naming, locale | `.cursor/rules/core.mdc` |
+| Gates: test → pint → playwright | `.cursor/rules/agent-workflow.mdc` |
+| Laravel / PHP | `.cursor/rules/php-laravel.mdc` |
+| React / Inertia | `.cursor/rules/react-inertia.mdc` |
+| Blade public | `.cursor/rules/blade-public.mdc` |
+| Playwright | `.cursor/rules/e2e-playwright.mdc` |
+| Privacy / GDPR | `.cursor/rules/gdpr-privacy.mdc` |
+| Make commands | `docs/agent/makefile.md` |
+| E2E detail | `docs/agent/e2e-conventions.md` |
+| PWA, ops, extensibility | `docs/agent/architecture.md` |
+
+## Non-negotiables
+- Docker + `make *` only for dev commands.
+- UI Italian; code/DB English.
+- MIT open source, self-host — no SaaS billing / plan tiers.
+- New feature → tests; runtime change → `make test`, `make pint-check`, `make playwright` (see workflow rule).
+- Privacy policy change → version in `config/legal.php` + consent alignment + tests.
+
+Update `.cursor/rules/*.mdc` when conventions change; keep this file as a short index.
 
 ---
 > Source: [mnossa/finanzamente](https://github.com/mnossa/finanzamente) — distributed by [TomeVault](https://tomevault.io).
