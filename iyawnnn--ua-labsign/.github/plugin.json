@@ -1,0 +1,9 @@
+{
+  "name": "iyawnnn--ua-labsign",
+  "displayName": "UA-LabSign",
+  "description": "Zero-trust geofenced attendance system with ECDSA signature verification.",
+  "version": "1.0.0",
+  "author": "iyawnnn",
+  "homepage": "https://github.com/iyawnnn/UA-LabSign",
+  "skills": []
+}
