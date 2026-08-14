@@ -1,0 +1,9 @@
+{
+  "name": "jaenster--mcp-mindport",
+  "displayName": "mcp-mindport",
+  "description": "A token friendly way to store and search information for an AI agent",
+  "version": "1.0.0",
+  "author": "jaenster",
+  "homepage": "https://github.com/jaenster/mcp-mindport",
+  "skills": []
+}
