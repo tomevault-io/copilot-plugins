@@ -4,7 +4,7 @@
   "repo": "gantry",
   "description": "Self-hosted, provider-neutral agent runtime for teams: governed tools and permissions, Slack/Telegram/Teams channels, scheduled jobs, memory, Node SDK and APIs, audit-first on Postgres.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/knacklabs/gantry",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T13:26:40Z"
+  "distributed_at": "2026-08-14T14:54:18Z"
 }
