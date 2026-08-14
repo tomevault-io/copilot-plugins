@@ -1,0 +1,9 @@
+{
+  "name": "lichangzheng10086--doyin-ai-video",
+  "displayName": "doyin_ai_video",
+  "description": "\u6296\u521b\u5de5\u574a\uff1a\u672c\u5730 Electron \u5de5\u5177\uff0c\u6296\u97f3\u89c6\u9891\u65e0\u6c34\u5370\u4e0b\u8f7d + Whisper \u8f6c\u5f55 + AI \u6d17\u7a3f + \u5206\u955c + HyperFrames \u7ad6\u5c4f\u6210\u7247 + Claude Skill \u84b8\u998f",
+  "version": "1.0.0",
+  "author": "LiChangZheng10086",
+  "homepage": "https://github.com/LiChangZheng10086/doyin_ai_video",
+  "skills": []
+}
