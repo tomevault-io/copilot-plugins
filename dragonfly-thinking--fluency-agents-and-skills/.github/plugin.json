@@ -1,0 +1,9 @@
+{
+  "name": "dragonfly-thinking--fluency-agents-and-skills",
+  "displayName": "fluency-agents-and-skills",
+  "description": "Fluency Agents and Skills \u2014 a working Claude Code + Codex starter kit of agents and skills from the Dragonfly Thinking AI Fluency course (Extending session).",
+  "version": "1.0.0",
+  "author": "dragonfly-thinking",
+  "homepage": "https://github.com/dragonfly-thinking/fluency-agents-and-skills",
+  "skills": []
+}
