@@ -1,0 +1,54 @@
+## js2wasm
+
+> - Before substantial work, review the markdown memories under [.claude/memory](/Users/thomas/Documents/Arbeit/Startup/Projekte/Mosaic/code/@loopdive/ts2wasm/.claude/memory).
+
+# Agent Instructions
+
+## Claude Memories
+
+- Before substantial work, review the markdown memories under [.claude/memory](/Users/thomas/Documents/Arbeit/Startup/Projekte/Mosaic/code/@loopdive/ts2wasm/.claude/memory).
+- Start with [MEMORY.md](/Users/thomas/Documents/Arbeit/Startup/Projekte/Mosaic/code/@loopdive/ts2wasm/.claude/memory/MEMORY.md), then read any task-relevant files in the same directory.
+- Treat those memory files as repo-specific operating context, especially around test262 workflow, agent coordination, cleanup rules, and user preferences.
+
+## Commit Messages
+
+- Use Claude Code-style commit messages.
+- Write a specific subject line that states the main change clearly.
+- Add a body when the change is non-trivial.
+- In the body, explain what changed and why it changed.
+- Call out behavior changes, important tradeoffs, or follow-up work when relevant.
+
+Preferred shape:
+
+```text
+<type>(<scope>): <concise summary>
+
+Explain the main implementation change and the reason for it.
+
+Note behavior changes, risks, or follow-ups if they matter.
+```
+
+Examples of acceptable types: `fix`, `feat`, `refactor`, `docs`, `test`, `chore`.
+
+## Commit Attribution
+
+- Commits produced by an AI agent must be authored by the user:
+  `Thomas Tränkler <git@thomas.traenkler.com>`.
+- Add a co-author trailer identifying the agent that actually produced the
+  commit:
+
+```text
+# Codex session
+Co-authored-by: Codex <codex@openai.com>
+
+# Claude session
+Co-authored-by: Claude <noreply@anthropic.com>
+```
+
+- Never attribute Codex work to Claude or Claude work to Codex.
+- Before committing, verify `git config user.name` and `git config user.email`
+  still identify Thomas Tränkler.
+
+---
+> Source: [loopdive/js2wasm](https://github.com/loopdive/js2wasm) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-13 -->
