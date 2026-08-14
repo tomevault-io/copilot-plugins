@@ -1,0 +1,9 @@
+{
+  "name": "niclasvestlund-yt--vibepulse",
+  "displayName": "vibepulse",
+  "description": "A shelf-top AMOLED screen showing your Claude Code & Codex usage, live agent activity, and a NEEDS YOU alert when an agent waits for your input. ESP32-S3 + a pure-stdlib Mac service. Nothing leaves yo",
+  "version": "1.0.0",
+  "author": "niclasvestlund-YT",
+  "homepage": "https://github.com/niclasvestlund-YT/vibepulse",
+  "skills": []
+}
