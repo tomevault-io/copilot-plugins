@@ -1,13 +1,41 @@
-## fetch-github-prs
+## running-tests
 
-> How to fetch GitHub pull requests with plain git (no gh CLI). Use when checking out, reviewing, or fetching a PR by number.
+> How to run the vitest suite (Electron ABI, not raw vitest)
 
 
-# Fetch GitHub PRs with plain git
+# Running tests
 
-`origin` is configured with `+refs/pull/*/head:refs/remotes/origin/pr/*`, so `git fetch origin` mirrors every PR to `origin/pr/<N>`. Check one out with `git switch -c pr-3 origin/pr/3`.
+Tests touch native modules (`better-sqlite3`, `@parcel/watcher`) that are built
+against **Electron's** ABI, so they must run under Electron-as-Node, not the
+system `node`.
 
-Plain git fetches PR commits only — for metadata (title, comments, checks, open-PR list) hit the REST API: `https://api.github.com/repos/cyberpunk2073/vam-backstage/pulls`.
+## Do
+
+- Run via the npm script: `npm test` (wraps `ELECTRON_RUN_AS_NODE=1 electron … vitest run`).
+- Target files/dirs by appending after `--`:
+
+```bash
+npm test -- src/main/scanner/var-reader.test.js
+npm test -- src/main/            # a directory
+```
+
+- Watch mode: `npm run test:watch`.
+
+## Don't
+
+- Don't run `npx vitest` / `vitest` directly, and don't call the raw runner with
+  system node. It loads native modules built for a different `NODE_MODULE_VERSION`
+  and fails with e.g. `better_sqlite3.node was compiled against a different Node.js version`.
+
+## Native module ABI
+
+If you ever see a `NODE_MODULE_VERSION` mismatch, the native build is targeting
+the wrong runtime. Rebuild for the runtime you need:
+
+- `npm run native:electron` — build for Electron (required for `npm test`, `npm run dev`). Default.
+- `npm run native:node` — build for system node (only if intentionally running under plain node).
+
+`npm run native:node` breaks `npm test`; run `npm run native:electron` afterward to restore it.
 
 ---
 > Source: [cyberpunk2073/vam-backstage](https://github.com/cyberpunk2073/vam-backstage) — distributed by [TomeVault](https://tomevault.io).
