@@ -1,0 +1,9 @@
+{
+  "name": "awaker-ote--wakegpt",
+  "displayName": "WakeGPT",
+  "description": "A local-first desktop app for quick capture, managed Markdown notebooks, and reusable ChatGPT/Codex context. Currently verified on macOS.",
+  "version": "1.0.0",
+  "author": "Awaker-OTE",
+  "homepage": "https://github.com/Awaker-OTE/WakeGPT",
+  "skills": []
+}
