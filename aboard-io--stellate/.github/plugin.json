@@ -1,0 +1,9 @@
+{
+  "name": "aboard-io--stellate",
+  "displayName": "stellate",
+  "description": "A generative music instrument: 274 genres as points in a deterministic vector space, sampled from General MIDI with per-voice Faust effects, rendered live in the browser. Draw a path across a star map",
+  "version": "1.0.0",
+  "author": "aboard-io",
+  "homepage": "https://github.com/aboard-io/stellate",
+  "skills": []
+}
