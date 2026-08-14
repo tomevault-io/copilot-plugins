@@ -1,0 +1,9 @@
+{
+  "name": "euforicio--agentdock",
+  "displayName": "AgentDock",
+  "description": "A native macOS profile manager for isolated desktop coding sessions",
+  "version": "1.0.0",
+  "author": "euforicio",
+  "homepage": "https://github.com/euforicio/AgentDock",
+  "skills": []
+}
