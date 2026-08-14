@@ -1,0 +1,9 @@
+{
+  "name": "runzeroinc--runzero-custom-integrations",
+  "displayName": "runzero-custom-integrations",
+  "description": "Custom Integrations for the runZero Exposure Management Platform",
+  "version": "1.0.0",
+  "author": "runZeroInc",
+  "homepage": "https://github.com/runZeroInc/runzero-custom-integrations",
+  "skills": []
+}
