@@ -4,7 +4,7 @@
   "repo": "hermes-vtuber",
   "description": "Hermes Agent integration for Open-LLM-VTuber",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/123mikeyd/hermes-vtuber",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T00:41:13Z"
+  "distributed_at": "2026-08-14T13:41:34Z"
 }
