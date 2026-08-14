@@ -1,0 +1,9 @@
+{
+  "name": "benxinadmin-php--benxin-admin-server",
+  "displayName": "benxin-admin-server",
+  "description": "ThinkPHP 8 + Vue 3 \u901a\u7528\u7ba1\u7406\u540e\u53f0\u5f00\u6e90\u5e95\u5ea7,\u542b\u53ef\u590d\u523b\u4ee3\u7801\u751f\u6210\u5668(\u62a4\u57ce\u6cb3)\u00b7 Apache-2.0",
+  "version": "1.0.0",
+  "author": "BenXinAdmin-PHP",
+  "homepage": "https://github.com/BenXinAdmin-PHP/benxin-admin-server",
+  "skills": []
+}
