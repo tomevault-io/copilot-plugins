@@ -1,0 +1,9 @@
+{
+  "name": "relflow--relflow",
+  "displayName": "relflow",
+  "description": "RelFlow turns nested, ragged data into neural representations. It lets users define typed schemas: numbers, categories, sets, dates, entities, text, etc., then trains models for prediction and embeddi",
+  "version": "1.0.0",
+  "author": "relflow",
+  "homepage": "https://github.com/relflow/relflow",
+  "skills": []
+}
