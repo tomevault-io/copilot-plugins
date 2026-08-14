@@ -1,0 +1,9 @@
+{
+  "name": "mangeshghodke--dreamplayer",
+  "displayName": "DreamPlayer",
+  "description": "Open-source cross-platform video player for Android & iPad: Dolby Vision P8, DTS/DTS-HD/TrueHD/E-AC3 audio, SMB/NAS streaming, embedded + sideloaded subtitles. GPLv3, Flutter + ExoPlayer/Media3 + Aeth",
+  "version": "1.0.0",
+  "author": "mangeshghodke",
+  "homepage": "https://github.com/mangeshghodke/DreamPlayer",
+  "skills": []
+}
