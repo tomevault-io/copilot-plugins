@@ -4,7 +4,7 @@
   "repo": "Kittycord",
   "description": "\ud83d\udc3e The cutest Discord client mod \u2014 plugins, themes and a whole lot of pink.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KittyCord-Production/Kittycord",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T20:48:22Z"
+  "distributed_at": "2026-08-14T01:18:34Z"
 }
