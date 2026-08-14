@@ -1,0 +1,9 @@
+{
+  "name": "shiyow5--pokemon-cry-stats-predictor",
+  "displayName": "pokemon-cry-stats-predictor",
+  "description": "Machine learning project to predict Pok\u00e9mon stats from their cries",
+  "version": "1.0.0",
+  "author": "shiyow5",
+  "homepage": "https://github.com/shiyow5/pokemon-cry-stats-predictor",
+  "skills": []
+}
