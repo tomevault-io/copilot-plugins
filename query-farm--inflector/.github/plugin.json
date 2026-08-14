@@ -1,0 +1,9 @@
+{
+  "name": "query-farm--inflector",
+  "displayName": "inflector",
+  "description": "Powerful string case transformation and inflection capabilities directly to your SQL queries.",
+  "version": "1.0.0",
+  "author": "Query-farm",
+  "homepage": "https://github.com/Query-farm/inflector",
+  "skills": []
+}
