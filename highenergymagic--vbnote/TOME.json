@@ -4,7 +4,7 @@
   "repo": "VBNote",
   "description": "Emulator of the VoiceNote QT / BrailleNote mPower notetaker: Windows CE 4.2 on PXA270, running real KeySoft firmware. Assistive-technology preservation. Not a HumanWare product and not affiliated with them.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/highenergymagic/VBNote",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T03:05:39Z"
+  "distributed_at": "2026-08-14T05:28:56Z"
 }
