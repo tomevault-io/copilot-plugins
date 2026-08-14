@@ -1,0 +1,9 @@
+{
+  "name": "zenojunior--cs2d",
+  "displayName": "cs2d",
+  "description": "The fastest browser-based 2D CS2 demo viewer. Playback, heatmaps and grenade trajectories, 100% offline.",
+  "version": "1.0.0",
+  "author": "zenojunior",
+  "homepage": "https://github.com/zenojunior/cs2d",
+  "skills": []
+}
