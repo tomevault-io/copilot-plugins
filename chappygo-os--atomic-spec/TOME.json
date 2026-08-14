@@ -4,7 +4,7 @@
   "repo": "Atomic-Spec",
   "description": "Stop your AI from vibe-coding. Governance layer that forces Claude, Cursor, Copilot, Gemini & 13 more through gated phases, atomic task files, and pinned context.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Chappygo-OS/Atomic-Spec",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T22:48:30Z"
+  "distributed_at": "2026-08-14T23:25:22Z"
 }
