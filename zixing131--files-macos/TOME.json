@@ -4,7 +4,7 @@
   "repo": "Files_MacOS",
   "description": "A modern file manager that helps users organize their files and folders.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zixing131/Files_MacOS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T21:03:54Z"
+  "distributed_at": "2026-08-14T01:25:59Z"
 }
