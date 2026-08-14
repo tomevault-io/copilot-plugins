@@ -1,0 +1,9 @@
+{
+  "name": "dylanunicorn--little-alphaxiv",
+  "displayName": "little-alphaxiv",
+  "description": "Self-hosted alphaxiv-style paper-reading app (FastAPI CORS proxy + Vite/React/TS SPA)",
+  "version": "1.0.0",
+  "author": "DylanUnicorn",
+  "homepage": "https://github.com/DylanUnicorn/little-alphaxiv",
+  "skills": []
+}
