@@ -1,0 +1,9 @@
+{
+  "name": "swp-sum26-ai-study-hub--ai-study-hub-rag-service",
+  "displayName": "ai-study-hub-rag-service",
+  "description": "AI-powered RAG Service for AI Study Hub. Built with FastAPI and Python, this core service handles advanced text extraction, document chunking, embedding generation, and contextual summaries. It integr",
+  "version": "1.0.0",
+  "author": "SWP-SUM26-AI-STUDY-HUB",
+  "homepage": "https://github.com/SWP-SUM26-AI-STUDY-HUB/ai-study-hub-rag-service",
+  "skills": []
+}
