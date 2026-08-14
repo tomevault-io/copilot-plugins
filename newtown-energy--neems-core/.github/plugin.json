@@ -1,0 +1,9 @@
+{
+  "name": "newtown-energy--neems-core",
+  "displayName": "neems-core",
+  "description": "NEEMS API Server",
+  "version": "1.0.0",
+  "author": "Newtown-Energy",
+  "homepage": "https://github.com/Newtown-Energy/neems-core",
+  "skills": []
+}
