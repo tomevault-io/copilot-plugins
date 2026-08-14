@@ -1,0 +1,9 @@
+{
+  "name": "ivanmurzak--gamedev-mcp-server",
+  "displayName": "GameDev-MCP-Server",
+  "description": "Engine-agnostic MCP server shared by Unity-MCP, Godot-MCP and Unreal-MCP",
+  "version": "1.0.0",
+  "author": "IvanMurzak",
+  "homepage": "https://github.com/IvanMurzak/GameDev-MCP-Server",
+  "skills": []
+}
