@@ -1,0 +1,9 @@
+{
+  "name": "gabe10926--anemu",
+  "displayName": "anemu",
+  "description": "Android based emulator front end that interacts directly with the eden switch emulator an the retroarch retro gaming emulator without needing to interact with those emulators UI's at all. ",
+  "version": "1.0.0",
+  "author": "gabe10926",
+  "homepage": "https://github.com/gabe10926/anemu",
+  "skills": []
+}
