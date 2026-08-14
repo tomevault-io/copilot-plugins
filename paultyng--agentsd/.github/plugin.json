@@ -1,0 +1,9 @@
+{
+  "name": "paultyng--agentsd",
+  "displayName": "agentsd",
+  "description": "Stream Deck plugin for managing Claude Code sessions",
+  "version": "1.0.0",
+  "author": "paultyng",
+  "homepage": "https://github.com/paultyng/agentsd",
+  "skills": []
+}
