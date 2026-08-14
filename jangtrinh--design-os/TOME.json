@@ -4,7 +4,7 @@
   "repo": "design-os",
   "description": "DESIGN:OS \u2014 describe what you want in plain words, get production-grade, on-system UI back. Multi-runtime design CLI: deterministic ui kernel, design-os conductor, Figma hand, machine taste gates.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jangtrinh/design-os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T19:29:05Z"
+  "distributed_at": "2026-08-14T20:30:46Z"
 }
