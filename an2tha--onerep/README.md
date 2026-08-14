@@ -7,11 +7,11 @@ A simple, yet effective working tracking solution
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [an2tha/onerep](https://github.com/an2tha/onerep).
+Original source: `AGENTS.md` in [an2tha/onerep](https://github.com/an2tha/onerep).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
