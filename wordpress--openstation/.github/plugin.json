@@ -1,0 +1,9 @@
+{
+  "name": "wordpress--openstation",
+  "displayName": "openstation",
+  "description": "OpenStation is a WordPress plugin that turns /wp-admin into a desktop-style interface with movable windows and a dock menu. It\u2019s opt-in per user, doesn\u2019t change core, and fully reverts on deactivation",
+  "version": "1.0.0",
+  "author": "WordPress",
+  "homepage": "https://github.com/WordPress/openstation",
+  "skills": []
+}
