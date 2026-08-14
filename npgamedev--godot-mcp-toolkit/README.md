@@ -7,11 +7,11 @@ A Godot 4.2+ editor plugin that lets AI coding assistants work inside the editor
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [NPGameDev/godot-mcp-toolkit](https://github.com/NPGameDev/godot-mcp-toolkit).
+Original source: `CLAUDE.md` in [NPGameDev/godot-mcp-toolkit](https://github.com/NPGameDev/godot-mcp-toolkit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
