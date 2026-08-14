@@ -1,0 +1,9 @@
+{
+  "name": "nicojan--chorus",
+  "displayName": "Chorus",
+  "description": "Native macOS app that unifies web services into a single window with sandboxed sessions per account. WebKit-based Rambox/Franz alternative.",
+  "version": "1.0.0",
+  "author": "nicojan",
+  "homepage": "https://github.com/nicojan/Chorus",
+  "skills": []
+}
