@@ -1,0 +1,28 @@
+## dasktop
+
+> - 读取、编辑、创建项目文件时必须使用 UTF-8 编码
+
+# Dasktop Agent Notes
+
+## 文件编码
+
+- 读取、编辑、创建项目文件时必须使用 UTF-8 编码
+- 如果终端、工具或系统区域设置导致中文显示异常，必须优先怀疑读取/显示链路，不得直接认定源文件内容损坏
+- 涉及中文内容的修改应保持 UTF-8，不引入 GBK、ANSI 或其他本地编码
+
+## 注释规范
+
+- 所有新增和修改的代码都必须补充符合阿里巴巴注释风格的注释
+- 注释应说明业务意图、设计原因、边界条件和非显而易见的实现逻辑，避免“赋值给变量”这类流水账注释
+- TypeScript、Vue 的公共类型、Store、组合式逻辑、跨模块函数和复杂交互必须使用 JSDoc
+- Rust 的 public struct、enum、function、module 和复杂逻辑必须使用 rustdoc 或必要的行内说明
+- TODO 注释必须写清楚责任、原因和后续处理方向，不允许留下模糊占位
+
+## 兼容与迁移
+
+- 项目当前未上线，功能调整时不需要保留旧逻辑、旧字段、旧配置或旧数据结构的兼容分支
+- 旧逻辑必须直接删除，不做历史迁移脚本，不写兼容读取，不保留废弃配置入口
+
+---
+> Source: [AugSakura/Dasktop](https://github.com/AugSakura/Dasktop) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-13 -->
