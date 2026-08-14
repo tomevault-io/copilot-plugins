@@ -1,0 +1,9 @@
+{
+  "name": "malstrom72--ivg",
+  "displayName": "IVG",
+  "description": "Compact, dependency-free 2D vector graphics format and renderer for C++.",
+  "version": "1.0.0",
+  "author": "malstrom72",
+  "homepage": "https://github.com/malstrom72/IVG",
+  "skills": []
+}
