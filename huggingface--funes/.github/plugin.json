@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--funes",
+  "displayName": "funes",
+  "description": "Durable, searchable memory of your past agent sessions.",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/funes",
+  "skills": []
+}
