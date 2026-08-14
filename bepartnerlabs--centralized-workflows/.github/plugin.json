@@ -1,0 +1,9 @@
+{
+  "name": "bepartnerlabs--centralized-workflows",
+  "displayName": "centralized-workflows",
+  "description": "Reusable GitHub Actions workflows for BePartnerLabs org",
+  "version": "1.0.0",
+  "author": "BePartnerLabs",
+  "homepage": "https://github.com/BePartnerLabs/centralized-workflows",
+  "skills": []
+}
