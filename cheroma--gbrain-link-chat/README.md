@@ -7,11 +7,11 @@ Contribution branch for garrytan/gbrain#2066: link_chat cycle phase + test-suite
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cheRoma/gbrain-link-chat](https://github.com/cheRoma/gbrain-link-chat).
+Original source: `CLAUDE.md` in [cheRoma/gbrain-link-chat](https://github.com/cheRoma/gbrain-link-chat).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
