@@ -1,0 +1,44 @@
+{
+  "name": "codex-micro-stopwatch",
+  "owner": "digitsisyph",
+  "repo": "codex-micro-stopwatch",
+  "description": "M5Stack StopWatch C152 as a Codex Micro-compatible BLE controller, quota dashboard, and optional USB microphone.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/digitsisyph/codex-micro-stopwatch",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T09:34:50Z"
+}
