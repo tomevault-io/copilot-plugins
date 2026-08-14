@@ -1,0 +1,9 @@
+{
+  "name": "jsonmatrixlab--matrix-power-nodes-wave1",
+  "displayName": "matrix-power-nodes-wave1",
+  "description": "Ten secure WaveSpeed image generation and editing nodes for ComfyUI.",
+  "version": "1.0.0",
+  "author": "JsonMatrixLab",
+  "homepage": "https://github.com/JsonMatrixLab/matrix-power-nodes-wave1",
+  "skills": []
+}
