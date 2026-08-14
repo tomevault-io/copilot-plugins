@@ -1,0 +1,9 @@
+{
+  "name": "thedancingdeveloper-org--rusttorrent",
+  "displayName": "rustTorrent",
+  "description": "A modern BitTorrent client written in Rust \u2014 fast, lightweight, self-hosted",
+  "version": "1.0.0",
+  "author": "TheDancingDeveloper-org",
+  "homepage": "https://github.com/TheDancingDeveloper-org/rustTorrent",
+  "skills": []
+}
