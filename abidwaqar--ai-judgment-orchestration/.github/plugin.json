@@ -1,0 +1,9 @@
+{
+  "name": "abidwaqar--ai-judgment-orchestration",
+  "displayName": "AI-Judgment-Orchestration",
+  "description": "Ship like a team with AI coding agents \u2014 a judgment-driven orchestration of Claude Code skills & subagents. The pattern adapts to any agent harness.",
+  "version": "1.0.0",
+  "author": "abidwaqar",
+  "homepage": "https://github.com/abidwaqar/AI-Judgment-Orchestration",
+  "skills": []
+}
