@@ -1,0 +1,9 @@
+{
+  "name": "smatechnologies--acs-fiservccm-docs",
+  "displayName": "acs-fiservccm-docs",
+  "description": "Open Source repository for Continuous ACS Fiserv CCM documentation",
+  "version": "1.0.0",
+  "author": "smatechnologies",
+  "homepage": "https://github.com/smatechnologies/acs-fiservccm-docs",
+  "skills": []
+}
