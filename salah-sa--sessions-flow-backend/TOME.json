@@ -4,7 +4,7 @@
   "repo": "Sessions_Flow-backend",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/salah-sa/Sessions_Flow-backend",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T22:33:02Z"
+  "distributed_at": "2026-08-14T23:20:22Z"
 }
