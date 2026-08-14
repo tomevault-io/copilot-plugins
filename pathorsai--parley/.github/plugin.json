@@ -1,0 +1,9 @@
+{
+  "name": "pathorsai--parley",
+  "displayName": "parley",
+  "description": "Real-time AI coaching for sales & negotiation calls \u2014 live suggestions while you talk, voice translation into the meeting, deep debrief after. Local-first macOS app, bring your own keys.",
+  "version": "1.0.0",
+  "author": "pathorsAI",
+  "homepage": "https://github.com/pathorsAI/parley",
+  "skills": []
+}
