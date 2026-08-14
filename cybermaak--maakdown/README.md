@@ -7,11 +7,11 @@ Fast, local-first desktop Markdown viewer for technical docs and notes — clean
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cybermaak/maakdown](https://github.com/cybermaak/maakdown).
+Original source: `CLAUDE.md` in [cybermaak/maakdown](https://github.com/cybermaak/maakdown).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
