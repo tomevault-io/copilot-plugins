@@ -1,0 +1,9 @@
+{
+  "name": "afi-protocol--afi-reactor",
+  "displayName": "afi-reactor",
+  "description": "Signal DAG Execution Engine, CLI, and Codex System for AFI Protocol.",
+  "version": "1.0.0",
+  "author": "AFI-Protocol",
+  "homepage": "https://github.com/AFI-Protocol/afi-reactor",
+  "skills": []
+}
