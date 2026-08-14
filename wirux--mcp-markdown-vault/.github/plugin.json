@@ -1,0 +1,9 @@
+{
+  "name": "wirux--mcp-markdown-vault",
+  "displayName": "mcp-markdown-vault",
+  "description": "Headless semantic MCP server for Obsidian, Logseq, Dendron & any markdown vault. AST-based surgical editing, hybrid vector + TF-IDF search, zero-setup local embeddings \u2014 no app or plugins required. St",
+  "version": "1.0.0",
+  "author": "wirux",
+  "homepage": "https://github.com/wirux/mcp-markdown-vault",
+  "skills": []
+}
