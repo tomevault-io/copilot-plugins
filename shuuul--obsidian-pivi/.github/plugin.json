@@ -1,0 +1,9 @@
+{
+  "name": "shuuul--obsidian-pivi",
+  "displayName": "obsidian-pivi",
+  "description": "Pi as the Vault Intelligence: it embeds the Pi agent directly inside your Obsidian vault",
+  "version": "1.0.0",
+  "author": "shuuul",
+  "homepage": "https://github.com/shuuul/obsidian-pivi",
+  "skills": []
+}
