@@ -4,7 +4,7 @@
   "repo": "easy_islanders_project",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/templeobijnr/easy_islanders_project",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T07:38:52Z"
+  "distributed_at": "2026-08-14T10:35:36Z"
 }
