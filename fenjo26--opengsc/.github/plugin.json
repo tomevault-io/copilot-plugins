@@ -1,0 +1,9 @@
+{
+  "name": "fenjo26--opengsc",
+  "displayName": "OpenGSC",
+  "description": "Self-hosted Google Search Console dashboard \u2014 rank tracking, keyword research, AI-visibility audits and an AI SEO content suite. Includes a 40-tool MCP server, so Claude Code or Cursor works with your",
+  "version": "1.0.0",
+  "author": "fenjo26",
+  "homepage": "https://github.com/fenjo26/OpenGSC",
+  "skills": []
+}
