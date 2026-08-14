@@ -1,0 +1,9 @@
+{
+  "name": "seastart--aicoder-session-viewer",
+  "displayName": "aicoder-session-viewer",
+  "description": "A unified desktop application for browsing session history / resume session/ export session / new conversation session for multiple AI coding assistants \u2014 **Claude Code**, **Codex**, **Gemini CLI**,  ",
+  "version": "1.0.0",
+  "author": "seastart",
+  "homepage": "https://github.com/seastart/aicoder-session-viewer",
+  "skills": []
+}
