@@ -1,0 +1,9 @@
+{
+  "name": "fsmargoo--dsh-custom-tool",
+  "displayName": "dsh-custom-tool",
+  "description": "Create and manage sandboxed JavaScript tools for DeepSeek Harness with a Monaco editor and model-driven tool lifecycle.",
+  "version": "1.0.0",
+  "author": "FSMargoo",
+  "homepage": "https://github.com/FSMargoo/dsh-custom-tool",
+  "skills": []
+}
