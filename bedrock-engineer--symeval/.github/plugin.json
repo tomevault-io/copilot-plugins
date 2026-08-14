@@ -1,0 +1,9 @@
+{
+  "name": "bedrock-engineer--symeval",
+  "displayName": "symeval",
+  "description": "Symbolic, unit-aware evaluation of SymPy equations",
+  "version": "1.0.0",
+  "author": "bedrock-engineer",
+  "homepage": "https://github.com/bedrock-engineer/symeval",
+  "skills": []
+}
