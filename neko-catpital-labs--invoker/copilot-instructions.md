@@ -1,18 +1,30 @@
-## plan-safety-invariant
+## skill-command-precedence
 
-> Confirm a Safety invariant before finalizing implementation plans
+> Skill and slash-command workflow overrides ad-hoc "just implement it" requests
 
 
-# Plan safety-invariant confirmation
+# Skill and slash-command precedence
 
-When planning an implementation change, using Plan mode, invoking
-`/plan-to-invoker`, or drafting implementation slices or PRs, follow the
-Safety Invariant Confirmation protocol in `skills/review-compression/SKILL.md`
-before finalizing.
+When **any** of these apply for the current user message, treat the linked **skill** as the source of truth for how to work—not optional context:
 
-Propose a `Safety invariant:` for every slice and ask the user to confirm or
-correct it. The skill is the source of truth; this rule is only a discovery
-pointer.
+- The user runs a Cursor **slash command** whose stub says to use a skill (e.g. `/plan-to-invoker`).
+- The user **attaches** a skill to the message.
+- The user explicitly invokes a documented skill name or path.
+
+**First action:** Read the skill file (e.g. `skills/plan-to-invoker/SKILL.md` or `.cursor/skills/plan-to-invoker/SKILL.md` after clone setup). If `SKILL.md` is missing under `.cursor/skills/plan-to-invoker`, run `bash scripts/setup-agent-skills.sh` from the repo root, then re-check.
+
+## plan-to-invoker (hard stops)
+
+Until the user confirms the workflow is complete:
+
+1. Do **not** edit application or library code under `packages/` (or other product paths) for the substantive request.
+2. Follow the skill: scope → Phase 1a → Phase 1b (`pnpm test` / headless as applicable) → implementation YAML from facts → `bash skills/plan-to-invoker/scripts/skill-doctor.sh <plan-file>` → present plan → **wait for user confirmation** before `./submit-plan.sh` or before coding.
+
+Treat free text after `/plan-to-invoker` as **input to the skill workflow**, not a directive to implement immediately.
+
+## Delegation hints in YAML (best effort)
+
+Recommended headings in task `description` (`Files:`, `Change types:`, `Acceptance criteria:`) are **best effort**—plans can miss files or gain scope later. They are **not** enforced by default `skill-doctor`; optional warnings: `bash skills/plan-to-invoker/scripts/lint-task-atomicity.sh --warn-delegation <plan.yaml>`. See `skills/plan-to-invoker/references/task-patterns.md` and `references/efficacy-rubric.md`.
 
 ---
 > Source: [Neko-Catpital-Labs/Invoker](https://github.com/Neko-Catpital-Labs/Invoker) — distributed by [TomeVault](https://tomevault.io).
