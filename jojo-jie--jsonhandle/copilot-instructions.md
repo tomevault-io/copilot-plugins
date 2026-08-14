@@ -1,47 +1,53 @@
-## base
+## jsonhandle
 
-> - You can @ files here
+> 本文件用于指导在本仓库中运行的智能体如何协作与执行任务。
 
+# AGENTS.md
 
-# Your rule content
+本文件用于指导在本仓库中运行的智能体如何协作与执行任务。
 
-- You can @ files here
-- You can use markdown but dont have to
+## 语言
 
-# 项目基础规则
+- 所有说明与回复使用中文。
 
-## 文件结构
-- @jsonHandle/ - 主项目源代码目录
-- @jsonHandle Extension/ - Safari 扩展相关代码
-- @jsonHandleTests/ - 单元测试目录
-- @jsonHandleUITests/ - UI 测试目录
+## 工作方式
 
-## 开发规范
-- 所有代码必须遵循 Swift 标准编码规范
-- 使用 SwiftLint 进行代码风格检查
-- 提交代码前必须通过所有测试用例
-- 新功能必须包含对应的单元测试
+- 优先阅读仓库内已有文档（如 `README.md`、`CLAUDE.md`）以理解项目背景。
+- 修改代码前先定位相关文件与上下文，避免盲改。
+- 变更保持最小化、可追踪；不做无关重构。
+- 涉及运行命令或写文件时，说明目的并确保可复现。
+- UI 改动需保证响应式，适配不同窗口尺寸。
 
-## 文档规范
-- 所有公共 API 必须包含文档注释
-- 代码变更必须更新 README.md 和 CHANGELOG.md
-- 提交信息必须清晰描述变更内容
+## 项目概览
 
-## 版本控制
-- 主分支：main
-- 开发分支：develop
-- 功能分支：feature/*
-- 修复分支：hotfix/*
+- Safari 浏览器扩展：自动检测并格式化页面中的 JSON，提供树形折叠、高亮、搜索与复制/下载等功能。
+- 主要逻辑在 `jsonHandle Extension/Resources/content.js`。
+- 原生宿主为 macOS app（Swift + SafariServices）。
 
-## 依赖管理
-- 使用 Swift Package Manager 管理依赖
-- 禁止使用 CocoaPods 或 Carthage
-- 所有依赖版本必须锁定在特定版本
+## 目录结构
 
-## 安全规范
-- 敏感信息必须使用环境变量或配置文件
-- 用户数据必须安全存储
-- 网络请求必须使用 HTTPS
+- `jsonHandle/`：macOS 宿主应用（Swift/Cocoa）
+- `jsonHandle Extension/`：Safari Web Extension
+- `jsonHandle Extension/Resources/`：扩展前端资源（`content.js`、`background.js`、`popup.*`、`manifest.json`）
+- `jsonHandleTests/`：单元测试（占位为主）
+- `jsonHandleUITests/`：UI 测试（占位为主）
+
+## 构建与运行
+
+```bash
+# 使用 Xcode 打开项目
+open jsonHandle.xcodeproj
+
+# 命令行构建
+xcodebuild -project jsonHandle.xcodeproj -scheme jsonHandle -configuration Debug build
+```
+
+## 开发注意事项
+
+- 扩展权限与配置在 `manifest.json` 和 `Info.plist` 中。
+- JS 代码包含大量中文注释，改动时注意保持一致与可读性。
+- 兼容要求：macOS 11+、Safari 14+。
+- 调试：Safari Develop 菜单 > Show Extension Console。
 
 ---
 > Source: [jojo-jie/jsonHandle](https://github.com/jojo-jie/jsonHandle) — distributed by [TomeVault](https://tomevault.io).
