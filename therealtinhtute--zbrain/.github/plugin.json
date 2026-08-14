@@ -1,0 +1,9 @@
+{
+  "name": "therealtinhtute--zbrain",
+  "displayName": "zbrain",
+  "description": "a Go-native CLI for local-first trusted memory and workspace-isolated agent context.",
+  "version": "1.0.0",
+  "author": "therealtinhtute",
+  "homepage": "https://github.com/therealtinhtute/zbrain",
+  "skills": []
+}
