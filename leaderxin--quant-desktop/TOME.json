@@ -1,0 +1,44 @@
+{
+  "name": "quant-desktop",
+  "owner": "Leaderxin",
+  "repo": "quant-desktop",
+  "description": "\ud83d\ude80 \u514d\u8d39\u5f00\u6e90 A \u80a1\u5b9e\u65f6\u770b\u76d8\u684c\u9762\u5e94\u7528 | \u5b9e\u65f6\u884c\u60c5 \u00b7 K\u7ebf\u56fe\u8868 \u00b7 \u5206\u65f6\u56fe \u00b7 \u4e94\u6863\u76d8\u53e3 \u00b7 \u81ea\u9009\u80a1\u7ba1\u7406 | \u57fa\u4e8e Tauri 2 + Rust + Vue 3 \u6784\u5efa",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Leaderxin/quant-desktop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T00:36:53Z"
+}
