@@ -1,0 +1,9 @@
+{
+  "name": "fsmargoo--dsh-notification",
+  "displayName": "dsh-notification",
+  "description": "Desktop notifications for DeepSeek Harness turn completions, with per-outcome controls and include/exclude keyword rules.",
+  "version": "1.0.0",
+  "author": "FSMargoo",
+  "homepage": "https://github.com/FSMargoo/dsh-notification",
+  "skills": []
+}
