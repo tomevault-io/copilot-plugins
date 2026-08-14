@@ -1,0 +1,44 @@
+{
+  "name": "dsh-web-review",
+  "owner": "CanglongCl",
+  "repo": "dsh-web-review",
+  "description": "DeepSeek Harness Web GUI \u7684\u7f51\u9875\u9884\u89c8\u4e0e\u5143\u7d20\u6279\u6ce8\u63d2\u4ef6\uff0c\u8ba9 AI \u6839\u636e\u53ef\u89c6\u5316\u53cd\u9988\u76f4\u63a5\u4fee\u6539\u524d\u7aef\u6e90\u7801\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CanglongCl/dsh-web-review",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T17:36:21Z"
+}
