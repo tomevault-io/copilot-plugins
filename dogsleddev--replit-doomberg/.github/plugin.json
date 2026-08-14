@@ -1,0 +1,9 @@
+{
+  "name": "dogsleddev--replit-doomberg",
+  "displayName": "Replit-Doomberg",
+  "description": "Doomberg - AI-powered finance terminal (rescued from Replit). FastAPI backend + React/Vite terminal UI.",
+  "version": "1.0.0",
+  "author": "dogsleddev",
+  "homepage": "https://github.com/dogsleddev/Replit-Doomberg",
+  "skills": []
+}
