@@ -4,7 +4,7 @@
   "repo": "personal-portfolio-astro",
   "description": "Personal website",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hmmatus/personal-portfolio-astro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T08:33:46Z"
+  "distributed_at": "2026-08-14T20:31:19Z"
 }
