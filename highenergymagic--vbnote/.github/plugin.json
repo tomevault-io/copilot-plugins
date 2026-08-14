@@ -1,0 +1,9 @@
+{
+  "name": "highenergymagic--vbnote",
+  "displayName": "VBNote",
+  "description": "Emulator of the VoiceNote QT / BrailleNote mPower notetaker: Windows CE 4.2 on PXA270, running real KeySoft firmware. Assistive-technology preservation. Not a HumanWare product and not affiliated with",
+  "version": "1.0.0",
+  "author": "highenergymagic",
+  "homepage": "https://github.com/highenergymagic/VBNote",
+  "skills": []
+}
