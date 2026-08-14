@@ -1,0 +1,9 @@
+{
+  "name": "fariello--ocman",
+  "displayName": "ocman",
+  "description": "Administer, maintain, and repair your OpenCode agentic environment: sessions, database, and config.",
+  "version": "1.0.0",
+  "author": "fariello",
+  "homepage": "https://github.com/fariello/ocman",
+  "skills": []
+}
