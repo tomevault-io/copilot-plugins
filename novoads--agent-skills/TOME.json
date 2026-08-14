@@ -4,7 +4,7 @@
   "repo": "agent-skills",
   "description": "AI video and image ads for marketers, built in Claude Code or Cursor and priced by a live estimate first.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/novoads/agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T17:10:24Z"
+  "distributed_at": "2026-08-14T17:35:08Z"
 }
