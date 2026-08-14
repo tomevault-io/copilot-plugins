@@ -1,0 +1,9 @@
+{
+  "name": "digitsisyph--codex-micro-stopwatch",
+  "displayName": "codex-micro-stopwatch",
+  "description": "M5Stack StopWatch C152 as a Codex Micro-compatible BLE controller, quota dashboard, and optional USB microphone.",
+  "version": "1.0.0",
+  "author": "digitsisyph",
+  "homepage": "https://github.com/digitsisyph/codex-micro-stopwatch",
+  "skills": []
+}
