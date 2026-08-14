@@ -1,0 +1,44 @@
+{
+  "name": "niobium-client",
+  "owner": "NiobiumInc",
+  "repo": "niobium-client",
+  "description": "Open-source FHE client and toolchain. Build fully homomorphic encryption applications with the nb DSL, instrumented OpenFHE, FHETCH API or a CUDA-style library API, record one Polynomial IR trace, and deploy to the Niobium accelerator",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NiobiumInc/niobium-client",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T13:42:09Z"
+}
