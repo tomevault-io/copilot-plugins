@@ -4,7 +4,7 @@
   "repo": "emacs-config",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SuzumiyaAoba/emacs-config",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-14T20:50:06Z"
+  "distributed_at": "2026-08-14T21:34:47Z"
 }
