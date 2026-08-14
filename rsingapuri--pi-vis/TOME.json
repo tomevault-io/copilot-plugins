@@ -4,7 +4,7 @@
   "repo": "pi-vis",
   "description": "A GUI for pi.dev",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rsingapuri/pi-vis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-13T23:05:33Z"
+  "distributed_at": "2026-08-14T03:13:58Z"
 }
