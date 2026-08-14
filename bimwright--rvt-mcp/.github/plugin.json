@@ -1,0 +1,9 @@
+{
+  "name": "bimwright--rvt-mcp",
+  "displayName": "rvt-mcp",
+  "description": "BIMwright \u2014 AI-native Revit MCP server (Revit 2022\u20132027)",
+  "version": "1.0.0",
+  "author": "bimwright",
+  "homepage": "https://github.com/bimwright/rvt-mcp",
+  "skills": []
+}
