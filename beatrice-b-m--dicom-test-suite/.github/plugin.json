@@ -1,0 +1,9 @@
+{
+  "name": "beatrice-b-m--dicom-test-suite",
+  "displayName": "dicom-test-suite",
+  "description": "A Rust project for generating a comprehensive local corpus of synthetic DICOM files for viewer compatibility testing",
+  "version": "1.0.0",
+  "author": "beatrice-b-m",
+  "homepage": "https://github.com/beatrice-b-m/dicom-test-suite",
+  "skills": []
+}
