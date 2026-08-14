@@ -1,0 +1,9 @@
+{
+  "name": "zerox80--mavi-vpn",
+  "displayName": "mavi-vpn",
+  "description": "QUIC / H3 based VPN Protocol",
+  "version": "1.0.0",
+  "author": "zerox80",
+  "homepage": "https://github.com/zerox80/mavi-vpn",
+  "skills": []
+}
