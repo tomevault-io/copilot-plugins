@@ -1,0 +1,9 @@
+{
+  "name": "neko-catpital-labs--invoker",
+  "displayName": "Invoker",
+  "description": "Persisted multi-agent workflow orchestration \u2014 DAG tasks, git worktrees, merge gates, desktop + CLI + Slack",
+  "version": "1.0.0",
+  "author": "Neko-Catpital-Labs",
+  "homepage": "https://github.com/Neko-Catpital-Labs/Invoker",
+  "skills": []
+}
