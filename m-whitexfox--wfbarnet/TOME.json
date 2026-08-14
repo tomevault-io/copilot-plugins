@@ -1,0 +1,44 @@
+{
+  "name": "WFBARNet",
+  "owner": "M-WhiteXFox",
+  "repo": "WFBARNet",
+  "description": "\u672c\u5730\u7fbd\u6bdb\u7403\u89c6\u9891\u5206\u6790\u7cfb\u7edf\uff0c\u96c6\u6210\u8f68\u8ff9\u8ddf\u8e2a\u3001\u59ff\u6001\u4f30\u8ba1\u3001\u7403\u573a\u6620\u5c04\u3001\u52a8\u4f5c\u8bc6\u522b\u4e0e\u62a5\u544a\u5bfc\u51fa\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/M-WhiteXFox/WFBARNet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-14T15:12:00Z"
+}
