@@ -1,0 +1,9 @@
+{
+  "name": "claudneysessa--local-token-monitor",
+  "displayName": "local-token-monitor",
+  "description": "Live local dashboard for AI coding token usage and cost, per task and per day. Reads session logs already on your disk - single Python file, no dependencies, no proxy, no API key. Works with Claude Co",
+  "version": "1.0.0",
+  "author": "claudneysessa",
+  "homepage": "https://github.com/claudneysessa/local-token-monitor",
+  "skills": []
+}
