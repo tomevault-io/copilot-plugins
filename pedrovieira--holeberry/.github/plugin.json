@@ -1,0 +1,9 @@
+{
+  "name": "pedrovieira--holeberry",
+  "displayName": "Holeberry",
+  "description": "A native and modern macOS menu bar app to monitor and control your Pi-hole instances",
+  "version": "1.0.0",
+  "author": "pedrovieira",
+  "homepage": "https://github.com/pedrovieira/Holeberry",
+  "skills": []
+}
