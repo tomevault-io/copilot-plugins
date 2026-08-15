@@ -1,0 +1,44 @@
+{
+  "name": "better-next",
+  "owner": "baiwumm",
+  "repo": "better-next",
+  "description": "\u6316\u6398\u53d1\u73b0 Next.js \u7684\u4e50\u8da3\u6240\u5728",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/baiwumm/better-next",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-15T11:32:12Z"
+}
