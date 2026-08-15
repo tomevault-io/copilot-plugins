@@ -7,11 +7,11 @@ Automate the BMad Dev Cycle
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bmad-code-org/bmad-loop](https://github.com/bmad-code-org/bmad-loop).
+Original source: `CLAUDE.md` in [bmad-code-org/bmad-loop](https://github.com/bmad-code-org/bmad-loop).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
