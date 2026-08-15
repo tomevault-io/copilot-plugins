@@ -1,0 +1,70 @@
+## talkify
+
+> Menu-bar-only macOS 26 dictation app (Apple Silicon only). Read `CONTEXT.md` first — it is the domain model and rulebook; its terminology is binding. ADRs live in `docs/adr/`.
+
+# Talkify
+
+Menu-bar-only macOS 26 dictation app (Apple Silicon only). Read `CONTEXT.md` first — it is the domain model and rulebook; its terminology is binding. ADRs live in `docs/adr/`.
+
+## State of the repo
+
+Buildable and working end to end: hold Fn, speak, release — text lands in the previously focused control. Milestone 1 (shell + Direct Dictation) and the HUD prototyping phase are shipped; all decided-by-feel picks (reveal animation, long-draft behavior, both voice visuals) live as `AppSettings` preferences behind the Settings window.
+
+## Code style (rule, not preference)
+
+- Indentation is **2 spaces** everywhere — indent width 2, tab width 2, spaces not tabs — in Swift, Metal, and any other source. Matches the committed `.editorconfig` and the owner's Xcode settings. Never write or reformat code back to 4-space indentation.
+- **No `// MARK:` comments.** A file that needs section markers is a file that needs splitting; organize with small types and separate files instead.
+
+## Stack decisions (already made, do not relitigate)
+
+- Plain committed `Talkify.xcodeproj` (no Tuist, no generation), Swift 6, strict concurrency complete
+- AppKit is the shell: lifecycle, status item, non-activating panels
+- SwiftUI for windowed UI (Settings, onboarding), hosted in the AppKit shell
+- Apple Speech only (`SpeechAnalyzer`/`SpeechTranscriber`), no Whisper
+- Exactly one third-party dependency: Sparkle, for self-updating, quarantined behind `Talkify/Updates/SparkleUpdaterService.swift`. Adding a second is a decision to raise, not to make.
+- Scaffolding values (bundle ID, entitlements, signing, Info.plist keys): `docs/ProjectSettings.md`
+
+## Layout (modules as folders; communication is one-directional callbacks wired in App/)
+
+- `Talkify/App/` — the composition root: `AppDelegate` (wires every controller, owns the key-binding observation loop), `StatusItemController` (menu + blinking ghost), and `AppSettings.swift` — every user preference, one observable UserDefaults-backed store. The key strings and enum rawValues are load-bearing (stored picks; sound-asset name prefixes) — do not rename.
+- `Talkify/Input/` — the global CGEvent tap (`GlobalKeyEventMonitor`: dictation trigger, cancel, and Read Aloud shortcut) and the recorded `KeyBinding` model, shared by Dictation, Settings, and the status menu.
+- `Talkify/Dictation/` — the session core and its proven components (session prewarming, gesture latching, per-app insertion routes, clipboard restore). `DictationSessionMachine` is the pure reducer holding every state transition (idle/starting/recording/finishing/cancelling, held vs latched) — fully covered by `DictationSessionMachineTests`; `DirectDictationController` runs the begin guards and executes its effects (ADR-0005: MV + local reducers, no MVVM, no TCA).
+- `Talkify/HUD/` — the NotchIsland-style HUD, split: root holds the controller, panel, sounds, and pure geometry seams (`HUDPlacement`, `HUDNotchGeometry`, tested); `Shell/` the surface view, its shared `DictationHUDContent` model, and layout enums; `Visuals/` the voice visuals and their styles/palettes/tokens; `Shaders/` the four Metal files (ADR-0002). Canvas previews live next to the views; the harness uses a volatile defaults suite.
+- `Talkify/ReadAloud/` — speaking selected text: controller, `VoiceCatalog`, and the read-only `FocusedSelectionReader` (never touches insertion).
+- `Talkify/Settings/` — the borderless Settings window: shell (`SettingsView`), navigation model (`SettingsSections`), `Sections/` one file per pane, `Components/` the reusable design system (`SettingsTheme/Card/Row/PickerRow/ButtonStyle`, key recorder, drag handle).
+- `Talkify/Updates/` — Sparkle, wrapped so nothing else imports it: the appcast is a static file in the repo, updates are EdDSA-verified, and the activation policy flips for Sparkle's windows because they misplace themselves under `LSUIElement`.
+- `Talkify/Insights/` — local usage metrics (pure `UsageMetrics`, tested), store, tracker, and the Swift Charts section.
+- `Talkify/Resources/Sounds/` — sound sets. **Pop is CC-BY-NC and must be replaced or dropped before any release**; see `LICENSE-SOUNDS.txt`.
+- `Talkify/Assets.xcassets/Siri/` — the Siri-orb prototype artwork (voice visual under feel test). **Unlicensed, imitates Apple's Siri orb, must be replaced or dropped before any release**; see `LICENSE-ARTWORK.txt`.
+
+## HUD rules that keep biting
+
+- Fixed-size host window: origin moves, never resizes (`HUDNotchGeometry.windowFrame` is sized for the tallest layout).
+- Fillets only against a real housing; simulated notch (185×32) elsewhere. `NSWindow.Level.mainMenu + 3`, no private APIs.
+- Reveal bounce lives only in top-anchored scale, never position — a position overshoot opens a gap against the screen edge.
+- Silence and a dead microphone must look different (watchdog flips visuals to a static amber state).
+
+## Roadmap
+
+1. ~~Scaffold + wire CarryOver~~ done
+2. ~~NotchIsland-style HUD surface~~ done
+3. ~~Prototype the flagged HUD variants~~ done — all variants ship as Settings options
+4. **Insertion latency benchmark — next; CONTEXT.md gates all other features on it**
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues at tornikegomareli/Talkify (`gh` CLI). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default names: needs-triage, needs-info, ready-for-agent, ready-for-human, wontfix. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+
+---
+> Source: [tornikegomareli/Talkify](https://github.com/tornikegomareli/Talkify) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-15 -->
