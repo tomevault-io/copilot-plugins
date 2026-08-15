@@ -1,0 +1,9 @@
+{
+  "name": "beancookie--awesome-dsh-plugin",
+  "displayName": "awesome-dsh-plugin",
+  "description": "Awesome DeepSeek Harness (DSH) Plugin",
+  "version": "1.0.0",
+  "author": "beancookie",
+  "homepage": "https://github.com/beancookie/awesome-dsh-plugin",
+  "skills": []
+}
