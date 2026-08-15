@@ -1,0 +1,9 @@
+{
+  "name": "berk-unsal--atom",
+  "displayName": "atom",
+  "description": "High efficiency RF planning module written in Go. ",
+  "version": "1.0.0",
+  "author": "Berk-Unsal",
+  "homepage": "https://github.com/Berk-Unsal/atom",
+  "skills": []
+}
