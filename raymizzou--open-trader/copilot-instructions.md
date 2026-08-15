@@ -1,0 +1,85 @@
+## open-trader
+
+> Start new isolated feature or fix work from the local `main` branch unless the
+
+# Project Instructions
+
+## Worktree Baseline
+
+Start new isolated feature or fix work from the local `main` branch unless the
+user explicitly selects another baseline. Create a separate branch and worktree
+from `main`; do not derive the branch from an unrelated or dirty checkout.
+
+## Merge Log Gate
+
+Before merging any branch into `main`, update and commit its dated
+operator-facing entry in `CHANGELOG.md`. Do not merge first and add the log
+afterward.
+
+## Verification Discipline
+
+For any behavior change, especially changes that affect notifications, background
+watchers, launchd jobs, screen sessions, or other long-running processes, do not
+stop at unit tests.
+
+Before reporting that the change is done:
+
+1. Run the relevant automated tests and confirm the exact pass/fail output.
+2. Run the affected command or workflow directly when it is practical, and check
+   the real output.
+3. If a background process can keep old code in memory, inspect running
+   processes and service managers such as `screen` and `launchctl`.
+4. Stop or restart old processes that are still using pre-change code.
+5. Verify fresh logs from the new process, including PID/timestamp when useful,
+   before claiming the live behavior has changed.
+
+Do not describe a change as fully verified if only tests were run and the live
+background process was not checked.
+
+## Dashboard Acceptance Gate
+
+Do not run `make acceptance` after intermediate modifications. Run focused
+tests and direct workflow checks while developing, and run `make acceptance`
+only as the final gate before asking the user to review or accept a completed
+Dashboard task, unless the user explicitly requests it earlier. Its result is
+the only review-readiness status:
+
+- `PASS`: automated tests, real API/data, one live account/quote refresh, process version,
+  logs, and desktop/mobile browser flows all passed.
+- `FAIL`: a page, data, process, log, or test check failed.
+- `BLOCKED`: the required browser or external environment is unavailable.
+
+Only `PASS` may be described as complete, deployed successfully, or accepted.
+`FAIL` must be fixed. `BLOCKED` must be reported as blocked and must not be
+substituted with curl, fixtures, mocks, screenshots, or unit tests.
+
+## Post-Acceptance Review Deployment
+
+After `make acceptance` returns `PASS`, redeploy the exact accepted Git SHA
+before asking the user to review it. Then verify the new process PID, working
+directory, Git SHA, fresh logs, and an HTTP 200 response from the review URL.
+Provide that URL so the user can open it directly.
+
+This post-acceptance restart does not require another acceptance run when it
+deploys the exact already-accepted SHA and makes no source or data changes.
+
+## Optional UI Screenshots
+
+Do not capture or require screenshots for Dashboard acceptance or handoff unless
+the user explicitly asks for them. Missing screenshots do not affect `PASS`
+status or block a task from being described as accepted, complete, or deployed.
+
+## Task Handoff Gate
+
+Before asking the user to review any completed Dashboard task, the agent must
+run `make acceptance` as the final verification step. The user must not be
+asked to run it manually.
+
+- On `FAIL`, continue diagnosing and fixing, then rerun the gate.
+- On `BLOCKED`, report the blocker; do not present the task for acceptance.
+- Only on `PASS` may the agent provide the deployed URL and ask the user to
+  review the result.
+
+---
+> Source: [raymizzou/open_trader](https://github.com/raymizzou/open_trader) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-14 -->
