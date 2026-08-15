@@ -4,7 +4,7 @@
   "repo": "deepseek-harness-cli",
   "description": "DeepSeek CLI (UnOfficial)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/peiyuwang54/deepseek-harness-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-15T13:31:27Z"
+  "distributed_at": "2026-08-15T13:32:47Z"
 }
