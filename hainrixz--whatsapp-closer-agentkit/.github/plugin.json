@@ -1,0 +1,9 @@
+{
+  "name": "hainrixz--whatsapp-closer-agentkit",
+  "displayName": "whatsapp-closer-agentkit",
+  "description": "Repo blueprint para Claude Code: no trae la app, trae las instrucciones para construirla en tu m\u00e1quina paso a paso. Un agente que atiende cada chat de WhatsApp como setter y closer: califica, responde",
+  "version": "1.0.0",
+  "author": "Hainrixz",
+  "homepage": "https://github.com/Hainrixz/whatsapp-closer-agentkit",
+  "skills": []
+}
