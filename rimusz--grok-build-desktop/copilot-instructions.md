@@ -1,60 +1,27 @@
-## orchestrator
+## swift-swiftui
 
-> Strong model orchestrates; Composer 2.5 standard subagents do scoped work. Apply manually with @orchestrator.
+> Swift and SwiftUI conventions for GrokBuild views and models
 
 
-# Orchestrator / worker mode
+# Swift / SwiftUI
 
-Activate only when this rule is attached.
+## Conventions
 
-## Models
+- Match existing naming, `@Observable` / `@MainActor` usage, and file placement (`Views/`, `Services/`, `Models/`).
+- Cross-feature coordination via `NotificationCenter` names defined in `ContentView.swift`.
+- Prefer extending existing types over new abstractions for one-off logic.
 
-- **Orchestrator (parent):** your strong model in the picker (e.g. `claude-opus-4-8-thinking-high`)
-- **Workers:** `composer-2.5[fast=false]` — pinned in `.cursor/agents/`
+## Views
 
-## Parent
+- Dark-mode-first; use existing chrome in `GrokChatChrome.swift`.
+- Window close affordances: `WindowTrafficLights` pattern where applicable.
+- Settings live in `SettingsView.swift`; avoid duplicating grok CLI flags outside `GrokSettingsKeys`.
 
-Plan, decompose, delegate, and review. Give each worker one concern, enough context, a definition of done, and a short report. Run independent pieces in parallel. Review before merging. Keep work on the parent when judgment is the whole job.
+## Avoid
 
-Do not spawn built-in `explore` or `generalPurpose` subagents — they default to Composer Fast.
-
-## Workers
-
-| Subagent      | Use for                                    |
-| ------------- | ------------------------------------------ |
-| `planner`     | Read-only decomposition into scoped tasks  |
-| `implementer` | Code edits, refactors, tests, file changes |
-| `auditor`     | Read-only audits and exploration           |
-| `verifier`    | Post-implementation review                 |
-
-## Delegation contract
-
-Each delegated task ships with:
-
-- **One concern** — a single, non-overlapping slice of work (clear ownership boundary; no two workers touch the same files/behavior at once).
-- **Context** — the specific files, constraints, and prior decisions the worker needs.
-- **Definition of done** — explicit acceptance criteria (behavior, `make test` passing, docs updated).
-- **Report shape** — what to hand back: what changed, tests run, blockers.
-
-## Flow & verification gate
-
-1. `planner` (optional for larger tasks) decomposes the goal into scoped tasks with a definition of done.
-2. `implementer` executes one task at a time (independent tasks in parallel).
-3. **Gate:** a task is not "done" until `verifier` returns `pass` / `pass with notes` against its definition of done. On `fail`, send it back to `implementer` with the gaps — do not merge or move on.
-4. Use `auditor` for read-only exploration or risk review at any point.
-
-Prefer gates and ownership boundaries over adding tools: a swarm is only as reliable as its verification.
-
-## Automated alternative
-
-For large or recursive goals, Cursor ships an official `/orchestrate` plugin (recursive planner/verifier/worker swarm on the Cursor SDK): `/add-plugin orchestrate` then `/orchestrate [goal]`. Use it when you want automated fan-out; use this manual rule when you want tight control over each delegation.
-
-## GrokBuild specifics
-
-- Read `AGENTS.md` and `ARCHITECTURE.md` first; workers must follow `.cursor/rules/docs-and-tests.mdc`.
-- Build with `make build` (or `swift build`); test with `make test`. Do not add an Xcode project.
-- Every code change ships with updated docs + tests in the same session.
-- Only commit when the user explicitly asks.
+- Large refactors unrelated to the task.
+- Blocking the main thread for CLI calls — use `Task` + `GrokCLIService` async APIs.
+- Finishing with code-only diffs — update `ARCHITECTURE.md`, tests, and user docs per `docs-and-tests.mdc`.
 
 ---
 > Source: [rimusz/grok-build-desktop](https://github.com/rimusz/grok-build-desktop) — distributed by [TomeVault](https://tomevault.io).
