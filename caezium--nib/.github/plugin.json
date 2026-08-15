@@ -1,0 +1,9 @@
+{
+  "name": "caezium--nib",
+  "displayName": "nib",
+  "description": "Turn any idea or article into hand-drawn editorial illustrations starring your own character \u2014 free on your ChatGPT/Codex sub. An agent skill (Claude Code, Codex, Cursor, Gemini) + a macOS app.",
+  "version": "1.0.0",
+  "author": "caezium",
+  "homepage": "https://github.com/caezium/nib",
+  "skills": []
+}
