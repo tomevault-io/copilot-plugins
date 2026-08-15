@@ -4,7 +4,7 @@
   "repo": "diet-app",
   "description": "Simple app for tracking recipe and meal plans",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/trash-maker/diet-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-15T06:40:33Z"
+  "distributed_at": "2026-08-15T06:42:23Z"
 }
