@@ -1,0 +1,9 @@
+{
+  "name": "opencoven--coven-code",
+  "displayName": "coven-code",
+  "description": "Open-source, multi-provider agentic coding TUI in Rust.",
+  "version": "1.0.0",
+  "author": "OpenCoven",
+  "homepage": "https://github.com/OpenCoven/coven-code",
+  "skills": []
+}
