@@ -1,0 +1,21 @@
+## confirmation-dialogs
+
+> Confirmation overlays must dismiss via Cancel, Escape, and click-outside
+
+
+# Confirmation dialogs
+
+When building confirmation boxes / overlays (delete forever, empty trash, destructive confirms, etc.):
+
+1. **Cancel** button dismisses without confirming.
+2. **Escape** dismisses the same as Cancel.
+3. **Click / pointer outside** the confirmation surface dismisses the same as Cancel.
+4. Defer outside-click listeners until after the opening click (e.g. `setTimeout(0)`), so the click that opened the dialog does not immediately close it.
+5. Prefer `role="dialog"` (and `aria-modal` when appropriate) on the confirmation surface.
+6. Do not rely on `window.confirm` for app chrome confirmations unless there is a strong existing reason.
+
+Apply this to both modal-style and inline/popover confirms (e.g. trash bulk purge, per-card purge).
+
+---
+> Source: [drenlia-inc/agila](https://github.com/drenlia-inc/agila) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-15 -->
