@@ -1,25 +1,28 @@
-## dirty-save-forms
+## easy-kanban-dates
 
-> Dirty-save forms via JSON snapshot (Save disabled until changes)
+> Dates, PostgreSQL JSON, and HTML date inputs for Agila
 
 
-# Dirty-save forms
+# Date handling (Agila)
 
-When building editable forms with an explicit Save action, use the JSON snapshot pattern (see also personal skill `dirty-save-forms`):
+## PostgreSQL → browser (API / `sqlManager`)
 
-1. Keep live form state in `settings` (or equivalent).
-2. After load (and after a successful save), store a JSON snapshot: `savedSnapshot = JSON.stringify(mapped)`.
-3. Dirty check:
+- **`node-pg` often returns JavaScript `Date` for `DATE` columns.** `res.json()` serializes them as ISO strings like `2026-03-02T00:00:00.000Z`.
+- **`<input type="date">` only accepts `YYYY-MM-DD`.** ISO datetimes are ignored, so forms look empty and saves appear to fail.
+- **Prefer casting in SQL** for fields sent to the client: `start_date::text AS start_date`, `end_date::text AS end_date` (see `server/utils/sqlManager/sprints.js` and the same pattern for any similar `DATE`/`TIMESTAMP` exposed to JSON).
+- Keep **snake_case** in JSON for tenant entities when the UI expects it (`start_date`, `end_date`, `is_active`), not camelCase aliases, unless the whole stack is migrated consistently.
 
-```ts
-const isDirty = savedSnapshot !== '' && snapshotOf(settings) !== savedSnapshot;
-```
+## Frontend
 
-4. Save button: `disabled={saving || !isDirty}`.
-5. Save handler no-ops if `!isDirty || saving`.
-6. On success, refresh the snapshot so the form is clean again.
+- **Normalize API strings before binding to `type="date"`:** take the first `YYYY-MM-DD` from the value (e.g. match `^(\d{4}-\d{2}-\d{2})`) so ISO datetimes still work. Example: `toDateInputValue` in `src/components/admin/AdminSprintSettingsTab.tsx`.
+- **Display calendar days without UTC shift:** parse `YYYY-MM-DD` as local components (`split('-')` then `new Date(year, month - 1, day)`), not `new Date(isoString)` alone, when showing “human” dates for task/sprint-style fields.
+- Reuse **`parseLocalDate` / helpers in `src/utils/dateUtils.ts`** where appropriate instead of ad-hoc parsing.
 
-Any field change via `setField` / `handleToggle` updates `settings` → snapshot differs → Save enables.
+## Quick checklist for new date fields
+
+1. DB column type and migration (SQLite vs PostgreSQL) aligned?
+2. API JSON: plain date strings for forms, or explicit `::text` / `to_char` from Postgres?
+3. UI: `type="date"` gets `YYYY-MM-DD`; tables and tooltips use local-date parsing when needed?
 
 ---
 > Source: [drenlia-inc/agila](https://github.com/drenlia-inc/agila) — distributed by [TomeVault](https://tomevault.io).
