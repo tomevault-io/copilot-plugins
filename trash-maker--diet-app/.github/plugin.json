@@ -1,0 +1,9 @@
+{
+  "name": "trash-maker--diet-app",
+  "displayName": "diet-app",
+  "description": "Simple app for tracking recipe and meal plans",
+  "version": "1.0.0",
+  "author": "trash-maker",
+  "homepage": "https://github.com/trash-maker/diet-app",
+  "skills": []
+}
