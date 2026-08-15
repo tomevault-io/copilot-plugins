@@ -1,0 +1,9 @@
+{
+  "name": "bitsycore--compose-desktop-native",
+  "displayName": "compose-desktop-native",
+  "description": "Compose Desktop for native target using SDL3",
+  "version": "1.0.0",
+  "author": "bitsycore",
+  "homepage": "https://github.com/bitsycore/compose-desktop-native",
+  "skills": []
+}
