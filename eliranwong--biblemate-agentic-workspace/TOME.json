@@ -4,7 +4,7 @@
   "repo": "biblemate-agentic-workspace",
   "description": "BibleMate AI + UniqueBible Data (running on Google Antigravity / Claude Code / Grok Build) - An integrated local workspace combining robust scripture databases, modular study skills, and specialized AI personas to streamline biblical research and writing on the Google Antigravity platform.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eliranwong/biblemate-agentic-workspace",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-15T01:16:54Z"
+  "distributed_at": "2026-08-15T01:17:33Z"
 }
