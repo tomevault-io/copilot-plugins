@@ -1,0 +1,9 @@
+{
+  "name": "ljferrer--workauditrefine",
+  "displayName": "WorkAuditRefine",
+  "description": "WAR -- a Claude-native multi-agent orchestration surface using workflows",
+  "version": "1.0.0",
+  "author": "Ljferrer",
+  "homepage": "https://github.com/Ljferrer/WorkAuditRefine",
+  "skills": []
+}
