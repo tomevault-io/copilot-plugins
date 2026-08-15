@@ -1,33 +1,60 @@
-## grokbuild-project
+## orchestrator
 
-> GrokBuild architecture, build commands, and agent conventions
+> Strong model orchestrates; Composer 2.5 standard subagents do scoped work. Apply manually with @orchestrator.
 
 
-# GrokBuild project
+# Orchestrator / worker mode
 
-SwiftPM macOS menu-bar app — UI for `grok agent stdio`, not a replacement for the CLI.
+Activate only when this rule is attached.
 
-## Key facts
+## Models
 
-- Target: `GrokBuild/` executable, entry `main.swift` + `AppDelegate` (not `GrokBuildApp.swift` @main).
-- Version: `VERSION` file → `AppVersion.display`.
-- Build: `make run`, `make test`, `make app`, `make release` (see `BUILDING.md`).
-- Full reference: `ARCHITECTURE.md`, agent entry: `AGENTS.md`.
+- **Orchestrator (parent):** your strong model in the picker (e.g. `claude-opus-4-8-thinking-high`)
+- **Workers:** `composer-2.5[fast=false]` — pinned in `.cursor/agents/`
 
-## When editing
+## Parent
 
-- Keep changes focused; reuse existing services and notification names.
-- Do not add an Xcode project; stay on SwiftPM + Makefile scripts.
-- Menu bar icon: `GrokBuild/Resources/Assets.xcassets/MenuBarIcon.imageset/`.
-- **Docs + tests + Computer Use required** with every code change — see `.cursor/rules/docs-and-tests.mdc`.
+Plan, decompose, delegate, and review. Give each worker one concern, enough context, a definition of done, and a short report. Run independent pieces in parallel. Review before merging. Keep work on the parent when judgment is the whole job.
+
+Do not spawn built-in `explore` or `generalPurpose` subagents — they default to Composer Fast.
+
+## Workers
+
+| Subagent      | Use for                                    |
+| ------------- | ------------------------------------------ |
+| `planner`     | Read-only decomposition into scoped tasks  |
+| `implementer` | Code edits, refactors, tests, file changes |
+| `auditor`     | Read-only audits and exploration           |
+| `verifier`    | Post-implementation review                 |
+
+## Delegation contract
+
+Each delegated task ships with:
+
+- **One concern** — a single, non-overlapping slice of work (clear ownership boundary; no two workers touch the same files/behavior at once).
+- **Context** — the specific files, constraints, and prior decisions the worker needs.
+- **Definition of done** — explicit acceptance criteria (behavior, `make test` passing, docs updated).
+- **Report shape** — what to hand back: what changed, tests run, blockers.
+
+## Flow & verification gate
+
+1. `planner` (optional for larger tasks) decomposes the goal into scoped tasks with a definition of done.
+2. `implementer` executes one task at a time (independent tasks in parallel).
+3. **Gate:** a task is not "done" until `verifier` returns `pass` / `pass with notes` against its definition of done. On `fail`, send it back to `implementer` with the gaps — do not merge or move on.
+4. Use `auditor` for read-only exploration or risk review at any point.
+
+Prefer gates and ownership boundaries over adding tools: a swarm is only as reliable as its verification.
+
+## Automated alternative
+
+For large or recursive goals, Cursor ships an official `/orchestrate` plugin (recursive planner/verifier/worker swarm on the Cursor SDK): `/add-plugin orchestrate` then `/orchestrate [goal]`. Use it when you want automated fan-out; use this manual rule when you want tight control over each delegation.
+
+## GrokBuild specifics
+
+- Read `AGENTS.md` and `ARCHITECTURE.md` first; workers must follow `.cursor/rules/docs-and-tests.mdc`.
+- Build with `make build` (or `swift build`); test with `make test`. Do not add an Xcode project.
+- Every code change ships with updated docs + tests in the same session.
 - Only commit when the user explicitly asks.
-
-## Key docs
-
-- `ARCHITECTURE.md` — canonical app map (update when structure/flow changes)
-- `AGENTS.md` — agent entry
-- `BUILDING.md` — build, sign, release
-- `README.md` — user-facing features
 
 ---
 > Source: [rimusz/grok-build-desktop](https://github.com/rimusz/grok-build-desktop) — distributed by [TomeVault](https://tomevault.io).
