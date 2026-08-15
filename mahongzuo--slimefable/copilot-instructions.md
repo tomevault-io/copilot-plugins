@@ -1,39 +1,26 @@
-## slimefable
+## slimefable-agent-spec
 
-> 在改代码或资产之前，**先读项目 spec**，再执行任务。
+> SlimeFable 开工前必读项目 spec skill
 
-# SlimeFable — Agent 入口
 
-在改代码或资产之前，**先读项目 spec**，再执行任务。
+# SlimeFable Agent Spec
 
-## 必读顺序
+在本仓库做任何实质性改动（C++、Content、Config、编辑器自动化）之前：
 
-1. [`.cursor/skills/slimefable-spec/SKILL.md`](.cursor/skills/slimefable-spec/SKILL.md) — 项目宪法与路由  
-2. 按任务继续：
-   - 编辑器 / MCP → [`.cursor/skills/slimefable-unreal-mcp/SKILL.md`](.cursor/skills/slimefable-unreal-mcp/SKILL.md)
-   - 日关卡 / `_Slime/Days` 内容目录 / 探索 Tag / 按日存档 → [`.cursor/skills/slimefable-day-levels/SKILL.md`](.cursor/skills/slimefable-day-levels/SKILL.md)
-   - 菜单 / HUD / UI 视觉 → [`.cursor/skills/slimefable-ui/SKILL.md`](.cursor/skills/slimefable-ui/SKILL.md)
+1. 先用 Read 工具阅读 `.cursor/skills/slimefable-spec/SKILL.md`。
+2. 涉及 Unreal MCP / 编辑器操作时，再读 `.cursor/skills/slimefable-unreal-mcp/SKILL.md`。
+3. 涉及日关卡、DayId、Registry、Exploration Tag、按日存档时，再读 `.cursor/skills/slimefable-day-levels/SKILL.md`。
+4. 涉及主菜单、选关、HUD、UI 字体/背景/按钮风格时，再读 `.cursor/skills/slimefable-ui/SKILL.md`。
 
-Cursor 规则 [`.cursor/rules/slimefable-agent-spec.mdc`](.cursor/rules/slimefable-agent-spec.mdc)（`alwaysApply`）会要求遵守上述流程。
+## 硬约束（摘要）
 
-## 快速事实
+- 引擎 UE 5.8；默认地图 `/Game/Maps/Main`；日关卡 `/Game/Maps/Days/MM/MMDD`。
+- MCP 使用 `http://127.0.0.1:8010/mcp`；Tool 串行调用，禁止并行叠 MCP。
+- 批量日关卡用 `Content/Python/create_day_levels.py`，禁止 MCP 逐关创建 366 张图。
+- UI 遵循 `slimefable-ui`：土色 NPR 底、墨迹按钮、Marker+KuaiLe 字体，禁用 Halftone 霓虹默认皮。
+- 与用户用中文沟通；勿改 `~/.cursor/skills-cursor/`。
 
-| 项 | 值 |
-|----|-----|
-| 引擎 | UE 5.8 |
-| 模块 | `SlimeFable` |
-| 默认地图 | `/Game/Maps/Main.Main` |
-| 日关卡 | `/Game/Maps/Days/MM/MMDD`（366，含 0229） |
-| 每日内容 | `/Game/_Slime/Days/MM/MMDD`（Quests / Actors / NPCs / Enemies / Audio / FX） |
-| Registry | `/Game/Data/DayLevels/DA_DayLevelRegistry` |
-| MCP | `http://127.0.0.1:8010/mcp`（见 `.mcp.json`） |
-| 批量脚本 | `create_day_levels.py`（地图）/ `create_day_content_folders.py`（内容目录） |
-
-## Cursor 用法
-
-- 打开本仓库后，Customize → Skills 应可见四个 `slimefable-*` skill。
-- 聊天中可 `/slimefable-spec`、`/slimefable-ui` 等手动调用。
-- 细节文档在各 skill 的 `references/` 下，按需再读。
+需要时可手动调用：`/slimefable-spec`、`/slimefable-unreal-mcp`、`/slimefable-day-levels`、`/slimefable-ui`。
 
 ---
 > Source: [Mahongzuo/SlimeFable](https://github.com/Mahongzuo/SlimeFable) — distributed by [TomeVault](https://tomevault.io).
