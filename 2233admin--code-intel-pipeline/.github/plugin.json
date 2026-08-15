@@ -1,0 +1,9 @@
+{
+  "name": "2233admin--code-intel-pipeline",
+  "displayName": "code-intel-pipeline",
+  "description": "Local code-intelligence pipeline for AI coding agents: architecture maps, hotspots, change impact, and structural regression gates before the agent edits. Rust core, powered by rg + Repowise + Underst",
+  "version": "1.0.0",
+  "author": "2233admin",
+  "homepage": "https://github.com/2233admin/code-intel-pipeline",
+  "skills": []
+}
