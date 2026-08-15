@@ -1,0 +1,9 @@
+{
+  "name": "eust-w--agentic-embedded-lab",
+  "displayName": "agentic-embedded-lab",
+  "description": "Agent-native embedded systems lab for pluggable simulation, evidence-driven validation, and controlled evolution.",
+  "version": "1.0.0",
+  "author": "eust-w",
+  "homepage": "https://github.com/eust-w/agentic-embedded-lab",
+  "skills": []
+}
