@@ -1,0 +1,9 @@
+{
+  "name": "thebguy--gitdesktop",
+  "displayName": "GitDesktop",
+  "description": "AI-native, keyboard-first Git desktop client combining GitHub Desktop's ease with advanced Git, PR, issue, discussion, Actions, and notification management; integrates GitLab, Bitbucket, Jira, agentic",
+  "version": "1.0.0",
+  "author": "theBGuy",
+  "homepage": "https://github.com/theBGuy/GitDesktop",
+  "skills": []
+}
