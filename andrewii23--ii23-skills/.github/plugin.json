@@ -1,0 +1,9 @@
+{
+  "name": "andrewii23--ii23-skills",
+  "displayName": "ii23-skills",
+  "description": "Agent Skills for Claude Code \u2014 video understanding (grid-packed frames + transcript, ~7x cheaper than frame-by-frame) and headless, API-key-free image generation. Install: npx skills add andrewii23/ii",
+  "version": "1.0.0",
+  "author": "andrewii23",
+  "homepage": "https://github.com/andrewii23/ii23-skills",
+  "skills": []
+}
