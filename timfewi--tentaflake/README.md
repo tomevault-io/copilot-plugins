@@ -7,11 +7,11 @@ Declaratively deploy & manage multiple isolated AI agents on a single NixOS mach
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [timfewi/tentaflake](https://github.com/timfewi/tentaflake).
+Original source: `AGENTS.md` in [timfewi/tentaflake](https://github.com/timfewi/tentaflake).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
