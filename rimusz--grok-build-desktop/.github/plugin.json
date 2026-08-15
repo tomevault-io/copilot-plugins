@@ -1,0 +1,9 @@
+{
+  "name": "rimusz--grok-build-desktop",
+  "displayName": "grok-build-desktop",
+  "description": "GrokBuild Desktop App is a native SwiftUI macOS shell for the grok CLI",
+  "version": "1.0.0",
+  "author": "rimusz",
+  "homepage": "https://github.com/rimusz/grok-build-desktop",
+  "skills": []
+}
