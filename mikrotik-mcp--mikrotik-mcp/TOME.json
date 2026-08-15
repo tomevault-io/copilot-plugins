@@ -1,0 +1,44 @@
+{
+  "name": "mikrotik-mcp",
+  "owner": "mikrotik-mcp",
+  "repo": "mikrotik-mcp",
+  "description": "A Bun-native MCP server that turns one or more MikroTik routers into +880 tools your AI can drive. Firewall \u00b7 routing \u00b7 DHCP/DNS \u00b7 wireless \u00b7 QoS \u00b7 and a complete VPN suite \u2014 over SSH, with transactional Safe Mode.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mikrotik-mcp/mikrotik-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-15T01:06:55Z"
+}
