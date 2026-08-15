@@ -4,7 +4,7 @@
   "repo": "tentaflake",
   "description": "Declaratively deploy & manage multiple isolated AI agents on a single NixOS machine \u2014 each with its own secrets, skills, and personality.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/timfewi/tentaflake",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-15T00:47:32Z"
+  "distributed_at": "2026-08-15T00:50:32Z"
 }
