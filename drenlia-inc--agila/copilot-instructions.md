@@ -1,20 +1,25 @@
-## confirmation-dialogs
+## dirty-save-forms
 
-> Confirmation overlays must dismiss via Cancel, Escape, and click-outside
+> Dirty-save forms via JSON snapshot (Save disabled until changes)
 
 
-# Confirmation dialogs
+# Dirty-save forms
 
-When building confirmation boxes / overlays (delete forever, empty trash, destructive confirms, etc.):
+When building editable forms with an explicit Save action, use the JSON snapshot pattern (see also personal skill `dirty-save-forms`):
 
-1. **Cancel** button dismisses without confirming.
-2. **Escape** dismisses the same as Cancel.
-3. **Click / pointer outside** the confirmation surface dismisses the same as Cancel.
-4. Defer outside-click listeners until after the opening click (e.g. `setTimeout(0)`), so the click that opened the dialog does not immediately close it.
-5. Prefer `role="dialog"` (and `aria-modal` when appropriate) on the confirmation surface.
-6. Do not rely on `window.confirm` for app chrome confirmations unless there is a strong existing reason.
+1. Keep live form state in `settings` (or equivalent).
+2. After load (and after a successful save), store a JSON snapshot: `savedSnapshot = JSON.stringify(mapped)`.
+3. Dirty check:
 
-Apply this to both modal-style and inline/popover confirms (e.g. trash bulk purge, per-card purge).
+```ts
+const isDirty = savedSnapshot !== '' && snapshotOf(settings) !== savedSnapshot;
+```
+
+4. Save button: `disabled={saving || !isDirty}`.
+5. Save handler no-ops if `!isDirty || saving`.
+6. On success, refresh the snapshot so the form is clean again.
+
+Any field change via `setField` / `handleToggle` updates `settings` → snapshot differs → Save enables.
 
 ---
 > Source: [drenlia-inc/agila](https://github.com/drenlia-inc/agila) — distributed by [TomeVault](https://tomevault.io).
