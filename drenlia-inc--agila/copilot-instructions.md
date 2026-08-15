@@ -1,26 +1,33 @@
-## help-ui-index
+## i18n-no-hardcoded-copy
 
-> Keep Help Assistant UI index in sync when adding locatable controls
+> Always use i18n keys for user-facing copy; never hardcode one language
 
 
-# Help Assistant UI index
+# Internationalization (no hardcoded copy)
 
-When you add or change a locatable control, put a stable hook on the element:
+This project uses `react-i18next` / locale JSON under `src/i18n` (and related locale files).
 
-- `data-setting-key` — Admin setting (same key as `settings` / Admin search)
-- `data-tour-id` — board/chrome control (tour + Help Go there)
-- `data-help-target` — Profile or one-off Help targets
-- `data-owner-setup` — Configuration guide field
+## Required
 
-Then regenerate and commit the index:
+- **Never hardcode user-facing text in a single language** in UI code (labels, buttons, headings, helper text, empty states, errors shown to users, `aria-label` / `title` / `placeholder` / `alt`, `document.title`, toasts, confirms).
+- Prefer `t('namespace.key')` (or equivalent) for all of the above.
+- When adding or changing copy, **add/update keys in every locale file** the app ships.
+- If you encounter hardcoded UI strings while working nearby, **extract them to locale keys** unless there is a clear reason to keep them hardcoded.
 
-```
-npm run help:ui-index
-```
+## Acceptable hardcoding (rare)
 
-CI runs `npm run help:ui-index:check`. Do not hand-edit `server/config/helpUiIndex.generated.json`.
+Only leave strings hardcoded when they are not language UI, for example:
 
-Behavioral exceptions (defaults vs live prefs, soft WIP, trash vs archive) go in `server/config/helpAssistantFacts.js`, not in EN/FR catalog rows.
+- Technical identifiers, API paths, env keys, CSS class names, analytics event names
+- Brand-invariant product names when intentionally shared via a single brand key
+- Developer-only logs / comments
+- Purely numeric or format tokens with no words
+
+## Checklist
+
+1. New UI string? → locale keys first (all languages)
+2. Component uses `t(...)` (or receives translated strings)
+3. Avoid English-only fallbacks like `t('key') || 'English fallback'` for primary UX copy
 
 ---
 > Source: [drenlia-inc/agila](https://github.com/drenlia-inc/agila) — distributed by [TomeVault](https://tomevault.io).
