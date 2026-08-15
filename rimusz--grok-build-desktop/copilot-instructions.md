@@ -1,0 +1,38 @@
+## appkit-panels
+
+> AppKit panels, menu bar, and About-style UI metrics
+
+
+# AppKit panels & menu bar
+
+## Shared styling
+
+Use `AboutStyle` for About and Update panels:
+
+- Width: 396pt; icon: 64pt; name: bold system; body: small system font.
+- Version lines: `AboutStyle.versionFont` + `AboutStyle.versionColor` (secondary).
+- Windows: `NSPanel`, `.titled` + `.closable`, hidden title, `underPageBackground`.
+
+## About panel
+
+Custom panel (not `orderFrontStandardAboutPanel`). Order: icon → name → Version → grok CLI line → description → centered link. Fetch CLI version async before presenting.
+
+## Status bar menu
+
+- Header reflects auth: "Signed in to grok CLI" / "Sign in required — run grok login".
+- Green/red dot via `updateAuthIndicator(authenticated:)`.
+- Signed-out menu items: **Run `grok login` in Terminal…**, **Retry Connection** (posts `.retryConnectionRequested`).
+- **Settings…** (⌘,) posts `.openSettingsRequested`.
+- Check for Updates / Upgrade Available → `UpdatePanel.show` directly after check; do not block menu on CLI version checks.
+
+## Window restore
+
+`AppDelegate` — validate saved frames before applying; use `open` for `make run` launches.
+
+## After changing panels or menu bar
+
+Run `make test` if logic changed; update `ARCHITECTURE.md` (UI layout, in-app updates) and `README.md` for user-visible behavior. See `docs-and-tests.mdc`.
+
+---
+> Source: [rimusz/grok-build-desktop](https://github.com/rimusz/grok-build-desktop) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-14 -->
