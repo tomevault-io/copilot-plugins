@@ -4,7 +4,7 @@
   "repo": "ahtola",
   "description": "An experimental C# port of Turso\u2019s SQLite-compatible database engine",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Devolutions/ahtola",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-15T02:31:20Z"
+  "distributed_at": "2026-08-15T02:31:57Z"
 }
