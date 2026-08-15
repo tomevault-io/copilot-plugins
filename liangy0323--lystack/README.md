@@ -7,11 +7,11 @@ Production-grade layered monorepo — Rsbuild, pnpm catalog, HTTP dependency inj
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [liangy0323/LYStack](https://github.com/liangy0323/LYStack).
+Original source: `CLAUDE.md` in [liangy0323/LYStack](https://github.com/liangy0323/LYStack).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
