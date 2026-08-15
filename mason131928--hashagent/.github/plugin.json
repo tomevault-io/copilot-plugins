@@ -1,0 +1,9 @@
+{
+  "name": "mason131928--hashagent",
+  "displayName": "hashagent",
+  "description": "Share an AI agent as a URL \u2014 runs locally in your browser via WebGPU. No server, no account, no install.",
+  "version": "1.0.0",
+  "author": "mason131928",
+  "homepage": "https://github.com/mason131928/hashagent",
+  "skills": []
+}
