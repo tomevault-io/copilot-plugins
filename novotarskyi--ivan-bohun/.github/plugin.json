@@ -1,0 +1,9 @@
+{
+  "name": "novotarskyi--ivan-bohun",
+  "displayName": "ivan-bohun",
+  "description": "A personal website served from six ESP32-S3 microcontrollers: elected load balancer, virtual-MAC failover, OTA with rollback. No cloud, no CDN, no Pi.",
+  "version": "1.0.0",
+  "author": "Novotarskyi",
+  "homepage": "https://github.com/Novotarskyi/ivan-bohun",
+  "skills": []
+}
