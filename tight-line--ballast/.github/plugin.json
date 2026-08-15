@@ -1,0 +1,9 @@
+{
+  "name": "tight-line--ballast",
+  "displayName": "ballast",
+  "description": "Automated Kubernetes workload resource tracking and adjustment",
+  "version": "1.0.0",
+  "author": "Tight-Line",
+  "homepage": "https://github.com/Tight-Line/ballast",
+  "skills": []
+}
