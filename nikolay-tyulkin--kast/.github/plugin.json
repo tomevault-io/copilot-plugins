@@ -1,0 +1,9 @@
+{
+  "name": "nikolay-tyulkin--kast",
+  "displayName": "KAST",
+  "description": "KAST is a portable knitting assistant based on the Waveshare ESP32-S3-LCD-1.69",
+  "version": "1.0.0",
+  "author": "Nikolay-Tyulkin",
+  "homepage": "https://github.com/Nikolay-Tyulkin/KAST",
+  "skills": []
+}
