@@ -7,13 +7,13 @@ Living Docs —  a AI agent skill that runs your project's documentation as a li
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [ejklock/living-docs-skill](https://github.com/ejklock/living-docs-skill).
+Original source: `CLAUDE.md` in [ejklock/living-docs-skill](https://github.com/ejklock/living-docs-skill).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
