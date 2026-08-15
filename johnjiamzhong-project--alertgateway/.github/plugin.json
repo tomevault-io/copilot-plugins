@@ -1,0 +1,9 @@
+{
+  "name": "johnjiamzhong-project--alertgateway",
+  "displayName": "AlertGateway",
+  "description": "\u57fa\u4e8eRK3588S\u76844K\u8fb9\u7f18\u89c6\u89c9\u7f51\u5173\uff1a\u652f\u6301V4L2/RTMP/RTSP\u89c6\u9891\u6e90\u3001RKNN YOLOv8s\u63a8\u7406\u3001RGA+MPP\u786c\u4ef6\u52a0\u901f\u3001RTMP\u63a8\u6d41\u3001MQTT\u4e0a\u62a5\u53ca\u591a\u8defNPU\u8c03\u5ea6\u3002",
+  "version": "1.0.0",
+  "author": "johnjiamzhong-project",
+  "homepage": "https://github.com/johnjiamzhong-project/AlertGateway",
+  "skills": []
+}
