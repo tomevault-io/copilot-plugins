@@ -1,0 +1,9 @@
+{
+  "name": "jennhull-builds--dx-grid-inspector",
+  "displayName": "dx-grid-inspector",
+  "description": "Lightweight DX demo: template grid manager + spatial token calibration for React 19 & Tailwind CSS v4",
+  "version": "1.0.0",
+  "author": "JennHull-builds",
+  "homepage": "https://github.com/JennHull-builds/dx-grid-inspector",
+  "skills": []
+}
