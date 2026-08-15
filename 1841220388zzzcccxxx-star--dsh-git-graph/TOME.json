@@ -1,0 +1,44 @@
+{
+  "name": "dsh-git-graph",
+  "owner": "1841220388zzzcccxxx-star",
+  "repo": "dsh-git-graph",
+  "description": "Embedded git repository graph visualizer for the DeepSeek Harness Web GUI | \u5d4c\u5165\u5f0f Git \u4ed3\u5e93\u56fe\u8c31\u53ef\u89c6\u5316\u63d2\u4ef6\uff08\u63d0\u4ea4\u5386\u53f2\u56fe / \u5206\u652f\u8fc7\u6ee4 / \u6587\u4ef6 diff / VSCode \u5f0f\u672a\u63d0\u4ea4\u6539\u52a8\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/1841220388zzzcccxxx-star/dsh-git-graph",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-15T12:32:35Z"
+}
