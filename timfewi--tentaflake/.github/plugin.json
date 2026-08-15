@@ -1,0 +1,9 @@
+{
+  "name": "timfewi--tentaflake",
+  "displayName": "tentaflake",
+  "description": "Declaratively deploy & manage multiple isolated AI agents on a single NixOS machine \u2014 each with its own secrets, skills, and personality.",
+  "version": "1.0.0",
+  "author": "timfewi",
+  "homepage": "https://github.com/timfewi/tentaflake",
+  "skills": []
+}
