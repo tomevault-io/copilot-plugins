@@ -7,11 +7,11 @@ Bring Fable-style design taste to any AI coding agent. Free MIT design system fo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ajantoniou/fable-design-system](https://github.com/ajantoniou/fable-design-system).
+Original source: `AGENTS.md` in [ajantoniou/fable-design-system](https://github.com/ajantoniou/fable-design-system).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
