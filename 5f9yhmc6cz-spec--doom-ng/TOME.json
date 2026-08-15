@@ -4,7 +4,7 @@
   "repo": "doom-ng",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/5f9yhmc6cz-spec/doom-ng",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-15T01:26:28Z"
+  "distributed_at": "2026-08-15T01:29:44Z"
 }
