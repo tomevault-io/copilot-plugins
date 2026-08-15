@@ -7,11 +7,11 @@ Oh My Tianshu 是一款完全体开源 coding agent:在 dsh harness 基础之上
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [huiliyi37/oh-my-tianshu](https://github.com/huiliyi37/oh-my-tianshu).
+Original source: `CLAUDE.md` in [huiliyi37/oh-my-tianshu](https://github.com/huiliyi37/oh-my-tianshu).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
