@@ -1,0 +1,44 @@
+{
+  "name": "lunar-birthday-reminder",
+  "owner": "programer-man",
+  "repo": "lunar-birthday-reminder",
+  "description": "\u4e00\u4e2a\u4ee5\u9634\u5386\u751f\u65e5\u4e3a\u6838\u5fc3\u7684\u4e2a\u4eba\u63d0\u9192 App\uff0c\u5e2e\u4f60\u63d0\u524d\u63d0\u9192\u3001\u5230\u70b9\u53cd\u590d\u63d0\u9192\uff0c\u4ece\u6b64\u4e0d\u518d\u9519\u8fc7\u4eb2\u53cb\u7684\u751f\u65e5\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/programer-man/lunar-birthday-reminder",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-15T05:35:08Z"
+}
