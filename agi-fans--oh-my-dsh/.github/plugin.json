@@ -1,0 +1,9 @@
+{
+  "name": "agi-fans--oh-my-dsh",
+  "displayName": "oh-my-dsh",
+  "description": "omdsh is a plugin-first terminal coding agent built on DeepSeek Harness, with an interaction model inspired by oh-my-pi.",
+  "version": "1.0.0",
+  "author": "agi-fans",
+  "homepage": "https://github.com/agi-fans/oh-my-dsh",
+  "skills": []
+}
