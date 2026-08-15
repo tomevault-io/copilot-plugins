@@ -1,0 +1,9 @@
+{
+  "name": "hahahumble--storageui",
+  "displayName": "storageui",
+  "description": "\u2601\ufe0f Open file browser for S3, R2, and other storage backends.",
+  "version": "1.0.0",
+  "author": "hahahumble",
+  "homepage": "https://github.com/hahahumble/storageui",
+  "skills": []
+}
