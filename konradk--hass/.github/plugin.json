@@ -1,0 +1,9 @@
+{
+  "name": "konradk--hass",
+  "displayName": "hass",
+  "description": "Home Assistant Quickshell plugin for Omarchy 4",
+  "version": "1.0.0",
+  "author": "konradk",
+  "homepage": "https://github.com/konradk/hass",
+  "skills": []
+}
