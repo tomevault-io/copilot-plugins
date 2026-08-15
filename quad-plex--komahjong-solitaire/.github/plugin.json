@@ -1,0 +1,9 @@
+{
+  "name": "quad-plex--komahjong-solitaire",
+  "displayName": "komahjong-solitaire",
+  "description": "Native KOReader Mahjong Solitaire plugin with multiple 3D layouts, tile matching, scoring, hints, undo, shuffle, persistence, statistics, and e-ink-optimized rendering.",
+  "version": "1.0.0",
+  "author": "Quad-Plex",
+  "homepage": "https://github.com/Quad-Plex/komahjong-solitaire",
+  "skills": []
+}
