@@ -1,0 +1,9 @@
+{
+  "name": "s3ggie--miyoofin",
+  "displayName": "MiyooFin",
+  "description": "Native Jellyfin client for the Miyoo Mini Plus running OnionOS",
+  "version": "1.0.0",
+  "author": "S3ggie",
+  "homepage": "https://github.com/S3ggie/MiyooFin",
+  "skills": []
+}
