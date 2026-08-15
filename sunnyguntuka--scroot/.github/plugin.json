@@ -1,0 +1,9 @@
+{
+  "name": "sunnyguntuka--scroot",
+  "displayName": "scroot",
+  "description": "Local, deterministic, LLM-free response quality scoring for AI systems. Hand it a (query, response, context) triple - get back groundedness, completeness, relevance, consistency, and confidence scores",
+  "version": "1.0.0",
+  "author": "sunnyguntuka",
+  "homepage": "https://github.com/sunnyguntuka/scroot",
+  "skills": []
+}
