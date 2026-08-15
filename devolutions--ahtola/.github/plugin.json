@@ -1,0 +1,9 @@
+{
+  "name": "devolutions--ahtola",
+  "displayName": "ahtola",
+  "description": "An experimental C# port of Turso\u2019s SQLite-compatible database engine",
+  "version": "1.0.0",
+  "author": "Devolutions",
+  "homepage": "https://github.com/Devolutions/ahtola",
+  "skills": []
+}
