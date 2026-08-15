@@ -1,0 +1,9 @@
+{
+  "name": "jeremy-prt--bloub",
+  "displayName": "bloub",
+  "description": "SVG recreation of the x.ai bot avatar. One shape morphing through 14 states, measured off the reference video frame by frame.",
+  "version": "1.0.0",
+  "author": "jeremy-prt",
+  "homepage": "https://github.com/jeremy-prt/bloub",
+  "skills": []
+}
