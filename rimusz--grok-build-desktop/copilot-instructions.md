@@ -1,37 +1,70 @@
-## appkit-panels
+## docs-and-tests
 
-> AppKit panels, menu bar, and About-style UI metrics
+> Require documentation and test updates alongside code changes
 
 
-# AppKit panels & menu bar
+# Documentation, tests & Computer Use (required)
 
-## Shared styling
+Any **code change** — new features, behavior changes, bug fixes, refactors that alter contracts, new persistence keys, notifications, build scripts, or CLI integration — must include **updated docs**, **tests**, and **Computer Use verification** in the same work session. Do not leave documentation stale, ship untested logic, or mark work done without driving the running app.
 
-Use `AboutStyle` for About and Update panels:
+## Tests (required for every code change)
 
-- Width: 396pt; icon: 64pt; name: bold system; body: small system font.
-- Version lines: `AboutStyle.versionFont` + `AboutStyle.versionColor` (secondary).
-- Windows: `NSPanel`, `.titled` + `.closable`, hidden title, `underPageBackground`.
+1. Run `make test` before finishing.
+2. Add or extend tests in `Tests/GrokBuildTests/` for behavior you changed or introduced.
+3. Prefer extending an existing test file over creating a new harness (see `ARCHITECTURE.md` → Tests).
+4. Test pure logic (parsing, persistence round-trips, settings, version compare) without requiring a live `grok` process when possible.
+5. Skip new tests only when the change is docs-only or a trivial comment/format with zero behavior change.
 
-## About panel
+## Computer Use (required for every code change)
 
-Custom panel (not `orderFrontStandardAboutPanel`). Order: icon → name → Version → grok CLI line → description → centered link. Fetch CLI version async before presenting.
+`make test` alone is **not** enough. Every code change must also be verified in the **running GrokBuild app** via **Computer Use** — even when you did not edit SwiftUI views directly (services, persistence, restore flows, and CLI integration all surface in the live UI).
 
-## Status bar menu
+Any of these drivers works:
 
-- Header reflects auth: "Signed in to grok CLI" / "Sign in required — run grok login".
-- Green/red dot via `updateAuthIndicator(authenticated:)`.
-- Signed-out menu items: **Run `grok login` in Terminal…**, **Retry Connection** (posts `.retryConnectionRequested`).
-- **Settings…** (⌘,) posts `.openSettingsRequested`.
-- Check for Updates / Upgrade Available → `UpdatePanel.show` directly after check; do not block menu on CLI version checks.
+- **`user-grokbuild-computer-use` MCP** — **default.** Already installed and permission-granted in Cursor; dogfoods GrokBuild's own Computer Use helper. Tools: `snapshot` / `click` / `type` / `press` / `get` / `wait` / `screenshot` / `list_*`.
+- **`agent-desktop` directly** via Shell — fallback when you need extra verbs (`find`, `scroll`, `drag`, `set-value`, `select`, `toggle`, `expand`) or MCP gating blocks an action. Binary at `/opt/homebrew/bin/agent-desktop` or `~/.grokbuild/computer-use/`; `agent-desktop skills get desktop` for the observe→act loop.
+- **Orca's `computer-use` CLI** — situational only (`get-app-state` + `--element-index`); different model, not an `agent-desktop` wrapper.
 
-## Window restore
+**Preference order:** MCP → direct `agent-desktop` → Orca CLI.
 
-`AppDelegate` — validate saved frames before applying; use `open` for `make run` launches.
+**Steps (every change):**
 
-## After changing panels or menu bar
+1. Rebuild and relaunch: quit any running instance, then `make run` (`make build` alone does **not** refresh the running `.app`).
+2. Snapshot the accessibility tree (`computer_snapshot` / `agent-desktop snapshot --app GrokBuild`).
+3. Navigate to the **exact state your change affects** (tab, settings panel, empty state, restored session, etc.) and confirm behavior via snapshot, click/type, and screenshot when helpful.
+4. For non-UI service changes, still reach the user-visible outcome (e.g. transcript recovery → switch tabs and confirm messages; per-tab model → switch tabs and confirm model picker).
+5. Check interactive elements expose meaningful names/roles in the accessibility tree.
+6. Prefer non-destructive states; if you cannot reach a state live, say so explicitly — do not skip Computer Use silently.
+7. Clean up temporary screenshots afterward.
 
-Run `make test` if logic changed; update `ARCHITECTURE.md` (UI layout, in-app updates) and `README.md` for user-visible behavior. See `docs-and-tests.mdc`.
+**Skip Computer Use only when:** docs-only, test-only harness changes with zero app behavior change, or trivial comment/format with zero behavior change.
+
+Note: the MCP registered in Cursor is **not** the same process the grok agent uses inside a GrokBuild session at runtime.
+
+## Documentation — what to update
+
+| Change type | Update |
+|-------------|--------|
+| New/changed feature, service, UI flow, persistence key, notification | `ARCHITECTURE.md` (source map, persistence table, notifications, common tasks → files) |
+| User-visible capability or install/requirements | `README.md` |
+| Build, sign, notarize, release CI, scripts, bundling | `BUILDING.md`, `scripts/README.md` if scripts changed |
+| grok CLI integration surface | `.cursor/skills/grokbuild-grok-cli/SKILL.md`, `grok-cli-integration.mdc` if needed |
+| Release/version/update-check behavior | `.cursor/skills/grokbuild-release/SKILL.md` |
+| Dev workflow, make targets, testing | `.cursor/skills/grokbuild-dev/SKILL.md` |
+| Agent-facing bundled skill behavior | `GrokBuild/Resources/Skills/*/SKILL.md` |
+| Agent entry / repo conventions | `AGENTS.md` |
+
+`ARCHITECTURE.md` is the canonical internal reference — keep it accurate when structure or data flow changes.
+
+## Definition of done
+
+- [ ] Code compiles (`make build` or `swift build`)
+- [ ] `make test` passes; new/changed behavior covered in `Tests/GrokBuildTests/`
+- [ ] **Computer Use** verification in the running app (`make run`, then `user-grokbuild-computer-use` MCP, `agent-desktop`, or Orca `computer-use` CLI) — required for **every** code change, not only view edits
+- [ ] Relevant docs updated (at minimum `ARCHITECTURE.md` for non-trivial app changes)
+- [ ] User-facing changes reflected in `README.md` when applicable
+
+Only commit when the user explicitly asks.
 
 ---
 > Source: [rimusz/grok-build-desktop](https://github.com/rimusz/grok-build-desktop) — distributed by [TomeVault](https://tomevault.io).
