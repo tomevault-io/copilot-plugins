@@ -1,0 +1,9 @@
+{
+  "name": "mavogel--cdk-vscode-server",
+  "displayName": "cdk-vscode-server",
+  "description": "Set up your own VSCode Server on AWS in under 10 minutes",
+  "version": "1.0.0",
+  "author": "mavogel",
+  "homepage": "https://github.com/mavogel/cdk-vscode-server",
+  "skills": []
+}
