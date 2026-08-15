@@ -4,7 +4,7 @@
   "repo": "DeepSeek-Harness-GUI",
   "description": "DeepSeek-Harness-GUI",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yuanqiyibiansheng/DeepSeek-Harness-GUI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-15T08:31:24Z"
+  "distributed_at": "2026-08-15T08:32:42Z"
 }
