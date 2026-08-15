@@ -7,11 +7,11 @@ DeepSeek-Harness-GUI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [yuanqiyibiansheng/DeepSeek-Harness-GUI](https://github.com/yuanqiyibiansheng/DeepSeek-Harness-GUI).
+Original source: `AGENTS.md` in [yuanqiyibiansheng/DeepSeek-Harness-GUI](https://github.com/yuanqiyibiansheng/DeepSeek-Harness-GUI).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
