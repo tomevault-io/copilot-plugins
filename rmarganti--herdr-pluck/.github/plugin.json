@@ -1,0 +1,9 @@
+{
+  "name": "rmarganti--herdr-pluck",
+  "displayName": "herdr-pluck",
+  "description": "quickly copy pattern-matched strings from Herdr panes",
+  "version": "1.0.0",
+  "author": "rmarganti",
+  "homepage": "https://github.com/rmarganti/herdr-pluck",
+  "skills": []
+}
