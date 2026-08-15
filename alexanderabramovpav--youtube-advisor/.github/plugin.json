@@ -1,0 +1,9 @@
+{
+  "name": "alexanderabramovpav--youtube-advisor",
+  "displayName": "youtube-advisor",
+  "description": "Build an AI advisor SKILL from any YouTube channel \u2014 transcripts, BM25 + semantic RAG, verbatim quotes with timestamps.",
+  "version": "1.0.0",
+  "author": "AlexanderAbramovPav",
+  "homepage": "https://github.com/AlexanderAbramovPav/youtube-advisor",
+  "skills": []
+}
