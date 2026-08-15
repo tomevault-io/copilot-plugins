@@ -1,0 +1,9 @@
+{
+  "name": "wbfoss--domainintel",
+  "displayName": "domainintel",
+  "description": "Modern RDAP lookup tool with 14+ cybersecurity analysis tools. Domain   intelligence, SSL/TLS analysis, threat detection, email security (SPF/DMARC),   typosquatting detection & more. Built with Next.",
+  "version": "1.0.0",
+  "author": "wbfoss",
+  "homepage": "https://github.com/wbfoss/domainintel",
+  "skills": []
+}
