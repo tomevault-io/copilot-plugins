@@ -1,0 +1,9 @@
+{
+  "name": "timothywarner-org--ai901-cert-buddy-claude",
+  "displayName": "ai901-cert-buddy-claude",
+  "description": "AI-901 (Azure AI Fundamentals) study buddy built natively for Claude Code: exam-realistic questions, Microsoft Foundry labs, and study plans, grounded in Microsoft Learn via MCP, with subagents, skill",
+  "version": "1.0.0",
+  "author": "timothywarner-org",
+  "homepage": "https://github.com/timothywarner-org/ai901-cert-buddy-claude",
+  "skills": []
+}
