@@ -4,7 +4,7 @@
   "repo": "PromptGuard",
   "description": "PromptGuard provides a secure method to protect AI prompts through passcode encryption. Users can safely share encrypted prompts that require a passcode to unlock, ensuring confidentiality. Explore workflows, encryption techniques, and secure passcode management here.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AIPaPaCha/PromptGuard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-15T01:31:16Z"
+  "distributed_at": "2026-08-15T01:31:48Z"
 }
