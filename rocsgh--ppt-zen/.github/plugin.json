@@ -1,0 +1,9 @@
+{
+  "name": "rocsgh--ppt-zen",
+  "displayName": "ppt-zen",
+  "description": "A judgment layer for AI-made slides \u2014 not another PPT generator.",
+  "version": "1.0.0",
+  "author": "rocsgh",
+  "homepage": "https://github.com/rocsgh/ppt-zen",
+  "skills": []
+}
