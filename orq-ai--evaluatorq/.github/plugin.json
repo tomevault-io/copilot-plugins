@@ -1,0 +1,9 @@
+{
+  "name": "orq-ai--evaluatorq",
+  "displayName": "evaluatorq",
+  "description": "Evaluation module for the orq platfrom in python, including Red Teaming and Agent Simulation",
+  "version": "1.0.0",
+  "author": "orq-ai",
+  "homepage": "https://github.com/orq-ai/evaluatorq",
+  "skills": []
+}
