@@ -4,7 +4,7 @@
   "repo": "repo-context-ledger",
   "description": "Open Agent Skill that keeps repository context, feature specs, change handoffs, and README summaries synchronized across AI coding tools.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gviiisen/repo-context-ledger",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-15T18:32:46Z"
+  "distributed_at": "2026-08-15T18:36:30Z"
 }
