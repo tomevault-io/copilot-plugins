@@ -7,11 +7,11 @@ Evaluation module for the orq platfrom in python, including Red Teaming and Agen
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [orq-ai/evaluatorq](https://github.com/orq-ai/evaluatorq).
+Original source: `AGENTS.md` in [orq-ai/evaluatorq](https://github.com/orq-ai/evaluatorq).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
