@@ -1,0 +1,44 @@
+{
+  "name": "dsh-plugin-ya-workspace-sidebar",
+  "owner": "HuanLinOTO",
+  "repo": "dsh-plugin-ya-workspace-sidebar",
+  "description": "DSH Web \u5de5\u4f5c\u533a\u4fa7\u680f\u66ff\u4ee3\uff0c\u9876\u90e8\u5168\u5c40\u6700\u8fd1\u4f1a\u8bdd + Workspace\u2192Session \u4e8c\u7ea7\u83dc\u5355 + \u9762\u5305\u5c51 | DSH Web workspace sidebar replacement: top global recent sessions + Workspace\u2192Session two-level menu + breadcrumbs",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/HuanLinOTO/dsh-plugin-ya-workspace-sidebar",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-15T10:35:14Z"
+}
