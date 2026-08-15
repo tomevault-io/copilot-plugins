@@ -1,0 +1,9 @@
+{
+  "name": "sidick--amipilot",
+  "displayName": "amipilot",
+  "description": "AmiPilot: object-level GUI automation for classic AmigaOS \u2014 point at, locate, click, type, drag, launch, screenshot, and wait on real windows/gadgets by role, label, or manifest ID over a wire protoco",
+  "version": "1.0.0",
+  "author": "sidick",
+  "homepage": "https://github.com/sidick/amipilot",
+  "skills": []
+}
