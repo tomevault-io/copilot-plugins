@@ -1,0 +1,44 @@
+{
+  "name": "Tydora",
+  "owner": "zuorn",
+  "repo": "Tydora",
+  "description": "\u4e00\u4e2a\u73b0\u4ee3\u7684\u684c\u9762 Markdown \u7f16\u8f91\u5668\uff0c\u4e3a\u601d\u8003\u4e0e\u77e5\u8bc6\u7ba1\u7406\u800c\u751f\u3002 \u8f7b\u91cf\u3001\u5feb\u901f\u3001\u7f8e\u89c2\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zuorn/Tydora",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-15T00:56:59Z"
+}
