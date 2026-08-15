@@ -1,0 +1,9 @@
+{
+  "name": "frc2713--reeftracker",
+  "displayName": "ReefTracker",
+  "description": "An HMI for the 2025 FRC Game, Reefscape",
+  "version": "1.0.0",
+  "author": "FRC2713",
+  "homepage": "https://github.com/FRC2713/ReefTracker",
+  "skills": []
+}
