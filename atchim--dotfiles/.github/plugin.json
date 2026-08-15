@@ -1,0 +1,9 @@
+{
+  "name": "atchim--dotfiles",
+  "displayName": "dotfiles",
+  "description": "Personal dotfiles managed with chezmoi",
+  "version": "1.0.0",
+  "author": "atchim",
+  "homepage": "https://github.com/atchim/dotfiles",
+  "skills": []
+}
