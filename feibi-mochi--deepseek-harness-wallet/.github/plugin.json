@@ -1,0 +1,9 @@
+{
+  "name": "feibi-mochi--deepseek-harness-wallet",
+  "displayName": "deepseek-harness-wallet",
+  "description": "Balance monitoring, per-session spend & token tracking, low-balance alerts, and an official recharge shortcut for DeepSeek Harness. / \u4f59\u989d\u76d1\u63a7\u548c\u5145\u503c\u63d2\u4ef6",
+  "version": "1.0.0",
+  "author": "feibi-mochi",
+  "homepage": "https://github.com/feibi-mochi/deepseek-harness-wallet",
+  "skills": []
+}
