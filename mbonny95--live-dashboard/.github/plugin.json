@@ -1,0 +1,9 @@
+{
+  "name": "mbonny95--live-dashboard",
+  "displayName": "live_dashboard",
+  "description": "A light HTML | JS Home Assistant dashboard built from your areas. No need to type entity IDs to get started; optional modules for energy, irrigation, and cameras.",
+  "version": "1.0.0",
+  "author": "mbonny95",
+  "homepage": "https://github.com/mbonny95/live_dashboard",
+  "skills": []
+}
