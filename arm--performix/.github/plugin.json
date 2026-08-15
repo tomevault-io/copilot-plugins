@@ -1,0 +1,9 @@
+{
+  "name": "arm--performix",
+  "displayName": "performix",
+  "description": "Arm Performix: https://developer.arm.com/servers-and-cloud-computing/arm-performix",
+  "version": "1.0.0",
+  "author": "arm",
+  "homepage": "https://github.com/arm/performix",
+  "skills": []
+}
