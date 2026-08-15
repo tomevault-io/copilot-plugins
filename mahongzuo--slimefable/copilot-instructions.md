@@ -1,0 +1,40 @@
+## slimefable
+
+> 在改代码或资产之前，**先读项目 spec**，再执行任务。
+
+# SlimeFable — Agent 入口
+
+在改代码或资产之前，**先读项目 spec**，再执行任务。
+
+## 必读顺序
+
+1. [`.cursor/skills/slimefable-spec/SKILL.md`](.cursor/skills/slimefable-spec/SKILL.md) — 项目宪法与路由  
+2. 按任务继续：
+   - 编辑器 / MCP → [`.cursor/skills/slimefable-unreal-mcp/SKILL.md`](.cursor/skills/slimefable-unreal-mcp/SKILL.md)
+   - 日关卡 / `_Slime/Days` 内容目录 / 探索 Tag / 按日存档 → [`.cursor/skills/slimefable-day-levels/SKILL.md`](.cursor/skills/slimefable-day-levels/SKILL.md)
+   - 菜单 / HUD / UI 视觉 → [`.cursor/skills/slimefable-ui/SKILL.md`](.cursor/skills/slimefable-ui/SKILL.md)
+
+Cursor 规则 [`.cursor/rules/slimefable-agent-spec.mdc`](.cursor/rules/slimefable-agent-spec.mdc)（`alwaysApply`）会要求遵守上述流程。
+
+## 快速事实
+
+| 项 | 值 |
+|----|-----|
+| 引擎 | UE 5.8 |
+| 模块 | `SlimeFable` |
+| 默认地图 | `/Game/Maps/Main.Main` |
+| 日关卡 | `/Game/Maps/Days/MM/MMDD`（366，含 0229） |
+| 每日内容 | `/Game/_Slime/Days/MM/MMDD`（Quests / Actors / NPCs / Enemies / Audio / FX） |
+| Registry | `/Game/Data/DayLevels/DA_DayLevelRegistry` |
+| MCP | `http://127.0.0.1:8010/mcp`（见 `.mcp.json`） |
+| 批量脚本 | `create_day_levels.py`（地图）/ `create_day_content_folders.py`（内容目录） |
+
+## Cursor 用法
+
+- 打开本仓库后，Customize → Skills 应可见四个 `slimefable-*` skill。
+- 聊天中可 `/slimefable-spec`、`/slimefable-ui` 等手动调用。
+- 细节文档在各 skill 的 `references/` 下，按需再读。
+
+---
+> Source: [Mahongzuo/SlimeFable](https://github.com/Mahongzuo/SlimeFable) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-15 -->
