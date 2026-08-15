@@ -1,73 +1,125 @@
-## living-docs
+## living-docs-skill
 
-> Living Docs — keep documentation a living system (ADR/BDR/PRD/constitution, no-drift invariants, OKF format)
+> Project guidance for any agent working in this repo. These are **hard rules**, not
 
----
-name: living-docs
-description: Run a project's documentation as a living system — docs-first issues/PRDs, MADR-lite ADRs (supersede, never delete), Behavior Decision Records (BDRs), a project constitution, research artifacts, living Mermaid architecture diagrams, and semantic-index organization where every doc lands in exactly one place and indexes never drift. Use when setting up or maintaining project docs, writing an ADR/PRD/BDR/constitution/issue/research note, defining a term or acronym in the glossary, drawing or updating an architecture/flow/sequence diagram, splitting an oversized doc into an index, or enforcing the no-drift maintenance rule.
-version: "0.12.0"
-metadata:
-  type: skill
-  layer: procedural
-  tags: [documentation, adr, prd, bdr, constitution, issues, research, architecture, semantic-index]
----
+# CLAUDE.md — living-docs
 
-# Living Docs
+Project guidance for any agent working in this repo. These are **hard rules**, not
+suggestions. They override default behavior. When a rule and a convenience conflict, the
+rule wins.
 
-Treat documentation as a living system that stays in sync with the code, not a write-once artifact that rots. The discipline has one spine — **every piece of knowledge has exactly one home, that home is indexed, and nothing structural ships without its doc** — and several document types that hang off it: a constitution, ADRs, BDRs, PRDs, issues, research, architecture diagrams, and a semantic context index.
+## What this project is
 
-This skill is stack-agnostic. It governs *how* docs are organized and maintained, never *what* technology a project uses.
+`living-docs` is the deterministic layer of Living Docs authoring (see `docs/adr/0001`).
+A Rust CLI owns the mechanical, template-fillable steps (`new`, `brief`, `index`,
+`supersede`, `next`, `check`) so the authoring model never pays tokens for them. There is **no LLM
+inside the tool** — it is deterministic by construction.
 
----
+## Hard rules
 
-## Using this skill (progressive disclosure)
+### 1. No comments in code
 
-This SKILL.md is a **slim stub** — a trigger plus a task->topic router. The `living-docs` CLI
-holds the full, authoritative conventions and templates and discloses them progressively.
-**Before authoring anything, load the topic for your task and operate from it, not from this
-stub:**
+The only permitted comments are **language docblocks** documenting a type, its params, and
+its return — plus the rare non-obvious **why** (an invariant, a gotcha, a spec reference).
 
-- `living-docs skill living-docs --list` — discover every topic.
-- `living-docs skill living-docs --topic <topic>` — load that topic's full rules (+ template).
+- Rust: `///` (item docs) and `//!` (module docs) only.
+- **Forbidden:** any comment that restates *what* the code does, section banners
+  (`// --- discovery ---`), TODO/FIXME left in a merged change, and commented-out code.
+- If a block needs a comment to be understood, that is a signal to **extract a
+  well-named function** instead of explaining it.
 
-Piped output is minified JSON (machine default); `--plain` for human text, `--json` to force
-JSON. Topics: spine, procedure, adr, prd, bdr, constitution, issue-workflow, glossary,
-architecture-diagrams, semantic-index, doc-language, citation, enforcement-modes, check,
-okf-format, doc-trail, size-targets, about (run --list for the full set).
+Rationale: this repo already regressed on decorative banners twice (lessons 3514, 3606).
+Names and structure carry intent; comments drift and lie.
 
-This stub is a **pure router** (ADR 0017): it triggers and points at topics — it holds no rules
-inline. The **five core invariants** and the **CLI-owns-the-mechanics hard rule** are topics, not
-stub prose; load them before authoring:
+### 2. Self-explanatory code + complexity budget
 
-Write ONLY the body below the closing ---. Frontmatter and indexes are CLI-owned: `living-docs status` / `supersede` / `index`. (ADR 0019)
+- Intention-revealing names. Guard clauses and early returns over nesting.
+- Cyclomatic ≤ 10 (≤ 8 for new functions); cognitive complexity kept low.
+- Prefer deep modules with narrow interfaces over many shallow functions.
 
-- The five invariants (the spine) → `living-docs skill living-docs --topic spine`.
-- Authoring mechanics — CLI owns every deterministic step, you write only the prose →
-  `living-docs skill living-docs --topic procedure`.
+### 3. Tests assert behavior, not implementation
 
----
+- Every runtime/logic change ships with tests **in the same pass**. No patch without tests.
+- Tests assert observable behavior. A test that only mirrors the implementation is a smell.
+- The fitness functions in ADR 0001 (`new` output passes `check`; `index` is idempotent;
+  `supersede` leaves both records linked and conformant) stay green.
 
-## When to invoke
+### 4. Determinism boundary
 
-- Standing up documentation for a project (creating `docs/` structure, the docs index, ADR/issue/BDR/constitution directories) → `living-docs skill living-docs --topic procedure`.
-- **First time living-docs runs in a project** (no `## Living Docs` block in the project guide) → ask the enforcement-mode question and persist the answer → `living-docs skill living-docs --topic enforcement-modes`.
-- **Adopting living-docs in an existing/brownfield project** (decisions already made but undocumented) → `living-docs skill living-docs --topic procedure` (*Adopting living docs in an existing project*): inventory the decisions, **confirm each with the user before recording any ADR**, never back-fill by inference alone.
-- Writing or editing an **ADR** (an architectural/implementation decision) → `living-docs skill living-docs --topic adr` (load `--topic procedure` first if not already loaded this session).
-- Writing or editing a **PRD** (a product/feature requirement spec) → `living-docs skill living-docs --topic prd` (load `--topic procedure` first if not already loaded this session).
-- Writing or editing a **BDR** (observable behavior — inputs, outputs, Given/When/Then scenarios, **and the Test Design matrix for how each is tested**) → `living-docs skill living-docs --topic bdr` (load `--topic procedure` first if not already loaded this session). A test-strategy *decision* (non-default level/technique, bar deviation) is an ADR `tags: [testing]`, not a new record type (no "TDR").
-- Specifying a **non-functional requirement** (performance, availability, security, scale) → a **quality-attribute scenario** bound to an instrument in the **PRD** (`living-docs skill living-docs --topic prd`, rule 9); the decision + fitness function go in an ADR. Not a new doc type.
-- Establishing or amending the **constitution** (foundational scope, data model, non-negotiables) → `living-docs skill living-docs --topic constitution` (load `--topic procedure` first if not already loaded this session).
-- Creating or editing an **issue/ticket** → `living-docs skill living-docs --topic issue-workflow` (load `--topic procedure` first if not already loaded this session).
-- Recording **research** (technology evaluation, external trade-offs) → load the **`research-artifacts`** skill. It owns the OKF research-note format (single file per note, no per-research subfolder), the source discipline, and the research → decision → issue traceable chain, and links back here for the ADR/BDR/issue artifacts. Pairs with the `deep-research` skill.
-- Drawing or updating an **architecture, data-flow, or tool-calling diagram** → `living-docs skill living-docs --topic architecture-diagrams`.
-- Defining a **term or acronym** the docs use → add it to the **glossary** (`docs/context/glossary.md`), one home per term → `living-docs skill living-docs --topic glossary`.
-- A doc has grown too large or mixes concerns → **split into a semantic index** → `living-docs skill living-docs --topic semantic-index`.
-- Sizing a record's body (aim ~100 lines, `check` advises at 120; research exempt; never trim a load-bearing rationale) → `living-docs skill living-docs --topic size-targets`.
-- Enforcing the **no-drift maintenance rule** after any structural change → `living-docs skill living-docs --topic enforcement-modes` (refusal triggers) and `living-docs skill living-docs --topic procedure` (maintaining loop).
-- Authoring or checking the **OKF format** of any doc (frontmatter `type`, reserved `index.md`/`log.md`, bundle-relative links, `# References`) → `living-docs skill living-docs --topic okf-format`.
-- Deciding **which language** the docs are written in (default English; user may override at session start and pin it) → `living-docs skill living-docs --topic doc-language`.
-- Understanding the **doc trail** (constitution → PRD → ADR/BDR → issues → code) or the **document map** (where each doc type lives) → `living-docs skill living-docs --topic doc-trail`.
-- Understanding how this skill **composes** with `okf-knowledge-format`, `research-artifacts`, or optional companions, or its **provenance** → `living-docs skill living-docs --topic about`.
+The tool never writes rationale prose, never chooses a doc's epistemic type, never resolves
+which alternative wins. Those belong to the authoring model. Everything the tool does must
+be reproducible from its inputs.
+
+### 5. Responsibility split + file-size ratchet (issue 0028)
+
+Maintainability is a gate, not an advisory. Layout rules for all Rust code:
+
+- **One responsibility per module.** `cli/src/main.rs` holds only clap wiring and
+  dispatch; every verb lives in `cli/src/commands/<verb>.rs`. New verbs are BORN in
+  their own module — never added to `main.rs`.
+- **Hard cap: 30 lines per function.** Enforced by clippy `too_many_lines`
+  (`clippy.toml` threshold 30, `-D warnings` in CI). This is the primary clarity
+  instrument — Clean Code's limit is about functions, not files.
+- **Hard cap: 300 lines per `.rs` file** (sibling `tests.rs` has its own 300 cap).
+  Enforced by `scripts/check-file-size.sh` (ratchet: a grandfathered file may only
+  shrink; growing one fails the check).
+- **Sibling test files.** A `#[cfg(test)]` module over ~100 lines moves to
+  `<module>/tests.rs` via `mod tests;` — private access preserved, production file clean.
+- Deep modules still win over many shallow files (rule 2): split by responsibility,
+  never by line-count alone — the file cap is the backstop, not the design driver.
+
+## Architecture
+
+Target shape is a **modular monolith** (start here; split into crates only when a real
+seam demands it), organized hexagonally:
+
+```
+living-docs-core   — domain + ports (traits), no I/O
+    ports:  DocStore (read/write records) · SearchIndex (FTS5)
+adapters:
+    fs-store   (LocalFileStorage)  → .md files
+    db-store   (DatabaseStorage)   → SQLite normalized + FTS5
+fronts:
+    cli   → depends on core, injects an adapter
+    web   → axum server on core, reads the db-store projection
+```
+
+### Locked decisions
+
+- **Single repository, Cargo workspace (monorepo).** `core`, `cli`, and `web` share one
+  domain and ship together. They live as members of one workspace, not separate repos:
+  domain changes stay atomic (one PR, one CI), with no cross-repo version coordination.
+  The hexagonal ports are the extraction seam — splitting into separate repos later is
+  cheap *because* the boundary already exists. **Reconsider only when** a front needs an
+  independent deploy cadence or separate ownership; until then, splitting adds release
+  friction for no gain.
+- **Config-selected, mutually exclusive backends (ADR 0003).** `fs-store` and `db-store`
+  sit behind `DocStore`, chosen by config/flag — never both at once. Exactly one backend is
+  authoritative per deployment (file-mode: `.md` in git; db-mode: the database), so there is
+  **no bidirectional sync and no source-of-truth conflict to resolve** — that framing was
+  considered and explicitly rejected. ADR 0016 layers Atlas's write path on top of this:
+  browser authoring is db-mode-only, gated by a per-record `revision` optimistic-concurrency
+  precondition, never a cross-backend merge.
+- **Web = Rust/axum reusing `living-docs-core`.** One language, one build, no model drift
+  between CLI and web. Web reads the db-store projection.
+- **CLI search defaults to the DB backend**, FTS5-powered (`living-docs search "..."`),
+  with an explicit sync step to (re)build the projection from records.
+- **Delivery sequence:** S1 extract `living-docs-core` + ports (refactor, no new behavior)
+  → S2 `db-store` + FTS5 + `search` → S3 web. Each slice is vertical and demoable.
+
+## Working conventions
+
+- Every architectural fork (adapter sync contract, DB schema, web surface) gets an ADR via
+  `living-docs new adr "..."` **before** code. Decide, then implement.
+- `living-docs check` must pass over `docs/` — it is the doc-gate.
+- **Docs authoring is CLI-first and gate-enforced (ADR 0021).** Write ONLY the body below
+  the closing `---` of a record; numbering, frontmatter, supersede links, and index rows
+  come from `living-docs new`/`status`/`supersede`/`index`/`fmt`. A PreToolUse hook
+  (`.claude/settings.json` → `skills/living-docs/hooks/block-docs-handwrite.sh`) blocks
+  hand-writes under `docs/{adr,bdr,prd,issues}/`, and `.githooks/pre-commit` runs the
+  doc-gate before every commit.
+- Conventional Commits; ticket ID when one exists. No AI attribution in commit messages.
+- Never bypass a failing hook with `--no-verify`; fix the cause.
 
 ---
 > Source: [ejklock/living-docs-skill](https://github.com/ejklock/living-docs-skill) — distributed by [TomeVault](https://tomevault.io).
