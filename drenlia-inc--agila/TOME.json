@@ -4,7 +4,7 @@
   "repo": "agila",
   "description": "Simple and easy Kanban web application built with React TS PostgreSQL",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/drenlia-inc/agila",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-15T13:34:43Z"
+  "distributed_at": "2026-08-15T13:35:23Z"
 }
