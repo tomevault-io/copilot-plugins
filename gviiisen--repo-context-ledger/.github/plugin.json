@@ -1,0 +1,9 @@
+{
+  "name": "gviiisen--repo-context-ledger",
+  "displayName": "repo-context-ledger",
+  "description": "Open Agent Skill that keeps repository context, feature specs, change handoffs, and README summaries synchronized across AI coding tools.",
+  "version": "1.0.0",
+  "author": "gviiisen",
+  "homepage": "https://github.com/gviiisen/repo-context-ledger",
+  "skills": []
+}
