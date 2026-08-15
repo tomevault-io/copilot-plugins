@@ -1,0 +1,9 @@
+{
+  "name": "ejklock--living-docs-skill",
+  "displayName": "living-docs-skill",
+  "description": "Living Docs \u2014  a AI agent skill that runs your project's documentation as a living system: constitution, ADRs, BDRs, PRDs, issues, research notes & Mermaid architecture diagrams under five no-drift go",
+  "version": "1.0.0",
+  "author": "ejklock",
+  "homepage": "https://github.com/ejklock/living-docs-skill",
+  "skills": []
+}
