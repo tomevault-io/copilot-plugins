@@ -1,12 +1,11 @@
-## promptguard
+## project-bootstrap
 
-> Read and follow `/AGENTS.md` as the canonical operating guide before proposing or changing project work. In an untouched copy, inspect `/project/PROJECT_STATE.md` and obey the first-turn intake contract exactly.
+> Canonical project startup and lifecycle protocol
 
-# Repository instructions
 
-Read and follow `/AGENTS.md` as the canonical operating guide before proposing or changing project work. In an untouched copy, inspect `/project/PROJECT_STATE.md` and obey the first-turn intake contract exactly.
+Read and follow `AGENTS.md` before project work. Inspect `project/PROJECT_STATE.md` and obey its current phase, including the exact first-turn intake contract when the starter is untouched.
 
-Use the workflow under `/.agents/skills/` that matches the current phase. Keep product truth and verification evidence under `/project/`; do not duplicate shared rules here.
+Load the matching workflow from `.agents/skills/`. Keep `AGENTS.md` canonical; do not duplicate or weaken it in generated rules.
 
 ---
 > Source: [AIPaPaCha/PromptGuard](https://github.com/AIPaPaCha/PromptGuard) — distributed by [TomeVault](https://tomevault.io).
