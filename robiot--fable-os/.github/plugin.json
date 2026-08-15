@@ -1,0 +1,9 @@
+{
+  "name": "robiot--fable-os",
+  "displayName": "fable-os",
+  "description": "An agentic operating system where the kernel is controlled directly by Claude",
+  "version": "1.0.0",
+  "author": "robiot",
+  "homepage": "https://github.com/robiot/fable-os",
+  "skills": []
+}
