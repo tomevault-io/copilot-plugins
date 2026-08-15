@@ -1,0 +1,44 @@
+{
+  "name": "XingGraph",
+  "owner": "xing-kj",
+  "repo": "XingGraph",
+  "description": "Knowledge-graph RAG for LLM agents: ontology-driven graph building (RDF/OWL), structured-doc chunking with title attribution, multi-subject WIKI-completion retrieval, model-hop traversal, traceable answers on Neo4j. Built for traceable, low-hallucination LLM memory.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xing-kj/XingGraph",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-15T16:30:41Z"
+}
