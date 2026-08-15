@@ -1,0 +1,9 @@
+{
+  "name": "ronglecat--deepseek-app",
+  "displayName": "deepseek-app",
+  "description": "Desktop workbench for DeepSeek Harness \u2014 Grok App visual shell, DSH engine (unofficial)",
+  "version": "1.0.0",
+  "author": "RongleCat",
+  "homepage": "https://github.com/RongleCat/deepseek-app",
+  "skills": []
+}
