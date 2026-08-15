@@ -1,0 +1,9 @@
+{
+  "name": "aipapacha--promptguard",
+  "displayName": "PromptGuard",
+  "description": "PromptGuard provides a secure method to protect AI prompts through passcode encryption. Users can safely share encrypted prompts that require a passcode to unlock, ensuring confidentiality. Explore wo",
+  "version": "1.0.0",
+  "author": "AIPaPaCha",
+  "homepage": "https://github.com/AIPaPaCha/PromptGuard",
+  "skills": []
+}
