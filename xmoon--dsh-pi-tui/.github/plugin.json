@@ -1,0 +1,9 @@
+{
+  "name": "xmoon--dsh-pi-tui",
+  "displayName": "dsh-pi-tui",
+  "description": "A third-party TUI mode for DeepSeek Harness (dsh), built on a vendored fork of pi-tui",
+  "version": "1.0.0",
+  "author": "XMoon",
+  "homepage": "https://github.com/XMoon/dsh-pi-tui",
+  "skills": []
+}
