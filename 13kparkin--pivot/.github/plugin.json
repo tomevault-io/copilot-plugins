@@ -1,0 +1,9 @@
+{
+  "name": "13kparkin--pivot",
+  "displayName": "Pivot",
+  "description": "Pivot (T3.14): T3 Code fork pivoted to omp \u2014 remote-ready agent control surface.",
+  "version": "1.0.0",
+  "author": "13kparkin",
+  "homepage": "https://github.com/13kparkin/Pivot",
+  "skills": []
+}
