@@ -1,0 +1,44 @@
+{
+  "name": "youtube-advisor",
+  "owner": "AlexanderAbramovPav",
+  "repo": "youtube-advisor",
+  "description": "Build an AI advisor SKILL from any YouTube channel \u2014 transcripts, BM25 + semantic RAG, verbatim quotes with timestamps.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AlexanderAbramovPav/youtube-advisor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-15T01:13:49Z"
+}
