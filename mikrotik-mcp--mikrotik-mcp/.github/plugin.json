@@ -1,0 +1,9 @@
+{
+  "name": "mikrotik-mcp--mikrotik-mcp",
+  "displayName": "mikrotik-mcp",
+  "description": "A Bun-native MCP server that turns one or more MikroTik routers into +880 tools your AI can drive. Firewall \u00b7 routing \u00b7 DHCP/DNS \u00b7 wireless \u00b7 QoS \u00b7 and a complete VPN suite \u2014 over SSH, with transactio",
+  "version": "1.0.0",
+  "author": "mikrotik-mcp",
+  "homepage": "https://github.com/mikrotik-mcp/mikrotik-mcp",
+  "skills": []
+}
