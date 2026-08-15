@@ -4,7 +4,7 @@
   "repo": "artgraph",
   "description": "Deterministic spec-to-code context for AI coding agents \u2014 one graph linking requirements, docs, code, and tests.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mori-shin-x/artgraph",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-15T01:00:38Z"
+  "distributed_at": "2026-08-15T01:06:29Z"
 }
