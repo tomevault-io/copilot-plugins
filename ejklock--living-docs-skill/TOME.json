@@ -4,7 +4,7 @@
   "repo": "living-docs-skill",
   "description": "Living Docs \u2014  a AI agent skill that runs your project's documentation as a living system: constitution, ADRs, BDRs, PRDs, issues, research notes & Mermaid architecture diagrams under five no-drift governance invariants. OKF-formatted, stack-agnostic. Works with Claude Code, Cursor, Copilot, OpenCode & Pi.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ejklock/living-docs-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-15T00:50:09Z"
+  "distributed_at": "2026-08-15T01:05:54Z"
 }
