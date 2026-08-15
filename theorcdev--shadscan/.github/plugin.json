@@ -1,0 +1,9 @@
+{
+  "name": "theorcdev--shadscan",
+  "displayName": "shadscan",
+  "description": "Deterministic UI audits for shadcn apps, built for your terminal, your CI, and your AI agent.",
+  "version": "1.0.0",
+  "author": "TheOrcDev",
+  "homepage": "https://github.com/TheOrcDev/shadscan",
+  "skills": []
+}
