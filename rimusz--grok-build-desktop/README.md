@@ -7,13 +7,13 @@ GrokBuild Desktop App is a native SwiftUI macOS shell for the grok CLI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [rimusz/grok-build-desktop](https://github.com/rimusz/grok-build-desktop).
+Original source: `AGENTS.md` in [rimusz/grok-build-desktop](https://github.com/rimusz/grok-build-desktop).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
