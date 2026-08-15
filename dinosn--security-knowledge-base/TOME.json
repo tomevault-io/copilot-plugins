@@ -4,7 +4,7 @@
   "repo": "security-knowledge-base",
   "description": "Local-first, evidence-led security knowledge base with a model-neutral JSON CLI, immutable sources, and human-reviewed proposals.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dinosn/security-knowledge-base",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-15T04:33:18Z"
+  "distributed_at": "2026-08-15T04:34:51Z"
 }
