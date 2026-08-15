@@ -1,0 +1,9 @@
+{
+  "name": "rwilliamspbg-ops--ghostlink",
+  "displayName": "Ghostlink",
+  "description": "Distributed LLM inference fabric for heterogeneous local clusters. Features zero-copy SPSC ring buffers, automated tuning, and an OpenAI-compatible API.",
+  "version": "1.0.0",
+  "author": "rwilliamspbg-ops",
+  "homepage": "https://github.com/rwilliamspbg-ops/Ghostlink",
+  "skills": []
+}
