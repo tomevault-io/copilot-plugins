@@ -1,0 +1,9 @@
+{
+  "name": "moasq--agentic-ship",
+  "displayName": "agentic-ship",
+  "description": "Open-source toolkit for shipping real products with coding agents: durable product contracts, cross-host skills, resumable service connections, and deterministic verification gates.",
+  "version": "1.0.0",
+  "author": "moasq",
+  "homepage": "https://github.com/moasq/agentic-ship",
+  "skills": []
+}
