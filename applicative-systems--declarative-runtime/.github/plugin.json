@@ -1,0 +1,9 @@
+{
+  "name": "applicative-systems--declarative-runtime",
+  "displayName": "declarative-runtime",
+  "description": "Service runtime configuration through Terraform Providers",
+  "version": "1.0.0",
+  "author": "applicative-systems",
+  "homepage": "https://github.com/applicative-systems/declarative-runtime",
+  "skills": []
+}
