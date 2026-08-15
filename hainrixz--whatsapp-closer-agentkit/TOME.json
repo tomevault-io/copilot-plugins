@@ -1,0 +1,44 @@
+{
+  "name": "whatsapp-closer-agentkit",
+  "owner": "Hainrixz",
+  "repo": "whatsapp-closer-agentkit",
+  "description": "Repo blueprint para Claude Code: no trae la app, trae las instrucciones para construirla en tu m\u00e1quina paso a paso. Un agente que atiende cada chat de WhatsApp como setter y closer: califica, responde la objeci\u00f3n, agenda y escribe el CRM. 16 archivos por fase, 30 versiones fijadas, compuerta de 23 chequeos. En espa\u00f1ol.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Hainrixz/whatsapp-closer-agentkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-15T20:31:32Z"
+}
