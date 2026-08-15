@@ -1,0 +1,44 @@
+{
+  "name": "second-brain",
+  "owner": "LindaHaviv",
+  "repo": "second-brain",
+  "description": "Build a second brain every AI can share: your content in Oracle AI Database 26ai \u2014 semantic search with in-database embeddings, a self-compiling wiki, four kinds of agent memory, and an MCP server that plugs it into Claude, ChatGPT, and any MCP client. Runs on the free local container or Always Free cloud.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LindaHaviv/second-brain",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-15T01:15:07Z"
+}
