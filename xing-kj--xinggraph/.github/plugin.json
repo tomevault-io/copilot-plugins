@@ -1,0 +1,9 @@
+{
+  "name": "xing-kj--xinggraph",
+  "displayName": "XingGraph",
+  "description": "Knowledge-graph RAG for LLM agents: ontology-driven graph building (RDF/OWL), structured-doc chunking with title attribution, multi-subject WIKI-completion retrieval, model-hop traversal, traceable an",
+  "version": "1.0.0",
+  "author": "xing-kj",
+  "homepage": "https://github.com/xing-kj/XingGraph",
+  "skills": []
+}
