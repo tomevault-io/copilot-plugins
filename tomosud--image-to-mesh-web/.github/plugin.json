@@ -1,0 +1,9 @@
+{
+  "name": "tomosud--image-to-mesh-web",
+  "displayName": "Image_to_Mesh_web",
+  "description": "Commercial-use-ready browser tool for generating and exporting 3D meshes from a single image. \u5546\u7528\u5229\u7528\u53ef\u80fd\u30011\u679a\u306e\u753b\u50cf\u304b\u30893D\u30e1\u30c3\u30b7\u30e5\u3092\u751f\u6210\u30fb\u51fa\u529b\u3059\u308b\u30d6\u30e9\u30a6\u30b6\u30c4\u30fc\u30eb\u3002",
+  "version": "1.0.0",
+  "author": "tomosud",
+  "homepage": "https://github.com/tomosud/Image_to_Mesh_web",
+  "skills": []
+}
