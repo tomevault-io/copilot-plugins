@@ -1,0 +1,9 @@
+{
+  "name": "dinosn--security-knowledge-base",
+  "displayName": "security-knowledge-base",
+  "description": "Local-first, evidence-led security knowledge base with a model-neutral JSON CLI, immutable sources, and human-reviewed proposals.",
+  "version": "1.0.0",
+  "author": "dinosn",
+  "homepage": "https://github.com/dinosn/security-knowledge-base",
+  "skills": []
+}
