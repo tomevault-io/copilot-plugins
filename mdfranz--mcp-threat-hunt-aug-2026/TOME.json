@@ -4,7 +4,7 @@
   "repo": "mcp-threat-hunt-aug-2026",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mdfranz/mcp-threat-hunt-aug-2026",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-15T02:32:25Z"
+  "distributed_at": "2026-08-15T02:34:18Z"
 }
