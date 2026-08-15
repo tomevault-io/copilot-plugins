@@ -1,70 +1,36 @@
-## docs-and-tests
+## grok-cli-integration
 
-> Require documentation and test updates alongside code changes
+> grok CLI integration — process lifecycle, commands, updates, auth, custom models / Cursor bridge
 
 
-# Documentation, tests & Computer Use (required)
+# grok CLI integration
 
-Any **code change** — new features, behavior changes, bug fixes, refactors that alter contracts, new persistence keys, notifications, build scripts, or CLI integration — must include **updated docs**, **tests**, and **Computer Use verification** in the same work session. Do not leave documentation stale, ship untested logic, or mark work done without driving the running app.
+## Services
 
-## Tests (required for every code change)
+- `GrokProcess` — spawns `grok agent … stdio`, parses ACP, posts `.grokStatusChanged`.
+- `GrokCLIService` — one-shot CLI commands (`run`, session list, `--version`, `formatVersionOutput`).
+- `ChatStore` — bridges UI to `GrokProcess`, session resume IDs, permission settings.
+- `UpdateChecker` — notarized GitHub releases for app; `grok update --check --json` for CLI.
+- `CustomModelStore` / `ProviderStore` — OpenAI-compatible models/providers in `~/.grok/config.toml` (Settings → Models). Display names: `ProviderModelNaming` (Provider + model). Settings lists: `CustomModelListOrdering` (A–Z by Provider + model). Custom-provider editor: `CustomProviderExample` (Spark dummy-key LAN example).
+- `CursorBridgeRuntime` + `CursorBridge` + `CursorBridgeKeychain` — managed Cursor OpenAI sidecar on `127.0.0.1:18787` (bundled Node/`@cursor/sdk`). Real key is **not** in config.toml (`api_key = "local"`); SDK auth via env `CURSOR_API_KEY` and `cursor-bridge-auth.mjs` (`resolveCursorApiKey` — ignore grok session JWT Bearer). Requires Node ≥ 22.13.
 
-1. Run `make test` before finishing.
-2. Add or extend tests in `Tests/GrokBuildTests/` for behavior you changed or introduced.
-3. Prefer extending an existing test file over creating a new harness (see `ARCHITECTURE.md` → Tests).
-4. Test pure logic (parsing, persistence round-trips, settings, version compare) without requiring a live `grok` process when possible.
-5. Skip new tests only when the change is docs-only or a trivial comment/format with zero behavior change.
+## After changing these services
 
-## Computer Use (required for every code change)
+Run `make test` and update `ARCHITECTURE.md`, `README.md` (if user-visible), and this rule or `grokbuild-grok-cli` skill when integration contracts change. Cursor bridge JS auth tests: `node --test GrokBuild/Resources/CursorBridge/cursor-bridge-auth.test.mjs`.
 
-`make test` alone is **not** enough. Every code change must also be verified in the **running GrokBuild app** via **Computer Use** — even when you did not edit SwiftUI views directly (services, persistence, restore flows, and CLI integration all surface in the live UI).
+## CLI location
 
-Any of these drivers works:
+`GrokCLIService.locateGrokCLI()` and `GrokProcess` share the same search paths (`~/.grok/bin/grok`, Homebrew, `PATH`, `GROK_CLI_PATH`).
 
-- **`user-grokbuild-computer-use` MCP** — **default.** Already installed and permission-granted in Cursor; dogfoods GrokBuild's own Computer Use helper. Tools: `snapshot` / `click` / `type` / `press` / `get` / `wait` / `screenshot` / `list_*`.
-- **`agent-desktop` directly** via Shell — fallback when you need extra verbs (`find`, `scroll`, `drag`, `set-value`, `select`, `toggle`, `expand`) or MCP gating blocks an action. Binary at `/opt/homebrew/bin/agent-desktop` or `~/.grokbuild/computer-use/`; `agent-desktop skills get desktop` for the observe→act loop.
-- **Orca's `computer-use` CLI** — situational only (`get-app-state` + `--element-index`); different model, not an `agent-desktop` wrapper.
+## Version display
 
-**Preference order:** MCP → direct `agent-desktop` → Orca CLI.
+Strip `grok ` prefix and `(hash)` from `grok --version` via `GrokCLIService.formatVersionOutput`.
 
-**Steps (every change):**
+## Do not
 
-1. Rebuild and relaunch: quit any running instance, then `make run` (`make build` alone does **not** refresh the running `.app`).
-2. Snapshot the accessibility tree (`computer_snapshot` / `agent-desktop snapshot --app GrokBuild`).
-3. Navigate to the **exact state your change affects** (tab, settings panel, empty state, restored session, etc.) and confirm behavior via snapshot, click/type, and screenshot when helpful.
-4. For non-UI service changes, still reach the user-visible outcome (e.g. transcript recovery → switch tabs and confirm messages; per-tab model → switch tabs and confirm model picker).
-5. Check interactive elements expose meaningful names/roles in the accessibility tree.
-6. Prefer non-destructive states; if you cannot reach a state live, say so explicitly — do not skip Computer Use silently.
-7. Clean up temporary screenshots afterward.
-
-**Skip Computer Use only when:** docs-only, test-only harness changes with zero app behavior change, or trivial comment/format with zero behavior change.
-
-Note: the MCP registered in Cursor is **not** the same process the grok agent uses inside a GrokBuild session at runtime.
-
-## Documentation — what to update
-
-| Change type | Update |
-|-------------|--------|
-| New/changed feature, service, UI flow, persistence key, notification | `ARCHITECTURE.md` (source map, persistence table, notifications, common tasks → files) |
-| User-visible capability or install/requirements | `README.md` |
-| Build, sign, notarize, release CI, scripts, bundling | `BUILDING.md`, `scripts/README.md` if scripts changed |
-| grok CLI integration surface | `.cursor/skills/grokbuild-grok-cli/SKILL.md`, `grok-cli-integration.mdc` if needed |
-| Release/version/update-check behavior | `.cursor/skills/grokbuild-release/SKILL.md` |
-| Dev workflow, make targets, testing | `.cursor/skills/grokbuild-dev/SKILL.md` |
-| Agent-facing bundled skill behavior | `GrokBuild/Resources/Skills/*/SKILL.md` |
-| Agent entry / repo conventions | `AGENTS.md` |
-
-`ARCHITECTURE.md` is the canonical internal reference — keep it accurate when structure or data flow changes.
-
-## Definition of done
-
-- [ ] Code compiles (`make build` or `swift build`)
-- [ ] `make test` passes; new/changed behavior covered in `Tests/GrokBuildTests/`
-- [ ] **Computer Use** verification in the running app (`make run`, then `user-grokbuild-computer-use` MCP, `agent-desktop`, or Orca `computer-use` CLI) — required for **every** code change, not only view edits
-- [ ] Relevant docs updated (at minimum `ARCHITECTURE.md` for non-trivial app changes)
-- [ ] User-facing changes reflected in `README.md` when applicable
-
-Only commit when the user explicitly asks.
+- Shell out with raw `Process` elsewhere — use `GrokCLIService` or `GrokProcess`.
+- Cache CLI version indefinitely in UI; refresh when About opens or on explicit update checks.
+- Put the Cursor user API key into `~/.grok/config.toml` or trust grok's `Authorization` Bearer for the managed bridge (it may be the xAI session JWT).
 
 ---
 > Source: [rimusz/grok-build-desktop](https://github.com/rimusz/grok-build-desktop) — distributed by [TomeVault](https://tomevault.io).
