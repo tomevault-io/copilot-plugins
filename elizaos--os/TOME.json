@@ -4,7 +4,7 @@
   "repo": "os",
   "description": "Agentic operating system built on elizaOS, Android Open Source and Debian Linux",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/elizaOS/os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-15T04:31:20Z"
+  "distributed_at": "2026-08-15T04:33:46Z"
 }
