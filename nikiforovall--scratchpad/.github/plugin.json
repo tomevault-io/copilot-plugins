@@ -1,0 +1,9 @@
+{
+  "name": "nikiforovall--scratchpad",
+  "displayName": "scratchpad",
+  "description": "CLI to organize temporary agent knowledge into scratchpads, with a read-only visual viewer.",
+  "version": "1.0.0",
+  "author": "NikiforovAll",
+  "homepage": "https://github.com/NikiforovAll/scratchpad",
+  "skills": []
+}
