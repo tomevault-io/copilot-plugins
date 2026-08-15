@@ -1,41 +1,73 @@
-## codegraph
+## living-docs
 
-> CodeGraph MCP usage guide — when to use which tool
+> Living Docs — keep documentation a living system (ADR/BDR/PRD/constitution, no-drift invariants, OKF format)
 
-<!-- CODEGRAPH_START -->
-## CodeGraph
+---
+name: living-docs
+description: Run a project's documentation as a living system — docs-first issues/PRDs, MADR-lite ADRs (supersede, never delete), Behavior Decision Records (BDRs), a project constitution, research artifacts, living Mermaid architecture diagrams, and semantic-index organization where every doc lands in exactly one place and indexes never drift. Use when setting up or maintaining project docs, writing an ADR/PRD/BDR/constitution/issue/research note, defining a term or acronym in the glossary, drawing or updating an architecture/flow/sequence diagram, splitting an oversized doc into an index, or enforcing the no-drift maintenance rule.
+version: "0.12.0"
+metadata:
+  type: skill
+  layer: procedural
+  tags: [documentation, adr, prd, bdr, constitution, issues, research, architecture, semantic-index]
+---
 
-This project has a CodeGraph MCP server (`codegraph_*` tools) configured. CodeGraph is a tree-sitter-parsed knowledge graph of every symbol, edge, and file. Reads are sub-millisecond and return structural information grep cannot.
+# Living Docs
 
-### When to prefer codegraph over native search
+Treat documentation as a living system that stays in sync with the code, not a write-once artifact that rots. The discipline has one spine — **every piece of knowledge has exactly one home, that home is indexed, and nothing structural ships without its doc** — and several document types that hang off it: a constitution, ADRs, BDRs, PRDs, issues, research, architecture diagrams, and a semantic context index.
 
-Use codegraph for **structural** questions — what calls what, what would break, where is X defined, what is X's signature. Use native grep/read only for **literal text** queries (string contents, comments, log messages) or after you already have a specific file open.
+This skill is stack-agnostic. It governs *how* docs are organized and maintained, never *what* technology a project uses.
 
-| Question | Tool |
-|---|---|
-| "Where is X defined?" / "Find symbol named X" | `codegraph_search` |
-| "What calls function Y?" | `codegraph_callers` |
-| "What does Y call?" | `codegraph_callees` |
-| "What would break if I changed Z?" | `codegraph_impact` |
-| "Show me Y's signature / source / docstring" | `codegraph_node` |
-| "Give me focused context for a task/area" | `codegraph_context` |
-| "See several related symbols' source at once" | `codegraph_explore` |
-| "What files exist under path/" | `codegraph_files` |
-| "Is the index healthy?" | `codegraph_status` |
+---
 
-### Rules of thumb
+## Using this skill (progressive disclosure)
 
-- **Answer directly — don't delegate exploration.** For "how does X work" / architecture / trace questions, answer with 2-3 codegraph calls: `codegraph_context` first, then ONE `codegraph_explore` for the source of the symbols it surfaces. Codegraph IS the pre-built index, so spawning a separate file-reading sub-task/agent — or running a grep + read loop — repeats work codegraph already did and costs more for the same answer.
-- **Trust codegraph results.** They come from a full AST parse. Do NOT re-verify them with grep — that's slower, less accurate, and wastes context.
-- **Don't grep first** when looking up a symbol by name. `codegraph_search` is faster and returns kind + location + signature in one call.
-- **Don't chain `codegraph_search` + `codegraph_node`** when you just want context — `codegraph_context` is one call.
-- **Don't loop `codegraph_node` over many symbols** — one `codegraph_explore` call returns several symbols' source grouped in a single capped call, while each separate node/Read call re-reads the whole context and costs far more.
-- **Index lag**: the file watcher debounces ~500ms behind writes; don't re-query immediately after editing a file in the same turn.
+This SKILL.md is a **slim stub** — a trigger plus a task->topic router. The `living-docs` CLI
+holds the full, authoritative conventions and templates and discloses them progressively.
+**Before authoring anything, load the topic for your task and operate from it, not from this
+stub:**
 
-### If `.codegraph/` doesn't exist
+- `living-docs skill living-docs --list` — discover every topic.
+- `living-docs skill living-docs --topic <topic>` — load that topic's full rules (+ template).
 
-The MCP server returns "not initialized." Ask the user: *"I notice this project doesn't have CodeGraph initialized. Want me to run `codegraph init -i` to build the index?"*
-<!-- CODEGRAPH_END -->
+Piped output is minified JSON (machine default); `--plain` for human text, `--json` to force
+JSON. Topics: spine, procedure, adr, prd, bdr, constitution, issue-workflow, glossary,
+architecture-diagrams, semantic-index, doc-language, citation, enforcement-modes, check,
+okf-format, doc-trail, size-targets, about (run --list for the full set).
+
+This stub is a **pure router** (ADR 0017): it triggers and points at topics — it holds no rules
+inline. The **five core invariants** and the **CLI-owns-the-mechanics hard rule** are topics, not
+stub prose; load them before authoring:
+
+Write ONLY the body below the closing ---. Frontmatter and indexes are CLI-owned: `living-docs status` / `supersede` / `index`. (ADR 0019)
+
+- The five invariants (the spine) → `living-docs skill living-docs --topic spine`.
+- Authoring mechanics — CLI owns every deterministic step, you write only the prose →
+  `living-docs skill living-docs --topic procedure`.
+
+---
+
+## When to invoke
+
+- Standing up documentation for a project (creating `docs/` structure, the docs index, ADR/issue/BDR/constitution directories) → `living-docs skill living-docs --topic procedure`.
+- **First time living-docs runs in a project** (no `## Living Docs` block in the project guide) → ask the enforcement-mode question and persist the answer → `living-docs skill living-docs --topic enforcement-modes`.
+- **Adopting living-docs in an existing/brownfield project** (decisions already made but undocumented) → `living-docs skill living-docs --topic procedure` (*Adopting living docs in an existing project*): inventory the decisions, **confirm each with the user before recording any ADR**, never back-fill by inference alone.
+- Writing or editing an **ADR** (an architectural/implementation decision) → `living-docs skill living-docs --topic adr` (load `--topic procedure` first if not already loaded this session).
+- Writing or editing a **PRD** (a product/feature requirement spec) → `living-docs skill living-docs --topic prd` (load `--topic procedure` first if not already loaded this session).
+- Writing or editing a **BDR** (observable behavior — inputs, outputs, Given/When/Then scenarios, **and the Test Design matrix for how each is tested**) → `living-docs skill living-docs --topic bdr` (load `--topic procedure` first if not already loaded this session). A test-strategy *decision* (non-default level/technique, bar deviation) is an ADR `tags: [testing]`, not a new record type (no "TDR").
+- Specifying a **non-functional requirement** (performance, availability, security, scale) → a **quality-attribute scenario** bound to an instrument in the **PRD** (`living-docs skill living-docs --topic prd`, rule 9); the decision + fitness function go in an ADR. Not a new doc type.
+- Establishing or amending the **constitution** (foundational scope, data model, non-negotiables) → `living-docs skill living-docs --topic constitution` (load `--topic procedure` first if not already loaded this session).
+- Creating or editing an **issue/ticket** → `living-docs skill living-docs --topic issue-workflow` (load `--topic procedure` first if not already loaded this session).
+- Recording **research** (technology evaluation, external trade-offs) → load the **`research-artifacts`** skill. It owns the OKF research-note format (single file per note, no per-research subfolder), the source discipline, and the research → decision → issue traceable chain, and links back here for the ADR/BDR/issue artifacts. Pairs with the `deep-research` skill.
+- Drawing or updating an **architecture, data-flow, or tool-calling diagram** → `living-docs skill living-docs --topic architecture-diagrams`.
+- Defining a **term or acronym** the docs use → add it to the **glossary** (`docs/context/glossary.md`), one home per term → `living-docs skill living-docs --topic glossary`.
+- A doc has grown too large or mixes concerns → **split into a semantic index** → `living-docs skill living-docs --topic semantic-index`.
+- Sizing a record's body (aim ~100 lines, `check` advises at 120; research exempt; never trim a load-bearing rationale) → `living-docs skill living-docs --topic size-targets`.
+- Enforcing the **no-drift maintenance rule** after any structural change → `living-docs skill living-docs --topic enforcement-modes` (refusal triggers) and `living-docs skill living-docs --topic procedure` (maintaining loop).
+- Authoring or checking the **OKF format** of any doc (frontmatter `type`, reserved `index.md`/`log.md`, bundle-relative links, `# References`) → `living-docs skill living-docs --topic okf-format`.
+- Deciding **which language** the docs are written in (default English; user may override at session start and pin it) → `living-docs skill living-docs --topic doc-language`.
+- Understanding the **doc trail** (constitution → PRD → ADR/BDR → issues → code) or the **document map** (where each doc type lives) → `living-docs skill living-docs --topic doc-trail`.
+- Understanding how this skill **composes** with `okf-knowledge-format`, `research-artifacts`, or optional companions, or its **provenance** → `living-docs skill living-docs --topic about`.
 
 ---
 > Source: [ejklock/living-docs-skill](https://github.com/ejklock/living-docs-skill) — distributed by [TomeVault](https://tomevault.io).
