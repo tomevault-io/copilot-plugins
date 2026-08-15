@@ -1,36 +1,33 @@
-## grok-cli-integration
+## grokbuild-project
 
-> grok CLI integration — process lifecycle, commands, updates, auth, custom models / Cursor bridge
+> GrokBuild architecture, build commands, and agent conventions
 
 
-# grok CLI integration
+# GrokBuild project
 
-## Services
+SwiftPM macOS menu-bar app — UI for `grok agent stdio`, not a replacement for the CLI.
 
-- `GrokProcess` — spawns `grok agent … stdio`, parses ACP, posts `.grokStatusChanged`.
-- `GrokCLIService` — one-shot CLI commands (`run`, session list, `--version`, `formatVersionOutput`).
-- `ChatStore` — bridges UI to `GrokProcess`, session resume IDs, permission settings.
-- `UpdateChecker` — notarized GitHub releases for app; `grok update --check --json` for CLI.
-- `CustomModelStore` / `ProviderStore` — OpenAI-compatible models/providers in `~/.grok/config.toml` (Settings → Models). Display names: `ProviderModelNaming` (Provider + model). Settings lists: `CustomModelListOrdering` (A–Z by Provider + model). Custom-provider editor: `CustomProviderExample` (Spark dummy-key LAN example).
-- `CursorBridgeRuntime` + `CursorBridge` + `CursorBridgeKeychain` — managed Cursor OpenAI sidecar on `127.0.0.1:18787` (bundled Node/`@cursor/sdk`). Real key is **not** in config.toml (`api_key = "local"`); SDK auth via env `CURSOR_API_KEY` and `cursor-bridge-auth.mjs` (`resolveCursorApiKey` — ignore grok session JWT Bearer). Requires Node ≥ 22.13.
+## Key facts
 
-## After changing these services
+- Target: `GrokBuild/` executable, entry `main.swift` + `AppDelegate` (not `GrokBuildApp.swift` @main).
+- Version: `VERSION` file → `AppVersion.display`.
+- Build: `make run`, `make test`, `make app`, `make release` (see `BUILDING.md`).
+- Full reference: `ARCHITECTURE.md`, agent entry: `AGENTS.md`.
 
-Run `make test` and update `ARCHITECTURE.md`, `README.md` (if user-visible), and this rule or `grokbuild-grok-cli` skill when integration contracts change. Cursor bridge JS auth tests: `node --test GrokBuild/Resources/CursorBridge/cursor-bridge-auth.test.mjs`.
+## When editing
 
-## CLI location
+- Keep changes focused; reuse existing services and notification names.
+- Do not add an Xcode project; stay on SwiftPM + Makefile scripts.
+- Menu bar icon: `GrokBuild/Resources/Assets.xcassets/MenuBarIcon.imageset/`.
+- **Docs + tests + Computer Use required** with every code change — see `.cursor/rules/docs-and-tests.mdc`.
+- Only commit when the user explicitly asks.
 
-`GrokCLIService.locateGrokCLI()` and `GrokProcess` share the same search paths (`~/.grok/bin/grok`, Homebrew, `PATH`, `GROK_CLI_PATH`).
+## Key docs
 
-## Version display
-
-Strip `grok ` prefix and `(hash)` from `grok --version` via `GrokCLIService.formatVersionOutput`.
-
-## Do not
-
-- Shell out with raw `Process` elsewhere — use `GrokCLIService` or `GrokProcess`.
-- Cache CLI version indefinitely in UI; refresh when About opens or on explicit update checks.
-- Put the Cursor user API key into `~/.grok/config.toml` or trust grok's `Authorization` Bearer for the managed bridge (it may be the xAI session JWT).
+- `ARCHITECTURE.md` — canonical app map (update when structure/flow changes)
+- `AGENTS.md` — agent entry
+- `BUILDING.md` — build, sign, release
+- `README.md` — user-facing features
 
 ---
 > Source: [rimusz/grok-build-desktop](https://github.com/rimusz/grok-build-desktop) — distributed by [TomeVault](https://tomevault.io).
