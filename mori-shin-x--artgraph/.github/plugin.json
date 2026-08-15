@@ -1,0 +1,9 @@
+{
+  "name": "mori-shin-x--artgraph",
+  "displayName": "artgraph",
+  "description": "Deterministic spec-to-code context for AI coding agents \u2014 one graph linking requirements, docs, code, and tests.",
+  "version": "1.0.0",
+  "author": "mori-shin-x",
+  "homepage": "https://github.com/mori-shin-x/artgraph",
+  "skills": []
+}
