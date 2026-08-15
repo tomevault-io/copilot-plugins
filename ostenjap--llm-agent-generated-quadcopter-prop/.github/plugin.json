@@ -1,0 +1,9 @@
+{
+  "name": "ostenjap--llm-agent-generated-quadcopter-prop",
+  "displayName": "LLM-Agent-generated-Quadcopter-Prop",
+  "description": "Autonomous multi-agent parametric design + CFD optimization using free local LLMs (Ollama), CadQuery, and OpenFOAM. $0 API cost.",
+  "version": "1.0.0",
+  "author": "ostenjap",
+  "homepage": "https://github.com/ostenjap/LLM-Agent-generated-Quadcopter-Prop",
+  "skills": []
+}
