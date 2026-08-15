@@ -1,0 +1,9 @@
+{
+  "name": "go-gost--wisper",
+  "displayName": "wisper",
+  "description": "GOST Tunnel Manager",
+  "version": "1.0.0",
+  "author": "go-gost",
+  "homepage": "https://github.com/go-gost/wisper",
+  "skills": []
+}
