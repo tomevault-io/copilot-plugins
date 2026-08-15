@@ -1,0 +1,9 @@
+{
+  "name": "shotgeek--shotgeek",
+  "displayName": "ShotGeek",
+  "description": "ShotGeek is an open source, NBA statistics and comparison platform built in Django.",
+  "version": "1.0.0",
+  "author": "ShotGeek",
+  "homepage": "https://github.com/ShotGeek/ShotGeek",
+  "skills": []
+}
