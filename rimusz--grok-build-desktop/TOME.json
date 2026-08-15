@@ -4,7 +4,7 @@
   "repo": "grok-build-desktop",
   "description": "GrokBuild Desktop App is a native SwiftUI macOS shell for the grok CLI",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rimusz/grok-build-desktop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-15T00:46:26Z"
+  "distributed_at": "2026-08-15T00:55:05Z"
 }
