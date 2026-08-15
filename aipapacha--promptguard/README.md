@@ -7,13 +7,13 @@ PromptGuard provides a secure method to protect AI prompts through passcode encr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [AIPaPaCha/PromptGuard](https://github.com/AIPaPaCha/PromptGuard).
+Original source: `CLAUDE.md` in [AIPaPaCha/PromptGuard](https://github.com/AIPaPaCha/PromptGuard).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
