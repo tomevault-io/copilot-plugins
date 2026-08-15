@@ -1,0 +1,9 @@
+{
+  "name": "multix0--localdrive",
+  "displayName": "LocalDrive",
+  "description": "Open source, self-hosted Google Drive alternative. One Go binary runs the server, with Flutter apps for Android, iOS, Windows, macOS, Linux and the browser. Files, folders, versions, trash, link shari",
+  "version": "1.0.0",
+  "author": "MultiX0",
+  "homepage": "https://github.com/MultiX0/LocalDrive",
+  "skills": []
+}
