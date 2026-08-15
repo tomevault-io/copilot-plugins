@@ -1,0 +1,9 @@
+{
+  "name": "scottcjn--agent-video-attestation",
+  "displayName": "agent-video-attestation",
+  "description": "AVAP \u2014 Agent Video Attestation Protocol: signed, blockchain-anchored agent-to-agent information transfer embedded in video files (RustChain + Ed25519). Prior-art disclosure 2026-06-19.",
+  "version": "1.0.0",
+  "author": "Scottcjn",
+  "homepage": "https://github.com/Scottcjn/agent-video-attestation",
+  "skills": []
+}
