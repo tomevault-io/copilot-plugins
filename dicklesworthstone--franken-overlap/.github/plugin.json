@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--franken-overlap",
+  "displayName": "franken_overlap",
+  "description": "Ultra-fast sparse-spectral textual overlap detection and approximate alignment in safe Rust",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/franken_overlap",
+  "skills": []
+}
