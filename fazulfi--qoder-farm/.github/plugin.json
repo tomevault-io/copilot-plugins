@@ -1,0 +1,9 @@
+{
+  "name": "fazulfi--qoder-farm",
+  "displayName": "qoder-farm",
+  "description": "Qoder (Qwen coding) autofarm + auto-inject \u2014 farm akun, generate PAT, inject Pro Trial ke 9router",
+  "version": "1.0.0",
+  "author": "fazulfi",
+  "homepage": "https://github.com/fazulfi/qoder-farm",
+  "skills": []
+}
