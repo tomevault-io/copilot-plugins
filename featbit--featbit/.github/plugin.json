@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "featbit",
   "homepage": "https://github.com/featbit/featbit",
-  "skills": []
+  "skills": [
+    {
+      "name": "featbit",
+      "description": ""
+    },
+    {
+      "name": "featbit",
+      "description": ""
+    }
+  ]
 }
