@@ -1,0 +1,44 @@
+{
+  "name": "marks-pi-harness",
+  "owner": "earlyaidopters",
+  "repo": "marks-pi-harness",
+  "description": "Mark's pi coding agent harness for fully-local LM Studio models: 14 extensions (visual self-verification, gates, offline guard) + website-building skills a local 122B can one-shot",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/earlyaidopters/marks-pi-harness",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T02:31:31Z"
+}
