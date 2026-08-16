@@ -2,9 +2,9 @@
   "name": "shinychat",
   "owner": "posit-dev",
   "repo": "shinychat",
-  "description": "Chat UI component for Shiny",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/posit-dev/shinychat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T10:06:34Z"
+  "distributed_at": "2026-08-16T20:31:50Z"
 }
