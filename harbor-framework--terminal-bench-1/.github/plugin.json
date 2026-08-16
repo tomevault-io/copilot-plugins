@@ -1,0 +1,9 @@
+{
+  "name": "harbor-framework--terminal-bench-1",
+  "displayName": "terminal-bench-1",
+  "description": "A benchmark for LLMs on complicated tasks in the terminal",
+  "version": "1.0.0",
+  "author": "harbor-framework",
+  "homepage": "https://github.com/harbor-framework/terminal-bench-1",
+  "skills": []
+}
