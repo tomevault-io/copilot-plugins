@@ -1,0 +1,14 @@
+{
+  "name": "setsunayukiovo--x64dbg-mcp",
+  "displayName": "x64dbg-mcp",
+  "description": "x64dbg-mcp",
+  "version": "1.0.0",
+  "author": "SetsunaYukiOvO",
+  "homepage": "https://github.com/SetsunaYukiOvO/x64dbg-mcp",
+  "skills": [
+    {
+      "name": "x64dbg-mcp",
+      "description": ""
+    }
+  ]
+}
