@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [hiyeshu/codeck](https://github.com/hiyeshu/code
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [hiyeshu/codeck](https://github.com/hiyeshu/codeck) — a repo with 206+ stars on GitHub.
+From [hiyeshu/codeck](https://github.com/hiyeshu/codeck) — a repo with 199+ stars on GitHub.
 
 ---
 
