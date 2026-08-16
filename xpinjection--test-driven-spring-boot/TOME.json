@@ -3,8 +3,8 @@
   "owner": "xpinjection",
   "repo": "test-driven-spring-boot",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,123 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/ij-debugger/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/ij-debugger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/speckit-plan/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/speckit-plan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/speckit-tasks/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/speckit-tasks/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/brainstorming/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/brainstorming/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/playwright-cli/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/playwright-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/speckit-analyze/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/speckit-analyze/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/speckit-specify/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/speckit-specify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/speckit-clarify/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/speckit-clarify/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/speckit-converge/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/speckit-converge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/speckit-checklist/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/speckit-checklist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/speckit-implement/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/speckit-implement/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/speckit-constitution/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/speckit-constitution/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/speckit-taskstoissues/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/speckit-taskstoissues/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/openspec-update-change/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/openspec-update-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "test-driven-spring-boot",
+      "path": ".claude/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/xpinjection/test-driven-spring-boot/tree/main/.claude/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/xpinjection/test-driven-spring-boot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-30T03:02:25Z"
+  "distributed_at": "2026-08-16T14:35:35Z"
 }
