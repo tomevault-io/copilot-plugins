@@ -1,73 +1,33 @@
 ## ltk-manager
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Conventions for everything under `src/`. Repo-wide guidance lives in the root `CLAUDE.md`.
 
-# CLAUDE.md
+# Frontend (React + TypeScript) - `src/`
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Conventions for everything under `src/`. Repo-wide guidance lives in the root `CLAUDE.md`.
 
-This file is the primary guidance document for the ltk-manager codebase.
-
-## Commands
-
-All commands run from the repo root.
-
-```bash
-# Full dev mode (Rust backend + React frontend with hot reload)
-pnpm tauri dev
-
-# Frontend only (skip Rust rebuild, faster iteration on UI)
-pnpm dev
-
-# Type check / lint / format / all three
-pnpm typecheck
-pnpm lint
-pnpm format
-pnpm check          # typecheck + lint + format:check
-
-# Production build
-pnpm tauri build
-
-# Rust-only operations (from workspace root)
-cargo clippy -p ltk-manager
-cargo fmt -p ltk-manager
-
-# Verbose backend logging
-RUST_LOG=ltk_manager=trace,tauri=info pnpm tauri dev
-```
-
-## Editing Rules
-
-**Always read files before editing them.** Never assume file contents from memory or prior context. When making bulk edits across multiple files, read all target files first, then perform edits.
-
-## Code Style
-
-From `.cursorrules`: avoid trivially descriptive comments. Only comment non-obvious business logic, workarounds, edge cases, or "why" decisions. Document all public Rust APIs with `///` doc comments.
-
-**No redundant comments.** Do not add inline comments that restate what the code already expresses. If the code is descriptive enough (clear variable names, well-known patterns like temp-file-then-rename, obvious API calls), leave it uncommented. This applies to AI-generated code and suggestions too — strip narration comments before committing.
-
-### JSX Conditional Rendering
+## JSX Conditional Rendering
 
 **Avoid ternary operators in JSX.** Use early returns or `{condition && <Component />}` instead.
 
 ```tsx
-// Good — early return
+// Good - early return
 if (isLoading) return <LoadingState />;
 if (error) return <ErrorState error={error} />;
 return <Content />;
 
-// Good — single-line conditional
+// Good - single-line conditional
 {
   hasItems && <ItemList items={items} />;
 }
 
-// Bad — ternary in JSX
+// Bad - ternary in JSX
 {
   isLoading ? <LoadingState /> : error ? <ErrorState /> : <Content />;
 }
 ```
 
-### Import Conventions
+## Import Conventions
 
 **Always import from barrel exports, never from subdirectories.** This keeps import paths stable and encapsulates internal structure.
 
@@ -79,13 +39,13 @@ return <Content />;
 import { Button, IconButton, useToast } from "@/components";
 import { ModCard, useInstalledMods } from "@/modules/library";
 
-// Bad — reaches into internals
+// Bad - reaches into internals
 import { Button } from "@/components/Button";
 import { useToast } from "@/components/Toast";
 import { ModCard } from "@/modules/library/components";
 ```
 
-### State Consumption — Hooks Over Prop Drilling
+## State Consumption - Hooks Over Prop Drilling
 
 **Consume global state (hooks, queries, stores) directly in the component that needs it.** Do not drill Zustand state, TanStack Query data, or mutation callbacks through intermediate components as props.
 
@@ -97,87 +57,17 @@ TanStack Query deduplicates identical queries, so multiple components calling th
 
 **Exception:** Props are appropriate for coordinating parent-owned UI state (e.g., `onViewDetails` that opens a sibling dialog, `onReorder` where reorder target varies by context).
 
-## Backend (Rust) — `src-tauri/src/`
-
-### Module Layout
-
-- `main.rs` — Tauri setup, command registration in `generate_handler![]`, logging init
-- `error.rs` — `AppError`, `AppErrorResponse`, `IpcResult<T>`, `MutexResultExt`
-- `state.rs` — `SettingsState(Mutex<Settings>)`, settings persistence
-- `commands/` — `#[tauri::command]` wrappers (one file per domain: `mods.rs`, `profiles.rs`, `patcher.rs`, `settings.rs`, `workshop.rs`, `shell.rs`, `app.rs`)
-- `mods/mod.rs` — Business logic for mod install/uninstall/toggle, profile CRUD, library index management
-- `overlay/` — Overlay building, content providers (`modpkg_content.rs`, `fantome_content.rs`)
-- `patcher/` — Patcher lifecycle (start/stop/status), thread management with `Arc<AtomicBool>` stop flag
-- `legacy_patcher/` — FFI integration with `cslol-dll.dll`
-
-### State
-
-Two Tauri-managed states:
-
-- `SettingsState` — App settings (league path, storage path, theme). Access via `State<SettingsState>`, lock with `.0.lock().mutex_err()?.clone()`.
-- `PatcherState` — Patcher thread handle and stop flag. Access via `State<PatcherState>`.
-
-### Error Codes
-
-`ErrorCode` enum variants (serialized as `SCREAMING_SNAKE_CASE`): `Io`, `Serialization`, `Modpkg`, `Fantome`, `LeagueNotFound`, `InvalidPath`, `ModNotFound`, `ValidationFailed`, `InternalState`, `MutexLockFailed`, `PatcherRunning`, `Unknown`, `WorkshopNotConfigured`, `ProjectNotFound`, `ProjectAlreadyExists`, `PackFailed`, `Wad`, `Zip`.
-
-Errors can carry JSON context: `AppErrorResponse::new(code, msg).with_context(json!({ "modId": id }))`.
-
-## Frontend (React + TypeScript) — `src/`
-
-### Key Files
-
-- `lib/tauri.ts` — All Tauri command bindings (`api` object), TypeScript types matching Rust structs, `invokeResult<T>()` wrapper
-- `utils/result.ts` — `Result<T, E>` discriminated union, `isOk`, `isErr`, `unwrap`, `match`
-- `utils/query.ts` — `queryFn()`, `queryFnWithArgs()`, `mutationFn()`, `unwrapForQuery()` bridges between `Result<T>` and TanStack Query
-- `utils/errors.ts` — `AppError` interface, `ErrorCode` type, `hasErrorCode()` guard, context extractors with Zod
-- `stores/` — Zustand stores for client-only state
-
-### Adding a New Tauri Command (Checklist)
-
-1. Business logic in `src-tauri/src/{module}/` → returns `AppResult<T>`
-2. Command wrapper in `src-tauri/src/commands/{module}.rs` → returns `IpcResult<T>` via `.into()`
-3. Export in `src-tauri/src/commands/mod.rs`
-4. Register in `main.rs` `generate_handler![]`
-5. Add TS types + `api.myCommand` in `src/lib/tauri.ts`
-6. Create hook in `src/modules/{module}/api/useMyCommand.ts`
-7. Export through `src/modules/{module}/api/index.ts` → `src/modules/{module}/index.ts`
-
-### Tauri Event Listening
+## Tauri Event Listening
 
 For backend-to-frontend events (e.g., overlay progress), use `listen<T>()` from `@tauri-apps/api/event` in a `useEffect` with cleanup via `unlisten()`. See `modules/patcher/api/useOverlayProgress.ts` for the pattern.
 
-### Routing
+## Routing
 
 TanStack Router with file-based routing in `src/routes/`. Route tree is auto-generated in `routeTree.gen.ts`. The root route (`__root.tsx`) checks setup status and redirects to `/settings` on first run.
 
-### Component Library (`src/components/`)
+## Component Library (`src/components/`)
 
-**ALWAYS use reusable components from `@/components` instead of native HTML or raw base-ui imports.** Module code should never import from `@base-ui-components/react` directly — all base-ui primitives must be wrapped in `src/components/` first.
-
-**Available components:**
-| Component | Usage | Base-UI Primitive |
-| ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------- | --------------------- |
-| `Button`, `IconButton` | All clickable actions | `Button` |
-| `Field`, `FormField`, `TextareaField` | All form inputs (text, textarea) | `Field` |
-| `Checkbox`, `CheckboxGroup` | Boolean/multi-select inputs | `Checkbox` |
-| `RadioGroup` (compound: `Root`, `Label`, `Options`, `Card`, `Item`) | Mutually exclusive choices | `Radio`, `RadioGroup` |
-| `Tabs` (compound: `Root`, `List`, `Tab`, `Panel`, `Indicator`) | Tabbed content | `Tabs` |
-| `Tooltip` | Hover information | `Tooltip` |
-| `Toast`, `ToastProvider`, `useToast()` | Notifications | `Toast` |
-| `Switch` (sizes: `sm`, `md`) | Toggle on/off | `Switch` |
-| `Menu` (compound: `Root`, `Trigger`, `Portal`, `Positioner`, `Popup`, `Item`, `Separator`, `Group`, `GroupLabel`) | Dropdown/context menus | `Menu` |
-| `Select`, `SelectField` (compound + simplified), TanStack Form: `field.SelectField` | Dropdown select inputs | `Select` |
-| `Popover` (compound: `Root`, `Trigger`, `Portal`, `Backdrop`, `Positioner`, `Popup`, `Arrow`, `Title`, `Description`, `Close`) | Positioned popover panels | `Popover` |
-
-**Also wrapped:**
-| Component | Usage | Base-UI Primitive |
-| ------------ | -------- | --------------------------------- |
-| `Progress` (compound: `Root`, `Track`, `Indicator`) | Progress bars | `Progress` |
-| `Combobox` (compound: `Root`, `Input`, `Trigger`, `Portal`, `Positioner`, `Popup`, `List`, `Item`, `Empty`, `Clear`, `Chips`, `Chip`, `ChipRemove`) | Autocomplete / combobox | `Combobox` |
-| `MultiSelect` | Multi-value combobox | Wraps `Combobox` |
-| `Skeleton` (`width`, `height`, `count`, `rounded`, `className`) | Shimmer loading placeholders | None (custom) |
-| `Spinner` (`size`: sm/md/lg, `className`) | Loading spinner (wraps Loader2) | None (custom) |
+**ALWAYS use reusable components from `@/components` instead of native HTML or raw base-ui imports.** Module code should never import from `@base-ui-components/react` directly - all base-ui primitives must be wrapped in `src/components/` first. See `src/components/index.ts` for what is already wrapped.
 
 When adding a new base-ui component:
 
@@ -185,49 +75,59 @@ When adding a new base-ui component:
 2. Export from `src/components/index.ts`
 3. Import in modules via `@/components`, never from `@base-ui-components/react` directly
 
-### Form System (`src/lib/form/`)
+## Form System (`src/lib/form/`)
 
-Uses `@tanstack/react-form` with Zod validation. The form system provides:
+Uses `@tanstack/react-form` with Zod validation via `useAppForm()`. Field components are pre-registered on `form.AppField` / `form.AppForm` and integrate with the wrapped `@/components` primitives.
 
-- `useAppForm()` — Pre-configured form hook with Zod adapter
-- Pre-registered field components available via `form.AppField` and `form.AppForm`:
-  - `field.TextField`, `field.TextareaField` — Text inputs
-  - `field.SelectField` — Dropdown select
-  - `field.CheckboxField` — Boolean checkbox
-- All field components integrate with the wrapped `@/components` primitives
+## Dependency Constraints
 
-### Key Dependencies
+- `zustand` - client-side state only. Never use it for server state - that is TanStack Query's job.
+- `framer-motion` - Layout animations for DnD (`AnimatePresence` on `DragDropOverlay` only). Tree-shake to ≤30KB gzipped.
 
-- `@base-ui/react` — Headless UI primitives (wrapped via `src/components/`)
-- `@tanstack/react-form` + `zod` — Form management with validation
-- `ts-pattern` — Exhaustive pattern matching
-- `zustand` — Client-side state (not for server state — use TanStack Query)
-- `lucide-react` — Icon library (`import { IconName } from "lucide-react"`)
-- `tailwind-merge` — Merging Tailwind classes in component variants
-- `framer-motion` — Layout animations for DnD (`AnimatePresence` on `DragDropOverlay` only). Tree-shake to ≤30KB gzipped.
+## Icons
 
-### Icons
+All icons come from `@phosphor-icons/react`, imported by PascalCase name. Standard spinner is
+`<SpinnerGap className="animate-spin" />`.
 
-All icons come from `lucide-react`. Import by PascalCase name:
+`lucide-react` is still installed because most of the app still imports it, and it stays until those
+call sites are converted. **Write no new lucide imports** - a file being touched for something else
+is a fine moment to convert the icons in it.
 
-```ts
-import { Check, Settings, Loader2 } from "lucide-react";
-import type { LucideIcon } from "lucide-react"; // for type annotations
-```
+Phosphor names things by shape rather than by role, so the lucide name is rarely the phosphor name:
+`ChevronDown` is `CaretDown`, `Search` is `MagnifyingGlass`, `Settings` is `Gear`, `Trash2` is
+`Trash`, `Loader2` is `SpinnerGap`. Look the name up rather than guessing.
 
-- Standard spinner: `<Loader2 className="animate-spin" />`
-- Icons accept `className`, `size`, `strokeWidth` props
-- Do NOT use `react-icons` — it has been removed from the project
+Phosphor's `regular` weight is lighter than lucide's 2px stroke, so a converted icon reads thinner
+beside one that has not been converted yet. Pass `weight="bold"` where an icon carries an action -
+buttons, toolbar controls - and leave `regular` for decorative and section-header icons.
 
-### Styling
+Riot's own marks are the exception, since neither icon set carries them. They live as inline-SVG
+components in `src/components/icons/`, lifted from the League and Riot Client asset sets:
+`LeagueIcon`, `RiotIcon`, `TftIcon`, and the cosmetics family `MaskIcon` / `ThreeMasksIcon` /
+`EvolutionIcon`. That folder has its own barrel, re-exported by `src/components/index.ts` - call
+sites still import from `@/components`.
 
-Tailwind CSS v4 via `@tailwindcss/vite` plugin. CSS is organized into three files in `src/styles/`:
+Keep the path data untouched, and change only what stops it behaving like an icon: swap the client's
+hardcoded fill (League gold `#C89B3C`, parchment `#F0E6D2`) for `currentColor`, drop any wrapping
+`opacity`, and take `className` so the call site sets the size.
 
-| File             | Purpose                                                                                                                                               |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `global.css`     | Design tokens (all scales), CSS reset, dark/light themes, global utilities, scrollbar, focus ring, drag region, toast viewport, glassmorphism         |
-| `animations.css` | All `@keyframes` (fade-in, slide-up, slide-down, toast-slide-in/out, shimmer, dialog-enter/exit, spinner) + `.stagger-enter` system + utility classes |
-| `tailwind.css`   | `@import "tailwindcss"` + `@theme {}` mapping tokens to Tailwind utilities. **This is the single CSS entry point** imported in `main.tsx`.            |
+Check the artwork's bounds against its `viewBox` too. The client pads these for its own layout, so a
+mark can sit at half the height of its box and read a size smaller than the icons beside it - crop
+the `viewBox` to the artwork rather than compensating with a bigger `className` at each call site
+(`MaskIcon` is the example).
+Redrawing the paths to match the icon set's stroke weight is not worth it - at 16px the fill reads
+fine next to a stroked icon, and a hand-traced mark is just a worse copy.
+
+## Styling
+
+Tailwind CSS v4 via `@tailwindcss/vite`. `src/styles/tailwind.css` is the **single CSS entry point** imported in `main.tsx`.
+
+Inter is self-hosted through `@fontsource-variable/inter`, imported at the top of that entry point - a
+packaged build has no network to fetch a webfont from. The family it registers is **`Inter Variable`**,
+which is what `--font-sans` has to name; plain `"Inter"` alone silently falls through to `system-ui`.
+Fonts are not interchangeable here: the system fallback is not metric-compatible, and its asymmetric
+descent leaves text sitting low in its line box, which reads as icons and labels disagreeing about
+where the middle of a button is.
 
 **Design tokens** use numbered scales defined as CSS custom properties:
 
@@ -243,56 +143,42 @@ Tailwind CSS v4 via `@tailwindcss/vite` plugin. CSS is organized into three file
 
 **Color tokens:** `surface-{50..950}` for neutrals, `accent-{50..950}` for the dynamic accent color (HSL-based via `--accent-hue`). Dark theme is default; light theme uses `[data-theme="light"]` attribute on `<html>`.
 
-**Important:** `global.css` must NOT use `@apply` with Tailwind utilities — use raw CSS custom property references instead (e.g., `background-color: var(--surface-900)`).
+**Important:** `global.css` must NOT use `@apply` with Tailwind utilities - use raw CSS custom property references instead (e.g., `background-color: var(--surface-900)`).
 
-### Density Modes
+Density modes are applied via `[data-density]` on `<html>` and affect `--space-*` and `--icon-*` only - never `--radius-*`, `--shadow-*`, `--z-*`, or colors.
 
-Three density modes applied via `[data-density]` attribute on `<html>`:
+## Text Selection
 
-| Mode     | Scale | Description                          |
-| -------- | ----- | ------------------------------------ |
-| Compact  | 0.6x  | Extra tight spacing and icons        |
-| Normal   | 0.75x | Default — tighter than original base |
-| Spacious | 1x    | Original base spacing                |
+This is a desktop app, not a web page - selectable-by-default is the browser's assumption, not ours.
+Chrome gets `select-none`; selection is reserved for text a user would want to take somewhere else.
 
-`--density-scale` CSS custom property is set on `:root` for `calc()` usage. Density affects `--space-*` and `--icon-*` tokens. Does NOT affect `--radius-*`, `--shadow-*`, `--z-*`, or colors.
+The test is **whose text it is**. Text the app wrote about itself is chrome. Text that came from the
+user, their disk, or the backend is data.
 
-Managed by `useDisplayStore` (Zustand persist, localStorage key `ltk-display-prefs`). Synced to `<html>` via `useEffect` in `__root.tsx`.
+**Non-selectable** - put `select-none` on the container, not on each label:
 
-### Reduce Motion
+- Framing chrome: title bar, session/status bar, toolbars, tab strips, sidebars, headers.
+- Anything clicked rather than read: buttons, menu items, list/tree rows, cards, toggles. A
+  drag across these leaves a stray highlight and fights click-drag interactions.
+- Static prose the app authored: labels, hints, empty states, section descriptions, progress lines.
 
-Three-option system applied via `[data-reduce-motion]` attribute on `<html>`:
+**Selectable** - leave the default alone:
 
-- **System Default** — follows OS `prefers-reduced-motion` media query
-- **On** — always suppress animations (durations collapse to 0.01ms)
-- **Off** — always animate regardless of OS
+- Names, paths, IDs and versions that came from the user, the filesystem or the backend.
+- Error text and log lines someone will paste into a bug report.
+- Long-form content meant to be read or edited: inputs, description bodies, changelogs, dialog
+  detail panes.
 
-Use `useReducedMotion()` hook from `@/hooks` for component-level checks. Returns `boolean`.
+`select-none` inherits, so data nested inside a `select-none` container needs `select-text` back.
 
-### Animation System
+Where copying is routine, give an explicit **Copy** action rather than leaning on selection - the
+established pattern here (`CheckRow` for the fix command, `useModCardController` for the mod ID,
+`WadScanFailedDialog` for its details, `Diagnostics` for the whole report).
 
-**Overlay transitions:** All popups (Dialog, Menu, Select, Popover) use base-ui's `data-[starting-style]`/`data-[ending-style]` with CSS `transition-[opacity,transform]` for enter/exit.
+## Reduce Motion
 
-**Stagger system:** Add `stagger-enter` class to a parent container. Children animate in sequence with 60ms delay, capped at 7 items. Uses `slide-up` keyframe.
-
-**Toast animations:** Slide-in via `animate-toast-slide-in`, exit via `data-[ending-style]`. Includes rAF progress bar and hover pause.
-
-**DnD animations:** CSS transitions for sortable reorder (200ms ease-out). framer-motion `AnimatePresence` on `DragDropOverlay` only.
-
-**Utility classes:** `.animate-fade-in`, `.animate-slide-down`, `.scroll-fade` (bottom gradient on scrollable containers).
-
-## Log Files
-
-- **Windows:** `%APPDATA%\dev.leaguetoolkit.manager\logs\ltk-manager.log`
-- **Linux/macOS:** `~/.local/share/dev.leaguetoolkit.manager/logs/ltk-manager.log`
-
-<!-- SPECKIT START -->
-
-For additional context about technologies to be used, project structure,
-shell commands, and other important information, read the current plan
-
-<!-- SPECKIT END -->
+Three-option system applied via `[data-reduce-motion]` on `<html>`: System Default (follows OS `prefers-reduced-motion`), On, Off. Use `useReducedMotion()` from `@/hooks` for component-level checks.
 
 ---
 > Source: [LeagueToolkit/ltk-manager](https://github.com/LeagueToolkit/ltk-manager) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
