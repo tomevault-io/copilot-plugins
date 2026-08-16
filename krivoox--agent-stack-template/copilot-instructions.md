@@ -1,0 +1,33 @@
+## git-flow
+
+> Branching, commits and PR hygiene. Always applies.
+
+
+# Git Flow
+
+Full guide: `docs/guides/git-flow.md`.
+
+| Branch | Role |
+|--------|------|
+| `main` | Production |
+| `develop` | Integration |
+| `feat/*` `fix/*` `chore/*` `refactor/*` `docs/*` | Work |
+
+1. **Never** commit or push directly to `main` or `develop` (the release bot is
+   the only exception).
+2. Branch from an up-to-date `develop`. PRs target `develop`; a release is a
+   `develop` → `main` PR.
+3. A hotfix may branch from `main` when it is genuinely urgent; sync it back to
+   `develop` immediately.
+4. Delete the branch after merge, then `git fetch --prune`. Never reuse a
+   merged branch.
+5. No force-push to `main` or `develop`.
+6. **Commit only when the user asks.**
+7. Conventional Commits (`feat:`, `fix:`, `chore:` …) — enforced by commitlint
+   in the `commit-msg` hook.
+8. Classify first; follow `docs/guides/new-feature.md`, `bugfix.md`,
+   `refactor.md` or `chore.md`. Do not mix intents on one branch.
+
+---
+> Source: [krivoox/agent-stack-template](https://github.com/krivoox/agent-stack-template) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
