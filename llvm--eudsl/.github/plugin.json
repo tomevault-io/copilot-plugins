@@ -1,0 +1,9 @@
+{
+  "name": "llvm--eudsl",
+  "displayName": "eudsl",
+  "description": "eudsl",
+  "version": "1.0.0",
+  "author": "llvm",
+  "homepage": "https://github.com/llvm/eudsl",
+  "skills": []
+}
