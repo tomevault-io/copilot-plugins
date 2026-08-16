@@ -3,8 +3,8 @@
   "owner": "vinta",
   "repo": "hal-9000",
   "description": "",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,63 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "sync-skills",
-      "path": ".claude/skills/sync-skills",
-      "github_url": "https://github.com/vinta/hal-9000/tree/main/.claude/skills/sync-skills",
-      "description": ""
-    },
-    {
-      "name": "update-allowed-tools",
-      "path": "skills/update-allowed-tools",
-      "github_url": "https://github.com/vinta/hal-9000/tree/main/skills/update-allowed-tools",
-      "description": ""
-    },
-    {
-      "name": "second-opinions",
-      "path": "plugins/hal-skills/skills/second-opinions",
-      "github_url": "https://github.com/vinta/hal-9000/tree/main/plugins/hal-skills/skills/second-opinions",
-      "description": ""
-    },
-    {
-      "name": "hal-9000",
-      "path": "plugins/hal-skills/skills/magi/SKILL.md",
-      "github_url": "https://github.com/vinta/hal-9000/tree/main/plugins/hal-skills/skills/magi/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "hal-9000",
-      "path": "plugins/hal-skills/skills/commit/SKILL.md",
-      "github_url": "https://github.com/vinta/hal-9000/tree/main/plugins/hal-skills/skills/commit/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "hal-9000",
-      "path": ".claude/skills/bump-plugin-version/SKILL.md",
-      "github_url": "https://github.com/vinta/hal-9000/tree/main/.claude/skills/bump-plugin-version/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "hal-9000",
-      "path": "plugins/hal-skills/skills/best-practices/SKILL.md",
-      "github_url": "https://github.com/vinta/hal-9000/tree/main/plugins/hal-skills/skills/best-practices/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "hal-9000",
-      "path": "plugins/hal-skills/skills/second-opinions/SKILL.md",
-      "github_url": "https://github.com/vinta/hal-9000/tree/main/plugins/hal-skills/skills/second-opinions/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "hal-9000",
-      "path": "plugins/hal-skills/skills/update-allowed-tools/SKILL.md",
-      "github_url": "https://github.com/vinta/hal-9000/tree/main/plugins/hal-skills/skills/update-allowed-tools/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/vinta/hal-9000",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T22:40:03Z"
+  "distributed_at": "2026-08-16T09:31:04Z"
 }
