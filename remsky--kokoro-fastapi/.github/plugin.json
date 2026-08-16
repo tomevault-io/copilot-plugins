@@ -1,0 +1,22 @@
+{
+  "name": "remsky--kokoro-fastapi",
+  "displayName": "Kokoro-FastAPI",
+  "description": "Kokoro-FastAPI",
+  "version": "1.0.0",
+  "author": "remsky",
+  "homepage": "https://github.com/remsky/Kokoro-FastAPI",
+  "skills": [
+    {
+      "name": "Kokoro-FastAPI",
+      "description": ""
+    },
+    {
+      "name": "Kokoro-FastAPI",
+      "description": ""
+    },
+    {
+      "name": "Kokoro-FastAPI",
+      "description": ""
+    }
+  ]
+}
