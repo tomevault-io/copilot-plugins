@@ -1,179 +1,81 @@
 ## infrastructure-modules
 
-> generates Go client/server/shape code from Smithy models.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-## Project overview
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-smithy-go is the Go code generator and runtime for [Smithy](https://smithy.io/).
-It has two major components:
+## Project Overview
 
-1. **Codegen** (`codegen/`) — A Smithy build plugin written in Java that
-   generates Go client/server/shape code from Smithy models.
-2. **Runtime** (`./`, top-level Go module) — The Go packages that generated
-   code depends on at runtime.
+pgx is a PostgreSQL driver and toolkit for Go (`github.com/jackc/pgx/v5`). It provides both a native PostgreSQL interface and a `database/sql` compatible driver. Requires Go 1.25+ and supports PostgreSQL 14+ and CockroachDB.
 
-The primary downstream consumer is
-[aws-sdk-go-v2](https://github.com/aws/aws-sdk-go-v2).
-
-## Repository layout
-
-```
-.                               # Root Go module (github.com/aws/smithy-go)
-├── auth/                       # Auth identity + scheme interfaces
-│   └── bearer/                 # Bearer token auth
-├── aws-http-auth/              # Separate module: AWS SigV4/SigV4A HTTP signing
-├── codegen/                    # Java/Gradle: Smithy code generator
-│   ├── smithy-go-codegen/      # Main codegen source (Java)
-│   └── smithy-go-codegen-test/ # Codegen integration tests
-├── container/                  # Generic container types
-├── context/                    # Context helpers
-├── document/                   # Smithy document type abstraction
-│   └── json/                   # JSON document codec
-├── encoding/                   # Wire format encoders/decoders
-│   ├── cbor/                   # CBOR (used by rpcv2Cbor)
-│   ├── httpbinding/            # HTTP binding serde helpers
-│   ├── json/                   # JSON encoder/decoder
-│   └── xml/                    # XML encoder/decoder
-├── endpoints/                  # Endpoint resolution types
-├── internal/                   # Internal utilities (singleflight, etc.)
-├── io/                         # I/O helpers
-├── logging/                    # Logging interfaces
-├── metrics/                    # Metrics interfaces
-│   └── smithyotelmetrics/      # Separate module: OpenTelemetry metrics adapter
-├── middleware/                 # Middleware stack (the core of the operation pipeline)
-├── ptr/                        # Pointer-to/from-value helpers
-├── testing/                    # Test assertion helpers for generated protocol tests
-│   └── xml/                    # XML comparison utilities
-├── time/                       # Smithy timestamp format helpers
-├── tracing/                    # Tracing interfaces
-│   └── smithyoteltracing/      # Separate module: OpenTelemetry tracing adapter
-└── transport/
-    └── http/                   # HTTP request/response types and middleware
-```
-
-## Building and testing
-
-### Runtime (Go)
+## Build & Test Commands
 
 ```bash
-# Run unit tests
-make unit
+# Run all tests (requires PGX_TEST_DATABASE to be set)
+go test ./...
+
+# Run a specific test
+go test -run TestFunctionName ./...
+
+# Run tests for a specific package
+go test ./pgconn/...
+
+# Run tests with race detector
+go test -race ./...
+
+# DevContainer: run tests against specific PostgreSQL versions
+./test.sh pg18                      # Default: PostgreSQL 18
+./test.sh pg16 -run TestConnect     # Specific test against PG16
+./test.sh crdb                      # CockroachDB
+./test.sh all                       # All targets (pg14-18 + crdb)
+
+# Format (always run after making changes)
+goimports -w .
+
+# Lint
+golangci-lint run ./...
 ```
 
-### Codegen (Java)
+## Test Database Setup
+
+Tests require `PGX_TEST_DATABASE` environment variable. In the devcontainer, `test.sh` handles this. For local development:
 
 ```bash
-# Build and test codegen
-cd codegen && ./gradlew build
-
-# Publish to local Maven for downstream use
-cd codegen && ./gradlew publishToMavenLocal
+export PGX_TEST_DATABASE="host=localhost user=postgres password=postgres dbname=pgx_test"
 ```
 
-The codegen artifact version is fixed at `0.1.0` and is not published to
-Maven Central — you **MUST** `publishToMavenLocal`.
+The test database needs extensions: `hstore`, `ltree`, and a `uint64` domain. See `testsetup/postgresql_setup.sql` for full setup. Many tests are skipped unless additional `PGX_TEST_*` env vars are set (for TLS, SCRAM, MD5, unix socket, PgBouncer testing).
 
-## Runtime architecture
+## Architecture
 
-### Middleware stack
+The codebase is a layered architecture, bottom-up:
 
-The operation pipeline is built on a middleware stack defined in `middleware/`.
-Steps execute in order: Initialize → Serialize → Build → Finalize →
-Deserialize. Each step is a `middleware.Step` that holds an ordered list of
-middleware. The codegen generates middleware registrations for each operation.
+- **pgproto3/** — PostgreSQL wire protocol v3 encoder/decoder. Defines `FrontendMessage` and `BackendMessage` types for every protocol message.
+- **pgconn/** — Low-level connection layer (roughly libpq-equivalent). Handles authentication, TLS, query execution, COPY protocol, and notifications. `PgConn` is the core type.
+- **pgx** (root package) — High-level query interface built on `pgconn`. Provides `Conn`, `Rows`, `Tx`, `Batch`, `CopyFrom`, and generic helpers like `CollectRows`/`ForEachRow`. Includes automatic statement caching (LRU).
+- **pgtype/** — Type system mapping between Go and PostgreSQL types (70+ types). Key interfaces: `Codec`, `Type`, `TypeMap`. Custom types (enums, composites, domains) are registered through `TypeMap`.
+- **pgxpool/** — Concurrency-safe connection pool built on `puddle/v2`. `Pool` is the main type; wraps `pgx.Conn`.
+- **stdlib/** — `database/sql` compatibility adapter.
 
-### Encoding packages
+Supporting packages:
+- **internal/stmtcache/** — Prepared statement cache with LRU eviction
+- **internal/sanitize/** — SQL query sanitization
+- **tracelog/** — Logging adapter that implements tracer interfaces
+- **multitracer/** — Composes multiple tracers into one
+- **pgxtest/** — Test helpers for running tests across connection types
 
-Each wire format has its own encoder/decoder under `encoding/`. These are
-low-level — they produce/consume raw tokens or values, not full Smithy shapes.
-Generated serde code calls into these packages.
+## Key Design Conventions
 
-## Codegen: GoWriter and template system
-
-GoWriter extends Smithy's `SymbolWriter` and is the primary mechanism for
-generating Go source. It has **two distinct writing styles** that must not be
-confused.
-
-### Style 1: Positional args (`writer.write` / `writer.openBlock`)
-
-Inherited from `SymbolWriter`. Arguments are positional and referenced with
-`$`-prefixed format characters. Each `$X` consumes the next argument in order.
-
-Format characters:
-- `$L` — Literal (toString). Strings, names, anything that should be inserted
-  verbatim.
-- `$S` — String, quoted. Wraps the value in Go double-quotes.
-- `$T` — Type (Symbol). Inserts the symbol name and auto-adds its import.
-- `$P` — Pointable type (Symbol). Like `$T` but prepends `*` if the symbol is
-  marked pointable.
-- `$W` — Writable. Evaluates a `Writable` (lambda/closure) inline.
-- `$D` — Dependency. Adds a `GoDependency` import, expands to empty string.
-
-Numbered variants (`$1L`, `$2T`, etc.) allow reusing the same argument
-multiple times. The number is 1-indexed and refers to the position in the
-argument list:
-
-```java
-// $1L is used twice, $2L once — only 2 args needed
-writer.write("type $1L struct{}\nvar _ $2L = (*$1L)(nil)",
-    DEFAULT_NAME, INTERFACE_NAME);
-```
-
-`openBlock`/`closeBlock` manage indentation for braced blocks. Arguments are
-positional:
-
-```java
-writer.openBlock("func (c $P) $T(ctx $T) ($P, error) {", "}",
-    serviceSymbol, operationSymbol, contextSymbol, outputSymbol,
-    () -> {
-        writer.write("return nil, nil");
-    });
-```
-
-### Style 2: Named template args (`goTemplate` / `writeGoTemplate`)
-
-Uses `$name:X` syntax where `name` is a key in a `Map<String, Object>` and `X`
-is the format character. Arguments are passed as one or more maps. This is the
-**preferred style for new code** — it is more readable and less error-prone
-than positional args.
-
-```java
-return goTemplate("""
-    func $name:L(v $cborValue:T) ($type:T, error) {
-        return $coercer:T(v)
-    }
-    """,
-    Map.of(
-        "name", getDeserializerName(shape),
-        "cborValue", SmithyGoTypes.Encoding.Cbor.Value,
-        "type", symbolProvider.toSymbol(shape),
-        "coercer", coercer
-    ));
-```
-
-Rules:
-- `goTemplate(String, Map...)` is a **static** method that returns a
-  `Writable` (a `Consumer<GoWriter>` lambda). It does NOT write immediately.
-- `writeGoTemplate(String, Map...)` is an **instance** method that writes
-  immediately to the writer.
-- Maps are merged into the writer's context scope for the duration of the
-  template. Multiple maps can be passed and are applied in order.
-- The writer pre-populates common symbols in context: `fmt.Sprintf`,
-  `fmt.Errorf`, `errors.As`, `context.Context`, `time.Now`.
-
-### Composing writables
-
-- `ChainWritable` — Collects multiple `Writable`s and composes them with
-  newlines between each. Use `.compose()` (with newlines) or
-  `.compose(false)` (without).
-
-### Symbol constants
-
-For symbols, use `SmithyGoDependency.*.valueSymbol("Name")` or
-`SmithyGoDependency.*.pointableSymbol("Name")`.
+- **Semantic versioning** — strictly followed. Do not break the public API (no removing or renaming exported types, functions, methods, or fields; no changing function signatures).
+- **Minimal dependencies** — adding new dependencies is strongly discouraged (see CONTRIBUTING.md).
+- **Context-based** — all blocking operations take `context.Context`.
+- **Tracer interfaces** — observability via `QueryTracer`, `BatchTracer`, `CopyFromTracer`, `PrepareTracer` on `ConnConfig.Tracer`.
+- **Formatting** — always run `goimports -w .` after making changes to ensure code is properly formatted. CI checks formatting via `gofmt -l -s -w . && git diff --exit-code`. `gofumpt` with extra rules is also enforced via `golangci-lint`.
+- **Linters** — `govet` and `ineffassign` only (configured in `.golangci.yml`).
+- **CI matrix** — tests run against Go 1.25/1.26 × PostgreSQL 14-18 + CockroachDB, on Linux and Windows. Race detector enabled on Linux only.
 
 ---
 > Source: [dfds/infrastructure-modules](https://github.com/dfds/infrastructure-modules) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
