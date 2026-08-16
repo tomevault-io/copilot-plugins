@@ -1,0 +1,9 @@
+{
+  "name": "jakubboucek--docker-lamp-devstack",
+  "displayName": "docker-lamp-devstack",
+  "description": "docker-lamp-devstack",
+  "version": "1.0.0",
+  "author": "jakubboucek",
+  "homepage": "https://github.com/jakubboucek/docker-lamp-devstack",
+  "skills": []
+}
