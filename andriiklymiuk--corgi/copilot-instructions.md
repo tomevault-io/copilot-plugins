@@ -1,557 +1,532 @@
 ## corgi
 
-> Guide for AI agents and scripts running corgi non-interactively.
+> Agent mode makes your machine an always-on, multi-repo host for Claude Code's
 
-# Driving corgi as an agent
+# Agent mode
 
-Guide for AI agents and scripts running corgi non-interactively.
+Agent mode makes your machine an always-on, multi-repo host for Claude Code's
+[Remote Control](https://code.claude.com/docs/en/remote-control).
 
-## Non-interactive mode
+It is opt-in. If you never run `corgi agent init`, nothing changes.
 
-Corgi auto-detects when it must not prompt and either skips the prompt or exits
-with a clear error (exit code 2) instead of hanging. It is triggered by any of:
+## What it is for
 
-- A CI env var (`CI=true`, etc.).
-- An agent env var: `CLAUDECODE`, `CLAUDE_CODE`, `ANTHROPIC_AGENT`.
-- No TTY on stdin **or** stdout (piped / redirected).
+Remote Control already gives you a Claude Code session on your own machine,
+driven from the Claude app or claude.ai/code. Two things stop it being the thing
+you actually want:
 
-Force prompts back on with the global `--interactive` flag.
+1. **It is not always on.** Its docs are explicit: *"If you close the terminal,
+   quit VS Code, or otherwise stop the `claude` process, the session goes
+   offline"*, and *"if your machine is awake but unable to reach the network for
+   more than roughly 10 minutes, the session times out and the process exits"*.
+   So you have to remember to arm it — and forgetting is the failure this exists
+   to remove.
+2. **It sees one directory.** A corgi stack is several repositories, databases,
+   and the env wiring between them. Remote Control sees none of that.
 
-## JSON output
+corgi fixes exactly those two. It does not reimplement sessions, streaming,
+approvals, or cost tracking — Remote Control does all of that well, and doing it
+again would be worse.
 
-Global `--json` makes stdout pure machine-readable JSON; human/log lines go to
-stderr. Commands that emit pure-JSON stdout:
-
-- `status --json` (one-shot: array; `--watch`: NDJSON, one object per transition)
-- `doctor --json` (also `doctor --fix --json` → `{"ok":bool,"fixed":[...],"skipped":[{"check","reason"}]}`)
-- `list --json`
-- `config --json`, `config path --json`
-- `ps --json`
-- `open --json` → `{"opened":[{"service","url"}]}`
-- `logs --json` → NDJSON, one `{"service","ts","level","line"}` per line (works with `--all` and follow)
-- `db shell <svc> -e "<query>" --json` → `{"service","output"}`
-- `create --kind ... --json` (non-interactive) → `{"created","kind","name","path"}`
-- `restart --service <name> --json` → updated run-state object
-- `mission-control --json` (one MissionSnapshot object; `--watch`: one object per refresh)
-- `autopilot status/pause/resume/stop/heartbeat --json` → the autopilot loop state object (`{mode, iteration, lastHeartbeat, lastSummary}`); `mode` ∈ `uninitialized` (no state file yet — a first run, distinct from a stop) · `running` · `paused` · `stopped`
-- `memory list --json` (array of facts), `memory lint --json` (`{"ok":bool,"errors":[...],"warnings":[...]}`), `memory add --json` / `memory index --json` (created/index summary)
-- `suggest-history list --json` (`{"version","entries":[...]}`), `suggest-history check --slug <s> --json` (`{"skip":bool,"reason":"filed|dismissed|proposed|rate-limit|...","slug":...}`), `suggest-history record --json` (echoes the written entry), `suggest-history config --json` (`{"autoFileDrafts":bool,"maxPerWeek":n}`)
-- `docs --json-schema`
-
-Not yet pure-JSON: `fork` and the `db` bulk lifecycle flags (`--upAll` etc.)
-still stream human output; use `corgi_up`/`corgi_down` (MCP) for lifecycle.
-
-`run --json` is best-effort: it prints one JSON startup summary
-(`{"started":[...],"failed":[...]}`) and then streams service logs to stderr —
-stdout is not a single JSON document for the whole run.
-
-Errors under `--json` have the shape:
-
-```json
-{"error": {"code": "E_INTERACTIVE_REQUIRED", "message": "..."}}
+```
+  phone / claude.ai/code
+        │
+        ▼
+  claude rc --spawn=worktree      ◄── supervised by corgi, not replaced
+        │                                   │
+        │ calls MCP tools                   │ restarts after the 10-minute exit,
+        ▼                                   │ a crash, or a reboot; holds a wake lock
+  corgi mcp                            corgi agent serve
+        ├─► which stack is "the recipe app"?
+        ├─► a worktree per repo, one branch
+        └─► one diff across every repo
 ```
 
-The `code` is a stable string an agent can branch on (see [Error codes](#error-codes)).
-
-## Lifecycle (detached)
-
-`corgi run --detach` (`-d`) starts every service as a detached process group that
-survives corgi exiting, persists `corgi_services/.state.json`, and returns
-immediately. It forces logs on. Under `--json` it prints the run-state object:
-
-```json
-{
-  "composePath": "/path/corgi-compose.yml",
-  "startedAt": "2026-05-21T10:59:47Z",
-  "services": [
-    {
-      "name": "api",
-      "kind": "service",
-      "pid": 76960,
-      "pgid": 76960,
-      "command": "sleep 60",
-      "logFile": "/path/corgi_services/.logs/api/2026-05-21T13-59-47.log",
-      "status": "running",
-      "startedAt": "2026-05-21T10:59:47Z",
-      "statusChangedAt": "2026-05-21T10:59:47Z"
-    }
-  ],
-  "dbServices": []
-}
-```
-
-A second `run --detach` while a run-state exists errors (exit 1):
-
-```json
-{"error": {"code": "E_ALREADY_RUNNING", "message": "corgi is already running for this project — stop or restart first (use --force to override)"}}
-```
-
-`--force` replaces the existing run-state **and kills the previously tracked
-processes first** (no orphans), then starts fresh.
-
-### Status while detached
-
-There is no daemon. With a state file present, `ps`/`status` report **real**
-status (`running`/`crashed`/`stopped`) reconciled live — a dead pid flips to
-`crashed` on the next read. Without a state file they fall back to declared
-topology + a port probe. `statusChangedAt` lives in `.state.json` / the
-`run --detach --json` run-state object, not in the `ps` rows (which carry just
-`name`/`kind`/`port`/`status`/`url`).
-
-```json
-[{"name": "api", "kind": "service", "status": "running"}]
-```
-
-After the pid dies, the very next `corgi --json ps` shows:
-
-```json
-[{"name": "api", "kind": "service", "status": "crashed"}]
-```
-
-### Stop / restart
-
-`corgi stop [--service <name>] [--json]` reads the state, SIGTERMs each process
-group (SIGKILL after a grace period), runs `afterStart` hooks, brings
-`db_service` containers fully down, and removes `.state.json`. `--service x`
-stops one and keeps the rest. It is idempotent (exit 0 when nothing is running).
-
-```json
-{"stopped": ["api"], "failed": []}
-```
-
-`corgi restart [--json]` is a full-stack stop + detached start.
-`corgi restart --service x` restarts a **single** detached service, leaving the
-rest running. It only acts on a service already present in the detached
-run-state — restarting one that was never started returns `E_NOT_RUNNING`:
-
-```json
-{"error": {"code": "E_NOT_RUNNING", "message": "service \"web\" is not in the current detached run; start it with corgi run --detach first"}}
-```
-
-On success `--json` returns the updated run-state object (same shape as
-`corgi run --detach --json`). Single-service restart is detached-only; there is
-no control channel into a live foreground `corgi run`.
-
-### Caveats
-
-- No daemon: a crashed detached service is detected lazily on the next
-  `ps`/`status`, not via a live notification.
-- Windows: detach and liveness checks are best-effort.
-
-## Run a branch or external dir (no compose edit)
-
-For reviewing a PR branch, running an agent's worktree, or pointing a service at a
-checkout elsewhere — without touching `path:` in `corgi-compose.yml`. Repeatable,
-per-service; any service you don't flag runs from its compose `path:`. Available
-on `run`, `exec`, and `test`. All three repoint the service's working dir, so its
-env generation, `beforeStart`/`afterStart`, and process all run there.
-
-- `--service-dir <name>=<path>` — run from an existing dir (e.g. a worktree you
-  already made). The dir must exist.
-- `--service-branch <name>=<branch>` — run on a git branch via a **reused**
-  worktree under `corgi_services/.worktrees/<svc>-<branch>`. **Non-destructive**:
-  the main checkout is untouched. Re-runs reuse the worktree (deps + uncommitted
-  work persist); the branch must exist (local or remote).
-- `--service-checkout <name>=<branch>` — `git checkout <branch>` in place in the
-  service's `path:`. **Refuses on a dirty tree** (commit/stash, or use
-  `--service-branch`). Leaves the repo on that branch.
-
-A service may appear in only one of the three (else an `E_CONFIG` error). Detached
-works too — the override is applied before the attached/detached split.
+## Quick start
 
 ```bash
-# run a feature branch of api, rest of the stack from compose path:
-corgi run --detach --service-branch api=feature/login
-
-# mix: api on a branch, web from an explicit worktree dir
-corgi run --detach --service-branch api=feature/login --service-dir web=/tmp/wt/web
-
-# test / one-off on a branch
-corgi test --service api --service-branch api=feature/login
-corgi exec api --service-branch api=feature/login --ensure-deps -- npm run migrate
+cd ~/dev/your-stack
+corgi agent init                 # register AND enable this stack
+corgi agent install              # start at login (launchd / systemd)
+corgi agent status               # what is running, and under which account
 ```
 
-Worktrees accumulate one-per-branch under `corgi_services/.worktrees/`. Manage them:
+`corgi agent scan <dir>` registers stacks it finds but **does not enable them**.
+Supervision is opt-in per workspace: scanning a projects folder should not
+quietly spawn a Claude session for every stack in it. Run `corgi agent init` in
+the ones you actually want running.
+
+Then open the Claude app. Nothing to arm.
+
+To check it can work before committing to it:
 
 ```bash
-corgi worktree list     # print created worktree paths
-corgi worktree prune    # git worktree remove them all (also done by corgi clean)
+corgi agent doctor
+corgi agent serve --foreground   # run it in this terminal and watch
 ```
 
-This is what lets one agent run an isolated branch while another runs `main`, or a
-multi-service story verify a producer from its worktree without committing to the
-main checkout.
+## Commands
 
-## Exit codes
+| command | what it does |
+|---|---|
+| `corgi agent init` | register this stack, write `.corgi/agent.yml` |
+| `corgi agent scan <dir>` | find stacks under a directory and register them (does not enable) |
+| `corgi agent serve` | supervise Remote Control for every enabled workspace |
+| `corgi agent install` / `uninstall` | start (or stop starting) at login |
+| `corgi agent status [--json]` | what is running, restarts, which account |
+| `corgi agent doctor [--json]` | can this work here, and what to fix |
+| `corgi agent workspaces` | list, `forget`, `relocate` |
+| `corgi agent resolve <name>` | what "the recipe app" resolves to |
+| `corgi agent brief [id]` | what the last session was working on before it restarted |
+| `corgi agent stop` | stop the daemon |
 
-| Code | Meaning |
-|------|---------|
-| 0 | Success |
-| 1 | Operational failure (a check/command failed) |
-| 2 | Usage / missing required input |
+## Restarts, and being told about them
 
-## Error codes
+Remote Control exits on the ten-minute network timeout, on a crash, and on
+reboot. corgi restarts it with capped backoff and **says so**:
 
-Under `--json`, errors carry a stable `code` string. Branch on the code, not the
-message text (messages may change wording). The catalog:
+> `rc restarted 14:32 · previous session ended (network timeout) · worktrees kept`
 
-| Code | Meaning | Typical fix |
-|------|---------|-------------|
-| `E_COMPOSE_NOT_FOUND` | no `corgi-compose.yml` resolved | run from a dir with one, or pass `-f <path>` |
-| `E_CONFIG` | could not load/resolve the compose file | run from a dir with corgi-compose.yml or pass `-f` |
-| `E_COMPOSE_PARSE` | YAML failed to parse | fix syntax; validate with `corgi validate` |
-| `E_INTERACTIVE_REQUIRED` | a prompt was needed but input is unavailable | pass the flag the message names |
-| `E_SERVICE_NOT_FOUND` | named service/db not in compose | check the name against `corgi ps` |
-| `E_MISSING_FIELD` | a required field is absent | supply it (message names the field) |
-| `E_DANGLING_DEP` | `depends_on` references an unknown name | fix the reference |
-| `E_DEPENDENCY_CYCLE` | `depends_on_services` forms a cycle | break the cycle |
-| `E_UNKNOWN_DRIVER` | `db_services.driver` is not a known driver | use a supported driver |
-| `E_MISSING_START` | a service has a `port` but no `start`/`runner` | add a `start` command or `runner: docker` |
-| `E_PORT_CONFLICT` | two services/dbs bind the same host port | give them distinct ports |
-| `E_UNHEALTHY` | a readiness/health probe failed | check the service; inspect `corgi logs` |
-| `E_READINESS_TIMEOUT` | a dependency wasn't ready before the deadline | raise `--ready-timeout`, or fix the dep |
-| `E_DOCKER_DOWN` | the docker daemon is unreachable | start Docker |
-| `E_USAGE` | invalid command usage / arguments | fix the command invocation |
-| `E_EXEC_FAILED` | the command could not be spawned | check the binary exists / path |
-| `E_UNKNOWN_PROFILE` | `run --profile` matched no services/db_services | check the profile name against the compose `profiles:` lists |
-| `E_INVALID_CONDITION` | invalid depends_on `condition` (use `ready` or `started`) | fix the value |
-| `E_ALREADY_RUNNING` | a detached run is already active | stop/restart first, or `--force` |
-| `E_UNSUPPORTED` | operation not supported yet | use the suggested alternative |
-| `E_NOT_RUNNING` | no matching detached service to act on | start it with `corgi run --detach` first |
-| `E_CONFIG_PATH` | cannot resolve the user-config dir | check `~/.corgi` perms |
-| `E_CONFIG_READ` | cannot read the user-config file | check `~/.corgi/config.yml` |
-| `E_DUPLICATE_NAME` | a name is used by more than one service/db_service (or duplicated within a section) | rename so every service/db_service name is unique |
-| `E_PORT_RANGE` | a configured port is outside 1-65535 | use a port in the valid range |
-| `E_MEMORY_SECRET` | a secret-shaped string is in committed memory | remove it — memory is committed; secrets stay in gitignored `.env` |
-| `E_MEMORY_TYPE_MISMATCH` | a fact's `type` doesn't match its folder | move the file or fix `type:` |
-| `E_MEMORY_BAD_NAME` | `name` isn't kebab-case or doesn't match the filename | rename so `name` == filename stem |
-| `E_MEMORY_NO_FRONTMATTER` | a memory fact is missing its `name`/`description` frontmatter | add the frontmatter block |
+The notification matters. A relaunched Remote Control starts a **new** session,
+so the previous conversation's context is gone. Restarting silently would look
+like continuity and cost you an hour of confusion.
 
-Validation also emits advisory warnings (not errors): `W_NO_HEALTHCHECK`,
-`W_NO_BRANCH`, and `W_UNKNOWN_FIELD` (an unknown/typo'd key was ignored — warn
-now, may become an error later). Warnings never abort `run`/`exec`. `corgi memory lint`
-also emits `E_MEMORY_DANGLING_LINK` as a warning (a `[[link]]` points at no existing fact).
+### The handover brief
 
-Note: a few codes were renamed for consistency — `INPUT_REQUIRED` →
-`E_INTERACTIVE_REQUIRED`, `config` → `E_CONFIG`, `ALREADY_RUNNING` →
-`E_ALREADY_RUNNING`, and `UNSUPPORTED` → `E_UNSUPPORTED`. Every emitted code now
-lives in the catalog above.
-
-## Commands that need a flag (or error in non-interactive mode)
-
-These would normally show a picker; non-interactively they exit 2 unless you
-pass the flag:
-
-- `logs` → `--service <name>` (or `--all`)
-- `db shell` → service-name arg, or `-e "<query>"` for one-shot
-- `create` → `--kind <db_service|service|required> --name <name>`
-- `fork` → `--all` **or** `--service <name>`, plus `--gitProvider <github|gitlab>`
-- `suggest-history check` → `--slug <s>`; `suggest-history record` → `--slug <s> --status <filed|dismissed|proposed|skipped>` (else exit 2). `--workspace <path>` overrides cwd (cron passes an absolute path).
-- any command needing the compose file → run from a dir containing
-  `corgi-compose.yml`, or pass `-f <path>`
-
-Non-interactive scaffolding:
+corgi cannot restore the conversation. What it can keep is the half that
+survives on disk, captured in the gap between the old process exiting and the
+new one starting — the only moment that state is both final and current:
 
 ```bash
-corgi create --kind db_service --name db --driver postgres --port 5439
-corgi create --kind service    --name api --path ./api --port 8080
-corgi fork --all --gitProvider github
-corgi fork --service api --gitProvider github --newName api-fork --private
+$ corgi agent brief acme-stack
+acme-stack
+  ended   2026-08-14 14:32 (network-timeout)
+  reason  remote control restarted — the previous session ended (network timeout)
+  state   was on feature/referral · 1 repo has uncommitted changes
+    api              feature/referral (worktree)
+    web              feature/referral · uncommitted changes (worktree)
 ```
 
-## Authoring & inspection
+The worktrees are the part worth having. A branch spread across four
+repositories is invisible from a fresh session's working directory, and nothing
+else would tell the new session it exists. The summary line is appended to the
+restart notification, so the lock screen says *where* as well as *that*.
 
-These commands inspect or exercise the compose file without booting the full
-stack. They share the global `--json` contract (pure JSON on stdout, logs to
-stderr) and the [error-code catalog](#error-codes).
+Uncommitted work counts untracked files, unlike the check that guards worktree
+removal. Creating files is the most common thing an agent does, and a note
+calling that "clean" would be worse than no note. `.gitignore` is respected, so
+build output does not inflate the count.
 
-### `corgi validate` (alias `lint`)
+A session that ends because you asked it to gets no brief — you do not need a
+handover note for something you just closed. Only the most recent is kept per
+workspace, and `corgi agent workspaces forget` drops it, so a reused id cannot
+surface another stack's branches.
 
-Static semantic checks over `corgi-compose.yml` — no containers, clones, or
-network. Pairs with `docs --json-schema`: the schema checks *structure*,
-`validate` checks *semantics* (dangling deps, cycles, unknown driver, a port
-without a start command, port conflicts).
+From a phone, the same thing is `corgi_session_brief`. Call it first when
+picking work back up.
 
-Flags:
+Not every exit is worth retrying:
 
-- `--json` — emit the report object (below).
-- `--strict` — treat warnings as failures.
+| cause | what corgi does |
+|---|---|
+| network timeout | restart, notify |
+| crash | restart with backoff, notify |
+| exits immediately, repeatedly | stop after 5, disable the workspace, notify |
+| auth failure | **do not restart** — retrying cannot produce credentials |
+| `corgi agent stop` | stay stopped |
 
-```json
-{"ok": true, "errors": [], "warnings": [{"code": "...", "message": "...", "field": "..."}]}
-```
+## Wake lock
 
-Each issue is `{code, message, field}`. Exit 0 when clean, 1 when there are
-errors (or warnings under `--strict`), 2 when the compose file fails to load.
+A machine that sleeps mid-session kills the session, the stack, and any tunnel.
+Remote Control does not take a lock, so corgi does — scoped to the session, not
+to forever, because an always-awake laptop is a flat battery.
 
-### `corgi run --dry-run`
+- macOS: `caffeinate -i -m -s -w <pid>`. The `-w` ties the lock to the
+  supervised process, so a crash cannot leave your machine awake overnight.
+- Linux: `systemd-inhibit --what=idle:sleep`
+- Configurable per workspace: `wakeLock: session | always | off`. On a desktop
+  you want `off`.
 
-Compute the start plan with **no side effects** — no clone, no `make up`, no
-process spawn, no `.env` writes. Runs validation first, then reports the
-resolved order and per-item details. Composes with `--profile` /
-`--services` / `--omit` to preview a narrowed run. Exit 0 if valid, 1 if
-validation finds errors.
+**Honest limit:** on macOS, closing the lid on battery sleeps the machine no
+matter what `caffeinate` does. "Lid closed on the train" only works plugged in.
+If that is your workflow, supervise from a machine that stays on.
 
-```json
-{
-  "valid": true,
-  "order": ["db:main", "svc:api"],
-  "databases": [{"name": "main", "driver": "postgres", "port": 5432, "willStart": true}],
-  "services": [
-    {"name": "api", "port": 8080, "willClone": false, "dependsOn": ["db:main"], "envKeys": ["DATABASE_URL"]}
-  ],
-  "warnings": [],
-  "errors": []
-}
-```
+## Supervising an agent other than Claude Code
 
-`order` ids are `db:<name>` / `svc:<name>`. `errors` is omitted when empty.
-
-### `corgi exec <service> -- <cmd> [args...]`
-
-Run a one-off command in a service's resolved environment and working
-directory (its `.env` is sourced the same way `start` commands get it). The
-child's exit code becomes corgi's exit code.
-
-Flags:
-
-- `--json` — emit `{"service": "...", "exitCode": 0, "durationMs": 12}`; child
-  stdout/stderr are routed to stderr so stdout stays pure JSON.
-- `--ensure-deps` — wait for the service's `depends_on_db` /
-  `depends_on_services` to be reachable first.
-- `--ready-timeout <dur>` — cap that wait (default `15s`).
-
-```bash
-corgi exec api -- npm run migrate
-corgi exec api --ensure-deps -- pytest -q
-```
-
-An unknown service exits 2 with `E_SERVICE_NOT_FOUND`; a readiness timeout
-under `--ensure-deps` exits 1 with `E_READINESS_TIMEOUT`.
-
-### `corgi test`
-
-Run each selected service's `test` script (a script named `test` under
-`services.<name>.scripts`) in that service's env and working dir. It does
-**not** start anything — that's `run`'s job. Services without a `test` script
-are **skipped, not failed**. Multi-command scripts run sequentially and stop on
-the first non-zero exit.
-
-Flags:
-
-- `--service <name>` — only this service (unknown name exits 2).
-- `--profile <name>` — narrow to a profile first (see [Profiles](#profiles)).
-- `--ensure-deps` / `--ready-timeout <dur>` — gate on dependency readiness, as
-  in `exec`.
-- `--json` — emit the results object.
-
-```json
-{
-  "services": [
-    {"name": "api", "exitCode": 0, "durationMs": 1840, "passed": true},
-    {"name": "worker", "skipped": true}
-  ],
-  "passed": true
-}
-```
-
-Exit 0 if every run test passes (skips don't count), 1 if any fail, 2 on an
-unknown `--service`.
-
-## Profiles
-
-`corgi run --profile <name>` runs only the services/db_services whose
-`profiles:` list contains `<name>`, **plus their transitive `depends_on`
-closure** (so a profile still brings up the databases its services need, even
-if those databases carry no `profiles:` tag). `--profile` accepts a
-comma-separated list and runs the **union** of those profiles, e.g.
-`corgi run --profile backend,worker`. With no `--profile`, everything runs
-(unchanged docker-compose-style behavior). If none of the requested profiles
-match anything, corgi warns (`E_UNKNOWN_PROFILE`) and starts nothing rather
-than starting everything; a partially-unknown list just uses the matches.
-
-`profiles:` is a string array on entries under `services` and `db_services`.
-`--profile` composes with `--services` / `--dbServices` / `--omit` as an
-**intersection** (the profile narrows first, then the other filters apply). It
-also works with `--dry-run` to preview a profile's plan.
+Everything the supervisor actually does — restart after the ways a session dies,
+hold a wake lock, scope credentials and config directory per workspace — is the
+same whichever agent CLI is running. Only the launch details differ, so those
+are a `kind`:
 
 ```yaml
-services:
-  api:
-    profiles: [backend]
-db_services:
-  main:
-    driver: postgres
-    profiles: [backend]
+workspaces:
+  acme-stack:
+    autostart: true
+    kind: custom
+    bin: some-agent            # a command name on PATH, never a path
+    args: [serve, --headless]  # the argv, in full
+    configDirEnv: SOME_AGENT_HOME
+    credentialEnv: [SOME_AGENT_API_KEY, SOME_AGENT_OAUTH_TOKEN]
 ```
+
+| kind | what it launches |
+|---|---|
+| `claude` | `claude remote-control …`, built from `spawn`, `capacity`, `permissionMode`. The default, so an existing config is unchanged. |
+| `custom` | exactly the `args` you wrote, after `bin`. |
+
+**Why `custom` takes the whole argv rather than corgi guessing flags.** A
+supervised process runs unattended, and a flag corgi invented for a CLI whose
+interface it cannot verify would fail at 3am with a message nobody sees. Writing
+the command out means what runs is what you tested in a terminal. Built-in kinds
+exist for CLIs whose flags corgi can be sure of; adding one is a map entry in
+`utils/agent/supervisor/kind.go`.
+
+Three rules carry over unchanged, because they are what makes supervision safe
+rather than merely convenient:
+
+- **`args` is trusted config only.** An argv is a choice of what code runs, so
+  there is deliberately no field in the committed `.corgi/agent.yml` that
+  reaches it. A cloned repository cannot choose the command.
+- **Nothing may disarm the permission prompts.** `--dangerously-*` and `--yolo`
+  in `args` are rejected, the same rule that already rejects
+  `permissionMode: bypassPermissions`. Those prompts are what you answer from
+  your phone.
+- **A setting that cannot take effect is an error.** `spawn` and
+  `permissionMode` on a `custom` kind are rejected rather than dropped, and so
+  is a `configDir` with no `configDirEnv` to put it in — silently ignoring the
+  last one would leave the workspace on the default account, which looks exactly
+  like being on the right one.
+
+## Running more than one Claude account
+
+If you keep work and personal logins separate, this is the section that matters.
+
+Multi-account setups are almost always shell aliases:
 
 ```bash
-corgi run --profile backend --dry-run --json        # preview just the backend profile
-corgi run --profile backend,worker --dry-run --json # union of two profiles
-corgi test --profile backend --json                 # test only that profile's services
+alias claude-work='CLAUDE_CONFIG_DIR=~/.claude-work claude'
 ```
 
-## Dependency readiness gating
+**launchd and systemd never source your shell rc files.** A supervised session
+would therefore run under your *default* account — no error, no warning,
+correct-looking output, wrong account.
 
-`depends_on_db` and `depends_on_services` entries accept an optional
-`condition`:
-
-- `condition: ready` — wait until the dependency's readiness probe passes.
-- `condition: started` — wait only until corgi has launched the dependency.
-
-By default (no `condition`, no flag) services start in **parallel** — no
-waiting (unchanged). corgi waits before starting a dependent only when an edge
-sets `condition`, or when `run --gate-deps` is passed (which gates *every*
-edge). `--ready-timeout <dur>` (default `15s`) bounds each wait; a timeout is
-non-fatal — corgi proceeds anyway and emits `E_READINESS_TIMEOUT`.
-
-```yaml
-services:
-  api:
-    depends_on_db:
-      - name: main
-        condition: ready
-```
-
-## Schema
-
-Get a draft-07 JSON Schema for `corgi-compose.yml`:
+So corgi sets `CLAUDE_CONFIG_DIR` per workspace explicitly:
 
 ```bash
-corgi docs --json-schema > corgi-compose.schema.json
+corgi agent init --config-dir ~/.claude-work
 ```
 
-In an editor, point the YAML language server at it with a top-of-file directive:
+Each supervised process gets an environment corgi builds itself, rather than
+inheriting the daemon's. Ambient `ANTHROPIC_API_KEY` and
+`CLAUDE_CODE_OAUTH_TOKEN` are **stripped** unless a workspace opts in — Remote
+Control refuses to start with an API key set, and an inherited one bills the API
+instead of your subscription.
+
+`corgi agent status` prints which account each workspace will actually use.
+That one line prevents the most likely surprise in agent mode.
+
+This is environment and config-path scoping, not a sandbox. It prevents
+accidents. It does not contain a compromised session. For a real boundary,
+give each account its own config directory and keep sensitive stacks separate.
+
+## Configuration, and why it is split in two
+
+Settings live in two files with different trust levels.
+
+**`.corgi/agent.yml` — committed, untrusted.** It arrives with a `git clone`
+and was written by whoever wrote the repository, who may not be you. So it holds
+identity only:
 
 ```yaml
-# yaml-language-server: $schema=./corgi-compose.schema.json
+version: 1
+workspace:
+  id: acme-stack
+  aliases: [acme, recipe app]
+  sensitive: false      # true ⇒ never open a public tunnel for this workspace
 ```
 
-## Environment interpolation
-
-`${VAR}` placeholders in `corgi-compose.yml` are expanded in the raw file
-**before** YAML parsing, so they work in any string field (passwords, ports,
-paths, image refs, environment entries).
-
-- `${VAR}` — replaced with the value of `VAR`.
-- `${VAR:-default}` — value of `VAR`, or `default` if `VAR` is unset/empty.
-- `$${LITERAL}` — escapes to the literal `${LITERAL}` (not expanded).
-- Only **braced** forms are expanded. Bare `$VAR` is left untouched (so shell
-  snippets in `start` commands are safe).
-- An unset var with **no default** is left **unresolved** (the `${VAR}` token
-  stays literal), silently — so runtime/per-service env, tunnel hostnames, and
-  cross-service `${producer.VAR}` refs that resolve later still work. Use
-  `${VAR:-default}` for an explicit fallback. corgi never silently substitutes
-  empty.
-- Dotted forms like `${producer.VAR}` are **not** touched by this global pass
-  (only simple `${NAME}` is) — they are resolved later from per-service env.
-- This pass runs everywhere, **including inside `start`/`beforeStart`/`afterStart`
-  and `scripts` command strings**. A braced `${VAR}` / `${VAR:-default}` there is
-  resolved at **load time** (against process env + sibling `.env`), not by the
-  runtime shell. To defer expansion to the runtime shell instead (e.g. a var only
-  defined in the service's own runtime env), escape it as `$${VAR}`, which becomes
-  the literal `${VAR}` for the shell to expand.
-
-Values come from the process environment first, then an optional `.env` file
-in the same directory as the compose file (process env wins). The `.env`
-parser is minimal: `KEY=value` lines, `#` comments and blank lines ignored,
-surrounding quotes trimmed.
+**The user-level file — never committed, `chmod 600`, trusted.** It holds
+everything that grants capability, and corgi refuses to read it if it is
+readable by other users:
 
 ```yaml
-db_services:
-  pg:
-    driver: postgres
-    password: ${DB_PASSWORD}        # unset & no default -> left literal, silently
-    port: ${PG_PORT:-5432}          # defaults to 5432
+version: 1
+defaults:
+  spawn: worktree
+  capacity: 4
+workspaces:
+  acme-stack:
+    autostart: true          # supervise this one; `corgi agent init` sets it
+    kind: claude             # which agent CLI; default, see below
+    configDir: ~/.claude-work
+    wakeLock: session
+    permissionMode: default
 ```
 
-## Safe agent recipe
+**`autostart` is opt-in.** A registered workspace is not supervised until it
+says so, because `corgi agent scan` can register a dozen stacks and starting a
+Claude session for each of them is a surprise measured in gigabytes.
+`corgi agent init` sets it; `serve` says which workspaces it skipped and why.
 
-Use `corgi run --detach` — it returns immediately and the services outlive
-corgi. Probe with `status`/`ps`, never by re-running `run` (a second
-`run --detach` errors `E_ALREADY_RUNNING`). Tear down with `corgi stop`.
+The rule: **untrusted config may restrict, never relax.** A cloned repository
+can mark itself `sensitive`, which only removes capability. It cannot choose
+which binary runs, which account is used, or which permission mode applies —
+otherwise cloning a repository would be a way to run code on your machine.
 
-```bash
-# 1. preflight (exit 1 if a port is taken / docker down)
-corgi --json doctor
+`permissionMode: bypassPermissions` is rejected outright, and corgi never
+passes `--dangerously-skip-permissions` whatever your aliases do. Those prompts
+are what you answer from your phone, and they are the main defence against a
+session acting on injected instructions from a file it read.
 
-# 2. launch detached (writes corgi_services/.state.json, returns immediately)
-corgi --json run --detach
+## The MCP tools
 
-# 3. block until every probed target is up (exit 1 on timeout)
-corgi status --ready --timeout 2m
+`corgi mcp` gains ten tools. A Remote Control session calls them from your
+phone; they also work from any other MCP client.
 
-# 4. inspect real status as JSON (running/crashed/stopped from state)
-corgi --json status
-corgi --json ps
+| tool | what it does |
+|---|---|
+| `corgi_session_brief` | what the previous session was working on before it restarted |
+| `corgi_workspaces` | every stack registered on this machine |
+| `corgi_workspace_resolve` | "the recipe app" → one stack, or candidates |
+| `corgi_worktrees_materialize` | a worktree per repo, all on one branch |
+| `corgi_worktrees_release` | remove those worktrees, keep the branches |
+| `corgi_diff` | every repo's change against its base, in one response |
+| `corgi_preview_start` | open a public tunnel to a running service |
+| `corgi_preview_state` | starting / ready / broken / stopped, with the reason |
+| `corgi_preview_freeze` | pin it so idle reaping leaves it alone |
+| `corgi_preview_stop` | tear it down |
 
-# 5. read a service's persisted logs (detach forces logs on)
-corgi logs --service api --idle 0
+`corgi_worktrees_*` mutate, so they join the same tunnel gate that already
+covers `corgi_exec` and `corgi_db_query` — see [exposure
+tiers](#exposure-local-private-public) for when that gate is closed.
 
-# 6. stop the stack (SIGTERM each group, removes the state file)
-corgi --json stop
+### Resolution never guesses
 
-# 7. tear down volumes/containers
-corgi clean -i all
+```
+$ corgi agent resolve "the recipe app"
+acme-stack (/Users/you/dev/acme), api + web + db, matched on alias recipe app
 ```
 
-## JSON output examples
+An ambiguous name returns candidates and starts nothing, because a wrong
+resolution means an agent editing the wrong repository. One extra tap is cheap;
+that is not. Echo the resolved path back before doing any work.
 
-`corgi --json doctor` (object with `ok` + `checks`; `checks` is `null` when no
-ports are declared):
+### One branch across every repository
 
-```json
+This is the thing Remote Control structurally cannot do. `--spawn=worktree`
+gives it one worktree of *one* repository; a stack is several.
+
+```jsonc
+// corgi_worktrees_materialize { "branch": "feature/referral" }
 {
-  "ok": true,
-  "checks": [
-    {"name": "port:8080", "ok": true}
+  "branch": "feature/referral",
+  "worktrees": [
+    {"service": "api", "dir": ".../corgi_services/.worktrees/api@feature-referral", "created": true},
+    {"service": "web", "dir": ".../corgi_services/.worktrees/web@feature-referral", "created": true}
   ]
 }
 ```
 
-`corgi --json ps` (array of declared targets):
+Two services sharing a repository share one worktree, because git allows a
+branch in exactly one. Re-running is idempotent and keeps uncommitted work.
 
-```json
-[
-  {
-    "name": "app",
-    "kind": "service",
-    "port": 8080,
-    "status": "stopped",
-    "url": "http://localhost:8080"
-  }
-]
-```
+### The diff is the artifact that works on a train
 
-`corgi --json config`:
-
-```json
+```jsonc
+// corgi_diff { "branch": "feature/referral", "base": "main" }
 {
-  "version": 1,
-  "notifications": true,
-  "path": "/Users/you/.corgi/config.yml"
+  "base": "main", "additions": 4, "deletions": 0,
+  "repos": [
+    {"service": "api", "additions": 1, "files": [{"path": "README.md", "additions": 1}]},
+    {"service": "web", "additions": 3, "files": [{"path": "Signup.tsx", "additions": 3, "new": true}]}
+  ]
 }
 ```
 
-Top-level keys of the compose schema:
+No tunnel, no running stack, survives bad signal. Newly created files are
+included — `git diff` alone says nothing about an untracked file, and creating
+files is the most common thing an agent does. `.gitignore` is respected, so an
+ignored secrets file never reaches a transcript. Very large patches are
+truncated rather than dropped.
 
-```bash
-corgi docs --json-schema | jq '.properties | keys'
-# ["afterStart","beforeStart","db_services","description","init",
-#  "name","required","services","start","useAwsVpn","useDocker"]
+## Live preview
+
+A tunnel onto a service the agent is editing, so the change can be watched from
+a phone. corgi needs no refresh mechanism — the dev server already hot reloads.
+It needs to keep one tunnel open and be honest about the build state.
+
+```
+corgi_up                       # the stack must be running first
+corgi_preview_start { "service": "web", "branch": "feature/referral" }
+  → { "state": "starting" }    # returns immediately; no MCP handler may block
+corgi_preview_state
+  → { "state": "ready", "url": "https://kind-zebra-42.trycloudflare.com" }
 ```
 
-## Workspace memory (`corgi memory`)
+The tunnel runs **detached**, writing to `corgi_services/.previews/<id>.log`,
+which is the same shape corgi already uses for detached services. So a preview
+outlives the session that started it, and a later corgi run can still find it.
 
-`.corgi/memory/` is an **opt-in, committed** store of stack decisions, incidents,
-domain facts, and recurring fixes — the team/agent's shared memory of *why*, keyed to
-this `corgi-compose.yml`. Absent → every subcommand is a no-op (exit 0). One fact per
-Markdown file (`<type>/<name>.md`) with `name`/`description`/`type` frontmatter and
-`[[links]]`; `index.md` is generated. **Never commit secrets** — `corgi memory lint`
-fails the store on a key-shaped string. The agent skills read it before acting and
-append to it (confirmed) after a notable fix; a fix `pattern:` seen ≥3× is *proposed*
-as a learned skill/template (human-approved, never auto-installed).
+**States, because a banner beats a white screen.** Mid-task a worktree is often
+in a broken intermediate state — a half-written file, an import that does not
+resolve. `broken` means the tunnel is up but nothing answers on the port, which
+usually means a build in progress. Show that, rather than handing over a URL
+that renders a stack trace.
+
+**Freeze** pins a preview so idle reaping leaves it alone while someone is
+reading it. **Idle reaping** tears down anything unwatched for 20 minutes by
+default and actually kills the tunnel — a forgotten preview is a public URL onto
+seeded data.
+
+Tunnels are off unless asked for, and a workspace marked `sensitive` refuses one
+outright, pointing at `corgi_diff` instead.
+
+### What is not verified
+
+Being straight about this, because it decides whether the feature is worth
+using for your stack:
+
+- **Hot reload over a tunnel is unproven here.** Whether a dev server's HMR
+  websocket survives the round trip depends on the provider. If it does not,
+  you get a page that loads but does not update, which is worse than knowing.
+- **Vite and Next need the tunnel host allowed** (`allowedHosts` /
+  `allowedDevOrigins`) or every preview is a blocked-host error. corgi does not
+  inject that yet — add it to your dev server config.
+- **A quick tunnel changes URL when it restarts**, which breaks the link already
+  open on a phone. Declare a named tunnel in the service's `tunnel:` block in
+  `corgi-compose.yml` for anything you want to keep open — there is no command
+  line flag for it — and corgi reports `quickTunnel: true` so you know which
+  kind you have.
+
+Try it by hand before relying on it. `corgi_diff` needs none of this and is the
+better answer to "what changed".
+
+## Exposure: local, private, public
+
+"Is there a tunnel" is the wrong question to gate on. A tunnel behind an
+identity proxy is not open to the internet; a quick tunnel is open to anyone who
+has the URL. Those deserve different answers, so `corgi mcp --http --tunnel`
+sorts the endpoint into a tier:
+
+| tier | what it means | `corgi_exec`, `corgi_db_query`, `corgi_worktrees_*` |
+|---|---|---|
+| `local` | loopback or LAN, no tunnel | allowed |
+| `private` | a tunnel an identity proxy stands in front of | allowed |
+| `public` | anyone holding the URL can reach it | blocked unless `CORGI_MCP_ALLOW_DANGEROUS_TUNNEL=1` |
+
+`private` is **only ever reached by observing it**. When the tunnel URL is
+published, corgi makes one unauthenticated request to **`/mcp`** — the route the
+tools are actually served on — and looks at what comes back: a redirect to an
+Access login, a `cf-access-*` header, a challenge naming a realm. Nothing in any
+config file can assert protection, because a gate that relaxes on a claim is a
+gate that fails open on a typo.
+
+The route matters. Making a non-browser MCP client work behind Access usually
+means giving `/mcp` a service-token or bypass policy while `/` keeps redirecting
+to the login page. Probing the root would see that redirect, call the tunnel
+private, and re-enable `corgi_exec` on a route anyone with the URL can reach.
+
+```
+🌐 ✓ public MCP endpoint: https://corgi.example/mcp
+🌐 exposure: private — cloudflare-access (unauthenticated request redirected to the Access login).
+   corgi_exec/corgi_db_query stay enabled; no CORGI_MCP_ALLOW_DANGEROUS_TUNNEL needed.
+```
+
+corgi's own bearer check answers 401 too, and is deliberately **not** counted:
+treating it as protection would let the endpoint declare itself private on the
+strength of the very token the gate exists to protect. Anything unrecognised —
+including a probe that could not connect — stays `public`. The gate starts
+closed and opens only on evidence.
+
+The practical result is that `CORGI_MCP_ALLOW_DANGEROUS_TUNNEL=1`, which is set
+once and then forgotten about forever, stops being the only way to use these
+tools from a phone. Put a named tunnel behind an access policy and the gate
+opens for the right reason.
+
+Two things this does **not** do. It does not check previews: `corgi_preview_*`
+opens a tunnel onto a dev server, and probing it would mean a network call
+inside an MCP handler, which must never block. A preview is public, `sensitive`
+workspaces refuse one, and idle reaping still tears it down. And it is a
+reachability check, not an authorization model — it tells you an unauthenticated
+request does not reach corgi, nothing about who is on the other side once it
+does.
+
+## Pairing a phone
+
+A phone reaches corgi over the MCP HTTP endpoint, and should never be handed the
+server's own bearer token — that token reaches `corgi_exec` and `corgi_db_query`.
+
+```bash
+corgi mcp --http 127.0.0.1:8765 --pair
+```
+
+prints a single-use code, valid two minutes, which a client exchanges once for
+its own revocable token. `corgi mcp devices revoke <name>` kills exactly one
+device without disturbing the others — which is the whole reason not to share
+one token. Full detail: [docs/mcp.md](mcp.md).
+
+## When corgi cannot find its data directory
+
+corgi keeps its registry beside its other state. On macOS that is the Homebrew
+`var/corgi` directory when one already exists, otherwise
+`~/Library/Application Support/corgi`. The location is decided by looking at the
+filesystem, never by running `brew` — launchd's PATH does not include it, and
+shelling out would give the daemon and your shell two different directories.
+
+If you use a custom Homebrew prefix and `HOMEBREW_PREFIX` is not exported, point
+corgi at the right place explicitly:
+
+```bash
+export CORGI_DATA_DIR="$(brew --prefix)/var/corgi"
+```
+
+## Platform support
+
+| | supported |
+|---|---|
+| macOS | yes — launchd, `caffeinate` |
+| Linux | yes — systemd user unit, `systemd-inhibit` |
+| Windows | **not yet.** `corgi agent install` exits 2 and says so rather than half-installing. Run `corgi agent serve` under your own supervisor. |
+
+## Security summary
+
+- Config split by trust; a cloned repo cannot grant itself capability.
+- `bin` must be a command name on PATH, never a path.
+- `bypassPermissions` rejected; `--dangerously-skip-permissions` never passed.
+- Ambient credentials stripped from supervised processes and reported.
+- The user config must be `0600` or corgi refuses to read it; briefs are written
+  `0600` for the same reason — they name repository paths and branches.
+- A custom kind's `args` cannot carry `--dangerously-*` or `--yolo`.
+- Exposure is downgraded to `private` only on an observed interception, never on
+  a config claim, and corgi's own 401 does not count as one.
+- No secret material in the launchd plist or systemd unit — those are
+  world-readable and land in backups.
+- Supervised output is not mirrored to the daemon's log unless you pass
+  `--foreground`; a session's output can contain env values and tokens.
+- Mutating MCP tools are blocked over a public tunnel by default.
+- **Prompt injection is a real exposure, not a solved problem.** A session reads
+  repository files, issue text, and dependency READMEs, and corgi's tools can
+  materialize branches. The permission prompts you answer from your phone are
+  the defence, which is why weakening them is refused.
+
+## A phone app
+
+The Claude app already covers the conversation. What it has no concept of —
+which stacks exist, whether the daemon is up, a cross-repo diff — is sketched in
+[corgi-remote](remote-app.md). Nothing is built; the document mostly records
+what *not* to build.
+
+## Licensing
+
+Supervising `claude remote-control` on your own machine, for your own work,
+under your own login is ordinary individual use — Remote Control is a
+first-party feature built for exactly that.
+
+Hosting it for other people, or routing anyone else's requests through your
+seat, is not. If agent mode ever grows a multi-user mode, that mode must require
+API-key authentication and refuse to start on subscription credentials.
 
 ---
 > Source: [Andriiklymiuk/corgi](https://github.com/Andriiklymiuk/corgi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
