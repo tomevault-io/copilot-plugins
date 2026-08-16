@@ -1,21 +1,21 @@
 # osmedeus
 
-> Tome by [j3ssie](https://github.com/j3ssie/osmedeus) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [j3ssie](https://github.com/j3ssie/osmedeus), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [j3ssie/osmedeus](https://github.com/j3ssie/osmedeus).
+Original source: `AGENTS.md` in [j3ssie/osmedeus](https://github.com/j3ssie/osmedeus).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [j3ssie/osmedeus](https://github.com/j3ssie/osmedeus) — a repo with 6446+ stars on GitHub.
+From [j3ssie/osmedeus](https://github.com/j3ssie/osmedeus) — a repo with 6523+ stars on GitHub.
 
 ---
 
