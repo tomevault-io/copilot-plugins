@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [TheAstrelo/Claude-Pipeline](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [TheAstrelo/Claude-Pipeline](https://github.com/TheAstrelo/Claude-Pipeline) — a repo with 39+ stars on GitHub.
+From [TheAstrelo/Claude-Pipeline](https://github.com/TheAstrelo/Claude-Pipeline) — a repo with 41+ stars on GitHub.
 
 ---
 
