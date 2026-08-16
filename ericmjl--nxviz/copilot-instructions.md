@@ -1,0 +1,173 @@
+## nxviz
+
+> nxviz is a Python library for rational network visualizations built on a grammar of graphics. It provides six plot types (circos, arc, hive, matrix, parallel, geo) through a functional API, with matplotlib as the default backend and optional interactive backends (plotly).
+
+# nxviz - Agent Instructions
+
+## Project Overview
+
+nxviz is a Python library for rational network visualizations built on a grammar of graphics. It provides six plot types (circos, arc, hive, matrix, parallel, geo) through a functional API, with matplotlib as the default backend and optional interactive backends (plotly).
+
+## Codebase Structure
+
+```
+nxviz/
+├── __init__.py          # Public API exports
+├── api.py               # High-level functional API (circos, arc, hive, etc.)
+├── backend.py           # PlotBackend protocol + get_backend() factory
+├── nodes.py             # Node drawing pipeline (layout → encode → glyph)
+├── edges.py             # Edge drawing pipeline (encode → render)
+├── layouts.py           # Pure position computation (returns pos dict)
+├── encodings.py         # Data → visual property mapping (color, size, alpha)
+├── lines.py             # Matplotlib patch generators for edges
+├── paths.py             # Backend-agnostic edge path coordinate computation
+├── plots.py             # Axes utilities (despine, aspect_equal, rescale)
+├── annotate.py          # Text/colorbar/legend annotations
+├── highlights.py        # Per-element highlight overlays
+├── geometry.py          # Geometric helpers (circos_radius, item_theta)
+├── polcart.py           # Polar ↔ Cartesian conversions
+├── utils.py             # Data utilities (node_table, edge_table, group_and_sort)
+├── io.py                # Deprecated dataframe-to-graph builder
+├── facet.py             # Faceted (multi-panel) plot generation
+└── backends/
+    ├── __init__.py
+    ├── matplotlib_backend.py   # Matplotlib rendering
+    └── plotly_backend.py       # Plotly interactive rendering
+```
+
+## Design Docs First
+
+When asked to change the codebase, always start by examining the design docs under `docs/designs/` to understand what needs updating. Update the relevant EARS and/or LLD documents to preserve intent, then implement the code change. This ensures design documentation stays in sync with the implementation.
+
+## Architecture: Two Phases
+
+1. **Compute phase** (backend-agnostic): `layouts`, `encodings`, `geometry`, `polcart`, `utils` produce positions, visual encodings, and path coordinates. No rendering code here.
+2. **Render phase** (backend-specific): A `PlotBackend` draws nodes, edges, and annotations onto its native canvas.
+
+The `backend="matplotlib"` default preserves the original code path exactly.
+
+## Running Commands
+
+**Use `pixi run`, not `uv run`.**
+
+```bash
+pixi run test          # Run tests
+pixi run lint          # Run linters
+pixi run build-docs    # Build docs
+pixi run serve-docs    # Serve docs locally
+```
+
+The `tests` environment includes plotly for backend tests. To install the pixi environment:
+
+```bash
+pixi install
+```
+
+## CI Requirements
+
+CI must be green before merging. When fixing CI failures, uphold all repo standards (no mocking, no private methods, no comments, ruff formatting, etc.). Run `pixi run lint` and `pixi run test` locally before pushing.
+
+After creating or updating a PR, proactively monitor CI until it passes. Check with `gh pr checks <number>` and fix any failures immediately — especially trivial ones like formatting or lint errors. Do not wait for the user to notice CI is red.
+
+## Deploy Preview Verification
+
+When docs are changed on a PR, always verify the deploy preview using the `agent-browser` skill:
+
+1. Wait for the `rossjrw/pr-preview-action` bot to comment on the PR with the preview URL.
+2. Use the `agent-browser` skill to open the preview URL.
+3. Click all top-level navigation links and follow links throughout the site to verify pages render correctly.
+4. Look at the PR diff to determine which specific pages changed, and do a deeper dive on those pages (check content, images, interactive elements, broken links).
+
+This ensures that doc changes are actually viewable and correct before merging.
+
+## Coding Standards
+
+### No underscore-prefixed private methods
+
+Do not use `_private_method` naming. All functions and methods are public. Use descriptive names instead:
+
+```python
+# Bad
+def _resolve_layout(func):
+    ...
+
+# Good
+def resolve_layout(func):
+    ...
+```
+
+This applies to module-level functions, class methods, and helper functions equally.
+
+### No comments in code
+
+Do not add comments unless explicitly asked. Code should be self-documenting through clear naming.
+
+### Code style
+
+- Line length: 88 (ruff default)
+- Quote style: double quotes
+- Python: >=3.12
+- Formatting and linting: ruff
+
+### Testing
+
+- Test framework: pytest
+- Tests live in `tests/`
+- Graph fixtures in `tests/fixtures/graphs.py`
+- Run with: `pixi run test`
+- **No mocking.** Do not use `unittest.mock`, `pytest.mock`, `patch`, `MagicMock`, or any mocking library. Use real objects, real graphs, and real function calls. If a dependency is heavy, create a lightweight fixture instead of mocking it.
+
+### Backend system
+
+- New backends implement the `PlotBackend` protocol from `nxviz.backend`
+- Register in `BACKEND_REGISTRY` in `nxviz/backend.py`
+- Optional dependencies go in `[project.optional-dependencies]` in `pyproject.toml`
+- Lazy imports: backend modules are only loaded when `get_backend(name)` is called
+
+### Dependency management
+
+- Core deps (matplotlib, networkx, numpy, pandas, palettable, seaborn) stay in `[project.dependencies]`
+- Optional deps (plotly) go in `[project.optional-dependencies]` as extras
+- pixi features handle dev/test/doc tooling
+
+### Marimo pair programming
+
+When using marimo-pair to edit a notebook, you **must** guarantee zero errors across all cells after every batch of edits. After creating, editing, or moving cells, always check for errors:
+
+```python
+async with cm.get_context() as ctx:
+    for name, cell in ctx.cells.items():
+        if cell.errors or "error" in str(cell.status):
+            print(f"{name}: {cell.errors}")
+```
+
+Fix any errors before proceeding. Common pitfalls:
+- **Multiply-defined names**: Only one cell may define a variable (e.g., `import marimo as mo`). Other cells that need it must reference it, not re-import it.
+- **Use `skip_validation=True`** on `cm.get_context()` only when editing cells with multiply-defined names to fix them — not as a way to ignore the problem.
+
+### Marimo notebooks (PEP 723 inline script metadata)
+
+All marimo notebooks in `docs/` use PEP 723 inline script metadata with `[tool.uv.sources]` for local path dependencies. The format is:
+
+```python
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "marimo>=0.23.8",
+#     "matplotlib>=3.3.3",
+#     "networkx>=2.5",
+#     "nxviz",
+# ]
+# [tool.uv.sources]
+# nxviz = { path = "../..", editable = true }
+# ///
+```
+
+Key points:
+- Use `[tool.uv.sources]` to declare local path dependencies (not `@` URL syntax in the dependency string)
+- Notebooks are two levels deep under `docs/` (e.g. `docs/api/`, `docs/examples/`), so the path to the project root is `"../.."`
+- The `editable = true` flag installs nxviz in editable mode so changes to the source are reflected
+
+---
+> Source: [ericmjl/nxviz](https://github.com/ericmjl/nxviz) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
