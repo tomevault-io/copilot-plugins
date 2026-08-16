@@ -1,0 +1,9 @@
+{
+  "name": "kaczmar2--pihole-unbound",
+  "displayName": "pihole-unbound",
+  "description": "pihole-unbound",
+  "version": "1.0.0",
+  "author": "kaczmar2",
+  "homepage": "https://github.com/kaczmar2/pihole-unbound",
+  "skills": []
+}
