@@ -1,45 +1,40 @@
 ## react-starter-kit
 
-> shadcn/ui component library (new-york style, Radix primitives, Tailwind v4). Consumed as `@repo/ui`.
+> Terraform for the durable Cloudflare resources the Workers consume. [`README.md`](./README.md) covers setup and usage, [ADR-002](../docs/adr/002-terraform-wrangler-boundary.md) the ownership decision, [ADR-003](../docs/adr/003-hcp-terraform-state.md) the state backend, and [`docs/specs/infra-terraform.md`](../docs/specs/infra-terraform.md) the full specification. Those carry the rationale and the operating procedure; this file is the short list of constraints that matter while editing `infra/`.
 
-shadcn/ui component library (new-york style, Radix primitives, Tailwind v4). Consumed as `@repo/ui`.
+Terraform for the durable Cloudflare resources the Workers consume. [`README.md`](./README.md) covers setup and usage, [ADR-002](../docs/adr/002-terraform-wrangler-boundary.md) the ownership decision, [ADR-003](../docs/adr/003-hcp-terraform-state.md) the state backend, and [`docs/specs/infra-terraform.md`](../docs/specs/infra-terraform.md) the full specification. Those carry the rationale and the operating procedure; this file is the short list of constraints that matter while editing `infra/`.
 
-## Scope
+## Ownership Boundary
 
-- Only generic primitives belong here. If a component imports a route, a query, or the session, it belongs in `apps/app/components/` instead.
-- Nothing here imports application or domain code (`apps/`, `db/`). Consumers still have to supply the pieces below: a `lib/utils` shim, Tailwind `@source` entries, and the theme tokens.
-- `@/` is only safe for `@/lib/utils`. It resolves via each _consumer's_ tsconfig (both apps map `@/*` to their own root), and it works solely because every consumer keeps a `lib/utils` re-export shim. Keep that form — the CLI regenerates it, and rewriting it to `@repo/ui` creates a cycle.
-- Import one component from another **relatively** (`./toggle`). The CLI emits `@/components/toggle`, which resolves into the consuming app and fails the build there — `apps/web` has no `components/toggle`. Fix it after every `bun ui:add`/`ui:update`.
+- Terraform provisions what the Workers consume: the two Hyperdrive configurations and the opt-in R2 uploads bucket. Nothing else. Worker names, code, routes, custom domains, bindings, vars, secrets, and assets belong to `apps/*/wrangler.jsonc` – adding a `cloudflare_workers_*` or DNS resource here is the change that breaks the design, and it will not announce itself as a conflict until a deploy overwrites something.
+- The handoff is manual and non-secret: Hyperdrive IDs and the R2 bucket name are pasted into `wrangler.jsonc` once per environment. A change to a handoff output is incomplete without the corresponding `wrangler.jsonc` update.
 
-- `scripts/` is intentionally outside the tsconfig `include`. These are Bun CLI tools, while the library's declaration build uses the browser-only React preset (`types: ["vite/client"]`). Including them would require Bun/Node types and emit declarations for tooling. Smoke-test changed commands deliberately; `bun ui:list` covers only the read-only inventory command.
+## Layout and Naming
 
-## Adding and Updating Components
+- The two roots stay structurally parallel: same provider constraints, same module interface, same variable and output names. A structural change to one belongs in the other.
+- Their _values_ may differ on purpose. Enabling an optional resource in staging before production is a supported rollout, not drift – see the [file uploads recipe](../docs/recipes/file-uploads.md). Do not copy an environment-specific value across unless the change is meant for both.
+- Resource logic lives in `modules/cloudflare`. Each root holds its environment identity, provider and `cloud` configuration, root variables and outputs, and the module call.
+- Resource values follow `{project_slug}-{environment}[-role]`. `project_slug` must match the worker name prefix in `apps/*/wrangler.jsonc`, or the bindings point at resources that do not exist.
+- Resource identifiers name the concrete thing (`cloudflare_hyperdrive_config.cached`); module names describe the role (`module.edge`).
 
-- Use `bun ui:add <component>`; don't hand-write files the registry already has. `bun ui:add` with no arguments prints help and exits non-zero.
-- `bun ui:add` does NOT update `index.ts`. Add `export * from "./components/<name>";` yourself, or the import from `@repo/ui` won't resolve.
-- The CLI installs any Radix packages the component needs. Review and commit the resulting `package.json` and `bun.lock` changes.
-- `bun ui:update` overwrites every installed component in place. Review `git diff` before committing; local edits are lost.
-- Registry output is not uniform — read what it generated. `packages/ui` lints with `--max-warnings 0`, so convert React 18 patterns before committing:
-  - `<Context.Provider value={x}>` → `<Context value={x}>` (`@eslint-react/no-context-provider`)
-  - `React.useContext(C)` → `React.use(C)` (`@eslint-react/no-use-context`)
-  - `React.ElementRef<T>` → `React.ComponentRef<T>` — `ElementRef` is a deprecated alias in `@types/react` 19. ESLint does not flag it; `bun --cwd apps/web check` reports it as a hint.
-- Strip the `"use client"` directive when it appears — no RSC here, so it is inert.
-- `no-forward-ref` is off for this package — generated `forwardRef` usage is fine.
+## Variables and Outputs
 
-## Styling
+- Encode structural constraints in `validation` blocks so they fail locally rather than mid-apply, and write the `error_message` as the fix rather than the rule – see `uploads_cors_origins` rejecting `"*"`.
+- Inputs holding credentials are `sensitive = true` (`database_url`). Outputs are stable, non-secret identifiers only – they are printed into CI summaries and committed to `wrangler.jsonc`.
 
-- Every component accepts `className` and passes it through `cn()` last — directly, or via the `className` slot on a `cva` variants call — so callers can override defaults without a specificity fight.
-- Use theme tokens (`bg-primary`, `text-muted-foreground`), never raw colors. Each consumer defines the values in its own `styles/globals.css` — `apps/app` and `apps/web` keep separate copies, so a palette change means editing both. `styles.css` here exists only to satisfy the shadcn CLI.
-- Class names must appear as complete literals — Tailwind scans text, so `` `bg-${color}-500` `` produces nothing.
-- Consuming apps must `@source` every directory here that holds class names, or those classes are stripped from their build.
-- Enter/exit utilities (`animate-in`, `fade-in-0`, `zoom-in-95`, `slide-in-from-*`) come from `tw-animate-css`, which each consumer imports separately — `apps/app` does, `apps/web` does not, because nothing it renders is animated. Adding an animated component to a consumer that lacks the import fails silently: Tailwind does not recognise the class names, drops them, and reports nothing, so the component simply renders without transitions.
+## Running Terraform
 
-## Conventions
+Validate locally with the same credential-free check CI runs:
 
-- Named exports only — no default exports.
-- Variants via `class-variance-authority`; export the variants object when another component composes it (see `toggle.tsx` → `toggle-group.tsx`).
-- Prefer a Radix primitive over hand-rolled behavior — it brings the ARIA roles and keyboard handling with it. `ToggleGroup type="single"` already renders `role="radiogroup"` with `role="radio"` items and arrow-key navigation, so callers add no keyboard code.
+```bash
+bun infra:check
+```
+
+That is `terraform fmt -check` plus `init -backend=false` and `validate` for each root. `-backend=false` installs providers and modules without contacting the backend, so it needs no HCP token and reads no state.
+
+- **Never run `plan`, `apply`, `destroy`, `import`, or any state mutation.** `plan` is not the safe half: HCP Terraform executes the configuration it is handed in the workspace's privileged run environment, with that workspace's state and variables, so planning uncommitted work exercises real credentials against real infrastructure. `bun infra:check` is the branch-level signal; applying is a manual dispatch of `.github/workflows/infra.yml` from `main`.
+- Never commit state, `.terraform/`, credentials, or `.tfvars` – state holds the database password. `infra/.gitignore` covers these; do not narrow it.
 
 ---
 > Source: [kriasoft/react-starter-kit](https://github.com/kriasoft/react-starter-kit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
