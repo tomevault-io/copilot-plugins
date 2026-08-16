@@ -1,0 +1,9 @@
+{
+  "name": "tinywan--docker-php-webman",
+  "displayName": "docker-php-webman",
+  "description": "docker-php-webman",
+  "version": "1.0.0",
+  "author": "Tinywan",
+  "homepage": "https://github.com/Tinywan/docker-php-webman",
+  "skills": []
+}
