@@ -1,17 +1,92 @@
-## project-custom
+## pointer
 
-> 这是一个 react+typescript+antd 的 electron-vite 应用，一个界面类似Vscode的AI聊天应用
+> This file provides guidance to coding agent when working with code in this repository.
 
-这是一个 react+typescript+antd 的 electron-vite 应用，一个界面类似Vscode的AI聊天应用
+# Agents.md
 
-- 项目左侧是侧边栏，聊天历史列表，聊天历史按文件夹分类，可以手动创建文件夹和新聊天
-- 项目右侧是页签导航区，主要展示聊天消息，点击聊天历史时，就会新加一个Tab页签
-- 设置里支持配置LLM,主题等
+This file provides guidance to coding agent when working with code in this repository.
 
+## Project Overview
 
+Pointer is a cross-platform desktop AI chat application built with Electron, React 19, and TypeScript. It features tree-structured conversation branches, multi-model support (OpenAI, Claude, DeepSeek, etc.), and a VSCode-like interface with tabs, sidebar, and activity bar.
 
-代码应该设计合理，合理拆分小的组件。优先使用 Ant Design 官方功能或者推荐做法。
+## Commands
+
+```bash
+# Development
+pnpm dev              # Start development server with hot reload
+pnpm start            # Run preview mode
+
+# Code quality
+pnpm lint             # Run ESLint
+pnpm format           # Run Prettier
+pnpm typecheck        # Type check both main and renderer processes
+
+# Building
+pnpm build            # Build with type checking
+pnpm build:win        # Windows build
+pnpm build:mac        # macOS build
+pnpm build:linux      # Linux build
+pnpm build:unpack     # Build without packaging (for testing)
+
+# Release
+pnpm release          # Build and publish to GitHub Releases
+pnpm release:draft    # Build for release testing (no publish)
+```
+
+## Architecture
+
+### Three-Tier Electron Structure
+
+- **Main Process** (`src/main/`): Window management, IPC handlers, AI API streaming
+- **Preload** (`src/preload/`): Context bridge exposing APIs to renderer
+- **Renderer** (`src/renderer/src/`): React application
+
+### Renderer Organization
+
+```
+components/
+  layout/       # MainLayout, ActivityBar, Sidebar, EditorArea, Tabs, TitleBar
+  editors/      # ChatEditor, SettingsEditor, ExportEditor, WelcomePage
+  panels/       # Explorer (conversation tree), Search
+  common/       # Reusable components
+
+stores/         # Zustand stores (messagesStore, pagesStore, settingsStore, etc.)
+services/       # Business logic (aiService, messagesService, pagesService, etc.)
+hooks/          # Custom hooks (useChat, useChatStreaming, usePages, etc.)
+utils/          # Utilities including tab registry system
+types/          # TypeScript type definitions (ChatMessage, LLMConfig, Account, etc.)
+features/       # Feature modules (export plugins, etc.)
+persistence/    # Data persistence layer initialization
+```
+
+### Key Architectural Patterns
+
+1. **Message Tree Structure**: Three-level hierarchy - Page (conversation) → Message branches (for branching conversations) → Individual messages
+
+2. **Tab Registry System** (`utils/tabRegistry.ts`): Plugin-style registration for different tab types (chat, settings, export, welcome)
+
+3. **State Management**: Zustand stores with Immer for immutable updates, file-based persistence via IPC
+
+4. **AI Streaming**: Main process handles API calls; renderer receives streamed responses via IPC
+
+## Code Style
+
+- Single quotes, no semicolons, 100 char line width
+- Prefer Ant Design components and patterns
+- Decompose into small, focused components
+- Chinese language context in some documentation
+
+## Key Files
+
+| File                                       | Purpose                               |
+| ------------------------------------------ | ------------------------------------- |
+| `src/main/aiHandler.ts`                    | AI API streaming and request handling |
+| `src/main/ipcHandlers.ts`                  | IPC event handlers                    |
+| `src/renderer/src/stores/messagesStore.ts` | Message state and tree structure      |
+| `src/renderer/src/hooks/useChat.ts`        | Core chat logic hook                  |
+| `src/renderer/src/utils/tabRegistry.ts`    | Tab type registration system          |
 
 ---
 > Source: [experdot/pointer](https://github.com/experdot/pointer) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
