@@ -1,6 +1,6 @@
 # ocm
 
-> Source: [open-cluster-management-io/ocm](https://github.com/open-cluster-management-io/ocm). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [open-cluster-management-io/ocm](https://github.com/open-cluster-management-io/ocm). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [open-cluster-management-io/ocm](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [open-cluster-management-io/ocm](https://github.com/open-cluster-management-io/ocm) — a repo with 1065+ stars on GitHub.
+From [open-cluster-management-io/ocm](https://github.com/open-cluster-management-io/ocm) — a repo with 1072+ stars on GitHub.
 
 ---
 
