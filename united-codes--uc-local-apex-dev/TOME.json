@@ -1,0 +1,63 @@
+{
+  "name": "uc-local-apex-dev",
+  "owner": "United-Codes",
+  "repo": "uc-local-apex-dev",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "uc-local-apex-dev",
+      "path": ".agents/skills/test-db-upgrade/SKILL.md",
+      "github_url": "https://github.com/United-Codes/uc-local-apex-dev/tree/main/.agents/skills/test-db-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uc-local-apex-dev",
+      "path": ".agents/skills/db-upgrade/SKILL.md",
+      "github_url": "https://github.com/United-Codes/uc-local-apex-dev/tree/main/.agents/skills/db-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "uc-local-apex-dev",
+      "path": ".agents/skills/simple-english/SKILL.md",
+      "github_url": "https://github.com/United-Codes/uc-local-apex-dev/tree/main/.agents/skills/simple-english/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/United-Codes/uc-local-apex-dev",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T12:56:59Z"
+}
