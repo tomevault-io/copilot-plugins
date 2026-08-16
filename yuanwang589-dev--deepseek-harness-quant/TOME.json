@@ -1,0 +1,44 @@
+{
+  "name": "deepseek-harness-quant",
+  "owner": "yuanwang589-dev",
+  "repo": "deepseek-harness-quant",
+  "description": "Deepseek HARNESS Quant \u2014 A\u80a1\u4f4e\u9891\u91cf\u5316\u51b3\u7b56\u7cfb\u7edf\uff08Pitch\u51b3\u7b56\u94fe + \u56e0\u5b50\u5f15\u64ce + \u4e94\u6c60\u8fdc\u671f\u9a8c\u8bc1 + HARNESS \u5d4c\u5165\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yuanwang589-dev/deepseek-harness-quant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T23:32:01Z"
+}
