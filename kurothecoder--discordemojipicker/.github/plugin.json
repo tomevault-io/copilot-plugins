@@ -1,0 +1,9 @@
+{
+  "name": "kurothecoder--discordemojipicker",
+  "displayName": "DiscordEmojiPicker",
+  "description": "Discord-style emoji and sticker picker for Obsidian. Pick and insert emojis and stickers from your vault, or clone them from your Discord servers \u2014 fully offline by default.",
+  "version": "1.0.0",
+  "author": "KuroTheCoder",
+  "homepage": "https://github.com/KuroTheCoder/DiscordEmojiPicker",
+  "skills": []
+}
