@@ -1,132 +1,118 @@
 ## percona-backup-mongodb
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Context for working inside `x/` (the experimental next-major-version prototype). The root `CLAUDE.md` covers the legacy `pbm/` codebase; this file is just for `x/`.
 
-CLAUDE.md
-=========
+# CLAUDE.md — pbm-x
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Context for working inside `x/` (the experimental next-major-version prototype). The root `CLAUDE.md` covers the legacy `pbm/` codebase; this file is just for `x/`.
 
-Commands
---------
+**Hard rule:** `x/` is a separate Go module. Do not import from `github.com/percona/percona-backup-mongodb/...` (the legacy module) or vice versa. Reuse ideas, not code.
 
-### Testing
+---
 
-```bash
-# Run all tests with race detection (requires MinIO server at localhost:9000)
-SERVER_ENDPOINT=localhost:9000 ACCESS_KEY=minioadmin SECRET_KEY=minioadmin ENABLE_HTTPS=1 MINT_MODE=full go test -race -v ./...
+## Vision
 
-# Run tests without race detection
-go test ./...
+<!-- One paragraph: what pbm-x is trying to become and why a clean rewrite. Fill in. -->
 
-# Run short tests only (no functional tests)
-go test -short -race ./...
+_TBD_
 
-# Run functional tests
-go build -race functional_tests.go
-SERVER_ENDPOINT=localhost:9000 ACCESS_KEY=minioadmin SECRET_KEY=minioadmin ENABLE_HTTPS=1 MINT_MODE=full ./functional_tests
+## Scope of the current prototype
 
-# Run functional tests without TLS
-SERVER_ENDPOINT=localhost:9000 ACCESS_KEY=minioadmin SECRET_KEY=minioadmin ENABLE_HTTPS=0 MINT_MODE=full ./functional_tests
+<!-- What's in scope right now, what's deferred. Update as the prototype grows. -->
+
+- In scope: _TBD_
+- Out of scope (for now): _TBD_
+- Out of scope (forever / explicit non-goals): _TBD_
+
+## Design principles
+
+<!-- The "how" rules — what should pbm-x be opinionated about? Examples to replace:
+     - Prefer X over Y because …
+     - Cancellation is always context-driven; no goroutine leaks
+     - Storage backends are pure interfaces with no MongoDB knowledge
+     - Single binary, subcommand-based — no separate agent/CLI split (or: keep the split, because …)
+-->
+
+_TBD_
+
+## Architecture sketch
+
+Same overall shape as legacy PBM — an agent runs alongside each `mongod` — but agents now come in **two roles**:
+
+- **ctrl agent** — owns PBM's control-collection state (the leader-election / command-queue / status that legacy PBM kept inside MongoDB control collections). In pbm-x this state lives in an **etcd** database that the ctrl agent runs/manages.
+- **worker agent** — does **not** run etcd. Its core responsibility is executing the actual work: backup and restore.
+
+```
+        +-------------------+        control-collection state
+        |    ctrl agent     |  runs  (etcd)
+        +-------------------+           ^
+                                        | etcd client API
+                                        | (local or remote)
+        +-------------------+           |
+        |   worker agent    |  --etcd client--+   also does backup / restore
+        +-------------------+
 ```
 
-### Linting and Code Quality
+**Coordination:** worker agents connect to the ctrl agent's **etcd as clients** to read/write control state — they speak the etcd client API directly, not a separate protocol. A worker may be co-located with the ctrl agent or remote, so etcd's client endpoint must be externally reachable (we bind `0.0.0.0`). The peer API is for etcd↔etcd traffic between ctrl agents.
 
-```bash
-# Run all checks (lint, test, examples, functional tests)
-make checks
+Open: how many ctrl agents run (single vs. quorum) and etcd deployment topology — see Open questions.
 
-# Run linter only (includes govet, staticcheck, and other linters)
-make lint
+### Code layout
 
-# Run golangci-lint directly
-golangci-lint run --timeout=5m --config ./.golangci.yml
+A single `pbmx` binary covers both the CLI and the agent (selected at runtime by `--ctrl-agent` / `--worker-agent`). Two layers, with a one-way dependency:
 
-# Note: 'make vet' is now an alias for 'make lint' for backwards compatibility
+```
+cmd/pbmx/   →   pbm/
+  CLI only        all runtime logic
 ```
 
-### Building Examples
+- **`cmd/pbmx/`** — CLI wiring *only*: cobra command definitions, flags, env-var bindings, and config-file loading. It parses input and dispatches; it holds no operational logic. The root command's `RunE` reads the role flag and calls into `pbm/`.
+- **`pbm/`** (`github.com/percona/percona-backup-mongodb/x/pbm`) — all other logic. Today: `RunCtrlAgent` + embedded-etcd startup/graceful-shutdown (`etcd.go`). Worker-agent, backup/restore, and coordination logic land here too.
 
-```bash
-# Build all examples
-make examples
+Rule: dependency flows one way, `cmd/pbmx/` → `pbm/`. `pbm/` must not import `cmd/pbmx/`. Anything beyond CLI parsing/dispatch belongs in `pbm/`.
 
-# Build a specific example
-cd examples/s3 && go build -mod=mod putobject.go
-```
+## What's intentionally different from legacy PBM
 
-Architecture
-------------
+<!-- The deltas that matter for code review. -->
 
-### Core Client Structure
+- **Coordination / state store:** legacy PBM keeps control-collection state (locks, command queue, status) inside MongoDB itself. pbm-x moves that state into an **etcd** database, owned by the **ctrl agent**.
+- **Agent roles split in two:** legacy PBM runs one uniform agent per node. pbm-x splits responsibilities into **ctrl agents** (manage control state in etcd) and **worker agents** (run backup/restore, no etcd).
 
-The MinIO Go SDK is organized around a central `Client` struct (api.go:52) that implements Amazon S3 compatible methods. Key architectural patterns:
+## Open questions / decisions to make
 
-1.	**Modular API Organization**: API methods are split into logical files:
+<!-- Park unresolved design questions here so I can see them when suggesting code.
+     When a question is settled, move the answer into "Design principles" or
+     "Architecture sketch" and delete it from this list. -->
 
-	-	`api-bucket-*.go`: Bucket operations (lifecycle, encryption, versioning, etc.)
-	-	`api-object-*.go`: Object operations (legal hold, retention, tagging, etc.)
-	-	`api-get-*.go`, `api-put-*.go`: GET and PUT operations
-	-	`api-list.go`: Listing operations
-	-	`api-stat.go`: Status/info operations
+- **etcd is currently plaintext + unauthenticated.** The client and peer APIs are served over `http` with no auth, and the client API is bound on `0.0.0.0` (remote workers legitimately need it — see Coordination). This cannot be closed by binding localhost; it's an **auth/TLS** task to tackle later (etcd RBAC and/or client/peer TLS), not a bind-address one.
+- How many ctrl agents run — single node vs. a 3/5-member quorum — and the etcd deployment topology that follows from it.
 
-2.	**Credential Management**: The `pkg/credentials/` package provides various credential providers:
+## Glossary
 
-	-	Static credentials
-	-	Environment variables (AWS/MinIO)
-	-	IAM roles
-	-	STS (Security Token Service) variants
-	-	File-based credentials
-	-	Chain provider for fallback mechanisms
+<!-- Only terms that don't mean what they mean in legacy PBM, or that are new. -->
 
-3.	**Request Signing**: The `pkg/signer/` package handles AWS signature versions:
+- **ctrl agent** — agent role that owns and manages PBM's control-collection state, backed by an etcd database it runs.
+- **worker agent** — agent role that performs backup and restore. Does not run etcd.
+- **control-collection state** — in legacy PBM this lived in MongoDB collections; in pbm-x it lives in etcd (managed by the ctrl agent).
 
-	-	V2 signatures (legacy)
-	-	V4 signatures (standard)
-	-	Streaming signatures for large uploads
-
-4.	**Transport Layer**: Custom HTTP transport with:
-
-	-	Retry logic with configurable max retries
-	-	Health status monitoring
-	-	Tracing support via httptrace
-	-	Bucket location caching (`bucketLocCache`\)
-	-	Session caching for credentials
-
-5.	**Helper Packages**:
-
-	-	`pkg/encrypt/`: Server-side encryption utilities
-	-	`pkg/notification/`: Event notification handling
-	-	`pkg/policy/`: Bucket policy management
-	-	`pkg/lifecycle/`: Object lifecycle rules
-	-	`pkg/tags/`: Object and bucket tagging
-	-	`pkg/s3utils/`: S3 utility functions
-	-	`pkg/kvcache/`: Key-value caching
-	-	`pkg/singleflight/`: Deduplication of concurrent requests
-
-### Testing Strategy
-
--	Unit tests alongside implementation files (`*_test.go`\)
--	Comprehensive functional tests in `functional_tests.go` requiring a live MinIO server
--	Example programs in `examples/` directory demonstrating API usage
--	Build tag `//go:build mint` for integration tests
-
-### Error Handling
-
--	Custom error types in `api-error-response.go`
--	HTTP status code mapping
--	Retry logic for transient failures
--	Detailed error context preservation
-
-Important Patterns
-------------------
-
-1.	**Context Usage**: All API methods accept `context.Context` for cancellation and timeout control
-2.	**Options Pattern**: Methods use Options structs for optional parameters (e.g., `PutObjectOptions`, `GetObjectOptions`\)
-3.	**Streaming Support**: Large file operations use io.Reader/Writer interfaces for memory efficiency
-4.	**Bucket Lookup Types**: Supports both path-style and virtual-host-style S3 URLs
-5.	**MD5/SHA256 Hashing**: Configurable hash functions for integrity checks via `md5Hasher` and `sha256Hasher`
+## Working preferences for this prototype
+- when generating golang code follow following guidelines:
+    - https://google.github.io/styleguide/go/
+    - https://google.github.io/styleguide/go/guide
+    - https://google.github.io/styleguide/go/decisions
+    - https://google.github.io/styleguide/go/best-practices
+- additionally you can expand with uber's style guide:
+    - https://github.com/uber-go/guide/blob/master/style.md
+- git
+    - never create git commits or pr requests automatically.
+- never modify anything out of x directory. If it's necessary ask for confirmation.
+<!-- How you want me to behave specifically in x/. These override defaults.
+     Examples to replace:
+     - "Prototype phase: prefer concrete implementations over interfaces until a second use case appears."
+     - "Don't add tests for code I'm still iterating on; ask before writing test files."
+     - "When in doubt, ask before adding a new top-level package."
+-->
 
 ---
 > Source: [percona/percona-backup-mongodb](https://github.com/percona/percona-backup-mongodb) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
