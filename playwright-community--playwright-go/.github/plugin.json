@@ -1,0 +1,14 @@
+{
+  "name": "playwright-community--playwright-go",
+  "displayName": "playwright-go",
+  "description": "playwright-go",
+  "version": "1.0.0",
+  "author": "playwright-community",
+  "homepage": "https://github.com/playwright-community/playwright-go",
+  "skills": [
+    {
+      "name": "playwright-go",
+      "description": ""
+    }
+  ]
+}
