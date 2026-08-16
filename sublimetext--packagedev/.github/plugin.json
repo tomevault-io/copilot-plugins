@@ -1,0 +1,14 @@
+{
+  "name": "sublimetext--packagedev",
+  "displayName": "PackageDev",
+  "description": "PackageDev",
+  "version": "1.0.0",
+  "author": "SublimeText",
+  "homepage": "https://github.com/SublimeText/PackageDev",
+  "skills": [
+    {
+      "name": "PackageDev",
+      "description": ""
+    }
+  ]
+}
