@@ -4,7 +4,7 @@
   "repo": "winget-cli",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/microsoft/winget-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T12:40:33Z"
+  "distributed_at": "2026-08-16T11:09:35Z"
 }
