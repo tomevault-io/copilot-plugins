@@ -1,0 +1,14 @@
+{
+  "name": "swoole--library",
+  "displayName": "library",
+  "description": "library",
+  "version": "1.0.0",
+  "author": "swoole",
+  "homepage": "https://github.com/swoole/library",
+  "skills": [
+    {
+      "name": "library",
+      "description": ""
+    }
+  ]
+}
