@@ -1,8 +1,6 @@
 # c-compiler
 
-> Tome by [GroundUpCoder](https://github.com/GroundUpCoder/c-compiler) — distributed by [TomeVault](https://tomevault.io)
-
-C compiler in one JS file
+> Tome by [GroundUpCoder](https://github.com/GroundUpCoder/c-compiler), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [GroundUpCoder/c-compiler](https://github.com/Gr
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [GroundUpCoder/c-compiler](https://github.com/GroundUpCoder/c-compiler) — a repo with 12+ stars on GitHub.
+From [GroundUpCoder/c-compiler](https://github.com/GroundUpCoder/c-compiler) — a repo with 50+ stars on GitHub.
 
 ---
 
