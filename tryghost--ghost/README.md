@@ -1,6 +1,6 @@
 # Ghost
 
-> Source: [TryGhost/Ghost](https://github.com/TryGhost/Ghost). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [TryGhost/Ghost](https://github.com/TryGhost/Ghost). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -14,14 +14,6 @@ Original source: `AGENTS.md` in [TryGhost/Ghost](https://github.com/TryGhost/Gho
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
-
-## Bundled Skills (5)
-
-- [Ghost](https://github.com/TryGhost/Ghost/tree/main/.agents/skills/commit/SKILL.md)
-- [Ghost](https://github.com/TryGhost/Ghost/tree/main/.agents/skills/format-number/SKILL.md)
-- [Ghost](https://github.com/TryGhost/Ghost/tree/main/.agents/skills/add-admin-api-endpoint/SKILL.md)
-- [Ghost](https://github.com/TryGhost/Ghost/tree/main/.agents/skills/add-private-feature-flag/SKILL.md)
-- [Ghost](https://github.com/TryGhost/Ghost/tree/main/.agents/skills/create-database-migration/SKILL.md)
 
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/TryGhost/Ghost](https://github.com/TryGhost/Ghost)
 
