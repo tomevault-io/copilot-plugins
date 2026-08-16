@@ -2,9 +2,9 @@
   "name": "TensorRT-Edge-LLM",
   "owner": "NVIDIA",
   "repo": "TensorRT-Edge-LLM",
-  "description": "High-performance, light-weight C++ LLM and VLM Inference Software for Physical AI",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NVIDIA/TensorRT-Edge-LLM",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T22:07:51Z"
+  "distributed_at": "2026-08-16T19:08:34Z"
 }
