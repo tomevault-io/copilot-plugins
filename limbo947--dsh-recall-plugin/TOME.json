@@ -1,0 +1,44 @@
+{
+  "name": "dsh-recall-plugin",
+  "owner": "limbo947",
+  "repo": "dsh-recall-plugin",
+  "description": "DSH \u6d88\u606f\u64a4\u56de\u63d2\u4ef6\uff1a\u56de\u5230\u53d1\u9001\u8be5\u6d88\u606f\u65f6\u7684\u72b6\u6001",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/limbo947/dsh-recall-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T08:31:28Z"
+}
