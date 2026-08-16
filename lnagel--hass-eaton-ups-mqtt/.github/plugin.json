@@ -1,0 +1,9 @@
+{
+  "name": "lnagel--hass-eaton-ups-mqtt",
+  "displayName": "hass-eaton-ups-mqtt",
+  "description": "Home Assistant Eaton UPS MQTT integration",
+  "version": "1.0.0",
+  "author": "lnagel",
+  "homepage": "https://github.com/lnagel/hass-eaton-ups-mqtt",
+  "skills": []
+}
