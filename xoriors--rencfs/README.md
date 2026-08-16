@@ -1,6 +1,6 @@
 # rencfs
 
-> Source: [xoriors/rencfs](https://github.com/xoriors/rencfs) — distributed by [TomeVault](https://tomevault.io)
+> Source: [xoriors/rencfs](https://github.com/xoriors/rencfs). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
