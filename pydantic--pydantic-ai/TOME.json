@@ -4,7 +4,7 @@
   "repo": "pydantic-ai",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pydantic/pydantic-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T10:42:59Z"
+  "distributed_at": "2026-08-16T14:05:10Z"
 }
