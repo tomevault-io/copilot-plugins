@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "mimikun",
   "homepage": "https://github.com/mimikun/dotfiles",
-  "skills": []
+  "skills": [
+    {
+      "name": "dotfiles",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "description": ""
+    }
+  ]
 }
