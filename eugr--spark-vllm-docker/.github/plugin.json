@@ -1,0 +1,9 @@
+{
+  "name": "eugr--spark-vllm-docker",
+  "displayName": "spark-vllm-docker",
+  "description": "spark-vllm-docker",
+  "version": "1.0.0",
+  "author": "eugr",
+  "homepage": "https://github.com/eugr/spark-vllm-docker",
+  "skills": []
+}
