@@ -1,0 +1,14 @@
+{
+  "name": "oceanbase--powermem",
+  "displayName": "powermem",
+  "description": "powermem",
+  "version": "1.0.0",
+  "author": "oceanbase",
+  "homepage": "https://github.com/oceanbase/powermem",
+  "skills": [
+    {
+      "name": "powermem",
+      "description": ""
+    }
+  ]
+}
