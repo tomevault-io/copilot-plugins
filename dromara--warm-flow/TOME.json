@@ -4,7 +4,7 @@
   "repo": "warm-flow",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dromara/warm-flow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T14:45:47Z"
+  "distributed_at": "2026-08-16T14:51:05Z"
 }
