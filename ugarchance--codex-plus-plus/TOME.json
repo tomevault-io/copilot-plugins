@@ -4,7 +4,7 @@
   "repo": "codex-plus-plus",
   "description": "Multiple ChatGPT subscriptions in one Codex desktop app \u2014 switch accounts, per-account usage, original app untouched. macOS.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ugarchance/codex-plus-plus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T20:49:36Z"
+  "distributed_at": "2026-08-16T21:17:03Z"
 }
