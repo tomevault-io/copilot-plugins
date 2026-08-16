@@ -1,0 +1,26 @@
+{
+  "name": "makenotion--notion-cookbook",
+  "displayName": "notion-cookbook",
+  "description": "Hub for getting started with Notion, including documentation, customizable scripts, and quick-start guides.",
+  "version": "1.0.0",
+  "author": "makenotion",
+  "homepage": "https://github.com/makenotion/notion-cookbook",
+  "skills": [
+    {
+      "name": "notion-cookbook",
+      "description": ""
+    },
+    {
+      "name": "notion-cookbook",
+      "description": ""
+    },
+    {
+      "name": "notion-cookbook",
+      "description": ""
+    },
+    {
+      "name": "notion-cookbook",
+      "description": ""
+    }
+  ]
+}
