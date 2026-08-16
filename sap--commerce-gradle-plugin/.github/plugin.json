@@ -1,0 +1,9 @@
+{
+  "name": "sap--commerce-gradle-plugin",
+  "displayName": "commerce-gradle-plugin",
+  "description": "commerce-gradle-plugin",
+  "version": "1.0.0",
+  "author": "SAP",
+  "homepage": "https://github.com/SAP/commerce-gradle-plugin",
+  "skills": []
+}
