@@ -4,7 +4,7 @@
   "repo": "metareview",
   "description": "Local-first review gates and learning for coding agents",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dsifry/metareview",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T20:39:18Z"
+  "distributed_at": "2026-08-16T21:06:34Z"
 }
