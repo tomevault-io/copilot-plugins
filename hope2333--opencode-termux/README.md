@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [Hope2333/opencode-termux](https://github.com/Ho
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Hope2333/opencode-termux](https://github.com/Hope2333/opencode-termux) — a repo with 157+ stars on GitHub.
+From [Hope2333/opencode-termux](https://github.com/Hope2333/opencode-termux) — a repo with 186+ stars on GitHub.
 
 ---
 
