@@ -1,0 +1,9 @@
+{
+  "name": "hyperf--xxl-job-incubator",
+  "displayName": "xxl-job-incubator",
+  "description": "xxl-job-incubator",
+  "version": "1.0.0",
+  "author": "hyperf",
+  "homepage": "https://github.com/hyperf/xxl-job-incubator",
+  "skills": []
+}
