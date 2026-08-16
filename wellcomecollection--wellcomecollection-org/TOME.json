@@ -4,7 +4,7 @@
   "repo": "wellcomecollection.org",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wellcomecollection/wellcomecollection.org",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T03:02:19Z"
+  "distributed_at": "2026-08-16T18:42:43Z"
 }
