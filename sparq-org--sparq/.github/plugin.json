@@ -1,0 +1,9 @@
+{
+  "name": "sparq-org--sparq",
+  "displayName": "sparq",
+  "description": "sparq is a lightning-fast RDF triplestore and SPARQL 1.1 / 1.2 engine, written in Rust \u2014 usable as a library, CLI, HTTP server, and from Python and JavaScript/WASM.",
+  "version": "1.0.0",
+  "author": "sparq-org",
+  "homepage": "https://github.com/sparq-org/sparq",
+  "skills": []
+}
