@@ -1,0 +1,47 @@
+## packagedev
+
+> This is a package for Sublime Text.
+
+# CLAUDE.md
+
+This is a package for Sublime Text.
+
+## Repository Shape
+
+- `main.py` is the package entrypoint.
+  It clears cached `PackageDev.plugins.*` modules before re-importing `plugins`.
+- `plugins/` holds all Sublime runtime code.
+  New plugin classes must be imported from `plugins/__init__.py` or they will be missed.
+  Run `from PackageDev.plugins import _check_missing; _check_missing()` in Sublime's console
+  to verify no plugin class was left out of that import surface.
+- `plugins/lib/` holds shared helpers (e.g. `scope_data`, `fileconv`, `view_utils`) used across
+  multiple plugin modules; it has no plugin classes of its own.
+- `Package/` holds shipped Sublime resource files and syntax definitions.
+
+## Commands
+
+- Lint Python with `uv run ruff check .`.
+- Ruff is configured for `line-length = 99` and selects `E`, `F`, `I`, and `UP`.
+- Type-check Python with `uv run ty check .`.
+- Check Python 3.8 compatibility with `uv run --python 3.8 python -m compileall -q main.py plugins`.
+  This only catches syntax-level incompatibilities, not runtime ones
+  (e.g. builtin generics such as `set[X]` used as a base class,
+  which only work as of Python 3.9).
+- There is no repo Python test suite.
+  Use Sublime Text as the primary runtime check.
+
+## Syntax Tests
+
+- CI runs syntax tests for changed `*.sublime-syntax`, `syntax_test*`, and `.tmPreferences` files.
+- The matrix covers stable, latest, and build `4136`, plus a tolerated latest/master run.
+
+## Editing Rules
+
+- Preserve the current plugin import surface in `plugins/__init__.py`.
+- Keep Python 3.8+ compatibility in mind.
+- Treat `PackageDev.sublime-project` and `*.sublime-workspace` as local files; they are ignored.
+- When changing YAML serialization or built-in metadata, verify behavior in Sublime, not with unit tests.
+
+---
+> Source: [SublimeText/PackageDev](https://github.com/SublimeText/PackageDev) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
