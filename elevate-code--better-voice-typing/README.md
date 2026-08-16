@@ -1,19 +1,17 @@
 # better-voice-typing
 
-> Tome by [Elevate-Code](https://github.com/Elevate-Code/better-voice-typing) — distributed by [TomeVault](https://tomevault.io)
-
-Lightweight Python desktop app for Windows that improves upon Windows Voice Typing (Win+H) by offering superior transcription accuracy while maintaining a simple, intuitive interface.
+> Tome by [Elevate-Code](https://github.com/Elevate-Code/better-voice-typing), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Elevate-Code/better-voice-typing](https://github.com/Elevate-Code/better-voice-typing).
+Original source: `CLAUDE.md` in [Elevate-Code/better-voice-typing](https://github.com/Elevate-Code/better-voice-typing).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
