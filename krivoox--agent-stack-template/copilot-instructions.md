@@ -1,64 +1,55 @@
-## project
+## server-actions
 
-> Product, stack and layer contract. Always applies.
+> Server Action, service and tenancy contract
 
 
-# Project contract
+# Server boundary
 
-Full guide: `AGENTS.md`. This rule is the always-loaded summary; do not
-duplicate detail here, point to the document that owns it.
+A Server Action is a public HTTP endpoint. Middleware and layout guards do not
+protect it — it can be invoked directly with any payload.
 
-## Work type
+## Actions
 
-Classify first (`AGENTS.md` → "Every turn"). Then open the matching guide.
+Always build them with `defineAction` or `defineWorkspaceAction`
+(`src/lib/action.ts`). They run, in order: session check → Zod parse →
+membership lookup → handler → error mapping.
 
-- New behaviour → spec **Accepted** or **Shipped**, then `docs/guides/new-feature.md`
-- Wrong current behaviour → `docs/guides/bugfix.md`
-- Same behaviour, new shape → `docs/guides/refactor.md`
-- Tooling / deps / CI / docs-only → `docs/guides/chore.md`
-- Problem without a spec → `product-manager`, no product code
+```ts
+"use server";
 
-If a feature spec is Draft, do not write product code.
-
-## Sources of truth
-
-1. `docs/specs/<feature>.md` — business rules. Never invent one.
-2. `docs/architecture.md` — layers, auth, data, performance.
-3. `docs/stack.md` — what may not be substituted.
-4. `docs/adr/` — accepted decisions.
-5. `DESIGN.md` — UI only.
-
-If a spec lacks the detail you need, update the spec before writing code.
-
-## Stack (do not substitute without an ADR)
-
-Next.js App Router · React · TypeScript strict · Better Auth · Prisma +
-PostgreSQL · Zod + React Hook Form · TanStack Query · Zustand (UI state only) ·
-Tailwind + shadcn/ui · Vitest.
-
-Next.js in this repo may differ from your training data. Check
-`node_modules/next/dist/docs/` before using an API you are unsure about.
-
-## Layers
-
-```
-spec → domain tests → domain → services → actions → UI
+export const renameProjectAction = defineWorkspaceAction({
+  input: renameProjectSchema,          // must contain workspaceId
+  handler: async ({ input, ctx }) => {
+    assertCanWrite(ctx.role);          // role rules stay explicit
+    await renameProject({ ...input, workspaceId: ctx.workspaceId });
+    revalidatePath("/projects");
+  },
+});
 ```
 
-- `src/domain/**`, `src/features/*/domain/**` — pure. No Next, React, Prisma or
-  ambient clock.
-- `src/features/*/services/**` — the only place Prisma is called.
-- `src/features/*/actions/**` — `defineAction` / `defineWorkspaceAction` only.
-- `src/app/**` — thin routes: compose, do not compute.
-- `src/lib/env.ts` — the only reader of `process.env`.
+- Scope every write with `ctx.workspaceId` and `ctx.userId`, never with an id
+  taken from the payload.
+- Actions return `ActionResult`; they do not throw at the UI and never leak a
+  stack trace.
+- Map a domain `code` to specific copy through the `errors` option instead of
+  branching on `instanceof` in the handler.
 
-## Hard rules
+## Services
 
-- Business logic in `domain/`, never in a component, action or service.
-- Every business row carries `workspaceId`; every query filters by it.
-- Server Actions are public endpoints: authenticate and authorise inside them.
-- Semantic Tailwind tokens only; mobile-first.
-- Commit only when the user asks.
+- The only layer that calls Prisma.
+- Load what the domain needs, call the pure rule, persist the result. Never
+  re-implement a rule that belongs in `domain/`.
+- Scope reads *and* writes by `workspaceId` — that filter, not the action
+  wrapper alone, is what makes a cross-tenant id return "not found".
+- `import "server-only"` at the top.
+
+## Performance
+
+- Start independent I/O together (`Promise.all`); do not chain awaits that have
+  no dependency.
+- Wrap per-request reads that several components need in `React.cache`.
+- No cross-request caching of tenant data. A revoked membership must take
+  effect on the next request.
 
 ---
 > Source: [krivoox/agent-stack-template](https://github.com/krivoox/agent-stack-template) — distributed by [TomeVault](https://tomevault.io).
