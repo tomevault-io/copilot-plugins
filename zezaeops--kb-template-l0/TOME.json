@@ -1,0 +1,44 @@
+{
+  "name": "kb-template-l0",
+  "owner": "zezaeops",
+  "repo": "kb-template-l0",
+  "description": "\uac1c\uc778 \uc9c0\uc2dd\ubca0\uc774\uc2a4(L0) \ud15c\ud50c\ub9bf \u2014 Claude \uac00 \ud050\ub808\uc774\ud305\ud558\ub294 \uc0b6\uc758 KB seed. \ub0b4 \uacc4\uc815 \uc18c\uc720, \uc774\uc9c1\ud574\ub3c4 \uac19\uc774 \uac04\ub2e4",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zezaeops/kb-template-l0",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T02:38:20Z"
+}
