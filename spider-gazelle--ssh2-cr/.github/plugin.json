@@ -1,0 +1,9 @@
+{
+  "name": "spider-gazelle--ssh2-cr",
+  "displayName": "ssh2.cr",
+  "description": "ssh2.cr",
+  "version": "1.0.0",
+  "author": "spider-gazelle",
+  "homepage": "https://github.com/spider-gazelle/ssh2.cr",
+  "skills": []
+}
