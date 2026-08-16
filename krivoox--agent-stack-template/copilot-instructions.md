@@ -1,34 +1,64 @@
-## prisma-schema
+## project
 
-> Prisma schema and migration conventions
+> Product, stack and layer contract. Always applies.
 
 
-# Prisma schema
+# Project contract
 
-1. **Tenancy.** Every business model carries `workspaceId`, a relation with
-   `onDelete: Cascade`, and an index that starts with `workspaceId`. Without
-   the cascade, deleting a workspace orphans rows; without the index, every
-   scoped list is a sequential scan.
-2. **Both sides of a relation** are declared, with explicit `@relation`.
-3. **Ids**: `@id @default(cuid())` for business models. Better Auth models keep
-   the ids the adapter assigns — do not change them.
-4. **Timestamps**: `createdAt @default(now())` and `updatedAt @updatedAt` on
-   anything a user edits.
-5. **Indexes** on every field used in a `where`, `orderBy` or join. Compound
-   indexes follow query order (`@@index([workspaceId, status])`).
-6. **Uniqueness** with `@unique` / `@@unique`. Case-insensitive uniqueness has
-   no direct equivalent — enforce it in the domain and say so in a comment.
-7. **`@@map`** to snake_case table names; the Better Auth models must keep the
-   names the adapter expects.
+Full guide: `AGENTS.md`. This rule is the always-loaded summary; do not
+duplicate detail here, point to the document that owns it.
 
-## Migrations
+## Work type
 
-- `npm run db:migrate` in development; the generated SQL is reviewed, not
-  trusted blindly.
-- A rename that Prisma renders as drop + add is data loss. Split it: add the
-  column, backfill, then remove the old one in a later migration.
-- `npm run db:push` is for local scratch work only. It never runs against a
-  shared database.
+Classify first (`AGENTS.md` → "Every turn"). Then open the matching guide.
+
+- New behaviour → spec **Accepted** or **Shipped**, then `docs/guides/new-feature.md`
+- Wrong current behaviour → `docs/guides/bugfix.md`
+- Same behaviour, new shape → `docs/guides/refactor.md`
+- Tooling / deps / CI / docs-only → `docs/guides/chore.md`
+- Problem without a spec → `product-manager`, no product code
+
+If a feature spec is Draft, do not write product code.
+
+## Sources of truth
+
+1. `docs/specs/<feature>.md` — business rules. Never invent one.
+2. `docs/architecture.md` — layers, auth, data, performance.
+3. `docs/stack.md` — what may not be substituted.
+4. `docs/adr/` — accepted decisions.
+5. `DESIGN.md` — UI only.
+
+If a spec lacks the detail you need, update the spec before writing code.
+
+## Stack (do not substitute without an ADR)
+
+Next.js App Router · React · TypeScript strict · Better Auth · Prisma +
+PostgreSQL · Zod + React Hook Form · TanStack Query · Zustand (UI state only) ·
+Tailwind + shadcn/ui · Vitest.
+
+Next.js in this repo may differ from your training data. Check
+`node_modules/next/dist/docs/` before using an API you are unsure about.
+
+## Layers
+
+```
+spec → domain tests → domain → services → actions → UI
+```
+
+- `src/domain/**`, `src/features/*/domain/**` — pure. No Next, React, Prisma or
+  ambient clock.
+- `src/features/*/services/**` — the only place Prisma is called.
+- `src/features/*/actions/**` — `defineAction` / `defineWorkspaceAction` only.
+- `src/app/**` — thin routes: compose, do not compute.
+- `src/lib/env.ts` — the only reader of `process.env`.
+
+## Hard rules
+
+- Business logic in `domain/`, never in a component, action or service.
+- Every business row carries `workspaceId`; every query filters by it.
+- Server Actions are public endpoints: authenticate and authorise inside them.
+- Semantic Tailwind tokens only; mobile-first.
+- Commit only when the user asks.
 
 ---
 > Source: [krivoox/agent-stack-template](https://github.com/krivoox/agent-stack-template) — distributed by [TomeVault](https://tomevault.io).
