@@ -1,6 +1,6 @@
 # AI instruction files for Toko
 
-> Sourced from [bcorporaal/Toko](https://github.com/bcorporaal/Toko) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [bcorporaal/Toko](https://github.com/bcorporaal/Toko), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -19,6 +19,6 @@ From [bcorporaal/Toko](https://github.com/bcorporaal/Toko) — a repo with 30+ s
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-s -->
