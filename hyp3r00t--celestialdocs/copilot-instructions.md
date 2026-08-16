@@ -1,24 +1,71 @@
 ## celestialdocs
 
-> When generating pull request titles and descriptions, please follow the format and guidelines defined in the project's `.github/PULL_REQUEST_TEMPLATE.md` file.
+> Instructions for coding agents working in this repository.
 
-# Pull Request Title and Description Generation Instructions
+# AGENTS.md
 
-When generating pull request titles and descriptions, please follow the format and guidelines defined in the project's `.github/PULL_REQUEST_TEMPLATE.md` file.
+Instructions for coding agents working in this repository.
 
-This ensures consistency and keeps PR content aligned with the latest team standards.
+## Project overview
 
-If you need guidance on what to include, typically the PR template covers:
+- Repository: `HYP3R00T/CelestialDocs`
+- Stack: Astro, TypeScript, React, Tailwind CSS, pnpm, Biome, Rumdl, and Prek
+- Default branch: `main`
 
-- A concise title summarizing the change (under 50 characters).
-- A description including problem, solution, and relevant context.
-- A bullet-point list of key changes.
-- Testing information.
-- Links to related issues or documentation.
-- Notes about breaking changes or follow-up actions.
+## Setup
 
-Please always prioritize following the actual PR template content.
+```sh
+mise install
+pnpm install --frozen-lockfile
+prek install --hook-type pre-commit --overwrite
+prek install --hook-type commit-msg --overwrite
+```
+
+The Mise enter hook runs `scripts/enter_project.sh` and configures the local Git hooks.
+
+## Important paths
+
+| Concern | Paths |
+|---|---|
+| Site configuration | `astro.config.mjs`, `data/config.ts`, `src/content.config.ts` |
+| Content | `content/` |
+| Components and layouts | `src/components/`, `src/layouts/` |
+| Pages and integrations | `src/pages/`, `src/integrations/` |
+| Styling | `src/styles/` |
+| CI | `.github/workflows/` |
+
+## Commands
+
+```sh
+pnpm validate       # Biome and TypeScript checks
+pnpm build          # Production build
+pnpm check:fix      # Apply Biome fixes
+pnpm dev            # Local development server
+prek run --all-files
+```
+
+Run `pnpm validate`, `pnpm build`, and `prek run --all-files` before requesting review.
+
+## Expectations
+
+- Keep changes focused on one accepted issue.
+- Use strict TypeScript and avoid `any` unless unavoidable.
+- Prefer Astro components and server rendering; hydrate React components only when interaction requires it.
+- Preserve accessibility, responsive behavior, dark mode, and reduced-motion support.
+- Update content or contributor documentation when behavior, configuration, or workflow changes.
+- Do not hand-edit generated `dist/` or `.astro/` output.
+- Use Conventional Commits and `issue-<number>-<slug>` branches for planned work.
+- Changes to `main` require a pull request, current `quality` success, and resolved review conversations. Merge remains a human action.
+- Never commit credentials, `.env`, private content, personal data, caches, or generated build output.
+
+## Agent workflow
+
+An issue must be tracked in the Project's `Backlog` status before refinement. Use the manually invoked `refine-issue` skill to turn one backlog issue into a complete `Ready` issue. Invoke `issue-to-pr` separately to deliver one `Ready` issue through `In Progress` to a pull request in `In Review`.
+
+Neither skill authorizes merge, auto-merge, issue closure, release publication, or destructive cleanup. Read [CONTRIBUTING.md](CONTRIBUTING.md) for the complete lifecycle.
+
+Prefer minimal diffs. Do not refactor adjacent code, weaken checks, or overwrite unrelated local work. If a requirement, dependency, or GitHub state is ambiguous, stop and report the smallest decision needed.
 
 ---
 > Source: [HYP3R00T/CelestialDocs](https://github.com/HYP3R00T/CelestialDocs) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-27 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
