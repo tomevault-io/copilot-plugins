@@ -1,43 +1,40 @@
 ## stoffelvm
 
-> This file provides guidance to Claude Code when working with the StoffelVM repository.
+> This file provides guidance to Claude Code when working with the Stoffel-Lang repository.
 
 # CLAUDE.md
 
-This file provides guidance to Claude Code when working with the StoffelVM repository.
+This file provides guidance to Claude Code when working with the Stoffel-Lang repository.
 
 ## Repository Overview
 
-`StoffelVM` is a register-based virtual machine optimized for Multi-Party Computation (MPC). It executes bytecode compiled from StoffelLang, supporting both basic types (integers, booleans, strings) and complex types (objects, arrays, closures, foreign objects).
+`Stoffel-Lang` is the compiler for the Stoffel programming language. It compiles `.stfl` source files to bytecode compatible with StoffelVM. The language features modern syntax inspired by Rust, Python, and JavaScript, with strong static typing and type inference.
 
-**Workspace crates:**
-- `stoffel-vm` - The VM runtime and CLI
-- `stoffel-vm-types` - Shared types (instructions, values, binary format)
-
+**Crate name:** `stoffellang`
+**Output formats:** Text bytecode (`.bc`), binary bytecode (`.stflb`/`.stfbin`)
 **Primary consumers:** Stoffel CLI, all SDKs
-**Bytecode source:** Stoffel-Lang compiler
 
 ## Development Commands
 
 ```bash
-# Build the VM
+# Build
 cargo build
 cargo build --release
 
-# Build specific crate
-cargo build -p stoffel-vm
-cargo build -p stoffel-vm-types
+# Run compiler directly
+./target/release/stoffellang path/to/source.stfl
+
+# Compile to binary bytecode
+./target/release/stoffellang -b path/to/source.stfl
+
+# With optimization level (0-3)
+./target/release/stoffellang -O2 path/to/source.stfl
+
+# Print intermediate representations
+./target/release/stoffellang --print-ir path/to/source.stfl
 
 # Run tests
 cargo test
-cargo test -p stoffel-vm
-cargo test -p stoffel-vm-types
-
-# Build the CLI runner
-cargo build --release -p stoffel-vm
-
-# Run a compiled program
-./target/release/stoffel-run path/to/program.stfbin [entry_function]
 
 # Format and lint
 cargo fmt
@@ -50,261 +47,216 @@ cargo doc --open
 ## Repository Structure
 
 ```
-StoffelVM/
-├── Cargo.toml                    # Workspace definition
+Stoffel-Lang/
+├── Cargo.toml
 ├── README.md
 ├── CLAUDE.md
-├── crates/
-│   ├── stoffel-vm/              # VM runtime crate
-│   │   ├── Cargo.toml
-│   │   └── src/
-│   │       ├── main.rs          # CLI entry point (stoffel-run)
-│   │       ├── lib.rs           # Library exports
-│   │       ├── core_vm.rs       # VirtualMachine implementation
-│   │       ├── functions.rs     # VMFunction definition
-│   │       ├── activation.rs    # Call stack / activation records
-│   │       ├── stdlib.rs        # Built-in functions
-│   │       ├── hooks.rs         # Debug/instrumentation hooks
-│   │       ├── ffi.rs           # Rust FFI bridge
-│   │       └── net/             # MPC network integration
-│   │           └── hb_engine.rs # HoneyBadger MPC engine
-│   └── stoffel-vm-types/        # Shared types crate
-│       ├── Cargo.toml
-│       └── src/
-│           ├── lib.rs           # Type exports
-│           ├── instructions.rs  # Instruction enum
-│           ├── core_types.rs    # Value enum
-│           ├── compiled_binary/ # Binary format handling
-│           └── utils/           # Serialization utilities
-├── examples/                     # Example programs
-└── benches/                      # Benchmark crates
+├── src/
+│   ├── main.rs              # CLI entry point
+│   ├── lib.rs               # Library exports
+│   ├── lexer.rs             # Tokenization
+│   ├── parser.rs            # AST construction
+│   ├── ast.rs               # AST node definitions
+│   ├── semantic.rs          # Semantic analysis
+│   ├── symbol_table.rs      # Symbol table management
+│   ├── core_types.rs        # Type system definitions
+│   ├── codegen.rs           # Bytecode generation
+│   ├── bytecode.rs          # Bytecode representation
+│   ├── binary_converter.rs  # Binary format serialization
+│   ├── register_allocator.rs # Register allocation
+│   ├── compiler.rs          # Compilation orchestration
+│   ├── errors.rs            # Error types and reporting
+│   ├── suggestions.rs       # Error suggestions/hints
+│   ├── ufcs.rs              # Uniform Function Call Syntax
+│   ├── ufcs_tests.rs        # UFCS tests
+│   └── ffi.rs               # C FFI exports
+└── tests/                   # Test source files (.stfl)
 ```
 
 ## Architecture
 
-### VM Execution Model
+### Compilation Pipeline
 
 ```
-Bytecode Binary (.stfbin)
+Source (.stfl)
     ↓
-Binary Loader (stoffel-vm-types)
-    ↓ VMFunction[]
-VirtualMachine (stoffel-vm)
+Lexer (lexer.rs)
+    ↓ Tokens
+Parser (parser.rs)
+    ↓ AST
+Semantic Analysis (semantic.rs)
+    ↓ Typed AST + Symbol Table
+Code Generation (codegen.rs)
+    ↓ Bytecode
+Binary Converter (binary_converter.rs)
     ↓
-Instruction Execution Loop
-    ↓
-Result (Value)
+Output (.stflb / .bc)
 ```
 
-### Core Components
+### Key Components
 
 | Component | File | Purpose |
 |-----------|------|---------|
-| VirtualMachine | `core_vm.rs` | Main VM state and execution loop |
-| VMFunction | `functions.rs` | Function representation with instructions |
-| Instruction | `instructions.rs` | VM instruction enum |
-| Value | `core_types.rs` | Runtime value types |
-| Activation | `activation.rs` | Call stack management |
-| StdLib | `stdlib.rs` | Built-in functions |
-| Hooks | `hooks.rs` | Debugging/instrumentation |
-| HoneyBadgerMpcEngine | `net/hb_engine.rs` | MPC protocol integration |
+| Lexer | `lexer.rs` | Tokenizes source code |
+| Parser | `parser.rs` | Builds Abstract Syntax Tree |
+| AST | `ast.rs` | AST node type definitions |
+| Semantic | `semantic.rs` | Type checking, validation |
+| Symbol Table | `symbol_table.rs` | Scope and symbol management |
+| Codegen | `codegen.rs` | Generates VM instructions |
+| Register Allocator | `register_allocator.rs` | Register assignment |
+| Binary Converter | `binary_converter.rs` | Serializes to binary format |
 
-### Instruction Set
+### Type System
 
-**Memory Operations:**
-- `LD(dest, offset)` - Load from stack
-- `LDI(dest, value)` - Load immediate
-- `MOV(dest, src)` - Move between registers
-- `PUSHARG(reg)` - Push function argument
-
-**Arithmetic:**
-- `ADD`, `SUB`, `MUL`, `DIV`, `MOD`
-
-**Bitwise:**
-- `AND`, `OR`, `XOR`, `NOT`, `SHL`, `SHR`
-
-**Control Flow:**
-- `JMP(label)` - Unconditional jump
-- `JMPEQ`, `JMPNEQ`, `JMPLT`, `JMPGT` - Conditional jumps
-- `CMP(reg1, reg2)` - Compare registers
-- `CALL(function)` - Function call
-- `RET(reg)` - Return from function
-
-### Value Types
-
-```rust
-pub enum Value {
-    I64(i64), I32(i32), I16(i16), I8(i8),
-    U64(u64), U32(u32), U16(u16), U8(u8),
-    Float(F64),
-    Bool(bool),
-    String(String),
-    Object(usize),
-    Array(usize),
-    Foreign(usize),
-    Closure(Arc<Closure>),
-    Unit,
-    Share(ShareType, Vec<u8>),  // MPC secret shares
-}
-```
-
-### Built-in Functions
-
-| Function | Purpose |
-|----------|---------|
-| `print` | Console output |
-| `create_object` | Create key-value object |
-| `create_array` | Create array |
-| `get_field` | Access object/array field |
-| `set_field` | Set object/array field |
-| `array_length` | Get array length |
-| `array_push` | Append to array |
-| `create_closure` | Create closure |
-| `call_closure` | Invoke closure |
-| `get_upvalue` | Get captured variable |
-| `set_upvalue` | Set captured variable |
-| `type` | Get value type as string |
+The compiler uses `stoffel-vm-types` for VM-compatible types:
+- `i32`, `i64` - Integers
+- `f32`, `f64` - Floating point
+- `bool` - Boolean
+- `string` - Strings
+- Arrays and Objects
+- Function types
 
 ## Key Files
 
-### `crates/stoffel-vm/src/core_vm.rs`
-Main VirtualMachine implementation:
-- Register management
-- Instruction execution loop
-- Function dispatch
-- Value operations
+### `src/main.rs`
+CLI entry point with argument parsing:
+- `-b` / `--binary` - Output binary format
+- `-O<level>` - Optimization level (0-3)
+- `--print-ir` - Print intermediate representations
+- `-o` / `--output` - Output file path
 
-### `crates/stoffel-vm/src/net/hb_engine.rs`
-HoneyBadger MPC engine integration:
-- C FFI exports for SDK bindings
-- MPC operation dispatch
-- Network message handling
+### `src/codegen.rs`
+Bytecode generation from typed AST:
+- Translates expressions to VM instructions
+- Manages constant pool
+- Handles function definitions
+- Generates entry points
 
-### `crates/stoffel-vm-types/src/instructions.rs`
-Instruction enum defining all VM operations:
-- Must stay in sync with Stoffel-Lang codegen
-- Serialization for binary format
+### `src/binary_converter.rs`
+Binary format serialization:
+- Converts bytecode to `.stflb` format
+- Compatible with StoffelVM binary loader
+- Includes function metadata, constants
 
-### `crates/stoffel-vm-types/src/core_types.rs`
-Value enum and type definitions:
-- Runtime value representation
-- Type conversion utilities
+### `src/semantic.rs`
+Semantic analysis:
+- Type checking and inference
+- Scope validation
+- Function resolution
+- Error collection
 
-### `crates/stoffel-vm-types/src/compiled_binary/`
-Binary format handling:
-- `utils.rs` - Load/save compiled binaries
-- Binary format versioning
+### `src/ffi.rs`
+C FFI exports for SDK integration:
+- Compile source from string/file
+- Get bytecode output
+- Error handling across FFI boundary
 
 ## API Contracts
 
-### With Stoffel-Lang
+### With StoffelVM
 
-The compiler emits instructions from `stoffel-vm-types`:
+The compiler outputs instructions from `stoffel-vm-types`:
 ```rust
 use stoffel_vm_types::Instruction;
 use stoffel_vm_types::Value;
 ```
 
-Any instruction changes require compiler updates.
+Instructions must match VM's instruction set:
+- Memory: `LD`, `LDI`, `MOV`, `PUSHARG`
+- Arithmetic: `ADD`, `SUB`, `MUL`, `DIV`, `MOD`
+- Bitwise: `AND`, `OR`, `XOR`, `NOT`, `SHL`, `SHR`
+- Control: `JMP`, `JMPEQ`, `JMPNEQ`, `JMPLT`, `JMPGT`, `CALL`, `RET`
+- Compare: `CMP`
 
 ### With SDKs
 
-SDKs use the VM via:
-1. **Rust crate** - Direct `VirtualMachine` API
-2. **C FFI** - Exports in `ffi.rs` and `net/hb_engine.rs`
+SDKs use the compiler via:
+1. **Library crate** - Direct Rust API
+2. **FFI** - C bindings for Python, TypeScript
 
 ```rust
 // Rust SDK usage
-use stoffel_vm::VirtualMachine;
+use stoffellang::Compiler;
 
-let vm = VirtualMachine::new();
-vm.register_function(func);
-let result = vm.execute("main")?;
+let compiler = Compiler::new();
+let bytecode = compiler.compile(source)?;
 ```
-
-### With mpc-protocols
-
-MPC operations use `HoneyBadgerMpcEngine`:
-- Preprocessing coordination
-- Secure multiplication
-- Input/output protocols
 
 ## Common Tasks
 
+### Adding a New Language Feature
+
+1. Update lexer in `lexer.rs` for new tokens
+2. Add AST nodes in `ast.rs`
+3. Update parser in `parser.rs`
+4. Add type checking in `semantic.rs`
+5. Generate bytecode in `codegen.rs`
+6. Add tests in `tests/`
+
 ### Adding a New Instruction
 
-1. Add variant to `Instruction` enum in `stoffel-vm-types/src/instructions.rs`
-2. Implement execution in `stoffel-vm/src/core_vm.rs`
-3. Update Stoffel-Lang codegen to emit the instruction
-4. Update binary format version if serialization changes
-5. Add tests
+1. Ensure instruction exists in `stoffel-vm-types`
+2. Update `codegen.rs` to emit the instruction
+3. Update `binary_converter.rs` if binary format changes
+4. Add language construct that uses it
+5. Test with StoffelVM
 
-### Adding a Built-in Function
+### Modifying Type System
 
-1. Add function in `stoffel-vm/src/stdlib.rs`
-2. Register in `register_stdlib()` function
-3. Document in README.md
-4. Add tests
-
-### Modifying Value Types
-
-1. Update `Value` enum in `stoffel-vm-types/src/core_types.rs`
-2. Update type handling in `core_vm.rs`
-3. Update serialization in `compiled_binary/`
-4. Sync with Stoffel-Lang type system
-
-### Extending FFI
-
-1. Add C-compatible function with `#[no_mangle]` and `extern "C"`
-2. Place in `ffi.rs` or `net/hb_engine.rs` as appropriate
-3. Update SDK bindings (Python ctypes, TypeScript WASM)
-4. Test cross-language calls
+1. Update `core_types.rs` if internal types change
+2. Sync with `stoffel-vm-types` for VM compatibility
+3. Update `semantic.rs` type checking
+4. Update `codegen.rs` value handling
 
 ## Testing
 
 ```bash
-# Run all VM tests
+# Run all tests
 cargo test
 
-# Run specific crate tests
-cargo test -p stoffel-vm
-cargo test -p stoffel-vm-types
+# Run specific test
+cargo test test_name
 
-# Test with a compiled program
-./target/release/stoffel-run examples/hello_world.stfbin
+# Test with a source file
+./target/release/stoffellang tests/example.stfl
+
+# Verify binary output with VM
+./target/release/stoffellang -b tests/example.stfl
+stoffel-run tests/example.stflb
 ```
 
 ## Dependencies
 
 | Crate | Purpose |
 |-------|---------|
-| `tokio` | Async runtime for MPC |
-| `serde` + `bincode` | Serialization |
-| `ark-ff` | Field arithmetic for MPC |
-| `tracing` | Logging/observability |
+| `stoffel-vm-types` | VM instruction and value types |
+| `clap` | CLI argument parsing |
+| `colored` | Terminal output coloring |
+| `edit-distance` | Suggestion generation |
 
 ## Sync with Other Repos
 
 ### When Instruction Set Changes
-- [ ] Update `Stoffel-Lang` codegen
+- [ ] Update `StoffelVM/crates/stoffel-vm-types/` first
+- [ ] Update codegen to use new instructions
 - [ ] Update `Stoffel-Dev/CLAUDE.md` instruction table
 - [ ] Update `docs/src/stoffel-vm/instructions.md`
-- [ ] Bump binary format version if needed
 
-### When Value Types Change
-- [ ] Update `Stoffel-Lang` type system
-- [ ] Update SDK value handling
-- [ ] Update serialization format
+### When Binary Format Changes
+- [ ] Update `StoffelVM` binary loader
+- [ ] Version the binary format
+- [ ] Update SDK binary handling
 
-### When FFI Exports Change
-- [ ] Update `stoffel-python-sdk` ctypes bindings
-- [ ] Update `stoffel-typescript-sdk` WASM bridge
+### When Adding Language Features
+- [ ] Document syntax in `docs/src/stoffel-lang/syntax.md`
+- [ ] Update examples in `docs/`
+- [ ] Add to README.md
+
+### When FFI Changes
+- [ ] Update Python SDK ctypes bindings
+- [ ] Update TypeScript SDK WASM bridge
 - [ ] Regenerate header files if applicable
-
-### When Built-ins Change
-- [ ] Document in README.md
-- [ ] Update `docs/src/stoffel-vm/builtins.md`
 
 ---
 > Source: [Stoffel-Labs/StoffelVM](https://github.com/Stoffel-Labs/StoffelVM) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-28 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
