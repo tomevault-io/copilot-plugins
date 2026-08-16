@@ -2,7 +2,7 @@
   "name": "gstack",
   "owner": "garrytan",
   "repo": "gstack",
-  "description": "Use Garry Tan's exact Claude Code setup: 23 opinionated tools that serve as CEO, Designer, Eng Manager, Release Manager, Doc Engineer, and QA",
+  "description": "",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/garrytan/gstack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T20:38:12Z"
+  "distributed_at": "2026-08-16T11:25:22Z"
 }
