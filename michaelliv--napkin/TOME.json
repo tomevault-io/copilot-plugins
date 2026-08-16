@@ -2,9 +2,9 @@
   "name": "napkin",
   "owner": "Michaelliv",
   "repo": "napkin",
-  "description": "\ud83e\uddfb Knowledge system for agents. Local-first, file-based, progressively disclosed.",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Michaelliv/napkin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T19:37:15Z"
+  "distributed_at": "2026-08-16T10:33:45Z"
 }
