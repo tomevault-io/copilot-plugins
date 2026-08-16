@@ -1,0 +1,9 @@
+{
+  "name": "apache--knox",
+  "displayName": "knox",
+  "description": "knox",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/knox",
+  "skills": []
+}
