@@ -1,0 +1,309 @@
+{
+  "name": "orkid",
+  "owner": "tweakoz",
+  "repo": "orkid",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orkid/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orkid/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/obt-build/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/obt-build/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-ui/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-ci/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-ci/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-pbr/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-pbr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-fxi/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-fxi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-txi/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-txi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-gbi/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-gbi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-fbi/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-fbi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orkecs-core/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orkecs-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-dwi/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-dwi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orkcore-fsm/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orkcore-fsm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orkcore-math/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orkcore-math/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-alsa/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-alsa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-ezapp/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-ezapp/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-audio/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-audio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-vulkan/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-vulkan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orkcore-python/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orkcore-python/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orkcore-varmap/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orkcore-varmap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-shader/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-shader/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orkcore-catalog/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orkcore-catalog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orkcore-logging/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orkcore-logging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-renderer/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-renderer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-lighting/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-lighting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orkcore-dataflow/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orkcore-dataflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-pipewire/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-pipewire/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-particles/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-particles/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-coreaudio/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-coreaudio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orkcore-subsystem/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orkcore-subsystem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-portaudio/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-portaudio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orkcore-threading/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orkcore-threading/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-compositor/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-compositor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-gfxcontext/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-gfxcontext/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-fxpipeline/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-fxpipeline/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orklev2-scenegraph/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orklev2-scenegraph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orkcore-filesystem/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orkcore-filesystem/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orkcore-reflection/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orkcore-reflection/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/orkcore-application/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/orkcore-application/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/hypersyn/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/hypersyn/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/obtnet/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/obtnet/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/obtnet-node/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/obtnet-node/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/coordinator/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/coordinator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/sub-coordinator/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/sub-coordinator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "orkid",
+      "path": ".claude/skills/hub-coordinator/SKILL.md",
+      "github_url": "https://github.com/tweakoz/orkid/tree/main/.claude/skills/hub-coordinator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tweakoz/orkid",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T14:31:35Z"
+}
