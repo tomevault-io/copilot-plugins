@@ -1,0 +1,9 @@
+{
+  "name": "earlyaidopters--marks-pi-harness",
+  "displayName": "marks-pi-harness",
+  "description": "Mark's pi coding agent harness for fully-local LM Studio models: 14 extensions (visual self-verification, gates, offline guard) + website-building skills a local 122B can one-shot",
+  "version": "1.0.0",
+  "author": "earlyaidopters",
+  "homepage": "https://github.com/earlyaidopters/marks-pi-harness",
+  "skills": []
+}
