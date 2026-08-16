@@ -1,0 +1,9 @@
+{
+  "name": "omdsh-dev--plugin-template",
+  "displayName": "plugin-template",
+  "description": "\u57fa\u4e8e\u539fturtle ui\u5b98\u65b9\u4ed3\u5e93\u521b\u5efa\u7684plugin\u6a21\u677f\u4ed3\u5e93",
+  "version": "1.0.0",
+  "author": "omdsh-dev",
+  "homepage": "https://github.com/omdsh-dev/plugin-template",
+  "skills": []
+}
