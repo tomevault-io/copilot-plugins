@@ -1,0 +1,99 @@
+{
+  "name": "mehari",
+  "owner": "varfish-org",
+  "repo": "mehari",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mehari",
+      "path": ".claude/skills/rust/SKILL.md",
+      "github_url": "https://github.com/varfish-org/mehari/tree/main/.claude/skills/rust/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mehari",
+      "path": ".claude/skills/cargo/SKILL.md",
+      "github_url": "https://github.com/varfish-org/mehari/tree/main/.claude/skills/cargo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mehari",
+      "path": ".claude/skills/openapi/SKILL.md",
+      "github_url": "https://github.com/varfish-org/mehari/tree/main/.claude/skills/openapi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mehari",
+      "path": ".claude/skills/testing/SKILL.md",
+      "github_url": "https://github.com/varfish-org/mehari/tree/main/.claude/skills/testing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mehari",
+      "path": ".claude/skills/protobuf/SKILL.md",
+      "github_url": "https://github.com/varfish-org/mehari/tree/main/.claude/skills/protobuf/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mehari",
+      "path": ".claude/skills/contributing/SKILL.md",
+      "github_url": "https://github.com/varfish-org/mehari/tree/main/.claude/skills/contributing/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mehari",
+      "path": ".claude/skills/issue-workflow/SKILL.md",
+      "github_url": "https://github.com/varfish-org/mehari/tree/main/.claude/skills/issue-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mehari",
+      "path": ".claude/skills/python-bindings/SKILL.md",
+      "github_url": "https://github.com/varfish-org/mehari/tree/main/.claude/skills/python-bindings/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "mehari",
+      "path": ".claude/skills/karpathy-principle/SKILL.md",
+      "github_url": "https://github.com/varfish-org/mehari/tree/main/.claude/skills/karpathy-principle/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/varfish-org/mehari",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T14:33:37Z"
+}
