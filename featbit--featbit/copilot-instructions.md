@@ -1,151 +1,179 @@
 ## featbit
 
-> FeatBit is an open-source feature flag management platform. It is a polyglot monorepo with .NET APIs, an Angular UI, Python analytics, and Kubernetes-based multi-cluster deployment tooling.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# FeatBit — Copilot Instructions
+# CLAUDE.md
 
-FeatBit is an open-source feature flag management platform. It is a polyglot monorepo with .NET APIs, an Angular UI, Python analytics, and Kubernetes-based multi-cluster deployment tooling.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Workflow
+## Architecture Overview
 
-Before you start any work, state how you would verify it. After you finish, run the verification and report the results.
-
-## Architecture
+FeatBit is a self-hosted feature flag management platform with a microservices architecture. Its services communicate via pluggable message queues:
 
 ```
-modules/
-  back-end/           # API server (.NET 10, C#, Clean Architecture)
-  evaluation-server/  # Flag evaluation + streaming (.NET 10, C#)
-  control-plane/      # Cross-DC control plane API (.NET 10, C#)
-  front-end/          # Web UI (Angular 19, TypeScript)
-  data-analytics/     # Analytics server (Python 3.9+, Flask)
-e2e/
-  control-plane/  # Control-Plane infrastructure for multi-cluster testing
+UI (Angular 19) → API Server (.NET 10) → Message Queue → Evaluation Server (.NET 10)
+
+Control Plane (.NET 10) — optional broker between API and Evaluation Servers
 ```
 
-**Data flow:** The API publishes changes to `cp-*` Kafka topics → the Control Plane consumes and updates Redis in all DCs, then republishes to default topics → Evaluation Servers push flag updates to SDK clients via WebSocket.
+### Service Locations
+| Service | Path | Port |
+|---|---|---|
+| Frontend UI | `modules/front-end/` | 4200 (dev) |
+| API Server | `modules/back-end/` | 5000 |
+| Evaluation Server | `modules/evaluation-server/` | 5100 |
+| Control Plane | `modules/control-plane/` | — |
 
-**Deployment tiers:**
-- **Standard** (`docker-compose.yml`): PostgreSQL only
-- **Professional** (`docker-compose-pro.yml`): PostgreSQL + Redis + Kafka + ClickHouse
-- **MongoDB variant** (`docker-compose-mongodb.yml`): MongoDB instead of PostgreSQL
+### Pluggable Providers
+All backend services select infrastructure via environment variables:
+- `DbProvider` — `Postgres` or `MongoDB`
+- `MqProvider` — `Postgres`, `Redis`, or `Kafka`
+- `CacheProvider` — `Redis` or `None`
 
-**Back-end layers** (Clean Architecture): `Api → Application → Domain → Infrastructure`
+Standard edition uses Postgres for everything. Professional edition adds Kafka and ClickHouse for high-throughput analytics.
 
-## Build, Test, and Lint Commands
+### Message Queue Topics
+Flag/segment changes flow from API → MQ → Evaluation Server via these topics:
+- `featbit-feature-flag-change`, `featbit-segment-change`
+- `featbit-endusers`, `featbit-insights`
+- `featbit-control-plane-*` (when Control Plane is enabled)
 
-### Back-end API (`modules/back-end/`)
+### .NET Service Architecture
+API Server, Evaluation Server, and Control Plane all use Clean Architecture:
+`Api → Application → Domain → Infrastructure`
 
-```sh
+Health endpoints on all .NET services: `/health/liveness`, `/health/readiness`
+
+---
+
+## Commands
+
+### Frontend (modules/front-end/)
+```bash
+npm install
+npm run start          # Dev server (English) at localhost:4200
+npm run start:zh       # Dev server (Chinese) at localhost:4201
+npm run build:prod     # Production build
+npm run test           # Unit tests (Jasmine/Karma)
+npm run test-coverage  # Coverage report
+npm run i18n           # Extract i18n strings and validate translations
+```
+
+### .NET Services (back-end / evaluation-server / control-plane)
+```bash
 dotnet restore
 dotnet build -c Release --no-restore
 dotnet test -c Release --no-build --verbosity normal
 
-# Run a single test project
-dotnet test tests/Domain.UnitTests -c Release --verbosity normal
+# Run a single test
+dotnet test --filter "FullyQualifiedName~TestClassName"
 
-# Run a single test by name
-dotnet test --filter "FullyQualifiedName~MyTestClass.MyTestMethod"
+# Build Docker image (from module root)
+docker build --progress plain -f ./deploy/Dockerfile -t featbit/api:local .
 ```
 
-### Evaluation Server (`modules/evaluation-server/`)
+### Local Development (Docker Compose)
+```bash
+# Infrastructure only (MongoDB + Redis) — then run services locally
+docker compose --project-directory . -f ./docker/composes/docker-compose-infra.yml up -d
 
-```sh
-dotnet restore
-dotnet build -c Release --no-restore
-dotnet test -c Release --no-build --verbosity normal
-dotnet test tests/Domain.UnitTests -c Release --verbosity normal
+# Full dev stack (MongoDB)
+docker compose --project-directory . -f ./docker/composes/docker-compose-dev.yml up -d
+
+# Full dev stack (Postgres)
+docker compose --project-directory . -f ./docker/composes/docker-compose-dev-postgres.yml up -d
+
+# Standard edition (all services, Postgres + Redis)
+docker compose -f docker-compose-standard.yml up -d
+
+# Professional edition (Kafka + ClickHouse)
+docker compose -f docker-compose-pro.yml up -d
 ```
 
-### Control Plane (`modules/control-plane/`)
+Default dev credentials: `test@featbit.com` / `123456`
 
-```sh
-dotnet restore
-dotnet build -c Release --no-restore
-dotnet test -c Release --no-build --verbosity normal
-dotnet test tests/Api.UnitTests -c Release --verbosity normal
-```
+---
 
-### Front-end (`modules/front-end/`)
+## Key Configuration
 
-```sh
-npm ci
-npm run build:prod     # production build with localization
-npm test               # run all tests (Karma/Jasmine)
-npm run i18n           # extract + validate i18n strings
+### Backend Environment Variables (appsettings.json / env)
+- `ConnectionStrings__Mongo` / `ConnectionStrings__Postgres`
+- `Redis__ConnectionString`
+- `JWT__Issuer`, `JWT__Audience`, `JWT__Key`
+- `Kafka__BootstrapServers` (pro edition)
+- `SSOEnabled`, `WorkspaceId`, `OAuthConfig__*`
 
-# After adding UI text, run `npm run i18n` and add translations to src/locale/messages.xx.xlf
-```
+### Frontend Environment
+Config at `modules/front-end/src/environments/`. API base URL is set via `environment.ts` (dev) or injected at container startup via `config.js`.
 
-### Data Analytics (`modules/data-analytics/`)
+### Evaluation Server Rate Limiting
+Configurable per-endpoint rate limiting via `RateLimit__*` env vars.
 
-Python 3.9+ with Flask. Dependencies in `requirements.txt`.
+---
 
-### Control-Plane QA Automation (`e2e/control-plane/02-Tests/automation-py/`)
+## CI/CD (ONLY APPLIES to the github.com/featbit/featbit repo)
 
-Python 3.9–3.11, managed with Poetry. Uses pytest + Click CLI.
+GitHub Actions workflows run on push/PR to `main` for path-filtered changes:
+- `build-and-test-api.yml` — dotnet restore → build → test
+- `build-and-test-els.yml` — same for Evaluation Server
+- `build-and-test-control-plane.yml` — same for Control Plane
+- `ui-change-validations.yml` — npm ci → i18n → build
+- `publish-docker-images.yml` — manual trigger; builds multi-platform (amd64/arm64) images to Docker Hub
 
-```sh
-poetry install
-poetry run pytest                              # all tests
-poetry run pytest -m cp02                       # single scenario marker
-poetry run pytest -k "test_my_specific_test"   # single test by name
-```
+Kubernetes manifests are in `kubernetes/` (standard, pro, demo, minikube variants).
 
-Style: black (line-length 100), isort (profile black), flake8, mypy.
+---
 
-## Coding Conventions
+## Control Plane QA
 
-### C# (.NET 10)
+The `e2e/control-plane/` directory manages multi-cluster (west/east) Minikube deployments for
+testing cross-datacenter feature flag propagation. It is organized into three numbered
+subdirectories:
 
-- `<Nullable>enable</Nullable>` and `<ImplicitUsings>enable</ImplicitUsings>` in all projects
-- xUnit with `[Fact]` and `[Theory]`; mocking with Moq
-- Global usings in `Usings.cs` (`global using Xunit;`, `global using Moq;`)
-- Test class naming: `[Feature]Tests`, method naming: `MethodName_Condition_ExpectedBehavior`
-- Private `CreateSut()` factory method for system-under-test instantiation
-- Arrange-Act-Assert (AAA) structure in tests
-- Allman braces, PascalCase methods, `_camelCase` private fields, `var` for obvious types
+- **`00-Docs/`** — architecture reference, deployment guide, testing plans.
+- **`01-Infrastructure/`** — deployment scripts, platform quickstarts (`ubuntu/`,
+  `windows-wsl/`, `windows-hyperv/`), config files, and `extras/` for infrequently-used
+  utilities.
+- **`02-Tests/`** — automated scenarios (`automation-py/scenarios/cp01–cp15.py`), manual
+  procedures (`manual_scripts/`), test applications (`test-app/`, `quick-test/`), curated run
+  reports (`simulations/`, see below), and UAT orchestration (`Run-UATTests.ps1`).
 
-### TypeScript / Angular
+Artifacts are gitignored — test output goes to `artifacts/`, excluded from version control.
+Configuration lives in `01-Infrastructure/deployment.env` (copied from
+`deployment.env.example`); never commit credentials.
 
-- 2-space indentation, single quotes
-- NG-ZORRO (Ant Design) component library
-- i18n via `@angular/localize`: English on port 4200, Chinese on port 4201
-- Test files: `[component-name].component.spec.ts` using Jasmine + Karma with Angular TestBed
+**`artifacts/` vs `02-Tests/simulations/`:** these look similar (both hold test-run output) but
+follow opposite conventions. `artifacts/` is machine-generated, disposable automation output —
+gitignored, never committed. `02-Tests/simulations/*.md` are CURATED, git-tracked run reports —
+a human-authored (or human-reviewed) writeup of a specific test/simulation session, kept in
+version control as a durable record. When adding a new simulation writeup, put it under
+`02-Tests/simulations/` and commit it; when a script/tool needs a scratch output location, use
+`artifacts/`.
 
-### Python (QA scenarios)
+PowerShell scripts in `e2e/control-plane/` use approved PowerShell verbs in their names (e.g.
+`Deploy-`, `Initialize-`, `Start-`) and target multi-cluster Minikube deployments.
 
-- All scenarios inherit from `core.scenario_base.BaseScenario`
-- Scenario files: `scenarios/cpXX.py` with `CPxxScenario` class
-- Use existing helpers: `toggle_flag()`, `get_flag_state()`, `poll_convergence()`, `run_optional_check()`
-- Assertions via `self.assertions.add_pass()` / `add_fail()` / `add_skip()`
-- Lifecycle: `setup_artifacts()` → test logic → `write_artifacts()` → return `self.assertions.all_passed()`
-- Register new scenarios as Click commands in `cli/main.py`
+---
 
-## PR Conventions
+## Commit & PR Conventions
 
-- Title: < 70 characters, sentence case
-- Prefix with emoji: ✨ feature, 🐛 bugfix, 🔥 P0 fix, ✅ tests, 🚀 perf, 📖 docs, 🏗 infra, 🧹 refactor
-- Labels: `UI`, `API`, `Evaluation Server`, `OLAP`
-- Always include `Co-authored-by` trailer for AI-assisted commits
+- PR title: < 70 characters, sentence case.
+- Use emoji prefixes: ✨ feature, 🐛 bugfix, 🔥 P0 fix, ✅ tests, 🚀 perf, 📖 docs, 🏗 infra,
+  🧹 refactor.
+- Labels: UI, API, Evaluation Server, OLAP.
+- Always include a `Co-Authored-By` trailer when AI-assisted.
 
-## Local Development
+---
 
-```sh
-# Start infrastructure (PostgreSQL, Redis)
-docker compose --project-directory . -f docker/composes/docker-compose-infra.yml up -d redis postgresql
+## Working agreement
 
-# Run API server
-cd modules/back-end/src/Api && dotnet run
-# Swagger at http://localhost:5000/swagger
-
-# Run UI
-cd modules/front-end && npm install && npm start
-# Available at http://localhost:4200
-```
-
-Default credentials: `test@featbit.com` / `123456`
+- **Verification-first.** Before starting any task, state up front how you will
+  verify it — the concrete check: the exact command to run, the test to add/run,
+  the endpoint to hit, the output or metric to inspect. After finishing, actually
+  run that verification and report the results, including failures, skipped steps,
+  and partial outcomes. "Done" means *verified*, not "should work" — if you can't
+  verify, say so explicitly and explain why.
 
 ---
 > Source: [featbit/featbit](https://github.com/featbit/featbit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
