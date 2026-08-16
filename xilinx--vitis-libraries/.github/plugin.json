@@ -1,0 +1,9 @@
+{
+  "name": "xilinx--vitis-libraries",
+  "displayName": "Vitis_Libraries",
+  "description": "Vitis_Libraries",
+  "version": "1.0.0",
+  "author": "Xilinx",
+  "homepage": "https://github.com/Xilinx/Vitis_Libraries",
+  "skills": []
+}
