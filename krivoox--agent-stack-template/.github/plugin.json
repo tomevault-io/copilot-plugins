@@ -1,0 +1,9 @@
+{
+  "name": "krivoox--agent-stack-template",
+  "displayName": "agent-stack-template",
+  "description": "Agent-first multi-tenant Next.js template (rules, sub-agents, skills, Better Auth, Prisma)",
+  "version": "1.0.0",
+  "author": "krivoox",
+  "homepage": "https://github.com/krivoox/agent-stack-template",
+  "skills": []
+}
