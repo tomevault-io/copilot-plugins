@@ -3,8 +3,8 @@
   "owner": "NVIDIA-NeMo",
   "repo": "Curator",
   "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
-  "claim_url": "https://tomevault.io/claim/NVIDIA-NeMo",
+  "skills": [
+    {
+      "name": "Curator",
+      "path": ".claude/skills/getting-started/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-NeMo/Curator/tree/main/.claude/skills/getting-started/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Curator",
+      "path": ".claude/skills/nemo-curator-docs/SKILL.md",
+      "github_url": "https://github.com/NVIDIA-NeMo/Curator/tree/main/.claude/skills/nemo-curator-docs/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/NVIDIA-NeMo/Curator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T08:36:58Z"
+  "distributed_at": "2026-08-16T12:31:14Z"
 }
