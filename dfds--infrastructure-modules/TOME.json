@@ -4,7 +4,7 @@
   "repo": "infrastructure-modules",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dfds/infrastructure-modules",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T17:34:51Z"
+  "distributed_at": "2026-08-16T18:45:12Z"
 }
