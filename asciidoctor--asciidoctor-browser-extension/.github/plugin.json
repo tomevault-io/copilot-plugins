@@ -1,0 +1,9 @@
+{
+  "name": "asciidoctor--asciidoctor-browser-extension",
+  "displayName": "asciidoctor-browser-extension",
+  "description": "asciidoctor-browser-extension",
+  "version": "1.0.0",
+  "author": "asciidoctor",
+  "homepage": "https://github.com/asciidoctor/asciidoctor-browser-extension",
+  "skills": []
+}
