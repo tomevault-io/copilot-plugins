@@ -1,0 +1,9 @@
+{
+  "name": "voiceofvoidsf--battleship-ai",
+  "displayName": "battleship-ai",
+  "description": "A 38k-parameter CNN learns Battleship from scratch on a plain CPU in under a minute: REINFORCE, fog of war, every architecture decision explained.",
+  "version": "1.0.0",
+  "author": "VoiceOfVoidSF",
+  "homepage": "https://github.com/VoiceOfVoidSF/battleship-ai",
+  "skills": []
+}
