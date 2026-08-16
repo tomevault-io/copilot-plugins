@@ -2,8 +2,8 @@
   "name": "haeo",
   "owner": "hass-energy",
   "repo": "haeo",
-  "description": "Home Assistant Energy Optimiser",
-  "type": "tome",
+  "description": "",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,111 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "haeo",
-      "path": ".agents/skills/lint/SKILL.md",
-      "github_url": "https://github.com/hass-energy/haeo/tree/main/.agents/skills/lint/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "haeo",
-      "path": ".agents/skills/model/SKILL.md",
-      "github_url": "https://github.com/hass-energy/haeo/tree/main/.agents/skills/model/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "haeo",
-      "path": ".agents/skills/python/SKILL.md",
-      "github_url": "https://github.com/hass-energy/haeo/tree/main/.agents/skills/python/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "haeo",
-      "path": ".agents/skills/testing/SKILL.md",
-      "github_url": "https://github.com/hass-energy/haeo/tree/main/.agents/skills/testing/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "haeo",
-      "path": ".agents/skills/coverage/SKILL.md",
-      "github_url": "https://github.com/hass-energy/haeo/tree/main/.agents/skills/coverage/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "haeo",
-      "path": ".agents/skills/elements/SKILL.md",
-      "github_url": "https://github.com/hass-energy/haeo/tree/main/.agents/skills/elements/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "haeo",
-      "path": ".agents/skills/manifest/SKILL.md",
-      "github_url": "https://github.com/hass-energy/haeo/tree/main/.agents/skills/manifest/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "haeo",
-      "path": ".agents/skills/scenarios/SKILL.md",
-      "github_url": "https://github.com/hass-energy/haeo/tree/main/.agents/skills/scenarios/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "haeo",
-      "path": ".agents/skills/update-docs/SKILL.md",
-      "github_url": "https://github.com/hass-energy/haeo/tree/main/.agents/skills/update-docs/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "haeo",
-      "path": ".agents/skills/agent-setup/SKILL.md",
-      "github_url": "https://github.com/hass-energy/haeo/tree/main/.agents/skills/agent-setup/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "haeo",
-      "path": ".agents/skills/integration/SKILL.md",
-      "github_url": "https://github.com/hass-energy/haeo/tree/main/.agents/skills/integration/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "haeo",
-      "path": ".agents/skills/config-flow/SKILL.md",
-      "github_url": "https://github.com/hass-energy/haeo/tree/main/.agents/skills/config-flow/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "haeo",
-      "path": ".agents/skills/translations/SKILL.md",
-      "github_url": "https://github.com/hass-energy/haeo/tree/main/.agents/skills/translations/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "haeo",
-      "path": ".agents/skills/explain-plan/SKILL.md",
-      "github_url": "https://github.com/hass-energy/haeo/tree/main/.agents/skills/explain-plan/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "haeo",
-      "path": ".agents/skills/documentation/SKILL.md",
-      "github_url": "https://github.com/hass-energy/haeo/tree/main/.agents/skills/documentation/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "haeo",
-      "path": ".agents/skills/release-notes/SKILL.md",
-      "github_url": "https://github.com/hass-energy/haeo/tree/main/.agents/skills/release-notes/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "haeo",
-      "path": ".agents/skills/update-version/SKILL.md",
-      "github_url": "https://github.com/hass-energy/haeo/tree/main/.agents/skills/update-version/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/hass-energy/haeo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T10:30:47Z"
+  "distributed_at": "2026-08-16T10:46:03Z"
 }
