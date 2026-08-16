@@ -41,4 +41,4 @@ PRs should include:
 
 ---
 > Source: [Four-JJJJ/oh-myusage](https://github.com/Four-JJJJ/oh-myusage) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-12 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
