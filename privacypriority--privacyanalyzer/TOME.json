@@ -1,0 +1,44 @@
+{
+  "name": "privacyanalyzer",
+  "owner": "privacypriority",
+  "repo": "privacyanalyzer",
+  "description": "PrivacyHub is an open\u2011source project focused on increasing privacy transparency across the web for DPDP India. It empowers users to understand how websites collect, process, and protect their personal data by providing AI\u2011powered privacy policy analysis. ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/privacypriority/privacyanalyzer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T02:32:12Z"
+}
