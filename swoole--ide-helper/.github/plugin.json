@@ -1,0 +1,9 @@
+{
+  "name": "swoole--ide-helper",
+  "displayName": "ide-helper",
+  "description": "ide-helper",
+  "version": "1.0.0",
+  "author": "swoole",
+  "homepage": "https://github.com/swoole/ide-helper",
+  "skills": []
+}
