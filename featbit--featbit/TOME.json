@@ -3,8 +3,8 @@
   "owner": "featbit",
   "repo": "featbit",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "featbit",
+      "path": ".claude/skills/qa-test-reviewer/SKILL.md",
+      "github_url": "https://github.com/featbit/featbit/tree/main/.claude/skills/qa-test-reviewer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "featbit",
+      "path": ".claude/skills/qa-test-automator/SKILL.md",
+      "github_url": "https://github.com/featbit/featbit/tree/main/.claude/skills/qa-test-automator/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/featbit/featbit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-10T02:48:25Z"
+  "distributed_at": "2026-08-16T12:32:07Z"
 }
