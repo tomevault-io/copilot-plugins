@@ -1,0 +1,9 @@
+{
+  "name": "pnp--powershell",
+  "displayName": "powershell",
+  "description": "powershell",
+  "version": "1.0.0",
+  "author": "pnp",
+  "homepage": "https://github.com/pnp/powershell",
+  "skills": []
+}
