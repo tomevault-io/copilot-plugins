@@ -1,7 +1,7 @@
 {
   "name": "codytseng--jumble",
   "displayName": "jumble",
-  "description": "A user-friendly Nostr client for exploring relay feeds",
+  "description": "jumble",
   "version": "1.0.0",
   "author": "CodyTseng",
   "homepage": "https://github.com/CodyTseng/jumble",
