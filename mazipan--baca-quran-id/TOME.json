@@ -4,7 +4,7 @@
   "repo": "baca-quran.id",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -53,5 +53,5 @@
   ],
   "source_url": "https://github.com/mazipan/baca-quran.id",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-21T12:05:49Z"
+  "distributed_at": "2026-08-16T12:46:19Z"
 }
