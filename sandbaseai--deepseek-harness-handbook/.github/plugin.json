@@ -1,0 +1,9 @@
+{
+  "name": "sandbaseai--deepseek-harness-handbook",
+  "displayName": "deepseek-harness-handbook",
+  "description": "Agent-first, multilingual handbook for DeepSeek Harness: quickstarts, architecture, safety, troubleshooting, and production recipes.",
+  "version": "1.0.0",
+  "author": "sandbaseai",
+  "homepage": "https://github.com/sandbaseai/deepseek-harness-handbook",
+  "skills": []
+}
