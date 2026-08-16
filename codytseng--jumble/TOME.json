@@ -2,9 +2,9 @@
   "name": "jumble",
   "owner": "CodyTseng",
   "repo": "jumble",
-  "description": "A user-friendly Nostr client for exploring relay feeds",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CodyTseng/jumble",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T00:00:00Z"
+  "distributed_at": "2026-08-16T16:43:35Z"
 }
