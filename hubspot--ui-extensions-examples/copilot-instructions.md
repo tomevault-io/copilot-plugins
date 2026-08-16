@@ -88,4 +88,4 @@ IMPORTANT: IF THE 'HubSpotDev' MCP SERVER IS INSTALLED USE THE TOOLS BEFORE TRYI
 
 ---
 > Source: [HubSpot/ui-extensions-examples](https://github.com/HubSpot/ui-extensions-examples) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
