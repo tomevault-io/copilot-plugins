@@ -1,0 +1,22 @@
+{
+  "name": "redis--lettuce",
+  "displayName": "lettuce",
+  "description": "lettuce",
+  "version": "1.0.0",
+  "author": "redis",
+  "homepage": "https://github.com/redis/lettuce",
+  "skills": [
+    {
+      "name": "lettuce",
+      "description": ""
+    },
+    {
+      "name": "lettuce",
+      "description": ""
+    },
+    {
+      "name": "lettuce",
+      "description": ""
+    }
+  ]
+}
