@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [HubSpot/ui-extensions-examples](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [HubSpot/ui-extensions-examples](https://github.com/HubSpot/ui-extensions-examples) — a repo with 164+ stars on GitHub.
+From [HubSpot/ui-extensions-examples](https://github.com/HubSpot/ui-extensions-examples) — a repo with 168+ stars on GitHub.
 
 ---
 
