@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [soaring-xiongkulu/easyaiot](https://github.com/soaring-xiongkulu/easyaiot).
+Original source: `AGENTS.md` in [soaring-xiongkulu/easyaiot](https://github.com/soaring-xiongkulu/easyaiot).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [soaring-xiongkulu/easyaiot](https://github.com/soaring-xiongkulu/easyaiot) — a repo with 643+ stars on GitHub.
+From [soaring-xiongkulu/easyaiot](https://github.com/soaring-xiongkulu/easyaiot) — a repo with 684+ stars on GitHub.
 
 ---
 
