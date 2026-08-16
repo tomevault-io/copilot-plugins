@@ -1,0 +1,231 @@
+{
+  "name": "immersive-web-sdk",
+  "owner": "facebook",
+  "repo": "immersive-web-sdk",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "immersive-web-sdk",
+      "path": "docs/public/skill.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/docs/public/skill.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": ".claude/skills/test-ui/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/.claude/skills/test-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": ".claude/skills/test-all/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/.claude/skills/test-all/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": ".claude/skills/test-grab/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/.claude/skills/test-grab/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": ".claude/skills/test-audio/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/.claude/skills/test-audio/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": ".claude/skills/test-level/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/.claude/skills/test-level/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": ".claude/skills/test-physics/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/.claude/skills/test-physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": ".claude/skills/click-target/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/.claude/skills/click-target/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": ".claude/skills/xr-mode-test/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/.claude/skills/xr-mode-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": ".claude/skills/iwsdk-planner/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/.claude/skills/iwsdk-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": ".claude/skills/test-ecs-core/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/.claude/skills/test-ecs-core/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": ".claude/skills/iwsdk-ui-panel/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/.claude/skills/iwsdk-ui-panel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": ".claude/skills/test-locomotion/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/.claude/skills/test-locomotion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": ".claude/skills/test-environment/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/.claude/skills/test-environment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": ".claude/skills/test-interactions/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/.claude/skills/test-interactions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": "packages/starter-assets/claude-injections/skills/iwsdk-ui/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/packages/starter-assets/claude-injections/skills/iwsdk-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": "packages/starter-assets/claude-injections/skills/iwsdk-ray/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/packages/starter-assets/claude-injections/skills/iwsdk-ray/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": "packages/starter-assets/claude-injections/skills/iwsdk-grab/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/packages/starter-assets/claude-injections/skills/iwsdk-grab/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": "packages/starter-assets/claude-injections/skills/iwsdk-debug/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/packages/starter-assets/claude-injections/skills/iwsdk-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": "packages/starter-assets/claude-injections/skills/iwsdk-planner/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/packages/starter-assets/claude-injections/skills/iwsdk-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": "packages/starter-assets/claude-injections/skills/iwsdk-physics/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/packages/starter-assets/claude-injections/skills/iwsdk-physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": "packages/starter-assets/claude-injections/skills/iwsdk-depth-occlusion/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/packages/starter-assets/claude-injections/skills/iwsdk-depth-occlusion/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": "docs/public/skills/iwsdk-migrate-0-5/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/docs/public/skills/iwsdk-migrate-0-5/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": "packages/create/guidance/claude/.claude/skills/iwsdk-ui/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/packages/create/guidance/claude/.claude/skills/iwsdk-ui/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": "packages/create/guidance/claude/.claude/skills/iwsdk-ray/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/packages/create/guidance/claude/.claude/skills/iwsdk-ray/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": "packages/create/guidance/claude/.claude/skills/iwsdk-grab/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/packages/create/guidance/claude/.claude/skills/iwsdk-grab/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": "packages/create/guidance/claude/.claude/skills/iwsdk-debug/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/packages/create/guidance/claude/.claude/skills/iwsdk-debug/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": "packages/create/guidance/claude/.claude/skills/iwsdk-planner/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/packages/create/guidance/claude/.claude/skills/iwsdk-planner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": "packages/create/guidance/claude/.claude/skills/iwsdk-physics/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/packages/create/guidance/claude/.claude/skills/iwsdk-physics/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": "packages/create/guidance/claude/.claude/skills/iwsdk-scene-composer/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/packages/create/guidance/claude/.claude/skills/iwsdk-scene-composer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "immersive-web-sdk",
+      "path": "packages/create/guidance/claude/.claude/skills/iwsdk-depth-occlusion/SKILL.md",
+      "github_url": "https://github.com/facebook/immersive-web-sdk/tree/main/packages/create/guidance/claude/.claude/skills/iwsdk-depth-occlusion/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/facebook/immersive-web-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T12:42:44Z"
+}
