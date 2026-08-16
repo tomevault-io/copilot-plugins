@@ -1,35 +1,34 @@
-## performance
+## prisma-schema
 
-> Navigation, caching and PWA contract
+> Prisma schema and migration conventions
 
 
-# Performance and navigation
+# Prisma schema
 
-Detail: `docs/architecture.md` §7.
+1. **Tenancy.** Every business model carries `workspaceId`, a relation with
+   `onDelete: Cascade`, and an index that starts with `workspaceId`. Without
+   the cascade, deleting a workspace orphans rows; without the index, every
+   scoped list is a sequential scan.
+2. **Both sides of a relation** are declared, with explicit `@relation`.
+3. **Ids**: `@id @default(cuid())` for business models. Better Auth models keep
+   the ids the adapter assigns — do not change them.
+4. **Timestamps**: `createdAt @default(now())` and `updatedAt @updatedAt` on
+   anything a user edits.
+5. **Indexes** on every field used in a `where`, `orderBy` or join. Compound
+   indexes follow query order (`@@index([workspaceId, status])`).
+6. **Uniqueness** with `@unique` / `@@unique`. Case-insensitive uniqueness has
+   no direct equivalent — enforce it in the domain and say so in a comment.
+7. **`@@map`** to snake_case table names; the Better Auth models must keep the
+   names the adapter expects.
 
-## Required
+## Migrations
 
-1. Soft navigation only. The shell in `(app)/layout.tsx` is persistent; a full
-   page reload during an authenticated session is a bug.
-2. Every `(app)` segment ships a `loading.tsx` built on `PageSkeleton`.
-3. `experimental.staleTimes.dynamic: 0`. Perceived speed comes from skeletons
-   and prefetch, not from showing data captured before the last mutation.
-4. Nav destinations live in `nav-config.ts` so idle prefetch covers them.
-5. After a mutation, use `refreshAfterMutation` / `navigateAndRefresh` from
-   `src/lib/navigation.ts`. A plain `router.push` can land on a Client Router
-   Cache entry captured before the write.
-6. Authenticated routes are `private, no-store` — add the prefix to
-   `PRIVATE_ROUTE_PREFIXES` in `next.config.ts`.
-
-## Forbidden
-
-- Cross-request caching of tenant data (balances, membership, anything
-  per-user).
-- A service worker that caches HTML or `/api/*`. Static assets under
-  `/_next/static/*` only — they are content-hashed and immutable.
-- Offline UI that displays stale authoritative data. Users trust what they see;
-  a stale number is worse than no number.
-- Relaxing `staleTimes.dynamic` to make a page feel faster.
+- `npm run db:migrate` in development; the generated SQL is reviewed, not
+  trusted blindly.
+- A rename that Prisma renders as drop + add is data loss. Split it: add the
+  column, backfill, then remove the old one in a later migration.
+- `npm run db:push` is for local scratch work only. It never runs against a
+  shared database.
 
 ---
 > Source: [krivoox/agent-stack-template](https://github.com/krivoox/agent-stack-template) — distributed by [TomeVault](https://tomevault.io).
