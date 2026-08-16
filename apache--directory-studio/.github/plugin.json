@@ -1,0 +1,9 @@
+{
+  "name": "apache--directory-studio",
+  "displayName": "directory-studio",
+  "description": "directory-studio",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/directory-studio",
+  "skills": []
+}
