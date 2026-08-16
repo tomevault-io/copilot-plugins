@@ -1,60 +1,120 @@
 ## agones
 
-> Rules for AI coding agents contributing to Agones. `CONTRIBUTING.md` and `build/README.md` are the source of truth for humans, and agents must follow them too. If anything here conflicts with `CONTRIBUTING.md`, follow `CONTRIBUTING.md` and note the discrepancy in the PR.
+> This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-# AGENTS.md
+# Agent Guide for opentelemetry-go
 
-Rules for AI coding agents contributing to Agones. `CONTRIBUTING.md` and `build/README.md` are the source of truth for humans, and agents must follow them too. If anything here conflicts with `CONTRIBUTING.md`, follow `CONTRIBUTING.md` and note the discrepancy in the PR.
+This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
 
-## Before you write code
+Before starting any task, read `.github/copilot-instructions.md`, `CONTRIBUTING.md`, and this file.
+Treat `.github/copilot-instructions.md` as global passive guidance for every task, including docs-only and review-only work.
 
-- Work only from an existing, open issue that asks for the change. No drive-by, speculative, or "while I was here" PRs.
-- Before starting, check the issue is not already being worked on: no assignee, no linked PR, and no recent comment from someone else taking it. Do not open a competing or duplicate PR. If it was claimed long ago with no progress, ask on the issue before taking over.
-- If the issue still has open questions or unresolved discussion, do not implement it. Go back to the issue, raise the questions, and wait for the maintainers before writing code.
-- Stay inside the issue's scope. One issue, one PR. Surface unrelated problems in the PR description or a new issue rather than fixing them here.
+## Core expectations
 
-## Working with your human
+- Preserve OpenTelemetry specification compliance, API stability, and idiomatic Go.
+- Prefer minimal, surgical changes over broad refactors or speculative cleanup.
+- Read the package you are editing and match its existing naming, option types, error handling, comments, tests, and concurrency patterns.
+- Keep public APIs backward compatible unless the task explicitly requires a breaking change.
+- Keep telemetry resilient and loosely coupled. Do not introduce behavior that can unexpectedly interfere with host applications.
+- Inspect boundaries carefully: input validation, resource limits, cancellation, shutdown, error propagation, concurrency, and memory growth.
+- Prefer fail-safe behavior and explicit invariants over implicit assumptions.
+- Keep dependencies minimal and justified.
+- Preserve host-application safety: telemetry should not panic, block indefinitely, or amplify attacker-controlled input.
+- Be conservative on hot paths. Avoid unnecessary allocations, reflection, interface churn, blocking, global state, and high-cardinality telemetry.
+- Write comments only for intent, invariants, and non-obvious constraints. Do not add comments that restate the code.
 
-- You are assisting the human contributor who is driving you, not acting on your own. When unsure, stop and ask them rather than guessing. Do not invent API names, fabricate behavior, or silence a failing check to make something pass. A clear question or a `TODO` beats a confident wrong guess.
-- Keep changes minimal and match the surrounding code. Do not add comments that restate what the code does, introduce new abstractions or dependencies without justification, or reformat and rename code outside the change.
+## Default workflow
 
-## Build, test, and lint: use the build Makefile, not host Go tools
+For new features and behavior changes, use this order unless the task explicitly says otherwise:
 
-There is no root Makefile. Builds, tests, and lint run through `build/Makefile` inside a Docker build image (the only host dependencies are Make and Docker), so invoke targets as `make -C build <target>` from the repo root.
+1. Read the relevant package, its tests, and any package docs or `README.md`.
+2. Add or update a failing unit test that captures the required behavior or regression.
+3. Implement the smallest change that makes the test pass.
+4. Refactor only after the behavior is locked in, and only if the refactor keeps the diff focused.
+5. If the changed code is on a hot path or performance-sensitive, inspect existing benchmarks and run them. Add a benchmark if coverage is missing.
+6. Update documentation artifacts as needed while the context is fresh. Follow the documentation and changelog conventions below for the specific updates required.
+7. Run `make precommit` each time before considering the work complete.
 
-- Validate Go changes with `make -C build lint test-go` before opening a PR, and do not claim they pass without running them. The first run builds the image and is slow.
-- CI runs these targets in the build image with a pinned Go toolchain, so a passing raw `go test`, `go build`, or `golangci-lint` does not mean CI passes, and is not a substitute.
-- Do not run the e2e targets (`make -C build test-e2e...`) unless asked. They need a live Kubernetes cluster and take a long time.
-- Do not disable or weaken checks (deleting tests, broad `//nolint`, skipping hooks) to get a PR green. Fix the underlying issue.
+For docs-only, test-only, or review-only tasks, still start with the required repository guidance above, then skip the workflow steps that do not apply while keeping the same discipline around scope, verification, and repository conventions.
 
-## Do not hand-edit generated files
+## Verification
 
-Edit the source and regenerate with the matching target. CI checks that several of these stay in sync with their source.
+- Use `make` as the canonical repository verification command. The default target is `precommit`.
+- `make precommit` is the expected final verification step for linting, generation, README checks, module checks, and tests.
+- During iteration, targeted commands are fine for fast feedback, but do not stop there if the task changes code.
+- If you touch performance-sensitive code, run focused benchmarks and compare the results using `benchstat` in addition to `make`.
 
-- `pkg/apis/**/zz_generated.deepcopy.go` and `pkg/client/**`: edit the API types in `pkg/apis/`, then `make -C build gen-crd-code`.
-- gRPC and SDK code generated from the `.proto` files in `proto/` (the `*.pb*.go` files, plus the per-language SDK outputs under `sdks/` and `test/sdk/`): edit the `.proto` files, then `make -C build gen-all-sdk-grpc`, or `gen-allocation-grpc` for the allocator.
-- `install/yaml/install.yaml`: edit the Helm templates under `install/helm/`, then `make -C build gen-install`.
-- `site/content/en/docs/Reference/agones_crd_api_reference.html`: regenerate with `make -C build gen-api-docs`.
-- `CHANGELOG.md` is updated from generated release notes at release time. Ordinary PRs should not edit it.
+## Documentation and changelog
 
-## Dependencies
+- Non-internal, non-test packages should have Go doc comments, usually in `doc.go`.
+- Non-internal, non-test, non-documentation packages should also have a `README.md` with at least a title and a `pkg.go.dev` badge.
+- Prefer examples over long code snippets in GoDoc when practical.
+- Keep docs aligned with actual behavior. Do not leave stale comments, stale examples, or stale package documentation behind.
+- For user-visible changes, update `CHANGELOG.md` under the appropriate `Added`, `Changed`, `Deprecated`, `Fixed`, or `Removed` section within `## [Unreleased]`.
+  - Always put the PR number at the end of the line (e.g., `(#1234)`), NOT the issue number.
+  - If the PR number is not yet known, omit it until the PR is created, then update the changelog entry before merging.
+  - Always use references to the go module that is updated (e.g., `go.opentelemetry.io/otel/sdk/metric`), instead of just the path (e.g., `sdk/metric`).
 
-Dependencies are vendored in `vendor/`, so do not edit it by hand. Change `go.mod`, then run `go mod tidy` and `go mod vendor` (see `build/docs/dependencies.md`).
+## Repository habits
 
-## New source files
+- Prefer focused diffs. Avoid drive-by cleanup.
+- Follow existing option patterns and exported API conventions instead of inventing new abstractions.
+- Generated files are checked in. If your change affects generation, keep generated output up to date.
+- Prefer fast local search tools such as `rg` when exploring the repository.
+- When changing behavior, make the invariants explicit in tests.
 
-Start new Go files with the Apache license header, copied from an existing non-generated `.go` file. Do not copy `build/boilerplate.go.txt`, which appends an autogenerated marker and is only for generators.
+## Personas
 
-## Commits and the PR
+### Feature Agent
 
-- Sign off every commit with `git commit -s`. DCO is bot-enforced, and an unsigned commit blocks the PR.
-- Squash the branch to a single commit before it merges.
-- Fill in `.github/pull_request_template.md`: set one `/kind` label, describe what and why, and put `Closes #<issue>` for the issue it fixes, or `Work on #<issue>` to reference an issue without closing it.
+Use this persona for new behavior, new API surface, or spec-driven feature work.
 
-## New features
+- Start with a failing unit test.
+- Confirm the expected behavior against the spec, existing package behavior, and public API compatibility.
+- Implement the smallest viable change.
+- Update GoDoc, examples, `README.md`, and `CHANGELOG.md` when the change is user-visible.
+- If the feature touches a hot path, check benchmarks and add one if the coverage is missing.
 
-A new feature usually sits behind a feature gate in `pkg/util/runtime/features.go` and moves through stages: alpha, then beta, then stable. Agree the design on a `kind/design` issue before writing code, and ship documentation under `site/`.
+### Refactoring Agent
+
+Use this persona when improving structure without intentionally changing behavior.
+
+- Treat behavior preservation as the default contract.
+- Add or tighten tests before moving code if current behavior is not already pinned down.
+- Avoid broad rewrites, clever abstractions, or package-wide cleanup unless explicitly requested.
+- If a refactor touches a hot path, benchmark before and after.
+- Keep API shape, semantics, concurrency guarantees, and failure modes unchanged unless the task says otherwise.
+
+### Test Agent
+
+Use this persona when adding missing coverage, reproducing bugs, or hardening regressions.
+
+- Reproduce the bug or missing behavior with the smallest failing test you can.
+- Prefer testing public behavior and externally visible invariants.
+- Add targeted regression tests before changing production code.
+- Only change production code when it is required to make the tested behavior correct or testable.
+- Keep tests deterministic, readable, and aligned with package patterns.
+
+### Performance Agent
+
+Use this persona for hot-path work, allocation reduction, or throughput and latency improvements.
+
+- Benchmark first to establish a baseline.
+- Prefer changes that reduce allocations, copying, interface churn, and unnecessary synchronization.
+- Do not trade away correctness, spec compliance, or API stability for micro-optimizations.
+- Add or update benchmarks when performance-sensitive coverage is missing.
+- If you materially change a hot path, capture before-and-after results, preferably with `benchstat`.
+
+### Review Agent
+
+Use this persona when asked to review code, patches, or pull requests.
+
+- Lead with findings, not summaries.
+- Order findings by severity and include precise file and line references when available.
+- Focus on correctness, spec compliance, API compatibility, concurrency safety, resilience, performance regressions, missing tests, missing benchmarks, documentation gaps, and changelog gaps.
+- Call out when a diff is broader than necessary.
+- If you find no issues, say that explicitly and note any residual risks or verification gaps.
 
 ---
 > Source: [agones-dev/agones](https://github.com/agones-dev/agones) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
