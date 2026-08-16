@@ -1,0 +1,9 @@
+{
+  "name": "tableproapp--web",
+  "displayName": "web",
+  "description": "The TablePro marketing site.",
+  "version": "1.0.0",
+  "author": "TableProApp",
+  "homepage": "https://github.com/TableProApp/web",
+  "skills": []
+}
