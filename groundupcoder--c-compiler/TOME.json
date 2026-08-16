@@ -2,7 +2,7 @@
   "name": "c-compiler",
   "owner": "GroundUpCoder",
   "repo": "c-compiler",
-  "description": "C compiler in one JS file",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GroundUpCoder/c-compiler",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T15:22:09Z"
+  "distributed_at": "2026-08-16T18:47:06Z"
 }
