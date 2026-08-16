@@ -1,0 +1,9 @@
+{
+  "name": "littlebugged--aipick",
+  "displayName": "aipick",
+  "description": "AIPick \u2014 Handpicked AI tools directory. Built with Astro + Tailwind CSS, hosted on Cloudflare Pages.",
+  "version": "1.0.0",
+  "author": "littlebugged",
+  "homepage": "https://github.com/littlebugged/aipick",
+  "skills": []
+}
