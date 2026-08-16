@@ -1,0 +1,9 @@
+{
+  "name": "loopwerk--django-rss-filter",
+  "displayName": "django-rss-filter",
+  "description": "django-rss-filter",
+  "version": "1.0.0",
+  "author": "loopwerk",
+  "homepage": "https://github.com/loopwerk/django-rss-filter",
+  "skills": []
+}
