@@ -1,0 +1,9 @@
+{
+  "name": "apache--flink-kubernetes-operator",
+  "displayName": "flink-kubernetes-operator",
+  "description": "flink-kubernetes-operator",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/flink-kubernetes-operator",
+  "skills": []
+}
