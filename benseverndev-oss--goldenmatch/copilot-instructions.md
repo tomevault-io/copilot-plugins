@@ -1,81 +1,18 @@
 ## goldenmatch
 
-> Native SQL extensions for [GoldenMatch](https://github.com/benzsevern/goldenmatch) (`D:\show_case\goldenmatch`).
+> Drop-in entity resolution for KG frameworks (neo4j-graphrag / LlamaIndex PGI /
 
-# GoldenMatch Extensions
+# goldenmatch-kg — Claude notes
 
-Native SQL extensions for [GoldenMatch](https://github.com/benzsevern/goldenmatch) (`D:\show_case\goldenmatch`).
+Drop-in entity resolution for KG frameworks (neo4j-graphrag / LlamaIndex PGI /
+Graphiti). This lived in the root `CLAUDE.md`; it is package-specific, so it now
+loads only when you are working here.
 
-## Related Projects
-- **Main repo:** `D:\show_case\goldenmatch` -- Python entity resolution toolkit (v1.1.0+).
-- **This repo:** Rust bridge + Postgres extension + DuckDB Python UDFs
-- **PyPI packages:** `goldenmatch` (Python), `goldenmatch-duckdb` (DuckDB UDFs)
-
-## Branch & Merge SOP (all Golden Suite repos)
-- Feature work goes on `feature/<name>` branches, never directly to main
-- Merge via **squash merge PR** (watchers see PR activity, history stays clean)
-- PR title format: `feat: <description>` or `fix: <description>`
-- PR body: summary bullets + test plan
-- Merge when: tests pass, docs updated. Days not weeks.
-- After merge: delete remote branch
-
-## Environment
-- Windows 11, bash shell (Git Bash) -- use Unix paths
-- Two GitHub accounts: `benzsevern` (personal, for this repo) and `benzsevern-mjh` (work)
-- MUST `gh auth switch --user benzsevern` before push, switch back to `benzsevern-mjh` after
-- Rust 1.94.0 at `C:\Users\bsevern\.cargo\bin` -- must set `RUSTUP_HOME="C:/Users/bsevern/.rustup"` and `CARGO_HOME="C:/Users/bsevern/.cargo"` in every bash command
-- No admin privileges -- no LLVM/libclang, no WSL2. pgrx builds only work in CI (Linux)
-- PostgreSQL 16 portable at `C:\Users\bsevern\tools\pg16portable\pgsql`
-- Bridge crate compiles locally. Postgres crate requires Linux (CI only).
-
-## Architecture
-- Rust workspace (`Cargo.toml`) contains only `bridge/` crate
-- `postgres/` is excluded from workspace (`exclude = ["postgres"]`) -- pgrx 0.12.9 bug with SQL generation in workspace mode
-- `duckdb/` is a standalone Python package (not Rust)
-
-### bridge/ (goldenmatch-bridge)
-- Shared crate: embeds CPython via pyo3, calls goldenmatch Python API
-- `api.rs` -- wrappers for dedupe, match, score_strings, score_pair, explain_pair, dedupe_pairs (structured), dedupe_clusters (structured)
-- `convert.rs` -- JSON <-> Polars DataFrame conversion (future: Arrow C Data Interface)
-- `error.rs` -- BridgeError enum with From impls for PyErr and ArrowError
-
-### postgres/ (goldenmatch_pg)
-- pgrx 0.12.9 Postgres extension, standalone crate (not in workspace)
-- `quick.rs` -- 11 SQL functions: table-based (SPI), table-returning (TableIterator), scalar, JSON-based
-- `pipeline.rs` -- 5 job management functions: gm_configure, gm_run, gm_jobs, gm_golden, gm_drop
-- `spi.rs` -- reads PG tables via `row_to_json()` SPI queries
-- SQL file at `sql/goldenmatch_pg--0.5.0.sql` -- handwritten (pgrx doesn't auto-generate)
-- .control file: `schema = goldenmatch` -- all functions in goldenmatch schema
-
-### duckdb/ (goldenmatch-duckdb)
-- Python package: `pip install goldenmatch-duckdb`
-- `functions.py` -- registers 7 DuckDB UDFs via `con.create_function()`
-- Table-reading UDFs use `con.cursor()` to avoid deadlock (UDF can't query same connection)
-- Requires `pyarrow` for DuckDB `.pl()` Polars conversion
-
-## Testing
-- Rust bash preamble (copy-paste before any cargo command): `export PATH="/c/Users/bsevern/.cargo/bin:$PATH" && export RUSTUP_HOME="C:/Users/bsevern/.rustup" && export CARGO_HOME="C:/Users/bsevern/.cargo"`
-- `cargo build -p goldenmatch-bridge` -- builds bridge locally (works on Windows)
-- `cargo test -p goldenmatch-bridge` -- runs bridge tests (needs goldenmatch Python package installed)
-- Postgres extension: build/test only via CI (needs libclang + PG dev headers)
-- DuckDB: `cd duckdb && pip install -e . && python -m pytest tests/ -v`
-
-## CI
-- 4 jobs: lint, bridge-tests, postgres-build, duckdb-tests
-- Lint: `cargo fmt --check` (bridge + postgres separately) + `cargo clippy` (bridge only)
-- Postgres CI: tests PG 15/16/17 in parallel (fail-fast: false). Uses PostgreSQL apt repo for PG 15/17 availability
-- Multi-PG: must `pg_createcluster` explicitly + use `pg_lsclusters` to find correct port per version
-- System Python for Postgres: `sudo rm -f /usr/lib/python3/dist-packages/typing_extensions.py` then `sudo pip install --break-system-packages goldenmatch`
-- Release workflow: builds .tar.gz + .deb + .rpm for PG 15/16/17, pushes Docker to ghcr.io + Docker Hub
-
-## Gotchas
-- pgrx 0.12.9 does NOT auto-generate SQL files -- must maintain `sql/goldenmatch_pg--0.5.0.sql` manually
-- pgrx extension functions are in `goldenmatch` schema -- use `goldenmatch.function_name()` in psql, or explicit `::TEXT` casts
-- `cargo` defaults CARGO_HOME to drive root on Windows when CWD is D: -- always set explicitly
-- DuckDB UDFs cannot query same connection (deadlock) -- use `con.cursor()` for table reads
-- `cargo fmt` must run separately for bridge (workspace) and postgres (standalone)
-- PyPI publishing uses credentials from `D:\show_case\goldenmatch\.testing\.env`
+`packages/python/goldenmatch-kg/` is a standalone package (PyPI `goldenmatch-kg`) that drops goldenmatch in as the entity-resolution stage of neo4j-graphrag / LlamaIndex PGI / Graphiti. A framework-agnostic `resolve_entities` core (zero-config `dedupe_df` → groups + canonical maps) + three import-gated shims (base-free `_resolve.py` decision helper per shim, locally testable). Design: `context-network/decisions/0021-goldenmatch-kg-integrations.md`. Gotchas:
+- **EXCLUDED from the uv workspace on purpose** (`[tool.uv.workspace].exclude` in root `pyproject.toml`). Its three framework extras (neo4j-graphrag, llama-index-core, graphiti-core) are heavy, fast-moving dep trees that would enter the main `uv.lock` and risk breaking `uv sync --all-packages` repo-wide (the `goldenmatch[native]` footgun). It is installed standalone by its own `goldenmatch-kg.yml` lane — NOT a workspace member, NOT in the main `ci.yml` matrix, and NOT a `golden-suite` meta-package floor member (its heavy framework extras stay out of the suite dependency graph). It IS published to PyPI on its own: `publish-goldenmatch-kg.yml` (thin caller → `_publish-pypi.yml`, fires on a `goldenmatch-kg-v*` release tag or `workflow_dispatch`; added 2026-08-04, first release 0.1.0).
+- **CI lane = core (always) + a fresh-venv-per-framework MATRIX.** The three frameworks have conflicting deps, so each gets an isolated venv; installing the extra un-skips that shim's real-library integration test. `fail-fast: false`. The lane is informational (not `ci-required`), so confirm it green before arming auto-merge — it is the only real-execution signal for the bindings.
+- **Shim tests inject a deterministic stub for the goldenmatch decision** (`tests/conftest.py`), NOT real `dedupe_df`. Zero-config dedupe on a ~3-row toy frame commits a degenerate RED config whose fuzzy merge varies BY GOLDENMATCH VERSION (the stale local `.venv` had 1.30.0 which merged "Apple"/"Apple Inc"; CI's 2.2.0 did not) and across processes — so a toy-merge assertion is flaky. The shim tests verify the binding/marshaling; goldenmatch's accuracy is covered by core parity + ER-KG-Bench. (Side lesson: the local `.venv` goldenmatch can be badly stale vs main — a passes-locally-fails-in-CI trap; `uv sync` to refresh.)
 
 ---
 > Source: [benseverndev-oss/goldenmatch](https://github.com/benseverndev-oss/goldenmatch) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
