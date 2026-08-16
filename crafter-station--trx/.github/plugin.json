@@ -1,0 +1,14 @@
+{
+  "name": "crafter-station--trx",
+  "displayName": "trx",
+  "description": "trx",
+  "version": "1.0.0",
+  "author": "crafter-station",
+  "homepage": "https://github.com/crafter-station/trx",
+  "skills": [
+    {
+      "name": "trx",
+      "description": ""
+    }
+  ]
+}
