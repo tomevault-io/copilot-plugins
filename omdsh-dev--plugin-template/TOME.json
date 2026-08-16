@@ -1,0 +1,44 @@
+{
+  "name": "plugin-template",
+  "owner": "omdsh-dev",
+  "repo": "plugin-template",
+  "description": "\u57fa\u4e8e\u539fturtle ui\u5b98\u65b9\u4ed3\u5e93\u521b\u5efa\u7684plugin\u6a21\u677f\u4ed3\u5e93",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/omdsh-dev/plugin-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T21:14:15Z"
+}
