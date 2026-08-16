@@ -1,0 +1,9 @@
+{
+  "name": "nuttytree--esphome-devices",
+  "displayName": "ESPHome-Devices",
+  "description": "ESPHome-Devices",
+  "version": "1.0.0",
+  "author": "nuttytree",
+  "homepage": "https://github.com/nuttytree/ESPHome-Devices",
+  "skills": []
+}
