@@ -1,21 +1,21 @@
 # AI instruction files for pb-ext
 
-> Sourced from [magooney-loon/pb-ext](https://github.com/magooney-loon/pb-ext) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [magooney-loon/pb-ext](https://github.com/magooney-loon/pb-ext), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [magooney-loon/pb-ext](https://github.com/magooney-loon/pb-ext).
+Original source: `CLAUDE.md` in [magooney-loon/pb-ext](https://github.com/magooney-loon/pb-ext).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/magooney-loon/pb-ext](https://github.com/magooney-loon/pb-ext)
+Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/magooney-loon/pb-ext](https://github.com/magooney-loon/pb-ext)
 
 ---
 
