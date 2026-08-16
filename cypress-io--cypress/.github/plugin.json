@@ -5,14 +5,5 @@
   "version": "1.0.0",
   "author": "cypress-io",
   "homepage": "https://github.com/cypress-io/cypress",
-  "skills": [
-    {
-      "name": "cypress",
-      "description": ""
-    },
-    {
-      "name": "cypress",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
