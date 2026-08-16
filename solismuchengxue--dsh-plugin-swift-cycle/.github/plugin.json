@@ -1,0 +1,9 @@
+{
+  "name": "solismuchengxue--dsh-plugin-swift-cycle",
+  "displayName": "dsh_plugin_swift_cycle",
+  "description": "Swift Cycle governance skill adapter for DeepSeek Harness; user-invoked, version-pinned, and offline-verifiable.",
+  "version": "1.0.0",
+  "author": "Solismuchengxue",
+  "homepage": "https://github.com/Solismuchengxue/dsh_plugin_swift_cycle",
+  "skills": []
+}
