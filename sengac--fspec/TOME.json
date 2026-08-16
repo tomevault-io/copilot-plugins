@@ -4,7 +4,7 @@
   "repo": "fspec",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sengac/fspec",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T13:45:41Z"
+  "distributed_at": "2026-08-16T16:56:45Z"
 }
