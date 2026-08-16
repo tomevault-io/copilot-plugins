@@ -4,7 +4,7 @@
   "repo": "english.now",
   "description": "\u2060(\ud83d\udea7 WIP) AI-powered, open-source, self-studying English learning app",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chippeddog/english.now",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T02:34:41Z"
+  "distributed_at": "2026-08-16T02:37:15Z"
 }
