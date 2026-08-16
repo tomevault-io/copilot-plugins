@@ -1,0 +1,9 @@
+{
+  "name": "aws-samples--one-observability-demo",
+  "displayName": "one-observability-demo",
+  "description": "one-observability-demo",
+  "version": "1.0.0",
+  "author": "aws-samples",
+  "homepage": "https://github.com/aws-samples/one-observability-demo",
+  "skills": []
+}
