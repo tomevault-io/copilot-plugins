@@ -15,14 +15,6 @@ Original source: `AGENTS.md` in [Azure/azure-sdk-for-cpp](https://github.com/Azu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (5)
-
-- [azure-sdk-for-cpp](https://github.com/Azure/azure-sdk-for-cpp/tree/main/.github/skills/azsdk-common-sdk-release/SKILL.md)
-- [azure-sdk-for-cpp](https://github.com/Azure/azure-sdk-for-cpp/tree/main/.github/skills/azsdk-common-prepare-release-plan/SKILL.md)
-- [azure-sdk-for-cpp](https://github.com/Azure/azure-sdk-for-cpp/tree/main/.github/skills/azsdk-common-generate-sdk-locally/SKILL.md)
-- [azure-sdk-for-cpp](https://github.com/Azure/azure-sdk-for-cpp/tree/main/.github/skills/azsdk-common-pipeline-troubleshooting/SKILL.md)
-- [azure-sdk-for-cpp](https://github.com/Azure/azure-sdk-for-cpp/tree/main/.github/skills/azsdk-common-apiview-feedback-resolution/SKILL.md)
-
 Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/Azure/azure-sdk-for-cpp](https://github.com/Azure/azure-sdk-for-cpp)
 
 ---
