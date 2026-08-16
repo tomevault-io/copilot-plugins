@@ -1,0 +1,9 @@
+{
+  "name": "scottthesecond--finalcut-git",
+  "displayName": "finalcut-git",
+  "description": "A shell-based application that syncs final cut libraries using GIT.  Postlab alternative for the cheap/technically inclined.",
+  "version": "1.0.0",
+  "author": "scottthesecond",
+  "homepage": "https://github.com/scottthesecond/finalcut-git",
+  "skills": []
+}
