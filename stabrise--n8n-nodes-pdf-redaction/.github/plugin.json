@@ -1,0 +1,9 @@
+{
+  "name": "stabrise--n8n-nodes-pdf-redaction",
+  "displayName": "n8n-nodes-pdf-redaction",
+  "description": "n8n node for PDF Redaction - AI-powered sensitive data detection and redaction in pdf",
+  "version": "1.0.0",
+  "author": "StabRise",
+  "homepage": "https://github.com/StabRise/n8n-nodes-pdf-redaction",
+  "skills": []
+}
