@@ -2,9 +2,9 @@
   "name": "crit",
   "owner": "tomasz-tomczyk",
   "repo": "crit",
-  "description": "Your feedback loop with the agent",
-  "type": "config",
-  "source_format": "CLAUDE.md",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,171 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "crit",
+      "path": "integrations/opencode/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/opencode/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/pi/skills/crit/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/pi/skills/crit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/grok/skills/crit/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/grok/skills/crit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/qwen/skills/crit/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/qwen/skills/crit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/codex/skills/crit/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/codex/skills/crit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/cursor/skills/crit/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/cursor/skills/crit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/hermes/skills/crit/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/hermes/skills/crit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/pi/skills/crit-cli/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/pi/skills/crit-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/gemini/skills/crit/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/gemini/skills/crit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/qwen/skills/crit-cli/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/qwen/skills/crit-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/grok/skills/crit-cli/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/grok/skills/crit-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/codex/skills/crit-cli/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/codex/skills/crit-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/cursor/skills/crit-cli/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/cursor/skills/crit-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/hermes/skills/crit-cli/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/hermes/skills/crit-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/gemini/skills/crit-cli/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/gemini/skills/crit-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/claude-code/skills/crit/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/claude-code/skills/crit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/github-copilot/skills/crit/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/github-copilot/skills/crit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/claude-code/skills/crit-cli/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/claude-code/skills/crit-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/codex/plugin/crit/skills/crit/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/codex/plugin/crit/skills/crit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/github-copilot/skills/crit-cli/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/github-copilot/skills/crit-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/codex/plugin/crit/skills/crit-cli/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/codex/plugin/crit/skills/crit-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/claude-code/skills/crit-story/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/claude-code/skills/crit-story/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/ampcode/skills/crit/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/ampcode/skills/crit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/cline/skills/crit-cli/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/cline/skills/crit-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/ampcode/skills/crit-cli/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/ampcode/skills/crit-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/windsurf/skills/crit-cli/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/windsurf/skills/crit-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "crit",
+      "path": "integrations/opencode/skills/crit-cli/SKILL.md",
+      "github_url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/opencode/skills/crit-cli/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/tomasz-tomczyk/crit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T06:25:39Z"
+  "distributed_at": "2026-08-16T03:39:51Z"
 }
