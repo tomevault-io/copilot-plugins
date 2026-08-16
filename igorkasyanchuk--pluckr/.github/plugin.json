@@ -1,0 +1,9 @@
+{
+  "name": "igorkasyanchuk--pluckr",
+  "displayName": "pluckr",
+  "description": "A declarative read-query layer for ActiveRecord",
+  "version": "1.0.0",
+  "author": "igorkasyanchuk",
+  "homepage": "https://github.com/igorkasyanchuk/pluckr",
+  "skills": []
+}
