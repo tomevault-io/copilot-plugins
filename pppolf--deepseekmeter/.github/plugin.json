@@ -1,0 +1,9 @@
+{
+  "name": "pppolf--deepseekmeter",
+  "displayName": "DeepSeekMeter",
+  "description": "macOS menu bar app that monitors your DeepSeek account balance & token usage in real time",
+  "version": "1.0.0",
+  "author": "pppolf",
+  "homepage": "https://github.com/pppolf/DeepSeekMeter",
+  "skills": []
+}
