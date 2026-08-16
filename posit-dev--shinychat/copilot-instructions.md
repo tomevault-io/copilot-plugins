@@ -1,10 +1,10 @@
 ## shinychat
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to coding agents working in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to coding agents working in this repository.
 
 ## Project Overview
 
@@ -22,6 +22,21 @@ The JavaScript components are built and then copied to both Python and R package
 - Both packages depend on the built JS components for their web UI
 
 For a deep dive on how message content flows from server to client rendering (the HAST pipeline, innerHTML islands, Shiny binding protection, etc.), see [`memory-bank/content-rendering.md`](memory-bank/content-rendering.md).
+
+## CSS Naming
+
+CSS identifiers for the chat use the `shiny-chat` prefix:
+
+- Classes: `.shiny-chat-*`
+- Custom properties: `--shiny-chat-*`
+- Keyframes: `shiny-chat-*`
+
+Do not introduce CSS identifiers with a `shinychat-` prefix.
+The unhyphenated `shinychat` name remains appropriate for package names and
+existing non-CSS integration identifiers, such as `data-shinychat-*` attributes,
+and storage keys. New raw-HTML islands use `<shiny-chat-raw-html>`; preserve
+`<shinychat-raw-html>` only as a legacy input until its compatibility window
+closes.
 
 ## Common Development Commands
 
@@ -57,9 +72,12 @@ The repository includes a comprehensive Makefile with prefixed targets:
 - Run `make help` to see all available targets
 
 ### Asset Distribution
-**IMPORTANT**: After any TypeScript/SCSS changes in `js/`, you must rebuild (`cd js && npm run build`) and then copy the built assets to the package(s) you're testing:
-- **R**: `make r-update-dist`
-- **Python**: `make py-update-dist`
+**CRITICAL**: The Python and R packages serve JS/CSS from their own copy of the built assets, NOT from `js/dist/` directly. After ANY change to TypeScript or SCSS files in `js/`, you MUST:
+1. Rebuild: `cd js && npm run build`
+2. Copy to packages: `make py-update-dist r-update-dist`
+3. Include the updated dist files in your commit
+
+If you skip step 2, the packages will serve stale JS and your changes will not take effect at runtime. This applies to renaming, adding features, fixing bugs — any JS/SCSS change at all.
 
 ## Testing
 
@@ -98,4 +116,4 @@ The repository includes a comprehensive Makefile with prefixed targets:
 
 ---
 > Source: [posit-dev/shinychat](https://github.com/posit-dev/shinychat) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-01 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
