@@ -2,7 +2,7 @@
 
 > You are running inside **BrowserCode**, a demo environment that hosts AI coding agent CLIs inside **BrowserPod** sandboxes. Read this file in full before generating, installing, or running any code. The constraints below are not optional — they describe the actual runtime you are executing in.
 
-# GEMINI.md — Operating Instructions for BrowserCode (BrowserPod Sandbox)
+# AGENTS.md — Operating Instructions for BrowserCode (BrowserPod Sandbox)
 
 You are running inside **BrowserCode**, a demo environment that hosts AI coding agent CLIs inside **BrowserPod** sandboxes. Read this file in full before generating, installing, or running any code. The constraints below are not optional — they describe the actual runtime you are executing in.
 
@@ -15,10 +15,11 @@ BrowserPod is a **browser-native sandbox**. The Node.js runtime, filesystem, pro
 Practical implications you must internalize:
 
 - The CPU architecture is effectively **Wasm**, not x86_64 or arm64. Anything that assumes a host architecture will fail.
-- The filesystem is a virtualized POSIX filesystem scoped to the Pod. Files persiste within the browser, backed by OPFS API or IndexedDB.
+- The filesystem is a virtualized POSIX filesystem scoped to the Pod. Files persist within the browser, backed by the OPFS API or IndexedDB.
 - Boot is near-instant; you do not need to wait on cloud provisioning.
 - Concurrency is not metered — you can spawn additional processes freely, but you are still bound by the user's device resources.
 - You have `bash`, `git`, `node`, `npm`, and standard coreutils. Use them.
+- BrowserPod runs Node.js, Rust, and Python (preview); Go and Ruby are on the roadmap. This environment is set up for Node.js — assume that unless the user explicitly asks for another runtime.
 
 ---
 
@@ -145,9 +146,22 @@ You **do not** have an arbitrary egress network. What you do have is the inverse
 - **Multiple ports → multiple Portals.** If a project opens an API server on 3000 and a frontend dev server on 5173, expect two Portal previews. Pick port numbers deliberately and avoid collisions.
 - **Do not hardcode absolute URLs** like `http://localhost:3000/api` in client code. Use relative paths (`/api/...`) or read the host from `window.location` so that requests from the Portal-served frontend correctly reach the Portal-served backend (or, more typically, the same origin via a proxy).
 - **Configure dev servers to bind to all interfaces if they default to loopback-only.** For example, Vite users may need `vite --host 0.0.0.0` or `server: { host: true }` in `vite.config.js` so BrowserPod's Portal layer can reach the listener.
-- **No outbound calls to arbitrary internet hosts during runtime.** You have npm registry access and git access for installs, but a running server inside the Pod is not a general-purpose outbound HTTP client. This limitation will be lifted in the future for logged-in users.
+- **Outbound network access is allowlisted, not open.** By default a Pod can reach the npm and yarn registries, GitHub, and the major AI provider APIs; requests are proxied through BrowserPod infrastructure. Anything else is blocked, so do not assume a running server inside the Pod can call arbitrary third-party endpoints. The default list is expanding over time, and paid plans can add custom outbound domains.
 - **`curl` is not supported.** Do not run `curl` commands — the binary is not available in this environment. Use `npm install` or `git clone` for fetching packages and repositories.
 - **No localhost interface access at this time.** Don't try to access a dev server port via `localhost` directly. The loopback interface is currently not supported. This limitation will also be lifted soon.
+
+### Long-running servers: always start them in the background
+
+Your shell tool waits for each command to exit. A dev server like `npm run dev` never exits, so running it in the foreground will hang your turn until the command times out — and killing it tears down the Portal preview the user is watching.
+
+Instead, always launch servers detached and confirm they started from the log:
+
+```bash
+nohup npm run dev > /tmp/dev.log 2>&1 &
+sleep 5 && tail -20 /tmp/dev.log
+```
+
+The server keeps running between your turns, the Portal preview stays up, and you can check `/tmp/dev.log` again at any time. To stop or restart it, find the process with `ps` and `kill` it before relaunching.
 
 ---
 
@@ -183,7 +197,7 @@ You **do not** have an arbitrary egress network. What you do have is the inverse
 | `node-gyp` build failures during install | Package compiling native code | Find a Wasm or pure-JS alternative |
 | Dev server starts but no preview appears | Server bound to loopback only, or wrong port | Bind to `0.0.0.0` / `host: true`; confirm port is the one being opened |
 | Frontend can't reach backend | Hardcoded `http://localhost:PORT` | Use relative URLs or `window.location.origin` |
-| App needs to call external API | Outbound from Pod is not general-purpose | Make the call from the browser side, mind CORS |
+| App needs to call external API | Host is not on the Pod's outbound allowlist | Make the call from the browser side, mind CORS |
 
 ---
 
@@ -193,4 +207,4 @@ You are a coding agent running inside the user's browser. Use Wasm builds of nat
 
 ---
 > Source: [leaningtech/browsercode](https://github.com/leaningtech/browsercode) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
