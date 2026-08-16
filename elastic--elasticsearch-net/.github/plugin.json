@@ -1,0 +1,14 @@
+{
+  "name": "elastic--elasticsearch-net",
+  "displayName": "elasticsearch-net",
+  "description": "elasticsearch-net",
+  "version": "1.0.0",
+  "author": "elastic",
+  "homepage": "https://github.com/elastic/elasticsearch-net",
+  "skills": [
+    {
+      "name": "elasticsearch-net",
+      "description": ""
+    }
+  ]
+}
