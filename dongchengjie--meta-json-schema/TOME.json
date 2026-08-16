@@ -4,7 +4,7 @@
   "repo": "meta-json-schema",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dongchengjie/meta-json-schema",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T10:48:42Z"
+  "distributed_at": "2026-08-16T13:49:20Z"
 }
