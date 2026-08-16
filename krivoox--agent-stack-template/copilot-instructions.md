@@ -1,38 +1,55 @@
-## tdd-domain
+## ui-design-system
 
-> TDD contract for business logic
+> UI, design tokens and mobile-first rules
 
 
-# TDD — business logic
+# UI
 
-Red → green → refactor. The test comes first, and it must fail for the right
-reason before you write the implementation.
+Source of truth: `DESIGN.md`. Theme tokens: `src/app/globals.css`.
 
-## Tested
+## Before writing UI
 
-- `src/domain/**`
-- `src/features/*/domain/**`
-- Any pure calculation or invariant
+1. Reuse `src/components/ui/*`. Extend with a CVA `variant` / `size` rather
+   than a one-off `className`.
+2. Reuse the shell: `ContentPanel`, `SurfaceSection`, `FormSheet`, `FormField`.
+3. No business rules in React.
 
-## Not tested
+## Mobile-first
 
-React components, styles, layout, snapshots. A snapshot test of a component is
-a maintenance cost with no signal — do not add one, even "for coverage".
+Base styles target a phone (< 640px); enrich upward with `sm:` / `md:` / `lg:`.
+Designing for desktop and patching with `max-md:` is the wrong direction.
 
-## Writing the test
+- Tables: only identity + the primary value in the base layout; everything else
+  `hidden sm:table-cell`.
+- Forms: one column at base; grids from `sm:`.
+- Primary controls at least ~40px tall on touch.
 
-- One behaviour per `it`, named as the rule it protects, not as the function it
-  calls: `"rejects a duplicate name regardless of casing"`, not `"works"`.
-- Assert on the error *type* from `src/domain/errors.ts`, not on the message —
-  copy changes, semantics do not.
-- Cover the boundary, not just the happy path: empty input, the limit itself,
-  one past the limit, and the case that must be rejected.
-- No mocks. If a rule needs the clock, a random value or a database row, that
-  input is a parameter — this is what keeps the domain testable.
+## Colour
 
-## Full workflow
+Semantic classes only: `bg-background`, `bg-card`, `text-foreground`,
+`text-muted-foreground`, `bg-primary`, `border-border`, `ring-ring`,
+`sidebar-*`, and the accent tokens (`info`, `success`, `warning`,
+`destructive`).
 
-`docs/tdd-workflow.md`.
+Forbidden in product UI: hex, raw `rgb()`, and Tailwind colour scales
+(`bg-zinc-50`, `text-blue-600`). A new colour is a token in `:root` / `.dark`
+plus an entry in `@theme inline` — never an inline value.
+
+## Repetition
+
+If a style combination appears three times, it becomes a CVA variant or a
+component. Two is a coincidence; three is a pattern.
+
+## States and motion
+
+Every interactive element needs hover, focus-visible, disabled and loading.
+Every list needs an empty state and an error state. Animate only `transform`
+and `opacity`, under 300ms, and respect `prefers-reduced-motion`.
+
+## Navigation
+
+A new destination goes in `src/components/app-shell/nav-config.ts`. A link
+added directly in a component never gets prefetched and never gets a title.
 
 ---
 > Source: [krivoox/agent-stack-template](https://github.com/krivoox/agent-stack-template) — distributed by [TomeVault](https://tomevault.io).
