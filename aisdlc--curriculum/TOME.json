@@ -4,7 +4,7 @@
   "repo": "curriculum",
   "description": "Open-Source AI Governance Frameworks & Compliance SOPs for responsible AI development, risk mitigation, and ethical oversight. Ensuring trust, transparency, and accountability in AI systems.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AISDLC/curriculum",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T04:32:48Z"
+  "distributed_at": "2026-08-16T05:07:15Z"
 }
