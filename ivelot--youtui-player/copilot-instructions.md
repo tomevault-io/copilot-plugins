@@ -1,10 +1,17 @@
 ## youtui-player
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to AI coding agents (Claude Code, Gemini, etc.) when working with code in this repository. `CLAUDE.md` and `GEMINI.md` are symlinks to this file.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding agents (Claude Code, Gemini, etc.) when working with code in this repository. `CLAUDE.md` and `GEMINI.md` are symlinks to this file.
+
+## Stack
+
+- **Go 1.24** (toolchain `go1.24.7`, per `go.mod`)
+- Deps (from `go.mod`/`go.sum`): `github.com/rivo/tview`, `github.com/gdamore/tcell/v2` v2.7.4, `github.com/BurntSushi/toml` v1.5.0, `github.com/nfnt/resize`
+- No database, no queue, no external API service — the app shells out to local CLI tools instead (see Runtime Dependencies)
+- Packaged for Arch Linux via `PKGBUILD` (AUR)
 
 ## Commands
 
@@ -21,6 +28,8 @@ make deps        # Download and tidy Go modules
 
 Run a single test: `go test ./internal/... -run TestName`
 
+**Note:** `go`/`make` toolchain execution was permission-gated in the adoption sandbox and could not be interactively approved, so `make build`/`make test`/`make vet` were not actually run during this adoption pass. Treat them as documented-but-unverified until run once in a normal shell.
+
 ## Runtime Dependencies
 
 The app shells out to external tools at runtime:
@@ -28,6 +37,21 @@ The app shells out to external tools at runtime:
 - `yt-dlp` — YouTube search and extraction
 - `socat` — IPC communication with mpv via Unix socket
 - `ffmpeg` — used by `yt-dlp` to extract audio to MP3 and merge video into MP4 on download
+
+## Environment variables
+
+No secrets or required env vars. The code reads a few optional XDG base-dir overrides, all with hardcoded fallbacks:
+
+| Variable | Used in | Fallback |
+|---|---|---|
+| `XDG_CONFIG_HOME` | `internal/config/config.go` | `~/.config` |
+| `XDG_STATE_HOME` | `internal/config/state.go` | `~/.local/state` |
+| `XDG_CACHE_HOME` | `internal/ui/thumbnail.go` | `~/.cache` |
+| `XDG_DATA_HOME` | `internal/ui/download.go` | `~/.local/share` |
+| `XDG_DOWNLOAD_DIR` | `internal/ui/download.go` | `~/Downloads` |
+| `LC_ALL` / `LC_MESSAGES` / `LANG` | `internal/config/config.go` | English (`en`) |
+
+See `.env.example` for a reference copy of these (all optional).
 
 ## Architecture
 
@@ -59,6 +83,13 @@ Three internal packages:
 
 **UI framework:** `github.com/rivo/tview` + `github.com/gdamore/tcell/v2`. The custom `CustomList` widget (`custom_list.go`) extends tview with thumbnail rendering support.
 
+## Project state (as of adoption)
+
+- **Tests:** none exist in the repo (`find . -name "*_test.go"` returns nothing). `make test` / `go test ./...` will currently report no tests to run — this is a real gap, not a broken suite.
+- **Build:** not executed during this adoption pass (toolchain execution was permission-gated in the sandbox). No known build issues from prior commits; `go.mod`/`go.sum` are consistent.
+- **CI:** no `.github/workflows` or other CI config found — builds/tests/releases are manual (see `PKGBUILD` for the AUR release path).
+- **Docs:** `README.md` and this repo's original `CLAUDE.md` were already thorough and up to date; this adoption pass mainly added `AGENTS.md`/`GEMINI.md` symlinks and an `.env.example`, and confirmed `.gitignore` covers build artifacts.
+
 ---
 > Source: [IvelOt/youtui-player](https://github.com/IvelOt/youtui-player) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-24 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
