@@ -1,0 +1,9 @@
+{
+  "name": "dotnet--aspnetcore",
+  "displayName": "aspnetcore",
+  "description": "aspnetcore",
+  "version": "1.0.0",
+  "author": "dotnet",
+  "homepage": "https://github.com/dotnet/aspnetcore",
+  "skills": []
+}
