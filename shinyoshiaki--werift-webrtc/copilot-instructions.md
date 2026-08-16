@@ -1,75 +1,58 @@
 ## werift-webrtc
 
-> ユーザーとの対話には日本語を用いてください
+> Instructions for coding agents working in `packages/webrtc`.
 
-# Claude Code プログラミングガイド
+# AGENTS.md
 
-ユーザーとの対話には日本語を用いてください
+## Purpose
 
-MCPツールとしてclaude codeを用いてください
+Instructions for coding agents working in `packages/webrtc`.
 
-プロジェクトパス: `/home/shin/code/werift-webrtc`
+## Scope
 
-## プログラミングのワークフロー
+* Applies to `src`, `tests`, `tools/wpt-runner`, and package-local docs.
+* This package is the main public WebRTC API (`RTCPeerConnection`, media, data channel).
+* Lower-level protocol packages (`ice`, `dtls`, `rtp`, `sctp`, `common`) are dependencies; prefer fixing protocol bugs in those packages when the root cause lives there.
+* Upstream WPT harness code lives under `tools/wpt-runner/` and must not leak stricter shims into default `src` behavior.
 
-次の2つのステップを遵守してください。ステップ1の承認を得ずにステップ2を実行しないでください
+## Do
 
-1. **計画フェーズ (Plan)**
+1. Prefer package-local validation (`npm test`, `npm run type`) before workspace-wide commands.
+2. Keep Arrange helpers reusable; memleak Arrange utilities live in `tests/memleak/heapUtils.ts` and scenario setup in `tests/memleak/scenarios.ts`.
+3. Add Japanese comments in Act / Assert phases when operation order or expectations are not obvious.
+4. When adding package scripts, update this guide's Commands table in the same change.
+5. Keep memleak tests out of the default vitest suite (`vitest.config.mts` excludes `tests/memleak/**`).
 
-   - プロジェクト構造の把握と変更内容の設計
-   - 既存コードの分析と修正アプローチの検討
-   - 計画フェーズ完了後、実装フェーズに移る前にユーザーの確認を必ず得る
-   - この段階では:
-     - ✅ プロジェクト探索（ファイル確認、アーキテクチャ理解）
-     - ✅ 実装戦略の提案（変更範囲とアプローチの明確化）
-     - ✅ 潜在的な技術的負債や課題の特定
-     - ❌ 実際のコード実装は行わない
-   - 
+## Don't
 
-2. **実装フェーズ (Act)**
-   - ユーザーに承認された計画に基づいてコード実装
-   - 主要なマイルストーンごとの進捗報告と必要に応じた方向修正
-   - 実装中に発見された新たな課題の報告と対応策の提案
+* Do not run memleak as part of `npm test` / CI; use `npm run memleak` only.
+* Do not enable vitest `retry` for memleak (hides leak failures).
+* Do not silence leak detections; open a follow-up for root-cause fixes if a real leak is found.
 
-## 技術的注意事項
+## Commands
 
-- **bashによるコマンド実行**:
+| Task | Command |
+| --- | --- |
+| test package | `npm test` |
+| type-check package | `npm run type` |
+| format package | `npm run format` |
+| memory leak test (Node 24+, local only) | `npm run memleak` |
+| allowlisted upstream WPT | `npm run wpt` |
+| WPT coverage | `npm run wpt:coverage` |
 
-  - コマンド実行時は標準エラー出力をファイルにリダイレクトする
-    - 例
-      -  `command 2> error.log`
-    - "Shell command failed"エラーが発生した場合は標準エラー出力のリダイレクトができていない
+Memleak details, env vars, and report interpretation: `tests/memleak/README.md`.
 
-## コーディングスタイルガイドライン
+## Validation
 
-### 関数設計
+* Logic changes in `src`: `npm run type` and relevant `npm test` paths.
+* Memleak harness changes: short smoke with reduced env (see `tests/memleak/README.md`), then optional full `npm run memleak`.
+* WPT runner / allowlist: `npm run wpt`.
 
-- **オブジェクト引数パターン**:
-  - プリミティブ型の引数が3つ以上ある場合は必ずオブジェクト引数を使用
-  - 例: `function update(id, name, age)` → `function update({ id, name, age })`
+## Maintenance
 
-### 型定義
-
-- **型の分離と再利用**:
-  - 複数の場所で使用される型は独立して定義
-  - 単一の関数でのみ使用される型はインラインで定義可
-- **命名規則**:
-  - 型名は具体的で目的を明確に表現する
-  - 一貫した命名パターンを使用
-
-### エラーハンドリング
-
-- **例外処理の原則**:
-  - 例外処理を適切に実装し、エラーメッセージは明確に
-    - 単に例外をキャッチしてエラーメッセージを出すだけの無意味な例外処理はしない
-
-### コメント
-
-- **コードコメント**:
-  - 複雑なビジネスロジックや非直感的な実装には必ず説明コメントを追加
-    - 過度な量のコメントは逆に視認性の悪化を呼ぶので控える
-    - 既存コードを改修する際に無意味なコードコメントの追加を避ける
+* Keep this guide aligned with `package.json` scripts.
+* When memleak scripts or artifact paths change, update `tests/memleak/README.md` and this Commands table together.
 
 ---
 > Source: [shinyoshiaki/werift-webrtc](https://github.com/shinyoshiaki/werift-webrtc) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
