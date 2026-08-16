@@ -5,5 +5,18 @@
   "version": "1.0.0",
   "author": "techpivot",
   "homepage": "https://github.com/techpivot/terraform-module-releaser",
-  "skills": []
+  "skills": [
+    {
+      "name": "terraform-module-releaser",
+      "description": ""
+    },
+    {
+      "name": "terraform-module-releaser",
+      "description": ""
+    },
+    {
+      "name": "terraform-module-releaser",
+      "description": ""
+    }
+  ]
 }
