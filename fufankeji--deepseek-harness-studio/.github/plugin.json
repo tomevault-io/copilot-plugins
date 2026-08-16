@@ -1,0 +1,9 @@
+{
+  "name": "fufankeji--deepseek-harness-studio",
+  "displayName": "deepseek-harness-studio",
+  "description": "DeepSeek Harness Studio\uff1a\u9762\u5411 DeepSeek Harness \u7684\u73b0\u4ee3\u5316\u684c\u9762\u5f00\u53d1\u73af\u5883\uff0c\u5185\u7f6e\u63d2\u4ef6\u4e2d\u5fc3\u3001\u89c6\u89c9\u589e\u5f3a\u4e0e\u672c\u5730 Host\u3002",
+  "version": "1.0.0",
+  "author": "fufankeji",
+  "homepage": "https://github.com/fufankeji/deepseek-harness-studio",
+  "skills": []
+}
