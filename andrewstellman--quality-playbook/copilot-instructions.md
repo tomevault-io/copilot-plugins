@@ -1,87 +1,122 @@
 ## quality-playbook
 
-> This file helps AI coding agents work on this repository. Read it first.
+> Ech0 includes a configurable AI agent subsystem that enables LLM-generated content features — such as summarizing recent posts — from within the application. The agent is implemented in `internal/agent/agent.go` and uses the [CloudWeGo Eino](https://github.com/cloudwego/eino) framework as a common interface over multiple LLM providers. Agent configuration (provider, model, API key, base URL, and system prompt) is stored in the settings database and manageable from the admin panel.
 
-# Quality Playbook — Agent Guide
+# Ech0 AI Agent Subsystem
 
-This file helps AI coding agents work on this repository. Read it first.
+## Overview
 
-## What this repo is
+Ech0 includes a configurable AI agent subsystem that enables LLM-generated content features — such as summarizing recent posts — from within the application. The agent is implemented in `internal/agent/agent.go` and uses the [CloudWeGo Eino](https://github.com/cloudwego/eino) framework as a common interface over multiple LLM providers. Agent configuration (provider, model, API key, base URL, and system prompt) is stored in the settings database and manageable from the admin panel.
 
-The Quality Playbook is a skill for AI coding agents that explores any codebase from scratch and finds real bugs. It generates nine quality artifacts including a consolidated bug report with regression test patches, fix patches, and TDD red/green verification. It works with any language (Python, Java, Go, Rust, TypeScript, C, etc.) and any AI coding agent (Claude Code, GitHub Copilot, Cursor). v1.5.3 adds a skill-as-code surface (project-type classifier; four-pass generate-then-verify pipeline; skill-divergence taxonomy with internal-prose / prose-to-code / execution categories; skill-project gate enforcement) so the same divergence model that finds defects in code can find defects in AI skills — see `previous_runs/v1.5.3/` for the bootstrap evidence.
+## Supported Providers
 
-## Key files
+The `Generate` function dispatches to the appropriate provider SDK based on the `setting.Provider` string:
 
-| File | Purpose | When to read |
-|------|---------|-------------|
-| `SKILL.md` | Full operational instructions for running the playbook | When executing the playbook on a target repo |
-| `references/iteration.md` | Iteration strategy reference (gap, unfiltered, parity, adversarial) | When running iteration mode |
-| `quality_gate.py` | Mechanical validation script | After playbook completes, to validate artifacts |
-| `references/*.md` | Phase-specific reference files (review protocols, spec audit, etc.) | During specific phases as directed by SKILL.md |
-| `bin/skill_derivation/` | Phase 3 four-pass derivation pipeline + Phase 4 divergence detection (Skill / Hybrid projects only) | When working on the v1.5.3 skill-as-code surface |
-| `bin/skill_derivation/runners.py` | LLM runner abstraction — three concrete runners: `ClaudeRunner` (`claude --print`), `CopilotRunner` (`gh copilot --prompt`), `CodexRunner` (`codex exec --full-auto`, codex-cli 0.125+) | When adding a new LLM backend or tuning subprocess invocation |
-| `ai_context/TOOLKIT.md` | User-facing interactive documentation | When helping a user set up or run the playbook |
-| `ai_context/DEVELOPMENT_CONTEXT.md` | Maintainer context (architecture, benchmarking, known issues) | When working on the skill itself |
-| `agents/quality-playbook.agent.md` | Orchestrator agent (Copilot / general format) | When setting up automated phase-by-phase execution |
-| `agents/quality-playbook-claude.agent.md` | Orchestrator agent (Claude Code format, uses sub-agents) | When running in Claude Code with automatic orchestration |
+| Provider Constant | Value | Underlying SDK |
+|---|---|---|
+| `OpenAI` | `openai` | `cloudwego/eino-ext/components/model/openai` |
+| `Anthropic` | `anthropic` | `cloudwego/eino-ext/components/model/claude` |
+| `Gemini` | `gemini` | `google.golang.org/genai` + `eino-ext/components/model/gemini` |
+| `Qwen` | `qwen` | `cloudwego/eino-ext/components/model/qwen` |
+| `DeepSeek` | `deepseek` | `cloudwego/eino-ext/components/model/deepseek` |
+| `Ollama` | `ollama` | `cloudwego/eino-ext/components/model/ollama` |
+| `Custom` | `custom` | OpenAI-compatible endpoint via `eino-ext/components/model/openai` |
 
-## Installing the skill
+The `Custom` provider uses the OpenAI-compatible chat completion API, allowing any endpoint that speaks the OpenAI protocol to be used without native SDK support.
 
-Copy the skill into your AI coding tool's skill directory in the target repo. Run these commands from your target repo root, with `$QPB` pointing at your local quality-playbook clone (`export QPB=/path/to/quality-playbook`).
+## Generate Function
 
-**GitHub Copilot:**
-```bash
-mkdir -p .github/skills/references
-cp "$QPB"/SKILL.md .github/skills/SKILL.md
-cp "$QPB"/.github/skills/quality_gate.py .github/skills/quality_gate.py
-cp "$QPB"/references/* .github/skills/references/
-# v1.5.2+: single reference_docs/ tree at the target repo root.
-mkdir -p reference_docs reference_docs/cite
-# Optional: append suggested .gitignore rules for adopters.
-cat "$QPB"/skill-template.gitignore >> .gitignore
+```go
+func Generate(
+    ctx     context.Context,
+    setting model.AgentSetting,
+    in      []*schema.Message,
+    usePrompt bool,
+    temperature ...float32,
+) (string, error)
 ```
 
-**Claude Code:**
-```bash
-mkdir -p .claude/skills/quality-playbook/references
-cp "$QPB"/SKILL.md .claude/skills/quality-playbook/SKILL.md
-cp "$QPB"/.github/skills/quality_gate.py .claude/skills/quality-playbook/quality_gate.py
-cp "$QPB"/references/* .claude/skills/quality-playbook/references/
-# v1.5.2+: single reference_docs/ tree at the target repo root.
-mkdir -p reference_docs reference_docs/cite
-cat "$QPB"/skill-template.gitignore >> .gitignore
+Parameters:
+- `setting` — the full agent configuration loaded from the database
+- `in` — the message slice to send (chat history or single-turn prompt)
+- `usePrompt` — if true, prepends `setting.Prompt` as a user-role message before the rest of `in`
+- `temperature` — optional; if omitted the provider default is used
+
+Returns the generated text content string, or an error if the provider rejects the request or configuration is incomplete.
+
+Guards checked before provider dispatch:
+- `setting.Enable` must be true
+- `setting.Model` must be non-empty
+- `setting.Provider` must be a known provider string
+- `setting.ApiKey` must be non-empty (Ollama is the only provider that does not use API keys but still validates this field)
+
+## Agent Settings Model
+
+```go
+type AgentSetting struct {
+    Enable   bool   `json:"enable"`
+    Provider string `json:"provider"`
+    ApiKey   string `json:"api_key"`
+    BaseURL  string `json:"base_url"`
+    Model    string `json:"model"`
+    Prompt   string `json:"prompt"`
+}
 ```
 
-Then tell your AI tool:
-```
-Run the quality playbook on this project.
-```
+Settings are stored as a JSON blob in the key-value settings table and read via `settingService.GetAgentSettings`. The `api_key` field is masked when returned to the frontend (`GetAgentInfo` vs. `GetAgentSettings`).
 
-## Repository layout
+## Message Schema
 
-```
-AGENTS.md                ← you are here
-SKILL.md                 ← the skill (operational instructions)
-quality_gate.py          ← artifact validation script
-LICENSE.txt
-references/              ← phase-specific reference documents
-agents/
-  quality-playbook.agent.md       ← orchestrator agent (Copilot / general)
-  quality-playbook-claude.agent.md ← orchestrator agent (Claude Code)
-ai_context/
-  TOOLKIT.md             ← interactive documentation for users
-  DEVELOPMENT_CONTEXT.md ← development context for maintainers
-bin/skill_derivation/    ← v1.5.3 four-pass derivation + divergence detection
-previous_runs/v1.5.3/    ← v1.5.3 bootstrap evidence (curated REQUIREMENTS.md + Phase 3/4 artifacts)
+The agent uses `github.com/cloudwego/eino/schema` types for messages:
+
+```go
+type Message struct {
+    Role    Role
+    Content string
+}
 ```
 
-## Conventions
+Roles include `schema.User`, `schema.Assistant`, and `schema.System`. The `usePrompt` path inserts the configured system prompt as a `schema.User` message at the beginning of `in`.
 
-- **Don't edit skill files without backups.** Copy to `.bak` before modifying SKILL.md or any reference file.
-- **Bump the version** in SKILL.md metadata for every change. Generated artifacts stamp this version.
-- **Test changes** on at least 2 benchmark repos before committing.
-- **Update ai_context/ files** if your change affects users or maintainers.
+## Integration with the Event Bus
+
+Agent invocations are triggered by the `AgentProcessor` event subscriber in `internal/event/subscriber/`. When an event that requires AI processing fires — for example a request to generate a summary of recent posts — the `AgentProcessor` builds the message list, calls `agent.Generate`, and persists or delivers the result. The agent is never called synchronously in the HTTP handler path; all LLM calls happen asynchronously on the event bus consumer goroutine.
+
+The event bus `AgentBuffer` (default 128) and `AgentParallelism` (default 2) settings control how many concurrent `Generate` calls the subscriber allows. The parallelism is enforced by the subscriber's own worker pool, separate from the webhook worker pool.
+
+## API Endpoints
+
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/api/agent/info` | Returns agent status without sensitive fields |
+| `GET` | `/api/agent/settings` | Returns full settings (admin only) |
+| `PUT` | `/api/agent/settings` | Update agent configuration |
+| `GET` | `/api/agent/recent` | Generate a summary of recent posts |
+
+The `GET /api/agent/recent` endpoint is the primary user-facing feature. It calls `agentService.GenerateRecent`, which fetches recent posts from the echo service, formats them into a message list, and calls `agent.Generate` with `usePrompt: true`. The response is the generated text, returned inside the standard `Result[string]` envelope.
+
+## Error Handling
+
+`Generate` returns typed errors with message constants from `commonModel`:
+
+| Condition | Error |
+|---|---|
+| Agent disabled | `AGENT_NOT_ENABLED` |
+| Missing model | `AGENT_MODEL_MISSING` |
+| Unknown provider | `AGENT_PROVIDER_NOT_FOUND` |
+| Missing API key | `AGENT_API_KEY_MISSING` |
+
+Provider-level errors (network failures, authentication errors, rate limits) are returned directly from the Eino SDK as Go errors and propagate up to the handler, which returns them in the standard failure envelope.
+
+## Adding a New Provider
+
+To add support for a new LLM provider:
+
+1. Add a provider constant to `commonModel` (e.g., `const MyProvider = "myprovider"`).
+2. Add a case to the `switch` in `agent.Generate` that constructs the provider's chat model and calls `Generate`.
+3. Add the provider's SDK as a dependency in `go.mod`.
+4. Add the provider name to the frontend provider selector in the agent settings UI.
 
 ---
 > Source: [andrewstellman/quality-playbook](https://github.com/andrewstellman/quality-playbook) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
