@@ -1,0 +1,9 @@
+{
+  "name": "florentchauveau--kamailio-exporter",
+  "displayName": "kamailio_exporter",
+  "description": "kamailio_exporter",
+  "version": "1.0.0",
+  "author": "florentchauveau",
+  "homepage": "https://github.com/florentchauveau/kamailio_exporter",
+  "skills": []
+}
