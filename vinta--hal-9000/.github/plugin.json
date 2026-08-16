@@ -5,42 +5,5 @@
   "version": "1.0.0",
   "author": "vinta",
   "homepage": "https://github.com/vinta/hal-9000",
-  "skills": [
-    {
-      "name": "sync-skills",
-      "description": ""
-    },
-    {
-      "name": "update-allowed-tools",
-      "description": ""
-    },
-    {
-      "name": "second-opinions",
-      "description": ""
-    },
-    {
-      "name": "hal-9000",
-      "description": ""
-    },
-    {
-      "name": "hal-9000",
-      "description": ""
-    },
-    {
-      "name": "hal-9000",
-      "description": ""
-    },
-    {
-      "name": "hal-9000",
-      "description": ""
-    },
-    {
-      "name": "hal-9000",
-      "description": ""
-    },
-    {
-      "name": "hal-9000",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
