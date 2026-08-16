@@ -1,115 +1,107 @@
 ## hyperframes
 
-> Before changing a page, read its complete body and verify product behavior in
+> Read this before your first change in `packages/studio`. It is the handful of
 
-# HyperFrames documentation rules
+# Working on Studio
 
-Before changing a page, read its complete body and verify product behavior in
-the current source, tests, CLI help, or shipped skills.
+Read this before your first change in `packages/studio`. It is the handful of
+things that are not visible from the source, and that cost real time to
+rediscover.
 
-- Write for a smart general user first. Do not assume they are a developer.
-- Explain what a person can accomplish before explaining implementation details.
-- Prefer plain words, short examples, screenshots, and visible outcomes.
-- Keep agent instructions copyable and specific.
-- Put CLI, SDK, package, schema, deployment, and internals under **Developers**.
-- Never infer product behavior from page titles or old docs. Verify it in current code.
-- Do not preserve a page merely because it already exists. Merge, rewrite, redirect, or remove it when that improves the user journey.
-- Do not publish empty, duplicated, outdated, or aspirational content as fact.
-- A page should answer a real question or help complete a real task.
-- Preserve the approved Mintlify header, sidebar, right-side contents, and page-width behavior unless a task explicitly changes the site chrome.
+## The shape of the thing
 
-## Page standard
+Studio renders the user's composition in an **iframe**, and draws its own
+chrome — selection box, handles, dashed outlines, toolbars — in **Studio's own
+document**, positioned over the iframe. Nothing Studio draws lives inside the
+composition, because a render would capture it and the composition's styling
+would inherit into it.
 
-Most human-facing pages should contain:
+Two consequences you will meet immediately:
 
-1. What this lets you do
-2. When to use it
-3. A visual or concrete example
-4. The shortest successful path
-5. What should happen
-6. Common problems
-7. Useful next steps
+- Reaching a preview element from a driver or a test means going through the
+  iframe: `iframe.contentDocument.getElementById(...)`. Studio's own panels may
+  be inside shadow roots, so a plain `document.querySelector` finds neither.
+- Every overlay box is a _measurement_ of an element, not the element. When
+  chrome disagrees with the pixels underneath it, the bug is almost always in
+  the measurement, in `components/editor/domEditOverlayGeometry.ts`.
 
-Do not force this structure where it makes a page worse. Reference pages may stay reference-shaped.
+## Driving Studio for verification
 
-## Component doctrine
+A pixel-precise click inside the preview is not something an automated driver
+can reliably land, and some gestures cannot be synthesised at all: the canvas
+overlay takes pointer capture and recognises a double press itself, so
+`page.mouse` click pairs do not open a text edit no matter how they are timed.
 
-One component per job. If two components on a page render the same list, delete one.
+Use the dev-only hook instead. In a dev build `window.__studioTest` exposes:
 
-| The job | Use | Never use |
-| --- | --- | --- |
-| Choose between destinations | `CardGroup` + `Card`, max 2 columns, linking to the real page | An accordion, or cards pointing at anchors on the same page |
-| Ordered instructions | `Steps` | A flow diagram that repeats the same steps |
-| Parallel variants of one instruction (source type, OS, language) | `Tabs` | Repeating the whole block per variant |
-| Compare attributes across items | A table | Prose paragraphs per item |
-| Static image | `Frame` with a caption that says what it is | A bare `img` with no context |
-| Genuinely out-of-band aside | One `Note`, `Tip`, or `Warning` per page | Stacked callouts, or a callout for ordinary prose |
-
-**Do not use accordions for journeys, choices, instructions, or troubleshooting.** They hide the thing the reader needs, cost a click, and weaken `Cmd+F`, printing, and deep linking. A dense optional reference or example gallery may keep accordions when showing every item at once would make the page unusable. Two patterns in the Prompt Guide are the standing exceptions: its verified-example gallery, and the per-page `## Variants` blocks. Those hold long alternative prompts rather than parallel instructions, so the `Tabs` row above does not apply — a reader picks one to read in full, not one of several ways to do the same step. Long symptom or task lists become visible `##` sections instead — they get anchors the support team can link directly, and they appear in the page contents.
-
-**No diagram that restates adjacent prose.** A four-node flow beside a four-step list is the same content twice. Keep whichever is more useful and delete the other.
-
-**Cards link to pages, never to anchors on the current page.** A card that scrolls the reader a short distance to the same words is the worst pattern in these docs; it has been removed twice.
-
-**Two columns is the practical maximum** for anything containing text. Three columns in this content width hyphenates titles mid-word.
-
-**Full films and preview loops are different jobs.** Use `DocsVideo` for a
-narrated film a reader watches intentionally. A plain `<video>` is only for a
-small, muted, autoplaying preview loop inside a visual explanation or Catalog
-item. Do not mix native browser controls with the custom player.
-
-**End a page by pointing somewhere, and make the pointer visible content.**
-Mintlify does not render a `related:` frontmatter list, so a frontmatter key
-buys nothing. How the pointer looks depends on the page:
-
-- Task, guide, Studio, and Catalog pages end with a `## Related topics` section
-  naming the two or three destinations that genuinely help the reader continue.
-- Pages in a numbered sequence — the Prompt Guide — end with a single
-  `*Next: [page] — why*` line instead. A course has one useful destination, and
-  three competing links break the through-line.
-- Reference and concept pages (`/packages`, `/sdk`, `/reference`, `/concepts`)
-  may end without either. A reader arrives there from one specific question and
-  leaves the same way; inventing three related links is filler.
-
-### Custom React components
-
-Mintlify compiles `.jsx` / `.tsx` from `docs/snippets/`. Use one when a native component genuinely cannot express the idea — a scrubber, a comparison slider, a live player — not for styling.
-
-- Named exports only: `export const Thing = () => ...`. Default exports do not work.
-- `useState`, `useEffect`, `useRef`, `useCallback`, `useMemo`, `useContext`, `useReducer` are pre-injected; do not import React.
-- **Do not add a dependency or CDN script for presentation alone.** Prefer browser built-ins (`fetch`, `IntersectionObserver`, Canvas, `<video>`). A version-pinned official runtime is acceptable when that runtime is the subject of the demo and the component provides a useful loading or failure state; the live composition on Introduction is the model.
-- A snippet cannot import another snippet. Keep each self-contained.
-- **Declare everything inside the component.** Only the exported component survives
-  compilation; module-level `const`s above it are dropped, so a constant defined
-  outside arrives `undefined` at render. The component then throws inside React,
-  the error boundary swallows it, and the page renders nothing at that position —
-  with no console error to point at it. If a snippet renders blank, check this first.
-- Client-side only: guard anything touching `window` and give every component a sensible first paint.
-- Respect `prefers-reduced-motion`, give interactive elements a visible focus state, and never make a component the only route to information.
-
-## Verification
-
-After navigation or MDX changes:
-
-```bash
-PATH=/opt/homebrew/opt/node@20/bin:$PATH mint validate
-PATH=/opt/homebrew/opt/node@20/bin:$PATH mint broken-links
+```js
+await window.__studioTest.selectByDomId("headline"); // selects, reveals the inspector
 ```
 
-Use Bun for repository work. Do not create a `pnpm-lock.yaml`.
+That is the same selection a click produces. The general lesson: from a settled
+selection, keyboard paths are dependable where pointer paths are not. Prefer a
+key over a synthesised gesture whenever the feature offers one.
 
-## Freshness and ownership
+`useStudioTestHooks` also carries the timeline performance fixtures. The hook is
+gated on `STUDIO_TEST_HOOKS_ENABLED` (dev or development mode only), so
+`window.__studioTest` is absent in production builds — feature-detect it.
 
-- A product behavior page is owned by the team that owns the matching product surface.
-- A package or API reference is owned by the package maintainer.
-- Workflow pages are owned by the maintainer of the matching agent skill.
-- When a feature changes, update its task guide, related troubleshooting entry, and screenshot in the same pull request.
-- Treat screenshots as product claims. Replace them when labels, layout, or the demonstrated workflow changes materially.
-- Review **Start here**, **Studio**, **Export**, and **Troubleshooting** at least once per release cycle.
-- Review lower-traffic reference pages at least quarterly.
-- Remove an unowned update feed instead of letting it become stale.
-- Use search analytics and support questions to decide which missing task pages to add next.
+## Tracing decisions
+
+The interesting failures here are decisions, not crashes: a preview that
+reloads when it should not, a shift-click that selects the wrong element.
+Nothing throws, so a trace of the decision is the only way to avoid guessing.
+
+Channels are off by default. Turn one on and reload:
+
+```js
+localStorage.setItem("hf-drag-debug", "1"); // then grep the console for [hf-drag]
+```
+
+Live channels: `reload`, `select`, `drag`, `resize`, `commit`. Add one with
+`makeStudioDebugLogger("<name>")` in `utils/studioDebug.ts`.
+
+## Running the tests
+
+Studio's tests are **vitest**, not `bun test`. Running bare `bun test` in this
+package collects the files with the wrong runner and reports failures that are
+not real:
+
+```bash
+bun run --cwd packages/studio test                       # all of them
+bun run --cwd packages/studio test src/components/editor # one directory
+```
+
+happy-dom is not a browser. It does not reflect the individual transform
+properties (`rotate`, `scale`, `translate`) into computed style, and it has no
+`DOMMatrix` — the geometry tests carry their own stand-in. When a behaviour
+depends on real layout or real computed style, prove it in a browser and keep
+the unit test on the pure function underneath.
+
+## Gates that will fail your PR
+
+- **600 lines per file.** CI checks only non-test files your PR changed. A file
+  that grows past it has to be split in the same PR that grew it.
+- **`bunx fallow audit --base origin/main --fail-on-issues`** — complexity per
+  function, duplication, unused exports. Adding branches to an already-complex
+  function trips it; extract rather than nest.
+- **oxlint and oxfmt**, not eslint or prettier.
+
+## Traps worth knowing
+
+- **`rotate` is not `transform`.** Studio's rotate handle writes the CSS
+  `rotate` property, which is an individual transform property and does not
+  appear in `getComputedStyle(el).transform`. Anything measuring an angle has to
+  read both and compose them the way CSS does, individual properties first.
+- **A seek re-renders the whole timeline**, not the tween you patched. Patching
+  several elements one at a time and seeking after each repaints the ones still
+  queued from their un-patched tweens. Batch, then render once.
+- **Studio's own writes must not reload the preview.** Writes carry a token so
+  the file-watcher event can be recognised as ours; a new write path that
+  forgets it makes the preview flash on every edit.
+- **Preserving a selection set that does not contain the id empties it.** Check
+  `preserveSet` semantics before reusing it.
 
 ---
 > Source: [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
