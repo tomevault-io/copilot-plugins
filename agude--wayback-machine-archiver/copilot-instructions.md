@@ -1,64 +1,82 @@
 ## wayback-machine-archiver
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> `CLAUDE.md` and `GEMINI.md` are symlinks to this file.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+`CLAUDE.md` and `GEMINI.md` are symlinks to this file.
 
 ## Project Overview
 
-Wayback Machine Archiver is a CLI tool to submit web pages to the Internet Archive's Wayback Machine using the authenticated SPN2 API. It requires Internet Archive S3-style API keys (via `.env` file or environment variables).
+Wayback Machine Archiver is a CLI tool that submits web pages to the Internet
+Archive's Wayback Machine using the authenticated SPN2 API. It requires
+Internet Archive S3-style API keys, supplied via a `.env` file or environment
+variables. Published to PyPI as `wayback-machine-archiver`.
 
-## Development Commands
+## Operations
+
+All work goes through `just` (see the project-standards skill for the verb
+contract). Every check has one definition here; the pre-commit hook and CI
+call these same recipes rather than restating commands.
 
 ```bash
-# Install for development
-pip install -e ".[dev]"
-
-# Run tests
-pytest
-
-# Run a single test file
-pytest tests/test_cli.py
-
-# Run a specific test
-pytest tests/test_cli.py::test_version_action_exits
-
-# Run the CLI
-archiver --help
+just sync         # install dependencies
+just lint         # ruff check + ruff format --check (read-only)
+just format       # ruff format + ruff check --fix (mutating)
+just type-check   # mypy strict over the package
+just test         # pytest with the 90% coverage gate
+just check        # everything CI runs: lint + type-check + test
+just hooks-install  # install bin/pre-commit.sh into this clone
+just help         # archiver --help
 ```
 
 ## Architecture
 
-The codebase follows a layered architecture in `src/wayback_machine_archiver/`:
+Layered, in `src/wayback_machine_archiver/`:
 
-- **archiver.py** - Entry point (`main()`). Loads credentials from environment, gathers URLs from CLI args/sitemaps/files, and orchestrates the workflow.
-- **cli.py** - Argument parser definition. All CLI flags including SPN2 API options are defined here.
-- **clients.py** - `SPN2Client` class handles HTTP communication with the Internet Archive's SPN2 API (submit captures, check status, batch status checks).
-- **workflow.py** - `run_archive_workflow()` manages the main loop: submitting URLs, polling job statuses, handling retries for transient errors, and tracking success/failure counts.
-- **sitemaps.py** - Sitemap parsing utilities. Handles both remote URLs and local files (prefixed with `file://`).
+- **archiver.py** — entry point (`main()`). Loads credentials, gathers URLs
+  from CLI args, sitemaps, and files, then drives the workflow.
+- **cli.py** — argument parser; every flag including the SPN2 options.
+- **clients.py** — `SPN2Client` handles HTTP with the SPN2 API (submit
+  captures, check status, batch status).
+- **workflow.py** — `run_archive_workflow()` runs the main loop: submit,
+  poll, retry transient errors, count successes and failures.
+- **sitemaps.py** — sitemap parsing for both remote URLs and local files
+  (prefixed `file://`).
 
-### Workflow Pattern
+### Workflow pattern
 
-The archiver uses an interleaved submit-and-poll pattern:
-1. Submit a URL, get a job_id
-2. Poll pending jobs in batches
-3. Handle transient errors by re-queuing URLs (with retry limits)
-4. Handle permanent errors by marking as failed
+Interleaved submit-and-poll:
 
-Error classifications are defined in `workflow.py` as `REQUEUE_ERRORS` (transient) and `PERMANENT_ERROR_MESSAGES` (permanent).
+1. Submit a URL, receive a `job_id`.
+2. Poll pending jobs in batches.
+3. Re-queue transient errors, subject to retry limits.
+4. Mark permanent errors as failed.
 
-## Version Management
+The classifications live in `workflow.py` as `REQUEUE_ERRORS` and
+`PERMANENT_ERROR_MESSAGES`.
 
-Version is maintained in two places (synced via bump-my-version):
-- `pyproject.toml`
-- `src/wayback_machine_archiver/__init__.py`
+## Versioning
 
-## Testing Notes
+`src/wayback_machine_archiver/__init__.py` holds `__version__` and is the
+single source of it: hatchling reads it at build time and the CLI prints it
+for `--version`. Nothing else stores the version.
 
-Tests use `requests-mock` for HTTP mocking and `unittest.mock` for patching environment/IO. Test files mirror the module structure (e.g., `test_cli.py`, `test_spn2_client.py`).
+Releasing: bump `__version__`, commit, tag `vX.Y.Z`, push the tag, publish a
+GitHub release. `release.yml` runs CI, verifies the tag matches
+`__version__`, then publishes to PyPI via trusted publishing. A tag that
+disagrees fails the release job by design.
+
+## Testing notes
+
+`requests-mock` for HTTP, `unittest.mock` for environment and IO. Test files
+mirror the module structure (`test_cli.py`, `test_spn2_client.py`, …).
+
+**Known gap:** `type-check` covers the package only. Running mypy over
+`tests/` surfaces 26 real errors — mostly test fixtures building plain dicts
+where a `PendingJob` TypedDict is expected, plus unannotated empty
+collections. Worth fixing, as its own change.
 
 ---
 > Source: [agude/wayback-machine-archiver](https://github.com/agude/wayback-machine-archiver) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
