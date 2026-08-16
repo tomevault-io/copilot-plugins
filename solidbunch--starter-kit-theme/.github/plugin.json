@@ -5,22 +5,5 @@
   "version": "1.0.0",
   "author": "solidbunch",
   "homepage": "https://github.com/solidbunch/starter-kit-theme",
-  "skills": [
-    {
-      "name": "starter-kit-theme",
-      "description": ""
-    },
-    {
-      "name": "starter-kit-theme",
-      "description": ""
-    },
-    {
-      "name": "starter-kit-theme",
-      "description": ""
-    },
-    {
-      "name": "starter-kit-theme",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
