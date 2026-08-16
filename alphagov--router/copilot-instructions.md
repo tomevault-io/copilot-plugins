@@ -1,81 +1,59 @@
 ## router
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> gosec is a Go static analysis tool that inspects Go source code for security vulnerabilities by scanning the Go AST and SSA form.
 
-# CLAUDE.md
+# gosec - Go Security Checker
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+gosec is a Go static analysis tool that inspects Go source code for security vulnerabilities by scanning the Go AST and SSA form.
 
-## Project Overview
-
-pgx is a PostgreSQL driver and toolkit for Go (`github.com/jackc/pgx/v5`). It provides both a native PostgreSQL interface and a `database/sql` compatible driver. Requires Go 1.25+ and supports PostgreSQL 14+ and CockroachDB.
-
-## Build & Test Commands
+## Build & Test
 
 ```bash
-# Run all tests (requires PGX_TEST_DATABASE to be set)
+# Build
+go build ./cmd/gosec/
+
+# Run all tests
 go test ./...
 
 # Run a specific test
-go test -run TestFunctionName ./...
-
-# Run tests for a specific package
-go test ./pgconn/...
-
-# Run tests with race detector
-go test -race ./...
-
-# DevContainer: run tests against specific PostgreSQL versions
-./test.sh pg18                      # Default: PostgreSQL 18
-./test.sh pg16 -run TestConnect     # Specific test against PG16
-./test.sh crdb                      # CockroachDB
-./test.sh all                       # All targets (pg14-18 + crdb)
-
-# Format (always run after making changes)
-goimports -w .
+go test -run TestName ./path/to/package/
 
 # Lint
-golangci-lint run ./...
+golangci-lint run
+
+# Run gosec against a sample file
+go run ./cmd/gosec/ ./path/to/sample.go
 ```
 
-## Test Database Setup
+## Code Style
 
-Tests require `PGX_TEST_DATABASE` environment variable. In the devcontainer, `test.sh` handles this. For local development:
+- Idiomatic Go; follow existing patterns in the codebase.
+- Prefer SSA-based analyzers over AST-based rules when feasible.
+- Optimize for performance — avoid unnecessary repeated AST or SSA traversals.
 
-```bash
-export PGX_TEST_DATABASE="host=localhost user=postgres password=postgres dbname=pgx_test"
-```
+## Project Structure
 
-The test database needs extensions: `hstore`, `ltree`, and a `uint64` domain. See `testsetup/postgresql_setup.sql` for full setup. Many tests are skipped unless additional `PGX_TEST_*` env vars are set (for TLS, SCRAM, MD5, unix socket, PgBouncer testing).
+- `rules/` — AST-based rule implementations
+- `analyzers/` — SSA-based analyzer implementations
+- `cmd/gosec/` — CLI entry point
+- `testutils/` — sample files used in tests (positive and negative cases)
+- `issue/` — issue and CWE type definitions
+- `report/` — output formatters
 
-## Architecture
+## Adding Rules
 
-The codebase is a layered architecture, bottom-up:
+- Select an appropriate CWE aligned with current repository mappings.
+- Integrate the rule in all required registration points.
+- Add sample files in `testutils/` with at least 2 positive and 2 negative cases.
+- Update rule documentation in `README.md` in the same style as other rules.
 
-- **pgproto3/** — PostgreSQL wire protocol v3 encoder/decoder. Defines `FrontendMessage` and `BackendMessage` types for every protocol message.
-- **pgconn/** — Low-level connection layer (roughly libpq-equivalent). Handles authentication, TLS, query execution, COPY protocol, and notifications. `PgConn` is the core type.
-- **pgx** (root package) — High-level query interface built on `pgconn`. Provides `Conn`, `Rows`, `Tx`, `Batch`, `CopyFrom`, and generic helpers like `CollectRows`/`ForEachRow`. Includes automatic statement caching (LRU).
-- **pgtype/** — Type system mapping between Go and PostgreSQL types (70+ types). Key interfaces: `Codec`, `Type`, `TypeMap`. Custom types (enums, composites, domains) are registered through `TypeMap`.
-- **pgxpool/** — Concurrency-safe connection pool built on `puddle/v2`. `Pool` is the main type; wraps `pgx.Conn`.
-- **stdlib/** — `database/sql` compatibility adapter.
+## Custom Commands
 
-Supporting packages:
-- **internal/stmtcache/** — Prepared statement cache with LRU eviction
-- **internal/sanitize/** — SQL query sanitization
-- **tracelog/** — Logging adapter that implements tracer interfaces
-- **multitracer/** — Composes multiple tracers into one
-- **pgxtest/** — Test helpers for running tests across connection types
-
-## Key Design Conventions
-
-- **Semantic versioning** — strictly followed. Do not break the public API (no removing or renaming exported types, functions, methods, or fields; no changing function signatures).
-- **Minimal dependencies** — adding new dependencies is strongly discouraged (see CONTRIBUTING.md).
-- **Context-based** — all blocking operations take `context.Context`.
-- **Tracer interfaces** — observability via `QueryTracer`, `BatchTracer`, `CopyFromTracer`, `PrepareTracer` on `ConnConfig.Tracer`.
-- **Formatting** — always run `goimports -w .` after making changes to ensure code is properly formatted. CI checks formatting via `gofmt -l -s -w . && git diff --exit-code`. `gofumpt` with extra rules is also enforced via `golangci-lint`.
-- **Linters** — `govet`, `ineffassign`, and `unconvert` only (configured in `.golangci.yml`).
-- **CI matrix** — tests run against Go 1.25/1.26 × PostgreSQL 14-18 + CockroachDB, on Linux and Windows. Race detector enabled on Linux only.
+- `/create-gosec-rule` — Design and implement a new gosec rule from an issue description
+- `/fix-gosec-bug` — Investigate and fix a bug from a GitHub issue URL
+- `/update-go-versions` — Bump supported Go versions across the repo
+- `/update-action-version` — Update the gosec GHCR image version in action.yml
 
 ---
 > Source: [alphagov/router](https://github.com/alphagov/router) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
