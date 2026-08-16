@@ -1,7 +1,7 @@
 {
   "name": "leaguetoolkit--ltk-manager",
   "displayName": "ltk-manager",
-  "description": "The next-generation mod manager for League of Legends.",
+  "description": "ltk-manager",
   "version": "1.0.0",
   "author": "LeagueToolkit",
   "homepage": "https://github.com/LeagueToolkit/ltk-manager",
