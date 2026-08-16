@@ -3,8 +3,8 @@
   "owner": "TPIsoftwareOSPO",
   "repo": "digiRunner-Open-Source",
   "description": "",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,57 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "digiRunner-Open-Source",
+      "path": "dgrv4_Gateway_serv/srcAngular/.agents/skills/spec-recorder/SKILL.md",
+      "github_url": "https://github.com/TPIsoftwareOSPO/digiRunner-Open-Source/tree/main/dgrv4_Gateway_serv/srcAngular/.agents/skills/spec-recorder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "digiRunner-Open-Source",
+      "path": "dgrv4_Gateway_serv/srcAngular/.agents/skills/release-note-generator/SKILL.md",
+      "github_url": "https://github.com/TPIsoftwareOSPO/digiRunner-Open-Source/tree/main/dgrv4_Gateway_serv/srcAngular/.agents/skills/release-note-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "digiRunner-Open-Source",
+      "path": "dgrv4_Gateway_serv/srcAngular/.claude/skills/release-note-generator/SKILL.md",
+      "github_url": "https://github.com/TPIsoftwareOSPO/digiRunner-Open-Source/tree/main/dgrv4_Gateway_serv/srcAngular/.claude/skills/release-note-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "digiRunner-Open-Source",
+      "path": "dgrv4_Gateway_serv/srcAngular/.agents/skills/generate-alpha-license/SKILL.md",
+      "github_url": "https://github.com/TPIsoftwareOSPO/digiRunner-Open-Source/tree/main/dgrv4_Gateway_serv/srcAngular/.agents/skills/generate-alpha-license/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "digiRunner-Open-Source",
+      "path": "dgrv4_Gateway_serv/srcAngular/.claude/skills/generate-alpha-license/SKILL.md",
+      "github_url": "https://github.com/TPIsoftwareOSPO/digiRunner-Open-Source/tree/main/dgrv4_Gateway_serv/srcAngular/.claude/skills/generate-alpha-license/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "digiRunner-Open-Source",
+      "path": "dgrv4_Gateway_serv/srcAngular/.agents/skills/git-commit-standardizer/SKILL.md",
+      "github_url": "https://github.com/TPIsoftwareOSPO/digiRunner-Open-Source/tree/main/dgrv4_Gateway_serv/srcAngular/.agents/skills/git-commit-standardizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "digiRunner-Open-Source",
+      "path": "dgrv4_Gateway_serv/srcAngular/.claude/skills/git-commit-standardizer/SKILL.md",
+      "github_url": "https://github.com/TPIsoftwareOSPO/digiRunner-Open-Source/tree/main/dgrv4_Gateway_serv/srcAngular/.claude/skills/git-commit-standardizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "digiRunner-Open-Source",
+      "path": "dgrv4_Gateway_serv/srcAngular/.agents/skills/dgr-angular-conventions/SKILL.md",
+      "github_url": "https://github.com/TPIsoftwareOSPO/digiRunner-Open-Source/tree/main/dgrv4_Gateway_serv/srcAngular/.agents/skills/dgr-angular-conventions/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/TPIsoftwareOSPO/digiRunner-Open-Source",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-03T18:27:53Z"
+  "distributed_at": "2026-08-16T13:09:25Z"
 }
