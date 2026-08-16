@@ -1,0 +1,20 @@
+## lucky-canvas
+
+> - 每次完成一个需求后，使用中文自动创建一次 Git commit，并遵循 Conventional Commits 格式。
+
+# Git 提交约定
+
+- 每次完成一个需求后，使用中文自动创建一次 Git commit，并遵循 Conventional Commits 格式。
+- 提交信息使用 `type: 中文描述` 的格式；新增功能使用 `feat:`，维护规范或构建配置使用 `chore:`，修复问题使用 `fix:`。
+
+# 代码修改前提
+
+- 每次开始改代码前，必须确保已充分理解需求和相关上下文；若上下文不足，不得直接修改代码。
+
+# 旧官网文档
+
+- 旧的官网文档位于与 `lucky-canvas` 同一层级的 `100px.net` 目录。
+
+---
+> Source: [buuing/lucky-canvas](https://github.com/buuing/lucky-canvas) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
