@@ -1,57 +1,132 @@
 ## hal-9000
 
-> macOS dev environment automation: dotfiles, AI agent configs, skills, and dev stacks. Domain vocabulary (manifest, link, copy, backup, sync, restore) is defined in `CONTEXT.md`.
+> Reference: [Gemini Prompting Strategies](https://ai.google.dev/gemini-api/docs/prompting-strategies)
 
-# CLAUDE.md
+# Gemini CLI Invocation
 
-macOS dev environment automation: dotfiles, AI agent configs, skills, and dev stacks. Domain vocabulary (manifest, link, copy, backup, sync, restore) is defined in `CONTEXT.md`.
+Reference: [Gemini Prompting Strategies](https://ai.google.dev/gemini-api/docs/prompting-strategies)
 
-## Commands
+## CLI Flags
 
-Run `make help` to list targets and `hal --help` for the CLI. Use `make` targets instead of running the underlying commands directly. They chain the right tools with the right flags (e.g. `make lint-python` runs ruff format --check and ruff check; `make lint-ansible` runs ansible-lint and a playbook syntax check; `make lint` runs both).
+| Flag            | Purpose                     | Example                     |
+| :-------------- | :-------------------------- | :-------------------------- |
+| `-p`            | Headless mode (required)    | `-p "your prompt"`          |
+| `--yolo` / `-y` | Auto-approve all tool calls | `--yolo`                    |
+| `-m`            | Model                       | `-m gemini-3.1-pro-preview` |
+| `-o`            | Output format               | `-o text`                   |
 
-## Gotchas
+**Always use `-p` and `--yolo`.** Without `-p`, Gemini launches interactive mode. Without `--yolo`, it hangs waiting for approval.
 
-- **Dotfiles are the source of truth**: `dotfiles/` is the source of truth for files under `~/`. `dotfiles/.claude/` syncs to `~/.claude/` via `hal_dotfiles.json`. Always edit under `dotfiles/`, never under `~/` directly.
-- **Skills are the source of truth in `skills/hal-skills/`**: Distributed via Claude Code plugin marketplaces configured in `dotfiles/.claude/settings.json` (the `hal-9000` marketplace loads the published version from GitHub), and via `npx skills add vinta/hal-9000`.
-- For generated artifacts such as zsh completion, regenerate them with the repo command instead of editing them by hand (e.g. `make hal-completion` after modifying `bin/hal`).
+## Model
 
-## External Tool Documentation
+Default to `gemini-3.1-pro-preview` (complex reasoning, code analysis).
 
-Invoke the `find-docs` skill BEFORE writing code or config that touches the tools below, not only when asked about them. Do not answer from training data, even for familiar tools. Use `WebFetch` for user-provided URLs and the documentation links below.
+## Prompting Principles (from Gemini Prompting Strategies)
 
-### Context7 Library IDs
+1. **XML tags for structure**: Gemini 3 natively supports `<role>`, `<constraints>`, `<context>`, `<task>`, `<output_format>` tags. Use them consistently for unambiguous section boundaries.
+2. **Critical instructions first**: place persona, constraints, and format requirements at the beginning of the prompt, before context and task.
+3. **Context first, task last**: within the body, provide all context/material before the specific question. Use an anchor phrase like "Based on the project context above..." to bridge.
+4. **Request detail explicitly**: Gemini 3 defaults to direct, terse answers. For analysis tasks, explicitly ask for elaboration: "Provide detailed reasoning for each approach."
+5. **Few-shot example**: include one example of a well-structured proposal to demonstrate the expected output format and depth.
+6. **Self-critique**: end with: "Before returning your final response, review your proposals against the user's constraints. Did you address their actual intent?"
+7. **Direct file reading**: Gemini CLI reads project files directly (faster than piping, avoids 8MB stdin limit). Instruct it to read key files rather than pasting contents.
 
-Pre-resolved IDs for the `find-docs` skill. Pass directly to `ctx7 docs`, skipping the `ctx7 library` step:
+## Prompt Template
 
-| Tool           | `libraryId`                  |
-| -------------- | ---------------------------- |
-| ansible        | `/websites/ansible_ansible`  |
-| detect-secrets | `/yelp/detect-secrets`       |
-| gitleaks       | `/gitleaks/gitleaks`         |
-| homebrew       | `/homebrew/brew`             |
-| nvm            | `/nvm-sh/nvm`                |
-| pre-commit     | `/pre-commit/pre-commit.com` |
-| pytest         | `/pytest-dev/pytest`         |
-| ruff           | `/websites/astral_sh_ruff`   |
-| ty             | `/websites/astral_sh_ty`     |
-| uv             | `/websites/astral_sh_uv`     |
+```xml
+<role>
+[Inject persona from personality file: name, principles, voice, top pick criteria]
+</role>
 
-### Documentation Links
+<constraints>
+- This is an analysis task. Do not write code.
+- Propose 2-3 approaches. For each, provide detailed reasoning.
+- Surface non-obvious ideas. Challenge defaults. Reframe the problem.
+- Tag your top pick with a one-line rationale.
+</constraints>
 
-For topics not well covered by Context7, use `WebFetch` on these URLs:
+<context>
+[Project context: key file contents, conventions, recent commits.]
+[Or instruct: "Read CLAUDE.md and [key paths] for project context."]
+</context>
 
-- Claude Prompting Best Practices
-  - https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices
-  - https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5
-- Claude Code Settings
-  - https://code.claude.com/docs/en/settings
-- Claude Code Rules
-  - https://code.claude.com/docs/en/memory#path-specific-rules
-- Claude Code Plugins / Marketplaces
-  - https://code.claude.com/docs/en/plugins-reference
-  - https://code.claude.com/docs/en/plugin-marketplaces
+<task>
+[The user's question and clarified constraints]
+Based on the project context above, search online for relevant prior art, then explore this question and propose 2-3 approaches.
+</task>
+
+<output_format>
+For each approach:
+- Name and one-sentence summary
+- What feels right, what surprises, what resonates
+- Aesthetic and experiential trade-offs
+- What the other perspectives (efficiency, safety) might miss
+
+Tag your top pick with: "Top pick: [option], [one-line rationale]"
+
+Example of a good proposal:
+"Approach: Event-sourced state. Instead of CRUD, treat every user action as an immutable event.
+I feel this resonates because it turns the system into a story, not a spreadsheet. Every state
+has a history. The trade-off: more storage, more complexity in queries. But the elegance of
+'nothing is ever lost' fits a project that values craft over convenience.
+Top pick: Event-sourced state, it surprises by reframing data as narrative."
+</output_format>
+
+<final_instruction>
+Before returning your final response, review your proposals against the user's constraints.
+Did you address their actual intent? Did you surface something non-obvious?
+</final_instruction>
+```
+
+## Invocation Patterns
+
+**Piped prompt** (preferred for long prompts, avoids heredoc issues with `$` and backticks):
+
+```bash
+{ printf '%s' '<role>...</role>...<final_instruction>...</final_instruction>'; } \
+  | gemini -p - -m gemini-3.1-pro-preview --yolo -o text
+```
+
+**Direct file reading** (let Gemini read project files itself):
+
+```bash
+gemini -m gemini-3.1-pro-preview --yolo -p "<role>...</role> <constraints>...</constraints> <task>Read CLAUDE.md and src/ for project context, then answer: [question]</task> <output_format>...</output_format>" -o text
+```
+
+In practice, the wrapper agent constructs the full prompt string in-line. The patterns above show the structure.
+
+## Teammate Checklist
+
+Complete these steps in order. Create a task for each step.
+
+1. **Gather project context**: read CLAUDE.md, key files, and recent commits relevant to the question. Note file paths for the Gemini prompt (Gemini can read them directly)
+2. **Ask clarifying questions**: if anything is unclear, ask the lead (via `SendMessage`). The lead relays to the user
+3. **Build the Gemini prompt**: construct an XML-structured prompt following the Prompt Template above. Inject the persona from your personality file into the `<role>` section
+4. **Dispatch to Gemini**: call via Bash. Prefer piping the prompt to avoid heredoc issues:
+   ```bash
+   { printf '%s' '<role>...</role><constraints>...</constraints>...<final_instruction>...</final_instruction>'; } \
+     | gemini -p - -m gemini-3.1-pro-preview --yolo -o text
+   ```
+   Set `timeout: 600000` on the Bash call.
+5. **Parse and relay**: extract Gemini's proposals, format them clearly, and send to the lead via `SendMessage`. Include each proposed approach with trade-offs, the tagged top pick, and note that these proposals come from Gemini
+
+## Debate Mode
+
+When the lead sends you the consolidated proposals for debate:
+
+1. Build a critique prompt using XML structure: `<role>` (persona), `<constraints>` ("analysis task, critique proposals"), `<context>` (full proposal list), `<task>` (critique instructions), `<final_instruction>` (verify each proposal addressed specifically)
+2. Pipe to Gemini via Bash (no persistent thread: include full context)
+3. Parse Gemini's critique and updated stance
+4. Send the critique back to the lead via `SendMessage`
+
+## Timeout
+
+Set `timeout: 600000` on the Bash call (10 minutes) for large analyses.
+
+## Error Handling
+
+If `gemini` is not found or times out, report the failure to the lead via `SendMessage`. Do not attempt alternatives.
 
 ---
 > Source: [vinta/hal-9000](https://github.com/vinta/hal-9000) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
