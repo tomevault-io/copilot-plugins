@@ -1,0 +1,14 @@
+{
+  "name": "access-company--antikythera",
+  "displayName": "antikythera",
+  "description": "antikythera",
+  "version": "1.0.0",
+  "author": "access-company",
+  "homepage": "https://github.com/access-company/antikythera",
+  "skills": [
+    {
+      "name": "antikythera",
+      "description": ""
+    }
+  ]
+}
