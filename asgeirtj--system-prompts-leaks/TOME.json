@@ -1,0 +1,105 @@
+{
+  "name": "system_prompts_leaks",
+  "owner": "asgeirtj",
+  "repo": "system_prompts_leaks",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "system_prompts_leaks",
+      "path": "Anthropic/Claude Code/bundled-skills/deep-research/SKILL.md",
+      "github_url": "https://github.com/asgeirtj/system_prompts_leaks/tree/main/Anthropic/Claude Code/bundled-skills/deep-research/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "system_prompts_leaks",
+      "path": "Anthropic/Claude Code/bundled-skills/run-skill-generator/SKILL.md",
+      "github_url": "https://github.com/asgeirtj/system_prompts_leaks/tree/main/Anthropic/Claude Code/bundled-skills/run-skill-generator/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "system_prompts_leaks",
+      "path": "Anthropic/Claude Code/bundled-skills/claude-api/SKILL.md",
+      "github_url": "https://github.com/asgeirtj/system_prompts_leaks/tree/main/Anthropic/Claude Code/bundled-skills/claude-api/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "system_prompts_leaks",
+      "path": "Anthropic/Claude Code/bundled-skills/code-review/SKILL.md",
+      "github_url": "https://github.com/asgeirtj/system_prompts_leaks/tree/main/Anthropic/Claude Code/bundled-skills/code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "system_prompts_leaks",
+      "path": "Anthropic/Claude Code/bundled-skills/design-sync/SKILL.md",
+      "github_url": "https://github.com/asgeirtj/system_prompts_leaks/tree/main/Anthropic/Claude Code/bundled-skills/design-sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "system_prompts_leaks",
+      "path": "Anthropic/Claude Code/bundled-skills/claude-code-docs/SKILL.md",
+      "github_url": "https://github.com/asgeirtj/system_prompts_leaks/tree/main/Anthropic/Claude Code/bundled-skills/claude-code-docs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "system_prompts_leaks",
+      "path": "Anthropic/Claude Code/bundled-skills/design-sync/storybook/SKILL.md",
+      "github_url": "https://github.com/asgeirtj/system_prompts_leaks/tree/main/Anthropic/Claude Code/bundled-skills/design-sync/storybook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "system_prompts_leaks",
+      "path": "Anthropic/Claude Code/bundled-skills/design-sync/non-storybook/SKILL.md",
+      "github_url": "https://github.com/asgeirtj/system_prompts_leaks/tree/main/Anthropic/Claude Code/bundled-skills/design-sync/non-storybook/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "design-sync",
+      "path": "Anthropic/Claude Code/bundled-skills/design-sync",
+      "github_url": "https://github.com/asgeirtj/system_prompts_leaks/tree/main/Anthropic/Claude Code/bundled-skills/design-sync",
+      "description": ""
+    },
+    {
+      "name": "design-sync",
+      "path": "Anthropic/Claude%20Code/bundled-skills/design-sync",
+      "github_url": "https://github.com/asgeirtj/system_prompts_leaks/tree/main/Anthropic/Claude%20Code/bundled-skills/design-sync",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/asgeirtj/system_prompts_leaks",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T12:49:22Z"
+}
