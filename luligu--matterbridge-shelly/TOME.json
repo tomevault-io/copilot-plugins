@@ -4,7 +4,7 @@
   "repo": "matterbridge-shelly",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Luligu/matterbridge-shelly",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-05T22:34:11Z"
+  "distributed_at": "2026-08-16T14:54:04Z"
 }
