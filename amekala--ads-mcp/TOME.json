@@ -2,7 +2,7 @@
   "name": "ads-mcp",
   "owner": "amekala",
   "repo": "ads-mcp",
-  "description": "MCP server for managing ad campaigns across Google Ads, Meta Ads, LinkedIn Ads, and TikTok Ads. 100+ tools for campaign creation, performance analysis, keyword research, and budget optimization. Works with ChatGPT, Claude, Gemini CLI, Cursor, Codex, and Windsurf.",
+  "description": "",
   "type": "config",
   "source_format": "CLAUDE.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/amekala/ads-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T05:33:28Z"
+  "distributed_at": "2026-08-16T05:33:54Z"
 }
