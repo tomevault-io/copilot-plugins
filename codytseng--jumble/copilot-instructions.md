@@ -2,7 +2,7 @@
 
 > This document is designed to help AI Agents better understand and modify the Jumble project.
 
-# CLAUDE.md
+# AGENTS.md
 
 This document is designed to help AI Agents better understand and modify the Jumble project.
 
@@ -120,7 +120,7 @@ Service files located in `src/services/` encapsulate business logic:
 - `note-stats.service.ts` - Note statistics storage and retrieval (likes, zaps, reposts)
 - `poll-results.service.ts` - Poll results storage and retrieval
 - `post-editor-cache.service.ts` - Caching post editor content to prevent data loss
-- `web.push.service.ts` - Web metadata fetching for link previews
+- `web.service.ts` - Web metadata fetching for link previews (via the link preview metadata service, see `LINK_PREVIEW_SERVER` in `src/constants.ts`, overridable with `VITE_LINK_PREVIEW_SERVER`)
 
 ### Providers Architecture
 
@@ -364,7 +364,7 @@ Renderer counterparts:
 
 The bridge exposed at `window.electron` has three namespaces:
 
-- `relay.*` — `ensure / publish / subscribe / closeSub / auth / close / setAllowInsecure`, plus event-stream listeners (`onSubEvent`, `onSubEose`, `onSubClose`, `onAuthRequest`) and `sendAuthResponse`. The renderer streams events back through `ipcRenderer.on`; the main process triggers AUTH signing via a request/response over IPC so the signer stays in the renderer.
+- `relay.*` — `ensure / publish / subscribe / closeSub / auth / close / setAllowInsecure / setTrustedInsecureRelayUrls`, plus event-stream listeners (`onSubEvent`, `onSubEose`, `onSubClose`, `onAuthRequest`) and `sendAuthResponse`. The renderer streams events back through `ipcRenderer.on`; the main process triggers AUTH signing via a request/response over IPC so the signer stays in the renderer.
 - `secrets.*` — `isAvailable / load / save`. Writes are atomic (tmp + rename) and serialized via a Promise chain.
 - `proxy.fetch(url, options)` — **generic CORS-bypass HTTP proxy**. Any future renderer code that needs to bypass CORS should call this rather than add a new channel. Returns `{ ok, status, statusText, url, headers, body }`. Default 15s timeout, 5 MB body cap, custom UA. Renderer parses the body itself (no domain logic in main).
 
@@ -391,7 +391,7 @@ When adding a new IPC channel:
 | Relay WebSockets | renderer (`SmartPool`) | main (`SmartPool` + `RelayManager`) |
 | Signing (`ISigner`) | renderer | renderer (unchanged) |
 | Secret storage | localStorage | `safeStorage` file in `userData/` |
-| Cross-origin HTTP fetch | direct or `VITE_PROXY_SERVER` | `bridge.proxy.fetch` |
+| Cross-origin HTTP fetch | direct | `bridge.proxy.fetch` |
 | IndexedDB caches | renderer | renderer (unchanged) |
 | PWA / service worker | enabled | disabled (vite-plugin-pwa skipped) |
 
@@ -579,4 +579,4 @@ Or create a singleton service in `src/services/` and use Jotai atoms for state m
 
 ---
 > Source: [CodyTseng/jumble](https://github.com/CodyTseng/jumble) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-31 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
