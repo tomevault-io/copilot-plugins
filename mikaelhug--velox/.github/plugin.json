@@ -1,0 +1,9 @@
+{
+  "name": "mikaelhug--velox",
+  "displayName": "Velox",
+  "description": "Fast, lean, open-source Docker Desktop alternative for Apple Silicon Macs.",
+  "version": "1.0.0",
+  "author": "mikaelhug",
+  "homepage": "https://github.com/mikaelhug/Velox",
+  "skills": []
+}
