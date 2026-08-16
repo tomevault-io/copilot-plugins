@@ -1,0 +1,9 @@
+{
+  "name": "yuxino--satori",
+  "displayName": "satori",
+  "description": "A local-first macOS workspace for understanding PDFs with AI",
+  "version": "1.0.0",
+  "author": "yuxino",
+  "homepage": "https://github.com/yuxino/satori",
+  "skills": []
+}
