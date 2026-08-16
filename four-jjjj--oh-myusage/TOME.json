@@ -2,9 +2,9 @@
   "name": "oh-myusage",
   "owner": "Four-JJJJ",
   "repo": "oh-myusage",
-  "description": "macOS menu bar app to monitor AI plan limits, relay balances, and local Codex accounts",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Four-JJJJ/oh-myusage",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T23:55:11Z"
+  "distributed_at": "2026-08-16T16:53:17Z"
 }
