@@ -5,26 +5,5 @@
   "version": "1.0.0",
   "author": "Azure",
   "homepage": "https://github.com/Azure/azure-sdk-for-cpp",
-  "skills": [
-    {
-      "name": "azure-sdk-for-cpp",
-      "description": ""
-    },
-    {
-      "name": "azure-sdk-for-cpp",
-      "description": ""
-    },
-    {
-      "name": "azure-sdk-for-cpp",
-      "description": ""
-    },
-    {
-      "name": "azure-sdk-for-cpp",
-      "description": ""
-    },
-    {
-      "name": "azure-sdk-for-cpp",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
