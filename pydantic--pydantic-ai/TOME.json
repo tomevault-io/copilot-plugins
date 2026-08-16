@@ -2,9 +2,9 @@
   "name": "pydantic-ai",
   "owner": "pydantic",
   "repo": "pydantic-ai",
-  "description": "AI Agent Framework, the Pydantic way",
+  "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pydantic/pydantic-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T21:56:24Z"
+  "distributed_at": "2026-08-16T10:42:23Z"
 }
