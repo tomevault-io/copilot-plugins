@@ -1,8 +1,6 @@
 # ltk-manager
 
-> Source: [LeagueToolkit/ltk-manager](https://github.com/LeagueToolkit/ltk-manager) — distributed by [TomeVault](https://tomevault.io)
-
-The next-generation mod manager for League of Legends.
+> Source: [LeagueToolkit/ltk-manager](https://github.com/LeagueToolkit/ltk-manager). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,7 +15,7 @@ Original source: `CLAUDE.md` in [LeagueToolkit/ltk-manager](https://github.com/L
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [LeagueToolkit/ltk-manager](https://github.com/LeagueToolkit/ltk-manager) — a repo with 51+ stars on GitHub.
+From [LeagueToolkit/ltk-manager](https://github.com/LeagueToolkit/ltk-manager) — a repo with 171+ stars on GitHub.
 
 ---
 
