@@ -1,117 +1,179 @@
 ## nhost
 
-> This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
+> generates Go client/server/shape code from Smithy models.
 
-# Agent Guide for opentelemetry-go
+# AGENTS.md
 
-This file contains active, task-oriented instructions for autonomous and semi-autonomous coding agents working in this repository.
+## Project overview
 
-Before starting any task, read `.github/copilot-instructions.md`, `CONTRIBUTING.md`, and this file.
-Treat `.github/copilot-instructions.md` as global passive guidance for every task, including docs-only and review-only work.
+smithy-go is the Go code generator and runtime for [Smithy](https://smithy.io/).
+It has two major components:
 
-## Core expectations
+1. **Codegen** (`codegen/`) — A Smithy build plugin written in Java that
+   generates Go client/server/shape code from Smithy models.
+2. **Runtime** (`./`, top-level Go module) — The Go packages that generated
+   code depends on at runtime.
 
-- Preserve OpenTelemetry specification compliance, API stability, and idiomatic Go.
-- Prefer minimal, surgical changes over broad refactors or speculative cleanup.
-- Read the package you are editing and match its existing naming, option types, error handling, comments, tests, and concurrency patterns.
-- Keep public APIs backward compatible unless the task explicitly requires a breaking change.
-- Keep telemetry resilient and loosely coupled. Do not introduce behavior that can unexpectedly interfere with host applications.
-- Inspect boundaries carefully: input validation, resource limits, cancellation, shutdown, error propagation, concurrency, and memory growth.
-- Prefer fail-safe behavior and explicit invariants over implicit assumptions.
-- Keep dependencies minimal and justified.
-- Preserve host-application safety: telemetry should not panic, block indefinitely, or amplify attacker-controlled input.
-- Be conservative on hot paths. Avoid unnecessary allocations, reflection, interface churn, blocking, global state, and high-cardinality telemetry.
-- Write comments only for intent, invariants, and non-obvious constraints. Do not add comments that restate the code.
+The primary downstream consumer is
+[aws-sdk-go-v2](https://github.com/aws/aws-sdk-go-v2).
 
-## Default workflow
+## Repository layout
 
-For new features and behavior changes, use this order unless the task explicitly says otherwise:
+```
+.                               # Root Go module (github.com/aws/smithy-go)
+├── auth/                       # Auth identity + scheme interfaces
+│   └── bearer/                 # Bearer token auth
+├── aws-http-auth/              # Separate module: AWS SigV4/SigV4A HTTP signing
+├── codegen/                    # Java/Gradle: Smithy code generator
+│   ├── smithy-go-codegen/      # Main codegen source (Java)
+│   └── smithy-go-codegen-test/ # Codegen integration tests
+├── container/                  # Generic container types
+├── context/                    # Context helpers
+├── document/                   # Smithy document type abstraction
+│   └── json/                   # JSON document codec
+├── encoding/                   # Wire format encoders/decoders
+│   ├── cbor/                   # CBOR (used by rpcv2Cbor)
+│   ├── httpbinding/            # HTTP binding serde helpers
+│   ├── json/                   # JSON encoder/decoder
+│   └── xml/                    # XML encoder/decoder
+├── endpoints/                  # Endpoint resolution types
+├── internal/                   # Internal utilities (singleflight, etc.)
+├── io/                         # I/O helpers
+├── logging/                    # Logging interfaces
+├── metrics/                    # Metrics interfaces
+│   └── smithyotelmetrics/      # Separate module: OpenTelemetry metrics adapter
+├── middleware/                 # Middleware stack (the core of the operation pipeline)
+├── ptr/                        # Pointer-to/from-value helpers
+├── testing/                    # Test assertion helpers for generated protocol tests
+│   └── xml/                    # XML comparison utilities
+├── time/                       # Smithy timestamp format helpers
+├── tracing/                    # Tracing interfaces
+│   └── smithyoteltracing/      # Separate module: OpenTelemetry tracing adapter
+└── transport/
+    └── http/                   # HTTP request/response types and middleware
+```
 
-1. Read the relevant package, its tests, and any package docs or `README.md`.
-2. Add or update a failing unit test that captures the required behavior or regression.
-3. Implement the smallest change that makes the test pass.
-4. Refactor only after the behavior is locked in, and only if the refactor keeps the diff focused.
-5. If the changed code is on a hot path or performance-sensitive, inspect existing benchmarks and run them. Add a benchmark if coverage is missing.
-6. Update documentation artifacts as needed while the context is fresh. Follow the documentation and changelog conventions below for the specific updates required.
-7. Run `make precommit` each time before considering the work complete.
+## Building and testing
 
-For docs-only, test-only, or review-only tasks, still start with the required repository guidance above, then skip the workflow steps that do not apply while keeping the same discipline around scope, verification, and repository conventions.
+### Runtime (Go)
 
-## Verification
+```bash
+# Run unit tests
+make unit
+```
 
-- Use `make` as the canonical repository verification command. The default target is `precommit`.
-- `make precommit` is the expected final verification step for linting, generation, README checks, module checks, and tests.
-- During iteration, targeted commands are fine for fast feedback, but do not stop there if the task changes code.
-- If you touch performance-sensitive code, run focused benchmarks and compare the results using `benchstat` in addition to `make`.
+### Codegen (Java)
 
-## Documentation and changelog
+```bash
+# Build and test codegen
+cd codegen && ./gradlew build
 
-- Non-internal, non-test packages should have Go doc comments, usually in `doc.go`.
-- Non-internal, non-test, non-documentation packages should also have a `README.md` with at least a title and a `pkg.go.dev` badge.
-- Prefer examples over long code snippets in GoDoc when practical.
-- Keep docs aligned with actual behavior. Do not leave stale comments, stale examples, or stale package documentation behind.
-- For user-visible changes, update `CHANGELOG.md` under the appropriate `Added`, `Changed`, `Deprecated`, `Fixed`, or `Removed` section within `## [Unreleased]`.
+# Publish to local Maven for downstream use
+cd codegen && ./gradlew publishToMavenLocal
+```
 
-## Repository habits
+The codegen artifact version is fixed at `0.1.0` and is not published to
+Maven Central — you **MUST** `publishToMavenLocal`.
 
-- Prefer focused diffs. Avoid drive-by cleanup.
-- Follow existing option patterns and exported API conventions instead of inventing new abstractions.
-- Generated files are checked in. If your change affects generation, keep generated output up to date.
-- Prefer fast local search tools such as `rg` when exploring the repository.
-- When changing behavior, make the invariants explicit in tests.
+## Runtime architecture
 
-## Personas
+### Middleware stack
 
-### Feature Agent
+The operation pipeline is built on a middleware stack defined in `middleware/`.
+Steps execute in order: Initialize → Serialize → Build → Finalize →
+Deserialize. Each step is a `middleware.Step` that holds an ordered list of
+middleware. The codegen generates middleware registrations for each operation.
 
-Use this persona for new behavior, new API surface, or spec-driven feature work.
+### Encoding packages
 
-- Start with a failing unit test.
-- Confirm the expected behavior against the spec, existing package behavior, and public API compatibility.
-- Implement the smallest viable change.
-- Update GoDoc, examples, `README.md`, and `CHANGELOG.md` when the change is user-visible.
-- If the feature touches a hot path, check benchmarks and add one if the coverage is missing.
+Each wire format has its own encoder/decoder under `encoding/`. These are
+low-level — they produce/consume raw tokens or values, not full Smithy shapes.
+Generated serde code calls into these packages.
 
-### Refactoring Agent
+## Codegen: GoWriter and template system
 
-Use this persona when improving structure without intentionally changing behavior.
+GoWriter extends Smithy's `SymbolWriter` and is the primary mechanism for
+generating Go source. It has **two distinct writing styles** that must not be
+confused.
 
-- Treat behavior preservation as the default contract.
-- Add or tighten tests before moving code if current behavior is not already pinned down.
-- Avoid broad rewrites, clever abstractions, or package-wide cleanup unless explicitly requested.
-- If a refactor touches a hot path, benchmark before and after.
-- Keep API shape, semantics, concurrency guarantees, and failure modes unchanged unless the task says otherwise.
+### Style 1: Positional args (`writer.write` / `writer.openBlock`)
 
-### Test Agent
+Inherited from `SymbolWriter`. Arguments are positional and referenced with
+`$`-prefixed format characters. Each `$X` consumes the next argument in order.
 
-Use this persona when adding missing coverage, reproducing bugs, or hardening regressions.
+Format characters:
+- `$L` — Literal (toString). Strings, names, anything that should be inserted
+  verbatim.
+- `$S` — String, quoted. Wraps the value in Go double-quotes.
+- `$T` — Type (Symbol). Inserts the symbol name and auto-adds its import.
+- `$P` — Pointable type (Symbol). Like `$T` but prepends `*` if the symbol is
+  marked pointable.
+- `$W` — Writable. Evaluates a `Writable` (lambda/closure) inline.
+- `$D` — Dependency. Adds a `GoDependency` import, expands to empty string.
 
-- Reproduce the bug or missing behavior with the smallest failing test you can.
-- Prefer testing public behavior and externally visible invariants.
-- Add targeted regression tests before changing production code.
-- Only change production code when it is required to make the tested behavior correct or testable.
-- Keep tests deterministic, readable, and aligned with package patterns.
+Numbered variants (`$1L`, `$2T`, etc.) allow reusing the same argument
+multiple times. The number is 1-indexed and refers to the position in the
+argument list:
 
-### Performance Agent
+```java
+// $1L is used twice, $2L once — only 2 args needed
+writer.write("type $1L struct{}\nvar _ $2L = (*$1L)(nil)",
+    DEFAULT_NAME, INTERFACE_NAME);
+```
 
-Use this persona for hot-path work, allocation reduction, or throughput and latency improvements.
+`openBlock`/`closeBlock` manage indentation for braced blocks. Arguments are
+positional:
 
-- Benchmark first to establish a baseline.
-- Prefer changes that reduce allocations, copying, interface churn, and unnecessary synchronization.
-- Do not trade away correctness, spec compliance, or API stability for micro-optimizations.
-- Add or update benchmarks when performance-sensitive coverage is missing.
-- If you materially change a hot path, capture before-and-after results, preferably with `benchstat`.
+```java
+writer.openBlock("func (c $P) $T(ctx $T) ($P, error) {", "}",
+    serviceSymbol, operationSymbol, contextSymbol, outputSymbol,
+    () -> {
+        writer.write("return nil, nil");
+    });
+```
 
-### Review Agent
+### Style 2: Named template args (`goTemplate` / `writeGoTemplate`)
 
-Use this persona when asked to review code, patches, or pull requests.
+Uses `$name:X` syntax where `name` is a key in a `Map<String, Object>` and `X`
+is the format character. Arguments are passed as one or more maps. This is the
+**preferred style for new code** — it is more readable and less error-prone
+than positional args.
 
-- Lead with findings, not summaries.
-- Order findings by severity and include precise file and line references when available.
-- Focus on correctness, spec compliance, API compatibility, concurrency safety, resilience, performance regressions, missing tests, missing benchmarks, documentation gaps, and changelog gaps.
-- Call out when a diff is broader than necessary.
-- If you find no issues, say that explicitly and note any residual risks or verification gaps.
+```java
+return goTemplate("""
+    func $name:L(v $cborValue:T) ($type:T, error) {
+        return $coercer:T(v)
+    }
+    """,
+    Map.of(
+        "name", getDeserializerName(shape),
+        "cborValue", SmithyGoTypes.Encoding.Cbor.Value,
+        "type", symbolProvider.toSymbol(shape),
+        "coercer", coercer
+    ));
+```
+
+Rules:
+- `goTemplate(String, Map...)` is a **static** method that returns a
+  `Writable` (a `Consumer<GoWriter>` lambda). It does NOT write immediately.
+- `writeGoTemplate(String, Map...)` is an **instance** method that writes
+  immediately to the writer.
+- Maps are merged into the writer's context scope for the duration of the
+  template. Multiple maps can be passed and are applied in order.
+- The writer pre-populates common symbols in context: `fmt.Sprintf`,
+  `fmt.Errorf`, `errors.As`, `context.Context`, `time.Now`.
+
+### Composing writables
+
+- `ChainWritable` — Collects multiple `Writable`s and composes them with
+  newlines between each. Use `.compose()` (with newlines) or
+  `.compose(false)` (without).
+
+### Symbol constants
+
+For symbols, use `SmithyGoDependency.*.valueSymbol("Name")` or
+`SmithyGoDependency.*.pointableSymbol("Name")`.
 
 ---
 > Source: [nhost/nhost](https://github.com/nhost/nhost) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
