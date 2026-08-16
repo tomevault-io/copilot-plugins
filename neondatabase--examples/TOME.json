@@ -1,0 +1,105 @@
+{
+  "name": "examples",
+  "owner": "neondatabase",
+  "repo": "examples",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "examples",
+      "path": "bots/discord-bot-http/.agents/skills/neon/SKILL.md",
+      "github_url": "https://github.com/neondatabase/examples/tree/main/bots/discord-bot-http/.agents/skills/neon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "examples",
+      "path": "bots/telegram-bot-http/.agents/skills/neon/SKILL.md",
+      "github_url": "https://github.com/neondatabase/examples/tree/main/bots/telegram-bot-http/.agents/skills/neon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "examples",
+      "path": "bots/whatsapp-bot-http/.agents/skills/neon/SKILL.md",
+      "github_url": "https://github.com/neondatabase/examples/tree/main/bots/whatsapp-bot-http/.agents/skills/neon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "examples",
+      "path": "bots/discord-bot-http/.agents/skills/neon-postgres/SKILL.md",
+      "github_url": "https://github.com/neondatabase/examples/tree/main/bots/discord-bot-http/.agents/skills/neon-postgres/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "examples",
+      "path": "bots/discord-bot-http/.agents/skills/neon-functions/SKILL.md",
+      "github_url": "https://github.com/neondatabase/examples/tree/main/bots/discord-bot-http/.agents/skills/neon-functions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "examples",
+      "path": "bots/telegram-bot-http/.agents/skills/neon-postgres/SKILL.md",
+      "github_url": "https://github.com/neondatabase/examples/tree/main/bots/telegram-bot-http/.agents/skills/neon-postgres/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "examples",
+      "path": "bots/whatsapp-bot-http/.agents/skills/neon-postgres/SKILL.md",
+      "github_url": "https://github.com/neondatabase/examples/tree/main/bots/whatsapp-bot-http/.agents/skills/neon-postgres/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "examples",
+      "path": "bots/telegram-bot-http/.agents/skills/neon-functions/SKILL.md",
+      "github_url": "https://github.com/neondatabase/examples/tree/main/bots/telegram-bot-http/.agents/skills/neon-functions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "examples",
+      "path": "bots/whatsapp-bot-http/.agents/skills/neon-functions/SKILL.md",
+      "github_url": "https://github.com/neondatabase/examples/tree/main/bots/whatsapp-bot-http/.agents/skills/neon-functions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "examples",
+      "path": "neon-getting-started/03-backup-and-restore/.agents/skills/neon-postgres/SKILL.md",
+      "github_url": "https://github.com/neondatabase/examples/tree/main/neon-getting-started/03-backup-and-restore/.agents/skills/neon-postgres/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/neondatabase/examples",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T12:53:15Z"
+}
