@@ -1,0 +1,9 @@
+{
+  "name": "productdevbook--tezgah",
+  "displayName": "tezgah",
+  "description": "A commerce engine for Rust: products, carts, orders, payments, inventory, and a workflow runner that unwinds what it started.",
+  "version": "1.0.0",
+  "author": "productdevbook",
+  "homepage": "https://github.com/productdevbook/tezgah",
+  "skills": []
+}
