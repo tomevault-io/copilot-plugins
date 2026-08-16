@@ -1,0 +1,57 @@
+{
+  "name": "ai-fusion-video",
+  "owner": "Stonewuu",
+  "repo": "ai-fusion-video",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-fusion-video",
+      "path": ".agents/skills/agentscope/SKILL.md",
+      "github_url": "https://github.com/Stonewuu/ai-fusion-video/tree/main/.agents/skills/agentscope/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ai-fusion-video",
+      "path": "ai-fusion-video/src/test/resources/agentscope/skills/test-skill/SKILL.md",
+      "github_url": "https://github.com/Stonewuu/ai-fusion-video/tree/main/ai-fusion-video/src/test/resources/agentscope/skills/test-skill/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Stonewuu/ai-fusion-video",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T13:15:43Z"
+}
