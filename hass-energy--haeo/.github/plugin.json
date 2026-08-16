@@ -1,9 +1,78 @@
 {
   "name": "hass-energy--haeo",
   "displayName": "haeo",
-  "description": "haeo",
+  "description": "Home Assistant Energy Optimiser",
   "version": "1.0.0",
   "author": "hass-energy",
   "homepage": "https://github.com/hass-energy/haeo",
-  "skills": []
+  "skills": [
+    {
+      "name": "haeo",
+      "description": ""
+    },
+    {
+      "name": "haeo",
+      "description": ""
+    },
+    {
+      "name": "haeo",
+      "description": ""
+    },
+    {
+      "name": "haeo",
+      "description": ""
+    },
+    {
+      "name": "haeo",
+      "description": ""
+    },
+    {
+      "name": "haeo",
+      "description": ""
+    },
+    {
+      "name": "haeo",
+      "description": ""
+    },
+    {
+      "name": "haeo",
+      "description": ""
+    },
+    {
+      "name": "haeo",
+      "description": ""
+    },
+    {
+      "name": "haeo",
+      "description": ""
+    },
+    {
+      "name": "haeo",
+      "description": ""
+    },
+    {
+      "name": "haeo",
+      "description": ""
+    },
+    {
+      "name": "haeo",
+      "description": ""
+    },
+    {
+      "name": "haeo",
+      "description": ""
+    },
+    {
+      "name": "haeo",
+      "description": ""
+    },
+    {
+      "name": "haeo",
+      "description": ""
+    },
+    {
+      "name": "haeo",
+      "description": ""
+    }
+  ]
 }
