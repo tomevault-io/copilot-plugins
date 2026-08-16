@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [google/zerocopy](https://github.com/google/zero
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [google/zerocopy](https://github.com/google/zerocopy) — a repo with 2518+ stars on GitHub.
+From [google/zerocopy](https://github.com/google/zerocopy) — a repo with 2547+ stars on GitHub.
 
 ---
 
