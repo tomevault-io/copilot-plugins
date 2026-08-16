@@ -1,0 +1,9 @@
+{
+  "name": "akkaraponsala--thaipua",
+  "displayName": "thaipua",
+  "description": "Converts Thai text to PUA Unicode and generates composite fonts mapped to PUA code points for games lacking proper complex Thai script rendering support.",
+  "version": "1.0.0",
+  "author": "akkaraponsala",
+  "homepage": "https://github.com/akkaraponsala/thaipua",
+  "skills": []
+}
