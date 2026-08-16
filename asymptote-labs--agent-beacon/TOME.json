@@ -4,7 +4,7 @@
   "repo": "agent-beacon",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Asymptote-Labs/agent-beacon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T04:11:42Z"
+  "distributed_at": "2026-08-16T16:53:57Z"
 }
