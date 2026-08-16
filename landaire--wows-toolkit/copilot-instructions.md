@@ -71,4 +71,4 @@ Reimplementing `BattleController` (in `wows-replays`) on `bevy_ecs` as a new `wo
 
 ---
 > Source: [landaire/wows-toolkit](https://github.com/landaire/wows-toolkit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
