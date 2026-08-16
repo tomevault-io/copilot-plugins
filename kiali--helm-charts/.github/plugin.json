@@ -1,0 +1,9 @@
+{
+  "name": "kiali--helm-charts",
+  "displayName": "helm-charts",
+  "description": "helm-charts",
+  "version": "1.0.0",
+  "author": "kiali",
+  "homepage": "https://github.com/kiali/helm-charts",
+  "skills": []
+}
