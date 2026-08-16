@@ -3,8 +3,8 @@
   "owner": "techpivot",
   "repo": "terraform-module-releaser",
   "description": "GitHub Action to automate versioning, releases, and documentation for Terraform modules in monorepos.",
-  "type": "config",
-  "source_format": "AGENTS.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "terraform-module-releaser",
+      "path": ".claude/skills/npm-versioning/SKILL.md",
+      "github_url": "https://github.com/techpivot/terraform-module-releaser/tree/main/.claude/skills/npm-versioning/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-module-releaser",
+      "path": ".claude/skills/action-inputs/SKILL.md",
+      "github_url": "https://github.com/techpivot/terraform-module-releaser/tree/main/.claude/skills/action-inputs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "terraform-module-releaser",
+      "path": ".claude/skills/node-versioning/SKILL.md",
+      "github_url": "https://github.com/techpivot/terraform-module-releaser/tree/main/.claude/skills/node-versioning/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/techpivot/terraform-module-releaser",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-01T05:54:17Z"
+  "distributed_at": "2026-08-16T12:48:31Z"
 }
