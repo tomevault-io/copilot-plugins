@@ -1,0 +1,26 @@
+{
+  "name": "alibaba--open-code-review",
+  "displayName": "open-code-review",
+  "description": "open-code-review",
+  "version": "1.0.0",
+  "author": "alibaba",
+  "homepage": "https://github.com/alibaba/open-code-review",
+  "skills": [
+    {
+      "name": "open-code-review",
+      "description": ""
+    },
+    {
+      "name": "open-code-review",
+      "description": ""
+    },
+    {
+      "name": "open-code-review",
+      "description": ""
+    },
+    {
+      "name": "open-code-review",
+      "description": ""
+    }
+  ]
+}
