@@ -1,0 +1,9 @@
+{
+  "name": "konstruktoid--ansible-role-docker-rootless",
+  "displayName": "ansible-role-docker-rootless",
+  "description": "ansible-role-docker-rootless",
+  "version": "1.0.0",
+  "author": "konstruktoid",
+  "homepage": "https://github.com/konstruktoid/ansible-role-docker-rootless",
+  "skills": []
+}
