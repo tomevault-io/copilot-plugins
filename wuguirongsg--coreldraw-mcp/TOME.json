@@ -4,7 +4,7 @@
   "repo": "coreldraw-mcp",
   "description": "Let AI drive CorelDRAW directly via the Model Context Protocol \u2014 automated design file generation at scale",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wuguirongsg/coreldraw-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T13:57:38Z"
+  "distributed_at": "2026-08-16T20:41:54Z"
 }
