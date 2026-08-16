@@ -1,0 +1,9 @@
+{
+  "name": "dbt-checkpoint--dbt-checkpoint",
+  "displayName": "dbt-checkpoint",
+  "description": "dbt-checkpoint",
+  "version": "1.0.0",
+  "author": "dbt-checkpoint",
+  "homepage": "https://github.com/dbt-checkpoint/dbt-checkpoint",
+  "skills": []
+}
