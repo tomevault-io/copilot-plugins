@@ -1,71 +1,86 @@
 ## zeppelin
 
-> Zeppelin is an S3-native vector search engine. Object storage is the source of truth. Nodes are stateless. IVF-Flat indexing gives us 2 sequential S3 roundtrips per query.
+> `mod.rs` builds segments; `gc.rs` reclaims retired objects; `background.rs`
 
-# Zeppelin — Project Rules
+# src/compaction — WAL → segments, and GC
 
-## What is this?
-Zeppelin is an S3-native vector search engine. Object storage is the source of truth. Nodes are stateless. IVF-Flat indexing gives us 2 sequential S3 roundtrips per query.
+`mod.rs` builds segments; `gc.rs` reclaims retired objects; `background.rs`
+runs the production loops. Uploading a segment does **not** publish it — only
+the manifest CAS that installs its `SegmentRef` does.
 
-## Architecture Rules
+## Two-pass mark-and-sweep GC
 
-1. **No fallbacks.** Code should crash explicitly on errors. No silent degradation, no swallowing errors, no default values for things that should be configured. If something fails, let it fail loud.
+Deletion is deletes-then-prune, and the revalidation pass is not optional.
+Manifest `pending_deletes` is deliberately uncapped (see `../wal/CLAUDE.md`);
+capping it would leak objects.
 
-2. **S3 is the source of truth.** Never trust local state over S3 state. The manifest on S3 is always authoritative. Local cache is disposable.
+**Every destructive path goes through `TargetOwnedDeletionKey::classify`**,
+which delegates to `NamespaceObjectKey::classify` in `../storage/`. It fails
+closed on any key that is not provably owned by the exact namespace and a known
+family. Error text is
+`"GC target {ns} cannot delete unowned key {key}: {inner}"`.
 
-3. **Immutable artifacts.** WAL fragments and segments are write-once. Never modify them in place. The manifest tracks what exists.
+Do not add a `delete` call that bypasses this classifier. For branch targets,
+this is the mechanism that guarantees a target's cleanup never issues a
+DELETE against a source namespace's prefix.
 
-4. **Single writer per namespace.** No distributed coordination for v1. One process writes to a namespace at a time. S3 read-after-write consistency handles the rest.
+## Branch materialization
 
-5. **Let the compiler help.** Use strong types. Prefer newtypes over raw strings/numbers. Make invalid states unrepresentable.
+The **first** compaction of a foreign-backed branch is not incremental: it
+reads the branch's complete logical view through the artifact-origin resolver
+and writes target-owned segments. Budget it as a full-corpus operation (GETs,
+bytes, index build, uploads, CPU, memory, wall time). Subsequent compactions
+take the ordinary local incremental path.
 
-## Coding Style
+`background.rs` also drives `NamespaceGraph::maintain` (25s budget) for
+governed-deletion recovery and activation-guard resolution. That worker runs
+unconditionally, not only when branching is enabled, because ordinary
+namespace deletes now depend on it.
 
-- Use `thiserror` for error types. Every module gets its own error variant in `ZeppelinError`.
-- Use `tracing` for logging. Structured fields, not format strings.
-- Async everywhere — `tokio` runtime. No blocking calls on async threads.
-- Tests hit real object storage (S3 or MinIO). No mocks for storage operations.
-- `#[must_use]` on functions that return values that shouldn't be ignored.
-- Prefer `bytes::Bytes` for data passing between layers.
+## Incremental compaction and centroids
 
-## File Organization
+Centroids are reused when `new_from_wal / existing < retrain_imbalance_threshold`.
 
-- `src/storage/` — object_store wrapper. Nothing above this layer touches object_store directly.
-- `src/wal/` — write-ahead log. Fragment serialization, manifest management.
-- `src/namespace/` — namespace CRUD and metadata.
-- `src/index/` — vector indexing. Trait-based, IVF-Flat is the v1 implementation.
-- `src/cache/` — local disk cache. LRU eviction, pinned centroids.
-- `src/compaction/` — background WAL → segment compaction.
-- `src/server/` — axum HTTP handlers. Thin layer over domain logic.
+Trap: **TwoBit is the default quantization.** Tests that build compaction
+configs with `..Default::default()` and hand-build sketchless segments must
+pin `quantization: Scalar` or attach a rotation-seed sketch, or the segment
+fails validation. `segment_for_config` in `mod.rs` shows the pattern.
 
-## Testing
+## CPU budget
 
-- All tests use `TestHarness` from `tests/common/harness.rs`.
-- Default test backend is real S3 (set `TEST_BACKEND=minio` for MinIO).
-- Each test gets a random prefix for isolation.
-- Tests clean up after themselves (drop impl on TestHarness).
-- Use `tests/common/vectors.rs` for generating test data.
-- Use `tests/common/assertions.rs` for verifying S3 state.
+Compaction is capped at `(cpus/4).max(1)` and runs on a dedicated runtime so it
+cannot starve the query path. Raising this trades query latency for compaction
+throughput; measure before changing.
 
-## Dependencies
+## Liveness
 
-Only add dependencies listed in the plan. If you need something new, justify it.
+The supervisor publishes `zeppelin_compaction_loop_last_tick_timestamp_seconds`
+and the 0/1 gauge `zeppelin_compaction_loop_alive`. `/readyz` withholds readiness
+when the exit guard has cleared `alive`, or when
+`now - last_tick > 3 * compaction.interval_secs + 60 seconds`; the extra minute
+covers the tick's maintenance budget. The check reads only the two heartbeat
+atomics and never scans object storage or the namespace graph.
 
-## Learnings
+The recorded policy is **503, not process abort**: removing a failed node from
+the load balancer preserves its logs and permits rolling replacement without a
+shared tick bug crashing every node simultaneously. Aborting the stateless
+process remains the alternative operator policy and would be a small follow-up
+change, but it is intentionally not the behavior implemented here.
 
-See `tasks/learnings.md` (local, gitignored) for the full list of bugs encountered and patterns to avoid — append new learnings there as work proceeds. Key rules:
+## Local benchmark gotcha (macOS)
 
-1. **No bincode with `#[serde(untagged)]` or `#[serde(skip_serializing_if)]`.** Any type in the serialization tree with these attributes must use a self-describing format (JSON, MessagePack, CBOR). Check nested types, not just top-level structs.
-2. **Check framework syntax against the pinned version.** Axum 0.7 uses `:param`, axum 0.8 uses `{param}`. If parameterized routes 404 but static routes work, suspect syntax mismatch.
-3. **S3 keys and URL paths have different rules.** S3 keys allow `/`; URL `:param` segments do not. Use separate helpers (`key()` for S3, `api_ns()` for URLs) and consider validating namespace names at creation time.
-4. **Never compute checksums from non-deterministic serialization.** `HashMap` iteration order is not stable across JSON round-trips. Canonicalize via `BTreeMap` before hashing.
-5. **`random_vectors()` reuses IDs across calls.** When testing dedup/merge, use unique ID prefixes per fragment.
-6. **Keep `TempDir` alive for the lifetime of anything using its path.** `TempDir::drop()` deletes the directory. Return it from setup functions so callers hold the handle.
-7. **Use unique temp filenames for atomic writes under concurrency.** `{file}.{uuid}.tmp` avoids races when multiple tasks write to the same cache key.
-8. **Enable `S3ConditionalPut::ETagMatch` in the S3 builder.** Without it, `put_opts` with `PutMode::Update` returns `NotImplemented` — CAS is silently broken. Always set `.with_conditional_put(S3ConditionalPut::ETagMatch)`.
-9. **Two-layer defense for distributed writes: fencing check + CAS.** Neither alone prevents zombie writes. Fencing has a TOCTOU gap; CAS alone doesn't detect stale tokens. Both layers are essential.
-10. **Lease release must be best-effort.** A process whose lease expired and was taken over must handle release gracefully (Ok or non-fatal error), never block or deadlock.
+Compaction's ~1000-way parallel GET burst exhausts the macOS ~1 GB mbuf pool at
+1M+ vectors. Connections shed and surface as `error decoding response body`.
+Workaround for local 1M+ runs is to cap
+`net.inet.tcp.auto{rcv,snd}bufmax=262144` (needs sudo) and restore afterward.
+This is an environment limit, not a product bug — don't chase it in the code.
+
+## See also
+
+- `../wal/CLAUDE.md` — manifest CAS and pruning
+- `../storage/CLAUDE.md` — the key-ownership classifier
+- `../index/CLAUDE.md` — what the builders produce
 
 ---
 > Source: [zepdb/zeppelin](https://github.com/zepdb/zeppelin) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-26 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
