@@ -1,0 +1,9 @@
+{
+  "name": "owncloud-docker--server",
+  "displayName": "server",
+  "description": "server",
+  "version": "1.0.0",
+  "author": "owncloud-docker",
+  "homepage": "https://github.com/owncloud-docker/server",
+  "skills": []
+}
