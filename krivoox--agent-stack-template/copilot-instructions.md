@@ -1,55 +1,38 @@
-## server-actions
+## tdd-domain
 
-> Server Action, service and tenancy contract
+> TDD contract for business logic
 
 
-# Server boundary
+# TDD — business logic
 
-A Server Action is a public HTTP endpoint. Middleware and layout guards do not
-protect it — it can be invoked directly with any payload.
+Red → green → refactor. The test comes first, and it must fail for the right
+reason before you write the implementation.
 
-## Actions
+## Tested
 
-Always build them with `defineAction` or `defineWorkspaceAction`
-(`src/lib/action.ts`). They run, in order: session check → Zod parse →
-membership lookup → handler → error mapping.
+- `src/domain/**`
+- `src/features/*/domain/**`
+- Any pure calculation or invariant
 
-```ts
-"use server";
+## Not tested
 
-export const renameProjectAction = defineWorkspaceAction({
-  input: renameProjectSchema,          // must contain workspaceId
-  handler: async ({ input, ctx }) => {
-    assertCanWrite(ctx.role);          // role rules stay explicit
-    await renameProject({ ...input, workspaceId: ctx.workspaceId });
-    revalidatePath("/projects");
-  },
-});
-```
+React components, styles, layout, snapshots. A snapshot test of a component is
+a maintenance cost with no signal — do not add one, even "for coverage".
 
-- Scope every write with `ctx.workspaceId` and `ctx.userId`, never with an id
-  taken from the payload.
-- Actions return `ActionResult`; they do not throw at the UI and never leak a
-  stack trace.
-- Map a domain `code` to specific copy through the `errors` option instead of
-  branching on `instanceof` in the handler.
+## Writing the test
 
-## Services
+- One behaviour per `it`, named as the rule it protects, not as the function it
+  calls: `"rejects a duplicate name regardless of casing"`, not `"works"`.
+- Assert on the error *type* from `src/domain/errors.ts`, not on the message —
+  copy changes, semantics do not.
+- Cover the boundary, not just the happy path: empty input, the limit itself,
+  one past the limit, and the case that must be rejected.
+- No mocks. If a rule needs the clock, a random value or a database row, that
+  input is a parameter — this is what keeps the domain testable.
 
-- The only layer that calls Prisma.
-- Load what the domain needs, call the pure rule, persist the result. Never
-  re-implement a rule that belongs in `domain/`.
-- Scope reads *and* writes by `workspaceId` — that filter, not the action
-  wrapper alone, is what makes a cross-tenant id return "not found".
-- `import "server-only"` at the top.
+## Full workflow
 
-## Performance
-
-- Start independent I/O together (`Promise.all`); do not chain awaits that have
-  no dependency.
-- Wrap per-request reads that several components need in `React.cache`.
-- No cross-request caching of tenant data. A revoked membership must take
-  effect on the next request.
+`docs/tdd-workflow.md`.
 
 ---
 > Source: [krivoox/agent-stack-template](https://github.com/krivoox/agent-stack-template) — distributed by [TomeVault](https://tomevault.io).
