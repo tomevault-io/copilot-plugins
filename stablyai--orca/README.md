@@ -1,6 +1,6 @@
 # orca
 
-> Source: [stablyai/orca](https://github.com/stablyai/orca). Graded, signed and kept in sync across platforms by [TomeVault](https://tomevault.io)
+> Source: [stablyai/orca](https://github.com/stablyai/orca). Graded, signed and kept current as the models change by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [stablyai/orca](https://github.com/stablyai/orca
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [stablyai/orca](https://github.com/stablyai/orca) — a repo with 24673+ stars on GitHub.
+From [stablyai/orca](https://github.com/stablyai/orca) — a repo with 46318+ stars on GitHub.
 
 ---
 
