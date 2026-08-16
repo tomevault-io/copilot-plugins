@@ -2,9 +2,9 @@
   "name": "pointer",
   "owner": "experdot",
   "repo": "pointer",
-  "description": "A standalone AI chat app crafted for deep thinkers.\u4e13\u4e3a\u6df1\u5ea6\u601d\u8003\u8005\u6253\u9020\u7684 AI \u804a\u5929\u5e94\u7528\u3002",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/experdot/pointer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T18:16:08Z"
+  "distributed_at": "2026-08-16T13:49:56Z"
 }
