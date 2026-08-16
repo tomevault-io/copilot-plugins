@@ -3,7 +3,7 @@
   "owner": "mimikun",
   "repo": "dotfiles",
   "description": "",
-  "type": "config",
+  "type": "tome",
   "source_format": "CLAUDE.md",
   "formats": [
     {
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "dotfiles",
+      "path": "dot_claude/skills/todoist/SKILL.md",
+      "github_url": "https://github.com/mimikun/dotfiles/tree/main/dot_claude/skills/todoist/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "dotfiles",
+      "path": "dot_claude/skills/use-spark/SKILL.md",
+      "github_url": "https://github.com/mimikun/dotfiles/tree/main/dot_claude/skills/use-spark/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/mimikun/dotfiles",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-31T21:07:02Z"
+  "distributed_at": "2026-08-16T12:54:17Z"
 }
