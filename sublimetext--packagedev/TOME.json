@@ -1,0 +1,51 @@
+{
+  "name": "PackageDev",
+  "owner": "SublimeText",
+  "repo": "PackageDev",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "PackageDev",
+      "path": ".claude/skills/release-note-generation/SKILL.md",
+      "github_url": "https://github.com/SublimeText/PackageDev/tree/main/.claude/skills/release-note-generation/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/SublimeText/PackageDev",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T14:40:26Z"
+}
