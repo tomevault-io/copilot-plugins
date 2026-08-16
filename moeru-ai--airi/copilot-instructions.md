@@ -1,38 +1,19 @@
 ## airi
 
-> This is the `moeru-ai/airi` pnpm monorepo. Prefer the smallest safe change and keep every task inside its stated scope.
+> - Use Valibot for all server data that crosses a trust boundary.
 
-# Copilot repository instructions
+# Server Guide
 
-This is the `moeru-ai/airi` pnpm monorepo. Prefer the smallest safe change and keep every task inside its stated scope.
+## Runtime contracts
 
-## General rules
-
-- Follow the root `AGENTS.md` instructions.
-- Do not modify unrelated files.
-- Do not mix documentation, agent configuration, and runtime logic changes in one patch.
-- Do not change package files, lockfiles, or workspace configuration unless the task explicitly requires it.
-- Preserve existing test style and helpers.
-- Do not claim tests passed unless you actually ran them.
-- Report exact commands, exit codes, and relevant pass/fail output.
-
-## Validation
-
-- Use package-scoped pnpm commands where possible.
-- Run the narrowest relevant test first.
-- Run typecheck if runtime contracts or exported types changed.
-- Run affected package tests if shared logic changed.
-- Run `git diff --check` before finalizing when possible.
-
-## Output format
-
-1. Confirmed facts
-2. Files changed
-3. Commands run
-4. Test results
-5. Remaining risks
-6. Keep / revert / split recommendation
+- Use Valibot for all server data that crosses a trust boundary.
+- This includes HTTP data, Pub/Sub messages, queue jobs, WebSocket events, database JSON, and provider responses.
+- Define each schema beside the contract owner.
+- Use `parse` if the caller converts invalid data into an error.
+- Use `safeParse` if the caller branches on valid and invalid data.
+- Do not use `typeof`, `Record<string, unknown>`, or type casts as runtime input validation.
+- Infer TypeScript types from Valibot schemas. Do not duplicate the contract in an interface.
 
 ---
 > Source: [moeru-ai/airi](https://github.com/moeru-ai/airi) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
