@@ -7,11 +7,11 @@ Turn authorized motion references into a consistent AI digital-human sports coac
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [zhenzoo/ai-sports-coach](https://github.com/zhenzoo/ai-sports-coach).
+Original source: `AGENTS.md` in [zhenzoo/ai-sports-coach](https://github.com/zhenzoo/ai-sports-coach).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
