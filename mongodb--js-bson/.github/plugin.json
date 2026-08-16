@@ -1,0 +1,9 @@
+{
+  "name": "mongodb--js-bson",
+  "displayName": "js-bson",
+  "description": "js-bson",
+  "version": "1.0.0",
+  "author": "mongodb",
+  "homepage": "https://github.com/mongodb/js-bson",
+  "skills": []
+}
