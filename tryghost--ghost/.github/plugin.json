@@ -5,26 +5,5 @@
   "version": "1.0.0",
   "author": "TryGhost",
   "homepage": "https://github.com/TryGhost/Ghost",
-  "skills": [
-    {
-      "name": "Ghost",
-      "description": ""
-    },
-    {
-      "name": "Ghost",
-      "description": ""
-    },
-    {
-      "name": "Ghost",
-      "description": ""
-    },
-    {
-      "name": "Ghost",
-      "description": ""
-    },
-    {
-      "name": "Ghost",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
