@@ -1,0 +1,9 @@
+{
+  "name": "nodesecure--cli",
+  "displayName": "cli",
+  "description": "cli",
+  "version": "1.0.0",
+  "author": "NodeSecure",
+  "homepage": "https://github.com/NodeSecure/cli",
+  "skills": []
+}
