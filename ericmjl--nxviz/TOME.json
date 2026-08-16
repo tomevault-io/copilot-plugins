@@ -1,0 +1,63 @@
+{
+  "name": "nxviz",
+  "owner": "ericmjl",
+  "repo": "nxviz",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nxviz",
+      "path": ".agents/skills/marimo-pair/SKILL.md",
+      "github_url": "https://github.com/ericmjl/nxviz/tree/main/.agents/skills/marimo-pair/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nxviz",
+      "path": ".agents/skills/atomic-commits/SKILL.md",
+      "github_url": "https://github.com/ericmjl/nxviz/tree/main/.agents/skills/atomic-commits/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "nxviz",
+      "path": ".agents/skills/design-driven-dev/SKILL.md",
+      "github_url": "https://github.com/ericmjl/nxviz/tree/main/.agents/skills/design-driven-dev/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ericmjl/nxviz",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T12:59:19Z"
+}
