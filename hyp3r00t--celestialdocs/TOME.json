@@ -2,9 +2,9 @@
   "name": "CelestialDocs",
   "owner": "HYP3R00T",
   "repo": "CelestialDocs",
-  "description": "",
-  "type": "config",
-  "source_format": "",
+  "description": "CelestialDocs is a modern documentation platform and Astro template designed for scalable, developer-friendly knowledge systems. It combines structured navigation, hybrid content generation, MDX support, and customizable UI components to build fast, maintainable, and production-ready documentation sites.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,21 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "CelestialDocs",
+      "path": ".agents/skills/issue-to-pr/SKILL.md",
+      "github_url": "https://github.com/HYP3R00T/CelestialDocs/tree/main/.agents/skills/issue-to-pr/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "CelestialDocs",
+      "path": ".agents/skills/refine-issue/SKILL.md",
+      "github_url": "https://github.com/HYP3R00T/CelestialDocs/tree/main/.agents/skills/refine-issue/SKILL.md",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/HYP3R00T/CelestialDocs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-30T10:34:21Z"
+  "distributed_at": "2026-08-16T10:32:53Z"
 }
