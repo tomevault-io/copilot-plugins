@@ -1,7 +1,7 @@
 {
   "name": "elevate-code--better-voice-typing",
   "displayName": "better-voice-typing",
-  "description": "Lightweight Python desktop app for Windows that improves upon Windows Voice Typing (Win+H) by offering superior transcription accuracy while maintaining a simple, intuitive interface.",
+  "description": "better-voice-typing",
   "version": "1.0.0",
   "author": "Elevate-Code",
   "homepage": "https://github.com/Elevate-Code/better-voice-typing",
