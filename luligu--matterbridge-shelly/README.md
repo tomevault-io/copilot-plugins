@@ -5,17 +5,18 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Luligu/matterbridge-shelly](https://github.com/Luligu/matterbridge-shelly).
+Original source: `` in [Luligu/matterbridge-shelly](https://github.com/Luligu/matterbridge-shelly).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Luligu/matterbridge-shelly](https://github.com/Luligu/matterbridge-shelly) — a repo with 138+ stars on GitHub.
+From [Luligu/matterbridge-shelly](https://github.com/Luligu/matterbridge-shelly) — a repo with 139+ stars on GitHub.
 
 ---
 
