@@ -3,8 +3,8 @@
   "owner": "solidbunch",
   "repo": "starter-kit-theme",
   "description": "",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "type": "config",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -37,33 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "starter-kit-theme",
-      "path": ".claude/skills/create-post-type/SKILL.md",
-      "github_url": "https://github.com/solidbunch/starter-kit-theme/tree/main/.claude/skills/create-post-type/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "starter-kit-theme",
-      "path": ".claude/skills/create-gutenberg-block/SKILL.md",
-      "github_url": "https://github.com/solidbunch/starter-kit-theme/tree/main/.claude/skills/create-gutenberg-block/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "starter-kit-theme",
-      "path": ".claude/skills/create-classic-template/SKILL.md",
-      "github_url": "https://github.com/solidbunch/starter-kit-theme/tree/main/.claude/skills/create-classic-template/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "starter-kit-theme",
-      "path": ".claude/skills/convert-to-classic-theme/SKILL.md",
-      "github_url": "https://github.com/solidbunch/starter-kit-theme/tree/main/.claude/skills/convert-to-classic-theme/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/solidbunch/starter-kit-theme",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T12:56:04Z"
+  "distributed_at": "2026-08-16T13:55:55Z"
 }
