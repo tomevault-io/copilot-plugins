@@ -4,7 +4,7 @@
   "repo": "gitmesh",
   "description": "",
   "type": "config",
-  "source_format": "",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LF-Decentralized-Trust-labs/gitmesh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T14:49:22Z"
+  "distributed_at": "2026-08-16T15:04:13Z"
 }
