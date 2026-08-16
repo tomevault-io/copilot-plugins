@@ -1,157 +1,108 @@
 ## unnamed-skill
 
-> 当需要编写 SillyTavern 正则 UI、正则替换界面或可导入正则 JSON 时, 你应该参考本文件
+> 当需要编写脚本时, 你应该参考本文件
 
-# 正则界面
+# 脚本
 
-正则界面是通过 SillyTavern 正则的 `replaceString` 将消息中的特定文本片段替换为 HTML/CSS/JS 界面。它不是本项目的“前端界面项目”或“脚本项目”, 不需要 `index.ts`、`index.html`, 也不走 webpack 入口。
+如果 `src/xxx` 文件夹中仅有 `index.ts` 文件, 则它是一个脚本项目.
 
-## 何时使用
+脚本以无沙盒 iframe 的形式在酒馆后台运行, 没有自己的界面, 只有代码部分可供编写.
 
-当用户要求以下内容时, 应该创建或修改正则界面:
+## jquery
 
-- “SillyTavern 正则 UI”
-- “正则替换界面”
-- “把 `<某标签>...</某标签>` 替换成界面”
-- “生成可导入 SillyTavern 的正则 JSON”
-- “捕获某段文本后自行解析并显示为卡片、按钮、选项、状态栏等”
+脚本中的 jquery 将直接作用于整个酒馆页面而非仅作用于脚本所在的 iframe, 因为它是通过 `window.$ = window.parent.$` 得到的. 例如 `$('body')` 将选择酒馆网页的 `<body>` 标签, 而不是脚本所在的 iframe 的 `<body>` 标签.
 
-如果用户需要的是完整 iframe 应用, 使用“前端界面”规则；如果用户需要后台常驻逻辑或直接操作酒馆页面, 使用“脚本”规则。
+## vue
 
-## 项目结构
+由于脚本运行在 iframe 中, 当需要在脚本中向酒馆页面挂载 vue 组件时, 你应该使用 jquery 来创建一个要挂载的位置, 将其添加到酒馆网页上, 并使用 `app.mount($app[0])` 来挂载.
 
-每个正则界面使用一个独立源目录, 目录中必须有 `source/regex.json`:
+## 向酒馆网页挂载 vue 组件时的样式问题
 
-```text
-src/某个分类/你的正则名/
-  source/
-    regex.json
-    template.html
-    style.css
-    runtime.js
-  README.md
+由于脚本运行在 iframe 中, 脚本所设置的 style (包括 tailwindcss 产生的) 仅会在 iframe 内生效而不会应用到整个酒馆网页; 也就是说, 当我们用 jquery 创建了挂载位置, 并想将 vue 组件挂载到酒馆网页上时, 组件所需要的样式、所填写的 tailwindcss class 都无法生效.
+
+基于 vue 组件用途, 这有两个解决方案.
+
+### 组件是对酒馆网页的补充，需要使用酒馆网页的样式
+
+组件可能是用来增强酒馆网页的界面使用体验，或需要与酒馆网页目前的样式保持一致的, 则应该挂载在非 iframe DOM 上. 例如:
+
+```ts
+$(() => {
+  const app = createApp(App).use(createPinia());
+
+  const $app = createScriptIdDiv().appendTo('想要放置的位置');
+  app.mount($app[0]);
+
+  // 关闭脚本时卸载组件
+  $(window).on('pagehide', () => {
+    app.unmount();
+    $app.remove();
+  });
+});
 ```
 
-- `source/regex.json`: SillyTavern 正则元数据、捕获规则、作用范围。必须存在。
-- `source/template.html`: 替换后的 HTML 骨架。可选。
-- `source/style.css`: 替换界面的样式。可选。
-- `source/runtime.js`: 替换界面的浏览器运行脚本。可选。
-- `README.md`: 说明正则捕获格式、构建命令和导入文件。建议存在。
+这种组件应该尽量参考酒馆网页原有样式; 为了让脚本里为组件设置的额外样式生效, 我们需要使用 `util/script.ts` 中的 `teleportStyle` 函数来将样式复制到酒馆网页的 `<head>` 中.
 
-构建器会扫描 `src` 中所有包含 `source/regex.json` 的目录, 并把 `style.css`、`template.html`、`runtime.js` 按顺序合成为最终 JSON 的 `replaceString`, 输出到对应的 `dist` 目录:
-
-```html
-<style>
-/* style.css */
-</style>
-<!-- template.html -->
-<script>
-// runtime.js
-</script>
+```ts
+const { destroy } = teleportStyle();
 ```
 
-如果 `regex.json` 已直接提供 `replaceString`, 且没有可组合的源文件, 构建器会保留它。若存在可组合源文件, 构建器会用源文件生成的内容覆盖最终 `replaceString`。
+在关闭脚本时, 我们需要调用 `destroy` 函数来卸载样式.
 
-默认输出路径会移除源目录的第一层目录, 与 webpack 输出规则保持一致。例如 `src/酒馆助手/你的正则名` 会输出到 `dist/酒馆助手/你的正则名/你的正则名.json`。
-
-如果某个正则替换内容必须放在 Markdown HTML 代码块中的 `<body>...</body>` 内才能被 SillyTavern 正常渲染, 可以在 `regex.json` 中设置 `"wrapInBody": true`; 构建器会把最终 `replaceString` 包成 ` ```html\n<body>...\n</body>\n``` `, 且不会把该字段写入导入 JSON。
-
-## regex.json 写法
-
-`regex.json` 应该使用 SillyTavern 可导入正则 JSON 的字段名。常见显示类正则可参考:
-
-```json
-{
-  "id": "填入唯一 uuid",
-  "scriptName": "你的正则名",
-  "wrapInBody": true,
-  "findRegex": "<your_tag>\\s*([\\s\\S]*?)\\s*<\\/your_tag>",
-  "trimStrings": [],
-  "placement": [2],
-  "disabled": false,
-  "markdownOnly": true,
-  "promptOnly": false,
-  "runOnEdit": true,
-  "substituteRegex": 0,
-  "minDepth": null,
-  "maxDepth": null
-}
+```ts
+$(window).on('pagehide', () => {
+  destroy();
+});
 ```
 
-规则:
+**但为了不与酒馆网页中已经有的类名冲突, 针对这种情况, 我们禁止使用 tailwindcss.**
 
-- `id` 使用新的 UUID, 不要复用其他正则。
-- `scriptName` 与目录名保持一致或清晰对应。
-- `findRegex` 要能跨行捕获, 通常使用 `([\\s\\S]*?)`。
-- 显示用正则默认 `markdownOnly: true`、`promptOnly: false`。
-- 需要编辑后重新渲染时设 `runOnEdit: true`。
-- 如需自定义输出文件名, 可以在 `regex.json` 中添加 `outputFile`; 构建器会使用它, 但不会写入最终导入 JSON。
-- 如需 ` ```html` 代码块和 `<body>` 包裹, 可以在 `regex.json` 中添加 `wrapInBody: true`; 构建器会使用它, 但不会写入最终导入 JSON。
+### 组件是独立的，不需要使用酒馆网页的样式
 
-## template.html 写法
+组件可能是单独的悬浮窗、手机样式的对话界面或对酒馆网页的大幅调整, 需要与酒馆网页现有样式隔离, 则应该挂载在 iframe DOM 上. 为此我们使用 `util/script.ts` 中的 `createScriptIdIframe` 函数来创建 iframe DOM, 并将 vue 组件在 iframe load 完成后挂载到 iframe 内部的 body 上 (`iframe_element.contentDocument!.body`):
 
-`template.html` 只写会被插入到消息楼层中的 HTML 片段, 不写完整文档结构。
+```ts
+$(() => {
+  const app = createApp(App).use(createPinia());
 
-建议:
+  const $app = createScriptIdIframe()
+    .appendTo('想要放置的位置')
+    .on('load', () => {
+      teleportStyle($app[0].contentDocument!.head);
+      app.mount($app[0].contentDocument!.body);
+    });
 
-- 用根容器包住全部内容, 并使用唯一类名前缀, 如 `.your-regex-ui`。
-- 把正则捕获组放进 `<template>` 中, 如 `<template class="xxx__source">$1</template>`。
-- 后续解析由 `runtime.js` 从该 `<template>` 读取, 避免捕获内容直接影响页面结构。
-- 不使用外部 `<script src>`、`<link>`、远程资源。
-
-## style.css 写法
-
-正则界面的 CSS 会直接进入消息 HTML, 必须严格限定作用域:
-
-- 所有选择器都以根类名前缀开头, 避免污染 SillyTavern 页面。
-- 样式应适配消息楼层宽度, 不产生横向滚动条。
-- 避免使用 `vh`、大 `min-height`、全局 `body`/`button`/`input` 选择器。
-- PC 和手机布局要通过媒体查询适配, 如 PC 多列、手机单列。
-- 内容要紧凑, 对长文本使用 `overflow-wrap`、行数限制或折叠区域。
-
-## runtime.js 写法
-
-`runtime.js` 是内联到正则替换结果中的普通浏览器脚本, 不经过 webpack, 不能使用 `import`、TypeScript、Vue、Pinia 或 Node API。
-
-建议:
-
-- 用 IIFE 包裹全部逻辑, 避免污染全局变量。
-- 用 `document.currentScript` 找到当前正则界面根节点, 所有查询都限定在根节点内。
-- 给根节点设置 `dataset.ready = '1'`, 防止重复初始化。
-- 捕获内容优先从 `<template>` 中读取并用 DOM API 解析。
-- 需要访问 SillyTavern 主页面时, 用 `try/catch` 安全访问 `window.parent.document`。
-- 写入 SillyTavern 输入框时, 优先查找 `#send_textarea`, 修改后派发 `input` 和 `change` 事件。
-- 给输入框内部的 `keydown` 事件调用 `stopPropagation()`, 避免触发酒馆快捷键。
-- 不要依赖全局 jQuery；如为了兼容主页面存在的 jQuery, 只能在检测到 `doc.defaultView.$` 后补充触发事件。
-
-## 构建与验证
-
-构建所有正则:
-
-```bash
-pnpm build:regex
+  // 关闭脚本时卸载组件
+  $(window).on('pagehide', () => {
+    app.unmount();
+    $app.remove();
+  });
+});
 ```
 
-完整构建项目时会自动先构建正则:
+这种情况应该**优先使用无须自行复制样式的 tailwindcss class**; 否则, 如果有需要复制的样式, 则需要使用 `teleportStyle($app[0].contentDocument!.head)` 函数来复制样式.
 
-```bash
-pnpm build
+## 脚本设置
+
+如果需要为用户提供自定义设置, 可以使用脚本变量, 并用 `zod` 来定义设置的类型和默认值.
+
+## 按钮
+
+脚本可以在酒馆助手脚本库界面中设置按钮, 用户点击按钮时将会触发对应的事件.
+
+我们可以这样添加按钮:
+
+```typescript
+appendInexistentScriptButtons([{ name: '按钮名', visible: true }]);
 ```
 
-构建某个正则目录:
+然后, 可以在代码中这样注册按钮事件:
 
-```bash
-node util/build_tavern_regexes.mjs src/某个分类/你的正则名
+```typescript
+eventOn(getButtonEvent('按钮名'), () => {
+  console.log('按钮被点击了');
+});
 ```
-
-构建后至少验证:
-
-- `dist` 中生成的 `你的正则名.json` 能被 `JSON.parse` 解析。
-- `findRegex` 能匹配用户给出的示例文本。
-- `replaceString` 中包含预期的 HTML/CSS/JS。
-- 若写入 SillyTavern 输入框, 逻辑应同时处理空输入、已有输入、找不到输入框的情况。
-
-不要为了验证正则界面而无故运行完整 `pnpm build`, 除非用户要求或需要确认与 webpack 构建集成；完整构建可能重写已有 `dist` 文件。
 
 ---
 > Source: [deepsleep-claw/SleepTavernHome](https://github.com/deepsleep-claw/SleepTavernHome) — distributed by [TomeVault](https://tomevault.io).
