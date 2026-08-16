@@ -1,0 +1,14 @@
+{
+  "name": "outfox--fennecs",
+  "displayName": "fennecs",
+  "description": "fennecs",
+  "version": "1.0.0",
+  "author": "outfox",
+  "homepage": "https://github.com/outfox/fennecs",
+  "skills": [
+    {
+      "name": "fennecs",
+      "description": ""
+    }
+  ]
+}
