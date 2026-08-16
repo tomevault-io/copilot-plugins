@@ -1,0 +1,9 @@
+{
+  "name": "henrypldev--react-native-nitro-mlx",
+  "displayName": "react-native-nitro-mlx",
+  "description": "Run LLMs on device using Apple's MLX",
+  "version": "1.0.0",
+  "author": "henrypldev",
+  "homepage": "https://github.com/henrypldev/react-native-nitro-mlx",
+  "skills": []
+}
