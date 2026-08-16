@@ -1,0 +1,9 @@
+{
+  "name": "kavanrx--go-obfuscator",
+  "displayName": "go-obfuscator",
+  "description": "Golang Obfuscator",
+  "version": "1.0.0",
+  "author": "kavanrx",
+  "homepage": "https://github.com/kavanrx/go-obfuscator",
+  "skills": []
+}
