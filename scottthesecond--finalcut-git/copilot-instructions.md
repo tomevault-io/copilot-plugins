@@ -1,9 +1,11 @@
-## project-purpose
+## testing
 
-> Finalcut-git (also known as UNFLab by the team at Unnamed Films) is a collection of bash scripts that are compiled into an appication by Platypus.  The application uses GIT to sync Final Cut libraries between different editors all working remotely.
+> You can test edits you make to scripts by running the compiled script in /user/build/fcp-git-user.sh.  Before running the that script, you must compile them using //user/compile.sh --no-build (the --no-build flag only compiles the script and doesn't build the Platypus app.)  You can then run the script in /user/build/fcp-git-user.sh.
 
-Finalcut-git (also known as UNFLab by the team at Unnamed Films) is a collection of bash scripts that are compiled into an appication by Platypus.  The application uses GIT to sync Final Cut libraries between different editors all working remotely.  
-The bash scripts are stored inside /user/functions, and they are all compiled into one bash script with /user/compile.sh. 
+
+You can test edits you make to scripts by running the compiled script in /user/build/fcp-git-user.sh.  Before running the that script, you must compile them using //user/compile.sh --no-build (the --no-build flag only compiles the script and doesn't build the Platypus app.)  You can then run the script in /user/build/fcp-git-user.sh.  
+Add the --debug flag to write all logs to the console instead of the log file. You can add the -navbar or -progress flags to simulate the different platypus apps.
+Important: compile.sh only concatenates the other scripts together, and will not fail to build if there are syntax errors, so you can not use it to test your syntax.
 
 ---
 > Source: [scottthesecond/finalcut-git](https://github.com/scottthesecond/finalcut-git) — distributed by [TomeVault](https://tomevault.io).
