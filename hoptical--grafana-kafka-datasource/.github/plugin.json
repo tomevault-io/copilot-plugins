@@ -1,0 +1,9 @@
+{
+  "name": "hoptical--grafana-kafka-datasource",
+  "displayName": "grafana-kafka-datasource",
+  "description": "grafana-kafka-datasource",
+  "version": "1.0.0",
+  "author": "hoptical",
+  "homepage": "https://github.com/hoptical/grafana-kafka-datasource",
+  "skills": []
+}
