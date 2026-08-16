@@ -2,9 +2,9 @@
   "name": "crypt.fyi",
   "owner": "osbytes",
   "repo": "crypt.fyi",
-  "description": "Ephemeral, zero-knowledge, end-to-end post-quantum encrypted sensitive data sharing",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/osbytes/crypt.fyi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T22:17:08Z"
+  "distributed_at": "2026-08-16T21:01:10Z"
 }
