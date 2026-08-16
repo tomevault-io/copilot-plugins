@@ -1,14 +1,9 @@
 {
   "name": "isfhan--burger-api",
   "displayName": "burger-api",
-  "description": "burger-api is a modern, open source API framework built on Bun.js. It combines the simplicity of file-based routing with powerful features like built-in middleware, Zod-based schema validation, and au",
+  "description": "burger-api",
   "version": "1.0.0",
   "author": "Isfhan",
   "homepage": "https://github.com/Isfhan/burger-api",
-  "skills": [
-    {
-      "name": "burger-api",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
