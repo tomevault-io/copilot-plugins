@@ -1,0 +1,9 @@
+{
+  "name": "auth0--node-oauth2-jwt-bearer",
+  "displayName": "node-oauth2-jwt-bearer",
+  "description": "node-oauth2-jwt-bearer",
+  "version": "1.0.0",
+  "author": "auth0",
+  "homepage": "https://github.com/auth0/node-oauth2-jwt-bearer",
+  "skills": []
+}
