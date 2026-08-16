@@ -4,7 +4,7 @@
   "repo": "markdown-prism",
   "description": "A free macOS-native Markdown viewer & editor with GFM, LaTeX, Mermaid, and Quick Look support",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hulryung/markdown-prism",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T05:31:10Z"
+  "distributed_at": "2026-08-16T05:31:47Z"
 }
