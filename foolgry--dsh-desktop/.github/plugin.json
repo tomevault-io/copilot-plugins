@@ -1,0 +1,9 @@
+{
+  "name": "foolgry--dsh-desktop",
+  "displayName": "dsh-desktop",
+  "description": "Download-and-run desktop build of DeepSeek Harness \u2014 Electron shell with embedded Node, no npm required.",
+  "version": "1.0.0",
+  "author": "foolgry",
+  "homepage": "https://github.com/foolgry/dsh-desktop",
+  "skills": []
+}
