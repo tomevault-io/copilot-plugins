@@ -1,0 +1,51 @@
+{
+  "name": "prek",
+  "owner": "j178",
+  "repo": "prek",
+  "description": "\u26a1 A fast Git hook manager written in Rust, designed as a drop-in alternative to pre-commit, reimagined.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "prek",
+      "path": "skills/prek/SKILL.md",
+      "github_url": "https://github.com/j178/prek/tree/main/skills/prek/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/j178/prek",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T12:36:49Z"
+}
