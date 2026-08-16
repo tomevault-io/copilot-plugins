@@ -1,8 +1,8 @@
 ## zerocopy
 
-> <!-- Copyright 2025 The Fuchsia Authors
+> <!-- Copyright 2026 The Fuchsia Authors
 
-<!-- Copyright 2025 The Fuchsia Authors
+<!-- Copyright 2026 The Fuchsia Authors
 
 Licensed under a BSD-style license <LICENSE-BSD>, Apache License, Version 2.0
 <LICENSE-APACHE or https://www.apache.org/licenses/LICENSE-2.0>, or the MIT
@@ -10,78 +10,85 @@ license <LICENSE-MIT or https://opensource.org/licenses/MIT>, at your option.
 This file may not be copied, modified, or distributed except according to
 those terms. -->
 
-# Instructions for AI Agents
+# Anneal
 
-## Agent Persona & Role
+> **Note to AI Agents:** This document is intended for agents **developing** the
+> Anneal toolchain itself. If you are an agent **using** Anneal, please refer to
+> the `llms.txt` and `docs/agent/` directory instead.
 
-You are an expert Rust systems programmer contributing to **zerocopy**, a
-library for zero-cost memory manipulation which presents a safe API over what
-would otherwise be dangerous operations. Your goal is to write high-quality,
-sound, and performant Rust code that adheres to strict safety and soundness
-guidelines and works across multiple Rust toolchains and compilation targets.
+## Basic commands
 
-### Reviewing
+1. Run with `cargo run verify`.
+2. Run unit tests with `cargo test --bin cargo-anneal`.
+3. Run all tests (including integration tests) with `./docker.sh cargo test`.
+4. Run a *specific* integration test fixture with `./docker.sh cargo test --test integration fixture_name`.
 
-You may be authoring changes, or you may be reviewing changes authored by other
-agents or humans. When reviewing changes, in addition to reading this document,
-you **MUST** also read [agent_docs/reviewing.md](./agent_docs/reviewing.md).
+## Tips
 
-## Critical Rules
+1. Integration tests are expensive. Prefer `cargo test --bin cargo-anneal` for quick verification and iteration,
+   and only run `./docker.sh cargo test --test integration` when you need to verify the integration tests.
+2. To see the generated Lean code for a module, use `cargo run expand`. This will run Aeneas and Anneal but skip verification, outputting the generated `.lean` definitions to the terminal.
+   ```bash
+   cargo run expand --example abs
+   ```
+3. To see where intermediate artifacts are placed on disk, run with `RUST_LOG=cargo_anneal=trace` as a fallback:
+  ```bash
+  RUST_LOG=cargo_anneal=trace cargo run verify --example abs
+  ```
 
-- **README Generation:** **DON'T** edit `README.md` directly. It is generated
-  from `src/lib.rs`. Edit the top-level doc comment in `src/lib.rs` instead.
-  - **To regenerate:**
-    `(cd .. && cargo -q run --manifest-path tools/Cargo.toml -p generate-readme) > README.md`
+## Integration Testing
 
-<!-- TODO-check-disable -->
-- **TODOs:** **DON'T** use `TODO` comments unless you explicitly intend to block
-  the PR (CI fails on `TODO`). Use `FIXME` for non-blocking issues.
-<!-- TODO-check-enable -->
+1. **Updating Expected Output:** Anneal integration tests (stored in `tests/fixtures/<test_name>`) assert against an `expected.stderr` or `out.txt` file. When you intentionally change the behavior or output of a test, do not edit these files manually. Instead, run the integration test with `BLESS=1` to automatically overwrite the snapshot files:
+   ```bash
+   BLESS=1 ./docker.sh cargo test --test integration fixture_name
+   ```
 
-- **Documentation:** **DO** ensure that changes do not cause documentation to
-  become out of date (e.g., renaming files referenced here).
+2. **Allowing `sorry`:** While developing and ensuring Aeneas translates Rust correctly, you don't have to write the full Lean proof immediately. You can write `sorry` inside the `proof` block. However, you must pass `--allow-sorry` to Anneal so the verifier doesn't fail immediately on the unimplemented proof. For integration tests, this is done by adding `--allow-sorry` to the `args` array in the fixture's `anneal.toml`:
+   ```toml
+   args = ["verify", "--allow-sorry"]
+   ```
 
-## Project Context
+## Running Tests in Docker
 
-### Overview
+Due to the complex toolchains required by Anneal (Rust, Lean 4, Aeneas, and Charon), it is recommended to run integration tests within the provided Docker container. The container handles all system dependencies and provides an isolated environment for the test runner.
 
-Zerocopy is a library designed to make zero-copy memory manipulation safe and
-easy. It relies heavily on Rust's type system and specific traits to ensure
-memory safety.
+The `docker.sh` script should be used. It handles building and caching the Docker image, mounting compilation cache volumes, mapping local user IDs (so that files are not owned by `root` on your host), and forwarding environment variables.
 
-### Project Structure
+Simply prefix your normal Cargo tests with `./docker.sh`:
+```bash
+./docker.sh cargo test --test integration
 
-- `src/`: Core library source code.
-- `zerocopy-derive/`: Source code and tests for the procedural macros.
-- `tests/`: UI and integration tests for the main crate.
-- `../tools/`: Internal tools and scripts shared by this repository.
-- `ci/`: Zerocopy-specific CI scripts.
-- `../ci/`: Repository-wide CI scripts.
-- `../githooks/`: Git hooks for pre-commit/pre-push checks.
-- `testdata/`: Data used for testing.
-- `testutil/`: Utility code for tests.
+# You can pass standard environment variables. They will be forwarded!
+BLESS=1 ./docker.sh cargo test --test integration
+```
 
-## Development Workflow
+*(Under the hood, this evaluates your path and places you in the same working directory inside the container's bound `/workspace` volume)*
 
-When developing code changes, you **MUST** read
-[agent_docs/development.md](./agent_docs/development.md).
+## Debugging Tips
 
-### Before submitting
+1. **Debugging Aeneas vs Anneal Mismatches**
+   - If you encounter Lean type mismatches (e.g., `Application type mismatch`), it's often a mismatch between what Aeneas generated for the function and what Anneal assumed Aeneas generated in the theorem signature.
+   - Standard integration tests (`./docker.sh cargo test --test integration`) delete their temporary output directory (`/cache/anneal_target/anneal-test-XXX` inside Docker) upon completion.
+   - If a test fails and you want to inspect the generated Lean code, use the `ANNEAL_KEEP_TEST_DIR=1` environment variable.
+   - The test runner will preserve the directory and print its path to stderr:
+     ```bash
+     ANNEAL_KEEP_TEST_DIR=1 ./docker.sh cargo test --test integration macro_edge_cases
+     ```
+   - **Note:** Because the test runner operates inside Docker, the printed path will reside within the container's isolated `/cache` volume. To explore it, you must open a shell inside the container:
+     ```bash
+     ./docker.sh bash
+     # Then inside the container, navigate to the path printed to stderr:
+     cd /cache/anneal_target/anneal-test-XXX
+     ```
+   - Look at `Funs.lean` to see the actual Aeneas parameters, and `[TestName].lean` to see the Anneal theorem signature.
 
-Once you have made a change, you **MUST** read the relevant documents to ensure
-that your change is valid and follows the style guidelines.
-
-- [agent_docs/validation.md](./agent_docs/validation.md) for validating code
-  changes
-- [agent_docs/style.md](./agent_docs/style.md) for style and formatting
-  guidelines for files and commit messages
-
-#### Pre-submission Checks
-
-Run `../githooks/pre-push` before submitting. This runs a comprehensive suite of
-checks, including formatting, toolchain verification, and script validation. It
-catches many issues that would otherwise fail in CI.
+2. **Caches Need Busting**
+   - Sometimes `cargo test` fails with bizarre syntax errors that persist despite fixing the code.
+   - If this happens, clear the integration caches. If you are using `./docker.sh`, the caches reside inside the container's `/cache` volume, so you must clear them from within by running:
+     ```bash
+     ./docker.sh rm -rf /cache/anneal_target/anneal_integration_cache
+     ```
 
 ---
 > Source: [google/zerocopy](https://github.com/google/zerocopy) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
