@@ -1,0 +1,14 @@
+{
+  "name": "j178--prek",
+  "displayName": "prek",
+  "description": "\u26a1 A fast Git hook manager written in Rust, designed as a drop-in alternative to pre-commit, reimagined.",
+  "version": "1.0.0",
+  "author": "j178",
+  "homepage": "https://github.com/j178/prek",
+  "skills": [
+    {
+      "name": "prek",
+      "description": ""
+    }
+  ]
+}
