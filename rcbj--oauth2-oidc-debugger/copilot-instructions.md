@@ -1,86 +1,21 @@
 ## oauth2-oidc-debugger
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Scope: this image, its compose services, and `configureKeycloakWsfed()` in `common/common.sh`. The test it exists for (`tests/wsfed_sso.js`) is described in `tests/CLAUDE.md`; the two landings that receive the IdP's POST are in `infra/CLAUDE.md`.
 
-# CLAUDE.md
+# keycloak-wsfed/ — the WS-Federation IdP side-car
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Scope: this image, its compose services, and `configureKeycloakWsfed()` in `common/common.sh`. The test it exists for (`tests/wsfed_sso.js`) is described in `tests/CLAUDE.md`; the two landings that receive the IdP's POST are in `infra/CLAUDE.md`.
 
-## Overview
+**`/keycloak-wsfed/`** — A **dedicated Keycloak 8.0.1 (WildFly) side-car** carrying the [cloudtrust `keycloak-wsfed`](https://github.com/cloudtrust/keycloak-wsfed) extension, which is the IdP for the WS-Federation workflow and its test (`tests/wsfed_sso.js`). It exists because the main stack's Keycloak 26.x (Quarkus) has **no WS-Federation support at all** and the extension only targets 8.0.1. The image is built from the Keycloak 8.0.1 *server distribution* rather than the 2019 `quay.io/keycloak/keycloak:8.0.1` image, whose Docker Schema-1 manifest modern Docker and CI runners reject; the master-realm admin is created offline at build time (`add-user-keycloak.sh`), and `install-wsfed.sh` registers the module. Under host networking (`local-tests.yml`) it runs with a WildFly **port-offset of 2**, so HTTP is **8082** — not 8080, which the main Keycloak holds; under the containerized stack it is plain 8080 behind a `8082:8080` mapping. `configureKeycloakWsfed()` in `common/common.sh` provisions the `wsfed-testing` realm, a **`protocol: "wsfed"`** relying-party client whose `clientId` *is* the `wtrealm`, and the `wsfed` user, then exports `WSFED_METADATA_URL` / `WSFED_REALM` / `WSFED_USER`; `tests/run-report.js` **skips** the job when `WSFED_METADATA_URL` is unset, so a missing side-car costs a skip rather than a failure. The round trip needs a **landing** at the debugger's `/wsfed` to receive the IdP's auto-POST of the `wresult`, and there are two implementations of it — the api's Express route (stash, then `wsfed_response.html?id=…`) and, on the static deployments, a **Lambda@Edge** (`infra/edge/wsfed_landing.js`; sessionStorage, then `wsfed_response.html?posted=1`). See *Static hosting, and the POSTs that have nowhere to land* in `infra/CLAUDE.md` for why the second one has to exist.
 
-OAuth2/OIDC Debugger — a two-service web application for testing and debugging OAuth2 and OIDC flows against real identity providers. Supports Authorization Code, Implicit, Client Credentials, Resource Owner Password, and Refresh grants, plus all three OIDC authentication flows (Authorization Code, Implicit, Hybrid).
+Its `container_name` is hard-coded **identically in both compose files** while the two configure it completely differently — host networking with a WildFly port-offset of 2 (binding 8082/8445) locally, a bridge network with no offset (8080/8443, published `8082:8080`) in the containerized stack. A container left over from one run is therefore the wrong container for the other, and the giveaway is a log showing WildFly bound to **8082 when the containerized stack expects 8080**. `docker-run-tests.sh` now tears down `local-tests.yml`'s containers as well as its own before starting.
 
-## Architecture
+**Two host-networking traps, both fatal to its boot and both fixed in the image/compose rather than worked around.** Keycloak 8's H2 datasource URL ends in `AUTO_SERVER=TRUE`, which makes H2 open a shared server socket and resolve **its own hostname** to advertise it; `local-tests.yml` also set `hostname: keycloak-wsfed`, and under host networking Docker adds no `/etc/hosts` entry for that name — so the name did not resolve, `KeycloakDS` never bound (`Failed to connect to database`), and the whole boot rolled back. The `keycloak-wsfed/Dockerfile` now strips `AUTO_SERVER` from `standalone.xml` (guarded so the build fails if the pattern is absent or survives) and the local service no longer sets `hostname`, inheriting the host's, which resolves. Nothing shares that database, so AUTO_SERVER bought nothing. The containerized service keeps its `hostname` — there it is the DNS name other services use (`http://keycloak-wsfed:8080`) and Docker does resolve it.
 
-The project is split into two independent Node.js services:
+**Read such a failure from the FIRST error, not the last.** The visible tail of that rollback is a `NullPointerException` in `microprofile-metrics-smallrye`, which is only the rollback tripping over services already removed — `MetricsCollectorService.install()` is unconditional, so its controller is null only once teardown has begun. `reportContainerLog()` prints the first `ERROR`/`Caused by` lines for exactly this reason.
 
-- **`/api/`** — Express backend (port 4000). Proxies token endpoint calls server-side and provides a `/claimdescription` endpoint with cached IANA JWT claim metadata.
-- **`/client/`** — Express frontend (port 3000). Serves static HTML/JS pages and handles the OAuth2 redirect callback at `/callback`, forwarding query params to `debugger2.html`.
-- **`/common/data.js`** — Shared `convertToOAuth2Format()` function used by both services to normalize grant parameters (including PKCE and custom params).
-
-### Frontend Build
-
-Client-side JavaScript lives in `/client/src/` and is compiled into `/client/public/js/` using **browserify** with the **envify** transform (substitutes `process.env.*` at build time). Each feature page has its own standalone bundle:
-
-| Source | Bundle | Page |
-|---|---|---|
-| `debugger.js` | `debugger.js` | Authorization/Implicit initiation |
-| `debugger2.js` | `debugger2.js` | Token exchange + results |
-| `token_detail.js` | `token_detail.js` | JWT inspection/validation |
-| `introspection.js` | `introspection.js` | Token introspection |
-| `userinfo.js` | `userinfo.js` | Userinfo endpoint |
-| `jwks.js` | `jwks.js` | JWKS endpoint |
-| `logout.js` | `logout.js` | OIDC logout |
-
-The browserify build runs inside Docker. There is no local build script — to rebuild bundles you must use Docker.
-
-### Configuration
-
-Environment-specific config files live at:
-- `/api/env/{local.js,test.js,docker-tests.js}`
-- `/client/src/env/{local.js,test.js,docker-tests.js}`
-
-The active config is selected via the `CONFIG_FILE` environment variable. For local development, this is `./env/local.js`.
-
-## Running the App
-
-```bash
-# Start all services (api + client)
-CONFIG_FILE=./env/local.js docker-compose up
-
-# Rebuild images first
-CONFIG_FILE=./env/local.js docker-compose build
-```
-
-Access the app at `http://localhost:3000`.
-
-## Running Tests
-
-Tests use Selenium WebDriver with Chrome. A Keycloak test IdP is spun up automatically:
-
-```bash
-# Full battery of tests entirely in containers
-./docker-run-tests.sh
-
-# Tests from local shell, dependencies still in containers
-./local-run-tests.sh
-```
-
-Individual test files in `/tests/`:
-- `oauth2_authorization_code.js`
-- `oauth2_client_credentials.js`
-- `oauth2_implicit.js`
-- `oidc_authorization_code.js`
-
-There is no linting toolchain configured in this project.
-
-## Key Implementation Notes
-
-- **State persistence**: All user configuration (endpoints, client IDs, scopes, etc.) is stored in browser `localStorage` — passwords are intentionally excluded.
-- **Token endpoint calls**: Can be made from the browser (client-side) or proxied through the API service (server-side). The UI lets users choose.
-- **XSS prevention**: DOMPurify is used on the client when rendering token/claim data to the DOM.
-- **SSL**: Server-side SSL certificate validation can be disabled for testing against self-signed certs.
+Three things this side-car has already gone wrong by, all of them silent, and all now reported: **anything else holding 8082** makes WildFly log `Address already in use` and start *without an HTTP listener* — alive, unhealthy, unprovisionable; a container that **starts and exits** is invisible because `docker compose up -d` only asks that it be created — so `requireComposeServiceRunning()` now checks this one specifically and returns non-zero, and both launchers `check_return_code` it so the run **stops** there rather than carrying on with a dead IdP. That check reads compose's state through `composeServiceState()`, which uses **`ps --services --filter status=running`** and never a `--format` Go template: template field names and state wording are not portable across compose versions (`.Service` does not exist in the v1-style output this project's compose prints, and the state reads `Up (healthy)` there but `running` in v2), and getting that wrong made the check declare a healthy container "absent" and stop the run (`verifyComposeServicesRunning()` still reports the others without failing the run). `docker-run-tests.sh` starts the side-car on its own *before* the main `up`, because that `up` runs with `--abort-on-container-exit` and would otherwise tear the whole stack down mid-suite and attribute the exit status to the tests container; and provisioning that "succeeds" while the module is **absent from the image** leaves a realm with no `wsfed` client and no `/protocol/wsfed` descriptor, so `configureKeycloakWsfed()` now verifies both before exporting anything. In the containerized path the side-car is loud by construction instead: `tests` waits on it with `condition: service_healthy` and compose runs with `--abort-on-container-exit`. For a fast loop on this one test, `./local-run-tests.sh --wsfed-only` brings up just api + client + the side-car, provisions it, and runs `tests/wsfed_sso.js` alone.
 
 ---
 > Source: [rcbj/oauth2-oidc-debugger](https://github.com/rcbj/oauth2-oidc-debugger) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
