@@ -1,0 +1,28 @@
+# gosmee
+
+> Tome by [chmouel](https://github.com/chmouel/gosmee), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [chmouel/gosmee](https://github.com/chmouel/gosmee).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/chmouel/gosmee](https://github.com/chmouel/gosmee)
+
+---
+
+Install this config instantly:
+```
+npx tomevault install chmouel/gosmee
+```
+Source: [github.com/chmouel/gosmee](https://github.com/chmouel/gosmee).
+
+<!-- genome:t-i-p -->
