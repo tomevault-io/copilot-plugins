@@ -1,7 +1,7 @@
 {
   "name": "osbytes--crypt-fyi",
   "displayName": "crypt.fyi",
-  "description": "Ephemeral, zero-knowledge, end-to-end post-quantum encrypted sensitive data sharing",
+  "description": "crypt.fyi",
   "version": "1.0.0",
   "author": "osbytes",
   "homepage": "https://github.com/osbytes/crypt.fyi",
