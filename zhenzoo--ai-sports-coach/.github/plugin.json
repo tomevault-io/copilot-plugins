@@ -1,0 +1,9 @@
+{
+  "name": "zhenzoo--ai-sports-coach",
+  "displayName": "ai-sports-coach",
+  "description": "Turn authorized motion references into a consistent AI digital-human sports coach, reusable action library, timed course, and voice-guided training experience.",
+  "version": "1.0.0",
+  "author": "zhenzoo",
+  "homepage": "https://github.com/zhenzoo/ai-sports-coach",
+  "skills": []
+}
