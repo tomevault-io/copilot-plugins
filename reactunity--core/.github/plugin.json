@@ -1,0 +1,14 @@
+{
+  "name": "reactunity--core",
+  "displayName": "core",
+  "description": "core",
+  "version": "1.0.0",
+  "author": "ReactUnity",
+  "homepage": "https://github.com/ReactUnity/core",
+  "skills": [
+    {
+      "name": "core",
+      "description": ""
+    }
+  ]
+}
