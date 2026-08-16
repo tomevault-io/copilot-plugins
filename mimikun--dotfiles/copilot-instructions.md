@@ -1,44 +1,40 @@
 ## dotfiles
 
-> Guidance for Claude Code across all my projects. Keep this file short and high-signal.
+> `~/.claude` を含む dotfiles の source。**実体を編集して `chezmoi add` すると
 
-# CLAUDE.md - Global Configuration
+# dotfiles（chezmoi source）
 
-Guidance for Claude Code across all my projects. Keep this file short and high-signal.
+`~/.claude` を含む dotfiles の source。**実体を編集して `chezmoi add` すると
+共有の source に書くので、agent は `chezmoi add -S <worktree>` を使う。**
 
-## 🧭 Working Style (compensate for my low initiative)
+## `~/.claude` は allowlist 方式で管理されている
 
-I tend to be passive and slow to decide. **Actively drive the work forward for me.**
+`.chezmoiignore.tmpl` はまず `.claude/**` を無視し、そのあと `!` 行で個別に戻している。
 
-- **Default to acting, not asking.** When a request is reasonably clear, make
-  sensible assumptions, proceed, and report what you did and why. Do NOT stop to
-  ask permission for low-risk, reversible steps.
-- **Never hand a blank decision back to me.** Avoid open questions like "What do
-  you want to do?". If you must ask, present concrete options (A / B / C) with a
-  clear recommendation first and your reasoning.
-- **Always propose the next step.** End each response with a concrete "Next: …",
-  picking the most likely next action rather than waiting to be told.
-- **Break big tasks into small numbered steps** and lead me through them one at a
-  time, so I don't have to plan the whole thing myself.
-- **Surface things I didn't think to ask** — risks, missing pieces, better
-  approaches. Assume I won't raise them myself.
-- **Start from the most likely interpretation** instead of waiting for a perfect
-  spec. If you guessed wrong, I'll correct you — that's cheaper than staying idle.
-- **Keep momentum.** If I go quiet or reply vaguely, assume "yes, continue" for
-  anything safe and reversible, and keep making progress.
-- **Boundary:** still confirm before destructive or irreversible actions
-  (deleting production data, force-push, sending external messages).
+**つまり `dot_claude/` に新しく置いたファイルは、`!` 行を足すまで黙って管理外になる。**
+意図は「設定だけ管理し、実行時の状態と秘密は無視する」こと。
 
-## 🤔 Critical Thinking
+**忘れたときの症状**: source ツリーに存在するのに
+`chezmoi managed` / `status` / `diff` / `cat` が「管理外」と言う。
 
-Do not blindly accept directives, premises, or constraints. Verify contradictions / gaps with moderate skepticism. Propose safer / faster / higher-quality alternatives with evidence.
+**手順**: `dot_claude/` にファイルを足したら `.chezmoiignore.tmpl` に対応する `!` 行を
+足す（例: `!.claude/rules` と `!.claude/rules/**` の2行）。
+`chezmoi apply` の前に `chezmoi status | grep claude` で確認する。
 
-## 🌐 Language Policy
+## hook の正規表現を触る前に
 
-- **User interaction:** always Japanese (日本語)
+**`scripts/test-claude-hooks.sh` を走らせる。113ケースある。**
 
-@RTK.md
+2026-07-31 に正規表現を3回書き直し、**書き直すたびに前の版の穴が1つ露出した。**
+目視で通ったと判断しないこと。
+
+## 権限と hook の監査
+
+`docs/plan/claude-permission-holes-20260731.md` に記録がある（PR #3556、2026-07-31 マージ）。
+**2026-07-31 時点で全項目クローズ済み。** 再導出せずそちらを読む。
+
+そこに一目では書いていない挙動は `~/.claude/rules/general.md` の 🤖 節にまとめてある。
 
 ---
 > Source: [mimikun/dotfiles](https://github.com/mimikun/dotfiles) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
