@@ -1,0 +1,9 @@
+{
+  "name": "dominikvytisk--life-simulation",
+  "displayName": "life-simulation",
+  "description": "Artificial life in the browser: organisms evolve genomes, brains, memory and communication. Nothing about their behaviour is scripted.",
+  "version": "1.0.0",
+  "author": "dominikvytisk",
+  "homepage": "https://github.com/dominikvytisk/life-simulation",
+  "skills": []
+}
