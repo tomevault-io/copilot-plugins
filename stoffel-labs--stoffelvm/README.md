@@ -1,6 +1,6 @@
 # AI instruction files for StoffelVM
 
-> Sourced from [Stoffel-Labs/StoffelVM](https://github.com/Stoffel-Labs/StoffelVM) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [Stoffel-Labs/StoffelVM](https://github.com/Stoffel-Labs/StoffelVM), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `CLAUDE.md` in [Stoffel-Labs/StoffelVM](https://github.com/Stof
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Stoffel-Labs/StoffelVM](https://github.com/Stoffel-Labs/StoffelVM) — a repo with 35+ stars on GitHub.
+From [Stoffel-Labs/StoffelVM](https://github.com/Stoffel-Labs/StoffelVM) — a repo with 69+ stars on GitHub.
 
 ---
 
-Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
 <!-- genome:a-e-s -->
