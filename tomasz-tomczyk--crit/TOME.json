@@ -4,7 +4,7 @@
   "repo": "crit",
   "description": "",
   "type": "tome",
-  "source_format": "",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -203,5 +203,5 @@
   ],
   "source_url": "https://github.com/tomasz-tomczyk/crit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T03:40:34Z"
+  "distributed_at": "2026-08-16T03:41:03Z"
 }
