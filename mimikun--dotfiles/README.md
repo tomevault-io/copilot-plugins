@@ -15,7 +15,12 @@ Original source: `CLAUDE.md` in [mimikun/dotfiles](https://github.com/mimikun/do
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [mimikun/dotfiles](https://github.com/mimikun/dotfiles) — a repo with 33+ stars on GitHub.
+## Bundled Skills (2)
+
+- [dotfiles](https://github.com/mimikun/dotfiles/tree/main/dot_claude/skills/todoist/SKILL.md)
+- [dotfiles](https://github.com/mimikun/dotfiles/tree/main/dot_claude/skills/use-spark/SKILL.md)
+
+From [mimikun/dotfiles](https://github.com/mimikun/dotfiles) — a repo with 32+ stars on GitHub.
 
 ---
 
