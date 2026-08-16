@@ -1,0 +1,9 @@
+{
+  "name": "ten24bytes--dspy-demo",
+  "displayName": "dspy-demo",
+  "description": "A comprehensive demonstration project for DSPy, showcasing various advanced features and patterns for programming foundation models.",
+  "version": "1.0.0",
+  "author": "ten24bytes",
+  "homepage": "https://github.com/ten24bytes/dspy-demo",
+  "skills": []
+}
