@@ -4,7 +4,7 @@
   "repo": "workmux",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/raine/workmux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T15:30:29Z"
+  "distributed_at": "2026-08-16T17:07:54Z"
 }
