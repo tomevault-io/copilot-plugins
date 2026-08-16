@@ -1,0 +1,9 @@
+{
+  "name": "dimadake--schwung-movy",
+  "displayName": "schwung-movy",
+  "description": "Elektron-style knob UI + 4-track sequencer tool module for Schwung (Ableton Move) \u2014 per-step parameters, parameter automation, live recording",
+  "version": "1.0.0",
+  "author": "DimaDake",
+  "homepage": "https://github.com/DimaDake/schwung-movy",
+  "skills": []
+}
