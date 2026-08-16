@@ -2,9 +2,9 @@
   "name": "Broken-Link-Website",
   "owner": "Deadlink-Hunter",
   "repo": "Broken-Link-Website",
-  "description": "No more broken links in old unmaintained README",
+  "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Deadlink-Hunter/Broken-Link-Website",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T02:57:00Z"
+  "distributed_at": "2026-08-16T11:32:04Z"
 }
