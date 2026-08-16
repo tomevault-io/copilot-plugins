@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [rcbj/oauth2-oidc-debugger](https://github.com/r
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [rcbj/oauth2-oidc-debugger](https://github.com/rcbj/oauth2-oidc-debugger) — a repo with 172+ stars on GitHub.
+From [rcbj/oauth2-oidc-debugger](https://github.com/rcbj/oauth2-oidc-debugger) — a repo with 173+ stars on GitHub.
 
 ---
 
