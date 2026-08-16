@@ -1,0 +1,14 @@
+{
+  "name": "kubeelasti--kubeelasti",
+  "displayName": "KubeElasti",
+  "description": "KubeElasti",
+  "version": "1.0.0",
+  "author": "KubeElasti",
+  "homepage": "https://github.com/KubeElasti/KubeElasti",
+  "skills": [
+    {
+      "name": "KubeElasti",
+      "description": ""
+    }
+  ]
+}
