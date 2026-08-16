@@ -1,0 +1,9 @@
+{
+  "name": "autsunset--cpa-quota-estimator",
+  "displayName": "cpa-quota-estimator",
+  "description": "Estimate and visualize Codex weekly Token and USD-equivalent quota capacity in CLIProxyAPI",
+  "version": "1.0.0",
+  "author": "Autsunset",
+  "homepage": "https://github.com/Autsunset/cpa-quota-estimator",
+  "skills": []
+}
