@@ -1,483 +1,62 @@
 ## osmedeus
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Agent-focused reference for the Osmedeus Dashboard codebase.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Agent-focused reference for the Osmedeus Dashboard codebase.
 
-## Build and Test Commands
-
-```bash
-# Build
-make build              # Build to bin/osmedeus
-make build-all          # Cross-platform builds (linux, darwin, windows)
-
-# Test
-make test-unit          # Fast unit tests (no external dependencies)
-make test-integration   # Integration tests (requires Docker)
-make test-e2e           # E2E CLI tests (requires binary build)
-make test-e2e-ssh       # SSH E2E tests (module & step level SSH runner)
-make test-e2e-api       # API E2E tests (all endpoints with Redis + seeded DB)
-make test-e2e-cloud     # Cloud E2E tests (cloud CLI commands)
-make test-sudo          # Sudo-aware E2E tests (requires interactive sudo prompt)
-make test-cloud         # Cloud integration tests (internal cloud package)
-make test-distributed   # Distributed run e2e tests (requires Docker for Redis)
-make test-docker        # Docker runner tests
-make test-ssh           # SSH runner unit tests (starts test SSH container)
-make test-canary-all    # Canary tests: real scans in Docker (30-60min)
-make test-canary-repo   # Canary: SAST scan on juice-shop (~25min)
-make test-canary-domain # Canary: domain recon on hackerone.com (~20min)
-make test-canary-ip     # Canary: CIDR scan on IP list (~25min)
-make test-canary-general # Canary: domain-list-recon on hackerone.com subdomains (~40min)
-go test -v ./internal/functions/...  # Run tests for specific package
-go test -v -run TestName ./...       # Run single test by name
-
-# Development
-make fmt                # Format code
-make lint               # Run golangci-lint
-make tidy               # go mod tidy
-make run                # Build and run
-
-# Installation
-make install            # Install to $GOBIN (or $GOPATH/bin)
-make swagger            # Generate Swagger documentation
-
-# Docker Toolbox
-make docker-toolbox       # Build toolbox image (all tools pre-installed)
-make docker-toolbox-run   # Start toolbox container
-make docker-toolbox-shell # Enter toolbox container shell
-
-# Docker Canary (real-world scan testing)
-make canary-up            # Build & start canary container
-make canary-down          # Stop & cleanup canary container
-
-# UI
-make update-ui          # Update embedded UI from dashboard build
-```
-
-## Architecture Overview
-
-Osmedeus is a workflow engine for security automation. It executes YAML-defined workflows with support for multiple execution environments.
-
-### Layered Architecture
-
-```
-CLI/API (pkg/cli, pkg/server)
-         ↓
-Executor (internal/executor) - coordinates workflow execution
-         ↓
-StepDispatcher - routes to: BashExecutor, FunctionExecutor, ForeachExecutor, ParallelExecutor, RemoteBashExecutor, HTTPExecutor, LLMExecutor, AgentExecutor, ACPExecutor
-         ↓
-Runner (internal/runner) - executes commands via: HostRunner, DockerRunner, SSHRunner
-```
-
-### Core Packages
-
-| Package | Purpose |
-|---------|---------|
-| `internal/core` | Type definitions: Workflow, Step, Trigger, RunnerConfig, ExecutionContext |
-| `internal/parser` | YAML parsing, validation, and caching (Loader) |
-| `internal/executor` | Workflow execution engine with step dispatching |
-| `internal/runner` | Execution environments implementing Runner interface |
-| `internal/template` | `{{Variable}}` interpolation engine |
-| `internal/functions` | Utility functions via Goja JavaScript VM |
-| `internal/scheduler` | Cron, event, and file-watch triggers (fsnotify-based) |
-| `internal/database` | SQLite/PostgreSQL via Bun ORM |
-| `pkg/cli` | Cobra CLI commands |
-| `pkg/server` | Fiber REST API |
-| `internal/snapshot` | Workspace export/import as compressed ZIP archives |
-| `internal/installer` | Binary installation (direct-fetch and Nix modes) |
-| `internal/state` | Run state export for debugging and sharing |
-| `internal/updater` | Self-update functionality via GitHub releases |
-| `internal/cloud` | Cloud infrastructure provisioning (DigitalOcean, AWS, GCP, Linode, Azure) |
-
-### Key Types
-
-```go
-WorkflowKind: "module" | "flow"  // module = single unit, flow = orchestrates modules
-StepType: "bash" | "function" | "parallel-steps" | "foreach" | "remote-bash" | "http" | "llm" | "agent" | "agent-acp"
-RunnerType: "host" | "docker" | "ssh"
-TriggerType: "cron" | "event" | "watch" | "manual"
-```
-
-### Decision Routing
-
-Steps support conditional branching via `decision` field with switch/case syntax:
-```yaml
-decision:
-  switch: "{{variable}}"
-  cases:
-    "value1": { goto: step-a }
-    "value2": { goto: step-b }
-  default: { goto: fallback }
-```
-Use `goto: _end` to terminate workflow.
-
-### Workflow Execution Flow
-
-1. CLI parses args ▷ loads config from `~/osmedeus-base/osm-settings.yaml`
-2. Parser loads YAML workflow, validates, caches in Loader
-3. Executor initializes context with built-in variables (`{{Target}}`, `{{Output}}`, etc.)
-4. StepDispatcher routes each step to appropriate executor
-5. Runner executes commands, captures output
-6. Exports propagate to subsequent steps
-
-### Template System
-
-- `{{Variable}}` - standard template variables (Target, Output, threads, etc.)
-- `[[variable]]` - foreach loop variables (to avoid conflicts)
-- Functions evaluated via Goja JS runtime: `file_exists()`, `file_length()`, `trim()`, `exec_python()`, `exec_ts()`, `detect_language()`, `extract_to()`, `db_import_sarif()`, `nmap_to_jsonl()`, `tmux_run()`, `ssh_exec()`, `skip()`, etc.
-
-### Platform Variables
-
-Built-in variables for environment detection:
-- `{{PlatformOS}}` - Operating system (linux, darwin, windows)
-- `{{PlatformArch}}` - CPU architecture (amd64, arm64)
-- `{{PlatformInDocker}}` - "true" if running in Docker container
-- `{{PlatformInKubernetes}}` - "true" if running in Kubernetes pod
-- `{{PlatformCloudProvider}}` - Cloud provider (aws, gcp, azure, local)
-
-### Agent Step Type
-
-The `agent` step type provides an agentic LLM execution loop with tool calling, sub-agent orchestration, and memory management.
-
-Key YAML fields:
-- `query` / `queries` - Task prompt (single or multi-goal)
-- `agent_tools` - List of preset or custom tools available to the agent
-- `max_iterations` - Maximum tool-calling loop iterations (required, > 0)
-- `system_prompt` - System prompt for the agent
-- `sub_agents` - Inline sub-agents spawnable via `spawn_agent` tool call
-- `memory` - Sliding window config (`max_messages`, `summarize_on_truncate`, `persist_path`, `resume_path`)
-- `models` - Preferred models tried in order before falling back to default
-- `output_schema` - JSON schema enforced on final output
-- `plan_prompt` - Optional planning stage prompt run before the main loop
-- `stop_condition` - JS expression evaluated after each iteration
-- `on_tool_start` / `on_tool_end` - JS hook expressions for tool call tracing
-- `parallel_tool_calls` - Enable/disable parallel tool execution (default: true)
-
-Preset tools: `bash`, `read_file`, `read_lines`, `file_exists`, `file_length`, `append_file`, `save_content`, `glob`, `grep_string`, `grep_regex`, `http_get`, `http_request`, `jq`, `exec_python`, `exec_python_file`, `exec_ts`, `exec_ts_file`, `run_module`, `run_flow`
-
-Available exports: `agent_content`, `agent_history`, `agent_iterations`, `agent_total_tokens`, `agent_prompt_tokens`, `agent_completion_tokens`, `agent_tool_results`, `agent_plan`, `agent_goal_results`
-
-```yaml
-steps:
-  - name: analyze-target
-    type: agent
-    query: "Enumerate subdomains of {{Target}} and summarize findings."
-    system_prompt: "You are a security reconnaissance agent."
-    max_iterations: 10
-    agent_tools:
-      - preset: bash
-      - preset: read_file
-      - preset: save_content
-    memory:
-      max_messages: 30
-      persist_path: "{{Output}}/agent/conversation.json"
-    exports:
-      findings: "{{agent_content}}"
-```
-
-### Agent-ACP Step Type
-
-The `agent-acp` step type spawns an external AI coding agent as a subprocess and communicates via the Agent Communication Protocol (ACP). Unlike the `agent` step type (which uses the internal LLM loop), `agent-acp` delegates to real agent binaries.
-
-Built-in agents (defined in `internal/executor/acp_executor.go`):
-- `claude-code` — `npx -y @zed-industries/claude-code-acp@latest`
-- `codex` — `npx -y @zed-industries/codex-acp`
-- `opencode` — `opencode acp`
-- `gemini` — `gemini --experimental-acp`
-
-Key YAML fields:
-- `agent` - Built-in agent name (required unless `acp_config.command` is set)
-- `messages` - Conversation messages (role + content) used as the prompt
-- `cwd` - Working directory for the ACP session
-- `allowed_paths` - Restrict file reads to these directories
-- `acp_config.command` - Custom agent command (overrides built-in registry)
-- `acp_config.args` - Custom agent command arguments
-- `acp_config.env` - Environment variables for the agent process
-- `acp_config.write_enabled` - Allow file writes (default: false)
-
-Available exports: `acp_output`, `acp_stderr`, `acp_agent`
-
-```yaml
-steps:
-  - name: acp-agent
-    type: agent-acp
-    agent: claude-code
-    cwd: "{{Output}}"
-    allowed_paths:
-      - "{{Output}}"
-    acp_config:
-      env:
-        CUSTOM_VAR: "hello"
-      write_enabled: true
-    messages:
-      - role: system
-        content: "You are a security analyst."
-      - role: user
-        content: "Analyze the scan results in {{Output}} and create a summary."
-    exports:
-      analysis: "{{acp_output}}"
-```
-
-### Agent CLI Command
-
-Run an ACP agent interactively from the terminal:
-```bash
-osmedeus agent "your message here"              # Run with claude-code (default)
-osmedeus agent --agent codex "your message"     # Use a specific agent
-osmedeus agent --list                            # List available agents
-osmedeus agent --cwd /path/to/project "msg"     # Set working directory
-osmedeus agent --timeout 1h "msg"               # Custom timeout (default: 30m)
-echo "message" | osmedeus agent --stdin          # Read from stdin
-```
-
-## CLI Commands
+## Commands
 
 ```bash
-osmedeus run -f <flow> -t <target>              # Run flow workflow
-osmedeus run -m <module> -t <target>            # Run module workflow
-osmedeus run -m <m1> -m <m2> -t <target>        # Run multiple modules in sequence
-osmedeus run -m <module> -t <target> --timeout 2h   # With timeout
-osmedeus run -m <module> -t <target> --repeat       # Repeat continuously
-osmedeus run -m <module> -T targets.txt -c 5    # Concurrent target scanning
-osmedeus run -m <module> -t <target> -P params.yaml  # With params file
-osmedeus workflow list                           # List available workflows
-osmedeus workflow show <name>                    # Show workflow details
-osmedeus workflow validate <name>                # Validate workflow YAML
-osmedeus func list                               # List utility functions
-osmedeus func e 'log_info("{{target}}")'         # Evaluate function
-osmedeus --usage-example                         # Show all usage examples
-osmedeus server                                  # Start REST API (see docs/api/ for endpoints)
-osmedeus server --master                         # Start as distributed master
-osmedeus worker join                             # Join as distributed worker (ID: wosm-<uuid8>)
-osmedeus worker join --get-public-ip             # Join with public IP detection (alias: wosm-<ip>)
-osmedeus install binary --name <name>            # Install specific binary
-osmedeus install binary --all                    # Install all binaries
-osmedeus install binary --name <name> --check    # Check if binary is installed
-osmedeus install binary --all --check            # Check all binaries status
-osmedeus install binary --nix-build-install      # Install binaries via Nix
-osmedeus install binary --nix-installation       # Install Nix package manager
-osmedeus install binary --list-registry-nix-build      # List Nix binaries
-osmedeus install binary --list-registry-direct-fetch   # List direct-fetch binaries
-osmedeus install base --preset                   # Install base from preset repository
-osmedeus install base --preset --keep-setting    # Install base, restore previous osm-settings.yaml
-osmedeus install workflow --preset               # Install workflows from preset repository
-osmedeus install validate --preset               # Validate/install ready-to-use base
-osmedeus install env                             # Add binaries to PATH (auto-detects shell)
-osmedeus install env --all                       # Add to all shell configs
-osmedeus update                                  # Self-update to latest version
-osmedeus update --check                          # Check for updates without installing
-osmedeus snapshot export <workspace>             # Export workspace as ZIP
-osmedeus snapshot import <source>                # Import from file or URL
-osmedeus snapshot list                           # List available snapshots
-osmedeus run -m <module> -t <target> -G          # Run with progress bar (shorthand)
-osmedeus run -f <flow> -t <target> -x <module>   # Exclude module(s) from flow
-osmedeus run -f <flow> -t <target> -X <substr>   # Fuzzy-exclude modules by substring
-osmedeus worker status                           # Show registered workers
-osmedeus worker eval -e '<expr>'                 # Evaluate function with distributed hooks
-osmedeus worker set <id> <field> <value>         # Update worker metadata
-osmedeus worker queue list                       # List queued tasks
-osmedeus worker queue new -f <flow> -t <target>  # Queue task for delayed execution
-osmedeus worker queue run --concurrency 5        # Process queued tasks
-osmedeus assets                                  # List discovered assets
-osmedeus assets -w <workspace>                   # Filter assets by workspace
-osmedeus assets --source httpx --type web        # Filter by source and type
-osmedeus assets --stats                          # Show asset statistics
-osmedeus assets --stats -w <workspace>           # Stats filtered by workspace
-osmedeus assets --columns url,title,status_code  # Custom columns
-osmedeus assets --limit 100 --offset 50          # Pagination
-osmedeus assets --json                           # JSON output
-osmedeus agent "your prompt"                     # Run ACP agent (default: claude-code)
-osmedeus agent --agent codex "your prompt"       # Use a specific agent
-osmedeus agent --list                            # List available agents
-osmedeus agent --cwd /path/to/project "prompt"   # Set working directory
-osmedeus agent --timeout 1h "prompt"             # Custom timeout (default: 30m)
-echo "prompt" | osmedeus agent --stdin           # Read from stdin
+bun install          # Install dependencies
+bun dev              # Start dev server with Turbopack (http://localhost:3000)
+bun run build        # Production build
+bun run lint         # Run ESLint
 ```
 
-### Event Trigger Input Syntax
+## Architecture
 
-Event triggers support two syntaxes for extracting variables:
+**Tech Stack**: Next.js 16 (App Router), React 19, Tailwind CSS v4, TypeScript, Shadcn UI (new-york)
 
-**New exports-style syntax (multiple variables):**
-```yaml
-triggers:
-  - name: on-new-asset
-    on: event
-    event:
-      topic: assets.new
-    input:
-      target: event_data.url
-      description: trim(event_data.desc)
-      source: event.source
-```
+**Key Directories**:
+- `app/(auth)/` & `app/(dashboard)/` - Next.js routes
+- `components/` - React components (Shadcn in `ui/`, feature-specific subdirs, reusable in `shared/`)
+- `lib/api/` - API calls (mock data from `lib/mock/`)
+- `lib/types/` - TypeScript interfaces (api.ts, workflow.ts, scan.ts, asset.ts, event.ts, schedule.ts)
+- `providers/` - Context providers (auth, theme)
 
-**Legacy syntax (single input):**
-```yaml
-input:
-  type: event_data
-  field: url
-  name: target
-```
+**Core Features**:
+- Auth: Mock via localStorage (`osmedeus_session`); any 4+ char password
+- Workflow Editor: React Flow (@xyflow/react) + Dagre auto-layout at `components/workflow-editor/`
+- API Layer: Abstracted in `lib/api/` with `PaginatedResponse<T>` contract
 
-## API Documentation
+## Code Style
 
-REST API documentation with curl examples is in `docs/api/`. Key endpoint categories:
-- **Runs**: Create, list, cancel (with PID termination), get steps/artifacts
-- **Workflows**: List, get details, refresh index
-- **Schedules**: Full CRUD + enable/disable/trigger
-- **Assets/Workspaces**: Query discovered data
-- **Event Logs**: Query execution events
-- **Functions**: Execute utility functions via API
-- **Snapshots**: Export/import workspace archives
-- **LLM**: OpenAI-compatible chat completions and embeddings
-- **Agent ACP**: OpenAI-compatible endpoint that spawns local ACP agent subprocesses (`POST /osm/api/agent/chat/completions`)
-- **Install**: Binary registry and installation management
+**Imports**: Use `@/*` path alias (e.g., `@/lib/utils`, `@/components/ui/button`). Order: React/Next → external libs → local imports.
 
-## Cloud Documentation
+**Components**: Functional with TypeScript, use `cn()` for conditional classes, `React.ComponentProps<"element">` for spread props pattern (see card.tsx).
 
-Cloud infrastructure enables distributed security scanning across multiple providers (DigitalOcean, AWS, GCP, Linode, Azure):
+**Types**: Strict mode enabled; centralize domain types in `lib/types/`; use Zod for validation (react-hook-form integration).
 
-- **Usage Examples**: `docs/cloud-usage-examples.md` - Comprehensive examples with copy-paste commands for all cloud operations
-- **Quick Reference**: `docs/cloud-quick-reference.md` - Fast lookup for common commands and configurations
-- **Cheatsheet**: `docs/cloud-cheatsheet.md` - Single-page printable reference card
-- **Architecture**: `docs/cloud-usage-guide.md` - Cloud feature architecture and design
-- **Test Documentation**: `test/e2e/CLOUD_TESTS_README.md` - Cloud test coverage and patterns
-- **Config Template**: `public/presets/cloud-settings.example.yaml` - Full configuration example
+**Naming**: PascalCase for components/types, camelCase for functions/variables, SCREAMING_SNAKE_CASE for constants.
 
-Key cloud commands:
-```bash
-osmedeus cloud config set <key> <value>     # Configure cloud provider
-osmedeus cloud create --instances N          # Provision infrastructure
-osmedeus cloud list                          # List active infrastructure
-osmedeus cloud run -f <flow> -t <target> --instances N  # Run distributed workflow
-osmedeus cloud destroy <id>                  # Destroy infrastructure
-```
+**Formatting**: ESLint (next/core-web-vitals + next/typescript), no Prettier—use ESLint auto-fix. Shadcn components use `data-slot` attributes.
 
-## Workflow Hooks
+**Error Handling**: Use `ErrorState` component in `components/shared/error-state.tsx`; leverage sonner for toast notifications.
 
-Workflows support pre/post execution hooks via the `hooks` field:
-```yaml
-hooks:
-  pre_scan_steps:
-    - name: setup
-      type: bash
-      command: echo "Starting scan"
-  post_scan_steps:
-    - name: cleanup
-      type: bash
-      command: echo "Scan complete"
-```
-Hooks are defined using `WorkflowHooks` in `internal/core/workflow.go`. Pre-scan steps run before the main steps, post-scan steps run after completion.
+**CSS**: Tailwind v4 with CSS variables in `app/globals.css`; theme switching via `next-themes`.
 
-## Queue System
+<!-- BEGIN:nextjs-agent-rules -->
 
-Delayed task execution via database and Redis queues:
-- `osmedeus worker queue new -f <flow> -t <target>` - Queue a task (creates Run with `is_queued=true`)
-- `osmedeus worker queue run --concurrency N` - Process queued tasks with configurable parallelism
-- Dual-source polling: database (every 5s) + Redis BRPOP (optional)
-- Deduplication via runUUID tracking
-- Implementation in `pkg/cli/worker_queue.go`
+# This is NOT the Next.js you know
 
-## Nmap Integration
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
-Utility functions for nmap port scanning and result processing:
-- `nmap_to_jsonl(input_path, output_path)` - Convert nmap XML/gnmap to JSONL format
-- `run_nmap(target, flags?, output?)` - Execute nmap and auto-convert results to JSONL
-- `db_import_port_assets(workspace, file_path, source?)` - Import port scan JSONL into database
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
-## Tmux Session Management
-
-Functions for managing long-running background processes:
-- `tmux_run(command, session_name?)` - Create detached tmux session (auto-generates `bosm-<random8>` name)
-- `tmux_capture(session_name)` - Capture pane output (pass `"all"` for all sessions)
-- `tmux_send(session_name, command)` - Send keystrokes to session
-- `tmux_kill(session_name)` / `tmux_list()` - Kill session / list all sessions
-
-## SSH & Distributed Sync Functions
-
-Functions for remote execution and file synchronization:
-- `ssh_exec(host, command, user?, key_path?, password?, port?)` - Execute command via SSH (pooled connections)
-- `ssh_rsync(host, src, dest, user?, key_path?, password?, port?)` - Copy files via rsync+SSH
-- `sync_from_master(src, dest)` - Pull files from master node (falls back to local cp)
-- `sync_from_worker(identifier, ip, src, dest)` / `rsync_to_worker(...)` - Sync with specific workers
-
-## TypeScript Execution
-
-- `exec_ts(code)` - Run inline TypeScript code via `bun -e`
-- `exec_ts_file(path)` - Run a TypeScript file via `bun run`
-
-## Skip Module Control
-
-- `skip(message?)` - Abort remaining steps in current module; flow continues to next module
-- Raises `ErrSkipModule` / `SkipModuleError` (defined in `internal/functions/constants.go`)
-
-## Module Exclusion
-
-- `-x, --exclude <module>` - Exclude module(s) from flow execution (exact match, repeatable)
-- `-X, --fuzzy-exclude <substr>` - Exclude modules whose name contains substring (repeatable)
-
-## Webhook Triggers
-
-API endpoints for triggering runs via webhooks:
-- `GET /osm/api/webhook-runs` - List webhook-enabled runs
-- `GET|POST /osm/api/webhook-runs/{uuid}/trigger` - Trigger run via webhook UUID (unauthenticated)
-- Runs store `webhook_uuid` and optional `webhook_auth_key` for authentication
-
-## CDN/WAF Asset Classification
-
-Assets now include CDN/WAF classification fields derived from httpx JSON data:
-- `is_cdn` - Asset is behind a CDN (`cdn=true` or `cdn_name` non-empty in httpx)
-- `is_cloud` - CDN name matches a cloud provider (AWS, GCP, Azure, etc.)
-- `is_waf` - `cdn_type` equals "waf" in httpx data
-
-## Adding New Features
-
-**New Step Type**: Add constant in `core/types.go`, create executor implementing `StepExecutor` interface in `internal/executor/`, register in `PluginRegistry` via `dispatcher.go`
-
-**New Runner**: Implement Runner interface in `internal/runner/`, add type constant, register in runner factory
-
-**New CLI Command**: Create in `pkg/cli/`, add to `rootCmd` in `init()`
-
-**New API Endpoint**: Add handler in `pkg/server/handlers/`, register route in `server.go`, document in `docs/api/`
-
-**New Utility Function**: Add Go implementation in `internal/functions/`, register in `goja_runtime.go`, add constant in `constants.go`
-
-**New Agent Preset Tool**: Add to `PresetToolRegistry` in `internal/core/agent_tool_presets.go`, add case in `buildPresetCallExpr()` in `internal/executor/agent_executor.go`
-
-## Architecture Notes
-
-- **Executor**: Fresh instances created per target/request - no global singleton
-- **Step Dispatcher**: Uses plugin registry pattern for extensible step type handling
-- **Scheduler**: File watching uses fsnotify for instant inotify-based notifications
-- **Decision Routing**: Uses switch/case syntax for conditional workflow branching
-- **Run Registry**: Tracks active runs with PID management for cancellation support
-- **Write Coordinator**: Batches database writes (step results, progress, artifacts) reducing I/O by ~70%
-- **Install Base Backup**: `InstallBase()` automatically backs up `osm-settings.yaml` to `backup-osm-settings.yaml`; `--keep-setting` flag restores the previous settings after installation
-- **Worker Identity**: Worker IDs use `wosm-<uuid8>` format; default alias is `wosm-<public-ip>` or `wosm-<local-ip>` when no `--alias` is provided
-- **Execute Hooks**: Distributed coordination via `RegisterExecuteHooks()` in `internal/functions/execute_hooks.go` - avoids circular imports between functions and distributed packages
-- **Queue System**: Dual-source polling (DB + Redis) with deduplication and configurable concurrency in `pkg/cli/worker_queue.go`
-- **Command Fallback**: `internal/executor/cmd_fallback.go` handles timeout prefix stripping and custom binary path prepending
-
-## SARIF Integration
-
-Utility functions for parsing SARIF (Static Analysis Results Interchange Format) output from SAST tools:
-- `db_import_sarif(workspace, file_path)` - Import vulnerabilities from SARIF into database (supports Semgrep, Trivy, Kingfisher, Bearer)
-- `convert_sarif_to_markdown(input_path, output_path)` - Convert SARIF to readable markdown tables
-- `detect_language(path)` - Detect dominant programming language of a source folder (26+ languages)
-- `extract_to(source, dest)` - Auto-detect archive format (.zip, .tar.gz, .tar.bz2, .tar.xz, .tgz) and extract
-- `nmap_to_jsonl(input, output)` - Convert nmap XML/gnmap to JSONL
-- `db_import_port_assets(workspace, file_path, source?)` - Import nmap JSONL into database as IP assets
-
-## Performance Optimizations
-
-- **Compiled JS caching**: Loop conditions compiled once and cached (60-80% faster)
-- **Parallel shard rendering**: Template rendering uses parallel shards (20-40% faster startup)
-- **Memory-mapped I/O**: Large files (>1MB) use mmap for 40-60% faster line counting
-- **Efficient output buffering**: Runners use optimized buffer combining
+<!-- END:nextjs-agent-rules -->
 
 ---
 > Source: [j3ssie/osmedeus](https://github.com/j3ssie/osmedeus) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
