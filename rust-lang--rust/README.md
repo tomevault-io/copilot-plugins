@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [rust-lang/rust](https://github.com/rust-lang/rust).
+Original source: `AGENTS.md` in [rust-lang/rust](https://github.com/rust-lang/rust).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [rust-lang/rust](https://github.com/rust-lang/rust) — a repo with 114771+ stars on GitHub.
+From [rust-lang/rust](https://github.com/rust-lang/rust) — a repo with 115515+ stars on GitHub.
 
 ---
 
