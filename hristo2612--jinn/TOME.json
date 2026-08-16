@@ -4,7 +4,7 @@
   "repo": "jinn",
   "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -103,9 +103,375 @@
       "path": "packages/jinn/template/skills/find-and-install/SKILL.md",
       "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/skills/find-and-install/SKILL.md",
       "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": ".claude/skills/showcase-video-capture/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/.claude/skills/showcase-video-capture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/skills/workflow/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/skills/workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/skills/delegation/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/skills/delegation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/skills/todo-handling/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/skills/todo-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.26.0/files/base/skills/sync/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.26.0/files/base/skills/sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.26.0/files/target/skills/sync/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.26.0/files/target/skills/sync/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.26.0/files/base/skills/migrate/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.26.0/files/base/skills/migrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.28.0/files/base/skills/workflow/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.28.0/files/base/skills/workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.26.0/files/base/skills/self-heal/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.26.0/files/base/skills/self-heal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.26.0/files/target/skills/migrate/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.26.0/files/target/skills/migrate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.26.0/files/base/skills/management/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.26.0/files/base/skills/management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.26.0/files/base/skills/onboarding/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.26.0/files/base/skills/onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.26.0/files/target/skills/workflow/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.26.0/files/target/skills/workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.28.0/files/target/skills/workflow/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.28.0/files/target/skills/workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.26.0/files/target/skills/self-heal/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.26.0/files/target/skills/self-heal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.26.0/files/target/skills/management/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.26.0/files/target/skills/management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.26.0/files/base/skills/cron-manager/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.26.0/files/base/skills/cron-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.26.0/files/target/skills/onboarding/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.26.0/files/target/skills/onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.26.0/files/target/skills/delegation/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.26.0/files/target/skills/delegation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.26.0/files/target/skills/cron-manager/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.26.0/files/target/skills/cron-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.26.0/files/target/skills/todo-handling/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.26.0/files/target/skills/todo-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/skills/notes/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/skills/notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/skills/experiments/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/skills/experiments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.1/files/target/skills/notes/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.1/files/target/skills/notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.30.0/files/target/skills/notes/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.30.0/files/target/skills/notes/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.1/files/base/skills/workflow/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.1/files/base/skills/workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.30.0/files/base/skills/workflow/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.30.0/files/base/skills/workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.1/files/base/skills/self-heal/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.1/files/base/skills/self-heal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.30.0/files/base/skills/self-heal/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.30.0/files/base/skills/self-heal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.1/files/base/skills/management/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.1/files/base/skills/management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.30.0/files/base/skills/management/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.30.0/files/base/skills/management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.1/files/base/skills/onboarding/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.1/files/base/skills/onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.30.0/files/base/skills/onboarding/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.30.0/files/base/skills/onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.1/files/base/skills/delegation/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.1/files/base/skills/delegation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.30.0/files/base/skills/delegation/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.30.0/files/base/skills/delegation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.1/files/target/skills/workflow/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.1/files/target/skills/workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.30.0/files/target/skills/workflow/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.30.0/files/target/skills/workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.1/files/target/skills/self-heal/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.1/files/target/skills/self-heal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.30.0/files/target/skills/self-heal/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.30.0/files/target/skills/self-heal/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.1/files/base/skills/cron-manager/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.1/files/base/skills/cron-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.30.0/files/base/skills/cron-manager/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.30.0/files/base/skills/cron-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.1/files/target/skills/onboarding/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.1/files/target/skills/onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.30.0/files/target/skills/onboarding/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.30.0/files/target/skills/onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.1/files/target/skills/management/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.1/files/target/skills/management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.30.0/files/target/skills/management/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.30.0/files/target/skills/management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.1/files/target/skills/delegation/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.1/files/target/skills/delegation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.30.0/files/target/skills/delegation/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.30.0/files/target/skills/delegation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.1/files/base/skills/todo-handling/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.1/files/base/skills/todo-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.30.0/files/base/skills/todo-handling/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.30.0/files/base/skills/todo-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.0/files/base/skills/todo-handling/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.0/files/base/skills/todo-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.1/files/target/skills/experiments/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.1/files/target/skills/experiments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.30.0/files/target/skills/experiments/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.30.0/files/target/skills/experiments/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.1/files/target/skills/cron-manager/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.1/files/target/skills/cron-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.30.0/files/target/skills/cron-manager/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.30.0/files/target/skills/cron-manager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.0/files/target/skills/todo-handling/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.0/files/target/skills/todo-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.1/files/target/skills/todo-handling/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.1/files/target/skills/todo-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.30.0/files/target/skills/todo-handling/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.30.0/files/target/skills/todo-handling/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.1/files/base/skills/find-and-install/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.1/files/base/skills/find-and-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.30.0/files/base/skills/find-and-install/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.30.0/files/base/skills/find-and-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.29.1/files/target/skills/find-and-install/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.29.1/files/target/skills/find-and-install/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "jinn",
+      "path": "packages/jinn/template/migrations/0.30.0/files/target/skills/find-and-install/SKILL.md",
+      "github_url": "https://github.com/hristo2612/jinn/tree/main/packages/jinn/template/migrations/0.30.0/files/target/skills/find-and-install/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/hristo2612/jinn",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-23T21:40:07Z"
+  "distributed_at": "2026-08-16T12:38:45Z"
 }
