@@ -1,0 +1,9 @@
+{
+  "name": "yulianuzhnenko--bioinformatics-agent-skills",
+  "displayName": "bioinformatics-agent-skills",
+  "description": "The #1 open-source collection of scientific AI Agent Skills, tool specifications, and prompt protocols for Bioinformatics, Genomics, Drug Discovery, and Multi-Omics. Compatible with Cursor, Claude Cod",
+  "version": "1.0.0",
+  "author": "YuliaNuzhnenko",
+  "homepage": "https://github.com/YuliaNuzhnenko/bioinformatics-agent-skills",
+  "skills": []
+}
