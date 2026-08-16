@@ -1,0 +1,9 @@
+{
+  "name": "auth0--express-openid-connect",
+  "displayName": "express-openid-connect",
+  "description": "express-openid-connect",
+  "version": "1.0.0",
+  "author": "auth0",
+  "homepage": "https://github.com/auth0/express-openid-connect",
+  "skills": []
+}
