@@ -1,0 +1,9 @@
+{
+  "name": "argoproj--argo-workflows",
+  "displayName": "argo-workflows",
+  "description": "argo-workflows",
+  "version": "1.0.0",
+  "author": "argoproj",
+  "homepage": "https://github.com/argoproj/argo-workflows",
+  "skills": []
+}
