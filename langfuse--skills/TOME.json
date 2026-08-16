@@ -1,0 +1,63 @@
+{
+  "name": "skills",
+  "owner": "langfuse",
+  "repo": "skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "langfuse",
+      "path": "skills/langfuse",
+      "github_url": "https://github.com/langfuse/skills/tree/main/skills/langfuse",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills/langfuse/SKILL.md",
+      "github_url": "https://github.com/langfuse/skills/tree/main/skills/langfuse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".cursor/skills/skill-creator/SKILL.md",
+      "github_url": "https://github.com/langfuse/skills/tree/main/.cursor/skills/skill-creator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/langfuse/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T12:41:49Z"
+}
