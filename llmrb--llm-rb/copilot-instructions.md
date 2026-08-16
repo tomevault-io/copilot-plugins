@@ -68,7 +68,7 @@ A subclass declares its defaults with
 Each key is a
 class-level accessor: `name`, `description`, `model`, `tools`,
 `skills`, `instructions`, `stream`, `tracer`, `concurrency`,
-`schema`, `confirm`, `path`, `tool_budget`.
+`schema`, `confirm`, `path`, `tool_budget`, `retry_budget`.
 Keyword arguments in the constructor override these defaults.
 
 ```ruby
@@ -205,6 +205,57 @@ argument to
 This replaces the previous `tool_attempts` parameter, which is no
 longer used.
 
+### Retry budget
+
+#### Overview
+
+[`LLM::Agent.retry_budget`](https://r.uby.dev/api-docs/llm.rb/LLM/Agent.html#retry_budget-class_method)
+is the maximum number of times an agent retries a rate-limited
+request before giving up. It is enabled by default at three
+retries, so most agents survive a transient 429 without any
+configuration. Only a raw
+[`LLM::Context`](https://r.uby.dev/api-docs/llm.rb/LLM/Context.html)
+disables it by default.
+
+#### How it works
+
+When you want to control how many times a rate-limited request is
+retried, set the budget with
+[`LLM::Agent.set`](https://r.uby.dev/api-docs/llm.rb/LLM/Agent.html#set-class_method)
+or per-instance with the `retry_budget:` keyword argument. Each
+retry notifies your stream through `on_rate_limit` and sleeps a
+growing interval (2s, 4s, 6s, ...). Once the budget is spent, the
+agent re-raises the rate-limit error instead of blocking forever:
+
+```ruby
+class Chat < LLM::Agent
+  set model: "deepseek-v4-pro",
+      retry_budget: 5
+end
+
+llm = LLM.deepseek(key: ENV["KEY"])
+agent = Chat.new(llm)
+agent.talk "Hello"
+```
+
+#### Why would I use it?
+
+Providers rate-limit requests often, and a bare request fails the
+moment you hit one. A retry budget turns a transient 429 into a
+brief pause and a successful call. The growing backoff also bounds
+the total wait, so an exhausted budget surfaces the error instead
+of hanging.
+
+#### Notes
+
+The retry budget applies to rate-limited requests only, other
+errors are never retried. The budget defaults to five for agents,
+while a raw
+[`LLM::Context`](https://r.uby.dev/api-docs/llm.rb/LLM/Context.html)
+defaults to zero (`retry_budget: 0`). A 429 is refused before any
+content streams, so retrying the same request loses nothing. Pass
+`retry_budget: 0` to disable retries on an agent.
+
 ---
 > Source: [llmrb/llm.rb](https://github.com/llmrb/llm.rb) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-09 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
