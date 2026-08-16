@@ -1,0 +1,9 @@
+{
+  "name": "alibaba--torcheasyrec",
+  "displayName": "TorchEasyRec",
+  "description": "TorchEasyRec",
+  "version": "1.0.0",
+  "author": "alibaba",
+  "homepage": "https://github.com/alibaba/TorchEasyRec",
+  "skills": []
+}
