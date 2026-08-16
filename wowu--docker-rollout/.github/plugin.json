@@ -1,0 +1,9 @@
+{
+  "name": "wowu--docker-rollout",
+  "displayName": "docker-rollout",
+  "description": "docker-rollout",
+  "version": "1.0.0",
+  "author": "wowu",
+  "homepage": "https://github.com/wowu/docker-rollout",
+  "skills": []
+}
