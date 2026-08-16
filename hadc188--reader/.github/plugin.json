@@ -1,0 +1,9 @@
+{
+  "name": "hadc188--reader",
+  "displayName": "reader",
+  "description": "\u300c\u9605\u8bfb3.0\u300d\uff08Legado\uff09\u7684\u684c\u9762\u7248\uff0c\u652f\u6301 Windows\u3001macOS \u548c Linux\uff0c\u4f7f\u7528 Rust\u3001Tauri v2 \u4e0e Vue 3 \u6784\u5efa\u3002",
+  "version": "1.0.0",
+  "author": "hadc188",
+  "homepage": "https://github.com/hadc188/reader",
+  "skills": []
+}
