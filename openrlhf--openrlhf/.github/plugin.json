@@ -1,0 +1,14 @@
+{
+  "name": "openrlhf--openrlhf",
+  "displayName": "OpenRLHF",
+  "description": "OpenRLHF",
+  "version": "1.0.0",
+  "author": "OpenRLHF",
+  "homepage": "https://github.com/OpenRLHF/OpenRLHF",
+  "skills": [
+    {
+      "name": "OpenRLHF",
+      "description": ""
+    }
+  ]
+}
