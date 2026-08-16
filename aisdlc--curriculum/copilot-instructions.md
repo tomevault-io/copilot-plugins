@@ -1,19 +1,18 @@
-## institute
+## curriculum
 
-> AI-SDLC Institute repo doctrine pointer
+> This file exists only because some tooling looks for `AGENTS.md`. It defines
 
+# Agent bootstrap
 
-Read `CLAUDE.md` (repo root) before doing anything: it is the canonical
-operating manual for this repository. Then read
-`docs/protocol-3/WORK-ORDER.md`: it is the active work order.
+This file exists only because some tooling looks for `AGENTS.md`. It defines
+nothing. Canonical operating doctrine for any agent in this repository is
+**`CLAUDE.md` at the repo root** — read it first, in full. The active work
+order is **`docs/protocol-3/WORK-ORDER.md`** — read it second, in full.
 
-Non-negotiables: work on branches and open PRs — never commit or push to
-`main`; never self-merge (ratification is by `github@ai-sdlc.institute` in
-the GitHub UI). Published records are immutable: `briefs/`, `CLAIMS.md`,
-module markdown bodies, `course.json`, `assessment/SPEC.md` — render them,
-never edit them. Site work writes only under `site/`, `.github/workflows/`,
-`docs/protocol-3/`, `AGENTS.md`, `.cursor/`. No new factual claims without a
-primary source. When in doubt whether something is a record: it is.
+Two rules restated because agents skim: (1) branch + PR always, never push
+to `main`, `github@ai-sdlc.institute` ratifies; (2) published records
+(briefs, CLAIMS.md, module bodies, course.json) are immutable — render,
+never rewrite. If this file and CLAUDE.md ever disagree, CLAUDE.md wins.
 
 ---
 > Source: [AISDLC/curriculum](https://github.com/AISDLC/curriculum) — distributed by [TomeVault](https://tomevault.io).
