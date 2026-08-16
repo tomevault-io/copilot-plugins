@@ -1,8 +1,6 @@
 # AI instruction files for airi
 
-> Sourced from [moeru-ai/airi](https://github.com/moeru-ai/airi) and converted for every major platform by [TomeVault](https://tomevault.io)
-
-💖🧸 Self hosted, you-owned Grok Companion, a container of souls of waifu, cyber livings to bring them into our worlds, wishing to achieve Neuro-sama's altitude. Capable of realtime voice chat, Minecraft, Factorio playing. Web / macOS / Windows supported.
+> Sourced from [moeru-ai/airi](https://github.com/moeru-ai/airi), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -17,13 +15,7 @@ Original source: `AGENTS.md` in [moeru-ai/airi](https://github.com/moeru-ai/airi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (3)
-
-- [vue](https://github.com/moeru-ai/airi/tree/main/.agents/skills/vue)
-- [vue-best-practices](https://github.com/moeru-ai/airi/tree/main/.agents/skills/vue-best-practices)
-- [vueuse-functions](https://github.com/moeru-ai/airi/tree/main/.agents/skills/vueuse-functions)
-
-From [moeru-ai/airi](https://github.com/moeru-ai/airi) — a repo with 39354+ stars on GitHub.
+From [moeru-ai/airi](https://github.com/moeru-ai/airi) — a repo with 47941+ stars on GitHub.
 
 ---
 
