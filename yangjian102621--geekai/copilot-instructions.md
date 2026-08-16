@@ -1,74 +1,37 @@
 ## geekai
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> - `api/`：Go + Gin 后端，包含 `core/` 业务、`handler/` 控制器、`service/` 接口调用以及 `store/` 数据访问，`config.toml` 存放默认配置，`Makefile` 用于多架构交叉构建。
 
-# CLAUDE.md
+# Repository Guidelines
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## 项目结构与模块组织
+- `api/`：Go + Gin 后端，包含 `core/` 业务、`handler/` 控制器、`service/` 接口调用以及 `store/` 数据访问，`config.toml` 存放默认配置，`Makefile` 用于多架构交叉构建。
+- `web/`：Vue3 + Vite 前端，源码集中在 `src/`，`public/` 为静态资源，`dist/` 存放构建结果并可被 `api/static/` 或 `desktop/` 引用。
+- `desktop/`：Electron 客户端入口为 `index.js`，配合 `electron-builder` 可打包 AppImage/DMG/NSIS。
+- `miniprogram/`、`docs/`、`database/` 与 `config/` 分别承载小程序壳、部署文档、SQL 脚本及全局 YAML 配置；`build/` 包含 Dockerfile、安装脚本。
 
-## Build Commands
+## 构建、测试与开发命令
+- `docker-compose up -d`：根目录拉起全部容器，需提前准备好 MySQL、Redis 与模型密钥。
+- `cd api && go run main.go`：本地热调试；`make amd64` / `make arm64` 生成无 CGO 二进制至 `api/bin/` 便于镜像打包。
+- `cd web && pnpm install && pnpm dev --host`：Vite 开发模式；`pnpm build` 产出静态文件；`pnpm lint` 运行 ESLint 自动修复。
+- `cd desktop && npm install && npm run start`：调试 Electron；`npm run package` 通过 electron-builder 生成多平台安装包。
 
-### Go Backend (api/)
-- **Development**: `cd api && go run main.go` (uses config.toml)
-- **Build**: `cd api && make` (builds both amd64 and arm64 binaries)
-- **Individual builds**: `make amd64` or `make arm64`
-- **Clean**: `make clean`
-- **Config**: Copy `config.sample.toml` to `config.toml` and configure
+## 编码风格与命名规范
+- Go 代码必须经过 `gofmt`/`goimports`，保持 tab 缩进与驼峰命名；HTTP 路由遵循 `/api/v1/resources` 模式，与 handler 函数命名 (`ResourceHandler`) 对应。
+- Vue 组件文件使用 PascalCase（如 `ChatPanel.vue`），Pinia store 与工具采用 kebab-case 文件名（如 `chat-session.ts`）；统一通过 ESLint、Tailwind 与 `postcss.config.js` 约束样式。
 
-### Web Frontend (web/)
-- **Development**: `cd web && npm run dev` (runs on Vite dev server with --host)
-- **Build**: `cd web && npm run build`
-- **Lint**: `cd web && npm run lint` (ESLint with auto-fix)
+## 测试指南
+- `cd api && go test ./... -race` 是最低要求，新增 service/handler 需补 `_test.go` 并用 mock 隔离第三方 API；涉及时序逻辑可新增 `Test*Integration` 验证。
+- 前端暂未启用单测框架，至少运行 `pnpm lint` 并在 PR 中附关键页面截图或录屏证明交互可用；桌面端如修改构建脚本，需在 macOS/Linux/Windows 中至少验证一个安装包。
 
-### Testing
-- Backend tests: `cd api/test && bash run_crawler_test.sh`
-- No specific frontend test configuration found
+## 提交与 Pull Request 规范
+- 参考历史记录（如“支持腾讯云短信服务”），提交信息使用中文动词开头、聚焦单一变更，并可加子系统前缀：`web: 优化聊天动画`。
+- PR 描述需包含变更背景、实现概述、验证方式（命令、截图或日志）与关联 issue/任务号；涉及配置或部署脚本，还要说明回滚流程并 @ 相关 reviewer。
 
-## Project Architecture
-
-### Backend (Go)
-- **Framework**: Gin web framework with dependency injection via uber-go/fx
-- **Database**: GORM with MySQL, Redis for caching, LevelDB for local storage
-- **Authentication**: JWT tokens with Redis session storage
-- **Middleware**: CORS, authorization, parameter handling, static resource serving
-- **Structure**:
-  - `handler/`: HTTP request handlers (REST API endpoints)
-  - `service/`: Business logic services (AI integrations, payments, etc.)
-  - `store/`: Database models and data access layer
-  - `core/`: Application server and middleware configuration
-  - `utils/`: Utility functions and helpers
-
-### Frontend (Vue.js)
-- **Framework**: Vue 3 with Composition API
-- **UI Components**: Element Plus + Vant (mobile components)
-- **State Management**: Pinia
-- **Routing**: Vue Router with nested routes
-- **Build Tool**: Vite
-- **CSS**: Stylus preprocessor with Tailwind CSS utilities
-- **Features**: Responsive design (desktop/mobile views), theme switching (dark/light)
-
-### Key Features
-- **AI Chat**: Multiple chat models and conversation management
-- **Image Generation**: MidJourney, Stable Diffusion, DALL-E integration
-- **Audio/Video**: Suno music creation, Luma/KeLing video generation
-- **User Management**: Authentication, payments, power logs, invitations
-- **Admin Panel**: Comprehensive management interface
-
-### Database Models
-Key entities: User, ChatItem, ChatMessage, ChatRole, ChatModel, Order, Product, AdminUser, and various job types for AI services.
-
-### API Structure
-- User APIs: `/api/user/*` (auth, profile, settings)
-- Chat APIs: `/api/chat/*` (conversations, messages)
-- AI Service APIs: `/api/mj/*`, `/api/sd/*`, `/api/dall/*`, `/api/suno/*`, `/api/video/*`
-- Admin APIs: `/api/admin/*` (management functions)
-
-### Configuration
-- Backend: TOML configuration file (`config.toml`)
-- Database: MySQL with automatic migrations
-- Services: Redis, various AI API integrations
-- File Storage: Local, Aliyun OSS, MinIO, Qiniu options
+## 安全与配置提示
+- 禁止提交真实密钥，请复制 `config.sample.toml` 或 `config/config.yaml` 生成私有文件，并用 `git update-index --skip-worktree` 忽略。
+- 对象存储、短信、支付等凭证统一放入 Vault 或 CI Secret，代码中仅引用占位常量；`docs/` 中同步记录新增敏感字段与启用步骤。
 
 ---
 > Source: [yangjian102621/geekai](https://github.com/yangjian102621/geekai) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-06-29 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
