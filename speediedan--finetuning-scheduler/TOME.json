@@ -1,0 +1,75 @@
+{
+  "name": "finetuning-scheduler",
+  "owner": "speediedan",
+  "repo": "finetuning-scheduler",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fts-development-branch-version-upgrade",
+      "path": ".github/skills/fts-development-branch-version-upgrade",
+      "github_url": "https://github.com/speediedan/finetuning-scheduler/tree/main/.github/skills/fts-development-branch-version-upgrade",
+      "description": ""
+    },
+    {
+      "name": "finetuning-scheduler",
+      "path": ".github/skills/fts-development-branch-version-upgrade/SKILL.md",
+      "github_url": "https://github.com/speediedan/finetuning-scheduler/tree/main/.github/skills/fts-development-branch-version-upgrade/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "finetuning-scheduler",
+      "path": ".claude/skills/gpu-lease/SKILL.md",
+      "github_url": "https://github.com/speediedan/finetuning-scheduler/tree/main/.claude/skills/gpu-lease/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "finetuning-scheduler",
+      "path": ".claude/skills/debug-remote-ci-failures/SKILL.md",
+      "github_url": "https://github.com/speediedan/finetuning-scheduler/tree/main/.claude/skills/debug-remote-ci-failures/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "finetuning-scheduler",
+      "path": ".claude/skills/fts-development-branch-version-upgrade/SKILL.md",
+      "github_url": "https://github.com/speediedan/finetuning-scheduler/tree/main/.claude/skills/fts-development-branch-version-upgrade/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/speediedan/finetuning-scheduler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T12:47:38Z"
+}
