@@ -1,0 +1,9 @@
+{
+  "name": "openwisp--django-rest-framework-gis",
+  "displayName": "django-rest-framework-gis",
+  "description": "django-rest-framework-gis",
+  "version": "1.0.0",
+  "author": "openwisp",
+  "homepage": "https://github.com/openwisp/django-rest-framework-gis",
+  "skills": []
+}
