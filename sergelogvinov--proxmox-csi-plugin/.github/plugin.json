@@ -1,0 +1,9 @@
+{
+  "name": "sergelogvinov--proxmox-csi-plugin",
+  "displayName": "proxmox-csi-plugin",
+  "description": "proxmox-csi-plugin",
+  "version": "1.0.0",
+  "author": "sergelogvinov",
+  "homepage": "https://github.com/sergelogvinov/proxmox-csi-plugin",
+  "skills": []
+}
