@@ -1,51 +1,26 @@
 ## iccdev
 
-> This file is a short navigation aid for automated coding agents and maintainers.
+> Google Gemini tooling (agents that load `GEMINI.md`) should treat `AGENTS.md` as
 
-# AGENTS.md -- iccDEV
+# GEMINI.md -- iccDEV
 
-This file is a short navigation aid for automated coding agents and maintainers.
-Detailed rules live in `.github/copilot-instructions.md` and
-`.github/instructions/*.instructions.md`.
+Google Gemini tooling (agents that load `GEMINI.md`) should treat `AGENTS.md` as
+the canonical agent-instruction file for this repository. This file is a thin
+mirror so Gemini engages the same unified instructions as every other agent.
 
-## Ground Rules
+GitHub Copilot recognizes `AGENTS.md`, `CLAUDE.md`, and `GEMINI.md` as
+equivalent agent-instruction files. To avoid drift, iccDEV keeps one source of
+truth in `AGENTS.md`; do not duplicate rules here.
 
-- Check `git --no-pager status --short --branch` before edits.
-- Prefer focused changes with exact repros and regression coverage.
-- Use 2-space C++ indentation, K&R braces, `m_` members, and return-value errors.
-- Exit 1-127 is graceful failure. Exit 128+ is signal termination.
-- Use sanitizer builds for bug hunting; see `.github/instructions/build-system.instructions.md`.
-- Add the nearest regression test for behavior fixes.
+## Read First
 
-## Navigation
+1. `AGENTS.md` -- ground rules and the navigation map.
+2. `.github/copilot-instructions.md` -- cross-cutting build, test, style, CI.
+3. `.github/instructions/*.instructions.md` -- path-specific rules that apply to
+   the files you touch (`applyTo` globs auto-load the right file).
 
-| Need | File |
-|------|------|
-| Build, test, style, CI | `.github/copilot-instructions.md` |
-| Regression bisect workflow | `.github/prompts/bisect-regression.prompt.md` |
-| Maintainer regression container | `docs/regression-container.md` |
-| Regression container prompt | `.github/prompts/regression-container-maintainer.prompt.md` |
-| Security repro | `.github/prompts/reproduce-security-issue.prompt.md` |
-| Issue filing format | `.github/prompts/file-security-issue.prompt.md` |
-| Library hardening | `.github/instructions/icc-library-code.instructions.md` |
-| Workflow hardening | `.github/instructions/workflow-governance.instructions.md` |
-| Maintainer label system | `docs/label-system.md` |
-| Label triage prompt | `.github/prompts/maintainer-label-triage.prompt.md` |
-| Testing details | `.github/instructions/testing.instructions.md` |
-| Python bindings | `.github/instructions/python-bindings.instructions.md` |
-| MATLAB MEX bindings | `.github/instructions/matlab-mex.instructions.md` |
-| Python binding tests | `.github/skills/python-bindings-test/SKILL.md` |
-| WASM build tests | `.github/skills/wasm-build-test/SKILL.md` |
-| MCP subprocess debug | `.github/prompts/debug-mcp-subprocess.prompt.md` |
-| Python/Cython debug | `.github/prompts/debug-python-bindings.prompt.md` |
-
-## WASM Scope
-
-WASM now ships as a staged Node/npm-style module package. Do not expect or
-restore legacy `wasm/*.html`, `wasm/*.css`, or `wasm/*.js` browser UI assets.
-Use `.github/skills/wasm-build-test/SKILL.md` for the current module smoke and
-profile parity checks.
+Reference: https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions
 
 ---
 > Source: [InternationalColorConsortium/iccDEV](https://github.com/InternationalColorConsortium/iccDEV) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-22 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
