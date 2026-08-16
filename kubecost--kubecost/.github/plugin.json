@@ -1,0 +1,9 @@
+{
+  "name": "kubecost--kubecost",
+  "displayName": "kubecost",
+  "description": "kubecost",
+  "version": "1.0.0",
+  "author": "kubecost",
+  "homepage": "https://github.com/kubecost/kubecost",
+  "skills": []
+}
