@@ -1,0 +1,9 @@
+{
+  "name": "wuguirongsg--coreldraw-mcp",
+  "displayName": "coreldraw-mcp",
+  "description": "Let AI drive CorelDRAW directly via the Model Context Protocol \u2014 automated design file generation at scale",
+  "version": "1.0.0",
+  "author": "wuguirongsg",
+  "homepage": "https://github.com/wuguirongsg/coreldraw-mcp",
+  "skills": []
+}
