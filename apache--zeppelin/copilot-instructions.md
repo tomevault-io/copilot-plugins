@@ -21,209 +21,186 @@ limitations under the License.
 
 # AGENTS.md
 
-> E2E (Playwright) conventions for `zeppelin-web-angular/e2e/`. A scoped companion
-> to the repository-root AGENTS.md, loaded only when working under `e2e/`.
-> See [AGENTS.md specification](https://github.com/agentsmd/agents.md).
+> Scoped guidance for work under `docs/`. This file complements the
+> repository-root `AGENTS.md`.
 
-Config: `zeppelin-web-angular/playwright.config.js` (Angular UI) and
-`playwright.classic.config.js` (legacy classic UI), sharing `playwright.shared.js`.
-This document is the shared source of truth for E2E conventions; Codex and
-agents.md-native tools read it directly.
-Claude Code / Gemini users can symlink `CLAUDE.md` / `GEMINI.md` to it locally
-(both gitignored, personal, not committed).
+## Scope And Ownership
 
-## Tooling: Use e2e-skills
+- `docs/` is the source for Apache Zeppelin's versioned product documentation.
+- The main `zeppelin.apache.org` website is maintained in
+  `apache/zeppelin-site`; its homepage does not need to use the same generator
+  as these versioned docs.
+- Markdown, layouts, includes, and assets in this directory are built here.
+  The generated site is written to `docs/_site/`.
+- `docs/_site/` is generated and gitignored. Never edit or commit it.
 
-Generate, review, and debug with [e2e-skills](https://github.com/voidmatcha/e2e-skills)
-instead of ad-hoc prompts. It encodes the rules below and adds a deterministic
-silent-pass scanner.
+## Build Model
+
+The current build is:
+
+```text
+docs sources + docs/_config.yml
+  -> Jekyll from docs/Gemfile.lock
+  -> docs/_site/
+  -> zeppelin-site/docs/<version>/ during a separate publication step
+```
+
+- `Gemfile` declares Jekyll and its documentation build dependencies.
+- `Gemfile.lock` pins the actual Ruby dependency versions. The Docker commands
+  use `bundle exec` so the pinned Jekyll version is used.
+- `_config.yml` supplies `ZEPPELIN_VERSION` and `JB.BASE_PATH`.
+- `_includes/JB/setup` applies `JB.BASE_PATH` only for a safe build. Therefore
+  a publication build must include `--safe`.
+- `Rakefile` contains legacy Jekyll-Bootstrap helpers. It is not the primary
+  build entry point; use the Docker commands below.
+- The Maven build does not generate this site.
+- Docker is the supported build environment. Do not install or run Ruby,
+  Bundler, or Jekyll directly on the host.
+
+## Preview And Build
+
+Preview with Docker:
 
 ```bash
-npx skills add voidmatcha/e2e-skills -g --all   # or -a <agent>
+cd docs
+docker run --rm -it \
+  --user "$(id -u):$(id -g)" \
+  -e HOME=/usr/local/bundle \
+  -e BUNDLE_FROZEN=true \
+  -v "$PWD:/docs" \
+  -w /docs \
+  -p '4000:4000' \
+  ruby:4.0.6 \
+  bash -lc "bundle install && bundle exec jekyll serve --watch --host 0.0.0.0"
 ```
 
-| Task | Skill |
-| --- | --- |
-| Generate new Playwright coverage | `playwright-test-generator` |
-| Review specs for silent-pass smells | `e2e-reviewer` |
-| Debug a failed Playwright report | `playwright-debugger` |
-| Deterministic local scan | `bash skills/e2e-reviewer/scripts/scan.sh e2e/` |
+Open `http://localhost:4000`. The preview intentionally runs without
+`--safe`, so links are rooted at `/` instead of the production version path.
+The container uses the current user's UID and GID so generated files remain
+owned by that user on the host. The Ruby image's writable gem directory is
+also used as the container home for that user.
 
-Always run `e2e-reviewer` on generated specs. It catches always-passing
-assertions (`toBeDefined()`, `not.toBeNull()`) that pass while the feature is broken.
+Build the publication artifact with Docker:
 
-## Layout
-
-- Specs: `e2e/tests/<area>/<feature>.spec.ts` (areas: `authentication`, `home`,
-  `login`, `notebook`, `share`, `theme`, `workspace`).
-- Page Objects (POM), split by role:
-  - `e2e/models/<name>.ts`: locators + primitive actions (click, fill, navigate, simple state checks).
-  - `e2e/models/<name>.util.ts`: workflows, composite verification, scenario helpers.
-- Shared helpers: `e2e/utils.ts`.
-
-## Style
-
-- English only. No unnecessary comments.
-- BDD via `test.step('Given/When/Then …', …)`, as in existing specs.
-- One `test.describe` per feature; construct the POM in `beforeEach`.
-
-## Locators
-
-Prefer user-facing, in this order:
-
-1. `getByRole('button' | 'link' | 'textbox', { name })`, `getByLabel`, `getByText`.
-2. Last resort: `data-testid` (attribute selector) when a role/label is unavailable
-   and a CSS chain would be brittle.
-3. Forbidden: raw CSS chains and XPath.
-
-## Assertions
-
-- Web-first, auto-waiting assertions only: `toBeVisible`, `toHaveURL`,
-  `toHaveText`, `toHaveCount`.
-- No `waitForTimeout`. When waiting on a count, use `toHaveCount`.
-- No one-shot boolean checks (`expect(await el.isVisible())`) and no
-  always-true assertions (`toBeDefined`, `not.toBeNull`).
-
-## Readiness & Auth
-
-- After navigation, wait with `waitForZeppelinReady(page)` from `e2e/utils.ts`
-  (not fixed sleeps).
-- Auth is programmatic: the `setup` project logs in once and writes
-  `playwright/.auth/user.json`; browser projects consume it via `storageState`.
-  Do not add per-test login races. For logged-out scenarios use a fresh context.
-
-## Coverage Annotation (Required)
-
-Every `describe` must declare the page/component it exercises so coverage is
-attributed:
-
-```ts
-import { addPageAnnotationBeforeEach, PAGES } from '../../utils';
-
-test.describe('Home Page - Core Elements', () => {
-  addPageAnnotationBeforeEach(PAGES.WORKSPACE.HOME);
-  // …
-});
+```bash
+cd docs
+docker run --rm \
+  --user "$(id -u):$(id -g)" \
+  -e HOME=/usr/local/bundle \
+  -e BUNDLE_FROZEN=true \
+  -v "$PWD:/docs" \
+  -w /docs \
+  ruby:4.0.6 \
+  bash -lc "bundle install && bundle exec jekyll build --safe"
 ```
 
-Use an existing key from the `PAGES` object in `e2e/utils.ts`; add a new one
-there if the page is missing. `PAGES` is also the coverage-instrumentation set
-(`getCoverageTransformPaths`), so it defines the coverage denominator. Purely
-structural / non-page components (lifecycle hooks, shared UI primitives like the
-spinner or resize handle) are intentionally omitted from `PAGES`. They are
-exercised transitively and are not counted.
+The output must be under `_site/`, and generated links and assets must use the
+`JB.BASE_PATH` configured in `_config.yml`.
 
-## Running
+When `Gemfile` changes, update `Gemfile.lock` inside Docker:
 
-- Node: `nvm use` (pinned in `.nvmrc`, currently 22.21.1).
-- Dev server: `npm run start` at `http://localhost:4200` (Playwright reuses a
-  running one via `webServer.reuseExistingServer`).
+```bash
+cd docs
+docker run --rm \
+  --user "$(id -u):$(id -g)" \
+  -e HOME=/usr/local/bundle \
+  -v "$PWD:/docs" \
+  -w /docs \
+  ruby:4.0.6 \
+  bundle lock --update
+```
 
-| Command | Purpose |
-| --- | --- |
-| `npm run e2e` | Full suite |
-| `npm run e2e:fast` | Chromium only (fast) |
-| `npm run e2e:classic` | Classic `/classic` UI suite against `:8080` (needs `-Pweb-classic`) |
-| `npm run e2e:ui` | Playwright Test UI |
-| `npm run e2e:headed` | Headed run |
-| `npm run e2e:debug` | Step-by-step debugger |
-| `npm run e2e:report` | Open last HTML report |
-| `npm run e2e:report:classic` | Open last classic HTML report |
-| `npm run e2e:ci` | CI mode (`CI=true`, baseURL `:8080`), main then classic suite |
-| `npm run e2e:codegen` | Record against `:4200` |
-| `npm run e2e:cleanup` | Delete leftover test notebooks (`e2e/cleanup-util.ts`) |
+Run the publication build after updating the lockfile.
 
-## Adding a Test (Agents Start Here)
+## Authoring Conventions
 
-1. Pick/confirm the target route and the `PAGES` key.
-2. Copy the shape of an existing spec in the same `<area>`; reuse or extend the
-   matching POM (`models/<name>.ts` + `.util.ts`). Do not inline selectors the
-   POM already owns.
-3. Annotate the page (`addPageAnnotationBeforeEach`), navigate, then
-   `waitForZeppelinReady`.
-4. Run `npm run e2e:fast` and iterate until green; then run `e2e-reviewer`.
+- Preserve the ASF license header in every new source file.
+- Follow the front matter used by nearby pages:
 
-## Migration (Angular to React Microfrontend)
+  ```yaml
+  ---
+  layout: page
+  title: "Page title"
+  description: "Short description"
+  group: section/subsection
+  ---
+  ```
 
-Pages are moving from Angular to React fragments incrementally. Today this is
-narrow: the published paragraph route reads a `?react=true` flag
-(`published/paragraph/paragraph.component`), and the notebook footer swaps via a
-`?reactFooter=true` flag (read into the notebook component's `useReactFooter`
-input). Both are query params inside the hash. There is no app-wide "flip this
-route to React" flag, and
-no cross-framework parity project in this config. Write specs so they survive a
-route being reimplemented, but do not build parity infrastructure ahead of need.
+- Include `{% include JB/setup %}` before page content when following the
+  existing page layout.
+- Prefix internal site links and assets with `{{BASE_PATH}}` when an absolute
+  site path is needed. Production docs are hosted below `/docs/<version>/`,
+  not at the domain root.
+- Update `_includes/themes/zeppelin/_navigation.html` when a page must appear
+  in the global documentation navigation.
+- Keep filenames, headings, and link targets stable unless the task explicitly
+  includes redirects or link migration.
+- Check the corresponding source code or configuration template when
+  documenting runtime behavior. Do not infer current behavior from an older
+  documentation page.
 
-### Write Framework-Neutral Specs
+## Version Handling
 
-- Assert observable behavior only: what the user sees, the URL, network effects.
-  Avoid asserting framework internals (`[ng-version]`, Angular component classes,
-  `zeppelin-*` custom-element tags) except in a deliberate feature-flag test.
-- Keep the locator order from the Locators section (role/label/text first). At a
-  seam that will flip frameworks, prefer a shared `data-testid` that both
-  implementations render.
-- Never use fixed waits at a fragment seam. Wait on a user-visible post-mount
-  signal or the specific remote response (`page.waitForResponse` on the fragment
-  chunk), then assert the rendered result. `react-footer.spec.ts` shows the
-  fallback pattern (`page.route('**/remoteEntry.js', route => route.abort())`).
+- `ZEPPELIN_VERSION` and `JB.BASE_PATH` in `_config.yml` must identify the same
+  version.
+- `dev/change_zeppelin_version.sh` updates both values as part of a repository
+  version change. Do not change them for an ordinary documentation edit.
+- Before producing release docs, verify that `JB.BASE_PATH` is exactly
+  `/docs/<release-version>`.
 
-### When a Route Gains a React Flag
+## Publication Boundary
 
-- The flag is a route query param read via `ActivatedRoute.queryParams`, so with
-  the hash router it goes INSIDE the hash: `/#/notebook/<id>/paragraph/<id>?react=true`,
-  not before the `#`. Popups opened by app code (`window.open`) will not carry a
-  flag added only to `page.goto`.
-- To exercise both frameworks, follow the existing precedent and toggle the flag
-  in-spec: navigate the same spec with and without the flag across tests, as
-  `published-paragraph.spec.ts` does. A separate flag-appending Playwright project
-  is an alternative, but scope it (its own `testMatch`) to routes that read the
-  flag rather than running the whole suite twice.
+- Building this directory does not publish the website.
+- The generated `_site/` tree is copied into
+  `apache/zeppelin-site/docs/<version>/` by separate release/site work.
+- The `zeppelin-site` repository owns the homepage, ASF staging/publishing,
+  and the mapping or redirect for `/docs/latest/`.
+- Do not modify `zeppelin-site`, historical documentation snapshots, or
+  publication branches unless the user explicitly includes that work.
 
-### Coverage
+## ASF Website Policy
 
-- Coverage is tracked by `PAGES` key, not source file. The key is the stable
-  identity; the path behind it is an implementation detail. When a page moves to
-  React, update its path in `PAGES` rather than deleting the key (deleting drops
-  it from the coverage denominator). Specs keep the same
-  `addPageAnnotationBeforeEach(PAGES.KEY)` call across the migration.
+- Follow the ASF project website policy at
+  `https://privacy.apache.org/policies/website-policy.html` and the Infra CSP
+  guidance at `https://infra.apache.org/csp.html`.
+- Do not add Google Analytics or any other third-party analytics, tracker,
+  tracking pixel, advertising tag, or external monitoring script.
+- Do not load JavaScript, CSS, fonts, images, or other assets from non-ASF
+  domains. Host an asset in this repository when its license permits, or use a
+  normal external link instead of embedding it.
+- Third-party embeds require the consent and DPA handling described by the ASF
+  policy. Prefer a direct link unless the task explicitly includes an approved
+  consent flow.
+- The production layout uses the ASF-hosted Matomo instance provisioned for
+  Apache Zeppelin as site ID `69`. Do not replace it with another analytics
+  service or change its endpoint without Privacy team approval.
 
-### Suite Shape
+## Verification
 
-- Keep the composed suite focused on real cross-seam user flows. Behavior that
-  lives entirely inside one fragment belongs in that fragment's own tests; do not
-  grow the composed suite into a per-fragment unit suite.
+For every documentation change:
 
-## Classic UI Tests (`e2e/tests/classic/`)
+1. Run the Docker publication build above from `docs/`.
+2. Confirm `_site/index.html` and the generated file for each changed page
+   exist.
+3. Check generated navigation, links, images, and code blocks for the affected
+   pages.
+4. Confirm generated URLs use the configured `/docs/<version>/` prefix.
+5. Check the generated site for external trackers and embedded resources:
 
-`e2e/tests/classic/` runs Playwright against the legacy AngularJS app served at
-`/classic`, ported from the retired `zeppelin-web` Protractor suite. Treat it as
-a frozen legacy surface: keep it at parity coverage and test new features only in
-the Angular/React suites.
+   ```bash
+   docker run --rm \
+     -v "$PWD:/docs:ro" \
+     -w /docs \
+     ruby:4.0.6 \
+     ruby check_external_resources.rb _site
+   ```
 
-- **Locators (classic exception):** the classic templates predate roles and
-  `data-testid`, so the role/label/text-first rule cannot apply. Sanctioned here:
-  element ids (`#findInput`), `ng-click="..."` / `ng-controller="..."` attribute
-  selectors, class selectors the legacy templates already expose (`.username`,
-  `.interpreterHead`), and Ace/Select2 internals. Do not add `data-testid` to the
-  frozen `zeppelin-web` sources.
-- **Readiness:** `waitForZeppelinReady` is Angular-specific (`[ng-version]`) and
-  does not resolve on `/classic`; gate on a classic-visible signal instead (e.g.
-  the first `ParagraphCtrl` paragraph, or `.ace_text-input` attached).
-- **Coverage:** `PAGES` is the Angular coverage denominator; classic pages are
-  intentionally outside it, so `addPageAnnotationBeforeEach` is not used here.
-- **Running:** the classic suite has its own config, `playwright.classic.config.js`
-  (Desktop Chrome only, targets `http://localhost:8080`), and needs a Zeppelin
-  server built with `-Pweb-classic` — the `:4200` dev server does not serve
-  `/classic`, so a plain `npm run e2e` never includes it. Run it with
-  `npm run e2e:classic` (single spec: `npm run e2e:classic -- tests/classic/<spec>`).
-  In CI the workflow enables it on the anonymous matrix leg only
-  (`-Dweb.e2e.classic.disabled=false`), matching the anonymous-only legacy
-  Protractor suite.
-- **POM:** inlining locators/helpers is acceptable while the suite is this small;
-  if it grows, move them behind `models/classic-*.ts` / `*.util.ts`.
-- The React-migration / framework-neutral-spec guidance does not apply to
-  `tests/classic/`.
+6. Run `git status --short` and keep `_site/` and incidental dependency changes
+   out of the commit.
+
+For navigation, layout, CSS, or JavaScript changes, also run the preview server
+and inspect the affected pages at desktop and narrow viewport widths.
 
 ---
 > Source: [apache/zeppelin](https://github.com/apache/zeppelin) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-25 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
