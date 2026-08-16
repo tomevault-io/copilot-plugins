@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [typst/packages](https://github.com/typst/packag
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [typst/packages](https://github.com/typst/packages) — a repo with 998+ stars on GitHub.
+From [typst/packages](https://github.com/typst/packages) — a repo with 1015+ stars on GitHub.
 
 ---
 
