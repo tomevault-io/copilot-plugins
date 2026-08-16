@@ -1,0 +1,99 @@
+{
+  "name": "clabernetes",
+  "owner": "srl-labs",
+  "repo": "clabernetes",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "clabernetes",
+      "path": ".agents/skills/openspec-explore/SKILL.md",
+      "github_url": "https://github.com/srl-labs/clabernetes/tree/main/.agents/skills/openspec-explore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clabernetes",
+      "path": ".agents/skills/openspec-propose/SKILL.md",
+      "github_url": "https://github.com/srl-labs/clabernetes/tree/main/.agents/skills/openspec-propose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clabernetes",
+      "path": ".agents/skills/karpathy-guidelines/SKILL.md",
+      "github_url": "https://github.com/srl-labs/clabernetes/tree/main/.agents/skills/karpathy-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clabernetes",
+      "path": ".agents/skills/openspec-sync-specs/SKILL.md",
+      "github_url": "https://github.com/srl-labs/clabernetes/tree/main/.agents/skills/openspec-sync-specs/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clabernetes",
+      "path": ".agents/skills/openspec-apply-change/SKILL.md",
+      "github_url": "https://github.com/srl-labs/clabernetes/tree/main/.agents/skills/openspec-apply-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clabernetes",
+      "path": ".agents/skills/openspec-update-change/SKILL.md",
+      "github_url": "https://github.com/srl-labs/clabernetes/tree/main/.agents/skills/openspec-update-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clabernetes",
+      "path": ".agents/skills/test-fumadocs-wrangler/SKILL.md",
+      "github_url": "https://github.com/srl-labs/clabernetes/tree/main/.agents/skills/test-fumadocs-wrangler/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clabernetes",
+      "path": ".agents/skills/openspec-archive-change/SKILL.md",
+      "github_url": "https://github.com/srl-labs/clabernetes/tree/main/.agents/skills/openspec-archive-change/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "clabernetes",
+      "path": ".agents/skills/openspec-continue-change/SKILL.md",
+      "github_url": "https://github.com/srl-labs/clabernetes/tree/main/.agents/skills/openspec-continue-change/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/srl-labs/clabernetes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T13:01:21Z"
+}
