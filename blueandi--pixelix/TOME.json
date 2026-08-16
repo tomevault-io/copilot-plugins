@@ -1,0 +1,87 @@
+{
+  "name": "Pixelix",
+  "owner": "BlueAndi",
+  "repo": "Pixelix",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Pixelix",
+      "path": ".claude/skills/html5-reference/SKILL.md",
+      "github_url": "https://github.com/BlueAndi/Pixelix/tree/main/.claude/skills/html5-reference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Pixelix",
+      "path": ".claude/skills/bootstrap-reference/SKILL.md",
+      "github_url": "https://github.com/BlueAndi/Pixelix/tree/main/.claude/skills/bootstrap-reference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Pixelix",
+      "path": ".claude/skills/javascript-reference/SKILL.md",
+      "github_url": "https://github.com/BlueAndi/Pixelix/tree/main/.claude/skills/javascript-reference/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Pixelix",
+      "path": ".github/skills/openapi-spec/SKILL.md",
+      "github_url": "https://github.com/BlueAndi/Pixelix/tree/main/.github/skills/openapi-spec/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Pixelix",
+      "path": ".github/skills/plantuml-diagrams/SKILL.md",
+      "github_url": "https://github.com/BlueAndi/Pixelix/tree/main/.github/skills/plantuml-diagrams/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Pixelix",
+      "path": ".github/skills/openscad-mechanical/SKILL.md",
+      "github_url": "https://github.com/BlueAndi/Pixelix/tree/main/.github/skills/openscad-mechanical/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "Pixelix",
+      "path": ".github/skills/embedded-cpp14-misra/SKILL.md",
+      "github_url": "https://github.com/BlueAndi/Pixelix/tree/main/.github/skills/embedded-cpp14-misra/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/BlueAndi/Pixelix",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T12:55:05Z"
+}
