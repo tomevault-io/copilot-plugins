@@ -1,7 +1,7 @@
 {
   "name": "posit-dev--shinychat",
   "displayName": "shinychat",
-  "description": "Chat UI component for Shiny",
+  "description": "shinychat",
   "version": "1.0.0",
   "author": "posit-dev",
   "homepage": "https://github.com/posit-dev/shinychat",
