@@ -4,7 +4,7 @@
   "repo": "osmedeus",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/j3ssie/osmedeus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-06-29T19:14:40Z"
+  "distributed_at": "2026-08-16T11:28:41Z"
 }
