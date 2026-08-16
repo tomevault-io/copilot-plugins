@@ -1,32 +1,35 @@
-## git-flow
+## performance
 
-> Branching, commits and PR hygiene. Always applies.
+> Navigation, caching and PWA contract
 
 
-# Git Flow
+# Performance and navigation
 
-Full guide: `docs/guides/git-flow.md`.
+Detail: `docs/architecture.md` §7.
 
-| Branch | Role |
-|--------|------|
-| `main` | Production |
-| `develop` | Integration |
-| `feat/*` `fix/*` `chore/*` `refactor/*` `docs/*` | Work |
+## Required
 
-1. **Never** commit or push directly to `main` or `develop` (the release bot is
-   the only exception).
-2. Branch from an up-to-date `develop`. PRs target `develop`; a release is a
-   `develop` → `main` PR.
-3. A hotfix may branch from `main` when it is genuinely urgent; sync it back to
-   `develop` immediately.
-4. Delete the branch after merge, then `git fetch --prune`. Never reuse a
-   merged branch.
-5. No force-push to `main` or `develop`.
-6. **Commit only when the user asks.**
-7. Conventional Commits (`feat:`, `fix:`, `chore:` …) — enforced by commitlint
-   in the `commit-msg` hook.
-8. Classify first; follow `docs/guides/new-feature.md`, `bugfix.md`,
-   `refactor.md` or `chore.md`. Do not mix intents on one branch.
+1. Soft navigation only. The shell in `(app)/layout.tsx` is persistent; a full
+   page reload during an authenticated session is a bug.
+2. Every `(app)` segment ships a `loading.tsx` built on `PageSkeleton`.
+3. `experimental.staleTimes.dynamic: 0`. Perceived speed comes from skeletons
+   and prefetch, not from showing data captured before the last mutation.
+4. Nav destinations live in `nav-config.ts` so idle prefetch covers them.
+5. After a mutation, use `refreshAfterMutation` / `navigateAndRefresh` from
+   `src/lib/navigation.ts`. A plain `router.push` can land on a Client Router
+   Cache entry captured before the write.
+6. Authenticated routes are `private, no-store` — add the prefix to
+   `PRIVATE_ROUTE_PREFIXES` in `next.config.ts`.
+
+## Forbidden
+
+- Cross-request caching of tenant data (balances, membership, anything
+  per-user).
+- A service worker that caches HTML or `/api/*`. Static assets under
+  `/_next/static/*` only — they are content-hashed and immutable.
+- Offline UI that displays stale authoritative data. Users trust what they see;
+  a stale number is worse than no number.
+- Relaxing `staleTimes.dynamic` to make a page feel faster.
 
 ---
 > Source: [krivoox/agent-stack-template](https://github.com/krivoox/agent-stack-template) — distributed by [TomeVault](https://tomevault.io).
