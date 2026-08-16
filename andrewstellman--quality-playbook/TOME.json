@@ -2,9 +2,9 @@
   "name": "quality-playbook",
   "owner": "andrewstellman",
   "repo": "quality-playbook",
-  "description": "The Quality Playbook is an open-source skill that turns AI coding agents into rigorous quality engineers. Point it at your code, in any language. Feed it whatever docs you have: READMEs, GitHub issues, Discord threads, AI chat history. It figures out your intent, creates a real requirements spec, and does quality engineering to find real defects.",
+  "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/andrewstellman/quality-playbook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T00:45:29Z"
+  "distributed_at": "2026-08-16T13:46:04Z"
 }
