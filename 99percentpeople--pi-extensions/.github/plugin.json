@@ -1,0 +1,9 @@
+{
+  "name": "99percentpeople--pi-extensions",
+  "displayName": "pi-extensions",
+  "description": "TypeScript extensions for Pi: background tasks, interactive PTYs, PowerShell support, and atomic todo planning.",
+  "version": "1.0.0",
+  "author": "99percentpeople",
+  "homepage": "https://github.com/99percentpeople/pi-extensions",
+  "skills": []
+}
