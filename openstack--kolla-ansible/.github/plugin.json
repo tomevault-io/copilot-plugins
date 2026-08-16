@@ -1,0 +1,9 @@
+{
+  "name": "openstack--kolla-ansible",
+  "displayName": "kolla-ansible",
+  "description": "kolla-ansible",
+  "version": "1.0.0",
+  "author": "openstack",
+  "homepage": "https://github.com/openstack/kolla-ansible",
+  "skills": []
+}
