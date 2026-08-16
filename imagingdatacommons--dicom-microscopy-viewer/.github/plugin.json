@@ -1,0 +1,9 @@
+{
+  "name": "imagingdatacommons--dicom-microscopy-viewer",
+  "displayName": "dicom-microscopy-viewer",
+  "description": "dicom-microscopy-viewer",
+  "version": "1.0.0",
+  "author": "ImagingDataCommons",
+  "homepage": "https://github.com/ImagingDataCommons/dicom-microscopy-viewer",
+  "skills": []
+}
