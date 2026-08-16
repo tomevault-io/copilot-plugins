@@ -1,0 +1,9 @@
+{
+  "name": "nanguoyu--minirun-app",
+  "displayName": "minirun-app",
+  "description": "Run models larger than memory. Weights stream from your SSD through a memory budget you set. Free, local, on Mac and iPhone. ",
+  "version": "1.0.0",
+  "author": "nanguoyu",
+  "homepage": "https://github.com/nanguoyu/minirun-app",
+  "skills": []
+}
