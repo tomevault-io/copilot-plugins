@@ -1,310 +1,204 @@
 ## rewrite
 
-> This file provides guidance to Claude Code when working with the OpenRewrite TypeScript implementation.
-
-# CLAUDE.md
-
-This file provides guidance to Claude Code when working with the OpenRewrite TypeScript implementation.
-
-## Module Overview
-
-TypeScript implementation of OpenRewrite for JavaScript/TypeScript source code transformations, plus JSON and YAML support. Includes parsers, AST models, visitors, printers, and an RPC bridge for Java communication.
-
-Self-contained Node.js project, separate from the Java monorepo build system.
-
-## Project Setup
-
-From `rewrite-javascript/rewrite/`:
-```bash
-npm install
-```
-
-Via Gradle (from repo root):
-```bash
-./gradlew :rewrite-javascript:npmInstall
-./gradlew :rewrite-javascript:npm_test
-./gradlew :rewrite-javascript:npm_run_build
-```
-
-Requires Node.js 18+.
-
-## Running Tests
-
-```bash
-# Full suite (typecheck + build + test)
-npm test
-
-# Fast iteration (skip typecheck)
-npm run testhelper
-
-# Type-checking only
-npm run typecheck
-
-# Individual test file
-npm run testhelper -- test/javascript/recipes/order-imports.test.ts
-```
-
-Available npm scripts: `prebuild`, `build`, `postbuild`, `typecheck`, `dev`, `test`, `testhelper`, `build:fixtures`, `ci:test`, `start`.
-
-### Java RPC Integration Tests
-
-Tests under `test/rpc/` that exercise real Java recipes spawn `org.openrewrite.maven.rpc.JavaRewriteRpc` via `JavaRpcTestServer` (see `src/rpc/java-rpc-client.ts`). They need a classpath file generated from the Java side:
-
-```bash
-# From repo root
-./gradlew :rewrite-javascript:generateTestClasspath
-```
-
-This writes `rewrite-javascript/rewrite/test-classpath.txt` (gitignored). Alternatively set `REWRITE_JAVASCRIPT_CLASSPATH` to override. Tests in `test/rpc/java-recipe-via-rpc.test.ts` skip cleanly with a one-line warning when neither is configured.
-
-## Directory Structure
-
-```
-rewrite-javascript/rewrite/
-├── src/
-│   ├── index.ts                         # Main entry point / re-exports
-│   ├── tree.ts, visitor.ts, recipe.ts   # Core framework
-│   ├── markers.ts, execution.ts         # Metadata, execution context
-│   ├── print.ts, parser.ts              # Base printer, base parser
-│   ├── util.ts, uuid.ts                 # Utilities
-│   ├── java/                            # Java LST model
-│   │   ├── tree.ts                      # J namespace (Java AST)
-│   │   ├── visitor.ts                   # JavaVisitor
-│   │   ├── print.ts                     # Java-to-source printer
-│   │   ├── rpc.ts                       # RPC sender/receiver for Java
-│   │   └── type.ts, type-visitor.ts     # Java type system
-│   ├── javascript/                      # JavaScript/TypeScript
-│   │   ├── tree.ts                      # JS namespace (JavaScript AST)
-│   │   ├── visitor.ts                   # JavaScriptVisitor
-│   │   ├── print.ts                     # JS-to-source printer
-│   │   ├── parser.ts                    # JS/TS parser
-│   │   ├── rpc.ts                       # RPC sender/receiver for JS
-│   │   ├── assertions.ts               # Test helpers: typescript(), javascript(), jsx(), tsx(), packageJson()
-│   │   ├── add-import.ts, remove-import.ts  # Import manipulation
-│   │   ├── recipes/                     # Built-in recipes (order-imports, change-import, add-dependency, etc.)
-│   │   ├── format/                      # Formatting visitors
-│   │   ├── cleanup/                     # Cleanup recipes (add-parse-int-radix, prefer-optional-chain, etc.)
-│   │   ├── migrate/                     # Migration recipes (es6/, typescript/)
-│   │   ├── search/                      # Search patterns
-│   │   └── templating/                  # Template engine
-│   ├── json/                            # JSON support (tree, visitor, print, rpc, recipes)
-│   ├── yaml/                            # YAML support (tree, visitor, print, rpc, recipes)
-│   ├── search/                          # Cross-language search utilities
-│   ├── text/                            # Plain text support
-│   ├── rpc/                             # RPC infrastructure
-│   │   ├── queue.ts                     # Message queue
-│   │   ├── rewrite-rpc.ts              # Core RPC protocol
-│   │   ├── server.ts                    # RPC server
-│   │   ├── recipe.ts                    # Recipe RPC bridge
-│   │   ├── trace.ts                     # RPC tracing/debugging
-│   │   └── request/                     # Request types (parse, visit, get-object, etc.)
-│   └── test/                            # Testing infrastructure
-│       └── rewrite-test.ts              # RecipeSpec class, rewriteRun()
-├── test/                                # Vitest tests (mirrors src/ structure)
-│   ├── javascript/                      # JS/TS tests
-│   │   ├── recipes/                     # Recipe tests
-│   │   ├── fixtures/                    # Test npm projects
-│   │   ├── parser/, format/, cleanup/   # Category tests
-│   │   └── search/, templating/, migrate/
-│   ├── java/                            # Java model tests
-│   ├── json/, yaml/                     # JSON/YAML tests
-│   └── rpc/                             # RPC integration tests
-├── tsconfig.json
-├── vitest.config.mts
-└── package.json                         # name: @openrewrite/rewrite
-```
-
-## Development Patterns
-
-### Async Visitor Pattern
-
-**All visitor methods are async.** This supports the RPC nature of the framework.
-
-```typescript
-export class MyVisitor extends JavaScriptVisitor<ExecutionContext> {
-    protected async visitJsCompilationUnit(
-        cu: JS.CompilationUnit,
-        p: ExecutionContext
-    ): Promise<JS.CompilationUnit> {
-        // Transform and return
-        return cu;
-    }
-}
-```
-
-Hierarchy: `TreeVisitor` → `JavaVisitor` → `JavaScriptVisitor`
-
-### Immutability and Structural Sharing
-
-LST nodes are immutable. Use `updateIfChanged()` for single-field updates:
-
-```typescript
-const updated = updateIfChanged(node, 'field', newValue);
-```
-
-For multiple updates, use `produceAsync()` (Mutative-based draft mutations):
-```typescript
-import { produceAsync } from '../../visitor';
-
-const updated = await produceAsync(cu, async draft => {
-    draft.statements = newStatements;
-});
-```
-
-Note: The project uses [Mutative](https://github.com/unadlib/mutative) (not Immer) for immutable state management.
-
-### RPC Kind Constants
-
-LST nodes have a `kind` property that must exactly match Java FQN strings:
-
-```typescript
-// These must stay in sync with Java — any mismatch breaks RPC serialization
-CompilationUnit: "org.openrewrite.javascript.tree.JS$CompilationUnit"
-```
-
-## Recipe Pattern
-
-```typescript
-import { Recipe, ExecutionContext, TreeVisitor } from '../../';
-import { JavaScriptVisitor } from '../visitor';
-import { JS } from '../tree';
-
-export class MyRecipe extends Recipe {
-    readonly name = 'org.openrewrite.javascript.MyRecipe';
-    readonly displayName = 'My Recipe';
-    readonly description = 'Describes what this recipe does';
-
-    async editor(): Promise<TreeVisitor<any, ExecutionContext>> {
-        return new class extends JavaScriptVisitor<ExecutionContext> {
-            protected async visitJsCompilationUnit(cu: JS.CompilationUnit, p: ExecutionContext) {
-                return cu;
-            }
-        };
-    }
-}
-```
-
-## Test Pattern
-
-Tests use relative imports. Source spec factories (`typescript()`, `javascript()`, `jsx()`, `tsx()`, `packageJson()`) are in `src/javascript/assertions.ts`.
-
-```typescript
-import { RecipeSpec } from "../../../src/test";
-import { typescript } from "../../../src/javascript";
-import { OrderImports } from "../../../src/javascript/recipes/order-imports";
-
-describe('OrderImports', () => {
-    test('sorts imports', () =>
-        new RecipeSpec({ recipe: new OrderImports() }).rewriteRun(
-            typescript(
-                `import {z} from 'zebra';\nimport {a} from 'alpha';`,
-                `import {a} from 'alpha';\nimport {z} from 'zebra';`
-            )
-        )
-    );
-});
-```
-
-## RPC Sender/Receiver
-
-Each language module has `rpc.ts` with a Sender (visit tree → serialize to queue) and Receiver (read queue → reconstruct tree). These must stay aligned with each other AND with the Java equivalents. Any mismatch causes deadlocks or corrupted trees.
-
-## Debugging Tips
-
-### RPC Hangs
-1. Check that both Java and TypeScript RPC methods are implemented
-2. Verify Kind constants match between Java and TypeScript
-3. Use `vitest run --reporter=hanging-process` or `--test-timeout` to detect hanging tests
-4. Check `src/rpc/queue.ts` for deadlock in read/write operations
-
-### Type Checking
-Run `npm run typecheck` frequently to catch type mismatches early.
-
-<!-- prethink-context -->
-## Moderne Prethink Context
-
-This repository contains pre-analyzed context generated by [Moderne Prethink](https://docs.moderne.io/user-documentation/recipes/prethink). Prethink extracts structured knowledge from codebases to help you work more effectively. The context files in `.moderne/context/` contain analyzed information about this codebase.
-
-**IMPORTANT: Before exploring source code for architecture, dependency, or data flow questions:**
-1. ALWAYS check `.moderne/context/` files FIRST
-2. Do NOT perform broad codebase exploration (e.g., spawning Explore agents, searching multiple source files) unless CSV context is insufficient
-3. NEVER read entire CSV files - use SQL queries to retrieve only the rows you need
-
-**IMPORTANT: Prethink context is cheap to read — source code exploration is expensive. Always read MORE prethink context rather than less. The "do not explore broadly" rule applies to source code, NOT to prethink context files.**
-
-For cross-cutting questions (data flow, deletion, dependencies between services),
-ALWAYS query these context files in parallel on the first turn:
-- `architecture.md` — system diagram and component overview
-- `data-assets.csv` — entity fields and data model
-- `database-connections.csv` — which services own which tables
-- `service-endpoints.csv` — relevant API endpoints
-- `messaging-connections.csv` — Kafka/async event flows
-- `external-service-calls.csv` — cross-service HTTP calls
-
-Do NOT stop after reading a single context file when others are clearly relevant.
-
-### Available Context
-
-| Context | Description | Details |
-|---------|-------------|--------|
-| Architecture | FINOS CALM architecture diagram | [`architecture.md`](.moderne/context/architecture.md) |
-| Coding Conventions | Naming patterns, import organization, and coding style | [`coding-conventions.md`](.moderne/context/coding-conventions.md) |
-| Dependencies | Project dependencies including transitive dependencies | [`dependencies.md`](.moderne/context/dependencies.md) |
-| Error Handling | Exception handling strategies and logging patterns | [`error-handling.md`](.moderne/context/error-handling.md) |
-| Library Usage | How external libraries and frameworks are used | [`library-usage.md`](.moderne/context/library-usage.md) |
-| Method Quality Metrics | Per-method complexity and quality measurements | [`method-quality-metrics.md`](.moderne/context/method-quality-metrics.md) |
-| Test Quality | Test quality issues that may cause flakiness or silent failures | [`test-quality.md`](.moderne/context/test-quality.md) |
-| Token Estimates | Estimated input tokens for method comprehension | [`token-estimates.md`](.moderne/context/token-estimates.md) |
-
-### Querying Context Files
-
-For .md context files: Read the full file in a single view call. Never grep it progressively.
-
-For .csv context files: Query with DuckDB, SQLite, or grep (from most to least preference).
-
-Upfront parallel reads: At the start of any architecture question, read all relevant context files in parallel rather than discovering which ones matter through iteration.
-
-Use SQL to query CSV files efficiently. This returns only matching rows instead of loading entire files. Try these in order based on availability:
-
-#### Option 1: DuckDB (Preferred)
-DuckDB can query CSV files directly with no setup:
-
-```bash
-# Find all POST endpoints
-duckdb -c "SELECT * FROM '.moderne/context/service-endpoints.csv' WHERE \"HTTP method\" = 'POST'"
-
-# Find method descriptions containing a keyword
-duckdb -c "SELECT \"Class name\", Signature, Description FROM '.moderne/context/method-descriptions.csv' WHERE Description LIKE '%authentication%'"
-
-# Find tests for a specific class
-duckdb -c "SELECT \"Test method\", \"Test summary\" FROM '.moderne/context/test-mapping.csv' WHERE \"Implementation class\" LIKE '%OrderService%'"
-```
-
-#### Option 2: SQLite
-Import CSV into memory and query (available on most systems):
-
-```bash
-sqlite3 :memory: -cmd ".mode csv" -cmd ".import .moderne/context/service-endpoints.csv endpoints" \
-  "SELECT * FROM endpoints WHERE [HTTP method] = 'POST'"
-```
-
-#### Option 3: Grep (Last Resort)
-If SQL tools are unavailable, use grep. Note this loads more content into context:
-
-```bash
-grep -i "POST" .moderne/context/service-endpoints.csv
-```
-
-**Note:** Column names with spaces require quoting - use double quotes in DuckDB (`"HTTP method"`) or square brackets in SQLite (`[HTTP method]`).
-
-### Usage Pattern
-1. Read the `.md` file to understand the schema and available columns
-2. Query the `.csv` with DuckDB or SQLite to get only the rows you need
-3. Only explore source if the context doesn't answer the question
-
-When citing Moderne Prethink context, mention Moderne Prethink as the source (e.g., "Based on the architecture context from Moderne Prethink..." or "Based on the test coverage mapping from Prethink, this method is tested by...").
-<!-- /prethink-context -->
+> This module parses Ruby with **Prism**, run standalone: `RubyParser` hands the source
+
+# rewrite-ruby Guidelines
+
+## Parser front end
+
+This module parses Ruby with **Prism**, run standalone: `RubyParser` hands the source
+bytes to `org.ruby_lang.prism.wasm.Prism` with explicit `ParsingOptions` and loads the
+result with `Loader`. There is no `org.jruby.Ruby` runtime, and the dependencies are
+`prism-parser-api`/`prism-parser-wasm` directly, pinned to the versions JRuby 10.1.1.0
+ships.
+
+Compile against `org.ruby_lang.prism.*`. The same classes appear relocated as
+`org.jruby.internal.prism.*` inside `jruby-complete` — never depend on that jar.
+
+Three things shape `RubyParserVisitor`:
+
+- **Byte offsets.** Every Prism node carries `startOffset`/`length` as offsets into the
+  source *bytes*, while the LST and the printer work on the decoded `String`.
+  `PrismSource` owns both and translates between them; that translation is what makes
+  non-ASCII source round-trip. Use `prefix(node)` to consume up to a node's start — it
+  asserts the cursor landed exactly there, so a desync fails with file and offset
+  context instead of corrupting everything downstream.
+- **No comments, no token positions.** `ParseResult` has no comment array and the node
+  classes carry no `nameLoc`/`operatorLoc`/`openingLoc`, so whitespace, comments and
+  keywords are still re-lexed from the source with a linear `int cursor`. Node offsets
+  anchor that scanning; `peekWhitespace` survives only for genuinely optional tokens
+  (`then`, `do`, trailing commas).
+- **Heredocs live outside their node's span.** A heredoc node covers only its `<<~ID`
+  opener. Openers are queued as they are seen and their bodies are claimed the first
+  time the cursor crosses a newline, then folded into the tree by a final pass keyed by
+  node id. A body only closes on a line holding nothing but the terminator — indented
+  only for `<<~`/`<<-`, at column 0 for a plain `<<ID`. `Rb.Heredoc` keeps the opener and
+  the terminator as their own fields, and the printer replays the body at the first
+  newline it emits after the opener, so no recipe that rewrites whitespace can strand it.
+
+Three Prism behaviors worth knowing: `partialScript` is on so that fragments with a
+top-level `next`/`break`/`return` parse, `mainScript` is off so that a shebang naming
+something other than ruby is just a comment, and Prism will not close a heredoc whose
+terminator ends the file without a trailing newline, so it is always handed a
+newline-terminated copy of the bytes.
+
+Prism models no location for several tokens the printer has to put back, and in each
+case the source is read at a node offset rather than guessed:
+
+- **Brackets, parentheses and their absence.** An array literal and an implicit array
+  (`a, b = 1, 2`) share one node type, as do a parenthesized target list and a bare
+  one; they are told apart by the gap the delimiter leaves between the node's own start
+  and its first element. A parameter or argument list is written on the same line as
+  the name it follows, so a `(` opening the next line is a grouped expression.
+- **Operators and index calls.** `a.+(b)` and `x&.[](i)` are ordinary calls that share
+  a node with `a + b` and `x[i]`; what the source writes after the receiver decides.
+- **The `=` of an endless method**, found by peeking past the parameter list.
+- **The `begin` keyword.** The implicit begin of a `def`, block or class body spans the
+  whole construct, so only a node starting at the cursor has a `begin` of its own.
+
+Ruby syntax the visitor has not been taught reaches `defaultVisit`, which throws with
+the Prism node name. There are no known gaps: every file that is Ruby in the redmine and
+dependabot-core corpora parses. `README.md` has the full inventory of what maps where.
+
+`RubyCorpusTest` measures where a new gap would bite. It is skipped unless
+`-Druby.corpus.dir=<dir>` is set, and prints a parse rate plus a histogram of failure
+causes; alongside its report it writes `<report>.failures` (one `cause<TAB>path` line
+per file) and `<report>.messages` (the full message per file), since the histogram
+keeps only one sample per cause.
+
+## Mapping notes
+
+**`;` is a statement separator, and lives on the statement it follows.** A `;` after a
+statement is the existing `org.openrewrite.java.marker.Semicolon` marker on that
+statement's `JRightPadded`, whose suffix holds the space in front of it — the same
+place Java puts it, and the only place that prints in the right order. A `;` with
+nothing in front of it (`def x; end`, `if c; body end`, the second `;` of `a;;b`) is a
+`J.Empty` statement carrying the same marker, so the statement list still accounts for
+every byte and recipes see a real element rather than a hidden one. `bodyStatement`
+therefore keeps a `J.Block` whenever a separator is present instead of collapsing to
+the sole statement.
+
+**An endless method body is a `J.Block` marked `OmitBraces`** holding one statement:
+the block prefix is the space before the `=`, the statement prefix the space after it.
+`rewrite-scala` prints `def f = expr` the same way.
+
+**A nested destructuring target is `J.Parentheses` around a bracket-less `Rb.Array`**,
+which is the same shape as the top-level target list of `Rb.MultipleAssignment`. `for`
+loops instead spread their targets across the names of one `J.VariableDeclarations`,
+which is what `J.ForEachLoop.Control` can hold.
+
+**A pattern is an expression, and its decorations are types rather than markers.**
+`in Integer => n` is `Rb.PatternBinding` (not `Rb.RightwardAssignment`, which spells the
+same token with the operands the other way round), `in a | b` is
+`Rb.Binary.Type.PatternOr` (not `J.Binary.Type.Or`, which prints `||`), `in ^x` is
+`Rb.Unary.Type.Pin` — whose parenthesized form `^(n + 2)` keeps a `J.Parentheses` operand,
+since Prism models no node for those parentheses. A guard is `Rb.PatternGuard` standing in
+the `J.Case` expression container, because `J.Case` has no guard slot; it carries the
+existing `Unless` marker for `in [x] unless c`. `Rb.Unary.getType()` is
+operator-dependent: `defined?` is always boolean, a pin is whatever it pins.
+
+**An implicit block parameter writes nothing, so it holds nothing.** A block or lambda
+using `_1`/`_2` or `it` gets a Prism parameters node spanning the whole block; `Rb.Block`
+keeps `parameters == null` for those and the body refers to the names as ordinary
+`J.Identifier`s. `writesParameters` is the guard, and both `visitBlockNode` and
+`visitLambdaNode` need it. RSpec's `it "..." do ... end` is unaffected: it is a
+`J.MethodInvocation` named `it`, not an identifier.
+
+**`&nil` and `**nil` are the ordinary `&`/`**` shapes over a `nil` identifier**
+(`Rb.BlockArgument` and `Rb.Splat`) rather than an identifier holding the whole token.
+Prism gives each one node with no child, so the `nil` is read back off the source.
+
+**A compact declaration name keeps every segment.** `Rb.Module.name` is an `Expression`, so
+`module Api::V1` is the same `J.MemberReference` that `::` produces in expression position
+and `module ::TopLevel` is one with an empty left operand. `J.ClassDeclaration.name` is a
+`J.Identifier` upstream and cannot hold that, so `class Api::V1::Photos` keeps the whole
+dotted name in one identifier — losing segments is the thing to avoid, and the asymmetry is
+the price of not forking `J.ClassDeclaration`.
+
+**Both printers restore the other's cursor.** `RubyPrinter` and its inner
+`RubyJavaPrinter` hand each other the cursor to print a subtree; whoever hands it over
+puts its own back afterwards. Without that the outer printer is left inside the subtree
+it just delegated, and anything that reads its ancestors (`visitCase` choosing between
+`when`, `in` and `=>`, `visitVariable` looking for a keyword argument) reads the wrong
+ones.
+
+See `README.md` for the type and marker inventory, and
+`doc/adr/0012-ruby-parsing-via-prism.md` for the parser front-end decision.
+
+## J.Unknown is forbidden
+
+**NOTHING should map to J.Unknown.** The parser must throw an exception for any
+Ruby syntax it cannot map to a proper J-type or Rb-type. This ensures we discover
+gaps immediately rather than silently degrading to lossy source-text preservation.
+
+If the parser encounters a node it doesn't handle:
+1. Map it to the correct J-type — think carefully about which one fits.
+2. If no J-type works, create an Rb-type (Ruby-specific AST node).
+3. If the syntax is genuinely new/unknown, **throw an exception** so the gap is
+   caught by tests, not silently swallowed.
+
+**Never use J.Unknown, visitUnknown, or raw source text as the value of a J-type
+field.** These break the semantic model and prevent recipes from operating on code.
+
+## LST Mapping Rules
+
+**Never fall back to raw source text as the value of a J-type field.** Every AST element
+must be mapped to a proper J-type (or Rb-type) with correct structure. Stuffing source
+text into an identifier name, unknown source, or string field breaks the semantic model
+and prevents recipes from operating on that code.
+
+**Map to the semantically correct type.** Don't use `J.Literal` for interpolated strings
+(`"hi #{name}"`) or heredocs — they have internal structure and must be modelled as an
+interpolation node holding real expressions. Don't use `J.MethodInvocation` alone to
+represent a call whose block argument (`do ... end` vs `{ ... }`) is part of its syntax.
+Don't force Ruby's symbols (`:sym`), ranges (`1..5`), or hash literals into whichever J
+type is closest — if the right type doesn't exist in J.*, create an Rb.* type.
+
+**Prefer markers over new types for printing-only differences.** Anything that is
+structurally a J element but printed differently — `unless` vs `if`, statement modifiers
+(`do_it if cond`), `do ... end` vs `{ ... }` block delimiters, parenthesis-less calls,
+`and`/`or` vs `&&`/`||`, safe navigation (`&.`) — should be a J element plus a marker,
+not a new node type.
+
+**Never store LST elements inside markers.** Markers are metadata that influence how
+an LST element is printed, not containers for additional AST subtrees.
+
+## Critical Principles
+
+**Never regress from rich types to J.Unknown.** Once a syntax element has been mapped
+to a rich type (J.* or Rb.*), never revert it back to J.Unknown.
+
+**Cursor management:** `RubyParserVisitor.peekWhitespace` is the only backtracking
+primitive; it snapshots the cursor and both heredoc maps. Any speculative read must go
+through it rather than saving and restoring the cursor by hand. Prefer anchoring to a
+node's offsets over speculating at all.
+
+**Whitespace is the parser's responsibility, not the printer's.** Every byte of the
+source must land in exactly one prefix, suffix or literal value. `rewriteRun(ruby("..."))`
+with no expected output is the assertion that proves it.
+
+## Java version
+
+This module targets Java 21, unlike most of the repo (which compiles to Java 8
+bytecode). The Prism jars are themselves class file version 65 and cannot load below
+Java 21, so there is no Java 8 consumer to protect. `build.gradle.kts` nulls the
+`--release 8` that `org.openrewrite.build.java-base` sets. Java 21 language features are
+fine here.
+
+That floor reaches consumers: `rewrite-ruby` publishes only an
+`org.gradle.jvm.version=21` variant, so a recipe module that wants the Kotlin DSL's
+`ruby { }` scope has to target Java 21 as well (see the note on `LanguageHost.ruby()` in
+`rewrite-kotlin`).
+
+## Testing
+
+Run tests with: `./gradlew :rewrite-ruby:test`
+
+Keep fixtures inline as `ruby("...")` text blocks rather than `.rb` files on disk —
+`.rb` files inside a source set get a `#` license header stamped by `licenseFormat`,
+which breaks round-trip assertions. When fixing a parser issue, always add a
+round-trip test that verifies `rewriteRun(ruby("..."))`.
 
 ---
 > Source: [openrewrite/rewrite](https://github.com/openrewrite/rewrite) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-07-23 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
