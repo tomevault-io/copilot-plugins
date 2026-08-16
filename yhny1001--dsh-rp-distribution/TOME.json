@@ -4,7 +4,7 @@
   "repo": "dsh-rp-distribution",
   "description": "Plugin-first open-source role-playing distribution for DeepSeek Harness",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yhny1001/dsh-rp-distribution",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T20:48:19Z"
+  "distributed_at": "2026-08-16T21:11:44Z"
 }
