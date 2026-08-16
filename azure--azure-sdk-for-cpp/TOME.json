@@ -3,7 +3,7 @@
   "owner": "Azure",
   "repo": "azure-sdk-for-cpp",
   "description": "",
-  "type": "tome",
+  "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
     {
@@ -37,39 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "azure-sdk-for-cpp",
-      "path": ".github/skills/azsdk-common-sdk-release/SKILL.md",
-      "github_url": "https://github.com/Azure/azure-sdk-for-cpp/tree/main/.github/skills/azsdk-common-sdk-release/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "azure-sdk-for-cpp",
-      "path": ".github/skills/azsdk-common-prepare-release-plan/SKILL.md",
-      "github_url": "https://github.com/Azure/azure-sdk-for-cpp/tree/main/.github/skills/azsdk-common-prepare-release-plan/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "azure-sdk-for-cpp",
-      "path": ".github/skills/azsdk-common-generate-sdk-locally/SKILL.md",
-      "github_url": "https://github.com/Azure/azure-sdk-for-cpp/tree/main/.github/skills/azsdk-common-generate-sdk-locally/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "azure-sdk-for-cpp",
-      "path": ".github/skills/azsdk-common-pipeline-troubleshooting/SKILL.md",
-      "github_url": "https://github.com/Azure/azure-sdk-for-cpp/tree/main/.github/skills/azsdk-common-pipeline-troubleshooting/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "azure-sdk-for-cpp",
-      "path": ".github/skills/azsdk-common-apiview-feedback-resolution/SKILL.md",
-      "github_url": "https://github.com/Azure/azure-sdk-for-cpp/tree/main/.github/skills/azsdk-common-apiview-feedback-resolution/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/Azure/azure-sdk-for-cpp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-07-22T13:59:44Z"
+  "distributed_at": "2026-08-16T10:59:18Z"
 }
