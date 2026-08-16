@@ -1,0 +1,237 @@
+{
+  "name": "ruby-git",
+  "owner": "ruby-git",
+  "repo": "ruby-git",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ci-cd-troubleshooting",
+      "path": ".github/skills/ci-cd-troubleshooting",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/ci-cd-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/test-debugging/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/test-debugging/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/project-context/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/project-context/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/reviewing-skills/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/reviewing-skills/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/tdd-refactor-step/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/tdd-refactor-step/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/yard-documentation/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/yard-documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/release-management/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/release-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/make-skill-template/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/make-skill-template/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/pr-readiness-review/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/pr-readiness-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/pull-request-review/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/pull-request-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/development-workflow/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/development-workflow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/review-arguments-dsl/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/review-arguments-dsl/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/ci-cd-troubleshooting/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/ci-cd-troubleshooting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/facade-implementation/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/facade-implementation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/dependency-management/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/dependency-management/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/command-implementation/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/command-implementation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/facade-test-conventions/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/facade-test-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/extract-command-from-lib/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/extract-command-from-lib/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/command-test-conventions/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/command-test-conventions/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/breaking-change-analysis/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/breaking-change-analysis/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/facade-yard-documentation/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/facade-yard-documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/command-yard-documentation/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/command-yard-documentation/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/rspec-unit-testing-standards/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/rspec-unit-testing-standards/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/extract-facade-from-base-lib/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/extract-facade-from-base-lib/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/review-backward-compatibility/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/review-backward-compatibility/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/review-cross-command-consistency/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/review-cross-command-consistency/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/refactor-command-to-commandlineresult/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/refactor-command-to-commandlineresult/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/rebase/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/rebase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills/resolve-feedback/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills/resolve-feedback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills-deprecated/extract-command-from-lib/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills-deprecated/extract-command-from-lib/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills-deprecated/extract-facade-from-base-lib/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills-deprecated/extract-facade-from-base-lib/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ruby-git",
+      "path": ".github/skills-deprecated/review-backward-compatibility/SKILL.md",
+      "github_url": "https://github.com/ruby-git/ruby-git/tree/main/.github/skills-deprecated/review-backward-compatibility/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ruby-git/ruby-git",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T12:32:56Z"
+}
