@@ -1,0 +1,9 @@
+{
+  "name": "dotnet--dotnet-buildtools-prereqs-docker",
+  "displayName": "dotnet-buildtools-prereqs-docker",
+  "description": "dotnet-buildtools-prereqs-docker",
+  "version": "1.0.0",
+  "author": "dotnet",
+  "homepage": "https://github.com/dotnet/dotnet-buildtools-prereqs-docker",
+  "skills": []
+}
