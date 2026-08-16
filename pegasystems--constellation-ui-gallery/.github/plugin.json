@@ -1,0 +1,14 @@
+{
+  "name": "pegasystems--constellation-ui-gallery",
+  "displayName": "constellation-ui-gallery",
+  "description": "constellation-ui-gallery",
+  "version": "1.0.0",
+  "author": "pegasystems",
+  "homepage": "https://github.com/pegasystems/constellation-ui-gallery",
+  "skills": [
+    {
+      "name": "constellation-ui-gallery",
+      "description": ""
+    }
+  ]
+}
