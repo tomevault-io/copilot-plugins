@@ -1,0 +1,9 @@
+{
+  "name": "meshery--meshery-operator",
+  "displayName": "meshery-operator",
+  "description": "meshery-operator",
+  "version": "1.0.0",
+  "author": "meshery",
+  "homepage": "https://github.com/meshery/meshery-operator",
+  "skills": []
+}
