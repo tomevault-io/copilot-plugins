@@ -1,0 +1,9 @@
+{
+  "name": "leourl--olx-scraper",
+  "displayName": "olx-scraper",
+  "description": "Scraper OLX + extrator de specs de hardware (Dell OptiPlex / Lenovo ThinkCentre) com UI e API REST",
+  "version": "1.0.0",
+  "author": "leourl",
+  "homepage": "https://github.com/leourl/olx-scraper",
+  "skills": []
+}
