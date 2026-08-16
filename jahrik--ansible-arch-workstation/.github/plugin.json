@@ -1,0 +1,9 @@
+{
+  "name": "jahrik--ansible-arch-workstation",
+  "displayName": "ansible-arch-workstation",
+  "description": "ansible-arch-workstation",
+  "version": "1.0.0",
+  "author": "jahrik",
+  "homepage": "https://github.com/jahrik/ansible-arch-workstation",
+  "skills": []
+}
