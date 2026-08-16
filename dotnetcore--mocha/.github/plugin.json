@@ -1,0 +1,9 @@
+{
+  "name": "dotnetcore--mocha",
+  "displayName": "mocha",
+  "description": "mocha",
+  "version": "1.0.0",
+  "author": "dotnetcore",
+  "homepage": "https://github.com/dotnetcore/mocha",
+  "skills": []
+}
