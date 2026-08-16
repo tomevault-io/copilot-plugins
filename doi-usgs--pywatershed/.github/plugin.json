@@ -1,0 +1,9 @@
+{
+  "name": "doi-usgs--pywatershed",
+  "displayName": "pywatershed",
+  "description": "pywatershed",
+  "version": "1.0.0",
+  "author": "DOI-USGS",
+  "homepage": "https://github.com/DOI-USGS/pywatershed",
+  "skills": []
+}
