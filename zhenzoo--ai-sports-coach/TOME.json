@@ -4,7 +4,7 @@
   "repo": "ai-sports-coach",
   "description": "Turn authorized motion references into a consistent AI digital-human sports coach, reusable action library, timed course, and voice-guided training experience.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhenzoo/ai-sports-coach",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T20:52:57Z"
+  "distributed_at": "2026-08-16T21:21:51Z"
 }
