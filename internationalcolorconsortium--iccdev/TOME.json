@@ -3,8 +3,8 @@
   "owner": "InternationalColorConsortium",
   "repo": "iccDEV",
   "description": "",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "type": "config",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,87 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "iccDEV",
-      "path": ".github/skills/version-bump/SKILL.md",
-      "github_url": "https://github.com/InternationalColorConsortium/iccDEV/tree/main/.github/skills/version-bump/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "iccDEV",
-      "path": ".github/skills/sanitizer-repro/SKILL.md",
-      "github_url": "https://github.com/InternationalColorConsortium/iccDEV/tree/main/.github/skills/sanitizer-repro/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "iccDEV",
-      "path": ".github/skills/docs-maintenance/SKILL.md",
-      "github_url": "https://github.com/InternationalColorConsortium/iccDEV/tree/main/.github/skills/docs-maintenance/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "iccDEV",
-      "path": ".github/skills/maintainer-ci-ctest/SKILL.md",
-      "github_url": "https://github.com/InternationalColorConsortium/iccDEV/tree/main/.github/skills/maintainer-ci-ctest/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "iccDEV",
-      "path": ".github/skills/pre-pr-security-cycle/SKILL.md",
-      "github_url": "https://github.com/InternationalColorConsortium/iccDEV/tree/main/.github/skills/pre-pr-security-cycle/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "iccDEV",
-      "path": ".github/skills/json-config-regression/SKILL.md",
-      "github_url": "https://github.com/InternationalColorConsortium/iccDEV/tree/main/.github/skills/json-config-regression/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "iccDEV",
-      "path": ".github/skills/maintainer-label-system/SKILL.md",
-      "github_url": "https://github.com/InternationalColorConsortium/iccDEV/tree/main/.github/skills/maintainer-label-system/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "iccDEV",
-      "path": ".github/skills/vcpkg-export-consumer-debug/SKILL.md",
-      "github_url": "https://github.com/InternationalColorConsortium/iccDEV/tree/main/.github/skills/vcpkg-export-consumer-debug/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "iccDEV",
-      "path": ".github/skills/regression-workflow-governance/SKILL.md",
-      "github_url": "https://github.com/InternationalColorConsortium/iccDEV/tree/main/.github/skills/regression-workflow-governance/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "iccDEV",
-      "path": ".github/skills/afl-smoke/SKILL.md",
-      "github_url": "https://github.com/InternationalColorConsortium/iccDEV/tree/main/.github/skills/afl-smoke/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "iccDEV",
-      "path": ".github/skills/wasm-build-test/SKILL.md",
-      "github_url": "https://github.com/InternationalColorConsortium/iccDEV/tree/main/.github/skills/wasm-build-test/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "iccDEV",
-      "path": ".github/skills/python-bindings-test/SKILL.md",
-      "github_url": "https://github.com/InternationalColorConsortium/iccDEV/tree/main/.github/skills/python-bindings-test/SKILL.md",
-      "description": ""
-    },
-    {
-      "name": "iccDEV",
-      "path": ".github/skills/regression-container-maintainer/SKILL.md",
-      "github_url": "https://github.com/InternationalColorConsortium/iccDEV/tree/main/.github/skills/regression-container-maintainer/SKILL.md",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/InternationalColorConsortium/iccDEV",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-16T12:40:54Z"
+  "distributed_at": "2026-08-16T13:48:50Z"
 }
