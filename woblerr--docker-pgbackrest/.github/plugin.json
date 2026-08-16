@@ -1,0 +1,9 @@
+{
+  "name": "woblerr--docker-pgbackrest",
+  "displayName": "docker-pgbackrest",
+  "description": "docker-pgbackrest",
+  "version": "1.0.0",
+  "author": "woblerr",
+  "homepage": "https://github.com/woblerr/docker-pgbackrest",
+  "skills": []
+}
