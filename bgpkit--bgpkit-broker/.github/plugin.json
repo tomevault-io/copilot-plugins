@@ -1,0 +1,9 @@
+{
+  "name": "bgpkit--bgpkit-broker",
+  "displayName": "bgpkit-broker",
+  "description": "bgpkit-broker",
+  "version": "1.0.0",
+  "author": "bgpkit",
+  "homepage": "https://github.com/bgpkit/bgpkit-broker",
+  "skills": []
+}
