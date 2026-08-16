@@ -1,0 +1,14 @@
+{
+  "name": "adobe--react-spectrum",
+  "displayName": "react-spectrum",
+  "description": "react-spectrum",
+  "version": "1.0.0",
+  "author": "adobe",
+  "homepage": "https://github.com/adobe/react-spectrum",
+  "skills": [
+    {
+      "name": "react-spectrum",
+      "description": ""
+    }
+  ]
+}
