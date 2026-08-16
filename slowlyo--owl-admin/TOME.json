@@ -1,0 +1,81 @@
+{
+  "name": "owl-admin",
+  "owner": "slowlyo",
+  "repo": "owl-admin",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "owl-admin",
+      "path": "resources/ai/skills/owl-admin-app-dev/SKILL.md",
+      "github_url": "https://github.com/slowlyo/owl-admin/tree/main/resources/ai/skills/owl-admin-app-dev/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "owl-admin",
+      "path": "resources/ai/skills/owl-admin-amis-page/SKILL.md",
+      "github_url": "https://github.com/slowlyo/owl-admin/tree/main/resources/ai/skills/owl-admin-amis-page/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "owl-admin",
+      "path": "resources/ai/skills/owl-admin-ops-commands/SKILL.md",
+      "github_url": "https://github.com/slowlyo/owl-admin/tree/main/resources/ai/skills/owl-admin-ops-commands/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "owl-admin",
+      "path": "resources/ai/skills/owl-admin-frontend-assets/SKILL.md",
+      "github_url": "https://github.com/slowlyo/owl-admin/tree/main/resources/ai/skills/owl-admin-frontend-assets/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "owl-admin",
+      "path": "resources/ai/skills/owl-admin-extension-module/SKILL.md",
+      "github_url": "https://github.com/slowlyo/owl-admin/tree/main/resources/ai/skills/owl-admin-extension-module/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "owl-admin",
+      "path": "resources/ai/skills/owl-admin-devtools-generator/SKILL.md",
+      "github_url": "https://github.com/slowlyo/owl-admin/tree/main/resources/ai/skills/owl-admin-devtools-generator/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/slowlyo/owl-admin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T14:34:39Z"
+}
