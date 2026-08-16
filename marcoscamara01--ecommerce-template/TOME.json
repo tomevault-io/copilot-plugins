@@ -1,0 +1,165 @@
+{
+  "name": "ecommerce-template",
+  "owner": "MarcosCamara01",
+  "repo": "ecommerce-template",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/next/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/next/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/oauth/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/oauth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/stripe/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/stripe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/ai-cli/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/ai-cli/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/finish/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/finish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/emulate/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/emulate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/supabase/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/supabase/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/agent-browser/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/agent-browser/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/frontend-design/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/frontend-code-review/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/frontend-code-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/web-design-guidelines/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/stripe-best-practices/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/stripe-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/typescript-advanced-types/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/typescript-advanced-types/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/better-auth-best-practices/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/better-auth-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/vercel-react-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/vercel-composition-patterns/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/vercel-composition-patterns/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/next-cache-components-optimizer/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/next-cache-components-optimizer/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/supabase-postgres-best-practices/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/supabase-postgres-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/email-and-password-best-practices/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/email-and-password-best-practices/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "ecommerce-template",
+      "path": ".agents/skills/better-auth-security-best-practices/SKILL.md",
+      "github_url": "https://github.com/MarcosCamara01/ecommerce-template/tree/main/.agents/skills/better-auth-security-best-practices/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/MarcosCamara01/ecommerce-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-16T13:03:15Z"
+}
