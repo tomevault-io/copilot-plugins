@@ -1,0 +1,9 @@
+{
+  "name": "omrihaviv--devbox-fleet",
+  "displayName": "devbox-fleet",
+  "description": "Terraform + convergence scripts for a small fleet of per-developer cloud devboxes on GCP, reachable over Tailscale.",
+  "version": "1.0.0",
+  "author": "omrihaviv",
+  "homepage": "https://github.com/omrihaviv/devbox-fleet",
+  "skills": []
+}
