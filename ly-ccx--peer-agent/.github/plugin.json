@@ -1,0 +1,9 @@
+{
+  "name": "ly-ccx--peer-agent",
+  "displayName": "Peer-Agent",
+  "description": "Local hands for your AI, keys in your pocket \u2014 a desktop agent where every capability is authorized, executed locally, and backed by Evidence.",
+  "version": "1.0.0",
+  "author": "ly-ccx",
+  "homepage": "https://github.com/ly-ccx/Peer-Agent",
+  "skills": []
+}
