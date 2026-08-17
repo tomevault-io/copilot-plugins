@@ -1,61 +1,66 @@
-## 104-nextjs-backend
+## 105-nextjs-routes
 
-> EXPLAIN how NextJS 15 backend methods work.
+> EXPLAIN how to create and use routing file in NextJS
 
 ## Context
 
-* NextJS 15 give us backend methods we should use.
+* NextJS is a framework that handle route for us.
+* Here is exactly how to create and handle route in our application.
+* We can only handle route in `app` directory
 
-## Header
+## `page.tsx`
 
-Enable you to get the header of the request.
+The template for page is located in [npag.code-snippets](mdc:.vscode/npag.code-snippets) and define a page. You can also use [npagl.code-snippets](mdc:.vscode/npagl.code-snippets) for having a default layout. Here is how page work :
 
-```tsx
-import { headers } from 'next/headers'
- 
-export default async function Page() {
-  const headersList = await headers()
-  const userAgent = headersList.get('user-agent')
-}
-```
+* `/app/users/page.tsx` will route in `/users`
 
+The params is ASYNC and you must use [next.ts](mdc:src/types/next.ts) to use the params with PageParams.
 
-## Cookie
-
-Enable you to get the cookie of the request.
+Exemple :
 
 ```tsx
-import { cookies } from 'next/headers'
- 
-export default async function Page() {
-  const cookieStore = await cookies()
-  const theme = cookieStore.get('theme')
-  return '...'
+import type { PageParams } from "@/types/next";
+
+// You always need to use PageParams
+export default async function RoutePage(props: PageParams<{ userId: string }>) {
+  // You need to await searchParams
+  const searchParams = await props.searchParams;
+  const page = searchParams.page;
+
+  // You need to await params
+  const params = await props.params;
+  const userId = params.userId;
+
+  return // ...
 }
+
 ```
 
-To set a cookie, you must be in an [api-route.mdc](mdc:.cursor/rules/api-route.mdc) or [server-actions.mdc](mdc:.cursor/rules/server-actions.mdc) :
+## `layout.tsx`
 
-```tsx
-'use server'
- 
-import { cookies } from 'next/headers'
- 
-export async function create(data) {
-  const cookieStore = await cookies()
- 
-  cookieStore.set('name', 'lee')
-  // or
-  cookieStore.set('name', 'lee', { secure: true })
-  // or
-  cookieStore.set({
-    name: 'name',
-    value: 'lee',
-    httpOnly: true,
-    path: '/',
-  })
-}
-```
+The template for the layout is located in [nlay.code-snippets](mdc:.vscode/nlay.code-snippets) and define the layout that will be applied to every child of a route.
+
+* `/app/users/layout.tsx` will take a children and every route will have the layout applied, exemple :
+
+* `/users/1`
+* `/users`
+* `/users/dashboard/test`
+
+The params is ASYNC and you must use [next.ts](mdc:src/types/next.ts) to use the params with LayoutParams.
+
+## `error.tsx`
+
+The template can be found in [nerr.code-snippets](mdc:.vscode/nerr.code-snippets) and define the Error page. When a child routes get an error, the `error` will be displayed. It's the nearest error in the tree that will be displayed. It's a good practice to always add an error.
+
+* `/app/users/error.tsx` will show an error for every route that didn't have a nearest error, children of `/users`
+
+## `loading.tsx`
+
+The template can be found in [nloa.code-snippets](mdc:.vscode/nloa.code-snippets) and define the Loading page. 
+
+When a child is a [server-components.mdc](mdc:.cursor/rules/server-components.mdc) and wait, the `loading.tsx` page will be displayed.
+
+* `/app/users/loading.tsx` will show a loader for every route that didn't have a nearest loading, children of `/users`
 
 ---
 > Source: [cortex225/playerConnect](https://github.com/cortex225/playerConnect) — distributed by [TomeVault](https://tomevault.io).
