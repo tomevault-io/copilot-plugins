@@ -1,7 +1,7 @@
 {
-  "name": "pii-radar",
+  "name": "PII-Radar",
   "owner": "nithin42",
-  "repo": "pii-radar",
+  "repo": "PII-Radar",
   "description": "CLI tool to scan CSV, JSON and Parquet files for PII -> emails, phones, SSNs, credit cards and more",
   "type": "config",
   "source_format": "AGENTS.md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/nithin42/pii-radar",
+  "source_url": "https://github.com/nithin42/PII-Radar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-07T19:29:43Z"
+  "distributed_at": "2026-08-17T19:30:45Z"
 }
