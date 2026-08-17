@@ -1,0 +1,9 @@
+{
+  "name": "ruashots--open-h3-ir",
+  "displayName": "open-h3-ir",
+  "description": "Open-source local implementation of MiniMax H3 Context-IR. Turn simple prompts into structured, validated H3 video briefs.",
+  "version": "1.0.0",
+  "author": "ruashots",
+  "homepage": "https://github.com/ruashots/open-h3-ir",
+  "skills": []
+}
