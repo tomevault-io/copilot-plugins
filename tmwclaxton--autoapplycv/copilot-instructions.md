@@ -1,21 +1,58 @@
-## extension-build
+## extension-e2e-mcp-testing
 
-> Rebuild the browser extension after any extension source change
+> E2E extension autofill testing means manual MCP-driven apply flows with verification after every step
 
 
-# Extension Build
+# E2E extension autofill testing (MCP)
 
-When you change anything under `extension/` or `scripts/build-extension.mjs`, run the extension build before finishing:
+In this project, **e2e extension autofill testing** is not Playwright batch runs or JSDOM fill-verify alone. It means **driving the real extension on a live logged-in Chrome tab via the extension bridge MCP**, taking every action the extension would normally take, and **reviewing the outcome of each action before moving on**.
 
-```bash
-npm run build:extension
-```
+Goal: the extension must work **on its own** (Auto Apply, Draft All, autofill) without an agent babysitting it.
 
-This updates `extension/dist/` and the downloadable zips in `public/extension/`. Do this by default without waiting for the user to ask.
+## What to mirror manually
 
-If the build fails, fix the issue and rerun until it succeeds. Mention in your summary if the build could not be run and the user should run it locally.
+Walk the full apply path the orchestrator would:
 
-After substantive extension changes, bump `extension/manifest.json` version when other extension work in the same task already bumped it or the change is user-visible.
+1. Open or navigate to a real apply page (`list_tabs`, `set_active_tab`, `navigate_tab`).
+2. Read what the extension sees (`get_field_inventory`, `get_page_html`, platform `*_tab_message` when relevant).
+3. Fill fields (`apply_answer`, `start_draft_all`) and advance steps (`click_control`, `click_ref`, `wait_for_tab`).
+4. For job-board Auto Apply, use `start_auto_apply` / `auto_apply_status` only after single-job autofill is solid.
+
+Do **not** skip steps or bulk-advance without checking intermediate state.
+
+## Verify after every action
+
+Before the next click or fill, confirm:
+
+| Check | MCP / signal |
+| --- | --- |
+| Field inventory complete | `get_field_inventory` - every visible question has a ref, sensible type/label |
+| Values landed in DOM | `read_field_values` - matches intended answers |
+| No blocking validation | `read_form_validation` |
+| HTML matches expectations | `get_page_html` when inventory looks wrong (iframes, shadow DOM, hidden radios, pill buttons) |
+| ATS score makes sense | `auto_apply_status` log / assist sidebar - score vs JD and profile; skip logic reasonable when fit gate on |
+| Drafted answers make sense | Re-read filled values; answers match question intent, not generic filler |
+| Clarifying questions make sense | Extension should ask only when genuinely ambiguous; answers should be actionable |
+| Unusual popups handled | Cookie banners, SSO nags, "already applied", location pickers, modal overlays - dismiss or route correctly via `click_control` / platform messages; note anything that needed hand-holding |
+
+If anything fails, **stop and fix** before continuing the flow.
+
+## Close the loop: corpus + code
+
+Every strange DOM shape, popup, or failure mode discovered live must leave the codebase stronger:
+
+1. **Capture** - `save_fixture` (or manual HTML into `tests/fixtures/form-extraction/html/`), register in manifest, run `propose-expectations.mjs`.
+2. **Fix** - `form-heuristics.js`, `field-inventory.js`, platform `*-auto-apply.js`, or mock answers as needed.
+3. **Prove** - targeted fill-verify on the new fixture (`run-fill-verify-curated.mjs --id=...`), then `npm run extension:build-reload` and re-run the same live MCP steps until clean.
+4. **Autonomy check** - re-run `start_draft_all` or `start_auto_apply` **without** per-field MCP nudges; extension alone should pass.
+
+## Do not
+
+- Treat `npm run form-corpus:extension-e2e` as a substitute for live MCP e2e when debugging new boards or popups.
+- Ship heuristics fixes from fixture HTML alone without at least one live `read_field_values` snapshot on the same pattern.
+- Leave one-off MCP workarounds in place - encode the fix so the next run needs no agent.
+
+See also: `extension-bridge-mcp.mdc`, [`docs/platform-automation-playbook.md`](../../docs/platform-automation-playbook.md) phase 1, [`docs/form-corpus-growth.md`](../../docs/form-corpus-growth.md).
 
 ---
 > Source: [tmwclaxton/autoapplycv](https://github.com/tmwclaxton/autoapplycv) — distributed by [TomeVault](https://tomevault.io).
