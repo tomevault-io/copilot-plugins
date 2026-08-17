@@ -1,0 +1,9 @@
+{
+  "name": "formsmith746--sketchforge-pcb",
+  "displayName": "SketchForge-PCB",
+  "description": "Local-first PCB design editor for circuits, board layout, 3D inspection, and practical export in the browser.",
+  "version": "1.0.0",
+  "author": "Formsmith746",
+  "homepage": "https://github.com/Formsmith746/SketchForge-PCB",
+  "skills": []
+}
