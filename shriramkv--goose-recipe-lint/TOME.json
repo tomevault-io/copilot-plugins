@@ -1,0 +1,44 @@
+{
+  "name": "goose-recipe-lint",
+  "owner": "shriramkv",
+  "repo": "goose-recipe-lint",
+  "description": "Validates Goose recipe files for schema errors, missing parameters/defaults, invalid requirements, extension configuration issues, and template mismatches. Understands YAML block scalars and Jinja-style {% for %} / {% set %} locals to minimize false positives.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shriramkv/goose-recipe-lint",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-17T05:33:00Z"
+}
