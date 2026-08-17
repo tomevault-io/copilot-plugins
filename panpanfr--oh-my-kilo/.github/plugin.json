@@ -1,0 +1,9 @@
+{
+  "name": "panpanfr--oh-my-kilo",
+  "displayName": "oh-my-kilo",
+  "description": "A curated Kilo Code configuration pack with specialized agents, skills, rules, and knowledge-graph tooling.",
+  "version": "1.0.0",
+  "author": "PanPanFR",
+  "homepage": "https://github.com/PanPanFR/oh-my-kilo",
+  "skills": []
+}
