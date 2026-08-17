@@ -1,0 +1,9 @@
+{
+  "name": "zoolutions--phlex-reactive",
+  "displayName": "phlex-reactive",
+  "description": "Reactive Phlex components for Rails \u2014 Livewire-style actions and live cross-tab updates, without Stimulus boilerplate.",
+  "version": "1.0.0",
+  "author": "zoolutions",
+  "homepage": "https://github.com/zoolutions/phlex-reactive",
+  "skills": []
+}
