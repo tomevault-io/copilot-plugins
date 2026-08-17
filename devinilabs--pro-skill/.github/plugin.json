@@ -1,0 +1,9 @@
+{
+  "name": "devinilabs--pro-skill",
+  "displayName": "pro-skill",
+  "description": "Mirror of MengTo/Skills \u2014 agent skills for Codex, Claude, and Cursor (MIT, \u00a9 Meng To). Upstream: github.com/MengTo/Skills",
+  "version": "1.0.0",
+  "author": "devinilabs",
+  "homepage": "https://github.com/devinilabs/pro-skill",
+  "skills": []
+}
