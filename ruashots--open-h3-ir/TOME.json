@@ -1,0 +1,44 @@
+{
+  "name": "open-h3-ir",
+  "owner": "ruashots",
+  "repo": "open-h3-ir",
+  "description": "Open-source local implementation of MiniMax H3 Context-IR. Turn simple prompts into structured, validated H3 video briefs.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ruashots/open-h3-ir",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-17T06:35:21Z"
+}
