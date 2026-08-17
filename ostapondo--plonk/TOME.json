@@ -1,0 +1,44 @@
+{
+  "name": "Plonk",
+  "owner": "ostapondo",
+  "repo": "Plonk",
+  "description": "A macOS window manager with snap zones you draw yourself and workspaces that reopen your apps on the right monitor \u2014 plus on-device OCR, keep-awake, screenshot annotation, pointer tools, a shortcut guide and voice, in one menu bar app. Everything runs on your Mac. No cloud, no telemetry.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ostapondo/Plonk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-17T02:40:24Z"
+}
