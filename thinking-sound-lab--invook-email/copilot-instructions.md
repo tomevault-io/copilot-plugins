@@ -214,5 +214,5 @@ docker compose -f docker/compose.yml config --quiet
 `make dev` starts the complete Docker stack. `make down` stops containers without deleting named volumes. Never remove volumes or other user data unless the user explicitly requests it.
 
 ---
-> Source: [Thinking-Sound-Lab/Invook-Email-](https://github.com/Thinking-Sound-Lab/Invook-Email-) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-16 -->
+> Source: [Thinking-Sound-Lab/Invook-Email](https://github.com/Thinking-Sound-Lab/Invook-Email) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-17 -->
