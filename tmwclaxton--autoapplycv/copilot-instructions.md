@@ -1,58 +1,56 @@
-## extension-e2e-mcp-testing
+## form-corpus-growth
 
-> E2E extension autofill testing means manual MCP-driven apply flows with verification after every step
+> When increasing test coverage for forms, field inventory, Draft All, autofill, or the form corpus - grow the ever-growing fixture corpus via curated dual-oracle capture, not only unit tests
 
 
-# E2E extension autofill testing (MCP)
+# Form corpus growth (test coverage)
 
-In this project, **e2e extension autofill testing** is not Playwright batch runs or JSDOM fill-verify alone. It means **driving the real extension on a live logged-in Chrome tab via the extension bridge MCP**, taking every action the extension would normally take, and **reviewing the outcome of each action before moving on**.
+When the user asks to **increase test coverage**, **add tests**, **improve coverage**, or **strengthen regression** for application forms, question detection, field inventory, Draft All, or extension autofill, read and follow:
 
-Goal: the extension must work **on its own** (Auto Apply, Draft All, autofill) without an agent babysitting it.
+**[`docs/form-corpus-growth.md`](../../docs/form-corpus-growth.md)**
 
-## What to mirror manually
+## Default stance
 
-Walk the full apply path the orchestrator would:
+- The **form corpus** (`tests/fixtures/form-extraction/`) is the primary spec for question detection and fill behaviour.
+- Prefer **curated dual-oracle captures** (detector vs NanoGPT on live apply HTML) over unattended detector-gated bridge scrape when improving detection.
+- Use **extension bridge MCP** to navigate boards (Ashby: board -> job -> Apply) before freezing fixtures.
+- **Disagree loop (default, do not wait to be asked):** treat `ai_only` as the primary backlog (detector miss). Fix heuristics/inventory, rebuild/reload extension, re-run `form-corpus:curated-oracle --limit=1` on the same page until agree or `ai_only` is empty/false-positive. Then move to the next apply form. Do not stop after reporting disagree and ask whether to fix.
+- `detector_only` is secondary (often AI HTML truncation); raise excerpt budget / re-oracle before treating as a detector bug.
+- **Do not** leave long-running `form-corpus:bridge-scrape` / bulk jobs unattended for detector-quality work - that path uses the detector as an accept gate and skips the misses you need.
+- **Form corpus fill-verify never runs on PR** - only manual `Tests (heavy)` workflow or local batch commands. See [`docs/form-corpus-growth.md`](../../docs/form-corpus-growth.md).
+- **Batches of 50 max** for generate/scrape/vet/fill; curated oracle default **`--limit=5`**. Never auto-chain batches in one invocation.
 
-1. Open or navigate to a real apply page (`list_tabs`, `set_active_tab`, `navigate_tab`).
-2. Read what the extension sees (`get_field_inventory`, `get_page_html`, platform `*_tab_message` when relevant).
-3. Fill fields (`apply_answer`, `start_draft_all`) and advance steps (`click_control`, `click_ref`, `wait_for_tab`).
-4. For job-board Auto Apply, use `start_auto_apply` / `auto_apply_status` only after single-job autofill is solid.
+## What to add
 
-Do **not** skip steps or bulk-advance without checking intermediate state.
-
-## Verify after every action
-
-Before the next click or fill, confirm:
-
-| Check | MCP / signal |
+| Situation | Coverage to add |
 | --- | --- |
-| Field inventory complete | `get_field_inventory` - every visible question has a ref, sensible type/label |
-| Values landed in DOM | `read_field_values` - matches intended answers |
-| No blocking validation | `read_form_validation` |
-| HTML matches expectations | `get_page_html` when inventory looks wrong (iframes, shadow DOM, hidden radios, pill buttons) |
-| ATS score makes sense | `auto_apply_status` log / assist sidebar - score vs JD and profile; skip logic reasonable when fit gate on |
-| Drafted answers make sense | Re-read filled values; answers match question intent, not generic filler |
-| Clarifying questions make sense | Extension should ask only when genuinely ambiguous; answers should be actionable |
-| Unusual popups handled | Cookie banners, SSO nags, "already applied", location pickers, modal overlays - dismiss or route correctly via `click_control` / platform messages; note anything that needed hand-holding |
+| New or broken DOM pattern | Curated oracle (`form-corpus:curated-oracle`) -> on `ai_only` fix heuristics immediately -> re-oracle until agree -> next form; then targeted `run-fill-verify-curated.mjs --id=...` |
+| Important / common pattern | Promote in curated or smoke manifest (`npm run form-corpus:build-curated`) |
+| Pure logic (pipeline, parsers) | Small node/PHPUnit tests (see `DraftAllExtensionTest`, `draft-all-pipeline.test.mjs`) |
+| Heuristic change in `form-heuristics.js` / `field-inventory.js` | `npm run form-corpus:fill-verify:smoke` minimum before merge |
 
-If anything fails, **stop and fix** before continuing the flow.
+## What not to do
 
-## Close the loop: corpus + code
+- Do not satisfy "more coverage" with trivial tests that duplicate corpus behaviour.
+- Do not grow detection fixtures via Track A accept gate alone (`>=2` inventory fields) - use dual-oracle agree/disagree.
+- Do not vet Firecrawl HTML without a bridge spot-check when the page is interactive or auth-gated.
+- Do not run full extension E2E batch for every small change - use `--id=` and smoke tier (`minimal-test-runs.mdc`).
 
-Every strange DOM shape, popup, or failure mode discovered live must leave the codebase stronger:
+## Quick commands
 
-1. **Capture** - `save_fixture` (or manual HTML into `tests/fixtures/form-extraction/html/`), register in manifest, run `propose-expectations.mjs`.
-2. **Fix** - `form-heuristics.js`, `field-inventory.js`, platform `*-auto-apply.js`, or mock answers as needed.
-3. **Prove** - targeted fill-verify on the new fixture (`run-fill-verify-curated.mjs --id=...`), then `npm run extension:build-reload` and re-run the same live MCP steps until clean.
-4. **Autonomy check** - re-run `start_draft_all` or `start_auto_apply` **without** per-field MCP nudges; extension alone should pass.
+```bash
+npm run extension-bridge
+npm run extension:build-reload
+npm run form-corpus:curated-oracle -- --limit=5
+node scripts/form-corpus/propose-expectations.mjs --id=<fixture-id>
+node scripts/form-corpus/vet-corpus.mjs --id=<fixture-id>
+node scripts/form-corpus/run-fill-verify-curated.mjs --id=<fixture-id> --check-validity --check-a11y --check-errors
+npm run form-corpus:fill-verify:smoke
+npm run form-corpus:generate-ai -- --limit=50 --start-id=syn-ai-0001
+npm run form-corpus:report-variety-matrix
+```
 
-## Do not
-
-- Treat `npm run form-corpus:extension-e2e` as a substitute for live MCP e2e when debugging new boards or popups.
-- Ship heuristics fixes from fixture HTML alone without at least one live `read_field_values` snapshot on the same pattern.
-- Leave one-off MCP workarounds in place - encode the fix so the next run needs no agent.
-
-See also: `extension-bridge-mcp.mdc`, [`docs/platform-automation-playbook.md`](../../docs/platform-automation-playbook.md) phase 1, [`docs/form-corpus-growth.md`](../../docs/form-corpus-growth.md).
+See also: `extension-e2e-mcp-testing.mdc`, `extension-bridge-mcp.mdc`, `docs/platform-automation-playbook.md`.
 
 ---
 > Source: [tmwclaxton/autoapplycv](https://github.com/tmwclaxton/autoapplycv) — distributed by [TomeVault](https://tomevault.io).
