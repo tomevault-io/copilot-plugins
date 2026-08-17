@@ -4,7 +4,7 @@
   "repo": "headroom",
   "description": "Know when your AI is about to forget \u2014 browser extension that monitors context window usage",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ZM-BAD/headroom",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-17T04:34:15Z"
+  "distributed_at": "2026-08-17T04:44:25Z"
 }
