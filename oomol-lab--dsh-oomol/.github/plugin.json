@@ -1,0 +1,9 @@
+{
+  "name": "oomol-lab--dsh-oomol",
+  "displayName": "dsh-oomol",
+  "description": "OOMOL Connector for DeepSeek Harness\u2014discover connected apps and execute Actions through progressive MCP discovery without exposing provider credentials.",
+  "version": "1.0.0",
+  "author": "oomol-lab",
+  "homepage": "https://github.com/oomol-lab/dsh-oomol",
+  "skills": []
+}
