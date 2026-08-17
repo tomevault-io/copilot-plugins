@@ -1,0 +1,9 @@
+{
+  "name": "huanlinoto--dsh-plugin-auto-blame",
+  "displayName": "dsh-plugin-auto-blame",
+  "description": "\u6a21\u578b\u56de\u5408\u7ed3\u675f\u540e\u7528 LLM \u751f\u6210 3 \u6761\u6279\u5224\u6027\u8ddf\u8fdb\u5efa\u8bae\uff0c\u70b9\u51fb\u5373\u53d1\u9001 | After a model turn, an LLM generates 3 critical follow-up suggestions shown as click-to-send chips",
+  "version": "1.0.0",
+  "author": "HuanLinOTO",
+  "homepage": "https://github.com/HuanLinOTO/dsh-plugin-auto-blame",
+  "skills": []
+}
