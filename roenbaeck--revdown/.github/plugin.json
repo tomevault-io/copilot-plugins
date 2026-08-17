@@ -1,0 +1,9 @@
+{
+  "name": "roenbaeck--revdown",
+  "displayName": "revdown",
+  "description": "Revdown is a Markdown revision tool, where the original file is not altered and comments saved in a sidecar suitable for LLM workflows.",
+  "version": "1.0.0",
+  "author": "Roenbaeck",
+  "homepage": "https://github.com/Roenbaeck/revdown",
+  "skills": []
+}
