@@ -4,7 +4,7 @@
   "repo": "blume",
   "description": "World-class docs for everything you ship. Fast, AI-ready, and zero-config.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/haydenbleasel/blume",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-17T23:33:34Z"
+  "distributed_at": "2026-08-17T23:34:14Z"
 }
