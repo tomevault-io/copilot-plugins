@@ -1,16 +1,39 @@
-## 108-shadcn-ui
+## 109-streaming-components
 
-> How use Shadcn/UI to add styles to our applications
+> Streaming Component enable to load page faster
 
 ## Context
 
-* We use Shadcn/UI to style our application.
+* Streaming allows you to break down the page's HTML into smaller chunks and progressively send those chunks from the server to the client.
+* This enables parts of the page to be displayed sooner, without waiting for all the data to load before any UI can be rendered.
+* Streaming works well with React's component model because each component can be considered a chunk. Components that have higher priority (e.g. product information) or that don't rely on data can be sent first (e.g. layout), and React can start hydration earlier. Components that have lower priority (e.g. reviews, related products) can be sent in the same server request after their data has been fetched.
 
-## Rules
+## Example
 
-- You must use Shadcn UI for components.
-- You must use Tailwind CSS for styling.
-- You must install any ShadcnUI missing component with `pnpm dlx shadcn@2.1.8 add <component-name />`
+`<Suspense>` works by wrapping a component that performs an asynchronous action (e.g. fetch data), showing fallback UI (e.g. skeleton, spinner) while it's happening, and then swapping in your component once the action completes.
+
+```tsx
+import { Suspense } from 'react'
+import { PostFeed, Weather } from './Components'
+ 
+export default function Posts() {
+  return (
+    <section>
+      <Suspense fallback={<p>Loading feed...</p>}>
+        <PostFeed />
+      </Suspense>
+      <Suspense fallback={<p>Loading weather...</p>}>
+        <Weather />
+      </Suspense>
+    </section>
+  )
+}
+```
+
+* PostFeed is a [17-server-components.mdc](mdc:.cursor/rules/17-server-components.mdc) that fetch data
+* Weather is a [17-server-components.mdc](mdc:.cursor/rules/17-server-components.mdc) that  fetch data
+
+You can use [skeleton.tsx](mdc:src/components/ui/skeleton.tsx) in `fallback` to have a better UI/UX on the application.
 
 ---
 > Source: [cortex225/playerConnect](https://github.com/cortex225/playerConnect) — distributed by [TomeVault](https://tomevault.io).
