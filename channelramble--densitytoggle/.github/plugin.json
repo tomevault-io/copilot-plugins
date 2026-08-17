@@ -1,0 +1,9 @@
+{
+  "name": "channelramble--densitytoggle",
+  "displayName": "DensityToggle",
+  "description": "Shrink Wear OS display density so sideloaded phone apps fit the round screen \u2014 Galaxy Watch Ultra / Ultra 2. No root, one-time adb setup.",
+  "version": "1.0.0",
+  "author": "channelramble",
+  "homepage": "https://github.com/channelramble/DensityToggle",
+  "skills": []
+}
