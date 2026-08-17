@@ -7,11 +7,11 @@ Capability-aware Lovelace card for Xiaomi and generic Home Assistant fans
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mrwogu/xiaomi-smart-fan-card](https://github.com/mrwogu/xiaomi-smart-fan-card).
+Original source: `AGENTS.md` in [mrwogu/xiaomi-smart-fan-card](https://github.com/mrwogu/xiaomi-smart-fan-card).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
