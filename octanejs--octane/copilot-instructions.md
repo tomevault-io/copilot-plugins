@@ -1,126 +1,89 @@
-## testing
+## tsrx-authoring
 
-> Octane test quality and observation-boundary rules
+> Full .tsrx authoring reference: components, text holes, events, control flow, refs
 
 
-# Test Quality and Observation Boundaries
+# Authoring `.tsrx`
 
-Tests should protect behavior a consumer can observe, not the current route the
-implementation takes to produce it. A regression test must have a credible
-pre-fix failure and an oracle that would detect the user-visible regression.
+## Components
 
-## Default to behavioral tests
+A component is any function used at a `<F/>` site, not a special declaration.
+It renders whatever it returns: a JSX root, a primitive coerced to text, `null`,
+or an array. A function may early-return a non-JSX value.
 
-- Exercise public package entry points and realistic components, events, stores,
-  SSR, hydration, or build flows. Prefer strengthening an existing scenario over
-  adding a one-off file named after an internal helper or historical fix.
-- Assert rendered output, DOM identity where identity is promised, state,
-  effects, refs, focus, event propagation, errors, accessibility state, public
-  return values, or published diagnostics. A test merely completing is not an
-  oracle for convergence or cleanup when a bounded result can be asserted.
-- Reproduce the consumer report in the smallest realistic fixture. Test names
-  describe the contract, not the private function, fast path, queue, slot, or
-  phase that was changed.
-- A captured value must participate in a real assertion. Do not silence an
-  unused capture with `void`, add tautological expectations, or assert only that
-  setup succeeded.
-- Keep comments about the durable contract and why the assertion matters.
-  Remove implementation archaeology, stale `GAP` notes, positional source-line
-  references, and claims the test does not actually prove.
+`@{ … }` is shorthand for returning JSX: `function f() @{ … }` desugars to
+`function f() { … return <jsx> }`, so setup (hooks, locals) sits next to the
+output. The `@{ … }` scope ends with **exactly one** output node: a JSX element
+or a fragment `<>…</>`.
 
-## Respect the observation boundary
+Both forms compile identically and any function may use either:
 
-- Do not assert private helper names, temporary identifiers, binding-bag fields,
-  slot symbols, `__*`/`$$*` properties, generated-code formatting, or exact
-  internal call order. Refactors that preserve behavior should preserve the
-  test result.
-- Hydration tests assert server/client output, adoption of existing DOM nodes,
-  preserved user state, live events/refs, focus, and mismatch diagnostics. Do
-  not pin comment-marker spelling, marker multiplicity, or exact marker counts
-  in correctness suites.
-- Exact render counts, allocation identity, helper activation, DOM-node counts,
-  bundle bytes, and codegen size are optimization claims. Put them in the
-  deterministic benchmark/ratio system with semantic controls, not ordinary
-  correctness tests. Only assert a count in a correctness test when the public
-  API explicitly guarantees that count (for example, an effect cleanup firing
-  once).
-- Browser-only behavior belongs in the real-browser suites. Do not replace a
-  browser contract with a jsdom mock of the framework internals.
-
-## Compiler-test exceptions
-
-Compiler diagnostics, source maps, public compile options, module/export shape,
-and other published artifacts sometimes require source-level assertions. Even
-then, compile and execute the result when practical and assert the narrowest
-semantic property.
-
-Use a parsed AST/source contract only when the required authoring pattern cannot
-be distinguished behaviorally, such as an omitted dependency array or an
-observed third tuple member. Avoid regexes over exact emitted helper aliases,
-temporary numbering, whitespace, or statement layout. If raw output shape is
-itself the optimization target, cover it through the codegen-size or bundle-size
-benchmarks instead.
-
-## Conformance and regression review
-
-- React conformance ports cite the upstream case but assert Octane's observable
-  outcome. Do not port Fiber, reconciler, lane, or synthetic-event internals as
-  requirements. Intentional divergences remain ordinary passing behavioral
-  tests with `// OCTANE DIVERGENCE:` rationale.
-- Differential tests are preferred when the same fixture and interactions can
-  run through Octane and the reference implementation. Add a focused identity,
-  effect, focus, or move assertion only when HTML comparison cannot observe the
-  promised behavior.
-- Before keeping a new regression test, verify that a realistic broken
-  implementation fails it and that materially different correct
-  implementations pass it. In the handoff, state the pre-fix failure and the
-  consumer-visible contract being protected.
-
-Use the shared test harnesses for compilation, SSR, hydration, and differential
-execution. Do not copy ad-hoc generated-module rewriting or `new Function`
-loaders into another test file.
-
-## Where tests live
-
-`packages/octane/tests/` is organized as:
-
-- top-level `*.test.ts`: feature and unit tests for runtime behavior.
-- `compiler/`: suites that never mount a component — they pass the compiler a
-  source string plus their own options and assert on what comes back. That is
-  what keeps them out of the `octane-prod` project below, so a test that mounts
-  anything belongs at the top level instead.
-- `conformance/`: ports of `facebook/react` behaviors. Each `it` cites its
-  source, like `// Per ReactHooksWithNoopRenderer-test.js:1885`.
-- `differential/`: the parity proof. `_rig.ts` runs the same `.tsrx` fixture
-  through both Octane and `@tsrx/react`, drives identical events, and asserts
-  byte-equal `innerHTML` after each step. It compares only final HTML, so it
-  cannot see DOM move patterns, effect timing, or focus.
-- `hydration/`: server-render then `hydrateRoot()` adoption tests, including
-  `prod-mode-hydrate.test.ts`, which compiles with explicit prod options.
-- `_fixtures/`: shared `.tsrx` fixtures. Helpers live in `tests/_helpers.ts`
-  (`mount`, `act`, `flushEffects`, `createLog`) and `tests/conformance/_helpers/`.
-
-Run one file while iterating:
-
-```bash
-./node_modules/.bin/vitest run packages/octane/tests/<file>.test.ts --reporter=verbose
+```tsx
+export function X() @{ <div /> }
+function getX() { return <div />; }
 ```
 
-Two regression layers sit beyond the `octane` project:
+## Text holes
 
-- The **`octane-prod`** vitest project re-runs the runtime files with the plugin
-  forced to `hmr: false`, so the production compile branch gets runtime
-  coverage. Tests asserting dev-only warnings check
-  `process.env.OCTANE_TEST_COMPILE_MODE === 'prod'`. `compiler/` is excluded:
-  those suites choose their own compile options, so a second run would
-  reproduce the first exactly.
-- **`website/tests/ssr-hydration.e2e.test.ts`** boots the real Vite dev server
-  and the production `octane-preview` server and drives every route in headless
-  Chromium, failing on hydration-mismatch warnings or page errors.
+Dynamic text uses a cast: `{expr as string}`.
 
-`scripts/scaffold-react-port.mjs` turns a React test file into a triage skeleton
-of in-scope `it.todo`s plus out-of-scope reasons. Resolve or remove every todo
-before committing the port.
+The cast is optional when the expression is provably a string: a string or
+template literal, a `+`-concatenation involving a string (`{'Count: ' + count}`),
+or a local `const`/param the compiler tracks back to a string. It is required
+otherwise.
+
+A bare `{expr}` that is not provably a string is a renderable hole: a component,
+an element descriptor, or a coerced primitive.
+
+## Events
+
+Events are native, delegated DOM events (`onClick`, `onInput`, `onSubmit`), not a
+synthetic layer, so behavior matches the platform.
+
+There is no synthetic `onChange`. `onInput` is the per-keystroke handler for text
+controls; native `change` fires on blur or commit. The compiler reports
+`OCTANE_NATIVE_TEXT_ONCHANGE` on statically known text-entry hosts that look like
+they use React's per-edit convention, and a development runtime fallback checks
+final ambiguous uncontrolled props.
+
+Deliberate native commit behavior keeps `onChange` alongside the JS-only,
+non-serialized `suppressNativeChangeWarning` host hint. Do not suppress or rename
+component and library callbacks, selects, or checkbox/radio change handlers.
+
+## Control flow
+
+Template control flow uses directive blocks. Plain JS control flow stays in
+setup.
+
+```tsx
+@if (c) { } @else { }
+@for (const x of xs; key x.id) { } @empty { }
+@switch (v) { @case a: { } @default: { } }
+@try { } @pending { } @catch (e) { }
+```
+
+A slot-keyed hook inside a plain JS `for`/`while` is a compile error: every
+iteration would share the one call-site slot and its state/memo/effect entries
+would collide. Use the keyed `@for` directive or extract a child component, so
+each item renders in its own scope. `use()` and `useContext` are exempt: they
+are call-order and context-identity keyed.
+
+## Refs
+
+Refs are passed as props, React-19 style: `ref={cb}`, `ref={obj}`, or multi-ref
+`ref={[a, b]}`. There is no `forwardRef`.
+
+## Types
+
+`.tsrx` files type-check through `tsrx-tsc` and the tsrx TypeScript plugin, so
+consumers get real exported types. Typecheck scripts covering a program that
+contains `.tsrx` must use `tsrx-tsc --noEmit`, never plain `tsc`, with
+`"jsx": "react-jsx"` and `"jsxImportSource": "octane"` in the tsconfig.
+
+Type props and renderable holes properly: `OctaneNode` from `octane` for
+renderables (never `React.ReactNode`), native DOM event types, and
+`{ current: T | null }` refs. An untyped `props` parameter is a `noImplicitAny`
+error, not a style choice.
 
 ---
 > Source: [octanejs/octane](https://github.com/octanejs/octane) — distributed by [TomeVault](https://tomevault.io).
