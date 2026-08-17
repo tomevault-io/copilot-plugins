@@ -7,11 +7,11 @@ Open source Grok Bot alternative
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [madebywelch/guaca](https://github.com/madebywelch/guaca).
+Original source: `AGENTS.md` in [madebywelch/guaca](https://github.com/madebywelch/guaca).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
