@@ -1,39 +1,46 @@
-## 109-streaming-components
+## 110-styles
 
-> Streaming Component enable to load page faster
+> ENFORCE style in our application
 
-## Context
+- Write concise, technical TypeScript code using functional and declarative programming patterns.
+- Avoid classes; prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., `isLoading`, `hasError`).
+- Structure files into: exported component, subcomponents, helpers, static content, and types.
 
-* Streaming allows you to break down the page's HTML into smaller chunks and progressively send those chunks from the server to the client.
-* This enables parts of the page to be displayed sooner, without waiting for all the data to load before any UI can be rendered.
-* Streaming works well with React's component model because each component can be considered a chunk. Components that have higher priority (e.g. product information) or that don't rely on data can be sent first (e.g. layout), and React can start hydration earlier. Components that have lower priority (e.g. reviews, related products) can be sent in the same server request after their data has been fetched.
+## syntax-and-formatting
 
-## Example
+- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+- Write declarative JSX.
 
-`<Suspense>` works by wrapping a component that performs an asynchronous action (e.g. fetch data), showing fallback UI (e.g. skeleton, spinner) while it's happening, and then swapping in your component once the action completes.
+## typescript-usage
 
-```tsx
-import { Suspense } from 'react'
-import { PostFeed, Weather } from './Components'
- 
-export default function Posts() {
-  return (
-    <section>
-      <Suspense fallback={<p>Loading feed...</p>}>
-        <PostFeed />
-      </Suspense>
-      <Suspense fallback={<p>Loading weather...</p>}>
-        <Weather />
-      </Suspense>
-    </section>
-  )
-}
-```
+- Use TypeScript for all code; prefer types over interfaces.
+- Avoid enums; use maps instead.
+- Use functional components with TypeScript types.
 
-* PostFeed is a [17-server-components.mdc](mdc:.cursor/rules/17-server-components.mdc) that fetch data
-* Weather is a [17-server-components.mdc](mdc:.cursor/rules/17-server-components.mdc) that  fetch data
+## ui-and-styling
 
-You can use [skeleton.tsx](mdc:src/components/ui/skeleton.tsx) in `fallback` to have a better UI/UX on the application.
+- Use Shadcn UI, Radix, and Tailwind for components and styling.
+- Implement responsive design with Tailwind CSS using a mobile-first approach.
+
+## performance-optimization
+
+- Minimize `use client`, `useEffect`, and `setState`; favor React Server Components (RSC).
+- Wrap client components in `Suspense` with fallback.
+- Use dynamic loading for non-critical components.
+- Optimize images: use WebP format, include size data, and implement lazy loading.
+
+## database-querying-and-data-model-creation
+
+- Use Prisma SDK to query the database.
+- For data models, read the `.prisma` files.
+
+## key-conventions
+
+- Use 'nuqs' for URL search parameter state management.
+- Optimize Web Vitals (LCP, CLS, FID).
+- Limit 'use client': Favor server components and Next.js SSR for data fetching or state management.
+- Use 'use client' only for Web API access in small components.
 
 ---
 > Source: [cortex225/playerConnect](https://github.com/cortex225/playerConnect) — distributed by [TomeVault](https://tomevault.io).
