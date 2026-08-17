@@ -1,0 +1,9 @@
+{
+  "name": "perrylink--dsh-mcp-panel",
+  "displayName": "dsh-mcp-panel",
+  "description": "MCP management console for the official DeepSeek Harness MCP client: /mcp command with health diagnostics and pipeline trial calls, a Settings MCP tab with server CRUD (approval-gated writes, automati",
+  "version": "1.0.0",
+  "author": "PerryLink",
+  "homepage": "https://github.com/PerryLink/dsh-mcp-panel",
+  "skills": []
+}
