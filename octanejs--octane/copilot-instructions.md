@@ -1,6 +1,7 @@
-## octane
+## project
 
-> Octane is Dominic Gannaway's successor to Inferno: a React-shaped UI framework
+> Octane project overview and development guidelines
+
 
 # Octane
 
