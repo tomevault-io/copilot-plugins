@@ -1,6 +1,6 @@
 # playerConnect
 
-> Tome by [cortex225](https://github.com/cortex225/playerConnect) — distributed by [TomeVault](https://tomevault.io)
+> Tome by [cortex225](https://github.com/cortex225/playerConnect), graded and kept true across every major AI platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
