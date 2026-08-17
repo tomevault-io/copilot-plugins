@@ -1,0 +1,9 @@
+{
+  "name": "mooling0602--dsh-web-file-uploader",
+  "displayName": "dsh-web-file-uploader",
+  "description": "A file-upload plugin for the DeepSeek Harness web UI.",
+  "version": "1.0.0",
+  "author": "Mooling0602",
+  "homepage": "https://github.com/Mooling0602/dsh-web-file-uploader",
+  "skills": []
+}
