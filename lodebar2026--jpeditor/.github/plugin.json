@@ -1,0 +1,9 @@
+{
+  "name": "lodebar2026--jpeditor",
+  "displayName": "jpeditor",
+  "description": "\u7b80\u8c31\uff08JP-Word/.jpwabc\uff09\u5728\u7ebf\u6392\u7248\u4e0e\u7f16\u8f91\u5668 \u00b7 \u7b80\u8c31\u56fe\u7247\u8bc6\u522b(OMR) \u00b7 ABC\u8bb0\u8c31\u5bfc\u5165 \u00b7 \u7b80\u8c31\u00b7\u4e94\u7ebf\u8c31\u6df7\u6392 \u00b7 MusicXML\u5bfc\u5165 \u00b7 \u4e50\u8c31\u64ad\u653e \u00b7 \u5bfc\u51fa PDF/PNG/MIDI/PPTX \u00b7 Open-source jianpu (numbered notation) editor with OMR & ABC import",
+  "version": "1.0.0",
+  "author": "lodebar2026",
+  "homepage": "https://github.com/lodebar2026/jpeditor",
+  "skills": []
+}
