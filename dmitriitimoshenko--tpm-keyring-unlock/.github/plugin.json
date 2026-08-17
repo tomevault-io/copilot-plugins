@@ -1,0 +1,9 @@
+{
+  "name": "dmitriitimoshenko--tpm-keyring-unlock",
+  "displayName": "tpm-keyring-unlock",
+  "description": "TPM-sealed auto-unlock for the GNOME login keyring - works with fingerprint login, without weakening the keyring",
+  "version": "1.0.0",
+  "author": "dmitriitimoshenko",
+  "homepage": "https://github.com/dmitriitimoshenko/tpm-keyring-unlock",
+  "skills": []
+}
