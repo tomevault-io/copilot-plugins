@@ -4,7 +4,7 @@
   "repo": "deepseek-harness-desktop",
   "description": "Community-maintained self-contained Tauri desktop distribution for DeepSeek Harness",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bailang1218/deepseek-harness-desktop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-17T02:32:22Z"
+  "distributed_at": "2026-08-17T02:33:44Z"
 }
