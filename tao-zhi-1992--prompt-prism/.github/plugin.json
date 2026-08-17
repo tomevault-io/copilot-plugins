@@ -1,0 +1,9 @@
+{
+  "name": "tao-zhi-1992--prompt-prism",
+  "displayName": "prompt-prism",
+  "description": "See exactly what your agent sends to the model.",
+  "version": "1.0.0",
+  "author": "tao-zhi-1992",
+  "homepage": "https://github.com/tao-zhi-1992/prompt-prism",
+  "skills": []
+}
