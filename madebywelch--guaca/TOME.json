@@ -4,7 +4,7 @@
   "repo": "guaca",
   "description": "Open source Grok Bot alternative",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/madebywelch/guaca",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-17T08:33:07Z"
+  "distributed_at": "2026-08-17T08:34:36Z"
 }
