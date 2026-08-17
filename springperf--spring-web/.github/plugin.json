@@ -1,0 +1,9 @@
+{
+  "name": "springperf--spring-web",
+  "displayName": "spring-web",
+  "description": "A high-performance web framework that replaces Spring Web MVC and Spring Web Flux",
+  "version": "1.0.0",
+  "author": "springperf",
+  "homepage": "https://github.com/springperf/spring-web",
+  "skills": []
+}
