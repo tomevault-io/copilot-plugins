@@ -7,11 +7,11 @@ JSX-style HTML templating for Go
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [gsxhq/gsx](https://github.com/gsxhq/gsx).
+Original source: `CLAUDE.md` in [gsxhq/gsx](https://github.com/gsxhq/gsx).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
