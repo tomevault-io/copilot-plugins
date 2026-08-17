@@ -7,11 +7,11 @@ Your Claude, Codex, Cursor, and OpenCode skills pile up across 4+ config folders
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [abubakarsiddik31/skill-manager](https://github.com/abubakarsiddik31/skill-manager).
+Original source: `CLAUDE.md` in [abubakarsiddik31/skill-manager](https://github.com/abubakarsiddik31/skill-manager).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
