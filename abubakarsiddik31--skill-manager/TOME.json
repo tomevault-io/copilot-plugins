@@ -4,7 +4,7 @@
   "repo": "skill-manager",
   "description": "Your Claude, Codex, Cursor, and OpenCode skills pile up across 4+ config folders with no way to see or manage them. Skill Manager is the one desktop app that shows you all of it \u2014 enable, disable, edit, and delete skills from a single dashboard.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/abubakarsiddik31/skill-manager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-17T06:32:22Z"
+  "distributed_at": "2026-08-17T06:33:01Z"
 }
