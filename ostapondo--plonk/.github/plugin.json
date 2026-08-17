@@ -1,0 +1,9 @@
+{
+  "name": "ostapondo--plonk",
+  "displayName": "Plonk",
+  "description": "A macOS window manager with snap zones you draw yourself and workspaces that reopen your apps on the right monitor \u2014 plus on-device OCR, keep-awake, screenshot annotation, pointer tools, a shortcut gu",
+  "version": "1.0.0",
+  "author": "ostapondo",
+  "homepage": "https://github.com/ostapondo/Plonk",
+  "skills": []
+}
