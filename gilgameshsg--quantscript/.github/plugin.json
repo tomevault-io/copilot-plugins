@@ -1,0 +1,9 @@
+{
+  "name": "gilgameshsg--quantscript",
+  "displayName": "quantscript",
+  "description": "QuantScript SDK \u2014 a trading scripting language, backtesting engine, and simulated broker for automated trading. Write strategies in .qs, backtest against OHLC data and get run summaries in .md",
+  "version": "1.0.0",
+  "author": "GilgameshSG",
+  "homepage": "https://github.com/GilgameshSG/quantscript",
+  "skills": []
+}
