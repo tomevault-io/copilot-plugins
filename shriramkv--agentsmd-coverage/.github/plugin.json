@@ -1,0 +1,9 @@
+{
+  "name": "shriramkv--agentsmd-coverage",
+  "displayName": "agentsmd-coverage",
+  "description": "Report AGENTS.md coverage across a repo or monorepo, with an A-F grade you can gate on in CI.",
+  "version": "1.0.0",
+  "author": "shriramkv",
+  "homepage": "https://github.com/shriramkv/agentsmd-coverage",
+  "skills": []
+}
