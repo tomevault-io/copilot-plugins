@@ -1,55 +1,45 @@
-## minimal-test-runs
+## no-backwards-compatibility
 
-> Run only minimal scoped tests during development; avoid full suites unless asked
+> Do not add backwards-compatibility shims or legacy fallbacks
 
 
-# Minimal test runs
+# No Backwards Compatibility
 
-During iterative development, run the **smallest test set that proves the change**. Do not run full suites after every edit.
+Do not preserve old behaviour "just in case" unless the user explicitly asks for it.
 
-## Default
+## Rules
 
-- Run **one** targeted test file, script, or filter for the code you changed.
-- Re-run only that same narrow scope when fixing follow-up issues.
-- Skip unrelated tiers (smoke, curated, full PHPUnit, full form corpus) unless the change touches them.
-
-## When to run broader checks
-
-- **Before commit or push**: use the checks in `pre-commit-quality.mdc`.
-- **When the user asks** for a full suite or CI-equivalent run.
-- **When a cross-cutting change** genuinely affects many areas (e.g. shared form-heurics used by all fixtures).
+- Remove legacy code paths instead of keeping parallel old/new flows.
+- Do not accept deprecated input formats alongside new ones.
+- Do not fall back to build-time defaults when runtime configuration is missing - fail clearly instead.
+- Do not keep unused config, migrations, or comments for superseded features.
+- When changing a contract (API shape, extension payload, env vars), update all callers in the same change.
 
 ## Examples
 
-```bash
-# Extension / Indeed contact change
-node scripts/extension-test/indeed-apply-contact.mjs
+```javascript
+// ❌ BAD - plain token still works
+if (parsed.api_base) {
+  useApiBase(parsed.api_base);
+} else {
+  useApiBase(DEFAULT_API_BASE);
+}
 
-# Single PHPUnit test or filter
-php artisan test --compact --filter=test_platform_smoke_playwright_passes
-
-# One fixture script, not the whole corpus
-node scripts/extension-test/indeed-apply-questions.mjs
+// ✅ GOOD - one supported format
+if (!parsed.token || !parsed.api_base) {
+  throw new Error('Connection JSON must include token and api_base.');
+}
 ```
 
-## Avoid during iteration
+```php
+// ❌ BAD - support old and new response keys
+return ['token' => $token, 'api_base' => $base, 'api_url' => $base];
 
-```bash
-# ❌ Too broad for a small fix
-php artisan test --compact
-npm run form-corpus:fill-verify:smoke   # unless form-heuristics / field-inventory changed
-npm run form-corpus:fill-verify:curated # unless curated manifest or many fixtures changed
+// ✅ GOOD - one response shape
+return ['token' => $token, 'api_base' => $base];
 ```
 
-If unsure, prefer a **single file or filter**. Mention what was not run and offer a broader run before merge if needed.
-
-## Form corpus batches
-
-Form corpus fill-verify **never runs on PR** (manual `Tests (heavy)` only). When running corpus jobs locally or via `tests-corpus-batch.yml`:
-
-- **Max 50 scenarios per command** - no long-running full-prefix runs during iteration.
-- Review the batch report JSON before starting the next 50.
-- Use `--limit=50` on generate, scrape, vet, and fill-verify scripts.
+When unsure, prefer the simpler current design and delete the old path.
 
 ---
 > Source: [tmwclaxton/autoapplycv](https://github.com/tmwclaxton/autoapplycv) — distributed by [TomeVault](https://tomevault.io).
