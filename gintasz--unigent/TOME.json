@@ -4,7 +4,7 @@
   "repo": "unigent",
   "description": "Build stateful agent workflows with typed outputs, reusable tools, session forks, and ordinary TypeScript.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gintasz/unigent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-17T23:38:20Z"
+  "distributed_at": "2026-08-17T23:44:26Z"
 }
