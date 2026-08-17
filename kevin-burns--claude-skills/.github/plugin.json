@@ -1,0 +1,9 @@
+{
+  "name": "kevin-burns--claude-skills",
+  "displayName": "claude-skills",
+  "description": "A small collection of MIT-licensed Claude Code skills that I build",
+  "version": "1.0.0",
+  "author": "kevin-burns",
+  "homepage": "https://github.com/kevin-burns/claude-skills",
+  "skills": []
+}
