@@ -1,0 +1,9 @@
+{
+  "name": "bailang1218--deepseek-harness-desktop",
+  "displayName": "deepseek-harness-desktop",
+  "description": "Community-maintained self-contained Tauri desktop distribution for DeepSeek Harness",
+  "version": "1.0.0",
+  "author": "bailang1218",
+  "homepage": "https://github.com/bailang1218/deepseek-harness-desktop",
+  "skills": []
+}
