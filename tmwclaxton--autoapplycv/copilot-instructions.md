@@ -1,47 +1,21 @@
-## extension-bridge-mcp
+## extension-build
 
-> Use extension bridge MCP tools to inspect live browser state before guessing
+> Rebuild the browser extension after any extension source change
 
 
-# Extension bridge MCP first
+# Extension Build
 
-When debugging Auto Apply, Draft All, form fill, or extension behaviour on real job boards, **inspect the live Chrome tab through the extension bridge** before inferring from fixtures or code alone.
+When you change anything under `extension/` or `scripts/build-extension.mjs`, run the extension build before finishing:
 
-## Prerequisites
-
-1. `npm run extension-bridge` running locally.
-2. Unpacked extension loaded from `extension/dist/` with bridge connected (`curl http://127.0.0.1:7433/status` shows `extensionConnected: true`).
-
-## Required workflow
-
-1. **`extension_status`** - confirm bridge + extension connection and active tab.
-2. **`auto_apply_status`** - when Auto Apply is involved, read session log/stats first.
-3. **`linkedin_tab_message`** / **`indeed_tab_message`** - read platform modal state (`LINKEDIN_EASY_APPLY_STATE`, `LINKEDIN_EXPORT_EASY_APPLY_MODAL`, etc.).
-4. **`get_field_inventory`** + **`read_field_values`** - see what the page actually contains and what is filled.
-5. **`read_form_validation`** - check validation errors before blaming heuristics.
-6. **`get_debug_logs`** - correlate extension phases with failures.
-
-Use **`find_buttons`**, **`click_control`**, and **`get_page_html`** when you need DOM/button detail.
-
-## Do not
-
-- Diagnose "stuck on Resume/Contact" from orchestrator logs alone when the bridge is available.
-- Implement fixes for form steps without at least one live `LINKEDIN_EXPORT_EASY_APPLY_MODAL` or `read_field_values` snapshot when a tab is open.
-- Assume fixture HTML matches production LinkedIn A/B variants.
-
-## LinkedIn modal inspection
-
-```text
-linkedin_tab_message type=LINKEDIN_EASY_APPLY_STATE
-linkedin_tab_message type=LINKEDIN_EXPORT_EASY_APPLY_MODAL
-read_field_values
+```bash
+npm run build:extension
 ```
 
-Check: step label, primary action (Next/Review/Submit), resume card selected state, validation errors.
+This updates `extension/dist/` and the downloadable zips in `public/extension/`. Do this by default without waiting for the user to ask.
 
-## After code changes
+If the build fails, fix the issue and rerun until it succeeds. Mention in your summary if the build could not be run and the user should run it locally.
 
-Rebuild and reload the extension (`npm run build:extension`), then re-run the same MCP calls to verify behaviour on the live page.
+After substantive extension changes, bump `extension/manifest.json` version when other extension work in the same task already bumped it or the change is user-visible.
 
 ---
 > Source: [tmwclaxton/autoapplycv](https://github.com/tmwclaxton/autoapplycv) — distributed by [TomeVault](https://tomevault.io).
