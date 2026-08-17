@@ -1,52 +1,47 @@
-## extension-auto-apply-e2e-mcp-testing
+## extension-bridge-mcp
 
-> Auto Apply overnight live-review MCP checklist per scenario and job
+> Use extension bridge MCP tools to inspect live browser state before guessing
 
 
-# Auto Apply E2E MCP testing (live-review campaign)
+# Extension bridge MCP first
 
-When running Auto Apply scenarios from `tests/fixtures/auto-apply/auto-apply-live-review-queue.json`, follow this checklist for **every scenario** before marking pass/fail in `auto-apply-live-review-status.json`.
+When debugging Auto Apply, Draft All, form fill, or extension behaviour on real job boards, **inspect the live Chrome tab through the extension bridge** before inferring from fixtures or code alone.
 
-## Per-scenario loop
+## Prerequisites
 
-```text
-extension_status
-  -> set persona (request_auth / connect token for persona_id)
-  -> start_auto_apply { platform, role, location, market, fit, max }
-  -> FAIL FAST if search_url host wrong (www.indeed.com not uk.indeed.com for US)
-  -> poll auto_apply_status every 2-3s
-  -> per job: indeed_tab_message / glassdoor_tab_message / linkedin_tab_message
-  -> on apply tab: get_field_inventory -> start_draft_all -> read_field_values -> read_form_validation
-  -> on skip: record skip_reason + ats_score from log metadata
-  -> on stuck: save_fixture to tests/fixtures/auto-apply/{platform}/captured/ + get_debug_logs
-  -> on submit: verify stats.applied incremented + platform confirmation
-  -> append scenarios_tested[] + jobs_tested[] rows; update queue entry queue_status
-```
+1. `npm run extension-bridge` running locally.
+2. Unpacked extension loaded from `extension/dist/` with bridge connected (`curl http://127.0.0.1:7433/status` shows `extensionConnected: true`).
 
-## Required log fields
+## Required workflow
 
-Every `scenarios_tested[]` row must include:
+1. **`extension_status`** - confirm bridge + extension connection and active tab.
+2. **`auto_apply_status`** - when Auto Apply is involved, read session log/stats first.
+3. **`linkedin_tab_message`** / **`indeed_tab_message`** - read platform modal state (`LINKEDIN_EASY_APPLY_STATE`, `LINKEDIN_EXPORT_EASY_APPLY_MODAL`, etc.).
+4. **`get_field_inventory`** + **`read_field_values`** - see what the page actually contains and what is filled.
+5. **`read_form_validation`** - check validation errors before blaming heuristics.
+6. **`get_debug_logs`** - correlate extension phases with failures.
 
-- `scenario_id`, `platform`, `persona_id`, `profile_email`
-- `market_setting`, `market_resolved`, `search_url_expected`, `search_url_actual`
-- `result` (`pass`, `fail`, `blocked`), `jobs_submitted`, `skip_reasons`
-
-## Fix loop
-
-1. MCP diagnose on stuck tab
-2. Minimal fix (orchestrator / platform JS / market / sidepanel)
-3. `npm run extension:build-reload`
-4. Unit tests: `indeed-platform.test.mjs`, `job-board-market.test.mjs`, platform tests
-5. Retest **same scenario ID** before marking pass
-6. Commit real bug fixes immediately; keep status JSON local until 07:00 wrap
+Use **`find_buttons`**, **`click_control`**, and **`get_page_html`** when you need DOM/button detail.
 
 ## Do not
 
-- Use marathon `guessAnswer` during P0-P3 (P4 `babysitter_ok: true` only)
-- Mark pass on a different scenario after a fix
-- Set `campaign_status: final_wrap` before exactly 07:00 London
+- Diagnose "stuck on Resume/Contact" from orchestrator logs alone when the bridge is available.
+- Implement fixes for form steps without at least one live `LINKEDIN_EXPORT_EASY_APPLY_MODAL` or `read_field_values` snapshot when a tab is open.
+- Assume fixture HTML matches production LinkedIn A/B variants.
 
-See also: `extension-bridge-mcp.mdc`, `extension-e2e-mcp-testing.mdc`, `docs/platform-automation-playbook.md`.
+## LinkedIn modal inspection
+
+```text
+linkedin_tab_message type=LINKEDIN_EASY_APPLY_STATE
+linkedin_tab_message type=LINKEDIN_EXPORT_EASY_APPLY_MODAL
+read_field_values
+```
+
+Check: step label, primary action (Next/Review/Submit), resume card selected state, validation errors.
+
+## After code changes
+
+Rebuild and reload the extension (`npm run build:extension`), then re-run the same MCP calls to verify behaviour on the live page.
 
 ---
 > Source: [tmwclaxton/autoapplycv](https://github.com/tmwclaxton/autoapplycv) — distributed by [TomeVault](https://tomevault.io).
