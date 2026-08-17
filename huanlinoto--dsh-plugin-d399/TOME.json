@@ -1,0 +1,44 @@
+{
+  "name": "dsh-plugin-d399",
+  "owner": "HuanLinOTO",
+  "repo": "dsh-plugin-d399",
+  "description": "\u6a21\u578b\u751f\u6210\u65f6\u53f3\u4e0b\u89d2\u5f39\u51fa\u5c0f\u6e38\u620f\u83dc\u5355\uff08Wordle/\u6d88\u6d88\u4e50/192 \u6b3e\u53c2\u6570\u5316\u5c0f\u6e38\u620f\uff0c\u53ef\u62d3\u5c55\u6ce8\u518c\u8868\uff09 | Pops up a mini-game menu while the model generates (Wordle/Match-3/192 parametric mini-games, extensible registry)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/HuanLinOTO/dsh-plugin-d399",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-17T04:43:44Z"
+}
