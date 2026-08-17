@@ -1,0 +1,9 @@
+{
+  "name": "humblebanana--dsh-record-replay",
+  "displayName": "dsh-record-replay",
+  "description": "DeepSeek Harness record macOS desktop workflows by demonstration and turn them into agent skills (open-record-replay skill + orr_* tools)",
+  "version": "1.0.0",
+  "author": "humblebanana",
+  "homepage": "https://github.com/humblebanana/dsh-record-replay",
+  "skills": []
+}
