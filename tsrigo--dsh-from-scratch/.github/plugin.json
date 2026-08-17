@@ -1,0 +1,9 @@
+{
+  "name": "tsrigo--dsh-from-scratch",
+  "displayName": "dsh-from-scratch",
+  "description": "A runnable TypeScript tutorial that builds a minimal DeepSeek-style agent harness from scratch.",
+  "version": "1.0.0",
+  "author": "tsrigo",
+  "homepage": "https://github.com/tsrigo/dsh-from-scratch",
+  "skills": []
+}
