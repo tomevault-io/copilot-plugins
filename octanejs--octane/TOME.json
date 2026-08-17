@@ -4,7 +4,7 @@
   "repo": "octane",
   "description": "React\u2019s programming model, compiled. The successor to Inferno.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/octanejs/octane",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-17T23:32:32Z"
+  "distributed_at": "2026-08-17T23:33:06Z"
 }
