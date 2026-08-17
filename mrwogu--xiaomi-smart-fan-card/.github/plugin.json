@@ -1,0 +1,9 @@
+{
+  "name": "mrwogu--xiaomi-smart-fan-card",
+  "displayName": "xiaomi-smart-fan-card",
+  "description": "Capability-aware Lovelace card for Xiaomi and generic Home Assistant fans",
+  "version": "1.0.0",
+  "author": "mrwogu",
+  "homepage": "https://github.com/mrwogu/xiaomi-smart-fan-card",
+  "skills": []
+}
