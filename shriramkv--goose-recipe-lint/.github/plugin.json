@@ -1,0 +1,9 @@
+{
+  "name": "shriramkv--goose-recipe-lint",
+  "displayName": "goose-recipe-lint",
+  "description": "Validates Goose recipe files for schema errors, missing parameters/defaults, invalid requirements, extension configuration issues, and template mismatches. Understands YAML block scalars and Jinja-sty",
+  "version": "1.0.0",
+  "author": "shriramkv",
+  "homepage": "https://github.com/shriramkv/goose-recipe-lint",
+  "skills": []
+}
