@@ -1,0 +1,9 @@
+{
+  "name": "davidferj--agentic-platform-baseline",
+  "displayName": "agentic-platform-baseline",
+  "description": "Secure, spec-driven baseline for agentic platforms with Next.js, Python, GCP, Firebase, MLOps, and compliance foundations.",
+  "version": "1.0.0",
+  "author": "DavidFerj",
+  "homepage": "https://github.com/DavidFerj/agentic-platform-baseline",
+  "skills": []
+}
