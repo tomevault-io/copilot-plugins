@@ -1,45 +1,37 @@
-## no-backwards-compatibility
+## no-em-dash
 
-> Do not add backwards-compatibility shims or legacy fallbacks
+> Replace em dashes with hyphens before committing
 
 
-# No Backwards Compatibility
+# No em dashes in source
 
-Do not preserve old behaviour "just in case" unless the user explicitly asks for it.
+Before creating a git commit, replace every em dash (`-`, Unicode U+2014) with a normal hyphen (`-`, U+002D) in project source.
 
-## Rules
+## Scope
 
-- Remove legacy code paths instead of keeping parallel old/new flows.
-- Do not accept deprecated input formats alongside new ones.
-- Do not fall back to build-time defaults when runtime configuration is missing - fail clearly instead.
-- Do not keep unused config, migrations, or comments for superseded features.
-- When changing a contract (API shape, extension payload, env vars), update all callers in the same change.
+- PHP, JavaScript, Vue, Markdown, and Cursor rule files (`.php`, `.js`, `.mjs`, `.vue`, `.md`, `.mdc`)
+- Excludes vendor, node_modules, build output, and scraped HTML fixtures under `tests/fixtures/form-extraction/html/`
 
-## Examples
+## When matching external text
+
+If code must recognize em dashes from third-party content, use a Unicode escape instead of a literal character:
 
 ```javascript
-// ❌ BAD - plain token still works
-if (parsed.api_base) {
-  useApiBase(parsed.api_base);
-} else {
-  useApiBase(DEFAULT_API_BASE);
-}
-
-// ✅ GOOD - one supported format
-if (!parsed.token || !parsed.api_base) {
-  throw new Error('Connection JSON must include token and api_base.');
-}
+// ✅ GOOD
+const separators = [' | ', ' - ', ' \u2014 ', ' at '];
 ```
 
 ```php
-// ❌ BAD - support old and new response keys
-return ['token' => $token, 'api_base' => $base, 'api_url' => $base];
-
-// ✅ GOOD - one response shape
-return ['token' => $token, 'api_base' => $base];
+// ✅ GOOD
+$text = str_replace(["\u{2014}", "\u{2013}"], '-', $text);
 ```
 
-When unsure, prefer the simpler current design and delete the old path.
+## Check locally
+
+```bash
+npm run em-dash:check   # fail if any em dashes remain
+npm run em-dash:fix     # replace em dashes with hyphens
+```
 
 ---
 > Source: [tmwclaxton/autoapplycv](https://github.com/tmwclaxton/autoapplycv) — distributed by [TomeVault](https://tomevault.io).
