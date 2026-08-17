@@ -1,0 +1,9 @@
+{
+  "name": "mannanj--skillguard",
+  "displayName": "skillguard",
+  "description": "Scan Claude Code skills for malicious code \u2014 before Claude runs them. Multi-engine scanner + PreToolUse hook that blocks unscanned skills.",
+  "version": "1.0.0",
+  "author": "mannanj",
+  "homepage": "https://github.com/mannanj/skillguard",
+  "skills": []
+}
