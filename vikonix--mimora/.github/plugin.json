@@ -1,0 +1,9 @@
+{
+  "name": "vikonix--mimora",
+  "displayName": "Mimora",
+  "description": "Free, fully local pronunciation trainer for English and Spanish. TTS, speech recognition, phrase generation and scoring all run on your machine.",
+  "version": "1.0.0",
+  "author": "vikonix",
+  "homepage": "https://github.com/vikonix/Mimora",
+  "skills": []
+}
