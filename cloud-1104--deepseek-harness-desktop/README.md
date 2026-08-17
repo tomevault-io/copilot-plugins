@@ -7,11 +7,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [cloud-1104/deepseek-harness-desktop](https://github.com/cloud-1104/deepseek-harness-desktop).
+Original source: `AGENTS.md` in [cloud-1104/deepseek-harness-desktop](https://github.com/cloud-1104/deepseek-harness-desktop).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
