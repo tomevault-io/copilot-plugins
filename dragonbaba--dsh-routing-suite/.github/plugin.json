@@ -1,0 +1,9 @@
+{
+  "name": "dragonbaba--dsh-routing-suite",
+  "displayName": "dsh-routing-suite",
+  "description": "Lightweight, localized task routing for DeepSeek Harness",
+  "version": "1.0.0",
+  "author": "dragonbaba",
+  "homepage": "https://github.com/dragonbaba/dsh-routing-suite",
+  "skills": []
+}
