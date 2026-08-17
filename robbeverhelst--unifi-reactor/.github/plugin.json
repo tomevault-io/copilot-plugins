@@ -1,0 +1,9 @@
+{
+  "name": "robbeverhelst--unifi-reactor",
+  "displayName": "unifi-reactor",
+  "description": "Kubernetes operator for UniFi networks. Reacts to WAN failover, UPS power loss and device health with declarative Automations.",
+  "version": "1.0.0",
+  "author": "robbeverhelst",
+  "homepage": "https://github.com/robbeverhelst/unifi-reactor",
+  "skills": []
+}
