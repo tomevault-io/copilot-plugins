@@ -1,0 +1,9 @@
+{
+  "name": "surendranb--writing-skills",
+  "displayName": "writing-skills",
+  "description": "Procedural writing-style skills for AI agents: official frameworks (plain language, business writing, GOV.UK, AP style, STE-100, developer docs) + character voices. Agent Plugins 1.0.0, works in openc",
+  "version": "1.0.0",
+  "author": "surendranb",
+  "homepage": "https://github.com/surendranb/writing-skills",
+  "skills": []
+}
