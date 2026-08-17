@@ -1,0 +1,9 @@
+{
+  "name": "echouser005--dsh-fate-spectrum",
+  "displayName": "dsh-fate-spectrum",
+  "description": "DeepSeek Harness plugin for Bazi & Zi Wei Dou Shu \u2014 deterministic, offline fate-chart calculation for AI agents.",
+  "version": "1.0.0",
+  "author": "EchoUser005",
+  "homepage": "https://github.com/EchoUser005/dsh-fate-spectrum",
+  "skills": []
+}
