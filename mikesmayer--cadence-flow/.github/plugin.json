@@ -1,0 +1,9 @@
+{
+  "name": "mikesmayer--cadence-flow",
+  "displayName": "cadence-flow",
+  "description": "A structured development lifecycle for building software with Claude Code \u2014 numbered skills from grill-me to retro, proposals-first planning, and the workflow narrated end to end.",
+  "version": "1.0.0",
+  "author": "mikesmayer",
+  "homepage": "https://github.com/mikesmayer/cadence-flow",
+  "skills": []
+}
