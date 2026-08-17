@@ -1,0 +1,9 @@
+{
+  "name": "kiyoshithedevil--kodama",
+  "displayName": "Kodama",
+  "description": "Kodama \u2014 a desktop YouTube Music client (Tauri 2 \u00b7 React \u00b7 Python \u00b7 Rust).",
+  "version": "1.0.0",
+  "author": "KiyoshiTheDevil",
+  "homepage": "https://github.com/KiyoshiTheDevil/Kodama",
+  "skills": []
+}
