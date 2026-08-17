@@ -4,7 +4,7 @@
   "repo": "ASI-Bench",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/apexin-ai/ASI-Bench",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-17T14:33:56Z"
+  "distributed_at": "2026-08-17T14:34:59Z"
 }
