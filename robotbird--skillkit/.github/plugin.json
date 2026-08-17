@@ -1,0 +1,9 @@
+{
+  "name": "robotbird--skillkit",
+  "displayName": "skillkit",
+  "description": "AI agent's skills manager",
+  "version": "1.0.0",
+  "author": "robotbird",
+  "homepage": "https://github.com/robotbird/skillkit",
+  "skills": []
+}
