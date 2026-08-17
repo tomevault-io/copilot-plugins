@@ -1,0 +1,44 @@
+{
+  "name": "ops-vibe-coding",
+  "owner": "luozijian1990",
+  "repo": "ops-vibe-coding",
+  "description": "Ops Vibe Coding is an operations-first workflow for turning infrastructure ideas into tested software \u2014 from visual prototypes, React mocks and architecture discovery, through SDD and TDD, to browser-based acceptance testing.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/luozijian1990/ops-vibe-coding",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-17T10:33:08Z"
+}
