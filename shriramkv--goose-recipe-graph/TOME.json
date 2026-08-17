@@ -1,0 +1,44 @@
+{
+  "name": "goose-recipe-graph",
+  "owner": "shriramkv",
+  "repo": "goose-recipe-graph",
+  "description": "goose-recipe-graph maps and validates sub_recipe dependencies across a whole recipe library, catching broken references, cycles, and mismatched parameter values. It renders the graph as Mermaid and grades A-F for CI, one level up from recipe-lint which checks a single file.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shriramkv/goose-recipe-graph",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-17T02:39:01Z"
+}
