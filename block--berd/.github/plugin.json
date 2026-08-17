@@ -1,0 +1,9 @@
+{
+  "name": "block--berd",
+  "displayName": "berd",
+  "description": "a desktop app for getting work done with any model",
+  "version": "1.0.0",
+  "author": "block",
+  "homepage": "https://github.com/block/berd",
+  "skills": []
+}
