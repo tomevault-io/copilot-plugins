@@ -1,0 +1,9 @@
+{
+  "name": "mariojgt--featherengine",
+  "displayName": "featherEngine",
+  "description": "Agentic browser-based 3D game engine editor with node-based visual scripting, physics, and live runtime preview.",
+  "version": "1.0.0",
+  "author": "mariojgt",
+  "homepage": "https://github.com/mariojgt/featherEngine",
+  "skills": []
+}
