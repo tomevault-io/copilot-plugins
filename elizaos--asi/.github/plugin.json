@@ -1,0 +1,9 @@
+{
+  "name": "elizaos--asi",
+  "displayName": "asi",
+  "description": "ASI \u2014 continual reinforcement learning framework (The Alberta Plan) in JAX; trains elizaOS robot policies",
+  "version": "1.0.0",
+  "author": "elizaOS",
+  "homepage": "https://github.com/elizaOS/asi",
+  "skills": []
+}
