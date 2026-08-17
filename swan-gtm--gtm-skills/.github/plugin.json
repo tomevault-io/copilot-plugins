@@ -1,0 +1,9 @@
+{
+  "name": "swan-gtm--gtm-skills",
+  "displayName": "gtm-skills",
+  "description": "Open, production-grade GTM skills for AI agents.",
+  "version": "1.0.0",
+  "author": "swan-gtm",
+  "homepage": "https://github.com/swan-gtm/gtm-skills",
+  "skills": []
+}
