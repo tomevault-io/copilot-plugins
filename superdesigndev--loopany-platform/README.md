@@ -7,11 +7,11 @@ Run your company in loops, Loop Anything
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [superdesigndev/loopany-platform](https://github.com/superdesigndev/loopany-platform).
+Original source: `CLAUDE.md` in [superdesigndev/loopany-platform](https://github.com/superdesigndev/loopany-platform).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
