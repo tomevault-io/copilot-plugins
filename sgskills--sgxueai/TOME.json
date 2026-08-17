@@ -1,0 +1,44 @@
+{
+  "name": "sgxueai",
+  "owner": "sgskills",
+  "repo": "sgxueai",
+  "description": "\u300aAI \u7535\u5546\u57fa\u7840\u4ece\u5165\u95e8\u5230\u638c\u63e1\u300b\u516c\u76ca\u8bfe\u7a0b\u7f51\u7ad9 \u00b7 \u8bd7\u5149\u804aAI\u7535\u5546 \u51fa\u54c1 \u00b7 64 \u4e2a\u4ea4\u4e92\u77e5\u8bc6\u70b9\uff0c\u4ece Prompt \u5230\u4e1a\u52a1\u6d41\u667a\u80fd\u4f53",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sgskills/sgxueai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-17T04:43:02Z"
+}
