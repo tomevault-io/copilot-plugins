@@ -1,0 +1,44 @@
+{
+  "name": "material-workbench",
+  "owner": "mirror4869",
+  "repo": "material-workbench",
+  "description": "Open-source, local-first creative asset workbench for Windows\u2014organize, find, review, and safely reuse media across creative projects.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mirror4869/material-workbench",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-17T04:36:17Z"
+}
