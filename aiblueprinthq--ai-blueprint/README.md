@@ -7,11 +7,11 @@ A repeatable process for coding with AI while being the architect of your projec
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [aiblueprinthq/ai-blueprint](https://github.com/aiblueprinthq/ai-blueprint).
+Original source: `CLAUDE.md` in [aiblueprinthq/ai-blueprint](https://github.com/aiblueprinthq/ai-blueprint).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
