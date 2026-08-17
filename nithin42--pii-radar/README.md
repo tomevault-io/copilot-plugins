@@ -1,13 +1,13 @@
-# AI instruction files for pii-radar
+# AI instruction files for PII-Radar
 
-> Sourced from [nithin42/pii-radar](https://github.com/nithin42/pii-radar), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
+> Sourced from [nithin42/PII-Radar](https://github.com/nithin42/PII-Radar), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
 
 CLI tool to scan CSV, JSON and Parquet files for PII -> emails, phones, SSNs, credit cards and more
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nithin42/pii-radar](https://github.com/nithin42/pii-radar).
+Original source: `AGENTS.md` in [nithin42/PII-Radar](https://github.com/nithin42/PII-Radar).
 
 ## Also available for
 
@@ -17,14 +17,10 @@ Original source: `AGENTS.md` in [nithin42/pii-radar](https://github.com/nithin42
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Graded against the Tome Standard, TomeVault's public ruleset for whether AI instructions load, read clearly and stay safe. Source: [github.com/nithin42/pii-radar](https://github.com/nithin42/pii-radar)
+From [nithin42/PII-Radar](https://github.com/nithin42/PII-Radar) — a repo with 29+ stars on GitHub.
 
 ---
 
-Install this config instantly:
-```
-npx tomevault install nithin42/pii-radar
-```
-Source: [github.com/nithin42/pii-radar](https://github.com/nithin42/pii-radar).
+Explore more instruction files on [TomeVault](https://tomevault.io), the platform that grades AI instruction files and catches silent drift across every major tool.
 
-<!-- genome:a-i-q -->
+<!-- genome:a-e-s -->
