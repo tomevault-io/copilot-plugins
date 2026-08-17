@@ -1,0 +1,9 @@
+{
+  "name": "nimblesite--dmx",
+  "displayName": "dmx",
+  "description": "Fast Dart code generation on every save, with no generated part files: built-in macros, team-owned Mustache templates, custom Dart macros, and validated inline output.",
+  "version": "1.0.0",
+  "author": "Nimblesite",
+  "homepage": "https://github.com/Nimblesite/dmx",
+  "skills": []
+}
