@@ -1,0 +1,9 @@
+{
+  "name": "gintasz--unigent",
+  "displayName": "unigent",
+  "description": "Build stateful agent workflows with typed outputs, reusable tools, session forks, and ordinary TypeScript.",
+  "version": "1.0.0",
+  "author": "gintasz",
+  "homepage": "https://github.com/gintasz/unigent",
+  "skills": []
+}
