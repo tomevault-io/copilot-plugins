@@ -1,0 +1,9 @@
+{
+  "name": "bitsky-tech--bridgic-agent",
+  "displayName": "bridgic-agent",
+  "description": "Bridgic Agent turns what you want into workflows that actually work \u2014 and keep working. `/build` It. Run It. Evolve It.",
+  "version": "1.0.0",
+  "author": "bitsky-tech",
+  "homepage": "https://github.com/bitsky-tech/bridgic-agent",
+  "skills": []
+}
