@@ -1,74 +1,29 @@
-## pre-commit-quality
+## prefer-nanogpt-parsing
 
-> Run format, lint, and Pint before committing; same checks before push
+> Prefer NanoGPT over regex for parsing unstructured or variable-format text
 
 
-# Pre-commit quality checks
+# Prefer NanoGPT for text parsing
 
-Before creating a git commit - or before finishing a task that changed JS, Vue, or PHP - run these checks and fix failures:
+When extracting or interpreting text that may arrive in many different formats (CVs, resumes, employer forms, scraped HTML, OCR output, user-pasted content, etc.), **prefer NanoGPT** over regex, brittle string splitting, or hand-written parsers.
 
-```bash
-npm run format:check    # if it fails: npm run format
-npm run em-dash:check   # if it fails: npm run em-dash:fix
-npm run lint:check:ci   # if it fails: rm -rf resources/js/routes resources/js/actions && npm run lint -- --fix && php artisan wayfinder:generate --with-form
-```
+## Do
 
-For PHP changes, also run:
+- Use `NanoGptService` (or a dedicated service that wraps it) with a clear JSON schema and system prompt.
+- Keep mechanical steps limited to file I/O: read PDF/Word bytes, **Tesseract OCR** for images and scanned PDFs, store uploads, persist results.
+- Preserve **verbatim source text** (`raw_cv_text`) plus a **NanoGPT-formatted** copy (`formatted_cv_text`) when tidying OCR/PDF noise.
+- Ask the model to capture **all sections**, use bullet arrays (`highlights`) instead of single paragraphs, and return `null`/`[]` rather than guessing.
+- Use **Tesseract + poppler (`pdftoppm`)** locally before NanoGPT; only fall back to NanoGPT vision OCR when Tesseract is unavailable or returns nothing.
 
-```bash
-vendor/bin/pint --dirty --format agent
-```
+## Avoid
 
-Only commit when all applicable checks pass. If you auto-fixed issues, mention what was fixed in the commit message or summary.
+- Regex-heavy CV section detection, date parsing chains, or custom NLP heuristics for varied inputs.
+- Collapsing multi-bullet roles into one `description` string.
+- Dropping uncommon sections (certifications, languages, projects, volunteering) because they are not in a fixed template.
 
-## ESLint and Wayfinder (matches GitHub)
+## Exception
 
-GitHub Actions runs `npm run lint:check` on a fresh checkout **without** gitignored Wayfinder output (`resources/js/routes`, `resources/js/actions`). When those folders exist locally, ESLint resolves `@/routes` / `@/actions` differently and `import/order` can pass locally while CI fails.
-
-Always verify lint with **`npm run lint:check:ci`**, which removes those dirs, runs `lint:check`, then runs `php artisan wayfinder:generate --with-form` to restore them (including `.form()` helpers used by Inertia `<Form>` pages).
-
-Manual equivalent:
-
-```bash
-rm -rf resources/js/routes resources/js/actions
-npm run lint:check
-php artisan wayfinder:generate --with-form
-```
-
-Do not rely on `npm run lint:check` alone before push if Wayfinder output is present.
-
-## Before push
-
-Do not push to the remote until the same checks pass locally with exit code 0 (matches the GitHub linter/quality workflow):
-
-```bash
-npm run lint:check:ci
-npm run format:check
-npm run em-dash:check
-```
-
-If any check fails, fix it (e.g. `npm run lint`, `npm run format`, `npm run em-dash:fix`) and re-run all three until they pass.
-
-## Git hook (optional)
-
-To run the same checks as CI before every commit:
-
-```bash
-git config core.hooksPath .githooks
-chmod +x .githooks/pre-commit
-```
-
-The hook runs `npm run pre-commit:check`, which inspects staged files and runs:
-
-- `npm run em-dash:check` when staged `.php`, `.js`, `.vue`, `.md`, or `.mdc` files change
-- `npm run format:check` and `npm run lint:check:ci` when staged frontend files change (includes ESLint import order without local Wayfinder output)
-- `vendor/bin/pint --dirty --test` when staged `.php` files change
-
-Run the hook checks manually anytime:
-
-```bash
-npm run pre-commit:check
-```
+Simple, fully deterministic transforms are fine (trim, MIME checks, file extension allowlists, max length truncation before LLM calls).
 
 ---
 > Source: [tmwclaxton/autoapplycv](https://github.com/tmwclaxton/autoapplycv) — distributed by [TomeVault](https://tomevault.io).
