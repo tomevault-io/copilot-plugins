@@ -45,5 +45,5 @@ src/pii_radar/
 - Do not change the `scan_file` return type
 
 ---
-> Source: [nithin42/pii-radar](https://github.com/nithin42/pii-radar) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-07 -->
+> Source: [nithin42/PII-Radar](https://github.com/nithin42/PII-Radar) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-17 -->
