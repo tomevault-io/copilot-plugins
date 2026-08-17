@@ -1,0 +1,9 @@
+{
+  "name": "huanlinoto--dsh-plugin-sleep",
+  "displayName": "dsh-plugin-sleep",
+  "description": "\u5411\u6a21\u578b\u66b4\u9732 sleep \u5de5\u5177\uff0c\u6309\u6307\u5b9a\u6beb\u79d2\u6682\u505c\u6267\u884c\u540e\u8fd4\u56de\uff0c\u652f\u6301\u53d6\u6d88/clamp | Exposes a sleep tool that pauses for specified ms then returns, with cancellation/clamping",
+  "version": "1.0.0",
+  "author": "HuanLinOTO",
+  "homepage": "https://github.com/HuanLinOTO/dsh-plugin-sleep",
+  "skills": []
+}
