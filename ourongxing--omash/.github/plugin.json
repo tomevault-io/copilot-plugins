@@ -1,0 +1,9 @@
+{
+  "name": "ourongxing--omash",
+  "displayName": "omash",
+  "description": "Clash TUI for Omarchy Quattro. Forked from clash-verge-rev, but TUI only.",
+  "version": "1.0.0",
+  "author": "ourongxing",
+  "homepage": "https://github.com/ourongxing/omash",
+  "skills": []
+}
