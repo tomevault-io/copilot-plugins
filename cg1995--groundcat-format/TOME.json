@@ -1,0 +1,44 @@
+{
+  "name": "groundcat-format",
+  "owner": "CG1995",
+  "repo": "groundcat-format",
+  "description": "\u8d70\u5730\u732b\uff1a\u57fa\u4e8e LaoFeng-mouse/FlyingMouse Format \u7684\u6781\u7b80\u79bb\u7ebf\u683c\u5f0f\u8f6c\u6362\u5668\uff08MIT\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CG1995/groundcat-format",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-17T04:39:00Z"
+}
