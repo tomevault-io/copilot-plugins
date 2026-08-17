@@ -1,8 +1,6 @@
 ## kinora
 
-> @~/.claude/stack/web-saas.md
-
-@~/.claude/stack/web-saas.md
+> Guidance for agents in this repo. Shared stack conventions are imported above; everything below is kinora-specific and overrides the profile where they differ.
 
 # kinora
 
@@ -95,9 +93,10 @@ The desktop app authenticates via the **OAuth 2.0 device authorization grant** (
 
 One codebase, two deployment modes gated by `KINORA_CLOUD` (env). Self-host (`false`) unlocks every feature; cloud (`true`) enables **Polar** billing.
 
-- **Billing** (`src/billing/`): `polar.ts` (Polar SDK + better-auth plugin), `entitlements.ts` / `usage.ts` (plan limits), `retention.ts` (per-plan run-retention windows, swept by `purge-expired-runs`).
+- **Billing** (`src/billing/`): `polar.ts` (Polar SDK + better-auth plugin), `entitlements.ts` / `usage.ts` (plan limits: monthly test results, projects, and artifact bytes - the storage cap rejects an over-quota upload with a 402 and deletes the blob it just streamed), `retention.ts` (per-plan run-retention windows, swept by `purge-expired-runs`).
+- **Retention** (`src/billing/retention.ts`): cloud derives windows from the plan tier and is swept by an external cron calling `purge-expired-runs`. Self-host instead reads `retentionPolicy` from env (`KINORA_ARTIFACT_RETENTION_DAYS` drops blobs but keeps runs; `KINORA_RETENTION_DAYS` / `KINORA_KEEP_LAST_RUNS` delete runs), and `src/index.ts` runs a daily in-process sweep gated on that policy being non-null, so cloud never double-sweeps.
 - **Alerts** (`src/alerts/`): per-project notifications on new failures / regressions. Channels are `slack.ts`, `email.ts` (nodemailer/SMTP), `webhook.ts`, dispatched by `notify.ts` with an every-run / on-failure / on-regression policy (`core.ts`).
-- **Feedback** (`src/feedback/`, `feedback` tRPC router): in-app "Send feedback" posts bug/feature reports to the Stowline issue tracker (`@stowline/sdk`). Cloud-only: `resolveStowline` in `env.ts` returns null unless `KINORA_CLOUD=true` and all three `STOWLINE_*` are set; `config.get.feedbackEnabled` gates the web UI.
+- **Feedback** (`src/feedback/`, `feedback` tRPC router): in-app "Send feedback" posts bug/feature reports to the private cloud task tracker. Cloud-only: `resolveFeedbackTracker` in `env.ts` returns null unless `KINORA_CLOUD=true` and all `FEEDBACK_TRACKER_*` vars are set; `config.get.feedbackEnabled` gates the web UI.
 - Email (password reset, verification, invitations, alerts) needs `SMTP_*`; social login needs `GOOGLE_*` / `GITHUB_*`. All optional - empty disables the flow.
 
 ### Persistence
@@ -142,7 +141,7 @@ Two per-package Dockerfiles, both built from the **repo root** (workspace contex
 
 ### Marketing site
 
-`landing/` is a standalone **Astro** site (its own pnpm workspace + lockfile + `Dockerfile`, **not** part of the root `packages/*` workspace). Build/dev separately from `landing/` (`pnpm dev` / `pnpm build`).
+`website/` is a standalone **Astro** site (its own pnpm workspace + lockfile + `Dockerfile`, **not** part of the root `packages/*` workspace). Build/dev separately from `website/` (`pnpm dev` / `pnpm build`).
 
 ## Conventions
 
@@ -151,5 +150,5 @@ Two per-package Dockerfiles, both built from the **repo root** (workspace contex
 - Libs build with `tsdown`; their published `exports` point at `dist/`, but in-repo `exports` point at `src/` so the workspace consumes TypeScript source directly.
 
 ---
-> Source: [Kinora-dev/kinora](https://github.com/Kinora-dev/kinora) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-06 -->
+> Source: [kinora-dev/kinora](https://github.com/kinora-dev/kinora) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-17 -->
