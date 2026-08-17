@@ -1,162 +1,119 @@
-## octane
+## core-engineering
 
-> Octane is Dominic Gannaway's successor to Inferno: a React-shaped UI framework
+> Performance-first engineering and self-review gates for Octane framework fundamentals
 
-# Octane
 
-Octane is Dominic Gannaway's successor to Inferno: a React-shaped UI framework
-with hooks, `memo`, context, portals, Suspense, and transitions, compiled ahead
-of time from `.tsrx`. The runtime, compiler, SSR, hydration, and large test suite
-work, but this is alpha and APIs still move.
+# Core Framework Engineering Standard
 
-Trust the source over any summary, this file included:
+Changes to the runtime, compiler, SSR/hydration engine, scheduler, reconciler,
+and framework build pipeline multiply across every Octane application. Treat
+performance, correctness, code size, and maintainability as release criteria,
+not cleanup work for a later change.
 
-- `packages/octane/src/runtime.ts`: the client runtime. It is long and heavily
-  commented, and those comments are the design spec.
-- `packages/octane/src/runtime.server.ts` and `src/server/`: SSR. `docs/ssr.md`
-  documents the public surface.
-- `packages/octane/src/compiler/`: the `.tsrx` compiler.
-- `packages/octane/src/index.ts` and `constants.ts`: the public client API.
-- `docs/differences-from-react.md`: the divergence contract.
-- `docs/packages.md`: the generated package inventory, checked by CI.
+## Establish the contract before editing
 
-Fix defects in the package that owns the behavior and add the regression there.
-Do not hide framework defects behind app workarounds, weak tests, generated
-output, or test-only behavior; retain the integration scenario as end-to-end
-evidence.
+- Read the owning source comments, callers, tests, benchmark harness, and the
+  documented React parity or Octane divergence. State the consumer-observable
+  contract and the invariants that must not move.
+- Map every execution mode the change can reach: mount/update/delete, dev/prod,
+  client/server, render/hydrate, sync/concurrent, success/error/abort, and
+  compiler authoring/output paths. Test only applicable modes, but do not omit a
+  mode merely because the first implementation path did not mention it.
+- Identify whether the code is on a hot path and estimate frequency and scale.
+  Framework fundamentals are presumed performance-sensitive until inspection
+  shows otherwise.
+- For a bug, first add or identify a behavioral test with a credible pre-fix
+  failure. For an optimization, record a relevant baseline before changing the
+  implementation. Do not infer speed from shorter source or generated output.
 
-## The workflows live in skills, so load the skill first
+## Protect the performance model
 
-Branch, PR, issue, bug, and audit procedures live in skills. Load one when its
-trigger first arises, even if it is a later step you chose:
+- Keep common paths direct. Avoid new allocations, closures, object-shape
+  changes, polymorphic calls, scans, DOM reads/writes, serialization work, or
+  scheduling hops per component/render/node unless measurement justifies them.
+- Push rare behavior to cold branches and pay for optional features only when
+  used. Do not penalize every component to simplify an uncommon case.
+- Consider the whole cost transfer: compiler time, generated code, parse and
+  load cost, runtime CPU, memory retention, garbage collection, DOM operations,
+  SSR throughput, hydration work, and bundle size. Moving cost between layers
+  is not automatically an improvement.
+- Reuse existing deterministic benchmarks. Compare baseline and candidate with
+  the same command, environment, warmup, and iteration policy. Use ratio guards
+  or stable operation counters for regression protection; use timing results
+  only when the signal exceeds noise.
+- Never claim a performance improvement without measurements. If representative
+  measurement is impractical, say so, avoid the claim, and document the
+  remaining performance risk.
 
-- `create-a-pr`: before any branch, commit, changeset, or PR.
-- `handle-issue`: a GitHub issue number or link.
-- `bug-hunter`: a failing test, a regression, or behavior that differs from
-  expectation.
-- `octane-core-extend`: before editing `packages/octane/src`.
-- `performance-audit`: a change that can move render, SSR, hydration, compiler
-  output, or bundle cost.
-- `react-library-port`: a new or existing `@octanejs/*` binding.
-- `authoring-tsrx`: writing a new `.tsrx` file.
-- `triage`: the owning area is unclear.
+## Implement the smallest durable design
 
-Each skill is `.rulesync/skills/<name>/SKILL.md`, with a generated per-tool copy;
-read that path directly if your tool cannot load a skill by name.
+- Prefer fixing the owning abstraction over adding flags or special cases at
+  callers. Preserve fast paths and existing data representations unless the
+  benefit of changing them is demonstrated.
+- Keep invariants explicit near the code that enforces them. Comments explain
+  why a non-obvious constraint exists; tests protect observable behavior.
+- Do not weaken correctness, diagnostics, accessibility, security, or supported
+  semantics for benchmark gains. A faster wrong or incomplete path is a
+  regression.
+- Avoid speculative generality. New caches, queues, memoization, and retained
+  state require an invalidation/lifetime argument and tests for cleanup,
+  reentrancy, errors, and aborts where applicable.
 
-Without `create-a-pr`: keep and tick provenance for agent work (clear or missing
-asserts human); never apply PR labels. Existing PR body edits must merge,
-preserve `<!-- CURSOR_SUMMARY -->` through `<!-- /CURSOR_SUMMARY -->`
-byte-for-byte, refetch before writing, and verify after.
+## Preserve the compiler emission architecture
 
-## Your React instincts are the main failure mode here
+- Generated JavaScript and TypeScript syntax exists only as AST. Build and
+  rewrite it copy-on-write with `@tsrx/core` builders and clone helpers, preserve
+  authored origin locations, and print each emitted Program exactly once. Do not
+  assemble generated syntax as strings, print fragments for interpolation,
+  reparse generated output, or edit code after the final print.
+- Static template HTML exists as compiler-owned template IR with authored
+  origins. Serialize each completed template exactly once into the existing
+  runtime HTML string ABI, then embed that string as an AST literal. HTML, CSS,
+  module specifier values, diagnostics, and ordinary string literals remain
+  textual data; they are not permission to construct JavaScript through text.
+- `slot-hooks.js` and `runtime-requests.js` are the narrow text-edit exceptions:
+  hook slots preserve authored line numbers without a source map, while runtime
+  targeting edits only lexer-identified module specifier ranges in source that
+  otherwise passes through unchanged.
+  Volar/type-only generation delegates its one Program print to `@tsrx/core`;
+  keep `boundaryTokens: true` so structural token boundaries resolve through
+  its source map without changing output bytes.
+- Before adding a manual ESTree object, verify that no builder or clone helper
+  represents the shape. Keep any unavoidable unsupported shape in the compiler
+  AST emit audit's explicit inventory and explain why it cannot use a builder.
 
-Octane looks like React but differs deliberately. Check
-`docs/differences-from-react.md` before changing any of these:
+## Perform an adversarial self-review
 
-- Hooks are keyed by compiler-assigned call-site slot, not call order, so a hook
-  may sit behind a condition or after an early return. A slot-keyed hook in a
-  plain JS loop is a compile error: use the keyed `@for` directive or a child
-  component. `use()` and `useContext` are exempt.
-- An omitted dependency array is inferred by the compiler, not a bug. An explicit
-  array keeps React's exact behavior and is never rewritten; `null` means "run
-  every render".
-- `useState` and `useReducer` return three members: `[state, update, getState]`.
-- Events are native and delegated. There is no synthetic `onChange`: `onInput`
-  is the per-keystroke handler and native `change` fires on blur. Do not add a
-  synthetic layer. `OCTANE_NATIVE_TEXT_ONCHANGE` is migration guidance, not an
-  instruction to rename callbacks, selects, or checkbox/radio handlers.
-- Controlled `value`/`checked` match React's semantics exactly, minus the
-  synthetic layer. `defaultValue`/`defaultChecked` are the uncontrolled escape.
-- The keyed reconciler is LIS-based, not `lastPlacedIndex`. Final DOM and
-  survivor identity are guaranteed; the set of physically moved nodes is not.
-- `use()` starts provably-independent fetches together and suspends once per
-  stratum. React runs the same code as a waterfall. Do not "fix" fetch-start
-  timing, batch replay counts, or prefetch behavior toward React.
-- `class`/`className` compose clsx-style, so an array yields `"a b"`. React
-  coerces it to `"a,b"`.
-- Refs are plain props: `ref={cb}`, `ref={obj}`, or `ref={[a, b]}`. There is no
-  `forwardRef`.
-- `lazy()` also accepts a bare component, and Suspense/ViewTransition may be
-  wrapped in it.
-- The first `root.render()` mounts synchronously, and `root.render(App, props)`
-  is supported alongside `root.render(<App />)`.
-- No class components, Server Components, StrictMode double-invoke, or legacy
-  `ReactDOM.render` roots.
+Before handoff, inspect the complete diff as if rejecting another author's
+change. At minimum:
 
-## Authoring `.tsrx`
+1. Try to falsify the solution with empty, large, repeated, nested, reordered,
+   reentrant, error, abort, cleanup, and hydration cases that apply.
+2. Trace new state and allocations from creation through invalidation and
+   release. Look for retained trees, duplicate work, stale closures, and work
+   that moved from a cold path to a hot one.
+3. Re-read every changed call site and adjacent fast path. Check dev/prod and
+   client/server symmetry, generated output, public types, and binding impact.
+4. Compare against at least one simpler design. Remove branches, helpers,
+   options, and comments that do not earn their ongoing cost.
+5. Confirm that tests fail for the intended regression and remain insensitive
+   to valid implementation alternatives. Confirm benchmark controls still
+   produce the same semantic result.
 
-Read a nearby `.tsrx` file first. The parts with no JavaScript equivalent:
+Resolve issues found during review, then run the review once more on the final
+diff. Do not describe work as complete while known correctness or performance
+questions remain unreported.
 
-- `function f() @{ … }` is shorthand for returning JSX. The `@{ … }` scope ends
-  with exactly one output node.
-- Dynamic text needs a cast, `{expr as string}`, unless the expression is
-  provably a string. A bare `{expr}` is a renderable hole, not text.
-- Template control flow uses directive blocks: `@if`/`@else`,
-  `@for (const x of xs; key x.id)`/`@empty`, `@switch`/`@case`/`@default`, and
-  `@try`/`@pending`/`@catch`. Plain JS control flow stays in setup.
+## Evidence required at handoff
 
-Full reference: `.rulesync/rules/tsrx-authoring.md`.
-
-## Types
-
-Never write `declare module '*.tsrx'` in a published package's `src/`. It
-silences `.tsrx` resolution rather than fixing it, so every import it covers
-becomes `any`, including the package's own exported components. It is ambient, so
-it ships in the tarball and applies to any program that includes it.
-`pnpm tsrx-decls:check` enforces this.
-
-Typecheck any program containing `.tsrx` with `tsrx-tsc --noEmit`, never plain
-`tsc`. Octane-owned `.tsx` files carry a leading `/** @jsxImportSource octane */`
-pragma. Use `OctaneNode` for renderables, never `React.ReactNode`.
-
-## Published packages
-
-Ship every importable `.tsrx`, `.tsx`, `.ts`, and `.js` module as authored and
-point package exports at that source. Never publish Octane compiler output; the
-consuming application compiles the source with its own toolchain.
-
-## Working here
-
-```bash
-pnpm test          # full Vitest run
-pnpm typecheck
-pnpm typecheck:files [path...]     # defaults to staged and unstaged files
-pnpm sync
-pnpm format:files [path...]        # defaults to staged and unstaged files
-pnpm format:files:check [path...]  # defaults to staged and unstaged files
-pnpm format:check                  # optional repo-wide gate
-```
-
-Before any push, run `pnpm sync` and commit its generated changes.
-
-Scoped typecheck and Prettier commands default to staged and unstaged Git diffs;
-explicit files or directories override that default. `format:files` writes and
-`format:files:check` is read-only. Use repo-wide checks only when needed.
-
-`pnpm test` runs package prechecks, then one root Vitest invocation for every
-project in `vitest.config.js`; it does not fan out through package `test`
-scripts. Root config uses `silent: true`. While diagnosing, pass
-`--silent=false` for all console output or `--silent=passed-only` for failing
-tests. CLI options override the config.
-
-For binding parity test setup, follow `docs/react-parity-testing.md` and the `react-library-port` skill.
-
-Add a changeset for user-facing package changes; stay on the `patch` track while
-Octane is 0.x. Runtime, compiler, scheduler, reconciler, SSR/hydration, and build
-pipeline changes follow `.rulesync/rules/core-engineering.md`.
-
-Never mutate a parsed AST during compilation: rewrites are copy-on-write. Tests
-deep-freeze adopted parser ASTs, so an in-place write throws at the offending
-line.
-
-## RuleSync
-
-Generated agent files come from `.rulesync/rules/`: edit those and run
-`pnpm rules:generate`; never hand-edit a generated file. This root rule becomes
-`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, `.github/copilot-instructions.md`, and
-`.cursor/rules/project.mdc`. The other rules carry `globs`, so agents that
-support path-scoped rules load them only when you open a matching file.
+- Observable contract and affected hot paths.
+- Correctness commands and results, including production/server/hydration
+  coverage when applicable.
+- Baseline and candidate benchmark commands/results for performance-sensitive
+  changes, or an explicit explanation of why no trustworthy measurement exists.
+- Self-review findings that materially changed the implementation.
+- Residual risks, untested modes, and follow-up work. “All tests pass” is not a
+  substitute for this evidence.
 
 ---
 > Source: [octanejs/octane](https://github.com/octanejs/octane) — distributed by [TomeVault](https://tomevault.io).
