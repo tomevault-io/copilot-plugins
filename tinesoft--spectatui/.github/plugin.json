@@ -1,0 +1,9 @@
+{
+  "name": "tinesoft--spectatui",
+  "displayName": "spectatui",
+  "description": "A TUI (Terminal UI) dashboard for Github Spec-Kit",
+  "version": "1.0.0",
+  "author": "tinesoft",
+  "homepage": "https://github.com/tinesoft/spectatui",
+  "skills": []
+}
