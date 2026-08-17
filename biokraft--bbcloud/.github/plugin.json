@@ -1,0 +1,9 @@
+{
+  "name": "biokraft--bbcloud",
+  "displayName": "bbcloud",
+  "description": "Bitbucket Cloud CLI \u2014 one binary, no runtime. Open PRs, read every comment, write replies.",
+  "version": "1.0.0",
+  "author": "biokraft",
+  "homepage": "https://github.com/biokraft/bbcloud",
+  "skills": []
+}
