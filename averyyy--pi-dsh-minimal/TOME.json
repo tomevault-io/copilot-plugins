@@ -1,0 +1,44 @@
+{
+  "name": "pi-dsh-minimal",
+  "owner": "Averyyy",
+  "repo": "pi-dsh-minimal",
+  "description": "Pi adapter for official DeepSeek Harness minimal mode. V4 Pro thinks We need\u2026 / I need\u2026, not Let me\u2026",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Averyyy/pi-dsh-minimal",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-17T03:31:35Z"
+}
