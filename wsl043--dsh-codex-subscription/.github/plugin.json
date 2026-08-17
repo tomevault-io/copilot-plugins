@@ -1,0 +1,9 @@
+{
+  "name": "wsl043--dsh-codex-subscription",
+  "displayName": "dsh-codex-subscription",
+  "description": "\u5728 DeepSeek Harness \u4e2d\u76f4\u63a5\u4f7f\u7528 ChatGPT/Codex \u8ba2\u9605\uff0c\u65e0\u9700 OpenAI API Key \u6216 Codex CLI\uff0c\u652f\u6301 OAuth \u767b\u5f55\u3001\u8ba2\u9605\u641c\u7d22\u4e0e\u989d\u5ea6\u663e\u793a | ChatGPT/Codex subscription plugin for DSH",
+  "version": "1.0.0",
+  "author": "WSL043",
+  "homepage": "https://github.com/WSL043/dsh-codex-subscription",
+  "skills": []
+}
