@@ -1,0 +1,9 @@
+{
+  "name": "wuesteon--lean-memory",
+  "displayName": "lean-memory",
+  "description": "Embedded, local-first agent memory. No server, no daemon, no mandatory cloud key.",
+  "version": "1.0.0",
+  "author": "Wuesteon",
+  "homepage": "https://github.com/Wuesteon/lean-memory",
+  "skills": []
+}
