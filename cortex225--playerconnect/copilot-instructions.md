@@ -1,57 +1,16 @@
-## 107-server-components
+## 108-shadcn-ui
 
-> Create and understand Server Components in NextJS 15
+> How use Shadcn/UI to add styles to our applications
 
 ## Context
 
-* Since React 19 and NextJS 13 Server Component can be used.
-* Server Component enable use to make backend query directly on our Component
-* Server Component NEVER run on the client
+* We use Shadcn/UI to style our application.
 
-## Usage
+## Rules
 
-Utilize React 19 with Server Components. Implement Prisma queries and backend logic inside `page` or `layout` files like this:
-
-```tsx
-// Use "async" for server components
-export default async function Page() {
-  // Use "await" for async operations
-  const result = await prisma.user.findMany();
-  return (
-    <div>
-      {result.map((user) => (
-        <p>{user.name}</p>
-      ))}
-    </div>
-  );
-}
-```
-
-You can also implement this logic in every component that is `async`. A Server Components can do backend stuff inside is body like :
-
-* prisma query
-* fs read / write
-* analytics
-* third partie stuff
-
-Some method are avaiable : 
-
-```tsx
-import { redirect } from 'next/navigation'
-import { notFound } from 'next/navigation'
-
-// Redirect to another page
-redirect('/login');
-
-// Show the `not-found.tsx` file
-notFound()
-```
-
-Some rules about Server Components :
-
-1. Server components are always `async`
-2. Server components can't use hooks
-3. Server Components can't use `document` or `window` because they are only run in backend
+- You must use Shadcn UI for components.
+- You must use Tailwind CSS for styling.
+- You must install any ShadcnUI missing component with `pnpm dlx shadcn@2.1.8 add <component-name />`
 
 ---
 > Source: [cortex225/playerConnect](https://github.com/cortex225/playerConnect) — distributed by [TomeVault](https://tomevault.io).
