@@ -1,0 +1,49 @@
+## dsh-from-scratch
+
+> 教程的六个章节名称必须保持以下写法，不得改写、替换成概括性标题或自行重命名：
+
+# DSH 维护约定
+
+## 固定章节名称
+
+教程的六个章节名称必须保持以下写法，不得改写、替换成概括性标题或自行重命名：
+
+1. `第一章·Agent Loop`
+   - `DSH 的 Agent Loop 是什么样的?`
+2. `第二章·上下文与缓存复用`
+   - `上下文是怎样组织的，为缓存复用做了什么优化？`
+3. `第三章·一切皆插件`
+   - `如何实现“一切皆插件”？`
+4. `第四章·让运行有迹可循`
+   - `DSH 怎么记录和保存 Agent 执行过程?`
+5. `第五章·运行时自进化`
+   - `DSH 是如何持续自进化的?`
+6. `第六章·长程任务续行`
+   - `DSH 是如何持续完成长程任务的？`
+
+关于 deepseek-harness-from-scratch 的更多信息，请参见 ./deepseek-harness-from-scratch/README.md 和 ./deepseek-harness-from-scratch/AGENTS.md 。
+
+先专注 ts 版本，python 先不管
+
+关于文本风格：
+
+用 https://github.com/oil-oil/oil-tone 润色一遍。
+
+  此外：
+  1. 尽量少用不是...而是...的句型，很多时候它被用来“硬凑”对仗和高级感，前后的 A 和 B 并没有提供真正的干货或深刻洞察。
+  也不使用“是 X，不是 Y”的对比句式。
+  2. 少用引号、破折号。缺乏具体肉身记忆与在地情感的装腔格式，缺乏人味。
+  3. 不常见的缩写，需要给出全称与解释。
+  4. 尽量不要使用比喻。如果一个说法需要读者推断其指代对象，改为直接说明。
+  5. 也不使用拟人表述。
+  6. 自包含，不要突然冒出来一个概念
+
+  追求：简明，有逻辑，coherent ，自包含，有层次，逻辑通顺
+
+  注意，不要通过降低信息量的方式来换取简洁。
+
+  不能修改章节标题和问句，这是我钦定的。
+
+---
+> Source: [tsrigo/dsh-from-scratch](https://github.com/tsrigo/dsh-from-scratch) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-17 -->
