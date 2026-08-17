@@ -1,56 +1,55 @@
-## form-corpus-growth
+## minimal-test-runs
 
-> When increasing test coverage for forms, field inventory, Draft All, autofill, or the form corpus - grow the ever-growing fixture corpus via curated dual-oracle capture, not only unit tests
+> Run only minimal scoped tests during development; avoid full suites unless asked
 
 
-# Form corpus growth (test coverage)
+# Minimal test runs
 
-When the user asks to **increase test coverage**, **add tests**, **improve coverage**, or **strengthen regression** for application forms, question detection, field inventory, Draft All, or extension autofill, read and follow:
+During iterative development, run the **smallest test set that proves the change**. Do not run full suites after every edit.
 
-**[`docs/form-corpus-growth.md`](../../docs/form-corpus-growth.md)**
+## Default
 
-## Default stance
+- Run **one** targeted test file, script, or filter for the code you changed.
+- Re-run only that same narrow scope when fixing follow-up issues.
+- Skip unrelated tiers (smoke, curated, full PHPUnit, full form corpus) unless the change touches them.
 
-- The **form corpus** (`tests/fixtures/form-extraction/`) is the primary spec for question detection and fill behaviour.
-- Prefer **curated dual-oracle captures** (detector vs NanoGPT on live apply HTML) over unattended detector-gated bridge scrape when improving detection.
-- Use **extension bridge MCP** to navigate boards (Ashby: board -> job -> Apply) before freezing fixtures.
-- **Disagree loop (default, do not wait to be asked):** treat `ai_only` as the primary backlog (detector miss). Fix heuristics/inventory, rebuild/reload extension, re-run `form-corpus:curated-oracle --limit=1` on the same page until agree or `ai_only` is empty/false-positive. Then move to the next apply form. Do not stop after reporting disagree and ask whether to fix.
-- `detector_only` is secondary (often AI HTML truncation); raise excerpt budget / re-oracle before treating as a detector bug.
-- **Do not** leave long-running `form-corpus:bridge-scrape` / bulk jobs unattended for detector-quality work - that path uses the detector as an accept gate and skips the misses you need.
-- **Form corpus fill-verify never runs on PR** - only manual `Tests (heavy)` workflow or local batch commands. See [`docs/form-corpus-growth.md`](../../docs/form-corpus-growth.md).
-- **Batches of 50 max** for generate/scrape/vet/fill; curated oracle default **`--limit=5`**. Never auto-chain batches in one invocation.
+## When to run broader checks
 
-## What to add
+- **Before commit or push**: use the checks in `pre-commit-quality.mdc`.
+- **When the user asks** for a full suite or CI-equivalent run.
+- **When a cross-cutting change** genuinely affects many areas (e.g. shared form-heurics used by all fixtures).
 
-| Situation | Coverage to add |
-| --- | --- |
-| New or broken DOM pattern | Curated oracle (`form-corpus:curated-oracle`) -> on `ai_only` fix heuristics immediately -> re-oracle until agree -> next form; then targeted `run-fill-verify-curated.mjs --id=...` |
-| Important / common pattern | Promote in curated or smoke manifest (`npm run form-corpus:build-curated`) |
-| Pure logic (pipeline, parsers) | Small node/PHPUnit tests (see `DraftAllExtensionTest`, `draft-all-pipeline.test.mjs`) |
-| Heuristic change in `form-heuristics.js` / `field-inventory.js` | `npm run form-corpus:fill-verify:smoke` minimum before merge |
-
-## What not to do
-
-- Do not satisfy "more coverage" with trivial tests that duplicate corpus behaviour.
-- Do not grow detection fixtures via Track A accept gate alone (`>=2` inventory fields) - use dual-oracle agree/disagree.
-- Do not vet Firecrawl HTML without a bridge spot-check when the page is interactive or auth-gated.
-- Do not run full extension E2E batch for every small change - use `--id=` and smoke tier (`minimal-test-runs.mdc`).
-
-## Quick commands
+## Examples
 
 ```bash
-npm run extension-bridge
-npm run extension:build-reload
-npm run form-corpus:curated-oracle -- --limit=5
-node scripts/form-corpus/propose-expectations.mjs --id=<fixture-id>
-node scripts/form-corpus/vet-corpus.mjs --id=<fixture-id>
-node scripts/form-corpus/run-fill-verify-curated.mjs --id=<fixture-id> --check-validity --check-a11y --check-errors
-npm run form-corpus:fill-verify:smoke
-npm run form-corpus:generate-ai -- --limit=50 --start-id=syn-ai-0001
-npm run form-corpus:report-variety-matrix
+# Extension / Indeed contact change
+node scripts/extension-test/indeed-apply-contact.mjs
+
+# Single PHPUnit test or filter
+php artisan test --compact --filter=test_platform_smoke_playwright_passes
+
+# One fixture script, not the whole corpus
+node scripts/extension-test/indeed-apply-questions.mjs
 ```
 
-See also: `extension-e2e-mcp-testing.mdc`, `extension-bridge-mcp.mdc`, `docs/platform-automation-playbook.md`.
+## Avoid during iteration
+
+```bash
+# ❌ Too broad for a small fix
+php artisan test --compact
+npm run form-corpus:fill-verify:smoke   # unless form-heuristics / field-inventory changed
+npm run form-corpus:fill-verify:curated # unless curated manifest or many fixtures changed
+```
+
+If unsure, prefer a **single file or filter**. Mention what was not run and offer a broader run before merge if needed.
+
+## Form corpus batches
+
+Form corpus fill-verify **never runs on PR** (manual `Tests (heavy)` only). When running corpus jobs locally or via `tests-corpus-batch.yml`:
+
+- **Max 50 scenarios per command** - no long-running full-prefix runs during iteration.
+- Review the batch report JSON before starting the next 50.
+- Use `--limit=50` on generate, scrape, vet, and fill-verify scripts.
 
 ---
 > Source: [tmwclaxton/autoapplycv](https://github.com/tmwclaxton/autoapplycv) — distributed by [TomeVault](https://tomevault.io).
