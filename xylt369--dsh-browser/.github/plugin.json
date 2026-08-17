@@ -1,0 +1,9 @@
+{
+  "name": "xylt369--dsh-browser",
+  "displayName": "dsh-browser",
+  "description": "Browser capability for DeepSeek Harness: headed Edge/Playwright provider, SSRF-safe navigation, a11y-ref clicking, permission gate with auto-remember, gated evaluate",
+  "version": "1.0.0",
+  "author": "xylt369",
+  "homepage": "https://github.com/xylt369/dsh-browser",
+  "skills": []
+}
