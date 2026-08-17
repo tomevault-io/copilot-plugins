@@ -1,0 +1,9 @@
+{
+  "name": "zm-bad--headroom",
+  "displayName": "headroom",
+  "description": "Know when your AI is about to forget \u2014 browser extension that monitors context window usage",
+  "version": "1.0.0",
+  "author": "ZM-BAD",
+  "homepage": "https://github.com/ZM-BAD/headroom",
+  "skills": []
+}
