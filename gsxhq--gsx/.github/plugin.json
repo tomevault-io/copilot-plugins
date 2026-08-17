@@ -1,0 +1,9 @@
+{
+  "name": "gsxhq--gsx",
+  "displayName": "gsx",
+  "description": "JSX-style HTML templating for Go",
+  "version": "1.0.0",
+  "author": "gsxhq",
+  "homepage": "https://github.com/gsxhq/gsx",
+  "skills": []
+}
