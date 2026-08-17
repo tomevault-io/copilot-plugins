@@ -1,0 +1,9 @@
+{
+  "name": "huanlinoto--dsh-plugin-d399",
+  "displayName": "dsh-plugin-d399",
+  "description": "\u6a21\u578b\u751f\u6210\u65f6\u53f3\u4e0b\u89d2\u5f39\u51fa\u5c0f\u6e38\u620f\u83dc\u5355\uff08Wordle/\u6d88\u6d88\u4e50/192 \u6b3e\u53c2\u6570\u5316\u5c0f\u6e38\u620f\uff0c\u53ef\u62d3\u5c55\u6ce8\u518c\u8868\uff09 | Pops up a mini-game menu while the model generates (Wordle/Match-3/192 parametric mini-games, extensible registry)",
+  "version": "1.0.0",
+  "author": "HuanLinOTO",
+  "homepage": "https://github.com/HuanLinOTO/dsh-plugin-d399",
+  "skills": []
+}
