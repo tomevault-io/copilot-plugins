@@ -1,36 +1,73 @@
-## no-em-dash
+## pre-commit-quality
 
-> Replace em dashes with hyphens before committing
+> Run format, lint, and Pint before committing; same checks before push
 
 
-# No em dashes in source
+# Pre-commit quality checks
 
-Before creating a git commit, replace every em dash (`-`, Unicode U+2014) with a normal hyphen (`-`, U+002D) in project source.
-
-## Scope
-
-- PHP, JavaScript, Vue, Markdown, and Cursor rule files (`.php`, `.js`, `.mjs`, `.vue`, `.md`, `.mdc`)
-- Excludes vendor, node_modules, build output, and scraped HTML fixtures under `tests/fixtures/form-extraction/html/`
-
-## When matching external text
-
-If code must recognize em dashes from third-party content, use a Unicode escape instead of a literal character:
-
-```javascript
-// ✅ GOOD
-const separators = [' | ', ' - ', ' \u2014 ', ' at '];
-```
-
-```php
-// ✅ GOOD
-$text = str_replace(["\u{2014}", "\u{2013}"], '-', $text);
-```
-
-## Check locally
+Before creating a git commit - or before finishing a task that changed JS, Vue, or PHP - run these checks and fix failures:
 
 ```bash
-npm run em-dash:check   # fail if any em dashes remain
-npm run em-dash:fix     # replace em dashes with hyphens
+npm run format:check    # if it fails: npm run format
+npm run em-dash:check   # if it fails: npm run em-dash:fix
+npm run lint:check:ci   # if it fails: rm -rf resources/js/routes resources/js/actions && npm run lint -- --fix && php artisan wayfinder:generate --with-form
+```
+
+For PHP changes, also run:
+
+```bash
+vendor/bin/pint --dirty --format agent
+```
+
+Only commit when all applicable checks pass. If you auto-fixed issues, mention what was fixed in the commit message or summary.
+
+## ESLint and Wayfinder (matches GitHub)
+
+GitHub Actions runs `npm run lint:check` on a fresh checkout **without** gitignored Wayfinder output (`resources/js/routes`, `resources/js/actions`). When those folders exist locally, ESLint resolves `@/routes` / `@/actions` differently and `import/order` can pass locally while CI fails.
+
+Always verify lint with **`npm run lint:check:ci`**, which removes those dirs, runs `lint:check`, then runs `php artisan wayfinder:generate --with-form` to restore them (including `.form()` helpers used by Inertia `<Form>` pages).
+
+Manual equivalent:
+
+```bash
+rm -rf resources/js/routes resources/js/actions
+npm run lint:check
+php artisan wayfinder:generate --with-form
+```
+
+Do not rely on `npm run lint:check` alone before push if Wayfinder output is present.
+
+## Before push
+
+Do not push to the remote until the same checks pass locally with exit code 0 (matches the GitHub linter/quality workflow):
+
+```bash
+npm run lint:check:ci
+npm run format:check
+npm run em-dash:check
+```
+
+If any check fails, fix it (e.g. `npm run lint`, `npm run format`, `npm run em-dash:fix`) and re-run all three until they pass.
+
+## Git hook (optional)
+
+To run the same checks as CI before every commit:
+
+```bash
+git config core.hooksPath .githooks
+chmod +x .githooks/pre-commit
+```
+
+The hook runs `npm run pre-commit:check`, which inspects staged files and runs:
+
+- `npm run em-dash:check` when staged `.php`, `.js`, `.vue`, `.md`, or `.mdc` files change
+- `npm run format:check` and `npm run lint:check:ci` when staged frontend files change (includes ESLint import order without local Wayfinder output)
+- `vendor/bin/pint --dirty --test` when staged `.php` files change
+
+Run the hook checks manually anytime:
+
+```bash
+npm run pre-commit:check
 ```
 
 ---
