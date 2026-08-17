@@ -1,0 +1,9 @@
+{
+  "name": "xal-sh--xal",
+  "displayName": "xal",
+  "description": "A terminal coding harness with a headless agent core",
+  "version": "1.0.0",
+  "author": "xal-sh",
+  "homepage": "https://github.com/xal-sh/xal",
+  "skills": []
+}
