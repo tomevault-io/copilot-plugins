@@ -1,44 +1,52 @@
-## env-config
+## extension-auto-apply-e2e-mcp-testing
 
-> Avoid unnecessary environment variables; prefer config defaults and commented code for unreleased features
+> Auto Apply overnight live-review MCP checklist per scenario and job
 
 
-# Environment Variables
+# Auto Apply E2E MCP testing (live-review campaign)
 
-Do not add new `.env` keys unless the value must differ per deployment or contain a secret.
+When running Auto Apply scenarios from `tests/fixtures/auto-apply/auto-apply-live-review-queue.json`, follow this checklist for **every scenario** before marking pass/fail in `auto-apply-live-review-status.json`.
 
-## Prefer config defaults
+## Per-scenario loop
 
-Put stable defaults in `config/*.php`. Use `env()` only for secrets and deployment-specific values (URLs, API keys, credentials).
-
-```php
-// ❌ BAD - new env key for a fixed product default
-'fair_use_cv_parses_per_month' => (int) env('FAIR_USE_CV_PARSES_PER_MONTH', 20),
-
-// ✅ GOOD - hardcoded default in config
-'fair_use_cv_parses_per_month' => 20,
+```text
+extension_status
+  -> set persona (request_auth / connect token for persona_id)
+  -> start_auto_apply { platform, role, location, market, fit, max }
+  -> FAIL FAST if search_url host wrong (www.indeed.com not uk.indeed.com for US)
+  -> poll auto_apply_status every 2-3s
+  -> per job: indeed_tab_message / glassdoor_tab_message / linkedin_tab_message
+  -> on apply tab: get_field_inventory -> start_draft_all -> read_field_values -> read_form_validation
+  -> on skip: record skip_reason + ats_score from log metadata
+  -> on stuck: save_fixture to tests/fixtures/auto-apply/{platform}/captured/ + get_debug_logs
+  -> on submit: verify stats.applied incremented + platform confirmation
+  -> append scenarios_tested[] + jobs_tested[] rows; update queue entry queue_status
 ```
 
-## Unreleased features
+## Required log fields
 
-Do not gate unfinished features with env flags like `FEATURE_X_ENABLED`. Comment out routes, controllers, or UI until the feature ships, then enable in code.
+Every `scenarios_tested[]` row must include:
 
-```php
-// ❌ BAD
-'billing_enabled' => env('SUBSCRIPTION_BILLING_ENABLED', false),
+- `scenario_id`, `platform`, `persona_id`, `profile_email`
+- `market_setting`, `market_resolved`, `search_url_expected`, `search_url_actual`
+- `result` (`pass`, `fail`, `blocked`), `jobs_submitted`, `skip_reasons`
 
-// ✅ GOOD - comment out billing routes/methods until Pro launches
-// Route::post('/billing/checkout', ...);
-```
+## Fix loop
 
-## When env keys are appropriate
+1. MCP diagnose on stuck tab
+2. Minimal fix (orchestrator / platform JS / market / sidepanel)
+3. `npm run extension:build-reload`
+4. Unit tests: `indeed-platform.test.mjs`, `job-board-market.test.mjs`, platform tests
+5. Retest **same scenario ID** before marking pass
+6. Commit real bug fixes immediately; keep status JSON local until 07:00 wrap
 
-- API keys and tokens (`WORKOS_API_KEY`, `GOCARDLESS_ACCESS_TOKEN`)
-- URLs that change per environment (`APP_URL`)
-- Mail/database credentials
-- Third-party service endpoints that differ between local and production
+## Do not
 
-Before adding a key, ask: *Does this need to change between developers or environments?* If not, use config.
+- Use marathon `guessAnswer` during P0-P3 (P4 `babysitter_ok: true` only)
+- Mark pass on a different scenario after a fix
+- Set `campaign_status: final_wrap` before exactly 07:00 London
+
+See also: `extension-bridge-mcp.mdc`, `extension-e2e-mcp-testing.mdc`, `docs/platform-automation-playbook.md`.
 
 ---
 > Source: [tmwclaxton/autoapplycv](https://github.com/tmwclaxton/autoapplycv) — distributed by [TomeVault](https://tomevault.io).
