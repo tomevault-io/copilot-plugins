@@ -1,0 +1,9 @@
+{
+  "name": "web-casa--deepseek-harness-desktop",
+  "displayName": "DeepSeek-Harness-Desktop",
+  "description": "Native desktop packaging of DeepSeek Harness (DSH) for Windows & macOS \u2014 no Node.js setup required. \u5c06 DeepSeek Harness\uff08DSH\uff09\u6253\u5305\u4e3a Windows/macOS \u539f\u751f\u684c\u9762\u5e94\u7528\uff0c\u65e0\u9700\u914d\u7f6e Node.js\u3002",
+  "version": "1.0.0",
+  "author": "web-casa",
+  "homepage": "https://github.com/web-casa/DeepSeek-Harness-Desktop",
+  "skills": []
+}
