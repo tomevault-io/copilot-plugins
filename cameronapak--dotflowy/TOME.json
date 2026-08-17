@@ -4,7 +4,7 @@
   "repo": "dotflowy",
   "description": "Dotflowy is the OSS Workflowy alternative. Free up your mind. Get your thoughts and tasks out. Organize them later, or don't. Agent-native. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cameronapak/dotflowy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-17T23:43:47Z"
+  "distributed_at": "2026-08-17T23:48:51Z"
 }
