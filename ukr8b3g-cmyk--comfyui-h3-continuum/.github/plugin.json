@@ -1,0 +1,9 @@
+{
+  "name": "ukr8b3g-cmyk--comfyui-h3-continuum",
+  "displayName": "ComfyUI-H3-Continuum",
+  "description": "Seamless long-form MiniMax H3 video generation for ComfyUI with native AV latent continuity, chunked sampling, session resume, and Spectrum/Sage/Sol compatibility.",
+  "version": "1.0.0",
+  "author": "ukr8b3g-cmyk",
+  "homepage": "https://github.com/ukr8b3g-cmyk/ComfyUI-H3-Continuum",
+  "skills": []
+}
