@@ -1,0 +1,44 @@
+{
+  "name": "chrome-extension-nav-ai",
+  "owner": "fansize",
+  "repo": "chrome-extension-nav-ai",
+  "description": "\u8de8\u5883\u7535\u5546\u52a9\u624b\uff1a\u96c6\u6210\u591a\u5e73\u53f0\u5546\u54c1\u641c\u7d22\u3001\u591a\u65f6\u533a\u65f6\u949f\u3001\u8fd0\u8425\u65e5\u5386\u548cAI\u7ecf\u8425\u5de5\u5177\u4e8e\u4e00\u4f53\u7684Chrome\u6269\u5c55\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fansize/chrome-extension-nav-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T18:33:32Z"
+}
