@@ -4,7 +4,7 @@
   "repo": "stevenmorano.com",
   "description": "Official portfolio and consulting hub for Steven Morano \u2014 Marketing Operations & AI Systems. Built with Next.js, TypeScript, and Tailwind CSS.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stevenmorano/stevenmorano.com",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T03:05:33Z"
+  "distributed_at": "2026-08-18T03:31:41Z"
 }
