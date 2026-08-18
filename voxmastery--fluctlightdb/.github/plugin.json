@@ -1,0 +1,9 @@
+{
+  "name": "voxmastery--fluctlightdb",
+  "displayName": "FluctlightDB",
+  "description": "Database engine for AI agents \u2014 write memory, recall by cue, trust sources over chat. Not SQL, vector DB, or mem0.",
+  "version": "1.0.0",
+  "author": "voxmastery",
+  "homepage": "https://github.com/voxmastery/FluctlightDB",
+  "skills": []
+}
