@@ -1,0 +1,44 @@
+{
+  "name": "dsh-llm-fallbacks",
+  "owner": "omdsh-dev",
+  "repo": "dsh-llm-fallbacks",
+  "description": "An dsh plugin for role-based LLM retry&fallback strategy. \u57fa\u4e8e\u89d2\u8272\u7684\u6a21\u578b\u91cd\u8bd5\u5907\u7528\u7b56\u7565\u63d2\u4ef6",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/omdsh-dev/dsh-llm-fallbacks",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T12:31:05Z"
+}
