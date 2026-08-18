@@ -1,0 +1,9 @@
+{
+  "name": "smana--runlore",
+  "displayName": "runlore",
+  "description": "The self-improving SRE agent",
+  "version": "1.0.0",
+  "author": "Smana",
+  "homepage": "https://github.com/Smana/runlore",
+  "skills": []
+}
