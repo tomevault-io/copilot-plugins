@@ -1,0 +1,9 @@
+{
+  "name": "lilwhich--dsh-plugin-gather",
+  "displayName": "dsh-plugin-gather",
+  "description": "for better dsh",
+  "version": "1.0.0",
+  "author": "lilwhich",
+  "homepage": "https://github.com/lilwhich/dsh-plugin-gather",
+  "skills": []
+}
