@@ -4,7 +4,7 @@
   "repo": "senqo",
   "description": "Whatsapp AI Platform",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/devennn/senqo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T02:47:08Z"
+  "distributed_at": "2026-08-18T03:10:34Z"
 }
