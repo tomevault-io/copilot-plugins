@@ -4,7 +4,7 @@
   "repo": "pilot-harness",
   "description": "Pilot Harness \u2014 a CodePilot-inspired desktop client and plugin suite for DeepSeek Harness on macOS, Windows, and Linux.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/op7418/pilot-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T04:31:36Z"
+  "distributed_at": "2026-08-18T04:44:52Z"
 }
