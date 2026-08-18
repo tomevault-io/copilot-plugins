@@ -1,0 +1,44 @@
+{
+  "name": "GPU-Perf-Playground",
+  "owner": "yanght27",
+  "repo": "GPU-Perf-Playground",
+  "description": "GPU \u6027\u80fd\u4e0e AI Infra \u5b66\u4e60\u9879\u76ee\uff1aCUDA/Triton \u7b97\u5b50\u3001NCU/NSYS\u3001vLLM/SGLang/TRT-LLM/ms-swift\u3001PyTorch/DeepSpeed/ms-swift \u8bad\u7ec3\u3001\u5e76\u884c\u67b6\u6784",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yanght27/GPU-Perf-Playground",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T12:34:55Z"
+}
