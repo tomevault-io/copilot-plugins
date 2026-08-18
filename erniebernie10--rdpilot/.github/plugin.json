@@ -1,0 +1,9 @@
+{
+  "name": "erniebernie10--rdpilot",
+  "displayName": "RDPilot",
+  "description": "Fast, open-source RDP client for Windows and Linux, built with Avalonia and FreeRDP.",
+  "version": "1.0.0",
+  "author": "ErnieBernie10",
+  "homepage": "https://github.com/ErnieBernie10/RDPilot",
+  "skills": []
+}
