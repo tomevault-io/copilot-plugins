@@ -4,7 +4,7 @@
   "repo": "deletedretrolist",
   "description": "organization & productivity app",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/liliansprojects-hub/deletedretrolist",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T03:17:22Z"
+  "distributed_at": "2026-08-18T04:32:18Z"
 }
