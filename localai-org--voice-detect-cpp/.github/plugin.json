@@ -1,0 +1,9 @@
+{
+  "name": "localai-org--voice-detect-cpp",
+  "displayName": "voice-detect.cpp",
+  "description": "voice-detect.cpp is a from-scratch C++17 inference engine for speaker recognition and voice analysis, built on ggml",
+  "version": "1.0.0",
+  "author": "localai-org",
+  "homepage": "https://github.com/localai-org/voice-detect.cpp",
+  "skills": []
+}
