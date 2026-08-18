@@ -1,0 +1,9 @@
+{
+  "name": "mihari-proxy--mihari",
+  "displayName": "mihari",
+  "description": "Mihari \u2014 a new, independent local manager for mihomo, with a daemon-owned control plane shared by CLI, TUI, and browser panels",
+  "version": "1.0.0",
+  "author": "mihari-proxy",
+  "homepage": "https://github.com/mihari-proxy/mihari",
+  "skills": []
+}
