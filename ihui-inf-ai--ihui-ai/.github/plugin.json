@@ -1,0 +1,9 @@
+{
+  "name": "ihui-inf-ai--ihui-ai",
+  "displayName": "IHUI-AI",
+  "description": "Eight-platform full-stack AI operating system - unifies 176 LLMs via LangGraph + MCP + A2A. Multi-tenant RLS over 340 tables, RAG knowledge base, agent marketplace. Web/API/CLI/Desktop/Extension/Mobil",
+  "version": "1.0.0",
+  "author": "IHUI-INF-AI",
+  "homepage": "https://github.com/IHUI-INF-AI/IHUI-AI",
+  "skills": []
+}
