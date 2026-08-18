@@ -1,0 +1,44 @@
+{
+  "name": "mini_gateway",
+  "owner": "Oldwarma",
+  "repo": "mini_gateway",
+  "description": "\u667a\u80fd\u4f53\u8ff7\u4f60\u7f51\u5173 (Agent Mini Gateway) \u2014\u2014 \u57fa\u4e8e\u53ef\u8ffd\u8e2a Harness \u67b6\u6784\u7684\u667a\u80fd\u4f53\u7f51\u5173\uff1aAgent = LLM + Harness\uff0c\u7528\u4ee3\u7801\u5305\u56f4\u5e76\u7ea6\u675f LLM",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Oldwarma/mini_gateway",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T16:39:37Z"
+}
