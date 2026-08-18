@@ -1,29 +1,15 @@
-## fluctlight
+## fluctlightdb
 
-> Always use FluctlightDB for durable memory, recall, and handoffs in this repo.
+> This monorepo uses FluctlightDB (`FluctlightDB`) for durable agent memory:
 
+## FluctlightDB (project memory)
 
-# FluctlightDB (required)
+This monorepo uses FluctlightDB (`FluctlightDB`) for durable agent memory:
 
-This repo uses **FluctlightDB** as the project brain (`FluctlightDB`).
+- Hub: `.fluctlight/project/` (shared decisions + handoffs)
+- Spokes: `.fluctlight/agents/{cursor,claude,codex}/`
 
-## You MUST
-
-1. **At session start** — recall context via MCP `fluctlight_session_context` or `connect_project().session_context()` before large changes.
-2. **During work** — `fluctlight_remember` for decisions, conventions, and non-obvious facts (scope `project` for team-wide).
-3. **Before stopping** — `fluctlight_handoff` with summary, next steps, and touched files.
-4. **When resuming** — `fluctlight_list_handoffs` to pick up where another agent left off.
-
-## MCP tools
-
-`fluctlight_recall`, `fluctlight_remember`, `fluctlight_handoff`, `fluctlight_list_handoffs`, `fluctlight_session_context`, `fluctlight_status`
-
-## Do not
-
-- Store secrets in brains (API keys, tokens).
-- Skip handoffs when work is incomplete and another agent may continue.
-
-Inbox UI: `fluctlight-project ui` · Sync: `fluctlight-project sync pull`
+Use `from fluctlightdb import connect_project` and call `session_context()`, `recall()`, `remember()`, and `handoff()` when switching agents or resuming work. See `.claude/skills/fluctlight-memory/SKILL.md`.
 
 ---
 > Source: [voxmastery/FluctlightDB](https://github.com/voxmastery/FluctlightDB) — distributed by [TomeVault](https://tomevault.io).
