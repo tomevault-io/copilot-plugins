@@ -4,7 +4,7 @@
   "repo": "frizz",
   "description": "The UI your coding agent should have implemented. Runs on localhost, designed for massively parallel work.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/colinhacks/frizz",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T01:33:20Z"
+  "distributed_at": "2026-08-18T02:36:31Z"
 }
