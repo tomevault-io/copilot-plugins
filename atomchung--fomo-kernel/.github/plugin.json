@@ -1,0 +1,9 @@
+{
+  "name": "atomchung--fomo-kernel",
+  "displayName": "fomo-kernel",
+  "description": "Weigh a trade against your own recorded book before you make it \u2014 or review the trades you already made into one behavioral card. Local, deterministic, no backend.",
+  "version": "1.0.0",
+  "author": "atomchung",
+  "homepage": "https://github.com/atomchung/fomo-kernel",
+  "skills": []
+}
