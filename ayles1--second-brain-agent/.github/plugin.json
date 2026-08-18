@@ -1,0 +1,9 @@
+{
+  "name": "ayles1--second-brain-agent",
+  "displayName": "second-brain-agent",
+  "description": "Private-by-default Telegram agent for Markdown and Obsidian notes",
+  "version": "1.0.0",
+  "author": "ayles1",
+  "homepage": "https://github.com/ayles1/second-brain-agent",
+  "skills": []
+}
