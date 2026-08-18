@@ -2,9 +2,9 @@
   "name": "agent-skills",
   "owner": "simota",
   "repo": "agent-skills",
-  "description": "100+ specialized AI agent skills for Claude Code / Codex CLI / Gemini CLI \u2014 prompt engineering assets covering development, security, design, FinOps, compliance, testing, and more",
+  "description": "",
   "type": "tome",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -235,9 +235,699 @@
       "path": "port",
       "github_url": "https://github.com/simota/agent-skills/tree/main/port",
       "description": ""
+    },
+    {
+      "name": "native",
+      "path": "native",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/native",
+      "description": ""
+    },
+    {
+      "name": "bazaar",
+      "path": "bazaar",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/bazaar",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "dot/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/dot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "zen/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/zen/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "cue/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/cue/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "ink/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/ink/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "tome/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/tome/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "plea/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/plea/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "grok/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/grok/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "void/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/void/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "flux/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/flux/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "zine/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/zine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "saga/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/saga/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "nest/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/nest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "mint/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/mint/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "helm/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/helm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "cast/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/cast/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "bolt/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/bolt/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "riff/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/riff/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "sage/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/sage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "bond/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/bond/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "muse/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/muse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "oath/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/oath/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "port/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/port/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "lens/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/lens/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "snap/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/snap/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "lore/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/lore/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "magi/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/magi/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "flow/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/flow/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "echo/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/echo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "mend/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/mend/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "tempo/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/tempo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "orbit/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/orbit/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "weave/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/weave/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "sigil/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/sigil/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "rally/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/rally/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "nexus/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/nexus/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "probe/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/probe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "scout/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/scout/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "sweep/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/sweep/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "morph/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/morph/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "trail/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/trail/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "siege/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/siege/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "relay/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/relay/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "shard/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/shard/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "agora/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/agora/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "titan/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/titan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "prose/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/prose/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "frame/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/frame/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "cloak/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/cloak/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "radar/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/radar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "shift/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/shift/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "judge/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/judge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "spark/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/spark/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "crest/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/crest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "tuner/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/tuner/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "stage/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/stage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "guild/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/guild/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "trace/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/trace/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "prune/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/prune/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "gauge/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/gauge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "quill/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/quill/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "atlas/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/atlas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "wield/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/wield/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "grove/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/grove/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "forge/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/forge/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "anvil/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/anvil/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "pulse/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/pulse/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "attest/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/attest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "funnel/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/funnel/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "clause/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/clause/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "ripple/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/ripple/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "sherpa/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/sherpa/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "scribe/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/scribe/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "triage/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "ledger/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/ledger/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "launch/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/launch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "vision/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/vision/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "native/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/native/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "sketch/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/sketch/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "oracle/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/oracle/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "schema/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/schema/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "matrix/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/matrix/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "bazaar/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/bazaar/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "hearth/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/hearth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "accord/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/accord/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "beacon/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/beacon/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "vector/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/vector/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "canvas/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/canvas/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "ascent/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/ascent/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "stream/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/stream/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "growth/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/growth/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "darwin/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/darwin/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "atelier/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/atelier/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "palette/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/palette/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "vitrine/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/vitrine/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "harvest/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/harvest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "compete/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/compete/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "builder/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/builder/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "artisan/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/artisan/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "compass/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/compass/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "gateway/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/gateway/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "voyager/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/voyager/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "scaffold/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/scaffold/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "guardian/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/guardian/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "polyglot/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/polyglot/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "director/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/director/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "architect/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/architect/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "pdm/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/pdm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "pmm/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/pmm/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "tick/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/tick/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "loom/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/loom/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "quest/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/quest/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "glance/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/glance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "path": "summon/SKILL.md",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/summon/SKILL.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/simota/agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T18:48:47Z"
+  "distributed_at": "2026-08-18T13:59:37Z"
 }
