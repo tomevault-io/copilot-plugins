@@ -1,0 +1,9 @@
+{
+  "name": "hogancv--coordinate-agents",
+  "displayName": "coordinate-agents",
+  "description": "Coordinate multiple AI coding agents through a local-first, recoverable Agent Bus.",
+  "version": "1.0.0",
+  "author": "hogancv",
+  "homepage": "https://github.com/hogancv/coordinate-agents",
+  "skills": []
+}
