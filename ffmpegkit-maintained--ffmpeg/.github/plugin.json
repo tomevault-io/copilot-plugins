@@ -1,0 +1,9 @@
+{
+  "name": "ffmpegkit-maintained--ffmpeg",
+  "displayName": "ffmpeg",
+  "description": "Community-maintained fork of FFmpegKit \u2014 Android SDK 35 ready, 16KB page support, LTS builds",
+  "version": "1.0.0",
+  "author": "ffmpegkit-maintained",
+  "homepage": "https://github.com/ffmpegkit-maintained/ffmpeg",
+  "skills": []
+}
