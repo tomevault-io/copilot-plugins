@@ -1,0 +1,28 @@
+# AI instruction files for gpflux
+
+> Sourced from [JewwyWan/gpflux](https://github.com/JewwyWan/gpflux), graded against the public Tome Standard and kept consistent across every major platform by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `.cursor/rules/*.mdc` in [JewwyWan/gpflux](https://github.com/JewwyWan/gpflux).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/JewwyWan/gpflux](https://github.com/JewwyWan/gpflux)
+
+---
+
+Install this config instantly:
+```
+npx tomevault install JewwyWan/gpflux
+```
+Source: [github.com/JewwyWan/gpflux](https://github.com/JewwyWan/gpflux).
+
+<!-- genome:a-i-p -->
