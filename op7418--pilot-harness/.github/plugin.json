@@ -1,0 +1,9 @@
+{
+  "name": "op7418--pilot-harness",
+  "displayName": "pilot-harness",
+  "description": "Pilot Harness \u2014 a CodePilot-inspired desktop client and plugin suite for DeepSeek Harness on macOS, Windows, and Linux.",
+  "version": "1.0.0",
+  "author": "op7418",
+  "homepage": "https://github.com/op7418/pilot-harness",
+  "skills": []
+}
