@@ -1,0 +1,9 @@
+{
+  "name": "nunomaduro--pet",
+  "displayName": "pet",
+  "description": "pet is a dependency audit ledger for php",
+  "version": "1.0.0",
+  "author": "nunomaduro",
+  "homepage": "https://github.com/nunomaduro/pet",
+  "skills": []
+}
