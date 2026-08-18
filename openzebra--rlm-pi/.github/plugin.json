@@ -1,0 +1,9 @@
+{
+  "name": "openzebra--rlm-pi",
+  "displayName": "rlm.pi",
+  "description": "A self-improving RLM plugin for pi agent and long-running autonomous tasks.",
+  "version": "1.0.0",
+  "author": "openzebra",
+  "homepage": "https://github.com/openzebra/rlm.pi",
+  "skills": []
+}
