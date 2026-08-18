@@ -1,0 +1,9 @@
+{
+  "name": "sep2--vite-plugin-taro",
+  "displayName": "vite-plugin-taro",
+  "description": "Build WeChat Mini Apps with the latest standard frontend stack: Vite 8, React 19, and Tailwind CSS v4.",
+  "version": "1.0.0",
+  "author": "sep2",
+  "homepage": "https://github.com/sep2/vite-plugin-taro",
+  "skills": []
+}
