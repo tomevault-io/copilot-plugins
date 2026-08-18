@@ -1,0 +1,9 @@
+{
+  "name": "differentiable-electron-crystallography--diffbloch",
+  "displayName": "diffBloch",
+  "description": "Differentiable Bloch wave simulations for electron diffraction refinement",
+  "version": "1.0.0",
+  "author": "Differentiable-Electron-Crystallography",
+  "homepage": "https://github.com/Differentiable-Electron-Crystallography/diffBloch",
+  "skills": []
+}
