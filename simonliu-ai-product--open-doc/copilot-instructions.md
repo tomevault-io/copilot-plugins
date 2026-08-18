@@ -1,0 +1,69 @@
+## open-doc
+
+> You are working on the **open-doc framework** — the runtime, CLI, and tooling that ship to npm.
+
+# open-doc — Framework Repo Guide
+
+You are working on the **open-doc framework** — the runtime, CLI, and tooling that ship to npm.
+
+(Document-authoring guidance lives in the `create-doc` / `doc-authoring` skills under `packages/core/skills/`. Those are for editing files inside `docs/`, not for editing the framework.)
+
+## Layout
+
+pnpm + Turbo monorepo.
+
+| Path | Package | Role |
+| --- | --- | --- |
+| `packages/core` | `@open-document/core` | Runtime (document browser, page viewer, outline, themes, assets panel, design panel, PDF/HTML export), Vite plugins, dev API, `open-doc` dev/build CLI, canonical skills. |
+| `packages/cli` | `@open-document/cli` | `npx @open-document/cli init` scaffolder + project template. |
+| `packages/mcp` | `@open-document/mcp` | MCP server exposing the `ops` layer as tools over Streamable HTTP. Opt-in; mounted at `/mcp` by `open-doc dev --mcp`. |
+| `apps/demo` | private | Local consumer of `@open-document/core` via `workspace:*`. Dogfood target — `pnpm dev:demo`. |
+
+Shared config: `biome.json`, `turbo.json`, `pnpm-workspace.yaml`, `vitest.config.ts`, `tsconfig` per package.
+
+## Workflow
+
+```bash
+pnpm dev          # turbo: runs the demo against local core
+pnpm build        # build all packages
+pnpm typecheck    # tsc across the graph
+pnpm check        # biome (format + lint + organize imports)
+pnpm check:fix    # auto-fix what biome can
+pnpm test         # vitest
+pnpm test:e2e     # playwright (builds core first, boots the e2e fixture project)
+```
+
+Filter to one package: `pnpm core <script>` / `pnpm cli <script>` / `pnpm mcp <script>`.
+
+Releases go through changesets: `pnpm changeset` on any PR touching `packages/*`, then CI opens the release PR and publishes on merge. Never bump versions or edit `CHANGELOG.md` by hand.
+
+**After changing `packages/core/src`, rebuild it (`pnpm core build`) before testing the demo** — documents import the published `dist` bundle, not the source.
+
+## Architecture notes
+
+- **Two copies of core exist at runtime.** The viewer imports `src/app/**`; a document imports the built `dist` bundle via `@open-document/core`. Anything that must be *shared* between them (React context, the outline store) is stashed on `globalThis` — see `src/app/lib/page-context.tsx` and `src/app/lib/outline.ts`. A new shared singleton must follow the same pattern or it will silently split in two.
+- **Documents are discovered through a virtual module.** `src/vite/open-doc-plugin.ts` globs `docs/*/index.{tsx,jsx,ts,js}` and generates `virtual:open-doc/docs`, plus a cache-bust token per doc for hot reload.
+- **The outline is a DOM scan, not a parse.** `collectOutline()` walks rendered page frames for headings. The viewer scans after fonts settle; both exporters scan their own offscreen copy before serializing, then restore the previous snapshot.
+- **Two kinds of page entries.** `DocModule.default` is `DocEntry[]`: a component is one fixed sheet, a `flow()` section is continuous content the framework paginates. `lib/flow.ts` holds the pure packer (`paginateBlocks`, unit-tested), `lib/flow-measure.ts` does the offscreen DOM measurement, `lib/use-doc-pages.ts` joins them into the rendered page list that the viewer, the thumbnails, and both exporters all consume. Anything that used to read `doc.default` directly must go through `useDocPages`.
+- **Page geometry is one function.** `resolvePageGeometry(meta)` owns the CSS-pixel size *and* the `@page` descriptor. Never hardcode 794 × 1123 anywhere else.
+- **Document operations live in `src/ops/`, not in the routes.** `routes/docs.ts` and the MCP tools both call the same functions, so a conflict check or a validation rule is written once. An `OpsError` carries the HTTP status the transport should report. Anything new that mutates a document belongs there, not inline in a route.
+- **`@open-document/mcp` is imported dynamically and is not a core dependency.** `mcp-plugin.ts` resolves it through a variable specifier — core must not take a build-time dependency on a package whose peer is core. A missing install warns and disables the endpoint; it is never fatal.
+- **Dev-only endpoints live behind `apply: 'serve'`.** `api-plugin.ts` mounts `/__assets/*` (routes under `vite/routes/`), `design-plugin.ts` mounts `/__design`. Every mutating handler calls `validateMutationRequest` first — these write to the user's disk. Path safety for assets is centralized in `files/assets.ts`; never join a user-supplied name onto a directory by hand.
+- **The inspector edits source, not the DOM.** `loc-tags-plugin.ts` stamps `data-od-loc="line:col"` onto host JSX in document sources (dev only); the overlay reads that attribute, and `/__edit/*` (routes/edit.ts) applies the change through `editing/edit-ops.ts` (single text child only — anything else is refused) or writes a `@doc-comment` marker via `editing/comments.ts`. Markers are base64url JSON so a note can hold quotes and newlines.
+- **The design panel edits source, not state.** `design-plugin.ts` parses `docs/<id>/index.tsx` with Babel, replaces only the `design` object's byte range, and rewrites the file. It accepts literal objects only; anything else is reported back to the panel rather than overwritten. Round-trip tests live in `design-plugin.test.ts` — extend them when you touch the serializer.
+- **The browser is a two-pane shell.** `routes/home-shell.tsx` owns the left sidebar (nav counts, folders, theme toggle) and hands folder state to the routes through the outlet context — a route never fetches the manifest itself. The document view mirrors it: `components/doc-sidebar.tsx` is the left rail (page thumbnails / outline), the pages scroll in the middle, and the design panel docks right.
+- **Folders live in `docs/.folders.json`.** The manifest is the only mutable state the framework owns; dev reads it live through `/__folders`, a static build reads the snapshot baked into `virtual:open-doc/folders`. Document ids never move — filing a document only edits assignments.
+- **e2e runs against a fixture project, not the demo.** `packages/core/e2e/fixture` is a real workspace package (`docs/`, `themes/`, an `open-doc.config.ts`); `e2e/scratch.mjs` copies it into `e2e/.scratch/<name>` per run so tests that write to disk never dirty the committed sources. `pnpm test:e2e` builds core first, which is where CI's build coverage comes from. Thumbnails are page frames too — anything counting sheets must scope to `[data-od-viewer]`.
+- **Themes are documentation.** `themes-plugin.ts` reads `themes/*.md` frontmatter + body into `virtual:open-doc/themes` and pairs each with an optional `<id>.demo.tsx`. Nothing about a theme is enforced at runtime; `meta.theme` only draws the back-link.
+
+## Hard rules
+
+- **Biome must pass before commit.** Run `pnpm check` (or `pnpm check:fix`).
+- Don't add dependencies casually. The `core` runtime ships to users; every dep inflates install size.
+- **Two kinds of skills, don't mix them.** `packages/core/skills/` ships to users (authoring documents under `docs/`). `.agents/skills/` is for working on this repo — `doc-runtime-patterns` (core implementation rules), `print-layout-review` (page/print craft bar), `viewer-ui-guidelines` (viewer chrome + a11y). `.claude/skills/` symlinks the latter.
+- Skills under `packages/core/skills/` are canonical. `packages/cli/template/.agents/skills` is generated from them by `scripts/sync-template-skills.mjs` at build time — never edit the template copies by hand.
+- **Default to writing no comments.** Only add one when the WHY is non-obvious — a hidden constraint, a subtle invariant, a workaround for a specific bug. Don't explain WHAT the code does, don't write section-divider banners, don't leave commented-out code.
+
+---
+> Source: [simonliu-ai-product/open-doc](https://github.com/simonliu-ai-product/open-doc) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-18 -->
