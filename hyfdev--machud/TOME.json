@@ -4,7 +4,7 @@
   "repo": "machud",
   "description": "A beautiful, zero-config terminal system monitor for macOS",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hyfdev/machud",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T01:11:18Z"
+  "distributed_at": "2026-08-18T01:27:39Z"
 }
