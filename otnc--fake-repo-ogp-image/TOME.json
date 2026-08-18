@@ -4,7 +4,7 @@
   "repo": "fake-repo-ogp-image",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/otnc/fake-repo-ogp-image",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T00:56:19Z"
+  "distributed_at": "2026-08-18T01:05:21Z"
 }
