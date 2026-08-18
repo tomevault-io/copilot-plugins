@@ -1,0 +1,44 @@
+{
+  "name": "please_eject",
+  "owner": "missingno15",
+  "repo": "please_eject",
+  "description": "Fix \"one or more programs may be using it\" when ejecting external drives on macOS \u2014 interactive TUI, graceful quit, then eject",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/missingno15/please_eject",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T04:38:23Z"
+}
