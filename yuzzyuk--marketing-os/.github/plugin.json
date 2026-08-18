@@ -1,0 +1,9 @@
+{
+  "name": "yuzzyuk--marketing-os",
+  "displayName": "marketing-os",
+  "description": "An entire marketing department as one Claude skill. 14 modules: audits scored 0-100, an 18-tactic hook engine, copy graded before you see it, ad diagnosis, GEO, email, launches, pricing. Works in Clau",
+  "version": "1.0.0",
+  "author": "Yuzzyuk",
+  "homepage": "https://github.com/Yuzzyuk/marketing-os",
+  "skills": []
+}
