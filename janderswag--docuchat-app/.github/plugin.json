@@ -1,0 +1,9 @@
+{
+  "name": "janderswag--docuchat-app",
+  "displayName": "docuchat.app",
+  "description": "Private, self-hosted document chat for attorneys: parse legal PDFs and query them with local open-source LLMs (Ollama) + verifiable page citations. One-click desktop app at docuchat.app.",
+  "version": "1.0.0",
+  "author": "janderswag",
+  "homepage": "https://github.com/janderswag/docuchat.app",
+  "skills": []
+}
