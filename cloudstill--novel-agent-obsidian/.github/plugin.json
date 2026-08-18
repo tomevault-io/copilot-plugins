@@ -1,0 +1,9 @@
+{
+  "name": "cloudstill--novel-agent-obsidian",
+  "displayName": "novel-agent-obsidian",
+  "description": "Controlled-context novel writing workflow with an Obsidian plugin and DeepSeek Responses API support.",
+  "version": "1.0.0",
+  "author": "Cloudstill",
+  "homepage": "https://github.com/Cloudstill/novel-agent-obsidian",
+  "skills": []
+}
