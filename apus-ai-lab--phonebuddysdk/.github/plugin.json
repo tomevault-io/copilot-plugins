@@ -1,0 +1,9 @@
+{
+  "name": "apus-ai-lab--phonebuddysdk",
+  "displayName": "PhoneBuddySDK",
+  "description": "Lightweight, embeddable LLM Agent engine for iOS & Android built in pure Rust. Features secure mobile-sandboxed runtime, tool calling loop, streaming LLM transport, JS scripting sandbox, and in-memory",
+  "version": "1.0.0",
+  "author": "APUS-AI-Lab",
+  "homepage": "https://github.com/APUS-AI-Lab/PhoneBuddySDK",
+  "skills": []
+}
