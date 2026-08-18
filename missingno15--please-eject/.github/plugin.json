@@ -1,0 +1,9 @@
+{
+  "name": "missingno15--please-eject",
+  "displayName": "please_eject",
+  "description": "Fix \"one or more programs may be using it\" when ejecting external drives on macOS \u2014 interactive TUI, graceful quit, then eject",
+  "version": "1.0.0",
+  "author": "missingno15",
+  "homepage": "https://github.com/missingno15/please_eject",
+  "skills": []
+}
