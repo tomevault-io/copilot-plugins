@@ -1,0 +1,9 @@
+{
+  "name": "nomifun--nomifun-desktop",
+  "displayName": "nomifun-desktop",
+  "description": "nomifun ai workstation. desc:A no-holds-barred, fully open-source, local-first super AI workstation.",
+  "version": "1.0.0",
+  "author": "nomifun",
+  "homepage": "https://github.com/nomifun/nomifun-desktop",
+  "skills": []
+}
