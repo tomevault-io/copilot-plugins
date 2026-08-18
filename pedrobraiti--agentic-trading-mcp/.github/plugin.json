@@ -1,0 +1,9 @@
+{
+  "name": "pedrobraiti--agentic-trading-mcp",
+  "displayName": "agentic-trading-mcp",
+  "description": "Valet - MCP servers that let an AI agent (Claude Code) trade for real: Interactive Brokers (quotes, positions, market/limit/stop/trailing/bracket, FRACTIONAL buys by the dollar) + crypto spot via CCXT",
+  "version": "1.0.0",
+  "author": "pedrobraiti",
+  "homepage": "https://github.com/pedrobraiti/agentic-trading-mcp",
+  "skills": []
+}
