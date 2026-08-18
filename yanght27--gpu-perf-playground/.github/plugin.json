@@ -1,0 +1,9 @@
+{
+  "name": "yanght27--gpu-perf-playground",
+  "displayName": "GPU-Perf-Playground",
+  "description": "GPU \u6027\u80fd\u4e0e AI Infra \u5b66\u4e60\u9879\u76ee\uff1aCUDA/Triton \u7b97\u5b50\u3001NCU/NSYS\u3001vLLM/SGLang/TRT-LLM/ms-swift\u3001PyTorch/DeepSpeed/ms-swift \u8bad\u7ec3\u3001\u5e76\u884c\u67b6\u6784",
+  "version": "1.0.0",
+  "author": "yanght27",
+  "homepage": "https://github.com/yanght27/GPU-Perf-Playground",
+  "skills": []
+}
