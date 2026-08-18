@@ -1,0 +1,44 @@
+{
+  "name": "pulse",
+  "owner": "Ohimoiza1205",
+  "repo": "pulse",
+  "description": "Device telemetry ingest service in Go. Bounded queue with 429 load shedding, per-device ring buffers, non-blocking WebSocket fan-out.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ohimoiza1205/pulse",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T03:20:04Z"
+}
