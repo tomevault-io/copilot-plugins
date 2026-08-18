@@ -1,0 +1,390 @@
+## switchyard-stage-router-fireworks-eval
+
+> Switchyard is a Python library for LLM traffic orchestration. It sits between client applications (Claude Code, OpenAI / Anthropic SDK clients, Codex CLI) and LLM backends, handling routing, format translation, logging, A/B testing, and health-aware multi-endpoint serving.
+
+# AGENTS.md — Switchyard
+
+Switchyard is a Python library for LLM traffic orchestration. It sits between client applications (Claude Code, OpenAI / Anthropic SDK clients, Codex CLI) and LLM backends, handling routing, format translation, logging, A/B testing, and health-aware multi-endpoint serving.
+
+> **Note:** The public distribution is `nemo-switchyard`. All imports use `switchyard.*`,
+> and the CLI command is `switchyard` (registered via `pyproject.toml` scripts).
+
+## Engineering Guidelines
+
+Working principles for any agent (or human) writing code in this repo. These are
+about *how* to work; project-specific conventions and validation commands live
+elsewhere in this `AGENTS.md`.
+
+### 1. Think Before Coding
+
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
+
+Before implementing:
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them — don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
+
+### 2. Simplicity First
+
+**Minimum code that solves the problem. Nothing speculative.**
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+### 3. Surgical Changes
+
+**Touch only what you must. Clean up only your own mess.**
+
+When editing existing code:
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it — don't delete it.
+
+When your changes create orphans:
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
+
+The test: Every changed line should trace directly to the user's request.
+
+### 4. Goal-Driven Execution
+
+**Define success criteria. Loop until verified.**
+
+Transform tasks into verifiable goals:
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
+
+For multi-step tasks, state a brief plan:
+
+```text
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
+```
+
+Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+### 5. Comments Explain Code, Not Project Management
+
+**Source comments are about the code. Tracking lives in the tracker.**
+
+- No issue/PLAN/step references in code (`TODO(step-6)`, "lands in step 4",
+  "tracked as ISSUE-001", links to `docs/issues/`). These rot the moment the
+  plan changes and leak project-management state into source.
+- A plain `// TODO:` describing a concrete code gap is fine; a `// TODO`
+  pointing at a tracker step is not.
+- Comment what isn't obvious from the code: why a thing is done this way,
+  invariants, non-obvious edge cases. Don't narrate what the code already says.
+- Module doc comments should state what the module is *for*, not its build
+  schedule or its "empty for now" status.
+
+### 6. Commit Discipline
+
+**One step, one reviewed, one-line commit.**
+
+- One focused commit per step; every changed line traces to that step.
+- Single-line commit message in Conventional Commits form
+  (`type(scope): summary`). No body, no `Co-Authored-By` trailer.
+- Pull request titles use the same Conventional Commits form.
+- Use `git commit -s` so every commit carries the required DCO sign-off.
+- Never commit unprompted. Show the diff, get approval, then commit.
+
+Before repairing DCO, inspect every affected commit:
+
+```bash
+git log origin/main..HEAD --format='%h %an <%ae> %s'
+```
+
+If every affected commit is yours, add the trailers and update the remote safely:
+
+```bash
+git rebase origin/main --signoff
+git push --force-with-lease origin HEAD
+```
+
+For a mixed-author branch, use an interactive rebase and mark only your unsigned commits for
+editing. At each stop, run `git commit --amend --no-edit --signoff`, then
+`git rebase --continue`. Never add your sign-off to another contributor's commit.
+
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+
+### 7. Review Discipline
+
+- Verify every finding against the current code path before reporting it.
+- Draft findings before posting review comments unless the user explicitly asks you to post them.
+- Resolve only your own review threads, and only after verifying the fix in code.
+
+## Task-Specific Skills
+
+The repository keeps a small set of optional runbooks under `.agents/skills/`. Read a skill only
+when its description directly matches the task. Ordinary code exploration, implementation,
+testing, and review do not require loading a skill.
+
+| Skill | Use it for |
+|---|---|
+| `publish-python-release` | Python wheel artifacts, PyPI releases, and release workflow changes |
+| `switchyard-coding-agent-launchers` | Claude Code, Codex, or OpenClaw launcher behavior |
+| `switchyard-docs` | Published MkDocs pages, strict builds, previews, and docs CI |
+| `switchyard-rust-review` | Focused review of Rust, PyO3, async, streaming, and crate boundaries |
+| `switchyard-stage-router-scorer` | Replaying benchmark trajectories through the stage-router scorer and picker |
+| `switchyard-testing-ci` | Selecting non-obvious validation or diagnosing CI failures |
+
+Skills should contain stable operational constraints, not mutable architecture inventories. Read the
+current source and CI workflows for implementation details.
+
+## Architecture: staged chain
+
+Everything flows through a fixed-shape chain enforced at construction time:
+
+```
+request-side component* → LLMBackend → response-side component* → TranslationEngine
+```
+
+The chain executor is `Switchyard` (`switchyard/lib/switchyard.py`). `LLMBackend` is the shared
+Python role class re-exported from `switchyard/lib/roles.py`; native implementations register with
+it, and request-side and response-side processors are plain async components with `process(...)`
+methods.
+Direct Rust bindings for migrated concrete processors/backends are exposed from
+`switchyard_rust.components` and implemented under `crates/switchyard-py/src/component_bindings/`.
+
+| Stage | Binding | Method | Purpose |
+|------|-----|--------|---------|
+| Request component | Plain Python/Rust object | `async process(ctx, request) -> ChatRequest` | Pre-process (routing, buffering, auth) |
+| `LLMBackend` | `switchyard.lib.roles` | `async call(ctx, request) -> ChatResponse` | Make the LLM call. Exactly one per chain. |
+| Response component | Plain Python/Rust object | `async process(ctx, response) -> ChatResponse` | Post-process (logging, stats) |
+| `TranslationEngine` | `switchyard_rust.translation` | `async translate(ctx, request, response) -> Any` | Convert to client's wire format |
+
+## Project Structure
+
+```
+switchyard/
+├── __init__.py                     # Public API — all exports live here
+├── lib/                            # Core library
+│   ├── roles.py                    # Python LLMBackend re-export and translation aliases
+│   ├── switchyard.py               # Switchyard — chain executor
+│   ├── proxy_context.py            # ProxyContext — per-request state carrier
+│   ├── profiles/                   # Profile configs/runtimes for pre-built routing behavior
+│   ├── route_table.py              # RouteTable — model-id dispatch to runnable chains
+│   ├── route_table_builders.py     # Shared profile-backed table builders
+│   ├── llm_client.py               # OpenAILLMClient
+│   ├── cost_estimator.py           # Token-cost bookkeeping
+│   ├── stats_accumulator.py        # Stats accumulation helpers
+│   ├── request_metadata.py         # RequestMetadata
+│   ├── chat_response/              # Rust-backed response re-exports + stream adapters
+│   │   ├── base.py                 # ChatResponse, ChatResponseType compatibility re-export
+│   │   ├── openai_chat.py          # ResponseStream
+│   │   ├── openai_responses.py     # ResponsesApiStream
+│   │   └── anthropic.py            # AnthropicResponseStream
+│   ├── backends/                   # LLMBackend implementations
+│   │   ├── openai_llm_backend.py           # OpenAiPassthroughBackend
+│   │   ├── openai_native_backend.py        # OpenAiNativeBackend
+│   │   ├── anthropic_native_llm_backend.py # AnthropicNativeBackend
+│   │   ├── llm_target.py                   # LlmTarget, BackendFormat
+│   │   ├── multi_llm_backend.py            # MultiLlmBackend helpers
+│   │   ├── stats_llm_backend.py            # StatsLlmBackend
+│   │   └── backend_format_resolver.py      # BackendFormatResolver
+│   ├── processors/                 # Request-side / response-side component implementations
+│   │   ├── format_translate.py
+│   │   ├── random_routing_request_processor.py
+│   │   ├── stats_request_processor.py
+│   │   ├── stats_response_processor_accumulator.py
+│   │   ├── intake_request_processor.py
+│   │   ├── intake_response_processor.py
+│   │   ├── intake_payload_builder.py
+│   │   └── intake_client.py
+│   ├── endpoints/                  # FastAPI endpoint wrappers (require `nemo-switchyard[server]`)
+│   │   ├── openai_chat_endpoint.py         # OpenAIChatEndpoint
+│   │   ├── anthropic_messages_endpoint.py  # AnthropicMessagesEndpoint
+│   │   ├── responses_endpoint.py           # ResponsesEndpoint
+│   │   ├── stats_endpoint.py               # StatsEndpoint
+│   │   ├── sse_helpers.py
+│   │   └── base.py
+│   └── config/
+│       └── intake_sink_config.py
+├── cli/                            # CLI (requires `nemo-switchyard[cli]`)
+│   ├── switchyard_cli.py           # `switchyard` entry point
+│   ├── launch_command.py           # `switchyard launch claude/codex`
+│   ├── configure_command.py        # `switchyard configure`
+│   ├── status.py                   # render_status helper used by `configure --show`
+│   ├── command_utils.py
+│   ├── output.py
+│   ├── launchers/                  # claude_code_launcher, codex_cli_launcher
+│   ├── model_catalog/              # model_discovery
+│   ├── routing/                    # route_builder
+│   ├── tui/                        # Terminal UI widgets
+│   └── config/
+│       └── user_config.py          # Saved user defaults (~/.config/switchyard/)
+└── server/                         # FastAPI app factory + server utilities
+    ├── switchyard_app.py           # build_switchyard_app()
+    ├── server_util.py              # Shared CLI / server plumbing
+    ├── shell_tui.py                # Shell TUI session
+    └── verify.py                   # e2e verification helpers
+
+tests/                              # Unit tests (pytest)
+```
+
+## Tech Stack
+
+- **Python 3.12+**, async-first (asyncio)
+- **FastAPI + Uvicorn** for HTTP (`nemo-switchyard[server]`), **sse-starlette** for SSE streaming
+- **OpenAI SDK** (`openai>=2.30`) — primary client; the translation engine converts all inbound formats to Chat Completions
+- **Anthropic SDK** (`anthropic>=0.94`)
+- **httpx** for direct HTTP (health polling, Anthropic Messages)
+- **uv** as the package manager (preferred over pip)
+- **pytest + pytest-asyncio** for testing, **respx** for HTTP mocking
+- **ruff** for linting, **mypy** (strict) for type checking
+
+## Setup
+
+```bash
+uv sync               # Core + dev tooling (dev is uv's default group)
+uv sync --group dev   # Explicit form, equivalent to the above
+source .venv/bin/activate
+```
+
+`dev` lives in `[dependency-groups]` (PEP 735), not in `[project.optional-dependencies]`,
+so it is **not** advertised in the published wheel's METADATA — pytest, ruff, mypy,
+and their transitives never appear in downstream vulnerability scans.
+
+## Commands
+
+### Running the server
+
+```bash
+export OPENAI_API_KEY="sk-..."       # or NVIDIA_API_KEY / ANTHROPIC_API_KEY where supported
+export OPENROUTER_API_KEY="sk-or-..." # pass with --api-key or save via configure
+
+# Serve a routing bundle. Routes live in YAML; see docs/routing_algorithms/overview.md.
+switchyard --routing-profiles routes.yaml -- serve --port 4000
+
+# One-command launchers — single-model passthrough via --model
+switchyard launch claude --model openai/gpt-4o-mini \
+    --base-url https://openrouter.ai/api/v1 --api-key "$OPENROUTER_API_KEY"
+switchyard launch codex --model openai/gpt-4o-mini \
+    --base-url https://openrouter.ai/api/v1 --api-key "$OPENROUTER_API_KEY"
+
+# Launchers default to built-in LLM-classifier routing; tune the tiers:
+switchyard launch claude \
+    --weak-model openai/gpt-4o-mini --classifier-model openai/gpt-4o \
+    --classifier-min-confidence 0.6
+
+# Verification and saved config
+switchyard verify --model openai/gpt-4o-mini
+switchyard configure --show
+```
+
+### Testing
+
+```bash
+# Unit tests — no API keys needed
+uv run pytest tests/ -v
+
+# Single test file / function
+uv run pytest tests/test_switchyard.py -v
+uv run pytest tests/test_random_routing_llm_backend.py::test_server_config -v
+
+# Live end-to-end tests are not part of the public test suite; if you write
+# one, set the provider key explicitly and run it directly, e.g.:
+#   OPENAI_API_KEY=sk-... uv run pytest tests/your_e2e_test.py -v -x
+
+# Lint / type check (run before every commit)
+uv run ruff check .
+uv run mypy switchyard
+```
+
+### Adding a new component
+
+1. Pick the right stage: request component (pre-call), response component (post-call), `LLMBackend` (rare), or Rust translation codec work.
+2. Create a file with the explicit name (`snake_case` of the class name), one class per file.
+3. Implement the async method for that stage (`process` for components, `call` for backends).
+4. Wire into the owning programmatic profile config or route-bundle builder.
+5. Add tests under `tests/`.
+6. Export from the relevant `__init__.py` and from `switchyard/__init__.py`'s `__all__`.
+
+### Example: custom request component
+
+```python
+from switchyard.lib.proxy_context import ProxyContext
+from switchyard import ChatRequest
+
+
+class MyRequestComponent:
+    async def process(self, ctx: ProxyContext, request: ChatRequest) -> ChatRequest:
+        ctx.metadata["my_key"] = "my_value"
+        return request
+```
+
+### Profiles and app factory
+
+```python
+from switchyard import PassthroughProfileConfig, ProfileSwitchyard, build_switchyard_app
+import uvicorn
+
+switchyard = ProfileSwitchyard(PassthroughProfileConfig(
+    api_key="sk-...",
+    base_url="https://api.openai.com/v1",
+).build())
+uvicorn.run(build_switchyard_app(switchyard), port=4000)
+```
+
+## Environment Variables
+
+| Variable | Purpose |
+|----------|---------|
+| `OPENAI_API_KEY` | API key for OpenAI-compatible backends |
+| `OPENAI_BASE_URL` | Base URL for OpenAI-compatible API |
+| `ANTHROPIC_API_KEY` | API key for Anthropic Claude |
+| `NVIDIA_API_KEY` | API key for NVIDIA NIM / Inference Hub |
+| `OPENROUTER_API_KEY` | OpenRouter key for examples and saved provider setup; pass via `--api-key` or `switchyard configure` |
+| `SWITCHYARD_INTAKE_CAPTURE_CONTENT` | Set truthy to include prompt/response text in intake; default off (metadata-only) |
+
+## Code Style
+
+- **Line length**: 100 chars (ruff, E501 ignored)
+- **Target version**: Python 3.12 — use `X | Y` union syntax
+- **Imports**: sorted by ruff (`I` rules). Use `TYPE_CHECKING` guards for circular imports.
+- **File naming**: file name = `snake_case` of its primary class. One class per file when practical.
+- **Type hints**: throughout. `py.typed` marker present; mypy runs strict.
+- **Async**: async-only. If you need sync, use `asyncio.run()`.
+- **Testing**: `respx` for HTTP mocking, `pytest-mock` for general mocking. `asyncio_mode = "auto"` — no `@pytest.mark.asyncio` needed.
+- **Rust**: do not use `.expect()` in Rust source or tests. Propagate errors with `?`,
+  return typed errors, or match explicitly in tests so failures stay intentional and visible.
+- **Comments**: For Rust changes, add concise comments for module/file intent, public structs/enums,
+  public methods, private helpers with non-obvious behavior, and tests that encode important
+  behavior. Prefer one-line comments when enough. Add block comments before complex validation,
+  routing, config-building, async, lifecycle, or concurrency logic.
+- **Docstrings**: Add docstrings for public functions, classes, methods, and API entry points. In
+  Rust, use `///` doc comments for public items; in Python, use concise triple-quoted docstrings.
+  Public docs should state what the API does, important invariants, and error behavior when relevant.
+
+## Boundaries
+
+### Always do
+- File name = snake_case of the primary class exported. Rename on touch.
+- Run `uv run ruff check .` (zero errors) and `uv run pytest tests/` before pushing.
+- Export new public classes from `switchyard/__init__.py` with `__all__`.
+- Write unit tests for new roles and bug fixes.
+- Use `ProxyContext.metadata` for cross-component state within a request.
+- In a new `LLMBackend`, map upstream context-window 4xx to `SwitchyardError::ContextWindowExceeded` (Rust) — the chain executor uses it for evict-and-retry. See [Context-Window Handling](docs/context_window.md).
+
+### Ask first
+- Modifying `pyproject.toml` dependencies.
+- Changes to the chain shape or public role classes in `switchyard/lib/roles.py`.
+- Adding new HTTP endpoints.
+- Removing or renaming any public API currently in `switchyard/__init__.__all__`.
+
+### Never do
+- Commit API keys or secrets (`secrets/` is gitignored).
+- Remove or rename public API exports without an explicit deprecation plan.
+
+---
+> Source: [milesadkins/switchyard-stage-router-fireworks-eval](https://github.com/milesadkins/switchyard-stage-router-fireworks-eval) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-18 -->
