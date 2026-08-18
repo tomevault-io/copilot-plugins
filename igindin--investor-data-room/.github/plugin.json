@@ -1,0 +1,9 @@
+{
+  "name": "igindin--investor-data-room",
+  "displayName": "investor-data-room",
+  "description": "Portable Claude skill: turn a founder's pitch material (deck, model, chat archives) into a clean, sendable investor packet - context.md + data-room with sourced, confidence-labelled answers. Whitelist",
+  "version": "1.0.0",
+  "author": "igindin",
+  "homepage": "https://github.com/igindin/investor-data-room",
+  "skills": []
+}
