@@ -1,0 +1,9 @@
+{
+  "name": "whoami96--openstack-zsh-plugin",
+  "displayName": "openstack-zsh-plugin",
+  "description": "Zsh plugin that automates the daily OpenStack CLI grind: switch clouds via fzf, auto-activate the right venv, SSH into VMs by fuzzy name, and more.",
+  "version": "1.0.0",
+  "author": "whoami96",
+  "homepage": "https://github.com/whoami96/openstack-zsh-plugin",
+  "skills": []
+}
