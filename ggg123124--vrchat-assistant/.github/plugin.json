@@ -1,0 +1,9 @@
+{
+  "name": "ggg123124--vrchat-assistant",
+  "displayName": "vrchat-assistant",
+  "description": "Self-hosted VRChat friend activity monitor - real-time WebSocket tracking of friends' online status, world changes, avatar updates. Full MCP toolset for AI agents (Hermes), auto OTP login, VRCX-0 data",
+  "version": "1.0.0",
+  "author": "ggg123124",
+  "homepage": "https://github.com/ggg123124/vrchat-assistant",
+  "skills": []
+}
