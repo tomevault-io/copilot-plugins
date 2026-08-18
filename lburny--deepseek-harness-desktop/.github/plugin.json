@@ -1,0 +1,9 @@
+{
+  "name": "lburny--deepseek-harness-desktop",
+  "displayName": "deepseek-harness-desktop",
+  "description": "Windows desktop shell for DeepSeek's agent harness CLI (dsh). The installer bundles Node.js and dsh, so the official Web UI runs as a native app with tray, notifications, and theme following. No prere",
+  "version": "1.0.0",
+  "author": "LBurny",
+  "homepage": "https://github.com/LBurny/deepseek-harness-desktop",
+  "skills": []
+}
