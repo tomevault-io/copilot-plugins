@@ -1,0 +1,9 @@
+{
+  "name": "danatok--rag-agents-cover-letter",
+  "displayName": "rag_agents_cover_letter",
+  "description": "This code helps to read your repo with txt files and write you a new cover letter",
+  "version": "1.0.0",
+  "author": "danatok",
+  "homepage": "https://github.com/danatok/rag_agents_cover_letter",
+  "skills": []
+}
