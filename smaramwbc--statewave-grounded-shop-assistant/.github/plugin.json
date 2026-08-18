@@ -1,0 +1,9 @@
+{
+  "name": "smaramwbc--statewave-grounded-shop-assistant",
+  "displayName": "statewave-grounded-shop-assistant",
+  "description": "Statewave use case in TypeScript: a grounded product advisor and support assistant, with an Ops Assistant that tracks and closes content gaps.",
+  "version": "1.0.0",
+  "author": "smaramwbc",
+  "homepage": "https://github.com/smaramwbc/statewave-grounded-shop-assistant",
+  "skills": []
+}
