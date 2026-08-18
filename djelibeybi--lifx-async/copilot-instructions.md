@@ -427,4 +427,4 @@ Run `uv run python -m lifx.protocol.generator` to regenerate Python code.
 
 ---
 > Source: [Djelibeybi/lifx-async](https://github.com/Djelibeybi/lifx-async) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-08-15 -->
+<!-- tomevault:4.0:copilot_instructions:2026-08-18 -->
