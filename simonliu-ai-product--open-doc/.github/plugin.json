@@ -1,0 +1,9 @@
+{
+  "name": "simonliu-ai-product--open-doc",
+  "displayName": "open-doc",
+  "description": "The document framework built for agents \u2014 write reports as React, get real A4 pages, an outline, page numbers, and a PDF.",
+  "version": "1.0.0",
+  "author": "simonliu-ai-product",
+  "homepage": "https://github.com/simonliu-ai-product/open-doc",
+  "skills": []
+}
