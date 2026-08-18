@@ -7,11 +7,11 @@ W.A.Y? (Who Are You? : I'm not a developer) — a personal AI harness that learn
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Global-mindee/WAY](https://github.com/Global-mindee/WAY).
+Original source: `AGENTS.md` in [Global-mindee/WAY](https://github.com/Global-mindee/WAY).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
