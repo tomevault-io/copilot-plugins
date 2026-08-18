@@ -1,0 +1,9 @@
+{
+  "name": "robtaylor--apb-formal",
+  "displayName": "apb-formal",
+  "description": "Reusable, FOSS-verified APB-lite protocol compliance checker (SystemVerilog + SymbiYosys), grounded in a machine-readable capture of Arm IHI0024E.",
+  "version": "1.0.0",
+  "author": "robtaylor",
+  "homepage": "https://github.com/robtaylor/apb-formal",
+  "skills": []
+}
