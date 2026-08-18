@@ -1,0 +1,9 @@
+{
+  "name": "suiflex--rdb",
+  "displayName": "rdb",
+  "description": "Database Editor build with Rust",
+  "version": "1.0.0",
+  "author": "suiflex",
+  "homepage": "https://github.com/suiflex/rdb",
+  "skills": []
+}
