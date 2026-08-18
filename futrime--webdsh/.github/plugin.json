@@ -1,0 +1,9 @@
+{
+  "name": "futrime--webdsh",
+  "displayName": "webdsh",
+  "description": "Browser-only build of DeepSeek Harness",
+  "version": "1.0.0",
+  "author": "futrime",
+  "homepage": "https://github.com/futrime/webdsh",
+  "skills": []
+}
