@@ -1,0 +1,44 @@
+{
+  "name": "TrailRAG",
+  "owner": "hyqlovezxh",
+  "repo": "TrailRAG",
+  "description": "**Trace every clue \u2014 RAG with evidentiary, multi-hop, time-aware retrieval.**- *\u8bed\u6eafRAG \u00b7 \u5faa\u8ff9\u6bcf\u4e00\u5904\u7ebf\u7d22\uff1a\u5e26\u8bc1\u636e\u94fe\u3001\u591a\u8df3\u3001\u65f6\u5e8f\u611f\u77e5\u7684\u68c0\u7d22\u589e\u5f3a\u751f\u6210\u6846\u67b6*",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hyqlovezxh/TrailRAG",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T12:34:09Z"
+}
