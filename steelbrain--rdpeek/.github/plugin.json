@@ -1,0 +1,9 @@
+{
+  "name": "steelbrain--rdpeek",
+  "displayName": "RDPeek",
+  "description": "A native macOS remote desktop client",
+  "version": "1.0.0",
+  "author": "steelbrain",
+  "homepage": "https://github.com/steelbrain/RDPeek",
+  "skills": []
+}
