@@ -4,7 +4,7 @@
   "repo": "obsidian-scribe",
   "description": "Record, transcribe, and transform voice notes into structured insights. Leverage Whisper or AssemblyAI and ChatGPT to fill in gaps, generate summaries, and visualize ideas \u2014 all seamlessly integrated within Obsidian.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mikealicea/obsidian-scribe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T15:33:34Z"
+  "distributed_at": "2026-08-18T15:35:41Z"
 }
