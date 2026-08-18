@@ -1,0 +1,9 @@
+{
+  "name": "juliusbrussee--caveman-browse",
+  "displayName": "caveman-browse",
+  "description": "Token-efficient browser automation for coding agents: compressed accessibility snapshots, uid actions, byte-exact recovery. A Playwright MCP alternative.",
+  "version": "1.0.0",
+  "author": "JuliusBrussee",
+  "homepage": "https://github.com/JuliusBrussee/caveman-browse",
+  "skills": []
+}
