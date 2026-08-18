@@ -1,0 +1,9 @@
+{
+  "name": "anxiyizhi--stardew-server-anxi-panel",
+  "displayName": "stardew-server-anxi-panel",
+  "description": "A Stardew Valley dedicated server web panel powered by JunimoServer, Go, React, SQLite, and Docker Compose.",
+  "version": "1.0.0",
+  "author": "AnXiYiZhi",
+  "homepage": "https://github.com/AnXiYiZhi/stardew-server-anxi-panel",
+  "skills": []
+}
