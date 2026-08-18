@@ -1,0 +1,9 @@
+{
+  "name": "deepcode-lab--deepseek-harness-mobile",
+  "displayName": "deepseek-harness-mobile",
+  "description": "Android shell for DeepSeek Harness (dsh): embedded Termux runtime snapshot + proot Ubuntu container, WebView UI, SAF directory bridge, layered keep-alive, linker64 exec-reroute + _Unwind_Resume patch,",
+  "version": "1.0.0",
+  "author": "deepcode-lab",
+  "homepage": "https://github.com/deepcode-lab/deepseek-harness-mobile",
+  "skills": []
+}
