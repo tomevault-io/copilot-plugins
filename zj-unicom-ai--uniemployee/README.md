@@ -7,11 +7,11 @@ UniEmployee 是一套面向企业的数字员工构建与运行平台：把专�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [zj-unicom-ai/UniEmployee](https://github.com/zj-unicom-ai/UniEmployee).
+Original source: `CLAUDE.md` in [zj-unicom-ai/UniEmployee](https://github.com/zj-unicom-ai/UniEmployee).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
