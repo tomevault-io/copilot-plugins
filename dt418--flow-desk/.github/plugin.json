@@ -1,0 +1,9 @@
+{
+  "name": "dt418--flow-desk",
+  "displayName": "flow-desk",
+  "description": "FlowDesk \u2014 self-hosted task management (Hono + React + Prisma + Postgres)",
+  "version": "1.0.0",
+  "author": "dt418",
+  "homepage": "https://github.com/dt418/flow-desk",
+  "skills": []
+}
