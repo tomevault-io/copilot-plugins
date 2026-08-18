@@ -1,22 +1,18 @@
-## auto-deploy
+## project-version
 
-> Deploy to GitHub Pages after completing user-facing changes
+> Current app release version for agents and deploy checks
 
 
-# Auto-deploy
+# Project version
 
-This repo deploys to GitHub Pages on every push to `main`.
+**Current release:** `v1.18.4`
 
-After completing user-facing work:
-
-1. Merge or commit changes on `main` (or merge feature branch into `main`).
-2. Run `npm run build` to verify the build passes.
-3. `git push origin main` — this triggers `.github/workflows/deploy.yml` automatically.
-4. Do **not** wait for the user to ask for deployment.
+- Source of truth: `package.json` → `version`
+- Runtime: `src/lib/appVersion.ts` (`__APP_VERSION__` from Vite)
+- UI: main screen header (`AppTitle`) and loading overlay show `v{version}`
+- After bumping version, merge to `main` and push — GitHub Actions deploys to Pages automatically
 
 Live URL: https://wooramsol.github.io/makemecubemaster/
-
-Users may need **Ctrl+Shift+R** after deploy (PWA cache).
 
 ---
 > Source: [wooramsol/makemecubemaster](https://github.com/wooramsol/makemecubemaster) — distributed by [TomeVault](https://tomevault.io).
