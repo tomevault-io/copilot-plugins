@@ -1,0 +1,9 @@
+{
+  "name": "mablhq--skills",
+  "displayName": "skills",
+  "description": "Skills for AI agents",
+  "version": "1.0.0",
+  "author": "mablhq",
+  "homepage": "https://github.com/mablhq/skills",
+  "skills": []
+}
