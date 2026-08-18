@@ -1,42 +1,36 @@
-## docs-direct-to-main
+## post-merge-main-sync
 
-> Docs-only changes commit and push straight to main — never open a PR
+> After every remote main update (PR merge or docs push), sync canonical main
 
 
-# Docs-only → direct to `main` (no PR)
+# Post-merge: sync canonical `macprovider-poc` `main`
 
-In `Augustas11/macprovider` / macprovider-poc worktrees:
+Feature work happens in **sibling worktrees**, not on canonical `/Users/augstar/macprovider-poc`. Squash-merges advance `origin/main` while local `main` stays parked — that is why the checkout drifts “behind N”.
 
-**Do not open a pull request for docs-only work.** Commit on a clean `main` synced to `origin/main`, then push straight to `main`.
+## Mandatory after each PR merge or docs direct-push
 
-## Docs-only means
-
-- Markdown: specs planning/audit prompts, runbooks, beta exploration reports, close-criteria / close-record notes, decision-log append-only entries when they are narrative only
-- Other non-executable documentation artifacts
-
-## Not docs-only (feature branch + PR required)
-
-- Any executable code (Swift, Go, scripts that run in CI/prod, shell shipped to providers)
-- Money-path / auth paths: `phase4-coordinator/internal/{billing,buyer,auth,requestlog}/`, `phase5-gateway/internal/{router,auth}/`
-- Catalog / rate-card / `coordinator.yaml` / static JSON that affects runtime
-- CI workflow changes, schemas that gate validation, release tooling
-
-## Why
-
-Docs PRs still schedule the full macOS CI matrix (`macos-15` Swift + SPEC-015), burn scarce runners, and slow real code PRs. Direct-to-main skips that queue waste.
-
-## Ship sequence
+From the canonical checkout (or any shell):
 
 ```bash
-git fetch origin
-git checkout main && git reset --hard origin/main   # only when main is clean of unique work
-# edit docs…
-git add <docs paths>
-git commit -m "…"
-git push origin main
+git -C /Users/augstar/macprovider-poc fetch origin
+git -C /Users/augstar/macprovider-poc checkout main
+git -C /Users/augstar/macprovider-poc reset --hard origin/main
 ```
 
-Never invent a `docs/…` branch or `gh pr create` for pure documentation.
+Also delete the merged feature branch / remove its worktree when done.
+
+## Do not
+
+- Leave a half-finished `git merge origin/main` on canonical `main` (causes `UU` conflicts + “behind N”)
+- Treat worktree feature tips as a substitute for syncing canonical `main`
+- Force-push `main` to “catch up”
+
+## Verify
+
+```bash
+git -C /Users/augstar/macprovider-poc status -sb
+# expect: ## main...origin/main   (0 ahead / 0 behind)
+```
 
 ---
 > Source: [Augustas11/macprovider](https://github.com/Augustas11/macprovider) — distributed by [TomeVault](https://tomevault.io).
