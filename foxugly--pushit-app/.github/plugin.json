@@ -1,0 +1,9 @@
+{
+  "name": "foxugly--pushit-app",
+  "displayName": "PushIT_app",
+  "description": "PushIT \u2014 client mobile Kotlin Multiplatform (Android/iOS) pour PushIT Server (notifications push via FCM)",
+  "version": "1.0.0",
+  "author": "Foxugly",
+  "homepage": "https://github.com/Foxugly/PushIT_app",
+  "skills": []
+}
