@@ -1,0 +1,9 @@
+{
+  "name": "nahumoore--lightreach",
+  "displayName": "lightreach",
+  "description": "Free, open-source email outreach platform \u2014 self-hosted alternative to Instantly and Smartlead. Send cold emails at scale using your own SMTP mailboxes. No SaaS fees, no data leaving your machine.",
+  "version": "1.0.0",
+  "author": "nahumoore",
+  "homepage": "https://github.com/nahumoore/lightreach",
+  "skills": []
+}
