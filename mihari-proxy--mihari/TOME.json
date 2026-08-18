@@ -1,0 +1,44 @@
+{
+  "name": "mihari",
+  "owner": "mihari-proxy",
+  "repo": "mihari",
+  "description": "Mihari \u2014 a new, independent local manager for mihomo, with a daemon-owned control plane shared by CLI, TUI, and browser panels",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mihari-proxy/mihari",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T09:30:45Z"
+}
