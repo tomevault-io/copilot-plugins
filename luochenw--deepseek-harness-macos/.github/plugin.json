@@ -1,0 +1,9 @@
+{
+  "name": "luochenw--deepseek-harness-macos",
+  "displayName": "deepseek-harness-macos",
+  "description": "DeepSeek Harness\uff08dsh\uff09\u7684\u72ec\u7acb\u975e\u5b98\u65b9\u539f\u751f macOS \u5ba2\u6237\u7aef\u2014\u2014SwiftUI/AppKit \u5b9e\u73b0\uff0c\u975e WebView/Electron \u5957\u58f3\uff0c\u5185\u7f6e Node + dsh \u8fd0\u884c\u65f6\u3002Unofficial native SwiftUI macOS client for DeepSeek Harness.",
+  "version": "1.0.0",
+  "author": "luochenw",
+  "homepage": "https://github.com/luochenw/deepseek-harness-macos",
+  "skills": []
+}
