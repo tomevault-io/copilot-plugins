@@ -7,11 +7,11 @@ Pi extension — detects and interrupts infinite thinking-block and tool-call do
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sebaxzero/pi-loop-police](https://github.com/sebaxzero/pi-loop-police).
+Original source: `AGENTS.md` in [sebaxzero/pi-loop-police](https://github.com/sebaxzero/pi-loop-police).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
