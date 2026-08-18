@@ -7,11 +7,11 @@ Database engine for AI agents — write memory, recall by cue, trust sources ove
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [voxmastery/FluctlightDB](https://github.com/voxmastery/FluctlightDB).
+Original source: `AGENTS.md` in [voxmastery/FluctlightDB](https://github.com/voxmastery/FluctlightDB).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
