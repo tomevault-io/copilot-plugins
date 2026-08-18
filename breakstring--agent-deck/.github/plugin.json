@@ -1,0 +1,9 @@
+{
+  "name": "breakstring--agent-deck",
+  "displayName": "agent-deck",
+  "description": "A local-first hardware control surface for Codex \u2014 live task status, quota, pets, and safe actions on MiraBox N4 Pro.",
+  "version": "1.0.0",
+  "author": "breakstring",
+  "homepage": "https://github.com/breakstring/agent-deck",
+  "skills": []
+}
