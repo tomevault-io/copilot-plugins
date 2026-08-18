@@ -1,0 +1,9 @@
+{
+  "name": "jiordiviera--webhooktrap",
+  "displayName": "webhooktrap",
+  "description": "Open-source webhook debugger. Capture, inspect, replay webhooks.",
+  "version": "1.0.0",
+  "author": "jiordiviera",
+  "homepage": "https://github.com/jiordiviera/webhooktrap",
+  "skills": []
+}
