@@ -1,0 +1,9 @@
+{
+  "name": "d-woosley--sambaudit",
+  "displayName": "SambAudit",
+  "description": "Find sensitive data hiding on your SMB file shares before someone else does",
+  "version": "1.0.0",
+  "author": "d-woosley",
+  "homepage": "https://github.com/d-woosley/SambAudit",
+  "skills": []
+}
