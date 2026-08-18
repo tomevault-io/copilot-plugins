@@ -1,0 +1,9 @@
+{
+  "name": "a-lang--f2b-dashboard",
+  "displayName": "f2b-dashboard",
+  "description": "Fail2ban Live Dashboard",
+  "version": "1.0.0",
+  "author": "a-lang",
+  "homepage": "https://github.com/a-lang/f2b-dashboard",
+  "skills": []
+}
