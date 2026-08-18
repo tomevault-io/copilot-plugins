@@ -4,7 +4,7 @@
   "repo": "agentic-retail-ops",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/levanduy093-work/agentic-retail-ops",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T13:31:29Z"
+  "distributed_at": "2026-08-18T13:32:16Z"
 }
