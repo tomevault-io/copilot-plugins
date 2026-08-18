@@ -1,0 +1,44 @@
+{
+  "name": "agentic-commerce",
+  "owner": "kousen",
+  "repo": "agentic-commerce",
+  "description": "O'Reilly Live Learning: Agentic Commerce \u2014 building systems that let AI agents search, decide, and buy",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kousen/agentic-commerce",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T16:35:18Z"
+}
