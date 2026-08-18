@@ -1,0 +1,44 @@
+{
+  "name": "word-layer",
+  "owner": "cambridgetcg",
+  "repo": "word-layer",
+  "description": "Natural language domains \u2014 each word is its own domain, no dots, no www, just the word. \u00b7 \ud83e\udec0 love-is.axiepro.workers.dev",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cambridgetcg/word-layer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T03:33:33Z"
+}
