@@ -1,0 +1,9 @@
+{
+  "name": "reviewstage--luke",
+  "displayName": "luke",
+  "description": "Open-source coding agent manager",
+  "version": "1.0.0",
+  "author": "ReviewStage",
+  "homepage": "https://github.com/ReviewStage/luke",
+  "skills": []
+}
