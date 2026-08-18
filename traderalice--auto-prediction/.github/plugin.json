@@ -1,0 +1,9 @@
+{
+  "name": "traderalice--auto-prediction",
+  "displayName": "Auto-Prediction",
+  "description": "AI-native semantic arbitrage research for prediction markets.",
+  "version": "1.0.0",
+  "author": "TraderAlice",
+  "homepage": "https://github.com/TraderAlice/Auto-Prediction",
+  "skills": []
+}
