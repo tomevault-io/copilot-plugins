@@ -1,0 +1,9 @@
+{
+  "name": "strands-labs--strands-for-cosmos",
+  "displayName": "strands-for-cosmos",
+  "description": "Give your agent eyes that understand physics and hands that generate video, audio, and robot actions.",
+  "version": "1.0.0",
+  "author": "strands-labs",
+  "homepage": "https://github.com/strands-labs/strands-for-cosmos",
+  "skills": []
+}
