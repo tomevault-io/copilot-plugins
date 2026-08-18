@@ -4,7 +4,7 @@
   "repo": "TuraIDC",
   "description": "TuraIDC - Next-generation IDC cloud service management & billing system \u56fe\u62c9\u4e91\u4e1a\u52a1/\u8d22\u52a1\u7cfb\u7edf \u2014\u2014 \u65b0\u4e00\u4ee3\u7684IDC\u4e91\u670d\u52a1\u7ecf\u8425\u7cfb\u7edf",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/25Cloud/TuraIDC",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T16:31:36Z"
+  "distributed_at": "2026-08-18T16:34:45Z"
 }
