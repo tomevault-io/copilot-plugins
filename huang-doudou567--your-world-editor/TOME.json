@@ -4,7 +4,7 @@
   "repo": "your-world-editor",
   "description": "AI\u9a71\u52a8\u7684\u81ea\u6211\u8ba4\u77e5\u64cd\u4f5c\u7cfb\u7edf\uff0c\u901a\u8fc7\"\u4e8b\u4ef6\u2192\u6a21\u5f0f\u2192\u53d9\u4e8b\"\u4e09\u5c42\u6570\u636e\u6a21\u578b\u5e2e\u7528\u6237\u6301\u7eed\u8bc6\u522b\u884c\u4e3a\u6a21\u5f0f\u4e0e\u8ba4\u77e5\u76f2\u533a\uff0c\u8986\u76d6\u51b3\u7b56/\u6c42\u804c/\u8d22\u52a1/\u5065\u5eb7/\u611f\u60c55\u5927\u573a\u666f\uff0c\u672c\u8d28\u662f\"\u4eba\u751f\u95ef\u5173\u5bfc\u822a\u4eea\"",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/huang-doudou567/your-world-editor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T00:34:53Z"
+  "distributed_at": "2026-08-18T00:51:01Z"
 }
