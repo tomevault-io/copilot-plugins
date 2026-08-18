@@ -1,0 +1,9 @@
+{
+  "name": "daniel-p-green--nbj-write-clearly",
+  "displayName": "nbj-write-clearly",
+  "description": "A clear-writing agent skill grounded in the Google Developer Documentation Style Guide.",
+  "version": "1.0.0",
+  "author": "daniel-p-green",
+  "homepage": "https://github.com/daniel-p-green/nbj-write-clearly",
+  "skills": []
+}
