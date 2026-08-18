@@ -7,11 +7,11 @@ Firmware for the Xteink X3 and X4 e-paper display readers
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [dagnazty/Radio-Ink](https://github.com/dagnazty/Radio-Ink).
+Original source: `AGENTS.md` in [dagnazty/Radio-Ink](https://github.com/dagnazty/Radio-Ink).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
