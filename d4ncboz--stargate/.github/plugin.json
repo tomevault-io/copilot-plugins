@@ -1,0 +1,9 @@
+{
+  "name": "d4ncboz--stargate",
+  "displayName": "stargate",
+  "description": "A transparent GitHub follow-and-star gate for public repositories, built on Cloudflare Workers.",
+  "version": "1.0.0",
+  "author": "d4ncboz",
+  "homepage": "https://github.com/d4ncboz/stargate",
+  "skills": []
+}
