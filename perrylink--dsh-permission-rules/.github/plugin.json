@@ -1,0 +1,9 @@
+{
+  "name": "perrylink--dsh-permission-rules",
+  "displayName": "dsh-permission-rules",
+  "description": "Claude Code-style declarative permission rules for DeepSeek Harness: ordered allow/deny/ask rules with tool-name, argument (glob/regex), and workspace-path matching on the tools/pre-execute waterfall,",
+  "version": "1.0.0",
+  "author": "PerryLink",
+  "homepage": "https://github.com/PerryLink/dsh-permission-rules",
+  "skills": []
+}
