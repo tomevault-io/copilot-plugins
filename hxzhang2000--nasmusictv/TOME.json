@@ -1,0 +1,44 @@
+{
+  "name": "NASMusicTV",
+  "owner": "hxzhang2000",
+  "repo": "NASMusicTV",
+  "description": "\u4e00\u6b3e\u5f00\u6e90\u7684 Android TV \u7aef NAS \u97f3\u4e50\u64ad\u653e\u5668\uff0c\u8ba9\u7535\u89c6\u4e0a\u7684\u6b4c\u8bcd\u663e\u793a\u4e0d\u518d\u662f\u5962\u671b\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hxzhang2000/NASMusicTV",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T02:59:28Z"
+}
