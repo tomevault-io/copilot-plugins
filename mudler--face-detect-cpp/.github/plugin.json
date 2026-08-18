@@ -1,0 +1,9 @@
+{
+  "name": "mudler--face-detect-cpp",
+  "displayName": "face-detect.cpp",
+  "description": "face-detect.cpp is a from-scratch C++17 port of the insightface buffalo face-recognition pipeline, built on ggml. ",
+  "version": "1.0.0",
+  "author": "mudler",
+  "homepage": "https://github.com/mudler/face-detect.cpp",
+  "skills": []
+}
