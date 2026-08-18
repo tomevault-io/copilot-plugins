@@ -1,0 +1,9 @@
+{
+  "name": "wred--tmux-delta",
+  "displayName": "tmux-delta",
+  "description": "My tmux tweaks",
+  "version": "1.0.0",
+  "author": "Wred",
+  "homepage": "https://github.com/Wred/tmux-delta",
+  "skills": []
+}
