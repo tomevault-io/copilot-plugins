@@ -1,0 +1,9 @@
+{
+  "name": "adamsjack711-ux--pkgxray",
+  "displayName": "pkgxray",
+  "description": "Pre-install security for AI agents, npm packages, and MCP servers. Zero-dep local static analysis; normal scans never execute package code.",
+  "version": "1.0.0",
+  "author": "adamsjack711-ux",
+  "homepage": "https://github.com/adamsjack711-ux/pkgxray",
+  "skills": []
+}
