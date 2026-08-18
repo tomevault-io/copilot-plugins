@@ -1,0 +1,44 @@
+{
+  "name": "agentlens",
+  "owner": "zhangailight",
+  "repo": "agentlens",
+  "description": "\u7ed9\u4f60\u7684 AI Agent \u4e00\u952e\u88c5\u4e0a\u4e92\u8054\u7f51\u80fd\u529b\uff08\u5b98\u65b9/\u516c\u5f00\u6e20\u9053\uff0c5 \u5e73\u53f0\uff09",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zhangailight/agentlens",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T10:32:13Z"
+}
