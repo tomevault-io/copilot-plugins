@@ -7,11 +7,11 @@ sdd-agentic-flow is a local-first, Spec Driven Development(SDD) toolkit for codi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [gmartins-dev/sdd-agentic-flow](https://github.com/gmartins-dev/sdd-agentic-flow).
+Original source: `CLAUDE.md` in [gmartins-dev/sdd-agentic-flow](https://github.com/gmartins-dev/sdd-agentic-flow).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
