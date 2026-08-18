@@ -4,7 +4,7 @@
   "repo": "pi-loop-police",
   "description": "Pi extension \u2014 detects and interrupts infinite thinking-block and tool-call doom loops in real time",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sebaxzero/pi-loop-police",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T01:21:33Z"
+  "distributed_at": "2026-08-18T01:38:48Z"
 }
