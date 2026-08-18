@@ -4,7 +4,7 @@
   "repo": "AgOpenWeb",
   "description": "Web-first agricultural GPS guidance \u2014 browser client + headless .NET host. Independent fork of AgOpenGPS-Official/AgValoniaGPS.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AgOpenGPS-Official/AgOpenWeb",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T00:42:55Z"
+  "distributed_at": "2026-08-18T00:50:36Z"
 }
