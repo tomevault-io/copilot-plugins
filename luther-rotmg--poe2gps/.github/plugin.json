@@ -1,0 +1,9 @@
+{
+  "name": "luther-rotmg--poe2gps",
+  "displayName": "POE2GPS",
+  "description": "POE2GPS - a strictly read-only Path of Exile 2 navigation overlay (no input automation, no process writes). Fork of Sikaka/POE2Radar.",
+  "version": "1.0.0",
+  "author": "luther-rotmg",
+  "homepage": "https://github.com/luther-rotmg/POE2GPS",
+  "skills": []
+}
