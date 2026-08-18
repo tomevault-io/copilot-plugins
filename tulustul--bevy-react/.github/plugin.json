@@ -1,0 +1,9 @@
+{
+  "name": "tulustul--bevy-react",
+  "displayName": "bevy-react",
+  "description": "A library for rendering bevy_ui elements inside Bevy app using React",
+  "version": "1.0.0",
+  "author": "tulustul",
+  "homepage": "https://github.com/tulustul/bevy-react",
+  "skills": []
+}
