@@ -1,0 +1,9 @@
+{
+  "name": "companion-inc--introspect",
+  "displayName": "introspect",
+  "description": "Agent self-improvement runtime for Codex, Claude, and OpenCode",
+  "version": "1.0.0",
+  "author": "companion-inc",
+  "homepage": "https://github.com/companion-inc/introspect",
+  "skills": []
+}
