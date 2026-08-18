@@ -1,0 +1,52 @@
+## agentic-commerce
+
+> Shared instructions for all AI agents working on these materials (Claude Code and Codex/GPT 5.6 Sol both read this file; `CLAUDE.md` just points here).
+
+# Agentic Commerce Course — Agent Instructions
+
+Shared instructions for all AI agents working on these materials (Claude Code and Codex/GPT 5.6 Sol both read this file; `CLAUDE.md` just points here).
+
+## What this is
+
+Materials for a 4-hour O'Reilly Live Learning course: **"Agentic Commerce: Building Systems That Let AI Agents Search, Decide, and Buy"** by Ken Kousen. Not started yet beyond design.
+
+## Source of truth
+
+- **`agentic-commerce-course-design.md` is canonical.** It contains the thesis, module structure, timings, cut list, and a "Decided" section. Read it before creating or editing any material.
+- The O'Reilly Google Doc outline (ID `1t1ArGyKbRYvPY87-GCpMYTS1naXeMkbC7SWNqovsBWU`) is **stale by design** — it gets synced to match the design doc later. Don't conform materials to it.
+- Timings in the design doc are planning estimates, not commitments. Ken welcomes structural and timing improvements — propose them, and fold accepted changes into the design doc.
+
+## Resources
+
+- **MockHub** (mock ticket marketplace, the course platform): code at `~/Documents/AI/mockhub`, deployed at https://mockhub.kousenit.com (Railway). The course will use a frozen release plus a small Java/Spring AI course client.
+- **Prior conference talk** (week of 2026-07-28): `ticketnetwork-agentic-commerce/` — Slidev `slides.md`, `demo-script.md`, `demo-runbook.md`, `state-of-the-specs.md`. Reusable raw material, but the course is deliberately *not* the talk at 4× length (see design doc).
+- Exported talk: `MockHub_agentic_commerce_redesign.pptx` and the zip of HTML/screenshots.
+
+## Working agreements
+
+- **Record decisions in the Decision Log below**, one line each, dated, with who/what/why. This is how decisions travel between Claude and Codex — if it's not in the design doc or this log, the other agent doesn't know it.
+- Course-design decisions (structure, content, timing) go in the design doc's "Decided" section; process/tooling decisions go here.
+- Lab code assertions must read as English (audience includes PMs and engineering leaders).
+- Follow Ken's comparison rule: describe features, don't claim superiority over other languages/stacks without verifiable data.
+
+## Decision Log
+
+- 2026-08-01 (Ken): Local design doc is canonical; O'Reilly Google Doc gets updated afterwards.
+- 2026-08-02 (Ken): Timings are not definitive; agents may adjust them.
+- 2026-08-02 (Claude, Ken approved): Folded 8 design improvements into design doc — setup checkpoint, budgeted lab walkthrough, recorded elicitation demo for §2.5, recorded-run grid for §3.1, prediction poll in §3.3, module-end thesis slides, hosted-MockHub lab, English-legible lab assertions.
+- 2026-08-02 (Ken): Both Claude Code and Codex will work on these materials; shared context lives in this file.
+- 2026-08-05 (Ken): Everything ships in one public GitHub repo, `agentic-commerce`; this directory becomes that repo. No separate student repo.
+- 2026-08-05 (Ken): Recordings are deferred until the materials are set; Ken will post them to his YouTube channel. No video files in the repo — demo-runbook.md gets links later.
+- 2026-08-05 (Claude, Ken approved): `materials-plan.md` is the approved materials build plan (deliverables, spec-complexity firewall, polyglot lab tracks, build order). §1.0 MCP review folded into design doc. Repo is git-initialized; `ticketnetwork-agentic-commerce/` is gitignored pending Ken's call on publishing it.
+- 2026-08-05 (Claude): Lab + setup checkpoint built and live-verified in all three tracks (`labs/{java,python,typescript}`, `labs.md`, `setup.md`); every assertion exercised against hosted MockHub. `spec-map.md` drafted from the talk's spec brief. Findings for the MockHub freeze recorded in `mockhub-course-requirements.md` — read it before Track C4/C5 work.
+- 2026-08-05 (Claude): The five MockHub defects the course build surfaced are fixed on branch `feature/mandate-ceiling-uses-order-total` in `~/Documents/AI/mockhub` (4 commits, 1,269 tests green) — **not merged or deployed**, so the hosted instance still shows old behavior. See `mockhub-course-requirements.md` for what changed and what it means for the course (short version: slides stand, §3.3 demo still works, lab unaffected). Re-run labs and demos once it deploys.
+- 2026-08-05 (Claude): `slides.md` written (94 slides, Slidev/seriph, Mermaid diagrams), plus `instructor-guide.md` with cut decisions placed at their clock times. PDF-on-push workflow live: `releases/latest/download/agentic-commerce-slides.pdf`. Note for both agents: `slidev-component-progress` was removed (unused, and the sole source of 12 audit findings) — don't re-add it by copying another course's package.json.
+- 2026-08-05 (Claude): Step-3 demos built course-side, no MockHub blockers (`naive-identity.ts` §1.2, `like-last-time.ts` §2.1, `injected-provider.ts` §3.3). **§3.3 changed shape from the design doc:** 10 model runs resisted the listing-text injection, but two agents exceeded the customer's stated $35 cap anyway because MockHub validates mandates against subtotal, not the all-in total (`AcpCheckoutService.java:345`). That units mismatch is now the segment's real lesson and a candidate §2.3 slide — see `mockhub-course-requirements.md` finding #0. Design doc §3.3 needs revising to match.
+- 2026-08-07 (Ken, via Claude review): **v1 materials rejected as-taught — course redesigned merchant-side.** Ken's finding: a developer wanting to enable their site for agentic commerce would leave v1 with principles but no build path; specs were footnoted, and the approved `examples/` and `course-client/` deliverables were never built. Design doc rewritten to v2: Front Door spine (discovery→connectivity→identity→authorization→approval→payment→evidence), talk-style Vocabulary segment restored (spec-complexity firewall retired), failure demos embedded at the build steps they motivate, and four implementation deliverables approved (`examples/`, MockHub code tour, Lab 2 guarded-tool, `course-client/`) — in-class if time allows, complete take-home regardless. `slides.md` (v1) needs rewriting to the v2 structure **after** the new artifacts exist; don't patch it piecemeal.
+- 2026-08-07 (Claude): **v2 materials built and verified.** `examples/` (5 self-checking single-file patterns, all run green); `labs/guarded-tool/` Lab 2 in three tracks on the official MCP SDKs (all 2.0 generation — TS/Python/Java verified: shipped state 5-red/1-green, solution state all green, Java stdio server answers a raw JSON-RPC handshake); `code-tour.md` written from MockHub `main@775be23` via a seven-area source exploration (notable corrections: ACP deliberately does NOT bind identity from its credential — teach it as the contrast case; the real mandate refusal names the amount but not the ceiling; actor attribution is derived at read time; MCP `revokeMandate` skips the ownership check REST performs). `course-client/` (Spring Boot 4.1 / Spring AI 2.0, 8 offline tests green, live two-provider run against hosted MockHub verified — its evidence output is on a slide verbatim). `slides.md` rewritten to the v2 Front Door structure (builds clean); labs.md, instructor-guide.md (v2 run sheet + new cut list), demo-runbook.md (renumbered to v2 sections), README, setup.md, spec-map.md intro, materials-plan.md banner all updated. Still on Ken's list: MockHub has **no git tags** — cut a `course-2026` frozen-release tag (code-tour pins facts to `775be23`); plus the pre-existing items in `mockhub-course-requirements.md`.
+- 2026-08-07 (Claude, MockHub session): **`course-2026` tag cut at `2fe9820`** — MockHub's first git tag, the frozen course release. Contains the course-readiness fixes (MockHub #308–#312, PR #314): alice/bob seeded in all profiles with the demo passwords and 3 confirmed orders of history for Bob (surviving demo reset via `demo-seed-*` idempotency keys; kill switch `DEMO_SEED_ACCOUNTS=false`); rotatable extra ACP keys via `ACP_EXTRA_API_KEYS` env var (course key SET on Railway same day and verified — read it with `railway variable list --service mockhub`; hand it to students as `MOCKHUB_ACP_KEY`; `mockhub-dev-key` also still works; rotate after each delivery by resetting the env var); MCP `revokeMandate` now ownership-checked (tool takes a `userEmail` param — tour's "gap left visible" is closed); idempotency concurrent-race 500 fixed and the lookup user-scoped. Post-deploy verified: all three lab tracks green against production, demo probes (identity/history/injection) working, §3.3 refusal string unchanged verbatim. `code-tour.md` re-pinned to the tag and its three now-stale passages (DCR drift, revokeMandate gap, idempotency known-gap) rewritten as fixed-at-tag teaching beats. All course-protected strings and status codes verified untouched.
+- 2026-08-05 (Claude): The three protected demos are working (`demos/`, TypeScript, MCP SDK v2): §2.4 self-approval verified headlessly via Claude Code, §2.5 MRTR elicitation proven end-to-end with a scripted host, §3.1 grid captured 16 runs across Fable/Sonnet/Haiku (`demos/grid/GRID.md` — divergence is model-dependent; small models never consulted the tersely-documented provider). `demo-runbook.md` has per-demo prompts and failure modes. Demo servers are TS for iteration speed; Track C4 may re-home them in the Java course client if Ken prefers.
+
+---
+> Source: [kousen/agentic-commerce](https://github.com/kousen/agentic-commerce) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-18 -->
