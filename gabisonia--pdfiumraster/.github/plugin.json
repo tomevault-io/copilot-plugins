@@ -1,0 +1,9 @@
+{
+  "name": "gabisonia--pdfiumraster",
+  "displayName": "PdfiumRaster",
+  "description": "PDFium-backed .NET Standard library for rendering PDF pages to PNG, JPEG, WebP, and BMP images.",
+  "version": "1.0.0",
+  "author": "gabisonia",
+  "homepage": "https://github.com/gabisonia/PdfiumRaster",
+  "skills": []
+}
