@@ -1,0 +1,44 @@
+{
+  "name": "agentic-trading-mcp",
+  "owner": "pedrobraiti",
+  "repo": "agentic-trading-mcp",
+  "description": "Valet - MCP servers that let an AI agent (Claude Code) trade for real: Interactive Brokers (quotes, positions, market/limit/stop/trailing/bracket, FRACTIONAL buys by the dollar) + crypto spot via CCXT with exchange-native stop orders. Hexagonal architecture, paper-first, fail-closed safety guards on every order. Live-validated.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pedrobraiti/agentic-trading-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T01:25:36Z"
+}
