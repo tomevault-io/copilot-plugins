@@ -4,7 +4,7 @@
   "repo": "forge",
   "description": "Local-first action assistant for durable, reviewable software work.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/moretea-labs/forge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T00:34:16Z"
+  "distributed_at": "2026-08-18T01:12:39Z"
 }
