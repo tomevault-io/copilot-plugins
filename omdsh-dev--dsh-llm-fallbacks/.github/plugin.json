@@ -1,0 +1,9 @@
+{
+  "name": "omdsh-dev--dsh-llm-fallbacks",
+  "displayName": "dsh-llm-fallbacks",
+  "description": "An dsh plugin for role-based LLM retry&fallback strategy. \u57fa\u4e8e\u89d2\u8272\u7684\u6a21\u578b\u91cd\u8bd5\u5907\u7528\u7b56\u7565\u63d2\u4ef6",
+  "version": "1.0.0",
+  "author": "omdsh-dev",
+  "homepage": "https://github.com/omdsh-dev/dsh-llm-fallbacks",
+  "skills": []
+}
