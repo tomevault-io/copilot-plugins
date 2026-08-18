@@ -1,0 +1,44 @@
+{
+  "name": "cuicuit",
+  "owner": "MadeInPierre",
+  "repo": "cuicuit",
+  "description": "Think about meals, not ingredients. Simply jot down meal ideas & things you're missing, and get a convenient ready-to-shop list. Self-hostable & hosted versions. More to come! \ud83d\udc25",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MadeInPierre/cuicuit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T15:36:14Z"
+}
