@@ -1,0 +1,9 @@
+{
+  "name": "tycoding--beautiful-ui-vue",
+  "displayName": "beautiful-ui-vue",
+  "description": "A Vue 3 + TypeScript component library recreating Beautiful UI's AI interface components. Every component is self-contained and distributed as copy-paste source \u2014 no npm install, no build step for con",
+  "version": "1.0.0",
+  "author": "tycoding",
+  "homepage": "https://github.com/tycoding/beautiful-ui-vue",
+  "skills": []
+}
