@@ -7,11 +7,11 @@ nomifun ai workstation. desc:A no-holds-barred, fully open-source, local-first s
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nomifun/nomifun-desktop](https://github.com/nomifun/nomifun-desktop).
+Original source: `AGENTS.md` in [nomifun/nomifun-desktop](https://github.com/nomifun/nomifun-desktop).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
