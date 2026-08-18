@@ -1,0 +1,9 @@
+{
+  "name": "oldwarma--mini-gateway",
+  "displayName": "mini_gateway",
+  "description": "\u667a\u80fd\u4f53\u8ff7\u4f60\u7f51\u5173 (Agent Mini Gateway) \u2014\u2014 \u57fa\u4e8e\u53ef\u8ffd\u8e2a Harness \u67b6\u6784\u7684\u667a\u80fd\u4f53\u7f51\u5173\uff1aAgent = LLM + Harness\uff0c\u7528\u4ee3\u7801\u5305\u56f4\u5e76\u7ea6\u675f LLM",
+  "version": "1.0.0",
+  "author": "Oldwarma",
+  "homepage": "https://github.com/Oldwarma/mini_gateway",
+  "skills": []
+}
