@@ -1,0 +1,9 @@
+{
+  "name": "arthur-kamau--road-speed-ke",
+  "displayName": "road-speed-ke",
+  "description": "Open database of Kenyan road speed limits with Go API and Chrome extension for Google Maps overlay",
+  "version": "1.0.0",
+  "author": "Arthur-Kamau",
+  "homepage": "https://github.com/Arthur-Kamau/road-speed-ke",
+  "skills": []
+}
