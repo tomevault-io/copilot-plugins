@@ -1,0 +1,9 @@
+{
+  "name": "jekmanis--battery-optimizer",
+  "displayName": "battery-optimizer",
+  "description": "AppDaemon battery optimizer for Growatt WIT inverters: Nord Pool price + Solcast PV-aware DP scheduling, self-learning, and WIT control via set_wit_mode / TOU sync",
+  "version": "1.0.0",
+  "author": "jekmanis",
+  "homepage": "https://github.com/jekmanis/battery-optimizer",
+  "skills": []
+}
