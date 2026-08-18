@@ -1,0 +1,9 @@
+{
+  "name": "missuo--motrix-gpui",
+  "displayName": "motrix-gpui",
+  "description": "Motrix download manager rewritten in Rust + GPUI, powered by aria2",
+  "version": "1.0.0",
+  "author": "missuo",
+  "homepage": "https://github.com/missuo/motrix-gpui",
+  "skills": []
+}
