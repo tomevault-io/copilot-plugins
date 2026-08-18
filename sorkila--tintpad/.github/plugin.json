@@ -1,0 +1,9 @@
+{
+  "name": "sorkila--tintpad",
+  "displayName": "tintpad",
+  "description": "A macOS hotkey that opens your terminal at the right repo with your coding agent (Claude Code, Codex, \u2026) already running. Free, open source, local-only.",
+  "version": "1.0.0",
+  "author": "sorkila",
+  "homepage": "https://github.com/sorkila/tintpad",
+  "skills": []
+}
