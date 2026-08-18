@@ -7,11 +7,11 @@ Pilot Harness — a CodePilot-inspired desktop client and plugin suite for DeepS
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [op7418/pilot-harness](https://github.com/op7418/pilot-harness).
+Original source: `AGENTS.md` in [op7418/pilot-harness](https://github.com/op7418/pilot-harness).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
