@@ -1,0 +1,9 @@
+{
+  "name": "masumi-network--nori",
+  "displayName": "nori",
+  "description": "Independent Pi-agent runtime for Nori.",
+  "version": "1.0.0",
+  "author": "masumi-network",
+  "homepage": "https://github.com/masumi-network/nori",
+  "skills": []
+}
