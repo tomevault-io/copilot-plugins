@@ -1,0 +1,9 @@
+{
+  "name": "lance0--nbox",
+  "displayName": "nbox",
+  "description": "Terminal UI, CLI, and MCP server for NetBox \u2014 fast search, IPAM lookups, and device context.",
+  "version": "1.0.0",
+  "author": "lance0",
+  "homepage": "https://github.com/lance0/nbox",
+  "skills": []
+}
