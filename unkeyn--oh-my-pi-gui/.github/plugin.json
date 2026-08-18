@@ -1,0 +1,9 @@
+{
+  "name": "unkeyn--oh-my-pi-gui",
+  "displayName": "oh-my-pi-gui",
+  "description": "Native Windows GUI for Oh My Pi: sessions, models, providers, MCP, plugins, context, and browser tools.",
+  "version": "1.0.0",
+  "author": "unkeyn",
+  "homepage": "https://github.com/unkeyn/oh-my-pi-gui",
+  "skills": []
+}
