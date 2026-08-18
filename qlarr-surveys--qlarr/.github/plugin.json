@@ -1,0 +1,9 @@
+{
+  "name": "qlarr-surveys--qlarr",
+  "displayName": "qlarr",
+  "description": "WYSIWYG editor and renderer for offline-first, programmable surveys",
+  "version": "1.0.0",
+  "author": "qlarr-surveys",
+  "homepage": "https://github.com/qlarr-surveys/qlarr",
+  "skills": []
+}
