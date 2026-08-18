@@ -1,0 +1,9 @@
+{
+  "name": "deepagent-ltd--deepagent-code",
+  "displayName": "deepagent-code",
+  "description": "DeepAgent Code: AI coding agent with persistent memory and control plane",
+  "version": "1.0.0",
+  "author": "deepagent-ltd",
+  "homepage": "https://github.com/deepagent-ltd/deepagent-code",
+  "skills": []
+}
