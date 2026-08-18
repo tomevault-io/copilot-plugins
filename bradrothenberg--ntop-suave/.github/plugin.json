@@ -1,0 +1,9 @@
+{
+  "name": "bradrothenberg--ntop-suave",
+  "displayName": "ntop-suave",
+  "description": "Coupled conceptual design: nTop for geometry, SUAVE for physics, wired into a fixed point. Programmatic .ntop notebook authoring, with a sized rocket vehicle as the reference example.",
+  "version": "1.0.0",
+  "author": "bradrothenberg",
+  "homepage": "https://github.com/bradrothenberg/ntop-suave",
+  "skills": []
+}
