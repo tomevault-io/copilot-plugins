@@ -1,0 +1,9 @@
+{
+  "name": "sumioshi--whatsapp-automation",
+  "displayName": "whatsapp-automation",
+  "description": "Coletor 24/7 de conte\u00fado (\u00e1udio, v\u00eddeo, imagem, texto) de grupos de WhatsApp via Baileys, organizado por grupo.",
+  "version": "1.0.0",
+  "author": "sumioshi",
+  "homepage": "https://github.com/sumioshi/whatsapp-automation",
+  "skills": []
+}
