@@ -4,7 +4,7 @@
   "repo": "PhoneBuddySDK",
   "description": "Lightweight, embeddable LLM Agent engine for iOS & Android built in pure Rust. Features secure mobile-sandboxed runtime, tool calling loop, streaming LLM transport, JS scripting sandbox, and in-memory  subagent orchestration. Native C FFI, Swift & Kotlin bindings included.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/APUS-AI-Lab/PhoneBuddySDK",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T15:31:59Z"
+  "distributed_at": "2026-08-18T15:34:20Z"
 }
