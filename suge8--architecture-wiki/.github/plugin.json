@@ -1,0 +1,9 @@
+{
+  "name": "suge8--architecture-wiki",
+  "displayName": "architecture-wiki",
+  "description": "Agent skill that builds a verifiable architecture wiki \u2014 isometric city map, health report, drift check wired into lint/CI",
+  "version": "1.0.0",
+  "author": "Suge8",
+  "homepage": "https://github.com/Suge8/architecture-wiki",
+  "skills": []
+}
