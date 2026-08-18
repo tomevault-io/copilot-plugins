@@ -1,0 +1,9 @@
+{
+  "name": "panaversity--ksor",
+  "displayName": "ksor",
+  "description": "KSoR (Knowledge System of Record) is an open-source SDK for building governed, authoritative knowledge systems for humans and AI agents.",
+  "version": "1.0.0",
+  "author": "panaversity",
+  "homepage": "https://github.com/panaversity/ksor",
+  "skills": []
+}
