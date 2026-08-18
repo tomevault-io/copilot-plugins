@@ -1,0 +1,9 @@
+{
+  "name": "williethewhale--heelcode",
+  "displayName": "heelcode",
+  "description": "A lightweight fork of opencode that connects to UNC Chapel Hill's prompt lab, allowing students to use their free tokens in a harness for more useful work ",
+  "version": "1.0.0",
+  "author": "WillieTheWhale",
+  "homepage": "https://github.com/WillieTheWhale/heelcode",
+  "skills": []
+}
