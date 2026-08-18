@@ -1,0 +1,9 @@
+{
+  "name": "sevensir888--codex-command-center",
+  "displayName": "codex-command-center",
+  "description": "A local desktop control center for organizing Codex projects, engineering tasks, sessions, Git changes, Skills, and MCP configuration.",
+  "version": "1.0.0",
+  "author": "sevensir888",
+  "homepage": "https://github.com/sevensir888/codex-command-center",
+  "skills": []
+}
