@@ -1,0 +1,9 @@
+{
+  "name": "pbarone--uptime-kuma-api2",
+  "displayName": "uptime-kuma-api2",
+  "description": "A Python wrapper for the Uptime Kuma Socket.IO API - v2",
+  "version": "1.0.0",
+  "author": "pbarone",
+  "homepage": "https://github.com/pbarone/uptime-kuma-api2",
+  "skills": []
+}
