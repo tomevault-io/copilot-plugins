@@ -4,7 +4,7 @@
   "repo": "Radio-Ink",
   "description": "Firmware for the Xteink X3 and X4 e-paper display readers",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dagnazty/Radio-Ink",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T01:39:15Z"
+  "distributed_at": "2026-08-18T02:45:20Z"
 }
