@@ -4,7 +4,7 @@
   "repo": "ReadyDesign-Skill",
   "description": "Ready to use design system for cool UI/UX with no extra slop",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ZethRise/ReadyDesign-Skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T14:33:41Z"
+  "distributed_at": "2026-08-18T14:35:01Z"
 }
