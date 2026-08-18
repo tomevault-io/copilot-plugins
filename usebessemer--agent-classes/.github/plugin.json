@@ -1,0 +1,9 @@
+{
+  "name": "usebessemer--agent-classes",
+  "displayName": "agent-classes",
+  "description": "Bessemer vertical agent-class library: reliable, bounded-autonomy AI agents for real roles in small organizations. Typed by the agent-role topology, scaffolded by icm-kit.",
+  "version": "1.0.0",
+  "author": "usebessemer",
+  "homepage": "https://github.com/usebessemer/agent-classes",
+  "skills": []
+}
