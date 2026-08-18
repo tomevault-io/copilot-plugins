@@ -4,7 +4,7 @@
   "repo": "caveman-browse",
   "description": "Token-efficient browser automation for coding agents: compressed accessibility snapshots, uid actions, byte-exact recovery. A Playwright MCP alternative.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JuliusBrussee/caveman-browse",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T16:33:22Z"
+  "distributed_at": "2026-08-18T16:38:35Z"
 }
