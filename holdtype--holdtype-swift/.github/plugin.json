@@ -1,0 +1,9 @@
+{
+  "name": "holdtype--holdtype-swift",
+  "displayName": "holdtype-swift",
+  "description": "Native macOS menu bar dictation utility: hold a key, speak, and insert text.",
+  "version": "1.0.0",
+  "author": "holdtype",
+  "homepage": "https://github.com/holdtype/holdtype-swift",
+  "skills": []
+}
