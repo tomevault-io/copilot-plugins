@@ -1,0 +1,9 @@
+{
+  "name": "susyimes--groupx",
+  "displayName": "GroupX",
+  "description": "Local group chat broker for Codex, Grok, and Kimi CLIs",
+  "version": "1.0.0",
+  "author": "susyimes",
+  "homepage": "https://github.com/susyimes/GroupX",
+  "skills": []
+}
