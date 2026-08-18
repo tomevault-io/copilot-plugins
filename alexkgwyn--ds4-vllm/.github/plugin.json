@@ -1,0 +1,9 @@
+{
+  "name": "alexkgwyn--ds4-vllm",
+  "displayName": "ds4-vllm",
+  "description": "A Deepseek V4 Flash 0731 VLLM stack",
+  "version": "1.0.0",
+  "author": "AlexKGwyn",
+  "homepage": "https://github.com/AlexKGwyn/ds4-vllm",
+  "skills": []
+}
