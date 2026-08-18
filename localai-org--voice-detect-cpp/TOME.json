@@ -1,0 +1,44 @@
+{
+  "name": "voice-detect.cpp",
+  "owner": "localai-org",
+  "repo": "voice-detect.cpp",
+  "description": "voice-detect.cpp is a from-scratch C++17 inference engine for speaker recognition and voice analysis, built on ggml",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/localai-org/voice-detect.cpp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T00:48:36Z"
+}
