@@ -1,0 +1,9 @@
+{
+  "name": "milesadkins--switchyard-stage-router-fireworks-eval",
+  "displayName": "switchyard-stage-router-fireworks-eval",
+  "description": "Evaluating NVIDIA Switchyard's stage-router on Terminal-Bench 2.1 with Fireworks-served Kimi K3 + DeepSeek V4 Flash: codec bug, cache-collapse finding, cost/accuracy tradeoff",
+  "version": "1.0.0",
+  "author": "milesadkins",
+  "homepage": "https://github.com/milesadkins/switchyard-stage-router-fireworks-eval",
+  "skills": []
+}
