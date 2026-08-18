@@ -1,0 +1,9 @@
+{
+  "name": "agopengps-official--agopenweb",
+  "displayName": "AgOpenWeb",
+  "description": "Web-first agricultural GPS guidance \u2014 browser client + headless .NET host. Independent fork of AgOpenGPS-Official/AgValoniaGPS.",
+  "version": "1.0.0",
+  "author": "AgOpenGPS-Official",
+  "homepage": "https://github.com/AgOpenGPS-Official/AgOpenWeb",
+  "skills": []
+}
