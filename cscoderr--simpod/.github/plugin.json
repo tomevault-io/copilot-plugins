@@ -1,0 +1,9 @@
+{
+  "name": "cscoderr--simpod",
+  "displayName": "simpod",
+  "description": "Stream and control an iOS Simulator from your browser, terminal, or AI coding agent.",
+  "version": "1.0.0",
+  "author": "cscoderr",
+  "homepage": "https://github.com/cscoderr/simpod",
+  "skills": []
+}
