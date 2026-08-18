@@ -1,0 +1,34 @@
+{
+  "name": "oneeyed1366--symbiote-native",
+  "displayName": "symbiote-native",
+  "description": "React Native's internals \u2014 Fabric, Yoga, Hermes \u2014 as a universal native rendering layer. Drive the real iOS/Android stack from several UI framework: React, Vue 3, Angular and Svelte today, Solid next.",
+  "version": "1.0.0",
+  "author": "OneEyed1366",
+  "homepage": "https://github.com/OneEyed1366/symbiote-native",
+  "skills": [
+    {
+      "name": "vue-adapter-directives",
+      "description": ""
+    },
+    {
+      "name": "vue-adapter-events",
+      "description": ""
+    },
+    {
+      "name": "vue-adapter-reactivity",
+      "description": ""
+    },
+    {
+      "name": "vue-adapter-slots",
+      "description": ""
+    },
+    {
+      "name": "vue-adapter-attrs-normalization",
+      "description": ""
+    },
+    {
+      "name": "vue-adapter-tsx-typecheck",
+      "description": ""
+    }
+  ]
+}
