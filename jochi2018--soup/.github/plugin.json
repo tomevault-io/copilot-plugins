@@ -1,0 +1,9 @@
+{
+  "name": "jochi2018--soup",
+  "displayName": "Soup",
+  "description": "Fine-tune and post-train LLMs with one command\u2014no SSH, no config hell.",
+  "version": "1.0.0",
+  "author": "jochi2018",
+  "homepage": "https://github.com/jochi2018/Soup",
+  "skills": []
+}
