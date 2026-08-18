@@ -1,0 +1,9 @@
+{
+  "name": "numikel--kprun",
+  "displayName": "kprun",
+  "description": "Stop storing API keys in mcp.json and shell profiles. kprun solves this by keeping secrets in an encrypted KeePass vault and injecting them only into spawned processes. Designed for MCP servers, codin",
+  "version": "1.0.0",
+  "author": "numikel",
+  "homepage": "https://github.com/numikel/kprun",
+  "skills": []
+}
