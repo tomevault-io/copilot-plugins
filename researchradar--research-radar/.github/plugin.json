@@ -1,0 +1,9 @@
+{
+  "name": "researchradar--research-radar",
+  "displayName": "research-radar",
+  "description": "Self-hosted research intelligence for collecting, deduplicating, ranking, searching, and browsing the researchers, topics, and sources you care about.",
+  "version": "1.0.0",
+  "author": "researchradar",
+  "homepage": "https://github.com/researchradar/research-radar",
+  "skills": []
+}
