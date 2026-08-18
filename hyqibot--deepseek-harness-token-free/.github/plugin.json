@@ -1,0 +1,9 @@
+{
+  "name": "hyqibot--deepseek-harness-token-free",
+  "displayName": "DeepSeek-Harness-Token-Free",
+  "description": "A token-free desktop client for the DeepSeek Harness\uff0cenjoy\uff01\u4e3a DeepSeek Harness (DSH)     \u751f\u6001\u6253\u9020\u7684\u5168\u514dToken\u8d39\u7684\u684c\u9762\u7aef \uff0c\u6781\u7b80\u6781\u6613\u3002 \u6709\u7591\u95ee\u6216\u9700\u5e2e\u52a9\u53ef\u4e8c\u7ef4\u7801\u8fdb\u793e\u533a\u4ea4\u6d41",
+  "version": "1.0.0",
+  "author": "hyqibot",
+  "homepage": "https://github.com/hyqibot/DeepSeek-Harness-Token-Free",
+  "skills": []
+}
