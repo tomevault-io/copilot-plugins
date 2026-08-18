@@ -1,0 +1,9 @@
+{
+  "name": "wangxin6x--autovideo-agent",
+  "displayName": "AutoVideo-Agent",
+  "description": "Agent-friendly Markdown-to-video automation pipeline with reproducible rendering and pluggable media providers.",
+  "version": "1.0.0",
+  "author": "wangxin6x",
+  "homepage": "https://github.com/wangxin6x/AutoVideo-Agent",
+  "skills": []
+}
