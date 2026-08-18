@@ -1,0 +1,9 @@
+{
+  "name": "lizardbyte--libvirtualhid",
+  "displayName": "libvirtualhid",
+  "description": "Cross-platform C++ virtual HID library.",
+  "version": "1.0.0",
+  "author": "LizardByte",
+  "homepage": "https://github.com/LizardByte/libvirtualhid",
+  "skills": []
+}
