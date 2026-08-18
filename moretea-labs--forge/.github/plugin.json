@@ -1,0 +1,9 @@
+{
+  "name": "moretea-labs--forge",
+  "displayName": "forge",
+  "description": "Local-first action assistant for durable, reviewable software work.",
+  "version": "1.0.0",
+  "author": "moretea-labs",
+  "homepage": "https://github.com/moretea-labs/forge",
+  "skills": []
+}
