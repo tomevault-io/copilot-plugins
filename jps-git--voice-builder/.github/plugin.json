@@ -1,0 +1,9 @@
+{
+  "name": "jps-git--voice-builder",
+  "displayName": "voice-builder",
+  "description": "Real-time analysis of voice pitch and formants, designed for falsetto practice.",
+  "version": "1.0.0",
+  "author": "JPs-git",
+  "homepage": "https://github.com/JPs-git/voice-builder",
+  "skills": []
+}
