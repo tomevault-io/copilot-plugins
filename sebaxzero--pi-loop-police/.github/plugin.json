@@ -1,0 +1,9 @@
+{
+  "name": "sebaxzero--pi-loop-police",
+  "displayName": "pi-loop-police",
+  "description": "Pi extension \u2014 detects and interrupts infinite thinking-block and tool-call doom loops in real time",
+  "version": "1.0.0",
+  "author": "sebaxzero",
+  "homepage": "https://github.com/sebaxzero/pi-loop-police",
+  "skills": []
+}
