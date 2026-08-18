@@ -1,0 +1,44 @@
+{
+  "name": "Project-Apotheosis",
+  "owner": "MoonlightLabCN",
+  "repo": "Project-Apotheosis",
+  "description": "Porting modern WebKit/WebCore to Windows 10 Mobile (ARM32, UWP) \u2014 a JIT-accelerated, GPU-composited browser engine for Windows Phone. \u73b0\u4ee3 WebKit \u6d4f\u89c8\u5668\u5f15\u64ce\u79fb\u690d\u5230 Windows 10 Mobile\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MoonlightLabCN/Project-Apotheosis",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T00:45:35Z"
+}
