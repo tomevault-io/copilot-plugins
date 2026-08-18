@@ -1,0 +1,9 @@
+{
+  "name": "opencrawling--opencrawling",
+  "displayName": "opencrawling",
+  "description": "Reference Java & Spring implementation of the Open Ingestion Standard (OIS). It provides a secure, decoupled, and vendor-neutral enterprise data integration platform leveraging modern Java 25 features",
+  "version": "1.0.0",
+  "author": "opencrawling",
+  "homepage": "https://github.com/opencrawling/opencrawling",
+  "skills": []
+}
