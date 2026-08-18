@@ -1,0 +1,44 @@
+{
+  "name": "open-doc",
+  "owner": "simonliu-ai-product",
+  "repo": "open-doc",
+  "description": "The document framework built for agents \u2014 write reports as React, get real A4 pages, an outline, page numbers, and a PDF.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/simonliu-ai-product/open-doc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T05:33:38Z"
+}
