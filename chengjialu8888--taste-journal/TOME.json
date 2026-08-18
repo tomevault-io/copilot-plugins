@@ -1,0 +1,44 @@
+{
+  "name": "Taste_journal",
+  "owner": "chengjialu8888",
+  "repo": "Taste_journal",
+  "description": "Local-first visual memory that distills images and video into evidence-backed design.md, tokens, HTML, and Figma specimens.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chengjialu8888/Taste_journal",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T04:42:20Z"
+}
