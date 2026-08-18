@@ -4,7 +4,7 @@
   "repo": "ksor",
   "description": "KSoR (Knowledge System of Record) is an open-source SDK for building governed, authoritative knowledge systems for humans and AI agents.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/panaversity/ksor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T20:34:05Z"
+  "distributed_at": "2026-08-18T20:37:41Z"
 }
