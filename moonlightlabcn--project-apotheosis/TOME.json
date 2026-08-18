@@ -4,7 +4,7 @@
   "repo": "Project-Apotheosis",
   "description": "Porting modern WebKit/WebCore to Windows 10 Mobile (ARM32, UWP) \u2014 a JIT-accelerated, GPU-composited browser engine for Windows Phone. \u73b0\u4ee3 WebKit \u6d4f\u89c8\u5668\u5f15\u64ce\u79fb\u690d\u5230 Windows 10 Mobile\u3002",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MoonlightLabCN/Project-Apotheosis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T00:45:35Z"
+  "distributed_at": "2026-08-18T00:52:12Z"
 }
