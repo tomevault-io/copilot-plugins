@@ -1,0 +1,9 @@
+{
+  "name": "osteoporosis--luna-chat-coder",
+  "displayName": "luna-chat-coder",
+  "description": "Agent Skill and repository template for reliable software development from constrained chat AI environments.",
+  "version": "1.0.0",
+  "author": "Osteoporosis",
+  "homepage": "https://github.com/Osteoporosis/luna-chat-coder",
+  "skills": []
+}
