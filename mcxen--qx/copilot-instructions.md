@@ -1,0 +1,640 @@
+## qx
+
+> Before any code or documentation edit, read:
+
+# Qx Project — Agent Guidelines
+
+## Read First
+
+Before any code or documentation edit, read:
+
+1. `UI_SPEC.md` — current UI, theme, layout, interaction, and validation rules.
+2. `TASK.md` — current project tasks and known verification status.
+3. `AGENTS.md` — this operating guide.
+4. `docs/architecture-principles.md` — SOLID, abstraction layers, interface contracts, doc duty.
+5. For **global shortcuts, panel show/hide, or Tauri `State` / `.manage()`**: `docs/shell-and-shortcuts.md`.
+6. For **new built-in modules, shell/Esc/list ports, or marketplace plugins**:
+   `docs/module-port-inventory.md` + `public/doc/plugin-development-guide.md`.
+
+If the request is UI-related, treat `UI_SPEC.md` as the source of truth. Do not invent alternate layout systems or component conventions.
+If the request is **QxAI chat / workbench / message / composer / queue / token-speed** visual or interaction, also treat [`UI_SPEC_AI.md`](UI_SPEC_AI.md) as the source of truth: **AI Elements structure** + **Beautiful UI visuals** (not a full SDK install). Shell chrome still follows `UI_SPEC.md`.
+If the request changes **public interfaces or layer boundaries**, update docs in the same change.
+
+## Working Rules
+
+- Preserve user or concurrent changes. Never revert unrelated dirty files.
+- Prefer existing patterns and local helper APIs over **new** abstractions.
+  When a new abstraction *is* required, design it as a narrow, stable port and
+  document it — see **Architecture Principles (SOLID)** below.
+- Keep edits scoped to the request.
+- **Maintain docs with the code.** Public interfaces, RPC/commands, permissions,
+  and layer boundaries must update the matching file under `docs/` or
+  `public/doc/` in the same change. Prefer intent and invariants over dumping
+  implementation detail.
+- **Do not fix call sites one-by-one** when a port is wrong (host HTTP, i18n
+  dictionary, shell Esc, island session). Fix the port once, migrate all
+  first-party consumers to the corrected Qx protocol, then run `npm run check`.
+- Before finishing a multi-file change: `npm run check` (architecture + docs +
+  i18n + shell + island + module-ports gates).
+- Use `rg` / `rg --files` for search.
+- Use `apply_patch` for manual edits.
+- Do not introduce generated build artifacts, secrets, temp files, or unrelated formatting churn.
+
+## Documentation and build-output boundaries
+
+Keep the three documentation/build locations separate; they are not alternate
+copies of the same source:
+
+- `docs/` contains internal contributor and architecture documentation (ports,
+  threading, storage, shell contracts, and design decisions).
+- `docs/README.md` and `public/doc/README.md` intentionally have the same
+  basename but are different indexes: the former is for core contributors and
+  the latter is for plugin authors, operators, and release maintainers. The
+  matching filename is not a duplicate to remove.
+- `public/doc/` contains user-, operator-, and plugin-author-facing Markdown.
+  This is the canonical source for documents that Qx links from its UI or
+  README, including the plugin development and release guides. Edit this tree,
+  not its build output.
+- `dist/` is generated Vite output. `dist/doc/` is only the build-time copy of
+  `public/doc/`, alongside compiled JavaScript, CSS, and assets. Never edit or
+  commit anything under `dist/`; remove it when stale and regenerate it with
+  `npm run build`. A root-level `doc/` directory is not part of the project and
+  must not be created as a third documentation source.
+
+When the same Markdown appears under `public/doc/` and `dist/doc/`, the
+`public/doc/` file is authoritative and the `dist/doc/` copy is disposable
+build output. Do not maintain both versions or manually “fix” the generated
+copy. If a duplicate source document is found elsewhere, consolidate it into
+the appropriate canonical tree and update links in the same change.
+
+## Architecture Principles (SOLID)
+
+Full write-up: [`docs/architecture-principles.md`](docs/architecture-principles.md).
+
+Qx interfaces and modules must stay **abstract enough to extend**, without
+becoming vague. Apply SOLID at the port boundary:
+
+| Letter | In this repo |
+|---|---|
+| **S** | One reason to change per module (`QxShell` = chrome; feature view = domain UI; Rust module = domain service). |
+| **O** | Extend via registration / adapters (builtin catalog, island modes, host capabilities) — do not grow core `switch` forests for every feature. |
+| **L** | Same command / context / session shape on every platform and for real vs unavailable plugin contexts. |
+| **I** | Narrow surfaces: capability permissions, focused host APIs, per-package shims — no God context. |
+| **D** | Features depend on stable ports (`invoke`, plugin context, island hostApi, `useT`); OS and iframe details stay below the port. |
+
+The Raycast converter is frozen and retained only for historical experiments.
+For maintained plugins, read the upstream source and reimplement its business
+intent against Qx `context.*`, Workbench, Actions, and Island protocols. When a
+shared capability is missing, fix the host port once and migrate every
+first-party plugin; do not extend converter shims as the production path.
+
+### Module Decomposition (required)
+
+- Decompose by domain boundary and reason to change, not by line count alone.
+  Keep closely related implementation together when another file would only add
+  navigation overhead or a one-off wrapper.
+- Cap a source file at 1000 lines. Review its responsibilities before it reaches
+  that limit, but do not manufacture tiny files merely to reduce the count.
+- Promote capabilities used by multiple features, or capabilities that are part
+  of Qx's product foundation (for example display discovery, media processing,
+  storage, shortcuts, shell, and island sessions), into a root-level core/domain
+  service with a narrow stable interface. Feature modules consume that service
+  and retain only their own workflow and presentation semantics.
+- A feature that contains multiple coherent subdomains should use a module
+  directory. Prefer a small number of meaningful files such as domain service,
+  workflow/session, platform adapter, storage, and public command facade; do not
+  split every type, helper, or test into its own file by default.
+- Extract shared behavior into a focused service/helper and reuse it. Do not copy
+  implementations between commands, views, platforms, or capture modes merely
+  to keep work local.
+- Preserve stable public interfaces while reorganizing internals. Tauri command
+  names, serialized models, frontend ports, and platform contracts should not
+  change solely because implementation files are split.
+- When modifying an oversized legacy file, do not add another unrelated concern.
+  Extract the concern being changed in the same task when it can be done safely,
+  and keep tests colocated with or clearly scoped to the extracted module.
+
+## Architecture
+
+Qx is a Tauri desktop application with a React/TypeScript presentation layer and
+a Rust native core. Keep platform differences behind the Rust boundary so that
+features, state transitions, and frontend behavior remain identical on macOS and
+Windows.
+
+```text
+React views / QxShell
+        |
+typed Tauri invoke commands and events
+        |
+shared Rust services and domain models
+        |
+macOS adapter | Windows adapter | portable fallback
+```
+
+### Layer Responsibilities
+
+- `src/components/QxShell.tsx` owns the common window frame, keyboard navigation,
+  visible actions, action menu, and final keyboard fallback.
+- Feature views own feature state and content. They must pass navigation and
+  actions into `QxShell`; they must not create competing global key handlers.
+- `src/utils/keyboard.ts` owns shortcut parsing, editable-target detection, and
+  native editing shortcut protection.
+- `src/hooks/useEscBack.ts` owns the cascading Esc protocol.
+- `src-tauri/src/lib.rs` is the Tauri composition root. Keep command registration,
+  app lifecycle, startup policy, and plugin wiring there; move feature work into
+  focused modules.
+- Rust feature modules own shared domain behavior, serialization models, storage,
+  task orchestration, and public Tauri command semantics.
+- Native APIs belong in private `platform` modules or cfg-gated functions. Expose
+  the same Rust function signature on every supported platform.
+
+Do not scatter `cfg!(...)` runtime branches through business logic: both branches
+are still type-checked. Use `#[cfg(target_os = "macos")]` and
+`#[cfg(target_os = "windows")]` on imports, modules, functions, and target-specific
+dependencies. Provide a deliberate fallback for other targets when practical.
+
+### Cross-Platform Rust Policy
+
+- Prefer portable Rust APIs and crates for domain work: `std::fs`, `PathBuf`,
+  `tokio`, `serde`, `rusqlite`, `image`, and shared HTTP/storage infrastructure.
+- Use native APIs only where the portable abstraction loses required semantics.
+  Current examples are macOS `NSPasteboard`/Mach/AppKit and Windows
+  `CF_HDROP`/Win32 system APIs.
+- Put platform-only crates under target dependency sections in
+  `src-tauri/Cargo.toml`. A macOS dependency must never be resolved by the Windows
+  target, and vice versa.
+- Frontend code must not choose native implementations. It invokes one stable
+  command and renders one stable response model.
+- Commands and filesystem paths must not assume `/usr/bin`, `/System`, drive
+  letters, path separators, or one platform's shell. Gate native commands and use
+  `Path`/`PathBuf` for path construction.
+- Blocking filesystem, media, PowerShell, and native operations must not run on
+  the async runtime's core thread. Use async APIs or a blocking task boundary.
+
+### Application Lifecycle
+
+- A newly installed version may show the main interface once for onboarding.
+- On macOS, first launch runs a permission wizard (`OnboardingWizard`): Full Disk
+  Access first (complete file search), then optional Accessibility (clipboard
+  auto-paste), Screen Recording, and Input Monitoring. Steps are skippable;
+  status is polled while System Settings is open. Blur auto-hide is suppressed
+  for the duration (`floating_set_onboarding_active`).
+- Normal helper startup, login-item activation, screen wake, and application
+  activation must keep Qx in the background.
+- Only the configured global summon shortcut (default `Option+Space` = toggle current window on macOS;
+  use the corresponding configurable Windows shortcut) may summon the main UI
+  after onboarding.
+- Treat lifecycle activation and an explicit summon as different events. Do not
+  fix focus behavior by showing the main window on every activation or reopen.
+
+## UI Rules
+
+- Qx must feel like a native desktop utility, not a web page inside a window.
+  Follow macOS and Windows conventions for density, focus, selection, keyboard
+  access, context menus, window behavior, typography, and feedback.
+- Prefer compact toolbars, lists, inspectors, split views, dialogs, menus, and
+  system-like controls. Avoid website patterns such as hero sections, oversized
+  cards, marketing gradients, page-like vertical stacking, decorative banners,
+  excessive rounded containers, and hover-only actions.
+- Every operation must have an immediate visible response. Preserve selection,
+  scroll position, focus, and keyboard continuity while background work runs.
+- Main shell is always Top Bar / Main Area / Bottom Bar.
+- Bottom Bar uses `grid-template-columns: auto 1fr auto`.
+- Bottom Island must be centered relative to the window using `position: absolute; left: 50%; transform: translateX(-50%)`.
+- `.qx-shell-bottombar` must be `position: relative`.
+- Search is the primary entry point.
+- Built-in modules may expose **Module Surfaces** to the main launcher search
+  (deep links such as RSS feeds or AI chats). Implementation:
+  `src/search/moduleSurfaces.ts` + per-module `takePendingModuleLaunch`.
+  Users can disable per module under Settings → General → Module Search.
+  Design doc: `docs/module-surfaces.md`.
+- Context Panel is auxiliary; do not put a second main layout inside it.
+- Shell, panels, popovers, controls, text colors, borders, radius, and transparency must use CSS variables.
+- Do not hardcode component colors in business code.
+
+## shadcn / Theme Rules
+
+- Product controls must use Qx shadcn/Radix components through `src/components/ui.tsx`.
+- shadcn source components live in `src/components/shadcn/`.
+- ThemeProvider must keep both `data-theme` and `.dark` synchronized.
+- Tailwind/shadcn semantic tokens are wired in `src/App.css`; Qx token values are defined in `src/styles/base.css`.
+- Keep Qx transparency by mapping shadcn tokens to Qx rgba/surface variables.
+- Dark mode must preserve text contrast even at low transparency.
+- Do not expose visible native `<select>`, `<input type="range">`, checkbox, or radio appearance.
+- Text, number, password, file, and hidden inputs may use native capabilities when visually styled or non-visible.
+
+## Esc Protocol
+
+Full rules live in `UI_SPEC.md` (Bottom Bar + Interaction). Summary for agents:
+
+- Visible return is **only** bottom-left Esc via `escapeAction`. Do not pass
+  `onBack` to `QxShell` (that draws a legacy top-left chevron).
+- **Never** put `kbd: "Esc"` on `primaryAction`, `secondaryAction`, or `actions[]`.
+  Esc is reserved for `escapeAction` + `useEscBack` (Shell ignores Esc as an action chord).
+- Nested module views (e.g. QxAI Chat Settings → list): cascade final step goes to
+  the **parent view**, not always the launcher.
+- Each Esc press steps **one** layer. Full staircase until the panel hides:
+
+1. `inner`: close detail, preview, stop recording, etc.
+2. `query`: clear module-local search text.
+3. `launcher`: leave module / return to parent view.
+4. Host: clear launcher query (if any).
+5. Host: `floating_hide_restore_focus`.
+
+- Module keyboard: `useEscBack` → `onKeyDown` + `stepBack` for `escapeAction.onClick`.
+- Host safety net: `App.performHostEscape` on window `keydown` for **every** tab
+  when the event is not already `defaultPrevented`. Non-launcher tabs first call
+  `tryModuleEscapeStep()` (registered by `useQxModuleShell`) so nested views
+  (RSS articles → feeds) step before leaving the module. Do not jump straight to
+  `setTab("launcher")` while a module handler is registered.
+- Prefer `useQxModuleShell` so button Esc and keyboard share `stepBack`.
+- Port map (built-in hooks vs plugin `context.*`): `docs/module-port-inventory.md`.
+  Pure helpers: `src/hooks/moduleShellPures.ts` (re-exported from `useQxModuleShell`).
+
+Example:
+
+```ts
+const goBack = () => setTab("launcher");
+const { onKeyDown, stepBack } = useEscBack({
+  inner: { active: showDetail, close: () => setShowDetail(false) },
+  query: { active: !!localQuery, clear: () => setLocalQuery("") },
+  launcher: goBack,
+});
+
+// on QxShell:
+// escapeAction={{ label: "Back", kbd: "Esc", onClick: stepBack }}
+// onKeyDown={onKeyDown}
+```
+
+Do not copy Esc listeners into modules. Add new sub-states to the `inner` layer.
+Do not use both `onBack` and `escapeAction` on the same shell.
+Do not add a process-global Esc monitor outside the visible-panel host cascade.
+
+## i18n (required for all modules)
+
+- Every user-visible string in a module must use `useT("key", "English fallback")`.
+- Add Simplified Chinese entries to `src/i18n.ts` `zh` map for new keys.
+- Do not ship hard-coded Chinese-only or English-only UI in panels (titles, empty
+  states, actions, confirms, placeholders, islands).
+- Shortcut `kbd` labels stay platform glyphs via `formatQxShortcut` / `keyboard.ts`
+  and are not translated.
+
+## QxShell Keyboard Protocol
+
+QxShell is the keyboard foundation for content browsing and clipboard navigation.
+Keyboard events flow from the most specific state to the broadest fallback:
+
+1. Native focused controls and text editing retain standard copy, paste, cut,
+   select-all, undo, IME, and composition behavior.
+2. Open dialogs, previews, popovers, and action menus handle their own keys.
+3. The feature view handles its Esc cascade and feature-only commands.
+4. `data-qx-region` areas handle left/right region selection and reading scroll.
+5. `QxShell.navigation` handles list movement and disclosure.
+6. QxShell runs visible action shortcuts and its final Esc action.
+
+Use the standard navigation mapping:
+
+- `ArrowUp` / `ArrowDown`: previous or next item.
+- `PageUp` / `PageDown`: move by the configured page size.
+- `Home` / `End`: first or last item when focus is not editing text.
+- `ArrowRight`: open details or preview.
+- `ArrowLeft`: close details or preview.
+- `Enter`: execute the primary/open action supplied by the feature.
+- `Cmd+K` on macOS or `Ctrl+K` on Windows: open the shell action menu.
+
+Region navigation uses `data-qx-region="stable-id"` on each focusable area,
+`data-qx-region-initial="true"` on the preferred starting area, and
+`data-qx-region-scroll` on its scroll container. Left/right moves only among
+visible regions. Arrow/Page/Space/Home/End scroll a reading region after the
+feature view declines the event. Opening the Actions menu must not change the
+active region, selected item, or reading position.
+
+Shell shortcuts are local responder-chain events. Do not register `Cmd/Ctrl+K`,
+region arrows, bare action keys, or Esc as process-global shortcuts. The only
+default global binding is launcher recall; clipboard, RSS, recording, app, and
+plugin shortcuts must be explicitly enabled before registration. A mounted but
+hidden worker/plugin must never reserve host or system keys.
+
+Never add a process-wide Esc monitor to compensate for a missing feature handler.
+A global monitor can steal Esc from system dialogs, editors, IME, menus, and other
+applications. Fix the responder/focus chain and QxShell composition instead.
+
+Shortcut labels must reflect the current platform. Do not hardcode macOS glyphs
+as the only discoverable Windows instructions. Preserve native editing shortcuts
+through `isNativeEditingShortcut` and bare-key guards in `src/utils/keyboard.ts`.
+
+## Clipboard Architecture
+
+Clipboard history is a shared Rust feature, not a text-only frontend cache.
+
+- Clipboard history is hot/cold: disk retains a large unpinned window (days +
+  thousands of rows); the UI opens a small hot page and loads older cold pages
+  when the list scrolls (or keyboard selection) reaches the bottom. Do not load
+  the entire retained store into the store on every open.
+- Preserve clipboard item kinds explicitly: text, image, file list, and supported
+  rich content. Do not coerce file clipboard contents into plain path text.
+- File items must retain normalized real paths and be written back with native
+  file clipboard semantics: `NSPasteboard` file URLs on macOS and `CF_HDROP` on
+  Windows. Copying an item must allow Explorer/Finder and other apps to receive
+  the actual file.
+- Validate file existence at use time. Historical entries may point to moved or
+  deleted files; surface that state without deleting unrelated history.
+- Metadata extraction belongs in Rust and is asynchronous. Return a stable model
+  containing available basics such as name, extension/type, byte size, modified
+  time, image dimensions, and media duration. Missing metadata is not a failure
+  for the whole clipboard item.
+- Preview uses the selected file's real local URL converted by
+  `convertFileSrc()`. Never concatenate or render a raw `file://` URL.
+- Windows paths may contain drive prefixes, UNC prefixes, spaces, and non-ASCII
+  characters. Keep them as `PathBuf`/UTF-16 at the Win32 boundary; do not parse
+  them by splitting on `/` or `:`.
+- Clipboard change detection is platform-specific (`NSPasteboard.changeCount` or
+  `GetClipboardSequenceNumber`) but feeds the same capture/deduplication pipeline.
+- Clipboard polling/capture must ignore Qx's own write-back when appropriate and
+  must not block the UI thread.
+
+### File Processing Tasks
+
+Image compression, video-to-GIF conversion, and future file operations use one
+shared asynchronous Rust task contract:
+
+```text
+queued -> running(progress) -> succeeded(output item) | failed(error) | cancelled
+```
+
+- Generate outputs without overwriting the source unless the user explicitly
+  requests replacement.
+- Emit task id, operation, progress, status, and output/error updates to the
+  frontend. Progress must be real or explicitly indeterminate, never simulated.
+- On success, collect output metadata, persist it, and insert the new file item
+  into clipboard history/copy queue immediately.
+- Cancellation and failures must leave the source and clipboard database valid.
+- Keep codec/process discovery platform-aware. A shared task API may call a
+  bundled or discovered FFmpeg executable, but must not assume a Unix binary path.
+
+## Tauri And Backend Rules
+
+- Frontend/backend calls use `@tauri-apps/api/core` `invoke`.
+- Convert local file paths with `convertFileSrc()` before rendering.
+- Do not use direct `file://` URLs.
+- System monitoring exposes one shared response model. macOS may use Mach APIs
+  (`host_processor_info`, `host_statistics64`); Windows uses Win32 equivalents
+  such as `GetSystemTimes` and `GlobalMemoryStatusEx`. A portable crate is allowed
+  when it preserves the required accuracy and packaging behavior.
+- RSS parsing, storage, refresh state, and frontend models are cross-platform.
+  Do not launch a platform shell or browser merely to fetch or parse a feed.
+- Basic system information must use a shared model with cfg-gated collectors.
+  Platform-only fields are optional rather than reasons to fork frontend views.
+- Network, downloads, plugin installs, model fetches, and API calls must be real. Do not simulate success.
+- A marketplace plugin that depends on an external interface must not be published or upgraded until every user-facing API path has been called against the real upstream service and the current parser has handled the real response. Fixtures and mocks are regression evidence only. Binary HTTP tests must also inspect compression and non-Protobuf error bodies instead of relying on a test client's automatic decoding.
+
+## Responsiveness And Concurrency
+
+Core features must never block window rendering, input handling, navigation, or
+clipboard capture. Treat responsiveness as a correctness requirement.
+
+- Do not run network requests, database migrations or large queries, directory
+  walks, metadata probing, hashing, archive work, media encoding, model loading,
+  PowerShell, or child-process waits on the UI thread.
+- Tauri async commands may coordinate async I/O. CPU-heavy or blocking work must
+  use `spawn_blocking`, a worker thread, or a managed task queue with bounded
+  concurrency.
+- Return quickly with cached/basic content or a task id, then deliver incremental
+  state through events or explicit polling. Loading must not replace usable cached
+  content unless stale content would be unsafe.
+- Debounce high-frequency search and clipboard signals, cancel obsolete work, and
+  prevent slow older results from replacing newer selections or queries.
+- Keep locks short and never hold a mutex across `.await`, native callbacks,
+  frontend event emission, filesystem traversal, or child-process execution.
+- Use bounded queues and backpressure for clipboard capture, thumbnails, metadata,
+  RSS refresh, and file processing. Avoid spawning an unbounded task per item.
+- Progress indicators must not cause Shell layout shifts. Errors and cancellation
+  remain local to the operation; launcher and clipboard navigation stay usable.
+- Validate perceived behavior as well as compilation: summon Qx, type immediately,
+  navigate a populated list, open/close preview, copy a real file, and start a
+  background task while continuing to use the interface.
+
+## Validation
+
+Run the smallest useful verification set for the change:
+
+- TypeScript/UI: `npx tsc --noEmit`.
+- Frontend build/theme/bundling: `npm run build`.
+- Rust formatting: `cargo fmt --check` in `src-tauri/`.
+- Rust compile: `cargo check` in `src-tauri/`.
+- Windows-sensitive Rust changes: push the change and confirm once that the
+  `Windows Compatibility` Action was triggered; it covers both
+  `cargo check --target x86_64-pc-windows-msvc` and the real Tauri NSIS bundle
+  build. A local macOS `cargo check` is not Windows verification, and an
+  in-progress Action must be reported as pending rather than passing.
+- Native control scan when UI controls change: `rg '<select|type="range"|type="checkbox"|type="radio"' src`.
+
+Record any skipped validation and why.
+
+### Local Windows build, install, and launch
+
+Use the real Tauri bundle when validating Windows-only window styles, WebView2,
+native resources, installer behavior, or `cfg(target_os = "windows")` code. A
+successful `cargo check` does not exercise the installed WebView2 process or
+NSIS replacement path.
+
+Before building, review `git status --short`. `tauri build` consumes the entire
+working tree, including unrelated uncommitted changes, even when the preceding
+commit intentionally staged only one file. Tell the user what the local build
+will contain; do not silently commit or discard their dirty files.
+
+PowerShell environments used by desktop agents may block `npm.ps1` or omit the
+Rust toolchain from `PATH`:
+
+```powershell
+# npm.ps1 may be rejected by the PowerShell execution policy. Use the cmd shim.
+$npmCmd = (Get-Command npm.cmd -ErrorAction Stop).Source
+
+# Qx Windows bundles must use the MSVC toolchain. Some agent shells have a
+# toolchain installed but do not expose ~/.cargo/bin on PATH.
+$msvcBin = Join-Path $env:USERPROFILE `
+  '.rustup\toolchains\stable-x86_64-pc-windows-msvc\bin'
+if (-not (Test-Path -LiteralPath (Join-Path $msvcBin 'cargo.exe'))) {
+  throw 'stable-x86_64-pc-windows-msvc cargo is not installed'
+}
+$env:Path = "$msvcBin;$env:Path"
+
+& $npmCmd run tauri build
+```
+
+Do not work around a missing MSVC Cargo by building the Windows installer with
+the GNU toolchain. If `cargo fmt --check` reports that `rustfmt` is not installed
+for MSVC, install that component only when toolchain setup is in scope;
+otherwise record formatting as skipped. Do not claim a GNU `rustfmt` check as
+proof that the configured MSVC toolchain is complete.
+
+`npm run tauri build` already runs the configured frontend build and resource
+preparation before the optimized Rust build. A warm build can still take more
+than a minute and may be quiet during linking or packaging. Use the execution
+tool's long-running cell/wait mechanism and send periodic progress updates;
+do not repeatedly kill and restart a healthy build because no new output was
+printed.
+
+Successful Windows output normally includes both:
+
+```text
+src-tauri/target/release/bundle/msi/Qx_<version>_x64_en-US.msi
+src-tauri/target/release/bundle/nsis/Qx_<version>_x64-setup.exe
+```
+
+For an explicitly requested local install, prefer the generated NSIS installer
+and verify every transition. Resolve the exact installer path first; stop only
+the installed Qx process whose executable path matches
+`C:\Program Files\Qx\Qx.exe`; run the installer hidden with `/S` and `-Wait`;
+require exit code zero; confirm the installed file exists; then launch it. A
+per-machine install may require an already elevated shell—report a nonzero or
+UAC-blocked install instead of claiming success.
+
+After launch, verify all of the following:
+
+- `Get-Process Qx` returns the new process and `Responding` is true.
+- Its `Path` is the installed executable, not `target/release/qx.exe`.
+- The installed file version and timestamp match the new build.
+- `~/.qx/logs/qx.log` contains a fresh `Qx setup completed` entry for the new PID.
+- For the feature being fixed, perform the real interaction when possible
+  (for example, float and click the island, then load a local and remote image).
+
+### Local macOS build, install, and TCC-efficient testing
+
+For repeated local macOS testing, use the free Apple Account **Personal Team**
+and an `Apple Development` identity. Do not change the checked-in Tauri signing
+configuration to make this happen: Release Action intentionally signs its CI
+artifact independently with ad-hoc signing and has no access to a developer's
+private key.
+
+The local flow is:
+
+```bash
+# 1. Build the local release bundle.
+npm run tauri build
+
+# 2. Find the stable local development identity.
+security find-identity -v -p codesigning
+
+# 3. Sign the freshly built bundle and install it.
+IDENTITY='Apple Development: your-apple-id@example.com (TEAMID1234)'
+APP='src-tauri/target/release/bundle/macos/Qx.app'
+
+codesign --force --deep \
+  --sign "$IDENTITY" \
+  --timestamp=none \
+  --identifier 'com.mcx.qx' \
+  --entitlements src-tauri/Entitlements.plist \
+  "$APP"
+
+codesign --verify --deep --strict --verbose=2 "$APP"
+rm -rf /Applications/Qx.app
+ditto "$APP" /Applications/Qx.app
+```
+
+The `--deep` signing is deliberate for the Tauri bundle because Qx contains
+nested executables such as `qx-ffmpeg`. Verify the installed copy too when an
+installer or copy step may have replaced the bundle:
+
+```bash
+codesign --verify --deep --strict --verbose=2 /Applications/Qx.app
+codesign -dvvv --entitlements :- /Applications/Qx.app 2>&1
+```
+
+The output should contain the same Apple Development authority, Team ID, and
+`Identifier=com.mcx.qx`. Keep the identity, Team ID, Bundle ID, and entitlements
+stable. macOS TCC associates permissions with the app's code identity; switching
+from ad-hoc to Apple Development requires one new authorization, after which
+repeated builds signed by the same identity can reuse the grant.
+
+If `codesign` reports `errSecInternalComponent` or `unable to build chain to
+self-signed root`, inspect the certificate issuer. Apple Development
+certificates use the current WWDR G3 intermediate; an expired WWDR certificate
+in the login keychain can make the certificate visible in Xcode but unusable by
+the command-line signer. Install the matching WWDR G3 certificate from Apple's
+official PKI page, then rerun `security find-identity`.
+
+Do not put the personal identity, private key, provisioning profile, or a
+machine-specific `signingIdentity` setting in the repository. A local wrapper
+script may live outside the repository or be excluded locally. The signed local
+bundle is for development/TCC testing only; Release Action remains ad-hoc and
+non-notarized unless the release process is explicitly changed.
+
+**Do not wait for GitHub Windows builds.** After a push, inspect at most one
+status snapshot to confirm the workflow URL and current state, then return
+control to the user. Never run `gh run watch`, repeated `gh run view/list`
+polling, sleep loops, or any equivalent synchronous monitoring for Windows
+compilation or NSIS packaging. If the user later asks about a completed failure,
+read that run's logs, fix the first root compiler/packager error, push, and again
+take only one status snapshot. This no-watching rule also applies to replacement
+runs and release workflows; do not claim success until a later snapshot actually
+shows completion.
+
+## Release Cadence And Change Volume (mandatory)
+
+- At the start and end of every task, inspect the aggregate change volume from
+  the latest release tag through the current branch and working tree. Count
+  tracked source, documentation, configuration, and nested repository changes
+  as additions plus deletions; exclude `dist/`, build output, caches, and other
+  generated artifacts. Check the authoritative Qx repository and any nested
+  plugin repository that is part of the requested release.
+- If the pending aggregate change exceeds **1200 changed lines**, the task must
+  end with a release: first consolidate the relevant completed commits from
+  feature branches into the release branch, then run the release checklist,
+  create one version tag, and publish it. Do not leave a >1200-line change set
+  untagged for another iteration.
+- Even below that threshold, after **two or three task iterations** since the
+  previous release, perform a tag-and-publish pass; the third iteration is the
+  hard limit. Each release must be traceable to the exact commit used by its
+  tag, and the release notes must identify the included feature batch.
+- “All branches” means all relevant completed work in the scoped repositories,
+  not stale mirrors, generated-package branches, or unrelated experiments.
+  Audit branch tips and merge only the changes that belong to the requested
+  release; preserve unrelated work for its own branch. A nested plugin catalog
+  must be committed and pinned before the host release commit is tagged.
+
+## Release Checklist
+
+Only run this when the user asks to release, tag, or publish.
+For the full operational flow, credential fallbacks, remote confirmation, and
+post-push dirty-worktree handling, follow `public/doc/release-workflow.md`.
+
+1. Review all changes:
+   - `git status --short`
+   - `git diff --stat`
+   - inspect tracked and untracked files.
+2. Choose the next unused version:
+   - `git tag --list 'v*' --sort=-version:refname | head`
+   - `git ls-remote --tags origin 'v*'`
+3. Sync version files:
+   - `package.json`
+   - `package-lock.json`
+   - `src-tauri/Cargo.toml`
+   - `src-tauri/Cargo.lock`
+   - `src-tauri/tauri.conf.json`
+   - `README.md`
+4. Validate:
+   - `npx tsc --noEmit`
+   - `npm run build`
+   - `cargo fmt --check` in `src-tauri/`
+   - `cargo check` in `src-tauri/`
+5. Commit and tag:
+   - `git add ...`
+   - `git diff --cached --check`
+   - `git commit -m "vX.Y.Z: <summary>"`
+   - `git tag vX.Y.Z`
+6. Push (use SSH via port 443 if port 22 is blocked by proxy):
+   - Ensure remote is `ssh://git@ssh.github.com:443/mcxen/qx.git`
+   - `git push origin main`
+   - `git push origin vX.Y.Z`
+   - `git push cnb vX.Y.Z` (push the exact same Tag; do not push `main` to CNB)
+7. Confirm both release tags and the GitHub Actions release workflow / Release
+   artifact:
+   - `git ls-remote origin refs/tags/vX.Y.Z`
+   - `git ls-remote cnb refs/tags/vX.Y.Z`
+
+Do not move an already-pushed release tag unless the user explicitly asks to rewrite release history.
+
+---
+> Source: [mcxen/qx](https://github.com/mcxen/qx) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-17 -->
