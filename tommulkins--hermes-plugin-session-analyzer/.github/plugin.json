@@ -1,0 +1,9 @@
+{
+  "name": "tommulkins--hermes-plugin-session-analyzer",
+  "displayName": "hermes-plugin-session-analyzer",
+  "description": "Per-session analytics for Hermes Desktop: tokens, cache, cost, failures, files \u2014 plus Ask AI analysis",
+  "version": "1.0.0",
+  "author": "tommulkins",
+  "homepage": "https://github.com/tommulkins/hermes-plugin-session-analyzer",
+  "skills": []
+}
