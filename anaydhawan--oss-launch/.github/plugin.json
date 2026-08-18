@@ -1,0 +1,9 @@
+{
+  "name": "anaydhawan--oss-launch",
+  "displayName": "oss-launch",
+  "description": "Skill letting Agents scan a repo, ask what it cannot infer, then generate a complete open source file collection i.e. README, LICENSE, contributing, security, changelog, CI, launch playbook, etc.",
+  "version": "1.0.0",
+  "author": "AnayDhawan",
+  "homepage": "https://github.com/AnayDhawan/oss-launch",
+  "skills": []
+}
