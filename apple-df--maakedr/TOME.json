@@ -1,0 +1,44 @@
+{
+  "name": "MaaKEDR",
+  "owner": "APPLe-DF",
+  "repo": "MaaKEDR",
+  "description": "MaaKEDR \u96ea\u677e\u5c0f\u52a9\u624b\uff1a\u57fa\u4e8e\u89c6\u89c9 AI \u7684\u300c\u96ea\u677e\u300d\u81ea\u52a8\u5316\u5de5\u5177\uff0c\u7531 MaaFramework \u5f3a\u529b\u9a71\u52a8\uff01",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/APPLe-DF/MaaKEDR",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T03:20:47Z"
+}
