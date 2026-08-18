@@ -1,0 +1,9 @@
+{
+  "name": "lukeet332--immich-shared-albums",
+  "displayName": "immich-shared-albums",
+  "description": "Share albums across Immich servers \u2014 Google-Photos-easy sharing where every family keeps their own server. Native in the stock apps: photos in seconds, full quality on demand, private per-person joins",
+  "version": "1.0.0",
+  "author": "lukeet332",
+  "homepage": "https://github.com/lukeet332/immich-shared-albums",
+  "skills": []
+}
