@@ -1,0 +1,9 @@
+{
+  "name": "thedavidhoffman--starfin-roku",
+  "displayName": "starfin-roku",
+  "description": "Starfin is a Jellyfin client app for Roku devices that provides a polished, modern front-end experience.",
+  "version": "1.0.0",
+  "author": "thedavidhoffman",
+  "homepage": "https://github.com/thedavidhoffman/starfin-roku",
+  "skills": []
+}
