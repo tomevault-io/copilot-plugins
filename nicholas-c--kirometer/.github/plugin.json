@@ -1,0 +1,9 @@
+{
+  "name": "nicholas-c--kirometer",
+  "displayName": "kirometer",
+  "description": "ESP32 desk dashboard that shows Kiro Crew usage",
+  "version": "1.0.0",
+  "author": "nicholas-c",
+  "homepage": "https://github.com/nicholas-c/kirometer",
+  "skills": []
+}
