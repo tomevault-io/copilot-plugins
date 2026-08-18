@@ -1,0 +1,9 @@
+{
+  "name": "nikkisatmaka--langflow-installer-wrapper",
+  "displayName": "langflow-installer-wrapper",
+  "description": "One-click Langflow installer for Windows, macOS, Linux \u2014 no admin rights required.",
+  "version": "1.0.0",
+  "author": "NikkiSatmaka",
+  "homepage": "https://github.com/NikkiSatmaka/langflow-installer-wrapper",
+  "skills": []
+}
