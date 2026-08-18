@@ -1,0 +1,9 @@
+{
+  "name": "rashidrazak--opencode-cmd-provider",
+  "displayName": "opencode-cmd-provider",
+  "description": "OpenCode plugin for using CommandCode as provider",
+  "version": "1.0.0",
+  "author": "rashidrazak",
+  "homepage": "https://github.com/rashidrazak/opencode-cmd-provider",
+  "skills": []
+}
