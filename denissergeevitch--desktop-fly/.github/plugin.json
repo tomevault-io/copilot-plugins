@@ -1,0 +1,9 @@
+{
+  "name": "denissergeevitch--desktop-fly",
+  "displayName": "desktop-fly",
+  "description": "A 3D fruit fly living on your macOS desktop, driven by a live spiking simulation of the real FlyWire connectome",
+  "version": "1.0.0",
+  "author": "DenisSergeevitch",
+  "homepage": "https://github.com/DenisSergeevitch/desktop-fly",
+  "skills": []
+}
