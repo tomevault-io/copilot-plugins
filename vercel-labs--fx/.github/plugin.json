@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--fx",
+  "displayName": "fx",
+  "description": "Unix like coding agent",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/fx",
+  "skills": []
+}
