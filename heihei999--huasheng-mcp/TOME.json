@@ -4,7 +4,7 @@
   "repo": "huasheng-mcp",
   "description": "\u57fa\u4e8e\u82b1\u751f\u5341\u4e09\u884c\u6d4b\u65b9\u6cd5\u8bba\u7684 MCP \u89e3\u9898\u8f85\u52a9\u5de5\u5177\uff0c\u4e3a Claude Code \u63d0\u4f9b\u7ed3\u6784\u5316\u9898\u578b\u8def\u7531\u548c\u7b54\u9898\u5f15\u5bfc",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/heihei999/huasheng-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-08-18T00:58:48Z"
+  "distributed_at": "2026-08-18T01:06:20Z"
 }
