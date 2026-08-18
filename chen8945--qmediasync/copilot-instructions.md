@@ -1,0 +1,20 @@
+## qmediasync
+
+> 本文件是 AI 编码工具的兼容入口。完整、长期维护的工作说明见 [AI 编码助手工作说明](docs/engineering/ai-assistant.md)。
+
+# QMediaSync AI 编码工具入口
+
+本文件是 AI 编码工具的兼容入口。完整、长期维护的工作说明见 [AI 编码助手工作说明](docs/engineering/ai-assistant.md)。
+
+## 硬规则
+
+- 处理任务前必须阅读并遵循 [AI 编码助手工作说明](docs/engineering/ai-assistant.md)。
+- 修改前必须通过 [文档索引](docs/README.md) 定位权威文档，同时阅读相关实现、调用方和测试；索引不足时检索仓库，不得只凭文件名推断行为。
+- 保持改动聚焦在用户请求范围内；保护工作区中与任务无关的未提交修改，不执行无关重构、格式化、依赖更新或破坏性 Git 操作。
+- 修改代码、配置、接口、命令或流程时必须同步更新权威文档；确实无需更新时，在最终回复中说明已检查且无需更新。
+- 新增行为必须按改动范围运行验证；无法运行时，在最终回复中说明原因和剩余风险。
+- 新增或迁移正式文档时必须遵循 [文档治理](docs/engineering/documentation-governance.md)。
+
+---
+> Source: [chen8945/QMediaSync](https://github.com/chen8945/QMediaSync) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-08-17 -->
