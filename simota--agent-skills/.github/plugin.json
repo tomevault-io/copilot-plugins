@@ -1,7 +1,7 @@
 {
   "name": "simota--agent-skills",
   "displayName": "agent-skills",
-  "description": "100+ specialized AI agent skills for Claude Code / Codex CLI / Gemini CLI \u2014 prompt engineering assets covering development, security, design, FinOps, compliance, testing, and more",
+  "description": "agent-skills",
   "version": "1.0.0",
   "author": "simota",
   "homepage": "https://github.com/simota/agent-skills",
@@ -136,6 +136,466 @@
     },
     {
       "name": "port",
+      "description": ""
+    },
+    {
+      "name": "native",
+      "description": ""
+    },
+    {
+      "name": "bazaar",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "agent-skills",
       "description": ""
     }
   ]
