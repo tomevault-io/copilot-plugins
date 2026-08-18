@@ -1,0 +1,9 @@
+{
+  "name": "colinhacks--frizz",
+  "displayName": "frizz",
+  "description": "The UI your coding agent should have implemented. Runs on localhost, designed for massively parallel work.",
+  "version": "1.0.0",
+  "author": "colinhacks",
+  "homepage": "https://github.com/colinhacks/frizz",
+  "skills": []
+}
