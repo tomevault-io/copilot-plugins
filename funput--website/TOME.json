@@ -1,0 +1,44 @@
+{
+  "name": "Website",
+  "owner": "Funput",
+  "repo": "Website",
+  "description": "Website ch\u00ednh th\u1ee9c c\u1ee7a \u1ee9ng d\u1ee5ng b\u1ed9 g\u00f5 ti\u1ebfng Vi\u1ec7t Funput",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Funput/Website",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-08-18T00:55:09Z"
+}
